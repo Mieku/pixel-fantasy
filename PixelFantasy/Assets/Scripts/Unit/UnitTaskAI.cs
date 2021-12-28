@@ -88,6 +88,13 @@ namespace Unit
                     return;
                 }
                 
+                // Pick up item and move to slot
+                if (task is TaskSystem.Task.TakeItemToItemSlot)
+                {
+                    ExecuteTask_TakeItemToItemSlot(task as TaskSystem.Task.TakeItemToItemSlot);
+                    return;
+                }
+                
                 // Other task types go here
             }
         }
@@ -110,6 +117,19 @@ namespace Unit
             {
                 cleanupTask.cleanUpAction();
                 state = State.WaitingForNextTask;
+            });
+        }
+
+        private void ExecuteTask_TakeItemToItemSlot(TaskSystem.Task.TakeItemToItemSlot task)
+        {
+            workerMover.SetMovePosition(task.itemPosition, () =>
+            {
+                task.grabItem(this);
+                workerMover.SetMovePosition(task.itemSlotPosition, () =>
+                {
+                    task.dropItem();
+                    state = State.WaitingForNextTask;
+                });
             });
         }
 

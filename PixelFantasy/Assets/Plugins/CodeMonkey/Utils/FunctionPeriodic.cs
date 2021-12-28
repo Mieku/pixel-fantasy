@@ -37,6 +37,8 @@ namespace CodeMonkey.Utils {
 
         private static List<FunctionPeriodic> funcList; // Holds a reference to all active timers
         private static GameObject initGameObject; // Global game object used for initializing class, is destroyed on scene change
+        
+        
 
         private static void InitIfNeeded() {
             if (initGameObject == null) {
@@ -146,11 +148,20 @@ namespace CodeMonkey.Utils {
             this.useUnscaledDeltaTime = useUnscaledDeltaTime;
             baseTimer = timer;
         }
+
         public void SkipTimerTo(float timer) {
             this.timer = timer;
         }
 
-        void Update() {
+        public void SetBaseTimer(float baseTimer) {
+            this.baseTimer = baseTimer;
+        }
+
+        public float GetBaseTimer() {
+            return baseTimer;
+        }
+
+        private void Update() {
             if (useUnscaledDeltaTime) {
                 timer -= Time.unscaledDeltaTime;
             } else {
@@ -167,6 +178,7 @@ namespace CodeMonkey.Utils {
                 }
             }
         }
+
         public void DestroySelf() {
             RemoveTimer(this);
             if (gameObject != null) {
