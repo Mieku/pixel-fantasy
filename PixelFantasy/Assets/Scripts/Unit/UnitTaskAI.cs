@@ -17,7 +17,7 @@ namespace Unit
         private IMovePosition workerMover;
         private State state;
         private float waitingTimer;
-        private TaskSystem taskSystem;
+        private TaskSystem<TaskMaster.Task> taskSystem;
         private UnitThought thought;
 
         private const float WAIT_TIMER_MAX = .2f; // 200ms
@@ -75,23 +75,23 @@ namespace Unit
             {
                 state = State.ExecutingTask;
                 // Move to location
-                if (task is TaskSystem.Task.MoveToPosition)
+                if (task is TaskMaster.Task.MoveToPosition)
                 {
-                    ExecuteTask_MoveToPosition(task as TaskSystem.Task.MoveToPosition);
+                    ExecuteTask_MoveToPosition(task as TaskMaster.Task.MoveToPosition);
                     return;
                 }
                 
                 // Clean up garbage
-                if (task is TaskSystem.Task.GarbageCleanup)
+                if (task is TaskMaster.Task.GarbageCleanup)
                 {
-                    ExecuteTask_CleanUpGarbage(task as TaskSystem.Task.GarbageCleanup);
+                    ExecuteTask_CleanUpGarbage(task as TaskMaster.Task.GarbageCleanup);
                     return;
                 }
                 
                 // Pick up item and move to slot
-                if (task is TaskSystem.Task.TakeItemToItemSlot)
+                if (task is TaskMaster.Task.TakeItemToItemSlot)
                 {
-                    ExecuteTask_TakeItemToItemSlot(task as TaskSystem.Task.TakeItemToItemSlot);
+                    ExecuteTask_TakeItemToItemSlot(task as TaskMaster.Task.TakeItemToItemSlot);
                     return;
                 }
                 
@@ -101,7 +101,7 @@ namespace Unit
 
         #region Execute Tasks
 
-        private void ExecuteTask_MoveToPosition(TaskSystem.Task.MoveToPosition task)
+        private void ExecuteTask_MoveToPosition(TaskMaster.Task.MoveToPosition task)
         {
             thought.SetThought(UnitThought.ThoughtState.Moving);
             workerMover.SetMovePosition(task.targetPosition, () =>
@@ -110,7 +110,7 @@ namespace Unit
             });
         }
 
-        private void ExecuteTask_CleanUpGarbage(TaskSystem.Task.GarbageCleanup cleanupTask)
+        private void ExecuteTask_CleanUpGarbage(TaskMaster.Task.GarbageCleanup cleanupTask)
         {
             thought.SetThought(UnitThought.ThoughtState.Cleaning);
             workerMover.SetMovePosition(cleanupTask.targetPosition, () =>
@@ -120,7 +120,7 @@ namespace Unit
             });
         }
 
-        private void ExecuteTask_TakeItemToItemSlot(TaskSystem.Task.TakeItemToItemSlot task)
+        private void ExecuteTask_TakeItemToItemSlot(TaskMaster.Task.TakeItemToItemSlot task)
         {
             workerMover.SetMovePosition(task.itemPosition, () =>
             {

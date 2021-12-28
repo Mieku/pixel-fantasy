@@ -11,7 +11,7 @@ namespace Gods
 {
     public class TaskMaster : God<TaskMaster>
     {
-        private TaskSystem taskSystem = new TaskSystem();
+        private TaskSystem<Task> taskSystem = new TaskSystem<Task>();
         private List<ItemSlot> itemSlots = new List<ItemSlot>();
         
         // For Testing placeholder
@@ -19,7 +19,7 @@ namespace Gods
         public Sprite wood;
         public Sprite whitePixel;
 
-        public TaskSystem GetTaskSystem()
+        public TaskSystem<Task> GetTaskSystem()
         {
             return taskSystem;
         }
@@ -72,7 +72,7 @@ namespace Gods
                 if (emptySlot != null)
                 {
                     emptySlot.HasItemIncoming(true);
-                    var task = new TaskSystem.Task.TakeItemToItemSlot
+                    var task = new Task.TakeItemToItemSlot
                     {
                         itemPosition = woodGO.transform.position,
                         itemSlotPosition = emptySlot.GetPosition(),
@@ -97,7 +97,7 @@ namespace Gods
         
         private void AssignMoveLocation()
         {
-            var newTask = new TaskSystem.Task.MoveToPosition
+            var newTask = new Task.MoveToPosition
             {
                 targetPosition = UtilsClass.GetMouseWorldPosition()
             };
@@ -119,7 +119,7 @@ namespace Gods
             {
                 if (Time.time >= cleanupTime)
                 {
-                    var newTask = new TaskSystem.Task.GarbageCleanup
+                    var newTask = new Task.GarbageCleanup
                     {
                         targetPosition = garbage.transform.position,
                         cleanUpAction = () =>
@@ -154,7 +154,7 @@ namespace Gods
         {
             var garbage = SpawnRubble(UtilsClass.GetMouseWorldPosition());
             var garbageSpriteRenderer = garbage.GetComponent<SpriteRenderer>();
-            var newTask = new TaskSystem.Task.GarbageCleanup
+            var newTask = new Task.GarbageCleanup
             {
                 targetPosition = garbage.transform.position,
                 cleanUpAction = () =>
@@ -253,6 +253,37 @@ namespace Gods
             public void UpdateSprite()
             {
                 itemSlotTransform.GetComponent<SpriteRenderer>().color = IsEmpty() ? Color.gray : Color.red;
+            }
+        }
+
+        public class Task : TaskBase
+        {
+            /// <summary>
+            /// Unit moves to the target position
+            /// </summary>
+            public class MoveToPosition : Task
+            {
+                public Vector3 targetPosition;
+            }
+
+            /// <summary>
+            /// Unit moves to the target position, and executes the cleanup action
+            /// </summary>
+            public class GarbageCleanup : Task
+            {
+                public Vector3 targetPosition;
+                public Action cleanUpAction;
+            }
+
+            /// <summary>
+            /// Unit moves to the item position, grabs the item, takes it to the item slot, drops item
+            /// </summary>
+            public class TakeItemToItemSlot : Task
+            {
+                public Vector3 itemPosition;
+                public Action<UnitTaskAI> grabItem;
+                public Vector3 itemSlotPosition;
+                public Action dropItem;
             }
         }
     }
