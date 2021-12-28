@@ -4,7 +4,7 @@ using CodeMonkey.Utils;
 using Unit;
 using UnityEngine;
 
-public class TaskSystem : MonoBehaviour
+public class TaskSystem
 {
     public class QueuedTask
     {
@@ -100,7 +100,6 @@ public class TaskSystem : MonoBehaviour
 
     public void DequeueTasks()
     {
-        Debug.Log("Dequeue Tasks");
         for (int i = 0; i < queuedTaskList.Count; i++)
         {
             QueuedTask queuedTask = queuedTaskList[i];
