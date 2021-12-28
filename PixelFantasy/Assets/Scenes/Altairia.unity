@@ -60662,6 +60662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef72e650440f42149ae8ee1b95d77d09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rubble: {fileID: 7033359609419058202, guid: d47692c8c61903248b9534f0ec913512, type: 3}
 --- !u!1 &1394345125
 GameObject:
   m_ObjectHideFlags: 0
@@ -61299,7 +61300,7 @@ SortingGroup:
   m_GameObject: {fileID: 1550378247}
   m_Enabled: 1
   m_SortingLayerID: -170406723
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
 --- !u!4 &1579406005 stripped
 Transform:

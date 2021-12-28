@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Unit
   - Road
+  - Missile
   layers:
   - Default
   - TransparentFX
@@ -46,8 +47,14 @@ TagManager:
   - name: Ground
     uniqueID: 4117271811
     locked: 0
+  - name: Object
+    uniqueID: 390895937
+    locked: 0
   - name: Unit
     uniqueID: 237689285
+    locked: 0
+  - name: Item
+    uniqueID: 1535977287
     locked: 0
   - name: UI
     uniqueID: 4124560573

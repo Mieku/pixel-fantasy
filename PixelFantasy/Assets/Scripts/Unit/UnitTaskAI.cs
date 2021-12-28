@@ -20,7 +20,7 @@ namespace Unit
         private TaskSystem taskSystem;
         private UnitThought thought;
 
-        private const float WAIT_TIMER_MAX = .2f;
+        private const float WAIT_TIMER_MAX = .2f; // 200ms
 
         private static TaskMaster taskMaster => TaskMaster.Instance;
 
@@ -74,15 +74,25 @@ namespace Unit
             else
             {
                 state = State.ExecutingTask;
+                // Move to location
                 if (task is TaskSystem.Task.MoveToPosition)
                 {
                     ExecuteTask_MoveToPosition(task as TaskSystem.Task.MoveToPosition);
                     return;
                 }
-                // TODO: Other task types go here
                 
+                // Clean up garbage
+                if (task is TaskSystem.Task.GarbageCleanup)
+                {
+                    ExecuteTask_CleanUpGarbage(task as TaskSystem.Task.GarbageCleanup);
+                    return;
+                }
+                
+                // Other task types go here
             }
         }
+
+        #region Execute Tasks
 
         private void ExecuteTask_MoveToPosition(TaskSystem.Task.MoveToPosition task)
         {
@@ -92,5 +102,18 @@ namespace Unit
                 state = State.WaitingForNextTask;
             });
         }
+
+        private void ExecuteTask_CleanUpGarbage(TaskSystem.Task.GarbageCleanup cleanupTask)
+        {
+            thought.SetThought(UnitThought.ThoughtState.Cleaning);
+            workerMover.SetMovePosition(cleanupTask.targetPosition, () =>
+            {
+                cleanupTask.cleanUpAction();
+                state = State.WaitingForNextTask;
+            });
+        }
+
+        #endregion
+        
     }
 }

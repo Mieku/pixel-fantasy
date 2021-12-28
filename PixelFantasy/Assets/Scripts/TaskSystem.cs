@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,11 +6,15 @@ public class TaskSystem
 {
     public abstract class Task
     {
-            
-            
         public class MoveToPosition : Task
         {
             public Vector3 targetPosition;
+        }
+
+        public class GarbageCleanup : Task
+        {
+            public Vector3 targetPosition;
+            public Action cleanUpAction;
         }
     }
 

@@ -11,10 +11,11 @@ namespace Character
             Idle,
             Moving,
             Building,
+            Cleaning
         }
         
         
-        public Sprite Idle, Moving, Building;
+        public Sprite Idle, Moving, Building, Cleaning;
         public GameObject ThoughtBubble;
 
         private SpriteRenderer thoughtRenderer;
@@ -43,6 +44,10 @@ namespace Character
                 case ThoughtState.Building:
                     ThoughtBubble.SetActive(true);
                     thoughtRenderer.sprite = Building;
+                    break;
+                case ThoughtState.Cleaning:
+                    ThoughtBubble.SetActive(true);
+                    thoughtRenderer.sprite = Cleaning;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(thoughtState), thoughtState, null);
