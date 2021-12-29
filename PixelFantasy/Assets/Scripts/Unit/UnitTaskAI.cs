@@ -9,6 +9,9 @@ namespace Unit
 {
     public class UnitTaskAI : MonoBehaviour
     {
+        // TODO: Make this no longer be able to be changed in inspector later
+        [SerializeField] private ProfessionData professionData;
+        
         private enum State
         {
             WaitingForNextTask,
@@ -57,8 +60,16 @@ namespace Unit
 
         private void RequestNextTask()
         {
-            // TODO: Have this run through all the different task systems in their profession's priorities until one is found
-            var task = taskMaster.GetNextTaskByCategory(TaskCategory.Hauling);
+            TaskBase task = null;
+            foreach (var category in professionData.SortedPriorities)
+            {
+                task = taskMaster.GetNextTaskByCategory(category);
+                if (task != null)
+                {
+                    break;
+                }
+            }
+
             if (task == null)
             {
                 state = State.WaitingForNextTask;

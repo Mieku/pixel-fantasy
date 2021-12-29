@@ -62233,6 +62233,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1440878786}
     m_Modifications:
+    - target: {fileID: 1902205055910865440, guid: 4fa19cda2b37f304491b8cc908e39357, type: 3}
+      propertyPath: professionData
+      value: 
+      objectReference: {fileID: 11400000, guid: 2eb2bb24119209b4fa8ac224c469b19e, type: 2}
     - target: {fileID: 5532418264530240426, guid: 4fa19cda2b37f304491b8cc908e39357, type: 3}
       propertyPath: m_Name
       value: Unit

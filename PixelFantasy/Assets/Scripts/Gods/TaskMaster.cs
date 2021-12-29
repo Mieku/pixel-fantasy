@@ -10,6 +10,7 @@ namespace Gods
     public class TaskMaster : God<TaskMaster>
     {
         private readonly TaskSystem<EmergencyTask> _emergencyTaskSystem = new TaskSystem<EmergencyTask>();
+        private readonly TaskSystem<HealingTask> _healingTaskSystem = new TaskSystem<HealingTask>();
         private readonly TaskSystem<CookingTask> _cookingTaskSystem = new TaskSystem<CookingTask>();
         private readonly TaskSystem<HuntingTask> _huntingTaskSystem = new TaskSystem<HuntingTask>();
         private readonly TaskSystem<ConstructionTask> _constructionTaskSystem = new TaskSystem<ConstructionTask>();
@@ -39,6 +40,7 @@ namespace Gods
             TaskBase nextTask = category switch
             {
                 TaskCategory.Emergency => _emergencyTaskSystem.RequestNextTask(),
+                TaskCategory.Healing => _healingTaskSystem.RequestNextTask(),
                 TaskCategory.Cooking => _cookingTaskSystem.RequestNextTask(),
                 TaskCategory.Hunting => _huntingTaskSystem.RequestNextTask(),
                 TaskCategory.Construction => _constructionTaskSystem.RequestNextTask(),
@@ -90,6 +92,7 @@ namespace Gods
         private void DequeueTasksAllTaskSystems()
         {
             _emergencyTaskSystem.DequeueTasks();
+            _healingTaskSystem.DequeueTasks();
             _cookingTaskSystem.DequeueTasks();
             _huntingTaskSystem.DequeueTasks();
             _constructionTaskSystem.DequeueTasks();
@@ -322,6 +325,7 @@ namespace Gods
     public enum TaskCategory
     {
         Emergency,
+        Healing,
         Cooking,
         Hunting,
         Construction,
