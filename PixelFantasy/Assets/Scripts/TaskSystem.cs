@@ -24,7 +24,6 @@ public abstract class TaskBase
     
 }
 
-
 public class TaskSystem<TTask> where TTask : TaskBase
 {
     private List<TTask> taskList; // List of tasks ready to be executed

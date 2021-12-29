@@ -1,32 +1,66 @@
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using CodeMonkey.Utils;
-using Gods;
+using Tasks;
 using Unit;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace Gods
 {
     public class TaskMaster : God<TaskMaster>
     {
-        private TaskSystem<Task> taskSystem = new TaskSystem<Task>();
+        private readonly TaskSystem<EmergencyTask> _emergencyTaskSystem = new TaskSystem<EmergencyTask>();
+        private readonly TaskSystem<CookingTask> _cookingTaskSystem = new TaskSystem<CookingTask>();
+        private readonly TaskSystem<HuntingTask> _huntingTaskSystem = new TaskSystem<HuntingTask>();
+        private readonly TaskSystem<ConstructionTask> _constructionTaskSystem = new TaskSystem<ConstructionTask>();
+        private readonly TaskSystem<FarmingTask> _farmingTaskSystem = new TaskSystem<FarmingTask>();
+        private readonly TaskSystem<MiningTask> _miningTaskSystem = new TaskSystem<MiningTask>();
+        private readonly TaskSystem<FellingTask> _fellingTaskSystem = new TaskSystem<FellingTask>();
+        private readonly TaskSystem<SmithingTask> _smithingTaskSystem = new TaskSystem<SmithingTask>();
+        private readonly TaskSystem<TailoringTask> _tailoringTaskSystem = new TaskSystem<TailoringTask>();
+        private readonly TaskSystem<CarpentryTask> _carpentryTaskSystem = new TaskSystem<CarpentryTask>();
+        private readonly TaskSystem<MasonryTask> _masonryTaskSystem = new TaskSystem<MasonryTask>();
+        private readonly TaskSystem<HaulingTask> _haulingTaskSystem = new TaskSystem<HaulingTask>();
+        private readonly TaskSystem<CleaningTask> _cleaningTaskSystem = new TaskSystem<CleaningTask>();
+        private readonly TaskSystem<ResearchTask> _researchTaskSystem = new TaskSystem<ResearchTask>();
+
         private List<ItemSlot> itemSlots = new List<ItemSlot>();
+
+        private const float FUNC_PERIODIC_TIMER = 0.2f; // 200ms
         
         // For Testing placeholder
         public Sprite rubble;
         public Sprite wood;
         public Sprite whitePixel;
 
-        public TaskSystem<Task> GetTaskSystem()
-        {
-            return taskSystem;
-        }
 
+        public TaskBase GetNextTaskByCategory(TaskCategory category)
+        {
+            TaskBase nextTask = category switch
+            {
+                TaskCategory.Emergency => _emergencyTaskSystem.RequestNextTask(),
+                TaskCategory.Cooking => _cookingTaskSystem.RequestNextTask(),
+                TaskCategory.Hunting => _huntingTaskSystem.RequestNextTask(),
+                TaskCategory.Construction => _constructionTaskSystem.RequestNextTask(),
+                TaskCategory.Farming => _farmingTaskSystem.RequestNextTask(),
+                TaskCategory.Mining => _miningTaskSystem.RequestNextTask(),
+                TaskCategory.Felling => _fellingTaskSystem.RequestNextTask(),
+                TaskCategory.Smithing => _smithingTaskSystem.RequestNextTask(),
+                TaskCategory.Tailoring => _tailoringTaskSystem.RequestNextTask(),
+                TaskCategory.Carpentry => _carpentryTaskSystem.RequestNextTask(),
+                TaskCategory.Masonry => _masonryTaskSystem.RequestNextTask(),
+                TaskCategory.Hauling => _haulingTaskSystem.RequestNextTask(),
+                TaskCategory.Cleaning => _cleaningTaskSystem.RequestNextTask(),
+                TaskCategory.Research => _researchTaskSystem.RequestNextTask(),
+                _ => throw new ArgumentOutOfRangeException(nameof(category), category, null)
+            };
+
+            return nextTask;
+        }
+        
         private void Start()
         {
-            FunctionPeriodic.Create(taskSystem.DequeueTasks, 0.2f);
+            InitFunctionPeriodics();
         }
 
         private void Update()
@@ -35,6 +69,7 @@ namespace Gods
             if (Input.GetMouseButtonDown(0))
             {
                 CreateWood();
+                //CreateGarbageOnMousePos();
             }
             
             // Right Click
@@ -42,6 +77,32 @@ namespace Gods
             {
                 CreateItemSlot();
             }
+        }
+
+        private void InitFunctionPeriodics()
+        {
+            FunctionPeriodic.Create(DequeueTasksAllTaskSystems, FUNC_PERIODIC_TIMER);
+        }
+
+        /// <summary>
+        /// Dequeues tasks from all of the stored Task Systems
+        /// </summary>
+        private void DequeueTasksAllTaskSystems()
+        {
+            _emergencyTaskSystem.DequeueTasks();
+            _cookingTaskSystem.DequeueTasks();
+            _huntingTaskSystem.DequeueTasks();
+            _constructionTaskSystem.DequeueTasks();
+            _farmingTaskSystem.DequeueTasks();
+            _miningTaskSystem.DequeueTasks();
+            _fellingTaskSystem.DequeueTasks();
+            _smithingTaskSystem.DequeueTasks();
+            _tailoringTaskSystem.DequeueTasks();
+            _carpentryTaskSystem.DequeueTasks();
+            _masonryTaskSystem.DequeueTasks();
+            _haulingTaskSystem.DequeueTasks();
+            _cleaningTaskSystem.DequeueTasks();
+            _researchTaskSystem.DequeueTasks();
         }
 
         // TODO: Remove these when no longer needed
@@ -57,7 +118,7 @@ namespace Gods
         private void CreateWood()
         {
             var woodGO = SpawnWood(UtilsClass.GetMouseWorldPosition());
-            taskSystem.EnqueueTask(() =>
+            _haulingTaskSystem.EnqueueTask(() =>
             {
                 ItemSlot emptySlot = null;
                 foreach (var itemSlot in itemSlots)
@@ -72,7 +133,7 @@ namespace Gods
                 if (emptySlot != null)
                 {
                     emptySlot.HasItemIncoming(true);
-                    var task = new Task.TakeItemToItemSlot
+                    var task = new HaulingTask.TakeItemToItemSlot
                     {
                         itemPosition = woodGO.transform.position,
                         itemSlotPosition = emptySlot.GetPosition(),
@@ -97,11 +158,11 @@ namespace Gods
         
         private void AssignMoveLocation()
         {
-            var newTask = new Task.MoveToPosition
+            var newTask = new EmergencyTask.MoveToPosition
             {
                 targetPosition = UtilsClass.GetMouseWorldPosition()
             };
-            taskSystem.AddTask(newTask);
+            _emergencyTaskSystem.AddTask(newTask);
         }
 
         /// <summary>
@@ -115,11 +176,11 @@ namespace Gods
             var garbageSpriteRenderer = garbage.GetComponent<SpriteRenderer>();
             float cleanupTime = Time.time + secToWait;
             
-            taskSystem.EnqueueTask(() =>
+            _cleaningTaskSystem.EnqueueTask(() =>
             {
                 if (Time.time >= cleanupTime)
                 {
-                    var newTask = new Task.GarbageCleanup
+                    var newTask = new CleaningTask.GarbageCleanup
                     {
                         targetPosition = garbage.transform.position,
                         cleanUpAction = () =>
@@ -154,7 +215,7 @@ namespace Gods
         {
             var garbage = SpawnRubble(UtilsClass.GetMouseWorldPosition());
             var garbageSpriteRenderer = garbage.GetComponent<SpriteRenderer>();
-            var newTask = new Task.GarbageCleanup
+            var newTask = new CleaningTask.GarbageCleanup
             {
                 targetPosition = garbage.transform.position,
                 cleanUpAction = () =>
@@ -176,7 +237,7 @@ namespace Gods
                     });
                 }
             };
-            taskSystem.AddTask(newTask);
+            _cleaningTaskSystem.AddTask(newTask);
         }
 
         private GameObject SpawnRubble(Vector3 position)
@@ -255,36 +316,24 @@ namespace Gods
                 itemSlotTransform.GetComponent<SpriteRenderer>().color = IsEmpty() ? Color.gray : Color.red;
             }
         }
+    }
 
-        public class Task : TaskBase
-        {
-            /// <summary>
-            /// Unit moves to the target position
-            /// </summary>
-            public class MoveToPosition : Task
-            {
-                public Vector3 targetPosition;
-            }
-
-            /// <summary>
-            /// Unit moves to the target position, and executes the cleanup action
-            /// </summary>
-            public class GarbageCleanup : Task
-            {
-                public Vector3 targetPosition;
-                public Action cleanUpAction;
-            }
-
-            /// <summary>
-            /// Unit moves to the item position, grabs the item, takes it to the item slot, drops item
-            /// </summary>
-            public class TakeItemToItemSlot : Task
-            {
-                public Vector3 itemPosition;
-                public Action<UnitTaskAI> grabItem;
-                public Vector3 itemSlotPosition;
-                public Action dropItem;
-            }
-        }
+    [Serializable]
+    public enum TaskCategory
+    {
+        Emergency,
+        Cooking,
+        Hunting,
+        Construction,
+        Farming, 
+        Mining,
+        Felling,
+        Smithing,
+        Tailoring,
+        Carpentry,
+        Masonry,
+        Hauling,
+        Cleaning,
+        Research
     }
 }

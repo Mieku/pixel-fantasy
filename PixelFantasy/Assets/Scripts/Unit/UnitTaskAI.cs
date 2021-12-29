@@ -2,6 +2,7 @@ using System;
 using Character;
 using Character.Interfaces;
 using Gods;
+using Tasks;
 using UnityEngine;
 
 namespace Unit
@@ -17,7 +18,6 @@ namespace Unit
         private IMovePosition workerMover;
         private State state;
         private float waitingTimer;
-        private TaskSystem<TaskMaster.Task> taskSystem;
         private UnitThought thought;
 
         private const float WAIT_TIMER_MAX = .2f; // 200ms
@@ -26,7 +26,6 @@ namespace Unit
 
         private void Awake()
         {
-            taskSystem = taskMaster.GetTaskSystem();
             workerMover = GetComponent<IMovePosition>();
             thought = GetComponent<UnitThought>();
         }
@@ -35,14 +34,7 @@ namespace Unit
         {
             state = State.WaitingForNextTask;
         }
-
-        // public void Setup(IMovePosition workerMover, TaskSystem taskSystem)
-        // {
-        //     this.workerMover = workerMover;
-        //     this.taskSystem = taskSystem;
-        //     state = State.WaitingForNextTask;
-        // }
-
+        
         private void Update()
         {
             switch (state)
@@ -65,7 +57,8 @@ namespace Unit
 
         private void RequestNextTask()
         {
-            var task = taskSystem.RequestNextTask();
+            // TODO: Have this run through all the different task systems in their profession's priorities until one is found
+            var task = taskMaster.GetNextTaskByCategory(TaskCategory.Hauling);
             if (task == null)
             {
                 state = State.WaitingForNextTask;
@@ -75,23 +68,23 @@ namespace Unit
             {
                 state = State.ExecutingTask;
                 // Move to location
-                if (task is TaskMaster.Task.MoveToPosition)
+                if (task is EmergencyTask.MoveToPosition)
                 {
-                    ExecuteTask_MoveToPosition(task as TaskMaster.Task.MoveToPosition);
+                    ExecuteTask_MoveToPosition(task as EmergencyTask.MoveToPosition);
                     return;
                 }
                 
                 // Clean up garbage
-                if (task is TaskMaster.Task.GarbageCleanup)
+                if (task is CleaningTask.GarbageCleanup)
                 {
-                    ExecuteTask_CleanUpGarbage(task as TaskMaster.Task.GarbageCleanup);
+                    ExecuteTask_CleanUpGarbage(task as CleaningTask.GarbageCleanup);
                     return;
                 }
                 
                 // Pick up item and move to slot
-                if (task is TaskMaster.Task.TakeItemToItemSlot)
+                if (task is HaulingTask.TakeItemToItemSlot)
                 {
-                    ExecuteTask_TakeItemToItemSlot(task as TaskMaster.Task.TakeItemToItemSlot);
+                    ExecuteTask_TakeItemToItemSlot(task as HaulingTask.TakeItemToItemSlot);
                     return;
                 }
                 
@@ -101,7 +94,7 @@ namespace Unit
 
         #region Execute Tasks
 
-        private void ExecuteTask_MoveToPosition(TaskMaster.Task.MoveToPosition task)
+        private void ExecuteTask_MoveToPosition(EmergencyTask.MoveToPosition task)
         {
             thought.SetThought(UnitThought.ThoughtState.Moving);
             workerMover.SetMovePosition(task.targetPosition, () =>
@@ -110,7 +103,7 @@ namespace Unit
             });
         }
 
-        private void ExecuteTask_CleanUpGarbage(TaskMaster.Task.GarbageCleanup cleanupTask)
+        private void ExecuteTask_CleanUpGarbage(CleaningTask.GarbageCleanup cleanupTask)
         {
             thought.SetThought(UnitThought.ThoughtState.Cleaning);
             workerMover.SetMovePosition(cleanupTask.targetPosition, () =>
@@ -120,7 +113,7 @@ namespace Unit
             });
         }
 
-        private void ExecuteTask_TakeItemToItemSlot(TaskMaster.Task.TakeItemToItemSlot task)
+        private void ExecuteTask_TakeItemToItemSlot(HaulingTask.TakeItemToItemSlot task)
         {
             workerMover.SetMovePosition(task.itemPosition, () =>
             {
