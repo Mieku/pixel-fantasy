@@ -7,6 +7,7 @@ namespace HUD
     {
         [Header("Options")] 
         [SerializeField] private GameObject StructureOpt;
+        [SerializeField] private GameObject StorageOpt;
 
         private PanelState _panelState;
         
@@ -14,6 +15,7 @@ namespace HUD
         {
             None,
             Structure,
+            Storage,
         }
 
         private void OnEnable()
@@ -24,6 +26,7 @@ namespace HUD
         private void HideOptions()
         {
             StructureOpt.SetActive(false);
+            StorageOpt.SetActive(false);
         }
         
         private void ChangeState (PanelState panelState)
@@ -36,6 +39,9 @@ namespace HUD
                     break;
                 case PanelState.Structure:
                     SetStateStructure();
+                    break;
+                case PanelState.Storage:
+                    SetStateStorage();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(panelState), panelState, null);
@@ -67,6 +73,13 @@ namespace HUD
             StructureOpt.SetActive(true);
         }
 
+        private void SetStateStorage()
+        {
+            HideOptions();
+            
+            StorageOpt.SetActive(true);
+        }
+
         #endregion
 
         #region Option Buttons
@@ -76,6 +89,11 @@ namespace HUD
             OptionPressed(PanelState.Structure);
         }
 
+        public void StorageOptionPressed()
+        {
+            OptionPressed(PanelState.Storage);
+        }
+        
         #endregion
     }
 }

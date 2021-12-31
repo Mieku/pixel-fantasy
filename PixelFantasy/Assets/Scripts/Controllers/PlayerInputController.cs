@@ -126,5 +126,6 @@ namespace Controllers
     public enum PlayerInputState
     {
         None,
+        BuildStorage,
     }
 }

@@ -6,8 +6,9 @@ TagManager:
   tags:
   - Unit
   - Road
-  - Missile
   - Item
+  - Water
+  - Zone
   layers:
   - Default
   - TransparentFX

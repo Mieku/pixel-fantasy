@@ -34,7 +34,7 @@ namespace Items
         {
             taskMaster.HaulingTaskSystem.EnqueueTask(() =>
             {
-                ItemSlot emptySlot = InventoryController.Instance.GetAvailableItemSlot();
+                StorageSlot emptySlot = InventoryController.Instance.GetAvailableStorageSlot();
                 if (emptySlot != null)
                 {
                     emptySlot.HasItemIncoming(true);

@@ -67,14 +67,13 @@ namespace Gods
             // Left Click
             if (Input.GetMouseButtonDown(0))
             {
-                CreateWood();
-                //CreateGarbageOnMousePos();
+                //CreateWood();
             }
             
             // Right Click
             if (Input.GetMouseButtonDown(1))
             {
-                CreateItemSlot();
+                CreateWood();
             }
         }
 
@@ -107,12 +106,7 @@ namespace Gods
 
         // TODO: Remove these when no longer needed
         #region Used For Testing
-
-        private void CreateItemSlot()
-        {
-            InventoryController.Instance.SpawnItemSlot();
-        }
-
+        
         private void CreateWood()
         {
             ItemSpawner.Instance.SpawnItem(wood, UtilsClass.GetMouseWorldPosition(), true);
