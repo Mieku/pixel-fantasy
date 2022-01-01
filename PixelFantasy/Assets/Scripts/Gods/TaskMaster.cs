@@ -30,8 +30,6 @@ namespace Gods
         
         // For Testing placeholder
         public Sprite rubble;
-        public ItemData wood;
-        public ItemData stone;
 
         public TaskBase GetNextTaskByCategory(TaskCategory category)
         {
@@ -63,24 +61,6 @@ namespace Gods
             InitFunctionPeriodics();
         }
 
-        private void Update()
-        {
-            // Left Click
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (PlayerInputController.Instance.GetCurrentState() == PlayerInputState.None)
-                {
-                    CreateStone();
-                }
-            }
-            
-            // Right Click
-            if (Input.GetMouseButtonDown(1))
-            {
-                CreateWood();
-            }
-        }
-
         private void InitFunctionPeriodics()
         {
             FunctionPeriodic.Create(DequeueTasksAllTaskSystems, FUNC_PERIODIC_TIMER);
@@ -110,16 +90,6 @@ namespace Gods
 
         // TODO: Remove these when no longer needed
         #region Used For Testing
-        
-        private void CreateWood()
-        {
-            ItemSpawner.Instance.SpawnItem(wood, UtilsClass.GetMouseWorldPosition(), true);
-        }
-
-        private void CreateStone()
-        {
-            ItemSpawner.Instance.SpawnItem(stone, UtilsClass.GetMouseWorldPosition(), true);
-        }
         
         private void AssignMoveLocation()
         {

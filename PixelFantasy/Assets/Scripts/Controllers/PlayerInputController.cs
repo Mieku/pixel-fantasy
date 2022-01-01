@@ -132,5 +132,6 @@ namespace Controllers
     {
         None,
         BuildStorage,
+        CHEAT_SpawnResource,
     }
 }
