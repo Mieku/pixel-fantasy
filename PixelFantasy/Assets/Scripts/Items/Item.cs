@@ -34,10 +34,10 @@ namespace Items
         {
             taskMaster.HaulingTaskSystem.EnqueueTask(() =>
             {
-                StorageSlot emptySlot = InventoryController.Instance.GetAvailableStorageSlot();
+                StorageSlot emptySlot = InventoryController.Instance.GetAvailableStorageSlot(this);
                 if (emptySlot != null)
                 {
-                    emptySlot.HasItemIncoming(true);
+                    emptySlot.HasItemIncoming(this);
                     var originalParent = transform.parent;
                     var task = new HaulingTask.TakeItemToItemSlot
                     {
@@ -50,7 +50,7 @@ namespace Items
                         dropItem = () =>
                         {
                             transform.SetParent(originalParent);
-                            emptySlot.SetItemTransform(transform);
+                            emptySlot.SetItem(this);
                             InventoryController.Instance.AddToInventory(_itemData, 1);
                         },
                     };
@@ -69,6 +69,16 @@ namespace Items
 
             _spriteRenderer.sprite = _itemData.ItemSprite;
             _spriteRenderer.transform.localScale = _itemData.DefaultSpriteScale;
+        }
+
+        public bool IsSameItemType(Item item)
+        {
+            return _itemData == item.GetItemData();
+        }
+
+        public ItemData GetItemData()
+        {
+            return _itemData;
         }
 
         private void OnValidate()

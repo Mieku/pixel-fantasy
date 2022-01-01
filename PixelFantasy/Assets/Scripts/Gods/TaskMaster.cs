@@ -31,6 +31,7 @@ namespace Gods
         // For Testing placeholder
         public Sprite rubble;
         public ItemData wood;
+        public ItemData stone;
 
         public TaskBase GetNextTaskByCategory(TaskCategory category)
         {
@@ -67,7 +68,10 @@ namespace Gods
             // Left Click
             if (Input.GetMouseButtonDown(0))
             {
-                //CreateWood();
+                if (PlayerInputController.Instance.GetCurrentState() == PlayerInputState.None)
+                {
+                    CreateStone();
+                }
             }
             
             // Right Click
@@ -110,6 +114,11 @@ namespace Gods
         private void CreateWood()
         {
             ItemSpawner.Instance.SpawnItem(wood, UtilsClass.GetMouseWorldPosition(), true);
+        }
+
+        private void CreateStone()
+        {
+            ItemSpawner.Instance.SpawnItem(stone, UtilsClass.GetMouseWorldPosition(), true);
         }
         
         private void AssignMoveLocation()

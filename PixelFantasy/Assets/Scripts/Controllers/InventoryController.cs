@@ -17,8 +17,18 @@ namespace Controllers
 
         public Dictionary<ItemData, int> Inventory => _inventory;
 
-        public StorageSlot GetAvailableStorageSlot()
+        public StorageSlot GetAvailableStorageSlot(Item item)
         {
+            // First check if there is any place that can stack
+            foreach (var itemSlot in _storageSlots)
+            {
+                if (itemSlot.CanStack(item))
+                {
+                    return itemSlot;
+                }
+            }
+            
+            // Then find empty
             foreach (var itemSlot in _storageSlots)
             {
                 if (itemSlot.IsEmpty())

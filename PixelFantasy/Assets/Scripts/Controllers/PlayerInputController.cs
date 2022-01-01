@@ -114,6 +114,11 @@ namespace Controllers
             
         }
 
+        public PlayerInputState GetCurrentState()
+        {
+            return _playerInputState;
+        }
+
         /// <summary>
         /// Clears any stored input state data (ex: type of structure to build)
         /// </summary>
