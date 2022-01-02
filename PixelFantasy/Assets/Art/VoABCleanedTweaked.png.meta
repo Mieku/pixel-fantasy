@@ -1,48 +1,51 @@
 fileFormatVersion: 2
-guid: 0aad73a0f4fe3f341bb7faa0e248191d
+guid: 7454f48ff07780449b0752a7ab3641db
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7033359609419058202
-    second: Hammer
-  - first:
-      213: -3508794999336203909
-    second: Wall_TL
-  - first:
-      213: 7052995454107013588
-    second: Wall_T
-  - first:
-      213: -6520634922097649790
+      213: 7772463428814621542
     second: Wall_TR
   - first:
-      213: -7667355298066314445
+      213: -5990647044007460848
+    second: Wall_TL
+  - first:
+      213: -7741084600337786703
+    second: Wall_T
+  - first:
+      213: -783235557028310617
     second: Wall_L
   - first:
-      213: 4618711388415579949
+      213: -918088817088537544
     second: Wall_R
   - first:
-      213: 7807540928022631320
+      213: 2234426875832258010
     second: Wall_BR
   - first:
-      213: 6865431281250916633
+      213: -4484337259543378599
     second: Wall_BL
   - first:
-      213: -2720889697789872080
+      213: 4943472491790338390
     second: Wall_B
   - first:
-      213: 4909752860975830008
-    second: Wall_Mid_L
+      213: -5886630493742938012
+    second: Wall_TDConnect
   - first:
-      213: 6407664723641331494
-    second: Wall_Mid_C
+      213: 7455212365482967449
+    second: Wall_BUConnect
   - first:
-      213: 3297348024618513862
-    second: Wall_Mid_R
+      213: 2800874637547634605
+    second: Wall_LEnd
   - first:
-      213: -3960183823583425718
-    second: Wall_Mid_End
+      213: 7205235167489269892
+    second: Wall_REnd
   - first:
-      213: 5003174463449487696
+      213: -4348264108144755071
+    second: Wall_TEnd
+  - first:
+      213: 7860634107025795129
+    second: Wall_BEnd
+  - first:
+      213: -917121981420668053
     second: Door
   externalObjects: {}
   serializedVersion: 11
@@ -75,11 +78,11 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: 2
+    aniso: 1
     mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: 0
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -107,7 +110,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 8192
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -119,31 +122,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 8192
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: iPhone
-    maxTextureSize: 8192
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 8192
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -155,7 +134,19 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Windows Store Apps
-    maxTextureSize: 8192
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -169,13 +160,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Hammer
+      name: Wall_TR
       rect:
         serializedVersion: 2
-        x: 417
-        y: 305
-        width: 13
-        height: 13
+        x: 32
+        y: 870
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -183,8 +174,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a1cc009ec438b9160800000000000000
-      internalID: 7033359609419058202
+      spriteID: 66bc538ee465ddb60800000000000000
+      internalID: 7772463428814621542
       vertices: []
       indices: 
       edges: []
@@ -194,7 +185,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 288
+        y: 870
         width: 16
         height: 16
       alignment: 0
@@ -204,8 +195,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7906ead9814e4fc0800000000000000
-      internalID: -3508794999336203909
+      spriteID: 0100137d042fcdca0800000000000000
+      internalID: -5990647044007460848
       vertices: []
       indices: 
       edges: []
@@ -215,7 +206,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 16
-        y: 288
+        y: 870
         width: 16
         height: 16
       alignment: 0
@@ -225,29 +216,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4d15e744ff541e160800000000000000
-      internalID: 7052995454107013588
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Wall_TR
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 288
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 287dc5e061d0285a0800000000000000
-      internalID: -6520634922097649790
+      spriteID: 1b89e9ce194229490800000000000000
+      internalID: -7741084600337786703
       vertices: []
       indices: 
       edges: []
@@ -257,7 +227,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 272
+        y: 847
         width: 16
         height: 16
       alignment: 0
@@ -267,8 +237,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 33b4c04daf4189590800000000000000
-      internalID: -7667355298066314445
+      spriteID: 7a15fdf19636125f0800000000000000
+      internalID: -783235557028310617
       vertices: []
       indices: 
       edges: []
@@ -278,7 +248,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 272
+        y: 847
         width: 16
         height: 16
       alignment: 0
@@ -288,8 +258,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d27df8a6985f81040800000000000000
-      internalID: 4618711388415579949
+      spriteID: 83cdd29c51b4243f0800000000000000
+      internalID: -918088817088537544
       vertices: []
       indices: 
       edges: []
@@ -299,7 +269,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 256
+        y: 822
         width: 16
         height: 16
       alignment: 0
@@ -309,8 +279,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 893dc10ab15f95c60800000000000000
-      internalID: 7807540928022631320
+      spriteID: add4192b767420f10800000000000000
+      internalID: 2234426875832258010
       vertices: []
       indices: 
       edges: []
@@ -320,7 +290,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 256
+        y: 822
         width: 16
         height: 16
       alignment: 0
@@ -330,8 +300,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 919d0dc2069e64f50800000000000000
-      internalID: 6865431281250916633
+      spriteID: 9554edf750f64c1c0800000000000000
+      internalID: -4484337259543378599
       vertices: []
       indices: 
       edges: []
@@ -341,7 +311,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 16
-        y: 256
+        y: 822
         width: 16
         height: 16
       alignment: 0
@@ -351,18 +321,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 038f63a5c357d3ad0800000000000000
-      internalID: -2720889697789872080
+      spriteID: 65904162a0eba9440800000000000000
+      internalID: 4943472491790338390
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wall_Mid_L
+      name: Wall_TDConnect
       rect:
         serializedVersion: 2
         x: 0
-        y: 240
+        y: 790
         width: 16
         height: 16
       alignment: 0
@@ -372,18 +342,60 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f31c6dc632f22440800000000000000
-      internalID: 4909752860975830008
+      spriteID: 468487031cc7e4ea0800000000000000
+      internalID: -5886630493742938012
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wall_Mid_C
+      name: Wall_BUConnect
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 758
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99146b1a52c367760800000000000000
+      internalID: 7455212365482967449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wall_LEnd
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 662
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: daf7d67a4a4bed620800000000000000
+      internalID: 2800874637547634605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wall_REnd
       rect:
         serializedVersion: 2
         x: 16
-        y: 240
+        y: 662
         width: 16
         height: 16
       alignment: 0
@@ -393,39 +405,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 62f617ced199ce850800000000000000
-      internalID: 6407664723641331494
+      spriteID: 480a959b5332ef360800000000000000
+      internalID: 7205235167489269892
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wall_Mid_R
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 240
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6c5f83cee8882cd20800000000000000
-      internalID: 3297348024618513862
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Wall_Mid_End
+      name: Wall_TEnd
       rect:
         serializedVersion: 2
         x: 48
-        y: 240
+        y: 662
         width: 16
         height: 16
       alignment: 0
@@ -435,8 +426,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a4bcf0e5bc99a09c0800000000000000
-      internalID: -3960183823583425718
+      spriteID: 18e737ce4dcd7a3c0800000000000000
+      internalID: -4348264108144755071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wall_BEnd
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 630
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 938a79aa215961d60800000000000000
+      internalID: 7860634107025795129
       vertices: []
       indices: 
       edges: []
@@ -446,18 +458,18 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 160
+        y: 403
         width: 16
-        height: 32
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0595633aaa8de6540800000000000000
-      internalID: 5003174463449487696
+      spriteID: b6bf7b1ca6ab543f0800000000000000
+      internalID: -917121981420668053
       vertices: []
       indices: 
       edges: []
@@ -465,7 +477,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: dc79c99ccb4965b45b8145550797dc7e
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 

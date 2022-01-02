@@ -9,6 +9,7 @@ TagManager:
   - Item
   - Water
   - Zone
+  - Wall
   layers:
   - Default
   - TransparentFX
