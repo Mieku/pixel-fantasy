@@ -11,7 +11,7 @@ namespace HUD.Cheats
         private ItemData _itemDataSelected;
 
         public GameObject wallPrefab;
-        public DynamicWallData wallData;
+        public StructureData structureData;
         
         public void SpawnResourcePressed(ItemData itemData)
         {
@@ -54,8 +54,7 @@ namespace HUD.Cheats
 
         private void SpawnWall(Vector2 pos)
         {
-            var wall = Instantiate(wallPrefab, pos, Quaternion.identity).GetComponent<Wall>();
-            wall.Init(wallData);
+            ItemSpawner.Instance.SpawnStructure(structureData, pos);
         }
     }
 }

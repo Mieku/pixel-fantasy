@@ -84,5 +84,40 @@ namespace Controllers
                 Debug.LogError($"Tried removing {itemData.ItemName} from inventory, but it doesn't exist!");
             }
         }
+
+        
+        public Item ClaimResource(ItemData itemData)
+        {
+            // Can afford?
+            if (_inventory.ContainsKey(itemData))
+            {
+                // TODO: This can be improved by comparing all the slots that have the resource's distance from the destination and choosing the closest
+                foreach (var storageSlot in _storageSlots)
+                {
+                    if (!storageSlot.IsEmpty() && storageSlot.GetStoredType() == itemData)
+                    {
+                        var item = storageSlot.ClaimItem();
+                        if (item != null)
+                        {
+                            return item;
+                        }
+                    }
+                }
+            }
+            
+            return null;
+        }
+
+        public void DeductClaimedResource(Item claimedResource)
+        {
+            foreach (var storageSlot in _storageSlots)
+            {
+                if (storageSlot.HasItemClaimed(claimedResource))
+                {
+                    storageSlot.RemoveClaimedItem(claimedResource);
+                    break;
+                }
+            }
+        }
     }
 }

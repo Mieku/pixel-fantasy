@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -6,9 +7,11 @@ namespace Items
 {
     public class StorageSlot : MonoBehaviour
     {
-        private Item _storedItem;
+        private List<Item> _storedItems = new List<Item>();
+        private List<Item> _claimedItems = new List<Item>();
         private int _numIncoming;
         private int _stackedAmount;
+        private ItemData _storedType;
 
         [SerializeField] private TextMeshPro _quantityDisplay;
 
@@ -19,7 +22,7 @@ namespace Items
 
         public bool IsEmpty()
         {
-            return _storedItem == null && _numIncoming == 0;
+            return _storedItems.Count == 0 && _numIncoming == 0;
         }
 
         /// <summary>
@@ -30,7 +33,7 @@ namespace Items
         {
             if (IsEmpty()) return false;
 
-            if (_storedItem != null && _storedItem.IsSameItemType(item))
+            if (_storedItems.Count > 0 && _storedType == item.GetItemData())
             {
                 if (CanHaveMoreIncoming())
                 {
@@ -43,23 +46,23 @@ namespace Items
 
         public void HasItemIncoming(Item item)
         {
-            _storedItem = item;
+            _storedType = item.GetItemData();
             _numIncoming++;
         }
 
         public bool CanHaveMoreIncoming()
         {
-            if (_storedItem == null) return true;
+            if (_storedType == null) return true;
             
             var totalAlloc = _numIncoming + _stackedAmount + 1;
-            var maxAmount = _storedItem.GetItemData().MaxStackSize;
+            var maxAmount = _storedType.MaxStackSize;
 
             return totalAlloc <= maxAmount;
         }
 
         public void SetItem(Item item)
         {
-            _storedItem = item;
+            _storedItems.Add(item);
             _stackedAmount++;
             UpdateQuantityDisplay();
             _numIncoming--;
@@ -80,6 +83,38 @@ namespace Items
         public Vector3 GetPosition()
         {
             return transform.position;
+        }
+
+        public ItemData GetStoredType()
+        {
+            return _storedType;
+        }
+
+        public Item ClaimItem()
+        {
+            if (_storedItems.Count > 0)
+            {
+                var item = _storedItems[0];
+                _storedItems.Remove(item);
+                _claimedItems.Add(item);
+                return item;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public void RemoveClaimedItem(Item claimedItem)
+        {
+            _stackedAmount--;
+            UpdateQuantityDisplay();
+            _claimedItems.Remove(claimedItem);
+        }
+
+        public bool HasItemClaimed(Item item)
+        {
+            return _claimedItems.Contains(item);
         }
     }
 }

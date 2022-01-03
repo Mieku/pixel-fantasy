@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Character;
 using Character.Interfaces;
 using Gods;
@@ -22,6 +23,8 @@ namespace Unit
         private State state;
         private float waitingTimer;
         private UnitThought thought;
+        private Action _onWorkComplete;
+        private float _workSpeed = 1f;
 
         private const float WAIT_TIMER_MAX = .2f; // 200ms
 
@@ -98,6 +101,12 @@ namespace Unit
                     ExecuteTask_TakeItemToItemSlot(task as HaulingTask.TakeItemToItemSlot);
                     return;
                 }
+
+                if (task is ConstructionTask.ConstructResourceIntoStructure)
+                {
+                    ExecuteTask_ConstructResourceIntoStructure(task as ConstructionTask.ConstructResourceIntoStructure);
+                    return;
+                }
                 
                 // Other task types go here
             }
@@ -137,7 +146,39 @@ namespace Unit
             });
         }
 
+        private void ExecuteTask_ConstructResourceIntoStructure(ConstructionTask.ConstructResourceIntoStructure task)
+        {
+            workerMover.SetMovePosition(task.resourcePosition, () =>
+            {
+                task.grabResource(this);
+                workerMover.SetMovePosition(task.structurePosition, () =>
+                {
+                    task.useResource();
+                    DoWork(task.workAmount, () =>
+                    {
+                        task.completeWork();
+                        state = State.WaitingForNextTask;
+                    });
+                });
+            });
+        }
+
         #endregion
-        
+
+        private void DoWork(float workAmount, Action onWorkComplete)
+        {
+            _onWorkComplete = onWorkComplete;
+            thought.SetThought(UnitThought.ThoughtState.Building);
+            StartCoroutine(WorkSequence(workAmount));
+        }
+
+        private IEnumerator WorkSequence(float workAmount)
+        {
+            float waitTimeS = workAmount * _workSpeed;
+            yield return new WaitForSeconds(waitTimeS);
+            
+            thought.SetThought(UnitThought.ThoughtState.None);
+            _onWorkComplete.Invoke();
+        }
     }
 }
