@@ -61,6 +61,14 @@ namespace Gods
             InitFunctionPeriodics();
         }
 
+        private void Update()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                //AssignMoveLocation();
+            }
+        }
+
         private void InitFunctionPeriodics()
         {
             FunctionPeriodic.Create(DequeueTasksAllTaskSystems, FUNC_PERIODIC_TIMER);

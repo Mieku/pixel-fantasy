@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1283464788996326184}
   - component: {fileID: 8773324283797575961}
-  m_Layer: 4
+  m_Layer: 0
   m_Name: BarFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 1480014951440470925}
   - component: {fileID: 1480014951440470922}
   - component: {fileID: 1480014951440470923}
-  m_Layer: 4
+  m_Layer: 0
   m_Name: WallPrefab
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1480014951440470920}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 183748dd497aa473a98ff0cd8cb67fc5, type: 3}
   m_Name: 
@@ -236,7 +236,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6381889669282106318}
   - component: {fileID: 8258224268416173006}
-  m_Layer: 4
+  m_Layer: 0
   m_Name: BarFrame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -319,7 +319,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4356046630267415026}
   - component: {fileID: 2589694300708827305}
-  m_Layer: 4
+  m_Layer: 0
   m_Name: ProgressBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}

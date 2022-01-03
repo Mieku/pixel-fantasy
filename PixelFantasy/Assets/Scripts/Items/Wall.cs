@@ -43,6 +43,7 @@ namespace Items
             {
                 _spriteRenderer.color = Color.white;
                 _gridObstacle.enabled = true;
+                gameObject.layer = 4;
             }
         }
 
@@ -185,6 +186,7 @@ namespace Items
             if (Math.Abs(_workComplete - _structureData.WorkCost) < 0.01f)
             {
                 ShowBlueprint(false);
+                _progressBar.ShowBar(false);
             }
             else
             {

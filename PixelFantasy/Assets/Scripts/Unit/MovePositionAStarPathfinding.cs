@@ -21,6 +21,7 @@ namespace Character
         public void SetMovePosition(Vector3 movePosition, Action onReachedMovePosition)
         {
             aiPath.destination = movePosition;
+            reachedDestination = false;
             this.onReachedMovePosition = onReachedMovePosition;
             charAnimController.SetMovementVelocity(movePosition);
         }
@@ -28,10 +29,13 @@ namespace Character
         private void RefreshAnimVector()
         {
             var moveVelo = aiPath.velocity;
-            if (aiPath.remainingDistance < 0.05f)
-            {
-                moveVelo = Vector3.zero;
+            charAnimController.SetMovementVelocity(moveVelo);
+        }
 
+        private void DetermineIfDestination()
+        {
+            if (aiPath.reachedDestination)
+            {
                 if (!reachedDestination)
                 {
                     reachedDestination = true;
@@ -42,12 +46,11 @@ namespace Character
             {
                 reachedDestination = false;
             }
-            
-            charAnimController.SetMovementVelocity(moveVelo);
         }
 
         private void Update()
         {
+            DetermineIfDestination();
             RefreshAnimVector();
         }
     }
