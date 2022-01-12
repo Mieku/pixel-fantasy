@@ -3,6 +3,7 @@ using System.Collections;
 using Character;
 using Character.Interfaces;
 using Gods;
+using Items;
 using Tasks;
 using UnityEngine;
 
@@ -133,15 +134,19 @@ namespace Unit
             });
         }
 
+        public StorageSlot claimedSlot;
         private void ExecuteTask_TakeItemToItemSlot(HaulingTask.TakeItemToItemSlot task)
         {
+            task.claimItemSlot(this);
             workerMover.SetMovePosition(task.itemPosition, () =>
             {
                 task.grabItem(this);
-                workerMover.SetMovePosition(task.itemSlotPosition, () =>
+                workerMover.SetMovePosition(claimedSlot.GetPosition(), () =>
                 {
                     task.dropItem();
+                    claimedSlot.SetItem(task.item);
                     state = State.WaitingForNextTask;
+                    claimedSlot = null;
                 });
             });
         }

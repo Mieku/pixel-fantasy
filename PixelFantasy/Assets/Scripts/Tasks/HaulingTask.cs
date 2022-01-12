@@ -1,4 +1,5 @@
 using System;
+using Items;
 using Unit;
 using UnityEngine;
 
@@ -11,10 +12,11 @@ namespace Tasks
         /// </summary>
         public class TakeItemToItemSlot : HaulingTask
         {
+            public Action<UnitTaskAI> claimItemSlot;
             public Vector3 itemPosition;
             public Action<UnitTaskAI> grabItem;
-            public Vector3 itemSlotPosition;
             public Action dropItem;
+            public Item item;
         }
     }
 }

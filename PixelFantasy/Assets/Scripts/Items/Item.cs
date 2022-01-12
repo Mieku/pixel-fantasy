@@ -30,19 +30,23 @@ namespace Items
             }
         }
 
+        private StorageSlot _claimedSlot;
         private void CreateHaulTask()
         {
             taskMaster.HaulingTaskSystem.EnqueueTask(() =>
             {
-                StorageSlot emptySlot = InventoryController.Instance.GetAvailableStorageSlot(this);
-                if (emptySlot != null)
+                if (InventoryController.Instance.HasSpaceForItem(this))
                 {
-                    emptySlot.HasItemIncoming(this);
+                    var slot = InventoryController.Instance.GetAvailableStorageSlot(this);
                     var originalParent = transform.parent;
                     var task = new HaulingTask.TakeItemToItemSlot
                     {
+                        item = this,
+                        claimItemSlot = (UnitTaskAI unitTaskAI) =>
+                        {
+                            unitTaskAI.claimedSlot = slot;
+                        },
                         itemPosition = transform.position,
-                        itemSlotPosition = emptySlot.GetPosition(),
                         grabItem = (UnitTaskAI unitTaskAI) =>
                         {
                             transform.SetParent(unitTaskAI.transform);
@@ -50,7 +54,6 @@ namespace Items
                         dropItem = () =>
                         {
                             transform.SetParent(originalParent);
-                            emptySlot.SetItem(this);
                             InventoryController.Instance.AddToInventory(_itemData, 1);
                         },
                     };

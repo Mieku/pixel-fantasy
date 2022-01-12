@@ -11,6 +11,7 @@ namespace Controllers
     {
         private List<StorageSlot> _storageSlots = new List<StorageSlot>();
         private Dictionary<ItemData, int> _inventory = new Dictionary<ItemData, int>();
+        private Dictionary<ItemData, int> _pendingInventory = new Dictionary<ItemData, int>();
         
         [SerializeField] private GameObject _storageZonePrefab;
         [SerializeField] private Transform _storageParent;
@@ -24,6 +25,8 @@ namespace Controllers
             {
                 if (itemSlot.CanStack(item))
                 {
+                    RemoveItemFromPending(item);
+                    itemSlot.HasItemIncoming(item);
                     return itemSlot;
                 }
             }
@@ -33,6 +36,8 @@ namespace Controllers
             {
                 if (itemSlot.IsEmpty())
                 {
+                    RemoveItemFromPending(item);
+                    itemSlot.HasItemIncoming(item);
                     return itemSlot;
                 }
             }
@@ -119,6 +124,61 @@ namespace Controllers
                     break;
                 }
             }
+        }
+
+        public int NumSpacesAvailable(Item item)
+        {
+            int totalRemaining = 0;
+            foreach (var storageSlot in _storageSlots)
+            {
+                if (storageSlot.CanHaveMoreIncoming())
+                {
+                    totalRemaining += storageSlot.SpaceRemaining(item);
+                }
+            }
+
+            int amountPending = 0;
+            if (_pendingInventory.ContainsKey(item.GetItemData()))
+            {
+                amountPending = _pendingInventory[item.GetItemData()];
+            }
+
+            totalRemaining -= amountPending;
+
+            return totalRemaining;
+        }
+
+        public void AddItemToPending(Item item)
+        {
+            if (_pendingInventory.ContainsKey(item.GetItemData()))
+            {
+                _pendingInventory[item.GetItemData()]++;
+            }
+            else
+            {
+                _pendingInventory.Add(item.GetItemData(), 1);
+            }
+        }
+
+        public void RemoveItemFromPending(Item item)
+        {
+            if (_pendingInventory.ContainsKey(item.GetItemData()))
+            {
+                _pendingInventory[item.GetItemData()]--;
+            }
+        }
+
+        public bool HasSpaceForItem(Item item)
+        {
+            var numSpaces = NumSpacesAvailable(item);
+
+            if (numSpaces > 0)
+            {
+                AddItemToPending(item);
+                return true;
+            }
+
+            return false;
         }
     }
 }

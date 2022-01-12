@@ -22,7 +22,7 @@ namespace Items
 
         public bool IsEmpty()
         {
-            return _storedItems.Count == 0 && _numIncoming == 0;
+            return _storedItems.Count == 0 && _numIncoming == 0 && _stackedAmount == 0;
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace Items
         {
             if (IsEmpty()) return false;
 
-            if (_storedItems.Count > 0 && _storedType == item.GetItemData())
+            if (_storedType == item.GetItemData())
             {
                 if (CanHaveMoreIncoming())
                 {
@@ -60,12 +60,30 @@ namespace Items
             return totalAlloc <= maxAmount;
         }
 
+        public int SpaceRemaining(Item item)
+        {
+            if (_storedType == null)
+            {
+                return item.GetItemData().MaxStackSize;
+            }
+
+            if (_storedType != item.GetItemData())
+            {
+                return 0;
+            }
+            
+            var totalAlloc = _numIncoming + _stackedAmount;
+            var maxAmount = _storedType.MaxStackSize;
+            return maxAmount - totalAlloc;
+        }
+
         public void SetItem(Item item)
         {
+            _storedType = item.GetItemData();
             _storedItems.Add(item);
             _stackedAmount++;
-            UpdateQuantityDisplay();
             _numIncoming--;
+            UpdateQuantityDisplay();
         }
 
         private void UpdateQuantityDisplay()
