@@ -1,7 +1,6 @@
 using System;
 using Controllers;
 using Gods;
-using Sirenix.OdinInspector;
 using Tasks;
 using Unit;
 using UnityEngine;
@@ -29,8 +28,7 @@ namespace Items
                 CreateHaulTask();
             }
         }
-
-        private StorageSlot _claimedSlot;
+        
         private void CreateHaulTask()
         {
             taskMaster.HaulingTaskSystem.EnqueueTask(() =>
@@ -53,6 +51,7 @@ namespace Items
                         },
                         dropItem = () =>
                         {
+                            transform.position = Helper.ConvertMousePosToGridPos(transform.position);
                             transform.SetParent(originalParent);
                             InventoryController.Instance.AddToInventory(_itemData, 1);
                         },

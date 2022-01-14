@@ -15,7 +15,7 @@ MonoBehaviour:
   StructureName: Wood Wall
   WallSprites: {fileID: 11400000, guid: 0a874e73bd7b8834b9c27df74d480403, type: 2}
   WorkCost: 10
-  ResourceCosts:
+  _resourceCosts:
   - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
     Quantity: 5
   - Item: {fileID: 11400000, guid: 75f99dfbebb440d4499e1b83387d86e1, type: 2}

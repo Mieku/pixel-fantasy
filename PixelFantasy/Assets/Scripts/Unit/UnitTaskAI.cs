@@ -102,10 +102,16 @@ namespace Unit
                     ExecuteTask_TakeItemToItemSlot(task as HaulingTask.TakeItemToItemSlot);
                     return;
                 }
-
-                if (task is ConstructionTask.ConstructResourceIntoStructure)
+                
+                if (task is HaulingTask.TakeResourceToBlueprint)
                 {
-                    ExecuteTask_ConstructResourceIntoStructure(task as ConstructionTask.ConstructResourceIntoStructure);
+                    ExecuteTask_TakeResourceToBlueprint(task as HaulingTask.TakeResourceToBlueprint);
+                    return;
+                }
+                
+                if (task is ConstructionTask.ConstructStructure)
+                {
+                    ExecuteTask_ConstructStructure(task as ConstructionTask.ConstructStructure);
                     return;
                 }
                 
@@ -151,19 +157,27 @@ namespace Unit
             });
         }
 
-        private void ExecuteTask_ConstructResourceIntoStructure(ConstructionTask.ConstructResourceIntoStructure task)
+        private void ExecuteTask_TakeResourceToBlueprint(HaulingTask.TakeResourceToBlueprint task)
         {
             workerMover.SetMovePosition(task.resourcePosition, () =>
             {
                 task.grabResource(this);
-                workerMover.SetMovePosition(task.structurePosition, () =>
+                workerMover.SetMovePosition(task.blueprintPosition, () =>
                 {
                     task.useResource();
-                    DoWork(task.workAmount, () =>
-                    {
-                        task.completeWork();
-                        state = State.WaitingForNextTask;
-                    });
+                    state = State.WaitingForNextTask;
+                });
+            });
+        }
+
+        private void ExecuteTask_ConstructStructure(ConstructionTask.ConstructStructure task)
+        {
+            workerMover.SetMovePosition(task.structurePosition, () =>
+            {
+                DoWork(task.workAmount, () =>
+                {
+                    task.completeWork();
+                    state = State.WaitingForNextTask;
                 });
             });
         }

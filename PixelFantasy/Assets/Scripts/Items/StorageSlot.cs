@@ -128,6 +128,11 @@ namespace Items
             _stackedAmount--;
             UpdateQuantityDisplay();
             _claimedItems.Remove(claimedItem);
+
+            if (IsEmpty())
+            {
+                _storedType = null;
+            }
         }
 
         public bool HasItemClaimed(Item item)

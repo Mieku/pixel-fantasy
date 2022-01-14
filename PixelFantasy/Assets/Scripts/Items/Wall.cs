@@ -18,18 +18,44 @@ namespace Items
         [SerializeField] private DynamicGridObstacle _gridObstacle;
 
         private StructureData _structureData;
-        private List<Wall> _neighbours = new List<Wall>();
-        private float _workComplete;
+        private readonly List<Wall> _neighbours = new List<Wall>();
+        private List<ResourceCost> _resourceCost;
         
         private TaskMaster taskMaster => TaskMaster.Instance;
 
         public void Init(StructureData structureData)
         {
             _structureData = structureData;
+            _resourceCost = new List<ResourceCost> (_structureData.GetResourceCosts());
             UpdateSprite(true);
             _progressBar.ShowBar(false);
             ShowBlueprint(true);
-            CreateConstuctTask();
+            CreateConstructionHaulingTasks();
+        }
+
+        private void AddResourceToBlueprint(ItemData itemData)
+        {
+            foreach (var cost in _resourceCost)
+            {
+                if (cost.Item == itemData && cost.Quantity > 0)
+                {
+                    cost.Quantity--;
+                    if (cost.Quantity <= 0)
+                    {
+                        _resourceCost.Remove(cost);
+                    }
+
+                    return;
+                }
+            }
+        }
+
+        private void CheckIfAllResourcesLoaded()
+        {
+            if (_resourceCost.Count == 0)
+            {
+                CreateConstructStructureTask();
+            }
         }
 
         private void ShowBlueprint(bool showBlueprint)
@@ -130,31 +156,29 @@ namespace Items
             }
         }
 
-        private void CreateConstuctTask()
+        private void CreateConstructionHaulingTasks()
         {
-            // Each resource required gets a task
-            var resourceCosts = _structureData.ResourceCosts;
+            var resourceCosts = _structureData.GetResourceCosts();
             foreach (var resourceCost in resourceCosts)
             {
                 for (int i = 0; i < resourceCost.Quantity; i++)
                 {
-                    CreateConstructResourceIntoStructureTask(resourceCost.Item);
+                    CreateTakeResourceToBlueprintTask(resourceCost.Item);
                 }
             }
         }
 
-        private void CreateConstructResourceIntoStructureTask(ItemData resourceData)
+        private void CreateTakeResourceToBlueprintTask(ItemData resourceData)
         {
-            taskMaster.ConstructionTaskSystem.EnqueueTask(() =>
+            taskMaster.HaulingTaskSystem.EnqueueTask(() =>
             {
                 Item resource = InventoryController.Instance.ClaimResource(resourceData);
                 if (resource != null)
                 {
-                    var task = new ConstructionTask.ConstructResourceIntoStructure
+                    var task = new HaulingTask.TakeResourceToBlueprint
                     {
                         resourcePosition = resource.transform.position,
-                        structurePosition = transform.position,
-                        workAmount = _structureData.GetWorkPerResource(),
+                        blueprintPosition = transform.position,
                         grabResource = (UnitTaskAI unitTaskAI) =>
                         {
                             resource.transform.SetParent(unitTaskAI.transform);
@@ -163,12 +187,12 @@ namespace Items
                         useResource = () =>
                         {
                             resource.gameObject.SetActive(false);
+                            AddResourceToBlueprint(resource.GetItemData());
+                            Destroy(resource.gameObject);
+                            CheckIfAllResourcesLoaded();
                         },
-                        completeWork = () =>
-                        {
-                            AddProgress(resource);
-                        }
                     };
+
                     return task;
                 }
                 else
@@ -177,24 +201,22 @@ namespace Items
                 }
             });
         }
-
-        private void AddProgress(Item resource)
+        
+        private void CreateConstructStructureTask()
         {
-            _workComplete += _structureData.GetWorkPerResource();
-            var percentDone = _workComplete / _structureData.WorkCost;
-
-            if (Math.Abs(_workComplete - _structureData.WorkCost) < 0.01f)
+            var task = new ConstructionTask.ConstructStructure
             {
-                ShowBlueprint(false);
-                _progressBar.ShowBar(false);
-            }
-            else
-            {
-                _progressBar.ShowBar(true);
-                _progressBar.SetProgress(percentDone);
-            }
+                structurePosition = transform.position,
+                workAmount = _structureData.GetWorkPerResource(),
+                completeWork = CompleteConstruction
+            };
             
-            Destroy(resource.gameObject);
+            taskMaster.ConstructionTaskSystem.AddTask(task);
+        }
+        
+        private void CompleteConstruction()
+        {
+            ShowBlueprint(false);
         }
     }
 }
