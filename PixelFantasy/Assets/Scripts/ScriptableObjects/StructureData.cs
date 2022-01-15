@@ -10,7 +10,10 @@ namespace ScriptableObjects
         public string StructureName;
         public DynamicWallData WallSprites;
         public float WorkCost;
+        public Sprite Icon;
+        
         [SerializeField] private List<ResourceCost> _resourceCosts;
+        [SerializeField] private List<string> _invalidPlacementTags;
 
         public List<ResourceCost> GetResourceCosts()
         {
@@ -27,10 +30,29 @@ namespace ScriptableObjects
 
             return clone;
         }
+
+        public List<string> InvalidPlacementTags
+        {
+            get
+            {
+                List<string> clone = new List<string>();
+                foreach (var tag in _invalidPlacementTags)
+                {
+                    clone.Add(tag);
+                }
+
+                return clone;
+            }
+        }
         
         public Sprite GetSprite(WallNeighbourConnectionInfo connections)
         {
             return WallSprites.GetWallSprite(connections);
+        }
+        
+        public Sprite GetSprite()
+        {
+            return Icon;
         }
 
         public float GetWorkPerResource()

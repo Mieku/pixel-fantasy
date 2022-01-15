@@ -13,7 +13,6 @@ namespace Items
     public class Wall : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
-        [SerializeField] private Color _blueprintColour;
         [SerializeField] private ProgressBar _progressBar;
         [SerializeField] private DynamicGridObstacle _gridObstacle;
 
@@ -62,7 +61,7 @@ namespace Items
         {
             if (showBlueprint)
             {
-                _spriteRenderer.color = _blueprintColour;
+                _spriteRenderer.color = Librarian.Instance.GetColour("Blueprint");
                 _gridObstacle.enabled = false;
             }
             else

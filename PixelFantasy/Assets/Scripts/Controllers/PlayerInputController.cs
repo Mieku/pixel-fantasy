@@ -8,6 +8,8 @@ namespace Controllers
     {
         private PlayerInputState _playerInputState = PlayerInputState.None;
         private Vector3 _currentMousePos;
+
+        public string StoredKey;
         
         private void Update()
         {
@@ -110,8 +112,12 @@ namespace Controllers
         {
             ClearStoredData();
             _playerInputState = newState;
-            
-            
+        }
+        public void ChangeState(PlayerInputState newState, string key)
+        {
+            ClearStoredData();
+            _playerInputState = newState;
+            StoredKey = key;
         }
 
         public PlayerInputState GetCurrentState()
@@ -124,7 +130,7 @@ namespace Controllers
         /// </summary>
         private void ClearStoredData()
         {
-            
+            StoredKey = null;
         }
     }
 
@@ -134,5 +140,6 @@ namespace Controllers
         BuildStorage,
         CHEAT_SpawnResource,
         CHEAT_SpawnWall,
+        BuildStructure
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using CodeMonkey.Utils;
 using Controllers;
+using Gods;
 using UnityEngine;
 
 namespace HUD
@@ -99,11 +100,11 @@ namespace HUD
                     spriteRenderer.sprite = _storageZoneBlueprint;
                     if (Helper.IsGridPosValidToBuild(gridPos, _storagePlacementInvalidTags))
                     {
-                        spriteRenderer.color = Color.green;
+                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Green");
                     }
                     else
                     {
-                        spriteRenderer.color = Color.red;
+                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Red");
                     }
                     
                     spriteRenderer.sortingLayerName = "Item";

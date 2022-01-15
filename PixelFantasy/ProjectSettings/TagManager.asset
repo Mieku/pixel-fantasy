@@ -10,6 +10,7 @@ TagManager:
   - Water
   - Zone
   - Wall
+  - Structure
   layers:
   - Default
   - TransparentFX
