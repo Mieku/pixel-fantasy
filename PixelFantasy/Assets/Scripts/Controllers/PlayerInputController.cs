@@ -1,6 +1,7 @@
 using CodeMonkey.Utils;
 using Gods;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Controllers
 {
@@ -8,6 +9,8 @@ namespace Controllers
     {
         private PlayerInputState _playerInputState = PlayerInputState.None;
         private Vector3 _currentMousePos;
+        private ClickObject _curSelectedObject;
+        private bool _isOverUI;
 
         public string StoredKey;
         
@@ -17,12 +20,30 @@ namespace Controllers
             DetectKeyboardInput();
         }
 
+        public void SelectObject(ClickObject clickObject, SelectionData selectionData = null)
+        {
+            if (_curSelectedObject != null)
+            {
+                _curSelectedObject.UnselectObject();
+                HUDController.Instance.HideItemDetails();
+            }
+
+            _curSelectedObject = clickObject;
+
+            if (_curSelectedObject != null)
+            {
+                _curSelectedObject.SelectObject();
+                HUDController.Instance.ShowItemDetails(selectionData);
+            }
+        }
+
         #region Mouse Handlers
 
         private void DetectMouseInput()
         {
             _currentMousePos = UtilsClass.GetMouseWorldPosition();
-            
+            _isOverUI = EventSystem.current.IsPointerOverGameObject();
+
             // Left Click
             if (Input.GetMouseButtonDown(0))
             {
@@ -58,32 +79,32 @@ namespace Controllers
 
         private void LeftClickDown()
         {
-            GameEvents.Trigger_OnLeftClickDown(_currentMousePos, _playerInputState);
+            GameEvents.Trigger_OnLeftClickDown(_currentMousePos, _playerInputState, _isOverUI);
         }
 
         private void LeftClickHeld()
         {
-            GameEvents.Trigger_OnLeftClickHeld(_currentMousePos, _playerInputState);
+            GameEvents.Trigger_OnLeftClickHeld(_currentMousePos, _playerInputState, _isOverUI);
         }
 
         private void LeftClickUp()
         {
-            GameEvents.Trigger_OnLeftClickUp(_currentMousePos, _playerInputState);
+            GameEvents.Trigger_OnLeftClickUp(_currentMousePos, _playerInputState, _isOverUI);
         }
 
         private void RightClickDown()
         {
-            GameEvents.Trigger_OnRightClickDown(_currentMousePos, _playerInputState);
+            GameEvents.Trigger_OnRightClickDown(_currentMousePos, _playerInputState, _isOverUI);
         }
 
         private void RightClickHeld()
         {
-            GameEvents.Trigger_OnRightClickHeld(_currentMousePos, _playerInputState);
+            GameEvents.Trigger_OnRightClickHeld(_currentMousePos, _playerInputState, _isOverUI);
         }
 
         private void RightClickUp()
         {
-            GameEvents.Trigger_OnRightClickUp(_currentMousePos, _playerInputState);
+            GameEvents.Trigger_OnRightClickUp(_currentMousePos, _playerInputState, _isOverUI);
         }
 
         #endregion
@@ -131,6 +152,7 @@ namespace Controllers
         private void ClearStoredData()
         {
             StoredKey = null;
+            SelectObject(null);
         }
     }
 

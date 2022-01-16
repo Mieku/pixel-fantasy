@@ -9,6 +9,7 @@ namespace Gods
     {
         [SerializeField] private List<ColourData> _colourLibrary;
         [SerializeField] private List<StructureData> _structureLibrary;
+        [SerializeField] private List<Sprite> _sprites;
 
         public Color GetColour(string colourName)
         {
@@ -31,6 +32,12 @@ namespace Gods
             {
                 Debug.LogError("Unknown Structure: " + key);
             }
+            return result;
+        }
+
+        public Sprite GetSprite(string spriteName)
+        {
+            var result = _sprites.Find(s => s.name == spriteName);
             return result;
         }
     }

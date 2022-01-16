@@ -17,9 +17,9 @@ namespace HUD.Cheats
             PlayerInputController.Instance.ChangeState(PlayerInputState.CHEAT_SpawnResource);
         }
         
-        protected override void GameEvents_OnLeftClickDown(Vector3 mousePos, PlayerInputState inputState)
+        protected override void GameEvents_OnLeftClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
         {
-            base.GameEvents_OnLeftClickDown(mousePos, inputState);
+            base.GameEvents_OnLeftClickDown(mousePos, inputState, isOverUI);
             
             if (inputState == PlayerInputState.CHEAT_SpawnResource)
             {
@@ -27,9 +27,9 @@ namespace HUD.Cheats
             }
         }
         
-        protected override void GameEvents_OnRightClickDown(Vector3 mousePos, PlayerInputState inputState)
+        protected override void GameEvents_OnRightClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
         {
-            base.GameEvents_OnRightClickDown(mousePos, inputState);
+            base.GameEvents_OnRightClickDown(mousePos, inputState, isOverUI);
             
             CancelCheat();
         }

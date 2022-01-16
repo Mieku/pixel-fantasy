@@ -66,10 +66,11 @@ public class TaskSystem<TTask> where TTask : TaskBase
         queuedTaskList.Add(queuedTask);
     }
 
-    public void EnqueueTask(Func<TTask> tryGetTaskFunc)
+    public QueuedTask<TTask> EnqueueTask(Func<TTask> tryGetTaskFunc)
     {
         QueuedTask<TTask> queuedTask = new QueuedTask<TTask>(tryGetTaskFunc);
         queuedTaskList.Add(queuedTask);
+        return queuedTask;
     }
 
     public void DequeueTasks()
@@ -88,6 +89,27 @@ public class TaskSystem<TTask> where TTask : TaskBase
             else
             {
                 // Returned task is null, keep it queued
+            }
+        }
+    }
+
+    public void CancelTask(int taskRef)
+    {
+        foreach (var queuedTask in queuedTaskList)
+        {
+            if (queuedTask.GetHashCode() == taskRef)
+            {
+                queuedTaskList.Remove(queuedTask);
+                return;
+            }
+        }
+        
+        foreach (var task in taskList)
+        {
+            if (task.GetHashCode() == taskRef)
+            {
+                taskList.Remove(task);
+                return;
             }
         }
     }

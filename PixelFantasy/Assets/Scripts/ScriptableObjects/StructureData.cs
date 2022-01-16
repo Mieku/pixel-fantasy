@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Items;
 using UnityEngine;
 
 namespace ScriptableObjects
@@ -14,6 +15,7 @@ namespace ScriptableObjects
         
         [SerializeField] private List<ResourceCost> _resourceCosts;
         [SerializeField] private List<string> _invalidPlacementTags;
+        [SerializeField] private List<Option> _options;
 
         public List<ResourceCost> GetResourceCosts()
         {
@@ -44,7 +46,21 @@ namespace ScriptableObjects
                 return clone;
             }
         }
-        
+
+        public List<Option> Options
+        {
+            get
+            {
+                List<Option> clone = new List<Option>();
+                foreach (var option in _options)
+                {
+                    clone.Add(option);
+                }
+
+                return clone;
+            }
+        }
+
         public Sprite GetSprite(WallNeighbourConnectionInfo connections)
         {
             return WallSprites.GetWallSprite(connections);

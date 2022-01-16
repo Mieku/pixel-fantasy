@@ -1,15 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Gods;
+using HUD;
 using UnityEngine;
 
 namespace Controllers
 {
-    public class HUDController : MonoBehaviour
+    public class HUDController : God<HUDController>
     {
         [Header("Side Panels")] 
         [SerializeField] private GameObject BuildSP;
         [SerializeField] private GameObject CheatSP;
+
+        [SerializeField] private SelectedItemInfoPanel _selectedItemInfoPanel;
 
         private HUDState _hudState;
         
@@ -25,8 +29,20 @@ namespace Controllers
             ChangeState(HUDState.None);
         }
 
+        public void ShowItemDetails(SelectionData selectionData)
+        {
+            ChangeState(HUDState.None);
+            _selectedItemInfoPanel.ShowItemDetails(selectionData);
+        }
+
+        public void HideItemDetails()
+        {
+            _selectedItemInfoPanel.HideItemDetails();
+        }
+
         private void ChangeState(HUDState hudState)
         {
+            HideItemDetails();
             _hudState = hudState;
             switch (hudState)
             {

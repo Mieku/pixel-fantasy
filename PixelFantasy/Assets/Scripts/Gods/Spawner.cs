@@ -20,7 +20,7 @@ namespace Gods
         [SerializeField] private SpriteRenderer _placementIcon;
 
         private bool _showPlacement;
-        private List<string> _invalidPlacementTags;
+        private List<string> _invalidPlacementTags = new List<string>();
         
         private void OnEnable()
         {
@@ -42,18 +42,19 @@ namespace Gods
             GameEvents.OnRightClickUp -= GameEvents_OnRightClickUp;
         }
         
-        protected virtual void GameEvents_OnLeftClickDown(Vector3 mousePos, PlayerInputState inputState) 
+        protected virtual void GameEvents_OnLeftClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
         {
             
         }
         
-        protected virtual void GameEvents_OnLeftClickHeld(Vector3 mousePos, PlayerInputState inputState) 
+        protected virtual void GameEvents_OnLeftClickHeld(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
         {
             
         }
         
-        protected virtual void GameEvents_OnLeftClickUp(Vector3 mousePos, PlayerInputState inputState) 
+        protected virtual void GameEvents_OnLeftClickUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
         {
+            if (isOverUI) return;
             if (inputState == PlayerInputState.BuildStructure)
             {
                 var structureData = Librarian.Instance.GetStructureData(PlayerInputController.Instance.StoredKey);
@@ -62,17 +63,17 @@ namespace Gods
             }
         }
         
-        protected virtual void GameEvents_OnRightClickDown(Vector3 mousePos, PlayerInputState inputState) 
+        protected virtual void GameEvents_OnRightClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
         {
             CancelInput();
         }
         
-        protected virtual void GameEvents_OnRightClickHeld(Vector3 mousePos, PlayerInputState inputState) 
+        protected virtual void GameEvents_OnRightClickHeld(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
         {
             
         }
         
-        protected virtual void GameEvents_OnRightClickUp(Vector3 mousePos, PlayerInputState inputState) 
+        protected virtual void GameEvents_OnRightClickUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
         {
             
         }
@@ -130,7 +131,7 @@ namespace Gods
             {
                 var structureObj = Instantiate(_structurePrefab, spawnPosition, Quaternion.identity);
                 structureObj.transform.SetParent(_structureParent);
-                var structure = structureObj.GetComponent<Wall>();
+                var structure = structureObj.GetComponent<Structure>();
                 structure.Init(structureData);
             }
         }

@@ -25,9 +25,9 @@ namespace HUD
             PlayerInputController.Instance.ChangeState(PlayerInputState.BuildStorage);
         }
 
-        protected override void GameEvents_OnRightClickDown(Vector3 mousePos, PlayerInputState inputState)
+        protected override void GameEvents_OnRightClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
         {
-            base.GameEvents_OnRightClickDown(mousePos, inputState);
+            base.GameEvents_OnRightClickDown(mousePos, inputState, isOverUI);
             
             if (inputState == PlayerInputState.BuildStorage)
             {
@@ -35,9 +35,9 @@ namespace HUD
             }
         }
 
-        protected override void GameEvents_OnLeftClickDown(Vector3 mousePos, PlayerInputState inputState)
+        protected override void GameEvents_OnLeftClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
         {
-            base.GameEvents_OnLeftClickDown(mousePos, inputState);
+            base.GameEvents_OnLeftClickDown(mousePos, inputState, isOverUI);
             
             if (inputState == PlayerInputState.BuildStorage)
             {
@@ -46,9 +46,9 @@ namespace HUD
             }
         }
 
-        protected override void GameEvents_OnLeftClickHeld(Vector3 mousePos, PlayerInputState inputState)
+        protected override void GameEvents_OnLeftClickHeld(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
         {
-            base.GameEvents_OnLeftClickHeld(mousePos, inputState);
+            base.GameEvents_OnLeftClickHeld(mousePos, inputState, isOverUI);
             
             if (inputState == PlayerInputState.BuildStorage)
             {
@@ -56,9 +56,9 @@ namespace HUD
             }
         }
 
-        protected override void GameEvents_OnLeftClickUp(Vector3 mousePos, PlayerInputState inputState)
+        protected override void GameEvents_OnLeftClickUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
         {
-            base.GameEvents_OnLeftClickUp(mousePos, inputState);
+            base.GameEvents_OnLeftClickUp(mousePos, inputState, isOverUI);
             
             if (inputState == PlayerInputState.BuildStorage)
             {

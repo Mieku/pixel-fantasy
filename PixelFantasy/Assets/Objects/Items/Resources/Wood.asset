@@ -16,3 +16,4 @@ MonoBehaviour:
   MaxStackSize: 5
   ItemSprite: {fileID: 21300000, guid: 01128279c3b2a034c9e313d1c33b1380, type: 3}
   DefaultSpriteScale: {x: 0.75, y: 0.75}
+  _options: 00000000

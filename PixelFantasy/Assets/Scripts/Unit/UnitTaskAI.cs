@@ -199,5 +199,12 @@ namespace Unit
             thought.SetThought(UnitThought.ThoughtState.None);
             _onWorkComplete.Invoke();
         }
+
+        public void CancelTask()
+        {
+            state = State.WaitingForNextTask;
+            StopAllCoroutines();
+            workerMover.SetMovePosition(transform.position, () => {});
+        }
     }
 }

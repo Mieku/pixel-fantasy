@@ -10,14 +10,14 @@ using UnityEngine;
 
 namespace Items
 {
-    public class Wall : MonoBehaviour
+    public class Structure : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private ProgressBar _progressBar;
         [SerializeField] private DynamicGridObstacle _gridObstacle;
 
         private StructureData _structureData;
-        private readonly List<Wall> _neighbours = new List<Wall>();
+        private readonly List<Structure> _neighbours = new List<Structure>();
         private List<ResourceCost> _resourceCost;
         
         private TaskMaster taskMaster => TaskMaster.Instance;
@@ -30,6 +30,11 @@ namespace Items
             _progressBar.ShowBar(false);
             ShowBlueprint(true);
             CreateConstructionHaulingTasks();
+        }
+
+        public StructureData GetStructureData()
+        {
+            return _structureData;
         }
 
         private void AddResourceToBlueprint(ItemData itemData)
@@ -93,7 +98,7 @@ namespace Items
             {
                 if (hit.transform.CompareTag("Wall"))
                 {
-                    _neighbours.Add(hit.transform.gameObject.GetComponent<Wall>());
+                    _neighbours.Add(hit.transform.gameObject.GetComponent<Structure>());
                     result.Top = true;
                     break;
                 }
@@ -103,7 +108,7 @@ namespace Items
             {
                 if (hit.transform.CompareTag("Wall"))
                 {
-                    _neighbours.Add(hit.transform.gameObject.GetComponent<Wall>());
+                    _neighbours.Add(hit.transform.gameObject.GetComponent<Structure>());
                     result.Bottom = true;
                     break;
                 }
@@ -113,7 +118,7 @@ namespace Items
             {
                 if (hit.transform.CompareTag("Wall"))
                 {
-                    _neighbours.Add(hit.transform.gameObject.GetComponent<Wall>());
+                    _neighbours.Add(hit.transform.gameObject.GetComponent<Structure>());
                     result.Left = true;
                     break;
                 }
@@ -123,7 +128,7 @@ namespace Items
             {
                 if (hit.transform.CompareTag("Wall"))
                 {
-                    _neighbours.Add(hit.transform.gameObject.GetComponent<Wall>());
+                    _neighbours.Add(hit.transform.gameObject.GetComponent<Structure>());
                     result.Right = true;
                     break;
                 }
