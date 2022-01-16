@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 5532418262417492086}
   - component: {fileID: 5532418262417492073}
   - component: {fileID: 5532418262417492072}
+  - component: {fileID: 8163977419950456879}
   m_Layer: 6
   m_Name: SpriteRoot
   m_TagString: Untagged
@@ -152,8 +153,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 237689285
-  m_SortingLayer: 3
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: -6779709807599877033, guid: 8383692df3bd9af4f9490b3fd69b1264, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -200,6 +201,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8163977419950456879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5532418262417492084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _offset: 0.5
+  _runOnlyOnce: 0
 --- !u!1 &5532418264206338346
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,7 +284,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 237689285
-  m_SortingLayer: 3
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b3acf8a51b2638b41bb8c0b332992b6d, type: 3}
   m_Color: {r: 0.1793825, g: 0.8962264, b: 0, a: 1}
@@ -293,7 +308,6 @@ GameObject:
   - component: {fileID: 5532418264530240428}
   - component: {fileID: 5532418264530240431}
   - component: {fileID: 1211023406118596035}
-  - component: {fileID: 1134619068472648097}
   - component: {fileID: 9189890898419539547}
   - component: {fileID: 5532418264530240416}
   - component: {fileID: 5532418264530240418}
@@ -301,7 +315,6 @@ GameObject:
   - component: {fileID: 1318834803339290506}
   - component: {fileID: 7471310692821977494}
   - component: {fileID: 8988988752585574429}
-  - component: {fileID: 2793976244046707294}
   m_Layer: 6
   m_Name: Unit
   m_TagString: Unit
@@ -373,17 +386,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8101332, y: 0.8312295}
   m_EdgeRadius: 0
---- !u!210 &1134619068472648097
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5532418264530240426}
-  m_Enabled: 1
-  m_SortingLayerID: 237689285
-  m_SortingLayer: 3
-  m_SortingOrder: 0
 --- !u!114 &9189890898419539547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,6 +439,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 933aa73dbb5f4ef4fa2aef8789813771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  professionData: {fileID: 11400000, guid: 2eb2bb24119209b4fa8ac224c469b19e, type: 2}
+  claimedSlot: {fileID: 0}
 --- !u!114 &1318834803339290506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -453,9 +457,9 @@ MonoBehaviour:
   drawGizmos: 1
   detailedGizmos: 1
   startEndModifier:
-    addPoints: 0
-    exactStartPoint: 3
-    exactEndPoint: 3
+    addPoints: 1
+    exactStartPoint: 1
+    exactEndPoint: 1
     useRaycasting: 0
     mask:
       serializedVersion: 2
@@ -478,8 +482,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 2
-  radius: 0.29
-  height: 1
+  radius: 0.15
+  height: 0.1
   repathRate: 0.1
   canSearch: 1
   canMove: 1
@@ -513,18 +517,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93ea3b31fd60b274abab1fb237358e16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2793976244046707294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5532418264530240426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77f586f285b3847808d79083bd19ef1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  unwrap: 1
-  splitAtEveryPortal: 0
