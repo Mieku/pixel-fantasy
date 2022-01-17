@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Controllers;
 using Gods;
+using HUD;
 using Pathfinding;
 using ScriptableObjects;
 using Tasks;
@@ -15,10 +16,16 @@ namespace Items
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private ProgressBar _progressBar;
         [SerializeField] private DynamicGridObstacle _gridObstacle;
+        [SerializeField] private SpriteRenderer _icon;
 
         private StructureData _structureData;
         private readonly List<Structure> _neighbours = new List<Structure>();
         private List<ResourceCost> _resourceCost;
+        private bool _isBuilt;
+        private List<int> _assignedTaskRefs = new List<int>();
+        private List<Item> _incomingItems = new List<Item>();
+        private bool _isDeconstructing;
+        private UnitTaskAI _incomingUnit;
         
         private TaskMaster taskMaster => TaskMaster.Instance;
 
@@ -174,7 +181,7 @@ namespace Items
 
         private void CreateTakeResourceToBlueprintTask(ItemData resourceData)
         {
-            taskMaster.HaulingTaskSystem.EnqueueTask(() =>
+            var taskRef = taskMaster.HaulingTaskSystem.EnqueueTask(() =>
             {
                 Item resource = InventoryController.Instance.ClaimResource(resourceData);
                 if (resource != null)
@@ -187,9 +194,11 @@ namespace Items
                         {
                             resource.transform.SetParent(unitTaskAI.transform);
                             InventoryController.Instance.DeductClaimedResource(resource);
+                            _incomingItems.Add(resource);
                         },
                         useResource = () =>
                         {
+                            _incomingItems.Remove(resource);
                             resource.gameObject.SetActive(false);
                             AddResourceToBlueprint(resource.GetItemData());
                             Destroy(resource.gameObject);
@@ -197,17 +206,22 @@ namespace Items
                         },
                     };
 
+                    _assignedTaskRefs.Add(task.GetHashCode());
                     return task;
                 }
                 else
                 {
                     return null;
                 }
-            });
+            }).GetHashCode();
+            _assignedTaskRefs.Add(taskRef);
         }
         
         private void CreateConstructStructureTask()
         {
+            // Clear old refs
+            _assignedTaskRefs.Clear();
+            
             var task = new ConstructionTask.ConstructStructure
             {
                 structurePosition = transform.position,
@@ -215,12 +229,167 @@ namespace Items
                 completeWork = CompleteConstruction
             };
             
+            _assignedTaskRefs.Add(task.GetHashCode());
+            
             taskMaster.ConstructionTaskSystem.AddTask(task);
         }
         
         private void CompleteConstruction()
         {
             ShowBlueprint(false);
+            _isBuilt = true;
+        }
+
+        public bool IsBuilt()
+        {
+            return _isBuilt;
+        }
+
+        public void CancelConstruction()
+        {
+            if (!_isBuilt)
+            {
+                CancelTasks();
+                
+                // Spawn All the resources used
+                SpawnUsedResources(100f);
+            
+                // Update the neighbours
+                var collider = GetComponent<BoxCollider2D>();
+                collider.enabled = false;
+                RefreshNeighbours();
+            
+                // Delete this blueprint
+                Destroy(gameObject);
+            }
+        }
+
+        private void CancelTasks()
+        {
+            if (_assignedTaskRefs == null || _assignedTaskRefs.Count == 0) return;
+
+            foreach (var taskRef in _assignedTaskRefs)
+            {
+                taskMaster.HaulingTaskSystem.CancelTask(taskRef);
+                taskMaster.ConstructionTaskSystem.CancelTask(taskRef);
+            }
+            _assignedTaskRefs.Clear();
+            
+            // Drop all incoming resources
+            foreach (var incomingItem in _incomingItems)
+            {
+                incomingItem.CancelAssignedTask();
+                incomingItem.CreateHaulTask();
+            }
+        }
+
+        private void SpawnUsedResources(float percentReturned)
+        {
+            // Spawn All the resources used
+            var totalCosts = _structureData.GetResourceCosts();
+            var remainingCosts = _resourceCost;
+            List<ResourceCost> difference = new List<ResourceCost>();
+            foreach (var totalCost in totalCosts)
+            {
+                var remaining = remainingCosts.Find(c => c.Item == totalCost.Item);
+                int remainingAmount = 0;
+                if (remaining != null)
+                {
+                    remainingAmount = remaining.Quantity;
+                }
+                
+                int amount = totalCost.Quantity - remainingAmount;
+                if (amount > 0)
+                {
+                    ResourceCost refund = new ResourceCost
+                    {
+                        Item = totalCost.Item,
+                        Quantity = amount
+                    };
+                    difference.Add(refund);
+                }
+            }
+
+            foreach (var refundCost in difference)
+            {
+                for (int i = 0; i < refundCost.Quantity; i++)
+                {
+                    if (Helper.RollDice(percentReturned))
+                    {
+                        Spawner.Instance.SpawnItem(refundCost.Item, this.transform.position, true);
+                    }
+                }
+            }
+        }
+
+        public void CreateDeconstructionTask()
+        {
+            _isDeconstructing = true;
+            SetIcon("Hammer");
+            var task = new ConstructionTask.DeconstructStructure()
+            {
+                claimStructure = (UnitTaskAI unitTaskAI) =>
+                {
+                    _incomingUnit = unitTaskAI;
+                },
+                structurePosition = transform.position,
+                workAmount = _structureData.GetWorkPerResource(),
+                completeWork = CompleteDeconstruction
+            };
+            
+            _assignedTaskRefs.Add(task.GetHashCode());
+            
+            taskMaster.ConstructionTaskSystem.AddTask(task);
+        }
+
+        private void CompleteDeconstruction()
+        {
+            _assignedTaskRefs.Clear();
+
+            _incomingUnit = null;
+            // Spawn some of the used resources
+            SpawnUsedResources(50f);
+            
+            // Update the neighbours
+            var collider = GetComponent<BoxCollider2D>();
+            collider.enabled = false;
+            RefreshNeighbours();
+
+            FindObjectOfType<SelectedItemInfoPanel>().HideItemDetails();
+            
+            // Delete the structure
+            Destroy(gameObject);
+        }
+
+        public void CancelDeconstruction()
+        {
+            _isDeconstructing = false;
+            CancelTasks();
+            SetIcon(null);
+
+            if (_incomingUnit != null)
+            {
+                _incomingUnit.CancelTask();
+            }
+        }
+
+        public bool IsDeconstucting()
+        {
+            return _isDeconstructing;
+        }
+
+        private void SetIcon(string iconName)
+        {
+            if (string.IsNullOrEmpty(iconName))
+            {
+                _icon.sprite = null;
+                _icon.gameObject.SetActive(false);
+            }
+            else
+            {
+                _icon.sprite = Librarian.Instance.GetSprite(iconName);
+                _icon.gameObject.SetActive(true);
+            }
         }
     }
 }

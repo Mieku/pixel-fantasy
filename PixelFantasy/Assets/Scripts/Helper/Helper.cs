@@ -73,4 +73,14 @@ public static class Helper
 
         return listOfInvalidTags.All(invalidTag => !detectedTags.Contains(invalidTag));
     }
+
+    /// <summary>
+    /// The percent is in 100 format,
+    /// True if win
+    /// </summary>
+    public static bool RollDice(float percentWin)
+    {
+        var roll = Random.Range(0f, 100f);
+        return roll <= percentWin;
+    }
 }

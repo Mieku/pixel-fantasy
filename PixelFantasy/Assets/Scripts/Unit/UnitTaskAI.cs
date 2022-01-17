@@ -114,6 +114,12 @@ namespace Unit
                     ExecuteTask_ConstructStructure(task as ConstructionTask.ConstructStructure);
                     return;
                 }
+
+                if (task is ConstructionTask.DeconstructStructure)
+                {
+                    ExecuteTask_DeconstructStructure(task as ConstructionTask.DeconstructStructure);
+                    return;
+                }
                 
                 // Other task types go here
             }
@@ -172,6 +178,19 @@ namespace Unit
 
         private void ExecuteTask_ConstructStructure(ConstructionTask.ConstructStructure task)
         {
+            workerMover.SetMovePosition(task.structurePosition, () =>
+            {
+                DoWork(task.workAmount, () =>
+                {
+                    task.completeWork();
+                    state = State.WaitingForNextTask;
+                });
+            });
+        }
+
+        private void ExecuteTask_DeconstructStructure(ConstructionTask.DeconstructStructure task)
+        {
+            task.claimStructure(this);
             workerMover.SetMovePosition(task.structurePosition, () =>
             {
                 DoWork(task.workAmount, () =>

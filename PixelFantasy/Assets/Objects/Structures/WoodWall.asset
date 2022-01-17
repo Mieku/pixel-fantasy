@@ -25,3 +25,4 @@ MonoBehaviour:
   - Wall
   - Water
   - Zone
+  _options: 01000000

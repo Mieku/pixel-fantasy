@@ -17,5 +17,19 @@ namespace Tasks
             public Action completeWork;
             public float workAmount;
         }
+
+        /// <summary>
+        /// Unit moves to the structure,
+        /// Works on the structure for its work amount
+        /// When done the structure is deleted
+        /// Spawns some of the resources used in its construction
+        /// </summary>
+        public class DeconstructStructure : ConstructionTask
+        {
+            public Action<UnitTaskAI> claimStructure;
+            public Vector3 structurePosition;
+            public Action completeWork;
+            public float workAmount;
+        }
     }
 }

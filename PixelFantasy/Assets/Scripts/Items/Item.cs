@@ -34,7 +34,7 @@ namespace Items
             }
         }
         
-        private void CreateHaulTask()
+        public void CreateHaulTask()
         {
             _assignedTaskRef = taskMaster.HaulingTaskSystem.EnqueueTask(() =>
             {

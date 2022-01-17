@@ -54,6 +54,9 @@ namespace HUD
                     case Option.Allow:
                         CreateAllowOption();
                         break;
+                    case Option.Deconstruct:
+                        CreateDeconstructOption();
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -102,6 +105,72 @@ namespace HUD
                     item.ToggleAllowed(true);
                     optionButton.Icon = Librarian.Instance.GetSprite("Lock");
                 }
+            }
+        }
+
+        private void CreateDeconstructOption()
+        {
+            // If the structure is already build, deconstruct. If not, cancel!
+            var optionObj = Instantiate(_optionButtonPrefab, _optionBtnParent);
+            var optionBtn = optionObj.GetComponent<OptionButton>();
+            
+            var owner = _selectionData.Owner;
+            var structure = owner.GetComponent<Structure>();
+            if (structure != null)
+            {
+                if (structure.IsBuilt())
+                {
+                    if (!structure.IsDeconstucting())
+                    {
+                        optionBtn.Init("Deconstruct", Librarian.Instance.GetSprite("Hammer"), DeconstructPressed);
+                    }
+                    else
+                    {
+                        optionBtn.Init("Cancel", Librarian.Instance.GetSprite("X"), CancelDeconstructPressed);
+                    }
+                }
+                else
+                {
+                    // Cancel
+                    optionBtn.Init("Cancel", Librarian.Instance.GetSprite("X"), CancelConstructionPressed);
+                }
+            }
+            
+            _displayedOptions.Add(optionBtn);
+        }
+
+        private void DeconstructPressed(OptionButton optionButton)
+        {
+            var owner = _selectionData.Owner;
+            var structure = owner.GetComponent<Structure>();
+            if (structure != null)
+            {
+                structure.CreateDeconstructionTask();
+                ClearOptions();
+                CreateOptions();
+            }
+        }
+
+        private void CancelDeconstructPressed(OptionButton optionButton)
+        {
+            var owner = _selectionData.Owner;
+            var structure = owner.GetComponent<Structure>();
+            if (structure != null)
+            {
+                structure.CancelDeconstruction();
+                ClearOptions();
+                CreateOptions();
+            }
+        }
+
+        private void CancelConstructionPressed(OptionButton optionButton)
+        {
+            var owner = _selectionData.Owner;
+            var structure = owner.GetComponent<Structure>();
+            if (structure != null)
+            {
+                structure.CancelConstruction();
+                HideItemDetails();
             }
         }
     }
