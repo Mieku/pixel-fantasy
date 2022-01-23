@@ -13,6 +13,9 @@ namespace Gods
     {
         [SerializeField] private Transform _itemsParent;
         [SerializeField] private GameObject _itemPrefab;
+        
+        [SerializeField] private Transform _resourceParent;
+        [SerializeField] private GameObject _treePrefab;
     
         [SerializeField] private Transform _structureParent;
         [SerializeField] private GameObject _structurePrefab;
@@ -134,6 +137,12 @@ namespace Gods
                 var structure = structureObj.GetComponent<Structure>();
                 structure.Init(structureData);
             }
+        }
+
+        public void SpawnTree(Vector2 spawnPosition)
+        {
+            var tree = Instantiate(_treePrefab, spawnPosition, Quaternion.identity);
+            tree.transform.SetParent(_resourceParent);
         }
     }
 }

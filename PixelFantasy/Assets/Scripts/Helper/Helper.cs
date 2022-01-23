@@ -70,6 +70,10 @@ public static class Helper
         {
             detectedTags.Add(hitVert.transform.tag);
         }
+        
+        // Ensure On Ground
+        if (!detectedTags.Contains("Ground"))
+            return false;
 
         return listOfInvalidTags.All(invalidTag => !detectedTags.Contains(invalidTag));
     }

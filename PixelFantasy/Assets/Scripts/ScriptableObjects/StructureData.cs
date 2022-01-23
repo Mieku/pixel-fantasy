@@ -13,16 +13,16 @@ namespace ScriptableObjects
         public float WorkCost;
         public Sprite Icon;
         
-        [SerializeField] private List<ResourceCost> _resourceCosts;
+        [SerializeField] private List<ItemAmount> _resourceCosts;
         [SerializeField] private List<string> _invalidPlacementTags;
         [SerializeField] private List<Option> _options;
 
-        public List<ResourceCost> GetResourceCosts()
+        public List<ItemAmount> GetResourceCosts()
         {
-            List<ResourceCost> clone = new List<ResourceCost>();
+            List<ItemAmount> clone = new List<ItemAmount>();
             foreach (var resourceCost in _resourceCosts)
             {
-                ResourceCost cost = new ResourceCost
+                ItemAmount cost = new ItemAmount
                 {
                     Item = resourceCost.Item,
                     Quantity = resourceCost.Quantity
@@ -84,7 +84,7 @@ namespace ScriptableObjects
     }
 
     [Serializable]
-    public class ResourceCost
+    public class ItemAmount
     {
         public ItemData Item;
         public int Quantity;

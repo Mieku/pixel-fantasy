@@ -11,6 +11,8 @@ TagManager:
   - Zone
   - Wall
   - Structure
+  - Nature
+  - Ground
   layers:
   - Default
   - TransparentFX

@@ -20,7 +20,7 @@ namespace Items
 
         private StructureData _structureData;
         private readonly List<Structure> _neighbours = new List<Structure>();
-        private List<ResourceCost> _resourceCost;
+        private List<ItemAmount> _resourceCost;
         private bool _isBuilt;
         private List<int> _assignedTaskRefs = new List<int>();
         private List<Item> _incomingItems = new List<Item>();
@@ -32,7 +32,7 @@ namespace Items
         public void Init(StructureData structureData)
         {
             _structureData = structureData;
-            _resourceCost = new List<ResourceCost> (_structureData.GetResourceCosts());
+            _resourceCost = new List<ItemAmount> (_structureData.GetResourceCosts());
             UpdateSprite(true);
             _progressBar.ShowBar(false);
             ShowBlueprint(true);
@@ -288,7 +288,7 @@ namespace Items
             // Spawn All the resources used
             var totalCosts = _structureData.GetResourceCosts();
             var remainingCosts = _resourceCost;
-            List<ResourceCost> difference = new List<ResourceCost>();
+            List<ItemAmount> difference = new List<ItemAmount>();
             foreach (var totalCost in totalCosts)
             {
                 var remaining = remainingCosts.Find(c => c.Item == totalCost.Item);
@@ -301,7 +301,7 @@ namespace Items
                 int amount = totalCost.Quantity - remainingAmount;
                 if (amount > 0)
                 {
-                    ResourceCost refund = new ResourceCost
+                    ItemAmount refund = new ItemAmount
                     {
                         Item = totalCost.Item,
                         Quantity = amount

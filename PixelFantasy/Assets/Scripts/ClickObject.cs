@@ -20,7 +20,7 @@ public class ClickObject : MonoBehaviour
     {
         switch (_objectType)
         {
-            case ObjectType.Resource:
+            case ObjectType.Item:
                 _itemData = GetComponent<Item>().GetItemData();
                 break;
             case ObjectType.Structure:
@@ -29,6 +29,10 @@ public class ClickObject : MonoBehaviour
             case ObjectType.Unit:
                 // TODO: Build me!
                 Debug.LogError("Unit select not built yet!");
+                break;
+            case ObjectType.Resource:
+                // TODO: Build me!
+                Debug.LogError("Resource select not built yet!");
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -64,7 +68,7 @@ public class ClickObject : MonoBehaviour
     {
         switch (_objectType)
         {
-            case ObjectType.Resource:
+            case ObjectType.Item:
                 return GetSelectionData(_itemData);
             case ObjectType.Structure:
                 return GetSelectionData(_structureData);
@@ -110,7 +114,8 @@ public class SelectionData
 
 public enum ObjectType
 {
-    Resource,
+    Item,
     Structure,
-    Unit
+    Unit,
+    Resource
 }
