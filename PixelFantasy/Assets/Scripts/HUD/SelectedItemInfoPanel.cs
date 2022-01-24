@@ -45,6 +45,12 @@ namespace HUD
             _displayedOptions.Clear();
         }
 
+        private void RefreshOptions()
+        {
+            ClearOptions();
+            CreateOptions();
+        }
+
         private void CreateOptions()
         {
             foreach (var option in _selectionData.Options)
@@ -56,6 +62,9 @@ namespace HUD
                         break;
                     case Option.Deconstruct:
                         CreateDeconstructOption();
+                        break;
+                    case Option.CutTree:
+                        CreateCutTreeOption();
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -171,6 +180,52 @@ namespace HUD
             {
                 structure.CancelConstruction();
                 HideItemDetails();
+            }
+        }
+
+        private void CreateCutTreeOption()
+        {
+            Sprite icon = Librarian.Instance.GetSprite("Axe");
+            
+            var optionObj = Instantiate(_optionButtonPrefab, _optionBtnParent);
+            var optionBtn = optionObj.GetComponent<OptionButton>();
+            var owner = _selectionData.Owner;
+            var tree = owner.GetComponent<TreeResource>();
+
+            if (tree != null)
+            {
+                if (tree.QueuedToCut)
+                {
+                    optionBtn.Init("Cut Tree", "X", CancelCutTreeOptionPressed);
+                }
+                else
+                {
+                    optionBtn.Init("Cut Tree", icon, CutTreeOptionPressed);
+                }
+            }
+
+            _displayedOptions.Add(optionBtn);
+        }
+
+        private void CutTreeOptionPressed(OptionButton optionButton)
+        {
+            var owner = _selectionData.Owner;
+            var tree = owner.GetComponent<TreeResource>();
+            if (tree != null)
+            {
+                tree.CreateCutTreeTask();
+                RefreshOptions();
+            }
+        }
+        
+        private void CancelCutTreeOptionPressed(OptionButton optionButton)
+        {
+            var owner = _selectionData.Owner;
+            var tree = owner.GetComponent<TreeResource>();
+            if (tree != null)
+            {
+                tree.CancelCutTreeTask();
+                RefreshOptions();
             }
         }
     }

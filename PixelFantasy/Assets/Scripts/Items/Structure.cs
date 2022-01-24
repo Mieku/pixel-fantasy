@@ -355,8 +355,12 @@ namespace Items
             collider.enabled = false;
             RefreshNeighbours();
 
-            FindObjectOfType<SelectedItemInfoPanel>().HideItemDetails();
-            
+            var infoPanel = FindObjectOfType<SelectedItemInfoPanel>();
+            if (infoPanel != null)
+            {
+                infoPanel.HideItemDetails();
+            }
+
             // Delete the structure
             Destroy(gameObject);
         }

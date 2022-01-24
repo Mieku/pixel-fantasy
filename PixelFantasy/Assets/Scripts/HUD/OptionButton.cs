@@ -1,4 +1,5 @@
 using System;
+using Gods;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,14 @@ namespace HUD
 
         public void Init(string optionName, Sprite icon, Action<OptionButton> onPressed)
         {
+            _btnLabel.text = optionName;
+            _image.sprite = icon;
+            _onPressed = onPressed;
+        }
+        
+        public void Init(string optionName, string iconName, Action<OptionButton> onPressed)
+        {
+            var icon = Librarian.Instance.GetSprite(iconName);
             _btnLabel.text = optionName;
             _image.sprite = icon;
             _onPressed = onPressed;

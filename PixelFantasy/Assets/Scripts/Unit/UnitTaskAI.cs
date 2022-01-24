@@ -120,6 +120,12 @@ namespace Unit
                     ExecuteTask_DeconstructStructure(task as ConstructionTask.DeconstructStructure);
                     return;
                 }
+
+                if (task is FellingTask.CutTree)
+                {
+                    ExecuteTask_CutTree(task as FellingTask.CutTree);
+                    return;
+                }
                 
                 // Other task types go here
             }
@@ -192,6 +198,19 @@ namespace Unit
         {
             task.claimStructure(this);
             workerMover.SetMovePosition(task.structurePosition, () =>
+            {
+                DoWork(task.workAmount, () =>
+                {
+                    task.completeWork();
+                    state = State.WaitingForNextTask;
+                });
+            });
+        }
+
+        private void ExecuteTask_CutTree(FellingTask.CutTree task)
+        {
+            task.claimTree(this);
+            workerMover.SetMovePosition(task.treePosition, () =>
             {
                 DoWork(task.workAmount, () =>
                 {

@@ -99,6 +99,11 @@ namespace ScriptableObjects
             
             return stages[growthIndex];
         }
+
+        public int GetWorkToCut(int growthIndex)
+        {
+            return GetGrowthStage(growthIndex).WorkToCut;
+        }
     }
 
     [Serializable]
@@ -108,5 +113,6 @@ namespace ScriptableObjects
         public Sprite GrowthSprite;
         public float SecsInStage;
         public HarvestableItems HarvestableItems;
+        public int WorkToCut;
     }
 }

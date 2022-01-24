@@ -12,12 +12,18 @@ public class ClickObject : MonoBehaviour
 {
     [SerializeField] private ObjectType _objectType;
     [SerializeField] private GameObject _selectedIcon;
+    [SerializeField] private SpriteRenderer _objectRenderer;
 
     private ItemData _itemData;
     private StructureData _structureData;
+    private ResourceData _resourceData;
 
     private void Initialize()
     {
+        // Prevents wierd selection bug
+        gameObject.SetActive(false);
+        gameObject.SetActive(true);
+        
         switch (_objectType)
         {
             case ObjectType.Item:
@@ -31,8 +37,7 @@ public class ClickObject : MonoBehaviour
                 Debug.LogError("Unit select not built yet!");
                 break;
             case ObjectType.Resource:
-                // TODO: Build me!
-                Debug.LogError("Resource select not built yet!");
+                _resourceData = GetComponent<Resource>().GetResourceData();
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -48,6 +53,12 @@ public class ClickObject : MonoBehaviour
     public void SelectObject()
     {
         _selectedIcon.SetActive(true);
+
+        if (_objectRenderer != null)
+        {
+            _selectedIcon.GetComponent<SpriteRenderer>().size = _objectRenderer.bounds.size;
+            _selectedIcon.transform.position = _objectRenderer.bounds.center;
+        }
     }
 
     public void UnselectObject()
@@ -55,7 +66,7 @@ public class ClickObject : MonoBehaviour
         _selectedIcon.SetActive(false);
     }
     
-    private void OnMouseUp()
+    private void OnMouseUpAsButton()
     {
         if (PlayerInputController.Instance.GetCurrentState() == PlayerInputState.None)
         {
@@ -75,6 +86,8 @@ public class ClickObject : MonoBehaviour
             case ObjectType.Unit:
                 // TODO: Build me!
                 return null;
+            case ObjectType.Resource:
+                return GetSelectionData(_resourceData);
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -98,6 +111,18 @@ public class ClickObject : MonoBehaviour
         {
             ItemName = structureData.StructureName,
             Options = structureData.Options,
+            Owner = gameObject,
+        };
+
+        return result;
+    }
+    
+    private SelectionData GetSelectionData(ResourceData resourceData)
+    {
+        SelectionData result = new SelectionData
+        {
+            ItemName = resourceData.ResourceName,
+            Options = resourceData.Options,
             Owner = gameObject,
         };
 

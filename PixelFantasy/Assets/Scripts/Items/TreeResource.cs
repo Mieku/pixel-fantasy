@@ -1,15 +1,18 @@
 using System;
+using System.Collections.Generic;
 using Gods;
 using ScriptableObjects;
+using Tasks;
+using Unit;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Items
 {
-    public class TreeResource : MonoBehaviour
+    public class TreeResource : Resource
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private SpriteRenderer _icon;
-        [SerializeField] private ResourceData _resourceData;
         [SerializeField] private bool _overrideFullGrowth;
         
         private TaskMaster taskMaster => TaskMaster.Instance;
@@ -18,8 +21,11 @@ namespace Items
         private float _ageForNextGrowth;
         private bool _fullyGrown;
         private float _reproductionTimer;
+        private bool _queuedToCut;
+        private UnitTaskAI _incomingUnit;
+        private List<int> _assignedTaskRefs = new List<int>();
 
-        private void Awake()
+        private void Start()
         {
             if (_overrideFullGrowth)
             {
@@ -91,6 +97,90 @@ namespace Items
             {
                 Spawner.Instance.SpawnTree(pos);
             }
+        }
+
+        public bool QueuedToCut => _queuedToCut;
+
+        public void CreateCutTreeTask()
+        {
+            _queuedToCut = true;
+            SetIcon("Axe");
+            
+            // Choose a random side of the tree
+            var sideMod = 1;
+            var rand = Random.Range(0, 2);
+            if (rand == 1)
+            {
+                sideMod *= -1;
+            }
+
+            var cutPos = transform.position;
+            cutPos.x += sideMod;
+
+            var task = new FellingTask.CutTree()
+            {
+                claimTree = (UnitTaskAI unitTaskAI) =>
+                {
+                    _incomingUnit = unitTaskAI;
+                },
+                treePosition = cutPos,
+                workAmount = _resourceData.GetWorkToCut(_growthIndex),
+                completeWork = HarvestTree
+            };
+            
+            _assignedTaskRefs.Add(task.GetHashCode());
+            taskMaster.FellingTaskSystem.AddTask(task);
+        }
+
+        public void CancelCutTreeTask()
+        {
+            _queuedToCut = false;
+            SetIcon(null);
+            CancelTasks();
+        }
+        
+        private void CancelTasks()
+        {
+            if (_assignedTaskRefs == null || _assignedTaskRefs.Count == 0) return;
+
+            foreach (var taskRef in _assignedTaskRefs)
+            {
+                taskMaster.FellingTaskSystem.CancelTask(taskRef);
+            }
+            _assignedTaskRefs.Clear();
+            
+            if (_incomingUnit != null)
+            {
+                _incomingUnit.CancelTask();
+            }
+        }
+        
+        private void SetIcon(string iconName)
+        {
+            if (string.IsNullOrEmpty(iconName))
+            {
+                _icon.sprite = null;
+                _icon.gameObject.SetActive(false);
+            }
+            else
+            {
+                _icon.sprite = Librarian.Instance.GetSprite(iconName);
+                _icon.gameObject.SetActive(true);
+            }
+        }
+
+        private void HarvestTree()
+        {
+            var resources = _resourceData.GetGrowthStage(_growthIndex).HarvestableItems.GetItemDrop();
+            foreach (var resource in resources)
+            {
+                for (int i = 0; i < resource.Quantity; i++)
+                {
+                    Spawner.Instance.SpawnItem(resource.Item, transform.position, true);
+                }
+            }
+            
+            Destroy(gameObject);
         }
     }
 }

@@ -23,6 +23,7 @@ MonoBehaviour:
     SecsInStage: 30
     HarvestableItems:
       _harvestableItems: []
+    WorkToCut: 3
   - StageName: Young Tree
     GrowthSprite: {fileID: -3508794999336203909, guid: b708a311217a5254c8bb24f27a1d01ae, type: 3}
     SecsInStage: 60
@@ -31,6 +32,7 @@ MonoBehaviour:
       - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
         MinDrop: 1
         MaxDrop: 3
+    WorkToCut: 8
   - StageName: Adult Tree
     GrowthSprite: {fileID: -7573730136805405573, guid: aabb8e1691da82c498524bd23f772a2f, type: 3}
     SecsInStage: 0
@@ -39,7 +41,8 @@ MonoBehaviour:
       - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
         MinDrop: 4
         MaxDrop: 8
-  _options: 
+    WorkToCut: 12
+  _options: 02000000
   _invalidPlacementTags:
   - Water
   - Nature
