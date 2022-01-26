@@ -126,6 +126,12 @@ namespace Unit
                     ExecuteTask_CutTree(task as FellingTask.CutTree);
                     return;
                 }
+
+                if (task is FarmingTask.CutPlant)
+                {
+                    ExecuteTask_CutPlant(task as FarmingTask.CutPlant);
+                    return;
+                }
                 
                 // Other task types go here
             }
@@ -211,6 +217,19 @@ namespace Unit
         {
             task.claimTree(this);
             workerMover.SetMovePosition(task.treePosition, () =>
+            {
+                DoWork(task.workAmount, () =>
+                {
+                    task.completeWork();
+                    state = State.WaitingForNextTask;
+                });
+            });
+        }
+        
+        private void ExecuteTask_CutPlant(FarmingTask.CutPlant task)
+        {
+            task.claimPlant(this);
+            workerMover.SetMovePosition(task.plantPosition, () =>
             {
                 DoWork(task.workAmount, () =>
                 {

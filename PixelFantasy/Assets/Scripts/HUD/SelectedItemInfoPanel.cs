@@ -66,6 +66,9 @@ namespace HUD
                     case Option.CutTree:
                         CreateCutTreeOption();
                         break;
+                    case Option.CutPlant:
+                        CreateCutPlantOption();
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -194,7 +197,7 @@ namespace HUD
 
             if (tree != null)
             {
-                if (tree.QueuedToCut)
+                if (tree.QueuedToHarvest)
                 {
                     optionBtn.Init("Cut Tree", "X", CancelCutTreeOptionPressed);
                 }
@@ -225,6 +228,52 @@ namespace HUD
             if (tree != null)
             {
                 tree.CancelCutTreeTask();
+                RefreshOptions();
+            }
+        }
+
+        private void CreateCutPlantOption()
+        {
+            Sprite icon = Librarian.Instance.GetSprite("Scythe");
+            
+            var optionObj = Instantiate(_optionButtonPrefab, _optionBtnParent);
+            var optionBtn = optionObj.GetComponent<OptionButton>();
+            var owner = _selectionData.Owner;
+            var plant = owner.GetComponent<GrowingResource>();
+
+            if (plant != null)
+            {
+                if (plant.QueuedToHarvest)
+                {
+                    optionBtn.Init("Cut Plant", "X", CancelCutPlantOptionPressed);
+                }
+                else
+                {
+                    optionBtn.Init("Cut Plant", icon, CutPlantOptionPressed);
+                }
+            }
+
+            _displayedOptions.Add(optionBtn);
+        }
+        
+        private void CutPlantOptionPressed(OptionButton optionButton)
+        {
+            var owner = _selectionData.Owner;
+            var plant = owner.GetComponent<GrowingResource>();
+            if (plant != null)
+            {
+                plant.CreateCutPlantTask();
+                RefreshOptions();
+            }
+        }
+        
+        private void CancelCutPlantOptionPressed(OptionButton optionButton)
+        {
+            var owner = _selectionData.Owner;
+            var plant = owner.GetComponent<GrowingResource>();
+            if (plant != null)
+            {
+                plant.CancelCutPlantTask();
                 RefreshOptions();
             }
         }

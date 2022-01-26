@@ -16,7 +16,7 @@ public class ClickObject : MonoBehaviour
 
     private ItemData _itemData;
     private StructureData _structureData;
-    private ResourceData _resourceData;
+    private GrowingResourceData _growingResourceData;
 
     private void Initialize()
     {
@@ -37,7 +37,7 @@ public class ClickObject : MonoBehaviour
                 Debug.LogError("Unit select not built yet!");
                 break;
             case ObjectType.Resource:
-                _resourceData = GetComponent<Resource>().GetResourceData();
+                _growingResourceData = GetComponent<Resource>().GetResourceData();
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -87,7 +87,7 @@ public class ClickObject : MonoBehaviour
                 // TODO: Build me!
                 return null;
             case ObjectType.Resource:
-                return GetSelectionData(_resourceData);
+                return GetSelectionData(_growingResourceData);
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -117,12 +117,12 @@ public class ClickObject : MonoBehaviour
         return result;
     }
     
-    private SelectionData GetSelectionData(ResourceData resourceData)
+    private SelectionData GetSelectionData(GrowingResourceData growingResourceData)
     {
         SelectionData result = new SelectionData
         {
-            ItemName = resourceData.ResourceName,
-            Options = resourceData.Options,
+            ItemName = growingResourceData.ResourceName,
+            Options = growingResourceData.Options,
             Owner = gameObject,
         };
 

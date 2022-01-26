@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdf2c47b14719e44d9344aa73169d375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _resourceData: {fileID: 11400000, guid: 8a7a98e8d89b4584ba79e6b3cc9912ce, type: 2}
+  _growingResourceData: {fileID: 11400000, guid: 8a7a98e8d89b4584ba79e6b3cc9912ce, type: 2}
   _spriteRenderer: {fileID: 7155256550381879070}
   _icon: {fileID: 7155256550430962553}
   _overrideFullGrowth: 0

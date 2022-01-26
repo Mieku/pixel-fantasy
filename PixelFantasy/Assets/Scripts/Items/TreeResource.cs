@@ -9,101 +9,21 @@ using Random = UnityEngine.Random;
 
 namespace Items
 {
-    public class TreeResource : Resource
+    public class TreeResource : GrowingResource
     {
-        [SerializeField] private SpriteRenderer _spriteRenderer;
-        [SerializeField] private SpriteRenderer _icon;
-        [SerializeField] private bool _overrideFullGrowth;
-        
-        private TaskMaster taskMaster => TaskMaster.Instance;
-        private int _growthIndex;
-        private float _ageSec;
-        private float _ageForNextGrowth;
-        private bool _fullyGrown;
-        private float _reproductionTimer;
-        private bool _queuedToCut;
-        private UnitTaskAI _incomingUnit;
-        private List<int> _assignedTaskRefs = new List<int>();
-
-        private void Start()
+        protected override void AttemptReproduction()
         {
-            if (_overrideFullGrowth)
-            {
-                _fullyGrown = true;
-                _growthIndex = _resourceData.GrowthStages.Count - 1;
-            }
-            
-            var stage = _resourceData.GetGrowthStage(_growthIndex);
-            _ageForNextGrowth += stage.SecsInStage;
-            _reproductionTimer = _resourceData.ReproductiveRateSec;
-
-            UpdateSprite();
-        }
-
-        private void Update()
-        {
-            GrowthCheck();
-            ReproductionCheck();
-        }
-
-        private void GrowthCheck()
-        {
-            if (!_fullyGrown)
-            {
-                _ageSec += Time.deltaTime;
-                if (_ageSec >= _ageForNextGrowth)
-                {
-                    _growthIndex++;
-
-                    if (_growthIndex < _resourceData.GrowthStages.Count)
-                    {
-                        var stage = _resourceData.GetGrowthStage(_growthIndex);
-                        _ageForNextGrowth += stage.SecsInStage;
-                    }
-                    else
-                    {
-                        _fullyGrown = true;
-                    }
-                    
-                    UpdateSprite();
-                }
-            }
-        }
-
-        private void ReproductionCheck()
-        {
-            if (_fullyGrown && _resourceData.Reproduces)
-            {
-                _reproductionTimer -= Time.deltaTime;
-                if (_reproductionTimer < 0)
-                {
-                    _reproductionTimer = _resourceData.ReproductiveRateSec;
-                    AttemptReproduction();
-                }
-            }
-        }
-
-        private void UpdateSprite()
-        {
-            var stage = _resourceData.GetGrowthStage(_growthIndex);
-            _spriteRenderer.sprite = stage.GrowthSprite;
-        }
-
-        private void AttemptReproduction()
-        {
-            var pos = _resourceData.GetReproductionPos(transform.position);
-            var valid = _resourceData.IsReproductionPosValid(pos);
+            var pos = _growingResourceData.GetReproductionPos(transform.position);
+            var valid = _growingResourceData.IsReproductionPosValid(pos);
             if (valid)
             {
-                Spawner.Instance.SpawnTree(pos);
+                spawner.SpawnTree(pos);
             }
         }
-
-        public bool QueuedToCut => _queuedToCut;
 
         public void CreateCutTreeTask()
         {
-            _queuedToCut = true;
+            _queuedToHarvest = true;
             SetIcon("Axe");
             
             // Choose a random side of the tree
@@ -124,7 +44,7 @@ namespace Items
                     _incomingUnit = unitTaskAI;
                 },
                 treePosition = cutPos,
-                workAmount = _resourceData.GetWorkToCut(_growthIndex),
+                workAmount = _growingResourceData.GetWorkToCut(_growthIndex),
                 completeWork = HarvestTree
             };
             
@@ -134,49 +54,19 @@ namespace Items
 
         public void CancelCutTreeTask()
         {
-            _queuedToCut = false;
+            _queuedToHarvest = false;
             SetIcon(null);
             CancelTasks();
         }
         
-        private void CancelTasks()
-        {
-            if (_assignedTaskRefs == null || _assignedTaskRefs.Count == 0) return;
-
-            foreach (var taskRef in _assignedTaskRefs)
-            {
-                taskMaster.FellingTaskSystem.CancelTask(taskRef);
-            }
-            _assignedTaskRefs.Clear();
-            
-            if (_incomingUnit != null)
-            {
-                _incomingUnit.CancelTask();
-            }
-        }
-        
-        private void SetIcon(string iconName)
-        {
-            if (string.IsNullOrEmpty(iconName))
-            {
-                _icon.sprite = null;
-                _icon.gameObject.SetActive(false);
-            }
-            else
-            {
-                _icon.sprite = Librarian.Instance.GetSprite(iconName);
-                _icon.gameObject.SetActive(true);
-            }
-        }
-
         private void HarvestTree()
         {
-            var resources = _resourceData.GetGrowthStage(_growthIndex).HarvestableItems.GetItemDrop();
+            var resources = _growingResourceData.GetGrowthStage(_growthIndex).HarvestableItems.GetItemDrop();
             foreach (var resource in resources)
             {
                 for (int i = 0; i < resource.Quantity; i++)
                 {
-                    Spawner.Instance.SpawnItem(resource.Item, transform.position, true);
+                    spawner.SpawnItem(resource.Item, transform.position, true);
                 }
             }
             

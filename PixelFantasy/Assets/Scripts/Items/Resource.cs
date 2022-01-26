@@ -1,15 +1,60 @@
+using System.Collections.Generic;
+using Gods;
 using ScriptableObjects;
+using Unit;
 using UnityEngine;
 
 namespace Items
 {
     public class Resource : MonoBehaviour
     {
-        [SerializeField] protected ResourceData _resourceData;
+        [SerializeField] protected GrowingResourceData _growingResourceData;
+        [SerializeField] protected SpriteRenderer _spriteRenderer;
+        [SerializeField] protected SpriteRenderer _icon;
+        
+        protected TaskMaster taskMaster => TaskMaster.Instance;
+        protected Spawner spawner => Spawner.Instance;
+        protected List<int> _assignedTaskRefs = new List<int>();
+        protected bool _queuedToHarvest;
+        protected UnitTaskAI _incomingUnit;
 
-        public ResourceData GetResourceData()
+        public GrowingResourceData GetResourceData()
         {
-            return _resourceData;
+            return _growingResourceData;
+        }
+        
+        public bool QueuedToHarvest => _queuedToHarvest;
+        
+        
+        protected void CancelTasks()
+        {
+            if (_assignedTaskRefs == null || _assignedTaskRefs.Count == 0) return;
+
+            foreach (var taskRef in _assignedTaskRefs)
+            {
+                taskMaster.FellingTaskSystem.CancelTask(taskRef);
+                taskMaster.FarmingTaskSystem.CancelTask(taskRef);
+            }
+            _assignedTaskRefs.Clear();
+            
+            if (_incomingUnit != null)
+            {
+                _incomingUnit.CancelTask();
+            }
+        }
+        
+        protected void SetIcon(string iconName)
+        {
+            if (string.IsNullOrEmpty(iconName))
+            {
+                _icon.sprite = null;
+                _icon.gameObject.SetActive(false);
+            }
+            else
+            {
+                _icon.sprite = Librarian.Instance.GetSprite(iconName);
+                _icon.gameObject.SetActive(true);
+            }
         }
     }
 }

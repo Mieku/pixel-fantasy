@@ -10,46 +10,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6d4d2537ef711448aa84a0e2c30e5c2, type: 3}
-  m_Name: Tree
+  m_Name: Weed
   m_EditorClassIdentifier: 
-  ResourceName: Tree
+  ResourceName: Weed
   _reproduces: 1
-  _reproductiveRateSec: 60
-  _childRangeMin: 2
-  _childRangeMax: 5
-  _keepSpace: 1
+  _reproductiveRateSec: 30
+  _childRangeMin: 1
+  _childRangeMax: 6
+  _keepSpace: 0
   _growthStages:
-  - StageName: Sapling
-    GrowthSprite: {fileID: 7033359609419058202, guid: b708a311217a5254c8bb24f27a1d01ae, type: 3}
-    Scale: 1
-    SecsInStage: 30
+  - StageName: Young Weed
+    GrowthSprite: {fileID: -3607200102559689332, guid: 7d1c51339019cce45bfe46e7d51a000f, type: 3}
+    Scale: 0.5
+    SecsInStage: 60
     HarvestableItems:
       _harvestableItems:
       - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
         MinDrop: 0
         MaxDrop: 1
-    WorkToCut: 3
-  - StageName: Young Tree
-    GrowthSprite: {fileID: -3508794999336203909, guid: b708a311217a5254c8bb24f27a1d01ae, type: 3}
-    Scale: 1
-    SecsInStage: 60
-    HarvestableItems:
-      _harvestableItems:
-      - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
-        MinDrop: 1
-        MaxDrop: 3
-    WorkToCut: 8
-  - StageName: Adult Tree
-    GrowthSprite: {fileID: -7573730136805405573, guid: aabb8e1691da82c498524bd23f772a2f, type: 3}
+    WorkToCut: 5
+  - StageName: Adult Weed
+    GrowthSprite: {fileID: -3607200102559689332, guid: 7d1c51339019cce45bfe46e7d51a000f, type: 3}
     Scale: 1
     SecsInStage: 0
     HarvestableItems:
       _harvestableItems:
       - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
-        MinDrop: 4
-        MaxDrop: 8
-    WorkToCut: 12
-  _options: 02000000
+        MinDrop: 1
+        MaxDrop: 2
+    WorkToCut: 8
+  _options: 03000000
   _invalidPlacementTags:
   - Water
   - Nature
