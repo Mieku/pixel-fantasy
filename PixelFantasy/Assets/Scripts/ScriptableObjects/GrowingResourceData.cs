@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Items;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -18,6 +19,13 @@ namespace ScriptableObjects
         [SerializeField] private List<GrowthStage> _growthStages;
         [SerializeField] private List<Option> _options;
         [SerializeField] private List<string> _invalidPlacementTags;
+        
+        // Optional Fruit
+        [BoxGroup("Fruit")] [SerializeField] private bool _hasFruit;
+        [BoxGroup("Fruit")][ShowIf("_hasFruit")] [SerializeField] private float _growFruitTime;
+        [BoxGroup("Fruit")][ShowIf("_hasFruit")] [SerializeField] private Sprite _fruitOverlay;
+        [BoxGroup("Fruit")][ShowIf("_hasFruit")] [SerializeField] private HarvestableItems _harvestableFruit;
+        [BoxGroup("Fruit")][ShowIf("_hasFruit")] [SerializeField] private int _workToHarvest;
 
         public Vector2 GetReproductionPos(Vector2 parentPos)
         {
@@ -111,6 +119,21 @@ namespace ScriptableObjects
         public int GetWorkToCut(int growthIndex)
         {
             return GetGrowthStage(growthIndex).WorkToCut;
+        }
+
+        public bool HasFruit => _hasFruit;
+        public float TimeToGrowFruit => _growFruitTime;
+        public Sprite FruitOverlay => _fruitOverlay;
+        public int WorkToHarvest => _workToHarvest;
+
+        public List<ItemAmount> GetFruitLoot()
+        {
+            if (_harvestableFruit != null)
+            {
+                return _harvestableFruit.GetItemDrop();
+            }
+
+            return new List<ItemAmount>();
         }
     }
 

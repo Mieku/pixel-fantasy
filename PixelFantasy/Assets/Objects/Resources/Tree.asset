@@ -55,3 +55,12 @@ MonoBehaviour:
   - Nature
   - Structure
   - Zone
+  _hasFruit: 0
+  _growFruitTime: 0
+  _fruitOverlay: {fileID: 0}
+  _harvestableFruit:
+    _harvestableItems:
+    - Item: {fileID: 0}
+      MinDrop: 0
+      MaxDrop: 0
+  _workToHarvest: 0

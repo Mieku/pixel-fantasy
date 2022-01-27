@@ -13,5 +13,13 @@ namespace Tasks
             public Action completeWork;
             public float workAmount;
         }
+
+        public class HarvestFruit : FarmingTask
+        {
+            public Action<UnitTaskAI> claimPlant;
+            public Vector3 plantPosition;
+            public Action completeWork;
+            public float workAmount;
+        }
     }
 }

@@ -5,6 +5,7 @@ using ScriptableObjects;
 using Tasks;
 using Unit;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using Random = UnityEngine.Random;
 
 namespace Items
@@ -17,13 +18,14 @@ namespace Items
             var valid = _growingResourceData.IsReproductionPosValid(pos);
             if (valid)
             {
-                spawner.SpawnTree(pos);
+                spawner.SpawnTree(pos, GetResourceData());
             }
         }
 
         public void CreateCutTreeTask()
         {
-            _queuedToHarvest = true;
+            CancelTasks();
+            _queuedToCut = true;
             SetIcon("Axe");
             
             // Choose a random side of the tree
@@ -54,7 +56,7 @@ namespace Items
 
         public void CancelCutTreeTask()
         {
-            _queuedToHarvest = false;
+            _queuedToCut = false;
             SetIcon(null);
             CancelTasks();
         }

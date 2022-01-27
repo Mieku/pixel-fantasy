@@ -69,6 +69,9 @@ namespace HUD
                     case Option.CutPlant:
                         CreateCutPlantOption();
                         break;
+                    case Option.HarvestFruit:
+                        CreateHarvestFruitOption();
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -197,7 +200,7 @@ namespace HUD
 
             if (tree != null)
             {
-                if (tree.QueuedToHarvest)
+                if (tree.QueuedToCut)
                 {
                     optionBtn.Init("Cut Tree", "X", CancelCutTreeOptionPressed);
                 }
@@ -243,7 +246,7 @@ namespace HUD
 
             if (plant != null)
             {
-                if (plant.QueuedToHarvest)
+                if (plant.QueuedToCut)
                 {
                     optionBtn.Init("Cut Plant", "X", CancelCutPlantOptionPressed);
                 }
@@ -274,6 +277,53 @@ namespace HUD
             if (plant != null)
             {
                 plant.CancelCutPlantTask();
+                RefreshOptions();
+            }
+        }
+
+        private void CreateHarvestFruitOption()
+        {
+            var owner = _selectionData.Owner;
+            var plant = owner.GetComponent<GrowingResource>();
+            if (!plant.HasFruitAvailable) return; // No fruit, no option!
+            
+            var optionObj = Instantiate(_optionButtonPrefab, _optionBtnParent);
+            var optionBtn = optionObj.GetComponent<OptionButton>();
+            Sprite icon = Librarian.Instance.GetSprite("Scythe");
+            
+            if (plant != null)
+            {
+                if (plant.QueuedToHarvest)
+                {
+                    optionBtn.Init("Harvest Fruit", "X", CancelHarvestFruitOptionPressed);
+                }
+                else
+                {
+                    optionBtn.Init("Harvest Fruit", icon, HarvestFruitOptionPressed);
+                }
+            }
+
+            _displayedOptions.Add(optionBtn);
+        }
+
+        private void HarvestFruitOptionPressed(OptionButton optionButton)
+        {
+            var owner = _selectionData.Owner;
+            var plant = owner.GetComponent<GrowingResource>();
+            if (plant != null)
+            {
+                plant.CreateHarvestFruitTask();
+                RefreshOptions();
+            }
+        }
+        
+        private void CancelHarvestFruitOptionPressed(OptionButton optionButton)
+        {
+            var owner = _selectionData.Owner;
+            var plant = owner.GetComponent<GrowingResource>();
+            if (plant != null)
+            {
+                plant.CancelHarvestFruitTask();
                 RefreshOptions();
             }
         }

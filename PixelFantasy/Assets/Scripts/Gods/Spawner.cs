@@ -140,10 +140,11 @@ namespace Gods
             }
         }
 
-        public void SpawnTree(Vector2 spawnPosition)
+        public void SpawnTree(Vector2 spawnPosition, GrowingResourceData growingResourceData)
         {
             var tree = Instantiate(_treePrefab, spawnPosition, Quaternion.identity);
             tree.transform.SetParent(_resourceParent);
+            tree.GetComponent<GrowingResource>().Init(growingResourceData);
         }
 
         public void SpawnPlant(Vector2 spawnPosition, GrowingResourceData growingResourceData)

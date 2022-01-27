@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using ScriptableObjects;
 using Tasks;
 using Unit;
@@ -8,12 +9,19 @@ namespace Items
     public class GrowingResource : Resource
     {
         [SerializeField] protected bool _overrideFullGrowth;
+        [SerializeField] protected SpriteRenderer _fruitOverlay;
         
         protected int _growthIndex;
         protected float _ageSec;
         protected float _ageForNextGrowth;
         protected bool _fullyGrown;
         protected float _reproductionTimer;
+        protected float _fruitTimer;
+        protected bool _hasFruitAvailable;
+        protected bool _queuedToHarvest;
+
+        public bool HasFruitAvailable => _hasFruitAvailable;
+        public bool QueuedToHarvest => _queuedToHarvest;
         
         private void Start()
         {
@@ -99,16 +107,55 @@ namespace Items
                 }
             }
         }
+
+        protected void FruitCheck()
+        {
+            if (!_fullyGrown) return;
+            
+            if (_growingResourceData.HasFruit && !_hasFruitAvailable)
+            {
+                _fruitTimer += Time.deltaTime;
+                if (_fruitTimer >= _growingResourceData.TimeToGrowFruit)
+                {
+                    _fruitTimer = 0;
+                    _hasFruitAvailable = true;
+                    _fruitOverlay.sprite = _growingResourceData.FruitOverlay;
+                    _fruitOverlay.gameObject.SetActive(true);
+                }
+            }
+        }
+
+        protected void HarvestFruit()
+        {
+            if (_hasFruitAvailable)
+            {
+                _fruitOverlay.gameObject.SetActive(false);
+                List<ItemAmount> fruits = _growingResourceData.GetFruitLoot();
+                foreach (var fruit in fruits)
+                {
+                    for (int i = 0; i < fruit.Quantity; i++)
+                    {
+                        spawner.SpawnItem(fruit.Item, transform.position, true);
+                    }
+                }
+                _hasFruitAvailable = false;
+                _queuedToHarvest = false;
+            }
+            
+            SetIcon(null);
+        }
         
         private void Update()
         {
             GrowthCheck();
             ReproductionCheck();
+            FruitCheck();
         }
         
         public void CreateCutPlantTask()
         {
-            _queuedToHarvest = true;
+            CancelTasks();
+            _queuedToCut = true;
             SetIcon("Scythe");
             
             // Choose a random side of the tree
@@ -130,7 +177,7 @@ namespace Items
                 },
                 plantPosition = cutPos,
                 workAmount = _growingResourceData.GetWorkToCut(_growthIndex),
-                completeWork = HarvestPlant
+                completeWork = CutDownTree
             };
             
             _assignedTaskRefs.Add(task.GetHashCode());
@@ -139,12 +186,51 @@ namespace Items
 
         public void CancelCutPlantTask()
         {
+            _queuedToCut = false;
+            SetIcon(null);
+            CancelTasks();
+        }
+
+        public void CreateHarvestFruitTask()
+        {
+            CancelTasks();
+            _queuedToHarvest = true;
+            SetIcon("Scythe");
+            
+            // Choose a random side of the tree
+            var sideMod = 1;
+            var rand = Random.Range(0, 2);
+            if (rand == 1)
+            {
+                sideMod *= -1;
+            }
+
+            var cutPos = transform.position;
+            cutPos.x += sideMod;
+
+            var task = new FarmingTask.HarvestFruit()
+            {
+                claimPlant = (UnitTaskAI unitTaskAI) =>
+                {
+                    _incomingUnit = unitTaskAI;
+                },
+                plantPosition = cutPos,
+                workAmount = _growingResourceData.WorkToHarvest,
+                completeWork = HarvestFruit
+            };
+            
+            _assignedTaskRefs.Add(task.GetHashCode());
+            taskMaster.FarmingTaskSystem.AddTask(task);
+        }
+
+        public void CancelHarvestFruitTask()
+        {
             _queuedToHarvest = false;
             SetIcon(null);
             CancelTasks();
         }
         
-        private void HarvestPlant()
+        private void CutDownTree()
         {
             var resources = _growingResourceData.GetGrowthStage(_growthIndex).HarvestableItems.GetItemDrop();
             foreach (var resource in resources)
@@ -156,6 +242,13 @@ namespace Items
             }
             
             Destroy(gameObject);
+        }
+
+        protected override void CancelTasks()
+        {
+            base.CancelTasks();
+
+            _queuedToHarvest = false;
         }
     }
 }

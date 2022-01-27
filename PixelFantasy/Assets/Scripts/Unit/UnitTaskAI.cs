@@ -132,7 +132,12 @@ namespace Unit
                     ExecuteTask_CutPlant(task as FarmingTask.CutPlant);
                     return;
                 }
-                
+
+                if (task is FarmingTask.HarvestFruit)
+                {
+                    ExecuteTask_HarvestFruit(task as FarmingTask.HarvestFruit);
+                    return;
+                }
                 // Other task types go here
             }
         }
@@ -227,6 +232,19 @@ namespace Unit
         }
         
         private void ExecuteTask_CutPlant(FarmingTask.CutPlant task)
+        {
+            task.claimPlant(this);
+            workerMover.SetMovePosition(task.plantPosition, () =>
+            {
+                DoWork(task.workAmount, () =>
+                {
+                    task.completeWork();
+                    state = State.WaitingForNextTask;
+                });
+            });
+        }
+        
+        private void ExecuteTask_HarvestFruit(FarmingTask.HarvestFruit task)
         {
             task.claimPlant(this);
             workerMover.SetMovePosition(task.plantPosition, () =>

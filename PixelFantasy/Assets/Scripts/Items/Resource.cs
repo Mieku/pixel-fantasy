@@ -15,7 +15,7 @@ namespace Items
         protected TaskMaster taskMaster => TaskMaster.Instance;
         protected Spawner spawner => Spawner.Instance;
         protected List<int> _assignedTaskRefs = new List<int>();
-        protected bool _queuedToHarvest;
+        protected bool _queuedToCut;
         protected UnitTaskAI _incomingUnit;
 
         public GrowingResourceData GetResourceData()
@@ -23,10 +23,10 @@ namespace Items
             return _growingResourceData;
         }
         
-        public bool QueuedToHarvest => _queuedToHarvest;
+        public bool QueuedToCut => _queuedToCut;
         
         
-        protected void CancelTasks()
+        protected virtual void CancelTasks()
         {
             if (_assignedTaskRefs == null || _assignedTaskRefs.Count == 0) return;
 
@@ -41,6 +41,8 @@ namespace Items
             {
                 _incomingUnit.CancelTask();
             }
+
+            _queuedToCut = false;
         }
         
         protected void SetIcon(string iconName)

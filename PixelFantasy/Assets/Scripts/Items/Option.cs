@@ -5,6 +5,7 @@ namespace Items
         Allow,
         Deconstruct,  // Is also cancel when not built yet
         CutTree,
-        CutPlant
+        CutPlant,
+        HarvestFruit,
     }
 }
