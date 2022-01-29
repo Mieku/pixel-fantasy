@@ -47,7 +47,7 @@ namespace Items
                 },
                 treePosition = cutPos,
                 workAmount = _growingResourceData.GetWorkToCut(_growthIndex),
-                completeWork = HarvestTree
+                completeWork = CutDownPlant
             };
             
             _assignedTaskRefs.Add(task.GetHashCode());
@@ -59,20 +59,6 @@ namespace Items
             _queuedToCut = false;
             SetIcon(null);
             CancelTasks();
-        }
-        
-        private void HarvestTree()
-        {
-            var resources = _growingResourceData.GetGrowthStage(_growthIndex).HarvestableItems.GetItemDrop();
-            foreach (var resource in resources)
-            {
-                for (int i = 0; i < resource.Quantity; i++)
-                {
-                    spawner.SpawnItem(resource.Item, transform.position, true);
-                }
-            }
-            
-            Destroy(gameObject);
         }
     }
 }

@@ -26,3 +26,4 @@ MonoBehaviour:
   - Water
   - Zone
   _options: 01000000
+  _planningMode: 1

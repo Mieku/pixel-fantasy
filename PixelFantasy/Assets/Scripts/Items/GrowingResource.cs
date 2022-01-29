@@ -177,7 +177,7 @@ namespace Items
                 },
                 plantPosition = cutPos,
                 workAmount = _growingResourceData.GetWorkToCut(_growthIndex),
-                completeWork = CutDownTree
+                completeWork = CutDownPlant
             };
             
             _assignedTaskRefs.Add(task.GetHashCode());
@@ -230,7 +230,7 @@ namespace Items
             CancelTasks();
         }
         
-        private void CutDownTree()
+        protected void CutDownPlant()
         {
             var resources = _growingResourceData.GetGrowthStage(_growthIndex).HarvestableItems.GetItemDrop();
             foreach (var resource in resources)
@@ -240,6 +240,8 @@ namespace Items
                     spawner.SpawnItem(resource.Item, transform.position, true);
                 }
             }
+            
+            HarvestFruit();
             
             Destroy(gameObject);
         }
