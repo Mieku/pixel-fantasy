@@ -6,6 +6,7 @@ using Items;
 using ScriptableObjects;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class ClickObject : MonoBehaviour
@@ -68,6 +69,9 @@ public class ClickObject : MonoBehaviour
     
     private void OnMouseUpAsButton()
     {
+        var isOverUI = EventSystem.current.IsPointerOverGameObject();
+        if(isOverUI) return;
+        
         if (PlayerInputController.Instance.GetCurrentState() == PlayerInputState.None)
         {
             SelectionData data = GetSelectionData();
