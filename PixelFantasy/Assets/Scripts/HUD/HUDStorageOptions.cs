@@ -84,7 +84,7 @@ namespace HUD
             if (!_planningStorage) return;
 
             Vector3 curGridPos = Helper.ConvertMousePosToGridPos(mousePos);
-            List<Vector2> gridPositions = Helper.GetGridPositionsBetweenPoints(_startPos, curGridPos);
+            List<Vector2> gridPositions = Helper.GetRectangleGridPositionsBetweenPoints(_startPos, curGridPos);
             if (gridPositions.Count != _plannedGrid.Count)
             {
                 _plannedGrid = gridPositions;

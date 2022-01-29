@@ -19,13 +19,13 @@ namespace Items
         [SerializeField] private SpriteRenderer _icon;
 
         private StructureData _structureData;
-        private readonly List<Structure> _neighbours = new List<Structure>();
         private List<ItemAmount> _resourceCost;
         private bool _isBuilt;
         private List<int> _assignedTaskRefs = new List<int>();
         private List<Item> _incomingItems = new List<Item>();
         private bool _isDeconstructing;
         private UnitTaskAI _incomingUnit;
+        private List<Structure> _neighbours;
         
         private TaskMaster taskMaster => TaskMaster.Instance;
 
@@ -84,70 +84,12 @@ namespace Items
             }
         }
 
-        private WallNeighbourConnectionInfo RefreshNeighbourData()
-        {
-            _neighbours.Clear();
-            var result = new WallNeighbourConnectionInfo();
-
-            var pos = transform.position;
-            Vector2 topPos = new Vector2(pos.x, pos.y + 1);
-            Vector2 botPos = new Vector2(pos.x, pos.y - 1);
-            Vector2 leftPos = new Vector2(pos.x - 1, pos.y);
-            Vector2 rightPos = new Vector2(pos.x + 1, pos.y);
-            
-            var allHitTop = Physics2D.RaycastAll(topPos, Vector2.down, 0.4f);
-            var allHitBot = Physics2D.RaycastAll(botPos, Vector2.up, 0.4f);
-            var allHitLeft = Physics2D.RaycastAll(leftPos, Vector2.right, 0.4f);
-            var allHitRight = Physics2D.RaycastAll(rightPos, Vector2.left, 0.4f);
-
-            // Top
-            foreach (var hit in allHitTop)
-            {
-                if (hit.transform.CompareTag("Wall"))
-                {
-                    _neighbours.Add(hit.transform.gameObject.GetComponent<Structure>());
-                    result.Top = true;
-                    break;
-                }
-            }
-            // Bottom
-            foreach (var hit in allHitBot)
-            {
-                if (hit.transform.CompareTag("Wall"))
-                {
-                    _neighbours.Add(hit.transform.gameObject.GetComponent<Structure>());
-                    result.Bottom = true;
-                    break;
-                }
-            }
-            // Left
-            foreach (var hit in allHitLeft)
-            {
-                if (hit.transform.CompareTag("Wall"))
-                {
-                    _neighbours.Add(hit.transform.gameObject.GetComponent<Structure>());
-                    result.Left = true;
-                    break;
-                }
-            }
-            // Right
-            foreach (var hit in allHitRight)
-            {
-                if (hit.transform.CompareTag("Wall"))
-                {
-                    _neighbours.Add(hit.transform.gameObject.GetComponent<Structure>());
-                    result.Right = true;
-                    break;
-                }
-            }
-
-            return result;
-        }
-        
         public void UpdateSprite(bool informNeighbours)
         {
             // collect data on connections
-            var connectData = RefreshNeighbourData();
+            var neighbourData = _structureData.GetNeighbourData(transform.position);
+            _neighbours = neighbourData.Neighbours;
+            var connectData = neighbourData.WallNeighbourConnectionInfo;
 
             // use connection data to update sprite
             _spriteRenderer.sprite = _structureData.GetSprite(connectData);

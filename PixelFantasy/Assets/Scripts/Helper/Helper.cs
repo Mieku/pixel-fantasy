@@ -21,9 +21,9 @@ public static class Helper
 
     
     /// <summary>
-    /// Converts the starting grid position and current grid position into a list of all the grid positions between them
+    /// Converts the starting grid position and current grid position into a list of all the grid positions between them as a rectangle
     /// </summary>
-    public static List<Vector2> GetGridPositionsBetweenPoints(Vector2 startGridPos, Vector2 currentGridPos)
+    public static List<Vector2> GetRectangleGridPositionsBetweenPoints(Vector2 startGridPos, Vector2 currentGridPos)
     {
         List<Vector2> result = new List<Vector2>();
         var lowerLeft = new Vector2(
@@ -47,6 +47,63 @@ public static class Helper
             }
         }
 
+        return result;
+    }
+
+    /// <summary>
+    /// Converts the starting grid position and current grid position into a list of all the grid positions between them as a line
+    /// </summary>
+    public static List<Vector2> GetLineGridPositionsBetweenPoints(Vector2 startGridPos, Vector2 currentPos)
+    {
+        List<Vector2> result = new List<Vector2>();
+        var currentGridPos = ConvertMousePosToGridPos(currentPos);
+
+        var diff = startGridPos - currentPos;
+        diff = new Vector2(Mathf.Abs(diff.x), Mathf.Abs(diff.y));
+
+        if (diff.x > diff.y) // horizontal
+        {
+            if (startGridPos.x < currentGridPos.x) // left -> right
+            {
+                var tiles = currentGridPos.x - startGridPos.x;
+                for (int i = 0; i <= tiles; i++)
+                {
+                    var gridPos = new Vector2(startGridPos.x + i, startGridPos.y);
+                    result.Add(gridPos);
+                }
+            }
+            else // right -> left
+            {
+                var tiles = startGridPos.x - currentGridPos.x;
+                for (int i = 0; i <= tiles; i++)
+                {
+                    var gridPos = new Vector2(startGridPos.x - i, startGridPos.y);
+                    result.Add(gridPos);
+                }
+            }
+        }
+        else // vert
+        {
+            if (startGridPos.y < currentGridPos.y) // down -> up
+            {
+                var tiles = currentGridPos.y - startGridPos.y;
+                for (int i = 0; i <= tiles; i++)
+                {
+                    var gridPos = new Vector2(startGridPos.x, startGridPos.y + i);
+                    result.Add(gridPos);
+                }
+            }
+            else // up -> down
+            {
+                var tiles = startGridPos.y - currentGridPos.y;
+                for (int i = 0; i <= tiles; i++)
+                {
+                    var gridPos = new Vector2(startGridPos.x, startGridPos.y - i);
+                    result.Add(gridPos);
+                }
+            }
+        }
+        
         return result;
     }
 

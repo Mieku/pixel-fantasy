@@ -26,6 +26,14 @@ namespace Gods
         private bool _showPlacement;
         private List<string> _invalidPlacementTags = new List<string>();
         
+        // Structure
+        private bool _planningStructure;
+        private Vector2 _startPos;
+        private List<GameObject> _blueprints = new List<GameObject>();
+        private List<Vector2> _plannedGrid = new List<Vector2>();
+        
+        public StructureData StructureData { get; set; }
+
         private void OnEnable()
         {
             GameEvents.OnLeftClickDown += GameEvents_OnLeftClickDown;
@@ -45,21 +53,34 @@ namespace Gods
             GameEvents.OnRightClickHeld -= GameEvents_OnRightClickHeld;
             GameEvents.OnRightClickUp -= GameEvents_OnRightClickUp;
         }
-        
+
         protected virtual void GameEvents_OnLeftClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
         {
-            
+            if (isOverUI) return;
+            if (inputState == PlayerInputState.BuildStructure)
+            {
+                _planningStructure = true;
+                _startPos = Helper.ConvertMousePosToGridPos(mousePos);
+            }
         }
         
         protected virtual void GameEvents_OnLeftClickHeld(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
         {
-            
+            if (inputState == PlayerInputState.BuildStructure)
+            {
+                PlanStructure(mousePos, StructureData.PlanningMode);
+            }
         }
         
         protected virtual void GameEvents_OnLeftClickUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
         {
             if (isOverUI) return;
-            if (inputState == PlayerInputState.BuildStructure)
+            
+            if (inputState == PlayerInputState.BuildStructure && _planningStructure)
+            {
+                SpawnPlannedStructure();
+            }
+            else if (inputState == PlayerInputState.BuildStructure)
             {
                 var structureData = Librarian.Instance.GetStructureData(PlayerInputController.Instance.StoredKey);
                 SpawnStructure(structureData, Helper.ConvertMousePosToGridPos(mousePos));
@@ -87,6 +108,7 @@ namespace Gods
             PlayerInputController.Instance.ChangeState(PlayerInputState.None);
             ShowPlacementIcon(false);
             _invalidPlacementTags.Clear();
+            CancelPlanning();
         }
 
         public void ShowPlacementIcon(bool show, Sprite icon = null, List<String> invalidPlacementTags = null)
@@ -153,5 +175,98 @@ namespace Gods
             plant.transform.SetParent(_resourceParent);
             plant.GetComponent<GrowingResource>().Init(growingResourceData);
         }
+
+        #region Structure
+
+        private void CancelPlanning()
+        {
+            PlayerInputController.Instance.ChangeState(PlayerInputState.None);
+            ClearPlannedStructure();
+            _plannedGrid.Clear();
+        }
+        
+        private void ClearPlannedStructure()
+        {
+            foreach (var blueprint in _blueprints)
+            {
+                Destroy(blueprint);
+            }
+            _blueprints.Clear();
+        }
+        
+        private void SpawnPlannedStructure()
+        {
+            if (!_planningStructure) return;
+
+            foreach (var gridPos in _plannedGrid)
+            {
+                if (Helper.IsGridPosValidToBuild(gridPos, StructureData.InvalidPlacementTags))
+                {
+                    SpawnStructure(StructureData, gridPos);
+                }
+            }
+
+            ClearPlannedStructure();
+            _plannedGrid.Clear();
+            _planningStructure = false;
+            CancelInput();
+        }
+        
+        private void PlanStructure(Vector2 mousePos, PlanningMode planningMode)
+        {
+            if (!_planningStructure) return;
+            ShowPlacementIcon(false);
+
+            Vector3 curGridPos = Helper.ConvertMousePosToGridPos(mousePos);
+            List<Vector2> gridPositions = new List<Vector2>();
+
+            switch (planningMode)
+            {
+                case PlanningMode.Rectangle:
+                    gridPositions = Helper.GetRectangleGridPositionsBetweenPoints(_startPos, curGridPos);
+                    break;
+                case PlanningMode.Line:
+                    gridPositions = Helper.GetLineGridPositionsBetweenPoints(_startPos, mousePos);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(planningMode), planningMode, null);
+            }
+
+            if (gridPositions.Count != _plannedGrid.Count)
+            {
+                _plannedGrid = gridPositions;
+                
+                // Clear previous display, then display new blueprints
+                ClearPlannedStructure();
+
+                foreach (var gridPos in gridPositions)
+                {
+                    var blueprint = new GameObject("blueprint", typeof(SpriteRenderer));
+                    blueprint.transform.position = gridPos;
+                    var spriteRenderer = blueprint.GetComponent<SpriteRenderer>();
+                    spriteRenderer.sprite = StructureData.Icon;
+                    if (Helper.IsGridPosValidToBuild(gridPos, StructureData.InvalidPlacementTags))
+                    {
+                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Green");
+                    }
+                    else
+                    {
+                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Red");
+                    }
+                    
+                    spriteRenderer.sortingLayerName = "Structure";
+                    _blueprints.Add(blueprint);
+                }
+            }
+            
+        }
+
+        #endregion
+    }
+
+    public enum PlanningMode
+    {
+        Rectangle,
+        Line
     }
 }

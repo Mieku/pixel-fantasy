@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Gods;
 using Items;
 using UnityEngine;
 
@@ -12,10 +13,13 @@ namespace ScriptableObjects
         public DynamicWallData WallSprites;
         public float WorkCost;
         public Sprite Icon;
-        
+
         [SerializeField] private List<ItemAmount> _resourceCosts;
         [SerializeField] private List<string> _invalidPlacementTags;
         [SerializeField] private List<Option> _options;
+        [SerializeField] private PlanningMode _planningMode;
+
+        public PlanningMode PlanningMode => _planningMode;
 
         public List<ItemAmount> GetResourceCosts()
         {
@@ -81,6 +85,69 @@ namespace ScriptableObjects
 
             return WorkCost / totalQuantity;
         }
+        
+        public NeighbourData GetNeighbourData(Vector2 pos)
+        {
+            NeighbourData neighbourData = new NeighbourData();
+            
+            neighbourData.Neighbours.Clear();
+            var connectionInfo = new WallNeighbourConnectionInfo();
+            
+            Vector2 topPos = new Vector2(pos.x, pos.y + 1);
+            Vector2 botPos = new Vector2(pos.x, pos.y - 1);
+            Vector2 leftPos = new Vector2(pos.x - 1, pos.y);
+            Vector2 rightPos = new Vector2(pos.x + 1, pos.y);
+            
+            var allHitTop = Physics2D.RaycastAll(topPos, Vector2.down, 0.4f);
+            var allHitBot = Physics2D.RaycastAll(botPos, Vector2.up, 0.4f);
+            var allHitLeft = Physics2D.RaycastAll(leftPos, Vector2.right, 0.4f);
+            var allHitRight = Physics2D.RaycastAll(rightPos, Vector2.left, 0.4f);
+
+            // Top
+            foreach (var hit in allHitTop)
+            {
+                if (hit.transform.CompareTag("Wall"))
+                {
+                    neighbourData.Neighbours.Add(hit.transform.gameObject.GetComponent<Structure>());
+                    connectionInfo.Top = true;
+                    break;
+                }
+            }
+            // Bottom
+            foreach (var hit in allHitBot)
+            {
+                if (hit.transform.CompareTag("Wall"))
+                {
+                    neighbourData.Neighbours.Add(hit.transform.gameObject.GetComponent<Structure>());
+                    connectionInfo.Bottom = true;
+                    break;
+                }
+            }
+            // Left
+            foreach (var hit in allHitLeft)
+            {
+                if (hit.transform.CompareTag("Wall"))
+                {
+                    neighbourData.Neighbours.Add(hit.transform.gameObject.GetComponent<Structure>());
+                    connectionInfo.Left = true;
+                    break;
+                }
+            }
+            // Right
+            foreach (var hit in allHitRight)
+            {
+                if (hit.transform.CompareTag("Wall"))
+                {
+                    neighbourData.Neighbours.Add(hit.transform.gameObject.GetComponent<Structure>());
+                    connectionInfo.Right = true;
+                    break;
+                }
+            }
+
+            neighbourData.WallNeighbourConnectionInfo = connectionInfo;
+
+            return neighbourData;
+        }
     }
 
     [Serializable]
@@ -88,5 +155,11 @@ namespace ScriptableObjects
     {
         public ItemData Item;
         public int Quantity;
+    }
+
+    public class NeighbourData
+    {
+        public List<Structure> Neighbours = new List<Structure>();
+        public WallNeighbourConnectionInfo WallNeighbourConnectionInfo = new WallNeighbourConnectionInfo();
     }
 }
