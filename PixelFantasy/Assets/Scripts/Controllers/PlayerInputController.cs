@@ -161,7 +161,7 @@ namespace Controllers
         None,
         BuildStorage,
         CHEAT_SpawnResource,
-        CHEAT_SpawnWall,
-        BuildStructure
+        BuildStructure,
+        BuildFlooring,
     }
 }

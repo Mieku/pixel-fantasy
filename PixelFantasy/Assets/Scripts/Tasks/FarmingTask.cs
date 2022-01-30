@@ -21,5 +21,13 @@ namespace Tasks
             public Action completeWork;
             public float workAmount;
         }
+
+        public class ClearGrass : FarmingTask
+        {
+            public Action<UnitTaskAI> claimDirt;
+            public Vector3 grassPosition;
+            public Action completeWork;
+            public float workAmount;
+        }
     }
 }

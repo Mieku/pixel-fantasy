@@ -1,11 +1,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Controllers;
+using Gods;
+using Interfaces;
+using Items;
+using Pathfinding;
 using ScriptableObjects;
+using Tasks;
+using Unit;
 using UnityEngine;
 
 public class DirtTile : MonoBehaviour
 {
+    [SerializeField] private int _workCost;
+    [SerializeField] private List<string> _invalidPlacementTags;
+    [SerializeField] private List<Option> _options;
+    [SerializeField] private Sprite _icon;
+    [SerializeField] private GraphUpdateScene _graphUpdateScene;
+    
     [SerializeField] private Sprite _centerSpr;
     [SerializeField] private Sprite _cornerTLSpr, _cornerTRSpr, _cornerBLSpr, _cornerBRSpr;
     [SerializeField] private Sprite _cornerInnerTLSpr, _cornerInnerTRSpr, _cornerInnerBLSpr, _cornerInnerBRSpr;
@@ -15,18 +28,98 @@ public class DirtTile : MonoBehaviour
 
     private List<GameObject> _neighbours = new List<GameObject>();
     private int _origLayer;
-    
-    private void Start() // TODO: Remove this
-    {
-        Init();
-    }
+    private TaskMaster taskMaster => TaskMaster.Instance;
+    private UnitTaskAI _incomingUnit;
+    private List<int> _assignedTaskRefs = new List<int>();
 
+    public Sprite Icon => _icon;
+
+    public List<string> InvalidPlacementTags
+    {
+        get
+        {
+            List<string> clone = new List<string>();
+            foreach (var invalidPlacementTag in _invalidPlacementTags)
+            {
+                clone.Add(invalidPlacementTag);
+            }
+
+            return clone;
+        }
+    }
+    public int WorkCost => _workCost;
+
+    public List<Option> Options
+    {
+        get
+        {
+            List<Option> clone = new List<Option>();
+            foreach (var option in _options)
+            {
+                clone.Add(option);
+            }
+
+            return clone;
+        }
+    }
+    
     public void Init()
     {
         _origLayer = _center.sortingOrder;
         UpdateSprite(true);
+        ShowBlueprint(true);
+        CreateClearGrassTask();
     }
     
+    private void ShowBlueprint(bool showBlueprint)
+    {
+        if (showBlueprint)
+        {
+            ColourRenderers(Librarian.Instance.GetColour("Blueprint"));
+            _graphUpdateScene.enabled = false;
+        }
+        else
+        {
+            ColourRenderers(Color.white);
+            _graphUpdateScene.enabled = true;
+            //gameObject.layer = 4;
+        }
+    }
+
+    private void ColourRenderers(Color colour)
+    {
+        _center.color = colour;
+        _botLeft.color = colour;
+        _botRight.color = colour;
+        _topLeft.color = colour;
+        _topRight.color = colour;
+    }
+
+    private void CreateClearGrassTask()
+    {
+        var task = new FarmingTask.ClearGrass()
+        {
+            claimDirt = (UnitTaskAI unitTaskAI) =>
+            {
+                _incomingUnit = unitTaskAI;
+            },
+            grassPosition = Helper.ConvertMousePosToGridPos(transform.position),
+            workAmount = _workCost,
+            completeWork = BuiltDirt
+        };
+        
+        _assignedTaskRefs.Add(task.GetHashCode());
+        taskMaster.FarmingTaskSystem.AddTask(task);
+    }
+
+    private void BuiltDirt()
+    {
+        ShowBlueprint(false);
+        _incomingUnit = null;
+    }
+
+    #region Sprite Displaying
+
     public void UpdateSprite(bool informNeighbours)
     {
         // collect data on connections
@@ -674,5 +767,7 @@ public class DirtTile : MonoBehaviour
         _botLeft.sortingOrder = _origLayer;
         _botRight.sortingOrder = _origLayer;
     }
+
+    #endregion
     
 } 

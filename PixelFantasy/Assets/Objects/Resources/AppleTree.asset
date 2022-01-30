@@ -55,6 +55,7 @@ MonoBehaviour:
   - Nature
   - Structure
   - Zone
+  - Dirt
   _hasFruit: 1
   _growFruitTime: 60
   _fruitOverlay: {fileID: -6520634922097649790, guid: b708a311217a5254c8bb24f27a1d01ae, type: 3}

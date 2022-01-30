@@ -67,7 +67,7 @@ namespace ScriptableObjects
 
         public Sprite GetSprite(WallNeighbourConnectionInfo connections)
         {
-            return WallSprites.GetWallSprite(connections);
+            return WallSprites.GetSprite(connections);
         }
         
         public Sprite GetSprite()

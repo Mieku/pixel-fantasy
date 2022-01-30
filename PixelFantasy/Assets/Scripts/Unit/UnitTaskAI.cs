@@ -138,6 +138,12 @@ namespace Unit
                     ExecuteTask_HarvestFruit(task as FarmingTask.HarvestFruit);
                     return;
                 }
+
+                if (task is FarmingTask.ClearGrass)
+                {
+                    ExecuteTask_ClearGrass(task as FarmingTask.ClearGrass);
+                    return;
+                }
                 // Other task types go here
             }
         }
@@ -248,6 +254,19 @@ namespace Unit
         {
             task.claimPlant(this);
             workerMover.SetMovePosition(task.plantPosition, () =>
+            {
+                DoWork(task.workAmount, () =>
+                {
+                    task.completeWork();
+                    state = State.WaitingForNextTask;
+                });
+            });
+        }
+        
+        private void ExecuteTask_ClearGrass(FarmingTask.ClearGrass task)
+        {
+            task.claimDirt(this);
+            workerMover.SetMovePosition(task.grassPosition, () =>
             {
                 DoWork(task.workAmount, () =>
                 {

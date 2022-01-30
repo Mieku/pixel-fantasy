@@ -1,10 +1,11 @@
 using System;
+using Interfaces;
 using UnityEngine;
 
 namespace ScriptableObjects
 {
-    [CreateAssetMenu(fileName = "DynamicWallData", menuName = "DynamicWallData", order = 1)]
-    public class DynamicWallData : ScriptableObject
+    [CreateAssetMenu(fileName = "DynamicWallData", menuName = "DynamicData/DynamicWallData", order = 1)]
+    public class DynamicWallData : ScriptableObject, IDynamicSprites
     {
         public Sprite solo;
         public Sprite vert;
@@ -23,7 +24,7 @@ namespace ScriptableObjects
         public Sprite interL;
         public Sprite interB;
 
-        public Sprite GetWallSprite(WallNeighbourConnectionInfo neighbours)
+        public Sprite GetSprite(WallNeighbourConnectionInfo neighbours)
         {
             // solo
             if (!neighbours.Top && !neighbours.Bottom && !neighbours.Left && !neighbours.Right)

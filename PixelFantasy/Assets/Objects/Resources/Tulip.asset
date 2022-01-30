@@ -45,3 +45,10 @@ MonoBehaviour:
   - Nature
   - Structure
   - Zone
+  - Dirt
+  _hasFruit: 0
+  _growFruitTime: 0
+  _fruitOverlay: {fileID: 0}
+  _harvestableFruit:
+    _harvestableItems: []
+  _workToHarvest: 0

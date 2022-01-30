@@ -22,6 +22,7 @@ namespace Gods
         [SerializeField] private GameObject _structurePrefab;
         
         [SerializeField] private GameObject _dirtTilePrefab;
+        [SerializeField] private Transform _flooringParent;
         
         [SerializeField] private SpriteRenderer _placementIcon;
 
@@ -59,7 +60,7 @@ namespace Gods
         protected virtual void GameEvents_OnLeftClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
         {
             if (isOverUI) return;
-            if (inputState == PlayerInputState.BuildStructure)
+            if (inputState == PlayerInputState.BuildStructure || inputState == PlayerInputState.BuildFlooring)
             {
                 _planningStructure = true;
                 _startPos = Helper.ConvertMousePosToGridPos(mousePos);
@@ -71,6 +72,14 @@ namespace Gods
             if (inputState == PlayerInputState.BuildStructure)
             {
                 PlanStructure(mousePos, StructureData.PlanningMode);
+            }
+
+            if (inputState == PlayerInputState.BuildFlooring)
+            {
+                if (PlayerInputController.Instance.StoredKey == "Dirt")
+                {
+                    PlanDirt(mousePos);
+                }
             }
         }
         
@@ -87,6 +96,20 @@ namespace Gods
                 var structureData = Librarian.Instance.GetStructureData(PlayerInputController.Instance.StoredKey);
                 SpawnStructure(structureData, Helper.ConvertMousePosToGridPos(mousePos));
                 
+            }
+            else if (inputState == PlayerInputState.BuildFlooring)
+            {
+                if (PlayerInputController.Instance.StoredKey == "Dirt")
+                {
+                    if (_planningStructure)
+                    {
+                        SpawnPlannedDirt();
+                    }
+                    else
+                    {
+                        SpawnDirtTile(Helper.ConvertMousePosToGridPos(mousePos));
+                    }
+                }
             }
         }
         
@@ -181,6 +204,7 @@ namespace Gods
         public void SpawnDirtTile(Vector2 spawnPosition)
         {
             var dirt = Instantiate(_dirtTilePrefab, spawnPosition, Quaternion.identity);
+            dirt.transform.SetParent(_flooringParent);
             dirt.GetComponent<DirtTile>().Init();
         }
 
@@ -189,11 +213,11 @@ namespace Gods
         private void CancelPlanning()
         {
             PlayerInputController.Instance.ChangeState(PlayerInputState.None);
-            ClearPlannedStructure();
+            ClearPlannedBlueprint();
             _plannedGrid.Clear();
         }
         
-        private void ClearPlannedStructure()
+        private void ClearPlannedBlueprint()
         {
             foreach (var blueprint in _blueprints)
             {
@@ -214,7 +238,7 @@ namespace Gods
                 }
             }
 
-            ClearPlannedStructure();
+            ClearPlannedBlueprint();
             _plannedGrid.Clear();
             _planningStructure = false;
             CancelInput();
@@ -245,7 +269,7 @@ namespace Gods
                 _plannedGrid = gridPositions;
                 
                 // Clear previous display, then display new blueprints
-                ClearPlannedStructure();
+                ClearPlannedBlueprint();
 
                 foreach (var gridPos in gridPositions)
                 {
@@ -270,6 +294,63 @@ namespace Gods
         }
 
         #endregion
+
+        private void PlanDirt(Vector2 mousePos)
+        {
+            if (!_planningStructure) return;
+            ShowPlacementIcon(false);
+
+            Vector3 curGridPos = Helper.ConvertMousePosToGridPos(mousePos);
+            List<Vector2> gridPositions = new List<Vector2>();
+            gridPositions = Helper.GetRectangleGridPositionsBetweenPoints(_startPos, curGridPos);
+
+            if (gridPositions.Count != _plannedGrid.Count)
+            {
+                _plannedGrid = gridPositions;
+                
+                // Clear previous display, then display new blueprints
+                ClearPlannedBlueprint();
+
+                foreach (var gridPos in gridPositions)
+                {
+                    var blueprint = new GameObject("blueprint", typeof(SpriteRenderer));
+                    blueprint.transform.position = gridPos;
+                    var spriteRenderer = blueprint.GetComponent<SpriteRenderer>();
+                    var dirt = _dirtTilePrefab.GetComponent<DirtTile>();
+                    spriteRenderer.sprite = dirt.Icon;
+                    if (Helper.IsGridPosValidToBuild(gridPos, dirt.InvalidPlacementTags))
+                    {
+                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Green");
+                    }
+                    else
+                    {
+                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Red");
+                    }
+                    
+                    spriteRenderer.sortingLayerName = "DirtTile";
+                    _blueprints.Add(blueprint);
+                }
+            }
+        }
+
+        private void SpawnPlannedDirt()
+        {
+            if (!_planningStructure) return;
+
+            foreach (var gridPos in _plannedGrid)
+            {
+                var dirt = _dirtTilePrefab.GetComponent<DirtTile>();
+                if (Helper.IsGridPosValidToBuild(gridPos, dirt.InvalidPlacementTags))
+                {
+                    SpawnDirtTile(gridPos);
+                }
+            }
+
+            ClearPlannedBlueprint();
+            _plannedGrid.Clear();
+            _planningStructure = false;
+            CancelInput();
+        }
     }
 
     public enum PlanningMode
