@@ -21,6 +21,8 @@ namespace Gods
         [SerializeField] private Transform _structureParent;
         [SerializeField] private GameObject _structurePrefab;
         
+        [SerializeField] private GameObject _dirtTilePrefab;
+        
         [SerializeField] private SpriteRenderer _placementIcon;
 
         private bool _showPlacement;
@@ -174,6 +176,12 @@ namespace Gods
             var plant = Instantiate(_plantPrefab, spawnPosition, Quaternion.identity);
             plant.transform.SetParent(_resourceParent);
             plant.GetComponent<GrowingResource>().Init(growingResourceData);
+        }
+
+        public void SpawnDirtTile(Vector2 spawnPosition)
+        {
+            var dirt = Instantiate(_dirtTilePrefab, spawnPosition, Quaternion.identity);
+            dirt.GetComponent<DirtTile>().Init();
         }
 
         #region Structure

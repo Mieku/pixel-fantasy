@@ -13,6 +13,7 @@ TagManager:
   - Structure
   - Nature
   - Ground
+  - Dirt
   layers:
   - Default
   - TransparentFX

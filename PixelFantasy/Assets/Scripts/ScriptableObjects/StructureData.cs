@@ -108,7 +108,7 @@ namespace ScriptableObjects
             {
                 if (hit.transform.CompareTag("Wall"))
                 {
-                    neighbourData.Neighbours.Add(hit.transform.gameObject.GetComponent<Structure>());
+                    neighbourData.Neighbours.Add(hit.transform.gameObject);
                     connectionInfo.Top = true;
                     break;
                 }
@@ -118,7 +118,7 @@ namespace ScriptableObjects
             {
                 if (hit.transform.CompareTag("Wall"))
                 {
-                    neighbourData.Neighbours.Add(hit.transform.gameObject.GetComponent<Structure>());
+                    neighbourData.Neighbours.Add(hit.transform.gameObject);
                     connectionInfo.Bottom = true;
                     break;
                 }
@@ -128,7 +128,7 @@ namespace ScriptableObjects
             {
                 if (hit.transform.CompareTag("Wall"))
                 {
-                    neighbourData.Neighbours.Add(hit.transform.gameObject.GetComponent<Structure>());
+                    neighbourData.Neighbours.Add(hit.transform.gameObject);
                     connectionInfo.Left = true;
                     break;
                 }
@@ -138,7 +138,7 @@ namespace ScriptableObjects
             {
                 if (hit.transform.CompareTag("Wall"))
                 {
-                    neighbourData.Neighbours.Add(hit.transform.gameObject.GetComponent<Structure>());
+                    neighbourData.Neighbours.Add(hit.transform.gameObject);
                     connectionInfo.Right = true;
                     break;
                 }
@@ -159,7 +159,7 @@ namespace ScriptableObjects
 
     public class NeighbourData
     {
-        public List<Structure> Neighbours = new List<Structure>();
+        public List<GameObject> Neighbours = new List<GameObject>();
         public WallNeighbourConnectionInfo WallNeighbourConnectionInfo = new WallNeighbourConnectionInfo();
     }
 }

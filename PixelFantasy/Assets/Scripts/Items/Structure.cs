@@ -25,7 +25,7 @@ namespace Items
         private List<Item> _incomingItems = new List<Item>();
         private bool _isDeconstructing;
         private UnitTaskAI _incomingUnit;
-        private List<Structure> _neighbours;
+        private List<GameObject> _neighbours;
         
         private TaskMaster taskMaster => TaskMaster.Instance;
 
@@ -105,7 +105,11 @@ namespace Items
         {
             foreach (var neighbour in _neighbours)
             {
-                neighbour.UpdateSprite(false);
+                var structure = neighbour.GetComponent<Structure>();
+                if (structure != null)
+                {
+                    structure.UpdateSprite(false);
+                }
             }
         }
 

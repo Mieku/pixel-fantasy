@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace ScriptableObjects
@@ -129,11 +130,17 @@ namespace ScriptableObjects
     /// <summary>
     /// Directional bools if walls are present
     /// </summary>
+    [Serializable]
     public class WallNeighbourConnectionInfo
     {
         public bool Top;
         public bool Bottom;
         public bool Left;
         public bool Right;
+
+        public bool TopLeft;
+        public bool TopRight;
+        public bool BottomLeft;
+        public bool BottomRight;
     }
 }
