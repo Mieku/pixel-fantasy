@@ -112,6 +112,29 @@ public static class Helper
     /// </summary>
     public static bool IsGridPosValidToBuild(Vector2 gridPos, List<string> listOfInvalidTags)
     {
+        var detectedTags = GetTagsAtGridPos(gridPos);
+        
+        // Ensure On Ground
+        if (!detectedTags.Contains("Ground"))
+            return false;
+
+        return listOfInvalidTags.All(invalidTag => !detectedTags.Contains(invalidTag));
+    }
+
+    /// <summary>
+    /// Checks if the grid position contains the requested tag
+    /// </summary>
+    public static bool DoesGridContainTag(Vector2 gridPos, string tagToCheck)
+    {
+        var detectedTags = GetTagsAtGridPos(gridPos);
+        return detectedTags.Contains(tagToCheck);
+    }
+
+    /// <summary>
+    /// Returns a list of all the tags located at the specified grid position
+    /// </summary>
+    public static List<string> GetTagsAtGridPos(Vector2 gridPos)
+    {
         var leftStart = new Vector2(gridPos.x - 0.45f, gridPos.y);
         var bottomStart = new Vector2(gridPos.x, gridPos.y - 0.45f);
         
@@ -127,12 +150,35 @@ public static class Helper
         {
             detectedTags.Add(hitVert.transform.tag);
         }
-        
-        // Ensure On Ground
-        if (!detectedTags.Contains("Ground"))
-            return false;
 
-        return listOfInvalidTags.All(invalidTag => !detectedTags.Contains(invalidTag));
+        return detectedTags;
+    }
+
+    /// <summary>
+    /// Returns the GameObjects located on a specific tile position
+    /// </summary>
+    public static List<GameObject> GetGameObjectsOnTile(Vector2 gridPos)
+    {
+        var leftStart = new Vector2(gridPos.x - 0.45f, gridPos.y);
+        var bottomStart = new Vector2(gridPos.x, gridPos.y - 0.45f);
+        
+        var allHitHor = Physics2D.RaycastAll(leftStart, Vector2.right, 0.9f);
+        var allHitVert = Physics2D.RaycastAll(bottomStart, Vector2.up, 0.9f);
+
+        List<GameObject> detected = new List<GameObject>();
+        foreach (var hitHor in allHitHor)
+        {
+            detected.Add(hitHor.transform.gameObject);
+        }
+        foreach (var hitVert in allHitVert)
+        {
+            detected.Add(hitVert.transform.gameObject);
+        }
+        
+        // Remove duplicates
+        var result = detected.Distinct().ToList();
+        
+        return result;
     }
 
     /// <summary>

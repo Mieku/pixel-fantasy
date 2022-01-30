@@ -36,7 +36,7 @@ namespace Items
             UpdateSprite(true);
             _progressBar.ShowBar(false);
             ShowBlueprint(true);
-            CreateConstructionHaulingTasks();
+            PrepForConstruction();
         }
 
         public StructureData GetStructureData()
@@ -111,6 +111,34 @@ namespace Items
                     structure.UpdateSprite(false);
                 }
             }
+        }
+
+        private void PrepForConstruction()
+        {
+            // Check if the structure is on dirt, if not make task to clear the grass
+            if (!IsOnDirt())
+            {
+                ClearGrass();
+                return;
+            }
+            
+            // Once on dirt create the hauling tasks
+            CreateConstructionHaulingTasks();
+        }
+
+        public void InformDirtReady()
+        {
+            CreateConstructionHaulingTasks();
+        }
+
+        private bool IsOnDirt()
+        {
+            return Helper.DoesGridContainTag(transform.position, "Dirt");
+        }
+
+        private void ClearGrass()
+        {
+            Spawner.Instance.SpawnDirtTile(Helper.ConvertMousePosToGridPos(transform.position), this);
         }
 
         private void CreateConstructionHaulingTasks()

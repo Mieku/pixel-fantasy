@@ -22,6 +22,7 @@ namespace Items
 
         public bool HasFruitAvailable => _hasFruitAvailable;
         public bool QueuedToHarvest => _queuedToHarvest;
+        public List<GameObject> TaskRequestors = new List<GameObject>();
         
         private void Start()
         {
@@ -242,6 +243,20 @@ namespace Items
             }
             
             HarvestFruit();
+
+            foreach (var taskRequestor in TaskRequestors)
+            {
+                if (taskRequestor != null)
+                {
+                    var dirt = taskRequestor.GetComponent<DirtTile>();
+                    if (dirt != null)
+                    {
+                        dirt.CreateClearGrassTask();
+                    }
+                }
+            }
+            
+            TaskRequestors.Clear();
             
             Destroy(gameObject);
         }

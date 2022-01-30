@@ -13,6 +13,8 @@ using UnityEngine;
 
 public class DirtTile : MonoBehaviour
 {
+    public bool IsBuilt = false;
+    
     [SerializeField] private int _workCost;
     [SerializeField] private List<string> _invalidPlacementTags;
     [SerializeField] private List<Option> _options;
@@ -31,6 +33,7 @@ public class DirtTile : MonoBehaviour
     private TaskMaster taskMaster => TaskMaster.Instance;
     private UnitTaskAI _incomingUnit;
     private List<int> _assignedTaskRefs = new List<int>();
+    private Structure _requestedStructure;
 
     public Sprite Icon => _icon;
 
@@ -63,14 +66,46 @@ public class DirtTile : MonoBehaviour
         }
     }
     
-    public void Init()
+    public void Init(Structure requestedStructure = null)
     {
+        _requestedStructure = requestedStructure;
         _origLayer = _center.sortingOrder;
         UpdateSprite(true);
         ShowBlueprint(true);
+        ClearPlantsForClearingGrass();
+    }
+
+    private void ClearPlantsForClearingGrass()
+    {
+        // Check if there are any plants on the tile, if so, cut them down first
+        if (Helper.DoesGridContainTag(transform.position, "Nature"))
+        {
+            ClearNatureFromTile();
+            return;
+        }
+        
+        // if clear, clear the grass
         CreateClearGrassTask();
     }
-    
+
+    private void ClearNatureFromTile()
+    {
+        var objectsOnTile = Helper.GetGameObjectsOnTile(transform.position);
+        foreach (var tileObj in objectsOnTile)
+        {
+            var growResource = tileObj.GetComponent<GrowingResource>();
+            if (growResource != null)
+            {
+                growResource.TaskRequestors.Add(gameObject);
+
+                if (!growResource.QueuedToCut)
+                {
+                    growResource.CreateCutPlantTask();
+                }
+            }
+        }
+    }
+
     private void ShowBlueprint(bool showBlueprint)
     {
         if (showBlueprint)
@@ -82,7 +117,6 @@ public class DirtTile : MonoBehaviour
         {
             ColourRenderers(Color.white);
             _graphUpdateScene.enabled = true;
-            //gameObject.layer = 4;
         }
     }
 
@@ -95,7 +129,7 @@ public class DirtTile : MonoBehaviour
         _topRight.color = colour;
     }
 
-    private void CreateClearGrassTask()
+    public void CreateClearGrassTask()
     {
         var task = new FarmingTask.ClearGrass()
         {
@@ -116,6 +150,12 @@ public class DirtTile : MonoBehaviour
     {
         ShowBlueprint(false);
         _incomingUnit = null;
+        IsBuilt = true;
+
+        if (_requestedStructure != null)
+        {
+            _requestedStructure.InformDirtReady();
+        }
     }
 
     #region Sprite Displaying

@@ -201,11 +201,11 @@ namespace Gods
             plant.GetComponent<GrowingResource>().Init(growingResourceData);
         }
 
-        public void SpawnDirtTile(Vector2 spawnPosition)
+        public void SpawnDirtTile(Vector2 spawnPosition, Structure requestingStructure = null)
         {
             var dirt = Instantiate(_dirtTilePrefab, spawnPosition, Quaternion.identity);
             dirt.transform.SetParent(_flooringParent);
-            dirt.GetComponent<DirtTile>().Init();
+            dirt.GetComponent<DirtTile>().Init(requestingStructure);
         }
 
         #region Structure
