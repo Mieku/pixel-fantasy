@@ -153,7 +153,7 @@ namespace Items
             FruitCheck();
         }
         
-        public void CreateCutPlantTask()
+        public int CreateCutPlantTask()
         {
             CancelTasks();
             _queuedToCut = true;
@@ -180,9 +180,12 @@ namespace Items
                 workAmount = _growingResourceData.GetWorkToCut(_growthIndex),
                 completeWork = CutDownPlant
             };
-            
-            _assignedTaskRefs.Add(task.GetHashCode());
+
+            var taskHash = task.GetHashCode();
+            _assignedTaskRefs.Add(taskHash);
             taskMaster.FarmingTaskSystem.AddTask(task);
+
+            return taskHash;
         }
 
         public void CancelCutPlantTask()

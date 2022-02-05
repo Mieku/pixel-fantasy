@@ -22,6 +22,7 @@ namespace Gods
         [SerializeField] private GameObject _structurePrefab;
         
         [SerializeField] private GameObject _dirtTilePrefab;
+        [SerializeField] private GameObject _floorPrefab;
         [SerializeField] private Transform _flooringParent;
         
         [SerializeField] private SpriteRenderer _placementIcon;
@@ -36,6 +37,7 @@ namespace Gods
         private List<Vector2> _plannedGrid = new List<Vector2>();
         
         public StructureData StructureData { get; set; }
+        public FloorData FloorData { get; set; }
 
         private void OnEnable()
         {
@@ -80,6 +82,10 @@ namespace Gods
                 {
                     PlanDirt(mousePos);
                 }
+                else
+                {
+                    PlanFloor(mousePos, FloorData.PlanningMode);
+                }
             }
         }
         
@@ -108,6 +114,18 @@ namespace Gods
                     else
                     {
                         SpawnDirtTile(Helper.ConvertMousePosToGridPos(mousePos));
+                    }
+                }
+                else
+                {
+                    if (_planningStructure)
+                    {
+                        SpawnPlannedFloor();
+                    }
+                    else
+                    {
+                        var floorData = Librarian.Instance.GetFloorData(PlayerInputController.Instance.StoredKey);
+                        SpawnFloor(floorData, Helper.ConvertMousePosToGridPos(mousePos));
                     }
                 }
             }
@@ -187,6 +205,17 @@ namespace Gods
             }
         }
 
+        public void SpawnFloor(FloorData floorData, Vector2 spawnPosition)
+        {
+            if (Helper.IsGridPosValidToBuild(spawnPosition, floorData.InvalidPlacementTags))
+            {
+                var floorObj = Instantiate(_floorPrefab, spawnPosition, Quaternion.identity);
+                floorObj.transform.SetParent(_flooringParent);
+                var floor = floorObj.GetComponent<Floor>();
+                floor.Init(floorData);
+            }
+        }
+
         public void SpawnTree(Vector2 spawnPosition, GrowingResourceData growingResourceData)
         {
             var tree = Instantiate(_treePrefab, spawnPosition, Quaternion.identity);
@@ -206,6 +235,15 @@ namespace Gods
             var dirt = Instantiate(_dirtTilePrefab, spawnPosition, Quaternion.identity);
             dirt.transform.SetParent(_flooringParent);
             dirt.GetComponent<DirtTile>().Init(requestingStructure);
+        }
+        
+        public DirtTile SpawnDirtTile(Vector2 spawnPosition, Floor requestingFloor)
+        {
+            var dirt = Instantiate(_dirtTilePrefab, spawnPosition, Quaternion.identity);
+            dirt.transform.SetParent(_flooringParent);
+            var dirtTile = dirt.GetComponent<DirtTile>();
+            dirtTile.Init(requestingFloor);
+            return dirtTile;
         }
 
         #region Structure
@@ -235,6 +273,24 @@ namespace Gods
                 if (Helper.IsGridPosValidToBuild(gridPos, StructureData.InvalidPlacementTags))
                 {
                     SpawnStructure(StructureData, gridPos);
+                }
+            }
+
+            ClearPlannedBlueprint();
+            _plannedGrid.Clear();
+            _planningStructure = false;
+            CancelInput();
+        }
+
+        private void SpawnPlannedFloor()
+        {
+            if (!_planningStructure) return;
+
+            foreach (var gridPos in _plannedGrid)
+            {
+                if (Helper.IsGridPosValidToBuild(gridPos, FloorData.InvalidPlacementTags))
+                {
+                    SpawnFloor(FloorData, gridPos);
                 }
             }
 
@@ -287,6 +343,55 @@ namespace Gods
                     }
                     
                     spriteRenderer.sortingLayerName = "Structure";
+                    _blueprints.Add(blueprint);
+                }
+            }
+            
+        }
+        
+        private void PlanFloor(Vector2 mousePos, PlanningMode planningMode)
+        {
+            if (!_planningStructure) return;
+            ShowPlacementIcon(false);
+
+            Vector3 curGridPos = Helper.ConvertMousePosToGridPos(mousePos);
+            List<Vector2> gridPositions = new List<Vector2>();
+
+            switch (planningMode)
+            {
+                case PlanningMode.Rectangle:
+                    gridPositions = Helper.GetRectangleGridPositionsBetweenPoints(_startPos, curGridPos);
+                    break;
+                case PlanningMode.Line:
+                    gridPositions = Helper.GetLineGridPositionsBetweenPoints(_startPos, mousePos);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(planningMode), planningMode, null);
+            }
+
+            if (gridPositions.Count != _plannedGrid.Count)
+            {
+                _plannedGrid = gridPositions;
+                
+                // Clear previous display, then display new blueprints
+                ClearPlannedBlueprint();
+
+                foreach (var gridPos in gridPositions)
+                {
+                    var blueprint = new GameObject("blueprint", typeof(SpriteRenderer));
+                    blueprint.transform.position = gridPos;
+                    var spriteRenderer = blueprint.GetComponent<SpriteRenderer>();
+                    spriteRenderer.sprite = FloorData.Icon;
+                    if (Helper.IsGridPosValidToBuild(gridPos, FloorData.InvalidPlacementTags))
+                    {
+                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Green");
+                    }
+                    else
+                    {
+                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Red");
+                    }
+                    
+                    spriteRenderer.sortingLayerName = "Floor";
                     _blueprints.Add(blueprint);
                 }
             }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Gods;
+using Interfaces;
 using Items;
 using TMPro;
 using UnityEngine;
@@ -86,10 +87,10 @@ namespace HUD
             var optionBtn = optionObj.GetComponent<OptionButton>();
             
             var owner = _selectionData.Owner;
-            var item = owner.GetComponent<Item>();
+            var item = owner.GetComponent<IClickableObject>();
             if (item != null)
             {
-                if (item.IsAllowed())
+                if (item.IsAllowed)
                 {
                     icon = Librarian.Instance.GetSprite("Lock");
                 }
@@ -107,11 +108,10 @@ namespace HUD
         private void AllowPressed(OptionButton optionButton)
         {
             var owner = _selectionData.Owner;
-            var item = owner.GetComponent<Item>();
+            var item = owner.GetComponent<IClickableObject>();
             if (item != null)
             {
-                if (item.IsAllowed())
-                {
+                if (item.IsAllowed) {
                     item.ToggleAllowed(false);
                     optionButton.Icon = Librarian.Instance.GetSprite("Key");
                 }
@@ -130,6 +130,8 @@ namespace HUD
             var optionBtn = optionObj.GetComponent<OptionButton>();
             
             var owner = _selectionData.Owner;
+            
+            // Structure
             var structure = owner.GetComponent<Structure>();
             if (structure != null)
             {
@@ -149,6 +151,13 @@ namespace HUD
                     // Cancel
                     optionBtn.Init("Cancel", Librarian.Instance.GetSprite("X"), CancelConstructionPressed);
                 }
+            }
+            
+            // Floor
+            var floor = owner.GetComponent<Floor>();
+            if (floor != null)
+            {
+                optionBtn.Init("Cancel", Librarian.Instance.GetSprite("X"), CancelConstructionPressed);
             }
             
             _displayedOptions.Add(optionBtn);
@@ -185,6 +194,13 @@ namespace HUD
             if (structure != null)
             {
                 structure.CancelConstruction();
+                HideItemDetails();
+            }
+            
+            var floor = owner.GetComponent<Floor>();
+            if (floor != null)
+            {
+                floor.CancelConstruction();
                 HideItemDetails();
             }
         }

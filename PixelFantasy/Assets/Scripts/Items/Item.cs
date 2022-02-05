@@ -1,6 +1,7 @@
 using System;
 using Controllers;
 using Gods;
+using Interfaces;
 using ScriptableObjects;
 using Tasks;
 using Unit;
@@ -8,27 +9,27 @@ using UnityEngine;
 
 namespace Items
 {
-    public class Item : MonoBehaviour
+    public class Item : MonoBehaviour, IClickableObject
     {
         [SerializeField] private ItemData _itemData;
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private SpriteRenderer _icon;
 
-        private bool _allowed;
         private int _assignedTaskRef;
         private UnitTaskAI _incomingUnit;
         private Transform _originalParent;
+        private bool isAllowed;
 
         private TaskMaster taskMaster => TaskMaster.Instance;
         
         public void InitializeItem(ItemData itemData, bool allowed)
         {
             _itemData = itemData;
-            _allowed = allowed;
+            IsAllowed = allowed;
             
             DisplayItemSprite();
 
-            if (_allowed)
+            if (IsAllowed)
             {
                 CreateHaulTask();
             }
@@ -97,8 +98,8 @@ namespace Items
 
         public void ToggleAllowed(bool isAllowed)
         {
-            _allowed = isAllowed;
-            if (_allowed)
+            IsAllowed = isAllowed;
+            if (IsAllowed)
             {
                 _icon.gameObject.SetActive(false);
                 _icon.sprite = null;
@@ -112,7 +113,7 @@ namespace Items
             }
         }
 
-        public bool IsAllowed() => _allowed;
+        public bool IsAllowed { get; set; }
 
         public int GetAssignedTask()
         {
@@ -130,5 +131,7 @@ namespace Items
                 _incomingUnit.CancelTask();
             }
         }
+
+        public bool IsClickDisabled { get; set; }
     }
 }

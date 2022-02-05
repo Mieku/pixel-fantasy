@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 namespace ScriptableObjects
 {
-    [CreateAssetMenu(fileName = "ItemData", menuName = "ItemData", order = 1)]
+    [CreateAssetMenu(fileName = "ItemData", menuName = "CraftedData/ItemData", order = 1)]
     public class ItemData : ScriptableObject
     {
         public string ItemName;

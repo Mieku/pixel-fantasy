@@ -34,6 +34,7 @@ public class DirtTile : MonoBehaviour
     private UnitTaskAI _incomingUnit;
     private List<int> _assignedTaskRefs = new List<int>();
     private Structure _requestedStructure;
+    private Floor _requestedFloor;
 
     public Sprite Icon => _icon;
 
@@ -66,6 +67,23 @@ public class DirtTile : MonoBehaviour
         }
     }
     
+    public void CancelTasks()
+    {
+        if (_assignedTaskRefs == null || _assignedTaskRefs.Count == 0) return;
+
+        foreach (var taskRef in _assignedTaskRefs)
+        {
+            taskMaster.FellingTaskSystem.CancelTask(taskRef);
+            taskMaster.FarmingTaskSystem.CancelTask(taskRef);
+        }
+        _assignedTaskRefs.Clear();
+            
+        if (_incomingUnit != null)
+        {
+            _incomingUnit.CancelTask();
+        }
+    }
+    
     public void Init(Structure requestedStructure = null)
     {
         _requestedStructure = requestedStructure;
@@ -74,8 +92,17 @@ public class DirtTile : MonoBehaviour
         ShowBlueprint(true);
         ClearPlantsForClearingGrass();
     }
+    
+    public void Init(Floor requestedFloor)
+    {
+        _requestedFloor = requestedFloor;
+        _origLayer = _center.sortingOrder;
+        UpdateSprite(true);
+        ShowBlueprint(true);
+        ClearPlantsForClearingGrass();
+    }
 
-    private void ClearPlantsForClearingGrass()
+    public void ClearPlantsForClearingGrass()
     {
         // Check if there are any plants on the tile, if so, cut them down first
         if (Helper.DoesGridContainTag(transform.position, "Nature"))
@@ -146,6 +173,14 @@ public class DirtTile : MonoBehaviour
         taskMaster.FarmingTaskSystem.AddTask(task);
     }
 
+    public void CancelClearGrass()
+    {
+        if (IsBuilt) return;
+        
+        CancelTasks();
+        Destroy(gameObject);
+    }
+
     private void BuiltDirt()
     {
         ShowBlueprint(false);
@@ -155,6 +190,11 @@ public class DirtTile : MonoBehaviour
         if (_requestedStructure != null)
         {
             _requestedStructure.InformDirtReady();
+        }
+
+        if (_requestedFloor != null)
+        {
+            _requestedFloor.InformDirtReady();
         }
     }
 

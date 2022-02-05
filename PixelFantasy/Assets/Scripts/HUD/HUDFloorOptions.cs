@@ -15,9 +15,13 @@ namespace HUD
             Spawner.Instance.ShowPlacementIcon(true, _dirtPrefab.Icon, _dirtPrefab.InvalidPlacementTags);
         }
 
-        public void BuildWoodFloorBtnPressed()
+        public void BuildFloorBtnPressed(string key)
         {
-            // TODO: Build me
+            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildFlooring, key);
+            
+            var floorData = Librarian.Instance.GetFloorData(PlayerInputController.Instance.StoredKey);
+            Spawner.Instance.FloorData = floorData;
+            Spawner.Instance.ShowPlacementIcon(true, floorData.Icon, floorData.InvalidPlacementTags);
         }
     }
 }

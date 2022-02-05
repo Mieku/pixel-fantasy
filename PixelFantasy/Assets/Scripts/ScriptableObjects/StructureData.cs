@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ScriptableObjects
 {
-    [CreateAssetMenu(fileName = "StructureData", menuName = "StructureData", order = 1)]
+    [CreateAssetMenu(fileName = "StructureData", menuName = "CraftedData/StructureData", order = 1)]
     public class StructureData : ScriptableObject
     {
         public string StructureName;

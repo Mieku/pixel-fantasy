@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Controllers;
+using Interfaces;
 using Items;
 using ScriptableObjects;
 using UnityEditor;
@@ -18,6 +19,8 @@ public class ClickObject : MonoBehaviour
     private ItemData _itemData;
     private StructureData _structureData;
     private GrowingResourceData _growingResourceData;
+    private FloorData _floorData;
+    private bool _isMouseOver;
 
     private void Initialize()
     {
@@ -39,6 +42,9 @@ public class ClickObject : MonoBehaviour
                 break;
             case ObjectType.Resource:
                 _growingResourceData = GetComponent<Resource>().GetResourceData();
+                break;
+            case ObjectType.Floor:
+                _floorData = GetComponent<Floor>().FloorData;
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -66,11 +72,29 @@ public class ClickObject : MonoBehaviour
     {
         _selectedIcon.SetActive(false);
     }
-    
-    private void OnMouseUpAsButton()
+
+    private void OnMouseOver()
     {
+        _isMouseOver = true;
+    }
+
+    private void OnMouseExit()
+    {
+        _isMouseOver = false;
+    }
+
+    private void OnMouseUp()
+    {
+        if (!_isMouseOver) return;
+        
         var isOverUI = EventSystem.current.IsPointerOverGameObject();
         if(isOverUI) return;
+        
+        var clickableObj = GetComponent<IClickableObject>();
+        if (clickableObj != null)
+        {
+            if (clickableObj.IsClickDisabled) return;
+        }
         
         if (PlayerInputController.Instance.GetCurrentState() == PlayerInputState.None)
         {
@@ -92,6 +116,8 @@ public class ClickObject : MonoBehaviour
                 return null;
             case ObjectType.Resource:
                 return GetSelectionData(_growingResourceData);
+            case ObjectType.Floor:
+                return GetSelectionData(_floorData);
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -132,6 +158,18 @@ public class ClickObject : MonoBehaviour
 
         return result;
     }
+    
+    private SelectionData GetSelectionData(FloorData floorData)
+    {
+        SelectionData result = new SelectionData
+        {
+            ItemName = floorData.FloorName,
+            Options = floorData.Options,
+            Owner = gameObject,
+        };
+
+        return result;
+    }
 }
 
 public class SelectionData
@@ -146,5 +184,6 @@ public enum ObjectType
     Item,
     Structure,
     Unit,
-    Resource
+    Resource,
+    Floor
 }

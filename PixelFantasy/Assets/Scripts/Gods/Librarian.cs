@@ -9,6 +9,7 @@ namespace Gods
     {
         [SerializeField] private List<ColourData> _colourLibrary;
         [SerializeField] private List<StructureData> _structureLibrary;
+        [SerializeField] private List<FloorData> _floorLibrary;
         [SerializeField] private List<Sprite> _sprites;
 
         public Color GetColour(string colourName)
@@ -31,6 +32,16 @@ namespace Gods
             if (result == null)
             {
                 Debug.LogError("Unknown Structure: " + key);
+            }
+            return result;
+        }
+        
+        public FloorData GetFloorData(string key)
+        {
+            var result = _floorLibrary.Find(s => s.FloorName == key);
+            if (result == null)
+            {
+                Debug.LogError("Unknown Floor: " + key);
             }
             return result;
         }
