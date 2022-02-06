@@ -1,9 +1,11 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using CodeMonkey.Utils;
 using Controllers;
 using HUD;
 using Items;
+using Pathfinding;
 using ScriptableObjects;
 using UnityEngine;
 
@@ -26,6 +28,9 @@ namespace Gods
         [SerializeField] private Transform _flooringParent;
         
         [SerializeField] private SpriteRenderer _placementIcon;
+        
+        [SerializeField] private Seeker _pathSeeker;
+        [SerializeField] private GameObject _settlementFlag;
 
         private bool _showPlacement;
         private List<string> _invalidPlacementTags = new List<string>();
@@ -455,6 +460,26 @@ namespace Gods
             _plannedGrid.Clear();
             _planningStructure = false;
             CancelInput();
+        }
+
+        /// <summary>
+        /// Determines if the position has a valid path to the settlement flag
+        /// </summary>
+        public void IsAccessible(Vector2 pos, Action<bool> accessibleCallback)
+        {
+            var gridPos = Helper.ConvertMousePosToGridPos(pos);
+            var flagPos = Helper.ConvertMousePosToGridPos(_settlementFlag.transform.position);
+
+            _pathSeeker.StartPath(flagPos, gridPos, path =>
+            {
+                var endNode = path.path[path.path.Count - 1];
+                var endPos = (Vector3)endNode.position;
+
+                var xDelta = Math.Abs(gridPos.x - endPos.x);
+                var yDelta = Math.Abs(gridPos.y - endPos.y);
+
+                accessibleCallback(xDelta < 0.001 && yDelta < 0.001);
+            });
         }
     }
 
