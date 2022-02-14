@@ -9,6 +9,7 @@ namespace HUD
         [SerializeField] private GameObject StructureOpt;
         [SerializeField] private GameObject StorageOpt;
         [SerializeField] private GameObject FloorOpt;
+        [SerializeField] private GameObject FurnitureOpt;
 
         private PanelState _panelState;
         
@@ -18,6 +19,7 @@ namespace HUD
             Structure,
             Storage,
             Floor,
+            Furniture
         }
 
         private void OnEnable()
@@ -30,6 +32,7 @@ namespace HUD
             StructureOpt.SetActive(false);
             StorageOpt.SetActive(false);
             FloorOpt.SetActive(false);
+            FurnitureOpt.SetActive(false);
         }
         
         private void ChangeState (PanelState panelState)
@@ -48,6 +51,9 @@ namespace HUD
                     break;
                 case PanelState.Floor:
                     SetStateFloor();
+                    break;
+                case PanelState.Furniture:
+                    SetStateFurniture();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(panelState), panelState, null);
@@ -93,6 +99,13 @@ namespace HUD
             FloorOpt.SetActive(true);
         }
 
+        private void SetStateFurniture()
+        {
+            HideOptions();
+
+            FurnitureOpt.SetActive(true);
+        }
+
         #endregion
 
         #region Option Buttons
@@ -110,6 +123,11 @@ namespace HUD
         public void FloorOptionPressed()
         {
             OptionPressed(PanelState.Floor);
+        }
+
+        public void FurnitureOptionPressed()
+        {
+            OptionPressed(PanelState.Furniture);
         }
         
         #endregion

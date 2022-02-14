@@ -144,6 +144,19 @@ namespace Unit
                     ExecuteTask_ClearGrass(task as FarmingTask.ClearGrass);
                     return;
                 }
+
+                if (task is CarpentryTask.CraftItem)
+                {
+                    ExecuteTask_CraftItem_Carpentry(task as CarpentryTask.CraftItem);
+                    return;
+                }
+                
+                if (task is CarpentryTask.GatherResourceForCrafting)
+                {
+                    ExecuteTask_GatherResourceForCrafting_Carpentry(task as CarpentryTask.GatherResourceForCrafting);
+                    return;
+                }
+                
                 // Other task types go here
             }
         }
@@ -271,6 +284,31 @@ namespace Unit
                 DoWork(task.workAmount, () =>
                 {
                     task.completeWork();
+                    state = State.WaitingForNextTask;
+                });
+            });
+        }
+
+        private void ExecuteTask_CraftItem_Carpentry(CarpentryTask.CraftItem task)
+        {
+            workerMover.SetMovePosition(task.craftPosition, () =>
+            {
+                DoWork(task.workAmount, () =>
+                {
+                    task.completeWork();
+                    state = State.WaitingForNextTask;
+                });
+            });
+        }
+        
+        private void ExecuteTask_GatherResourceForCrafting_Carpentry(CarpentryTask.GatherResourceForCrafting task)
+        {
+            workerMover.SetMovePosition(task.resourcePosition, () =>
+            {
+                task.grabResource(this);
+                workerMover.SetMovePosition(task.craftingTable.transform.position, () =>
+                {
+                    task.useResource();
                     state = State.WaitingForNextTask;
                 });
             });

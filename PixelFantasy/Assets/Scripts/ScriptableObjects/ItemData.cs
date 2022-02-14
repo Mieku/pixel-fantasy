@@ -16,6 +16,31 @@ namespace ScriptableObjects
         public Vector2 DefaultSpriteScale;
 
         [SerializeField] private List<Option> _options;
+        [SerializeField] private ConstructionMethod _constructionMethod;
+        [SerializeField] private List<ItemAmount> _resourceCosts;
+        [SerializeField] private float _workToCraft;
+        
+        public ConstructionMethod ConstructionMethod => _constructionMethod;
+        public float WorkToCraft => _workToCraft;
+        
+        public List<ItemAmount> ResourceCosts
+        {
+            get
+            {
+                List<ItemAmount> clone = new List<ItemAmount>();
+                foreach (var resourceCost in _resourceCosts)
+                {
+                    ItemAmount cost = new ItemAmount
+                    {
+                        Item = resourceCost.Item,
+                        Quantity = resourceCost.Quantity
+                    };
+                    clone.Add(cost);
+                }
+
+                return clone;
+            }
+        }
         
         public List<Option> Options
         {

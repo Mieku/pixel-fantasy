@@ -163,5 +163,6 @@ namespace Controllers
         CHEAT_SpawnResource,
         BuildStructure,
         BuildFlooring,
+        BuildFurniture
     }
 }

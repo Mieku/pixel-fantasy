@@ -26,6 +26,10 @@ namespace Gods
         [SerializeField] private GameObject _dirtTilePrefab;
         [SerializeField] private GameObject _floorPrefab;
         [SerializeField] private Transform _flooringParent;
+
+        [SerializeField] private GameObject _craftingTablePrefab;
+        [SerializeField] private GameObject _furniturePrefab;
+        [SerializeField] private Transform _furnitureParent;
         
         [SerializeField] private SpriteRenderer _placementIcon;
         
@@ -43,6 +47,7 @@ namespace Gods
         
         public StructureData StructureData { get; set; }
         public FloorData FloorData { get; set; }
+        public FurnitureData FurnitureData { get; set; }
 
         private void OnEnable()
         {
@@ -134,6 +139,10 @@ namespace Gods
                     }
                 }
             }
+            else if (inputState == PlayerInputState.BuildFurniture)
+            {
+                SpawnFurniture(FurnitureData, Helper.ConvertMousePosToGridPos(mousePos));
+            }
         }
         
         protected virtual void GameEvents_OnRightClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
@@ -159,11 +168,43 @@ namespace Gods
             CancelPlanning();
         }
 
-        public void ShowPlacementIcon(bool show, Sprite icon = null, List<String> invalidPlacementTags = null)
+        public void ShowPlacementIcon(bool show, Sprite icon = null, List<String> invalidPlacementTags = null, float sizeOverride = 1f)
         {
+            _placementIcon.enabled = true;
+            
+            if (_placementIcon.transform.childCount > 0)
+            {
+                var child = _placementIcon.transform.GetChild(0).gameObject;
+                Destroy(child);
+            }
+            
             if (show)
             {
+                _placementIcon.gameObject.transform.localScale = new Vector2(sizeOverride, sizeOverride);
                 _placementIcon.sprite = icon;
+                _placementIcon.gameObject.SetActive(true);
+                _showPlacement = true;
+                _invalidPlacementTags = invalidPlacementTags;
+            }
+            else
+            {   _placementIcon.gameObject.SetActive(false);
+                _showPlacement = false;
+            }
+        }
+        
+        public void ShowPlacementObject(bool show, GameObject icon = null, List<String> invalidPlacementTags = null, float sizeOverride = 1f)
+        {
+            _placementIcon.enabled = false;
+            
+            if (_placementIcon.transform.childCount > 0)
+            {
+                var child = _placementIcon.transform.GetChild(0).gameObject;
+                Destroy(child);
+            }
+
+            if (show)
+            {
+                var placementObj = Instantiate(icon,_placementIcon.transform);
                 _placementIcon.gameObject.SetActive(true);
                 _showPlacement = true;
                 _invalidPlacementTags = invalidPlacementTags;
@@ -183,10 +224,26 @@ namespace Gods
                 if (Helper.IsGridPosValidToBuild(gridPos, _invalidPlacementTags))
                 {
                     _placementIcon.color = Librarian.Instance.GetColour("Placement Green");
+                    if (_placementIcon.transform.childCount > 0)
+                    {
+                        var renderers = _placementIcon.GetComponentsInChildren<SpriteRenderer>();
+                        foreach (var renderer in renderers)
+                        {
+                            renderer.color = Librarian.Instance.GetColour("Placement Green");
+                        }
+                    }
                 }
                 else
                 {
                     _placementIcon.color = Librarian.Instance.GetColour("Placement Red");
+                    if (_placementIcon.transform.childCount > 0)
+                    {
+                        var renderers = _placementIcon.GetComponentsInChildren<SpriteRenderer>();
+                        foreach (var renderer in renderers)
+                        {
+                            renderer.color = Librarian.Instance.GetColour("Placement Red");
+                        }
+                    }
                 }
             }
         }
@@ -207,6 +264,27 @@ namespace Gods
                 structureObj.transform.SetParent(_structureParent);
                 var structure = structureObj.GetComponent<Structure>();
                 structure.Init(structureData);
+            }
+        }
+
+        public void SpawnFurniture(FurnitureData furnitureData, Vector2 spawnPosition)
+        {
+            if (Helper.IsGridPosValidToBuild(spawnPosition, furnitureData.InvalidPlacementTags))
+            {
+                if (furnitureData.IsCraftingTable)
+                {
+                    var furnitureObj = Instantiate(_craftingTablePrefab, spawnPosition, Quaternion.identity);
+                    furnitureObj.transform.SetParent(_furnitureParent);
+                    var furniture = furnitureObj.GetComponent<CraftingTable>();
+                    furniture.Init(furnitureData, PlacementDirection.Down); // TODO: Add in rotation control
+                }
+                else
+                {
+                    var furnitureObj = Instantiate(_furniturePrefab, spawnPosition, Quaternion.identity);
+                    furnitureObj.transform.SetParent(_furnitureParent);
+                    var furniture = furnitureObj.GetComponent<Furniture>();
+                    furniture.Init(furnitureData, PlacementDirection.Down); // TODO: Add in rotation control
+                }
             }
         }
 

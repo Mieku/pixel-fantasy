@@ -28,9 +28,6 @@ namespace Gods
 
         private const float FUNC_PERIODIC_TIMER = 0.2f; // 200ms
         
-        // For Testing placeholder
-        public Sprite rubble;
-
         public TaskBase GetNextTaskByCategory(TaskCategory category)
         {
             TaskBase nextTask = category switch
@@ -60,15 +57,7 @@ namespace Gods
         {
             InitFunctionPeriodics();
         }
-
-        private void Update()
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                //AssignMoveLocation();
-            }
-        }
-
+        
         private void InitFunctionPeriodics()
         {
             FunctionPeriodic.Create(DequeueTasksAllTaskSystems, FUNC_PERIODIC_TIMER);
@@ -95,105 +84,6 @@ namespace Gods
             CleaningTaskSystem.DequeueTasks();
             ResearchTaskSystem.DequeueTasks();
         }
-
-        // TODO: Remove these when no longer needed
-        #region Used For Testing
-        
-        private void AssignMoveLocation()
-        {
-            var newTask = new EmergencyTask.MoveToPosition
-            {
-                targetPosition = UtilsClass.GetMouseWorldPosition()
-            };
-            EmergencyTaskSystem.AddTask(newTask);
-        }
-
-        /// <summary>
-        /// A variation of CreateGarbageOnMousePos, that doesn't allow for the task to be available immediately
-        /// This is used to demo a task with a conditional
-        /// </summary>
-        /// <param name="secToWait">The amount of time to wait before this task can be executed</param>
-        private void CreateGarbageAndWait(float secToWait)
-        {
-            var garbage = SpawnRubble(UtilsClass.GetMouseWorldPosition());
-            var garbageSpriteRenderer = garbage.GetComponent<SpriteRenderer>();
-            float cleanupTime = Time.time + secToWait;
-            
-            CleaningTaskSystem.EnqueueTask(() =>
-            {
-                if (Time.time >= cleanupTime)
-                {
-                    var newTask = new CleaningTask.GarbageCleanup
-                    {
-                        targetPosition = garbage.transform.position,
-                        cleanUpAction = () =>
-                        {
-                            float alpha = 1f;
-                            FunctionUpdater.Create(() =>
-                            {
-                                alpha -= Time.deltaTime;
-                                garbageSpriteRenderer.color = new Color(1, 1, 1, alpha);
-                                if (alpha <= 0f)
-                                {
-                                    Destroy(garbage);
-                                    return true;
-                                }
-                                else
-                                {
-                                    return false;
-                                }
-                            });
-                        }
-                    };
-                    return newTask;
-                }
-                else
-                {
-                    return null;
-                }
-            });
-        }
-        
-        private void CreateGarbageOnMousePos()
-        {
-            var garbage = SpawnRubble(UtilsClass.GetMouseWorldPosition());
-            var garbageSpriteRenderer = garbage.GetComponent<SpriteRenderer>();
-            var newTask = new CleaningTask.GarbageCleanup
-            {
-                targetPosition = garbage.transform.position,
-                cleanUpAction = () =>
-                {
-                    float alpha = 1f;
-                    FunctionUpdater.Create(() =>
-                    {
-                        alpha -= Time.deltaTime * 1.1f;
-                        garbageSpriteRenderer.color = new Color(1, 1, 1, alpha);
-                        if (alpha <= 0f)
-                        {
-                            Destroy(garbage);
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    });
-                }
-            };
-            CleaningTaskSystem.AddTask(newTask);
-        }
-
-        private GameObject SpawnRubble(Vector3 position)
-        {
-            GameObject gameObject = new GameObject("Rubble", typeof(SpriteRenderer));
-            gameObject.GetComponent<SpriteRenderer>().sprite = rubble;
-            gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "Item";
-            gameObject.transform.position = position;
-
-            return gameObject;
-        }
-        
-        #endregion
     }
 
     [Serializable]

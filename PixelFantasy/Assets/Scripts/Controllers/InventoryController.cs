@@ -46,6 +46,30 @@ namespace Controllers
             return null;
         }
 
+        public bool HasItemAvailable(ItemData itemData, int quantity)
+        {
+            if (_inventory.ContainsKey(itemData))
+            {
+                return _inventory[itemData] >= quantity;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public int AvailableItemQuantity(ItemData itemData)
+        {
+            if (_inventory.ContainsKey(itemData))
+            {
+                return _inventory[itemData];
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
         public void AddNewStorageSlot(StorageSlot newSlot)
         {
             _storageSlots.Add(newSlot);
@@ -105,6 +129,7 @@ namespace Controllers
                         var item = storageSlot.ClaimItem();
                         if (item != null)
                         {
+                            RemoveFromInventory(item.GetItemData(), 1);
                             return item;
                         }
                     }
@@ -120,7 +145,7 @@ namespace Controllers
             {
                 if (storageSlot.HasItemClaimed(claimedResource))
                 {
-                    RemoveFromInventory(claimedResource.GetItemData(), 1);
+                    //RemoveFromInventory(claimedResource.GetItemData(), 1);
                     storageSlot.RemoveClaimedItem(claimedResource);
                     break;
                 }

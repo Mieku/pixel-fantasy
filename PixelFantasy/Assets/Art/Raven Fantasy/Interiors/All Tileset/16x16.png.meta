@@ -77,6 +77,21 @@ TextureImporter:
   - first:
       213: -5840662636130032780
     second: 16x16_24
+  - first:
+      213: -1366648790733946385
+    second: Chair_up
+  - first:
+      213: -465430912943923674
+    second: Stool
+  - first:
+      213: 4577660034246386176
+    second: Chair_left
+  - first:
+      213: 1162964665328882485
+    second: Chair_right
+  - first:
+      213: -3857596031159909058
+    second: Chair_down
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -693,7 +708,7 @@ TextureImporter:
         width: 16
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -714,7 +729,7 @@ TextureImporter:
         width: 9
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -722,6 +737,111 @@ TextureImporter:
       bones: []
       spriteID: 473a290174cc1fea0800000000000000
       internalID: -5840662636130032780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chair_up
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 48
+        width: 14
+        height: 29
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe106976a20b80de0800000000000000
+      internalID: -1366648790733946385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stool
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 55
+        width: 14
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62edd76fc057a89f0800000000000000
+      internalID: -465430912943923674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chair_left
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 85
+        width: 15
+        height: 34
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00222c33c8d178f30800000000000000
+      internalID: 4577660034246386176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chair_right
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 85
+        width: 15
+        height: 34
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5335243933ea32010800000000000000
+      internalID: 1162964665328882485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chair_down
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 87
+        width: 14
+        height: 37
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e35c1cb19d0177ac0800000000000000
+      internalID: -3857596031159909058
       vertices: []
       indices: 
       edges: []

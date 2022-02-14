@@ -20,6 +20,7 @@ public class ClickObject : MonoBehaviour
     private StructureData _structureData;
     private GrowingResourceData _growingResourceData;
     private FloorData _floorData;
+    private FurnitureData _furnitureData;
     private bool _isMouseOver;
 
     private void Initialize()
@@ -45,6 +46,9 @@ public class ClickObject : MonoBehaviour
                 break;
             case ObjectType.Floor:
                 _floorData = GetComponent<Floor>().FloorData;
+                break;
+            case ObjectType.Furniture:
+                _furnitureData = GetComponent<Furniture>().FurnitureData;
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -118,6 +122,8 @@ public class ClickObject : MonoBehaviour
                 return GetSelectionData(_growingResourceData);
             case ObjectType.Floor:
                 return GetSelectionData(_floorData);
+            case ObjectType.Furniture:
+                return GetSelectionData(_furnitureData);
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -170,6 +176,18 @@ public class ClickObject : MonoBehaviour
 
         return result;
     }
+    
+    private SelectionData GetSelectionData(FurnitureData furnitureData)
+    {
+        SelectionData result = new SelectionData
+        {
+            ItemName = furnitureData.FurnitureName,
+            Options = furnitureData.Options,
+            Owner = gameObject,
+        };
+
+        return result;
+    }
 }
 
 public class SelectionData
@@ -185,5 +203,6 @@ public enum ObjectType
     Structure,
     Unit,
     Resource,
-    Floor
+    Floor,
+    Furniture
 }

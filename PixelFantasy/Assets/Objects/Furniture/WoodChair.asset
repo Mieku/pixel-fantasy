@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5efafc4933169345ba1ba92abf8d920, type: 3}
+  m_Name: WoodChair
+  m_EditorClassIdentifier: 
+  _furnitureName: Wood Chair
+  _downFurniturePrefab: {fileID: 4118944199294624089, guid: abed5de34fdf4dd4bbe95a141eeba733, type: 3}
+  _upFurniturePrefab: {fileID: 2433849033443669838, guid: 8a32f19fe55a1d64e98ef71de4ef0dc5, type: 3}
+  _leftFurniturePrefab: {fileID: 7938825791434232581, guid: cf700dd1b1f9d4a4fa477398897e0325, type: 3}
+  _rightFurniturePrefab: {fileID: 8003289208649482822, guid: 0dcde2a1a210b1d4fa5ea8758baf3b5c, type: 3}
+  _iconSprite: {fileID: 4577660034246386176, guid: 0aad73a0f4fe3f341bb7faa0e248191d, type: 3}
+  _workCost: 10
+  _resourceCosts:
+  - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
+    Quantity: 1
+  - Item: {fileID: 11400000, guid: 858a66c518920c8438c73b6387c0b76e, type: 2}
+    Quantity: 4
+  _invalidPlacementTags:
+  - Water
+  - Wall
+  - Zone
+  - Furniture
+  _constructionMethod: 2
+  _options: 01000000
+  _isCraftingTable: 0
