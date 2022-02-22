@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: CarpentryTable
   m_EditorClassIdentifier: 
   _furnitureName: Carpentry Table
+  _itemData: {fileID: 0}
   _downFurniturePrefab: {fileID: 7824407206540833354, guid: 1cc395d5911cad34395392afe7fe776a, type: 3}
   _upFurniturePrefab: {fileID: 0}
   _leftFurniturePrefab: {fileID: 0}
@@ -22,8 +23,6 @@ MonoBehaviour:
   _resourceCosts:
   - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
     Quantity: 8
-  - Item: {fileID: 11400000, guid: 858a66c518920c8438c73b6387c0b76e, type: 2}
-    Quantity: 5
   _invalidPlacementTags:
   - Water
   - Wall

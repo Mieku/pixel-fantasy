@@ -71,9 +71,7 @@ namespace Items
             {
                 Spawner.Instance.SpawnItem(_itemToCraft.ItemData, transform.position, true);
                 _itemToCraft = null;
-            }
-            // TODO: Add Furniture
-            
+            } 
         }
         
         public override void Init(FurnitureData furnitureData, PlacementDirection direction)
@@ -120,10 +118,7 @@ namespace Items
                 if (craft.ItemData != null)
                 {
                     tableSprite.sprite = craft.ItemData.ItemSprite;
-                } 
-                else if (craft.FurnitureData != null)
-                {
-                    tableSprite.sprite = craft.FurnitureData.Icon;
+                    tableSprite.transform.localScale = craft.ItemData.DefaultSpriteScale;
                 }
                 
                 tableSprite.gameObject.SetActive(true);

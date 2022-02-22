@@ -194,21 +194,47 @@ namespace Gods
     
     public class CraftingTask
     {
-        public ItemData ItemData;
-        public FurnitureData FurnitureData;
+        private ItemData _itemData;
+        private FurnitureData _furnitureData;
+
+        public ItemData ItemData
+        {
+            get
+            {
+                if (_itemData != null)
+                {
+                    return _itemData;
+                }
+
+                if (_furnitureData != null)
+                {
+                    return _furnitureData.ItemData;
+                }
+                
+                Debug.LogError("Missing ItemData");
+                return null;
+            }
+            set => _itemData = value;
+        }
+
+        public FurnitureData FurnitureData
+        {
+            get => _furnitureData;
+            set => _furnitureData = value;
+        }
 
         public ConstructionMethod ConstructionMethod
         {
             get
             {
-                if (ItemData != null)
+                if (_itemData != null)
                 {
-                    return ItemData.ConstructionMethod;
+                    return _itemData.ConstructionMethod;
                 }
 
-                if (FurnitureData != null)
+                if (_furnitureData != null)
                 {
-                    return FurnitureData.ConstructionMethod;
+                    return _furnitureData.ConstructionMethod;
                 }
 
                 return ConstructionMethod.None;
@@ -219,14 +245,14 @@ namespace Gods
         {
             get
             {
-                if (ItemData != null)
+                if (_itemData != null)
                 {
-                    return ItemData.ResourceCosts;
+                    return _itemData.ResourceCosts;
                 }
 
-                if (FurnitureData != null)
+                if (_furnitureData != null)
                 {
-                    return FurnitureData.ResourceCosts;
+                    return _furnitureData.ResourceCosts;
                 }
 
                 return null;
@@ -237,14 +263,14 @@ namespace Gods
         {
             get
             {
-                if (ItemData != null)
+                if (_itemData != null)
                 {
-                    return ItemData.WorkToCraft;
+                    return _itemData.WorkToCraft;
                 }
 
-                if (FurnitureData != null)
+                if (_furnitureData != null)
                 {
-                    return FurnitureData.WorkCost;
+                    return _furnitureData.WorkCost;
                 }
 
                 return 0f;

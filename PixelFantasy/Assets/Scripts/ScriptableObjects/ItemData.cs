@@ -13,7 +13,7 @@ namespace ScriptableObjects
         public int MaxStackSize;
     
         [PreviewField] public Sprite ItemSprite;
-        public Vector2 DefaultSpriteScale;
+        public Vector2 DefaultSpriteScale = Vector2.one;
 
         [SerializeField] private List<Option> _options;
         [SerializeField] private ConstructionMethod _constructionMethod;

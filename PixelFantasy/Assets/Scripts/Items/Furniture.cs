@@ -63,11 +63,55 @@ namespace Items
             }
             else
             {
-                // TODO: Have the item crafted through the crafting system
-                
+                var resourceCosts = _furnitureData.ResourceCosts;
+                CraftMissingItems(resourceCosts);
+                CraftingTask craftItem = new CraftingTask();
+                craftItem.FurnitureData = _furnitureData;
+
+                CreateCraftingTask(craftItem);
+
+                CreateInstallTask(craftItem);
             }
         }
         
+        private void CreateInstallTask(CraftingTask craftingTask)
+        {
+            var taskRef = taskMaster.HaulingTaskSystem.EnqueueTask(() =>
+            {
+                Item resource = InventoryController.Instance.ClaimResource(craftingTask.ItemData);
+                if (resource != null)
+                {
+                    var task = new HaulingTask.TakeResourceToBlueprint
+                    {
+                        resourcePosition = resource.transform.position,
+                        blueprintPosition = transform.position,
+                        grabResource = (UnitTaskAI unitTaskAI) =>
+                        {
+                            resource.transform.SetParent(unitTaskAI.transform);
+                            InventoryController.Instance.DeductClaimedResource(resource);
+                            _incomingItems.Add(resource);
+                        },
+                        useResource = () =>
+                        {
+                            _incomingItems.Remove(resource);
+                            resource.gameObject.SetActive(false);
+                            AddResourceToBlueprint(resource.GetItemData());
+                            Destroy(resource.gameObject);
+                            InstallFurniture();
+                        },
+                    };
+
+                    _assignedTaskRefs.Add(task.GetHashCode());
+                    return task;
+                }
+                else
+                {
+                    return null;
+                }
+            }).GetHashCode();
+            _assignedTaskRefs.Add(taskRef);
+        }
+
         private void CreateConstructionHaulingTasks()
         {
             var resourceCosts = _furnitureData.ResourceCosts;
@@ -211,6 +255,12 @@ namespace Items
         }
 
         protected virtual void CompleteConstruction()
+        {
+            ShowBlueprint(false);
+            _isBuilt = true;
+        }
+
+        protected virtual void InstallFurniture()
         {
             ShowBlueprint(false);
             _isBuilt = true;

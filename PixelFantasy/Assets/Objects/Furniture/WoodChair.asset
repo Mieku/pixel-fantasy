@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: WoodChair
   m_EditorClassIdentifier: 
   _furnitureName: Wood Chair
+  _itemData: {fileID: 11400000, guid: 9fab084c543ed9247a9dae9aa0b46461, type: 2}
   _downFurniturePrefab: {fileID: 4118944199294624089, guid: abed5de34fdf4dd4bbe95a141eeba733, type: 3}
   _upFurniturePrefab: {fileID: 2433849033443669838, guid: 8a32f19fe55a1d64e98ef71de4ef0dc5, type: 3}
   _leftFurniturePrefab: {fileID: 7938825791434232581, guid: cf700dd1b1f9d4a4fa477398897e0325, type: 3}
@@ -32,3 +33,4 @@ MonoBehaviour:
   _constructionMethod: 2
   _options: 01000000
   _isCraftingTable: 0
+  _craftingType: 0

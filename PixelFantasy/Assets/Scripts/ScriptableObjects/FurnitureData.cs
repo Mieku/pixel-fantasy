@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Gods;
 using Items;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace ScriptableObjects
@@ -10,13 +11,14 @@ namespace ScriptableObjects
     public class FurnitureData : ScriptableObject
     {
         [SerializeField] private string _furnitureName;
+        [SerializeField] private ItemData _itemData;
         [SerializeField] private GameObject _downFurniturePrefab;
         [SerializeField] private GameObject _upFurniturePrefab;
         [SerializeField] private GameObject _leftFurniturePrefab;
         [SerializeField] private GameObject _rightFurniturePrefab;
         [SerializeField] private Sprite _iconSprite;
         [SerializeField] private float _workCost;
-        [SerializeField] private List<ItemAmount> _resourceCosts;
+        [ShowIf("_constructionMethod", Items.ConstructionMethod.Hand)][SerializeField] private List<ItemAmount> _resourceCosts;
         [SerializeField] private List<string> _invalidPlacementTags = new List<string> { "Water", "Wall", "Zone", "Furniture" };
         [SerializeField] private ConstructionMethod _constructionMethod;
         [SerializeField] private List<Option> _options;
@@ -30,6 +32,7 @@ namespace ScriptableObjects
         public bool IsCraftingTable => _isCraftingTable;
         public List<Option> Options => _options;
         public CraftingType CraftingType => _craftingType;
+        public ItemData ItemData => _itemData;
 
         public GameObject GetFurniturePrefab(PlacementDirection direction)
         {
@@ -52,18 +55,25 @@ namespace ScriptableObjects
         {
             get
             {
-                List<ItemAmount> clone = new List<ItemAmount>();
-                foreach (var resourceCost in _resourceCosts)
+                if (ConstructionMethod == ConstructionMethod.Hand)
                 {
-                    ItemAmount cost = new ItemAmount
+                    List<ItemAmount> clone = new List<ItemAmount>();
+                    foreach (var resourceCost in _resourceCosts)
                     {
-                        Item = resourceCost.Item,
-                        Quantity = resourceCost.Quantity
-                    };
-                    clone.Add(cost);
-                }
+                        ItemAmount cost = new ItemAmount
+                        {
+                            Item = resourceCost.Item,
+                            Quantity = resourceCost.Quantity
+                        };
+                        clone.Add(cost);
+                    }
 
-                return clone;
+                    return clone;
+                }
+                else
+                {
+                    return ItemData.ResourceCosts;
+                }
             }
         }
 
