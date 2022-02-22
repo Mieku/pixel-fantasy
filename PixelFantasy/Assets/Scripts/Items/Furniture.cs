@@ -13,13 +13,13 @@ namespace Items
     {
         private FurnitureData _furnitureData;
         protected FurniturePrefab _prefab;
-        private List<ItemAmount> _resourceCost;
+        protected List<ItemAmount> _resourceCost;
         private bool _isBuilt;
-        private List<int> _assignedTaskRefs = new List<int>();
-        private List<Item> _incomingItems = new List<Item>();
+        protected List<int> _assignedTaskRefs = new List<int>();
+        protected List<Item> _incomingItems = new List<Item>();
         private bool _isDeconstructing;
         private UnitTaskAI _incomingUnit;
-        
+
         protected Transform UsagePosition => _prefab.UsagePostion;
         public FurnitureData FurnitureData => _furnitureData;
         

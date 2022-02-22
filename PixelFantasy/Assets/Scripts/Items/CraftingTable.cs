@@ -9,12 +9,9 @@ namespace Items
 {
     public class CraftingTable : Furniture
     {
-        private List<Item> _incomingItems = new List<Item>();
         private CraftingTask _itemToCraft;
-        private List<ItemAmount> _resourceCost;
-        private List<int> _assignedTaskRefs = new List<int>();
         private bool _isCraftingItem;
-
+ 
         public bool IsCraftingItem => _isCraftingItem;
         
         public void AssignCraft(CraftingTask itemToCraft)
