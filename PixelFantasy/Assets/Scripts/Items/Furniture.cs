@@ -71,6 +71,9 @@ namespace Items
         private void CreateConstructionHaulingTasks()
         {
             var resourceCosts = _furnitureData.ResourceCosts;
+            
+            CraftMissingItems(resourceCosts);
+            
             foreach (var resourceCost in resourceCosts)
             {
                 for (int i = 0; i < resourceCost.Quantity; i++)
@@ -80,10 +83,22 @@ namespace Items
             }
         }
 
+        private void CraftMissingItems(List<ItemAmount> requiredResources)
+        {
+            foreach (var resource in requiredResources)
+            {
+                var remainingNeeded = resource.Quantity - InventoryController.Instance.AvailableItemQuantity(resource.Item);
+                for (int i = 0; i < remainingNeeded; i++)
+                {
+                    CraftingTask craft = new CraftingTask();
+                    craft.ItemData = resource.Item;
+                    CreateCraftingTask(craft);
+                }
+            }
+        }
+
         private void CreateTakeResourceToBlueprintTask(ItemData resourceData)
         {
-            CraftMissingItems(resourceData);
-
             var taskRef = taskMaster.HaulingTaskSystem.EnqueueTask(() =>
             {
                 Item resource = InventoryController.Instance.ClaimResource(resourceData);
@@ -118,17 +133,6 @@ namespace Items
                 }
             }).GetHashCode();
             _assignedTaskRefs.Add(taskRef);
-        }
-
-        private void CraftMissingItems(ItemData item)
-        {
-            var remainingNeeded = 1 - InventoryController.Instance.AvailableItemQuantity(item);
-            for (int i = 0; i < remainingNeeded; i++)
-            {
-                CraftingTask craft = new CraftingTask();
-                craft.ItemData = item;
-                CreateCraftingTask(craft);
-            }
         }
 
         private void CreateCraftingTask(CraftingTask itemToCraft)
