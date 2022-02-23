@@ -210,7 +210,7 @@ SortingGroup:
   m_GameObject: {fileID: 5193408849299628808}
   m_Enabled: 1
   m_SortingLayerID: 1535977287
-  m_SortingLayer: 4
+  m_SortingLayer: 2
   m_SortingOrder: 0
 --- !u!114 &5193408849299628810
 MonoBehaviour:
@@ -241,6 +241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectType: 0
   _selectedIcon: {fileID: 5026565680336161660}
+  _objectRenderer: {fileID: 0}
 --- !u!61 &4391485635462396388
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -277,6 +278,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5193408850715605306}
   - component: {fileID: 5193408850715605309}
+  - component: {fileID: 3342163310337631579}
   m_Layer: 0
   m_Name: ItemSprite
   m_TagString: Untagged
@@ -349,3 +351,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3342163310337631579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5193408850715605307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _offset: 0.5
+  _runOnlyOnce: 0

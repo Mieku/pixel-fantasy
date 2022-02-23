@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5161091558588606537}
   - component: {fileID: 4051455358149148202}
+  - component: {fileID: 4686699395578387866}
   m_Layer: 0
   m_Name: Furniture Sprite
   m_TagString: Untagged
@@ -82,6 +83,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4686699395578387866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803676559739814162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _offset: 0.5
+  _runOnlyOnce: 1
 --- !u!1 &7824407206540833354
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,6 +156,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3861661829285439323}
   - component: {fileID: 4631625429964882804}
+  - component: {fileID: 2997481730786770183}
   m_Layer: 0
   m_Name: Crafted Item
   m_TagString: Untagged
@@ -213,6 +229,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2997481730786770183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8970803219810811713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _offset: -2
+  _runOnlyOnce: 1
 --- !u!1 &9077351895227835938
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +259,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &379289581579389745
 Transform:
   m_ObjectHideFlags: 0
