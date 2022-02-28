@@ -17,3 +17,7 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: 45496e65167fa874b96d7d8ccb157102, type: 3}
   DefaultSpriteScale: {x: 0.75, y: 0.75}
   _options: 00000000
+  _constructionMethod: 0
+  _resourceCosts: []
+  _craftedQuatity: 1
+  _workToCraft: 0

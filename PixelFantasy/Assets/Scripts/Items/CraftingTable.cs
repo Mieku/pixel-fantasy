@@ -69,7 +69,7 @@ namespace Items
 
             if (_itemToCraft.ItemData != null)
             {
-                Spawner.Instance.SpawnItem(_itemToCraft.ItemData, transform.position, true);
+                Spawner.Instance.SpawnItem(_itemToCraft.ItemData, transform.position, true, _itemToCraft.ItemData.CraftedQuantity);
                 _itemToCraft = null;
             } 
         }

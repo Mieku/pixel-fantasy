@@ -21,4 +21,5 @@ MonoBehaviour:
   _resourceCosts:
   - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
     Quantity: 1
+  _craftedQuatity: 3
   _workToCraft: 3

@@ -23,4 +23,5 @@ MonoBehaviour:
     Quantity: 1
   - Item: {fileID: 11400000, guid: 858a66c518920c8438c73b6387c0b76e, type: 2}
     Quantity: 5
+  _craftedQuatity: 1
   _workToCraft: 10

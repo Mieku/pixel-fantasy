@@ -16,9 +16,11 @@ namespace ScriptableObjects
         public Vector2 DefaultSpriteScale = Vector2.one;
 
         [SerializeField] private List<Option> _options;
-        [SerializeField] private ConstructionMethod _constructionMethod;
-        [SerializeField] private List<ItemAmount> _resourceCosts;
-        [SerializeField] private float _workToCraft;
+        
+        [BoxGroup("Crafting", centerLabel: true)][SerializeField] private ConstructionMethod _constructionMethod;
+        [BoxGroup("Crafting")][HideIf("_constructionMethod", Items.ConstructionMethod.None)][SerializeField] private List<ItemAmount> _resourceCosts;
+        [BoxGroup("Crafting")][HideIf("_constructionMethod", Items.ConstructionMethod.None)][SerializeField] private int _craftedQuatity = 1;
+        [BoxGroup("Crafting")][HideIf("_constructionMethod", Items.ConstructionMethod.None)][SerializeField] private float _workToCraft;
         
         public ConstructionMethod ConstructionMethod => _constructionMethod;
         public float WorkToCraft => _workToCraft;
@@ -39,6 +41,22 @@ namespace ScriptableObjects
                 }
 
                 return clone;
+            }
+        }
+
+        public int CraftedQuantity
+        {
+            get
+            {
+                if (_craftedQuatity == 0)
+                {
+                    Debug.LogError($"{ItemName}: No Qanitity Set!, returning 1");
+                    return 1;
+                }
+                else
+                {
+                    return _craftedQuatity;
+                }
             }
         }
         

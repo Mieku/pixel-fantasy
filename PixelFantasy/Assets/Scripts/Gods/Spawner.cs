@@ -248,12 +248,15 @@ namespace Gods
             }
         }
 
-        public void SpawnItem(ItemData itemData, Vector2 spawnPosition, bool canBeHauled)
+        public void SpawnItem(ItemData itemData, Vector2 spawnPosition, bool canBeHauled, int quantity = 1)
         {
-            var item = Instantiate(_itemPrefab, spawnPosition, Quaternion.identity);
-            item.transform.SetParent(_itemsParent);
-            var itemScript = item.GetComponent<Item>();
-            itemScript.InitializeItem(itemData, canBeHauled);
+            for (int i = 0; i < quantity; i++)
+            {
+                var item = Instantiate(_itemPrefab, spawnPosition, Quaternion.identity);
+                item.transform.SetParent(_itemsParent);
+                var itemScript = item.GetComponent<Item>();
+                itemScript.InitializeItem(itemData, canBeHauled);
+            }
         }
 
         public void SpawnStructure(StructureData structureData, Vector2 spawnPosition)

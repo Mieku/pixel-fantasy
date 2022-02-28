@@ -131,8 +131,11 @@ namespace Items
         {
             foreach (var resource in requiredResources)
             {
-                var remainingNeeded = resource.Quantity - InventoryController.Instance.AvailableItemQuantity(resource.Item);
-                for (int i = 0; i < remainingNeeded; i++)
+                float remainingNeeded = resource.Quantity - InventoryController.Instance.AvailableItemQuantity(resource.Item);
+                float amountMadePerCraft = resource.Item.CraftedQuantity;
+                var numTasks = (int)Math.Ceiling(remainingNeeded / amountMadePerCraft);
+
+                for (int i = 0; i < numTasks; i++)
                 {
                     CraftingTask craft = new CraftingTask();
                     craft.ItemData = resource.Item;
