@@ -1,6 +1,8 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Gods;
+using Items;
 using UnityEngine;
 
 public static class Helper
@@ -189,5 +191,47 @@ public static class Helper
     {
         var roll = Random.Range(0f, 100f);
         return roll <= percentWin;
+    }
+
+    /// <summary>
+    /// Provides the next direction in a clockwise motion
+    /// </summary>
+    public static PlacementDirection GetNextDirection(PlacementDirection curDirection)
+    {
+        switch (curDirection)
+        {
+            case PlacementDirection.Up:
+                return PlacementDirection.Right;
+            case PlacementDirection.Right:
+                return PlacementDirection.Down;
+            case PlacementDirection.Down:
+                return PlacementDirection.Left;
+            case PlacementDirection.Left:
+                return PlacementDirection.Up;
+        }
+
+        return PlacementDirection.Down;
+    }
+
+    /// <summary>
+    /// Provides the next direction in a counter clockwise motion
+    /// </summary>
+    /// <param name="direction"></param>
+    /// <returns></returns>
+    public static PlacementDirection GetPrevDirection(PlacementDirection curDirection)
+    {
+        switch (curDirection)
+        {
+            case PlacementDirection.Up:
+                return PlacementDirection.Left;
+            case PlacementDirection.Right:
+                return PlacementDirection.Up;
+            case PlacementDirection.Down:
+                return PlacementDirection.Right;
+            case PlacementDirection.Left:
+                return PlacementDirection.Down;
+        }
+
+        return PlacementDirection.Down;
     }
 }

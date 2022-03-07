@@ -269,16 +269,7 @@ namespace Items
             _isBuilt = true;
         }
     }
-
-    [Serializable]
-    public enum PlacementDirection
-    {
-        Down,
-        Up,
-        Left, 
-        Right
-    }
-
+    
     [Serializable]
     public enum ConstructionMethod
     {

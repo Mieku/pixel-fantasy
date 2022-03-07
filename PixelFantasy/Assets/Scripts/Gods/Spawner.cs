@@ -45,10 +45,25 @@ namespace Gods
         private List<GameObject> _blueprints = new List<GameObject>();
         private List<Vector2> _plannedGrid = new List<Vector2>();
         
+        public PlacementDirection PlacementDirection;
         public StructureData StructureData { get; set; }
         public FloorData FloorData { get; set; }
         public FurnitureData FurnitureData { get; set; }
 
+        public PlacementDirection SetNextPlacementDirection(bool isClockwise)
+        {
+            if (isClockwise)
+            {
+                PlacementDirection = Helper.GetNextDirection(PlacementDirection);
+            }
+            else
+            {
+                PlacementDirection = Helper.GetPrevDirection(PlacementDirection);
+            }
+            
+            return PlacementDirection;
+        }
+        
         private void OnEnable()
         {
             GameEvents.OnLeftClickDown += GameEvents_OnLeftClickDown;
@@ -166,6 +181,7 @@ namespace Gods
             ShowPlacementIcon(false);
             _invalidPlacementTags.Clear();
             CancelPlanning();
+            PlacementDirection = PlacementDirection.Down;
         }
 
         public void ShowPlacementIcon(bool show, Sprite icon = null, List<String> invalidPlacementTags = null, float sizeOverride = 1f)
@@ -279,14 +295,14 @@ namespace Gods
                     var furnitureObj = Instantiate(_craftingTablePrefab, spawnPosition, Quaternion.identity);
                     furnitureObj.transform.SetParent(_furnitureParent);
                     var furniture = furnitureObj.GetComponent<CraftingTable>();
-                    furniture.Init(furnitureData, PlacementDirection.Down); // TODO: Add in rotation control
+                    furniture.Init(furnitureData, PlacementDirection);
                 }
                 else
                 {
                     var furnitureObj = Instantiate(_furniturePrefab, spawnPosition, Quaternion.identity);
                     furnitureObj.transform.SetParent(_furnitureParent);
                     var furniture = furnitureObj.GetComponent<Furniture>();
-                    furniture.Init(furnitureData, PlacementDirection.Down); // TODO: Add in rotation control
+                    furniture.Init(furnitureData, PlacementDirection);
                 }
             }
         }
@@ -568,5 +584,14 @@ namespace Gods
     {
         Rectangle,
         Line
+    }
+    
+    [Serializable]
+    public enum PlacementDirection
+    {
+        Down,
+        Up,
+        Left, 
+        Right
     }
 }
