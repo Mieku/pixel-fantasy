@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Floors
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: a2fb55f66b06c844b9fd971eba65e73d, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: -1367059835200721591, guid: a2fb55f66b06c844b9fd971eba65e73d, type: 3}
+  - {fileID: 7539873085292648494, guid: a2fb55f66b06c844b9fd971eba65e73d, type: 3}
+  - {fileID: -3987986942634888125, guid: a2fb55f66b06c844b9fd971eba65e73d, type: 3}
+  - {fileID: 1949562186734734637, guid: a2fb55f66b06c844b9fd971eba65e73d, type: 3}
+  - {fileID: -3791721819749445781, guid: a2fb55f66b06c844b9fd971eba65e73d, type: 3}
+  - {fileID: 2652373268678200421, guid: a2fb55f66b06c844b9fd971eba65e73d, type: 3}
+  - {fileID: 3958005114891382315, guid: a2fb55f66b06c844b9fd971eba65e73d, type: 3}
+  - {fileID: 2785207244387747231, guid: a2fb55f66b06c844b9fd971eba65e73d, type: 3}
+  - {fileID: 1772933007011673218, guid: a2fb55f66b06c844b9fd971eba65e73d, type: 3}
+  - {fileID: -1736500483682979260, guid: a2fb55f66b06c844b9fd971eba65e73d, type: 3}
+  - {fileID: -9209347681176987443, guid: a2fb55f66b06c844b9fd971eba65e73d, type: 3}
+  - {fileID: 4161665253601106452, guid: a2fb55f66b06c844b9fd971eba65e73d, type: 3}
+  - {fileID: -4776400997610119606, guid: a2fb55f66b06c844b9fd971eba65e73d, type: 3}
+  - {fileID: 8078489912672244033, guid: a2fb55f66b06c844b9fd971eba65e73d, type: 3}
+  - {fileID: -3899880574057959224, guid: a2fb55f66b06c844b9fd971eba65e73d, type: 3}
+  - {fileID: -7514586346478072215, guid: a2fb55f66b06c844b9fd971eba65e73d, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - C2
+  - C1
+  - H2
+  - H1
+  - A1
+  - A2
+  - E1
+  - E2
+  - D2
+  - D1
+  - B1
+  - G2
+  - B2
+  - G1
+  - F1
+  - F2
+  m_RenderDataMap: {}
+  m_Tag: Floors
+  m_IsVariant: 0

@@ -159,16 +159,16 @@ namespace Items
             _queuedToCut = true;
             SetIcon("Scythe");
             
-            // Choose a random side of the tree
-            var sideMod = 1;
-            var rand = Random.Range(0, 2);
-            if (rand == 1)
-            {
-                sideMod *= -1;
-            }
-
-            var cutPos = transform.position;
-            cutPos.x += sideMod;
+            // // Choose a random side of the tree
+            // var sideMod = 1;
+            // var rand = Random.Range(0, 2);
+            // if (rand == 1)
+            // {
+            //     sideMod *= -1;
+            // }
+            //
+            // var cutPos = transform.position;
+            // cutPos.x += sideMod;
 
             var task = new FarmingTask.CutPlant()
             {
@@ -176,7 +176,7 @@ namespace Items
                 {
                     _incomingUnit = unitTaskAI;
                 },
-                plantPosition = cutPos,
+                plantPosition = transform.position,
                 workAmount = _growingResourceData.GetWorkToCut(_growthIndex),
                 completeWork = CutDownPlant
             };

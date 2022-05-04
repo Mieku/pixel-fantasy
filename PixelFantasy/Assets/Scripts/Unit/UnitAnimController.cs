@@ -4,113 +4,103 @@ using UnityEngine;
 
 namespace Character
 {
-    // TODO: This is just a placeholder, need something more dynamic for later
     public class UnitAnimController : MonoBehaviour, ICharacterAnimController
     {
-        private Animator anim;
-        private WalkDirection prevWalkDir;
-        private SpriteRenderer spriteRenderer;
+        [SerializeField] private Animator baseAnim;
+        [SerializeField] private Animator hairAnim;
+        [SerializeField] private Animator toolAnim;
+
+        [SerializeField] private SpriteRenderer baseRenderer;
+        [SerializeField] private SpriteRenderer hairRenderer;
+        [SerializeField] private SpriteRenderer toolRenderer;
         
-        private static readonly int WalkSide = Animator.StringToHash("WalkSide");
-        private static readonly int WalkUp = Animator.StringToHash("WalkUp");
-        private static readonly int WalkDown = Animator.StringToHash("WalkDown");
-        private static readonly int IdleSide = Animator.StringToHash("IdleSide");
-        private static readonly int IdleUp = Animator.StringToHash("IdleUp");
-        private static readonly int IdleDown = Animator.StringToHash("IdleDown");
+        private static readonly int Velocity = Animator.StringToHash("Velocity");
+        private const string DOING = "IsDoing";
+        private const string AXE = "IsCutting";
+        private const string BUILD = "IsBuilding";
+        private const string DIG = "IsDigging";
 
-        private void Awake()
+        public void SetUnitAction(UnitAction unitAction)
         {
-            anim = GetComponentInChildren<Animator>();
-            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        }
-
-        public void SetMovementVelocity(Vector2 velocityVector)
-        {
-            if (velocityVector == Vector2.zero)
-            {
-                SetWalkDirection(WalkDirection.Idle);
-                return;
-            }
-
-            var xAbs = Mathf.Abs(velocityVector.x);
-            var yAbs = Mathf.Abs(velocityVector.y);
+            ClearAllActions();
             
-            // Horizontal
-            if (xAbs >= yAbs)
+            switch (unitAction)
             {
-                if (velocityVector.x > 0)
-                {
-                    spriteRenderer.flipX = false;
-                    SetWalkDirection(WalkDirection.Right);
-                }
-                else
-                {
-                    spriteRenderer.flipX = true;
-                    SetWalkDirection(WalkDirection.Left);
-                }
-            }
-            else // Vertical
-            {
-                if (velocityVector.y > 0)
-                {
-                    SetWalkDirection(WalkDirection.Up);
-                }
-                else
-                {
-                    SetWalkDirection(WalkDirection.Down);
-                }
-            }
-        }
-
-        private void SetWalkDirection(WalkDirection walkDir)
-        {
-            switch (walkDir)
-            {
-                case WalkDirection.Idle:
-                    switch (prevWalkDir)
-                    {
-                        default:
-                        case WalkDirection.Idle:
-                        case WalkDirection.Down:
-                            anim.SetTrigger(IdleDown);
-                            break;
-                        case WalkDirection.Up:
-                            anim.SetTrigger(IdleUp);
-                            break;
-                        case WalkDirection.Left:
-                        case WalkDirection.Right:
-                            anim.SetTrigger(IdleSide);
-                            break;
-                    }
+                case UnitAction.Nothing:
+                    ClearAllActions();
                     break;
-                case WalkDirection.Down:
-                    anim.SetTrigger(WalkDown);
-                    prevWalkDir = WalkDirection.Down;
+                case UnitAction.Doing:
+                    SetUnitAction(DOING);
                     break;
-                case WalkDirection.Up:
-                    anim.SetTrigger(WalkUp);
-                    prevWalkDir = WalkDirection.Up;
+                case UnitAction.Axe:
+                    SetUnitAction(AXE);
                     break;
-                case WalkDirection.Left:
-                    anim.SetTrigger(WalkSide);
-                    prevWalkDir = WalkDirection.Left;
+                case UnitAction.Building:
+                    SetUnitAction(BUILD);
                     break;
-                case WalkDirection.Right:
-                    anim.SetTrigger(WalkSide);
-                    prevWalkDir = WalkDirection.Right;
+                case UnitAction.Digging:
+                    SetUnitAction(DIG);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(walkDir), walkDir, null);
+                    throw new ArgumentOutOfRangeException(nameof(unitAction), unitAction, null);
             }
         }
 
-        private enum WalkDirection
+        private void SetUnitAction(string parameter, bool isActive = true)
         {
-            Idle,
-            Down,
-            Up,
-            Left,
-            Right
+            baseAnim.SetBool(parameter, isActive);
+            hairAnim.SetBool(parameter, isActive);
+            toolAnim.SetBool(parameter, isActive);
         }
+
+        private void ClearAllActions()
+        {
+            SetUnitAction(DOING, false);
+            SetUnitAction(AXE, false);
+            SetUnitAction(BUILD, false);
+            SetUnitAction(DIG, false);
+        }
+        
+        public void SetMovementVelocity(Vector2 velocityVector)
+        {
+            SetVelocity(velocityVector.magnitude);
+            baseAnim.SetFloat(Velocity, velocityVector.magnitude);
+
+            if (velocityVector != Vector2.zero)
+            {
+                FlipRendererX(velocityVector.x <= 0);
+            }
+        }
+
+        /// <summary>
+        /// Causes the unit to face towards the target position
+        /// </summary>
+        public void LookAtPostion(Vector2 targetPos)
+        {
+            FlipRendererX(targetPos.x < transform.position.x);
+        }
+
+        private void FlipRendererX(bool shouldFlip)
+        {
+            baseRenderer.flipX = shouldFlip;
+            hairRenderer.flipX = shouldFlip;
+            toolRenderer.flipX = shouldFlip;
+        }
+
+        private void SetVelocity(float velocity)
+        {
+            baseAnim.SetFloat(Velocity, velocity);
+            hairAnim.SetFloat(Velocity, velocity);
+            toolAnim.SetFloat(Velocity, velocity);
+        }
+    }
+
+    public enum UnitAction
+    {
+        Nothing,
+        Doing,
+        Axe,
+        Building,
+        Digging,
     }
 }

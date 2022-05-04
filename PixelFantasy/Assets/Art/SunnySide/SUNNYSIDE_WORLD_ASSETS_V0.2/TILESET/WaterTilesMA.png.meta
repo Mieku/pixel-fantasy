@@ -1,0 +1,1707 @@
+fileFormatVersion: 2
+guid: 74631e6b3b5e5954594ac0423c259411
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3217387727957849465
+    second: WaterTilesMA_2
+  - first:
+      213: 524742315816822694
+    second: WaterTilesMA_3
+  - first:
+      213: -2442052838373189913
+    second: WaterTilesMA_4
+  - first:
+      213: 2288778055835863447
+    second: WaterTilesMA_5
+  - first:
+      213: -4939858353740557213
+    second: A1
+  - first:
+      213: 778325501822769695
+    second: A2
+  - first:
+      213: -4464811976741938913
+    second: WaterTilesMA_11
+  - first:
+      213: 594881412107276834
+    second: WaterTilesMA_12
+  - first:
+      213: -7946771521392880408
+    second: WaterTilesMA_13
+  - first:
+      213: 1548130115784237546
+    second: WaterTilesMA_14
+  - first:
+      213: -8615806797643977643
+    second: WaterTilesMA_15
+  - first:
+      213: 672076560755689770
+    second: WaterTilesMA_16
+  - first:
+      213: -8264057292364569803
+    second: WaterTilesMA_17
+  - first:
+      213: 2776865772300644610
+    second: E2
+  - first:
+      213: 8945813723940575710
+    second: WaterTilesMA_19
+  - first:
+      213: 9670168098906490
+    second: WaterTilesMA_20
+  - first:
+      213: -2247009333697571466
+    second: WaterTilesMA_21
+  - first:
+      213: -6801377804399593690
+    second: WaterTilesMA_22
+  - first:
+      213: 8306569055850953584
+    second: WaterTilesMA_23
+  - first:
+      213: 4859856291734204567
+    second: WaterTilesMA_24
+  - first:
+      213: -2834433876556634897
+    second: WaterTilesMA_25
+  - first:
+      213: 259598998741865696
+    second: A15
+  - first:
+      213: -4758687231478414564
+    second: A3
+  - first:
+      213: 6055270320511660161
+    second: A4
+  - first:
+      213: -8278967339917948147
+    second: WaterTilesMA_31
+  - first:
+      213: 934696751589938666
+    second: WaterTilesMA_32
+  - first:
+      213: 8525449222395281153
+    second: B1
+  - first:
+      213: -3986097939797183279
+    second: WaterTilesMA_34
+  - first:
+      213: 7471655451605674719
+    second: WaterTilesMA_35
+  - first:
+      213: 4042383212214259745
+    second: WaterTilesMA_36
+  - first:
+      213: 600764428827352749
+    second: WaterTilesMA_37
+  - first:
+      213: 1716985462410749755
+    second: WaterTilesMA_38
+  - first:
+      213: -7445592816783558646
+    second: WaterTilesMA_39
+  - first:
+      213: -7730303582158119777
+    second: WaterTilesMA_40
+  - first:
+      213: -8258859615350888564
+    second: E1
+  - first:
+      213: 3449502446587333602
+    second: E3
+  - first:
+      213: 2906242080458990845
+    second: WaterTilesMA_43
+  - first:
+      213: -8292851462588689805
+    second: WaterTilesMA_44
+  - first:
+      213: 1546281782614068020
+    second: WaterTilesMA_45
+  - first:
+      213: -2997435493360937350
+    second: WaterTilesMA_46
+  - first:
+      213: -3851665835213089572
+    second: WaterTilesMA_47
+  - first:
+      213: -110794312070324063
+    second: WaterTilesMA_48
+  - first:
+      213: 5537928980914875956
+    second: WaterTilesMA_49
+  - first:
+      213: 669845018568390915
+    second: A14
+  - first:
+      213: 3816406495986063885
+    second: A16
+  - first:
+      213: 2036517977614030747
+    second: A5
+  - first:
+      213: -2377219669615142161
+    second: WaterTilesMA_55
+  - first:
+      213: -4744140716186338583
+    second: WaterTilesMA_56
+  - first:
+      213: -1365067786857704792
+    second: B2
+  - first:
+      213: -3306631346174721393
+    second: WaterTilesMA_58
+  - first:
+      213: 434739123143207097
+    second: WaterTilesMA_59
+  - first:
+      213: 8055316009789997747
+    second: B9
+  - first:
+      213: 448795286917654720
+    second: WaterTilesMA_61
+  - first:
+      213: -8766750625729435025
+    second: WaterTilesMA_62
+  - first:
+      213: 7869556366427615353
+    second: WaterTilesMA_63
+  - first:
+      213: 6299039392757660220
+    second: WaterTilesMA_64
+  - first:
+      213: -8084606406966008614
+    second: E4
+  - first:
+      213: 1584052912156918933
+    second: WaterTilesMA_66
+  - first:
+      213: -1494121774364656256
+    second: WaterTilesMA_67
+  - first:
+      213: -361053904104776097
+    second: WaterTilesMA_68
+  - first:
+      213: 8214759732168360626
+    second: WaterTilesMA_69
+  - first:
+      213: 1981691003801230851
+    second: WaterTilesMA_70
+  - first:
+      213: 323854591082498720
+    second: F1
+  - first:
+      213: -3308528240515700863
+    second: F2
+  - first:
+      213: 8198020776263049740
+    second: WaterTilesMA_73
+  - first:
+      213: 6933400235877607731
+    second: A6
+  - first:
+      213: 2550233648297111884
+    second: WaterTilesMA_78
+  - first:
+      213: -8980381143535423115
+    second: WaterTilesMA_79
+  - first:
+      213: 7311587497209690227
+    second: B3
+  - first:
+      213: -516621302702015536
+    second: WaterTilesMA_81
+  - first:
+      213: -3101230508817763577
+    second: WaterTilesMA_82
+  - first:
+      213: 993587558419843465
+    second: B8
+  - first:
+      213: 6316430437898646355
+    second: WaterTilesMA_84
+  - first:
+      213: -7031632467579028945
+    second: WaterTilesMA_85
+  - first:
+      213: 3723585284858290883
+    second: WaterTilesMA_86
+  - first:
+      213: 1911832200394468572
+    second: E7
+  - first:
+      213: 3072066637462299261
+    second: WaterTilesMA_88
+  - first:
+      213: 5046632060758778707
+    second: E5
+  - first:
+      213: 4180053491636950739
+    second: WaterTilesMA_90
+  - first:
+      213: -2654745463591606710
+    second: WaterTilesMA_91
+  - first:
+      213: -5659429598020018530
+    second: F3
+  - first:
+      213: -3638294286682791752
+    second: WaterTilesMA_93
+  - first:
+      213: -238407583210528810
+    second: WaterTilesMA_94
+  - first:
+      213: 6912257722150732461
+    second: WaterTilesMA_95
+  - first:
+      213: 4898947405293287806
+    second: A13
+  - first:
+      213: 7985853579306284868
+    second: A12
+  - first:
+      213: -6693178946595285138
+    second: A11
+  - first:
+      213: 7931769500349024540
+    second: A7
+  - first:
+      213: -7739348315986381420
+    second: WaterTilesMA_101
+  - first:
+      213: -127900729493119362
+    second: WaterTilesMA_102
+  - first:
+      213: 7840710513373092428
+    second: B4
+  - first:
+      213: -1772001922473690487
+    second: B5
+  - first:
+      213: 1781850405142183130
+    second: B6
+  - first:
+      213: -1991832359587489654
+    second: B7
+  - first:
+      213: -1344757749965485471
+    second: WaterTilesMA_107
+  - first:
+      213: 5033594858549801303
+    second: B10
+  - first:
+      213: -1536680035242339497
+    second: WaterTilesMA_109
+  - first:
+      213: -691157734634054496
+    second: WaterTilesMA_110
+  - first:
+      213: 1786569540933897879
+    second: E6
+  - first:
+      213: -4584088988666311856
+    second: WaterTilesMA_112
+  - first:
+      213: -1468344675552366297
+    second: E10
+  - first:
+      213: 6096286074306691434
+    second: WaterTilesMA_114
+  - first:
+      213: -1060940388666711711
+    second: WaterTilesMA_115
+  - first:
+      213: -7316551417291303121
+    second: F4
+  - first:
+      213: 2250390015377311616
+    second: WaterTilesMA_117
+  - first:
+      213: -3810095855655095155
+    second: F5
+  - first:
+      213: 3087491674520088240
+    second: WaterTilesMA_119
+  - first:
+      213: 1727096580742610765
+    second: A8
+  - first:
+      213: 7066466205038589049
+    second: WaterTilesMA_124
+  - first:
+      213: 74692259700175656
+    second: B13
+  - first:
+      213: -673288817162695153
+    second: WaterTilesMA_126
+  - first:
+      213: 3969208891194596514
+    second: WaterTilesMA_127
+  - first:
+      213: 8100986190924054620
+    second: WaterTilesMA_128
+  - first:
+      213: -4897117835267296757
+    second: WaterTilesMA_129
+  - first:
+      213: -5536664061591171771
+    second: B11
+  - first:
+      213: 4160979138126888197
+    second: WaterTilesMA_131
+  - first:
+      213: -86909279217876199
+    second: WaterTilesMA_132
+  - first:
+      213: -1276454475032189152
+    second: E8
+  - first:
+      213: -3995601281927204845
+    second: WaterTilesMA_134
+  - first:
+      213: 4600069333323138260
+    second: WaterTilesMA_135
+  - first:
+      213: -928117124974846936
+    second: WaterTilesMA_136
+  - first:
+      213: -2334485662818728474
+    second: WaterTilesMA_137
+  - first:
+      213: 6498397525377001472
+    second: WaterTilesMA_138
+  - first:
+      213: 6175889995897057335
+    second: WaterTilesMA_139
+  - first:
+      213: -1946497220865092083
+    second: WaterTilesMA_140
+  - first:
+      213: 1756848311466477221
+    second: A9
+  - first:
+      213: 8862097552798766078
+    second: WaterTilesMA_145
+  - first:
+      213: -8114413793966975272
+    second: WaterTilesMA_146
+  - first:
+      213: -1106369268073285512
+    second: WaterTilesMA_147
+  - first:
+      213: 9053915234875867897
+    second: D1
+  - first:
+      213: -2229544162155452901
+    second: WaterTilesMA_149
+  - first:
+      213: -1351627631608667350
+    second: WaterTilesMA_150
+  - first:
+      213: -8570517441603526226
+    second: WaterTilesMA_151
+  - first:
+      213: 2328550672664626073
+    second: WaterTilesMA_152
+  - first:
+      213: -8412214856616883320
+    second: WaterTilesMA_153
+  - first:
+      213: -7556973221060125974
+    second: WaterTilesMA_154
+  - first:
+      213: -5556746862776001454
+    second: WaterTilesMA_155
+  - first:
+      213: 973840833424652390
+    second: WaterTilesMA_156
+  - first:
+      213: -1369509121934043066
+    second: WaterTilesMA_157
+  - first:
+      213: -2232350600769187324
+    second: F6
+  - first:
+      213: -4586329451865805969
+    second: WaterTilesMA_159
+  - first:
+      213: -1397250446565648521
+    second: WaterTilesMA_160
+  - first:
+      213: -2971799501782792813
+    second: WaterTilesMA_161
+  - first:
+      213: 611898434668766456
+    second: A10
+  - first:
+      213: 3986400053658111343
+    second: WaterTilesMA_167
+  - first:
+      213: -3597150558024614768
+    second: C1
+  - first:
+      213: 8105201931034348941
+    second: C2
+  - first:
+      213: 2161707317051178672
+    second: WaterTilesMA_170
+  - first:
+      213: -6983919887628160751
+    second: D2
+  - first:
+      213: 4822645509390337636
+    second: WaterTilesMA_172
+  - first:
+      213: -6649776140664692997
+    second: WaterTilesMA_173
+  - first:
+      213: 238784290433187661
+    second: B12
+  - first:
+      213: -4622729935958268285
+    second: WaterTilesMA_175
+  - first:
+      213: -1468760163770908399
+    second: WaterTilesMA_176
+  - first:
+      213: -6271046530030861417
+    second: E9
+  - first:
+      213: -930183565405269271
+    second: WaterTilesMA_178
+  - first:
+      213: -3681153979044449345
+    second: WaterTilesMA_179
+  - first:
+      213: 8855394789921431141
+    second: WaterTilesMA_180
+  - first:
+      213: -8050734901080736866
+    second: F7
+  - first:
+      213: 1076864821774423273
+    second: F8
+  - first:
+      213: -5386080682805676264
+    second: WaterTilesMA_183
+  - first:
+      213: 4649648570906479759
+    second: F9
+  - first:
+      213: -3527521663980261032
+    second: WaterTilesMA_185
+  - first:
+      213: -3488661815813514151
+    second: WaterTilesMA_190
+  - first:
+      213: 5200603541209840245
+    second: WaterTilesMA_191
+  - first:
+      213: 4636823268365188797
+    second: WaterTilesMA_192
+  - first:
+      213: -4716009907383311114
+    second: WaterTilesMA_193
+  - first:
+      213: -2650125473420328604
+    second: WaterTilesMA_194
+  - first:
+      213: -5968433655750011707
+    second: WaterTilesMA_195
+  - first:
+      213: 6773474146988375132
+    second: WaterTilesMA_196
+  - first:
+      213: -3774886641588793227
+    second: WaterTilesMA_197
+  - first:
+      213: 7144051220524256776
+    second: WaterTilesMA_198
+  - first:
+      213: 5119673241700478656
+    second: WaterTilesMA_199
+  - first:
+      213: 6106964286038534639
+    second: WaterTilesMA_200
+  - first:
+      213: 2788383333727011460
+    second: WaterTilesMA_201
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: A1
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 128
+        width: 18
+        height: 19
+      alignment: 9
+      pivot: {x: 0.5555556, y: 0.42105263}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3645c80fff8127bb0800000000000000
+      internalID: -4939858353740557213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 128
+        width: 18
+        height: 19
+      alignment: 9
+      pivot: {x: 0.44444445, y: 0.42105263}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1a16cf8bea2dca00800000000000000
+      internalID: 778325501822769695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: E2
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 128
+        width: 18
+        height: 19
+      alignment: 9
+      pivot: {x: 0.5555556, y: 0.42105263}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 201bbea15b8698620800000000000000
+      internalID: 2776865772300644610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A15
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 112
+        width: 18
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5555556, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e45e08f9e74a9300800000000000000
+      internalID: 259598998741865696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A3
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 112
+        width: 20
+        height: 19
+      alignment: 9
+      pivot: {x: 0.6, y: 0.42105263}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c13ca82fc2fb5fdb0800000000000000
+      internalID: -4758687231478414564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 112
+        width: 16
+        height: 19
+      alignment: 9
+      pivot: {x: 0.5, y: 0.42105263}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18030193644a80450800000000000000
+      internalID: 6055270320511660161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: B1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 112
+        width: 18
+        height: 19
+      alignment: 9
+      pivot: {x: 0.44444445, y: 0.42105263}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10f3083e5ea705670800000000000000
+      internalID: 8525449222395281153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: E1
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 112
+        width: 16
+        height: 19
+      alignment: 9
+      pivot: {x: 0.5, y: 0.42105263}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c87e039efe2a26d80800000000000000
+      internalID: -8258859615350888564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: E3
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 112
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ebcdace2381fdf20800000000000000
+      internalID: 3449502446587333602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A14
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 94
+        width: 18
+        height: 18
+      alignment: 9
+      pivot: {x: 0.5555556, y: 0.5555556}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3097552de74cb4900800000000000000
+      internalID: 669845018568390915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A16
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 94
+        width: 16
+        height: 18
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5555556}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0a1eb7ec7996f430800000000000000
+      internalID: 3816406495986063885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A5
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 96
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b97916a8f4a234c10800000000000000
+      internalID: 2036517977614030747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: B2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 96
+        width: 18
+        height: 16
+      alignment: 9
+      pivot: {x: 0.44444445, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a2940e841e4e0de0800000000000000
+      internalID: -1365067786857704792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: B9
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 96
+        width: 18
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5555556, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b2cc056b3b3acf60800000000000000
+      internalID: 8055316009789997747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: E4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 94
+        width: 16
+        height: 18
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5555556}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad4a1f39e45bdcf80800000000000000
+      internalID: -8084606406966008614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: F1
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 94
+        width: 16
+        height: 18
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5555556}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0aa0a54e8009e7400800000000000000
+      internalID: 323854591082498720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: F2
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 94
+        width: 18
+        height: 18
+      alignment: 9
+      pivot: {x: 0.44444445, y: 0.5555556}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 187a6b6381fb512d0800000000000000
+      internalID: -3308528240515700863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A6
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 80
+        width: 18
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5555556, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3392811a7c2683060800000000000000
+      internalID: 6933400235877607731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: B3
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 80
+        width: 18
+        height: 16
+      alignment: 9
+      pivot: {x: 0.44444445, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 378fe5b171af77560800000000000000
+      internalID: 7311587497209690227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: B8
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 80
+        width: 18
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5555556, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 989ccd0ce9ee9cd00800000000000000
+      internalID: 993587558419843465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: E7
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 80
+        width: 18
+        height: 16
+      alignment: 9
+      pivot: {x: 0.44444445, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdc6aa6c141388a10800000000000000
+      internalID: 1911832200394468572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: E5
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 80
+        width: 18
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5555556, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 353ef9dfe1d390640800000000000000
+      internalID: 5046632060758778707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A13
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 62
+        width: 18
+        height: 21
+      alignment: 9
+      pivot: {x: 0.5555556, y: 0.47619048}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e79f3d995be8cf340800000000000000
+      internalID: 4898947405293287806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A12
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 62
+        width: 16
+        height: 21
+      alignment: 9
+      pivot: {x: 0.5, y: 0.47619048}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44735def48373de60800000000000000
+      internalID: 7985853579306284868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A11
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 62
+        width: 16
+        height: 21
+      alignment: 9
+      pivot: {x: 0.5, y: 0.47619048}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e679016c53d0d13a0800000000000000
+      internalID: -6693178946595285138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A7
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c19c494165e431e60800000000000000
+      internalID: 7931769500349024540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: B4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4a16488baccfcc60800000000000000
+      internalID: 7840710513373092428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: B5
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 62
+        width: 16
+        height: 21
+      alignment: 9
+      pivot: {x: 0.5, y: 0.47619048}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98a75a5d3a59867e0800000000000000
+      internalID: -1772001922473690487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: B6
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 62
+        width: 16
+        height: 21
+      alignment: 9
+      pivot: {x: 0.5, y: 0.47619048}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adcb269b0876ab810800000000000000
+      internalID: 1781850405142183130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: B7
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 62
+        width: 16
+        height: 18
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5555556}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a88d8aaa5079b54e0800000000000000
+      internalID: -1991832359587489654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: B10
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 64
+        width: 16
+        height: 19
+      alignment: 9
+      pivot: {x: 0.5, y: 0.42105263}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 751f71fcadbead540800000000000000
+      internalID: 5033594858549801303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: E10
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 62
+        width: 16
+        height: 18
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5555556}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7217dd51c446f9be0800000000000000
+      internalID: -1468344675552366297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: F4
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 62
+        width: 16
+        height: 21
+      alignment: 9
+      pivot: {x: 0.5, y: 0.47619048}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f27987f2043667a90800000000000000
+      internalID: -7316551417291303121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: F5
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 62
+        width: 18
+        height: 21
+      alignment: 9
+      pivot: {x: 0.44444445, y: 0.47619048}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d847d7b8102df1bc0800000000000000
+      internalID: -3810095855655095155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A8
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 48
+        width: 18
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5555556, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4f74fb8031e7f710800000000000000
+      internalID: 1727096580742610765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: B13
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 46
+        width: 20
+        height: 18
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5555556}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82376e6e63c590100800000000000000
+      internalID: 74692259700175656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: B11
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 48
+        width: 18
+        height: 16
+      alignment: 9
+      pivot: {x: 0.44444445, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54dcf28de51d923b0800000000000000
+      internalID: -5536664061591171771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: E8
+      rect:
+        serializedVersion: 2
+        x: 254
+        y: 48
+        width: 18
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5555556, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 027afbbfa6f194ee0800000000000000
+      internalID: -1276454475032189152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A9
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 32
+        width: 18
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5555556, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a644392b34916810800000000000000
+      internalID: 1756848311466477221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: D1
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 32
+        width: 20
+        height: 18
+      alignment: 9
+      pivot: {x: 0.5, y: 0.44444445}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f20649bfe7f5ad70800000000000000
+      internalID: 9053915234875867897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: F6
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 32
+        width: 18
+        height: 16
+      alignment: 9
+      pivot: {x: 0.44444445, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 402d503c4f81501e0800000000000000
+      internalID: -2232350600769187324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A10
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 14
+        width: 18
+        height: 18
+      alignment: 9
+      pivot: {x: 0.44444445, y: 0.5555556}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f4ac056266ed7800800000000000000
+      internalID: 611898434668766456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: C1
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 14
+        width: 18
+        height: 21
+      alignment: 9
+      pivot: {x: 0.5555556, y: 0.47619048}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09c385140aa541ec0800000000000000
+      internalID: -3597150558024614768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: C2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 14
+        width: 18
+        height: 21
+      alignment: 9
+      pivot: {x: 0.44444445, y: 0.47619048}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8dcc1c86367b7070800000000000000
+      internalID: 8105201931034348941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: D2
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 14
+        width: 20
+        height: 18
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5555556}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11133265dd1241f90800000000000000
+      internalID: -6983919887628160751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: B12
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 14
+        width: 18
+        height: 18
+      alignment: 9
+      pivot: {x: 0.44444445, y: 0.5555556}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4fb6390c05505300800000000000000
+      internalID: 238784290433187661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: E9
+      rect:
+        serializedVersion: 2
+        x: 254
+        y: 14
+        width: 18
+        height: 18
+      alignment: 9
+      pivot: {x: 0.5555556, y: 0.5555556}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79380970864c8f8a0800000000000000
+      internalID: -6271046530030861417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: F7
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 14
+        width: 16
+        height: 18
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5555556}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9b3e38134b064090800000000000000
+      internalID: -8050734901080736866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: F8
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 14
+        width: 16
+        height: 21
+      alignment: 9
+      pivot: {x: 0.5, y: 0.47619048}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e49af499dac1fe00800000000000000
+      internalID: 1076864821774423273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: F9
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 14
+        width: 18
+        height: 21
+      alignment: 9
+      pivot: {x: 0.44444445, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8c88478dbed68040800000000000000
+      internalID: 4649648570906479759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: WoodWall
   m_EditorClassIdentifier: 
   StructureName: Wood Wall
-  WallSprites: {fileID: 11400000, guid: 0a874e73bd7b8834b9c27df74d480403, type: 2}
   WorkCost: 10
-  Icon: {fileID: -7741084600337786703, guid: 7454f48ff07780449b0752a7ab3641db, type: 3}
+  Icon: {fileID: -186450738273480271, guid: 594f1984e9eaa934cb104cf89914c091, type: 3}
   _resourceCosts:
   - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
     Quantity: 5
@@ -27,3 +26,4 @@ MonoBehaviour:
   - Zone
   _options: 01000000
   _planningMode: 1
+  _wallRuleTile: {fileID: 11400000, guid: 1bb59a1dc30428b4e9d418e7b436ab2e, type: 2}

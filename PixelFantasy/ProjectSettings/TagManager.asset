@@ -55,6 +55,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Structure
+    uniqueID: 172824705
+    locked: 0
   - name: Object
     uniqueID: 390895937
     locked: 0

@@ -8,12 +8,12 @@ using ScriptableObjects;
 using Tasks;
 using Unit;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Items
 {
     public class Structure : MonoBehaviour
     {
-        [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private ProgressBar _progressBar;
         [SerializeField] private DynamicGridObstacle _gridObstacle;
         [SerializeField] private SpriteRenderer _icon;
@@ -25,15 +25,20 @@ namespace Items
         private List<Item> _incomingItems = new List<Item>();
         private bool _isDeconstructing;
         private UnitTaskAI _incomingUnit;
-        private List<GameObject> _neighbours;
+        private Tilemap _structureTilemap;
         
         private TaskMaster taskMaster => TaskMaster.Instance;
+
+        private void Awake()
+        {
+            _structureTilemap = TilemapController.Instance.GetTilemap(TilemapLayer.Structure);
+        }
 
         public void Init(StructureData structureData)
         {
             _structureData = structureData;
             _resourceCost = new List<ItemAmount> (_structureData.GetResourceCosts());
-            UpdateSprite(true);
+            SetTile();
             _progressBar.ShowBar(false);
             ShowBlueprint(true);
             PrepForConstruction();
@@ -73,57 +78,90 @@ namespace Items
         {
             if (showBlueprint)
             {
-                _spriteRenderer.color = Librarian.Instance.GetColour("Blueprint");
+                ColourTile(Librarian.Instance.GetColour("Blueprint"));
                 _gridObstacle.enabled = false;
             }
             else
             {
-                _spriteRenderer.color = Color.white;
+                ColourTile(Color.white);
                 _gridObstacle.enabled = true;
                 gameObject.layer = 4;
             }
         }
 
-        public void UpdateSprite(bool informNeighbours)
+        private void SetTile()
         {
-            // collect data on connections
-            var neighbourData = _structureData.GetNeighbourData(transform.position);
-            _neighbours = neighbourData.Neighbours;
-            var connectData = neighbourData.WallNeighbourConnectionInfo;
-
-            // use connection data to update sprite
-            _spriteRenderer.sprite = _structureData.GetSprite(connectData);
-
-            // If inform neighbours, tell neighbours to UpdateSprite (but they shouldn't inform their neighbours
-            if (informNeighbours)
-            {
-                RefreshNeighbours();
-            }
+            var cell = _structureTilemap.WorldToCell(transform.position);
+            _structureTilemap.SetTile(cell, _structureData.RuleTile);
+            InformNearbyFloors();
         }
 
-        private void RefreshNeighbours()
+        private void ClearTile()
         {
-            foreach (var neighbour in _neighbours)
-            {
-                var structure = neighbour.GetComponent<Structure>();
-                if (structure != null)
-                {
-                    structure.UpdateSprite(false);
-                }
-            }
+            var cell = _structureTilemap.WorldToCell(transform.position);
+            _structureTilemap.SetTile(cell, null);
+            InformNearbyFloors();
         }
 
+        private void ColourTile(Color colour)
+        {
+            var cell = _structureTilemap.WorldToCell(transform.position);
+            _structureTilemap.SetColor(cell, colour);
+        }
+
+        private void InformNearbyFloors()
+        {
+            var position = transform.position;
+            var leftPos = new Vector2(position.x - 1, position.y);
+            var rightPos = new Vector2(position.x + 1, position.y);
+
+            var leftFloors = Helper.GetGameObjectsOnTile(leftPos, "Floor");
+            var rightFloors = Helper.GetGameObjectsOnTile(rightPos, "Floor");
+
+            foreach (var leftFloor in leftFloors)
+            {
+                leftFloor.GetComponent<Floor>().UpdateStretchToWalls();
+            }
+            foreach (var rightFloor in rightFloors)
+            {
+                rightFloor.GetComponent<Floor>().UpdateStretchToWalls();
+            }
+        }
+        
         private void PrepForConstruction()
         {
             // Check if the structure is on dirt, if not make task to clear the grass
-            if (!IsOnDirt())
+            // if (!IsOnDirt())
+            // {
+            //     ClearGrass();
+            //     return;
+            // }
+            if (Helper.DoesGridContainTag(transform.position, "Nature"))
             {
-                ClearGrass();
+                ClearNatureFromTile();
                 return;
             }
             
             // Once on dirt create the hauling tasks
             CreateConstructionHaulingTasks();
+        }
+        
+        private void ClearNatureFromTile()
+        {
+            var objectsOnTile = Helper.GetGameObjectsOnTile(transform.position);
+            foreach (var tileObj in objectsOnTile)
+            {
+                var growResource = tileObj.GetComponent<GrowingResource>();
+                if (growResource != null)
+                {
+                    growResource.TaskRequestors.Add(gameObject);
+
+                    if (!growResource.QueuedToCut)
+                    {
+                        growResource.CreateCutPlantTask();
+                    }
+                }
+            }
         }
 
         public void InformDirtReady()
@@ -231,7 +269,7 @@ namespace Items
                 // Update the neighbours
                 var collider = GetComponent<BoxCollider2D>();
                 collider.enabled = false;
-                RefreshNeighbours();
+                ClearTile();
             
                 // Delete this blueprint
                 Destroy(gameObject);
@@ -327,13 +365,14 @@ namespace Items
             // Update the neighbours
             var collider = GetComponent<BoxCollider2D>();
             collider.enabled = false;
-            RefreshNeighbours();
 
             var infoPanel = FindObjectOfType<SelectedItemInfoPanel>();
             if (infoPanel != null)
             {
                 infoPanel.HideItemDetails();
             }
+
+            ClearTile();
 
             // Delete the structure
             Destroy(gameObject);

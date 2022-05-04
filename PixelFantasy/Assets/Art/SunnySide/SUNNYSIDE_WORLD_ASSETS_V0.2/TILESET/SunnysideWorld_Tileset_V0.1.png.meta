@@ -1,0 +1,345 @@
+fileFormatVersion: 2
+guid: 825658b1c6986bd46b087bb3ad70d904
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -9024284549726575627
+    second: GrassDark
+  - first:
+      213: -6138366386777967578
+    second: GrassLight
+  - first:
+      213: 4906983863066801627
+    second: Tree
+  - first:
+      213: 4132407335573635649
+    second: Bush
+  - first:
+      213: -6347962645321781943
+    second: BerriesOverlay
+  - first:
+      213: 1652389370956797237
+    second: OrangesOverlay
+  - first:
+      213: 416047863630588849
+    second: ApplesOverlay
+  - first:
+      213: -5387103000464491104
+    second: SunnysideWorld_Tileset_V0.1_7
+  - first:
+      213: 3480877028203309643
+    second: SunnysideWorld_Tileset_V0.1_8
+  - first:
+      213: -6704803212579058196
+    second: SunnysideWorld_Tileset_V0.1_9
+  - first:
+      213: 8472752304042277242
+    second: SunnysideWorld_Tileset_V0.1_10
+  - first:
+      213: 6831354082765256808
+    second: SunnysideWorld_Tileset_V0.1_11
+  - first:
+      213: -2460741666225687260
+    second: SunnysideWorld_Tileset_V0.1_12
+  - first:
+      213: -5720529606472195472
+    second: SunnysideWorld_Tileset_V0.1_13
+  - first:
+      213: 4737253549314802896
+    second: SunnysideWorld_Tileset_V0.1_14
+  - first:
+      213: 7649479303679239236
+    second: SunnysideWorld_Tileset_V0.1_15
+  - first:
+      213: -7829189313071025736
+    second: SunnysideWorld_Tileset_V0.1_16
+  - first:
+      213: -7404301496137845619
+    second: SunnysideWorld_Tileset_V0.1_17
+  - first:
+      213: 2351033653483055574
+    second: SunnysideWorld_Tileset_V0.1_18
+  - first:
+      213: -7908253349162438845
+    second: SunnysideWorld_Tileset_V0.1_19
+  - first:
+      213: 2664334897872702352
+    second: SunnysideWorld_Tileset_V0.1_20
+  - first:
+      213: -5040436945043154838
+    second: SunnysideWorld_Tileset_V0.1_21
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: GrassDark
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 992
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f36085c30d43c280800000000000000
+      internalID: -9024284549726575627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrassLight
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 992
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 624b6ee2b4420daa0800000000000000
+      internalID: -6138366386777967578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tree
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 648
+        width: 25
+        height: 34
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd5bbac33db191440800000000000000
+      internalID: 4906983863066801627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bush
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 693
+        width: 24
+        height: 21
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 142c518c392495930800000000000000
+      internalID: 4132407335573635649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BerriesOverlay
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 698
+        width: 19
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94d65266b9187e7a0800000000000000
+      internalID: -6347962645321781943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OrangesOverlay
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 661
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 535d28ec0677ee610800000000000000
+      internalID: 1652389370956797237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApplesOverlay
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 661
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bbe241e35916c500800000000000000
+      internalID: 416047863630588849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

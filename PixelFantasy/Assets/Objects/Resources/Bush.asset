@@ -20,7 +20,7 @@ MonoBehaviour:
   _keepSpace: 1
   _growthStages:
   - StageName: Young Bush
-    GrowthSprite: {fileID: -4301863495251561320, guid: 7d1c51339019cce45bfe46e7d51a000f, type: 3}
+    GrowthSprite: {fileID: 4132407335573635649, guid: 825658b1c6986bd46b087bb3ad70d904, type: 3}
     Scale: 0.5
     SecsInStage: 60
     HarvestableItems:
@@ -30,7 +30,7 @@ MonoBehaviour:
         MaxDrop: 1
     WorkToCut: 5
   - StageName: Adult Bush
-    GrowthSprite: {fileID: -4301863495251561320, guid: 7d1c51339019cce45bfe46e7d51a000f, type: 3}
+    GrowthSprite: {fileID: 4132407335573635649, guid: 825658b1c6986bd46b087bb3ad70d904, type: 3}
     Scale: 1
     SecsInStage: 0
     HarvestableItems:

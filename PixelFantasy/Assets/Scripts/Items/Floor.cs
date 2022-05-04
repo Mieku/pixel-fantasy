@@ -92,14 +92,38 @@ namespace Items
         private void PrepForConstruction()
         {
             // Check if the structure is on dirt, if not make task to clear the grass
-            if (!IsOnDirt() || (_dirtTile != null && !_dirtTile.IsBuilt))
+            // if (!IsOnDirt() || (_dirtTile != null && !_dirtTile.IsBuilt))
+            // {
+            //     ClearGrass();
+            //     return;
+            // }
+            
+            if (Helper.DoesGridContainTag(transform.position, "Nature"))
             {
-                ClearGrass();
+                ClearNatureFromTile();
                 return;
             }
             
             // Once on dirt create the hauling tasks
             CreateConstructionHaulingTasks();
+        }
+        
+        private void ClearNatureFromTile()
+        {
+            var objectsOnTile = Helper.GetGameObjectsOnTile(transform.position);
+            foreach (var tileObj in objectsOnTile)
+            {
+                var growResource = tileObj.GetComponent<GrowingResource>();
+                if (growResource != null)
+                {
+                    growResource.TaskRequestors.Add(gameObject);
+
+                    if (!growResource.QueuedToCut)
+                    {
+                        growResource.CreateCutPlantTask();
+                    }
+                }
+            }
         }
         
         private bool IsOnDirt()

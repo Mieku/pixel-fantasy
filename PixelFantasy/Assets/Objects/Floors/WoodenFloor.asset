@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WoodenFloor
   m_EditorClassIdentifier: 
   FloorName: Wood Floor
-  FloorSprite: {fileID: 8964778627466570347, guid: 8dffd1b2b8351334ea63f03a5c9740e2, type: 3}
+  FloorSprite: {fileID: -3987986942634888125, guid: a2fb55f66b06c844b9fd971eba65e73d, type: 3}
   WorkCost: 5
   WalkSpeedModifier: 0
   PathfindingPenalty: 0

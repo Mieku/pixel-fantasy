@@ -6,6 +6,7 @@ using Gods;
 using Items;
 using Tasks;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Unit
 {
@@ -13,6 +14,7 @@ namespace Unit
     {
         // TODO: Make this no longer be able to be changed in inspector later
         [SerializeField] private ProfessionData professionData;
+        [SerializeField] private UnitAnimController _unitAnim;
         
         private enum State
         {
@@ -62,6 +64,26 @@ namespace Unit
             }
         }
 
+        /// <summary>
+        /// Gets a position next to the workPosition so unit isn't standing on their target
+        /// </summary>
+        private Vector2 GetAdjacentPosition(Vector2 workPosition, float distanceAway = 1f)
+        {
+            // Choose a random side of the object
+            // TODO: Add in a check to ensure the location can be reached
+            var sideMod = distanceAway;
+            var rand = Random.Range(0, 2);
+            if (rand == 1)
+            {
+                sideMod *= -1;
+            }
+
+            var standPos = workPosition;
+            standPos.x += sideMod;
+
+            return standPos;
+        }
+
         private void RequestNextTask()
         {
             TaskBase task = null;
@@ -77,7 +99,7 @@ namespace Unit
             if (task == null)
             {
                 state = State.WaitingForNextTask;
-                thought.SetThought(UnitThought.ThoughtState.None);
+                _unitAnim.SetUnitAction(UnitAction.Nothing);
             }
             else
             {
@@ -165,7 +187,7 @@ namespace Unit
 
         private void ExecuteTask_MoveToPosition(EmergencyTask.MoveToPosition task)
         {
-            thought.SetThought(UnitThought.ThoughtState.Moving);
+            //thought.SetThought(UnitThought.ThoughtState.Moving);
             workerMover.SetMovePosition(task.targetPosition, () =>
             {
                 state = State.WaitingForNextTask;
@@ -174,7 +196,7 @@ namespace Unit
 
         private void ExecuteTask_CleanUpGarbage(CleaningTask.GarbageCleanup cleanupTask)
         {
-            thought.SetThought(UnitThought.ThoughtState.Cleaning);
+            //thought.SetThought(UnitThought.ThoughtState.Cleaning);
             workerMover.SetMovePosition(cleanupTask.targetPosition, () =>
             {
                 cleanupTask.cleanUpAction();
@@ -214,12 +236,15 @@ namespace Unit
 
         private void ExecuteTask_ConstructStructure(ConstructionTask.ConstructStructure task)
         {
-            workerMover.SetMovePosition(task.structurePosition, () =>
+            workerMover.SetMovePosition(GetAdjacentPosition(task.structurePosition), () =>
             {
+                _unitAnim.LookAtPostion(task.structurePosition);
+                _unitAnim.SetUnitAction(UnitAction.Building);
                 DoWork(task.workAmount, () =>
                 {
                     task.completeWork();
                     state = State.WaitingForNextTask;
+                    _unitAnim.SetUnitAction(UnitAction.Nothing);
                 });
             });
         }
@@ -227,12 +252,15 @@ namespace Unit
         private void ExecuteTask_DeconstructStructure(ConstructionTask.DeconstructStructure task)
         {
             task.claimStructure(this);
-            workerMover.SetMovePosition(task.structurePosition, () =>
+            workerMover.SetMovePosition(GetAdjacentPosition(task.structurePosition), () =>
             {
+                _unitAnim.LookAtPostion(task.structurePosition);
+                _unitAnim.SetUnitAction(UnitAction.Building);
                 DoWork(task.workAmount, () =>
                 {
                     task.completeWork();
                     state = State.WaitingForNextTask;
+                    _unitAnim.SetUnitAction(UnitAction.Nothing);
                 });
             });
         }
@@ -240,12 +268,15 @@ namespace Unit
         private void ExecuteTask_CutTree(FellingTask.CutTree task)
         {
             task.claimTree(this);
-            workerMover.SetMovePosition(task.treePosition, () =>
+            workerMover.SetMovePosition(GetAdjacentPosition(task.treePosition), () =>
             {
+                _unitAnim.LookAtPostion(task.treePosition);
+                _unitAnim.SetUnitAction(UnitAction.Axe);
                 DoWork(task.workAmount, () =>
                 {
                     task.completeWork();
                     state = State.WaitingForNextTask;
+                    _unitAnim.SetUnitAction(UnitAction.Nothing);
                 });
             });
         }
@@ -253,12 +284,15 @@ namespace Unit
         private void ExecuteTask_CutPlant(FarmingTask.CutPlant task)
         {
             task.claimPlant(this);
-            workerMover.SetMovePosition(task.plantPosition, () =>
+            workerMover.SetMovePosition(GetAdjacentPosition(task.plantPosition, 0.5f), () =>
             {
+                _unitAnim.LookAtPostion(task.plantPosition);
+                _unitAnim.SetUnitAction(UnitAction.Doing);
                 DoWork(task.workAmount, () =>
                 {
                     task.completeWork();
                     state = State.WaitingForNextTask;
+                    _unitAnim.SetUnitAction(UnitAction.Nothing);
                 });
             });
         }
@@ -266,12 +300,15 @@ namespace Unit
         private void ExecuteTask_HarvestFruit(FarmingTask.HarvestFruit task)
         {
             task.claimPlant(this);
-            workerMover.SetMovePosition(task.plantPosition, () =>
+            workerMover.SetMovePosition(GetAdjacentPosition(task.plantPosition, 0.5f), () =>
             {
+                _unitAnim.LookAtPostion(task.plantPosition);
+                _unitAnim.SetUnitAction(UnitAction.Doing);
                 DoWork(task.workAmount, () =>
                 {
                     task.completeWork();
                     state = State.WaitingForNextTask;
+                    _unitAnim.SetUnitAction(UnitAction.Nothing);
                 });
             });
         }
@@ -279,12 +316,15 @@ namespace Unit
         private void ExecuteTask_ClearGrass(FarmingTask.ClearGrass task)
         {
             task.claimDirt(this);
-            workerMover.SetMovePosition(task.grassPosition, () =>
+            workerMover.SetMovePosition(GetAdjacentPosition(task.grassPosition), () =>
             {
+                _unitAnim.LookAtPostion(task.grassPosition);
+                _unitAnim.SetUnitAction(UnitAction.Digging);
                 DoWork(task.workAmount, () =>
                 {
                     task.completeWork();
                     state = State.WaitingForNextTask;
+                    _unitAnim.SetUnitAction(UnitAction.Nothing);
                 });
             });
         }
@@ -293,10 +333,13 @@ namespace Unit
         {
             workerMover.SetMovePosition(task.craftPosition, () =>
             {
+                _unitAnim.LookAtPostion(task.craftPosition);
+                _unitAnim.SetUnitAction(UnitAction.Doing);
                 DoWork(task.workAmount, () =>
                 {
                     task.completeWork();
                     state = State.WaitingForNextTask;
+                    _unitAnim.SetUnitAction(UnitAction.Nothing);
                 });
             });
         }
@@ -319,7 +362,6 @@ namespace Unit
         private void DoWork(float workAmount, Action onWorkComplete)
         {
             _onWorkComplete = onWorkComplete;
-            thought.SetThought(UnitThought.ThoughtState.Building);
             StartCoroutine(WorkSequence(workAmount));
         }
 
@@ -328,7 +370,6 @@ namespace Unit
             float waitTimeS = workAmount * _workSpeed;
             yield return new WaitForSeconds(waitTimeS);
             
-            thought.SetThought(UnitThought.ThoughtState.None);
             _onWorkComplete.Invoke();
         }
 

@@ -1,17 +1,15 @@
 using System;
 using System.Collections.Generic;
 using CodeMonkey.Utils;
+using Gods;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Pathfinding;
 
 namespace Controllers
 {
-    public class TilemapController : MonoBehaviour
+    public class TilemapController : God<TilemapController>
     {
-        public TileBase testerTile;
-        
-        [SerializeField] private Grid grid;
         [SerializeField] private List<TilemapReference> tilemaps;
 
         private GenericGrid<LandGridCell> tilemapGrid;
@@ -19,16 +17,6 @@ namespace Controllers
         private void Awake()
         {
             DetermineTilemapGrid();
-        }
-        
-        private void Update()
-        {
-            // TODO: For testing only
-            // if (Input.GetMouseButtonDown(0))
-            // {
-            //     var pos = UtilsClass.GetMouseWorldPosition();
-            //     SetTile((int)pos.x, (int)pos.y, TilemapLayer.Water, testerTile);
-            // }
         }
 
         private void DetermineTilemapGrid()
@@ -64,6 +52,12 @@ namespace Controllers
             var pos = new Vector3Int(x, y, 0);
             map.SetTile(pos, tileBase);
         }
+
+        public Tilemap GetTilemap(TilemapLayer layer)
+        {
+            var result = tilemaps.Find(x => x.TilemapLayer == layer).Tilemap;
+            return result;
+        }
     }
 
     [Serializable]
@@ -77,6 +71,7 @@ namespace Controllers
     public enum TilemapLayer
     {
         Ground,
-        Water
+        Water,
+        Structure,
     }
 }

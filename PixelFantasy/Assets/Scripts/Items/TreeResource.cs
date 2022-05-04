@@ -27,17 +27,6 @@ namespace Items
             CancelTasks();
             _queuedToCut = true;
             SetIcon("Axe");
-            
-            // Choose a random side of the tree
-            var sideMod = 1;
-            var rand = Random.Range(0, 2);
-            if (rand == 1)
-            {
-                sideMod *= -1;
-            }
-
-            var cutPos = transform.position;
-            cutPos.x += sideMod;
 
             var task = new FellingTask.CutTree()
             {
@@ -45,7 +34,7 @@ namespace Items
                 {
                     _incomingUnit = unitTaskAI;
                 },
-                treePosition = cutPos,
+                treePosition = transform.position,
                 workAmount = _growingResourceData.GetWorkToCut(_growthIndex),
                 completeWork = CutDownPlant
             };

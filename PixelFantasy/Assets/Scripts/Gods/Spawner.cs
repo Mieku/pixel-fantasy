@@ -318,15 +318,17 @@ namespace Gods
             }
         }
 
-        public void SpawnTree(Vector2 spawnPosition, GrowingResourceData growingResourceData)
+        public void SpawnTree(Vector3 spawnPosition, GrowingResourceData growingResourceData)
         {
+            spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
             var tree = Instantiate(_treePrefab, spawnPosition, Quaternion.identity);
             tree.transform.SetParent(_resourceParent);
             tree.GetComponent<GrowingResource>().Init(growingResourceData);
         }
 
-        public void SpawnPlant(Vector2 spawnPosition, GrowingResourceData growingResourceData)
+        public void SpawnPlant(Vector3 spawnPosition, GrowingResourceData growingResourceData)
         {
+            spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
             var plant = Instantiate(_plantPrefab, spawnPosition, Quaternion.identity);
             plant.transform.SetParent(_resourceParent);
             plant.GetComponent<GrowingResource>().Init(growingResourceData);

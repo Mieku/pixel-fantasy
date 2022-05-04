@@ -159,7 +159,7 @@ public static class Helper
     /// <summary>
     /// Returns the GameObjects located on a specific tile position
     /// </summary>
-    public static List<GameObject> GetGameObjectsOnTile(Vector2 gridPos)
+    public static List<GameObject> GetGameObjectsOnTile(Vector2 gridPos, string tagToGet = "")
     {
         var leftStart = new Vector2(gridPos.x - 0.45f, gridPos.y);
         var bottomStart = new Vector2(gridPos.x, gridPos.y - 0.45f);
@@ -179,6 +179,11 @@ public static class Helper
         
         // Remove duplicates
         var result = detected.Distinct().ToList();
+
+        if (tagToGet != "")
+        {
+            result = result.FindAll(x => x.CompareTag(tagToGet));
+        }
         
         return result;
     }

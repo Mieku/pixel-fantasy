@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Controllers;
 using Gods;
 using Items;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace ScriptableObjects
 {
@@ -10,7 +12,6 @@ namespace ScriptableObjects
     public class StructureData : ScriptableObject
     {
         public string StructureName;
-        public DynamicWallData WallSprites;
         public float WorkCost;
         public Sprite Icon;
 
@@ -18,9 +19,10 @@ namespace ScriptableObjects
         [SerializeField] private List<string> _invalidPlacementTags;
         [SerializeField] private List<Option> _options;
         [SerializeField] private PlanningMode _planningMode;
+        [SerializeField] private RuleOverrideTile _wallRuleTile;
 
         public PlanningMode PlanningMode => _planningMode;
-
+        
         public List<ItemAmount> GetResourceCosts()
         {
             List<ItemAmount> clone = new List<ItemAmount>();
@@ -65,11 +67,8 @@ namespace ScriptableObjects
             }
         }
 
-        public Sprite GetSprite(WallNeighbourConnectionInfo connections)
-        {
-            return WallSprites.GetSprite(connections);
-        }
-        
+        public RuleOverrideTile RuleTile => _wallRuleTile;
+
         public Sprite GetSprite()
         {
             return Icon;

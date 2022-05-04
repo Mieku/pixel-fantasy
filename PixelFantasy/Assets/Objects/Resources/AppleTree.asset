@@ -20,8 +20,8 @@ MonoBehaviour:
   _keepSpace: 1
   _growthStages:
   - StageName: Sapling
-    GrowthSprite: {fileID: 7033359609419058202, guid: b708a311217a5254c8bb24f27a1d01ae, type: 3}
-    Scale: 1
+    GrowthSprite: {fileID: 4906983863066801627, guid: 825658b1c6986bd46b087bb3ad70d904, type: 3}
+    Scale: 0.5
     SecsInStage: 30
     HarvestableItems:
       _harvestableItems:
@@ -30,8 +30,8 @@ MonoBehaviour:
         MaxDrop: 1
     WorkToCut: 3
   - StageName: Young Tree
-    GrowthSprite: {fileID: -3508794999336203909, guid: b708a311217a5254c8bb24f27a1d01ae, type: 3}
-    Scale: 1
+    GrowthSprite: {fileID: 4906983863066801627, guid: 825658b1c6986bd46b087bb3ad70d904, type: 3}
+    Scale: 0.7
     SecsInStage: 60
     HarvestableItems:
       _harvestableItems:
@@ -40,7 +40,7 @@ MonoBehaviour:
         MaxDrop: 3
     WorkToCut: 8
   - StageName: Adult Tree
-    GrowthSprite: {fileID: -7573730136805405573, guid: aabb8e1691da82c498524bd23f772a2f, type: 3}
+    GrowthSprite: {fileID: 4906983863066801627, guid: 825658b1c6986bd46b087bb3ad70d904, type: 3}
     Scale: 1
     SecsInStage: 0
     HarvestableItems:
@@ -58,7 +58,7 @@ MonoBehaviour:
   - Dirt
   _hasFruit: 1
   _growFruitTime: 60
-  _fruitOverlay: {fileID: -6520634922097649790, guid: b708a311217a5254c8bb24f27a1d01ae, type: 3}
+  _fruitOverlay: {fileID: 416047863630588849, guid: 825658b1c6986bd46b087bb3ad70d904, type: 3}
   _harvestableFruit:
     _harvestableItems:
     - Item: {fileID: 11400000, guid: caaf73760087914469dda82529739088, type: 2}

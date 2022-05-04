@@ -69,7 +69,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -170406723
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 3
   m_Sprite: {fileID: 6802935226667071680, guid: 5dd67e14fb5c69b46b68fd3ada846f94, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -91,12 +91,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1480014951440470927}
-  - component: {fileID: 1480014951440470924}
   - component: {fileID: 1480014951440470925}
   - component: {fileID: 1480014951440470922}
   - component: {fileID: 1480014951440470923}
   - component: {fileID: 728095472322857260}
-  - component: {fileID: 8089036241481843327}
   m_Layer: 0
   m_Name: WallPrefab
   m_TagString: Wall
@@ -121,57 +119,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1480014951440470924
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1480014951440470920}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 257
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 6664b1b42609b844aabc5741a6c0957d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 4943472491790338390, guid: 7454f48ff07780449b0752a7ab3641db, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
 --- !u!114 &1480014951440470925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,7 +173,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed94fee4dd42b394c855f5c019507b48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: 1480014951440470924}
   _progressBar: {fileID: 2589694300708827305}
   _gridObstacle: {fileID: 1480014951440470925}
   _icon: {fileID: 5452295093903905765}
@@ -245,20 +191,6 @@ MonoBehaviour:
   _objectType: 1
   _selectedIcon: {fileID: 6239104705413282737}
   _objectRenderer: {fileID: 0}
---- !u!114 &8089036241481843327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1480014951440470920}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _offset: 0.5
-  _runOnlyOnce: 1
 --- !u!1 &4709571700995021227
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,7 +261,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -170406723
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 2
   m_Sprite: {fileID: -7608528054425712079, guid: 23fe968df4507164eba15447d4ae43f4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -411,7 +343,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -170406723
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: aff142e668b1001439807064cb4f9346, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -493,7 +425,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -170406723
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b3acf8a51b2638b41bb8c0b332992b6d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

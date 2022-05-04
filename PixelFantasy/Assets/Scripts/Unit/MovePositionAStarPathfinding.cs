@@ -36,7 +36,7 @@ namespace Character
         {
             if (aiPath.reachedDestination)
             {
-                if (!reachedDestination)
+                if (!reachedDestination && aiPath.velocity == Vector3.zero)
                 {
                     reachedDestination = true;
                     onReachedMovePosition.Invoke();
