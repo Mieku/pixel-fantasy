@@ -18,7 +18,7 @@ MonoBehaviour:
   _upFurniturePrefab: {fileID: 2433849033443669838, guid: 8a32f19fe55a1d64e98ef71de4ef0dc5, type: 3}
   _leftFurniturePrefab: {fileID: 7938825791434232581, guid: cf700dd1b1f9d4a4fa477398897e0325, type: 3}
   _rightFurniturePrefab: {fileID: 8003289208649482822, guid: 0dcde2a1a210b1d4fa5ea8758baf3b5c, type: 3}
-  _iconSprite: {fileID: 4577660034246386176, guid: 0aad73a0f4fe3f341bb7faa0e248191d, type: 3}
+  _iconSprite: {fileID: 8220004207842343721, guid: 90f5efa4e4d76d34cb9b37730541f11f, type: 3}
   _workCost: 10
   _resourceCosts:
   - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}

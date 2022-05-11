@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Wood Chair
   MaxStackSize: 1
-  ItemSprite: {fileID: 4577660034246386176, guid: 0aad73a0f4fe3f341bb7faa0e248191d, type: 3}
-  DefaultSpriteScale: {x: 0.6, y: 0.6}
+  ItemSprite: {fileID: -4089702158966414991, guid: 90f5efa4e4d76d34cb9b37730541f11f, type: 3}
+  DefaultSpriteScale: {x: 1, y: 1}
   _options: 00000000
   _constructionMethod: 2
   _resourceCosts:
