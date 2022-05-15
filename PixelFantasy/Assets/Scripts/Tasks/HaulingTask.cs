@@ -2,6 +2,7 @@ using System;
 using Items;
 using Unit;
 using UnityEngine;
+using Action = System.Action;
 
 namespace Tasks
 {

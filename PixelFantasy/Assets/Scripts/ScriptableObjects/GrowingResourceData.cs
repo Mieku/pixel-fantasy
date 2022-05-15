@@ -17,7 +17,7 @@ namespace ScriptableObjects
         [SerializeField] private float _childRangeMin, _childRangeMax;
         [Tooltip("Don't grow next to invalid")][SerializeField] private bool _keepSpace;
         [SerializeField] private List<GrowthStage> _growthStages;
-        [SerializeField] private List<Option> _options;
+        //[SerializeField] private List<Order> _options;
         [SerializeField] private List<string> _invalidPlacementTags;
         
         // Optional Fruit
@@ -92,20 +92,6 @@ namespace ScriptableObjects
             }
         }
         
-        public List<Option> Options
-        {
-            get
-            {
-                List<Option> clone = new List<Option>();
-                foreach (var option in _options)
-                {
-                    clone.Add(option);
-                }
-
-                return clone;
-            }
-        }
-
         public GrowthStage GetGrowthStage(int growthIndex)
         {
             var stages = GrowthStages;

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Controllers;
 using Gods;
+using Interfaces;
 using Items;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -17,7 +18,7 @@ namespace ScriptableObjects
 
         [SerializeField] private List<ItemAmount> _resourceCosts;
         [SerializeField] private List<string> _invalidPlacementTags;
-        [SerializeField] private List<Option> _options;
+        [SerializeField] private List<Order> _options;
         [SerializeField] private PlanningMode _planningMode;
         [SerializeField] private RuleOverrideTile _wallRuleTile;
 
@@ -53,11 +54,11 @@ namespace ScriptableObjects
             }
         }
 
-        public List<Option> Options
+        public List<Order> Options
         {
             get
             {
-                List<Option> clone = new List<Option>();
+                List<Order> clone = new List<Order>();
                 foreach (var option in _options)
                 {
                     clone.Add(option);

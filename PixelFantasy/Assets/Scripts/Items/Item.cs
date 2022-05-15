@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Controllers;
 using Gods;
 using Interfaces;
@@ -14,6 +15,7 @@ namespace Items
         [SerializeField] private ItemData _itemData;
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private SpriteRenderer _icon;
+        [SerializeField] private ClickObject _clickObject;
 
         private int _assignedTaskRef;
         private UnitTaskAI _incomingUnit;
@@ -111,6 +113,8 @@ namespace Items
                 _icon.sprite = Librarian.Instance.GetSprite("Lock");
                 CancelAssignedTask();
             }
+            
+            RefreshSelection();
         }
 
         public bool IsAllowed { get; set; }
@@ -130,8 +134,38 @@ namespace Items
             {
                 _incomingUnit.CancelTask();
             }
+            
+            RefreshSelection();
         }
 
         public bool IsClickDisabled { get; set; }
+
+        private void RefreshSelection()
+        {
+            if (_clickObject.IsSelected)
+            {
+                GameEvents.Trigger_RefreshSelection();
+            }
+        }
+
+        public List<Order> GetOrders()
+        {
+            List<Order> results = new List<Order>();
+            
+            results.Add(Order.Disallow);
+
+            return results;
+        }
+
+        public bool IsOrderActive(Order order)
+        {
+            switch (order)
+            {
+                case Order.Disallow:
+                    return !IsAllowed;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(order), order, null);
+            }
+        }
     }
 }

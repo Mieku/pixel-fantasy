@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Gods;
+using Interfaces;
 using ScriptableObjects;
 using Unit;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace Items
         [SerializeField] protected GrowingResourceData _growingResourceData;
         [SerializeField] protected SpriteRenderer _spriteRenderer;
         [SerializeField] protected SpriteRenderer _icon;
+        [SerializeField] private ClickObject _clickObject;
         
         protected TaskMaster taskMaster => TaskMaster.Instance;
         protected Spawner spawner => Spawner.Instance;
@@ -43,6 +45,8 @@ namespace Items
             }
 
             _queuedToCut = false;
+            
+            RefreshSelection();
         }
         
         protected void SetIcon(string iconName)
@@ -56,6 +60,14 @@ namespace Items
             {
                 _icon.sprite = Librarian.Instance.GetSprite(iconName);
                 _icon.gameObject.SetActive(true);
+            }
+        }
+        
+        protected void RefreshSelection()
+        {
+            if (_clickObject.IsSelected)
+            {
+                GameEvents.Trigger_RefreshSelection();
             }
         }
     }

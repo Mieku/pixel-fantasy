@@ -54,4 +54,10 @@ public class GameEvents : MonoBehaviour
     {
         if( OnInventoryRemoved != null ) OnInventoryRemoved( itemData, totalAmount );
     }
+
+    public static event Action RefreshSelection;
+    public static void Trigger_RefreshSelection()
+    {
+        if (RefreshSelection != null) RefreshSelection();
+    }
 }

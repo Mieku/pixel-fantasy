@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Controllers;
 using Gods;
@@ -413,5 +414,38 @@ namespace Items
         }
 
         public bool IsAllowed { get; set; }
+        
+        public List<Order> GetOrders()
+        {
+            List<Order> results = new List<Order>();
+            
+            results.Add(Order.Disallow);
+
+            if (_isBuilt)
+            {
+                results.Add(Order.Deconstruct);
+            }
+            else
+            {
+                results.Add(Order.Cancel);
+            }
+
+            return results;
+        }
+
+        public bool IsOrderActive(Order order)
+        {
+            switch (order)
+            {
+                case Order.Disallow:
+                    return false;
+                case Order.Deconstruct:
+                    return IsDeconstucting();
+                case Order.Cancel:
+                    return false;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(order), order, null);
+            }
+        }
     }
 }

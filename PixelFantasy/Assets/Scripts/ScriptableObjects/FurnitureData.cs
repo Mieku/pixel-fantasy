@@ -21,7 +21,7 @@ namespace ScriptableObjects
         [ShowIf("_constructionMethod", Items.ConstructionMethod.Hand)][SerializeField] private List<ItemAmount> _resourceCosts;
         [SerializeField] private List<string> _invalidPlacementTags = new List<string> { "Water", "Wall", "Zone", "Furniture" };
         [SerializeField] private ConstructionMethod _constructionMethod;
-        [SerializeField] private List<Option> _options;
+        [SerializeField] private List<Order> _options;
         [SerializeField] private bool _isCraftingTable;
         [SerializeField] private CraftingType _craftingType;
 
@@ -30,7 +30,7 @@ namespace ScriptableObjects
         public float WorkCost => _workCost;
         public ConstructionMethod ConstructionMethod => _constructionMethod;
         public bool IsCraftingTable => _isCraftingTable;
-        public List<Option> Options => _options;
+        public List<Order> Options => _options;
         public CraftingType CraftingType => _craftingType;
         public ItemData ItemData => _itemData;
 

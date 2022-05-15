@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using CodeMonkey.Utils;
 using Gods;
+using HUD;
 using Items;
 using ScriptableObjects;
 using UnityEngine;
@@ -206,5 +207,153 @@ namespace Controllers
 
             return false;
         }
+
+        #region Storage
+        [SerializeField] private Sprite _storageZoneBlueprint;
+        
+        private bool _planningStorage;
+        private Vector2 _startPos;
+        private List<GameObject> _blueprints = new List<GameObject>();
+        private readonly List<string> _storagePlacementInvalidTags = new List<string>
+        {
+            "Water",
+            "Zone"
+        };
+        
+        private void OnEnable()
+        {
+            GameEvents.OnLeftClickDown += GameEvents_OnLeftClickDown;
+            GameEvents.OnLeftClickHeld += GameEvents_OnLeftClickHeld;
+            GameEvents.OnLeftClickUp += GameEvents_OnLeftClickUp;
+            GameEvents.OnRightClickDown += GameEvents_OnRightClickDown;
+        }
+
+        private void OnDisable()
+        {
+            GameEvents.OnLeftClickDown -= GameEvents_OnLeftClickDown;
+            GameEvents.OnLeftClickHeld -= GameEvents_OnLeftClickHeld;
+            GameEvents.OnLeftClickUp -= GameEvents_OnLeftClickUp;
+            GameEvents.OnRightClickDown -= GameEvents_OnRightClickDown;
+        }
+        
+
+        protected void GameEvents_OnRightClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
+        {
+            if (inputState == PlayerInputState.BuildStorage)
+            {
+                CancelPlanning();
+            }
+        }
+
+        protected void GameEvents_OnLeftClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
+        {
+            if (inputState == PlayerInputState.BuildStorage)
+            {
+                _planningStorage = true;
+                _startPos = Helper.ConvertMousePosToGridPos(mousePos);
+            }
+        }
+
+        protected void GameEvents_OnLeftClickHeld(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
+        {
+            if (inputState == PlayerInputState.BuildStorage)
+            {
+                PlanStorageSlots(mousePos);
+            }
+        }
+
+        protected void GameEvents_OnLeftClickUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
+        {
+            if (inputState == PlayerInputState.BuildStorage)
+            {
+                SpawnPlannedStorageSlots();
+            }
+        }
+        
+                private void CancelPlanning()
+        {
+            PlayerInputController.Instance.ChangeState(PlayerInputState.None);
+            ClearPlannedSlots();
+            _plannedGrid.Clear();
+        }
+
+        /// <summary>
+        /// Begin recording all the slots being planned for construction,
+        /// Also display their blue print on the tiles,
+        /// If player right clicks, this is cancelled
+        /// </summary>
+        private List<Vector2> _plannedGrid = new List<Vector2>();
+        private void PlanStorageSlots(Vector2 mousePos)
+        {
+            if (!_planningStorage) return;
+
+            Vector3 curGridPos = Helper.ConvertMousePosToGridPos(mousePos);
+            List<Vector2> gridPositions = Helper.GetRectangleGridPositionsBetweenPoints(_startPos, curGridPos);
+            if (gridPositions.Count != _plannedGrid.Count)
+            {
+                _plannedGrid = gridPositions;
+                
+                // Clear previous display, then display new blueprints
+                ClearPlannedSlots();
+
+                foreach (var gridPos in gridPositions)
+                {
+                    var blueprint = new GameObject("blueprint", typeof(SpriteRenderer));
+                    blueprint.transform.position = gridPos;
+                    var spriteRenderer = blueprint.GetComponent<SpriteRenderer>();
+                    spriteRenderer.sprite = _storageZoneBlueprint;
+                    if (Helper.IsGridPosValidToBuild(gridPos, _storagePlacementInvalidTags))
+                    {
+                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Green");
+                    }
+                    else
+                    {
+                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Red");
+                    }
+                    
+                    spriteRenderer.sortingLayerName = "Item";
+                    _blueprints.Add(blueprint);
+                }
+            }
+            
+        }
+
+        private void ClearPlannedSlots()
+        {
+            foreach (var blueprint in _blueprints)
+            {
+                Destroy(blueprint);
+            }
+            _blueprints.Clear();
+        }
+
+        /// <summary>
+        /// Using the planned tiles recorded when held,
+        /// Spawn the Item slots on the tiles
+        /// </summary>
+        private void SpawnPlannedStorageSlots()
+        {
+            if (!_planningStorage) return;
+
+            foreach (var gridPos in _plannedGrid)
+            {
+                if (Helper.IsGridPosValidToBuild(gridPos, _storagePlacementInvalidTags))
+                {
+                    CreateStorageSlot(gridPos);
+                }
+            }
+
+            ClearPlannedSlots();
+            _plannedGrid.Clear();
+            _planningStorage = false;
+            CancelPlanning();
+        }
+
+        private void CreateStorageSlot(Vector2 pos)
+        {
+            SpawnStorageSlot(pos);
+        }
+
+        #endregion
     }
 }

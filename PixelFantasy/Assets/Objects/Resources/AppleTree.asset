@@ -49,7 +49,6 @@ MonoBehaviour:
         MinDrop: 4
         MaxDrop: 8
     WorkToCut: 12
-  _options: 0200000004000000
   _invalidPlacementTags:
   - Water
   - Nature
@@ -57,7 +56,7 @@ MonoBehaviour:
   - Zone
   - Dirt
   _hasFruit: 1
-  _growFruitTime: 60
+  _growFruitTime: 6
   _fruitOverlay: {fileID: 416047863630588849, guid: 825658b1c6986bd46b087bb3ad70d904, type: 3}
   _harvestableFruit:
     _harvestableItems:

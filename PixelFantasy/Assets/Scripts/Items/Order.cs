@@ -1,11 +1,12 @@
 namespace Items
 {
-    public enum Option
+    public enum Order
     {
-        Allow,
         Deconstruct,  // Is also cancel when not built yet
         CutTree,
         CutPlant,
-        HarvestFruit,
+        Harvest,
+        Cancel,
+        Disallow,
     }
 }

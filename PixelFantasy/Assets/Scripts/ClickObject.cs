@@ -23,9 +23,25 @@ public class ClickObject : MonoBehaviour
     private FurnitureData _furnitureData;
     private bool _isMouseOver;
 
+    private IClickableObject _clickableObject; // Cache
+    public IClickableObject Owner
+    {
+        get
+        {
+            if (_clickableObject == null)
+            {
+                _clickableObject = gameObject.GetComponent<IClickableObject>();
+            }
+
+            return _clickableObject;
+        }
+    }
+
+    public bool IsSelected;
+
     private void Initialize()
     {
-        // Prevents wierd selection bug
+        // Prevents weird selection bug
         gameObject.SetActive(false);
         gameObject.SetActive(true);
         
@@ -59,22 +75,45 @@ public class ClickObject : MonoBehaviour
     {
         Initialize();
         UnselectObject();
+
+        GameEvents.RefreshSelection += RefreshSelection;
+    }
+
+    private void OnDestroy()
+    {
+        GameEvents.RefreshSelection -= RefreshSelection;
+
+        if (IsSelected)
+        {
+            PlayerInputController.Instance.ClearStoredData();
+        }
+    }
+
+    private void RefreshSelection()
+    {
+        if (IsSelected)
+        {
+            var data = GetSelectionData();
+            PlayerInputController.Instance.SelectObject(this, data);
+        }
     }
 
     public void SelectObject()
     {
         _selectedIcon.SetActive(true);
+        IsSelected = true;
 
         if (_objectRenderer != null)
         {
-            _selectedIcon.GetComponent<SpriteRenderer>().size = _objectRenderer.bounds.size;
-            _selectedIcon.transform.position = _objectRenderer.bounds.center;
+            //_selectedIcon.GetComponent<SpriteRenderer>().size = _objectRenderer.bounds.size;
+            //_selectedIcon.transform.position = _objectRenderer.bounds.center;
         }
     }
 
     public void UnselectObject()
     {
         _selectedIcon.SetActive(false);
+        IsSelected = false;
     }
 
     private void OnMouseOver()
@@ -131,13 +170,15 @@ public class ClickObject : MonoBehaviour
     
     private SelectionData GetSelectionData(ItemData itemData)
     {
+        var orders = Owner.GetOrders();
+
         SelectionData result = new SelectionData
         {
             ItemName = itemData.ItemName,
-            Options = itemData.Options,
-            Owner = gameObject,
+            ClickObject = this,
+            Orders = orders
         };
-        
+
         return result;
     }
     
@@ -146,8 +187,8 @@ public class ClickObject : MonoBehaviour
         SelectionData result = new SelectionData
         {
             ItemName = structureData.StructureName,
-            Options = structureData.Options,
-            Owner = gameObject,
+            Orders = structureData.Options,
+            ClickObject = this,
         };
 
         return result;
@@ -155,11 +196,13 @@ public class ClickObject : MonoBehaviour
     
     private SelectionData GetSelectionData(GrowingResourceData growingResourceData)
     {
+        var orders = Owner.GetOrders();
+        
         SelectionData result = new SelectionData
         {
             ItemName = growingResourceData.ResourceName,
-            Options = growingResourceData.Options,
-            Owner = gameObject,
+            Orders = orders,
+            ClickObject = this,
         };
 
         return result;
@@ -170,8 +213,8 @@ public class ClickObject : MonoBehaviour
         SelectionData result = new SelectionData
         {
             ItemName = floorData.FloorName,
-            Options = floorData.Options,
-            Owner = gameObject,
+            Orders = floorData.Options,
+            ClickObject = this,
         };
 
         return result;
@@ -182,19 +225,24 @@ public class ClickObject : MonoBehaviour
         SelectionData result = new SelectionData
         {
             ItemName = furnitureData.FurnitureName,
-            Options = furnitureData.Options,
-            Owner = gameObject,
+            Orders = furnitureData.Options,
+            ClickObject = this,
         };
 
         return result;
+    }
+
+    public bool IsOrderActive(Order order)
+    {
+        return Owner.IsOrderActive(order);
     }
 }
 
 public class SelectionData
 {
     public string ItemName;
-    public List<Option> Options;
-    public GameObject Owner;
+    public List<Order> Orders;
+    public ClickObject ClickObject;
 }
 
 public enum ObjectType

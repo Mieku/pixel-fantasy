@@ -37,7 +37,10 @@ namespace Controllers
 
         public void HideItemDetails()
         {
-            _selectedItemInfoPanel.HideItemDetails();
+            if (_selectedItemInfoPanel != null)
+            {
+                _selectedItemInfoPanel.HideItemDetails();
+            }
         }
 
         private void ChangeState(HUDState hudState)

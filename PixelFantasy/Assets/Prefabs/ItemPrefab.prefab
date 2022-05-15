@@ -210,7 +210,7 @@ SortingGroup:
   m_GameObject: {fileID: 5193408849299628808}
   m_Enabled: 1
   m_SortingLayerID: 1535977287
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
 --- !u!114 &5193408849299628810
 MonoBehaviour:
@@ -227,6 +227,7 @@ MonoBehaviour:
   _itemData: {fileID: 0}
   _spriteRenderer: {fileID: 5193408850715605309}
   _icon: {fileID: 936275726399776853}
+  _clickObject: {fileID: 2184922515245817262}
 --- !u!114 &2184922515245817262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,6 +243,7 @@ MonoBehaviour:
   _objectType: 0
   _selectedIcon: {fileID: 5026565680336161660}
   _objectRenderer: {fileID: 0}
+  IsSelected: 0
 --- !u!61 &4391485635462396388
 BoxCollider2D:
   m_ObjectHideFlags: 0

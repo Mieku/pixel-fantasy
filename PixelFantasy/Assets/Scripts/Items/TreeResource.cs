@@ -24,6 +24,12 @@ namespace Items
 
         public void CreateCutTreeTask()
         {
+            if (_queuedToCut)
+            {
+                CancelCutTreeTask();
+                return;
+            }
+            
             CancelTasks();
             _queuedToCut = true;
             SetIcon("Axe");
@@ -41,6 +47,8 @@ namespace Items
             
             _assignedTaskRefs.Add(task.GetHashCode());
             taskMaster.FellingTaskSystem.AddTask(task);
+            
+            RefreshSelection();
         }
 
         public void CancelCutTreeTask()
@@ -49,5 +57,31 @@ namespace Items
             SetIcon(null);
             CancelTasks();
         }
+
+        public override List<Order> GetOrders()
+        {
+            List<Order> results = new List<Order>();
+            results.Add(Order.CutTree);
+            
+            if (_hasFruitAvailable)
+            {
+                results.Add(Order.Harvest);
+            }
+
+            return results;
+        }
+
+        // public override bool IsOrderActive(Order order)
+        // {
+        //     switch (order)
+        //     {
+        //         case Order.CutTree:
+        //             return _queuedToCut;
+        //         case Order.Harvest:
+        //             return _queuedToHarvest;
+        //         default:
+        //             throw new ArgumentOutOfRangeException(nameof(order), order, null);
+        //     }
+        // }
     }
 }

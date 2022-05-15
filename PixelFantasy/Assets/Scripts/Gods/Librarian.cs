@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ScriptableObjects;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Gods
@@ -10,7 +11,9 @@ namespace Gods
         [SerializeField] private List<ColourData> _colourLibrary;
         [SerializeField] private List<StructureData> _structureLibrary;
         [SerializeField] private List<FloorData> _floorLibrary;
+        [SerializeField] private List<FurnitureData> _furnitureLibrary;
         [SerializeField] private List<Sprite> _sprites;
+        [SerializeField] private List<SpriteRef> _orderIcons;
 
         public Color GetColour(string colourName)
         {
@@ -46,10 +49,25 @@ namespace Gods
             return result;
         }
 
+        public FurnitureData GetFurnitureData(string key)
+        {
+            var result = _furnitureLibrary.Find(s => s.FurnitureName == key);
+            if (result == null)
+            {
+                Debug.LogError("Unknown Furniture: " + key);
+            }
+            return result;
+        }
+
         public Sprite GetSprite(string spriteName)
         {
             var result = _sprites.Find(s => s.name == spriteName);
             return result;
+        }
+
+        public Sprite GetOrderIcon(string spriteName)
+        {
+            return _orderIcons.Find(i => i.Name == spriteName).Sprite;
         }
     }
 
@@ -58,5 +76,14 @@ namespace Gods
     {
         public string Name;
         public Color Colour;
+    }
+
+    [Serializable]
+    public class SpriteRef
+    {
+        [HorizontalGroup("Split", Width = 50), HideLabel, PreviewField(50)]
+        public Sprite Sprite;
+        [VerticalGroup("Split/Properties")]
+        public string Name;
     }
 }

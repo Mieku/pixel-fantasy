@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2599519425529243370
 Transform:
   m_ObjectHideFlags: 0
@@ -98,7 +98,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9129166101957474166
 Transform:
   m_ObjectHideFlags: 0
@@ -299,7 +299,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6066542379500048073}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -508,14 +508,13 @@ GameObject:
   m_Component:
   - component: {fileID: 7155256550479724480}
   - component: {fileID: 4609709559434278069}
-  - component: {fileID: 8031747270584249459}
   m_Layer: 0
   m_Name: Selection Handler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7155256550479724480
 Transform:
   m_ObjectHideFlags: 0
@@ -559,21 +558,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 0.5625}
   m_EdgeRadius: 0
---- !u!114 &8031747270584249459
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7155256550479724486}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7c59e4a35c4615478a833e7df4956d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectType: 3
-  _selectedIcon: {fileID: 7155256550479724486}
-  _objectRenderer: {fileID: 7155256550381879070}
 --- !u!1 &7155256551760761722
 GameObject:
   m_ObjectHideFlags: 0
@@ -625,7 +609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  uniqueID: 2355603771127950686
+  uniqueID: 7282397208338993440
   updateError: 1
   checkTime: 0.2
 --- !u!114 &7155256551760761719
@@ -635,7 +619,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7155256551760761722}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7c59e4a35c4615478a833e7df4956d7, type: 3}
   m_Name: 
@@ -643,6 +627,7 @@ MonoBehaviour:
   _objectType: 3
   _selectedIcon: {fileID: 7155256550479724486}
   _objectRenderer: {fileID: 7155256550381879070}
+  IsSelected: 0
 --- !u!114 &7155256551760761716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -655,9 +640,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdf2c47b14719e44d9344aa73169d375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _growingResourceData: {fileID: 11400000, guid: 8a7a98e8d89b4584ba79e6b3cc9912ce, type: 2}
+  _growingResourceData: {fileID: 11400000, guid: 9c8bbcd46ae9d7c44b18552b98e9d7c7, type: 2}
   _spriteRenderer: {fileID: 7155256550381879070}
   _icon: {fileID: 7155256550430962553}
+  _clickObject: {fileID: 7155256551760761719}
   _overrideFullGrowth: 1
   _fruitOverlay: {fileID: 6319101082123291704}
   TaskRequestors: []

@@ -149,7 +149,7 @@ namespace Controllers
         /// <summary>
         /// Clears any stored input state data (ex: type of structure to build)
         /// </summary>
-        private void ClearStoredData()
+        public void ClearStoredData()
         {
             StoredKey = null;
             SelectObject(null);

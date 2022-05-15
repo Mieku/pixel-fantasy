@@ -6,6 +6,7 @@ using Gods;
 using Items;
 using Tasks;
 using UnityEngine;
+using Action = System.Action;
 using Random = UnityEngine.Random;
 
 namespace Unit

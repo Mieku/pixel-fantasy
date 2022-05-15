@@ -1,12 +1,15 @@
+using System;
 using System.Collections.Generic;
+using Interfaces;
 using ScriptableObjects;
 using Tasks;
 using Unit;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Items
 {
-    public class GrowingResource : Resource
+    public class GrowingResource : Resource, IClickableObject
     {
         [SerializeField] protected bool _overrideFullGrowth;
         [SerializeField] protected SpriteRenderer _fruitOverlay;
@@ -98,6 +101,7 @@ namespace Items
                     {
                         var stage = _growingResourceData.GetGrowthStage(_growthIndex);
                         _ageForNextGrowth += stage.SecsInStage;
+                        RefreshSelection();
                     }
                     else
                     {
@@ -122,6 +126,7 @@ namespace Items
                     _hasFruitAvailable = true;
                     _fruitOverlay.sprite = _growingResourceData.FruitOverlay;
                     _fruitOverlay.gameObject.SetActive(true);
+                    RefreshSelection();
                 }
             }
         }
@@ -141,6 +146,7 @@ namespace Items
                 }
                 _hasFruitAvailable = false;
                 _queuedToHarvest = false;
+                RefreshSelection();
             }
             
             SetIcon(null);
@@ -153,22 +159,17 @@ namespace Items
             FruitCheck();
         }
         
-        public int CreateCutPlantTask()
+        public void CreateCutPlantTask()
         {
+            if (_queuedToCut)
+            {
+                CancelCutPlantTask();
+                return;
+            }
+            
             CancelTasks();
             _queuedToCut = true;
             SetIcon("Scythe");
-            
-            // // Choose a random side of the tree
-            // var sideMod = 1;
-            // var rand = Random.Range(0, 2);
-            // if (rand == 1)
-            // {
-            //     sideMod *= -1;
-            // }
-            //
-            // var cutPos = transform.position;
-            // cutPos.x += sideMod;
 
             var task = new FarmingTask.CutPlant()
             {
@@ -184,8 +185,8 @@ namespace Items
             var taskHash = task.GetHashCode();
             _assignedTaskRefs.Add(taskHash);
             taskMaster.FarmingTaskSystem.AddTask(task);
-
-            return taskHash;
+            
+            RefreshSelection();
         }
 
         public void CancelCutPlantTask()
@@ -197,6 +198,12 @@ namespace Items
 
         public void CreateHarvestFruitTask()
         {
+            if (_queuedToHarvest)
+            {
+                CancelHarvestFruitTask();
+                return;
+            }
+            
             CancelTasks();
             _queuedToHarvest = true;
             SetIcon("Scythe");
@@ -225,6 +232,8 @@ namespace Items
             
             _assignedTaskRefs.Add(task.GetHashCode());
             taskMaster.FarmingTaskSystem.AddTask(task);
+            
+            RefreshSelection();
         }
 
         public void CancelHarvestFruitTask()
@@ -261,6 +270,8 @@ namespace Items
             
             TaskRequestors.Clear();
             
+            RefreshSelection();
+            
             Destroy(gameObject);
         }
 
@@ -269,6 +280,40 @@ namespace Items
             base.CancelTasks();
 
             _queuedToHarvest = false;
+        }
+        
+        public bool IsClickDisabled { get; set; }
+        public bool IsAllowed { get; set; }
+        public void ToggleAllowed(bool isAllowed)
+        {
+            // Not used
+        }
+
+        public virtual List<Order> GetOrders()
+        {
+            List<Order> results = new List<Order>();
+            results.Add(Order.CutPlant);
+            
+            if (_hasFruitAvailable)
+            {
+                results.Add(Order.Harvest);
+            }
+
+            return results;
+        }
+
+        public virtual bool IsOrderActive(Order order)
+        {
+            switch (order)
+            {
+                case Order.CutPlant:
+                case Order.CutTree:
+                    return _queuedToCut;
+                case Order.Harvest:
+                    return _queuedToHarvest;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(order), order, null);
+            }
         }
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace HUD
 {
-    public class HUDFurnitureOptions : InputAwareComponent
+    public class SpawnFurnitureController : InputAwareComponent
     {
         private FurnitureData _curFurnitureData;
         

@@ -16,7 +16,7 @@ public class DirtTile : MonoBehaviour
     
     [SerializeField] private int _workCost;
     [SerializeField] private List<string> _invalidPlacementTags;
-    [SerializeField] private List<Option> _options;
+    [SerializeField] private List<Order> _options;
     [SerializeField] private Sprite _icon;
     [SerializeField] private GraphUpdateScene _graphUpdateScene;
     [SerializeField] private RuleTile _dirtRuleTile;
@@ -45,11 +45,11 @@ public class DirtTile : MonoBehaviour
     }
     public int WorkCost => _workCost;
 
-    public List<Option> Options
+    public List<Order> Options
     {
         get
         {
-            List<Option> clone = new List<Option>();
+            List<Order> clone = new List<Order>();
             foreach (var option in _options)
             {
                 clone.Add(option);

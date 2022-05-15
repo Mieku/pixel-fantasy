@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Interfaces;
 using Items;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -15,7 +16,7 @@ namespace ScriptableObjects
         [PreviewField] public Sprite ItemSprite;
         public Vector2 DefaultSpriteScale = Vector2.one;
 
-        [SerializeField] private List<Option> _options;
+        //[SerializeField] private List<Order> _options;
         
         [BoxGroup("Crafting", centerLabel: true)][SerializeField] private ConstructionMethod _constructionMethod;
         [BoxGroup("Crafting")][HideIf("_constructionMethod", Items.ConstructionMethod.None)][SerializeField] private List<ItemAmount> _resourceCosts;
@@ -57,20 +58,6 @@ namespace ScriptableObjects
                 {
                     return _craftedQuatity;
                 }
-            }
-        }
-        
-        public List<Option> Options
-        {
-            get
-            {
-                List<Option> clone = new List<Option>();
-                foreach (var option in _options)
-                {
-                    clone.Add(option);
-                }
-
-                return clone;
             }
         }
     }
