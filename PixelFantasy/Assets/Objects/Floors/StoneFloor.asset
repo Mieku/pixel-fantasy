@@ -17,7 +17,7 @@ MonoBehaviour:
   WorkCost: 6
   WalkSpeedModifier: 0
   PathfindingPenalty: 0
-  StretchToWall: 1
+  StretchToWall: 0
   _resourceCosts:
   - Item: {fileID: 11400000, guid: 75f99dfbebb440d4499e1b83387d86e1, type: 2}
     Quantity: 2

@@ -14,16 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StructureName: Wood Wall
   WorkCost: 10
-  Icon: {fileID: -186450738273480271, guid: 594f1984e9eaa934cb104cf89914c091, type: 3}
+  Icon: {fileID: -1421956108914505651, guid: a4f0f6e453f9cb940a8255298159578b, type: 3}
   _resourceCosts:
   - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
     Quantity: 5
-  - Item: {fileID: 11400000, guid: 75f99dfbebb440d4499e1b83387d86e1, type: 2}
-    Quantity: 3
   _invalidPlacementTags:
   - Wall
   - Water
   - Zone
   _options: 01000000
   _planningMode: 1
-  _wallRuleTile: {fileID: 11400000, guid: 1bb59a1dc30428b4e9d418e7b436ab2e, type: 2}
+  _wallRuleTile: {fileID: 11400000, guid: dd8e1f36f33a05c4ea1bcc9478f925dc, type: 2}

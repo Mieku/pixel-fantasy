@@ -15,6 +15,7 @@ TagManager:
   - Ground
   - Dirt
   - Floor
+  - Missile
   layers:
   - Default
   - TransparentFX
@@ -51,6 +52,9 @@ TagManager:
   m_SortingLayers:
   - name: Ground
     uniqueID: 4117271811
+    locked: 0
+  - name: Shadows
+    uniqueID: 2148769351
     locked: 0
   - name: Default
     uniqueID: 0

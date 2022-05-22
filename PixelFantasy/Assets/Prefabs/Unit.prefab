@@ -98,6 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _offset: 1
   _runOnlyOnce: 0
+  _sortingGroup: {fileID: 0}
 --- !u!114 &1661757495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,6 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _offset: 1
   _runOnlyOnce: 0
+  _sortingGroup: {fileID: 0}
 --- !u!1 &3742401547343047349
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,8 +327,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 0.5
+  _offset: 0
   _runOnlyOnce: 0
+  _sortingGroup: {fileID: 0}
 --- !u!1 &5532418264206338346
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,6 +430,8 @@ GameObject:
   - component: {fileID: 1318834803339290506}
   - component: {fileID: 7471310692821977494}
   - component: {fileID: 8988988752585574429}
+  - component: {fileID: 4624679516539662858}
+  - component: {fileID: 1822529751762045447}
   m_Layer: 6
   m_Name: Unit
   m_TagString: Unit
@@ -604,7 +609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 2
-  radius: 0.15
+  radius: 0.25
   height: 0.1
   repathRate: 0.1
   canSearch: 1
@@ -620,8 +625,8 @@ MonoBehaviour:
   targetCompatibility: {fileID: 0}
   maxAcceleration: -2.5
   rotationSpeed: 360
-  slowdownDistance: 4
-  pickNextWaypointDist: 2
+  slowdownDistance: 2
+  pickNextWaypointDist: 1.25
   endReachedDistance: 0.2
   alwaysDrawGizmos: 1
   slowWhenNotFacingTarget: 1
@@ -639,6 +644,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93ea3b31fd60b274abab1fb237358e16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!210 &4624679516539662858
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5532418264530240426}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &1822529751762045447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5532418264530240426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _offset: 0.5
+  _runOnlyOnce: 0
+  _sortingGroup: {fileID: 0}
 --- !u!1 &7362162075358093673
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,6 +803,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _offset: 0
   _runOnlyOnce: 0
+  _sortingGroup: {fileID: 0}
 --- !u!1 &8949461440498415923
 GameObject:
   m_ObjectHideFlags: 0
@@ -905,3 +937,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _offset: -1
   _runOnlyOnce: 0
+  _sortingGroup: {fileID: 0}
