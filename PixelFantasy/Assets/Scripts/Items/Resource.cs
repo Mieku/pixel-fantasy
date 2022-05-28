@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Items
 {
-    public class Resource : MonoBehaviour
+    public class Resource : MonoBehaviour, IClickableObject
     {
         [SerializeField] protected GrowingResourceData _growingResourceData;
         [SerializeField] protected SpriteRenderer _spriteRenderer;
@@ -26,8 +26,12 @@ namespace Items
         }
         
         public bool QueuedToCut => _queuedToCut;
-        
-        
+
+        public ClickObject GetClickObject()
+        {
+            return _clickObject;
+        }
+
         protected virtual void CancelTasks()
         {
             if (_assignedTaskRefs == null || _assignedTaskRefs.Count == 0) return;
@@ -69,6 +73,28 @@ namespace Items
             {
                 GameEvents.Trigger_RefreshSelection();
             }
+        }
+
+        public bool IsClickDisabled { get; set; }
+        public bool IsAllowed { get; set; }
+        public virtual void ToggleAllowed(bool isAllowed)
+        {
+            
+        }
+
+        public virtual List<Order> GetOrders()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual bool IsOrderActive(Order order)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual void AssignOrder(Order orderToAssign)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -20,10 +20,14 @@ namespace Items
         private int _assignedTaskRef;
         private UnitTaskAI _incomingUnit;
         private Transform _originalParent;
-        private bool isAllowed;
 
         private TaskMaster taskMaster => TaskMaster.Instance;
-        
+
+        public ClickObject GetClickObject()
+        {
+            return _clickObject;
+        }
+
         public void InitializeItem(ItemData itemData, bool allowed)
         {
             _itemData = itemData;
@@ -151,8 +155,16 @@ namespace Items
         public List<Order> GetOrders()
         {
             List<Order> results = new List<Order>();
+
+            if (IsAllowed)
+            {
+                results.Add(Order.Disallow);
+            }
+            else
+            {
+                results.Add(Order.Allow);
+            }
             
-            results.Add(Order.Disallow);
 
             return results;
         }
@@ -165,6 +177,19 @@ namespace Items
                     return !IsAllowed;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(order), order, null);
+            }
+        }
+
+        public void AssignOrder(Order orderToAssign)
+        {
+            switch (orderToAssign)
+            {
+                case Order.Allow:
+                    ToggleAllowed(true);
+                    break;
+                case Order.Disallow:
+                    ToggleAllowed(false);
+                    break;
             }
         }
     }

@@ -61,7 +61,7 @@ namespace Items
         public override List<Order> GetOrders()
         {
             List<Order> results = new List<Order>();
-            results.Add(Order.CutTree);
+            results.Add(Order.CutPlant);
             
             if (_hasFruitAvailable)
             {
@@ -69,6 +69,19 @@ namespace Items
             }
 
             return results;
+        }
+
+        public override void AssignOrder(Order orderToAssign)
+        {
+            switch (orderToAssign)
+            {
+                case Order.CutPlant:
+                    CreateCutTreeTask();
+                    break;
+                case Order.Harvest:
+                    CreateHarvestFruitTask();
+                    break;
+            }
         }
 
         // public override bool IsOrderActive(Order order)

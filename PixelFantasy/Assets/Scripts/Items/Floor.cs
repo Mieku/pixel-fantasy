@@ -34,7 +34,13 @@ namespace Items
         public Vector2 FloorPos => _floorPos;
         
         public bool IsClickDisabled { get; set; }
-        
+
+        public ClickObject GetClickObject()
+        {
+            // TODO: Add Click Object to floors
+            return null;
+        }
+
         public void Init(FloorData floorData)
         {
             IsClickDisabled = false;
@@ -445,6 +451,27 @@ namespace Items
                     return false;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(order), order, null);
+            }
+        }
+
+        public void AssignOrder(Order orderToAssign)
+        {
+            switch (orderToAssign)
+            {
+                case Order.Deconstruct:
+                    CreateDeconstructionTask();
+                    break;
+                case Order.Cancel:
+                    if (_isDeconstructing)
+                    {
+                        CancelDeconstruction();
+                    } else if (!_isBuilt)
+                    {
+                        CancelConstruction();
+                    }
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(orderToAssign), orderToAssign, null);
             }
         }
     }

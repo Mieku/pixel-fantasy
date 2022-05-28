@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 
 namespace Items
 {
-    public class GrowingResource : Resource, IClickableObject
+    public class GrowingResource : Resource
     {
         [SerializeField] protected bool _overrideFullGrowth;
         [SerializeField] protected SpriteRenderer _fruitOverlay;
@@ -282,14 +282,7 @@ namespace Items
             _queuedToHarvest = false;
         }
         
-        public bool IsClickDisabled { get; set; }
-        public bool IsAllowed { get; set; }
-        public void ToggleAllowed(bool isAllowed)
-        {
-            // Not used
-        }
-
-        public virtual List<Order> GetOrders()
+        public override List<Order> GetOrders()
         {
             List<Order> results = new List<Order>();
             results.Add(Order.CutPlant);
@@ -302,17 +295,29 @@ namespace Items
             return results;
         }
 
-        public virtual bool IsOrderActive(Order order)
+        public override bool IsOrderActive(Order order)
         {
             switch (order)
             {
                 case Order.CutPlant:
-                case Order.CutTree:
                     return _queuedToCut;
                 case Order.Harvest:
                     return _queuedToHarvest;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(order), order, null);
+            }
+        }
+        
+        public override void AssignOrder(Order orderToAssign)
+        {
+            switch (orderToAssign)
+            {
+                case Order.CutPlant:
+                    CreateCutPlantTask();
+                    break;
+                case Order.Harvest:
+                    CreateHarvestFruitTask();
+                    break;
             }
         }
     }

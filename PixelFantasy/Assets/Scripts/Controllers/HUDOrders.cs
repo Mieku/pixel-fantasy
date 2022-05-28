@@ -54,10 +54,10 @@ namespace Controllers
                 case Order.Deconstruct:
                     icon = Librarian.Instance.GetOrderIcon("Deconstruct");
                     break;
-                case Order.CutTree:
-                    icon = Librarian.Instance.GetOrderIcon("Cut");
-                    onPressed = CutTreeOrder;
-                    break;
+                // case Order.CutTree:
+                //     icon = Librarian.Instance.GetOrderIcon("Cut");
+                //     onPressed = CutTreeOrder;
+                //     break;
                 case Order.CutPlant:
                     icon = Librarian.Instance.GetOrderIcon("Cut");
                     onPressed = CutPlantOrder;
@@ -95,19 +95,16 @@ namespace Controllers
             clickObject.Owner.ToggleAllowed(!clickObject.Owner.IsAllowed);
         }
         
-        private void CutTreeOrder()
+        private void CutPlantOrder()
         {
             var clickObject = _selectionData.ClickObject;
             var tree = clickObject.GetComponent<TreeResource>();
             if (tree != null)
             {
                 tree.CreateCutTreeTask();
+                return;
             }
-        }
-
-        private void CutPlantOrder()
-        {
-            var clickObject = _selectionData.ClickObject;
+            
             var plant = clickObject.GetComponent<GrowingResource>();
             if (plant != null)
             {

@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using CodeMonkey.Utils;
 using Gods;
 using HUD;
+using Items;
 using ScriptableObjects;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Controllers
 {
     public class HUDOptions : MonoBehaviour
     {
         [SerializeField] private List<ConstructionOrder> _cheatOrders;
-        
+
+        [SerializeField] private List<MassOrder> _massOrders;
         [SerializeField] private List<ConstructionOrder> _zoneOrders;
         [SerializeField] private List<ConstructionOrder> _wallOrders;
         [SerializeField] private List<ConstructionOrder> _floorOrders;
@@ -24,12 +25,17 @@ namespace Controllers
         [SerializeField] private DirtTile _dirtPrefab;
 
         [SerializeField] private SpawnFurnitureController _furnitureController;
-        
+
         #region Button Hooks
 
         public void CheatsPressed()
         {
             DisplayOrders(_cheatOrders);
+        }
+
+        public void MassOrdersPressed()
+        {
+            DisplayMassOrders(_massOrders);
         }
 
         public void ZonePressed()
@@ -83,6 +89,28 @@ namespace Controllers
                 Action onPressed = DetermineOnPressedAction(order.DataKey, order.OrderType);
                 HUDOrders.Instance.CreateOrderButton(order.Icon, onPressed, false);
             }
+        }
+
+        private void DisplayMassOrders(List<MassOrder> orders)
+        {
+            ClearOptions();
+            
+            foreach (var order in orders)
+            {
+                Sprite icon = Librarian.Instance.GetOrderIcon(order.OrderName);
+                Action onPressed = DetermineOnPressedOrderAction(order.MassOrderType);
+                HUDOrders.Instance.CreateOrderButton(icon, onPressed, false);
+            }
+        }
+
+        private Action DetermineOnPressedOrderAction(Order orderType)
+        {
+            void OnOnpressed()
+            {
+                SelectionManager.Instance.BeginOrdersSelectionBox(orderType);
+            }
+
+            return OnOnpressed;
         }
 
         private Action DetermineOnPressedAction(string dataKey, OrderType orderType)

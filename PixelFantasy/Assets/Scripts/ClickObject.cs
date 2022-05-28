@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Controllers;
 using Interfaces;
 using Items;
@@ -108,6 +109,31 @@ public class ClickObject : MonoBehaviour
             //_selectedIcon.GetComponent<SpriteRenderer>().size = _objectRenderer.bounds.size;
             //_selectedIcon.transform.position = _objectRenderer.bounds.center;
         }
+    }
+
+    public void AreaSelectObject(Order orderForSelection)
+    {
+        if (ObjectValidForSelection(orderForSelection))
+        {
+            _selectedIcon.SetActive(true);
+        }
+    }
+
+    public void UnselectAreaSelection()
+    {
+        _selectedIcon.SetActive(false);
+    }
+
+    public bool ObjectValidForSelection(Order orderForSelection)
+    {
+        var clickableObject = GetComponent<IClickableObject>();
+        if (clickableObject != null)
+        {
+            var possibleOrders = clickableObject.GetOrders();
+            return possibleOrders.Any(possibleOrder => possibleOrder == orderForSelection);
+        }
+        
+        return false;
     }
 
     public void UnselectObject()
