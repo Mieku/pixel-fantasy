@@ -14,6 +14,7 @@ namespace Gods
         [SerializeField] private List<FurnitureData> _furnitureLibrary;
         [SerializeField] private List<Sprite> _sprites;
         [SerializeField] private List<SpriteRef> _orderIcons;
+        [SerializeField] private List<CropData> _cropLibrary;
 
         public Color GetColour(string colourName)
         {
@@ -55,6 +56,16 @@ namespace Gods
             if (result == null)
             {
                 Debug.LogError("Unknown Furniture: " + key);
+            }
+            return result;
+        }
+
+        public CropData GetCropData(string key)
+        {
+            var result = _cropLibrary.Find(s => s.CropName == key);
+            if (result == null)
+            {
+                Debug.LogError("Unknown Crop: " + key);
             }
             return result;
         }

@@ -54,10 +54,6 @@ namespace Controllers
                 case Order.Deconstruct:
                     icon = Librarian.Instance.GetOrderIcon("Deconstruct");
                     break;
-                // case Order.CutTree:
-                //     icon = Librarian.Instance.GetOrderIcon("Cut");
-                //     onPressed = CutTreeOrder;
-                //     break;
                 case Order.CutPlant:
                     icon = Librarian.Instance.GetOrderIcon("Cut");
                     onPressed = CutPlantOrder;
@@ -121,11 +117,7 @@ namespace Controllers
                 plant.CreateHarvestFruitTask();
             }
         }
-
         
-        
-        
-
         #endregion
     }
 }

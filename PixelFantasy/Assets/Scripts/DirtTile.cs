@@ -27,6 +27,7 @@ public class DirtTile : MonoBehaviour
     private Structure _requestedStructure;
     private Floor _requestedFloor;
     private Tilemap _flooringTilemap;
+    private Action _onDirtDug;
 
     public Sprite Icon => _icon;
 
@@ -99,6 +100,14 @@ public class DirtTile : MonoBehaviour
     public void Init(Structure requestedStructure = null)
     {
         _requestedStructure = requestedStructure;
+        UpdateSprite(true);
+        ShowBlueprint(true);
+        ClearPlantsForClearingGrass();
+    }
+
+    public void Init(Action onDirtDug)
+    {
+        _onDirtDug = onDirtDug;
         UpdateSprite(true);
         ShowBlueprint(true);
         ClearPlantsForClearingGrass();
@@ -202,6 +211,11 @@ public class DirtTile : MonoBehaviour
         if (_requestedFloor != null)
         {
             _requestedFloor.InformDirtReady();
+        }
+
+        if (_onDirtDug != null)
+        {
+            _onDirtDug.Invoke();
         }
     }
     

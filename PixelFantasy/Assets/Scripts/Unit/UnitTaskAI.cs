@@ -179,6 +179,30 @@ namespace Unit
                     ExecuteTask_GatherResourceForCrafting_Carpentry(task as CarpentryTask.GatherResourceForCrafting);
                     return;
                 }
+
+                if (task is FarmingTask.DigHole)
+                {
+                    ExecuteTask_DigHole(task as FarmingTask.DigHole);
+                    return;
+                }
+                
+                if (task is FarmingTask.HarvestCrop)
+                {
+                    ExecuteTask_HarvestCrop(task as FarmingTask.HarvestCrop);
+                    return;
+                }
+                
+                if (task is FarmingTask.PlantCrop)
+                {
+                    ExecuteTask_PlantCrop(task as FarmingTask.PlantCrop);
+                    return;
+                }
+                
+                if (task is FarmingTask.WaterCrop)
+                {
+                    ExecuteTask_WaterCrop(task as FarmingTask.WaterCrop);
+                    return;
+                }
                 
                 // Other task types go here
             }
@@ -320,6 +344,70 @@ namespace Unit
             workerMover.SetMovePosition(GetAdjacentPosition(task.grassPosition), () =>
             {
                 _unitAnim.LookAtPostion(task.grassPosition);
+                _unitAnim.SetUnitAction(UnitAction.Digging);
+                DoWork(task.workAmount, () =>
+                {
+                    task.completeWork();
+                    state = State.WaitingForNextTask;
+                    _unitAnim.SetUnitAction(UnitAction.Nothing);
+                });
+            });
+        }
+
+        private void ExecuteTask_DigHole(FarmingTask.DigHole task)
+        {
+            task.claimHole(this);
+            workerMover.SetMovePosition(GetAdjacentPosition(task.holePosition), () =>
+            {
+                _unitAnim.LookAtPostion(task.holePosition);
+                _unitAnim.SetUnitAction(UnitAction.Digging);
+                DoWork(task.workAmount, () =>
+                {
+                    task.completeWork();
+                    state = State.WaitingForNextTask;
+                    _unitAnim.SetUnitAction(UnitAction.Nothing);
+                });
+            });
+        }
+        
+        private void ExecuteTask_PlantCrop(FarmingTask.PlantCrop task)
+        {
+            task.claimHole(this);
+            workerMover.SetMovePosition(GetAdjacentPosition(task.holePosition), () =>
+            {
+                _unitAnim.LookAtPostion(task.holePosition);
+                _unitAnim.SetUnitAction(UnitAction.Doing);
+                DoWork(task.workAmount, () =>
+                {
+                    task.completeWork();
+                    state = State.WaitingForNextTask;
+                    _unitAnim.SetUnitAction(UnitAction.Nothing);
+                });
+            });
+        }
+        
+        private void ExecuteTask_WaterCrop(FarmingTask.WaterCrop task)
+        {
+            task.claimCrop(this);
+            workerMover.SetMovePosition(GetAdjacentPosition(task.cropPosition), () =>
+            {
+                _unitAnim.LookAtPostion(task.cropPosition);
+                _unitAnim.SetUnitAction(UnitAction.Watering);
+                DoWork(task.workAmount, () =>
+                {
+                    task.completeWork();
+                    state = State.WaitingForNextTask;
+                    _unitAnim.SetUnitAction(UnitAction.Nothing);
+                });
+            });
+        }
+        
+        private void ExecuteTask_HarvestCrop(FarmingTask.HarvestCrop task)
+        {
+            task.claimCrop(this);
+            workerMover.SetMovePosition(GetAdjacentPosition(task.cropPosition, 0.5f), () =>
+            {
+                _unitAnim.LookAtPostion(task.cropPosition);
                 _unitAnim.SetUnitAction(UnitAction.Digging);
                 DoWork(task.workAmount, () =>
                 {

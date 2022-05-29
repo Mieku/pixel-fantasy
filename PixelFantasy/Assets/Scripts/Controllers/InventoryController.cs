@@ -214,11 +214,16 @@ namespace Controllers
         private bool _planningStorage;
         private Vector2 _startPos;
         private List<GameObject> _blueprints = new List<GameObject>();
-        private readonly List<string> _storagePlacementInvalidTags = new List<string>
+        public readonly List<string> StoragePlacementInvalidTags = new List<string>
         {
             "Water",
             "Zone"
         };
+
+        public Sprite GetStorageZoneBlueprintSprite()
+        {
+            return _storageZoneBlueprint;
+        }
         
         private void OnEnable()
         {
@@ -302,7 +307,7 @@ namespace Controllers
                     blueprint.transform.position = gridPos;
                     var spriteRenderer = blueprint.GetComponent<SpriteRenderer>();
                     spriteRenderer.sprite = _storageZoneBlueprint;
-                    if (Helper.IsGridPosValidToBuild(gridPos, _storagePlacementInvalidTags))
+                    if (Helper.IsGridPosValidToBuild(gridPos, StoragePlacementInvalidTags))
                     {
                         spriteRenderer.color = Librarian.Instance.GetColour("Placement Green");
                     }
@@ -337,7 +342,7 @@ namespace Controllers
 
             foreach (var gridPos in _plannedGrid)
             {
-                if (Helper.IsGridPosValidToBuild(gridPos, _storagePlacementInvalidTags))
+                if (Helper.IsGridPosValidToBuild(gridPos, StoragePlacementInvalidTags))
                 {
                     CreateStorageSlot(gridPos);
                 }

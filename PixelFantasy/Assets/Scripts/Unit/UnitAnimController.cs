@@ -19,6 +19,8 @@ namespace Character
         private const string AXE = "IsCutting";
         private const string BUILD = "IsBuilding";
         private const string DIG = "IsDigging";
+        private const string WATER = "IsWatering";
+        
 
         public void SetUnitAction(UnitAction unitAction)
         {
@@ -41,6 +43,9 @@ namespace Character
                 case UnitAction.Digging:
                     SetUnitAction(DIG);
                     break;
+                case UnitAction.Watering:
+                    SetUnitAction(WATER);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(unitAction), unitAction, null);
             }
@@ -59,6 +64,7 @@ namespace Character
             SetUnitAction(AXE, false);
             SetUnitAction(BUILD, false);
             SetUnitAction(DIG, false);
+            SetUnitAction(WATER, false);
         }
         
         public void SetMovementVelocity(Vector2 velocityVector)
@@ -102,5 +108,6 @@ namespace Character
         Axe,
         Building,
         Digging,
+        Watering,
     }
 }

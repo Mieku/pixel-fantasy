@@ -86,7 +86,7 @@ namespace Controllers
             
             foreach (var order in orders)
             {
-                Action onPressed = DetermineOnPressedAction(order.DataKey, order.OrderType);
+                Action onPressed = DetermineOnPressedAction(order.DataKey, order.OrderType, order.SubMenu, orders);
                 HUDOrders.Instance.CreateOrderButton(order.Icon, onPressed, false);
             }
         }
@@ -113,7 +113,7 @@ namespace Controllers
             return OnOnpressed;
         }
 
-        private Action DetermineOnPressedAction(string dataKey, OrderType orderType)
+        private Action DetermineOnPressedAction(string dataKey, OrderType orderType, List<ConstructionOrder> subMenu, List<ConstructionOrder> curMenu)
         {
             Action onpressed = null;
             
@@ -144,6 +144,18 @@ namespace Controllers
                     onpressed += () =>
                     {
                         BuildFurniturePressed(dataKey);
+                    };
+                    break;
+                case OrderType.SubMenu:
+                    onpressed += () =>
+                    {
+                        ShowSubMenu(subMenu, curMenu, true);
+                    };
+                    break;
+                case OrderType.Menu:
+                    onpressed += () =>
+                    {
+                        ShowSubMenu(subMenu, curMenu, false);
                     };
                     break;
                 default:
@@ -188,12 +200,49 @@ namespace Controllers
             if (key == "Storage")
             {
                 BuildStorageZone();
+            } 
+            else // Assume Farm if unknown
+            {
+                BuildFarmZone(key);
             }
         }
 
         private void BuildStorageZone()
         {
             PlayerInputController.Instance.ChangeState(PlayerInputState.BuildStorage);
+            Spawner.Instance.ShowPlacementIcon(true, InventoryController.Instance.GetStorageZoneBlueprintSprite(), InventoryController.Instance.StoragePlacementInvalidTags);
+        }
+
+        private void ShowSubMenu(List<ConstructionOrder> subMenu, List<ConstructionOrder> curMenu, bool hasBackBtn)
+        {
+            if (hasBackBtn && subMenu[0].OrderName != "Back")
+            {
+                ConstructionOrder backbtn = new ConstructionOrder
+                {
+                    Icon = Librarian.Instance.GetOrderIcon("Back"),
+                    OrderName = "Back",
+                    OrderType = OrderType.Menu,
+                    SubMenu = curMenu
+                };
+
+                subMenu.Insert(0, backbtn);
+            }
+
+            DisplayOrders(subMenu);
+        }
+
+        private void BuildFarmZone(string cropKey)
+        {
+            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildFarm);
+
+            var cropData = Librarian.Instance.GetCropData(cropKey);
+            Spawner.Instance.CropData = cropData;
+            // Will likely need to specify more unique values for farms
+            Spawner.Instance.ShowPlacementIcon(true, InventoryController.Instance.GetStorageZoneBlueprintSprite(), InventoryController.Instance.StoragePlacementInvalidTags);
+
+            // var floorData = Librarian.Instance.GetFloorData(PlayerInputController.Instance.StoredKey);
+            // Spawner.Instance.FloorData = floorData;
+            // Spawner.Instance.ShowPlacementIcon(true, floorData.Icon, floorData.InvalidPlacementTags);
         }
     }
 }

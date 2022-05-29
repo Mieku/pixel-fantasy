@@ -29,5 +29,37 @@ namespace Tasks
             public Action completeWork;
             public float workAmount;
         }
+
+        public class DigHole : FarmingTask
+        {
+            public Action<UnitTaskAI> claimHole;
+            public Vector3 holePosition;
+            public Action completeWork;
+            public float workAmount;
+        }
+
+        public class PlantCrop : FarmingTask
+        {
+            public Action<UnitTaskAI> claimHole;
+            public Vector3 holePosition;
+            public Action completeWork;
+            public float workAmount;
+        }
+
+        public class WaterCrop : FarmingTask
+        {
+            public Action<UnitTaskAI> claimCrop;
+            public Vector3 cropPosition;
+            public Action completeWork;
+            public float workAmount;
+        }
+
+        public class HarvestCrop : FarmingTask
+        {
+            public Action<UnitTaskAI> claimCrop;
+            public Vector3 cropPosition;
+            public Action completeWork;
+            public float workAmount;
+        }
     }
 }

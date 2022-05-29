@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using Interfaces;
 using Items;
 using ScriptableObjects;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -14,6 +16,7 @@ namespace HUD
         public string OrderName;
         public Sprite Icon;
         public string DataKey;
+        [ShowIf("OrderType", Value = HUD.OrderType.SubMenu)] public List<ConstructionOrder> SubMenu;
     }
 
     [Serializable]
@@ -32,5 +35,7 @@ namespace HUD
         BuildFloor,
         ClearGrass,
         BuildFurniture,
+        SubMenu,
+        Menu,
     }
 }

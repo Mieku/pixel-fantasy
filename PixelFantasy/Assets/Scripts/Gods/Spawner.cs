@@ -30,6 +30,8 @@ namespace Gods
         [SerializeField] private GameObject _craftingTablePrefab;
         [SerializeField] private GameObject _furniturePrefab;
         [SerializeField] private Transform _furnitureParent;
+
+        [SerializeField] private GameObject _soilPrefab;
         
         [SerializeField] private SpriteRenderer _placementIcon;
         
@@ -49,6 +51,7 @@ namespace Gods
         public StructureData StructureData { get; set; }
         public FloorData FloorData { get; set; }
         public FurnitureData FurnitureData { get; set; }
+        public CropData CropData { get; set; }
 
         public PlacementDirection SetNextPlacementDirection(bool isClockwise)
         {
@@ -87,7 +90,9 @@ namespace Gods
         protected virtual void GameEvents_OnLeftClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
         {
             if (isOverUI) return;
-            if (inputState == PlayerInputState.BuildStructure || inputState == PlayerInputState.BuildFlooring)
+            if (inputState == PlayerInputState.BuildStructure 
+                || inputState == PlayerInputState.BuildFlooring
+                || inputState == PlayerInputState.BuildFarm )
             {
                 _planningStructure = true;
                 _startPos = Helper.ConvertMousePosToGridPos(mousePos);
@@ -111,6 +116,11 @@ namespace Gods
                 {
                     PlanFloor(mousePos, FloorData.PlanningMode);
                 }
+            }
+
+            if (inputState == PlayerInputState.BuildFarm)
+            {
+                PlanFarm(mousePos);
             }
         }
         
@@ -157,6 +167,17 @@ namespace Gods
             else if (inputState == PlayerInputState.BuildFurniture)
             {
                 SpawnFurniture(FurnitureData, Helper.ConvertMousePosToGridPos(mousePos));
+            }
+            else if (inputState == PlayerInputState.BuildFarm)
+            {
+                if (_planningStructure)
+                {
+                    SpawnPlannedFarm();
+                }
+                else
+                {
+                    SpawnSoilTile(Helper.ConvertMousePosToGridPos(mousePos), CropData);
+                }
             }
         }
         
@@ -559,6 +580,70 @@ namespace Gods
             _plannedGrid.Clear();
             _planningStructure = false;
             CancelInput();
+        }
+
+        private void PlanFarm(Vector2 mousePos)
+        {
+            if (!_planningStructure) return;
+            ShowPlacementIcon(false);
+
+            Vector3 curGridPos = Helper.ConvertMousePosToGridPos(mousePos);
+            List<Vector2> gridPositions = new List<Vector2>();
+            gridPositions = Helper.GetRectangleGridPositionsBetweenPoints(_startPos, curGridPos);
+
+            if (gridPositions.Count != _plannedGrid.Count)
+            {
+                _plannedGrid = gridPositions;
+                
+                // Clear previous display, then display new blueprints
+                ClearPlannedBlueprint();
+
+                foreach (var gridPos in gridPositions)
+                {
+                    var blueprint = new GameObject("blueprint", typeof(SpriteRenderer));
+                    blueprint.transform.position = gridPos;
+                    var spriteRenderer = blueprint.GetComponent<SpriteRenderer>();
+                    var soil = _soilPrefab.GetComponent<DirtTile>();
+                    spriteRenderer.sprite = soil.Icon;
+                    if (Helper.IsGridPosValidToBuild(gridPos, soil.InvalidPlacementTags))
+                    {
+                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Green");
+                    }
+                    else
+                    {
+                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Red");
+                    }
+                    
+                    spriteRenderer.sortingLayerName = "DirtTile";
+                    _blueprints.Add(blueprint);
+                }
+            }
+        }
+
+        private void SpawnPlannedFarm()
+        {
+            if (!_planningStructure) return;
+
+            foreach (var gridPos in _plannedGrid)
+            {
+                var soil = _soilPrefab.GetComponent<DirtTile>();
+                if (Helper.IsGridPosValidToBuild(gridPos, soil.InvalidPlacementTags))
+                {
+                    SpawnSoilTile(gridPos, CropData);
+                }
+            }
+
+            ClearPlannedBlueprint();
+            _plannedGrid.Clear();
+            _planningStructure = false;
+            CancelInput();
+        }
+
+        private void SpawnSoilTile(Vector2 spawnPos, CropData cropData)
+        {
+            var soil = Instantiate(_soilPrefab, spawnPos, Quaternion.identity);
+            soil.transform.SetParent(_flooringParent);
+            soil.GetComponent<Crop>().Init(cropData);
         }
 
         /// <summary>
