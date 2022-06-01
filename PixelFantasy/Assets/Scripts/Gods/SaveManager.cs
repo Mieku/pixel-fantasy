@@ -12,7 +12,7 @@ namespace Gods
     public class SaveManager : God<SaveManager>
     {
         private GameState gameState;
-        private List<IDataPersistence> dataPersistenceObjects;
+        private List<Saveable> dataPersistenceObjects;
         private FileDataHandler dataHandler;
 
         private void Start()
@@ -56,12 +56,12 @@ namespace Gods
             }
         }
 
-        private List<IDataPersistence> FindAllDataPersistenceObjects()
+        private List<Saveable> FindAllDataPersistenceObjects()
         {
-            IEnumerable<IDataPersistence> dataPersistenceObjects =
-                FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
+            IEnumerable<Saveable> dataPersistenceObjects =
+                FindObjectsOfType<MonoBehaviour>().OfType<Saveable>();
 
-            return new List<IDataPersistence>(dataPersistenceObjects);
+            return new List<Saveable>(dataPersistenceObjects);
         }
     }
 }

@@ -5,31 +5,30 @@ using UnityEngine;
 
 namespace Handlers
 {
-    public class ResourcesHandler : MonoBehaviour, IDataPersistence
+    public class ResourcesHandler : Saveable
     {
         public string tester;
 
-        private ResourcesState GatherStateValues()
+        protected override string StateName => "Resources";
+
+        protected override object CaptureState()
         {
-            return new ResourcesState()
+            return new Data()
             {
-                Tester = tester
+                newTester = tester
             };
         }
 
-        private void ApplyStateValues(ResourcesState state)
+        protected override void RestoreState(object stateData)
         {
-            tester = state.Tester;
+            var data = (Data)stateData;
+            tester = data.newTester;
         }
+        
 
-        public void LoadData(GameState state)
+        public struct Data
         {
-            ApplyStateValues(state.ResourcesState);
-        }
-
-        public void SaveState(ref GameState state)
-        {
-            state.ResourcesState = GatherStateValues();
+            public string newTester;
         }
     }
 }

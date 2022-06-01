@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace DataPersistence.States
@@ -6,6 +7,6 @@ namespace DataPersistence.States
     [Serializable]
     public class GameState
     {
-        public ResourcesState ResourcesState;
+        public Dictionary<string, object> States = new Dictionary<string, object>();
     }
 }
