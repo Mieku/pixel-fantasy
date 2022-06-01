@@ -23,7 +23,15 @@ namespace Controllers
                 _selectedItemInfoPanel.HideItemDetails();
             }
         }
+        
+        public void SaveBtnPressed()
+        {
+            SaveManager.Instance.SaveGame();
+        }
+        
+        public void LoadBtnPressed()
+        {
+            SaveManager.Instance.LoadGame();
+        }
     }
-    
-    
 }
