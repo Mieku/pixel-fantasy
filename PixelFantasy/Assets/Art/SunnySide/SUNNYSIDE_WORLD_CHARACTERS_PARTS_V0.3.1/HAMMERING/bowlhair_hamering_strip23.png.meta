@@ -93,6 +93,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -676,6 +677,30 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      bowlhair_hamering_strip23_11: 294883193781186640
+      bowlhair_hamering_strip23_17: -3228893825606476317
+      bowlhair_hamering_strip23_18: 9174810009132399066
+      bowlhair_hamering_strip23_4: -4130316364795583498
+      bowlhair_hamering_strip23_15: -3928610993253632834
+      bowlhair_hamering_strip23_7: -9202884646991098373
+      bowlhair_hamering_strip23_22: 4573407522751937635
+      bowlhair_hamering_strip23_21: -2197658975674594245
+      bowlhair_hamering_strip23_6: -2542904905172452490
+      bowlhair_hamering_strip23_9: 4098309583069581889
+      bowlhair_hamering_strip23_13: -6271703694562471059
+      bowlhair_hamering_strip23_14: -3059002670410993239
+      bowlhair_hamering_strip23_12: -2264195263523668263
+      bowlhair_hamering_strip23_16: 6638671096653025368
+      bowlhair_hamering_strip23_19: -6026675946052410049
+      bowlhair_hamering_strip23_5: 4553049102916704335
+      bowlhair_hamering_strip23_20: -2092081984593057838
+      bowlhair_hamering_strip23_1: 5889739447651901703
+      bowlhair_hamering_strip23_3: -6849958715109510235
+      bowlhair_hamering_strip23_2: -8047155370171430655
+      bowlhair_hamering_strip23_0: 3835383307455135255
+      bowlhair_hamering_strip23_10: -2163539139680665802
+      bowlhair_hamering_strip23_8: -3329245261483951635
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

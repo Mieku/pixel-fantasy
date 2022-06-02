@@ -48,6 +48,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -316,6 +317,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      longhair_run_strip8_7: -72325273856650281
+      longhair_run_strip8_6: -5173256696533113934
+      longhair_run_strip8_4: -6238283101815811547
+      longhair_run_strip8_2: 1051879853173398587
+      longhair_run_strip8_1: 5771441356932632625
+      longhair_run_strip8_3: 1152143936288701516
+      longhair_run_strip8_0: 1625444951304795673
+      longhair_run_strip8_5: 1712901744767434284
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

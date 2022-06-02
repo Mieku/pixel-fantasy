@@ -48,6 +48,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -316,6 +317,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      shorthair_walk_strip8_4: 6765956488334207000
+      shorthair_walk_strip8_2: 4357116172556950165
+      shorthair_walk_strip8_3: -7944078779974387099
+      shorthair_walk_strip8_1: 5965016807247118960
+      shorthair_walk_strip8_0: 2576704447771348901
+      shorthair_walk_strip8_5: 3541450580793497839
+      shorthair_walk_strip8_7: -5040366632550688982
+      shorthair_walk_strip8_6: 4139521679933509792
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

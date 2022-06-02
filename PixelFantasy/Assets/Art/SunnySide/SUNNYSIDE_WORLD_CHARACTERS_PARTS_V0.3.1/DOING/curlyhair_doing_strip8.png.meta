@@ -48,6 +48,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -316,6 +317,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      curlyhair_doing_strip8_3: -583386647706690478
+      curlyhair_doing_strip8_0: -8910303087941298563
+      curlyhair_doing_strip8_4: -4073130740171903689
+      curlyhair_doing_strip8_6: 9109572693778788685
+      curlyhair_doing_strip8_1: 6099362057005670419
+      curlyhair_doing_strip8_2: 4226035002775091665
+      curlyhair_doing_strip8_7: 4255224796728060013
+      curlyhair_doing_strip8_5: 8306200463629935894
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -54,6 +54,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -364,6 +365,17 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      bowlhair_axe_strip10_6: 1714527551222812707
+      bowlhair_axe_strip10_8: -8652752161878400003
+      bowlhair_axe_strip10_3: -2701274718004658483
+      bowlhair_axe_strip10_1: -510617909434880518
+      bowlhair_axe_strip10_2: 7717553790784520347
+      bowlhair_axe_strip10_4: -9170948403294708130
+      bowlhair_axe_strip10_5: 5098739806645811394
+      bowlhair_axe_strip10_0: 4843693649541085856
+      bowlhair_axe_strip10_7: -2902960000924538879
+      bowlhair_axe_strip10_9: 5932183379535221401
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

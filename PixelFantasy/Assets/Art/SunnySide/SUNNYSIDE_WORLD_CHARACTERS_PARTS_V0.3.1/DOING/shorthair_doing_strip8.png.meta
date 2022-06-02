@@ -48,6 +48,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -316,6 +317,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      shorthair_doing_strip8_4: 8989680948311939227
+      shorthair_doing_strip8_2: 4763069228953856691
+      shorthair_doing_strip8_3: 8554187069632307931
+      shorthair_doing_strip8_0: 9206256881000085474
+      shorthair_doing_strip8_6: 583017860882277161
+      shorthair_doing_strip8_7: 6595124450202466059
+      shorthair_doing_strip8_1: -786780491996658695
+      shorthair_doing_strip8_5: -1281907241846772184
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

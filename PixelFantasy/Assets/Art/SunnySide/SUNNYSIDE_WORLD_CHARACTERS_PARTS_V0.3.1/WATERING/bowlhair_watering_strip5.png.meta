@@ -39,6 +39,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -244,6 +245,12 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      bowlhair_watering_strip5_0: -132780881560220829
+      bowlhair_watering_strip5_2: -3966130215758974353
+      bowlhair_watering_strip5_3: -5556063745294285222
+      bowlhair_watering_strip5_4: -7815673640963387595
+      bowlhair_watering_strip5_1: 8372695399578479649
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

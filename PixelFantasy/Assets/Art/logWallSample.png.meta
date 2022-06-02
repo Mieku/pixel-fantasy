@@ -111,6 +111,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -820,6 +821,36 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      logWallSample_6: 6213309782898331571
+      logWallSample_5: 438825783758969801
+      logWallSample_27: -5256800577648355259
+      logWallSample_31: -2702620283418177296
+      logWallSample_18: 4576123083083021730
+      logWallSample_28: 5679131728577018426
+      logWallSample_26: -427022618839307607
+      logWallSample_8: -1741955889951992845
+      logWallSample_11: 6589600527289240791
+      logWallSample_1: -8235935407488284133
+      logWallSample_15: 2038511134359851075
+      logWallSample_19: -7569198627148619561
+      logWallSample_10: -4163833520211366434
+      logWallSample_0: -8557412173991462938
+      logWallSample_30: -8455554076479244276
+      logWallSample_25: -7678330992039886056
+      logWallSample_3: 5318469411972105144
+      logWallSample_37: 1666834722590383933
+      logWallSample_20: -6673815868040790406
+      logWallSample_14: -2934069525485795582
+      logWallSample_12: -3359244129066941696
+      logWallSample_13: -8356296663105275889
+      logWallSample_29: -3504461932496448407
+      logWallSample_17: 6699837780166012610
+      logWallSample_38: 4074824221163691577
+      logWallSample_24: 2359296059742754903
+      logWallSample_23: -3830985571912599812
+      logWallSample_2: -2807020897090060567
+      logWallSample_16: -3915988939990383362
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

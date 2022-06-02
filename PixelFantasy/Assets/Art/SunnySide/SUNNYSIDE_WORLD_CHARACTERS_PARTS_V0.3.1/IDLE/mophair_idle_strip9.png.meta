@@ -51,6 +51,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -340,6 +341,16 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      mophair_idle_strip9_2: 6477091355745384322
+      mophair_idle_strip9_1: 6150831105469354672
+      mophair_idle_strip9_4: 6989515320657473168
+      mophair_idle_strip9_0: -4664302135970502615
+      mophair_idle_strip9_7: 6054262864877911933
+      mophair_idle_strip9_8: -5126077160364594194
+      mophair_idle_strip9_5: 57115387832323446
+      mophair_idle_strip9_6: 508494109461470958
+      mophair_idle_strip9_3: 854171949340688771
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -48,6 +48,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -316,6 +317,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      curlyhair_walk_strip8_4: 4424658623845707124
+      curlyhair_walk_strip8_1: 9097643081356236419
+      curlyhair_walk_strip8_7: -2429739865536772857
+      curlyhair_walk_strip8_6: -5864582043837055980
+      curlyhair_walk_strip8_2: -6613688708323450272
+      curlyhair_walk_strip8_5: -5988783665011447763
+      curlyhair_walk_strip8_0: -8046372965633295105
+      curlyhair_walk_strip8_3: -3848665011428216895
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

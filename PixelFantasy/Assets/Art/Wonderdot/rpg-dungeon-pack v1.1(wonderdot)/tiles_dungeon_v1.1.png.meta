@@ -102,6 +102,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -496,6 +497,21 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      vmid: -6978160249328619237
+      br: -6273526992110441235
+      tiles_dungeon_v1.1_9: -8311380456048503582
+      bl: -2246694654465500838
+      hright: -4125178664825954558
+      vtop: 3205863410076588849
+      tl: -8243757876628265578
+      hmid: -8124971230001900419
+      hleft: -7766417992116923014
+      vbot: -6559467070482307975
+      solo: 829541091125011642
+      tiles_dungeon_v1.1_8: 543518670667904333
+      tr: 5405256400740817314
+      tiles_dungeon_v1.1_4: 1283641251883392230
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

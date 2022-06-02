@@ -39,6 +39,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -244,6 +245,12 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      tools_watering_strip5_2: 7463360126473659547
+      tools_watering_strip5_4: -225296351777544779
+      tools_watering_strip5_0: 6395723522796455613
+      tools_watering_strip5_6: -8232201675552870350
+      tools_watering_strip5_8: -1619119997456873167
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -48,6 +48,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -316,6 +317,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      spikeyhair_walk_strip8_1: -8657265005002863901
+      spikeyhair_walk_strip8_3: -7965044897568337837
+      spikeyhair_walk_strip8_2: 8659268137064112279
+      spikeyhair_walk_strip8_4: 5148172362918741141
+      spikeyhair_walk_strip8_0: 6004579089236016640
+      spikeyhair_walk_strip8_7: -4233449269728363706
+      spikeyhair_walk_strip8_6: -6536799287135634098
+      spikeyhair_walk_strip8_5: 2845300439575040412
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

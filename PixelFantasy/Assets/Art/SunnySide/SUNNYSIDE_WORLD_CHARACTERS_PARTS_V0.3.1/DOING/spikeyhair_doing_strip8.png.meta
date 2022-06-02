@@ -48,6 +48,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -316,6 +317,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      spikeyhair_doing_strip8_7: -3368682762488008013
+      spikeyhair_doing_strip8_1: 666592425667158959
+      spikeyhair_doing_strip8_0: 2495640187818013530
+      spikeyhair_doing_strip8_2: 1429817018180740097
+      spikeyhair_doing_strip8_3: 3680072303147203034
+      spikeyhair_doing_strip8_5: 4795471801497397920
+      spikeyhair_doing_strip8_4: -9033072307294732879
+      spikeyhair_doing_strip8_6: 1346679473038945669
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

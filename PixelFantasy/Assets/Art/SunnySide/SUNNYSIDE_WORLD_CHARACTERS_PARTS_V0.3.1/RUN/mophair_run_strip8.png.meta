@@ -48,6 +48,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -316,6 +317,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      mophair_run_strip8_1: -2193154622156175231
+      mophair_run_strip8_0: 6436260467504615620
+      mophair_run_strip8_7: 7485799975410763052
+      mophair_run_strip8_2: 3904414101049215368
+      mophair_run_strip8_3: -161936786142817161
+      mophair_run_strip8_4: -8301829964003464673
+      mophair_run_strip8_6: 9191725963242993936
+      mophair_run_strip8_5: 2750541220468323924
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

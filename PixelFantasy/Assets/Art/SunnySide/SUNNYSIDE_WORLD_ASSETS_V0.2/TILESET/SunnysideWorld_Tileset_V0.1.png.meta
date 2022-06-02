@@ -90,6 +90,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -421,6 +422,18 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      GrassLight: -6138366386777967578
+      ApplesOverlay: 416047863630588849
+      Tree: 4906983863066801627
+      Fish: -6704803212579058196
+      SunnysideWorld_Tileset_V0.1_10: 8472752304042277242
+      Wood: 3480877028203309643
+      OrangesOverlay: 1652389370956797237
+      Carrot: -5387103000464491104
+      Bush: 4132407335573635649
+      BerriesOverlay: -6347962645321781943
+      GrassDark: -9024284549726575627
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
