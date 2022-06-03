@@ -84,6 +84,7 @@ namespace Controllers
             var storageSlot = Instantiate(_storageZonePrefab, position, Quaternion.identity);
             storageSlot.transform.SetParent(_storageParent);
             var storage = storageSlot.GetComponent<StorageSlot>();
+            storage.Init();
             AddNewStorageSlot(storage);
         }
 
@@ -146,7 +147,6 @@ namespace Controllers
             {
                 if (storageSlot.HasItemClaimed(claimedResource))
                 {
-                    //RemoveFromInventory(claimedResource.GetItemData(), 1);
                     storageSlot.RemoveClaimedItem(claimedResource);
                     break;
                 }

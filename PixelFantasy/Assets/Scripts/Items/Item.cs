@@ -65,9 +65,8 @@ namespace Items
                         },
                         dropItem = () =>
                         {
-                            transform.position = Helper.ConvertMousePosToGridPos(transform.position);
-                            transform.SetParent(_originalParent);
                             InventoryController.Instance.AddToInventory(_itemData, 1);
+                            Destroy(gameObject);
                         },
                     };
                     _assignedTaskRef = task.GetHashCode();

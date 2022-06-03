@@ -174,6 +174,7 @@ namespace Items
                         grabResource = (UnitTaskAI unitTaskAI) =>
                         {
                             resource.transform.SetParent(unitTaskAI.transform);
+                            resource.gameObject.SetActive(true);
                             InventoryController.Instance.DeductClaimedResource(resource);
                             _incomingItems.Add(resource);
                         },

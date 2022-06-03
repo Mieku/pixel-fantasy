@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Gods;
 using ScriptableObjects;
 using TMPro;
 using UnityEngine;
@@ -8,22 +9,29 @@ namespace Items
 {
     public class StorageSlot : MonoBehaviour
     {
-        private List<Item> _storedItems = new List<Item>();
-        private List<Item> _claimedItems = new List<Item>();
+        private int _storedAmount;
+        private int _claimedAmount;
+        
         private int _numIncoming;
         private int _stackedAmount;
         private ItemData _storedType;
 
         [SerializeField] private TextMeshPro _quantityDisplay;
+        [SerializeField] private SpriteRenderer _storedItemRenderer;
 
         private void Start()
         {
             UpdateQuantityDisplay();
         }
 
+        public void Init()
+        {
+            UpdateStoredItemDisplay(null);
+        }
+
         public bool IsEmpty()
         {
-            return _storedItems.Count == 0 && _numIncoming == 0 && _stackedAmount == 0;
+            return _storedAmount == 0 && _numIncoming == 0 && _stackedAmount == 0;
         }
 
         /// <summary>
@@ -81,10 +89,24 @@ namespace Items
         public void SetItem(Item item)
         {
             _storedType = item.GetItemData();
-            _storedItems.Add(item);
+            _storedAmount++;
             _stackedAmount++;
             _numIncoming--;
             UpdateQuantityDisplay();
+            UpdateStoredItemDisplay(_storedType.ItemSprite);
+        }
+
+        private void UpdateStoredItemDisplay(Sprite storedItemSprite)
+        {
+            if (storedItemSprite == null)
+            {
+                _storedItemRenderer.gameObject.SetActive(false);
+            }
+            else
+            {
+                _storedItemRenderer.sprite = storedItemSprite;
+                _storedItemRenderer.gameObject.SetActive(true);
+            }
         }
 
         private void UpdateQuantityDisplay()
@@ -92,6 +114,7 @@ namespace Items
             if (_stackedAmount == 0)
             {
                 _quantityDisplay.text = "";
+                UpdateStoredItemDisplay(null);
             }
             else
             {
@@ -111,11 +134,12 @@ namespace Items
 
         public Item ClaimItem()
         {
-            if (_storedItems.Count > 0)
+            if (_storedAmount > 0)
             {
-                var item = _storedItems[0];
-                _storedItems.Remove(item);
-                _claimedItems.Add(item);
+                _storedAmount--;
+                _claimedAmount++;
+                var item = Spawner.Instance.SpawnItem(_storedType, transform.position, false);
+                item.gameObject.SetActive(false);
                 return item;
             }
             else
@@ -128,7 +152,7 @@ namespace Items
         {
             _stackedAmount--;
             UpdateQuantityDisplay();
-            _claimedItems.Remove(claimedItem);
+            _claimedAmount--;
 
             if (IsEmpty())
             {
@@ -138,7 +162,14 @@ namespace Items
 
         public bool HasItemClaimed(Item item)
         {
-            return _claimedItems.Contains(item);
+            if (_claimedAmount > 0 && _storedType == item.GetItemData())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
