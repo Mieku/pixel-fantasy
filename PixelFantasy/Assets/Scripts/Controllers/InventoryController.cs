@@ -147,7 +147,6 @@ namespace Controllers
             {
                 if (storageSlot.HasItemClaimed(claimedResource))
                 {
-                    //RemoveFromInventory(claimedResource.GetItemData(), 1);
                     storageSlot.RemoveClaimedItem(claimedResource);
                     break;
                 }
