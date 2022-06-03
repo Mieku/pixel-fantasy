@@ -35,9 +35,10 @@ namespace Items
             }
         }
 
-        public void Init(GrowingResourceData resourceData)
+        public void Init(GrowingResourceData resourceData, GameObject prefab)
         {
             _growingResourceData = resourceData;
+            Prefab = prefab;
             
             Init();
         }
@@ -128,6 +129,12 @@ namespace Items
                     _fruitOverlay.gameObject.SetActive(true);
                     RefreshSelection();
                 }
+            }
+
+            if (_hasFruitAvailable)
+            {
+                _fruitOverlay.sprite = _growingResourceData.FruitOverlay;
+                _fruitOverlay.gameObject.SetActive(true);
             }
         }
 
@@ -319,6 +326,53 @@ namespace Items
                     CreateHarvestFruitTask();
                     break;
             }
+        }
+
+        public override object CaptureState()
+        {
+            var resourceData = (Data)base.CaptureState();
+            resourceData.GrowingData = new GrowingData
+            {
+                GrowthIndex = _growthIndex,
+                AgeSec = _ageSec,
+                AgeForNextGrowth = _ageForNextGrowth,
+                FullyGrown = _fullyGrown,
+                ReproductionTimer = _reproductionTimer,
+                FruitTimer = _fruitTimer,
+                HasFruitAvailable = _hasFruitAvailable,
+                QueuedToHarvest = _queuedToHarvest,
+            };
+
+            return resourceData;
+        }
+
+        public override void RestoreState(object stateData)
+        {
+            var resourceData = (Data)stateData;
+            var growingData = resourceData.GrowingData;
+
+            _growthIndex = growingData.GrowthIndex;
+            _ageSec = growingData.AgeSec;
+            _ageForNextGrowth = growingData.AgeForNextGrowth;
+            _fullyGrown = growingData.FullyGrown;
+            _reproductionTimer = growingData.ReproductionTimer;
+            _fruitTimer = growingData.FruitTimer;
+            _hasFruitAvailable = growingData.HasFruitAvailable;
+            _queuedToHarvest = growingData.QueuedToHarvest;
+    
+            base.RestoreState(stateData);
+        }
+
+        public struct GrowingData
+        {
+            public int GrowthIndex;
+            public float AgeSec;
+            public float AgeForNextGrowth;
+            public bool FullyGrown;
+            public float ReproductionTimer;
+            public float FruitTimer;
+            public bool HasFruitAvailable;
+            public bool QueuedToHarvest;
         }
     }
 }

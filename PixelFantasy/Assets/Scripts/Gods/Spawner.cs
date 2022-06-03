@@ -344,7 +344,7 @@ namespace Gods
             spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
             var tree = Instantiate(_treePrefab, spawnPosition, Quaternion.identity);
             tree.transform.SetParent(_resourceParent);
-            tree.GetComponent<GrowingResource>().Init(growingResourceData);
+            tree.GetComponent<GrowingResource>().Init(growingResourceData, _treePrefab);
         }
 
         public void SpawnPlant(Vector3 spawnPosition, GrowingResourceData growingResourceData)
@@ -352,7 +352,7 @@ namespace Gods
             spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
             var plant = Instantiate(_plantPrefab, spawnPosition, Quaternion.identity);
             plant.transform.SetParent(_resourceParent);
-            plant.GetComponent<GrowingResource>().Init(growingResourceData);
+            plant.GetComponent<GrowingResource>().Init(growingResourceData, _plantPrefab);
         }
 
         public void SpawnDirtTile(Vector2 spawnPosition, Structure requestingStructure = null)

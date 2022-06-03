@@ -1,14 +1,18 @@
 using System.Collections.Generic;
+using DataPersistence;
 using Gods;
 using Interfaces;
 using ScriptableObjects;
 using Unit;
+using UnityEditor;
 using UnityEngine;
 
 namespace Items
 {
-    public class Resource : MonoBehaviour, IClickableObject
+    public class Resource : MonoBehaviour, IClickableObject, IPersistent
     {
+        public GameObject Prefab;
+        
         [SerializeField] protected GrowingResourceData _growingResourceData;
         [SerializeField] protected SpriteRenderer _spriteRenderer;
         [SerializeField] protected SpriteRenderer _icon;
@@ -95,6 +99,48 @@ namespace Items
         public virtual void AssignOrder(Order orderToAssign)
         {
             throw new System.NotImplementedException();
+        }
+
+        public virtual object CaptureState()
+        {
+            return new Data
+            {
+                Prefab = Prefab,
+                Position = transform.position,
+                GrowingResourceData = _growingResourceData,
+                AssignedTaskRefs = _assignedTaskRefs,
+                QueuedToCut = _queuedToCut,
+                IncomingUnit = _incomingUnit,
+                IsAllowed = this.IsAllowed,
+                IsClickDisabled = this.IsClickDisabled,
+            };
+        }
+
+        public virtual void RestoreState(object data)
+        {
+            var stateData = (Data)data;
+            Prefab = stateData.Prefab;
+            transform.position = stateData.Position;
+            _growingResourceData = stateData.GrowingResourceData;
+            _assignedTaskRefs = stateData.AssignedTaskRefs;
+            _queuedToCut = stateData.QueuedToCut; 
+            _incomingUnit = stateData.IncomingUnit;
+            IsAllowed = stateData.IsAllowed;
+            IsClickDisabled = stateData.IsClickDisabled;
+        }
+
+        public struct Data
+        {
+            public GameObject Prefab;
+            public Vector3 Position;
+            public GrowingResourceData GrowingResourceData;
+            public List<int> AssignedTaskRefs;
+            public bool QueuedToCut;
+            public UnitTaskAI IncomingUnit;
+            public bool IsAllowed;
+            public bool IsClickDisabled;
+
+            public GrowingResource.GrowingData GrowingData;
         }
     }
 }

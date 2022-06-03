@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Controllers;
+using DataPersistence;
 using Gods;
 using Interfaces;
 using ScriptableObjects;
@@ -10,7 +11,7 @@ using UnityEngine;
 
 namespace Items
 {
-    public class Item : MonoBehaviour, IClickableObject
+    public class Item : MonoBehaviour, IClickableObject, IPersistent
     {
         [SerializeField] private ItemData _itemData;
         [SerializeField] private SpriteRenderer _spriteRenderer;
@@ -191,6 +192,45 @@ namespace Items
                     ToggleAllowed(false);
                     break;
             }
+        }
+
+        public object CaptureState()
+        {
+            return new Data
+            {
+                Position = transform.position,
+                ItemData = _itemData,
+                AssignedTaskRef = _assignedTaskRef,
+                IncomingUnit = _incomingUnit,
+                OriginalParent = _originalParent,
+                IsAllowed = this.IsAllowed,
+                IsClickDisabled = this.IsClickDisabled,
+            };
+        }
+
+        public void RestoreState(object data)
+        {
+            var itemState = (Data)data;
+
+            transform.position = itemState.Position;
+            _assignedTaskRef = itemState.AssignedTaskRef;
+            _incomingUnit = itemState.IncomingUnit;
+            _originalParent = itemState.OriginalParent;
+            IsAllowed = itemState.IsAllowed;
+            IsClickDisabled = itemState.IsClickDisabled;
+            
+            InitializeItem(itemState.ItemData, IsAllowed);
+        }
+
+        public struct Data
+        {
+            public Vector3 Position;
+            public ItemData ItemData;
+            public int AssignedTaskRef;
+            public UnitTaskAI IncomingUnit;
+            public Transform OriginalParent;
+            public bool IsAllowed;
+            public bool IsClickDisabled;
         }
     }
 }

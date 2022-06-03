@@ -26,6 +26,8 @@ namespace Gods
         
         public void SaveGame()
         {
+            Debug.Log("Saving Game...");
+            
             // Pass data to other scripts so they can update it
             foreach (var dataPersistenceObject in dataPersistenceObjects)
             {
@@ -38,6 +40,8 @@ namespace Gods
 
         public void LoadGame()
         {
+            Debug.Log("Loading Game...");
+            
             // Load saved data from a file
             this.gameState = dataHandler.Load();
             

@@ -83,18 +83,5 @@ namespace Items
                     break;
             }
         }
-
-        // public override bool IsOrderActive(Order order)
-        // {
-        //     switch (order)
-        //     {
-        //         case Order.CutTree:
-        //             return _queuedToCut;
-        //         case Order.Harvest:
-        //             return _queuedToHarvest;
-        //         default:
-        //             throw new ArgumentOutOfRangeException(nameof(order), order, null);
-        //     }
-        // }
     }
 }
