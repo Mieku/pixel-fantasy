@@ -84,6 +84,7 @@ namespace Controllers
             var storageSlot = Instantiate(_storageZonePrefab, position, Quaternion.identity);
             storageSlot.transform.SetParent(_storageParent);
             var storage = storageSlot.GetComponent<StorageSlot>();
+            storage.Init();
             AddNewStorageSlot(storage);
         }
 

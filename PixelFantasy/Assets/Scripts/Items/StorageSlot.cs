@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Gods;
 using ScriptableObjects;
 using TMPro;
 using UnityEngine;
@@ -15,10 +16,16 @@ namespace Items
         private ItemData _storedType;
 
         [SerializeField] private TextMeshPro _quantityDisplay;
+        [SerializeField] private SpriteRenderer _storedItemRenderer;
 
         private void Start()
         {
             UpdateQuantityDisplay();
+        }
+
+        public void Init()
+        {
+            UpdateStoredItemDisplay(null);
         }
 
         public bool IsEmpty()
@@ -85,6 +92,20 @@ namespace Items
             _stackedAmount++;
             _numIncoming--;
             UpdateQuantityDisplay();
+            UpdateStoredItemDisplay(_storedType.ItemSprite);
+        }
+
+        private void UpdateStoredItemDisplay(Sprite storedItemSprite)
+        {
+            if (storedItemSprite == null)
+            {
+                _storedItemRenderer.gameObject.SetActive(false);
+            }
+            else
+            {
+                _storedItemRenderer.sprite = storedItemSprite;
+                _storedItemRenderer.gameObject.SetActive(true);
+            }
         }
 
         private void UpdateQuantityDisplay()
