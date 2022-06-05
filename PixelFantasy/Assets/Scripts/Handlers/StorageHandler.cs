@@ -5,13 +5,13 @@ using UnityEngine;
 
 namespace Handlers
 {
-    public class ItemsHandler : Saveable
+    public class StorageHandler : Saveable
     {
-        protected override string StateName => "Items";
+        protected override string StateName => "Storage";
         public override int LoadOrder => 1;
 
-        [SerializeField] private GameObject _itemPrefab;
-
+        [SerializeField] private GameObject _storageSlotPrefab;
+        
         protected override void SetChildStates(List<object> childrenStates)
         {
             // Delete current persistent children
@@ -25,21 +25,21 @@ namespace Handlers
             // Instantiate all the children in data, Trigger RestoreState with their state data
             foreach (var childState in childrenStates)
             {
-                var data = (Item.Data)childState;
-                var childObj = Instantiate(_itemPrefab, transform);
+                var data = (StorageSlot.Data)childState;
+                var childObj = Instantiate(_storageSlotPrefab, transform);
                 childObj.GetComponent<IPersistent>().RestoreState(data);
             }
         }
-        
-        public Item GetItemByGUID(string guid)
+
+        public StorageSlot GetStorageSlotByGUID(string guid)
         {
             var children = GetPersistentChildren();
             foreach (var child in children)
             {
-                var item = child.GetComponent<Item>();
-                if (item != null && item.GUID == guid)
+                var slot = child.GetComponent<StorageSlot>();
+                if (slot != null && slot.GUID == guid)
                 {
-                    return item;
+                    return slot;
                 }
             }
             

@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using Controllers;
+using DataPersistence;
 using Gods;
 using HUD;
 using Pathfinding;
 using ScriptableObjects;
+using Sirenix.OdinInspector;
 using Tasks;
 using Unit;
 using UnityEngine;
@@ -12,7 +14,7 @@ using UnityEngine.Tilemaps;
 
 namespace Items
 {
-    public class Structure : MonoBehaviour
+    public class Structure : MonoBehaviour, IPersistent
     {
         [SerializeField] private ProgressBar _progressBar;
         [SerializeField] private DynamicGridObstacle _gridObstacle;
@@ -27,11 +29,23 @@ namespace Items
         private UnitTaskAI _incomingUnit;
         private Tilemap _structureTilemap;
         
+        public string GUID;
+        
         private TaskMaster taskMaster => TaskMaster.Instance;
 
+        [Button("Assign GUID")]
+        private void SetGUID()
+        {
+            if (GUID == "")
+            {
+                GUID = Guid.NewGuid().ToString();
+            }
+        }
+        
         private void Awake()
         {
             _structureTilemap = TilemapController.Instance.GetTilemap(TilemapLayer.Structure);
+            SetGUID();
         }
 
         public void Init(StructureData structureData)
@@ -195,7 +209,7 @@ namespace Items
         {
             var taskRef = taskMaster.HaulingTaskSystem.EnqueueTask(() =>
             {
-                Item resource = InventoryController.Instance.ClaimResource(resourceData);
+                Item resource = ControllerManager.Instance.InventoryController.ClaimResource(resourceData);
                 if (resource != null)
                 {
                     var task = new HaulingTask.TakeResourceToBlueprint
@@ -206,7 +220,7 @@ namespace Items
                         {
                             resource.transform.SetParent(unitTaskAI.transform);
                             resource.gameObject.SetActive(true);
-                            InventoryController.Instance.DeductClaimedResource(resource);
+                            ControllerManager.Instance.InventoryController.DeductClaimedResource(resource);
                             _incomingItems.Add(resource);
                         },
                         useResource = () =>
@@ -408,6 +422,78 @@ namespace Items
                 _icon.sprite = Librarian.Instance.GetSprite(iconName);
                 _icon.gameObject.SetActive(true);
             }
+        }
+
+        private void Refresh()
+        {
+            SetTile();
+            ShowBlueprint(!_isBuilt);
+        }
+
+        public object CaptureState()
+        {
+            List<string> incomingItemsGUIDS = new List<string>();
+            foreach (var incomingItem in _incomingItems)
+            {
+                incomingItemsGUIDS.Add(incomingItem.GUID);
+            }
+            
+            return new Data
+            {
+                GUID = this.GUID,
+                Position = transform.position,
+                StructureData = _structureData,
+                ResourceCost = _resourceCost,
+                IsBuilt = _isBuilt,
+                AssignedTaskRefs = _assignedTaskRefs,
+                IncomingItemsGUIDs = incomingItemsGUIDS,
+                IsDeconstructing = _isDeconstructing,
+                IncomingUnit = _incomingUnit,
+                StructureTilemap = _structureTilemap,
+            };
+        }
+
+        public void RestoreState(object data)
+        {
+            var state = (Data)data;
+
+            GUID = state.GUID;
+            transform.position = state.Position;
+            _structureData = state.StructureData;
+            _resourceCost = state.ResourceCost;
+            _isBuilt = state.IsBuilt;
+            _assignedTaskRefs = state.AssignedTaskRefs;
+            _isDeconstructing = state.IsDeconstructing;
+            _incomingUnit = state.IncomingUnit;
+            _structureTilemap = state.StructureTilemap;
+
+            var incomingItemsGUIDS = state.IncomingItemsGUIDs;
+            var itemsHandler = ControllerManager.Instance.ItemsHandler;
+            _incomingItems.Clear();
+            foreach (var incomingItemGUID in incomingItemsGUIDS)
+            {
+                var item = itemsHandler.GetItemByGUID(incomingItemGUID);
+                if (item != null)
+                {
+                    _incomingItems.Add(item);
+                }
+            }
+
+            Refresh();
+        }
+
+        public struct Data
+        {
+            public string GUID;
+            public Vector3 Position;
+            public StructureData StructureData;
+            public List<ItemAmount> ResourceCost;
+            public bool IsBuilt;
+            public List<int> AssignedTaskRefs;
+            public List<string> IncomingItemsGUIDs;
+            public bool IsDeconstructing;
+            public UnitTaskAI IncomingUnit; // TODO: will likely need to use GUID
+            public Tilemap StructureTilemap;
         }
     }
 }

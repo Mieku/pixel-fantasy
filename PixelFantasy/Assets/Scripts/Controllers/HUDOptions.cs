@@ -5,6 +5,7 @@ using Gods;
 using HUD;
 using Items;
 using ScriptableObjects;
+using UnityEditor.U2D.Path.GUIFramework;
 using UnityEngine;
 
 namespace Controllers
@@ -209,8 +210,9 @@ namespace Controllers
 
         private void BuildStorageZone()
         {
+            var invController = ControllerManager.Instance.InventoryController;
             PlayerInputController.Instance.ChangeState(PlayerInputState.BuildStorage);
-            Spawner.Instance.ShowPlacementIcon(true, InventoryController.Instance.GetStorageZoneBlueprintSprite(), InventoryController.Instance.StoragePlacementInvalidTags);
+            Spawner.Instance.ShowPlacementIcon(true, invController.GetStorageZoneBlueprintSprite(), invController.StoragePlacementInvalidTags);
         }
 
         private void ShowSubMenu(List<ConstructionOrder> subMenu, List<ConstructionOrder> curMenu, bool hasBackBtn)
@@ -233,16 +235,13 @@ namespace Controllers
 
         private void BuildFarmZone(string cropKey)
         {
+            var invController = ControllerManager.Instance.InventoryController;
             PlayerInputController.Instance.ChangeState(PlayerInputState.BuildFarm);
 
             var cropData = Librarian.Instance.GetCropData(cropKey);
             Spawner.Instance.CropData = cropData;
             // Will likely need to specify more unique values for farms
-            Spawner.Instance.ShowPlacementIcon(true, InventoryController.Instance.GetStorageZoneBlueprintSprite(), InventoryController.Instance.StoragePlacementInvalidTags);
-
-            // var floorData = Librarian.Instance.GetFloorData(PlayerInputController.Instance.StoredKey);
-            // Spawner.Instance.FloorData = floorData;
-            // Spawner.Instance.ShowPlacementIcon(true, floorData.Icon, floorData.InvalidPlacementTags);
+            Spawner.Instance.ShowPlacementIcon(true, invController.GetStorageZoneBlueprintSprite(),invController.StoragePlacementInvalidTags);
         }
     }
 }

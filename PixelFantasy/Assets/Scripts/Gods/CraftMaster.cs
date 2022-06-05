@@ -109,6 +109,7 @@ namespace Gods
 
         private void CreateGatherResourceForCraftingTask(Item claimedResource, CraftingTable table)
         {
+            
             var task = new CarpentryTask.GatherResourceForCrafting
             {
                 resourcePosition = claimedResource.transform.position,
@@ -116,7 +117,7 @@ namespace Gods
                 grabResource = (UnitTaskAI unitTaskAI) =>
                 {
                     claimedResource.transform.SetParent(unitTaskAI.transform);
-                    InventoryController.Instance.DeductClaimedResource(claimedResource);
+                    ControllerManager.Instance.InventoryController.DeductClaimedResource(claimedResource);
                     table.AddIncomingItem(claimedResource);
                 },
                 useResource = () =>
@@ -135,7 +136,7 @@ namespace Gods
 
         private List<Item> ClaimResources(List<ItemAmount> resources)
         {
-            var inventory = InventoryController.Instance;
+            var inventory = ControllerManager.Instance.InventoryController;
             List<Item> claimedResources = new List<Item>();
             foreach (var resource in resources)
             {
@@ -153,7 +154,7 @@ namespace Gods
         {
             foreach (var resource in resources)
             {
-                var isAvailable = InventoryController.Instance.HasItemAvailable(resource.Item, resource.Quantity);
+                var isAvailable = ControllerManager.Instance.InventoryController.HasItemAvailable(resource.Item, resource.Quantity);
                 if (!isAvailable)
                 {
                     return false;

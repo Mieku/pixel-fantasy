@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using DataPersistence;
 using Gods;
 using Interfaces;
+using Pathfinding.Util;
 using ScriptableObjects;
+using Sirenix.OdinInspector;
 using Unit;
 using UnityEditor;
 using UnityEngine;
@@ -24,6 +26,17 @@ namespace Items
         protected bool _queuedToCut;
         protected UnitTaskAI _incomingUnit;
 
+        private string _guid;
+
+        [Button("Assign GUID")]
+        private void SetGUID()
+        {
+            if (_guid == "")
+            {
+                _guid = Guid.NewGuid().ToString();
+            }
+        }
+        
         public GrowingResourceData GetResourceData()
         {
             return _growingResourceData;
@@ -105,6 +118,7 @@ namespace Items
         {
             return new Data
             {
+                GUID = _guid,
                 Prefab = Prefab,
                 Position = transform.position,
                 GrowingResourceData = _growingResourceData,
@@ -119,6 +133,7 @@ namespace Items
         public virtual void RestoreState(object data)
         {
             var stateData = (Data)data;
+            _guid = stateData.GUID;
             Prefab = stateData.Prefab;
             transform.position = stateData.Position;
             _growingResourceData = stateData.GrowingResourceData;
@@ -131,6 +146,7 @@ namespace Items
 
         public struct Data
         {
+            public string GUID;
             public GameObject Prefab;
             public Vector3 Position;
             public GrowingResourceData GrowingResourceData;

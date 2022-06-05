@@ -1,15 +1,16 @@
-using System;
 using System.Collections.Generic;
 using DataPersistence;
-using Items;
 using UnityEngine;
 
 namespace Handlers
 {
-    public class ResourcesHandler : Saveable
+    public class FurnitureHandler : Saveable
     {
-        protected override string StateName => "Resources";
+        protected override string StateName => "Furniture";
         public override int LoadOrder => 1;
+        
+        [SerializeField] private GameObject _furniturePrefab;
+        [SerializeField] private GameObject _craftingTablePrefab;
         
         protected override void SetChildStates(List<object> childrenStates)
         {
@@ -24,9 +25,9 @@ namespace Handlers
             // Instantiate all the children in data, Trigger RestoreState with their state data
             foreach (var childState in childrenStates)
             {
-                var data = (Resource.Data)childState;
-                var childObj = Instantiate(data.Prefab, transform);
-                childObj.GetComponent<IPersistent>().RestoreState(data);
+                // var data = (Item.Data)childState;
+                // var childObj = Instantiate(_itemPrefab, transform);
+                // childObj.GetComponent<IPersistent>().RestoreState(data);
             }
         }
     }

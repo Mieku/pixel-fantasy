@@ -78,7 +78,7 @@ namespace Items
         {
             var taskRef = taskMaster.HaulingTaskSystem.EnqueueTask(() =>
             {
-                Item resource = InventoryController.Instance.ClaimResource(craftingTask.ItemData);
+                Item resource = ControllerManager.Instance.InventoryController.ClaimResource(craftingTask.ItemData);
                 if (resource != null)
                 {
                     var task = new HaulingTask.TakeResourceToBlueprint
@@ -89,7 +89,7 @@ namespace Items
                         {
                             resource.transform.SetParent(unitTaskAI.transform);
                             resource.gameObject.SetActive(true);
-                            InventoryController.Instance.DeductClaimedResource(resource);
+                            ControllerManager.Instance.InventoryController.DeductClaimedResource(resource);
                             _incomingItems.Add(resource);
                         },
                         useResource = () =>
@@ -132,7 +132,7 @@ namespace Items
         {
             foreach (var resource in requiredResources)
             {
-                float remainingNeeded = resource.Quantity - InventoryController.Instance.AvailableItemQuantity(resource.Item);
+                float remainingNeeded = resource.Quantity - ControllerManager.Instance.InventoryController.AvailableItemQuantity(resource.Item);
                 float amountMadePerCraft = resource.Item.CraftedQuantity;
                 var numTasks = (int)Math.Ceiling(remainingNeeded / amountMadePerCraft);
 
@@ -149,7 +149,7 @@ namespace Items
         {
             var taskRef = taskMaster.HaulingTaskSystem.EnqueueTask(() =>
             {
-                Item resource = InventoryController.Instance.ClaimResource(resourceData);
+                Item resource = ControllerManager.Instance.InventoryController.ClaimResource(resourceData);
                 if (resource != null)
                 {
                     var task = new HaulingTask.TakeResourceToBlueprint
@@ -160,7 +160,7 @@ namespace Items
                         {
                             resource.transform.SetParent(unitTaskAI.transform);
                             resource.gameObject.SetActive(true);
-                            InventoryController.Instance.DeductClaimedResource(resource);
+                            ControllerManager.Instance.InventoryController.DeductClaimedResource(resource);
                             _incomingItems.Add(resource);
                         },
                         useResource = () =>
@@ -200,7 +200,7 @@ namespace Items
                     grabResource = (UnitTaskAI unitTaskAI) =>
                     {
                         craftedItem.transform.SetParent(unitTaskAI.transform);
-                        InventoryController.Instance.DeductClaimedResource(craftedItem);
+                        ControllerManager.Instance.InventoryController.DeductClaimedResource(craftedItem);
                         _incomingItems.Add(craftedItem);
                     },
                     useResource = () =>

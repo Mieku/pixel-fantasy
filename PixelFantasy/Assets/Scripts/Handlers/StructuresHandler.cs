@@ -5,13 +5,13 @@ using UnityEngine;
 
 namespace Handlers
 {
-    public class ItemsHandler : Saveable
+    public class StructuresHandler : Saveable
     {
-        protected override string StateName => "Items";
+        protected override string StateName => "Structures";
         public override int LoadOrder => 1;
 
-        [SerializeField] private GameObject _itemPrefab;
-
+        [SerializeField] private GameObject _structurePrefab;
+        
         protected override void SetChildStates(List<object> childrenStates)
         {
             // Delete current persistent children
@@ -25,26 +25,10 @@ namespace Handlers
             // Instantiate all the children in data, Trigger RestoreState with their state data
             foreach (var childState in childrenStates)
             {
-                var data = (Item.Data)childState;
-                var childObj = Instantiate(_itemPrefab, transform);
+                var data = (Structure.Data)childState;
+                var childObj = Instantiate(_structurePrefab, transform);
                 childObj.GetComponent<IPersistent>().RestoreState(data);
             }
-        }
-        
-        public Item GetItemByGUID(string guid)
-        {
-            var children = GetPersistentChildren();
-            foreach (var child in children)
-            {
-                var item = child.GetComponent<Item>();
-                if (item != null && item.GUID == guid)
-                {
-                    return item;
-                }
-            }
-            
-            Debug.LogError($"Slot with GUID {guid} not found!");
-            return null;
         }
     }
 }

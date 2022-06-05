@@ -1,18 +1,20 @@
 using System;
 using System.Collections.Generic;
 using Controllers;
+using DataPersistence;
 using Gods;
 using HUD;
 using Interfaces;
 using Pathfinding;
 using ScriptableObjects;
+using Sirenix.OdinInspector;
 using Tasks;
 using Unit;
 using UnityEngine;
 
 namespace Items
 {
-    public class Floor : MonoBehaviour, IClickableObject
+    public class Floor : MonoBehaviour, IClickableObject, IPersistent
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private GraphUpdateScene _pathGraphUpdater;
@@ -26,7 +28,8 @@ namespace Items
         private bool _isDeconstructing;
         private UnitTaskAI _incomingUnit;
         private Vector2 _floorPos;
-        private DirtTile _dirtTile;
+
+        public string GUID;
         
         private TaskMaster taskMaster => TaskMaster.Instance;
 
@@ -34,6 +37,20 @@ namespace Items
         public Vector2 FloorPos => _floorPos;
         
         public bool IsClickDisabled { get; set; }
+
+        [Button("Assign GUID")]
+        private void SetGUID()
+        {
+            if (GUID == "")
+            {
+                GUID = Guid.NewGuid().ToString();
+            }
+        }
+
+        private void Start()
+        {
+            SetGUID();
+        }
 
         public ClickObject GetClickObject()
         {
@@ -47,11 +64,16 @@ namespace Items
             _floorData = floorData;
             _floorPos = transform.position;
             _resourceCost = new List<ItemAmount> (_floorData.GetResourceCosts());
-            _spriteRenderer.sprite = _floorData.FloorSprite;
+            UpdateSprite();
             IsAllowed = true;
             UpdateStretchToWalls();
             ShowBlueprint(true);
             PrepForConstruction();
+        }
+
+        private void UpdateSprite()
+        {
+            _spriteRenderer.sprite = _floorData.FloorSprite;
         }
 
         public void UpdateStretchToWalls()
@@ -133,16 +155,6 @@ namespace Items
             }
         }
         
-        private bool IsOnDirt()
-        {
-            return Helper.DoesGridContainTag(transform.position, "Dirt");
-        }
-
-        private void ClearGrass()
-        {
-            _dirtTile = Spawner.Instance.SpawnDirtTile(Helper.ConvertMousePosToGridPos(_floorPos), this);
-        }
-        
         public void InformDirtReady()
         {
             CreateConstructionHaulingTasks();
@@ -164,7 +176,7 @@ namespace Items
         {
             var taskRef = taskMaster.HaulingTaskSystem.EnqueueTask(() =>
             {
-                Item resource = InventoryController.Instance.ClaimResource(resourceData);
+                Item resource = ControllerManager.Instance.InventoryController.ClaimResource(resourceData);
                 if (resource != null)
                 {
                     var task = new HaulingTask.TakeResourceToBlueprint
@@ -175,7 +187,7 @@ namespace Items
                         {
                             resource.transform.SetParent(unitTaskAI.transform);
                             resource.gameObject.SetActive(true);
-                            InventoryController.Instance.DeductClaimedResource(resource);
+                            ControllerManager.Instance.InventoryController.DeductClaimedResource(resource);
                             _incomingItems.Add(resource);
                         },
                         useResource = () =>
@@ -254,12 +266,6 @@ namespace Items
             {
                 CancelTasks();
                 
-                // Cancel the grass removal
-                if (_dirtTile != null)
-                {
-                    _dirtTile.CancelClearGrass();
-                }
-                
                 // Spawn All the resources used
                 SpawnUsedResources(100f);
 
@@ -270,11 +276,6 @@ namespace Items
 
         private void CancelTasks()
         {
-            if (_dirtTile != null)
-            {
-                _dirtTile.CancelTasks();
-            }
-            
             if (_assignedTaskRefs == null || _assignedTaskRefs.Count == 0) return;
 
             foreach (var taskRef in _assignedTaskRefs)
@@ -474,6 +475,78 @@ namespace Items
                 default:
                     throw new ArgumentOutOfRangeException(nameof(orderToAssign), orderToAssign, null);
             }
+        }
+
+        public object CaptureState()
+        {
+            List<string> incomingItemsGUIDS = new List<string>();
+            foreach (var incomingItem in _incomingItems)
+            {
+                incomingItemsGUIDS.Add(incomingItem.GUID);
+            }
+            
+            return new Data
+            {
+                GUID = this.GUID,
+                FloorData = _floorData,
+                ResourceCost = _resourceCost,
+                IsBuilt = _isBuilt,
+                AssignedTaskRefs = _assignedTaskRefs,
+                IncomingItemsGUIDs = incomingItemsGUIDS,
+                IsDeconstructing = _isDeconstructing,
+                IncomingUnit = _incomingUnit,
+                FloorPos = _floorPos,
+                IsClickDisabled = IsClickDisabled,
+                IsAllowed = IsAllowed,
+            };
+        }
+
+        public void RestoreState(object data)
+        {
+            var state = (Data)data;
+
+            this.GUID = state.GUID;
+            _floorData = state.FloorData;
+            _resourceCost = state.ResourceCost;
+            _isBuilt = state.IsBuilt;
+            _assignedTaskRefs = state.AssignedTaskRefs;
+            _isDeconstructing = state.IsDeconstructing;
+            _incomingUnit = state.IncomingUnit;
+            _floorPos = state.FloorPos;
+            transform.position = _floorPos;
+            IsClickDisabled = state.IsClickDisabled;
+            IsAllowed = state.IsAllowed;
+            
+            var incomingItemsGUIDS = state.IncomingItemsGUIDs;
+            var itemsHandler = ControllerManager.Instance.ItemsHandler;
+            _incomingItems.Clear();
+            foreach (var incomingItemGUID in incomingItemsGUIDS)
+            {
+                var item = itemsHandler.GetItemByGUID(incomingItemGUID);
+                if (item != null)
+                {
+                    _incomingItems.Add(item);
+                }
+            }
+            
+            ShowBlueprint(!_isBuilt);
+            UpdateSprite();
+            UpdateStretchToWalls();
+        }
+
+        public struct Data
+        {
+            public string GUID;
+            public FloorData FloorData;
+            public List<ItemAmount> ResourceCost;
+            public bool IsBuilt;
+            public List<int> AssignedTaskRefs;
+            public List<string> IncomingItemsGUIDs;
+            public bool IsDeconstructing;
+            public UnitTaskAI IncomingUnit; // TODO: will likely need to use GUID
+            public Vector2 FloorPos;
+            public bool IsClickDisabled;
+            public bool IsAllowed;
         }
     }
 }

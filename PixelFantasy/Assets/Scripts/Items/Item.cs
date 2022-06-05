@@ -5,6 +5,7 @@ using DataPersistence;
 using Gods;
 using Interfaces;
 using ScriptableObjects;
+using Sirenix.OdinInspector;
 using Tasks;
 using Unit;
 using UnityEngine;
@@ -21,8 +22,24 @@ namespace Items
         private int _assignedTaskRef;
         private UnitTaskAI _incomingUnit;
         private Transform _originalParent;
+        
+        public string GUID;
 
         private TaskMaster taskMaster => TaskMaster.Instance;
+
+        [Button("Assign GUID")]
+        private void SetGUID()
+        {
+            if (GUID == "")
+            {
+                GUID = Guid.NewGuid().ToString();
+            }
+        }
+
+        private void Start()
+        {
+            SetGUID();
+        }
 
         public ClickObject GetClickObject()
         {
@@ -46,9 +63,9 @@ namespace Items
         {
             _assignedTaskRef = taskMaster.HaulingTaskSystem.EnqueueTask(() =>
             {
-                if (InventoryController.Instance.HasSpaceForItem(this))
+                if (ControllerManager.Instance.InventoryController.HasSpaceForItem(this))
                 {
-                    var slot = InventoryController.Instance.GetAvailableStorageSlot(this);
+                    var slot = ControllerManager.Instance.InventoryController.GetAvailableStorageSlot(this);
                     _originalParent = transform.parent;
                     var task = new HaulingTask.TakeItemToItemSlot
                     {
@@ -65,7 +82,7 @@ namespace Items
                         },
                         dropItem = () =>
                         {
-                            InventoryController.Instance.AddToInventory(_itemData, 1);
+                            ControllerManager.Instance.InventoryController.AddToInventory(_itemData, 1);
                             Destroy(gameObject);
                         },
                     };
@@ -197,6 +214,7 @@ namespace Items
         {
             return new Data
             {
+                GUID = GUID,
                 Position = transform.position,
                 ItemData = _itemData,
                 AssignedTaskRef = _assignedTaskRef,
@@ -211,6 +229,7 @@ namespace Items
         {
             var itemState = (Data)data;
 
+            GUID = itemState.GUID;
             transform.position = itemState.Position;
             _assignedTaskRef = itemState.AssignedTaskRef;
             _incomingUnit = itemState.IncomingUnit;
@@ -223,6 +242,7 @@ namespace Items
 
         public struct Data
         {
+            public string GUID;
             public Vector3 Position;
             public ItemData ItemData;
             public int AssignedTaskRef;

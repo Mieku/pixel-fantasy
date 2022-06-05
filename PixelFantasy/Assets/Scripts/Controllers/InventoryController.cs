@@ -1,22 +1,28 @@
 using System;
 using System.Collections.Generic;
-using CodeMonkey.Utils;
+using DataPersistence;
+using DataPersistence.States;
 using Gods;
-using HUD;
+using Handlers;
 using Items;
 using ScriptableObjects;
 using UnityEngine;
 
 namespace Controllers
 {
-    public class InventoryController : God<InventoryController>
+    public class InventoryController : Saveable
     {
+        protected override string StateName => "InventoryController";
+        public override int LoadOrder => 2;
+        
         private List<StorageSlot> _storageSlots = new List<StorageSlot>();
         private Dictionary<ItemData, int> _inventory = new Dictionary<ItemData, int>();
         private Dictionary<ItemData, int> _pendingInventory = new Dictionary<ItemData, int>();
         
         [SerializeField] private GameObject _storageZonePrefab;
         [SerializeField] private Transform _storageParent;
+
+        [SerializeField] private StorageHandler _storageHandler;
 
         public Dictionary<ItemData, int> Inventory => _inventory;
 
@@ -360,5 +366,68 @@ namespace Controllers
         }
 
         #endregion
+
+        private void RefreshInventoryDisplay()
+        {
+            foreach (var slot in _storageSlots)
+            {
+                var itemType = slot.GetStoredType();
+                if (itemType != null)
+                {
+                    GameEvents.Trigger_OnInventoryAdded(itemType, _inventory[itemType]);
+                }
+            }
+        }
+        
+        protected override void SetChildStates(List<object> childrenStates) {} // Not used
+
+        public override void LoadData(GameState state)
+        {
+            Debug.Log("Loading " + gameObject.name);
+            
+            // Loads its own data, not children
+            var invState = state.States[StateName];
+            var invData = (InventoryData)invState;
+
+            _inventory = invData.Inventory;
+            _pendingInventory = invData.PendingInventory;
+            
+            // Finds the Storage slot based on the GUID
+            _storageSlots.Clear();
+            foreach (var storageSlotGUID in invData.StorageSlotsGUIDs)
+            {
+                var storageSlot = _storageHandler.GetStorageSlotByGUID(storageSlotGUID);
+                if (storageSlot != null)
+                {
+                    _storageSlots.Add(storageSlot);
+                }
+            }
+
+            RefreshInventoryDisplay();
+        }
+
+        public override void SaveState(ref GameState state)
+        {
+            List<string> storageSlotsGUIDs = new List<string>();
+            foreach (var storageSlot in _storageSlots)
+            {
+                storageSlotsGUIDs.Add(storageSlot.GUID);
+            }
+            
+            // Saves its own data, not children
+            state.States[StateName] = new InventoryData
+            {
+                StorageSlotsGUIDs = storageSlotsGUIDs,
+                Inventory = _inventory,
+                PendingInventory = _pendingInventory,
+            };
+        }
+
+        public struct InventoryData
+        {
+            public List<string> StorageSlotsGUIDs;
+            public Dictionary<ItemData, int> Inventory;
+            public Dictionary<ItemData, int> PendingInventory;
+        }
     }
 }

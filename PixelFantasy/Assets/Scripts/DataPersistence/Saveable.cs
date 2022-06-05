@@ -7,13 +7,15 @@ namespace DataPersistence
     public abstract class Saveable : MonoBehaviour
     {
         protected abstract string StateName { get; }
+        public abstract int LoadOrder { get; }
 
-        public void LoadData(GameState state)
+        public virtual void LoadData(GameState state)
         {
+            Debug.Log("Loading " + gameObject.name);
             RestoreState(state.States[StateName]);
         }
         
-        public void SaveState(ref GameState state)
+        public virtual void SaveState(ref GameState state)
         {
             state.States[StateName] = CaptureState();
         }
@@ -33,7 +35,7 @@ namespace DataPersistence
             return results;
         }
         
-        protected List<object> GetChildStates()
+        private List<object> GetChildStates()
         {
             List<object> results = new List<object>();
             var children = GetPersistentChildren();
@@ -46,7 +48,7 @@ namespace DataPersistence
         
         
         
-        protected object CaptureState()
+        private object CaptureState()
         {
             var childStates = GetChildStates();
             
@@ -56,7 +58,7 @@ namespace DataPersistence
             };
         }
 
-        protected void RestoreState(object stateData)
+        private void RestoreState(object stateData)
         {
             var data = (Data)stateData;
             var childrenStates = data.ChilrenStates;

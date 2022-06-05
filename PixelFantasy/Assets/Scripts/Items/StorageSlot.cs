@@ -1,13 +1,15 @@
 using System;
 using System.Collections.Generic;
+using DataPersistence;
 using Gods;
 using ScriptableObjects;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
 namespace Items
 {
-    public class StorageSlot : MonoBehaviour
+    public class StorageSlot : MonoBehaviour, IPersistent
     {
         private int _storedAmount;
         private int _claimedAmount;
@@ -15,12 +17,24 @@ namespace Items
         private int _numIncoming;
         private int _stackedAmount;
         private ItemData _storedType;
-
+        
+        public string GUID;
+        
         [SerializeField] private TextMeshPro _quantityDisplay;
         [SerializeField] private SpriteRenderer _storedItemRenderer;
 
+        [Button("Assign GUID")]
+        private void SetGUID()
+        {
+            if (GUID == "")
+            {
+                GUID = Guid.NewGuid().ToString();
+            }
+        }
+        
         private void Start()
         {
+            SetGUID();
             UpdateQuantityDisplay();
         }
 
@@ -170,6 +184,50 @@ namespace Items
             {
                 return false;
             }
+        }
+
+        public object CaptureState()
+        {
+            return new Data
+            {
+                GUID = this.GUID,
+                Position = transform.position,
+                StoredAmount = _storedAmount,
+                ClaimedAmount = _claimedAmount,
+                NumIncoming = _numIncoming,
+                StackedAmount = _stackedAmount,
+                StoredType = _storedType,
+            };
+        }
+
+        public void RestoreState(object data)
+        {
+            var itemState = (Data)data;
+
+            GUID = itemState.GUID;
+            transform.position = itemState.Position;
+            _storedAmount = itemState.StoredAmount;
+            _claimedAmount = itemState.ClaimedAmount;
+            _numIncoming = itemState.NumIncoming;
+            _stackedAmount = itemState.StackedAmount;
+            _storedType = itemState.StoredType;
+            
+            UpdateQuantityDisplay();
+            if (_storedType != null)
+            {
+                UpdateStoredItemDisplay(_storedType.ItemSprite);
+            }
+        }
+
+        public struct Data
+        {
+            public string GUID;
+            public Vector3 Position;
+            public int StoredAmount;
+            public int ClaimedAmount;
+            public int NumIncoming;
+            public int StackedAmount;
+            public ItemData StoredType;
         }
     }
 }

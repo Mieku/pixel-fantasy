@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DataPersistence;
@@ -11,7 +12,7 @@ namespace Gods
         private GameState gameState;
         private List<Saveable> dataPersistenceObjects;
         private FileDataHandler dataHandler;
-
+        
         private void Start()
         {
             this.dataHandler = new FileDataHandler();
@@ -40,6 +41,11 @@ namespace Gods
 
         public void LoadGame()
         {
+            StartCoroutine(LoadingSequence());
+        }
+
+        private IEnumerator LoadingSequence()
+        {
             Debug.Log("Loading Game...");
             
             // Load saved data from a file
@@ -50,10 +56,26 @@ namespace Gods
                 NewGame();
             }
             
-            // Push the loaded data to all other scripts that need it
+            SortedDictionary<int, List<Saveable>> _orderedDataPersistenceObjects = new SortedDictionary<int, List<Saveable>>();
             foreach (var dataPersistenceObject in dataPersistenceObjects)
             {
-                dataPersistenceObject.LoadData(gameState);
+                if (!_orderedDataPersistenceObjects.ContainsKey(dataPersistenceObject.LoadOrder))
+                {
+                    _orderedDataPersistenceObjects[dataPersistenceObject.LoadOrder] = new List<Saveable>();
+                }
+                
+                _orderedDataPersistenceObjects[dataPersistenceObject.LoadOrder].Add(dataPersistenceObject);
+                
+            }
+            
+            foreach (var dataPersistenceObjects in _orderedDataPersistenceObjects)
+            {
+                foreach (var dataPersistenceObject in dataPersistenceObjects.Value)
+                {
+                    dataPersistenceObject.LoadData(gameState);
+                }
+                yield return new WaitForSeconds(0); // Gives time to make sure loaded
+                // TODO: See if I can set up a safer way to do this using callbacks
             }
         }
 
