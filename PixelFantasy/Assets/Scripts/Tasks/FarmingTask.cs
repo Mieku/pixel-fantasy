@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Tasks
 {
+    [Serializable]
     public class FarmingTask : TaskBase
     {
         public class CutPlant : FarmingTask

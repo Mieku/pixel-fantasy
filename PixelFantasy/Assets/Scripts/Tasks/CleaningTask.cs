@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Tasks
 {
+    [Serializable]
     public class CleaningTask : TaskBase
     {
         /// <summary>

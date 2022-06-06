@@ -4,6 +4,7 @@ using CodeMonkey.Utils;
 using Unit;
 using UnityEngine;
 
+[Serializable]
 public class QueuedTask<TTask> where TTask : TaskBase
 {
     private Func<TTask> tryGetTaskFunc;
@@ -19,15 +20,17 @@ public class QueuedTask<TTask> where TTask : TaskBase
 }
     
 // Base Task Class
+[Serializable]
 public abstract class TaskBase
 {
     
 }
 
+[Serializable]
 public class TaskSystem<TTask> where TTask : TaskBase
 {
-    private List<TTask> taskList; // List of tasks ready to be executed
-    private List<QueuedTask<TTask>> queuedTaskList; // Any queued tasks that need to be validated before being dequeued
+    public List<TTask> taskList; // List of tasks ready to be executed
+    public List<QueuedTask<TTask>> queuedTaskList; // Any queued tasks that need to be validated before being dequeued
 
     public TaskSystem()
     {
@@ -112,5 +115,11 @@ public class TaskSystem<TTask> where TTask : TaskBase
                 return;
             }
         }
+    }
+
+    public void ClearTasks()
+    {
+        taskList.Clear();
+        queuedTaskList.Clear();
     }
 }

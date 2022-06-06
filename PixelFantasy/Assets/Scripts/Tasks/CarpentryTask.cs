@@ -8,6 +8,7 @@ using Action = System.Action;
 
 namespace Tasks
 {
+    [Serializable]
     public class CarpentryTask : TaskBase
     {
         public class CraftItem : CarpentryTask
@@ -17,7 +18,7 @@ namespace Tasks
             public Action completeWork;
             public float workAmount;
         }
-
+        
         public class GatherResourceForCrafting : CarpentryTask
         {
             public Vector3 resourcePosition;

@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 namespace Tasks
 {
+    [Serializable]
     public class EmergencyTask : TaskBase
     {
         /// <summary>

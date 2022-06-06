@@ -383,8 +383,6 @@ namespace Controllers
 
         public override void LoadData(GameState state)
         {
-            Debug.Log("Loading " + gameObject.name);
-            
             // Loads its own data, not children
             var invState = state.States[StateName];
             var invData = (InventoryData)invState;

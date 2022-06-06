@@ -11,7 +11,6 @@ namespace DataPersistence
 
         public virtual void LoadData(GameState state)
         {
-            Debug.Log("Loading " + gameObject.name);
             RestoreState(state.States[StateName]);
         }
         

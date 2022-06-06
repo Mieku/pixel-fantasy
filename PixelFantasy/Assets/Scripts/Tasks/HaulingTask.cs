@@ -6,6 +6,7 @@ using Action = System.Action;
 
 namespace Tasks
 {
+    [Serializable]
     public class HaulingTask : TaskBase
     {
         /// <summary>

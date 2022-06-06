@@ -28,6 +28,7 @@ namespace Gods
         public void SaveGame()
         {
             Debug.Log("Saving Game...");
+            GameEvents.Trigger_OnSavingGameBeginning();
             
             // Pass data to other scripts so they can update it
             foreach (var dataPersistenceObject in dataPersistenceObjects)
@@ -37,10 +38,13 @@ namespace Gods
             
             // Save that data to a file
             dataHandler.Save(gameState);
+            
+            GameEvents.Trigger_OnSavingGameEnd();
         }
 
         public void LoadGame()
         {
+            GameEvents.Trigger_OnLoadingGameBeginning();
             StartCoroutine(LoadingSequence());
         }
 
@@ -77,6 +81,8 @@ namespace Gods
                 yield return new WaitForSeconds(0); // Gives time to make sure loaded
                 // TODO: See if I can set up a safer way to do this using callbacks
             }
+            
+            GameEvents.Trigger_OnLoadingGameEnd();
         }
 
         private List<Saveable> FindAllDataPersistenceObjects()

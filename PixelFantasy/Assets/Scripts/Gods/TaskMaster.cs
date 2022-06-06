@@ -2,29 +2,32 @@ using System;
 using System.Collections.Generic;
 using CodeMonkey.Utils;
 using Controllers;
+using DataPersistence;
+using DataPersistence.States;
 using Tasks;
 using Unit;
 using UnityEngine;
 
 namespace Gods
 {
+    [Serializable]
     public class TaskMaster : God<TaskMaster>
     {
-        public readonly TaskSystem<EmergencyTask> EmergencyTaskSystem = new TaskSystem<EmergencyTask>();
-        public readonly TaskSystem<HealingTask> HealingTaskSystem = new TaskSystem<HealingTask>();
-        public readonly TaskSystem<CookingTask> CookingTaskSystem = new TaskSystem<CookingTask>();
-        public readonly TaskSystem<HuntingTask> HuntingTaskSystem = new TaskSystem<HuntingTask>();
-        public readonly TaskSystem<ConstructionTask> ConstructionTaskSystem = new TaskSystem<ConstructionTask>();
-        public readonly TaskSystem<FarmingTask> FarmingTaskSystem = new TaskSystem<FarmingTask>();
-        public readonly TaskSystem<MiningTask> MiningTaskSystem = new TaskSystem<MiningTask>();
-        public readonly TaskSystem<FellingTask> FellingTaskSystem = new TaskSystem<FellingTask>();
-        public readonly TaskSystem<SmithingTask> SmithingTaskSystem = new TaskSystem<SmithingTask>();
-        public readonly TaskSystem<TailoringTask> TailoringTaskSystem = new TaskSystem<TailoringTask>();
-        public readonly TaskSystem<CarpentryTask> CarpentryTaskSystem = new TaskSystem<CarpentryTask>();
-        public readonly TaskSystem<MasonryTask> MasonryTaskSystem = new TaskSystem<MasonryTask>();
-        public readonly TaskSystem<HaulingTask> HaulingTaskSystem = new TaskSystem<HaulingTask>();
-        public readonly TaskSystem<CleaningTask> CleaningTaskSystem = new TaskSystem<CleaningTask>();
-        public readonly TaskSystem<ResearchTask> ResearchTaskSystem = new TaskSystem<ResearchTask>();
+        public TaskSystem<EmergencyTask> EmergencyTaskSystem = new TaskSystem<EmergencyTask>();
+        public TaskSystem<HealingTask> HealingTaskSystem = new TaskSystem<HealingTask>();
+        public TaskSystem<CookingTask> CookingTaskSystem = new TaskSystem<CookingTask>();
+        public TaskSystem<HuntingTask> HuntingTaskSystem = new TaskSystem<HuntingTask>();
+        public TaskSystem<ConstructionTask> ConstructionTaskSystem = new TaskSystem<ConstructionTask>();
+        public TaskSystem<FarmingTask> FarmingTaskSystem = new TaskSystem<FarmingTask>();
+        public TaskSystem<MiningTask> MiningTaskSystem = new TaskSystem<MiningTask>();
+        public TaskSystem<FellingTask> FellingTaskSystem = new TaskSystem<FellingTask>();
+        public TaskSystem<SmithingTask> SmithingTaskSystem = new TaskSystem<SmithingTask>();
+        public TaskSystem<TailoringTask> TailoringTaskSystem = new TaskSystem<TailoringTask>();
+        public TaskSystem<CarpentryTask> CarpentryTaskSystem = new TaskSystem<CarpentryTask>();
+        public TaskSystem<MasonryTask> MasonryTaskSystem = new TaskSystem<MasonryTask>();
+        public TaskSystem<HaulingTask> HaulingTaskSystem = new TaskSystem<HaulingTask>();
+        public TaskSystem<CleaningTask> CleaningTaskSystem = new TaskSystem<CleaningTask>();
+        public TaskSystem<ResearchTask> ResearchTaskSystem = new TaskSystem<ResearchTask>();
 
         private const float FUNC_PERIODIC_TIMER = 0.2f; // 200ms
         
@@ -52,7 +55,22 @@ namespace Gods
 
             return nextTask;
         }
-        
+
+        protected override void Awake()
+        {
+            GameEvents.OnLoadingGameBeginning += OnGameLoadBegin;
+        }
+
+        private void OnDestroy()
+        {
+            GameEvents.OnLoadingGameBeginning -= OnGameLoadBegin;
+        }
+
+        private void OnGameLoadBegin()
+        {
+            ClearAllTasksSystems();
+        }
+
         private void Start()
         {
             InitFunctionPeriodics();
@@ -61,6 +79,25 @@ namespace Gods
         private void InitFunctionPeriodics()
         {
             FunctionPeriodic.Create(DequeueTasksAllTaskSystems, FUNC_PERIODIC_TIMER);
+        }
+
+        private void ClearAllTasksSystems()
+        {
+            EmergencyTaskSystem.ClearTasks();
+            HealingTaskSystem.ClearTasks();
+            CookingTaskSystem.ClearTasks();
+            HuntingTaskSystem.ClearTasks();
+            ConstructionTaskSystem.ClearTasks();
+            FarmingTaskSystem.ClearTasks();
+            MiningTaskSystem.ClearTasks();
+            FellingTaskSystem.ClearTasks();
+            SmithingTaskSystem.ClearTasks();
+            TailoringTaskSystem.ClearTasks();
+            CarpentryTaskSystem.ClearTasks();
+            MasonryTaskSystem.ClearTasks();
+            HaulingTaskSystem.ClearTasks();
+            CleaningTaskSystem.ClearTasks();
+            ResearchTaskSystem.ClearTasks();
         }
 
         /// <summary>
