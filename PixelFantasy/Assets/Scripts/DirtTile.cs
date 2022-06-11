@@ -6,7 +6,7 @@ using Gods;
 using Items;
 using Pathfinding;
 using Tasks;
-using Unit;
+using Characters;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 

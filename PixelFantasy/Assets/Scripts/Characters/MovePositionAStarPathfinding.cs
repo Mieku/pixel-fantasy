@@ -1,9 +1,9 @@
 using System;
-using Character.Interfaces;
+using Characters.Interfaces;
 using Pathfinding;
 using UnityEngine;
 
-namespace Character
+namespace Characters
 {
     public class MovePositionAStarPathfinding : MonoBehaviour, IMovePosition
     {
@@ -11,6 +11,7 @@ namespace Character
         private ICharacterAnimController charAnimController;
         private Action onReachedMovePosition;
         private bool reachedDestination;
+        private Vector3 _movePosition;
 
         private void Awake()
         {
@@ -20,6 +21,7 @@ namespace Character
 
         public void SetMovePosition(Vector3 movePosition, Action onReachedMovePosition)
         {
+            _movePosition = movePosition;
             aiPath.destination = movePosition;
             reachedDestination = false;
             this.onReachedMovePosition = onReachedMovePosition;
@@ -52,6 +54,37 @@ namespace Character
         {
             DetermineIfDestination();
             RefreshAnimVector();
+        }
+        
+        public MovePosAStarData GetSaveData()
+        {
+            return new MovePosAStarData
+            {
+                AiPath = aiPath,
+                MovePosition = _movePosition,
+                OnReachedMovePosition = onReachedMovePosition,
+                ReachedDestination = reachedDestination,
+            };
+        }
+
+        public void SetLoadData(MovePosAStarData movePosAStarData)
+        {
+            aiPath = movePosAStarData.AiPath;
+            onReachedMovePosition = movePosAStarData.OnReachedMovePosition;
+            reachedDestination = movePosAStarData.ReachedDestination;
+
+            if (!reachedDestination)
+            {
+                SetMovePosition(movePosAStarData.MovePosition, onReachedMovePosition);
+            }
+        }
+        
+        public struct MovePosAStarData
+        {
+            public Vector3 MovePosition;
+            public AIPath AiPath;
+            public Action OnReachedMovePosition;
+            public bool ReachedDestination;
         }
     }
 }

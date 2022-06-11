@@ -7,7 +7,7 @@ using Interfaces;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Tasks;
-using Unit;
+using Characters;
 using UnityEngine;
 
 namespace Items

@@ -1,8 +1,8 @@
 using System;
-using Character.Interfaces;
+using Characters.Interfaces;
 using UnityEngine;
 
-namespace Character
+namespace Characters
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class MoveVelocity : MonoBehaviour, IMoveVelocity

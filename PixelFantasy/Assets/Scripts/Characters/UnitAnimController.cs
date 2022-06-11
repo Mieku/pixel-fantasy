@@ -1,8 +1,8 @@
 using System;
-using Character.Interfaces;
+using Characters.Interfaces;
 using UnityEngine;
 
-namespace Character
+namespace Characters
 {
     public class UnitAnimController : MonoBehaviour, ICharacterAnimController
     {
@@ -20,12 +20,14 @@ namespace Character
         private const string BUILD = "IsBuilding";
         private const string DIG = "IsDigging";
         private const string WATER = "IsWatering";
-        
 
+        private UnitAction _curUnitAction;
+        
         public void SetUnitAction(UnitAction unitAction)
         {
+            _curUnitAction = unitAction;
             ClearAllActions();
-            
+
             switch (unitAction)
             {
                 case UnitAction.Nothing:
@@ -98,6 +100,24 @@ namespace Character
             baseAnim.SetFloat(Velocity, velocity);
             hairAnim.SetFloat(Velocity, velocity);
             toolAnim.SetFloat(Velocity, velocity);
+        }
+        
+        public UnitAnimData GetSaveData()
+        {
+            return new UnitAnimData
+            {
+                CurUnitAction = _curUnitAction,
+            };
+        }
+
+        public void SetLoadData(UnitAnimData unitAnimData)
+        {
+            SetUnitAction(unitAnimData.CurUnitAction);
+        }
+        
+        public struct UnitAnimData
+        {
+            public UnitAction CurUnitAction;
         }
     }
 

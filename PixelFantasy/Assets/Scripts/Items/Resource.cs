@@ -5,7 +5,7 @@ using Interfaces;
 using Pathfinding.Util;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
-using Unit;
+using Characters;
 using UnityEditor;
 using UnityEngine;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Interfaces;
 using ScriptableObjects;
 using Tasks;
-using Unit;
+using Characters;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CodeMonkey.Utils;
-using Unit;
+using Characters;
 using UnityEngine;
 
 [Serializable]

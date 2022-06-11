@@ -53,21 +53,21 @@ namespace DataPersistence
             
             return new Data()
             {
-                ChilrenStates = childStates,
+                ChildrenStates = childStates,
             };
         }
 
         private void RestoreState(object stateData)
         {
             var data = (Data)stateData;
-            var childrenStates = data.ChilrenStates;
+            var childrenStates = data.ChildrenStates;
             SetChildStates(childrenStates);
         }
         
 
         public struct Data
         {
-            public List<object> ChilrenStates;
+            public List<object> ChildrenStates;
         }
 
         protected abstract void SetChildStates(List<object> childrenStates);

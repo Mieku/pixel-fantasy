@@ -1,7 +1,7 @@
-using Character.Interfaces;
+using Characters.Interfaces;
 using UnityEngine;
 
-namespace Character
+namespace Characters
 {
     public class MoveTransformVelocity : MonoBehaviour, IMoveVelocity
     {

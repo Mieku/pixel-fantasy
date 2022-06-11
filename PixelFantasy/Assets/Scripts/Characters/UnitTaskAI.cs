@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
-using Character;
-using Character.Interfaces;
+using Characters;
+using Characters.Interfaces;
 using Gods;
 using Items;
 using Tasks;
@@ -9,7 +9,7 @@ using UnityEngine;
 using Action = System.Action;
 using Random = UnityEngine.Random;
 
-namespace Unit
+namespace Characters
 {
     public class UnitTaskAI : MonoBehaviour
     {
@@ -17,16 +17,18 @@ namespace Unit
         [SerializeField] private ProfessionData professionData;
         [SerializeField] private UnitAnimController _unitAnim;
         
-        private enum State
+        public enum State
         {
             WaitingForNextTask,
             ExecutingTask,
         }
     
+        private UnitThought thought;
         private IMovePosition workerMover;
+
+        private TaskBase _curTask;
         private State state;
         private float waitingTimer;
-        private UnitThought thought;
         private Action _onWorkComplete;
         private float _workSpeed = 1f;
 
@@ -97,6 +99,7 @@ namespace Unit
                 }
             }
 
+            _curTask = task;
             if (task == null)
             {
                 state = State.WaitingForNextTask;
@@ -104,7 +107,13 @@ namespace Unit
             }
             else
             {
-                state = State.ExecutingTask;
+                ExecuteTask(task);
+            }
+        }
+
+        private void ExecuteTask(TaskBase task)
+        {
+            state = State.ExecutingTask;
                 // Move to location
                 if (task is EmergencyTask.MoveToPosition)
                 {
@@ -205,7 +214,6 @@ namespace Unit
                 }
                 
                 // Other task types go here
-            }
         }
 
         #region Execute Tasks
@@ -467,6 +475,36 @@ namespace Unit
             state = State.WaitingForNextTask;
             StopAllCoroutines();
             workerMover.SetMovePosition(transform.position, () => {});
+        }
+        
+        public UnitTaskData GetSaveData()
+        {
+            return new UnitTaskData
+            {
+                CurTask = _curTask,
+                State = state,
+                WaitingTimer = waitingTimer,
+                OnWorkComplete = _onWorkComplete,
+            };
+        }
+
+        public void SetLoadData(UnitTaskData taskData)
+        {
+            if (taskData.CurTask != null)
+            {
+                ExecuteTask(taskData.CurTask);
+            }
+            state = taskData.State;
+            waitingTimer = taskData.WaitingTimer;
+            _onWorkComplete = taskData.OnWorkComplete;
+        }
+
+        public struct UnitTaskData
+        {
+            public TaskBase CurTask;
+            public State State;
+            public float WaitingTimer;
+            public Action OnWorkComplete;
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Gods;
 using ScriptableObjects;
 using Tasks;
-using Unit;
+using Characters;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using Random = UnityEngine.Random;

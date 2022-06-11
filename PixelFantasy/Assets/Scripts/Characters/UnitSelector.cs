@@ -1,8 +1,8 @@
 using System;
-using Character.Interfaces;
+using Characters.Interfaces;
 using UnityEngine;
 
-namespace Character
+namespace Characters
 {
     public class UnitSelector : MonoBehaviour
     {

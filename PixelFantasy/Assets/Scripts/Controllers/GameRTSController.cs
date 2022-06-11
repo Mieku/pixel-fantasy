@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Character;
+using Characters;
 using CodeMonkey.Utils;
 using UnityEngine;
 using UnityEngine.Diagnostics;

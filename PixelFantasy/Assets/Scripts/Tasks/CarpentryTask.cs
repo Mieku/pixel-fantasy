@@ -2,7 +2,7 @@
 
 using System;
 using Items;
-using Unit;
+using Characters;
 using UnityEngine;
 using Action = System.Action;
 

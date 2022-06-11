@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Character
+namespace Characters
 {
     public class UnitThought : MonoBehaviour
     {
@@ -52,6 +52,25 @@ namespace Character
                 default:
                     throw new ArgumentOutOfRangeException(nameof(thoughtState), thoughtState, null);
             }
+        }
+
+        public UnitThoughtData GetSaveData()
+        {
+            return new UnitThoughtData
+            {
+                ThoughtState = this.thoughtState,
+            };
+        }
+
+        public void SetLoadData(UnitThoughtData unitThoughtData)
+        {
+            thoughtState = unitThoughtData.ThoughtState;
+            SetThought(thoughtState);
+        }
+
+        public struct UnitThoughtData
+        {
+            public ThoughtState ThoughtState;
         }
     }
 }

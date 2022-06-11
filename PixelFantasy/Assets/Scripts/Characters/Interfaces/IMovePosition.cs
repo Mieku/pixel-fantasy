@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Character.Interfaces
+namespace Characters.Interfaces
 {
     public interface IMovePosition
     {

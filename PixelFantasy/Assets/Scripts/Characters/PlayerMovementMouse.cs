@@ -1,10 +1,10 @@
 using System;
-using Character;
-using Character.Interfaces;
+using Characters;
+using Characters.Interfaces;
 using UnityEngine;
 using CodeMonkey.Utils;
 
-namespace Character
+namespace Characters
 {
     public class PlayerMovementMouse : MonoBehaviour
     {

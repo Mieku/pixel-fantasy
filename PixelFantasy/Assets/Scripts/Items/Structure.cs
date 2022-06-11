@@ -8,7 +8,7 @@ using Pathfinding;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Tasks;
-using Unit;
+using Characters;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 

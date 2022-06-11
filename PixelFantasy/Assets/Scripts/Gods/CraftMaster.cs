@@ -4,7 +4,7 @@ using Controllers;
 using Items;
 using ScriptableObjects;
 using Tasks;
-using Unit;
+using Characters;
 using UnityEngine;
 
 namespace Gods
