@@ -442,6 +442,7 @@ GameObject:
   - component: {fileID: 8988988752585574429}
   - component: {fileID: 4624679516539662858}
   - component: {fileID: 1822529751762045447}
+  - component: {fileID: 8745535366893241182}
   m_Layer: 6
   m_Name: Unit
   m_TagString: Unit
@@ -594,6 +595,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   professionData: {fileID: 11400000, guid: 2eb2bb24119209b4fa8ac224c469b19e, type: 2}
   _unitAnim: {fileID: 5532418264530240416}
+  _itemPrefab: {fileID: 5193408849299628808, guid: 60b37e663b91498498fbd8428f5713d9, type: 3}
   claimedSlot: {fileID: 0}
 --- !u!114 &1318834803339290506
 MonoBehaviour:
@@ -697,6 +699,19 @@ MonoBehaviour:
   _offset: 0.5
   _runOnlyOnce: 0
   _sortingGroup: {fileID: 4624679516539662858}
+--- !u!114 &8745535366893241182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5532418264530240426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38a6c3d8b701419438d0085270a1c006, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: 
 --- !u!1 &7362162075358093673
 GameObject:
   m_ObjectHideFlags: 0

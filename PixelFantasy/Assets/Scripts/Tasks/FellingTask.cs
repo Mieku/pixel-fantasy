@@ -9,6 +9,7 @@ namespace Tasks
     {
         public class CutTree : FellingTask
         {
+            public override TaskType TaskType => TaskType.CutTree;
             public Action<UnitTaskAI> claimTree;
             public Vector3 treePosition;
             public Action completeWork;

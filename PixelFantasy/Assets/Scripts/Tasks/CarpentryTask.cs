@@ -13,6 +13,7 @@ namespace Tasks
     {
         public class CraftItem : CarpentryTask
         {
+            public override TaskType TaskType => TaskType.Carpentry_CraftItem;
             public CraftingTable craftingTable;
             public Vector3 craftPosition;
             public Action completeWork;
@@ -21,10 +22,11 @@ namespace Tasks
         
         public class GatherResourceForCrafting : CarpentryTask
         {
+            public override TaskType TaskType => TaskType.Carpentry_GatherResourceForCrafting;
             public Vector3 resourcePosition;
             public CraftingTable craftingTable;
             public Action<UnitTaskAI> grabResource;
-            public Action useResource;
+            public Action<Item> useResource;
         }
     }
 }

@@ -14,7 +14,7 @@ using UnityEngine;
 
 namespace Items
 {
-    public class Floor : MonoBehaviour, IClickableObject, IPersistent
+    public class Floor : UniqueObject, IClickableObject, IPersistent
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private GraphUpdateScene _pathGraphUpdater;
@@ -28,8 +28,8 @@ namespace Items
         private bool _isDeconstructing;
         private UnitTaskAI _incomingUnit;
         private Vector2 _floorPos;
-
-        public string GUID;
+        
+        public TaskType PendingTask;
         
         private TaskMaster taskMaster => TaskMaster.Instance;
 
@@ -37,20 +37,6 @@ namespace Items
         public Vector2 FloorPos => _floorPos;
         
         public bool IsClickDisabled { get; set; }
-
-        [Button("Assign GUID")]
-        private void SetGUID()
-        {
-            if (GUID == "")
-            {
-                GUID = Guid.NewGuid().ToString();
-            }
-        }
-
-        private void Start()
-        {
-            SetGUID();
-        }
 
         public ClickObject GetClickObject()
         {
@@ -176,21 +162,28 @@ namespace Items
         {
             var taskRef = taskMaster.HaulingTaskSystem.EnqueueTask(() =>
             {
-                Item resource = ControllerManager.Instance.InventoryController.ClaimResource(resourceData);
-                if (resource != null)
+                var slot = ControllerManager.Instance.InventoryController.ClaimResource(resourceData);
+                if (slot != null)
                 {
+                    Item resource;
                     var task = new HaulingTask.TakeResourceToBlueprint
                     {
-                        resourcePosition = resource.transform.position,
+                        TargetUID = UniqueId,
+                        resourcePosition = slot.transform.position,
                         blueprintPosition = transform.position,
                         grabResource = (UnitTaskAI unitTaskAI) =>
                         {
-                            resource.transform.SetParent(unitTaskAI.transform);
+                            PendingTask = TaskType.None;
+                    
+                            // Get item from the slot
+                            resource = slot.GetItem();
+                            
                             resource.gameObject.SetActive(true);
-                            ControllerManager.Instance.InventoryController.DeductClaimedResource(resource);
+                            unitTaskAI.AssignHeldItem(resource);
+
                             _incomingItems.Add(resource);
                         },
-                        useResource = () =>
+                        useResource = (resource) =>
                         {
                             _incomingItems.Remove(resource);
                             resource.gameObject.SetActive(false);
@@ -200,6 +193,7 @@ namespace Items
                         },
                     };
 
+                    PendingTask = TaskType.TakeItemToItemSlot;
                     _assignedTaskRefs.Add(task.GetHashCode());
                     return task;
                 }
@@ -482,12 +476,12 @@ namespace Items
             List<string> incomingItemsGUIDS = new List<string>();
             foreach (var incomingItem in _incomingItems)
             {
-                incomingItemsGUIDS.Add(incomingItem.GUID);
+                incomingItemsGUIDS.Add(incomingItem.UniqueId);
             }
             
             return new Data
             {
-                GUID = this.GUID,
+                UID = this.UniqueId,
                 FloorData = _floorData,
                 ResourceCost = _resourceCost,
                 IsBuilt = _isBuilt,
@@ -498,6 +492,7 @@ namespace Items
                 FloorPos = _floorPos,
                 IsClickDisabled = IsClickDisabled,
                 IsAllowed = IsAllowed,
+                PendingTask = PendingTask,
             };
         }
 
@@ -505,7 +500,7 @@ namespace Items
         {
             var state = (Data)data;
 
-            this.GUID = state.GUID;
+            this.UniqueId = state.UID;
             _floorData = state.FloorData;
             _resourceCost = state.ResourceCost;
             _isBuilt = state.IsBuilt;
@@ -516,13 +511,14 @@ namespace Items
             transform.position = _floorPos;
             IsClickDisabled = state.IsClickDisabled;
             IsAllowed = state.IsAllowed;
+            PendingTask = state.PendingTask;
             
             var incomingItemsGUIDS = state.IncomingItemsGUIDs;
             var itemsHandler = ControllerManager.Instance.ItemsHandler;
             _incomingItems.Clear();
             foreach (var incomingItemGUID in incomingItemsGUIDS)
             {
-                var item = itemsHandler.GetItemByGUID(incomingItemGUID);
+                var item = itemsHandler.GetItemByUID(incomingItemGUID);
                 if (item != null)
                 {
                     _incomingItems.Add(item);
@@ -536,7 +532,7 @@ namespace Items
 
         public struct Data
         {
-            public string GUID;
+            public string UID;
             public FloorData FloorData;
             public List<ItemAmount> ResourceCost;
             public bool IsBuilt;
@@ -547,6 +543,7 @@ namespace Items
             public Vector2 FloorPos;
             public bool IsClickDisabled;
             public bool IsAllowed;
+            public TaskType PendingTask;
         }
     }
 }

@@ -11,6 +11,7 @@ namespace Tasks
         /// </summary>
         public class MoveToPosition : EmergencyTask
         {
+            public override TaskType TaskType => TaskType.EmergencyTask_MoveToPosition;
             public Vector3 targetPosition;
         }
     }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Characters
 {
-    public class Unit : MonoBehaviour, IPersistent
+    public class Unit : UniqueObject, IPersistent
     {
         [SerializeField] private UnitThought _unitThought;
         [SerializeField] private UnitAnimController _unitAnimController;
@@ -16,19 +16,20 @@ namespace Characters
         public object CaptureState()
         {
             // Capture the data from all the Units components
-            var unitThoughtData = _unitThought.GetSaveData();
-            var unitAnimData = _unitAnimController.GetSaveData();
+            //var unitThoughtData = _unitThought.GetSaveData();
+            //var unitAnimData = _unitAnimController.GetSaveData();
             var unitTaskData = _unitTaskAI.GetSaveData();
-            var movePosAStarData = _movePositionAStarPathfinding.GetSaveData();
+            //var movePosAStarData = _movePositionAStarPathfinding.GetSaveData();
 
             return new UnitData
             {
+                UID = UniqueId,
                 Position = transform.position,
-                UnitThoughtData = unitThoughtData,
-                UnitAnimData = unitAnimData,
+                //UnitThoughtData = unitThoughtData,
+                //UnitAnimData = unitAnimData,
                 UnitTaskData = unitTaskData,
                 
-                MovePosAStarData = movePosAStarData,
+                //MovePosAStarData = movePosAStarData,
             };
         }
 
@@ -36,14 +37,15 @@ namespace Characters
         {
             var unitState = (UnitData)data;
 
+            UniqueId = unitState.UID;
             transform.position = unitState.Position;
             
             // Send the data to all components
-            _unitThought.SetLoadData(unitState.UnitThoughtData);
-            _unitAnimController.SetLoadData(unitState.UnitAnimData);
+            //_unitThought.SetLoadData(unitState.UnitThoughtData);
+            //_unitAnimController.SetLoadData(unitState.UnitAnimData);
             _unitTaskAI.SetLoadData(unitState.UnitTaskData);
             
-            _movePositionAStarPathfinding.SetLoadData(unitState.MovePosAStarData);
+            //_movePositionAStarPathfinding.SetLoadData(unitState.MovePosAStarData);
 
             // Trigger the components to initialize
 
@@ -51,18 +53,19 @@ namespace Characters
 
         public struct UnitData
         {
+            public string UID;
             public Vector3 Position;
             
-            public UnitThought.UnitThoughtData UnitThoughtData;
+            //public UnitThought.UnitThoughtData UnitThoughtData;
 
             // UnitAnimController
-            public UnitAnimController.UnitAnimData UnitAnimData;
+            //public UnitAnimController.UnitAnimData UnitAnimData;
 
             // UnitTaskAI
             public UnitTaskAI.UnitTaskData UnitTaskData;
 
             // MovePositionAStarPathfinding
-            public MovePositionAStarPathfinding.MovePosAStarData MovePosAStarData;
+            //public MovePositionAStarPathfinding.MovePosAStarData MovePosAStarData;
 
         }
     }

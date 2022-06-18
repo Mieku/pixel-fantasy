@@ -17,6 +17,7 @@ namespace Gods
         public ItemData plank; // TODO: Remove this after testing
         private const float QUEUE_CHECK_TIMER = 0.2f; // 200ms
 
+        public TaskType PendingTask;
         private TaskMaster taskMaster => TaskMaster.Instance;
 
         private void Start()
@@ -93,11 +94,14 @@ namespace Gods
 
             if (resourcesAvailable && table != null)
             {
-                var claimedResources = ClaimResources(requiredResources);
                 table.AssignCraft(craftingTask);
-                foreach (var claimedResource in claimedResources)
+                foreach (var claimedResource in requiredResources)
                 {
-                    CreateGatherResourceForCraftingTask(claimedResource, table);
+                    for (int i = 0; i < claimedResource.Quantity; i++)
+                    {
+                        EnqueueCreateGatherResourceForCraftingTask(claimedResource.Item, table);
+                    }
+
                 }
             }
             else
@@ -106,50 +110,57 @@ namespace Gods
                 _carpentryTaskList.Add(craftingTask);
             }
         }
-
-        private void CreateGatherResourceForCraftingTask(Item claimedResource, CraftingTable table)
+        
+        private void EnqueueCreateGatherResourceForCraftingTask(ItemData resourceData, CraftingTable table)
         {
-            
+            var taskRef = taskMaster.CarpentryTaskSystem.EnqueueTask(() =>
+            {
+                StorageSlot slot = ControllerManager.Instance.InventoryController.ClaimResource(resourceData);
+                if (slot != null)
+                {
+                    return CreateGatherResourceForCraftingTask(slot, table);
+                }
+                else
+                {
+                    return null;
+                }
+            }).GetHashCode();
+        }
+
+        private CarpentryTask.GatherResourceForCrafting CreateGatherResourceForCraftingTask(StorageSlot slot, CraftingTable table)
+        {
+            Item resource;
             var task = new CarpentryTask.GatherResourceForCrafting
             {
-                resourcePosition = claimedResource.transform.position,
+                resourcePosition = slot.transform.position,
                 craftingTable = table,
                 grabResource = (UnitTaskAI unitTaskAI) =>
                 {
-                    claimedResource.transform.SetParent(unitTaskAI.transform);
-                    ControllerManager.Instance.InventoryController.DeductClaimedResource(claimedResource);
-                    table.AddIncomingItem(claimedResource);
+                    PendingTask = TaskType.None;
+                    
+                    // Get item from the slot
+                    resource = slot.GetItem();
+                    
+                    resource.gameObject.SetActive(true);
+                    unitTaskAI.AssignHeldItem(resource);
+                    
+                    table.AddIncomingItem(resource);
                 },
-                useResource = () =>
+                useResource = (resource) =>
                 {
-                    table.RemoveIncomingItem(claimedResource);
-                    claimedResource.gameObject.SetActive(false);
-                    table.AddResourceToCrafting(claimedResource.GetItemData());
-                    Destroy(claimedResource.gameObject);
+                    table.RemoveIncomingItem(resource);
+                    resource.gameObject.SetActive(false);
+                    table.AddResourceToCrafting(resource.GetItemData());
+                    Destroy(resource.gameObject);
                     table.CheckIfAllResourcesLoadedInCrafting();
                 }
             };
-                        
+                   
+            PendingTask = TaskType.Carpentry_GatherResourceForCrafting;
             table.AddTaskReference(task.GetHashCode());
-            taskMaster.CarpentryTaskSystem.AddTask(task);
+            return task;
         }
-
-        private List<Item> ClaimResources(List<ItemAmount> resources)
-        {
-            var inventory = ControllerManager.Instance.InventoryController;
-            List<Item> claimedResources = new List<Item>();
-            foreach (var resource in resources)
-            {
-                for (int i = 0; i < resource.Quantity; i++)
-                {
-                    var claimed = inventory.ClaimResource(resource.Item);
-                    claimedResources.Add(claimed);
-                }
-            }
-
-            return claimedResources;
-        }
-
+        
         private bool CheckResourcesAvailable(List<ItemAmount> resources)
         {
             foreach (var resource in resources)

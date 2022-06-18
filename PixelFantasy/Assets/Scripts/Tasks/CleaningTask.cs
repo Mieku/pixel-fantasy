@@ -13,6 +13,7 @@ namespace Tasks
         /// </summary>
         public class GarbageCleanup : CleaningTask
         {
+            public override TaskType TaskType => TaskType.GarbageCleanup;
             public Vector3 targetPosition;
             public Action cleanUpAction;
         }

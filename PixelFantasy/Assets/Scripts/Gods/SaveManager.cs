@@ -12,6 +12,8 @@ namespace Gods
         private GameState gameState;
         private List<Saveable> dataPersistenceObjects;
         private FileDataHandler dataHandler;
+
+        public bool IsLoading;
         
         private void Start()
         {
@@ -44,6 +46,7 @@ namespace Gods
 
         public void LoadGame()
         {
+            IsLoading = true;
             GameEvents.Trigger_OnLoadingGameBeginning();
             StartCoroutine(LoadingSequence());
         }
@@ -83,6 +86,7 @@ namespace Gods
             }
             
             GameEvents.Trigger_OnLoadingGameEnd();
+            IsLoading = false;
         }
 
         private List<Saveable> FindAllDataPersistenceObjects()

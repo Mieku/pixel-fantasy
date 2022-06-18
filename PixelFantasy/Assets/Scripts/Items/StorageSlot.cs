@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Controllers;
 using DataPersistence;
 using Gods;
 using ScriptableObjects;
@@ -9,32 +10,20 @@ using UnityEngine;
 
 namespace Items
 {
-    public class StorageSlot : MonoBehaviour, IPersistent
+    public class StorageSlot : UniqueObject, IPersistent
     {
         private int _storedAmount;
         private int _claimedAmount;
-        
         private int _numIncoming;
-        private int _stackedAmount;
         private ItemData _storedType;
-        
-        public string GUID;
         
         [SerializeField] private TextMeshPro _quantityDisplay;
         [SerializeField] private SpriteRenderer _storedItemRenderer;
 
-        [Button("Assign GUID")]
-        private void SetGUID()
-        {
-            if (GUID == "")
-            {
-                GUID = Guid.NewGuid().ToString();
-            }
-        }
+        private InventoryController _inventoryController => ControllerManager.Instance.InventoryController;
         
         private void Start()
         {
-            SetGUID();
             UpdateQuantityDisplay();
         }
 
@@ -45,7 +34,7 @@ namespace Items
 
         public bool IsEmpty()
         {
-            return _storedAmount == 0 && _numIncoming == 0 && _stackedAmount == 0;
+            return _storedAmount == 0 && _numIncoming == 0;
         }
 
         /// <summary>
@@ -67,7 +56,7 @@ namespace Items
             return false;
         }
 
-        public void HasItemIncoming(Item item)
+        public void AddItemIncoming(Item item)
         {
             _storedType = item.GetItemData();
             _numIncoming++;
@@ -77,7 +66,7 @@ namespace Items
         {
             if (_storedType == null) return true;
             
-            var totalAlloc = _numIncoming + _stackedAmount + 1;
+            var totalAlloc = _numIncoming + _storedAmount + 1;
             var maxAmount = _storedType.MaxStackSize;
 
             return totalAlloc <= maxAmount;
@@ -95,16 +84,15 @@ namespace Items
                 return 0;
             }
             
-            var totalAlloc = _numIncoming + _stackedAmount;
+            var totalAlloc = _numIncoming + _storedAmount;
             var maxAmount = _storedType.MaxStackSize;
             return maxAmount - totalAlloc;
         }
 
-        public void SetItem(Item item)
+        public void StoreItem(Item item)
         {
             _storedType = item.GetItemData();
             _storedAmount++;
-            _stackedAmount++;
             _numIncoming--;
             UpdateQuantityDisplay();
             UpdateStoredItemDisplay(_storedType.ItemSprite);
@@ -125,14 +113,14 @@ namespace Items
 
         private void UpdateQuantityDisplay()
         {
-            if (_stackedAmount == 0)
+            if (_storedAmount == 0)
             {
                 _quantityDisplay.text = "";
                 UpdateStoredItemDisplay(null);
             }
             else
             {
-                _quantityDisplay.text = _stackedAmount.ToString();
+                _quantityDisplay.text = _storedAmount.ToString();
             }
         }
 
@@ -146,15 +134,12 @@ namespace Items
             return _storedType;
         }
 
-        public Item ClaimItem()
+        public StorageSlot ClaimItem()
         {
-            if (_storedAmount > 0)
+            if (_storedAmount - _claimedAmount > 0)
             {
-                _storedAmount--;
                 _claimedAmount++;
-                var item = Spawner.Instance.SpawnItem(_storedType, transform.position, false);
-                item.gameObject.SetActive(false);
-                return item;
+                return this;
             }
             else
             {
@@ -162,16 +147,31 @@ namespace Items
             }
         }
 
-        public void RemoveClaimedItem(Item claimedItem)
+        public Item GetItem()
         {
-            _stackedAmount--;
-            UpdateQuantityDisplay();
-            _claimedAmount--;
+            var item = Spawner.Instance.SpawnItem(_storedType, transform.position, false);
+            RemoveClaimedItem();
+            
+            return item;
+        }
 
+        public void RemoveClaimedItem()
+        {
+            _claimedAmount--;
+            _storedAmount--;
+
+            _inventoryController.RemoveFromInventory(_storedType, 1);
+            
             if (IsEmpty())
             {
                 _storedType = null;
+                UpdateStoredItemDisplay(null);
             }
+            else
+            {
+                UpdateStoredItemDisplay(_storedType.ItemSprite);
+            }
+            UpdateQuantityDisplay();
         }
 
         public bool HasItemClaimed(Item item)
@@ -190,12 +190,9 @@ namespace Items
         {
             return new Data
             {
-                GUID = this.GUID,
+                UID = this.UniqueId,
                 Position = transform.position,
                 StoredAmount = _storedAmount,
-                ClaimedAmount = _claimedAmount,
-                NumIncoming = _numIncoming,
-                StackedAmount = _stackedAmount,
                 StoredType = _storedType,
             };
         }
@@ -204,12 +201,9 @@ namespace Items
         {
             var itemState = (Data)data;
 
-            GUID = itemState.GUID;
+            UniqueId = itemState.UID;
             transform.position = itemState.Position;
             _storedAmount = itemState.StoredAmount;
-            _claimedAmount = itemState.ClaimedAmount;
-            _numIncoming = itemState.NumIncoming;
-            _stackedAmount = itemState.StackedAmount;
             _storedType = itemState.StoredType;
             
             UpdateQuantityDisplay();
@@ -221,12 +215,9 @@ namespace Items
 
         public struct Data
         {
-            public string GUID;
+            public string UID;
             public Vector3 Position;
             public int StoredAmount;
-            public int ClaimedAmount;
-            public int NumIncoming;
-            public int StackedAmount;
             public ItemData StoredType;
         }
     }

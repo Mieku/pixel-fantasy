@@ -14,14 +14,15 @@ using UnityEngine.Tilemaps;
 
 namespace Items
 {
-    public class Structure : MonoBehaviour, IPersistent
+    public class Structure : UniqueObject, IPersistent
     {
         [SerializeField] private ProgressBar _progressBar;
         [SerializeField] private DynamicGridObstacle _gridObstacle;
         [SerializeField] private SpriteRenderer _icon;
 
         private StructureData _structureData;
-        private List<ItemAmount> _resourceCost;
+        private List<ItemAmount> _remainingResourceCosts;
+        private List<ItemAmount> _pendingResourceCosts; // Claimed by a task but not used yet
         private bool _isBuilt;
         private List<int> _assignedTaskRefs = new List<int>();
         private List<Item> _incomingItems = new List<Item>();
@@ -29,29 +30,20 @@ namespace Items
         private UnitTaskAI _incomingUnit;
         private Tilemap _structureTilemap;
         
-        public string GUID;
+        public TaskType PendingTask;
         
         private TaskMaster taskMaster => TaskMaster.Instance;
-
-        [Button("Assign GUID")]
-        private void SetGUID()
-        {
-            if (GUID == "")
-            {
-                GUID = Guid.NewGuid().ToString();
-            }
-        }
         
         private void Awake()
         {
             _structureTilemap = TilemapController.Instance.GetTilemap(TilemapLayer.Structure);
-            SetGUID();
         }
 
         public void Init(StructureData structureData)
         {
             _structureData = structureData;
-            _resourceCost = new List<ItemAmount> (_structureData.GetResourceCosts());
+            _remainingResourceCosts = new List<ItemAmount> (_structureData.GetResourceCosts());
+            _pendingResourceCosts = new List<ItemAmount>();
             SetTile();
             _progressBar.ShowBar(false);
             ShowBlueprint(true);
@@ -63,16 +55,55 @@ namespace Items
             return _structureData;
         }
 
+        public void AddToPendingResourceCosts(ItemData itemData, int quantity = 1)
+        {
+            _pendingResourceCosts ??= new List<ItemAmount>();
+
+            foreach (var cost in _pendingResourceCosts)
+            {
+                if (cost.Item == itemData)
+                {
+                    cost.Quantity += quantity;
+                    return;
+                }
+            }
+            
+            _pendingResourceCosts.Add(new ItemAmount
+            {
+                Item = itemData,
+                Quantity = quantity
+            });
+        }
+
+        public void RemoveFromPendingResourceCosts(ItemData itemData, int quantity = 1)
+        {
+            foreach (var cost in _pendingResourceCosts)
+            {
+                if (cost.Item == itemData)
+                {
+                    cost.Quantity -= quantity;
+                    if (cost.Quantity <= 0)
+                    {
+                        _pendingResourceCosts.Remove(cost);
+                    }
+
+                    return;
+                }
+            }
+        }
+
         private void AddResourceToBlueprint(ItemData itemData)
         {
-            foreach (var cost in _resourceCost)
+            RemoveFromPendingResourceCosts(itemData);
+            
+            foreach (var cost in _remainingResourceCosts)
             {
                 if (cost.Item == itemData && cost.Quantity > 0)
                 {
                     cost.Quantity--;
                     if (cost.Quantity <= 0)
                     {
-                        _resourceCost.Remove(cost);
+                        _remainingResourceCosts.Remove(cost);
                     }
 
                     return;
@@ -82,7 +113,7 @@ namespace Items
 
         private void CheckIfAllResourcesLoaded()
         {
-            if (_resourceCost.Count == 0)
+            if (_remainingResourceCosts.Count == 0)
             {
                 CreateConstructStructureTask();
             }
@@ -144,12 +175,6 @@ namespace Items
         
         private void PrepForConstruction()
         {
-            // Check if the structure is on dirt, if not make task to clear the grass
-            // if (!IsOnDirt())
-            // {
-            //     ClearGrass();
-            //     return;
-            // }
             if (Helper.DoesGridContainTag(transform.position, "Nature"))
             {
                 ClearNatureFromTile();
@@ -193,48 +218,54 @@ namespace Items
             Spawner.Instance.SpawnDirtTile(Helper.ConvertMousePosToGridPos(transform.position), this);
         }
 
+        public List<ItemAmount> GetRemainingMissingItems()
+        {
+            _pendingResourceCosts ??= new List<ItemAmount>();
+            List<ItemAmount> result = new List<ItemAmount>(_remainingResourceCosts);
+            foreach (var pendingCost in _pendingResourceCosts)
+            {
+                foreach (var resultCost in result)
+                {
+                    if (resultCost.Item == pendingCost.Item)
+                    {
+                        resultCost.Quantity -= pendingCost.Quantity;
+                        if (resultCost.Quantity <= 0)
+                        {
+                            result.Remove(resultCost);
+                        }
+                    }
+                }
+            }
+            
+            return result;
+        }
+
         private void CreateConstructionHaulingTasks()
         {
             var resourceCosts = _structureData.GetResourceCosts();
-            foreach (var resourceCost in resourceCosts)
+            CreateConstuctionHaulingTasksForItems(resourceCosts);
+        }
+
+        public void CreateConstuctionHaulingTasksForItems(List<ItemAmount> remainingResources)
+        {
+            foreach (var resourceCost in remainingResources)
             {
                 for (int i = 0; i < resourceCost.Quantity; i++)
                 {
-                    CreateTakeResourceToBlueprintTask(resourceCost.Item);
+                    EnqueueCreateTakeResourceToBlueprintTask(resourceCost.Item);
                 }
             }
         }
 
-        private void CreateTakeResourceToBlueprintTask(ItemData resourceData)
+        private void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
         {
             var taskRef = taskMaster.HaulingTaskSystem.EnqueueTask(() =>
             {
-                Item resource = ControllerManager.Instance.InventoryController.ClaimResource(resourceData);
-                if (resource != null)
+                StorageSlot slot = ControllerManager.Instance.InventoryController.ClaimResource(resourceData);
+                if (slot != null)
                 {
-                    var task = new HaulingTask.TakeResourceToBlueprint
-                    {
-                        resourcePosition = resource.transform.position,
-                        blueprintPosition = transform.position,
-                        grabResource = (UnitTaskAI unitTaskAI) =>
-                        {
-                            resource.transform.SetParent(unitTaskAI.transform);
-                            resource.gameObject.SetActive(true);
-                            ControllerManager.Instance.InventoryController.DeductClaimedResource(resource);
-                            _incomingItems.Add(resource);
-                        },
-                        useResource = () =>
-                        {
-                            _incomingItems.Remove(resource);
-                            resource.gameObject.SetActive(false);
-                            AddResourceToBlueprint(resource.GetItemData());
-                            Destroy(resource.gameObject);
-                            CheckIfAllResourcesLoaded();
-                        },
-                    };
-
-                    _assignedTaskRefs.Add(task.GetHashCode());
-                    return task;
+                    AddToPendingResourceCosts(resourceData);
+                    return CreateTakeResourceFromSlotToBlueprintTask(slot);
                 }
                 else
                 {
@@ -242,6 +273,72 @@ namespace Items
                 }
             }).GetHashCode();
             _assignedTaskRefs.Add(taskRef);
+        }
+
+        public HaulingTask.TakeResourceToBlueprint CreateTakeResourceFromSlotToBlueprintTask(StorageSlot slot)
+        {
+            Item resource;
+            var task = new HaulingTask.TakeResourceToBlueprint
+            {
+                TargetUID = UniqueId,
+                resourcePosition = slot.transform.position,
+                blueprintPosition = transform.position,
+                grabResource = (UnitTaskAI unitTaskAI) =>
+                {
+                    PendingTask = TaskType.None;
+                    
+                    // Get item from the slot
+                    resource = slot.GetItem();
+                    
+                    resource.gameObject.SetActive(true);
+                    unitTaskAI.AssignHeldItem(resource);
+                    _incomingItems.Add(resource);
+                },
+                useResource = ( heldItem) =>
+                {
+                    _incomingItems.Remove(heldItem);
+                    heldItem.gameObject.SetActive(false);
+                    AddResourceToBlueprint(heldItem.GetItemData());
+                    Destroy(heldItem.gameObject);
+                    CheckIfAllResourcesLoaded();
+                },
+            };
+
+            PendingTask = TaskType.TakeItemToItemSlot;
+            _assignedTaskRefs.Add(task.GetHashCode());
+            return task;
+        }
+        
+        public HaulingTask.TakeResourceToBlueprint CreateTakeResourceToBlueprintTask(Item resourceForBluePrint)
+        {
+            AddToPendingResourceCosts(resourceForBluePrint.GetItemData());
+
+            var task = new HaulingTask.TakeResourceToBlueprint
+            {
+                TargetUID = UniqueId,
+                resourcePosition = resourceForBluePrint.transform.position,
+                blueprintPosition = transform.position,
+                grabResource = (UnitTaskAI unitTaskAI) =>
+                {
+                    PendingTask = TaskType.None;
+                    resourceForBluePrint.gameObject.SetActive(true);
+                    unitTaskAI.AssignHeldItem(resourceForBluePrint);
+                    _incomingItems.Add(resourceForBluePrint);
+                    
+                },
+                useResource = (heldItem) =>
+                {
+                    _incomingItems.Remove(heldItem);
+                    heldItem.gameObject.SetActive(false);
+                    AddResourceToBlueprint(heldItem.GetItemData());
+                    Destroy(heldItem.gameObject);
+                    CheckIfAllResourcesLoaded();
+                },
+            };
+
+            PendingTask = TaskType.TakeItemToItemSlot;
+            _assignedTaskRefs.Add(task.GetHashCode());
+            return task;
         }
         
         private void CreateConstructStructureTask()
@@ -308,13 +405,15 @@ namespace Items
                 incomingItem.CancelAssignedTask();
                 incomingItem.CreateHaulTask();
             }
+            
+            _pendingResourceCosts.Clear();
         }
 
         private void SpawnUsedResources(float percentReturned)
         {
             // Spawn All the resources used
             var totalCosts = _structureData.GetResourceCosts();
-            var remainingCosts = _resourceCost;
+            var remainingCosts = _remainingResourceCosts;
             List<ItemAmount> difference = new List<ItemAmount>();
             foreach (var totalCost in totalCosts)
             {
@@ -435,21 +534,22 @@ namespace Items
             List<string> incomingItemsGUIDS = new List<string>();
             foreach (var incomingItem in _incomingItems)
             {
-                incomingItemsGUIDS.Add(incomingItem.GUID);
+                incomingItemsGUIDS.Add(incomingItem.UniqueId);
             }
             
             return new Data
             {
-                GUID = this.GUID,
+                UID = this.UniqueId,
                 Position = transform.position,
                 StructureData = _structureData,
-                ResourceCost = _resourceCost,
+                ResourceCost = _remainingResourceCosts,
                 IsBuilt = _isBuilt,
                 AssignedTaskRefs = _assignedTaskRefs,
-                IncomingItemsGUIDs = incomingItemsGUIDS,
+                IncomingItemsUIDs = incomingItemsGUIDS,
                 IsDeconstructing = _isDeconstructing,
                 IncomingUnit = _incomingUnit,
                 StructureTilemap = _structureTilemap,
+                PendingTask = PendingTask,
             };
         }
 
@@ -457,43 +557,48 @@ namespace Items
         {
             var state = (Data)data;
 
-            GUID = state.GUID;
+            UniqueId = state.UID;
             transform.position = state.Position;
             _structureData = state.StructureData;
-            _resourceCost = state.ResourceCost;
+            _remainingResourceCosts = state.ResourceCost;
             _isBuilt = state.IsBuilt;
             _assignedTaskRefs = state.AssignedTaskRefs;
             _isDeconstructing = state.IsDeconstructing;
             _incomingUnit = state.IncomingUnit;
             _structureTilemap = state.StructureTilemap;
+            PendingTask = state.PendingTask;
 
-            var incomingItemsGUIDS = state.IncomingItemsGUIDs;
-            var itemsHandler = ControllerManager.Instance.ItemsHandler;
+            // var incomingItemsGUIDS = state.IncomingItemsUIDs;
+            // var itemsHandler = ControllerManager.Instance.ItemsHandler;
             _incomingItems.Clear();
-            foreach (var incomingItemGUID in incomingItemsGUIDS)
-            {
-                var item = itemsHandler.GetItemByGUID(incomingItemGUID);
-                if (item != null)
-                {
-                    _incomingItems.Add(item);
-                }
-            }
+            // foreach (var incomingItemGUID in incomingItemsGUIDS)
+            // {
+            //     var item = itemsHandler.GetItemByUID(incomingItemGUID);
+            //     if (item != null)
+            //     {
+            //         _incomingItems.Add(item);
+            //     }
+            // }
 
             Refresh();
+
+            var missingItems = GetRemainingMissingItems();
+            CreateConstuctionHaulingTasksForItems(missingItems);
         }
 
         public struct Data
         {
-            public string GUID;
+            public string UID;
             public Vector3 Position;
             public StructureData StructureData;
             public List<ItemAmount> ResourceCost;
             public bool IsBuilt;
             public List<int> AssignedTaskRefs;
-            public List<string> IncomingItemsGUIDs;
+            public List<string> IncomingItemsUIDs;
             public bool IsDeconstructing;
             public UnitTaskAI IncomingUnit; // TODO: will likely need to use GUID
             public Tilemap StructureTilemap;
+            public TaskType PendingTask;
         }
     }
 }

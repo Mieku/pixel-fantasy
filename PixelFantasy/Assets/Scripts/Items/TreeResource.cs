@@ -22,12 +22,12 @@ namespace Items
             }
         }
 
-        public void CreateCutTreeTask()
+        public FellingTask.CutTree CreateCutTreeTask(bool autoAssign = true)
         {
             if (_queuedToCut)
             {
                 CancelCutTreeTask();
-                return;
+                return null;
             }
             
             CancelTasks();
@@ -36,19 +36,28 @@ namespace Items
 
             var task = new FellingTask.CutTree()
             {
+                TargetUID = UniqueId,
                 claimTree = (UnitTaskAI unitTaskAI) =>
                 {
                     _incomingUnit = unitTaskAI;
+                    PendingTask = TaskType.None;
                 },
                 treePosition = transform.position,
                 workAmount = _growingResourceData.GetWorkToCut(_growthIndex),
                 completeWork = CutDownPlant
             };
+            PendingTask = TaskType.CutTree;
             
             _assignedTaskRefs.Add(task.GetHashCode());
-            taskMaster.FellingTaskSystem.AddTask(task);
-            
+
+            if (autoAssign)
+            {
+                taskMaster.FellingTaskSystem.AddTask(task);
+            }
+
             RefreshSelection();
+
+            return task;
         }
 
         public void CancelCutTreeTask()
@@ -81,6 +90,16 @@ namespace Items
                 case Order.Harvest:
                     CreateHarvestFruitTask();
                     break;
+            }
+        }
+        
+        protected override void RestorePendingTask(TaskType pendingTask)
+        {
+            base.RestorePendingTask(pendingTask);
+
+            if (pendingTask == TaskType.CutTree)
+            {
+                CreateCutTreeTask();
             }
         }
     }

@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace Items
 {
-    public class Resource : MonoBehaviour, IClickableObject, IPersistent
+    public class Resource : UniqueObject, IClickableObject, IPersistent
     {
         public GameObject Prefab;
         
@@ -25,18 +25,8 @@ namespace Items
         protected List<int> _assignedTaskRefs = new List<int>();
         protected bool _queuedToCut;
         protected UnitTaskAI _incomingUnit;
+        public TaskType PendingTask;
 
-        private string _guid;
-
-        [Button("Assign GUID")]
-        private void SetGUID()
-        {
-            if (_guid == "")
-            {
-                _guid = Guid.NewGuid().ToString();
-            }
-        }
-        
         public GrowingResourceData GetResourceData()
         {
             return _growingResourceData;
@@ -53,6 +43,7 @@ namespace Items
         {
             if (_assignedTaskRefs == null || _assignedTaskRefs.Count == 0) return;
 
+            PendingTask = TaskType.None;
             foreach (var taskRef in _assignedTaskRefs)
             {
                 taskMaster.FellingTaskSystem.CancelTask(taskRef);
@@ -114,47 +105,50 @@ namespace Items
             throw new System.NotImplementedException();
         }
 
+        protected virtual void RestorePendingTask(TaskType pendingTask)
+        {
+            if(pendingTask == TaskType.None) return;
+            
+            
+        }
+
         public virtual object CaptureState()
         {
             return new Data
             {
-                GUID = _guid,
+                UID = UniqueId,
                 Prefab = Prefab,
                 Position = transform.position,
                 GrowingResourceData = _growingResourceData,
-                AssignedTaskRefs = _assignedTaskRefs,
-                QueuedToCut = _queuedToCut,
-                IncomingUnit = _incomingUnit,
                 IsAllowed = this.IsAllowed,
                 IsClickDisabled = this.IsClickDisabled,
+                PendingTask = PendingTask,
             };
         }
 
         public virtual void RestoreState(object data)
         {
             var stateData = (Data)data;
-            _guid = stateData.GUID;
+            UniqueId = stateData.UID;
             Prefab = stateData.Prefab;
             transform.position = stateData.Position;
             _growingResourceData = stateData.GrowingResourceData;
-            _assignedTaskRefs = stateData.AssignedTaskRefs;
-            _queuedToCut = stateData.QueuedToCut; 
-            _incomingUnit = stateData.IncomingUnit;
             IsAllowed = stateData.IsAllowed;
             IsClickDisabled = stateData.IsClickDisabled;
+            PendingTask = stateData.PendingTask;
+            
+            RestorePendingTask(stateData.PendingTask);
         }
 
         public struct Data
         {
-            public string GUID;
+            public string UID;
             public GameObject Prefab;
             public Vector3 Position;
             public GrowingResourceData GrowingResourceData;
-            public List<int> AssignedTaskRefs;
-            public bool QueuedToCut;
-            public UnitTaskAI IncomingUnit;
             public bool IsAllowed;
             public bool IsClickDisabled;
+            public TaskType PendingTask;
 
             public GrowingResource.GrowingData GrowingData;
         }

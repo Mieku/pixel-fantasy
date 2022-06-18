@@ -14,6 +14,7 @@ namespace Tasks
         /// </summary>
         public class ConstructStructure : ConstructionTask
         {
+            public override TaskType TaskType => TaskType.ConstructStructure;
             public Vector3 structurePosition;
             public Action completeWork;
             public float workAmount;
@@ -27,6 +28,7 @@ namespace Tasks
         /// </summary>
         public class DeconstructStructure : ConstructionTask
         {
+            public override TaskType TaskType => TaskType.DeconstructStructure;
             public Action<UnitTaskAI> claimStructure;
             public Vector3 structurePosition;
             public Action completeWork;

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Characters;
 using Characters.Interfaces;
+using DataPersistence;
 using Gods;
 using Items;
 using Tasks;
@@ -16,11 +17,12 @@ namespace Characters
         // TODO: Make this no longer be able to be changed in inspector later
         [SerializeField] private ProfessionData professionData;
         [SerializeField] private UnitAnimController _unitAnim;
+        [SerializeField] private GameObject _itemPrefab;
         
         public enum State
         {
             WaitingForNextTask,
-            ExecutingTask,
+            ExecutingTask
         }
     
         private UnitThought thought;
@@ -31,6 +33,7 @@ namespace Characters
         private float waitingTimer;
         private Action _onWorkComplete;
         private float _workSpeed = 1f;
+        private Item _heldItem;
 
         private const float WAIT_TIMER_MAX = .2f; // 200ms
 
@@ -40,11 +43,6 @@ namespace Characters
         {
             workerMover = GetComponent<IMovePosition>();
             thought = GetComponent<UnitThought>();
-        }
-
-        private void Start()
-        {
-            state = State.WaitingForNextTask;
         }
         
         private void Update()
@@ -85,6 +83,12 @@ namespace Characters
             standPos.x += sideMod;
 
             return standPos;
+        }
+
+        public void AssignHeldItem(Item itemToHold)
+        {
+            _heldItem = itemToHold;
+            itemToHold.transform.SetParent(transform);
         }
 
         private void RequestNextTask()
@@ -247,7 +251,7 @@ namespace Characters
                 workerMover.SetMovePosition(claimedSlot.GetPosition(), () =>
                 {
                     task.dropItem();
-                    claimedSlot.SetItem(task.item);
+                    claimedSlot.StoreItem(task.item);
                     state = State.WaitingForNextTask;
                     claimedSlot = null;
                 });
@@ -261,7 +265,7 @@ namespace Characters
                 task.grabResource(this);
                 workerMover.SetMovePosition(task.blueprintPosition, () =>
                 {
-                    task.useResource();
+                    task.useResource(_heldItem);
                     state = State.WaitingForNextTask;
                 });
             });
@@ -448,7 +452,7 @@ namespace Characters
                 task.grabResource(this);
                 workerMover.SetMovePosition(task.craftingTable.transform.position, () =>
                 {
-                    task.useResource();
+                    task.useResource(_heldItem);
                     state = State.WaitingForNextTask;
                 });
             });
@@ -479,32 +483,136 @@ namespace Characters
         
         public UnitTaskData GetSaveData()
         {
+            TaskType taskType = TaskType.None;
+            string targetUID = "";
+            string slotUID = "";
+            object heldItemData = null;
+            
+            if(claimedSlot != null)
+            {
+                slotUID = claimedSlot.UniqueId;
+            }
+
+            if (state == State.ExecutingTask)
+            {
+                taskType = _curTask.TaskType;
+                targetUID = _curTask.TargetUID;
+            }
+
+            if (_heldItem != null)
+            {
+                heldItemData = _heldItem.CaptureState();
+            }
+
             return new UnitTaskData
             {
-                CurTask = _curTask,
-                State = state,
-                WaitingTimer = waitingTimer,
-                OnWorkComplete = _onWorkComplete,
+                CurTask = taskType,
+                WasExecutingTask = state == State.ExecutingTask,
+                TargetUID = targetUID,
+                ClaimedSlotUID = slotUID,
+                HeldItemData = heldItemData,
             };
         }
 
         public void SetLoadData(UnitTaskData taskData)
         {
-            if (taskData.CurTask != null)
+            if (!string.IsNullOrEmpty(taskData.ClaimedSlotUID))
             {
-                ExecuteTask(taskData.CurTask);
+                var slotGO = UIDManager.Instance.GetGameObject(taskData.ClaimedSlotUID);
+                if (slotGO != null)
+                {
+                    claimedSlot = slotGO.GetComponent<StorageSlot>();
+                }
             }
-            state = taskData.State;
-            waitingTimer = taskData.WaitingTimer;
-            _onWorkComplete = taskData.OnWorkComplete;
+
+            // If the unit had a held item, spawn it
+            if (taskData.HeldItemData != null)
+            {
+                var itemData = (Item.Data)taskData.HeldItemData;
+                var childObj = Instantiate(_itemPrefab, transform);
+                childObj.GetComponent<IPersistent>().RestoreState(itemData);
+                _heldItem = childObj.GetComponent<Item>();
+            }
+
+            if (taskData.WasExecutingTask)
+            {
+                ResumeLoadedTask(taskData);
+            }
+        }
+
+        private void ResumeLoadedTask(UnitTaskData taskData)
+        {
+            var curTask = taskData.CurTask;
+            var targetGO = UIDManager.Instance.GetGameObject(taskData.TargetUID);
+
+            switch (curTask)
+            {
+                case TaskType.None:
+                    break;
+                case TaskType.CutTree:
+                    var tree = targetGO.GetComponent<TreeResource>();
+                    ExecuteTask(tree.CreateCutTreeTask(false));
+                    break;
+                case TaskType.HarvestFruit:
+                    var fruitingPlant = targetGO.GetComponent<GrowingResource>();
+                    ExecuteTask(fruitingPlant.CreateHarvestFruitTask(false));
+                    break;
+                case TaskType.CutPlant:
+                    var plantToCut = targetGO.GetComponent<GrowingResource>();
+                    ExecuteTask(plantToCut.CreateCutPlantTask(false));
+                    break;
+                case TaskType.ClearGrass:
+                case TaskType.DigHole:
+                case TaskType.PlantCrop:
+                case TaskType.WaterCrop:
+                case TaskType.HarvestCrop:
+                case TaskType.Carpentry_CraftItem:
+                case TaskType.Carpentry_GatherResourceForCrafting:
+                case TaskType.GarbageCleanup:
+                case TaskType.ConstructStructure:
+                case TaskType.DeconstructStructure:
+                case TaskType.EmergencyTask_MoveToPosition:
+                case TaskType.TakeItemToItemSlot:
+                    var item = targetGO.GetComponent<Item>();
+                    ControllerManager.Instance.InventoryController.AddItemToPending(item);
+                    claimedSlot.AddItemIncoming(item);
+                    ExecuteTask(item.CreateHaulTaskForSlot(claimedSlot));
+                    break;
+                case TaskType.TakeResourceToBlueprint:
+                    var structure = targetGO.GetComponent<Structure>();
+                    if (structure != null)
+                    {
+                        if (_heldItem != null)
+                        {
+                            var task_resourceToBlueprint = structure.CreateTakeResourceToBlueprintTask(_heldItem);
+                            ExecuteTask(task_resourceToBlueprint);
+                        }
+                        else if(claimedSlot != null)
+                        {
+                            var task_resourceToBlueprint = structure.CreateTakeResourceFromSlotToBlueprintTask(claimedSlot);
+                            ExecuteTask(task_resourceToBlueprint);
+                        }
+                    }
+
+                    var floor = targetGO.GetComponent<Floor>();
+                    if (floor != null)
+                    {
+                        // TODO: Build me!
+                    }
+                    
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         public struct UnitTaskData
         {
-            public TaskBase CurTask;
-            public State State;
-            public float WaitingTimer;
-            public Action OnWorkComplete;
+            public TaskType CurTask;
+            public string TargetUID;
+            public bool WasExecutingTask;
+            public string ClaimedSlotUID;
+            public object HeldItemData;
         }
     }
 }

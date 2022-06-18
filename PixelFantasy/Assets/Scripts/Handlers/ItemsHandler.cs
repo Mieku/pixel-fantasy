@@ -31,19 +31,19 @@ namespace Handlers
             }
         }
         
-        public Item GetItemByGUID(string guid)
+        public Item GetItemByUID(string uid)
         {
             var children = GetPersistentChildren();
             foreach (var child in children)
             {
                 var item = child.GetComponent<Item>();
-                if (item != null && item.GUID == guid)
+                if (item != null && item.UniqueId == uid)
                 {
                     return item;
                 }
             }
             
-            Debug.LogError($"Slot with GUID {guid} not found!");
+            Debug.LogError($"Slot with UID {uid} not found!");
             return null;
         }
     }

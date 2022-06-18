@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Xml;
 using Controllers;
 using Gods;
 using ScriptableObjects;
@@ -9,7 +10,7 @@ using UnityEngine;
 
 namespace Items
 {
-    public class Furniture : MonoBehaviour
+    public class Furniture : UniqueObject
     {
         private FurnitureData _furnitureData;
         protected FurniturePrefab _prefab;
@@ -20,6 +21,8 @@ namespace Items
         private bool _isDeconstructing;
         private UnitTaskAI _incomingUnit;
 
+        public TaskType PendingTask;
+        
         protected Transform UsagePosition => _prefab.UsagePostion;
         public FurnitureData FurnitureData => _furnitureData;
         
@@ -78,21 +81,28 @@ namespace Items
         {
             var taskRef = taskMaster.HaulingTaskSystem.EnqueueTask(() =>
             {
-                Item resource = ControllerManager.Instance.InventoryController.ClaimResource(craftingTask.ItemData);
-                if (resource != null)
+                var slot = ControllerManager.Instance.InventoryController.ClaimResource(craftingTask.ItemData);
+                if (slot != null)
                 {
+                    Item resource;
                     var task = new HaulingTask.TakeResourceToBlueprint
                     {
-                        resourcePosition = resource.transform.position,
+                        TargetUID = UniqueId,
+                        resourcePosition = slot.transform.position,
                         blueprintPosition = transform.position,
                         grabResource = (UnitTaskAI unitTaskAI) =>
                         {
-                            resource.transform.SetParent(unitTaskAI.transform);
+                            PendingTask = TaskType.None;
+                    
+                            // Get item from the slot
+                            resource = slot.GetItem();
+                            
                             resource.gameObject.SetActive(true);
-                            ControllerManager.Instance.InventoryController.DeductClaimedResource(resource);
+                            unitTaskAI.AssignHeldItem(resource);
+                            
                             _incomingItems.Add(resource);
                         },
-                        useResource = () =>
+                        useResource = (resource) =>
                         {
                             _incomingItems.Remove(resource);
                             resource.gameObject.SetActive(false);
@@ -149,21 +159,28 @@ namespace Items
         {
             var taskRef = taskMaster.HaulingTaskSystem.EnqueueTask(() =>
             {
-                Item resource = ControllerManager.Instance.InventoryController.ClaimResource(resourceData);
-                if (resource != null)
+                var slot = ControllerManager.Instance.InventoryController.ClaimResource(resourceData);
+                if (slot != null)
                 {
+                    Item resource;
                     var task = new HaulingTask.TakeResourceToBlueprint
                     {
-                        resourcePosition = resource.transform.position,
+                        TargetUID = UniqueId,
+                        resourcePosition = slot.transform.position,
                         blueprintPosition = transform.position,
                         grabResource = (UnitTaskAI unitTaskAI) =>
                         {
-                            resource.transform.SetParent(unitTaskAI.transform);
+                            PendingTask = TaskType.None;
+                    
+                            // Get item from the slot
+                            resource = slot.GetItem();
+                    
                             resource.gameObject.SetActive(true);
-                            ControllerManager.Instance.InventoryController.DeductClaimedResource(resource);
+                            unitTaskAI.AssignHeldItem(resource);
+                            
                             _incomingItems.Add(resource);
                         },
-                        useResource = () =>
+                        useResource = (resource) =>
                         {
                             _incomingItems.Remove(resource);
                             resource.gameObject.SetActive(false);
@@ -189,33 +206,33 @@ namespace Items
             craftMaster.CreateCraftingTask(itemToCraft);
         }
 
-        private void ItemWasCrafted(Furniture furniture, Item craftedItem)
-        {
-            if (furniture == this && craftedItem != null)
-            {
-                var task = new HaulingTask.TakeResourceToBlueprint
-                {
-                    resourcePosition = craftedItem.transform.position,
-                    blueprintPosition = transform.position,
-                    grabResource = (UnitTaskAI unitTaskAI) =>
-                    {
-                        craftedItem.transform.SetParent(unitTaskAI.transform);
-                        ControllerManager.Instance.InventoryController.DeductClaimedResource(craftedItem);
-                        _incomingItems.Add(craftedItem);
-                    },
-                    useResource = () =>
-                    {
-                        _incomingItems.Remove(craftedItem);
-                        craftedItem.gameObject.SetActive(false);
-                        AddResourceToBlueprint(craftedItem.GetItemData());
-                        Destroy(craftedItem.gameObject);
-                        CheckIfAllResourcesLoaded();
-                    },
-                };
-
-                _assignedTaskRefs.Add(task.GetHashCode());
-            }
-        }
+        // private void ItemWasCrafted(Furniture furniture, Item craftedItem)
+        // {
+        //     if (furniture == this && craftedItem != null)
+        //     {
+        //         var task = new HaulingTask.TakeResourceToBlueprint
+        //         {
+        //             resourcePosition = craftedItem.transform.position,
+        //             blueprintPosition = transform.position,
+        //             grabResource = (UnitTaskAI unitTaskAI) =>
+        //             {
+        //                 craftedItem.transform.SetParent(unitTaskAI.transform);
+        //                 ControllerManager.Instance.InventoryController.DeductClaimedResource(craftedItem);
+        //                 _incomingItems.Add(craftedItem);
+        //             },
+        //             useResource = () =>
+        //             {
+        //                 _incomingItems.Remove(craftedItem);
+        //                 craftedItem.gameObject.SetActive(false);
+        //                 AddResourceToBlueprint(craftedItem.GetItemData());
+        //                 Destroy(craftedItem.gameObject);
+        //                 CheckIfAllResourcesLoaded();
+        //             },
+        //         };
+        //
+        //         _assignedTaskRefs.Add(task.GetHashCode());
+        //     }
+        // }
 
         private void AddResourceToBlueprint(ItemData itemData)
         {

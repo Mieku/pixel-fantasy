@@ -13,7 +13,7 @@ namespace Controllers
     public class InventoryController : Saveable
     {
         protected override string StateName => "InventoryController";
-        public override int LoadOrder => 2;
+        public override int LoadOrder => 4;
         
         private List<StorageSlot> _storageSlots = new List<StorageSlot>();
         private Dictionary<ItemData, int> _inventory = new Dictionary<ItemData, int>();
@@ -34,7 +34,7 @@ namespace Controllers
                 if (itemSlot.CanStack(item))
                 {
                     RemoveItemFromPending(item);
-                    itemSlot.HasItemIncoming(item);
+                    itemSlot.AddItemIncoming(item);
                     return itemSlot;
                 }
             }
@@ -45,7 +45,7 @@ namespace Controllers
                 if (itemSlot.IsEmpty())
                 {
                     RemoveItemFromPending(item);
-                    itemSlot.HasItemIncoming(item);
+                    itemSlot.AddItemIncoming(item);
                     return itemSlot;
                 }
             }
@@ -124,7 +124,7 @@ namespace Controllers
         }
 
         
-        public Item ClaimResource(ItemData itemData)
+        public StorageSlot ClaimResource(ItemData itemData)
         {
             // Can afford?
             if (_inventory.ContainsKey(itemData))
@@ -134,11 +134,11 @@ namespace Controllers
                 {
                     if (!storageSlot.IsEmpty() && storageSlot.GetStoredType() == itemData)
                     {
-                        var item = storageSlot.ClaimItem();
-                        if (item != null)
+                        var slot = storageSlot.ClaimItem();
+                        if (slot != null)
                         {
-                            RemoveFromInventory(item.GetItemData(), 1);
-                            return item;
+                            //RemoveFromInventory(itemData, 1);
+                            return slot;
                         }
                     }
                 }
@@ -153,7 +153,7 @@ namespace Controllers
             {
                 if (storageSlot.HasItemClaimed(claimedResource))
                 {
-                    storageSlot.RemoveClaimedItem(claimedResource);
+                    storageSlot.RemoveClaimedItem();
                     break;
                 }
             }
@@ -207,7 +207,7 @@ namespace Controllers
 
             if (numSpaces > 0)
             {
-                AddItemToPending(item);
+                //AddItemToPending(item);
                 return true;
             }
 
@@ -372,7 +372,7 @@ namespace Controllers
             foreach (var slot in _storageSlots)
             {
                 var itemType = slot.GetStoredType();
-                if (itemType != null)
+                if (itemType != null && _inventory.ContainsKey(itemType))
                 {
                     GameEvents.Trigger_OnInventoryAdded(itemType, _inventory[itemType]);
                 }
@@ -392,9 +392,9 @@ namespace Controllers
             
             // Finds the Storage slot based on the GUID
             _storageSlots.Clear();
-            foreach (var storageSlotGUID in invData.StorageSlotsGUIDs)
+            foreach (var storageSlotGUID in invData.StorageSlotsUIDs)
             {
-                var storageSlot = _storageHandler.GetStorageSlotByGUID(storageSlotGUID);
+                var storageSlot = _storageHandler.GetStorageSlotByUID(storageSlotGUID);
                 if (storageSlot != null)
                 {
                     _storageSlots.Add(storageSlot);
@@ -409,13 +409,13 @@ namespace Controllers
             List<string> storageSlotsGUIDs = new List<string>();
             foreach (var storageSlot in _storageSlots)
             {
-                storageSlotsGUIDs.Add(storageSlot.GUID);
+                storageSlotsGUIDs.Add(storageSlot.UniqueId);
             }
             
             // Saves its own data, not children
             state.States[StateName] = new InventoryData
             {
-                StorageSlotsGUIDs = storageSlotsGUIDs,
+                StorageSlotsUIDs = storageSlotsGUIDs,
                 Inventory = _inventory,
                 PendingInventory = _pendingInventory,
             };
@@ -423,7 +423,7 @@ namespace Controllers
 
         public struct InventoryData
         {
-            public List<string> StorageSlotsGUIDs;
+            public List<string> StorageSlotsUIDs;
             public Dictionary<ItemData, int> Inventory;
             public Dictionary<ItemData, int> PendingInventory;
         }

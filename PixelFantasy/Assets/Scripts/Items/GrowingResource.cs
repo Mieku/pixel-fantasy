@@ -166,12 +166,12 @@ namespace Items
             FruitCheck();
         }
         
-        public void CreateCutPlantTask()
+        public FarmingTask.CutPlant CreateCutPlantTask(bool autoAssign = true)
         {
             if (_queuedToCut)
             {
                 CancelCutPlantTask();
-                return;
+                return null;
             }
             
             CancelTasks();
@@ -180,8 +180,10 @@ namespace Items
 
             var task = new FarmingTask.CutPlant()
             {
+                TargetUID = UniqueId,
                 claimPlant = (UnitTaskAI unitTaskAI) =>
                 {
+                    PendingTask = TaskType.None;
                     _incomingUnit = unitTaskAI;
                 },
                 plantPosition = transform.position,
@@ -189,11 +191,18 @@ namespace Items
                 completeWork = CutDownPlant
             };
 
+            PendingTask = TaskType.CutPlant;
             var taskHash = task.GetHashCode();
             _assignedTaskRefs.Add(taskHash);
-            taskMaster.FarmingTaskSystem.AddTask(task);
-            
+
+            if (autoAssign)
+            {
+                taskMaster.FarmingTaskSystem.AddTask(task);
+            }
+
             RefreshSelection();
+
+            return task;
         }
 
         public void CancelCutPlantTask()
@@ -203,12 +212,12 @@ namespace Items
             CancelTasks();
         }
 
-        public void CreateHarvestFruitTask()
+        public FarmingTask.HarvestFruit CreateHarvestFruitTask(bool autoAssign = true)
         {
             if (_queuedToHarvest)
             {
                 CancelHarvestFruitTask();
-                return;
+                return null;
             }
             
             CancelTasks();
@@ -228,19 +237,26 @@ namespace Items
 
             var task = new FarmingTask.HarvestFruit()
             {
+                TargetUID = UniqueId,
                 claimPlant = (UnitTaskAI unitTaskAI) =>
                 {
+                    PendingTask = TaskType.None;
                     _incomingUnit = unitTaskAI;
                 },
                 plantPosition = cutPos,
                 workAmount = _growingResourceData.WorkToHarvest,
                 completeWork = HarvestFruit
             };
-            
+            PendingTask = TaskType.HarvestFruit;
             _assignedTaskRefs.Add(task.GetHashCode());
-            taskMaster.FarmingTaskSystem.AddTask(task);
+
+            if (autoAssign)
+            {
+                taskMaster.FarmingTaskSystem.AddTask(task);
+            }
             
             RefreshSelection();
+            return task;
         }
 
         public void CancelHarvestFruitTask()
@@ -328,6 +344,21 @@ namespace Items
             }
         }
 
+        protected override void RestorePendingTask(TaskType pendingTask)
+        {
+            base.RestorePendingTask(pendingTask);
+
+            if (pendingTask == TaskType.CutPlant)
+            {
+                CreateCutPlantTask();
+            }
+
+            if (pendingTask == TaskType.HarvestFruit)
+            {
+                CreateHarvestFruitTask();
+            }
+        }
+
         public override object CaptureState()
         {
             var resourceData = (Data)base.CaptureState();
@@ -340,7 +371,6 @@ namespace Items
                 ReproductionTimer = _reproductionTimer,
                 FruitTimer = _fruitTimer,
                 HasFruitAvailable = _hasFruitAvailable,
-                QueuedToHarvest = _queuedToHarvest,
             };
 
             return resourceData;
@@ -358,8 +388,7 @@ namespace Items
             _reproductionTimer = growingData.ReproductionTimer;
             _fruitTimer = growingData.FruitTimer;
             _hasFruitAvailable = growingData.HasFruitAvailable;
-            _queuedToHarvest = growingData.QueuedToHarvest;
-    
+
             base.RestoreState(stateData);
         }
 
@@ -372,7 +401,6 @@ namespace Items
             public float ReproductionTimer;
             public float FruitTimer;
             public bool HasFruitAvailable;
-            public bool QueuedToHarvest;
         }
     }
 }

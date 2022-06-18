@@ -143,3 +143,25 @@ namespace Gods
         Research
     }
 }
+
+[Serializable]
+public enum TaskType
+{
+    None,
+    CutTree,
+    HarvestFruit,
+    CutPlant,
+    ClearGrass,
+    DigHole,
+    PlantCrop,
+    WaterCrop,
+    HarvestCrop,
+    Carpentry_CraftItem,
+    Carpentry_GatherResourceForCrafting,
+    GarbageCleanup,
+    ConstructStructure,
+    DeconstructStructure,
+    EmergencyTask_MoveToPosition,
+    TakeItemToItemSlot,
+    TakeResourceToBlueprint
+}

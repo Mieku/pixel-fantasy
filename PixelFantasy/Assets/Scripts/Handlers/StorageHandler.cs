@@ -31,19 +31,19 @@ namespace Handlers
             }
         }
 
-        public StorageSlot GetStorageSlotByGUID(string guid)
+        public StorageSlot GetStorageSlotByUID(string uid)
         {
             var children = GetPersistentChildren();
             foreach (var child in children)
             {
                 var slot = child.GetComponent<StorageSlot>();
-                if (slot != null && slot.GUID == guid)
+                if (slot != null && slot.UniqueId == uid)
                 {
                     return slot;
                 }
             }
             
-            Debug.LogError($"Slot with GUID {guid} not found!");
+            Debug.LogError($"Slot with GUID {uid} not found!");
             return null;
         }
     }

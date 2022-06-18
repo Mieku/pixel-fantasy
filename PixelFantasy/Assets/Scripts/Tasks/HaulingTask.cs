@@ -14,6 +14,7 @@ namespace Tasks
         /// </summary>
         public class TakeItemToItemSlot : HaulingTask
         {
+            public override TaskType TaskType => TaskType.TakeItemToItemSlot;
             public Action<UnitTaskAI> claimItemSlot;
             public Vector3 itemPosition;
             public Action<UnitTaskAI> grabItem;
@@ -30,10 +31,11 @@ namespace Tasks
         /// </summary>
         public class TakeResourceToBlueprint : HaulingTask
         {
+            public override TaskType TaskType => TaskType.TakeResourceToBlueprint;
             public Vector3 resourcePosition;
             public Action<UnitTaskAI> grabResource;
             public Vector3 blueprintPosition;
-            public Action useResource;
+            public Action<Item> useResource;
         }
     }
 }

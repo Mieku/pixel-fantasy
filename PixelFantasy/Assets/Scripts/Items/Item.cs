@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace Items
 {
-    public class Item : MonoBehaviour, IClickableObject, IPersistent
+    public class Item : UniqueObject, IClickableObject, IPersistent
     {
         [SerializeField] private ItemData _itemData;
         [SerializeField] private SpriteRenderer _spriteRenderer;
@@ -23,24 +23,10 @@ namespace Items
         private UnitTaskAI _incomingUnit;
         private Transform _originalParent;
         
-        public string GUID;
-
+        public TaskType PendingTask;
+ 
         private TaskMaster taskMaster => TaskMaster.Instance;
-
-        [Button("Assign GUID")]
-        private void SetGUID()
-        {
-            if (GUID == "")
-            {
-                GUID = Guid.NewGuid().ToString();
-            }
-        }
-
-        private void Start()
-        {
-            SetGUID();
-        }
-
+        
         public ClickObject GetClickObject()
         {
             return _clickObject;
@@ -51,9 +37,11 @@ namespace Items
             _itemData = itemData;
             IsAllowed = allowed;
             
+            InitUID();
+            
             DisplayItemSprite();
 
-            if (IsAllowed)
+            if (IsAllowed && PendingTask == TaskType.None)
             {
                 CreateHaulTask();
             }
@@ -61,39 +49,50 @@ namespace Items
         
         public void CreateHaulTask()
         {
+            HaulingTask.TakeItemToItemSlot task = null;
             _assignedTaskRef = taskMaster.HaulingTaskSystem.EnqueueTask(() =>
             {
-                if (ControllerManager.Instance.InventoryController.HasSpaceForItem(this))
+                if (!SaveManager.Instance.IsLoading && ControllerManager.Instance.InventoryController.HasSpaceForItem(this))
                 {
+                    ControllerManager.Instance.InventoryController.AddItemToPending(this);
                     var slot = ControllerManager.Instance.InventoryController.GetAvailableStorageSlot(this);
                     _originalParent = transform.parent;
-                    var task = new HaulingTask.TakeItemToItemSlot
-                    {
-                        item = this,
-                        claimItemSlot = (UnitTaskAI unitTaskAI) =>
-                        {
-                            unitTaskAI.claimedSlot = slot;
-                            _incomingUnit = unitTaskAI;
-                        },
-                        itemPosition = transform.position,
-                        grabItem = (UnitTaskAI unitTaskAI) =>
-                        {
-                            transform.SetParent(unitTaskAI.transform);
-                        },
-                        dropItem = () =>
-                        {
-                            ControllerManager.Instance.InventoryController.AddToInventory(_itemData, 1);
-                            Destroy(gameObject);
-                        },
-                    };
-                    _assignedTaskRef = task.GetHashCode();
-                    return task;
+                    return CreateHaulTaskForSlot(slot);
                 }
                 else
                 {
                     return null;
                 }
             }).GetHashCode();
+        }
+
+        public HaulingTask.TakeItemToItemSlot CreateHaulTaskForSlot(StorageSlot slot)
+        {
+            _originalParent = transform.parent;
+            var task = new HaulingTask.TakeItemToItemSlot
+            {
+                TargetUID = UniqueId,
+                item = this,
+                claimItemSlot = (UnitTaskAI unitTaskAI) =>
+                {
+                    PendingTask = TaskType.None;
+                    unitTaskAI.claimedSlot = slot;
+                    _incomingUnit = unitTaskAI;
+                },
+                itemPosition = transform.position,
+                grabItem = (UnitTaskAI unitTaskAI) =>
+                {
+                    unitTaskAI.AssignHeldItem(this);
+                },
+                dropItem = () =>
+                {
+                    ControllerManager.Instance.InventoryController.AddToInventory(_itemData, 1);
+                    Destroy(gameObject);
+                },
+            };
+            PendingTask = TaskType.TakeItemToItemSlot;
+            _assignedTaskRef = task.GetHashCode();
+            return task;
         }
 
         private void DisplayItemSprite()
@@ -159,6 +158,12 @@ namespace Items
             RefreshSelection();
         }
 
+        private void OnDestroy()
+        {
+            if (_assignedTaskRef == 0) return;
+            taskMaster.HaulingTaskSystem.CancelTask(_assignedTaskRef);
+        }
+
         public bool IsClickDisabled { get; set; }
 
         private void RefreshSelection()
@@ -209,12 +214,22 @@ namespace Items
                     break;
             }
         }
+        
+        protected virtual void RestorePendingTask(TaskType pendingTask)
+        {
+            if(pendingTask == TaskType.None) return;
+
+            if (pendingTask == TaskType.TakeItemToItemSlot)
+            {
+                CreateHaulTask();
+            }
+        }
 
         public object CaptureState()
         {
             return new Data
             {
-                GUID = GUID,
+                UID = UniqueId,
                 Position = transform.position,
                 ItemData = _itemData,
                 AssignedTaskRef = _assignedTaskRef,
@@ -222,6 +237,7 @@ namespace Items
                 OriginalParent = _originalParent,
                 IsAllowed = this.IsAllowed,
                 IsClickDisabled = this.IsClickDisabled,
+                PendingTask = PendingTask,
             };
         }
 
@@ -229,20 +245,22 @@ namespace Items
         {
             var itemState = (Data)data;
 
-            GUID = itemState.GUID;
+            UniqueId = itemState.UID;
             transform.position = itemState.Position;
             _assignedTaskRef = itemState.AssignedTaskRef;
             _incomingUnit = itemState.IncomingUnit;
             _originalParent = itemState.OriginalParent;
             IsAllowed = itemState.IsAllowed;
             IsClickDisabled = itemState.IsClickDisabled;
+            PendingTask = itemState.PendingTask;
             
             InitializeItem(itemState.ItemData, IsAllowed);
+            RestorePendingTask(itemState.PendingTask);
         }
 
         public struct Data
         {
-            public string GUID;
+            public string UID;
             public Vector3 Position;
             public ItemData ItemData;
             public int AssignedTaskRef;
@@ -250,6 +268,7 @@ namespace Items
             public Transform OriginalParent;
             public bool IsAllowed;
             public bool IsClickDisabled;
+            public TaskType PendingTask;
         }
     }
 }

@@ -23,12 +23,14 @@ public class QueuedTask<TTask> where TTask : TaskBase
 [Serializable]
 public abstract class TaskBase
 {
-    
+    public virtual TaskType TaskType { get; }
+    public virtual string TargetUID { get; set; }
 }
 
 [Serializable]
 public class TaskSystem<TTask> where TTask : TaskBase
 {
+    [SerializeField] private bool _verbose;
     public List<TTask> taskList; // List of tasks ready to be executed
     public List<QueuedTask<TTask>> queuedTaskList; // Any queued tasks that need to be validated before being dequeued
 
@@ -61,6 +63,11 @@ public class TaskSystem<TTask> where TTask : TaskBase
     /// </summary>
     public void AddTask(TTask taskBase)
     {
+        if (_verbose)
+        {
+            Debug.Log("Adding Task: " + taskBase.TargetUID);
+        }
+        
         taskList.Add(taskBase);
     }
 
@@ -71,6 +78,11 @@ public class TaskSystem<TTask> where TTask : TaskBase
 
     public QueuedTask<TTask> EnqueueTask(Func<TTask> tryGetTaskFunc)
     {
+        if (_verbose)
+        {
+            Debug.Log("Enquing Task: " + tryGetTaskFunc.Target.ToString());
+        }
+        
         QueuedTask<TTask> queuedTask = new QueuedTask<TTask>(tryGetTaskFunc);
         queuedTaskList.Add(queuedTask);
         return queuedTask;

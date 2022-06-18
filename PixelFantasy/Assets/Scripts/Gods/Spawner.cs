@@ -285,7 +285,7 @@ namespace Gods
             }
         }
 
-        public void SpawnItem(ItemData itemData, Vector2 spawnPosition, bool canBeHauled, int quantity = 1)
+        public void SpawnItem(ItemData itemData, Vector2 spawnPosition, bool canBeHauled, int quantity)
         {
             for (int i = 0; i < quantity; i++)
             {
@@ -302,6 +302,7 @@ namespace Gods
             item.transform.SetParent(_itemsParent);
             var itemScript = item.GetComponent<Item>();
             itemScript.InitializeItem(itemData, canBeHauled);
+            item.SetActive(true);
             return itemScript;
         }
 
