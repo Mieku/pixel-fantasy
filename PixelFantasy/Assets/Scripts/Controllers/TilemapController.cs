@@ -73,5 +73,6 @@ namespace Controllers
         Ground,
         Water,
         Structure,
+        Flooring,
     }
 }

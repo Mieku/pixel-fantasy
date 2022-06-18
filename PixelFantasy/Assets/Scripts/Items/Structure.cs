@@ -311,8 +311,6 @@ namespace Items
         
         public HaulingTask.TakeResourceToBlueprint CreateTakeResourceToBlueprintTask(Item resourceForBluePrint)
         {
-            AddToPendingResourceCosts(resourceForBluePrint.GetItemData());
-
             var task = new HaulingTask.TakeResourceToBlueprint
             {
                 TargetUID = UniqueId,

@@ -584,6 +584,7 @@ namespace Characters
                     {
                         if (_heldItem != null)
                         {
+                            structure.AddToPendingResourceCosts(_heldItem.GetItemData());
                             var task_resourceToBlueprint = structure.CreateTakeResourceToBlueprintTask(_heldItem);
                             ExecuteTask(task_resourceToBlueprint);
                         }
