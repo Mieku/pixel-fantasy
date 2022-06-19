@@ -7,10 +7,11 @@ using Items;
 using Pathfinding;
 using Tasks;
 using Characters;
+using DataPersistence;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class DirtTile : MonoBehaviour
+public class DirtTile : UniqueObject, IPersistent
 {
     public bool IsBuilt = false;
     
@@ -28,6 +29,8 @@ public class DirtTile : MonoBehaviour
     private Floor _requestedFloor;
     private Tilemap _flooringTilemap;
     private Action _onDirtDug;
+    
+    public TaskType PendingTask;
 
     public Sprite Icon => _icon;
 
@@ -84,6 +87,8 @@ public class DirtTile : MonoBehaviour
     {
         if (_assignedTaskRefs == null || _assignedTaskRefs.Count == 0) return;
 
+        PendingTask = TaskType.None;
+        
         foreach (var taskRef in _assignedTaskRefs)
         {
             taskMaster.FellingTaskSystem.CancelTask(taskRef);
@@ -172,21 +177,32 @@ public class DirtTile : MonoBehaviour
         _flooringTilemap.SetColor(cell, colour);
     }
 
-    public void CreateClearGrassTask()
+    public FarmingTask.ClearGrass CreateClearGrassTask(bool autoAssign = true)
     {
+        
         var task = new FarmingTask.ClearGrass()
         {
+            TargetUID = UniqueId,
             claimDirt = (UnitTaskAI unitTaskAI) =>
             {
+                //Debug.Log("ClearGrass Task " + UniqueId);
                 _incomingUnit = unitTaskAI;
+                PendingTask = TaskType.None;
             },
-            grassPosition = Helper.ConvertMousePosToGridPos(transform.position),
+            grassPosition = transform.position,
             workAmount = _workCost,
             completeWork = BuiltDirt
         };
         
+        PendingTask = TaskType.ClearGrass;
         _assignedTaskRefs.Add(task.GetHashCode());
-        taskMaster.FarmingTaskSystem.AddTask(task);
+
+        if (autoAssign)
+        {
+            taskMaster.FarmingTaskSystem.AddTask(task);
+        }
+
+        return task;
     }
 
     public void CancelClearGrass()
@@ -223,5 +239,40 @@ public class DirtTile : MonoBehaviour
     {
         var cell = _flooringTilemap.WorldToCell(transform.position);
         _flooringTilemap.SetTile(cell, _dirtRuleTile);
+    }
+
+    public object CaptureState()
+    {
+        return new DirtData
+        {
+            UID = UniqueId,
+            PendingTask = PendingTask,
+            IsBuilt = IsBuilt,
+            Position = transform.position,
+        };
+    }
+
+    public void RestoreState(object data)
+    {
+        var state = (DirtData)data;
+        UniqueId = state.UID;
+        PendingTask = state.PendingTask;
+        IsBuilt = state.IsBuilt;
+        transform.position = state.Position;
+
+        ShowBlueprint(!IsBuilt);
+
+        if (PendingTask == TaskType.ClearGrass)
+        {
+            CreateClearGrassTask();
+        }
+    }
+
+    public struct DirtData
+    {
+        public string UID;
+        public TaskType PendingTask;
+        public bool IsBuilt;
+        public Vector2 Position;
     }
 } 

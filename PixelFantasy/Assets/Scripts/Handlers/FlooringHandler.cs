@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DataPersistence;
 using Items;
@@ -11,11 +12,17 @@ namespace Handlers
         public override int LoadOrder => 1;
         
         [SerializeField] private GameObject _flooringPrefab;
+        [SerializeField] private GameObject _dirtPrefab;
         
         protected override void SetChildStates(List<object> childrenStates)
         {
             // Delete current persistent children
             var currentChildren = GetPersistentChildren();
+            foreach (var child in currentChildren)
+            {
+                child.GetComponent<UID>().RemoveUID();
+            }
+            
             foreach (var child in currentChildren)
             {
                 Destroy(child);
@@ -25,9 +32,17 @@ namespace Handlers
             // Instantiate all the children in data, Trigger RestoreState with their state data
             foreach (var childState in childrenStates)
             {
-                var data = (Floor.Data)childState;
-                var childObj = Instantiate(_flooringPrefab, transform);
-                childObj.GetComponent<IPersistent>().RestoreState(data);
+                if (childState is Floor.Data floorData)
+                {
+                    var childObj = Instantiate(_flooringPrefab, transform);
+                    childObj.GetComponent<IPersistent>().RestoreState(floorData);
+                } 
+                else if (childState is DirtTile.DirtData dirtData)
+                {
+                    var childObj = Instantiate(_dirtPrefab, transform);
+                    childObj.GetComponent<IPersistent>().RestoreState(dirtData);
+                }
+                
             }
         }
     }

@@ -113,6 +113,8 @@ namespace Items
 
         private void CheckIfAllResourcesLoaded()
         {
+            if (_isBuilt) return;
+            
             if (_remainingResourceCosts.Count == 0)
             {
                 CreateConstructStructureTask();
@@ -338,22 +340,28 @@ namespace Items
             _assignedTaskRefs.Add(task.GetHashCode());
             return task;
         }
-        
-        private void CreateConstructStructureTask()
+
+        public ConstructionTask.ConstructStructure CreateConstructStructureTask(bool autoAssign = true)
         {
             // Clear old refs
             _assignedTaskRefs.Clear();
             
             var task = new ConstructionTask.ConstructStructure
             {
+                TargetUID = UniqueId,
                 structurePosition = transform.position,
                 workAmount = _structureData.GetWorkPerResource(),
                 completeWork = CompleteConstruction
             };
             
             _assignedTaskRefs.Add(task.GetHashCode());
-            
-            taskMaster.ConstructionTaskSystem.AddTask(task);
+
+            if (autoAssign)
+            {
+                taskMaster.ConstructionTaskSystem.AddTask(task);
+            }
+
+            return task;
         }
         
         private void CompleteConstruction()
@@ -582,6 +590,8 @@ namespace Items
 
             var missingItems = GetRemainingMissingItems();
             CreateConstuctionHaulingTasksForItems(missingItems);
+            
+            CheckIfAllResourcesLoaded();
         }
 
         public struct Data

@@ -493,7 +493,7 @@ namespace Characters
                 slotUID = claimedSlot.UniqueId;
             }
 
-            if (state == State.ExecutingTask)
+            if (state == State.ExecutingTask && _curTask != null)
             {
                 taskType = _curTask.TaskType;
                 targetUID = _curTask.TargetUID;
@@ -562,6 +562,10 @@ namespace Characters
                     ExecuteTask(plantToCut.CreateCutPlantTask(false));
                     break;
                 case TaskType.ClearGrass:
+                    var dirtTile = targetGO.GetComponent<DirtTile>();
+                    _curTask = dirtTile.CreateClearGrassTask(false);
+                    ExecuteTask(_curTask);
+                    break;
                 case TaskType.DigHole:
                 case TaskType.PlantCrop:
                 case TaskType.WaterCrop:
@@ -570,6 +574,20 @@ namespace Characters
                 case TaskType.Carpentry_GatherResourceForCrafting:
                 case TaskType.GarbageCleanup:
                 case TaskType.ConstructStructure:
+                    var constStructure = targetGO.GetComponent<Structure>();
+                    if (constStructure != null)
+                    {
+                        _curTask = constStructure.CreateConstructStructureTask(false);
+                        ExecuteTask(_curTask);
+                    }
+                    
+                    var constFloor = targetGO.GetComponent<Floor>();
+                    if (constFloor != null)
+                    {
+                        _curTask = constFloor.CreateConstructFloorTask(false);
+                        ExecuteTask(_curTask);
+                    }
+                    break;
                 case TaskType.DeconstructStructure:
                 case TaskType.EmergencyTask_MoveToPosition:
                 case TaskType.TakeItemToItemSlot:
@@ -598,7 +616,19 @@ namespace Characters
                     var floor = targetGO.GetComponent<Floor>();
                     if (floor != null)
                     {
-                        // TODO: Build me!
+                        if (_heldItem != null)
+                        {
+                            floor.AddToPendingResourceCosts(_heldItem.GetItemData());
+                            var task_resourceToBlueprint = floor.CreateTakeResourceToBlueprintTask(_heldItem);
+                            ExecuteTask(task_resourceToBlueprint);
+                            break;
+                        }
+                        else if(claimedSlot != null)
+                        {
+                            var task_resourceToBlueprint = floor.CreateTakeResourceFromSlotToBlueprintTask(claimedSlot);
+                            ExecuteTask(task_resourceToBlueprint);
+                            break;
+                        }
                     }
                     
                     break;

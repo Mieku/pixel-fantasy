@@ -15,6 +15,8 @@ namespace Gods
 
         public void AddUID(UID uid)
         {
+            _uidDictionary ??= new Dictionary<string, GameObject>();
+            
             if (_uidDictionary.ContainsKey(uid.uniqueID))
             {
                 _uidDictionary[uid.uniqueID] = uid.gameObject;

@@ -16,6 +16,7 @@ namespace Gods
         [SerializeField] private AstarPath _pathFinder;
 
         public bool IsLoading;
+        public bool IsSaving;
         
         private void Start()
         {
@@ -31,6 +32,9 @@ namespace Gods
         
         public void SaveGame()
         {
+            if (IsSaving) return;
+            
+            IsSaving = true;
             Debug.Log("Saving Game...");
             GameEvents.Trigger_OnSavingGameBeginning();
             
@@ -44,10 +48,13 @@ namespace Gods
             dataHandler.Save(gameState);
             
             GameEvents.Trigger_OnSavingGameEnd();
+            IsSaving = false;
         }
 
         public void LoadGame()
         {
+            if (IsLoading) return;
+            
             IsLoading = true;
             GameEvents.Trigger_OnLoadingGameBeginning();
             StartCoroutine(LoadingSequence());

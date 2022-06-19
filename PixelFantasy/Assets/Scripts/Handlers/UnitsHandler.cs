@@ -7,7 +7,7 @@ namespace Handlers
     public class UnitsHandler : Saveable
     {
         protected override string StateName => "Units";
-        public override int LoadOrder => 1;
+        public override int LoadOrder => 2;
 
         [SerializeField] private GameObject _unitPrefab;
         
@@ -15,6 +15,11 @@ namespace Handlers
         {
             // Delete current persistent children
             var currentChildren = GetPersistentChildren();
+            foreach (var child in currentChildren)
+            {
+                child.GetComponent<UID>().RemoveUID();
+            }
+            
             foreach (var child in currentChildren)
             {
                 Destroy(child);

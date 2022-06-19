@@ -18,6 +18,11 @@ namespace Handlers
             var currentChildren = GetPersistentChildren();
             foreach (var child in currentChildren)
             {
+                child.GetComponent<UID>().RemoveUID();
+            }
+            
+            foreach (var child in currentChildren)
+            {
                 Destroy(child);
             }
             currentChildren.Clear();
