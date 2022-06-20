@@ -6,20 +6,24 @@ using Gods;
 using ScriptableObjects;
 using Tasks;
 using Characters;
+using DataPersistence;
 using UnityEngine;
 
 namespace Items
 {
-    public class Furniture : UniqueObject
+    public class Furniture : UniqueObject, IPersistent
     {
         private FurnitureData _furnitureData;
         protected FurniturePrefab _prefab;
-        protected List<ItemAmount> _resourceCost;
-        private bool _isBuilt;
+        protected List<ItemAmount> _remainingResourceCosts;
+        private List<ItemAmount> _pendingResourceCosts; // Claimed by a task but not used yet
+        protected bool _isBuilt;
         protected List<int> _assignedTaskRefs = new List<int>();
         protected List<Item> _incomingItems = new List<Item>();
         private bool _isDeconstructing;
         private UnitTaskAI _incomingUnit;
+        protected bool _isCraftingTable;
+        private PlacementDirection _placementDirection;
 
         public TaskType PendingTask;
         
@@ -32,7 +36,9 @@ namespace Items
         public virtual void Init(FurnitureData furnitureData, PlacementDirection direction)
         {
             _furnitureData = furnitureData;
-            _resourceCost = new List<ItemAmount>(_furnitureData.ResourceCosts);
+            _remainingResourceCosts = new List<ItemAmount>(_furnitureData.ResourceCosts);
+            _pendingResourceCosts = new List<ItemAmount>();
+            _placementDirection = direction;
             CreatePrefab(direction);
             ShowBlueprint(true);
             PrepForConstruction();
@@ -66,54 +72,25 @@ namespace Items
             }
             else
             {
-                var resourceCosts = _furnitureData.ResourceCosts;
+                var resourceCosts = GetRemainingMissingItems();
                 CraftMissingItems(resourceCosts);
                 CraftingTask craftItem = new CraftingTask();
                 craftItem.FurnitureData = _furnitureData;
 
                 CreateCraftingTask(craftItem);
 
-                CreateInstallTask(craftItem);
+                EnqueueCreateInstallTask(craftItem);
             }
         }
-        
-        private void CreateInstallTask(CraftingTask craftingTask)
+
+        private void EnqueueCreateInstallTask(CraftingTask craftingTask)
         {
             var taskRef = taskMaster.HaulingTaskSystem.EnqueueTask(() =>
             {
                 var slot = ControllerManager.Instance.InventoryController.ClaimResource(craftingTask.ItemData);
                 if (slot != null)
                 {
-                    Item resource;
-                    var task = new HaulingTask.TakeResourceToBlueprint
-                    {
-                        TargetUID = UniqueId,
-                        resourcePosition = slot.transform.position,
-                        blueprintPosition = transform.position,
-                        grabResource = (UnitTaskAI unitTaskAI) =>
-                        {
-                            PendingTask = TaskType.None;
-                    
-                            // Get item from the slot
-                            resource = slot.GetItem();
-                            
-                            resource.gameObject.SetActive(true);
-                            unitTaskAI.AssignHeldItem(resource);
-                            
-                            _incomingItems.Add(resource);
-                        },
-                        useResource = (resource) =>
-                        {
-                            _incomingItems.Remove(resource);
-                            resource.gameObject.SetActive(false);
-                            AddResourceToBlueprint(resource.GetItemData());
-                            Destroy(resource.gameObject);
-                            InstallFurniture();
-                        },
-                    };
-
-                    _assignedTaskRefs.Add(task.GetHashCode());
-                    return task;
+                    return CreateInstallTask(slot);
                 }
                 else
                 {
@@ -122,10 +99,46 @@ namespace Items
             }).GetHashCode();
             _assignedTaskRefs.Add(taskRef);
         }
+        
+        private HaulingTask.TakeResourceToBlueprint CreateInstallTask(StorageSlot slot)
+        {
+            Item resource;
+            var task = new HaulingTask.TakeResourceToBlueprint
+            {
+                TargetUID = UniqueId,
+                resourcePosition = slot.transform.position,
+                blueprintPosition = transform.position,
+                grabResource = (UnitTaskAI unitTaskAI) =>
+                {
+                    PendingTask = TaskType.None;
+                    
+                    // Get item from the slot
+                    resource = slot.GetItem();
+                            
+                    resource.gameObject.SetActive(true);
+                    unitTaskAI.AssignHeldItem(resource);
+                            
+                    _incomingItems.Add(resource);
+                },
+                useResource = (heldItem) =>
+                {
+                    _incomingItems.Remove(heldItem);
+                    heldItem.gameObject.SetActive(false);
+                    AddResourceToBlueprint(heldItem.GetItemData());
+                    Destroy(heldItem.gameObject);
+                    InstallFurniture();
+                },
+            };
+
+            PendingTask = TaskType.TakeResourceToBlueprint;
+            _assignedTaskRefs.Add(task.GetHashCode());
+            return task;
+        }
 
         private void CreateConstructionHaulingTasks()
         {
-            var resourceCosts = _furnitureData.ResourceCosts;
+            var resourceCosts = GetRemainingMissingItems();
+            
             
             CraftMissingItems(resourceCosts);
             
@@ -133,12 +146,12 @@ namespace Items
             {
                 for (int i = 0; i < resourceCost.Quantity; i++)
                 {
-                    CreateTakeResourceToBlueprintTask(resourceCost.Item);
+                    EnqueueCreateTakeResourceToBlueprintTask(resourceCost.Item);
                 }
             }
         }
 
-        private void CraftMissingItems(List<ItemAmount> requiredResources)
+        protected void CraftMissingItems(List<ItemAmount> requiredResources)
         {
             foreach (var resource in requiredResources)
             {
@@ -154,44 +167,75 @@ namespace Items
                 }
             }
         }
+        
+        public void AddToPendingResourceCosts(ItemData itemData, int quantity = 1)
+        {
+            _pendingResourceCosts ??= new List<ItemAmount>();
 
-        private void CreateTakeResourceToBlueprintTask(ItemData resourceData)
+            foreach (var cost in _pendingResourceCosts)
+            {
+                if (cost.Item == itemData)
+                {
+                    cost.Quantity += quantity;
+                    return;
+                }
+            }
+            
+            _pendingResourceCosts.Add(new ItemAmount
+            {
+                Item = itemData,
+                Quantity = quantity
+            });
+        }
+
+        public void RemoveFromPendingResourceCosts(ItemData itemData, int quantity = 1)
+        {
+            foreach (var cost in _pendingResourceCosts)
+            {
+                if (cost.Item == itemData)
+                {
+                    cost.Quantity -= quantity;
+                    if (cost.Quantity <= 0)
+                    {
+                        _pendingResourceCosts.Remove(cost);
+                    }
+
+                    return;
+                }
+            }
+        }
+        
+        public List<ItemAmount> GetRemainingMissingItems()
+        {
+            _pendingResourceCosts ??= new List<ItemAmount>();
+            List<ItemAmount> result = new List<ItemAmount>(_remainingResourceCosts);
+            foreach (var pendingCost in _pendingResourceCosts)
+            {
+                foreach (var resultCost in result)
+                {
+                    if (resultCost.Item == pendingCost.Item)
+                    {
+                        resultCost.Quantity -= pendingCost.Quantity;
+                        if (resultCost.Quantity <= 0)
+                        {
+                            result.Remove(resultCost);
+                        }
+                    }
+                }
+            }
+            
+            return result;
+        }
+
+        private void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
         {
             var taskRef = taskMaster.HaulingTaskSystem.EnqueueTask(() =>
             {
                 var slot = ControllerManager.Instance.InventoryController.ClaimResource(resourceData);
                 if (slot != null)
                 {
-                    Item resource;
-                    var task = new HaulingTask.TakeResourceToBlueprint
-                    {
-                        TargetUID = UniqueId,
-                        resourcePosition = slot.transform.position,
-                        blueprintPosition = transform.position,
-                        grabResource = (UnitTaskAI unitTaskAI) =>
-                        {
-                            PendingTask = TaskType.None;
-                    
-                            // Get item from the slot
-                            resource = slot.GetItem();
-                    
-                            resource.gameObject.SetActive(true);
-                            unitTaskAI.AssignHeldItem(resource);
-                            
-                            _incomingItems.Add(resource);
-                        },
-                        useResource = (resource) =>
-                        {
-                            _incomingItems.Remove(resource);
-                            resource.gameObject.SetActive(false);
-                            AddResourceToBlueprint(resource.GetItemData());
-                            Destroy(resource.gameObject);
-                            CheckIfAllResourcesLoaded();
-                        },
-                    };
-
-                    _assignedTaskRefs.Add(task.GetHashCode());
-                    return task;
+                    AddToPendingResourceCosts(resourceData);
+                    return CreateTakeResourceToBlueprintFromSlotTask(slot);
                 }
                 else
                 {
@@ -201,49 +245,86 @@ namespace Items
             _assignedTaskRefs.Add(taskRef);
         }
 
+        public HaulingTask.TakeResourceToBlueprint CreateTakeResourceToBlueprintFromSlotTask(StorageSlot slot)
+        {
+            Item resource;
+            var task = new HaulingTask.TakeResourceToBlueprint
+            {
+                TargetUID = UniqueId,
+                resourcePosition = slot.transform.position,
+                blueprintPosition = transform.position,
+                grabResource = (UnitTaskAI unitTaskAI) =>
+                {
+                    PendingTask = TaskType.None;
+                    
+                    // Get item from the slot
+                    resource = slot.GetItem();
+                    
+                    resource.gameObject.SetActive(true);
+                    unitTaskAI.AssignHeldItem(resource);
+                    _incomingItems.Add(resource);
+                },
+                useResource = (heldItem) =>
+                {
+                    _incomingItems.Remove(heldItem);
+                    heldItem.gameObject.SetActive(false);
+                    AddResourceToBlueprint(heldItem.GetItemData());
+                    Destroy(heldItem.gameObject);
+                    CheckIfAllResourcesLoaded();
+                },
+            };
+            PendingTask = TaskType.TakeResourceToBlueprint;
+            _assignedTaskRefs.Add(task.GetHashCode());
+            return task;
+        }
+        
+        public HaulingTask.TakeResourceToBlueprint CreateTakeResourceToBlueprintTask(Item resourceForBluePrint)
+        {
+            var task = new HaulingTask.TakeResourceToBlueprint
+            {
+                TargetUID = UniqueId,
+                resourcePosition = resourceForBluePrint.transform.position,
+                blueprintPosition = transform.position,
+                grabResource = (UnitTaskAI unitTaskAI) =>
+                {
+                    PendingTask = TaskType.None;
+                    resourceForBluePrint.gameObject.SetActive(true);
+                    unitTaskAI.AssignHeldItem(resourceForBluePrint);
+                    _incomingItems.Add(resourceForBluePrint);
+                    
+                },
+                useResource = (heldItem) =>
+                {
+                    _incomingItems.Remove(heldItem);
+                    heldItem.gameObject.SetActive(false);
+                    AddResourceToBlueprint(heldItem.GetItemData());
+                    Destroy(heldItem.gameObject);
+                    CheckIfAllResourcesLoaded();
+                },
+            };
+
+            PendingTask = TaskType.TakeItemToItemSlot;
+            _assignedTaskRefs.Add(task.GetHashCode());
+            return task;
+        }
+
         private void CreateCraftingTask(CraftingTask itemToCraft)
         {
             craftMaster.CreateCraftingTask(itemToCraft);
         }
-
-        // private void ItemWasCrafted(Furniture furniture, Item craftedItem)
-        // {
-        //     if (furniture == this && craftedItem != null)
-        //     {
-        //         var task = new HaulingTask.TakeResourceToBlueprint
-        //         {
-        //             resourcePosition = craftedItem.transform.position,
-        //             blueprintPosition = transform.position,
-        //             grabResource = (UnitTaskAI unitTaskAI) =>
-        //             {
-        //                 craftedItem.transform.SetParent(unitTaskAI.transform);
-        //                 ControllerManager.Instance.InventoryController.DeductClaimedResource(craftedItem);
-        //                 _incomingItems.Add(craftedItem);
-        //             },
-        //             useResource = () =>
-        //             {
-        //                 _incomingItems.Remove(craftedItem);
-        //                 craftedItem.gameObject.SetActive(false);
-        //                 AddResourceToBlueprint(craftedItem.GetItemData());
-        //                 Destroy(craftedItem.gameObject);
-        //                 CheckIfAllResourcesLoaded();
-        //             },
-        //         };
-        //
-        //         _assignedTaskRefs.Add(task.GetHashCode());
-        //     }
-        // }
-
+        
         private void AddResourceToBlueprint(ItemData itemData)
         {
-            foreach (var cost in _resourceCost)
+            RemoveFromPendingResourceCosts(itemData);
+            
+            foreach (var cost in _remainingResourceCosts)
             {
                 if (cost.Item == itemData && cost.Quantity > 0)
                 {
                     cost.Quantity--;
                     if (cost.Quantity <= 0)
                     {
-                        _resourceCost.Remove(cost);
+                        _remainingResourceCosts.Remove(cost);
                     }
 
                     return;
@@ -253,27 +334,33 @@ namespace Items
         
         private void CheckIfAllResourcesLoaded()
         {
-            if (_resourceCost.Count == 0)
+            if (_remainingResourceCosts.Count == 0 && !_isBuilt)
             {
                 CreateConstructFurnitureTask();
             }
         }
         
-        private void CreateConstructFurnitureTask()
+        public ConstructionTask.ConstructStructure CreateConstructFurnitureTask(bool autoAssign = true)
         {
             // Clear old refs
             _assignedTaskRefs.Clear();
             
             var task = new ConstructionTask.ConstructStructure
             {
+                TargetUID = UniqueId,
                 structurePosition = transform.position,
                 workAmount = _furnitureData.GetWorkPerResource(),
                 completeWork = CompleteConstruction
             };
             
             _assignedTaskRefs.Add(task.GetHashCode());
-            
-            taskMaster.ConstructionTaskSystem.AddTask(task);
+
+            if (autoAssign)
+            {
+                taskMaster.ConstructionTaskSystem.AddTask(task);
+            }
+
+            return task;
         }
 
         protected virtual void CompleteConstruction()
@@ -286,6 +373,64 @@ namespace Items
         {
             ShowBlueprint(false);
             _isBuilt = true;
+        }
+
+        public virtual object CaptureState()
+        {
+            return new Data
+            {
+                UID = this.UniqueId,
+                Position = transform.position,
+                PendingTask = PendingTask,
+                FurnitureData = _furnitureData,
+                IsBuilt = _isBuilt,
+                IsDeconstructing = _isDeconstructing,
+                IsCraftingTable = _isCraftingTable,
+                RemainingResourceCosts = _remainingResourceCosts,
+                PlacementDirection = _placementDirection,
+            };
+        }
+
+        public virtual void RestoreState(object data)
+        {
+            var state = (Data)data;
+
+            UniqueId = state.UID;
+            transform.position = state.Position;
+            PendingTask = state.PendingTask;
+            _furnitureData = state.FurnitureData;
+            _isBuilt = state.IsBuilt;
+            _isDeconstructing = state.IsDeconstructing;
+            _isCraftingTable = state.IsCraftingTable;
+            _remainingResourceCosts = state.RemainingResourceCosts;
+            _placementDirection = state.PlacementDirection;
+            
+            // var missingItems = GetRemainingMissingItems();
+            // CraftMissingItems(missingItems);
+            if (!_isBuilt)
+            {
+                PrepForConstruction();
+            }
+            
+            CheckIfAllResourcesLoaded();
+            CreatePrefab(_placementDirection);
+            ShowBlueprint(!_isBuilt);
+            
+        }
+
+        public struct Data
+        {
+            public string UID;
+            public Vector3 Position;
+            public TaskType PendingTask;
+            public FurnitureData FurnitureData;
+            public bool IsBuilt;
+            public bool IsDeconstructing;
+            public bool IsCraftingTable;
+            public List<ItemAmount> RemainingResourceCosts;
+            public PlacementDirection PlacementDirection;
+
+            public CraftingTable.CraftingTableData CraftingTableData;
         }
     }
     

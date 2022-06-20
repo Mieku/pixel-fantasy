@@ -29,7 +29,7 @@ namespace Items
         private bool _isDeconstructing;
         private UnitTaskAI _incomingUnit;
         private Tilemap _structureTilemap;
-        
+
         public TaskType PendingTask;
         
         private TaskMaster taskMaster => TaskMaster.Instance;
@@ -306,7 +306,7 @@ namespace Items
                 },
             };
 
-            PendingTask = TaskType.TakeItemToItemSlot;
+            PendingTask = TaskType.TakeResourceToBlueprint;
             _assignedTaskRefs.Add(task.GetHashCode());
             return task;
         }
@@ -454,12 +454,13 @@ namespace Items
             }
         }
 
-        public void CreateDeconstructionTask()
+        public ConstructionTask.DeconstructStructure CreateDeconstructionTask(bool autoAssign = true)
         {
             _isDeconstructing = true;
             SetIcon("Hammer");
             var task = new ConstructionTask.DeconstructStructure()
             {
+                TargetUID = UniqueId,
                 claimStructure = (UnitTaskAI unitTaskAI) =>
                 {
                     _incomingUnit = unitTaskAI;
@@ -470,8 +471,13 @@ namespace Items
             };
             
             _assignedTaskRefs.Add(task.GetHashCode());
-            
-            taskMaster.ConstructionTaskSystem.AddTask(task);
+
+            if (autoAssign)
+            {
+                taskMaster.ConstructionTaskSystem.AddTask(task);
+            }
+
+            return task;
         }
 
         private void CompleteDeconstruction()

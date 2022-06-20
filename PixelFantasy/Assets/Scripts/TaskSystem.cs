@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Actions;
 using CodeMonkey.Utils;
 using Characters;
 using UnityEngine;
@@ -25,6 +26,11 @@ public abstract class TaskBase
 {
     public virtual TaskType TaskType { get; }
     public virtual string TargetUID { get; set; }
+    public ActionBase TaskAction;
+    public string RequestorUID;
+    public string ReceiverUID;
+    public Action<ActionBase> OnTaskAccepted;
+    public Action OnCompleteTask;
 }
 
 [Serializable]

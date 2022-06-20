@@ -1,4 +1,5 @@
 using System;
+using Actions;
 using Characters;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ namespace Tasks
             public override TaskType TaskType => TaskType.CutTree;
             public Action<UnitTaskAI> claimTree;
             public Vector3 treePosition;
-            public Action completeWork;
+            //public Action completeWork;
             public float workAmount;
         }
     }

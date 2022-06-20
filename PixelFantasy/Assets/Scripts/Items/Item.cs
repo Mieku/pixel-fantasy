@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Actions;
 using Controllers;
 using DataPersistence;
 using Gods;
@@ -12,7 +13,7 @@ using UnityEngine;
 
 namespace Items
 {
-    public class Item : UniqueObject, IClickableObject, IPersistent
+    public class Item : Interactable, IClickableObject, IPersistent
     {
         [SerializeField] private ItemData _itemData;
         [SerializeField] private SpriteRenderer _spriteRenderer;
@@ -189,6 +190,11 @@ namespace Items
             
 
             return results;
+        }
+
+        public List<ActionBase> GetActions()
+        {
+            return AvailableActions;
         }
 
         public bool IsOrderActive(Order order)

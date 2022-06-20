@@ -13,8 +13,8 @@ namespace Items
     {
         [SerializeField] protected bool _overrideFullGrowth;
         [SerializeField] protected SpriteRenderer _fruitOverlay;
-        
-        protected int _growthIndex;
+
+        public int _growthIndex;
         protected float _ageSec;
         protected float _ageForNextGrowth;
         protected bool _fullyGrown;
@@ -22,7 +22,7 @@ namespace Items
         protected float _fruitTimer;
         protected bool _hasFruitAvailable;
         protected bool _queuedToHarvest;
-
+        
         public bool HasFruitAvailable => _hasFruitAvailable;
         public bool QueuedToHarvest => _queuedToHarvest;
         public List<GameObject> TaskRequestors = new List<GameObject>();
@@ -266,7 +266,7 @@ namespace Items
             CancelTasks();
         }
         
-        protected void CutDownPlant()
+        public void CutDownPlant()
         {
             var resources = _growingResourceData.GetGrowthStage(_growthIndex).HarvestableItems.GetItemDrop();
             foreach (var resource in resources)
@@ -298,7 +298,7 @@ namespace Items
             Destroy(gameObject);
         }
 
-        protected override void CancelTasks()
+        public override void CancelTasks()
         {
             base.CancelTasks();
 
@@ -331,6 +331,11 @@ namespace Items
             }
         }
         
+        public override int GetWorkAmount()
+        {
+            return _growingResourceData.GetWorkToCut(_growthIndex);
+        }
+        
         public override void AssignOrder(Order orderToAssign)
         {
             switch (orderToAssign)
@@ -344,20 +349,20 @@ namespace Items
             }
         }
 
-        protected override void RestorePendingTask(TaskType pendingTask)
-        {
-            base.RestorePendingTask(pendingTask);
-
-            if (pendingTask == TaskType.CutPlant)
-            {
-                CreateCutPlantTask();
-            }
-
-            if (pendingTask == TaskType.HarvestFruit)
-            {
-                CreateHarvestFruitTask();
-            }
-        }
+        // protected override void RestorePendingTask(TaskType pendingTask)
+        // {
+        //     base.RestorePendingTask(pendingTask);
+        //
+        //     if (pendingTask == TaskType.CutPlant)
+        //     {
+        //         CreateCutPlantTask();
+        //     }
+        //
+        //     if (pendingTask == TaskType.HarvestFruit)
+        //     {
+        //         CreateHarvestFruitTask();
+        //     }
+        // }
 
         public override object CaptureState()
         {

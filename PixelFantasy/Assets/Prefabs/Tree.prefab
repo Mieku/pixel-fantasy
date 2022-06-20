@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.718, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7155256550479724480}
   m_RootOrder: 2
@@ -42,6 +43,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -109,6 +111,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.029, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7155256550479724480}
   m_RootOrder: 1
@@ -124,6 +127,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -192,6 +196,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7155256550381879068}
   m_RootOrder: 0
@@ -207,6 +212,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -289,6 +295,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7155256550479724480}
   m_RootOrder: 0
@@ -347,6 +354,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6258552550227322581}
   m_Father: {fileID: 7155256551760761717}
@@ -363,6 +371,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -445,6 +454,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.025, y: 0.244, z: 0}
   m_LocalScale: {x: 0.6877, y: 0.6877, z: 0.6877}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7155256551760761717}
   m_RootOrder: 3
@@ -460,6 +470,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -527,6 +538,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2639765302897239261}
   - {fileID: 9129166101957474166}
@@ -573,6 +585,7 @@ GameObject:
   - component: {fileID: 7155256551760761719}
   - component: {fileID: 7155256551760761716}
   - component: {fileID: 7069223065334861981}
+  - component: {fileID: 2577075173032586311}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Nature
@@ -590,6 +603,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 33.5, y: 32.5, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7155256550381879068}
   - {fileID: 6705049522014432385}
@@ -611,7 +625,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  uniqueID: 7282397208338993440
+  uniqueID: 3263475993492491193
   updateError: 1
   checkTime: 0.2
 --- !u!114 &7155256551760761719
@@ -642,12 +656,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdf2c47b14719e44d9344aa73169d375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _icon: {fileID: 7155256550430962553}
+  AvailableActions:
+  - {fileID: 11400000, guid: d9ffeb369b9cf3148ac31bd1c9eddff5, type: 2}
+  PendingTasks: []
+  InProgressTasks: []
+  Prefab: {fileID: 0}
   _growingResourceData: {fileID: 11400000, guid: 9c8bbcd46ae9d7c44b18552b98e9d7c7, type: 2}
   _spriteRenderer: {fileID: 7155256550381879070}
-  _icon: {fileID: 7155256550430962553}
   _clickObject: {fileID: 7155256551760761719}
+  _assignedTaskRefs: 
+  _incomingUnit: {fileID: 0}
+  PendingTask: 0
   _overrideFullGrowth: 1
   _fruitOverlay: {fileID: 6319101082123291704}
+  _growthIndex: 0
   TaskRequestors: []
 --- !u!61 &7069223065334861981
 BoxCollider2D:
@@ -675,6 +698,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.7064762, y: 2.26659}
   m_EdgeRadius: 0
+--- !u!114 &2577075173032586311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7155256551760761722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38a6c3d8b701419438d0085270a1c006, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: 
 --- !u!1 &7312772814564397272
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,6 +738,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7155256551760761717}
   m_RootOrder: 1

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Actions;
 using DataPersistence;
 using Gods;
 using Interfaces;
@@ -11,35 +13,40 @@ using UnityEngine;
 
 namespace Items
 {
-    public class Resource : UniqueObject, IClickableObject, IPersistent
+    [RequireComponent(typeof(Interactable))]
+    public class Resource : Interactable, IClickableObject, IPersistent
     {
         public GameObject Prefab;
         
-        [SerializeField] protected GrowingResourceData _growingResourceData;
+        [SerializeField] public GrowingResourceData _growingResourceData;
         [SerializeField] protected SpriteRenderer _spriteRenderer;
-        [SerializeField] protected SpriteRenderer _icon;
+        //[SerializeField] protected SpriteRenderer _icon;
         [SerializeField] private ClickObject _clickObject;
         
         protected TaskMaster taskMaster => TaskMaster.Instance;
         protected Spawner spawner => Spawner.Instance;
-        protected List<int> _assignedTaskRefs = new List<int>();
+        public List<int> _assignedTaskRefs = new List<int>();
         protected bool _queuedToCut;
-        protected UnitTaskAI _incomingUnit;
+        public UnitTaskAI _incomingUnit;
         public TaskType PendingTask;
-
+        
         public GrowingResourceData GetResourceData()
         {
             return _growingResourceData;
         }
         
-        public bool QueuedToCut => _queuedToCut;
+        public bool QueuedToCut
+        {
+            get => _queuedToCut;
+            set => _queuedToCut = value;
+        }
 
         public ClickObject GetClickObject()
         {
             return _clickObject;
         }
 
-        protected virtual void CancelTasks()
+        public virtual void CancelTasks()
         {
             if (_assignedTaskRefs == null || _assignedTaskRefs.Count == 0) return;
 
@@ -60,22 +67,22 @@ namespace Items
             
             RefreshSelection();
         }
-        
-        protected void SetIcon(string iconName)
+
+        public void SetIcon(string iconName)
         {
-            if (string.IsNullOrEmpty(iconName))
-            {
-                _icon.sprite = null;
-                _icon.gameObject.SetActive(false);
-            }
-            else
-            {
-                _icon.sprite = Librarian.Instance.GetSprite(iconName);
-                _icon.gameObject.SetActive(true);
-            }
+            // if (string.IsNullOrEmpty(iconName))
+            // {
+            //     _icon.sprite = null;
+            //     _icon.gameObject.SetActive(false);
+            // }
+            // else
+            // {
+            //     _icon.sprite = Librarian.Instance.GetSprite(iconName);
+            //     _icon.gameObject.SetActive(true);
+            // }
         }
-        
-        protected void RefreshSelection()
+
+        public void RefreshSelection()
         {
             if (_clickObject.IsSelected)
             {
@@ -88,6 +95,11 @@ namespace Items
         public virtual void ToggleAllowed(bool isAllowed)
         {
             
+        }
+
+        public virtual List<ActionBase> GetActions()
+        {
+            return AvailableActions;
         }
 
         public virtual List<Order> GetOrders()
@@ -123,6 +135,7 @@ namespace Items
                 IsAllowed = this.IsAllowed,
                 IsClickDisabled = this.IsClickDisabled,
                 PendingTask = PendingTask,
+                PendingTasks = PendingTasks,
             };
         }
 
@@ -135,9 +148,10 @@ namespace Items
             _growingResourceData = stateData.GrowingResourceData;
             IsAllowed = stateData.IsAllowed;
             IsClickDisabled = stateData.IsClickDisabled;
-            PendingTask = stateData.PendingTask;
             
-            RestorePendingTask(stateData.PendingTask);
+            RestoreTasks(stateData.PendingTasks);
+            
+            //RestorePendingTask(stateData.PendingTask);
         }
 
         public struct Data
@@ -149,6 +163,7 @@ namespace Items
             public bool IsAllowed;
             public bool IsClickDisabled;
             public TaskType PendingTask;
+            public List<ActionBase> PendingTasks;
 
             public GrowingResource.GrowingData GrowingData;
         }

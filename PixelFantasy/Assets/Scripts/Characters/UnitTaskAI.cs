@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using Actions;
 using Characters;
 using Characters.Interfaces;
 using DataPersistence;
@@ -12,7 +14,7 @@ using Random = UnityEngine.Random;
 
 namespace Characters
 {
-    public class UnitTaskAI : MonoBehaviour
+    public class UnitTaskAI : UniqueObject
     {
         // TODO: Make this no longer be able to be changed in inspector later
         [SerializeField] private ProfessionData professionData;
@@ -35,6 +37,12 @@ namespace Characters
         private float _workSpeed = 1f;
         private Item _heldItem;
 
+        public ActionBase currentAction;
+        public string currentActionRequestorUID;
+
+        private bool _isGameLoading;
+        private bool _isGameSaving;
+
         private const float WAIT_TIMER_MAX = .2f; // 200ms
 
         private static TaskMaster taskMaster => TaskMaster.Instance;
@@ -43,10 +51,46 @@ namespace Characters
         {
             workerMover = GetComponent<IMovePosition>();
             thought = GetComponent<UnitThought>();
+
+            GameEvents.OnSavingGameBeginning += OnGameSaveStarted;
+            GameEvents.OnSavingGameEnd += OnGameSaveEnded;
+            GameEvents.OnLoadingGameBeginning += OnGameLoadStarted;
+            GameEvents.OnLoadingGameEnd += OnGameLoadEnded;
         }
-        
+
+        private void OnDestroy()
+        {
+            GameEvents.OnSavingGameBeginning -= OnGameSaveStarted;
+            GameEvents.OnSavingGameEnd -= OnGameSaveEnded;
+            GameEvents.OnLoadingGameBeginning -= OnGameLoadStarted;
+            GameEvents.OnLoadingGameEnd -= OnGameLoadEnded;
+        }
+
+        private void OnGameLoadStarted()
+        {
+            _isGameLoading = true;
+        }
+
+        private void OnGameLoadEnded()
+        {
+            _isGameLoading = false;
+        }
+
+        private void OnGameSaveStarted()
+        {
+            _isGameSaving = true;
+        }
+
+        private void OnGameSaveEnded()
+        {
+            _isGameSaving = false;
+        }
+
         private void Update()
         {
+            if (_isGameLoading) return;
+            if (_isGameSaving) return;
+            
             switch (state)
             {
                 case State.WaitingForNextTask:
@@ -304,6 +348,10 @@ namespace Characters
 
         private void ExecuteTask_CutTree(FellingTask.CutTree task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
+            task.ReceiverUID = UniqueId;
             task.claimTree(this);
             workerMover.SetMovePosition(GetAdjacentPosition(task.treePosition), () =>
             {
@@ -311,7 +359,8 @@ namespace Characters
                 _unitAnim.SetUnitAction(UnitAction.Axe);
                 DoWork(task.workAmount, () =>
                 {
-                    task.completeWork();
+                    currentAction = null;
+                    task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
                 });
@@ -511,11 +560,18 @@ namespace Characters
                 TargetUID = targetUID,
                 ClaimedSlotUID = slotUID,
                 HeldItemData = heldItemData,
+                ProfessionData = professionData,
+                CurrentAction = currentAction,
+                CurrentActionRequestorUID = currentActionRequestorUID,
             };
         }
 
         public void SetLoadData(UnitTaskData taskData)
         {
+            professionData = taskData.ProfessionData;
+            currentAction = taskData.CurrentAction;
+            currentActionRequestorUID = taskData.CurrentActionRequestorUID;
+            
             if (!string.IsNullOrEmpty(taskData.ClaimedSlotUID))
             {
                 var slotGO = UIDManager.Instance.GetGameObject(taskData.ClaimedSlotUID);
@@ -533,109 +589,159 @@ namespace Characters
                 childObj.GetComponent<IPersistent>().RestoreState(itemData);
                 _heldItem = childObj.GetComponent<Item>();
             }
+            
+            ResumeCurrentAction();
 
-            if (taskData.WasExecutingTask)
-            {
-                ResumeLoadedTask(taskData);
-            }
+            // if (taskData.WasExecutingTask)
+            // {
+            //     ResumeLoadedTask(taskData);
+            // }
         }
 
-        private void ResumeLoadedTask(UnitTaskData taskData)
+        private void ResumeCurrentAction()
         {
-            var curTask = taskData.CurTask;
-            var targetGO = UIDManager.Instance.GetGameObject(taskData.TargetUID);
+            if (currentAction == null) return;
 
-            switch (curTask)
-            {
-                case TaskType.None:
-                    break;
-                case TaskType.CutTree:
-                    var tree = targetGO.GetComponent<TreeResource>();
-                    ExecuteTask(tree.CreateCutTreeTask(false));
-                    break;
-                case TaskType.HarvestFruit:
-                    var fruitingPlant = targetGO.GetComponent<GrowingResource>();
-                    ExecuteTask(fruitingPlant.CreateHarvestFruitTask(false));
-                    break;
-                case TaskType.CutPlant:
-                    var plantToCut = targetGO.GetComponent<GrowingResource>();
-                    ExecuteTask(plantToCut.CreateCutPlantTask(false));
-                    break;
-                case TaskType.ClearGrass:
-                    var dirtTile = targetGO.GetComponent<DirtTile>();
-                    _curTask = dirtTile.CreateClearGrassTask(false);
-                    ExecuteTask(_curTask);
-                    break;
-                case TaskType.DigHole:
-                case TaskType.PlantCrop:
-                case TaskType.WaterCrop:
-                case TaskType.HarvestCrop:
-                case TaskType.Carpentry_CraftItem:
-                case TaskType.Carpentry_GatherResourceForCrafting:
-                case TaskType.GarbageCleanup:
-                case TaskType.ConstructStructure:
-                    var constStructure = targetGO.GetComponent<Structure>();
-                    if (constStructure != null)
-                    {
-                        _curTask = constStructure.CreateConstructStructureTask(false);
-                        ExecuteTask(_curTask);
-                    }
-                    
-                    var constFloor = targetGO.GetComponent<Floor>();
-                    if (constFloor != null)
-                    {
-                        _curTask = constFloor.CreateConstructFloorTask(false);
-                        ExecuteTask(_curTask);
-                    }
-                    break;
-                case TaskType.DeconstructStructure:
-                case TaskType.EmergencyTask_MoveToPosition:
-                case TaskType.TakeItemToItemSlot:
-                    var item = targetGO.GetComponent<Item>();
-                    ControllerManager.Instance.InventoryController.AddItemToPending(item);
-                    claimedSlot.AddItemIncoming(item);
-                    ExecuteTask(item.CreateHaulTaskForSlot(claimedSlot));
-                    break;
-                case TaskType.TakeResourceToBlueprint:
-                    var structure = targetGO.GetComponent<Structure>();
-                    if (structure != null)
-                    {
-                        if (_heldItem != null)
-                        {
-                            structure.AddToPendingResourceCosts(_heldItem.GetItemData());
-                            var task_resourceToBlueprint = structure.CreateTakeResourceToBlueprintTask(_heldItem);
-                            ExecuteTask(task_resourceToBlueprint);
-                        }
-                        else if(claimedSlot != null)
-                        {
-                            var task_resourceToBlueprint = structure.CreateTakeResourceFromSlotToBlueprintTask(claimedSlot);
-                            ExecuteTask(task_resourceToBlueprint);
-                        }
-                    }
+            var requestor = UIDManager.Instance.GetGameObject(currentActionRequestorUID).GetComponent<Interactable>();
+            var task = currentAction.RestoreTask(requestor, false);
 
-                    var floor = targetGO.GetComponent<Floor>();
-                    if (floor != null)
-                    {
-                        if (_heldItem != null)
-                        {
-                            floor.AddToPendingResourceCosts(_heldItem.GetItemData());
-                            var task_resourceToBlueprint = floor.CreateTakeResourceToBlueprintTask(_heldItem);
-                            ExecuteTask(task_resourceToBlueprint);
-                            break;
-                        }
-                        else if(claimedSlot != null)
-                        {
-                            var task_resourceToBlueprint = floor.CreateTakeResourceFromSlotToBlueprintTask(claimedSlot);
-                            ExecuteTask(task_resourceToBlueprint);
-                            break;
-                        }
-                    }
-                    
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            ExecuteTask(task);
         }
+
+        // private void ResumeLoadedTask(UnitTaskData taskData)
+        // {
+        //     var curTask = taskData.CurTask;
+        //     var targetGO = UIDManager.Instance.GetGameObject(taskData.TargetUID);
+        //
+        //     switch (curTask)
+        //     {
+        //         case TaskType.None:
+        //             break;
+        //         case TaskType.CutTree:
+        //             var tree = targetGO.GetComponent<TreeResource>();
+        //             ExecuteTask(tree.CreateCutTreeTask(false));
+        //             break;
+        //         case TaskType.HarvestFruit:
+        //             var fruitingPlant = targetGO.GetComponent<GrowingResource>();
+        //             ExecuteTask(fruitingPlant.CreateHarvestFruitTask(false));
+        //             break;
+        //         case TaskType.CutPlant:
+        //             // var plantToCut = targetGO.GetComponent<GrowingResource>();
+        //             // ExecuteTask(plantToCut.CreateCutPlantTask(false));
+        //             break;
+        //         case TaskType.ClearGrass:
+        //             var dirtTile = targetGO.GetComponent<DirtTile>();
+        //             _curTask = dirtTile.CreateClearGrassTask(false);
+        //             ExecuteTask(_curTask);
+        //             break;
+        //         case TaskType.DigHole:
+        //         case TaskType.PlantCrop:
+        //         case TaskType.WaterCrop:
+        //         case TaskType.HarvestCrop:
+        //         case TaskType.Carpentry_CraftItem:
+        //         case TaskType.Carpentry_GatherResourceForCrafting:
+        //             // var craftingTable = targetGO.GetComponent<CraftingTable>();
+        //             // if (_heldItem != null)
+        //             // {
+        //             //     _curTask = CraftMaster.Instance.CreateGatherResourceForCraftingTask(_heldItem, craftingTable);
+        //             //     ExecuteTask(_curTask);
+        //             // } else if (claimedSlot != null)
+        //             // {
+        //             //     _curTask = CraftMaster.Instance.CreateGatherResourceForCraftingTask(claimedSlot, craftingTable);
+        //             //     ExecuteTask(_curTask);
+        //             // }
+        //             // break;
+        //         case TaskType.GarbageCleanup:
+        //         case TaskType.ConstructStructure:
+        //             var constStructure = targetGO.GetComponent<Structure>();
+        //             if (constStructure != null)
+        //             {
+        //                 _curTask = constStructure.CreateConstructStructureTask(false);
+        //                 ExecuteTask(_curTask);
+        //             }
+        //             
+        //             var constFloor = targetGO.GetComponent<Floor>();
+        //             if (constFloor != null)
+        //             {
+        //                 _curTask = constFloor.CreateConstructFloorTask(false);
+        //                 ExecuteTask(_curTask);
+        //             }
+        //
+        //             var constFurniture = targetGO.GetComponent<Furniture>();
+        //             if (constFurniture != null)
+        //             {
+        //                 _curTask = constFurniture.CreateConstructFurnitureTask(false);
+        //                 ExecuteTask(_curTask);
+        //             }
+        //             break;
+        //         case TaskType.DeconstructStructure:
+        //         case TaskType.EmergencyTask_MoveToPosition:
+        //         case TaskType.TakeItemToItemSlot:
+        //             var item = targetGO.GetComponent<Item>();
+        //             ControllerManager.Instance.InventoryController.AddItemToPending(item);
+        //             claimedSlot.AddItemIncoming(item);
+        //             ExecuteTask(item.CreateHaulTaskForSlot(claimedSlot));
+        //             break;
+        //         case TaskType.TakeResourceToBlueprint:
+        //             var structure = targetGO.GetComponent<Structure>();
+        //             if (structure != null)
+        //             {
+        //                 if (_heldItem != null)
+        //                 {
+        //                     structure.AddToPendingResourceCosts(_heldItem.GetItemData());
+        //                     var task_resourceToBlueprint = structure.CreateTakeResourceToBlueprintTask(_heldItem);
+        //                     ExecuteTask(task_resourceToBlueprint);
+        //                     break;
+        //                 }
+        //                 else if(claimedSlot != null)
+        //                 {
+        //                     var task_resourceToBlueprint = structure.CreateTakeResourceFromSlotToBlueprintTask(claimedSlot);
+        //                     ExecuteTask(task_resourceToBlueprint);
+        //                     break;
+        //                 }
+        //             }
+        //
+        //             var floor = targetGO.GetComponent<Floor>();
+        //             if (floor != null)
+        //             {
+        //                 if (_heldItem != null)
+        //                 {
+        //                     floor.AddToPendingResourceCosts(_heldItem.GetItemData());
+        //                     var task_resourceToBlueprint = floor.CreateTakeResourceToBlueprintTask(_heldItem);
+        //                     ExecuteTask(task_resourceToBlueprint);
+        //                     break;
+        //                 }
+        //                 else if(claimedSlot != null)
+        //                 {
+        //                     var task_resourceToBlueprint = floor.CreateTakeResourceFromSlotToBlueprintTask(claimedSlot);
+        //                     ExecuteTask(task_resourceToBlueprint);
+        //                     break;
+        //                 }
+        //             }
+        //             
+        //             var furniture = targetGO.GetComponent<Furniture>();
+        //             if (furniture != null)
+        //             {
+        //                 if (_heldItem != null)
+        //                 {
+        //                     furniture.AddToPendingResourceCosts(_heldItem.GetItemData());
+        //                     var task_resourceToBlueprint = furniture.CreateTakeResourceToBlueprintTask(_heldItem);
+        //                     ExecuteTask(task_resourceToBlueprint);
+        //                     break;
+        //                 }
+        //                 else if(claimedSlot != null)
+        //                 {
+        //                     var task_resourceToBlueprint = furniture.CreateTakeResourceToBlueprintFromSlotTask(claimedSlot);
+        //                     ExecuteTask(task_resourceToBlueprint);
+        //                     break;
+        //                 }
+        //             }
+        //             
+        //             break;
+        //         default:
+        //             throw new ArgumentOutOfRangeException();
+        //     }
+        // }
 
         public struct UnitTaskData
         {
@@ -644,6 +750,10 @@ namespace Characters
             public bool WasExecutingTask;
             public string ClaimedSlotUID;
             public object HeldItemData;
+            public ProfessionData ProfessionData;
+            
+            public ActionBase CurrentAction;
+            public string CurrentActionRequestorUID;
         }
     }
 }
