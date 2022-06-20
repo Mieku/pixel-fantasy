@@ -199,7 +199,7 @@ namespace Items
 
                     if (!growResource.QueuedToCut)
                     {
-                        growResource.CreateCutPlantTask();
+                        growResource.CreateTaskById("Cut Plant");
                     }
                 }
             }

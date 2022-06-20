@@ -17,7 +17,6 @@ namespace Items
     {
         [SerializeField] private ItemData _itemData;
         [SerializeField] private SpriteRenderer _spriteRenderer;
-        [SerializeField] private SpriteRenderer _icon;
         [SerializeField] private ClickObject _clickObject;
 
         private int _assignedTaskRef;
@@ -124,14 +123,14 @@ namespace Items
             IsAllowed = isAllowed;
             if (IsAllowed)
             {
-                _icon.gameObject.SetActive(false);
-                _icon.sprite = null;
+                //_icon.gameObject.SetActive(false);
+                //_icon.sprite = null;
                 CreateHaulTask();
             }
             else
             {
-                _icon.gameObject.SetActive(true);
-                _icon.sprite = Librarian.Instance.GetSprite("Lock");
+                //_icon.gameObject.SetActive(true);
+                //_icon.sprite = Librarian.Instance.GetSprite("Lock");
                 CancelAssignedTask();
             }
             

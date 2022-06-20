@@ -1,4 +1,5 @@
 using System;
+using Gods;
 using UnityEngine;
 
 namespace Actions
@@ -8,14 +9,26 @@ namespace Actions
         public string id;
         public Sprite Icon;
 
+        protected TaskMaster taskMaster => TaskMaster.Instance;
+        
         public virtual TaskBase CreateTask(Interactable requestor, bool autoAssign = true)
         {
             return null;
         }
 
-        public virtual TaskBase RestoreTask(Interactable requestor, bool autoAssign = true)
+        public virtual void OnTaskComplete(Interactable requestor)
         {
-            return null;
+            // Needs to be filled
+        }
+
+        public virtual bool IsTaskAvailable(Interactable requestor)
+        {
+            return true;
+        }
+        
+        public TaskBase RestoreTask(Interactable requestor, bool autoAssign = true)
+        {
+            return CreateTask(requestor, autoAssign);
         }
     }
 }

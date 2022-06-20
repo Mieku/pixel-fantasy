@@ -39,13 +39,15 @@ MonoBehaviour:
         MinDrop: 1
         MaxDrop: 2
     WorkToCut: 8
-  _options: 0300000004000000
   _invalidPlacementTags:
   - Water
   - Nature
   - Structure
   - Zone
   - Dirt
+  _availableActions:
+  - {fileID: 11400000, guid: 589250b837e32b84d90b6e4686766a41, type: 2}
+  - {fileID: 11400000, guid: a7166ebc6f232d74099cae1549979e23, type: 2}
   _hasFruit: 1
   _growFruitTime: 60
   _fruitOverlay: {fileID: -6347962645321781943, guid: 825658b1c6986bd46b087bb3ad70d904, type: 3}

@@ -12,7 +12,6 @@ namespace Tasks
             public override TaskType TaskType => TaskType.CutPlant;
             public Action<UnitTaskAI> claimPlant;
             public Vector3 plantPosition;
-            public Action completeWork;
             public float workAmount;
         }
 
@@ -21,7 +20,6 @@ namespace Tasks
             public override TaskType TaskType => TaskType.HarvestFruit;
             public Action<UnitTaskAI> claimPlant;
             public Vector3 plantPosition;
-            public Action completeWork;
             public float workAmount;
         }
 

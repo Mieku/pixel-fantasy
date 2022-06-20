@@ -22,27 +22,11 @@ namespace Items
                 spawner.SpawnTree(pos, GetResourceData());
             }
         }
-
-        public void CreateCutTreeTask()
-        {
-            // if (_queuedToCut)
-            // {
-            //     CancelCutTreeTask();
-            // }
-            //
-            // CancelTasks();
-            //_queuedToCut = true;
-            SetIcon("Axe");
-
-            // _curTask = ActionCutTree.CreateTask(this, CutDownPlant);
-            // SetTaskToPending(_curTask);
-            //CreateTask(cutTreeAction);
-        }
-
+        
         public void CancelCutTreeTask()
         {
             _queuedToCut = false;
-            SetIcon(null);
+            //SetIcon(null);
             CancelTasks();
         }
 

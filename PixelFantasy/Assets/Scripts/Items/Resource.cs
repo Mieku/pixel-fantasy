@@ -20,7 +20,6 @@ namespace Items
         
         [SerializeField] public GrowingResourceData _growingResourceData;
         [SerializeField] protected SpriteRenderer _spriteRenderer;
-        //[SerializeField] protected SpriteRenderer _icon;
         [SerializeField] private ClickObject _clickObject;
         
         protected TaskMaster taskMaster => TaskMaster.Instance;
@@ -28,8 +27,7 @@ namespace Items
         public List<int> _assignedTaskRefs = new List<int>();
         protected bool _queuedToCut;
         public UnitTaskAI _incomingUnit;
-        public TaskType PendingTask;
-        
+
         public GrowingResourceData GetResourceData()
         {
             return _growingResourceData;
@@ -49,8 +47,7 @@ namespace Items
         public virtual void CancelTasks()
         {
             if (_assignedTaskRefs == null || _assignedTaskRefs.Count == 0) return;
-
-            PendingTask = TaskType.None;
+            
             foreach (var taskRef in _assignedTaskRefs)
             {
                 taskMaster.FellingTaskSystem.CancelTask(taskRef);
@@ -67,21 +64,7 @@ namespace Items
             
             RefreshSelection();
         }
-
-        public void SetIcon(string iconName)
-        {
-            // if (string.IsNullOrEmpty(iconName))
-            // {
-            //     _icon.sprite = null;
-            //     _icon.gameObject.SetActive(false);
-            // }
-            // else
-            // {
-            //     _icon.sprite = Librarian.Instance.GetSprite(iconName);
-            //     _icon.gameObject.SetActive(true);
-            // }
-        }
-
+        
         public void RefreshSelection()
         {
             if (_clickObject.IsSelected)
@@ -116,14 +99,7 @@ namespace Items
         {
             throw new System.NotImplementedException();
         }
-
-        protected virtual void RestorePendingTask(TaskType pendingTask)
-        {
-            if(pendingTask == TaskType.None) return;
-            
-            
-        }
-
+        
         public virtual object CaptureState()
         {
             return new Data
@@ -134,7 +110,6 @@ namespace Items
                 GrowingResourceData = _growingResourceData,
                 IsAllowed = this.IsAllowed,
                 IsClickDisabled = this.IsClickDisabled,
-                PendingTask = PendingTask,
                 PendingTasks = PendingTasks,
             };
         }
@@ -150,8 +125,6 @@ namespace Items
             IsClickDisabled = stateData.IsClickDisabled;
             
             RestoreTasks(stateData.PendingTasks);
-            
-            //RestorePendingTask(stateData.PendingTask);
         }
 
         public struct Data
@@ -162,7 +135,6 @@ namespace Items
             public GrowingResourceData GrowingResourceData;
             public bool IsAllowed;
             public bool IsClickDisabled;
-            public TaskType PendingTask;
             public List<ActionBase> PendingTasks;
 
             public GrowingResource.GrowingData GrowingData;

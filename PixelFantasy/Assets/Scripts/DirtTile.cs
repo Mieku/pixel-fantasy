@@ -151,7 +151,7 @@ public class DirtTile : UniqueObject, IPersistent
 
                 if (!growResource.QueuedToCut)
                 {
-                    growResource.CreateCutPlantTask();
+                    growResource.CreateTaskById("Cut Plant");
                 }
             }
         }

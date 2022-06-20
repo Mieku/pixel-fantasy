@@ -369,6 +369,10 @@ namespace Characters
         
         private void ExecuteTask_CutPlant(FarmingTask.CutPlant task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
+            task.ReceiverUID = UniqueId;
             task.claimPlant(this);
             workerMover.SetMovePosition(GetAdjacentPosition(task.plantPosition, 0.5f), () =>
             {
@@ -376,7 +380,8 @@ namespace Characters
                 _unitAnim.SetUnitAction(UnitAction.Doing);
                 DoWork(task.workAmount, () =>
                 {
-                    task.completeWork();
+                    currentAction = null;
+                    task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
                 });
@@ -385,6 +390,10 @@ namespace Characters
         
         private void ExecuteTask_HarvestFruit(FarmingTask.HarvestFruit task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
+            task.ReceiverUID = UniqueId;
             task.claimPlant(this);
             workerMover.SetMovePosition(GetAdjacentPosition(task.plantPosition, 0.5f), () =>
             {
@@ -392,7 +401,8 @@ namespace Characters
                 _unitAnim.SetUnitAction(UnitAction.Doing);
                 DoWork(task.workAmount, () =>
                 {
-                    task.completeWork();
+                    currentAction = null;
+                    task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
                 });

@@ -19,7 +19,6 @@ namespace Items
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private GraphUpdateScene _pathGraphUpdater;
-        [SerializeField] private SpriteRenderer _icon;
 
         private FloorData _floorData;
         private List<ItemAmount> _remainingResourceCosts;
@@ -167,7 +166,7 @@ namespace Items
 
                     if (!growResource.QueuedToCut)
                     {
-                        growResource.CreateCutPlantTask();
+                        growResource.CreateTaskById("Cut Plant");
                     }
                 }
             }
@@ -432,7 +431,7 @@ namespace Items
         public void CreateDeconstructionTask()
         {
             _isDeconstructing = true;
-            SetIcon("Hammer");
+            //SetIcon("Hammer");
             var task = new ConstructionTask.DeconstructStructure()
             {
                 claimStructure = (UnitTaskAI unitTaskAI) =>
@@ -471,7 +470,7 @@ namespace Items
         {
             _isDeconstructing = false;
             CancelTasks();
-            SetIcon(null);
+            //SetIcon(null);
 
             if (_incomingUnit != null)
             {
@@ -484,33 +483,33 @@ namespace Items
             return _isDeconstructing;
         }
 
-        private void SetIcon(string iconName)
-        {
-            if (string.IsNullOrEmpty(iconName))
-            {
-                _icon.sprite = null;
-                _icon.gameObject.SetActive(false);
-            }
-            else
-            {
-                _icon.sprite = Librarian.Instance.GetSprite(iconName);
-                _icon.gameObject.SetActive(true);
-            }
-        }
+        // private void SetIcon(string iconName)
+        // {
+        //     if (string.IsNullOrEmpty(iconName))
+        //     {
+        //         _icon.sprite = null;
+        //         _icon.gameObject.SetActive(false);
+        //     }
+        //     else
+        //     {
+        //         _icon.sprite = Librarian.Instance.GetSprite(iconName);
+        //         _icon.gameObject.SetActive(true);
+        //     }
+        // }
         
         public void ToggleAllowed(bool isAllowed)
         {
             IsAllowed = isAllowed;
             if (IsAllowed)
             {
-                _icon.gameObject.SetActive(false);
-                _icon.sprite = null;
+                //_icon.gameObject.SetActive(false);
+                //_icon.sprite = null;
                 PrepForConstruction();
             }
             else
             {
-                _icon.gameObject.SetActive(true);
-                _icon.sprite = Librarian.Instance.GetSprite("Lock");
+                //_icon.gameObject.SetActive(true);
+                //_icon.sprite = Librarian.Instance.GetSprite("Lock");
                 CancelTasks();
             }
         }

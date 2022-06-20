@@ -1,31 +1,27 @@
-using System;
-using System.Xml;
 using Characters;
-using Gods;
 using Items;
 using Tasks;
 using UnityEngine;
 
 namespace Actions
 {
-    [CreateAssetMenu(fileName = "Action", menuName ="Actions/CutTree", order = 50)]
-    public class ActionCutTree : ActionBase
+    [CreateAssetMenu(fileName = "ActionHarvestFruit", menuName ="Actions/HarvestFruit", order = 50)]
+    public class ActionHarvestFruit : ActionBase
     {
         public override TaskBase CreateTask(Interactable requestor, bool autoAssign = true)
         {
             requestor.DisplayTaskIcon(Icon);
-            
-            var task = new FellingTask.CutTree()
+
+            var task = new FarmingTask.HarvestFruit()
             {
                 RequestorUID = requestor.UniqueId,
                 TaskAction = this,
                 OnTaskAccepted = requestor.OnTaskAccepted,
-                claimTree = (UnitTaskAI unitTaskAI) =>
+                claimPlant = (UnitTaskAI unitTaskAI) =>
                 {
-                    // treeRequestor._incomingUnit = unitTaskAI;
-                    // treeRequestor.PendingTask = TaskType.None;
+                    //_incomingUnit = unitTaskAI;
                 },
-                treePosition = requestor.transform.position,
+                plantPosition = requestor.transform.position,
                 workAmount = requestor.GetWorkAmount(),
                 OnCompleteTask = () =>
                 {
@@ -35,17 +31,26 @@ namespace Actions
 
             if (autoAssign)
             {
-                taskMaster.FellingTaskSystem.AddTask(task);
+                taskMaster.FarmingTaskSystem.AddTask(task);
             }
 
             return task;
         }
 
+        /// <summary>
+        /// If the task should be shown to player, for example can't harvest fruit if no fruit
+        /// </summary>
+        public override bool IsTaskAvailable(Interactable requestor)
+        {
+            var growingResource = requestor.GetComponent<GrowingResource>();
+            return growingResource.HasFruitAvailable;
+        }
+        
         public override void OnTaskComplete(Interactable requestor)
         {
             requestor.OnTaskCompleted(this);
             var growingResource = requestor.GetComponent<GrowingResource>();
-            growingResource.CutDownPlant();
+            growingResource.HarvestFruit();
             requestor.DisplayTaskIcon(null);
         }
     }

@@ -1,31 +1,28 @@
-using System;
 using System.Xml;
 using Characters;
-using Gods;
 using Items;
 using Tasks;
 using UnityEngine;
 
 namespace Actions
 {
-    [CreateAssetMenu(fileName = "Action", menuName ="Actions/CutTree", order = 50)]
-    public class ActionCutTree : ActionBase
+    [CreateAssetMenu(fileName = "ActionCutPlant", menuName ="Actions/CutPlant", order = 50)]
+    public class ActionCutPlant : ActionBase
     {
         public override TaskBase CreateTask(Interactable requestor, bool autoAssign = true)
         {
             requestor.DisplayTaskIcon(Icon);
-            
-            var task = new FellingTask.CutTree()
+
+            var task = new FarmingTask.CutPlant()
             {
                 RequestorUID = requestor.UniqueId,
                 TaskAction = this,
                 OnTaskAccepted = requestor.OnTaskAccepted,
-                claimTree = (UnitTaskAI unitTaskAI) =>
+                claimPlant = (UnitTaskAI unitTaskAI) =>
                 {
-                    // treeRequestor._incomingUnit = unitTaskAI;
-                    // treeRequestor.PendingTask = TaskType.None;
+                    //_incomingUnit = unitTaskAI;
                 },
-                treePosition = requestor.transform.position,
+                plantPosition = requestor.transform.position,
                 workAmount = requestor.GetWorkAmount(),
                 OnCompleteTask = () =>
                 {
@@ -35,12 +32,12 @@ namespace Actions
 
             if (autoAssign)
             {
-                taskMaster.FellingTaskSystem.AddTask(task);
+                taskMaster.FarmingTaskSystem.AddTask(task);
             }
 
             return task;
         }
-
+        
         public override void OnTaskComplete(Interactable requestor)
         {
             requestor.OnTaskCompleted(this);

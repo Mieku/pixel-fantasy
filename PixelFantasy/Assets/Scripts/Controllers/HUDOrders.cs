@@ -96,32 +96,32 @@ namespace Controllers
             clickObject.Owner.ToggleAllowed(!clickObject.Owner.IsAllowed);
         }
         
-        private void CutPlantOrder()
-        {
-            var clickObject = _selectionData.ClickObject;
-            var tree = clickObject.GetComponent<TreeResource>();
-            if (tree != null)
-            {
-                tree.CreateCutTreeTask();
-                return;
-            }
-            
-            var plant = clickObject.GetComponent<GrowingResource>();
-            if (plant != null)
-            {
-                plant.CreateCutPlantTask();
-            }
-        }
+        // private void CutPlantOrder()
+        // {
+        //     var clickObject = _selectionData.ClickObject;
+        //     var tree = clickObject.GetComponent<TreeResource>();
+        //     if (tree != null)
+        //     {
+        //         tree.CreateCutTreeTask();
+        //         return;
+        //     }
+        //     
+        //     var plant = clickObject.GetComponent<GrowingResource>();
+        //     if (plant != null)
+        //     {
+        //         plant.CreateCutPlantTask();
+        //     }
+        // }
 
-        private void HarvestOrder()
-        {
-            var clickObject = _selectionData.ClickObject;
-            var plant = clickObject.GetComponent<GrowingResource>();
-            if (plant != null)
-            {
-                plant.CreateHarvestFruitTask();
-            }
-        }
+        // private void HarvestOrder()
+        // {
+        //     var clickObject = _selectionData.ClickObject;
+        //     var plant = clickObject.GetComponent<GrowingResource>();
+        //     if (plant != null)
+        //     {
+        //         plant.CreateHarvestFruitTask();
+        //     }
+        // }
         
         #endregion
     }

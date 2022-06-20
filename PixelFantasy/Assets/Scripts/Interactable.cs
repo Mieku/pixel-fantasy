@@ -2,16 +2,58 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Actions;
+using Gods;
+using Items;
+using ScriptableObjects;
 using UnityEngine;
 
 public class Interactable : UniqueObject
 {
     [SerializeField] private SpriteRenderer _icon;
-
-    public List<ActionBase> AvailableActions;
     
     public List<ActionBase> PendingTasks = new List<ActionBase>();
     public List<ActionBase> InProgressTasks = new List<ActionBase>();
+
+    private List<ActionBase> _potentialActions;
+    
+    public List<ActionBase> AvailableActions
+    {
+        get
+        {
+            if (_potentialActions == null)
+            {
+                var resource = GetComponent<Resource>();
+                if (resource != null)
+                {
+                    _potentialActions = resource.GetResourceData().AvailableActions;
+                }
+
+                var item = GetComponent<Item>();
+                if (item != null)
+                {
+                    _potentialActions = item.GetItemData().AvailableActions;
+                }
+            }
+
+            var availableActions = FilterAvailableActions(_potentialActions);
+
+            return availableActions;
+        }
+    }
+
+    private List<ActionBase> FilterAvailableActions(List<ActionBase> potentialActions)
+    {
+        List<ActionBase> result = new List<ActionBase>();
+        foreach (var potentialAction in potentialActions)
+        {
+            if (potentialAction.IsTaskAvailable(this))
+            {
+                result.Add(potentialAction);
+            }
+        }
+
+        return result;
+    }
 
     public void OnTaskAccepted(ActionBase task)
     {
@@ -21,6 +63,13 @@ public class Interactable : UniqueObject
     public void OnTaskCompleted(ActionBase task)
     {
         InProgressTasks.Remove(task);
+    }
+
+    public void CreateTaskById(string actionId)
+    {
+        var action = Librarian.Instance.GetAction(actionId);
+        action.CreateTask(this);
+        SetTaskToPending(action);
     }
     
     public void CreateTask(ActionBase taskAction)
