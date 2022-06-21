@@ -28,7 +28,6 @@ namespace Tasks
             public override TaskType TaskType => TaskType.ClearGrass;
             public Action<UnitTaskAI> claimDirt;
             public Vector3 grassPosition;
-            public Action completeWork;
             public float workAmount;
         }
 

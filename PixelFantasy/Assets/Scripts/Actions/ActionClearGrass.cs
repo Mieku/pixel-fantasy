@@ -1,31 +1,25 @@
-using System;
 using System.Xml;
 using Characters;
-using Gods;
-using Items;
 using Tasks;
 using UnityEngine;
 
 namespace Actions
 {
-    [CreateAssetMenu(fileName = "ActionCutTree", menuName ="Actions/CutTree", order = 50)]
-    public class ActionCutTree : ActionBase
+    [CreateAssetMenu(fileName = "ActionClearGrass", menuName ="Actions/ClearGrass", order = 50)]
+    public class ActionClearGrass : ActionBase
     {
         public override TaskBase CreateTask(Interactable requestor, bool autoAssign = true)
         {
-            requestor.DisplayTaskIcon(Icon);
-            
-            var task = new FellingTask.CutTree()
+            var task = new FarmingTask.ClearGrass()
             {
                 RequestorUID = requestor.UniqueId,
                 TaskAction = this,
                 OnTaskAccepted = requestor.OnTaskAccepted,
-                claimTree = (UnitTaskAI unitTaskAI) =>
+                claimDirt = (UnitTaskAI unitTaskAI) =>
                 {
-                    // treeRequestor._incomingUnit = unitTaskAI;
-                    // treeRequestor.PendingTask = TaskType.None;
+                    //_incomingUnit = unitTaskAI;
                 },
-                treePosition = requestor.transform.position,
+                grassPosition = requestor.transform.position,
                 workAmount = requestor.GetWorkAmount(),
                 OnCompleteTask = () =>
                 {
@@ -35,18 +29,17 @@ namespace Actions
 
             if (autoAssign)
             {
-                taskMaster.FellingTaskSystem.AddTask(task);
+                taskMaster.FarmingTaskSystem.AddTask(task);
             }
 
             return task;
         }
-
+    
         public override void OnTaskComplete(Interactable requestor)
         {
             requestor.OnTaskCompleted(this);
-            var growingResource = requestor.GetComponent<GrowingResource>();
-            growingResource.CutDownPlant();
-            requestor.DisplayTaskIcon(null);
+            var growingResource = requestor.GetComponent<DirtTile>();
+            growingResource.BuiltDirt();
         }
     }
 }

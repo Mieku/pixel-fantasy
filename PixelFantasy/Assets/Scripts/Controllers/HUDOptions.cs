@@ -184,7 +184,7 @@ namespace Controllers
         public void ClearGrassPressed()
         {
             PlayerInputController.Instance.ChangeState(PlayerInputState.BuildFlooring, "Dirt");
-            Spawner.Instance.ShowPlacementIcon(true, _dirtPrefab.Icon, _dirtPrefab.InvalidPlacementTags);
+            Spawner.Instance.ShowPlacementIcon(true, _dirtPrefab.PlacementIcon, _dirtPrefab.InvalidPlacementTags);
         }
 
         public void BuildFloorPressed(string key)

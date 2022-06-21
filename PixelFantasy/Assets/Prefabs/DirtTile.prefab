@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4026115250489389263}
   - component: {fileID: 327513419720013787}
   - component: {fileID: 1950968891304510971}
+  - component: {fileID: 6025374256511109222}
   m_Layer: 0
   m_Name: DirtTile
   m_TagString: Dirt
@@ -29,6 +30,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 43.510002, y: 8.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -101,31 +103,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f27901050e812af42a7a4e9d7d0936f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _icon: {fileID: -4826917048730203335, guid: aabb8e1691da82c498524bd23f772a2f, type: 3}
+  PendingTasks: []
+  InProgressTasks: []
   IsBuilt: 0
   _workCost: 3
+  _placementSprite: {fileID: -4826917048730203335, guid: 7d1c51339019cce45bfe46e7d51a000f, type: 3}
   _invalidPlacementTags:
   - Water
   - Structure
   - Dirt
   _options: 01000000
-  _icon: {fileID: -4826917048730203335, guid: aabb8e1691da82c498524bd23f772a2f, type: 3}
   _graphUpdateScene: {fileID: 4026115250489389263}
   _dirtRuleTile: {fileID: 11400000, guid: a876a1be8c84ecc418c57ae1b384462c, type: 2}
-  _centerSpr: {fileID: -4826917048730203335, guid: aabb8e1691da82c498524bd23f772a2f, type: 3}
-  _cornerTLSpr: {fileID: -8490604656168319031, guid: aabb8e1691da82c498524bd23f772a2f, type: 3}
-  _cornerTRSpr: {fileID: 9000240989288892881, guid: aabb8e1691da82c498524bd23f772a2f, type: 3}
-  _cornerBLSpr: {fileID: -3033834628281371332, guid: aabb8e1691da82c498524bd23f772a2f, type: 3}
-  _cornerBRSpr: {fileID: -5007971683718251935, guid: aabb8e1691da82c498524bd23f772a2f, type: 3}
-  _cornerInnerTLSpr: {fileID: -5209224836161936437, guid: aabb8e1691da82c498524bd23f772a2f, type: 3}
-  _cornerInnerTRSpr: {fileID: -2531347363471120589, guid: aabb8e1691da82c498524bd23f772a2f, type: 3}
-  _cornerInnerBLSpr: {fileID: 8456615035436648194, guid: aabb8e1691da82c498524bd23f772a2f, type: 3}
-  _cornerInnerBRSpr: {fileID: 8788545991891706334, guid: aabb8e1691da82c498524bd23f772a2f, type: 3}
-  _leftSpr: {fileID: 803932950652402174, guid: aabb8e1691da82c498524bd23f772a2f, type: 3}
-  _rightSpr: {fileID: -2107330870688178248, guid: aabb8e1691da82c498524bd23f772a2f, type: 3}
-  _topSpr: {fileID: -5537140879694480812, guid: aabb8e1691da82c498524bd23f772a2f, type: 3}
-  _botSpr: {fileID: -5826329041198738793, guid: aabb8e1691da82c498524bd23f772a2f, type: 3}
-  _center: {fileID: 0}
-  _topLeft: {fileID: 0}
-  _topRight: {fileID: 0}
-  _botLeft: {fileID: 0}
-  _botRight: {fileID: 0}
+  PendingTask: 0
+--- !u!114 &6025374256511109222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2367536381514878308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38a6c3d8b701419438d0085270a1c006, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: 

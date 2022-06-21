@@ -108,6 +108,7 @@ public class Interactable : UniqueObject
     {
         foreach (var pendingTask in pendingTasks)
         {
+            SetTaskToPending(pendingTask);
             pendingTask.RestoreTask(this);
         }
     }

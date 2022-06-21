@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Actions;
 using Controllers;
 using Gods;
 using Items;
@@ -11,14 +12,13 @@ using DataPersistence;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class DirtTile : UniqueObject, IPersistent
+public class DirtTile : Interactable, IPersistent
 {
     public bool IsBuilt = false;
     
     [SerializeField] private int _workCost;
+    [SerializeField] private Sprite _placementSprite;
     [SerializeField] private List<string> _invalidPlacementTags;
-    [SerializeField] private List<Order> _options;
-    [SerializeField] private Sprite _icon;
     [SerializeField] private GraphUpdateScene _graphUpdateScene;
     [SerializeField] private RuleTile _dirtRuleTile;
 
@@ -29,10 +29,8 @@ public class DirtTile : UniqueObject, IPersistent
     private Floor _requestedFloor;
     private Tilemap _flooringTilemap;
     private Action _onDirtDug;
-    
-    public TaskType PendingTask;
 
-    public Sprite Icon => _icon;
+    public Sprite PlacementIcon => _placementSprite;
 
     public List<string> InvalidPlacementTags
     {
@@ -47,47 +45,21 @@ public class DirtTile : UniqueObject, IPersistent
             return clone;
         }
     }
-    public int WorkCost => _workCost;
 
-    public List<Order> Options
+    public override int GetWorkAmount()
     {
-        get
-        {
-            List<Order> clone = new List<Order>();
-            foreach (var option in _options)
-            {
-                clone.Add(option);
-            }
-
-            return clone;
-        }
+        return _workCost;
     }
-
+    
     private void Awake()
     {
         _flooringTilemap =
             TilemapController.Instance.GetTilemap(TilemapLayer.Ground);
     }
-
-    private Tilemap FindTilemapByName(string name)
-    {
-        var maps = FindObjectsOfType<Tilemap>(true);
-        foreach (var map in maps)
-        {
-            if (map.gameObject.name == name)
-            {
-                return map;
-            }
-        }
-
-        return null;
-    } 
-
+    
     public void CancelTasks()
     {
         if (_assignedTaskRefs == null || _assignedTaskRefs.Count == 0) return;
-
-        PendingTask = TaskType.None;
         
         foreach (var taskRef in _assignedTaskRefs)
         {
@@ -136,7 +108,7 @@ public class DirtTile : UniqueObject, IPersistent
         }
         
         // if clear, clear the grass
-        CreateClearGrassTask();
+        CreateTaskById("Clear Grass");
     }
 
     private void ClearNatureFromTile()
@@ -176,35 +148,7 @@ public class DirtTile : UniqueObject, IPersistent
         var cell = _flooringTilemap.WorldToCell(transform.position);
         _flooringTilemap.SetColor(cell, colour);
     }
-
-    public FarmingTask.ClearGrass CreateClearGrassTask(bool autoAssign = true)
-    {
-        
-        var task = new FarmingTask.ClearGrass()
-        {
-            TargetUID = UniqueId,
-            claimDirt = (UnitTaskAI unitTaskAI) =>
-            {
-                //Debug.Log("ClearGrass Task " + UniqueId);
-                _incomingUnit = unitTaskAI;
-                PendingTask = TaskType.None;
-            },
-            grassPosition = transform.position,
-            workAmount = _workCost,
-            completeWork = BuiltDirt
-        };
-        
-        PendingTask = TaskType.ClearGrass;
-        _assignedTaskRefs.Add(task.GetHashCode());
-
-        if (autoAssign)
-        {
-            taskMaster.FarmingTaskSystem.AddTask(task);
-        }
-
-        return task;
-    }
-
+    
     public void CancelClearGrass()
     {
         if (IsBuilt) return;
@@ -213,7 +157,7 @@ public class DirtTile : UniqueObject, IPersistent
         Destroy(gameObject);
     }
 
-    private void BuiltDirt()
+    public void BuiltDirt()
     {
         ShowBlueprint(false);
         _incomingUnit = null;
@@ -246,7 +190,7 @@ public class DirtTile : UniqueObject, IPersistent
         return new DirtData
         {
             UID = UniqueId,
-            PendingTask = PendingTask,
+            PendingTasks = PendingTasks,
             IsBuilt = IsBuilt,
             Position = transform.position,
         };
@@ -256,23 +200,19 @@ public class DirtTile : UniqueObject, IPersistent
     {
         var state = (DirtData)data;
         UniqueId = state.UID;
-        PendingTask = state.PendingTask;
         IsBuilt = state.IsBuilt;
         transform.position = state.Position;
 
         ShowBlueprint(!IsBuilt);
-
-        if (PendingTask == TaskType.ClearGrass)
-        {
-            CreateClearGrassTask();
-        }
+        
+        RestoreTasks(state.PendingTasks);
     }
 
     public struct DirtData
     {
         public string UID;
-        public TaskType PendingTask;
         public bool IsBuilt;
         public Vector2 Position;
+        public List<ActionBase> PendingTasks;
     }
 } 

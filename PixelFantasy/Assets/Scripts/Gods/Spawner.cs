@@ -557,7 +557,7 @@ namespace Gods
                     blueprint.transform.position = gridPos;
                     var spriteRenderer = blueprint.GetComponent<SpriteRenderer>();
                     var dirt = _dirtTilePrefab.GetComponent<DirtTile>();
-                    spriteRenderer.sprite = dirt.Icon;
+                    spriteRenderer.sprite = dirt.PlacementIcon;
                     if (Helper.IsGridPosValidToBuild(gridPos, dirt.InvalidPlacementTags))
                     {
                         spriteRenderer.color = Librarian.Instance.GetColour("Placement Green");
@@ -614,7 +614,7 @@ namespace Gods
                     blueprint.transform.position = gridPos;
                     var spriteRenderer = blueprint.GetComponent<SpriteRenderer>();
                     var soil = _soilPrefab.GetComponent<DirtTile>();
-                    spriteRenderer.sprite = soil.Icon;
+                    spriteRenderer.sprite = soil.PlacementIcon;
                     if (Helper.IsGridPosValidToBuild(gridPos, soil.InvalidPlacementTags))
                     {
                         spriteRenderer.color = Librarian.Instance.GetColour("Placement Green");

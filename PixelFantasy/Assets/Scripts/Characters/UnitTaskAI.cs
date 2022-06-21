@@ -411,6 +411,10 @@ namespace Characters
         
         private void ExecuteTask_ClearGrass(FarmingTask.ClearGrass task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
+            task.ReceiverUID = UniqueId;
             task.claimDirt(this);
             workerMover.SetMovePosition(GetAdjacentPosition(task.grassPosition), () =>
             {
@@ -418,7 +422,8 @@ namespace Characters
                 _unitAnim.SetUnitAction(UnitAction.Digging);
                 DoWork(task.workAmount, () =>
                 {
-                    task.completeWork();
+                    currentAction = null;
+                    task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
                 });
