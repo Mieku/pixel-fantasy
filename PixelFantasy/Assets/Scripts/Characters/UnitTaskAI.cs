@@ -90,6 +90,7 @@ namespace Characters
         {
             if (_isGameLoading) return;
             if (_isGameSaving) return;
+            if(_curTask != null) return;
             
             switch (state)
             {
@@ -159,8 +160,9 @@ namespace Characters
             }
         }
 
-        private void ExecuteTask(TaskBase task)
+        public void ExecuteTask(TaskBase task)
         {
+            _curTask = task;
             state = State.ExecutingTask;
                 // Move to location
                 if (task is EmergencyTask.MoveToPosition)
@@ -272,6 +274,7 @@ namespace Characters
             workerMover.SetMovePosition(task.targetPosition, () =>
             {
                 state = State.WaitingForNextTask;
+                _curTask = null;
             });
         }
 
@@ -282,6 +285,7 @@ namespace Characters
             {
                 cleanupTask.cleanUpAction();
                 state = State.WaitingForNextTask;
+                _curTask = null;
             });
         }
 
@@ -291,13 +295,14 @@ namespace Characters
             task.claimItemSlot(this);
             workerMover.SetMovePosition(task.itemPosition, () =>
             {
-                task.grabItem(this);
+                task.grabItem(this, task.item);
                 workerMover.SetMovePosition(claimedSlot.GetPosition(), () =>
                 {
-                    task.dropItem();
+                    task.dropItem(task.item);
                     claimedSlot.StoreItem(task.item);
                     state = State.WaitingForNextTask;
                     claimedSlot = null;
+                    _curTask = null;
                 });
             });
         }
@@ -311,6 +316,7 @@ namespace Characters
                 {
                     task.useResource(_heldItem);
                     state = State.WaitingForNextTask;
+                    _curTask = null;
                 });
             });
         }
@@ -326,6 +332,7 @@ namespace Characters
                     task.completeWork();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
+                    _curTask = null;
                 });
             });
         }
@@ -342,6 +349,7 @@ namespace Characters
                     task.completeWork();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
+                    _curTask = null;
                 });
             });
         }
@@ -363,6 +371,7 @@ namespace Characters
                     task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
+                    _curTask = null;
                 });
             });
         }
@@ -384,6 +393,7 @@ namespace Characters
                     task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
+                    _curTask = null;
                 });
             });
         }
@@ -405,6 +415,7 @@ namespace Characters
                     task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
+                    _curTask = null;
                 });
             });
         }
@@ -426,6 +437,7 @@ namespace Characters
                     task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
+                    _curTask = null;
                 });
             });
         }
@@ -442,6 +454,7 @@ namespace Characters
                     task.completeWork();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
+                    _curTask = null;
                 });
             });
         }
@@ -458,6 +471,7 @@ namespace Characters
                     task.completeWork();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
+                    _curTask = null;
                 });
             });
         }
@@ -474,6 +488,7 @@ namespace Characters
                     task.completeWork();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
+                    _curTask = null;
                 });
             });
         }
@@ -490,6 +505,7 @@ namespace Characters
                     task.completeWork();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
+                    _curTask = null;
                 });
             });
         }
@@ -505,6 +521,7 @@ namespace Characters
                     task.completeWork();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
+                    _curTask = null;
                 });
             });
         }
@@ -518,6 +535,7 @@ namespace Characters
                 {
                     task.useResource(_heldItem);
                     state = State.WaitingForNextTask;
+                    _curTask = null;
                 });
             });
         }
@@ -570,7 +588,7 @@ namespace Characters
 
             return new UnitTaskData
             {
-                CurTask = taskType,
+                //CurTask = taskType,
                 WasExecutingTask = state == State.ExecutingTask,
                 TargetUID = targetUID,
                 ClaimedSlotUID = slotUID,
@@ -616,6 +634,7 @@ namespace Characters
         private void ResumeCurrentAction()
         {
             if (currentAction == null) return;
+            if (currentAction.id == "Take Item To Slot") return;
 
             var requestor = UIDManager.Instance.GetGameObject(currentActionRequestorUID).GetComponent<Interactable>();
             var task = currentAction.RestoreTask(requestor, false);
@@ -760,7 +779,7 @@ namespace Characters
 
         public struct UnitTaskData
         {
-            public TaskType CurTask;
+            //public TaskType CurTask;
             public string TargetUID;
             public bool WasExecutingTask;
             public string ClaimedSlotUID;

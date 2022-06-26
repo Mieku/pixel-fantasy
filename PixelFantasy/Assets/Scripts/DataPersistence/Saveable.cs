@@ -9,6 +9,11 @@ namespace DataPersistence
         protected abstract string StateName { get; }
         public abstract int LoadOrder { get; }
 
+        public virtual void ClearData(GameState state)
+        {
+            ClearState(state.States[StateName]);
+        }
+        
         public virtual void LoadData(GameState state)
         {
             RestoreState(state.States[StateName]);
@@ -64,12 +69,19 @@ namespace DataPersistence
             SetChildStates(childrenStates);
         }
         
-
+        private void ClearState(object stateData)
+        {
+            var data = (Data)stateData;
+            var childrenStates = data.ChildrenStates;
+            ClearChildStates(childrenStates);
+        }
+        
         public struct Data
         {
             public List<object> ChildrenStates;
         }
 
+        protected abstract void ClearChildStates(List<object> childrenStates);
         protected abstract void SetChildStates(List<object> childrenStates);
     }
 }

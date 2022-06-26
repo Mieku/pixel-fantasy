@@ -12,8 +12,8 @@ namespace Handlers
         
         [SerializeField] private GameObject _furniturePrefab;
         [SerializeField] private GameObject _craftingTablePrefab;
-        
-        protected override void SetChildStates(List<object> childrenStates)
+
+        protected override void ClearChildStates(List<object> childrenStates)
         {
             // Delete current persistent children
             var currentChildren = GetPersistentChildren();
@@ -27,7 +27,10 @@ namespace Handlers
                 Destroy(child);
             }
             currentChildren.Clear();
-
+        }
+        
+        protected override void SetChildStates(List<object> childrenStates)
+        {
             // Instantiate all the children in data, Trigger RestoreState with their state data
             foreach (var childState in childrenStates)
             {

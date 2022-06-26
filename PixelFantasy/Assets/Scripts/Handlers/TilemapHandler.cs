@@ -13,6 +13,7 @@ namespace Handlers
 
         [SerializeField] private GameObject _groundTM, _waterTM, _structureTM, _flooringTM;
         
+        protected override void ClearChildStates(List<object> childrenStates) { } // Not used
         
         protected override void SetChildStates(List<object> childrenStates)
         {

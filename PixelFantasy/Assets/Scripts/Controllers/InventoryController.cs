@@ -13,7 +13,7 @@ namespace Controllers
     public class InventoryController : Saveable
     {
         protected override string StateName => "InventoryController";
-        public override int LoadOrder => 4;
+        public override int LoadOrder => 1;
         
         private List<StorageSlot> _storageSlots = new List<StorageSlot>();
         private Dictionary<ItemData, int> _inventory = new Dictionary<ItemData, int>();
@@ -378,8 +378,15 @@ namespace Controllers
                 }
             }
         }
-        
+
+        protected override void ClearChildStates(List<object> childrenStates) { } // Not used
+
         protected override void SetChildStates(List<object> childrenStates) {} // Not used
+
+        public override void ClearData(GameState state)
+        {
+            _storageSlots.Clear();
+        }
 
         public override void LoadData(GameState state)
         {
@@ -388,10 +395,9 @@ namespace Controllers
             var invData = (InventoryData)invState;
 
             _inventory = invData.Inventory;
-            _pendingInventory = invData.PendingInventory;
+            //_pendingInventory = invData.PendingInventory;
             
             // Finds the Storage slot based on the GUID
-            _storageSlots.Clear();
             foreach (var storageSlotGUID in invData.StorageSlotsUIDs)
             {
                 var storageSlot = _storageHandler.GetStorageSlotByUID(storageSlotGUID);
@@ -417,7 +423,7 @@ namespace Controllers
             {
                 StorageSlotsUIDs = storageSlotsGUIDs,
                 Inventory = _inventory,
-                PendingInventory = _pendingInventory,
+                //PendingInventory = _pendingInventory,
             };
         }
 
@@ -425,7 +431,7 @@ namespace Controllers
         {
             public List<string> StorageSlotsUIDs;
             public Dictionary<ItemData, int> Inventory;
-            public Dictionary<ItemData, int> PendingInventory;
+            //public Dictionary<ItemData, int> PendingInventory;
         }
     }
 }
