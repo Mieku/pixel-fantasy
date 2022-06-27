@@ -26,7 +26,7 @@ namespace Actions
             return true;
         }
         
-        public TaskBase RestoreTask(Interactable requestor, bool autoAssign = true)
+        public virtual TaskBase RestoreTask(Interactable requestor, bool autoAssign = true)
         {
             return CreateTask(requestor, autoAssign);
         }

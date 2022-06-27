@@ -51,7 +51,7 @@ namespace Handlers
                 }
             }
             
-            Debug.LogError($"Slot with UID {uid} not found!");
+            Debug.LogError($"Item with UID {uid} not found!");
             return null;
         }
     }

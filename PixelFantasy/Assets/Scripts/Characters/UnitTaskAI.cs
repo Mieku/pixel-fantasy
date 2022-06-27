@@ -162,108 +162,111 @@ namespace Characters
 
         public void ExecuteTask(TaskBase task)
         {
+            if (task == null) return;
+            
             _curTask = task;
             state = State.ExecutingTask;
-                // Move to location
-                if (task is EmergencyTask.MoveToPosition)
-                {
-                    ExecuteTask_MoveToPosition(task as EmergencyTask.MoveToPosition);
-                    return;
-                }
-                
-                // Clean up garbage
-                if (task is CleaningTask.GarbageCleanup)
-                {
-                    ExecuteTask_CleanUpGarbage(task as CleaningTask.GarbageCleanup);
-                    return;
-                }
-                
-                // Pick up item and move to slot
-                if (task is HaulingTask.TakeItemToItemSlot)
-                {
-                    ExecuteTask_TakeItemToItemSlot(task as HaulingTask.TakeItemToItemSlot);
-                    return;
-                }
-                
-                if (task is HaulingTask.TakeResourceToBlueprint)
-                {
-                    ExecuteTask_TakeResourceToBlueprint(task as HaulingTask.TakeResourceToBlueprint);
-                    return;
-                }
-                
-                if (task is ConstructionTask.ConstructStructure)
-                {
-                    ExecuteTask_ConstructStructure(task as ConstructionTask.ConstructStructure);
-                    return;
-                }
 
-                if (task is ConstructionTask.DeconstructStructure)
-                {
-                    ExecuteTask_DeconstructStructure(task as ConstructionTask.DeconstructStructure);
-                    return;
-                }
+            // Move to location
+            if (task is EmergencyTask.MoveToPosition)
+            {
+                ExecuteTask_MoveToPosition(task as EmergencyTask.MoveToPosition);
+                return;
+            }
+            
+            // Clean up garbage
+            if (task is CleaningTask.GarbageCleanup)
+            {
+                ExecuteTask_CleanUpGarbage(task as CleaningTask.GarbageCleanup);
+                return;
+            }
+            
+            // Pick up item and move to slot
+            if (task is HaulingTask.TakeItemToItemSlot)
+            {
+                ExecuteTask_TakeItemToItemSlot(task as HaulingTask.TakeItemToItemSlot);
+                return;
+            }
+            
+            if (task is HaulingTask.TakeResourceToBlueprint)
+            {
+                ExecuteTask_TakeResourceToBlueprint(task as HaulingTask.TakeResourceToBlueprint);
+                return;
+            }
+            
+            if (task is ConstructionTask.ConstructStructure)
+            {
+                ExecuteTask_ConstructStructure(task as ConstructionTask.ConstructStructure);
+                return;
+            }
 
-                if (task is FellingTask.CutTree)
-                {
-                    ExecuteTask_CutTree(task as FellingTask.CutTree);
-                    return;
-                }
+            if (task is ConstructionTask.DeconstructStructure)
+            {
+                ExecuteTask_DeconstructStructure(task as ConstructionTask.DeconstructStructure);
+                return;
+            }
 
-                if (task is FarmingTask.CutPlant)
-                {
-                    ExecuteTask_CutPlant(task as FarmingTask.CutPlant);
-                    return;
-                }
+            if (task is FellingTask.CutTree)
+            {
+                ExecuteTask_CutTree(task as FellingTask.CutTree);
+                return;
+            }
 
-                if (task is FarmingTask.HarvestFruit)
-                {
-                    ExecuteTask_HarvestFruit(task as FarmingTask.HarvestFruit);
-                    return;
-                }
+            if (task is FarmingTask.CutPlant)
+            {
+                ExecuteTask_CutPlant(task as FarmingTask.CutPlant);
+                return;
+            }
 
-                if (task is FarmingTask.ClearGrass)
-                {
-                    ExecuteTask_ClearGrass(task as FarmingTask.ClearGrass);
-                    return;
-                }
+            if (task is FarmingTask.HarvestFruit)
+            {
+                ExecuteTask_HarvestFruit(task as FarmingTask.HarvestFruit);
+                return;
+            }
 
-                if (task is CarpentryTask.CraftItem)
-                {
-                    ExecuteTask_CraftItem_Carpentry(task as CarpentryTask.CraftItem);
-                    return;
-                }
-                
-                if (task is CarpentryTask.GatherResourceForCrafting)
-                {
-                    ExecuteTask_GatherResourceForCrafting_Carpentry(task as CarpentryTask.GatherResourceForCrafting);
-                    return;
-                }
+            if (task is FarmingTask.ClearGrass)
+            {
+                ExecuteTask_ClearGrass(task as FarmingTask.ClearGrass);
+                return;
+            }
 
-                if (task is FarmingTask.DigHole)
-                {
-                    ExecuteTask_DigHole(task as FarmingTask.DigHole);
-                    return;
-                }
-                
-                if (task is FarmingTask.HarvestCrop)
-                {
-                    ExecuteTask_HarvestCrop(task as FarmingTask.HarvestCrop);
-                    return;
-                }
-                
-                if (task is FarmingTask.PlantCrop)
-                {
-                    ExecuteTask_PlantCrop(task as FarmingTask.PlantCrop);
-                    return;
-                }
-                
-                if (task is FarmingTask.WaterCrop)
-                {
-                    ExecuteTask_WaterCrop(task as FarmingTask.WaterCrop);
-                    return;
-                }
-                
-                // Other task types go here
+            if (task is CarpentryTask.CraftItem)
+            {
+                ExecuteTask_CraftItem_Carpentry(task as CarpentryTask.CraftItem);
+                return;
+            }
+            
+            if (task is CarpentryTask.GatherResourceForCrafting)
+            {
+                ExecuteTask_GatherResourceForCrafting_Carpentry(task as CarpentryTask.GatherResourceForCrafting);
+                return;
+            }
+
+            if (task is FarmingTask.DigHole)
+            {
+                ExecuteTask_DigHole(task as FarmingTask.DigHole);
+                return;
+            }
+            
+            if (task is FarmingTask.HarvestCrop)
+            {
+                ExecuteTask_HarvestCrop(task as FarmingTask.HarvestCrop);
+                return;
+            }
+            
+            if (task is FarmingTask.PlantCrop)
+            {
+                ExecuteTask_PlantCrop(task as FarmingTask.PlantCrop);
+                return;
+            }
+            
+            if (task is FarmingTask.WaterCrop)
+            {
+                ExecuteTask_WaterCrop(task as FarmingTask.WaterCrop);
+                return;
+            }
+            
+            // Other task types go here
         }
 
         #region Execute Tasks
@@ -309,11 +312,16 @@ namespace Characters
 
         private void ExecuteTask_TakeResourceToBlueprint(HaulingTask.TakeResourceToBlueprint task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
+            task.ReceiverUID = UniqueId;
             workerMover.SetMovePosition(task.resourcePosition, () =>
             {
                 task.grabResource(this);
                 workerMover.SetMovePosition(task.blueprintPosition, () =>
                 {
+                    currentAction = null;
                     task.useResource(_heldItem);
                     state = State.WaitingForNextTask;
                     _curTask = null;
@@ -636,10 +644,21 @@ namespace Characters
             if (currentAction == null) return;
             if (currentAction.id == "Take Item To Slot") return;
 
-            var requestor = UIDManager.Instance.GetGameObject(currentActionRequestorUID).GetComponent<Interactable>();
-            var task = currentAction.RestoreTask(requestor, false);
+            if (currentAction.id == "Take Resource To Blueprint")
+            {
+                var requestor = UIDManager.Instance.GetGameObject(currentActionRequestorUID).GetComponent<Interactable>();
+                var itemToBlueprintAct = currentAction as ActionTakeResourceToBlueprint;
+                var task = itemToBlueprintAct.RestoreTask(requestor, claimedSlot, _heldItem);
+                
+                ExecuteTask(task);
+            }
+            else
+            {
+                var requestor = UIDManager.Instance.GetGameObject(currentActionRequestorUID).GetComponent<Interactable>();
+                var task = currentAction.RestoreTask(requestor, false);
 
-            ExecuteTask(task);
+                ExecuteTask(task);
+            }
         }
 
         // private void ResumeLoadedTask(UnitTaskData taskData)

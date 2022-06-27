@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.625, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6381889669282106318}
   m_RootOrder: 0
@@ -42,6 +43,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -79,7 +81,7 @@ SpriteRenderer:
   m_Size: {x: 1.25, y: 0.25}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1480014951440470920
@@ -95,6 +97,7 @@ GameObject:
   - component: {fileID: 1480014951440470922}
   - component: {fileID: 1480014951440470923}
   - component: {fileID: 728095472322857260}
+  - component: {fileID: 5353870212229824795}
   m_Layer: 0
   m_Name: StructurePrefab
   m_TagString: Wall
@@ -112,6 +115,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.5, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4356046630267415026}
   - {fileID: 4418774928267680845}
@@ -173,9 +177,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed94fee4dd42b394c855f5c019507b48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _icon: {fileID: 5452295093903905765}
+  PendingTasks: []
+  InProgressTasks: []
+  _takeResourceToBlueprintAction: {fileID: 11400000, guid: 83169185dc450984288697c483e4df23, type: 2}
   _progressBar: {fileID: 2589694300708827305}
   _gridObstacle: {fileID: 1480014951440470925}
-  _icon: {fileID: 5452295093903905765}
+  PendingTask: 0
 --- !u!114 &728095472322857260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +199,20 @@ MonoBehaviour:
   _objectType: 1
   _selectedIcon: {fileID: 6239104705413282737}
   _objectRenderer: {fileID: 0}
+  IsSelected: 0
+--- !u!114 &5353870212229824795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480014951440470920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38a6c3d8b701419438d0085270a1c006, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: 
 --- !u!1 &4709571700995021227
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,6 +240,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.2999, z: 0}
   m_LocalScale: {x: 0.676935, y: 0.65785915, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1283464788996326184}
   m_Father: {fileID: 4356046630267415026}
@@ -234,6 +257,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -271,7 +295,7 @@ SpriteRenderer:
   m_Size: {x: 1.375, y: 0.375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &5042761520795064191
@@ -301,6 +325,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6877, y: 0.6877, z: 0.6877}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1480014951440470927}
   m_RootOrder: 2
@@ -316,6 +341,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -383,6 +409,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1480014951440470927}
   m_RootOrder: 1
@@ -398,6 +425,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -465,6 +493,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.038, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6381889669282106318}
   m_Father: {fileID: 1480014951440470927}

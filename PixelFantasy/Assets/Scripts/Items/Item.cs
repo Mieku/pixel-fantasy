@@ -79,10 +79,6 @@ namespace Items
                     unit.AssignHeldItem(this);
                     unit.ExecuteTask(task);
                 }
-                else
-                {
-                    Debug.LogError("No Task made!");
-                }
             }
         }
 
