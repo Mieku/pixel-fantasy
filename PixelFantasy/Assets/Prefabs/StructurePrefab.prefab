@@ -181,7 +181,7 @@ MonoBehaviour:
   PendingTasks: []
   InProgressTasks: []
   _takeResourceToBlueprintAction: {fileID: 11400000, guid: 83169185dc450984288697c483e4df23, type: 2}
-  _construceStructureAction: {fileID: 11400000, guid: 7eb08bb163e3b934ba51eda03f3a7adb, type: 2}
+  _constructStructureAction: {fileID: 11400000, guid: 7eb08bb163e3b934ba51eda03f3a7adb, type: 2}
   _progressBar: {fileID: 2589694300708827305}
   _gridObstacle: {fileID: 1480014951440470925}
   PendingTask: 0

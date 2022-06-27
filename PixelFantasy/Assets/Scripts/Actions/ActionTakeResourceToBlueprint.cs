@@ -17,22 +17,12 @@ namespace Actions
                 StorageSlot slot = ControllerManager.Instance.InventoryController.ClaimResource(resourceData);
                 if (slot != null)
                 {
-                    var structure = requestor.GetComponent<Structure>();
-                    if (structure != null)
+                    var construction = requestor.GetComponent<Construction>();
+                    if (construction != null)
                     {
-                        structure.AddToPendingResourceCosts(resourceData);
+                        construction.AddToPendingResourceCosts(resourceData);
                     }
-                    var floor = requestor.GetComponent<Floor>();
-                    if (floor != null)
-                    {
-                        floor.AddToPendingResourceCosts(resourceData);
-                    }
-                    var furniture = requestor.GetComponent<Furniture>();
-                    if (furniture != null)
-                    {
-                        furniture.AddToPendingResourceCosts(resourceData);
-                    }
-                    
+
                     return CreateTaskWithSlot(requestor, slot);
                 }
                 else
@@ -57,20 +47,10 @@ namespace Actions
                     // Get item from the slot
                     resource = slot.GetItem();
                     
-                    var structure = requestor.GetComponent<Structure>();
-                    if (structure != null)
+                    var construction = requestor.GetComponent<Construction>();
+                    if (construction != null)
                     {
-                        structure.AddToIncomingItems(resource);
-                    }
-                    var floor = requestor.GetComponent<Floor>();
-                    if (floor != null)
-                    {
-                        floor.AddToIncomingItems(resource);
-                    }
-                    var furniture = requestor.GetComponent<Furniture>();
-                    if (furniture != null)
-                    {
-                        furniture.AddToIncomingItems(resource);
+                        construction.AddToIncomingItems(resource);
                     }
 
                     resource.gameObject.SetActive(true);
@@ -78,28 +58,14 @@ namespace Actions
                 },
                 useResource = ( heldItem) =>
                 {
-                    var structure = requestor.GetComponent<Structure>();
-                    if (structure != null)
+                    var construction = requestor.GetComponent<Construction>();
+                    if (construction != null)
                     {
-                        structure.AddResourceToBlueprint(heldItem.GetItemData());
-                        structure.RemoveFromIncomingItems(heldItem);
-                        structure.CheckIfAllResourcesLoaded();
+                        construction.AddResourceToBlueprint(heldItem.GetItemData());
+                        construction.RemoveFromIncomingItems(heldItem);
+                        construction.CheckIfAllResourcesLoaded();
                     }
-                    var floor = requestor.GetComponent<Floor>();
-                    if (floor != null)
-                    {
-                        floor.AddResourceToBlueprint(heldItem.GetItemData());
-                        floor.RemoveFromIncomingItems(heldItem);
-                        floor.CheckIfAllResourcesLoaded();
-                    }
-                    var furniture = requestor.GetComponent<Furniture>();
-                    if (furniture != null)
-                    {
-                        furniture.AddResourceToBlueprint(heldItem.GetItemData());
-                        furniture.RemoveFromIncomingItems(heldItem);
-                        furniture.CheckIfAllResourcesLoaded();
-                    }
-                    
+
                     heldItem.gameObject.SetActive(false);
                     Destroy(heldItem.gameObject);
                     OnTaskComplete(requestor);
@@ -125,28 +91,14 @@ namespace Actions
                 },
                 useResource = ( heldItem) =>
                 {
-                    var recievingStructure = requestor.GetComponent<Structure>();
-                    if (recievingStructure != null)
+                    var recievingConstruction = requestor.GetComponent<Construction>();
+                    if (recievingConstruction != null)
                     {
-                        recievingStructure.AddResourceToBlueprint(heldItem.GetItemData());
-                        recievingStructure.RemoveFromIncomingItems(heldItem);
-                        recievingStructure.CheckIfAllResourcesLoaded();
+                        recievingConstruction.AddResourceToBlueprint(heldItem.GetItemData());
+                        recievingConstruction.RemoveFromIncomingItems(heldItem);
+                        recievingConstruction.CheckIfAllResourcesLoaded();
                     }
-                    var recievingFloor = requestor.GetComponent<Floor>();
-                    if (recievingFloor != null)
-                    {
-                        recievingFloor.AddResourceToBlueprint(heldItem.GetItemData());
-                        recievingFloor.RemoveFromIncomingItems(heldItem);
-                        recievingFloor.CheckIfAllResourcesLoaded();
-                    }
-                    var recievingFurniture = requestor.GetComponent<Furniture>();
-                    if (recievingFurniture != null)
-                    {
-                        recievingFurniture.AddResourceToBlueprint(heldItem.GetItemData());
-                        recievingFurniture.RemoveFromIncomingItems(heldItem);
-                        recievingFurniture.CheckIfAllResourcesLoaded();
-                    }
-                    
+
                     heldItem.gameObject.SetActive(false);
                     Destroy(heldItem.gameObject);
                     OnTaskComplete(requestor);

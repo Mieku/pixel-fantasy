@@ -12,19 +12,11 @@ using UnityEngine;
 
 namespace Items
 {
-    public class Furniture : Interactable, IPersistent
+    public class Furniture : Construction
     {
-        [SerializeField] private ActionTakeResourceToBlueprint _takeResourceToBlueprintAction;
-        [SerializeField] private ActionConstructStructure _construceStructureAction;
-        
         private FurnitureData _furnitureData;
         protected FurniturePrefab _prefab;
-        protected List<ItemAmount> _remainingResourceCosts;
-        private List<ItemAmount> _pendingResourceCosts; // Claimed by a task but not used yet
-        private List<ItemAmount> _incomingResourceCosts; // The item is on its way
-        protected bool _isBuilt;
         protected List<int> _assignedTaskRefs = new List<int>();
-        protected List<Item> _incomingItems = new List<Item>();
         private bool _isDeconstructing;
         private UnitTaskAI _incomingUnit;
         protected bool _isCraftingTable;
@@ -35,7 +27,6 @@ namespace Items
         protected Transform UsagePosition => _prefab.UsagePostion;
         public FurnitureData FurnitureData => _furnitureData;
         
-        protected TaskMaster taskMaster => TaskMaster.Instance;
         protected CraftMaster craftMaster => CraftMaster.Instance;
 
         public virtual void Init(FurnitureData furnitureData, PlacementDirection direction)
@@ -53,49 +44,6 @@ namespace Items
         {
             var prefabObj = Instantiate(_furnitureData.GetFurniturePrefab(placementDirection), transform);
             _prefab = prefabObj.GetComponent<FurniturePrefab>();
-        }
-        
-        public void AddToIncomingItems(Item item)
-        {
-            _incomingItems ??= new List<Item>();
-            _incomingItems.Add(item);
-            
-            _incomingResourceCosts ??= new List<ItemAmount>();
-
-            foreach (var cost in _incomingResourceCosts)
-            {
-                if (cost.Item == item.GetItemData())
-                {
-                    cost.Quantity += 1;
-                    return;
-                }
-            }
-            
-            _incomingResourceCosts.Add(new ItemAmount
-            {
-                Item = item.GetItemData(),
-                Quantity = 1
-            });
-        }
-        
-        public void RemoveFromIncomingItems(Item item)
-        {
-            _incomingItems ??= new List<Item>();
-            _incomingItems.Remove(item);
-            
-            foreach (var cost in _incomingResourceCosts)
-            {
-                if (cost.Item == item.GetItemData())
-                {
-                    cost.Quantity -= 1;
-                    if (cost.Quantity <= 0)
-                    {
-                        _incomingResourceCosts.Remove(cost);
-                    }
-
-                    return;
-                }
-            }
         }
         
         private void ShowBlueprint(bool showBlueprint)
@@ -215,93 +163,8 @@ namespace Items
                 }
             }
         }
-        
-        public void AddToPendingResourceCosts(ItemData itemData, int quantity = 1)
-        {
-            _pendingResourceCosts ??= new List<ItemAmount>();
-
-            foreach (var cost in _pendingResourceCosts)
-            {
-                if (cost.Item == itemData)
-                {
-                    cost.Quantity += quantity;
-                    return;
-                }
-            }
-            
-            _pendingResourceCosts.Add(new ItemAmount
-            {
-                Item = itemData,
-                Quantity = quantity
-            });
-        }
-
-        public void RemoveFromPendingResourceCosts(ItemData itemData, int quantity = 1)
-        {
-            foreach (var cost in _pendingResourceCosts)
-            {
-                if (cost.Item == itemData)
-                {
-                    cost.Quantity -= quantity;
-                    if (cost.Quantity <= 0)
-                    {
-                        _pendingResourceCosts.Remove(cost);
-                    }
-
-                    return;
-                }
-            }
-        }
-        
-        public List<ItemAmount> GetRemainingMissingItems()
-        {
-            _pendingResourceCosts ??= new List<ItemAmount>();
-            _incomingResourceCosts ??= new List<ItemAmount>();
-            List<ItemAmount> result = new List<ItemAmount>();
-            
-            foreach (var remainingResourceCost in _remainingResourceCosts)
-            {
-                ItemAmount amount = new ItemAmount
-                {
-                    Item = remainingResourceCost.Item,
-                    Quantity = remainingResourceCost.Quantity,
-                };
                 
-                result.Add(amount);
-            }
-            
-            foreach (var pendingCost in _pendingResourceCosts)
-            {
-                foreach (var resultCost in result)
-                {
-                    if (resultCost.Item == pendingCost.Item)
-                    {
-                        resultCost.Quantity -= pendingCost.Quantity;
-                        if (resultCost.Quantity <= 0)
-                        {
-                            result.Remove(resultCost);
-                        }
-                    }
-                }
-            }
-            
-            foreach (var incomingCost in _incomingResourceCosts)
-            {
-                foreach (var resultCost in result)
-                {
-                    if (resultCost.Item == incomingCost.Item)
-                    {
-                        resultCost.Quantity -= incomingCost.Quantity;
-                        if (resultCost.Quantity <= 0)
-                        {
-                            result.Remove(resultCost);
-                        }
-                    }
-                }
-            }
-            
-            return result;
-        }
+        
 
         private void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
         {
@@ -312,47 +175,13 @@ namespace Items
         {
             craftMaster.CreateCraftingTask(itemToCraft);
         }
-
-        public void AddResourceToBlueprint(ItemData itemData)
-        {
-            RemoveFromPendingResourceCosts(itemData);
-            
-            foreach (var cost in _remainingResourceCosts)
-            {
-                if (cost.Item == itemData && cost.Quantity > 0)
-                {
-                    cost.Quantity--;
-                    if (cost.Quantity <= 0)
-                    {
-                        _remainingResourceCosts.Remove(cost);
-                    }
-
-                    return;
-                }
-            }
-        }
-
-        public void CheckIfAllResourcesLoaded()
-        {
-            if (_isBuilt) return;
-            
-            if (_remainingResourceCosts.Count == 0)
-            {
-                CreateConstructFurnitureTask();
-            }
-        }
         
-        public void CreateConstructFurnitureTask(bool autoAssign = true)
-        {
-            _construceStructureAction.CreateTask(this, autoAssign);
-        }
-        
-        public float GetWorkPerResource()
+        public override float GetWorkPerResource()
         {
             return _furnitureData.GetWorkPerResource();
         }
 
-        protected virtual void CompleteConstruction()
+        public override void CompleteConstruction()
         {
             ShowBlueprint(false);
             _isBuilt = true;
@@ -364,7 +193,7 @@ namespace Items
             _isBuilt = true;
         }
 
-        public virtual object CaptureState()
+        public override object CaptureState()
         {
             return new Data
             {
@@ -381,7 +210,7 @@ namespace Items
             };
         }
 
-        public virtual void RestoreState(object data)
+        public override void RestoreState(object data)
         {
             var state = (Data)data;
 

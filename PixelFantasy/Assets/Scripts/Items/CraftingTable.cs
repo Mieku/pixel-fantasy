@@ -107,7 +107,7 @@ namespace Items
             _assignedTaskRefs.Add(reference);
         }
 
-        protected override void CompleteConstruction()
+        public override void CompleteConstruction()
         {
             base.CompleteConstruction();
             craftMaster.AddCraftingTable(this, FurnitureData.CraftingType);

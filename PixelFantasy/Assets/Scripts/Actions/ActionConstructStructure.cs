@@ -35,40 +35,20 @@ namespace Actions
         public override void OnTaskComplete(Interactable requestor)
         {
             requestor.OnTaskCompleted(this);
-            var structure = requestor.GetComponent<Structure>();
-            if (structure != null)
+            var construction = requestor.GetComponent<Construction>();
+            if (construction != null)
             {
-                structure.CompleteConstruction();
-            }
-            var floor = requestor.GetComponent<Floor>();
-            if (floor != null)
-            {
-                floor.CompleteConstruction();
-            }
-            var furniture = requestor.GetComponent<Furniture>();
-            if (furniture != null)
-            {
-                floor.CompleteConstruction();
+                construction.CompleteConstruction();
             }
         }
 
         private float GetWorkPerResource(Interactable requestor)
         {
             float workPerResource = 0;
-            var structure = requestor.GetComponent<Structure>();
-            if (structure != null)
+            var construction = requestor.GetComponent<Construction>();
+            if (construction != null)
             {
-                workPerResource = structure.GetWorkPerResource();
-            }
-            var floor = requestor.GetComponent<Floor>();
-            if (floor != null)
-            {
-                workPerResource = floor.GetWorkPerResource();
-            }
-            var furniture = requestor.GetComponent<Furniture>();
-            if (furniture != null)
-            {
-                workPerResource = furniture.GetWorkPerResource();
+                workPerResource = construction.GetWorkPerResource();
             }
 
             return workPerResource;
