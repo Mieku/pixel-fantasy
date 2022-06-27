@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 934f21375cb513c4b876aba9f12bf71c, type: 3}
   m_Name: ActionTakeResourceToBlueprint
   m_EditorClassIdentifier: 
-  id: 
+  id: Take Resource To Blueprint
   Icon: {fileID: 0}

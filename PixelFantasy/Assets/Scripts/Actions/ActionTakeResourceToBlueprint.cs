@@ -18,7 +18,16 @@ namespace Actions
                 if (slot != null)
                 {
                     var structure = requestor.GetComponent<Structure>();
-                    structure.AddToPendingResourceCosts(resourceData);
+                    if (structure != null)
+                    {
+                        structure.AddToPendingResourceCosts(resourceData);
+                    }
+                    var floor = requestor.GetComponent<Floor>();
+                    if (floor != null)
+                    {
+                        floor.AddToPendingResourceCosts(resourceData);
+                    }
+                    
                     return CreateTaskWithSlot(requestor, slot);
                 }
                 else
@@ -44,17 +53,37 @@ namespace Actions
                     resource = slot.GetItem();
                     
                     var structure = requestor.GetComponent<Structure>();
-                    structure.AddToIncomingItems(resource);
+                    if (structure != null)
+                    {
+                        structure.AddToIncomingItems(resource);
+                    }
+                    var floor = requestor.GetComponent<Floor>();
+                    if (floor != null)
+                    {
+                        floor.AddToIncomingItems(resource);
+                    }
+
                     resource.gameObject.SetActive(true);
                     unitTaskAI.AssignHeldItem(resource);
                 },
                 useResource = ( heldItem) =>
                 {
                     var structure = requestor.GetComponent<Structure>();
+                    if (structure != null)
+                    {
+                        structure.AddResourceToBlueprint(heldItem.GetItemData());
+                        structure.RemoveFromIncomingItems(heldItem);
+                        structure.CheckIfAllResourcesLoaded();
+                    }
+                    var floor = requestor.GetComponent<Floor>();
+                    if (floor != null)
+                    {
+                        floor.AddResourceToBlueprint(heldItem.GetItemData());
+                        floor.RemoveFromIncomingItems(heldItem);
+                        floor.CheckIfAllResourcesLoaded();
+                    }
+                    
                     heldItem.gameObject.SetActive(false);
-                    structure.AddResourceToBlueprint(heldItem.GetItemData());
-                    structure.RemoveFromIncomingItems(heldItem);
-                    structure.CheckIfAllResourcesLoaded();
                     Destroy(heldItem.gameObject);
                     OnTaskComplete(requestor);
                 },
@@ -80,10 +109,21 @@ namespace Actions
                 useResource = ( heldItem) =>
                 {
                     var recievingStructure = requestor.GetComponent<Structure>();
+                    if (recievingStructure != null)
+                    {
+                        recievingStructure.AddResourceToBlueprint(heldItem.GetItemData());
+                        recievingStructure.RemoveFromIncomingItems(heldItem);
+                        recievingStructure.CheckIfAllResourcesLoaded();
+                    }
+                    var recievingFloor = requestor.GetComponent<Floor>();
+                    if (recievingFloor != null)
+                    {
+                        recievingFloor.AddResourceToBlueprint(heldItem.GetItemData());
+                        recievingFloor.RemoveFromIncomingItems(heldItem);
+                        recievingFloor.CheckIfAllResourcesLoaded();
+                    }
+                    
                     heldItem.gameObject.SetActive(false);
-                    recievingStructure.AddResourceToBlueprint(heldItem.GetItemData());
-                    recievingStructure.RemoveFromIncomingItems(heldItem);
-                    recievingStructure.CheckIfAllResourcesLoaded();
                     Destroy(heldItem.gameObject);
                     OnTaskComplete(requestor);
                 },

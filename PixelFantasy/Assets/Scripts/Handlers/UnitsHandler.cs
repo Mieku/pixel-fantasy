@@ -7,7 +7,7 @@ namespace Handlers
     public class UnitsHandler : Saveable
     {
         protected override string StateName => "Units";
-        public override int LoadOrder => 1;
+        public override int LoadOrder => 2;
 
         [SerializeField] private GameObject _unitPrefab;
 
