@@ -18,6 +18,8 @@ namespace Items
     public class Structure : Interactable, IPersistent
     {
         [SerializeField] private ActionTakeResourceToBlueprint _takeResourceToBlueprintAction;
+        [SerializeField] private ActionConstructStructure _construceStructureAction;
+        
         [SerializeField] private ProgressBar _progressBar;
         [SerializeField] private DynamicGridObstacle _gridObstacle;
 
@@ -338,30 +340,17 @@ namespace Items
             _takeResourceToBlueprintAction.EnqueueTask(this, resourceData);
         }
         
-        public ConstructionTask.ConstructStructure CreateConstructStructureTask(bool autoAssign = true)
+        public void CreateConstructStructureTask(bool autoAssign = true)
         {
-            // Clear old refs
-            _assignedTaskRefs.Clear();
-            
-            var task = new ConstructionTask.ConstructStructure
-            {
-                TargetUID = UniqueId,
-                structurePosition = transform.position,
-                workAmount = _structureData.GetWorkPerResource(),
-                completeWork = CompleteConstruction
-            };
-            
-            _assignedTaskRefs.Add(task.GetHashCode());
-
-            if (autoAssign)
-            {
-                taskMaster.ConstructionTaskSystem.AddTask(task);
-            }
-
-            return task;
+            _construceStructureAction.CreateTask(this, autoAssign);
         }
-        
-        private void CompleteConstruction()
+
+        public float GetWorkPerResource()
+        {
+            return _structureData.GetWorkPerResource();
+        }
+
+        public void CompleteConstruction()
         {
             ShowBlueprint(false);
             _isBuilt = true;

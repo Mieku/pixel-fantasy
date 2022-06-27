@@ -18,6 +18,8 @@ namespace Items
     public class Floor : Interactable, IClickableObject, IPersistent
     {
         [SerializeField] private ActionTakeResourceToBlueprint _takeResourceToBlueprintAction;
+        [SerializeField] private ActionConstructStructure _construceStructureAction;
+        
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private GraphUpdateScene _pathGraphUpdater;
 
@@ -324,30 +326,17 @@ namespace Items
             }
         }
         
-        public ConstructionTask.ConstructStructure CreateConstructFloorTask(bool autoAssign = true)
+        public void CreateConstructFloorTask(bool autoAssign = true)
         {
-            // Clear old refs
-            _assignedTaskRefs.Clear();
-            
-            var task = new ConstructionTask.ConstructStructure
-            {
-                TargetUID = UniqueId,
-                structurePosition = transform.position,
-                workAmount = _floorData.GetWorkPerResource(),
-                completeWork = CompleteConstruction
-            };
-            
-            _assignedTaskRefs.Add(task.GetHashCode());
-
-            if (autoAssign)
-            {
-                taskMaster.ConstructionTaskSystem.AddTask(task);
-            }
-
-            return task;
+            _construceStructureAction.CreateTask(this, autoAssign);
         }
         
-        private void CompleteConstruction()
+        public float GetWorkPerResource()
+        {
+            return _floorData.GetWorkPerResource();
+        }
+        
+        public void CompleteConstruction()
         {
             ShowBlueprint(false);
             _isBuilt = true;

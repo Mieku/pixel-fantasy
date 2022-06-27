@@ -15,6 +15,7 @@ namespace Items
     public class Furniture : Interactable, IPersistent
     {
         [SerializeField] private ActionTakeResourceToBlueprint _takeResourceToBlueprintAction;
+        [SerializeField] private ActionConstructStructure _construceStructureAction;
         
         private FurnitureData _furnitureData;
         protected FurniturePrefab _prefab;
@@ -341,27 +342,14 @@ namespace Items
             }
         }
         
-        public ConstructionTask.ConstructStructure CreateConstructFurnitureTask(bool autoAssign = true)
+        public void CreateConstructFurnitureTask(bool autoAssign = true)
         {
-            // Clear old refs
-            _assignedTaskRefs.Clear();
-            
-            var task = new ConstructionTask.ConstructStructure
-            {
-                TargetUID = UniqueId,
-                structurePosition = transform.position,
-                workAmount = _furnitureData.GetWorkPerResource(),
-                completeWork = CompleteConstruction
-            };
-            
-            _assignedTaskRefs.Add(task.GetHashCode());
-
-            if (autoAssign)
-            {
-                taskMaster.ConstructionTaskSystem.AddTask(task);
-            }
-
-            return task;
+            _construceStructureAction.CreateTask(this, autoAssign);
+        }
+        
+        public float GetWorkPerResource()
+        {
+            return _furnitureData.GetWorkPerResource();
         }
 
         protected virtual void CompleteConstruction()

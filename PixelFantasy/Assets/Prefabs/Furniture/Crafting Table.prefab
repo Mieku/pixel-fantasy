@@ -217,10 +217,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42a6af0f918b31c46a78a89885cba641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
+  _icon: {fileID: 279578734916291260}
   PendingTasks: []
   InProgressTasks: []
   _takeResourceToBlueprintAction: {fileID: 11400000, guid: 83169185dc450984288697c483e4df23, type: 2}
+  _construceStructureAction: {fileID: 11400000, guid: 7eb08bb163e3b934ba51eda03f3a7adb, type: 2}
   PendingTask: 0
 --- !u!61 &2535011923862896767
 BoxCollider2D:
