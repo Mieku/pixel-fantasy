@@ -27,6 +27,11 @@ namespace Actions
                     {
                         floor.AddToPendingResourceCosts(resourceData);
                     }
+                    var furniture = requestor.GetComponent<Furniture>();
+                    if (furniture != null)
+                    {
+                        furniture.AddToPendingResourceCosts(resourceData);
+                    }
                     
                     return CreateTaskWithSlot(requestor, slot);
                 }
@@ -62,6 +67,11 @@ namespace Actions
                     {
                         floor.AddToIncomingItems(resource);
                     }
+                    var furniture = requestor.GetComponent<Furniture>();
+                    if (furniture != null)
+                    {
+                        furniture.AddToIncomingItems(resource);
+                    }
 
                     resource.gameObject.SetActive(true);
                     unitTaskAI.AssignHeldItem(resource);
@@ -81,6 +91,13 @@ namespace Actions
                         floor.AddResourceToBlueprint(heldItem.GetItemData());
                         floor.RemoveFromIncomingItems(heldItem);
                         floor.CheckIfAllResourcesLoaded();
+                    }
+                    var furniture = requestor.GetComponent<Furniture>();
+                    if (furniture != null)
+                    {
+                        furniture.AddResourceToBlueprint(heldItem.GetItemData());
+                        furniture.RemoveFromIncomingItems(heldItem);
+                        furniture.CheckIfAllResourcesLoaded();
                     }
                     
                     heldItem.gameObject.SetActive(false);
@@ -121,6 +138,13 @@ namespace Actions
                         recievingFloor.AddResourceToBlueprint(heldItem.GetItemData());
                         recievingFloor.RemoveFromIncomingItems(heldItem);
                         recievingFloor.CheckIfAllResourcesLoaded();
+                    }
+                    var recievingFurniture = requestor.GetComponent<Furniture>();
+                    if (recievingFurniture != null)
+                    {
+                        recievingFurniture.AddResourceToBlueprint(heldItem.GetItemData());
+                        recievingFurniture.RemoveFromIncomingItems(heldItem);
+                        recievingFurniture.CheckIfAllResourcesLoaded();
                     }
                     
                     heldItem.gameObject.SetActive(false);
