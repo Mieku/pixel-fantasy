@@ -25,3 +25,5 @@ MonoBehaviour:
   _options: 01000000
   _planningMode: 1
   _wallRuleTile: {fileID: 11400000, guid: dd8e1f36f33a05c4ea1bcc9478f925dc, type: 2}
+  _availableActions:
+  - {fileID: 11400000, guid: 7eb08bb163e3b934ba51eda03f3a7adb, type: 2}

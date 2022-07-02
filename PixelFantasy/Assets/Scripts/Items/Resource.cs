@@ -13,7 +13,6 @@ using UnityEngine;
 
 namespace Items
 {
-    [RequireComponent(typeof(Interactable))]
     public class Resource : Interactable, IClickableObject, IPersistent
     {
         public GameObject Prefab;
@@ -95,9 +94,9 @@ namespace Items
             throw new System.NotImplementedException();
         }
 
-        public virtual void AssignOrder(Order orderToAssign)
+        public virtual void AssignOrder(ActionBase orderToAssign)
         {
-            throw new System.NotImplementedException();
+            CreateTask(orderToAssign);
         }
         
         public virtual object CaptureState()

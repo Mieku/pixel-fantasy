@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Actions;
 using CodeMonkey.Utils;
 using Gods;
 using HUD;
@@ -104,7 +105,7 @@ namespace Controllers
             }
         }
 
-        private Action DetermineOnPressedOrderAction(Order orderType)
+        private Action DetermineOnPressedOrderAction(ActionBase orderType)
         {
             void OnOnpressed()
             {

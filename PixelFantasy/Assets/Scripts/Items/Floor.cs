@@ -376,7 +376,7 @@ namespace Items
                     throw new ArgumentOutOfRangeException(nameof(orderToAssign), orderToAssign, null);
             }
         }
-
+        
         public override object CaptureState()
         {
             List<string> incomingItemsGUIDS = new List<string>();

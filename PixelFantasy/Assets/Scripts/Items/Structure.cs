@@ -339,6 +339,11 @@ namespace Items
             ShowBlueprint(!_isBuilt);
         }
 
+        public override List<ActionBase> GetActions()
+        {
+            return AvailableActions;
+        }
+
         public override object CaptureState()
         {
             List<string> incomingItemsGUIDS = new List<string>();

@@ -31,7 +31,13 @@ namespace Actions
 
             return task;
         }
-        
+
+        public override bool IsTaskAvailable(Interactable requestor)
+        {
+            // This is an automatic task
+            return false;
+        }
+
         public override void OnTaskComplete(Interactable requestor)
         {
             requestor.OnTaskCompleted(this);

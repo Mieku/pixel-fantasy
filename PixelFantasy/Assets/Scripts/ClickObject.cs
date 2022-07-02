@@ -112,7 +112,7 @@ public class ClickObject : MonoBehaviour
         }
     }
 
-    public void AreaSelectObject(Order orderForSelection)
+    public void AreaSelectObject(ActionBase orderForSelection)
     {
         if (ObjectValidForSelection(orderForSelection))
         {
@@ -125,13 +125,13 @@ public class ClickObject : MonoBehaviour
         _selectedIcon.SetActive(false);
     }
 
-    public bool ObjectValidForSelection(Order orderForSelection)
+    public bool ObjectValidForSelection(ActionBase actionForSelection)
     {
         var clickableObject = GetComponent<IClickableObject>();
         if (clickableObject != null)
         {
-            var possibleOrders = clickableObject.GetOrders();
-            return possibleOrders.Any(possibleOrder => possibleOrder == orderForSelection);
+            var possibleOrders = clickableObject.GetActions();
+            return possibleOrders.Any(possibleOrder => possibleOrder == actionForSelection);
         }
         
         return false;

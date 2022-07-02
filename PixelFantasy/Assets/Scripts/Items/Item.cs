@@ -246,7 +246,7 @@ namespace Items
             result.Add(_takeItemToItemSlotAction);
             return result;
         }
-
+        
         public bool IsOrderActive(Order order)
         {
             switch (order)
@@ -263,14 +263,14 @@ namespace Items
             throw new NotImplementedException();
         }
 
-        public void AssignOrder(Order orderToAssign)
+        public void AssignOrder(ActionBase orderToAssign)
         {
-            switch (orderToAssign)
+            switch (orderToAssign.id)
             {
-                case Order.Allow:
+                case "Allow":
                     ToggleAllowed(true);
                     break;
-                case Order.Disallow:
+                case "Disallow":
                     ToggleAllowed(false);
                     break;
             }

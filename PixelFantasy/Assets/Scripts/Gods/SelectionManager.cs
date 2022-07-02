@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Actions;
 using CodeMonkey.Utils;
 using Controllers;
 using Interfaces;
@@ -12,7 +13,7 @@ namespace Gods
     {
         [SerializeField] private Transform _selectionBox;
         
-        private Order _selectBoxOrder;
+        private ActionBase _selectBoxOrder;
         private bool _selectBoxActive;
         private Vector2 _selectBoxStartPos;
         private List<IClickableObject> _selectedObjects = new List<IClickableObject>();
@@ -35,7 +36,7 @@ namespace Gods
             _selectionBox.localScale = Vector3.zero;
         }
 
-        public void BeginOrdersSelectionBox(Order order)
+        public void BeginOrdersSelectionBox(ActionBase order)
         {
             _selectBoxOrder = order;
             _selectBoxActive = true;
@@ -69,7 +70,7 @@ namespace Gods
         /// <summary>
         /// Gets the Object in the box, and assigns the order to them (if applicable)
         /// </summary>
-        public void ReleaseOrdersSelectionBox(Order filteredOrder)
+        public void ReleaseOrdersSelectionBox(ActionBase filteredOrder)
         {
             _selectionBox.gameObject.SetActive(false);
             _selectionBox.localScale = Vector3.zero;
@@ -82,7 +83,7 @@ namespace Gods
             ClearAllValidInSelection();
         }
 
-        private void RecordAllValidInSelection(Order filteredOrder)
+        private void RecordAllValidInSelection(ActionBase filteredOrder)
         {
             var allItems = Physics2D.OverlapAreaAll(_selectBoxStartPos, UtilsClass.GetMouseWorldPosition());
             foreach (var itemOverlapped in allItems)

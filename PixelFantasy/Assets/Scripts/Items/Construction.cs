@@ -2,12 +2,13 @@ using System.Collections.Generic;
 using Actions;
 using DataPersistence;
 using Gods;
+using Interfaces;
 using ScriptableObjects;
 using UnityEngine;
 
 namespace Items
 {
-    public class Construction : Interactable, IPersistent
+    public class Construction : Interactable, IPersistent, IClickableObject
     {
         [SerializeField] protected ActionTakeResourceToBlueprint _takeResourceToBlueprintAction;
         [SerializeField] protected ActionConstructStructure _constructStructureAction;
@@ -201,6 +202,38 @@ namespace Items
         }
 
         public virtual void RestoreState(object data)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ClickObject GetClickObject()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool IsClickDisabled { get; set; }
+        public bool IsAllowed { get; set; }
+        public void ToggleAllowed(bool isAllowed)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public List<Order> GetOrders()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual List<ActionBase> GetActions()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void AssignOrder(ActionBase orderToAssign)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool IsOrderActive(Order order)
         {
             throw new System.NotImplementedException();
         }

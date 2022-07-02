@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Actions;
 using Controllers;
 using Gods;
 using Interfaces;
@@ -21,7 +22,10 @@ namespace ScriptableObjects
         [SerializeField] private List<Order> _options;
         [SerializeField] private PlanningMode _planningMode;
         [SerializeField] private RuleOverrideTile _wallRuleTile;
-
+        [SerializeField] private List<ActionBase> _availableActions;
+        
+        public List<ActionBase> AvailableActions => _availableActions;
+        
         public PlanningMode PlanningMode => _planningMode;
         
         public List<ItemAmount> GetResourceCosts()

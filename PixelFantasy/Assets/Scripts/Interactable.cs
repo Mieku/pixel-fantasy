@@ -33,6 +33,24 @@ public class Interactable : UniqueObject
                 {
                     _potentialActions = item.GetItemData().AvailableActions;
                 }
+                
+                var structure = GetComponent<Structure>();
+                if (structure != null)
+                {
+                    _potentialActions = structure.GetStructureData().AvailableActions;
+                }
+                
+                var floor = GetComponent<Floor>();
+                if (floor != null)
+                {
+                    _potentialActions = floor.FloorData.AvailableActions;
+                }
+                
+                var furniture = GetComponent<Furniture>();
+                if (furniture != null)
+                {
+                    _potentialActions = furniture.FurnitureData.AvailableActions;
+                }
             }
 
             var availableActions = FilterAvailableActions(_potentialActions);

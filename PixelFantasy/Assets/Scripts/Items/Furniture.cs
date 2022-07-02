@@ -29,6 +29,11 @@ namespace Items
         
         protected CraftMaster craftMaster => CraftMaster.Instance;
 
+        public override List<ActionBase> GetActions()
+        {
+            return AvailableActions;
+        }
+        
         public virtual void Init(FurnitureData furnitureData, PlacementDirection direction)
         {
             _furnitureData = furnitureData;
