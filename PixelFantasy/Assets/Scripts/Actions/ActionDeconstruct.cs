@@ -51,5 +51,10 @@ namespace Actions
             var construction = requestor.GetComponent<Construction>();
             return construction.IsBuilt;
         }
+        
+        public override void CancelTask(Interactable requestor)
+        {
+            taskMaster.ConstructionTaskSystem.CancelTask(requestor.UniqueId);
+        }
     }
 }

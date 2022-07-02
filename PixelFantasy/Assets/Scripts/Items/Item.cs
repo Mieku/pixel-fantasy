@@ -276,6 +276,11 @@ namespace Items
             }
         }
         
+        public List<ActionBase> GetCancellableActions()
+        {
+            return null;
+        }
+        
         public object CaptureState()
         {
             return new Data

@@ -198,12 +198,14 @@ public class ClickObject : MonoBehaviour
     private SelectionData GetSelectionData(ItemData itemData)
     {
         var actions = Owner.GetActions();
+        var cancellableActions = Owner.GetCancellableActions();
 
         SelectionData result = new SelectionData
         {
             ItemName = itemData.ItemName,
             ClickObject = this,
             Actions = actions,
+            CancellableActions = cancellableActions,
             Requestor = GetComponent<Interactable>(),
         };
 
@@ -213,11 +215,13 @@ public class ClickObject : MonoBehaviour
     private SelectionData GetSelectionData(StructureData structureData)
     {
         var actions = Owner.GetActions();
+        var cancellableActions = Owner.GetCancellableActions();
         
         SelectionData result = new SelectionData
         {
             ItemName = structureData.StructureName,
             Actions = actions,
+            CancellableActions = cancellableActions,
             ClickObject = this,
             Requestor = GetComponent<Interactable>(),
         };
@@ -228,11 +232,13 @@ public class ClickObject : MonoBehaviour
     private SelectionData GetSelectionData(GrowingResourceData growingResourceData)
     {
         var actions = Owner.GetActions();
+        var cancellableActions = Owner.GetCancellableActions();
         
         SelectionData result = new SelectionData
         {
             ItemName = growingResourceData.ResourceName,
             Actions = actions,
+            CancellableActions = cancellableActions,
             ClickObject = this,
             Requestor = GetComponent<Interactable>(),
         };
@@ -243,11 +249,13 @@ public class ClickObject : MonoBehaviour
     private SelectionData GetSelectionData(FloorData floorData)
     {
         var actions = Owner.GetActions();
+        var cancellableActions = Owner.GetCancellableActions();
         
         SelectionData result = new SelectionData
         {
             ItemName = floorData.FloorName,
             Actions = actions,
+            CancellableActions = cancellableActions,
             ClickObject = this,
             Requestor = GetComponent<Interactable>(),
         };
@@ -258,11 +266,13 @@ public class ClickObject : MonoBehaviour
     private SelectionData GetSelectionData(FurnitureData furnitureData)
     {
         var actions = Owner.GetActions();
+        var cancellableActions = Owner.GetCancellableActions();
         
         SelectionData result = new SelectionData
         {
             ItemName = furnitureData.FurnitureName,
             Actions = actions,
+            CancellableActions = cancellableActions,
             ClickObject = this,
             Requestor = GetComponent<Interactable>(),
         };
@@ -280,6 +290,7 @@ public class SelectionData
 {
     public string ItemName;
     public List<ActionBase> Actions;
+    public List<ActionBase> CancellableActions;
     public ClickObject ClickObject;
     public Interactable Requestor;
 }

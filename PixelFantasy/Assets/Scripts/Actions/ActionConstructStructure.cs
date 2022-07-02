@@ -37,6 +37,11 @@ namespace Actions
             // This is an automatic task
             return false;
         }
+        
+        public override void CancelTask(Interactable requestor)
+        {
+            taskMaster.ConstructionTaskSystem.CancelTask(requestor.UniqueId);
+        }
 
         public override void OnTaskComplete(Interactable requestor)
         {

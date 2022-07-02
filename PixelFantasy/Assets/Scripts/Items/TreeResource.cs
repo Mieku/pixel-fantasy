@@ -23,12 +23,12 @@ namespace Items
             }
         }
         
-        public void CancelCutTreeTask()
-        {
-            _queuedToCut = false;
-            //SetIcon(null);
-            CancelTasks();
-        }
+        // public void CancelCutTreeTask()
+        // {
+        //     _queuedToCut = false;
+        //     //SetIcon(null);
+        //     //CancelTasks();
+        // }
 
         public override List<Order> GetOrders()
         {

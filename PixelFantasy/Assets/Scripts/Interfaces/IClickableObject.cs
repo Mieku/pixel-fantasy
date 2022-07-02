@@ -11,6 +11,7 @@ namespace Interfaces
         public bool IsAllowed { get; set; }
         public void ToggleAllowed(bool isAllowed);
         public List<ActionBase> GetActions();
+        public List<ActionBase> GetCancellableActions();
         public void AssignOrder(ActionBase orderToAssign);
         public bool IsActionActive(ActionBase action);
     }

@@ -36,3 +36,4 @@ MonoBehaviour:
   _craftingType: 0
   _availableActions:
   - {fileID: 11400000, guid: 208ddcd0432a44948a68d37f88bd010a, type: 2}
+  - {fileID: 11400000, guid: d2c5e0d28c7052c44a5ca2d47267f4a4, type: 2}

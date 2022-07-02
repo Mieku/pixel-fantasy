@@ -17,7 +17,7 @@ namespace Actions
                 OnTaskAccepted = requestor.OnTaskAccepted,
                 claimDirt = (UnitTaskAI unitTaskAI) =>
                 {
-                    //_incomingUnit = unitTaskAI;
+                    requestor.IncomingUnitUID = unitTaskAI.UniqueId;
                 },
                 grassPosition = requestor.transform.position,
                 workAmount = requestor.GetWorkAmount(),
@@ -35,6 +35,11 @@ namespace Actions
             return task;
         }
     
+        public override void CancelTask(Interactable requestor)
+        {
+            taskMaster.FarmingTaskSystem.CancelTask(requestor.UniqueId);
+        }
+        
         public override void OnTaskComplete(Interactable requestor)
         {
             requestor.OnTaskCompleted(this);

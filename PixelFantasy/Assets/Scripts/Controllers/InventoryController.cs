@@ -147,6 +147,30 @@ namespace Controllers
             return null;
         }
 
+        public void RestoreClaimedResource(ItemAmount itemAmount)
+        {
+            var itemData = itemAmount.Item;
+            var amountToRestore = itemAmount.Quantity;
+            
+            foreach (var storageSlot in _storageSlots)
+            {
+                if (!storageSlot.IsEmpty() && storageSlot.GetStoredType() == itemData)
+                {
+                    if (storageSlot.ClaimedAmount < amountToRestore)
+                    {
+                        amountToRestore -= storageSlot.ClaimedAmount;
+                        storageSlot.ClaimedAmount = 0;
+                    }
+                    else
+                    {
+                        storageSlot.ClaimedAmount -= amountToRestore;
+                        amountToRestore = 0;
+                        return;
+                    }
+                }
+            }
+        }
+
         public void DeductClaimedResource(Item claimedResource)
         {
             foreach (var storageSlot in _storageSlots)

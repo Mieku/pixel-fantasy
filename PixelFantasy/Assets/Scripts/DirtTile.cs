@@ -121,10 +121,11 @@ public class DirtTile : Interactable, IPersistent
             {
                 growResource.TaskRequestors.Add(gameObject);
 
-                if (!growResource.QueuedToCut)
-                {
-                    growResource.CreateTaskById("Cut Plant");
-                }
+                // if (!growResource.QueuedToCut)
+                // {
+                //     growResource.CreateTaskById("Cut Plant");
+                // }
+                growResource.CreateTaskById("Cut Plant");
             }
         }
     }

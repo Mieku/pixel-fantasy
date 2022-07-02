@@ -12,7 +12,7 @@ namespace Actions
     {
         public void EnqueueTask(Interactable requestor, ItemData resourceData)
         {
-            taskMaster.HaulingTaskSystem.EnqueueTask(() =>
+            var taskRef = taskMaster.HaulingTaskSystem.EnqueueTask(() =>
             {
                 StorageSlot slot = ControllerManager.Instance.InventoryController.ClaimResource(resourceData);
                 if (slot != null)
@@ -29,7 +29,9 @@ namespace Actions
                 {
                     return null;
                 }
-            });
+            }).GetHashCode();
+            
+            requestor.QueuedTaskRefs.Add(taskRef);
         }
 
         public HaulingTask.TakeResourceToBlueprint CreateTaskWithSlot(Interactable requestor, StorageSlot slot)
@@ -44,6 +46,7 @@ namespace Actions
                 blueprintPosition = requestor.transform.position,
                 grabResource = (UnitTaskAI unitTaskAI) =>
                 {
+                    requestor.IncomingUnitUID = unitTaskAI.UniqueId;
                     // Get item from the slot
                     resource = slot.GetItem();
                     
@@ -72,6 +75,8 @@ namespace Actions
                 },
             };
 
+            requestor.QueuedTaskRefs.Add(task.GetHashCode());
+            
             return task;
         }
         
@@ -86,6 +91,7 @@ namespace Actions
                 blueprintPosition = requestor.transform.position,
                 grabResource = (UnitTaskAI unitTaskAI) =>
                 {
+                    requestor.IncomingUnitUID = unitTaskAI.UniqueId;
                     item.gameObject.SetActive(true);
                     unitTaskAI.AssignHeldItem(item);
                 },
@@ -104,8 +110,15 @@ namespace Actions
                     OnTaskComplete(requestor);
                 },
             };
+            
+            requestor.QueuedTaskRefs.Add(task.GetHashCode());
 
             return task;
+        }
+        
+        public override void CancelTask(Interactable requestor)
+        {
+            taskMaster.HaulingTaskSystem.CancelTask(requestor.UniqueId);
         }
 
         public TaskBase RestoreTask(Interactable requestor, StorageSlot slot, Item heldItem)

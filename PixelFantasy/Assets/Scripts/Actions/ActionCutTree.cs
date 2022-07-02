@@ -22,8 +22,7 @@ namespace Actions
                 OnTaskAccepted = requestor.OnTaskAccepted,
                 claimTree = (UnitTaskAI unitTaskAI) =>
                 {
-                    // treeRequestor._incomingUnit = unitTaskAI;
-                    // treeRequestor.PendingTask = TaskType.None;
+                    requestor.IncomingUnitUID = unitTaskAI.UniqueId;
                 },
                 treePosition = requestor.transform.position,
                 workAmount = requestor.GetWorkAmount(),
@@ -39,6 +38,11 @@ namespace Actions
             }
 
             return task;
+        }
+
+        public override void CancelTask(Interactable requestor)
+        {
+            taskMaster.FellingTaskSystem.CancelTask(requestor.UniqueId);
         }
 
         public override void OnTaskComplete(Interactable requestor)

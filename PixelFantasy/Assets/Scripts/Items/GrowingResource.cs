@@ -21,10 +21,10 @@ namespace Items
         protected float _reproductionTimer;
         protected float _fruitTimer;
         protected bool _hasFruitAvailable;
-        protected bool _queuedToHarvest;
+        // protected bool _queuedToHarvest;
         
         public bool HasFruitAvailable => _hasFruitAvailable;
-        public bool QueuedToHarvest => _queuedToHarvest;
+        // public bool QueuedToHarvest => _queuedToHarvest;
         public List<GameObject> TaskRequestors = new List<GameObject>();
         
         private void Start()
@@ -152,7 +152,7 @@ namespace Items
                     }
                 }
                 _hasFruitAvailable = false;
-                _queuedToHarvest = false;
+                // _queuedToHarvest = false;
                 RefreshSelection();
             }
             
@@ -205,12 +205,12 @@ namespace Items
         //     return task;
         // }
 
-        public void CancelCutPlantTask()
-        {
-            _queuedToCut = false;
-            //SetIcon(null);
-            CancelTasks();
-        }
+        // public void CancelCutPlantTask()
+        // {
+        //     _queuedToCut = false;
+        //     //SetIcon(null);
+        //     //CancelTasks();
+        // }
 
         // public FarmingTask.HarvestFruit CreateHarvestFruitTask(bool autoAssign = true)
         // {
@@ -257,12 +257,12 @@ namespace Items
         //     return task;
         // }
 
-        public void CancelHarvestFruitTask()
-        {
-            _queuedToHarvest = false;
-            //SetIcon(null);
-            CancelTasks();
-        }
+        // public void CancelHarvestFruitTask()
+        // {
+        //     _queuedToHarvest = false;
+        //     //SetIcon(null);
+        //     //CancelTasks();
+        // }
         
         public void CutDownPlant()
         {
@@ -296,12 +296,12 @@ namespace Items
             Destroy(gameObject);
         }
 
-        public override void CancelTasks()
-        {
-            base.CancelTasks();
-
-            _queuedToHarvest = false;
-        }
+        // public override void CancelTasks()
+        // {
+        //     base.CancelTasks();
+        //
+        //     _queuedToHarvest = false;
+        // }
         
         public override List<Order> GetOrders()
         {
@@ -316,18 +316,18 @@ namespace Items
             return results;
         }
 
-        public override bool IsOrderActive(Order order)
-        {
-            switch (order)
-            {
-                case Order.CutPlant:
-                    return _queuedToCut;
-                case Order.Harvest:
-                    return _queuedToHarvest;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(order), order, null);
-            }
-        }
+        // public override bool IsOrderActive(Order order)
+        // {
+        //     switch (order)
+        //     {
+        //         case Order.CutPlant:
+        //             return _queuedToCut;
+        //         case Order.Harvest:
+        //             return _queuedToHarvest;
+        //         default:
+        //             throw new ArgumentOutOfRangeException(nameof(order), order, null);
+        //     }
+        // }
         
         public override int GetWorkAmount()
         {

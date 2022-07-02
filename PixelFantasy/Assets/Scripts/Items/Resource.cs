@@ -23,46 +23,45 @@ namespace Items
         
         protected TaskMaster taskMaster => TaskMaster.Instance;
         protected Spawner spawner => Spawner.Instance;
-        public List<int> _assignedTaskRefs = new List<int>();
-        protected bool _queuedToCut;
-        public UnitTaskAI _incomingUnit;
+
+        //protected bool _queuedToCut;
 
         public GrowingResourceData GetResourceData()
         {
             return _growingResourceData;
         }
         
-        public bool QueuedToCut
-        {
-            get => _queuedToCut;
-            set => _queuedToCut = value;
-        }
+        // public bool QueuedToCut
+        // {
+        //     get => _queuedToCut;
+        //     set => _queuedToCut = value;
+        // }
 
         public ClickObject GetClickObject()
         {
             return _clickObject;
         }
 
-        public virtual void CancelTasks()
-        {
-            if (_assignedTaskRefs == null || _assignedTaskRefs.Count == 0) return;
-            
-            foreach (var taskRef in _assignedTaskRefs)
-            {
-                taskMaster.FellingTaskSystem.CancelTask(taskRef);
-                taskMaster.FarmingTaskSystem.CancelTask(taskRef);
-            }
-            _assignedTaskRefs.Clear();
-            
-            if (_incomingUnit != null)
-            {
-                _incomingUnit.CancelTask();
-            }
-
-            _queuedToCut = false;
-            
-            RefreshSelection();
-        }
+        // public virtual void CancelTasks()
+        // {
+        //     if (_assignedTaskRefs == null || _assignedTaskRefs.Count == 0) return;
+        //     
+        //     foreach (var taskRef in _assignedTaskRefs)
+        //     {
+        //         taskMaster.FellingTaskSystem.CancelTask(taskRef);
+        //         taskMaster.FarmingTaskSystem.CancelTask(taskRef);
+        //     }
+        //     _assignedTaskRefs.Clear();
+        //     
+        //     if (_incomingUnit != null)
+        //     {
+        //         _incomingUnit.CancelTask();
+        //     }
+        //
+        //     _queuedToCut = false;
+        //     
+        //     RefreshSelection();
+        // }
         
         public void RefreshSelection()
         {
@@ -82,6 +81,11 @@ namespace Items
         public virtual List<ActionBase> GetActions()
         {
             return AvailableActions;
+        }
+
+        public List<ActionBase> GetCancellableActions()
+        {
+            return CancellableActions();
         }
 
         public virtual List<Order> GetOrders()

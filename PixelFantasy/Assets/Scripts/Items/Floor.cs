@@ -112,10 +112,11 @@ namespace Items
                 {
                     growResource.TaskRequestors.Add(gameObject);
 
-                    if (!growResource.QueuedToCut)
-                    {
-                        growResource.CreateTaskById("Cut Plant");
-                    }
+                    // if (!growResource.QueuedToCut)
+                    // {
+                    //     growResource.CreateTaskById("Cut Plant");
+                    // }
+                    growResource.CreateTaskById("Cut Plant");
                 }
             }
         }
@@ -143,7 +144,7 @@ namespace Items
             IsClickDisabled = true;
         }
         
-        public void CancelConstruction()
+        public override void CancelConstruction()
         {
             if (!_isBuilt)
             {
@@ -178,63 +179,10 @@ namespace Items
             _pendingResourceCosts.Clear();
             _incomingItems.Clear();
         }
-
-        public void CreateDeconstructionTask()
-        {
-            _isDeconstructing = true;
-            //SetIcon("Hammer");
-            var task = new ConstructionTask.DeconstructStructure()
-            {
-                claimStructure = (UnitTaskAI unitTaskAI) =>
-                {
-                    _incomingUnit = unitTaskAI;
-                },
-                structurePosition = transform.position,
-                workAmount = _floorData.GetWorkPerResource(),
-                completeWork = CompleteDeconstruction
-            };
-            
-            _assignedTaskRefs.Add(task.GetHashCode());
-            
-            taskMaster.ConstructionTaskSystem.AddTask(task);
-        }
-
-        public void CancelDeconstruction()
-        {
-            _isDeconstructing = false;
-            CancelTasks();
-            //SetIcon(null);
-
-            if (_incomingUnit != null)
-            {
-                _incomingUnit.CancelTask();
-            }
-        }
-
+        
         public override List<ActionBase> GetActions()
         {
             return AvailableActions;
-        }
-        
-        public void AssignOrder(Order orderToAssign)
-        {
-            switch (orderToAssign)
-            {
-                case Order.Deconstruct:
-                    CreateDeconstructionTask();
-                    break;
-                case Order.Cancel:
-                    if (_isDeconstructing)
-                    {
-                        CancelDeconstruction();
-                    } else if (!_isBuilt)
-                    {
-                        CancelConstruction();
-                    }
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(orderToAssign), orderToAssign, null);
-            }
         }
         
         public override List<ItemAmount> GetResourceCosts()

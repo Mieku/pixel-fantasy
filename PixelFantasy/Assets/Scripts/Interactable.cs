@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Actions;
+using Characters;
 using Gods;
 using Items;
 using ScriptableObjects;
@@ -10,9 +11,11 @@ using UnityEngine;
 public class Interactable : UniqueObject
 {
     [SerializeField] private SpriteRenderer _icon;
-    
+
+    public List<int> QueuedTaskRefs = new List<int>();
     public List<ActionBase> PendingTasks = new List<ActionBase>();
     public List<ActionBase> InProgressTasks = new List<ActionBase>();
+    public string IncomingUnitUID;
 
     private List<ActionBase> _potentialActions;
     
@@ -59,6 +62,22 @@ public class Interactable : UniqueObject
         }
     }
 
+    public List<ActionBase> CancellableActions()
+    {
+        var results = new List<ActionBase>();
+        foreach (var pendingTask in PendingTasks)
+        {
+            results.Add(pendingTask);
+        }
+
+        foreach (var inProgressTask in InProgressTasks)
+        {
+            results.Add(inProgressTask);
+        }
+
+        return results;
+    }
+
     private List<ActionBase> FilterAvailableActions(List<ActionBase> potentialActions)
     {
         List<ActionBase> result = new List<ActionBase>();
@@ -92,10 +111,56 @@ public class Interactable : UniqueObject
     
     public void CreateTask(ActionBase taskAction)
     {
+        CancelAllTasks();
         taskAction.CreateTask(this);
         SetTaskToPending(taskAction);
     }
+    
+    public void CancelAllTasks()
+    {
+        List<ActionBase> tasksToCancel = new List<ActionBase>();
+        foreach (var pendingTask in PendingTasks)
+        {
+            tasksToCancel.Add(pendingTask);
+        }
+        foreach (var inProgressTask in InProgressTasks)
+        {
+            tasksToCancel.Add(inProgressTask);
+        }
+
+        foreach (var taskToCancel in tasksToCancel)
+        {
+            CancelTask(taskToCancel);
+        }
+
+        foreach (var queuedTaskRef in QueuedTaskRefs)
+        {
+            CancelQueuedTask(queuedTaskRef);
+        }
+    }
+
+    public void CancelQueuedTask(int taskRef)
+    {
+        TaskMaster.Instance.CancelQueuedTask(taskRef);
+    }
+
+    public void CancelTask(ActionBase taskAction)
+    {
+        taskAction.CancelTask(this);
         
+        PendingTasks.Clear();
+        InProgressTasks.Clear();
+
+        if (!string.IsNullOrEmpty(IncomingUnitUID))
+        {
+            var unitObj = UIDManager.Instance.GetGameObject(IncomingUnitUID);
+            var unit = unitObj.GetComponent<UnitTaskAI>();
+            unit.CancelTask();
+        }
+        
+        DisplayTaskIcon(null);
+    }
+
     public void SetTaskToPending(ActionBase task)
     {
         PendingTasks.Add(task);

@@ -33,6 +33,25 @@ namespace Gods
         
         private bool _isGameLoading;
         private bool _isGameSaving;
+
+        public void CancelQueuedTask(int taskRef)
+        {
+            EmergencyTaskSystem.CancelTask(taskRef);
+            HealingTaskSystem.CancelTask(taskRef);
+            CookingTaskSystem.CancelTask(taskRef);
+            HuntingTaskSystem.CancelTask(taskRef);
+            ConstructionTaskSystem.CancelTask(taskRef);
+            FarmingTaskSystem.CancelTask(taskRef);
+            MiningTaskSystem.CancelTask(taskRef);
+            FellingTaskSystem.CancelTask(taskRef);
+            SmithingTaskSystem.CancelTask(taskRef);
+            TailoringTaskSystem.CancelTask(taskRef);
+            CarpentryTaskSystem.CancelTask(taskRef);
+            MasonryTaskSystem.CancelTask(taskRef);
+            HaulingTaskSystem.CancelTask(taskRef);
+            CleaningTaskSystem.CancelTask(taskRef);
+            ResearchTaskSystem.CancelTask(taskRef);
+        }
         
         public TaskBase GetNextTaskByCategory(TaskCategory category)
         {

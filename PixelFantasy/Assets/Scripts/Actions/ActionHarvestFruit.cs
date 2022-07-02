@@ -19,7 +19,7 @@ namespace Actions
                 OnTaskAccepted = requestor.OnTaskAccepted,
                 claimPlant = (UnitTaskAI unitTaskAI) =>
                 {
-                    //_incomingUnit = unitTaskAI;
+                    requestor.IncomingUnitUID = unitTaskAI.UniqueId;
                 },
                 plantPosition = requestor.transform.position,
                 workAmount = requestor.GetWorkAmount(),
@@ -52,6 +52,11 @@ namespace Actions
             var growingResource = requestor.GetComponent<GrowingResource>();
             growingResource.HarvestFruit();
             requestor.DisplayTaskIcon(null);
+        }
+        
+        public override void CancelTask(Interactable requestor)
+        {
+            taskMaster.FarmingTaskSystem.CancelTask(requestor.UniqueId);
         }
     }
 }

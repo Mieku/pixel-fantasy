@@ -67,6 +67,11 @@ namespace Actions
             return task;
         }
         
+        public override void CancelTask(Interactable requestor)
+        {
+            taskMaster.HaulingTaskSystem.CancelTask(requestor.UniqueId);
+        }
+        
         public void OnTaskComplete(Item item)
         {
             item.AddItemToSlot();

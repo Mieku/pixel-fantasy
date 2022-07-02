@@ -46,14 +46,28 @@ namespace Items
                 if (value == null)
                 {
                     _hasUnitIncoming = false;
+                    IncomingUnitUID = "";
                 }
                 else
                 {
                     _hasUnitIncoming = true;
+                    IncomingUnitUID = value.UniqueId;
                 }
                 
                 _incomingUnit = value;
             }
+        }
+
+        public virtual void CancelConstruction()
+        {
+            CancelAllTasks();
+
+            var claimed = GetClaimedResourcesCosts();
+                
+            // Spawn All the resources used
+            SpawnUsedResources(100f);
+            
+            Destroy(gameObject);
         }
 
         public void AddResourceToBlueprint(ItemData itemData)
@@ -234,6 +248,32 @@ namespace Items
             
             return result;
         }
+
+        protected List<ItemAmount> GetClaimedResourcesCosts()
+        {
+            _pendingResourceCosts ??= new List<ItemAmount>();
+            _incomingResourceCosts ??= new List<ItemAmount>();
+            
+            var results = new List<ItemAmount>();
+            foreach (var pendingResourceCost in _pendingResourceCosts)
+            {
+                results.Add(pendingResourceCost);
+            }
+
+            foreach (var incomingResourceCost in _incomingResourceCosts)
+            {
+                foreach (var result in results)
+                {
+                    if (result.Item == incomingResourceCost.Item)
+                    {
+                        result.Quantity -= incomingResourceCost.Quantity;
+                        break;
+                    }
+                }
+            }
+
+            return results;
+        }
         
         public void CheckIfAllResourcesLoaded()
         {
@@ -254,6 +294,11 @@ namespace Items
         {
             var deconstruct = Librarian.Instance.GetAction("Deconstruct");
             deconstruct.CreateTask(this, autoAssign);
+        }
+        
+        public List<ActionBase> GetCancellableActions()
+        {
+            return CancellableActions();
         }
     
         public virtual object CaptureState()

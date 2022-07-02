@@ -15,6 +15,11 @@ namespace Actions
         {
             return null;
         }
+        
+        public virtual void CancelTask(Interactable requestor)
+        {
+            Debug.LogError($"{requestor.name} is cancelling task but there is no override");
+        }
 
         public virtual void OnTaskComplete(Interactable requestor)
         {

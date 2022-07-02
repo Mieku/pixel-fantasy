@@ -1,14 +1,10 @@
-using System;
 using System.Collections.Generic;
 using Actions;
 using Controllers;
-using DataPersistence;
 using Gods;
 using HUD;
 using Pathfinding;
 using ScriptableObjects;
-using Sirenix.OdinInspector;
-using Tasks;
 using Characters;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -124,10 +120,11 @@ namespace Items
                 {
                     growResource.TaskRequestors.Add(gameObject);
 
-                    if (!growResource.QueuedToCut)
-                    {
-                        growResource.CreateTaskById("Cut Plant");
-                    }
+                    // if (!growResource.QueuedToCut)
+                    // {
+                    //     
+                    // }
+                    growResource.CreateTaskById("Cut Plant");
                 }
             }
         }
@@ -163,17 +160,19 @@ namespace Items
             ShowBlueprint(false);
             _isBuilt = true;
         }
-
-        public bool IsBuilt()
-        {
-            return _isBuilt;
-        }
-
-        public void CancelConstruction()
+        
+        public override void CancelConstruction()
         {
             if (!_isBuilt)
             {
-                CancelTasks();
+                CancelAllTasks();
+                
+                // Restore the claimed to the slots
+                var claimed = GetClaimedResourcesCosts();
+                foreach (var claimedAmount in claimed)
+                {
+                    ControllerManager.Instance.InventoryController.RestoreClaimedResource(claimedAmount);
+                }
                 
                 // Spawn All the resources used
                 SpawnUsedResources(100f);
@@ -186,27 +185,6 @@ namespace Items
                 // Delete this blueprint
                 Destroy(gameObject);
             }
-        }
-
-        private void CancelTasks()
-        {
-            if (_assignedTaskRefs == null || _assignedTaskRefs.Count == 0) return;
-
-            foreach (var taskRef in _assignedTaskRefs)
-            {
-                taskMaster.HaulingTaskSystem.CancelTask(taskRef);
-                taskMaster.ConstructionTaskSystem.CancelTask(taskRef);
-            }
-            _assignedTaskRefs.Clear();
-            
-            // Drop all incoming resources
-            foreach (var incomingItem in _incomingItems)
-            {
-                incomingItem.CancelAssignedTask();
-                incomingItem.EnqueueTaskForHauling();
-            }
-            
-            _pendingResourceCosts.Clear();
         }
         
         public override void CompleteDeconstruction()
@@ -232,19 +210,7 @@ namespace Items
             // Delete the structure
             Destroy(gameObject);
         }
-
-        public void CancelDeconstruction()
-        {
-            _isDeconstructing = false;
-            CancelTasks();
-            //SetIcon(null);
-
-            if (_incomingUnit != null)
-            {
-                _incomingUnit.CancelTask();
-            }
-        }
-
+        
         public bool IsDeconstucting()
         {
             return _isDeconstructing;
