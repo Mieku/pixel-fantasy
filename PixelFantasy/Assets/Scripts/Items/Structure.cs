@@ -23,8 +23,6 @@ namespace Items
         private StructureData _structureData;
 
         private List<int> _assignedTaskRefs = new List<int>();
-        private bool _isDeconstructing;
-        private UnitTaskAI _incomingUnit;
         private Tilemap _structureTilemap;
 
         public TaskType PendingTask;
@@ -154,23 +152,7 @@ namespace Items
             var resourceCosts = _structureData.GetResourceCosts();
             CreateConstuctionHaulingTasksForItems(resourceCosts);
         }
-
-        public void CreateConstuctionHaulingTasksForItems(List<ItemAmount> remainingResources)
-        {
-            foreach (var resourceCost in remainingResources)
-            {
-                for (int i = 0; i < resourceCost.Quantity; i++)
-                {
-                    EnqueueCreateTakeResourceToBlueprintTask(resourceCost.Item);
-                }
-            }
-        }
-
-        private void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
-        {
-            _takeResourceToBlueprintAction.EnqueueTask(this, resourceData);
-        }
-
+        
         public override float GetWorkPerResource()
         {
             return _structureData.GetWorkPerResource();
@@ -226,73 +208,8 @@ namespace Items
             
             _pendingResourceCosts.Clear();
         }
-
-        private void SpawnUsedResources(float percentReturned)
-        {
-            // Spawn All the resources used
-            var totalCosts = _structureData.GetResourceCosts();
-            var remainingCosts = _remainingResourceCosts;
-            List<ItemAmount> difference = new List<ItemAmount>();
-            foreach (var totalCost in totalCosts)
-            {
-                var remaining = remainingCosts.Find(c => c.Item == totalCost.Item);
-                int remainingAmount = 0;
-                if (remaining != null)
-                {
-                    remainingAmount = remaining.Quantity;
-                }
-                
-                int amount = totalCost.Quantity - remainingAmount;
-                if (amount > 0)
-                {
-                    ItemAmount refund = new ItemAmount
-                    {
-                        Item = totalCost.Item,
-                        Quantity = amount
-                    };
-                    difference.Add(refund);
-                }
-            }
-
-            foreach (var refundCost in difference)
-            {
-                for (int i = 0; i < refundCost.Quantity; i++)
-                {
-                    if (Helper.RollDice(percentReturned))
-                    {
-                        Spawner.Instance.SpawnItem(refundCost.Item, this.transform.position, true);
-                    }
-                }
-            }
-        }
-
-        public ConstructionTask.DeconstructStructure CreateDeconstructionTask(bool autoAssign = true)
-        {
-            _isDeconstructing = true;
-            //SetIcon("Hammer");
-            var task = new ConstructionTask.DeconstructStructure()
-            {
-                TargetUID = UniqueId,
-                claimStructure = (UnitTaskAI unitTaskAI) =>
-                {
-                    _incomingUnit = unitTaskAI;
-                },
-                structurePosition = transform.position,
-                workAmount = _structureData.GetWorkPerResource(),
-                completeWork = CompleteDeconstruction
-            };
-            
-            _assignedTaskRefs.Add(task.GetHashCode());
-
-            if (autoAssign)
-            {
-                taskMaster.ConstructionTaskSystem.AddTask(task);
-            }
-
-            return task;
-        }
-
-        private void CompleteDeconstruction()
+        
+        public override void CompleteDeconstruction()
         {
             _assignedTaskRefs.Clear();
 
@@ -344,6 +261,11 @@ namespace Items
             return AvailableActions;
         }
 
+        public override List<ItemAmount> GetResourceCosts()
+        {
+            return _structureData.GetResourceCosts();
+        }
+
         public override object CaptureState()
         {
             List<string> incomingItemsGUIDS = new List<string>();
@@ -366,6 +288,7 @@ namespace Items
                 StructureTilemap = _structureTilemap,
                 PendingTask = PendingTask,
                 IncomingResourceCosts = _incomingResourceCosts,
+                HasIncomingUnit = _hasUnitIncoming,
             };
         }
 
@@ -384,6 +307,7 @@ namespace Items
             _structureTilemap = state.StructureTilemap;
             PendingTask = state.PendingTask;
             _incomingResourceCosts = state.IncomingResourceCosts;
+            _hasUnitIncoming = state.HasIncomingUnit;
 
             // var incomingItemsGUIDS = state.IncomingItemsUIDs;
             // var itemsHandler = ControllerManager.Instance.ItemsHandler;
@@ -399,11 +323,8 @@ namespace Items
             // }
 
             Refresh();
-
-            var missingItems = GetRemainingMissingItems();
-            CreateConstuctionHaulingTasksForItems(missingItems);
             
-            CheckIfAllResourcesLoaded();
+            base.RestoreState(data);
         }
 
         public struct Data
@@ -416,6 +337,7 @@ namespace Items
             public List<int> AssignedTaskRefs;
             public List<string> IncomingItemsUIDs;
             public bool IsDeconstructing;
+            public bool HasIncomingUnit;
             public UnitTaskAI IncomingUnit; // TODO: will likely need to use GUID
             public Tilemap StructureTilemap;
             public TaskType PendingTask;

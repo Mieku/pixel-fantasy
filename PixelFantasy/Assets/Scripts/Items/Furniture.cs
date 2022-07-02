@@ -17,8 +17,6 @@ namespace Items
         private FurnitureData _furnitureData;
         protected FurniturePrefab _prefab;
         protected List<int> _assignedTaskRefs = new List<int>();
-        private bool _isDeconstructing;
-        private UnitTaskAI _incomingUnit;
         protected bool _isCraftingTable;
         private PlacementDirection _placementDirection;
 
@@ -168,14 +166,7 @@ namespace Items
                 }
             }
         }
-                
         
-
-        private void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
-        {
-            _takeResourceToBlueprintAction.EnqueueTask(this, resourceData);
-        }
-
         private void CreateCraftingTask(CraftingTask itemToCraft)
         {
             craftMaster.CreateCraftingTask(itemToCraft);
@@ -198,6 +189,11 @@ namespace Items
             _isBuilt = true;
         }
 
+        public override List<ItemAmount> GetResourceCosts()
+        {
+            return _furnitureData.ResourceCosts;
+        }
+        
         public override object CaptureState()
         {
             return new Data
@@ -212,6 +208,7 @@ namespace Items
                 RemainingResourceCosts = _remainingResourceCosts,
                 PlacementDirection = _placementDirection,
                 IncomingResourceCosts = _incomingResourceCosts,
+                HasIncomingUnit = _hasUnitIncoming,
             };
         }
 
@@ -229,7 +226,8 @@ namespace Items
             _remainingResourceCosts = state.RemainingResourceCosts;
             _placementDirection = state.PlacementDirection;
             _incomingResourceCosts = state.IncomingResourceCosts;
-            
+            _hasUnitIncoming = state.HasIncomingUnit;
+
             // var missingItems = GetRemainingMissingItems();
             // CraftMissingItems(missingItems);
             if (!_isBuilt)
@@ -251,6 +249,7 @@ namespace Items
             public FurnitureData FurnitureData;
             public bool IsBuilt;
             public bool IsDeconstructing;
+            public bool HasIncomingUnit;
             public bool IsCraftingTable;
             public List<ItemAmount> RemainingResourceCosts;
             public PlacementDirection PlacementDirection;

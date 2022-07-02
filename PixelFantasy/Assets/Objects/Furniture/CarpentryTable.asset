@@ -32,3 +32,5 @@ MonoBehaviour:
   _options: 01000000
   _isCraftingTable: 1
   _craftingType: 1
+  _availableActions:
+  - {fileID: 11400000, guid: 208ddcd0432a44948a68d37f88bd010a, type: 2}

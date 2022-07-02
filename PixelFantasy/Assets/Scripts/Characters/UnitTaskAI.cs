@@ -269,6 +269,14 @@ namespace Characters
             // Other task types go here
         }
 
+        private void ClearAction()
+        {
+            claimedSlot = null;
+            _curTask = null;
+            currentActionRequestorUID = "";
+            currentAction = null;
+        }
+
         #region Execute Tasks
 
         private void ExecuteTask_MoveToPosition(EmergencyTask.MoveToPosition task)
@@ -277,7 +285,8 @@ namespace Characters
             workerMover.SetMovePosition(task.targetPosition, () =>
             {
                 state = State.WaitingForNextTask;
-                _curTask = null;
+                //_curTask = null;
+                ClearAction();
             });
         }
 
@@ -288,7 +297,8 @@ namespace Characters
             {
                 cleanupTask.cleanUpAction();
                 state = State.WaitingForNextTask;
-                _curTask = null;
+                // _curTask = null;
+                ClearAction();
             });
         }
 
@@ -304,8 +314,9 @@ namespace Characters
                     task.dropItem(task.item);
                     claimedSlot.StoreItem(task.item);
                     state = State.WaitingForNextTask;
-                    claimedSlot = null;
-                    _curTask = null;
+                    // claimedSlot = null;
+                    // _curTask = null;
+                    ClearAction();
                 });
             });
         }
@@ -321,10 +332,12 @@ namespace Characters
                 task.grabResource(this);
                 workerMover.SetMovePosition(task.blueprintPosition, () =>
                 {
-                    currentAction = null;
+                    // currentAction = null;
                     task.useResource(_heldItem);
                     state = State.WaitingForNextTask;
-                    _curTask = null;
+                    // _curTask = null;
+                    // currentActionRequestorUID = "";
+                    ClearAction();
                 });
             });
         }
@@ -337,16 +350,22 @@ namespace Characters
                 _unitAnim.SetUnitAction(UnitAction.Building);
                 DoWork(task.workAmount, () =>
                 {
+                    // currentAction = null;
                     task.completeWork();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
-                    _curTask = null;
+                    // _curTask = null;
+                    ClearAction();
                 });
             });
         }
 
         private void ExecuteTask_DeconstructStructure(ConstructionTask.DeconstructStructure task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
+            task.ReceiverUID = UniqueId;
             task.claimStructure(this);
             workerMover.SetMovePosition(GetAdjacentPosition(task.structurePosition), () =>
             {
@@ -354,10 +373,12 @@ namespace Characters
                 _unitAnim.SetUnitAction(UnitAction.Building);
                 DoWork(task.workAmount, () =>
                 {
-                    task.completeWork();
+                    // currentAction = null;
+                    task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
-                    _curTask = null;
+                    // _curTask = null;
+                    ClearAction();
                 });
             });
         }
@@ -375,11 +396,12 @@ namespace Characters
                 _unitAnim.SetUnitAction(UnitAction.Axe);
                 DoWork(task.workAmount, () =>
                 {
-                    currentAction = null;
+                    // currentAction = null;
                     task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
-                    _curTask = null;
+                    // _curTask = null;
+                    ClearAction();
                 });
             });
         }
@@ -397,11 +419,12 @@ namespace Characters
                 _unitAnim.SetUnitAction(UnitAction.Doing);
                 DoWork(task.workAmount, () =>
                 {
-                    currentAction = null;
+                    // currentAction = null;
                     task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
-                    _curTask = null;
+                    // _curTask = null;
+                    ClearAction();
                 });
             });
         }
@@ -419,11 +442,12 @@ namespace Characters
                 _unitAnim.SetUnitAction(UnitAction.Doing);
                 DoWork(task.workAmount, () =>
                 {
-                    currentAction = null;
+                    // currentAction = null;
                     task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
-                    _curTask = null;
+                    // _curTask = null;
+                    ClearAction();
                 });
             });
         }
@@ -441,17 +465,22 @@ namespace Characters
                 _unitAnim.SetUnitAction(UnitAction.Digging);
                 DoWork(task.workAmount, () =>
                 {
-                    currentAction = null;
+                    // currentAction = null;
                     task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
-                    _curTask = null;
+                    // _curTask = null;
+                    ClearAction();
                 });
             });
         }
 
         private void ExecuteTask_DigHole(FarmingTask.DigHole task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
+            task.ReceiverUID = UniqueId;
             task.claimHole(this);
             workerMover.SetMovePosition(GetAdjacentPosition(task.holePosition), () =>
             {
@@ -462,13 +491,18 @@ namespace Characters
                     task.completeWork();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
-                    _curTask = null;
+                    // _curTask = null;
+                    ClearAction();
                 });
             });
         }
         
         private void ExecuteTask_PlantCrop(FarmingTask.PlantCrop task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
+            task.ReceiverUID = UniqueId;
             task.claimHole(this);
             workerMover.SetMovePosition(GetAdjacentPosition(task.holePosition), () =>
             {
@@ -479,13 +513,18 @@ namespace Characters
                     task.completeWork();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
-                    _curTask = null;
+                    // _curTask = null;
+                    ClearAction();
                 });
             });
         }
         
         private void ExecuteTask_WaterCrop(FarmingTask.WaterCrop task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
+            task.ReceiverUID = UniqueId;
             task.claimCrop(this);
             workerMover.SetMovePosition(GetAdjacentPosition(task.cropPosition), () =>
             {
@@ -496,13 +535,18 @@ namespace Characters
                     task.completeWork();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
-                    _curTask = null;
+                    // _curTask = null;
+                    ClearAction();
                 });
             });
         }
         
         private void ExecuteTask_HarvestCrop(FarmingTask.HarvestCrop task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
+            task.ReceiverUID = UniqueId;
             task.claimCrop(this);
             workerMover.SetMovePosition(GetAdjacentPosition(task.cropPosition, 0.5f), () =>
             {
@@ -513,13 +557,18 @@ namespace Characters
                     task.completeWork();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
-                    _curTask = null;
+                    // _curTask = null;
+                    ClearAction();
                 });
             });
         }
 
         private void ExecuteTask_CraftItem_Carpentry(CarpentryTask.CraftItem task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
+            task.ReceiverUID = UniqueId;
             workerMover.SetMovePosition(task.craftPosition, () =>
             {
                 _unitAnim.LookAtPostion(task.craftPosition);
@@ -529,13 +578,18 @@ namespace Characters
                     task.completeWork();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
-                    _curTask = null;
+                    // _curTask = null;
+                    ClearAction();
                 });
             });
         }
         
         private void ExecuteTask_GatherResourceForCrafting_Carpentry(CarpentryTask.GatherResourceForCrafting task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
+            task.ReceiverUID = UniqueId;
             workerMover.SetMovePosition(task.resourcePosition, () =>
             {
                 task.grabResource(this);
@@ -543,7 +597,8 @@ namespace Characters
                 {
                     task.useResource(_heldItem);
                     state = State.WaitingForNextTask;
-                    _curTask = null;
+                    // _curTask = null;
+                    ClearAction();
                 });
             });
         }

@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using Actions;
+using Characters;
 using DataPersistence;
 using Gods;
+using HUD;
 using Interfaces;
 using ScriptableObjects;
 using UnityEngine;
@@ -19,8 +21,40 @@ namespace Items
         protected List<Item> _incomingItems = new List<Item>();
     
         protected bool _isBuilt;
+        protected bool _isDeconstructing;
+        protected UnitTaskAI _incomingUnit;
+        protected bool _hasUnitIncoming;
     
         protected TaskMaster taskMaster => TaskMaster.Instance;
+        
+        public bool IsBuilt
+        {
+            get => _isBuilt;
+            set => _isBuilt = value;
+        }
+        
+        public bool IsDeconstructing
+        {
+            get => _isDeconstructing;
+            set => _isDeconstructing = value;
+        }
+
+        public UnitTaskAI IncomingUnit
+        {
+            get => _incomingUnit;
+            set {
+                if (value == null)
+                {
+                    _hasUnitIncoming = false;
+                }
+                else
+                {
+                    _hasUnitIncoming = true;
+                }
+                
+                _incomingUnit = value;
+            }
+        }
 
         public void AddResourceToBlueprint(ItemData itemData)
         {
@@ -49,6 +83,26 @@ namespace Items
         public virtual void CompleteConstruction()
         {
         
+        }
+
+        public virtual void CompleteDeconstruction()
+        {
+            _incomingUnit = null;
+            // Spawn some of the used resources
+            SpawnUsedResources(50f);
+            
+            // Update the neighbours
+            var collider = GetComponent<BoxCollider2D>();
+            collider.enabled = false;
+
+            var infoPanel = FindObjectOfType<SelectedItemInfoPanel>();
+            if (infoPanel != null)
+            {
+                infoPanel.HideItemDetails();
+            }
+
+            // Delete the structure
+            Destroy(gameObject);
         }
         
         public void AddToIncomingItems(Item item)
@@ -195,6 +249,12 @@ namespace Items
         {
             _constructStructureAction.CreateTask(this, autoAssign);
         }
+
+        public void CreateDeconstructionTask(bool autoAssign = true)
+        {
+            var deconstruct = Librarian.Instance.GetAction("Deconstruct");
+            deconstruct.CreateTask(this, autoAssign);
+        }
     
         public virtual object CaptureState()
         {
@@ -203,12 +263,41 @@ namespace Items
 
         public virtual void RestoreState(object data)
         {
-            throw new System.NotImplementedException();
+            // throw new System.NotImplementedException();
+            //
+            if (!_isBuilt)
+            {
+                var missingItems = GetRemainingMissingItems();
+                CreateConstuctionHaulingTasksForItems(missingItems);
+            
+                CheckIfAllResourcesLoaded();
+            }
+
+            if (_isDeconstructing && !_hasUnitIncoming)
+            {
+                CreateDeconstructionTask();
+            }
+        }
+        
+        public void CreateConstuctionHaulingTasksForItems(List<ItemAmount> remainingResources)
+        {
+            foreach (var resourceCost in remainingResources)
+            {
+                for (int i = 0; i < resourceCost.Quantity; i++)
+                {
+                    EnqueueCreateTakeResourceToBlueprintTask(resourceCost.Item);
+                }
+            }
+        }
+
+        protected void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
+        {
+            _takeResourceToBlueprintAction.EnqueueTask(this, resourceData);
         }
 
         public ClickObject GetClickObject()
         {
-            throw new System.NotImplementedException();
+            return GetComponent<ClickObject>();
         }
 
         public bool IsClickDisabled { get; set; }
@@ -230,12 +319,57 @@ namespace Items
 
         public void AssignOrder(ActionBase orderToAssign)
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
+            CreateTask(orderToAssign);
         }
 
         public bool IsOrderActive(Order order)
         {
             throw new System.NotImplementedException();
+        }
+
+        public virtual List<ItemAmount> GetResourceCosts()
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public virtual void SpawnUsedResources(float percentReturned)
+        {
+            // Spawn All the resources used
+            var totalCosts = GetResourceCosts();
+            var remainingCosts = _remainingResourceCosts;
+            List<ItemAmount> difference = new List<ItemAmount>();
+            foreach (var totalCost in totalCosts)
+            {
+                var remaining = remainingCosts.Find(c => c.Item == totalCost.Item);
+                int remainingAmount = 0;
+                if (remaining != null)
+                {
+                    remainingAmount = remaining.Quantity;
+                }
+                
+                int amount = totalCost.Quantity - remainingAmount;
+                if (amount > 0)
+                {
+                    ItemAmount refund = new ItemAmount
+                    {
+                        Item = totalCost.Item,
+                        Quantity = amount
+                    };
+                    difference.Add(refund);
+                }
+            }
+
+            foreach (var refundCost in difference)
+            {
+                for (int i = 0; i < refundCost.Quantity; i++)
+                {
+                    if (Helper.RollDice(percentReturned))
+                    {
+                        Spawner.Instance.SpawnItem(refundCost.Item, this.transform.position, true);
+                    }
+                }
+            }
         }
     }
 }

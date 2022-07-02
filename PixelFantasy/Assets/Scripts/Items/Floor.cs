@@ -15,29 +15,19 @@ using UnityEngine;
 
 namespace Items
 {
-    public class Floor : Construction, IClickableObject
+    public class Floor : Construction
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private GraphUpdateScene _pathGraphUpdater;
 
         private FloorData _floorData;
         private List<int> _assignedTaskRefs = new List<int>();
-        private bool _isDeconstructing;
-        private UnitTaskAI _incomingUnit;
         private Vector2 _floorPos;
         
         public TaskType PendingTask;
         
         public FloorData FloorData => _floorData;
         public Vector2 FloorPos => _floorPos;
-        
-        public bool IsClickDisabled { get; set; }
-
-        public ClickObject GetClickObject()
-        {
-            // TODO: Add Click Object to floors
-            return null;
-        }
 
         public void Init(FloorData floorData)
         {
@@ -141,22 +131,6 @@ namespace Items
             CreateConstuctionHaulingTasksForItems(resourceCosts);
         }
         
-        public void CreateConstuctionHaulingTasksForItems(List<ItemAmount> remainingResources)
-        {
-            foreach (var resourceCost in remainingResources)
-            {
-                for (int i = 0; i < resourceCost.Quantity; i++)
-                {
-                    EnqueueCreateTakeResourceToBlueprintTask(resourceCost.Item);
-                }
-            }
-        }
-
-        private void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
-        {
-            _takeResourceToBlueprintAction.EnqueueTask(this, resourceData);
-        }
-        
         public override float GetWorkPerResource()
         {
             return _floorData.GetWorkPerResource();
@@ -205,45 +179,6 @@ namespace Items
             _incomingItems.Clear();
         }
 
-        private void SpawnUsedResources(float percentReturned)
-        {
-            // Spawn All the resources used
-            var totalCosts = _floorData.GetResourceCosts();
-            var remainingCosts = _remainingResourceCosts;
-            List<ItemAmount> difference = new List<ItemAmount>();
-            foreach (var totalCost in totalCosts)
-            {
-                var remaining = remainingCosts.Find(c => c.Item == totalCost.Item);
-                int remainingAmount = 0;
-                if (remaining != null)
-                {
-                    remainingAmount = remaining.Quantity;
-                }
-                
-                int amount = totalCost.Quantity - remainingAmount;
-                if (amount > 0)
-                {
-                    ItemAmount refund = new ItemAmount
-                    {
-                        Item = totalCost.Item,
-                        Quantity = amount
-                    };
-                    difference.Add(refund);
-                }
-            }
-
-            foreach (var refundCost in difference)
-            {
-                for (int i = 0; i < refundCost.Quantity; i++)
-                {
-                    if (Helper.RollDice(percentReturned))
-                    {
-                        Spawner.Instance.SpawnItem(refundCost.Item, this.transform.position, true);
-                    }
-                }
-            }
-        }
-
         public void CreateDeconstructionTask()
         {
             _isDeconstructing = true;
@@ -264,24 +199,6 @@ namespace Items
             taskMaster.ConstructionTaskSystem.AddTask(task);
         }
 
-        private void CompleteDeconstruction()
-        {
-            _assignedTaskRefs.Clear();
-
-            _incomingUnit = null;
-            // Spawn some of the used resources
-            SpawnUsedResources(50f);
-
-            var infoPanel = FindObjectOfType<SelectedItemInfoPanel>();
-            if (infoPanel != null)
-            {
-                infoPanel.HideItemDetails();
-            }
-
-            // Delete the structure
-            Destroy(gameObject);
-        }
-
         public void CancelDeconstruction()
         {
             _isDeconstructing = false;
@@ -294,68 +211,11 @@ namespace Items
             }
         }
 
-        public bool IsDeconstucting()
-        {
-            return _isDeconstructing;
-        }
-        
-        public void ToggleAllowed(bool isAllowed)
-        {
-            IsAllowed = isAllowed;
-            if (IsAllowed)
-            {
-                //_icon.gameObject.SetActive(false);
-                //_icon.sprite = null;
-                PrepForConstruction();
-            }
-            else
-            {
-                //_icon.gameObject.SetActive(true);
-                //_icon.sprite = Librarian.Instance.GetSprite("Lock");
-                CancelTasks();
-            }
-        }
-
-        public bool IsAllowed { get; set; }
-        
-        public List<Order> GetOrders()
-        {
-            List<Order> results = new List<Order>();
-            
-            results.Add(Order.Disallow);
-
-            if (_isBuilt)
-            {
-                results.Add(Order.Deconstruct);
-            }
-            else
-            {
-                results.Add(Order.Cancel);
-            }
-
-            return results;
-        }
-
-        public List<ActionBase> GetActions()
+        public override List<ActionBase> GetActions()
         {
             return AvailableActions;
         }
-
-        public bool IsOrderActive(Order order)
-        {
-            switch (order)
-            {
-                case Order.Disallow:
-                    return false;
-                case Order.Deconstruct:
-                    return IsDeconstucting();
-                case Order.Cancel:
-                    return false;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(order), order, null);
-            }
-        }
-
+        
         public void AssignOrder(Order orderToAssign)
         {
             switch (orderToAssign)
@@ -375,6 +235,11 @@ namespace Items
                 default:
                     throw new ArgumentOutOfRangeException(nameof(orderToAssign), orderToAssign, null);
             }
+        }
+        
+        public override List<ItemAmount> GetResourceCosts()
+        {
+            return _floorData.GetResourceCosts();
         }
         
         public override object CaptureState()
@@ -400,6 +265,7 @@ namespace Items
                 IsAllowed = IsAllowed,
                 PendingTask = PendingTask,
                 IncomingResourceCosts = _incomingResourceCosts,
+                HasIncomingUnit = _hasUnitIncoming,
             };
         }
 
@@ -420,6 +286,7 @@ namespace Items
             IsAllowed = state.IsAllowed;
             PendingTask = state.PendingTask;
             _incomingResourceCosts = state.IncomingResourceCosts;
+            _hasUnitIncoming = state.HasIncomingUnit;
             
             // var incomingItemsGUIDS = state.IncomingItemsGUIDs;
             // var itemsHandler = ControllerManager.Instance.ItemsHandler;
@@ -437,10 +304,7 @@ namespace Items
             UpdateSprite();
             UpdateStretchToWalls();
 
-            var missingItems = GetRemainingMissingItems();
-            CreateConstuctionHaulingTasksForItems(missingItems);
-            
-            CheckIfAllResourcesLoaded();
+            base.RestoreState(data);
         }
 
         public struct Data
@@ -453,6 +317,7 @@ namespace Items
             public List<string> IncomingItemsGUIDs;
             public bool IsDeconstructing;
             public UnitTaskAI IncomingUnit; // TODO: will likely need to use GUID
+            public bool HasIncomingUnit;
             public Vector2 FloorPos;
             public bool IsClickDisabled;
             public bool IsAllowed;
