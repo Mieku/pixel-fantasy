@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Actions;
 using Controllers;
 using DataPersistence;
 using Gods;
@@ -16,14 +17,20 @@ namespace Items
     {
         [SerializeField] private ItemData _itemData;
         [SerializeField] private SpriteRenderer _spriteRenderer;
-        [SerializeField] private SpriteRenderer _icon;
         [SerializeField] private ClickObject _clickObject;
+        [SerializeField] private ActionTakeItemToItemSlot _takeItemToItemSlotAction;
+        
+        public ActionBase PendingTask;
+        public ActionBase InProgressTask;
+        public string _assignedSlotUID;
+        private string _assignedUnitUID;
+        private bool _isHeld;
 
         private int _assignedTaskRef;
         private UnitTaskAI _incomingUnit;
         private Transform _originalParent;
         
-        public TaskType PendingTask;
+        // public TaskType PendingTask;
  
         private TaskMaster taskMaster => TaskMaster.Instance;
         
@@ -41,58 +48,100 @@ namespace Items
             
             DisplayItemSprite();
 
-            if (IsAllowed && PendingTask == TaskType.None)
+            if (IsAllowed && string.IsNullOrEmpty(_assignedSlotUID))
             {
-                CreateHaulTask();
+                EnqueueTaskForHauling();
+            }
+            else
+            {
+                if (!_isHeld && !string.IsNullOrEmpty(_assignedSlotUID) && string.IsNullOrEmpty(_assignedUnitUID))
+                {
+                    // Has slot, no one picked up or is assigned to get
+                    var slot = UIDManager.Instance.GetGameObject(_assignedSlotUID).GetComponent<StorageSlot>();
+                    slot.AddItemIncoming(this);
+                    _takeItemToItemSlotAction.CreateTaskWithSlot(this, slot, true);
+
+                } else if (!_isHeld && !string.IsNullOrEmpty(_assignedSlotUID) && !string.IsNullOrEmpty(_assignedUnitUID))
+                {
+                    // Has slot, someone is on their way
+                    var slot = UIDManager.Instance.GetGameObject(_assignedSlotUID).GetComponent<StorageSlot>();
+                    slot.AddItemIncoming(this);
+                    var unit = UIDManager.Instance.GetGameObject(_assignedUnitUID).GetComponent<UnitTaskAI>();
+                    var task = _takeItemToItemSlotAction.CreateTaskWithSlot(this, slot, false);
+                    unit.ExecuteTask(task);
+                } else if (_isHeld)
+                {
+                    // Is being held
+                    var slot = UIDManager.Instance.GetGameObject(_assignedSlotUID).GetComponent<StorageSlot>();
+                    slot.AddItemIncoming(this);
+                    var unit = UIDManager.Instance.GetGameObject(_assignedUnitUID).GetComponent<UnitTaskAI>();
+                    var task = _takeItemToItemSlotAction.CreateTaskWithSlot(this, slot, false);
+                    unit.AssignHeldItem(this);
+                    unit.ExecuteTask(task);
+                }
             }
         }
-        
-        public void CreateHaulTask()
+
+        public void SetHeld(bool isHeld)
         {
-            HaulingTask.TakeItemToItemSlot task = null;
-            _assignedTaskRef = taskMaster.HaulingTaskSystem.EnqueueTask(() =>
-            {
-                if (!SaveManager.Instance.IsLoading && ControllerManager.Instance.InventoryController.HasSpaceForItem(this))
-                {
-                    ControllerManager.Instance.InventoryController.AddItemToPending(this);
-                    var slot = ControllerManager.Instance.InventoryController.GetAvailableStorageSlot(this);
-                    _originalParent = transform.parent;
-                    return CreateHaulTaskForSlot(slot);
-                }
-                else
-                {
-                    return null;
-                }
-            }).GetHashCode();
+            _isHeld = isHeld;
         }
 
-        public HaulingTask.TakeItemToItemSlot CreateHaulTaskForSlot(StorageSlot slot)
+        public void AssignUnit(UnitTaskAI unit)
         {
-            _originalParent = transform.parent;
-            var task = new HaulingTask.TakeItemToItemSlot
+            if (unit == null)
             {
-                TargetUID = UniqueId,
-                item = this,
-                claimItemSlot = (UnitTaskAI unitTaskAI) =>
-                {
-                    PendingTask = TaskType.None;
-                    unitTaskAI.claimedSlot = slot;
-                    _incomingUnit = unitTaskAI;
-                },
-                itemPosition = transform.position,
-                grabItem = (UnitTaskAI unitTaskAI) =>
-                {
-                    unitTaskAI.AssignHeldItem(this);
-                },
-                dropItem = () =>
-                {
-                    ControllerManager.Instance.InventoryController.AddToInventory(_itemData, 1);
-                    Destroy(gameObject);
-                },
-            };
-            PendingTask = TaskType.TakeItemToItemSlot;
-            _assignedTaskRef = task.GetHashCode();
-            return task;
+                _assignedUnitUID = "";
+            }
+            else
+            {
+                _assignedUnitUID = unit.UniqueId;
+            }
+        }
+
+        public void SetAssignedSlot(StorageSlot slot)
+        {
+            if (slot == null)
+            {
+                _assignedSlotUID = "";
+                return;
+            }
+            
+            _assignedSlotUID = slot.UniqueId;
+        }
+
+        public void EnqueueTaskForHauling()
+        {
+            _takeItemToItemSlotAction.EnqueueTask(this, true);
+            SetTaskToPending(_takeItemToItemSlotAction);
+        }
+        
+        public void OnTaskAccepted(ActionBase task)
+        {
+            SetTaskToAccepted(task);
+        }
+
+        public void OnTaskCompleted()
+        {
+            InProgressTask = null;
+        }
+        
+        public void SetTaskToAccepted(ActionBase task)
+        {
+            PendingTask = null;
+            InProgressTask = task;
+        }
+        
+        public void SetTaskToPending(ActionBase task)
+        {
+            PendingTask = task;
+        }
+
+        public void AddItemToSlot()
+        {
+            _isHeld = false;
+            ControllerManager.Instance.InventoryController.AddToInventory(_itemData, 1);
+            Destroy(gameObject);
         }
 
         private void DisplayItemSprite()
@@ -123,14 +172,14 @@ namespace Items
             IsAllowed = isAllowed;
             if (IsAllowed)
             {
-                _icon.gameObject.SetActive(false);
-                _icon.sprite = null;
-                CreateHaulTask();
+                //_icon.gameObject.SetActive(false);
+                //_icon.sprite = null;
+                //CreateHaulTask();
             }
             else
             {
-                _icon.gameObject.SetActive(true);
-                _icon.sprite = Librarian.Instance.GetSprite("Lock");
+                //_icon.gameObject.SetActive(true);
+                //_icon.sprite = Librarian.Instance.GetSprite("Lock");
                 CancelAssignedTask();
             }
             
@@ -191,6 +240,13 @@ namespace Items
             return results;
         }
 
+        public List<ActionBase> GetActions()
+        {
+            var result = new List<ActionBase>();
+            result.Add(_takeItemToItemSlotAction);
+            return result;
+        }
+        
         public bool IsOrderActive(Order order)
         {
             switch (order)
@@ -202,29 +258,29 @@ namespace Items
             }
         }
 
-        public void AssignOrder(Order orderToAssign)
+        public bool IsActionActive(ActionBase action)
         {
-            switch (orderToAssign)
+            throw new NotImplementedException();
+        }
+
+        public void AssignOrder(ActionBase orderToAssign)
+        {
+            switch (orderToAssign.id)
             {
-                case Order.Allow:
+                case "Allow":
                     ToggleAllowed(true);
                     break;
-                case Order.Disallow:
+                case "Disallow":
                     ToggleAllowed(false);
                     break;
             }
         }
         
-        protected virtual void RestorePendingTask(TaskType pendingTask)
+        public List<ActionBase> GetCancellableActions()
         {
-            if(pendingTask == TaskType.None) return;
-
-            if (pendingTask == TaskType.TakeItemToItemSlot)
-            {
-                CreateHaulTask();
-            }
+            return null;
         }
-
+        
         public object CaptureState()
         {
             return new Data
@@ -238,6 +294,10 @@ namespace Items
                 IsAllowed = this.IsAllowed,
                 IsClickDisabled = this.IsClickDisabled,
                 PendingTask = PendingTask,
+                InProgressTask = InProgressTask,
+                AssignedSlotUID = _assignedSlotUID,
+                AssignedUnitUID = _assignedUnitUID,
+                IsHeld = _isHeld,
             };
         }
 
@@ -252,10 +312,14 @@ namespace Items
             _originalParent = itemState.OriginalParent;
             IsAllowed = itemState.IsAllowed;
             IsClickDisabled = itemState.IsClickDisabled;
+
             PendingTask = itemState.PendingTask;
-            
+            InProgressTask = itemState.InProgressTask;
+            _assignedSlotUID = itemState.AssignedSlotUID;
+            _assignedUnitUID = itemState.AssignedUnitUID;
+            _isHeld = itemState.IsHeld;
+
             InitializeItem(itemState.ItemData, IsAllowed);
-            RestorePendingTask(itemState.PendingTask);
         }
 
         public struct Data
@@ -268,7 +332,12 @@ namespace Items
             public Transform OriginalParent;
             public bool IsAllowed;
             public bool IsClickDisabled;
-            public TaskType PendingTask;
+
+            public ActionBase PendingTask;
+            public ActionBase InProgressTask;
+            public string AssignedSlotUID;
+            public string AssignedUnitUID;
+            public bool IsHeld;
         }
     }
 }

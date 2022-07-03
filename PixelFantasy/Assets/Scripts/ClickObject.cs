@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Actions;
 using Controllers;
 using Interfaces;
 using Items;
@@ -111,7 +112,7 @@ public class ClickObject : MonoBehaviour
         }
     }
 
-    public void AreaSelectObject(Order orderForSelection)
+    public void AreaSelectObject(ActionBase orderForSelection)
     {
         if (ObjectValidForSelection(orderForSelection))
         {
@@ -124,13 +125,13 @@ public class ClickObject : MonoBehaviour
         _selectedIcon.SetActive(false);
     }
 
-    public bool ObjectValidForSelection(Order orderForSelection)
+    public bool ObjectValidForSelection(ActionBase actionForSelection)
     {
         var clickableObject = GetComponent<IClickableObject>();
         if (clickableObject != null)
         {
-            var possibleOrders = clickableObject.GetOrders();
-            return possibleOrders.Any(possibleOrder => possibleOrder == orderForSelection);
+            var possibleOrders = clickableObject.GetActions();
+            return possibleOrders.Any(possibleOrder => possibleOrder == actionForSelection);
         }
         
         return false;
@@ -196,13 +197,16 @@ public class ClickObject : MonoBehaviour
     
     private SelectionData GetSelectionData(ItemData itemData)
     {
-        var orders = Owner.GetOrders();
+        var actions = Owner.GetActions();
+        var cancellableActions = Owner.GetCancellableActions();
 
         SelectionData result = new SelectionData
         {
             ItemName = itemData.ItemName,
             ClickObject = this,
-            Orders = orders
+            Actions = actions,
+            CancellableActions = cancellableActions,
+            Requestor = GetComponent<Interactable>(),
         };
 
         return result;
@@ -210,11 +214,16 @@ public class ClickObject : MonoBehaviour
     
     private SelectionData GetSelectionData(StructureData structureData)
     {
+        var actions = Owner.GetActions();
+        var cancellableActions = Owner.GetCancellableActions();
+        
         SelectionData result = new SelectionData
         {
             ItemName = structureData.StructureName,
-            Orders = structureData.Options,
+            Actions = actions,
+            CancellableActions = cancellableActions,
             ClickObject = this,
+            Requestor = GetComponent<Interactable>(),
         };
 
         return result;
@@ -222,13 +231,16 @@ public class ClickObject : MonoBehaviour
     
     private SelectionData GetSelectionData(GrowingResourceData growingResourceData)
     {
-        var orders = Owner.GetOrders();
+        var actions = Owner.GetActions();
+        var cancellableActions = Owner.GetCancellableActions();
         
         SelectionData result = new SelectionData
         {
             ItemName = growingResourceData.ResourceName,
-            Orders = orders,
+            Actions = actions,
+            CancellableActions = cancellableActions,
             ClickObject = this,
+            Requestor = GetComponent<Interactable>(),
         };
 
         return result;
@@ -236,11 +248,16 @@ public class ClickObject : MonoBehaviour
     
     private SelectionData GetSelectionData(FloorData floorData)
     {
+        var actions = Owner.GetActions();
+        var cancellableActions = Owner.GetCancellableActions();
+        
         SelectionData result = new SelectionData
         {
             ItemName = floorData.FloorName,
-            Orders = floorData.Options,
+            Actions = actions,
+            CancellableActions = cancellableActions,
             ClickObject = this,
+            Requestor = GetComponent<Interactable>(),
         };
 
         return result;
@@ -248,27 +265,34 @@ public class ClickObject : MonoBehaviour
     
     private SelectionData GetSelectionData(FurnitureData furnitureData)
     {
+        var actions = Owner.GetActions();
+        var cancellableActions = Owner.GetCancellableActions();
+        
         SelectionData result = new SelectionData
         {
             ItemName = furnitureData.FurnitureName,
-            Orders = furnitureData.Options,
+            Actions = actions,
+            CancellableActions = cancellableActions,
             ClickObject = this,
+            Requestor = GetComponent<Interactable>(),
         };
 
         return result;
     }
 
-    public bool IsOrderActive(Order order)
+    public bool IsActionActive(ActionBase action)
     {
-        return Owner.IsOrderActive(order);
+        return Owner.IsActionActive(action);
     }
 }
 
 public class SelectionData
 {
     public string ItemName;
-    public List<Order> Orders;
+    public List<ActionBase> Actions;
+    public List<ActionBase> CancellableActions;
     public ClickObject ClickObject;
+    public Interactable Requestor;
 }
 
 public enum ObjectType

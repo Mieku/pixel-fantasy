@@ -13,18 +13,18 @@ namespace Items
     {
         [SerializeField] protected bool _overrideFullGrowth;
         [SerializeField] protected SpriteRenderer _fruitOverlay;
-        
-        protected int _growthIndex;
+
+        public int _growthIndex;
         protected float _ageSec;
         protected float _ageForNextGrowth;
         protected bool _fullyGrown;
         protected float _reproductionTimer;
         protected float _fruitTimer;
         protected bool _hasFruitAvailable;
-        protected bool _queuedToHarvest;
-
+        // protected bool _queuedToHarvest;
+        
         public bool HasFruitAvailable => _hasFruitAvailable;
-        public bool QueuedToHarvest => _queuedToHarvest;
+        // public bool QueuedToHarvest => _queuedToHarvest;
         public List<GameObject> TaskRequestors = new List<GameObject>();
         
         private void Start()
@@ -138,7 +138,7 @@ namespace Items
             }
         }
 
-        protected void HarvestFruit()
+        public void HarvestFruit()
         {
             if (_hasFruitAvailable)
             {
@@ -152,11 +152,11 @@ namespace Items
                     }
                 }
                 _hasFruitAvailable = false;
-                _queuedToHarvest = false;
+                // _queuedToHarvest = false;
                 RefreshSelection();
             }
             
-            SetIcon(null);
+            //SetIcon(null);
         }
         
         private void Update()
@@ -166,107 +166,105 @@ namespace Items
             FruitCheck();
         }
         
-        public FarmingTask.CutPlant CreateCutPlantTask(bool autoAssign = true)
-        {
-            if (_queuedToCut)
-            {
-                CancelCutPlantTask();
-                return null;
-            }
-            
-            CancelTasks();
-            _queuedToCut = true;
-            SetIcon("Scythe");
+        // public FarmingTask.CutPlant CreateCutPlantTask(bool autoAssign = true)
+        // {
+        //     if (_queuedToCut)
+        //     {
+        //         CancelCutPlantTask();
+        //         return null;
+        //     }
+        //     
+        //     CancelTasks();
+        //     _queuedToCut = true;
+        //     //SetIcon("Scythe");
+        //
+        //     var task = new FarmingTask.CutPlant()
+        //     {
+        //         TargetUID = UniqueId,
+        //         claimPlant = (UnitTaskAI unitTaskAI) =>
+        //         {
+        //             //PendingTask = TaskType.None;
+        //             _incomingUnit = unitTaskAI;
+        //         },
+        //         plantPosition = transform.position,
+        //         workAmount = _growingResourceData.GetWorkToCut(_growthIndex),
+        //         completeWork = CutDownPlant
+        //     };
+        //
+        //     //PendingTask = TaskType.CutPlant;
+        //     var taskHash = task.GetHashCode();
+        //     _assignedTaskRefs.Add(taskHash);
+        //
+        //     if (autoAssign)
+        //     {
+        //         taskMaster.FarmingTaskSystem.AddTask(task);
+        //     }
+        //
+        //     RefreshSelection();
+        //
+        //     return task;
+        // }
 
-            var task = new FarmingTask.CutPlant()
-            {
-                TargetUID = UniqueId,
-                claimPlant = (UnitTaskAI unitTaskAI) =>
-                {
-                    PendingTask = TaskType.None;
-                    _incomingUnit = unitTaskAI;
-                },
-                plantPosition = transform.position,
-                workAmount = _growingResourceData.GetWorkToCut(_growthIndex),
-                completeWork = CutDownPlant
-            };
+        // public void CancelCutPlantTask()
+        // {
+        //     _queuedToCut = false;
+        //     //SetIcon(null);
+        //     //CancelTasks();
+        // }
 
-            PendingTask = TaskType.CutPlant;
-            var taskHash = task.GetHashCode();
-            _assignedTaskRefs.Add(taskHash);
+        // public FarmingTask.HarvestFruit CreateHarvestFruitTask(bool autoAssign = true)
+        // {
+        //     if (_queuedToHarvest)
+        //     {
+        //         CancelHarvestFruitTask();
+        //         return null;
+        //     }
+        //     
+        //     CancelTasks();
+        //     _queuedToHarvest = true;
+        //     //SetIcon("Scythe");
+        //     
+        //     // Choose a random side of the tree
+        //     var sideMod = 1;
+        //     var rand = Random.Range(0, 2);
+        //     if (rand == 1)
+        //     {
+        //         sideMod *= -1;
+        //     }
+        //
+        //     var cutPos = transform.position;
+        //     cutPos.x += sideMod;
+        //
+        //     var task = new FarmingTask.HarvestFruit()
+        //     {
+        //         TargetUID = UniqueId,
+        //         claimPlant = (UnitTaskAI unitTaskAI) =>
+        //         {
+        //             _incomingUnit = unitTaskAI;
+        //         },
+        //         plantPosition = cutPos,
+        //         workAmount = _growingResourceData.WorkToHarvest,
+        //         completeWork = HarvestFruit
+        //     };
+        //     _assignedTaskRefs.Add(task.GetHashCode());
+        //
+        //     if (autoAssign)
+        //     {
+        //         taskMaster.FarmingTaskSystem.AddTask(task);
+        //     }
+        //     
+        //     RefreshSelection();
+        //     return task;
+        // }
 
-            if (autoAssign)
-            {
-                taskMaster.FarmingTaskSystem.AddTask(task);
-            }
-
-            RefreshSelection();
-
-            return task;
-        }
-
-        public void CancelCutPlantTask()
-        {
-            _queuedToCut = false;
-            SetIcon(null);
-            CancelTasks();
-        }
-
-        public FarmingTask.HarvestFruit CreateHarvestFruitTask(bool autoAssign = true)
-        {
-            if (_queuedToHarvest)
-            {
-                CancelHarvestFruitTask();
-                return null;
-            }
-            
-            CancelTasks();
-            _queuedToHarvest = true;
-            SetIcon("Scythe");
-            
-            // Choose a random side of the tree
-            var sideMod = 1;
-            var rand = Random.Range(0, 2);
-            if (rand == 1)
-            {
-                sideMod *= -1;
-            }
-
-            var cutPos = transform.position;
-            cutPos.x += sideMod;
-
-            var task = new FarmingTask.HarvestFruit()
-            {
-                TargetUID = UniqueId,
-                claimPlant = (UnitTaskAI unitTaskAI) =>
-                {
-                    PendingTask = TaskType.None;
-                    _incomingUnit = unitTaskAI;
-                },
-                plantPosition = cutPos,
-                workAmount = _growingResourceData.WorkToHarvest,
-                completeWork = HarvestFruit
-            };
-            PendingTask = TaskType.HarvestFruit;
-            _assignedTaskRefs.Add(task.GetHashCode());
-
-            if (autoAssign)
-            {
-                taskMaster.FarmingTaskSystem.AddTask(task);
-            }
-            
-            RefreshSelection();
-            return task;
-        }
-
-        public void CancelHarvestFruitTask()
-        {
-            _queuedToHarvest = false;
-            SetIcon(null);
-            CancelTasks();
-        }
+        // public void CancelHarvestFruitTask()
+        // {
+        //     _queuedToHarvest = false;
+        //     //SetIcon(null);
+        //     //CancelTasks();
+        // }
         
-        protected void CutDownPlant()
+        public void CutDownPlant()
         {
             var resources = _growingResourceData.GetGrowthStage(_growthIndex).HarvestableItems.GetItemDrop();
             foreach (var resource in resources)
@@ -286,7 +284,7 @@ namespace Items
                     var dirt = taskRequestor.GetComponent<DirtTile>();
                     if (dirt != null)
                     {
-                        dirt.CreateClearGrassTask();
+                        dirt.CreateTaskById("Clear Grass");
                     }
                 }
             }
@@ -298,12 +296,12 @@ namespace Items
             Destroy(gameObject);
         }
 
-        protected override void CancelTasks()
-        {
-            base.CancelTasks();
-
-            _queuedToHarvest = false;
-        }
+        // public override void CancelTasks()
+        // {
+        //     base.CancelTasks();
+        //
+        //     _queuedToHarvest = false;
+        // }
         
         public override List<Order> GetOrders()
         {
@@ -318,46 +316,40 @@ namespace Items
             return results;
         }
 
-        public override bool IsOrderActive(Order order)
+        // public override bool IsOrderActive(Order order)
+        // {
+        //     switch (order)
+        //     {
+        //         case Order.CutPlant:
+        //             return _queuedToCut;
+        //         case Order.Harvest:
+        //             return _queuedToHarvest;
+        //         default:
+        //             throw new ArgumentOutOfRangeException(nameof(order), order, null);
+        //     }
+        // }
+        
+        public override int GetWorkAmount()
         {
-            switch (order)
-            {
-                case Order.CutPlant:
-                    return _queuedToCut;
-                case Order.Harvest:
-                    return _queuedToHarvest;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(order), order, null);
-            }
+            return _growingResourceData.GetWorkToCut(_growthIndex);
         }
         
-        public override void AssignOrder(Order orderToAssign)
-        {
-            switch (orderToAssign)
-            {
-                case Order.CutPlant:
-                    CreateCutPlantTask();
-                    break;
-                case Order.Harvest:
-                    CreateHarvestFruitTask();
-                    break;
-            }
-        }
 
-        protected override void RestorePendingTask(TaskType pendingTask)
-        {
-            base.RestorePendingTask(pendingTask);
 
-            if (pendingTask == TaskType.CutPlant)
-            {
-                CreateCutPlantTask();
-            }
-
-            if (pendingTask == TaskType.HarvestFruit)
-            {
-                CreateHarvestFruitTask();
-            }
-        }
+        // protected override void RestorePendingTask(TaskType pendingTask)
+        // {
+        //     base.RestorePendingTask(pendingTask);
+        //
+        //     if (pendingTask == TaskType.CutPlant)
+        //     {
+        //         CreateCutPlantTask();
+        //     }
+        //
+        //     if (pendingTask == TaskType.HarvestFruit)
+        //     {
+        //         CreateHarvestFruitTask();
+        //     }
+        // }
 
         public override object CaptureState()
         {

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Actions;
 using Items;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -17,8 +18,8 @@ namespace ScriptableObjects
         [SerializeField] private float _childRangeMin, _childRangeMax;
         [Tooltip("Don't grow next to invalid")][SerializeField] private bool _keepSpace;
         [SerializeField] private List<GrowthStage> _growthStages;
-        //[SerializeField] private List<Order> _options;
         [SerializeField] private List<string> _invalidPlacementTags;
+        [SerializeField] private List<ActionBase> _availableActions;
         
         // Optional Fruit
         [BoxGroup("Fruit")] [SerializeField] private bool _hasFruit;
@@ -27,6 +28,8 @@ namespace ScriptableObjects
         [BoxGroup("Fruit")][ShowIf("_hasFruit")] [SerializeField] private HarvestableItems _harvestableFruit;
         [BoxGroup("Fruit")][ShowIf("_hasFruit")] [SerializeField] private int _workToHarvest;
 
+        public List<ActionBase> AvailableActions => _availableActions;
+        
         public Vector2 GetReproductionPos(Vector2 parentPos)
         {
             var distance = Random.Range(_childRangeMin, _childRangeMax);

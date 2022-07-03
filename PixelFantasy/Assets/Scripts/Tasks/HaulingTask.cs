@@ -17,8 +17,8 @@ namespace Tasks
             public override TaskType TaskType => TaskType.TakeItemToItemSlot;
             public Action<UnitTaskAI> claimItemSlot;
             public Vector3 itemPosition;
-            public Action<UnitTaskAI> grabItem;
-            public Action dropItem;
+            public Action<UnitTaskAI, Item> grabItem;
+            public Action<Item> dropItem;
             public Item item;
         }
 

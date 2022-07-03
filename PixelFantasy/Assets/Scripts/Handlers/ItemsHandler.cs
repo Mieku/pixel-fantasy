@@ -8,11 +8,11 @@ namespace Handlers
     public class ItemsHandler : Saveable
     {
         protected override string StateName => "Items";
-        public override int LoadOrder => 1;
+        public override int LoadOrder => 2;
 
         [SerializeField] private GameObject _itemPrefab;
 
-        protected override void SetChildStates(List<object> childrenStates)
+        protected override void ClearChildStates(List<object> childrenStates)
         {
             // Delete current persistent children
             var currentChildren = GetPersistentChildren();
@@ -26,7 +26,10 @@ namespace Handlers
                 Destroy(child);
             }
             currentChildren.Clear();
-
+        } 
+        
+        protected override void SetChildStates(List<object> childrenStates)
+        {
             // Instantiate all the children in data, Trigger RestoreState with their state data
             foreach (var childState in childrenStates)
             {
@@ -48,7 +51,7 @@ namespace Handlers
                 }
             }
             
-            Debug.LogError($"Slot with UID {uid} not found!");
+            Debug.LogError($"Item with UID {uid} not found!");
             return null;
         }
     }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Actions;
 using CodeMonkey.Utils;
 using Gods;
 using HUD;
@@ -104,7 +105,7 @@ namespace Controllers
             }
         }
 
-        private Action DetermineOnPressedOrderAction(Order orderType)
+        private Action DetermineOnPressedOrderAction(ActionBase orderType)
         {
             void OnOnpressed()
             {
@@ -184,7 +185,7 @@ namespace Controllers
         public void ClearGrassPressed()
         {
             PlayerInputController.Instance.ChangeState(PlayerInputState.BuildFlooring, "Dirt");
-            Spawner.Instance.ShowPlacementIcon(true, _dirtPrefab.Icon, _dirtPrefab.InvalidPlacementTags);
+            Spawner.Instance.ShowPlacementIcon(true, _dirtPrefab.PlacementIcon, _dirtPrefab.InvalidPlacementTags);
         }
 
         public void BuildFloorPressed(string key)

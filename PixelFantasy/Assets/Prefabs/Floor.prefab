@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 2299205115080071544}
   - component: {fileID: 864441823466967160}
   - component: {fileID: 8421574261932009169}
+  - component: {fileID: 4476606764971199555}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Floor
@@ -242,10 +243,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45e819da44bed5846b528d36c1b23c09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _icon: {fileID: 8802911670475920599}
+  PendingTasks: []
+  InProgressTasks: []
+  _takeResourceToBlueprintAction: {fileID: 11400000, guid: 83169185dc450984288697c483e4df23, type: 2}
+  _constructStructureAction: {fileID: 11400000, guid: 7eb08bb163e3b934ba51eda03f3a7adb, type: 2}
   _spriteRenderer: {fileID: 2471839041476629057}
   _pathGraphUpdater: {fileID: 8144082209520647672}
-  _icon: {fileID: 8802911670475920599}
-  GUID: 
+  PendingTask: 0
 --- !u!114 &8421574261932009169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,6 +267,19 @@ MonoBehaviour:
   _selectedIcon: {fileID: 1108344134833085978}
   _objectRenderer: {fileID: 2471839041476629057}
   IsSelected: 0
+--- !u!114 &4476606764971199555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4756426589303839855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38a6c3d8b701419438d0085270a1c006, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueID: 
 --- !u!1 &5041588278388300414
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Actions;
 using Gods;
 using HUD;
 using Items;
@@ -37,43 +38,31 @@ namespace Controllers
         {
             ClearOrders();
             _selectionData = selectionData;
-            foreach (var order in _selectionData.Orders)
+            foreach (var action in _selectionData.Actions)
             {
-                bool isActive = _selectionData.ClickObject.IsOrderActive(order);
-                CreateOrder(order, isActive);
+                bool isActive = selectionData.CancellableActions.Contains(action);//_selectionData.ClickObject.IsActionActive(action);
+                CreateOrder(action, selectionData.Requestor, isActive);
             }
         }
-
-        private void CreateOrder(Order order, bool isActive)
+        
+        private void CreateOrder(ActionBase action, Interactable requestor, bool isActive)
         {
-            Sprite icon = null;
-            Action onPressed = null;
-
-            switch (order)
+            Sprite icon = action.Icon;
+            
+            void OnPressed()
             {
-                case Order.Deconstruct:
-                    icon = Librarian.Instance.GetOrderIcon("Deconstruct");
-                    break;
-                case Order.CutPlant:
-                    icon = Librarian.Instance.GetOrderIcon("Cut");
-                    onPressed = CutPlantOrder;
-                    break;
-                case Order.Harvest:
-                    icon = Librarian.Instance.GetOrderIcon("Harvest");
-                    onPressed = HarvestOrder;
-                    break;
-                case Order.Cancel:
-                    icon = Librarian.Instance.GetOrderIcon("Cancel");
-                    break;
-                case Order.Disallow:
-                    icon = Librarian.Instance.GetOrderIcon("Disallow");
-                    onPressed = DisallowOrder;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(order), order, null);
+                if (isActive)
+                {
+                    requestor.CancelTask(action);
+                }
+                else
+                {
+                    requestor.CreateTask(action);
+                }
+                GameEvents.Trigger_RefreshSelection();
             }
             
-            CreateOrderButton(icon, onPressed, isActive);
+            CreateOrderButton(icon, OnPressed, isActive);
         }
 
         public void CreateOrderButton(Sprite icon, Action onPressed, bool isActive)
@@ -89,33 +78,6 @@ namespace Controllers
         {
             var clickObject = _selectionData.ClickObject;
             clickObject.Owner.ToggleAllowed(!clickObject.Owner.IsAllowed);
-        }
-        
-        private void CutPlantOrder()
-        {
-            var clickObject = _selectionData.ClickObject;
-            var tree = clickObject.GetComponent<TreeResource>();
-            if (tree != null)
-            {
-                tree.CreateCutTreeTask();
-                return;
-            }
-            
-            var plant = clickObject.GetComponent<GrowingResource>();
-            if (plant != null)
-            {
-                plant.CreateCutPlantTask();
-            }
-        }
-
-        private void HarvestOrder()
-        {
-            var clickObject = _selectionData.ClickObject;
-            var plant = clickObject.GetComponent<GrowingResource>();
-            if (plant != null)
-            {
-                plant.CreateHarvestFruitTask();
-            }
         }
         
         #endregion

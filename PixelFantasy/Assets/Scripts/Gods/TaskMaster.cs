@@ -31,6 +31,28 @@ namespace Gods
 
         private const float FUNC_PERIODIC_TIMER = 0.2f; // 200ms
         
+        private bool _isGameLoading;
+        private bool _isGameSaving;
+
+        public void CancelQueuedTask(int taskRef)
+        {
+            EmergencyTaskSystem.CancelTask(taskRef);
+            HealingTaskSystem.CancelTask(taskRef);
+            CookingTaskSystem.CancelTask(taskRef);
+            HuntingTaskSystem.CancelTask(taskRef);
+            ConstructionTaskSystem.CancelTask(taskRef);
+            FarmingTaskSystem.CancelTask(taskRef);
+            MiningTaskSystem.CancelTask(taskRef);
+            FellingTaskSystem.CancelTask(taskRef);
+            SmithingTaskSystem.CancelTask(taskRef);
+            TailoringTaskSystem.CancelTask(taskRef);
+            CarpentryTaskSystem.CancelTask(taskRef);
+            MasonryTaskSystem.CancelTask(taskRef);
+            HaulingTaskSystem.CancelTask(taskRef);
+            CleaningTaskSystem.CancelTask(taskRef);
+            ResearchTaskSystem.CancelTask(taskRef);
+        }
+        
         public TaskBase GetNextTaskByCategory(TaskCategory category)
         {
             TaskBase nextTask = category switch
@@ -59,15 +81,22 @@ namespace Gods
         protected override void Awake()
         {
             GameEvents.OnLoadingGameBeginning += OnGameLoadBegin;
+            GameEvents.OnSavingGameBeginning += OnGameSaveStarted;
+            GameEvents.OnSavingGameEnd += OnGameSaveEnded;
+            GameEvents.OnLoadingGameEnd += OnGameLoadEnded;
         }
 
         private void OnDestroy()
         {
             GameEvents.OnLoadingGameBeginning -= OnGameLoadBegin;
+            GameEvents.OnSavingGameBeginning -= OnGameSaveStarted;
+            GameEvents.OnSavingGameEnd -= OnGameSaveEnded;
+            GameEvents.OnLoadingGameEnd -= OnGameLoadEnded;
         }
 
         private void OnGameLoadBegin()
         {
+            _isGameLoading = true;
             ClearAllTasksSystems();
         }
 
@@ -105,6 +134,11 @@ namespace Gods
         /// </summary>
         private void DequeueTasksAllTaskSystems()
         {
+            if (_isGameLoading || _isGameSaving)
+            {
+                return;
+            }
+
             EmergencyTaskSystem.DequeueTasks();
             HealingTaskSystem.DequeueTasks();
             CookingTaskSystem.DequeueTasks();
@@ -121,7 +155,24 @@ namespace Gods
             CleaningTaskSystem.DequeueTasks();
             ResearchTaskSystem.DequeueTasks();
         }
+        
+        private void OnGameLoadEnded()
+        {
+            _isGameLoading = false;
+        }
+
+        private void OnGameSaveStarted()
+        {
+            _isGameSaving = true;
+        }
+
+        private void OnGameSaveEnded()
+        {
+            _isGameSaving = false;
+        }
     }
+    
+    
 
     [Serializable]
     public enum TaskCategory

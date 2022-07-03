@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Actions;
 using Interfaces;
 using Items;
 using Sirenix.OdinInspector;
@@ -17,7 +18,7 @@ namespace ScriptableObjects
         [PreviewField] public Sprite ItemSprite;
         public Vector2 DefaultSpriteScale = Vector2.one;
 
-        //[SerializeField] private List<Order> _options;
+        [SerializeField] private List<ActionBase> _availableActions;
         
         [BoxGroup("Crafting", centerLabel: true)][SerializeField] private ConstructionMethod _constructionMethod;
         [BoxGroup("Crafting")][HideIf("_constructionMethod", Items.ConstructionMethod.None)][SerializeField] private List<ItemAmount> _resourceCosts;
@@ -26,6 +27,7 @@ namespace ScriptableObjects
         
         public ConstructionMethod ConstructionMethod => _constructionMethod;
         public float WorkToCraft => _workToCraft;
+        public List<ActionBase> AvailableActions => _availableActions;
         
         public List<ItemAmount> ResourceCosts
         {

@@ -21,6 +21,12 @@ namespace Items
         [SerializeField] private SpriteRenderer _storedItemRenderer;
 
         private InventoryController _inventoryController => ControllerManager.Instance.InventoryController;
+
+        public int ClaimedAmount
+        {
+            get => _claimedAmount;
+            set => _claimedAmount = value;
+        }
         
         private void Start()
         {

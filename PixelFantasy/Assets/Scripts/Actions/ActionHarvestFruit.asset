@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53c18150228fcac41a28e87a6980d10f, type: 3}
+  m_Name: ActionHarvestFruit
+  m_EditorClassIdentifier: 
+  id: Harvest Fruit
+  Icon: {fileID: 21300000, guid: d7d76457bfb4bfb46a854054ece86e92, type: 3}

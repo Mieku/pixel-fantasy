@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Actions;
 using DataPersistence;
 using Gods;
 using Interfaces;
@@ -11,71 +13,57 @@ using UnityEngine;
 
 namespace Items
 {
-    public class Resource : UniqueObject, IClickableObject, IPersistent
+    public class Resource : Interactable, IClickableObject, IPersistent
     {
         public GameObject Prefab;
         
-        [SerializeField] protected GrowingResourceData _growingResourceData;
+        [SerializeField] public GrowingResourceData _growingResourceData;
         [SerializeField] protected SpriteRenderer _spriteRenderer;
-        [SerializeField] protected SpriteRenderer _icon;
         [SerializeField] private ClickObject _clickObject;
         
         protected TaskMaster taskMaster => TaskMaster.Instance;
         protected Spawner spawner => Spawner.Instance;
-        protected List<int> _assignedTaskRefs = new List<int>();
-        protected bool _queuedToCut;
-        protected UnitTaskAI _incomingUnit;
-        public TaskType PendingTask;
+
+        //protected bool _queuedToCut;
 
         public GrowingResourceData GetResourceData()
         {
             return _growingResourceData;
         }
         
-        public bool QueuedToCut => _queuedToCut;
+        // public bool QueuedToCut
+        // {
+        //     get => _queuedToCut;
+        //     set => _queuedToCut = value;
+        // }
 
         public ClickObject GetClickObject()
         {
             return _clickObject;
         }
 
-        protected virtual void CancelTasks()
-        {
-            if (_assignedTaskRefs == null || _assignedTaskRefs.Count == 0) return;
-
-            PendingTask = TaskType.None;
-            foreach (var taskRef in _assignedTaskRefs)
-            {
-                taskMaster.FellingTaskSystem.CancelTask(taskRef);
-                taskMaster.FarmingTaskSystem.CancelTask(taskRef);
-            }
-            _assignedTaskRefs.Clear();
-            
-            if (_incomingUnit != null)
-            {
-                _incomingUnit.CancelTask();
-            }
-
-            _queuedToCut = false;
-            
-            RefreshSelection();
-        }
+        // public virtual void CancelTasks()
+        // {
+        //     if (_assignedTaskRefs == null || _assignedTaskRefs.Count == 0) return;
+        //     
+        //     foreach (var taskRef in _assignedTaskRefs)
+        //     {
+        //         taskMaster.FellingTaskSystem.CancelTask(taskRef);
+        //         taskMaster.FarmingTaskSystem.CancelTask(taskRef);
+        //     }
+        //     _assignedTaskRefs.Clear();
+        //     
+        //     if (_incomingUnit != null)
+        //     {
+        //         _incomingUnit.CancelTask();
+        //     }
+        //
+        //     _queuedToCut = false;
+        //     
+        //     RefreshSelection();
+        // }
         
-        protected void SetIcon(string iconName)
-        {
-            if (string.IsNullOrEmpty(iconName))
-            {
-                _icon.sprite = null;
-                _icon.gameObject.SetActive(false);
-            }
-            else
-            {
-                _icon.sprite = Librarian.Instance.GetSprite(iconName);
-                _icon.gameObject.SetActive(true);
-            }
-        }
-        
-        protected void RefreshSelection()
+        public void RefreshSelection()
         {
             if (_clickObject.IsSelected)
             {
@@ -90,6 +78,16 @@ namespace Items
             
         }
 
+        public virtual List<ActionBase> GetActions()
+        {
+            return AvailableActions;
+        }
+
+        public List<ActionBase> GetCancellableActions()
+        {
+            return CancellableActions();
+        }
+
         public virtual List<Order> GetOrders()
         {
             throw new System.NotImplementedException();
@@ -100,18 +98,11 @@ namespace Items
             throw new System.NotImplementedException();
         }
 
-        public virtual void AssignOrder(Order orderToAssign)
+        public virtual void AssignOrder(ActionBase orderToAssign)
         {
-            throw new System.NotImplementedException();
+            CreateTask(orderToAssign);
         }
-
-        protected virtual void RestorePendingTask(TaskType pendingTask)
-        {
-            if(pendingTask == TaskType.None) return;
-            
-            
-        }
-
+        
         public virtual object CaptureState()
         {
             return new Data
@@ -122,7 +113,7 @@ namespace Items
                 GrowingResourceData = _growingResourceData,
                 IsAllowed = this.IsAllowed,
                 IsClickDisabled = this.IsClickDisabled,
-                PendingTask = PendingTask,
+                PendingTasks = PendingTasks,
             };
         }
 
@@ -135,9 +126,8 @@ namespace Items
             _growingResourceData = stateData.GrowingResourceData;
             IsAllowed = stateData.IsAllowed;
             IsClickDisabled = stateData.IsClickDisabled;
-            PendingTask = stateData.PendingTask;
             
-            RestorePendingTask(stateData.PendingTask);
+            RestoreTasks(stateData.PendingTasks);
         }
 
         public struct Data
@@ -148,7 +138,7 @@ namespace Items
             public GrowingResourceData GrowingResourceData;
             public bool IsAllowed;
             public bool IsClickDisabled;
-            public TaskType PendingTask;
+            public List<ActionBase> PendingTasks;
 
             public GrowingResource.GrowingData GrowingData;
         }

@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using Characters;
+using Actions;
 using Characters.Interfaces;
 using DataPersistence;
 using Gods;
@@ -12,7 +12,7 @@ using Random = UnityEngine.Random;
 
 namespace Characters
 {
-    public class UnitTaskAI : MonoBehaviour
+    public class UnitTaskAI : UniqueObject
     {
         // TODO: Make this no longer be able to be changed in inspector later
         [SerializeField] private ProfessionData professionData;
@@ -35,6 +35,12 @@ namespace Characters
         private float _workSpeed = 1f;
         private Item _heldItem;
 
+        public ActionBase currentAction;
+        public string currentActionRequestorUID;
+
+        private bool _isGameLoading;
+        private bool _isGameSaving;
+
         private const float WAIT_TIMER_MAX = .2f; // 200ms
 
         private static TaskMaster taskMaster => TaskMaster.Instance;
@@ -43,10 +49,47 @@ namespace Characters
         {
             workerMover = GetComponent<IMovePosition>();
             thought = GetComponent<UnitThought>();
+
+            GameEvents.OnSavingGameBeginning += OnGameSaveStarted;
+            GameEvents.OnSavingGameEnd += OnGameSaveEnded;
+            GameEvents.OnLoadingGameBeginning += OnGameLoadStarted;
+            GameEvents.OnLoadingGameEnd += OnGameLoadEnded;
         }
-        
+
+        private void OnDestroy()
+        {
+            GameEvents.OnSavingGameBeginning -= OnGameSaveStarted;
+            GameEvents.OnSavingGameEnd -= OnGameSaveEnded;
+            GameEvents.OnLoadingGameBeginning -= OnGameLoadStarted;
+            GameEvents.OnLoadingGameEnd -= OnGameLoadEnded;
+        }
+
+        private void OnGameLoadStarted()
+        {
+            _isGameLoading = true;
+        }
+
+        private void OnGameLoadEnded()
+        {
+            _isGameLoading = false;
+        }
+
+        private void OnGameSaveStarted()
+        {
+            _isGameSaving = true;
+        }
+
+        private void OnGameSaveEnded()
+        {
+            _isGameSaving = false;
+        }
+
         private void Update()
         {
+            if (_isGameLoading) return;
+            if (_isGameSaving) return;
+            if(_curTask != null) return;
+            
             switch (state)
             {
                 case State.WaitingForNextTask:
@@ -115,129 +158,141 @@ namespace Characters
             }
         }
 
-        private void ExecuteTask(TaskBase task)
+        public void ExecuteTask(TaskBase task)
         {
+            if (task == null) return;
+            
+            _curTask = task;
             state = State.ExecutingTask;
-                // Move to location
-                if (task is EmergencyTask.MoveToPosition)
-                {
-                    ExecuteTask_MoveToPosition(task as EmergencyTask.MoveToPosition);
-                    return;
-                }
-                
-                // Clean up garbage
-                if (task is CleaningTask.GarbageCleanup)
-                {
-                    ExecuteTask_CleanUpGarbage(task as CleaningTask.GarbageCleanup);
-                    return;
-                }
-                
-                // Pick up item and move to slot
-                if (task is HaulingTask.TakeItemToItemSlot)
-                {
-                    ExecuteTask_TakeItemToItemSlot(task as HaulingTask.TakeItemToItemSlot);
-                    return;
-                }
-                
-                if (task is HaulingTask.TakeResourceToBlueprint)
-                {
-                    ExecuteTask_TakeResourceToBlueprint(task as HaulingTask.TakeResourceToBlueprint);
-                    return;
-                }
-                
-                if (task is ConstructionTask.ConstructStructure)
-                {
-                    ExecuteTask_ConstructStructure(task as ConstructionTask.ConstructStructure);
-                    return;
-                }
 
-                if (task is ConstructionTask.DeconstructStructure)
-                {
-                    ExecuteTask_DeconstructStructure(task as ConstructionTask.DeconstructStructure);
-                    return;
-                }
+            // Move to location
+            if (task is EmergencyTask.MoveToPosition)
+            {
+                ExecuteTask_MoveToPosition(task as EmergencyTask.MoveToPosition);
+                return;
+            }
+            
+            // Clean up garbage
+            if (task is CleaningTask.GarbageCleanup)
+            {
+                ExecuteTask_CleanUpGarbage(task as CleaningTask.GarbageCleanup);
+                return;
+            }
+            
+            // Pick up item and move to slot
+            if (task is HaulingTask.TakeItemToItemSlot)
+            {
+                ExecuteTask_TakeItemToItemSlot(task as HaulingTask.TakeItemToItemSlot);
+                return;
+            }
+            
+            if (task is HaulingTask.TakeResourceToBlueprint)
+            {
+                ExecuteTask_TakeResourceToBlueprint(task as HaulingTask.TakeResourceToBlueprint);
+                return;
+            }
+            
+            if (task is ConstructionTask.ConstructStructure)
+            {
+                ExecuteTask_ConstructStructure(task as ConstructionTask.ConstructStructure);
+                return;
+            }
 
-                if (task is FellingTask.CutTree)
-                {
-                    ExecuteTask_CutTree(task as FellingTask.CutTree);
-                    return;
-                }
+            if (task is ConstructionTask.DeconstructStructure)
+            {
+                ExecuteTask_DeconstructStructure(task as ConstructionTask.DeconstructStructure);
+                return;
+            }
 
-                if (task is FarmingTask.CutPlant)
-                {
-                    ExecuteTask_CutPlant(task as FarmingTask.CutPlant);
-                    return;
-                }
+            if (task is FellingTask.CutTree)
+            {
+                ExecuteTask_CutTree(task as FellingTask.CutTree);
+                return;
+            }
 
-                if (task is FarmingTask.HarvestFruit)
-                {
-                    ExecuteTask_HarvestFruit(task as FarmingTask.HarvestFruit);
-                    return;
-                }
+            if (task is FarmingTask.CutPlant)
+            {
+                ExecuteTask_CutPlant(task as FarmingTask.CutPlant);
+                return;
+            }
 
-                if (task is FarmingTask.ClearGrass)
-                {
-                    ExecuteTask_ClearGrass(task as FarmingTask.ClearGrass);
-                    return;
-                }
+            if (task is FarmingTask.HarvestFruit)
+            {
+                ExecuteTask_HarvestFruit(task as FarmingTask.HarvestFruit);
+                return;
+            }
 
-                if (task is CarpentryTask.CraftItem)
-                {
-                    ExecuteTask_CraftItem_Carpentry(task as CarpentryTask.CraftItem);
-                    return;
-                }
-                
-                if (task is CarpentryTask.GatherResourceForCrafting)
-                {
-                    ExecuteTask_GatherResourceForCrafting_Carpentry(task as CarpentryTask.GatherResourceForCrafting);
-                    return;
-                }
+            if (task is FarmingTask.ClearGrass)
+            {
+                ExecuteTask_ClearGrass(task as FarmingTask.ClearGrass);
+                return;
+            }
 
-                if (task is FarmingTask.DigHole)
-                {
-                    ExecuteTask_DigHole(task as FarmingTask.DigHole);
-                    return;
-                }
-                
-                if (task is FarmingTask.HarvestCrop)
-                {
-                    ExecuteTask_HarvestCrop(task as FarmingTask.HarvestCrop);
-                    return;
-                }
-                
-                if (task is FarmingTask.PlantCrop)
-                {
-                    ExecuteTask_PlantCrop(task as FarmingTask.PlantCrop);
-                    return;
-                }
-                
-                if (task is FarmingTask.WaterCrop)
-                {
-                    ExecuteTask_WaterCrop(task as FarmingTask.WaterCrop);
-                    return;
-                }
-                
-                // Other task types go here
+            if (task is CarpentryTask.CraftItem)
+            {
+                ExecuteTask_CraftItem_Carpentry(task as CarpentryTask.CraftItem);
+                return;
+            }
+            
+            if (task is CarpentryTask.GatherResourceForCrafting)
+            {
+                ExecuteTask_GatherResourceForCrafting_Carpentry(task as CarpentryTask.GatherResourceForCrafting);
+                return;
+            }
+
+            if (task is FarmingTask.DigHole)
+            {
+                ExecuteTask_DigHole(task as FarmingTask.DigHole);
+                return;
+            }
+            
+            if (task is FarmingTask.HarvestCrop)
+            {
+                ExecuteTask_HarvestCrop(task as FarmingTask.HarvestCrop);
+                return;
+            }
+            
+            if (task is FarmingTask.PlantCrop)
+            {
+                ExecuteTask_PlantCrop(task as FarmingTask.PlantCrop);
+                return;
+            }
+            
+            if (task is FarmingTask.WaterCrop)
+            {
+                ExecuteTask_WaterCrop(task as FarmingTask.WaterCrop);
+                return;
+            }
+            
+            // Other task types go here
+        }
+
+        private void ClearAction()
+        {
+            claimedSlot = null;
+            _curTask = null;
+            currentActionRequestorUID = "";
+            currentAction = null;
         }
 
         #region Execute Tasks
 
         private void ExecuteTask_MoveToPosition(EmergencyTask.MoveToPosition task)
         {
-            //thought.SetThought(UnitThought.ThoughtState.Moving);
             workerMover.SetMovePosition(task.targetPosition, () =>
             {
                 state = State.WaitingForNextTask;
+                ClearAction();
             });
         }
 
         private void ExecuteTask_CleanUpGarbage(CleaningTask.GarbageCleanup cleanupTask)
         {
-            //thought.SetThought(UnitThought.ThoughtState.Cleaning);
             workerMover.SetMovePosition(cleanupTask.targetPosition, () =>
             {
                 cleanupTask.cleanUpAction();
                 state = State.WaitingForNextTask;
+                ClearAction();
             });
         }
 
@@ -247,19 +302,22 @@ namespace Characters
             task.claimItemSlot(this);
             workerMover.SetMovePosition(task.itemPosition, () =>
             {
-                task.grabItem(this);
+                task.grabItem(this, task.item);
                 workerMover.SetMovePosition(claimedSlot.GetPosition(), () =>
                 {
-                    task.dropItem();
+                    task.dropItem(task.item);
                     claimedSlot.StoreItem(task.item);
                     state = State.WaitingForNextTask;
-                    claimedSlot = null;
+                    ClearAction();
                 });
             });
         }
 
         private void ExecuteTask_TakeResourceToBlueprint(HaulingTask.TakeResourceToBlueprint task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
             workerMover.SetMovePosition(task.resourcePosition, () =>
             {
                 task.grabResource(this);
@@ -267,6 +325,7 @@ namespace Characters
                 {
                     task.useResource(_heldItem);
                     state = State.WaitingForNextTask;
+                    ClearAction();
                 });
             });
         }
@@ -282,12 +341,16 @@ namespace Characters
                     task.completeWork();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
+                    ClearAction();
                 });
             });
         }
 
         private void ExecuteTask_DeconstructStructure(ConstructionTask.DeconstructStructure task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
             task.claimStructure(this);
             workerMover.SetMovePosition(GetAdjacentPosition(task.structurePosition), () =>
             {
@@ -295,15 +358,19 @@ namespace Characters
                 _unitAnim.SetUnitAction(UnitAction.Building);
                 DoWork(task.workAmount, () =>
                 {
-                    task.completeWork();
+                    task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
+                    ClearAction();
                 });
             });
         }
 
         private void ExecuteTask_CutTree(FellingTask.CutTree task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
             task.claimTree(this);
             workerMover.SetMovePosition(GetAdjacentPosition(task.treePosition), () =>
             {
@@ -311,15 +378,19 @@ namespace Characters
                 _unitAnim.SetUnitAction(UnitAction.Axe);
                 DoWork(task.workAmount, () =>
                 {
-                    task.completeWork();
+                    task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
+                    ClearAction();
                 });
             });
         }
         
         private void ExecuteTask_CutPlant(FarmingTask.CutPlant task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
             task.claimPlant(this);
             workerMover.SetMovePosition(GetAdjacentPosition(task.plantPosition, 0.5f), () =>
             {
@@ -327,15 +398,19 @@ namespace Characters
                 _unitAnim.SetUnitAction(UnitAction.Doing);
                 DoWork(task.workAmount, () =>
                 {
-                    task.completeWork();
+                    task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
+                    ClearAction();
                 });
             });
         }
         
         private void ExecuteTask_HarvestFruit(FarmingTask.HarvestFruit task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
             task.claimPlant(this);
             workerMover.SetMovePosition(GetAdjacentPosition(task.plantPosition, 0.5f), () =>
             {
@@ -343,15 +418,19 @@ namespace Characters
                 _unitAnim.SetUnitAction(UnitAction.Doing);
                 DoWork(task.workAmount, () =>
                 {
-                    task.completeWork();
+                    task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
+                    ClearAction();
                 });
             });
         }
         
         private void ExecuteTask_ClearGrass(FarmingTask.ClearGrass task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
             task.claimDirt(this);
             workerMover.SetMovePosition(GetAdjacentPosition(task.grassPosition), () =>
             {
@@ -359,15 +438,19 @@ namespace Characters
                 _unitAnim.SetUnitAction(UnitAction.Digging);
                 DoWork(task.workAmount, () =>
                 {
-                    task.completeWork();
+                    task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
+                    ClearAction();
                 });
             });
         }
 
         private void ExecuteTask_DigHole(FarmingTask.DigHole task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
             task.claimHole(this);
             workerMover.SetMovePosition(GetAdjacentPosition(task.holePosition), () =>
             {
@@ -375,15 +458,19 @@ namespace Characters
                 _unitAnim.SetUnitAction(UnitAction.Digging);
                 DoWork(task.workAmount, () =>
                 {
-                    task.completeWork();
+                    task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
+                    ClearAction();
                 });
             });
         }
         
         private void ExecuteTask_PlantCrop(FarmingTask.PlantCrop task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
             task.claimHole(this);
             workerMover.SetMovePosition(GetAdjacentPosition(task.holePosition), () =>
             {
@@ -391,15 +478,19 @@ namespace Characters
                 _unitAnim.SetUnitAction(UnitAction.Doing);
                 DoWork(task.workAmount, () =>
                 {
-                    task.completeWork();
+                    task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
+                    ClearAction();
                 });
             });
         }
         
         private void ExecuteTask_WaterCrop(FarmingTask.WaterCrop task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
             task.claimCrop(this);
             workerMover.SetMovePosition(GetAdjacentPosition(task.cropPosition), () =>
             {
@@ -407,15 +498,19 @@ namespace Characters
                 _unitAnim.SetUnitAction(UnitAction.Watering);
                 DoWork(task.workAmount, () =>
                 {
-                    task.completeWork();
+                    task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
+                    ClearAction();
                 });
             });
         }
         
         private void ExecuteTask_HarvestCrop(FarmingTask.HarvestCrop task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
             task.claimCrop(this);
             workerMover.SetMovePosition(GetAdjacentPosition(task.cropPosition, 0.5f), () =>
             {
@@ -423,15 +518,19 @@ namespace Characters
                 _unitAnim.SetUnitAction(UnitAction.Digging);
                 DoWork(task.workAmount, () =>
                 {
-                    task.completeWork();
+                    task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
+                    ClearAction();
                 });
             });
         }
 
         private void ExecuteTask_CraftItem_Carpentry(CarpentryTask.CraftItem task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
             workerMover.SetMovePosition(task.craftPosition, () =>
             {
                 _unitAnim.LookAtPostion(task.craftPosition);
@@ -441,12 +540,16 @@ namespace Characters
                     task.completeWork();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
+                    ClearAction();
                 });
             });
         }
         
         private void ExecuteTask_GatherResourceForCrafting_Carpentry(CarpentryTask.GatherResourceForCrafting task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
             workerMover.SetMovePosition(task.resourcePosition, () =>
             {
                 task.grabResource(this);
@@ -454,6 +557,7 @@ namespace Characters
                 {
                     task.useResource(_heldItem);
                     state = State.WaitingForNextTask;
+                    ClearAction();
                 });
             });
         }
@@ -479,6 +583,17 @@ namespace Characters
             state = State.WaitingForNextTask;
             StopAllCoroutines();
             workerMover.SetMovePosition(transform.position, () => {});
+            ClearAction();
+            DropHeldItem();
+        }
+
+        private void DropHeldItem()
+        {
+            if (_heldItem == null) return;
+
+            Spawner.Instance.SpawnItem(_heldItem.GetItemData(), transform.position, true);
+            Destroy(_heldItem.gameObject);
+            _heldItem = null;
         }
         
         public UnitTaskData GetSaveData()
@@ -495,7 +610,6 @@ namespace Characters
 
             if (state == State.ExecutingTask && _curTask != null)
             {
-                taskType = _curTask.TaskType;
                 targetUID = _curTask.TargetUID;
             }
 
@@ -506,16 +620,22 @@ namespace Characters
 
             return new UnitTaskData
             {
-                CurTask = taskType,
                 WasExecutingTask = state == State.ExecutingTask,
                 TargetUID = targetUID,
                 ClaimedSlotUID = slotUID,
                 HeldItemData = heldItemData,
+                ProfessionData = professionData,
+                CurrentAction = currentAction,
+                CurrentActionRequestorUID = currentActionRequestorUID,
             };
         }
 
         public void SetLoadData(UnitTaskData taskData)
         {
+            professionData = taskData.ProfessionData;
+            currentAction = taskData.CurrentAction;
+            currentActionRequestorUID = taskData.CurrentActionRequestorUID;
+            
             if (!string.IsNullOrEmpty(taskData.ClaimedSlotUID))
             {
                 var slotGO = UIDManager.Instance.GetGameObject(taskData.ClaimedSlotUID);
@@ -533,117 +653,42 @@ namespace Characters
                 childObj.GetComponent<IPersistent>().RestoreState(itemData);
                 _heldItem = childObj.GetComponent<Item>();
             }
-
-            if (taskData.WasExecutingTask)
-            {
-                ResumeLoadedTask(taskData);
-            }
+            
+            ResumeCurrentAction();
         }
 
-        private void ResumeLoadedTask(UnitTaskData taskData)
+        private void ResumeCurrentAction()
         {
-            var curTask = taskData.CurTask;
-            var targetGO = UIDManager.Instance.GetGameObject(taskData.TargetUID);
+            if (currentAction == null) return;
+            if (currentAction.id == "Take Item To Slot") return;
 
-            switch (curTask)
+            if (currentAction.id == "Take Resource To Blueprint")
             {
-                case TaskType.None:
-                    break;
-                case TaskType.CutTree:
-                    var tree = targetGO.GetComponent<TreeResource>();
-                    ExecuteTask(tree.CreateCutTreeTask(false));
-                    break;
-                case TaskType.HarvestFruit:
-                    var fruitingPlant = targetGO.GetComponent<GrowingResource>();
-                    ExecuteTask(fruitingPlant.CreateHarvestFruitTask(false));
-                    break;
-                case TaskType.CutPlant:
-                    var plantToCut = targetGO.GetComponent<GrowingResource>();
-                    ExecuteTask(plantToCut.CreateCutPlantTask(false));
-                    break;
-                case TaskType.ClearGrass:
-                    var dirtTile = targetGO.GetComponent<DirtTile>();
-                    _curTask = dirtTile.CreateClearGrassTask(false);
-                    ExecuteTask(_curTask);
-                    break;
-                case TaskType.DigHole:
-                case TaskType.PlantCrop:
-                case TaskType.WaterCrop:
-                case TaskType.HarvestCrop:
-                case TaskType.Carpentry_CraftItem:
-                case TaskType.Carpentry_GatherResourceForCrafting:
-                case TaskType.GarbageCleanup:
-                case TaskType.ConstructStructure:
-                    var constStructure = targetGO.GetComponent<Structure>();
-                    if (constStructure != null)
-                    {
-                        _curTask = constStructure.CreateConstructStructureTask(false);
-                        ExecuteTask(_curTask);
-                    }
-                    
-                    var constFloor = targetGO.GetComponent<Floor>();
-                    if (constFloor != null)
-                    {
-                        _curTask = constFloor.CreateConstructFloorTask(false);
-                        ExecuteTask(_curTask);
-                    }
-                    break;
-                case TaskType.DeconstructStructure:
-                case TaskType.EmergencyTask_MoveToPosition:
-                case TaskType.TakeItemToItemSlot:
-                    var item = targetGO.GetComponent<Item>();
-                    ControllerManager.Instance.InventoryController.AddItemToPending(item);
-                    claimedSlot.AddItemIncoming(item);
-                    ExecuteTask(item.CreateHaulTaskForSlot(claimedSlot));
-                    break;
-                case TaskType.TakeResourceToBlueprint:
-                    var structure = targetGO.GetComponent<Structure>();
-                    if (structure != null)
-                    {
-                        if (_heldItem != null)
-                        {
-                            structure.AddToPendingResourceCosts(_heldItem.GetItemData());
-                            var task_resourceToBlueprint = structure.CreateTakeResourceToBlueprintTask(_heldItem);
-                            ExecuteTask(task_resourceToBlueprint);
-                        }
-                        else if(claimedSlot != null)
-                        {
-                            var task_resourceToBlueprint = structure.CreateTakeResourceFromSlotToBlueprintTask(claimedSlot);
-                            ExecuteTask(task_resourceToBlueprint);
-                        }
-                    }
+                var requestor = UIDManager.Instance.GetGameObject(currentActionRequestorUID).GetComponent<Interactable>();
+                var itemToBlueprintAct = currentAction as ActionTakeResourceToBlueprint;
+                var task = itemToBlueprintAct.RestoreTask(requestor, claimedSlot, _heldItem);
+                
+                ExecuteTask(task);
+            }
+            else
+            {
+                var requestor = UIDManager.Instance.GetGameObject(currentActionRequestorUID).GetComponent<Interactable>();
+                var task = currentAction.RestoreTask(requestor, false);
 
-                    var floor = targetGO.GetComponent<Floor>();
-                    if (floor != null)
-                    {
-                        if (_heldItem != null)
-                        {
-                            floor.AddToPendingResourceCosts(_heldItem.GetItemData());
-                            var task_resourceToBlueprint = floor.CreateTakeResourceToBlueprintTask(_heldItem);
-                            ExecuteTask(task_resourceToBlueprint);
-                            break;
-                        }
-                        else if(claimedSlot != null)
-                        {
-                            var task_resourceToBlueprint = floor.CreateTakeResourceFromSlotToBlueprintTask(claimedSlot);
-                            ExecuteTask(task_resourceToBlueprint);
-                            break;
-                        }
-                    }
-                    
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                ExecuteTask(task);
             }
         }
 
         public struct UnitTaskData
         {
-            public TaskType CurTask;
             public string TargetUID;
             public bool WasExecutingTask;
             public string ClaimedSlotUID;
             public object HeldItemData;
+            public ProfessionData ProfessionData;
+            
+            public ActionBase CurrentAction;
+            public string CurrentActionRequestorUID;
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Actions;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Gods
         [SerializeField] private List<Sprite> _sprites;
         [SerializeField] private List<SpriteRef> _orderIcons;
         [SerializeField] private List<CropData> _cropLibrary;
+        [SerializeField] private List<ActionBase> _actions;
 
         public Color GetColour(string colourName)
         {
@@ -79,6 +81,11 @@ namespace Gods
         public Sprite GetOrderIcon(string spriteName)
         {
             return _orderIcons.Find(i => i.Name == spriteName).Sprite;
+        }
+
+        public ActionBase GetAction(string actionId)
+        {
+            return _actions.Find(i => i.id == actionId);
         }
     }
 

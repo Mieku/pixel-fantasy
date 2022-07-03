@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Actions;
 using Gods;
 using Items;
 using Sirenix.OdinInspector;
@@ -24,6 +25,9 @@ namespace ScriptableObjects
         [SerializeField] private List<Order> _options;
         [SerializeField] private bool _isCraftingTable;
         [SerializeField] private CraftingType _craftingType;
+        [SerializeField] private List<ActionBase> _availableActions;
+        
+        public List<ActionBase> AvailableActions => _availableActions;
 
         public string FurnitureName => _furnitureName;
         public Sprite Icon => _iconSprite;

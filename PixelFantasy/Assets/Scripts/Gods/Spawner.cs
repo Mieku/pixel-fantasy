@@ -34,6 +34,7 @@ namespace Gods
         [SerializeField] private GameObject _soilPrefab;
         
         [SerializeField] private SpriteRenderer _placementIcon;
+        [SerializeField] private Sprite _genericPlacementSprite;
         
         [SerializeField] private Seeker _pathSeeker;
         [SerializeField] private GameObject _settlementFlag;
@@ -285,10 +286,11 @@ namespace Gods
             }
         }
 
-        public void SpawnItem(ItemData itemData, Vector2 spawnPosition, bool canBeHauled, int quantity)
+        public void SpawnItem(ItemData itemData, Vector3 spawnPosition, bool canBeHauled, int quantity)
         {
             for (int i = 0; i < quantity; i++)
             {
+                spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
                 var item = Instantiate(_itemPrefab, spawnPosition, Quaternion.identity);
                 item.transform.SetParent(_itemsParent);
                 var itemScript = item.GetComponent<Item>();
@@ -296,8 +298,9 @@ namespace Gods
             }
         }
         
-        public Item SpawnItem(ItemData itemData, Vector2 spawnPosition, bool canBeHauled)
+        public Item SpawnItem(ItemData itemData, Vector3 spawnPosition, bool canBeHauled)
         {
+            spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
             var item = Instantiate(_itemPrefab, spawnPosition, Quaternion.identity);
             item.transform.SetParent(_itemsParent);
             var itemScript = item.GetComponent<Item>();
@@ -306,10 +309,11 @@ namespace Gods
             return itemScript;
         }
 
-        public void SpawnStructure(StructureData structureData, Vector2 spawnPosition)
+        public void SpawnStructure(StructureData structureData, Vector3 spawnPosition)
         {
             if (Helper.IsGridPosValidToBuild(spawnPosition, structureData.InvalidPlacementTags))
             {
+                spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
                 var structureObj = Instantiate(_structurePrefab, spawnPosition, Quaternion.identity);
                 structureObj.transform.SetParent(_structureParent);
                 var structure = structureObj.GetComponent<Structure>();
@@ -317,10 +321,11 @@ namespace Gods
             }
         }
 
-        public void SpawnFurniture(FurnitureData furnitureData, Vector2 spawnPosition)
+        public void SpawnFurniture(FurnitureData furnitureData, Vector3 spawnPosition)
         {
             if (Helper.IsGridPosValidToBuild(spawnPosition, furnitureData.InvalidPlacementTags))
             {
+                spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
                 if (furnitureData.IsCraftingTable)
                 {
                     var furnitureObj = Instantiate(_craftingTablePrefab, spawnPosition, Quaternion.identity);
@@ -338,10 +343,11 @@ namespace Gods
             }
         }
 
-        public void SpawnFloor(FloorData floorData, Vector2 spawnPosition)
+        public void SpawnFloor(FloorData floorData, Vector3 spawnPosition)
         {
             if (Helper.IsGridPosValidToBuild(spawnPosition, floorData.InvalidPlacementTags))
             {
+                spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
                 var floorObj = Instantiate(_floorPrefab, spawnPosition, Quaternion.identity);
                 floorObj.transform.SetParent(_flooringParent);
                 var floor = floorObj.GetComponent<Floor>();
@@ -365,15 +371,17 @@ namespace Gods
             plant.GetComponent<GrowingResource>().Init(growingResourceData, _plantPrefab);
         }
 
-        public void SpawnDirtTile(Vector2 spawnPosition, Structure requestingStructure = null)
+        public void SpawnDirtTile(Vector3 spawnPosition, Structure requestingStructure = null)
         {
+            spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
             var dirt = Instantiate(_dirtTilePrefab, spawnPosition, Quaternion.identity);
             dirt.transform.SetParent(_flooringParent);
             dirt.GetComponent<DirtTile>().Init(requestingStructure);
         }
         
-        public DirtTile SpawnDirtTile(Vector2 spawnPosition, Floor requestingFloor)
+        public DirtTile SpawnDirtTile(Vector3 spawnPosition, Floor requestingFloor)
         {
+            spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
             var dirt = Instantiate(_dirtTilePrefab, spawnPosition, Quaternion.identity);
             dirt.transform.SetParent(_flooringParent);
             var dirtTile = dirt.GetComponent<DirtTile>();
@@ -557,7 +565,7 @@ namespace Gods
                     blueprint.transform.position = gridPos;
                     var spriteRenderer = blueprint.GetComponent<SpriteRenderer>();
                     var dirt = _dirtTilePrefab.GetComponent<DirtTile>();
-                    spriteRenderer.sprite = dirt.Icon;
+                    spriteRenderer.sprite = dirt.PlacementIcon;
                     if (Helper.IsGridPosValidToBuild(gridPos, dirt.InvalidPlacementTags))
                     {
                         spriteRenderer.color = Librarian.Instance.GetColour("Placement Green");
@@ -613,8 +621,8 @@ namespace Gods
                     var blueprint = new GameObject("blueprint", typeof(SpriteRenderer));
                     blueprint.transform.position = gridPos;
                     var spriteRenderer = blueprint.GetComponent<SpriteRenderer>();
-                    var soil = _soilPrefab.GetComponent<DirtTile>();
-                    spriteRenderer.sprite = soil.Icon;
+                    var soil = _soilPrefab.GetComponent<Crop>();
+                    spriteRenderer.sprite = _genericPlacementSprite;
                     if (Helper.IsGridPosValidToBuild(gridPos, soil.InvalidPlacementTags))
                     {
                         spriteRenderer.color = Librarian.Instance.GetColour("Placement Green");
@@ -636,7 +644,7 @@ namespace Gods
 
             foreach (var gridPos in _plannedGrid)
             {
-                var soil = _soilPrefab.GetComponent<DirtTile>();
+                var soil = _soilPrefab.GetComponent<Crop>();
                 if (Helper.IsGridPosValidToBuild(gridPos, soil.InvalidPlacementTags))
                 {
                     SpawnSoilTile(gridPos, CropData);

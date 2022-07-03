@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DataPersistence;
+using Items;
 using UnityEngine;
 
 namespace Handlers
@@ -11,8 +12,8 @@ namespace Handlers
         
         [SerializeField] private GameObject _furniturePrefab;
         [SerializeField] private GameObject _craftingTablePrefab;
-        
-        protected override void SetChildStates(List<object> childrenStates)
+
+        protected override void ClearChildStates(List<object> childrenStates)
         {
             // Delete current persistent children
             var currentChildren = GetPersistentChildren();
@@ -26,13 +27,26 @@ namespace Handlers
                 Destroy(child);
             }
             currentChildren.Clear();
-
+        }
+        
+        protected override void SetChildStates(List<object> childrenStates)
+        {
             // Instantiate all the children in data, Trigger RestoreState with their state data
             foreach (var childState in childrenStates)
             {
-                // var data = (Item.Data)childState;
-                // var childObj = Instantiate(_itemPrefab, transform);
-                // childObj.GetComponent<IPersistent>().RestoreState(data);
+                var data = (Furniture.Data)childState;
+
+                if (data.IsCraftingTable)
+                {
+                    var childObj = Instantiate(_craftingTablePrefab, transform);
+                    childObj.GetComponent<IPersistent>().RestoreState(data);
+                }
+                else
+                {
+                    var childObj = Instantiate(_furniturePrefab, transform);
+                    childObj.GetComponent<IPersistent>().RestoreState(data);
+                }
+                
             }
         }
     }

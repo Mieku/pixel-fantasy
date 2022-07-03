@@ -20,6 +20,23 @@ namespace Gods
         public TaskType PendingTask;
         private TaskMaster taskMaster => TaskMaster.Instance;
 
+        protected override void Awake()
+        {
+            base.Awake();
+            GameEvents.OnSavingGameBeginning += OnBeginSave;
+        }
+
+        private void OnDestroy()
+        {
+            GameEvents.OnSavingGameBeginning -= OnBeginSave;
+        }
+
+        private void OnBeginSave()
+        {
+            _carpentryTables.Clear();
+            _carpentryTaskList.Clear();
+        }
+
         private void Start()
         {
             InvokeRepeating(nameof(CheckCraftingQueues), 0, QUEUE_CHECK_TIMER);
@@ -126,12 +143,44 @@ namespace Gods
                 }
             }).GetHashCode();
         }
+        
+        public CarpentryTask.GatherResourceForCrafting CreateGatherResourceForCraftingTask(Item item, CraftingTable table)
+        {
+            var task = new CarpentryTask.GatherResourceForCrafting
+            {
+                TargetUID = table.UniqueId,
+                resourcePosition = item.transform.position,
+                craftingTable = table,
+                grabResource = (UnitTaskAI unitTaskAI) =>
+                {
+                    PendingTask = TaskType.None;
+                    
+                    item.gameObject.SetActive(true);
+                    unitTaskAI.AssignHeldItem(item);
+                    
+                    table.AddIncomingItem(item);
+                },
+                useResource = (heldItem) =>
+                {
+                    table.RemoveIncomingItem(heldItem);
+                    heldItem.gameObject.SetActive(false);
+                    table.AddResourceToCrafting(heldItem.GetItemData());
+                    Destroy(heldItem.gameObject);
+                    table.CheckIfAllResourcesLoadedInCrafting();
+                }
+            };
+                   
+            PendingTask = TaskType.Carpentry_GatherResourceForCrafting;
+            table.AddTaskReference(task.GetHashCode());
+            return task;
+        }
 
-        private CarpentryTask.GatherResourceForCrafting CreateGatherResourceForCraftingTask(StorageSlot slot, CraftingTable table)
+        public CarpentryTask.GatherResourceForCrafting CreateGatherResourceForCraftingTask(StorageSlot slot, CraftingTable table)
         {
             Item resource;
             var task = new CarpentryTask.GatherResourceForCrafting
             {
+                TargetUID = table.UniqueId,
                 resourcePosition = slot.transform.position,
                 craftingTable = table,
                 grabResource = (UnitTaskAI unitTaskAI) =>

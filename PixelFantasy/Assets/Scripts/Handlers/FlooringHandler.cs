@@ -13,8 +13,9 @@ namespace Handlers
         
         [SerializeField] private GameObject _flooringPrefab;
         [SerializeField] private GameObject _dirtPrefab;
-        
-        protected override void SetChildStates(List<object> childrenStates)
+        [SerializeField] private GameObject _cropPrefab;
+
+        protected override void ClearChildStates(List<object> childrenStates)
         {
             // Delete current persistent children
             var currentChildren = GetPersistentChildren();
@@ -28,7 +29,10 @@ namespace Handlers
                 Destroy(child);
             }
             currentChildren.Clear();
-
+        }
+        
+        protected override void SetChildStates(List<object> childrenStates)
+        {
             // Instantiate all the children in data, Trigger RestoreState with their state data
             foreach (var childState in childrenStates)
             {
@@ -42,7 +46,11 @@ namespace Handlers
                     var childObj = Instantiate(_dirtPrefab, transform);
                     childObj.GetComponent<IPersistent>().RestoreState(dirtData);
                 }
-                
+                else if (childState is Crop.CropState cropState)
+                {
+                    var childObj = Instantiate(_cropPrefab, transform);
+                    childObj.GetComponent<IPersistent>().RestoreState(cropState);
+                }
             }
         }
     }

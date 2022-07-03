@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Actions;
 using Controllers;
 using DataPersistence;
 using Gods;
@@ -14,36 +15,19 @@ using UnityEngine;
 
 namespace Items
 {
-    public class Floor : UniqueObject, IClickableObject, IPersistent
+    public class Floor : Construction
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private GraphUpdateScene _pathGraphUpdater;
-        [SerializeField] private SpriteRenderer _icon;
 
         private FloorData _floorData;
-        private List<ItemAmount> _remainingResourceCosts;
-        private List<ItemAmount> _pendingResourceCosts; // Claimed by a task but not used yet
-        private bool _isBuilt;
         private List<int> _assignedTaskRefs = new List<int>();
-        private List<Item> _incomingItems = new List<Item>();
-        private bool _isDeconstructing;
-        private UnitTaskAI _incomingUnit;
         private Vector2 _floorPos;
         
         public TaskType PendingTask;
         
-        private TaskMaster taskMaster => TaskMaster.Instance;
-
         public FloorData FloorData => _floorData;
         public Vector2 FloorPos => _floorPos;
-        
-        public bool IsClickDisabled { get; set; }
-
-        public ClickObject GetClickObject()
-        {
-            // TODO: Add Click Object to floors
-            return null;
-        }
 
         public void Init(FloorData floorData)
         {
@@ -51,6 +35,7 @@ namespace Items
             _floorData = floorData;
             _floorPos = transform.position;
             _remainingResourceCosts = new List<ItemAmount> (_floorData.GetResourceCosts());
+            _pendingResourceCosts = new List<ItemAmount>();
             UpdateSprite();
             IsAllowed = true;
             UpdateStretchToWalls();
@@ -62,7 +47,7 @@ namespace Items
         {
             _spriteRenderer.sprite = _floorData.FloorSprite;
         }
-
+        
         public void UpdateStretchToWalls()
         {
             if (!_floorData.StretchToWall) return;
@@ -105,43 +90,6 @@ namespace Items
             }
         }
         
-        public void AddToPendingResourceCosts(ItemData itemData, int quantity = 1)
-        {
-            _pendingResourceCosts ??= new List<ItemAmount>();
-
-            foreach (var cost in _pendingResourceCosts)
-            {
-                if (cost.Item == itemData)
-                {
-                    cost.Quantity += quantity;
-                    return;
-                }
-            }
-            
-            _pendingResourceCosts.Add(new ItemAmount
-            {
-                Item = itemData,
-                Quantity = quantity
-            });
-        }
-
-        public void RemoveFromPendingResourceCosts(ItemData itemData, int quantity = 1)
-        {
-            foreach (var cost in _pendingResourceCosts)
-            {
-                if (cost.Item == itemData)
-                {
-                    cost.Quantity -= quantity;
-                    if (cost.Quantity <= 0)
-                    {
-                        _pendingResourceCosts.Remove(cost);
-                    }
-
-                    return;
-                }
-            }
-        }
-        
         private void PrepForConstruction()
         {
             if (Helper.DoesGridContainTag(transform.position, "Nature"))
@@ -164,34 +112,13 @@ namespace Items
                 {
                     growResource.TaskRequestors.Add(gameObject);
 
-                    if (!growResource.QueuedToCut)
-                    {
-                        growResource.CreateCutPlantTask();
-                    }
+                    // if (!growResource.QueuedToCut)
+                    // {
+                    //     growResource.CreateTaskById("Cut Plant");
+                    // }
+                    growResource.CreateTaskById("Cut Plant");
                 }
             }
-        }
-        
-        public List<ItemAmount> GetRemainingMissingItems()
-        {
-            _pendingResourceCosts ??= new List<ItemAmount>();
-            List<ItemAmount> result = new List<ItemAmount>(_remainingResourceCosts);
-            foreach (var pendingCost in _pendingResourceCosts)
-            {
-                foreach (var resultCost in result)
-                {
-                    if (resultCost.Item == pendingCost.Item)
-                    {
-                        resultCost.Quantity -= pendingCost.Quantity;
-                        if (resultCost.Quantity <= 0)
-                        {
-                            result.Remove(resultCost);
-                        }
-                    }
-                }
-            }
-            
-            return result;
         }
         
         public void InformDirtReady()
@@ -205,155 +132,19 @@ namespace Items
             CreateConstuctionHaulingTasksForItems(resourceCosts);
         }
         
-        public void CreateConstuctionHaulingTasksForItems(List<ItemAmount> remainingResources)
+        public override float GetWorkPerResource()
         {
-            foreach (var resourceCost in remainingResources)
-            {
-                for (int i = 0; i < resourceCost.Quantity; i++)
-                {
-                    EnqueueCreateTakeResourceToBlueprintTask(resourceCost.Item);
-                }
-            }
-        }
-
-        private void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
-        {
-            var taskRef = taskMaster.HaulingTaskSystem.EnqueueTask(() =>
-            {
-                var slot = ControllerManager.Instance.InventoryController.ClaimResource(resourceData);
-                if (slot != null)
-                {
-                    AddToPendingResourceCosts(resourceData);
-                    return CreateTakeResourceFromSlotToBlueprintTask(slot);
-                }
-                else
-                {
-                    return null;
-                }
-            }).GetHashCode();
-            _assignedTaskRefs.Add(taskRef);
+            return _floorData.GetWorkPerResource();
         }
         
-        public HaulingTask.TakeResourceToBlueprint CreateTakeResourceFromSlotToBlueprintTask(StorageSlot slot)
-        {
-            Item resource;
-            var task = new HaulingTask.TakeResourceToBlueprint
-            {
-                TargetUID = UniqueId,
-                resourcePosition = slot.transform.position,
-                blueprintPosition = transform.position,
-                grabResource = (UnitTaskAI unitTaskAI) =>
-                {
-                    PendingTask = TaskType.None;
-                    
-                    // Get item from the slot
-                    resource = slot.GetItem();
-                    
-                    resource.gameObject.SetActive(true);
-                    unitTaskAI.AssignHeldItem(resource);
-                    _incomingItems.Add(resource);
-                },
-                useResource = ( heldItem) =>
-                {
-                    _incomingItems.Remove(heldItem);
-                    heldItem.gameObject.SetActive(false);
-                    AddResourceToBlueprint(heldItem.GetItemData());
-                    Destroy(heldItem.gameObject);
-                    CheckIfAllResourcesLoaded();
-                },
-            };
-
-            PendingTask = TaskType.TakeItemToItemSlot;
-            _assignedTaskRefs.Add(task.GetHashCode());
-            return task;
-        }
-
-        public HaulingTask.TakeResourceToBlueprint CreateTakeResourceToBlueprintTask(Item resourceForBluePrint)
-        {
-            var task = new HaulingTask.TakeResourceToBlueprint
-            {
-                TargetUID = UniqueId,
-                resourcePosition = resourceForBluePrint.transform.position,
-                blueprintPosition = transform.position,
-                grabResource = (UnitTaskAI unitTaskAI) =>
-                {
-                    PendingTask = TaskType.None;
-                    resourceForBluePrint.gameObject.SetActive(true);
-                    unitTaskAI.AssignHeldItem(resourceForBluePrint);
-                    _incomingItems.Add(resourceForBluePrint);
-                    
-                },
-                useResource = (heldItem) =>
-                {
-                    _incomingItems.Remove(heldItem);
-                    heldItem.gameObject.SetActive(false);
-                    AddResourceToBlueprint(heldItem.GetItemData());
-                    Destroy(heldItem.gameObject);
-                    CheckIfAllResourcesLoaded();
-                },
-            };
-
-            PendingTask = TaskType.TakeItemToItemSlot;
-            _assignedTaskRefs.Add(task.GetHashCode());
-            return task;
-        }
-        
-        private void AddResourceToBlueprint(ItemData itemData)
-        {
-            foreach (var cost in _remainingResourceCosts)
-            {
-                if (cost.Item == itemData && cost.Quantity > 0)
-                {
-                    cost.Quantity--;
-                    if (cost.Quantity <= 0)
-                    {
-                        _remainingResourceCosts.Remove(cost);
-                    }
-
-                    return;
-                }
-            }
-        }
-        
-        private void CheckIfAllResourcesLoaded()
-        {
-            if (_remainingResourceCosts.Count == 0)
-            {
-                CreateConstructFloorTask();
-            }
-        }
-        
-        public ConstructionTask.ConstructStructure CreateConstructFloorTask(bool autoAssign = true)
-        {
-            // Clear old refs
-            _assignedTaskRefs.Clear();
-            
-            var task = new ConstructionTask.ConstructStructure
-            {
-                TargetUID = UniqueId,
-                structurePosition = transform.position,
-                workAmount = _floorData.GetWorkPerResource(),
-                completeWork = CompleteConstruction
-            };
-            
-            _assignedTaskRefs.Add(task.GetHashCode());
-
-            if (autoAssign)
-            {
-                taskMaster.ConstructionTaskSystem.AddTask(task);
-            }
-
-            return task;
-        }
-        
-        private void CompleteConstruction()
+        public override void CompleteConstruction()
         {
             ShowBlueprint(false);
             _isBuilt = true;
             IsClickDisabled = true;
         }
         
-        public void CancelConstruction()
+        public override void CancelConstruction()
         {
             if (!_isBuilt)
             {
@@ -383,194 +174,23 @@ namespace Items
             foreach (var incomingItem in _incomingItems)
             {
                 incomingItem.CancelAssignedTask();
-                incomingItem.CreateHaulTask();
+                incomingItem.EnqueueTaskForHauling();
             }
             _pendingResourceCosts.Clear();
             _incomingItems.Clear();
         }
-
-        private void SpawnUsedResources(float percentReturned)
+        
+        public override List<ActionBase> GetActions()
         {
-            // Spawn All the resources used
-            var totalCosts = _floorData.GetResourceCosts();
-            var remainingCosts = _remainingResourceCosts;
-            List<ItemAmount> difference = new List<ItemAmount>();
-            foreach (var totalCost in totalCosts)
-            {
-                var remaining = remainingCosts.Find(c => c.Item == totalCost.Item);
-                int remainingAmount = 0;
-                if (remaining != null)
-                {
-                    remainingAmount = remaining.Quantity;
-                }
-                
-                int amount = totalCost.Quantity - remainingAmount;
-                if (amount > 0)
-                {
-                    ItemAmount refund = new ItemAmount
-                    {
-                        Item = totalCost.Item,
-                        Quantity = amount
-                    };
-                    difference.Add(refund);
-                }
-            }
-
-            foreach (var refundCost in difference)
-            {
-                for (int i = 0; i < refundCost.Quantity; i++)
-                {
-                    if (Helper.RollDice(percentReturned))
-                    {
-                        Spawner.Instance.SpawnItem(refundCost.Item, this.transform.position, true);
-                    }
-                }
-            }
-        }
-
-        public void CreateDeconstructionTask()
-        {
-            _isDeconstructing = true;
-            SetIcon("Hammer");
-            var task = new ConstructionTask.DeconstructStructure()
-            {
-                claimStructure = (UnitTaskAI unitTaskAI) =>
-                {
-                    _incomingUnit = unitTaskAI;
-                },
-                structurePosition = transform.position,
-                workAmount = _floorData.GetWorkPerResource(),
-                completeWork = CompleteDeconstruction
-            };
-            
-            _assignedTaskRefs.Add(task.GetHashCode());
-            
-            taskMaster.ConstructionTaskSystem.AddTask(task);
-        }
-
-        private void CompleteDeconstruction()
-        {
-            _assignedTaskRefs.Clear();
-
-            _incomingUnit = null;
-            // Spawn some of the used resources
-            SpawnUsedResources(50f);
-
-            var infoPanel = FindObjectOfType<SelectedItemInfoPanel>();
-            if (infoPanel != null)
-            {
-                infoPanel.HideItemDetails();
-            }
-
-            // Delete the structure
-            Destroy(gameObject);
-        }
-
-        public void CancelDeconstruction()
-        {
-            _isDeconstructing = false;
-            CancelTasks();
-            SetIcon(null);
-
-            if (_incomingUnit != null)
-            {
-                _incomingUnit.CancelTask();
-            }
-        }
-
-        public bool IsDeconstucting()
-        {
-            return _isDeconstructing;
-        }
-
-        private void SetIcon(string iconName)
-        {
-            if (string.IsNullOrEmpty(iconName))
-            {
-                _icon.sprite = null;
-                _icon.gameObject.SetActive(false);
-            }
-            else
-            {
-                _icon.sprite = Librarian.Instance.GetSprite(iconName);
-                _icon.gameObject.SetActive(true);
-            }
+            return AvailableActions;
         }
         
-        public void ToggleAllowed(bool isAllowed)
+        public override List<ItemAmount> GetResourceCosts()
         {
-            IsAllowed = isAllowed;
-            if (IsAllowed)
-            {
-                _icon.gameObject.SetActive(false);
-                _icon.sprite = null;
-                PrepForConstruction();
-            }
-            else
-            {
-                _icon.gameObject.SetActive(true);
-                _icon.sprite = Librarian.Instance.GetSprite("Lock");
-                CancelTasks();
-            }
+            return _floorData.GetResourceCosts();
         }
-
-        public bool IsAllowed { get; set; }
         
-        public List<Order> GetOrders()
-        {
-            List<Order> results = new List<Order>();
-            
-            results.Add(Order.Disallow);
-
-            if (_isBuilt)
-            {
-                results.Add(Order.Deconstruct);
-            }
-            else
-            {
-                results.Add(Order.Cancel);
-            }
-
-            return results;
-        }
-
-        public bool IsOrderActive(Order order)
-        {
-            switch (order)
-            {
-                case Order.Disallow:
-                    return false;
-                case Order.Deconstruct:
-                    return IsDeconstucting();
-                case Order.Cancel:
-                    return false;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(order), order, null);
-            }
-        }
-
-        public void AssignOrder(Order orderToAssign)
-        {
-            switch (orderToAssign)
-            {
-                case Order.Deconstruct:
-                    CreateDeconstructionTask();
-                    break;
-                case Order.Cancel:
-                    if (_isDeconstructing)
-                    {
-                        CancelDeconstruction();
-                    } else if (!_isBuilt)
-                    {
-                        CancelConstruction();
-                    }
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(orderToAssign), orderToAssign, null);
-            }
-        }
-
-        public object CaptureState()
+        public override object CaptureState()
         {
             List<string> incomingItemsGUIDS = new List<string>();
             foreach (var incomingItem in _incomingItems)
@@ -592,10 +212,12 @@ namespace Items
                 IsClickDisabled = IsClickDisabled,
                 IsAllowed = IsAllowed,
                 PendingTask = PendingTask,
+                IncomingResourceCosts = _incomingResourceCosts,
+                HasIncomingUnit = _hasUnitIncoming,
             };
         }
 
-        public void RestoreState(object data)
+        public override void RestoreState(object data)
         {
             var state = (Data)data;
 
@@ -611,10 +233,12 @@ namespace Items
             IsClickDisabled = state.IsClickDisabled;
             IsAllowed = state.IsAllowed;
             PendingTask = state.PendingTask;
+            _incomingResourceCosts = state.IncomingResourceCosts;
+            _hasUnitIncoming = state.HasIncomingUnit;
             
             // var incomingItemsGUIDS = state.IncomingItemsGUIDs;
             // var itemsHandler = ControllerManager.Instance.ItemsHandler;
-            _incomingItems.Clear();
+            //_incomingItems.Clear();
             // foreach (var incomingItemGUID in incomingItemsGUIDS)
             // {
             //     var item = itemsHandler.GetItemByUID(incomingItemGUID);
@@ -627,9 +251,8 @@ namespace Items
             ShowBlueprint(!_isBuilt);
             UpdateSprite();
             UpdateStretchToWalls();
-            
-            var missingItems = GetRemainingMissingItems();
-            CreateConstuctionHaulingTasksForItems(missingItems);
+
+            base.RestoreState(data);
         }
 
         public struct Data
@@ -642,10 +265,12 @@ namespace Items
             public List<string> IncomingItemsGUIDs;
             public bool IsDeconstructing;
             public UnitTaskAI IncomingUnit; // TODO: will likely need to use GUID
+            public bool HasIncomingUnit;
             public Vector2 FloorPos;
             public bool IsClickDisabled;
             public bool IsAllowed;
             public TaskType PendingTask;
+            public List<ItemAmount> IncomingResourceCosts;
         }
     }
 }

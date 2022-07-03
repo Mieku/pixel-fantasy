@@ -8,11 +8,11 @@ namespace Handlers
     public class StorageHandler : Saveable
     {
         protected override string StateName => "Storage";
-        public override int LoadOrder => 1;
+        public override int LoadOrder => 0;
 
         [SerializeField] private GameObject _storageSlotPrefab;
-        
-        protected override void SetChildStates(List<object> childrenStates)
+
+        protected override void ClearChildStates(List<object> childrenStates)
         {
             // Delete current persistent children
             var currentChildren = GetPersistentChildren();
@@ -26,7 +26,10 @@ namespace Handlers
                 Destroy(child);
             }
             currentChildren.Clear();
-
+        } 
+        
+        protected override void SetChildStates(List<object> childrenStates)
+        {
             // Instantiate all the children in data, Trigger RestoreState with their state data
             foreach (var childState in childrenStates)
             {

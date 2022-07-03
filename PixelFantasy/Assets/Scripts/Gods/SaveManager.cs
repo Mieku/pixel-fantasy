@@ -88,6 +88,16 @@ namespace Gods
             {
                 foreach (var dataPersistenceObject in dataPersistenceObjects.Value)
                 {
+                    dataPersistenceObject.ClearData(gameState);
+                }
+                yield return new WaitForSeconds(0); // Gives time to make sure loaded
+                // TODO: See if I can set up a safer way to do this using callbacks
+            }
+            
+            foreach (var dataPersistenceObjects in _orderedDataPersistenceObjects)
+            {
+                foreach (var dataPersistenceObject in dataPersistenceObjects.Value)
+                {
                     dataPersistenceObject.LoadData(gameState);
                 }
                 yield return new WaitForSeconds(0); // Gives time to make sure loaded

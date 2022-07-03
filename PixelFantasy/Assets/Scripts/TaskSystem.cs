@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Actions;
 using CodeMonkey.Utils;
 using Characters;
 using UnityEngine;
@@ -25,6 +27,10 @@ public abstract class TaskBase
 {
     public virtual TaskType TaskType { get; }
     public virtual string TargetUID { get; set; }
+    public ActionBase TaskAction;
+    public string RequestorUID;
+    public Action<ActionBase> OnTaskAccepted;
+    public Action OnCompleteTask;
 }
 
 [Serializable]
@@ -108,6 +114,23 @@ public class TaskSystem<TTask> where TTask : TaskBase
         }
     }
 
+    public void CancelTask(string requestorUID)
+    {
+        var removeTasks = new List<TTask>();
+        foreach (var task in taskList)
+        {
+            var taskBase = task as TaskBase;
+            if (taskBase.RequestorUID.Equals(requestorUID))
+            {
+                removeTasks.Add(task);
+            }
+        }
+        foreach (var removeTask in removeTasks)
+        {
+            taskList.Remove(removeTask);
+        }
+    }
+    
     public void CancelTask(int taskRef)
     {
         foreach (var queuedTask in queuedTaskList)
