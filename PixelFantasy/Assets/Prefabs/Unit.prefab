@@ -187,7 +187,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1535977287
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 6865431281250916633, guid: c513703882e7a8840865be221ba3a92c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -596,6 +596,8 @@ MonoBehaviour:
   professionData: {fileID: 11400000, guid: 2eb2bb24119209b4fa8ac224c469b19e, type: 2}
   _unitAnim: {fileID: 5532418264530240416}
   _itemPrefab: {fileID: 5193408849299628808, guid: 60b37e663b91498498fbd8428f5713d9, type: 3}
+  currentAction: {fileID: 0}
+  currentActionRequestorUID: 
   claimedSlot: {fileID: 0}
 --- !u!114 &1318834803339290506
 MonoBehaviour:
@@ -681,8 +683,8 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5532418264530240426}
   m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1841146163
+  m_SortingLayer: 2
   m_SortingOrder: 0
 --- !u!114 &1822529751762045447
 MonoBehaviour:

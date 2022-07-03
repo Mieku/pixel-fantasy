@@ -62,6 +62,9 @@ TagManager:
   - name: Structure
     uniqueID: 172824705
     locked: 0
+  - name: Unit
+    uniqueID: 2453821133
+    locked: 0
   - name: Object
     uniqueID: 390895937
     locked: 0

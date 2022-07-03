@@ -34,6 +34,7 @@ namespace Gods
         [SerializeField] private GameObject _soilPrefab;
         
         [SerializeField] private SpriteRenderer _placementIcon;
+        [SerializeField] private Sprite _genericPlacementSprite;
         
         [SerializeField] private Seeker _pathSeeker;
         [SerializeField] private GameObject _settlementFlag;
@@ -620,8 +621,8 @@ namespace Gods
                     var blueprint = new GameObject("blueprint", typeof(SpriteRenderer));
                     blueprint.transform.position = gridPos;
                     var spriteRenderer = blueprint.GetComponent<SpriteRenderer>();
-                    var soil = _soilPrefab.GetComponent<DirtTile>();
-                    spriteRenderer.sprite = soil.PlacementIcon;
+                    var soil = _soilPrefab.GetComponent<Crop>();
+                    spriteRenderer.sprite = _genericPlacementSprite;
                     if (Helper.IsGridPosValidToBuild(gridPos, soil.InvalidPlacementTags))
                     {
                         spriteRenderer.color = Librarian.Instance.GetColour("Placement Green");
@@ -643,7 +644,7 @@ namespace Gods
 
             foreach (var gridPos in _plannedGrid)
             {
-                var soil = _soilPrefab.GetComponent<DirtTile>();
+                var soil = _soilPrefab.GetComponent<Crop>();
                 if (Helper.IsGridPosValidToBuild(gridPos, soil.InvalidPlacementTags))
                 {
                     SpawnSoilTile(gridPos, CropData);

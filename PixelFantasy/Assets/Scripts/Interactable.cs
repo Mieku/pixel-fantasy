@@ -203,6 +203,8 @@ public class Interactable : UniqueObject
 
     public void DisplayTaskIcon(Sprite icon)
     {
+        if (_icon == null) return;
+        
         if (icon == null)
         {
             _icon.sprite = null;

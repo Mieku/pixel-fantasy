@@ -458,7 +458,7 @@ namespace Characters
                 _unitAnim.SetUnitAction(UnitAction.Digging);
                 DoWork(task.workAmount, () =>
                 {
-                    task.completeWork();
+                    task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
                     ClearAction();
@@ -478,7 +478,7 @@ namespace Characters
                 _unitAnim.SetUnitAction(UnitAction.Doing);
                 DoWork(task.workAmount, () =>
                 {
-                    task.completeWork();
+                    task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
                     ClearAction();
@@ -498,7 +498,7 @@ namespace Characters
                 _unitAnim.SetUnitAction(UnitAction.Watering);
                 DoWork(task.workAmount, () =>
                 {
-                    task.completeWork();
+                    task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
                     ClearAction();
@@ -518,7 +518,7 @@ namespace Characters
                 _unitAnim.SetUnitAction(UnitAction.Digging);
                 DoWork(task.workAmount, () =>
                 {
-                    task.completeWork();
+                    task.OnCompleteTask();
                     state = State.WaitingForNextTask;
                     _unitAnim.SetUnitAction(UnitAction.Nothing);
                     ClearAction();

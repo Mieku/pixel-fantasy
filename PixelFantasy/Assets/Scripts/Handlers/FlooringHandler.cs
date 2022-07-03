@@ -13,6 +13,7 @@ namespace Handlers
         
         [SerializeField] private GameObject _flooringPrefab;
         [SerializeField] private GameObject _dirtPrefab;
+        [SerializeField] private GameObject _cropPrefab;
 
         protected override void ClearChildStates(List<object> childrenStates)
         {
@@ -45,7 +46,11 @@ namespace Handlers
                     var childObj = Instantiate(_dirtPrefab, transform);
                     childObj.GetComponent<IPersistent>().RestoreState(dirtData);
                 }
-                
+                else if (childState is Crop.CropState cropState)
+                {
+                    var childObj = Instantiate(_cropPrefab, transform);
+                    childObj.GetComponent<IPersistent>().RestoreState(cropState);
+                }
             }
         }
     }
