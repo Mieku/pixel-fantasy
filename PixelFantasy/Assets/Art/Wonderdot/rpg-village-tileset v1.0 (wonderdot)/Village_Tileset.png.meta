@@ -1230,7 +1230,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Village_Tileset_45: 1641636222100675014
+      Village_Tileset_27: 6411845376537306521
       Village_Tileset_31: 1657167438618362575
       Village_Tileset_25: 1435941671522787379
       Village_Tileset_0: 2881922054504902259
@@ -1273,8 +1273,8 @@ TextureImporter:
       Village_Tileset_4: -8995898924477132789
       Village_Tileset_37: 5890913579088109911
       Village_Tileset_20: -8691392994516942630
+      Village_Tileset_45: 1641636222100675014
       Village_Tileset_22: -6796459571592398525
-      Village_Tileset_27: 6411845376537306521
       Village_Tileset_15: 6846712912213581895
   spritePackingTag: 
   pSDRemoveMatte: 0
