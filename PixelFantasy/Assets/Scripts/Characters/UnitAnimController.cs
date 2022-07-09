@@ -1,18 +1,20 @@
 using System;
 using Characters.Interfaces;
+using Gods;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Characters
 {
     public class UnitAnimController : MonoBehaviour, ICharacterAnimController
     {
         [SerializeField] private Animator baseAnim;
-        [SerializeField] private Animator hairAnim;
-        [SerializeField] private Animator toolAnim;
+        // [SerializeField] private Animator hairAnim;
+        // [SerializeField] private Animator toolAnim;
 
         [SerializeField] private SpriteRenderer baseRenderer;
-        [SerializeField] private SpriteRenderer hairRenderer;
-        [SerializeField] private SpriteRenderer toolRenderer;
+        // [SerializeField] private SpriteRenderer hairRenderer;
+        // [SerializeField] private SpriteRenderer toolRenderer;
         
         private static readonly int Velocity = Animator.StringToHash("Velocity");
         private const string DOING = "IsDoing";
@@ -22,6 +24,21 @@ namespace Characters
         private const string WATER = "IsWatering";
 
         private UnitAction _curUnitAction;
+
+        private void Awake()
+        {
+            GameEvents.OnGameSpeedChanged += OnSpeedUpdated;
+        }
+
+        private void OnDestroy()
+        {
+            GameEvents.OnGameSpeedChanged -= OnSpeedUpdated;
+        }
+        
+        private void OnSpeedUpdated(float speedMod)
+        {
+            baseAnim.speed = speedMod;
+        }
         
         public void SetUnitAction(UnitAction unitAction)
         {
@@ -56,8 +73,8 @@ namespace Characters
         private void SetUnitAction(string parameter, bool isActive = true)
         {
             baseAnim.SetBool(parameter, isActive);
-            hairAnim.SetBool(parameter, isActive);
-            toolAnim.SetBool(parameter, isActive);
+            // hairAnim.SetBool(parameter, isActive);
+            // toolAnim.SetBool(parameter, isActive);
         }
 
         private void ClearAllActions()
@@ -71,6 +88,8 @@ namespace Characters
         
         public void SetMovementVelocity(Vector2 velocityVector)
         {
+            if (TimeManager.Instance.GameSpeed == GameSpeed.Paused) return;
+            
             SetVelocity(velocityVector.magnitude);
             baseAnim.SetFloat(Velocity, velocityVector.magnitude);
 
@@ -90,16 +109,27 @@ namespace Characters
 
         private void FlipRendererX(bool shouldFlip)
         {
-            baseRenderer.flipX = shouldFlip;
-            hairRenderer.flipX = shouldFlip;
-            toolRenderer.flipX = shouldFlip;
+            int scaleModX;
+            if (shouldFlip)
+            {
+                scaleModX = -1;
+            }
+            else
+            {
+                scaleModX = 1;
+            }
+
+            baseRenderer.transform.localScale = new Vector3(scaleModX, 1, 1);
+            //baseRenderer.flipX = shouldFlip;
+            // hairRenderer.flipX = shouldFlip;
+            // toolRenderer.flipX = shouldFlip;
         }
 
         private void SetVelocity(float velocity)
         {
             baseAnim.SetFloat(Velocity, velocity);
-            hairAnim.SetFloat(Velocity, velocity);
-            toolAnim.SetFloat(Velocity, velocity);
+            // hairAnim.SetFloat(Velocity, velocity);
+            // toolAnim.SetFloat(Velocity, velocity);
         }
         
         public UnitAnimData GetSaveData()

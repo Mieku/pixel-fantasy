@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Controllers;
+using Gods;
 using ScriptableObjects;
 using UnityEngine;
 
@@ -83,5 +84,11 @@ public class GameEvents : MonoBehaviour
     public static void Trigger_OnSavingGameEnd()
     {
         if (OnSavingGameEnd != null) OnSavingGameEnd();
+    }
+
+    public static event Action<float> OnGameSpeedChanged;
+    public static void Trigger_OnGameSpeedChanged(float speedMod)
+    {
+        if (OnGameSpeedChanged != null) OnGameSpeedChanged(speedMod);
     }
 }

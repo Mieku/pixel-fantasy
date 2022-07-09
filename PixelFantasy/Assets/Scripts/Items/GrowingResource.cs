@@ -4,6 +4,7 @@ using Interfaces;
 using ScriptableObjects;
 using Tasks;
 using Characters;
+using Gods;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -80,7 +81,7 @@ namespace Items
         {
             if (_fullyGrown && _growingResourceData.Reproduces)
             {
-                _reproductionTimer -= Time.deltaTime;
+                _reproductionTimer -= TimeManager.Instance.DeltaTime;
                 if (_reproductionTimer < 0)
                 {
                     _reproductionTimer = _growingResourceData.ReproductiveRateSec;
@@ -93,7 +94,7 @@ namespace Items
         {
             if (!_fullyGrown)
             {
-                _ageSec += Time.deltaTime;
+                _ageSec += TimeManager.Instance.DeltaTime;
                 if (_ageSec >= _ageForNextGrowth)
                 {
                     _growthIndex++;
@@ -120,7 +121,7 @@ namespace Items
             
             if (_growingResourceData.HasFruit && !_hasFruitAvailable)
             {
-                _fruitTimer += Time.deltaTime;
+                _fruitTimer += TimeManager.Instance.DeltaTime;
                 if (_fruitTimer >= _growingResourceData.TimeToGrowFruit)
                 {
                     _fruitTimer = 0;

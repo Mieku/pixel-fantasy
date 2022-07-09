@@ -1,5 +1,6 @@
 using System;
 using Characters.Interfaces;
+using Gods;
 using Pathfinding;
 using UnityEngine;
 
@@ -13,10 +14,23 @@ namespace Characters
         private bool reachedDestination;
         private Vector3 _movePosition;
 
+        private float defaultSpeed;
+        private float defaultSlowdownDist;
+
         private void Awake()
         {
             aiPath = GetComponent<AIPath>();
             charAnimController = GetComponent<ICharacterAnimController>();
+
+            defaultSpeed = aiPath.maxSpeed;
+            defaultSlowdownDist = aiPath.slowdownDistance;
+        }
+       
+        private void OnSpeedUpdated()
+        {
+            var speedMod = TimeManager.Instance.GameSpeedMod;
+            aiPath.maxSpeed = defaultSpeed * speedMod;
+            aiPath.slowdownDistance = defaultSlowdownDist * speedMod;
         }
 
         public void SetMovePosition(Vector3 movePosition, Action onReachedMovePosition)
@@ -53,7 +67,8 @@ namespace Characters
         private void Update()
         {
             DetermineIfDestination();
-            RefreshAnimVector();
+            RefreshAnimVector();    
+            OnSpeedUpdated();
         }
         
         public MovePosAStarData GetSaveData()

@@ -138,7 +138,7 @@ namespace Items
 
                 if (_isWatered)
                 {
-                    _timeWithWater += Time.deltaTime;
+                    _timeWithWater += TimeManager.Instance.DeltaTime;
                     if (_timeWithWater > _cropData.WaterFrequencySec)
                     {
                         _timeWithWater = 0f;
@@ -154,7 +154,7 @@ namespace Items
             {
                 if (_isWatered && !_cropReadyToHarvest)
                 {
-                    _timeGrowing += Time.deltaTime;
+                    _timeGrowing += TimeManager.Instance.DeltaTime;
                     RefreshCropStage(_timeGrowing);
                     if (_timeGrowing > _cropData.TimeToHarvestSec)
                     {
