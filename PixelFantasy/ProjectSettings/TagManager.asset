@@ -16,6 +16,7 @@ TagManager:
   - Dirt
   - Floor
   - Missile
+  - Door
   layers:
   - Default
   - TransparentFX

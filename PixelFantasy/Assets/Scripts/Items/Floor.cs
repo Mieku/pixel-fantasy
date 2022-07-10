@@ -38,42 +38,13 @@ namespace Items
             _pendingResourceCosts = new List<ItemAmount>();
             UpdateSprite();
             IsAllowed = true;
-            UpdateStretchToWalls();
             ShowBlueprint(true);
             PrepForConstruction();
         }
 
         private void UpdateSprite()
         {
-            _spriteRenderer.sprite = _floorData.FloorSprite;
-        }
-        
-        public void UpdateStretchToWalls()
-        {
-            if (!_floorData.StretchToWall) return;
-            
-            // Reset values
-            transform.position = _floorPos;
-            _spriteRenderer.size = Vector2.one;
-            
-            // Check if a wall is next to the tile or below
-            var leftPos = new Vector2(_floorPos.x - 1, _floorPos.y);
-            var rightPos = new Vector2(_floorPos.x + 1, _floorPos.y);
-
-            bool wallLeft = Helper.DoesGridContainTag(leftPos, "Wall");
-            bool wallRight = Helper.DoesGridContainTag(rightPos, "Wall");
-
-            // Stretch the art to meet wall
-            if (wallLeft)
-            {
-                transform.position = new Vector3(transform.position.x - 0.25f, transform.position.y, 0);
-                _spriteRenderer.size = new Vector2(_spriteRenderer.size.x + 0.5f, _spriteRenderer.size.y);
-            }
-            if (wallRight)
-            {
-                transform.position = new Vector3(transform.position.x + 0.25f, transform.position.y, 0);
-                _spriteRenderer.size = new Vector2(_spriteRenderer.size.x + 0.5f, _spriteRenderer.size.y);
-            }
+            _spriteRenderer.sprite = _floorData.Icon;
         }
         
         private void ShowBlueprint(bool showBlueprint)
@@ -139,6 +110,7 @@ namespace Items
         
         public override void CompleteConstruction()
         {
+            IncomingUnit = null;
             ShowBlueprint(false);
             _isBuilt = true;
             IsClickDisabled = true;
@@ -250,7 +222,6 @@ namespace Items
             
             ShowBlueprint(!_isBuilt);
             UpdateSprite();
-            UpdateStretchToWalls();
 
             base.RestoreState(data);
         }

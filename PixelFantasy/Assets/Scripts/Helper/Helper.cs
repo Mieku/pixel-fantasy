@@ -137,11 +137,11 @@ public static class Helper
     /// </summary>
     public static List<string> GetTagsAtGridPos(Vector2 gridPos)
     {
-        var leftStart = new Vector2(gridPos.x - 0.45f, gridPos.y);
-        var bottomStart = new Vector2(gridPos.x, gridPos.y - 0.45f);
+        var leftStart = new Vector2(gridPos.x - 0.25f, gridPos.y);
+        var bottomStart = new Vector2(gridPos.x, gridPos.y - 0.25f);
         
-        var allHitHor = Physics2D.RaycastAll(leftStart, Vector2.right, 0.9f);
-        var allHitVert = Physics2D.RaycastAll(bottomStart, Vector2.up, 0.9f);
+        var allHitHor = Physics2D.RaycastAll(leftStart, Vector2.right, 0.5f);
+        var allHitVert = Physics2D.RaycastAll(bottomStart, Vector2.up, 0.5f);
 
         List<string> detectedTags = new List<string>();
         foreach (var hitHor in allHitHor)

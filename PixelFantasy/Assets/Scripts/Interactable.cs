@@ -40,7 +40,7 @@ public class Interactable : UniqueObject
                 var structure = GetComponent<Structure>();
                 if (structure != null)
                 {
-                    _potentialActions = structure.GetStructureData().AvailableActions;
+                    _potentialActions = structure.GetConstructionData().AvailableActions;
                 }
                 
                 var floor = GetComponent<Floor>();
@@ -53,6 +53,12 @@ public class Interactable : UniqueObject
                 if (furniture != null)
                 {
                     _potentialActions = furniture.FurnitureData.AvailableActions;
+                }
+                
+                var door = GetComponent<Door>();
+                if (door != null)
+                {
+                    _potentialActions = door.GetConstructionData().AvailableActions;
                 }
             }
 

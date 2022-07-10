@@ -12,12 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7543cc0ca470c7479288c94b75dae2c, type: 3}
   m_Name: StoneFloor
   m_EditorClassIdentifier: 
-  FloorName: Stone Floor
-  FloorSprite: {fileID: 1307084863491765824, guid: 8dffd1b2b8351334ea63f03a5c9740e2, type: 3}
+  ConstructionName: Stone Floor
   WorkCost: 6
-  WalkSpeedModifier: 0
-  PathfindingPenalty: 0
-  StretchToWall: 0
+  Icon: {fileID: 1307084863491765824, guid: 8dffd1b2b8351334ea63f03a5c9740e2, type: 3}
   _resourceCosts:
   - Item: {fileID: 11400000, guid: 75f99dfbebb440d4499e1b83387d86e1, type: 2}
     Quantity: 2
@@ -25,8 +22,9 @@ MonoBehaviour:
   - Water
   - Wall
   - Floor
-  _options: 0100000000000000
   _planningMode: 0
   _availableActions:
   - {fileID: 11400000, guid: 208ddcd0432a44948a68d37f88bd010a, type: 2}
   - {fileID: 11400000, guid: d2c5e0d28c7052c44a5ca2d47267f4a4, type: 2}
+  FloorSprite: {fileID: 1307084863491765824, guid: 8dffd1b2b8351334ea63f03a5c9740e2, type: 3}
+  WalkSpeedModifier: 0

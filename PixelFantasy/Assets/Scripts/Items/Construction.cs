@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Actions;
 using Characters;
@@ -24,8 +25,14 @@ namespace Items
         protected bool _isDeconstructing;
         protected UnitTaskAI _incomingUnit;
         protected bool _hasUnitIncoming;
+        protected Action _onDeconstructed;
     
         protected TaskMaster taskMaster => TaskMaster.Instance;
+
+        public virtual ConstructionData GetConstructionData()
+        {
+            return null;
+        }
         
         public bool IsBuilt
         {
@@ -115,6 +122,11 @@ namespace Items
                 infoPanel.HideItemDetails();
             }
 
+            if (_onDeconstructed != null)
+            {
+                _onDeconstructed.Invoke();
+            }
+            
             // Delete the structure
             Destroy(gameObject);
         }
@@ -290,8 +302,9 @@ namespace Items
             _constructStructureAction.CreateTask(this, autoAssign);
         }
 
-        public void CreateDeconstructionTask(bool autoAssign = true)
+        public void CreateDeconstructionTask(bool autoAssign = true, Action onDeconstructed = null)
         {
+            _onDeconstructed = onDeconstructed;
             var deconstruct = Librarian.Instance.GetAction("Deconstruct");
             deconstruct.CreateTask(this, autoAssign);
         }

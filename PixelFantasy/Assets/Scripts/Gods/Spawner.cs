@@ -23,6 +23,9 @@ namespace Gods
         [SerializeField] private Transform _structureParent;
         [SerializeField] private GameObject _structurePrefab;
         
+        [SerializeField] private Transform _doorsParent;
+        [SerializeField] private GameObject _doorPrefab;
+        
         [SerializeField] private GameObject _dirtTilePrefab;
         [SerializeField] private GameObject _floorPrefab;
         [SerializeField] private Transform _flooringParent;
@@ -50,6 +53,7 @@ namespace Gods
         
         public PlacementDirection PlacementDirection;
         public StructureData StructureData { get; set; }
+        public DoorData DoorData { get; set; }
         public FloorData FloorData { get; set; }
         public FurnitureData FurnitureData { get; set; }
         public CropData CropData { get; set; }
@@ -179,6 +183,10 @@ namespace Gods
                 {
                     SpawnSoilTile(Helper.ConvertMousePosToGridPos(mousePos), CropData);
                 }
+            }
+            else if (inputState == PlayerInputState.BuildDoor)
+            {
+                SpawnDoor(DoorData, Helper.ConvertMousePosToGridPos(mousePos));
             }
         }
         
@@ -343,6 +351,18 @@ namespace Gods
             }
         }
 
+        public void SpawnDoor(DoorData doorData, Vector3 spawnPosition)
+        {
+            if (Helper.IsGridPosValidToBuild(spawnPosition, doorData.InvalidPlacementTags))
+            {
+                spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
+                var doorObj = Instantiate(_doorPrefab, spawnPosition, Quaternion.identity);
+                doorObj.transform.SetParent(_doorsParent);
+                var door = doorObj.GetComponent<Door>();
+                door.Init(doorData);
+            }
+        }
+
         public void SpawnFloor(FloorData floorData, Vector3 spawnPosition)
         {
             if (Helper.IsGridPosValidToBuild(spawnPosition, floorData.InvalidPlacementTags))
@@ -442,7 +462,7 @@ namespace Gods
             _planningStructure = false;
             CancelInput();
         }
-        
+
         private void PlanStructure(Vector2 mousePos, PlanningMode planningMode)
         {
             if (!_planningStructure) return;
@@ -688,7 +708,8 @@ namespace Gods
     public enum PlanningMode
     {
         Rectangle,
-        Line
+        Line,
+        Single,
     }
     
     [Serializable]

@@ -42,6 +42,7 @@ namespace Actions
         
         public override void OnTaskComplete(Interactable requestor)
         {
+            requestor.IncomingUnitUID = "";
             requestor.OnTaskCompleted(this);
             var crop = requestor.GetComponent<Crop>();
             crop.OnDirtDug();

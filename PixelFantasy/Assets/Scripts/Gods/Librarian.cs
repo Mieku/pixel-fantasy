@@ -13,6 +13,7 @@ namespace Gods
         [SerializeField] private List<StructureData> _structureLibrary;
         [SerializeField] private List<FloorData> _floorLibrary;
         [SerializeField] private List<FurnitureData> _furnitureLibrary;
+        [SerializeField] private List<DoorData> _doorLibrary;
         [SerializeField] private List<Sprite> _sprites;
         [SerializeField] private List<SpriteRef> _orderIcons;
         [SerializeField] private List<CropData> _cropLibrary;
@@ -31,10 +32,20 @@ namespace Gods
                 return Color.magenta;
             }
         }
+        
+        public DoorData GetDoorData(string key)
+        {
+            var result = _doorLibrary.Find(s => s.ConstructionName == key);
+            if (result == null)
+            {
+                Debug.LogError("Unknown Door: " + key);
+            }
+            return result;
+        }
 
         public StructureData GetStructureData(string key)
         {
-            var result = _structureLibrary.Find(s => s.StructureName == key);
+            var result = _structureLibrary.Find(s => s.ConstructionName == key);
             if (result == null)
             {
                 Debug.LogError("Unknown Structure: " + key);
@@ -44,7 +55,7 @@ namespace Gods
         
         public FloorData GetFloorData(string key)
         {
-            var result = _floorLibrary.Find(s => s.FloorName == key);
+            var result = _floorLibrary.Find(s => s.ConstructionName == key);
             if (result == null)
             {
                 Debug.LogError("Unknown Floor: " + key);

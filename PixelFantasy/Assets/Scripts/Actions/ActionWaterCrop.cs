@@ -38,7 +38,7 @@ namespace Actions
         public override void OnTaskComplete(Interactable requestor)
         {
             requestor.OnTaskCompleted(this);
-
+            requestor.IncomingUnitUID = "";
             var crop = requestor.GetComponent<Crop>();
             crop.CropWatered();
         }

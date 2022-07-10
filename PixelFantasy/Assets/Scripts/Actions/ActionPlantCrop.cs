@@ -39,6 +39,7 @@ namespace Actions
         {
             requestor.OnTaskCompleted(this);
 
+            requestor.IncomingUnitUID = "";
             var crop = requestor.GetComponent<Crop>();
             crop.CropPlanted();
         }

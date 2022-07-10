@@ -11,12 +11,18 @@ namespace DataPersistence
 
         public virtual void ClearData(GameState state)
         {
-            ClearState(state.States[StateName]);
+            if (state.States.ContainsKey(StateName))
+            {
+                ClearState(state.States[StateName]);
+            }
         }
         
         public virtual void LoadData(GameState state)
         {
-            RestoreState(state.States[StateName]);
+            if (state.States.ContainsKey(StateName))
+            {
+                RestoreState(state.States[StateName]);
+            }
         }
         
         public virtual void SaveState(ref GameState state)

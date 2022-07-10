@@ -48,6 +48,7 @@ namespace Actions
         
         public override void OnTaskComplete(Interactable requestor)
         {
+            requestor.IncomingUnitUID = "";
             requestor.OnTaskCompleted(this);
             var growingResource = requestor.GetComponent<GrowingResource>();
             growingResource.HarvestFruit();

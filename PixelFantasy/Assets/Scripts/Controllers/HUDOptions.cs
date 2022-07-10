@@ -127,6 +127,12 @@ namespace Controllers
                         BuildStructurePressed(dataKey);
                     };
                     break;
+                case OrderType.BuildDoor:
+                    onpressed += () =>
+                    {
+                        BuildDoorPressed(dataKey);
+                    };
+                    break;
                 case OrderType.Zone:
                     onpressed += () =>
                     {
@@ -180,6 +186,15 @@ namespace Controllers
             var structureData = Librarian.Instance.GetStructureData(PlayerInputController.Instance.StoredKey);
             Spawner.Instance.StructureData = structureData;
             Spawner.Instance.ShowPlacementIcon(true, structureData.Icon, structureData.InvalidPlacementTags);
+        }
+        
+        public void BuildDoorPressed(string key)
+        {
+            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildDoor, key);
+            
+            var doorData = Librarian.Instance.GetDoorData(PlayerInputController.Instance.StoredKey);
+            Spawner.Instance.DoorData = doorData;
+            Spawner.Instance.ShowPlacementIcon(true, doorData.Icon, doorData.InvalidPlacementTags);
         }
         
         public void ClearGrassPressed()

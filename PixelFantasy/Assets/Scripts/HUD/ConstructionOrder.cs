@@ -38,5 +38,6 @@ namespace HUD
         BuildFurniture,
         SubMenu,
         Menu,
+        BuildDoor,
     }
 }

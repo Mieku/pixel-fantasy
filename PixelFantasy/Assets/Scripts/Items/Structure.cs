@@ -36,14 +36,62 @@ namespace Items
             SetTile();
             _progressBar.ShowBar(false);
             ShowBlueprint(true);
+            InformNearbyDoors();
             PrepForConstruction();
         }
-
-        public StructureData GetStructureData()
+        
+        public override ConstructionData GetConstructionData()
         {
             return _structureData;
         }
-        
+
+        private void InformNearbyDoors()
+        {
+            var pos = transform.position;
+            var leftPos = new Vector2(pos.x - 1, pos.y);
+            var rightPos = new Vector2(pos.x + 1, pos.y);
+            var topPos = new Vector2(pos.x, pos.y + 1);
+            var bottomPos = new Vector2(pos.x, pos.y - 1);
+
+            var leftDoors = Helper.GetGameObjectsOnTile(leftPos, "Door");
+            var rightDoors = Helper.GetGameObjectsOnTile(rightPos, "Door");
+            var topDoors = Helper.GetGameObjectsOnTile(topPos, "Door");
+            var bottomDoors = Helper.GetGameObjectsOnTile(bottomPos, "Door");
+
+            foreach (var doorGO in leftDoors)
+            {
+                var door = doorGO.GetComponent<Door>();
+                if (door != null)
+                {
+                    door.DetermineDirection();
+                }
+            }
+            foreach (var doorGO in rightDoors)
+            {
+                var door = doorGO.GetComponent<Door>();
+                if (door != null)
+                {
+                    door.DetermineDirection();
+                }
+            }
+            foreach (var doorGO in topDoors)
+            {
+                var door = doorGO.GetComponent<Door>();
+                if (door != null)
+                {
+                    door.DetermineDirection();
+                }
+            }
+            foreach (var doorGO in bottomDoors)
+            {
+                var door = doorGO.GetComponent<Door>();
+                if (door != null)
+                {
+                    door.DetermineDirection();
+                }
+            }
+        }
+
         private void ShowBlueprint(bool showBlueprint)
         {
             if (showBlueprint)
@@ -63,39 +111,18 @@ namespace Items
         {
             var cell = _structureTilemap.WorldToCell(transform.position);
             _structureTilemap.SetTile(cell, _structureData.RuleTile);
-            InformNearbyFloors();
         }
 
         private void ClearTile()
         {
             var cell = _structureTilemap.WorldToCell(transform.position);
             _structureTilemap.SetTile(cell, null);
-            InformNearbyFloors();
         }
 
         private void ColourTile(Color colour)
         {
             var cell = _structureTilemap.WorldToCell(transform.position);
             _structureTilemap.SetColor(cell, colour);
-        }
-
-        private void InformNearbyFloors()
-        {
-            var position = transform.position;
-            var leftPos = new Vector2(position.x - 1, position.y);
-            var rightPos = new Vector2(position.x + 1, position.y);
-
-            var leftFloors = Helper.GetGameObjectsOnTile(leftPos, "Floor");
-            var rightFloors = Helper.GetGameObjectsOnTile(rightPos, "Floor");
-
-            foreach (var leftFloor in leftFloors)
-            {
-                leftFloor.GetComponent<Floor>().UpdateStretchToWalls();
-            }
-            foreach (var rightFloor in rightFloors)
-            {
-                rightFloor.GetComponent<Floor>().UpdateStretchToWalls();
-            }
         }
         
         private void PrepForConstruction()
@@ -157,6 +184,7 @@ namespace Items
 
         public override void CompleteConstruction()
         {
+            IncomingUnit = null;
             ShowBlueprint(false);
             _isBuilt = true;
         }
@@ -206,6 +234,11 @@ namespace Items
             }
 
             ClearTile();
+            
+            if (_onDeconstructed != null)
+            {
+                _onDeconstructed.Invoke();
+            }
 
             // Delete the structure
             Destroy(gameObject);

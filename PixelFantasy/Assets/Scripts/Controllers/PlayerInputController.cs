@@ -165,6 +165,7 @@ namespace Controllers
         BuildStructure,
         BuildFlooring,
         BuildFurniture,
-        BuildFarm
+        BuildFarm,
+        BuildDoor,
     }
 }

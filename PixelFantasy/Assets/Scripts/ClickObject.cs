@@ -19,7 +19,7 @@ public class ClickObject : MonoBehaviour
     [SerializeField] private SpriteRenderer _objectRenderer;
 
     private ItemData _itemData;
-    private StructureData _structureData;
+    private ConstructionData _structureData;
     private GrowingResourceData _growingResourceData;
     private FloorData _floorData;
     private FurnitureData _furnitureData;
@@ -53,7 +53,7 @@ public class ClickObject : MonoBehaviour
                 _itemData = GetComponent<Item>().GetItemData();
                 break;
             case ObjectType.Structure:
-                _structureData = GetComponent<Structure>().GetStructureData();
+                _structureData = GetComponent<Construction>().GetConstructionData();
                 break;
             case ObjectType.Unit:
                 // TODO: Build me!
@@ -195,6 +195,23 @@ public class ClickObject : MonoBehaviour
         }
     }
     
+    private SelectionData GetSelectionData(ConstructionData itemData)
+    {
+        var actions = Owner.GetActions();
+        var cancellableActions = Owner.GetCancellableActions();
+
+        SelectionData result = new SelectionData
+        {
+            ItemName = itemData.ConstructionName,
+            ClickObject = this,
+            Actions = actions,
+            CancellableActions = cancellableActions,
+            Requestor = GetComponent<Interactable>(),
+        };
+
+        return result;
+    }
+    
     private SelectionData GetSelectionData(ItemData itemData)
     {
         var actions = Owner.GetActions();
@@ -219,7 +236,7 @@ public class ClickObject : MonoBehaviour
         
         SelectionData result = new SelectionData
         {
-            ItemName = structureData.StructureName,
+            ItemName = structureData.ConstructionName,
             Actions = actions,
             CancellableActions = cancellableActions,
             ClickObject = this,
@@ -253,7 +270,7 @@ public class ClickObject : MonoBehaviour
         
         SelectionData result = new SelectionData
         {
-            ItemName = floorData.FloorName,
+            ItemName = floorData.ConstructionName,
             Actions = actions,
             CancellableActions = cancellableActions,
             ClickObject = this,

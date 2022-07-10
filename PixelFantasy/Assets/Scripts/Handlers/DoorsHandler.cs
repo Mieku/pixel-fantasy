@@ -5,12 +5,11 @@ using UnityEngine;
 
 namespace Handlers
 {
-    public class StructuresHandler : Saveable
+    public class DoorsHandler : Saveable
     {
-        protected override string StateName => "Structures";
+        protected override string StateName => "Doors";
         public override int LoadOrder => 1;
-
-        [SerializeField] private GameObject _structurePrefab;
+        
         [SerializeField] private GameObject _doorPrefab;
 
         protected override void ClearChildStates(List<object> childrenStates)
@@ -34,8 +33,8 @@ namespace Handlers
             // Instantiate all the children in data, Trigger RestoreState with their state data
             foreach (var childState in childrenStates)
             {
-                var structureData = (Structure.Data)childState;
-                var childObj = Instantiate(_structurePrefab, transform);
+                var structureData = (Door.Data)childState;
+                var childObj = Instantiate(_doorPrefab, transform);
                 childObj.GetComponent<IPersistent>().RestoreState(structureData);
             }
         }

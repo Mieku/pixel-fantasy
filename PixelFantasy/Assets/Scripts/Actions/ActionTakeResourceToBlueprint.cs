@@ -138,6 +138,7 @@ namespace Actions
 
         public override void OnTaskComplete(Interactable requestor)
         {
+            requestor.IncomingUnitUID = "";
             requestor.OnTaskCompleted(this);
         }
     }
