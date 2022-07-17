@@ -17,6 +17,7 @@ TagManager:
   - Floor
   - Missile
   - Door
+  - Grass
   layers:
   - Default
   - TransparentFX
@@ -59,6 +60,9 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Mountain
+    uniqueID: 1573088013
     locked: 0
   - name: Structure
     uniqueID: 172824705
