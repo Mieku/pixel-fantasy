@@ -200,7 +200,7 @@ namespace Controllers
         public void ClearGrassPressed()
         {
             PlayerInputController.Instance.ChangeState(PlayerInputState.BuildFlooring, "Dirt");
-            Spawner.Instance.ShowPlacementIconForDirt(true, _dirtPrefab.PlacementIcon, _dirtPrefab.InvalidPlacementTags);
+            Spawner.Instance.ShowPlacementIcon(true, _dirtPrefab.PlacementIcon, _dirtPrefab.InvalidPlacementTags);
         }
 
         public void BuildFloorPressed(string key)
@@ -257,7 +257,7 @@ namespace Controllers
             var cropData = Librarian.Instance.GetCropData(cropKey);
             Spawner.Instance.CropData = cropData;
             // Will likely need to specify more unique values for farms
-            Spawner.Instance.ShowPlacementIcon(true, invController.GetStorageZoneBlueprintSprite(), Spawner.Instance.GetCropInvalidPlacementTags());
+            Spawner.Instance.ShowPlacementIcon(true, invController.GetStorageZoneBlueprintSprite(),invController.StoragePlacementInvalidTags);
         }
     }
 }

@@ -104,18 +104,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _icon: {fileID: -4826917048730203335, guid: aabb8e1691da82c498524bd23f772a2f, type: 3}
-  QueuedTaskRefs: 
   PendingTasks: []
   InProgressTasks: []
-  IncomingUnitUID: 
   IsBuilt: 0
   _workCost: 3
   _placementSprite: {fileID: -4826917048730203335, guid: 7d1c51339019cce45bfe46e7d51a000f, type: 3}
   _invalidPlacementTags:
   - Water
   - Structure
+  - Dirt
+  _options: 01000000
   _graphUpdateScene: {fileID: 4026115250489389263}
   _dirtRuleTile: {fileID: 11400000, guid: a876a1be8c84ecc418c57ae1b384462c, type: 2}
+  PendingTask: 0
 --- !u!114 &6025374256511109222
 MonoBehaviour:
   m_ObjectHideFlags: 0

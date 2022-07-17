@@ -17,7 +17,8 @@ namespace Items
     {
         [SerializeField] private SpriteRenderer _soilHoleRenderer;
         [SerializeField] private SpriteRenderer _cropRenderer;
-
+        [SerializeField] private RuleTile _dirtRuleTile;
+        
         // Soil Types
         [SerializeField] private Sprite _soilHole, _soilCovered, _soilWatered;
 
@@ -50,7 +51,7 @@ namespace Items
         private void Awake()
         {
             _flooringTilemap =
-                TilemapController.Instance.GetTilemap(TilemapLayer.Grass);
+                TilemapController.Instance.GetTilemap(TilemapLayer.Ground);
         }
 
         public void Init(CropData cropData)
@@ -59,6 +60,7 @@ namespace Items
             _soilHoleRenderer.gameObject.SetActive(false);
             _cropRenderer.gameObject.SetActive(false);
             
+            UpdateSprite(true);
             ShowBlueprint(true);
             ClearPlantsForClearingGrass();
         }
@@ -96,18 +98,9 @@ namespace Items
                 ClearNatureFromTile();
                 return;
             }
-
-            if (Helper.DoesGridContainTag(transform.position, "Grass"))
-            {
-                // if clear, clear the grass
-                CreateTaskById("Till Soil");
-            }
-            else
-            {
-                OnDirtDug();
-            }
         
-            
+            // if clear, clear the grass
+            CreateTaskById("Till Soil");
         }
         
         private void ColourRenderers(Color colour)
@@ -131,7 +124,7 @@ namespace Items
         public void UpdateSprite(bool informNeighbours)
         {
             var cell = _flooringTilemap.WorldToCell(transform.position);
-            _flooringTilemap.SetTile(cell, null);
+            _flooringTilemap.SetTile(cell, _dirtRuleTile);
         }
         
         private void UpdateWatering()
@@ -200,7 +193,6 @@ namespace Items
 
         public void OnDirtDug()
         {
-            UpdateSprite(true);
             ShowBlueprint(false);
             _isTilled = true;
 

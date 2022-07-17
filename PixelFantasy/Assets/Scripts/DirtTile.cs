@@ -20,6 +20,7 @@ public class DirtTile : Interactable, IPersistent
     [SerializeField] private Sprite _placementSprite;
     [SerializeField] private List<string> _invalidPlacementTags;
     [SerializeField] private GraphUpdateScene _graphUpdateScene;
+    [SerializeField] private RuleTile _dirtRuleTile;
 
     private TaskMaster taskMaster => TaskMaster.Instance;
     private UnitTaskAI _incomingUnit;
@@ -40,7 +41,7 @@ public class DirtTile : Interactable, IPersistent
             {
                 clone.Add(invalidPlacementTag);
             }
-    
+
             return clone;
         }
     }
@@ -53,7 +54,7 @@ public class DirtTile : Interactable, IPersistent
     private void Awake()
     {
         _flooringTilemap =
-            TilemapController.Instance.GetTilemap(TilemapLayer.Grass);
+            TilemapController.Instance.GetTilemap(TilemapLayer.Ground);
     }
     
     public void CancelTasks()
@@ -76,6 +77,7 @@ public class DirtTile : Interactable, IPersistent
     public void Init(Structure requestedStructure = null)
     {
         _requestedStructure = requestedStructure;
+        UpdateSprite(true);
         ShowBlueprint(true);
         ClearPlantsForClearingGrass();
     }
@@ -83,6 +85,7 @@ public class DirtTile : Interactable, IPersistent
     public void Init(Action onDirtDug)
     {
         _onDirtDug = onDirtDug;
+        UpdateSprite(true);
         ShowBlueprint(true);
         ClearPlantsForClearingGrass();
     }
@@ -90,6 +93,7 @@ public class DirtTile : Interactable, IPersistent
     public void Init(Floor requestedFloor)
     {
         _requestedFloor = requestedFloor;
+        UpdateSprite(true);
         ShowBlueprint(true);
         ClearPlantsForClearingGrass();
     }
@@ -156,7 +160,6 @@ public class DirtTile : Interactable, IPersistent
 
     public void BuiltDirt()
     {
-        UpdateSprite(true);
         ShowBlueprint(false);
         _incomingUnit = null;
         IsBuilt = true;
@@ -180,7 +183,7 @@ public class DirtTile : Interactable, IPersistent
     public void UpdateSprite(bool informNeighbours)
     {
         var cell = _flooringTilemap.WorldToCell(transform.position);
-        _flooringTilemap.SetTile(cell, null);
+        _flooringTilemap.SetTile(cell, _dirtRuleTile);
     }
 
     public object CaptureState()
