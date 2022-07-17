@@ -47,6 +47,7 @@ namespace Gods
         
         // Structure
         private bool _planningStructure;
+        private bool _planningDirt;
         private Vector2 _startPos;
         private List<GameObject> _blueprints = new List<GameObject>();
         private List<Vector2> _plannedGrid = new List<Vector2>();
@@ -214,8 +215,39 @@ namespace Gods
             PlacementDirection = PlacementDirection.Down;
         }
 
+        public List<string> GetCropInvalidPlacementTags()
+        {
+            return _soilPrefab.GetComponent<Crop>().InvalidPlacementTags;
+        }
+        
+        public void ShowPlacementIconForDirt(bool show, Sprite icon = null, List<String> invalidPlacementTags = null, float sizeOverride = 1f)
+        {
+            _placementIcon.enabled = true;
+
+            if (_placementIcon.transform.childCount > 0)
+            {
+                var child = _placementIcon.transform.GetChild(0).gameObject;
+                Destroy(child);
+            }
+            
+            if (show)
+            {
+                _placementIcon.gameObject.transform.localScale = new Vector2(sizeOverride, sizeOverride);
+                _placementIcon.sprite = icon;
+                _placementIcon.gameObject.SetActive(true);
+                _showPlacement = true;
+                _planningDirt = true;
+                _invalidPlacementTags = invalidPlacementTags;
+            }
+            else
+            {   _placementIcon.gameObject.SetActive(false);
+                _showPlacement = false;
+            }
+        }
+
         public void ShowPlacementIcon(bool show, Sprite icon = null, List<String> invalidPlacementTags = null, float sizeOverride = 1f)
         {
+            _planningDirt = false;
             _placementIcon.enabled = true;
             
             if (_placementIcon.transform.childCount > 0)
@@ -240,6 +272,7 @@ namespace Gods
         
         public void ShowPlacementObject(bool show, GameObject icon = null, List<String> invalidPlacementTags = null, float sizeOverride = 1f)
         {
+            _planningDirt = false;
             _placementIcon.enabled = false;
             
             if (_placementIcon.transform.childCount > 0)
@@ -265,29 +298,61 @@ namespace Gods
         {
             if (_showPlacement)
             {
-                var gridPos = Helper.ConvertMousePosToGridPos(UtilsClass.GetMouseWorldPosition());
-                _placementIcon.transform.position = gridPos;
-                if (Helper.IsGridPosValidToBuild(gridPos, _invalidPlacementTags))
+                if (_planningDirt)
                 {
-                    _placementIcon.color = Librarian.Instance.GetColour("Placement Green");
-                    if (_placementIcon.transform.childCount > 0)
+                    var gridPos = Helper.ConvertMousePosToGridPos(UtilsClass.GetMouseWorldPosition());
+                    _placementIcon.transform.position = gridPos;
+                    if (Helper.IsGridPosValidToBuild(gridPos, _invalidPlacementTags) && Helper.DoesGridContainTag(gridPos, "Grass"))
                     {
-                        var renderers = _placementIcon.GetComponentsInChildren<SpriteRenderer>();
-                        foreach (var renderer in renderers)
+                        _placementIcon.color = Librarian.Instance.GetColour("Placement Green");
+                        if (_placementIcon.transform.childCount > 0)
                         {
-                            renderer.color = Librarian.Instance.GetColour("Placement Green");
+                            var renderers = _placementIcon.GetComponentsInChildren<SpriteRenderer>();
+                            foreach (var renderer in renderers)
+                            {
+                                renderer.color = Librarian.Instance.GetColour("Placement Green");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        _placementIcon.color = Librarian.Instance.GetColour("Placement Red");
+                        if (_placementIcon.transform.childCount > 0)
+                        {
+                            var renderers = _placementIcon.GetComponentsInChildren<SpriteRenderer>();
+                            foreach (var renderer in renderers)
+                            {
+                                renderer.color = Librarian.Instance.GetColour("Placement Red");
+                            }
                         }
                     }
                 }
                 else
                 {
-                    _placementIcon.color = Librarian.Instance.GetColour("Placement Red");
-                    if (_placementIcon.transform.childCount > 0)
+                    var gridPos = Helper.ConvertMousePosToGridPos(UtilsClass.GetMouseWorldPosition());
+                    _placementIcon.transform.position = gridPos;
+                    if (Helper.IsGridPosValidToBuild(gridPos, _invalidPlacementTags))
                     {
-                        var renderers = _placementIcon.GetComponentsInChildren<SpriteRenderer>();
-                        foreach (var renderer in renderers)
+                        _placementIcon.color = Librarian.Instance.GetColour("Placement Green");
+                        if (_placementIcon.transform.childCount > 0)
                         {
-                            renderer.color = Librarian.Instance.GetColour("Placement Red");
+                            var renderers = _placementIcon.GetComponentsInChildren<SpriteRenderer>();
+                            foreach (var renderer in renderers)
+                            {
+                                renderer.color = Librarian.Instance.GetColour("Placement Green");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        _placementIcon.color = Librarian.Instance.GetColour("Placement Red");
+                        if (_placementIcon.transform.childCount > 0)
+                        {
+                            var renderers = _placementIcon.GetComponentsInChildren<SpriteRenderer>();
+                            foreach (var renderer in renderers)
+                            {
+                                renderer.color = Librarian.Instance.GetColour("Placement Red");
+                            }
                         }
                     }
                 }
@@ -586,7 +651,8 @@ namespace Gods
                     var spriteRenderer = blueprint.GetComponent<SpriteRenderer>();
                     var dirt = _dirtTilePrefab.GetComponent<DirtTile>();
                     spriteRenderer.sprite = dirt.PlacementIcon;
-                    if (Helper.IsGridPosValidToBuild(gridPos, dirt.InvalidPlacementTags))
+                    //if (Helper.IsGridPosValidToBuild(gridPos, dirt.InvalidPlacementTags))
+                    if(Helper.DoesGridContainTag(gridPos,"Grass"))
                     {
                         spriteRenderer.color = Librarian.Instance.GetColour("Placement Green");
                     }
@@ -608,7 +674,8 @@ namespace Gods
             foreach (var gridPos in _plannedGrid)
             {
                 var dirt = _dirtTilePrefab.GetComponent<DirtTile>();
-                if (Helper.IsGridPosValidToBuild(gridPos, dirt.InvalidPlacementTags))
+                //if (Helper.IsGridPosValidToBuild(gridPos, dirt.InvalidPlacementTags))
+                if(Helper.DoesGridContainTag(gridPos,"Grass"))
                 {
                     SpawnDirtTile(gridPos);
                 }
