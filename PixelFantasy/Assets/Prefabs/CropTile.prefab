@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 6025374256511109222}
   m_Layer: 0
   m_Name: CropTile
-  m_TagString: Dirt
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -196,7 +196,7 @@ MonoBehaviour:
   IncomingUnitUID: 
   _soilHoleRenderer: {fileID: 1896316527233543850}
   _cropRenderer: {fileID: 728996826851249570}
-  _dirtRuleTile: {fileID: 11400000, guid: a876a1be8c84ecc418c57ae1b384462c, type: 2}
+  _dirtRuleTile: {fileID: 11400000, guid: 012a56c0946d69e499d3faf6d7e9caca, type: 2}
   _soilHole: {fileID: 21300000, guid: 6036d2a12ad813b4daf971c940374801, type: 3}
   _soilCovered: {fileID: 21300000, guid: 5e24457d3dcf3ef4e9386bb30256c3f6, type: 3}
   _soilWatered: {fileID: 21300000, guid: 65cef0734780ebe438be86eecb91b1c2, type: 3}

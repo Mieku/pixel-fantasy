@@ -27,7 +27,7 @@ public class DirtTile : Interactable, IPersistent
     private List<int> _assignedTaskRefs = new List<int>();
     private Structure _requestedStructure;
     private Floor _requestedFloor;
-    private Tilemap _flooringTilemap;
+    private Tilemap _dirtTilemap;
     private Action _onDirtDug;
 
     public Sprite PlacementIcon => _placementSprite;
@@ -53,8 +53,8 @@ public class DirtTile : Interactable, IPersistent
     
     private void Awake()
     {
-        _flooringTilemap =
-            TilemapController.Instance.GetTilemap(TilemapLayer.Ground);
+        _dirtTilemap =
+            TilemapController.Instance.GetTilemap(TilemapLayer.Dirt);
     }
     
     public void CancelTasks()
@@ -146,8 +146,8 @@ public class DirtTile : Interactable, IPersistent
 
     private void ColourRenderers(Color colour)
     {
-        var cell = _flooringTilemap.WorldToCell(transform.position);
-        _flooringTilemap.SetColor(cell, colour);
+        var cell = _dirtTilemap.WorldToCell(transform.position);
+        _dirtTilemap.SetColor(cell, colour);
     }
     
     public void CancelClearGrass()
@@ -182,8 +182,8 @@ public class DirtTile : Interactable, IPersistent
     
     public void UpdateSprite(bool informNeighbours)
     {
-        var cell = _flooringTilemap.WorldToCell(transform.position);
-        _flooringTilemap.SetTile(cell, _dirtRuleTile);
+        var cell = _dirtTilemap.WorldToCell(transform.position);
+        _dirtTilemap.SetTile(cell, _dirtRuleTile);
     }
 
     public object CaptureState()

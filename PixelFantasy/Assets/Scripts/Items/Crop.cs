@@ -32,7 +32,7 @@ namespace Items
         private float _timeWithWater;
         private float _timeGrowing;
         [SerializeField] private List<string> _invalidPlacementTags;
-        private Tilemap _flooringTilemap;
+        private Tilemap _dirtTilemap;
         
         public List<string> InvalidPlacementTags
         {
@@ -50,8 +50,8 @@ namespace Items
         
         private void Awake()
         {
-            _flooringTilemap =
-                TilemapController.Instance.GetTilemap(TilemapLayer.Ground);
+            _dirtTilemap =
+                TilemapController.Instance.GetTilemap(TilemapLayer.Dirt);
         }
 
         public void Init(CropData cropData)
@@ -98,15 +98,21 @@ namespace Items
                 ClearNatureFromTile();
                 return;
             }
-        
-            // if clear, clear the grass
-            CreateTaskById("Till Soil");
+            
+            if (!Helper.DoesGridContainTag(transform.position, "Dirt"))
+            {
+                CreateTaskById("Till Soil");
+            }
+            else
+            {
+                OnDirtDug();
+            }
         }
         
         private void ColourRenderers(Color colour)
         {
-            var cell = _flooringTilemap.WorldToCell(transform.position);
-            _flooringTilemap.SetColor(cell, colour);
+            var cell = _dirtTilemap.WorldToCell(transform.position);
+            _dirtTilemap.SetColor(cell, colour);
         }
         
         private void ShowBlueprint(bool showBlueprint)
@@ -123,8 +129,8 @@ namespace Items
         
         public void UpdateSprite(bool informNeighbours)
         {
-            var cell = _flooringTilemap.WorldToCell(transform.position);
-            _flooringTilemap.SetTile(cell, _dirtRuleTile);
+            var cell = _dirtTilemap.WorldToCell(transform.position);
+            _dirtTilemap.SetTile(cell, _dirtRuleTile);
         }
         
         private void UpdateWatering()

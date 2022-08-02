@@ -11,7 +11,7 @@ namespace Handlers
         protected override string StateName => "TilemapHandler";
         public override int LoadOrder => 1;
 
-        [SerializeField] private GameObject _groundTM, _waterTM, _structureTM, _flooringTM;
+        [SerializeField] private GameObject _groundTM, _waterTM, _structureTM, _flooringTM, _dirtTM, _mountainTM;
         
         protected override void ClearChildStates(List<object> childrenStates) { } // Not used
         
@@ -27,19 +27,16 @@ namespace Handlers
 
         private GameObject GetTilemapByLayer(TilemapLayer layer)
         {
-            switch (layer)
+            return layer switch
             {
-                case TilemapLayer.Ground:
-                    return _groundTM;
-                case TilemapLayer.Water:
-                    return _waterTM;
-                case TilemapLayer.Structure:
-                    return _structureTM;
-                case TilemapLayer.Flooring:
-                    return _flooringTM;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(layer), layer, null);
-            }
+                TilemapLayer.Grass => _groundTM,
+                TilemapLayer.Water => _waterTM,
+                TilemapLayer.Structure => _structureTM,
+                TilemapLayer.Flooring => _flooringTM,
+                TilemapLayer.Dirt => _dirtTM,
+                TilemapLayer.Mountain => _mountainTM,
+                _ => throw new ArgumentOutOfRangeException(nameof(layer), layer, null)
+            };
         }
     }
 }

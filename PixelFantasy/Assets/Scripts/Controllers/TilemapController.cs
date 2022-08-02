@@ -70,9 +70,11 @@ namespace Controllers
     [Serializable]
     public enum TilemapLayer
     {
-        Ground,
+        Grass,
         Water,
         Structure,
         Flooring,
+        Dirt,
+        Mountain,
     }
 }
