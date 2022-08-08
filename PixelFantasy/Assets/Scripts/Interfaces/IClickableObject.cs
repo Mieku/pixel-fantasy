@@ -15,4 +15,10 @@ namespace Interfaces
         public void AssignOrder(ActionBase orderToAssign);
         public bool IsActionActive(ActionBase action);
     }
+
+    public interface IClickableTile : IClickableObject
+    {
+        public void TintTile();
+        public void UnTintTile();
+    }
 }

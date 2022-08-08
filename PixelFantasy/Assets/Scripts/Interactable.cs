@@ -60,6 +60,12 @@ public class Interactable : UniqueObject
                 {
                     _potentialActions = door.GetConstructionData().AvailableActions;
                 }
+
+                var mountain = GetComponent<Mountain>();
+                if (mountain != null)
+                {
+                    _potentialActions = mountain.GetMountainData().AvailableActions;
+                }
             }
 
             var availableActions = FilterAvailableActions(_potentialActions);

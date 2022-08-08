@@ -17,6 +17,7 @@ public class ClickObject : MonoBehaviour
     [SerializeField] private ObjectType _objectType;
     [SerializeField] private GameObject _selectedIcon;
     [SerializeField] private SpriteRenderer _objectRenderer;
+    [SerializeField] private bool _usesTintedSelection;
 
     private ItemData _itemData;
     private ConstructionData _structureData;
@@ -68,6 +69,9 @@ public class ClickObject : MonoBehaviour
             case ObjectType.Furniture:
                 _furnitureData = GetComponent<Furniture>().FurnitureData;
                 break;
+            case ObjectType.Mountain:
+                // Nothing needed, other type should be refactored to follow pattern...
+                break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -102,13 +106,22 @@ public class ClickObject : MonoBehaviour
 
     public void SelectObject()
     {
-        _selectedIcon.SetActive(true);
+        if (_selectedIcon != null)
+        {
+            _selectedIcon.SetActive(true);
+        }
+        
         IsSelected = true;
 
         if (_objectRenderer != null)
         {
             //_selectedIcon.GetComponent<SpriteRenderer>().size = _objectRenderer.bounds.size;
             //_selectedIcon.transform.position = _objectRenderer.bounds.center;
+        }
+
+        if (_usesTintedSelection)
+        {
+            gameObject.GetComponent<IClickableTile>().TintTile();
         }
     }
 
@@ -139,7 +152,16 @@ public class ClickObject : MonoBehaviour
 
     public void UnselectObject()
     {
-        _selectedIcon.SetActive(false);
+        if (_selectedIcon != null)
+        {
+            _selectedIcon.SetActive(false);
+        }
+        
+        if (_usesTintedSelection)
+        {
+            gameObject.GetComponent<IClickableTile>().UnTintTile();
+        }
+        
         IsSelected = false;
     }
 
@@ -190,6 +212,8 @@ public class ClickObject : MonoBehaviour
                 return GetSelectionData(_floorData);
             case ObjectType.Furniture:
                 return GetSelectionData(_furnitureData);
+            case ObjectType.Mountain:
+                return GetComponent<Mountain>().GetSelectionData();
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -319,5 +343,6 @@ public enum ObjectType
     Unit,
     Resource,
     Floor,
-    Furniture
+    Furniture,
+    Mountain,
 }
