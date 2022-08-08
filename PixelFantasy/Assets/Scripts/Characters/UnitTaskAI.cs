@@ -263,6 +263,12 @@ namespace Characters
                 ExecuteTask_WaterCrop(task as FarmingTask.WaterCrop);
                 return;
             }
+
+            if (task is MiningTask.Mine)
+            {
+                ExecuteTask_Mine(task as MiningTask.Mine);
+                return;
+            }
             
             // Other task types go here
         }
@@ -376,6 +382,26 @@ namespace Characters
             {
                 _unitAnim.LookAtPostion(task.treePosition);
                 _unitAnim.SetUnitAction(UnitAction.Axe);
+                DoWork(task.workAmount, () =>
+                {
+                    task.OnCompleteTask();
+                    state = State.WaitingForNextTask;
+                    _unitAnim.SetUnitAction(UnitAction.Nothing);
+                    ClearAction();
+                });
+            });
+        }
+
+        private void ExecuteTask_Mine(MiningTask.Mine task)
+        {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
+            task.claimMountain(this);
+            workerMover.SetMovePosition(GetAdjacentPosition(task.mountainPosition), () =>
+            {
+                _unitAnim.LookAtPostion(task.mountainPosition);
+                _unitAnim.SetUnitAction(UnitAction.Mining);
                 DoWork(task.workAmount, () =>
                 {
                     task.OnCompleteTask();

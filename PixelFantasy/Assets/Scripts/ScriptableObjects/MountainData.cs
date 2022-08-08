@@ -20,5 +20,20 @@ namespace ScriptableObjects
         {
             return _ruleTile;
         }
+        
+        public List<ItemAmount> GetMineDrop()
+        {
+            if (_minedResources != null)
+            {
+                return _minedResources.GetItemDrop();
+            }
+
+            return new List<ItemAmount>();
+        }
+
+        public int GetWorkAmount()
+        {
+            return _workToMine;
+        }
     }
 }

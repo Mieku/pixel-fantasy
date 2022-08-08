@@ -214,5 +214,6 @@ public enum TaskType
     DeconstructStructure,
     EmergencyTask_MoveToPosition,
     TakeItemToItemSlot,
-    TakeResourceToBlueprint
+    TakeResourceToBlueprint,
+    Mine,
 }

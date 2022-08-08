@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using DataPersistence;
 using Items;
@@ -6,9 +5,11 @@ using UnityEngine;
 
 namespace Handlers
 {
-    public class ResourcesHandler : Saveable
+    public class MountainsHandler : Saveable
     {
-        protected override string StateName => "Resources";
+        [SerializeField] private GameObject _mountainPrefab;
+        
+        protected override string StateName => "Mountains";
         public override int LoadOrder => 1;
 
         protected override void ClearChildStates(List<object> childrenStates)
@@ -32,8 +33,8 @@ namespace Handlers
             // Instantiate all the children in data, Trigger RestoreState with their state data
             foreach (var childState in childrenStates)
             {
-                var resourceData = (Resource.Data)childState;
-                var childObj = Instantiate(resourceData.Prefab, transform);
+                var resourceData = (Mountain.State)childState;
+                var childObj = Instantiate(_mountainPrefab, transform);
                 childObj.GetComponent<IPersistent>().RestoreState(resourceData);
             }
         }
