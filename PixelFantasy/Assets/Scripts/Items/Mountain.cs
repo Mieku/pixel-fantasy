@@ -43,6 +43,10 @@ namespace Items
         {
             var cell = _mountainTM.WorldToCell(transform.position);
             _mountainTM.SetTile(cell, _mountainData.GetRuleTile());
+            
+
+            var dirtCell = _dirtTM.WorldToCell(transform.position);
+            _dirtTM.SetTile(dirtCell, _dirtRuleTile);
         }
 
         public SelectionData GetSelectionData()
@@ -120,11 +124,7 @@ namespace Items
             // Clear Mountain Tile
             var mountainCell = _mountainTM.WorldToCell(transform.position);
             _mountainTM.SetTile(mountainCell, null);
-            
-            // Put dirt where Mountain Tile was
-            var dirtCell = _dirtTM.WorldToCell(transform.position);
-            _dirtTM.SetTile(dirtCell, _dirtRuleTile);
-            
+                        
             // Spawn Resources
             var minedDrops = _mountainData.GetMineDrop();
             foreach (var minedDrop in minedDrops)

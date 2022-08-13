@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23565aa9d71bbd140a2b476f7bf4b414, type: 3}
   m_Name: Stone Mountain
   m_EditorClassIdentifier: 
-  ResourceName: Stone Mountain
+  ResourceName: Mountain
   _availableActions:
   - {fileID: 11400000, guid: 7c972d23bb221b84ab79715c8bbfd1e1, type: 2}
   _workToMine: 30
@@ -21,4 +21,4 @@ MonoBehaviour:
     - Item: {fileID: 11400000, guid: 75f99dfbebb440d4499e1b83387d86e1, type: 2}
       MinDrop: 2
       MaxDrop: 5
-  _ruleTile: {fileID: 11400000, guid: a71cee4bed836d74db6e164e38a98122, type: 2}
+  _ruleTile: {fileID: 11400000, guid: 600ac304e528db849a504d0f0d8c7057, type: 2}
