@@ -8,13 +8,21 @@ namespace Characters
 {
     public class UnitAnimController : MonoBehaviour, ICharacterAnimController
     {
-        [SerializeField] private Animator baseAnim;
-        // [SerializeField] private Animator hairAnim;
-        // [SerializeField] private Animator toolAnim;
+        [SerializeField] private Animator _baseAnim;
+        [SerializeField] private Animator _topAnim;
+        [SerializeField] private Animator _bottomAnim;
+        [SerializeField] private Animator _toolAnim;
+        [SerializeField] private Animator _handsAnim;
+        [SerializeField] private Animator _fxAnim;
+        [SerializeField] private Animator _blushAnim;
 
-        [SerializeField] private SpriteRenderer baseRenderer;
-        // [SerializeField] private SpriteRenderer hairRenderer;
-        // [SerializeField] private SpriteRenderer toolRenderer;
+        [SerializeField] private SpriteRenderer _baseRenderer;
+        [SerializeField] private SpriteRenderer _topRenderer;
+        [SerializeField] private SpriteRenderer _bottomRenderer;
+        [SerializeField] private SpriteRenderer _toolRenderer;
+        [SerializeField] private SpriteRenderer _handsRenderer;
+        [SerializeField] private SpriteRenderer _fxRenderer;
+        [SerializeField] private SpriteRenderer _blushRenderer;
         
         private static readonly int Velocity = Animator.StringToHash("Velocity");
         private const string DOING = "IsDoing";
@@ -38,7 +46,13 @@ namespace Characters
         
         private void OnSpeedUpdated(float speedMod)
         {
-            baseAnim.speed = speedMod;
+            _baseAnim.speed = speedMod;
+            _topAnim.speed = speedMod;
+            _bottomAnim.speed = speedMod;
+            _toolAnim.speed = speedMod;
+            _handsAnim.speed = speedMod;
+            _fxAnim.speed = speedMod;
+            _blushAnim.speed = speedMod;
         }
         
         public void SetUnitAction(UnitAction unitAction)
@@ -76,9 +90,13 @@ namespace Characters
 
         private void SetUnitAction(string parameter, bool isActive = true)
         {
-            baseAnim.SetBool(parameter, isActive);
-            // hairAnim.SetBool(parameter, isActive);
-            // toolAnim.SetBool(parameter, isActive);
+            _baseAnim.SetBool(parameter, isActive);
+            _topAnim.SetBool(parameter, isActive);
+            _bottomAnim.SetBool(parameter, isActive);
+            _toolAnim.SetBool(parameter, isActive);
+            _handsAnim.SetBool(parameter, isActive);
+            _fxAnim.SetBool(parameter, isActive);
+            _blushAnim.SetBool(parameter, isActive);
         }
 
         private void ClearAllActions()
@@ -96,7 +114,13 @@ namespace Characters
             if (TimeManager.Instance.GameSpeed == GameSpeed.Paused) return;
             
             SetVelocity(velocityVector.magnitude);
-            baseAnim.SetFloat(Velocity, velocityVector.magnitude);
+            _baseAnim.SetFloat(Velocity, velocityVector.magnitude);
+            _topAnim.SetFloat(Velocity, velocityVector.magnitude);
+            _bottomAnim.SetFloat(Velocity, velocityVector.magnitude);
+            _toolAnim.SetFloat(Velocity, velocityVector.magnitude);
+            _handsAnim.SetFloat(Velocity, velocityVector.magnitude);
+            _fxAnim.SetFloat(Velocity, velocityVector.magnitude);
+            _blushAnim.SetFloat(Velocity, velocityVector.magnitude);
 
             if (velocityVector != Vector2.zero)
             {
@@ -124,17 +148,24 @@ namespace Characters
                 scaleModX = 1;
             }
 
-            baseRenderer.transform.localScale = new Vector3(scaleModX, 1, 1);
-            //baseRenderer.flipX = shouldFlip;
-            // hairRenderer.flipX = shouldFlip;
-            // toolRenderer.flipX = shouldFlip;
+            _baseRenderer.transform.localScale = new Vector3(scaleModX, 1, 1);
+            _topRenderer.transform.localScale = new Vector3(scaleModX, 1, 1);
+            _bottomRenderer.transform.localScale = new Vector3(scaleModX, 1, 1);
+            _toolRenderer.transform.localScale = new Vector3(scaleModX, 1, 1);
+            _handsRenderer.transform.localScale = new Vector3(scaleModX, 1, 1);
+            _fxRenderer.transform.localScale = new Vector3(scaleModX, 1, 1);
+            _blushRenderer.transform.localScale = new Vector3(scaleModX, 1, 1);
         }
 
         private void SetVelocity(float velocity)
         {
-            baseAnim.SetFloat(Velocity, velocity);
-            // hairAnim.SetFloat(Velocity, velocity);
-            // toolAnim.SetFloat(Velocity, velocity);
+            _baseAnim.SetFloat(Velocity, velocity);
+            _topAnim.SetFloat(Velocity, velocity);
+            _bottomAnim.SetFloat(Velocity, velocity);
+            _toolAnim.SetFloat(Velocity, velocity);
+            _handsAnim.SetFloat(Velocity, velocity);
+            _fxAnim.SetFloat(Velocity, velocity);
+            _blushAnim.SetFloat(Velocity, velocity);
         }
         
         public UnitAnimData GetSaveData()

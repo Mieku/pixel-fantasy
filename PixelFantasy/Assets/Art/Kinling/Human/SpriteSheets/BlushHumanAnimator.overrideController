@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BlushHumanAnimator
+  m_Controller: {fileID: 9100000, guid: 7f97c02d4a4b4da4c8dda6a9bf96f1ba, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 57e538f74a59bd1449568de690db9b35, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 38e5f51926e20694db81a7cb7d8746f9, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2c63e832b13c5e6438a12d6081fbbb17, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6d51deeb82191c84a98be354a1fa71fb, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 825f858f62c3f984bafbbd0de95a1f11, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 24fb96300af03fe47a6c9628756ded47, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 892dfdea2ecbf514facdf0a126d55c9d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 5868639505b6c944bafe29a373573923, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 81cfda3995c5a334b9b7db1385799e48, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 3103f87e132c52c48a9beabb7e2b3d95, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 9791e98a99119c5478fa42148fd5e65d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 85f0d932b33662a49bdb74e87bae12ea, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 02c37f7be7368b441ad30b335c4611c1, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f09003bb92f67434b8d4e15dfb8febf8, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: e7051140fca712e46a3bf91fbbe7ae5c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 280010939ccfda7418006258643c6bf5, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: cb51c64054ff677499a278372092603f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d74ebbcc5e5e6234bbb45d18fda71d70, type: 2}
