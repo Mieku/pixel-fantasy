@@ -25,7 +25,7 @@ namespace Items
         protected Spawner spawner => Spawner.Instance;
 
         //protected bool _queuedToCut;
-
+        
         public GrowingResourceData GetResourceData()
         {
             return _growingResourceData;

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6d4d2537ef711448aa84a0e2c30e5c2, type: 3}
   m_Name: BerryBush
   m_EditorClassIdentifier: 
-  ResourceName: Bush
+  ResourceName: Berry Bush
   _reproduces: 1
   _reproductiveRateSec: 30
   _childRangeMin: 1
@@ -20,8 +20,8 @@ MonoBehaviour:
   _keepSpace: 1
   _growthStages:
   - StageName: Young Bush
-    GrowthSprite: {fileID: 4132407335573635649, guid: 825658b1c6986bd46b087bb3ad70d904, type: 3}
-    Scale: 0.5
+    GrowthSprite: {fileID: 21300000, guid: 0fd3f59d6e5bc924fbc75655b4a41224, type: 3}
+    Scale: 0.75
     SecsInStage: 60
     HarvestableItems:
       _harvestableItems:
@@ -30,7 +30,7 @@ MonoBehaviour:
         MaxDrop: 1
     WorkToCut: 5
   - StageName: Adult Bush
-    GrowthSprite: {fileID: 4132407335573635649, guid: 825658b1c6986bd46b087bb3ad70d904, type: 3}
+    GrowthSprite: {fileID: 21300000, guid: 0fd3f59d6e5bc924fbc75655b4a41224, type: 3}
     Scale: 1
     SecsInStage: 0
     HarvestableItems:
@@ -50,7 +50,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a7166ebc6f232d74099cae1549979e23, type: 2}
   _hasFruit: 1
   _growFruitTime: 60
-  _fruitOverlay: {fileID: -6347962645321781943, guid: 825658b1c6986bd46b087bb3ad70d904, type: 3}
+  _fruitOverlay: {fileID: 21300000, guid: c25c4600cb9c8d04f9ed7273032012cf, type: 3}
+  _fruitFlowersOverlay: {fileID: 0}
   _harvestableFruit:
     _harvestableItems:
     - Item: {fileID: 11400000, guid: 885ae72d5e1e5414ea56c56af62554e2, type: 2}

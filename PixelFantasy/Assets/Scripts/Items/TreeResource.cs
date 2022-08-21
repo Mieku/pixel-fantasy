@@ -43,27 +43,18 @@ namespace Items
             return results;
         }
 
-        // public override void AssignOrder(Order orderToAssign)
-        // {
-        //     switch (orderToAssign)
-        //     {
-        //         case Order.CutPlant:
-        //             CreateCutTreeTask();
-        //             break;
-        //         case Order.Harvest:
-        //             CreateHarvestFruitTask();
-        //             break;
-        //     }
-        // }
-        
-        // protected override void RestorePendingTask(TaskType pendingTask)
-        // {
-        //     base.RestorePendingTask(pendingTask);
-        //
-        //     if (pendingTask == TaskType.CutTree)
-        //     {
-        //         CreateCutTreeTask();
-        //     }
-        // }
+        public float WorkDone(float workAmount)
+        {
+            _remainingWork -= workAmount;
+            Debug.Log($"Work Done, remaining: {_remainingWork}");
+            return _remainingWork;
+        }
+
+        // Triggered by animation
+        public void TreeFallen()
+        {
+            Debug.Log("Tree Fallen!");
+            // TODO: Build me!
+        }
     }
 }

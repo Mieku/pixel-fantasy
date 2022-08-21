@@ -14,6 +14,7 @@ namespace Tasks
             public Action<UnitTaskAI> claimTree;
             public Vector3 treePosition;
             public float workAmount;
+            public Action<float, Action> OnWork;
         }
     }
 }

@@ -22,13 +22,15 @@ namespace Items
         protected float _reproductionTimer;
         protected float _fruitTimer;
         protected bool _hasFruitAvailable;
+        protected bool _showingFlowers;
+        protected float _remainingWork;
         // protected bool _queuedToHarvest;
         
         public bool HasFruitAvailable => _hasFruitAvailable;
         // public bool QueuedToHarvest => _queuedToHarvest;
         public List<GameObject> TaskRequestors = new List<GameObject>();
         
-        private void Start()
+        private void Awake()
         {
             if (_growingResourceData != null)
             {
@@ -57,6 +59,7 @@ namespace Items
             _reproductionTimer = _growingResourceData.ReproductiveRateSec;
 
             UpdateSprite();
+            _remainingWork = GetWorkAmount();
         }
         
         protected void UpdateSprite()
@@ -129,6 +132,14 @@ namespace Items
                     _fruitOverlay.sprite = _growingResourceData.FruitOverlay;
                     _fruitOverlay.gameObject.SetActive(true);
                     RefreshSelection();
+                } else if (_fruitTimer >= _growingResourceData.TimeToGrowFruit / 2f)
+                {
+                    if (!_showingFlowers && _growingResourceData.HasFruitFlowers)
+                    {
+                        _showingFlowers = true;
+                        _fruitOverlay.sprite = _growingResourceData.FruitFlowersOverlay;
+                        _fruitOverlay.gameObject.SetActive(true);
+                    }
                 }
             }
 
@@ -364,6 +375,7 @@ namespace Items
                 ReproductionTimer = _reproductionTimer,
                 FruitTimer = _fruitTimer,
                 HasFruitAvailable = _hasFruitAvailable,
+                RemainingWork = _remainingWork,
             };
 
             return resourceData;
@@ -374,6 +386,8 @@ namespace Items
             var resourceData = (Data)stateData;
             var growingData = resourceData.GrowingData;
 
+            base.RestoreState(stateData);
+
             _growthIndex = growingData.GrowthIndex;
             _ageSec = growingData.AgeSec;
             _ageForNextGrowth = growingData.AgeForNextGrowth;
@@ -381,8 +395,9 @@ namespace Items
             _reproductionTimer = growingData.ReproductionTimer;
             _fruitTimer = growingData.FruitTimer;
             _hasFruitAvailable = growingData.HasFruitAvailable;
-
-            base.RestoreState(stateData);
+            _remainingWork = growingData.RemainingWork;
+            
+            UpdateSprite();
         }
 
         public struct GrowingData
@@ -394,6 +409,7 @@ namespace Items
             public float ReproductionTimer;
             public float FruitTimer;
             public bool HasFruitAvailable;
+            public float RemainingWork;
         }
     }
 }

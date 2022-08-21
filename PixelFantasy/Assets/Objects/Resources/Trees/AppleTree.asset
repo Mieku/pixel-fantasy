@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6d4d2537ef711448aa84a0e2c30e5c2, type: 3}
-  m_Name: OrangeTree
+  m_Name: AppleTree
   m_EditorClassIdentifier: 
-  ResourceName: Orange Tree
+  ResourceName: Apple Tree
   _reproduces: 1
   _reproductiveRateSec: 60
   _childRangeMin: 2
@@ -20,8 +20,8 @@ MonoBehaviour:
   _keepSpace: 1
   _growthStages:
   - StageName: Sapling
-    GrowthSprite: {fileID: 4906983863066801627, guid: 825658b1c6986bd46b087bb3ad70d904, type: 3}
-    Scale: 0.5
+    GrowthSprite: {fileID: 21300000, guid: 9ef8790bd2426b44aa479b2178f73efe, type: 3}
+    Scale: 0.2
     SecsInStage: 30
     HarvestableItems:
       _harvestableItems:
@@ -29,8 +29,8 @@ MonoBehaviour:
         MinDrop: 0
         MaxDrop: 1
     WorkToCut: 3
-  - StageName: Young Tree
-    GrowthSprite: {fileID: 4906983863066801627, guid: 825658b1c6986bd46b087bb3ad70d904, type: 3}
+  - StageName: Young
+    GrowthSprite: {fileID: 21300000, guid: 9ef8790bd2426b44aa479b2178f73efe, type: 3}
     Scale: 0.7
     SecsInStage: 60
     HarvestableItems:
@@ -39,8 +39,8 @@ MonoBehaviour:
         MinDrop: 1
         MaxDrop: 3
     WorkToCut: 8
-  - StageName: Adult Tree
-    GrowthSprite: {fileID: 4906983863066801627, guid: 825658b1c6986bd46b087bb3ad70d904, type: 3}
+  - StageName: Adult
+    GrowthSprite: {fileID: 21300000, guid: 9ef8790bd2426b44aa479b2178f73efe, type: 3}
     Scale: 1
     SecsInStage: 0
     HarvestableItems:
@@ -59,11 +59,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d9ffeb369b9cf3148ac31bd1c9eddff5, type: 2}
   - {fileID: 11400000, guid: a7166ebc6f232d74099cae1549979e23, type: 2}
   _hasFruit: 1
-  _growFruitTime: 60
-  _fruitOverlay: {fileID: 1652389370956797237, guid: 825658b1c6986bd46b087bb3ad70d904, type: 3}
+  _growFruitTime: 40
+  _fruitOverlay: {fileID: 21300000, guid: 48ee55af15a3565478364b54e85d85d1, type: 3}
+  _fruitFlowersOverlay: {fileID: 21300000, guid: cf299772b1725cc48adc078fcf6d0f1f, type: 3}
   _harvestableFruit:
     _harvestableItems:
-    - Item: {fileID: 11400000, guid: 9bb60e86a9a8041469e4b15110bd97b0, type: 2}
+    - Item: {fileID: 11400000, guid: caaf73760087914469dda82529739088, type: 2}
       MinDrop: 2
       MaxDrop: 5
-  _workToHarvest: 6
+  _workToHarvest: 5

@@ -155,7 +155,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 390895937
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2e62a5fe5d11bb646ad621866fc0d0ce, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -194,7 +194,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3918054697811288451}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.9, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -240,9 +240,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 390895937
-  m_SortingLayer: 2
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 416047863630588849, guid: 825658b1c6986bd46b087bb3ad70d904, type: 3}
+  m_SortingLayer: 4
+  m_SortingOrder: -295
+  m_Sprite: {fileID: 21300000, guid: 48ee55af15a3565478364b54e85d85d1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -399,9 +399,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 390895937
-  m_SortingLayer: 2
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 4906983863066801627, guid: 825658b1c6986bd46b087bb3ad70d904, type: 3}
+  m_SortingLayer: 4
+  m_SortingOrder: -330
+  m_Sprite: {fileID: 21300000, guid: 9ef8790bd2426b44aa479b2178f73efe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -498,7 +498,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -170406723
-  m_SortingLayer: 4
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c010dce291f56fa43aa503464e20d207, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -586,6 +586,7 @@ GameObject:
   - component: {fileID: 7155256551760761716}
   - component: {fileID: 7069223065334861981}
   - component: {fileID: 2577075173032586311}
+  - component: {fileID: 8305551532221214646}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Nature
@@ -643,6 +644,7 @@ MonoBehaviour:
   _objectType: 3
   _selectedIcon: {fileID: 7155256550479724486}
   _objectRenderer: {fileID: 7155256550381879070}
+  _usesTintedSelection: 0
   IsSelected: 0
 --- !u!114 &7155256551760761716
 MonoBehaviour:
@@ -657,17 +659,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _icon: {fileID: 7155256550430962553}
-  AvailableActions:
-  - {fileID: 11400000, guid: d9ffeb369b9cf3148ac31bd1c9eddff5, type: 2}
+  QueuedTaskRefs: 
   PendingTasks: []
   InProgressTasks: []
+  IncomingUnitUID: 
   Prefab: {fileID: 0}
   _growingResourceData: {fileID: 11400000, guid: 9c8bbcd46ae9d7c44b18552b98e9d7c7, type: 2}
   _spriteRenderer: {fileID: 7155256550381879070}
   _clickObject: {fileID: 7155256551760761719}
-  _assignedTaskRefs: 
-  _incomingUnit: {fileID: 0}
-  PendingTask: 0
   _overrideFullGrowth: 1
   _fruitOverlay: {fileID: 6319101082123291704}
   _growthIndex: 0
@@ -711,6 +710,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueID: 
+--- !u!95 &8305551532221214646
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7155256551760761722}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 38020d33519400447a6a4c08cc5d5f9d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7312772814564397272
 GameObject:
   m_ObjectHideFlags: 0

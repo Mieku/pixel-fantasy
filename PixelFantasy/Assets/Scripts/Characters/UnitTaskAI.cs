@@ -18,6 +18,14 @@ namespace Characters
         [SerializeField] private ProfessionData professionData;
         [SerializeField] private UnitAnimController _unitAnim;
         [SerializeField] private GameObject _itemPrefab;
+
+        // TODO: Move these values into a stats class
+        public float WorkSpeed = 2f;
+        public float WorkAmount = 1f;
+
+        private Action<float> _onWork;
+        private Action _onWorkCompleted;
+        private bool _isDoingWork;
         
         public enum State
         {
@@ -86,6 +94,8 @@ namespace Characters
 
         private void Update()
         {
+            DoingWorkSequence();
+            
             if (_isGameLoading) return;
             if (_isGameSaving) return;
             if(_curTask != null) return;
@@ -382,16 +392,21 @@ namespace Characters
             {
                 _unitAnim.LookAtPostion(task.treePosition);
                 _unitAnim.SetUnitAction(UnitAction.Axe);
-                DoWork(task.workAmount, () =>
+                DoingWork((WorkAmount ) =>
                 {
-                    task.OnCompleteTask();
-                    state = State.WaitingForNextTask;
-                    _unitAnim.SetUnitAction(UnitAction.Nothing);
-                    ClearAction();
+                    task.OnWork(WorkAmount, () =>
+                    {
+                        // Work is complete
+                        _isDoingWork = false;
+                        task.OnCompleteTask();
+                        state = State.WaitingForNextTask;
+                        _unitAnim.SetUnitAction(UnitAction.Nothing);
+                        ClearAction();
+                    });
                 });
             });
         }
-
+        
         private void ExecuteTask_Mine(MiningTask.Mine task)
         {
             currentAction = task.TaskAction;
@@ -592,6 +607,7 @@ namespace Characters
 
         private void DoWork(float workAmount, Action onWorkComplete)
         {
+            // TODO: Change this do toggle doing work based on the unit's work speed and work amount
             _onWorkComplete = onWorkComplete;
             StartCoroutine(WorkSequence(workAmount));
         }
@@ -606,6 +622,7 @@ namespace Characters
 
         public void CancelTask()
         {
+            _isDoingWork = false;
             state = State.WaitingForNextTask;
             StopAllCoroutines();
             workerMover.SetMovePosition(transform.position, () => {});
@@ -620,6 +637,26 @@ namespace Characters
             Spawner.Instance.SpawnItem(_heldItem.GetItemData(), transform.position, true);
             Destroy(_heldItem.gameObject);
             _heldItem = null;
+        }
+        
+        private void DoingWork(Action<float> onWork)
+        {
+            _onWork = onWork;
+            _workTimer = 0;
+            _isDoingWork = true;
+        }
+
+        private float _workTimer;
+        private void DoingWorkSequence()
+        {
+            if (!_isDoingWork) return;
+
+            _workTimer += TimeManager.Instance.DeltaTime;
+            if (_workTimer >= WorkSpeed)
+            {
+                _workTimer = 0;
+                _onWork.Invoke(WorkAmount);
+            }
         }
         
         public UnitTaskData GetSaveData()

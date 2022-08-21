@@ -25,6 +25,7 @@ namespace ScriptableObjects
         [BoxGroup("Fruit")] [SerializeField] private bool _hasFruit;
         [BoxGroup("Fruit")][ShowIf("_hasFruit")] [SerializeField] private float _growFruitTime;
         [BoxGroup("Fruit")][ShowIf("_hasFruit")] [SerializeField] private Sprite _fruitOverlay;
+        [BoxGroup("Fruit")][ShowIf("_hasFruit")] [SerializeField] private Sprite _fruitFlowersOverlay;
         [BoxGroup("Fruit")][ShowIf("_hasFruit")] [SerializeField] private HarvestableItems _harvestableFruit;
         [BoxGroup("Fruit")][ShowIf("_hasFruit")] [SerializeField] private int _workToHarvest;
 
@@ -113,7 +114,9 @@ namespace ScriptableObjects
         public bool HasFruit => _hasFruit;
         public float TimeToGrowFruit => _growFruitTime;
         public Sprite FruitOverlay => _fruitOverlay;
+        public Sprite FruitFlowersOverlay => _fruitFlowersOverlay;
         public int WorkToHarvest => _workToHarvest;
+        public bool HasFruitFlowers => _fruitFlowersOverlay != null;
 
         public List<ItemAmount> GetFruitLoot()
         {

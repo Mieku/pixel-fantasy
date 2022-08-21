@@ -8,7 +8,7 @@ namespace Handlers
     public class ItemsHandler : Saveable
     {
         protected override string StateName => "Items";
-        public override int LoadOrder => 2;
+        public override int LoadOrder => 3;
 
         [SerializeField] private GameObject _itemPrefab;
 

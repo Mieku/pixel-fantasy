@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -11,7 +12,7 @@ public class PositionRendererSorter : MonoBehaviour
     private float _timer;
     private float _timerMax = 0.1f;
     private Renderer _myRenderer;
-
+    
     private void Awake()
     {
         _myRenderer = gameObject.GetComponent<Renderer>();
@@ -24,25 +25,32 @@ public class PositionRendererSorter : MonoBehaviour
         if (_timer <= 0f)
         {
             _timer = _timerMax;
-
-
-            if (_sortingGroup != null)
-            {
-                _sortingGroup.sortingOrder = (int)(_sortingOrderBase - (transform.position.y + _offset) * 10);
-            }
-            else
-            {
-                _myRenderer.sortingOrder = (int)(_sortingOrderBase - (transform.position.y + _offset) * 10);
-            }
             
-            
-            
-            
+            SortRendererPosition();
             
             if (_runOnlyOnce)
             {
                 Destroy(this);
             }
         }
+    }
+    
+    private void SortRendererPosition() {
+        if (_sortingGroup != null)
+        {
+            _sortingGroup.sortingOrder = (int)(_sortingOrderBase - (transform.position.y + _offset) * 10);
+        }
+        else
+        {
+            _myRenderer.sortingOrder = (int)(_sortingOrderBase - (transform.position.y + _offset) * 10);
+        }
+    }
+
+    [Button("Sort Position")]
+    private void EditorSortPosition()
+    {
+        _myRenderer = gameObject.GetComponent<Renderer>();
+        _sortingGroup = gameObject.GetComponent<SortingGroup>();
+        SortRendererPosition();
     }
 }

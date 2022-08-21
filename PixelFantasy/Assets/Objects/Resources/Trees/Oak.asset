@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6d4d2537ef711448aa84a0e2c30e5c2, type: 3}
-  m_Name: Tree
+  m_Name: Oak
   m_EditorClassIdentifier: 
-  ResourceName: Tree
+  ResourceName: Oak
   _reproduces: 1
   _reproductiveRateSec: 60
   _childRangeMin: 2
@@ -20,8 +20,8 @@ MonoBehaviour:
   _keepSpace: 1
   _growthStages:
   - StageName: Sapling
-    GrowthSprite: {fileID: 4906983863066801627, guid: 825658b1c6986bd46b087bb3ad70d904, type: 3}
-    Scale: 0.5
+    GrowthSprite: {fileID: 21300000, guid: 75dedd5215afc2a4fbb06f47f576e865, type: 3}
+    Scale: 0.2
     SecsInStage: 30
     HarvestableItems:
       _harvestableItems:
@@ -29,9 +29,9 @@ MonoBehaviour:
         MinDrop: 0
         MaxDrop: 1
     WorkToCut: 3
-  - StageName: Young Tree
-    GrowthSprite: {fileID: 4906983863066801627, guid: 825658b1c6986bd46b087bb3ad70d904, type: 3}
-    Scale: 0.75
+  - StageName: Young
+    GrowthSprite: {fileID: 21300000, guid: 75dedd5215afc2a4fbb06f47f576e865, type: 3}
+    Scale: 0.5
     SecsInStage: 60
     HarvestableItems:
       _harvestableItems:
@@ -39,8 +39,8 @@ MonoBehaviour:
         MinDrop: 1
         MaxDrop: 3
     WorkToCut: 8
-  - StageName: Adult Tree
-    GrowthSprite: {fileID: 4906983863066801627, guid: 825658b1c6986bd46b087bb3ad70d904, type: 3}
+  - StageName: Adult
+    GrowthSprite: {fileID: 21300000, guid: 75dedd5215afc2a4fbb06f47f576e865, type: 3}
     Scale: 1
     SecsInStage: 0
     HarvestableItems:
@@ -60,6 +60,7 @@ MonoBehaviour:
   _hasFruit: 0
   _growFruitTime: 0
   _fruitOverlay: {fileID: 0}
+  _fruitFlowersOverlay: {fileID: 0}
   _harvestableFruit:
     _harvestableItems:
     - Item: {fileID: 0}

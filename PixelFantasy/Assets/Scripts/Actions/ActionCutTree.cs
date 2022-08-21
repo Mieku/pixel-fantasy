@@ -26,6 +26,10 @@ namespace Actions
                 },
                 treePosition = requestor.transform.position,
                 workAmount = requestor.GetWorkAmount(),
+                OnWork = (float amount, Action onWorkCompleted) =>
+                {
+                    OnWorkDone(requestor, amount, onWorkCompleted);
+                },
                 OnCompleteTask = () =>
                 {
                     OnTaskComplete(requestor);
@@ -45,12 +49,32 @@ namespace Actions
             taskMaster.FellingTaskSystem.CancelTask(requestor.UniqueId);
         }
 
-        public override void OnTaskComplete(Interactable requestor)
+        public void OnTaskComplete(Interactable requestor, Action onWorkCompleted)
         {
             requestor.OnTaskCompleted(this);
             var growingResource = requestor.GetComponent<GrowingResource>();
             growingResource.CutDownPlant();
             requestor.DisplayTaskIcon(null);
+            onWorkCompleted.Invoke();
+            
+            // if (!string.IsNullOrEmpty(unitUID))
+            // {
+            //     var unitObj = UIDManager.Instance.GetGameObject(unitUID);
+            //     var unit = unitObj.GetComponent<UnitTaskAI>();
+            // }
+        }
+
+        public void OnWorkDone(Interactable requestor, float amount, Action onWorkCompleted)
+        {
+            var treeResource = requestor.GetComponent<TreeResource>();
+            if (treeResource != null)
+            {
+                float remainingWork = treeResource.WorkDone(amount);
+                if (remainingWork <= 0)
+                {
+                    OnTaskComplete(requestor, onWorkCompleted);
+                }
+            }
         }
     }
 }
