@@ -1,12 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Interfaces;
 using ScriptableObjects;
-using Tasks;
-using Characters;
 using Gods;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Items
 {
@@ -19,15 +15,12 @@ namespace Items
         protected float _ageSec;
         protected float _ageForNextGrowth;
         protected bool _fullyGrown;
-        protected float _reproductionTimer;
         protected float _fruitTimer;
         protected bool _hasFruitAvailable;
         protected bool _showingFlowers;
         protected float _remainingWork;
-        // protected bool _queuedToHarvest;
-        
+
         public bool HasFruitAvailable => _hasFruitAvailable;
-        // public bool QueuedToHarvest => _queuedToHarvest;
         public List<GameObject> TaskRequestors = new List<GameObject>();
         
         private void Awake()
@@ -56,7 +49,6 @@ namespace Items
             
             var stage = _growingResourceData.GetGrowthStage(_growthIndex);
             _ageForNextGrowth += stage.SecsInStage;
-            _reproductionTimer = _growingResourceData.ReproductiveRateSec;
 
             UpdateSprite();
             _remainingWork = GetWorkAmount();
@@ -68,29 +60,6 @@ namespace Items
             var scaleOverride = stage.Scale;
             _spriteRenderer.sprite = stage.GrowthSprite;
             _spriteRenderer.gameObject.transform.localScale = new Vector3(scaleOverride, scaleOverride, 1);
-        }
-        
-        protected virtual void AttemptReproduction()
-        {
-            var pos = _growingResourceData.GetReproductionPos(transform.position);
-            var valid = _growingResourceData.IsReproductionPosValid(pos);
-            if (valid)
-            {
-                spawner.SpawnPlant(pos, GetResourceData());
-            }
-        }
-        
-        protected void ReproductionCheck()
-        {
-            if (_fullyGrown && _growingResourceData.Reproduces)
-            {
-                _reproductionTimer -= TimeManager.Instance.DeltaTime;
-                if (_reproductionTimer < 0)
-                {
-                    _reproductionTimer = _growingResourceData.ReproductiveRateSec;
-                    AttemptReproduction();
-                }
-            }
         }
         
         protected void GrowthCheck()
@@ -174,108 +143,9 @@ namespace Items
         private void Update()
         {
             GrowthCheck();
-            ReproductionCheck();
             FruitCheck();
         }
-        
-        // public FarmingTask.CutPlant CreateCutPlantTask(bool autoAssign = true)
-        // {
-        //     if (_queuedToCut)
-        //     {
-        //         CancelCutPlantTask();
-        //         return null;
-        //     }
-        //     
-        //     CancelTasks();
-        //     _queuedToCut = true;
-        //     //SetIcon("Scythe");
-        //
-        //     var task = new FarmingTask.CutPlant()
-        //     {
-        //         TargetUID = UniqueId,
-        //         claimPlant = (UnitTaskAI unitTaskAI) =>
-        //         {
-        //             //PendingTask = TaskType.None;
-        //             _incomingUnit = unitTaskAI;
-        //         },
-        //         plantPosition = transform.position,
-        //         workAmount = _growingResourceData.GetWorkToCut(_growthIndex),
-        //         completeWork = CutDownPlant
-        //     };
-        //
-        //     //PendingTask = TaskType.CutPlant;
-        //     var taskHash = task.GetHashCode();
-        //     _assignedTaskRefs.Add(taskHash);
-        //
-        //     if (autoAssign)
-        //     {
-        //         taskMaster.FarmingTaskSystem.AddTask(task);
-        //     }
-        //
-        //     RefreshSelection();
-        //
-        //     return task;
-        // }
-
-        // public void CancelCutPlantTask()
-        // {
-        //     _queuedToCut = false;
-        //     //SetIcon(null);
-        //     //CancelTasks();
-        // }
-
-        // public FarmingTask.HarvestFruit CreateHarvestFruitTask(bool autoAssign = true)
-        // {
-        //     if (_queuedToHarvest)
-        //     {
-        //         CancelHarvestFruitTask();
-        //         return null;
-        //     }
-        //     
-        //     CancelTasks();
-        //     _queuedToHarvest = true;
-        //     //SetIcon("Scythe");
-        //     
-        //     // Choose a random side of the tree
-        //     var sideMod = 1;
-        //     var rand = Random.Range(0, 2);
-        //     if (rand == 1)
-        //     {
-        //         sideMod *= -1;
-        //     }
-        //
-        //     var cutPos = transform.position;
-        //     cutPos.x += sideMod;
-        //
-        //     var task = new FarmingTask.HarvestFruit()
-        //     {
-        //         TargetUID = UniqueId,
-        //         claimPlant = (UnitTaskAI unitTaskAI) =>
-        //         {
-        //             _incomingUnit = unitTaskAI;
-        //         },
-        //         plantPosition = cutPos,
-        //         workAmount = _growingResourceData.WorkToHarvest,
-        //         completeWork = HarvestFruit
-        //     };
-        //     _assignedTaskRefs.Add(task.GetHashCode());
-        //
-        //     if (autoAssign)
-        //     {
-        //         taskMaster.FarmingTaskSystem.AddTask(task);
-        //     }
-        //     
-        //     RefreshSelection();
-        //     return task;
-        // }
-
-        // public void CancelHarvestFruitTask()
-        // {
-        //     _queuedToHarvest = false;
-        //     //SetIcon(null);
-        //     //CancelTasks();
-        // }
-        
+  
         public void CutDownPlant()
         {
             var resources = _growingResourceData.GetGrowthStage(_growthIndex).HarvestableItems.GetItemDrop();
@@ -307,13 +177,6 @@ namespace Items
             
             Destroy(gameObject);
         }
-
-        // public override void CancelTasks()
-        // {
-        //     base.CancelTasks();
-        //
-        //     _queuedToHarvest = false;
-        // }
         
         public override List<Order> GetOrders()
         {
@@ -327,42 +190,12 @@ namespace Items
 
             return results;
         }
-
-        // public override bool IsOrderActive(Order order)
-        // {
-        //     switch (order)
-        //     {
-        //         case Order.CutPlant:
-        //             return _queuedToCut;
-        //         case Order.Harvest:
-        //             return _queuedToHarvest;
-        //         default:
-        //             throw new ArgumentOutOfRangeException(nameof(order), order, null);
-        //     }
-        // }
         
         public override int GetWorkAmount()
         {
             return _growingResourceData.GetWorkToCut(_growthIndex);
         }
-        
-
-
-        // protected override void RestorePendingTask(TaskType pendingTask)
-        // {
-        //     base.RestorePendingTask(pendingTask);
-        //
-        //     if (pendingTask == TaskType.CutPlant)
-        //     {
-        //         CreateCutPlantTask();
-        //     }
-        //
-        //     if (pendingTask == TaskType.HarvestFruit)
-        //     {
-        //         CreateHarvestFruitTask();
-        //     }
-        // }
-
+     
         public override object CaptureState()
         {
             var resourceData = (Data)base.CaptureState();
@@ -372,7 +205,6 @@ namespace Items
                 AgeSec = _ageSec,
                 AgeForNextGrowth = _ageForNextGrowth,
                 FullyGrown = _fullyGrown,
-                ReproductionTimer = _reproductionTimer,
                 FruitTimer = _fruitTimer,
                 HasFruitAvailable = _hasFruitAvailable,
                 RemainingWork = _remainingWork,
@@ -392,7 +224,6 @@ namespace Items
             _ageSec = growingData.AgeSec;
             _ageForNextGrowth = growingData.AgeForNextGrowth;
             _fullyGrown = growingData.FullyGrown;
-            _reproductionTimer = growingData.ReproductionTimer;
             _fruitTimer = growingData.FruitTimer;
             _hasFruitAvailable = growingData.HasFruitAvailable;
             _remainingWork = growingData.RemainingWork;
@@ -406,7 +237,6 @@ namespace Items
             public float AgeSec;
             public float AgeForNextGrowth;
             public bool FullyGrown;
-            public float ReproductionTimer;
             public float FruitTimer;
             public bool HasFruitAvailable;
             public float RemainingWork;

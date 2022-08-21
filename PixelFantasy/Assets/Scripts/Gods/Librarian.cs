@@ -18,6 +18,7 @@ namespace Gods
         [SerializeField] private List<SpriteRef> _orderIcons;
         [SerializeField] private List<CropData> _cropLibrary;
         [SerializeField] private List<ActionBase> _actions;
+        [SerializeField] private List<GrowingResourceData> _growingResourceLibrary;
 
         public Color GetColour(string colourName)
         {
@@ -97,6 +98,11 @@ namespace Gods
         public ActionBase GetAction(string actionId)
         {
             return _actions.Find(i => i.id == actionId);
+        }
+
+        public GrowingResourceData GetGrowingResourceData(string resourceName)
+        {
+            return _growingResourceLibrary.Find(i => i.ResourceName == resourceName);
         }
     }
 

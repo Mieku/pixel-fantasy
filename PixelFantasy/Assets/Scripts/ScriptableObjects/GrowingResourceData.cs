@@ -4,7 +4,6 @@ using Actions;
 using Items;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace ScriptableObjects
 {
@@ -12,11 +11,7 @@ namespace ScriptableObjects
     public class GrowingResourceData : ScriptableObject
     {
         public string ResourceName;
-
-        [SerializeField] private bool _reproduces;
-        [SerializeField] private float _reproductiveRateSec;
-        [SerializeField] private float _childRangeMin, _childRangeMax;
-        [Tooltip("Don't grow next to invalid")][SerializeField] private bool _keepSpace;
+        
         [SerializeField] private List<GrowthStage> _growthStages;
         [SerializeField] private List<string> _invalidPlacementTags;
         [SerializeField] private List<ActionBase> _availableActions;
@@ -31,57 +26,6 @@ namespace ScriptableObjects
 
         public List<ActionBase> AvailableActions => _availableActions;
         
-        public Vector2 GetReproductionPos(Vector2 parentPos)
-        {
-            var distance = Random.Range(_childRangeMin, _childRangeMax);
-            
-            var angle = Random.Range(0f, 360f);
-            // convert to rads
-            angle = angle * Mathf.PI / 180;
-
-            var yPos = Mathf.Sin(angle) * distance;
-            var xPos = Mathf.Cos(angle) * distance;
-
-            Vector2 result = Helper.ConvertMousePosToGridPos(new Vector2(xPos + parentPos.x, yPos + parentPos.y));
-            return result;
-        }
-
-        public bool IsReproductionPosValid(Vector2 pos)
-        {
-            List<Vector2> allPos = new List<Vector2>
-            {
-                pos
-            };
-
-            if (_keepSpace)
-            {
-                allPos = new List<Vector2>
-                {
-                    new Vector2(pos.x + 1, pos.y),
-                    new Vector2(pos.x - 1, pos.y),
-                    new Vector2(pos.x, pos.y + 1),
-                    new Vector2(pos.x, pos.y - 1),
-                    new Vector2(pos.x + 1, pos.y + 1),
-                    new Vector2(pos.x - 1, pos.y + 1),
-                    new Vector2(pos.x + 1, pos.y - 1),
-                    new Vector2(pos.x - 1, pos.y - 1)
-                };
-            }
-
-            foreach (var posToCheck in allPos)
-            {
-                if (!Helper.IsGridPosValidToBuild(posToCheck, _invalidPlacementTags))
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-        
-        public bool Reproduces => _reproduces;
-        public float ReproductiveRateSec => _reproductiveRateSec;
-
         public List<GrowthStage> GrowthStages
         {
             get

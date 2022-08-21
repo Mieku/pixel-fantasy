@@ -8,24 +8,15 @@ namespace Gods
     public class UIDManager : God<UIDManager>
     {
         private Dictionary<string, GameObject> _uidDictionary = new Dictionary<string, GameObject>();
-
-        private void Awake()
-        {
-            //_uidDictionary = new Dictionary<string, GameObject>();
-        }
-
+        
         public void AddUID(UID uid)
         {
-            //_uidDictionary ??= new Dictionary<string, GameObject>();
-
             if (_uidDictionary.ContainsKey(uid.uniqueID))
             {
-                Debug.Log($"Replacing {uid.uniqueID}");
                 _uidDictionary[uid.uniqueID] = uid.gameObject;
             }
             else
             {
-                Debug.Log($"Adding {uid.uniqueID}");
                 _uidDictionary.Add(uid.uniqueID, uid.gameObject);
             }
         }
