@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using Characters;
 using Controllers;
 using Gods;
 using Interfaces;
 using Items;
+using Popups;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace HUD
 {
@@ -15,27 +18,73 @@ namespace HUD
         [SerializeField] private TextMeshProUGUI _detailsGeneric;
         [SerializeField] private GameObject _genericPanel;
         [SerializeField] private GameObject _unitPanel;
+
+        [Header("Kinling Details")] 
+        [SerializeField] private TextMeshProUGUI _unitName;
+        [SerializeField] private TextMeshProUGUI _currentAction;
+        [SerializeField] private Image _jobIcon;
+        [SerializeField] private TextMeshProUGUI _jobName;
+        [SerializeField] private Image _jobBarFill;
         
         private SelectionData _selectionData;
+        private Unit _unit;
 
-        //[SerializeField] private GameObject _optionButtonPrefab;
-        //[SerializeField] private Transform _optionBtnParent;
-        //private List<OptionButton> _displayedOptions = new List<OptionButton>();
-        
+        private bool _showUnitData;
+
+        private void Start()
+        {
+            HideItemDetails();
+        }
+
+        public void ShowUnitDetails(Unit unit)
+        {
+            _unit = unit;
+            
+            _genericPanel.SetActive(false);
+            _unitPanel.SetActive(true);
+
+            _showUnitData = true;
+        }
+
+        private void Update()
+        {
+            if(_showUnitData && _unit != null)
+            {
+                RefreshUnitDetails(_unit);
+            }
+        }
+
+        private void RefreshUnitDetails(Unit unit)
+        {
+            _unitName.text = unit.GetUnitState().FullName;
+
+            var curAction = unit.GetCurrentAction();
+            if (curAction == null)
+            {
+                _currentAction.text = "Idle";
+            }
+            else
+            {
+                _currentAction.text = curAction.Details;
+            }
+        }
+
         public void ShowItemDetails(SelectionData selectionData)
         {
-            //ClearOptions();
+            _showUnitData = false;
             _selectionData = selectionData;
             RefreshDetails();
             _genericPanel.SetActive(true);
+            _unitPanel.SetActive(false);
             HUDOrders.Instance.DisplayOrders(selectionData);
-            //CreateOptions();
         }
 
         public void HideItemDetails()
         {
+            _showUnitData = false;
             _selectionData = null;
             _genericPanel.SetActive(false);
+            _unitPanel.SetActive(false);
             HUDOrders.Instance.HideOrders();
         }
 
@@ -44,182 +93,9 @@ namespace HUD
             _selectedItemNameGeneric.text = _selectionData.ItemName;
         }
 
-        // private void ClearOptions()
-        // {
-        //     foreach (var optionButton in _displayedOptions)
-        //     {
-        //         Destroy(optionButton.gameObject);
-        //     }
-        //     _displayedOptions.Clear();
-        // }
-
-        // private void RefreshOptions()
-        // {
-        //     ClearOptions();
-        //     CreateOptions();
-        // }
-
-        // private void CreateOptions()
-        // {
-        //     foreach (var option in _selectionData.Options)
-        //     {
-        //         switch (option)
-        //         {
-        //             case Option.Allow:
-        //                 CreateAllowOption();
-        //                 break;
-        //             case Option.Deconstruct:
-        //                 CreateDeconstructOption();
-        //                 break;
-        //             case Option.CutTree:
-        //                 CreateCutTreeOption();
-        //                 break;
-        //             case Option.CutPlant:
-        //                 CreateCutPlantOption();
-        //                 break;
-        //             case Option.HarvestFruit:
-        //                 CreateHarvestFruitOption();
-        //                 break;
-        //             default:
-        //                 throw new ArgumentOutOfRangeException();
-        //         }
-        //     }
-        // }
-
-
-
-        // private void CreateDeconstructOption()
-        // {
-        //     // If the structure is already build, deconstruct. If not, cancel!
-        //     var optionObj = Instantiate(_optionButtonPrefab, _optionBtnParent);
-        //     var optionBtn = optionObj.GetComponent<OptionButton>();
-        //     
-        //     var owner = _selectionData.Owner;
-        //     
-        //     // Structure
-        //     var structure = owner.GetComponent<Structure>();
-        //     if (structure != null)
-        //     {
-        //         if (structure.IsBuilt())
-        //         {
-        //             if (!structure.IsDeconstucting())
-        //             {
-        //                 optionBtn.Init("Deconstruct", Librarian.Instance.GetSprite("Hammer"), DeconstructPressed);
-        //             }
-        //             else
-        //             {
-        //                 optionBtn.Init("Cancel", Librarian.Instance.GetSprite("X"), CancelDeconstructPressed);
-        //             }
-        //         }
-        //         else
-        //         {
-        //             // Cancel
-        //             optionBtn.Init("Cancel", Librarian.Instance.GetSprite("X"), CancelConstructionPressed);
-        //         }
-        //     }
-        //     
-        //     // Floor
-        //     var floor = owner.GetComponent<Floor>();
-        //     if (floor != null)
-        //     {
-        //         optionBtn.Init("Cancel", Librarian.Instance.GetSprite("X"), CancelConstructionPressed);
-        //     }
-        //     
-        //     _displayedOptions.Add(optionBtn);
-        // }
-
-        // private void DeconstructPressed(OptionButton optionButton)
-        // {
-        //     var owner = _selectionData.Owner;
-        //     var structure = owner.GetComponent<Structure>();
-        //     if (structure != null)
-        //     {
-        //         structure.CreateDeconstructionTask();
-        //         ClearOptions();
-        //         CreateOptions();
-        //     }
-        // }
-
-        // private void CancelDeconstructPressed(OptionButton optionButton)
-        // {
-        //     var owner = _selectionData.Owner;
-        //     var structure = owner.GetComponent<Structure>();
-        //     if (structure != null)
-        //     {
-        //         structure.CancelDeconstruction();
-        //         ClearOptions();
-        //         CreateOptions();
-        //     }
-        // }
-
-        // private void CancelConstructionPressed(OptionButton optionButton)
-        // {
-        //     var owner = _selectionData.Owner;
-        //     var structure = owner.GetComponent<Structure>();
-        //     if (structure != null)
-        //     {
-        //         structure.CancelConstruction();
-        //         HideItemDetails();
-        //     }
-        //     
-        //     var floor = owner.GetComponent<Floor>();
-        //     if (floor != null)
-        //     {
-        //         floor.CancelConstruction();
-        //         HideItemDetails();
-        //     }
-        // }
-
-
-
-        // private void CreateCutPlantOption()
-        // {
-        //     Sprite icon = Librarian.Instance.GetSprite("Scythe");
-        //     
-        //     var optionObj = Instantiate(_optionButtonPrefab, _optionBtnParent);
-        //     var optionBtn = optionObj.GetComponent<OptionButton>();
-        //     var owner = _selectionData.Owner;
-        //     var plant = owner.GetComponent<GrowingResource>();
-        //
-        //     if (plant != null)
-        //     {
-        //         if (plant.QueuedToCut)
-        //         {
-        //             optionBtn.Init("Cut Plant", "X", CancelCutPlantOptionPressed);
-        //         }
-        //         else
-        //         {
-        //             optionBtn.Init("Cut Plant", icon, CutPlantOptionPressed);
-        //         }
-        //     }
-        //
-        //     _displayedOptions.Add(optionBtn);
-        // }
-        
-        // private void CutPlantOptionPressed(OptionButton optionButton)
-        // {
-        //     var owner = _selectionData.Owner;
-        //     var plant = owner.GetComponent<GrowingResource>();
-        //     if (plant != null)
-        //     {
-        //         plant.CreateCutPlantTask();
-        //         RefreshOptions();
-        //     }
-        // }
-        
-        // private void CancelCutPlantOptionPressed(OptionButton optionButton)
-        // {
-        //     var owner = _selectionData.Owner;
-        //     var plant = owner.GetComponent<GrowingResource>();
-        //     if (plant != null)
-        //     {
-        //         plant.CancelCutPlantTask();
-        //         RefreshOptions();
-        //     }
-        // }
-
-
-
-
+        public void ShowKinlingInfoPopupPressed()
+        {
+            KinlingInfoPopup.Show(_unit);
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Actions;
+using Characters;
 using Controllers;
 using Interfaces;
 using Items;
@@ -24,6 +25,7 @@ public class ClickObject : MonoBehaviour
     private GrowingResourceData _growingResourceData;
     private FloorData _floorData;
     private FurnitureData _furnitureData;
+    private Unit _unit;
     private bool _isMouseOver;
 
     private IClickableObject _clickableObject; // Cache
@@ -57,8 +59,7 @@ public class ClickObject : MonoBehaviour
                 _structureData = GetComponent<Construction>().GetConstructionData();
                 break;
             case ObjectType.Unit:
-                // TODO: Build me!
-                Debug.LogError("Unit select not built yet!");
+                _unit = GetComponent<Unit>();
                 break;
             case ObjectType.Resource:
                 _growingResourceData = GetComponent<Resource>().GetResourceData();
@@ -190,8 +191,15 @@ public class ClickObject : MonoBehaviour
         
         if (PlayerInputController.Instance.GetCurrentState() == PlayerInputState.None)
         {
-            SelectionData data = GetSelectionData();
-            PlayerInputController.Instance.SelectObject(this, data);
+            if (_objectType == ObjectType.Unit)
+            {
+                PlayerInputController.Instance.SelectUnit(this, _unit);
+            }
+            else
+            {
+                SelectionData data = GetSelectionData();
+                PlayerInputController.Instance.SelectObject(this, data);
+            }
         }
     }
 
@@ -203,9 +211,6 @@ public class ClickObject : MonoBehaviour
                 return GetSelectionData(_itemData);
             case ObjectType.Structure:
                 return GetSelectionData(_structureData);
-            case ObjectType.Unit:
-                // TODO: Build me!
-                return null;
             case ObjectType.Resource:
                 return GetSelectionData(_growingResourceData);
             case ObjectType.Floor:

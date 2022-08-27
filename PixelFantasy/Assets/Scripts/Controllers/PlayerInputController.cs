@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Characters;
 using CodeMonkey.Utils;
 using Gods;
 using UnityEngine;
@@ -19,6 +20,23 @@ namespace Controllers
         {
             DetectMouseInput();
             DetectKeyboardInput();
+        }
+
+        public void SelectUnit(ClickObject clickObject, Unit unit)
+        {
+            if (_curSelectedObject != null)
+            {
+                _curSelectedObject.UnselectObject();
+                HUDController.Instance.HideItemDetails();
+            }
+            
+            _curSelectedObject = clickObject;
+            
+            if (_curSelectedObject != null)
+            {
+                _curSelectedObject.SelectObject();
+                HUDController.Instance.ShowUnitDetails(unit);
+            }
         }
 
         public void SelectObject(ClickObject clickObject, SelectionData selectionData = null)

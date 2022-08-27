@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: Harvest Crop
   Icon: {fileID: 21300000, guid: d7d76457bfb4bfb46a854054ece86e92, type: 3}
+  Details: Harvesting Crop

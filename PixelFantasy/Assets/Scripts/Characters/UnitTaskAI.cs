@@ -315,6 +315,9 @@ namespace Characters
         public StorageSlot claimedSlot;
         private void ExecuteTask_TakeItemToItemSlot(HaulingTask.TakeItemToItemSlot task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
             task.claimItemSlot(this);
             workerMover.SetMovePosition(task.itemPosition, () =>
             {
@@ -348,6 +351,9 @@ namespace Characters
 
         private void ExecuteTask_ConstructStructure(ConstructionTask.ConstructStructure task)
         {
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
             workerMover.SetMovePosition(GetAdjacentPosition(task.structurePosition), () =>
             {
                 _unitAnim.LookAtPostion(task.structurePosition);

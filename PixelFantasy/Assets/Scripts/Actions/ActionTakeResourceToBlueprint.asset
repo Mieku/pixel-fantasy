@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: Take Resource To Blueprint
   Icon: {fileID: 0}
+  Details: Hauling To Blueprint

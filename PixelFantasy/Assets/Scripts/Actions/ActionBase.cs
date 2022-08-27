@@ -8,6 +8,7 @@ namespace Actions
     {
         public string id;
         public Sprite Icon;
+        public string Details;
 
         protected TaskMaster taskMaster => TaskMaster.Instance;
         

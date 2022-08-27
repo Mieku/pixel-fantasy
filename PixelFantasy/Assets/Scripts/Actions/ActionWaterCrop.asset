@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: Water Crop
   Icon: {fileID: 21300000, guid: 8164fb3fe37a88d4099fc758f5c34be5, type: 3}
+  Details: Watering Crop

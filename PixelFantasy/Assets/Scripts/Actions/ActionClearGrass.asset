@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: Clear Grass
   Icon: {fileID: 21300000, guid: 32dc86aa28f34cf45a23d90ee0895e08, type: 3}
+  Details: Clearing Grass

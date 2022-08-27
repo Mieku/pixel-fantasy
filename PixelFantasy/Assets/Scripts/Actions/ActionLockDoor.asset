@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: Lock Door
   Icon: {fileID: 21300000, guid: 1458a730b4433944e94e3530e82b29ce, type: 3}
+  Details: Locking Door

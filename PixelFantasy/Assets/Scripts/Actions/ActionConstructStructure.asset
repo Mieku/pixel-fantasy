@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: Construct Structure
   Icon: {fileID: 0}
+  Details: Building Structure

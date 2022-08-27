@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Characters;
 using Gods;
 using HUD;
 using UnityEngine;
@@ -27,6 +28,11 @@ namespace Controllers
         private void Start()
         {
             RefreshSpeedDisplay();
+        }
+
+        public void ShowUnitDetails(Unit unit)
+        {
+            _selectedItemInfoPanel.ShowUnitDetails(unit);
         }
 
         public void ShowItemDetails(SelectionData selectionData)
