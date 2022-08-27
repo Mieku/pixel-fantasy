@@ -13,15 +13,10 @@ MonoBehaviour:
   m_Name: Spruce
   m_EditorClassIdentifier: 
   ResourceName: Spruce
-  _reproduces: 1
-  _reproductiveRateSec: 60
-  _childRangeMin: 2
-  _childRangeMax: 5
-  _keepSpace: 1
   _growthStages:
   - StageName: Sapling
-    GrowthSprite: {fileID: 21300000, guid: 0669b6defaeb36f4fb13b0c77836a30d, type: 3}
-    Scale: 0.2
+    GrowthSprite: {fileID: 21300000, guid: 848c8a290210208458a065fe90d72377, type: 3}
+    Scale: 1
     SecsInStage: 30
     HarvestableItems:
       _harvestableItems:

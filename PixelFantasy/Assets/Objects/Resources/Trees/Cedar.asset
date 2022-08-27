@@ -13,15 +13,10 @@ MonoBehaviour:
   m_Name: Cedar
   m_EditorClassIdentifier: 
   ResourceName: Cedar
-  _reproduces: 1
-  _reproductiveRateSec: 60
-  _childRangeMin: 2
-  _childRangeMax: 5
-  _keepSpace: 1
   _growthStages:
   - StageName: Sapling
-    GrowthSprite: {fileID: 21300000, guid: 1b981ea2884cab84c902e3da9496b3c9, type: 3}
-    Scale: 0.2
+    GrowthSprite: {fileID: 21300000, guid: 848c8a290210208458a065fe90d72377, type: 3}
+    Scale: 1
     SecsInStage: 30
     HarvestableItems:
       _harvestableItems:

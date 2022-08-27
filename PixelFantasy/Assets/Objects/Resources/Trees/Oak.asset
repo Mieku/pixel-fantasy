@@ -13,15 +13,10 @@ MonoBehaviour:
   m_Name: Oak
   m_EditorClassIdentifier: 
   ResourceName: Oak
-  _reproduces: 1
-  _reproductiveRateSec: 60
-  _childRangeMin: 2
-  _childRangeMax: 5
-  _keepSpace: 1
   _growthStages:
   - StageName: Sapling
-    GrowthSprite: {fileID: 21300000, guid: 75dedd5215afc2a4fbb06f47f576e865, type: 3}
-    Scale: 0.2
+    GrowthSprite: {fileID: 21300000, guid: e594107e0ac22204bb5b9f8b3ffe804a, type: 3}
+    Scale: 1
     SecsInStage: 30
     HarvestableItems:
       _harvestableItems:
@@ -30,8 +25,8 @@ MonoBehaviour:
         MaxDrop: 1
     WorkToCut: 3
   - StageName: Young
-    GrowthSprite: {fileID: 21300000, guid: 75dedd5215afc2a4fbb06f47f576e865, type: 3}
-    Scale: 0.5
+    GrowthSprite: {fileID: 21300000, guid: 91d83a0ef9e8579449e8efec2b58475d, type: 3}
+    Scale: 1
     SecsInStage: 60
     HarvestableItems:
       _harvestableItems:
