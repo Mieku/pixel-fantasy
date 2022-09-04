@@ -16,12 +16,12 @@ namespace Characters
 
         public string FullName => FirstName + " " + LastName;
 
-        private float _defaultSpeed = 6f;
-        private float _defaultProductivity = 1f;
-        private float _defaultHealing = 1f;
-        private float _defaultAim = 1f;
-        private float _defaultToughness = 1f;
-        private float _defaultCombat = 1f;
+        private const float _defaultSpeed = 6f;
+        private const float _defaultProductivity = 1f;
+        private const float _defaultHealing = 1f;
+        private const float _defaultAim = 1f;
+        private const float _defaultToughness = 1f;
+        private const float _defaultCombat = 1f;
 
         public float Speed => _defaultSpeed + (_defaultSpeed * SpeedModifier);
         public float Productivity => _defaultProductivity + (_defaultProductivity * ProductivityModifier);
@@ -34,6 +34,13 @@ namespace Characters
         {
             FirstName = data.FirstName;
             LastName = data.LastName;
+
+            SpeedModifier = data.SpeedModifier;
+            ProductivityModifier = data.ProductivityModifier;
+            HealingModifier = data.HealingModifier;
+            AimModifier = data.AimModifier;
+            ToughnessModifier = data.ToughnessModifier;
+            CombatModifier = data.CombatModifier;
         }
 
         public UnitStateData GetStateData()
@@ -42,12 +49,25 @@ namespace Characters
             {
                 FirstName = FirstName,
                 LastName = LastName,
+                SpeedModifier = SpeedModifier,
+                ProductivityModifier = ProductivityModifier,
+                HealingModifier = HealingModifier,
+                AimModifier = AimModifier,
+                ToughnessModifier = ToughnessModifier,
+                CombatModifier = CombatModifier,
             };
         }
         
         public struct UnitStateData
         {
             public string FirstName, LastName;
+
+            public float SpeedModifier;
+            public float ProductivityModifier;
+            public float HealingModifier;
+            public float AimModifier;
+            public float ToughnessModifier;
+            public float CombatModifier;
         }
     }
 }
