@@ -13,23 +13,24 @@ namespace Characters
         private Action onReachedMovePosition;
         private bool reachedDestination;
         private Vector3 _movePosition;
-
-        private float defaultSpeed;
+        private UnitState _unitState;
+        
         private float defaultSlowdownDist;
 
         private void Awake()
         {
             aiPath = GetComponent<AIPath>();
+            _unitState = GetComponent<UnitState>();
             charAnimController = GetComponent<ICharacterAnimController>();
 
-            defaultSpeed = aiPath.maxSpeed;
             defaultSlowdownDist = aiPath.slowdownDistance;
+            OnSpeedUpdated();
         }
        
         private void OnSpeedUpdated()
         {
             var speedMod = TimeManager.Instance.GameSpeedMod;
-            aiPath.maxSpeed = defaultSpeed * speedMod;
+            aiPath.maxSpeed = _unitState.Speed * speedMod;
             aiPath.slowdownDistance = defaultSlowdownDist * speedMod;
         }
 

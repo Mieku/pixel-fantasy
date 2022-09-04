@@ -91,4 +91,11 @@ public class GameEvents : MonoBehaviour
     {
         if (OnGameSpeedChanged != null) OnGameSpeedChanged(speedMod);
     }
+
+    public static event Action<string> OnUnitStatsChanged;
+
+    public static void Trigger_OnUnitStatsChanged(string unitUID)
+    {
+        if (OnUnitStatsChanged != null) OnUnitStatsChanged(unitUID);
+    }
 }

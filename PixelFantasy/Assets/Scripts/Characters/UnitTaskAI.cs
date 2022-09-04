@@ -18,14 +18,14 @@ namespace Characters
         [SerializeField] private ProfessionData professionData;
         [SerializeField] private UnitAnimController _unitAnim;
         [SerializeField] private GameObject _itemPrefab;
-
-        // TODO: Move these values into a stats class
-        public float WorkSpeed = 2f;
-        public float WorkAmount = 1f;
+        
+        public float WorkSpeed = 1f;
 
         private Action<float> _onWork;
         private Action _onWorkCompleted;
         private bool _isDoingWork;
+        private UnitState _unitState;
+        private float _unitProductivity;
         
         public enum State
         {
@@ -57,11 +57,15 @@ namespace Characters
         {
             workerMover = GetComponent<IMovePosition>();
             thought = GetComponent<UnitThought>();
-
+            _unitState = GetComponent<UnitState>();
+            
+            _unitProductivity = _unitState.Productivity;
+            
             GameEvents.OnSavingGameBeginning += OnGameSaveStarted;
             GameEvents.OnSavingGameEnd += OnGameSaveEnded;
             GameEvents.OnLoadingGameBeginning += OnGameLoadStarted;
             GameEvents.OnLoadingGameEnd += OnGameLoadEnded;
+            GameEvents.OnUnitStatsChanged += OnUnitStatsChanged;
         }
 
         private void OnDestroy()
@@ -70,6 +74,15 @@ namespace Characters
             GameEvents.OnSavingGameEnd -= OnGameSaveEnded;
             GameEvents.OnLoadingGameBeginning -= OnGameLoadStarted;
             GameEvents.OnLoadingGameEnd -= OnGameLoadEnded;
+            GameEvents.OnUnitStatsChanged -= OnUnitStatsChanged;
+        }
+
+        private void OnUnitStatsChanged(string unitUID)
+        {
+            if (unitUID.Equals(GetComponent<UID>().uniqueID))
+            {
+                _unitProductivity = _unitState.Productivity;
+            }
         }
 
         private void OnGameLoadStarted()
@@ -661,7 +674,7 @@ namespace Characters
             if (_workTimer >= WorkSpeed)
             {
                 _workTimer = 0;
-                _onWork.Invoke(WorkAmount);
+                _onWork.Invoke(_unitProductivity);
             }
         }
         

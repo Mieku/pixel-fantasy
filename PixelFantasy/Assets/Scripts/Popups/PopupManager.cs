@@ -78,7 +78,6 @@ namespace Popups
             
             if(popup.RequestQueue.Count > 0)
             {
-                Debug.Log("Doing Queued popup");
                 System.Action action = popup.RequestQueue.Dequeue();
                 if(action != null)
                 {
@@ -87,7 +86,6 @@ namespace Popups
             }
             else
             {
-                Debug.Log("Destroying Popup");
                 _popupStack.Remove(popup); 
                 Destroy(popup.gameObject);
                 
