@@ -111,7 +111,6 @@ namespace Controllers
 
         public void RemoveFromInventory(ItemData itemData, int quantity)
         {
-            Debug.Log($"Removing {itemData.name} from inventory");
             if (_inventory.ContainsKey(itemData))
             {
                 _inventory[itemData] -= quantity;

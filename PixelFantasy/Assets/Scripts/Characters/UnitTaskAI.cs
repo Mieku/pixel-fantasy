@@ -371,12 +371,17 @@ namespace Characters
             {
                 _unitAnim.LookAtPostion(task.structurePosition);
                 _unitAnim.SetUnitAction(UnitAction.Building);
-                DoWork(task.workAmount, () =>
+                DoingWork((WorkAmount ) =>
                 {
-                    task.completeWork();
-                    state = State.WaitingForNextTask;
-                    _unitAnim.SetUnitAction(UnitAction.Nothing);
-                    ClearAction();
+                    task.OnWork(WorkAmount, () =>
+                    {
+                        // Work is complete
+                        _isDoingWork = false;
+                        task.OnCompleteTask();
+                        state = State.WaitingForNextTask;
+                        _unitAnim.SetUnitAction(UnitAction.Nothing);
+                        ClearAction();
+                    });
                 });
             });
         }
@@ -391,12 +396,17 @@ namespace Characters
             {
                 _unitAnim.LookAtPostion(task.structurePosition);
                 _unitAnim.SetUnitAction(UnitAction.Building);
-                DoWork(task.workAmount, () =>
+                DoingWork((WorkAmount ) =>
                 {
-                    task.OnCompleteTask();
-                    state = State.WaitingForNextTask;
-                    _unitAnim.SetUnitAction(UnitAction.Nothing);
-                    ClearAction();
+                    task.OnWork(WorkAmount, () =>
+                    {
+                        // Work is complete
+                        _isDoingWork = false;
+                        task.OnCompleteTask();
+                        state = State.WaitingForNextTask;
+                        _unitAnim.SetUnitAction(UnitAction.Nothing);
+                        ClearAction();
+                    });
                 });
             });
         }
@@ -436,12 +446,17 @@ namespace Characters
             {
                 _unitAnim.LookAtPostion(task.mountainPosition);
                 _unitAnim.SetUnitAction(UnitAction.Mining);
-                DoWork(task.workAmount, () =>
+                DoingWork((WorkAmount ) =>
                 {
-                    task.OnCompleteTask();
-                    state = State.WaitingForNextTask;
-                    _unitAnim.SetUnitAction(UnitAction.Nothing);
-                    ClearAction();
+                    task.OnWork(WorkAmount, () =>
+                    {
+                        // Work is complete
+                        _isDoingWork = false;
+                        task.OnCompleteTask();
+                        state = State.WaitingForNextTask;
+                        _unitAnim.SetUnitAction(UnitAction.Nothing);
+                        ClearAction();
+                    });
                 });
             });
         }
@@ -456,12 +471,17 @@ namespace Characters
             {
                 _unitAnim.LookAtPostion(task.plantPosition);
                 _unitAnim.SetUnitAction(UnitAction.Doing);
-                DoWork(task.workAmount, () =>
+                DoingWork((WorkAmount ) =>
                 {
-                    task.OnCompleteTask();
-                    state = State.WaitingForNextTask;
-                    _unitAnim.SetUnitAction(UnitAction.Nothing);
-                    ClearAction();
+                    task.OnWork(WorkAmount, () =>
+                    {
+                        // Work is complete
+                        _isDoingWork = false;
+                        task.OnCompleteTask();
+                        state = State.WaitingForNextTask;
+                        _unitAnim.SetUnitAction(UnitAction.Nothing);
+                        ClearAction();
+                    });
                 });
             });
         }
@@ -476,12 +496,17 @@ namespace Characters
             {
                 _unitAnim.LookAtPostion(task.plantPosition);
                 _unitAnim.SetUnitAction(UnitAction.Doing);
-                DoWork(task.workAmount, () =>
+                DoingWork((WorkAmount ) =>
                 {
-                    task.OnCompleteTask();
-                    state = State.WaitingForNextTask;
-                    _unitAnim.SetUnitAction(UnitAction.Nothing);
-                    ClearAction();
+                    task.OnWork(WorkAmount, () =>
+                    {
+                        // Work is complete
+                        _isDoingWork = false;
+                        task.OnCompleteTask();
+                        state = State.WaitingForNextTask;
+                        _unitAnim.SetUnitAction(UnitAction.Nothing);
+                        ClearAction();
+                    });
                 });
             });
         }
@@ -496,12 +521,17 @@ namespace Characters
             {
                 _unitAnim.LookAtPostion(task.grassPosition);
                 _unitAnim.SetUnitAction(UnitAction.Digging);
-                DoWork(task.workAmount, () =>
+                DoingWork((WorkAmount ) =>
                 {
-                    task.OnCompleteTask();
-                    state = State.WaitingForNextTask;
-                    _unitAnim.SetUnitAction(UnitAction.Nothing);
-                    ClearAction();
+                    task.OnWork(WorkAmount, () =>
+                    {
+                        // Work is complete
+                        _isDoingWork = false;
+                        task.OnCompleteTask();
+                        state = State.WaitingForNextTask;
+                        _unitAnim.SetUnitAction(UnitAction.Nothing);
+                        ClearAction();
+                    });
                 });
             });
         }
@@ -516,12 +546,17 @@ namespace Characters
             {
                 _unitAnim.LookAtPostion(task.holePosition);
                 _unitAnim.SetUnitAction(UnitAction.Digging);
-                DoWork(task.workAmount, () =>
+                DoingWork((WorkAmount ) =>
                 {
-                    task.OnCompleteTask();
-                    state = State.WaitingForNextTask;
-                    _unitAnim.SetUnitAction(UnitAction.Nothing);
-                    ClearAction();
+                    task.OnWork(WorkAmount, () =>
+                    {
+                        // Work is complete
+                        _isDoingWork = false;
+                        task.OnCompleteTask();
+                        state = State.WaitingForNextTask;
+                        _unitAnim.SetUnitAction(UnitAction.Nothing);
+                        ClearAction();
+                    });
                 });
             });
         }
@@ -536,12 +571,17 @@ namespace Characters
             {
                 _unitAnim.LookAtPostion(task.holePosition);
                 _unitAnim.SetUnitAction(UnitAction.Doing);
-                DoWork(task.workAmount, () =>
+                DoingWork((WorkAmount ) =>
                 {
-                    task.OnCompleteTask();
-                    state = State.WaitingForNextTask;
-                    _unitAnim.SetUnitAction(UnitAction.Nothing);
-                    ClearAction();
+                    task.OnWork(WorkAmount, () =>
+                    {
+                        // Work is complete
+                        _isDoingWork = false;
+                        task.OnCompleteTask();
+                        state = State.WaitingForNextTask;
+                        _unitAnim.SetUnitAction(UnitAction.Nothing);
+                        ClearAction();
+                    });
                 });
             });
         }
@@ -556,12 +596,17 @@ namespace Characters
             {
                 _unitAnim.LookAtPostion(task.cropPosition);
                 _unitAnim.SetUnitAction(UnitAction.Watering);
-                DoWork(task.workAmount, () =>
+                DoingWork((WorkAmount ) =>
                 {
-                    task.OnCompleteTask();
-                    state = State.WaitingForNextTask;
-                    _unitAnim.SetUnitAction(UnitAction.Nothing);
-                    ClearAction();
+                    task.OnWork(WorkAmount, () =>
+                    {
+                        // Work is complete
+                        _isDoingWork = false;
+                        task.OnCompleteTask();
+                        state = State.WaitingForNextTask;
+                        _unitAnim.SetUnitAction(UnitAction.Nothing);
+                        ClearAction();
+                    });
                 });
             });
         }
@@ -576,12 +621,17 @@ namespace Characters
             {
                 _unitAnim.LookAtPostion(task.cropPosition);
                 _unitAnim.SetUnitAction(UnitAction.Digging);
-                DoWork(task.workAmount, () =>
+                DoingWork((WorkAmount ) =>
                 {
-                    task.OnCompleteTask();
-                    state = State.WaitingForNextTask;
-                    _unitAnim.SetUnitAction(UnitAction.Nothing);
-                    ClearAction();
+                    task.OnWork(WorkAmount, () =>
+                    {
+                        // Work is complete
+                        _isDoingWork = false;
+                        task.OnCompleteTask();
+                        state = State.WaitingForNextTask;
+                        _unitAnim.SetUnitAction(UnitAction.Nothing);
+                        ClearAction();
+                    });
                 });
             });
         }
@@ -595,12 +645,17 @@ namespace Characters
             {
                 _unitAnim.LookAtPostion(task.craftPosition);
                 _unitAnim.SetUnitAction(UnitAction.Doing);
-                DoWork(task.workAmount, () =>
+                DoingWork((WorkAmount ) =>
                 {
-                    task.completeWork();
-                    state = State.WaitingForNextTask;
-                    _unitAnim.SetUnitAction(UnitAction.Nothing);
-                    ClearAction();
+                    task.OnWork(WorkAmount, () =>
+                    {
+                        // Work is complete
+                        _isDoingWork = false;
+                        task.OnCompleteTask();
+                        state = State.WaitingForNextTask;
+                        _unitAnim.SetUnitAction(UnitAction.Nothing);
+                        ClearAction();
+                    });
                 });
             });
         }
@@ -623,22 +678,7 @@ namespace Characters
         }
 
         #endregion
-
-        private void DoWork(float workAmount, Action onWorkComplete)
-        {
-            // TODO: Change this do toggle doing work based on the unit's work speed and work amount
-            _onWorkComplete = onWorkComplete;
-            StartCoroutine(WorkSequence(workAmount));
-        }
-
-        private IEnumerator WorkSequence(float workAmount)
-        {
-            float waitTimeS = workAmount * _workSpeed;
-            yield return new WaitForSeconds(waitTimeS);
-            
-            _onWorkComplete.Invoke();
-        }
-
+        
         public void CancelTask()
         {
             _isDoingWork = false;

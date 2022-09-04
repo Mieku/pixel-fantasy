@@ -1,3 +1,4 @@
+using System;
 using Characters;
 using Items;
 using Tasks;
@@ -20,7 +21,10 @@ namespace Actions
                     requestor.IncomingUnitUID = unitTaskAI.UniqueId;
                 },
                 cropPosition = Helper.ConvertMousePosToGridPos(requestor.transform.position),
-                workAmount = 8,
+                OnWork = (float amount, Action onWorkCompleted) =>
+                {
+                    OnWorkDone(requestor, amount, onWorkCompleted);
+                },
                 OnCompleteTask = () =>
                 {
                     OnTaskComplete(requestor);
@@ -35,12 +39,26 @@ namespace Actions
             return task;
         }
         
-        public override void OnTaskComplete(Interactable requestor)
+        public void OnTaskComplete(Interactable requestor, Action onWorkCompleted)
         {
             requestor.OnTaskCompleted(this);
             requestor.IncomingUnitUID = "";
             var crop = requestor.GetComponent<Crop>();
             crop.CropHarvested();
+            onWorkCompleted.Invoke();
+        }
+        
+        public void OnWorkDone(Interactable requestor, float amount, Action onWorkCompleted)
+        {
+            var crop = requestor.GetComponent<Crop>();
+            if (crop != null)
+            {
+                float remainingWork = crop.HarvestWorkDone(amount);
+                if (remainingWork <= 0)
+                {
+                    OnTaskComplete(requestor, onWorkCompleted);
+                }
+            }
         }
         
         public override void CancelTask(Interactable requestor)

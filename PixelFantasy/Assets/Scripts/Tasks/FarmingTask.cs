@@ -12,7 +12,7 @@ namespace Tasks
             public override TaskType TaskType => TaskType.CutPlant;
             public Action<UnitTaskAI> claimPlant;
             public Vector3 plantPosition;
-            public float workAmount;
+            public Action<float, Action> OnWork;
         }
 
         public class HarvestFruit : FarmingTask
@@ -20,7 +20,7 @@ namespace Tasks
             public override TaskType TaskType => TaskType.HarvestFruit;
             public Action<UnitTaskAI> claimPlant;
             public Vector3 plantPosition;
-            public float workAmount;
+            public Action<float, Action> OnWork;
         }
 
         public class ClearGrass : FarmingTask
@@ -28,7 +28,7 @@ namespace Tasks
             public override TaskType TaskType => TaskType.ClearGrass;
             public Action<UnitTaskAI> claimDirt;
             public Vector3 grassPosition;
-            public float workAmount;
+            public Action<float, Action> OnWork;
         }
 
         public class DigHole : FarmingTask
@@ -36,8 +36,7 @@ namespace Tasks
             public override TaskType TaskType => TaskType.DigHole;
             public Action<UnitTaskAI> claimHole;
             public Vector3 holePosition;
-            public Action completeWork;
-            public float workAmount;
+            public Action<float, Action> OnWork;
         }
 
         public class PlantCrop : FarmingTask
@@ -45,8 +44,7 @@ namespace Tasks
             public override TaskType TaskType => TaskType.PlantCrop;
             public Action<UnitTaskAI> claimHole;
             public Vector3 holePosition;
-            public Action completeWork;
-            public float workAmount;
+            public Action<float, Action> OnWork;
         }
 
         public class WaterCrop : FarmingTask
@@ -54,8 +52,7 @@ namespace Tasks
             public override TaskType TaskType => TaskType.WaterCrop;
             public Action<UnitTaskAI> claimCrop;
             public Vector3 cropPosition;
-            public Action completeWork;
-            public float workAmount;
+            public Action<float, Action> OnWork;
         }
 
         public class HarvestCrop : FarmingTask
@@ -63,8 +60,7 @@ namespace Tasks
             public override TaskType TaskType => TaskType.HarvestCrop;
             public Action<UnitTaskAI> claimCrop;
             public Vector3 cropPosition;
-            public Action completeWork;
-            public float workAmount;
+            public Action<float, Action> OnWork;
         }
     }
 }

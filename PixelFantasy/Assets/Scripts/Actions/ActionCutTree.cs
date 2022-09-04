@@ -25,7 +25,6 @@ namespace Actions
                     requestor.IncomingUnitUID = unitTaskAI.UniqueId;
                 },
                 treePosition = requestor.transform.position,
-                workAmount = requestor.GetWorkAmount(),
                 OnWork = (float amount, Action onWorkCompleted) =>
                 {
                     OnWorkDone(requestor, amount, onWorkCompleted);
@@ -56,12 +55,6 @@ namespace Actions
             growingResource.CutDownPlant();
             requestor.DisplayTaskIcon(null);
             onWorkCompleted.Invoke();
-            
-            // if (!string.IsNullOrEmpty(unitUID))
-            // {
-            //     var unitObj = UIDManager.Instance.GetGameObject(unitUID);
-            //     var unit = unitObj.GetComponent<UnitTaskAI>();
-            // }
         }
 
         public void OnWorkDone(Interactable requestor, float amount, Action onWorkCompleted)
@@ -69,7 +62,7 @@ namespace Actions
             var treeResource = requestor.GetComponent<TreeResource>();
             if (treeResource != null)
             {
-                float remainingWork = treeResource.WorkDone(amount);
+                float remainingWork = treeResource.CutWorkDone(amount);
                 if (remainingWork <= 0)
                 {
                     OnTaskComplete(requestor, onWorkCompleted);

@@ -18,13 +18,7 @@ namespace Items
 
             return results;
         }
-
-        public float WorkDone(float workAmount)
-        {
-            _remainingWork -= workAmount;
-            return _remainingWork;
-        }
-
+        
         // Triggered by animation
         public void TreeFallen()
         {

@@ -13,7 +13,6 @@ namespace Tasks
             public override TaskType TaskType => TaskType.CutTree;
             public Action<UnitTaskAI> claimTree;
             public Vector3 treePosition;
-            public float workAmount;
             public Action<float, Action> OnWork;
         }
     }

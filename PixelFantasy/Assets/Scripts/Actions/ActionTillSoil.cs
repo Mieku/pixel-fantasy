@@ -1,3 +1,4 @@
+using System;
 using Characters;
 using Items;
 using Tasks;
@@ -20,7 +21,10 @@ namespace Actions
                     requestor.IncomingUnitUID = unitTaskAI.UniqueId;
                 },
                 grassPosition = requestor.transform.position,
-                workAmount = 3,
+                OnWork = (float amount, Action onWorkCompleted) =>
+                {
+                    OnWorkDone(requestor, amount, onWorkCompleted);
+                },
                 OnCompleteTask = () =>
                 {
                     OnTaskComplete(requestor);
@@ -40,12 +44,26 @@ namespace Actions
             taskMaster.FarmingTaskSystem.CancelTask(requestor.UniqueId);
         }
         
-        public override void OnTaskComplete(Interactable requestor)
+        public void OnTaskComplete(Interactable requestor, Action onWorkCompleted)
         {
             requestor.IncomingUnitUID = "";
             requestor.OnTaskCompleted(this);
             var crop = requestor.GetComponent<Crop>();
             crop.OnDirtDug();
+            onWorkCompleted.Invoke();
+        }
+        
+        public void OnWorkDone(Interactable requestor, float amount, Action onWorkCompleted)
+        {
+            var crop = requestor.GetComponent<Crop>();
+            if (crop != null)
+            {
+                float remainingWork = crop.TillWorkDone(amount);
+                if (remainingWork <= 0)
+                {
+                    OnTaskComplete(requestor, onWorkCompleted);
+                }
+            }
         }
     }
 }

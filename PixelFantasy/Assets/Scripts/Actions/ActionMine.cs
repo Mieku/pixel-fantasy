@@ -1,3 +1,4 @@
+using System;
 using Characters;
 using Items;
 using Tasks;
@@ -22,7 +23,10 @@ namespace Actions
                     requestor.IncomingUnitUID = unitTaskAI.UniqueId;
                 },
                 mountainPosition = requestor.transform.position,
-                workAmount = requestor.GetWorkAmount(),
+                OnWork = (float amount, Action onWorkCompleted) =>
+                {
+                    OnWorkDone(requestor, amount, onWorkCompleted);
+                },
                 OnCompleteTask = () =>
                 {
                     OnTaskComplete(requestor);
@@ -42,12 +46,26 @@ namespace Actions
             taskMaster.MiningTaskSystem.CancelTask(requestor.UniqueId);
         }
 
-        public override void OnTaskComplete(Interactable requestor)
+        public void OnTaskComplete(Interactable requestor, Action onWorkCompleted)
         {
             requestor.OnTaskCompleted(this);
             var mountain = requestor.GetComponent<Mountain>();
             mountain.MineMountain();
             requestor.DisplayTaskIcon(null);
+            onWorkCompleted.Invoke();
+        }
+        
+        public void OnWorkDone(Interactable requestor, float amount, Action onWorkCompleted)
+        {
+            var mountain = requestor.GetComponent<Mountain>();
+            if (mountain != null)
+            {
+                float remainingWork = mountain.WorkDone(amount);
+                if (remainingWork <= 0)
+                {
+                    OnTaskComplete(requestor, onWorkCompleted);
+                }
+            }
         }
     }
 }

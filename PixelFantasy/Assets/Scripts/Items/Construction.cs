@@ -26,6 +26,7 @@ namespace Items
         protected UnitTaskAI _incomingUnit;
         protected bool _hasUnitIncoming;
         protected Action _onDeconstructed;
+        protected float _remainingWork;
     
         protected TaskMaster taskMaster => TaskMaster.Instance;
 
@@ -63,6 +64,17 @@ namespace Items
                 
                 _incomingUnit = value;
             }
+        }
+
+        private void Awake()
+        {
+            _remainingWork = GetWorkAmount();
+        }
+
+        public float WorkDone(float workAmount)
+        {
+            _remainingWork -= workAmount;
+            return _remainingWork;
         }
 
         public virtual void CancelConstruction()
@@ -103,7 +115,7 @@ namespace Items
         
         public virtual void CompleteConstruction()
         {
-        
+            _remainingWork = GetWorkAmount();
         }
 
         public virtual void CompleteDeconstruction()

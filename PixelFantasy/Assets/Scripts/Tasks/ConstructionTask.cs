@@ -16,8 +16,7 @@ namespace Tasks
         {
             public override TaskType TaskType => TaskType.ConstructStructure;
             public Vector3 structurePosition;
-            public Action completeWork;
-            public float workAmount;
+            public Action<float, Action> OnWork;
         }
 
         /// <summary>
@@ -31,8 +30,7 @@ namespace Tasks
             public override TaskType TaskType => TaskType.DeconstructStructure;
             public Action<UnitTaskAI> claimStructure;
             public Vector3 structurePosition;
-            public Action completeWork;
-            public float workAmount;
+            public Action<float, Action> OnWork;
         }
     }
 }

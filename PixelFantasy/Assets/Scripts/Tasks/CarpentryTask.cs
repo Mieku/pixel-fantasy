@@ -16,8 +16,7 @@ namespace Tasks
             public override TaskType TaskType => TaskType.Carpentry_CraftItem;
             public CraftingTable craftingTable;
             public Vector3 craftPosition;
-            public Action completeWork;
-            public float workAmount;
+            public Action<float, Action> OnWork;
         }
         
         public class GatherResourceForCrafting : CarpentryTask

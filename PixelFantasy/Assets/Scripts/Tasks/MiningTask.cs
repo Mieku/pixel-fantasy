@@ -12,7 +12,7 @@ namespace Tasks
             public override TaskType TaskType => TaskType.Mine;
             public Action<UnitTaskAI> claimMountain;
             public Vector3 mountainPosition;
-            public float workAmount;
+            public Action<float, Action> OnWork;
         }
     }
 }

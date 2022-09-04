@@ -1,3 +1,4 @@
+using System;
 using Characters;
 using Items;
 using Tasks;
@@ -24,7 +25,10 @@ namespace Actions
                     construction.IncomingUnit = unitTaskAI;
                 },
                 structurePosition = requestor.transform.position,
-                workAmount = construction.GetWorkPerResource(),
+                OnWork = (float amount, Action onWorkCompleted) =>
+                {
+                    OnWorkDone(requestor, amount, onWorkCompleted);
+                },
                 OnCompleteTask = () =>
                 {
                     OnTaskComplete(requestor);
@@ -39,11 +43,25 @@ namespace Actions
             return task;
         }
         
-        public override void OnTaskComplete(Interactable requestor)
+        public void OnTaskComplete(Interactable requestor, Action onWorkCompleted)
         {
             requestor.OnTaskCompleted(this);
             var construction = requestor.GetComponent<Construction>();
             construction.CompleteDeconstruction();
+            onWorkCompleted.Invoke();
+        }
+        
+        public void OnWorkDone(Interactable requestor, float amount, Action onWorkCompleted)
+        {
+            var construction = requestor.GetComponent<Construction>();
+            if (construction != null)
+            {
+                float remainingWork = construction.WorkDone(amount);
+                if (remainingWork <= 0)
+                {
+                    OnTaskComplete(requestor, onWorkCompleted);
+                }
+            }
         }
 
         public override bool IsTaskAvailable(Interactable requestor)

@@ -1,3 +1,4 @@
+using System;
 using Characters;
 using Items;
 using Tasks;
@@ -22,7 +23,10 @@ namespace Actions
                     requestor.IncomingUnitUID = unitTaskAI.UniqueId;
                 },
                 plantPosition = requestor.transform.position,
-                workAmount = requestor.GetWorkAmount(),
+                OnWork = (float amount, Action onWorkCompleted) =>
+                {
+                    OnWorkDone(requestor, amount, onWorkCompleted);
+                },
                 OnCompleteTask = () =>
                 {
                     OnTaskComplete(requestor);
@@ -46,13 +50,27 @@ namespace Actions
             return growingResource.HasFruitAvailable;
         }
         
-        public override void OnTaskComplete(Interactable requestor)
+        public void OnTaskComplete(Interactable requestor, Action onWorkCompleted)
         {
             requestor.IncomingUnitUID = "";
             requestor.OnTaskCompleted(this);
             var growingResource = requestor.GetComponent<GrowingResource>();
             growingResource.HarvestFruit();
             requestor.DisplayTaskIcon(null);
+            onWorkCompleted.Invoke();
+        }
+        
+        public void OnWorkDone(Interactable requestor, float amount, Action onWorkCompleted)
+        {
+            var growingResource = requestor.GetComponent<GrowingResource>();
+            if (growingResource != null)
+            {
+                float remainingWork = growingResource.HarvestWorkDone(amount);
+                if (remainingWork <= 0)
+                {
+                    OnTaskComplete(requestor, onWorkCompleted);
+                }
+            }
         }
         
         public override void CancelTask(Interactable requestor)

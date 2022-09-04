@@ -33,6 +33,12 @@ namespace Items
         private float _timeGrowing;
         [SerializeField] private List<string> _invalidPlacementTags;
         private Tilemap _dirtTilemap;
+
+        private float _remainingTillWork;
+        private float _remainingDigWork;
+        private float _remainingPlantingWork;
+        private float _remainingWaterWork;
+        private float _remainingHarvestWork;
         
         public List<string> InvalidPlacementTags
         {
@@ -63,6 +69,67 @@ namespace Items
             UpdateSprite(true);
             ShowBlueprint(true);
             ClearPlantsForClearingGrass();
+
+            _remainingTillWork = GetTillWorkAmount();
+            _remainingDigWork = GetDigWorkAmount();
+            _remainingPlantingWork = GetPlantingWorkAmount();
+            _remainingWaterWork = GetWaterWorkAmount();
+            _remainingHarvestWork = GetHarvestWorkAmount();
+        }
+
+        public float GetTillWorkAmount()
+        {
+            return 3;
+        }
+        
+        public float GetDigWorkAmount()
+        {
+            return 5;
+        }
+        
+        public float GetPlantingWorkAmount()
+        {
+            return 5;
+        }
+        
+        public float GetWaterWorkAmount()
+        {
+            return 2;
+        }
+        
+        public float GetHarvestWorkAmount()
+        {
+            return 8;
+        }
+        
+        public float TillWorkDone(float workAmount)
+        {
+            _remainingTillWork -= workAmount;
+            return _remainingTillWork;
+        }
+        
+        public float DigWorkDone(float workAmount)
+        {
+            _remainingDigWork -= workAmount;
+            return _remainingDigWork;
+        }
+        
+        public float PlantingWorkDone(float workAmount)
+        {
+            _remainingPlantingWork -= workAmount;
+            return _remainingPlantingWork;
+        }
+        
+        public float WaterWorkDone(float workAmount)
+        {
+            _remainingWaterWork -= workAmount;
+            return _remainingWaterWork;
+        }
+        
+        public float HarvestWorkDone(float workAmount)
+        {
+            _remainingHarvestWork -= workAmount;
+            return _remainingHarvestWork;
         }
         
         private void Update()
@@ -201,7 +268,8 @@ namespace Items
         {
             ShowBlueprint(false);
             _isTilled = true;
-
+            _remainingTillWork = GetTillWorkAmount();
+            
             CreateDigHoleTask();
         }
 
@@ -215,6 +283,7 @@ namespace Items
         {
             _soilHoleRenderer.sprite = _soilHole;
             _soilHoleRenderer.gameObject.SetActive(true);
+            _remainingDigWork = GetDigWorkAmount();
 
             CreatePlantCropTask();
         }
@@ -229,6 +298,7 @@ namespace Items
         {
             _soilHoleRenderer.sprite = _soilCovered;
             _hasCrop = true;
+            _remainingPlantingWork = GetPlantingWorkAmount();
         }
 
         private void CreateWaterCropTask()
@@ -244,6 +314,7 @@ namespace Items
             _isWatered = true;
             _wateringTaskSet = false;
             _soilHoleRenderer.sprite = _soilWatered;
+            _remainingWaterWork = GetWaterWorkAmount();
         }
 
         private void CreateHarvestCropTask()
@@ -259,6 +330,8 @@ namespace Items
             _cropRenderer.gameObject.SetActive(false);
             _soilHoleRenderer.sprite = _soilHole;
             _soilHoleRenderer.gameObject.SetActive(true);
+            _remainingHarvestWork = GetHarvestWorkAmount();
+            
             CreatePlantCropTask();
             
             // Spawn the crop
@@ -304,6 +377,11 @@ namespace Items
                 CropSprite = _cropRenderer.sprite,
                 HoleRendererActive = _soilHoleRenderer.gameObject.activeSelf,
                 CropRendererActive = _cropRenderer.gameObject.activeSelf,
+                RemainingTillWork = _remainingTillWork,
+                RemainingDigWork = _remainingDigWork,
+                RemainingPlantingWork = _remainingPlantingWork,
+                RemainingWaterWork = _remainingWaterWork,
+                RemainingHarvestWork = _remainingHarvestWork,
             };
         }
 
@@ -325,7 +403,12 @@ namespace Items
             _cropRenderer.sprite = state.CropSprite;
             _soilHoleRenderer.gameObject.SetActive(state.HoleRendererActive);
             _cropRenderer.gameObject.SetActive(state.CropRendererActive);
-            
+            _remainingTillWork = state.RemainingTillWork;
+            _remainingDigWork = state.RemainingDigWork;
+            _remainingPlantingWork = state.RemainingPlantingWork;
+            _remainingWaterWork = state.RemainingWaterWork;
+            _remainingHarvestWork = state.RemainingHarvestWork;
+
             ShowBlueprint(!_isTilled);
             
             RestoreTasks(state.PendingTasks);
@@ -349,6 +432,11 @@ namespace Items
             public bool CropRendererActive;
             public string HoleSprite;
             public Sprite CropSprite;
+            public float RemainingTillWork;
+            public float RemainingDigWork;
+            public float RemainingPlantingWork;
+            public float RemainingWaterWork;
+            public float RemainingHarvestWork;
         }
     }
 }

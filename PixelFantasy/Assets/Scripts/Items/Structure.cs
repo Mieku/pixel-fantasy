@@ -184,6 +184,7 @@ namespace Items
 
         public override void CompleteConstruction()
         {
+            base.CompleteConstruction();
             IncomingUnit = null;
             ShowBlueprint(false);
             _isBuilt = true;

@@ -18,7 +18,8 @@ namespace Items
         protected float _fruitTimer;
         protected bool _hasFruitAvailable;
         protected bool _showingFlowers;
-        protected float _remainingWork;
+        protected float _remainingCutWork;
+        protected float _remainingHarvestWork;
 
         public bool HasFruitAvailable => _hasFruitAvailable;
         public List<GameObject> TaskRequestors = new List<GameObject>();
@@ -51,7 +52,8 @@ namespace Items
             _ageForNextGrowth += stage.SecsInStage;
 
             UpdateSprite();
-            _remainingWork = GetWorkAmount();
+            _remainingCutWork = GetWorkAmount();
+            _remainingHarvestWork = GetHarvestWorkAmount();
         }
         
         protected void UpdateSprite()
@@ -137,7 +139,7 @@ namespace Items
                 RefreshSelection();
             }
             
-            //SetIcon(null);
+            _remainingHarvestWork = GetHarvestWorkAmount();
         }
         
         private void Update()
@@ -195,6 +197,23 @@ namespace Items
         {
             return _growingResourceData.GetWorkToCut(_growthIndex);
         }
+
+        public int GetHarvestWorkAmount()
+        {
+            return _growingResourceData.WorkToHarvest;
+        }
+        
+        public float CutWorkDone(float workAmount)
+        {
+            _remainingCutWork -= workAmount;
+            return _remainingCutWork;
+        }
+
+        public float HarvestWorkDone(float workAmount)
+        {
+            _remainingHarvestWork -= workAmount;
+            return _remainingHarvestWork;
+        }
      
         public override object CaptureState()
         {
@@ -207,7 +226,8 @@ namespace Items
                 FullyGrown = _fullyGrown,
                 FruitTimer = _fruitTimer,
                 HasFruitAvailable = _hasFruitAvailable,
-                RemainingWork = _remainingWork,
+                RemainingCutWork = _remainingCutWork,
+                RemainingHarvestWork = _remainingHarvestWork
             };
 
             return resourceData;
@@ -226,7 +246,8 @@ namespace Items
             _fullyGrown = growingData.FullyGrown;
             _fruitTimer = growingData.FruitTimer;
             _hasFruitAvailable = growingData.HasFruitAvailable;
-            _remainingWork = growingData.RemainingWork;
+            _remainingCutWork = growingData.RemainingCutWork;
+            _remainingHarvestWork = growingData.RemainingHarvestWork;
             
             UpdateSprite();
         }
@@ -239,7 +260,8 @@ namespace Items
             public bool FullyGrown;
             public float FruitTimer;
             public bool HasFruitAvailable;
-            public float RemainingWork;
+            public float RemainingCutWork;
+            public float RemainingHarvestWork;
         }
     }
 }

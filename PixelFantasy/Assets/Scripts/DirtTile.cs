@@ -29,6 +29,7 @@ public class DirtTile : Interactable, IPersistent
     private Floor _requestedFloor;
     private Tilemap _dirtTilemap;
     private Action _onDirtDug;
+    protected float _remainingWork;
 
     public Sprite PlacementIcon => _placementSprite;
 
@@ -49,6 +50,12 @@ public class DirtTile : Interactable, IPersistent
     public override int GetWorkAmount()
     {
         return _workCost;
+    }
+    
+    public float WorkDone(float workAmount)
+    {
+        _remainingWork -= workAmount;
+        return _remainingWork;
     }
     
     private void Awake()
@@ -80,6 +87,7 @@ public class DirtTile : Interactable, IPersistent
         UpdateSprite(true);
         ShowBlueprint(true);
         ClearPlantsForClearingGrass();
+        _remainingWork = GetWorkAmount();
     }
 
     public void Init(Action onDirtDug)
@@ -88,6 +96,7 @@ public class DirtTile : Interactable, IPersistent
         UpdateSprite(true);
         ShowBlueprint(true);
         ClearPlantsForClearingGrass();
+        _remainingWork = GetWorkAmount();
     }
     
     public void Init(Floor requestedFloor)
@@ -96,6 +105,7 @@ public class DirtTile : Interactable, IPersistent
         UpdateSprite(true);
         ShowBlueprint(true);
         ClearPlantsForClearingGrass();
+        _remainingWork = GetWorkAmount();
     }
 
     public void ClearPlantsForClearingGrass()
@@ -194,6 +204,7 @@ public class DirtTile : Interactable, IPersistent
             PendingTasks = PendingTasks,
             IsBuilt = IsBuilt,
             Position = transform.position,
+            RemainingWork = _remainingWork,
         };
     }
 
@@ -203,6 +214,7 @@ public class DirtTile : Interactable, IPersistent
         UniqueId = state.UID;
         IsBuilt = state.IsBuilt;
         transform.position = state.Position;
+        _remainingWork = state.RemainingWork;
 
         ShowBlueprint(!IsBuilt);
         
@@ -215,5 +227,6 @@ public class DirtTile : Interactable, IPersistent
         public bool IsBuilt;
         public Vector2 Position;
         public List<ActionBase> PendingTasks;
+        public float RemainingWork;
     }
 } 

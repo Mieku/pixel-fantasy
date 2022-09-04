@@ -55,8 +55,8 @@ namespace Items
                 TargetUID = UniqueId,
                 craftingTable = this,
                 craftPosition = UsagePosition.position,
-                workAmount = _itemToCraft.WorkToCraft,
-                completeWork = CompleteCrafting
+                // workAmount = _itemToCraft.WorkToCraft,
+                // completeWork = CompleteCrafting
             };
             
             _assignedTaskRefs.Add(task.GetHashCode());

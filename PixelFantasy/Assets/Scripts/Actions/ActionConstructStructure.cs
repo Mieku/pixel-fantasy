@@ -1,3 +1,4 @@
+using System;
 using Items;
 using Tasks;
 using UnityEngine;
@@ -17,8 +18,11 @@ namespace Actions
                 TaskAction = this,
                 OnTaskAccepted = requestor.OnTaskAccepted,
                 structurePosition = requestor.transform.position,
-                workAmount = GetWorkPerResource(requestor),
-                completeWork = () =>
+                OnWork = (float amount, Action onWorkCompleted) =>
+                {
+                    OnWorkDone(requestor, amount, onWorkCompleted);
+                },
+                OnCompleteTask = () =>
                 {
                     OnTaskComplete(requestor);
                 }
@@ -43,7 +47,7 @@ namespace Actions
             taskMaster.ConstructionTaskSystem.CancelTask(requestor.UniqueId);
         }
 
-        public override void OnTaskComplete(Interactable requestor)
+        public void OnTaskComplete(Interactable requestor, Action onWorkCompleted)
         {
             requestor.OnTaskCompleted(this);
             var construction = requestor.GetComponent<Construction>();
@@ -51,18 +55,20 @@ namespace Actions
             {
                 construction.CompleteConstruction();
             }
+            onWorkCompleted.Invoke();
         }
-
-        private float GetWorkPerResource(Interactable requestor)
+        
+        public void OnWorkDone(Interactable requestor, float amount, Action onWorkCompleted)
         {
-            float workPerResource = 0;
             var construction = requestor.GetComponent<Construction>();
             if (construction != null)
             {
-                workPerResource = construction.GetWorkPerResource();
+                float remainingWork = construction.WorkDone(amount);
+                if (remainingWork <= 0)
+                {
+                    OnTaskComplete(requestor, onWorkCompleted);
+                }
             }
-
-            return workPerResource;
         }
     }
 }

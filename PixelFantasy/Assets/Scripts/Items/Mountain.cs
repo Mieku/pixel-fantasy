@@ -22,8 +22,9 @@ namespace Items
 
         private Tilemap _mountainTM;
         private Tilemap _dirtTM;
-        
+
         protected Spawner spawner => Spawner.Instance;
+        protected float _remainingWork;
         
         private void Awake()
         {
@@ -37,6 +38,7 @@ namespace Items
         private void Start()
         {
             SetTile();
+            _remainingWork = GetWorkAmount();
         }
 
         private void SetTile()
@@ -145,6 +147,12 @@ namespace Items
         {
             return _mountainData.GetWorkAmount();
         }
+        
+        public float WorkDone(float workAmount)
+        {
+            _remainingWork -= workAmount;
+            return _remainingWork;
+        }
 
         public object CaptureState()
         {
@@ -154,6 +162,7 @@ namespace Items
                 Position = transform.position,
                 MountainData = _mountainData,
                 PendingTasks = PendingTasks,
+                RemainingWork = _remainingWork,
             };
         }
 
@@ -163,6 +172,7 @@ namespace Items
             UniqueId = stateData.UID;
             transform.position = stateData.Position;
             _mountainData = stateData.MountainData;
+            _remainingWork = stateData.RemainingWork;
 
             RestoreTasks(stateData.PendingTasks);
         }
@@ -173,6 +183,7 @@ namespace Items
             public Vector3 Position;
             public MountainData MountainData;
             public List<ActionBase> PendingTasks;
+            public float RemainingWork;
         }
     }
 }
