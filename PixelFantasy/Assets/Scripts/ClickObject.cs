@@ -26,7 +26,6 @@ public class ClickObject : MonoBehaviour
     private FloorData _floorData;
     private FurnitureData _furnitureData;
     private Unit _unit;
-    private bool _isMouseOver;
 
     private IClickableObject _clickableObject; // Cache
     public IClickableObject Owner
@@ -166,20 +165,8 @@ public class ClickObject : MonoBehaviour
         IsSelected = false;
     }
 
-    private void OnMouseOver()
+    public void TriggerSelected()
     {
-        _isMouseOver = true;
-    }
-
-    private void OnMouseExit()
-    {
-        _isMouseOver = false;
-    }
-
-    private void OnMouseUp()
-    {
-        if (!_isMouseOver) return;
-        
         var isOverUI = EventSystem.current.IsPointerOverGameObject();
         if(isOverUI) return;
         

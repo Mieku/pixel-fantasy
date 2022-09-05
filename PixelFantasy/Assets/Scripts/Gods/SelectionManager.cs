@@ -17,6 +17,8 @@ namespace Gods
         private bool _selectBoxActive;
         private Vector2 _selectBoxStartPos;
         private List<IClickableObject> _selectedObjects = new List<IClickableObject>();
+        private List<ClickObject> _prevClickObjects = new List<ClickObject>();
+        private int _prevClickObjectIndex;
 
         protected override void Awake()
         {
@@ -110,6 +112,50 @@ namespace Gods
         private void Update()
         {
             HandleSelectBoxUpdate();
+            HandleUserClick();
+        }
+
+        private void HandleUserClick()
+        {
+            if (Input.GetMouseButtonUp(0))
+            {
+                var clickObjs = Helper.GetClickObjectsAtPos(UtilsClass.GetMouseWorldPosition());
+                if (clickObjs.Count > 0)
+                {
+                    if (AreClickObjectsSame(_prevClickObjects, clickObjs))
+                    {
+                        _prevClickObjectIndex++;
+                        if (_prevClickObjectIndex > _prevClickObjects.Count - 1)
+                        {
+                            _prevClickObjectIndex = 0;
+                        }
+                        clickObjs[_prevClickObjectIndex].TriggerSelected();
+                    }
+                    else
+                    {
+                        _prevClickObjectIndex = 0;
+                        clickObjs[_prevClickObjectIndex].TriggerSelected();
+                    }
+                }
+                else
+                {
+                    _prevClickObjectIndex = 0;
+                }
+
+                _prevClickObjects = clickObjs;
+            }
+        }
+
+        private bool AreClickObjectsSame(List<ClickObject> prev, List<ClickObject> current)
+        {
+            if (prev.Count != current.Count) return false;
+
+            foreach (var curObj in current)
+            {
+                if (!prev.Contains(curObj)) return false;
+            }
+
+            return true;
         }
         
         private void HandleSelectBoxUpdate()
