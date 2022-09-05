@@ -62,13 +62,13 @@ namespace Controllers
                 GameEvents.Trigger_RefreshSelection();
             }
             
-            CreateOrderButton(icon, OnPressed, isActive);
+            CreateOrderButton(icon, OnPressed, isActive, action.id);
         }
 
-        public void CreateOrderButton(Sprite icon, Action onPressed, bool isActive)
+        public void CreateOrderButton(Sprite icon, Action onPressed, bool isActive, string buttonName)
         {
             var orderBtn = Instantiate(_orderBtnPrefab, _ordersParent).GetComponent<OrderButton>();
-            orderBtn.Init(icon, onPressed, isActive);
+            orderBtn.Init(icon, onPressed, isActive, buttonName);
             _displayedOrders.Add(orderBtn);
         }
 

@@ -89,7 +89,7 @@ namespace Controllers
             foreach (var order in orders)
             {
                 Action onPressed = DetermineOnPressedAction(order.DataKey, order.OrderType, order.SubMenu, orders);
-                HUDOrders.Instance.CreateOrderButton(order.Icon, onPressed, false);
+                HUDOrders.Instance.CreateOrderButton(order.Icon, onPressed, false, order.OrderName);
             }
         }
 
@@ -101,7 +101,7 @@ namespace Controllers
             {
                 Sprite icon = Librarian.Instance.GetOrderIcon(order.OrderName);
                 Action onPressed = DetermineOnPressedOrderAction(order.MassOrderType);
-                HUDOrders.Instance.CreateOrderButton(icon, onPressed, false);
+                HUDOrders.Instance.CreateOrderButton(icon, onPressed, false, order.OrderName);
             }
         }
 
