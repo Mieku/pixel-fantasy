@@ -11,10 +11,28 @@ namespace Gods
         private GameSpeed _prevSpeed;
         private const float _fastSpeedMod = 2f;
         private const float _fastestSpeedMod = 3f;
-        
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            GameEvents.OnLoadingGameEnd += OnDoneLoading;
+        }
+
+        private void OnDestroy()
+        {
+            GameEvents.OnLoadingGameEnd -= OnDoneLoading;
+        }
+
         private void Start()
         {
             SetGameSpeed(GameSpeed.Play);
+        }
+
+        private void OnDoneLoading()
+        {
+            // Remind everything the game's speed after loading
+            GameEvents.Trigger_OnGameSpeedChanged(GameSpeedMod);
         }
 
         public void SetGameSpeed(GameSpeed newSpeed)

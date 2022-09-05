@@ -100,9 +100,16 @@ namespace Popups
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape) && _popupStack.Count > 0)
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                _popupStack.Last().OnBackPressed();
+                if (_popupStack.Count > 0)
+                {
+                    _popupStack.Last().OnBackPressed();
+                }
+                else
+                {
+                    PauseMenuPopup.Show();
+                }
             }
         }
     }

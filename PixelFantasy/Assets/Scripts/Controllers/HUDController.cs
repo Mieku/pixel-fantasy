@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Characters;
 using Gods;
 using HUD;
+using Popups;
 using UnityEngine;
 
 namespace Controllers
@@ -47,15 +48,10 @@ namespace Controllers
                 _selectedItemInfoPanel.HideItemDetails();
             }
         }
-        
-        public void SaveBtnPressed()
+
+        public void MenuPressed()
         {
-            SaveManager.Instance.SaveGame();
-        }
-        
-        public void LoadBtnPressed()
-        {
-            SaveManager.Instance.LoadGame();
+            PauseMenuPopup.Show();
         }
 
         #region Game Speed Controls

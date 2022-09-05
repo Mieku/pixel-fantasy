@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: -1607974888, guid: 9acba49d3e0a28e428fa4b768325ad29, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1030,6 +1030,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FirstName: 
   LastName: 
+  SpeedModifier: 0
+  ProductivityModifier: 0
+  HealingModifier: 0
+  AimModifier: 0
+  ToughnessModifier: 0
+  CombatModifier: 0
 --- !u!114 &9189890898419539547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1089,7 +1095,6 @@ MonoBehaviour:
   _unitAnim: {fileID: 5532418264530240416}
   _itemPrefab: {fileID: 5193408849299628808, guid: 60b37e663b91498498fbd8428f5713d9, type: 3}
   WorkSpeed: 2
-  WorkAmount: 1
   currentAction: {fileID: 0}
   currentActionRequestorUID: 
   claimedSlot: {fileID: 0}
