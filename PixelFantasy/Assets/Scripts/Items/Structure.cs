@@ -3,7 +3,6 @@ using Actions;
 using Controllers;
 using Gods;
 using HUD;
-using Pathfinding;
 using ScriptableObjects;
 using Characters;
 using UnityEngine;
@@ -14,7 +13,6 @@ namespace Items
     public class Structure : Construction
     {
         [SerializeField] private ProgressBar _progressBar;
-        [SerializeField] private DynamicGridObstacle _gridObstacle;
 
         private StructureData _structureData;
 
@@ -97,12 +95,10 @@ namespace Items
             if (showBlueprint)
             {
                 ColourTile(Librarian.Instance.GetColour("Blueprint"));
-                _gridObstacle.enabled = false;
             }
             else
             {
                 ColourTile(Color.white);
-                _gridObstacle.enabled = true;
                 gameObject.layer = 4;
             }
         }

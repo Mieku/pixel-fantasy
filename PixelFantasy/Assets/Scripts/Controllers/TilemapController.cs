@@ -4,7 +4,6 @@ using CodeMonkey.Utils;
 using Gods;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using Pathfinding;
 
 namespace Controllers
 {

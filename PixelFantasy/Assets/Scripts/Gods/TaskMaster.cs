@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using CodeMonkey.Utils;
 using Controllers;
@@ -169,6 +170,11 @@ namespace Gods
         private void OnGameSaveEnded()
         {
             _isGameSaving = false;
+        }
+
+        public void ReturnTaskToQueue(TaskBase task)
+        {
+            task.TaskAction.CreateTask(task.Requestor);
         }
     }
     

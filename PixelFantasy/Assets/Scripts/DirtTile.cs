@@ -5,8 +5,6 @@ using Actions;
 using Controllers;
 using Gods;
 using Items;
-using Pathfinding;
-using Tasks;
 using Characters;
 using DataPersistence;
 using UnityEngine;
@@ -19,7 +17,6 @@ public class DirtTile : Interactable, IPersistent
     [SerializeField] private int _workCost;
     [SerializeField] private Sprite _placementSprite;
     [SerializeField] private List<string> _invalidPlacementTags;
-    [SerializeField] private GraphUpdateScene _graphUpdateScene;
     [SerializeField] private RuleTile _dirtRuleTile;
 
     private TaskMaster taskMaster => TaskMaster.Instance;
@@ -145,12 +142,10 @@ public class DirtTile : Interactable, IPersistent
         if (showBlueprint)
         {
             ColourRenderers(Librarian.Instance.GetColour("Blueprint"));
-            _graphUpdateScene.enabled = false;
         }
         else
         {
             ColourRenderers(Color.white);
-            _graphUpdateScene.enabled = true;
         }
     }
 

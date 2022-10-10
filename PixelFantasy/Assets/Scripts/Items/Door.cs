@@ -3,7 +3,6 @@ using Actions;
 using Characters;
 using Gods;
 using HUD;
-using Pathfinding;
 using ScriptableObjects;
 using UnityEngine;
 
@@ -12,8 +11,7 @@ namespace Items
     public class Door : Construction
     {
         [SerializeField] private SpriteRenderer _doorRenderer;
-        [SerializeField] private DynamicGridObstacle _gridObstacle;
-        
+
         private DoorData _doorData;
         private bool _isLocked;
         private int _defaultLayerNum;
@@ -42,17 +40,17 @@ namespace Items
         public void SetLocked(bool isLocked)
         {
             _isLocked = isLocked;
-            _gridObstacle.enabled = _isLocked;
+            // _gridObstacle.enabled = _isLocked;
             if (_isLocked)
             {
                 DisplayTaskIcon(Librarian.Instance.GetSprite("Lock"));
-                _gridObstacle.enabled = true;
+                // _gridObstacle.enabled = true;
                 gameObject.layer = 3;
             }
             else
             {
                 DisplayTaskIcon(null);
-                _gridObstacle.enabled = false;
+                // _gridObstacle.enabled = false;
                 gameObject.layer = _defaultLayerNum;
             }
         }

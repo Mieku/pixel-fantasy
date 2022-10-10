@@ -22,7 +22,7 @@ namespace Characters
             this.movePosition = movePosition;
             movingToPos = true;
         }
-
+        
         private void FixedUpdate()
         {
             if (movingToPos)

@@ -31,14 +31,13 @@ MonoBehaviour:
     assemblyNames:
     - Assembly-CSharp
     - Assembly-CSharp-firstpass
-    - AstarPathfindingProject
     - Cinemachine
     - Sirenix.OdinInspector.CompatibilityLayer
+    - NavMeshComponents
     - PsdPlugin
     - Sirenix.OdinInspector.CompatibilityLayer.Editor
-    - AstarPathfindingProjectEditor
-    - PackageToolsEditor
     - Sirenix.OdinInspector.Modules.UnityMathematics
+    - NavMeshComponentsEditor
     showAdvancedSettings: 1
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

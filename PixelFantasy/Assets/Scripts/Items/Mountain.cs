@@ -5,7 +5,6 @@ using Controllers;
 using DataPersistence;
 using Gods;
 using Interfaces;
-using Pathfinding;
 using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.EventSystems;

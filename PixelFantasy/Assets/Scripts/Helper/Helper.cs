@@ -272,4 +272,17 @@ public static class Helper
 
         return PlacementDirection.Down;
     }
+    
+    public static Vector2 LerpByDistance(Vector3 a, Vector3 b, float x)
+    {
+        Vector2 p = x * Vector3.Normalize(b - a) + a;
+        return p;
+    }
+    
+    /// <summary>
+    /// Calculates a 306 Deg Angle, 0 is top and increments counter-clockwise
+    /// </summary>
+    public static float CalculateAngle(Vector3 from, Vector3 to) {
+        return Quaternion.FromToRotation(Vector3.up, to - from).eulerAngles.z;
+    }
 }

@@ -740,6 +740,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6705049522014432385}
   - component: {fileID: 8460987969156190623}
+  - component: {fileID: 583796491778053981}
   m_Layer: 3
   m_Name: Obstacle
   m_TagString: Untagged
@@ -788,3 +789,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.0023699, y: 0.5982609}
   m_EdgeRadius: 0
+--- !u!208 &583796491778053981
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7312772814564397272}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.29, y: 0.24, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

@@ -1,9 +1,11 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Actions;
 using CodeMonkey.Utils;
 using Characters;
+using Gods;
 using UnityEngine;
 
 [Serializable]
@@ -31,6 +33,8 @@ public abstract class TaskBase
     public string RequestorUID;
     public Action<ActionBase> OnTaskAccepted;
     public Action OnCompleteTask;
+
+    public Interactable Requestor => UIDManager.Instance.GetGameObject(RequestorUID).GetComponent<Interactable>();
 }
 
 [Serializable]

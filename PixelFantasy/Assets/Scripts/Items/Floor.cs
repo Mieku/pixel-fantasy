@@ -1,15 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Actions;
-using Controllers;
-using DataPersistence;
 using Gods;
-using HUD;
-using Interfaces;
-using Pathfinding;
 using ScriptableObjects;
-using Sirenix.OdinInspector;
-using Tasks;
 using Characters;
 using UnityEngine;
 
@@ -18,7 +11,6 @@ namespace Items
     public class Floor : Construction
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
-        [SerializeField] private GraphUpdateScene _pathGraphUpdater;
 
         private FloorData _floorData;
         private List<int> _assignedTaskRefs = new List<int>();
@@ -52,12 +44,10 @@ namespace Items
             if (showBlueprint)
             {
                 _spriteRenderer.color = Librarian.Instance.GetColour("Blueprint");
-                _pathGraphUpdater.enabled = false;
             }
             else
             {
                 _spriteRenderer.color = Color.white;
-                _pathGraphUpdater.enabled = true;
             }
         }
         

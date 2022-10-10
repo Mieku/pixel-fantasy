@@ -13,7 +13,6 @@ namespace Gods
         private GameState gameState;
         private List<Saveable> dataPersistenceObjects;
         private FileDataHandler dataHandler;
-        [SerializeField] private AstarPath _pathFinder;
 
         public bool IsLoading;
         public bool IsSaving;
@@ -103,8 +102,6 @@ namespace Gods
                 yield return new WaitForSeconds(0); // Gives time to make sure loaded
                 // TODO: See if I can set up a safer way to do this using callbacks
             }
-            
-            _pathFinder.Scan();
             
             GameEvents.Trigger_OnLoadingGameEnd();
             IsLoading = false;

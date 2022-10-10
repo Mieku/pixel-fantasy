@@ -71,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -170406723
-  m_SortingLayer: 4
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b3acf8a51b2638b41bb8c0b332992b6d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 864441823466967160}
   - component: {fileID: 8421574261932009169}
   - component: {fileID: 4476606764971199555}
+  - component: {fileID: 9122943726205935619}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Floor
@@ -244,8 +245,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _icon: {fileID: 8802911670475920599}
+  QueuedTaskRefs: 
   PendingTasks: []
   InProgressTasks: []
+  IncomingUnitUID: 
   _takeResourceToBlueprintAction: {fileID: 11400000, guid: 83169185dc450984288697c483e4df23, type: 2}
   _constructStructureAction: {fileID: 11400000, guid: 7eb08bb163e3b934ba51eda03f3a7adb, type: 2}
   _spriteRenderer: {fileID: 2471839041476629057}
@@ -266,6 +269,7 @@ MonoBehaviour:
   _objectType: 4
   _selectedIcon: {fileID: 1108344134833085978}
   _objectRenderer: {fileID: 2471839041476629057}
+  _usesTintedSelection: 0
   IsSelected: 0
 --- !u!114 &4476606764971199555
 MonoBehaviour:
@@ -280,6 +284,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueID: 
+--- !u!114 &9122943726205935619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4756426589303839855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 3
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &5041588278388300414
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,7 +371,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -170406723
-  m_SortingLayer: 4
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: aff142e668b1001439807064cb4f9346, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
