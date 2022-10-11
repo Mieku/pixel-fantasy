@@ -224,6 +224,7 @@ namespace Characters
         {
             _heldItem = itemToHold;
             itemToHold.transform.SetParent(transform);
+            itemToHold.transform.localPosition = Vector3.zero;
         }
 
         private void RequestNextTask()
