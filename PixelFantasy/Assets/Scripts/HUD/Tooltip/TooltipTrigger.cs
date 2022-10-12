@@ -16,10 +16,10 @@ namespace HUD.Tooltip
         
         public void OnPointerEnter(PointerEventData eventData)
         {
+            _isShowingTooltip = true;
             delay = LeanTween.delayedCall(0.5f, () =>
             {
                 TooltipSystem.Show(Content, Header);
-                _isShowingTooltip = true;
             });
         }
 
@@ -32,10 +32,10 @@ namespace HUD.Tooltip
 
         public void OnMouseEnter()
         {
+            _isShowingTooltip = true;
             delay = LeanTween.delayedCall(0.5f, () =>
             {
                 TooltipSystem.Show(Content, Header);
-                _isShowingTooltip = true;
             });
         }
 
