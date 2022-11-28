@@ -31,6 +31,9 @@ namespace Characters
         private const string DIG = "IsDigging";
         private const string WATER = "IsWatering";
         private const string MINE = "IsMining";
+        
+        private const string UP = "IsUp";
+        private const string DOWN = "IsDown";
 
         private UnitAction _curUnitAction;
 
@@ -55,10 +58,28 @@ namespace Characters
             _blushAnim.speed = speedMod;
         }
         
-        public void SetUnitAction(UnitAction unitAction)
+        public void SetUnitAction(UnitAction unitAction, UnitActionDirection direction)
         {
             _curUnitAction = unitAction;
             ClearAllActions();
+
+            switch (direction)
+            {
+                case UnitActionDirection.Side:
+                    SetUnitAction(UP, false);
+                    SetUnitAction(DOWN, false);
+                    break;
+                case UnitActionDirection.Up:
+                    SetUnitAction(UP, true);
+                    SetUnitAction(DOWN, false);
+                    break;
+                case UnitActionDirection.Down:
+                    SetUnitAction(UP, false);
+                    SetUnitAction(DOWN, true);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+            }
 
             switch (unitAction)
             {
@@ -167,24 +188,6 @@ namespace Characters
             _fxAnim.SetFloat(Velocity, velocity);
             _blushAnim.SetFloat(Velocity, velocity);
         }
-        
-        public UnitAnimData GetSaveData()
-        {
-            return new UnitAnimData
-            {
-                CurUnitAction = _curUnitAction,
-            };
-        }
-
-        public void SetLoadData(UnitAnimData unitAnimData)
-        {
-            SetUnitAction(unitAnimData.CurUnitAction);
-        }
-        
-        public struct UnitAnimData
-        {
-            public UnitAction CurUnitAction;
-        }
     }
 
     public enum UnitAction
@@ -196,5 +199,12 @@ namespace Characters
         Digging,
         Watering,
         Mining,
+    }
+
+    public enum UnitActionDirection
+    {
+        Side,
+        Up,
+        Down,
     }
 }

@@ -135,7 +135,7 @@ namespace Characters
             }
         }
         
-        private void GetAdjacentPosition(Vector2 workPosition, Action<Vector2?> positionCallback, float distanceAway = 1f)
+        private void GetAdjacentPosition(Vector2 workPosition, Action<Vector2?, UnitActionDirection> positionCallback, float distanceAway = 1f)
         {
             Vector2 unitPos = transform.position;
 
@@ -147,32 +147,53 @@ namespace Characters
             Vector2 suggestedPos = ConvertAngleToPosition(angle, workPosition, distanceAway);
             if (_unitAgent.IsDestinationPossible(suggestedPos))
             {
-                positionCallback(suggestedPos);
+                UnitActionDirection dir = DetermineUnitActionDirection(workPosition, suggestedPos);
+                positionCallback(suggestedPos, dir);
                 return;
             }
             
             suggestedPos = ConvertAngleToPosition(angle2, workPosition, distanceAway);
             if (_unitAgent.IsDestinationPossible(suggestedPos))
             {
-                positionCallback(suggestedPos);
+                UnitActionDirection dir = DetermineUnitActionDirection(workPosition, suggestedPos);
+                positionCallback(suggestedPos, dir);
                 return;
             }
             
             suggestedPos = ConvertAngleToPosition(angle3, workPosition, distanceAway);
             if (_unitAgent.IsDestinationPossible(suggestedPos))
             {
-                positionCallback(suggestedPos);
+                UnitActionDirection dir = DetermineUnitActionDirection(workPosition, suggestedPos);
+                positionCallback(suggestedPos, dir);
                 return;
             }
             
             suggestedPos = ConvertAngleToPosition(angle4, workPosition, distanceAway);
             if (_unitAgent.IsDestinationPossible(suggestedPos))
             {
-                positionCallback(suggestedPos);
+                UnitActionDirection dir = DetermineUnitActionDirection(workPosition, suggestedPos);
+                positionCallback(suggestedPos, dir);
                 return;
             }
 
-            positionCallback(null);
+            positionCallback(null, UnitActionDirection.Side);
+        }
+
+        private UnitActionDirection DetermineUnitActionDirection(Vector3 workPos, Vector3 standPos)
+        {
+            const float threshold = .25f;
+
+            if (standPos.y >= workPos.y + threshold)
+            {
+                return UnitActionDirection.Down;
+            } else if (standPos.y <= workPos.y - threshold)
+            {
+                return UnitActionDirection.Up;
+            }
+            else
+            {
+                return UnitActionDirection.Side;
+            }
         }
 
         private float ClampAngleTo360(float angle)
@@ -243,7 +264,7 @@ namespace Characters
             if (task == null)
             {
                 state = State.WaitingForNextTask;
-                _unitAnim.SetUnitAction(UnitAction.Nothing);
+                _unitAnim.SetUnitAction(UnitAction.Nothing, UnitActionDirection.Side);
             }
             else
             {
@@ -380,11 +401,11 @@ namespace Characters
             // Other task types go here
         }
 
-        private void ExecuteIfReachable(Vector2 targetPosition, TaskBase task, Action<TaskBase, Vector2>  ReachableCallback, float distanceAway = 1f)
+        private void ExecuteIfReachable(Vector2 targetPosition, TaskBase task, Action<TaskBase, Vector2, UnitActionDirection>  ReachableCallback, float distanceAway = 1f)
         {
-            GetAdjacentPosition(targetPosition, positionCallback =>
+            GetAdjacentPosition(targetPosition, (pos, dir) =>
             {
-                if (positionCallback == null)
+                if (pos == null)
                 {
                     // Return to queue
                     _isDoingWork = false;
@@ -397,7 +418,7 @@ namespace Characters
                 {
                     _curTask = task;
                     state = State.ExecutingTask;
-                    ReachableCallback(task, (Vector2)positionCallback);
+                    ReachableCallback(task, (Vector2)pos, dir);
                 }
             }, distanceAway);
         }
@@ -412,7 +433,7 @@ namespace Characters
 
         #region Execute Tasks
 
-        private void ExecuteTask_MoveToPosition(TaskBase taskbase, Vector2 workPosition)
+        private void ExecuteTask_MoveToPosition(TaskBase taskbase, Vector2 workPosition, UnitActionDirection actionDir)
         {
             var task = taskbase as EmergencyTask.MoveToPosition;
             workerMover.SetMovePosition(workPosition, () =>
@@ -422,7 +443,7 @@ namespace Characters
             });
         }
 
-        private void ExecuteTask_CleanUpGarbage(TaskBase taskbase, Vector2 workPosition)
+        private void ExecuteTask_CleanUpGarbage(TaskBase taskbase, Vector2 workPosition, UnitActionDirection actionDir)
         {
             var task = taskbase as CleaningTask.GarbageCleanup;
             workerMover.SetMovePosition(workPosition, () =>
@@ -434,7 +455,7 @@ namespace Characters
         }
 
         public StorageSlot claimedSlot;
-        private void ExecuteTask_TakeItemToItemSlot(TaskBase taskbase, Vector2 workPosition)
+        private void ExecuteTask_TakeItemToItemSlot(TaskBase taskbase, Vector2 workPosition, UnitActionDirection actionDir)
         {
             var task = taskbase as HaulingTask.TakeItemToItemSlot;
             currentAction = task.TaskAction;
@@ -454,7 +475,7 @@ namespace Characters
             });
         }
 
-        private void ExecuteTask_TakeResourceToBlueprint(TaskBase taskbase, Vector2 workPosition)
+        private void ExecuteTask_TakeResourceToBlueprint(TaskBase taskbase, Vector2 workPosition, UnitActionDirection actionDir)
         {
             var task = taskbase as HaulingTask.TakeResourceToBlueprint;
             currentAction = task.TaskAction;
@@ -472,7 +493,7 @@ namespace Characters
             });
         }
 
-        private void ExecuteTask_ConstructStructure(TaskBase taskbase, Vector2 workPosition)
+        private void ExecuteTask_ConstructStructure(TaskBase taskbase, Vector2 workPosition, UnitActionDirection actionDir)
         {
             var task = taskbase as ConstructionTask.ConstructStructure;
             currentAction = task.TaskAction;
@@ -481,7 +502,7 @@ namespace Characters
             workerMover.SetMovePosition(workPosition, () =>
             {
                 _unitAnim.LookAtPostion(task.structurePosition);
-                _unitAnim.SetUnitAction(UnitAction.Building);
+                _unitAnim.SetUnitAction(UnitAction.Building, actionDir);
                 DoingWork((WorkAmount ) =>
                 {
                     task.OnWork(WorkAmount, () =>
@@ -490,14 +511,14 @@ namespace Characters
                         _isDoingWork = false;
                         task.OnCompleteTask();
                         state = State.WaitingForNextTask;
-                        _unitAnim.SetUnitAction(UnitAction.Nothing);
+                        _unitAnim.SetUnitAction(UnitAction.Nothing, UnitActionDirection.Side);
                         ClearAction();
                     });
                 });
             });
         }
 
-        private void ExecuteTask_DeconstructStructure(TaskBase taskbase, Vector2 workPosition)
+        private void ExecuteTask_DeconstructStructure(TaskBase taskbase, Vector2 workPosition, UnitActionDirection actionDir)
         {
             var task = taskbase as ConstructionTask.DeconstructStructure;
             currentAction = task.TaskAction;
@@ -507,7 +528,7 @@ namespace Characters
             workerMover.SetMovePosition(workPosition, () =>
             {
                 _unitAnim.LookAtPostion(task.structurePosition);
-                _unitAnim.SetUnitAction(UnitAction.Building);
+                _unitAnim.SetUnitAction(UnitAction.Building, actionDir);
                 DoingWork((WorkAmount ) =>
                 {
                     task.OnWork(WorkAmount, () =>
@@ -516,14 +537,14 @@ namespace Characters
                         _isDoingWork = false;
                         task.OnCompleteTask();
                         state = State.WaitingForNextTask;
-                        _unitAnim.SetUnitAction(UnitAction.Nothing);
+                        _unitAnim.SetUnitAction(UnitAction.Nothing, UnitActionDirection.Side);
                         ClearAction();
                     });
                 });
             });
         }
 
-        private void ExecuteTask_CutTree(TaskBase taskbase, Vector2 workPosition)
+        private void ExecuteTask_CutTree(TaskBase taskbase, Vector2 workPosition, UnitActionDirection actionDir)
         {
             var task = taskbase as FellingTask.CutTree;
             currentAction = task.TaskAction;
@@ -533,7 +554,7 @@ namespace Characters
             workerMover.SetMovePosition(workPosition, () =>
             {
                 _unitAnim.LookAtPostion(task.treePosition);
-                _unitAnim.SetUnitAction(UnitAction.Axe);
+                _unitAnim.SetUnitAction(UnitAction.Axe, actionDir);
                 DoingWork((WorkAmount ) =>
                 {
                     task.OnWork(WorkAmount, () =>
@@ -542,14 +563,14 @@ namespace Characters
                         _isDoingWork = false;
                         task.OnCompleteTask();
                         state = State.WaitingForNextTask;
-                        _unitAnim.SetUnitAction(UnitAction.Nothing);
+                        _unitAnim.SetUnitAction(UnitAction.Nothing, UnitActionDirection.Side);
                         ClearAction();
                     });
                 });
             });
         }
         
-        private void ExecuteTask_Mine(TaskBase taskbase, Vector2 workPosition)
+        private void ExecuteTask_Mine(TaskBase taskbase, Vector2 workPosition, UnitActionDirection actionDir)
         {
             var task = taskbase as MiningTask.Mine;
             currentAction = task.TaskAction;
@@ -559,7 +580,7 @@ namespace Characters
             workerMover.SetMovePosition(workPosition, () =>
             {
                 _unitAnim.LookAtPostion(task.mountainPosition);
-                _unitAnim.SetUnitAction(UnitAction.Mining);
+                _unitAnim.SetUnitAction(UnitAction.Mining, actionDir);
                 DoingWork((WorkAmount ) =>
                 {
                     task.OnWork(WorkAmount, () =>
@@ -568,14 +589,14 @@ namespace Characters
                         _isDoingWork = false;
                         task.OnCompleteTask();
                         state = State.WaitingForNextTask;
-                        _unitAnim.SetUnitAction(UnitAction.Nothing);
+                        _unitAnim.SetUnitAction(UnitAction.Nothing, UnitActionDirection.Side);
                         ClearAction();
                     });
                 });
             });
         }
         
-        private void ExecuteTask_CutPlant(TaskBase taskbase, Vector2 workPosition)
+        private void ExecuteTask_CutPlant(TaskBase taskbase, Vector2 workPosition, UnitActionDirection actionDir)
         {
             var task = taskbase as FarmingTask.CutPlant;
             currentAction = task.TaskAction;
@@ -585,7 +606,7 @@ namespace Characters
             workerMover.SetMovePosition(workPosition, () =>
             {
                 _unitAnim.LookAtPostion(task.plantPosition);
-                _unitAnim.SetUnitAction(UnitAction.Doing);
+                _unitAnim.SetUnitAction(UnitAction.Doing, actionDir);
                 DoingWork((WorkAmount ) =>
                 {
                     task.OnWork(WorkAmount, () =>
@@ -594,14 +615,14 @@ namespace Characters
                         _isDoingWork = false;
                         task.OnCompleteTask();
                         state = State.WaitingForNextTask;
-                        _unitAnim.SetUnitAction(UnitAction.Nothing);
+                        _unitAnim.SetUnitAction(UnitAction.Nothing, UnitActionDirection.Side);
                         ClearAction();
                     });
                 });
             });
         }
         
-        private void ExecuteTask_HarvestFruit(TaskBase taskbase, Vector2 workPosition)
+        private void ExecuteTask_HarvestFruit(TaskBase taskbase, Vector2 workPosition, UnitActionDirection actionDir)
         {
             var task = taskbase as FarmingTask.HarvestFruit;
             currentAction = task.TaskAction;
@@ -611,7 +632,7 @@ namespace Characters
             workerMover.SetMovePosition(workPosition, () =>
             {
                 _unitAnim.LookAtPostion(task.plantPosition);
-                _unitAnim.SetUnitAction(UnitAction.Doing);
+                _unitAnim.SetUnitAction(UnitAction.Doing, actionDir);
                 DoingWork((WorkAmount ) =>
                 {
                     task.OnWork(WorkAmount, () =>
@@ -620,14 +641,14 @@ namespace Characters
                         _isDoingWork = false;
                         task.OnCompleteTask();
                         state = State.WaitingForNextTask;
-                        _unitAnim.SetUnitAction(UnitAction.Nothing);
+                        _unitAnim.SetUnitAction(UnitAction.Nothing, UnitActionDirection.Side);
                         ClearAction();
                     });
                 });
             });
         }
         
-        private void ExecuteTask_ClearGrass(TaskBase taskbase, Vector2 workPosition)
+        private void ExecuteTask_ClearGrass(TaskBase taskbase, Vector2 workPosition, UnitActionDirection actionDir)
         {
             var task = taskbase as FarmingTask.ClearGrass;
             currentAction = task.TaskAction;
@@ -637,7 +658,7 @@ namespace Characters
             workerMover.SetMovePosition(workPosition, () =>
             {
                 _unitAnim.LookAtPostion(task.grassPosition);
-                _unitAnim.SetUnitAction(UnitAction.Digging);
+                _unitAnim.SetUnitAction(UnitAction.Digging, actionDir);
                 DoingWork((WorkAmount ) =>
                 {
                     task.OnWork(WorkAmount, () =>
@@ -646,14 +667,14 @@ namespace Characters
                         _isDoingWork = false;
                         task.OnCompleteTask();
                         state = State.WaitingForNextTask;
-                        _unitAnim.SetUnitAction(UnitAction.Nothing);
+                        _unitAnim.SetUnitAction(UnitAction.Nothing, UnitActionDirection.Side);
                         ClearAction();
                     });
                 });
             });
         }
 
-        private void ExecuteTask_DigHole(TaskBase taskbase, Vector2 workPosition)
+        private void ExecuteTask_DigHole(TaskBase taskbase, Vector2 workPosition, UnitActionDirection actionDir)
         {
             var task = taskbase as FarmingTask.DigHole;
             currentAction = task.TaskAction;
@@ -663,7 +684,7 @@ namespace Characters
             workerMover.SetMovePosition(workPosition, () =>
             {
                 _unitAnim.LookAtPostion(task.holePosition);
-                _unitAnim.SetUnitAction(UnitAction.Digging);
+                _unitAnim.SetUnitAction(UnitAction.Digging, actionDir);
                 DoingWork((WorkAmount ) =>
                 {
                     task.OnWork(WorkAmount, () =>
@@ -672,14 +693,14 @@ namespace Characters
                         _isDoingWork = false;
                         task.OnCompleteTask();
                         state = State.WaitingForNextTask;
-                        _unitAnim.SetUnitAction(UnitAction.Nothing);
+                        _unitAnim.SetUnitAction(UnitAction.Nothing, UnitActionDirection.Side);
                         ClearAction();
                     });
                 });
             });
         }
         
-        private void ExecuteTask_PlantCrop(TaskBase taskbase, Vector2 workPosition)
+        private void ExecuteTask_PlantCrop(TaskBase taskbase, Vector2 workPosition, UnitActionDirection actionDir)
         {
             var task = taskbase as FarmingTask.PlantCrop;
             currentAction = task.TaskAction;
@@ -689,7 +710,7 @@ namespace Characters
             workerMover.SetMovePosition(workPosition, () =>
             {
                 _unitAnim.LookAtPostion(task.holePosition);
-                _unitAnim.SetUnitAction(UnitAction.Doing);
+                _unitAnim.SetUnitAction(UnitAction.Doing, actionDir);
                 DoingWork((WorkAmount ) =>
                 {
                     task.OnWork(WorkAmount, () =>
@@ -698,14 +719,14 @@ namespace Characters
                         _isDoingWork = false;
                         task.OnCompleteTask();
                         state = State.WaitingForNextTask;
-                        _unitAnim.SetUnitAction(UnitAction.Nothing);
+                        _unitAnim.SetUnitAction(UnitAction.Nothing, UnitActionDirection.Side);
                         ClearAction();
                     });
                 });
             });
         }
         
-        private void ExecuteTask_WaterCrop(TaskBase taskbase, Vector2 workPosition)
+        private void ExecuteTask_WaterCrop(TaskBase taskbase, Vector2 workPosition, UnitActionDirection actionDir)
         {
             var task = taskbase as FarmingTask.WaterCrop;
             currentAction = task.TaskAction;
@@ -715,7 +736,7 @@ namespace Characters
             workerMover.SetMovePosition(workPosition, () =>
             {
                 _unitAnim.LookAtPostion(task.cropPosition);
-                _unitAnim.SetUnitAction(UnitAction.Watering);
+                _unitAnim.SetUnitAction(UnitAction.Watering, actionDir);
                 DoingWork((WorkAmount ) =>
                 {
                     task.OnWork(WorkAmount, () =>
@@ -724,14 +745,14 @@ namespace Characters
                         _isDoingWork = false;
                         task.OnCompleteTask();
                         state = State.WaitingForNextTask;
-                        _unitAnim.SetUnitAction(UnitAction.Nothing);
+                        _unitAnim.SetUnitAction(UnitAction.Nothing, UnitActionDirection.Side);
                         ClearAction();
                     });
                 });
             });
         }
         
-        private void ExecuteTask_HarvestCrop(TaskBase taskbase, Vector2 workPosition)
+        private void ExecuteTask_HarvestCrop(TaskBase taskbase, Vector2 workPosition, UnitActionDirection actionDir)
         {
             var task = taskbase as FarmingTask.HarvestCrop;
             currentAction = task.TaskAction;
@@ -741,7 +762,7 @@ namespace Characters
             workerMover.SetMovePosition(workPosition, () =>
             {
                 _unitAnim.LookAtPostion(task.cropPosition);
-                _unitAnim.SetUnitAction(UnitAction.Digging);
+                _unitAnim.SetUnitAction(UnitAction.Digging, actionDir);
                 DoingWork((WorkAmount ) =>
                 {
                     task.OnWork(WorkAmount, () =>
@@ -750,14 +771,14 @@ namespace Characters
                         _isDoingWork = false;
                         task.OnCompleteTask();
                         state = State.WaitingForNextTask;
-                        _unitAnim.SetUnitAction(UnitAction.Nothing);
+                        _unitAnim.SetUnitAction(UnitAction.Nothing, UnitActionDirection.Side);
                         ClearAction();
                     });
                 });
             });
         }
 
-        private void ExecuteTask_CraftItem_Carpentry(TaskBase taskbase, Vector2 workPosition)
+        private void ExecuteTask_CraftItem_Carpentry(TaskBase taskbase, Vector2 workPosition, UnitActionDirection actionDir)
         {
             var task = taskbase as CarpentryTask.CraftItem;
             currentAction = task.TaskAction;
@@ -766,7 +787,7 @@ namespace Characters
             workerMover.SetMovePosition(workPosition, () =>
             {
                 _unitAnim.LookAtPostion(task.craftPosition);
-                _unitAnim.SetUnitAction(UnitAction.Doing);
+                _unitAnim.SetUnitAction(UnitAction.Doing, actionDir);
                 DoingWork((WorkAmount ) =>
                 {
                     task.OnWork(WorkAmount, () =>
@@ -775,14 +796,14 @@ namespace Characters
                         _isDoingWork = false;
                         task.OnCompleteTask();
                         state = State.WaitingForNextTask;
-                        _unitAnim.SetUnitAction(UnitAction.Nothing);
+                        _unitAnim.SetUnitAction(UnitAction.Nothing, UnitActionDirection.Side);
                         ClearAction();
                     });
                 });
             });
         }
         
-        private void ExecuteTask_GatherResourceForCrafting_Carpentry(TaskBase taskbase, Vector2 workPosition)
+        private void ExecuteTask_GatherResourceForCrafting_Carpentry(TaskBase taskbase, Vector2 workPosition, UnitActionDirection actionDir)
         {
             var task = taskbase as CarpentryTask.GatherResourceForCrafting;
             currentAction = task.TaskAction;
