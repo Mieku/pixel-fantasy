@@ -1,6 +1,7 @@
 using System;
 using Characters.Interfaces;
 using Gods;
+using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,6 +9,9 @@ namespace Characters
 {
     public class UnitAnimController : MonoBehaviour, ICharacterAnimController
     {
+        [SerializeField] private HairData _hairData; // TODO: Separate this into its own class that has all the appearance data
+        [SerializeField] private SpriteRenderer _hairRenderer;
+        
         [SerializeField] private Animator _baseAnim;
         [SerializeField] private Animator _topAnim;
         [SerializeField] private Animator _bottomAnim;
@@ -46,7 +50,12 @@ namespace Characters
         {
             GameEvents.OnGameSpeedChanged -= OnSpeedUpdated;
         }
-        
+
+        private void Start()
+        {
+            SetHairDirection(UnitActionDirection.Side);
+        }
+
         private void OnSpeedUpdated(float speedMod)
         {
             _baseAnim.speed = speedMod;
@@ -57,11 +66,31 @@ namespace Characters
             _fxAnim.speed = speedMod;
             _blushAnim.speed = speedMod;
         }
+
+        private void SetHairDirection(UnitActionDirection dir)
+        {
+            switch (dir)
+            {
+                case UnitActionDirection.Side:
+                    _hairRenderer.sprite = _hairData.Side;
+                    break;
+                case UnitActionDirection.Up:
+                    _hairRenderer.sprite = _hairData.Back;
+                    break;
+                case UnitActionDirection.Down:
+                    _hairRenderer.sprite = _hairData.Front;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(dir), dir, null);
+            }
+        }
         
         public void SetUnitAction(UnitAction unitAction, UnitActionDirection direction)
         {
             _curUnitAction = unitAction;
             ClearAllActions();
+            
+            SetHairDirection(direction);
 
             switch (direction)
             {

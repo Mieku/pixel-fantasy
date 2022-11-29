@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a218f635c5e56ae439331d28aa195c07, type: 3}
+  m_Name: DarkMedium
+  m_EditorClassIdentifier: 
+  Name: Dark Medium
+  Side: {fileID: -1413851991, guid: dc42ec9c3a8f3324289f5c735fcd9240, type: 3}
+  Front: {fileID: -52196629, guid: dc42ec9c3a8f3324289f5c735fcd9240, type: 3}
+  Back: {fileID: 458732951, guid: dc42ec9c3a8f3324289f5c735fcd9240, type: 3}
+  Portrait: {fileID: 0}

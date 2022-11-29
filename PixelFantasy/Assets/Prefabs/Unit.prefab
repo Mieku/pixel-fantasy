@@ -1064,6 +1064,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4aacf1c52815284fb0eec8d00396355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hairData: {fileID: 0}
+  _hairRenderer: {fileID: 8135596080481035088}
   _baseAnim: {fileID: 3393330719185780384}
   _topAnim: {fileID: 3899747566203788537}
   _bottomAnim: {fileID: 9116381785567550880}
