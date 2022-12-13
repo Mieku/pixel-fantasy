@@ -71,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -170406723
-  m_SortingLayer: 4
+  m_SortingLayer: 6
   m_SortingOrder: 3
   m_Sprite: {fileID: 6802935226667071680, guid: 5dd67e14fb5c69b46b68fd3ada846f94, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -93,12 +93,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1480014951440470927}
-  - component: {fileID: 1480014951440470925}
   - component: {fileID: 1480014951440470922}
   - component: {fileID: 1480014951440470923}
   - component: {fileID: 728095472322857260}
   - component: {fileID: 5353870212229824795}
-  m_Layer: 0
+  - component: {fileID: 6855199401775719917}
+  m_Layer: 3
   m_Name: StructurePrefab
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -123,22 +123,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1480014951440470925
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1480014951440470920}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 183748dd497aa473a98ff0cd8cb67fc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  uniqueID: 2085946474806567537
-  updateError: 1
-  checkTime: 0.2
 --- !u!61 &1480014951440470922
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -178,12 +162,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _icon: {fileID: 5452295093903905765}
+  QueuedTaskRefs: 
   PendingTasks: []
   InProgressTasks: []
+  IncomingUnitUID: 
   _takeResourceToBlueprintAction: {fileID: 11400000, guid: 83169185dc450984288697c483e4df23, type: 2}
   _constructStructureAction: {fileID: 11400000, guid: 7eb08bb163e3b934ba51eda03f3a7adb, type: 2}
   _progressBar: {fileID: 2589694300708827305}
-  _gridObstacle: {fileID: 1480014951440470925}
   PendingTask: 0
 --- !u!114 &728095472322857260
 MonoBehaviour:
@@ -200,6 +185,7 @@ MonoBehaviour:
   _objectType: 1
   _selectedIcon: {fileID: 6239104705413282737}
   _objectRenderer: {fileID: 0}
+  _usesTintedSelection: 0
   IsSelected: 0
 --- !u!114 &5353870212229824795
 MonoBehaviour:
@@ -214,6 +200,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueID: 
+--- !u!208 &6855199401775719917
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480014951440470920}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.4, y: 0.4, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &4709571700995021227
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +288,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -170406723
-  m_SortingLayer: 4
+  m_SortingLayer: 6
   m_SortingOrder: 2
   m_Sprite: {fileID: -7608528054425712079, guid: 23fe968df4507164eba15447d4ae43f4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -370,7 +372,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -170406723
-  m_SortingLayer: 4
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: aff142e668b1001439807064cb4f9346, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -454,7 +456,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -170406723
-  m_SortingLayer: 4
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b3acf8a51b2638b41bb8c0b332992b6d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
