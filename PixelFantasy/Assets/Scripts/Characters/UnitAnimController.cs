@@ -38,7 +38,7 @@ namespace Characters
         
         private const string UP = "IsUp";
         private const string DOWN = "IsDown";
-
+        
         private UnitAction _curUnitAction;
 
         private void Awake()
