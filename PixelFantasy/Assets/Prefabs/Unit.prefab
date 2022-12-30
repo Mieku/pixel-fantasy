@@ -928,6 +928,7 @@ GameObject:
   - component: {fileID: 8745535366893241182}
   - component: {fileID: 3299422044965414669}
   - component: {fileID: 6234467081272595317}
+  - component: {fileID: 8062619267271517983}
   m_Layer: 6
   m_Name: Unit
   m_TagString: Unit
@@ -968,6 +969,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unitTaskAI: {fileID: 1902205055910865440}
   _unitState: {fileID: 6459717783198305047}
+  _appearance: {fileID: 8062619267271517983}
 --- !u!50 &5532418264530240431
 Rigidbody2D:
   serializedVersion: 4
@@ -1064,8 +1066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4aacf1c52815284fb0eec8d00396355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hairData: {fileID: 0}
-  _hairRenderer: {fileID: 8135596080481035088}
+  _appearance: {fileID: 8062619267271517983}
   _baseAnim: {fileID: 3393330719185780384}
   _topAnim: {fileID: 3899747566203788537}
   _bottomAnim: {fileID: 9116381785567550880}
@@ -1189,6 +1190,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe23d5d2ff33b7546aea083476eacfda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8062619267271517983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5532418264530240426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dd4ddba9ce61d44f9658f09f9c4009a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HairData: {fileID: 0}
+  Gender: 0
+  _hairRenderer: {fileID: 8135596080481035088}
+  _blushRenderer: {fileID: 8662682699024239101}
 --- !u!1 &5584946585069434698
 GameObject:
   m_ObjectHideFlags: 0

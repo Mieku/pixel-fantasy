@@ -8,6 +8,7 @@ namespace Characters
     {
         [SerializeField] private UnitTaskAI _unitTaskAI;
         [SerializeField] private UnitState _unitState;
+        [SerializeField] private UnitAppearance _appearance;
 
         public UnitState GetUnitState()
         {
@@ -23,6 +24,7 @@ namespace Characters
         {
             var unitTaskData = _unitTaskAI.GetSaveData();
             var unitStateData = _unitState.GetStateData();
+            var appearanceData = _appearance.GetSaveData();
 
             return new UnitData
             {
@@ -30,6 +32,7 @@ namespace Characters
                 Position = transform.position,
                 UnitTaskData = unitTaskData,
                 UnitStateData = unitStateData,
+                AppearanceData = appearanceData,
             };
         }
 
@@ -43,6 +46,7 @@ namespace Characters
             // Send the data to all components
             _unitTaskAI.SetLoadData(unitData.UnitTaskData);
             _unitState.SetLoadData(unitData.UnitStateData);
+            _appearance.SetLoadData(unitData.AppearanceData);
         }
 
         public struct UnitData
@@ -55,6 +59,9 @@ namespace Characters
             
             // Unit State
             public UnitState.UnitStateData UnitStateData;
+            
+            // Unit Appearance
+            public UnitAppearance.AppearanceData AppearanceData;
         }
     }
 }

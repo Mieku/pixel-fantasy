@@ -19,6 +19,7 @@ namespace Gods
         [SerializeField] private List<CropData> _cropLibrary;
         [SerializeField] private List<ActionBase> _actions;
         [SerializeField] private List<GrowingResourceData> _growingResourceLibrary;
+        [SerializeField] private List<HairData> _hairLibrary;
 
         public Color GetColour(string colourName)
         {
@@ -103,6 +104,16 @@ namespace Gods
         public GrowingResourceData GetGrowingResourceData(string resourceName)
         {
             return _growingResourceLibrary.Find(i => i.ResourceName == resourceName);
+        }
+
+        public HairData GetHairData(string hairName)
+        {
+            var result = _hairLibrary.Find(s => s.Name == hairName);
+            if (result == null)
+            {
+                Debug.LogError("Unknown Hair Data: " + hairName);
+            }
+            return result;
         }
     }
 
