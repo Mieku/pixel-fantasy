@@ -1,17 +1,14 @@
-using System;
 using System.Collections.Generic;
 using Actions;
-using Gods;
-using Interfaces;
-using ScriptableObjects;
-using Tasks;
-using Characters;
 using Controllers;
 using DataPersistence;
+using Gods;
+using Items;
+using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Items
+namespace Zones
 {
     public class Crop : Interactable, IPersistent
     {

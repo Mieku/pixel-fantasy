@@ -185,5 +185,6 @@ namespace Controllers
         BuildFurniture,
         BuildFarm,
         BuildDoor,
+        Zone,
     }
 }

@@ -9,6 +9,7 @@ using Tasks;
 using Characters;
 using DataPersistence;
 using UnityEngine;
+using Zones;
 
 namespace Items
 {

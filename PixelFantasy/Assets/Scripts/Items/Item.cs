@@ -10,6 +10,7 @@ using Sirenix.OdinInspector;
 using Tasks;
 using Characters;
 using UnityEngine;
+using Zones;
 
 namespace Items
 {

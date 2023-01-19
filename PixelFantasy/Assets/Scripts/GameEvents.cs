@@ -93,9 +93,14 @@ public class GameEvents : MonoBehaviour
     }
 
     public static event Action<string> OnUnitStatsChanged;
-
     public static void Trigger_OnUnitStatsChanged(string unitUID)
     {
         if (OnUnitStatsChanged != null) OnUnitStatsChanged(unitUID);
+    }
+
+    public static event Action<bool> OnZoneDisplayChanged;
+    public static void Trigger_OnZoneDisplayChanged(bool zonesVisible)
+    {
+        if (OnZoneDisplayChanged != null) OnZoneDisplayChanged(zonesVisible);
     }
 }

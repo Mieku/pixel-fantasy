@@ -20,6 +20,7 @@ namespace Gods
         [SerializeField] private List<ActionBase> _actions;
         [SerializeField] private List<GrowingResourceData> _growingResourceLibrary;
         [SerializeField] private List<HairData> _hairLibrary;
+        [SerializeField] private List<ZoneTypeData> _zoneTypeLibrary;
 
         public Color GetColour(string colourName)
         {
@@ -112,6 +113,16 @@ namespace Gods
             if (result == null)
             {
                 Debug.LogError("Unknown Hair Data: " + hairName);
+            }
+            return result;
+        }
+
+        public ZoneTypeData GetZoneTypeData(ZoneType zoneType)
+        {
+            var result = _zoneTypeLibrary.Find(s => s.ZoneType == zoneType);
+            if (result == null)
+            {
+                Debug.LogError("Unknown Zone Type Data: " + zoneType);
             }
             return result;
         }

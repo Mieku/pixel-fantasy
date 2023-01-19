@@ -218,10 +218,19 @@ namespace Controllers
             {
                 BuildStorageZone();
             } 
+            else if (key == "Home")
+            {
+                BuildZone(ZoneType.Home);
+            }
             else // Assume Farm if unknown
             {
                 BuildFarmZone(key);
             }
+        }
+
+        private void BuildZone(ZoneType zoneType)
+        {
+            ZoneManager.Instance.PlanZone(zoneType);
         }
 
         private void BuildStorageZone()

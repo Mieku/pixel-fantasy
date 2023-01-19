@@ -75,5 +75,7 @@ namespace Controllers
         Flooring,
         Dirt,
         Mountain,
+        Zones,
+        PendingZones,
     }
 }

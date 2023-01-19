@@ -7,6 +7,7 @@ using Handlers;
 using Items;
 using ScriptableObjects;
 using UnityEngine;
+using Zones;
 
 namespace Controllers
 {

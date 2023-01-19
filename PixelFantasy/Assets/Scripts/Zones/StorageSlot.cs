@@ -1,14 +1,12 @@
-using System;
-using System.Collections.Generic;
 using Controllers;
 using DataPersistence;
 using Gods;
+using Items;
 using ScriptableObjects;
-using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
-namespace Items
+namespace Zones
 {
     public class StorageSlot : UniqueObject, IPersistent
     {

@@ -7,6 +7,7 @@ using HUD;
 using Items;
 using ScriptableObjects;
 using UnityEngine;
+using Zones;
 
 namespace Gods
 {
