@@ -86,5 +86,17 @@ namespace Zones
         {
             Panel = ZoneManager.Instance.CreatePanel(this, CenterPos());
         }
+
+        public void SetWarning(string warning)
+        {
+            if (string.IsNullOrEmpty(warning))
+            {
+                Panel.HideWarning();
+            }
+            else
+            {
+                Panel.ShowWarning(warning);
+            }
+        }
     }
 }

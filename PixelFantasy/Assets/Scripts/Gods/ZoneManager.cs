@@ -13,6 +13,7 @@ namespace Gods
     {
         [SerializeField] private GameObject _zonesTilemap;
         [SerializeField] private RuleTile _zoneRuleTile;
+        [SerializeField] private Transform _panelCanvas;
         
         public GameObject ZonePanelPrefab;
         
@@ -253,7 +254,7 @@ namespace Gods
 
         public ZonePanel CreatePanel(Zone zone, Vector2 centerPos)
         {
-            var zonePanel = Instantiate(ZonePanelPrefab).GetComponent<ZonePanel>();
+            var zonePanel = Instantiate(ZonePanelPrefab, _panelCanvas).GetComponent<ZonePanel>();
             zonePanel.transform.position = centerPos;
             zonePanel.Init(zone);
             return zonePanel;

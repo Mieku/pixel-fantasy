@@ -24,9 +24,6 @@ namespace HUD
             _warningIcon.gameObject.SetActive(false);
             
             SetColour(zone.ZoneTypeData.Colour);
-            
-            // TODO: Remove this
-            ShowWarning("Tester warning!!");
         }
 
         private void SetColour(Color colour)
