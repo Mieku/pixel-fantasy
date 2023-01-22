@@ -216,6 +216,12 @@ namespace Gods
         public void ShowPlacementIcon(bool show, Sprite icon = null, List<String> invalidPlacementTags = null, float sizeOverride = 1f)
         {
             _placementIcon.enabled = true;
+
+            List<string> tags = null;
+            if (invalidPlacementTags != null)
+            {
+                tags = new List<string>(invalidPlacementTags);
+            }
             
             if (_placementIcon.transform.childCount > 0)
             {
@@ -229,7 +235,7 @@ namespace Gods
                 _placementIcon.sprite = icon;
                 _placementIcon.gameObject.SetActive(true);
                 _showPlacement = true;
-                _invalidPlacementTags = invalidPlacementTags;
+                _invalidPlacementTags = tags;
             }
             else
             {   _placementIcon.gameObject.SetActive(false);
