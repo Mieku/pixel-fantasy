@@ -222,10 +222,18 @@ namespace Controllers
             {
                 BuildZone(ZoneType.Home);
             }
-            else // Assume Farm if unknown
+            else if (key == "Farm")
             {
-                BuildFarmZone(key);
+                BuildZone(ZoneType.Farm);
             }
+            else
+            {
+                Debug.LogError("BuildZonePressed - Unknown Zone: " + key);
+            }
+            // else // Assume Farm if unknown
+            // {
+            //     BuildFarmZone(key);
+            // }
         }
 
         private void BuildZone(ZoneType zoneType)

@@ -17,7 +17,7 @@ namespace Gods
         
         public GameObject ZonePanelPrefab;
         
-        public List<Zone> Zones = new List<Zone>();
+        public List<IZone> Zones = new List<IZone>();
         
         private bool _zonesVisible;
         private bool _isPlanningZone;
@@ -28,7 +28,7 @@ namespace Gods
         private Tilemap _pendingZonesTM;
         private ZoneType _curZoneType;
         private List<string> _defaultInvalidTagsForZone = new List<string>() { "Water", "Zones" };
-        private Zone _zoneToModify;
+        private IZone _zoneToModify;
 
         protected override void Awake()
         {
@@ -67,6 +67,63 @@ namespace Gods
 
         private void GameEvents_OnLeftClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
         {
+            UnclickAllZones();
+            StartPlanningZone_LeftDown(mousePos, inputState, isOverUI);
+            DetectZoneClicked(mousePos, inputState, isOverUI);
+        }
+        
+        private void GameEvents_OnLeftClickHeld(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
+        {
+            PlanZone_LeftHeld(mousePos, inputState, isOverUI);
+        }
+        
+        private void GameEvents_OnLeftClickUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
+        {
+            CreateZone_LeftUp(mousePos, inputState, isOverUI);
+        }
+        
+        private void GameEvents_OnRightClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
+        {
+            UnclickAllZones();
+            if (inputState != PlayerInputState.Zone) return;
+            CancelInput();
+        }
+
+        private void GameEvents_OnTabPressed()
+        {
+            ShowZones(!_zonesVisible);
+        }
+        
+        #endregion
+
+        #region Zone Display
+
+        private void DetectZoneClicked(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
+        {
+            if (isOverUI) return;
+            if(inputState != PlayerInputState.None) return;
+            if (!_zonesVisible) return;
+            
+            // Click a zone if available
+            var gridPos = Helper.ConvertMousePosToGridPos(mousePos);
+            var zoneClicked = GetZoneByGridPos(gridPos);
+            if (zoneClicked != null)
+            {
+                zoneClicked.ClickZone();
+            }
+        }
+
+        private void UnclickAllZones()
+        {
+            // Unclick all zones
+            foreach (var zone in Zones)
+            {
+                zone.UnclickZone();
+            }
+        }
+        
+        private void StartPlanningZone_LeftDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
+        {
             if (isOverUI) return;
             if (inputState != PlayerInputState.Zone) return;
             
@@ -92,8 +149,8 @@ namespace Gods
                 _zoneToModify = null;
             }
         }
-
-        private void GameEvents_OnLeftClickHeld(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
+        
+        private void PlanZone_LeftHeld(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
         {
             if (isOverUI) return;
             if (inputState != PlayerInputState.Zone) return;
@@ -122,8 +179,8 @@ namespace Gods
                 }
             }
         }
-
-        private void GameEvents_OnLeftClickUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
+        
+        private void CreateZone_LeftUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
         {
             if (isOverUI) return;
             if (inputState != PlayerInputState.Zone) return;
@@ -151,11 +208,7 @@ namespace Gods
             if (_pendingCells.Count == 0) return;
             if (_zoneToModify == null)
             {
-                var zoneTypeData = Librarian.Instance.GetZoneTypeData(_curZoneType);
-                string uid = AssignUID();
-                string zoneName = zoneTypeData.ZoneTypeName; // TODO: Make this generate unique and interesting names
-
-                Zone newZone = new Zone(uid, zoneName, _curZoneType, new List<Vector3Int>(_pendingCells), zoneRuleTile);
+                Zone newZone = CreateZoneByType(_curZoneType, _pendingCells, zoneRuleTile);
                 Zones.Add(newZone);
             }
             else
@@ -165,21 +218,26 @@ namespace Gods
             
             _pendingCells.Clear();
         }
-        
-        private void GameEvents_OnRightClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
-        {
-            if (inputState != PlayerInputState.Zone) return;
-            CancelInput();
-        }
 
-        private void GameEvents_OnTabPressed()
+        private Zone CreateZoneByType(ZoneType zoneType, List<Vector3Int> gridPositions,
+            LayeredRuleTile zoneRuleTile)
         {
-            ShowZones(!_zonesVisible);
+            string uid = AssignUID();
+            
+            switch (zoneType)
+            {
+                case ZoneType.Storage:
+                    break;
+                case ZoneType.Farm:
+                    return new FarmZone(uid, gridPositions, zoneRuleTile);
+                case ZoneType.Home:
+                    return new HomeZone(uid, gridPositions, zoneRuleTile);
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(zoneType), zoneType, null);
+            }
+            
+            return null;
         }
-        
-        #endregion
-
-        #region Zone Display
 
         private void DisplayZoneInput()
         {
@@ -192,6 +250,7 @@ namespace Gods
         // Display the zones
         private void ShowZones(bool makeVisible)
         {
+            UnclickAllZones();
             _zonesVisible = makeVisible;
             _zonesTilemap.SetActive(makeVisible);
             GameEvents.Trigger_OnZoneDisplayChanged(makeVisible);
@@ -209,7 +268,7 @@ namespace Gods
         
         #endregion
 
-        public Zone GetZoneByGridPos(Vector2 gridPos)
+        public IZone GetZoneByGridPos(Vector2 gridPos)
         {
             var cell = _zonesTM.WorldToCell(gridPos);
             foreach (var zone in Zones)
@@ -252,7 +311,7 @@ namespace Gods
             ClearPendingTiles();
         }
 
-        public ZonePanel CreatePanel(Zone zone, Vector2 centerPos)
+        public ZonePanel CreatePanel(IZone zone, Vector2 centerPos)
         {
             var zonePanel = Instantiate(ZonePanelPrefab, _panelCanvas).GetComponent<ZonePanel>();
             zonePanel.transform.position = centerPos;
@@ -260,7 +319,4 @@ namespace Gods
             return zonePanel;
         }
     }
-
-        
-        
 }

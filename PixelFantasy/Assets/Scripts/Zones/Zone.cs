@@ -6,45 +6,60 @@ using Gods;
 using HUD;
 using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Zones
 {
     [Serializable]
-    public class Zone 
+    public abstract class Zone : IZone
     {
-        /*
-         * Each zone needs:
-         * - A unique id
-         * - Name
-         * - Type (Icon is provided in type)
-         * - The tiles it encompasses
-         * - Savable
-         * - Center point (For showing the menu)
-         * - A way to expand/shrink/delete
-         * - A way to detect and inform of issues (not connected, not enclosed, missing furniture... etc have this be expandable based on type)
-         *
-         * Optional:
-         * - References to the furniture inside them
-         * - Kinlings assigned to them
-         */
-
-        public string UID;
-        public string Name;
-        public ZoneType ZoneType;
+        public string UID { get; set; }
+        public string Name { get; set; }
+        public abstract ZoneType ZoneType { get; }
+        public List<Vector3Int> GridPositions { get; set; }
+        public LayeredRuleTile LayeredRuleTile { get; set; }
         public ZoneTypeData ZoneTypeData => Librarian.Instance.GetZoneTypeData(ZoneType);
-        public List<Vector3Int> GridPositions;
-        public LayeredRuleTile LayeredRuleTile;
         public ZonePanel Panel;
+        
+        private Tilemap _zonesTM;
 
-        public Zone(string uid, string name, ZoneType zoneType, List<Vector3Int> gridPositions, LayeredRuleTile layeredRuleTile)
+        protected void Init(string uid, List<Vector3Int> gridPositions, LayeredRuleTile layeredRuleTile)
         {
-            UID = uid;
-            Name = name;
-            ZoneType = zoneType;
-            GridPositions = gridPositions;
-            LayeredRuleTile = layeredRuleTile;
+            _zonesTM = TilemapController.Instance.GetTilemap(TilemapLayer.Zones);
+        }
 
+        protected Zone(string uid, List<Vector3Int> gridPositions, LayeredRuleTile layeredRuleTile)
+        {
+            Init(uid, gridPositions, layeredRuleTile);
+            
+            UID = uid;
+            GridPositions = new List<Vector3Int>(gridPositions);
+            LayeredRuleTile = layeredRuleTile;
+            
+            AssignName();
             DisplayZonePanel();
+        }
+
+        protected abstract void AssignName();
+
+        public void ClickZone()
+        {
+            ColourZone(Color.white);
+            Panel.SetColour(Color.white);
+        }
+
+        public void UnclickZone()
+        {
+            ColourZone(ZoneTypeData.Colour);
+            Panel.SetColour(ZoneTypeData.Colour);
+        }
+
+        public void ColourZone(Color colour)
+        {
+            foreach (var cell in GridPositions)
+            {
+                _zonesTM.SetColor(cell, colour);
+            }
         }
 
         public Vector3 CenterPos()
@@ -85,18 +100,6 @@ namespace Zones
         private void DisplayZonePanel()
         {
             Panel = ZoneManager.Instance.CreatePanel(this, CenterPos());
-        }
-
-        public void SetWarning(string warning)
-        {
-            if (string.IsNullOrEmpty(warning))
-            {
-                Panel.HideWarning();
-            }
-            else
-            {
-                Panel.ShowWarning(warning);
-            }
         }
     }
 }
