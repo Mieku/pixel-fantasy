@@ -42,16 +42,16 @@ namespace Zones
 
         protected abstract void AssignName();
 
-        public void ClickZone()
+        public virtual void ClickZone()
         {
             ColourZone(Color.white);
             Panel.SetColour(Color.white);
         }
 
-        public void UnclickZone()
+        public virtual void UnclickZone()
         {
             ColourZone(ZoneTypeData.Colour);
-            Panel.SetColour(ZoneTypeData.Colour);
+            Panel.Refresh();
         }
 
         public void ColourZone(Color colour)
@@ -97,9 +97,20 @@ namespace Zones
             Panel.transform.position = CenterPos();
         }
 
+        public void ShrinkZone()
+        {
+            Debug.LogError("Not built yet!");
+        }
+
         private void DisplayZonePanel()
         {
             Panel = ZoneManager.Instance.CreatePanel(this, CenterPos());
+        }
+
+        public void EditZoneName(string inputName)
+        {
+            Name = inputName;
+            Panel.Refresh();
         }
     }
 }

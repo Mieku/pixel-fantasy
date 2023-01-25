@@ -67,7 +67,6 @@ namespace Gods
 
         private void GameEvents_OnLeftClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
         {
-            UnclickAllZones();
             StartPlanningZone_LeftDown(mousePos, inputState, isOverUI);
             DetectZoneClicked(mousePos, inputState, isOverUI);
         }
@@ -109,6 +108,7 @@ namespace Gods
             var zoneClicked = GetZoneByGridPos(gridPos);
             if (zoneClicked != null)
             {
+                UnclickAllZones();
                 zoneClicked.ClickZone();
             }
         }

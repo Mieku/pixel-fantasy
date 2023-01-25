@@ -60,13 +60,13 @@ namespace Gods
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                Debug.Log("Plank!");
-                CraftingTask craft = new CraftingTask();
-                craft.ItemData = plank;
-                CreateCraftingTask(craft);
-            }
+            // if (Input.GetKeyDown(KeyCode.P))
+            // {
+            //     Debug.Log("Plank!");
+            //     CraftingTask craft = new CraftingTask();
+            //     craft.ItemData = plank;
+            //     CreateCraftingTask(craft);
+            // }
         }
 
         public void AddCraftingTable(CraftingTable table, CraftingType craftingType)

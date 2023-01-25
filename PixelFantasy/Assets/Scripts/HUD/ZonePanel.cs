@@ -14,19 +14,32 @@ namespace HUD
         [SerializeField] private Image _zoneIcon;
         [SerializeField] private TextMeshProUGUI _zoneName;
 
-        private Zone _zone;
+        private IZone _zone;
 
         public void Init(IZone zone)
         {
-            _zoneIcon.sprite = zone.ZoneTypeData.Icon;
-            _zoneName.text = zone.Name;
+            _zone = zone;
             
-            SetColour(zone.ZoneTypeData.Colour);
+            Refresh();
+        }
+
+        public void Refresh()
+        {
+            _zoneIcon.sprite = _zone.ZoneTypeData.Icon;
+            _zoneName.text = _zone.Name;
+
+            // For font colour, take the zone colour and shift darker
+            var darkerColour = _zone.ZoneTypeData.Colour;
+            darkerColour.r -= (darkerColour.r * .30f);
+            darkerColour.g -= (darkerColour.g * .30f);
+            darkerColour.b -= (darkerColour.b * .30f);
+            
+            SetColour(darkerColour);
         }
 
         public void SetColour(Color colour)
         {
-            _zoneIcon.color = colour;
+            //_zoneIcon.color = colour;
             _zoneName.color = colour;
         }
 

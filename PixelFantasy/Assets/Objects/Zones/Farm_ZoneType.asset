@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 20c8c5d6b032a87439d21c5ca91fd4f3, type: 3}
-  m_Name: Home_ZoneType
+  m_Name: Farm_ZoneType
   m_EditorClassIdentifier: 
-  ZoneTypeName: Home
-  ZoneType: 2
-  Icon: {fileID: -8911172189020425920, guid: cb01581a6c5fe704e9f6d15f9f7ff7a1, type: 3}
-  Colour: {r: 0.26637593, g: 0.45725867, b: 0.7735849, a: 1}
+  ZoneTypeName: Farm
+  ZoneType: 1
+  Icon: {fileID: -1100895598412299331, guid: cb01581a6c5fe704e9f6d15f9f7ff7a1, type: 3}
+  Colour: {r: 0.29153472, g: 0.6226415, b: 0.2731399, a: 1}

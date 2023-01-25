@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Popups;
+using Popups.Zone_Popups;
 using ScriptableObjects;
 using UnityEngine;
 
@@ -16,6 +18,23 @@ namespace Zones
         protected override void AssignName()
         {
             Name = ZoneTypeData.ZoneTypeName;
+        }
+
+        public override void ClickZone()
+        {
+            base.ClickZone();
+            
+            HomeZonePopup.Show(this);
+        }
+
+        public override void UnclickZone()
+        {
+            base.UnclickZone();
+
+            if (HomeZonePopup.Instance != null)
+            {
+                HomeZonePopup.Hide();
+            }
         }
     }
 }
