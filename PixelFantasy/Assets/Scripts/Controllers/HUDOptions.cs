@@ -8,21 +8,22 @@ using Items;
 using ScriptableObjects;
 using UnityEditor.U2D.Path.GUIFramework;
 using UnityEngine;
+using Order = HUD.Order;
 
 namespace Controllers
 {
     public class HUDOptions : MonoBehaviour
     {
-        [SerializeField] private List<ConstructionOrder> _cheatOrders;
+        [SerializeField] private List<Order> _cheatOrders;
 
         [SerializeField] private List<MassOrder> _massOrders;
-        [SerializeField] private List<ConstructionOrder> _zoneOrders;
-        [SerializeField] private List<ConstructionOrder> _wallOrders;
-        [SerializeField] private List<ConstructionOrder> _floorOrders;
-        [SerializeField] private List<ConstructionOrder> _doorOrders;
-        [SerializeField] private List<ConstructionOrder> _productionOrders;
-        [SerializeField] private List<ConstructionOrder> _furnitureOrders;
-        [SerializeField] private List<ConstructionOrder> _lightingOrders;
+        [SerializeField] private List<Order> _zoneOrders;
+        [SerializeField] private List<Order> _wallOrders;
+        [SerializeField] private List<Order> _floorOrders;
+        [SerializeField] private List<Order> _doorOrders;
+        [SerializeField] private List<Order> _productionOrders;
+        [SerializeField] private List<Order> _furnitureOrders;
+        [SerializeField] private List<Order> _lightingOrders;
         
         [SerializeField] private DirtTile _dirtPrefab;
 
@@ -82,7 +83,7 @@ namespace Controllers
             HUDOrders.Instance.ClearOrders();
         }
 
-        private void DisplayOrders(List<ConstructionOrder> orders)
+        private void DisplayOrders(List<Order> orders)
         {
             ClearOptions();
             
@@ -115,7 +116,7 @@ namespace Controllers
             return OnOnpressed;
         }
 
-        private Action DetermineOnPressedAction(string dataKey, OrderType orderType, List<ConstructionOrder> subMenu, List<ConstructionOrder> curMenu)
+        private Action DetermineOnPressedAction(string dataKey, OrderType orderType, List<Order> subMenu, List<Order> curMenu)
         {
             Action onpressed = null;
             
@@ -248,11 +249,11 @@ namespace Controllers
             Spawner.Instance.ShowPlacementIcon(true, invController.GetStorageZoneBlueprintSprite(), invController.StoragePlacementInvalidTags);
         }
 
-        private void ShowSubMenu(List<ConstructionOrder> subMenu, List<ConstructionOrder> curMenu, bool hasBackBtn)
+        private void ShowSubMenu(List<Order> subMenu, List<Order> curMenu, bool hasBackBtn)
         {
             if (hasBackBtn && subMenu[0].OrderName != "Back")
             {
-                ConstructionOrder backbtn = new ConstructionOrder
+                Order backbtn = new Order
                 {
                     Icon = Librarian.Instance.GetOrderIcon("Back"),
                     OrderName = "Back",

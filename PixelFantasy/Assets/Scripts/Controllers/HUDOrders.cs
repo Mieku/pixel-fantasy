@@ -40,7 +40,7 @@ namespace Controllers
             _selectionData = selectionData;
             foreach (var action in _selectionData.Actions)
             {
-                bool isActive = selectionData.CancellableActions.Contains(action);//_selectionData.ClickObject.IsActionActive(action);
+                bool isActive = selectionData.CancellableActions.Contains(action);
                 CreateOrder(action, selectionData.Requestor, isActive);
             }
         }

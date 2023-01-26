@@ -11,13 +11,13 @@ using Object = UnityEngine.Object;
 namespace HUD
 {
     [Serializable]
-    public class ConstructionOrder
+    public class Order
     {
         public OrderType OrderType;
         public string OrderName;
         public Sprite Icon;
         public string DataKey;
-        [ShowIf("OrderType", Value = HUD.OrderType.SubMenu)] public List<ConstructionOrder> SubMenu;
+        [ShowIf("OrderType", Value = HUD.OrderType.SubMenu)] public List<Order> SubMenu;
     }
 
     [Serializable]

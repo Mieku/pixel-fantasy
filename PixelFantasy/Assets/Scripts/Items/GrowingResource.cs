@@ -180,19 +180,6 @@ namespace Items
             Destroy(gameObject);
         }
         
-        public override List<Order> GetOrders()
-        {
-            List<Order> results = new List<Order>();
-            results.Add(Order.CutPlant);
-            
-            if (_hasFruitAvailable)
-            {
-                results.Add(Order.Harvest);
-            }
-
-            return results;
-        }
-        
         public override int GetWorkAmount()
         {
             return _growingResourceData.GetWorkToCut(_growthIndex);

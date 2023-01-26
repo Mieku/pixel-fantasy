@@ -224,23 +224,6 @@ namespace Items
             }
         }
 
-        public List<Order> GetOrders()
-        {
-            List<Order> results = new List<Order>();
-
-            if (IsAllowed)
-            {
-                results.Add(Order.Disallow);
-            }
-            else
-            {
-                results.Add(Order.Allow);
-            }
-            
-
-            return results;
-        }
-
         public List<ActionBase> GetActions()
         {
             var result = new List<ActionBase>();
@@ -248,17 +231,6 @@ namespace Items
             return result;
         }
         
-        public bool IsOrderActive(Order order)
-        {
-            switch (order)
-            {
-                case Order.Disallow:
-                    return !IsAllowed;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(order), order, null);
-            }
-        }
-
         public bool IsActionActive(ActionBase action)
         {
             throw new NotImplementedException();

@@ -84,16 +84,6 @@ namespace Items
             return CancellableActions();
         }
 
-        public virtual List<Order> GetOrders()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public virtual bool IsOrderActive(Order order)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public virtual void AssignOrder(ActionBase orderToAssign)
         {
             CreateTask(orderToAssign);

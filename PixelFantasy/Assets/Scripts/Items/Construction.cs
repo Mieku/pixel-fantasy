@@ -376,12 +376,7 @@ namespace Items
         {
             throw new System.NotImplementedException();
         }
-
-        public List<Order> GetOrders()
-        {
-            throw new System.NotImplementedException();
-        }
-
+        
         public virtual List<ActionBase> GetActions()
         {
             throw new System.NotImplementedException();
@@ -392,12 +387,7 @@ namespace Items
             //throw new System.NotImplementedException();
             CreateTask(orderToAssign);
         }
-
-        public bool IsOrderActive(Order order)
-        {
-            throw new System.NotImplementedException();
-        }
-
+        
         public virtual List<ItemAmount> GetResourceCosts()
         {
             throw new System.NotImplementedException();
