@@ -23,6 +23,8 @@ namespace Zones
         
         private Tilemap _zonesTM;
 
+        private bool _isSelected;
+
         protected void Init(string uid, List<Vector3Int> gridPositions, LayeredRuleTile layeredRuleTile)
         {
             _zonesTM = TilemapController.Instance.GetTilemap(TilemapLayer.Zones);
@@ -44,12 +46,14 @@ namespace Zones
 
         public virtual void ClickZone()
         {
+            _isSelected = true;
             ColourZone(Color.white);
             Panel.SetColour(Color.white);
         }
 
         public virtual void UnclickZone()
         {
+            _isSelected = false;
             ColourZone(ZoneTypeData.Colour);
             Panel.Refresh();
         }
@@ -97,9 +101,24 @@ namespace Zones
             Panel.transform.position = CenterPos();
         }
 
-        public void ShrinkZone()
+        public void ShrinkZone(List<Vector3Int> cellsToRemove)
         {
-            Debug.LogError("Not built yet!");
+            GridPositions = GridPositions.Except(cellsToRemove).ToList();
+
+            if (GridPositions.Count > 0)
+            {
+                Panel.transform.position = CenterPos();
+            }
+            else
+            {
+                RemoveZone();
+            }
+        }
+
+        public void RemoveZone()
+        {
+            GameObject.Destroy(Panel.gameObject);
+            ZoneManager.Instance.Zones.Remove(this);
         }
 
         private void DisplayZonePanel()
@@ -111,6 +130,12 @@ namespace Zones
         {
             Name = inputName;
             Panel.Refresh();
+
+            // Refreshes the panel highlighting
+            if (_isSelected)
+            {
+                Panel.SetColour(Color.white);
+            }
         }
     }
 }

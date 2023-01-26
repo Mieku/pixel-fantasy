@@ -241,7 +241,7 @@ namespace Controllers
         {
             ZoneManager.Instance.PlanZone(zoneType);
         }
-
+        
         private void BuildStorageZone()
         {
             var invController = ControllerManager.Instance.InventoryController;

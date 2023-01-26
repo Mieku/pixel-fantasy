@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 630fe40fa926ac3428608431b6d1eafc, type: 3}
   m_Name: ZoneTile
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 2004768256, guid: 49688975d6e4e9d4e9023f92ee002b97, type: 3}
+  m_DefaultSprite: {fileID: 1670653853, guid: 49688975d6e4e9d4e9023f92ee002b97, type: 3}
   m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 1
   m_TilingRules:

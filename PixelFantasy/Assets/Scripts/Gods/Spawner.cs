@@ -43,6 +43,7 @@ namespace Gods
 
         private bool _showPlacement;
         private List<string> _invalidPlacementTags = new List<string>();
+        private Color? _colourOverride;
         
         // Structure
         private bool _planningStructure;
@@ -191,7 +192,7 @@ namespace Gods
         
         protected virtual void GameEvents_OnRightClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
         {
-            CancelInput();
+            
         }
         
         protected virtual void GameEvents_OnRightClickHeld(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
@@ -201,7 +202,7 @@ namespace Gods
         
         protected virtual void GameEvents_OnRightClickUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
         {
-            
+            CancelInput();
         }
 
         private void CancelInput()
@@ -213,9 +214,10 @@ namespace Gods
             PlacementDirection = PlacementDirection.Down;
         }
 
-        public void ShowPlacementIcon(bool show, Sprite icon = null, List<String> invalidPlacementTags = null, float sizeOverride = 1f)
+        public void ShowPlacementIcon(bool show, Sprite icon = null, List<String> invalidPlacementTags = null, float sizeOverride = 1f, Color? colourOverride = null)
         {
             _placementIcon.enabled = true;
+            _colourOverride = colourOverride;
 
             List<string> tags = null;
             if (invalidPlacementTags != null)
@@ -274,13 +276,14 @@ namespace Gods
                 _placementIcon.transform.position = gridPos;
                 if (Helper.IsGridPosValidToBuild(gridPos, _invalidPlacementTags))
                 {
-                    _placementIcon.color = Librarian.Instance.GetColour("Placement Green");
+                    Color placementColour = (Color)(_colourOverride != null ? _colourOverride : Librarian.Instance.GetColour("Placement Green"));
+                    _placementIcon.color = placementColour;
                     if (_placementIcon.transform.childCount > 0)
                     {
                         var renderers = _placementIcon.GetComponentsInChildren<SpriteRenderer>();
                         foreach (var renderer in renderers)
                         {
-                            renderer.color = Librarian.Instance.GetColour("Placement Green");
+                            renderer.color = placementColour;
                         }
                     }
                 }

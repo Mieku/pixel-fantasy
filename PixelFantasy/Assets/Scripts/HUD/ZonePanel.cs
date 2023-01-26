@@ -39,7 +39,6 @@ namespace HUD
 
         public void SetColour(Color colour)
         {
-            //_zoneIcon.color = colour;
             _zoneName.color = colour;
         }
 

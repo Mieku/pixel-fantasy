@@ -37,6 +37,8 @@ namespace Gods
             GameEvents.OnLeftClickHeld += GameEvents_OnLeftClickHeld;
             GameEvents.OnLeftClickUp += GameEvents_OnLeftClickUp;
             GameEvents.OnRightClickDown += GameEvents_OnRightClickDown;
+            GameEvents.OnRightClickHeld += GameEvents_OnRightClickHeld;
+            GameEvents.OnRightClickUp += GameEvents_OnRightClickUp;
 
             _zonesTM = TilemapController.Instance.GetTilemap(TilemapLayer.Zones);
             _pendingZonesTM = TilemapController.Instance.GetTilemap(TilemapLayer.PendingZones);
@@ -48,6 +50,8 @@ namespace Gods
             GameEvents.OnLeftClickHeld -= GameEvents_OnLeftClickHeld;
             GameEvents.OnLeftClickUp -= GameEvents_OnLeftClickUp;
             GameEvents.OnRightClickDown -= GameEvents_OnRightClickDown;
+            GameEvents.OnRightClickHeld -= GameEvents_OnRightClickHeld;
+            GameEvents.OnRightClickUp -= GameEvents_OnRightClickUp;
         }
 
         private void Update()
@@ -58,9 +62,11 @@ namespace Gods
         public void PlanZone(ZoneType zoneType)
         {
             _curZoneType = zoneType;
+            
+            var zoneColour = Librarian.Instance.GetZoneTypeData(_curZoneType).Colour;
             ShowZones(true);
             PlayerInputController.Instance.ChangeState(PlayerInputState.Zone);
-            Spawner.Instance.ShowPlacementIcon(true, _zoneRuleTile.m_DefaultSprite, _defaultInvalidTagsForZone);
+            Spawner.Instance.ShowPlacementIcon(true, _zoneRuleTile.m_DefaultSprite, _defaultInvalidTagsForZone, 1f, zoneColour);
         }
 
         #region GameEvents
@@ -81,8 +87,21 @@ namespace Gods
             CreateZone_LeftUp(mousePos, inputState, isOverUI);
         }
         
-        private void GameEvents_OnRightClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
+        private void GameEvents_OnRightClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
         {
+            StartShrinkingZone_RightDown(mousePos, inputState, isOverUI);
+        }
+
+        private void GameEvents_OnRightClickHeld(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
+        {
+            SelectShrinkingZone_RightHeld(mousePos, inputState, isOverUI);
+        }
+        
+        private void GameEvents_OnRightClickUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
+        {
+            // Finish Shrinking Zone Here
+            SkrinkZone_RightUp(mousePos, inputState, isOverUI);
+            
             UnclickAllZones();
             if (inputState != PlayerInputState.Zone) return;
             CancelInput();
@@ -152,7 +171,6 @@ namespace Gods
         
         private void PlanZone_LeftHeld(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
         {
-            if (isOverUI) return;
             if (inputState != PlayerInputState.Zone) return;
             if (!_isPlanningZone) return;
             
@@ -182,7 +200,6 @@ namespace Gods
         
         private void CreateZone_LeftUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
         {
-            if (isOverUI) return;
             if (inputState != PlayerInputState.Zone) return;
 
             LayeredRuleTile zoneRuleTile;
@@ -215,6 +232,70 @@ namespace Gods
             {
                 _zoneToModify.ExpandZone(new List<Vector3Int>(_pendingCells));
             }
+            
+            _pendingCells.Clear();
+        }
+
+        private void StartShrinkingZone_RightDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
+        {
+            if (isOverUI) return;
+            if (inputState != PlayerInputState.Zone) return;
+            
+            _startPos = Helper.ConvertMousePosToGridPos(mousePos);
+
+            // Detect if click is starting from a zone, if so, begin shrinking the zone
+            if (Helper.DoesGridContainTag(_startPos, "Zones"))
+            {
+                var potentialZoneToModify = GetZoneByGridPos(_startPos);
+                _zoneToModify = potentialZoneToModify;
+                _isPlanningZone = true;
+            }
+        }
+
+        private void SelectShrinkingZone_RightHeld(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
+        {
+            if (inputState != PlayerInputState.Zone) return;
+            
+            if (!_isPlanningZone) return;
+            
+            Vector3 curGridPos = Helper.ConvertMousePosToGridPos(mousePos);
+            List<Vector2> gridPositions = Helper.GetRectangleGridPositionsBetweenPoints(_startPos, curGridPos);
+
+            if (gridPositions.Count != _plannedGrid.Count)
+            {
+                _plannedGrid = gridPositions;
+                
+                // Clear previous tiles, then display new tiles
+                ClearPendingTiles();
+
+                foreach (var gridPos in gridPositions)
+                {
+                    if (!Helper.IsGridPosValidToBuild(gridPos, new List<string>{"Zones"}))
+                    {
+                        // Create Pending Tile
+                        var cell = _zonesTM.WorldToCell(gridPos);
+                        _pendingZonesTM.SetTile(cell, _zoneRuleTile);
+                        _pendingZonesTM.SetColor(cell, Color.red);
+                        _pendingCells.Add(cell);
+                    }
+                }
+            }
+        }
+
+        private void SkrinkZone_RightUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
+        {
+            if (inputState != PlayerInputState.Zone) return;
+
+            // Remove the tiles from the pending tilemap, and remove from the zones tilemap
+            foreach (var cell in _pendingCells)
+            {
+                _pendingZonesTM.SetTile(cell, null);
+                _zonesTM.SetTile(cell, null);
+            }
+            
+            // Remove the pending cells from a zone
+            if (_pendingCells.Count == 0) return;
+            _zoneToModify.ShrinkZone(new List<Vector3Int>(_pendingCells));
             
             _pendingCells.Clear();
         }
