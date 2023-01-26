@@ -30,7 +30,6 @@ namespace Popups.Zone_Popups
         public void EditZoneName()
         {
             var nameInput = _zoneName.text;
-            Debug.Log("Edited Name to be: " + nameInput);
             _zone.EditZoneName(nameInput);
         }
     }
