@@ -392,6 +392,18 @@ namespace Characters
                 return;
             }
 
+            if (task is FarmingTask.ClearCrop)
+            {
+                var clearCropTask = task as FarmingTask.ClearCrop;
+                ExecuteIfReachable(clearCropTask.cropPosition, clearCropTask, ExecuteTask_ClearCrop);
+            }
+            
+            if (task is FarmingTask.SwapCrop)
+            {
+                var swapCropTask = task as FarmingTask.SwapCrop;
+                ExecuteIfReachable(swapCropTask.cropPosition, swapCropTask, ExecuteTask_SwapCrop);
+            }
+
             if (task is MiningTask.Mine)
             {
                 var mineTask = task as MiningTask.Mine;
@@ -756,6 +768,58 @@ namespace Characters
         private void ExecuteTask_HarvestCrop(TaskBase taskbase, Vector2 workPosition, UnitActionDirection actionDir)
         {
             var task = taskbase as FarmingTask.HarvestCrop;
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
+            task.claimCrop(this);
+            workerMover.SetMovePosition(workPosition, () =>
+            {
+                _unitAnim.LookAtPostion(task.cropPosition);
+                _unitAnim.SetUnitAction(UnitAction.Digging, actionDir);
+                DoingWork((WorkAmount ) =>
+                {
+                    task.OnWork(WorkAmount, () =>
+                    {
+                        // Work is complete
+                        _isDoingWork = false;
+                        task.OnCompleteTask();
+                        state = State.WaitingForNextTask;
+                        _unitAnim.SetUnitAction(UnitAction.Nothing, UnitActionDirection.Side);
+                        ClearAction();
+                    });
+                });
+            });
+        }
+        
+        private void ExecuteTask_SwapCrop(TaskBase taskbase, Vector2 workPosition, UnitActionDirection actionDir)
+        {
+            var task = taskbase as FarmingTask.SwapCrop;
+            currentAction = task.TaskAction;
+            currentActionRequestorUID = task.RequestorUID;
+            task.OnTaskAccepted(task.TaskAction);
+            task.claimCrop(this);
+            workerMover.SetMovePosition(workPosition, () =>
+            {
+                _unitAnim.LookAtPostion(task.cropPosition);
+                _unitAnim.SetUnitAction(UnitAction.Digging, actionDir);
+                DoingWork((WorkAmount ) =>
+                {
+                    task.OnWork(WorkAmount, () =>
+                    {
+                        // Work is complete
+                        _isDoingWork = false;
+                        task.OnCompleteTask();
+                        state = State.WaitingForNextTask;
+                        _unitAnim.SetUnitAction(UnitAction.Nothing, UnitActionDirection.Side);
+                        ClearAction();
+                    });
+                });
+            });
+        }
+        
+        private void ExecuteTask_ClearCrop(TaskBase taskbase, Vector2 workPosition, UnitActionDirection actionDir)
+        {
+            var task = taskbase as FarmingTask.ClearCrop;
             currentAction = task.TaskAction;
             currentActionRequestorUID = task.RequestorUID;
             task.OnTaskAccepted(task.TaskAction);

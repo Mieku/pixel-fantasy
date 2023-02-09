@@ -46,6 +46,22 @@ namespace Tasks
             public Vector3 holePosition;
             public Action<float, Action> OnWork;
         }
+        
+        public class SwapCrop : FarmingTask
+        {
+            public override TaskType TaskType => TaskType.SwapCrop;
+            public Action<UnitTaskAI> claimCrop;
+            public Vector3 cropPosition;
+            public Action<float, Action> OnWork;
+        }
+        
+        public class ClearCrop : FarmingTask
+        {
+            public override TaskType TaskType => TaskType.ClearCrop;
+            public Action<UnitTaskAI> claimCrop;
+            public Vector3 cropPosition;
+            public Action<float, Action> OnWork;
+        }
 
         public class WaterCrop : FarmingTask
         {

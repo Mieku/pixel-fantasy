@@ -685,7 +685,7 @@ namespace Gods
             CancelInput();
         }
 
-        private void SpawnSoilTile(Vector2 spawnPos, CropData cropData)
+        public void SpawnSoilTile(Vector2 spawnPos, CropData cropData)
         {
             var soil = Instantiate(_soilPrefab, spawnPos, Quaternion.identity);
             soil.transform.SetParent(_flooringParent);

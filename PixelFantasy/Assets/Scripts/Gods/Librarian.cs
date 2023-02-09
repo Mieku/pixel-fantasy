@@ -86,6 +86,11 @@ namespace Gods
             return result;
         }
 
+        public List<CropData> GetAllCropData()
+        {
+            return new List<CropData>(_cropLibrary);
+        }
+
         public Sprite GetSprite(string spriteName)
         {
             var result = _sprites.Find(s => s.name == spriteName);

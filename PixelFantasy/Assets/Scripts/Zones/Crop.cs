@@ -26,10 +26,12 @@ namespace Zones
         private bool _cropReadyToHarvest;
         private bool _harvestTaskSet;
         private bool _hasCrop;
+        private bool _pauseGrowing;
         private float _timeWithWater;
         private float _timeGrowing;
         [SerializeField] private List<string> _invalidPlacementTags;
         private Tilemap _dirtTilemap;
+        private CropData _pendingCropSwap;
 
         private float _remainingTillWork;
         private float _remainingDigWork;
@@ -199,7 +201,7 @@ namespace Zones
         
         private void UpdateWatering()
         {
-            if(_hasCrop)
+            if(_hasCrop && !_pauseGrowing)
             {
                 if (!_isWatered && !_wateringTaskSet && !_cropReadyToHarvest)
                 {
@@ -220,7 +222,7 @@ namespace Zones
         
         private void UpdateCropGrowth()
         {
-            if (_hasCrop)
+            if (_hasCrop && !_pauseGrowing)
             {
                 if (_isWatered && !_cropReadyToHarvest)
                 {
@@ -333,6 +335,93 @@ namespace Zones
             
             // Spawn the crop
             Spawner.Instance.SpawnItem(_cropData.HarvestedItem, transform.position, true, _cropData.AmountToHarvest);
+        }
+
+        public void ChangeCrop(CropData newCrop)
+        {
+            _pauseGrowing = true;
+            
+            if (newCrop == null)
+            {
+                // Remove Crop
+                RemoveCrop();
+            }
+            else
+            {
+                // Change the crop
+                if (_hasCrop == false) // If no crop is planted yet, continue with actions but with new crop
+                {
+                    _cropData = newCrop;
+                    _pauseGrowing = false;
+                }
+                else
+                {
+                    SwapCrop(newCrop);
+                }
+            }
+        }
+
+        public void RemoveCrop()
+        {
+            CancelAllTasks();
+            CreateClearCropTask();
+            // Kinling goes to crop, does Digging anim and the soil and crop are removed
+        }
+
+        public void SwapCrop(CropData newCrop)
+        {
+            CancelAllTasks();
+            _pendingCropSwap = newCrop;
+            CreateSwapCropTask();
+            // Kinling goes to the crop, does digging anim and clears the crop and brings it back to the tilled state
+        }
+        
+        private void CreateSwapCropTask()
+        {
+            var swapAction = Librarian.Instance.GetAction("Swap Crop");
+            CreateTask(swapAction);
+        }
+        
+        public void CropSwapped()
+        {
+            _cropReadyToHarvest = false;
+            _isWatered = false;
+            _wateringTaskSet = false;
+            _harvestTaskSet = false;
+            _hasCrop = false;
+
+            _timeGrowing = 0f;
+            _remainingTillWork = GetTillWorkAmount();
+            _remainingDigWork = GetDigWorkAmount();
+            _remainingPlantingWork = GetPlantingWorkAmount();
+            _remainingWaterWork = GetWaterWorkAmount();
+            _remainingHarvestWork = GetHarvestWorkAmount();
+            
+            _cropData = _pendingCropSwap;
+            _cropRenderer.gameObject.SetActive(false);
+
+            _pauseGrowing = false;
+            HoleDug();
+        }
+
+        private void CreateClearCropTask()
+        {
+            if (_isTilled)
+            {
+                var clearAction = Librarian.Instance.GetAction("Clear Crop");
+                CreateTask(clearAction);
+            }
+            else
+            {
+                CropCleared();
+            }
+        }
+
+        public void CropCleared()
+        {
+            var cell = _dirtTilemap.WorldToCell(transform.position);
+            _dirtTilemap.SetTile(cell, null);
+            Destroy(this.gameObject);
         }
 
         private Sprite GetSpriteByName(string spriteName)

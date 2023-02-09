@@ -20,7 +20,9 @@ namespace Zones
         public LayeredRuleTile LayeredRuleTile { get; set; }
         public ZoneTypeData ZoneTypeData => Librarian.Instance.GetZoneTypeData(ZoneType);
         public ZonePanel Panel;
-        
+
+        public List<Vector2> WorldPositions => ConvertGridPositionsToWorldPositions(GridPositions);
+
         private Tilemap _zonesTM;
 
         private bool _isSelected;
@@ -93,7 +95,7 @@ namespace Zones
             return result;
         }
 
-        public void ExpandZone(List<Vector3Int> newCells)
+        public virtual void ExpandZone(List<Vector3Int> newCells)
         {
             GridPositions.AddRange(newCells);
             GridPositions = GridPositions.Distinct().ToList();
@@ -101,7 +103,7 @@ namespace Zones
             Panel.transform.position = CenterPos();
         }
 
-        public void ShrinkZone(List<Vector3Int> cellsToRemove)
+        public virtual void ShrinkZone(List<Vector3Int> cellsToRemove)
         {
             GridPositions = GridPositions.Except(cellsToRemove).ToList();
 
@@ -115,7 +117,7 @@ namespace Zones
             }
         }
 
-        public void RemoveZone()
+        public virtual void RemoveZone()
         {
             GameObject.Destroy(Panel.gameObject);
             ZoneManager.Instance.Zones.Remove(this);
@@ -136,6 +138,18 @@ namespace Zones
             {
                 Panel.SetColour(Color.white);
             }
+        }
+
+        public List<Vector2> ConvertGridPositionsToWorldPositions(List<Vector3Int> gridPoses)
+        {
+            List<Vector2> result = new List<Vector2>();
+            
+            foreach (var gridPos in gridPoses)
+            {
+                result.Add(_zonesTM.GetCellCenterWorld(gridPos));
+            }
+
+            return result;
         }
     }
 }

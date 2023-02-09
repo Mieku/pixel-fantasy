@@ -222,4 +222,6 @@ public enum TaskType
     TakeItemToItemSlot,
     TakeResourceToBlueprint,
     Mine,
+    SwapCrop,
+    ClearCrop,
 }
