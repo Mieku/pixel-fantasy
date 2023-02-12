@@ -19,6 +19,7 @@ namespace Controllers
         private List<StorageSlot> _storageSlots = new List<StorageSlot>();
         private Dictionary<ItemData, int> _inventory = new Dictionary<ItemData, int>();
         private Dictionary<ItemData, int> _pendingInventory = new Dictionary<ItemData, int>();
+        private List<Item> _pendingItems = new List<Item>();
         
         [SerializeField] private GameObject _storageZonePrefab;
         [SerializeField] private Transform _storageParent;
@@ -93,6 +94,29 @@ namespace Controllers
             var storage = storageSlot.GetComponent<StorageSlot>();
             storage.Init();
             AddNewStorageSlot(storage);
+        }
+
+        public void RemoveStorageSlot(Vector3 position)
+        {
+            StorageSlot slot = null;
+            foreach (var storageSlot in _storageSlots)
+            {
+                if (storageSlot.GetPosition() == position)
+                {
+                    slot = storageSlot;
+                    break;
+                }
+            }
+
+            if (slot != null)
+            {
+                _storageSlots.Remove(slot);
+                slot.Despawn();
+            }
+            else
+            {
+                Debug.LogError($"Slot was not found at {position}");
+            }
         }
 
         public void AddToInventory(ItemData itemData, int quantity)
@@ -208,6 +232,7 @@ namespace Controllers
 
         public void AddItemToPending(Item item)
         {
+            _pendingItems.Add(item);
             if (_pendingInventory.ContainsKey(item.GetItemData()))
             {
                 _pendingInventory[item.GetItemData()]++;
@@ -220,6 +245,7 @@ namespace Controllers
 
         public void RemoveItemFromPending(Item item)
         {
+            _pendingItems.Remove(item);
             if (_pendingInventory.ContainsKey(item.GetItemData()))
             {
                 _pendingInventory[item.GetItemData()]--;

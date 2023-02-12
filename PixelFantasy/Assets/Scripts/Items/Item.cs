@@ -14,7 +14,7 @@ using Zones;
 
 namespace Items
 {
-    public class Item : UniqueObject, IClickableObject, IPersistent
+    public class Item : Interactable, IClickableObject, IPersistent
     {
         [SerializeField] private ItemData _itemData;
         [SerializeField] private SpriteRenderer _spriteRenderer;
@@ -113,7 +113,7 @@ namespace Items
 
         public void EnqueueTaskForHauling()
         {
-            _takeItemToItemSlotAction.EnqueueTask(this, true);
+            _assignedTaskRef = _takeItemToItemSlotAction.EnqueueTask(this, true);
             SetTaskToPending(_takeItemToItemSlotAction);
         }
         
@@ -124,6 +124,7 @@ namespace Items
 
         public void OnTaskCompleted()
         {
+            _assignedTaskRef = 0;
             InProgressTask = null;
         }
         
@@ -194,6 +195,26 @@ namespace Items
             return _assignedTaskRef;
         }
 
+        public void ReenqueueAssignedTask()
+        {
+            if (_assignedTaskRef == 0) return;
+
+            var cancelSuccess = taskMaster.HaulingTaskSystem.CancelTask(_assignedTaskRef);
+            if (!cancelSuccess)
+            {
+                Debug.LogError("CancelFail");
+            }
+            
+            transform.parent = _originalParent;
+            if (_incomingUnit != null)
+            {
+                _incomingUnit.CancelTask();
+            }
+            
+            EnqueueTaskForHauling();
+            RefreshSelection();
+        }
+
         public void CancelAssignedTask()
         {
             if (_assignedTaskRef == 0) return;
@@ -206,6 +227,7 @@ namespace Items
             }
             
             RefreshSelection();
+            _assignedTaskRef = 0;
         }
 
         private void OnDestroy()

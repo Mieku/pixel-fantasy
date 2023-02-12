@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Controllers;
 using DataPersistence;
 using Gods;
@@ -14,6 +15,8 @@ namespace Zones
         private int _claimedAmount;
         private int _numIncoming;
         private ItemData _storedType;
+
+        private List<Item> _incomingItems = new List<Item>();
         
         [SerializeField] private TextMeshPro _quantityDisplay;
         [SerializeField] private SpriteRenderer _storedItemRenderer;
@@ -62,6 +65,7 @@ namespace Zones
 
         public void AddItemIncoming(Item item)
         {
+            _incomingItems.Add(item);
             _storedType = item.GetItemData();
             _numIncoming++;
         }
@@ -98,6 +102,7 @@ namespace Zones
             _storedType = item.GetItemData();
             _storedAmount++;
             _numIncoming--;
+            _incomingItems.Remove(item);
             UpdateQuantityDisplay();
             UpdateStoredItemDisplay(_storedType.ItemSprite);
         }
@@ -159,6 +164,18 @@ namespace Zones
             return item;
         }
 
+        private void DropAllItems()
+        {
+            if (_storedType != null)
+            {
+                for (int i = 0; i < _storedAmount; i++)
+                {
+                    Spawner.Instance.SpawnItem(_storedType, transform.position, true);
+                    RemoveClaimedItem();
+                }
+            }
+        }
+
         public void RemoveClaimedItem()
         {
             _claimedAmount--;
@@ -188,6 +205,30 @@ namespace Zones
             {
                 return false;
             }
+        }
+
+        public void Despawn()
+        {
+            // Remove the items stored from inventory, and spawn them into the world
+            DropAllItems();
+            
+            // If a Kinling is heading to the slot to store something or grab something, stop them
+            var allUnits = ControllerManager.Instance.UnitsHandler.GetAllUnits();
+            foreach (var unit in allUnits)
+            {
+                if (unit.GetUnitTaskAI().claimedSlot == this)
+                {
+                    unit.GetUnitTaskAI().CancelTask();
+                }
+            }
+
+            foreach (var incomingItem in _incomingItems)
+            {
+                incomingItem.ReenqueueAssignedTask();
+            }
+            
+            // Destroy the slot
+            Destroy(gameObject);
         }
 
         public object CaptureState()

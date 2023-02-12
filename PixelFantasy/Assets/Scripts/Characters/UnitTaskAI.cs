@@ -494,6 +494,7 @@ namespace Characters
             currentAction = task.TaskAction;
             currentActionRequestorUID = task.RequestorUID;
             task.OnTaskAccepted(task.TaskAction);
+            task.claimItemSlot(this);
             workerMover.SetMovePosition(workPosition, () =>
             {
                 task.grabResource(this);

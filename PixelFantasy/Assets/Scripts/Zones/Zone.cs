@@ -119,6 +119,11 @@ namespace Zones
 
         public virtual void RemoveZone()
         {
+            foreach (var cell in GridPositions)
+            {
+                _zonesTM.SetTile(cell, null);
+            }
+            
             GameObject.Destroy(Panel.gameObject);
             ZoneManager.Instance.Zones.Remove(this);
         }

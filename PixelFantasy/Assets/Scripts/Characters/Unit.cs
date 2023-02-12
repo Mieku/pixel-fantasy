@@ -1,3 +1,4 @@
+using System;
 using Actions;
 using DataPersistence;
 using UnityEngine;
@@ -9,10 +10,15 @@ namespace Characters
         [SerializeField] private UnitTaskAI _unitTaskAI;
         [SerializeField] private UnitState _unitState;
         [SerializeField] private UnitAppearance _appearance;
-
+        
         public UnitState GetUnitState()
         {
             return _unitState;
+        }
+
+        public UnitTaskAI GetUnitTaskAI()
+        {
+            return _unitTaskAI;
         }
 
         public ActionBase GetCurrentAction()

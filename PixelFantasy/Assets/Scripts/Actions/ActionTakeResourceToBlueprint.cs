@@ -45,6 +45,10 @@ namespace Actions
                 OnTaskAccepted = requestor.OnTaskAccepted,
                 resourcePosition = slot.transform.position,
                 blueprintPosition = requestor.transform.position,
+                claimItemSlot = (UnitTaskAI unitTaskAI) =>
+                {
+                    unitTaskAI.claimedSlot = slot;
+                },
                 grabResource = (UnitTaskAI unitTaskAI) =>
                 {
                     requestor.IncomingUnitUID = unitTaskAI.UniqueId;

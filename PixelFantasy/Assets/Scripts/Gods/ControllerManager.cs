@@ -8,5 +8,6 @@ namespace Gods
     {
         public InventoryController InventoryController;
         public ItemsHandler ItemsHandler;
+        public UnitsHandler UnitsHandler;
     }
 }

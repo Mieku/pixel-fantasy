@@ -10,9 +10,9 @@ namespace Actions
     [CreateAssetMenu(fileName = "ActionTakeItemToItemSlot", menuName ="Actions/TakeItemToItemSlot", order = 50)]
     public class ActionTakeItemToItemSlot : ActionBase
     {
-        public void EnqueueTask(Item item, bool autoAssign = true)
+        public int EnqueueTask(Item item, bool autoAssign = true)
         {
-            taskMaster.HaulingTaskSystem.EnqueueTask(() =>
+            var enqueuedTask = taskMaster.HaulingTaskSystem.EnqueueTask(() =>
             {
                 if (!SaveManager.Instance.IsLoading &&
                     ControllerManager.Instance.InventoryController.HasSpaceForItem(item))
@@ -26,6 +26,8 @@ namespace Actions
                     return null;
                 }
             });
+
+            return enqueuedTask.Hash();
         }
         
         public HaulingTask.TakeItemToItemSlot CreateTaskWithSlot(Item taskItem, StorageSlot slot, bool autoAssign = true)

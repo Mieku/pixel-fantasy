@@ -32,6 +32,7 @@ namespace Tasks
         public class TakeResourceToBlueprint : HaulingTask
         {
             public override TaskType TaskType => TaskType.TakeResourceToBlueprint;
+            public Action<UnitTaskAI> claimItemSlot;
             public Vector3 resourcePosition;
             public Action<UnitTaskAI> grabResource;
             public Vector3 blueprintPosition;

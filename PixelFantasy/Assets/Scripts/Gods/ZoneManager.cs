@@ -308,7 +308,7 @@ namespace Gods
             switch (zoneType)
             {
                 case ZoneType.Storage:
-                    break;
+                    return new StorageZone(uid, gridPositions, zoneRuleTile);
                 case ZoneType.Farm:
                     return new FarmZone(uid, gridPositions, zoneRuleTile);
                 case ZoneType.Home:
@@ -316,8 +316,6 @@ namespace Gods
                 default:
                     throw new ArgumentOutOfRangeException(nameof(zoneType), zoneType, null);
             }
-            
-            return null;
         }
 
         private void DisplayZoneInput()

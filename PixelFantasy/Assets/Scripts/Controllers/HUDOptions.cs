@@ -217,7 +217,8 @@ namespace Controllers
         {
             if (key == "Storage")
             {
-                BuildStorageZone();
+                //BuildStorageZone();
+                BuildZone(ZoneType.Storage);
             } 
             else if (key == "Home")
             {
@@ -231,10 +232,6 @@ namespace Controllers
             {
                 Debug.LogError("BuildZonePressed - Unknown Zone: " + key);
             }
-            // else // Assume Farm if unknown
-            // {
-            //     BuildFarmZone(key);
-            // }
         }
 
         private void BuildZone(ZoneType zoneType)

@@ -21,6 +21,11 @@ public class QueuedTask<TTask> where TTask : TaskBase
     {
         return tryGetTaskFunc();
     }
+
+    public int Hash()
+    {
+        return tryGetTaskFunc.GetHashCode();
+    }
 }
     
 // Base Task Class
@@ -135,14 +140,14 @@ public class TaskSystem<TTask> where TTask : TaskBase
         }
     }
     
-    public void CancelTask(int taskRef)
+    public bool CancelTask(int taskRef)
     {
         foreach (var queuedTask in queuedTaskList)
         {
-            if (queuedTask.GetHashCode() == taskRef)
+            if (queuedTask.Hash() == taskRef)
             {
                 queuedTaskList.Remove(queuedTask);
-                return;
+                return true;
             }
         }
         
@@ -151,9 +156,11 @@ public class TaskSystem<TTask> where TTask : TaskBase
             if (task.GetHashCode() == taskRef)
             {
                 taskList.Remove(task);
-                return;
+                return true;
             }
         }
+
+        return false;
     }
 
     public void ClearTasks()
