@@ -21,11 +21,6 @@ public class QueuedTask<TTask> where TTask : TaskBase
     {
         return tryGetTaskFunc();
     }
-
-    public int Hash()
-    {
-        return tryGetTaskFunc.GetHashCode();
-    }
 }
     
 // Base Task Class
@@ -123,8 +118,10 @@ public class TaskSystem<TTask> where TTask : TaskBase
         }
     }
 
-    public void CancelTask(string requestorUID)
+    public bool CancelTask(string requestorUID)
     {
+        bool result = false;
+        
         var removeTasks = new List<TTask>();
         foreach (var task in taskList)
         {
@@ -137,14 +134,30 @@ public class TaskSystem<TTask> where TTask : TaskBase
         foreach (var removeTask in removeTasks)
         {
             taskList.Remove(removeTask);
+            result = true;
         }
+        
+        foreach (var queuedTask in queuedTaskList)
+        {
+            var dequeuedTask = queuedTask.TryDequeueTask();
+            if (dequeuedTask != null)
+            {
+                if (dequeuedTask.RequestorUID == requestorUID)
+                {
+                    queuedTaskList.Remove(queuedTask);
+                    result = true;
+                }
+            }
+        }
+
+        return result;
     }
     
     public bool CancelTask(int taskRef)
     {
         foreach (var queuedTask in queuedTaskList)
         {
-            if (queuedTask.Hash() == taskRef)
+            if (queuedTask.GetHashCode() == taskRef)
             {
                 queuedTaskList.Remove(queuedTask);
                 return true;
@@ -153,7 +166,8 @@ public class TaskSystem<TTask> where TTask : TaskBase
         
         foreach (var task in taskList)
         {
-            if (task.GetHashCode() == taskRef)
+            var taskHash = task.GetHashCode();
+            if (taskHash == taskRef)
             {
                 taskList.Remove(task);
                 return true;

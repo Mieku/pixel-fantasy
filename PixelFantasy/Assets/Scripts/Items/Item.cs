@@ -199,12 +199,13 @@ namespace Items
         {
             if (_assignedTaskRef == 0) return;
 
+            taskMaster.HaulingTaskSystem.CancelTask(_assignedTaskRef);
             var cancelSuccess = taskMaster.HaulingTaskSystem.CancelTask(_assignedTaskRef);
             if (!cancelSuccess)
             {
-                Debug.LogError("CancelFail");
+                taskMaster.HaulingTaskSystem.CancelTask(UniqueId);
             }
-            
+
             transform.parent = _originalParent;
             if (_incomingUnit != null)
             {

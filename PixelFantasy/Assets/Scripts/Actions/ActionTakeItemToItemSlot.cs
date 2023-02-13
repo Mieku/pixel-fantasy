@@ -27,7 +27,7 @@ namespace Actions
                 }
             });
 
-            return enqueuedTask.Hash();
+            return enqueuedTask.GetHashCode();
         }
         
         public HaulingTask.TakeItemToItemSlot CreateTaskWithSlot(Item taskItem, StorageSlot slot, bool autoAssign = true)

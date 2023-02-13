@@ -168,7 +168,8 @@ namespace Zones
         {
             if (_storedType != null)
             {
-                for (int i = 0; i < _storedAmount; i++)
+                var storedAmount = _storedAmount;
+                for (int i = 0; i < storedAmount; i++)
                 {
                     Spawner.Instance.SpawnItem(_storedType, transform.position, true);
                     RemoveClaimedItem();
