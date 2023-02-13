@@ -498,6 +498,7 @@ namespace Characters
             workerMover.SetMovePosition(workPosition, () =>
             {
                 task.grabResource(this);
+                claimedSlot = null;
                 workerMover.SetMovePosition(task.blueprintPosition, () =>
                 {
                     task.useResource(_heldItem);
