@@ -13,26 +13,27 @@ namespace Actions
     {
         public void EnqueueTask(Interactable requestor, ItemData resourceData)
         {
-            var taskRef = taskMaster.HaulingTaskSystem.EnqueueTask(() =>
-            {
-                StorageSlot slot = ControllerManager.Instance.InventoryController.ClaimResource(resourceData);
-                if (slot != null)
-                {
-                    var construction = requestor.GetComponent<Construction>();
-                    if (construction != null)
-                    {
-                        construction.AddToPendingResourceCosts(resourceData);
-                    }
-
-                    return CreateTaskWithSlot(requestor, slot);
-                }
-                else
-                {
-                    return null;
-                }
-            }).GetHashCode();
-            
-            requestor.QueuedTaskRefs.Add(taskRef);
+            // TODO: Replace this!
+            // var taskRef = taskMaster.HaulingTaskSystem.EnqueueTask(() =>
+            // {
+            //     StorageSlot slot = ControllerManager.Instance.InventoryController.ClaimResource(resourceData);
+            //     if (slot != null)
+            //     {
+            //         var construction = requestor.GetComponent<Construction>();
+            //         if (construction != null)
+            //         {
+            //             construction.AddToPendingResourceCosts(resourceData);
+            //         }
+            //
+            //         return CreateTaskWithSlot(requestor, slot);
+            //     }
+            //     else
+            //     {
+            //         return null;
+            //     }
+            // }).GetHashCode();
+            //
+            // requestor.QueuedTaskRefs.Add(taskRef);
         }
 
         public HaulingTask.TakeResourceToBlueprint CreateTaskWithSlot(Interactable requestor, StorageSlot slot)

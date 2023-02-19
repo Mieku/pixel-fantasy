@@ -131,18 +131,19 @@ namespace Gods
         
         private void EnqueueCreateGatherResourceForCraftingTask(ItemData resourceData, CraftingTable table)
         {
-            var taskRef = taskMaster.CarpentryTaskSystem.EnqueueTask(() =>
-            {
-                StorageSlot slot = ControllerManager.Instance.InventoryController.ClaimResource(resourceData);
-                if (slot != null)
-                {
-                    return CreateGatherResourceForCraftingTask(slot, table);
-                }
-                else
-                {
-                    return null;
-                }
-            }).GetHashCode();
+            // TODO: Replace this, removed the enqueue task support
+            // var taskRef = taskMaster.CarpentryTaskSystem.EnqueueTask(() =>
+            // {
+            //     StorageSlot slot = ControllerManager.Instance.InventoryController.ClaimResource(resourceData);
+            //     if (slot != null)
+            //     {
+            //         return CreateGatherResourceForCraftingTask(slot, table);
+            //     }
+            //     else
+            //     {
+            //         return null;
+            //     }
+            // }).GetHashCode();
         }
         
         public CarpentryTask.GatherResourceForCrafting CreateGatherResourceForCraftingTask(Item item, CraftingTable table)

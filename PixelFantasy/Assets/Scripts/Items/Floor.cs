@@ -137,7 +137,7 @@ namespace Items
             foreach (var incomingItem in _incomingItems)
             {
                 incomingItem.CancelAssignedTask();
-                incomingItem.EnqueueTaskForHauling();
+                incomingItem.CreateHaulTask();
             }
             _pendingResourceCosts.Clear();
             _incomingItems.Clear();

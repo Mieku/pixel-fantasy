@@ -1,5 +1,6 @@
 using System;
 using Gods;
+using Items;
 using UnityEngine;
 
 namespace Actions
@@ -28,6 +29,11 @@ namespace Actions
         }
 
         public virtual bool IsTaskAvailable(Interactable requestor)
+        {
+            return true;
+        }
+
+        public virtual bool CanExecute()
         {
             return true;
         }

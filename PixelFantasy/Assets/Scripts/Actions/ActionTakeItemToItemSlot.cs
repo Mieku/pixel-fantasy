@@ -10,47 +10,16 @@ namespace Actions
     [CreateAssetMenu(fileName = "ActionTakeItemToItemSlot", menuName ="Actions/TakeItemToItemSlot", order = 50)]
     public class ActionTakeItemToItemSlot : ActionBase
     {
-        public int EnqueueTask(Item item, bool autoAssign = true)
+        public override TaskBase CreateTask(Interactable requestor, bool autoAssign = true)
         {
-            var enqueuedTask = taskMaster.HaulingTaskSystem.EnqueueTask(() =>
-            {
-                if (!SaveManager.Instance.IsLoading &&
-                    ControllerManager.Instance.InventoryController.HasSpaceForItem(item))
-                {
-                    ControllerManager.Instance.InventoryController.AddItemToPending(item);
-                    var slot = ControllerManager.Instance.InventoryController.GetAvailableStorageSlot(item);
-                    return CreateTaskWithSlot(item, slot, false);
-                }
-                else
-                {
-                    return null;
-                }
-            });
-
-            return enqueuedTask.GetHashCode();
-        }
-        
-        public HaulingTask.TakeItemToItemSlot CreateTaskWithSlot(Item taskItem, StorageSlot slot, bool autoAssign = true)
-        {
-            taskItem.SetAssignedSlot(slot);
+            var item = requestor as Item;
             var task = new HaulingTask.TakeItemToItemSlot()
             {
-                item = taskItem,
-                RequestorUID = taskItem.UniqueId,
+                item = item,
+                RequestorUID = item.UniqueId,
                 TaskAction = this,
-                OnTaskAccepted = taskItem.OnTaskAccepted,
-                claimItemSlot = (UnitTaskAI unitTaskAI) =>
-                {
-                    taskItem.AssignUnit(unitTaskAI);
-
-                    if (slot == null && !string.IsNullOrEmpty(taskItem._assignedSlotUID))
-                    {
-                        slot = UIDManager.Instance.GetGameObject(taskItem._assignedSlotUID).GetComponent<StorageSlot>();
-                    }
-                    
-                    unitTaskAI.claimedSlot = slot;
-                },
-                itemPosition = taskItem.transform.position,
+                OnTaskAccepted = item.OnTaskAccepted,
+                itemPosition = item.transform.position,
                 grabItem = (UnitTaskAI unitTaskAI, Item itemToGrab) =>
                 {
                     itemToGrab.SetHeld(true);
@@ -69,7 +38,13 @@ namespace Actions
 
             return task;
         }
-        
+
+        public override bool CanExecute()
+        {
+            // TODO": build to approve if there is space available in storage
+            return true;
+        }
+
         public override void CancelTask(Interactable requestor)
         {
             taskMaster.HaulingTaskSystem.CancelTask(requestor.UniqueId);

@@ -81,22 +81,22 @@ public class TaskSystem<TTask> where TTask : TaskBase
         taskList.Add(taskBase);
     }
 
-    public void EnqueueTask(QueuedTask<TTask> queuedTask)
-    {
-        queuedTaskList.Add(queuedTask);
-    }
+    // public void EnqueueTask(QueuedTask<TTask> queuedTask)
+    // {
+    //     queuedTaskList.Add(queuedTask);
+    // }
 
-    public QueuedTask<TTask> EnqueueTask(Func<TTask> tryGetTaskFunc)
-    {
-        if (_verbose)
-        {
-            Debug.Log("Enquing Task: " + tryGetTaskFunc.Target.ToString());
-        }
-        
-        QueuedTask<TTask> queuedTask = new QueuedTask<TTask>(tryGetTaskFunc);
-        queuedTaskList.Add(queuedTask);
-        return queuedTask;
-    }
+    // public QueuedTask<TTask> EnqueueTask(Func<TTask> tryGetTaskFunc)
+    // {
+    //     if (_verbose)
+    //     {
+    //         Debug.Log("Enquing Task: " + tryGetTaskFunc.Target.ToString());
+    //     }
+    //     
+    //     QueuedTask<TTask> queuedTask = new QueuedTask<TTask>(tryGetTaskFunc);
+    //     queuedTaskList.Add(queuedTask);
+    //     return queuedTask;
+    // }
 
     public void DequeueTasks()
     {

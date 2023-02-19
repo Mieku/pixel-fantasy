@@ -2,6 +2,7 @@ using System;
 using Items;
 using Characters;
 using UnityEngine;
+using Zones;
 using Action = System.Action;
 
 namespace Tasks
@@ -15,7 +16,10 @@ namespace Tasks
         public class TakeItemToItemSlot : HaulingTask
         {
             public override TaskType TaskType => TaskType.TakeItemToItemSlot;
-            public Action<UnitTaskAI> claimItemSlot;
+            public Action<StorageSlot> claimItemSlot;
+            
+            public delegate void Action<in T>(T obj);
+            
             public Vector3 itemPosition;
             public Action<UnitTaskAI, Item> grabItem;
             public Action<Item> dropItem;

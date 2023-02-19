@@ -49,38 +49,49 @@ namespace Items
             
             DisplayItemSprite();
 
-            if (IsAllowed && string.IsNullOrEmpty(_assignedSlotUID))
-            {
-                EnqueueTaskForHauling();
-            }
-            else
-            {
-                if (!_isHeld && !string.IsNullOrEmpty(_assignedSlotUID) && string.IsNullOrEmpty(_assignedUnitUID))
-                {
-                    // Has slot, no one picked up or is assigned to get
-                    var slot = UIDManager.Instance.GetGameObject(_assignedSlotUID).GetComponent<StorageSlot>();
-                    slot.AddItemIncoming(this);
-                    _takeItemToItemSlotAction.CreateTaskWithSlot(this, slot, true);
+            CreateHaulTask();
+            // if (IsAllowed && string.IsNullOrEmpty(_assignedSlotUID))
+            // {
+            //     //EnqueueTaskForHauling();
+            //     
+            //     _takeItemToItemSlotAction.CreateTask(this, true);
+            // }
+            // else
+            // {
+            //     if (!_isHeld && !string.IsNullOrEmpty(_assignedSlotUID) && string.IsNullOrEmpty(_assignedUnitUID))
+            //     {
+            //         // Has slot, no one picked up or is assigned to get
+            //
+            //         var slot = UIDManager.Instance.GetGameObject(_assignedSlotUID).GetComponent<StorageSlot>();
+            //         slot.AddItemIncoming(this);
+            //         _takeItemToItemSlotAction.CreateTaskWithSlot(this, slot, true);
+            //
+            //     } else if (!_isHeld && !string.IsNullOrEmpty(_assignedSlotUID) && !string.IsNullOrEmpty(_assignedUnitUID))
+            //     {
+            //         // Has slot, someone is on their way
+            //         
+            //         var slot = UIDManager.Instance.GetGameObject(_assignedSlotUID).GetComponent<StorageSlot>();
+            //         slot.AddItemIncoming(this);
+            //         var unit = UIDManager.Instance.GetGameObject(_assignedUnitUID).GetComponent<UnitTaskAI>();
+            //         var task = _takeItemToItemSlotAction.CreateTaskWithSlot(this, slot, false);
+            //         unit.ExecuteTask(task);
+            //     } else if (_isHeld)
+            //     {
+            //         // Is being held
+            //         
+            //         var slot = UIDManager.Instance.GetGameObject(_assignedSlotUID).GetComponent<StorageSlot>();
+            //         slot.AddItemIncoming(this);
+            //         var unit = UIDManager.Instance.GetGameObject(_assignedUnitUID).GetComponent<UnitTaskAI>();
+            //         var task = _takeItemToItemSlotAction.CreateTaskWithSlot(this, slot, false);
+            //         unit.AssignHeldItem(this);
+            //         unit.ExecuteTask(task);
+            //     }
+            // }
+        }
 
-                } else if (!_isHeld && !string.IsNullOrEmpty(_assignedSlotUID) && !string.IsNullOrEmpty(_assignedUnitUID))
-                {
-                    // Has slot, someone is on their way
-                    var slot = UIDManager.Instance.GetGameObject(_assignedSlotUID).GetComponent<StorageSlot>();
-                    slot.AddItemIncoming(this);
-                    var unit = UIDManager.Instance.GetGameObject(_assignedUnitUID).GetComponent<UnitTaskAI>();
-                    var task = _takeItemToItemSlotAction.CreateTaskWithSlot(this, slot, false);
-                    unit.ExecuteTask(task);
-                } else if (_isHeld)
-                {
-                    // Is being held
-                    var slot = UIDManager.Instance.GetGameObject(_assignedSlotUID).GetComponent<StorageSlot>();
-                    slot.AddItemIncoming(this);
-                    var unit = UIDManager.Instance.GetGameObject(_assignedUnitUID).GetComponent<UnitTaskAI>();
-                    var task = _takeItemToItemSlotAction.CreateTaskWithSlot(this, slot, false);
-                    unit.AssignHeldItem(this);
-                    unit.ExecuteTask(task);
-                }
-            }
+        public void CreateHaulTask()
+        {
+            _takeItemToItemSlotAction.CreateTask(this, true);
         }
 
         public void SetHeld(bool isHeld)
@@ -111,11 +122,11 @@ namespace Items
             _assignedSlotUID = slot.UniqueId;
         }
 
-        public void EnqueueTaskForHauling()
-        {
-            _assignedTaskRef = _takeItemToItemSlotAction.EnqueueTask(this, true);
-            SetTaskToPending(_takeItemToItemSlotAction);
-        }
+        // public void EnqueueTaskForHauling()
+        // {
+        //     _assignedTaskRef = _takeItemToItemSlotAction.EnqueueTask(this, true);
+        //     SetTaskToPending(_takeItemToItemSlotAction);
+        // }
         
         public void OnTaskAccepted(ActionBase task)
         {
@@ -212,7 +223,8 @@ namespace Items
                 _incomingUnit.CancelTask();
             }
             
-            EnqueueTaskForHauling();
+            //EnqueueTaskForHauling();
+            _takeItemToItemSlotAction.CreateTask(this, true);
             RefreshSelection();
         }
 

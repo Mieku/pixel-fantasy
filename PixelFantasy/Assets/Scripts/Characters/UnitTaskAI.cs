@@ -471,21 +471,35 @@ namespace Characters
         private void ExecuteTask_TakeItemToItemSlot(TaskBase taskbase, Vector2 workPosition, UnitActionDirection actionDir)
         {
             var task = taskbase as HaulingTask.TakeItemToItemSlot;
-            currentAction = task.TaskAction;
-            currentActionRequestorUID = task.RequestorUID;
-            task.OnTaskAccepted(task.TaskAction);
-            task.claimItemSlot(this);
-            workerMover.SetMovePosition(workPosition, () =>
+            
+            ControllerManager.Instance.InventoryController.AddItemToPending(task.item);
+            var slot = ControllerManager.Instance.InventoryController.GetAvailableStorageSlot(task.item);
+            if (slot != null)
             {
-                task.grabItem(this, task.item);
-                workerMover.SetMovePosition(claimedSlot.GetPosition(), () =>
+                currentAction = task.TaskAction;
+                currentActionRequestorUID = task.RequestorUID;
+                task.OnTaskAccepted(task.TaskAction);
+                workerMover.SetMovePosition(workPosition, () =>
                 {
-                    task.dropItem(task.item);
-                    claimedSlot.StoreItem(task.item);
-                    state = State.WaitingForNextTask;
-                    ClearAction();
+                    task.grabItem(this, task.item);
+                    workerMover.SetMovePosition(slot.GetPosition(), () =>
+                    {
+                        task.dropItem(task.item);
+                        slot.StoreItem(task.item);
+                        state = State.WaitingForNextTask;
+                        ClearAction();
+                    });
                 });
-            });
+            }
+            else
+            {
+                ControllerManager.Instance.InventoryController.RemoveItemFromPending(task.item);
+                _isDoingWork = false;
+                state = State.WaitingForNextTask;
+                ClearAction();
+                
+                TaskMaster.Instance.ReturnTaskToQueue(task);
+            }
         }
 
         private void ExecuteTask_TakeResourceToBlueprint(TaskBase taskbase, Vector2 workPosition, UnitActionDirection actionDir)

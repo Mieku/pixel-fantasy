@@ -85,19 +85,20 @@ namespace Items
 
         private void EnqueueCreateInstallTask(CraftingTask craftingTask)
         {
-            var taskRef = taskMaster.HaulingTaskSystem.EnqueueTask(() =>
-            {
-                var slot = ControllerManager.Instance.InventoryController.ClaimResource(craftingTask.ItemData);
-                if (slot != null)
-                {
-                    return CreateInstallTask(slot);
-                }
-                else
-                {
-                    return null;
-                }
-            }).GetHashCode();
-            _assignedTaskRefs.Add(taskRef);
+            // TODO: Replace this, removed the enqueue task support
+            // var taskRef = taskMaster.HaulingTaskSystem.EnqueueTask(() =>
+            // {
+            //     var slot = ControllerManager.Instance.InventoryController.ClaimResource(craftingTask.ItemData);
+            //     if (slot != null)
+            //     {
+            //         return CreateInstallTask(slot);
+            //     }
+            //     else
+            //     {
+            //         return null;
+            //     }
+            // }).GetHashCode();
+            // _assignedTaskRefs.Add(taskRef);
         }
         
         private HaulingTask.TakeResourceToBlueprint CreateInstallTask(StorageSlot slot)
