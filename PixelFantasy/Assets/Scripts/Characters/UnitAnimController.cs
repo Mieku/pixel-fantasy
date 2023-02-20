@@ -1,4 +1,5 @@
 using System;
+using Characters;
 using Characters.Interfaces;
 using Gods;
 using ScriptableObjects;
@@ -7,7 +8,10 @@ using UnityEngine.EventSystems;
 
 namespace Characters
 {
-    public class UnitAnimController : MonoBehaviour, ICharacterAnimController
+    
+}
+
+public class UnitAnimController : MonoBehaviour, ICharacterAnimController
     {
         [SerializeField] private UnitAppearance _appearance;
 
@@ -217,4 +221,3 @@ namespace Characters
         Up,
         Down,
     }
-}

@@ -1,5 +1,7 @@
-﻿using SGoap.Services;
+﻿using Characters.Interfaces;
+using SGoap.Services;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace SGoap
 {
@@ -8,7 +10,6 @@ namespace SGoap
     /// </summary>
     public class BasicAgent : Agent, ITarget, IAttacker
     {
-        private EffectController _effectsController;
         public AgentBasicData Data;
         
         private void Awake()
@@ -24,15 +25,17 @@ namespace SGoap
 
         public void Initialize()
         {
-            var animator = GetComponentInChildren<Animator>();
-            _effectsController = GetComponentInChildren<EffectController>();
+            var animator = GetComponent<ICharacterAnimController>();
+            var navMeshAgent = GetComponent<NavMeshAgent>();
+            navMeshAgent.updateRotation = false;
+            navMeshAgent.updateUpAxis = false;
 
             Data = new AgentBasicData
             {
                 Animator = animator,
-                EffectsController = _effectsController,
+                NavMeshAgent = navMeshAgent,
                 Agent = this,
-                Inventory = new Inventory(),
+                // Inventory = new Inventory(),
                 Cooldown = new CoolDown(),
             };
 
@@ -52,16 +55,4 @@ namespace SGoap
     {
         Transform transform { get; }
     }
-}
-
-public enum ETeam
-{
-    Blue,
-    Red,
-    None
-}
-
-public interface ITeam
-{
-    ETeam Team { get; }
 }
