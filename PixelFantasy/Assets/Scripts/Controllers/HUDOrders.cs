@@ -38,11 +38,36 @@ namespace Controllers
         {
             ClearOrders();
             _selectionData = selectionData;
-            foreach (var action in _selectionData.Actions)
+            foreach (var command in _selectionData.Commands)
             {
-                bool isActive = selectionData.CancellableActions.Contains(action);
-                CreateOrder(action, selectionData.Requestor, isActive);
+                bool isActive = selectionData.Requestor.IsPending(command);
+                CreateCommand(command, selectionData.Requestor, isActive);
             }
+            // foreach (var action in _selectionData.Actions)
+            // {
+            //     bool isActive = selectionData.CancellableActions.Contains(action);
+            //     CreateOrder(action, selectionData.Requestor, isActive);
+            // }
+        }
+
+        private void CreateCommand(Command command, Interactable requestor, bool isActive)
+        {
+            Sprite icon = command.Icon;
+
+            void OnPressed()
+            {
+                if (isActive)
+                {
+                    requestor.CancelCommand(command);
+                }
+                else
+                {
+                    requestor.CreateGoal(command);
+                }
+                GameEvents.Trigger_RefreshSelection();
+            }
+            
+            CreateOrderButton(icon, OnPressed, isActive, command.Name);
         }
         
         private void CreateOrder(ActionBase action, Interactable requestor, bool isActive)

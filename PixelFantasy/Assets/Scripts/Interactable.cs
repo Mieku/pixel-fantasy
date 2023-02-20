@@ -6,12 +6,16 @@ using Characters;
 using Gods;
 using Items;
 using ScriptableObjects;
+using SGoap;
 using UnityEngine;
 
-public class Interactable : UniqueObject
+public abstract class Interactable : UniqueObject
 {
     [SerializeField] private SpriteRenderer _icon;
+    public List<Command> Commands = new List<Command>();
+    public Command PendingCommand;
 
+// Old
     public List<int> QueuedTaskRefs = new List<int>();
     public List<ActionBase> PendingTasks = new List<ActionBase>();
     public List<ActionBase> InProgressTasks = new List<ActionBase>();
@@ -126,6 +130,35 @@ public class Interactable : UniqueObject
         CancelAllTasks();
         taskAction.CreateTask(this);
         SetTaskToPending(taskAction);
+    }
+
+    public void CreateGoal(Command command)
+    {
+        // Only one command can be active
+        if (PendingCommand != null)
+        {
+            CancelCommand(command);
+        }
+        
+        GoalRequest request = new GoalRequest(gameObject, command.Goal);
+        PendingCommand = command;
+        GoalMaster.Instance.AddGoalByCategory(command.Category, request);
+        DisplayTaskIcon(command.Icon);
+    }
+
+    public void CancelCommand(Command command)
+    {
+        GoalRequest request = new GoalRequest(gameObject, command.Goal);
+        PendingCommand = null;
+        GoalMaster.Instance.CancelGoalByCategory(command.Category, request);
+        DisplayTaskIcon(null);
+    }
+
+    public bool IsPending(Command command)
+    {
+        if (PendingCommand == null) return false;
+        
+        return PendingCommand = command;
     }
     
     public void CancelAllTasks()

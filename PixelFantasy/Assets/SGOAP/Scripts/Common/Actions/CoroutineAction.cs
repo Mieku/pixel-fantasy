@@ -80,7 +80,7 @@ namespace SGoap
             {
                 // Abort plan wil set this to fail so we aren't setting it as failure here.
                 // We  want to abort any connecting plans.
-                AgentData.Agent.AbortPlan();
+                AgentData.KinlingAgent.AbortPlan();
             }
 
             return Status;

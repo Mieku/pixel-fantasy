@@ -266,6 +266,11 @@ namespace Items
             return result;
         }
         
+        public virtual List<Command> GetCommands()
+        {
+            return Commands;
+        }
+        
         public bool IsActionActive(ActionBase action)
         {
             throw new NotImplementedException();

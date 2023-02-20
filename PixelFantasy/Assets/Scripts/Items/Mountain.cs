@@ -89,6 +89,11 @@ namespace Items
         {
             return AvailableActions;
         }
+        
+        public virtual List<Command> GetCommands()
+        {
+            return Commands;
+        }
 
         public List<ActionBase> GetCancellableActions()
         {

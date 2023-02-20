@@ -1,48 +1,37 @@
-using System;
-using Characters.Interfaces;
-using Gods;
 using SGoap;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Actions
 {
     public class GoToAction : BasicAction
     {
-        public Transform TargetPosition;
-        
-        public bool IsDestinationPossible()
-        {
-            NavMeshPath path = new NavMeshPath();
-            AgentData.NavMeshAgent.CalculatePath(TargetPosition.position, path);
-            return path.status == NavMeshPathStatus.PathComplete;
-        }
+        public AssignedInteractableSensor AssignedInteractableSensor;
 
-        public override void DynamicallyEvaluateCost()
+        private Vector2 _target;
+        public float DistanceToTarget => Vector2.Distance(_target, transform.position);
+
+        public override bool PrePerform()
         {
-            Cost = AgentData.DistanceToTarget;
+            var destination = AssignedInteractableSensor.Destination;
+            if (destination != null)
+            {
+                _target = (Vector2)destination;
+            }
+            
+            return base.PrePerform();
         }
 
         public override EActionStatus Perform()
         {
-            AgentData.NavMeshAgent.SetDestination(TargetPosition.position);
+            AgentData.NavMeshAgent.SetDestination(_target);
 
-            RefreshAnimVector();
-
-            
-            if (AgentData.NavMeshAgent.remainingDistance <= AgentData.NavMeshAgent.stoppingDistance)
+            if (DistanceToTarget <= 0.05f)
             {
                 return EActionStatus.Success;
             }
             
             // Returning Running will keep this action going until we return Success.
             return EActionStatus.Running;
-        }
-        
-        private void RefreshAnimVector()
-        {
-            var moveVelo = AgentData.NavMeshAgent.velocity;
-            AgentData.Animator.SetMovementVelocity(moveVelo);
         }
     }
 }

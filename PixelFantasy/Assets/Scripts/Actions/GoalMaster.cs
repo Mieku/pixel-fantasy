@@ -8,28 +8,42 @@ namespace Actions
 {
     public class GoalMaster : God<GoalMaster>
     {
-        public List<GoalRequest> FellingGoals = new List<GoalRequest>();
+        public GoalQueue EmergencyGoals = new GoalQueue();
+        public GoalQueue HealingGoals = new GoalQueue();
+        public GoalQueue CookingGoals = new GoalQueue();
+        public GoalQueue HuntingGoals = new GoalQueue();
+        public GoalQueue ConstructionGoals = new GoalQueue();
+        public GoalQueue FarmingGoals = new GoalQueue();
+        public GoalQueue MiningGoals = new GoalQueue();
+        public GoalQueue FellingGoals = new GoalQueue();
+        public GoalQueue SmithingGoals = new GoalQueue();
+        public GoalQueue TailoringGoals = new GoalQueue();
+        public GoalQueue CarpentryGoals = new GoalQueue();
+        public GoalQueue MasonryGoals = new GoalQueue();
+        public GoalQueue HaulingGoals = new GoalQueue();
+        public GoalQueue CleaningGoals = new GoalQueue();
+        public GoalQueue ResearchGoals = new GoalQueue();
         
         
         public GoalRequest GetNextGoalByCategory(TaskCategory category)
         {
             GoalRequest nextGoal = category switch
             {
-                // TaskCategory.Emergency => EmergencyTaskSystem.RequestNextTask(),
-                // TaskCategory.Healing => HealingTaskSystem.RequestNextTask(),
-                // TaskCategory.Cooking => CookingTaskSystem.RequestNextTask(),
-                // TaskCategory.Hunting => HuntingTaskSystem.RequestNextTask(),
-                // TaskCategory.Construction => ConstructionTaskSystem.RequestNextTask(),
-                // TaskCategory.Farming => FarmingTaskSystem.RequestNextTask(),
-                // TaskCategory.Mining => MiningTaskSystem.RequestNextTask(),
-                TaskCategory.Felling => FellingGoals[0],
-                // TaskCategory.Smithing => SmithingTaskSystem.RequestNextTask(),
-                // TaskCategory.Tailoring => TailoringTaskSystem.RequestNextTask(),
-                // TaskCategory.Carpentry => CarpentryTaskSystem.RequestNextTask(),
-                // TaskCategory.Masonry => MasonryTaskSystem.RequestNextTask(),
-                // TaskCategory.Hauling => HaulingTaskSystem.RequestNextTask(),
-                // TaskCategory.Cleaning => CleaningTaskSystem.RequestNextTask(),
-                // TaskCategory.Research => ResearchTaskSystem.RequestNextTask(),
+                TaskCategory.Emergency => EmergencyGoals.NextRequest,
+                TaskCategory.Healing => HealingGoals.NextRequest,
+                TaskCategory.Cooking => CookingGoals.NextRequest,
+                TaskCategory.Hunting => HuntingGoals.NextRequest,
+                TaskCategory.Construction => ConstructionGoals.NextRequest,
+                TaskCategory.Farming => FarmingGoals.NextRequest,
+                TaskCategory.Mining => MiningGoals.NextRequest,
+                TaskCategory.Felling => FellingGoals.NextRequest,
+                TaskCategory.Smithing => SmithingGoals.NextRequest,
+                TaskCategory.Tailoring => TailoringGoals.NextRequest,
+                TaskCategory.Carpentry => CarpentryGoals.NextRequest,
+                TaskCategory.Masonry => MasonryGoals.NextRequest,
+                TaskCategory.Hauling => HaulingGoals.NextRequest,
+                TaskCategory.Cleaning => CleaningGoals.NextRequest,
+                TaskCategory.Research => ResearchGoals.NextRequest,
                 _ => throw new ArgumentOutOfRangeException(nameof(category), category, null)
             };
 
@@ -41,35 +55,103 @@ namespace Actions
             switch (category)
             {
                 case TaskCategory.Emergency:
+                    EmergencyGoals.AddRequest(goalRequest);
                     break;
                 case TaskCategory.Healing:
+                    HealingGoals.AddRequest(goalRequest);
                     break;
                 case TaskCategory.Cooking:
+                    CookingGoals.AddRequest(goalRequest);
                     break;
                 case TaskCategory.Hunting:
+                    HuntingGoals.AddRequest(goalRequest);
                     break;
                 case TaskCategory.Construction:
+                    ConstructionGoals.AddRequest(goalRequest);
                     break;
                 case TaskCategory.Farming:
+                    FarmingGoals.AddRequest(goalRequest);
                     break;
                 case TaskCategory.Mining:
+                    MiningGoals.AddRequest(goalRequest);
                     break;
                 case TaskCategory.Felling:
-                    FellingGoals.Add(goalRequest);
+                    FellingGoals.AddRequest(goalRequest);
                     break;
                 case TaskCategory.Smithing:
+                    SmithingGoals.AddRequest(goalRequest);
                     break;
                 case TaskCategory.Tailoring:
+                    TailoringGoals.AddRequest(goalRequest);
                     break;
                 case TaskCategory.Carpentry:
+                    CarpentryGoals.AddRequest(goalRequest);
                     break;
                 case TaskCategory.Masonry:
+                    MasonryGoals.AddRequest(goalRequest);
                     break;
                 case TaskCategory.Hauling:
+                    HaulingGoals.AddRequest(goalRequest);
                     break;
                 case TaskCategory.Cleaning:
+                    CleaningGoals.AddRequest(goalRequest);
                     break;
                 case TaskCategory.Research:
+                    ResearchGoals.AddRequest(goalRequest);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(category), category, null);
+            }
+        }
+
+        public void CancelGoalByCategory(TaskCategory category, GoalRequest goalRequest)
+        {
+            switch (category)
+            {
+                case TaskCategory.Emergency:
+                    EmergencyGoals.CancelRequest(goalRequest);
+                    break;
+                case TaskCategory.Healing:
+                    HealingGoals.CancelRequest(goalRequest);
+                    break;
+                case TaskCategory.Cooking:
+                    CookingGoals.CancelRequest(goalRequest);
+                    break;
+                case TaskCategory.Hunting:
+                    HuntingGoals.CancelRequest(goalRequest);
+                    break;
+                case TaskCategory.Construction:
+                    ConstructionGoals.CancelRequest(goalRequest);
+                    break;
+                case TaskCategory.Farming:
+                    FarmingGoals.CancelRequest(goalRequest);
+                    break;
+                case TaskCategory.Mining:
+                    MiningGoals.CancelRequest(goalRequest);
+                    break;
+                case TaskCategory.Felling:
+                    FellingGoals.CancelRequest(goalRequest);
+                    break;
+                case TaskCategory.Smithing:
+                    SmithingGoals.CancelRequest(goalRequest);
+                    break;
+                case TaskCategory.Tailoring:
+                    TailoringGoals.CancelRequest(goalRequest);
+                    break;
+                case TaskCategory.Carpentry:
+                    CarpentryGoals.CancelRequest(goalRequest);
+                    break;
+                case TaskCategory.Masonry:
+                    MasonryGoals.CancelRequest(goalRequest);
+                    break;
+                case TaskCategory.Hauling:
+                    HaulingGoals.CancelRequest(goalRequest);
+                    break;
+                case TaskCategory.Cleaning:
+                    CleaningGoals.CancelRequest(goalRequest);
+                    break;
+                case TaskCategory.Research:
+                    ResearchGoals.CancelRequest(goalRequest);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(category), category, null);

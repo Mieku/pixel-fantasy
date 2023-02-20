@@ -74,6 +74,11 @@ namespace Items
             
         }
 
+        public virtual List<Command> GetCommands()
+        {
+            return Commands;
+        }
+
         public virtual List<ActionBase> GetActions()
         {
             return AvailableActions;

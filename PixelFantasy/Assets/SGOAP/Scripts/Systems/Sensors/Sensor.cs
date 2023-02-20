@@ -5,17 +5,17 @@ namespace SGoap
     /// <summary>
     /// A sensor is a communication point between actions and the agent.
     /// </summary>
-    public abstract class Sensor : MonoBehaviour, IDataBind<AgentBasicData>, IDataBind<Agent>
+    public abstract class Sensor : MonoBehaviour, IDataBind<KinlingAgentData>, IDataBind<KinlingAgent>
     {
-        protected AgentBasicData AgentData;
-        protected Agent Agent { get; private set; }
+        protected KinlingAgentData AgentData;
+        protected KinlingAgent Agent { get; private set; }
 
-        public void Bind(AgentBasicData data)
+        public void Bind(KinlingAgentData data)
         {
             AgentData = data;
         }
 
-        public void Bind(Agent agent)
+        public void Bind(KinlingAgent agent)
         {
             Agent = agent;
             OnAwake();

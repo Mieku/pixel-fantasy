@@ -266,10 +266,12 @@ public class ClickObject : MonoBehaviour
     {
         var actions = Owner.GetActions();
         var cancellableActions = Owner.GetCancellableActions();
+        var commands = Owner.GetCommands();
         
         SelectionData result = new SelectionData
         {
             ItemName = growingResourceData.ResourceName,
+            Commands = commands,
             Actions = actions,
             CancellableActions = cancellableActions,
             ClickObject = this,
@@ -322,6 +324,7 @@ public class ClickObject : MonoBehaviour
 public class SelectionData
 {
     public string ItemName;
+    public List<Command> Commands;
     public List<ActionBase> Actions;
     public List<ActionBase> CancellableActions;
     public ClickObject ClickObject;

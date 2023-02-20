@@ -4,6 +4,7 @@ using Characters.Interfaces;
 using Gods;
 using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
 namespace Characters
@@ -41,11 +42,15 @@ public class UnitAnimController : MonoBehaviour, ICharacterAnimController
         
         private const string UP = "IsUp";
         private const string DOWN = "IsDown";
+
+        private NavMeshAgent _navMeshAgent;
         
         private UnitAction _curUnitAction;
 
         private void Awake()
         {
+            _navMeshAgent = GetComponent<NavMeshAgent>();
+            
             GameEvents.OnGameSpeedChanged += OnSpeedUpdated;
         }
 
@@ -201,6 +206,17 @@ public class UnitAnimController : MonoBehaviour, ICharacterAnimController
             _handsAnim.SetFloat(Velocity, velocity);
             _fxAnim.SetFloat(Velocity, velocity);
             _blushAnim.SetFloat(Velocity, velocity);
+        }
+
+        private void Update()
+        {
+            RefreshAnimVector();
+        }
+
+        private void RefreshAnimVector()
+        {
+            var moveVelo = _navMeshAgent.velocity;
+            SetMovementVelocity(moveVelo);
         }
     }
 

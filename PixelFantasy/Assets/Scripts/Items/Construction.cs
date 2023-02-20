@@ -377,6 +377,11 @@ namespace Items
             throw new System.NotImplementedException();
         }
         
+        public virtual List<Command> GetCommands()
+        {
+            return Commands;
+        }
+        
         public virtual List<ActionBase> GetActions()
         {
             throw new System.NotImplementedException();

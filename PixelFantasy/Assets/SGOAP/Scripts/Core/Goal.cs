@@ -22,5 +22,10 @@ namespace SGoap
             Requestor = requestor;
             Goal = goal;
         }
+
+        public bool IsEqual(GoalRequest otherRequest)
+        {
+            return Requestor == otherRequest.Requestor && Goal == otherRequest.Goal;
+        }
     }
 }

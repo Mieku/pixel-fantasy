@@ -1,5 +1,37 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &403835346980775876
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3831704084031903501}
+  m_Layer: 6
+  m_Name: Sensors
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3831704084031903501
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 403835346980775876}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2386040476030594293}
+  m_Father: {fileID: 5532418264530240428}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &619361499810517998
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,7 +169,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5532418264530240428}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &9136235555899299861
 SpriteRenderer:
@@ -370,7 +402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b9799e3b4860cc45ba1bb049ac45ed1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Action
+  Name: Go To
   Cost: 1
   CostEvaluator: {fileID: 0}
   UsableEvaluator: {fileID: 0}
@@ -380,21 +412,25 @@ MonoBehaviour:
     Concatenator: {fileID: 0}
     StateType: 1
     Value: 0
-    StringValue: InReach
+    StringValue: hasDestination
+    Operator: 0
+  - KeyReference: {fileID: 0}
+    Concatenator: {fileID: 0}
+    StateType: 1
+    Value: 0
+    StringValue: atDestination
     Operator: 4
   AfterEffects:
   - KeyReference: {fileID: 0}
     Concatenator: {fileID: 0}
     StateType: 1
     Value: 0
-    StringValue: InReach
+    StringValue: atDestination
     Operator: 0
   CostEvaluationType: 0
   AchievableEvaluationType: 0
   AbortEvaluatorType: 0
-  Target: {fileID: 0}
-  Range: 4
-  MoveSpeed: 2
+  AssignedInteractableSensor: {fileID: 4882726854456833839}
 --- !u!1 &2948616533583716270
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,8 +565,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8850951745275214622}
+  - {fileID: 3015072912778665274}
   m_Father: {fileID: 5532418264530240428}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3671296902159293178
 GameObject:
@@ -667,7 +704,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5532418264530240428}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3678830972322989329
 SpriteRenderer:
@@ -979,7 +1016,7 @@ Transform:
   - {fileID: 4243704770604842979}
   - {fileID: 4597262634505202631}
   m_Father: {fileID: 5532418264530240428}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8163977419950456879
 MonoBehaviour:
@@ -1029,7 +1066,7 @@ GameObject:
   - component: {fileID: 3299422044965414669}
   - component: {fileID: 6234467081272595317}
   - component: {fileID: 8062619267271517983}
-  - component: {fileID: 4550878170940902460}
+  - component: {fileID: 8385102622695799308}
   m_Layer: 6
   m_Name: Unit
   m_TagString: Unit
@@ -1049,6 +1086,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3831704084031903501}
   - {fileID: 3402154744837798529}
   - {fileID: 5532418262417492087}
   - {fileID: 2528600236002107451}
@@ -1289,7 +1327,7 @@ MonoBehaviour:
   Gender: 0
   _hairRenderer: {fileID: 8135596080481035088}
   _blushRenderer: {fileID: 8662682699024239101}
---- !u!114 &4550878170940902460
+--- !u!114 &8385102622695799308
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1298,19 +1336,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5532418264530240426}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7440f2b4fbec224c83b9afeb412f695, type: 3}
+  m_Script: {fileID: 11500000, guid: 03095cf933c4bee47b5938749212ce06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Goals:
-  - KeyReference: {fileID: 0}
-    Concatenator: {fileID: 0}
-    StateType: 1
-    Value: 0
-    StringValue: InReach
-    Operator: 0
-    Priority: 0
-    Once: 0
-    TotalCost: 0
+  Goals: []
   PlannerSettings:
     RunOnLateUpdate: 1
     CanAbortPlans: 0
@@ -1320,6 +1349,20 @@ MonoBehaviour:
     MaxIteration: 10000
     TriggerGoalImmediately: 1
     LogGoalInfo: 0
+  professionData: {fileID: 0}
+  _assignedInteractableSensor: {fileID: 4882726854456833839}
+  CurrentRequest:
+    Goal:
+      KeyReference: {fileID: 0}
+      Concatenator: {fileID: 0}
+      StateType: 0
+      Value: 0
+      StringValue: 
+      Operator: 0
+      Priority: 0
+      Once: 0
+      TotalCost: 0
+    Requestor: {fileID: 0}
 --- !u!1 &5584946585069434698
 GameObject:
   m_ObjectHideFlags: 0
@@ -1426,6 +1469,79 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &5932521122862076315
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3015072912778665274}
+  - component: {fileID: 348333302701977731}
+  m_Layer: 6
+  m_Name: Cut Tree
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3015072912778665274
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5932521122862076315}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3402154744837798529}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &348333302701977731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5932521122862076315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 400c3f61d5dac1947ad6bc3ce4ff1efe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Cut Tree
+  Cost: 1
+  CostEvaluator: {fileID: 0}
+  UsableEvaluator: {fileID: 0}
+  AbortEvaluator: {fileID: 0}
+  PreConditions:
+  - KeyReference: {fileID: 0}
+    Concatenator: {fileID: 0}
+    StateType: 1
+    Value: 0
+    StringValue: atDestination
+    Operator: 0
+  - KeyReference: {fileID: 0}
+    Concatenator: {fileID: 0}
+    StateType: 1
+    Value: 0
+    StringValue: hasInteractable
+    Operator: 0
+  AfterEffects:
+  - KeyReference: {fileID: 0}
+    Concatenator: {fileID: 0}
+    StateType: 1
+    Value: 0
+    StringValue: harvestTree
+    Operator: 0
+  CostEvaluationType: 0
+  AchievableEvaluationType: 0
+  AbortEvaluatorType: 0
+  AssignedInteractableSensor: {fileID: 4882726854456833839}
 --- !u!1 &6549460662272093873
 GameObject:
   m_ObjectHideFlags: 0
@@ -1563,7 +1679,7 @@ Transform:
   - {fileID: 8395629178835075613}
   - {fileID: 7822819905566097945}
   m_Father: {fileID: 5532418264530240428}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8169490618916517788
 GameObject:
@@ -1649,6 +1765,50 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &8510828821310490372
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2386040476030594293}
+  - component: {fileID: 4882726854456833839}
+  m_Layer: 6
+  m_Name: AssignedInteractableSensor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2386040476030594293
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8510828821310490372}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3831704084031903501}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4882726854456833839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8510828821310490372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bb989a71fdf2544fa4c3321109b7c41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8973889112328986646
 GameObject:
   m_ObjectHideFlags: 0
