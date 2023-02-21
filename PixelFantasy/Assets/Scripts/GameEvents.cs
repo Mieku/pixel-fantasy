@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using Controllers;
 using Gods;
 using ScriptableObjects;
+using SGoap;
 using UnityEngine;
+using Action = System.Action;
 
 public class GameEvents : MonoBehaviour
 {
@@ -102,5 +104,12 @@ public class GameEvents : MonoBehaviour
     public static void Trigger_OnZoneDisplayChanged(bool zonesVisible)
     {
         if (OnZoneDisplayChanged != null) OnZoneDisplayChanged(zonesVisible);
+    }
+
+    public static event Action<GoalRequest> OnGoalRequestCancelled;
+
+    public static void Trigger_OnGoalRequestCancelled(GoalRequest goalRequest)
+    {
+        if (OnGoalRequestCancelled != null) OnGoalRequestCancelled(goalRequest);
     }
 }

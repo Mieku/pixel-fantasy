@@ -1,4 +1,5 @@
 ﻿using System;
+using Gods;
 using UnityEngine;
 
 namespace SGoap
@@ -16,16 +17,18 @@ namespace SGoap
     {
         public Goal Goal;
         public GameObject Requestor;
+        public TaskCategory Category;
 
-        public GoalRequest(GameObject requestor, Goal goal)
+        public GoalRequest(GameObject requestor, Goal goal, TaskCategory category)
         {
             Requestor = requestor;
             Goal = goal;
+            Category = category;
         }
 
         public bool IsEqual(GoalRequest otherRequest)
         {
-            return Requestor == otherRequest.Requestor && Goal == otherRequest.Goal;
+            return Requestor == otherRequest.Requestor && Goal == otherRequest.Goal && Category == otherRequest.Category;
         }
     }
 }

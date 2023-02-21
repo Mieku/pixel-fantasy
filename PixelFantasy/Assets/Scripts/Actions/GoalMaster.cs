@@ -50,9 +50,9 @@ namespace Actions
             return nextGoal;
         }
 
-        public void AddGoalByCategory(TaskCategory category, GoalRequest goalRequest)
+        public void AddGoal(GoalRequest goalRequest)
         {
-            switch (category)
+            switch (goalRequest.Category)
             {
                 case TaskCategory.Emergency:
                     EmergencyGoals.AddRequest(goalRequest);
@@ -100,13 +100,13 @@ namespace Actions
                     ResearchGoals.AddRequest(goalRequest);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(category), category, null);
+                    throw new ArgumentOutOfRangeException(nameof(goalRequest.Category), goalRequest.Category, null);
             }
         }
 
-        public void CancelGoalByCategory(TaskCategory category, GoalRequest goalRequest)
+        public void CancelGoal(GoalRequest goalRequest)
         {
-            switch (category)
+            switch (goalRequest.Category)
             {
                 case TaskCategory.Emergency:
                     EmergencyGoals.CancelRequest(goalRequest);
@@ -154,7 +154,7 @@ namespace Actions
                     ResearchGoals.CancelRequest(goalRequest);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(category), category, null);
+                    throw new ArgumentOutOfRangeException(nameof(goalRequest.Category), goalRequest.Category, null);
             }
         }
     }

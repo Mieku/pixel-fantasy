@@ -138,21 +138,22 @@ public abstract class Interactable : UniqueObject
         // Only one command can be active
         if (PendingCommand != null)
         {
-            CancelCommand(command);
+            CancelCommand(PendingCommand);
         }
         
-        GoalRequest request = new GoalRequest(gameObject, command.Goal);
+        GoalRequest request = new GoalRequest(gameObject, command.Goal, command.Category);
         PendingCommand = command;
-        GoalMaster.Instance.AddGoalByCategory(command.Category, request);
+        GoalMaster.Instance.AddGoal(request);
         DisplayTaskIcon(command.Icon);
     }
 
     public void CancelCommand(Command command)
     {
-        GoalRequest request = new GoalRequest(gameObject, command.Goal);
+        GoalRequest request = new GoalRequest(gameObject, command.Goal, command.Category);
         PendingCommand = null;
-        GoalMaster.Instance.CancelGoalByCategory(command.Category, request);
+        GoalMaster.Instance.CancelGoal(request);
         DisplayTaskIcon(null);
+        GameEvents.Trigger_OnGoalRequestCancelled(request);
     }
 
     public bool IsPending(Command command)

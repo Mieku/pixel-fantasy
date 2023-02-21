@@ -17,7 +17,9 @@ public class KinlingAgent : Agent
     private float waitingTimer;
     private const float WAIT_TIMER_MAX = .2f; // 200ms
     private State state;
-    public GoalRequest CurrentRequest;
+    private GoalRequest _currentRequest;
+    private NavMeshAgent _navAgent;
+    private UnitAnimController _unitAnim;
     private static GoalMaster goalMaster => GoalMaster.Instance;
     
     public enum State
@@ -28,20 +30,27 @@ public class KinlingAgent : Agent
         
     private void Awake()
     {
+        GameEvents.OnGoalRequestCancelled += Event_OnGoalRequestCancelled;
+        
         Initialize();
     }
-    
+
+    private void OnDestroy()
+    {
+        GameEvents.OnGoalRequestCancelled -= Event_OnGoalRequestCancelled;
+    }
+
     public void Initialize()
     {
-        var animator = GetComponent<UnitAnimController>();
-        var navMeshAgent = GetComponent<NavMeshAgent>();
-        navMeshAgent.updateRotation = false;
-        navMeshAgent.updateUpAxis = false;
+        _unitAnim = GetComponent<UnitAnimController>();
+        _navAgent = GetComponent<NavMeshAgent>();
+        _navAgent.updateRotation = false;
+        _navAgent.updateUpAxis = false;
 
         Data = new KinlingAgentData
         {
-            Animator = animator,
-            NavMeshAgent = navMeshAgent,
+            Animator = _unitAnim,
+            NavMeshAgent = _navAgent,
             KinlingAgent = this,
             // Inventory = new Inventory(),
             Cooldown = new CoolDown(),
@@ -93,7 +102,7 @@ public class KinlingAgent : Agent
         
         // TODO: Check if the goal is possible, if not return it
 
-        CurrentRequest = request;
+        _currentRequest = request;
         if (request == null)
         {
             state = State.WaitingForNextTask;
@@ -120,12 +129,37 @@ public class KinlingAgent : Agent
         {
             if (CurrentGoal.Once)
             {
-                CurrentRequest = null;
+                _currentRequest = null;
                 state = State.WaitingForNextTask;
                 States.Clear();
             }
         }
         base.EvaluationGoal();
+    }
+
+    private void Event_OnGoalRequestCancelled(GoalRequest goalRequest)
+    {
+        if (_currentRequest != null && _currentRequest.IsEqual(goalRequest))
+        {
+            CancelCurrentGoal(goalRequest, false);
+        }
+    }
+
+    private void CancelCurrentGoal(GoalRequest goalRequest, bool returnToQueue)
+    {
+        Goals.Remove(goalRequest.Goal);
+        UpdateGoalOrderCache();
+        CleanPlan();
+        _currentRequest = null;
+        _navAgent.SetDestination(transform.position);
+        _unitAnim.SetUnitAction(UnitAction.Nothing, UnitActionDirection.Side);
+
+        if (returnToQueue)
+        {
+            GoalMaster.Instance.AddGoal(goalRequest);
+        }
+        
+        state = State.WaitingForNextTask;
     }
 
     public override void LateUpdate()
