@@ -644,16 +644,19 @@ MonoBehaviour:
   _icon: {fileID: 7155256550430962553}
   Commands:
   - {fileID: 11400000, guid: 741035aabc10ee741a67711d029540d3, type: 2}
+  PendingCommand: {fileID: 0}
   QueuedTaskRefs: 
   PendingTasks: []
   InProgressTasks: []
   IncomingUnitUID: 
   Prefab: {fileID: 0}
-  _growingResourceData: {fileID: 11400000, guid: 9c8bbcd46ae9d7c44b18552b98e9d7c7, type: 2}
+  ResourceData: {fileID: 0}
   _spriteRenderer: {fileID: 7155256550381879070}
   _clickObject: {fileID: 7155256551760761719}
+  Health: 0
   _overrideFullGrowth: 1
   _fruitOverlay: {fileID: 6319101082123291704}
+  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
   _growthIndex: 0
   TaskRequestors: []
 --- !u!61 &7069223065334861981

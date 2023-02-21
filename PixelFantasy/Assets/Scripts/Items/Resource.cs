@@ -13,21 +13,22 @@ namespace Items
     {
         public GameObject Prefab;
         
-        [SerializeField] public GrowingResourceData growingResourceData;
+        public ResourceData ResourceData;
         [SerializeField] protected SpriteRenderer _spriteRenderer;
         [SerializeField] private ClickObject _clickObject;
         
         protected Spawner spawner => Spawner.Instance;
         public float Health;
 
-        private void Awake()
+        protected virtual void Awake()
         {
+            _clickObject = GetComponent<ClickObject>();
             Health = GetWorkAmount();
         }
 
-        public GrowingResourceData GetResourceData()
+        public ResourceData GetResourceData()
         {
-            return growingResourceData;
+            return ResourceData;
         }
 
         public ClickObject GetClickObject()
@@ -78,7 +79,7 @@ namespace Items
 
         public virtual List<Command> GetCommands()
         {
-            return Commands;
+            return new List<Command>(Commands);
         }
 
         public virtual List<ActionBase> GetActions()
@@ -103,7 +104,7 @@ namespace Items
                 UID = UniqueId,
                 Prefab = Prefab,
                 Position = transform.position,
-                GrowingResourceData = growingResourceData,
+                ResourceData = ResourceData,
                 IsAllowed = this.IsAllowed,
                 IsClickDisabled = this.IsClickDisabled,
                 PendingTasks = PendingTasks,
@@ -116,7 +117,7 @@ namespace Items
             UniqueId = stateData.UID;
             Prefab = stateData.Prefab;
             transform.position = stateData.Position;
-            growingResourceData = stateData.GrowingResourceData;
+            ResourceData = stateData.ResourceData;
             IsAllowed = stateData.IsAllowed;
             IsClickDisabled = stateData.IsClickDisabled;
             
@@ -128,7 +129,7 @@ namespace Items
             public string UID;
             public GameObject Prefab;
             public Vector3 Position;
-            public GrowingResourceData GrowingResourceData;
+            public ResourceData ResourceData;
             public bool IsAllowed;
             public bool IsClickDisabled;
             public List<ActionBase> PendingTasks;

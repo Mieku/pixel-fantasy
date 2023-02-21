@@ -43,11 +43,6 @@ namespace Controllers
                 bool isActive = selectionData.Requestor.IsPending(command);
                 CreateCommand(command, selectionData.Requestor, isActive);
             }
-            // foreach (var action in _selectionData.Actions)
-            // {
-            //     bool isActive = selectionData.CancellableActions.Contains(action);
-            //     CreateOrder(action, selectionData.Requestor, isActive);
-            // }
         }
 
         private void CreateCommand(Command command, Interactable requestor, bool isActive)

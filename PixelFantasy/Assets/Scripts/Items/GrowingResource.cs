@@ -10,6 +10,7 @@ namespace Items
     {
         [SerializeField] protected bool _overrideFullGrowth;
         [SerializeField] protected SpriteRenderer _fruitOverlay;
+        [SerializeField] private Command _harvestCmd;
 
         public int _growthIndex;
         protected float _ageSec;
@@ -23,10 +24,13 @@ namespace Items
 
         public bool HasFruitAvailable => _hasFruitAvailable;
         public List<GameObject> TaskRequestors = new List<GameObject>();
-        
-        private void Awake()
+
+        private GrowingResourceData growingResourceData => ResourceData as GrowingResourceData;
+
+        protected override void Awake()
         {
-            if (growingResourceData != null)
+            base.Awake();
+            if (ResourceData != null)
             {
                 Init();
             }
@@ -34,7 +38,7 @@ namespace Items
 
         public void Init(GrowingResourceData growingResourceData, GameObject prefab)
         {
-            base.growingResourceData = growingResourceData;
+            base.ResourceData = growingResourceData;
             Prefab = prefab;
             
             Init();
@@ -136,13 +140,41 @@ namespace Items
                     }
                 }
                 _hasFruitAvailable = false;
-                // _queuedToHarvest = false;
                 RefreshSelection();
+                DisplayTaskIcon(null);
+
+                if (PendingCommand == _harvestCmd)
+                {
+                    PendingCommand = null;
+                }
             }
             
             _remainingHarvestWork = GetHarvestWorkAmount();
         }
-        
+
+        public bool DoHarvest(float workAmount)
+        {
+            _remainingHarvestWork -= workAmount;
+            if (_remainingHarvestWork <= 0)
+            {
+                HarvestFruit();
+                return true;
+            }
+            
+            return false;
+        }
+
+        public override List<Command> GetCommands()
+        {
+            var result = new List<Command>(Commands);
+            if (_hasFruitAvailable)
+            {
+                result.Add(_harvestCmd);
+            }
+
+            return result;
+        }
+
         private void Update()
         {
             GrowthCheck();

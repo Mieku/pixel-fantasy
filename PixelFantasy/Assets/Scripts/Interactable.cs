@@ -32,7 +32,7 @@ public abstract class Interactable : UniqueObject
                 var resource = GetComponent<Resource>();
                 if (resource != null)
                 {
-                    _potentialActions = resource.GetResourceData().AvailableActions;
+                    //_potentialActions = resource.GetResourceData().AvailableActions;
                 }
 
                 var item = GetComponent<Item>();
@@ -96,16 +96,17 @@ public abstract class Interactable : UniqueObject
 
     private List<ActionBase> FilterAvailableActions(List<ActionBase> potentialActions)
     {
-        List<ActionBase> result = new List<ActionBase>();
-        foreach (var potentialAction in potentialActions)
-        {
-            if (potentialAction.IsTaskAvailable(this))
-            {
-                result.Add(potentialAction);
-            }
-        }
-
-        return result;
+        // List<ActionBase> result = new List<ActionBase>();
+        // foreach (var potentialAction in potentialActions)
+        // {
+        //     if (potentialAction.IsTaskAvailable(this))
+        //     {
+        //         result.Add(potentialAction);
+        //     }
+        // }
+        //
+        // return result;
+        return null;
     }
 
     public void OnTaskAccepted(ActionBase task)
@@ -158,7 +159,7 @@ public abstract class Interactable : UniqueObject
     {
         if (PendingCommand == null) return false;
         
-        return PendingCommand = command;
+        return PendingCommand == command;
     }
     
     public void CancelAllTasks()
@@ -243,7 +244,7 @@ public abstract class Interactable : UniqueObject
 
     public virtual int GetWorkAmount()
     {
-        return 0;
+        return 1;
     }
 
     public void DisplayTaskIcon(Sprite icon)

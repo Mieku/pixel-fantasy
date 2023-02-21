@@ -415,12 +415,13 @@ MonoBehaviour:
   InProgressTasks: []
   IncomingUnitUID: 
   Prefab: {fileID: 0}
-  _growingResourceData: {fileID: 11400000, guid: 48757da1fe776fb4a9faf23f27a37973, type: 2}
+  ResourceData: {fileID: 0}
   _spriteRenderer: {fileID: 2315027090632040887}
   _clickObject: {fileID: 2315027091890448863}
   Health: 0
   _overrideFullGrowth: 0
   _fruitOverlay: {fileID: 569324571}
+  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
   _growthIndex: 0
   TaskRequestors: []
 --- !u!114 &6042414087736452418
