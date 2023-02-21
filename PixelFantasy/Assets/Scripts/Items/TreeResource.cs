@@ -6,11 +6,9 @@ namespace Items
 {
     public class TreeResource : GrowingResource
     {
-        // Triggered by animation
-        public void TreeFallen()
+        public override UnitAction GetExtractActionAnim()
         {
-            Debug.Log("Tree Fallen!");
-            // TODO: Build me!
+            return UnitAction.Axe;
         }
     }
 }

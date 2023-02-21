@@ -19,7 +19,7 @@ MonoBehaviour:
     Concatenator: {fileID: 0}
     StateType: 1
     Value: 0
-    StringValue: harvestTree
+    StringValue: resourceExtracted
     Operator: 0
     Priority: 0
     Once: 1

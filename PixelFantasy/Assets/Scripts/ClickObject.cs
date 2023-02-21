@@ -22,7 +22,7 @@ public class ClickObject : MonoBehaviour
 
     private ItemData _itemData;
     private ConstructionData _structureData;
-    private GrowingResourceData _growingResourceData;
+    private GrowingResourceData growingResourceData;
     private FloorData _floorData;
     private FurnitureData _furnitureData;
     private Unit _unit;
@@ -61,7 +61,7 @@ public class ClickObject : MonoBehaviour
                 _unit = GetComponent<Unit>();
                 break;
             case ObjectType.Resource:
-                _growingResourceData = GetComponent<Resource>().GetResourceData();
+                growingResourceData = GetComponent<Resource>().GetResourceData();
                 break;
             case ObjectType.Floor:
                 _floorData = GetComponent<Floor>().FloorData;
@@ -199,7 +199,7 @@ public class ClickObject : MonoBehaviour
             case ObjectType.Structure:
                 return GetSelectionData(_structureData);
             case ObjectType.Resource:
-                return GetSelectionData(_growingResourceData);
+                return GetSelectionData(growingResourceData);
             case ObjectType.Floor:
                 return GetSelectionData(_floorData);
             case ObjectType.Furniture:

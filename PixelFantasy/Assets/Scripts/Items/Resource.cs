@@ -13,51 +13,27 @@ namespace Items
     {
         public GameObject Prefab;
         
-        [SerializeField] public GrowingResourceData _growingResourceData;
+        [SerializeField] public GrowingResourceData growingResourceData;
         [SerializeField] protected SpriteRenderer _spriteRenderer;
         [SerializeField] private ClickObject _clickObject;
         
-        protected TaskMaster taskMaster => TaskMaster.Instance;
         protected Spawner spawner => Spawner.Instance;
+        public float Health;
 
-        //protected bool _queuedToCut;
-        
+        private void Awake()
+        {
+            Health = GetWorkAmount();
+        }
+
         public GrowingResourceData GetResourceData()
         {
-            return _growingResourceData;
+            return growingResourceData;
         }
-        
-        // public bool QueuedToCut
-        // {
-        //     get => _queuedToCut;
-        //     set => _queuedToCut = value;
-        // }
 
         public ClickObject GetClickObject()
         {
             return _clickObject;
         }
-
-        // public virtual void CancelTasks()
-        // {
-        //     if (_assignedTaskRefs == null || _assignedTaskRefs.Count == 0) return;
-        //     
-        //     foreach (var taskRef in _assignedTaskRefs)
-        //     {
-        //         taskMaster.FellingTaskSystem.CancelTask(taskRef);
-        //         taskMaster.FarmingTaskSystem.CancelTask(taskRef);
-        //     }
-        //     _assignedTaskRefs.Clear();
-        //     
-        //     if (_incomingUnit != null)
-        //     {
-        //         _incomingUnit.CancelTask();
-        //     }
-        //
-        //     _queuedToCut = false;
-        //     
-        //     RefreshSelection();
-        // }
         
         public void RefreshSelection()
         {
@@ -65,6 +41,32 @@ namespace Items
             {
                 GameEvents.Trigger_RefreshSelection();
             }
+        }
+
+        /// <summary>
+        /// Work being done by the kinling, (example a swing of axe)
+        /// </summary>
+        /// <param name="workAmount"></param>
+        /// <returns>If the work is complete</returns>
+        public virtual bool DoWork(float workAmount)
+        {
+            Health -= workAmount;
+            if (Health <= 0)
+            {
+                DestroyResource();
+                return true;
+            }
+            
+            return false;
+        }
+
+        protected virtual void DestroyResource()
+        {
+        }
+
+        public virtual UnitAction GetExtractActionAnim()
+        {
+            return UnitAction.Doing;
         }
 
         public bool IsClickDisabled { get; set; }
@@ -101,7 +103,7 @@ namespace Items
                 UID = UniqueId,
                 Prefab = Prefab,
                 Position = transform.position,
-                GrowingResourceData = _growingResourceData,
+                GrowingResourceData = growingResourceData,
                 IsAllowed = this.IsAllowed,
                 IsClickDisabled = this.IsClickDisabled,
                 PendingTasks = PendingTasks,
@@ -114,7 +116,7 @@ namespace Items
             UniqueId = stateData.UID;
             Prefab = stateData.Prefab;
             transform.position = stateData.Position;
-            _growingResourceData = stateData.GrowingResourceData;
+            growingResourceData = stateData.GrowingResourceData;
             IsAllowed = stateData.IsAllowed;
             IsClickDisabled = stateData.IsClickDisabled;
             

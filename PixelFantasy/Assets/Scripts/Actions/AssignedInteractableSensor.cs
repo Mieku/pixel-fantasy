@@ -37,6 +37,11 @@ public class AssignedInteractableSensor : Sensor
         return _interactable;
     }
 
+    public UnitActionDirection GetActionDirection()
+    {
+        return DetermineUnitActionDirection((Vector3)_interactable.transform.position, transform.position);
+    }
+
     public Vector2? Destination => GetAdjacentPosition(_interactable.transform.position);
 
     private Vector2? GetAdjacentPosition(Vector2 workPosition, float distanceAway = 1f)
