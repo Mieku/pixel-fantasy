@@ -32,6 +32,13 @@ namespace Items
             _dirtTM =
                 TilemapController.Instance.GetTilemap(TilemapLayer.Dirt);
 
+            Init();
+        }
+
+        private void Init()
+        {
+            if (_mountainData == null) return;
+            
             Health = GetWorkAmount();
         }
 
@@ -147,6 +154,8 @@ namespace Items
             transform.position = stateData.Position;
             ResourceData = stateData.MountainData;
             _remainingWork = stateData.RemainingWork;
+
+            Init();
 
             RestoreTasks(stateData.PendingTasks);
         }

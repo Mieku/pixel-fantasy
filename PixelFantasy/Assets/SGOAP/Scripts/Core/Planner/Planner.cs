@@ -234,9 +234,9 @@ namespace SGoap
                 if (!usableAction.IsProceduralPreconditionMet(parent.States))
                     continue;
 
-                var currentState = DictionaryPool<string, float>.Get();
+                var currentState = DictionaryPool<string, float>.Get(); // 0?
 
-                var node = Pool<Node>.Get();
+                var node = Pool<Node>.Get(); // Null
 
                 if (node == null)
                     UnityEngine.Debug.LogError("Ran out of nodes, please increase Planner's Max Iteration or optimize your actions more.");

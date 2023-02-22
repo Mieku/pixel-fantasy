@@ -206,6 +206,11 @@ namespace SGoap
             }
         }
 
+        public Queue<Action> DeterminePlan(Goal goal)
+        {
+            return Planner.Plan(this, goal.Key, World.Instance.StateMap, Actions, States.GetStates(),out var newPlanCost, false);
+        }
+
         /// <summary>
         /// Check and Remove a goal if it has been reached and then reinitiate the plan by setting _replan to be true.
         /// </summary>

@@ -1,4 +1,5 @@
 ﻿using System;
+using Actions;
 using Gods;
 using UnityEngine;
 
@@ -29,6 +30,12 @@ namespace SGoap
         public bool IsEqual(GoalRequest otherRequest)
         {
             return Requestor == otherRequest.Requestor && Goal == otherRequest.Goal && Category == otherRequest.Category;
+        }
+
+        public void CancelRequest()
+        {
+            GoalMaster.Instance.CancelGoal(this);
+            GameEvents.Trigger_OnGoalRequestCancelled(this);
         }
     }
 }

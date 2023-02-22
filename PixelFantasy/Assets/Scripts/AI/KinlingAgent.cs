@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Actions;
 using Characters.Interfaces;
+using Gods;
+using Items;
 using SGoap;
 using SGoap.Services;
 using UnityEngine;
@@ -21,6 +23,7 @@ public class KinlingAgent : Agent
     private NavMeshAgent _navAgent;
     private UnitAnimController _unitAnim;
     private static GoalMaster goalMaster => GoalMaster.Instance;
+    private Item _heldItem;
     
     public enum State
     {
@@ -99,9 +102,25 @@ public class KinlingAgent : Agent
                 break;
             }
         }
-        
-        // TODO: Check if the goal is possible, if not return it
 
+        if (request != null)
+        {
+            var interactable = request.Requestor.GetComponent<Interactable>();
+            if (interactable != null)
+            {
+                _assignedInteractableSensor.AssignInteractable(interactable);
+            }
+            
+            // TODO: Check if the goal is possible, if not return it
+            var plan = DeterminePlan(request.Goal);
+            if (plan == null)
+            {
+                // No Plan was determined
+                GoalMaster.Instance.AddGoal(request);
+                return;
+            }
+        }
+        
         _currentRequest = request;
         if (request == null)
         {
@@ -115,11 +134,11 @@ public class KinlingAgent : Agent
             UpdateGoalOrderCache();
             state = State.ExecutingTask;
             
-            var interactable = request.Requestor.GetComponent<Interactable>();
-            if (interactable != null)
-            {
-                _assignedInteractableSensor.AssignInteractable(interactable);
-            }
+            // var interactable = request.Requestor.GetComponent<Interactable>();
+            // if (interactable != null)
+            // {
+            //     _assignedInteractableSensor.AssignInteractable(interactable);
+            // }
         }
     }
 
@@ -153,6 +172,8 @@ public class KinlingAgent : Agent
         _currentRequest = null;
         _navAgent.SetDestination(transform.position);
         _unitAnim.SetUnitAction(UnitAction.Nothing, UnitActionDirection.Side);
+        
+        DropCarriedItem();
 
         if (returnToQueue)
         {
@@ -162,9 +183,44 @@ public class KinlingAgent : Agent
         state = State.WaitingForNextTask;
     }
 
+    public void HoldItem(Item item)
+    {
+        _heldItem = item;
+        item.transform.SetParent(transform);
+        item.transform.localPosition = Vector3.zero;
+    }
+
+    public void DropCarriedItem()
+    {
+        if (_heldItem == null) return;
+        
+        Spawner.Instance.SpawnItem(_heldItem.GetItemData(), transform.position, true);
+        Destroy(_heldItem.gameObject);
+        _heldItem = null;
+    }
+
     public override void LateUpdate()
     {
         if (!Data.Cooldown.Active)
             base.LateUpdate();
+    }
+
+    public AgentStateData GetSaveData()
+    {
+        
+        return new AgentStateData
+        {
+            ProfessionData = professionData,
+        };
+    }
+
+    public void SetLoadData(AgentStateData agentData)
+    {
+        professionData = agentData.ProfessionData;
+    }
+    
+    public struct AgentStateData
+    {
+        public ProfessionData ProfessionData;
     }
 }

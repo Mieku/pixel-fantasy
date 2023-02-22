@@ -7,7 +7,7 @@ namespace Characters
 {
     public class Unit : UniqueObject, IPersistent
     {
-        [SerializeField] private UnitTaskAI _unitTaskAI;
+        [SerializeField] private KinlingAgent _kinlingAgent;
         [SerializeField] private UnitState _unitState;
         [SerializeField] private UnitAppearance _appearance;
         
@@ -18,27 +18,29 @@ namespace Characters
 
         public UnitTaskAI GetUnitTaskAI()
         {
-            return _unitTaskAI;
+            return null;//_unitTaskAI;
         }
 
         public ActionBase GetCurrentAction()
         {
-            return _unitTaskAI.currentAction;
+            return null;//_unitTaskAI.currentAction;
         }
 
         public object CaptureState()
         {
-            var unitTaskData = _unitTaskAI.GetSaveData();
+            //var unitTaskData = _unitTaskAI.GetSaveData();
             var unitStateData = _unitState.GetStateData();
             var appearanceData = _appearance.GetSaveData();
+            var agentData = _kinlingAgent.GetSaveData();
 
             return new UnitData
             {
                 UID = UniqueId,
                 Position = transform.position,
-                UnitTaskData = unitTaskData,
+                //UnitTaskData = unitTaskData,
                 UnitStateData = unitStateData,
                 AppearanceData = appearanceData,
+                KinlingAgentStateData = agentData,
             };
         }
 
@@ -50,9 +52,10 @@ namespace Characters
             transform.position = unitData.Position;
             
             // Send the data to all components
-            _unitTaskAI.SetLoadData(unitData.UnitTaskData);
+            //_unitTaskAI.SetLoadData(unitData.UnitTaskData);
             _unitState.SetLoadData(unitData.UnitStateData);
             _appearance.SetLoadData(unitData.AppearanceData);
+            _kinlingAgent.SetLoadData(unitData.KinlingAgentStateData);
         }
 
         public struct UnitData
@@ -61,7 +64,9 @@ namespace Characters
             public Vector3 Position;
 
             // UnitTaskAI
-            public UnitTaskAI.UnitTaskData UnitTaskData;
+            //public UnitTaskAI.UnitTaskData UnitTaskData;
+
+            public KinlingAgent.AgentStateData KinlingAgentStateData;
             
             // Unit State
             public UnitState.UnitStateData UnitStateData;

@@ -82,6 +82,7 @@ namespace Controllers
         public void AddNewStorageSlot(StorageSlot newSlot)
         {
             _storageSlots.Add(newSlot);
+            GameEvents.Trigger_OnInventoryAvailabilityChanged();
         }
 
         /// <summary>
@@ -130,7 +131,7 @@ namespace Controllers
                 _inventory.Add(itemData, quantity);
             }
             
-            
+            GameEvents.Trigger_OnInventoryAvailabilityChanged();
             GameEvents.Trigger_OnInventoryAdded(itemData, _inventory[itemData]);
         }
 
@@ -141,6 +142,7 @@ namespace Controllers
                 _inventory[itemData] -= quantity;
             
                 GameEvents.Trigger_OnInventoryRemoved(itemData, _inventory[itemData]);
+                GameEvents.Trigger_OnInventoryAvailabilityChanged();
             }
             else
             {
@@ -426,6 +428,7 @@ namespace Controllers
                 if (itemType != null && _inventory.ContainsKey(itemType))
                 {
                     GameEvents.Trigger_OnInventoryAdded(itemType, _inventory[itemType]);
+                    GameEvents.Trigger_OnInventoryAvailabilityChanged();
                 }
             }
         }

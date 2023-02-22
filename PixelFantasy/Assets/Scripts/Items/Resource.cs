@@ -23,7 +23,7 @@ namespace Items
         protected virtual void Awake()
         {
             _clickObject = GetComponent<ClickObject>();
-            Health = GetWorkAmount();
+            //Health = GetWorkAmount();
         }
 
         public ResourceData GetResourceData()

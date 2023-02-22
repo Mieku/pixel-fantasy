@@ -37,6 +37,7 @@ namespace Zones
         public void Init()
         {
             UpdateStoredItemDisplay(null);
+            GameEvents.Trigger_OnInventoryAvailabilityChanged();
         }
 
         public bool IsEmpty()
@@ -105,6 +106,7 @@ namespace Zones
             _incomingItems.Remove(item);
             UpdateQuantityDisplay();
             UpdateStoredItemDisplay(_storedType.ItemSprite);
+            GameEvents.Trigger_OnInventoryAvailabilityChanged();
         }
 
         private void UpdateStoredItemDisplay(Sprite storedItemSprite)
@@ -194,6 +196,7 @@ namespace Zones
                 UpdateStoredItemDisplay(_storedType.ItemSprite);
             }
             UpdateQuantityDisplay();
+            GameEvents.Trigger_OnInventoryAvailabilityChanged();
         }
 
         public bool HasItemClaimed(Item item)
@@ -214,19 +217,21 @@ namespace Zones
             DropAllItems();
             
             // If a Kinling is heading to the slot to store something or grab something, stop them
-            var allUnits = ControllerManager.Instance.UnitsHandler.GetAllUnits();
-            foreach (var unit in allUnits)
-            {
-                if (unit.GetUnitTaskAI().claimedSlot == this)
-                {
-                    unit.GetUnitTaskAI().CancelTask();
-                }
-            }
+            // var allUnits = ControllerManager.Instance.UnitsHandler.GetAllUnits();
+            // foreach (var unit in allUnits)
+            // {
+            //     if (unit.GetUnitTaskAI().claimedSlot == this)
+            //     {
+            //         unit.GetUnitTaskAI().CancelTask();
+            //     }
+            // }
 
             foreach (var incomingItem in _incomingItems)
             {
-                incomingItem.ReenqueueAssignedTask();
+                incomingItem.CancelGoal();
             }
+            
+            GameEvents.Trigger_OnInventoryAvailabilityChanged();
             
             // Destroy the slot
             Destroy(gameObject);

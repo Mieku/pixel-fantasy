@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Actions;
 using ScriptableObjects;
+using SGoap;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ namespace Gods
         [SerializeField] private List<GrowingResourceData> _growingResourceLibrary;
         [SerializeField] private List<HairData> _hairLibrary;
         [SerializeField] private List<ZoneTypeData> _zoneTypeLibrary;
+        [SerializeField] private List<Goal> _goalsLibrary;
 
         public Color GetColour(string colourName)
         {
@@ -129,6 +131,17 @@ namespace Gods
             {
                 Debug.LogError("Unknown Zone Type Data: " + zoneType);
             }
+            return result;
+        }
+
+        public Goal GetGoal(string goalName)
+        {
+            var result = _goalsLibrary.Find(g => g.StringValue == goalName);
+            if (result == null)
+            {
+                Debug.LogError($"Unknown Goal Name: {goalName}");
+            }
+
             return result;
         }
     }

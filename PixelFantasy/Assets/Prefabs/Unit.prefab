@@ -640,6 +640,7 @@ Transform:
   - {fileID: 8850951745275214622}
   - {fileID: 193373240116800549}
   - {fileID: 5250468594357005292}
+  - {fileID: 1954362272007909818}
   m_Father: {fileID: 5532418264530240428}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1181,7 +1182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542b82983f052024dbd7209516f6adf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitTaskAI: {fileID: 0}
+  _kinlingAgent: {fileID: 8385102622695799308}
   _unitState: {fileID: 6459717783198305047}
   _appearance: {fileID: 8062619267271517983}
 --- !u!50 &5532418264530240431
@@ -1425,18 +1426,6 @@ MonoBehaviour:
     LogGoalInfo: 0
   professionData: {fileID: 0}
   _assignedInteractableSensor: {fileID: 4882726854456833839}
-  CurrentRequest:
-    Goal:
-      KeyReference: {fileID: 0}
-      Concatenator: {fileID: 0}
-      StateType: 0
-      Value: 0
-      StringValue: 
-      Operator: 0
-      Priority: 0
-      Once: 0
-      TotalCost: 0
-    Requestor: {fileID: 0}
 --- !u!1 &5584946585069434698
 GameObject:
   m_ObjectHideFlags: 0
@@ -1755,6 +1744,73 @@ Transform:
   m_Father: {fileID: 5532418264530240428}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7985346976005636487
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1954362272007909818}
+  - component: {fileID: 6552886813461702518}
+  m_Layer: 6
+  m_Name: Store Item
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1954362272007909818
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7985346976005636487}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3402154744837798529}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6552886813461702518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7985346976005636487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 139311d0b2d00c744a4cc413028c90a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Store Item
+  Cost: 1
+  CostEvaluator: {fileID: 0}
+  UsableEvaluator: {fileID: 0}
+  AbortEvaluator: {fileID: 0}
+  PreConditions:
+  - KeyReference: {fileID: 0}
+    Concatenator: {fileID: 0}
+    StateType: 1
+    Value: 0
+    StringValue: storeItem
+    Operator: 4
+  AfterEffects:
+  - KeyReference: {fileID: 0}
+    Concatenator: {fileID: 0}
+    StateType: 1
+    Value: 0
+    StringValue: storeItem
+    Operator: 0
+  CostEvaluationType: 0
+  AchievableEvaluationType: 0
+  AbortEvaluatorType: 0
+  AssignedInteractableSensor: {fileID: 4882726854456833839}
 --- !u!1 &8169490618916517788
 GameObject:
   m_ObjectHideFlags: 0
@@ -1850,7 +1906,7 @@ GameObject:
   - component: {fileID: 2386040476030594293}
   - component: {fileID: 4882726854456833839}
   m_Layer: 6
-  m_Name: AssignedInteractableSensor
+  m_Name: Assigned Interactable Sensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

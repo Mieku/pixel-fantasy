@@ -58,6 +58,12 @@ public class GameEvents : MonoBehaviour
         if( OnInventoryRemoved != null ) OnInventoryRemoved( itemData, totalAmount );
     }
 
+    public static event Action OnInventoryAvailabilityChanged;
+    public static void Trigger_OnInventoryAvailabilityChanged()
+    {
+        if (OnInventoryAvailabilityChanged != null) OnInventoryAvailabilityChanged();
+    }
+
     public static event Action RefreshSelection;
     public static void Trigger_RefreshSelection()
     {
