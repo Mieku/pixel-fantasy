@@ -54,7 +54,10 @@ namespace Items
             
             DisplayItemSprite();
 
-            SeekForSlot();
+            if (allowed)
+            {
+                SeekForSlot();
+            }
         }
         
         public void SeekForSlot()

@@ -6,6 +6,7 @@ using UnityEngine;
 public class AssignedInteractableSensor : Sensor
 {
     private Interactable _interactable;
+    private string _payload;
     
     public bool HasInteractable => _interactable != null;
 
@@ -29,12 +30,29 @@ public class AssignedInteractableSensor : Sensor
         {
             AgentData.KinlingAgent.States.RemoveState("hasDestination");
         }
-        
+    }
+
+    public void AssignPayload(string payload)
+    {
+        _payload = payload;
+        if (string.IsNullOrEmpty(_payload))
+        {
+            AgentData.KinlingAgent.States.RemoveState("hasPayload");
+        }
+        else
+        {
+            AgentData.KinlingAgent.States.AddState("hasPayload", 1);
+        }
     }
 
     public Interactable GetInteractable()
     {
         return _interactable;
+    }
+
+    public string GetPayload()
+    {
+        return _payload;
     }
 
     public UnitActionDirection GetActionDirection()

@@ -44,7 +44,8 @@ namespace Actions
                 return EActionStatus.Running;
             } 
             
-            if (DistanceToSlot <= 1f && _isHoldingItem) // Deposit Item
+            // Deposit Item
+            if (DistanceToSlot <= 1f && _isHoldingItem)
             {
                 _isHoldingItem = false;
                 _storageSlot.StoreItem(_item);

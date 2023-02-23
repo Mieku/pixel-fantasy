@@ -206,8 +206,6 @@ public class ClickObject : MonoBehaviour
                 return GetSelectionData(_floorData);
             case ObjectType.Furniture:
                 return GetSelectionData(_furnitureData);
-            // case ObjectType.Mountain:
-            //     return GetComponent<Mountain>().GetSelectionData();
             default:
                 throw new ArgumentOutOfRangeException();
         }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Actions;
 using Characters;
@@ -7,7 +6,9 @@ using Gods;
 using HUD;
 using Interfaces;
 using ScriptableObjects;
+using SGoap;
 using UnityEngine;
+using Action = System.Action;
 
 namespace Items
 {
@@ -77,6 +78,18 @@ namespace Items
             return _remainingWork;
         }
 
+        public bool DoConstruction(float workAmount)
+        {
+            _remainingWork -= workAmount;
+            if (_remainingWork <= 0)
+            {
+                CompleteConstruction();
+                return true;
+            }
+            
+            return false;
+        }
+
         public virtual void CancelConstruction()
         {
             CancelAllTasks();
@@ -107,7 +120,33 @@ namespace Items
                 }
             }
         }
-        
+
+        public override void ReceiveItem(Item item)
+        {
+            var itemData = item.GetItemData();
+            Destroy(item.gameObject);
+            RemoveFromPendingResourceCosts(itemData);
+            
+            foreach (var cost in _remainingResourceCosts)
+            {
+                if (cost.Item == itemData && cost.Quantity > 0)
+                {
+                    cost.Quantity--;
+                    if (cost.Quantity <= 0)
+                    {
+                        _remainingResourceCosts.Remove(cost);
+                    }
+
+                    break;
+                }
+            }
+            
+            if (_remainingResourceCosts.Count == 0)
+            {
+                CreateConstructTask();
+            }
+        }
+
         public virtual float GetWorkPerResource()
         {
             return 0;
@@ -311,7 +350,10 @@ namespace Items
         
         public void CreateConstructTask(bool autoAssign = true)
         {
-            _constructStructureAction.CreateTask(this, autoAssign);
+            //_constructStructureAction.CreateTask(this, autoAssign);
+            var buildGoal = Librarian.Instance.GetGoal("buildContruction");
+            GoalRequest request = new GoalRequest(gameObject, buildGoal, TaskCategory.Construction);
+            GoalMaster.Instance.AddGoal(request);
         }
 
         public void CreateDeconstructionTask(bool autoAssign = true, Action onDeconstructed = null)
@@ -362,7 +404,10 @@ namespace Items
 
         protected void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
         {
-            _takeResourceToBlueprintAction.EnqueueTask(this, resourceData);
+            //_takeResourceToBlueprintAction.EnqueueTask(this, resourceData);
+            var storeItemGoal = Librarian.Instance.GetGoal("withdrawItem");
+            GoalRequest request = new GoalRequest(gameObject, storeItemGoal, TaskCategory.Hauling, resourceData.ItemName);
+            GoalMaster.Instance.AddGoal(request);
         }
 
         public ClickObject GetClickObject()

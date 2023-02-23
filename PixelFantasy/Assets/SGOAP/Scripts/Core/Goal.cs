@@ -19,17 +19,19 @@ namespace SGoap
         public Goal Goal;
         public GameObject Requestor;
         public TaskCategory Category;
+        public string Payload;
 
-        public GoalRequest(GameObject requestor, Goal goal, TaskCategory category)
+        public GoalRequest(GameObject requestor, Goal goal, TaskCategory category, string payload = "")
         {
             Requestor = requestor;
             Goal = goal;
             Category = category;
+            Payload = payload;
         }
 
         public bool IsEqual(GoalRequest otherRequest)
         {
-            return Requestor == otherRequest.Requestor && Goal == otherRequest.Goal && Category == otherRequest.Category;
+            return Requestor == otherRequest.Requestor && Goal == otherRequest.Goal && Category == otherRequest.Category && Payload == otherRequest.Payload;
         }
 
         public void CancelRequest()

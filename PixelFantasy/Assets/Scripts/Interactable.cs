@@ -263,4 +263,9 @@ public abstract class Interactable : UniqueObject
             _icon.gameObject.SetActive(true);
         }
     }
+
+    public virtual void ReceiveItem(Item item)
+    {
+        Debug.LogError($"Item unexpectely received: {item.name}");
+    }
 }

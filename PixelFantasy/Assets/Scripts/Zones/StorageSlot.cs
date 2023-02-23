@@ -196,7 +196,6 @@ namespace Zones
                 UpdateStoredItemDisplay(_storedType.ItemSprite);
             }
             UpdateQuantityDisplay();
-            GameEvents.Trigger_OnInventoryAvailabilityChanged();
         }
 
         public bool HasItemClaimed(Item item)

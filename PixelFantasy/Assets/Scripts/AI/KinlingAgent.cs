@@ -105,6 +105,7 @@ public class KinlingAgent : Agent
 
         if (request != null)
         {
+            _assignedInteractableSensor.AssignPayload(request.Payload);
             var interactable = request.Requestor.GetComponent<Interactable>();
             if (interactable != null)
             {

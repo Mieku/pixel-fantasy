@@ -151,7 +151,7 @@ namespace Controllers
         }
 
         
-        public StorageSlot ClaimResource(ItemData itemData)
+        public StorageSlot ClaimItem(ItemData itemData)
         {
             // Can afford?
             if (_inventory.ContainsKey(itemData))
