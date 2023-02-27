@@ -6,6 +6,7 @@ using Gods;
 using ScriptableObjects;
 using SGoap;
 using UnityEngine;
+using Zones;
 using Action = System.Action;
 
 public class GameEvents : MonoBehaviour
@@ -113,9 +114,14 @@ public class GameEvents : MonoBehaviour
     }
 
     public static event Action<GoalRequest> OnGoalRequestCancelled;
-
     public static void Trigger_OnGoalRequestCancelled(GoalRequest goalRequest)
     {
         if (OnGoalRequestCancelled != null) OnGoalRequestCancelled(goalRequest);
+    }
+
+    public static event Action<StorageSlot> OnStorageSlotDeleted;
+    public static void Trigger_OnStorageSlotDeleted(StorageSlot storageSlot)
+    {
+        if (OnStorageSlotDeleted != null) OnStorageSlotDeleted(storageSlot);
     }
 }

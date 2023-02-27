@@ -1,3 +1,4 @@
+using System;
 using Items;
 using SGoap;
 using UnityEngine;
@@ -18,10 +19,6 @@ namespace Actions
         public float DistanceToRequestor => Vector2.Distance(_requestor.transform.position, transform.position);
         public float DistanceToSlot => Vector2.Distance(_storageSlot.transform.position, transform.position);
         
-        // Needs to know the requestor (Building)
-        // Needs to know the Storage the item is
-        // Needs to know the Item - Can get from the Storage Slot with GetItem();
-
         public override bool IsUsable()
         {
             var payload = AssignedInteractableSensor.GetPayload();
@@ -46,12 +43,13 @@ namespace Actions
         public override EActionStatus Perform()
         {
             // Pick Up Item
-            if (!_isHoldingItem && DistanceToSlot <= 1f)
+            if (!_isHoldingItem && _storageSlot != null && DistanceToSlot <= 1f)
             {
                 _isHoldingItem = true;
                 _item = _storageSlot.GetItem();
                 AgentData.KinlingAgent.HoldItem(_item);
                 _item.SetHeld(true);
+                ColonyInventorySensor.StorageSlot = null;
                 
                 return EActionStatus.Running;
             }
@@ -86,6 +84,7 @@ namespace Actions
 
         public override bool PostPerform()
         {
+            ColonyInventorySensor.Reset();
             _storageSlot = null;
             _requestor = null;
             _isHoldingItem = false;

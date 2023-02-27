@@ -34,10 +34,15 @@ namespace SGoap
             return Requestor == otherRequest.Requestor && Goal == otherRequest.Goal && Category == otherRequest.Category && Payload == otherRequest.Payload;
         }
 
-        public void CancelRequest()
+        public void CancelRequest(bool requeue = false)
         {
             GoalMaster.Instance.CancelGoal(this);
             GameEvents.Trigger_OnGoalRequestCancelled(this);
+
+            if (requeue)
+            {
+                GoalMaster.Instance.AddGoal(this);
+            }
         }
     }
 }

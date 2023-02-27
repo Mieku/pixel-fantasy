@@ -19,7 +19,7 @@ public class KinlingAgent : Agent
     private float waitingTimer;
     private const float WAIT_TIMER_MAX = .2f; // 200ms
     private State state;
-    private GoalRequest _currentRequest;
+    public GoalRequest CurrentRequest;
     private NavMeshAgent _navAgent;
     private UnitAnimController _unitAnim;
     private static GoalMaster goalMaster => GoalMaster.Instance;
@@ -122,7 +122,7 @@ public class KinlingAgent : Agent
             }
         }
         
-        _currentRequest = request;
+        CurrentRequest = request;
         if (request == null)
         {
             state = State.WaitingForNextTask;
@@ -149,7 +149,7 @@ public class KinlingAgent : Agent
         {
             if (CurrentGoal.Once)
             {
-                _currentRequest = null;
+                CurrentRequest = null;
                 state = State.WaitingForNextTask;
                 States.Clear();
             }
@@ -159,9 +159,9 @@ public class KinlingAgent : Agent
 
     private void Event_OnGoalRequestCancelled(GoalRequest goalRequest)
     {
-        if (_currentRequest != null && _currentRequest.IsEqual(goalRequest))
+        if (CurrentRequest != null && CurrentRequest.IsEqual(goalRequest))
         {
-            CancelCurrentGoal(goalRequest, false);
+            CancelCurrentGoal(goalRequest, true);
         }
     }
 
@@ -170,7 +170,7 @@ public class KinlingAgent : Agent
         Goals.Remove(goalRequest.Goal);
         UpdateGoalOrderCache();
         CleanPlan();
-        _currentRequest = null;
+        CurrentRequest = null;
         _navAgent.SetDestination(transform.position);
         _unitAnim.SetUnitAction(UnitAction.Nothing, UnitActionDirection.Side);
         
