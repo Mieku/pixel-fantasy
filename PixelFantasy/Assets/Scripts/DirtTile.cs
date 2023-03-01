@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Actions;
@@ -7,8 +6,10 @@ using Gods;
 using Items;
 using Characters;
 using DataPersistence;
+using SGoap;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Action = System.Action;
 
 public class DirtTile : Interactable, IPersistent
 {
@@ -53,6 +54,18 @@ public class DirtTile : Interactable, IPersistent
     {
         _remainingWork -= workAmount;
         return _remainingWork;
+    }
+    
+    public virtual bool DoWork(float workAmount)
+    {
+        _remainingWork -= workAmount;
+        if (_remainingWork <= 0)
+        {
+            BuiltDirt();
+            return true;
+        }
+            
+        return false;
     }
     
     private void Awake()
@@ -115,7 +128,14 @@ public class DirtTile : Interactable, IPersistent
         }
         
         // if clear, clear the grass
-        CreateTaskById("Clear Grass");
+        CreateClearGrassGoal();
+    }
+
+    private void CreateClearGrassGoal()
+    {
+        var clearGrassGoal = Librarian.Instance.GetGoal("clearGrass");
+        GoalRequest request = new GoalRequest(gameObject, clearGrassGoal, TaskCategory.Farming);
+        GoalMaster.Instance.AddGoal(request);
     }
 
     private void ClearNatureFromTile()
@@ -126,13 +146,14 @@ public class DirtTile : Interactable, IPersistent
             var growResource = tileObj.GetComponent<GrowingResource>();
             if (growResource != null)
             {
-                growResource.TaskRequestors.Add(gameObject);
-
-                // if (!growResource.QueuedToCut)
-                // {
-                //     growResource.CreateTaskById("Cut Plant");
-                // }
-                growResource.CreateTaskById("Cut Plant");
+                Debug.LogError("This still needs to be built");
+                // growResource.TaskRequestors.Add(gameObject);
+                //
+                // // if (!growResource.QueuedToCut)
+                // // {
+                // //     growResource.CreateTaskById("Cut Plant");
+                // // }
+                // growResource.CreateTaskById("Cut Plant");
             }
         }
     }
