@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Characters;
+using Gods;
+using Items;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,6 +18,8 @@ namespace TaskSystem
         private State _state;
         private float _waitingTimer;
         private TaskAction _curTaskAction;
+        private Item _heldItem;
+        
         private const float WAIT_TIMER_MAX = .2f; // 200ms
 
         public Unit Unit => _unit;
@@ -223,6 +227,22 @@ namespace TaskSystem
             }
 
             return result;
+        }
+        
+        public void HoldItem(Item item)
+        {
+            _heldItem = item;
+            item.transform.SetParent(transform);
+            item.transform.localPosition = Vector3.zero;
+        }
+
+        public void DropCarriedItem()
+        {
+            if (_heldItem == null) return;
+        
+            Spawner.Instance.SpawnItem(_heldItem.GetItemData(), transform.position, true);
+            Destroy(_heldItem.gameObject);
+            _heldItem = null;
         }
     }
 }

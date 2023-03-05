@@ -229,7 +229,7 @@ namespace Zones
 
             foreach (var incomingItem in _incomingItems)
             {
-                incomingItem.CancelGoal();
+                incomingItem.CancelTask();
             }
             
             GameEvents.Trigger_OnStorageSlotDeleted(this);

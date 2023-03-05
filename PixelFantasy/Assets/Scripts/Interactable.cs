@@ -167,7 +167,6 @@ public abstract class Interactable : UniqueObject
         
         TaskManager.Instance.CancelTask(task);
         DisplayTaskIcon(null);
-        GameEvents.Trigger_OnTaskCancelled(task);
     }
 
     public bool IsPending(Command command)

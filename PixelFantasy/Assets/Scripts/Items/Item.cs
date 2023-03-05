@@ -10,6 +10,7 @@ using Sirenix.OdinInspector;
 using Tasks;
 using Characters;
 using SGoap;
+using TaskSystem;
 using UnityEngine;
 using Zones;
 
@@ -23,6 +24,7 @@ namespace Items
         [SerializeField] private ActionTakeItemToItemSlot _takeItemToItemSlotAction;
 
         private GoalRequest _currentGoal;
+        private Task _currentTask;
         
         public ActionBase PendingTask;
         public ActionBase InProgressTask;
@@ -67,26 +69,31 @@ namespace Items
                 AssignedStorageSlot = ControllerManager.Instance.InventoryController.GetAvailableStorageSlot(this);
                 if (AssignedStorageSlot != null)
                 {
-                    CreateHaulGoal();
+                    CreateHaulTask();
                 }
             }
         }
 
-        public void CreateHaulGoal()
+        public void CreateHaulTask()
         {
-            var storeItemGoal = Librarian.Instance.GetGoal("storeItem");
-            GoalRequest request = new GoalRequest(gameObject, storeItemGoal, TaskCategory.Hauling);
-            GoalMaster.Instance.AddGoal(request);
-            _currentGoal = request;
+            Task task = new Task
+            {
+                Category = TaskCategory.Hauling,
+                TaskId = "Store Item",
+                Requestor = this
+            };
+
+            TaskManager.Instance.AddTask(task);
+            _currentTask = task;
         }
 
-        public void CancelGoal(bool lookToHaul = true)
+        public void CancelTask(bool lookToHaul = true)
         {
-            if (_currentGoal != null)
+            if (_currentTask != null)
             {
                 AssignedStorageSlot = null;
-                _currentGoal.CancelRequest();
-
+                _currentTask.Cancel();
+                
                 SeekForSlot();
             }
         }

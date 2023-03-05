@@ -15,5 +15,10 @@ namespace TaskSystem
         {
             return TaskId == otherTask.TaskId && Requestor == otherTask.Requestor && Category == otherTask.Category;
         }
+
+        public void Cancel()
+        {
+            TaskManager.Instance.CancelTask(this);
+        }
     }
 }

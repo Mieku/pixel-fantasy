@@ -103,6 +103,8 @@ namespace TaskSystem
         
         public void CancelTask(Task task)
         {
+            GameEvents.Trigger_OnTaskCancelled(task);
+            
             switch (task.Category)
             {
                 case TaskCategory.Emergency:

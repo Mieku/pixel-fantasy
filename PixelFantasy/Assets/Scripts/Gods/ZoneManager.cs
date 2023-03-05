@@ -27,7 +27,7 @@ namespace Gods
         private Tilemap _zonesTM;
         private Tilemap _pendingZonesTM;
         private ZoneType _curZoneType;
-        private List<string> _defaultInvalidTagsForZone = new List<string>() { "Water", "Zones" };
+        private List<string> _defaultInvalidTagsForZone = new List<string>() { "Water", "Zone" };
         private IZone _zoneToModify;
 
         protected override void Awake()
@@ -285,6 +285,7 @@ namespace Gods
         private void SkrinkZone_RightUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
         {
             if (inputState != PlayerInputState.Zone) return;
+            if (_zoneToModify == null) return;
 
             // Remove the tiles from the pending tilemap, and remove from the zones tilemap
             foreach (var cell in _pendingCells)
