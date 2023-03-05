@@ -1,0 +1,228 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Characters;
+using UnityEngine;
+using UnityEngine.AI;
+
+namespace TaskSystem
+{
+    public class TaskAI : MonoBehaviour
+    {
+        [SerializeField] private ProfessionData _professionData;
+        [SerializeField] private Unit _unit;
+        
+        private List<TaskAction> _taskActions;
+        private State _state;
+        private float _waitingTimer;
+        private TaskAction _curTaskAction;
+        private const float WAIT_TIMER_MAX = .2f; // 200ms
+
+        public Unit Unit => _unit;
+
+        public enum State
+        {
+            WaitingForNextTask,
+            ExecutingTask
+        }
+        
+        private void Awake()
+        {
+            FindTaskActions();
+        }
+        
+        private void FindTaskActions()
+        {
+            _taskActions = GetComponentsInChildren<TaskAction>().ToList();
+            foreach (var taskAction in _taskActions)
+            {
+                taskAction.AssignOwner(this);
+            }
+        }
+
+        private void Update()
+        {
+            switch (_state)
+            {
+                case State.WaitingForNextTask:
+                    // Waiting to request the next task
+                    _waitingTimer -= Time.deltaTime;
+                    if (_waitingTimer <= 0)
+                    {
+                        _waitingTimer = WAIT_TIMER_MAX;
+                        RequestNextTask();
+                    }
+                    break;
+                case State.ExecutingTask:
+                    if (_curTaskAction != null)
+                    {
+                        _curTaskAction.DoAction();
+                    }
+                    else
+                    {
+                        Debug.LogError("Attempted to Execute null task action");
+                    }
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private TaskAction FindTaskActionFor(Task task)
+        {
+            foreach (var taskAction in _taskActions)
+            {
+                if (taskAction.TaskId == task.TaskId)
+                {
+                    return taskAction;
+                }
+            }
+
+            return null;
+        }
+
+        public void CurrentTaskDone()
+        {
+            _curTaskAction = null;
+            _state = State.WaitingForNextTask;
+        }
+
+        private void RequestNextTask()
+        {
+            Task task = null;
+            foreach (var category in _professionData.SortedPriorities)
+            {
+                task = TaskManager.Instance.GetNextTaskByCategory(category);
+                if (task != null)
+                {
+                    break;
+                }
+            }
+
+            if (task == null)
+            {
+                _state = State.WaitingForNextTask;
+                return;
+            }
+            
+            // Find the task's equivalent action
+            var taskAction = FindTaskActionFor(task);
+            if (taskAction == null)
+            {
+                // If no action is available, return it to the queue
+                TaskManager.Instance.AddTask(task);
+                _state = State.WaitingForNextTask;
+                return;
+            }
+
+            if (!taskAction.CanDoTask())
+            {
+                // If no action is can't be done, return it to the queue
+                TaskManager.Instance.AddTask(task);
+                _state = State.WaitingForNextTask;
+                return;
+            }
+
+            _curTaskAction = taskAction;
+            taskAction.PrepareAction(task);
+            _state = State.ExecutingTask;
+        }
+        
+        public UnitActionDirection GetActionDirection(Vector3 targetPos)
+        {
+            return DetermineUnitActionDirection(targetPos, transform.position);
+        }
+        
+        private UnitActionDirection DetermineUnitActionDirection(Vector3 workPos, Vector3 standPos)
+        {
+            const float threshold = .25f;
+
+            if (standPos.y >= workPos.y + threshold)
+            {
+                return UnitActionDirection.Down;
+            } else if (standPos.y <= workPos.y - threshold)
+            {
+                return UnitActionDirection.Up;
+            }
+            else
+            {
+                return UnitActionDirection.Side;
+            }
+        }
+        
+        public Vector2? GetAdjacentPosition(Vector2 workPosition, float distanceAway = 1f)
+        {
+            Vector2 unitPos = transform.position;
+
+            var angle = Helper.CalculateAngle(workPosition, unitPos);
+            var angle2 = ClampAngleTo360(angle - 90);
+            var angle3 = ClampAngleTo360(angle + 90);
+            var angle4 = ClampAngleTo360(angle + 180);
+
+            Vector2 suggestedPos = ConvertAngleToPosition(angle, workPosition, distanceAway);
+            if (Unit.UnitAgent.IsDestinationPossible(suggestedPos))
+            {
+                return suggestedPos;
+            }
+        
+            suggestedPos = ConvertAngleToPosition(angle2, workPosition, distanceAway);
+            if (Unit.UnitAgent.IsDestinationPossible(suggestedPos))
+            {
+                return suggestedPos;
+            }
+        
+            suggestedPos = ConvertAngleToPosition(angle3, workPosition, distanceAway);
+            if (Unit.UnitAgent.IsDestinationPossible(suggestedPos))
+            {
+                return suggestedPos;
+            }
+        
+            suggestedPos = ConvertAngleToPosition(angle4, workPosition, distanceAway);
+            if (Unit.UnitAgent.IsDestinationPossible(suggestedPos))
+            {
+                return suggestedPos;
+            }
+
+            return null;
+        }
+        
+        private float ClampAngleTo360(float angle)
+        {
+            if (angle < 0)
+            {
+                angle += 360;
+            }
+            else if (angle >= 360)
+            {
+                angle -= 360;
+            }
+
+            return angle;
+        }
+    
+        public Vector2 ConvertAngleToPosition(float angle, Vector2 startPos, float distance)
+        {
+            Vector2 result = new Vector2();
+            
+            // Left
+            if (angle is >= 45 and < 135)
+            {
+                result = new Vector2(startPos.x - distance, startPos.y);
+            } 
+            else if (angle is >= 135 and < 225) // Down
+            {
+                result = new Vector2(startPos.x, startPos.y - distance);
+            }
+            else if (angle is >= 225 and < 315) // Right
+            {
+                result = new Vector2(startPos.x + distance, startPos.y);
+            }
+            else // Up
+            {
+                result = new Vector2(startPos.x, startPos.y + distance);
+            }
+
+            return result;
+        }
+    }
+}

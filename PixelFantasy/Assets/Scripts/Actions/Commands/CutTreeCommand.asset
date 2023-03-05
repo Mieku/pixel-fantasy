@@ -14,14 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Cut Tree
   Icon: {fileID: 21300000, guid: c010dce291f56fa43aa503464e20d207, type: 3}
-  Goal:
-    KeyReference: {fileID: 0}
-    Concatenator: {fileID: 0}
-    StateType: 1
-    Value: 0
-    StringValue: resourceExtracted
-    Operator: 0
-    Priority: 0
-    Once: 1
-    TotalCost: 0
-  Category: 7
+  Task:
+    TaskId: Extract Resource
+    Category: 7
+    Requestor: {fileID: 0}

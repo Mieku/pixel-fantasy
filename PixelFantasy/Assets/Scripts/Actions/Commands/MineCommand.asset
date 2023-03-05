@@ -14,14 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Mine
   Icon: {fileID: 21300000, guid: 8fccbe6959fe32b4394524a1bddf7632, type: 3}
-  Goal:
-    KeyReference: {fileID: 0}
-    Concatenator: {fileID: 0}
-    StateType: 1
-    Value: 0
-    StringValue: resourceExtracted
-    Operator: 0
-    Priority: 0
-    Once: 1
-    TotalCost: 0
-  Category: 6
+  Task:
+    TaskId: Extract Resource
+    Category: 6
+    Requestor: {fileID: 0}

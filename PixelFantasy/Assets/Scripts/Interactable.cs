@@ -7,6 +7,7 @@ using Gods;
 using Items;
 using ScriptableObjects;
 using SGoap;
+using TaskSystem;
 using UnityEngine;
 
 public abstract class Interactable : UniqueObject
@@ -133,27 +134,40 @@ public abstract class Interactable : UniqueObject
         SetTaskToPending(taskAction);
     }
 
-    public void CreateGoal(Command command)
+    public void CreateTask(Command command)
     {
         // Only one command can be active
         if (PendingCommand != null)
         {
             CancelCommand(PendingCommand);
         }
-        
-        GoalRequest request = new GoalRequest(gameObject, command.Goal, command.Category);
+
+        Task task = new Task
+        {
+            Category = command.Task.Category,
+            TaskId = command.Task.TaskId,
+            Requestor = this
+        };
+
         PendingCommand = command;
-        GoalMaster.Instance.AddGoal(request);
+        TaskManager.Instance.AddTask(task);
         DisplayTaskIcon(command.Icon);
     }
 
     public void CancelCommand(Command command)
     {
-        GoalRequest request = new GoalRequest(gameObject, command.Goal, command.Category);
         PendingCommand = null;
-        GoalMaster.Instance.CancelGoal(request);
+        
+        Task task = new Task
+        {
+            Category = command.Task.Category,
+            TaskId = command.Task.TaskId,
+            Requestor = this
+        };
+        
+        TaskManager.Instance.CancelTask(task);
         DisplayTaskIcon(null);
-        GameEvents.Trigger_OnGoalRequestCancelled(request);
+        GameEvents.Trigger_OnTaskCancelled(task);
     }
 
     public bool IsPending(Command command)

@@ -57,7 +57,7 @@ namespace Controllers
                 }
                 else
                 {
-                    requestor.CreateGoal(command);
+                    requestor.CreateTask(command);
                 }
                 GameEvents.Trigger_RefreshSelection();
             }

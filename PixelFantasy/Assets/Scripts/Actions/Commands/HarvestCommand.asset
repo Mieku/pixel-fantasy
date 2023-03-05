@@ -14,14 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Harvest
   Icon: {fileID: 21300000, guid: 64716bcd8e7630d4899c357ba86fd54e, type: 3}
-  Goal:
-    KeyReference: {fileID: 0}
-    Concatenator: {fileID: 0}
-    StateType: 1
-    Value: 0
-    StringValue: resourceHarvested
-    Operator: 0
-    Priority: 0
-    Once: 1
-    TotalCost: 0
-  Category: 5
+  Task:
+    TaskId: Harvest Resource
+    Category: 0
+    Requestor: {fileID: 0}

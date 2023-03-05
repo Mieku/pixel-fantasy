@@ -74,6 +74,36 @@ public class UnitAnimController : MonoBehaviour, ICharacterAnimController
             _fxAnim.speed = speedMod;
             _blushAnim.speed = speedMod;
         }
+
+        public void SetUnitAction(UnitAction unitAction)
+        {
+            switch (unitAction)
+            {
+                case UnitAction.Nothing:
+                    ClearAllActions();
+                    break;
+                case UnitAction.Doing:
+                    SetUnitAction(DOING);
+                    break;
+                case UnitAction.Axe:
+                    SetUnitAction(AXE);
+                    break;
+                case UnitAction.Building:
+                    SetUnitAction(BUILD);
+                    break;
+                case UnitAction.Digging:
+                    SetUnitAction(DIG);
+                    break;
+                case UnitAction.Watering:
+                    SetUnitAction(WATER);
+                    break;
+                case UnitAction.Mining:
+                    SetUnitAction(MINE);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(unitAction), unitAction, null);
+            }
+        }
         
         public void SetUnitAction(UnitAction unitAction, UnitActionDirection direction)
         {

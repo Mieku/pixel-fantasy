@@ -1,16 +1,21 @@
 using System;
 using Actions;
 using DataPersistence;
+using TaskSystem;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Characters
 {
     public class Unit : UniqueObject, IPersistent
     {
-        [SerializeField] private KinlingAgent _kinlingAgent;
+        [SerializeField] private TaskAI _taskAI;
         [SerializeField] private UnitState _unitState;
         [SerializeField] private UnitAppearance _appearance;
-        
+
+        public UnitAnimController UnitAnimController;
+        public UnitAgent UnitAgent;
+
         public UnitState GetUnitState()
         {
             return _unitState;
@@ -31,7 +36,7 @@ namespace Characters
             //var unitTaskData = _unitTaskAI.GetSaveData();
             var unitStateData = _unitState.GetStateData();
             var appearanceData = _appearance.GetSaveData();
-            var agentData = _kinlingAgent.GetSaveData();
+            //var agentData = _kinlingAgent.GetSaveData();
 
             return new UnitData
             {
@@ -40,7 +45,7 @@ namespace Characters
                 //UnitTaskData = unitTaskData,
                 UnitStateData = unitStateData,
                 AppearanceData = appearanceData,
-                KinlingAgentStateData = agentData,
+                //KinlingAgentStateData = agentData,
             };
         }
 
@@ -55,7 +60,7 @@ namespace Characters
             //_unitTaskAI.SetLoadData(unitData.UnitTaskData);
             _unitState.SetLoadData(unitData.UnitStateData);
             _appearance.SetLoadData(unitData.AppearanceData);
-            _kinlingAgent.SetLoadData(unitData.KinlingAgentStateData);
+            //_kinlingAgent.SetLoadData(unitData.KinlingAgentStateData);
         }
 
         public struct UnitData

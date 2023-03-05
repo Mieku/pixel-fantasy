@@ -50,7 +50,10 @@ namespace Characters
                     if (!_agent.hasPath || _agent.velocity.sqrMagnitude == 0f)
                     {
                         _inTransit = false;
-                        _onReachedMovePosition.Invoke();
+                        if (_onReachedMovePosition != null)
+                        {
+                            _onReachedMovePosition.Invoke();   
+                        }
                     }
                 }
             }
