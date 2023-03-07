@@ -119,7 +119,7 @@ namespace TaskSystem
                 return;
             }
 
-            if (!taskAction.CanDoTask())
+            if (!taskAction.CanDoTask(task))
             {
                 // If no action is can't be done, return it to the queue
                 TaskManager.Instance.AddTask(task);

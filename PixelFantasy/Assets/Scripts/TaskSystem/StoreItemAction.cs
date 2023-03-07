@@ -31,6 +31,7 @@ namespace TaskSystem
                 _isHoldingItem = true;
                 _ai.HoldItem(_item);
                 _item.SetHeld(true);
+                return;
             } 
             
             // Deposit Item
@@ -42,6 +43,7 @@ namespace TaskSystem
                 _item.AddItemToSlot();
                 
                 ConcludeAction();
+                return;
             }
 
             if (_isHoldingItem) // Go to the slot
@@ -50,6 +52,7 @@ namespace TaskSystem
                 {
                     _ai.Unit.UnitAgent.SetMovePosition(_storageSlot.transform.position);
                     _isMoving = true;
+                    return;
                 }
             }
             else // Go to the item
@@ -58,6 +61,7 @@ namespace TaskSystem
                 {
                     _ai.Unit.UnitAgent.SetMovePosition(_item.transform.position);
                     _isMoving = true;
+                    return;
                 }
             }
         }

@@ -64,7 +64,7 @@ namespace Items
         
         public void SeekForSlot()
         {
-            if (AssignedStorageSlot == null)
+            if (AssignedStorageSlot == null && !_isHeld)
             {
                 AssignedStorageSlot = ControllerManager.Instance.InventoryController.GetAvailableStorageSlot(this);
                 if (AssignedStorageSlot != null)

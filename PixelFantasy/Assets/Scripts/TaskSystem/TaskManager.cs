@@ -49,6 +49,7 @@ namespace TaskSystem
         
         public void AddTask(Task task)
         {
+            Debug.Log($"New Task Created: {task.TaskId}");
             switch (task.Category)
             {
                 case TaskCategory.Emergency:

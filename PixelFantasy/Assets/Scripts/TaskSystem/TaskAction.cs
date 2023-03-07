@@ -27,7 +27,7 @@ namespace TaskSystem
             _ai = ai;
         }
         
-        public virtual bool CanDoTask()
+        public virtual bool CanDoTask(Task task)
         {
             return true;
         }

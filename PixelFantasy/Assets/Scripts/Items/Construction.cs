@@ -7,6 +7,7 @@ using HUD;
 using Interfaces;
 using ScriptableObjects;
 using SGoap;
+using TaskSystem;
 using UnityEngine;
 using Action = System.Action;
 
@@ -84,6 +85,18 @@ namespace Items
             if (_remainingWork <= 0)
             {
                 CompleteConstruction();
+                return true;
+            }
+            
+            return false;
+        }
+
+        public bool DoDeconstruction(float workAmount)
+        {
+            _remainingWork -= workAmount;
+            if (_remainingWork <= 0)
+            {
+                CompleteDeconstruction();
                 return true;
             }
             
@@ -350,17 +363,25 @@ namespace Items
         
         public void CreateConstructTask(bool autoAssign = true)
         {
-            //_constructStructureAction.CreateTask(this, autoAssign);
-            var buildGoal = Librarian.Instance.GetGoal("buildContruction");
-            GoalRequest request = new GoalRequest(gameObject, buildGoal, TaskCategory.Construction);
-            GoalMaster.Instance.AddGoal(request);
+            Task constuctTask = new Task()
+            {
+                Category = TaskCategory.Construction,
+                TaskId = "Build Construction",
+                Requestor = this,
+            };
+            constuctTask.Enqueue();
         }
 
         public void CreateDeconstructionTask(bool autoAssign = true, Action onDeconstructed = null)
         {
             _onDeconstructed = onDeconstructed;
-            var deconstruct = Librarian.Instance.GetAction("Deconstruct");
-            deconstruct.CreateTask(this, autoAssign);
+            Task constuctTask = new Task()
+            {
+                Category = TaskCategory.Construction,
+                TaskId = "Deconstruct",
+                Requestor = this,
+            };
+            constuctTask.Enqueue();
         }
         
         public List<ActionBase> GetCancellableActions()
@@ -405,9 +426,18 @@ namespace Items
         protected void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
         {
             //_takeResourceToBlueprintAction.EnqueueTask(this, resourceData);
-            var storeItemGoal = Librarian.Instance.GetGoal("withdrawItem");
-            GoalRequest request = new GoalRequest(gameObject, storeItemGoal, TaskCategory.Hauling, resourceData.ItemName);
-            GoalMaster.Instance.AddGoal(request);
+            // var storeItemGoal = Librarian.Instance.GetGoal("withdrawItem");
+            // GoalRequest request = new GoalRequest(gameObject, storeItemGoal, TaskCategory.Hauling, resourceData.ItemName);
+            // GoalMaster.Instance.AddGoal(request);
+
+            Task task = new Task
+            {
+                TaskId = "Withdraw Item",
+                Category = TaskCategory.Hauling,
+                Requestor = this,
+                Payload = resourceData.ItemName,
+            };
+            TaskManager.Instance.AddTask(task);
         }
 
         public ClickObject GetClickObject()
