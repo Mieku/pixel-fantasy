@@ -7,6 +7,7 @@ using Items;
 using Characters;
 using DataPersistence;
 using SGoap;
+using TaskSystem;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Action = System.Action;
@@ -128,14 +129,18 @@ public class DirtTile : Interactable, IPersistent
         }
         
         // if clear, clear the grass
-        CreateClearGrassGoal();
+        CreateClearGrassTask();
     }
 
-    private void CreateClearGrassGoal()
+    private void CreateClearGrassTask()
     {
-        var clearGrassGoal = Librarian.Instance.GetGoal("clearGrass");
-        GoalRequest request = new GoalRequest(gameObject, clearGrassGoal, TaskCategory.Farming);
-        GoalMaster.Instance.AddGoal(request);
+        Task task = new Task()
+        {
+            TaskId = "Clear Grass",
+            Category = TaskCategory.Farming,
+            Requestor = this,
+        };
+        task.Enqueue();
     }
 
     private void ClearNatureFromTile()
