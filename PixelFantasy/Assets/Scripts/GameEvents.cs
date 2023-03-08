@@ -2,9 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Controllers;
-using Gods;
 using ScriptableObjects;
-using SGoap;
 using TaskSystem;
 using UnityEngine;
 using Zones;
@@ -112,12 +110,6 @@ public class GameEvents : MonoBehaviour
     public static void Trigger_OnZoneDisplayChanged(bool zonesVisible)
     {
         if (OnZoneDisplayChanged != null) OnZoneDisplayChanged(zonesVisible);
-    }
-
-    public static event Action<GoalRequest> OnGoalRequestCancelled;
-    public static void Trigger_OnGoalRequestCancelled(GoalRequest goalRequest)
-    {
-        if (OnGoalRequestCancelled != null) OnGoalRequestCancelled(goalRequest);
     }
     
     public static event Action<Task> OnTaskCancelled;

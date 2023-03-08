@@ -6,7 +6,6 @@ using Gods;
 using HUD;
 using Interfaces;
 using ScriptableObjects;
-using SGoap;
 using TaskSystem;
 using UnityEngine;
 using Action = System.Action;

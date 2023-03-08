@@ -21,11 +21,6 @@ namespace Characters
             return _unitState;
         }
 
-        public UnitTaskAI GetUnitTaskAI()
-        {
-            return null;//_unitTaskAI;
-        }
-
         public ActionBase GetCurrentAction()
         {
             return null;//_unitTaskAI.currentAction;
@@ -33,19 +28,15 @@ namespace Characters
 
         public object CaptureState()
         {
-            //var unitTaskData = _unitTaskAI.GetSaveData();
             var unitStateData = _unitState.GetStateData();
             var appearanceData = _appearance.GetSaveData();
-            //var agentData = _kinlingAgent.GetSaveData();
 
             return new UnitData
             {
                 UID = UniqueId,
                 Position = transform.position,
-                //UnitTaskData = unitTaskData,
                 UnitStateData = unitStateData,
                 AppearanceData = appearanceData,
-                //KinlingAgentStateData = agentData,
             };
         }
 
@@ -57,10 +48,8 @@ namespace Characters
             transform.position = unitData.Position;
             
             // Send the data to all components
-            //_unitTaskAI.SetLoadData(unitData.UnitTaskData);
             _unitState.SetLoadData(unitData.UnitStateData);
             _appearance.SetLoadData(unitData.AppearanceData);
-            //_kinlingAgent.SetLoadData(unitData.KinlingAgentStateData);
         }
 
         public struct UnitData
@@ -68,10 +57,6 @@ namespace Characters
             public string UID;
             public Vector3 Position;
 
-            // UnitTaskAI
-            //public UnitTaskAI.UnitTaskData UnitTaskData;
-
-            public KinlingAgent.AgentStateData KinlingAgentStateData;
             
             // Unit State
             public UnitState.UnitStateData UnitStateData;

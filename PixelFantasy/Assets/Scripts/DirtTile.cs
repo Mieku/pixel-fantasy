@@ -6,7 +6,6 @@ using Gods;
 using Items;
 using Characters;
 using DataPersistence;
-using SGoap;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.Tilemaps;

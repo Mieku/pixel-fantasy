@@ -5,8 +5,6 @@ using Actions;
 using Characters;
 using Gods;
 using Items;
-using ScriptableObjects;
-using SGoap;
 using TaskSystem;
 using UnityEngine;
 

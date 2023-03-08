@@ -4,7 +4,6 @@ using DataPersistence;
 using Gods;
 using Items;
 using ScriptableObjects;
-using SGoap;
 using TMPro;
 using UnityEngine;
 
@@ -18,8 +17,7 @@ namespace Zones
         private ItemData _storedType;
 
         private List<Item> _incomingItems = new List<Item>();
-        private List<GoalRequest> _goalRequests = new List<GoalRequest>();
-        
+
         [SerializeField] private TextMeshPro _quantityDisplay;
         [SerializeField] private SpriteRenderer _storedItemRenderer;
 

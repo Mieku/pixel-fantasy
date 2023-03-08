@@ -1,15 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Actions;
-using Controllers;
 using DataPersistence;
 using Gods;
 using Interfaces;
 using ScriptableObjects;
-using Sirenix.OdinInspector;
-using Tasks;
 using Characters;
-using SGoap;
 using TaskSystem;
 using UnityEngine;
 using Zones;
@@ -22,8 +18,7 @@ namespace Items
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private ClickObject _clickObject;
         [SerializeField] private ActionTakeItemToItemSlot _takeItemToItemSlotAction;
-
-        private GoalRequest _currentGoal;
+        
         private Task _currentTask;
         
         public ActionBase PendingTask;
@@ -260,11 +255,6 @@ namespace Items
         private void OnDestroy()
         {
             GameEvents.OnInventoryAvailabilityChanged -= GameEvent_OnInventoryAvailabilityChanged;
-
-            if (_currentGoal != null)
-            {
-                GoalMaster.Instance.CancelGoal(_currentGoal);
-            }
 
             if (_assignedTaskRef == 0) return;
             taskMaster.HaulingTaskSystem.CancelTask(_assignedTaskRef);
