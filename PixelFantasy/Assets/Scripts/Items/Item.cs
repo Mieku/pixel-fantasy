@@ -1,14 +1,12 @@
 using System;
 using System.Collections.Generic;
 using Actions;
-using Controllers;
 using DataPersistence;
 using Gods;
 using Interfaces;
 using ScriptableObjects;
-using Sirenix.OdinInspector;
-using Tasks;
 using Characters;
+using TaskSystem;
 using UnityEngine;
 using Zones;
 
@@ -21,6 +19,8 @@ namespace Items
         [SerializeField] private ClickObject _clickObject;
         [SerializeField] private ActionTakeItemToItemSlot _takeItemToItemSlotAction;
         
+        private Task _currentTask;
+        
         public ActionBase PendingTask;
         public ActionBase InProgressTask;
         public string _assignedSlotUID;
@@ -32,6 +32,8 @@ namespace Items
         private Transform _originalParent;
         
         // public TaskType PendingTask;
+        
+        public StorageSlot AssignedStorageSlot;
  
         private TaskMaster taskMaster => TaskMaster.Instance;
         
@@ -49,49 +51,51 @@ namespace Items
             
             DisplayItemSprite();
 
-            CreateHaulTask();
-            // if (IsAllowed && string.IsNullOrEmpty(_assignedSlotUID))
-            // {
-            //     //EnqueueTaskForHauling();
-            //     
-            //     _takeItemToItemSlotAction.CreateTask(this, true);
-            // }
-            // else
-            // {
-            //     if (!_isHeld && !string.IsNullOrEmpty(_assignedSlotUID) && string.IsNullOrEmpty(_assignedUnitUID))
-            //     {
-            //         // Has slot, no one picked up or is assigned to get
-            //
-            //         var slot = UIDManager.Instance.GetGameObject(_assignedSlotUID).GetComponent<StorageSlot>();
-            //         slot.AddItemIncoming(this);
-            //         _takeItemToItemSlotAction.CreateTaskWithSlot(this, slot, true);
-            //
-            //     } else if (!_isHeld && !string.IsNullOrEmpty(_assignedSlotUID) && !string.IsNullOrEmpty(_assignedUnitUID))
-            //     {
-            //         // Has slot, someone is on their way
-            //         
-            //         var slot = UIDManager.Instance.GetGameObject(_assignedSlotUID).GetComponent<StorageSlot>();
-            //         slot.AddItemIncoming(this);
-            //         var unit = UIDManager.Instance.GetGameObject(_assignedUnitUID).GetComponent<UnitTaskAI>();
-            //         var task = _takeItemToItemSlotAction.CreateTaskWithSlot(this, slot, false);
-            //         unit.ExecuteTask(task);
-            //     } else if (_isHeld)
-            //     {
-            //         // Is being held
-            //         
-            //         var slot = UIDManager.Instance.GetGameObject(_assignedSlotUID).GetComponent<StorageSlot>();
-            //         slot.AddItemIncoming(this);
-            //         var unit = UIDManager.Instance.GetGameObject(_assignedUnitUID).GetComponent<UnitTaskAI>();
-            //         var task = _takeItemToItemSlotAction.CreateTaskWithSlot(this, slot, false);
-            //         unit.AssignHeldItem(this);
-            //         unit.ExecuteTask(task);
-            //     }
-            // }
+            if (allowed)
+            {
+                SeekForSlot();
+            }
+        }
+        
+        public void SeekForSlot()
+        {
+            if (AssignedStorageSlot == null && !_isHeld)
+            {
+                AssignedStorageSlot = ControllerManager.Instance.InventoryController.GetAvailableStorageSlot(this);
+                if (AssignedStorageSlot != null)
+                {
+                    CreateHaulTask();
+                }
+            }
         }
 
         public void CreateHaulTask()
         {
-            _takeItemToItemSlotAction.CreateTask(this, true);
+            Task task = new Task
+            {
+                Category = TaskCategory.Hauling,
+                TaskId = "Store Item",
+                Requestor = this
+            };
+
+            TaskManager.Instance.AddTask(task);
+            _currentTask = task;
+        }
+
+        public void CancelTask(bool lookToHaul = true)
+        {
+            if (_currentTask != null)
+            {
+                AssignedStorageSlot = null;
+                _currentTask.Cancel();
+                
+                SeekForSlot();
+            }
+        }
+
+        private void GameEvent_OnInventoryAvailabilityChanged()
+        {
+            SeekForSlot();
         }
 
         public void SetHeld(bool isHeld)
@@ -243,8 +247,15 @@ namespace Items
             _assignedTaskRef = 0;
         }
 
+        private void Start()
+        {
+            GameEvents.OnInventoryAvailabilityChanged += GameEvent_OnInventoryAvailabilityChanged;
+        }
+
         private void OnDestroy()
         {
+            GameEvents.OnInventoryAvailabilityChanged -= GameEvent_OnInventoryAvailabilityChanged;
+
             if (_assignedTaskRef == 0) return;
             taskMaster.HaulingTaskSystem.CancelTask(_assignedTaskRef);
         }
@@ -264,6 +275,11 @@ namespace Items
             var result = new List<ActionBase>();
             result.Add(_takeItemToItemSlotAction);
             return result;
+        }
+        
+        public virtual List<Command> GetCommands()
+        {
+            return Commands;
         }
         
         public bool IsActionActive(ActionBase action)

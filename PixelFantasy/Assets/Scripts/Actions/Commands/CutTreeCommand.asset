@@ -9,8 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32198b44f72994c4db3407547a1357d5, type: 3}
-  m_Name: ActionCancelConstruction
+  m_Script: {fileID: 11500000, guid: 5bdf6adffca56064cad1de5df493d6c2, type: 3}
+  m_Name: CutTreeCommand
   m_EditorClassIdentifier: 
-  id: Cancel Construction
-  Icon: {fileID: 21300000, guid: a8b6789153cc7bc44a18af2ed95b5f52, type: 3}
+  Name: Cut Tree
+  Icon: {fileID: 21300000, guid: c010dce291f56fa43aa503464e20d207, type: 3}
+  Task:
+    TaskId: Extract Resource
+    Category: 7
+    Requestor: {fileID: 0}

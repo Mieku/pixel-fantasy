@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Controllers;
-using Gods;
 using ScriptableObjects;
+using TaskSystem;
 using UnityEngine;
+using Zones;
+using Action = System.Action;
 
 public class GameEvents : MonoBehaviour
 {
@@ -56,6 +58,12 @@ public class GameEvents : MonoBehaviour
         if( OnInventoryRemoved != null ) OnInventoryRemoved( itemData, totalAmount );
     }
 
+    public static event Action OnInventoryAvailabilityChanged;
+    public static void Trigger_OnInventoryAvailabilityChanged()
+    {
+        if (OnInventoryAvailabilityChanged != null) OnInventoryAvailabilityChanged();
+    }
+
     public static event Action RefreshSelection;
     public static void Trigger_RefreshSelection()
     {
@@ -102,5 +110,17 @@ public class GameEvents : MonoBehaviour
     public static void Trigger_OnZoneDisplayChanged(bool zonesVisible)
     {
         if (OnZoneDisplayChanged != null) OnZoneDisplayChanged(zonesVisible);
+    }
+    
+    public static event Action<Task> OnTaskCancelled;
+    public static void Trigger_OnTaskCancelled(Task task)
+    {
+        if (OnTaskCancelled != null) OnTaskCancelled(task);
+    }
+
+    public static event Action<StorageSlot> OnStorageSlotDeleted;
+    public static void Trigger_OnStorageSlotDeleted(StorageSlot storageSlot)
+    {
+        if (OnStorageSlotDeleted != null) OnStorageSlotDeleted(storageSlot);
     }
 }

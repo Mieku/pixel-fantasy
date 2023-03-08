@@ -22,7 +22,7 @@ public class ClickObject : MonoBehaviour
 
     private ItemData _itemData;
     private ConstructionData _structureData;
-    private GrowingResourceData _growingResourceData;
+    private ResourceData growingResourceData;
     private FloorData _floorData;
     private FurnitureData _furnitureData;
     private Unit _unit;
@@ -61,7 +61,8 @@ public class ClickObject : MonoBehaviour
                 _unit = GetComponent<Unit>();
                 break;
             case ObjectType.Resource:
-                _growingResourceData = GetComponent<Resource>().GetResourceData();
+            case ObjectType.Mountain:
+                growingResourceData = GetComponent<Resource>().GetResourceData();
                 break;
             case ObjectType.Floor:
                 _floorData = GetComponent<Floor>().FloorData;
@@ -69,9 +70,9 @@ public class ClickObject : MonoBehaviour
             case ObjectType.Furniture:
                 _furnitureData = GetComponent<Furniture>().FurnitureData;
                 break;
-            case ObjectType.Mountain:
-                // Nothing needed, other type should be refactored to follow pattern...
-                break;
+            // case ObjectType.Mountain:
+            //     // Nothing needed, other type should be refactored to follow pattern...
+            //     break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -199,13 +200,12 @@ public class ClickObject : MonoBehaviour
             case ObjectType.Structure:
                 return GetSelectionData(_structureData);
             case ObjectType.Resource:
-                return GetSelectionData(_growingResourceData);
+            case ObjectType.Mountain:
+                return GetSelectionData(growingResourceData);
             case ObjectType.Floor:
                 return GetSelectionData(_floorData);
             case ObjectType.Furniture:
                 return GetSelectionData(_furnitureData);
-            case ObjectType.Mountain:
-                return GetComponent<Mountain>().GetSelectionData();
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -262,14 +262,16 @@ public class ClickObject : MonoBehaviour
         return result;
     }
     
-    private SelectionData GetSelectionData(GrowingResourceData growingResourceData)
+    private SelectionData GetSelectionData(ResourceData growingResourceData)
     {
         var actions = Owner.GetActions();
         var cancellableActions = Owner.GetCancellableActions();
+        var commands = Owner.GetCommands();
         
         SelectionData result = new SelectionData
         {
             ItemName = growingResourceData.ResourceName,
+            Commands = commands,
             Actions = actions,
             CancellableActions = cancellableActions,
             ClickObject = this,
@@ -322,6 +324,7 @@ public class ClickObject : MonoBehaviour
 public class SelectionData
 {
     public string ItemName;
+    public List<Command> Commands;
     public List<ActionBase> Actions;
     public List<ActionBase> CancellableActions;
     public ClickObject ClickObject;

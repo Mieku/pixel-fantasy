@@ -7,11 +7,9 @@ using UnityEngine;
 
 namespace ScriptableObjects
 {
-    [CreateAssetMenu(fileName = "GrowingResourceData", menuName = "ResourceData/GrowingResourceData", order = 1)]
-    public class GrowingResourceData : ScriptableObject
+    [CreateAssetMenu(fileName = "ResourceData", menuName = "ResourceData/GrowingResourceData", order = 1)]
+    public class GrowingResourceData : ResourceData
     {
-        public string ResourceName;
-        
         [SerializeField] private List<GrowthStage> _growthStages;
         [SerializeField] private List<string> _invalidPlacementTags;
         [SerializeField] private List<ActionBase> _availableActions;

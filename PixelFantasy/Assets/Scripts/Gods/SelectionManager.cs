@@ -117,7 +117,7 @@ namespace Gods
 
         private void HandleUserClick()
         {
-            if (Input.GetMouseButtonUp(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 var clickObjs = Helper.GetClickObjectsAtPos(UtilsClass.GetMouseWorldPosition());
                 if (clickObjs.Count > 0)

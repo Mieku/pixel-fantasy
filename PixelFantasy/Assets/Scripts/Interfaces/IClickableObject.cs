@@ -10,6 +10,7 @@ namespace Interfaces
         public bool IsClickDisabled { get; set; }
         public bool IsAllowed { get; set; }
         public void ToggleAllowed(bool isAllowed);
+        public List<Command> GetCommands();
         public List<ActionBase> GetActions();
         public List<ActionBase> GetCancellableActions();
         public void AssignOrder(ActionBase orderToAssign);

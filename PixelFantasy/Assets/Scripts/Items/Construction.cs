@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Actions;
 using Characters;
@@ -7,7 +6,9 @@ using Gods;
 using HUD;
 using Interfaces;
 using ScriptableObjects;
+using TaskSystem;
 using UnityEngine;
+using Action = System.Action;
 
 namespace Items
 {
@@ -77,6 +78,30 @@ namespace Items
             return _remainingWork;
         }
 
+        public bool DoConstruction(float workAmount)
+        {
+            _remainingWork -= workAmount;
+            if (_remainingWork <= 0)
+            {
+                CompleteConstruction();
+                return true;
+            }
+            
+            return false;
+        }
+
+        public bool DoDeconstruction(float workAmount)
+        {
+            _remainingWork -= workAmount;
+            if (_remainingWork <= 0)
+            {
+                CompleteDeconstruction();
+                return true;
+            }
+            
+            return false;
+        }
+
         public virtual void CancelConstruction()
         {
             CancelAllTasks();
@@ -107,7 +132,33 @@ namespace Items
                 }
             }
         }
-        
+
+        public override void ReceiveItem(Item item)
+        {
+            var itemData = item.GetItemData();
+            Destroy(item.gameObject);
+            RemoveFromPendingResourceCosts(itemData);
+            
+            foreach (var cost in _remainingResourceCosts)
+            {
+                if (cost.Item == itemData && cost.Quantity > 0)
+                {
+                    cost.Quantity--;
+                    if (cost.Quantity <= 0)
+                    {
+                        _remainingResourceCosts.Remove(cost);
+                    }
+
+                    break;
+                }
+            }
+            
+            if (_remainingResourceCosts.Count == 0)
+            {
+                CreateConstructTask();
+            }
+        }
+
         public virtual float GetWorkPerResource()
         {
             return 0;
@@ -311,14 +362,25 @@ namespace Items
         
         public void CreateConstructTask(bool autoAssign = true)
         {
-            _constructStructureAction.CreateTask(this, autoAssign);
+            Task constuctTask = new Task()
+            {
+                Category = TaskCategory.Construction,
+                TaskId = "Build Construction",
+                Requestor = this,
+            };
+            constuctTask.Enqueue();
         }
 
         public void CreateDeconstructionTask(bool autoAssign = true, Action onDeconstructed = null)
         {
             _onDeconstructed = onDeconstructed;
-            var deconstruct = Librarian.Instance.GetAction("Deconstruct");
-            deconstruct.CreateTask(this, autoAssign);
+            Task constuctTask = new Task()
+            {
+                Category = TaskCategory.Construction,
+                TaskId = "Deconstruct",
+                Requestor = this,
+            };
+            constuctTask.Enqueue();
         }
         
         public List<ActionBase> GetCancellableActions()
@@ -362,7 +424,19 @@ namespace Items
 
         protected void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
         {
-            _takeResourceToBlueprintAction.EnqueueTask(this, resourceData);
+            //_takeResourceToBlueprintAction.EnqueueTask(this, resourceData);
+            // var storeItemGoal = Librarian.Instance.GetGoal("withdrawItem");
+            // GoalRequest request = new GoalRequest(gameObject, storeItemGoal, TaskCategory.Hauling, resourceData.ItemName);
+            // GoalMaster.Instance.AddGoal(request);
+
+            Task task = new Task
+            {
+                TaskId = "Withdraw Item",
+                Category = TaskCategory.Hauling,
+                Requestor = this,
+                Payload = resourceData.ItemName,
+            };
+            TaskManager.Instance.AddTask(task);
         }
 
         public ClickObject GetClickObject()
@@ -375,6 +449,11 @@ namespace Items
         public void ToggleAllowed(bool isAllowed)
         {
             throw new System.NotImplementedException();
+        }
+        
+        public virtual List<Command> GetCommands()
+        {
+            return Commands;
         }
         
         public virtual List<ActionBase> GetActions()

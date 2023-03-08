@@ -5,6 +5,7 @@ using DataPersistence;
 using Gods;
 using Items;
 using ScriptableObjects;
+using TaskSystem;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -101,6 +102,90 @@ namespace Zones
             return 8;
         }
         
+        public bool DoTillingWork(float workAmount)
+        {
+            _remainingTillWork -= workAmount;
+            if (_remainingTillWork <= 0)
+            {
+                OnDirtDug();
+                return true;
+            }
+            
+            return false;
+        }
+        
+        public bool DoDiggingWork(float workAmount)
+        {
+            _remainingDigWork -= workAmount;
+            if (_remainingDigWork <= 0)
+            {
+                HoleDug();
+                return true;
+            }
+            
+            return false;
+        }
+        
+        public bool DoPlantingWork(float workAmount)
+        {
+            _remainingPlantingWork -= workAmount;
+            if (_remainingPlantingWork <= 0)
+            {
+                CropPlanted();
+                return true;
+            }
+            
+            return false;
+        }
+        
+        public bool DoWateringWork(float workAmount)
+        {
+            _remainingWaterWork -= workAmount;
+            if (_remainingWaterWork <= 0)
+            {
+                CropWatered();
+                return true;
+            }
+            
+            return false;
+        }
+        
+        public bool DoHarvestingWork(float workAmount)
+        {
+            _remainingHarvestWork -= workAmount;
+            if (_remainingHarvestWork <= 0)
+            {
+                CropHarvested();
+                return true;
+            }
+            
+            return false;
+        }
+
+        public bool DoClearingWork(float workAmount)
+        {
+            _remainingPlantingWork -= workAmount;
+            if (_remainingPlantingWork <= 0)
+            {
+                CropCleared();
+                return true;
+            }
+            
+            return false;
+        }
+        
+        public bool DoCropSwappingWork(float workAmount)
+        {
+            _remainingPlantingWork -= workAmount;
+            if (_remainingPlantingWork <= 0)
+            {
+                CropSwapped();
+                return true;
+            }
+            
+            return false;
+        }
+        
         public float TillWorkDone(float workAmount)
         {
             _remainingTillWork -= workAmount;
@@ -145,13 +230,14 @@ namespace Zones
                 var growResource = tileObj.GetComponent<GrowingResource>();
                 if (growResource != null)
                 {
-                    growResource.TaskRequestors.Add(gameObject);
-
-                    // if (!growResource.QueuedToCut)
-                    // {
-                    //     growResource.CreateTaskById("Cut Plant");
-                    // }
-                    growResource.CreateTaskById("Cut Plant");
+                    Debug.LogError("Not built yet");
+                    // growResource.TaskRequestors.Add(gameObject);
+                    //
+                    // // if (!growResource.QueuedToCut)
+                    // // {
+                    // //     growResource.CreateTaskById("Cut Plant");
+                    // // }
+                    // growResource.CreateTaskById("Cut Plant");
                 }
             }
         }
@@ -167,7 +253,7 @@ namespace Zones
             
             if (!Helper.DoesGridContainTag(transform.position, "Dirt"))
             {
-                CreateTaskById("Till Soil");
+                CreateTillSoilTask();
             }
             else
             {
@@ -263,21 +349,37 @@ namespace Zones
             _soilHoleRenderer.sprite = _soilCovered;
         }
 
+        private void CreateTillSoilTask()
+        {
+            Task task = new Task()
+            {
+                TaskId = "Till Soil",
+                Category = TaskCategory.Farming,
+                Requestor = this,
+            };
+            task.Enqueue();
+        }
+
         public void OnDirtDug()
         {
             ShowBlueprint(false);
             _isTilled = true;
             _remainingTillWork = GetTillWorkAmount();
-            
+
             CreateDigHoleTask();
         }
-
+        
         private void CreateDigHoleTask()
         {
-            var digAction = Librarian.Instance.GetAction("Dig Hole");
-            CreateTask(digAction);
+            Task task = new Task()
+            {
+                TaskId = "Dig Hole",
+                Category = TaskCategory.Farming,
+                Requestor = this,
+            };
+            task.Enqueue();
         }
-
+        
         public void HoleDug()
         {
             _soilHoleRenderer.sprite = _soilHole;
@@ -286,11 +388,16 @@ namespace Zones
 
             CreatePlantCropTask();
         }
-
+        
         private void CreatePlantCropTask()
         {
-            var plantCropAction = Librarian.Instance.GetAction("Plant Crop");
-            CreateTask(plantCropAction);
+            Task task = new Task()
+            {
+                TaskId = "Plant Crop",
+                Category = TaskCategory.Farming,
+                Requestor = this,
+            };
+            task.Enqueue();
         }
 
         public void CropPlanted()
@@ -299,13 +406,18 @@ namespace Zones
             _hasCrop = true;
             _remainingPlantingWork = GetPlantingWorkAmount();
         }
-
+        
         private void CreateWaterCropTask()
         {
             _wateringTaskSet = true;
-            
-            var waterCropAction = Librarian.Instance.GetAction("Water Crop");
-            CreateTask(waterCropAction);
+
+            Task task = new Task()
+            {
+                TaskId = "Water Crop",
+                Category = TaskCategory.Farming,
+                Requestor = this,
+            };
+            task.Enqueue();
         }
 
         public void CropWatered()
@@ -315,11 +427,16 @@ namespace Zones
             _soilHoleRenderer.sprite = _soilWatered;
             _remainingWaterWork = GetWaterWorkAmount();
         }
-
+        
         private void CreateHarvestCropTask()
         {
-            var harvestCropAction = Librarian.Instance.GetAction("Harvest Crop");
-            CreateTask(harvestCropAction);
+            Task task = new Task()
+            {
+                TaskId = "Harvest Crop",
+                Category = TaskCategory.Farming,
+                Requestor = this,
+            };
+            task.Enqueue();
         }
 
         public void CropHarvested()
@@ -364,7 +481,7 @@ namespace Zones
         public void RemoveCrop()
         {
             CancelAllTasks();
-            CreateClearCropTask();
+            ClearCrop();
             // Kinling goes to crop, does Digging anim and the soil and crop are removed
         }
 
@@ -378,9 +495,31 @@ namespace Zones
         
         private void CreateSwapCropTask()
         {
-            var swapAction = Librarian.Instance.GetAction("Swap Crop");
-            CreateTask(swapAction);
+            Task task = new Task()
+            {
+                TaskId = "Crop Swap",
+                Category = TaskCategory.Farming,
+                Requestor = this,
+            };
+            task.Enqueue();
         }
+        
+        private void CreateClearCropTask()
+        {
+            Task task = new Task()
+            {
+                TaskId = "Clear Crop",
+                Category = TaskCategory.Farming,
+                Requestor = this,
+            };
+            task.Enqueue();
+        }
+        
+        // private void CreateSwapCropTask()
+        // {
+        //     var swapAction = Librarian.Instance.GetAction("Swap Crop");
+        //     CreateTask(swapAction);
+        // }
         
         public void CropSwapped()
         {
@@ -404,12 +543,11 @@ namespace Zones
             HoleDug();
         }
 
-        private void CreateClearCropTask()
+        private void ClearCrop()
         {
             if (_isTilled)
             {
-                var clearAction = Librarian.Instance.GetAction("Clear Crop");
-                CreateTask(clearAction);
+                CreateClearCropTask();
             }
             else
             {

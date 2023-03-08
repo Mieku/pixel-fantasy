@@ -5,13 +5,16 @@ using Actions;
 using Characters;
 using Gods;
 using Items;
-using ScriptableObjects;
+using TaskSystem;
 using UnityEngine;
 
-public class Interactable : UniqueObject
+public abstract class Interactable : UniqueObject
 {
     [SerializeField] private SpriteRenderer _icon;
+    public List<Command> Commands = new List<Command>();
+    public Command PendingCommand;
 
+// Old
     public List<int> QueuedTaskRefs = new List<int>();
     public List<ActionBase> PendingTasks = new List<ActionBase>();
     public List<ActionBase> InProgressTasks = new List<ActionBase>();
@@ -28,7 +31,7 @@ public class Interactable : UniqueObject
                 var resource = GetComponent<Resource>();
                 if (resource != null)
                 {
-                    _potentialActions = resource.GetResourceData().AvailableActions;
+                    //_potentialActions = resource.GetResourceData().AvailableActions;
                 }
 
                 var item = GetComponent<Item>();
@@ -92,16 +95,17 @@ public class Interactable : UniqueObject
 
     private List<ActionBase> FilterAvailableActions(List<ActionBase> potentialActions)
     {
-        List<ActionBase> result = new List<ActionBase>();
-        foreach (var potentialAction in potentialActions)
-        {
-            if (potentialAction.IsTaskAvailable(this))
-            {
-                result.Add(potentialAction);
-            }
-        }
-
-        return result;
+        // List<ActionBase> result = new List<ActionBase>();
+        // foreach (var potentialAction in potentialActions)
+        // {
+        //     if (potentialAction.IsTaskAvailable(this))
+        //     {
+        //         result.Add(potentialAction);
+        //     }
+        // }
+        //
+        // return result;
+        return null;
     }
 
     public void OnTaskAccepted(ActionBase task)
@@ -126,6 +130,48 @@ public class Interactable : UniqueObject
         CancelAllTasks();
         taskAction.CreateTask(this);
         SetTaskToPending(taskAction);
+    }
+
+    public void CreateTask(Command command)
+    {
+        // Only one command can be active
+        if (PendingCommand != null)
+        {
+            CancelCommand(PendingCommand);
+        }
+
+        Task task = new Task
+        {
+            Category = command.Task.Category,
+            TaskId = command.Task.TaskId,
+            Requestor = this
+        };
+
+        PendingCommand = command;
+        TaskManager.Instance.AddTask(task);
+        DisplayTaskIcon(command.Icon);
+    }
+
+    public void CancelCommand(Command command)
+    {
+        PendingCommand = null;
+        
+        Task task = new Task
+        {
+            Category = command.Task.Category,
+            TaskId = command.Task.TaskId,
+            Requestor = this
+        };
+        
+        TaskManager.Instance.CancelTask(task);
+        DisplayTaskIcon(null);
+    }
+
+    public bool IsPending(Command command)
+    {
+        if (PendingCommand == null) return false;
+        
+        return PendingCommand == command;
     }
     
     public void CancelAllTasks()
@@ -210,7 +256,7 @@ public class Interactable : UniqueObject
 
     public virtual int GetWorkAmount()
     {
-        return 0;
+        return 1;
     }
 
     public void DisplayTaskIcon(Sprite icon)
@@ -227,5 +273,10 @@ public class Interactable : UniqueObject
             _icon.sprite = icon;
             _icon.gameObject.SetActive(true);
         }
+    }
+
+    public virtual void ReceiveItem(Item item)
+    {
+        Debug.LogError($"Item unexpectely received: {item.name}");
     }
 }
