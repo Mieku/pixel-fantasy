@@ -6,6 +6,7 @@ using Gods;
 using Items;
 using ScriptableObjects;
 using SGoap;
+using TaskSystem;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -253,8 +254,7 @@ namespace Zones
             
             if (!Helper.DoesGridContainTag(transform.position, "Dirt"))
             {
-                //CreateTaskById("Till Soil");
-                CreateTillSoilGoal();
+                CreateTillSoilTask();
             }
             else
             {
@@ -292,7 +292,7 @@ namespace Zones
             {
                 if (!_isWatered && !_wateringTaskSet && !_cropReadyToHarvest)
                 {
-                    CreateWaterCropGoal();
+                    CreateWaterCropTask();
                 }
 
                 if (_isWatered)
@@ -341,7 +341,7 @@ namespace Zones
         private void CropReadyToHarvest()
         {
             _cropReadyToHarvest = true;
-            CreateHarvestCropGoal();
+            CreateHarvestCropTask();
         }
 
         private void DrySoil()
@@ -350,11 +350,15 @@ namespace Zones
             _soilHoleRenderer.sprite = _soilCovered;
         }
 
-        private void CreateTillSoilGoal()
+        private void CreateTillSoilTask()
         {
-            var goal = Librarian.Instance.GetGoal("tillSoil");
-            GoalRequest request = new GoalRequest(gameObject, goal, TaskCategory.Farming);
-            GoalMaster.Instance.AddGoal(request);
+            Task task = new Task()
+            {
+                TaskId = "Till Soil",
+                Category = TaskCategory.Farming,
+                Requestor = this,
+            };
+            task.Enqueue();
         }
 
         public void OnDirtDug()
@@ -363,43 +367,39 @@ namespace Zones
             _isTilled = true;
             _remainingTillWork = GetTillWorkAmount();
 
-            CreateDigHoleGoal();
+            CreateDigHoleTask();
         }
         
-        private void CreateDigHoleGoal()
+        private void CreateDigHoleTask()
         {
-            var goal = Librarian.Instance.GetGoal("digHole");
-            GoalRequest request = new GoalRequest(gameObject, goal, TaskCategory.Farming);
-            GoalMaster.Instance.AddGoal(request);
+            Task task = new Task()
+            {
+                TaskId = "Dig Hole",
+                Category = TaskCategory.Farming,
+                Requestor = this,
+            };
+            task.Enqueue();
         }
-
-        // private void CreateDigHoleTask()
-        // {
-        //     var digAction = Librarian.Instance.GetAction("Dig Hole");
-        //     CreateTask(digAction);
-        // }
-
+        
         public void HoleDug()
         {
             _soilHoleRenderer.sprite = _soilHole;
             _soilHoleRenderer.gameObject.SetActive(true);
             _remainingDigWork = GetDigWorkAmount();
 
-            CreatePlantCropGoal();
+            CreatePlantCropTask();
         }
         
-        private void CreatePlantCropGoal()
+        private void CreatePlantCropTask()
         {
-            var goal = Librarian.Instance.GetGoal("plantCrop");
-            GoalRequest request = new GoalRequest(gameObject, goal, TaskCategory.Farming);
-            GoalMaster.Instance.AddGoal(request);
+            Task task = new Task()
+            {
+                TaskId = "Plant Crop",
+                Category = TaskCategory.Farming,
+                Requestor = this,
+            };
+            task.Enqueue();
         }
-
-        // private void CreatePlantCropTask()
-        // {
-        //     var plantCropAction = Librarian.Instance.GetAction("Plant Crop");
-        //     CreateTask(plantCropAction);
-        // }
 
         public void CropPlanted()
         {
@@ -408,22 +408,18 @@ namespace Zones
             _remainingPlantingWork = GetPlantingWorkAmount();
         }
         
-        private void CreateWaterCropGoal()
+        private void CreateWaterCropTask()
         {
             _wateringTaskSet = true;
-            
-            var goal = Librarian.Instance.GetGoal("waterCrop");
-            GoalRequest request = new GoalRequest(gameObject, goal, TaskCategory.Farming);
-            GoalMaster.Instance.AddGoal(request);
-        }
 
-        // private void CreateWaterCropTask()
-        // {
-        //     _wateringTaskSet = true;
-        //     
-        //     var waterCropAction = Librarian.Instance.GetAction("Water Crop");
-        //     CreateTask(waterCropAction);
-        // }
+            Task task = new Task()
+            {
+                TaskId = "Water Crop",
+                Category = TaskCategory.Farming,
+                Requestor = this,
+            };
+            task.Enqueue();
+        }
 
         public void CropWatered()
         {
@@ -433,18 +429,16 @@ namespace Zones
             _remainingWaterWork = GetWaterWorkAmount();
         }
         
-        private void CreateHarvestCropGoal()
+        private void CreateHarvestCropTask()
         {
-            var goal = Librarian.Instance.GetGoal("harvestCrop");
-            GoalRequest request = new GoalRequest(gameObject, goal, TaskCategory.Farming);
-            GoalMaster.Instance.AddGoal(request);
+            Task task = new Task()
+            {
+                TaskId = "Harvest Crop",
+                Category = TaskCategory.Farming,
+                Requestor = this,
+            };
+            task.Enqueue();
         }
-
-        // private void CreateHarvestCropTask()
-        // {
-        //     var harvestCropAction = Librarian.Instance.GetAction("Harvest Crop");
-        //     CreateTask(harvestCropAction);
-        // }
 
         public void CropHarvested()
         {
@@ -455,7 +449,7 @@ namespace Zones
             _soilHoleRenderer.gameObject.SetActive(true);
             _remainingHarvestWork = GetHarvestWorkAmount();
             
-            CreatePlantCropGoal();
+            CreatePlantCropTask();
             
             // Spawn the crop
             Spawner.Instance.SpawnItem(_cropData.HarvestedItem, transform.position, true, _cropData.AmountToHarvest);
@@ -488,7 +482,7 @@ namespace Zones
         public void RemoveCrop()
         {
             CancelAllTasks();
-            CreateClearCropTask();
+            ClearCrop();
             // Kinling goes to crop, does Digging anim and the soil and crop are removed
         }
 
@@ -496,22 +490,30 @@ namespace Zones
         {
             CancelAllTasks();
             _pendingCropSwap = newCrop;
-            CreateSwapCropGoal();
+            CreateSwapCropTask();
             // Kinling goes to the crop, does digging anim and clears the crop and brings it back to the tilled state
         }
         
-        private void CreateSwapCropGoal()
+        private void CreateSwapCropTask()
         {
-            var goal = Librarian.Instance.GetGoal("swapCrop");
-            GoalRequest request = new GoalRequest(gameObject, goal, TaskCategory.Farming);
-            GoalMaster.Instance.AddGoal(request);
+            Task task = new Task()
+            {
+                TaskId = "Crop Swap",
+                Category = TaskCategory.Farming,
+                Requestor = this,
+            };
+            task.Enqueue();
         }
         
-        private void CreateClearCropGoal()
+        private void CreateClearCropTask()
         {
-            var goal = Librarian.Instance.GetGoal("clearCrop");
-            GoalRequest request = new GoalRequest(gameObject, goal, TaskCategory.Farming);
-            GoalMaster.Instance.AddGoal(request);
+            Task task = new Task()
+            {
+                TaskId = "Clear Crop",
+                Category = TaskCategory.Farming,
+                Requestor = this,
+            };
+            task.Enqueue();
         }
         
         // private void CreateSwapCropTask()
@@ -542,11 +544,11 @@ namespace Zones
             HoleDug();
         }
 
-        private void CreateClearCropTask()
+        private void ClearCrop()
         {
             if (_isTilled)
             {
-                CreateClearCropGoal();
+                CreateClearCropTask();
             }
             else
             {

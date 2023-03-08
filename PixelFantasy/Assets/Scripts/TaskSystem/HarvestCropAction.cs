@@ -1,12 +1,12 @@
 using Gods;
 using UnityEngine;
+using Zones;
 
 namespace TaskSystem
 {
-    public class ClearGrassAction : TaskAction
+    public class HarvestCropAction : TaskAction
     {
-        
-        private DirtTile _dirtTile;
+        private Crop _crop;
         private float _timer;
         private Vector2? _movePos;
         private bool _isMoving;
@@ -19,15 +19,15 @@ namespace TaskSystem
         public override void PrepareAction(Task task)
         {
             _task = task;
-            _dirtTile = task.Requestor as DirtTile;
-            _movePos = _ai.GetAdjacentPosition(_dirtTile.transform.position);
+            _crop = task.Requestor as Crop;
+            _movePos = _crop.transform.position;
         }
 
         public override void DoAction()
         {
             if (DistanceFromRequestor <= 0.25f)
             {
-                DoClearGrass();
+                DoHarvest();
             }
             else
             {
@@ -35,15 +35,15 @@ namespace TaskSystem
             }
         }
         
-        private void DoClearGrass()
+        private void DoHarvest()
         {
-            UnitAnimController.SetUnitAction(UnitAction.Digging, _ai.GetActionDirection(_dirtTile.transform.position));
+            UnitAnimController.SetUnitAction(UnitAction.Doing, _ai.GetActionDirection(_crop.transform.position));
             
             _timer += TimeManager.Instance.DeltaTime;
             if(_timer >= WORK_SPEED) 
             {
                 _timer = 0;
-                if (_dirtTile.DoWork(WORK_AMOUNT)) 
+                if (_crop.DoHarvestingWork(WORK_AMOUNT)) 
                 {
                     // When work is complete
                     ConcludeAction();
@@ -63,7 +63,7 @@ namespace TaskSystem
         public override void ConcludeAction()
         {
             UnitAnimController.SetUnitAction(UnitAction.Nothing);
-            _dirtTile = null;
+            _crop = null;
             _task = null;
             _movePos = null;
             _isMoving = false;
