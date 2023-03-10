@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Actions;
 using Gods;
-using Items;
 using UnityEngine;
 
 namespace ScriptableObjects
@@ -16,9 +14,6 @@ namespace ScriptableObjects
         [SerializeField] private List<ItemAmount> _resourceCosts;
         [SerializeField] private List<string> _invalidPlacementTags;
         [SerializeField] private PlanningMode _planningMode;
-        [SerializeField] private List<ActionBase> _availableActions;
-        
-        public List<ActionBase> AvailableActions => _availableActions;
         
         public PlanningMode PlanningMode => _planningMode;
         

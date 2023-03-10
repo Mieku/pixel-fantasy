@@ -7,6 +7,7 @@ using HUD;
 using Items;
 using ScriptableObjects;
 using UnityEngine;
+using Zones;
 
 namespace Gods
 {
@@ -42,6 +43,7 @@ namespace Gods
 
         private bool _showPlacement;
         private List<string> _invalidPlacementTags = new List<string>();
+        private Color? _colourOverride;
         
         // Structure
         private bool _planningStructure;
@@ -190,7 +192,7 @@ namespace Gods
         
         protected virtual void GameEvents_OnRightClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
         {
-            CancelInput();
+            
         }
         
         protected virtual void GameEvents_OnRightClickHeld(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
@@ -200,7 +202,7 @@ namespace Gods
         
         protected virtual void GameEvents_OnRightClickUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
         {
-            
+            CancelInput();
         }
 
         private void CancelInput()
@@ -212,9 +214,16 @@ namespace Gods
             PlacementDirection = PlacementDirection.Down;
         }
 
-        public void ShowPlacementIcon(bool show, Sprite icon = null, List<String> invalidPlacementTags = null, float sizeOverride = 1f)
+        public void ShowPlacementIcon(bool show, Sprite icon = null, List<String> invalidPlacementTags = null, float sizeOverride = 1f, Color? colourOverride = null)
         {
             _placementIcon.enabled = true;
+            _colourOverride = colourOverride;
+
+            List<string> tags = null;
+            if (invalidPlacementTags != null)
+            {
+                tags = new List<string>(invalidPlacementTags);
+            }
             
             if (_placementIcon.transform.childCount > 0)
             {
@@ -228,7 +237,7 @@ namespace Gods
                 _placementIcon.sprite = icon;
                 _placementIcon.gameObject.SetActive(true);
                 _showPlacement = true;
-                _invalidPlacementTags = invalidPlacementTags;
+                _invalidPlacementTags = tags;
             }
             else
             {   _placementIcon.gameObject.SetActive(false);
@@ -267,13 +276,14 @@ namespace Gods
                 _placementIcon.transform.position = gridPos;
                 if (Helper.IsGridPosValidToBuild(gridPos, _invalidPlacementTags))
                 {
-                    _placementIcon.color = Librarian.Instance.GetColour("Placement Green");
+                    Color placementColour = (Color)(_colourOverride != null ? _colourOverride : Librarian.Instance.GetColour("Placement Green"));
+                    _placementIcon.color = placementColour;
                     if (_placementIcon.transform.childCount > 0)
                     {
                         var renderers = _placementIcon.GetComponentsInChildren<SpriteRenderer>();
                         foreach (var renderer in renderers)
                         {
-                            renderer.color = Librarian.Instance.GetColour("Placement Green");
+                            renderer.color = placementColour;
                         }
                     }
                 }
@@ -334,10 +344,10 @@ namespace Gods
                 spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
                 if (furnitureData.IsCraftingTable)
                 {
-                    var furnitureObj = Instantiate(_craftingTablePrefab, spawnPosition, Quaternion.identity);
-                    furnitureObj.transform.SetParent(_furnitureParent);
-                    var furniture = furnitureObj.GetComponent<CraftingTable>();
-                    furniture.Init(furnitureData, PlacementDirection);
+                    // var furnitureObj = Instantiate(_craftingTablePrefab, spawnPosition, Quaternion.identity);
+                    // furnitureObj.transform.SetParent(_furnitureParent);
+                    // var furniture = furnitureObj.GetComponent<CraftingTable>();
+                    // furniture.Init(furnitureData, PlacementDirection);
                 }
                 else
                 {
@@ -675,7 +685,7 @@ namespace Gods
             CancelInput();
         }
 
-        private void SpawnSoilTile(Vector2 spawnPos, CropData cropData)
+        public void SpawnSoilTile(Vector2 spawnPos, CropData cropData)
         {
             var soil = Instantiate(_soilPrefab, spawnPos, Quaternion.identity);
             soil.transform.SetParent(_flooringParent);

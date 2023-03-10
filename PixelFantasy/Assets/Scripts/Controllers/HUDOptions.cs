@@ -1,28 +1,25 @@
 using System;
 using System.Collections.Generic;
-using Actions;
-using CodeMonkey.Utils;
 using Gods;
 using HUD;
-using Items;
 using ScriptableObjects;
-using UnityEditor.U2D.Path.GUIFramework;
 using UnityEngine;
+using Order = HUD.Order;
 
 namespace Controllers
 {
     public class HUDOptions : MonoBehaviour
     {
-        [SerializeField] private List<ConstructionOrder> _cheatOrders;
+        [SerializeField] private List<Order> _cheatOrders;
 
         [SerializeField] private List<MassOrder> _massOrders;
-        [SerializeField] private List<ConstructionOrder> _zoneOrders;
-        [SerializeField] private List<ConstructionOrder> _wallOrders;
-        [SerializeField] private List<ConstructionOrder> _floorOrders;
-        [SerializeField] private List<ConstructionOrder> _doorOrders;
-        [SerializeField] private List<ConstructionOrder> _productionOrders;
-        [SerializeField] private List<ConstructionOrder> _furnitureOrders;
-        [SerializeField] private List<ConstructionOrder> _lightingOrders;
+        [SerializeField] private List<Order> _zoneOrders;
+        [SerializeField] private List<Order> _wallOrders;
+        [SerializeField] private List<Order> _floorOrders;
+        [SerializeField] private List<Order> _doorOrders;
+        [SerializeField] private List<Order> _productionOrders;
+        [SerializeField] private List<Order> _furnitureOrders;
+        [SerializeField] private List<Order> _lightingOrders;
         
         [SerializeField] private DirtTile _dirtPrefab;
 
@@ -82,7 +79,7 @@ namespace Controllers
             HUDOrders.Instance.ClearOrders();
         }
 
-        private void DisplayOrders(List<ConstructionOrder> orders)
+        private void DisplayOrders(List<Order> orders)
         {
             ClearOptions();
             
@@ -99,23 +96,23 @@ namespace Controllers
             
             foreach (var order in orders)
             {
-                Sprite icon = Librarian.Instance.GetOrderIcon(order.OrderName);
-                Action onPressed = DetermineOnPressedOrderAction(order.MassOrderType);
-                HUDOrders.Instance.CreateOrderButton(icon, onPressed, false, order.OrderName);
+                // Sprite icon = Librarian.Instance.GetOrderIcon(order.OrderName);
+                // Action onPressed = DetermineOnPressedOrderAction(order.MassOrderType);
+                // HUDOrders.Instance.CreateOrderButton(icon, onPressed, false, order.OrderName);
             }
         }
 
-        private Action DetermineOnPressedOrderAction(ActionBase orderType)
-        {
-            void OnOnpressed()
-            {
-                SelectionManager.Instance.BeginOrdersSelectionBox(orderType);
-            }
+        // private Action DetermineOnPressedOrderAction(ActionBase orderType)
+        // {
+        //     void OnOnpressed()
+        //     {
+        //         SelectionManager.Instance.BeginOrdersSelectionBox(orderType);
+        //     }
+        //
+        //     return OnOnpressed;
+        // }
 
-            return OnOnpressed;
-        }
-
-        private Action DetermineOnPressedAction(string dataKey, OrderType orderType, List<ConstructionOrder> subMenu, List<ConstructionOrder> curMenu)
+        private Action DetermineOnPressedAction(string dataKey, OrderType orderType, List<Order> subMenu, List<Order> curMenu)
         {
             Action onpressed = null;
             
@@ -216,14 +213,28 @@ namespace Controllers
         {
             if (key == "Storage")
             {
-                BuildStorageZone();
+                //BuildStorageZone();
+                BuildZone(ZoneType.Storage);
             } 
-            else // Assume Farm if unknown
+            else if (key == "Home")
             {
-                BuildFarmZone(key);
+                BuildZone(ZoneType.Home);
+            }
+            else if (key == "Farm")
+            {
+                BuildZone(ZoneType.Farm);
+            }
+            else
+            {
+                Debug.LogError("BuildZonePressed - Unknown Zone: " + key);
             }
         }
 
+        private void BuildZone(ZoneType zoneType)
+        {
+            ZoneManager.Instance.PlanZone(zoneType);
+        }
+        
         private void BuildStorageZone()
         {
             var invController = ControllerManager.Instance.InventoryController;
@@ -231,11 +242,11 @@ namespace Controllers
             Spawner.Instance.ShowPlacementIcon(true, invController.GetStorageZoneBlueprintSprite(), invController.StoragePlacementInvalidTags);
         }
 
-        private void ShowSubMenu(List<ConstructionOrder> subMenu, List<ConstructionOrder> curMenu, bool hasBackBtn)
+        private void ShowSubMenu(List<Order> subMenu, List<Order> curMenu, bool hasBackBtn)
         {
             if (hasBackBtn && subMenu[0].OrderName != "Back")
             {
-                ConstructionOrder backbtn = new ConstructionOrder
+                Order backbtn = new Order
                 {
                     Icon = Librarian.Instance.GetOrderIcon("Back"),
                     OrderName = "Back",

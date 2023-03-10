@@ -1,43 +1,59 @@
-using System;
 using System.Collections.Generic;
-using Actions;
 using Controllers;
-using DataPersistence;
-using Gods;
 using Interfaces;
 using ScriptableObjects;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 
 namespace Items
 {
-    public class Mountain : Interactable, IClickableTile, IPersistent
+    public class Mountain : Resource, IClickableTile
     {
         [SerializeField] private GameObject _tempPlacementDisp;
-        [SerializeField] private MountainData _mountainData;
         [SerializeField] private Color _selectionTintColour;
         [SerializeField] private RuleTile _dirtRuleTile;
 
         private Tilemap _mountainTM;
         private Tilemap _dirtTM;
-
-        protected Spawner spawner => Spawner.Instance;
-        protected float _remainingWork;
         
-        private void Awake()
+        protected float _remainingWork;
+
+        private MountainData _mountainData => ResourceData as MountainData;
+        
+        protected override void Awake()
         {
+            base.Awake();
+            
             _tempPlacementDisp.SetActive(false);
             _mountainTM =
                 TilemapController.Instance.GetTilemap(TilemapLayer.Mountain);
             _dirtTM =
                 TilemapController.Instance.GetTilemap(TilemapLayer.Dirt);
+
+            Init();
+        }
+
+        private void Init()
+        {
+            if (_mountainData == null) return;
+            
+            Health = GetWorkAmount();
         }
 
         private void Start()
         {
             SetTile();
             _remainingWork = GetWorkAmount();
+        }
+        
+        public override UnitAction GetExtractActionAnim()
+        {
+            return UnitAction.Mining;
+        }
+
+        protected override void DestroyResource()
+        {
+            MineMountain();
         }
 
         private void SetTile()
@@ -52,54 +68,16 @@ namespace Items
 
         public SelectionData GetSelectionData()
         {
-            var actions = GetActions();
-            var cancellableActions = GetCancellableActions();
-        
             SelectionData result = new SelectionData
             {
                 ItemName = _mountainData.ResourceName,
-                Actions = actions,
-                CancellableActions = cancellableActions,
                 ClickObject = GetClickObject(),
                 Requestor = GetComponent<Interactable>(),
             };
 
             return result;
         }
-
-        public ClickObject GetClickObject()
-        {
-            var clickObj = gameObject.GetComponent<ClickObject>();
-            return clickObj;
-        }
-
-        public bool IsClickDisabled { get; set; }
-        public bool IsAllowed { get; set; }
-        public void ToggleAllowed(bool isAllowed)
-        {
-            
-        }
-
-        public MountainData GetMountainData()
-        {
-            return _mountainData;
-        }
-
-        public List<ActionBase> GetActions()
-        {
-            return AvailableActions;
-        }
-
-        public List<ActionBase> GetCancellableActions()
-        {
-            return CancellableActions();
-        }
-
-        public void AssignOrder(ActionBase orderToAssign)
-        {
-            CreateTask(orderToAssign);
-        }
-
+        
         public void TintTile()
         {
             var cell = _mountainTM.WorldToCell(transform.position);
@@ -112,14 +90,6 @@ namespace Items
             _mountainTM.SetColor(cell, Color.white);
         }
         
-        public void RefreshSelection()
-        {
-            if (GetClickObject().IsSelected)
-            {
-                GameEvents.Trigger_RefreshSelection();
-            }
-        }
-
         public void MineMountain()
         {
             // Clear Mountain Tile
@@ -153,27 +123,26 @@ namespace Items
             return _remainingWork;
         }
 
-        public object CaptureState()
+        public override object CaptureState()
         {
             return new State
             {
                 UID = UniqueId,
                 Position = transform.position,
                 MountainData = _mountainData,
-                PendingTasks = PendingTasks,
                 RemainingWork = _remainingWork,
             };
         }
 
-        public void RestoreState(object data)
+        public override void RestoreState(object data)
         {
             var stateData = (State)data;
             UniqueId = stateData.UID;
             transform.position = stateData.Position;
-            _mountainData = stateData.MountainData;
+            ResourceData = stateData.MountainData;
             _remainingWork = stateData.RemainingWork;
 
-            RestoreTasks(stateData.PendingTasks);
+            Init();
         }
         
         public struct State
@@ -181,7 +150,6 @@ namespace Items
             public string UID;
             public Vector3 Position;
             public MountainData MountainData;
-            public List<ActionBase> PendingTasks;
             public float RemainingWork;
         }
     }

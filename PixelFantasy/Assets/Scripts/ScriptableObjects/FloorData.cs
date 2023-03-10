@@ -1,7 +1,3 @@
-using System.Collections.Generic;
-using Actions;
-using Gods;
-using Items;
 using UnityEngine;
 
 namespace ScriptableObjects

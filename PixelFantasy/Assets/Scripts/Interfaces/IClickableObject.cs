@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using Actions;
-using Items;
 
 namespace Interfaces
 {
@@ -10,10 +8,7 @@ namespace Interfaces
         public bool IsClickDisabled { get; set; }
         public bool IsAllowed { get; set; }
         public void ToggleAllowed(bool isAllowed);
-        public List<ActionBase> GetActions();
-        public List<ActionBase> GetCancellableActions();
-        public void AssignOrder(ActionBase orderToAssign);
-        public bool IsActionActive(ActionBase action);
+        public List<Command> GetCommands();
     }
 
     public interface IClickableTile : IClickableObject

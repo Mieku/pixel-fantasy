@@ -1,13 +1,18 @@
 using System;
+using Characters;
 using Characters.Interfaces;
 using Gods;
 using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
 namespace Characters
 {
-    public class UnitAnimController : MonoBehaviour, ICharacterAnimController
+    
+}
+
+public class UnitAnimController : MonoBehaviour, ICharacterAnimController
     {
         [SerializeField] private UnitAppearance _appearance;
 
@@ -37,11 +42,15 @@ namespace Characters
         
         private const string UP = "IsUp";
         private const string DOWN = "IsDown";
+
+        private NavMeshAgent _navMeshAgent;
         
         private UnitAction _curUnitAction;
 
         private void Awake()
         {
+            _navMeshAgent = GetComponent<NavMeshAgent>();
+            
             GameEvents.OnGameSpeedChanged += OnSpeedUpdated;
         }
 
@@ -64,6 +73,36 @@ namespace Characters
             _handsAnim.speed = speedMod;
             _fxAnim.speed = speedMod;
             _blushAnim.speed = speedMod;
+        }
+
+        public void SetUnitAction(UnitAction unitAction)
+        {
+            switch (unitAction)
+            {
+                case UnitAction.Nothing:
+                    ClearAllActions();
+                    break;
+                case UnitAction.Doing:
+                    SetUnitAction(DOING);
+                    break;
+                case UnitAction.Axe:
+                    SetUnitAction(AXE);
+                    break;
+                case UnitAction.Building:
+                    SetUnitAction(BUILD);
+                    break;
+                case UnitAction.Digging:
+                    SetUnitAction(DIG);
+                    break;
+                case UnitAction.Watering:
+                    SetUnitAction(WATER);
+                    break;
+                case UnitAction.Mining:
+                    SetUnitAction(MINE);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(unitAction), unitAction, null);
+            }
         }
         
         public void SetUnitAction(UnitAction unitAction, UnitActionDirection direction)
@@ -198,6 +237,17 @@ namespace Characters
             _fxAnim.SetFloat(Velocity, velocity);
             _blushAnim.SetFloat(Velocity, velocity);
         }
+
+        private void Update()
+        {
+            RefreshAnimVector();
+        }
+
+        private void RefreshAnimVector()
+        {
+            var moveVelo = _navMeshAgent.velocity;
+            SetMovementVelocity(moveVelo);
+        }
     }
 
     public enum UnitAction
@@ -217,4 +267,3 @@ namespace Characters
         Up,
         Down,
     }
-}

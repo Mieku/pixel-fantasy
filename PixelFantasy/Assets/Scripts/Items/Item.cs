@@ -1,39 +1,31 @@
 using System;
 using System.Collections.Generic;
-using Actions;
-using Controllers;
 using DataPersistence;
 using Gods;
 using Interfaces;
 using ScriptableObjects;
-using Sirenix.OdinInspector;
-using Tasks;
-using Characters;
+using TaskSystem;
 using UnityEngine;
+using Zones;
 
 namespace Items
 {
-    public class Item : UniqueObject, IClickableObject, IPersistent
+    public class Item : Interactable, IClickableObject, IPersistent
     {
         [SerializeField] private ItemData _itemData;
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private ClickObject _clickObject;
-        [SerializeField] private ActionTakeItemToItemSlot _takeItemToItemSlotAction;
+
+        private Task _currentTask;
         
-        public ActionBase PendingTask;
-        public ActionBase InProgressTask;
         public string _assignedSlotUID;
         private string _assignedUnitUID;
         private bool _isHeld;
-
-        private int _assignedTaskRef;
-        private UnitTaskAI _incomingUnit;
+        
         private Transform _originalParent;
-        
-        // public TaskType PendingTask;
- 
-        private TaskMaster taskMaster => TaskMaster.Instance;
-        
+
+        public StorageSlot AssignedStorageSlot;
+
         public ClickObject GetClickObject()
         {
             return _clickObject;
@@ -48,93 +40,56 @@ namespace Items
             
             DisplayItemSprite();
 
-            if (IsAllowed && string.IsNullOrEmpty(_assignedSlotUID))
+            if (allowed)
             {
-                EnqueueTaskForHauling();
+                SeekForSlot();
             }
-            else
+        }
+        
+        public void SeekForSlot()
+        {
+            if (AssignedStorageSlot == null && !_isHeld)
             {
-                if (!_isHeld && !string.IsNullOrEmpty(_assignedSlotUID) && string.IsNullOrEmpty(_assignedUnitUID))
+                AssignedStorageSlot = ControllerManager.Instance.InventoryController.GetAvailableStorageSlot(this);
+                if (AssignedStorageSlot != null)
                 {
-                    // Has slot, no one picked up or is assigned to get
-                    var slot = UIDManager.Instance.GetGameObject(_assignedSlotUID).GetComponent<StorageSlot>();
-                    slot.AddItemIncoming(this);
-                    _takeItemToItemSlotAction.CreateTaskWithSlot(this, slot, true);
-
-                } else if (!_isHeld && !string.IsNullOrEmpty(_assignedSlotUID) && !string.IsNullOrEmpty(_assignedUnitUID))
-                {
-                    // Has slot, someone is on their way
-                    var slot = UIDManager.Instance.GetGameObject(_assignedSlotUID).GetComponent<StorageSlot>();
-                    slot.AddItemIncoming(this);
-                    var unit = UIDManager.Instance.GetGameObject(_assignedUnitUID).GetComponent<UnitTaskAI>();
-                    var task = _takeItemToItemSlotAction.CreateTaskWithSlot(this, slot, false);
-                    unit.ExecuteTask(task);
-                } else if (_isHeld)
-                {
-                    // Is being held
-                    var slot = UIDManager.Instance.GetGameObject(_assignedSlotUID).GetComponent<StorageSlot>();
-                    slot.AddItemIncoming(this);
-                    var unit = UIDManager.Instance.GetGameObject(_assignedUnitUID).GetComponent<UnitTaskAI>();
-                    var task = _takeItemToItemSlotAction.CreateTaskWithSlot(this, slot, false);
-                    unit.AssignHeldItem(this);
-                    unit.ExecuteTask(task);
+                    CreateHaulTask();
                 }
             }
+        }
+
+        public void CreateHaulTask()
+        {
+            Task task = new Task
+            {
+                Category = TaskCategory.Hauling,
+                TaskId = "Store Item",
+                Requestor = this
+            };
+
+            TaskManager.Instance.AddTask(task);
+            _currentTask = task;
+        }
+
+        public void CancelTask(bool lookToHaul = true)
+        {
+            if (_currentTask != null)
+            {
+                AssignedStorageSlot = null;
+                _currentTask.Cancel();
+                
+                SeekForSlot();
+            }
+        }
+
+        private void GameEvent_OnInventoryAvailabilityChanged()
+        {
+            SeekForSlot();
         }
 
         public void SetHeld(bool isHeld)
         {
             _isHeld = isHeld;
-        }
-
-        public void AssignUnit(UnitTaskAI unit)
-        {
-            if (unit == null)
-            {
-                _assignedUnitUID = "";
-            }
-            else
-            {
-                _assignedUnitUID = unit.UniqueId;
-            }
-        }
-
-        public void SetAssignedSlot(StorageSlot slot)
-        {
-            if (slot == null)
-            {
-                _assignedSlotUID = "";
-                return;
-            }
-            
-            _assignedSlotUID = slot.UniqueId;
-        }
-
-        public void EnqueueTaskForHauling()
-        {
-            _takeItemToItemSlotAction.EnqueueTask(this, true);
-            SetTaskToPending(_takeItemToItemSlotAction);
-        }
-        
-        public void OnTaskAccepted(ActionBase task)
-        {
-            SetTaskToAccepted(task);
-        }
-
-        public void OnTaskCompleted()
-        {
-            InProgressTask = null;
-        }
-        
-        public void SetTaskToAccepted(ActionBase task)
-        {
-            PendingTask = null;
-            InProgressTask = task;
-        }
-        
-        public void SetTaskToPending(ActionBase task)
-        {
-            PendingTask = task;
         }
 
         public void AddItemToSlot()
@@ -180,7 +135,7 @@ namespace Items
             {
                 //_icon.gameObject.SetActive(true);
                 //_icon.sprite = Librarian.Instance.GetSprite("Lock");
-                CancelAssignedTask();
+                //CancelAssignedTask();
             }
             
             RefreshSelection();
@@ -188,29 +143,14 @@ namespace Items
 
         public bool IsAllowed { get; set; }
 
-        public int GetAssignedTask()
+        private void Start()
         {
-            return _assignedTaskRef;
-        }
-
-        public void CancelAssignedTask()
-        {
-            if (_assignedTaskRef == 0) return;
-
-            taskMaster.HaulingTaskSystem.CancelTask(_assignedTaskRef);
-            transform.parent = _originalParent;
-            if (_incomingUnit != null)
-            {
-                _incomingUnit.CancelTask();
-            }
-            
-            RefreshSelection();
+            GameEvents.OnInventoryAvailabilityChanged += GameEvent_OnInventoryAvailabilityChanged;
         }
 
         private void OnDestroy()
         {
-            if (_assignedTaskRef == 0) return;
-            taskMaster.HaulingTaskSystem.CancelTask(_assignedTaskRef);
+            GameEvents.OnInventoryAvailabilityChanged -= GameEvent_OnInventoryAvailabilityChanged;
         }
 
         public bool IsClickDisabled { get; set; }
@@ -222,63 +162,10 @@ namespace Items
                 GameEvents.Trigger_RefreshSelection();
             }
         }
-
-        public List<Order> GetOrders()
-        {
-            List<Order> results = new List<Order>();
-
-            if (IsAllowed)
-            {
-                results.Add(Order.Disallow);
-            }
-            else
-            {
-                results.Add(Order.Allow);
-            }
-            
-
-            return results;
-        }
-
-        public List<ActionBase> GetActions()
-        {
-            var result = new List<ActionBase>();
-            result.Add(_takeItemToItemSlotAction);
-            return result;
-        }
         
-        public bool IsOrderActive(Order order)
+        public virtual List<Command> GetCommands()
         {
-            switch (order)
-            {
-                case Order.Disallow:
-                    return !IsAllowed;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(order), order, null);
-            }
-        }
-
-        public bool IsActionActive(ActionBase action)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AssignOrder(ActionBase orderToAssign)
-        {
-            switch (orderToAssign.id)
-            {
-                case "Allow":
-                    ToggleAllowed(true);
-                    break;
-                case "Disallow":
-                    ToggleAllowed(false);
-                    break;
-            }
-        }
-        
-        public List<ActionBase> GetCancellableActions()
-        {
-            return null;
+            return Commands;
         }
         
         public object CaptureState()
@@ -288,13 +175,9 @@ namespace Items
                 UID = UniqueId,
                 Position = transform.position,
                 ItemData = _itemData,
-                AssignedTaskRef = _assignedTaskRef,
-                IncomingUnit = _incomingUnit,
                 OriginalParent = _originalParent,
                 IsAllowed = this.IsAllowed,
                 IsClickDisabled = this.IsClickDisabled,
-                PendingTask = PendingTask,
-                InProgressTask = InProgressTask,
                 AssignedSlotUID = _assignedSlotUID,
                 AssignedUnitUID = _assignedUnitUID,
                 IsHeld = _isHeld,
@@ -307,14 +190,9 @@ namespace Items
 
             UniqueId = itemState.UID;
             transform.position = itemState.Position;
-            _assignedTaskRef = itemState.AssignedTaskRef;
-            _incomingUnit = itemState.IncomingUnit;
             _originalParent = itemState.OriginalParent;
             IsAllowed = itemState.IsAllowed;
             IsClickDisabled = itemState.IsClickDisabled;
-
-            PendingTask = itemState.PendingTask;
-            InProgressTask = itemState.InProgressTask;
             _assignedSlotUID = itemState.AssignedSlotUID;
             _assignedUnitUID = itemState.AssignedUnitUID;
             _isHeld = itemState.IsHeld;
@@ -327,14 +205,10 @@ namespace Items
             public string UID;
             public Vector3 Position;
             public ItemData ItemData;
-            public int AssignedTaskRef;
-            public UnitTaskAI IncomingUnit;
             public Transform OriginalParent;
             public bool IsAllowed;
             public bool IsClickDisabled;
-
-            public ActionBase PendingTask;
-            public ActionBase InProgressTask;
+            
             public string AssignedSlotUID;
             public string AssignedUnitUID;
             public bool IsHeld;

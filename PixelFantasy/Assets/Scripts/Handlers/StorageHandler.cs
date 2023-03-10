@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using DataPersistence;
 using Items;
 using UnityEngine;
+using Zones;
 
 namespace Handlers
 {

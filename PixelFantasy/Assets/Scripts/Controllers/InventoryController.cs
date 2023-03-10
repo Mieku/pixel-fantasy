@@ -7,6 +7,7 @@ using Handlers;
 using Items;
 using ScriptableObjects;
 using UnityEngine;
+using Zones;
 
 namespace Controllers
 {
@@ -18,6 +19,7 @@ namespace Controllers
         private List<StorageSlot> _storageSlots = new List<StorageSlot>();
         private Dictionary<ItemData, int> _inventory = new Dictionary<ItemData, int>();
         private Dictionary<ItemData, int> _pendingInventory = new Dictionary<ItemData, int>();
+        private List<Item> _pendingItems = new List<Item>();
         
         [SerializeField] private GameObject _storageZonePrefab;
         [SerializeField] private Transform _storageParent;
@@ -80,6 +82,7 @@ namespace Controllers
         public void AddNewStorageSlot(StorageSlot newSlot)
         {
             _storageSlots.Add(newSlot);
+            GameEvents.Trigger_OnInventoryAvailabilityChanged();
         }
 
         /// <summary>
@@ -94,6 +97,29 @@ namespace Controllers
             AddNewStorageSlot(storage);
         }
 
+        public void RemoveStorageSlot(Vector3 position)
+        {
+            StorageSlot slot = null;
+            foreach (var storageSlot in _storageSlots)
+            {
+                if (storageSlot.GetPosition() == position)
+                {
+                    slot = storageSlot;
+                    break;
+                }
+            }
+
+            if (slot != null)
+            {
+                _storageSlots.Remove(slot);
+                slot.Despawn();
+            }
+            else
+            {
+                Debug.LogError($"Slot was not found at {position}");
+            }
+        }
+
         public void AddToInventory(ItemData itemData, int quantity)
         {
             if (_inventory.ContainsKey(itemData))
@@ -105,7 +131,7 @@ namespace Controllers
                 _inventory.Add(itemData, quantity);
             }
             
-            
+            GameEvents.Trigger_OnInventoryAvailabilityChanged();
             GameEvents.Trigger_OnInventoryAdded(itemData, _inventory[itemData]);
         }
 
@@ -116,6 +142,7 @@ namespace Controllers
                 _inventory[itemData] -= quantity;
             
                 GameEvents.Trigger_OnInventoryRemoved(itemData, _inventory[itemData]);
+                GameEvents.Trigger_OnInventoryAvailabilityChanged();
             }
             else
             {
@@ -124,7 +151,7 @@ namespace Controllers
         }
 
         
-        public StorageSlot ClaimResource(ItemData itemData)
+        public StorageSlot ClaimItem(ItemData itemData)
         {
             // Can afford?
             if (_inventory.ContainsKey(itemData))
@@ -207,6 +234,7 @@ namespace Controllers
 
         public void AddItemToPending(Item item)
         {
+            _pendingItems.Add(item);
             if (_pendingInventory.ContainsKey(item.GetItemData()))
             {
                 _pendingInventory[item.GetItemData()]++;
@@ -219,6 +247,7 @@ namespace Controllers
 
         public void RemoveItemFromPending(Item item)
         {
+            _pendingItems.Remove(item);
             if (_pendingInventory.ContainsKey(item.GetItemData()))
             {
                 _pendingInventory[item.GetItemData()]--;
@@ -399,6 +428,7 @@ namespace Controllers
                 if (itemType != null && _inventory.ContainsKey(itemType))
                 {
                     GameEvents.Trigger_OnInventoryAdded(itemType, _inventory[itemType]);
+                    GameEvents.Trigger_OnInventoryAvailabilityChanged();
                 }
             }
         }

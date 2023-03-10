@@ -1,21 +1,17 @@
-using System;
 using System.Collections.Generic;
-using Actions;
-using Characters;
 using DataPersistence;
 using Gods;
 using HUD;
 using Interfaces;
 using ScriptableObjects;
+using TaskSystem;
 using UnityEngine;
+using Action = System.Action;
 
 namespace Items
 {
     public class Construction : Interactable, IPersistent, IClickableObject
     {
-        [SerializeField] protected ActionTakeResourceToBlueprint _takeResourceToBlueprintAction;
-        [SerializeField] protected ActionConstructStructure _constructStructureAction;
-    
         protected List<ItemAmount> _remainingResourceCosts;
         protected List<ItemAmount> _pendingResourceCosts; // Claimed by a task but not used yet
         protected List<ItemAmount> _incomingResourceCosts; // The item is on its way
@@ -23,12 +19,9 @@ namespace Items
     
         protected bool _isBuilt;
         protected bool _isDeconstructing;
-        protected UnitTaskAI _incomingUnit;
         protected bool _hasUnitIncoming;
         protected Action _onDeconstructed;
         protected float _remainingWork;
-    
-        protected TaskMaster taskMaster => TaskMaster.Instance;
 
         public virtual ConstructionData GetConstructionData()
         {
@@ -47,25 +40,6 @@ namespace Items
             set => _isDeconstructing = value;
         }
 
-        public UnitTaskAI IncomingUnit
-        {
-            get => _incomingUnit;
-            set {
-                if (value == null)
-                {
-                    _hasUnitIncoming = false;
-                    IncomingUnitUID = "";
-                }
-                else
-                {
-                    _hasUnitIncoming = true;
-                    IncomingUnitUID = value.UniqueId;
-                }
-                
-                _incomingUnit = value;
-            }
-        }
-
         private void Awake()
         {
             _remainingWork = GetWorkAmount();
@@ -77,9 +51,33 @@ namespace Items
             return _remainingWork;
         }
 
+        public bool DoConstruction(float workAmount)
+        {
+            _remainingWork -= workAmount;
+            if (_remainingWork <= 0)
+            {
+                CompleteConstruction();
+                return true;
+            }
+            
+            return false;
+        }
+
+        public bool DoDeconstruction(float workAmount)
+        {
+            _remainingWork -= workAmount;
+            if (_remainingWork <= 0)
+            {
+                CompleteDeconstruction();
+                return true;
+            }
+            
+            return false;
+        }
+
         public virtual void CancelConstruction()
         {
-            CancelAllTasks();
+            //CancelAllTasks();
 
             var claimed = GetClaimedResourcesCosts();
                 
@@ -107,7 +105,33 @@ namespace Items
                 }
             }
         }
-        
+
+        public override void ReceiveItem(Item item)
+        {
+            var itemData = item.GetItemData();
+            Destroy(item.gameObject);
+            RemoveFromPendingResourceCosts(itemData);
+            
+            foreach (var cost in _remainingResourceCosts)
+            {
+                if (cost.Item == itemData && cost.Quantity > 0)
+                {
+                    cost.Quantity--;
+                    if (cost.Quantity <= 0)
+                    {
+                        _remainingResourceCosts.Remove(cost);
+                    }
+
+                    break;
+                }
+            }
+            
+            if (_remainingResourceCosts.Count == 0)
+            {
+                CreateConstructTask();
+            }
+        }
+
         public virtual float GetWorkPerResource()
         {
             return 0;
@@ -120,7 +144,6 @@ namespace Items
 
         public virtual void CompleteDeconstruction()
         {
-            _incomingUnit = null;
             // Spawn some of the used resources
             SpawnUsedResources(50f);
             
@@ -311,19 +334,25 @@ namespace Items
         
         public void CreateConstructTask(bool autoAssign = true)
         {
-            _constructStructureAction.CreateTask(this, autoAssign);
+            Task constuctTask = new Task()
+            {
+                Category = TaskCategory.Construction,
+                TaskId = "Build Construction",
+                Requestor = this,
+            };
+            constuctTask.Enqueue();
         }
 
         public void CreateDeconstructionTask(bool autoAssign = true, Action onDeconstructed = null)
         {
             _onDeconstructed = onDeconstructed;
-            var deconstruct = Librarian.Instance.GetAction("Deconstruct");
-            deconstruct.CreateTask(this, autoAssign);
-        }
-        
-        public List<ActionBase> GetCancellableActions()
-        {
-            return CancellableActions();
+            Task constuctTask = new Task()
+            {
+                Category = TaskCategory.Construction,
+                TaskId = "Deconstruct",
+                Requestor = this,
+            };
+            constuctTask.Enqueue();
         }
     
         public virtual object CaptureState()
@@ -362,7 +391,19 @@ namespace Items
 
         protected void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
         {
-            _takeResourceToBlueprintAction.EnqueueTask(this, resourceData);
+            //_takeResourceToBlueprintAction.EnqueueTask(this, resourceData);
+            // var storeItemGoal = Librarian.Instance.GetGoal("withdrawItem");
+            // GoalRequest request = new GoalRequest(gameObject, storeItemGoal, TaskCategory.Hauling, resourceData.ItemName);
+            // GoalMaster.Instance.AddGoal(request);
+
+            Task task = new Task
+            {
+                TaskId = "Withdraw Item",
+                Category = TaskCategory.Hauling,
+                Requestor = this,
+                Payload = resourceData.ItemName,
+            };
+            TaskManager.Instance.AddTask(task);
         }
 
         public ClickObject GetClickObject()
@@ -376,28 +417,12 @@ namespace Items
         {
             throw new System.NotImplementedException();
         }
-
-        public List<Order> GetOrders()
+        
+        public virtual List<Command> GetCommands()
         {
-            throw new System.NotImplementedException();
+            return Commands;
         }
-
-        public virtual List<ActionBase> GetActions()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void AssignOrder(ActionBase orderToAssign)
-        {
-            //throw new System.NotImplementedException();
-            CreateTask(orderToAssign);
-        }
-
-        public bool IsOrderActive(Order order)
-        {
-            throw new System.NotImplementedException();
-        }
-
+        
         public virtual List<ItemAmount> GetResourceCosts()
         {
             throw new System.NotImplementedException();

@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Actions;
 using Gods;
 using HUD;
-using Items;
 using UnityEngine;
 
 namespace Controllers
@@ -38,31 +36,31 @@ namespace Controllers
         {
             ClearOrders();
             _selectionData = selectionData;
-            foreach (var action in _selectionData.Actions)
+            foreach (var command in _selectionData.Commands)
             {
-                bool isActive = selectionData.CancellableActions.Contains(action);//_selectionData.ClickObject.IsActionActive(action);
-                CreateOrder(action, selectionData.Requestor, isActive);
+                bool isActive = selectionData.Requestor.IsPending(command);
+                CreateCommand(command, selectionData.Requestor, isActive);
             }
         }
-        
-        private void CreateOrder(ActionBase action, Interactable requestor, bool isActive)
+
+        private void CreateCommand(Command command, Interactable requestor, bool isActive)
         {
-            Sprite icon = action.Icon;
-            
+            Sprite icon = command.Icon;
+
             void OnPressed()
             {
                 if (isActive)
                 {
-                    requestor.CancelTask(action);
+                    requestor.CancelCommand(command);
                 }
                 else
                 {
-                    requestor.CreateTask(action);
+                    requestor.CreateTask(command);
                 }
                 GameEvents.Trigger_RefreshSelection();
             }
             
-            CreateOrderButton(icon, OnPressed, isActive, action.id);
+            CreateOrderButton(icon, OnPressed, isActive, command.Name);
         }
 
         public void CreateOrderButton(Sprite icon, Action onPressed, bool isActive, string buttonName)

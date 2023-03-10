@@ -1,28 +1,27 @@
-using Actions;
+using System;
 using DataPersistence;
+using TaskSystem;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Characters
 {
     public class Unit : UniqueObject, IPersistent
     {
-        [SerializeField] private UnitTaskAI _unitTaskAI;
+        [SerializeField] private TaskAI _taskAI;
         [SerializeField] private UnitState _unitState;
         [SerializeField] private UnitAppearance _appearance;
+
+        public UnitAnimController UnitAnimController;
+        public UnitAgent UnitAgent;
 
         public UnitState GetUnitState()
         {
             return _unitState;
         }
-
-        public ActionBase GetCurrentAction()
-        {
-            return _unitTaskAI.currentAction;
-        }
-
+        
         public object CaptureState()
         {
-            var unitTaskData = _unitTaskAI.GetSaveData();
             var unitStateData = _unitState.GetStateData();
             var appearanceData = _appearance.GetSaveData();
 
@@ -30,7 +29,6 @@ namespace Characters
             {
                 UID = UniqueId,
                 Position = transform.position,
-                UnitTaskData = unitTaskData,
                 UnitStateData = unitStateData,
                 AppearanceData = appearanceData,
             };
@@ -44,7 +42,6 @@ namespace Characters
             transform.position = unitData.Position;
             
             // Send the data to all components
-            _unitTaskAI.SetLoadData(unitData.UnitTaskData);
             _unitState.SetLoadData(unitData.UnitStateData);
             _appearance.SetLoadData(unitData.AppearanceData);
         }
@@ -54,8 +51,6 @@ namespace Characters
             public string UID;
             public Vector3 Position;
 
-            // UnitTaskAI
-            public UnitTaskAI.UnitTaskData UnitTaskData;
             
             // Unit State
             public UnitState.UnitStateData UnitStateData;

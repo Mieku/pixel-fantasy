@@ -7,6 +7,8 @@ namespace Controllers
     {
         [SerializeField] private float moveSpeed;
         [SerializeField] private float minFov, maxFov, scrollSensitivity;
+        
+        public bool IgnoreKeyboardInput { get; set; }
 
         private Vector3 velocityVector;
         private Camera cam;
@@ -24,6 +26,8 @@ namespace Controllers
 
         private void CameraPanningInput()
         {
+            if (IgnoreKeyboardInput) return;
+            
             velocityVector = Vector3.zero;
 
             // Left

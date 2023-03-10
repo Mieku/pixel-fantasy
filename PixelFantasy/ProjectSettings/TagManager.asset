@@ -18,6 +18,8 @@ TagManager:
   - Missile
   - Door
   - Grass
+  - Mountain
+  - Zones
   layers:
   - Default
   - TransparentFX
@@ -75,6 +77,9 @@ TagManager:
     locked: 0
   - name: Item
     uniqueID: 1535977287
+    locked: 0
+  - name: Zones
+    uniqueID: 1692867497
     locked: 0
   - name: UI
     uniqueID: 4124560573
