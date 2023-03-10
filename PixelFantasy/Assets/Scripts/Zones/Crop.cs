@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Actions;
 using Controllers;
 using DataPersistence;
 using Gods;
@@ -480,14 +479,12 @@ namespace Zones
 
         public void RemoveCrop()
         {
-            CancelAllTasks();
             ClearCrop();
             // Kinling goes to crop, does Digging anim and the soil and crop are removed
         }
 
         public void SwapCrop(CropData newCrop)
         {
-            CancelAllTasks();
             _pendingCropSwap = newCrop;
             CreateSwapCropTask();
             // Kinling goes to the crop, does digging anim and clears the crop and brings it back to the tilled state
@@ -586,7 +583,6 @@ namespace Zones
             return new CropState
             {
                 UID = UniqueId,
-                PendingTasks = PendingTasks,
                 Position = transform.position,
                 CropData = _cropData,
                 IsTilled = _isTilled,
@@ -634,15 +630,12 @@ namespace Zones
             _remainingHarvestWork = state.RemainingHarvestWork;
 
             ShowBlueprint(!_isTilled);
-            
-            RestoreTasks(state.PendingTasks);
         }
 
         public struct CropState
         {
             public string UID;
             public Vector2 Position;
-            public List<ActionBase> PendingTasks;
             public CropData CropData;
             public bool IsTilled;
             public bool IsWatered;

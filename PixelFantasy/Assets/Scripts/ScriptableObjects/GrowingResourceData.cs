@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Actions;
 using Items;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -12,8 +11,7 @@ namespace ScriptableObjects
     {
         [SerializeField] private List<GrowthStage> _growthStages;
         [SerializeField] private List<string> _invalidPlacementTags;
-        [SerializeField] private List<ActionBase> _availableActions;
-        
+
         // Optional Fruit
         [BoxGroup("Fruit")] [SerializeField] private bool _hasFruit;
         [BoxGroup("Fruit")][ShowIf("_hasFruit")] [SerializeField] private float _growFruitTime;
@@ -22,8 +20,6 @@ namespace ScriptableObjects
         [BoxGroup("Fruit")][ShowIf("_hasFruit")] [SerializeField] private HarvestableItems _harvestableFruit;
         [BoxGroup("Fruit")][ShowIf("_hasFruit")] [SerializeField] private int _workToHarvest;
 
-        public List<ActionBase> AvailableActions => _availableActions;
-        
         public List<GrowthStage> GrowthStages
         {
             get

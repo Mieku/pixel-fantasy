@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using Actions;
-using Characters;
 using DataPersistence;
 using Gods;
 using HUD;
@@ -14,9 +12,6 @@ namespace Items
 {
     public class Construction : Interactable, IPersistent, IClickableObject
     {
-        [SerializeField] protected ActionTakeResourceToBlueprint _takeResourceToBlueprintAction;
-        [SerializeField] protected ActionConstructStructure _constructStructureAction;
-    
         protected List<ItemAmount> _remainingResourceCosts;
         protected List<ItemAmount> _pendingResourceCosts; // Claimed by a task but not used yet
         protected List<ItemAmount> _incomingResourceCosts; // The item is on its way
@@ -24,12 +19,9 @@ namespace Items
     
         protected bool _isBuilt;
         protected bool _isDeconstructing;
-        protected UnitTaskAI _incomingUnit;
         protected bool _hasUnitIncoming;
         protected Action _onDeconstructed;
         protected float _remainingWork;
-    
-        protected TaskMaster taskMaster => TaskMaster.Instance;
 
         public virtual ConstructionData GetConstructionData()
         {
@@ -46,25 +38,6 @@ namespace Items
         {
             get => _isDeconstructing;
             set => _isDeconstructing = value;
-        }
-
-        public UnitTaskAI IncomingUnit
-        {
-            get => _incomingUnit;
-            set {
-                if (value == null)
-                {
-                    _hasUnitIncoming = false;
-                    IncomingUnitUID = "";
-                }
-                else
-                {
-                    _hasUnitIncoming = true;
-                    IncomingUnitUID = value.UniqueId;
-                }
-                
-                _incomingUnit = value;
-            }
         }
 
         private void Awake()
@@ -104,7 +77,7 @@ namespace Items
 
         public virtual void CancelConstruction()
         {
-            CancelAllTasks();
+            //CancelAllTasks();
 
             var claimed = GetClaimedResourcesCosts();
                 
@@ -171,7 +144,6 @@ namespace Items
 
         public virtual void CompleteDeconstruction()
         {
-            _incomingUnit = null;
             // Spawn some of the used resources
             SpawnUsedResources(50f);
             
@@ -382,11 +354,6 @@ namespace Items
             };
             constuctTask.Enqueue();
         }
-        
-        public List<ActionBase> GetCancellableActions()
-        {
-            return CancellableActions();
-        }
     
         public virtual object CaptureState()
         {
@@ -454,17 +421,6 @@ namespace Items
         public virtual List<Command> GetCommands()
         {
             return Commands;
-        }
-        
-        public virtual List<ActionBase> GetActions()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void AssignOrder(ActionBase orderToAssign)
-        {
-            //throw new System.NotImplementedException();
-            CreateTask(orderToAssign);
         }
         
         public virtual List<ItemAmount> GetResourceCosts()

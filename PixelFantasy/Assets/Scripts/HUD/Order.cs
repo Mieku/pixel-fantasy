@@ -1,12 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Actions;
-using Interfaces;
-using Items;
-using ScriptableObjects;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace HUD
 {
@@ -23,7 +18,7 @@ namespace HUD
     [Serializable]
     public class MassOrder
     {
-        public ActionBase MassOrderType;
+        //public ActionBase MassOrderType;
         public string OrderName;
     }
     

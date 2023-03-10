@@ -219,7 +219,7 @@ namespace Items
                     var dirt = taskRequestor.GetComponent<DirtTile>();
                     if (dirt != null)
                     {
-                        dirt.CreateTaskById("Clear Grass");
+                        //dirt.CreateTaskById("Clear Grass");
                     }
                 }
             }

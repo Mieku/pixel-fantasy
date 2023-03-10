@@ -58,15 +58,15 @@ namespace HUD
         {
             _unitName.text = unit.GetUnitState().FullName;
 
-            var curAction = unit.GetCurrentAction();
-            if (curAction == null)
-            {
-                _currentAction.text = "Idle";
-            }
-            else
-            {
-                _currentAction.text = curAction.Details;
-            }
+            // var curAction = unit.GetCurrentAction();
+            // if (curAction == null)
+            // {
+            //     _currentAction.text = "Idle";
+            // }
+            // else
+            // {
+            //     _currentAction.text = curAction.Details;
+            // }
         }
 
         public void ShowItemDetails(SelectionData selectionData)

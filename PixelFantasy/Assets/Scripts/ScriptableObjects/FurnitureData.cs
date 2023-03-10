@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Actions;
 using Gods;
 using Items;
 using Sirenix.OdinInspector;
@@ -23,17 +22,12 @@ namespace ScriptableObjects
         [SerializeField] private List<string> _invalidPlacementTags = new List<string> { "Water", "Wall", "Zone", "Furniture" };
         [SerializeField] private ConstructionMethod _constructionMethod;
         [SerializeField] private bool _isCraftingTable;
-        [SerializeField] private CraftingType _craftingType;
-        [SerializeField] private List<ActionBase> _availableActions;
         
-        public List<ActionBase> AvailableActions => _availableActions;
-
         public string FurnitureName => _furnitureName;
         public Sprite Icon => _iconSprite;
         public float WorkCost => _workCost;
         public ConstructionMethod ConstructionMethod => _constructionMethod;
         public bool IsCraftingTable => _isCraftingTable;
-        public CraftingType CraftingType => _craftingType;
         public ItemData ItemData => _itemData;
 
         public GameObject GetFurniturePrefab(PlacementDirection direction)

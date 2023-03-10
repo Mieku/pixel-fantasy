@@ -1,10 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
-using Actions;
 using Controllers;
 using Gods;
 using Items;
-using Characters;
 using DataPersistence;
 using TaskSystem;
 using UnityEngine;
@@ -19,10 +16,7 @@ public class DirtTile : Interactable, IPersistent
     [SerializeField] private Sprite _placementSprite;
     [SerializeField] private List<string> _invalidPlacementTags;
     [SerializeField] private RuleTile _dirtRuleTile;
-
-    private TaskMaster taskMaster => TaskMaster.Instance;
-    private UnitTaskAI _incomingUnit;
-    private List<int> _assignedTaskRefs = new List<int>();
+    
     private Structure _requestedStructure;
     private Floor _requestedFloor;
     private Tilemap _dirtTilemap;
@@ -73,24 +67,7 @@ public class DirtTile : Interactable, IPersistent
         _dirtTilemap =
             TilemapController.Instance.GetTilemap(TilemapLayer.Dirt);
     }
-    
-    public void CancelTasks()
-    {
-        if (_assignedTaskRefs == null || _assignedTaskRefs.Count == 0) return;
-        
-        foreach (var taskRef in _assignedTaskRefs)
-        {
-            taskMaster.FellingTaskSystem.CancelTask(taskRef);
-            taskMaster.FarmingTaskSystem.CancelTask(taskRef);
-        }
-        _assignedTaskRefs.Clear();
-            
-        if (_incomingUnit != null)
-        {
-            _incomingUnit.CancelTask();
-        }
-    }
-    
+
     public void Init(Structure requestedStructure = null)
     {
         _requestedStructure = requestedStructure;
@@ -179,19 +156,10 @@ public class DirtTile : Interactable, IPersistent
         var cell = _dirtTilemap.WorldToCell(transform.position);
         _dirtTilemap.SetColor(cell, colour);
     }
-    
-    public void CancelClearGrass()
-    {
-        if (IsBuilt) return;
-        
-        CancelTasks();
-        Destroy(gameObject);
-    }
 
     public void BuiltDirt()
     {
         ShowBlueprint(false);
-        _incomingUnit = null;
         IsBuilt = true;
 
         if (_requestedStructure != null)
@@ -221,7 +189,6 @@ public class DirtTile : Interactable, IPersistent
         return new DirtData
         {
             UID = UniqueId,
-            PendingTasks = PendingTasks,
             IsBuilt = IsBuilt,
             Position = transform.position,
             RemainingWork = _remainingWork,
@@ -237,8 +204,6 @@ public class DirtTile : Interactable, IPersistent
         _remainingWork = state.RemainingWork;
 
         ShowBlueprint(!IsBuilt);
-        
-        RestoreTasks(state.PendingTasks);
     }
 
     public struct DirtData
@@ -246,7 +211,6 @@ public class DirtTile : Interactable, IPersistent
         public string UID;
         public bool IsBuilt;
         public Vector2 Position;
-        public List<ActionBase> PendingTasks;
         public float RemainingWork;
     }
 } 

@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Actions;
 using Gods;
 using HUD;
-using Items;
 using UnityEngine;
 
 namespace Controllers
@@ -63,26 +61,6 @@ namespace Controllers
             }
             
             CreateOrderButton(icon, OnPressed, isActive, command.Name);
-        }
-        
-        private void CreateOrder(ActionBase action, Interactable requestor, bool isActive)
-        {
-            Sprite icon = action.Icon;
-            
-            void OnPressed()
-            {
-                if (isActive)
-                {
-                    requestor.CancelTask(action);
-                }
-                else
-                {
-                    requestor.CreateTask(action);
-                }
-                GameEvents.Trigger_RefreshSelection();
-            }
-            
-            CreateOrderButton(icon, OnPressed, isActive, action.id);
         }
 
         public void CreateOrderButton(Sprite icon, Action onPressed, bool isActive, string buttonName)

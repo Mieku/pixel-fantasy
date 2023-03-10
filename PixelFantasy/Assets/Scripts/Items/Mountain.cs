@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using Actions;
 using Controllers;
 using Interfaces;
 using ScriptableObjects;
@@ -70,24 +68,14 @@ namespace Items
 
         public SelectionData GetSelectionData()
         {
-            var actions = GetActions();
-            var cancellableActions = GetCancellableActions();
-        
             SelectionData result = new SelectionData
             {
                 ItemName = _mountainData.ResourceName,
-                Actions = actions,
-                CancellableActions = cancellableActions,
                 ClickObject = GetClickObject(),
                 Requestor = GetComponent<Interactable>(),
             };
 
             return result;
-        }
-
-        public MountainData GetMountainData()
-        {
-            return _mountainData;
         }
         
         public void TintTile()
@@ -142,7 +130,6 @@ namespace Items
                 UID = UniqueId,
                 Position = transform.position,
                 MountainData = _mountainData,
-                PendingTasks = PendingTasks,
                 RemainingWork = _remainingWork,
             };
         }
@@ -156,8 +143,6 @@ namespace Items
             _remainingWork = stateData.RemainingWork;
 
             Init();
-
-            RestoreTasks(stateData.PendingTasks);
         }
         
         public struct State
@@ -165,7 +150,6 @@ namespace Items
             public string UID;
             public Vector3 Position;
             public MountainData MountainData;
-            public List<ActionBase> PendingTasks;
             public float RemainingWork;
         }
     }

@@ -1,5 +1,4 @@
 using System;
-using Actions;
 using DataPersistence;
 using TaskSystem;
 using UnityEngine;
@@ -20,12 +19,7 @@ namespace Characters
         {
             return _unitState;
         }
-
-        public ActionBase GetCurrentAction()
-        {
-            return null;//_unitTaskAI.currentAction;
-        }
-
+        
         public object CaptureState()
         {
             var unitStateData = _unitState.GetStateData();

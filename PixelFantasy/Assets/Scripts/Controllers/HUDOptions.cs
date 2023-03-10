@@ -1,12 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Actions;
-using CodeMonkey.Utils;
 using Gods;
 using HUD;
-using Items;
 using ScriptableObjects;
-using UnityEditor.U2D.Path.GUIFramework;
 using UnityEngine;
 using Order = HUD.Order;
 
@@ -100,21 +96,21 @@ namespace Controllers
             
             foreach (var order in orders)
             {
-                Sprite icon = Librarian.Instance.GetOrderIcon(order.OrderName);
-                Action onPressed = DetermineOnPressedOrderAction(order.MassOrderType);
-                HUDOrders.Instance.CreateOrderButton(icon, onPressed, false, order.OrderName);
+                // Sprite icon = Librarian.Instance.GetOrderIcon(order.OrderName);
+                // Action onPressed = DetermineOnPressedOrderAction(order.MassOrderType);
+                // HUDOrders.Instance.CreateOrderButton(icon, onPressed, false, order.OrderName);
             }
         }
 
-        private Action DetermineOnPressedOrderAction(ActionBase orderType)
-        {
-            void OnOnpressed()
-            {
-                SelectionManager.Instance.BeginOrdersSelectionBox(orderType);
-            }
-
-            return OnOnpressed;
-        }
+        // private Action DetermineOnPressedOrderAction(ActionBase orderType)
+        // {
+        //     void OnOnpressed()
+        //     {
+        //         SelectionManager.Instance.BeginOrdersSelectionBox(orderType);
+        //     }
+        //
+        //     return OnOnpressed;
+        // }
 
         private Action DetermineOnPressedAction(string dataKey, OrderType orderType, List<Order> subMenu, List<Order> curMenu)
         {

@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using Actions;
 using DataPersistence;
 using Gods;
 using Interfaces;
@@ -81,21 +79,6 @@ namespace Items
         {
             return new List<Command>(Commands);
         }
-
-        public virtual List<ActionBase> GetActions()
-        {
-            return AvailableActions;
-        }
-
-        public List<ActionBase> GetCancellableActions()
-        {
-            return CancellableActions();
-        }
-
-        public virtual void AssignOrder(ActionBase orderToAssign)
-        {
-            CreateTask(orderToAssign);
-        }
         
         public virtual object CaptureState()
         {
@@ -107,7 +90,6 @@ namespace Items
                 ResourceData = ResourceData,
                 IsAllowed = this.IsAllowed,
                 IsClickDisabled = this.IsClickDisabled,
-                PendingTasks = PendingTasks,
             };
         }
 
@@ -120,8 +102,6 @@ namespace Items
             ResourceData = stateData.ResourceData;
             IsAllowed = stateData.IsAllowed;
             IsClickDisabled = stateData.IsClickDisabled;
-            
-            RestoreTasks(stateData.PendingTasks);
         }
 
         public struct Data
@@ -132,7 +112,6 @@ namespace Items
             public ResourceData ResourceData;
             public bool IsAllowed;
             public bool IsClickDisabled;
-            public List<ActionBase> PendingTasks;
 
             public GrowingResource.GrowingData GrowingData;
         }

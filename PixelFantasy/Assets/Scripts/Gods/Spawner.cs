@@ -344,10 +344,10 @@ namespace Gods
                 spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
                 if (furnitureData.IsCraftingTable)
                 {
-                    var furnitureObj = Instantiate(_craftingTablePrefab, spawnPosition, Quaternion.identity);
-                    furnitureObj.transform.SetParent(_furnitureParent);
-                    var furniture = furnitureObj.GetComponent<CraftingTable>();
-                    furniture.Init(furnitureData, PlacementDirection);
+                    // var furnitureObj = Instantiate(_craftingTablePrefab, spawnPosition, Quaternion.identity);
+                    // furnitureObj.transform.SetParent(_furnitureParent);
+                    // var furniture = furnitureObj.GetComponent<CraftingTable>();
+                    // furniture.Init(furnitureData, PlacementDirection);
                 }
                 else
                 {

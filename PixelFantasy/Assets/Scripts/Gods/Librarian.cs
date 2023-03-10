@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Actions;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -17,7 +16,6 @@ namespace Gods
         [SerializeField] private List<Sprite> _sprites;
         [SerializeField] private List<SpriteRef> _orderIcons;
         [SerializeField] private List<CropData> _cropLibrary;
-        [SerializeField] private List<ActionBase> _actions;
         [SerializeField] private List<GrowingResourceData> _growingResourceLibrary;
         [SerializeField] private List<HairData> _hairLibrary;
         [SerializeField] private List<ZoneTypeData> _zoneTypeLibrary;
@@ -112,12 +110,7 @@ namespace Gods
         {
             return _orderIcons.Find(i => i.Name == spriteName).Sprite;
         }
-
-        public ActionBase GetAction(string actionId)
-        {
-            return _actions.Find(i => i.id == actionId);
-        }
-
+        
         public GrowingResourceData GetGrowingResourceData(string resourceName)
         {
             return _growingResourceLibrary.Find(i => i.ResourceName == resourceName);

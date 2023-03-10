@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Gods;
+using TaskSystem;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ProfessionData", menuName = "ProfessionData", order = 1)]

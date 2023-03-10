@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Actions;
 using CodeMonkey.Utils;
 using Controllers;
 using Interfaces;
-using Items;
 using UnityEngine;
 
 namespace Gods
@@ -13,7 +11,7 @@ namespace Gods
     {
         [SerializeField] private Transform _selectionBox;
         
-        private ActionBase _selectBoxOrder;
+        // private ActionBase _selectBoxOrder;
         private bool _selectBoxActive;
         private Vector2 _selectBoxStartPos;
         private List<IClickableObject> _selectedObjects = new List<IClickableObject>();
@@ -38,11 +36,11 @@ namespace Gods
             _selectionBox.localScale = Vector3.zero;
         }
 
-        public void BeginOrdersSelectionBox(ActionBase order)
-        {
-            _selectBoxOrder = order;
-            _selectBoxActive = true;
-        }
+        // public void BeginOrdersSelectionBox(ActionBase order)
+        // {
+        //     _selectBoxOrder = order;
+        //     _selectBoxActive = true;
+        // }
 
         /// <summary>
         /// Displays the selection box
@@ -51,53 +49,53 @@ namespace Gods
         private Vector2 upperRight;
         private void ResizeSelectionBox()
         {
-            ClearAllValidInSelection();
-            
-            Vector3 currentMousePos = UtilsClass.GetMouseWorldPosition();
-            lowerLeft = new Vector2(
-                Mathf.Min(_selectBoxStartPos.x, currentMousePos.x),
-                Mathf.Min(_selectBoxStartPos.y, currentMousePos.y)
-            );
-            upperRight = new Vector2(
-                Mathf.Max(_selectBoxStartPos.x, currentMousePos.x),
-                Mathf.Max(_selectBoxStartPos.y, currentMousePos.y)
-            );
-            
-            _selectionBox.position = lowerLeft;
-            _selectionBox.localScale = upperRight - lowerLeft;
-            
-            RecordAllValidInSelection(_selectBoxOrder);
+            // ClearAllValidInSelection();
+            //
+            // Vector3 currentMousePos = UtilsClass.GetMouseWorldPosition();
+            // lowerLeft = new Vector2(
+            //     Mathf.Min(_selectBoxStartPos.x, currentMousePos.x),
+            //     Mathf.Min(_selectBoxStartPos.y, currentMousePos.y)
+            // );
+            // upperRight = new Vector2(
+            //     Mathf.Max(_selectBoxStartPos.x, currentMousePos.x),
+            //     Mathf.Max(_selectBoxStartPos.y, currentMousePos.y)
+            // );
+            //
+            // _selectionBox.position = lowerLeft;
+            // _selectionBox.localScale = upperRight - lowerLeft;
+            //
+            // RecordAllValidInSelection(_selectBoxOrder);
         }
 
         /// <summary>
         /// Gets the Object in the box, and assigns the order to them (if applicable)
         /// </summary>
-        public void ReleaseOrdersSelectionBox(ActionBase filteredOrder)
-        {
-            _selectionBox.gameObject.SetActive(false);
-            _selectionBox.localScale = Vector3.zero;
+        // public void ReleaseOrdersSelectionBox(ActionBase filteredOrder)
+        // {
+        //     _selectionBox.gameObject.SetActive(false);
+        //     _selectionBox.localScale = Vector3.zero;
+        //
+        //     foreach (var clickableObject in _selectedObjects)
+        //     {
+        //         clickableObject.AssignOrder(filteredOrder);
+        //     }
+        //     
+        //     ClearAllValidInSelection();
+        // }
 
-            foreach (var clickableObject in _selectedObjects)
-            {
-                clickableObject.AssignOrder(filteredOrder);
-            }
-            
-            ClearAllValidInSelection();
-        }
-
-        private void RecordAllValidInSelection(ActionBase filteredOrder)
-        {
-            var allItems = Physics2D.OverlapAreaAll(_selectBoxStartPos, UtilsClass.GetMouseWorldPosition());
-            foreach (var itemOverlapped in allItems)
-            {
-                var clickObject = itemOverlapped.gameObject.GetComponent<IClickableObject>();
-                if (clickObject != null && clickObject.GetClickObject().ObjectValidForSelection(filteredOrder))
-                {
-                    _selectedObjects.Add(clickObject);
-                    clickObject.GetClickObject().AreaSelectObject(filteredOrder);
-                }
-            }
-        }
+        // private void RecordAllValidInSelection(ActionBase filteredOrder)
+        // {
+        //     var allItems = Physics2D.OverlapAreaAll(_selectBoxStartPos, UtilsClass.GetMouseWorldPosition());
+        //     foreach (var itemOverlapped in allItems)
+        //     {
+        //         var clickObject = itemOverlapped.gameObject.GetComponent<IClickableObject>();
+        //         if (clickObject != null && clickObject.GetClickObject().ObjectValidForSelection(filteredOrder))
+        //         {
+        //             _selectedObjects.Add(clickObject);
+        //             clickObject.GetClickObject().AreaSelectObject(filteredOrder);
+        //         }
+        //     }
+        // }
 
         private void ClearAllValidInSelection()
         {
@@ -173,7 +171,7 @@ namespace Gods
             }
             else if (Input.GetMouseButtonUp(0))
             {
-                ReleaseOrdersSelectionBox(_selectBoxOrder);
+                // ReleaseOrdersSelectionBox(_selectBoxOrder);
             }
         }
     }

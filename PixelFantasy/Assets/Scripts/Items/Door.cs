@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using Actions;
-using Characters;
 using Gods;
 using HUD;
 using ScriptableObjects;
@@ -53,11 +51,6 @@ namespace Items
                 // _gridObstacle.enabled = false;
                 gameObject.layer = _defaultLayerNum;
             }
-        }
-
-        public override List<ActionBase> GetActions()
-        {
-            return AvailableActions;
         }
 
         public override ConstructionData GetConstructionData()
@@ -148,7 +141,7 @@ namespace Items
                     // {
                     //     
                     // }
-                    growResource.CreateTaskById("Cut Plant");
+                    //growResource.CreateTaskById("Cut Plant");
                 }
             }
         }
@@ -173,7 +166,6 @@ namespace Items
         public override void CompleteConstruction()
         {
             base.CompleteConstruction();
-            IncomingUnit = null;
             ShowBlueprint(false);
             _isBuilt = true;
         }
@@ -182,8 +174,6 @@ namespace Items
         {
             if (!_isBuilt)
             {
-                CancelAllTasks();
-                
                 // Restore the claimed to the slots
                 var claimed = GetClaimedResourcesCosts();
                 foreach (var claimedAmount in claimed)
@@ -235,12 +225,6 @@ namespace Items
 
         public override object CaptureState()
         {
-            List<string> incomingItemsGUIDS = new List<string>();
-            foreach (var incomingItem in _incomingItems)
-            {
-                incomingItemsGUIDS.Add(incomingItem.UniqueId);
-            }
-            
             return new Data
             {
                 UID = this.UniqueId,
@@ -248,9 +232,7 @@ namespace Items
                 DoorData = _doorData,
                 ResourceCost = _remainingResourceCosts,
                 IsBuilt = _isBuilt,
-                IncomingItemsUIDs = incomingItemsGUIDS,
                 IsDeconstructing = _isDeconstructing,
-                IncomingUnit = _incomingUnit,
                 IncomingResourceCosts = _incomingResourceCosts,
                 HasIncomingUnit = _hasUnitIncoming,
                 IsLocked = _isLocked,
@@ -268,7 +250,6 @@ namespace Items
             _remainingResourceCosts = state.ResourceCost;
             _isBuilt = state.IsBuilt;
             _isDeconstructing = state.IsDeconstructing;
-            _incomingUnit = state.IncomingUnit;
             _incomingResourceCosts = state.IncomingResourceCosts;
             _hasUnitIncoming = state.HasIncomingUnit;
             _isHorizontal = state.IsHorizontal;
@@ -287,10 +268,8 @@ namespace Items
             public DoorData DoorData;
             public List<ItemAmount> ResourceCost;
             public bool IsBuilt;
-            public List<string> IncomingItemsUIDs;
             public bool IsDeconstructing;
             public bool HasIncomingUnit;
-            public UnitTaskAI IncomingUnit; // TODO: will likely need to use GUID
             public List<ItemAmount> IncomingResourceCosts;
             public bool IsLocked;
             public bool IsHorizontal;

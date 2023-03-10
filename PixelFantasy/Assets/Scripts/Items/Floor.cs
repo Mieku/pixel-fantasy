@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
-using Actions;
 using Gods;
 using ScriptableObjects;
-using Characters;
 using UnityEngine;
 
 namespace Items
@@ -15,8 +12,6 @@ namespace Items
         private FloorData _floorData;
         private List<int> _assignedTaskRefs = new List<int>();
         private Vector2 _floorPos;
-        
-        public TaskType PendingTask;
         
         public FloorData FloorData => _floorData;
         public Vector2 FloorPos => _floorPos;
@@ -77,7 +72,7 @@ namespace Items
                     // {
                     //     growResource.CreateTaskById("Cut Plant");
                     // }
-                    growResource.CreateTaskById("Cut Plant");
+                    //growResource.CreateTaskById("Cut Plant");
                 }
             }
         }
@@ -101,7 +96,6 @@ namespace Items
         public override void CompleteConstruction()
         {
             base.CompleteConstruction();
-            IncomingUnit = null;
             ShowBlueprint(false);
             _isBuilt = true;
             IsClickDisabled = true;
@@ -123,29 +117,13 @@ namespace Items
 
         private void CancelTasks()
         {
-            if (_assignedTaskRefs == null || _assignedTaskRefs.Count == 0) return;
-
-            foreach (var taskRef in _assignedTaskRefs)
-            {
-                taskMaster.FarmingTaskSystem.CancelTask(taskRef);
-                taskMaster.HaulingTaskSystem.CancelTask(taskRef);
-                taskMaster.ConstructionTaskSystem.CancelTask(taskRef);
-            }
-            _assignedTaskRefs.Clear();
-            
             // Drop all incoming resources
             foreach (var incomingItem in _incomingItems)
             {
-                incomingItem.CancelAssignedTask();
                 incomingItem.SeekForSlot();
             }
             _pendingResourceCosts.Clear();
             _incomingItems.Clear();
-        }
-        
-        public override List<ActionBase> GetActions()
-        {
-            return AvailableActions;
         }
         
         public override List<ItemAmount> GetResourceCosts()
@@ -170,11 +148,9 @@ namespace Items
                 AssignedTaskRefs = _assignedTaskRefs,
                 IncomingItemsGUIDs = incomingItemsGUIDS,
                 IsDeconstructing = _isDeconstructing,
-                IncomingUnit = _incomingUnit,
                 FloorPos = _floorPos,
                 IsClickDisabled = IsClickDisabled,
                 IsAllowed = IsAllowed,
-                PendingTask = PendingTask,
                 IncomingResourceCosts = _incomingResourceCosts,
                 HasIncomingUnit = _hasUnitIncoming,
             };
@@ -190,26 +166,12 @@ namespace Items
             _isBuilt = state.IsBuilt;
             _assignedTaskRefs = state.AssignedTaskRefs;
             _isDeconstructing = state.IsDeconstructing;
-            _incomingUnit = state.IncomingUnit;
             _floorPos = state.FloorPos;
             transform.position = _floorPos;
             IsClickDisabled = state.IsClickDisabled;
             IsAllowed = state.IsAllowed;
-            PendingTask = state.PendingTask;
             _incomingResourceCosts = state.IncomingResourceCosts;
             _hasUnitIncoming = state.HasIncomingUnit;
-            
-            // var incomingItemsGUIDS = state.IncomingItemsGUIDs;
-            // var itemsHandler = ControllerManager.Instance.ItemsHandler;
-            //_incomingItems.Clear();
-            // foreach (var incomingItemGUID in incomingItemsGUIDS)
-            // {
-            //     var item = itemsHandler.GetItemByUID(incomingItemGUID);
-            //     if (item != null)
-            //     {
-            //         _incomingItems.Add(item);
-            //     }
-            // }
             
             ShowBlueprint(!_isBuilt);
             UpdateSprite();
@@ -226,12 +188,10 @@ namespace Items
             public List<int> AssignedTaskRefs;
             public List<string> IncomingItemsGUIDs;
             public bool IsDeconstructing;
-            public UnitTaskAI IncomingUnit; // TODO: will likely need to use GUID
             public bool HasIncomingUnit;
             public Vector2 FloorPos;
             public bool IsClickDisabled;
             public bool IsAllowed;
-            public TaskType PendingTask;
             public List<ItemAmount> IncomingResourceCosts;
         }
     }
