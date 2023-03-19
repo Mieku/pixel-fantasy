@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 616459856167481264}
   m_Layer: 3
   m_Name: Mountain
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -164,12 +164,12 @@ MonoBehaviour:
   Commands:
   - {fileID: 11400000, guid: 90beea586271c8b42a6c9334b222964d, type: 2}
   PendingCommand: {fileID: 0}
-  QueuedTaskRefs: 
-  PendingTasks: []
-  InProgressTasks: []
-  IncomingUnitUID: 
+  Prefab: {fileID: 0}
+  ResourceData: {fileID: 0}
+  _spriteRenderer: {fileID: 0}
+  _clickObject: {fileID: 0}
+  Health: 0
   _tempPlacementDisp: {fileID: 6838393442220519969}
-  _mountainData: {fileID: 0}
   _selectionTintColour: {r: 0.7529412, g: 0.8980392, b: 0.65882355, a: 1}
   _dirtRuleTile: {fileID: 11400000, guid: 012a56c0946d69e499d3faf6d7e9caca, type: 2}
 --- !u!114 &2435371418016554083

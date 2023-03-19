@@ -17,7 +17,7 @@ namespace Controllers
         [SerializeField] private List<Order> _wallOrders;
         [SerializeField] private List<Order> _floorOrders;
         [SerializeField] private List<Order> _doorOrders;
-        [SerializeField] private List<Order> _productionOrders;
+        [SerializeField] private List<Order> _buildingsOrders;
         [SerializeField] private List<Order> _furnitureOrders;
         [SerializeField] private List<Order> _lightingOrders;
         
@@ -57,9 +57,9 @@ namespace Controllers
             DisplayOrders(_doorOrders);
         }
 
-        public void ProductionPressed()
+        public void BuildingsPressed()
         {
-            DisplayOrders(_productionOrders);
+            DisplayOrders(_buildingsOrders);
         }
 
         public void FurniturePressed()
@@ -163,6 +163,12 @@ namespace Controllers
                         ShowSubMenu(subMenu, curMenu, false);
                     };
                     break;
+                case OrderType.BuildBuilding:
+                    onpressed += () =>
+                    {
+                        BuildBuildingPressed(dataKey);
+                    };
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(orderType), orderType, null);
             }
@@ -183,6 +189,14 @@ namespace Controllers
             var structureData = Librarian.Instance.GetStructureData(PlayerInputController.Instance.StoredKey);
             Spawner.Instance.StructureData = structureData;
             Spawner.Instance.ShowPlacementIcon(true, structureData.Icon, structureData.InvalidPlacementTags);
+        }
+
+        public void BuildBuildingPressed(string key)
+        {
+            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildBuilding, key);
+            
+            var buildingData = Librarian.Instance.GetBuildingData(PlayerInputController.Instance.StoredKey);
+            Spawner.Instance.PlanBuilding(buildingData);
         }
         
         public void BuildDoorPressed(string key)

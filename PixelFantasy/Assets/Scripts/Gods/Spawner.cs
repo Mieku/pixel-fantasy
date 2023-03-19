@@ -22,6 +22,7 @@ namespace Gods
     
         [SerializeField] private Transform _structureParent;
         [SerializeField] private GameObject _structurePrefab;
+        [SerializeField] private GameObject _buildingPrefab;
         
         [SerializeField] private Transform _doorsParent;
         [SerializeField] private GameObject _doorPrefab;
@@ -53,6 +54,7 @@ namespace Gods
         
         public PlacementDirection PlacementDirection;
         public StructureData StructureData { get; set; }
+        public BuildingData BuildingData { get; set; }
         public DoorData DoorData { get; set; }
         public FloorData FloorData { get; set; }
         public FurnitureData FurnitureData { get; set; }
@@ -110,7 +112,7 @@ namespace Gods
             {
                 PlanStructure(mousePos, StructureData.PlanningMode);
             }
-
+            
             if (inputState == PlayerInputState.BuildFlooring)
             {
                 if (PlayerInputController.Instance.StoredKey == "Dirt")
@@ -187,6 +189,14 @@ namespace Gods
             else if (inputState == PlayerInputState.BuildDoor)
             {
                 SpawnDoor(DoorData, Helper.ConvertMousePosToGridPos(mousePos));
+            }
+            else if (inputState == PlayerInputState.BuildBuilding && _plannedBuilding != null)
+            {
+                if (_plannedBuilding.CheckPlacement())
+                {
+                    _plannedBuilding.PrepareToBuild();
+                    _plannedBuilding = null;
+                }
             }
         }
         
@@ -371,6 +381,15 @@ namespace Gods
             }
         }
 
+        private Building _plannedBuilding;
+        public void PlanBuilding(BuildingData buildingData)
+        {
+            var buildingObj = Instantiate(_buildingPrefab, _structureParent);
+            var building = buildingObj.GetComponent<Building>();
+            building.Plan(buildingData);
+            _plannedBuilding = building;
+        }
+
         public void SpawnFloor(FloorData floorData, Vector3 spawnPosition)
         {
             if (Helper.IsGridPosValidToBuild(spawnPosition, floorData.InvalidPlacementTags))
@@ -424,6 +443,12 @@ namespace Gods
             PlayerInputController.Instance.ChangeState(PlayerInputState.None);
             ClearPlannedBlueprint();
             _plannedGrid.Clear();
+
+            if (_plannedBuilding != null)
+            {
+                Destroy(_plannedBuilding.gameObject);
+                _plannedBuilding = null;
+            }
         }
         
         private void ClearPlannedBlueprint()
@@ -519,7 +544,7 @@ namespace Gods
             }
             
         }
-        
+
         private void PlanFloor(Vector2 mousePos, PlanningMode planningMode)
         {
             if (!_planningStructure) return;

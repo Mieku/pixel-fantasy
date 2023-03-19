@@ -391,11 +391,6 @@ namespace Items
 
         protected void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
         {
-            //_takeResourceToBlueprintAction.EnqueueTask(this, resourceData);
-            // var storeItemGoal = Librarian.Instance.GetGoal("withdrawItem");
-            // GoalRequest request = new GoalRequest(gameObject, storeItemGoal, TaskCategory.Hauling, resourceData.ItemName);
-            // GoalMaster.Instance.AddGoal(request);
-
             Task task = new Task
             {
                 TaskId = "Withdraw Item",

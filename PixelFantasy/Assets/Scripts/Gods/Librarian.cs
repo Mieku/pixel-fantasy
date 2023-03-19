@@ -20,6 +20,7 @@ namespace Gods
         [SerializeField] private List<HairData> _hairLibrary;
         [SerializeField] private List<ZoneTypeData> _zoneTypeLibrary;
         [SerializeField] private List<ItemData> _itemDataLibrary;
+        [SerializeField] private List<BuildingData> _buildingDataLibrary;
 
         public Color GetColour(string colourName)
         {
@@ -51,6 +52,16 @@ namespace Gods
             if (result == null)
             {
                 Debug.LogError("Unknown Structure: " + key);
+            }
+            return result;
+        }
+
+        public BuildingData GetBuildingData(string key)
+        {
+            var result = _buildingDataLibrary.Find(b => b.ConstructionName == key);
+            if (result == null)
+            {
+                Debug.LogError("Unknown Building: " + key);
             }
             return result;
         }

@@ -20,6 +20,7 @@ TagManager:
   - Grass
   - Mountain
   - Zones
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - Water
   - UI
   - Unit
-  - 
+  - Surface
   - 
   - 
   - 

@@ -34,5 +34,6 @@ namespace HUD
         SubMenu,
         Menu,
         BuildDoor,
+        BuildBuilding,
     }
 }

@@ -99,7 +99,7 @@ TextureImporter:
       213: 1731615565123986282
     second: Fire
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -159,6 +159,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -210,6 +211,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Windows Store Apps
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
@@ -883,7 +896,7 @@ TextureImporter:
         width: 9
         height: 21
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -891,6 +904,27 @@ TextureImporter:
       bones: []
       spriteID: a63a0c69e2fe70810800000000000000
       internalID: 1731615565123986282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bed
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 99
+        width: 25
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63b43308970b836428ed1888a9cd210e
+      internalID: -1924646305
       vertices: []
       indices: 
       edges: []
@@ -906,38 +940,39 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Chair_down: -3857596031159909058
-      Hammer: 7033359609419058202
-      Wall_Mid_C: 6407664723641331494
-      16x16_16: 8456615035436648194
-      Wall_Mid_R: 3297348024618513862
-      16x16_20: 732973570710880713
-      16x16_23: 344399311584687406
-      Chair_right: 1162964665328882485
-      Wall_Mid_End: -3960183823583425718
-      Door: 5003174463449487696
-      Chair_left: 4577660034246386176
       16x16_14: 8788545991891706334
-      Wall_T: 7052995454107013588
-      Wall_BR: 7807540928022631320
-      Fire: 1731615565123986282
-      Wall_TR: -6520634922097649790
-      Wall_R: 4618711388415579949
       16x16_15: 1721798448538171029
-      Wall_BL: 6865431281250916633
-      16x16_24: -5840662636130032780
-      Wall_Mid_L: 4909752860975830008
-      16x16_22: -5112093778953335834
-      16x16_18: 977877231069769583
-      Wall_TL: -3508794999336203909
+      16x16_16: 8456615035436648194
       16x16_17: -8490604656168319031
-      Chair_up: -1366648790733946385
-      16x16_30: 8419824661610949078
-      Stool: -465430912943923674
-      Wall_L: -7667355298066314445
-      16x16_21: -516291639418439976
+      16x16_18: 977877231069769583
       16x16_19: 9000240989288892881
+      16x16_20: 732973570710880713
+      16x16_21: -516291639418439976
+      16x16_22: -5112093778953335834
+      16x16_23: 344399311584687406
+      16x16_24: -5840662636130032780
+      16x16_30: 8419824661610949078
+      Bed: -1924646305
+      Chair_down: -3857596031159909058
+      Chair_left: 4577660034246386176
+      Chair_right: 1162964665328882485
+      Chair_up: -1366648790733946385
+      Door: 5003174463449487696
+      Fire: 1731615565123986282
+      Hammer: 7033359609419058202
+      Stool: -465430912943923674
       Wall_B: -2720889697789872080
+      Wall_BL: 6865431281250916633
+      Wall_BR: 7807540928022631320
+      Wall_L: -7667355298066314445
+      Wall_Mid_C: 6407664723641331494
+      Wall_Mid_End: -3960183823583425718
+      Wall_Mid_L: 4909752860975830008
+      Wall_Mid_R: 3297348024618513862
+      Wall_R: 4618711388415579949
+      Wall_T: 7052995454107013588
+      Wall_TL: -3508794999336203909
+      Wall_TR: -6520634922097649790
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

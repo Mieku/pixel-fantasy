@@ -32,11 +32,11 @@ MonoBehaviour:
     - Assembly-CSharp-firstpass
     - Assembly-CSharp
     - Cinemachine
-    - NavMeshComponents
+    - NavMeshPlus
     - Sirenix.OdinInspector.CompatibilityLayer
     - PsdPlugin
     - Sirenix.OdinInspector.CompatibilityLayer.Editor
-    - NavMeshComponentsEditor
+    - NavMeshPlusEditor
     - Sirenix.OdinInspector.Modules.UnityMathematics
     showAdvancedSettings: 1
   addMgrToSceneAutomatically: 0

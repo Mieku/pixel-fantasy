@@ -283,7 +283,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _OuterOutlineDistortionToggle: 0
-    - _OuterOutlineFade: 1
+    - _OuterOutlineFade: 0
     - _OuterOutlineWidth: 0.01
     - _Parallax: 0.02
     - _PixelateFade: 1
