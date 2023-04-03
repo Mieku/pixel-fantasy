@@ -3,6 +3,7 @@ using DataPersistence;
 using Gods;
 using Interfaces;
 using ScriptableObjects;
+using TaskSystem;
 using UnityEngine;
 
 namespace Items
@@ -16,6 +17,8 @@ namespace Items
         [SerializeField] private ClickObject _clickObject;
         
         protected Spawner spawner => Spawner.Instance;
+        protected Task _curTask;
+        
         public float Health;
 
         protected virtual void Awake()
@@ -23,6 +26,8 @@ namespace Items
             _clickObject = GetComponent<ClickObject>();
             //Health = GetWorkAmount();
         }
+
+        public bool HasTask => _curTask != null;
 
         public ResourceData GetResourceData()
         {

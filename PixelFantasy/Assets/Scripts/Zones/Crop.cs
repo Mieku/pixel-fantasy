@@ -38,6 +38,8 @@ namespace Zones
         private float _remainingPlantingWork;
         private float _remainingWaterWork;
         private float _remainingHarvestWork;
+
+        private Family _owner;
         
         public List<string> InvalidPlacementTags
         {
@@ -59,7 +61,7 @@ namespace Zones
                 TilemapController.Instance.GetTilemap(TilemapLayer.Dirt);
         }
 
-        public void Init(CropData cropData)
+        public void Init(CropData cropData, Family owner)
         {
             _cropData = cropData;
             _soilHoleRenderer.gameObject.SetActive(false);
@@ -74,6 +76,8 @@ namespace Zones
             _remainingPlantingWork = GetPlantingWorkAmount();
             _remainingWaterWork = GetWaterWorkAmount();
             _remainingHarvestWork = GetHarvestWorkAmount();
+
+            _owner = owner;
         }
 
         public float GetTillWorkAmount()

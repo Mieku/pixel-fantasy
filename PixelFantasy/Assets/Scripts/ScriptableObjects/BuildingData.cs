@@ -1,3 +1,4 @@
+using Buildings.Building_Panels;
 using Gods;
 using UnityEngine;
 
@@ -8,5 +9,7 @@ namespace ScriptableObjects
     {
         public GameObject Exterior; // TODO: Make this capable of having multiple options
         public Interior Interior;
+        public BuildingPanel BuildingPanel;
+        public int MaxOccupants;
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using ScriptableObjects;
 using Gods;
+using TaskSystem;
 using UnityEngine;
 
 namespace Items
@@ -23,6 +24,8 @@ namespace Items
         protected float _remainingHarvestWork;
 
         public bool HasFruitAvailable => _hasFruitAvailable;
+        public bool FullyGrown => _fullyGrown;
+        public bool IsFruiting => growingResourceData.HasFruit;
         public List<GameObject> TaskRequestors = new List<GameObject>();
 
         private GrowingResourceData growingResourceData => ResourceData as GrowingResourceData;
@@ -199,37 +202,37 @@ namespace Items
             Destroy(gameObject);
         }
 
-        public void CutDownPlant()
-        {
-            var resources = growingResourceData.GetGrowthStage(_growthIndex).HarvestableItems.GetItemDrop();
-            foreach (var resource in resources)
-            {
-                for (int i = 0; i < resource.Quantity; i++)
-                {
-                    spawner.SpawnItem(resource.Item, transform.position, true);
-                }
-            }
-            
-            HarvestFruit();
-
-            foreach (var taskRequestor in TaskRequestors)
-            {
-                if (taskRequestor != null)
-                {
-                    var dirt = taskRequestor.GetComponent<DirtTile>();
-                    if (dirt != null)
-                    {
-                        //dirt.CreateTaskById("Clear Grass");
-                    }
-                }
-            }
-            
-            TaskRequestors.Clear();
-            
-            RefreshSelection();
-            
-            Destroy(gameObject);
-        }
+        // public void CutDownPlant()
+        // {
+        //     var resources = growingResourceData.GetGrowthStage(_growthIndex).HarvestableItems.GetItemDrop();
+        //     foreach (var resource in resources)
+        //     {
+        //         for (int i = 0; i < resource.Quantity; i++)
+        //         {
+        //             spawner.SpawnItem(resource.Item, transform.position, true);
+        //         }
+        //     }
+        //     
+        //     HarvestFruit();
+        //
+        //     foreach (var taskRequestor in TaskRequestors)
+        //     {
+        //         if (taskRequestor != null)
+        //         {
+        //             var dirt = taskRequestor.GetComponent<DirtTile>();
+        //             if (dirt != null)
+        //             {
+        //                 //dirt.CreateTaskById("Clear Grass");
+        //             }
+        //         }
+        //     }
+        //     
+        //     TaskRequestors.Clear();
+        //     
+        //     RefreshSelection();
+        //     
+        //     Destroy(gameObject);
+        // }
         
         public override int GetWorkAmount()
         {

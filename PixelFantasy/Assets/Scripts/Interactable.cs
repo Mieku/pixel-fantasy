@@ -12,6 +12,8 @@ public abstract class Interactable : UniqueObject
     
     public void CreateTask(Command command)
     {
+        if (IsPending(command)) return;
+        
         // Only one command can be active
         if (PendingCommand != null)
         {
@@ -50,6 +52,16 @@ public abstract class Interactable : UniqueObject
         if (PendingCommand == null) return false;
         
         return PendingCommand == command;
+    }
+
+    public void CancelPending()
+    {
+        if (PendingCommand != null)
+        {
+            CancelCommand(PendingCommand);
+        }
+
+        PendingCommand = null;
     }
 
     public virtual int GetWorkAmount()

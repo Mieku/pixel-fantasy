@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Buildings;
 using Characters;
 using Controllers;
 using Gods;
@@ -25,6 +26,9 @@ namespace HUD
         [SerializeField] private Image _jobIcon;
         [SerializeField] private TextMeshProUGUI _jobName;
         [SerializeField] private Image _jobBarFill;
+
+        [Header("Building Details")] 
+        [SerializeField] private BuildingDetailsUI _buildingDetails;
         
         private SelectionData _selectionData;
         private Unit _unit;
@@ -42,8 +46,17 @@ namespace HUD
             
             _genericPanel.SetActive(false);
             _unitPanel.SetActive(true);
+            _buildingDetails.Hide();
 
             _showUnitData = true;
+        }
+
+        public void ShowBuildingDetails(Building building)
+        {
+            _genericPanel.SetActive(false);
+            _unitPanel.SetActive(false);
+
+            _buildingDetails.Show(building);
         }
 
         private void Update()

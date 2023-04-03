@@ -1,9 +1,12 @@
+using Buildings;
 using UnityEngine;
 
 namespace Characters
 {
     public class UnitState : MonoBehaviour
     {
+        [SerializeField] private UID _uid;
+        
         public string FirstName, LastName;
         
         // Kinling Attributes
@@ -14,7 +17,11 @@ namespace Characters
         public float ToughnessModifier = 0f;
         public float CombatModifier = 0f;
 
+        public Building Home;
+        public Building Occupation;
+
         public string FullName => FirstName + " " + LastName;
+        public string UID => _uid.uniqueID;
 
         private const float _defaultSpeed = 6f;
         private const float _defaultProductivity = 1f;
@@ -29,6 +36,11 @@ namespace Characters
         public float Aim => _defaultAim + (_defaultAim * AimModifier);
         public float Toughness => _defaultToughness + (_defaultToughness * ToughnessModifier);
         public float Combat => _defaultCombat + (_defaultCombat * CombatModifier);
+
+        public void RemoveOccupation()
+        {
+            Occupation = null;
+        }
 
         public void SetLoadData(UnitStateData data)
         {

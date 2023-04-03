@@ -24,16 +24,16 @@ namespace Zones
         {
             base.ClickZone();
             
-            HomeZonePopup.Show(this);
+            //HomePopup.Show(this);
         }
 
         public override void UnclickZone()
         {
             base.UnclickZone();
 
-            if (HomeZonePopup.Instance != null)
+            if (HomePopup.Instance != null)
             {
-                HomeZonePopup.Hide();
+                HomePopup.Hide();
             }
         }
     }

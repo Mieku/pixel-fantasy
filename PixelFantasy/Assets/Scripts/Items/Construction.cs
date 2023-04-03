@@ -23,6 +23,8 @@ namespace Items
         protected Action _onDeconstructed;
         protected float _remainingWork;
 
+
+        
         public virtual ConstructionData GetConstructionData()
         {
             return null;

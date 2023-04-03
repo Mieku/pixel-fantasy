@@ -23,6 +23,7 @@ namespace TaskSystem
         private const float WAIT_TIMER_MAX = .2f; // 200ms
 
         public Unit Unit => _unit;
+        public Family Family => FamilyManager.Instance.GetFamily(_unit.GetUnitState());
 
         public enum State
         {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Buildings;
 using CodeMonkey.Utils;
 using Controllers;
 using HUD;
@@ -41,6 +42,9 @@ namespace Gods
         [SerializeField] private Sprite _genericPlacementSprite;
         
         [SerializeField] private GameObject _settlementFlag;
+
+        [SerializeField] private Transform _storageParent;
+        [SerializeField] private GameObject _storageContainerPrefab;
 
         private bool _showPlacement;
         private List<string> _invalidPlacementTags = new List<string>();
@@ -183,19 +187,20 @@ namespace Gods
                 }
                 else
                 {
-                    SpawnSoilTile(Helper.ConvertMousePosToGridPos(mousePos), CropData);
+                    SpawnSoilTile(Helper.ConvertMousePosToGridPos(mousePos), CropData, null);
                 }
             }
             else if (inputState == PlayerInputState.BuildDoor)
             {
                 SpawnDoor(DoorData, Helper.ConvertMousePosToGridPos(mousePos));
             }
-            else if (inputState == PlayerInputState.BuildBuilding && _plannedBuilding != null)
+            else if (inputState == PlayerInputState.BuildBuilding && _plannedBuildingNode != null)
             {
-                if (_plannedBuilding.CheckPlacement())
+                if (_plannedBuildingNode.CheckPlacement())
                 {
-                    _plannedBuilding.PrepareToBuild();
-                    _plannedBuilding = null;
+                    PlayerInputController.Instance.ChangeState(PlayerInputState.None);
+                    _plannedBuildingNode.PrepareToBuild();
+                    _plannedBuildingNode = null;
                 }
             }
         }
@@ -347,6 +352,15 @@ namespace Gods
             }
         }
 
+        public StorageContainer SpawnStorageContainer(StorageItemData storageData, Vector3 spawnPosition, Family owner)
+        {
+            var containerObj = Instantiate(_storageContainerPrefab, spawnPosition, Quaternion.identity);
+            containerObj.transform.SetParent(_storageParent);
+            var container = containerObj.GetComponent<StorageContainer>();
+            container.Init(storageData, owner);
+            return container;
+        }
+
         public void SpawnFurniture(FurnitureData furnitureData, Vector3 spawnPosition)
         {
             if (Helper.IsGridPosValidToBuild(spawnPosition, furnitureData.InvalidPlacementTags))
@@ -381,13 +395,13 @@ namespace Gods
             }
         }
 
-        private Building _plannedBuilding;
+        private BuildingNode _plannedBuildingNode;
         public void PlanBuilding(BuildingData buildingData)
         {
             var buildingObj = Instantiate(_buildingPrefab, _structureParent);
-            var building = buildingObj.GetComponent<Building>();
+            var building = buildingObj.GetComponent<BuildingNode>();
             building.Plan(buildingData);
-            _plannedBuilding = building;
+            _plannedBuildingNode = building;
         }
 
         public void SpawnFloor(FloorData floorData, Vector3 spawnPosition)
@@ -444,10 +458,10 @@ namespace Gods
             ClearPlannedBlueprint();
             _plannedGrid.Clear();
 
-            if (_plannedBuilding != null)
+            if (_plannedBuildingNode != null)
             {
-                Destroy(_plannedBuilding.gameObject);
-                _plannedBuilding = null;
+                Destroy(_plannedBuildingNode.gameObject);
+                _plannedBuildingNode = null;
             }
         }
         
@@ -700,7 +714,7 @@ namespace Gods
                 var soil = _soilPrefab.GetComponent<Crop>();
                 if (Helper.IsGridPosValidToBuild(gridPos, soil.InvalidPlacementTags))
                 {
-                    SpawnSoilTile(gridPos, CropData);
+                    SpawnSoilTile(gridPos, CropData, null);
                 }
             }
 
@@ -710,11 +724,11 @@ namespace Gods
             CancelInput();
         }
 
-        public void SpawnSoilTile(Vector2 spawnPos, CropData cropData)
+        public void SpawnSoilTile(Vector2 spawnPos, CropData cropData, Family owner)
         {
             var soil = Instantiate(_soilPrefab, spawnPos, Quaternion.identity);
             soil.transform.SetParent(_flooringParent);
-            soil.GetComponent<Crop>().Init(cropData);
+            soil.GetComponent<Crop>().Init(cropData, owner);
         }
     }
 

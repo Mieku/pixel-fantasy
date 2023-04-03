@@ -6,6 +6,7 @@ using Interfaces;
 using ScriptableObjects;
 using TaskSystem;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zones;
 
 namespace Items
@@ -21,7 +22,7 @@ namespace Items
         public string _assignedSlotUID;
         private string _assignedUnitUID;
         private bool _isHeld;
-        
+
         private Transform _originalParent;
 
         public StorageSlot AssignedStorageSlot;
@@ -35,7 +36,7 @@ namespace Items
         {
             _itemData = itemData;
             IsAllowed = allowed;
-            
+
             InitUID();
             
             DisplayItemSprite();

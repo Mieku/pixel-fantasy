@@ -18,5 +18,6 @@ namespace ScriptableObjects
         Storage,
         Farm,
         Home,
+        Forester,
     }
 }

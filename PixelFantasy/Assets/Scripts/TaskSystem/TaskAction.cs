@@ -1,4 +1,5 @@
 using System;
+using Gods;
 using UnityEngine;
 
 namespace TaskSystem
@@ -9,6 +10,18 @@ namespace TaskSystem
 
         protected TaskAI _ai;
         protected Task _task;
+        // protected Family Owner
+        // {
+        //     get
+        //     {
+        //         if (_task.Owner == null)
+        //         {
+        //             return FamilyManager.Instance.GetPlayerFamily();
+        //         }
+        //
+        //         return _task.Owner;
+        //     }
+        // }
 
         protected UnitAnimController UnitAnimController => _ai.Unit.UnitAnimController;
 

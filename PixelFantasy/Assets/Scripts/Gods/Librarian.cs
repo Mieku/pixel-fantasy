@@ -21,7 +21,18 @@ namespace Gods
         [SerializeField] private List<ZoneTypeData> _zoneTypeLibrary;
         [SerializeField] private List<ItemData> _itemDataLibrary;
         [SerializeField] private List<BuildingData> _buildingDataLibrary;
+        [SerializeField] private List<Command> _commandLibrary;
 
+        public Command GetCommand(string taskId)
+        {
+            var result = _commandLibrary.Find(cmd => cmd.Task.TaskId == taskId);
+            if (result == null)
+            {
+                Debug.LogError("Unknown Command for Task Id: " + taskId);
+            }
+            return result;
+        }
+        
         public Color GetColour(string colourName)
         {
             var result = _colourLibrary.Find(c => c.Name == colourName);

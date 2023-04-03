@@ -10,6 +10,9 @@ namespace ScriptableObjects
     {
         public string ItemName;
         public int MaxStackSize;
+        
+        [Tooltip("The Item's Weight in Grams")] 
+        public float Weight;
     
         [PreviewField] public Sprite ItemSprite;
         public Vector2 DefaultSpriteScale = Vector2.one;

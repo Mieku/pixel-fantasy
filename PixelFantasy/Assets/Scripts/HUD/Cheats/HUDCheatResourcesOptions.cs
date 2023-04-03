@@ -21,10 +21,10 @@ namespace HUD.Cheats
         {
             base.GameEvents_OnLeftClickDown(mousePos, inputState, isOverUI);
             
-            if (inputState == PlayerInputState.CHEAT_SpawnResource)
-            {
-                Spawner.Instance.SpawnItem(_itemDataSelected, UtilsClass.GetMouseWorldPosition(), true);
-            }
+            // if (inputState == PlayerInputState.CHEAT_SpawnResource)
+            // {
+            //     Spawner.Instance.SpawnItem(_itemDataSelected, UtilsClass.GetMouseWorldPosition(), true);
+            // }
         }
         
         protected override void GameEvents_OnRightClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)

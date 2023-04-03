@@ -1,3 +1,4 @@
+using Buildings;
 using Gods;
 using UnityEngine;
 
@@ -5,7 +6,7 @@ namespace TaskSystem
 {
     public class BuildBuildingAction : TaskAction
     {
-        private Building _building;
+        private BuildingNode _buildingNode;
         private float _timer;
         private Vector2? _movePos;
         private bool _isMoving;
@@ -18,7 +19,7 @@ namespace TaskSystem
         public override void PrepareAction(Task task)
         {
             _task = task;
-            _building = _task.Requestor as Building;
+            _buildingNode = _task.Requestor as BuildingNode;
             _movePos = _ai.GetAdjacentPosition(_task.Requestor.transform.position);
         }
 
@@ -45,13 +46,13 @@ namespace TaskSystem
 
         private void DoConstruction()
         {
-            UnitAnimController.SetUnitAction(UnitAction.Building, _ai.GetActionDirection(_building.transform.position));
+            UnitAnimController.SetUnitAction(UnitAction.Building, _ai.GetActionDirection(_buildingNode.transform.position));
             
             _timer += TimeManager.Instance.DeltaTime;
             if(_timer >= WORK_SPEED) 
             {
                 _timer = 0;
-                if (_building.DoConstruction(WORK_AMOUNT)) 
+                if (_buildingNode.DoConstruction(WORK_AMOUNT)) 
                 {
                     // When work is complete
                     ConcludeAction();
@@ -62,7 +63,7 @@ namespace TaskSystem
         public override void ConcludeAction()
         {
             UnitAnimController.SetUnitAction(UnitAction.Nothing);
-            _building = null;
+            _buildingNode = null;
             _task = null;
             _movePos = null;
             _isMoving = false;

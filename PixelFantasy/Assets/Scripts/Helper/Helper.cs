@@ -156,6 +156,29 @@ public static class Helper
         return detectedTags;
     }
 
+    public static List<T> GetAllGenericOnGridPositions<T>(List<Vector2> tiles)
+    {
+        List<GameObject> allGameobjects = new List<GameObject>();
+        foreach (var tile in tiles)
+        {
+            allGameobjects.AddRange(GetGameObjectsOnTile(tile));
+        }
+
+        var uniqueGOS = allGameobjects.Distinct().ToList();
+
+        List<T> results = new List<T>();
+        foreach (var uniqueGO in uniqueGOS)
+        {
+            var component = uniqueGO.GetComponent<T>();
+            if (component != null)
+            {
+                results.Add(component);
+            }
+        }
+
+        return results;
+    }
+
     /// <summary>
     /// Returns the GameObjects located on a specific tile position
     /// </summary>

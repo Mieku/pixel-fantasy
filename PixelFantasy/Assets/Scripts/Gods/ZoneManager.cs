@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Buildings;
 using Controllers;
 using HUD;
 using ScriptableObjects;
@@ -29,6 +30,7 @@ namespace Gods
         private ZoneType _curZoneType;
         private List<string> _defaultInvalidTagsForZone = new List<string>() { "Water", "Zone" };
         private IZone _zoneToModify;
+        private Building _requestorBuilding;
 
         protected override void Awake()
         {
@@ -59,9 +61,10 @@ namespace Gods
             DisplayZoneInput();
         }
 
-        public void PlanZone(ZoneType zoneType)
+        public void PlanZone(ZoneType zoneType, Building requestorBuilding = null)
         {
             _curZoneType = zoneType;
+            _requestorBuilding = requestorBuilding;
             
             var zoneColour = Librarian.Instance.GetZoneTypeData(_curZoneType).Colour;
             ShowZones(true);
@@ -314,6 +317,8 @@ namespace Gods
                     return new FarmZone(uid, gridPositions, zoneRuleTile);
                 case ZoneType.Home:
                     return new HomeZone(uid, gridPositions, zoneRuleTile);
+                case ZoneType.Forester:
+                    return new ForesterZone(uid, gridPositions, zoneRuleTile, _requestorBuilding as ForestersLodge);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(zoneType), zoneType, null);
             }

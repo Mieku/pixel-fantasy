@@ -11,10 +11,15 @@ namespace TaskSystem
         public TaskCategory Category;
         public Interactable Requestor;
         public string Payload;
+        public Family Owner;
 
         public bool IsEqual(Task otherTask)
         {
-            return TaskId == otherTask.TaskId && Requestor == otherTask.Requestor && Category == otherTask.Category && Payload == otherTask.Payload;
+            return TaskId == otherTask.TaskId 
+                   && Requestor == otherTask.Requestor 
+                   && Category == otherTask.Category 
+                   && Payload == otherTask.Payload
+                   && Owner == otherTask.Owner;
         }
 
         public void Cancel()
@@ -35,6 +40,7 @@ namespace TaskSystem
                 TaskId = this.TaskId,
                 Requestor = this.Requestor,
                 Payload = this.Payload,
+                Owner = this.Owner,
             };
         }
     }

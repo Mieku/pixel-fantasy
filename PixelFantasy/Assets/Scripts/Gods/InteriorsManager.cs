@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Buildings;
 using UnityEngine;
 
 namespace Gods
@@ -7,15 +8,16 @@ namespace Gods
     {
         [SerializeField] private Vector3 _interiorSpacing;
 
-        private Dictionary<Building, Interior> _interiorsDictionary = new Dictionary<Building, Interior>();
+        private Dictionary<BuildingNode, Interior> _interiorsDictionary = new Dictionary<BuildingNode, Interior>();
 
-        public void GenerateInterior(Building building)
+        public Interior GenerateInterior(BuildingNode buildingNode)
         {
-            var interior = Instantiate(building.Interior, transform);
-            _interiorsDictionary.Add(building, interior);
+            var interior = Instantiate(buildingNode.Interior, transform);
+            _interiorsDictionary.Add(buildingNode, interior);
             interior.transform.position = DeterminePosition();
-            building.LinkEntrance(interior.EntrancePos);
+            buildingNode.LinkEntrance(interior.EntrancePos);
             NavMeshManager.Instance.UpdateNavMesh();
+            return interior;
         }
 
         public Vector3 DeterminePosition()

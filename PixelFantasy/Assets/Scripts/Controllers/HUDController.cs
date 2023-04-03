@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Buildings;
 using Characters;
 using Gods;
 using HUD;
@@ -39,6 +40,11 @@ namespace Controllers
         public void ShowItemDetails(SelectionData selectionData)
         {
             _selectedItemInfoPanel.ShowItemDetails(selectionData);
+        }
+
+        public void ShowBuildingDetails(Building building)
+        {
+            _selectedItemInfoPanel.ShowBuildingDetails(building);
         }
 
         public void HideItemDetails()

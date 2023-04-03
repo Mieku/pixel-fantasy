@@ -11,6 +11,7 @@ namespace Zones
         public override ZoneType ZoneType => ZoneType.Farm;
 
         private CropData _cropAssigned;
+        private Family _owner;
 
         public FarmZone(string uid, List<Vector3Int> gridPositions, LayeredRuleTile layeredRuleTile) : base(uid, gridPositions, layeredRuleTile)
         {
@@ -68,7 +69,7 @@ namespace Zones
                 if (cropAtPos == null)
                 {
                     // if there is no crop already there
-                    Spawner.Instance.SpawnSoilTile(worldPosition, crop);
+                    Spawner.Instance.SpawnSoilTile(worldPosition, crop, _owner);
                 }
                 else
                 {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Characters;
 using Controllers;
 using ScriptableObjects;
 using TaskSystem;
@@ -122,5 +123,11 @@ public class GameEvents : MonoBehaviour
     public static void Trigger_OnStorageSlotDeleted(StorageSlot storageSlot)
     {
         if (OnStorageSlotDeleted != null) OnStorageSlotDeleted(storageSlot);
+    }
+
+    public static event Action<UnitState> OnUnitOccupationChanged;
+    public static void Trigger_OnUnitOccupationChanged(UnitState unit)
+    {
+        if (OnUnitOccupationChanged != null) OnUnitOccupationChanged(unit);
     }
 }

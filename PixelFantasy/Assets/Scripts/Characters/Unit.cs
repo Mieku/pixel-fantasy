@@ -11,6 +11,7 @@ namespace Characters
         [SerializeField] private TaskAI _taskAI;
         [SerializeField] private UnitState _unitState;
         [SerializeField] private UnitAppearance _appearance;
+        [SerializeField] private UnitInventory _inventory;
 
         public UnitAnimController UnitAnimController;
         public UnitAgent UnitAgent;
