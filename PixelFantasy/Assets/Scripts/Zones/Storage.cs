@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Gods;
+using Popups.Inventory;
 using ScriptableObjects;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ namespace Zones
     public class Storage : ClickableObject
     {
         [SerializeField] protected StorageItemData _storageItemData;
+        [SerializeField] protected InventoryPanel _inventoryPanel;
 
         private List<StorageSlot> _storageSlots = new List<StorageSlot>();
 
@@ -105,6 +107,7 @@ namespace Zones
                 if (remainder == 0)
                 {
                     GameEvents.Trigger_RefreshInventoryDisplay();
+                    RefreshDisplayedInventoryPanel();
                     return;
                 }
             }
@@ -115,6 +118,7 @@ namespace Zones
             }
             
             GameEvents.Trigger_RefreshInventoryDisplay();
+            RefreshDisplayedInventoryPanel();
         }
         
         public void SetClaimed(ItemData itemData, int quantity)
@@ -168,6 +172,7 @@ namespace Zones
                 if (remainder == 0)
                 {
                     GameEvents.Trigger_RefreshInventoryDisplay();
+                    RefreshDisplayedInventoryPanel();
                     return;
                 }
             }
@@ -178,6 +183,7 @@ namespace Zones
             }
             
             GameEvents.Trigger_RefreshInventoryDisplay();
+            RefreshDisplayedInventoryPanel();
         }
 
         public Dictionary<ItemData, int> AvailableInventory
@@ -204,9 +210,17 @@ namespace Zones
             }
         }
 
+        protected void RefreshDisplayedInventoryPanel()
+        {
+            if (_inventoryPanel.IsOpen)
+            {
+                _inventoryPanel.UpdateDisplayedInventory(_storageSlots);
+            }
+        }
+
         protected override void OnClicked()
         {
-            throw new NotImplementedException();
+            _inventoryPanel.Init(_storageItemData, _storageSlots, this);
         }
     }
 

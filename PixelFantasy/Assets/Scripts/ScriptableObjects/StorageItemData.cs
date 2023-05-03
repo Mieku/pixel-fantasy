@@ -5,7 +5,8 @@ namespace ScriptableObjects
     [CreateAssetMenu(fileName = "StorageItemData", menuName = "CraftedData/StorageItemData", order = 1)]
     public class StorageItemData : ItemData
     {
-        public float MaxWeight;
-        public int NumSlots;
+        public int NumColumns;
+        public int NumRows;
+        public int NumSlots => NumColumns * NumRows;
     }
 }

@@ -10,6 +10,7 @@ public abstract class ClickableObject : MonoBehaviour
 
     private Material _material;
     private int _fadePropertyID;
+    private bool _isOutlineLocked;
 
     protected virtual void Awake()
     {
@@ -17,7 +18,7 @@ public abstract class ClickableObject : MonoBehaviour
         _fadePropertyID = Shader.PropertyToID("_OuterOutlineFade");
     }
 
-    private void TriggerOutline(bool showOuline)
+    public void TriggerOutline(bool showOuline)
     {
         if (showOuline)
         {
@@ -29,13 +30,23 @@ public abstract class ClickableObject : MonoBehaviour
         }
     }
 
+    public void LockOutline(bool isLocked, bool showOutline)
+    {
+        _isOutlineLocked = isLocked;
+        TriggerOutline(showOutline);
+    }
+
     private void OnMouseEnter()
     {
+        if(_isOutlineLocked) return;
+        
         TriggerOutline(true);
     }
 
     private void OnMouseExit()
     {
+        if(_isOutlineLocked) return;
+        
         TriggerOutline(false);
     }
 
