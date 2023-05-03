@@ -11,7 +11,7 @@ namespace Zones
     {
         public override ZoneType ZoneType => ZoneType.Storage;
         
-        public StorageZone(string uid, List<Vector3Int> gridPositions, LayeredRuleTile layeredRuleTile) : base(uid, gridPositions, layeredRuleTile)
+        public StorageZone(string uid, List<Vector3Int> gridPositions, LayeredRuleTile layeredRuleTile) : base(uid, gridPositions, layeredRuleTile, null)
         {
             SetStorageTiles(WorldPositions);
         }
@@ -42,7 +42,7 @@ namespace Zones
         {
             foreach (var worldPos in worldPositions)
             {
-                ControllerManager.Instance.InventoryController.SpawnStorageSlot(worldPos);
+                //ControllerManager.Instance.InventoryController.SpawnStorageSlot(worldPos);
             }
         }
         
@@ -50,7 +50,7 @@ namespace Zones
         {
             foreach (var worldPos in worldPositions)
             {
-                ControllerManager.Instance.InventoryController.RemoveStorageSlot(worldPos);
+                //ControllerManager.Instance.InventoryController.RemoveStorageSlot(worldPos);
             }
         }
         

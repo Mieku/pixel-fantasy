@@ -10,7 +10,7 @@ namespace Zones
     {
         public override ZoneType ZoneType => ZoneType.Home;
         
-        public HomeZone(string uid, List<Vector3Int> gridPositions, LayeredRuleTile layeredRuleTile) : base(uid, gridPositions, layeredRuleTile)
+        public HomeZone(string uid, List<Vector3Int> gridPositions, LayeredRuleTile layeredRuleTile) : base(uid, gridPositions, layeredRuleTile, null)
         {
             
         }

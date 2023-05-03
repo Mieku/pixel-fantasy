@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Buildings;
 using Characters;
 using Gods;
 using Items;
@@ -24,6 +25,7 @@ namespace TaskSystem
 
         public Unit Unit => _unit;
         public Family Family => FamilyManager.Instance.GetFamily(_unit.GetUnitState());
+        public Building Occupation => _unit.GetUnitState().Occupation;
 
         public enum State
         {
@@ -95,12 +97,21 @@ namespace TaskSystem
         private void RequestNextTask()
         {
             Task task = null;
-            foreach (var category in _professionData.SortedPriorities)
+
+            if (Occupation != null)
             {
-                task = TaskManager.Instance.GetNextTaskByCategory(category);
-                if (task != null)
+                task = Occupation.BuildingTasks.NextTask;
+            }
+
+            if (task == null)
+            {
+                foreach (var category in _professionData.SortedPriorities)
                 {
-                    break;
+                    task = TaskManager.Instance.GetNextTaskByCategory(category);
+                    if (task != null)
+                    {
+                        break;
+                    }
                 }
             }
 

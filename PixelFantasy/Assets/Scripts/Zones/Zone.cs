@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Buildings;
 using Controllers;
 using Gods;
 using HUD;
@@ -15,6 +16,7 @@ namespace Zones
     {
         public string UID { get; set; }
         public string Name { get; set; }
+        public Building Building;
         public abstract ZoneType ZoneType { get; }
         public List<Vector3Int> GridPositions { get; set; }
         public LayeredRuleTile LayeredRuleTile { get; set; }
@@ -32,13 +34,14 @@ namespace Zones
             _zonesTM = TilemapController.Instance.GetTilemap(TilemapLayer.Zones);
         }
 
-        protected Zone(string uid, List<Vector3Int> gridPositions, LayeredRuleTile layeredRuleTile)
+        protected Zone(string uid, List<Vector3Int> gridPositions, LayeredRuleTile layeredRuleTile, Building building)
         {
             Init(uid, gridPositions, layeredRuleTile);
             
             UID = uid;
             GridPositions = new List<Vector3Int>(gridPositions);
             LayeredRuleTile = layeredRuleTile;
+            Building = building;
             
             AssignName();
             DisplayZonePanel();

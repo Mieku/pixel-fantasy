@@ -47,16 +47,10 @@ public class GameEvents : MonoBehaviour
         if( OnRightClickUp != null ) OnRightClickUp( mousePos, inputState, isOverUI );
     }
     
-    public static event Action<ItemData,int> OnInventoryAdded;
-    public static void Trigger_OnInventoryAdded(ItemData itemData, int totalAmount )
+    public static event Action RefreshInventoryDisplay;
+    public static void Trigger_RefreshInventoryDisplay()
     {
-        if( OnInventoryAdded != null ) OnInventoryAdded( itemData, totalAmount );
-    }
-    
-    public static event Action<ItemData,int> OnInventoryRemoved;
-    public static void Trigger_OnInventoryRemoved(ItemData itemData, int totalAmount )
-    {
-        if( OnInventoryRemoved != null ) OnInventoryRemoved( itemData, totalAmount );
+        if (RefreshInventoryDisplay != null) RefreshInventoryDisplay();
     }
 
     public static event Action OnInventoryAvailabilityChanged;
@@ -119,11 +113,11 @@ public class GameEvents : MonoBehaviour
         if (OnTaskCancelled != null) OnTaskCancelled(task);
     }
 
-    public static event Action<StorageSlot> OnStorageSlotDeleted;
-    public static void Trigger_OnStorageSlotDeleted(StorageSlot storageSlot)
-    {
-        if (OnStorageSlotDeleted != null) OnStorageSlotDeleted(storageSlot);
-    }
+    // public static event Action<StorageTile> OnStorageSlotDeleted;
+    // public static void Trigger_OnStorageSlotDeleted(StorageTile storageTile)
+    // {
+    //     if (OnStorageSlotDeleted != null) OnStorageSlotDeleted(storageTile);
+    // }
 
     public static event Action<UnitState> OnUnitOccupationChanged;
     public static void Trigger_OnUnitOccupationChanged(UnitState unit)

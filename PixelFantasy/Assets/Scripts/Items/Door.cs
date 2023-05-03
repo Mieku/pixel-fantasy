@@ -178,7 +178,8 @@ namespace Items
                 var claimed = GetClaimedResourcesCosts();
                 foreach (var claimedAmount in claimed)
                 {
-                    ControllerManager.Instance.InventoryController.RestoreClaimedResource(claimedAmount);
+                    InventoryManager.Instance.RestoreClaimedItems(claimedAmount.Item, claimedAmount.Quantity);
+                    //ControllerManager.Instance.InventoryController.RestoreClaimedResource(claimedAmount);
                 }
                 
                 // Spawn All the resources used

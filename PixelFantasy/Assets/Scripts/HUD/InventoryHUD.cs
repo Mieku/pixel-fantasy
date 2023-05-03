@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Gods;
 using ScriptableObjects;
 using UnityEngine;
 
@@ -13,47 +14,59 @@ namespace HUD
 
         private void Start()
         {
-            GameEvents.OnInventoryAdded += GameEvents_OnInventoryAdded;
-            GameEvents.OnInventoryRemoved += GameEvents_OnInventoryRemoved;
+            GameEvents.RefreshInventoryDisplay += GameEvents_RefreshInventoryDisplay;
         }
 
         private void OnDestroy()
         {
-            GameEvents.OnInventoryAdded -= GameEvents_OnInventoryAdded;
-            GameEvents.OnInventoryRemoved -= GameEvents_OnInventoryRemoved;
+            GameEvents.RefreshInventoryDisplay -= GameEvents_RefreshInventoryDisplay;
         }
 
-        private void GameEvents_OnInventoryAdded(ItemData itemData, int totalQuantity)
+        private void GameEvents_RefreshInventoryDisplay()
         {
-            // Check if the item is already displayed
-            if (_displayedItems.ContainsKey(itemData))
+            var availableInv = InventoryManager.Instance.GetAvailableInventory();
+            List<ItemData> removeList = new List<ItemData>();
+            
+            // Update current displayed
+            foreach (var displayedItem in _displayedItems)
             {
-                var display = _displayedItems[itemData];
-                display.UpdateAmount(totalQuantity.ToString());
-            }
-            else
-            {
-                // Add this to the HUD
-                var display = Instantiate(_inventoryResouceDisplayPrefab, transform).GetComponent<InventoryResourceDisplay>();
-                display.Init(itemData, totalQuantity.ToString());
-                _displayedItems.Add(itemData, display);
-            }
-        }
-        
-        private void GameEvents_OnInventoryRemoved(ItemData itemData, int totalQuantity)
-        {
-            // Check if there is none left, if so remove it from the HUD
-            if (_displayedItems.ContainsKey(itemData))
-            {
-                if (totalQuantity > 0)
+                if (availableInv.ContainsKey(displayedItem.Key))
                 {
-                    _displayedItems[itemData].UpdateAmount(totalQuantity.ToString());
+                    var value = availableInv[displayedItem.Key];
+                    if (value > 0)
+                    {
+                        displayedItem.Value.UpdateAmount(availableInv[displayedItem.Key].ToString());
+                    }
+                    else
+                    {
+                        removeList.Add(displayedItem.Key);
+                    }
                 }
-                else
+                else // No longer exists, remove
                 {
-                    var reference = _displayedItems[itemData];
-                    _displayedItems.Remove(itemData);
+                    removeList.Add(displayedItem.Key);
+                }
+            }
+            
+            // Remove No longer used
+            foreach (var removeMe in removeList)
+            {
+                if (_displayedItems.ContainsKey(removeMe))
+                {
+                    var reference = _displayedItems[removeMe];
+                    _displayedItems.Remove(removeMe);
                     Destroy(reference.gameObject);
+                }
+            }
+            
+            // Add in anything new
+            foreach (var available in availableInv)
+            {
+                if (!_displayedItems.ContainsKey(available.Key))
+                {
+                    var display = Instantiate(_inventoryResouceDisplayPrefab, transform).GetComponent<InventoryResourceDisplay>();
+                    display.Init(available.Key, available.Value.ToString());
+                    _displayedItems.Add(available.Key, display);
                 }
             }
         }

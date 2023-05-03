@@ -25,7 +25,9 @@ namespace Items
 
         private Transform _originalParent;
 
-        public StorageSlot AssignedStorageSlot;
+        public Storage AssignedStorage;
+
+        //[FormerlySerializedAs("AssignedStorageSlot")] public StorageTile assignedStorageTile;
 
         public ClickObject GetClickObject()
         {
@@ -49,11 +51,12 @@ namespace Items
         
         public void SeekForSlot()
         {
-            if (AssignedStorageSlot == null && !_isHeld)
+            if (AssignedStorage == null && !_isHeld)
             {
-                AssignedStorageSlot = ControllerManager.Instance.InventoryController.GetAvailableStorageSlot(this);
-                if (AssignedStorageSlot != null)
+                AssignedStorage = InventoryManager.Instance.GetAvailableStorage(this);
+                if (AssignedStorage != null)
                 {
+                    AssignedStorage.SetIncoming(_itemData, 1);
                     CreateHaulTask();
                 }
             }
@@ -68,7 +71,16 @@ namespace Items
                 Requestor = this
             };
 
-            TaskManager.Instance.AddTask(task);
+            var zone = Helper.IsPositionInZone(transform.position);
+            if (zone != null)
+            {
+                zone.Building.BuildingTasks.AddTask(task);
+            }
+            else
+            {
+                TaskManager.Instance.AddTask(task);
+            }
+            
             _currentTask = task;
         }
 
@@ -76,7 +88,7 @@ namespace Items
         {
             if (_currentTask != null)
             {
-                AssignedStorageSlot = null;
+                AssignedStorage = null;
                 _currentTask.Cancel();
                 
                 SeekForSlot();
@@ -96,7 +108,7 @@ namespace Items
         public void AddItemToSlot()
         {
             _isHeld = false;
-            ControllerManager.Instance.InventoryController.AddToInventory(_itemData, 1);
+            AssignedStorage.DepositItems(_itemData, 1);
             Destroy(gameObject);
         }
 

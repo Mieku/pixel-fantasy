@@ -5,6 +5,7 @@ using Characters;
 using Gods;
 using HUD;
 using ScriptableObjects;
+using TaskSystem;
 using UnityEngine;
 using UnityEngine.AI;
 using Zones;
@@ -29,6 +30,7 @@ namespace Buildings
 
         [SerializeField] protected Vector2 _interiorCamOffset;
 
+        public TaskQueue BuildingTasks = new TaskQueue();
         public OffMeshLink EntranceLink => _entranceLink;
         public BuildingData BuildingData => _buildingNode.BuildingData;
         public int MaxOccupants => BuildingData.MaxOccupants;

@@ -6,14 +6,14 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public abstract class ClickableObject : MonoBehaviour
 {
-    protected SpriteRenderer _spriteToOutline;
+    [SerializeField] protected SpriteRenderer _sprite;
 
     private Material _material;
     private int _fadePropertyID;
 
     protected virtual void Awake()
     {
-        _material = _spriteToOutline.material;
+        _material = _sprite.material;
         _fadePropertyID = Shader.PropertyToID("_OuterOutlineFade");
     }
 

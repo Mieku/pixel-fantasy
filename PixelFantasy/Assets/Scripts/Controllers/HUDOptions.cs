@@ -22,6 +22,7 @@ namespace Controllers
         [SerializeField] private List<Order> _lightingOrders;
         
         [SerializeField] private DirtTile _dirtPrefab;
+        [SerializeField] private Sprite _zoneSprite;
 
         [SerializeField] private SpawnFurnitureController _furnitureController;
 
@@ -251,9 +252,9 @@ namespace Controllers
         
         private void BuildStorageZone()
         {
-            var invController = ControllerManager.Instance.InventoryController;
-            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildStorage);
-            Spawner.Instance.ShowPlacementIcon(true, invController.GetStorageZoneBlueprintSprite(), invController.StoragePlacementInvalidTags);
+            // var invController = ControllerManager.Instance.InventoryController;
+            // PlayerInputController.Instance.ChangeState(PlayerInputState.BuildStorage);
+            // Spawner.Instance.ShowPlacementIcon(true, invController.GetStorageZoneBlueprintSprite(), invController.StoragePlacementInvalidTags);
         }
 
         private void ShowSubMenu(List<Order> subMenu, List<Order> curMenu, bool hasBackBtn)
@@ -276,13 +277,15 @@ namespace Controllers
 
         private void BuildFarmZone(string cropKey)
         {
-            var invController = ControllerManager.Instance.InventoryController;
             PlayerInputController.Instance.ChangeState(PlayerInputState.BuildFarm);
 
             var cropData = Librarian.Instance.GetCropData(cropKey);
             Spawner.Instance.CropData = cropData;
-            // Will likely need to specify more unique values for farms
-            Spawner.Instance.ShowPlacementIcon(true, invController.GetStorageZoneBlueprintSprite(),invController.StoragePlacementInvalidTags);
+            Spawner.Instance.ShowPlacementIcon(true, _zoneSprite, new List<string>
+            {
+                "Water",
+                "Zone"
+            });
         }
     }
 }

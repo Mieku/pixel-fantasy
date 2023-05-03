@@ -6,7 +6,7 @@ namespace Gods
 {
     public class ControllerManager : God<ControllerManager>
     {
-        public InventoryController InventoryController;
+        //public InventoryController InventoryController;
         public ItemsHandler ItemsHandler;
         public UnitsHandler UnitsHandler;
     }

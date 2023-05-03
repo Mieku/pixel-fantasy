@@ -1,5 +1,6 @@
 using Gods;
 using Items;
+using ScriptableObjects;
 using UnityEngine;
 using Zones;
 
@@ -7,33 +8,34 @@ namespace TaskSystem
 {
     public class WithdrawItemAction : TaskAction
     {
-        private StorageSlot _storageSlot;
+        private Storage _storage;
         private Interactable _requestor;
         private bool _isHoldingItem;
         private Item _item;
         private bool _isMoving;
+        private ItemData _itemData;
         
         public float DistanceToRequestor => Vector2.Distance(_requestor.transform.position, transform.position);
-        public float DistanceToSlot => Vector2.Distance(_storageSlot.transform.position, transform.position);
+        public float DistanceToSlot => Vector2.Distance(_storage.transform.position, transform.position);
 
         private void Awake()
         {
-            GameEvents.OnStorageSlotDeleted += GameEvents_OnStorageSlotDeleted;
+            //GameEvents.OnStorageSlotDeleted += GameEvents_OnStorageSlotDeleted;
         }
 
         private void OnDestroy()
         {
-            GameEvents.OnStorageSlotDeleted -= GameEvents_OnStorageSlotDeleted;
+            //GameEvents.OnStorageSlotDeleted -= GameEvents_OnStorageSlotDeleted;
         }
         
-        private void GameEvents_OnStorageSlotDeleted(StorageSlot storageSlot)
-        {
-            if (_task != null && _storageSlot != null && _storageSlot == storageSlot)
-            {
-                _task.Enqueue();
-                OnTaskCancel();
-            }
-        }
+        // private void GameEvents_OnStorageSlotDeleted(StorageTile storageTile)
+        // {
+        //     if (_task != null && _storageTile != null && _storageTile == storageTile)
+        //     {
+        //         _task.Enqueue();
+        //         OnTaskCancel();
+        //     }
+        // }
         
         public override bool CanDoTask(Task task)
         {
@@ -43,8 +45,8 @@ namespace TaskSystem
                 return false;
             }
 
-            _storageSlot = FindItem(payload);
-            return _storageSlot != null;
+            _storage = FindItem(payload);
+            return _storage != null;
         }
 
         public override void PrepareAction(Task task)
@@ -58,14 +60,15 @@ namespace TaskSystem
         public override void DoAction()
         {
             // Pick Up Item
-            if (!_isHoldingItem && _storageSlot != null && DistanceToSlot <= 1f)
+            if (!_isHoldingItem && _storage != null && DistanceToSlot <= 1f)
             {
                 _isMoving = false;
                 _isHoldingItem = true;
-                _item = _storageSlot.GetItem();
+                _storage.WithdrawItems(_itemData, 1);
+                _item = Spawner.Instance.SpawnItem(_itemData, _storage.transform.position, false);
                 _ai.HoldItem(_item);
                 _item.SetHeld(true);
-                _storageSlot = null;
+                _storage = null;
                 return;
             }
             
@@ -81,11 +84,11 @@ namespace TaskSystem
             }
             
             // Move to Item
-            if (!_isHoldingItem && _storageSlot != null)
+            if (!_isHoldingItem && _storage != null)
             {
                 if (!_isMoving)
                 {
-                    _ai.Unit.UnitAgent.SetMovePosition(_storageSlot.transform.position);
+                    _ai.Unit.UnitAgent.SetMovePosition(_storage.transform.position);
                     _isMoving = true;
                     return;
                 }
@@ -122,13 +125,13 @@ namespace TaskSystem
             ConcludeAction();
         }
         
-        public StorageSlot FindItem(string itemName)
+        public Storage FindItem(string itemName)
         {
             if (string.IsNullOrEmpty(itemName)) return null;
             
-            var itemData = Librarian.Instance.GetItemData(itemName);
-            _storageSlot = ControllerManager.Instance.InventoryController.ClaimItem(itemData);
-            return _storageSlot;
+            _itemData = Librarian.Instance.GetItemData(itemName);
+            _storage = InventoryManager.Instance.ClaimItem(_itemData);
+            return _storage;
         }
     }
 }

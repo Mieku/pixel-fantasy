@@ -20,7 +20,7 @@ namespace Zones
 
         private Command _harvestCmd, _cutPlantCmd;
         
-        public ForesterZone(string uid, List<Vector3Int> gridPositions, LayeredRuleTile layeredRuleTile, ForestersLodge building) : base(uid, gridPositions, layeredRuleTile)
+        public ForesterZone(string uid, List<Vector3Int> gridPositions, LayeredRuleTile layeredRuleTile, ForestersLodge building) : base(uid, gridPositions, layeredRuleTile, building)
         {
             _building = building;
             _building.AssignedZone = this;

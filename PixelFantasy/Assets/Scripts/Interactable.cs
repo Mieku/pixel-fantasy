@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Buildings;
 using Gods;
 using Items;
 using TaskSystem;
@@ -13,11 +14,18 @@ public abstract class Interactable : UniqueObject
     public void CreateTask(Command command)
     {
         if (IsPending(command)) return;
-        
+
+        var zone = Helper.IsPositionInZone(transform.position);
+        Building building = null;
+        if (zone != null)
+        {
+            building = zone.Building;
+        }
+
         // Only one command can be active
         if (PendingCommand != null)
         {
-            CancelCommand(PendingCommand);
+            CancelCommand(PendingCommand, building);
         }
 
         Task task = new Task
@@ -28,11 +36,20 @@ public abstract class Interactable : UniqueObject
         };
 
         PendingCommand = command;
-        TaskManager.Instance.AddTask(task);
+
+        if (building == null)
+        {
+            TaskManager.Instance.AddTask(task);
+        }
+        else
+        {
+            building.BuildingTasks.AddTask(task);
+        }
+        
         DisplayTaskIcon(command.Icon);
     }
 
-    public void CancelCommand(Command command)
+    public void CancelCommand(Command command, Building building = null)
     {
         PendingCommand = null;
         
@@ -42,8 +59,16 @@ public abstract class Interactable : UniqueObject
             TaskId = command.Task.TaskId,
             Requestor = this
         };
+
+        if (building == null)
+        {
+            TaskManager.Instance.CancelTask(task);
+        }
+        else
+        {
+            building.BuildingTasks.CancelTask(task);
+        }
         
-        TaskManager.Instance.CancelTask(task);
         DisplayTaskIcon(null);
     }
 

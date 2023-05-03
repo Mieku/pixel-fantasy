@@ -1297,7 +1297,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5532418264530240428}
   - component: {fileID: 5584874993929393806}
-  - component: {fileID: 5532418264530240431}
   - component: {fileID: 1211023406118596035}
   - component: {fileID: 6459717783198305047}
   - component: {fileID: 9189890898419539547}
@@ -1356,27 +1355,6 @@ MonoBehaviour:
   _inventory: {fileID: 974861392226685888}
   UnitAnimController: {fileID: 5532418264530240416}
   UnitAgent: {fileID: 6234467081272595317}
---- !u!50 &5532418264530240431
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5532418264530240426}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!61 &1211023406118596035
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1601,10 +1579,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _held:
-    StoredEntries: []
+    Item: {fileID: 0}
+    NumStored: 0
+    NumIncoming: 0
+    NumClaimed: 0
   _pocket:
-    StoredEntries: []
-  _debugImmediateDrop: []
+    Item: {fileID: 0}
+    NumStored: 0
+    NumIncoming: 0
+    NumClaimed: 0
 --- !u!1 &5584946585069434698
 GameObject:
   m_ObjectHideFlags: 0

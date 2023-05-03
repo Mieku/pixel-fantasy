@@ -1376,17 +1376,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5465201506073250550}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 333d7fcf4c74f484e886fc5a7ec48d07, type: 3}
+  m_Script: {fileID: 11500000, guid: 62451689d3469544b93c4bd965ce226a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _containerSprite: {fileID: 5465201505374826066}
-  _slots: []
-  Owner:
-    FamilyName: 
-    UID: 
-    FamilyHead: {fileID: 0}
-    Members: []
-    IsPlayer: 0
+  _sprite: {fileID: 5465201505374826066}
+  _storageItemData: {fileID: 0}
 --- !u!61 &5465201506073250536
 BoxCollider2D:
   m_ObjectHideFlags: 0

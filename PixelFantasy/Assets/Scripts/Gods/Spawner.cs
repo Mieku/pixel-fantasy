@@ -352,12 +352,12 @@ namespace Gods
             }
         }
 
-        public StorageContainer SpawnStorageContainer(StorageItemData storageData, Vector3 spawnPosition, Family owner)
+        public Storage SpawnStorageContainer(StorageItemData storageData, Vector3 spawnPosition)
         {
             var containerObj = Instantiate(_storageContainerPrefab, spawnPosition, Quaternion.identity);
             containerObj.transform.SetParent(_storageParent);
-            var container = containerObj.GetComponent<StorageContainer>();
-            container.Init(storageData, owner);
+            var container = containerObj.GetComponent<Storage>();
+            container.Init(storageData);
             return container;
         }
 

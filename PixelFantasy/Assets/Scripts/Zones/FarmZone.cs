@@ -13,7 +13,7 @@ namespace Zones
         private CropData _cropAssigned;
         private Family _owner;
 
-        public FarmZone(string uid, List<Vector3Int> gridPositions, LayeredRuleTile layeredRuleTile) : base(uid, gridPositions, layeredRuleTile)
+        public FarmZone(string uid, List<Vector3Int> gridPositions, LayeredRuleTile layeredRuleTile) : base(uid, gridPositions, layeredRuleTile, null)
         {
             
         }

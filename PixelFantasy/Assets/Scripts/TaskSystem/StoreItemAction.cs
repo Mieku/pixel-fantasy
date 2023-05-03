@@ -7,19 +7,19 @@ namespace TaskSystem
     public class StoreItemAction : TaskAction
     {
         private Item _item;
-        private StorageSlot _storageSlot;
+        private Storage _storage;
         private bool _isHoldingItem;
         private bool _isMoving;
         
         public float DistanceToItem => Vector2.Distance(_item.transform.position, transform.position);
-        public float DistanceToSlot => Vector2.Distance(_storageSlot.transform.position, transform.position);
+        public float DistanceToSlot => Vector2.Distance(_storage.transform.position, transform.position);
         
         public override void PrepareAction(Task task)
         {
             _task = task;
             _isHoldingItem = false;
             _item = _task.Requestor as Item;
-            _storageSlot = _item.AssignedStorageSlot;
+            _storage = _item.AssignedStorage;
         }
 
         public override void DoAction()
@@ -39,7 +39,6 @@ namespace TaskSystem
             {
                 _isMoving = false;
                 _isHoldingItem = false;
-                _storageSlot.StoreItem(_item);
                 _item.AddItemToSlot();
                 
                 ConcludeAction();
@@ -50,7 +49,7 @@ namespace TaskSystem
             {
                 if (!_isMoving)
                 {
-                    _ai.Unit.UnitAgent.SetMovePosition(_storageSlot.transform.position);
+                    _ai.Unit.UnitAgent.SetMovePosition(_storage.transform.position);
                     _isMoving = true;
                     return;
                 }
@@ -72,7 +71,7 @@ namespace TaskSystem
             _task = null;
             _isHoldingItem = false;
             _item = null;
-            _storageSlot = null;
+            _storage = null;
             _isMoving = false;
             
             base.ConcludeAction();

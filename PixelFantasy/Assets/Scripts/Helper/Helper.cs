@@ -4,6 +4,7 @@ using System.Linq;
 using Gods;
 using Items;
 using UnityEngine;
+using Zones;
 
 public static class Helper
 {
@@ -303,9 +304,19 @@ public static class Helper
     }
     
     /// <summary>
-    /// Calculates a 306 Deg Angle, 0 is top and increments counter-clockwise
+    /// Calculates a 360 Deg Angle, 0 is top and increments counter-clockwise
     /// </summary>
     public static float CalculateAngle(Vector3 from, Vector3 to) {
         return Quaternion.FromToRotation(Vector3.up, to - from).eulerAngles.z;
+    }
+
+    /// <summary>
+    /// Checks if the world position is located within a Zone
+    /// </summary>
+    /// <returns>The Zone the position is in, or null if no zone</returns>
+    public static Zone IsPositionInZone(Vector2 worldPos)
+    {
+        var zone = ZoneManager.Instance.GetZoneByGridPos(worldPos) as Zone;
+        return zone;
     }
 }
