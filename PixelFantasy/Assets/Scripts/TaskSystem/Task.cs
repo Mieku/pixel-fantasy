@@ -1,6 +1,8 @@
 using System;
+using Characters;
 using Gods;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace TaskSystem
 {
@@ -12,14 +14,16 @@ namespace TaskSystem
         public Interactable Requestor;
         public string Payload;
         public Family Owner;
+        public Profession Profession;
 
         public bool IsEqual(Task otherTask)
         {
-            return TaskId == otherTask.TaskId 
-                   && Requestor == otherTask.Requestor 
-                   && Category == otherTask.Category 
+            return TaskId == otherTask.TaskId
+                   && Requestor == otherTask.Requestor
+                   && Category == otherTask.Category
                    && Payload == otherTask.Payload
-                   && Owner == otherTask.Owner;
+                   && Owner == otherTask.Owner
+                   && Profession == otherTask.Profession;
         }
 
         public void Cancel()
@@ -41,6 +45,7 @@ namespace TaskSystem
                 Requestor = this.Requestor,
                 Payload = this.Payload,
                 Owner = this.Owner,
+                Profession = this.Profession,
             };
         }
     }

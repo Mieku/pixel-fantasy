@@ -70,6 +70,7 @@ namespace Buildings
                 Category = TaskCategory.Hauling,
                 Requestor = this,
                 Payload = resourceData.ItemName,
+                Profession = _buildingData.CraftersProfession,
             };
             TaskManager.Instance.AddTask(task);
         }
@@ -107,6 +108,7 @@ namespace Buildings
                 Category = TaskCategory.Construction,
                 TaskId = "Build Building",
                 Requestor = this,
+                Profession = _buildingData.CraftersProfession,
             };
             constuctTask.Enqueue();
         }

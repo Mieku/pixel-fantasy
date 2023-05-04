@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Characters;
 using Gods;
 using UnityEngine;
 
@@ -10,7 +11,8 @@ namespace ScriptableObjects
         public string ConstructionName;
         public float WorkCost;
         public Sprite Icon;
-    
+        public Profession CraftersProfession;
+        
         [SerializeField] private List<ItemAmount> _resourceCosts;
         [SerializeField] private List<string> _invalidPlacementTags;
         [SerializeField] private PlanningMode _planningMode;

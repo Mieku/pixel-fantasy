@@ -19,6 +19,7 @@ namespace Characters
 
         public Building Home;
         public Building Occupation;
+        public Profession Profession;
 
         public string FullName => FirstName + " " + LastName;
         public string UID => _uid.uniqueID;
@@ -81,5 +82,13 @@ namespace Characters
             public float ToughnessModifier;
             public float CombatModifier;
         }
+    }
+
+    public enum Profession
+    {
+        Labourer,
+        None,
+        Builder,
+        Forester
     }
 }

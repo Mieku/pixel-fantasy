@@ -1,4 +1,5 @@
 using Buildings.Building_Panels;
+using Characters;
 using Gods;
 using UnityEngine;
 
@@ -11,5 +12,6 @@ namespace ScriptableObjects
         public Interior Interior;
         public BuildingPanel BuildingPanel;
         public int MaxOccupants;
+        public Profession WorkersProfession;
     }
 }

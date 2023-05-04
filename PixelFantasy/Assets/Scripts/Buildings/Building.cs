@@ -199,12 +199,14 @@ namespace Buildings
         {
             Occupants.Add(unit);
             unit.Occupation = this;
+            unit.Profession = BuildingData.WorkersProfession;
         }
 
         public void UnassignWorker(UnitState unit)
         {
             Occupants.Remove(unit);
             unit.RemoveOccupation();
+            unit.Profession = Profession.Labourer;
         }
 
         public void AssignHome(UnitState unit)

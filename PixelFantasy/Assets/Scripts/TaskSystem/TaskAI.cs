@@ -26,6 +26,7 @@ namespace TaskSystem
         public Unit Unit => _unit;
         public Family Family => FamilyManager.Instance.GetFamily(_unit.GetUnitState());
         public Building Occupation => _unit.GetUnitState().Occupation;
+        public Profession Profession => _unit.GetUnitState().Profession;
 
         public enum State
         {
@@ -105,14 +106,16 @@ namespace TaskSystem
 
             if (task == null)
             {
-                foreach (var category in _professionData.SortedPriorities)
-                {
-                    task = TaskManager.Instance.GetNextTaskByCategory(category);
-                    if (task != null)
-                    {
-                        break;
-                    }
-                }
+                task = TaskManager.Instance.GetNextTaskByProfession(Profession);
+
+                // foreach (var category in _professionData.SortedPriorities)
+                // {
+                //     task = TaskManager.Instance.GetNextTaskByCategory(category);
+                //     if (task != null)
+                //     {
+                //         break;
+                //     }
+                // }
             }
 
             if (task == null)
@@ -120,7 +123,7 @@ namespace TaskSystem
                 _state = State.WaitingForNextTask;
                 return;
             }
-            
+
             // Find the task's equivalent action
             var taskAction = FindTaskActionFor(task);
             if (taskAction == null)
