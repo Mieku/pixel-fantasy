@@ -61,7 +61,6 @@ namespace Gods
         public BuildingData BuildingData { get; set; }
         public DoorData DoorData { get; set; }
         public FloorData FloorData { get; set; }
-        public FurnitureData FurnitureData { get; set; }
         public CropData CropData { get; set; }
 
         public PlacementDirection SetNextPlacementDirection(bool isClockwise)
@@ -177,7 +176,7 @@ namespace Gods
             }
             else if (inputState == PlayerInputState.BuildFurniture)
             {
-                SpawnFurniture(FurnitureData, Helper.ConvertMousePosToGridPos(mousePos));
+                //SpawnFurniture(FurnitureData, Helper.ConvertMousePosToGridPos(mousePos));
             }
             else if (inputState == PlayerInputState.BuildFarm)
             {
@@ -361,27 +360,27 @@ namespace Gods
             return container;
         }
 
-        public void SpawnFurniture(FurnitureData furnitureData, Vector3 spawnPosition)
-        {
-            if (Helper.IsGridPosValidToBuild(spawnPosition, furnitureData.InvalidPlacementTags))
-            {
-                spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
-                if (furnitureData.IsCraftingTable)
-                {
-                    // var furnitureObj = Instantiate(_craftingTablePrefab, spawnPosition, Quaternion.identity);
-                    // furnitureObj.transform.SetParent(_furnitureParent);
-                    // var furniture = furnitureObj.GetComponent<CraftingTable>();
-                    // furniture.Init(furnitureData, PlacementDirection);
-                }
-                else
-                {
-                    var furnitureObj = Instantiate(_furniturePrefab, spawnPosition, Quaternion.identity);
-                    furnitureObj.transform.SetParent(_furnitureParent);
-                    var furniture = furnitureObj.GetComponent<Furniture>();
-                    furniture.Init(furnitureData, PlacementDirection);
-                }
-            }
-        }
+        // public void SpawnFurniture(FurnitureData furnitureData, Vector3 spawnPosition)
+        // {
+        //     if (Helper.IsGridPosValidToBuild(spawnPosition, furnitureData.InvalidPlacementTags))
+        //     {
+        //         spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
+        //         if (furnitureData.IsCraftingTable)
+        //         {
+        //             // var furnitureObj = Instantiate(_craftingTablePrefab, spawnPosition, Quaternion.identity);
+        //             // furnitureObj.transform.SetParent(_furnitureParent);
+        //             // var furniture = furnitureObj.GetComponent<CraftingTable>();
+        //             // furniture.Init(furnitureData, PlacementDirection);
+        //         }
+        //         else
+        //         {
+        //             var furnitureObj = Instantiate(_furniturePrefab, spawnPosition, Quaternion.identity);
+        //             furnitureObj.transform.SetParent(_furnitureParent);
+        //             var furniture = furnitureObj.GetComponent<Furniture>();
+        //             furniture.Init(furnitureData, PlacementDirection);
+        //         }
+        //     }
+        // }
 
         public void SpawnDoor(DoorData doorData, Vector3 spawnPosition)
         {

@@ -24,8 +24,6 @@ namespace Controllers
         [SerializeField] private DirtTile _dirtPrefab;
         [SerializeField] private Sprite _zoneSprite;
 
-        [SerializeField] private SpawnFurnitureController _furnitureController;
-
         #region Button Hooks
 
         public void CheatsPressed()
@@ -179,8 +177,7 @@ namespace Controllers
 
         public void BuildFurniturePressed(string key)
         {
-            FurnitureData item = Librarian.Instance.GetFurnitureData(key);
-            _furnitureController.SpawnFurniturePressed(item);
+            
         }
 
         public void BuildStructurePressed(string key)

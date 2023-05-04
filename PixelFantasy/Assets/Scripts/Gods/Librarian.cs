@@ -11,7 +11,6 @@ namespace Gods
         [SerializeField] private List<ColourData> _colourLibrary;
         [SerializeField] private List<StructureData> _structureLibrary;
         [SerializeField] private List<FloorData> _floorLibrary;
-        [SerializeField] private List<FurnitureData> _furnitureLibrary;
         [SerializeField] private List<DoorData> _doorLibrary;
         [SerializeField] private List<Sprite> _sprites;
         [SerializeField] private List<SpriteRef> _orderIcons;
@@ -93,16 +92,6 @@ namespace Gods
             if (result == null)
             {
                 Debug.LogError("Unknown Floor: " + key);
-            }
-            return result;
-        }
-
-        public FurnitureData GetFurnitureData(string key)
-        {
-            var result = _furnitureLibrary.Find(s => s.FurnitureName == key);
-            if (result == null)
-            {
-                Debug.LogError("Unknown Furniture: " + key);
             }
             return result;
         }

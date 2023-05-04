@@ -23,7 +23,6 @@ public class ClickObject : MonoBehaviour
     private ConstructionData _structureData;
     private ResourceData growingResourceData;
     private FloorData _floorData;
-    private FurnitureData _furnitureData;
     private Unit _unit;
 
     private IClickableObject _clickableObject; // Cache
@@ -67,11 +66,8 @@ public class ClickObject : MonoBehaviour
                 _floorData = GetComponent<Floor>().FloorData;
                 break;
             case ObjectType.Furniture:
-                _furnitureData = GetComponent<Furniture>().FurnitureData;
+                //_furnitureData = GetComponent<Furniture>().FurnitureData;
                 break;
-            // case ObjectType.Mountain:
-            //     // Nothing needed, other type should be refactored to follow pattern...
-            //     break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -203,8 +199,6 @@ public class ClickObject : MonoBehaviour
                 return GetSelectionData(growingResourceData);
             case ObjectType.Floor:
                 return GetSelectionData(_floorData);
-            case ObjectType.Furniture:
-                return GetSelectionData(_furnitureData);
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -266,18 +260,6 @@ public class ClickObject : MonoBehaviour
         SelectionData result = new SelectionData
         {
             ItemName = floorData.ConstructionName,
-            ClickObject = this,
-            Requestor = GetComponent<Interactable>(),
-        };
-
-        return result;
-    }
-    
-    private SelectionData GetSelectionData(FurnitureData furnitureData)
-    {
-        SelectionData result = new SelectionData
-        {
-            ItemName = furnitureData.FurnitureName,
             ClickObject = this,
             Requestor = GetComponent<Interactable>(),
         };
