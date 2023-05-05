@@ -9,19 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ea89e6bee08fa14c903bffe89a4677d, type: 3}
-  m_Name: WoodChair
+  m_Script: {fileID: 11500000, guid: 3ea08642fa677164181cf71b3420aa61, type: 3}
+  m_Name: Stool
   m_EditorClassIdentifier: 
-  ItemName: Wood Chair
+  ItemName: Stool
   MaxStackSize: 1
-  ItemSprite: {fileID: -4089702158966414991, guid: 90f5efa4e4d76d34cb9b37730541f11f, type: 3}
+  ItemSprite: {fileID: -1997294335, guid: 90f5efa4e4d76d34cb9b37730541f11f, type: 3}
   DefaultSpriteScale: {x: 1, y: 1}
-  _options: 00000000
-  _constructionMethod: 2
+  CraftersProfession: 2
+  WorkCost: 5
   _resourceCosts:
   - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
-    Quantity: 1
-  - Item: {fileID: 11400000, guid: 858a66c518920c8438c73b6387c0b76e, type: 2}
-    Quantity: 5
-  _craftedQuatity: 1
-  _workToCraft: 10
+    Quantity: 2
+  _invalidPlacementTags:
+  - Water
+  - Wall
+  - Obstacle
+  PlacedFurnitureOptions:
+  - {fileID: 8679221839148330440, guid: e219a8e018e3d244b8d0ef8b035b149b, type: 3}

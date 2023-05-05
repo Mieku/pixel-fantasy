@@ -33,7 +33,7 @@ namespace Items
         {
             return _clickObject;
         }
-
+        
         public void InitializeItem(ItemData itemData, bool allowed)
         {
             _itemData = itemData;
@@ -159,6 +159,11 @@ namespace Items
         private void Start()
         {
             GameEvents.OnInventoryAvailabilityChanged += GameEvent_OnInventoryAvailabilityChanged;
+            
+            if (_itemData != null)
+            {
+                InitializeItem(_itemData, true);
+            }
         }
 
         private void OnDestroy()

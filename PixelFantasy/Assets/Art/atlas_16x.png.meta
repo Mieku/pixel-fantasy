@@ -24,7 +24,7 @@ TextureImporter:
       213: -3027782111604198055
     second: couldron
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -84,6 +84,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -123,6 +124,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -229,7 +242,7 @@ TextureImporter:
         width: 10
         height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -250,7 +263,7 @@ TextureImporter:
         width: 16
         height: 25
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -271,7 +284,7 @@ TextureImporter:
         width: 14
         height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -279,6 +292,27 @@ TextureImporter:
       bones: []
       spriteID: 955bc8c16382bf5d0800000000000000
       internalID: -3027782111604198055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stool
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 130
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b182e12ba1cca694d810536bd941acfd
+      internalID: -1997294335
       vertices: []
       indices: 
       edges: []
@@ -294,13 +328,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      bed: 592131814113056924
-      atlas_16x_2: -4089702158966414991
-      couldron: -3027782111604198055
-      atlas_16x_1: -8917494276948081965
-      atlas_16x_3: -6696023420931748170
-      candle: -6198666131353644898
+      Stool: -1997294335
       atlas_16x_0: 8220004207842343721
+      atlas_16x_1: -8917494276948081965
+      atlas_16x_2: -4089702158966414991
+      atlas_16x_3: -6696023420931748170
+      bed: 592131814113056924
+      candle: -6198666131353644898
+      couldron: -3027782111604198055
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

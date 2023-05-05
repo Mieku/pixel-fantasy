@@ -177,7 +177,10 @@ namespace Controllers
 
         public void BuildFurniturePressed(string key)
         {
-            
+            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildFurniture, key);
+
+            var furnitureData = Librarian.Instance.GetItemData(key) as FurnitureItemData;
+            Spawner.Instance.PlanFurniture(furnitureData);
         }
 
         public void BuildStructurePressed(string key)

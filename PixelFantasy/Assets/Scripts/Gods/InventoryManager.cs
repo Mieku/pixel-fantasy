@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Items;
 using ScriptableObjects;
+using UnityEngine;
 using Zones;
 
 namespace Gods
@@ -10,6 +11,20 @@ namespace Gods
     {
         private List<Storage> _allStorage = new List<Storage>();
 
+        public Storage FindStorageByUID(string uid)
+        {
+            foreach (var storage in _allStorage)
+            {
+                if (storage.UniqueId == uid)
+                {
+                    return storage;
+                }
+            }
+
+            Debug.LogError($"Storage with UID: {uid} can't be found");
+            return null;
+        }
+        
         public void AddStorage(Storage storage)
         {
             _allStorage.Add(storage);

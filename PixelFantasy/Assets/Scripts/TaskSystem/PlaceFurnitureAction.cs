@@ -2,59 +2,33 @@ using Gods;
 using Items;
 using ScriptableObjects;
 using UnityEngine;
-using Zones;
 
 namespace TaskSystem
 {
-    public class WithdrawItemAction : TaskAction
+    public class PlaceFurnitureAction : TaskAction
     {
         private Storage _storage;
-        private Interactable _requestor;
+        private Furniture _furniture => _task.Requestor as Furniture;
         private bool _isHoldingItem;
         private Item _item;
         private bool _isMoving;
         private ItemData _itemData;
+        private float _timer;
+        private bool _isPlacingItem;
         
-        public float DistanceToRequestor => Vector2.Distance(_requestor.transform.position, transform.position);
+        private const float WORK_SPEED = 1f; // TODO: Get the work speed from the Kinling's stats
+        private const float WORK_AMOUNT = 1f; // TODO: Get the amount of work from the Kinling's stats
+        public float DistanceToRequestor => Vector2.Distance(_furniture.transform.position, transform.position);
         public float DistanceToStorage => Vector2.Distance(_storage.transform.position, transform.position);
-
-        private void Awake()
-        {
-            //GameEvents.OnStorageSlotDeleted += GameEvents_OnStorageSlotDeleted;
-        }
-
-        private void OnDestroy()
-        {
-            //GameEvents.OnStorageSlotDeleted -= GameEvents_OnStorageSlotDeleted;
-        }
         
-        // private void GameEvents_OnStorageSlotDeleted(StorageTile storageTile)
-        // {
-        //     if (_task != null && _storageTile != null && _storageTile == storageTile)
-        //     {
-        //         _task.Enqueue();
-        //         OnTaskCancel();
-        //     }
-        // }
-        
-        public override bool CanDoTask(Task task)
-        {
-            var payload = task.Payload;
-            if ( string.IsNullOrEmpty(payload))
-            {
-                return false;
-            }
-
-            _storage = FindItem(payload);
-            return _storage != null;
-        }
-
         public override void PrepareAction(Task task)
         {
             _task = task;
-            _requestor = _task.Requestor;
+            _storage = InventoryManager.Instance.FindStorageByUID(task.Payload);
             _isHoldingItem = false;
             _isMoving = false;
+            _itemData = _furniture.FurnitureItemData;
+            _isPlacingItem = false;
         }
 
         public override void DoAction()
@@ -69,17 +43,6 @@ namespace TaskSystem
                 _ai.HoldItem(_item);
                 _item.SetHeld(true);
                 _storage = null;
-                return;
-            }
-            
-            // Drop Item Off
-            if (_isHoldingItem && DistanceToRequestor <= 1f)
-            {
-                _isHoldingItem = false;
-                _isMoving = false;
-                _requestor.ReceiveItem(_item);
-
-                ConcludeAction();
                 return;
             }
             
@@ -99,39 +62,62 @@ namespace TaskSystem
             {
                 if (!_isMoving)
                 {
-                    _ai.Unit.UnitAgent.SetMovePosition(_requestor.transform.position);
+                    _ai.Unit.UnitAgent.SetMovePosition(_furniture.transform.position);
                     _isMoving = true;
                     return;
                 }
             }
+            
+            // Place the furniture
+            if ((_isHoldingItem || _isPlacingItem) && DistanceToRequestor <= 1f)
+            {
+                if (_isHoldingItem)
+                {
+                    _furniture.ReceiveItem(_item);
+                    _item = null;
+                    _isHoldingItem = false;
+                }
+                
+                _isMoving = false;
+
+                DoPlacement();
+                return;
+            }
         }
 
+        private void DoPlacement()
+        {
+            UnitAnimController.SetUnitAction(UnitAction.Doing, _ai.GetActionDirection(_furniture.transform.position));
+            _isPlacingItem = true;
+            
+            _timer += TimeManager.Instance.DeltaTime;
+            if(_timer >= WORK_SPEED) 
+            {
+                _timer = 0;
+                if (_furniture.DoPlacement(WORK_AMOUNT)) 
+                {
+                    // When work is complete
+                    ConcludeAction();
+                } 
+            }
+        }
+        
         public override void ConcludeAction()
         {
             UnitAnimController.SetUnitAction(UnitAction.Nothing);
             _task = null;
-            _requestor = null;
+            _storage = null;
             _isHoldingItem = false;
             _isMoving = false;
-            _item = null;
+            _itemData = null;
+            _isPlacingItem = false;
             
             base.ConcludeAction();
         }
 
         public override void OnTaskCancel()
         {
-            _ai.Unit.UnitAgent.SetMovePosition(transform.position);
-            _ai.DropCarriedItem();
-            ConcludeAction();
-        }
-        
-        public Storage FindItem(string itemName)
-        {
-            if (string.IsNullOrEmpty(itemName)) return null;
-            
-            _itemData = Librarian.Instance.GetItemData(itemName);
-            _storage = InventoryManager.Instance.ClaimItem(_itemData);
-            return _storage;
+            throw new System.NotImplementedException();
         }
     }
 }

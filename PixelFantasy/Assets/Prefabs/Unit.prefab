@@ -195,6 +195,7 @@ Transform:
   - {fileID: 5704753765212438478}
   - {fileID: 544204218825684057}
   - {fileID: 1115740639317554240}
+  - {fileID: 6604169484636279981}
   m_Father: {fileID: 5532418264530240428}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -328,6 +329,51 @@ MonoBehaviour:
   _offset: 1
   _runOnlyOnce: 0
   _sortingGroup: {fileID: 0}
+--- !u!1 &2357759136567201342
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6604169484636279981}
+  - component: {fileID: 858079913128560799}
+  m_Layer: 6
+  m_Name: Place Furniture
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6604169484636279981
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2357759136567201342}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8355272791609113398}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &858079913128560799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2357759136567201342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91abc05558749594bb9ba574c80c97a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TaskId: Place Furniture
 --- !u!1 &2428193291553939256
 GameObject:
   m_ObjectHideFlags: 0
@@ -1404,6 +1450,7 @@ MonoBehaviour:
   CombatModifier: 0
   Home: {fileID: 0}
   Occupation: {fileID: 0}
+  Profession: 0
 --- !u!114 &9189890898419539547
 MonoBehaviour:
   m_ObjectHideFlags: 0

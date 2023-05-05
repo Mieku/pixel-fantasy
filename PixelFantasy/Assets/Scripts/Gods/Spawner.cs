@@ -174,9 +174,14 @@ namespace Gods
                     }
                 }
             }
-            else if (inputState == PlayerInputState.BuildFurniture)
+            else if (inputState == PlayerInputState.BuildFurniture && _plannedFurniture != null)
             {
-                //SpawnFurniture(FurnitureData, Helper.ConvertMousePosToGridPos(mousePos));
+                if (_plannedFurniture.CheckPlacement())
+                {
+                    PlayerInputController.Instance.ChangeState(PlayerInputState.None);
+                    _plannedFurniture.PrepareToBuild();
+                    _plannedFurniture = null;
+                }
             }
             else if (inputState == PlayerInputState.BuildFarm)
             {
@@ -403,6 +408,14 @@ namespace Gods
             _plannedBuildingNode = building;
         }
 
+        private Furniture _plannedFurniture;
+        public void PlanFurniture(FurnitureItemData furnitureData)
+        {
+            var furniture = Instantiate(furnitureData.GetRandomFurnitureOption(), _furnitureParent);
+            furniture.Plan(furnitureData);
+            _plannedFurniture = furniture;
+        }
+
         public void SpawnFloor(FloorData floorData, Vector3 spawnPosition)
         {
             if (Helper.IsGridPosValidToBuild(spawnPosition, floorData.InvalidPlacementTags))
@@ -461,6 +474,12 @@ namespace Gods
             {
                 Destroy(_plannedBuildingNode.gameObject);
                 _plannedBuildingNode = null;
+            }
+
+            if (_plannedFurniture != null)
+            {
+                Destroy(_plannedFurniture.gameObject);
+                _plannedFurniture = null;
             }
         }
         

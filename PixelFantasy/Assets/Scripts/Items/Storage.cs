@@ -5,29 +5,32 @@ using Popups.Inventory;
 using ScriptableObjects;
 using UnityEngine;
 
-namespace Zones
+namespace Items
 {
-    public class Storage : ClickableObject
+    public class Storage : Furniture
     {
         [SerializeField] protected StorageItemData _storageItemData;
         [SerializeField] protected InventoryPanel _inventoryPanel;
 
         private List<StorageSlot> _storageSlots = new List<StorageSlot>();
-
+        
         protected override void Awake()
         {
             base.Awake();
             if (_storageItemData != null)
             {
                 Init(_storageItemData);
+                CompletePlacement();
             }
         }
 
-        public virtual void Init(StorageItemData storageItemData)
+        public override void Init(FurnitureItemData furnitureItemData)
         {
-            _storageItemData = storageItemData;
-            _sprite.sprite = storageItemData.ItemSprite;
+            base.Init(furnitureItemData);
             
+            var storageItemData = furnitureItemData as StorageItemData;
+            _storageItemData = storageItemData;
+
             for (int i = 0; i < _storageItemData.NumSlots; i++)
             {
                 _storageSlots.Add(new StorageSlot());
@@ -217,7 +220,7 @@ namespace Zones
                 _inventoryPanel.UpdateDisplayedInventory(_storageSlots);
             }
         }
-
+        
         protected override void OnClicked()
         {
             _inventoryPanel.Init(_storageItemData, _storageSlots, this);
