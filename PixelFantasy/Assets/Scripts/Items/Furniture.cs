@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CodeMonkey.Utils;
 using Gods;
 using ScriptableObjects;
@@ -11,8 +12,10 @@ namespace Items
     public class Furniture : Interactable
     {
         [SerializeField] private Transform _spritesRoot;
+        [SerializeField] private Transform _useageMarkersRoot;
         
         private SpriteRenderer[] _allSprites;
+        private List<SpriteRenderer> _useageMarkers;
         private List<Material> _materials = new List<Material>();
         private int _fadePropertyID;
         
@@ -27,6 +30,7 @@ namespace Items
         protected virtual void Awake()
         {
             _allSprites = _spritesRoot.GetComponentsInChildren<SpriteRenderer>();
+            _useageMarkers = _useageMarkersRoot.GetComponentsInChildren<SpriteRenderer>(true).ToList();
             _fadePropertyID = Shader.PropertyToID("_OuterOutlineFade");
             foreach (var spriteRenderer in _allSprites)
             {
@@ -38,6 +42,17 @@ namespace Items
         {
             _furnitureItemData = furnitureItemData;
         }
+
+        public List<Transform> UseagePositions()
+        {
+            List<Transform> results = new List<Transform>();
+            foreach (var marker in _useageMarkers)
+            {
+                results.Add(marker.transform);
+            }
+
+            return results;
+        }
         
         public void Plan(FurnitureItemData furnitureItemData)
         {
@@ -45,13 +60,23 @@ namespace Items
             _remainingWork = _furnitureItemData.WorkCost;
             // Follows cursor
             _isPlanning = true;
+            DisplayUseageMarkers(true);
         }
 
         public void PrepareToBuild()
         {
+            DisplayUseageMarkers(false);
             // Stop Following cursor, set build task
             _isPlanning = false;
             CreateFurnitureHaulingTask();
+        }
+
+        public void DisplayUseageMarkers(bool showMarkers)
+        {
+            foreach (var marker in _useageMarkers)
+            {
+                marker.gameObject.SetActive(showMarkers);
+            }
         }
         
         private void CreateFurnitureHaulingTask()
@@ -95,6 +120,7 @@ namespace Items
 
         protected void CompletePlacement()
         {
+            DisplayUseageMarkers(false);
             _remainingWork = _furnitureItemData.WorkCost;
             ColourArt(ColourStates.Built);
             _isBuilt = true;
@@ -171,17 +197,42 @@ namespace Items
         
         public bool CheckPlacement()
         {
-            bool result = true;
+            bool result = Helper.IsGridPosValidToBuild(transform.position, _furnitureItemData.InvalidPlacementTags);
 
-            if (Helper.IsGridPosValidToBuild(transform.position, _furnitureItemData.InvalidPlacementTags))
+            // Check the useage markers
+            if (_useageMarkers != null)
+            {
+                bool markersPass = false;
+                foreach (var marker in _useageMarkers)
+                {
+                    if (Helper.IsGridPosValidToBuild(marker.transform.position, _furnitureItemData.InvalidPlacementTags))
+                    {
+                        //ColourArt(ColourStates.CanPlace);
+                        marker.color = Color.white;
+                        markersPass = true;
+                    }
+                    else
+                    {
+                        //ColourArt(ColourStates.CantPlace);
+                        marker.color = Color.red;
+                    }
+                }
+
+                if (!markersPass)
+                {
+                    result = false;
+                }
+            }
+
+            if (result)
             {
                 ColourArt(ColourStates.CanPlace);
             }
             else
             {
                 ColourArt(ColourStates.CantPlace);
-                result = false;
             }
+            
             return result;
         }
         
