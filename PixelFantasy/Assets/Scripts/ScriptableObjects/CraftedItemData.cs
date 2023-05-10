@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Characters;
+using Items;
 using UnityEngine;
 
 namespace ScriptableObjects
@@ -8,6 +9,7 @@ namespace ScriptableObjects
     public class CraftedItemData : ItemData
     {
         public Profession CraftersProfession;
+        public FurnitureItemData RequiredCraftingTable; 
         public float WorkCost;
         [SerializeField] private List<ItemAmount> _resourceCosts;
         [SerializeField] private List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle" };

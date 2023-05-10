@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Buildings;
 using CodeMonkey.Utils;
 using Gods;
 using ScriptableObjects;
@@ -13,17 +14,19 @@ namespace Items
     {
         [SerializeField] private Transform _spritesRoot;
         [SerializeField] private Transform _useageMarkersRoot;
+        [SerializeField] protected FurnitureItemData _furnitureItemData;
+
+        public bool IsBuilt;
         
         private SpriteRenderer[] _allSprites;
         private List<SpriteRenderer> _useageMarkers;
         private List<Material> _materials = new List<Material>();
         private int _fadePropertyID;
         
-        private FurnitureItemData _furnitureItemData;
-        private bool _isBuilt;
         private bool _isPlanning;
         private float _remainingWork;
         private bool _isOutlineLocked;
+        private Building _parentBuilding;
 
         public FurnitureItemData FurnitureItemData => _furnitureItemData;
         
@@ -35,6 +38,22 @@ namespace Items
             foreach (var spriteRenderer in _allSprites)
             {
                 _materials.Add(spriteRenderer.material);
+            }
+        }
+        
+        protected virtual void Start()
+        {
+            if (_furnitureItemData != null && !_isPlanning)
+            {
+                if (IsBuilt)
+                {
+                    CompletePlacement();
+                }
+                else
+                {
+                    _remainingWork = _furnitureItemData.WorkCost;
+                    PrepareToBuild();
+                }
             }
         }
 
@@ -68,6 +87,7 @@ namespace Items
             DisplayUseageMarkers(false);
             // Stop Following cursor, set build task
             _isPlanning = false;
+            ColourArt(ColourStates.Blueprint);
             CreateFurnitureHaulingTask();
         }
 
@@ -97,8 +117,19 @@ namespace Items
             }
             else
             {
-                // TODO: Set up build order
+                CraftingBill bill = new CraftingBill
+                {
+                    ItemToCraft = _furnitureItemData,
+                    Requestor = this,
+                    OnCancelled = OnCraftingBillCancelled,
+                };
+                TaskManager.Instance.AddBill(bill);
             }
+        }
+
+        public void OnCraftingBillCancelled()
+        {
+            
         }
 
         public override void ReceiveItem(Item item)
@@ -123,7 +154,15 @@ namespace Items
             DisplayUseageMarkers(false);
             _remainingWork = _furnitureItemData.WorkCost;
             ColourArt(ColourStates.Built);
-            _isBuilt = true;
+            IsBuilt = true;
+            
+            // Check if this was placed in a building, if so add it to the building
+            var building = Helper.FindBuildingFromInteriorPosition(transform.position);
+            if (building != null)
+            {
+                building.AddFurniture(this);
+                _parentBuilding = building;
+            }
         }
         
         private void Update()
@@ -137,7 +176,7 @@ namespace Items
         
         private void OnMouseEnter()
         {
-            if(!_isBuilt) return;
+            if(!IsBuilt) return;
             if(_isOutlineLocked) return;
             
             TriggerOutline(true);
@@ -145,7 +184,7 @@ namespace Items
 
         private void OnMouseExit()
         {
-            if(!_isBuilt) return;
+            if(!IsBuilt) return;
             if(_isOutlineLocked) return;
             
             TriggerOutline(false);
@@ -187,7 +226,7 @@ namespace Items
                 else
                 {
                     material.SetFloat(_fadePropertyID, 0);
-                    if (!_isBuilt)
+                    if (!IsBuilt)
                     {
                         ColourArt(ColourStates.Blueprint);
                     }

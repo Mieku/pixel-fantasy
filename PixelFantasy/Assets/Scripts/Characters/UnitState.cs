@@ -18,7 +18,7 @@ namespace Characters
         public float CombatModifier = 0f;
 
         public Building Home;
-        public Building Occupation;
+        public ProductionBuilding Occupation;
         public Profession Profession;
 
         public string FullName => FirstName + " " + LastName;

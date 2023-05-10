@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Buildings;
 using UnityEngine;
 
 namespace Gods
@@ -7,6 +8,7 @@ namespace Gods
     public class Interior : MonoBehaviour
     {
         public Transform EntrancePos;
+        public Building Building;
         
         private void Start()
         {

@@ -4,6 +4,7 @@ using Buildings.Building_Panels;
 using Characters;
 using Gods;
 using HUD;
+using Items;
 using ScriptableObjects;
 using TaskSystem;
 using UnityEngine;
@@ -27,6 +28,7 @@ namespace Buildings
         private BuildingNode _buildingNode;
         private List<Material> _materials = new List<Material>();
         private int _fadePropertyID;
+        private List<Furniture> _availableFurniture = new List<Furniture>();
 
         [SerializeField] protected Vector2 _interiorCamOffset;
 
@@ -41,6 +43,7 @@ namespace Buildings
         public Interior Interior;
         public Zone AssignedZone;
         public BuildingPanel BuildingPanel => _buildingNode.BuildingData.BuildingPanel;
+        public List<Furniture> AllFurniture => _availableFurniture;
 
         private void Awake()
         {
@@ -58,6 +61,24 @@ namespace Buildings
         public void Init(BuildingNode buildingNode)
         {
             _buildingNode = buildingNode;
+        }
+
+        public void AddFurniture(Furniture furniture)
+        {
+            _availableFurniture.Add(furniture);
+        }
+
+        public Furniture GetFurniture(FurnitureItemData furnitureItemData)
+        {
+            foreach (var furniture in _availableFurniture)
+            {
+                if (furniture.FurnitureItemData == furnitureItemData)
+                {
+                    return furniture;
+                }
+            }
+
+            return null;
         }
 
         public void SetBlueprint()
@@ -195,12 +216,7 @@ namespace Buildings
             CantPlace,
         }
 
-        public void AssignWorker(UnitState unit)
-        {
-            Occupants.Add(unit);
-            unit.Occupation = this;
-            unit.Profession = BuildingData.WorkersProfession;
-        }
+        
 
         public void UnassignWorker(UnitState unit)
         {

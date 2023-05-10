@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ea08642fa677164181cf71b3420aa61, type: 3}
-  m_Name: Stool
+  m_Name: Builder's Table
   m_EditorClassIdentifier: 
-  ItemName: Stool
+  ItemName: Builder's Table
   MaxStackSize: 1
-  ItemSprite: {fileID: -1997294335, guid: 90f5efa4e4d76d34cb9b37730541f11f, type: 3}
+  ItemSprite: {fileID: -2106620571, guid: 4d5895fa30c428843a9032c52ee06e38, type: 3}
   DefaultSpriteScale: {x: 1, y: 1}
   CraftersProfession: 2
-  RequiredCraftingTable: {fileID: 11400000, guid: 644004581d1321d41993fc7be87087b5, type: 2}
   WorkCost: 5
   _resourceCosts:
   - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
@@ -27,4 +26,4 @@ MonoBehaviour:
   - Wall
   - Obstacle
   PlacedFurnitureOptions:
-  - {fileID: 8679221839148330440, guid: e219a8e018e3d244b8d0ef8b035b149b, type: 3}
+  - {fileID: 5259353419307902018, guid: 00efb1b08405d734ea032aba545657c2, type: 3}

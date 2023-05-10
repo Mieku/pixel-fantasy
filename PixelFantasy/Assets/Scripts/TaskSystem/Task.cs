@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Characters;
 using Gods;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace TaskSystem
         public string Payload;
         public Family Owner;
         public Profession Profession;
+        public Queue<Task> SubTasks = new Queue<Task>();
 
         public bool IsEqual(Task otherTask)
         {
@@ -29,6 +31,10 @@ namespace TaskSystem
         public void Cancel()
         {
             TaskManager.Instance.CancelTask(this);
+            foreach (var subTask in SubTasks)
+            {
+                TaskManager.Instance.CancelTask(subTask);
+            }
         }
 
         public void Enqueue()
@@ -38,6 +44,12 @@ namespace TaskSystem
 
         public Task Clone()
         {
+            Queue<Task> subTasks = new Queue<Task>();
+            foreach (var subTask in SubTasks)
+            {
+                subTasks.Enqueue(subTask);
+            }
+            
             return new Task()
             {
                 Category = this.Category,
@@ -46,6 +58,7 @@ namespace TaskSystem
                 Payload = this.Payload,
                 Owner = this.Owner,
                 Profession = this.Profession,
+                SubTasks = subTasks,
             };
         }
     }

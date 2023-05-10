@@ -21,6 +21,7 @@ TagManager:
   - Mountain
   - Zones
   - Obstacle
+  - Building Interior
   layers:
   - Default
   - TransparentFX

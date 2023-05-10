@@ -20,12 +20,13 @@ namespace TaskSystem
         private float _waitingTimer;
         private TaskAction _curTaskAction;
         private Item _heldItem;
+        private Queue<Task> _queuedTasks = new Queue<Task>();
         
         private const float WAIT_TIMER_MAX = .2f; // 200ms
 
         public Unit Unit => _unit;
         public Family Family => FamilyManager.Instance.GetFamily(_unit.GetUnitState());
-        public Building Occupation => _unit.GetUnitState().Occupation;
+        public ProductionBuilding Occupation => _unit.GetUnitState().Occupation;
         public Profession Profession => _unit.GetUnitState().Profession;
 
         public enum State
@@ -98,24 +99,21 @@ namespace TaskSystem
         private void RequestNextTask()
         {
             Task task = null;
+            
+            // Check if they have a queued task
+            if (_queuedTasks.Count > 0)
+            {
+                task = _queuedTasks.Dequeue();
+            }
 
             if (Occupation != null)
             {
-                task = Occupation.BuildingTasks.NextTask;
+                task = Occupation.GetTask();
             }
 
             if (task == null)
             {
                 task = TaskManager.Instance.GetNextTaskByProfession(Profession);
-
-                // foreach (var category in _professionData.SortedPriorities)
-                // {
-                //     task = TaskManager.Instance.GetNextTaskByCategory(category);
-                //     if (task != null)
-                //     {
-                //         break;
-                //     }
-                // }
             }
 
             if (task == null)
@@ -124,6 +122,28 @@ namespace TaskSystem
                 return;
             }
 
+            // Queue the subtasks
+            if (task.SubTasks.Count > 0)
+            {
+                Queue<Task> newSubtasks = new Queue<Task>(task.SubTasks);
+                task.SubTasks.Clear();
+                
+                foreach (var queuedTask in _queuedTasks)
+                {
+                    newSubtasks.Enqueue(queuedTask);
+                }
+
+                _queuedTasks = newSubtasks;
+                
+                _state = State.WaitingForNextTask;
+                return;
+            }
+
+            SetupTaskAction(task);
+        }
+
+        private void SetupTaskAction(Task task)
+        {
             // Find the task's equivalent action
             var taskAction = FindTaskActionFor(task);
             if (taskAction == null)

@@ -1,4 +1,5 @@
 using System;
+using Buildings;
 using Characters;
 using Gods;
 using UnityEngine;
@@ -9,6 +10,8 @@ namespace TaskSystem
     {
         public TaskQueue LabourerTasks = new TaskQueue();
         public TaskQueue BuilderTasks = new TaskQueue();
+
+        public CraftingBillQueue CraftingBills = new CraftingBillQueue();
         
         public Task GetNextTaskByProfession(Profession profession)
         {
@@ -20,6 +23,22 @@ namespace TaskSystem
             };
 
             return nextTask;
+        }
+
+        public void AddBill(CraftingBill bill)
+        {
+            CraftingBills.Add(bill);
+        }
+
+        public void CancelBill(CraftingBill bill)
+        {
+            CraftingBills.Cancel(bill);
+        }
+
+        public CraftingBill GetNextCraftingBillByBuilding(ProductionBuilding building)
+        {
+            CraftingBill result = CraftingBills.GetNextCraftingBillByBuilding(building);
+            return result;
         }
         
         public void AddTask(Task task)

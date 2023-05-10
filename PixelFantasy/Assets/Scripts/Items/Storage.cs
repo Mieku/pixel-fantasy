@@ -9,27 +9,24 @@ namespace Items
 {
     public class Storage : Furniture
     {
-        [SerializeField] protected StorageItemData _storageItemData;
         [SerializeField] protected InventoryPanel _inventoryPanel;
 
-        private List<StorageSlot> _storageSlots = new List<StorageSlot>();
+        [SerializeField] private List<StorageSlot> _storageSlots = new List<StorageSlot>();
+        protected StorageItemData _storageItemData => _furnitureItemData as StorageItemData;
         
         protected override void Awake()
         {
-            base.Awake();
-            if (_storageItemData != null)
+            if (_storageItemData != null && IsBuilt)
             {
                 Init(_storageItemData);
-                CompletePlacement();
+                //CompletePlacement();
             }
+            base.Awake();
         }
 
         public override void Init(FurnitureItemData furnitureItemData)
         {
             base.Init(furnitureItemData);
-            
-            var storageItemData = furnitureItemData as StorageItemData;
-            _storageItemData = storageItemData;
 
             for (int i = 0; i < _storageItemData.NumSlots; i++)
             {
@@ -37,6 +34,8 @@ namespace Items
             }
             
             InventoryManager.Instance.AddStorage(this);
+            GameEvents.Trigger_RefreshInventoryDisplay();
+            RefreshDisplayedInventoryPanel();
         }
 
         public int AmountCanBeDeposited(ItemData itemData)
@@ -123,6 +122,38 @@ namespace Items
             GameEvents.Trigger_RefreshInventoryDisplay();
             RefreshDisplayedInventoryPanel();
         }
+
+        public void RestoreClaimed(ItemData itemData, int quantity)
+        {
+            int remainder = quantity;
+            foreach (var slot in _storageSlots)
+            {
+                if (slot.Item == itemData)
+                {
+                    if (slot.NumClaimed >= remainder)
+                    {
+                        slot.NumClaimed -= remainder;
+                        return;
+                    }
+                    else
+                    {
+                        int amountToRemove = slot.NumClaimed;
+                        slot.NumClaimed = 0;
+                        remainder -= amountToRemove;
+                    }
+                }
+
+                if (remainder == 0)
+                {
+                    return;
+                }
+            }
+
+            if (remainder > 0)
+            {
+                Debug.LogError("There was still a remainder after restoring claimed: " + remainder);
+            }
+        }
         
         public void SetClaimed(ItemData itemData, int quantity)
         {
@@ -200,11 +231,11 @@ namespace Items
                     {
                         if (result.ContainsKey(slot.Item))
                         {
-                            result[slot.Item] += slot.NumAvailable;
+                            result[slot.Item] += slot.NumStored;
                         }
                         else
                         {
-                            result[slot.Item] = slot.NumAvailable;
+                            result[slot.Item] = slot.NumStored;
                         }
                     }
                 }

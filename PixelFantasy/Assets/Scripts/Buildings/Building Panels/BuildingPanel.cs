@@ -7,12 +7,12 @@ namespace Buildings.Building_Panels
     {
         [SerializeField] protected WorkerPanel _workerPanel;
         
-        [FormerlySerializedAs("_building")] public Building Building;
+        [FormerlySerializedAs("_building")] public ProductionBuilding Building;
         protected bool _isInsideBuilding;
 
         public virtual void Init(Building building)
         {
-            Building = building;
+            Building = building as ProductionBuilding;
             RefreshWorkerPanel();
         }
 

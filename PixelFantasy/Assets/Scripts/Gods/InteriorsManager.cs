@@ -14,6 +14,7 @@ namespace Gods
         {
             var interior = Instantiate(buildingNode.Interior, transform);
             _interiorsDictionary.Add(buildingNode, interior);
+            interior.Building = buildingNode.Building;
             interior.transform.position = DeterminePosition();
             buildingNode.LinkEntrance(interior.EntrancePos);
             NavMeshManager.Instance.UpdateNavMesh();

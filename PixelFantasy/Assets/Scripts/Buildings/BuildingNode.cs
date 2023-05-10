@@ -24,6 +24,7 @@ namespace Buildings
 
         public List<string> InvalidPlacementTags => _buildingData.InvalidPlacementTags;
         public BuildingData BuildingData => _buildingData;
+        public Building Building => _building;
     
         public void Plan(BuildingData buildingData)
         {

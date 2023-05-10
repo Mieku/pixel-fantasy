@@ -62,9 +62,9 @@ namespace Gods
             return null;
         }
 
-        public void RestoreClaimedItems(ItemData itemData, int quantity)
+        public void RestoreClaimedItems(Storage originalStorage, ItemData itemData, int quantity)
         {
-            
+            originalStorage.RestoreClaimed(itemData, quantity);
         }
 
         public Dictionary<ItemData, int> GetAvailableInventory()

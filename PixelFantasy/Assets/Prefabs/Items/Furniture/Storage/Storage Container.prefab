@@ -848,8 +848,10 @@ MonoBehaviour:
   PendingCommand: {fileID: 0}
   _spritesRoot: {fileID: 1419672062545796339}
   _useageMarkersRoot: {fileID: 7127226482418418437}
-  _storageItemData: {fileID: 0}
+  _furnitureItemData: {fileID: 11400000, guid: 8054ef9a56e8daa448e71e48663b1de4, type: 2}
+  IsBuilt: 0
   _inventoryPanel: {fileID: 8210458365594063053}
+  _storageSlots: []
 --- !u!61 &5465201506073250536
 BoxCollider2D:
   m_ObjectHideFlags: 0

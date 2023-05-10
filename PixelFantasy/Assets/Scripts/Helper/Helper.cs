@@ -1,6 +1,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Buildings;
 using Gods;
 using Items;
 using UnityEngine;
@@ -210,6 +211,21 @@ public static class Helper
         }
         
         return result;
+    }
+
+    public static Building FindBuildingFromInteriorPosition(Vector2 position)
+    {
+        var gos = GetGameObjectsOnTile(position, "Building Interior");
+        foreach (var go in gos)
+        {
+            var interior = go.GetComponentInParent<Interior>(true);
+            if (interior != null)
+            {
+                return interior.Building;
+            }
+        }
+
+        return null;
     }
 
     public static List<ClickObject> GetClickObjectsAtPos(Vector2 pos)

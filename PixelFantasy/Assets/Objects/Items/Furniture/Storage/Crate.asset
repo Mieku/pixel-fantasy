@@ -17,10 +17,11 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: c5dc3fbeb7cad2949bf0873f5c636af9, type: 3}
   DefaultSpriteScale: {x: 1, y: 1}
   CraftersProfession: 2
+  RequiredCraftingTable: {fileID: 11400000, guid: 644004581d1321d41993fc7be87087b5, type: 2}
   WorkCost: 5
   _resourceCosts:
-  - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
-    Quantity: 2
+  - Item: {fileID: 11400000, guid: f1cb3944f249ec24f909ab4be3e97f91, type: 2}
+    Quantity: 5
   _invalidPlacementTags:
   - Water
   - Wall
