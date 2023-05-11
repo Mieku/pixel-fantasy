@@ -13,7 +13,7 @@ using Zones;
 
 namespace Buildings
 {
-    public abstract class Building : MonoBehaviour
+    public abstract class Building : UniqueObject
     {
         [SerializeField] private Transform _exteriorArtRoot;
         [SerializeField] private GameObject _obstacleRoot;

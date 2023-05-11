@@ -20,7 +20,7 @@ MonoBehaviour:
   RequiredCraftingTable: {fileID: 11400000, guid: 644004581d1321d41993fc7be87087b5, type: 2}
   WorkCost: 5
   _resourceCosts:
-  - Item: {fileID: 11400000, guid: f1cb3944f249ec24f909ab4be3e97f91, type: 2}
+  - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
     Quantity: 5
   _invalidPlacementTags:
   - Water

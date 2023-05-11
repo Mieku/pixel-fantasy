@@ -20,5 +20,6 @@ namespace TaskSystem
         Hauling,
         Cleaning,
         Research,
+        Crafting,
     }
 }

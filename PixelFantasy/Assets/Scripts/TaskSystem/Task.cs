@@ -4,6 +4,7 @@ using Characters;
 using Gods;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Object = UnityEngine.Object;
 
 namespace TaskSystem
 {
@@ -16,6 +17,7 @@ namespace TaskSystem
         public string Payload;
         public Family Owner;
         public Profession Profession;
+        public List<CraftingBill.RequestedItemInfo> Materials;
         public Queue<Task> SubTasks = new Queue<Task>();
 
         public bool IsEqual(Task otherTask)

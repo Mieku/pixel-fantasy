@@ -24,7 +24,7 @@ namespace Buildings
             CraftingBill bill = TaskManager.Instance.GetNextCraftingBillByBuilding(this);
             if (bill != null)
             {
-                Task billTask = bill.CreateTask(this);
+                Task billTask = bill.CreateTask();
                 return billTask;
             }
 

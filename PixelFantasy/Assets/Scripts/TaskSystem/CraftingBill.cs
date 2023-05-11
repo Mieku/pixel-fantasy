@@ -16,7 +16,8 @@ namespace TaskSystem
         public Interactable Requestor;
         public Action OnCancelled;
         public List<RequestedItemInfo> RequestedItemInfos = new List<RequestedItemInfo>();
-        //public List<CraftingBill> AssociatedBills = new List<CraftingBill>(); // Bills needed to craft the items required for this item
+
+        private CraftingTable _assignedCraftingTable;
 
         private List<RequestedItemInfo> ClaimRequiredMaterials(CraftedItemData itemData)
         {
@@ -35,33 +36,8 @@ namespace TaskSystem
                     }
                     else
                     {
-                        // Does not have the item in storage yet, can it be made?
-                        CraftedItemData craftedItemData = cost.Item as CraftedItemData;
-                        if (craftedItemData != null)
-                        {
-                            var additionalItems = ClaimRequiredMaterials(craftedItemData);
-                            if (additionalItems == null || additionalItems.Count == 0)
-                            {
-                                canGetAllItems = false;
-                                break;
-                            }
-                            else
-                            {
-                                // Add the new items to the list
-                                foreach (var additionalItem in additionalItems)
-                                {
-                                    for (int j = 0; j < additionalItem.Quantity; j++)
-                                    {
-                                        results = AddToRequestedItemsList(additionalItem.ItemData, additionalItem.Storage, results);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            canGetAllItems = false;
-                            break;
-                        }
+                        canGetAllItems = false;
+                        break;
                     }
                 }
 
@@ -77,7 +53,6 @@ namespace TaskSystem
             }
             else
             {
-                // Unclaim them
                 foreach (var resultItemInfo in results)
                 {
                     for (int i = 0; i < resultItemInfo.Quantity; i++)
@@ -85,7 +60,7 @@ namespace TaskSystem
                         resultItemInfo.Storage.RestoreClaimed(resultItemInfo.ItemData, 1);
                     }
                 }
-
+                
                 return null;
             }
         }
@@ -130,24 +105,36 @@ namespace TaskSystem
             var craftingTable = ItemToCraft.RequiredCraftingTable;
             if (craftingTable == null)
             {
+                _assignedCraftingTable = null;
                 return true;
             }
 
-            var result = building.GetFurniture(craftingTable);
-            if (result != null)
+            var result = building.GetFurniture(craftingTable) as CraftingTable;
+            if (result != null && !result.IsInUse)
             {
+                _assignedCraftingTable = result;
                 return true;
             }
             else
             {
+                _assignedCraftingTable = null;
                 return false;
             }
         }
 
-        public Task CreateTask(ProductionBuilding building)
+        public Task CreateTask()
         {
-            Debug.Log("Create Task was triggered!");
-            return null;
+            Task task = new Task()
+            {
+                TaskId = "Craft Placed Item",
+                Category = TaskCategory.Crafting,
+                Requestor = Requestor,
+                Payload = _assignedCraftingTable.UniqueId,
+                Profession = ItemToCraft.CraftersProfession,
+                Materials = RequestedItemInfos,
+            };
+            
+            return task;
         }
 
         [Serializable]
