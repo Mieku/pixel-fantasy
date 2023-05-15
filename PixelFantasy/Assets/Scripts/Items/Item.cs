@@ -66,9 +66,8 @@ namespace Items
         {
             Task task = new Task
             {
-                Category = TaskCategory.Hauling,
                 TaskId = "Store Item",
-                Requestor = this
+                Requestor = this,
             };
 
             var zone = Helper.IsPositionInZone(transform.position);

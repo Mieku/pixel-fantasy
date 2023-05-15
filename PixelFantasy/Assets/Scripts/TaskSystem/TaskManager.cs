@@ -2,6 +2,7 @@ using System;
 using Buildings;
 using Characters;
 using Gods;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace TaskSystem
@@ -13,16 +14,14 @@ namespace TaskSystem
 
         public CraftingBillQueue CraftingBills = new CraftingBillQueue();
         
-        public Task GetNextTaskByProfession(Profession profession)
+        public Task GetNextTaskByProfession(ProfessionData profession)
         {
-            Task nextTask = profession switch
+            return profession.ProfessionName switch
             {
-                Profession.Labourer => LabourerTasks.NextTask,
-                Profession.Builder => BuilderTasks.NextTask,
-                _ => throw new ArgumentOutOfRangeException(nameof(profession), profession, null)
+                "Labourer" => LabourerTasks.NextTask,
+                "Builder" => BuilderTasks.NextTask,
+                _ => null
             };
-
-            return nextTask;
         }
 
         public void AddBill(CraftingBill bill)
@@ -43,12 +42,12 @@ namespace TaskSystem
         
         public void AddTask(Task task)
         {
-            switch (task.Profession)
+            switch (task.Profession.ProfessionName)
             {
-                case Profession.Labourer:
+                case "Labourer":
                     LabourerTasks.AddTask(task);
                     break;
-                case Profession.Builder:
+                case "Builder":
                     BuilderTasks.AddTask(task);
                     break;
                 default:
@@ -60,12 +59,12 @@ namespace TaskSystem
         {
             GameEvents.Trigger_OnTaskCancelled(task);
             
-            switch (task.Profession)
+            switch (task.Profession.ProfessionName)
             {
-                case Profession.Labourer:
+                case "Labourer":
                     LabourerTasks.CancelTask(task);
                     break;
-                case Profession.Builder:
+                case "Builder":
                     BuilderTasks.CancelTask(task);
                     break;
                 default:

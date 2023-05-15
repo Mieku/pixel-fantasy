@@ -256,6 +256,18 @@ namespace Items
         {
             _inventoryPanel.Init(_storageItemData, _storageSlots, this);
         }
+
+        public bool IsItemInStorage(ItemData itemData)
+        {
+            foreach (var slot in _storageSlots)
+            {
+                if(slot.Item != itemData) continue;
+
+                return slot.NumAvailable > 0;
+            }
+
+            return false;
+        }
     }
 
     [Serializable]

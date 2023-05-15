@@ -29,6 +29,8 @@ namespace HUD
 
         public void Hide()
         {
+            if (_buildingPanel == null) return;
+                
             _building = null;
             _root.SetActive(false);
             Destroy(_buildingPanel.gameObject);

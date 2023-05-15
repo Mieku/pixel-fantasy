@@ -108,7 +108,6 @@ namespace Items
                 Task task = new Task
                 {
                     TaskId = "Place Furniture",
-                    Category = TaskCategory.Hauling,
                     Requestor = this,
                     Payload = storage.UniqueId,
                     Profession = _furnitureItemData.CraftersProfession,

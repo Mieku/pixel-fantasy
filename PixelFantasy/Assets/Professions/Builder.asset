@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae2c6f49cb8dde44a81488d093e612cd, type: 3}
-  m_Name: Hauler
+  m_Name: Builder
   m_EditorClassIdentifier: 
-  ProfessionName: Hauler
-  SortedPriorities: 0c00000004000000
+  ProfessionName: Builder
+  ProfessionIcon: {fileID: 21300000, guid: 6f3680b2988108f48963a71e8553651f, type: 3}
+  RequiredTool: {fileID: 11400000, guid: 3aed8ff8be98d0349bc03dd106675280, type: 2}

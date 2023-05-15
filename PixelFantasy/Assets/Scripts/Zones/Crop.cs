@@ -357,7 +357,6 @@ namespace Zones
             Task task = new Task()
             {
                 TaskId = "Till Soil",
-                Category = TaskCategory.Farming,
                 Requestor = this,
             };
             task.Enqueue();
@@ -377,7 +376,6 @@ namespace Zones
             Task task = new Task()
             {
                 TaskId = "Dig Hole",
-                Category = TaskCategory.Farming,
                 Requestor = this,
             };
             task.Enqueue();
@@ -397,7 +395,6 @@ namespace Zones
             Task task = new Task()
             {
                 TaskId = "Plant Crop",
-                Category = TaskCategory.Farming,
                 Requestor = this,
             };
             task.Enqueue();
@@ -417,7 +414,6 @@ namespace Zones
             Task task = new Task()
             {
                 TaskId = "Water Crop",
-                Category = TaskCategory.Farming,
                 Requestor = this,
             };
             task.Enqueue();
@@ -436,7 +432,6 @@ namespace Zones
             Task task = new Task()
             {
                 TaskId = "Harvest Crop",
-                Category = TaskCategory.Farming,
                 Requestor = this,
             };
             task.Enqueue();
@@ -499,7 +494,6 @@ namespace Zones
             Task task = new Task()
             {
                 TaskId = "Crop Swap",
-                Category = TaskCategory.Farming,
                 Requestor = this,
             };
             task.Enqueue();
@@ -510,7 +504,6 @@ namespace Zones
             Task task = new Task()
             {
                 TaskId = "Clear Crop",
-                Category = TaskCategory.Farming,
                 Requestor = this,
             };
             task.Enqueue();

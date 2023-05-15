@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae2c6f49cb8dde44a81488d093e612cd, type: 3}
-  m_Name: LabourerProfessionData
+  m_Name: Forester
   m_EditorClassIdentifier: 
-  ProfessionName: Labourer
-  SortedPriorities: 010000000200000003000000040000000700000006000000050000000c0000000d0000000e00000000000000
+  ProfessionName: Forester
+  ProfessionIcon: {fileID: 21300000, guid: c010dce291f56fa43aa503464e20d207, type: 3}
+  RequiredTool: {fileID: 11400000, guid: 5921c14da00407b4bbfd2f7d813142a3, type: 2}

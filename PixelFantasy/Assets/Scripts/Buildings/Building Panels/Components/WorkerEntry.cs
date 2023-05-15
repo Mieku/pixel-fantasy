@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Buildings.Building_Panels;
 using Characters;
+using Gods;
 using TMPro;
 using UnityEngine;
 
@@ -47,8 +48,9 @@ public class WorkerEntry : MonoBehaviour
             _choosenEntryHandle.SetActive(false);
             _chooseEntryHandle.SetActive(true);
             _selectBtn.SetActive(false);
-            
-            var availableWorkers = UnitsManager.Instance.UnemployedUnits;
+
+            var prof = _panel.Building.BuildingData.WorkersProfession;
+            var availableWorkers = UnitsManager.Instance.UnitsWithProfession(prof);
             _dropdown.options.Clear();
             _dropdown.options.Add(new TMP_Dropdown.OptionData("Empty"));
             _dropdown.SetValueWithoutNotify(0);

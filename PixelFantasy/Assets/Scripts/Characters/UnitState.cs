@@ -1,4 +1,6 @@
 using Buildings;
+using ScriptableObjects;
+using TaskSystem;
 using UnityEngine;
 
 namespace Characters
@@ -19,7 +21,7 @@ namespace Characters
 
         public Building Home;
         public ProductionBuilding Occupation;
-        public Profession Profession;
+        public ProfessionData Profession;
 
         public string FullName => FirstName + " " + LastName;
         public string UID => _uid.uniqueID;
@@ -38,6 +40,12 @@ namespace Characters
         public float Toughness => _defaultToughness + (_defaultToughness * ToughnessModifier);
         public float Combat => _defaultCombat + (_defaultCombat * CombatModifier);
 
+        public void SetProfession(ProfessionData profession)
+        {
+            RemoveOccupation();
+            Profession = profession;
+        }
+        
         public void RemoveOccupation()
         {
             Occupation = null;
@@ -82,13 +90,5 @@ namespace Characters
             public float ToughnessModifier;
             public float CombatModifier;
         }
-    }
-
-    public enum Profession
-    {
-        Labourer,
-        None,
-        Builder,
-        Forester
     }
 }

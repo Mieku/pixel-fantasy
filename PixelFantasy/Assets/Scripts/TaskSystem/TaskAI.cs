@@ -5,6 +5,7 @@ using Buildings;
 using Characters;
 using Gods;
 using Items;
+using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,7 +13,6 @@ namespace TaskSystem
 {
     public class TaskAI : MonoBehaviour
     {
-        [SerializeField] private ProfessionData _professionData;
         [SerializeField] private Unit _unit;
         
         private List<TaskAction> _taskActions;
@@ -27,7 +27,7 @@ namespace TaskSystem
         public Unit Unit => _unit;
         public Family Family => FamilyManager.Instance.GetFamily(_unit.GetUnitState());
         public ProductionBuilding Occupation => _unit.GetUnitState().Occupation;
-        public Profession Profession => _unit.GetUnitState().Profession;
+        public ProfessionData Profession => _unit.GetUnitState().Profession;
 
         public enum State
         {
@@ -278,6 +278,11 @@ namespace TaskSystem
             Spawner.Instance.SpawnItem(_heldItem.GetItemData(), transform.position, true);
             Destroy(_heldItem.gameObject);
             _heldItem = null;
+        }
+
+        public void QueueTask(Task task)
+        {
+            _queuedTasks.Enqueue(task);
         }
     }
 }

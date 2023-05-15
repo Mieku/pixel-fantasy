@@ -30,7 +30,6 @@ public abstract class Interactable : UniqueObject
 
         Task task = new Task
         {
-            Category = command.Task.Category,
             TaskId = command.Task.TaskId,
             Requestor = this
         };
@@ -55,7 +54,6 @@ public abstract class Interactable : UniqueObject
         
         Task task = new Task
         {
-            Category = command.Task.Category,
             TaskId = command.Task.TaskId,
             Requestor = this
         };

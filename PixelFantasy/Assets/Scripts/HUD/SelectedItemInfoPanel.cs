@@ -18,22 +18,14 @@ namespace HUD
         [SerializeField] private TextMeshProUGUI _selectedItemNameGeneric;
         [SerializeField] private TextMeshProUGUI _detailsGeneric;
         [SerializeField] private GameObject _genericPanel;
-        [SerializeField] private GameObject _unitPanel;
 
         [Header("Kinling Details")] 
-        [SerializeField] private TextMeshProUGUI _unitName;
-        [SerializeField] private TextMeshProUGUI _currentAction;
-        [SerializeField] private Image _jobIcon;
-        [SerializeField] private TextMeshProUGUI _jobName;
-        [SerializeField] private Image _jobBarFill;
+        [SerializeField] private KinlingDetailsUI _kinlingDetails;
 
         [Header("Building Details")] 
         [SerializeField] private BuildingDetailsUI _buildingDetails;
         
         private SelectionData _selectionData;
-        private Unit _unit;
-
-        private bool _showUnitData;
 
         private void Start()
         {
@@ -42,73 +34,45 @@ namespace HUD
 
         public void ShowUnitDetails(Unit unit)
         {
-            _unit = unit;
-            
             _genericPanel.SetActive(false);
-            _unitPanel.SetActive(true);
             _buildingDetails.Hide();
 
-            _showUnitData = true;
+            _kinlingDetails.Show(unit);
         }
 
         public void ShowBuildingDetails(Building building)
         {
             _genericPanel.SetActive(false);
-            _unitPanel.SetActive(false);
+            _kinlingDetails.Hide();
 
             _buildingDetails.Show(building);
         }
 
-        private void Update()
+        public void HideAllDetails()
         {
-            if(_showUnitData && _unit != null)
-            {
-                RefreshUnitDetails(_unit);
-            }
-        }
-
-        private void RefreshUnitDetails(Unit unit)
-        {
-            _unitName.text = unit.GetUnitState().FullName;
-
-            // var curAction = unit.GetCurrentAction();
-            // if (curAction == null)
-            // {
-            //     _currentAction.text = "Idle";
-            // }
-            // else
-            // {
-            //     _currentAction.text = curAction.Details;
-            // }
+            _selectionData = null;
+            _kinlingDetails.Hide();
+            _buildingDetails.Hide();
+            _genericPanel.SetActive(false);
         }
 
         public void ShowItemDetails(SelectionData selectionData)
         {
-            _showUnitData = false;
+            HideAllDetails();
             _selectionData = selectionData;
             RefreshDetails();
-            _genericPanel.SetActive(true);
-            _unitPanel.SetActive(false);
             HUDOrders.Instance.DisplayOrders(selectionData);
         }
 
         public void HideItemDetails()
         {
-            _showUnitData = false;
-            _selectionData = null;
-            _genericPanel.SetActive(false);
-            _unitPanel.SetActive(false);
+            HideAllDetails();
             HUDOrders.Instance.HideOrders();
         }
 
         private void RefreshDetails()
         {
             _selectedItemNameGeneric.text = _selectionData.ItemName;
-        }
-
-        public void ShowKinlingInfoPopupPressed()
-        {
-            KinlingInfoPopup.Show(_unit);
         }
     }
 }

@@ -9,22 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ea08642fa677164181cf71b3420aa61, type: 3}
-  m_Name: Builder's Table
+  m_Script: {fileID: 11500000, guid: 311b077a8587d06469b0e4af4f74bd11, type: 3}
+  m_Name: Forester's Axe
   m_EditorClassIdentifier: 
-  ItemName: Builder's Table
-  MaxStackSize: 1
-  ItemSprite: {fileID: -2106620571, guid: 4d5895fa30c428843a9032c52ee06e38, type: 3}
+  ItemName: Forester's Axe
+  MaxStackSize: 5
+  ItemSprite: {fileID: 21300000, guid: c010dce291f56fa43aa503464e20d207, type: 3}
   DefaultSpriteScale: {x: 1, y: 1}
   CraftersProfession: {fileID: 11400000, guid: 4caf7254bcc8f464e832ea1d99442ee5, type: 2}
-  RequiredCraftingTable: {fileID: 11400000}
+  RequiredCraftingTable: {fileID: 11400000, guid: 644004581d1321d41993fc7be87087b5, type: 2}
   WorkCost: 5
   _resourceCosts:
+  - Item: {fileID: 11400000, guid: 75f99dfbebb440d4499e1b83387d86e1, type: 2}
+    Quantity: 1
   - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
     Quantity: 2
   _invalidPlacementTags:
   - Water
   - Wall
   - Obstacle
-  PlacedFurnitureOptions:
-  - {fileID: 5259353419307902018, guid: 00efb1b08405d734ea032aba545657c2, type: 3}

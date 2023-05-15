@@ -95,7 +95,7 @@ namespace TaskSystem
             return results;
         }
 
-        public bool IsCorrectProfession(Profession profession)
+        public bool IsCorrectProfession(ProfessionData profession)
         {
             return ItemToCraft.CraftersProfession == profession;
         }
@@ -127,7 +127,6 @@ namespace TaskSystem
             Task task = new Task()
             {
                 TaskId = "Craft Placed Item",
-                Category = TaskCategory.Crafting,
                 Requestor = Requestor,
                 Payload = _assignedCraftingTable.UniqueId,
                 Profession = ItemToCraft.CraftersProfession,

@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae2c6f49cb8dde44a81488d093e612cd, type: 3}
-  m_Name: Carpenter
+  m_Name: Labourer
   m_EditorClassIdentifier: 
-  ProfessionName: Carpenter
-  SortedPriorities: 0a0000000c000000
+  ProfessionName: Labourer
+  ProfessionIcon: {fileID: -91357445, guid: d9053f3442dafed4a9ea52ece16394c2, type: 3}
+  RequiredTool: {fileID: 0}

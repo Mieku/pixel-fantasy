@@ -11,7 +11,7 @@ namespace ScriptableObjects
         public string ConstructionName;
         public float WorkCost;
         public Sprite Icon;
-        public Profession CraftersProfession;
+        public ProfessionData CraftersProfession;
         
         [SerializeField] private List<ItemAmount> _resourceCosts;
         [SerializeField] private List<string> _invalidPlacementTags;

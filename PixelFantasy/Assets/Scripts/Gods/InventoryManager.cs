@@ -35,6 +35,22 @@ namespace Gods
             _allStorage.Remove(storage);
         }
 
+        /// <summary>
+        /// Checks if the item is available in storage without claiming it
+        /// </summary>
+        public bool IsItemInStorage(ItemData itemData)
+        {
+            foreach (var storage in _allStorage)
+            {
+                if (storage.IsItemInStorage(itemData))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public Storage GetAvailableStorage(Item item)
         {
             foreach (var storage in _allStorage)

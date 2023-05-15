@@ -1,5 +1,9 @@
 using System;
+using System.Collections.Generic;
 using DataPersistence;
+using Gods;
+using Items;
+using ScriptableObjects;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.AI;
@@ -16,9 +20,54 @@ namespace Characters
         public UnitAnimController UnitAnimController;
         public UnitAgent UnitAgent;
 
+        private ItemData _heldTool;
+
+        public void AssignHeldTool(ItemData toolItemData)
+        {
+            _heldTool = toolItemData;
+        }
+
+        public void DropHeldTool()
+        {
+            Spawner.Instance.SpawnItem(_heldTool, transform.position, true);
+            _heldTool = null;
+        }
+
+        public bool IsHoldingTool()
+        {
+            return _heldTool != null;
+        }
+
         public UnitState GetUnitState()
         {
             return _unitState;
+        }
+        
+        public void AssignProfession(ProfessionData newProfession)
+        {
+            CraftingBill.RequestedItemInfo tool = null;
+            if (newProfession.RequiredTool != null)
+            {
+                // Claim the tool
+                var claimedToolStorage = InventoryManager.Instance.ClaimItem(newProfession.RequiredTool);
+                tool = new CraftingBill.RequestedItemInfo(newProfession.RequiredTool, claimedToolStorage, 1);
+            }
+            
+            List<CraftingBill.RequestedItemInfo> mats = new List<CraftingBill.RequestedItemInfo>();
+            if (tool != null)
+            {
+                mats.Add(tool);
+            }
+
+            Task task = new Task()
+            {
+                TaskId = "Change Profession",
+                Requestor = null,
+                Payload = newProfession.ProfessionName,
+                Materials = mats,
+            };
+            
+            _taskAI.QueueTask(task);
         }
         
         public object CaptureState()

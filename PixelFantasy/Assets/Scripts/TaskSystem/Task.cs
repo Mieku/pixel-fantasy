@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using Characters;
 using Gods;
+using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
 
@@ -12,19 +14,30 @@ namespace TaskSystem
     public class Task
     {
         public string TaskId;
-        public TaskCategory Category;
         public Interactable Requestor;
         public string Payload;
         public Family Owner;
-        public Profession Profession;
         public List<CraftingBill.RequestedItemInfo> Materials;
         public Queue<Task> SubTasks = new Queue<Task>();
+        private ProfessionData _profession;
+        public ProfessionData Profession
+        {
+            get
+            {
+                if (_profession == null)
+                {
+                    _profession = Librarian.Instance.GetProfession("Labourer");
+                }
+
+                return _profession;
+            }
+            set => _profession = value;
+        }
 
         public bool IsEqual(Task otherTask)
         {
             return TaskId == otherTask.TaskId
                    && Requestor == otherTask.Requestor
-                   && Category == otherTask.Category
                    && Payload == otherTask.Payload
                    && Owner == otherTask.Owner
                    && Profession == otherTask.Profession;
@@ -54,7 +67,6 @@ namespace TaskSystem
             
             return new Task()
             {
-                Category = this.Category,
                 TaskId = this.TaskId,
                 Requestor = this.Requestor,
                 Payload = this.Payload,

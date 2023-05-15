@@ -1,11 +1,23 @@
-using System.Collections.Generic;
 using Gods;
-using TaskSystem;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ProfessionData", menuName = "ProfessionData", order = 1)]
-public class ProfessionData : ScriptableObject
+namespace ScriptableObjects
 {
-    public string ProfessionName;
-    public List<TaskCategory> SortedPriorities;
+    [CreateAssetMenu(fileName = "ProfessionData", menuName = "ProfessionData", order = 1)]
+    public class ProfessionData : ScriptableObject
+    {
+        public string ProfessionName;
+        public Sprite ProfessionIcon;
+        public ItemData RequiredTool;
+
+        public bool IsRequiredToolAvailable
+        {
+            get
+            {
+                if (RequiredTool == null) return true;
+                
+                return InventoryManager.Instance.IsItemInStorage(RequiredTool);
+            }
+        }
+    }
 }

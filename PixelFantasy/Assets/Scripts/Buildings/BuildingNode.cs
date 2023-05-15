@@ -68,7 +68,6 @@ namespace Buildings
             Task task = new Task
             {
                 TaskId = "Withdraw Item",
-                Category = TaskCategory.Hauling,
                 Requestor = this,
                 Payload = resourceData.ItemName,
                 Profession = _buildingData.CraftersProfession,
@@ -106,7 +105,6 @@ namespace Buildings
         {
             Task constuctTask = new Task()
             {
-                Category = TaskCategory.Construction,
                 TaskId = "Build Building",
                 Requestor = this,
                 Profession = _buildingData.CraftersProfession,

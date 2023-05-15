@@ -222,7 +222,7 @@ namespace Buildings
         {
             Occupants.Remove(unit);
             unit.RemoveOccupation();
-            unit.Profession = Profession.Labourer;
+            unit.Profession = Librarian.Instance.GetProfession("Labourer");
         }
 
         public void AssignHome(UnitState unit)

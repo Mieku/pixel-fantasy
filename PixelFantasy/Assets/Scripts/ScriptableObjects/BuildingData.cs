@@ -12,6 +12,6 @@ namespace ScriptableObjects
         public Interior Interior;
         public BuildingPanel BuildingPanel;
         public int MaxOccupants;
-        public Profession WorkersProfession;
+        public ProfessionData WorkersProfession;
     }
 }

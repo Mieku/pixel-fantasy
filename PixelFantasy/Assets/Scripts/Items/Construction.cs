@@ -338,7 +338,6 @@ namespace Items
         {
             Task constuctTask = new Task()
             {
-                Category = TaskCategory.Construction,
                 TaskId = "Build Construction",
                 Requestor = this,
             };
@@ -350,7 +349,6 @@ namespace Items
             _onDeconstructed = onDeconstructed;
             Task constuctTask = new Task()
             {
-                Category = TaskCategory.Construction,
                 TaskId = "Deconstruct",
                 Requestor = this,
             };
@@ -396,7 +394,6 @@ namespace Items
             Task task = new Task
             {
                 TaskId = "Withdraw Item",
-                Category = TaskCategory.Hauling,
                 Requestor = this,
                 Payload = resourceData.ItemName,
             };

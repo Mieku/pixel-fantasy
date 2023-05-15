@@ -113,7 +113,6 @@ public class DirtTile : Interactable, IPersistent
         Task task = new Task()
         {
             TaskId = "Clear Grass",
-            Category = TaskCategory.Farming,
             Requestor = this,
         };
         task.Enqueue();

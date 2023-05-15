@@ -3,11 +3,12 @@ using Characters;
 using TMPro;
 using UnityEngine;
 
-namespace Popups
+namespace Popups.Kinling_Info_Popup
 {
     public class KinlingInfoPopup : Popup<KinlingInfoPopup>
     {
         [SerializeField] private TextMeshProUGUI _kinlingNameDisp;
+        [SerializeField] private KinlingInfoJobsSection _jobsSection;
 
         [Header("Tabs")]
         [SerializeField] private GameObject _moodTab, _moodTabOff, _moodContent;
@@ -114,6 +115,7 @@ namespace Popups
                     _jobsTab.SetActive(true);
                     _jobsTabOff.SetActive(false);
                     _jobsContent.SetActive(true);
+                    _jobsSection.Show(_selectedUnit);
                     break;
                 case KinlingInfoTab.Needs:
                     _needsTab.SetActive(true);
