@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
-using Gods;
 using UnityEditor;
 using UnityEngine;
 using System.Linq;
+using Managers;
 
 namespace Popups
 {
-    public class PopupManager : God<PopupManager>
+    public class PopupManager : Singleton<PopupManager>
     {
         [SerializeField] Transform _popupCanvas;
         

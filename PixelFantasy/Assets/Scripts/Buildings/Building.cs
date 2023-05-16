@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using Buildings.Building_Panels;
 using Characters;
-using Gods;
 using HUD;
 using Items;
+using Managers;
 using ScriptableObjects;
 using TaskSystem;
 using UnityEngine;
@@ -222,7 +222,6 @@ namespace Buildings
         {
             Occupants.Remove(unit);
             unit.RemoveOccupation();
-            unit.Profession = Librarian.Instance.GetProfession("Labourer");
         }
 
         public void AssignHome(UnitState unit)

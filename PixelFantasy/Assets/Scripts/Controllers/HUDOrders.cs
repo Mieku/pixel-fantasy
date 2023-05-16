@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using Gods;
 using HUD;
+using Managers;
 using UnityEngine;
 
 namespace Controllers
 {
-    public class HUDOrders : God<HUDOrders>
+    public class HUDOrders : Singleton<HUDOrders>
     {
         [SerializeField] private GameObject _orderBG;
         [SerializeField] private OrderButton _orderBtnPrefab;

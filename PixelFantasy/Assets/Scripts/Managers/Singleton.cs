@@ -1,13 +1,11 @@
-using DataPersistence;
-using HUD;
 using UnityEngine;
 
-namespace Gods
+namespace Managers
 {
     /// <summary>
     /// Essentially just a singleton pattern with extra flavour!
     /// </summary>
-    public class God<T> : MonoBehaviour where T : MonoBehaviour
+    public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         private static T _instance;
 
@@ -21,12 +19,12 @@ namespace Gods
                     if(_instance == null)
                     {
                         GameObject newGO = new GameObject();
-                        var parent = GameObject.Find("_Gods");
+                        var parent = GameObject.Find("_Managers");
                         if (parent != null)
                         {
                             newGO.transform.parent = parent.transform;
                         }
-                        newGO.name = "Spawned God";
+                        newGO.name = "Spawned Singleton";
                         _instance = newGO.AddComponent<T>();
                     }
                 }

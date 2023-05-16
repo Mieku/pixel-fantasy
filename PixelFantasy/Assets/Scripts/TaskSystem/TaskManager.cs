@@ -1,13 +1,13 @@
 using System;
 using Buildings;
 using Characters;
-using Gods;
+using Managers;
 using ScriptableObjects;
 using UnityEngine;
 
 namespace TaskSystem
 {
-    public class TaskManager : God<TaskManager>
+    public class TaskManager : Singleton<TaskManager>
     {
         public TaskQueue LabourerTasks = new TaskQueue();
         public TaskQueue BuilderTasks = new TaskQueue();

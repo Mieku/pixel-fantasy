@@ -1,7 +1,7 @@
 using System;
 using Characters;
 using Characters.Interfaces;
-using Gods;
+using Managers;
 using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.AI;

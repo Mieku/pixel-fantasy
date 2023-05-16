@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-namespace Gods
+namespace Managers
 {
-    public class TimeManager : God<TimeManager>
+    public class TimeManager : Singleton<TimeManager>
     {
         public GameSpeed GameSpeed;
         public float GameSpeedMod;

@@ -1,6 +1,6 @@
 using System;
 using Characters.Interfaces;
-using Gods;
+using Managers;
 using UnityEngine;
 using UnityEngine.AI;
 

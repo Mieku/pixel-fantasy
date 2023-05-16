@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Controllers;
-using Gods;
+using Managers;
 using UnityEngine;
 
 namespace Popups

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Characters;
 using UnityEngine;
 
-namespace Gods
+namespace Managers
 {
-    public class FamilyManager : God<FamilyManager>
+    public class FamilyManager : Singleton<FamilyManager>
     {
         [SerializeField] private List<Family> _families = new List<Family>();
 

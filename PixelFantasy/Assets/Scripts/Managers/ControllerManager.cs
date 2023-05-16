@@ -1,10 +1,8 @@
-using Controllers;
 using Handlers;
-using UnityEngine;
 
-namespace Gods
+namespace Managers
 {
-    public class ControllerManager : God<ControllerManager>
+    public class ControllerManager : Singleton<ControllerManager>
     {
         //public InventoryController InventoryController;
         public ItemsHandler ItemsHandler;

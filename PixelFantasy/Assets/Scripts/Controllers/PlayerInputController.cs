@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using Characters;
 using CodeMonkey.Utils;
-using Gods;
+using Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Controllers
 {
-    public class PlayerInputController : God<PlayerInputController>
+    public class PlayerInputController : Singleton<PlayerInputController>
     {
         private PlayerInputState _playerInputState = PlayerInputState.None;
         private Vector3 _currentMousePos;

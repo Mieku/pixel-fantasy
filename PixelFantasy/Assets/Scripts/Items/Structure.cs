@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Controllers;
-using Gods;
 using HUD;
+using Managers;
 using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Tilemaps;

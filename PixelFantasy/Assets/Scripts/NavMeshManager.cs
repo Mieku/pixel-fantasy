@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using Gods;
+using Managers;
 using NavMeshPlus.Components;
 using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(NavMeshSurface))]
-public class NavMeshManager : God<NavMeshManager>
+public class NavMeshManager : Singleton<NavMeshManager>
 {
     private NavMeshSurface _meshSurface;
     private void Awake()

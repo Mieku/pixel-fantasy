@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Gods
+namespace Managers
 {
-    public class UIDManager : God<UIDManager>
+    public class UIDManager : Singleton<UIDManager>
     {
         private Dictionary<string, GameObject> _uidDictionary = new Dictionary<string, GameObject>();
         

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Gods;
+using Managers;
 using ScriptableObjects;
 using UnityEngine;
 

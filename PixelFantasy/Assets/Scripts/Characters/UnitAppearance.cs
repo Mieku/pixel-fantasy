@@ -1,5 +1,5 @@
 using System;
-using Gods;
+using Managers;
 using ScriptableObjects;
 using UnityEngine;
 

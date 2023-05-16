@@ -3,9 +3,9 @@ using System.Linq;
 using Characters;
 using ScriptableObjects;
 
-namespace Gods
+namespace Managers
 {
-    public class UnitsManager : God<UnitsManager>
+    public class UnitsManager : Singleton<UnitsManager>
     {
         public List<UnitState> AllUnits => GetComponentsInChildren<UnitState>().ToList();
 

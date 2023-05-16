@@ -1,18 +1,16 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Buildings;
 using CodeMonkey.Utils;
 using Controllers;
-using HUD;
 using Items;
 using ScriptableObjects;
 using UnityEngine;
 using Zones;
 
-namespace Gods
+namespace Managers
 {
-    public class Spawner : God<Spawner>
+    public class Spawner : Singleton<Spawner>
     {
         [SerializeField] private Transform _itemsParent;
         [SerializeField] private GameObject _itemPrefab;

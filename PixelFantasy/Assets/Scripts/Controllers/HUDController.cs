@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Buildings;
 using Characters;
-using Gods;
 using HUD;
+using Managers;
 using Popups;
 using UnityEngine;
 
 namespace Controllers
 {
-    public class HUDController : God<HUDController>
+    public class HUDController : Singleton<HUDController>
     {
         [SerializeField] private SelectedItemInfoPanel _selectedItemInfoPanel;
         [SerializeField] private GameObject _pauseHighlight, _playHighlight, _fastHighlight, _fastestHighlight;

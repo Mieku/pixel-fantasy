@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using CodeMonkey.Utils;
-using Gods;
+using Managers;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace Controllers
 {
-    public class TilemapController : God<TilemapController>
+    public class TilemapController : Singleton<TilemapController>
     {
         [SerializeField] private List<TilemapReference> tilemaps;
 

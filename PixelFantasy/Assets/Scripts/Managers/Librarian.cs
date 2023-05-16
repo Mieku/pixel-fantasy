@@ -4,9 +4,9 @@ using ScriptableObjects;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Gods
+namespace Managers
 {
-    public class Librarian : God<Librarian>
+    public class Librarian : Singleton<Librarian>
     {
         [SerializeField] private List<ColourData> _colourLibrary;
         [SerializeField] private List<StructureData> _structureLibrary;

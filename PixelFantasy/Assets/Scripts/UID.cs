@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Gods;
+using Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Gods;
+using Managers;
 using Popups.Zone_Popups;
 using ScriptableObjects;
 using UnityEngine;

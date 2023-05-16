@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Gods;
 using HUD;
+using Managers;
 using ScriptableObjects;
 using UnityEngine;
 

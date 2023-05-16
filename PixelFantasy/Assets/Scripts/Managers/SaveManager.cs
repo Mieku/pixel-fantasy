@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,9 +5,9 @@ using DataPersistence;
 using DataPersistence.States;
 using UnityEngine;
 
-namespace Gods
+namespace Managers
 {
-    public class SaveManager : God<SaveManager>
+    public class SaveManager : Singleton<SaveManager>
     {
         private GameState gameState;
         private List<Saveable> dataPersistenceObjects;

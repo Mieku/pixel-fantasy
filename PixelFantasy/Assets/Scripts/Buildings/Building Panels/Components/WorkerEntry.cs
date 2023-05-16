@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Buildings.Building_Panels;
 using Characters;
-using Gods;
+using Managers;
 using TMPro;
 using UnityEngine;
 

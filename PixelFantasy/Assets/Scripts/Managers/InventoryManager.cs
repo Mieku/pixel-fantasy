@@ -1,13 +1,11 @@
 using System.Collections.Generic;
-using System.Linq;
 using Items;
 using ScriptableObjects;
 using UnityEngine;
-using Zones;
 
-namespace Gods
+namespace Managers
 {
-    public class InventoryManager : God<InventoryManager>
+    public class InventoryManager : Singleton<InventoryManager>
     {
         private List<Storage> _allStorage = new List<Storage>();
 

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ScriptableObjects;
-using Gods;
+using Managers;
 using TaskSystem;
 using UnityEngine;
 

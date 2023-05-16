@@ -1,13 +1,12 @@
-using System;
 using System.Collections.Generic;
 using CodeMonkey.Utils;
 using Controllers;
 using Interfaces;
 using UnityEngine;
 
-namespace Gods
+namespace Managers
 {
-    public class SelectionManager : God<SelectionManager>
+    public class SelectionManager : Singleton<SelectionManager>
     {
         [SerializeField] private Transform _selectionBox;
         

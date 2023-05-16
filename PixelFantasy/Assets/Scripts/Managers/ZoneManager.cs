@@ -5,12 +5,12 @@ using Controllers;
 using HUD;
 using ScriptableObjects;
 using UnityEngine;
-using Zones;
 using UnityEngine.Tilemaps;
+using Zones;
 
-namespace Gods
+namespace Managers
 {
-    public class ZoneManager : God<ZoneManager>
+    public class ZoneManager : Singleton<ZoneManager>
     {
         [SerializeField] private GameObject _zonesTilemap;
         [SerializeField] private RuleTile _zoneRuleTile;

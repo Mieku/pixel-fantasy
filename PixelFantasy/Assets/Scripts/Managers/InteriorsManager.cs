@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using Buildings;
 using UnityEngine;
 
-namespace Gods
+namespace Managers
 {
-    public class InteriorsManager : God<InteriorsManager>
+    public class InteriorsManager : Singleton<InteriorsManager>
     {
         [SerializeField] private Vector3 _interiorSpacing;
 

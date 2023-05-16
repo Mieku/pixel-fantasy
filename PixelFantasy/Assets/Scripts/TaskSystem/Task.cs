@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Characters;
-using Gods;
+using Managers;
 using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Rendering;
