@@ -19,7 +19,6 @@ namespace Items
             if (_storageItemData != null && IsBuilt)
             {
                 Init(_storageItemData);
-                //CompletePlacement();
             }
             base.Awake();
         }
@@ -27,7 +26,10 @@ namespace Items
         public override void Init(FurnitureItemData furnitureItemData)
         {
             base.Init(furnitureItemData);
+        }
 
+        protected override void CompletePlacement()
+        {
             for (int i = 0; i < _storageItemData.NumSlots; i++)
             {
                 _storageSlots.Add(new StorageSlot());
@@ -36,6 +38,8 @@ namespace Items
             InventoryManager.Instance.AddStorage(this);
             GameEvents.Trigger_RefreshInventoryDisplay();
             RefreshDisplayedInventoryPanel();
+            
+            base.CompletePlacement();
         }
 
         public int AmountCanBeDeposited(ItemData itemData)

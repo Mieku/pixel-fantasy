@@ -148,7 +148,7 @@ namespace Items
             return false;
         }
 
-        protected void CompletePlacement()
+        protected virtual void CompletePlacement()
         {
             DisplayUseageMarkers(false);
             _remainingWork = _furnitureItemData.WorkCost;

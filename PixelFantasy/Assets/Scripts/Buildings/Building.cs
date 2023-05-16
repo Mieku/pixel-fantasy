@@ -216,8 +216,32 @@ namespace Buildings
             CantPlace,
         }
 
-        
+        public Dictionary<ItemData, int> GetBuildingInventory()
+        {
+            Dictionary<ItemData, int> results = new Dictionary<ItemData, int>();
+            foreach (var furniture in _availableFurniture)
+            {
+                Storage storage = furniture as Storage;
+                if (storage != null)
+                {
+                    var storedItems = storage.AvailableInventory;
+                    foreach (var itemKVP in storedItems)
+                    {
+                        if (results.ContainsKey(itemKVP.Key))
+                        {
+                            results[itemKVP.Key] += itemKVP.Value;
+                        }
+                        else
+                        {
+                            results.Add(itemKVP.Key, itemKVP.Value);
+                        }
+                    }
+                }
+            }
 
+            return results;
+        }
+        
         public void UnassignWorker(UnitState unit)
         {
             Occupants.Remove(unit);

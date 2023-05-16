@@ -62,6 +62,20 @@ namespace Items
             }
         }
 
+        private float _seekTimer;
+        private void Update()
+        {
+            if (AssignedStorage == null && !_isHeld)
+            {
+                _seekTimer += Time.deltaTime;
+                if (_seekTimer > 1f)
+                {
+                    _seekTimer = 0;
+                    SeekForSlot();
+                }
+            }
+        }
+
         public void CreateHaulTask()
         {
             Task task = new Task
