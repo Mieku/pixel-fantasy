@@ -27,14 +27,14 @@ namespace TaskSystem
         
         public override void ConcludeAction()
         {
+            base.ConcludeAction();
+            
             UnitAnimController.SetUnitAction(UnitAction.Nothing);
             _resource = null;
             _task = null;
             _actionAnimation = UnitAction.Nothing;
             _movePos = null;
             _isMoving = false;
-            
-            base.ConcludeAction();
         }
         
         public override void DoAction()

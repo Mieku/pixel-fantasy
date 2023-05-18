@@ -67,14 +67,14 @@ namespace TaskSystem
 
         public override void ConcludeAction()
         {
+            base.ConcludeAction();
+            
             UnitAnimController.SetUnitAction(UnitAction.Nothing);
             _task = null;
             _isHoldingItem = false;
             _item = null;
             _storage = null;
             _isMoving = false;
-            
-            base.ConcludeAction();
         }
 
         public override void OnTaskCancel()

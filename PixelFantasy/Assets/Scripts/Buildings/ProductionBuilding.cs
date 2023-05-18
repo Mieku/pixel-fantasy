@@ -7,6 +7,8 @@ namespace Buildings
 {
     public class ProductionBuilding : Building
     {
+        public ProductOrderQueue OrderQueue = new ProductOrderQueue();
+        
         protected override void OnBuildingClicked()
         {
             HUDController.Instance.ShowBuildingDetails(this);
@@ -26,6 +28,13 @@ namespace Buildings
             {
                 Task billTask = bill.CreateTask();
                 return billTask;
+            }
+            
+            // Grab a possible product order in queue
+            Task productTask = OrderQueue.RequestTask(this);
+            if (productTask != null)
+            {
+                return productTask;
             }
 
             return null;

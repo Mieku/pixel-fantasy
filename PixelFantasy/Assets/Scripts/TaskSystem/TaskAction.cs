@@ -44,6 +44,11 @@ namespace TaskSystem
             return true;
         }
 
+        public void InitAction(Task task)
+        {
+            _task = task;
+        }
+
         /// <summary>
         /// Triggers once on Action Begin
         /// </summary>
@@ -61,6 +66,11 @@ namespace TaskSystem
         /// </summary>
         public virtual void ConcludeAction()
         {
+            if (_task.OnTaskComplete != null)
+            {
+                _task.OnTaskComplete.Invoke(_task);
+            }
+            
             _ai.CurrentTaskDone();
         }
         

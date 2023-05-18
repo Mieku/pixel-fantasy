@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using Buildings;
 using Characters;
 using Items;
+using Managers;
 using UnityEngine;
 
 namespace ScriptableObjects
@@ -29,6 +31,20 @@ namespace ScriptableObjects
 
             return clone;
         }
+
+        public bool AreResourcesAvailable()
+        {
+            foreach (var cost in _resourceCosts)
+            {
+                var availableAmount = InventoryManager.Instance.GetAmountAvailable(cost.Item);
+                if (availableAmount < cost.Quantity)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
         
         public List<string> InvalidPlacementTags
         {
@@ -53,6 +69,25 @@ namespace ScriptableObjects
             }
 
             return WorkCost / totalQuantity;
+        }
+
+        public bool CanBuildingCraftThis(ProductionBuilding building)
+        {
+            if (RequiredCraftingTable != null)
+            {
+                if (building.GetFurniture(RequiredCraftingTable) != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }    
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }

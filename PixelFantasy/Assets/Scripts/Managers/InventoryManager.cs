@@ -102,5 +102,18 @@ namespace Managers
 
             return result;
         }
+
+        public int GetAmountAvailable(ItemData itemData)
+        {
+            var allAvailable = GetAvailableInventory();
+            if (allAvailable.ContainsKey(itemData))
+            {
+                return allAvailable[itemData];
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }

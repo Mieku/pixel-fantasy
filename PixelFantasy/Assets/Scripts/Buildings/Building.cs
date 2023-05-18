@@ -13,7 +13,7 @@ using Zones;
 
 namespace Buildings
 {
-    public abstract class Building : UniqueObject
+    public abstract class Building : Interactable//UniqueObject
     {
         [SerializeField] private Transform _exteriorArtRoot;
         [SerializeField] private GameObject _obstacleRoot;
@@ -240,6 +240,23 @@ namespace Buildings
             }
 
             return results;
+        }
+
+        public Storage FindBuildingStorage(ItemData itemData)
+        {
+            foreach (var furniture in _availableFurniture)
+            {
+                Storage storage = furniture as Storage;
+                if (storage != null)
+                {
+                    if(storage.AmountCanBeDeposited(itemData) > 0)
+                    {
+                        return storage;
+                    }
+                }
+            }
+
+            return null;
         }
         
         public void UnassignWorker(UnitState unit)

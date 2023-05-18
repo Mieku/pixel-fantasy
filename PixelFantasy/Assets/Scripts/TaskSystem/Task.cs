@@ -19,6 +19,7 @@ namespace TaskSystem
         public Family Owner;
         public List<CraftingBill.RequestedItemInfo> Materials;
         public Queue<Task> SubTasks = new Queue<Task>();
+        public Action<Task> OnTaskComplete;
         private ProfessionData _profession;
         public ProfessionData Profession
         {

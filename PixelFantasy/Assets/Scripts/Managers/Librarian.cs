@@ -101,6 +101,21 @@ namespace Managers
             }
             return result;
         }
+
+        public List<CraftedItemData> GetAllCraftedItemDatas()
+        {
+            List<CraftedItemData> results = new List<CraftedItemData>();
+            foreach (var itemData in _itemDataLibrary)
+            {
+                var craftable = itemData as CraftedItemData;
+                if (craftable != null)
+                {
+                    results.Add(craftable);
+                }
+            }
+
+            return results;
+        }
         
         public FloorData GetFloorData(string key)
         {

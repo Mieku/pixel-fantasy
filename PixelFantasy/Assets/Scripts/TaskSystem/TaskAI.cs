@@ -163,6 +163,7 @@ namespace TaskSystem
             }
 
             _curTaskAction = taskAction;
+            taskAction.InitAction(task);
             taskAction.PrepareAction(task);
             _state = State.ExecutingTask;
         }

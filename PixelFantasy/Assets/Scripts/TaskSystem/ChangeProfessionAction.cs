@@ -73,6 +73,8 @@ namespace TaskSystem
         
         public override void ConcludeAction()
         {
+            base.ConcludeAction();
+            
             UnitAnimController.SetUnitAction(UnitAction.Nothing);
             _task = null;
             _tool = null;
@@ -80,8 +82,6 @@ namespace TaskSystem
             _newProfession = null;
             _pickupNewTool = false;
             _isMoving = false;
-            
-            base.ConcludeAction();
         }
     }
 }
