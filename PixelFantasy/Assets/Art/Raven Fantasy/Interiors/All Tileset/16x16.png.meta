@@ -888,7 +888,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fire
+      name: Fire1
       rect:
         serializedVersion: 2
         x: 180
@@ -917,7 +917,7 @@ TextureImporter:
         width: 25
         height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -925,6 +925,77 @@ TextureImporter:
       bones: []
       spriteID: 63b43308970b836428ed1888a9cd210e
       internalID: -1924646305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire 2
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 21
+        width: 9
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7b0374e0b3417848ace8617820ddd53
+      internalID: -873563434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire 3
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 21
+        width: 9
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82a833ab60d406d4d8d4db382f888067
+      internalID: 129645197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Campfire
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 33
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -6, y: -7}
+        - {x: -8, y: -5}
+        - {x: -8, y: 2}
+        - {x: -4, y: 6}
+        - {x: -1, y: 6}
+        - {x: 4, y: 4}
+        - {x: 6, y: -1}
+        - {x: 5, y: -7}
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd1d47cc01818ca46a1adc5d17f72a8d
+      internalID: 2071589587
       vertices: []
       indices: 
       edges: []
@@ -953,12 +1024,15 @@ TextureImporter:
       16x16_24: -5840662636130032780
       16x16_30: 8419824661610949078
       Bed: -1924646305
+      Campfire: 2071589587
       Chair_down: -3857596031159909058
       Chair_left: 4577660034246386176
       Chair_right: 1162964665328882485
       Chair_up: -1366648790733946385
       Door: 5003174463449487696
-      Fire: 1731615565123986282
+      Fire 2: -873563434
+      Fire 3: 129645197
+      Fire1: 1731615565123986282
       Hammer: 7033359609419058202
       Stool: -465430912943923674
       Wall_B: -2720889697789872080

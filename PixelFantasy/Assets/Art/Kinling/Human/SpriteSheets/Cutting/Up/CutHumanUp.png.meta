@@ -3,7 +3,7 @@ guid: 8f13389008cc2024992e3421bfc6c1d8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -44,7 +44,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
@@ -63,6 +63,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -1386,66 +1387,66 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      CutHumanUp_6: -1650542341
-      CutHumanUp_51: -1267819297
-      CutHumanUp_26: -2024799181
-      CutHumanUp_54: 1612718957
-      CutHumanUp_43: 1165191569
-      CutHumanUp_39: -1395474998
-      CutHumanUp_59: 694233712
-      CutHumanUp_58: -1064550078
-      CutHumanUp_18: 1803810585
-      CutHumanUp_15: 8940918
-      CutHumanUp_41: 1281143203
-      CutHumanUp_36: -730871271
-      CutHumanUp_57: -1531987982
-      CutHumanUp_42: -15771441
-      CutHumanUp_47: 1824062140
-      CutHumanUp_12: 55024547
-      CutHumanUp_24: 2119238978
-      CutHumanUp_48: 1071176321
-      CutHumanUp_50: -1005395750
-      CutHumanUp_55: -973741850
-      CutHumanUp_34: 136559514
-      CutHumanUp_49: 590559089
-      CutHumanUp_38: 2112044824
       CutHumanUp_0: 1853590428
-      CutHumanUp_21: 2073019859
-      CutHumanUp_23: -1651670061
-      CutHumanUp_32: -184894976
-      CutHumanUp_30: -1082046282
-      CutHumanUp_13: -458175612
-      CutHumanUp_46: 2113147028
-      CutHumanUp_7: 1561929473
-      CutHumanUp_40: -371966173
-      CutHumanUp_52: -2039813978
       CutHumanUp_1: -496405781
-      CutHumanUp_22: -141215645
-      CutHumanUp_35: -1227027086
-      CutHumanUp_9: 540408571
-      CutHumanUp_19: -1594334817
-      CutHumanUp_8: 1489502350
-      CutHumanUp_2: 225723489
-      CutHumanUp_45: -453572135
-      CutHumanUp_16: 802432318
-      CutHumanUp_4: -1799571110
-      CutHumanUp_56: 1560651910
-      CutHumanUp_14: -1422305973
-      CutHumanUp_29: 591791931
-      CutHumanUp_33: 1516976189
-      CutHumanUp_5: -316358860
-      CutHumanUp_31: -1229618251
-      CutHumanUp_17: -1615309476
-      CutHumanUp_44: -2047699597
-      CutHumanUp_11: 992600361
-      CutHumanUp_20: 1638100695
-      CutHumanUp_37: -254791954
-      CutHumanUp_53: 1954331165
-      CutHumanUp_3: -864717704
-      CutHumanUp_28: -2023100033
-      CutHumanUp_27: -1582545545
       CutHumanUp_10: 1793576032
+      CutHumanUp_11: 992600361
+      CutHumanUp_12: 55024547
+      CutHumanUp_13: -458175612
+      CutHumanUp_14: -1422305973
+      CutHumanUp_15: 8940918
+      CutHumanUp_16: 802432318
+      CutHumanUp_17: -1615309476
+      CutHumanUp_18: 1803810585
+      CutHumanUp_19: -1594334817
+      CutHumanUp_2: 225723489
+      CutHumanUp_20: 1638100695
+      CutHumanUp_21: 2073019859
+      CutHumanUp_22: -141215645
+      CutHumanUp_23: -1651670061
+      CutHumanUp_24: 2119238978
       CutHumanUp_25: -1661429380
+      CutHumanUp_26: -2024799181
+      CutHumanUp_27: -1582545545
+      CutHumanUp_28: -2023100033
+      CutHumanUp_29: 591791931
+      CutHumanUp_3: -864717704
+      CutHumanUp_30: -1082046282
+      CutHumanUp_31: -1229618251
+      CutHumanUp_32: -184894976
+      CutHumanUp_33: 1516976189
+      CutHumanUp_34: 136559514
+      CutHumanUp_35: -1227027086
+      CutHumanUp_36: -730871271
+      CutHumanUp_37: -254791954
+      CutHumanUp_38: 2112044824
+      CutHumanUp_39: -1395474998
+      CutHumanUp_4: -1799571110
+      CutHumanUp_40: -371966173
+      CutHumanUp_41: 1281143203
+      CutHumanUp_42: -15771441
+      CutHumanUp_43: 1165191569
+      CutHumanUp_44: -2047699597
+      CutHumanUp_45: -453572135
+      CutHumanUp_46: 2113147028
+      CutHumanUp_47: 1824062140
+      CutHumanUp_48: 1071176321
+      CutHumanUp_49: 590559089
+      CutHumanUp_5: -316358860
+      CutHumanUp_50: -1005395750
+      CutHumanUp_51: -1267819297
+      CutHumanUp_52: -2039813978
+      CutHumanUp_53: 1954331165
+      CutHumanUp_54: 1612718957
+      CutHumanUp_55: -973741850
+      CutHumanUp_56: 1560651910
+      CutHumanUp_57: -1531987982
+      CutHumanUp_58: -1064550078
+      CutHumanUp_59: 694233712
+      CutHumanUp_6: -1650542341
+      CutHumanUp_7: 1561929473
+      CutHumanUp_8: 1489502350
+      CutHumanUp_9: 540408571
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -31,8 +31,8 @@ TagManager:
   - UI
   - Unit
   - Surface
-  - 
-  - 
+  - Lighting Internal (Game)
+  - Lighting Internal (Scene)
   - 
   - 
   - 
@@ -56,6 +56,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: My Sprites
+    uniqueID: 3896160401
+    locked: 0
   - name: Ground
     uniqueID: 4117271811
     locked: 0
@@ -85,4 +88,10 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 4124560573
+    locked: 0
+  - name: My Lighting
+    uniqueID: 61937489
+    locked: 0
+  - name: Above Lighting
+    uniqueID: 1382173981
     locked: 0

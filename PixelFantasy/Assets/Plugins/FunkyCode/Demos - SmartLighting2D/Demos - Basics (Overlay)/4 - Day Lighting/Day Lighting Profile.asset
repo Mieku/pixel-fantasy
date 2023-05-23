@@ -62,7 +62,7 @@ MonoBehaviour:
     coreAxis: 0
     projection: 0
   dayLightingSettings:
-    direction: 201.4
+    direction: 152
     ShadowColor: {r: 0, g: 0, b: 0, a: 0.903}
     height: 1.71
     bumpMap:

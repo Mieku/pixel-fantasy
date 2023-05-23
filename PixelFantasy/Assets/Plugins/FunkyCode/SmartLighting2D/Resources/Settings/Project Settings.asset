@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderingMode: 2
   editorView:
-    sceneViewLayer: 0
-    gameViewLayer: 0
+    sceneViewLayer: 9
+    gameViewLayer: 8
   gizmos:
     drawGizmos: 1
     drawGizmosBounds: 0
@@ -34,4 +34,4 @@ MonoBehaviour:
   MaxLightSize: 100
   materialOffScreen: 0
   disable: 0
-  profile: {fileID: 11400000, guid: 744af7d72c977154f8a4489ba6ae519d, type: 2}
+  profile: {fileID: 11400000, guid: 0fda54fe2e239e74286e61ba5e1086db, type: 2}

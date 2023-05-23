@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b19cefa3bf552f94390d1c272b19ea6e, type: 3}
-  m_Name: Day Lighting Nor
+  m_Name: MainGame
   m_EditorClassIdentifier: 
   lightmapPresets:
     list:
     - name: Default
       type: 0
       hdr: 1
-      darknessColor: {r: 0.108022995, g: 0.11548707, b: 0.16912857, a: 0.053971574}
+      darknessColor: {r: 0.031817373, g: 0.039299276, b: 0.122641504, a: 0}
       depth: -100
       resolution: 1
       dayLayers:
@@ -55,6 +55,14 @@ MonoBehaviour:
           shadowEffectLayer: 0
           maskLit: 0
           maskLitDistance: 1
+        - layerID: 1
+          type: 0
+          sorting: 6
+          sortingIgnore: 0
+          shadowEffect: 0
+          shadowEffectLayer: 0
+          maskLit: 0
+          maskLitDistance: 1
   eventPresets:
     list:
     - name: Disabled
@@ -65,6 +73,10 @@ MonoBehaviour:
       layerSetting:
         list:
         - layerID: 0
+    - name: 'Preset (Id: 2)'
+      layerSetting:
+        list:
+        - layerID: 1
   qualitySettings:
     lightTextureSize: 1
     lightEffectTextureSize: 1
@@ -74,9 +86,9 @@ MonoBehaviour:
     coreAxis: 0
     projection: 0
   dayLightingSettings:
-    direction: 79
+    direction: 148
     ShadowColor: {r: 0, g: 0, b: 0, a: 1}
-    height: 1
+    height: 4.04
     bumpMap:
       height: 1
       strength: 1
@@ -84,6 +96,7 @@ MonoBehaviour:
     colliderLayers:
       names:
       - Default
+      - Shadow
     lightLayers:
       names:
       - Light Layer 1

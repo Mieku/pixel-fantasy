@@ -367,13 +367,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      environment_2: 21300004
-      environment_3: 21300006
       environment_0: 21300000
       environment_1: 21300002
-      environment_6: 21300012
-      environment_5: 21300010
+      environment_2: 21300004
+      environment_3: 21300006
       environment_4: 21300008
+      environment_5: 21300010
+      environment_6: 21300012
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
