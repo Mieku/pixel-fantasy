@@ -18,9 +18,11 @@ namespace Managers
         
         public GameTime GameTime => new GameTime(_currentHour, _currentMin, _isPM);
 
-        private void Start()
+        protected override void Awake()
         {
+            base.Awake();
             _gameDayTimer = _timeOfDay;
+            CalculateTimeOfDay();
         }
 
         private void LateUpdate()

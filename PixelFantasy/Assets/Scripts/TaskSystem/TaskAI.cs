@@ -96,7 +96,30 @@ namespace TaskSystem
             _state = State.WaitingForNextTask;
         }
 
+        private ScheduleOption GetCurrentScheduleOption()
+        {
+            int currentHour = EnvironmentManager.Instance.GameTime.Hour;
+            return _unit.GetUnitState().Schedule.GetHour(currentHour);
+        }
+
         private void RequestNextTask()
+        {
+            var currentSchedule = GetCurrentScheduleOption();
+            switch (currentSchedule)
+            {
+                case ScheduleOption.Sleep:
+                    break;
+                case ScheduleOption.Work:
+                    RequestNextJobTask();
+                    break;
+                case ScheduleOption.Recreation:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void RequestNextJobTask()
         {
             Task task = null;
             

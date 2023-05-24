@@ -22,6 +22,7 @@ namespace Characters
         public Building Home;
         public ProductionBuilding Occupation;
         public ProfessionData Profession;
+        public Schedule Schedule = new Schedule();
 
         public string FullName => FirstName + " " + LastName;
         public string UID => _uid.uniqueID;
