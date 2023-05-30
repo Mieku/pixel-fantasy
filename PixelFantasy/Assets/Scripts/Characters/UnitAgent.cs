@@ -11,7 +11,7 @@ namespace Characters
         private NavMeshAgent _agent;
         private Action _onReachedMovePosition;
         private bool _inTransit;
-        private ICharacterAnimController _charAnimController;
+        private UnitAnimController _charAnimController;
         private float _defaultSpeed;
 
         private void Awake()
@@ -21,7 +21,7 @@ namespace Characters
             _agent.updateUpAxis = false;
             _defaultSpeed = _agent.speed;
             
-            _charAnimController = GetComponent<ICharacterAnimController>();
+            _charAnimController = GetComponent<Unit>().UnitAnimController;
             
             OnSpeedUpdated();
         }
@@ -32,6 +32,7 @@ namespace Characters
             _onReachedMovePosition = onReachedMovePosition;
             _agent.SetDestination(movePosition);
             _charAnimController.SetMovementVelocity(movePosition);
+            _charAnimController.Appearance.SetDirection(UnitActionDirection.Side);
         }
 
         public bool IsDestinationPossible(Vector3 position)

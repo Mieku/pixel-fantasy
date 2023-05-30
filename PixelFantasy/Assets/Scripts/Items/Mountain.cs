@@ -48,7 +48,7 @@ namespace Items
         
         public override UnitAction GetExtractActionAnim()
         {
-            return UnitAction.Mining;
+            return UnitAction.Swinging;
         }
 
         protected override void DestroyResource()

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Builder's Hammer
   MaxStackSize: 5
-  ItemSprite: {fileID: 21300000, guid: 6f3680b2988108f48963a71e8553651f, type: 3}
+  ItemSprite: {fileID: 21300000, guid: 629f52fe0755e8a4dbaddaeeaeb365ba, type: 3}
   DefaultSpriteScale: {x: 1, y: 1}
   CraftersProfession: {fileID: 11400000, guid: 4caf7254bcc8f464e832ea1d99442ee5, type: 2}
   RequiredCraftingTable: {fileID: 11400000, guid: 644004581d1321d41993fc7be87087b5, type: 2}

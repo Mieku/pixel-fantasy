@@ -1,56 +1,30 @@
 using System;
-using Characters;
 using Characters.Interfaces;
 using Managers;
-using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 namespace Characters
 {
-    
-}
-
-public class UnitAnimController : MonoBehaviour, ICharacterAnimController
+    public class UnitAnimController : MonoBehaviour, ICharacterAnimController
     {
-        [SerializeField] private UnitAppearance _appearance;
-
-        [SerializeField] private Animator _baseAnim;
-        [SerializeField] private Animator _topAnim;
-        [SerializeField] private Animator _bottomAnim;
-        [SerializeField] private Animator _toolAnim;
-        [SerializeField] private Animator _handsAnim;
-        [SerializeField] private Animator _fxAnim;
-        [SerializeField] private Animator _blushAnim;
-
-        [SerializeField] private SpriteRenderer _baseRenderer;
-        [SerializeField] private SpriteRenderer _topRenderer;
-        [SerializeField] private SpriteRenderer _bottomRenderer;
-        [SerializeField] private SpriteRenderer _toolRenderer;
-        [SerializeField] private SpriteRenderer _handsRenderer;
-        [SerializeField] private SpriteRenderer _fxRenderer;
-        [SerializeField] private SpriteRenderer _blushRenderer;
+        public UnitAppearance Appearance;
         
+        [SerializeField] private Animator _anim;
+        [SerializeField] private NavMeshAgent _navMeshAgent;
+
         private static readonly int Velocity = Animator.StringToHash("Velocity");
-        private const string DOING = "IsDoing";
-        private const string AXE = "IsCutting";
-        private const string BUILD = "IsBuilding";
-        private const string DIG = "IsDigging";
-        private const string WATER = "IsWatering";
-        private const string MINE = "IsMining";
-        
-        private const string UP = "IsUp";
-        private const string DOWN = "IsDown";
+        private const string DOING = "isDoing";
+        private const string DIG = "isDigging";
+        private const string WATER = "isWatering";
+        private const string SWING = "isSwinging";
 
-        private NavMeshAgent _navMeshAgent;
-        
-        private UnitAction _curUnitAction;
+        private const string UP = "isUp";
+        private const string DOWN = "isDown";
 
         private void Awake()
         {
-            _navMeshAgent = GetComponent<NavMeshAgent>();
-            
             GameEvents.OnGameSpeedChanged += OnSpeedUpdated;
         }
 
@@ -61,18 +35,12 @@ public class UnitAnimController : MonoBehaviour, ICharacterAnimController
 
         private void Start()
         {
-            _appearance.SetHairDirection(UnitActionDirection.Side);
+            Appearance.SetDirection(UnitActionDirection.Side);
         }
 
         private void OnSpeedUpdated(float speedMod)
         {
-            _baseAnim.speed = speedMod;
-            _topAnim.speed = speedMod;
-            _bottomAnim.speed = speedMod;
-            _toolAnim.speed = speedMod;
-            _handsAnim.speed = speedMod;
-            _fxAnim.speed = speedMod;
-            _blushAnim.speed = speedMod;
+            _anim.speed = speedMod;
         }
 
         public void SetUnitAction(UnitAction unitAction)
@@ -85,32 +53,26 @@ public class UnitAnimController : MonoBehaviour, ICharacterAnimController
                 case UnitAction.Doing:
                     SetUnitAction(DOING);
                     break;
-                case UnitAction.Axe:
-                    SetUnitAction(AXE);
-                    break;
-                case UnitAction.Building:
-                    SetUnitAction(BUILD);
-                    break;
                 case UnitAction.Digging:
                     SetUnitAction(DIG);
                     break;
                 case UnitAction.Watering:
                     SetUnitAction(WATER);
                     break;
-                case UnitAction.Mining:
-                    SetUnitAction(MINE);
+                case UnitAction.Swinging:
+                    SetUnitAction(SWING);
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(unitAction), unitAction, null);
             }
         }
-        
+
         public void SetUnitAction(UnitAction unitAction, UnitActionDirection direction)
         {
-            _curUnitAction = unitAction;
             ClearAllActions();
-            
-            _appearance.SetHairDirection(direction);
+
+            Appearance.SetDirection(direction);
 
             switch (direction)
             {
@@ -138,20 +100,14 @@ public class UnitAnimController : MonoBehaviour, ICharacterAnimController
                 case UnitAction.Doing:
                     SetUnitAction(DOING);
                     break;
-                case UnitAction.Axe:
-                    SetUnitAction(AXE);
-                    break;
-                case UnitAction.Building:
-                    SetUnitAction(BUILD);
-                    break;
                 case UnitAction.Digging:
                     SetUnitAction(DIG);
                     break;
                 case UnitAction.Watering:
                     SetUnitAction(WATER);
                     break;
-                case UnitAction.Mining:
-                    SetUnitAction(MINE);
+                case UnitAction.Swinging:
+                    SetUnitAction(SWING);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(unitAction), unitAction, null);
@@ -160,37 +116,22 @@ public class UnitAnimController : MonoBehaviour, ICharacterAnimController
 
         private void SetUnitAction(string parameter, bool isActive = true)
         {
-            _baseAnim.SetBool(parameter, isActive);
-            _topAnim.SetBool(parameter, isActive);
-            _bottomAnim.SetBool(parameter, isActive);
-            _toolAnim.SetBool(parameter, isActive);
-            _handsAnim.SetBool(parameter, isActive);
-            _fxAnim.SetBool(parameter, isActive);
-            _blushAnim.SetBool(parameter, isActive);
+            _anim.SetBool(parameter, isActive);
         }
 
         private void ClearAllActions()
         {
             SetUnitAction(DOING, false);
-            SetUnitAction(AXE, false);
-            SetUnitAction(BUILD, false);
             SetUnitAction(DIG, false);
             SetUnitAction(WATER, false);
-            SetUnitAction(MINE, false);
+            SetUnitAction(SWING, false);
         }
-        
+
         public void SetMovementVelocity(Vector2 velocityVector)
         {
             if (TimeManager.Instance.GameSpeed == GameSpeed.Paused) return;
-            
-            SetVelocity(velocityVector.magnitude);
-            _baseAnim.SetFloat(Velocity, velocityVector.magnitude);
-            _topAnim.SetFloat(Velocity, velocityVector.magnitude);
-            _bottomAnim.SetFloat(Velocity, velocityVector.magnitude);
-            _toolAnim.SetFloat(Velocity, velocityVector.magnitude);
-            _handsAnim.SetFloat(Velocity, velocityVector.magnitude);
-            _fxAnim.SetFloat(Velocity, velocityVector.magnitude);
-            _blushAnim.SetFloat(Velocity, velocityVector.magnitude);
+
+            _anim.SetFloat(Velocity, velocityVector.magnitude);
 
             if (velocityVector != Vector2.zero)
             {
@@ -218,24 +159,7 @@ public class UnitAnimController : MonoBehaviour, ICharacterAnimController
                 scaleModX = 1;
             }
 
-            _baseRenderer.transform.localScale = new Vector3(scaleModX, 1, 1);
-            _topRenderer.transform.localScale = new Vector3(scaleModX, 1, 1);
-            _bottomRenderer.transform.localScale = new Vector3(scaleModX, 1, 1);
-            _toolRenderer.transform.localScale = new Vector3(scaleModX, 1, 1);
-            _handsRenderer.transform.localScale = new Vector3(scaleModX, 1, 1);
-            _fxRenderer.transform.localScale = new Vector3(scaleModX, 1, 1);
-            _blushRenderer.transform.localScale = new Vector3(scaleModX, 1, 1);
-        }
-
-        private void SetVelocity(float velocity)
-        {
-            _baseAnim.SetFloat(Velocity, velocity);
-            _topAnim.SetFloat(Velocity, velocity);
-            _bottomAnim.SetFloat(Velocity, velocity);
-            _toolAnim.SetFloat(Velocity, velocity);
-            _handsAnim.SetFloat(Velocity, velocity);
-            _fxAnim.SetFloat(Velocity, velocity);
-            _blushAnim.SetFloat(Velocity, velocity);
+            transform.localScale = new Vector3(scaleModX, 1, 1);
         }
 
         private void Update()
@@ -249,16 +173,15 @@ public class UnitAnimController : MonoBehaviour, ICharacterAnimController
             SetMovementVelocity(moveVelo);
         }
     }
+}
 
-    public enum UnitAction
+public enum UnitAction
     {
         Nothing,
         Doing,
-        Axe,
-        Building,
         Digging,
         Watering,
-        Mining,
+        Swinging,
     }
 
     public enum UnitActionDirection

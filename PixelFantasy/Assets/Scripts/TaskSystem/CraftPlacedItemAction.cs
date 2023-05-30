@@ -23,6 +23,7 @@ namespace TaskSystem
         private bool _isHoldingItem;
         private Item _item;
         private float _timer;
+        private bool _isDoingPlacementAnim;
         
         private const float WORK_SPEED = 1f; // TODO: Get the work speed from the Kinling's stats
         private const float WORK_AMOUNT = 1f; // TODO: Get the amount of work from the Kinling's stats
@@ -188,8 +189,12 @@ namespace TaskSystem
         
         private void DoPlacement()
         {
-            UnitAnimController.SetUnitAction(UnitAction.Doing, _ai.GetActionDirection(_furniture.transform.position));
-            
+            if (!_isDoingPlacementAnim)
+            {
+                _isDoingPlacementAnim = true;
+                UnitAnimController.SetUnitAction(UnitAction.Doing, _ai.GetActionDirection(_furniture.transform.position));
+            }
+
             _timer += TimeManager.Instance.DeltaTime;
             if(_timer >= WORK_SPEED) 
             {
@@ -219,6 +224,7 @@ namespace TaskSystem
             _state = TaskState.AssignTable;
             _materialIndex = 0;
             _quantityHauled = 0;
+            _isDoingPlacementAnim = false;
         }
 
         public override void OnTaskCancel()

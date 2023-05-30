@@ -8,7 +8,7 @@ namespace Items
     {
         public override UnitAction GetExtractActionAnim()
         {
-            return UnitAction.Axe;
+            return UnitAction.Swinging;
         }
     }
 }

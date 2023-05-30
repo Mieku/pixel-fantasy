@@ -28,5 +28,5 @@ MonoBehaviour:
   - Obstacle
   PlacedFurnitureOptions:
   - {fileID: 5465201506073250537, guid: ad37035a922cc6e4799db5aee18bd59c, type: 3}
-  NumColumns: 1
+  NumColumns: 3
   NumRows: 3

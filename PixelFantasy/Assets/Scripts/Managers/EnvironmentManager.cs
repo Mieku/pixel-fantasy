@@ -81,6 +81,21 @@ namespace Managers
         public int Minute;
         public bool IsPM;
 
+        public int GetCurrentHour24()
+        {
+            if ((Hour < 12 && !IsPM) || (Hour == 12 && IsPM))
+            {
+                return Hour;
+            }
+
+            if (Hour == 12 && !IsPM)
+            {
+                return 0;
+            }
+
+            return Hour + 12;
+        }
+
         public GameTime(int hour, int min, bool isPM)
         {
             Hour = hour;

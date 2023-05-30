@@ -46,7 +46,7 @@ namespace TaskSystem
 
         private void DoConstruction()
         {
-            UnitAnimController.SetUnitAction(UnitAction.Building, _ai.GetActionDirection(_construction.transform.position));
+            UnitAnimController.SetUnitAction(UnitAction.Swinging, _ai.GetActionDirection(_construction.transform.position));
             
             _timer += TimeManager.Instance.DeltaTime;
             if(_timer >= WORK_SPEED) 

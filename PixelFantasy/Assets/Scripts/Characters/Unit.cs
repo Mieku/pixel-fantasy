@@ -25,12 +25,14 @@ namespace Characters
         public void AssignHeldTool(ItemData toolItemData)
         {
             _heldTool = toolItemData;
+            UnitAnimController.Appearance.DisplayTool(toolItemData);
         }
 
         public void DropHeldTool()
         {
             Spawner.Instance.SpawnItem(_heldTool, transform.position, true);
             _heldTool = null;
+            UnitAnimController.Appearance.DisplayTool(null);
         }
 
         public bool IsHoldingTool()

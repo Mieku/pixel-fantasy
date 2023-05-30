@@ -98,7 +98,8 @@ namespace TaskSystem
 
         private ScheduleOption GetCurrentScheduleOption()
         {
-            int currentHour = EnvironmentManager.Instance.GameTime.Hour;
+            int currentHour = EnvironmentManager.Instance.GameTime.GetCurrentHour24();
+
             return _unit.GetUnitState().Schedule.GetHour(currentHour);
         }
 
