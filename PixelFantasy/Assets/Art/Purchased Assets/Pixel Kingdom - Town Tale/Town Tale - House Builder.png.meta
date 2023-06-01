@@ -115,7 +115,427 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Town Tale - House Builder_0
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 431
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c6991d33211d6245824cde9a4595214
+      internalID: 560052885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Town Tale - House Builder_1
+      rect:
+        serializedVersion: 2
+        x: 546
+        y: 430
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa723dde65748bf448d62961170e3e18
+      internalID: -1145693935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Town Tale - House Builder_2
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 247
+        width: 16
+        height: 24
+      alignment: 9
+      pivot: {x: 0.5, y: 0.33333334}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91e3525127c8dcc449074c34a28e06f2
+      internalID: 289614457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Town Tale - House Builder_3
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 141
+        width: 16
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc206e9052b2b7745af8675dee193034
+      internalID: -1408250677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Town Tale - House Builder_4
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 141
+        width: 16
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c66c112bbddb43245a8eb919f64f59df
+      internalID: 1911152553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Town Tale - House Builder_5
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 141
+        width: 16
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee4fcc8a61778794bb727ccc58be4ed2
+      internalID: 1620570490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Town Tale - House Builder_6
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 487
+        width: 16
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44762f5e09a88f74992b693f9b099f7b
+      internalID: -1358379632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Town Tale - House Builder_7
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 373
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2582d76a171e4994c8e9e400cf6ac284
+      internalID: -807017973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Town Tale - House Builder_8
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 91
+        width: 20
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e01e9552d84d71428014413e3e3163e
+      internalID: -415107140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Town Tale - House Builder_9
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 70
+        width: 20
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cba9854d03f466d4695f0bc8093af215
+      internalID: 875867074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Town Tale - House Builder_10
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 450
+        width: 16
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8537c2151ede10143b9f78af037eee07
+      internalID: -1892330418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Town Tale - House Builder_11
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 450
+        width: 16
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4f7a5fa7712da942a117d1adc172f40
+      internalID: 734601134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Town Tale - House Builder_12
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 450
+        width: 16
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecbb07a645a17d249b6361dc6ff63e40
+      internalID: 309413201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Town Tale - House Builder_13
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 1285
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5394087bb06eb554f9a8b12caa5398ae
+      internalID: 104116387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Town Tale - House Builder_14
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 1305
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45b0b12d2efc8ce44bdb6a86112a0420
+      internalID: -1755699709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Town Tale - House Builder_15
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 1337
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3749c2792819e2743b4ead9706690d36
+      internalID: 1526570266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Town Tale - House Builder_16
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 215
+        width: 4
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d81f4c9aad13e0d479e00067639761a9
+      internalID: 1097860854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Town Tale - House Builder_17
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 448
+        width: 16
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86d5cc2fb6602b44bb0a89a6f9ca4971
+      internalID: -1329476525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Town Tale - House Builder_18
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 375
+        width: 18
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b052bb966e0cea34b85bda1b3d7c7c07
+      internalID: -880959083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Town Tale - House Builder_19
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 341
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fb2e959e258ad14cb8d24a1220c5948
+      internalID: -1854399048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -126,7 +546,27 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Town Tale - House Builder_0: 560052885
+      Town Tale - House Builder_1: -1145693935
+      Town Tale - House Builder_10: -1892330418
+      Town Tale - House Builder_11: 734601134
+      Town Tale - House Builder_12: 309413201
+      Town Tale - House Builder_13: 104116387
+      Town Tale - House Builder_14: -1755699709
+      Town Tale - House Builder_15: 1526570266
+      Town Tale - House Builder_16: 1097860854
+      Town Tale - House Builder_17: -1329476525
+      Town Tale - House Builder_18: -880959083
+      Town Tale - House Builder_19: -1854399048
+      Town Tale - House Builder_2: 289614457
+      Town Tale - House Builder_3: -1408250677
+      Town Tale - House Builder_4: 1911152553
+      Town Tale - House Builder_5: 1620570490
+      Town Tale - House Builder_6: -1358379632
+      Town Tale - House Builder_7: -807017973
+      Town Tale - House Builder_8: -415107140
+      Town Tale - House Builder_9: 875867074
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
