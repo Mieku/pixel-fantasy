@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ScriptableObjects
@@ -6,6 +7,13 @@ namespace ScriptableObjects
     [CreateAssetMenu(fileName = "WallData", menuName = "WallData", order = 1)]
     public class WallData : ScriptableObject
     {
+        public string Name;
+        public float WorkCost;
+        public ProfessionData CraftersProfession;
+        
+        [SerializeField] private List<ItemAmount> _resourceCosts;
+        [SerializeField] private List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle", "Structure" };
+        
         public WallPiece Horizontal;
         public WallPiece HorizontalLeftEndLeftEdge;
         public WallPiece HorizontalLeftEndRightEdge;
@@ -15,6 +23,47 @@ namespace ScriptableObjects
         public WallPiece VerticalRightEdge;
         public WallPiece Solo;
         public WallPiece HorizontalT;
+        
+        public List<ItemAmount> GetResourceCosts()
+        {
+            List<ItemAmount> clone = new List<ItemAmount>();
+            foreach (var resourceCost in _resourceCosts)
+            {
+                ItemAmount cost = new ItemAmount
+                {
+                    Item = resourceCost.Item,
+                    Quantity = resourceCost.Quantity
+                };
+                clone.Add(cost);
+            }
+
+            return clone;
+        }
+        
+        public List<string> InvalidPlacementTags
+        {
+            get
+            {
+                List<string> clone = new List<string>();
+                foreach (var tag in _invalidPlacementTags)
+                {
+                    clone.Add(tag);
+                }
+
+                return clone;
+            }
+        }
+        
+        public float GetWorkPerResource()
+        {
+            int totalQuantity = 0;
+            foreach (var resourceCost in _resourceCosts)
+            {
+                totalQuantity += resourceCost.Quantity;
+            }
+
+            return WorkCost / totalQuantity;
+        }
 
         public WallPiece GetWall(Neighbours n)
         {

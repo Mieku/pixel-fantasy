@@ -187,5 +187,6 @@ namespace Controllers
         BuildDoor,
         Zone,
         BuildBuilding,
+        BuildWall,
     }
 }

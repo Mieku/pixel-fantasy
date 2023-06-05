@@ -12,6 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9e4af9405dfe1c4da37d11f88024e82, type: 3}
   m_Name: Limestone Wall
   m_EditorClassIdentifier: 
+  Name: Limestone Wall
+  WorkCost: 5
+  CraftersProfession: {fileID: 11400000, guid: 4caf7254bcc8f464e832ea1d99442ee5, type: 2}
+  _resourceCosts:
+  - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
+    Quantity: 2
+  _invalidPlacementTags:
+  - Water
+  - Wall
+  - Obstacle
+  - Structure
   Horizontal:
     Prefab: {fileID: 2113034071069329808, guid: b47a3438ebe798b469cacaebfbcf05db, type: 3}
     IsLeftAligned: 0

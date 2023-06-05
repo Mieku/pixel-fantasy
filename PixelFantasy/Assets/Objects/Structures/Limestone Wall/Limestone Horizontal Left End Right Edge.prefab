@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3584296303703919920}
   - component: {fileID: 8491690115099701769}
   - component: {fileID: 7748118608609256863}
+  - component: {fileID: 8111162453542585870}
   m_Layer: 0
   m_Name: Limestone Horizontal Left End Right Edge
   m_TagString: Untagged
@@ -100,3 +101,19 @@ MonoBehaviour:
   _offset: 0.5
   _runOnlyOnce: 1
   _sortingGroup: {fileID: 0}
+--- !u!208 &8111162453542585870
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113034071069329808}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.25, y: 0.25, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.25, y: -0.25, z: 0}
+  m_TimeToStationary: 0.5

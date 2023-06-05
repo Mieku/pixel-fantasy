@@ -1,18 +1,28 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Buildings;
+using CodeMonkey.Utils;
+using Items;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
+using TaskSystem;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class StructurePiece : MonoBehaviour
+public class StructurePiece : Construction
 {
-    [SerializeField] private WallData WallData;
+    [SerializeField] private Color _blueprintColour;
+    [SerializeField] private Color _canPlaceColour;
+    [SerializeField] private Color _cantPlaceColour;
 
     public bool IsLeftAligned;
 
     private GameObject _wall;
     private WallData.Neighbours _priorNeighbours;
+    private WallData _wallData;
+    private bool _isPlanning;
+    private List<string> _invalidPlacementTags => _wallData.InvalidPlacementTags;
 
     [Button("Refresh Wall")]
     private void TriggerRefresh()
@@ -34,6 +44,95 @@ public class StructurePiece : MonoBehaviour
             DestroyImmediate(_wall);
         }
     }
+
+    public void Init(WallData wallData)
+    {
+        _wallData = wallData;
+        _isBuilt = false;
+        _remainingResourceCosts = new List<ItemAmount> (_wallData.GetResourceCosts());
+        _pendingResourceCosts = new List<ItemAmount>();
+        Refresh(true, true, true, true);
+        PrepForConstruction();
+    }
+    
+    private void PrepForConstruction()
+    {
+        // TODO: Clear anything below this first
+        
+        CreateConstructionHaulingTasks();
+    }
+    
+    private void CreateConstructionHaulingTasks()
+    {
+        var resourceCosts = _wallData.GetResourceCosts();
+        CreateConstuctionHaulingTasksForItems(resourceCosts);
+    }
+    
+    protected override void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
+    {
+        Task task = new Task
+        {
+            TaskId = "Withdraw Item",
+            Requestor = this,
+            Payload = resourceData.ItemName,
+            Profession = _wallData.CraftersProfession,
+        };
+        TaskManager.Instance.AddTask(task);
+    }
+    
+    public override void CreateConstructTask(bool autoAssign = true)
+    {
+        Task constuctTask = new Task()
+        {
+            TaskId = "Build Construction",
+            Requestor = this,
+            Profession = _wallData.CraftersProfession,
+        };
+        constuctTask.Enqueue();
+    }
+    
+    public override void CompleteConstruction()
+    {
+        base.CompleteConstruction();
+        ColourWall(Color.white);
+        _isBuilt = true;
+        EnableObstacle(true);
+    }
+
+    private NavMeshObstacle _obstacle;
+    private void EnableObstacle(bool isEnabled)
+    {
+        if (_obstacle == null)
+        {
+            _obstacle = _wall.GetComponent<NavMeshObstacle>();
+        }
+
+        if (_obstacle != null)
+        {
+            _obstacle.enabled = isEnabled;
+        }
+    }
+
+    private void Update()
+    {
+        if (!_isBuilt)
+        {
+            ColourWall(_blueprintColour);
+        }
+        else // Is Built
+        {
+            EnableObstacle(true);
+        }
+    }
+
+    private void ColourWall(Color color)
+    {
+        var wallRenderer = _wall.GetComponent<SpriteRenderer>();
+        if (wallRenderer != null)
+        {
+            wallRenderer.color = color;
+        }
+    }
  
     public void Refresh(bool informUp, bool informRight, bool informDown, bool informLeft)
     {
@@ -43,7 +142,7 @@ public class StructurePiece : MonoBehaviour
         }
         
         var neighbours = FindNeighbours();
-        var wall = WallData.GetWall(neighbours);
+        var wall = _wallData.GetWall(neighbours);
         IsLeftAligned = wall.IsLeftAligned;
         _wall = Instantiate(wall.Prefab, transform);
         

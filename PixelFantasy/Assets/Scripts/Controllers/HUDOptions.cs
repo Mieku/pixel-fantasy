@@ -117,6 +117,12 @@ namespace Controllers
             
             switch (orderType)
             {
+                case OrderType.BuildWall:
+                    onpressed += () =>
+                    {
+                        BuildWallPressed(dataKey);
+                    };
+                    break;
                 case OrderType.BuildStructure:
                     onpressed += () =>
                     {
@@ -181,6 +187,15 @@ namespace Controllers
 
             var furnitureData = Librarian.Instance.GetItemData(key) as FurnitureItemData;
             Spawner.Instance.PlanFurniture(furnitureData);
+        }
+
+        public void BuildWallPressed(string key)
+        {
+            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildWall, key);
+
+            var wallData = Librarian.Instance.GetWallData(key);
+            Spawner.Instance.WallData = wallData;
+            Spawner.Instance.ShowPlacementIcon(true, null, wallData.InvalidPlacementTags);
         }
 
         public void BuildStructurePressed(string key)

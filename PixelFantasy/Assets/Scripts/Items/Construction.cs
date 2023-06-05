@@ -334,7 +334,7 @@ namespace Items
             }
         }
         
-        public void CreateConstructTask(bool autoAssign = true)
+        public virtual void CreateConstructTask(bool autoAssign = true)
         {
             Task constuctTask = new Task()
             {
@@ -389,7 +389,7 @@ namespace Items
             }
         }
 
-        protected void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
+        protected virtual void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
         {
             Task task = new Task
             {

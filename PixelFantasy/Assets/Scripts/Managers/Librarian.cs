@@ -22,6 +22,7 @@ namespace Managers
         [SerializeField] private List<BuildingData> _buildingDataLibrary;
         [SerializeField] private List<Command> _commandLibrary;
         [SerializeField] private List<ProfessionData> _professionLibrary;
+        [SerializeField] private List<WallData> _wallLibrary;
 
         public ProfessionData GetProfession(string professionName)
         {
@@ -89,6 +90,17 @@ namespace Managers
             {
                 Debug.LogError("Unknown Building: " + key);
             }
+            return result;
+        }
+
+        public WallData GetWallData(string key)
+        {
+            var result = _wallLibrary.Find(w => w.Name == key);
+            if (result == null)
+            {
+                Debug.LogError("Unknown WallData: " + key);
+            }
+
             return result;
         }
 

@@ -22,6 +22,7 @@ namespace Managers
         [SerializeField] private Transform _structureParent;
         [SerializeField] private GameObject _structurePrefab;
         [SerializeField] private GameObject _buildingPrefab;
+        [SerializeField] private StructurePiece _wallPrefab;
         
         [SerializeField] private Transform _doorsParent;
         [SerializeField] private GameObject _doorPrefab;
@@ -56,6 +57,7 @@ namespace Managers
         
         public PlacementDirection PlacementDirection;
         public StructureData StructureData { get; set; }
+        public WallData WallData { get; set; }
         public BuildingData BuildingData { get; set; }
         public DoorData DoorData { get; set; }
         public FloorData FloorData { get; set; }
@@ -100,7 +102,8 @@ namespace Managers
             if (isOverUI) return;
             if (inputState == PlayerInputState.BuildStructure 
                 || inputState == PlayerInputState.BuildFlooring
-                || inputState == PlayerInputState.BuildFarm )
+                || inputState == PlayerInputState.BuildFarm 
+                || inputState == PlayerInputState.BuildWall)
             {
                 _planningStructure = true;
                 _startPos = Helper.ConvertMousePosToGridPos(mousePos);
@@ -112,6 +115,11 @@ namespace Managers
             if (inputState == PlayerInputState.BuildStructure)
             {
                 PlanStructure(mousePos, StructureData.PlanningMode);
+            }
+
+            if (inputState == PlayerInputState.BuildWall)
+            {
+                PlanWall(mousePos);
             }
             
             if (inputState == PlayerInputState.BuildFlooring)
@@ -145,6 +153,15 @@ namespace Managers
                 var structureData = Librarian.Instance.GetStructureData(PlayerInputController.Instance.StoredKey);
                 SpawnStructure(structureData, Helper.ConvertMousePosToGridPos(mousePos));
                 
+            }
+            else if (inputState == PlayerInputState.BuildWall && _planningStructure)
+            {
+                SpawnPlannedWall();
+            }
+            else if (inputState == PlayerInputState.BuildWall)
+            {
+                var wallData = Librarian.Instance.GetWallData(PlayerInputController.Instance.StoredKey);
+                SpawnWall(wallData, Helper.ConvertMousePosToGridPos(mousePos));
             }
             else if (inputState == PlayerInputState.BuildFlooring)
             {
@@ -205,6 +222,15 @@ namespace Managers
                     _plannedBuildingNode = null;
                 }
             }
+            // else if (inputState == PlayerInputState.BuildWall && _plannedWall != null)
+            // {
+            //     if (_plannedWall.CheckPlacement())
+            //     {
+            //         PlayerInputController.Instance.ChangeState(PlayerInputState.None);
+            //         _plannedWall.PrepareToBuild();
+            //         _plannedWall = null;
+            //     }
+            // }
         }
         
         protected virtual void GameEvents_OnRightClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
@@ -235,6 +261,11 @@ namespace Managers
         {
             _placementIcon.enabled = true;
             _colourOverride = colourOverride;
+
+            if (icon == null)
+            {
+                icon = _genericPlacementSprite;
+            }
 
             List<string> tags = null;
             if (invalidPlacementTags != null)
@@ -354,6 +385,17 @@ namespace Managers
             }
         }
 
+        public void SpawnWall(WallData wallData, Vector3 spawnPosition)
+        {
+            if (Helper.IsGridPosValidToBuild(spawnPosition, wallData.InvalidPlacementTags))
+            {
+                spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
+                var wall = Instantiate(_wallPrefab, spawnPosition, Quaternion.identity);
+                wall.transform.SetParent(_structureParent);
+                wall.Init(wallData);
+            }
+        }
+
         public Storage SpawnStorageContainer(StorageItemData storageData, Vector3 spawnPosition)
         {
             var containerObj = Instantiate(_storageContainerPrefab, spawnPosition, Quaternion.identity);
@@ -396,6 +438,14 @@ namespace Managers
                 door.Init(doorData);
             }
         }
+
+        // private StructurePiece _plannedWall;
+        // public void PlanWall(WallData wallData)
+        // {
+        //     var wall = Instantiate(_wallPrefab, _structureParent);
+        //     wall.Plan(wallData);
+        //     _plannedWall = wall;
+        // }
 
         private BuildingNode _plannedBuildingNode;
         public void PlanBuilding(BuildingData buildingData)
@@ -479,6 +529,12 @@ namespace Managers
                 Destroy(_plannedFurniture.gameObject);
                 _plannedFurniture = null;
             }
+
+            // if (_plannedWall != null)
+            // {
+            //     Destroy(_plannedWall.gameObject);
+            //     _plannedWall = null;
+            // }
         }
         
         private void ClearPlannedBlueprint()
@@ -508,6 +564,24 @@ namespace Managers
             CancelInput();
         }
 
+        private void SpawnPlannedWall()
+        {
+            if (!_planningStructure) return;
+
+            foreach (var gridPos in _plannedGrid)
+            {
+                if (Helper.IsGridPosValidToBuild(gridPos, WallData.InvalidPlacementTags))
+                {
+                    SpawnWall(WallData, gridPos);
+                }
+            }
+
+            ClearPlannedBlueprint();
+            _plannedGrid.Clear();
+            _planningStructure = false;
+            CancelInput();
+        }
+
         private void SpawnPlannedFloor()
         {
             if (!_planningStructure) return;
@@ -524,6 +598,42 @@ namespace Managers
             _plannedGrid.Clear();
             _planningStructure = false;
             CancelInput();
+        }
+
+        private void PlanWall(Vector2 mousePos)
+        {
+            if (!_planningStructure) return;
+            ShowPlacementIcon(false);
+            
+            List<Vector2> gridPositions = new List<Vector2>();
+            gridPositions = Helper.GetLineGridPositionsBetweenPoints(_startPos, mousePos);
+
+            if (gridPositions.Count != _plannedGrid.Count)
+            {
+                _plannedGrid = gridPositions;
+                
+                // Clear previous display, then display new blueprints
+                ClearPlannedBlueprint();
+
+                foreach (var gridPos in gridPositions)
+                {
+                    var blueprint = new GameObject("blueprint", typeof(SpriteRenderer));
+                    blueprint.transform.position = gridPos;
+                    var spriteRenderer = blueprint.GetComponent<SpriteRenderer>();
+                    spriteRenderer.sprite = _genericPlacementSprite;
+                    if (Helper.IsGridPosValidToBuild(gridPos, WallData.InvalidPlacementTags))
+                    {
+                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Green");
+                    }
+                    else
+                    {
+                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Red");
+                    }
+                    
+                    spriteRenderer.sortingLayerName = "Structure";
+                    _blueprints.Add(blueprint);
+                }
+            }
         }
 
         private void PlanStructure(Vector2 mousePos, PlanningMode planningMode)
