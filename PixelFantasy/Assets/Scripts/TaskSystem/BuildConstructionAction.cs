@@ -20,12 +20,19 @@ namespace TaskSystem
         {
             _task = task;
             _construction = _task.Requestor as Construction;
-            _movePos = _ai.GetAdjacentPosition(_task.Requestor.transform.position);
+            _movePos = _ai.GetAdjacentPosition(_task.Requestor.transform.position, 0.25f);
         }
 
         public override void DoAction()
         {
-            if (DistanceFromRequestor <= 0.25f)
+            if (!_ai.IsPositionPossible((Vector2)_movePos))
+            {
+                Debug.Log($"Position: {(Vector2)_movePos} Impossible, recalculated");
+                _movePos = _ai.GetAdjacentPosition(_task.Requestor.transform.position, 0.25f);
+                Debug.Log($"Recalculated Position is: {(Vector2)_movePos}");
+            }
+            
+            if (DistanceFromRequestor <= 0.40f)
             {
                 DoConstruction();
             }

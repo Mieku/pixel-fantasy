@@ -213,6 +213,11 @@ namespace TaskSystem
                 return UnitActionDirection.Side;
             }
         }
+
+        public bool IsPositionPossible(Vector2 pos)
+        {
+            return Unit.UnitAgent.IsDestinationPossible(pos);
+        }
         
         public Vector2? GetAdjacentPosition(Vector2 workPosition, float distanceAway = 1f)
         {

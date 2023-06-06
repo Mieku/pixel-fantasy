@@ -8,8 +8,9 @@ namespace Items
 {
     public class Door : Construction
     {
-        [SerializeField] private SpriteRenderer _doorRenderer;
+        [SerializeField] private Transform _doorRoot;
 
+        private GameObject _doorObj;
         private DoorData _doorData;
         private bool _isLocked;
         private int _defaultLayerNum;
@@ -107,18 +108,36 @@ namespace Items
             var pos = transform.position;
             var topPos = new Vector2(pos.x, pos.y + 1);
             var bottomPos = new Vector2(pos.x, pos.y - 1);
-            bool isWallAbove = Helper.DoesGridContainTag(topPos, "Wall");
-            bool isWallBelow = Helper.DoesGridContainTag(bottomPos, "Wall");
+            bool isWallAbove = Helper.DoesGridContainTag(topPos, "Structure");
+            bool isWallBelow = Helper.DoesGridContainTag(bottomPos, "Structure");
             if (isWallAbove || isWallBelow)
             {
-                _doorRenderer.sprite = _doorData.VerticalSprite;
+                StructurePiece wall = Helper.GetObjectAtPosition<StructurePiece>(transform.position);
+                if (wall.IsLeftAligned)
+                {
+                    DisplayDoor(_doorData.VerticalDoorLeftEdge);
+                }
+                else
+                {
+                    DisplayDoor(_doorData.VerticalDoorRightEdge);
+                }
                 _isHorizontal = false;
             }
             else
             {
-                _doorRenderer.sprite = _doorData.HorizontalSprite;
+                DisplayDoor(_doorData.HorizontalDoor);
                 _isHorizontal = true;
             }
+        }
+
+        private void DisplayDoor(GameObject doorObj)
+        {
+            if (_doorObj != null)
+            {
+                Destroy(_doorObj);
+            }
+
+            _doorObj = Instantiate(doorObj, _doorRoot);
         }
         
         private void CreateConstructionHaulingTasks()
@@ -150,11 +169,20 @@ namespace Items
         {
             if (showBlueprint)
             {
-                _doorRenderer.color = Librarian.Instance.GetColour("Blueprint");
+                ColourDoor(Librarian.Instance.GetColour("Blueprint"));
             }
             else
             {
-                _doorRenderer.color = Color.white;
+                ColourDoor(Color.white);
+            }
+        }
+
+        private void ColourDoor(Color colour)
+        {
+            var sprites = _doorRoot.GetComponentsInParent<SpriteRenderer>(true);
+            foreach (var doorSprite in sprites)
+            {
+                doorSprite.color = colour;
             }
         }
         
@@ -168,8 +196,15 @@ namespace Items
             base.CompleteConstruction();
             ShowBlueprint(false);
             _isBuilt = true;
+            DisableWallObstacle(true);
         }
-        
+
+        private void DisableWallObstacle(bool enabled)
+        {
+            StructurePiece wall = Helper.GetObjectAtPosition<StructurePiece>(transform.position);
+            wall.OverrideObstacle(enabled);
+        }
+
         public override void CancelConstruction()
         {
             if (!_isBuilt)
@@ -216,11 +251,19 @@ namespace Items
 
             if (_isHorizontal)
             {
-                _doorRenderer.sprite = _doorData.HorizontalSprite;
+                DisplayDoor(_doorData.HorizontalDoor);
             }
             else
             {
-                _doorRenderer.sprite = _doorData.VerticalSprite;
+                StructurePiece wall = Helper.GetObjectAtPosition<StructurePiece>(transform.position);
+                if (wall.IsLeftAligned)
+                {
+                    DisplayDoor(_doorData.VerticalDoorLeftEdge);
+                }
+                else
+                {
+                    DisplayDoor(_doorData.VerticalDoorRightEdge);
+                }
             }
         }
 

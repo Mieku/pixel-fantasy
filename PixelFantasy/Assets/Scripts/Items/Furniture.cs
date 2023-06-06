@@ -19,7 +19,7 @@ namespace Items
         public bool IsBuilt;
         
         private SpriteRenderer[] _allSprites;
-        private List<SpriteRenderer> _useageMarkers;
+        protected List<SpriteRenderer> _useageMarkers;
         private List<Material> _materials = new List<Material>();
         private int _fadePropertyID;
         
@@ -233,7 +233,7 @@ namespace Items
             }
         }
         
-        public bool CheckPlacement()
+        public virtual bool CheckPlacement()
         {
             bool result = Helper.IsGridPosValidToBuild(transform.position, _furnitureItemData.InvalidPlacementTags);
 

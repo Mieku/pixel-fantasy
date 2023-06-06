@@ -181,6 +181,21 @@ public static class Helper
         return results;
     }
 
+    public static T GetObjectAtPosition<T>(Vector2 pos)
+    {
+        var objs = GetGameObjectsOnTile(pos);
+        foreach (var obj in objs)
+        {
+            var result = obj.GetComponent<T>();
+            if (result != null)
+            {
+                return result;
+            }
+        }
+
+        return default(T);
+    }
+
     /// <summary>
     /// Returns the GameObjects located on a specific tile position
     /// </summary>

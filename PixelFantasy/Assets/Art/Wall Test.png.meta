@@ -128,7 +128,11 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: 2, y: 8}
+        - {x: 2, y: -8}
+        - {x: 8, y: -8}
+        - {x: 8, y: 8}
       tessellationDetail: 0
       bones: []
       spriteID: 8ba97ded961063e41a96354aacc4c21c
@@ -149,7 +153,11 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: -8}
+        - {x: -8, y: 8}
+        - {x: -2, y: 8}
+        - {x: -2, y: -8}
       tessellationDetail: 0
       bones: []
       spriteID: 1ade54b03d23fbb4dad5e11c43cb5741
@@ -170,7 +178,11 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.27586207}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: 3.5}
+        - {x: -8, y: 10.5}
+        - {x: 8, y: 10.5}
+        - {x: 8, y: 3.5}
       tessellationDetail: 0
       bones: []
       spriteID: 0c421cee59afd294185a6686f35683fe
@@ -191,7 +203,11 @@ TextureImporter:
       pivot: {x: 0.47058824, y: 0.27586207}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: 1.5, y: -14.5}
+        - {x: 1.5, y: 10.5}
+        - {x: 7.5, y: 10.5}
+        - {x: 7.5, y: -14.5}
       tessellationDetail: 0
       bones: []
       spriteID: b7fab3e353f277d4fb0739358a613ee5
@@ -212,7 +228,14 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.27586207}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -2, y: 3.5}
+        - {x: -2, y: -14.5}
+        - {x: -8, y: -14.5}
+        - {x: -8, y: 3.5}
+        - {x: -8, y: 10.5}
+        - {x: 8, y: 10.5}
+        - {x: 8, y: 3.5}
       tessellationDetail: 0
       bones: []
       spriteID: 9e176e2e65c28074d91679f7867d9504
@@ -233,7 +256,11 @@ TextureImporter:
       pivot: {x: 0.5294118, y: 0.27586207}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -7.5, y: -14.5}
+        - {x: -7.5, y: 10.5}
+        - {x: -1.5, y: 10.5}
+        - {x: -1.5, y: -14.5}
       tessellationDetail: 0
       bones: []
       spriteID: 193b46cb417aa074691f44d9b2c6a156
@@ -254,7 +281,14 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.27586207}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: 8, y: -14.5}
+        - {x: 2, y: -14.5}
+        - {x: 2, y: 3.5}
+        - {x: -8, y: 3.5}
+        - {x: -8, y: 10.5}
+        - {x: 8, y: 10.5}
+        - {x: 8, y: 3.5}
       tessellationDetail: 0
       bones: []
       spriteID: ac947262394b89443881e2040087a8b9
@@ -275,7 +309,11 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.27586207}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: 3.5}
+        - {x: -8, y: 10.5}
+        - {x: 8, y: 10.5}
+        - {x: 8, y: 3.5}
       tessellationDetail: 0
       bones: []
       spriteID: bbdff6ae6a24455409d7af166d1553c4
@@ -296,11 +334,57 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.27586207}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: -14.5}
+        - {x: -8, y: 10.5}
+        - {x: 8, y: 10.5}
+        - {x: 8, y: -14.5}
       tessellationDetail: 0
       bones: []
       spriteID: 47f32104e148a3948b342447646c68e1
       internalID: 446301474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vert Door Right Edge
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 64
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 830eff7f066f9734e8bfc621880895c5
+      internalID: -290440874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vert Door Left Edge
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 64
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfa07dce1b775d440b5f0d76f47e5162
+      internalID: -534342783
       vertices: []
       indices: 
       edges: []
@@ -316,6 +400,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Vert Door Left Edge: -534342783
+      Vert Door Right Edge: -106525124
       Wall Test_0: 1314166892
       Wall Test_1: -1663986938
       Wall Test_10: 1582226991
@@ -329,7 +415,6 @@ TextureImporter:
       Wall Test_18: 586836960
       Wall Test_2: 1482456554
       Wall Test_3: 446301474
-      Wall Test_4: -106525124
       Wall Test_5: -135643098
       Wall Test_6: -1763941255
       Wall Test_7: 1839118950

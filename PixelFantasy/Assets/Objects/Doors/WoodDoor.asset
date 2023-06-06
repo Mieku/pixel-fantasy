@@ -15,15 +15,13 @@ MonoBehaviour:
   ConstructionName: Wooden Door
   WorkCost: 10
   Icon: {fileID: -5932618471271501977, guid: 4d5895fa30c428843a9032c52ee06e38, type: 3}
+  CraftersProfession: {fileID: 0}
   _resourceCosts:
   - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
     Quantity: 2
   _invalidPlacementTags:
   - Water
   _planningMode: 2
-  _availableActions:
-  - {fileID: 11400000, guid: d2c5e0d28c7052c44a5ca2d47267f4a4, type: 2}
-  - {fileID: 11400000, guid: 208ddcd0432a44948a68d37f88bd010a, type: 2}
-  - {fileID: 11400000, guid: 9d9bdf6754534174ebdb03cfd0721220, type: 2}
-  HorizontalSprite: {fileID: -5932618471271501977, guid: 4d5895fa30c428843a9032c52ee06e38, type: 3}
-  VerticalSprite: {fileID: -4508356841719444189, guid: 4d5895fa30c428843a9032c52ee06e38, type: 3}
+  HorizontalDoor: {fileID: 3951193508196838853, guid: 6f2e9d12212b4584b84b2043c21858c9, type: 3}
+  VerticalDoorLeftEdge: {fileID: 3951193508196838853, guid: 28c5fa76f14efbc4dba6ef051a9423e2, type: 3}
+  VerticalDoorRightEdge: {fileID: 3951193508196838853, guid: 64884ecef6f30584abbade9f45c7fafd, type: 3}

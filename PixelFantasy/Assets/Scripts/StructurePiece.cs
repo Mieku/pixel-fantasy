@@ -22,6 +22,7 @@ public class StructurePiece : Construction
     private WallData.Neighbours _priorNeighbours;
     private WallData _wallData;
     private bool _isPlanning;
+    private bool _overrideNoObstacle;
     private List<string> _invalidPlacementTags => _wallData.InvalidPlacementTags;
 
     [Button("Refresh Wall")]
@@ -100,7 +101,7 @@ public class StructurePiece : Construction
     }
 
     private NavMeshObstacle _obstacle;
-    private void EnableObstacle(bool isEnabled)
+    public void EnableObstacle(bool isEnabled)
     {
         if (_obstacle == null)
         {
@@ -113,6 +114,11 @@ public class StructurePiece : Construction
         }
     }
 
+    public void OverrideObstacle(bool enabled)
+    {
+        _overrideNoObstacle = enabled;
+    }
+
     private void Update()
     {
         if (!_isBuilt)
@@ -121,7 +127,14 @@ public class StructurePiece : Construction
         }
         else // Is Built
         {
-            EnableObstacle(true);
+            if (_overrideNoObstacle)
+            {
+                EnableObstacle(false);
+            }
+            else
+            {
+                EnableObstacle(true);
+            }
         }
     }
 
