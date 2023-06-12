@@ -22,6 +22,8 @@ namespace Zones
         public LayeredRuleTile LayeredRuleTile { get; set; }
         public ZoneTypeData ZoneTypeData => Librarian.Instance.GetZoneTypeData(ZoneType);
         public ZonePanel Panel;
+        
+        protected RoomData _roomData;
 
         public List<Vector2> WorldPositions => ConvertGridPositionsToWorldPositions(GridPositions);
 
@@ -42,6 +44,20 @@ namespace Zones
             GridPositions = new List<Vector3Int>(gridPositions);
             LayeredRuleTile = layeredRuleTile;
             Building = building;
+            
+            AssignName();
+            DisplayZonePanel();
+        }
+        
+        // TODO: Replace the one above with this
+        protected Zone(string uid, List<Vector3Int> gridPositions, LayeredRuleTile layeredRuleTile, RoomData roomData)
+        {
+            Init(uid, gridPositions, layeredRuleTile);
+            
+            UID = uid;
+            GridPositions = new List<Vector3Int>(gridPositions);
+            LayeredRuleTile = layeredRuleTile;
+            _roomData = roomData;
             
             AssignName();
             DisplayZonePanel();

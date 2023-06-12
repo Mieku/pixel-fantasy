@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Buildings;
 using Managers;
 using Popups.Zone_Popups;
 using ScriptableObjects;
@@ -13,7 +14,7 @@ namespace Zones
         private CropData _cropAssigned;
         private Family _owner;
 
-        public FarmZone(string uid, List<Vector3Int> gridPositions, LayeredRuleTile layeredRuleTile) : base(uid, gridPositions, layeredRuleTile, null)
+        public FarmZone(string uid, List<Vector3Int> gridPositions, LayeredRuleTile layeredRuleTile) : base(uid, gridPositions, layeredRuleTile, (Building)null)
         {
             
         }

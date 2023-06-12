@@ -254,6 +254,10 @@ namespace Controllers
             {
                 BuildZone(ZoneType.Farm);
             }
+            else if (key == "Workshop")
+            {
+                BuildZone(ZoneType.Workshop);
+            }
             else
             {
                 Debug.LogError("BuildZonePressed - Unknown Zone: " + key);

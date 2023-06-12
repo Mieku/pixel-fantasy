@@ -161,10 +161,14 @@ public class ClickObject : MonoBehaviour
         IsSelected = false;
     }
 
-    public void TriggerSelected()
+    public void TriggerSelected(bool ignoreUICheck = false)
     {
-        var isOverUI = EventSystem.current.IsPointerOverGameObject();
-        if(isOverUI) return;
+        if (!ignoreUICheck)
+        {
+            var isOverUI = EventSystem.current.IsPointerOverGameObject();
+            if(isOverUI) return;
+        }
+        
         
         var clickableObj = GetComponent<IClickableObject>();
         if (clickableObj != null)

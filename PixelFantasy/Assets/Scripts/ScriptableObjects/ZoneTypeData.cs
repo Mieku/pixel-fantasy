@@ -19,5 +19,8 @@ namespace ScriptableObjects
         Farm,
         Home,
         Forester,
+        Workshop,
+        Room,
+        ProductionRoom,
     }
 }

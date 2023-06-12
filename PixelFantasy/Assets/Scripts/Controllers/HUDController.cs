@@ -7,6 +7,7 @@ using HUD;
 using Managers;
 using Popups;
 using UnityEngine;
+using Zones;
 
 namespace Controllers
 {
@@ -45,6 +46,18 @@ namespace Controllers
         public void ShowBuildingDetails(Building building)
         {
             _selectedItemInfoPanel.ShowBuildingDetails(building);
+        }
+        
+        public void ShowRoomDetails(RoomZone zone)
+        {
+            if (zone is ProductionZone productionZone)
+            {
+                _selectedItemInfoPanel.ShowProductionRoom(productionZone);
+            }
+            else // Normal Room Zone
+            {
+                Debug.LogError("Not Built");
+            }
         }
 
         public void HideItemDetails()

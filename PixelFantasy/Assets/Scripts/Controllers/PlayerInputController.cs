@@ -22,8 +22,15 @@ namespace Controllers
             DetectKeyboardInput();
         }
 
+        private void CloseDetailsPanels()
+        {
+            HUDController.Instance.HideItemDetails();
+        }
+
         public void SelectUnit(ClickObject clickObject, Unit unit)
         {
+            CloseDetailsPanels();
+            
             if (_curSelectedObject != null)
             {
                 _curSelectedObject.UnselectObject();
@@ -41,6 +48,8 @@ namespace Controllers
 
         public void SelectObject(ClickObject clickObject, SelectionData selectionData = null)
         {
+            CloseDetailsPanels();
+            
             if (_curSelectedObject != null)
             {
                 _curSelectedObject.UnselectObject();

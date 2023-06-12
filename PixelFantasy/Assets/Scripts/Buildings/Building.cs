@@ -268,7 +268,6 @@ namespace Buildings
         public void AssignHome(UnitState unit)
         {
             Occupants.Add(unit);
-            unit.Home = this;
         }
     }
 }

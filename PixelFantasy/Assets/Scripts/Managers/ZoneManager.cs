@@ -319,6 +319,9 @@ namespace Managers
                     return new HomeZone(uid, gridPositions, zoneRuleTile);
                 case ZoneType.Forester:
                     return new ForesterZone(uid, gridPositions, zoneRuleTile, _requestorBuilding as ForestersLodge);
+                case ZoneType.Workshop:
+                    var workshopRoom = Librarian.Instance.GetRoom("Workshop");
+                    return new ProductionZone(uid, gridPositions, zoneRuleTile, workshopRoom as ProductionRoomData);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(zoneType), zoneType, null);
             }

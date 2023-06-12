@@ -2,6 +2,7 @@ using Buildings;
 using ScriptableObjects;
 using TaskSystem;
 using UnityEngine;
+using Zones;
 
 namespace Characters
 {
@@ -19,7 +20,7 @@ namespace Characters
         public float ToughnessModifier = 0f;
         public float CombatModifier = 0f;
 
-        public Building Home;
+        public RoomZone AssignedWorkRoom;
         public ProductionBuilding Occupation;
         public ProfessionData Profession;
         public Schedule Schedule = new Schedule();

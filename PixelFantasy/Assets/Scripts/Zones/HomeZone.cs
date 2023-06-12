@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Buildings;
 using Popups;
 using Popups.Zone_Popups;
 using ScriptableObjects;
@@ -10,7 +11,7 @@ namespace Zones
     {
         public override ZoneType ZoneType => ZoneType.Home;
         
-        public HomeZone(string uid, List<Vector3Int> gridPositions, LayeredRuleTile layeredRuleTile) : base(uid, gridPositions, layeredRuleTile, null)
+        public HomeZone(string uid, List<Vector3Int> gridPositions, LayeredRuleTile layeredRuleTile) : base(uid, gridPositions, layeredRuleTile, (Building)null)
         {
             
         }

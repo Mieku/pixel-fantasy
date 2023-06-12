@@ -20,7 +20,7 @@ namespace Managers
             get
             {
                 var allUnits = AllUnits;
-                return allUnits.Where(unit => unit.Occupation == null).ToList();
+                return allUnits.Where(unit => unit.AssignedWorkRoom == null).ToList();
             }
         }
 

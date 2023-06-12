@@ -23,7 +23,19 @@ namespace Managers
         [SerializeField] private List<Command> _commandLibrary;
         [SerializeField] private List<ProfessionData> _professionLibrary;
         [SerializeField] private List<WallData> _wallLibrary;
+        [SerializeField] private List<RoomData> _roomLibrary;
 
+        public RoomData GetRoom(string roomName)
+        {
+            var result = _roomLibrary.Find(room => room.RoomName == roomName);
+            if (result == null)
+            {
+                Debug.LogError($"Unknown Room: {roomName}");
+            }
+
+            return result;
+        }
+        
         public ProfessionData GetProfession(string professionName)
         {
             var result = _professionLibrary.Find(prof => prof.ProfessionName == professionName);
