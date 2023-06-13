@@ -20,20 +20,7 @@ namespace TaskSystem
         public List<CraftingBill.RequestedItemInfo> Materials;
         public Queue<Task> SubTasks = new Queue<Task>();
         public Action<Task> OnTaskComplete;
-        private ProfessionData _profession;
-        public ProfessionData Profession
-        {
-            get
-            {
-                if (_profession == null)
-                {
-                    _profession = Librarian.Instance.GetProfession("Labourer");
-                }
-
-                return _profession;
-            }
-            set => _profession = value;
-        }
+        public TaskType TaskType;
 
         public bool IsEqual(Task otherTask)
         {
@@ -41,7 +28,7 @@ namespace TaskSystem
                    && Requestor == otherTask.Requestor
                    && Payload == otherTask.Payload
                    && Owner == otherTask.Owner
-                   && Profession == otherTask.Profession;
+                   && TaskType == otherTask.TaskType;
         }
 
         public void Cancel()
@@ -72,7 +59,7 @@ namespace TaskSystem
                 Requestor = this.Requestor,
                 Payload = this.Payload,
                 Owner = this.Owner,
-                Profession = this.Profession,
+                TaskType = this.TaskType,
                 SubTasks = subTasks,
             };
         }

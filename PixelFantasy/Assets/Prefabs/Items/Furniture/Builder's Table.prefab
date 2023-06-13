@@ -70,8 +70,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1535977287
+  m_SortingLayer: 4
   m_SortingOrder: 5
   m_Sprite: {fileID: -1997294335, guid: 90f5efa4e4d76d34cb9b37730541f11f, type: 3}
   m_Color: {r: 0.28773582, g: 0.5939446, b: 1, a: 0.8666667}
@@ -209,6 +209,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8679221838297705576}
+  - component: {fileID: 6590395231956412082}
+  - component: {fileID: 442730807166098999}
   m_Layer: 0
   m_Name: Furniture Sprites
   m_TagString: Untagged
@@ -232,6 +234,32 @@ Transform:
   m_Father: {fileID: 8679221839148330294}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6590395231956412082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8679221838297705577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _offset: 0
+  _runOnlyOnce: 0
+  _sortingGroup: {fileID: 442730807166098999}
+--- !u!210 &442730807166098999
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8679221838297705577}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &8679221839148330295
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,7 +341,22 @@ MonoBehaviour:
   PendingCommand: {fileID: 0}
   _spritesRoot: {fileID: 8679221838297705576}
   _useageMarkersRoot: {fileID: 795657465536751454}
+  _furnitureItemData: {fileID: 0}
+  IsBuilt: 0
   _craftingPreview: {fileID: 5242019932516885535}
+  IsInUse: 0
+  _curTask:
+    TaskId: 
+    Requestor: {fileID: 0}
+    Payload: 
+    Owner:
+      FamilyName: 
+      UID: 
+      FamilyHead: {fileID: 0}
+      Members: []
+      IsPlayer: 0
+    Materials: []
+    TaskType: 0
 --- !u!114 &8425493286625524663
 MonoBehaviour:
   m_ObjectHideFlags: 0

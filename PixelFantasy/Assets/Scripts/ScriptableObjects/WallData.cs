@@ -9,7 +9,6 @@ namespace ScriptableObjects
     {
         public string Name;
         public float WorkCost;
-        public ProfessionData CraftersProfession;
         
         [SerializeField] private List<ItemAmount> _resourceCosts;
         [SerializeField] private List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle", "Structure" };

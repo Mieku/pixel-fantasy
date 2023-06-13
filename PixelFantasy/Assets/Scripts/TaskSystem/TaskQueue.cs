@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Characters;
 using ScriptableObjects;
 using UnityEngine;
 
@@ -10,6 +11,15 @@ namespace TaskSystem
     {
         [SerializeField] private List<Task> _tasks = new List<Task>();
 
+        private TaskType _taskType;
+        private AbilityType _abilityType;
+
+        public TaskQueue(TaskType taskType, AbilityType abilityType)
+        {
+            _taskType = taskType;
+            _abilityType = abilityType;
+        }
+        
         public void AddTask(Task task)
         {
             _tasks.Add(task);
@@ -47,5 +57,23 @@ namespace TaskSystem
                 _tasks.Remove(target);
             }
         }
+    }
+
+    public enum TaskType
+    {
+        Haul,
+        Mine,
+        Construction,
+        Harvest,
+        Animals,
+        Art,
+        Craft,
+        Hunt,
+        Grow,
+        Cook,
+        Heal,
+        Research,
+        Clean,
+        Emergency
     }
 }

@@ -16,7 +16,7 @@ MonoBehaviour:
   MaxStackSize: 1
   ItemSprite: {fileID: -1997294335, guid: 90f5efa4e4d76d34cb9b37730541f11f, type: 3}
   DefaultSpriteScale: {x: 1, y: 1}
-  CraftersProfession: {fileID: 11400000, guid: 4caf7254bcc8f464e832ea1d99442ee5, type: 2}
+  CraftersProfession: {fileID: 0}
   RequiredCraftingTable: {fileID: 11400000, guid: 644004581d1321d41993fc7be87087b5, type: 2}
   WorkCost: 5
   _resourceCosts:

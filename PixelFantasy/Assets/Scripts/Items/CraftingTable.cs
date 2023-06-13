@@ -1,6 +1,9 @@
 using System;
 using ScriptableObjects;
+using TaskSystem;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
+using Zones;
 
 namespace Items
 {
@@ -11,11 +14,27 @@ namespace Items
         protected float _remainingCraftAmount;
 
         public bool IsInUse;
+        public Task _curTask;
         
         protected override void Start()
         {
             base.Start();
             ShowCraftingPreview(null);
+        }
+
+        private void LateUpdate()
+        {
+            SearchForTask();
+        }
+
+        private void SearchForTask()
+        {
+            if (IsInUse || !IsBuilt || (_curTask != null && _curTask.TaskId != "")) return;
+
+            if (_parentRoom is ProductionZone prodRoom)
+            {
+                _curTask = prodRoom.CreateProductionTask(this);
+            }
         }
 
         public void AssignItemToTable(CraftedItemData craftedItem)
@@ -62,6 +81,7 @@ namespace Items
         private void CompleteCraft()
         {
             AssignItemToTable(null);
+            _curTask = null;
         }
     }
 }

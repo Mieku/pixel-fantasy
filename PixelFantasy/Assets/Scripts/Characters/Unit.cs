@@ -45,32 +45,32 @@ namespace Characters
             return _unitState;
         }
         
-        public void AssignProfession(ProfessionData newProfession)
-        {
-            CraftingBill.RequestedItemInfo tool = null;
-            if (newProfession.RequiredTool != null)
-            {
-                // Claim the tool
-                var claimedToolStorage = InventoryManager.Instance.ClaimItem(newProfession.RequiredTool);
-                tool = new CraftingBill.RequestedItemInfo(newProfession.RequiredTool, claimedToolStorage, 1);
-            }
-            
-            List<CraftingBill.RequestedItemInfo> mats = new List<CraftingBill.RequestedItemInfo>();
-            if (tool != null)
-            {
-                mats.Add(tool);
-            }
-
-            Task task = new Task()
-            {
-                TaskId = "Change Profession",
-                Requestor = null,
-                Payload = newProfession.ProfessionName,
-                Materials = mats,
-            };
-            
-            _taskAI.QueueTask(task);
-        }
+        // public void AssignProfession(ProfessionData newProfession)
+        // {
+        //     CraftingBill.RequestedItemInfo tool = null;
+        //     if (newProfession.RequiredTool != null)
+        //     {
+        //         // Claim the tool
+        //         var claimedToolStorage = InventoryManager.Instance.ClaimItem(newProfession.RequiredTool);
+        //         tool = new CraftingBill.RequestedItemInfo(newProfession.RequiredTool, claimedToolStorage, 1);
+        //     }
+        //     
+        //     List<CraftingBill.RequestedItemInfo> mats = new List<CraftingBill.RequestedItemInfo>();
+        //     if (tool != null)
+        //     {
+        //         mats.Add(tool);
+        //     }
+        //
+        //     Task task = new Task()
+        //     {
+        //         TaskId = "Change Profession",
+        //         Requestor = null,
+        //         Payload = newProfession.ProfessionName,
+        //         Materials = mats,
+        //     };
+        //     
+        //     _taskAI.QueueTask(task);
+        // }
         
         public object CaptureState()
         {

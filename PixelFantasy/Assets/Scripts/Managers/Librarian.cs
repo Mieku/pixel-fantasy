@@ -21,7 +21,6 @@ namespace Managers
         [SerializeField] private List<ItemData> _itemDataLibrary;
         [SerializeField] private List<BuildingData> _buildingDataLibrary;
         [SerializeField] private List<Command> _commandLibrary;
-        [SerializeField] private List<ProfessionData> _professionLibrary;
         [SerializeField] private List<WallData> _wallLibrary;
         [SerializeField] private List<RoomData> _roomLibrary;
 
@@ -36,21 +35,6 @@ namespace Managers
             return result;
         }
         
-        public ProfessionData GetProfession(string professionName)
-        {
-            var result = _professionLibrary.Find(prof => prof.ProfessionName == professionName);
-            if (result == null)
-            {
-                Debug.LogError("Unknown Profession: " + professionName);
-            }
-            return result;
-        }
-
-        public List<ProfessionData> GetAllProfessions()
-        {
-            return new List<ProfessionData>(_professionLibrary);
-        }
-
         public Command GetCommand(string taskId)
         {
             var result = _commandLibrary.Find(cmd => cmd.Task.TaskId == taskId);

@@ -70,7 +70,7 @@ namespace Buildings
                 TaskId = "Withdraw Item",
                 Requestor = this,
                 Payload = resourceData.ItemName,
-                Profession = _buildingData.CraftersProfession,
+                TaskType = TaskType.Haul,
             };
             TaskManager.Instance.AddTask(task);
         }
@@ -107,7 +107,7 @@ namespace Buildings
             {
                 TaskId = "Build Building",
                 Requestor = this,
-                Profession = _buildingData.CraftersProfession,
+                TaskType = TaskType.Construction,
             };
             constuctTask.Enqueue();
         }

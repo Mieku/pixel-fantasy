@@ -29,8 +29,6 @@ namespace HUD
             _root.SetActive(true);
             
             _unitName.text = unit.GetUnitState().FullName;
-            _jobName.text = unit.GetUnitState().Profession.ProfessionName;
-            _jobIcon.sprite = unit.GetUnitState().Profession.ProfessionIcon;
         }
 
         public void Hide()

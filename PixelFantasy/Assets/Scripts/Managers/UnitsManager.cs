@@ -8,13 +8,7 @@ namespace Managers
     public class UnitsManager : Singleton<UnitsManager>
     {
         public List<UnitState> AllUnits => GetComponentsInChildren<UnitState>().ToList();
-
-        public List<UnitState> UnitsWithProfession(ProfessionData profession)
-        {
-            var allUnits = AllUnits;
-            return allUnits.Where(unit => unit.Profession == profession).ToList();
-        }
-    
+        
         public List<UnitState> UnemployedUnits
         {
             get

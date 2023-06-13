@@ -58,12 +58,12 @@ namespace Popups.Kinling_Info_Popup
 
         private void RefreshStatsContent()
         {
-            _speedDisp.text = ConvertStatToString(_selectedUnit.GetUnitState().SpeedModifier);
-            _productivityDisp.text = ConvertStatToString(_selectedUnit.GetUnitState().ProductivityModifier);
-            _healingDisp.text = ConvertStatToString(_selectedUnit.GetUnitState().HealingModifier);
-            _aimDisp.text = ConvertStatToString(_selectedUnit.GetUnitState().AimModifier);
-            _toughnessDisp.text = ConvertStatToString(_selectedUnit.GetUnitState().ToughnessModifier);
-            _combatDisp.text = ConvertStatToString(_selectedUnit.GetUnitState().CombatModifier);
+            // _speedDisp.text = ConvertStatToString(_selectedUnit.GetUnitState().SpeedModifier);
+            // _productivityDisp.text = ConvertStatToString(_selectedUnit.GetUnitState().ProductivityModifier);
+            // _healingDisp.text = ConvertStatToString(_selectedUnit.GetUnitState().HealingModifier);
+            // _aimDisp.text = ConvertStatToString(_selectedUnit.GetUnitState().AimModifier);
+            // _toughnessDisp.text = ConvertStatToString(_selectedUnit.GetUnitState().ToughnessModifier);
+            // _combatDisp.text = ConvertStatToString(_selectedUnit.GetUnitState().CombatModifier);
         }
 
         private string ConvertStatToString(float statModifier)

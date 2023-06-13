@@ -5,7 +5,7 @@ namespace Buildings.Building_Panels
 {
     public class BuildingPanel : MonoBehaviour
     {
-        [SerializeField] protected WorkerPanel _workerPanel;
+        //[SerializeField] protected WorkerPanel _workerPanel;
         
         [FormerlySerializedAs("_building")] public ProductionBuilding Building;
         protected bool _isInsideBuilding;
@@ -13,12 +13,6 @@ namespace Buildings.Building_Panels
         public virtual void Init(Building building)
         {
             Building = building as ProductionBuilding;
-            RefreshWorkerPanel();
-        }
-
-        private void RefreshWorkerPanel()
-        {
-            _workerPanel.Init(this);
         }
         
         public void ChangeView()

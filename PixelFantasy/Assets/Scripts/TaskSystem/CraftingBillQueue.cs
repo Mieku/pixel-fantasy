@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Buildings;
 using Characters;
+using Items;
 using UnityEngine;
 
 namespace TaskSystem
@@ -42,11 +43,25 @@ namespace TaskSystem
 
         public CraftingBill GetNextCraftingBillByBuilding(ProductionBuilding building)
         {
-            var workersProfession = building.BuildingData.WorkersProfession;
             for (int i = 0; i < _bills.Count; i++)
             {
                 var potentialBill = _bills[i];
-                if (potentialBill.IsCorrectProfession(workersProfession) && potentialBill.HasCorrectCraftingTable(building) && potentialBill.IsPossible())
+                if (potentialBill.HasCorrectCraftingTable(building) && potentialBill.IsPossible())
+                {
+                    _bills.RemoveAt(i);
+                    return potentialBill;
+                }
+            }
+
+            return null;
+        }
+
+        public CraftingBill GetNextBillByCraftingTable(CraftingTable craftingTable)
+        {
+            for (int i = 0; i < _bills.Count; i++)
+            {
+                var potentialBill = _bills[i];
+                if (potentialBill.ItemToCraft.RequiredCraftingTable == craftingTable.FurnitureItemData && potentialBill.IsPossible())
                 {
                     _bills.RemoveAt(i);
                     return potentialBill;

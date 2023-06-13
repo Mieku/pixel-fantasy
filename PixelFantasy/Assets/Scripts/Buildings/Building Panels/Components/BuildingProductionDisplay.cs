@@ -34,22 +34,22 @@ namespace Buildings.Building_Panels.Components
 
         public void RefreshProductionControls()
         {
-            foreach (var control in _displayedControls)
-            {
-                Destroy(control.gameObject);
-            }
-            _displayedControls.Clear();
-            
-            var allOrders = _building.OrderQueue.AllOrders;
-            int index = 0;
-            foreach (var order in allOrders)
-            {
-                var control = Instantiate(_controlPreset, _controlsParent);
-                control.Init(order, _building, OnOrderValueChanged, index);
-                control.gameObject.SetActive(true);
-                _displayedControls.Add(control.gameObject);
-                index++;
-            }
+            // foreach (var control in _displayedControls)
+            // {
+            //     Destroy(control.gameObject);
+            // }
+            // _displayedControls.Clear();
+            //
+            // var allOrders = _building.OrderQueue.AllOrders;
+            // int index = 0;
+            // foreach (var order in allOrders)
+            // {
+            //     var control = Instantiate(_controlPreset, _controlsParent);
+            //     control.Init(order, _building, OnOrderValueChanged, index);
+            //     control.gameObject.SetActive(true);
+            //     _displayedControls.Add(control.gameObject);
+            //     index++;
+            // }
         }
 
         private void OnOrderValueChanged(ProductOrder order)
@@ -59,47 +59,47 @@ namespace Buildings.Building_Panels.Components
 
         public void RefreshProductionOptions()
         {
-            foreach (var displayedOption in _displayedOptions)
-            {
-                Destroy(displayedOption.gameObject);
-            }
-            _displayedOptions.Clear();
-            
-            var allCraftable = Librarian.Instance.GetAllCraftedItemDatas();
-            List<CraftedItemData> options = new List<CraftedItemData>();
-            foreach (var item in allCraftable)
-            {
-                ProfessionData profession = item.CraftersProfession;
-                if (_building.BuildingData.WorkersProfession == profession)
-                {
-                    FurnitureItemData requiredTable = item.RequiredCraftingTable;
-                    if (_building.GetFurniture(requiredTable) != null)
-                    {
-                        options.Add(item);
-                    }
-                }
-            }
-
-            foreach (var option in options)
-            {
-                BuildingProductionOption prodOption = Instantiate(_optionPreset, _optionsParent);
-                prodOption.Init(option, OnProductSelected);
-                prodOption.gameObject.SetActive(true);
-                _displayedOptions.Add(prodOption.gameObject);
-            }
+            // foreach (var displayedOption in _displayedOptions)
+            // {
+            //     Destroy(displayedOption.gameObject);
+            // }
+            // _displayedOptions.Clear();
+            //
+            // var allCraftable = Librarian.Instance.GetAllCraftedItemDatas();
+            // List<CraftedItemData> options = new List<CraftedItemData>();
+            // foreach (var item in allCraftable)
+            // {
+            //     ProfessionData profession = item.CraftersProfession;
+            //     if (_building.BuildingData.WorkersProfession == profession)
+            //     {
+            //         FurnitureItemData requiredTable = item.RequiredCraftingTable;
+            //         if (_building.GetFurniture(requiredTable) != null)
+            //         {
+            //             options.Add(item);
+            //         }
+            //     }
+            // }
+            //
+            // foreach (var option in options)
+            // {
+            //     BuildingProductionOption prodOption = Instantiate(_optionPreset, _optionsParent);
+            //     prodOption.Init(option, OnProductSelected);
+            //     prodOption.gameObject.SetActive(true);
+            //     _displayedOptions.Add(prodOption.gameObject);
+            // }
         }
 
-        private void OnProductSelected(CraftedItemData itemData)
-        {
-            // Create order
-            ProductOrder order = new ProductOrder(itemData);
-            
-            // Add order to building
-            _building.OrderQueue.AddOrder(order);
-            
-            // Refresh Controls Display
-            RefreshProductionControls();
-        }
+        // private void OnProductSelected(CraftedItemData itemData)
+        // {
+        //     // Create order
+        //     ProductOrder order = new ProductOrder(itemData);
+        //     
+        //     // Add order to building
+        //     _building.OrderQueue.AddOrder(order);
+        //     
+        //     // Refresh Controls Display
+        //     RefreshProductionControls();
+        // }
 
         #region Button Hooks
 

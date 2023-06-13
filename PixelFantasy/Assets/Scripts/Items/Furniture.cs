@@ -7,6 +7,7 @@ using Managers;
 using ScriptableObjects;
 using TaskSystem;
 using UnityEngine;
+using Zones;
 
 namespace Items
 {
@@ -26,9 +27,10 @@ namespace Items
         private bool _isPlanning;
         private float _remainingWork;
         private bool _isOutlineLocked;
-        private Building _parentBuilding;
+        protected RoomZone _parentRoom;
 
         public FurnitureItemData FurnitureItemData => _furnitureItemData;
+        public RoomZone ParentRoom => _parentRoom;
         
         protected virtual void Awake()
         {
@@ -110,7 +112,7 @@ namespace Items
                     TaskId = "Place Furniture",
                     Requestor = this,
                     Payload = storage.UniqueId,
-                    Profession = _furnitureItemData.CraftersProfession,
+                    TaskType = TaskType.Haul,
                 };
                 TaskManager.Instance.AddTask(task);
             }
@@ -155,12 +157,15 @@ namespace Items
             ColourArt(ColourStates.Built);
             IsBuilt = true;
             
-            // Check if this was placed in a building, if so add it to the building
-            var building = Helper.FindBuildingFromInteriorPosition(transform.position);
-            if (building != null)
+            // Check if this was placed in a room, if so add it to the room
+            var zone = Helper.IsPositionInZone(transform.position);
+            if (zone != null)
             {
-                building.AddFurniture(this);
-                _parentBuilding = building;
+                if (zone is RoomZone room)
+                {
+                    room.AddFurniture(this);
+                    _parentRoom = room;
+                }
             }
         }
         

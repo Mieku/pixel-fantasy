@@ -3,6 +3,7 @@ using Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zones;
 
 namespace Buildings.Building_Panels.Components
 {
@@ -17,14 +18,14 @@ namespace Buildings.Building_Panels.Components
         [SerializeField] private GameObject _suspendBtn;
 
         private ProductOrder _order;
-        private ProductionBuilding _building;
+        private ProductionZone _productionZone;
         private Action<ProductOrder> _onValueChanged;
         private int _index;
 
-        public void Init(ProductOrder order, ProductionBuilding building, Action<ProductOrder> onValueChanged, int index)
+        public void Init(ProductOrder order, ProductionZone room, Action<ProductOrder> onValueChanged, int index)
         {
             _order = order;
-            _building = building;
+            _productionZone = room;
             _onValueChanged = onValueChanged;
             _index = index;
 
@@ -72,7 +73,7 @@ namespace Buildings.Building_Panels.Components
                 _upArrow.SetActive(true);
             }
 
-            int totalOrders = _building.OrderQueue.Count;
+            int totalOrders = _productionZone.OrderQueue.Count;
             if (_index < totalOrders - 1)
             {
                 _downArrow.SetActive(true);
@@ -92,7 +93,7 @@ namespace Buildings.Building_Panels.Components
 
         public void DeletePressed()
         {
-            _building.OrderQueue.DeleteOrder(_order);
+            _productionZone.OrderQueue.DeleteOrder(_order);
             UpdateBuildingOrder();
         }
 
@@ -104,13 +105,13 @@ namespace Buildings.Building_Panels.Components
 
         public void UpPressed()
         {
-            _building.OrderQueue.IncreaseOrderPriority(_order);
+            _productionZone.OrderQueue.IncreaseOrderPriority(_order);
             UpdateBuildingOrder();
         }
 
         public void DownPressed()
         {
-            _building.OrderQueue.DecreaseOrderPriority(_order);
+            _productionZone.OrderQueue.DecreaseOrderPriority(_order);
             UpdateBuildingOrder();
         }
 

@@ -76,7 +76,7 @@ public class StructurePiece : Construction
             TaskId = "Withdraw Item",
             Requestor = this,
             Payload = resourceData.ItemName,
-            Profession = _wallData.CraftersProfession,
+            TaskType = TaskType.Haul,
         };
         TaskManager.Instance.AddTask(task);
     }
@@ -87,7 +87,7 @@ public class StructurePiece : Construction
         {
             TaskId = "Build Construction",
             Requestor = this,
-            Profession = _wallData.CraftersProfession,
+            TaskType = TaskType.Construction,
         };
         constuctTask.Enqueue();
     }

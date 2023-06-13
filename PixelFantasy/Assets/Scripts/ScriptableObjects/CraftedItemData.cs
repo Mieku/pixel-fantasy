@@ -10,7 +10,6 @@ namespace ScriptableObjects
     [CreateAssetMenu(fileName = "CraftedItemData", menuName = "CraftedData/CraftedItemData", order = 1)]
     public class CraftedItemData : ItemData
     {
-        public ProfessionData CraftersProfession;
         public FurnitureItemData RequiredCraftingTable; 
         public float WorkCost;
         [SerializeField] private List<ItemAmount> _resourceCosts;

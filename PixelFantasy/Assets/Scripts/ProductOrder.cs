@@ -27,6 +27,24 @@ public class ProductOrder
         amountMade = 0;
     }
 
+    public Task CreateTask(CraftingTable craftingTable)
+    {
+        List<CraftingBill.RequestedItemInfo> claimedMats = ClaimRequiredMaterials(craftedItemData);
+        
+        Task task = new Task()
+        {
+            TaskId = "Craft Item",
+            Requestor = craftingTable,
+            Payload = craftedItemData.ItemName,
+            TaskType = TaskType.Craft,
+            OnTaskComplete = OnTaskCompleted,
+            Materials = claimedMats,
+            
+        };
+        amountInProgress++;
+        return task;
+    }
+    
     public Task CreateTask(ProductionBuilding building)
     {
         List<CraftingBill.RequestedItemInfo> claimedMats = ClaimRequiredMaterials(craftedItemData);
@@ -36,7 +54,7 @@ public class ProductOrder
             TaskId = "Craft Item",
             Requestor = building,
             Payload = craftedItemData.ItemName,
-            Profession = craftedItemData.CraftersProfession,
+            TaskType = TaskType.Craft,
             OnTaskComplete = OnTaskCompleted,
             Materials = claimedMats,
         };
@@ -149,6 +167,28 @@ public class ProductOrderQueue
     public List<ProductOrder> AllOrders => _orders;
     public int Count => _orders.Count;
 
+
+    public Task RequestTask(CraftingTable craftingTable)
+    {
+        if (_orders.Count == 0) return null;
+        
+        foreach (var order in _orders)
+        {
+            if (!order.isSuspended)
+            {
+                if (order.AmountLeftToMake() > 0)
+                {
+                    if (order.craftedItemData.AreResourcesAvailable())
+                    {
+                        return order.CreateTask(craftingTable);
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+    
     public Task RequestTask(ProductionBuilding building)
     {
         if (_orders.Count == 0) return null;

@@ -32,7 +32,7 @@ namespace Buildings
 
         [SerializeField] protected Vector2 _interiorCamOffset;
 
-        public TaskQueue BuildingTasks = new TaskQueue();
+        public TaskQueue BuildingTasks = new TaskQueue(TaskType.Construction, AbilityType.Strength);
         public OffMeshLink EntranceLink => _entranceLink;
         public BuildingData BuildingData => _buildingNode.BuildingData;
         public int MaxOccupants => BuildingData.MaxOccupants;
@@ -257,12 +257,6 @@ namespace Buildings
             }
 
             return null;
-        }
-        
-        public void UnassignWorker(UnitState unit)
-        {
-            Occupants.Remove(unit);
-            unit.RemoveOccupation();
         }
 
         public void AssignHome(UnitState unit)

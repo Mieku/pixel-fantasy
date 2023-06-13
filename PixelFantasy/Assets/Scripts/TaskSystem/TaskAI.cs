@@ -26,8 +26,7 @@ namespace TaskSystem
 
         public Unit Unit => _unit;
         public Family Family => FamilyManager.Instance.GetFamily(_unit.GetUnitState());
-        public ProductionBuilding Occupation => _unit.GetUnitState().Occupation;
-        public ProfessionData Profession => _unit.GetUnitState().Profession;
+        public TaskPriorities Priorities => _unit.GetUnitState().Priorities;
 
         public enum State
         {
@@ -130,14 +129,19 @@ namespace TaskSystem
                 task = _queuedTasks.Dequeue();
             }
 
-            if (Occupation != null)
-            {
-                task = Occupation.GetTask();
-            }
+            // TODO: First Check Their Assigned Work Room
 
             if (task == null)
             {
-                task = TaskManager.Instance.GetNextTaskByProfession(Profession);
+                var sortedPriorities = Priorities.SortedPriorities;
+                foreach (var sortedPriority in sortedPriorities)
+                {
+                    task = TaskManager.Instance.GetNextTaskByType(sortedPriority.TaskType);
+                    if (task != null)
+                    {
+                        break;
+                    }
+                }
             }
 
             if (task == null)

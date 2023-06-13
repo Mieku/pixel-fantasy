@@ -94,12 +94,7 @@ namespace TaskSystem
 
             return results;
         }
-
-        public bool IsCorrectProfession(ProfessionData profession)
-        {
-            return ItemToCraft.CraftersProfession == profession;
-        }
-
+        
         public bool HasCorrectCraftingTable(ProductionBuilding building)
         {
             var craftingTable = ItemToCraft.RequiredCraftingTable;
@@ -122,14 +117,14 @@ namespace TaskSystem
             }
         }
 
-        public Task CreateTask()
+        public Task CreateTask(CraftingTable craftingTable)
         {
             Task task = new Task()
             {
                 TaskId = "Craft Placed Item",
                 Requestor = Requestor,
-                Payload = _assignedCraftingTable.UniqueId,
-                Profession = ItemToCraft.CraftersProfession,
+                Payload = craftingTable.UniqueId,
+                TaskType = TaskType.Craft,
                 Materials = RequestedItemInfos,
             };
             

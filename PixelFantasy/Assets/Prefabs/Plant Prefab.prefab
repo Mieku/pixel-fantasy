@@ -154,6 +154,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2315027090632040888}
   - component: {fileID: 2315027090632040887}
+  - component: {fileID: 8050244462905838584}
+  - component: {fileID: 2203001646854339137}
   m_Layer: 0
   m_Name: Plant Sprite
   m_TagString: Untagged
@@ -230,6 +232,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8050244462905838584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2315027090632040889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _offset: 0
+  _runOnlyOnce: 0
+  _sortingGroup: {fileID: 2203001646854339137}
+--- !u!210 &2203001646854339137
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2315027090632040889}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &2315027091873356221
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,10 +438,6 @@ MonoBehaviour:
   Commands:
   - {fileID: 11400000, guid: f0e8dad8b311df84aaa187ea24d20432, type: 2}
   PendingCommand: {fileID: 0}
-  QueuedTaskRefs: 
-  PendingTasks: []
-  InProgressTasks: []
-  IncomingUnitUID: 
   Prefab: {fileID: 0}
   ResourceData: {fileID: 0}
   _spriteRenderer: {fileID: 2315027090632040887}

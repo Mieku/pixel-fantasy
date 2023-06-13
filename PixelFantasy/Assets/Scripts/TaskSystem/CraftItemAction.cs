@@ -12,7 +12,7 @@ namespace TaskSystem
         private CraftedItemData _itemToCraft;
         private CraftingTable _craftingTable;
         private List<CraftingBill.RequestedItemInfo> _materials;
-        private ProductionBuilding _building;
+        //private ProductionBuilding _building;
         private TaskState _state;
         private int _materialIndex;
         private int _quantityHauled;
@@ -36,8 +36,7 @@ namespace TaskSystem
         public override void PrepareAction(Task task)
         {
             _itemToCraft = Librarian.Instance.GetItemData(task.Payload) as CraftedItemData;
-            _building = task.Requestor as ProductionBuilding;
-            _craftingTable = _building.GetFurniture(_itemToCraft.RequiredCraftingTable) as CraftingTable;
+            _craftingTable = task.Requestor as CraftingTable;
             _materials = task.Materials;
             _state = TaskState.AssignTable;
             _materialIndex = 0;
@@ -144,7 +143,7 @@ namespace TaskSystem
             if (_state == TaskState.HaulCraftedItem)
             {
                 // Find storage to place the item, prefer the building's, if nothing... drop on the floor
-                _receivingStorage = _building.FindBuildingStorage(_itemToCraft);
+                _receivingStorage = _craftingTable.ParentRoom.FindRoomStorage(_itemToCraft);//_building.FindBuildingStorage(_itemToCraft);
                 if (_receivingStorage == null)
                 {
                     _receivingStorage = InventoryManager.Instance.GetAvailableStorage(_item);
