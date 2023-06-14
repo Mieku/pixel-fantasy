@@ -274,7 +274,7 @@ GameObject:
   - component: {fileID: 8425493286625524663}
   m_Layer: 0
   m_Name: Builder's Table
-  m_TagString: Untagged
+  m_TagString: Furniture
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

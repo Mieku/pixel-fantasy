@@ -113,12 +113,6 @@ public class GameEvents : MonoBehaviour
         if (OnTaskCancelled != null) OnTaskCancelled(task);
     }
 
-    // public static event Action<StorageTile> OnStorageSlotDeleted;
-    // public static void Trigger_OnStorageSlotDeleted(StorageTile storageTile)
-    // {
-    //     if (OnStorageSlotDeleted != null) OnStorageSlotDeleted(storageTile);
-    // }
-
     public static event Action<UnitState> OnUnitOccupationChanged;
     public static void Trigger_OnUnitOccupationChanged(UnitState unit)
     {
@@ -129,5 +123,11 @@ public class GameEvents : MonoBehaviour
     public static void Trigger_OnRoomFurnitureChanged(RoomZone roomZone)
     {
         if (OnRoomFurnitureChanged != null) OnRoomFurnitureChanged(roomZone);
+    }
+
+    public static event Action<bool> OnStructureGuideToggled;
+    public static void Trigger_OnStructureGuideToggled(bool shouldEnable)
+    {
+        if (OnStructureGuideToggled != null) OnStructureGuideToggled(shouldEnable);
     }
 }

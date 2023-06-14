@@ -22,8 +22,8 @@ namespace Items
             _doorData = doorData;
             _remainingResourceCosts = new List<ItemAmount> (_doorData.GetResourceCosts());
             _pendingResourceCosts = new List<ItemAmount>();
-            ShowBlueprint(true);
             PrepForConstruction();
+            ShowBlueprint(true);
         }
         
         public override List<ItemAmount> GetResourceCosts()
@@ -179,7 +179,9 @@ namespace Items
 
         private void ColourDoor(Color colour)
         {
-            var sprites = _doorRoot.GetComponentsInParent<SpriteRenderer>(true);
+            if (_doorObj == null) return;
+            
+            var sprites = _doorObj.GetComponentsInChildren<SpriteRenderer>(true);
             foreach (var doorSprite in sprites)
             {
                 doorSprite.color = colour;

@@ -21,7 +21,7 @@ namespace Zones
 
         public RoomZone(string uid, List<Vector3Int> gridPositions, LayeredRuleTile layeredRuleTile, RoomData roomData) : base(uid, gridPositions, layeredRuleTile, roomData)
         {
-            
+            UpdateContainedFurniture();
         }
 
         public void AddOccupant(UnitState unitState)
@@ -49,6 +49,33 @@ namespace Zones
         public override void UnclickZone()
         {
             base.UnclickZone();
+        }
+
+        public override void ExpandZone(List<Vector3Int> newCells)
+        {
+            base.ExpandZone(newCells);
+            
+            UpdateContainedFurniture();
+        }
+
+        public override void ShrinkZone(List<Vector3Int> cellsToRemove)
+        {
+            base.ShrinkZone(cellsToRemove);
+            
+            
+            UpdateContainedFurniture();
+        }
+
+        private void UpdateContainedFurniture()
+        {
+            foreach (var gridPos in WorldPositions)
+            {
+                var furniture = Helper.GetObjectAtPosition<Furniture>(gridPos);
+                if (furniture != null)
+                {
+                    furniture.AssignParentRoom(this);
+                }
+            }
         }
 
         public bool ContainsFurniture(FurnitureItemData furnitureItemData)

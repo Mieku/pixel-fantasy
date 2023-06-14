@@ -243,7 +243,6 @@ namespace Controllers
         {
             if (key == "Storage")
             {
-                //BuildStorageZone();
                 BuildZone(ZoneType.Storage);
             } 
             else if (key == "Home")

@@ -15,6 +15,7 @@ public class StructurePiece : Construction
     [SerializeField] private Color _blueprintColour;
     [SerializeField] private Color _canPlaceColour;
     [SerializeField] private Color _cantPlaceColour;
+    [SerializeField] private GameObject _structureGuide;
 
     public bool IsLeftAligned;
 
@@ -55,7 +56,22 @@ public class StructurePiece : Construction
         Refresh(true, true, true, true);
         PrepForConstruction();
     }
-    
+
+    private void Start()
+    {
+        GameEvents.OnStructureGuideToggled += GameEvent_OnStructureGuideToggled;
+    }
+
+    private void OnDestroy()
+    {
+        GameEvents.OnStructureGuideToggled -= GameEvent_OnStructureGuideToggled;
+    }
+
+    private void GameEvent_OnStructureGuideToggled(bool shouldEnable)
+    {
+        _structureGuide.SetActive(shouldEnable);
+    }
+
     private void PrepForConstruction()
     {
         // TODO: Clear anything below this first

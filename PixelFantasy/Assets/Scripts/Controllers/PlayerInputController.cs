@@ -161,12 +161,27 @@ namespace Controllers
         {
             ClearStoredData();
             _playerInputState = newState;
+            
+            EnableStructureGuides(newState);
         }
         public void ChangeState(PlayerInputState newState, string key)
         {
             ClearStoredData();
             _playerInputState = newState;
             StoredKey = key;
+
+            EnableStructureGuides(newState);
+        }
+
+        private void EnableStructureGuides(PlayerInputState newState)
+        {
+            if (newState is PlayerInputState.BuildWall 
+                or PlayerInputState.BuildDoor 
+                or PlayerInputState.Zone 
+                or PlayerInputState.BuildFlooring)
+            {
+                GameEvents.Trigger_OnStructureGuideToggled(true);
+            }
         }
 
         public PlayerInputState GetCurrentState()
@@ -180,7 +195,7 @@ namespace Controllers
         public void ClearStoredData()
         {
             StoredKey = null;
-            SelectObject(null);
+            GameEvents.Trigger_OnStructureGuideToggled(false);
         }
     }
 

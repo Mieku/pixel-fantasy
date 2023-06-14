@@ -111,6 +111,42 @@ public static class Helper
         return result;
     }
 
+    public static List<Vector2> GetBoxPositionsBetweenPoints(Vector2 startGridPos, Vector2 currentPos)
+    {
+        var currentGridPos = ConvertMousePosToGridPos(currentPos);
+        
+        List<Vector2> result = new List<Vector2>();
+        var lowerLeft = new Vector2(
+            Mathf.Min(startGridPos.x, currentGridPos.x),
+            Mathf.Min(startGridPos.y, currentGridPos.y)
+        );
+        var upperRight = new Vector2(
+            Mathf.Max(startGridPos.x, currentGridPos.x),
+            Mathf.Max(startGridPos.y, currentGridPos.y)
+        );
+
+        var xDelta = upperRight.x - lowerLeft.x;
+        var yDelta = upperRight.y - lowerLeft.y;
+
+        for (int x = 0; x <= xDelta; x++)
+        {
+            var gridPos = new Vector2(lowerLeft.x + x, lowerLeft.y);
+            var gridPos2 = new Vector2(lowerLeft.x + x, lowerLeft.y + yDelta);
+            result.Add(gridPos);
+            result.Add(gridPos2);
+        }
+
+        for (int y = 0; y <= yDelta; y++)
+        {
+            var gridPos = new Vector2(lowerLeft.x, lowerLeft.y + y);
+            var gridPos2 = new Vector2(lowerLeft.x + xDelta, lowerLeft.y + y);
+            result.Add(gridPos);
+            result.Add(gridPos2);
+        }
+        
+        return result.Distinct().ToList();
+    }
+
     /// <summary>
     /// Determines if the grid position is a valid position to build on
     /// </summary>

@@ -193,9 +193,14 @@ namespace Managers
             {
                 if (_plannedFurniture.CheckPlacement())
                 {
-                    PlayerInputController.Instance.ChangeState(PlayerInputState.None);
+                    //PlayerInputController.Instance.ChangeState(PlayerInputState.None);
                     _plannedFurniture.PrepareToBuild();
+                    var key = _plannedFurniture.FurnitureItemData.ItemName;
                     _plannedFurniture = null;
+                    
+                    // Allows the player to make multiple
+                    var furnitureData = Librarian.Instance.GetItemData(key) as FurnitureItemData;
+                    PlanFurniture(furnitureData);
                 }
             }
             else if (inputState == PlayerInputState.BuildFarm)
@@ -222,15 +227,6 @@ namespace Managers
                     _plannedBuildingNode = null;
                 }
             }
-            // else if (inputState == PlayerInputState.BuildWall && _plannedWall != null)
-            // {
-            //     if (_plannedWall.CheckPlacement())
-            //     {
-            //         PlayerInputController.Instance.ChangeState(PlayerInputState.None);
-            //         _plannedWall.PrepareToBuild();
-            //         _plannedWall = null;
-            //     }
-            // }
         }
         
         protected virtual void GameEvents_OnRightClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
@@ -529,12 +525,6 @@ namespace Managers
                 Destroy(_plannedFurniture.gameObject);
                 _plannedFurniture = null;
             }
-
-            // if (_plannedWall != null)
-            // {
-            //     Destroy(_plannedWall.gameObject);
-            //     _plannedWall = null;
-            // }
         }
         
         private void ClearPlannedBlueprint()
@@ -579,7 +569,6 @@ namespace Managers
             ClearPlannedBlueprint();
             _plannedGrid.Clear();
             _planningStructure = false;
-            CancelInput();
         }
 
         private void SpawnPlannedFloor()
@@ -597,16 +586,14 @@ namespace Managers
             ClearPlannedBlueprint();
             _plannedGrid.Clear();
             _planningStructure = false;
-            CancelInput();
         }
 
         private void PlanWall(Vector2 mousePos)
         {
             if (!_planningStructure) return;
-            ShowPlacementIcon(false);
-            
+
             List<Vector2> gridPositions = new List<Vector2>();
-            gridPositions = Helper.GetLineGridPositionsBetweenPoints(_startPos, mousePos);
+            gridPositions = Helper.GetBoxPositionsBetweenPoints(_startPos, mousePos);
 
             if (gridPositions.Count != _plannedGrid.Count)
             {
@@ -639,7 +626,6 @@ namespace Managers
         private void PlanStructure(Vector2 mousePos, PlanningMode planningMode)
         {
             if (!_planningStructure) return;
-            ShowPlacementIcon(false);
 
             Vector3 curGridPos = Helper.ConvertMousePosToGridPos(mousePos);
             List<Vector2> gridPositions = new List<Vector2>();
@@ -688,7 +674,6 @@ namespace Managers
         private void PlanFloor(Vector2 mousePos, PlanningMode planningMode)
         {
             if (!_planningStructure) return;
-            ShowPlacementIcon(false);
 
             Vector3 curGridPos = Helper.ConvertMousePosToGridPos(mousePos);
             List<Vector2> gridPositions = new List<Vector2>();
@@ -739,7 +724,6 @@ namespace Managers
         private void PlanDirt(Vector2 mousePos)
         {
             if (!_planningStructure) return;
-            ShowPlacementIcon(false);
 
             Vector3 curGridPos = Helper.ConvertMousePosToGridPos(mousePos);
             List<Vector2> gridPositions = new List<Vector2>();
@@ -796,7 +780,6 @@ namespace Managers
         private void PlanFarm(Vector2 mousePos)
         {
             if (!_planningStructure) return;
-            ShowPlacementIcon(false);
 
             Vector3 curGridPos = Helper.ConvertMousePosToGridPos(mousePos);
             List<Vector2> gridPositions = new List<Vector2>();

@@ -22,6 +22,7 @@ TagManager:
   - Zones
   - Obstacle
   - Building Interior
+  - Furniture
   layers:
   - Default
   - TransparentFX

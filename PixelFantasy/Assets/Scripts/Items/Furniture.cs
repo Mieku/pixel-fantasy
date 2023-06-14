@@ -163,10 +163,15 @@ namespace Items
             {
                 if (zone is RoomZone room)
                 {
-                    room.AddFurniture(this);
-                    _parentRoom = room;
+                    AssignParentRoom(room);
                 }
             }
+        }
+
+        public void AssignParentRoom(RoomZone room)
+        {
+            room.AddFurniture(this);
+            _parentRoom = room;
         }
         
         private void Update()
