@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ScriptableObjects
@@ -7,5 +8,6 @@ namespace ScriptableObjects
     {
         public string RoomName;
         public int MaxOccupants;
+        public List<FurnitureItemData> BuildFurnitureOptions = new List<FurnitureItemData>();
     }
 }

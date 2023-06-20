@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Buildings.Building_Panels.Components
 {
-    public class BuildingInventoryDisplaySlot : MonoBehaviour
+    public class InventoryDisplaySlot : MonoBehaviour
     {
         [SerializeField] private Image _itemIcon;
         [SerializeField] private Image _slotBG;

@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoomName: Workshop
   MaxOccupants: 3
+  BuildFurnitureOptions:
+  - {fileID: 11400000, guid: 644004581d1321d41993fc7be87087b5, type: 2}
+  - {fileID: 11400000, guid: 8054ef9a56e8daa448e71e48663b1de4, type: 2}
+  - {fileID: 11400000, guid: f1cb3944f249ec24f909ab4be3e97f91, type: 2}
   WorkersTitle: Crafter
   ProductionOptions:
   - {fileID: 11400000, guid: 8054ef9a56e8daa448e71e48663b1de4, type: 2}

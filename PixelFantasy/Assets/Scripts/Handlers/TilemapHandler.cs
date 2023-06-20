@@ -11,7 +11,7 @@ namespace Handlers
         protected override string StateName => "TilemapHandler";
         public override int LoadOrder => 1;
 
-        [SerializeField] private GameObject _groundTM, _waterTM, _structureTM, _flooringTM, _dirtTM, _mountainTM, _zonesTM, _pendingZonesTM;
+        [SerializeField] private GameObject _groundTM, _waterTM, _structureTM, _flooringTM, _dirtTM, _mountainTM, _zonesTM, _pendingZonesTM, _roofTM;
         
         protected override void ClearChildStates(List<object> childrenStates) { } // Not used
         

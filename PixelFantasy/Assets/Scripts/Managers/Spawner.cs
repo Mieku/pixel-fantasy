@@ -244,7 +244,7 @@ namespace Managers
             CancelInput();
         }
 
-        private void CancelInput()
+        public void CancelInput()
         {
             PlayerInputController.Instance.ChangeState(PlayerInputState.None);
             ShowPlacementIcon(false);

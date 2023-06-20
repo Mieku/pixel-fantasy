@@ -19,7 +19,7 @@ namespace Controllers
         [SerializeField] private List<Order> _doorOrders;
         [SerializeField] private List<Order> _buildingsOrders;
         [SerializeField] private List<Order> _furnitureOrders;
-        [SerializeField] private List<Order> _lightingOrders;
+        [SerializeField] private List<Order> _roofOrders;
         
         [SerializeField] private DirtTile _dirtPrefab;
         [SerializeField] private Sprite _zoneSprite;
@@ -66,9 +66,9 @@ namespace Controllers
             DisplayOrders(_furnitureOrders);
         }
 
-        public void LightingPressed()
+        public void RoofPressed()
         {
-            DisplayOrders(_lightingOrders);
+            DisplayOrders(_roofOrders);
         }
 
         #endregion
@@ -174,6 +174,12 @@ namespace Controllers
                         BuildBuildingPressed(dataKey);
                     };
                     break;
+                case OrderType.BuildRoof:
+                    onpressed += () =>
+                    {
+                        BuildRoofPressed(dataKey);
+                    };
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(orderType), orderType, null);
             }
@@ -183,6 +189,7 @@ namespace Controllers
 
         public void BuildFurniturePressed(string key)
         {
+            Spawner.Instance.CancelInput();
             PlayerInputController.Instance.ChangeState(PlayerInputState.BuildFurniture, key);
 
             var furnitureData = Librarian.Instance.GetItemData(key) as FurnitureItemData;
@@ -191,6 +198,7 @@ namespace Controllers
 
         public void BuildWallPressed(string key)
         {
+            Spawner.Instance.CancelInput();
             PlayerInputController.Instance.ChangeState(PlayerInputState.BuildWall, key);
 
             var wallData = Librarian.Instance.GetWallData(key);
@@ -198,8 +206,14 @@ namespace Controllers
             Spawner.Instance.ShowPlacementIcon(true, null, wallData.InvalidPlacementTags);
         }
 
+        public void BuildRoofPressed(string key)
+        {
+            
+        }
+
         public void BuildStructurePressed(string key)
         {
+            Spawner.Instance.CancelInput();
             PlayerInputController.Instance.ChangeState(PlayerInputState.BuildStructure, key);
             
             var structureData = Librarian.Instance.GetStructureData(PlayerInputController.Instance.StoredKey);
@@ -209,6 +223,7 @@ namespace Controllers
 
         public void BuildBuildingPressed(string key)
         {
+            Spawner.Instance.CancelInput();
             PlayerInputController.Instance.ChangeState(PlayerInputState.BuildBuilding, key);
             
             var buildingData = Librarian.Instance.GetBuildingData(PlayerInputController.Instance.StoredKey);
@@ -217,6 +232,7 @@ namespace Controllers
         
         public void BuildDoorPressed(string key)
         {
+            Spawner.Instance.CancelInput();
             PlayerInputController.Instance.ChangeState(PlayerInputState.BuildDoor, key);
             
             var doorData = Librarian.Instance.GetDoorData(PlayerInputController.Instance.StoredKey);
@@ -232,6 +248,7 @@ namespace Controllers
 
         public void BuildFloorPressed(string key)
         {
+            Spawner.Instance.CancelInput();
             PlayerInputController.Instance.ChangeState(PlayerInputState.BuildFlooring, key);
             
             var floorData = Librarian.Instance.GetFloorData(PlayerInputController.Instance.StoredKey);

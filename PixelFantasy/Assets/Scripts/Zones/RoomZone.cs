@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Buildings;
 using Characters;
 using Controllers;
@@ -66,8 +67,21 @@ namespace Zones
             UpdateContainedFurniture();
         }
 
+        public override void RemoveZone()
+        {
+            base.RemoveZone();
+            
+            UpdateContainedFurniture();
+        }
+
         private void UpdateContainedFurniture()
         {
+            foreach (var furniture in _availableFurniture)
+            {
+                furniture.AssignParentRoom(null);
+            }
+            _availableFurniture.Clear();
+            
             foreach (var gridPos in WorldPositions)
             {
                 var furniture = Helper.GetObjectAtPosition<Furniture>(gridPos);
@@ -76,6 +90,8 @@ namespace Zones
                     furniture.AssignParentRoom(this);
                 }
             }
+            
+            _availableFurniture = _availableFurniture.Distinct().ToList();
         }
 
         public bool ContainsFurniture(FurnitureItemData furnitureItemData)
@@ -124,6 +140,37 @@ namespace Zones
             }
 
             return null;
+        }
+        
+        public Dictionary<ItemData, int> GetRoomInventory()
+        {
+            Dictionary<ItemData, int> results = new Dictionary<ItemData, int>();
+            foreach (var furniture in _availableFurniture)
+            {
+                Storage storage = furniture as Storage;
+                if (storage != null)
+                {
+                    var storedItems = storage.AvailableInventory;
+                    foreach (var itemKVP in storedItems)
+                    {
+                        if (results.ContainsKey(itemKVP.Key))
+                        {
+                            results[itemKVP.Key] += itemKVP.Value;
+                        }
+                        else
+                        {
+                            results.Add(itemKVP.Key, itemKVP.Value);
+                        }
+                    }
+                }
+            }
+
+            return results;
+        }
+
+        public List<FurnitureItemData> BuildFurnitureOptions()
+        {
+            return new List<FurnitureItemData>(_roomData.BuildFurnitureOptions);
         }
     }
 }

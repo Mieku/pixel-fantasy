@@ -36,5 +36,6 @@ namespace HUD
         BuildDoor,
         BuildBuilding,
         BuildWall,
+        BuildRoof,
     }
 }

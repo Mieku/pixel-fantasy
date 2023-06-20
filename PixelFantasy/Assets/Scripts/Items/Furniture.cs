@@ -170,7 +170,11 @@ namespace Items
 
         public void AssignParentRoom(RoomZone room)
         {
-            room.AddFurniture(this);
+            if (room != null)
+            {
+                room.AddFurniture(this);
+            }
+            
             _parentRoom = room;
         }
         

@@ -389,6 +389,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Door Frame
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 63
+        width: 20
+        height: 18
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b31d60bfb8a32e45aeeee13ec959436
+      internalID: 1652013256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -400,6 +421,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Door Frame: 1652013256
       Vert Door Left Edge: -534342783
       Vert Door Right Edge: -106525124
       Wall Test_0: 1314166892

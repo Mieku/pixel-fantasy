@@ -77,5 +77,6 @@ namespace Controllers
         Mountain,
         Zones,
         PendingZones,
+        Roof,
     }
 }

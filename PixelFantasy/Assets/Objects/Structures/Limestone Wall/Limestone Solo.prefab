@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8491690115099701769}
   - component: {fileID: 7748118608609256863}
   - component: {fileID: 7538640302044441624}
+  - component: {fileID: 6096487282354279552}
   m_Layer: 0
   m_Name: Limestone Solo
   m_TagString: Untagged
@@ -117,3 +118,40 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: -0.25, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &6096487282354279552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113034071069329808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5783dbbad6a59184fa58aa75d79bcc02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shadowType: 1
+  shadowLayer: 1
+  shadowDistance: 0
+  shadowDistanceMin: 0
+  shadowDistanceMax: 3.4239612
+  shadowTranslucency: 0.25
+  maskType: 3
+  maskLit: 0
+  maskPivot: 0
+  maskLayer: 1
+  maskLitCustom: 0.449
+  bumpMapMode:
+    type: 0
+    textureType: 0
+    texture: {fileID: 0}
+    sprite: {fileID: 0}
+    invertX: 0
+    invertY: 0
+    depth: 1
+    spriteRenderer: {fileID: 0}
+  mainShape:
+    shadowType: 1
+    maskType: 3
+    maskPivot: 0
+    transform: {fileID: 0}

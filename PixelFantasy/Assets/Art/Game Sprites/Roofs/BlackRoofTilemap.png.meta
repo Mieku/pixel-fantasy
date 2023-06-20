@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 91781cfd8b0c2c84e82524a3b8b6e4a4
+guid: d750ede6d0d85244ba38376ec4309a80
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -44,7 +44,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
@@ -117,76 +117,34 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Town Tale - House Builder_0
+      name: BlackRoofTilemap_0
       rect:
         serializedVersion: 2
-        x: 21
-        y: 431
-        width: 22
-        height: 22
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9c6991d33211d6245824cde9a4595214
-      internalID: 560052885
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_1
-      rect:
-        serializedVersion: 2
-        x: 546
-        y: 430
-        width: 12
-        height: 14
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aa723dde65748bf448d62961170e3e18
-      internalID: -1145693935
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_2
-      rect:
-        serializedVersion: 2
-        x: 418
-        y: 247
+        x: 32
+        y: 96
         width: 16
-        height: 24
-      alignment: 9
-      pivot: {x: 0.5, y: 0.33333334}
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 91e3525127c8dcc449074c34a28e06f2
-      internalID: 289614457
+      spriteID: 794865e678292c04b975d28e5051dc69
+      internalID: 1404824702
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Town Tale - House Builder_3
+      name: BlackRoofTilemap_1
       rect:
         serializedVersion: 2
-        x: 69
-        y: 141
+        x: 48
+        y: 96
         width: 16
-        height: 6
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dc206e9052b2b7745af8675dee193034
-      internalID: -1408250677
+      spriteID: 1ae232aefcf93f840a9c00af0cd0ca81
+      internalID: -1768379310
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Town Tale - House Builder_4
+      name: BlackRoofTilemap_2
       rect:
         serializedVersion: 2
-        x: 91
-        y: 141
+        x: 64
+        y: 96
         width: 16
-        height: 6
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,20 +173,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c66c112bbddb43245a8eb919f64f59df
-      internalID: 1911152553
+      spriteID: f90f4212cdedf4c43a9095010c7929a3
+      internalID: -832927904
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Town Tale - House Builder_5
+      name: BlackRoofTilemap_8
       rect:
         serializedVersion: 2
-        x: 83
-        y: 141
+        x: 32
+        y: 64
         width: 16
-        height: 6
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -236,20 +194,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ee4fcc8a61778794bb727ccc58be4ed2
-      internalID: 1620570490
+      spriteID: 1b6f71c08e4c5b547b9703432b8ec16c
+      internalID: 1003471836
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Town Tale - House Builder_6
+      name: BlackRoofTilemap_10
       rect:
         serializedVersion: 2
-        x: 21
-        y: 487
+        x: 64
+        y: 64
         width: 16
-        height: 24
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -257,20 +215,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 44762f5e09a88f74992b693f9b099f7b
-      internalID: -1358379632
+      spriteID: e1b1330f4f105884d88a320b6731e5ff
+      internalID: -144174739
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Town Tale - House Builder_7
+      name: BlackRoofTilemap_22
       rect:
         serializedVersion: 2
-        x: 23
-        y: 373
-        width: 17
-        height: 18
+        x: 32
+        y: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -278,20 +236,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2582d76a171e4994c8e9e400cf6ac284
-      internalID: -807017973
+      spriteID: b2378077ef43f2c45bd8d4e32e9482b1
+      internalID: 1477231850
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Town Tale - House Builder_8
+      name: BlackRoofTilemap_24
       rect:
         serializedVersion: 2
-        x: 30
-        y: 91
-        width: 20
-        height: 13
+        x: 64
+        y: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -299,20 +257,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2e01e9552d84d71428014413e3e3163e
-      internalID: -415107140
+      spriteID: 5ca226129887d6e498b8c52a37605bab
+      internalID: 466078366
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Town Tale - House Builder_9
+      name: BlackRoofTilemap_27
       rect:
         serializedVersion: 2
-        x: 30
-        y: 70
-        width: 20
-        height: 10
+        x: 32
+        y: 16
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -320,102 +278,228 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cba9854d03f466d4695f0bc8093af215
-      internalID: 875867074
+      spriteID: 08c14c13df36f9f46ad03c9df0bf5e33
+      internalID: -1011973892
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Town Tale - House Builder_10
+      name: BlackRoofTilemap_28
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f19ce245b0402f4e99d0cd7dd6c0002
+      internalID: -837706039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_29
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43108397e0abcf04fbf2cad25a6edc48
+      internalID: -1787473060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_30
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 083b7f71d62563b4a96f06fa84fc8611
+      internalID: -1470603713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_31
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e981c01c62fdc24ca2f8278fcc4ccc3
+      internalID: 583033285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_32
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1d3c5cc3599db94ca642c6c0e675ac6
+      internalID: 1379871475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4472eb7b6eb8c64c982af501d621cad
+      internalID: -1688351401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_4
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55aa3f5411aa4a54a9741c2a61259662
+      internalID: 1237759467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_5
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0698c7e74f8df1146b8a2c5d3f8029e0
+      internalID: 379647333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_6
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84cd31fa8f2356a4e86e464b0878c734
+      internalID: 1562665267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_7
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3cce46b57677224aa1993119f109a80
+      internalID: -1800285215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_9
       rect:
         serializedVersion: 2
         x: 80
-        y: 450
-        width: 16
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8537c2151ede10143b9f78af037eee07
-      internalID: -1892330418
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_11
-      rect:
-        serializedVersion: 2
-        x: 97
-        y: 450
-        width: 16
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e4f7a5fa7712da942a117d1adc172f40
-      internalID: 734601134
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_12
-      rect:
-        serializedVersion: 2
-        x: 89
-        y: 450
-        width: 16
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ecbb07a645a17d249b6361dc6ff63e40
-      internalID: 309413201
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_13
-      rect:
-        serializedVersion: 2
-        x: 368
-        y: 1285
-        width: 16
-        height: 19
-      alignment: 9
-      pivot: {x: 0.5, y: 0.42105263}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5394087bb06eb554f9a8b12caa5398ae
-      internalID: 104116387
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_14
-      rect:
-        serializedVersion: 2
-        x: 368
-        y: 1305
+        y: 128
         width: 16
         height: 16
       alignment: 0
@@ -425,123 +509,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 45b0b12d2efc8ce44bdb6a86112a0420
-      internalID: -1755699709
+      spriteID: abd43ef1c9a0e314fb1a434b6ad766e1
+      internalID: 36825627
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Town Tale - House Builder_15
+      name: BlackRoofTilemap_11
       rect:
         serializedVersion: 2
-        x: 368
-        y: 1333
-        width: 16
-        height: 19
-      alignment: 9
-      pivot: {x: 0.5, y: 0.42105263}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3749c2792819e2743b4ead9706690d36
-      internalID: 1526570266
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_16
-      rect:
-        serializedVersion: 2
-        x: 330
-        y: 215
-        width: 4
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d81f4c9aad13e0d479e00067639761a9
-      internalID: 1097860854
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_17
-      rect:
-        serializedVersion: 2
-        x: 57
-        y: 448
-        width: 16
-        height: 9
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 86d5cc2fb6602b44bb0a89a6f9ca4971
-      internalID: -1329476525
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_18
-      rect:
-        serializedVersion: 2
-        x: 87
-        y: 375
-        width: 18
-        height: 13
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b052bb966e0cea34b85bda1b3d7c7c07
-      internalID: -880959083
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_19
-      rect:
-        serializedVersion: 2
-        x: 23
-        y: 341
-        width: 17
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8fb2e959e258ad14cb8d24a1220c5948
-      internalID: -1854399048
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Roof Top Left
-      rect:
-        serializedVersion: 2
-        x: 302
-        y: 816
+        x: 96
+        y: 128
         width: 16
         height: 16
       alignment: 0
@@ -551,18 +530,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 48727073d863fd6408ffa6fdb8733835
-      internalID: 398914218
+      spriteID: f631aed75a1c49f42a7e172e18a66fc9
+      internalID: -833165427
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Roof Mid Left
+      name: BlackRoofTilemap_12
       rect:
         serializedVersion: 2
-        x: 302
-        y: 800
+        x: 0
+        y: 112
         width: 16
         height: 16
       alignment: 0
@@ -572,18 +551,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a2aa5fa61cb0b824c9e959a9d1069596
-      internalID: 750079554
+      spriteID: c27aee965f96d4746a442cd315b3dbb4
+      internalID: -72398256
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Roof Bottom Left
+      name: BlackRoofTilemap_13
       rect:
         serializedVersion: 2
-        x: 302
-        y: 784
+        x: 16
+        y: 112
         width: 16
         height: 16
       alignment: 0
@@ -593,18 +572,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e93c9535a6a23c047bcd2ab2771c8bf3
-      internalID: -1608245576
+      spriteID: a9ee418297f7fb04da5ef189c640b2ee
+      internalID: -776928560
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Roof Top Mid
+      name: BlackRoofTilemap_14
       rect:
         serializedVersion: 2
-        x: 318
-        y: 816
+        x: 32
+        y: 112
         width: 16
         height: 16
       alignment: 0
@@ -614,18 +593,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 49a308803db759443a4406c16675bb3c
-      internalID: 2107960014
+      spriteID: 401c1a15af8e9bd4fa1f5ab58fe0954f
+      internalID: -1335217318
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Roof Mid Mid
+      name: BlackRoofTilemap_15
       rect:
         serializedVersion: 2
-        x: 318
-        y: 800
+        x: 48
+        y: 112
         width: 16
         height: 16
       alignment: 0
@@ -635,18 +614,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d4af5c6d806250d4187509f8482b70cb
-      internalID: -1522593416
+      spriteID: 11f174051d1be8d4dab43c22a7c8b67e
+      internalID: -1889205857
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Roof Mid Bottom
+      name: BlackRoofTilemap_16
       rect:
         serializedVersion: 2
-        x: 318
-        y: 784
+        x: 64
+        y: 112
         width: 16
         height: 16
       alignment: 0
@@ -656,18 +635,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 24ec3560933688548b52eb403ce0445f
-      internalID: -794970000
+      spriteID: 709dbf5b0a0c9ad4ab9152b39613f591
+      internalID: 2087644759
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Town Tale - House Builder_20
+      name: BlackRoofTilemap_17
       rect:
         serializedVersion: 2
-        x: 318
-        y: 833
+        x: 80
+        y: 112
         width: 16
         height: 16
       alignment: 0
@@ -677,18 +656,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bdb95a728b0d9cb46b382be51e3f84f0
-      internalID: 701635848
+      spriteID: 6f397962a1b38504a991389c7bc84a36
+      internalID: 1173287911
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Town Tale - House Builder_21
+      name: BlackRoofTilemap_18
       rect:
         serializedVersion: 2
-        x: 302
-        y: 833
+        x: 96
+        y: 112
         width: 16
         height: 16
       alignment: 0
@@ -698,18 +677,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6b9b5c87a5cb54a4e8fbe144e4b16fe3
-      internalID: 1534893212
+      spriteID: 015087082c9867b48adfc419c3652b49
+      internalID: -1165394800
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Town Tale - House Builder_22
+      name: BlackRoofTilemap_19
       rect:
         serializedVersion: 2
-        x: 23
-        y: 183
+        x: 0
+        y: 144
         width: 16
         height: 16
       alignment: 0
@@ -719,102 +698,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e4a487f128ed99242932222ee2f9a133
-      internalID: -164932144
+      spriteID: 0d3a0a015dd0c4a4aab95addde7070ab
+      internalID: -205851241
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Town Tale - House Builder_23
+      name: BlackRoofTilemap_20
       rect:
         serializedVersion: 2
-        x: 17
-        y: 528
-        width: 16
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fa9e36bc89524e647aae2415a613283d
-      internalID: -1873972526
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_24
-      rect:
-        serializedVersion: 2
-        x: 143
-        y: 528
-        width: 16
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e921703fb4ccfa043b855a5c5fb24294
-      internalID: 850377703
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_25
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 528
-        width: 6
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c1d1d524e646be7459308564c499b111
-      internalID: 1840481423
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_26
-      rect:
-        serializedVersion: 2
-        x: 336
-        y: 1310
-        width: 16
-        height: 22
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 85cda961c4028a54c9049a9e59197dbd
-      internalID: 765807437
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_27
-      rect:
-        serializedVersion: 2
-        x: 336
-        y: 1360
+        x: 16
+        y: 144
         width: 16
         height: 16
       alignment: 0
@@ -824,18 +719,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c510fd3f3021a5841a9965c31499dfb3
-      internalID: -1185596261
+      spriteID: 01443c718a91dec4988099b3641c2720
+      internalID: -1469129468
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Town Tale - House Builder_28
+      name: BlackRoofTilemap_21
       rect:
         serializedVersion: 2
-        x: 336
-        y: 1332
+        x: 32
+        y: 144
         width: 16
         height: 16
       alignment: 0
@@ -845,50 +740,407 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ee8d01a2658e1a24f971542d27367a10
-      internalID: -1437173855
+      spriteID: 0662cb14c758ff44ab805b32f4e428cf
+      internalID: 607723055
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Town Tale - House Builder_29
+      name: BlackRoofTilemap_23
       rect:
         serializedVersion: 2
-        x: 352
-        y: 1294
+        x: 48
+        y: 144
         width: 16
-        height: 26
-      alignment: 9
-      pivot: {x: 0.5, y: 0.42307693}
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fc46deec00221574c9ec351242a975a5
-      internalID: -616582565
+      spriteID: 0b91c98ac60b1194284c044d86ddc284
+      internalID: -1972897896
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Town Tale - House Builder_30
+      name: BlackRoofTilemap_25
       rect:
         serializedVersion: 2
-        x: 352
-        y: 1342
+        x: 64
+        y: 144
         width: 16
-        height: 26
-      alignment: 9
-      pivot: {x: 0.5, y: 0.42307693}
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 177bf27323a253c4eb9183779df18192
-      internalID: -2000603776
+      spriteID: f62693ee537eb23459af975d5d2463eb
+      internalID: -187663617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_26
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7075566419a3ac43be02083b3d14342
+      internalID: 1870097138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_33
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd8ea21df0726024d98ae57ea7c4643a
+      internalID: 96218045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_34
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba35bf0b847463540b03db2ad2a87d53
+      internalID: 1632950562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_35
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 144
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7780d9a70827ba74eae0f6f9aaedb0f8
+      internalID: -2134510585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_36
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 144
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6903408225bc4cd4db58c07535172666
+      internalID: 1216474046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_37
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60cdbad1193f8d94b8f7a740345e05b0
+      internalID: -1264114373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_38
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4df4517098c5d446a3faf410cfcd11f
+      internalID: 1776545064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_39
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6cc82aa85b5a5c42a8a25819d8d6f2a
+      internalID: 134724364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_40
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10518d8346c0ee84cbe9434fc86737d6
+      internalID: 1489260761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_41
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46eb9f55e545c864eb082d831b211b6a
+      internalID: 1481897469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_42
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de154a636fa6a9645a749af4e759b8d1
+      internalID: 666936096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_43
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ef26922d9a755341b6d8e9677bf9a77
+      internalID: -1061390098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_44
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51207513c4a07b947b629e6d62d0c2f2
+      internalID: 1567389840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_45
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2268bea7d3b788a47ab0686621d7edd9
+      internalID: -1936842018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_46
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1850dd4bfaa6b404d8ae0a984d2a5824
+      internalID: 759841055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_47
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca8cd4da8b71bbb4a84c11f645d47fcb
+      internalID: 1225105650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackRoofTilemap_48
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 192
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 456766d4730d5ca488483784c908df4a
+      internalID: 1198352207
       vertices: []
       indices: 
       edges: []
@@ -904,43 +1156,55 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Roof Bottom Left: -1608245576
-      Roof Mid Bottom: -794970000
-      Roof Mid Left: 750079554
-      Roof Mid Mid: -1522593416
-      Roof Top Left: 398914218
-      Roof Top Mid: 2107960014
-      Town Tale - House Builder_0: 560052885
-      Town Tale - House Builder_1: -1145693935
-      Town Tale - House Builder_10: -1892330418
-      Town Tale - House Builder_11: 734601134
-      Town Tale - House Builder_12: 309413201
-      Town Tale - House Builder_13: 104116387
-      Town Tale - House Builder_14: -1755699709
-      Town Tale - House Builder_15: 1526570266
-      Town Tale - House Builder_16: 1097860854
-      Town Tale - House Builder_17: -1329476525
-      Town Tale - House Builder_18: -880959083
-      Town Tale - House Builder_19: -1854399048
-      Town Tale - House Builder_2: 289614457
-      Town Tale - House Builder_20: 701635848
-      Town Tale - House Builder_21: 1534893212
-      Town Tale - House Builder_22: -164932144
-      Town Tale - House Builder_23: -1873972526
-      Town Tale - House Builder_24: 850377703
-      Town Tale - House Builder_25: 1840481423
-      Town Tale - House Builder_26: 765807437
-      Town Tale - House Builder_27: -1185596261
-      Town Tale - House Builder_28: -1437173855
-      Town Tale - House Builder_29: -616582565
-      Town Tale - House Builder_3: -1408250677
-      Town Tale - House Builder_30: -2000603776
-      Town Tale - House Builder_4: 1911152553
-      Town Tale - House Builder_5: 1620570490
-      Town Tale - House Builder_6: -1358379632
-      Town Tale - House Builder_7: -807017973
-      Town Tale - House Builder_8: -415107140
-      Town Tale - House Builder_9: 875867074
+      BlackRoofTilemap_0: 1404824702
+      BlackRoofTilemap_1: -1768379310
+      BlackRoofTilemap_10: -144174739
+      BlackRoofTilemap_11: -833165427
+      BlackRoofTilemap_12: -72398256
+      BlackRoofTilemap_13: -776928560
+      BlackRoofTilemap_14: -1335217318
+      BlackRoofTilemap_15: -1889205857
+      BlackRoofTilemap_16: 2087644759
+      BlackRoofTilemap_17: 1173287911
+      BlackRoofTilemap_18: -1165394800
+      BlackRoofTilemap_19: -205851241
+      BlackRoofTilemap_2: -832927904
+      BlackRoofTilemap_20: -1469129468
+      BlackRoofTilemap_21: 607723055
+      BlackRoofTilemap_22: 1477231850
+      BlackRoofTilemap_23: -1972897896
+      BlackRoofTilemap_24: 466078366
+      BlackRoofTilemap_25: -187663617
+      BlackRoofTilemap_26: 1870097138
+      BlackRoofTilemap_27: -1011973892
+      BlackRoofTilemap_28: -837706039
+      BlackRoofTilemap_29: -1787473060
+      BlackRoofTilemap_3: -1688351401
+      BlackRoofTilemap_30: -1470603713
+      BlackRoofTilemap_31: 583033285
+      BlackRoofTilemap_32: 1379871475
+      BlackRoofTilemap_33: 96218045
+      BlackRoofTilemap_34: 1632950562
+      BlackRoofTilemap_35: -2134510585
+      BlackRoofTilemap_36: 1216474046
+      BlackRoofTilemap_37: -1264114373
+      BlackRoofTilemap_38: 1776545064
+      BlackRoofTilemap_39: 134724364
+      BlackRoofTilemap_4: 1237759467
+      BlackRoofTilemap_40: 1489260761
+      BlackRoofTilemap_41: 1481897469
+      BlackRoofTilemap_42: 666936096
+      BlackRoofTilemap_43: -1061390098
+      BlackRoofTilemap_44: 1567389840
+      BlackRoofTilemap_45: -1936842018
+      BlackRoofTilemap_46: 759841055
+      BlackRoofTilemap_47: 1225105650
+      BlackRoofTilemap_48: 1198352207
+      BlackRoofTilemap_5: 379647333
+      BlackRoofTilemap_6: 1562665267
+      BlackRoofTilemap_7: -1800285215
+      BlackRoofTilemap_8: 1003471836
+      BlackRoofTilemap_9: 36825627
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

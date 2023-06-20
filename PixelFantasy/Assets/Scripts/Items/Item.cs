@@ -82,18 +82,10 @@ namespace Items
             {
                 TaskId = "Store Item",
                 Requestor = this,
+                TaskType = TaskType.Haul
             };
-
-            var zone = Helper.IsPositionInZone(transform.position);
-            if (zone != null)
-            {
-                zone.Building.BuildingTasks.AddTask(task);
-            }
-            else
-            {
-                TaskManager.Instance.AddTask(task);
-            }
             
+            TaskManager.Instance.AddTask(task);
             _currentTask = task;
         }
 

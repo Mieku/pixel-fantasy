@@ -7,7 +7,7 @@ namespace Buildings.Building_Panels.Components
     public class BuildingInventoryDisplay : MonoBehaviour
     {
         [SerializeField] private GameObject _inventoryPanel;
-        [SerializeField] private List<BuildingInventoryDisplaySlot> _slots;
+        [SerializeField] private List<InventoryDisplaySlot> _slots;
 
         private BuildingPanel _buildingPanel;
         private bool _isOpen;
