@@ -27,8 +27,10 @@ public static class Helper
     /// <summary>
     /// Converts the starting grid position and current grid position into a list of all the grid positions between them as a rectangle
     /// </summary>
-    public static List<Vector2> GetRectangleGridPositionsBetweenPoints(Vector2 startGridPos, Vector2 currentGridPos)
+    public static List<Vector2> GetRectangleGridPositionsBetweenPoints(Vector2 startGridPos, Vector2 currentPos)
     {
+        var currentGridPos = ConvertMousePosToGridPos(currentPos);
+        
         List<Vector2> result = new List<Vector2>();
         var lowerLeft = new Vector2(
             Mathf.Min(startGridPos.x, currentGridPos.x),

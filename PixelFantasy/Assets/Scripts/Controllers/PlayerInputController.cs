@@ -151,7 +151,7 @@ namespace Controllers
         {
             ChangeState(PlayerInputState.None);
         }
-        
+
         #endregion
 
         /// <summary>
@@ -178,7 +178,8 @@ namespace Controllers
             if (newState is PlayerInputState.BuildWall 
                 or PlayerInputState.BuildDoor 
                 or PlayerInputState.Zone 
-                or PlayerInputState.BuildFlooring)
+                or PlayerInputState.BuildFlooring
+                or PlayerInputState.BuildRoof)
             {
                 GameEvents.Trigger_OnStructureGuideToggled(true);
             }
@@ -212,5 +213,6 @@ namespace Controllers
         Zone,
         BuildBuilding,
         BuildWall,
+        BuildRoof,
     }
 }

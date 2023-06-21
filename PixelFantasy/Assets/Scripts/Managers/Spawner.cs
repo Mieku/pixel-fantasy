@@ -45,6 +45,9 @@ namespace Managers
         [SerializeField] private Transform _storageParent;
         [SerializeField] private GameObject _storageContainerPrefab;
 
+        [SerializeField] private Transform _roofParent;
+        [SerializeField] private Roof _roofPrefab;
+
         private bool _showPlacement;
         private List<string> _invalidPlacementTags = new List<string>();
         private Color? _colourOverride;
@@ -62,6 +65,7 @@ namespace Managers
         public DoorData DoorData { get; set; }
         public FloorData FloorData { get; set; }
         public CropData CropData { get; set; }
+        public RoofData RoofData { get; set; }
 
         public PlacementDirection SetNextPlacementDirection(bool isClockwise)
         {
@@ -103,7 +107,8 @@ namespace Managers
             if (inputState == PlayerInputState.BuildStructure 
                 || inputState == PlayerInputState.BuildFlooring
                 || inputState == PlayerInputState.BuildFarm 
-                || inputState == PlayerInputState.BuildWall)
+                || inputState == PlayerInputState.BuildWall
+                || inputState == PlayerInputState.BuildRoof)
             {
                 _planningStructure = true;
                 _startPos = Helper.ConvertMousePosToGridPos(mousePos);
@@ -120,6 +125,11 @@ namespace Managers
             if (inputState == PlayerInputState.BuildWall)
             {
                 PlanWall(mousePos);
+            }
+
+            if (inputState == PlayerInputState.BuildRoof)
+            {
+                PlanRoof(mousePos);
             }
             
             if (inputState == PlayerInputState.BuildFlooring)
@@ -162,6 +172,15 @@ namespace Managers
             {
                 var wallData = Librarian.Instance.GetWallData(PlayerInputController.Instance.StoredKey);
                 SpawnWall(wallData, Helper.ConvertMousePosToGridPos(mousePos));
+            }
+            else if (inputState == PlayerInputState.BuildRoof && _planningStructure)
+            {
+                SpawnPlannedRoof();
+            }
+            else if (inputState == PlayerInputState.BuildRoof)
+            {
+                var roofData = Librarian.Instance.GetRoofData(PlayerInputController.Instance.StoredKey);
+                SpawnRoof(roofData, Helper.ConvertMousePosToGridPos(mousePos));
             }
             else if (inputState == PlayerInputState.BuildFlooring)
             {
@@ -381,6 +400,17 @@ namespace Managers
             }
         }
 
+        private void SpawnRoof(RoofData roofData, Vector3 spawnPosition)
+        {
+            if (Helper.IsGridPosValidToBuild(spawnPosition, roofData.InvalidPlacementTags))
+            {
+                spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
+                var roof = Instantiate(_roofPrefab, spawnPosition, Quaternion.identity);
+                roof.transform.SetParent(_roofParent);
+                roof.Init(roofData);
+            }
+        }
+
         public void SpawnWall(WallData wallData, Vector3 spawnPosition)
         {
             if (Helper.IsGridPosValidToBuild(spawnPosition, wallData.InvalidPlacementTags))
@@ -400,29 +430,7 @@ namespace Managers
             container.Init(storageData);
             return container;
         }
-
-        // public void SpawnFurniture(FurnitureData furnitureData, Vector3 spawnPosition)
-        // {
-        //     if (Helper.IsGridPosValidToBuild(spawnPosition, furnitureData.InvalidPlacementTags))
-        //     {
-        //         spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
-        //         if (furnitureData.IsCraftingTable)
-        //         {
-        //             // var furnitureObj = Instantiate(_craftingTablePrefab, spawnPosition, Quaternion.identity);
-        //             // furnitureObj.transform.SetParent(_furnitureParent);
-        //             // var furniture = furnitureObj.GetComponent<CraftingTable>();
-        //             // furniture.Init(furnitureData, PlacementDirection);
-        //         }
-        //         else
-        //         {
-        //             var furnitureObj = Instantiate(_furniturePrefab, spawnPosition, Quaternion.identity);
-        //             furnitureObj.transform.SetParent(_furnitureParent);
-        //             var furniture = furnitureObj.GetComponent<Furniture>();
-        //             furniture.Init(furnitureData, PlacementDirection);
-        //         }
-        //     }
-        // }
-
+        
         public void SpawnDoor(DoorData doorData, Vector3 spawnPosition)
         {
             if (Helper.IsGridPosValidToBuild(spawnPosition, doorData.InvalidPlacementTags))
@@ -434,14 +442,6 @@ namespace Managers
                 door.Init(doorData);
             }
         }
-
-        // private StructurePiece _plannedWall;
-        // public void PlanWall(WallData wallData)
-        // {
-        //     var wall = Instantiate(_wallPrefab, _structureParent);
-        //     wall.Plan(wallData);
-        //     _plannedWall = wall;
-        // }
 
         private BuildingNode _plannedBuildingNode;
         public void PlanBuilding(BuildingData buildingData)
@@ -554,6 +554,23 @@ namespace Managers
             CancelInput();
         }
 
+        private void SpawnPlannedRoof()
+        {
+            if (!_planningStructure) return;
+
+            foreach (var gridPos in _plannedGrid)
+            {
+                if (Helper.IsGridPosValidToBuild(gridPos, RoofData.InvalidPlacementTags))
+                {
+                    SpawnRoof(RoofData, gridPos);
+                }
+            }
+
+            ClearPlannedBlueprint();
+            _plannedGrid.Clear();
+            _planningStructure = false;
+        }
+
         private void SpawnPlannedWall()
         {
             if (!_planningStructure) return;
@@ -586,6 +603,41 @@ namespace Managers
             ClearPlannedBlueprint();
             _plannedGrid.Clear();
             _planningStructure = false;
+        }
+
+        private void PlanRoof(Vector2 mousePos)
+        {
+            if (!_planningStructure) return;
+
+            List<Vector2> gridPositions = new List<Vector2>();
+            gridPositions = Helper.GetRectangleGridPositionsBetweenPoints(_startPos, mousePos);
+
+            if (gridPositions.Count != _plannedGrid.Count)
+            {
+                _plannedGrid = gridPositions;
+                
+                // Clear previous display, then display new blueprints
+                ClearPlannedBlueprint();
+
+                foreach (var gridPos in gridPositions)
+                {
+                    var blueprint = new GameObject("blueprint", typeof(SpriteRenderer));
+                    blueprint.transform.position = gridPos;
+                    var spriteRenderer = blueprint.GetComponent<SpriteRenderer>();
+                    spriteRenderer.sprite = _genericPlacementSprite;
+                    if (Helper.IsGridPosValidToBuild(gridPos, RoofData.InvalidPlacementTags))
+                    {
+                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Green");
+                    }
+                    else
+                    {
+                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Red");
+                    }
+                    
+                    spriteRenderer.sortingLayerName = "Roofing";
+                    _blueprints.Add(blueprint);
+                }
+            }
         }
 
         private void PlanWall(Vector2 mousePos)

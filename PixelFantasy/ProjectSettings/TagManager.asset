@@ -23,6 +23,7 @@ TagManager:
   - Obstacle
   - Building Interior
   - Furniture
+  - Roof
   layers:
   - Default
   - TransparentFX
@@ -93,9 +94,9 @@ TagManager:
   - name: My Lighting
     uniqueID: 61937489
     locked: 0
-  - name: Above Lighting
-    uniqueID: 1382173981
-    locked: 0
   - name: Roofing
     uniqueID: 61294113
+    locked: 0
+  - name: Above Lighting
+    uniqueID: 1382173981
     locked: 0

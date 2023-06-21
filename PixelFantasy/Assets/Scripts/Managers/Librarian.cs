@@ -23,7 +23,19 @@ namespace Managers
         [SerializeField] private List<Command> _commandLibrary;
         [SerializeField] private List<WallData> _wallLibrary;
         [SerializeField] private List<RoomData> _roomLibrary;
+        [SerializeField] private List<RoofData> _roofLibrary;
 
+        public RoofData GetRoofData(string roofName)
+        {
+            var result = _roofLibrary.Find(roof => roof.ConstructionName == roofName);
+            if (result == null)
+            {
+                Debug.LogError($"Unknown Roof: {roofName}");
+            }
+
+            return result;
+        }
+        
         public RoomData GetRoom(string roomName)
         {
             var result = _roomLibrary.Find(room => room.RoomName == roomName);

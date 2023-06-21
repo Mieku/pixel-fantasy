@@ -37,6 +37,7 @@ namespace Handlers
                 TilemapLayer.Mountain => _mountainTM,
                 TilemapLayer.Zones => _zonesTM,
                 TilemapLayer.PendingZones => _pendingZonesTM,
+                TilemapLayer.Roof => _roofTM,
                 _ => throw new ArgumentOutOfRangeException(nameof(layer), layer, null)
             };
         }

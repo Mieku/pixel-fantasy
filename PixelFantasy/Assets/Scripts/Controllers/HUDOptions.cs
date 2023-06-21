@@ -199,6 +199,7 @@ namespace Controllers
         public void BuildWallPressed(string key)
         {
             Spawner.Instance.CancelInput();
+            RoofManager.Instance.ShowRoofs(false);
             PlayerInputController.Instance.ChangeState(PlayerInputState.BuildWall, key);
 
             var wallData = Librarian.Instance.GetWallData(key);
@@ -208,7 +209,13 @@ namespace Controllers
 
         public void BuildRoofPressed(string key)
         {
-            
+            Spawner.Instance.CancelInput();
+            RoofManager.Instance.ShowRoofs(true);
+            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildRoof, key);
+
+            var roofData = Librarian.Instance.GetRoofData(key);
+            Spawner.Instance.RoofData = roofData;
+            Spawner.Instance.ShowPlacementIcon(true, null, roofData.InvalidPlacementTags);
         }
 
         public void BuildStructurePressed(string key)
