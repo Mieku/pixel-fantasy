@@ -9,6 +9,7 @@ namespace Managers
         [SerializeField] private Tilemap _roofTM;
 
         private bool _roofsShown;
+        public bool RoofsShown => _roofsShown;
 
         private void Start()
         {
@@ -32,6 +33,7 @@ namespace Managers
         {
             _roofsShown = isShown;
             _roofTM.gameObject.SetActive(isShown);
+            GameEvents.Trigger_OnRoofGuideToggled(isShown);
         }
 
         public void ToggleRoofs()

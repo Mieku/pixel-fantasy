@@ -6,5 +6,6 @@ namespace ScriptableObjects
     public class RoofData : ConstructionData
     {
         public RuleTile RuleTile;
+        public int MaxDistanceFromWall;
     }
 }

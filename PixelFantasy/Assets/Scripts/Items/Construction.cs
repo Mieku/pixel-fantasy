@@ -42,7 +42,7 @@ namespace Items
             set => _isDeconstructing = value;
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             _remainingWork = GetWorkAmount();
         }

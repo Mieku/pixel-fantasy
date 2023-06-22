@@ -130,4 +130,16 @@ public class GameEvents : MonoBehaviour
     {
         if (OnStructureGuideToggled != null) OnStructureGuideToggled(shouldEnable);
     }
+    
+    public static event Action<bool> OnRoofGuideToggled;
+    public static void Trigger_OnRoofGuideToggled(bool shouldEnable)
+    {
+        if (OnRoofGuideToggled != null) OnRoofGuideToggled(shouldEnable);
+    }
+
+    public static event Action<Vector2> OnRoofRefresh;
+    public static void Trigger_OnRoofRefresh(Vector2 callerPos)
+    {
+        if (OnRoofRefresh != null) OnRoofRefresh(callerPos);
+    }
 }

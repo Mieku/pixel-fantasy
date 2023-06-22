@@ -148,7 +148,50 @@ public static class Helper
         
         return result.Distinct().ToList();
     }
+    
+    public static List<Vector2> GetSurroundingGridPositions(Vector2 referencePos, bool includeDiagonals, int radius, bool includeCenter = false)
+    {
+        var refGridPos = ConvertMousePosToGridPos(referencePos);
+        HashSet<Vector2> results = new HashSet<Vector2>();
 
+        if (includeCenter)
+        {
+            results.Add(refGridPos);
+        }
+
+        for (int x = -radius; x <= radius; x++)
+        {
+            for (int y = -radius; y <= radius; y++)
+            {
+                if (x == 0 && y == 0 && !includeCenter)
+                    continue;
+
+                if (!includeDiagonals && (x != 0 && y != 0))
+                    continue;
+
+                Vector2 gridPos = refGridPos + new Vector2(x, y);
+                results.Add(gridPos);
+            }
+        }
+
+        return results.ToList();
+    }
+    
+    public static bool IsPositionWithinRadius(Vector2 posToCheck, Vector2 radiusCenter, int radius)
+    {
+        var gridPosToCheck = ConvertMousePosToGridPos(posToCheck);
+        var gridRadiusCenter = ConvertMousePosToGridPos(radiusCenter);
+
+        if (gridPosToCheck == gridRadiusCenter)
+            return true;
+
+        Vector2 difference = gridPosToCheck - gridRadiusCenter;
+        if (difference.magnitude <= radius)
+            return true;
+
+        return false;
+    }
+    
     /// <summary>
     /// Determines if the grid position is a valid position to build on
     /// </summary>
@@ -218,16 +261,17 @@ public static class Helper
 
         return results;
     }
-
+    
     public static T GetObjectAtPosition<T>(Vector2 pos)
     {
-        var objs = GetGameObjectsOnTile(pos);
-        foreach (var obj in objs)
+        Collider2D[] colliders = new Collider2D[8];
+        int colliderCount = Physics2D.OverlapPointNonAlloc(pos, colliders);
+        for (int i = 0; i < colliderCount; i++)
         {
-            var result = obj.GetComponent<T>();
-            if (result != null)
+            var result = colliders[i].gameObject.TryGetComponent<T>(out var component);
+            if (result)
             {
-                return result;
+                return component;
             }
         }
 

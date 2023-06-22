@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Slate Roof
   m_EditorClassIdentifier: 
   ConstructionName: Slate Roof
-  WorkCost: 2
+  WorkCost: 1
   Icon: {fileID: -794970000, guid: 91781cfd8b0c2c84e82524a3b8b6e4a4, type: 3}
   _resourceCosts:
   - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
@@ -22,3 +22,4 @@ MonoBehaviour:
   - Roof
   _planningMode: 0
   RuleTile: {fileID: 11400000, guid: 106d86b82a26bdf4da00627018e30ed2, type: 2}
+  MaxDistanceFromWall: 5

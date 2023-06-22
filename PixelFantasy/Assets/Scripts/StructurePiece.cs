@@ -114,6 +114,7 @@ public class StructurePiece : Construction
         ColourWall(Color.white);
         _isBuilt = true;
         EnableObstacle(true);
+        GameEvents.Trigger_OnRoofRefresh(transform.position);
     }
 
     private NavMeshObstacle _obstacle;
