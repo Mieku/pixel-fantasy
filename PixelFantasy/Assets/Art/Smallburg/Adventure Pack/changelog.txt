@@ -1,0 +1,59 @@
+Change log
+========================
+
+V1.8.1 [5-10-2022]
+-----------------
+* Added premades for knight 
+
+
+V1.8.1 [5-10-2022]
+-----------------
+* Corrected the missing character animations
+
+V1.8 [5-10-2022]
+-----------------
+* Added wall traps
+* Added wall buttons
+
+V1.7 [14-09-2022]
+-----------------
+* Added slash animations
+* Added Armour updates
+
+
+V1.6 [14-07-2022]
+-----------------
+* Added the new door frames and doors.
+
+V1.5 [31-07-2022]
+-----------------
+* Added the basic UI
+
+
+V1.4 [16-07-2022]
+* Added a floor trap, the spike trap
+
+V1.3 [07-07-2022]
+-----------------
+* Added new floors
+* Changed all animations to be in the following order Right, Left, Down, Up
+
+V1.2 [30-07-2022]
+-----------------
+* Updated the folders
+* Expanded all animations to their own folders
+* Added blue floors
+* Added skeleton enemy
+* Added skeleton king enemy
+
+V1.1 [20-06-2022]
+-----------------
+* Added death animations
+* Added Body death animations
+* Added armor death animations
+* Added hairs death animations
+
+
+V1.0 [15-06-2022]
+-----------------
+* Released v1.0

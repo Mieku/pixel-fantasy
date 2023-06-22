@@ -1,0 +1,31 @@
+Dungeon Tile Perspectives
+=========================
+
+There are two dungeon tiles perspective available.
+
+One for a Super Nintendo Zelda / Moonlighter like view. 
+From the absolute top seeing all the walls.
+
+Another from a more Nuclear Throne/Archvale approach.
+Seeing only one wall using the same perspective as the characters.
+
+Each of those are in their own folders.
+
+The dungeon floors apply to both perspectives.
+
+
+Depth Prespective
+=================
+
+To add more depth, I added a sprite with a transparent to transparency black transition
+that you can apply to the walls. They are in their respective folders.
+This is optional, and a bit cheating with the pixel art approach, 
+but they improve the aesthetics of the tileset.
+
+
+
+Labeled Spritesheets
+========================
+
+All the Aseprite files are included so you can manipulate as much as you want.
+But I've also adde some Labeled Spritesheets so that you know what sprites belong to each animation.

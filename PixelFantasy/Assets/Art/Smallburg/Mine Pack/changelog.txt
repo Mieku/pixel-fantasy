@@ -1,0 +1,18 @@
+Change log
+========================
+
+V1.3 [11-06-2023]
+-----------------
+* Added a yellow crystal crate props
+
+V1.2 [7-05-2023]
+-----------------
+* Added a yellow crystal
+
+V1.1 [28-04-2023]
+-----------------
+* Added Hazmat suit clothing
+
+V1.0 [23-04-2023]
+-----------------
+* Released v1.0

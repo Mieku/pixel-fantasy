@@ -1,0 +1,18 @@
+Instructions
+========================
+
+This animation can run on top of any floor tile.
+You can simply add the floor and then the animation 
+correctly on top of that floor tile.
+
+There are available colours for each of the floors, 
+but feel free to use them as you want.
+
+I've added some animations on top of a floor tile for 
+easier development but feel free to use however you want.
+
+
+Order of layers
+-------------------------
+[top]   | Spike Animation
+[bottom]| Floor
