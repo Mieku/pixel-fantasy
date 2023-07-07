@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 91781cfd8b0c2c84e82524a3b8b6e4a4
+guid: 9ed9a0ebe8c58544b8dacac01ee8a50c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -44,7 +44,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
@@ -117,76 +117,34 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Town Tale - House Builder_0
+      name: WallsSheet_0
       rect:
         serializedVersion: 2
-        x: 21
-        y: 431
-        width: 22
-        height: 22
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9c6991d33211d6245824cde9a4595214
-      internalID: 560052885
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_1
-      rect:
-        serializedVersion: 2
-        x: 546
-        y: 430
-        width: 12
-        height: 14
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aa723dde65748bf448d62961170e3e18
-      internalID: -1145693935
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_2
-      rect:
-        serializedVersion: 2
-        x: 418
-        y: 247
+        x: 0
+        y: 304
         width: 16
-        height: 24
-      alignment: 9
-      pivot: {x: 0.5, y: 0.33333334}
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 91e3525127c8dcc449074c34a28e06f2
-      internalID: 289614457
+      spriteID: 4674982fddad8ae4d93f73b735d9eef5
+      internalID: -1026694309
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Town Tale - House Builder_3
+      name: WallsSheet_1
       rect:
         serializedVersion: 2
-        x: 69
-        y: 141
+        x: 16
+        y: 304
         width: 16
-        height: 6
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dc206e9052b2b7745af8675dee193034
-      internalID: -1408250677
+      spriteID: 3e72e0664b3059a4296613d63ffb1290
+      internalID: -1459009230
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Town Tale - House Builder_4
+      name: WallsSheet_2
       rect:
         serializedVersion: 2
-        x: 91
-        y: 141
+        x: 32
+        y: 304
         width: 16
-        height: 6
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,20 +173,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c66c112bbddb43245a8eb919f64f59df
-      internalID: 1911152553
+      spriteID: d5196ba0991c70e418a4c7b1226526a7
+      internalID: -1956673137
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Town Tale - House Builder_5
+      name: WallsSheet_3
       rect:
         serializedVersion: 2
-        x: 83
-        y: 141
+        x: 48
+        y: 304
         width: 16
-        height: 6
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -236,20 +194,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ee4fcc8a61778794bb727ccc58be4ed2
-      internalID: 1620570490
+      spriteID: 89ed9bd6a3796f947bad6da4efcdc60b
+      internalID: 1901531703
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Town Tale - House Builder_6
+      name: WallsSheet_4
       rect:
         serializedVersion: 2
-        x: 21
-        y: 487
+        x: 64
+        y: 304
         width: 16
-        height: 24
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -257,20 +215,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 44762f5e09a88f74992b693f9b099f7b
-      internalID: -1358379632
+      spriteID: 4d2a3ce36be48a44d8021106477a27b3
+      internalID: 1766788463
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Town Tale - House Builder_7
+      name: WallsSheet_5
       rect:
         serializedVersion: 2
-        x: 23
-        y: 373
-        width: 17
-        height: 18
+        x: 80
+        y: 304
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -278,18 +236,774 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2582d76a171e4994c8e9e400cf6ac284
-      internalID: -807017973
+      spriteID: 1c97f098eb64ee44e9a854179c1c97e1
+      internalID: -1871340292
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Town Tale - House Builder_8
+      name: WallsSheet_6
       rect:
         serializedVersion: 2
-        x: 30
-        y: 91
+        x: 0
+        y: 288
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a53c6e299ac7ab4b98fe6d1f3af57b5
+      internalID: 632970801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_7
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 288
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6f1ecd3be0400d4a8340aba303c8d58
+      internalID: 1521305268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_8
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 288
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78f38ec4b43cd05418a9b4a95b892ebb
+      internalID: 144837160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_9
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 288
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b679d21e2b714b48ac73c4c2617c5ca
+      internalID: -994705106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_10
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 288
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4717c4e8ebabb75409dfef9030cf6383
+      internalID: 1769934617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_11
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 288
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1241c6ffb60c90a40b80602b39d5a9c9
+      internalID: -588116299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 272
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce5f932e7122ca5469f488d93cc69cb7
+      internalID: 519758310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_13
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 272
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 346d1b225aa918c44a600ebe8a8cedd2
+      internalID: 1107555406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_14
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 272
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d0c1a9d83e6e5e44bd5c02b131bfd96
+      internalID: -2138219656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_15
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 272
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1caacd6d1cc701647a4992fd52f0a3aa
+      internalID: 1402598618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_16
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 272
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5173c636e8ad344188792aa648e4d67
+      internalID: -1746821983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_17
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 272
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fec8c756b1c49643bc55537bfb9f265
+      internalID: 358238116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a6dee7b7691e204aaf01f1d027b2e70
+      internalID: 488605358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_19
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 256
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87bacc4b7232a0e4b8bbba1a296214d3
+      internalID: 1097967690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_20
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 256
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f56b399598f61c94f8669c488d941d0d
+      internalID: 713732257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_21
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 256
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4a5771be3e07024a8a4d192311cc799
+      internalID: 319314473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_22
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 256
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3ee1082a149f994c951fe14ad6b781c
+      internalID: 763760522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_23
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 256
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07c4ab0c74c64994d9dc3f77b52f3df3
+      internalID: 709034949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 150
+        width: 16
+        height: 10
+      alignment: 2
+      pivot: {x: 0.5, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be266e32b392a9d4685136217d73844b
+      internalID: 1363987213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_25
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 150
+        width: 16
+        height: 10
+      alignment: 2
+      pivot: {x: 0.5, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f49b6b302e3eb8a48adcf9bea4379377
+      internalID: 1305847755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_26
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 150
+        width: 16
+        height: 10
+      alignment: 2
+      pivot: {x: 0.5, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ec26981b49dde945acacb055a3833e4
+      internalID: -1107800576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_27
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 134
+        width: 16
+        height: 10
+      alignment: 2
+      pivot: {x: 0.5, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecdefe9d87d90084a9510af609f31dd9
+      internalID: -472243028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_28
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 134
+        width: 16
+        height: 10
+      alignment: 2
+      pivot: {x: 0.5, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e081741d96e661e408b5d88127b072c6
+      internalID: -1063603003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_29
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 134
+        width: 16
+        height: 10
+      alignment: 2
+      pivot: {x: 0.5, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f117e6f924084fc41b2b1787d7ede22b
+      internalID: 1714271809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 118
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30f7515127870a34c80cd842f74ffc85
+      internalID: -759706682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_31
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 118
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c415fcabdf62944ab7bfef30fb8fe50
+      internalID: -1839436808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_32
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 118
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af72768b6946e7544b4a2b11a0157a4b
+      internalID: 1407749354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_33
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 102
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a70cb72e21706b5438a58a4227d13c41
+      internalID: 91457077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_34
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 102
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 998f1cb0b34b9e744ada948a20c74814
+      internalID: 1029982680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_35
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 102
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0cbc8c1aa4ace7448be2e877be16600a
+      internalID: -1976993895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_36
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 86
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e3379a719ac12f42ad277d95cb689b9
+      internalID: 484438729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_37
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 86
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 387af5eaef67cf24d97e729070872c41
+      internalID: -1120380865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_38
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 86
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 993fbc83b158fc341b7840dad4102d48
+      internalID: 177683654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_39
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 70
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0499aaf03ad6e424bb28c1bc3c8834d7
+      internalID: 23208527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_40
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 70
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c63b4ddc67645f4c9da90ecd6fb4af0
+      internalID: 1056599720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_41
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 70
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 638152d0ff1b4944ca079d8271be6c4e
+      internalID: 1232236410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_42
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 147
         width: 20
         height: 13
       alignment: 0
@@ -299,17 +1013,227 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2e01e9552d84d71428014413e3e3163e
-      internalID: -415107140
+      spriteID: 6ff968effa72a3341b92b7b8f104476f
+      internalID: -1804388189
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Town Tale - House Builder_9
+      name: WallsSheet_43
       rect:
         serializedVersion: 2
-        x: 30
+        x: 94
+        y: 150
+        width: 20
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61f819940f83e77488e84193063ced45
+      internalID: -1062630810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_44
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 131
+        width: 20
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2205cd307412ea543b226ed958890362
+      internalID: 1084547431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_45
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 134
+        width: 20
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2898b7be802637148a78539683248127
+      internalID: -1717935134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_46
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 115
+        width: 20
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 399e0b3636537124984bd83c4dcfa02f
+      internalID: 956136189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_47
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 118
+        width: 20
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 271be7d6669900344b752fbd6011cc47
+      internalID: 1693622382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_48
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 99
+        width: 20
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8179eb375d32caa41a5ebd3316e710b6
+      internalID: 1313602409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_49
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 102
+        width: 20
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97a636c6a8ab87540ad31e835e57bf23
+      internalID: 785037314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_50
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 83
+        width: 20
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7eaa6f3ced193c443b5a25a22d2db1e5
+      internalID: -1113663048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_51
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 86
+        width: 20
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cfb7d013a48ca048a7dde6ff48d6731
+      internalID: -387468567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_52
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 67
+        width: 20
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 789651fb15081284c820cff5cc9e852b
+      internalID: 1066295674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WallsSheet_53
+      rect:
+        serializedVersion: 2
+        x: 94
         y: 70
         width: 20
         height: 10
@@ -320,995 +1244,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cba9854d03f466d4695f0bc8093af215
-      internalID: 875867074
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_10
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 450
-        width: 16
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8537c2151ede10143b9f78af037eee07
-      internalID: -1892330418
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_11
-      rect:
-        serializedVersion: 2
-        x: 97
-        y: 450
-        width: 16
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e4f7a5fa7712da942a117d1adc172f40
-      internalID: 734601134
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_12
-      rect:
-        serializedVersion: 2
-        x: 89
-        y: 450
-        width: 16
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ecbb07a645a17d249b6361dc6ff63e40
-      internalID: 309413201
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_13
-      rect:
-        serializedVersion: 2
-        x: 368
-        y: 1285
-        width: 16
-        height: 19
-      alignment: 9
-      pivot: {x: 0.5, y: 0.42105263}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5394087bb06eb554f9a8b12caa5398ae
-      internalID: 104116387
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_14
-      rect:
-        serializedVersion: 2
-        x: 368
-        y: 1305
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 45b0b12d2efc8ce44bdb6a86112a0420
-      internalID: -1755699709
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_15
-      rect:
-        serializedVersion: 2
-        x: 368
-        y: 1333
-        width: 16
-        height: 19
-      alignment: 9
-      pivot: {x: 0.5, y: 0.42105263}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3749c2792819e2743b4ead9706690d36
-      internalID: 1526570266
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_16
-      rect:
-        serializedVersion: 2
-        x: 330
-        y: 215
-        width: 4
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d81f4c9aad13e0d479e00067639761a9
-      internalID: 1097860854
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_17
-      rect:
-        serializedVersion: 2
-        x: 57
-        y: 448
-        width: 16
-        height: 9
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 86d5cc2fb6602b44bb0a89a6f9ca4971
-      internalID: -1329476525
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_18
-      rect:
-        serializedVersion: 2
-        x: 87
-        y: 375
-        width: 18
-        height: 13
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b052bb966e0cea34b85bda1b3d7c7c07
-      internalID: -880959083
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_19
-      rect:
-        serializedVersion: 2
-        x: 23
-        y: 341
-        width: 17
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8fb2e959e258ad14cb8d24a1220c5948
-      internalID: -1854399048
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Roof Top Left
-      rect:
-        serializedVersion: 2
-        x: 302
-        y: 816
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 48727073d863fd6408ffa6fdb8733835
-      internalID: 398914218
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Roof Mid Left
-      rect:
-        serializedVersion: 2
-        x: 302
-        y: 800
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a2aa5fa61cb0b824c9e959a9d1069596
-      internalID: 750079554
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Roof Bottom Left
-      rect:
-        serializedVersion: 2
-        x: 302
-        y: 784
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e93c9535a6a23c047bcd2ab2771c8bf3
-      internalID: -1608245576
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Roof Top Mid
-      rect:
-        serializedVersion: 2
-        x: 318
-        y: 816
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 49a308803db759443a4406c16675bb3c
-      internalID: 2107960014
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Roof Mid Mid
-      rect:
-        serializedVersion: 2
-        x: 318
-        y: 800
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d4af5c6d806250d4187509f8482b70cb
-      internalID: -1522593416
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Roof Mid Bottom
-      rect:
-        serializedVersion: 2
-        x: 318
-        y: 784
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 24ec3560933688548b52eb403ce0445f
-      internalID: -794970000
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_20
-      rect:
-        serializedVersion: 2
-        x: 318
-        y: 833
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bdb95a728b0d9cb46b382be51e3f84f0
-      internalID: 701635848
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_21
-      rect:
-        serializedVersion: 2
-        x: 302
-        y: 833
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6b9b5c87a5cb54a4e8fbe144e4b16fe3
-      internalID: 1534893212
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_22
-      rect:
-        serializedVersion: 2
-        x: 23
-        y: 183
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e4a487f128ed99242932222ee2f9a133
-      internalID: -164932144
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_23
-      rect:
-        serializedVersion: 2
-        x: 17
-        y: 528
-        width: 16
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fa9e36bc89524e647aae2415a613283d
-      internalID: -1873972526
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_24
-      rect:
-        serializedVersion: 2
-        x: 143
-        y: 528
-        width: 16
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e921703fb4ccfa043b855a5c5fb24294
-      internalID: 850377703
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_25
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 528
-        width: 6
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c1d1d524e646be7459308564c499b111
-      internalID: 1840481423
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_26
-      rect:
-        serializedVersion: 2
-        x: 336
-        y: 1310
-        width: 16
-        height: 22
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 85cda961c4028a54c9049a9e59197dbd
-      internalID: 765807437
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_27
-      rect:
-        serializedVersion: 2
-        x: 336
-        y: 1360
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c510fd3f3021a5841a9965c31499dfb3
-      internalID: -1185596261
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_28
-      rect:
-        serializedVersion: 2
-        x: 336
-        y: 1332
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ee8d01a2658e1a24f971542d27367a10
-      internalID: -1437173855
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_29
-      rect:
-        serializedVersion: 2
-        x: 352
-        y: 1294
-        width: 16
-        height: 26
-      alignment: 9
-      pivot: {x: 0.5, y: 0.42307693}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fc46deec00221574c9ec351242a975a5
-      internalID: -616582565
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_30
-      rect:
-        serializedVersion: 2
-        x: 352
-        y: 1342
-        width: 16
-        height: 26
-      alignment: 9
-      pivot: {x: 0.5, y: 0.42307693}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 177bf27323a253c4eb9183779df18192
-      internalID: -2000603776
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_31
-      rect:
-        serializedVersion: 2
-        x: 43
-        y: 183
-        width: 16
-        height: 25
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 245aa03b3f4cdeb4187c63454876a0e2
-      internalID: 872062976
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_32
-      rect:
-        serializedVersion: 2
-        x: 21
-        y: 183
-        width: 16
-        height: 25
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 28cd36081bd120d49b26b9af09ec8537
-      internalID: -1953848178
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_33
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 183
-        width: 16
-        height: 25
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2c3a228d24447c84d85e83454ce121b7
-      internalID: 586618869
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_34
-      rect:
-        serializedVersion: 2
-        x: 69
-        y: 215
-        width: 16
-        height: 25
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d07c8f01508504d459a92e56eceb907b
-      internalID: -1258690085
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_35
-      rect:
-        serializedVersion: 2
-        x: 91
-        y: 215
-        width: 16
-        height: 25
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0f91c5de135055b4393e42349fc8529d
-      internalID: 474138751
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_36
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 215
-        width: 16
-        height: 25
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 53998f2205df459479eb7dd246f8509e
-      internalID: -2138464554
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_37
-      rect:
-        serializedVersion: 2
-        x: 53
-        y: 488
-        width: 6
-        height: 25
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b81a5cd68e1dec944b86b2fa4688860a
-      internalID: -1430010073
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_38
-      rect:
-        serializedVersion: 2
-        x: 54
-        y: 448
-        width: 16
-        height: 4
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 37fb4f8cebe8ff946a54706f2027de3a
-      internalID: -541195307
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_39
-      rect:
-        serializedVersion: 2
-        x: 30
-        y: 74
-        width: 20
-        height: 3
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 876120db525639f4c97e9dc0d4ebb7c5
-      internalID: 285731212
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_40
-      rect:
-        serializedVersion: 2
-        x: 30
-        y: 77
-        width: 20
-        height: 3
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 60fd69703bc90674f984fefb4ee00b72
-      internalID: 1276624362
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_41
-      rect:
-        serializedVersion: 2
-        x: 693
-        y: 183
-        width: 16
-        height: 25
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d0f585dba259e634788685c2683df0af
-      internalID: -1535849434
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_42
-      rect:
-        serializedVersion: 2
-        x: 715
-        y: 183
-        width: 16
-        height: 25
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 40f5b4e6eed33104589b4a3c87727ed1
-      internalID: -715875757
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_43
-      rect:
-        serializedVersion: 2
-        x: 704
-        y: 183
-        width: 16
-        height: 25
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: efab4ee5369fcc14faf6cc2fb37d728f
-      internalID: 1841371949
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_44
-      rect:
-        serializedVersion: 2
-        x: 304
-        y: 1189
-        width: 80
-        height: 46
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 187f274b8732b7142844b5fe4153dea8
-      internalID: 338759875
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_45
-      rect:
-        serializedVersion: 2
-        x: 304
-        y: 1235
-        width: 80
-        height: 45
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 124c778882e53de4badecfcac5b2f7c1
-      internalID: -56141250
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_46
-      rect:
-        serializedVersion: 2
-        x: 368
-        y: 1305
-        width: 16
-        height: 21
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 366538fe0d38db2479b9017f4977f09e
-      internalID: -905180456
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_47
-      rect:
-        serializedVersion: 2
-        x: 52
-        y: 374
-        width: 25
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3c9ada2c73e2fff4d9829eec2813f1a1
-      internalID: -667872725
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_50
-      rect:
-        serializedVersion: 2
-        x: 302
-        y: 896
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 352084b1077c67f4cb43f07a3b68eb15
-      internalID: 53856200
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_48
-      rect:
-        serializedVersion: 2
-        x: 318
-        y: 896
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0e872b70ca883c54fb72c1f3c168371c
-      internalID: -322205157
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Town Tale - House Builder_49
-      rect:
-        serializedVersion: 2
-        x: 117
-        y: 528
-        width: 6
-        height: 1
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bac807c55736af644be5ba243ddbc52f
-      internalID: -80237188
+      spriteID: 34bf9758b9148234d9338fb15f0c54e5
+      internalID: 1460317416
       vertices: []
       indices: 
       edges: []
@@ -1324,63 +1261,60 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Roof Bottom Left: -1608245576
-      Roof Mid Bottom: -794970000
-      Roof Mid Left: 750079554
-      Roof Mid Mid: -1522593416
-      Roof Top Left: 398914218
-      Roof Top Mid: 2107960014
-      Town Tale - House Builder_0: 560052885
-      Town Tale - House Builder_1: -1145693935
-      Town Tale - House Builder_10: -1892330418
-      Town Tale - House Builder_11: 734601134
-      Town Tale - House Builder_12: 309413201
-      Town Tale - House Builder_13: 104116387
-      Town Tale - House Builder_14: -1755699709
-      Town Tale - House Builder_15: 1526570266
-      Town Tale - House Builder_16: 1097860854
-      Town Tale - House Builder_17: -1329476525
-      Town Tale - House Builder_18: -880959083
-      Town Tale - House Builder_19: -1854399048
-      Town Tale - House Builder_2: 289614457
-      Town Tale - House Builder_20: 701635848
-      Town Tale - House Builder_21: 1534893212
-      Town Tale - House Builder_22: -164932144
-      Town Tale - House Builder_23: -1873972526
-      Town Tale - House Builder_24: 850377703
-      Town Tale - House Builder_25: 1840481423
-      Town Tale - House Builder_26: 765807437
-      Town Tale - House Builder_27: -1185596261
-      Town Tale - House Builder_28: -1437173855
-      Town Tale - House Builder_29: -616582565
-      Town Tale - House Builder_3: -1408250677
-      Town Tale - House Builder_30: -2000603776
-      Town Tale - House Builder_31: 872062976
-      Town Tale - House Builder_32: -1953848178
-      Town Tale - House Builder_33: 586618869
-      Town Tale - House Builder_34: -1258690085
-      Town Tale - House Builder_35: 474138751
-      Town Tale - House Builder_36: -2138464554
-      Town Tale - House Builder_37: -1430010073
-      Town Tale - House Builder_38: -541195307
-      Town Tale - House Builder_39: 285731212
-      Town Tale - House Builder_4: 1911152553
-      Town Tale - House Builder_40: 1276624362
-      Town Tale - House Builder_41: -1535849434
-      Town Tale - House Builder_42: -715875757
-      Town Tale - House Builder_43: 1841371949
-      Town Tale - House Builder_44: 338759875
-      Town Tale - House Builder_45: -56141250
-      Town Tale - House Builder_46: -905180456
-      Town Tale - House Builder_47: -667872725
-      Town Tale - House Builder_48: -322205157
-      Town Tale - House Builder_49: -80237188
-      Town Tale - House Builder_5: 1620570490
-      Town Tale - House Builder_50: 53856200
-      Town Tale - House Builder_6: -1358379632
-      Town Tale - House Builder_7: -807017973
-      Town Tale - House Builder_8: -415107140
-      Town Tale - House Builder_9: 875867074
+      WallsSheet_0: -1026694309
+      WallsSheet_1: -1459009230
+      WallsSheet_10: 1769934617
+      WallsSheet_11: -588116299
+      WallsSheet_12: 519758310
+      WallsSheet_13: 1107555406
+      WallsSheet_14: -2138219656
+      WallsSheet_15: 1402598618
+      WallsSheet_16: -1746821983
+      WallsSheet_17: 358238116
+      WallsSheet_18: 488605358
+      WallsSheet_19: 1097967690
+      WallsSheet_2: -1956673137
+      WallsSheet_20: 713732257
+      WallsSheet_21: 319314473
+      WallsSheet_22: 763760522
+      WallsSheet_23: 709034949
+      WallsSheet_24: 1363987213
+      WallsSheet_25: 1305847755
+      WallsSheet_26: -1107800576
+      WallsSheet_27: -472243028
+      WallsSheet_28: -1063603003
+      WallsSheet_29: 1714271809
+      WallsSheet_3: 1901531703
+      WallsSheet_30: -759706682
+      WallsSheet_31: -1839436808
+      WallsSheet_32: 1407749354
+      WallsSheet_33: 91457077
+      WallsSheet_34: 1029982680
+      WallsSheet_35: -1976993895
+      WallsSheet_36: 484438729
+      WallsSheet_37: -1120380865
+      WallsSheet_38: 177683654
+      WallsSheet_39: 23208527
+      WallsSheet_4: 1766788463
+      WallsSheet_40: 1056599720
+      WallsSheet_41: 1232236410
+      WallsSheet_42: -1804388189
+      WallsSheet_43: -1062630810
+      WallsSheet_44: 1084547431
+      WallsSheet_45: -1717935134
+      WallsSheet_46: 956136189
+      WallsSheet_47: 1693622382
+      WallsSheet_48: 1313602409
+      WallsSheet_49: 785037314
+      WallsSheet_5: -1871340292
+      WallsSheet_50: -1113663048
+      WallsSheet_51: -387468567
+      WallsSheet_52: 1066295674
+      WallsSheet_53: 1460317416
+      WallsSheet_6: 632970801
+      WallsSheet_7: 1521305268
+      WallsSheet_8: 144837160
+      WallsSheet_9: -994705106
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
