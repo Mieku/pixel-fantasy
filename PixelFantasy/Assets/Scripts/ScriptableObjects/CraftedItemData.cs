@@ -70,11 +70,11 @@ namespace ScriptableObjects
             return WorkCost / totalQuantity;
         }
 
-        public bool CanBuildingCraftThis(ProductionBuilding building)
+        public bool CanBuildingCraftThis(ProductionBuildingOld buildingOld)
         {
             if (RequiredCraftingTable != null)
             {
-                if (building.GetFurniture(RequiredCraftingTable) != null)
+                if (buildingOld.GetFurniture(RequiredCraftingTable) != null)
                 {
                     return true;
                 }

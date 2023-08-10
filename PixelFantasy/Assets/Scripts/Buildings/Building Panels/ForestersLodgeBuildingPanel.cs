@@ -10,11 +10,11 @@ namespace Buildings.Building_Panels
         [SerializeField] private Toggle _harvestFruitsToggle;
         [SerializeField] private Toggle _cutFruitingToggle;
 
-        private ForestersLodge _forestersLodge => Building as ForestersLodge;
+        private ForestersLodge _forestersLodge => buildingOld as ForestersLodge;
 
-        public override void Init(Building building)
+        public override void Init(BuildingOld buildingOld)
         {
-            base.Init(building);
+            base.Init(buildingOld);
             Refresh();
         }
 
@@ -27,7 +27,7 @@ namespace Buildings.Building_Panels
         public void SetWorkZonePressed()
         {
             Debug.Log("Build Me!");
-            ZoneManager.Instance.PlanZone(ZoneType.Forester, Building);
+            ZoneManager.Instance.PlanZone(ZoneType.Forester, buildingOld);
         }
 
         public void HarvestFruitsToggleChanged()

@@ -45,14 +45,14 @@ public class ProductOrder
         return task;
     }
     
-    public Task CreateTask(ProductionBuilding building)
+    public Task CreateTask(ProductionBuildingOld buildingOld)
     {
         List<CraftingBill.RequestedItemInfo> claimedMats = ClaimRequiredMaterials(craftedItemData);
         
         Task task = new Task()
         {
             TaskId = "Craft Item",
-            Requestor = building,
+            Requestor = buildingOld,
             Payload = craftedItemData.ItemName,
             TaskType = TaskType.Craft,
             OnTaskComplete = OnTaskCompleted,
@@ -189,7 +189,7 @@ public class ProductOrderQueue
         return null;
     }
     
-    public Task RequestTask(ProductionBuilding building)
+    public Task RequestTask(ProductionBuildingOld buildingOld)
     {
         if (_orders.Count == 0) return null;
 
@@ -200,9 +200,9 @@ public class ProductOrderQueue
                 if (order.AmountLeftToMake() > 0)
                 {
                     if (order.craftedItemData.AreResourcesAvailable() &&
-                        order.craftedItemData.CanBuildingCraftThis(building))
+                        order.craftedItemData.CanBuildingCraftThis(buildingOld))
                     {
-                        return order.CreateTask(building);
+                        return order.CreateTask(buildingOld);
                     }
                 }
             }

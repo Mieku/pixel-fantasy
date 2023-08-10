@@ -6,7 +6,7 @@ namespace TaskSystem
 {
     public class BuildBuildingAction : TaskAction
     {
-        private BuildingNode _buildingNode;
+        private Building _building;
         private float _timer;
         private Vector2? _movePos;
         private bool _isMoving;
@@ -19,8 +19,8 @@ namespace TaskSystem
         public override void PrepareAction(Task task)
         {
             _task = task;
-            _buildingNode = _task.Requestor as BuildingNode;
-            _movePos = _ai.GetAdjacentPosition(_task.Requestor.transform.position);
+            _building = _task.Requestor as Building;
+            _movePos = _building.ConstructionStandPosition();
         }
 
         public override void DoAction()
@@ -46,13 +46,13 @@ namespace TaskSystem
 
         private void DoConstruction()
         {
-            UnitAnimController.SetUnitAction(UnitAction.Swinging, _ai.GetActionDirection(_buildingNode.transform.position));
+            UnitAnimController.SetUnitAction(UnitAction.Swinging, _ai.GetActionDirection(_building.transform.position));
             
             _timer += TimeManager.Instance.DeltaTime;
             if(_timer >= WORK_SPEED) 
             {
                 _timer = 0;
-                if (_buildingNode.DoConstruction(WORK_AMOUNT)) 
+                if (_building.DoConstruction(WORK_AMOUNT)) 
                 {
                     // When work is complete
                     ConcludeAction();
@@ -65,7 +65,7 @@ namespace TaskSystem
             base.ConcludeAction();
             
             UnitAnimController.SetUnitAction(UnitAction.Nothing);
-            _buildingNode = null;
+            _building = null;
             _task = null;
             _movePos = null;
             _isMoving = false;

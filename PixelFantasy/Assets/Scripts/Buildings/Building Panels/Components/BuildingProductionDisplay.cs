@@ -19,7 +19,7 @@ namespace Buildings.Building_Panels.Components
         private BuildingPanel _buildingPanel;
         private bool _isOpen;
         private bool _isShowingOptions;
-        private ProductionBuilding _building => _buildingPanel.Building;
+        private ProductionBuildingOld BuildingOld => _buildingPanel.buildingOld;
         private List<GameObject> _displayedOptions = new List<GameObject>();
         private List<GameObject> _displayedControls = new List<GameObject>();
 

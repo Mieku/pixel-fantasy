@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Buildings
 {
-    public class ProductionBuilding : Building
+    public class ProductionBuildingOld : BuildingOld
     {
         // public ProductOrderQueue OrderQueue = new ProductOrderQueue();
         

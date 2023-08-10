@@ -6,7 +6,7 @@ using Zones;
 
 namespace Buildings
 {
-    public class ForestersLodge : ProductionBuilding
+    public class ForestersLodge : ProductionBuildingOld
     {
         private bool _cutFruitingTrees;
         public bool CutFruitingTrees

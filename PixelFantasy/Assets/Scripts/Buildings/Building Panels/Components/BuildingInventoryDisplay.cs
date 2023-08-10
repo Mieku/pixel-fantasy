@@ -52,7 +52,7 @@ namespace Buildings.Building_Panels.Components
         private void RefreshInventory()
         {
             ClearAllSlots();
-            _inventory = _buildingPanel.Building.GetBuildingInventory();
+            _inventory = _buildingPanel.buildingOld.GetBuildingInventory();
             int slotIndex = 0;
             if (_inventory != null)
             {

@@ -12,9 +12,9 @@ namespace Items
 {
     public class Construction : Interactable, IPersistent, IClickableObject
     {
-        protected List<ItemAmount> _remainingResourceCosts;
-        protected List<ItemAmount> _pendingResourceCosts; // Claimed by a task but not used yet
-        protected List<ItemAmount> _incomingResourceCosts; // The item is on its way
+        protected List<ItemAmount> _remainingResourceCosts = new List<ItemAmount>();
+        protected List<ItemAmount> _pendingResourceCosts = new List<ItemAmount>(); // Claimed by a task but not used yet
+        protected List<ItemAmount> _incomingResourceCosts = new List<ItemAmount>(); // The item is on its way
         protected List<Item> _incomingItems = new List<Item>();
     
         protected bool _isBuilt;
@@ -396,6 +396,7 @@ namespace Items
                 TaskId = "Withdraw Item",
                 Requestor = this,
                 Payload = resourceData.ItemName,
+                TaskType = TaskType.Haul,
             };
             TaskManager.Instance.AddTask(task);
         }

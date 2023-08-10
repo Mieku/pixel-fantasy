@@ -142,4 +142,10 @@ public class GameEvents : MonoBehaviour
     {
         if (OnRoofRefresh != null) OnRoofRefresh(callerPos);
     }
+
+    public static event Action<bool> OnHideRoofsToggled;
+    public static void Trigger_OnHideRoofsToggled(bool hideRoofs)
+    {
+        if (OnHideRoofsToggled != null) OnHideRoofsToggled(hideRoofs);
+    }
 }

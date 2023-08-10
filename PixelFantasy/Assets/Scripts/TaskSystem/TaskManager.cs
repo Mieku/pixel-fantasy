@@ -93,9 +93,9 @@ namespace TaskSystem
             CraftingBills.Cancel(bill);
         }
 
-        public CraftingBill GetNextCraftingBillByBuilding(ProductionBuilding building)
+        public CraftingBill GetNextCraftingBillByBuilding(ProductionBuildingOld buildingOld)
         {
-            CraftingBill result = CraftingBills.GetNextCraftingBillByBuilding(building);
+            CraftingBill result = CraftingBills.GetNextCraftingBillByBuilding(buildingOld);
             return result;
         }
         

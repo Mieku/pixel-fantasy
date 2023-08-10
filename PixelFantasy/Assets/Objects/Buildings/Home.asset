@@ -15,7 +15,6 @@ MonoBehaviour:
   ConstructionName: Home
   WorkCost: 10
   Icon: {fileID: 21300000, guid: 610539ae872b17545b89bce07a2bf932, type: 3}
-  CraftersProfession: {fileID: 11400000, guid: 4caf7254bcc8f464e832ea1d99442ee5, type: 2}
   _resourceCosts:
   - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
     Quantity: 5
@@ -23,9 +22,9 @@ MonoBehaviour:
   - Water
   - Wall
   - Obstacle
+  - Furniture
+  - Structure
   _planningMode: 2
-  Exterior: {fileID: 8169095293177233799, guid: b918b9edeb7030541938e892d0500208, type: 3}
-  Interior: {fileID: 6185368100350882037, guid: d79ce5238b51c7b479e515402822703e, type: 3}
+  BuildingOptions: []
   BuildingPanel: {fileID: 3659153185260872890, guid: f8f030d7bf3c4a146a43604eb877302d, type: 3}
   MaxOccupants: 5
-  WorkersProfession: {fileID: 0}

@@ -30,7 +30,7 @@ namespace Managers
         private ZoneType _curZoneType;
         private List<string> _defaultInvalidTagsForZone = new List<string>() { "Water", "Zone" };
         private IZone _zoneToModify;
-        private Building _requestorBuilding;
+        private BuildingOld requestorBuildingOld;
 
         protected override void Awake()
         {
@@ -61,10 +61,10 @@ namespace Managers
             DisplayZoneInput();
         }
 
-        public void PlanZone(ZoneType zoneType, Building requestorBuilding = null)
+        public void PlanZone(ZoneType zoneType, BuildingOld requestorBuildingOld = null)
         {
             _curZoneType = zoneType;
-            _requestorBuilding = requestorBuilding;
+            this.requestorBuildingOld = requestorBuildingOld;
             
             var zoneColour = Librarian.Instance.GetZoneTypeData(_curZoneType).Colour;
             ShowZones(true);
@@ -318,7 +318,7 @@ namespace Managers
                 case ZoneType.Home:
                     return new HomeZone(uid, gridPositions, zoneRuleTile);
                 case ZoneType.Forester:
-                    return new ForesterZone(uid, gridPositions, zoneRuleTile, _requestorBuilding as ForestersLodge);
+                    return new ForesterZone(uid, gridPositions, zoneRuleTile, requestorBuildingOld as ForestersLodge);
                 case ZoneType.Workshop:
                     var workshopRoom = Librarian.Instance.GetRoom("Workshop");
                     return new ProductionZone(uid, gridPositions, zoneRuleTile, workshopRoom as ProductionRoomData);

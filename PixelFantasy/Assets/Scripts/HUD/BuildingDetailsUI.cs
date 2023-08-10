@@ -9,7 +9,7 @@ namespace HUD
     {
         [SerializeField] private GameObject _root;
 
-        private Building _building;
+        private BuildingOld buildingOld;
         private bool _isInsideBuilding;
         private BuildingPanel _buildingPanel;
 
@@ -18,11 +18,11 @@ namespace HUD
             _root.SetActive(false);
         }
 
-        public void Show(Building building)
+        public void Show(BuildingOld buildingOld)
         {
-            _building = building;
-            _buildingPanel = Instantiate(_building.BuildingPanel, _root.transform);
-            _buildingPanel.Init(building);
+            this.buildingOld = buildingOld;
+            _buildingPanel = Instantiate(this.buildingOld.BuildingPanel, _root.transform);
+            _buildingPanel.Init(buildingOld);
             
             _root.SetActive(true);
         }
@@ -31,7 +31,7 @@ namespace HUD
         {
             if (_buildingPanel == null) return;
                 
-            _building = null;
+            buildingOld = null;
             _root.SetActive(false);
             Destroy(_buildingPanel.gameObject);
             _buildingPanel = null;
@@ -42,12 +42,12 @@ namespace HUD
             if (_isInsideBuilding)
             {
                 _isInsideBuilding = false;
-                _building.ViewExterior();
+                buildingOld.ViewExterior();
             }
             else
             {
                 _isInsideBuilding = true;
-                _building.ViewInterior();
+                buildingOld.ViewInterior();
             }
         }
 

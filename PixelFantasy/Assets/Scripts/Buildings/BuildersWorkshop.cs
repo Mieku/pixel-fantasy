@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Buildings
 {
-    public class BuildersWorkshop : ProductionBuilding
+    public class BuildersWorkshop : ProductionBuildingOld
     {
         protected override void OnBuildingClicked()
         {

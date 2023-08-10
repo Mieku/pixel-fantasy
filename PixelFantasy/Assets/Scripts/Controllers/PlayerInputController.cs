@@ -13,6 +13,7 @@ namespace Controllers
         private Vector3 _currentMousePos;
         private ClickObject _curSelectedObject;
         private bool _isOverUI;
+        private bool _buildingInternalViewEnabled;
 
         public string StoredKey;
         
@@ -144,6 +145,12 @@ namespace Controllers
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 EscapePressed();
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                _buildingInternalViewEnabled = !_buildingInternalViewEnabled;
+                GameEvents.Trigger_OnHideRoofsToggled(_buildingInternalViewEnabled);
             }
         }
 

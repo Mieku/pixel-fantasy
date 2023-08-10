@@ -7,12 +7,12 @@ namespace Buildings.Building_Panels
     {
         //[SerializeField] protected WorkerPanel _workerPanel;
         
-        [FormerlySerializedAs("_building")] public ProductionBuilding Building;
+        [FormerlySerializedAs("Building")] [FormerlySerializedAs("_building")] public ProductionBuildingOld buildingOld;
         protected bool _isInsideBuilding;
 
-        public virtual void Init(Building building)
+        public virtual void Init(BuildingOld buildingOld)
         {
-            Building = building as ProductionBuilding;
+            buildingOld = buildingOld as ProductionBuildingOld;
         }
         
         public void ChangeView()
@@ -20,12 +20,12 @@ namespace Buildings.Building_Panels
             if (_isInsideBuilding)
             {
                 _isInsideBuilding = false;
-                Building.ViewExterior();
+                buildingOld.ViewExterior();
             }
             else
             {
                 _isInsideBuilding = true;
-                Building.ViewInterior();
+                buildingOld.ViewInterior();
             }
         }
 

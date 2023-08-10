@@ -310,7 +310,7 @@ public static class Helper
         return result;
     }
 
-    public static Building FindBuildingFromInteriorPosition(Vector2 position)
+    public static BuildingOld FindBuildingFromInteriorPosition(Vector2 position)
     {
         var gos = GetGameObjectsOnTile(position, "Building Interior");
         foreach (var go in gos)
@@ -318,7 +318,7 @@ public static class Helper
             var interior = go.GetComponentInParent<Interior>(true);
             if (interior != null)
             {
-                return interior.Building;
+                return interior.buildingOld;
             }
         }
 

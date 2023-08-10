@@ -233,8 +233,8 @@ namespace Controllers
             Spawner.Instance.CancelInput();
             PlayerInputController.Instance.ChangeState(PlayerInputState.BuildBuilding, key);
             
-            var buildingData = Librarian.Instance.GetBuildingData(PlayerInputController.Instance.StoredKey);
-            Spawner.Instance.PlanBuilding(buildingData);
+            var building = Librarian.Instance.GetBuilding(PlayerInputController.Instance.StoredKey);
+            Spawner.Instance.PlanBuilding(building);
         }
         
         public void BuildDoorPressed(string key)

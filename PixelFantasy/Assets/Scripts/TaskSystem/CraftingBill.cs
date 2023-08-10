@@ -95,7 +95,7 @@ namespace TaskSystem
             return results;
         }
         
-        public bool HasCorrectCraftingTable(ProductionBuilding building)
+        public bool HasCorrectCraftingTable(ProductionBuildingOld buildingOld)
         {
             var craftingTable = ItemToCraft.RequiredCraftingTable;
             if (craftingTable == null)
@@ -104,7 +104,7 @@ namespace TaskSystem
                 return true;
             }
 
-            var result = building.GetFurniture(craftingTable) as CraftingTable;
+            var result = buildingOld.GetFurniture(craftingTable) as CraftingTable;
             if (result != null && !result.IsInUse)
             {
                 _assignedCraftingTable = result;

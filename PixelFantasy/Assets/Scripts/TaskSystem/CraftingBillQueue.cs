@@ -41,12 +41,12 @@ namespace TaskSystem
             }
         }
 
-        public CraftingBill GetNextCraftingBillByBuilding(ProductionBuilding building)
+        public CraftingBill GetNextCraftingBillByBuilding(ProductionBuildingOld buildingOld)
         {
             for (int i = 0; i < _bills.Count; i++)
             {
                 var potentialBill = _bills[i];
-                if (potentialBill.HasCorrectCraftingTable(building) && potentialBill.IsPossible())
+                if (potentialBill.HasCorrectCraftingTable(buildingOld) && potentialBill.IsPossible())
                 {
                     _bills.RemoveAt(i);
                     return potentialBill;

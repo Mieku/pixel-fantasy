@@ -88,14 +88,14 @@ TagManager:
   - name: Zones
     uniqueID: 1692867497
     locked: 0
+  - name: Roofing
+    uniqueID: 61294113
+    locked: 0
   - name: UI
     uniqueID: 4124560573
     locked: 0
   - name: My Lighting
     uniqueID: 61937489
-    locked: 0
-  - name: Roofing
-    uniqueID: 61294113
     locked: 0
   - name: Above Lighting
     uniqueID: 1382173981

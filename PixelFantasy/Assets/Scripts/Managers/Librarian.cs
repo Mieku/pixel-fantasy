@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Buildings;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -19,7 +20,7 @@ namespace Managers
         [SerializeField] private List<HairData> _hairLibrary;
         [SerializeField] private List<ZoneTypeData> _zoneTypeLibrary;
         [SerializeField] private List<ItemData> _itemDataLibrary;
-        [SerializeField] private List<BuildingData> _buildingDataLibrary;
+        [SerializeField] private List<Building> _buildingLibrary;
         [SerializeField] private List<Command> _commandLibrary;
         [SerializeField] private List<WallData> _wallLibrary;
         [SerializeField] private List<RoomData> _roomLibrary;
@@ -90,10 +91,10 @@ namespace Managers
             }
             return result;
         }
-
-        public BuildingData GetBuildingData(string key)
+        
+        public Building GetBuilding(string key)
         {
-            var result = _buildingDataLibrary.Find(b => b.ConstructionName == key);
+            var result = _buildingLibrary.Find(b => b.BuildingID == key);
             if (result == null)
             {
                 Debug.LogError("Unknown Building: " + key);

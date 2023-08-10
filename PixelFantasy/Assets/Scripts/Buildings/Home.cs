@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Buildings
 {
-    public class Home : Building
+    public class Home : BuildingOld
     {
         protected override void OnBuildingClicked()
         {

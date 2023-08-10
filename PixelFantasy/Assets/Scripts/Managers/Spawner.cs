@@ -237,13 +237,13 @@ namespace Managers
             {
                 SpawnDoor(DoorData, Helper.ConvertMousePosToGridPos(mousePos));
             }
-            else if (inputState == PlayerInputState.BuildBuilding && _plannedBuildingNode != null)
+            else if (inputState == PlayerInputState.BuildBuilding && _plannedBuilding != null)
             {
-                if (_plannedBuildingNode.CheckPlacement())
+                if (_plannedBuilding.CheckPlacement())
                 {
                     PlayerInputController.Instance.ChangeState(PlayerInputState.None);
-                    _plannedBuildingNode.PrepareToBuild();
-                    _plannedBuildingNode = null;
+                    _plannedBuilding.SetState(Building.BuildingState.Construction);
+                    _plannedBuilding = null;
                 }
             }
         }
@@ -442,14 +442,12 @@ namespace Managers
                 door.Init(doorData);
             }
         }
-
-        private BuildingNode _plannedBuildingNode;
-        public void PlanBuilding(BuildingData buildingData)
+        
+        private Building _plannedBuilding;
+        public void PlanBuilding(Building building)
         {
-            var buildingObj = Instantiate(_buildingPrefab, _structureParent);
-            var building = buildingObj.GetComponent<BuildingNode>();
-            building.Plan(buildingData);
-            _plannedBuildingNode = building;
+            _plannedBuilding = Instantiate(building, _structureParent);
+            _plannedBuilding.SetState(Building.BuildingState.Planning);
         }
 
         private Furniture _plannedFurniture;
@@ -514,10 +512,10 @@ namespace Managers
             ClearPlannedBlueprint();
             _plannedGrid.Clear();
 
-            if (_plannedBuildingNode != null)
+            if (_plannedBuilding != null)
             {
-                Destroy(_plannedBuildingNode.gameObject);
-                _plannedBuildingNode = null;
+                Destroy(_plannedBuilding.gameObject);
+                _plannedBuilding = null;
             }
 
             if (_plannedFurniture != null)

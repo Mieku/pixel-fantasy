@@ -1,11 +1,12 @@
 using System.Collections;
 using Buildings;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Interior : MonoBehaviour
 {
     public Transform EntrancePos;
-    public Building Building;
+    [FormerlySerializedAs("Building")] public BuildingOld buildingOld;
         
     private void Start()
     {

@@ -7,6 +7,7 @@ using HUD;
 using Managers;
 using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 namespace Zones
@@ -16,7 +17,7 @@ namespace Zones
     {
         public string UID { get; set; }
         public string Name { get; set; }
-        public Building Building;
+        [FormerlySerializedAs("Building")] public BuildingOld buildingOld;
         public abstract ZoneType ZoneType { get; }
         public List<Vector3Int> GridPositions { get; set; }
         public LayeredRuleTile LayeredRuleTile { get; set; }
@@ -36,14 +37,14 @@ namespace Zones
             _zonesTM = TilemapController.Instance.GetTilemap(TilemapLayer.Zones);
         }
 
-        protected Zone(string uid, List<Vector3Int> gridPositions, LayeredRuleTile layeredRuleTile, Building building)
+        protected Zone(string uid, List<Vector3Int> gridPositions, LayeredRuleTile layeredRuleTile, BuildingOld buildingOld)
         {
             Init(uid, gridPositions, layeredRuleTile);
             
             UID = uid;
             GridPositions = new List<Vector3Int>(gridPositions);
             LayeredRuleTile = layeredRuleTile;
-            Building = building;
+            this.buildingOld = buildingOld;
             
             AssignName();
             DisplayZonePanel();

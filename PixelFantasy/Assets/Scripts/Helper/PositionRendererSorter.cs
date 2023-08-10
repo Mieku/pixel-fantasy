@@ -30,7 +30,7 @@ public class PositionRendererSorter : MonoBehaviour
             
             if (_runOnlyOnce)
             {
-                Destroy(this);
+                DestroySelf();
             }
         }
     }
@@ -44,6 +44,11 @@ public class PositionRendererSorter : MonoBehaviour
         {
             _myRenderer.sortingOrder = (int)(_sortingOrderBase - (transform.position.y + _offset) * 10);
         }
+    }
+
+    public void DestroySelf()
+    {
+        Destroy(this);
     }
 
     [Button("Sort Position")]

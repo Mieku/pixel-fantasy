@@ -11,7 +11,7 @@ namespace Zones
     {
         public override ZoneType ZoneType => ZoneType.Home;
         
-        public HomeZone(string uid, List<Vector3Int> gridPositions, LayeredRuleTile layeredRuleTile) : base(uid, gridPositions, layeredRuleTile, (Building)null)
+        public HomeZone(string uid, List<Vector3Int> gridPositions, LayeredRuleTile layeredRuleTile) : base(uid, gridPositions, layeredRuleTile, (BuildingOld)null)
         {
             
         }
