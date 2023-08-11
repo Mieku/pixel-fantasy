@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using HUD;
 using Managers;
+using Popups;
 using ScriptableObjects;
 using UnityEngine;
 using Order = HUD.Order;
@@ -29,6 +30,11 @@ namespace Controllers
         public void CheatsPressed()
         {
             DisplayOrders(_cheatOrders);
+        }
+
+        public void KinlingsPressed()
+        {
+            KinlingsPopup.Show();
         }
 
         public void MassOrdersPressed()

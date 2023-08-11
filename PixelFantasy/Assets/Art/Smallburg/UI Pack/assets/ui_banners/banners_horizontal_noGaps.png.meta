@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f5f413f76106101469cdb0f071b3c98e
+guid: 651d44191aeb07b44afee8d076f49635
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 0
   alignment: 0
@@ -115,7 +115,70 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: banners_horizontal_noGaps_0
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 721
+        width: 48
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 16, y: 3, z: 16, w: 4}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6750db897122f5a4faa03aa163ed14c5
+      internalID: -1884148348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: banners_horizontal_noGaps_1
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 590
+        width: 26
+        height: 14
+      alignment: 9
+      pivot: {x: 0.32692307, y: 0.60714287}
+      border: {x: 3, y: 6, z: 12, w: 3}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3eac6cd797507e345b6440e0473b411a
+      internalID: -1603310525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: banners_horizontal_noGaps_2
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 174
+        width: 22
+        height: 14
+      alignment: 9
+      pivot: {x: 0.5, y: 0.60714287}
+      border: {x: 3, y: 6, z: 3, w: 3}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9d0e5e2a0a0aa341a11b2fbcb1e35f9
+      internalID: -582130392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -126,7 +189,10 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      banners_horizontal_noGaps_0: -1884148348
+      banners_horizontal_noGaps_1: -1603310525
+      banners_horizontal_noGaps_2: -582130392
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
