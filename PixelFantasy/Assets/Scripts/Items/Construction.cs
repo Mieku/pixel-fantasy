@@ -10,7 +10,7 @@ using Action = System.Action;
 
 namespace Items
 {
-    public class Construction : Interactable, IPersistent, IClickableObject
+    public class Construction : PlayerInteractable, IPersistent, IClickableObject
     {
         protected List<ItemAmount> _remainingResourceCosts = new List<ItemAmount>();
         protected List<ItemAmount> _pendingResourceCosts = new List<ItemAmount>(); // Claimed by a task but not used yet

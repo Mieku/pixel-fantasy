@@ -148,4 +148,10 @@ public class GameEvents : MonoBehaviour
     {
         if (OnHideRoofsToggled != null) OnHideRoofsToggled(hideRoofs);
     }
+
+    public static event Action MinuteTick;
+    public static void Trigger_MinuteTick()
+    {
+        if (MinuteTick != null) MinuteTick();
+    }
 }

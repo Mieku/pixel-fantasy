@@ -25,7 +25,19 @@ namespace Managers
         [SerializeField] private List<WallData> _wallLibrary;
         [SerializeField] private List<RoomData> _roomLibrary;
         [SerializeField] private List<RoofData> _roofLibrary;
+        [SerializeField] private List<NeedData> _needLibrary;
 
+        public NeedData GetNeedData(NeedType needType)
+        {
+            var result = _needLibrary.Find(need => need.NeedType == needType);
+            if (result == null)
+            {
+                Debug.LogError($"Unkown Need: {needType}");
+            }
+
+            return result;
+        }
+        
         public RoofData GetRoofData(string roofName)
         {
             var result = _roofLibrary.Find(roof => roof.ConstructionName == roofName);

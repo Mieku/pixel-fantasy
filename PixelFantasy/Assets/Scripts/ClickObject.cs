@@ -214,7 +214,7 @@ public class ClickObject : MonoBehaviour
         {
             ItemName = itemData.ConstructionName,
             ClickObject = this,
-            Requestor = GetComponent<Interactable>(),
+            Requestor = GetComponent<PlayerInteractable>(),
         };
 
         return result;
@@ -226,7 +226,7 @@ public class ClickObject : MonoBehaviour
         {
             ItemName = itemData.ItemName,
             ClickObject = this,
-            Requestor = GetComponent<Interactable>(),
+            Requestor = GetComponent<PlayerInteractable>(),
         };
 
         return result;
@@ -238,7 +238,7 @@ public class ClickObject : MonoBehaviour
         {
             ItemName = structureData.ConstructionName,
             ClickObject = this,
-            Requestor = GetComponent<Interactable>(),
+            Requestor = GetComponent<PlayerInteractable>(),
         };
 
         return result;
@@ -253,7 +253,7 @@ public class ClickObject : MonoBehaviour
             ItemName = growingResourceData.ResourceName,
             Commands = commands,
             ClickObject = this,
-            Requestor = GetComponent<Interactable>(),
+            Requestor = GetComponent<PlayerInteractable>(),
         };
 
         return result;
@@ -265,7 +265,7 @@ public class ClickObject : MonoBehaviour
         {
             ItemName = floorData.ConstructionName,
             ClickObject = this,
-            Requestor = GetComponent<Interactable>(),
+            Requestor = GetComponent<PlayerInteractable>(),
         };
 
         return result;
@@ -277,7 +277,7 @@ public class SelectionData
     public string ItemName;
     public List<Command> Commands;
     public ClickObject ClickObject;
-    public Interactable Requestor;
+    public PlayerInteractable Requestor;
 }
 
 public enum ObjectType

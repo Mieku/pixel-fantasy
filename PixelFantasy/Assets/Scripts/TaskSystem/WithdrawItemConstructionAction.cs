@@ -9,7 +9,7 @@ namespace TaskSystem
     public class WithdrawItemConstructionAction : TaskAction
     {
         private Storage _storage;
-        private Interactable _requestor;
+        private PlayerInteractable _requestor;
         private bool _isHoldingItem;
         private Item _item;
         private bool _isMoving;

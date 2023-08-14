@@ -11,7 +11,7 @@ using Zones;
 
 namespace Items
 {
-    public class Item : Interactable, IClickableObject, IPersistent
+    public class Item : PlayerInteractable, IClickableObject, IPersistent
     {
         [SerializeField] private ItemData _itemData;
         [SerializeField] private SpriteRenderer _spriteRenderer;

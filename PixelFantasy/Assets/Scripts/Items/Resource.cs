@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Items
 {
-    public class Resource : Interactable, IClickableObject, IPersistent
+    public class Resource : PlayerInteractable, IClickableObject, IPersistent
     {
         public GameObject Prefab;
         

@@ -43,7 +43,7 @@ namespace Controllers
             }
         }
 
-        private void CreateCommand(Command command, Interactable requestor, bool isActive)
+        private void CreateCommand(Command command, PlayerInteractable requestor, bool isActive)
         {
             Sprite icon = command.Icon;
 

@@ -4,7 +4,7 @@ using Items;
 using TaskSystem;
 using UnityEngine;
 
-public abstract class Interactable : UniqueObject
+public abstract class PlayerInteractable : UniqueObject
 {
     [SerializeField] private SpriteRenderer _icon;
     public List<Command> Commands = new List<Command>();

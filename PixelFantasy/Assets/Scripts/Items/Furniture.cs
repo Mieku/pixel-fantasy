@@ -11,7 +11,7 @@ using Zones;
 
 namespace Items
 {
-    public class Furniture : Interactable
+    public class Furniture : PlayerInteractable
     {
         [SerializeField] private Transform _spritesRoot;
         [SerializeField] private Transform _useageMarkersRoot;

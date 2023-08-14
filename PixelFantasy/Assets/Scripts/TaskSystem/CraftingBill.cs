@@ -13,7 +13,7 @@ namespace TaskSystem
     public class CraftingBill
     {
         public CraftedItemData ItemToCraft;
-        public Interactable Requestor;
+        public PlayerInteractable Requestor;
         public Action OnCancelled;
         public List<RequestedItemInfo> RequestedItemInfos = new List<RequestedItemInfo>();
 

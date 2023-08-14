@@ -11,7 +11,7 @@ namespace TaskSystem
         private CraftedItemData _itemToCraft;
         private CraftingTable _craftingTable;
         private List<CraftingBill.RequestedItemInfo> _materials;
-        private Interactable _requestor;
+        private PlayerInteractable _requestor;
         private Furniture _furniture;
         private TaskState _state;
         private int _materialIndex;

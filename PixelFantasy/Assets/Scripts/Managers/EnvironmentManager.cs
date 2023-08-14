@@ -50,7 +50,14 @@ namespace Managers
             _timeOfDay = _gameDayTimer;
             
             var mins100 = _timeOfDay - Math.Truncate(_timeOfDay);
-            _currentMin = (int)(mins100 * 60f);
+            
+            //_currentMin = (int)(mins100 * 60f);
+            var curMin = (int)(mins100 * 60f);
+            if (curMin != _currentMin)
+            {
+                GameEvents.Trigger_MinuteTick();
+            }
+            _currentMin = curMin;
 
             if (_timeOfDay < 1f)
             {

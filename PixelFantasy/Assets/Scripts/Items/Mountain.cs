@@ -72,7 +72,7 @@ namespace Items
             {
                 ItemName = _mountainData.ResourceName,
                 ClickObject = GetClickObject(),
-                Requestor = GetComponent<Interactable>(),
+                Requestor = GetComponent<PlayerInteractable>(),
             };
 
             return result;

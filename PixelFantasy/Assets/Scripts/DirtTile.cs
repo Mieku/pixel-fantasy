@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Action = System.Action;
 
-public class DirtTile : Interactable, IPersistent
+public class DirtTile : PlayerInteractable, IPersistent
 {
     public bool IsBuilt = false;
     

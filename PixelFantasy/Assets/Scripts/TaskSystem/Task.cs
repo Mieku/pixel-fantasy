@@ -14,7 +14,7 @@ namespace TaskSystem
     public class Task
     {
         public string TaskId;
-        public Interactable Requestor;
+        public PlayerInteractable Requestor;
         public string Payload;
         public Family Owner;
         public List<CraftingBill.RequestedItemInfo> Materials;
