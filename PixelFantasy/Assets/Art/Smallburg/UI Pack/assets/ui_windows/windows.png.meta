@@ -141,13 +141,13 @@ TextureImporter:
       name: windows_0
       rect:
         serializedVersion: 2
-        x: 78
-        y: 286
-        width: 50
-        height: 50
+        x: 80
+        y: 288
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 9, y: 9, z: 7, w: 7}
+      border: {x: 7, y: 7, z: 7, w: 7}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -326,6 +326,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: windows_9
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 144
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 4, y: 7, z: 4, w: 5}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20dc3cb94ab346843a4a674dd0d1c250
+      internalID: 1179002316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -347,6 +368,7 @@ TextureImporter:
       windows_6: 2040268377
       windows_7: -649338217
       windows_8: -1922556878
+      windows_9: 1179002316
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
