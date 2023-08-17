@@ -125,7 +125,7 @@ TextureImporter:
         width: 19
         height: 19
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 2, y: 2, z: 2, w: 2}
       outline: []
       physicsShape: []
@@ -133,6 +133,48 @@ TextureImporter:
       bones: []
       spriteID: 35b31046892f65448b44a064ace4993e
       internalID: -1310986027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_selectors_1
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 75
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 8, y: 8, z: 8, w: 8}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca25b399d7e739840bf6e821bee37863
+      internalID: 1186929842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grid_selectors_2
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 76
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 7, y: 7, z: 7, w: 7}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08240411bc700114792372d9a467ce17
+      internalID: 655651250
       vertices: []
       indices: 
       edges: []
@@ -149,6 +191,8 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       grid_selectors_0: -1310986027
+      grid_selectors_1: 1186929842
+      grid_selectors_2: 655651250
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

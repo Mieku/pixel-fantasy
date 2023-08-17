@@ -1,5 +1,6 @@
 using System;
 using Characters;
+using Popups.Change_Job_Popup;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -163,7 +164,12 @@ namespace Popups.Kinling_Info_Popup
         {
             ShowTabContent(KinlingInfoTab.Gear);
         }
-        
+
+        public void ChangeJobPressed()
+        {
+            ChangeJobPopup.Show(_selectedUnit);
+        }
+
         public enum KinlingInfoTab
         {
             Mood,
