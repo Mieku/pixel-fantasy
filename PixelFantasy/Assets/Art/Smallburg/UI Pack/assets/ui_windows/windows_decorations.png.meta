@@ -125,7 +125,7 @@ TextureImporter:
         width: 48
         height: 11
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 17, y: 0, z: 17, w: 0}
       outline: []
       physicsShape: []
@@ -146,7 +146,7 @@ TextureImporter:
         width: 48
         height: 6
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 4, y: 0, z: 4, w: 0}
       outline: []
       physicsShape: []
@@ -154,6 +154,48 @@ TextureImporter:
       bones: []
       spriteID: 5d87c71a41e3e9141ab3dfe9c1577006
       internalID: 1440563516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: windows_decorations_2
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 56
+        width: 55
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 25, y: 0, z: 25, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe3b9e06970953f42868ff224e76ce2a
+      internalID: 1163615156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: windows_decorations_3
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 47
+        width: 51
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 21, y: 0, z: 25, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ed7a5c1e450f444f9efeeed2404f87f
+      internalID: -491343302
       vertices: []
       indices: 
       edges: []
@@ -171,6 +213,8 @@ TextureImporter:
     nameFileIdTable:
       windows_decorations_0: -722985917
       windows_decorations_1: 1440563516
+      windows_decorations_2: 1163615156
+      windows_decorations_3: -491343302
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

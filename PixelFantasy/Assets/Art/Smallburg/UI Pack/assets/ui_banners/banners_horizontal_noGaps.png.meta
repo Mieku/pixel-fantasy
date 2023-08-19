@@ -179,6 +179,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: banners_horizontal_noGaps_3
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 718
+        width: 22
+        height: 14
+      alignment: 9
+      pivot: {x: 0.5, y: 0.60714287}
+      border: {x: 3, y: 6, z: 3, w: 3}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fee75337364f0544a7e1369d936be4b
+      internalID: 71770217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: banners_horizontal_noGaps_4
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 753
+        width: 22
+        height: 14
+      alignment: 9
+      pivot: {x: 0.5, y: 0.60714287}
+      border: {x: 3, y: 3, z: 3, w: 6}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa8ef868452d76144a8dc53236db88a5
+      internalID: 303060416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -193,6 +235,8 @@ TextureImporter:
       banners_horizontal_noGaps_0: -1884148348
       banners_horizontal_noGaps_1: -1603310525
       banners_horizontal_noGaps_2: -582130392
+      banners_horizontal_noGaps_3: 71770217
+      banners_horizontal_noGaps_4: 303060416
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
