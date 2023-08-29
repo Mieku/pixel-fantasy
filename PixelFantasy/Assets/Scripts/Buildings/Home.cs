@@ -8,7 +8,7 @@ namespace Buildings
     {
         protected override void OnBuildingClicked()
         {
-            HUDController.Instance.ShowBuildingDetails(this);
+            //HUDController.Instance.ShowBuildingDetails(this);
         }
     }
 }

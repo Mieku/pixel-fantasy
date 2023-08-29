@@ -143,7 +143,7 @@ namespace TaskSystem
             if (_state == TaskState.HaulCraftedItem)
             {
                 // Find storage to place the item, prefer the building's, if nothing... drop on the floor
-                _receivingStorage = _craftingTable.ParentRoom.FindRoomStorage(_itemToCraft);//_building.FindBuildingStorage(_itemToCraft);
+                _receivingStorage = _craftingTable.ParentBuilding.FindBuildingStorage(_itemToCraft);
                 if (_receivingStorage == null)
                 {
                     _receivingStorage = InventoryManager.Instance.GetAvailableStorage(_item);

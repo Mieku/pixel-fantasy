@@ -16,8 +16,11 @@ namespace Characters
         
         public RoomZone AssignedWorkRoom;
         public Schedule Schedule = new Schedule();
+        public Building AssignedHome;
+        public Building AssignedWorkplace;
 
         public string FullName => FirstName + " " + LastName;
+        public string JobName => "Not Built Yet!";
         public string UID => _uid.uniqueID;
         
         public void SetLoadData(UnitStateData data)

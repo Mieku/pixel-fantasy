@@ -9,13 +9,13 @@ namespace Buildings.Building_Panels.Components
         [SerializeField] private GameObject _inventoryPanel;
         [SerializeField] private List<InventoryDisplaySlot> _slots;
 
-        private BuildingPanel _buildingPanel;
+        private BuildingPanelOld buildingPanelOld;
         private bool _isOpen;
         private Dictionary<ItemData, int> _inventory;
 
         private void Start()
         {
-            _buildingPanel = gameObject.GetComponentInParent<BuildingPanel>();
+            buildingPanelOld = gameObject.GetComponentInParent<BuildingPanelOld>();
             ClosePanel();
         }
 
@@ -52,7 +52,7 @@ namespace Buildings.Building_Panels.Components
         private void RefreshInventory()
         {
             ClearAllSlots();
-            _inventory = _buildingPanel.buildingOld.GetBuildingInventory();
+            _inventory = buildingPanelOld.buildingOld.GetBuildingInventory();
             int slotIndex = 0;
             if (_inventory != null)
             {

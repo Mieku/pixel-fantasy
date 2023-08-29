@@ -43,12 +43,12 @@ namespace HUD
             _kinlingDetails.Show(unit);
         }
 
-        public void ShowBuildingDetails(BuildingOld buildingOld)
+        public void ShowBuildingDetails(Building building)
         {
             _genericPanel.SetActive(false);
             _kinlingDetails.Hide();
 
-            _buildingDetails.Show(buildingOld);
+            _buildingDetails.Show(building);
         }
 
         public void ShowProductionRoom(ProductionZone zone)

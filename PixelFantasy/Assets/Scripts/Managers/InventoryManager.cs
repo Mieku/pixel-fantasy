@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Buildings;
 using Items;
 using ScriptableObjects;
 using UnityEngine;
@@ -61,10 +62,52 @@ namespace Managers
 
             return null;
         }
+        
+        public Storage FindAvailableGlobalStorage(ItemData item)
+        {
+            foreach (var storage in _allStorage)
+            {
+                if(storage.IsGlobal && storage.AmountCanBeDeposited(item) > 0)
+                {
+                    return storage;
+                }
+            }
+
+            return null;
+        }
 
         public Storage ClaimItem(ItemData itemData)
         {
             foreach (var storage in _allStorage)
+            {
+                if (storage.AmountCanBeWithdrawn(itemData) > 0)
+                {
+                    storage.SetClaimed(itemData, 1);
+                    return storage;
+                }
+            }
+
+            return null;
+        }
+        
+        public Storage ClaimItemGlobal(ItemData itemData)
+        {
+            foreach (var storage in _allStorage)
+            {
+                if (storage.IsGlobal && storage.AmountCanBeWithdrawn(itemData) > 0)
+                {
+                    storage.SetClaimed(itemData, 1);
+                    return storage;
+                }
+            }
+
+            return null;
+        }
+        
+        public Storage ClaimItemBuilding(ItemData itemData, Building building)
+        {
+            var allBuildingStorage = building.GetBuildingStorages();
+            foreach (var storage in allBuildingStorage)
             {
                 if (storage.AmountCanBeWithdrawn(itemData) > 0)
                 {

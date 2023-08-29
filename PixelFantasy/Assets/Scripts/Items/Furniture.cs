@@ -27,10 +27,12 @@ namespace Items
         private bool _isPlanning;
         private float _remainingWork;
         private bool _isOutlineLocked;
-        protected RoomZone _parentRoom;
+        protected Building _parentBuilding;
+        //protected RoomZone _parentRoom;
 
         public FurnitureItemData FurnitureItemData => _furnitureItemData;
-        public RoomZone ParentRoom => _parentRoom;
+        public Building ParentBuilding => _parentBuilding;
+        //public RoomZone ParentRoom => _parentRoom;
         
         protected virtual void Awake()
         {
@@ -42,7 +44,15 @@ namespace Items
                 _materials.Add(spriteRenderer.material);
             }
         }
-        
+
+        private void OnDestroy()
+        {
+            if (_parentBuilding != null)
+            {
+                _parentBuilding.DeregisterFurniture(this);
+            }
+        }
+
         protected virtual void Start()
         {
             if (_furnitureItemData != null && !_isPlanning)
@@ -158,24 +168,23 @@ namespace Items
             IsBuilt = true;
             
             // Check if this was placed in a room, if so add it to the room
-            var zone = Helper.IsPositionInZone(transform.position);
-            if (zone != null)
+            var building = Helper.IsPositionInBuilding(transform.position);
+            if (building != null)
             {
-                if (zone is RoomZone room)
-                {
-                    AssignParentRoom(room);
-                }
+                AssignBuilding(building);
             }
         }
 
-        public void AssignParentRoom(RoomZone room)
+        private void AssignBuilding(Building building)
         {
-            if (room != null)
+            if (building == null)
             {
-                room.AddFurniture(this);
+                Debug.LogError($"Attmepted to assign {_furnitureItemData.ItemName} to null building");
+                return;
             }
-            
-            _parentRoom = room;
+
+            _parentBuilding = building;
+            building.RegisterFurniture(this);
         }
         
         private void Update()

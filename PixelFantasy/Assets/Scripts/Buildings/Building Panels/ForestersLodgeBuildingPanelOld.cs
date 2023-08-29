@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Buildings.Building_Panels
 {
-    public class ForestersLodgeBuildingPanel : BuildingPanel
+    public class ForestersLodgeBuildingPanelOld : BuildingPanelOld
     {
         [SerializeField] private Toggle _harvestFruitsToggle;
         [SerializeField] private Toggle _cutFruitingToggle;

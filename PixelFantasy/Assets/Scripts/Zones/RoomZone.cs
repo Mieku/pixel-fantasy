@@ -76,22 +76,22 @@ namespace Zones
 
         private void UpdateContainedFurniture()
         {
-            foreach (var furniture in _availableFurniture)
-            {
-                furniture.AssignParentRoom(null);
-            }
-            _availableFurniture.Clear();
-            
-            foreach (var gridPos in WorldPositions)
-            {
-                var furniture = Helper.GetObjectAtPosition<Furniture>(gridPos);
-                if (furniture != null)
-                {
-                    furniture.AssignParentRoom(this);
-                }
-            }
-            
-            _availableFurniture = _availableFurniture.Distinct().ToList();
+            // foreach (var furniture in _availableFurniture)
+            // {
+            //     furniture.AssignParentRoom(null);
+            // }
+            // _availableFurniture.Clear();
+            //
+            // foreach (var gridPos in WorldPositions)
+            // {
+            //     var furniture = Helper.GetObjectAtPosition<Furniture>(gridPos);
+            //     if (furniture != null)
+            //     {
+            //         furniture.AssignParentRoom(this);
+            //     }
+            // }
+            //
+            // _availableFurniture = _availableFurniture.Distinct().ToList();
         }
 
         public bool ContainsFurniture(FurnitureItemData furnitureItemData)

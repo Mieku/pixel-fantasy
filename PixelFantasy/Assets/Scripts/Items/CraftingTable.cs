@@ -1,4 +1,5 @@
 using System;
+using Buildings;
 using ScriptableObjects;
 using TaskSystem;
 using UnityEngine;
@@ -31,9 +32,9 @@ namespace Items
         {
             if (IsInUse || !IsBuilt || (_curTask != null && _curTask.TaskId != "")) return;
 
-            if (_parentRoom is ProductionZone prodRoom)
+            if (_parentBuilding is ProductionBuilding prodBuilding)
             {
-                _curTask = prodRoom.CreateProductionTask(this);
+                _curTask = prodBuilding.CreateProductionTask(this);
             }
         }
 

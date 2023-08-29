@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Buildings.Building_Panels
 {
-    public class BuildersWorkshopPanel : BuildingPanel
+    public class BuildersWorkshopPanelOld : BuildingPanelOld
     {
         private BuildersWorkshop _buildersWorkshop => buildingOld as BuildersWorkshop;
     }

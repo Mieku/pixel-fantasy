@@ -43,9 +43,9 @@ namespace Controllers
             _selectedItemInfoPanel.ShowItemDetails(selectionData);
         }
 
-        public void ShowBuildingDetails(BuildingOld buildingOld)
+        public void ShowBuildingDetails(Building building)
         {
-            _selectedItemInfoPanel.ShowBuildingDetails(buildingOld);
+            _selectedItemInfoPanel.ShowBuildingDetails(building);
         }
         
         public void ShowRoomDetails(RoomZone zone)

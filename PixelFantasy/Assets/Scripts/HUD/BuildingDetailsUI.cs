@@ -7,53 +7,27 @@ namespace HUD
 {
     public class BuildingDetailsUI : MonoBehaviour
     {
-        [SerializeField] private GameObject _root;
+        [SerializeField] private BuildingPanel _panel;
 
-        private BuildingOld buildingOld;
-        private bool _isInsideBuilding;
-        private BuildingPanel _buildingPanel;
+        private Building _building;
 
         private void Start()
         {
-            _root.SetActive(false);
+            Hide();
         }
 
-        public void Show(BuildingOld buildingOld)
+        public void Show(Building building)
         {
-            this.buildingOld = buildingOld;
-            _buildingPanel = Instantiate(this.buildingOld.BuildingPanel, _root.transform);
-            _buildingPanel.Init(buildingOld);
+            this._building = building;
             
-            _root.SetActive(true);
+            _panel.gameObject.SetActive(true);
+            _panel.Init(_building);
         }
 
         public void Hide()
         {
-            if (_buildingPanel == null) return;
-                
-            buildingOld = null;
-            _root.SetActive(false);
-            Destroy(_buildingPanel.gameObject);
-            _buildingPanel = null;
-        }
-
-        public void ChangeViewPressed()
-        {
-            if (_isInsideBuilding)
-            {
-                _isInsideBuilding = false;
-                buildingOld.ViewExterior();
-            }
-            else
-            {
-                _isInsideBuilding = true;
-                buildingOld.ViewInterior();
-            }
-        }
-
-        public void DeconstructPressed()
-        {
-            // TODO: Build me!
+            _building = null;
+            _panel.gameObject.SetActive(false);
         }
     }
 }

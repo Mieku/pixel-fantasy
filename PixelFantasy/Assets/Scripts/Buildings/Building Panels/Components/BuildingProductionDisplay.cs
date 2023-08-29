@@ -16,10 +16,10 @@ namespace Buildings.Building_Panels.Components
         [SerializeField] private Transform _optionsParent;
         [SerializeField] private Transform _controlsParent;
 
-        private BuildingPanel _buildingPanel;
+        private BuildingPanelOld buildingPanelOld;
         private bool _isOpen;
         private bool _isShowingOptions;
-        private ProductionBuildingOld BuildingOld => _buildingPanel.buildingOld;
+        private ProductionBuildingOld BuildingOld => buildingPanelOld.buildingOld;
         private List<GameObject> _displayedOptions = new List<GameObject>();
         private List<GameObject> _displayedControls = new List<GameObject>();
 
@@ -29,7 +29,7 @@ namespace Buildings.Building_Panels.Components
             _optionPreset.gameObject.SetActive(false);
             _mainPanelHandle.SetActive(false);
             _optionsPanelHandle.SetActive(false);
-            _buildingPanel = gameObject.GetComponentInParent<BuildingPanel>();
+            buildingPanelOld = gameObject.GetComponentInParent<BuildingPanelOld>();
         }
 
         public void RefreshProductionControls()

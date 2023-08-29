@@ -22,6 +22,16 @@ namespace Characters
 
         private ItemData _heldTool;
 
+        private void Start()
+        {
+            UnitsManager.Instance.RegisterKinling(this);
+        }
+
+        private void OnDestroy()
+        {
+            UnitsManager.Instance.DeregisterKinling(this);
+        }
+
         public void AssignHeldTool(ItemData toolItemData)
         {
             _heldTool = toolItemData;

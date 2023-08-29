@@ -43,7 +43,7 @@ namespace Buildings
         public bool IsPlaced;
         public Interior Interior;
         public Zone AssignedZone;
-        public BuildingPanel BuildingPanel => BuildingData.BuildingPanel;
+        public BuildingPanelOld BuildingPanelOld => BuildingData.buildingPanelOld;
         public List<Furniture> AllFurniture => _availableFurniture;
 
         private void Awake()

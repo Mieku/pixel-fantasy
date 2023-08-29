@@ -305,11 +305,22 @@ namespace TaskSystem
             item.transform.localPosition = Vector3.zero;
         }
 
+        public Item HeldItem => _heldItem;
+
         public void DropCarriedItem()
         {
             if (_heldItem == null) return;
         
             Spawner.Instance.SpawnItem(_heldItem.GetItemData(), transform.position, true);
+            Destroy(_heldItem.gameObject);
+            _heldItem = null;
+        }
+
+        public void DepositHeldItemInStorage(Storage storage)
+        {
+            if (_heldItem == null) return;
+            
+            storage.DepositItems(_heldItem.GetItemData(), 1);
             Destroy(_heldItem.gameObject);
             _heldItem = null;
         }

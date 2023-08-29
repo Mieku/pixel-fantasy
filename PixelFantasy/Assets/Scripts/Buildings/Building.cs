@@ -1,9 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Buildings.Building_Panels;
+using Characters;
 using CodeMonkey.Utils;
+using Controllers;
 using Items;
 using Managers;
 using ScriptableObjects;
+using Sirenix.Utilities;
 using TaskSystem;
 using UnityEngine;
 
@@ -13,7 +17,7 @@ namespace Buildings
     {
         public string BuildingID;
         
-        [SerializeField] private BuildingData _buildingData;
+        [SerializeField] protected BuildingData _buildingData;
         [SerializeField] private Footings _footings;
         [SerializeField] private GameObject _internalHandle;
         [SerializeField] private GameObject _exteriorHandle;
@@ -24,7 +28,181 @@ namespace Buildings
         [SerializeField] private GameObject _shadowboxHandle;
         [SerializeField] private Transform _constructionStandPos;
 
+        public BuildingData BuildingData => _buildingData;
+
         private BuildingState _state;
+        private string _buildingName;
+
+        private List<BuildingNote> _buildingNotes = new List<BuildingNote>();
+        private List<Unit> _occupants = new List<Unit>();
+        private List<Furniture> _allFurniture = new List<Furniture>();
+        private List<InventoryLogisticBill> _logisticsBills = new List<InventoryLogisticBill>();
+
+        private float _logiCheckTimer;
+
+        public List<InventoryLogisticBill> LogisticBills => _logisticsBills;
+        public List<Furniture> AllFurniture => _allFurniture;
+
+        private void CheckLogistics()
+        {
+            foreach (var bill in _logisticsBills)
+            {
+                bill.CheckBill(this);
+            }
+        }
+        
+        public void AddLogisticBill(InventoryLogisticBill newBill)
+        {
+            _logisticsBills.Add(newBill);
+        }
+
+        public void RemoveLogisticBill(InventoryLogisticBill billToRemove)
+        {
+            if (!_logisticsBills.Contains(billToRemove))
+            {
+                Debug.LogError($"Tried to remove a not existing bill: {billToRemove}");
+                return;
+            }
+            else
+            {
+                _logisticsBills.Remove(billToRemove);
+            }
+        }
+
+        public void UpdateLogisticBill(InventoryLogisticBill originalBill, InventoryLogisticBill newBill)
+        {
+            for (int i = 0; i < _logisticsBills.Count; i++)
+            {
+                if (_logisticsBills[i].Item == originalBill.Item &&
+                    _logisticsBills[i].Type == originalBill.Type &&
+                    _logisticsBills[i].Value == originalBill.Value &&
+                    _logisticsBills[i].Building == originalBill.Building)
+                {
+                    _logisticsBills[i] = newBill;
+                    return;
+                }
+            }
+            
+            Debug.LogError($"Tried to update an not existing bill: {originalBill}, created instead");
+            AddLogisticBill(newBill);
+        }
+        
+        public void RegisterFurniture(Furniture furniture)
+        {
+            if (_allFurniture.Contains(furniture))
+            {
+                Debug.LogError($"Attempted to register already registered furniture: {furniture.FurnitureItemData.ItemName}");
+                return;
+            }
+            
+            _allFurniture.Add(furniture);
+        }
+
+        public void DeregisterFurniture(Furniture furniture)
+        {
+            if (!_allFurniture.Contains(furniture))
+            {
+                Debug.LogError($"Attempted to deregister not registered furniture: {furniture.FurnitureItemData.ItemName}");
+                return;
+            }
+            
+            _allFurniture.Remove(furniture);
+        }
+
+        public List<Storage> GetBuildingStorages()
+        {
+            List<Storage> results = new List<Storage>();
+            foreach (var furniture in _allFurniture)
+            {
+                Storage storage = furniture as Storage;
+                if (storage != null)
+                {
+                    results.Add(storage);
+                }
+            }
+
+            return results;
+        }
+        
+        public Storage FindBuildingStorage(ItemData itemData)
+        {
+            foreach (var storage in GetBuildingStorages())
+            {
+                if(storage.AmountCanBeDeposited(itemData) > 0)
+                {
+                    return storage;
+                }
+            }
+
+            return null;
+        }
+        
+        public Dictionary<ItemData, int> GetBuildingInventory()
+        {
+            Dictionary<ItemData, int> results = new Dictionary<ItemData, int>();
+            var storages = GetBuildingStorages();
+            foreach (var storage in storages)
+            {
+                var storedItems = storage.AvailableInventory;
+                foreach (var itemKVP in storedItems)
+                {
+                    if (results.ContainsKey(itemKVP.Key))
+                    {
+                        results[itemKVP.Key] += itemKVP.Value;
+                    }
+                    else
+                    {
+                        results.Add(itemKVP.Key, itemKVP.Value);
+                    }
+                }
+            }
+
+            return results;
+        }
+
+        public List<Unit> GetOccupants()
+        {
+            return _occupants;
+        }
+
+        public void AddOccupant(Unit unit)
+        {
+            _occupants.Add(unit);   
+        }
+
+        public void RemoveOccupant(Unit unit)
+        {
+            _occupants.Remove(unit);
+        }
+        
+        public List<BuildingNote> BuildingNotes
+        {
+            get
+            {
+                if (_buildingNotes.Count == 0)
+                {
+                    var notes = new List<BuildingNote>();
+                    notes.Add(new BuildingNote("Everything is great!", true));
+                    return notes;
+                }
+
+                return _buildingNotes;
+            }
+        }
+
+        public string BuildingName
+        {
+            get
+            {
+                if (_buildingName.IsNullOrWhitespace())
+                {
+                    _buildingName = _buildingData.ConstructionName;
+                }
+
+                return _buildingName;
+            }
+            set => _buildingName = value;
+        }
 
         protected override void Awake()
         {
@@ -40,6 +218,23 @@ namespace Buildings
         private void OnDestroy()
         {
             GameEvents.OnHideRoofsToggled -= ToggleInternalView;
+        }
+
+        public void OnBuildingClicked()
+        {
+            if (_state == BuildingState.Planning) return;
+
+            HUDController.Instance.ShowBuildingDetails(this);
+        }
+
+        public void OnCursorEnter()
+        {
+            if (_state == BuildingState.Planning) return;
+        }
+
+        public void OnCurserExit()
+        {
+            if (_state == BuildingState.Planning) return;
         }
 
         public void SetState(BuildingState state)
@@ -88,6 +283,16 @@ namespace Buildings
             {
                 FollowCursor();
                 CheckPlacement();
+            }
+
+            if (_state == BuildingState.Built)
+            {
+                _logiCheckTimer += Time.deltaTime;
+                if (_logiCheckTimer > 2)
+                {
+                    _logiCheckTimer = 0;
+                    CheckLogistics();
+                }
             }
         }
 
@@ -208,6 +413,18 @@ namespace Buildings
             Planning,
             Construction,
             Built,
+        }
+
+        public class BuildingNote
+        {
+            public string Note;
+            public bool IsPositive;
+
+            public BuildingNote(string note, bool isPositive)
+            {
+                Note = note;
+                IsPositive = isPositive;
+            }
         }
         
     }

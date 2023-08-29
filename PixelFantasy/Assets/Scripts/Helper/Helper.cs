@@ -432,4 +432,19 @@ public static class Helper
         var zone = ZoneManager.Instance.GetZoneByGridPos(worldPos) as Zone;
         return zone;
     }
+
+    public static Building IsPositionInBuilding(Vector2 worldPos)
+    {
+        var gos = GetGameObjectsOnTile(worldPos, "Building Interior");
+        foreach (var go in gos)
+        {
+            var building = go.GetComponentInParent<Building>(true);
+            if (building != null)
+            {
+                return building;
+            }
+        }
+
+        return null;
+    }
 }

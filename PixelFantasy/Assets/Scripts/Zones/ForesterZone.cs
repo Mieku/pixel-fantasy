@@ -83,7 +83,7 @@ namespace Zones
         {
             base.ClickZone();
             
-            HUDController.Instance.ShowBuildingDetails(_building);
+            //HUDController.Instance.ShowBuildingDetails(_building);
         }
 
         public override void UnclickZone()

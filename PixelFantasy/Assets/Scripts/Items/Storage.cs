@@ -13,7 +13,9 @@ namespace Items
 
         [SerializeField] private List<StorageSlot> _storageSlots = new List<StorageSlot>();
         protected StorageItemData _storageItemData => _furnitureItemData as StorageItemData;
-        
+
+        public bool IsGlobal => _parentBuilding == null;
+
         protected override void Awake()
         {
             if (_storageItemData != null && IsBuilt)
