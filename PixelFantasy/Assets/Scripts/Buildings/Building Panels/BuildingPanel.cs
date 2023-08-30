@@ -84,7 +84,6 @@ namespace Buildings.Building_Panels
                     break;
                 case PanelState.Production:
                     ChangeBtnIconColour(_productionBtn, _btnIconColourSelected);
-                    _productionPanel.gameObject.SetActive(true);
                     _productionPanel.Init(_building);
                     break;
                 case PanelState.Exterior:
@@ -101,9 +100,9 @@ namespace Buildings.Building_Panels
         {
             _generalPanel.Close();
             _furniturePanel.Close();
+            _productionPanel.Close();
             
             _zoningPanel.gameObject.SetActive(false);
-            _productionPanel.gameObject.SetActive(false);
             _exteriorPanel.gameObject.SetActive(false);
         }
 
@@ -114,8 +113,19 @@ namespace Buildings.Building_Panels
             // Show all btns
             _generalBtn.gameObject.SetActive(true);
             _zoningBtn.gameObject.SetActive(true);
-            _productionBtn.gameObject.SetActive(true);
+            
             _exteriorBtn.gameObject.SetActive(true);
+
+            // Production buildings only show the production options
+            var prodBuilding = _building as ProductionBuilding;
+            if (prodBuilding != null)
+            {
+                _productionBtn.gameObject.SetActive(true);
+            }
+            else
+            {
+                _productionBtn.gameObject.SetActive(false);
+            }
 
             // Don't show furniture if there are none
             if (_building.BuildingData.AllowedFurniture.Count > 0)
