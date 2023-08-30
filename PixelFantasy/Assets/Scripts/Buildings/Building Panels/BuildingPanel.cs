@@ -100,13 +100,9 @@ namespace Buildings.Building_Panels
         private void HideAllContent()
         {
             _generalPanel.Close();
-            //_generalPanel.gameObject.SetActive(false);
-            
+            _furniturePanel.Close();
             
             _zoningPanel.gameObject.SetActive(false);
-            
-            
-            _furniturePanel.gameObject.SetActive(false);
             _productionPanel.gameObject.SetActive(false);
             _exteriorPanel.gameObject.SetActive(false);
         }
@@ -118,9 +114,18 @@ namespace Buildings.Building_Panels
             // Show all btns
             _generalBtn.gameObject.SetActive(true);
             _zoningBtn.gameObject.SetActive(true);
-            _furnitureBtn.gameObject.SetActive(true);
             _productionBtn.gameObject.SetActive(true);
             _exteriorBtn.gameObject.SetActive(true);
+
+            // Don't show furniture if there are none
+            if (_building.BuildingData.AllowedFurniture.Count > 0)
+            {
+                _furnitureBtn.gameObject.SetActive(true);
+            }
+            else
+            {
+                _furnitureBtn.gameObject.SetActive(false);
+            }
         }
 
         private void DeactivateAllControlBtns()

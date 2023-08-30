@@ -16,7 +16,6 @@ MonoBehaviour:
   MaxStackSize: 1
   ItemSprite: {fileID: -1997294335, guid: 90f5efa4e4d76d34cb9b37730541f11f, type: 3}
   DefaultSpriteScale: {x: 1, y: 1}
-  CraftersProfession: {fileID: 0}
   RequiredCraftingTable: {fileID: 11400000, guid: 644004581d1321d41993fc7be87087b5, type: 2}
   WorkCost: 5
   _resourceCosts:
@@ -26,5 +25,6 @@ MonoBehaviour:
   - Water
   - Wall
   - Obstacle
-  PlacedFurnitureOptions:
-  - {fileID: 8679221839148330440, guid: e219a8e018e3d244b8d0ef8b035b149b, type: 3}
+  Catergory: 0
+  FurniturePrefab: {fileID: 8679221839148330440, guid: e219a8e018e3d244b8d0ef8b035b149b, type: 3}
+  Varients: []

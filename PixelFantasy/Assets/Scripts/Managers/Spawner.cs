@@ -453,7 +453,7 @@ namespace Managers
         private Furniture _plannedFurniture;
         public void PlanFurniture(FurnitureItemData furnitureData)
         {
-            var furniture = Instantiate(furnitureData.GetRandomFurnitureOption(), _furnitureParent);
+            var furniture = Instantiate(furnitureData.FurniturePrefab, _furnitureParent);
             furniture.Plan(furnitureData);
             _plannedFurniture = furniture;
         }

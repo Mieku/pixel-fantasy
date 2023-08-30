@@ -11,11 +11,15 @@ namespace ScriptableObjects
     public class BuildingData : ConstructionData
     {
         //public GameObject Exterior; // TODO: Make this capable of having multiple options
-        //public Interior Interior;
         public BuildingType BuildingType;
-        public List<BuildingOld> BuildingOptions;
         [FormerlySerializedAs("BuildingPanel")] public BuildingPanelOld buildingPanelOld;
         public int MaxOccupants;
+        public List<FurnitureItemData> AllowedFurniture = new List<FurnitureItemData>();
+
+        public bool IsFurnitureAllowed(FurnitureItemData furnitureItemData)
+        {
+            return AllowedFurniture.Contains(furnitureItemData);
+        }
     }
 
     public enum BuildingType

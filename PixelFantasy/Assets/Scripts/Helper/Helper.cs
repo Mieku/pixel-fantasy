@@ -1,11 +1,14 @@
 
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Buildings;
 using Items;
 using Managers;
 using UnityEngine;
 using Zones;
+using Random = UnityEngine.Random;
 
 public static class Helper
 {
@@ -446,5 +449,15 @@ public static class Helper
         }
 
         return null;
+    }
+}
+
+public static class EnumExtensions
+{
+    public static string GetDescription(this Enum value)
+    {
+        var field = value.GetType().GetField(value.ToString());
+        var attributes = (DescriptionAttribute[])field.GetCustomAttributes(typeof(DescriptionAttribute), false);
+        return attributes.Length > 0 ? attributes[0].Description : value.ToString();
     }
 }

@@ -157,7 +157,6 @@ namespace Buildings.Building_Panels
         private void RefreshInventory()
         {
             _inventory.Open(_building);
-            // _inventory.Refresh(_building);
         }
     }
 }

@@ -28,6 +28,7 @@ namespace Buildings.Building_Panels
         private bool _logisticToggled;
         private int _logisticValue;
         private InventoryLogisticBill.LogisticType _logisticType;
+        private bool _panelOpened;
 
         public void OpenLogistics(BuildingInventorySlot requestorSlot)
         {
@@ -37,6 +38,7 @@ namespace Buildings.Building_Panels
             }
             
             gameObject.SetActive(true);
+            _panelOpened = true;
             _requestorSlot = requestorSlot;
             _assignedItem = _requestorSlot.SlotItem;
             if (_assignedItem == null && _requestorSlot.Bill != null)
@@ -142,6 +144,7 @@ namespace Buildings.Building_Panels
             }
             
             gameObject.SetActive(false);
+            _panelOpened = false;
         }
 
         private void RefreshBillDetails(InventoryLogisticBill bill)
@@ -187,6 +190,8 @@ namespace Buildings.Building_Panels
 
         private void CheckBill()
         {
+            if (!_panelOpened) return;
+            
             if (_logisticToggled && _currentSelectedSlot.AssignedItem != null)
             {
                 InventoryLogisticBill potentialBill =

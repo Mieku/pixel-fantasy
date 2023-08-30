@@ -305,7 +305,7 @@ TextureImporter:
         width: 12
         height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -313,6 +313,27 @@ TextureImporter:
       bones: []
       spriteID: b182e12ba1cca694d810536bd941acfd
       internalID: -1997294335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlas_16x_4
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 16
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a5a9350ad2bf8446a46d4f85e09d304
+      internalID: -1415074464
       vertices: []
       indices: 
       edges: []
@@ -333,6 +354,7 @@ TextureImporter:
       atlas_16x_1: -8917494276948081965
       atlas_16x_2: -4089702158966414991
       atlas_16x_3: -6696023420931748170
+      atlas_16x_4: -1415074464
       bed: 592131814113056924
       candle: -6198666131353644898
       couldron: -3027782111604198055

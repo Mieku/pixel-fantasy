@@ -26,6 +26,9 @@ MonoBehaviour:
   - Structure
   _planningMode: 2
   BuildingType: 0
-  BuildingOptions: []
   buildingPanelOld: {fileID: 3659153185260872890, guid: f8f030d7bf3c4a146a43604eb877302d, type: 3}
   MaxOccupants: 4
+  AllowedFurniture:
+  - {fileID: 11400000, guid: f1cb3944f249ec24f909ab4be3e97f91, type: 2}
+  - {fileID: 11400000, guid: 8054ef9a56e8daa448e71e48663b1de4, type: 2}
+  - {fileID: 11400000, guid: 54f7579509018e142be034f672827fb3, type: 2}
