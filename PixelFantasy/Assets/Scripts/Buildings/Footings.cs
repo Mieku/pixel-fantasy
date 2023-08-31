@@ -10,13 +10,11 @@ namespace Buildings
         [SerializeField] private List<SpriteRenderer> _footings;
         [SerializeField] private SpriteRenderer _doorIcon;
         [SerializeField] private GameObject _footingsHandle;
-
-        private Color _canPlaceColour;
+        
         private Color _cantPlaceColour;
 
         private void Awake()
         {
-            _canPlaceColour = Librarian.Instance.GetColour("Placement Green");
             _cantPlaceColour = Librarian.Instance.GetColour("Placement Red");
         }
 
@@ -33,10 +31,11 @@ namespace Buildings
             {
                 if (Helper.IsGridPosValidToBuild(footing.transform.position, invalidPlacementTags))
                 {
-                    footing.color = _canPlaceColour;
+                    footing.gameObject.SetActive(false);
                 }
                 else
                 {
+                    footing.gameObject.SetActive(true);
                     footing.color = _cantPlaceColour;
                     result = false;
                 }
