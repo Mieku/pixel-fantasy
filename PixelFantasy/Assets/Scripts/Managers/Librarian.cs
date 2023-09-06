@@ -26,7 +26,19 @@ namespace Managers
         [SerializeField] private List<RoomData> _roomLibrary;
         [SerializeField] private List<RoofData> _roofLibrary;
         [SerializeField] private List<NeedData> _needLibrary;
+        [SerializeField] private List<JobData> _jobLibrary;
 
+        public JobData GetJob(string jobName)
+        {
+            var result = _jobLibrary.Find(job => job.JobName == jobName);
+            if (result == null)
+            {
+                Debug.LogError($"Unkown Job: {jobName}");
+            }
+
+            return result;
+        }
+        
         public NeedData GetNeedData(NeedType needType)
         {
             var result = _needLibrary.Find(need => need.NeedType == needType);
