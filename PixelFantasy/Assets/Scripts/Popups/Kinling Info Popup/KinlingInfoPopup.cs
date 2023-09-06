@@ -1,5 +1,6 @@
 using System;
 using Characters;
+using Managers;
 using Popups.Change_Job_Popup;
 using TMPro;
 using UnityEngine;
@@ -11,6 +12,9 @@ namespace Popups.Kinling_Info_Popup
     public class KinlingInfoPopup : Popup<KinlingInfoPopup>
     {
         [SerializeField] private TextMeshProUGUI _kinlingNameDisp;
+        [SerializeField] private TextMeshProUGUI _jobName;
+        [SerializeField] private Image _jobIcon;
+        [SerializeField] private Image _jobExpFill;
 
         [Header("Tabs")]
         [SerializeField] private Image _moodTab;
@@ -55,6 +59,18 @@ namespace Popups.Kinling_Info_Popup
         private void Refresh()
         {
             _kinlingNameDisp.text = _selectedUnit.GetUnitState().FullName;
+            _jobName.text = _selectedUnit.GetUnitState().CurrentJob.JobNameWithTitle;
+            if (_selectedUnit.GetUnitState().CurrentJob.JobData.JobIcon != null)
+            {
+                _jobIcon.sprite = _selectedUnit.GetUnitState().CurrentJob.JobData.JobIcon;
+            }
+            else
+            {
+                _jobIcon.sprite = Librarian.Instance.GetSprite("Question Mark");
+            }
+
+            var percentExp = _selectedUnit.GetUnitState().CurrentJob.CurrentLevelProgress();
+            _jobExpFill.fillAmount = percentExp;
         }
         
         private void Update()

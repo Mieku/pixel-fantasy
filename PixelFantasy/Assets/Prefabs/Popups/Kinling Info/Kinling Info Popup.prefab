@@ -936,6 +936,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   State: 0
   _kinlingNameDisp: {fileID: 2868622148059956802}
+  _jobName: {fileID: 2868622149391116432}
+  _jobIcon: {fileID: 2868622147736183375}
+  _jobExpFill: {fileID: 2868622147739633969}
   _moodTab: {fileID: 2868622147912512659}
   _healthTab: {fileID: 2868622149166228614}
   _jobsTab: {fileID: 2868622148162293103}
@@ -6905,7 +6908,7 @@ GameObject:
   - component: {fileID: 2868622147736183368}
   - component: {fileID: 2868622147736183375}
   m_Layer: 0
-  m_Name: Image
+  m_Name: Job Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12691,7 +12694,7 @@ GameObject:
   - component: {fileID: 2868622148715094091}
   - component: {fileID: 2868622148715094090}
   m_Layer: 0
-  m_Name: Image (1)
+  m_Name: Panel BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16922,7 +16925,7 @@ GameObject:
   - component: {fileID: 2868622149391116433}
   - component: {fileID: 2868622149391116432}
   m_Layer: 0
-  m_Name: Job (2)
+  m_Name: Job Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Worker JobData
   m_EditorClassIdentifier: 
   JobName: Worker
+  JobDescription: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras pretium
+    odio nec malesuada varius. Aenean non est libero. Fusce quis.
   JobIcon: {fileID: 0}
-  RequiredTool: {fileID: 0}
   Lv1Skill:
     SkillName: 
     SkillID: 
@@ -40,3 +41,6 @@ MonoBehaviour:
     SkillID: 
     SkillIcon: {fileID: 0}
     EXPRequired: 0
+  RequiredTool: {fileID: 0}
+  PrereqJob: {fileID: 0}
+  PrereqJobLv: 0

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Builder JobData
   m_EditorClassIdentifier: 
   JobName: Builder
+  JobDescription: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras pretium
+    odio nec malesuada varius. Aenean non est libero. Fusce quis.
   JobIcon: {fileID: 21300000, guid: 629f52fe0755e8a4dbaddaeeaeb365ba, type: 3}
-  RequiredTool: {fileID: 11400000, guid: 3aed8ff8be98d0349bc03dd106675280, type: 2}
   Lv1Skill:
     SkillName: Build Basic Buildings
     SkillID: Builder_Basics
@@ -40,3 +41,6 @@ MonoBehaviour:
     SkillID: Builder_Walls
     SkillIcon: {fileID: 21300000, guid: ddfc4033124baef468550b4019bea4bf, type: 3}
     EXPRequired: 200
+  RequiredTool: {fileID: 11400000, guid: 3aed8ff8be98d0349bc03dd106675280, type: 2}
+  PrereqJob: {fileID: 0}
+  PrereqJobLv: 0

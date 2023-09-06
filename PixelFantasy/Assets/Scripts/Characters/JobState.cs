@@ -20,11 +20,13 @@ namespace Characters
 
         public int CurrentLevel => JobData.DetermineJobLevel(TotalExp);
         public string LevelTitle => JobData.GetLevelName(CurrentLevel);
+        public string JobNameWithTitle => $"{LevelTitle} {JobData.JobName}";
 
         public float CurrentLevelProgress()
         {
+            if (!JobData.HasSkills) return 1.0f;
+            
             int curLvl = CurrentLevel;
-
             float summedEXP = 0;
             if (curLvl == 1)
             {

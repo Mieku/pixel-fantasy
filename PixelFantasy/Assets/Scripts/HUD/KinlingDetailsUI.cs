@@ -1,4 +1,5 @@
 using Characters;
+using Managers;
 using Popups;
 using Popups.Kinling_Info_Popup;
 using TMPro;
@@ -29,6 +30,15 @@ namespace HUD
             _root.SetActive(true);
             
             _unitName.text = unit.GetUnitState().FullName;
+            _jobName.text = unit.GetUnitState().CurrentJob.JobNameWithTitle;
+            if (_unit.GetUnitState().CurrentJob.JobData.JobIcon != null)
+            {
+                _jobIcon.sprite = _unit.GetUnitState().CurrentJob.JobData.JobIcon;
+            }
+            else
+            {
+                _jobIcon.sprite = Librarian.Instance.GetSprite("Question Mark");
+            }
         }
 
         public void Hide()

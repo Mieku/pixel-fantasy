@@ -7,13 +7,19 @@ namespace ScriptableObjects
     public class JobData : ScriptableObject
     {
         public string JobName;
+        [Multiline(4)] public string JobDescription;
         public Sprite JobIcon;
-        public CraftedItemData RequiredTool;
         public SkillData Lv1Skill;
         public SkillData Lv2Skill;
         public SkillData Lv3Skill;
         public SkillData Lv4Skill;
         public SkillData Lv5Skill;
+        
+        [Header("Requirements")]
+        public CraftedItemData RequiredTool;
+        public JobData PrereqJob;
+        public int PrereqJobLv;
+        
 
         public bool HasSkills
         {
