@@ -16,11 +16,12 @@ namespace Characters
         [SerializeField] private UnitState _unitState;
         [SerializeField] private UnitAppearance _appearance;
         [SerializeField] private UnitInventory _inventory;
-
+        
+        public KinlingEquipment Equipment;
         public UnitAnimController UnitAnimController;
         public UnitAgent UnitAgent;
 
-        private ItemData _heldTool;
+        // private ItemData _heldTool;
 
         private void Start()
         {
@@ -32,23 +33,23 @@ namespace Characters
             UnitsManager.Instance.DeregisterKinling(this);
         }
 
-        public void AssignHeldTool(ItemData toolItemData)
-        {
-            _heldTool = toolItemData;
-            UnitAnimController.Appearance.DisplayTool(toolItemData);
-        }
-
-        public void DropHeldTool()
-        {
-            Spawner.Instance.SpawnItem(_heldTool, transform.position, true);
-            _heldTool = null;
-            UnitAnimController.Appearance.DisplayTool(null);
-        }
-
-        public bool IsHoldingTool()
-        {
-            return _heldTool != null;
-        }
+        // public void AssignHeldTool(ItemData toolItemData)
+        // {
+        //     _heldTool = toolItemData;
+        //     UnitAnimController.Appearance.DisplayTool(toolItemData);
+        // }
+        //
+        // public void DropHeldTool()
+        // {
+        //     Spawner.Instance.SpawnItem(_heldTool, transform.position, true);
+        //     _heldTool = null;
+        //     UnitAnimController.Appearance.DisplayTool(null);
+        // }
+        //
+        // public bool IsHoldingTool()
+        // {
+        //     return _heldTool != null;
+        // }
 
         public UnitState GetUnitState()
         {

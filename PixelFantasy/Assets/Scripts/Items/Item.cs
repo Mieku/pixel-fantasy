@@ -26,6 +26,7 @@ namespace Items
         private Transform _originalParent;
 
         public Storage AssignedStorage;
+        public ItemState State;
 
         //[FormerlySerializedAs("AssignedStorageSlot")] public StorageTile assignedStorageTile;
 
@@ -38,8 +39,9 @@ namespace Items
         {
             _itemData = itemData;
             IsAllowed = allowed;
-
+            
             InitUID();
+            State = _itemData.CreateState(UniqueId);
             
             DisplayItemSprite();
 

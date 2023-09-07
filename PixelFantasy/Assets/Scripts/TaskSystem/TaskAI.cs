@@ -128,6 +128,12 @@ namespace TaskSystem
             {
                 task = _queuedTasks.Dequeue();
             }
+            
+            if (task == null)
+            {
+                // Check if they are missing any required Equipment
+                task = CheckEquipment();
+            }
 
             // TODO: First Check Their Assigned Work Room
 
@@ -194,6 +200,49 @@ namespace TaskSystem
             taskAction.InitAction(task);
             taskAction.PrepareAction(task);
             _state = State.ExecutingTask;
+        }
+
+        private Task CheckEquipment()
+        {
+            // TODO: Check if anything required is missing, if so equip it
+            if (!_unit.Equipment.HasEquipped(_unit.GetUnitState().CurrentJob.JobData.RequiredTool))
+            {
+                var requiredTool = _unit.GetUnitState().CurrentJob.JobData.RequiredTool;
+                
+                // Search for and claim the item, starting with personal inventory then global
+                Storage storage = null;
+                var home = _unit.GetUnitState().AssignedHome;
+                if (home != null)
+                {
+                    storage = InventoryManager.Instance.ClaimItemBuilding(requiredTool, home);
+                }
+
+                if (storage == null && _unit.GetUnitState().AssignedWorkplace != null)
+                {
+                    storage = InventoryManager.Instance.ClaimItemBuilding(requiredTool, _unit.GetUnitState().AssignedWorkplace);
+                }
+
+                if (storage == null)
+                {
+                    storage = InventoryManager.Instance.ClaimItemGlobal(requiredTool);
+                }
+
+                if (storage == null) return null;
+
+                CraftingBill.RequestedItemInfo requestedItemInfo =
+                    new CraftingBill.RequestedItemInfo(requiredTool, storage, 1);
+
+                Task equipItemTask = new Task
+                {
+                    TaskId = "Equip Item",
+                    TaskType = TaskType.Haul,
+                    Materials = new List<CraftingBill.RequestedItemInfo> { requestedItemInfo },
+                };
+
+                return equipItemTask;
+            }
+            
+            return null;
         }
         
         public UnitActionDirection GetActionDirection(Vector3 targetPos)

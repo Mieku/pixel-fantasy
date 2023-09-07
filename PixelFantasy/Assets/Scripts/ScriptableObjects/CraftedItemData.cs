@@ -3,6 +3,7 @@ using Buildings;
 using Characters;
 using Items;
 using Managers;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace ScriptableObjects
@@ -10,10 +11,10 @@ namespace ScriptableObjects
     [CreateAssetMenu(fileName = "CraftedItemData", menuName = "CraftedData/CraftedItemData", order = 1)]
     public class CraftedItemData : ItemData
     {
-        public FurnitureItemData RequiredCraftingTable; 
-        public float WorkCost;
-        [SerializeField] private List<ItemAmount> _resourceCosts;
-        [SerializeField] private List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle" };
+        [TitleGroup("Crafted Data")] public FurnitureItemData RequiredCraftingTable; 
+        [TitleGroup("Crafted Data")] public float WorkCost;
+        [TitleGroup("Crafted Data")] [SerializeField] private List<ItemAmount> _resourceCosts;
+        [TitleGroup("Crafted Data")] [SerializeField] private List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle" };
         
         public List<ItemAmount> GetResourceCosts()
         {

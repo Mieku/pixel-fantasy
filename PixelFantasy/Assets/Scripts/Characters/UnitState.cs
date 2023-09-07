@@ -24,7 +24,7 @@ namespace Characters
         private List<JobState> _jobHistory = new List<JobState>();
 
         public string FullName => FirstName + " " + LastName;
-        public string JobName => "Not Built Yet!";
+        public string JobName => CurrentJob.JobNameWithTitle;
         public string UID => _uid.uniqueID;
         
         public void SetLoadData(UnitStateData data)

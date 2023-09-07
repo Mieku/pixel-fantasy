@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e2d095f655ef3b4fb68a14f210e14e5, type: 3}
+  m_Name: Forester's Axe
+  m_EditorClassIdentifier: 
+  ItemName: Forester's Axe
+  MaxStackSize: 5
+  ItemSprite: {fileID: 21300000, guid: a2876c412a0af424ca6641bb15bb95a1, type: 3}
+  DefaultSpriteScale: {x: 1, y: 1}
+  RequiredCraftingTable: {fileID: 11400000, guid: 644004581d1321d41993fc7be87087b5, type: 2}
+  WorkCost: 5
+  _resourceCosts:
+  - Item: {fileID: 11400000, guid: 75f99dfbebb440d4499e1b83387d86e1, type: 2}
+    Quantity: 1
+  - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
+    Quantity: 2
+  _invalidPlacementTags:
+  - Water
+  - Wall
+  - Obstacle
+  Type: 4
+  MainHandHeldStraight_Side: {fileID: 0}
+  MainHandHeldDiagonal_Side: {fileID: 0}
+  HoldDiagonal_Side: 0
+  OffHandHeldStraight_Side: {fileID: 0}
+  Hat_Side: {fileID: 0}
+  Body_Side: {fileID: 0}
+  MainHand_Side: {fileID: 0}
+  OffHand_Side: {fileID: 0}
+  Hips_Side: {fileID: 0}
+  LeftLeg_Side: {fileID: 0}
+  RightLeg_Side: {fileID: 0}
+  MainHandHeldStraight_Up: {fileID: 0}
+  MainHandHeldDiagonal_Up: {fileID: 0}
+  HoldDiagonal_Up: 0
+  OffHandHeldStraight_Up: {fileID: 0}
+  Hat_Up: {fileID: 0}
+  Body_Up: {fileID: 0}
+  MainHand_Up: {fileID: 0}
+  OffHand_Up: {fileID: 0}
+  Hips_Up: {fileID: 0}
+  LeftLeg_Up: {fileID: 0}
+  RightLeg_Up: {fileID: 0}
+  MainHandHeldStraight_Down: {fileID: 0}
+  MainHandHeldDiagonal_Down: {fileID: 0}
+  HoldDiagonal_Down: 0
+  OffHandHeldStraight_Down: {fileID: 0}
+  Hat_Down: {fileID: 0}
+  Body_Down: {fileID: 0}
+  MainHand_Down: {fileID: 0}
+  OffHand_Down: {fileID: 0}
+  Hips_Down: {fileID: 0}
+  LeftLeg_Down: {fileID: 0}
+  RightLeg_Down: {fileID: 0}

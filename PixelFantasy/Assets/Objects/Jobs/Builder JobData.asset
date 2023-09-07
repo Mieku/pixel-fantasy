@@ -41,6 +41,6 @@ MonoBehaviour:
     SkillID: Builder_Walls
     SkillIcon: {fileID: 21300000, guid: ddfc4033124baef468550b4019bea4bf, type: 3}
     EXPRequired: 200
-  RequiredTool: {fileID: 11400000, guid: 3aed8ff8be98d0349bc03dd106675280, type: 2}
+  RequiredTool: {fileID: 11400000, guid: 657a75459c8d4d14e8a4a4006dffb8da, type: 2}
   PrereqJob: {fileID: 0}
   PrereqJobLv: 0
