@@ -2,15 +2,17 @@ using System;
 using Managers;
 using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Characters
 {
     public class UnitAppearance : MonoBehaviour
     {
+        [SerializeField] private KinlingEquipment _equipment;
+        
         public HairData HairData;
         public FaceData FaceData;
         public BodyData BodyData;
-        public ClothingData ClothingData;
         public Gender Gender;
         
         [SerializeField] private SpriteRenderer _hairRenderer;
@@ -18,15 +20,15 @@ namespace Characters
         [SerializeField] private SpriteRenderer _faceRanderer;
 
         [SerializeField] private SpriteRenderer _outerHandRenderer;
-        [SerializeField] private SpriteRenderer _toolRenderer;
         [SerializeField] private SpriteRenderer _backHandRenderer;
 
         [SerializeField] private SpriteRenderer _leftLegRenderer;
         [SerializeField] private SpriteRenderer _rightLegRenderer;
-        [SerializeField] private SpriteRenderer _hipsRenderer;
-
-        [SerializeField] private SpriteRenderer _bodyRenderer;
         [SerializeField] private SpriteRenderer _bodyNudeRenderer;
+
+        [SerializeField] private SortingGroup _mainHandSortingGroup;
+        [SerializeField] private SortingGroup _mainHandHeldSortingGroup;
+        [SerializeField] private SortingGroup _offHandSortingGroup;
 
         private const int OuterHandSideLayer = 5;
         private const int OuterHandFrontLayer = 5;
@@ -52,20 +54,7 @@ namespace Characters
         {
             SetDirection(_curDirection);
         }
-
-        public void DisplayTool(ItemData tool)
-        {
-            if (tool != null)
-            {
-                _toolRenderer.gameObject.SetActive(true);
-                _toolRenderer.sprite = tool.ItemSprite;
-            }
-            else
-            {
-                _toolRenderer.gameObject.SetActive(false);
-            }
-        }
-
+        
         private void SetGender(Gender gender)
         {
             Gender = gender;
@@ -80,21 +69,21 @@ namespace Characters
             {
                 case UnitActionDirection.Side:
                     _faceRanderer.gameObject.SetActive(true);
-                    _outerHandRenderer.sortingOrder = OuterHandSideLayer;
-                    _toolRenderer.sortingOrder = ToolSideLayer;
-                    _backHandRenderer.sortingOrder = BackHandSideLayer;
+                    _mainHandSortingGroup.sortingOrder = OuterHandSideLayer;
+                    _mainHandHeldSortingGroup.sortingOrder = ToolSideLayer;
+                    _offHandSortingGroup.sortingOrder = BackHandSideLayer;
                     break;
                 case UnitActionDirection.Up:
                     _faceRanderer.gameObject.SetActive(false);
-                    _outerHandRenderer.sortingOrder = OuterHandBackLayer;
-                    _toolRenderer.sortingOrder = ToolBackLayer;
-                    _backHandRenderer.sortingOrder = BackHandBackLayer;
+                    _mainHandSortingGroup.sortingOrder = OuterHandBackLayer;
+                    _mainHandHeldSortingGroup.sortingOrder = ToolBackLayer;
+                    _offHandSortingGroup.sortingOrder = BackHandBackLayer;
                     break;
                 case UnitActionDirection.Down:
                     _faceRanderer.gameObject.SetActive(true);
-                    _outerHandRenderer.sortingOrder = OuterHandFrontLayer;
-                    _toolRenderer.sortingOrder = ToolFrontLayer;
-                    _backHandRenderer.sortingOrder = BackHandFrontLayer;
+                    _mainHandSortingGroup.sortingOrder = OuterHandFrontLayer;
+                    _mainHandHeldSortingGroup.sortingOrder = ToolFrontLayer;
+                    _offHandSortingGroup.sortingOrder = BackHandFrontLayer;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(dir), dir, null);
@@ -102,7 +91,7 @@ namespace Characters
             
             SetHairDirection(dir);
             SetBodyDirection(dir);
-            SetClothingDirection(dir);
+            _equipment.AssignDirection(dir);
         }
         
         private void SetHairDirection(UnitActionDirection dir)
@@ -182,26 +171,26 @@ namespace Characters
             };
         }
 
-        private void SetClothingDirection(UnitActionDirection dir)
-        {
-            // Top
-            _bodyRenderer.sprite = dir switch
-            {
-                UnitActionDirection.Side => ClothingData.Side,
-                UnitActionDirection.Up => ClothingData.Back,
-                UnitActionDirection.Down => ClothingData.Front,
-                _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, null)
-            };
-            
-            // Pants
-            _hipsRenderer.sprite = dir switch
-            {
-                UnitActionDirection.Side => ClothingData.PantsSide,
-                UnitActionDirection.Up => ClothingData.PantsFront,
-                UnitActionDirection.Down => ClothingData.PantsFront,
-                _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, null)
-            };
-        }
+        // private void SetClothingDirection(UnitActionDirection dir)
+        // {
+        //     // Top
+        //     _bodyRenderer.sprite = dir switch
+        //     {
+        //         UnitActionDirection.Side => ClothingData.Side,
+        //         UnitActionDirection.Up => ClothingData.Back,
+        //         UnitActionDirection.Down => ClothingData.Front,
+        //         _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, null)
+        //     };
+        //     
+        //     // Pants
+        //     _hipsRenderer.sprite = dir switch
+        //     {
+        //         UnitActionDirection.Side => ClothingData.PantsSide,
+        //         UnitActionDirection.Up => ClothingData.PantsFront,
+        //         UnitActionDirection.Down => ClothingData.PantsFront,
+        //         _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, null)
+        //     };
+        // }
     
         public void SetLoadData(AppearanceData data)
         {

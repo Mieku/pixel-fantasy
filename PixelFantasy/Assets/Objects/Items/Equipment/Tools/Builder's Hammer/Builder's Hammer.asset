@@ -29,36 +29,12 @@ MonoBehaviour:
   - Wall
   - Obstacle
   Type: 4
-  MainHandHeldStraight_Side: {fileID: 0}
-  MainHandHeldDiagonal_Side: {fileID: 21300000, guid: 859989a7fb3e7c444b8164245a2ea34c, type: 3}
-  HoldDiagonal_Side: 1
-  OffHandHeldStraight_Side: {fileID: 0}
-  Hat_Side: {fileID: 0}
-  Body_Side: {fileID: 0}
-  MainHand_Side: {fileID: 0}
-  OffHand_Side: {fileID: 0}
-  Hips_Side: {fileID: 0}
-  LeftLeg_Side: {fileID: 0}
-  RightLeg_Side: {fileID: 0}
-  MainHandHeldStraight_Up: {fileID: 0}
-  MainHandHeldDiagonal_Up: {fileID: 21300000, guid: 859989a7fb3e7c444b8164245a2ea34c, type: 3}
-  HoldDiagonal_Up: 1
-  OffHandHeldStraight_Up: {fileID: 0}
-  Hat_Up: {fileID: 0}
-  Body_Up: {fileID: 0}
-  MainHand_Up: {fileID: 0}
-  OffHand_Up: {fileID: 0}
-  Hips_Up: {fileID: 0}
-  LeftLeg_Up: {fileID: 0}
-  RightLeg_Up: {fileID: 0}
-  MainHandHeldStraight_Down: {fileID: 0}
-  MainHandHeldDiagonal_Down: {fileID: 21300000, guid: 859989a7fb3e7c444b8164245a2ea34c, type: 3}
-  HoldDiagonal_Down: 1
-  OffHandHeldStraight_Down: {fileID: 0}
-  Hat_Down: {fileID: 0}
-  Body_Down: {fileID: 0}
-  MainHand_Down: {fileID: 0}
-  OffHand_Down: {fileID: 0}
-  Hips_Down: {fileID: 0}
-  LeftLeg_Down: {fileID: 0}
-  RightLeg_Down: {fileID: 0}
+  MainHandHeldGear: {fileID: 8574784959301920401, guid: d6ffa9c539c80934eab49dd7cfb7c73d, type: 3}
+  OffHandHeldGear: {fileID: 0}
+  HatGear: {fileID: 0}
+  BodyGear: {fileID: 0}
+  MainHandGear: {fileID: 0}
+  OffHandGear: {fileID: 0}
+  HipsGear: {fileID: 0}
+  LeftLegGear: {fileID: 0}
+  RightLegGear: {fileID: 0}

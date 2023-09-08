@@ -16,6 +16,7 @@ MonoBehaviour:
   MaxStackSize: 5
   ItemSprite: {fileID: 21300000, guid: a2876c412a0af424ca6641bb15bb95a1, type: 3}
   DefaultSpriteScale: {x: 1, y: 1}
+  Durability: 0
   RequiredCraftingTable: {fileID: 11400000, guid: 644004581d1321d41993fc7be87087b5, type: 2}
   WorkCost: 5
   _resourceCosts:
@@ -28,36 +29,12 @@ MonoBehaviour:
   - Wall
   - Obstacle
   Type: 4
-  MainHandHeldStraight_Side: {fileID: 0}
-  MainHandHeldDiagonal_Side: {fileID: 0}
-  HoldDiagonal_Side: 0
-  OffHandHeldStraight_Side: {fileID: 0}
-  Hat_Side: {fileID: 0}
-  Body_Side: {fileID: 0}
-  MainHand_Side: {fileID: 0}
-  OffHand_Side: {fileID: 0}
-  Hips_Side: {fileID: 0}
-  LeftLeg_Side: {fileID: 0}
-  RightLeg_Side: {fileID: 0}
-  MainHandHeldStraight_Up: {fileID: 0}
-  MainHandHeldDiagonal_Up: {fileID: 0}
-  HoldDiagonal_Up: 0
-  OffHandHeldStraight_Up: {fileID: 0}
-  Hat_Up: {fileID: 0}
-  Body_Up: {fileID: 0}
-  MainHand_Up: {fileID: 0}
-  OffHand_Up: {fileID: 0}
-  Hips_Up: {fileID: 0}
-  LeftLeg_Up: {fileID: 0}
-  RightLeg_Up: {fileID: 0}
-  MainHandHeldStraight_Down: {fileID: 0}
-  MainHandHeldDiagonal_Down: {fileID: 0}
-  HoldDiagonal_Down: 0
-  OffHandHeldStraight_Down: {fileID: 0}
-  Hat_Down: {fileID: 0}
-  Body_Down: {fileID: 0}
-  MainHand_Down: {fileID: 0}
-  OffHand_Down: {fileID: 0}
-  Hips_Down: {fileID: 0}
-  LeftLeg_Down: {fileID: 0}
-  RightLeg_Down: {fileID: 0}
+  MainHandHeldGear: {fileID: 2109487599534607570, guid: 28befeca93672a2498df8a8de29ba83f, type: 3}
+  OffHandHeldGear: {fileID: 0}
+  HatGear: {fileID: 0}
+  BodyGear: {fileID: 0}
+  MainHandGear: {fileID: 0}
+  OffHandGear: {fileID: 0}
+  HipsGear: {fileID: 0}
+  LeftLegGear: {fileID: 0}
+  RightLegGear: {fileID: 0}

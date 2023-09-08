@@ -2,12 +2,34 @@ using System;
 using Items;
 using Managers;
 using ScriptableObjects;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Characters
 {
     public class KinlingEquipment : MonoBehaviour
     {
+        [BoxGroup("Equipment Renderers")][SerializeField] private Transform _headGear;
+        [BoxGroup("Equipment Renderers")][SerializeField] private Transform _bodyGear;
+        [BoxGroup("Equipment Renderers")][SerializeField] private Transform _pantsGearHips;
+        [BoxGroup("Equipment Renderers")][SerializeField] private Transform _pantsGearLeftLeg;
+        [BoxGroup("Equipment Renderers")][SerializeField] private Transform _pantsGearRightLeg;
+        [BoxGroup("Equipment Renderers")][SerializeField] private Transform _handsGearMainHand;
+        [BoxGroup("Equipment Renderers")][SerializeField] private Transform _handsGearOffHand;
+        [BoxGroup("Equipment Renderers")][SerializeField] private Transform _mainHandHeld;
+        [BoxGroup("Equipment Renderers")][SerializeField] private Transform _offHandHeld;
+        
+        private GearPiece _headGearObj;
+        private GearPiece _bodyGearObj;
+        private GearPiece _pantsGearHipsObj;
+        private GearPiece _pantsGearLeftLegObj;
+        private GearPiece _pantsGearRightLegObj;
+        private GearPiece _handsGearMainHandObj;
+        private GearPiece _handsGearOffHandObj;
+        private GearPiece _mainHandHeldObj;
+        private GearPiece _offHandHeldObj;
+        
         public EquipmentState Head;
         public EquipmentState Body;
         public EquipmentState Pants;
@@ -19,6 +41,13 @@ namespace Characters
         public EquipmentState Ring2;
 
         public ItemState Carried;
+
+        private UnitActionDirection _curDirection;
+        
+        public void AssignDirection(UnitActionDirection direction)
+        {
+            _curDirection = direction;
+        }
         
         public void Equip(Item item)
         {
@@ -63,6 +92,178 @@ namespace Characters
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+            DisplayGear(equipmentState);
+        }
+
+        private void DisplayGear(EquipmentState equipmentState)
+        {
+            var type = equipmentState.EquipmentData.Type;
+            var equip = equipmentState.EquipmentData;
+            ClearDisplayedGear(type);
+
+            switch (type)
+            {
+                case EquipmentType.Head:
+                    if (equip.HatGear != null)
+                    {
+                        var gear = Instantiate(equip.HatGear, _headGear);
+                        gear.AssignDirection(_curDirection);
+                        _headGearObj = gear;
+                    }
+                    break;
+                case EquipmentType.Body:
+                    if (equip.BodyGear != null)
+                    {
+                        var gear = Instantiate(equip.BodyGear, _bodyGear);
+                        gear.AssignDirection(_curDirection);
+                        _bodyGearObj = gear;
+                    }
+                    break;
+                case EquipmentType.Pants:
+                    if (equip.HipsGear != null)
+                    {
+                        var gear = Instantiate(equip.HipsGear, _pantsGearHips);
+                        gear.AssignDirection(_curDirection);
+                        _pantsGearHipsObj = gear;
+                    }
+                    if (equip.LeftLegGear != null)
+                    {
+                        var gear = Instantiate(equip.LeftLegGear, _pantsGearLeftLeg);
+                        gear.AssignDirection(_curDirection);
+                        _pantsGearLeftLegObj = gear;
+                    }
+                    if (equip.RightLegGear != null)
+                    {
+                        var gear = Instantiate(equip.RightLegGear, _pantsGearRightLeg);
+                        gear.AssignDirection(_curDirection);
+                        _pantsGearRightLegObj = gear;
+                    }
+                    break;
+                case EquipmentType.Hands:
+                    if (equip.MainHandGear != null)
+                    {
+                        var gear = Instantiate(equip.MainHandGear, _handsGearMainHand);
+                        gear.AssignDirection(_curDirection);
+                        _handsGearMainHandObj = gear;
+                    }
+                    if (equip.OffHandGear != null)
+                    {
+                        var gear = Instantiate(equip.OffHandGear, _handsGearOffHand);
+                        gear.AssignDirection(_curDirection);
+                        _handsGearOffHandObj = gear;
+                    }
+                    break;
+                case EquipmentType.MainHand:
+                    if (equip.MainHandHeldGear != null)
+                    {
+                        var gear = Instantiate(equip.MainHandHeldGear, _mainHandHeld);
+                        gear.AssignDirection(_curDirection);
+                        _mainHandHeldObj = gear;
+                    }
+                    break;
+                case EquipmentType.OffHand:
+                    if (equip.OffHandHeldGear != null)
+                    {
+                        var gear = Instantiate(equip.OffHandHeldGear, _offHandHeld);
+                        gear.AssignDirection(_curDirection);
+                        _offHandHeldObj = gear;
+                    }
+                    break;
+                case EquipmentType.BothHands:
+                    if (equip.MainHandHeldGear != null)
+                    {
+                        var gear = Instantiate(equip.MainHandHeldGear, _mainHandHeld);
+                        gear.AssignDirection(_curDirection);
+                        _mainHandHeldObj = gear;
+                    }
+                    break;
+                case EquipmentType.Carried:
+                    Debug.LogError("Carried is not built yet");
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void ClearDisplayedGear(EquipmentType type)
+        {
+            switch (type)
+            {
+                case EquipmentType.Head:
+                    if (_headGearObj != null)
+                    {
+                        Destroy(_headGearObj.gameObject);
+                        _headGearObj = null;
+                    }
+                    break;
+                case EquipmentType.Body:
+                    if (_bodyGearObj != null)
+                    {
+                        Destroy(_bodyGearObj.gameObject);
+                        _bodyGearObj = null;
+                    }
+                    break;
+                case EquipmentType.Pants:
+                    if (_pantsGearHipsObj != null)
+                    {
+                        Destroy(_pantsGearHipsObj.gameObject);
+                        _pantsGearHipsObj = null;
+                    }
+                    if (_pantsGearLeftLegObj != null)
+                    {
+                        Destroy(_pantsGearLeftLegObj.gameObject);
+                        _pantsGearLeftLegObj = null;
+                    }
+                    if (_pantsGearRightLegObj != null)
+                    {
+                        Destroy(_pantsGearRightLegObj.gameObject);
+                        _pantsGearRightLegObj = null;
+                    }
+                    break;
+                case EquipmentType.Hands:
+                    if (_handsGearMainHandObj != null)
+                    {
+                        Destroy(_handsGearMainHandObj.gameObject);
+                        _handsGearMainHandObj = null;
+                    }
+                    if (_handsGearOffHandObj != null)
+                    {
+                        Destroy(_handsGearOffHandObj.gameObject);
+                        _handsGearOffHandObj = null;
+                    }
+                    break;
+                case EquipmentType.MainHand:
+                    if (_mainHandHeldObj != null)
+                    {
+                        Destroy(_mainHandHeldObj.gameObject);
+                        _mainHandHeldObj = null;
+                    }
+                    break;
+                case EquipmentType.OffHand:
+                    if (_offHandHeldObj != null)
+                    {
+                        Destroy(_offHandHeldObj.gameObject);
+                        _offHandHeldObj = null;
+                    }
+                    break;
+                case EquipmentType.BothHands:
+                    if (_mainHandHeldObj != null)
+                    {
+                        Destroy(_mainHandHeldObj.gameObject);
+                        _mainHandHeldObj = null;
+                    }
+                    if (_offHandHeldObj != null)
+                    {
+                        Destroy(_offHandHeldObj.gameObject);
+                        _offHandHeldObj = null;
+                    }
+                    break;
+                case EquipmentType.Carried:
+                    Debug.LogError("Carried is not built yet");
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
         }
 
