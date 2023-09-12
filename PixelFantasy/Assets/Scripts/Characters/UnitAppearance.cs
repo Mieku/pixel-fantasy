@@ -1,6 +1,7 @@
 using System;
 using Managers;
 using ScriptableObjects;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -8,13 +9,15 @@ namespace Characters
 {
     public class UnitAppearance : MonoBehaviour
     {
+        [SerializeField] private KinlingSkinToneData _skinTone;
+        [ColorUsage(true, true)] [SerializeField] private Color _eyeColour;
         [SerializeField] private KinlingEquipment _equipment;
         
         public HairData HairData;
         public FaceData FaceData;
         public BodyData BodyData;
         public Gender Gender;
-        
+
         [SerializeField] private SpriteRenderer _hairRenderer;
         [SerializeField] private SpriteRenderer _headRenderer;
         [SerializeField] private SpriteRenderer _faceRanderer;
@@ -25,11 +28,12 @@ namespace Characters
         [SerializeField] private SpriteRenderer _leftLegRenderer;
         [SerializeField] private SpriteRenderer _rightLegRenderer;
         [SerializeField] private SpriteRenderer _bodyNudeRenderer;
+        [SerializeField] private SpriteRenderer _hipsRenderer;
 
         [SerializeField] private SortingGroup _mainHandSortingGroup;
         [SerializeField] private SortingGroup _mainHandHeldSortingGroup;
         [SerializeField] private SortingGroup _offHandSortingGroup;
-
+        
         private const int OuterHandSideLayer = 5;
         private const int OuterHandFrontLayer = 5;
         private const int OuterHandBackLayer = -1;
@@ -41,6 +45,13 @@ namespace Characters
         private const int ToolSideLayer = 4;
         private const int ToolFrontLayer = 4;
         private const int ToolBackLayer = -2;
+        
+        private readonly int colorSwapRed = Shader.PropertyToID("_ColorSwapRed");
+        private readonly int colorSwapGreen = Shader.PropertyToID("_ColorSwapGreen");
+        private readonly int colorSwapBlue = Shader.PropertyToID("_ColorSwapBlue");
+        private readonly int cwRedLumin = Shader.PropertyToID("_ColorSwapRedLuminosity");
+        private readonly int cwGreenLumin = Shader.PropertyToID("_ColorSwapGreenLuminosity");
+        private readonly int cwBlueLumin = Shader.PropertyToID("_ColorSwapBlueLuminosity");
 
         private UnitActionDirection _curDirection;
 
@@ -48,6 +59,47 @@ namespace Characters
         {
             SetGender(Gender);
             Refresh();
+            ApplySkinTone();
+        }
+
+        [Button("Apply Skin Tone")]
+        private void ApplySkinTone()
+        {
+            // Face
+            ApplyMaterialRecolour(_faceRanderer, _eyeColour, _skinTone.BlushTone, Color.black);
+            
+            // Head
+            ApplyMaterialRecolour(_headRenderer, _skinTone.PrimaryTone, _skinTone.ShadeTone, Color.black);
+            
+            // Body
+            ApplyMaterialRecolour(_bodyNudeRenderer, _skinTone.PrimaryTone, _skinTone.ShadeTone, Color.black);
+            
+            // Hips
+            ApplyMaterialRecolour(_hipsRenderer, _skinTone.PrimaryTone, _skinTone.ShadeTone, Color.black);
+            
+            // Arms
+            ApplyMaterialRecolour(_outerHandRenderer, _skinTone.PrimaryTone, _skinTone.ShadeTone, Color.black);
+            ApplyMaterialRecolour(_backHandRenderer, _skinTone.PrimaryTone, _skinTone.ShadeTone, Color.black);
+
+            // Legs
+            ApplyMaterialRecolour(_leftLegRenderer, _skinTone.PrimaryTone, _skinTone.ShadeTone, Color.black);
+            ApplyMaterialRecolour(_rightLegRenderer, _skinTone.PrimaryTone, _skinTone.ShadeTone, Color.black);
+
+        }
+
+        private void ApplyMaterialRecolour(SpriteRenderer spriteRenderer, Color redSwap, Color greenSwap, Color blueSwap)
+        {
+            var mat = spriteRenderer.sharedMaterial;
+            mat.EnableKeyword("COLORSWAP_ON");
+            mat.SetTexture("_ColorSwapTex", spriteRenderer.sprite.texture);
+            
+            mat.SetColor(colorSwapRed, redSwap);
+            mat.SetColor(colorSwapGreen, greenSwap);
+            mat.SetColor(colorSwapBlue, blueSwap);
+            
+            mat.SetFloat(cwRedLumin, 1.0f);
+            mat.SetFloat(cwGreenLumin, 1.0f);
+            mat.SetFloat(cwBlueLumin, 1.0f);
         }
 
         public void Refresh()
@@ -108,67 +160,80 @@ namespace Characters
         private void SetBodyDirection(UnitActionDirection dir)
         {
             // Face
-            _faceRanderer.sprite = dir switch
+            // _faceRanderer.sprite = dir switch
+            // {
+            //     UnitActionDirection.Side => FaceData.Side,
+            //     UnitActionDirection.Up => FaceData.Front,
+            //     UnitActionDirection.Down => FaceData.Front,
+            //     _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, null)
+            // };
+
+            if (dir != UnitActionDirection.Up)
             {
-                UnitActionDirection.Side => FaceData.Side,
-                UnitActionDirection.Up => FaceData.Front,
-                UnitActionDirection.Down => FaceData.Front,
-                _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, null)
-            };
+                _faceRanderer.sprite = BodyData.GetBodySprite(BodyPart.Face, dir);
+            }
+            _headRenderer.sprite = BodyData.GetBodySprite(BodyPart.Head, dir);
+            _bodyNudeRenderer.sprite = BodyData.GetBodySprite(BodyPart.Body, dir);
+            _outerHandRenderer.sprite = BodyData.GetBodySprite(BodyPart.MainHand, dir);
+            _backHandRenderer.sprite = BodyData.GetBodySprite(BodyPart.OffHand, dir);
+            _leftLegRenderer.sprite = BodyData.GetBodySprite(BodyPart.LeftLeg, dir);
+            _rightLegRenderer.sprite = BodyData.GetBodySprite(BodyPart.RightLeg, dir);
+            _hipsRenderer.sprite = BodyData.GetBodySprite(BodyPart.Hips, dir);
+
+            ApplySkinTone();
             
-            // Head
-            _headRenderer.sprite = dir switch
-            {
-                UnitActionDirection.Side => BodyData.HeadSide,
-                UnitActionDirection.Up => BodyData.HeadFront,
-                UnitActionDirection.Down => BodyData.HeadFront,
-                _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, null)
-            };
-            
-            // Torso
-            _bodyNudeRenderer.sprite = dir switch
-            {
-                UnitActionDirection.Side => BodyData.BodyNudeSide,
-                UnitActionDirection.Up => BodyData.BodyNudeFront,
-                UnitActionDirection.Down => BodyData.BodyNudeFront,
-                _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, null)
-            };
-            
-            // Outer Hand
-            _outerHandRenderer.sprite = dir switch
-            {
-                UnitActionDirection.Side => BodyData.OuterHand,
-                UnitActionDirection.Up => BodyData.OuterHand,
-                UnitActionDirection.Down => BodyData.OuterHand,
-                _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, null)
-            };
-            
-            // Back Hand
-            _backHandRenderer.sprite = dir switch
-            {
-                UnitActionDirection.Side => BodyData.BackHand,
-                UnitActionDirection.Up => BodyData.BackHand,
-                UnitActionDirection.Down => BodyData.BackHand,
-                _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, null)
-            };
-            
-            // Left Leg
-            _leftLegRenderer.sprite = dir switch
-            {
-                UnitActionDirection.Side => BodyData.LeftLeg,
-                UnitActionDirection.Up => BodyData.LeftLegFront,
-                UnitActionDirection.Down => BodyData.LeftLegFront,
-                _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, null)
-            };
-            
-            // Right Leg
-            _rightLegRenderer.sprite = dir switch
-            {
-                UnitActionDirection.Side => BodyData.RightLeg,
-                UnitActionDirection.Up => BodyData.RightLeg,
-                UnitActionDirection.Down => BodyData.RightLeg,
-                _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, null)
-            };
+            // _headRenderer.sprite = dir switch
+            // {
+            //     UnitActionDirection.Side => BodyData.HeadSide,
+            //     UnitActionDirection.Up => BodyData.HeadFront,
+            //     UnitActionDirection.Down => BodyData.HeadFront,
+            //     _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, null)
+            // };
+            //
+            // // Torso
+            // _bodyNudeRenderer.sprite = dir switch
+            // {
+            //     UnitActionDirection.Side => BodyData.BodyNudeSide,
+            //     UnitActionDirection.Up => BodyData.BodyNudeFront,
+            //     UnitActionDirection.Down => BodyData.BodyNudeFront,
+            //     _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, null)
+            // };
+            //
+            // // Outer Hand
+            // _outerHandRenderer.sprite = dir switch
+            // {
+            //     UnitActionDirection.Side => BodyData.OuterHand,
+            //     UnitActionDirection.Up => BodyData.OuterHand,
+            //     UnitActionDirection.Down => BodyData.OuterHand,
+            //     _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, null)
+            // };
+            //
+            // // Back Hand
+            // _backHandRenderer.sprite = dir switch
+            // {
+            //     UnitActionDirection.Side => BodyData.BackHand,
+            //     UnitActionDirection.Up => BodyData.BackHand,
+            //     UnitActionDirection.Down => BodyData.BackHand,
+            //     _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, null)
+            // };
+            //
+            // // Left Leg
+            // _leftLegRenderer.sprite = dir switch
+            // {
+            //     UnitActionDirection.Side => BodyData.LeftLeg,
+            //     UnitActionDirection.Up => BodyData.LeftLegFront,
+            //     UnitActionDirection.Down => BodyData.LeftLegFront,
+            //     _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, null)
+            // };
+            //
+            // // Right Leg
+            // _rightLegRenderer.sprite = dir switch
+            // {
+            //     UnitActionDirection.Side => BodyData.RightLeg,
+            //     UnitActionDirection.Up => BodyData.RightLeg,
+            //     UnitActionDirection.Down => BodyData.RightLeg,
+            //     _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, null)
+            // };
         }
 
         // private void SetClothingDirection(UnitActionDirection dir)

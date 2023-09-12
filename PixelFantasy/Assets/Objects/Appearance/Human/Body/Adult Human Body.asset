@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e831bed355f7f834bb948a43497cd392, type: 3}
+  m_Name: Adult Human Body
+  m_EditorClassIdentifier: 
+  IsFrontBackSame: 1
+  HeadSide: {fileID: 21300000, guid: 29f6360ffa00ffa43bfb72b5b9efd7f1, type: 3}
+  MainHandSide: {fileID: 21300000, guid: d42e9f7da967294479ef1c90c47e5e85, type: 3}
+  OffHandSide: {fileID: 21300000, guid: c8324d9fdeda10b4c950dfabe6e41c8c, type: 3}
+  BodySide: {fileID: 21300000, guid: 50a04d0c4bacbe840afb58141d94e656, type: 3}
+  HipsSide: {fileID: 21300000, guid: 9e5888e3d26479d4b806f4c6a5c726a6, type: 3}
+  LeftLegSide: {fileID: 21300000, guid: 9d534fdf2eee3e74a98a805117029581, type: 3}
+  RightLegSide: {fileID: 21300000, guid: 5ed2ad5184c358440b42d3fd4977cc59, type: 3}
+  FaceSide: {fileID: 21300000, guid: 21b4c5c0fd3c7ac4db4f575d7addbbf1, type: 3}
+  HeadFront: {fileID: 21300000, guid: d08946e829e894d479961caf2f074dfb, type: 3}
+  MainHandFront: {fileID: 21300000, guid: 6f7fd80c5e84a6f4491f7841e30d7d58, type: 3}
+  OffHandFront: {fileID: 21300000, guid: 6fdb7e043e074da4da580fe630ea8741, type: 3}
+  BodyFront: {fileID: 21300000, guid: e526d9f156aaead4ea8520a85a82bcab, type: 3}
+  HipsFront: {fileID: 21300000, guid: 1d69d50928950d1478b80002d60e3cc1, type: 3}
+  LeftLegFront: {fileID: 21300000, guid: d046c50e31787d14d818f2d86db0c7e9, type: 3}
+  RightLegFront: {fileID: 21300000, guid: aa5d3fec940e9b84b8b3e88caacdef91, type: 3}
+  FaceFront: {fileID: 21300000, guid: c1dd23b88d7ee2b4da49c819206cfbd8, type: 3}
+  HeadBack: {fileID: 0}
+  MainHandBack: {fileID: 0}
+  OffHandBack: {fileID: 0}
+  BodyBack: {fileID: 0}
+  HipsBack: {fileID: 0}
+  LeftLegBack: {fileID: 0}
+  RightLegBack: {fileID: 0}
