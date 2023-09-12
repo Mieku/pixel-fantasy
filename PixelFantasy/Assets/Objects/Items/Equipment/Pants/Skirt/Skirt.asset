@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e2d095f655ef3b4fb68a14f210e14e5, type: 3}
+  m_Name: Skirt
+  m_EditorClassIdentifier: 
+  ItemName: Skirt
+  MaxStackSize: 1
+  ItemSprite: {fileID: 21300000, guid: 04210316eb27bf44f921c1589ecf8f2c, type: 3}
+  DefaultSpriteScale: {x: 1, y: 1}
+  Durability: 100
+  RequiredCraftingTable: {fileID: 11400000, guid: 644004581d1321d41993fc7be87087b5, type: 2}
+  WorkCost: 10
+  _resourceCosts:
+  - Item: {fileID: 11400000, guid: 4932a754447f82345899f6bc214df25b, type: 2}
+    Quantity: 2
+  _invalidPlacementTags:
+  - Water
+  - Wall
+  - Obstacle
+  Type: 2
+  CanBeDyed: 1
+  DefaultDyePalette: {fileID: 11400000, guid: 06364608d9707aa4da0b1e7547502fa4, type: 2}
+  MainHandHeldGear: {fileID: 0}
+  OffHandHeldGear: {fileID: 0}
+  HatGear: {fileID: 0}
+  BodyGear: {fileID: 0}
+  MainHandGear: {fileID: 0}
+  OffHandGear: {fileID: 0}
+  HipsGear: {fileID: 2109487599534607570, guid: 5a30149769c196641adc76d860b57eeb, type: 3}
+  LeftLegGear: {fileID: 0}
+  RightLegGear: {fileID: 0}

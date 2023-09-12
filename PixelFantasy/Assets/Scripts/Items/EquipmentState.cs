@@ -10,6 +10,7 @@ namespace Items
     {
         public Unit Owner;
         public EquipmentData EquipmentData => Data as EquipmentData;
+        public DyePaletteData AssignedDye;
         
         public EquipmentState(EquipmentData data, string uid) : base(data, uid)
         {

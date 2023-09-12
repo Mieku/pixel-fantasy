@@ -43,10 +43,35 @@ namespace Characters
         public ItemState Carried;
 
         private UnitActionDirection _curDirection;
-        
+
+        private void Start()
+        {
+            ShowCurrentGear();
+        }
+
+        [Button("Show Current Gear")]
+        private void ShowCurrentGear()
+        {
+            if(Head.Data != null) DisplayGear(Head);
+            if(Body.Data != null) DisplayGear(Body);
+            if(Pants.Data != null) DisplayGear(Pants);
+            if(MainHand.Data != null) DisplayGear(MainHand);
+            if(OffHand.Data != null) DisplayGear(OffHand);
+        }
+
         public void AssignDirection(UnitActionDirection direction)
         {
             _curDirection = direction;
+            
+            if(_headGearObj != null)  _headGearObj.AssignDirection(_curDirection);
+            if(_bodyGearObj != null) _bodyGearObj.AssignDirection(_curDirection);
+            if(_pantsGearHipsObj != null) _pantsGearHipsObj.AssignDirection(_curDirection);
+            if(_pantsGearLeftLegObj != null) _pantsGearLeftLegObj.AssignDirection(_curDirection);
+            if(_pantsGearRightLegObj != null) _pantsGearRightLegObj.AssignDirection(_curDirection);
+            if(_handsGearMainHandObj != null) _handsGearMainHandObj.AssignDirection(_curDirection);
+            if(_handsGearOffHandObj != null) _handsGearOffHandObj.AssignDirection(_curDirection);
+            if(_mainHandHeldObj != null) _mainHandHeldObj.AssignDirection(_curDirection);
+            if(_offHandHeldObj != null) _offHandHeldObj.AssignDirection(_curDirection);
         }
         
         public void Equip(Item item)
@@ -109,6 +134,7 @@ namespace Characters
                     {
                         var gear = Instantiate(equip.HatGear, _headGear);
                         gear.AssignDirection(_curDirection);
+                        gear.AssignDyePallet(Head.AssignedDye);
                         _headGearObj = gear;
                     }
                     break;
@@ -117,6 +143,7 @@ namespace Characters
                     {
                         var gear = Instantiate(equip.BodyGear, _bodyGear);
                         gear.AssignDirection(_curDirection);
+                        gear.AssignDyePallet(Body.AssignedDye);
                         _bodyGearObj = gear;
                     }
                     break;
@@ -125,18 +152,21 @@ namespace Characters
                     {
                         var gear = Instantiate(equip.HipsGear, _pantsGearHips);
                         gear.AssignDirection(_curDirection);
+                        gear.AssignDyePallet(Pants.AssignedDye);
                         _pantsGearHipsObj = gear;
                     }
                     if (equip.LeftLegGear != null)
                     {
                         var gear = Instantiate(equip.LeftLegGear, _pantsGearLeftLeg);
                         gear.AssignDirection(_curDirection);
+                        gear.AssignDyePallet(Pants.AssignedDye);
                         _pantsGearLeftLegObj = gear;
                     }
                     if (equip.RightLegGear != null)
                     {
                         var gear = Instantiate(equip.RightLegGear, _pantsGearRightLeg);
                         gear.AssignDirection(_curDirection);
+                        gear.AssignDyePallet(Pants.AssignedDye);
                         _pantsGearRightLegObj = gear;
                     }
                     break;
@@ -145,12 +175,14 @@ namespace Characters
                     {
                         var gear = Instantiate(equip.MainHandGear, _handsGearMainHand);
                         gear.AssignDirection(_curDirection);
+                        gear.AssignDyePallet(Hands.AssignedDye);
                         _handsGearMainHandObj = gear;
                     }
                     if (equip.OffHandGear != null)
                     {
                         var gear = Instantiate(equip.OffHandGear, _handsGearOffHand);
                         gear.AssignDirection(_curDirection);
+                        gear.AssignDyePallet(Hands.AssignedDye);
                         _handsGearOffHandObj = gear;
                     }
                     break;
@@ -159,6 +191,7 @@ namespace Characters
                     {
                         var gear = Instantiate(equip.MainHandHeldGear, _mainHandHeld);
                         gear.AssignDirection(_curDirection);
+                        gear.AssignDyePallet(MainHand.AssignedDye);
                         _mainHandHeldObj = gear;
                     }
                     break;
@@ -167,6 +200,7 @@ namespace Characters
                     {
                         var gear = Instantiate(equip.OffHandHeldGear, _offHandHeld);
                         gear.AssignDirection(_curDirection);
+                        gear.AssignDyePallet(OffHand.AssignedDye);
                         _offHandHeldObj = gear;
                     }
                     break;
@@ -175,6 +209,7 @@ namespace Characters
                     {
                         var gear = Instantiate(equip.MainHandHeldGear, _mainHandHeld);
                         gear.AssignDirection(_curDirection);
+                        gear.AssignDyePallet(MainHand.AssignedDye);
                         _mainHandHeldObj = gear;
                     }
                     break;

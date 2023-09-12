@@ -9,6 +9,8 @@ namespace ScriptableObjects
     public class EquipmentData : CraftedItemData
     {
         [TitleGroup("Equipment")] public EquipmentType Type;
+        public bool CanBeDyed;
+        [ShowIf("CanBeDyed")] public DyePaletteData DefaultDyePalette;
         
         [ShowIf("@Type == EquipmentType.MainHand || Type == EquipmentType.BothHands")] public GearPiece MainHandHeldGear;
         [ShowIf("Type", EquipmentType.OffHand)] public GearPiece OffHandHeldGear;
