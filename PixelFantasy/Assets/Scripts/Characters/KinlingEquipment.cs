@@ -118,6 +118,7 @@ namespace Characters
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            
             DisplayGear(equipmentState);
         }
 

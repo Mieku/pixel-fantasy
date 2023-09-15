@@ -33,7 +33,7 @@ namespace Popups.Kinling_Info_Popup
         [SerializeField] private GameObject _needsContent;
         [SerializeField] private GameObject _wantsContent;
         [SerializeField] private GameObject _socialContent;
-        [SerializeField] private GameObject _gearContent;
+        [SerializeField] private KinlingInfoGearContent _gearContent;
 
         private static Unit _selectedUnit;
         private const float _refreshRateS = 1f;
@@ -120,7 +120,7 @@ namespace Popups.Kinling_Info_Popup
                     break;
                 case KinlingInfoTab.Gear:
                     _gearTab.sprite = _tabSelectedSpr;
-                    _gearContent.SetActive(true);
+                    _gearContent.Show(_selectedUnit);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(tab), tab, null);
@@ -143,7 +143,7 @@ namespace Popups.Kinling_Info_Popup
             _needsContent.SetActive(false);
             _wantsContent.SetActive(false);
             _socialContent.SetActive(false);
-            _gearContent.SetActive(false);
+            _gearContent.Close();
         }
 
         public void MoodTabPressed()
