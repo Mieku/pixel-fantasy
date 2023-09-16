@@ -70,24 +70,5 @@ namespace ScriptableObjects
 
             return WorkCost / totalQuantity;
         }
-
-        public bool CanBuildingCraftThis(ProductionBuildingOld buildingOld)
-        {
-            if (RequiredCraftingTable != null)
-            {
-                if (buildingOld.GetFurniture(RequiredCraftingTable) != null)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }    
-            }
-            else
-            {
-                return true;
-            }
-        }
     }
 }

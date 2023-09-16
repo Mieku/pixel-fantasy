@@ -118,13 +118,7 @@ public class GameEvents : MonoBehaviour
     {
         if (OnUnitOccupationChanged != null) OnUnitOccupationChanged(unit);
     }
-
-    public static event Action<RoomZone> OnRoomFurnitureChanged;
-    public static void Trigger_OnRoomFurnitureChanged(RoomZone roomZone)
-    {
-        if (OnRoomFurnitureChanged != null) OnRoomFurnitureChanged(roomZone);
-    }
-
+    
     public static event Action<bool> OnStructureGuideToggled;
     public static void Trigger_OnStructureGuideToggled(bool shouldEnable)
     {

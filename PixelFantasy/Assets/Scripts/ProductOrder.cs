@@ -45,23 +45,6 @@ public class ProductOrder
         return task;
     }
     
-    public Task CreateTask(ProductionBuildingOld buildingOld)
-    {
-        List<CraftingBill.RequestedItemInfo> claimedMats = ClaimRequiredMaterials(craftedItemData);
-        
-        Task task = new Task()
-        {
-            TaskId = "Craft Item",
-            Requestor = buildingOld,
-            Payload = craftedItemData.ItemName,
-            TaskType = TaskType.Craft,
-            OnTaskComplete = OnTaskCompleted,
-            Materials = claimedMats,
-        };
-        amountInProgress++;
-        return task;
-    }
-
     private void OnTaskCompleted(Task task)
     {
         amountMade++;
@@ -85,10 +68,10 @@ public class ProductOrder
         {
             for (int i = 0; i < cost.Quantity; i++)
             {
-                var storage = InventoryManager.Instance.ClaimItem(cost.Item);
-                if (storage != null)
+                var claimedItem = InventoryManager.Instance.ClaimItem(cost.Item);
+                if (claimedItem != null)
                 {
-                    results = AddToRequestedItemsList(cost.Item, storage, results);
+                    results = AddToRequestedItemsList(claimedItem, results);
                 }
                 else
                 {
@@ -113,7 +96,7 @@ public class ProductOrder
             {
                 for (int i = 0; i < resultItemInfo.Quantity; i++)
                 {
-                    resultItemInfo.Storage.RestoreClaimed(resultItemInfo.ItemData, 1);
+                    resultItemInfo.ItemState.Storage.RestoreClaimed(resultItemInfo.ItemState);
                 }
             }
                 
@@ -121,20 +104,20 @@ public class ProductOrder
         }
     }
     
-    private List<CraftingBill.RequestedItemInfo> AddToRequestedItemsList(ItemData itemData, Storage storage, List<CraftingBill.RequestedItemInfo> currentList)
+    private List<CraftingBill.RequestedItemInfo> AddToRequestedItemsList(ItemState itemState, List<CraftingBill.RequestedItemInfo> currentList)
     {
         List<CraftingBill.RequestedItemInfo> results = new List<CraftingBill.RequestedItemInfo>(currentList);
             
         foreach (var itemInfo in results)
         {
-            if (itemInfo.ItemData == itemData && itemInfo.Storage == storage)
+            if (itemInfo.ItemState == itemState)
             {
                 itemInfo.Quantity++;
                 return results;
             }
         }
             
-        results.Add(new CraftingBill.RequestedItemInfo(itemData, storage, 1));
+        results.Add(new CraftingBill.RequestedItemInfo(itemState, 1));
 
         return results;
     }
@@ -181,28 +164,6 @@ public class ProductOrderQueue
                     if (order.craftedItemData.AreResourcesAvailable())
                     {
                         return order.CreateTask(craftingTable);
-                    }
-                }
-            }
-        }
-
-        return null;
-    }
-    
-    public Task RequestTask(ProductionBuildingOld buildingOld)
-    {
-        if (_orders.Count == 0) return null;
-
-        foreach (var order in _orders)
-        {
-            if (!order.isSuspended)
-            {
-                if (order.AmountLeftToMake() > 0)
-                {
-                    if (order.craftedItemData.AreResourcesAvailable() &&
-                        order.craftedItemData.CanBuildingCraftThis(buildingOld))
-                    {
-                        return order.CreateTask(buildingOld);
                     }
                 }
             }

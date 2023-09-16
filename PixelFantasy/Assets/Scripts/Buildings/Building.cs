@@ -136,23 +136,24 @@ namespace Buildings
 
             return null;
         }
-        
-        public Dictionary<ItemData, int> GetBuildingInventory()
+
+        public Dictionary<ItemData, List<ItemState>> GetBuildingInventory()
         {
-            Dictionary<ItemData, int> results = new Dictionary<ItemData, int>();
+            Dictionary<ItemData, List<ItemState>> results = new Dictionary<ItemData, List<ItemState>>();
             var storages = GetBuildingStorages();
             foreach (var storage in storages)
             {
                 var storedItems = storage.AvailableInventory;
-                foreach (var itemKVP in storedItems)
+                foreach (var storedKVP in storedItems)
                 {
-                    if (results.ContainsKey(itemKVP.Key))
+                    if (!results.ContainsKey(storedKVP.Key))
                     {
-                        results[itemKVP.Key] += itemKVP.Value;
+                        results.Add(storedKVP.Key, new List<ItemState>());
                     }
-                    else
+
+                    foreach (var item in storedKVP.Value)
                     {
-                        results.Add(itemKVP.Key, itemKVP.Value);
+                        results[storedKVP.Key].Add(item);
                     }
                 }
             }

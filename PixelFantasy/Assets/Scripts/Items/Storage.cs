@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Managers;
 using Popups.Inventory;
 using ScriptableObjects;
@@ -24,12 +25,7 @@ namespace Items
             }
             base.Awake();
         }
-
-        public override void Init(FurnitureItemData furnitureItemData)
-        {
-            base.Init(furnitureItemData);
-        }
-
+        
         protected override void CompletePlacement()
         {
             for (int i = 0; i < _storageItemData.NumSlots; i++)
@@ -64,189 +60,104 @@ namespace Items
             return result;
         }
         
-        public void SetIncoming(ItemData itemData, int quantity)
+        public void SetIncoming(ItemState itemState)
         {
-            int remainder = quantity;
             foreach (var slot in _storageSlots)
             {
-                int amountSpaceAvailable = slot.AmountCanBeDeposited(itemData);
-                if (amountSpaceAvailable != 0 && amountSpaceAvailable < remainder)
+                int amountSpaceAvailable = slot.AmountCanBeDeposited(itemState.Data);
+                if (amountSpaceAvailable != 0)
                 {
-                    remainder -= amountSpaceAvailable;
-                    slot.SetIncoming(itemData, amountSpaceAvailable);
-                } 
-                else if (amountSpaceAvailable != 0 && amountSpaceAvailable >= remainder)
-                {
-                    slot.SetIncoming(itemData, remainder);
-                    remainder = 0;
-                }
-
-                if (remainder == 0)
-                {
+                    slot.SetIncoming(itemState);
                     return;
                 }
             }
-
-            if (remainder > 0)
-            {
-                Debug.LogError("There was still a remainder after setting incoming: " + remainder);
-            }
         }
 
-        public void DepositItems(ItemData itemData, int quantity)
+        public void DepositItems(ItemState itemState)
         {
-            int remainder = quantity;
             foreach (var slot in _storageSlots)
             {
-                if(slot.Item != itemData) continue;
-                
-                int space = slot.NumIncoming;
-                if (space < remainder)
+                if(slot.StoredItemData() != itemState.Data) continue;
+                if (slot.Incoming.Contains(itemState))
                 {
-                    slot.AddItem(itemData, space);
-                    remainder -= space;
-                }
-                else
-                {
-                    slot.AddItem(itemData, remainder);
-                    remainder = 0;
-                }
-                
-                if (remainder == 0)
-                {
+                    slot.AddItem(itemState, this);
                     GameEvents.Trigger_RefreshInventoryDisplay();
                     RefreshDisplayedInventoryPanel();
                     return;
                 }
             }
             
-            if (remainder > 0)
-            {
-                Debug.LogError("There was still a remainder after depositting item: " + remainder);
-            }
-            
-            GameEvents.Trigger_RefreshInventoryDisplay();
-            RefreshDisplayedInventoryPanel();
+            Debug.LogError($"Item: {itemState.UID} was not deposited, was not found as incoming");
         }
 
-        public void RestoreClaimed(ItemData itemData, int quantity)
+        public void RestoreClaimed(ItemState itemState)
         {
-            int remainder = quantity;
             foreach (var slot in _storageSlots)
             {
-                if (slot.Item == itemData)
+                if (slot.Claimed.Contains(itemState))
                 {
-                    if (slot.NumClaimed >= remainder)
-                    {
-                        slot.NumClaimed -= remainder;
-                        return;
-                    }
-                    else
-                    {
-                        int amountToRemove = slot.NumClaimed;
-                        slot.NumClaimed = 0;
-                        remainder -= amountToRemove;
-                    }
-                }
-
-                if (remainder == 0)
-                {
+                    slot.Claimed.Remove(itemState);
                     return;
                 }
             }
 
-            if (remainder > 0)
-            {
-                Debug.LogError("There was still a remainder after restoring claimed: " + remainder);
-            }
+            Debug.LogError($"Item Claim: {itemState.UID} was not restored, was not found in claimed");
         }
         
-        public void SetClaimed(ItemData itemData, int quantity)
+        public ItemState SetClaimed(ItemData itemData)
         {
-            int remainder = quantity;
             foreach (var slot in _storageSlots)
             {
                 int amountClaimable = slot.AmountCanBeWithdrawn(itemData);
-                if (amountClaimable != 0 && amountClaimable < remainder)
+                if (amountClaimable > 0)
                 {
-                    remainder -= amountClaimable;
-                    slot.SetClaimed(amountClaimable);
-                }
-                else if (amountClaimable != 0 && amountClaimable >= remainder)
-                {
-                    slot.SetClaimed(remainder);
-                    remainder = 0;
-                }
-
-                if (remainder == 0)
-                {
-                    return;
+                    return slot.ClaimItem();
                 }
             }
             
-            if (remainder > 0)
-            {
-                Debug.LogError("There was still a remainder after setting claimed: " + remainder);
-            }
+            Debug.LogError($"Item Claim: {itemData.ItemName} was not set, nothing could be withdrawn");
+            return null;
         }
 
-        public void WithdrawItems(ItemData itemData, int quantity)
+        public void WithdrawItem(ItemState itemState)
         {
-            int remainder = quantity;
             foreach (var slot in _storageSlots)
             {
-                if(slot.Item != itemData) continue;
-
-                int available = slot.NumClaimed;
-                if (available < quantity)
-                {
-                    slot.RemoveItem(available);
-                    remainder -= available;
-                }
-                else
-                {
-                    slot.RemoveItem(remainder);
-                    remainder = 0;
-                }
+                if(slot.StoredItemData() != itemState.Data) continue;
                 
-                if (remainder == 0)
-                {
-                    GameEvents.Trigger_RefreshInventoryDisplay();
-                    RefreshDisplayedInventoryPanel();
-                    return;
-                }
+                slot.RemoveItem(itemState);
+                GameEvents.Trigger_RefreshInventoryDisplay();
+                RefreshDisplayedInventoryPanel();
+                return;
             }
             
-            if (remainder > 0)
-            {
-                Debug.LogError("There was still a remainder after Withdrawing item: " + remainder);
-            }
-            
-            GameEvents.Trigger_RefreshInventoryDisplay();
-            RefreshDisplayedInventoryPanel();
+            Debug.LogError($"Item Withdrawl: {itemState.UID} was not set, could not find the requested item");
         }
 
-        public Dictionary<ItemData, int> AvailableInventory
+        public Dictionary<ItemData, List<ItemState>> AvailableInventory
         {
             get
             {
-                Dictionary<ItemData, int> result = new Dictionary<ItemData, int>();
+                Dictionary<ItemData, List<ItemState>> results = new Dictionary<ItemData, List<ItemState>>();
                 foreach (var slot in _storageSlots)
                 {
                     if (slot != null && !slot.IsEmpty())
                     {
-                        if (result.ContainsKey(slot.Item))
+                        foreach (var storedItem in slot.Stored)
                         {
-                            result[slot.Item] += slot.NumStored;
-                        }
-                        else
-                        {
-                            result[slot.Item] = slot.NumStored;
+                            if (results.ContainsKey(storedItem.Data))
+                            {
+                                results[storedItem.Data].Add(storedItem);
+                            }
+                            else
+                            {
+                                results.Add(storedItem.Data, new List<ItemState>(){storedItem});
+                            }
                         }
                     }
                 }
 
-                return result;
+                return results;
             }
         }
 
@@ -267,7 +178,7 @@ namespace Items
         {
             foreach (var slot in _storageSlots)
             {
-                if(slot.Item != itemData) continue;
+                if(slot.StoredItemData() != itemData) continue;
 
                 return slot.NumAvailable > 0;
             }
@@ -279,90 +190,116 @@ namespace Items
     [Serializable]
     public class StorageSlot
     {
-        public ItemData Item;
-        public int NumStored;
-        public int NumIncoming;
-        public int NumClaimed;
+        public List<ItemState> Stored = new List<ItemState>();
+        public List<ItemState> Incoming = new List<ItemState>();
+        public List<ItemState> Claimed = new List<ItemState>();
 
-        public int NumAvailable => NumStored - NumClaimed;
+        public int NumStored => Stored.Count;
+        public int NumIncoming => Incoming.Count;
+        public int NumClaimed => Claimed.Count;
+
+        public int NumAvailable => Stored.Count - Claimed.Count;
 
         /// <summary>
         /// Inform the Slot that an item is on its way
         /// </summary>
-        public void SetIncoming(ItemData itemData, int quantity)
+        public void SetIncoming(ItemState itemState)
         {
-            Item = itemData;
-            NumIncoming += quantity;
+            Incoming.Add(itemState);
         }
         
         /// <summary>
         /// Add the item to the storage
         /// </summary>
-        public void AddItem(ItemData itemData, int quantity)
+        public void AddItem(ItemState itemState, Storage storage)
         {
-            Item = itemData;
-            NumStored += quantity;
-            NumIncoming -= quantity;
+            itemState.Storage = storage;
+            Stored.Add(itemState);
+            Incoming.Remove(itemState);
         }
 
-        /// <summary>
-        /// Inform the slot that the item is claimed by someone on their way to pick it up
-        /// </summary>
-        public void SetClaimed(int quantity)
+        public ItemState ClaimItem()
         {
-            NumClaimed += quantity;
+            foreach (var storedItem in Stored)
+            {
+                if (!Claimed.Contains(storedItem))
+                {
+                    Claimed.Add(storedItem);
+                    return storedItem;
+                }
+            }
+            
+            Debug.LogError($"No items are left available to be claimed");
+            return null;
         }
 
         /// <summary>
         /// Remove the item from storage
         /// </summary>
-        public void RemoveItem(int quantity)
+        public void RemoveItem(ItemState itemState)
         {
-            NumStored -= quantity;
-            NumClaimed -= quantity;
-
-            if (IsEmpty())
-            {
-                Item = null;
-            }
+            itemState.Storage = null;
+            Stored.Remove(itemState);
+            Claimed.Remove(itemState);
         }
 
         public bool IsEmpty()
         {
-            return NumStored == 0 && NumIncoming == 0;
+            return Stored.Count == 0 && Incoming.Count == 0;
         }
         
-        public int AmountCanBeStored(ItemData item)
+        private bool IsItemValidToStore(ItemData itemData)
         {
-            if (Item != null)
-            {
-                if (Item != item) // Not the same item
-                {
-                    return 0;
-                }
+            if (IsEmpty()) return true;
+            if (StoredItemData() == null) return true;
 
-                int totalStoredOrIncoming = NumStored + NumIncoming;
-                return Item.MaxStackSize - totalStoredOrIncoming;
-            }
-            else
+            return StoredItemData() == itemData;
+        }
+
+        public ItemData StoredItemData()
+        {
+            if (IsEmpty()) return null;
+            if (Stored.Count > 0)
             {
-                return item.MaxStackSize;
+                if (Stored[0].Data != null)
+                {
+                    return Stored[0].Data;
+                }
             }
+            
+            if (Incoming.Count > 0)
+            {
+                if (Incoming[0].Data != null)
+                {
+                    return Incoming[0].Data;
+                }
+            }
+
+            return null;
         }
 
         public int AmountCanBeWithdrawn(ItemData item)
         {
             if (IsEmpty()) return 0;
-            if (Item != item) return 0;
+            if (!IsItemValidToStore(item)) return 0;
 
-            return NumStored - NumClaimed;
+            return Stored.Count - Claimed.Count;
         }
 
         public int AmountCanBeDeposited(ItemData item)
         {
-            if (Item != null && Item != item) return 0;
+            var storedItemData = StoredItemData();
+            if (storedItemData == null)
+            {
+                return item.MaxStackSize;
+            }
 
-            return item.MaxStackSize - (NumStored + NumIncoming);
+            if (storedItemData != item)
+            {
+                return 0;
+            }
+
+            return item.MaxStackSize - (Stored.Count + Incoming.Count);
         }
     }
 }

@@ -377,13 +377,14 @@ namespace Managers
             }
         }
         
-        public Item SpawnItem(ItemData itemData, Vector3 spawnPosition, bool canBeHauled)
+        public Item SpawnItem(ItemData itemData, Vector3 spawnPosition, bool canBeHauled, ItemState itemState = null)
         {
             spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
             var item = Instantiate(_itemPrefab, spawnPosition, Quaternion.identity);
             item.transform.SetParent(_itemsParent);
             var itemScript = item.GetComponent<Item>();
-            itemScript.InitializeItem(itemData, canBeHauled);
+            itemScript.InitializeItem(itemData, canBeHauled, itemState);
+            
             item.SetActive(true);
             return itemScript;
         }

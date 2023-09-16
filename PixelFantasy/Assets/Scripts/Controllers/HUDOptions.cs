@@ -141,12 +141,6 @@ namespace Controllers
                         BuildDoorPressed(dataKey);
                     };
                     break;
-                case OrderType.Zone:
-                    onpressed += () =>
-                    {
-                        BuildZonePressed(dataKey);
-                    };
-                    break;
                 case OrderType.ClearGrass:
                     onpressed += ClearGrassPressed;
                     break;
@@ -268,43 +262,7 @@ namespace Controllers
             Spawner.Instance.FloorData = floorData;
             Spawner.Instance.ShowPlacementIcon(true, floorData.Icon, floorData.InvalidPlacementTags);
         }
-
-        public void BuildZonePressed(string key)
-        {
-            if (key == "Storage")
-            {
-                BuildZone(ZoneType.Storage);
-            } 
-            else if (key == "Home")
-            {
-                BuildZone(ZoneType.Home);
-            }
-            else if (key == "Farm")
-            {
-                BuildZone(ZoneType.Farm);
-            }
-            else if (key == "Workshop")
-            {
-                BuildZone(ZoneType.Workshop);
-            }
-            else
-            {
-                Debug.LogError("BuildZonePressed - Unknown Zone: " + key);
-            }
-        }
-
-        private void BuildZone(ZoneType zoneType)
-        {
-            ZoneManager.Instance.PlanZone(zoneType);
-        }
         
-        private void BuildStorageZone()
-        {
-            // var invController = ControllerManager.Instance.InventoryController;
-            // PlayerInputController.Instance.ChangeState(PlayerInputState.BuildStorage);
-            // Spawner.Instance.ShowPlacementIcon(true, invController.GetStorageZoneBlueprintSprite(), invController.StoragePlacementInvalidTags);
-        }
-
         private void ShowSubMenu(List<Order> subMenu, List<Order> curMenu, bool hasBackBtn)
         {
             if (hasBackBtn && subMenu[0].OrderName != "Back")

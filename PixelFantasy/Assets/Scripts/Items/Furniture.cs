@@ -114,14 +114,14 @@ namespace Items
         private void CreateFurnitureHaulingTask()
         {
             // If item exists, claim it
-            var storage = InventoryManager.Instance.ClaimItem(_furnitureItemData);
-            if (storage != null)
+            var claimedItem = InventoryManager.Instance.ClaimItem(_furnitureItemData);
+            if (claimedItem != null)
             {
                 Task task = new Task
                 {
                     TaskId = "Place Furniture",
                     Requestor = this,
-                    Payload = storage.UniqueId,
+                    Materials = new List<CraftingBill.RequestedItemInfo>(){ new CraftingBill.RequestedItemInfo(claimedItem, 1)},
                     TaskType = TaskType.Haul,
                 };
                 TaskManager.Instance.AddTask(task);

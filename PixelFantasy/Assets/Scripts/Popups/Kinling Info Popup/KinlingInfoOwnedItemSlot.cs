@@ -1,4 +1,5 @@
 using System;
+using Items;
 using ScriptableObjects;
 using TMPro;
 using UnityEngine;
@@ -12,22 +13,20 @@ namespace Popups.Kinling_Info_Popup
         [SerializeField] private TextMeshProUGUI _quantityText;
         [SerializeField] private GameObject _selector;
 
-        private Action<ItemData, KinlingInfoOwnedItemSlot> _onSlotPressed;
-        private ItemData _itemData;
-        private int _quantity;
+        private Action<ItemState, KinlingInfoOwnedItemSlot> _onSlotPressed;
+        private ItemState _item;
         private bool _isEquipped;
         
-        public void Init(Action<ItemData, KinlingInfoOwnedItemSlot> onSlotPressed)
+        public void Init(Action<ItemState, KinlingInfoOwnedItemSlot> onSlotPressed)
         {
             _onSlotPressed = onSlotPressed;
             
             Refresh();
         }
 
-        public void AssignItem(ItemData itemData, int quantity, bool isEquipped = false)
+        public void AssignItem(ItemState item, bool isEquipped = false)
         {
-            _itemData = itemData;
-            _quantity = quantity;
+            _item = item;
             _isEquipped = isEquipped;
             
             Refresh();
@@ -40,7 +39,7 @@ namespace Popups.Kinling_Info_Popup
 
         private void Refresh()
         {
-            if (_itemData == null)
+            if (_item?.Data == null)
             {
                 _quantityText.text = "";
                 _itemImage.gameObject.SetActive(false);
@@ -51,18 +50,14 @@ namespace Popups.Kinling_Info_Popup
                 {
                     _quantityText.text = "E";
                 }
-                else
-                {
-                    _quantityText.text = _quantity.ToString();
-                }
                 _itemImage.gameObject.SetActive(true);
-                _itemImage.sprite = _itemData.ItemSprite;
+                _itemImage.sprite = _item.Data.ItemSprite;
             }
         }
         
         public void OnPressed()
         {
-            _onSlotPressed.Invoke(_itemData, this);
+            _onSlotPressed.Invoke(_item, this);
         }
 
         public void DisplaySelected(bool isSelected)

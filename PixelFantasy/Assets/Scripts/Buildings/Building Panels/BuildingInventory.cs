@@ -65,8 +65,11 @@ namespace Buildings.Building_Panels
             int slotIndex = 0;
             foreach (var invKVPair in buildingInventory)
             {
-                _displayedSlots[slotIndex].ShowItem(invKVPair.Key, invKVPair.Value);
-                slotIndex++;
+                foreach (var item in invKVPair.Value)
+                {
+                    _displayedSlots[slotIndex].ShowItem(item.Data, 1);
+                    slotIndex++;
+                }
             }
             
             RefreshLogisticsSlotDisplays();

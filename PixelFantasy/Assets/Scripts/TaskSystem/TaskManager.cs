@@ -92,12 +92,6 @@ namespace TaskSystem
         {
             CraftingBills.Cancel(bill);
         }
-
-        public CraftingBill GetNextCraftingBillByBuilding(ProductionBuildingOld buildingOld)
-        {
-            CraftingBill result = CraftingBills.GetNextCraftingBillByBuilding(buildingOld);
-            return result;
-        }
         
         public CraftingBill GetNextCraftingBillByCraftingTable(CraftingTable craftingTable)
         {

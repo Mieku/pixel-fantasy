@@ -9,6 +9,7 @@ namespace Items
         public ItemData Data;
         public int Durability;
         public string UID;
+        public Storage Storage;
 
         public ItemState(ItemData data, string uid)
         {

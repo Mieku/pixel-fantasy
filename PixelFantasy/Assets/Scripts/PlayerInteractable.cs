@@ -14,17 +14,10 @@ public abstract class PlayerInteractable : UniqueObject
     {
         if (IsPending(command)) return;
 
-        var zone = Helper.IsPositionInZone(transform.position);
-        BuildingOld buildingOld = null;
-        if (zone != null)
-        {
-            buildingOld = zone.buildingOld;
-        }
-
         // Only one command can be active
         if (PendingCommand != null)
         {
-            CancelCommand(PendingCommand, buildingOld);
+            CancelCommand(PendingCommand);
         }
 
         Task task = new Task
@@ -35,19 +28,12 @@ public abstract class PlayerInteractable : UniqueObject
 
         PendingCommand = command;
 
-        if (buildingOld == null)
-        {
-            TaskManager.Instance.AddTask(task);
-        }
-        else
-        {
-            buildingOld.BuildingTasks.AddTask(task);
-        }
+        TaskManager.Instance.AddTask(task);
         
         DisplayTaskIcon(command.Icon);
     }
 
-    public void CancelCommand(Command command, BuildingOld buildingOld = null)
+    public void CancelCommand(Command command)
     {
         PendingCommand = null;
         
@@ -57,15 +43,8 @@ public abstract class PlayerInteractable : UniqueObject
             Requestor = this
         };
 
-        if (buildingOld == null)
-        {
-            TaskManager.Instance.CancelTask(task);
-        }
-        else
-        {
-            buildingOld.BuildingTasks.CancelTask(task);
-        }
-        
+        TaskManager.Instance.CancelTask(task);
+
         DisplayTaskIcon(null);
     }
 

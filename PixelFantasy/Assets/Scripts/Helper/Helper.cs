@@ -312,22 +312,7 @@ public static class Helper
         
         return result;
     }
-
-    public static BuildingOld FindBuildingFromInteriorPosition(Vector2 position)
-    {
-        var gos = GetGameObjectsOnTile(position, "Building Interior");
-        foreach (var go in gos)
-        {
-            var interior = go.GetComponentInParent<Interior>(true);
-            if (interior != null)
-            {
-                return interior.buildingOld;
-            }
-        }
-
-        return null;
-    }
-
+    
     public static List<ClickObject> GetClickObjectsAtPos(Vector2 pos)
     {
         var leftStart = new Vector2(pos.x - 0.20f, pos.y);
@@ -424,16 +409,6 @@ public static class Helper
     /// </summary>
     public static float CalculateAngle(Vector3 from, Vector3 to) {
         return Quaternion.FromToRotation(Vector3.up, to - from).eulerAngles.z;
-    }
-
-    /// <summary>
-    /// Checks if the world position is located within a Zone
-    /// </summary>
-    /// <returns>The Zone the position is in, or null if no zone</returns>
-    public static Zone IsPositionInZone(Vector2 worldPos)
-    {
-        var zone = ZoneManager.Instance.GetZoneByGridPos(worldPos) as Zone;
-        return zone;
     }
 
     public static Building IsPositionInBuilding(Vector2 worldPos)

@@ -11,6 +11,7 @@ namespace TaskSystem
     public class StockItemAction : TaskAction
     {
         private ItemData _itemData;
+        private ItemState _claimedItem;
 
         private Storage _availableItemStorage;
         private Storage _buildingStorage;
@@ -25,7 +26,7 @@ namespace TaskSystem
             _state = TaskState.GoingToGlobalStorage;
             
             _ai.Unit.UnitAgent.SetMovePosition(_availableItemStorage.transform.position);
-            _buildingStorage.SetIncoming(_itemData, 1);
+            _buildingStorage.SetIncoming(_claimedItem);
         }
 
         public override bool CanDoTask(Task task)
@@ -34,8 +35,8 @@ namespace TaskSystem
             var itemData = Librarian.Instance.GetItemData(task.Payload);
             
             // Check both if the building can accept storage and if there is an item available to fill it
-            _availableItemStorage = InventoryManager.Instance.ClaimItemGlobal(itemData);
-            if (_availableItemStorage == null) return false;
+            _claimedItem = InventoryManager.Instance.ClaimItemGlobal(itemData);
+            if (_claimedItem == null) return false;
 
             _buildingStorage = building.FindBuildingStorage(itemData);
             if (_buildingStorage == null) return false;
@@ -63,8 +64,8 @@ namespace TaskSystem
             // Pick Up Item
             if (DistanceToGlobalStorage <= 1f)
             {
-                _availableItemStorage.WithdrawItems(_itemData, 1);
-                var item = Spawner.Instance.SpawnItem(_itemData, _availableItemStorage.transform.position, false);
+                _availableItemStorage.WithdrawItem(_claimedItem);
+                var item = Spawner.Instance.SpawnItem(_itemData, _availableItemStorage.transform.position, false, _claimedItem);
                 _ai.HoldItem(item);
                 item.SetHeld(true);
                 

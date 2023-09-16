@@ -33,7 +33,7 @@ namespace Buildings.Building_Panels
             int amountStored = 0;
             if (building.GetBuildingInventory().ContainsKey(Item))
             {
-                amountStored = building.GetBuildingInventory()[Item];
+                amountStored = building.GetBuildingInventory()[Item].Count;
             }
 
             switch (Type)

@@ -16,7 +16,6 @@ namespace Characters
         public Abilities Abilities;
         public TaskPriorities Priorities;
         
-        public RoomZone AssignedWorkRoom;
         public Schedule Schedule = new Schedule();
         public Building AssignedHome;
         public Building AssignedWorkplace;

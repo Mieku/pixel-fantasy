@@ -10,9 +10,7 @@ namespace ScriptableObjects
     [CreateAssetMenu(fileName = "BuildingData", menuName = "Buildings/BuildingData", order = 1)]
     public class BuildingData : ConstructionData
     {
-        //public GameObject Exterior; // TODO: Make this capable of having multiple options
         public BuildingType BuildingType;
-        [FormerlySerializedAs("BuildingPanel")] public BuildingPanelOld buildingPanelOld;
         public int MaxOccupants;
         public List<FurnitureItemData> AllowedFurniture = new List<FurnitureItemData>();
 

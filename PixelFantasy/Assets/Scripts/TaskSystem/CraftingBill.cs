@@ -29,10 +29,10 @@ namespace TaskSystem
             {
                 for (int i = 0; i < cost.Quantity; i++)
                 {
-                    var storage = InventoryManager.Instance.ClaimItem(cost.Item);
-                    if (storage != null)
+                    var item = InventoryManager.Instance.ClaimItem(cost.Item);
+                    if (item != null)
                     {
-                        results = AddToRequestedItemsList(cost.Item, storage, results);
+                        results = AddToRequestedItemsList(item, results);
                     }
                     else
                     {
@@ -57,7 +57,7 @@ namespace TaskSystem
                 {
                     for (int i = 0; i < resultItemInfo.Quantity; i++)
                     {
-                        resultItemInfo.Storage.RestoreClaimed(resultItemInfo.ItemData, 1);
+                        resultItemInfo.ItemState.Storage.RestoreClaimed(resultItemInfo.ItemState);
                     }
                 }
                 
@@ -77,45 +77,45 @@ namespace TaskSystem
             return false;
         }
 
-        private List<RequestedItemInfo> AddToRequestedItemsList(ItemData itemData, Storage storage, List<RequestedItemInfo> currentList)
+        private List<RequestedItemInfo> AddToRequestedItemsList(ItemState itemState, List<RequestedItemInfo> currentList)
         {
             List<RequestedItemInfo> results = new List<RequestedItemInfo>(currentList);
             
             foreach (var itemInfo in results)
             {
-                if (itemInfo.ItemData == itemData && itemInfo.Storage == storage)
+                if (itemInfo.ItemState == itemState)
                 {
                     itemInfo.Quantity++;
                     return results;
                 }
             }
             
-            results.Add(new RequestedItemInfo(itemData, storage, 1));
+            results.Add(new RequestedItemInfo(itemState, 1));
 
             return results;
         }
         
-        public bool HasCorrectCraftingTable(ProductionBuildingOld buildingOld)
-        {
-            var craftingTable = ItemToCraft.RequiredCraftingTable;
-            if (craftingTable == null)
-            {
-                _assignedCraftingTable = null;
-                return true;
-            }
-
-            var result = buildingOld.GetFurniture(craftingTable) as CraftingTable;
-            if (result != null && !result.IsInUse)
-            {
-                _assignedCraftingTable = result;
-                return true;
-            }
-            else
-            {
-                _assignedCraftingTable = null;
-                return false;
-            }
-        }
+        // public bool HasCorrectCraftingTable(ProductionBuildingOld buildingOld)
+        // {
+        //     var craftingTable = ItemToCraft.RequiredCraftingTable;
+        //     if (craftingTable == null)
+        //     {
+        //         _assignedCraftingTable = null;
+        //         return true;
+        //     }
+        //
+        //     var result = buildingOld.GetFurniture(craftingTable) as CraftingTable;
+        //     if (result != null && !result.IsInUse)
+        //     {
+        //         _assignedCraftingTable = result;
+        //         return true;
+        //     }
+        //     else
+        //     {
+        //         _assignedCraftingTable = null;
+        //         return false;
+        //     }
+        // }
 
         public Task CreateTask(CraftingTable craftingTable)
         {
@@ -134,14 +134,12 @@ namespace TaskSystem
         [Serializable]
         public class RequestedItemInfo
         {
-            public ItemData ItemData;
-            public Storage Storage;
+            public ItemState ItemState;
             public int Quantity;
 
-            public RequestedItemInfo(ItemData itemData, Storage storage, int quantity)
+            public RequestedItemInfo(ItemState itemState, int quantity)
             {
-                ItemData = itemData;
-                Storage = storage;
+                ItemState = itemState;
                 Quantity = quantity;
             }
         }

@@ -77,9 +77,9 @@ namespace Popups.Inventory
             int index = 0;
             foreach (var invSlot in inventory)
             {
-                if (invSlot.Item != null && invSlot.NumStored > 0)
+                if (invSlot.StoredItemData() != null && invSlot.NumStored > 0)
                 {
-                    _slots[index].SetValues(invSlot.Item.ItemSprite, invSlot.NumStored);
+                    _slots[index].SetValues(invSlot.StoredItemData().ItemSprite, invSlot.NumStored);
                     index++;
                 }
             }

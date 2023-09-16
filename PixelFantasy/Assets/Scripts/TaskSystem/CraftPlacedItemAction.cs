@@ -18,7 +18,7 @@ namespace TaskSystem
         private int _quantityHauled;
 
         private Storage _targetStorage;
-        private ItemData _targetItemData;
+        private ItemState _targetItem;
         private bool _isMoving;
         private bool _isHoldingItem;
         private Item _item;
@@ -56,10 +56,10 @@ namespace TaskSystem
             if (_state == TaskState.HaulMaterials)
             {
                 // for each of the materials, haul the material to the crafting table
-                if (_targetStorage == null || _targetItemData == null)
+                if (_targetStorage == null || _targetItem == null)
                 {
-                    _targetStorage = _materials[_materialIndex].Storage;
-                    _targetItemData = _materials[_materialIndex].ItemData;
+                    _targetItem = _materials[_materialIndex].ItemState;
+                    _targetStorage = _targetItem.Storage;
                 }
                 
                 // Pick Up Item
@@ -67,8 +67,8 @@ namespace TaskSystem
                 {
                     _isMoving = false;
                     _isHoldingItem = true;
-                    _targetStorage.WithdrawItems(_targetItemData, 1);
-                    _item = Spawner.Instance.SpawnItem(_targetItemData, _targetStorage.transform.position, false);
+                    _targetStorage.WithdrawItem(_targetItem);
+                    _item = Spawner.Instance.SpawnItem(_targetItem.Data, _targetStorage.transform.position, false);
                     _ai.HoldItem(_item);
                     _item.SetHeld(true);
                     return;
@@ -82,7 +82,7 @@ namespace TaskSystem
                     _requestor.ReceiveItem(_item);
                     _quantityHauled++;
                     _targetStorage = null;
-                    _targetItemData = null;
+                    _targetItem = null;
 
                     if (_quantityHauled >= _materials[_materialIndex].Quantity)
                     {
@@ -216,7 +216,7 @@ namespace TaskSystem
             _targetStorage = null;
             _isHoldingItem = false;
             _isMoving = false;
-            _targetItemData = null;
+            _targetItem = null;
             _itemToCraft = null;
             _craftingTable = null;
             _materials.Clear();

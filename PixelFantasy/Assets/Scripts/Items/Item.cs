@@ -35,13 +35,22 @@ namespace Items
             return _clickObject;
         }
         
-        public void InitializeItem(ItemData itemData, bool allowed)
+        public void InitializeItem(ItemData itemData, bool allowed, ItemState itemState = null)
         {
             _itemData = itemData;
             IsAllowed = allowed;
+
+            if (itemState == null)
+            {
+                InitUID();
+                State = _itemData.CreateState(UniqueId);
+            }
+            else
+            {
+                State = itemState;
+                UniqueId = itemState.UID;
+            }
             
-            InitUID();
-            State = _itemData.CreateState(UniqueId);
             
             DisplayItemSprite();
 
@@ -58,7 +67,7 @@ namespace Items
                 AssignedStorage = InventoryManager.Instance.GetAvailableStorage(this);
                 if (AssignedStorage != null)
                 {
-                    AssignedStorage.SetIncoming(_itemData, 1);
+                    AssignedStorage.SetIncoming(State);
                     CreateHaulTask();
                 }
             }
@@ -115,7 +124,7 @@ namespace Items
         public void AddItemToSlot()
         {
             _isHeld = false;
-            AssignedStorage.DepositItems(_itemData, 1);
+            AssignedStorage.DepositItems(State);
             Destroy(gameObject);
         }
 

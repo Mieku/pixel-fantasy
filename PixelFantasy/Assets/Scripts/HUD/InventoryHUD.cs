@@ -32,7 +32,7 @@ namespace HUD
             {
                 if (availableInv.ContainsKey(displayedItem.Key))
                 {
-                    var value = availableInv[displayedItem.Key];
+                    var value = availableInv[displayedItem.Key].Count;
                     if (value > 0)
                     {
                         displayedItem.Value.UpdateAmount(availableInv[displayedItem.Key].ToString());

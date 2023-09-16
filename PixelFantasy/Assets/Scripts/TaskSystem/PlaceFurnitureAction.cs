@@ -7,7 +7,7 @@ namespace TaskSystem
 {
     public class PlaceFurnitureAction : TaskAction
     {
-        private Storage _storage;
+        private ItemState _itemToPlace;
         private Furniture _furniture => _task.Requestor as Furniture;
         private bool _isHoldingItem;
         private Item _item;
@@ -19,12 +19,12 @@ namespace TaskSystem
         private const float WORK_SPEED = 1f; // TODO: Get the work speed from the Kinling's stats
         private const float WORK_AMOUNT = 1f; // TODO: Get the amount of work from the Kinling's stats
         public float DistanceToRequestor => Vector2.Distance(_furniture.transform.position, transform.position);
-        public float DistanceToStorage => Vector2.Distance(_storage.transform.position, transform.position);
+        public float DistanceToStorage => Vector2.Distance(_itemToPlace.Storage.transform.position, transform.position);
         
         public override void PrepareAction(Task task)
         {
             _task = task;
-            _storage = InventoryManager.Instance.FindStorageByUID(task.Payload);
+            _itemToPlace = task.Materials[0].ItemState;
             _isHoldingItem = false;
             _isMoving = false;
             _itemData = _furniture.FurnitureItemData;
@@ -34,24 +34,24 @@ namespace TaskSystem
         public override void DoAction()
         {
             // Pick Up Item
-            if (!_isHoldingItem && _storage != null && DistanceToStorage <= 1f)
+            if (!_isHoldingItem && _itemToPlace != null && DistanceToStorage <= 1f)
             {
                 _isMoving = false;
                 _isHoldingItem = true;
-                _storage.WithdrawItems(_itemData, 1);
-                _item = Spawner.Instance.SpawnItem(_itemData, _storage.transform.position, false);
+                _itemToPlace.Storage.WithdrawItem(_itemToPlace);
+                _item = Spawner.Instance.SpawnItem(_itemData, _itemToPlace.Storage.transform.position, false, _itemToPlace);
                 _ai.HoldItem(_item);
                 _item.SetHeld(true);
-                _storage = null;
+                _itemToPlace = null;
                 return;
             }
             
             // Move to Item
-            if (!_isHoldingItem && _storage != null)
+            if (!_isHoldingItem && _itemToPlace != null)
             {
                 if (!_isMoving)
                 {
-                    _ai.Unit.UnitAgent.SetMovePosition(_storage.transform.position);
+                    _ai.Unit.UnitAgent.SetMovePosition(_itemToPlace.Storage.transform.position);
                     _isMoving = true;
                     return;
                 }
@@ -108,7 +108,7 @@ namespace TaskSystem
             
             UnitAnimController.SetUnitAction(UnitAction.Nothing);
             _task = null;
-            _storage = null;
+            _itemToPlace = null;
             _isHoldingItem = false;
             _isMoving = false;
             _itemData = null;

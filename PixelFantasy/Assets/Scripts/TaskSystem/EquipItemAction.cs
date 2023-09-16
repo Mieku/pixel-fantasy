@@ -8,19 +8,19 @@ namespace TaskSystem
 {
     public class EquipItemAction : TaskAction
     {
-        private Storage _storage;
+        private EquipmentState _claimedEquipment;
         private EquipmentData _equipment;
         private TaskState _state;
 
-        public float DistanceToStorage => Vector2.Distance(_storage.transform.position, transform.position);
+        public float DistanceToStorage => Vector2.Distance(_claimedEquipment.Storage.transform.position, transform.position);
         
         public override void PrepareAction(Task task)
         {
             var request = task.Materials[0];
-            _storage = request.Storage;
-            _equipment = request.ItemData as EquipmentData;
+            _claimedEquipment = request.ItemState as EquipmentState;
+            _equipment = _claimedEquipment.EquipmentData;
             _state = TaskState.GoingToStorage;
-            _ai.Unit.UnitAgent.SetMovePosition(_storage.transform.position);
+            _ai.Unit.UnitAgent.SetMovePosition(_claimedEquipment.Storage.transform.position);
         }
 
         public override void DoAction()
@@ -62,8 +62,8 @@ namespace TaskSystem
 
         private void DoEquipNewGear()
         {
-            _storage.WithdrawItems(_equipment, 1);
-            var item = Spawner.Instance.SpawnItem(_equipment, _storage.transform.position, false);
+            _claimedEquipment.Storage.WithdrawItem(_claimedEquipment);
+            var item = Spawner.Instance.SpawnItem(_equipment, _claimedEquipment.Storage.transform.position, false, _claimedEquipment);
             _ai.Unit.Equipment.Equip(item);
             ConcludeAction();
         }
@@ -80,7 +80,7 @@ namespace TaskSystem
             
             _task = null;
             _state = TaskState.GoingToStorage;
-            _storage = null;
+            _claimedEquipment = null;
             _equipment = null;
         }
         

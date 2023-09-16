@@ -25,8 +25,6 @@ namespace HUD
 
         [Header("Building Details")] 
         [SerializeField] private BuildingDetailsUI _buildingDetails;
-
-        [SerializeField] private ProductionRoomPanel _productionRoomPanel;
         
         private SelectionData _selectionData;
 
@@ -50,20 +48,12 @@ namespace HUD
 
             _buildingDetails.Show(building);
         }
-
-        public void ShowProductionRoom(ProductionZone zone)
-        {
-            HideAllDetails();
-            
-            _productionRoomPanel.Show(zone);
-        }
-
+        
         public void HideAllDetails()
         {
             _selectionData = null;
             _kinlingDetails.Hide();
             _buildingDetails.Hide();
-            _productionRoomPanel.Hide();
             _genericPanel.SetActive(false);
         }
 

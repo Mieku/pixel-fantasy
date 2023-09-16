@@ -210,27 +210,28 @@ namespace TaskSystem
                 var requiredTool = _unit.GetUnitState().CurrentJob.JobData.RequiredTool;
                 
                 // Search for and claim the item, starting with personal inventory then global
-                Storage storage = null;
+                // Storage storage = null;
+                ItemState claimedItem = null;
                 var home = _unit.GetUnitState().AssignedHome;
                 if (home != null)
                 {
-                    storage = InventoryManager.Instance.ClaimItemBuilding(requiredTool, home);
+                    claimedItem = InventoryManager.Instance.ClaimItemBuilding(requiredTool, home);
                 }
 
-                if (storage == null && _unit.GetUnitState().AssignedWorkplace != null)
+                if (claimedItem == null && _unit.GetUnitState().AssignedWorkplace != null)
                 {
-                    storage = InventoryManager.Instance.ClaimItemBuilding(requiredTool, _unit.GetUnitState().AssignedWorkplace);
+                    claimedItem = InventoryManager.Instance.ClaimItemBuilding(requiredTool, _unit.GetUnitState().AssignedWorkplace);
                 }
 
-                if (storage == null)
+                if (claimedItem == null)
                 {
-                    storage = InventoryManager.Instance.ClaimItemGlobal(requiredTool);
+                    claimedItem = InventoryManager.Instance.ClaimItemGlobal(requiredTool);
                 }
 
-                if (storage == null) return null;
+                if (claimedItem == null) return null;
 
                 CraftingBill.RequestedItemInfo requestedItemInfo =
-                    new CraftingBill.RequestedItemInfo(requiredTool, storage, 1);
+                    new CraftingBill.RequestedItemInfo(claimedItem, 1);
 
                 Task equipItemTask = new Task
                 {
@@ -369,7 +370,7 @@ namespace TaskSystem
         {
             if (_heldItem == null) return;
             
-            storage.DepositItems(_heldItem.GetItemData(), 1);
+            storage.DepositItems(_heldItem.State);
             Destroy(_heldItem.gameObject);
             _heldItem = null;
         }

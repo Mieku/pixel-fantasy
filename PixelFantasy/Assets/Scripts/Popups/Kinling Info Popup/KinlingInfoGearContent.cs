@@ -106,7 +106,9 @@ namespace Popups.Kinling_Info_Popup
             
             var curEquipped = _unit.Equipment.GetEquipmentByType(equipmentType);
             var allAvailableItems = InventoryManager.Instance.GetAvailableInventory();
-            Dictionary<ItemData, int> applicableItems = new Dictionary<ItemData, int>();
+
+            int minItems = 1;
+            List<ItemState> applicableItems = new List<ItemState>();
             foreach (var availableItem in allAvailableItems)
             {
                 var equipmentData = availableItem.Key as EquipmentData;
@@ -114,20 +116,16 @@ namespace Popups.Kinling_Info_Popup
                 {
                     if (equipmentData.Type == equipmentType)
                     {
-                        if (applicableItems.ContainsKey(availableItem.Key))
+                        minItems += availableItem.Value.Count;
+                        foreach (var item in availableItem.Value)
                         {
-                            applicableItems[availableItem.Key] += availableItem.Value;
-                        }
-                        else
-                        {
-                            applicableItems[availableItem.Key] = availableItem.Value;
+                            applicableItems.Add(item);
                         }
                     }
                 }
             }
-
+            
             int extraRows = 0;
-            int minItems = applicableItems.Count + 1;
             int excess = minItems - _defaultMinSlotsShown;
             if (excess > 0)
             {
@@ -145,14 +143,14 @@ namespace Popups.Kinling_Info_Popup
             int index = 0;
             if (curEquipped.EquipmentData != null)
             {
-                _displayedOwnedItemSlots[index].AssignItem(curEquipped.EquipmentData, 1, true);
+                _displayedOwnedItemSlots[index].AssignItem(curEquipped, true);
                 _displayedOwnedItemSlots[index].TriggerSelected();
                 index++;
             }
             
-            foreach (var itemKVP in applicableItems)
+            foreach (var item in applicableItems)
             {
-                _displayedOwnedItemSlots[index].AssignItem(itemKVP.Key, itemKVP.Value);
+                _displayedOwnedItemSlots[index].AssignItem(item);
                 index++;
             }
         }
@@ -171,7 +169,7 @@ namespace Popups.Kinling_Info_Popup
             DisplayItemsForSlot(equipmentType);
         }
 
-        private void OnInventorySlotPressed(ItemData itemData, KinlingInfoOwnedItemSlot slotPressed)
+        private void OnInventorySlotPressed(ItemState item, KinlingInfoOwnedItemSlot slotPressed)
         {
             if (_currentSelectedItem != null)
             {
@@ -182,7 +180,8 @@ namespace Popups.Kinling_Info_Popup
             _currentSelectedItem.DisplaySelected(true);
             
             // TODO: The inventory needs to be saving the item's state. Not the data!
-            // RefreshGearDetails()
+            
+            RefreshGearDetails(item as EquipmentState);
         }
 
         public void Close()

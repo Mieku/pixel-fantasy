@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Buildings;
 using Items;
 using ScriptableObjects;
@@ -76,74 +77,67 @@ namespace Managers
             return null;
         }
 
-        public Storage ClaimItem(ItemData itemData)
+        public ItemState ClaimItem(ItemData itemData)
         {
             foreach (var storage in _allStorage)
             {
                 if (storage.AmountCanBeWithdrawn(itemData) > 0)
                 {
-                    storage.SetClaimed(itemData, 1);
-                    return storage;
+                    return storage.SetClaimed(itemData);
                 }
             }
 
             return null;
         }
         
-        public Storage ClaimItemGlobal(ItemData itemData)
+        public ItemState ClaimItemGlobal(ItemData itemData)
         {
             foreach (var storage in _allStorage)
             {
                 if (storage.IsGlobal && storage.AmountCanBeWithdrawn(itemData) > 0)
                 {
-                    storage.SetClaimed(itemData, 1);
-                    return storage;
+                    return storage.SetClaimed(itemData);
                 }
             }
 
             return null;
         }
         
-        public Storage ClaimItemBuilding(ItemData itemData, Building building)
+        public ItemState ClaimItemBuilding(ItemData itemData, Building building)
         {
             var allBuildingStorage = building.GetBuildingStorages();
             foreach (var storage in allBuildingStorage)
             {
                 if (storage.AmountCanBeWithdrawn(itemData) > 0)
                 {
-                    storage.SetClaimed(itemData, 1);
-                    return storage;
+                    return storage.SetClaimed(itemData);
                 }
             }
 
             return null;
         }
-
-        public void RestoreClaimedItems(Storage originalStorage, ItemData itemData, int quantity)
+        
+        public Dictionary<ItemData, List<ItemState>> GetAvailableInventory()
         {
-            originalStorage.RestoreClaimed(itemData, quantity);
-        }
-
-        public Dictionary<ItemData, int> GetAvailableInventory()
-        {
-            Dictionary<ItemData, int> result = new Dictionary<ItemData, int>();
+            Dictionary<ItemData, List<ItemState>> results = new Dictionary<ItemData, List<ItemState>>();
             foreach (var storage in _allStorage)
             {
                 var contents = storage.AvailableInventory;
                 foreach (var content in contents)
                 {
-                    if (result.ContainsKey(content.Key))
+                    if (!results.ContainsKey(content.Key))
                     {
-                        result[content.Key] += content.Value;
+                        results.Add(content.Key, new List<ItemState>());
                     }
-                    else
+
+                    foreach (var item in content.Value)
                     {
-                        result[content.Key] = content.Value;
+                        results[content.Key].Add(item);
                     }
                 }
             }
 
-            return result;
+            return results;
         }
 
         public int GetAmountAvailable(ItemData itemData)
@@ -151,7 +145,7 @@ namespace Managers
             var allAvailable = GetAvailableInventory();
             if (allAvailable.ContainsKey(itemData))
             {
-                return allAvailable[itemData];
+                return allAvailable[itemData].Count;
             }
             else
             {

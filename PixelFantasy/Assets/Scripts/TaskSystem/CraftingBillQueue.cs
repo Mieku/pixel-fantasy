@@ -40,22 +40,7 @@ namespace TaskSystem
                 Debug.LogError($"Error trying to cancel bill: {billToCancel}");
             }
         }
-
-        public CraftingBill GetNextCraftingBillByBuilding(ProductionBuildingOld buildingOld)
-        {
-            for (int i = 0; i < _bills.Count; i++)
-            {
-                var potentialBill = _bills[i];
-                if (potentialBill.HasCorrectCraftingTable(buildingOld) && potentialBill.IsPossible())
-                {
-                    _bills.RemoveAt(i);
-                    return potentialBill;
-                }
-            }
-
-            return null;
-        }
-
+        
         public CraftingBill GetNextBillByCraftingTable(CraftingTable craftingTable)
         {
             for (int i = 0; i < _bills.Count; i++)

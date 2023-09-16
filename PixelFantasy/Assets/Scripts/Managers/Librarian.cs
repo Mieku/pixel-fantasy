@@ -18,12 +18,10 @@ namespace Managers
         [SerializeField] private List<CropData> _cropLibrary;
         [SerializeField] private List<GrowingResourceData> _growingResourceLibrary;
         [SerializeField] private List<HairData> _hairLibrary;
-        [SerializeField] private List<ZoneTypeData> _zoneTypeLibrary;
         [SerializeField] private List<ItemData> _itemDataLibrary;
         [SerializeField] private List<Building> _buildingLibrary;
         [SerializeField] private List<Command> _commandLibrary;
         [SerializeField] private List<WallData> _wallLibrary;
-        [SerializeField] private List<RoomData> _roomLibrary;
         [SerializeField] private List<RoofData> _roofLibrary;
         [SerializeField] private List<NeedData> _needLibrary;
         [SerializeField] private List<JobData> _jobLibrary;
@@ -56,17 +54,6 @@ namespace Managers
             if (result == null)
             {
                 Debug.LogError($"Unknown Roof: {roofName}");
-            }
-
-            return result;
-        }
-        
-        public RoomData GetRoom(string roomName)
-        {
-            var result = _roomLibrary.Find(room => room.RoomName == roomName);
-            if (result == null)
-            {
-                Debug.LogError($"Unknown Room: {roomName}");
             }
 
             return result;
@@ -209,16 +196,6 @@ namespace Managers
             if (result == null)
             {
                 Debug.LogError("Unknown Hair Data: " + hairName);
-            }
-            return result;
-        }
-
-        public ZoneTypeData GetZoneTypeData(ZoneType zoneType)
-        {
-            var result = _zoneTypeLibrary.Find(s => s.ZoneType == zoneType);
-            if (result == null)
-            {
-                Debug.LogError("Unknown Zone Type Data: " + zoneType);
             }
             return result;
         }

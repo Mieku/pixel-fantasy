@@ -48,18 +48,6 @@ namespace Controllers
             _selectedItemInfoPanel.ShowBuildingDetails(building);
         }
         
-        public void ShowRoomDetails(RoomZone zone)
-        {
-            if (zone is ProductionZone productionZone)
-            {
-                _selectedItemInfoPanel.ShowProductionRoom(productionZone);
-            }
-            else // Normal Room Zone
-            {
-                Debug.LogError("Not Built");
-            }
-        }
-
         public void HideItemDetails()
         {
             if (_selectedItemInfoPanel != null)
