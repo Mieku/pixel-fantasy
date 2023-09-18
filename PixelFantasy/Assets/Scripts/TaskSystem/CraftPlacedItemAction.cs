@@ -67,8 +67,8 @@ namespace TaskSystem
                 {
                     _isMoving = false;
                     _isHoldingItem = true;
-                    _targetStorage.WithdrawItem(_targetItem);
                     _item = Spawner.Instance.SpawnItem(_targetItem.Data, _targetStorage.transform.position, false);
+                    _targetStorage.WithdrawItem(_targetItem);
                     _ai.HoldItem(_item);
                     _item.SetHeld(true);
                     return;

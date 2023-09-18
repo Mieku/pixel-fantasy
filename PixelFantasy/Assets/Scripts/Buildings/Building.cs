@@ -117,7 +117,10 @@ namespace Buildings
                 Storage storage = furniture as Storage;
                 if (storage != null)
                 {
-                    results.Add(storage);
+                    if (storage.IsBuilt)
+                    {
+                        results.Add(storage);
+                    }
                 }
             }
 
@@ -155,6 +158,25 @@ namespace Buildings
                     {
                         results[storedKVP.Key].Add(item);
                     }
+                }
+            }
+
+            return results;
+        }
+        
+        public Dictionary<ItemData, int> GetBuildingInventoryQuantities()
+        {
+            Dictionary<ItemData, int> results = new Dictionary<ItemData, int>();
+            var availableInventory = GetBuildingInventory();
+            foreach (var availKVP in availableInventory)
+            {
+                if (!results.ContainsKey(availKVP.Key))
+                {
+                    results.Add(availKVP.Key, availKVP.Value.Count);
+                }
+                else
+                {
+                    results[availKVP.Key] += availKVP.Value.Count;
                 }
             }
 

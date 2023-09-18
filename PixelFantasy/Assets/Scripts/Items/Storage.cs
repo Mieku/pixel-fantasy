@@ -145,13 +145,16 @@ namespace Items
                     {
                         foreach (var storedItem in slot.Stored)
                         {
-                            if (results.ContainsKey(storedItem.Data))
+                            if (!slot.Claimed.Contains(storedItem))
                             {
-                                results[storedItem.Data].Add(storedItem);
-                            }
-                            else
-                            {
-                                results.Add(storedItem.Data, new List<ItemState>(){storedItem});
+                                if (results.ContainsKey(storedItem.Data))
+                                {
+                                    results[storedItem.Data].Add(storedItem);
+                                }
+                                else
+                                {
+                                    results.Add(storedItem.Data, new List<ItemState>(){storedItem});
+                                }
                             }
                         }
                     }

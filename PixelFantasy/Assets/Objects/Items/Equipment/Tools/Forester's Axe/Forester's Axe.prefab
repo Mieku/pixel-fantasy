@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 2693881074065255873}
   - component: {fileID: 2109487599534607570}
   m_Layer: 0
-  m_Name: Forester's Hammer
+  m_Name: Forester's Axe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 029c408f6dc19fb4c9271cbc73c7b0e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _equipmentData: {fileID: 11400000, guid: 06a1dfcb86a9ae94d92034d6f28156f6, type: 2}
   _sideView: {fileID: 4069374520984364680}
   _upView: {fileID: 6714515833504070516}
   _downView: {fileID: 2461672807418348769}

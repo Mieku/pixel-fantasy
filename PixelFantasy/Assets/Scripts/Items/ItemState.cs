@@ -17,5 +17,21 @@ namespace Items
             Durability = Data.Durability;
             UID = uid;
         }
+        
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            ItemState other = (ItemState)obj;
+            return UID == other.UID;
+        }
+        
+        public override int GetHashCode()
+        {
+            return UID.GetHashCode();
+        }
     }
 }

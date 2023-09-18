@@ -13,19 +13,27 @@ namespace TaskSystem
         private ItemData _itemData;
         private ItemState _claimedItem;
 
-        private Storage _availableItemStorage;
+        //private Storage _availableItemStorage;
         private Storage _buildingStorage;
         private TaskState _state;
         
         public float DistanceToBuildingStorage => Vector2.Distance(_buildingStorage.transform.position, transform.position);
-        public float DistanceToGlobalStorage => Vector2.Distance(_availableItemStorage.transform.position, transform.position);
+        public float DistanceToGlobalStorage => Vector2.Distance(_claimedItem.Storage.transform.position, transform.position);
         
         public override void PrepareAction(Task task)
         {
             _itemData = Librarian.Instance.GetItemData(task.Payload);
             _state = TaskState.GoingToGlobalStorage;
             
-            _ai.Unit.UnitAgent.SetMovePosition(_availableItemStorage.transform.position);
+            _claimedItem = InventoryManager.Instance.ClaimItemGlobal(_itemData);
+            if (_claimedItem == null)
+            {
+                Debug.LogError($"Task: {task.TaskId} attempted to claim an item but failed");
+                OnTaskCancel();
+                return;
+            }
+            
+            _ai.Unit.UnitAgent.SetMovePosition(_claimedItem.Storage.transform.position);
             _buildingStorage.SetIncoming(_claimedItem);
         }
 
@@ -35,9 +43,11 @@ namespace TaskSystem
             var itemData = Librarian.Instance.GetItemData(task.Payload);
             
             // Check both if the building can accept storage and if there is an item available to fill it
-            _claimedItem = InventoryManager.Instance.ClaimItemGlobal(itemData);
-            if (_claimedItem == null) return false;
-
+            if (!InventoryManager.Instance.IsItemInStorage(itemData, true))
+            {
+                return false;
+            }
+            
             _buildingStorage = building.FindBuildingStorage(itemData);
             if (_buildingStorage == null) return false;
 
@@ -64,8 +74,8 @@ namespace TaskSystem
             // Pick Up Item
             if (DistanceToGlobalStorage <= 1f)
             {
-                _availableItemStorage.WithdrawItem(_claimedItem);
-                var item = Spawner.Instance.SpawnItem(_itemData, _availableItemStorage.transform.position, false, _claimedItem);
+                var item = Spawner.Instance.SpawnItem(_itemData, _claimedItem.Storage.transform.position, false, _claimedItem);
+                _claimedItem.Storage.WithdrawItem(_claimedItem);
                 _ai.HoldItem(item);
                 item.SetHeld(true);
                 
@@ -97,7 +107,7 @@ namespace TaskSystem
             _task = null;
             _itemData = null;
 
-            _availableItemStorage = null;
+            _claimedItem = null;
             _buildingStorage = null;
         }
 

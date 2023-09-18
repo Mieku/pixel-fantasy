@@ -38,8 +38,8 @@ namespace TaskSystem
             {
                 _isMoving = false;
                 _isHoldingItem = true;
-                _itemToPlace.Storage.WithdrawItem(_itemToPlace);
                 _item = Spawner.Instance.SpawnItem(_itemData, _itemToPlace.Storage.transform.position, false, _itemToPlace);
+                _itemToPlace.Storage.WithdrawItem(_itemToPlace);
                 _ai.HoldItem(_item);
                 _item.SetHeld(true);
                 _itemToPlace = null;

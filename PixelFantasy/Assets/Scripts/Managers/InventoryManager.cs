@@ -38,11 +38,11 @@ namespace Managers
         /// <summary>
         /// Checks if the item is available in storage without claiming it
         /// </summary>
-        public bool IsItemInStorage(ItemData itemData)
+        public bool IsItemInStorage(ItemData itemData, bool globalOnly = false)
         {
             foreach (var storage in _allStorage)
             {
-                if (storage.IsItemInStorage(itemData))
+                if ((!globalOnly || storage.IsGlobal) && storage.IsItemInStorage(itemData))
                 {
                     return true;
                 }
@@ -134,6 +134,25 @@ namespace Managers
                     {
                         results[content.Key].Add(item);
                     }
+                }
+            }
+
+            return results;
+        }
+
+        public Dictionary<ItemData, int> GetAvailableInventoryQuantities()
+        {
+            Dictionary<ItemData, int> results = new Dictionary<ItemData, int>();
+            var availableInventory = GetAvailableInventory();
+            foreach (var availKVP in availableInventory)
+            {
+                if (!results.ContainsKey(availKVP.Key))
+                {
+                    results.Add(availKVP.Key, availKVP.Value.Count);
+                }
+                else
+                {
+                    results[availKVP.Key] += availKVP.Value.Count;
                 }
             }
 

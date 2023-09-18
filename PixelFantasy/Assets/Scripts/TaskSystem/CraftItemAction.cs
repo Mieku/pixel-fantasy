@@ -65,8 +65,8 @@ namespace TaskSystem
                 {
                     _isMoving = false;
                     _isHoldingItem = true;
-                    _targetStorage.WithdrawItem(_targetItemState);
                     _item = Spawner.Instance.SpawnItem(_targetItemState.Data, _targetStorage.transform.position, false, _targetItemState);
+                    _targetStorage.WithdrawItem(_targetItemState);
                     _ai.HoldItem(_item);
                     _item.SetHeld(true);
                     return;
@@ -134,6 +134,12 @@ namespace TaskSystem
                     {
                         UnitAnimController.SetUnitAction(UnitAction.Nothing);
                         _state = TaskState.HaulCraftedItem;
+                        
+                        _isHoldingItem = true;
+                        _item = Spawner.Instance.SpawnItem(_itemToCraft, _craftingTable.transform.position, false);
+                        _ai.HoldItem(_item);
+                        _item.SetHeld(true);
+                        
                         return;
                     }
                 }
@@ -174,16 +180,6 @@ namespace TaskSystem
                 
                     _isMoving = false;
                     ConcludeAction();
-                    return;
-                }
-                
-                // haul the item to the requestor
-                if (!_isHoldingItem)
-                {
-                    _isHoldingItem = true;
-                    _item = Spawner.Instance.SpawnItem(_itemToCraft, _craftingTable.transform.position, false);
-                    _ai.HoldItem(_item);
-                    _item.SetHeld(true);
                     return;
                 }
                 

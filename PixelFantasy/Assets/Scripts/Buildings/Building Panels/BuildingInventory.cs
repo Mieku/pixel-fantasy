@@ -20,22 +20,26 @@ namespace Buildings.Building_Panels
         
         private void Start()
         {
-            GameEvents.RefreshInventoryDisplay += GameEvent_RefreshInventoryDisplay;
+            
         }
 
         private void OnDestroy()
         {
-            GameEvents.RefreshInventoryDisplay -= GameEvent_RefreshInventoryDisplay;
+            
         }
 
         public void Close()
         {
+            GameEvents.RefreshInventoryDisplay -= GameEvent_RefreshInventoryDisplay;
+            
             DestroySlots();
             _logisticsPanel.ClosePanel();
         }
 
         public void Open(Building building)
         {
+            GameEvents.RefreshInventoryDisplay += GameEvent_RefreshInventoryDisplay;
+            
             _building = building;
             CreateEmptySlots();
             RefreshSlots();
@@ -61,15 +65,12 @@ namespace Buildings.Building_Panels
         private void RefreshSlots()
         {
             ClearAllSlots();
-            var buildingInventory = _building.GetBuildingInventory();
+            var buildingInventory = _building.GetBuildingInventoryQuantities();
             int slotIndex = 0;
-            foreach (var invKVPair in buildingInventory)
+            foreach (var itemQuantity in buildingInventory)
             {
-                foreach (var item in invKVPair.Value)
-                {
-                    _displayedSlots[slotIndex].ShowItem(item.Data, 1);
-                    slotIndex++;
-                }
+                _displayedSlots[slotIndex].ShowItem(itemQuantity.Key, itemQuantity.Value);
+                slotIndex++;
             }
             
             RefreshLogisticsSlotDisplays();

@@ -62,8 +62,8 @@ namespace TaskSystem
 
         private void DoEquipNewGear()
         {
-            _claimedEquipment.Storage.WithdrawItem(_claimedEquipment);
             var item = Spawner.Instance.SpawnItem(_equipment, _claimedEquipment.Storage.transform.position, false, _claimedEquipment);
+            _claimedEquipment.Storage.WithdrawItem(_claimedEquipment);
             _ai.Unit.Equipment.Equip(item);
             ConcludeAction();
         }

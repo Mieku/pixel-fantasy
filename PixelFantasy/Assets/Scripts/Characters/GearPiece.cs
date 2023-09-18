@@ -38,6 +38,8 @@ namespace Characters
 
         public void AssignDyePallet(DyePaletteData dyePalette)
         {
+            if(!_equipmentData.CanBeDyed) return;
+            
             if (dyePalette == null)
             {
                 _assignedDyePalette = _equipmentData.DefaultDyePalette;

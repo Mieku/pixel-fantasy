@@ -24,7 +24,7 @@ namespace HUD
 
         private void GameEvents_RefreshInventoryDisplay()
         {
-            var availableInv = InventoryManager.Instance.GetAvailableInventory();
+            var availableInv = InventoryManager.Instance.GetAvailableInventoryQuantities();
             List<ItemData> removeList = new List<ItemData>();
             
             // Update current displayed
@@ -32,7 +32,7 @@ namespace HUD
             {
                 if (availableInv.ContainsKey(displayedItem.Key))
                 {
-                    var value = availableInv[displayedItem.Key].Count;
+                    var value = availableInv[displayedItem.Key];
                     if (value > 0)
                     {
                         displayedItem.Value.UpdateAmount(availableInv[displayedItem.Key].ToString());

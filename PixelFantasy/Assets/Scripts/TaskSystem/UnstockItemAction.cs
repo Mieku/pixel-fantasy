@@ -63,7 +63,7 @@ namespace TaskSystem
             if (DistanceToBuildingStorage <= 1f)
             {
                 _buildingStorage.WithdrawItem(_claimedItem);
-                var item = Spawner.Instance.SpawnItem(_itemData, _buildingStorage.transform.position, false);
+                var item = Spawner.Instance.SpawnItem(_itemData, _buildingStorage.transform.position, false, _claimedItem);
                 _ai.HoldItem(item);
                 item.SetHeld(true);
                 
