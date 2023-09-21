@@ -41,6 +41,6 @@ MonoBehaviour:
     SkillID: Forestor_BestQuality
     SkillIcon: {fileID: 21300000, guid: 746f9e798ac2b0f468a0c8c40dfb13a1, type: 3}
     EXPRequired: 200
-  RequiredTool: {fileID: 11400000, guid: 31e9606eb97a5134ab82f665cc6c7457, type: 2}
+  RequiredTool: {fileID: 11400000, guid: 06a1dfcb86a9ae94d92034d6f28156f6, type: 2}
   PrereqJob: {fileID: 0}
   PrereqJobLv: 0

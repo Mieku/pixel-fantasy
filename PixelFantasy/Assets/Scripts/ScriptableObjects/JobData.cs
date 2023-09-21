@@ -16,7 +16,7 @@ namespace ScriptableObjects
         public SkillData Lv5Skill;
         
         [Header("Requirements")]
-        public EquipmentData RequiredTool;
+        public GearData RequiredTool;
         public JobData PrereqJob;
         public int PrereqJobLv;
         

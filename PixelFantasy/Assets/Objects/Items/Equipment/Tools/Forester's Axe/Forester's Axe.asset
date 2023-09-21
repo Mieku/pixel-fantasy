@@ -16,7 +16,7 @@ MonoBehaviour:
   MaxStackSize: 5
   ItemSprite: {fileID: 21300000, guid: a2876c412a0af424ca6641bb15bb95a1, type: 3}
   DefaultSpriteScale: {x: 1, y: 1}
-  Durability: 0
+  Durability: 100
   RequiredCraftingTable: {fileID: 11400000, guid: 644004581d1321d41993fc7be87087b5, type: 2}
   WorkCost: 5
   _resourceCosts:
@@ -29,6 +29,9 @@ MonoBehaviour:
   - Wall
   - Obstacle
   Type: 4
+  CanBeDyed: 0
+  DefaultDyePalette: {fileID: 0}
+  RequiredJob: {fileID: 11400000, guid: 52bc686649354e94eb770098fd6c5c29, type: 2}
   MainHandHeldGear: {fileID: 2109487599534607570, guid: 28befeca93672a2498df8a8de29ba83f, type: 3}
   OffHandHeldGear: {fileID: 0}
   HatGear: {fileID: 0}

@@ -148,4 +148,10 @@ public class GameEvents : MonoBehaviour
     {
         if (MinuteTick != null) MinuteTick();
     }
+
+    public static event Action<Unit> OnKinlingChanged;
+    public static void Trigger_OnKinlingChanged(Unit unit)
+    {
+        if (OnKinlingChanged != null) OnKinlingChanged(unit);
+    }
 }

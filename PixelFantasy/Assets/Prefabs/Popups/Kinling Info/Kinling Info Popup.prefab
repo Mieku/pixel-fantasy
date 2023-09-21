@@ -1782,7 +1782,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4462601246893877141}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1984,7 +1984,7 @@ MonoBehaviour:
   _slotIcon: {fileID: 2202008873961696703}
   _itemIcon: {fileID: 3301064623876418356}
   _selector: {fileID: 6240268833276511263}
-  _equipmentType: 2
+  _gearType: 2
 --- !u!114 &2332757951244472537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12830,8 +12830,8 @@ MonoBehaviour:
   _ownedItemSlotPrefab: {fileID: 5963132136626201241, guid: b472ece496a10074ea9670e2607dd5ab, type: 3}
   _gearDetailsName: {fileID: 3405843974901381435}
   _gearDetails: {fileID: 4174039194553674556}
-  _unequipBtn: {fileID: 3391928469539444808}
-  _equipBtn: {fileID: 0}
+  _unequipBtn: {fileID: 8148169181400809029}
+  _equipBtn: {fileID: 3391928469539444808}
 --- !u!1 &2868622149063797849
 GameObject:
   m_ObjectHideFlags: 0
@@ -15948,7 +15948,7 @@ MonoBehaviour:
   _slotIcon: {fileID: 4870256328624874591}
   _itemIcon: {fileID: 5151081511582152400}
   _selector: {fileID: 1708110272808176964}
-  _equipmentType: 5
+  _gearType: 5
 --- !u!114 &7033644439046750141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17159,7 +17159,7 @@ MonoBehaviour:
   _slotIcon: {fileID: 5053877331154308833}
   _itemIcon: {fileID: 2419982730694186252}
   _selector: {fileID: 4758397985098605398}
-  _equipmentType: 1
+  _gearType: 1
 --- !u!114 &8189621420983820011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17292,6 +17292,71 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &4582570273741377708
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8657262617259090820}
+  - component: {fileID: 1145974678865881926}
+  m_Layer: 0
+  m_Name: Controls Layout Group
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8657262617259090820
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4582570273741377708}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4470760963189955022}
+  - {fileID: 160918874646269205}
+  m_Father: {fileID: 4462601246893877141}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -88.643, y: -36.2}
+  m_SizeDelta: {x: 177.29, y: 21.291}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1145974678865881926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4582570273741377708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 3
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &4660438159199886556
 GameObject:
   m_ObjectHideFlags: 0
@@ -17675,7 +17740,7 @@ MonoBehaviour:
   _slotIcon: {fileID: 8782545028944114411}
   _itemIcon: {fileID: 8698813426557797684}
   _selector: {fileID: 8854616006446668838}
-  _equipmentType: 8
+  _gearType: 8
 --- !u!114 &9094865792118744767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17924,7 +17989,7 @@ MonoBehaviour:
   _slotIcon: {fileID: 3441482551794420361}
   _itemIcon: {fileID: 1349422262316917971}
   _selector: {fileID: 966279872882499227}
-  _equipmentType: 0
+  _gearType: 0
 --- !u!1 &5038793212950404372
 GameObject:
   m_ObjectHideFlags: 0
@@ -18440,10 +18505,9 @@ RectTransform:
   - {fileID: 6375061282390374413}
   - {fileID: 4587537817231381091}
   - {fileID: 7848611496597644635}
-  - {fileID: 4470760963189955022}
-  - {fileID: 160918874646269205}
   - {fileID: 1412295044364814296}
   - {fileID: 6053184395657968299}
+  - {fileID: 8657262617259090820}
   m_Father: {fileID: 2868622149055839641}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -18676,7 +18740,7 @@ GameObject:
   - component: {fileID: 5958243301387639571}
   - component: {fileID: 3391928469539444808}
   m_Layer: 0
-  m_Name: Equip Selected Btn
+  m_Name: Equip Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18689,18 +18753,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6118256999811485684}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5229869738561378067}
-  m_Father: {fileID: 4462601246893877141}
-  m_RootOrder: 5
+  m_Father: {fileID: 8657262617259090820}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -54.2, y: -37.154}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 96.693, y: 19.382}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4566369277545617562
@@ -18731,7 +18795,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -816668746, guid: 78088a8877f40a847bbc16bcb0956b4b, type: 3}
+  m_Sprite: {fileID: -1188541170, guid: 78088a8877f40a847bbc16bcb0956b4b, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -18773,7 +18837,7 @@ MonoBehaviour:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
     m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: -816668746, guid: 78088a8877f40a847bbc16bcb0956b4b, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -18784,7 +18848,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5958243301387639571}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 313223110662622113}
+        m_TargetAssemblyTypeName: Popups.Kinling_Info_Popup.KinlingInfoGearContent,
+          Assembly-CSharp
+        m_MethodName: EquipPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6240268833276511263
 GameObject:
   m_ObjectHideFlags: 0
@@ -19315,7 +19392,7 @@ MonoBehaviour:
   _slotIcon: {fileID: 966608765434588145}
   _itemIcon: {fileID: 7388667321037885734}
   _selector: {fileID: 5499809056590919909}
-  _equipmentType: 8
+  _gearType: 8
 --- !u!114 &5715465877923680680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19768,7 +19845,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4462601246893877141}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -19972,7 +20049,7 @@ MonoBehaviour:
   _slotIcon: {fileID: 7895860524537519698}
   _itemIcon: {fileID: 2575439981429887312}
   _selector: {fileID: 7914851444507300300}
-  _equipmentType: 3
+  _gearType: 3
 --- !u!114 &2811641526269594355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20125,7 +20202,7 @@ MonoBehaviour:
   _slotIcon: {fileID: 2438264222716469133}
   _itemIcon: {fileID: 3009352782553886787}
   _selector: {fileID: 248627135482143686}
-  _equipmentType: 4
+  _gearType: 4
 --- !u!114 &134780285006072302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20992,7 +21069,7 @@ MonoBehaviour:
   _slotIcon: {fileID: 5038793212950404372}
   _itemIcon: {fileID: 8089312993584361018}
   _selector: {fileID: 6492760742542296760}
-  _equipmentType: 7
+  _gearType: 7
 --- !u!114 &6800053090294762912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21151,18 +21228,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8700888972800411517}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6194014362177593299}
-  m_Father: {fileID: 4462601246893877141}
-  m_RootOrder: 4
+  m_Father: {fileID: 8657262617259090820}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -142.34851, y: -37.154217}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 69.8751, y: 19.3824}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2919683767120772264
@@ -21235,7 +21312,7 @@ MonoBehaviour:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
     m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: -816668746, guid: 78088a8877f40a847bbc16bcb0956b4b, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -21246,7 +21323,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2878241768279206970}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 313223110662622113}
+        m_TargetAssemblyTypeName: Popups.Kinling_Info_Popup.KinlingInfoGearContent,
+          Assembly-CSharp
+        m_MethodName: UnequipPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8782545028944114411
 GameObject:
   m_ObjectHideFlags: 0

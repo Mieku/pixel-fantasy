@@ -204,46 +204,7 @@ namespace TaskSystem
 
         private Task CheckEquipment()
         {
-            // TODO: Check if anything required is missing, if so equip it
-            if (!_unit.Equipment.HasEquipped(_unit.GetUnitState().CurrentJob.JobData.RequiredTool))
-            {
-                var requiredTool = _unit.GetUnitState().CurrentJob.JobData.RequiredTool;
-                
-                // Search for and claim the item, starting with personal inventory then global
-                // Storage storage = null;
-                ItemState claimedItem = null;
-                var home = _unit.GetUnitState().AssignedHome;
-                if (home != null)
-                {
-                    claimedItem = InventoryManager.Instance.ClaimItemBuilding(requiredTool, home);
-                }
-
-                if (claimedItem == null && _unit.GetUnitState().AssignedWorkplace != null)
-                {
-                    claimedItem = InventoryManager.Instance.ClaimItemBuilding(requiredTool, _unit.GetUnitState().AssignedWorkplace);
-                }
-
-                if (claimedItem == null)
-                {
-                    claimedItem = InventoryManager.Instance.ClaimItemGlobal(requiredTool);
-                }
-
-                if (claimedItem == null) return null;
-
-                CraftingBill.RequestedItemInfo requestedItemInfo =
-                    new CraftingBill.RequestedItemInfo(claimedItem, 1);
-
-                Task equipItemTask = new Task
-                {
-                    TaskId = "Equip Item",
-                    TaskType = TaskType.Haul,
-                    Materials = new List<CraftingBill.RequestedItemInfo> { requestedItemInfo },
-                };
-
-                return equipItemTask;
-            }
-            
-            return null;
+            return _unit.Equipment.CheckDesiredEquipment();
         }
         
         public UnitActionDirection GetActionDirection(Vector3 targetPos)

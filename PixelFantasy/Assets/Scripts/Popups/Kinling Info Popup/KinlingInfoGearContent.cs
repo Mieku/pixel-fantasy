@@ -4,6 +4,7 @@ using Characters;
 using Items;
 using Managers;
 using ScriptableObjects;
+using TaskSystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,6 +36,7 @@ namespace Popups.Kinling_Info_Popup
         private List<KinlingInfoOwnedItemSlot> _displayedOwnedItemSlots = new List<KinlingInfoOwnedItemSlot>();
         private GearContentSlot _currentGearSlot;
         private KinlingInfoOwnedItemSlot _currentSelectedItem;
+        private GearState _selectedGear;
 
         private void Start()
         {
@@ -47,6 +49,20 @@ namespace Popups.Kinling_Info_Popup
             _necklaceSlot.OnPressedCallback += OnGearSlotPressed;
             _ring1Slot.OnPressedCallback += OnGearSlotPressed;
             _ring2Slot.OnPressedCallback += OnGearSlotPressed;
+
+            GameEvents.OnKinlingChanged += GameEvent_OnKinlingChanged;
+        }
+
+        private void OnDestroy()
+        {
+            GameEvents.OnKinlingChanged -= GameEvent_OnKinlingChanged;
+        }
+
+        private void GameEvent_OnKinlingChanged(Unit unit)
+        {
+            if (_unit != unit) return;
+            
+            Refresh();
         }
 
         public void Show(Unit unit)
@@ -54,22 +70,76 @@ namespace Popups.Kinling_Info_Popup
             _unit = unit;
             
             gameObject.SetActive(true);
+            Refresh();
+        }
+
+        public void Refresh()
+        {
             RefreshGear();
+
+            if (_selectedGear == null)
+            {
+                DisplaySlotDetails(GearType.Head);
+            }
+            else
+            {
+                DisplaySlotDetails(_selectedGear.GearData.Type);
+            }
             
-            OnGearSlotPressed(EquipmentType.Head, _headSlot);
+            
+            StageManager.Instance.StagedKinling.ApplyAppearance(_unit.GetAppearance().GetAppearanceState());
+            StageManager.Instance.StagedKinling.ApplyEquipment(_unit.Equipment.EquipmentState);
+        }
+
+        private void DisplaySlotDetails(GearType type)
+        {
+            switch (type)
+            {
+                case GearType.Head:
+                    OnGearSlotPressed(GearType.Head, _headSlot);
+                    break;
+                case GearType.Body:
+                    OnGearSlotPressed(GearType.Body, _bodySlot);
+                    break;
+                case GearType.Pants:
+                    OnGearSlotPressed(GearType.Pants, _pantsSlot);
+                    break;
+                case GearType.Hands:
+                    OnGearSlotPressed(GearType.Hands, _glovesSlot);
+                    break;
+                case GearType.MainHand:
+                    OnGearSlotPressed(GearType.MainHand, _mainHandSlot);
+                    break;
+                case GearType.OffHand:
+                    OnGearSlotPressed(GearType.OffHand, _offHandSlot);
+                    break;
+                case GearType.BothHands:
+                    OnGearSlotPressed(GearType.MainHand, _mainHandSlot);
+                    break;
+                case GearType.Necklace:
+                    OnGearSlotPressed(GearType.Necklace, _necklaceSlot);
+                    break;
+                case GearType.Ring:
+                    OnGearSlotPressed(GearType.Ring, _ring1Slot);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
+            }
         }
 
         private void RefreshGear()
         {
-            var head = _unit.Equipment.Head;
-            var body = _unit.Equipment.Body;
-            var pants = _unit.Equipment.Pants;
-            var gloves = _unit.Equipment.Hands;
-            var mainHand = _unit.Equipment.MainHand;
-            var offHand = _unit.Equipment.OffHand;
-            var necklace = _unit.Equipment.Necklace;
-            var ring1 = _unit.Equipment.Ring1;
-            var ring2 = _unit.Equipment.Ring2;
+            var equipment = _unit.Equipment.EquipmentState;
+            
+            var head = equipment.Head;
+            var body = equipment.Body;
+            var pants = equipment.Pants;
+            var gloves = equipment.Hands;
+            var mainHand = equipment.MainHand;
+            var offHand = equipment.OffHand;
+            var necklace = equipment.Necklace;
+            var ring1 = equipment.Ring1;
+            var ring2 = equipment.Ring2;
             
             _headSlot.AssignEquipment(head);
             _bodySlot.AssignEquipment(body);
@@ -82,21 +152,38 @@ namespace Popups.Kinling_Info_Popup
             _ring2Slot.AssignEquipment(ring2);
         }
 
-        private void RefreshGearDetails(EquipmentState equipmentState)
+        private void RefreshGearDetails(GearState gearState)
         {
-            if (equipmentState.EquipmentData != null)
+            _selectedGear = gearState;
+            
+            if (gearState != null && gearState.GearData != null)
             {
-                _gearDetailsName.text = equipmentState.EquipmentData.ItemName;
-                _gearDetails.text = $"{equipmentState.Durability} / {equipmentState.EquipmentData.Durability} Durability";
+                _gearDetailsName.text = gearState.GearData.ItemName;
+                _gearDetails.text = $"{gearState.Durability} / {gearState.GearData.Durability} Durability";
+                
+                var curEquipped = _unit.Equipment.EquipmentState.GetGearByType(gearState.GearData.Type);
+                if (curEquipped != null && curEquipped.Equals(gearState))
+                {
+                    _unequipBtn.gameObject.SetActive(true);
+                    _equipBtn.gameObject.SetActive(false);
+                }
+                else
+                {
+                    _unequipBtn.gameObject.SetActive(false);
+                    _equipBtn.gameObject.SetActive(true);
+                }
             }
             else
             {
                 _gearDetailsName.text = "Assign Gear";
                 _gearDetails.text = "";
+                
+                _unequipBtn.gameObject.SetActive(false);
+                _equipBtn.gameObject.SetActive(false);
             }
         }
         
-        private void DisplayItemsForSlot(EquipmentType equipmentType)
+        private void DisplayItemsForSlot(GearType gearType)
         {
             foreach (var displayedOwnedItemSlot in _displayedOwnedItemSlots)
             {
@@ -104,22 +191,26 @@ namespace Popups.Kinling_Info_Popup
             }
             _displayedOwnedItemSlots.Clear();
             
-            var curEquipped = _unit.Equipment.GetEquipmentByType(equipmentType);
+            var curEquipped = _unit.Equipment.EquipmentState.GetGearByType(gearType);
             var allAvailableItems = InventoryManager.Instance.GetAvailableInventory();
 
             int minItems = 1;
             List<ItemState> applicableItems = new List<ItemState>();
             foreach (var availableItem in allAvailableItems)
             {
-                var equipmentData = availableItem.Key as EquipmentData;
+                var equipmentData = availableItem.Key as GearData;
                 if (equipmentData != null)
                 {
-                    if (equipmentData.Type == equipmentType)
+                    if (equipmentData.Type == gearType)
                     {
                         minItems += availableItem.Value.Count;
                         foreach (var item in availableItem.Value)
                         {
-                            applicableItems.Add(item);
+                            var equipment = item as GearState;
+                            if (equipment != null && equipment.CanBeEquippedByUnit(_unit))
+                            {
+                                applicableItems.Add(item);
+                            }
                         }
                     }
                 }
@@ -141,7 +232,7 @@ namespace Popups.Kinling_Info_Popup
             }
             
             int index = 0;
-            if (curEquipped.EquipmentData != null)
+            if (curEquipped != null && curEquipped.GearData != null)
             {
                 _displayedOwnedItemSlots[index].AssignItem(curEquipped, true);
                 _displayedOwnedItemSlots[index].TriggerSelected();
@@ -151,11 +242,24 @@ namespace Popups.Kinling_Info_Popup
             foreach (var item in applicableItems)
             {
                 _displayedOwnedItemSlots[index].AssignItem(item);
+                
+                // Check if this item is in the desired equipment state, if so show the equipping indicator
+                var gearState = item as GearState;
+                var desired = _unit.Equipment.DesiredEquipmentState.GetGearByType(gearState.GearData.Type);
+                if (desired != null && desired.Equals(gearState))
+                {
+                    _displayedOwnedItemSlots[index].ShowEquippingIndicator(true);
+                }
+                else
+                {
+                    _displayedOwnedItemSlots[index].ShowEquippingIndicator(false);
+                }
+                
                 index++;
             }
         }
         
-        private void OnGearSlotPressed(EquipmentType equipmentType, GearContentSlot pressedSlot)
+        private void OnGearSlotPressed(GearType gearType, GearContentSlot pressedSlot)
         {
             if (_currentGearSlot != null)
             {
@@ -165,8 +269,8 @@ namespace Popups.Kinling_Info_Popup
             _currentGearSlot = pressedSlot;
             _currentGearSlot.DisplaySelected(true);
             
-            RefreshGearDetails(_unit.Equipment.GetEquipmentByType(equipmentType));
-            DisplayItemsForSlot(equipmentType);
+            RefreshGearDetails(_unit.Equipment.EquipmentState.GetGearByType(gearType));
+            DisplayItemsForSlot(gearType);
         }
 
         private void OnInventorySlotPressed(ItemState item, KinlingInfoOwnedItemSlot slotPressed)
@@ -179,14 +283,29 @@ namespace Popups.Kinling_Info_Popup
             _currentSelectedItem = slotPressed;
             _currentSelectedItem.DisplaySelected(true);
             
-            // TODO: The inventory needs to be saving the item's state. Not the data!
-            
-            RefreshGearDetails(item as EquipmentState);
+            RefreshGearDetails(item as GearState);
         }
 
         public void Close()
         {
             gameObject.SetActive(false);
+        }
+
+        public void UnequipPressed()
+        {
+            _unit.Equipment.Unequip(_selectedGear);
+            RefreshGear();
+            
+            DisplaySlotDetails(_selectedGear.GearData.Type);
+        }
+
+        public void EquipPressed()
+        {
+            _unit.Equipment.AssignDesiredEquipment(_selectedGear);
+            
+            RefreshGear();
+            
+            DisplaySlotDetails(_selectedGear.GearData.Type);
         }
     }
 }

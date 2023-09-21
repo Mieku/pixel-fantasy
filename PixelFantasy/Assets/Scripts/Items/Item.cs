@@ -26,32 +26,30 @@ namespace Items
         private Transform _originalParent;
 
         public Storage AssignedStorage;
-        public ItemState State;
 
-        //[FormerlySerializedAs("AssignedStorageSlot")] public StorageTile assignedStorageTile;
+        public ItemState State { get; private set; }
 
         public ClickObject GetClickObject()
         {
             return _clickObject;
         }
         
-        public void InitializeItem(ItemData itemData, bool allowed, ItemState itemState = null)
+        public void InitializeItem(ItemData itemData, bool allowed, ItemState state = null)
         {
             _itemData = itemData;
             IsAllowed = allowed;
 
-            if (itemState == null)
+            if (state == null || state.Data == null)
             {
                 InitUID();
                 State = _itemData.CreateState(UniqueId);
             }
             else
             {
-                State = itemState;
-                UniqueId = itemState.UID;
+                State = state;
+                UniqueId = State.UID;
             }
-            
-            
+
             DisplayItemSprite();
 
             if (allowed)
@@ -178,7 +176,7 @@ namespace Items
             
             if (_itemData != null)
             {
-                InitializeItem(_itemData, true);
+                InitializeItem(_itemData, true, State);
             }
         }
 

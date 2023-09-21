@@ -12,6 +12,7 @@ namespace Characters
 {
     public class Unit : UniqueObject, IPersistent
     {
+        [SerializeField] private RaceData _race;
         [SerializeField] private TaskAI _taskAI;
         [SerializeField] private UnitState _unitState;
         [SerializeField] private UnitAppearance _appearance;
@@ -21,11 +22,13 @@ namespace Characters
         public UnitAnimController UnitAnimController;
         public UnitAgent UnitAgent;
 
-        // private ItemData _heldTool;
+        public RaceData Race => _race;
 
         private void Start()
         {
             UnitsManager.Instance.RegisterKinling(this);
+            Equipment.Init(this);
+            _appearance.Init(this);
         }
 
         private void OnDestroy()
@@ -54,6 +57,16 @@ namespace Characters
         public UnitState GetUnitState()
         {
             return _unitState;
+        }
+
+        public TaskAI GetAI()
+        {
+            return _taskAI;
+        }
+
+        public UnitAppearance GetAppearance()
+        {
+            return _appearance;
         }
         
         // public void AssignProfession(ProfessionData newProfession)

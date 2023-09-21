@@ -2,6 +2,7 @@ using System;
 using Items;
 using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Popups.Kinling_Info_Popup
@@ -11,25 +12,25 @@ namespace Popups.Kinling_Info_Popup
         [SerializeField] private GameObject _slotIcon;
         [SerializeField] private Image _itemIcon;
         [SerializeField] private GameObject _selector;
-        [SerializeField] private EquipmentType _equipmentType;
+        [FormerlySerializedAs("_equipmentType")] [SerializeField] private GearType _gearType;
 
-        public Action<EquipmentType, GearContentSlot> OnPressedCallback;
+        public Action<GearType, GearContentSlot> OnPressedCallback;
         
-        private EquipmentState _equipmentState;
+        private GearState _gearState;
 
-        public void AssignEquipment(EquipmentState state)
+        public void AssignEquipment(GearState state)
         {
-            _equipmentState = state;
+            _gearState = state;
             Refresh();
         }
 
         private void Refresh()
         {
-            if (_equipmentState.EquipmentData != null)
+            if (_gearState != null && _gearState.GearData != null)
             {
                 _slotIcon.SetActive(false);
                 _itemIcon.gameObject.SetActive(true);
-                _itemIcon.sprite = _equipmentState.EquipmentData.ItemSprite;
+                _itemIcon.sprite = _gearState.GearData.ItemSprite;
             }
             else
             {
@@ -42,7 +43,7 @@ namespace Popups.Kinling_Info_Popup
         {
             if (OnPressedCallback != null)
             {
-                OnPressedCallback.Invoke(_equipmentType, this);
+                OnPressedCallback.Invoke(_gearType, this);
             }
         }
 

@@ -18,6 +18,14 @@ namespace Items
             UID = uid;
         }
         
+        public ItemState(ItemState other)
+        {
+            Data = other.Data;
+            Durability = other.Durability;
+            UID = other.UID;
+            Storage = other.Storage;
+        }
+        
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())

@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 using Managers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
@@ -9,14 +10,10 @@ namespace Characters
 {
     public class UnitAppearance : MonoBehaviour
     {
-        [SerializeField] private KinlingSkinToneData _skinTone;
-        [ColorUsage(true, true)] [SerializeField] private Color _eyeColour;
         [SerializeField] private KinlingEquipment _equipment;
         
         public HairData HairData;
-        public FaceData FaceData;
         public BodyData BodyData;
-        public Gender Gender;
 
         [SerializeField] private SpriteRenderer _hairRenderer;
         [SerializeField] private SpriteRenderer _headRenderer;
@@ -54,36 +51,65 @@ namespace Characters
         private readonly int cwBlueLumin = Shader.PropertyToID("_ColorSwapBlueLuminosity");
 
         private UnitActionDirection _curDirection;
+        [CanBeNull] private AppearanceState _appearanceState;
+        private Unit _unit;
 
         private void Start()
         {
-            SetGender(Gender);
-            Refresh();
+            
+        }
+
+        public void Init(Unit unit)
+        {
+            _unit = unit;
+            if (_appearanceState == null)
+            {
+                // Create a random one
+                var randomAppearance = new AppearanceState(_unit.Race);
+                randomAppearance.RandomizeAppearance();
+                _appearanceState = randomAppearance;
+            }
+            ApplyAppearanceState(_appearanceState);
+        }
+
+        public void ApplyAppearanceState(AppearanceState appearanceState)
+        {
+            _appearanceState = appearanceState;
             ApplySkinTone();
+        }
+
+        public AppearanceState GetAppearanceState()
+        {
+            return _appearanceState;
         }
 
         [Button("Apply Skin Tone")]
         private void ApplySkinTone()
         {
+            var eyeColour = _appearanceState.EyeColour;
+            var blushTone = _appearanceState.SkinTone.BlushTone;
+            var shadeTone = _appearanceState.SkinTone.ShadeTone;
+            var primaryTone = _appearanceState.SkinTone.PrimaryTone;
+            
             // Face
-            ApplyMaterialRecolour(_faceRanderer, _eyeColour, _skinTone.BlushTone, Color.black);
+            ApplyMaterialRecolour(_faceRanderer, eyeColour, blushTone, Color.black);
             
             // Head
-            ApplyMaterialRecolour(_headRenderer, _skinTone.PrimaryTone, _skinTone.ShadeTone, Color.black);
+            ApplyMaterialRecolour(_headRenderer, primaryTone, shadeTone, Color.black);
             
             // Body
-            ApplyMaterialRecolour(_bodyNudeRenderer, _skinTone.PrimaryTone, _skinTone.ShadeTone, Color.black);
+            ApplyMaterialRecolour(_bodyNudeRenderer, primaryTone, shadeTone, Color.black);
             
             // Hips
-            ApplyMaterialRecolour(_hipsRenderer, _skinTone.PrimaryTone, _skinTone.ShadeTone, Color.black);
+            ApplyMaterialRecolour(_hipsRenderer, primaryTone, shadeTone, Color.black);
             
             // Arms
-            ApplyMaterialRecolour(_outerHandRenderer, _skinTone.PrimaryTone, _skinTone.ShadeTone, Color.black);
-            ApplyMaterialRecolour(_backHandRenderer, _skinTone.PrimaryTone, _skinTone.ShadeTone, Color.black);
+            ApplyMaterialRecolour(_outerHandRenderer, primaryTone, shadeTone, Color.black);
+            ApplyMaterialRecolour(_backHandRenderer, primaryTone, shadeTone, Color.black);
 
             // Legs
-            ApplyMaterialRecolour(_leftLegRenderer, _skinTone.PrimaryTone, _skinTone.ShadeTone, Color.black);
-            ApplyMaterialRecolour(_rightLegRenderer, _skinTone.PrimaryTone, _skinTone.ShadeTone, Color.black);
+            ApplyMaterialRecolour(_leftLegRenderer, primaryTone, shadeTone, Color.black);
+            ApplyMaterialRecolour(_rightLegRenderer, primaryTone, shadeTone, Color.black);
 
         }
 
@@ -107,14 +133,11 @@ namespace Characters
             SetDirection(_curDirection);
         }
         
-        private void SetGender(Gender gender)
-        {
-            Gender = gender;
-        }
-
         public void SetDirection(UnitActionDirection dir)
         {
             _curDirection = dir;
+
+            if (_unit == null) return;
             
             // Set Layers and Enable/Disable
             switch (dir)
@@ -177,7 +200,7 @@ namespace Characters
         public void SetLoadData(AppearanceData data)
         {
             HairData = Librarian.Instance.GetHairData(data.Hair);
-            SetGender(data.Gender);
+            //SetGender(data.Gender);
         }
 
         public AppearanceData GetSaveData()
@@ -185,7 +208,7 @@ namespace Characters
             return new AppearanceData
             {
                 Hair = HairData.Name,
-                Gender = Gender,
+               // Gender = Gender,
             };
         }
 

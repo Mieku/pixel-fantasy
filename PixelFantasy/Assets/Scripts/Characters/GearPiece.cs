@@ -2,12 +2,13 @@ using System;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Characters
 {
     public class GearPiece : MonoBehaviour
     {
-        [SerializeField] private EquipmentData _equipmentData;
+        [FormerlySerializedAs("_equipmentData")] [SerializeField] private GearData _gearData;
         [SerializeField] private GameObject _sideView;
         [SerializeField] private GameObject _upView;
         [SerializeField] private GameObject _downView;
@@ -26,9 +27,9 @@ namespace Characters
         // For Debugging
         private void DisplayDefaultDye()
         {
-            if (_equipmentData.CanBeDyed && _equipmentData.DefaultDyePalette != null)
+            if (_gearData.CanBeDyed && _gearData.DefaultDyePalette != null)
             {
-                AssignDyePallet(_equipmentData.DefaultDyePalette);
+                AssignDyePallet(_gearData.DefaultDyePalette);
             }
             else
             {
@@ -38,11 +39,11 @@ namespace Characters
 
         public void AssignDyePallet(DyePaletteData dyePalette)
         {
-            if(!_equipmentData.CanBeDyed) return;
+            if(!_gearData.CanBeDyed) return;
             
             if (dyePalette == null)
             {
-                _assignedDyePalette = _equipmentData.DefaultDyePalette;
+                _assignedDyePalette = _gearData.DefaultDyePalette;
             }
             else
             {
@@ -56,9 +57,9 @@ namespace Characters
         {
             if (_assignedDyePalette == null)
             {
-                if (_equipmentData.CanBeDyed && _equipmentData.DefaultDyePalette != null)
+                if (_gearData.CanBeDyed && _gearData.DefaultDyePalette != null)
                 {
-                    _assignedDyePalette = _equipmentData.DefaultDyePalette;
+                    _assignedDyePalette = _gearData.DefaultDyePalette;
                 }
                 else
                 {

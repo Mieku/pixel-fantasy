@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Buildings;
+using Items;
 using Managers;
 using ScriptableObjects;
 using TaskSystem;
@@ -85,6 +86,16 @@ namespace Characters
             if (newJob.JobName != "Worker")
             {
                 _jobHistory.Add(newJobState);
+            }
+
+            if (newJob.RequiredTool != null)
+            {
+                var claimedTool = InventoryManager.Instance.ClaimItemGlobal(newJob.RequiredTool) as GearState;
+                if (claimedTool != null)
+                {
+                    var unit = GetComponent<Unit>();
+                    unit.Equipment.AssignDesiredEquipment(claimedTool);
+                }
             }
         }
 

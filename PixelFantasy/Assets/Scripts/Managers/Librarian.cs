@@ -4,6 +4,7 @@ using Buildings;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Managers
 {
@@ -25,6 +26,18 @@ namespace Managers
         [SerializeField] private List<RoofData> _roofLibrary;
         [SerializeField] private List<NeedData> _needLibrary;
         [SerializeField] private List<JobData> _jobLibrary;
+        [SerializeField] private List<RaceData> _races;
+
+        public RaceData GetRace(string raceName)
+        {
+            var result = _races.Find(race => race.RaceName == raceName);
+            if (result == null)
+            {
+                Debug.LogError($"Unkown Race: {raceName}");
+            }
+
+            return result;
+        }
 
         public JobData GetJob(string jobName)
         {

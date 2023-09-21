@@ -8,19 +8,19 @@ namespace TaskSystem
 {
     public class EquipItemAction : TaskAction
     {
-        private EquipmentState _claimedEquipment;
-        private EquipmentData _equipment;
+        private GearState _claimedGear;
+        private GearData _gear;
         private TaskState _state;
 
-        public float DistanceToStorage => Vector2.Distance(_claimedEquipment.Storage.transform.position, transform.position);
+        public float DistanceToStorage => Vector2.Distance(_claimedGear.Storage.transform.position, transform.position);
         
         public override void PrepareAction(Task task)
         {
             var request = task.Materials[0];
-            _claimedEquipment = request.ItemState as EquipmentState;
-            _equipment = _claimedEquipment.EquipmentData;
+            _claimedGear = request.ItemState as GearState;
+            _gear = _claimedGear.GearData;
             _state = TaskState.GoingToStorage;
-            _ai.Unit.UnitAgent.SetMovePosition(_claimedEquipment.Storage.transform.position);
+            _ai.Unit.UnitAgent.SetMovePosition(_claimedGear.Storage.transform.position);
         }
 
         public override void DoAction()
@@ -51,7 +51,7 @@ namespace TaskSystem
 
         private void DoUnequipCurrentGear()
         {
-            var curEquippedItem = _ai.Unit.Equipment.GetEquipmentByType(_equipment.Type);
+            var curEquippedItem = _ai.Unit.Equipment.EquipmentState.GetGearByType(_gear.Type);
             if (curEquippedItem != null)
             {
                 _ai.Unit.Equipment.Unequip(curEquippedItem);
@@ -62,8 +62,8 @@ namespace TaskSystem
 
         private void DoEquipNewGear()
         {
-            var item = Spawner.Instance.SpawnItem(_equipment, _claimedEquipment.Storage.transform.position, false, _claimedEquipment);
-            _claimedEquipment.Storage.WithdrawItem(_claimedEquipment);
+            var item = Spawner.Instance.SpawnItem(_gear, _claimedGear.Storage.transform.position, false, _claimedGear);
+            _claimedGear.Storage.WithdrawItem(_claimedGear);
             _ai.Unit.Equipment.Equip(item);
             ConcludeAction();
         }
@@ -80,8 +80,8 @@ namespace TaskSystem
             
             _task = null;
             _state = TaskState.GoingToStorage;
-            _claimedEquipment = null;
-            _equipment = null;
+            _claimedGear = null;
+            _gear = null;
         }
         
         public enum TaskState

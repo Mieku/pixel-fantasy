@@ -12,6 +12,7 @@ namespace Popups.Kinling_Info_Popup
         [SerializeField] private Image _itemImage;
         [SerializeField] private TextMeshProUGUI _quantityText;
         [SerializeField] private GameObject _selector;
+        [SerializeField] private GameObject _equippingIndicator;
 
         private Action<ItemState, KinlingInfoOwnedItemSlot> _onSlotPressed;
         private ItemState _item;
@@ -30,6 +31,11 @@ namespace Popups.Kinling_Info_Popup
             _isEquipped = isEquipped;
             
             Refresh();
+        }
+
+        public void ShowEquippingIndicator(bool isEquipping)
+        {
+            _equippingIndicator.SetActive(isEquipping);
         }
 
         public void TriggerSelected()
