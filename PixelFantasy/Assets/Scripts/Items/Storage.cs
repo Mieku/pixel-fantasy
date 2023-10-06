@@ -141,7 +141,7 @@ namespace Items
             return null;
         }
 
-        public bool SetClaimedItemState(Item itemToClaim)
+        public bool SetClaimedItem(Item itemToClaim)
         {
             foreach (var slot in _storageSlots)
             {
@@ -151,6 +151,21 @@ namespace Items
                     {
                         return true;
                     }
+                }
+            }
+
+            return false;
+        }
+
+        public bool CanItemBeClaimed(Item item)
+        {
+            foreach (var slot in _storageSlots)
+            {
+                if (slot.Stored.Contains(item))
+                {
+                    if (slot.Claimed.Contains(item)) return false;
+
+                    return true;
                 }
             }
 

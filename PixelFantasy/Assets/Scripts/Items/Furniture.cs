@@ -343,6 +343,7 @@ namespace Items
         public bool CanKinlingUseThis(Unit kinling)
         {
             if (_isPlanning) return false;
+            if (!IsBuilt) return false;
             if (_singleOwner)
             {
                 if (_assignedKinling == null)

@@ -151,7 +151,15 @@ namespace TaskSystem
                     task = TaskManager.Instance.GetNextTaskByType(sortedPriority.TaskType);
                     if (task != null)
                     {
-                        break;
+                        var taskAction = FindTaskActionFor(task);
+                        if (taskAction.CanDoTask(task))
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            task = null;
+                        }
                     }
                 }
             }

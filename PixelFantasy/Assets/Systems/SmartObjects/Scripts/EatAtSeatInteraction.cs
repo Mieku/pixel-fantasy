@@ -110,7 +110,7 @@ namespace Systems.SmartObjects.Scripts
             }
 
             // Claim the food in storage
-            if (!_selectedFoodItem.AssignedStorage.SetClaimedItemState(_selectedFoodItem))
+            if (!_selectedFoodItem.AssignedStorage.SetClaimedItem(_selectedFoodItem))
             {
                 return false;
             }

@@ -134,29 +134,7 @@ namespace Systems.SmartObjects.Scripts
             performer.Unit.UnitAnimController.SetUnitAction(UnitAction.Nothing);
             onCompleted.Invoke(this);
         }
-
-        private void Update()
-        {
-            // if (_currentPerformer == null) return;
-            // if (!_currentPerformer.HasStarted) return;
-            //
-            // float previousElaspedTime = _currentPerformer.ElapsedTime;
-            // _currentPerformer.ElapsedTime = Mathf.Min(_currentPerformer.ElapsedTime + TimeManager.Instance.DeltaTime, _duration);
-            //
-            //
-            //
-            // if (_statChanges.Count > 0)
-            // {
-            //     ApplyStatChanges(_currentPerformer.Performer, (_currentPerformer.ElapsedTime - previousElaspedTime) / _duration);
-            // }
-            //     
-            // // Interaction Complete?
-            // if (_currentPerformer.ElapsedTime >= _duration)
-            // {
-            //     OnInteractionCompleted(_currentPerformer.Performer, _currentPerformer.OnCompleted);
-            // }
-        }
-
+        
         private void GameEvent_MinuteTick()
         {
             if (_currentPerformer == null) return;

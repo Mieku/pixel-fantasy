@@ -35,7 +35,20 @@ namespace Systems.SmartObjects.Scripts
         
         public override bool CanPerform(CommonAIBase potentialPerformer)
         {
-            return _currentPerformer == null;
+            // Make sure it wasn't already claimed
+            if (_currentPerformer != null) return false;
+            
+            // Must be in storage to use
+            if (!_isInStorage) return false;
+            
+            // Make sure the item was not claimed
+            if (!LinkedItem.AssignedStorage.CanItemBeClaimed(LinkedItem))
+            {
+                return false;
+            }
+
+
+            return true;
         }
         
         public override bool LockInteration(CommonAIBase performer)
@@ -43,6 +56,12 @@ namespace Systems.SmartObjects.Scripts
             if (_currentPerformer != null)
             {
                 Debug.LogError($"{performer.name} is trying to lock {_displayName} which is already locked");
+                return false;
+            }
+
+            if (!_isInStorage)
+            {
+                Debug.LogError($"{performer.name} is trying to lock {_displayName} which is not in storage, should be!");
                 return false;
             }
             
@@ -54,10 +73,7 @@ namespace Systems.SmartObjects.Scripts
                 HasStarted = false,
             };
             
-            if (_isInStorage)
-            {
-                LinkedItem.AssignedStorage.SetClaimedItemState(LinkedItem);
-            }
+            LinkedItem.AssignedStorage.SetClaimedItem(LinkedItem);
 
             return true;
         }
@@ -76,47 +92,20 @@ namespace Systems.SmartObjects.Scripts
                 return false;
             }
             
-            if (_isInStorage) // If it is in storage perform it nearby
+            if (!_isInStorage)
             {
-                // Take the item out of storage
-                LinkedItem.AssignedStorage.WithdrawItem(LinkedItem);
-                performer.Unit.TaskAI.HoldItem(LinkedItem);
-                LinkedItem.SetHeld(true);
-                
-                var standPos = _currentPerformer.Performer.Unit.UnitAgent.PickLocationInRange(1.0f);
-                return _currentPerformer.Performer.Unit.UnitAgent.SetMovePosition(standPos, () =>
-                {
-                    if (_interactionType == EInteractionType.Instantaneous)
-                    {
-                        if (_statChanges.Count > 0)
-                        {
-                            ApplyStatChanges(performer, 1f);
-                        }
-
-                        OnInteractionCompleted(_currentPerformer.Performer, onCompleted);
-                    }
-                    else if (_interactionType == EInteractionType.OverTime)
-                    {
-                        // Start perform animation
-                        if (_performingAnimation != UnitAction.Nothing)
-                        {
-                            performer.Unit.UnitAnimController.SetUnitAction(_performingAnimation);
-                        }
-                        
-                        _currentPerformer.ElapsedTime = 0f;
-                        _currentPerformer.OnCompleted = onCompleted;
-                        _currentPerformer.HasStarted = true;
-                    }
-                });
+                Debug.LogError($"{performer.name} is trying to perform {_displayName} which is not in storage, should be!");
+                return false;
             }
-            else // If it is not in storage, perform it on location
-            {
-                // Pickup the item
-                var item = transform.parent.GetComponent<Item>();
-                performer.Unit.TaskAI.HoldItem(item);
-                item.SetHeld(true);
+            
+            // Take the item out of storage
+            LinkedItem.AssignedStorage.WithdrawItem(LinkedItem);
+            performer.Unit.TaskAI.HoldItem(LinkedItem);
+            LinkedItem.SetHeld(true);
                 
-                // Check the interaction type
+            var standPos = _currentPerformer.Performer.Unit.UnitAgent.PickLocationInRange(1.0f);
+            return _currentPerformer.Performer.Unit.UnitAgent.SetMovePosition(standPos, () =>
+            {
                 if (_interactionType == EInteractionType.Instantaneous)
                 {
                     if (_statChanges.Count > 0)
@@ -128,15 +117,17 @@ namespace Systems.SmartObjects.Scripts
                 }
                 else if (_interactionType == EInteractionType.OverTime)
                 {
+                    // Start perform animation
+                    if (_performingAnimation != UnitAction.Nothing)
+                    {
+                        performer.Unit.UnitAnimController.SetUnitAction(_performingAnimation);
+                    }
+                        
                     _currentPerformer.ElapsedTime = 0f;
                     _currentPerformer.OnCompleted = onCompleted;
                     _currentPerformer.HasStarted = true;
                 }
-
-                return true;
-            }
-
-            return false;
+            });
         }
 
         private void Update()
