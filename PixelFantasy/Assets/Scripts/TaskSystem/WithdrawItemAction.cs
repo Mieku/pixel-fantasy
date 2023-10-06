@@ -8,7 +8,7 @@ namespace TaskSystem
 {
     public class WithdrawItemAction : TaskAction
     {
-        private ItemState _targetItem;
+        private Item _targetItem;
         private PlayerInteractable _requestor;
         private bool _isHoldingItem;
         private Item _item;
@@ -16,7 +16,7 @@ namespace TaskSystem
         private ItemData _itemData;
         
         public float DistanceToRequestor => Vector2.Distance(_requestor.transform.position, transform.position);
-        public float DistanceToStorage => Vector2.Distance(_targetItem.Storage.transform.position, transform.position);
+        public float DistanceToStorage => Vector2.Distance(_targetItem.AssignedStorage.transform.position, transform.position);
 
         private void Awake()
         {
@@ -60,14 +60,14 @@ namespace TaskSystem
         public override void DoAction()
         {
             // Pick Up Item
-            if (!_isHoldingItem && _targetItem.Storage != null && DistanceToStorage <= 1f)
+            if (!_isHoldingItem && _targetItem.AssignedStorage != null && DistanceToStorage <= 1f)
             {
                 _isMoving = false;
                 _isHoldingItem = true;
-                _targetItem.Storage.WithdrawItem(_targetItem);
-                _item = Spawner.Instance.SpawnItem(_itemData, _targetItem.Storage.transform.position, false);
-                _ai.HoldItem(_item);
-                _item.SetHeld(true);
+                
+                _targetItem.AssignedStorage.WithdrawItem(_targetItem);
+                _ai.HoldItem(_targetItem);
+                _targetItem.SetHeld(true);
                 return;
             }
             
@@ -83,11 +83,11 @@ namespace TaskSystem
             }
             
             // Move to Item
-            if (!_isHoldingItem && _targetItem.Storage != null)
+            if (!_isHoldingItem && _targetItem.AssignedStorage != null)
             {
                 if (!_isMoving)
                 {
-                    _ai.Unit.UnitAgent.SetMovePosition(_targetItem.Storage.transform.position);
+                    _ai.Unit.UnitAgent.SetMovePosition(_targetItem.AssignedStorage.transform.position);
                     _isMoving = true;
                     return;
                 }
@@ -124,7 +124,7 @@ namespace TaskSystem
             ConcludeAction();
         }
         
-        public ItemState FindItem(string itemName)
+        public Item FindItem(string itemName)
         {
             if (string.IsNullOrEmpty(itemName)) return null;
             

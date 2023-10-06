@@ -67,6 +67,8 @@ namespace Managers
         public CropData CropData { get; set; }
         public RoofData RoofData { get; set; }
 
+        public Transform ItemsParent => _itemsParent;
+
         public PlacementDirection SetNextPlacementDirection(bool isClockwise)
         {
             if (isClockwise)
@@ -270,6 +272,7 @@ namespace Managers
             _invalidPlacementTags.Clear();
             CancelPlanning();
             PlacementDirection = PlacementDirection.Down;
+            _plannedFurnitureItemData = null;
         }
 
         public void ShowPlacementIcon(bool show, Sprite icon = null, List<String> invalidPlacementTags = null, float sizeOverride = 1f, Color? colourOverride = null)
@@ -363,6 +366,33 @@ namespace Managers
                     }
                 }
             }
+
+            if (_plannedFurnitureItemData != null)
+            {
+                if (Input.GetKeyDown(KeyCode.E)) // Clockwise
+                {
+                    SetNextPlacementDirection(true);
+                    if (_plannedFurniture != null)
+                    {
+                        Destroy(_plannedFurniture.gameObject);
+                        _plannedFurniture = null;
+                    }
+
+                    PlanFurniture(_plannedFurnitureItemData);
+                }
+                
+                if (Input.GetKeyDown(KeyCode.Q)) // Counter Clockwise
+                {
+                    SetNextPlacementDirection(false);
+                    if (_plannedFurniture != null)
+                    {
+                        Destroy(_plannedFurniture.gameObject);
+                        _plannedFurniture = null;
+                    }
+
+                    PlanFurniture(_plannedFurnitureItemData);
+                }
+            }
         }
 
         public void SpawnItem(ItemData itemData, Vector3 spawnPosition, bool canBeHauled, int quantity)
@@ -377,13 +407,13 @@ namespace Managers
             }
         }
         
-        public Item SpawnItem(ItemData itemData, Vector3 spawnPosition, bool canBeHauled, ItemState itemState = null)
+        public Item SpawnItem(ItemData itemData, Vector3 spawnPosition, bool canBeHauled, ItemState itemState = null, bool populateInteractions = true)
         {
             spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
             var item = Instantiate(_itemPrefab, spawnPosition, Quaternion.identity);
             item.transform.SetParent(_itemsParent);
             var itemScript = item.GetComponent<Item>();
-            itemScript.InitializeItem(itemData, canBeHauled, itemState);
+            itemScript.InitializeItem(itemData, canBeHauled, itemState, populateInteractions);
             
             item.SetActive(true);
             return itemScript;
@@ -452,9 +482,12 @@ namespace Managers
         }
 
         private Furniture _plannedFurniture;
+        private FurnitureItemData _plannedFurnitureItemData;
         public void PlanFurniture(FurnitureItemData furnitureData)
         {
-            var furniture = Instantiate(furnitureData.FurniturePrefab, _furnitureParent);
+            _plannedFurnitureItemData = furnitureData;
+            var cursorPos = Helper.ConvertMousePosToGridPos(UtilsClass.GetMouseWorldPosition());
+            var furniture = Instantiate(furnitureData.GetFurniturePrefab(PlacementDirection), cursorPos, Quaternion.identity, _furnitureParent);
             furniture.Plan(furnitureData);
             _plannedFurniture = furniture;
         }

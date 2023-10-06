@@ -30,7 +30,7 @@ namespace Popups.Kinling_Info_Popup
         [SerializeField] private GameObject _moodContent;
         [SerializeField] private GameObject _healthContent;
         [SerializeField] private KinlingInfoJobContent _jobsContent;
-        [SerializeField] private GameObject _needsContent;
+        [SerializeField] private KinlingInfoNeedsContent _needsContent;
         [SerializeField] private GameObject _wantsContent;
         [SerializeField] private GameObject _socialContent;
         [SerializeField] private KinlingInfoGearContent _gearContent;
@@ -108,7 +108,7 @@ namespace Popups.Kinling_Info_Popup
                     break;
                 case KinlingInfoTab.Needs:
                     _needsTab.sprite = _tabSelectedSpr;
-                    _needsContent.SetActive(true);
+                    _needsContent.Show(_selectedUnit);
                     break;
                 case KinlingInfoTab.Wants:
                     _wantsTab.sprite = _tabSelectedSpr;
@@ -140,7 +140,7 @@ namespace Popups.Kinling_Info_Popup
             _moodContent.SetActive(false);
             _healthContent.SetActive(false);
             _jobsContent.Close();
-            _needsContent.SetActive(false);
+            _needsContent.Close();
             _wantsContent.SetActive(false);
             _socialContent.SetActive(false);
             _gearContent.Close();

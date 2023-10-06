@@ -37,11 +37,12 @@ namespace Buildings
         private List<Unit> _occupants = new List<Unit>();
         private List<Furniture> _allFurniture = new List<Furniture>();
         private List<InventoryLogisticBill> _logisticsBills = new List<InventoryLogisticBill>();
-
+        
         private float _logiCheckTimer;
 
         public List<InventoryLogisticBill> LogisticBills => _logisticsBills;
         public List<Furniture> AllFurniture => _allFurniture;
+        public Action<List<Furniture>> OnBuildingFurnitureChanged;
 
         private void CheckLogistics()
         {
@@ -96,6 +97,9 @@ namespace Buildings
             }
             
             _allFurniture.Add(furniture);
+            
+            if(OnBuildingFurnitureChanged != null)
+                OnBuildingFurnitureChanged.Invoke(_allFurniture);
         }
 
         public void DeregisterFurniture(Furniture furniture)
@@ -107,6 +111,9 @@ namespace Buildings
             }
             
             _allFurniture.Remove(furniture);
+            
+            if(OnBuildingFurnitureChanged != null)
+                OnBuildingFurnitureChanged.Invoke(_allFurniture);
         }
 
         public List<Storage> GetBuildingStorages()
@@ -140,9 +147,9 @@ namespace Buildings
             return null;
         }
 
-        public Dictionary<ItemData, List<ItemState>> GetBuildingInventory()
+        public Dictionary<ItemData, List<Item>> GetBuildingInventory()
         {
-            Dictionary<ItemData, List<ItemState>> results = new Dictionary<ItemData, List<ItemState>>();
+            Dictionary<ItemData, List<Item>> results = new Dictionary<ItemData, List<Item>>();
             var storages = GetBuildingStorages();
             foreach (var storage in storages)
             {
@@ -151,7 +158,7 @@ namespace Buildings
                 {
                     if (!results.ContainsKey(storedKVP.Key))
                     {
-                        results.Add(storedKVP.Key, new List<ItemState>());
+                        results.Add(storedKVP.Key, new List<Item>());
                     }
 
                     foreach (var item in storedKVP.Value)

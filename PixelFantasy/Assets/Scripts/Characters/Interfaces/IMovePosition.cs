@@ -5,6 +5,6 @@ namespace Characters.Interfaces
 {
     public interface IMovePosition
     {
-        void SetMovePosition(Vector3 movePosition, Action onReachedMovePosition = null);
+        bool SetMovePosition(Vector3 movePosition, Action onReachedMovePosition = null);
     }
 }

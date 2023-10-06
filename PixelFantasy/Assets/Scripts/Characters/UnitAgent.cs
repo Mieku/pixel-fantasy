@@ -3,6 +3,7 @@ using Characters.Interfaces;
 using Managers;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 namespace Characters
 {
@@ -13,6 +14,8 @@ namespace Characters
         private bool _inTransit;
         private UnitAnimController _charAnimController;
         private float _defaultSpeed;
+
+        private const float NEAREST_POINT_SEARCH_RANGE = 5f;
 
         private void Awake()
         {
@@ -26,13 +29,26 @@ namespace Characters
             OnSpeedUpdated();
         }
 
-        public void SetMovePosition(Vector3 movePosition, Action onReachedMovePosition = null)
+        public void TeleportToPosition(Vector2 teleportPos, bool disableNav)
         {
-            _inTransit = true;
-            _onReachedMovePosition = onReachedMovePosition;
-            _agent.SetDestination(movePosition);
-            _charAnimController.SetMovementVelocity(movePosition);
-            _charAnimController.Appearance.SetDirection(UnitActionDirection.Side);
+            _agent.enabled = !disableNav;
+            gameObject.transform.position = teleportPos;
+        }
+
+        public bool SetMovePosition(Vector3 movePosition, Action onReachedMovePosition = null)
+        {
+            if (_agent.SetDestination(movePosition))
+            {
+                _inTransit = true;
+                _onReachedMovePosition = onReachedMovePosition;
+                _charAnimController.SetMovementVelocity(movePosition);
+                _charAnimController.Appearance.SetDirection(UnitActionDirection.Side);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public bool IsDestinationPossible(Vector3 position)
@@ -70,6 +86,20 @@ namespace Characters
         {
             var speedMod = TimeManager.Instance.GameSpeedMod;
             _agent.speed = _defaultSpeed * speedMod;
+        }
+        
+        public Vector3 PickLocationInRange(float range)
+        {
+            Vector3 searchLocation = transform.position;
+            searchLocation += Random.Range(-range, range) * Vector3.up;
+            searchLocation += Random.Range(-range, range) * Vector3.right;
+
+            if (NavMesh.SamplePosition(searchLocation, out var hitResult, NEAREST_POINT_SEARCH_RANGE, NavMesh.AllAreas))
+            {
+                return hitResult.position;
+            }
+
+            return transform.position;
         }
 
         private void Update()

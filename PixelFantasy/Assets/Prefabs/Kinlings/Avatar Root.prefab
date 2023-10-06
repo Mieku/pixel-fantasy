@@ -978,16 +978,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dd4ddba9ce61d44f9658f09f9c4009a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skinTone: {fileID: 11400000, guid: 05d2c2921e97ae548bf9adaa804d6eaf, type: 2}
-  _eyeColour: {r: 0, g: 0.6330502, b: 1, a: 1}
   _equipment: {fileID: 9061207110015068905}
   HairData: {fileID: 0}
-  FaceData: {fileID: 0}
   BodyData: {fileID: 0}
-  Gender: 0
+  _face: {fileID: 3618795428557089375}
   _hairRenderer: {fileID: 5307320318738625386}
   _headRenderer: {fileID: 5307320317462130724}
-  _faceRanderer: {fileID: 5307320318817747362}
   _outerHandRenderer: {fileID: 5307320317114055897}
   _backHandRenderer: {fileID: 5307320317452644663}
   _leftLegRenderer: {fileID: 5307320318269627950}
@@ -1018,55 +1014,11 @@ MonoBehaviour:
   _handsGearOffHand: {fileID: 8392426511118700311}
   _mainHandHeld: {fileID: 4406119171496418267}
   _offHandHeld: {fileID: 1027172916379212050}
-  Head:
-    Data: {fileID: 0}
-    Durability: 0
-    UID: 
-    Owner: {fileID: 0}
-  Body:
-    Data: {fileID: 0}
-    Durability: 0
-    UID: 
-    Owner: {fileID: 0}
-  Pants:
-    Data: {fileID: 0}
-    Durability: 0
-    UID: 
-    Owner: {fileID: 0}
-  Hands:
-    Data: {fileID: 0}
-    Durability: 0
-    UID: 
-    Owner: {fileID: 0}
-  MainHand:
-    Data: {fileID: 0}
-    Durability: 0
-    UID: 
-    Owner: {fileID: 0}
-  OffHand:
-    Data: {fileID: 0}
-    Durability: 0
-    UID: 
-    Owner: {fileID: 0}
-  Necklace:
-    Data: {fileID: 0}
-    Durability: 0
-    UID: 
-    Owner: {fileID: 0}
-  Ring1:
-    Data: {fileID: 0}
-    Durability: 0
-    UID: 
-    Owner: {fileID: 0}
-  Ring2:
-    Data: {fileID: 0}
-    Durability: 0
-    UID: 
-    Owner: {fileID: 0}
   Carried:
     Data: {fileID: 0}
     Durability: 0
     UID: 
+    Storage: {fileID: 0}
 --- !u!1 &5307320318269627948
 GameObject:
   m_ObjectHideFlags: 0
@@ -1307,6 +1259,7 @@ GameObject:
   - component: {fileID: 5307320318817747363}
   - component: {fileID: 5307320318817747362}
   - component: {fileID: 6189070675247983327}
+  - component: {fileID: 3618795428557089375}
   m_Layer: 0
   m_Name: Face
   m_TagString: Untagged
@@ -1397,6 +1350,21 @@ MonoBehaviour:
   normalStrength: 5
   normalSmoothing: 1
   computingNormal: 0
+--- !u!114 &3618795428557089375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5307320318817747360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b20e79766ac4094eae99146ff70afa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _blinkSpeed: 0.1
+  _minEyesOpen: 1
+  _maxEyesOpen: 5
 --- !u!1 &5307320319018243042
 GameObject:
   m_ObjectHideFlags: 0

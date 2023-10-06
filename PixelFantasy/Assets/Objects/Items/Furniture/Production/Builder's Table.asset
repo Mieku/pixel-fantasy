@@ -17,6 +17,7 @@ MonoBehaviour:
   ItemSprite: {fileID: -2106620571, guid: 4d5895fa30c428843a9032c52ee06e38, type: 3}
   DefaultSpriteScale: {x: 1, y: 1}
   Durability: 100
+  InteractionConfigs: []
   RequiredCraftingTable: {fileID: 11400000}
   WorkCost: 5
   _resourceCosts:
@@ -27,5 +28,9 @@ MonoBehaviour:
   - Wall
   - Obstacle
   Catergory: 0
-  FurniturePrefab: {fileID: 5259353419307902018, guid: 00efb1b08405d734ea032aba545657c2, type: 3}
+  DefaultDirection: 0
+  North_FurniturePrefab: {fileID: 5259353419307902018, guid: 00efb1b08405d734ea032aba545657c2, type: 3}
+  East_FurniturePrefab: {fileID: 5259353419307902018, guid: 00efb1b08405d734ea032aba545657c2, type: 3}
+  South_FurniturePrefab: {fileID: 5259353419307902018, guid: 00efb1b08405d734ea032aba545657c2, type: 3}
+  West_FurniturePrefab: {fileID: 5259353419307902018, guid: 00efb1b08405d734ea032aba545657c2, type: 3}
   Varients: []

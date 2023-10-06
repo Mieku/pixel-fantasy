@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Buildings;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
+using Systems.Stats.Scripts;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -24,10 +25,21 @@ namespace Managers
         [SerializeField] private List<Command> _commandLibrary;
         [SerializeField] private List<WallData> _wallLibrary;
         [SerializeField] private List<RoofData> _roofLibrary;
-        [SerializeField] private List<NeedData> _needLibrary;
         [SerializeField] private List<JobData> _jobLibrary;
         [SerializeField] private List<RaceData> _races;
+        [SerializeField] private List<AIStat> _stats;
 
+        public AIStat GetStat(string statName)
+        {
+            var result = _stats.Find(stat => stat.DisplayName == statName);
+            if (result == null)
+            {
+                Debug.LogError($"Unkown Stat: {_stats}");
+            }
+
+            return result;
+        }
+        
         public RaceData GetRace(string raceName)
         {
             var result = _races.Find(race => race.RaceName == raceName);
@@ -45,17 +57,6 @@ namespace Managers
             if (result == null)
             {
                 Debug.LogError($"Unkown Job: {jobName}");
-            }
-
-            return result;
-        }
-        
-        public NeedData GetNeedData(NeedType needType)
-        {
-            var result = _needLibrary.Find(need => need.NeedType == needType);
-            if (result == null)
-            {
-                Debug.LogError($"Unkown Need: {needType}");
             }
 
             return result;

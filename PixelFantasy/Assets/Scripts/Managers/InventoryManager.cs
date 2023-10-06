@@ -77,7 +77,7 @@ namespace Managers
             return null;
         }
 
-        public ItemState ClaimItem(ItemData itemData)
+        public Item ClaimItem(ItemData itemData)
         {
             foreach (var storage in _allStorage)
             {
@@ -90,7 +90,7 @@ namespace Managers
             return null;
         }
         
-        public ItemState ClaimItemGlobal(ItemData itemData)
+        public Item ClaimItemGlobal(ItemData itemData)
         {
             foreach (var storage in _allStorage)
             {
@@ -103,7 +103,7 @@ namespace Managers
             return null;
         }
         
-        public ItemState ClaimItemBuilding(ItemData itemData, Building building)
+        public Item ClaimItemBuilding(ItemData itemData, Building building)
         {
             var allBuildingStorage = building.GetBuildingStorages();
             foreach (var storage in allBuildingStorage)
@@ -117,9 +117,9 @@ namespace Managers
             return null;
         }
         
-        public Dictionary<ItemData, List<ItemState>> GetAvailableInventory()
+        public Dictionary<ItemData, List<Item>> GetAvailableInventory()
         {
-            Dictionary<ItemData, List<ItemState>> results = new Dictionary<ItemData, List<ItemState>>();
+            Dictionary<ItemData, List<Item>> results = new Dictionary<ItemData, List<Item>>();
             foreach (var storage in _allStorage)
             {
                 var contents = storage.AvailableInventory;
@@ -127,7 +127,7 @@ namespace Managers
                 {
                     if (!results.ContainsKey(content.Key))
                     {
-                        results.Add(content.Key, new List<ItemState>());
+                        results.Add(content.Key, new List<Item>());
                     }
 
                     foreach (var item in content.Value)

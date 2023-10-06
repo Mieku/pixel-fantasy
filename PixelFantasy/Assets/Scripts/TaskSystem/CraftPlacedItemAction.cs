@@ -18,7 +18,6 @@ namespace TaskSystem
         private int _quantityHauled;
 
         private Storage _targetStorage;
-        private ItemState _targetItem;
         private bool _isMoving;
         private bool _isHoldingItem;
         private Item _item;
@@ -56,10 +55,10 @@ namespace TaskSystem
             if (_state == TaskState.HaulMaterials)
             {
                 // for each of the materials, haul the material to the crafting table
-                if (_targetStorage == null || _targetItem == null)
+                if (_targetStorage == null || _item == null)
                 {
-                    _targetItem = _materials[_materialIndex].ItemState;
-                    _targetStorage = _targetItem.Storage;
+                    _item = _materials[_materialIndex].Item;
+                    _targetStorage = _item.AssignedStorage;
                 }
                 
                 // Pick Up Item
@@ -67,8 +66,7 @@ namespace TaskSystem
                 {
                     _isMoving = false;
                     _isHoldingItem = true;
-                    _item = Spawner.Instance.SpawnItem(_targetItem.Data, _targetStorage.transform.position, false);
-                    _targetStorage.WithdrawItem(_targetItem);
+                    _targetStorage.WithdrawItem(_item);
                     _ai.HoldItem(_item);
                     _item.SetHeld(true);
                     return;
@@ -82,7 +80,7 @@ namespace TaskSystem
                     _requestor.ReceiveItem(_item);
                     _quantityHauled++;
                     _targetStorage = null;
-                    _targetItem = null;
+                    _item = null;
 
                     if (_quantityHauled >= _materials[_materialIndex].Quantity)
                     {
@@ -216,7 +214,6 @@ namespace TaskSystem
             _targetStorage = null;
             _isHoldingItem = false;
             _isMoving = false;
-            _targetItem = null;
             _itemToCraft = null;
             _craftingTable = null;
             _materials.Clear();

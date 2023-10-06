@@ -17,10 +17,10 @@ namespace TaskSystem
         private int _quantityHauled;
         
         private Storage _targetStorage;
-        private ItemState _targetItemState;
+        private Item _targetItem;
+        private Item _craftedItem;
         private bool _isMoving;
         private bool _isHoldingItem;
-        private Item _item;
         private float _timer;
         private Storage _receivingStorage;
         private bool _assignedIncomingStorage;
@@ -54,10 +54,10 @@ namespace TaskSystem
             if (_state == TaskState.HaulMaterials)
             {
                 // for each of the materials, haul the material to the crafting table
-                if (_targetStorage == null || _targetItemState == null)
+                if (_targetStorage == null || _targetItem == null)
                 {
-                    _targetItemState = _materials[_materialIndex].ItemState;
-                    _targetStorage = _targetItemState.Storage;
+                    _targetItem = _materials[_materialIndex].Item;
+                    _targetStorage = _targetItem.AssignedStorage;
                 }
                 
                 // Pick Up Item
@@ -65,10 +65,9 @@ namespace TaskSystem
                 {
                     _isMoving = false;
                     _isHoldingItem = true;
-                    _item = Spawner.Instance.SpawnItem(_targetItemState.Data, _targetStorage.transform.position, false, _targetItemState);
-                    _targetStorage.WithdrawItem(_targetItemState);
-                    _ai.HoldItem(_item);
-                    _item.SetHeld(true);
+                    _targetStorage.WithdrawItem(_targetItem);
+                    _ai.HoldItem(_targetItem);
+                    _targetItem.SetHeld(true);
                     return;
                 }
                 
@@ -77,10 +76,10 @@ namespace TaskSystem
                 {
                     _isHoldingItem = false;
                     _isMoving = false;
-                    _craftingTable.ReceiveItem(_item);
+                    _craftingTable.ReceiveItem(_targetItem);
                     _quantityHauled++;
                     _targetStorage = null;
-                    _targetItemState = null;
+                    _targetItem = null;
 
                     if (_quantityHauled >= _materials[_materialIndex].Quantity)
                     {
@@ -136,9 +135,9 @@ namespace TaskSystem
                         _state = TaskState.HaulCraftedItem;
                         
                         _isHoldingItem = true;
-                        _item = Spawner.Instance.SpawnItem(_itemToCraft, _craftingTable.transform.position, false);
-                        _ai.HoldItem(_item);
-                        _item.SetHeld(true);
+                        _craftedItem = Spawner.Instance.SpawnItem(_itemToCraft, _craftingTable.transform.position, false);
+                        _ai.HoldItem(_craftedItem);
+                        _craftedItem.SetHeld(true);
                         
                         return;
                     }
@@ -151,7 +150,7 @@ namespace TaskSystem
                 _receivingStorage = _craftingTable.ParentBuilding.FindBuildingStorage(_itemToCraft);
                 if (_receivingStorage == null)
                 {
-                    _receivingStorage = InventoryManager.Instance.GetAvailableStorage(_item);
+                    _receivingStorage = InventoryManager.Instance.GetAvailableStorage(_craftedItem);
                     if (_receivingStorage == null)
                     {
                         // THROW IT ON THE GROUND!
@@ -163,7 +162,7 @@ namespace TaskSystem
 
                 if (!_assignedIncomingStorage)
                 {
-                    _receivingStorage.SetIncoming(_item.State);
+                    _receivingStorage.SetIncoming(_craftedItem);
                     _assignedIncomingStorage = true;
                 }
                 
@@ -172,9 +171,8 @@ namespace TaskSystem
                 {
                     if (_isHoldingItem)
                     {
-                        _receivingStorage.DepositItems(_item.State);
-                        Destroy(_item.gameObject);
-                        _item = null;
+                        _receivingStorage.DepositItems(_craftedItem);
+                        _craftedItem = null;
                         _isHoldingItem = false;
                     }
                 
@@ -210,7 +208,7 @@ namespace TaskSystem
             _targetStorage = null;
             _isHoldingItem = false;
             _isMoving = false;
-            _targetItemState = null;
+            _targetItem = null;
             _itemToCraft = null;
             _craftingTable = null;
             _materials.Clear();

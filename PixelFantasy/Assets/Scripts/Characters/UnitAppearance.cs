@@ -14,10 +14,10 @@ namespace Characters
         
         public HairData HairData;
         public BodyData BodyData;
+        [SerializeField] private KinlingFaceHandler _face;
 
         [SerializeField] private SpriteRenderer _hairRenderer;
         [SerializeField] private SpriteRenderer _headRenderer;
-        [SerializeField] private SpriteRenderer _faceRanderer;
 
         [SerializeField] private SpriteRenderer _outerHandRenderer;
         [SerializeField] private SpriteRenderer _backHandRenderer;
@@ -70,6 +70,7 @@ namespace Characters
                 _appearanceState = randomAppearance;
             }
             ApplyAppearanceState(_appearanceState);
+            _face.Init(BodyData, _curDirection);
         }
 
         public void ApplyAppearanceState(AppearanceState appearanceState)
@@ -92,7 +93,8 @@ namespace Characters
             var primaryTone = _appearanceState.SkinTone.PrimaryTone;
             
             // Face
-            ApplyMaterialRecolour(_faceRanderer, eyeColour, blushTone, Color.black);
+            _face.AssignFaceColours(eyeColour, blushTone);
+            //ApplyMaterialRecolour(_faceRanderer, eyeColour, blushTone, Color.black);
             
             // Head
             ApplyMaterialRecolour(_headRenderer, primaryTone, shadeTone, Color.black);
@@ -143,19 +145,19 @@ namespace Characters
             switch (dir)
             {
                 case UnitActionDirection.Side:
-                    _faceRanderer.gameObject.SetActive(true);
+                    // _faceRanderer.gameObject.SetActive(true);
                     _mainHandSortingGroup.sortingOrder = OuterHandSideLayer;
                     _mainHandHeldSortingGroup.sortingOrder = ToolSideLayer;
                     _offHandSortingGroup.sortingOrder = BackHandSideLayer;
                     break;
                 case UnitActionDirection.Up:
-                    _faceRanderer.gameObject.SetActive(false);
+                    // _faceRanderer.gameObject.SetActive(false);
                     _mainHandSortingGroup.sortingOrder = OuterHandBackLayer;
                     _mainHandHeldSortingGroup.sortingOrder = ToolBackLayer;
                     _offHandSortingGroup.sortingOrder = BackHandBackLayer;
                     break;
                 case UnitActionDirection.Down:
-                    _faceRanderer.gameObject.SetActive(true);
+                    // _faceRanderer.gameObject.SetActive(true);
                     _mainHandSortingGroup.sortingOrder = OuterHandFrontLayer;
                     _mainHandHeldSortingGroup.sortingOrder = ToolFrontLayer;
                     _offHandSortingGroup.sortingOrder = BackHandFrontLayer;
@@ -182,10 +184,11 @@ namespace Characters
         
         private void SetBodyDirection(UnitActionDirection dir)
         {
-            if (dir != UnitActionDirection.Up)
-            {
-                _faceRanderer.sprite = BodyData.GetBodySprite(BodyPart.Face, dir);
-            }
+            _face.SetDirection(dir);
+            // if (dir != UnitActionDirection.Up)
+            // {
+            //     _faceRanderer.sprite = BodyData.GetBodySprite(BodyPart.Face, dir);
+            // }
             _headRenderer.sprite = BodyData.GetBodySprite(BodyPart.Head, dir);
             _bodyNudeRenderer.sprite = BodyData.GetBodySprite(BodyPart.Body, dir);
             _outerHandRenderer.sprite = BodyData.GetBodySprite(BodyPart.MainHand, dir);

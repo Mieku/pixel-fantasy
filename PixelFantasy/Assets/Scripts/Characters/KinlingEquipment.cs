@@ -35,7 +35,7 @@ namespace Characters
         public EquipmentState EquipmentState = new EquipmentState();
         public EquipmentState DesiredEquipmentState = new EquipmentState();
 
-        public ItemState Carried;
+        public Item Carried;
 
         private UnitActionDirection _curDirection;
         private Unit _unit;
@@ -447,7 +447,7 @@ namespace Characters
         private Task CreateEquipTask(GearState gearState)
         {
             CraftingBill.RequestedItemInfo requestedItemInfo =
-                new CraftingBill.RequestedItemInfo(gearState, 1);
+                new CraftingBill.RequestedItemInfo(gearState.LinkedItem, 1);
             
             Task equipItemTask = new Task
             {

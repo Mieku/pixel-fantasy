@@ -9,13 +9,15 @@ namespace Items
         public ItemData Data;
         public int Durability;
         public string UID;
-        public Storage Storage;
-
-        public ItemState(ItemData data, string uid)
+        public Storage Storage => LinkedItem.AssignedStorage;
+        public Item LinkedItem;
+    
+        public ItemState(ItemData data, string uid, Item linkedItem)
         {
             Data = data;
             Durability = Data.Durability;
             UID = uid;
+            LinkedItem = linkedItem;
         }
         
         public ItemState(ItemState other)
@@ -23,7 +25,7 @@ namespace Items
             Data = other.Data;
             Durability = other.Durability;
             UID = other.UID;
-            Storage = other.Storage;
+            LinkedItem = other.LinkedItem;
         }
         
         public override bool Equals(object obj)
@@ -32,7 +34,7 @@ namespace Items
             {
                 return false;
             }
-
+    
             ItemState other = (ItemState)obj;
             return UID == other.UID;
         }

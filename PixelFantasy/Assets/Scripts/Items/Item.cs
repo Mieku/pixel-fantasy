@@ -4,6 +4,7 @@ using DataPersistence;
 using Interfaces;
 using Managers;
 using ScriptableObjects;
+using Systems.SmartObjects.Scripts;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -16,6 +17,7 @@ namespace Items
         [SerializeField] private ItemData _itemData;
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private ClickObject _clickObject;
+        [SerializeField] private SmartObjectItem _smartObject;
 
         private Task _currentTask;
         
@@ -34,7 +36,7 @@ namespace Items
             return _clickObject;
         }
         
-        public void InitializeItem(ItemData itemData, bool allowed, ItemState state = null)
+        public void InitializeItem(ItemData itemData, bool allowed, ItemState state = null, bool populateInteraction = true)
         {
             _itemData = itemData;
             IsAllowed = allowed;
@@ -42,7 +44,7 @@ namespace Items
             if (state == null || state.Data == null)
             {
                 InitUID();
-                State = _itemData.CreateState(UniqueId);
+                State = _itemData.CreateState(UniqueId, this);
             }
             else
             {
@@ -50,6 +52,8 @@ namespace Items
                 UniqueId = State.UID;
             }
 
+            _smartObject.Init(this, populateInteraction);
+            
             DisplayItemSprite();
 
             if (allowed)
@@ -57,7 +61,7 @@ namespace Items
                 SeekForSlot();
             }
         }
-        
+
         public void SeekForSlot()
         {
             if (AssignedStorage == null && !_isHeld)
@@ -65,7 +69,7 @@ namespace Items
                 AssignedStorage = InventoryManager.Instance.GetAvailableStorage(this);
                 if (AssignedStorage != null)
                 {
-                    AssignedStorage.SetIncoming(State);
+                    AssignedStorage.SetIncoming(this);
                     CreateHaulTask();
                 }
             }
@@ -122,8 +126,7 @@ namespace Items
         public void AddItemToSlot()
         {
             _isHeld = false;
-            AssignedStorage.DepositItems(State);
-            Destroy(gameObject);
+            AssignedStorage.DepositItems(this);
         }
 
         private void DisplayItemSprite()
@@ -174,7 +177,7 @@ namespace Items
         {
             GameEvents.OnInventoryAvailabilityChanged += GameEvent_OnInventoryAvailabilityChanged;
             
-            if (_itemData != null)
+            if (_itemData != null && State == null)
             {
                 InitializeItem(_itemData, true, State);
             }
@@ -183,6 +186,9 @@ namespace Items
         private void OnDestroy()
         {
             GameEvents.OnInventoryAvailabilityChanged -= GameEvent_OnInventoryAvailabilityChanged;
+            
+            if(_currentTask != null)
+                _currentTask.Cancel();
         }
 
         public bool IsClickDisabled { get; set; }

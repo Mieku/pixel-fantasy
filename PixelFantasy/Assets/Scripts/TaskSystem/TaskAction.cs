@@ -10,6 +10,7 @@ namespace TaskSystem
 
         protected TaskAI _ai;
         protected Task _task;
+        protected const float MIN_DISTANCE_FROM_REQUESTOR = 0.5f;
         // protected Family Owner
         // {
         //     get

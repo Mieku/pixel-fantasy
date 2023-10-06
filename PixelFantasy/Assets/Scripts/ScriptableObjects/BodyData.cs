@@ -20,6 +20,7 @@ namespace ScriptableObjects
         public Sprite LeftLegSide;
         public Sprite RightLegSide;
         public Sprite FaceSide;
+        public Sprite FaceSide_EyesClosed;
             
         // Front
         [FormerlySerializedAs("HeadDown")] [TitleGroup("Front Sprites")] public Sprite HeadFront;
@@ -30,6 +31,7 @@ namespace ScriptableObjects
         [FormerlySerializedAs("LeftLegDown")] public Sprite LeftLegFront;
         [FormerlySerializedAs("RightLegDown")] public Sprite RightLegFront;
         [FormerlySerializedAs("FaceDown")] public Sprite FaceFront;
+        public Sprite FaceFront_EyesClosed;
         
         // Back
         [ShowIf("@IsFrontBackSame == false")][TitleGroup("Back Sprites")]
@@ -83,6 +85,8 @@ namespace ScriptableObjects
                     return RightLegSide;
                 case BodyPart.Face:
                     return FaceSide;
+                case BodyPart.Face_EyesClosed:
+                    return FaceSide_EyesClosed;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(bodyPart), bodyPart, null);
             }
@@ -131,6 +135,8 @@ namespace ScriptableObjects
                     return RightLegFront;
                 case BodyPart.Face:
                     return FaceFront;
+                case BodyPart.Face_EyesClosed:
+                    return FaceFront_EyesClosed;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(bodyPart), bodyPart, null);
             }
@@ -147,5 +153,6 @@ namespace ScriptableObjects
         LeftLeg,
         RightLeg,
         Face,
+        Face_EyesClosed,
     }
 }

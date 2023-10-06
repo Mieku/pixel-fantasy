@@ -17,10 +17,11 @@ namespace Characters
             moveVelocity = GetComponent<IMoveVelocity>();
         }
 
-        public void SetMovePosition(Vector3 movePosition, Action onReachedMovePosition)
+        public bool SetMovePosition(Vector3 movePosition, Action onReachedMovePosition)
         {
             this.movePosition = movePosition;
             movingToPos = true;
+            return true;
         }
         
         private void FixedUpdate()

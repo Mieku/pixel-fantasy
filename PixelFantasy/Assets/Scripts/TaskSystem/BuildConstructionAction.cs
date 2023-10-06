@@ -32,7 +32,7 @@ namespace TaskSystem
                 Debug.Log($"Recalculated Position is: {(Vector2)_movePos}");
             }
             
-            if (DistanceFromRequestor <= 0.40f)
+            if (DistanceFromRequestor <= MIN_DISTANCE_FROM_REQUESTOR)
             {
                 DoConstruction();
             }

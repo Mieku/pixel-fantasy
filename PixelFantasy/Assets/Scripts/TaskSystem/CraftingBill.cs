@@ -57,7 +57,7 @@ namespace TaskSystem
                 {
                     for (int i = 0; i < resultItemInfo.Quantity; i++)
                     {
-                        resultItemInfo.ItemState.Storage.RestoreClaimed(resultItemInfo.ItemState);
+                        resultItemInfo.Item.AssignedStorage.RestoreClaimed(resultItemInfo.Item);
                     }
                 }
                 
@@ -77,20 +77,20 @@ namespace TaskSystem
             return false;
         }
 
-        private List<RequestedItemInfo> AddToRequestedItemsList(ItemState itemState, List<RequestedItemInfo> currentList)
+        private List<RequestedItemInfo> AddToRequestedItemsList(Item item, List<RequestedItemInfo> currentList)
         {
             List<RequestedItemInfo> results = new List<RequestedItemInfo>(currentList);
             
             foreach (var itemInfo in results)
             {
-                if (itemInfo.ItemState == itemState)
+                if (itemInfo.Item.Equals(item))
                 {
                     itemInfo.Quantity++;
                     return results;
                 }
             }
             
-            results.Add(new RequestedItemInfo(itemState, 1));
+            results.Add(new RequestedItemInfo(item, 1));
 
             return results;
         }
@@ -134,12 +134,12 @@ namespace TaskSystem
         [Serializable]
         public class RequestedItemInfo
         {
-            public ItemState ItemState;
+            public Item Item;
             public int Quantity;
 
-            public RequestedItemInfo(ItemState itemState, int quantity)
+            public RequestedItemInfo(Item item, int quantity)
             {
-                ItemState = itemState;
+                Item = item;
                 Quantity = quantity;
             }
         }

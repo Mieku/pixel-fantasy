@@ -362,8 +362,6 @@ namespace Items
 
         public virtual void RestoreState(object data)
         {
-            // throw new System.NotImplementedException();
-            //
             if (!_isBuilt)
             {
                 var missingItems = GetRemainingMissingItems();

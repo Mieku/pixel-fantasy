@@ -90,11 +90,11 @@ namespace Characters
 
             if (newJob.RequiredTool != null)
             {
-                var claimedTool = InventoryManager.Instance.ClaimItemGlobal(newJob.RequiredTool) as GearState;
+                var claimedTool = InventoryManager.Instance.ClaimItemGlobal(newJob.RequiredTool);
                 if (claimedTool != null)
                 {
                     var unit = GetComponent<Unit>();
-                    unit.Equipment.AssignDesiredEquipment(claimedTool);
+                    unit.Equipment.AssignDesiredEquipment(claimedTool.State as GearState);
                 }
             }
         }

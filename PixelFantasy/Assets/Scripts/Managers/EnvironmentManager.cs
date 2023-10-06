@@ -12,6 +12,7 @@ namespace Managers
         [SerializeField] private int _currentHour;
         [SerializeField] private int _currentMin;
         [SerializeField] private bool _isPM;
+        [SerializeField, Range(0f, 1f)] private float _maxDarkness;
         [Tooltip("The amount to real minutes in a day at normal speed")][SerializeField] private float _realMinsInADay;
 
         private float _gameDayTimer;
@@ -35,8 +36,10 @@ namespace Managers
         {
             var dayPercent = _timeOfDay / 23.99f;
             var curveHeight = _lightingCurve.Evaluate(dayPercent);
+            var darkness = _maxDarkness * curveHeight;
+            
             Lighting2D.DarknessColor = new Color(Lighting2D.DarknessColor.r, Lighting2D.DarknessColor.g,
-                Lighting2D.DarknessColor.b, curveHeight);
+                Lighting2D.DarknessColor.b, darkness);
         }
         
         private void CalculateTimeOfDay()
@@ -51,7 +54,6 @@ namespace Managers
             
             var mins100 = _timeOfDay - Math.Truncate(_timeOfDay);
             
-            //_currentMin = (int)(mins100 * 60f);
             var curMin = (int)(mins100 * 60f);
             if (curMin != _currentMin)
             {

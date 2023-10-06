@@ -12,6 +12,7 @@ public class PositionRendererSorter : MonoBehaviour
     private float _timer;
     private float _timerMax = 0.1f;
     private Renderer _myRenderer;
+    private bool _isLocked;
     
     private void Awake()
     {
@@ -21,6 +22,8 @@ public class PositionRendererSorter : MonoBehaviour
 
     private void LateUpdate()
     {
+        if(_isLocked) return;
+        
         _timer -= Time.deltaTime;
         if (_timer <= 0f)
         {
@@ -33,6 +36,11 @@ public class PositionRendererSorter : MonoBehaviour
                 DestroySelf();
             }
         }
+    }
+
+    public void SetLocked(bool isLocked)
+    {
+        _isLocked = isLocked;
     }
     
     private void SortRendererPosition() {

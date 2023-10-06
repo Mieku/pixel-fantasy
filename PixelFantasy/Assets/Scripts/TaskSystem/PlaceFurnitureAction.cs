@@ -7,27 +7,24 @@ namespace TaskSystem
 {
     public class PlaceFurnitureAction : TaskAction
     {
-        private ItemState _itemToPlace;
+        private Item _itemToPlace;
         private Furniture _furniture => _task.Requestor as Furniture;
         private bool _isHoldingItem;
-        private Item _item;
         private bool _isMoving;
-        private ItemData _itemData;
         private float _timer;
         private bool _isPlacingItem;
         
         private const float WORK_SPEED = 1f; // TODO: Get the work speed from the Kinling's stats
         private const float WORK_AMOUNT = 1f; // TODO: Get the amount of work from the Kinling's stats
         public float DistanceToRequestor => Vector2.Distance(_furniture.transform.position, transform.position);
-        public float DistanceToStorage => Vector2.Distance(_itemToPlace.Storage.transform.position, transform.position);
+        public float DistanceToStorage => Vector2.Distance(_itemToPlace.AssignedStorage.transform.position, transform.position);
         
         public override void PrepareAction(Task task)
         {
             _task = task;
-            _itemToPlace = task.Materials[0].ItemState;
+            _itemToPlace = task.Materials[0].Item;
             _isHoldingItem = false;
             _isMoving = false;
-            _itemData = _furniture.FurnitureItemData;
             _isPlacingItem = false;
         }
 
@@ -38,11 +35,9 @@ namespace TaskSystem
             {
                 _isMoving = false;
                 _isHoldingItem = true;
-                _item = Spawner.Instance.SpawnItem(_itemData, _itemToPlace.Storage.transform.position, false, _itemToPlace);
-                _itemToPlace.Storage.WithdrawItem(_itemToPlace);
-                _ai.HoldItem(_item);
-                _item.SetHeld(true);
-                _itemToPlace = null;
+                _itemToPlace.AssignedStorage.WithdrawItem(_itemToPlace);
+                _ai.HoldItem(_itemToPlace);
+                _itemToPlace.SetHeld(true);
                 return;
             }
             
@@ -51,7 +46,7 @@ namespace TaskSystem
             {
                 if (!_isMoving)
                 {
-                    _ai.Unit.UnitAgent.SetMovePosition(_itemToPlace.Storage.transform.position);
+                    _ai.Unit.UnitAgent.SetMovePosition(_itemToPlace.AssignedStorage.transform.position);
                     _isMoving = true;
                     return;
                 }
@@ -73,8 +68,8 @@ namespace TaskSystem
             {
                 if (_isHoldingItem)
                 {
-                    _furniture.ReceiveItem(_item);
-                    _item = null;
+                    _furniture.ReceiveItem(_itemToPlace);
+                    _itemToPlace = null;
                     _isHoldingItem = false;
                 }
                 
@@ -111,7 +106,6 @@ namespace TaskSystem
             _itemToPlace = null;
             _isHoldingItem = false;
             _isMoving = false;
-            _itemData = null;
             _isPlacingItem = false;
         }
 

@@ -1,20 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Buildings;
 using Characters;
 using Items;
 using Managers;
-using ScriptableObjects;
+using Systems.SmartObjects.Scripts;
+using Systems.Stats.Scripts;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace TaskSystem
 {
     public class TaskAI : MonoBehaviour
     {
         [SerializeField] private Unit _unit;
-        
+        [SerializeField] private NeedsAI _needsAI;
+
         private List<TaskAction> _taskActions;
         private State _state;
         private float _waitingTimer;
@@ -22,7 +22,7 @@ namespace TaskSystem
         private Item _heldItem;
         private Queue<Task> _queuedTasks = new Queue<Task>();
         
-        private const float WAIT_TIMER_MAX = .2f; // 200ms
+        private const float WAIT_TIMER_MAX = 0.2f; // 200ms
 
         public Unit Unit => _unit;
         public Family Family => FamilyManager.Instance.GetFamily(_unit.GetUnitState());
@@ -31,7 +31,8 @@ namespace TaskSystem
         public enum State
         {
             WaitingForNextTask,
-            ExecutingTask
+            ExecutingTask,
+            ExecutingInteraction,
         }
         
         private void Awake()
@@ -62,14 +63,9 @@ namespace TaskSystem
                     }
                     break;
                 case State.ExecutingTask:
-                    if (_curTaskAction != null)
-                    {
-                        _curTaskAction.DoAction();
-                    }
-                    else
-                    {
-                        Debug.LogError("Attempted to Execute null task action");
-                    }
+                    _curTaskAction?.DoAction();
+                    break;
+                case State.ExecutingInteraction:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -78,15 +74,7 @@ namespace TaskSystem
 
         private TaskAction FindTaskActionFor(Task task)
         {
-            foreach (var taskAction in _taskActions)
-            {
-                if (taskAction.TaskId == task.TaskId)
-                {
-                    return taskAction;
-                }
-            }
-
-            return null;
+            return _taskActions.Find(taskAction => taskAction.TaskId == task.TaskId);
         }
 
         public void CurrentTaskDone()
@@ -95,10 +83,9 @@ namespace TaskSystem
             _state = State.WaitingForNextTask;
         }
 
-        private ScheduleOption GetCurrentScheduleOption()
+        public ScheduleOption GetCurrentScheduleOption()
         {
             int currentHour = EnvironmentManager.Instance.GameTime.GetCurrentHour24();
-
             return _unit.GetUnitState().Schedule.GetHour(currentHour);
         }
 
@@ -108,11 +95,21 @@ namespace TaskSystem
             switch (currentSchedule)
             {
                 case ScheduleOption.Sleep:
+                    var energyStat = Librarian.Instance.GetStat("Energy");
+                    if (_needsAI.GetStatValue(energyStat) <= 0.70f)
+                    {
+                        DoInteraction(Librarian.Instance.GetStat("Energy"));
+                    }
+                    else
+                    {
+                        DoInteraction();
+                    }
                     break;
                 case ScheduleOption.Work:
                     RequestNextJobTask();
                     break;
                 case ScheduleOption.Recreation:
+                    DoInteraction();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -129,7 +126,16 @@ namespace TaskSystem
                 task = _queuedTasks.Dequeue();
             }
             
-            if (task == null)
+            if (task == null && _state != State.ExecutingInteraction)
+            {
+                // Check if any needs are critical
+                if (_needsAI.AreAnyNeedsCritical(out var criticalStat))
+                {
+                    DoInteraction(criticalStat);
+                }
+            }
+            
+            if (task == null && _state != State.ExecutingInteraction)
             {
                 // Check if they are missing any required Equipment
                 task = CheckEquipment();
@@ -137,7 +143,7 @@ namespace TaskSystem
 
             // TODO: First Check Their Assigned Work Room
 
-            if (task == null)
+            if (task == null && _state != State.ExecutingInteraction)
             {
                 var sortedPriorities = Priorities.SortedPriorities;
                 foreach (var sortedPriority in sortedPriorities)
@@ -150,9 +156,18 @@ namespace TaskSystem
                 }
             }
 
+            if (task == null && _state != State.ExecutingInteraction)
+            {
+                // Fulfill personal needs if nothing to do
+                DoInteraction();
+            }
+
             if (task == null)
             {
-                _state = State.WaitingForNextTask;
+                if (_state != State.ExecutingInteraction)
+                {
+                    _state = State.WaitingForNextTask;
+                }
                 return;
             }
 
@@ -174,6 +189,19 @@ namespace TaskSystem
             }
 
             SetupTaskAction(task);
+        }
+
+        private void DoInteraction(AIStat focusStat = null)
+        {
+            if (_needsAI.PickBestInteraction(OnInteractionComplete, focusStat))
+            {
+                _state = State.ExecutingInteraction;
+            }
+        }
+
+        private void OnInteractionComplete(BaseInteraction interaction)
+        {
+            _state = State.WaitingForNextTask;
         }
 
         private void SetupTaskAction(Task task)
@@ -214,12 +242,13 @@ namespace TaskSystem
         
         private UnitActionDirection DetermineUnitActionDirection(Vector3 workPos, Vector3 standPos)
         {
-            const float threshold = .25f;
+            const float threshold = 0.25f;
 
             if (standPos.y >= workPos.y + threshold)
             {
                 return UnitActionDirection.Down;
-            } else if (standPos.y <= workPos.y - threshold)
+            } 
+            else if (standPos.y <= workPos.y - threshold)
             {
                 return UnitActionDirection.Up;
             }
@@ -286,7 +315,7 @@ namespace TaskSystem
     
         public Vector2 ConvertAngleToPosition(float angle, Vector2 startPos, float distance)
         {
-            Vector2 result = new Vector2();
+            Vector2 result;
             
             // Left
             if (angle is >= 45 and < 135)
@@ -321,9 +350,9 @@ namespace TaskSystem
         public void DropCarriedItem()
         {
             if (_heldItem == null) return;
-        
-            Spawner.Instance.SpawnItem(_heldItem.GetItemData(), transform.position, true);
-            Destroy(_heldItem.gameObject);
+
+            _heldItem.transform.SetParent(Spawner.Instance.ItemsParent);
+            _heldItem.IsAllowed = true;
             _heldItem = null;
         }
 
@@ -331,8 +360,7 @@ namespace TaskSystem
         {
             if (_heldItem == null) return;
             
-            storage.DepositItems(_heldItem.State);
-            Destroy(_heldItem.gameObject);
+            storage.DepositItems(_heldItem);
             _heldItem = null;
         }
 
@@ -342,3 +370,4 @@ namespace TaskSystem
         }
     }
 }
+

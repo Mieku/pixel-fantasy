@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Buildings;
+using Characters;
 using CodeMonkey.Utils;
 using Managers;
 using ScriptableObjects;
+using Systems.SmartObjects.Scripts;
 using TaskSystem;
 using UnityEngine;
 using Zones;
@@ -13,9 +15,11 @@ namespace Items
 {
     public class Furniture : PlayerInteractable
     {
-        [SerializeField] private Transform _spritesRoot;
+        [SerializeField] protected Transform _spritesRoot;
         [SerializeField] private Transform _useageMarkersRoot;
         [SerializeField] protected FurnitureItemData _furnitureItemData;
+        [SerializeField] protected SmartObject _smartObject;
+        [SerializeField] protected bool _singleOwner;
 
         public bool IsBuilt;
         
@@ -27,6 +31,7 @@ namespace Items
         private bool _isPlanning;
         private float _remainingWork;
         private bool _isOutlineLocked;
+        private Unit _assignedKinling;
         protected Building _parentBuilding;
         //protected RoomZone _parentRoom;
 
@@ -36,6 +41,7 @@ namespace Items
         
         protected virtual void Awake()
         {
+            if(_smartObject != null) _smartObject.gameObject.SetActive(false);
             _allSprites = _spritesRoot.GetComponentsInChildren<SpriteRenderer>();
             _useageMarkers = _useageMarkersRoot.GetComponentsInChildren<SpriteRenderer>(true).ToList();
             _fadePropertyID = Shader.PropertyToID("_OuterOutlineFade");
@@ -173,6 +179,8 @@ namespace Items
             {
                 AssignBuilding(building);
             }
+            
+            if(_smartObject != null) _smartObject.gameObject.SetActive(true);
         }
 
         private void AssignBuilding(Building building)
@@ -330,6 +338,31 @@ namespace Items
             Blueprint,
             CanPlace,
             CantPlace,
+        }
+
+        public bool CanKinlingUseThis(Unit kinling)
+        {
+            if (_isPlanning) return false;
+            if (_singleOwner)
+            {
+                if (_assignedKinling == null)
+                {
+                    return true;
+                } 
+                else if (_assignedKinling != kinling)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public void AssignFurnitureToKinling(Unit kinling)
+        {
+            if (!_singleOwner) return;
+
+            _assignedKinling = kinling;
         }
     }
 }

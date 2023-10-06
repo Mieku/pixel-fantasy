@@ -11,7 +11,7 @@ namespace TaskSystem
     {
         private Building _building;
         private ItemData _itemData;
-        private ItemState _claimedItem;
+        private Item _claimedItem;
         
         private Storage _availableItemStorage;
         private Storage _buildingStorage;
@@ -63,9 +63,8 @@ namespace TaskSystem
             if (DistanceToBuildingStorage <= 1f)
             {
                 _buildingStorage.WithdrawItem(_claimedItem);
-                var item = Spawner.Instance.SpawnItem(_itemData, _buildingStorage.transform.position, false, _claimedItem);
-                _ai.HoldItem(item);
-                item.SetHeld(true);
+                _ai.HoldItem(_claimedItem);
+                _claimedItem.SetHeld(true);
                 
                 _state = TaskState.GoingToGlobalStorage;
                 _ai.Unit.UnitAgent.SetMovePosition(_availableItemStorage.transform.position);

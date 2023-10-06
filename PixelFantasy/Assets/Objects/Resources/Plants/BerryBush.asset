@@ -13,11 +13,6 @@ MonoBehaviour:
   m_Name: BerryBush
   m_EditorClassIdentifier: 
   ResourceName: Berry Bush
-  _reproduces: 1
-  _reproductiveRateSec: 30
-  _childRangeMin: 1
-  _childRangeMax: 6
-  _keepSpace: 1
   _growthStages:
   - StageName: Young Bush
     GrowthSprite: {fileID: 21300000, guid: 0fd3f59d6e5bc924fbc75655b4a41224, type: 3}
@@ -45,16 +40,13 @@ MonoBehaviour:
   - Structure
   - Zone
   - Dirt
-  _availableActions:
-  - {fileID: 11400000, guid: 589250b837e32b84d90b6e4686766a41, type: 2}
-  - {fileID: 11400000, guid: a7166ebc6f232d74099cae1549979e23, type: 2}
   _hasFruit: 1
   _growFruitTime: 60
   _fruitOverlay: {fileID: 21300000, guid: c25c4600cb9c8d04f9ed7273032012cf, type: 3}
   _fruitFlowersOverlay: {fileID: 0}
   _harvestableFruit:
     _harvestableItems:
-    - Item: {fileID: 11400000, guid: 885ae72d5e1e5414ea56c56af62554e2, type: 2}
+    - Item: {fileID: 11400000, guid: 29498d3d0541b9548a48ad022437d5dc, type: 2}
       MinDrop: 2
       MaxDrop: 5
   _workToHarvest: 5

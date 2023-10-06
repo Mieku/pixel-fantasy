@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ScriptableObjects
 {
-    [CreateAssetMenu(fileName = "EquipmentData", menuName = "CraftedData/EquipmentData", order = 1)]
+    [CreateAssetMenu(fileName = "EquipmentData", menuName = "ItemData/CraftedItemData/EquipmentData", order = 1)]
     public class GearData : CraftedItemData
     {
         [TitleGroup("Equipment")] public GearType Type;
@@ -23,9 +23,9 @@ namespace ScriptableObjects
         [ShowIf("Type", GearType.Pants)] public GearPiece LeftLegGear;
         [ShowIf("Type", GearType.Pants)] public GearPiece RightLegGear;
 
-        public override ItemState CreateState(string uid)
+        public override ItemState CreateState(string uid, Item item)
         {
-            return new GearState(this, uid);
+            return new GearState(this, uid, item);
         }
     }
 

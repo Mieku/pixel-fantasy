@@ -206,10 +206,10 @@ namespace Popups.Kinling_Info_Popup
                         minItems += availableItem.Value.Count;
                         foreach (var item in availableItem.Value)
                         {
-                            var equipment = item as GearState;
+                            var equipment = item.State as GearState;
                             if (equipment != null && equipment.CanBeEquippedByUnit(_unit))
                             {
-                                applicableItems.Add(item);
+                                applicableItems.Add(item.State);
                             }
                         }
                     }

@@ -13,7 +13,7 @@ namespace TaskSystem
 
         private const float WORK_SPEED = 1f; // TODO: Get the work speed from the Kinling's stats
         private const float WORK_AMOUNT = 1f; // TODO: Get the amount of work from the Kinling's stats
-        
+
         private float DistanceFromRequestor => Vector2.Distance((Vector2)_movePos, transform.position);
         
         public override void PrepareAction(Task task)
@@ -25,7 +25,7 @@ namespace TaskSystem
 
         public override void DoAction()
         {
-            if (DistanceFromRequestor <= 0.25f)
+            if (DistanceFromRequestor <= MIN_DISTANCE_FROM_REQUESTOR)
             {
                 DoWatering();
             }

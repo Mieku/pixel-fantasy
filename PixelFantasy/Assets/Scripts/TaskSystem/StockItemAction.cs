@@ -11,14 +11,13 @@ namespace TaskSystem
     public class StockItemAction : TaskAction
     {
         private ItemData _itemData;
-        private ItemState _claimedItem;
-
-        //private Storage _availableItemStorage;
+        private Item _claimedItem;
+        
         private Storage _buildingStorage;
         private TaskState _state;
         
         public float DistanceToBuildingStorage => Vector2.Distance(_buildingStorage.transform.position, transform.position);
-        public float DistanceToGlobalStorage => Vector2.Distance(_claimedItem.Storage.transform.position, transform.position);
+        public float DistanceToGlobalStorage => Vector2.Distance(_claimedItem.AssignedStorage.transform.position, transform.position);
         
         public override void PrepareAction(Task task)
         {
@@ -33,7 +32,7 @@ namespace TaskSystem
                 return;
             }
             
-            _ai.Unit.UnitAgent.SetMovePosition(_claimedItem.Storage.transform.position);
+            _ai.Unit.UnitAgent.SetMovePosition(_claimedItem.AssignedStorage.transform.position);
             _buildingStorage.SetIncoming(_claimedItem);
         }
 
@@ -74,10 +73,9 @@ namespace TaskSystem
             // Pick Up Item
             if (DistanceToGlobalStorage <= 1f)
             {
-                var item = Spawner.Instance.SpawnItem(_itemData, _claimedItem.Storage.transform.position, false, _claimedItem);
-                _claimedItem.Storage.WithdrawItem(_claimedItem);
-                _ai.HoldItem(item);
-                item.SetHeld(true);
+                _claimedItem.AssignedStorage.WithdrawItem(_claimedItem);
+                _ai.HoldItem(_claimedItem);
+                _claimedItem.SetHeld(true);
                 
                 _state = TaskState.GoingToBuildingStorage;
                 _ai.Unit.UnitAgent.SetMovePosition(_buildingStorage.transform.position);

@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace ScriptableObjects
 {
-    [CreateAssetMenu(fileName = "CraftedItemData", menuName = "CraftedData/CraftedItemData", order = 1)]
+    [CreateAssetMenu(fileName = "CraftedItemData", menuName = "ItemData/CraftedItemData/CraftedItemData", order = 1)]
     public class CraftedItemData : ItemData
     {
         [TitleGroup("Crafted Data")] public FurnitureItemData RequiredCraftingTable; 

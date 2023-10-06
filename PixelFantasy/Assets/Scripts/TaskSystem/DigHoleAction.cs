@@ -25,7 +25,7 @@ namespace TaskSystem
 
         public override void DoAction()
         {
-            if (DistanceFromRequestor <= 0.25f)
+            if (DistanceFromRequestor <= MIN_DISTANCE_FROM_REQUESTOR)
             {
                 DoDigging();
             }

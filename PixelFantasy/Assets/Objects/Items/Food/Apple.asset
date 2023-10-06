@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be83cd2c75ad7c64e8647a3cf1c01e33, type: 3}
+  m_Name: Apple
+  m_EditorClassIdentifier: 
+  ItemName: Apple
+  MaxStackSize: 5
+  ItemSprite: {fileID: -1708518733, guid: fc709a2304f6b9e449069e173139d1aa, type: 3}
+  DefaultSpriteScale: {x: 1, y: 1}
+  Durability: 100
+  InteractionConfigs:
+  - InteractionName: Eat
+    InteractionType: 1
+    StatChanges:
+    - LinkedStat: {fileID: 11400000, guid: 4f3e8f8c1fbb9ba48b82a8cd1b27ee9a, type: 2}
+      Value: 0.2
+    Duration: 5
+    DestroyItemAfterInteraction: 1
+  FoodType: 0
+  FoodNutrition: 0.2

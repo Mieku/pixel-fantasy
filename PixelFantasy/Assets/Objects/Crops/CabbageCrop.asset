@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CabbageCrop
   m_EditorClassIdentifier: 
   CropName: Cabbage
-  HarvestedItem: {fileID: 11400000, guid: 4932a754447f82345899f6bc214df25b, type: 2}
+  HarvestedItem: {fileID: 11400000, guid: 2a877d19f1312e544a22a1f2d4f952d2, type: 2}
   Stage1: {fileID: 21300000, guid: c69d212ca4e32a24dafb4cc6674accfe, type: 3}
   Stage2: {fileID: 21300000, guid: b58bc1ca82d64f64cac49e53268425ad, type: 3}
   Stage3: {fileID: 21300000, guid: 7fe6dd0b56fc20e43a7302d669b58871, type: 3}

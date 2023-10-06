@@ -44,8 +44,8 @@ public class ClickObject : MonoBehaviour
     private void Initialize()
     {
         // Prevents weird selection bug
-        gameObject.SetActive(false);
-        gameObject.SetActive(true);
+        // gameObject.SetActive(false);
+        // gameObject.SetActive(true);
         
         switch (_objectType)
         {

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CarrotCrop
   m_EditorClassIdentifier: 
   CropName: Carrot
-  HarvestedItem: {fileID: 11400000, guid: 4b6ee549bbfb2a24bac1e4b531dc4d4f, type: 2}
+  HarvestedItem: {fileID: 11400000, guid: d8b3c3b4d1873dd46a0561559ba6e21a, type: 2}
   Stage1: {fileID: 21300000, guid: 6c0f370fabd0faa4e8931642a3c65005, type: 3}
   Stage2: {fileID: 21300000, guid: 731c8d34281248e41b3ec0757f7f9002, type: 3}
   Stage3: {fileID: 21300000, guid: bea262037c872894cbfbc6aa79a1e1e7, type: 3}

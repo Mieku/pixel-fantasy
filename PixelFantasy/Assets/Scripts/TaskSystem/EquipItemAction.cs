@@ -17,7 +17,7 @@ namespace TaskSystem
         public override void PrepareAction(Task task)
         {
             var request = task.Materials[0];
-            _claimedGear = request.ItemState as GearState;
+            _claimedGear = request.Item.State as GearState;
             _gear = _claimedGear.GearData;
             _state = TaskState.GoingToStorage;
             _ai.Unit.UnitAgent.SetMovePosition(_claimedGear.Storage.transform.position);
@@ -62,8 +62,7 @@ namespace TaskSystem
 
         private void DoEquipNewGear()
         {
-            var item = Spawner.Instance.SpawnItem(_gear, _claimedGear.Storage.transform.position, false, _claimedGear);
-            _claimedGear.Storage.WithdrawItem(_claimedGear);
+            var item = _claimedGear.Storage.WithdrawItem(_claimedGear);
             _ai.Unit.Equipment.Equip(item);
             ConcludeAction();
         }

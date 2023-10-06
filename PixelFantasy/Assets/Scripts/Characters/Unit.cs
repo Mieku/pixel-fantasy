@@ -4,9 +4,11 @@ using DataPersistence;
 using Items;
 using Managers;
 using ScriptableObjects;
+using Systems.SmartObjects.Scripts;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 
 namespace Characters
 {
@@ -14,9 +16,13 @@ namespace Characters
     {
         [SerializeField] private RaceData _race;
         [SerializeField] private TaskAI _taskAI;
+        [SerializeField] private NeedsAI _needsAI;
         [SerializeField] private UnitState _unitState;
         [SerializeField] private UnitAppearance _appearance;
         [SerializeField] private UnitInventory _inventory;
+
+        [SerializeField] private SortingGroup _sortingGroup;
+        [SerializeField] private PositionRendererSorter _positionRendererSorter;
         
         public KinlingEquipment Equipment;
         public UnitAnimController UnitAnimController;
@@ -54,15 +60,24 @@ namespace Characters
         //     return _heldTool != null;
         // }
 
+        public void AssignAndLockLayerOrder(int orderInLayer)
+        {
+            _positionRendererSorter.SetLocked(true);
+            _sortingGroup.sortingOrder = orderInLayer;
+        }
+
+        public void UnlockLayerOrder()
+        {
+            _positionRendererSorter.SetLocked(false);
+        }
+
         public UnitState GetUnitState()
         {
             return _unitState;
         }
 
-        public TaskAI GetAI()
-        {
-            return _taskAI;
-        }
+        public TaskAI TaskAI => _taskAI;
+        public NeedsAI NeedsAI => _needsAI;
 
         public UnitAppearance GetAppearance()
         {

@@ -96,7 +96,7 @@ public class ProductOrder
             {
                 for (int i = 0; i < resultItemInfo.Quantity; i++)
                 {
-                    resultItemInfo.ItemState.Storage.RestoreClaimed(resultItemInfo.ItemState);
+                    resultItemInfo.Item.AssignedStorage.RestoreClaimed(resultItemInfo.Item);
                 }
             }
                 
@@ -104,20 +104,20 @@ public class ProductOrder
         }
     }
     
-    private List<CraftingBill.RequestedItemInfo> AddToRequestedItemsList(ItemState itemState, List<CraftingBill.RequestedItemInfo> currentList)
+    private List<CraftingBill.RequestedItemInfo> AddToRequestedItemsList(Item item, List<CraftingBill.RequestedItemInfo> currentList)
     {
         List<CraftingBill.RequestedItemInfo> results = new List<CraftingBill.RequestedItemInfo>(currentList);
             
         foreach (var itemInfo in results)
         {
-            if (itemInfo.ItemState == itemState)
+            if (itemInfo.Item.Equals(item))
             {
                 itemInfo.Quantity++;
                 return results;
             }
         }
             
-        results.Add(new CraftingBill.RequestedItemInfo(itemState, 1));
+        results.Add(new CraftingBill.RequestedItemInfo(item, 1));
 
         return results;
     }

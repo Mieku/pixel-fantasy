@@ -16,17 +16,23 @@ MonoBehaviour:
   MaxStackSize: 1
   ItemSprite: {fileID: -1415074464, guid: 90f5efa4e4d76d34cb9b37730541f11f, type: 3}
   DefaultSpriteScale: {x: 1, y: 1}
+  Durability: 100
+  InteractionConfigs: []
   RequiredCraftingTable: {fileID: 11400000, guid: 644004581d1321d41993fc7be87087b5, type: 2}
   WorkCost: 5
   _resourceCosts:
   - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
     Quantity: 2
-  - Item: {fileID: 11400000, guid: 4932a754447f82345899f6bc214df25b, type: 2}
+  - Item: {fileID: 11400000, guid: 2a877d19f1312e544a22a1f2d4f952d2, type: 2}
     Quantity: 2
   _invalidPlacementTags:
   - Water
   - Wall
   - Obstacle
   Catergory: 0
-  FurniturePrefab: {fileID: 8679221839148330440, guid: bc4e4c013e2306d4f86c574a3204d9e1, type: 3}
+  DefaultDirection: 0
+  North_FurniturePrefab: {fileID: 8679221839148330440, guid: bc4e4c013e2306d4f86c574a3204d9e1, type: 3}
+  East_FurniturePrefab: {fileID: 8679221839148330440, guid: bc4e4c013e2306d4f86c574a3204d9e1, type: 3}
+  South_FurniturePrefab: {fileID: 8679221839148330440, guid: bc4e4c013e2306d4f86c574a3204d9e1, type: 3}
+  West_FurniturePrefab: {fileID: 8679221839148330440, guid: bc4e4c013e2306d4f86c574a3204d9e1, type: 3}
   Varients: []

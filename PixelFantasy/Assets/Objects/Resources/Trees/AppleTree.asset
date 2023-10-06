@@ -50,16 +50,13 @@ MonoBehaviour:
   - Structure
   - Zone
   - Dirt
-  _availableActions:
-  - {fileID: 11400000, guid: d9ffeb369b9cf3148ac31bd1c9eddff5, type: 2}
-  - {fileID: 11400000, guid: a7166ebc6f232d74099cae1549979e23, type: 2}
   _hasFruit: 1
   _growFruitTime: 40
   _fruitOverlay: {fileID: 21300000, guid: 48ee55af15a3565478364b54e85d85d1, type: 3}
   _fruitFlowersOverlay: {fileID: 21300000, guid: cf299772b1725cc48adc078fcf6d0f1f, type: 3}
   _harvestableFruit:
     _harvestableItems:
-    - Item: {fileID: 11400000, guid: caaf73760087914469dda82529739088, type: 2}
+    - Item: {fileID: 11400000, guid: 62379228932530049be85b5145afdfab, type: 2}
       MinDrop: 2
       MaxDrop: 5
   _workToHarvest: 5

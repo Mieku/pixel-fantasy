@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4880189d5da18814ea05dab330e787b1, type: 3}
+  m_Name: Easily Enamoured
+  m_EditorClassIdentifier: 
+  DisplayName: Easily Enamoured
+  Description: 
+  Icon: {fileID: 0}
+  Impacts:
+  - LinkedStat: {fileID: 11400000, guid: f6be4198f644b944d8d90f07fc34691d, type: 2}
+    Scoring_PositiveScale: 1.25
+    Scoring_NegativeScale: 0.9
+    Impact_PositiveScale: 1
+    Impact_NegativeScale: 1
+    DecayRateScale: 1

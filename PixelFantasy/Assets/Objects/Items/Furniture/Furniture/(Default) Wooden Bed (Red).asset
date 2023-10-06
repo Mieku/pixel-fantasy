@@ -14,20 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Wooden Bed (Red)
   MaxStackSize: 1
-  ItemSprite: {fileID: 592131814113056924, guid: 90f5efa4e4d76d34cb9b37730541f11f, type: 3}
+  ItemSprite: {fileID: -1986180085, guid: 128e7404977fef1479d14ee0c70721c3, type: 3}
   DefaultSpriteScale: {x: 1, y: 1}
+  Durability: 100
+  InteractionConfigs: []
   RequiredCraftingTable: {fileID: 11400000, guid: 644004581d1321d41993fc7be87087b5, type: 2}
   WorkCost: 5
   _resourceCosts:
   - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
     Quantity: 2
-  - Item: {fileID: 11400000, guid: caaf73760087914469dda82529739088, type: 2}
+  - Item: {fileID: 11400000, guid: 62379228932530049be85b5145afdfab, type: 2}
     Quantity: 1
   _invalidPlacementTags:
   - Water
   - Wall
   - Obstacle
   Catergory: 0
-  FurniturePrefab: {fileID: 8679221839148330440, guid: dd1324a0af4a86b41b638230c8941527, type: 3}
+  DefaultDirection: 0
+  North_FurniturePrefab: {fileID: 5935236254734965145, guid: dd1324a0af4a86b41b638230c8941527, type: 3}
+  East_FurniturePrefab: {fileID: 5935236254734965145, guid: dd1324a0af4a86b41b638230c8941527, type: 3}
+  South_FurniturePrefab: {fileID: 5935236254734965145, guid: dd1324a0af4a86b41b638230c8941527, type: 3}
+  West_FurniturePrefab: {fileID: 5935236254734965145, guid: dd1324a0af4a86b41b638230c8941527, type: 3}
   Varients:
   - {fileID: 11400000, guid: 96e95feee83c1e54481ff72b05fd2b5b, type: 2}

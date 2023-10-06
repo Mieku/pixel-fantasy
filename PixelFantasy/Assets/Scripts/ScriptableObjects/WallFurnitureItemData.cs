@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ScriptableObjects
 {
-    [CreateAssetMenu(fileName = "WallFurnitureItemData", menuName = "CraftedData/WallFurnitureItemData", order = 1)]
+    [CreateAssetMenu(fileName = "WallFurnitureItemData", menuName = "ItemData/CraftedItemData/WallFurnitureItemData", order = 1)]
     public class WallFurnitureItemData : CraftedItemData
     {
         public List<WallFurniture> PlacedFurnitureOptions;

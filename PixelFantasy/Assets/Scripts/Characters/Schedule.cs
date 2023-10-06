@@ -178,8 +178,8 @@ namespace Characters
             SetHour(2, ScheduleOption.Sleep);
             SetHour(3, ScheduleOption.Sleep);
             SetHour(4, ScheduleOption.Sleep);
-            SetHour(5, ScheduleOption.Recreation);
-            SetHour(6, ScheduleOption.Recreation);
+            SetHour(5, ScheduleOption.Sleep);
+            SetHour(6, ScheduleOption.Sleep);
             SetHour(7, ScheduleOption.Recreation);
             SetHour(8, ScheduleOption.Work);
             SetHour(9, ScheduleOption.Work);
@@ -192,11 +192,11 @@ namespace Characters
             SetHour(16, ScheduleOption.Work);
             SetHour(17, ScheduleOption.Work);
             SetHour(18, ScheduleOption.Work);
-            SetHour(19, ScheduleOption.Recreation);
-            SetHour(20, ScheduleOption.Recreation);
+            SetHour(19, ScheduleOption.Work);
+            SetHour(20, ScheduleOption.Work);
             SetHour(21, ScheduleOption.Recreation);
             SetHour(22, ScheduleOption.Recreation);
-            SetHour(23, ScheduleOption.Sleep);
+            SetHour(23, ScheduleOption.Recreation);
         }
     }
     
