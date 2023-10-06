@@ -1,5 +1,6 @@
 using System;
 using Managers;
+using Systems.Mood.Scripts;
 using UnityEngine;
 
 namespace Systems.Stats.Scripts
@@ -41,15 +42,6 @@ namespace Systems.Stats.Scripts
     public class StatThreshold
     {
         [field: SerializeField, Range(0f, 1f)] public float ThresholdValue;
-        [field: SerializeField] public StatThresholdEffect BelowThresholdEffect;
-        [field: SerializeField] public StatThresholdEffect AboveThresholdEffect;
-    }
-
-    [Serializable]
-    public class StatThresholdEffect
-    {
-        [field: SerializeField] public string MoodEffectName;
-        [field: SerializeField] public string MoodEffectDescription;
-        [field: SerializeField] public int MoodModifier;
+        [field: SerializeField] public Emotion BelowThresholdEmotion;
     }
 }

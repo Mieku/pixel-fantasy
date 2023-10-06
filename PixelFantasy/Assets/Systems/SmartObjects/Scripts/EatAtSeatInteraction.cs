@@ -187,8 +187,10 @@ namespace Systems.SmartObjects.Scripts
             return true;
         }
         
-        protected void OnInteractionCompleted(CommonAIBase performer, UnityAction<BaseInteraction> onCompleted) //6
+        protected override void OnInteractionCompleted(CommonAIBase performer, UnityAction<BaseInteraction> onCompleted) //6
         {
+            base.OnInteractionCompleted(performer, onCompleted);
+            
             performer.Unit.UnitAnimController.SetUnitAction(UnitAction.Nothing);
             onCompleted.Invoke(this);
             

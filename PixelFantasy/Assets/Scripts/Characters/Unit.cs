@@ -4,7 +4,9 @@ using DataPersistence;
 using Items;
 using Managers;
 using ScriptableObjects;
+using Systems.Mood.Scripts;
 using Systems.SmartObjects.Scripts;
+using Systems.Traits.Scripts;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.AI;
@@ -20,7 +22,11 @@ namespace Characters
         [SerializeField] private UnitState _unitState;
         [SerializeField] private UnitAppearance _appearance;
         [SerializeField] private UnitInventory _inventory;
-
+        [SerializeField] private Mood _mood;
+        
+        [Header("Traits")] 
+        [SerializeField] protected List<Trait> _traits;
+ 
         [SerializeField] private SortingGroup _sortingGroup;
         [SerializeField] private PositionRendererSorter _positionRendererSorter;
         
@@ -29,6 +35,8 @@ namespace Characters
         public UnitAgent UnitAgent;
 
         public RaceData Race => _race;
+        public Mood KinlingMood => _mood;
+        public List<Trait> AllTraits => _traits;
 
         private void Start()
         {
@@ -110,6 +118,35 @@ namespace Characters
         //     
         //     _taskAI.QueueTask(task);
         // }
+
+        public List<StatTrait> GetStatTraits()
+        {
+            List<StatTrait> results = new List<StatTrait>();
+            foreach (var trait in _traits)
+            {
+                var statTrait = trait as StatTrait;
+                if (statTrait != null)
+                {
+                    results.Add(statTrait);
+                }
+            }
+
+            return results;
+        }
+        
+        public MoodThresholdTrait GetMoodThresholdTrait()
+        {
+            foreach (var trait in _traits)
+            {
+                var moodThresholdTrait = trait as MoodThresholdTrait;
+                if (moodThresholdTrait != null)
+                {
+                    return moodThresholdTrait;
+                }
+            }
+
+            return null;
+        }
         
         public object CaptureState()
         {

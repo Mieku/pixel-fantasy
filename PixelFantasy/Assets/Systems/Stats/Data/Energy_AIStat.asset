@@ -17,7 +17,7 @@ MonoBehaviour:
   <StatIcon>k__BackingField: {fileID: 21300000, guid: 7cc2c49e3e61a2c4dac2367a8d5c6ae2, type: 3}
   <IsVisible>k__BackingField: 1
   <InitialValue>k__BackingField: 0.5
-  <DecayRate>k__BackingField: 0.005
+  <DailyDecayRate>k__BackingField: 0.25
   <IntensityCurve>k__BackingField:
     serializedVersion: 2
     m_Curve:
@@ -44,12 +44,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   CriticalThreshold:
     ThresholdValue: 0.15
-    BelowThresholdEffect:
-      MoodEffectName: Exhausted
-      MoodEffectDescription: This Kinling is Exhausted
-      MoodModifier: -10
-    AboveThresholdEffect:
-      MoodEffectName: 
-      MoodEffectDescription: 
-      MoodModifier: 0
-  Thresholds: []
+    BelowThresholdEmotion: {fileID: 11400000, guid: 37ba5cf7b30a7bc40909726f0a446ec7, type: 2}
+  Thresholds:
+  - ThresholdValue: 0.25
+    BelowThresholdEmotion: {fileID: 11400000, guid: 272e25fb8d3c9dc48a62014dc8833b59, type: 2}
+  - ThresholdValue: 0.5
+    BelowThresholdEmotion: {fileID: 11400000, guid: 2b8c18f634899fd4db7e66db0f81b911, type: 2}

@@ -884,6 +884,7 @@ GameObject:
   - component: {fileID: 2176201905494339737}
   - component: {fileID: 974861392226685888}
   - component: {fileID: 301048655868238177}
+  - component: {fileID: 4888200492756624676}
   m_Layer: 6
   m_Name: Unit
   m_TagString: Unit
@@ -929,6 +930,8 @@ MonoBehaviour:
   _unitState: {fileID: 6459717783198305047}
   _appearance: {fileID: 4680592222557511252}
   _inventory: {fileID: 974861392226685888}
+  _mood: {fileID: 0}
+  _traits: []
   _sortingGroup: {fileID: 4624679516539662858}
   _positionRendererSorter: {fileID: 1822529751762045447}
   Equipment: {fileID: 12347069629172064}
@@ -1214,10 +1217,25 @@ MonoBehaviour:
     <OverrideDefaults>k__BackingField: 0
     <Override_InitialValue>k__BackingField: 0.5
     <Override_DecayRate>k__BackingField: 0.005
-  _traits: []
   _defaultInteractionScore: 0
   _interactionPickSize: 3
   _avoidInUseObjects: 1
+--- !u!114 &4888200492756624676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5532418264530240426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceaee67606c958d4d9ff3a23d21f2e55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _availableBreakdowns:
+  - {fileID: 11400000, guid: 0125287c4f7c51548ac6a5e80ba8738b, type: 2}
+  - {fileID: 11400000, guid: d8ef4fc6edbd43e4eba7c9b3c907f326, type: 2}
+  - {fileID: 11400000, guid: c42f2bbf0fff4124a90c43497ab4ea49, type: 2}
 --- !u!1 &5537650040891410994
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ MonoBehaviour:
   <StatIcon>k__BackingField: {fileID: -1065338794, guid: 1e0c6ec3659f9e2429b5a4b0f1fd090f, type: 3}
   <IsVisible>k__BackingField: 1
   <InitialValue>k__BackingField: 0.5
-  <DecayRate>k__BackingField: 0.005
+  <DailyDecayRate>k__BackingField: 0.25
   <IntensityCurve>k__BackingField:
     serializedVersion: 2
     m_Curve:
@@ -61,4 +61,61 @@ MonoBehaviour:
       MoodEffectName: 
       MoodEffectDescription: 
       MoodModifier: 0
-  Thresholds: []
+    BelowThresholdEmotion: {fileID: 11400000, guid: 2d27ad5bd25e94c4f9b95adb8c8df2db, type: 2}
+    AboveThresholdEmotion: {fileID: 0}
+  Thresholds:
+  - ThresholdValue: 0.4
+    BelowThresholdEffect:
+      MoodEffectName: 
+      MoodEffectDescription: 
+      MoodModifier: 0
+    AboveThresholdEffect:
+      MoodEffectName: 
+      MoodEffectDescription: 
+      MoodModifier: 0
+    BelowThresholdEmotion: {fileID: 11400000, guid: 6e84128121c356e46a724338daf6fafa, type: 2}
+    AboveThresholdEmotion: {fileID: 0}
+  - ThresholdValue: 0.6
+    BelowThresholdEffect:
+      MoodEffectName: 
+      MoodEffectDescription: 
+      MoodModifier: 0
+    AboveThresholdEffect:
+      MoodEffectName: 
+      MoodEffectDescription: 
+      MoodModifier: 0
+    BelowThresholdEmotion: {fileID: 11400000, guid: ef2bdb56b22ccf6489c512012f652376, type: 2}
+    AboveThresholdEmotion: {fileID: 0}
+  - ThresholdValue: 0.75
+    BelowThresholdEffect:
+      MoodEffectName: 
+      MoodEffectDescription: 
+      MoodModifier: 0
+    AboveThresholdEffect:
+      MoodEffectName: 
+      MoodEffectDescription: 
+      MoodModifier: 0
+    BelowThresholdEmotion: {fileID: 11400000, guid: 3bd1c683364e32344a10937d6f521372, type: 2}
+    AboveThresholdEmotion: {fileID: 0}
+  - ThresholdValue: 0.85
+    BelowThresholdEffect:
+      MoodEffectName: 
+      MoodEffectDescription: 
+      MoodModifier: 0
+    AboveThresholdEffect:
+      MoodEffectName: 
+      MoodEffectDescription: 
+      MoodModifier: 0
+    BelowThresholdEmotion: {fileID: 11400000, guid: 0923eb03079707749bb2a3b0ab4240a7, type: 2}
+    AboveThresholdEmotion: {fileID: 0}
+  - ThresholdValue: 1
+    BelowThresholdEffect:
+      MoodEffectName: 
+      MoodEffectDescription: 
+      MoodModifier: 0
+    AboveThresholdEffect:
+      MoodEffectName: 
+      MoodEffectDescription: 
+      MoodModifier: 0
+    BelowThresholdEmotion: {fileID: 11400000, guid: f35ad5eadc135814491401e6eb601e7b, type: 2}
+    AboveThresholdEmotion: {fileID: 0}

@@ -43,7 +43,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   CriticalThreshold:
-    ThresholdValue: 0.15
+    ThresholdValue: 0.1
     BelowThresholdEffect:
       MoodEffectName: Starving
       MoodEffectDescription: Get them some food!
@@ -52,8 +52,10 @@ MonoBehaviour:
       MoodEffectName: 
       MoodEffectDescription: 
       MoodModifier: 0
+    BelowThresholdEmotion: {fileID: 11400000, guid: a8072243b6c98454c8b583e196ec1384, type: 2}
+    AboveThresholdEmotion: {fileID: 0}
   Thresholds:
-  - ThresholdValue: 0.352
+  - ThresholdValue: 0.2
     BelowThresholdEffect:
       MoodEffectName: 
       MoodEffectDescription: 
@@ -62,7 +64,9 @@ MonoBehaviour:
       MoodEffectName: 
       MoodEffectDescription: 
       MoodModifier: 0
-  - ThresholdValue: 0.581
+    BelowThresholdEmotion: {fileID: 11400000, guid: 67151fb08b73c834a8379ded64db4480, type: 2}
+    AboveThresholdEmotion: {fileID: 0}
+  - ThresholdValue: 0.3
     BelowThresholdEffect:
       MoodEffectName: 
       MoodEffectDescription: 
@@ -71,7 +75,9 @@ MonoBehaviour:
       MoodEffectName: 
       MoodEffectDescription: 
       MoodModifier: 0
-  - ThresholdValue: 0.826
+    BelowThresholdEmotion: {fileID: 11400000, guid: d06be46c36672fc49b769a124ee8655b, type: 2}
+    AboveThresholdEmotion: {fileID: 0}
+  - ThresholdValue: 0.5
     BelowThresholdEffect:
       MoodEffectName: 
       MoodEffectDescription: 
@@ -80,12 +86,5 @@ MonoBehaviour:
       MoodEffectName: 
       MoodEffectDescription: 
       MoodModifier: 0
-  - ThresholdValue: 1
-    BelowThresholdEffect:
-      MoodEffectName: 
-      MoodEffectDescription: 
-      MoodModifier: 0
-    AboveThresholdEffect:
-      MoodEffectName: 
-      MoodEffectDescription: 
-      MoodModifier: 0
+    BelowThresholdEmotion: {fileID: 11400000, guid: b3998ec7c846e41489c647da0efd3ccd, type: 2}
+    AboveThresholdEmotion: {fileID: 0}

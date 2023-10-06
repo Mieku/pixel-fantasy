@@ -31,6 +31,7 @@ namespace Systems.SmartObjects.Scripts
             _statChanges = config.StatChanges;
             _duration = config.Duration;
             _destroyItemAfterInteraction = config.DestroyItemAfterInteraction;
+            _interactionEmotion = config.InteractionEmotion;
         }
         
         public override bool CanPerform(CommonAIBase potentialPerformer)
@@ -46,7 +47,6 @@ namespace Systems.SmartObjects.Scripts
             {
                 return false;
             }
-
 
             return true;
         }
@@ -150,8 +150,10 @@ namespace Systems.SmartObjects.Scripts
             }
         }
         
-        protected void OnInteractionCompleted(CommonAIBase performer, UnityAction<BaseInteraction> onCompleted)
+        protected override void OnInteractionCompleted(CommonAIBase performer, UnityAction<BaseInteraction> onCompleted)
         {
+            base.OnInteractionCompleted(performer, onCompleted);
+            
             performer.Unit.UnitAnimController.SetUnitAction(UnitAction.Nothing);
             onCompleted.Invoke(this);
 

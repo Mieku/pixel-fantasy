@@ -48,7 +48,7 @@ namespace Systems.SmartObjects.Scripts
         private float ScoreChange(AIStat linkedStat, float changeAmount)
         {
             float currentValue = GetStatValue(linkedStat);
-            float changeAmountModified = ApplyTraitsTo(linkedStat, Trait.ETargetType.Score, changeAmount);
+            float changeAmountModified = ApplyTraitsTo(linkedStat, StatTrait.ETargetType.Score, changeAmount);
             float intensity = linkedStat.CalculateIntensity(currentValue);
             float score = changeAmountModified * intensity;
             return score;

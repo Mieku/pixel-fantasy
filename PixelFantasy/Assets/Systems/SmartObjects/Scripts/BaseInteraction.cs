@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
+using Systems.Mood.Scripts;
 using Systems.Stats.Scripts;
 using Systems.Traits.Scripts;
 using UnityEngine;
@@ -30,6 +31,7 @@ namespace Systems.SmartObjects.Scripts
         [SerializeField] protected List<InteractionStatChange> _statChanges;
         [SerializeField] protected bool _allowAmbientStats;
         [SerializeField] protected bool _beginInteractionAtSmartObject = true;
+        [SerializeField] protected Emotion _interactionEmotion;
 
         protected List<AmbientStatChange> _ambientStatChanges = new List<AmbientStatChange>();
 
@@ -69,6 +71,11 @@ namespace Systems.SmartObjects.Scripts
         
         public abstract bool UnlockInteraction(CommonAIBase performer);
 
+        protected virtual void OnInteractionCompleted(CommonAIBase performer, UnityAction<BaseInteraction> onCompleted)
+        {
+            ApplyEmotion(performer);
+        }
+
         public bool ContainsPositiveStatChange(AIStat stat)
         {
             foreach (var statChange in _statChanges)
@@ -82,11 +89,19 @@ namespace Systems.SmartObjects.Scripts
             return false;
         }
 
-        public void ApplyStatChanges(CommonAIBase performer, float proportion)
+        protected void ApplyStatChanges(CommonAIBase performer, float proportion)
         {
             foreach (var statChange in _statChanges)
             {
-                performer.UpdateIndividualStat(statChange.LinkedStat, statChange.Value * proportion, Trait.ETargetType.Impact);
+                performer.UpdateIndividualStat(statChange.LinkedStat, statChange.Value * proportion, StatTrait.ETargetType.Impact);
+            }
+        }
+
+        protected void ApplyEmotion(CommonAIBase performer)
+        {
+            if (_interactionEmotion != null)
+            {
+                performer.Unit.KinlingMood.ApplyEmotion(_interactionEmotion);
             }
         }
 

@@ -25,5 +25,6 @@ MonoBehaviour:
       Value: 0.1
     Duration: 5
     DestroyItemAfterInteraction: 1
+    InteractionEmotion: {fileID: 11400000, guid: f46afef359650ae4e978520a99cd379b, type: 2}
   FoodType: 0
   FoodNutrition: 0.1

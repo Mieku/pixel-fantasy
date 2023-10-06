@@ -124,8 +124,10 @@ namespace Systems.SmartObjects.Scripts
             return true;
         }
         
-        protected void OnInteractionCompleted(CommonAIBase performer, UnityAction<BaseInteraction> onCompleted) //6
+        protected override void OnInteractionCompleted(CommonAIBase performer, UnityAction<BaseInteraction> onCompleted) //6
         {
+            base.OnInteractionCompleted(performer, onCompleted);
+            
             _currentPerformer.Performer.Unit.UnitAgent.TeleportToPosition(_preTeleportPos, false);
             _linkedFurniture.ShowTopSheet(true);
             

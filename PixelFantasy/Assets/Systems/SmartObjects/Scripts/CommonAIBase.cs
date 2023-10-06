@@ -32,9 +32,6 @@ namespace Systems.SmartObjects.Scripts
         [SerializeField] private int _householdID = 1;
         [field: SerializeField] private AIStatConfiguration[] _stats;
 
-        [Header("Traits")] 
-        [SerializeField] protected List<Trait> _traits;
-        
         protected UnitAgent _navAgent;
         public Unit Unit { get; protected set; }
         protected Dictionary<AIStat, float> _decayRates = new Dictionary<AIStat, float>();
@@ -130,7 +127,7 @@ namespace Systems.SmartObjects.Scripts
             _curInteraction = null;
         }
 
-        public void UpdateIndividualStat(AIStat linkedStat, float amount, Trait.ETargetType targetType)
+        public void UpdateIndividualStat(AIStat linkedStat, float amount, StatTrait.ETargetType targetType)
         {
             float adjustedAmount = ApplyTraitsTo(linkedStat, targetType, amount);
             float newValue = Mathf.Clamp01(GetStatValue(linkedStat) + adjustedAmount);
@@ -138,9 +135,9 @@ namespace Systems.SmartObjects.Scripts
             IndividualBlackboard.SetStat(linkedStat, newValue);
         }
         
-        protected float ApplyTraitsTo(AIStat targetStat, Trait.ETargetType targetType, float currentValue)
+        protected float ApplyTraitsTo(AIStat targetStat, StatTrait.ETargetType targetType, float currentValue)
         {
-            foreach (var trait in _traits)
+            foreach (var trait in Unit.GetStatTraits())
             {
                 currentValue = trait.Apply(targetStat, targetType, currentValue);
             }
@@ -177,7 +174,7 @@ namespace Systems.SmartObjects.Scripts
         {
             foreach (var statConfig in _stats)
             {
-                UpdateIndividualStat(statConfig.LinkedStat, -_decayRates[statConfig.LinkedStat], Trait.ETargetType.DecayRate);
+                UpdateIndividualStat(statConfig.LinkedStat, -_decayRates[statConfig.LinkedStat], StatTrait.ETargetType.DecayRate);
             }
         }
 
