@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b5993b1f042efe4897b729d6c1bc8bd, type: 3}
-  m_Name: Major Breakdown Placeholder
+  m_Name: Minor Breakdown Placeholder
   m_EditorClassIdentifier: 
-  BreakdownType: 2
+  BreakdownType: 1
   MinRecoveryHours: 1
   MaxRecoveryHours: 2
   BreakdownTaskId: Wander Breakdown

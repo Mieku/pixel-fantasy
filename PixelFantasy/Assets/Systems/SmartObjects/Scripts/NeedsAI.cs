@@ -125,5 +125,13 @@ namespace Systems.SmartObjects.Scripts
 
             return true;
         }
+
+        public void CancelInteraction()
+        {
+            if (_curInteraction != null)
+            {
+                _curInteraction.CancelInteration(this);
+            }
+        }
     }
 }

@@ -61,7 +61,12 @@ namespace TaskSystem
         /// </summary>
         public abstract void DoAction();
 
-        public abstract void OnTaskCancel();
+        public virtual void OnTaskCancel()
+        {
+            TaskManager.Instance.AddTask(_task);
+            _ai.Unit.UnitAgent.SetMovePosition(transform.position);
+            ConcludeAction();
+        }
         
         /// <summary>
         /// Trigger on Action End

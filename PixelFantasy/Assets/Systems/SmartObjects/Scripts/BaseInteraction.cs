@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
@@ -39,6 +40,7 @@ namespace Systems.SmartObjects.Scripts
         
         public float Duration => _duration;
         public bool BeginInteractionAtSmartObject => _beginInteractionAtSmartObject;
+        protected UnityAction<BaseInteraction> _onCompleted;
 
         public virtual List<InteractionStatChange> GetStatChanges()
         {
@@ -68,11 +70,14 @@ namespace Systems.SmartObjects.Scripts
         public abstract bool LockInteration(CommonAIBase performer);
         
         public abstract bool Perform(CommonAIBase performer, UnityAction<BaseInteraction> onCompleted);
-        
+
+        public abstract void CancelInteration(CommonAIBase performer);
+
         public abstract bool UnlockInteraction(CommonAIBase performer);
 
         protected virtual void OnInteractionCompleted(CommonAIBase performer, UnityAction<BaseInteraction> onCompleted)
         {
+            _onCompleted = onCompleted;
             ApplyEmotion(performer);
         }
 

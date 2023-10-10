@@ -187,6 +187,21 @@ namespace Systems.SmartObjects.Scripts
             return true;
         }
         
+        public override void CancelInteration(CommonAIBase performer)
+        {
+            base.OnInteractionCompleted(performer, _currentPerformer.OnCompleted);
+            
+            performer.Unit.UnitAnimController.SetUnitAction(UnitAction.Nothing);
+            _currentPerformer.OnCompleted.Invoke(this);
+            
+            // Drop Item
+            if (_selectedFoodItem != null)
+            {
+                performer.Unit.TaskAI.DropCarriedItem();
+                _selectedFoodItem.SetHeld(true);
+            }
+        }
+        
         protected override void OnInteractionCompleted(CommonAIBase performer, UnityAction<BaseInteraction> onCompleted) //6
         {
             base.OnInteractionCompleted(performer, onCompleted);

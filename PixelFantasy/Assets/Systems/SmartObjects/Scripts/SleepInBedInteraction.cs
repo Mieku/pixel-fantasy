@@ -124,15 +124,23 @@ namespace Systems.SmartObjects.Scripts
             return true;
         }
         
+        public override void CancelInteration(CommonAIBase performer)
+        {
+            OnInteractionCompleted(performer, _currentPerformer.OnCompleted);
+        }
+        
         protected override void OnInteractionCompleted(CommonAIBase performer, UnityAction<BaseInteraction> onCompleted) //6
         {
             base.OnInteractionCompleted(performer, onCompleted);
-            
-            _currentPerformer.Performer.Unit.UnitAgent.TeleportToPosition(_preTeleportPos, false);
-            _linkedFurniture.ShowTopSheet(true);
-            
-            _currentPerformer.Performer.Unit.UnlockLayerOrder();
 
+            if (_currentPerformer.HasStarted)
+            {
+                _currentPerformer.Performer.Unit.UnitAgent.TeleportToPosition(_preTeleportPos, false);
+                _linkedFurniture.ShowTopSheet(true);
+            
+                _currentPerformer.Performer.Unit.UnlockLayerOrder();
+            }
+            
             performer.Unit.UnitAnimController.SetUnitAction(UnitAction.Nothing);
             onCompleted.Invoke(this);
         }

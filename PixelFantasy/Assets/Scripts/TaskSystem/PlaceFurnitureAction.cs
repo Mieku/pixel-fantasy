@@ -108,10 +108,5 @@ namespace TaskSystem
             _isMoving = false;
             _isPlacingItem = false;
         }
-
-        public override void OnTaskCancel()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

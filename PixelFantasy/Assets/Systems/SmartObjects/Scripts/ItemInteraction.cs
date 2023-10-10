@@ -150,6 +150,21 @@ namespace Systems.SmartObjects.Scripts
             }
         }
         
+        public override void CancelInteration(CommonAIBase performer)
+        {
+            base.OnInteractionCompleted(performer, _currentPerformer.OnCompleted);
+            
+            performer.Unit.UnitAnimController.SetUnitAction(UnitAction.Nothing);
+            _currentPerformer.OnCompleted.Invoke(this);
+            
+            // Drop Item
+            if (LinkedItem != null)
+            {
+                performer.Unit.TaskAI.DropCarriedItem();
+                LinkedItem.SetHeld(true);
+            }
+        }
+        
         protected override void OnInteractionCompleted(CommonAIBase performer, UnityAction<BaseInteraction> onCompleted)
         {
             base.OnInteractionCompleted(performer, onCompleted);
@@ -159,8 +174,8 @@ namespace Systems.SmartObjects.Scripts
 
             if (_destroyItemAfterInteraction)
             {
-                var item = transform.parent.GetComponent<Item>();
-                Destroy(item.gameObject);
+                Destroy(LinkedItem.gameObject);
+                LinkedItem = null;
             }
         }
 

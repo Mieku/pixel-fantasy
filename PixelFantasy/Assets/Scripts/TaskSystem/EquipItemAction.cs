@@ -66,13 +66,7 @@ namespace TaskSystem
             _ai.Unit.Equipment.Equip(item);
             ConcludeAction();
         }
-        
-        public override void OnTaskCancel()
-        {
-            _ai.Unit.UnitAgent.SetMovePosition(transform.position);
-            ConcludeAction();
-        }
-        
+
         public override void ConcludeAction()
         {
             base.ConcludeAction();

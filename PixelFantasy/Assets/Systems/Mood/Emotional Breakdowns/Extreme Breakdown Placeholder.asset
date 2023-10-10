@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Extreme Breakdown Placeholder
   m_EditorClassIdentifier: 
   BreakdownType: 3
-  MinRecoveryHours: 12
-  MaxRecoveryHours: 24
+  MinRecoveryHours: 1
+  MaxRecoveryHours: 2
+  BreakdownTaskId: Wander Breakdown

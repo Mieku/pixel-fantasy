@@ -224,11 +224,6 @@ namespace TaskSystem
             _isDoingPlacementAnim = false;
         }
 
-        public override void OnTaskCancel()
-        {
-            throw new System.NotImplementedException();
-        }
-
         public enum TaskState
         {
             AssignTable,

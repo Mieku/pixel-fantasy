@@ -30,13 +30,25 @@ namespace Managers
         [SerializeField] private List<RaceData> _races;
         [SerializeField] private List<AIStat> _stats;
         [SerializeField] private List<Emotion> _emotions;
+        [SerializeField] private List<EmotionalBreakdown> _emotionalBreakdowns;
 
+        public EmotionalBreakdown GetEmotionalBreakdown(string breakdownTaskId)
+        {
+            var result = _emotionalBreakdowns.Find(emotion => emotion.BreakdownTaskId == breakdownTaskId);
+            if (result == null)
+            {
+                Debug.LogError($"Unknown Emotional Breakdown: {breakdownTaskId}");
+            }
+
+            return result;
+        }
+        
         public Emotion GetEmotion(string emotionName)
         {
             var result = _emotions.Find(emotion => emotion.DisplayName == emotionName);
             if (result == null)
             {
-                Debug.LogError($"Unkown Emotion: {emotionName}");
+                Debug.LogError($"Unknown Emotion: {emotionName}");
             }
 
             return result;
@@ -47,7 +59,7 @@ namespace Managers
             var result = _stats.Find(stat => stat.DisplayName == statName);
             if (result == null)
             {
-                Debug.LogError($"Unkown Stat: {_stats}");
+                Debug.LogError($"Unknown Stat: {_stats}");
             }
 
             return result;
@@ -58,7 +70,7 @@ namespace Managers
             var result = _races.Find(race => race.RaceName == raceName);
             if (result == null)
             {
-                Debug.LogError($"Unkown Race: {raceName}");
+                Debug.LogError($"Unknown Race: {raceName}");
             }
 
             return result;
@@ -69,7 +81,7 @@ namespace Managers
             var result = _jobLibrary.Find(job => job.JobName == jobName);
             if (result == null)
             {
-                Debug.LogError($"Unkown Job: {jobName}");
+                Debug.LogError($"Unknown Job: {jobName}");
             }
 
             return result;

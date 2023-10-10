@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Characters;
+using Managers;
 using Systems.Traits.Scripts;
+using TaskSystem;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -31,12 +33,14 @@ namespace Systems.Mood.Scripts
         private int _moodTarget;
         private float _overallMood;
         private Unit _unit;
+        private TaskAI _taskAI => _unit.TaskAI;
         private MoodThresholdTrait _moodThresholdTrait;
         private int _minorBreakThreshold;
         private int _majorBreakThreshold;
         private int _extremeBreakThreshold;
         private EMoodBreakType _moodState;
         private PendingBreakdownState _pendingBreakdownState;
+        private TaskAction _curBreakdownAction;
 
         public float MinorBreakThresholdPercent => _minorBreakThreshold / 100f;
         public float MajorBreakThresholdPercent => _majorBreakThreshold / 100f;
@@ -280,8 +284,8 @@ namespace Systems.Mood.Scripts
             List<EmotionalBreakdown> allBreakdownOptions)
         {
             var filteredBreakdownOptions =
-                allBreakdownOptions.FindAll(breakdown => breakdown.BreakdownType == breakType);
-
+                allBreakdownOptions.FindAll(breakdown => breakdown.BreakdownType == breakType && _taskAI.IsActionPossible(breakdown.BreakdownTaskId));
+            
             int random = Random.Range(0, filteredBreakdownOptions.Count - 1);
             var breakdown = filteredBreakdownOptions[random];
             PendingBreakdownState breakdownState = new PendingBreakdownState(breakdown, OnBreakdownBegin, OnBreakdownComplete);
@@ -300,17 +304,43 @@ namespace Systems.Mood.Scripts
             Debug.Log("Breakdown has begun!");
             // TODO: Display a msg for the player that a breakdown is happening
             
-            // TODO: Start a breakdown action
+            
+            // Start a breakdown action
+            _curBreakdownAction = _taskAI.ForceTask(_pendingBreakdownState.Breakdown.BreakdownTaskId);
+            if (_curBreakdownAction == null)
+            {
+                // Check if the breakdown is still possible, if not swap with something else possible
+                Debug.LogWarning($"Breakdown Action: {_curBreakdownAction.TaskId} could not start, creating a new breakdown state as a replacement");
+                _pendingBreakdownState = CreateRandomBreakdownState(_moodState, _availableBreakdowns);
+                _pendingBreakdownState.RemainingMinsToStart = 0;
+            }
+        }
+
+        public void DEBUG_TriggerBreakdown(EmotionalBreakdown breakdown)
+        {
+            PendingBreakdownState breakdownState = new PendingBreakdownState(breakdown, OnBreakdownBegin, OnBreakdownComplete);
+            breakdownState.RemainingMinsToStart = 0;
+            _pendingBreakdownState = breakdownState;
+        }
+
+        public void DEBUG_EndBreakdown()
+        {
+            _pendingBreakdownState.EndBreakdown();
         }
 
         private void OnBreakdownComplete()
         {
             Debug.Log("Breakdown is over!");
-            // TODO: End the breakdown Action
+            
+            // End the breakdown Action
+            _curBreakdownAction.ConcludeAction();
+            _pendingBreakdownState = null;
             
             // TODO: If there is currently a msg for the player about a breakdown, remove it
             
-            // TODO: Give the Kinling an emotion to boost it out of danger, RimWorld has Catharsis for 2.5 days giving +40
+            // Give the Kinling an emotion to boost it out of danger
+            var catharsisEmotion = Librarian.Instance.GetEmotion("Catharsis");
+            ApplyEmotion(catharsisEmotion);
         }
 
         public enum EMoodBreakType
@@ -361,6 +391,12 @@ namespace Systems.Mood.Scripts
                         _onBreakdownBegin.Invoke();
                     }
                 }
+            }
+
+            public void EndBreakdown()
+            {
+                _isBreakingdown = false;
+                _onBreakdownComplete.Invoke();
             }
         }
     }

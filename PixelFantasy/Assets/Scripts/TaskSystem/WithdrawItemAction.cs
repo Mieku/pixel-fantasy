@@ -119,9 +119,8 @@ namespace TaskSystem
 
         public override void OnTaskCancel()
         {
-            _ai.Unit.UnitAgent.SetMovePosition(transform.position);
             _ai.DropCarriedItem();
-            ConcludeAction();
+            base.OnTaskCancel();
         }
         
         public Item FindItem(string itemName)

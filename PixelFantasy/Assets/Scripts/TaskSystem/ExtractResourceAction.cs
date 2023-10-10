@@ -49,12 +49,6 @@ namespace TaskSystem
             }
         }
 
-        public override void OnTaskCancel()
-        {
-            _ai.Unit.UnitAgent.SetMovePosition(transform.position);
-            ConcludeAction();
-        }
-
         private void MoveToRequestor()
         {
             if (!_isMoving)

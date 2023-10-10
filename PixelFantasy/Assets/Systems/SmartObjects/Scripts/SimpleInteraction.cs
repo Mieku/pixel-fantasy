@@ -83,12 +83,28 @@ namespace Systems.SmartObjects.Scripts
             return true;
         }
 
+        public override void CancelInteration(CommonAIBase performer)
+        {
+            if (_currentPerformers[performer] != null)
+            {
+                OnInteractionCompleted(performer, _currentPerformers[performer].OnCompleted);
+            }
+            else
+            {
+                OnInteractionCompleted(performer, null);
+            }
+        }
+
         protected override void OnInteractionCompleted(CommonAIBase performer, UnityAction<BaseInteraction> onCompleted)
         {
             base.OnInteractionCompleted(performer, onCompleted);
             
             performer.Unit.UnitAnimController.SetUnitAction(UnitAction.Nothing);
-            onCompleted.Invoke(this);
+
+            if (onCompleted != null)
+            {
+                onCompleted.Invoke(this);
+            }
 
             if (!_performersToCleanup.Contains(performer))
             {

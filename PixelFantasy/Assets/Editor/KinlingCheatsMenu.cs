@@ -49,6 +49,25 @@ public class KinlingCheatsMenu : EditorWindow
                 unit.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("DEBUG_NEG_50"));
             }
         }
+
+        if (GUILayout.Button("Trigger Breakdown"))
+        {
+            var breakdown = Librarian.Instance.GetEmotionalBreakdown("Wander Breakdown");
+            var units = GetSelectedUnits();
+            foreach (var unit in units)
+            {
+                unit.KinlingMood.DEBUG_TriggerBreakdown(breakdown);
+            }
+        }
+        
+        if (GUILayout.Button("End Current Breakdown"))
+        {
+            var units = GetSelectedUnits();
+            foreach (var unit in units)
+            {
+                unit.KinlingMood.DEBUG_EndBreakdown();
+            }
+        }
     }
 
     private List<Unit> GetSelectedUnits()

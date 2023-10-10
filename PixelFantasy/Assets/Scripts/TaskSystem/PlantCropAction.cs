@@ -70,11 +70,5 @@ namespace TaskSystem
             _movePos = null;
             _isMoving = false;
         }
-
-        public override void OnTaskCancel()
-        {
-            _ai.Unit.UnitAgent.SetMovePosition(transform.position);
-            ConcludeAction();
-        }
     }
 }

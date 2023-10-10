@@ -33,6 +33,7 @@ namespace TaskSystem
             WaitingForNextTask,
             ExecutingTask,
             ExecutingInteraction,
+            ForcedTask,
         }
         
         private void Awake()
@@ -66,6 +67,9 @@ namespace TaskSystem
                     _curTaskAction?.DoAction();
                     break;
                 case State.ExecutingInteraction:
+                    break;
+                case State.ForcedTask:
+                    _curTaskAction?.DoAction();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -118,6 +122,8 @@ namespace TaskSystem
 
         private void RequestNextJobTask()
         {
+            if (_state == State.ForcedTask) return;
+            
             Task task = null;
             
             // Check if they have a queued task
@@ -375,6 +381,56 @@ namespace TaskSystem
         public void QueueTask(Task task)
         {
             _queuedTasks.Enqueue(task);
+        }
+
+        public TaskAction ForceTask(string taskID)
+        {
+            if(_curTaskAction != null)
+                 _curTaskAction.OnTaskCancel();
+            
+            _needsAI.CancelInteraction();
+            
+            Task forcedTask = new Task()
+            {
+                TaskId = taskID,
+                TaskType = TaskType.Emergency,
+                OnTaskComplete = OnForcedTaskComplete
+            };
+
+            var forcedTaskAction = FindTaskActionFor(forcedTask);
+            if (forcedTaskAction == null) return null;
+            if (!forcedTaskAction.CanDoTask(forcedTask))
+            {
+                _state = State.WaitingForNextTask;
+                return null;
+            }
+
+            _curTaskAction = forcedTaskAction;
+            forcedTaskAction.InitAction(forcedTask);
+            forcedTaskAction.PrepareAction(forcedTask);
+            _state = State.ForcedTask;
+            
+            return _curTaskAction;
+        }
+
+        private void OnForcedTaskComplete(Task forcedTask)
+        {
+            _state = State.WaitingForNextTask;
+        }
+
+        public bool IsActionPossible(string taskID)
+        {
+            Task forcedTask = new Task()
+            {
+                TaskId = taskID,
+                TaskType = TaskType.Emergency,
+                OnTaskComplete = OnForcedTaskComplete
+            };
+            
+            var forcedTaskAction = FindTaskActionFor(forcedTask);
+            if (forcedTaskAction == null) return false;
+
+            return forcedTaskAction.CanDoTask(forcedTask);
         }
     }
 }
