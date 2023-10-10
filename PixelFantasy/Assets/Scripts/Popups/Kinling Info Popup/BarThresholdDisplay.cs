@@ -32,8 +32,7 @@ namespace Popups.Kinling_Info_Popup
 
                 // Assign the modified anchored position back to the RectTransform.
                 rectTransform.anchoredPosition = anchoredPosition;
-
-                //indicator.transform.localPosition = new Vector3(xPos, 2.25f, 0f);
+                
                 indicator.SetActive(true);
                 _displayedIndicators.Add(indicator);
             }

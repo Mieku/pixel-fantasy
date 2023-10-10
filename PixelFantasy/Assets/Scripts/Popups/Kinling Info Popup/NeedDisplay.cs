@@ -39,8 +39,13 @@ namespace Popups.Kinling_Info_Popup
 
         private void DetermineThresholds(AIStat stat)
         {
-            var critThresh = stat.CriticalThreshold.ThresholdValue;
-            List<float> allThresholds = new List<float> { critThresh };
+            List<float> allThresholds = new List<float>();
+            if (stat.CriticalThreshold != null)
+            {
+                var critThresh = stat.CriticalThreshold.ThresholdValue;
+                allThresholds.Add(critThresh);
+            }
+            
             foreach (var threshold in stat.Thresholds)
             {
                 allThresholds.Add(threshold.ThresholdValue);

@@ -52,59 +52,16 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   CriticalThreshold:
-    ThresholdValue: 0.15
-    BelowThresholdEffect:
-      MoodEffectName: Extremely Bored
-      MoodEffectDescription: They need some fun in their lives!
-      MoodModifier: -10
-    AboveThresholdEffect:
-      MoodEffectName: 
-      MoodEffectDescription: 
-      MoodModifier: 0
-    BelowThresholdEmotion: {fileID: 11400000, guid: 213cf5ebd87cf3e4ea42fa094b159cfd, type: 2}
-    AboveThresholdEmotion: {fileID: 0}
+    ThresholdValue: 0
+    BelowThresholdEmotion: {fileID: 0}
   Thresholds:
+  - ThresholdValue: 0.15
+    BelowThresholdEmotion: {fileID: 11400000, guid: 213cf5ebd87cf3e4ea42fa094b159cfd, type: 2}
   - ThresholdValue: 0.35
-    BelowThresholdEffect:
-      MoodEffectName: 
-      MoodEffectDescription: 
-      MoodModifier: 0
-    AboveThresholdEffect:
-      MoodEffectName: 
-      MoodEffectDescription: 
-      MoodModifier: 0
     BelowThresholdEmotion: {fileID: 11400000, guid: db1467f1a08f50a4183b5065ee86c4eb, type: 2}
-    AboveThresholdEmotion: {fileID: 0}
   - ThresholdValue: 0.45
-    BelowThresholdEffect:
-      MoodEffectName: 
-      MoodEffectDescription: 
-      MoodModifier: 0
-    AboveThresholdEffect:
-      MoodEffectName: 
-      MoodEffectDescription: 
-      MoodModifier: 0
     BelowThresholdEmotion: {fileID: 11400000, guid: 1c19dc8bb09cc62418d14e645d8d600f, type: 2}
-    AboveThresholdEmotion: {fileID: 0}
   - ThresholdValue: 0.75
-    BelowThresholdEffect:
-      MoodEffectName: 
-      MoodEffectDescription: 
-      MoodModifier: 0
-    AboveThresholdEffect:
-      MoodEffectName: 
-      MoodEffectDescription: 
-      MoodModifier: 0
     BelowThresholdEmotion: {fileID: 11400000, guid: a635a4290872ec3449f3f13d5f4a40f0, type: 2}
-    AboveThresholdEmotion: {fileID: 0}
   - ThresholdValue: 1
-    BelowThresholdEffect:
-      MoodEffectName: 
-      MoodEffectDescription: 
-      MoodModifier: 0
-    AboveThresholdEffect:
-      MoodEffectName: 
-      MoodEffectDescription: 
-      MoodModifier: 0
     BelowThresholdEmotion: {fileID: 11400000, guid: 4caae818ce65f004dbac9ddfe4d4a28d, type: 2}
-    AboveThresholdEmotion: {fileID: 0}

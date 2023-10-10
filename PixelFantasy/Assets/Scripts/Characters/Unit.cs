@@ -43,6 +43,7 @@ namespace Characters
             UnitsManager.Instance.RegisterKinling(this);
             Equipment.Init(this);
             _appearance.Init(this);
+            _mood.Init();
         }
 
         private void OnDestroy()

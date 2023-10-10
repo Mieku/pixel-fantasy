@@ -27,7 +27,7 @@ namespace Popups.Kinling_Info_Popup
         [SerializeField] private Sprite _tabSelectedSpr, _tabUnselectedSpr;
         
         [Header("Content")]
-        [SerializeField] private GameObject _moodContent;
+        [SerializeField] private KinlingInfoMoodContent _moodContent;
         [SerializeField] private GameObject _healthContent;
         [SerializeField] private KinlingInfoJobContent _jobsContent;
         [SerializeField] private KinlingInfoNeedsContent _needsContent;
@@ -46,6 +46,7 @@ namespace Popups.Kinling_Info_Popup
     
         public override void OnBackPressed()
         {
+            HideAllTabContent();
             Hide();
         }
 
@@ -96,7 +97,7 @@ namespace Popups.Kinling_Info_Popup
             {
                 case KinlingInfoTab.Mood:
                     _moodTab.sprite = _tabSelectedSpr;
-                    _moodContent.SetActive(true);
+                    _moodContent.Show(_selectedUnit);
                     break;
                 case KinlingInfoTab.Health:
                     _healthTab.sprite = _tabSelectedSpr;
@@ -137,7 +138,7 @@ namespace Popups.Kinling_Info_Popup
             _socialTab.sprite = _tabUnselectedSpr;
             _gearTab.sprite = _tabUnselectedSpr;
 
-            _moodContent.SetActive(false);
+            _moodContent.Close();
             _healthContent.SetActive(false);
             _jobsContent.Close();
             _needsContent.Close();

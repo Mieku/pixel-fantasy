@@ -43,7 +43,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   CriticalThreshold:
-    ThresholdValue: 0.15
+    ThresholdValue: 0.1
     BelowThresholdEmotion: {fileID: 11400000, guid: 37ba5cf7b30a7bc40909726f0a446ec7, type: 2}
   Thresholds:
   - ThresholdValue: 0.25

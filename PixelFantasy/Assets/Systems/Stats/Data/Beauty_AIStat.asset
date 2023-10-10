@@ -52,64 +52,18 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   CriticalThreshold:
-    ThresholdValue: 0.1
-    BelowThresholdEffect:
-      MoodEffectName: Ugly Environment
-      MoodEffectDescription: This Kinling needs some beauty in their life!
-      MoodModifier: -10
-    AboveThresholdEffect:
-      MoodEffectName: 
-      MoodEffectDescription: 
-      MoodModifier: 0
-    BelowThresholdEmotion: {fileID: 11400000, guid: fe9e2a6c7f4e2624c9eecc14b7c48b21, type: 2}
+    ThresholdValue: 0
+    BelowThresholdEmotion: {fileID: 0}
   Thresholds:
+  - ThresholdValue: 0.1
+    BelowThresholdEmotion: {fileID: 11400000, guid: fe9e2a6c7f4e2624c9eecc14b7c48b21, type: 2}
   - ThresholdValue: 0.25
-    BelowThresholdEffect:
-      MoodEffectName: 
-      MoodEffectDescription: 
-      MoodModifier: 0
-    AboveThresholdEffect:
-      MoodEffectName: 
-      MoodEffectDescription: 
-      MoodModifier: 0
     BelowThresholdEmotion: {fileID: 11400000, guid: 074e265152a838545836990bac7e3c53, type: 2}
   - ThresholdValue: 0.4
-    BelowThresholdEffect:
-      MoodEffectName: 
-      MoodEffectDescription: 
-      MoodModifier: 0
-    AboveThresholdEffect:
-      MoodEffectName: 
-      MoodEffectDescription: 
-      MoodModifier: 0
     BelowThresholdEmotion: {fileID: 11400000, guid: 4c714a06687e1304b952181101244249, type: 2}
   - ThresholdValue: 0.65
-    BelowThresholdEffect:
-      MoodEffectName: 
-      MoodEffectDescription: 
-      MoodModifier: 0
-    AboveThresholdEffect:
-      MoodEffectName: 
-      MoodEffectDescription: 
-      MoodModifier: 0
     BelowThresholdEmotion: {fileID: 11400000, guid: 1369d2f0d397f034d9966f86cb0c1ae8, type: 2}
   - ThresholdValue: 0.8
-    BelowThresholdEffect:
-      MoodEffectName: 
-      MoodEffectDescription: 
-      MoodModifier: 0
-    AboveThresholdEffect:
-      MoodEffectName: 
-      MoodEffectDescription: 
-      MoodModifier: 0
     BelowThresholdEmotion: {fileID: 11400000, guid: aae4b11babf430f4a85ac6b13fc65275, type: 2}
   - ThresholdValue: 1
-    BelowThresholdEffect:
-      MoodEffectName: 
-      MoodEffectDescription: 
-      MoodModifier: 0
-    AboveThresholdEffect:
-      MoodEffectName: 
-      MoodEffectDescription: 
-      MoodModifier: 0
     BelowThresholdEmotion: {fileID: 11400000, guid: cf71a91463caa7e4ea152709322a0c98, type: 2}

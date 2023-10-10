@@ -20,8 +20,13 @@ namespace Systems.SmartObjects.Scripts
 
         public bool IsStatCritial(float currentValue)
         {
-            var criticalPoint = LinkedStat.CriticalThreshold.ThresholdValue;
-            return currentValue < criticalPoint;
+            if (LinkedStat.CriticalThreshold != null)
+            {
+                var criticalPoint = LinkedStat.CriticalThreshold.ThresholdValue;
+                return currentValue < criticalPoint;
+            }
+
+            return false;
         }
     }
     
@@ -175,6 +180,26 @@ namespace Systems.SmartObjects.Scripts
             foreach (var statConfig in _stats)
             {
                 UpdateIndividualStat(statConfig.LinkedStat, -_decayRates[statConfig.LinkedStat], StatTrait.ETargetType.DecayRate);
+                
+                // Check the thresholds for the stat
+                var emotion = statConfig.LinkedStat.CheckThresholds(GetStatValue(statConfig.LinkedStat));
+                if (!Unit.KinlingMood.HasEmotion(emotion))
+                {
+                    // Remove the others
+                    foreach (var threshold in statConfig.LinkedStat.AllThresholds)
+                    {
+                        var otherEmotion = threshold.BelowThresholdEmotion;
+                        if (otherEmotion != null)
+                        {
+                            Unit.KinlingMood.RemoveEmotion(otherEmotion);
+                        }
+                    }
+                    
+                    if (emotion != null)
+                    {
+                        Unit.KinlingMood.ApplyEmotion(emotion);
+                    }
+                }
             }
         }
 

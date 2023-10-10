@@ -37,5 +37,44 @@ namespace Systems.Mood.Scripts
             
             return false;
         }
+
+        public string MoodModifierDisplay
+        {
+            get
+            {
+                if (MoodModifier > 0)
+                {
+                    return $"+{MoodModifier}";
+                }
+                
+                return $"{MoodModifier}";
+            }
+        }
+
+        public string TimeLeftHoursDisplay
+        {
+            get
+            {
+                if (LinkedEmotion.IsIndefinite)
+                {
+                    return "";
+                }
+                
+                var timeLeftHours = (int)(RemainingTimeMins / 60);
+                int remainderMins = (int)(RemainingTimeMins / 60f - timeLeftHours) * 60;
+
+                if (timeLeftHours > 0)
+                {
+                    return $"{timeLeftHours}h";
+                }
+
+                if (remainderMins > 0)
+                {
+                    return $"{remainderMins}m";
+                }
+                
+                return "";
+            }
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Buildings;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
+using Systems.Mood.Scripts;
 using Systems.Stats.Scripts;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -28,7 +29,19 @@ namespace Managers
         [SerializeField] private List<JobData> _jobLibrary;
         [SerializeField] private List<RaceData> _races;
         [SerializeField] private List<AIStat> _stats;
+        [SerializeField] private List<Emotion> _emotions;
 
+        public Emotion GetEmotion(string emotionName)
+        {
+            var result = _emotions.Find(emotion => emotion.DisplayName == emotionName);
+            if (result == null)
+            {
+                Debug.LogError($"Unkown Emotion: {emotionName}");
+            }
+
+            return result;
+        }
+        
         public AIStat GetStat(string statName)
         {
             var result = _stats.Find(stat => stat.DisplayName == statName);

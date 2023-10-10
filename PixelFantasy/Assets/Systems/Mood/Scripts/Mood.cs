@@ -37,8 +37,25 @@ namespace Systems.Mood.Scripts
         private int _extremeBreakThreshold;
         private EMoodBreakType _moodState;
         private PendingBreakdownState _pendingBreakdownState;
-        
+
+        public float MinorBreakThresholdPercent => _minorBreakThreshold / 100f;
+        public float MajorBreakThresholdPercent => _majorBreakThreshold / 100f;
+        public float ExtremeBreakThresholdPercent => _extremeBreakThreshold / 100f;
+
+        public List<float> AllThresholds
+        {
+            get
+            {
+                List<float> results = new List<float>();
+                results.Add(MinorBreakThresholdPercent);
+                results.Add(MajorBreakThresholdPercent);
+                results.Add(ExtremeBreakThresholdPercent);
+                return results;
+            }
+        }
+
         public float OverallMood => _overallMood;
+        public int MoodTarget => _moodTarget;
 
         private void Awake()
         {
@@ -51,6 +68,12 @@ namespace Systems.Mood.Scripts
         private void OnDestroy()
         {
             GameEvents.MinuteTick -= GameEvents_MinuteTick;
+        }
+
+        public void Init()
+        {
+            _moodTarget = _baseMood;
+            _overallMood = _baseMood;
         }
 
         private void Start()
@@ -85,6 +108,27 @@ namespace Systems.Mood.Scripts
             _moodTarget = moodModifier;
         }
 
+        public bool HasEmotion(Emotion emotion)
+        {
+            return FindEmotionState(emotion) != null;
+        }
+
+        public void RemoveEmotion(Emotion emotionToRemove)
+        {
+            // Make sure it has the emotion
+            if (HasEmotion(emotionToRemove))
+            {
+                foreach (var emotionState in _allEmotionalStates)
+                {
+                    if (emotionState.LinkedEmotion == emotionToRemove)
+                    {
+                        _allEmotionalStates.Remove(emotionState);
+                        return;
+                    }
+                }
+            }
+        }
+
         public void ApplyEmotion(Emotion emotionToAdd)
         {
             // When applying, make sure there is no current state with the emotion. If there is, reset its timer
@@ -114,6 +158,8 @@ namespace Systems.Mood.Scripts
 
             return null;
         }
+
+        public List<EmotionState> AllEmotions => _allEmotionalStates;
 
         public List<EmotionState> PositiveEmotions
         {
@@ -180,7 +226,7 @@ namespace Systems.Mood.Scripts
             } 
             else if (_moodTarget < _overallMood)
             {
-                float tickAmount = Mathf.Min(_moodTarget - _overallMood, NEGATIVE_HOURLY_TICK_RATE / 60f);
+                float tickAmount = Mathf.Max(_moodTarget - _overallMood, NEGATIVE_HOURLY_TICK_RATE / 60f);
                 _overallMood += tickAmount;
             }
             
