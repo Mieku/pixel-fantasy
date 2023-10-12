@@ -17,7 +17,7 @@ namespace Characters
             moveVelocity = GetComponent<IMoveVelocity>();
         }
 
-        public bool SetMovePosition(Vector3 movePosition, Action onReachedMovePosition)
+        public bool SetMovePosition(Vector2 movePosition, Action onReachedMovePosition)
         {
             this.movePosition = movePosition;
             movingToPos = true;

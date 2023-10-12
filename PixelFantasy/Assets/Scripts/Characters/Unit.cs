@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Buildings;
 using DataPersistence;
 using Items;
 using Managers;
 using ScriptableObjects;
 using Systems.Mood.Scripts;
 using Systems.SmartObjects.Scripts;
+using Systems.Social.Scripts;
 using Systems.Traits.Scripts;
 using TaskSystem;
 using UnityEngine;
@@ -23,6 +25,7 @@ namespace Characters
         [SerializeField] private UnitAppearance _appearance;
         [SerializeField] private UnitInventory _inventory;
         [SerializeField] private Mood _mood;
+        [SerializeField] private SocialAI _socialAI;
         
         [Header("Traits")] 
         [SerializeField] protected List<Trait> _traits;
@@ -36,11 +39,18 @@ namespace Characters
 
         public RaceData Race => _race;
         public Mood KinlingMood => _mood;
+        public SocialAI SocialAI => _socialAI;
         public List<Trait> AllTraits => _traits;
+
+        private Building _insideBuidling;
+
+        private void Awake()
+        {
+            UnitsManager.Instance.RegisterKinling(this);
+        }
 
         private void Start()
         {
-            UnitsManager.Instance.RegisterKinling(this);
             Equipment.Init(this);
             _appearance.Init(this);
             _mood.Init();
@@ -49,6 +59,16 @@ namespace Characters
         private void OnDestroy()
         {
             UnitsManager.Instance.DeregisterKinling(this);
+        }
+
+        public void SetInsideBuilding(Building building)
+        {
+            _insideBuidling = building;
+        }
+
+        public bool IsIndoors()
+        {
+            return _insideBuidling != null;
         }
 
         // public void AssignHeldTool(ItemData toolItemData)

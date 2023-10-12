@@ -35,7 +35,7 @@ namespace Characters
             gameObject.transform.position = teleportPos;
         }
 
-        public bool SetMovePosition(Vector3 movePosition, Action onReachedMovePosition = null)
+        public bool SetMovePosition(Vector2 movePosition, Action onReachedMovePosition = null)
         {
             if (_agent.SetDestination(movePosition))
             {
@@ -51,7 +51,7 @@ namespace Characters
             }
         }
 
-        public bool IsDestinationPossible(Vector3 position)
+        public bool IsDestinationPossible(Vector2 position)
         {
             NavMeshPath path = new NavMeshPath();
             _agent.CalculatePath(position, path);

@@ -27,6 +27,7 @@ namespace Buildings
         [SerializeField] private GameObject _obstaclesHandle;
         [SerializeField] private GameObject _shadowboxHandle;
         [SerializeField] private Transform _constructionStandPos;
+        [SerializeField] private BuildingInteriorDetector _buildingInteriorDetector;
 
         public BuildingData BuildingData => _buildingData;
 

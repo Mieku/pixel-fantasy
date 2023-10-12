@@ -8,12 +8,18 @@ namespace Managers
 {
     public class UnitsManager : Singleton<UnitsManager>
     {
-        // TODO: Instead use a registering system
         private List<Unit> _allKinlings = new List<Unit>();
 
         public List<Unit> AllKinlings => _allKinlings;
         public List<Unit> UnemployedKinlings => _allKinlings.Where(kinling => kinling.GetUnitState().AssignedWorkplace == null).ToList();
         public List<Unit> HomelessKinlings => _allKinlings.Where(kinling => kinling.GetUnitState().AssignedHome == null).ToList();
+
+        public List<Unit> GetAllUnitsInRadius(Vector2 startPoint, float radius)
+        {
+            return _allKinlings.Where(kinling => 
+                Vector2.Distance(startPoint, kinling.transform.position) <= radius
+            ).ToList();
+        }
         
         public void RegisterKinling(Unit kinling)
         {
@@ -37,10 +43,6 @@ namespace Managers
             _allKinlings.Remove(kinling);
         }
 
-        
-        
-        
-        
         public List<UnitState> AllUnits => GetComponentsInChildren<UnitState>().ToList();
         
         public UnitState GetUnit(string fullname)

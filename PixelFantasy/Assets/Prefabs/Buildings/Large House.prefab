@@ -1703,6 +1703,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3746311868412090071}
   - component: {fileID: 5612931255369481987}
+  - component: {fileID: 3379571567444607411}
   m_Layer: 0
   m_Name: Interior Detection
   m_TagString: Building Interior
@@ -1756,6 +1757,19 @@ PolygonCollider2D:
       - {x: -2.9566565, y: -0.2783898}
       - {x: 0.95329106, y: -0.29254138}
       - {x: 0.9510565, y: 0.6904143}
+--- !u!114 &3379571567444607411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115924438330735018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d312e7a58ff699f428fff54710658a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _building: {fileID: 4529720070378484586}
 --- !u!1 &1141357286028535369
 GameObject:
   m_ObjectHideFlags: 0
@@ -14400,6 +14414,7 @@ MonoBehaviour:
   _obstaclesHandle: {fileID: 7673647128273325333}
   _shadowboxHandle: {fileID: 131913839724598154}
   _constructionStandPos: {fileID: 3148152069110956621}
+  _buildingInteriorDetector: {fileID: 3379571567444607411}
 --- !u!114 &5596007926291928697
 MonoBehaviour:
   m_ObjectHideFlags: 0

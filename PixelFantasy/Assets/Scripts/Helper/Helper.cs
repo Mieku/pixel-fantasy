@@ -425,6 +425,35 @@ public static class Helper
 
         return null;
     }
+    
+    public static List<WeightedObject<T>> GenerateCumulativeDistribution<T>(List<WeightedObject<T>> items)
+    {
+        var cumulativeDistribution = new List<WeightedObject<T>>();
+        double runningTotal = 0;
+
+        foreach (var item in items)
+        {
+            runningTotal += item.Weight;
+            cumulativeDistribution.Add(new WeightedObject<T>(item.Object, runningTotal));
+        }
+
+        return cumulativeDistribution;
+    }
+
+    public static T GetRandomObject<T>(List<WeightedObject<T>> cumulativeDistribution)
+    {
+        var totalWeight = cumulativeDistribution.Last().Weight;
+        double randomNumber = new System.Random().NextDouble() * totalWeight;
+
+        foreach (var entry in cumulativeDistribution)
+        {
+            if (randomNumber <= entry.Weight)
+                return entry.Object;
+        }
+
+        return default(T);  // This line should never be reached
+    }
+
 }
 
 public static class EnumExtensions
@@ -434,5 +463,17 @@ public static class EnumExtensions
         var field = value.GetType().GetField(value.ToString());
         var attributes = (DescriptionAttribute[])field.GetCustomAttributes(typeof(DescriptionAttribute), false);
         return attributes.Length > 0 ? attributes[0].Description : value.ToString();
+    }
+}
+
+public class WeightedObject<T>
+{
+    public T Object { get; set; }
+    public double Weight { get; set; }
+
+    public WeightedObject(T obj, double weight)
+    {
+        Object = obj;
+        Weight = weight;
     }
 }
