@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 41df2ea51b6ff7a4d9597ba495db259d
+guid: 223da45dbb80d8d409c8c00b9c4fe65b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 0
   alignment: 0
@@ -115,112 +115,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: speech_bubbles_for_emoticons_0
-      rect:
-        serializedVersion: 2
-        x: 33
-        y: 14
-        width: 15
-        height: 17
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e3bafac590e9bed49a50da59c1679ba4
-      internalID: 1682564318
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: speech_bubbles_for_emoticons_1
-      rect:
-        serializedVersion: 2
-        x: 17
-        y: 14
-        width: 15
-        height: 17
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5897a4a796364414eab4e0163e99aec3
-      internalID: -137913459
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: speech_bubbles_for_emoticons_2
-      rect:
-        serializedVersion: 2
-        x: 49
-        y: 14
-        width: 15
-        height: 17
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 70fad1238af4889458b63a94454ee25e
-      internalID: -2130393858
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: speech_bubbles_for_emoticons_3
-      rect:
-        serializedVersion: 2
-        x: 65
-        y: 14
-        width: 15
-        height: 17
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5c4fe3018715bcb439036b8e98ce53ed
-      internalID: 855327927
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: speech_bubbles_for_emoticons_4
-      rect:
-        serializedVersion: 2
-        x: 81
-        y: 14
-        width: 15
-        height: 17
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fe200ace9cb4b6d45abceb43b404547f
-      internalID: -1181951792
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -231,12 +126,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      speech_bubbles_for_emoticons_0: 1682564318
-      speech_bubbles_for_emoticons_1: -137913459
-      speech_bubbles_for_emoticons_2: -2130393858
-      speech_bubbles_for_emoticons_3: 855327927
-      speech_bubbles_for_emoticons_4: -1181951792
+    nameFileIdTable: {}
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

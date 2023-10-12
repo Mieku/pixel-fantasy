@@ -22,7 +22,7 @@ namespace Systems.Mood.Scripts
         public const int MIN_EXTREME_BREAK_TIME = 720; // 0.5 Day, in Minutes
         public const int MAX_EXTREME_BREAK_TIME = 1440; // 1.0 Day, in Minutes
 
-        [FormerlySerializedAs("BreakdownActionId")] public string BreakdownTaskId;
+        public string BreakdownTaskId;
 
         public int MaxMinutesUntilBreakdown
         {
