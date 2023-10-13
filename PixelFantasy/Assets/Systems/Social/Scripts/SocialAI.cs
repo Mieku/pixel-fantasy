@@ -28,6 +28,11 @@ namespace Systems.Social.Scripts
         private const float CHAT_SOCIAL_NEED_BENEFIT = 0.1f;
         private const int POSITIVE_INTERACTION_SCORE = 1;
         private const int NEGATIVE_INTERACTION_SCORE = -1;
+        private const int COHESION_BASE = 50;
+        private const int ROMANTIC_COHESION_BASE = 20;
+        private const int MOOD_COHESION_BASE = 20;
+        private const int MIN_OPINION_TO_FLIRT = 15;
+        private const float BASE_ATTEMPT_FLIRTING_CHANCE = 0.10f;
         
         private ESocialState _state;
         private float _chatTimer;
@@ -85,11 +90,98 @@ namespace Systems.Social.Scripts
         {
             _state = ESocialState.Chatting;
 
+            bool tryFlirting = CheckShouldFlirt(targetKinling);
+            if (tryFlirting)
+            {
+                InitiateFlirt(targetKinling);
+            }
+            else
+            {
+                // Chit-chatting
+                InitiateChitChat(targetKinling);
+            }
+        }
+
+        private bool CheckShouldFlirt(SocialAI targetKinling)
+        {
+            var relationship = GetRelationshipState(targetKinling);
+            // TODO: Make sure they are not in a relationship with someone else
+            // TODO: Make sure they are an appropriate age
+            // TODO: Make sure they align with their sexual preference
+            if (relationship.Opinion < MIN_OPINION_TO_FLIRT) return false;
+
+            float attemptFlirtingChance = BASE_ATTEMPT_FLIRTING_CHANCE + (relationship.OverallCohesion / 100f);
+            float roll = Random.Range(0f, 1f);
+            return roll <= attemptFlirtingChance;
+        }
+
+        private void InitiateFlirt(SocialAI targetKinling)
+        {
+            var topic = _romanticTopics.GetRandomTopic();
+            DisplayChatBubble(topic);
+            targetKinling.RecieveFlirt(this, GetFlirtResponse);
+        }
+        
+        public void RecieveFlirt(SocialAI otherKinling, Action<bool, SocialAI> onResponse)
+        {
+            _state = ESocialState.Chatting;
+            bool isPositiveResponse = DetermineFlirtResponse(otherKinling);
+            SocialTopic responseTopic;
+            if (isPositiveResponse)
+            {
+                responseTopic = _positiveResponses.GetRandomTopic();
+                FormRomanticRelationship(otherKinling);
+            }
+            else
+            {
+                responseTopic = _negativeResponses.GetRandomTopic();
+            }
+
+            StartCoroutine(ResponseSequence(otherKinling, responseTopic, isPositiveResponse, onResponse));
+        }
+        
+        private bool DetermineFlirtResponse(SocialAI otherKinling)
+        {
+            // This is based on their cohesion, relationship and mood
+            int weight = ROMANTIC_COHESION_BASE;
+            var otherKinlingRelationship = GetRelationshipState(otherKinling);
+            var curOverallMood = _unit.KinlingMood.OverallMood / 100f;
+            int moodCohesion = (int)(MOOD_COHESION_BASE * curOverallMood) - (MOOD_COHESION_BASE / 2);
+            
+            weight += otherKinlingRelationship.OverallCohesion;
+            weight += moodCohesion;
+
+            weight = Mathf.Clamp(weight, 2, 98);
+
+            int random100 = Random.Range(1, 101);
+            return random100 <= weight;
+        }
+        
+        private void GetFlirtResponse(bool isPositive, SocialAI responder)
+        {
+            var responderRelationshipState = GetRelationshipState(responder);
+
+            if (isPositive)
+            {
+                responderRelationshipState.AddToScore(POSITIVE_INTERACTION_SCORE);
+                FormRomanticRelationship(responder);
+            }
+            else
+            {
+                responderRelationshipState.AddToScore(NEGATIVE_INTERACTION_SCORE);
+                _unit.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("Rejected")); // Mood De-buff
+            }
+            
+            _unit.NeedsAI.UpdateIndividualStat(Librarian.Instance.GetStat("Social"), CHAT_SOCIAL_NEED_BENEFIT, StatTrait.ETargetType.Impact);
+        }
+
+        private void InitiateChitChat(SocialAI targetKinling)
+        {
             var topic = _socialTopics.GetRandomTopic();
             DisplayChatBubble(topic);
             targetKinling.RecieveChat(this, GetChatResponse);
         }
-
+        
         public void RecieveChat(SocialAI otherKinling, Action<bool, SocialAI> onResponse)
         {
             _state = ESocialState.Chatting;
@@ -129,13 +221,19 @@ namespace Systems.Social.Scripts
 
         private bool DetermineResponse(SocialAI otherKinling)
         {
-            // TODO: Make this based on their cohesion, and mood
+            // This is based on their cohesion, relationship and mood
+            int weight = COHESION_BASE;
+            var otherKinlingRelationship = GetRelationshipState(otherKinling);
+            var curOverallMood = _unit.KinlingMood.OverallMood / 100f;
+            int moodCohesion = (int)(MOOD_COHESION_BASE * curOverallMood) - (MOOD_COHESION_BASE / 2);
             
-            // For now 50/50
-            int random = Random.Range(0, 2);
-            if (random == 0) return true;
+            weight += otherKinlingRelationship.OverallCohesion;
+            weight += moodCohesion;
 
-            return false;
+            weight = Mathf.Clamp(weight, 2, 98);
+
+            int random100 = Random.Range(1, 101);
+            return random100 <= weight;
         }
 
         private void GetChatResponse(bool isPositive, SocialAI responder)
@@ -218,6 +316,13 @@ namespace Systems.Social.Scripts
             }
 
             return result;
+        }
+
+        private void FormRomanticRelationship(SocialAI otherKinling)
+        {
+            // TODO: Build me!!
+            Debug.Log($"Relationship started! (This is not built yet!)");
+            _unit.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("Started Relationship")); // Mood Buff
         }
     }
     
