@@ -39,6 +39,7 @@ namespace Systems.Social.Scripts
         private float _bubbleTimer;
 
         private List<RelationshipState> _relationships = new List<RelationshipState>();
+        public List<RelationshipState> Relationships => _relationships;
 
 
         public enum ESocialState

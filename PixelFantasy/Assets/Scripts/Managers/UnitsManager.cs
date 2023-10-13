@@ -45,9 +45,9 @@ namespace Managers
 
         public List<UnitState> AllUnits => GetComponentsInChildren<UnitState>().ToList();
         
-        public UnitState GetUnit(string fullname)
+        public Unit GetUnit(string uniqueID)
         {
-            return AllUnits.Find(unit => unit.FullName == fullname);
+            return AllKinlings.Find(unit => unit.UniqueId == uniqueID);
         }
     }
 }

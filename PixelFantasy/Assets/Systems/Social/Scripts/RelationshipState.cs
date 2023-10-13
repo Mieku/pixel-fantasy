@@ -1,4 +1,6 @@
 using System;
+using Characters;
+using Managers;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -18,6 +20,7 @@ namespace Systems.Social.Scripts
         public string KinlingUniqueID;
         public int Opinion;
         public bool IsPartner;
+        public Unit Unit => UnitsManager.Instance.GetUnit(KinlingUniqueID);
         public int NaturalCohesion { get; protected set; }
 
         private const int MIN_NATURAL_COHESION = -10;
@@ -77,6 +80,25 @@ namespace Systems.Social.Scripts
             }
         }
 
+        public string RelationshipTypeName
+        {
+            get
+            {
+                if (IsPartner) return "Partner";
+                switch (RelationshipType)
+                {
+                    case ERelationshipType.Acquaintance:
+                        return "Acquaintance";
+                    case ERelationshipType.Friend:
+                        return "Friend";
+                    case ERelationshipType.Rival:
+                        return "Rival";
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+
         /// <summary>
         /// The chance that the kinling will prefer to speak with them
         /// </summary>
@@ -84,6 +106,8 @@ namespace Systems.Social.Scripts
         {
             get
             {
+                if (IsPartner) return 0.6f;
+                
                 switch (RelationshipType)
                 {
                     case ERelationshipType.Acquaintance:
