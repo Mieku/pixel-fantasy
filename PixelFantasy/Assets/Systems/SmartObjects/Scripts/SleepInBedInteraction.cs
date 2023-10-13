@@ -85,6 +85,8 @@ namespace Systems.SmartObjects.Scripts
                 return false;
             }
 
+            _currentPerformer.Performer.Unit.IsAsleep = true;
+            
             _linkedFurniture.AssignFurnitureToKinling(_currentPerformer.Performer.Unit);
             _linkedFurniture.ShowTopSheet(true);
 
@@ -135,6 +137,8 @@ namespace Systems.SmartObjects.Scripts
 
             if (_currentPerformer.HasStarted)
             {
+                _currentPerformer.Performer.Unit.IsAsleep = false;
+                
                 _currentPerformer.Performer.Unit.UnitAgent.TeleportToPosition(_preTeleportPos, false);
                 _linkedFurniture.ShowTopSheet(true);
             

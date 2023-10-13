@@ -19,7 +19,7 @@ namespace Systems.Social.Scripts
         [SerializeField] private SocialTopicOptionsData _positiveResponses;
         [SerializeField] private SocialTopicOptionsData _negativeResponses;
 
-        public bool AvailableToChat => _state == ESocialState.Available;
+        public bool AvailableToChat => _state == ESocialState.Available && !_unit.IsAsleep;
         public string UniqueId => _unit.UniqueId;
 
         private const float CHAT_COOLDOWN = 5.0f;
@@ -49,6 +49,8 @@ namespace Systems.Social.Scripts
         
         private void Update()
         {
+            if (_unit.IsAsleep) return;
+            
             if (_state == ESocialState.Available)
             {
                 _chatTimer += TimeManager.Instance.DeltaTime;
@@ -105,9 +107,16 @@ namespace Systems.Social.Scripts
         private bool CheckShouldFlirt(SocialAI targetKinling)
         {
             var relationship = GetRelationshipState(targetKinling);
-            // TODO: Make sure they are not in a relationship with someone else
-            // TODO: Make sure they are an appropriate age
-            // TODO: Make sure they align with their sexual preference
+            // Make sure they are not in a romantic relationship with someone else
+            if (_unit.Partner != null) return false;
+            if (targetKinling._unit.Partner != null) return false;
+            // Make sure they are an appropriate age
+            if (_unit.MaturityStage < EMaturityStage.Adult) return false;
+            if (_unit.MaturityStage != targetKinling._unit.MaturityStage) return false;
+            // Make sure they align with their sexual preference
+            if (!_unit.IsKinlingAttractedTo(targetKinling._unit)) return false;
+            if (!targetKinling._unit.IsKinlingAttractedTo(_unit)) return false;
+            // Make sure their opinion is high enough
             if (relationship.Opinion < MIN_OPINION_TO_FLIRT) return false;
 
             float attemptFlirtingChance = BASE_ATTEMPT_FLIRTING_CHANCE + (relationship.OverallCohesion / 100f);
@@ -320,13 +329,12 @@ namespace Systems.Social.Scripts
 
         private void FormRomanticRelationship(SocialAI otherKinling)
         {
-            // TODO: Build me!!
-            Debug.Log($"Relationship started! (This is not built yet!)");
+            var relationship = GetRelationshipState(otherKinling);
+            relationship.IsPartner = true;
+            _unit.Partner = otherKinling._unit;
+            
+            Debug.Log($"Relationship started!");
             _unit.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("Started Relationship")); // Mood Buff
         }
     }
-    
-    
-    
-
 }

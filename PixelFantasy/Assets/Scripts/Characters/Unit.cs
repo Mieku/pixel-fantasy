@@ -41,6 +41,11 @@ namespace Characters
         public Mood KinlingMood => _mood;
         public SocialAI SocialAI => _socialAI;
         public List<Trait> AllTraits => _traits;
+        public bool IsAsleep;
+        public EMaturityStage MaturityStage;
+        public ESexualPreference SexualPreference;
+        public Gender Gender;
+        public Unit Partner;
 
         private Building _insideBuidling;
 
@@ -207,5 +212,39 @@ namespace Characters
             // Unit Appearance
             public UnitAppearance.AppearanceData AppearanceData;
         }
+
+        public bool IsKinlingAttractedTo(Unit otherKinling)
+        {
+            var otherKinlingGender = otherKinling._appearance.GetAppearanceState().Gender;
+            switch (SexualPreference)
+            {
+                case ESexualPreference.None:
+                    return false;
+                case ESexualPreference.Male:
+                    return otherKinlingGender == Gender.Male;
+                case ESexualPreference.Female:
+                    return otherKinlingGender == Gender.Female;
+                case ESexualPreference.Both:
+                    return true;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+    }
+
+    public enum EMaturityStage
+    {
+        Child = 0,
+        Teen = 1,
+        Adult = 2,
+        Senior = 3,
+    }
+
+    public enum ESexualPreference
+    {
+        None,
+        Male,
+        Female,
+        Both,
     }
 }

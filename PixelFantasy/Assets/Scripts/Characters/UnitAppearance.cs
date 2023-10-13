@@ -65,7 +65,7 @@ namespace Characters
             if (_appearanceState == null)
             {
                 // Create a random one
-                var randomAppearance = new AppearanceState(_unit.Race);
+                var randomAppearance = new AppearanceState(_unit.Race, _unit.Gender);
                 randomAppearance.RandomizeAppearance();
                 _appearanceState = randomAppearance;
             }

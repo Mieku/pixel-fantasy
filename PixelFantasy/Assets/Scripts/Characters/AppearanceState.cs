@@ -14,9 +14,10 @@ namespace Characters
         public Gender Gender;
         public RaceData Race;
 
-        public AppearanceState(RaceData race)
+        public AppearanceState(RaceData race, Gender gender)
         {
             Race = race;
+            Gender = gender;
         }
         
         public AppearanceState(AppearanceState other)
@@ -32,15 +33,15 @@ namespace Characters
             // Make a random one
             SkinTone = Race.GetRandomSkinTone();
 
-            int genderIndex = Random.Range(0, 2);
-            if (genderIndex == 0)
-            {
-                Gender = Gender.Male;
-            }
-            else
-            {
-                Gender = Gender.Female;
-            }
+            // int genderIndex = Random.Range(0, 2);
+            // if (genderIndex == 0)
+            // {
+            //     Gender = Gender.Male;
+            // }
+            // else
+            // {
+            //     Gender = Gender.Female;
+            // }
 
             // Create a random HDR color
             EyeColour = Race.GetRandomEyeColour();

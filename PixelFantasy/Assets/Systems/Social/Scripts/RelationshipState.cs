@@ -17,6 +17,7 @@ namespace Systems.Social.Scripts
         
         public string KinlingUniqueID;
         public int Opinion;
+        public bool IsPartner;
         public int NaturalCohesion { get; protected set; }
 
         private const int MIN_NATURAL_COHESION = -10;
@@ -30,6 +31,7 @@ namespace Systems.Social.Scripts
             KinlingUniqueID = socialAI.UniqueId;
             Opinion = opinion;
             NaturalCohesion = Random.Range(MIN_NATURAL_COHESION, MAX_NATURAL_COHESION + 1);
+            IsPartner = false;
         }
 
         public int OverallCohesion
