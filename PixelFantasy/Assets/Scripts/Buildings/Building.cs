@@ -291,13 +291,14 @@ namespace Buildings
         {
             if (showInternal)
             {
-                _roofHandle.SetActive(false);
+                if(_roofHandle != null) _roofHandle.SetActive(false);
                 _exteriorHandle.SetActive(false);
                 _shadowboxHandle.SetActive(true);
             }
             else
             {
-                _roofHandle.SetActive(true);
+                if(_roofHandle != null) _roofHandle.SetActive(true);
+                
                 _exteriorHandle.SetActive(true);
                 _shadowboxHandle.SetActive(false);
             }
@@ -376,9 +377,26 @@ namespace Buildings
         {
             var internalSpriteRenderers = _internalHandle.GetComponentsInChildren<SpriteRenderer>(true);
             var exteriorlSpriteRenderers = _exteriorHandle.GetComponentsInChildren<SpriteRenderer>(true);
-            var roofSpriteRenderers = _roofHandle.GetComponentsInChildren<SpriteRenderer>(true);
+            if (_roofHandle != null)
+            {
+                var roofSpriteRenderers = _roofHandle.GetComponentsInChildren<SpriteRenderer>(true);
+                foreach (var rend in roofSpriteRenderers)
+                {
+                    rend.color = colour;
+                }
+            }
+                    
             var doorSpriteRenderers = _doorHandle.GetComponentsInChildren<SpriteRenderer>(true);
-            var floorSpriteRenderers = _floorHandle.GetComponentsInChildren<SpriteRenderer>(true);
+
+            if (_floorHandle != null)
+            {
+                var floorSpriteRenderers = _floorHandle.GetComponentsInChildren<SpriteRenderer>(true);
+                foreach (var rend in floorSpriteRenderers)
+                {
+                    rend.color = colour;
+                }
+            }
+            
 
             foreach (var rend in internalSpriteRenderers)
             {
@@ -390,17 +408,9 @@ namespace Buildings
                 rend.color = colour;
             }
             
-            foreach (var rend in roofSpriteRenderers)
-            {
-                rend.color = colour;
-            }
+            
             
             foreach (var rend in doorSpriteRenderers)
-            {
-                rend.color = colour;
-            }
-            
-            foreach (var rend in floorSpriteRenderers)
             {
                 rend.color = colour;
             }
