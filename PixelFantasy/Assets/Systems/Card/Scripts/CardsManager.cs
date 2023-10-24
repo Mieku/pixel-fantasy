@@ -10,12 +10,21 @@ namespace Systems.Card.Scripts
         [SerializeField] private Transform _cardDetailsPos;
         [SerializeField] private CardDetails _cardDetails;
         [SerializeField] private CardDock _dock;
+
+        [SerializeField] private Transform _buildingsParent;
         
         public Canvas CardCanvas => _cardCanvas;
         public Transform CardDetailsPosition => _cardDetailsPos;
 
+        public Transform BuildingsParent => _buildingsParent;
+
         private CardBase _curCard;
 
+        public void RemoveCard(CardBase card)
+        {
+            _dock.RemoveCard(card);
+        }
+        
         public void AssignCardSelected(CardBase card)
         {
             _curCard = card;

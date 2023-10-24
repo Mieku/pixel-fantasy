@@ -23,6 +23,9 @@ namespace Systems.Card.Scripts
         private const float HOVERED_CARD_SCALE = 1.2f;
         private const float CLICKED_CARD_SCALE = 1.3f;
 
+        public CardBase LinkedCard => _linkedCard;
+        public Transform CardHandle => _cardHandle;
+
         private void Awake()
         {
             _canvas = GetComponent<Canvas>();
@@ -90,8 +93,6 @@ namespace Systems.Card.Scripts
         public void ToggleHover(bool isHovering)
         {
             _anim.enabled = true;
-            
-            //return;
             _anim.SetBool(IsHovering, isHovering);
 
             if (isHovering)

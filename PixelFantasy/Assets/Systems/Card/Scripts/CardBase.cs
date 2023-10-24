@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
+using Controllers;
 using Sirenix.OdinInspector;
+using Systems.Currency.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -37,16 +40,67 @@ namespace Systems.Card.Scripts
         private bool _inDockArea;
         private CanvasGroup _canvasGroup;
         private Coroutine _fadeCoroutine;
+        private Color _defaultCostColour;
+        private bool _canAfford;
         
         private const float DOCKED_CARD_SCALE = 0.9f;
         private const float CLICKED_CARD_SCALE = 1.3f;
         private const float FADE_DURATION = 0.5f;
 
         public abstract CardData GetCardData();
+        public abstract void TriggerCardPower();
 
         private void Awake()
         {
             _canvasGroup = GetComponent<CanvasGroup>();
+            _defaultCostColour = _cardCostDisplay.color;
+
+            GameEvents.OnGlimraTotalChanged += GameEvent_OnGlimraTotalChanged;
+            GameEvents.OnRightClickUp += GameEvents_OnRightClickUp;
+        }
+
+        private void OnDestroy()
+        {
+            GameEvents.OnGlimraTotalChanged -= GameEvent_OnGlimraTotalChanged;
+            GameEvents.OnRightClickUp -= GameEvents_OnRightClickUp;
+        }
+        
+        protected void GameEvents_OnRightClickUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
+        {
+            CancelCard();
+        }
+
+        protected void CancelCard()
+        {
+            ToggleCardPlanning(false);
+            _cardState = ECardState.Docked;
+            SnapToDock();
+            CardsManager.Instance.AssignCardSelected(null);
+        }
+
+        protected void RemoveCard()
+        {
+            CardsManager.Instance.RemoveCard(this);
+            Destroy(gameObject);
+        }
+
+        private void GameEvent_OnGlimraTotalChanged(int totalGlimra)
+        {
+            CheckIfAffordCard(totalGlimra);
+        }
+
+        private void CheckIfAffordCard(int curGlimra)
+        {
+            if (curGlimra >= GetCardData().CardCost)
+            {
+                _canAfford = true;
+                _cardCostDisplay.color = _defaultCostColour;
+            }
+            else
+            {
+                _canAfford = false;
+                _cardCostDisplay.color = Color.red;
+            }
         }
 
         private void Start()
@@ -57,6 +111,8 @@ namespace Systems.Card.Scripts
             _rectTransform = GetComponent<RectTransform>();
             _outlineObj.SetActive(false);
             _cardContentPrefab.gameObject.SetActive(false);
+            
+            CheckIfAffordCard(CurrencyManager.Instance.TotalGlimra);
         }
 
         public void AssignSlot(CardSlot cardSlot)
@@ -71,6 +127,7 @@ namespace Systems.Card.Scripts
             
             _cardState = ECardState.Docked;
             _cardSlot.ToggleHover(false);
+            CardsManager.Instance.AssignCardSelected(null);
         }
 
         protected void DisplayCardContent(CardContent[] content)
@@ -133,12 +190,27 @@ namespace Systems.Card.Scripts
         
         private void EnteredDockArea()
         {
-            StartFadeCoroutine(UnFadeCard());
+            ToggleCardPlanning(false);
         }
 
         private void ExitedDockArea()
         {
-            StartFadeCoroutine(FadeCard());
+            if (_canAfford)
+            {
+                ToggleCardPlanning(true);
+            }
+        }
+
+        protected virtual void ToggleCardPlanning(bool isEnabled)
+        {
+            if (isEnabled)
+            {
+                StartFadeCoroutine(FadeCard());
+            }
+            else
+            {
+                StartFadeCoroutine(UnFadeCard());
+            }
         }
 
         private void StartFadeCoroutine(IEnumerator fadeFunction)
@@ -150,7 +222,7 @@ namespace Systems.Card.Scripts
             _fadeCoroutine = StartCoroutine(fadeFunction);  // Start the new coroutine
         }
 
-        IEnumerator FadeCard()
+        IEnumerator UnFadeCard()
         {
             float elapsedTime = 0f;
             var curAlpha = _canvasGroup.alpha;
@@ -167,7 +239,7 @@ namespace Systems.Card.Scripts
             _canvasGroup.alpha = 1;
         }
 
-        IEnumerator UnFadeCard()
+        IEnumerator FadeCard()
         {
             float elapsedTime = 0f;
             var curAlpha = _canvasGroup.alpha;
@@ -241,24 +313,44 @@ namespace Systems.Card.Scripts
 
         public void OnBeginDrag(BaseEventData data)
         {
+            if (!_canAfford) return;
+            
             if (_cardState == ECardState.ShowingDetails)
             {
                 HideCardDetails();
                 CardsManager.Instance.HideCardDetails();
             }
-
-            _cardState = ECardState.BeingDragged;
+            
+            transform.SetParent(CardsManager.Instance.transform);
+            GetComponent<RectTransform>().localScale = new Vector3(DOCKED_CARD_SCALE, DOCKED_CARD_SCALE, 1);
             
             _cardSlot.ToggleHover(false);
-            
+            _cardState = ECardState.BeingDragged;
             CardsManager.Instance.AssignCardSelected(this);
         }
 
+        public Vector2 HoldPosition
+        {
+            get
+            {
+                if (_cardState == ECardState.BeingDragged)
+                {
+                    return _dragPosition;
+                }
+                else
+                {
+                    return transform.position;
+                }
+            }
+        }
+
+        private Vector2 _dragPosition;
         public void OnDrag(BaseEventData data)
         {
             if(_cardState != ECardState.BeingDragged) return;
             
             PointerEventData pointerData = (PointerEventData)data;
+            _dragPosition = pointerData.position;
         
             Vector2 changeInPosition = pointerData.delta / _canvas.scaleFactor;
             _rectTransform.anchoredPosition += changeInPosition;
@@ -273,9 +365,25 @@ namespace Systems.Card.Scripts
 
         public void OnEndDrag(BaseEventData data)
         {
-            _cardState = ECardState.Docked;
-            SnapToDock();
-            CardsManager.Instance.AssignCardSelected(null);
+            if (_cardState != ECardState.BeingDragged) return;
+            
+            transform.SetParent(_cardSlot.CardHandle.transform);
+
+            if (_inDockArea)
+            {
+                SnapToDock();
+            }
+            else
+            {
+                if (_canAfford)
+                {
+                    TriggerCardPower();
+                }
+                else
+                {
+                    SnapToDock();
+                }
+            }
         }
 
         private void DragUpdate()

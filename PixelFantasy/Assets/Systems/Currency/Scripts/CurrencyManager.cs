@@ -1,3 +1,4 @@
+using System;
 using Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -7,8 +8,31 @@ namespace Systems.Currency.Scripts
     public class CurrencyManager : Singleton<CurrencyManager>
     {
         [SerializeField] private Sprite _glimraIcon;
+        [SerializeField] private int _timeToRequestGlimra;
 
         private int _totalGlimra;
+
+        public int TotalGlimra => _totalGlimra;
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            GameEvents.HourTick += GameEvent_HourTick;
+        }
+
+        private void OnDestroy()
+        {
+            GameEvents.HourTick -= GameEvent_HourTick;
+        }
+
+        private void GameEvent_HourTick(int hour)
+        {
+            if (hour == _timeToRequestGlimra)
+            {
+                GameEvents.Trigger_OnGlimraDue();
+            }
+        }
 
         public void AddGlimra(int amountToAdd)
         {
@@ -34,13 +58,13 @@ namespace Systems.Currency.Scripts
             return true;
         }
 
-        [Button("Add Glimra")]
+        [Button("Add 10 Glimra")]
         public void DebugAddGlimra()
         {
             AddGlimra(10);
         }
 
-        [Button("Remove Glimra")]
+        [Button("Remove 5 Glimra")]
         public void DebugRemoveGlimra()
         {
             RemoveGlimra(5);

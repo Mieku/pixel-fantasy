@@ -23,5 +23,10 @@ namespace Systems.Card.Scripts
         {
             return _cardData;
         }
+        
+        public override void TriggerCardPower()
+        {
+            Debug.Log("Card Power Triggered!!!!!");
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace Systems.Card.Scripts
         [TitleGroup("Building Card")] [SerializeField] private int _cardCost;
         [TitleGroup("Building Card")] [SerializeField] private CardContent[] _cardContent;
 
-        public override int CardCost { get; }
+        public override int CardCost => _cardCost;
         public override string CardName => _building.BuildingName;
         public Building LinkedBuilding => _building;
         

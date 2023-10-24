@@ -16,6 +16,7 @@ namespace Managers
         [Tooltip("The amount to real minutes in a day at normal speed")][SerializeField] private float _realMinsInADay;
 
         private float _gameDayTimer;
+        private int _cur24Hour;
         
         public GameTime GameTime => new GameTime(_currentHour, _currentMin, _isPM);
 
@@ -23,6 +24,7 @@ namespace Managers
         {
             base.Awake();
             _gameDayTimer = _timeOfDay;
+            _cur24Hour = (int)_gameDayTimer;
             CalculateTimeOfDay();
         }
 
@@ -48,6 +50,13 @@ namespace Managers
             if (_gameDayTimer >= 23.99f)
             {
                 _gameDayTimer = 0f;
+            }
+
+            var hour24 = (int)_gameDayTimer;
+            if (_cur24Hour != hour24)
+            {
+                _cur24Hour = hour24;
+                GameEvents.Trigger_HourTick(_cur24Hour);
             }
             
             _timeOfDay = _gameDayTimer;

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CodeMonkey.Utils;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -13,12 +14,24 @@ namespace Systems.Card.Scripts
         private List<CardSlot> _displayedCardSlots = new List<CardSlot>();
         private const float DISPLAY_OFFSET_TIME = 0.3f;
 
+        public void RemoveCard(CardBase card)
+        {
+            foreach (var slot in _displayedCardSlots)
+            {
+                if (slot.LinkedCard == card)
+                {
+                    Destroy(slot.gameObject);
+                    return;
+                }
+            }
+        }
+        
         public bool IsCardInDockArea(CardBase card)
         {
             var topMostY = transform.position.y;
-            var cardY = card.gameObject.transform.position.y;
+            var cardY = card.HoldPosition.y;//card.gameObject.transform.position.y;
 
-            return cardY >= topMostY;
+            return cardY <= topMostY;
         }
 
         [Button("DEBUG Display Cards")]
