@@ -20,6 +20,7 @@ namespace Systems.Card.Scripts
             {
                 if (slot.LinkedCard == card)
                 {
+                    _displayedCardSlots.Remove(slot);
                     Destroy(slot.gameObject);
                     return;
                 }
@@ -48,7 +49,8 @@ namespace Systems.Card.Scripts
                 offset++;
             }
         }
-
+        
+        [Button("DEBUG Clear Cards")]
         private void ClearDisplayedSlots()
         {
             foreach (var cardSlot in _displayedCardSlots)
