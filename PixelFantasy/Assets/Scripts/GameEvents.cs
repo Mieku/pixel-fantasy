@@ -154,4 +154,16 @@ public class GameEvents : MonoBehaviour
     {
         if (OnKinlingChanged != null) OnKinlingChanged(unit);
     }
+
+    public static event Action OnGlimraDue;
+    public static void Trigger_OnGlimraDue()
+    {
+        if (OnGlimraDue != null) OnGlimraDue();
+    }
+
+    public static event Action<int> OnGlimraTotalChanged;
+    public static void Trigger_OnGlimraTotalChanged(int totalGlimra)
+    {
+        if (OnGlimraTotalChanged != null) OnGlimraTotalChanged(totalGlimra);
+    }
 }
