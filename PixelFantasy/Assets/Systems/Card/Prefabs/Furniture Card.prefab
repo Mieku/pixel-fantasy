@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -42.51003, y: 71.79998}
-  m_SizeDelta: {x: 18.9506, y: 18.4349}
+  m_AnchoredPosition: {x: -42.7, y: 71.8}
+  m_SizeDelta: {x: 29.025, y: 27.5704}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3767123269319903456
 CanvasRenderer:
@@ -66,17 +66,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 12
+  m_text: '#'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 08a7680ce3f5db54fb1b12a41887a667, type: 2}
-  m_sharedMaterial: {fileID: -8714135316247317583, guid: 08a7680ce3f5db54fb1b12a41887a667, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f6ad8b5532a7efa47bd6e5fadbbaab92, type: 2}
+  m_sharedMaterial: {fileID: -8714135316247317583, guid: f6ad8b5532a7efa47bd6e5fadbbaab92, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281279022
-  m_fontColor: {r: 0.18039216, g: 0.13333334, b: 0.18431373, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -93,12 +93,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 9.1
+  m_fontSize: 16
   m_fontSizeBase: 9
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 8
-  m_fontSizeMax: 9.1
+  m_fontSizeMax: 16
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 4096
@@ -835,6 +835,7 @@ MonoBehaviour:
   _flavourText: {fileID: 3767123270122417224}
   _cardContentPrefab: {fileID: 4314241445888089667}
   _cardContentParent: {fileID: 3767123271051427635}
+  _cardState: 0
   _furnitureImage: {fileID: 3767123270379757694}
   _blueprint: {fileID: 3767123270186321228}
   _costsParent: {fileID: 3767123270354832500}
