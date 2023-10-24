@@ -15,8 +15,10 @@ namespace ScriptableObjects
         [SerializeField] private List<ItemAmount> _resourceCosts;
         [SerializeField] private List<string> _invalidPlacementTags;
         [SerializeField] private PlanningMode _planningMode;
+        [SerializeField] private JobData _requiredConstructorJob;
         
         public PlanningMode PlanningMode => _planningMode;
+        public JobData RequiredConstructorJob => _requiredConstructorJob;
         
         public List<ItemAmount> GetResourceCosts()
         {
