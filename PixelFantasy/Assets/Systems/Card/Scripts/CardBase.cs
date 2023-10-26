@@ -72,10 +72,14 @@ namespace Systems.Card.Scripts
 
         protected void CancelCard()
         {
+            if(_cardState == ECardState.Docked) return;
+            
+            //SnapToDock();
             ToggleCardPlanning(false);
             _cardState = ECardState.Docked;
-            SnapToDock();
-            CardsManager.Instance.AssignCardSelected(null);
+            CloseDetails();
+            CardsManager.Instance.HideCardDetails();
+            _outlineObj.SetActive(false);
         }
 
         protected void RemoveCard()
@@ -123,6 +127,7 @@ namespace Systems.Card.Scripts
         
         private void SnapToDock()
         {
+            transform.SetParent(_cardSlot.CardHandle.transform);
             transform.localPosition = Vector3.zero;
             
             _cardState = ECardState.Docked;
@@ -366,8 +371,6 @@ namespace Systems.Card.Scripts
         public void OnEndDrag(BaseEventData data)
         {
             if (_cardState != ECardState.BeingDragged) return;
-            
-            transform.SetParent(_cardSlot.CardHandle.transform);
 
             if (_inDockArea)
             {

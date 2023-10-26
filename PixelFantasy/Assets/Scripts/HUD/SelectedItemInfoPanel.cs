@@ -1,79 +1,65 @@
-using System;
-using System.Collections.Generic;
 using Buildings;
 using Characters;
 using Controllers;
-using HUD.Room_Panel;
 using Interfaces;
 using Items;
-using Popups;
+using Systems.Details.Generic_Details.Scripts;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using Zones;
 
 namespace HUD
 {
     public class SelectedItemInfoPanel : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI _selectedItemNameGeneric;
-        [SerializeField] private TextMeshProUGUI _detailsGeneric;
-        [SerializeField] private GameObject _genericPanel;
+        [Header("Generic Details")] 
+        [SerializeField] private GenericDetailsUI _genericDetails;
 
         [Header("Kinling Details")] 
         [SerializeField] private KinlingDetailsUI _kinlingDetails;
 
         [Header("Building Details")] 
         [SerializeField] private BuildingDetailsUI _buildingDetails;
-        
-        private SelectionData _selectionData;
 
         private void Start()
         {
-            HideItemDetails();
+            HideAllDetails();
         }
 
         public void ShowUnitDetails(Unit unit)
         {
-            _genericPanel.SetActive(false);
-            _buildingDetails.Hide();
+            HideAllDetails();
 
             _kinlingDetails.Show(unit);
         }
 
         public void ShowBuildingDetails(Building building)
         {
-            _genericPanel.SetActive(false);
-            _kinlingDetails.Hide();
+            HideAllDetails();
 
             _buildingDetails.Show(building);
         }
         
         public void HideAllDetails()
         {
-            _selectionData = null;
+            _genericDetails.Hide();
             _kinlingDetails.Hide();
             _buildingDetails.Hide();
-            _genericPanel.SetActive(false);
         }
 
-        public void ShowItemDetails(SelectionData selectionData)
+        // public void ShowItemDetails(SelectionData selectionData)
+        // {
+        //     HideAllDetails();
+        //     
+        //     _genericDetails.Show(selectionData);
+        //
+        //     HUDOrders.Instance.DisplayOrders(selectionData); // TODO: Handle in the panel
+        // }
+
+        public void ShowItemDetails(IClickableObject clickableObject)
         {
             HideAllDetails();
-            _selectionData = selectionData;
-            RefreshDetails();
-            HUDOrders.Instance.DisplayOrders(selectionData);
-        }
-
-        public void HideItemDetails()
-        {
-            HideAllDetails();
-            HUDOrders.Instance.HideOrders();
-        }
-
-        private void RefreshDetails()
-        {
-            _selectedItemNameGeneric.text = _selectionData.ItemName;
+            
+            _genericDetails.Show(clickableObject);
         }
     }
 }

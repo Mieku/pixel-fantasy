@@ -25,7 +25,7 @@ namespace Controllers
 
         private void CloseDetailsPanels()
         {
-            HUDController.Instance.HideItemDetails();
+            HUDController.Instance.HideDetails();
         }
 
         public void SelectUnit(ClickObject clickObject, Unit unit)
@@ -35,7 +35,7 @@ namespace Controllers
             if (_curSelectedObject != null)
             {
                 _curSelectedObject.UnselectObject();
-                HUDController.Instance.HideItemDetails();
+                HUDController.Instance.HideDetails();
             }
             
             _curSelectedObject = clickObject;
@@ -47,14 +47,14 @@ namespace Controllers
             }
         }
 
-        public void SelectObject(ClickObject clickObject, SelectionData selectionData = null)
+        public void SelectObject(ClickObject clickObject)
         {
             CloseDetailsPanels();
             
             if (_curSelectedObject != null)
             {
                 _curSelectedObject.UnselectObject();
-                HUDController.Instance.HideItemDetails();
+                HUDController.Instance.HideDetails();
             }
 
             _curSelectedObject = clickObject;
@@ -62,7 +62,7 @@ namespace Controllers
             if (_curSelectedObject != null)
             {
                 _curSelectedObject.SelectObject();
-                HUDController.Instance.ShowItemDetails(selectionData);
+                HUDController.Instance.ShowItemDetails(_curSelectedObject.Owner);
             }
         }
 

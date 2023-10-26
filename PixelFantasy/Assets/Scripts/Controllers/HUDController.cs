@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Buildings;
 using Characters;
 using HUD;
+using Interfaces;
+using Items;
 using Managers;
 using Popups;
 using UnityEngine;
@@ -38,9 +40,9 @@ namespace Controllers
             _selectedItemInfoPanel.ShowUnitDetails(unit);
         }
 
-        public void ShowItemDetails(SelectionData selectionData)
+        public void ShowItemDetails(IClickableObject clickableObject)
         {
-            _selectedItemInfoPanel.ShowItemDetails(selectionData);
+            _selectedItemInfoPanel.ShowItemDetails(clickableObject);
         }
 
         public void ShowBuildingDetails(Building building)
@@ -48,11 +50,11 @@ namespace Controllers
             _selectedItemInfoPanel.ShowBuildingDetails(building);
         }
         
-        public void HideItemDetails()
+        public void HideDetails()
         {
             if (_selectedItemInfoPanel != null)
             {
-                _selectedItemInfoPanel.HideItemDetails();
+                _selectedItemInfoPanel.HideAllDetails();
             }
         }
 

@@ -136,6 +136,7 @@ namespace TaskSystem
                         
                         _isHoldingItem = true;
                         _craftedItem = Spawner.Instance.SpawnItem(_itemToCraft, _craftingTable.transform.position, false);
+                        _craftedItem.State.CraftersUID = _ai.Unit.UniqueId;
                         _ai.HoldItem(_craftedItem);
                         _craftedItem.SetHeld(true);
                         

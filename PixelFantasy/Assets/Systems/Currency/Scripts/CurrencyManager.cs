@@ -21,6 +21,11 @@ namespace Systems.Currency.Scripts
             GameEvents.HourTick += GameEvent_HourTick;
         }
 
+        private void Start()
+        {
+            AddGlimra(100); // TODO: Remove this!
+        }
+
         private void OnDestroy()
         {
             GameEvents.HourTick -= GameEvent_HourTick;
