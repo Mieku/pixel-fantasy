@@ -40,6 +40,11 @@ namespace Systems.SmartObjects.Scripts
         private void OnDestroy()
         {
             SmartObjectManager.Instance.DeregisterSmartObject(this);
+
+            foreach (var interaction in Interactions)
+            {
+                interaction.InterruptInteraction();
+            }
         }
     }
 }

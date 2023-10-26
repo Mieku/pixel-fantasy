@@ -150,7 +150,7 @@ namespace Systems.SmartObjects.Scripts
             }
         }
         
-        public override void CancelInteration(CommonAIBase performer)
+        public override void CancelInteraction(CommonAIBase performer)
         {
             base.OnInteractionCompleted(performer, _currentPerformer.OnCompleted);
             
@@ -162,6 +162,14 @@ namespace Systems.SmartObjects.Scripts
             {
                 performer.Unit.TaskAI.DropCarriedItem();
                 LinkedItem.SetHeld(true);
+            }
+        }
+        
+        public override void InterruptInteraction()
+        {
+            if (_currentPerformer != null)
+            {
+                CancelInteraction(_currentPerformer.Performer);
             }
         }
         

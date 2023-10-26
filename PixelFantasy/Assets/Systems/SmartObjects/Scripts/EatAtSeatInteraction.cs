@@ -187,7 +187,7 @@ namespace Systems.SmartObjects.Scripts
             return true;
         }
         
-        public override void CancelInteration(CommonAIBase performer)
+        public override void CancelInteraction(CommonAIBase performer)
         {
             base.OnInteractionCompleted(performer, _currentPerformer.OnCompleted);
             
@@ -199,6 +199,14 @@ namespace Systems.SmartObjects.Scripts
             {
                 performer.Unit.TaskAI.DropCarriedItem();
                 _selectedFoodItem.SetHeld(true);
+            }
+        }
+        
+        public override void InterruptInteraction()
+        {
+            if (_currentPerformer != null)
+            {
+                CancelInteraction(_currentPerformer.Performer);
             }
         }
         

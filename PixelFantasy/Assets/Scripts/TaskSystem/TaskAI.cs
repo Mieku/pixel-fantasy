@@ -164,6 +164,7 @@ namespace TaskSystem
                         }
                         else
                         {
+                            TaskManager.Instance.AddTask(task);
                             task = null;
                         }
                     }
@@ -232,7 +233,7 @@ namespace TaskSystem
 
             if (!taskAction.CanDoTask(task))
             {
-                // If no action is can't be done, return it to the queue
+                // If action can't be done, return it to the queue
                 TaskManager.Instance.AddTask(task);
                 _state = State.WaitingForNextTask;
                 return;
