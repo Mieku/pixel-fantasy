@@ -78,6 +78,16 @@ namespace Systems.Details.Generic_Details.Scripts
                     _displayedEntries.Add(resourceEntry.gameObject);
                 }
             }
+
+            if (growingResource != null)
+            {
+                if (growingResource.IsFruiting && growingResource.HasFruitAvailable)
+                {
+                    var textEntry = Instantiate(_entryTextDisplayPrefab, _contentLayout);
+                    textEntry.Init("Fruit Can Be Harvested!");
+                    _displayedEntries.Add(textEntry.gameObject);
+                }
+            }
         }
 
         private void ApplyItemEntries(IClickableObject clickableObject)

@@ -42,7 +42,7 @@ namespace Items
             return Health / GetWorkAmount();
         }
 
-        public string DisplayName => ResourceData.ResourceName;
+        public virtual string DisplayName => ResourceData.ResourceName;
 
         protected virtual void Awake()
         {

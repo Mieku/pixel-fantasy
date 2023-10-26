@@ -1,3 +1,4 @@
+using System;
 using Buildings;
 using Characters;
 using Controllers;
@@ -19,7 +20,7 @@ namespace HUD
 
         [Header("Building Details")] 
         [SerializeField] private BuildingDetailsUI _buildingDetails;
-
+        
         private void Start()
         {
             HideAllDetails();
@@ -45,15 +46,6 @@ namespace HUD
             _kinlingDetails.Hide();
             _buildingDetails.Hide();
         }
-
-        // public void ShowItemDetails(SelectionData selectionData)
-        // {
-        //     HideAllDetails();
-        //     
-        //     _genericDetails.Show(selectionData);
-        //
-        //     HUDOrders.Instance.DisplayOrders(selectionData); // TODO: Handle in the panel
-        // }
 
         public void ShowItemDetails(IClickableObject clickableObject)
         {

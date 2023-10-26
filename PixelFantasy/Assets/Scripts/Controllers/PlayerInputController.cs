@@ -16,6 +16,22 @@ namespace Controllers
         private bool _buildingInternalViewEnabled;
 
         public string StoredKey;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            GameEvents.OnRightClickUp += GameEvents_OnRightClickUp;
+        }
+
+        private void OnDestroy()
+        {
+            GameEvents.OnRightClickUp -= GameEvents_OnRightClickUp;
+        }
+        
+        protected void GameEvents_OnRightClickUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
+        {
+            ClearSelection();
+        }
         
         private void Update()
         {
@@ -35,7 +51,6 @@ namespace Controllers
             if (_curSelectedObject != null)
             {
                 _curSelectedObject.UnselectObject();
-                HUDController.Instance.HideDetails();
             }
             
             _curSelectedObject = clickObject;
@@ -54,7 +69,6 @@ namespace Controllers
             if (_curSelectedObject != null)
             {
                 _curSelectedObject.UnselectObject();
-                HUDController.Instance.HideDetails();
             }
 
             _curSelectedObject = clickObject;
@@ -63,6 +77,15 @@ namespace Controllers
             {
                 _curSelectedObject.SelectObject();
                 HUDController.Instance.ShowItemDetails(_curSelectedObject.Owner);
+            }
+        }
+
+        public void ClearSelection()
+        {
+            if (_curSelectedObject != null)
+            {
+                _curSelectedObject.UnselectObject();
+                HUDController.Instance.HideDetails();
             }
         }
 

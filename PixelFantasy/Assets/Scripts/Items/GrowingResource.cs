@@ -30,6 +30,20 @@ namespace Items
 
         private GrowingResourceData growingResourceData => ResourceData as GrowingResourceData;
 
+        public override string DisplayName
+        {
+            get
+            {
+                if (!_fullyGrown)
+                {
+                    var stageName = growingResourceData.GetGrowthStage(_growthIndex).StageName;
+                    return $"{ResourceData.ResourceName} ({stageName})";
+                }
+
+                return ResourceData.ResourceName;
+            }
+        }
+
         protected override void Awake()
         {
             base.Awake();
