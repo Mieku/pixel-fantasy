@@ -10,8 +10,7 @@ namespace Systems.Card.Scripts
 {
     public class BuildingCard : CardBase
     {
-        [TitleGroup("Building Card")] [SerializeField] private Image _buildingImage;
-        [TitleGroup("Building Card")] [SerializeField] private Image _blueprint;
+        [TitleGroup("Building Card")] [SerializeField] private Image _cardArt;
         [TitleGroup("Building Card")] [SerializeField] private Transform _costsParent;
         [TitleGroup("Building Card")] [SerializeField] private CardBuildCostDisplay _costDisplayPrefab;
 
@@ -24,6 +23,7 @@ namespace Systems.Card.Scripts
             _cardCostDisplay.text = _cardData.CardCost.ToString();
             _flavourText.text = _cardData.FlavourText;
             _cardNameDisplay.text = _cardData.CardName;
+            _cardArt.sprite = _cardData.CardArt;
 
             var buildCosts = _cardData.LinkedBuilding.BuildingData.GetResourceCosts();
             foreach (var buildCost in buildCosts)

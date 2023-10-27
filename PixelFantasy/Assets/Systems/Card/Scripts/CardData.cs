@@ -9,5 +9,6 @@ namespace Systems.Card.Scripts
         public abstract string CardName { get; }
         public abstract string FlavourText { get; }
         public abstract CardContent[] CardContents { get; }
+        public abstract Sprite CardArt { get;  }
     }
 }

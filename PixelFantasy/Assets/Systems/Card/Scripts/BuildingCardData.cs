@@ -9,6 +9,7 @@ namespace Systems.Card.Scripts
     public class BuildingCardData : CardData
     {
         [TitleGroup("Building Card")] [SerializeField] private Building _building;
+        [TitleGroup("Building Card")] [SerializeField] private Sprite _cardArt;
         [TitleGroup("Building Card")] [SerializeField] private int _cardCost;
         [TitleGroup("Building Card")] [SerializeField] private CardContent[] _cardContent;
 
@@ -27,5 +28,6 @@ namespace Systems.Card.Scripts
         }
 
         public override CardContent[] CardContents => _cardContent;
+        public override Sprite CardArt => _cardArt;
     }
 }

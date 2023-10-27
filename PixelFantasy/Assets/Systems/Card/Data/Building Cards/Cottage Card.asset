@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Cottage Card
   m_EditorClassIdentifier: 
   _building: {fileID: 4529720070378484586, guid: 956cf5e9de1369447a9ad0215fbf639d, type: 3}
+  _cardArt: {fileID: 21300000, guid: 2ee9a094b008af241a9b4a35ffa41d43, type: 3}
   _cardCost: 10
   _cardContent:
   - ContentOnCard: Houses 1 Kinling

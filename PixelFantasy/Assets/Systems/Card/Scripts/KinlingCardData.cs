@@ -9,5 +9,6 @@ namespace Systems.Card.Scripts
         public override string CardName { get; }
         public override string FlavourText { get; }
         public override CardContent[] CardContents { get; }
+        public override Sprite CardArt { get; }
     }
 }
