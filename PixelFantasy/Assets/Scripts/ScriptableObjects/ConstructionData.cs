@@ -9,6 +9,7 @@ namespace ScriptableObjects
     public class ConstructionData : ScriptableObject
     {
         public string ConstructionName;
+        [TextArea] public string ConstructionDetails;
         public float WorkCost;
         public Sprite Icon;
 

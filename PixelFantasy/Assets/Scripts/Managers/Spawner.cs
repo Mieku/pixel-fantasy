@@ -68,6 +68,7 @@ namespace Managers
         public RoofData RoofData { get; set; }
 
         public Transform ItemsParent => _itemsParent;
+        public Transform BuildingsParent => _structureParent;
 
         public PlacementDirection SetNextPlacementDirection(bool isClockwise)
         {
@@ -243,9 +244,11 @@ namespace Managers
             {
                 if (_plannedBuilding.CheckPlacement())
                 {
-                    PlayerInputController.Instance.ChangeState(PlayerInputState.None);
-                    _plannedBuilding.SetState(Building.BuildingState.Construction);
+                    var plannedBuilding = _plannedBuilding;
                     _plannedBuilding = null;
+                    PlayerInputController.Instance.ChangeState(PlayerInputState.None);
+                    plannedBuilding.SetState(Building.BuildingState.Construction);
+                    plannedBuilding.TriggerPlaced();
                 }
             }
         }
@@ -273,6 +276,7 @@ namespace Managers
             CancelPlanning();
             PlacementDirection = PlacementDirection.Down;
             _plannedFurnitureItemData = null;
+            _plannedBuilding = null;
         }
 
         public void ShowPlacementIcon(bool show, Sprite icon = null, List<String> invalidPlacementTags = null, float sizeOverride = 1f, Color? colourOverride = null)
@@ -475,10 +479,11 @@ namespace Managers
         }
         
         private Building _plannedBuilding;
-        public void PlanBuilding(Building building)
+        public void PlanBuilding(Building building, Action onBuildingPlaced = null)
         {
             _plannedBuilding = Instantiate(building, _structureParent);
             _plannedBuilding.SetState(Building.BuildingState.Planning);
+            _plannedBuilding.OnBuildingPlaced = onBuildingPlaced;
         }
 
         private Furniture _plannedFurniture;

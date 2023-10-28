@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ae75de740915d04586f444cfdcb0ebe, type: 3}
-  m_Name: Home
+  m_Name: Townhall
   m_EditorClassIdentifier: 
-  ConstructionName: Home
+  ConstructionName: Townhall
+  ConstructionDetails: 
   WorkCost: 10
-  Icon: {fileID: 21300000, guid: 610539ae872b17545b89bce07a2bf932, type: 3}
+  Icon: {fileID: 7033359609419058202, guid: 0aad73a0f4fe3f341bb7faa0e248191d, type: 3}
   _resourceCosts:
   - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
     Quantity: 5
@@ -22,13 +23,9 @@ MonoBehaviour:
   - Water
   - Wall
   - Obstacle
-  - Furniture
-  - Structure
   _planningMode: 2
   _requiredConstructorJob: {fileID: 11400000, guid: 2a72d8ac25ff79b44b0d862e30e16ba6, type: 2}
-  BuildingType: 0
-  MaxOccupants: 4
-  AllowedFurniture:
-  - {fileID: 11400000, guid: f1cb3944f249ec24f909ab4be3e97f91, type: 2}
-  - {fileID: 11400000, guid: 8054ef9a56e8daa448e71e48663b1de4, type: 2}
-  - {fileID: 11400000, guid: 54f7579509018e142be034f672827fb3, type: 2}
+  BuildingType: 1
+  MaxOccupants: 2
+  AllowedFurniture: []
+  LinkedBuilding: {fileID: 7416500736889363446, guid: 1d4fff2bb5edb6347b92c9ed68d1d4ab, type: 3}

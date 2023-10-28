@@ -3780,7 +3780,7 @@ GameObject:
   - component: {fileID: 5596007926291928697}
   - component: {fileID: 3164130514233476479}
   m_Layer: 0
-  m_Name: House
+  m_Name: Cottage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3825,7 +3825,7 @@ MonoBehaviour:
   _icon: {fileID: 0}
   Commands: []
   PendingCommand: {fileID: 0}
-  BuildingID: House
+  BuildingID: Cottage
   _buildingData: {fileID: 11400000, guid: 6d593da13671482418da31ade96795d4, type: 2}
   _footings: {fileID: 4983041443223141814}
   _internalHandle: {fileID: 4928138789695397395}

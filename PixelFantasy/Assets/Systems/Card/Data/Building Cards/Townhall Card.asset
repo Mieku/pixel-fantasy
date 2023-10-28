@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 277e30c5fcf593647a73ea0cae38ac62, type: 3}
-  m_Name: Cottage Card Tester
+  m_Name: Townhall Card
   m_EditorClassIdentifier: 
-  _building: {fileID: 4529720070378484586, guid: 956cf5e9de1369447a9ad0215fbf639d, type: 3}
-  _cardCost: 20
+  _building: {fileID: 7416500736889363446, guid: 1d4fff2bb5edb6347b92c9ed68d1d4ab, type: 3}
+  _cardArt: {fileID: 21300000, guid: 78b898c476599764fb12b76c39a4c4e7, type: 3}
+  _cardCost: 10
   _cardContent:
-  - ContentOnCard: Houses 1 Kinling
-    ExpandedContent: Im a tester!
+  - ContentOnCard: Builder's Workplace
+    ExpandedContent: 
     ContentType: 0
-  - ContentOnCard: Another Test!
-    ExpandedContent: blah blah!
-    ContentType: 2
+  - ContentOnCard: Storage Space
+    ExpandedContent: 
+    ContentType: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CodeMonkey.Utils;
 using Sirenix.OdinInspector;
@@ -13,6 +14,11 @@ namespace Systems.Card.Scripts
 
         private List<CardSlot> _displayedCardSlots = new List<CardSlot>();
         private const float DISPLAY_OFFSET_TIME = 0.3f;
+
+        private void Start()
+        {
+            DisplayCards(); // TODO: Remove this, just here for easier debug
+        }
 
         public void RemoveCard(CardBase card)
         {

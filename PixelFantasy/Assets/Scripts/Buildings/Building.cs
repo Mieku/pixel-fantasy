@@ -44,7 +44,16 @@ namespace Buildings
         public List<InventoryLogisticBill> LogisticBills => _logisticsBills;
         public List<Furniture> AllFurniture => _allFurniture;
         public Action<List<Furniture>> OnBuildingFurnitureChanged;
+        public Action OnBuildingPlaced;
 
+        public void TriggerPlaced()
+        {
+            if (OnBuildingPlaced != null)
+            {
+                OnBuildingPlaced.Invoke();
+            }
+        }
+        
         private void CheckLogistics()
         {
             foreach (var bill in _logisticsBills)

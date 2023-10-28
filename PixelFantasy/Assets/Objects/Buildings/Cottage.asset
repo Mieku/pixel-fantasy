@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ae75de740915d04586f444cfdcb0ebe, type: 3}
+  m_Name: Cottage
+  m_EditorClassIdentifier: 
+  ConstructionName: Cottage
+  ConstructionDetails: 'A Small Home
+
+    - Houses 1 Kinling'
+  WorkCost: 10
+  Icon: {fileID: 21300000, guid: d68903f84656adc4a85c41fa8b42fe29, type: 3}
+  _resourceCosts:
+  - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
+    Quantity: 5
+  _invalidPlacementTags:
+  - Water
+  - Wall
+  - Obstacle
+  - Furniture
+  - Structure
+  _planningMode: 2
+  _requiredConstructorJob: {fileID: 11400000, guid: 2a72d8ac25ff79b44b0d862e30e16ba6, type: 2}
+  BuildingType: 0
+  MaxOccupants: 3
+  AllowedFurniture:
+  - {fileID: 11400000, guid: f1cb3944f249ec24f909ab4be3e97f91, type: 2}
+  - {fileID: 11400000, guid: 8054ef9a56e8daa448e71e48663b1de4, type: 2}
+  - {fileID: 11400000, guid: 54f7579509018e142be034f672827fb3, type: 2}
+  LinkedBuilding: {fileID: 4529720070378484586, guid: 956cf5e9de1369447a9ad0215fbf639d, type: 3}
