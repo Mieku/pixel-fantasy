@@ -123,6 +123,11 @@ namespace Items
             return _remainingWork;
         }
 
+        public override HarvestableItems GetHarvestableItems()
+        {
+            return _mountainData.HarvestableItems;
+        }
+
         public override object CaptureState()
         {
             return new State

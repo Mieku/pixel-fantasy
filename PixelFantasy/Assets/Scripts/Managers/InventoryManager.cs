@@ -171,5 +171,11 @@ namespace Managers
                 return 0;
             }
         }
+
+        public bool CanAfford(ItemData itemData, int amount)
+        {
+            var availableAmount = GetAmountAvailable(itemData);
+            return amount <= availableAmount;
+        }
     }
 }

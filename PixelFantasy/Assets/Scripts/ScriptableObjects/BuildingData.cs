@@ -13,6 +13,7 @@ namespace ScriptableObjects
         public BuildingType BuildingType;
         public int MaxOccupants;
         public List<FurnitureItemData> AllowedFurniture = new List<FurnitureItemData>();
+        public Building LinkedBuilding;
 
         public bool IsFurnitureAllowed(FurnitureItemData furnitureItemData)
         {

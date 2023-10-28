@@ -247,6 +247,7 @@ MonoBehaviour:
     Value: 0.1
   _allowAmbientStats: 0
   _beginInteractionAtSmartObject: 1
+  _interactionEmotion: {fileID: 0}
   _interactionType: 1
   _maxSimultaneousUsers: 1
 --- !u!1 &3322999528223052517

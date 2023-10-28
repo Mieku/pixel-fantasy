@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 277e30c5fcf593647a73ea0cae38ac62, type: 3}
+  m_Name: Cottage Card
+  m_EditorClassIdentifier: 
+  _building: {fileID: 4529720070378484586, guid: 956cf5e9de1369447a9ad0215fbf639d, type: 3}
+  _cardArt: {fileID: 21300000, guid: 2ee9a094b008af241a9b4a35ffa41d43, type: 3}
+  _cardCost: 10
+  _cardContent:
+  - ContentOnCard: Houses 1 Kinling
+    ExpandedContent: 
+    ContentType: 0

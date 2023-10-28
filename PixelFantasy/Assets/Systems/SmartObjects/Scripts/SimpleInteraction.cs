@@ -83,7 +83,7 @@ namespace Systems.SmartObjects.Scripts
             return true;
         }
 
-        public override void CancelInteration(CommonAIBase performer)
+        public override void CancelInteraction(CommonAIBase performer)
         {
             if (_currentPerformers[performer] != null)
             {
@@ -92,6 +92,18 @@ namespace Systems.SmartObjects.Scripts
             else
             {
                 OnInteractionCompleted(performer, null);
+            }
+        }
+
+        public override void InterruptInteraction()
+        {
+            foreach (var currentPerformer in _currentPerformers)
+            {
+                var performer = currentPerformer.Key;
+                if (performer != null)
+                {
+                    CancelInteraction(performer);
+                }
             }
         }
 

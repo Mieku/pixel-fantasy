@@ -11,11 +11,13 @@ namespace ScriptableObjects
         [SerializeField] private HarvestableItems _minedResources;
         [SerializeField] private RuleTile _ruleTile;
 
+        public HarvestableItems HarvestableItems => _minedResources;
+        
         public RuleTile GetRuleTile()
         {
             return _ruleTile;
         }
-        
+
         public List<ItemAmount> GetMineDrop()
         {
             if (_minedResources != null)

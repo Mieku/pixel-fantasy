@@ -9,14 +9,17 @@ namespace ScriptableObjects
     public class ConstructionData : ScriptableObject
     {
         public string ConstructionName;
+        [TextArea] public string ConstructionDetails;
         public float WorkCost;
         public Sprite Icon;
 
         [SerializeField] private List<ItemAmount> _resourceCosts;
         [SerializeField] private List<string> _invalidPlacementTags;
         [SerializeField] private PlanningMode _planningMode;
+        [SerializeField] private JobData _requiredConstructorJob;
         
         public PlanningMode PlanningMode => _planningMode;
+        public JobData RequiredConstructorJob => _requiredConstructorJob;
         
         public List<ItemAmount> GetResourceCosts()
         {

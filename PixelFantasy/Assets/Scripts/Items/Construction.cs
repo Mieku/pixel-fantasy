@@ -23,7 +23,12 @@ namespace Items
         protected Action _onDeconstructed;
         protected float _remainingWork;
 
-
+        public string DisplayName => GetConstructionData().ConstructionName;
+        
+        public PlayerInteractable GetPlayerInteractable()
+        {
+            return this;
+        }
         
         public virtual ConstructionData GetConstructionData()
         {
@@ -156,7 +161,7 @@ namespace Items
             var infoPanel = FindObjectOfType<SelectedItemInfoPanel>();
             if (infoPanel != null)
             {
-                infoPanel.HideItemDetails();
+                infoPanel.HideAllDetails();
             }
 
             if (_onDeconstructed != null)

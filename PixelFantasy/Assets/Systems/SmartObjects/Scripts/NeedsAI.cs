@@ -130,7 +130,7 @@ namespace Systems.SmartObjects.Scripts
         {
             if (_curInteraction != null)
             {
-                _curInteraction.CancelInteration(this);
+                _curInteraction.CancelInteraction(this);
             }
         }
     }

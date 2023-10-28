@@ -20,6 +20,8 @@ namespace ScriptableObjects
         [BoxGroup("Fruit")][ShowIf("_hasFruit")] [SerializeField] private HarvestableItems _harvestableFruit;
         [BoxGroup("Fruit")][ShowIf("_hasFruit")] [SerializeField] private int _workToHarvest;
 
+        
+        
         public List<GrowthStage> GrowthStages
         {
             get
@@ -42,6 +44,17 @@ namespace ScriptableObjects
                 growthIndex = GrowthStages.Count - 1;
             
             return stages[growthIndex];
+        }
+
+        public float TotalGrowTime()
+        {
+            float totalGrowTime = 0;
+            foreach (var stage in GrowthStages)
+            {
+                totalGrowTime += stage.SecsInStage;
+            }
+
+            return totalGrowTime;
         }
 
         public int GetWorkToCut(int growthIndex)

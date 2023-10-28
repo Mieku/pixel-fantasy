@@ -71,7 +71,12 @@ namespace Systems.SmartObjects.Scripts
         
         public abstract bool Perform(CommonAIBase performer, UnityAction<BaseInteraction> onCompleted);
 
-        public abstract void CancelInteration(CommonAIBase performer);
+        public abstract void CancelInteraction(CommonAIBase performer);
+
+        /// <summary>
+        /// Cancels the interaction for all performers, for example the smart object is destroyed while being interacted with
+        /// </summary>
+        public abstract void InterruptInteraction();
 
         public abstract bool UnlockInteraction(CommonAIBase performer);
 

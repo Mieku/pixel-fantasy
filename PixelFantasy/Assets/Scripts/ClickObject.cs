@@ -43,10 +43,6 @@ public class ClickObject : MonoBehaviour
 
     private void Initialize()
     {
-        // Prevents weird selection bug
-        // gameObject.SetActive(false);
-        // gameObject.SetActive(true);
-        
         switch (_objectType)
         {
             case ObjectType.Item:
@@ -95,8 +91,7 @@ public class ClickObject : MonoBehaviour
     {
         if (IsSelected)
         {
-            var data = GetSelectionData();
-            PlayerInputController.Instance.SelectObject(this, data);
+            PlayerInputController.Instance.SelectObject(this);
         }
     }
 
@@ -184,95 +179,94 @@ public class ClickObject : MonoBehaviour
             }
             else
             {
-                SelectionData data = GetSelectionData();
-                PlayerInputController.Instance.SelectObject(this, data);
+                PlayerInputController.Instance.SelectObject(this);
             }
         }
     }
 
-    private SelectionData GetSelectionData()
-    {
-        switch (_objectType)
-        {
-            case ObjectType.Item:
-                return GetSelectionData(_itemData);
-            case ObjectType.Structure:
-                return GetSelectionData(_structureData);
-            case ObjectType.Resource:
-            case ObjectType.Mountain:
-                return GetSelectionData(growingResourceData);
-            case ObjectType.Floor:
-                return GetSelectionData(_floorData);
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-    }
+    // private SelectionData GetSelectionData()
+    // {
+    //     switch (_objectType)
+    //     {
+    //         case ObjectType.Item:
+    //             return GetSelectionData(_itemData);
+    //         case ObjectType.Structure:
+    //             return GetSelectionData(_structureData);
+    //         case ObjectType.Resource:
+    //         case ObjectType.Mountain:
+    //             return GetSelectionData(growingResourceData);
+    //         case ObjectType.Floor:
+    //             return GetSelectionData(_floorData);
+    //         default:
+    //             throw new ArgumentOutOfRangeException();
+    //     }
+    // }
     
-    private SelectionData GetSelectionData(ConstructionData itemData)
-    {
-        SelectionData result = new SelectionData
-        {
-            ItemName = itemData.ConstructionName,
-            ClickObject = this,
-            Requestor = GetComponent<PlayerInteractable>(),
-        };
-
-        return result;
-    }
+    // private SelectionData GetSelectionData(ConstructionData itemData)
+    // {
+    //     SelectionData result = new SelectionData
+    //     {
+    //         ItemName = itemData.ConstructionName,
+    //         ClickObject = this,
+    //         Requestor = GetComponent<PlayerInteractable>(),
+    //     };
+    //
+    //     return result;
+    // }
     
-    private SelectionData GetSelectionData(ItemData itemData)
-    {
-        SelectionData result = new SelectionData
-        {
-            ItemName = itemData.ItemName,
-            ClickObject = this,
-            Requestor = GetComponent<PlayerInteractable>(),
-        };
-
-        return result;
-    }
+    // private SelectionData GetSelectionData(ItemData itemData)
+    // {
+    //     SelectionData result = new SelectionData
+    //     {
+    //         ItemName = itemData.ItemName,
+    //         ClickObject = this,
+    //         Requestor = GetComponent<PlayerInteractable>(),
+    //     };
+    //
+    //     return result;
+    // }
     
-    private SelectionData GetSelectionData(StructureData structureData)
-    {
-        SelectionData result = new SelectionData
-        {
-            ItemName = structureData.ConstructionName,
-            ClickObject = this,
-            Requestor = GetComponent<PlayerInteractable>(),
-        };
-
-        return result;
-    }
+    // private SelectionData GetSelectionData(StructureData structureData)
+    // {
+    //     SelectionData result = new SelectionData
+    //     {
+    //         ItemName = structureData.ConstructionName,
+    //         ClickObject = this,
+    //         Requestor = GetComponent<PlayerInteractable>(),
+    //     };
+    //
+    //     return result;
+    // }
     
-    private SelectionData GetSelectionData(ResourceData growingResourceData)
-    {
-        var commands = Owner.GetCommands();
-        
-        SelectionData result = new SelectionData
-        {
-            ItemName = growingResourceData.ResourceName,
-            Commands = commands,
-            ClickObject = this,
-            Requestor = GetComponent<PlayerInteractable>(),
-        };
-
-        return result;
-    }
+    // private SelectionData GetSelectionData(ResourceData growingResourceData)
+    // {
+    //     var commands = Owner.GetCommands();
+    //     
+    //     SelectionData result = new SelectionData
+    //     {
+    //         ItemName = growingResourceData.ResourceName,
+    //         Commands = commands,
+    //         ClickObject = this,
+    //         Requestor = GetComponent<PlayerInteractable>(),
+    //     };
+    //
+    //     return result;
+    // }
     
-    private SelectionData GetSelectionData(FloorData floorData)
-    {
-        SelectionData result = new SelectionData
-        {
-            ItemName = floorData.ConstructionName,
-            ClickObject = this,
-            Requestor = GetComponent<PlayerInteractable>(),
-        };
-
-        return result;
-    }
+    // private SelectionData GetSelectionData(FloorData floorData)
+    // {
+    //     SelectionData result = new SelectionData
+    //     {
+    //         ItemName = floorData.ConstructionName,
+    //         ClickObject = this,
+    //         Requestor = GetComponent<PlayerInteractable>(),
+    //     };
+    //
+    //     return result;
+    // }
 }
 
-public class SelectionData
+public class SelectionData // TODO: Get rid of this!
 {
     public string ItemName;
     public List<Command> Commands;

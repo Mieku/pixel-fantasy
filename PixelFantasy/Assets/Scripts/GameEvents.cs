@@ -149,9 +149,27 @@ public class GameEvents : MonoBehaviour
         if (MinuteTick != null) MinuteTick();
     }
 
+    public static event Action<int> HourTick;
+    public static void Trigger_HourTick(int currentHour)
+    {
+        if (HourTick != null) HourTick(currentHour);
+    }
+
     public static event Action<Unit> OnKinlingChanged;
     public static void Trigger_OnKinlingChanged(Unit unit)
     {
         if (OnKinlingChanged != null) OnKinlingChanged(unit);
+    }
+
+    public static event Action OnGlimraDue;
+    public static void Trigger_OnGlimraDue()
+    {
+        if (OnGlimraDue != null) OnGlimraDue();
+    }
+
+    public static event Action<int> OnGlimraTotalChanged;
+    public static void Trigger_OnGlimraTotalChanged(int totalGlimra)
+    {
+        if (OnGlimraTotalChanged != null) OnGlimraTotalChanged(totalGlimra);
     }
 }

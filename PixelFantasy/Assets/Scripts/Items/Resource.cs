@@ -3,6 +3,7 @@ using DataPersistence;
 using Interfaces;
 using Managers;
 using ScriptableObjects;
+using Systems.Details.Generic_Details.Scripts;
 using TaskSystem;
 using UnityEngine;
 
@@ -15,16 +16,38 @@ namespace Items
         public ResourceData ResourceData;
         [SerializeField] protected SpriteRenderer _spriteRenderer;
         [SerializeField] private ClickObject _clickObject;
-        
+
         protected Spawner spawner => Spawner.Instance;
         protected Task _curTask;
-        
+
         public float Health;
+
+        public PlayerInteractable GetPlayerInteractable()
+        {
+            return this;
+        }
+
+        public virtual HarvestableItems GetHarvestableItems()
+        {
+            return null;
+        }
+
+        public Sprite GetHealthIcon()
+        {
+            return Librarian.Instance.GetSprite("Health");
+        }
+
+        public float GetHealthPercentage()
+        {
+            return Health / GetWorkAmount();
+        }
+
+        public virtual string DisplayName => ResourceData.ResourceName;
 
         protected virtual void Awake()
         {
             _clickObject = GetComponent<ClickObject>();
-            //Health = GetWorkAmount();
+            Health = GetWorkAmount();
         }
 
         public bool HasTask => _curTask != null;

@@ -30,6 +30,20 @@ namespace Items
 
         private GrowingResourceData growingResourceData => ResourceData as GrowingResourceData;
 
+        public override string DisplayName
+        {
+            get
+            {
+                if (!_fullyGrown)
+                {
+                    var stageName = growingResourceData.GetGrowthStage(_growthIndex).StageName;
+                    return $"{ResourceData.ResourceName} ({stageName})";
+                }
+
+                return ResourceData.ResourceName;
+            }
+        }
+
         protected override void Awake()
         {
             base.Awake();
@@ -71,6 +85,25 @@ namespace Items
             _spriteRenderer.sprite = stage.GrowthSprite;
             _spriteRenderer.gameObject.transform.localScale = new Vector3(scaleOverride, scaleOverride, 1);
         }
+
+        public override HarvestableItems GetHarvestableItems()
+        {
+            var stage = growingResourceData.GetGrowthStage(_growthIndex);
+            return stage.HarvestableItems;
+        }
+
+        public float GetGrowthPercentage()
+        {
+            if (_fullyGrown) return 1f;
+            
+            var growthPercent = _ageSec / growingResourceData.TotalGrowTime();
+            return Mathf.Clamp01(growthPercent);
+        }
+
+        public Sprite GetGrowthIcon()
+        {
+            return Librarian.Instance.GetSprite("Growth");
+        }
         
         protected void GrowthCheck()
         {
@@ -95,6 +128,21 @@ namespace Items
                     UpdateSprite();
                 }
             }
+        }
+
+        public Sprite GetFruitIcon()
+        {
+            if (!IsFruiting) return null;
+            
+            return growingResourceData.GetFruitLoot()[0].Item.ItemSprite;
+        }
+
+        public float GetFruitingPercentage()
+        {
+            if (_hasFruitAvailable) return 1f;
+            
+            var percent = _fruitTimer / growingResourceData.TimeToGrowFruit;
+            return Mathf.Clamp01(percent);
         }
 
         protected void FruitCheck()

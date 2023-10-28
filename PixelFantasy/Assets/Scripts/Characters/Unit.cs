@@ -5,6 +5,7 @@ using DataPersistence;
 using Items;
 using Managers;
 using ScriptableObjects;
+using Systems.Currency.Scripts;
 using Systems.Mood.Scripts;
 using Systems.SmartObjects.Scripts;
 using Systems.Social.Scripts;
@@ -29,6 +30,9 @@ namespace Characters
         
         [Header("Traits")] 
         [SerializeField] protected List<Trait> _traits;
+
+        [Header("Glimra")] 
+        [SerializeField] protected int _dailyGlimra;
  
         [SerializeField] private SortingGroup _sortingGroup;
         [SerializeField] private PositionRendererSorter _positionRendererSorter;
@@ -52,6 +56,8 @@ namespace Characters
         private void Awake()
         {
             UnitsManager.Instance.RegisterKinling(this);
+
+            GameEvents.OnGlimraDue += GameEvent_OnGlimraDue;
         }
 
         private void Start()
@@ -64,6 +70,13 @@ namespace Characters
         private void OnDestroy()
         {
             UnitsManager.Instance.DeregisterKinling(this);
+            
+            GameEvents.OnGlimraDue -= GameEvent_OnGlimraDue;
+        }
+
+        private void GameEvent_OnGlimraDue()
+        {
+            CurrencyManager.Instance.AddGlimra(_dailyGlimra);
         }
 
         public void SetInsideBuilding(Building building)

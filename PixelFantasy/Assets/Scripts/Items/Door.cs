@@ -235,7 +235,7 @@ namespace Items
             var infoPanel = FindObjectOfType<SelectedItemInfoPanel>();
             if (infoPanel != null)
             {
-                infoPanel.HideItemDetails();
+                infoPanel.HideAllDetails();
             }
 
             // Delete the structure

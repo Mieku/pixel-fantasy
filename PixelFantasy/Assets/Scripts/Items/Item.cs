@@ -30,6 +30,11 @@ namespace Items
         public Storage AssignedStorage;
 
         public ItemState State { get; private set; }
+        
+        public PlayerInteractable GetPlayerInteractable()
+        {
+            return this;
+        }
 
         public ClickObject GetClickObject()
         {
@@ -205,7 +210,9 @@ namespace Items
         {
             return Commands;
         }
-        
+
+        public string DisplayName => _itemData.ItemName;
+
         public object CaptureState()
         {
             return new Data

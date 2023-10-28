@@ -215,11 +215,11 @@ namespace Items
             var collider = GetComponent<BoxCollider2D>();
             collider.enabled = false;
 
-            var infoPanel = FindObjectOfType<SelectedItemInfoPanel>();
-            if (infoPanel != null)
-            {
-                infoPanel.HideItemDetails();
-            }
+            // var infoPanel = FindObjectOfType<SelectedItemInfoPanel>();
+            // if (infoPanel != null)
+            // {
+            //     infoPanel.HideItemDetails();
+            // }
 
             ClearTile();
             

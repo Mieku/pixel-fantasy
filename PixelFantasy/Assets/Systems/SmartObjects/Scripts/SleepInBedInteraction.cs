@@ -126,9 +126,17 @@ namespace Systems.SmartObjects.Scripts
             return true;
         }
         
-        public override void CancelInteration(CommonAIBase performer)
+        public override void CancelInteraction(CommonAIBase performer)
         {
             OnInteractionCompleted(performer, _currentPerformer.OnCompleted);
+        }
+        
+        public override void InterruptInteraction()
+        {
+            if (_currentPerformer != null)
+            {
+                CancelInteraction(_currentPerformer.Performer);
+            }
         }
         
         protected override void OnInteractionCompleted(CommonAIBase performer, UnityAction<BaseInteraction> onCompleted) //6
