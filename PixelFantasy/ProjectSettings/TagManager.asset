@@ -71,6 +71,9 @@ TagManager:
   - name: Mountain
     uniqueID: 1573088013
     locked: 0
+  - name: Indoors
+    uniqueID: 1749739409
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

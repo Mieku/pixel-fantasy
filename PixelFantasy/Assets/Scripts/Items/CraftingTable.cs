@@ -30,7 +30,8 @@ namespace Items
 
         private void SearchForTask()
         {
-            if (IsInUse || !IsBuilt || (_curTask != null && _curTask.TaskId != "")) return;
+            if (FurnitureState != EFurnitureState.Built) return;
+            if (IsInUse || (_curTask != null && _curTask.TaskId != "")) return;
 
             if (_parentBuilding is ProductionBuilding prodBuilding)
             {

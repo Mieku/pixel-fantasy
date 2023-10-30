@@ -84,18 +84,11 @@ namespace Systems.SmartObjects.Scripts
                 Debug.LogError($"{performer.name} tried to perform {_displayName} which was locked by someone else: {_currentPerformer.Performer.name}");
                 return false;
             }
-
-            _currentPerformer.Performer.Unit.IsAsleep = true;
-            
-            _linkedFurniture.AssignFurnitureToKinling(_currentPerformer.Performer.Unit);
-            _linkedFurniture.ShowTopSheet(true);
-
-            int orderlayer = _linkedFurniture.GetBetweenTheSheetsLayerOrder();
             
             // Teleport them into the bed
-            _currentPerformer.Performer.Unit.AssignAndLockLayerOrder(orderlayer);
             _preTeleportPos = _currentPerformer.Performer.transform.position;
             _currentPerformer.Performer.Unit.UnitAgent.TeleportToPosition(_sleepLocation.position, true);
+            _linkedFurniture.EnterBed(_currentPerformer.Performer.Unit);
             
             // Do sleeping Animation
             performer.Unit.UnitAnimController.SetUnitAction(_performingAnimation);
@@ -145,12 +138,8 @@ namespace Systems.SmartObjects.Scripts
 
             if (_currentPerformer.HasStarted)
             {
-                _currentPerformer.Performer.Unit.IsAsleep = false;
-                
                 _currentPerformer.Performer.Unit.UnitAgent.TeleportToPosition(_preTeleportPos, false);
-                _linkedFurniture.ShowTopSheet(true);
-            
-                _currentPerformer.Performer.Unit.UnlockLayerOrder();
+                _linkedFurniture.ExitBed(_currentPerformer.Performer.Unit);
             }
             
             performer.Unit.UnitAnimController.SetUnitAction(UnitAction.Nothing);

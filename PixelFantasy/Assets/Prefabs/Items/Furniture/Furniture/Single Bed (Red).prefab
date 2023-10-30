@@ -145,7 +145,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8679221839148330294}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5107339877033641495
 SpriteRenderer:
@@ -235,7 +235,7 @@ Transform:
   - {fileID: 920817054590527225}
   - {fileID: 9159909669173388004}
   m_Father: {fileID: 8679221839148330294}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &9051879930371613397
 Rigidbody2D:
@@ -320,6 +320,7 @@ MonoBehaviour:
     Value: 5
   _allowAmbientStats: 1
   _beginInteractionAtSmartObject: 1
+  _interactionEmotion: {fileID: 0}
   _linkedFurniture: {fileID: 5935236254734965145}
   _sleepLocation: {fileID: 9159909669173388004}
 --- !u!1 &4782468268824709326
@@ -510,8 +511,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8679221838297705576}
-  - component: {fileID: 7750591463387969904}
-  - component: {fileID: 1092838437596691592}
   m_Layer: 0
   m_Name: Furniture Sprites
   m_TagString: Untagged
@@ -535,32 +534,6 @@ Transform:
   m_Father: {fileID: 8679221839148330294}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!210 &7750591463387969904
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8679221838297705577}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!114 &1092838437596691592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8679221838297705577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _offset: 0
-  _runOnlyOnce: 0
-  _sortingGroup: {fileID: 7750591463387969904}
 --- !u!1 &8679221839148330295
 GameObject:
   m_ObjectHideFlags: 0
@@ -573,6 +546,8 @@ GameObject:
   - component: {fileID: 8679221839148330441}
   - component: {fileID: 5935236254734965145}
   - component: {fileID: 8425493286625524663}
+  - component: {fileID: 3727079577199512395}
+  - component: {fileID: 8249622731205630430}
   m_Layer: 0
   m_Name: Single Bed (Red)
   m_TagString: Furniture
@@ -595,6 +570,7 @@ Transform:
   - {fileID: 4538975448664881012}
   - {fileID: 795657465536751454}
   - {fileID: 8679221838297705576}
+  - {fileID: 5476185194505731617}
   - {fileID: 8774585472896596939}
   - {fileID: 5767971191934948570}
   m_Father: {fileID: 0}
@@ -643,10 +619,11 @@ MonoBehaviour:
   PendingCommand: {fileID: 0}
   _spritesRoot: {fileID: 8679221838297705576}
   _useageMarkersRoot: {fileID: 795657465536751454}
-  _furnitureItemData: {fileID: 0}
+  _furnitureItemData: {fileID: 11400000, guid: 54f7579509018e142be034f672827fb3, type: 2}
   _smartObject: {fileID: 0}
   _singleOwner: 1
-  IsBuilt: 0
+  FurnitureState: 0
+  UsingParent: {fileID: 5476185194505731617}
   _topSheet: {fileID: 5107339877033641495}
 --- !u!114 &8425493286625524663
 MonoBehaviour:
@@ -661,6 +638,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueID: 
+--- !u!210 &3727079577199512395
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8679221839148330295}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &8249622731205630430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8679221839148330295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _offset: 0.5
+  _runOnlyOnce: 0
+  _sortingGroup: {fileID: 3727079577199512395}
+  _checkLocal: 0
 --- !u!1 &8679221839988455411
 GameObject:
   m_ObjectHideFlags: 0
@@ -829,3 +833,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &9194728645171259234
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5476185194505731617}
+  m_Layer: 0
+  m_Name: _Using Parent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5476185194505731617
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9194728645171259234}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8679221839148330294}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

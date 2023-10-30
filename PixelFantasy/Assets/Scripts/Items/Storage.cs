@@ -23,7 +23,7 @@ namespace Items
 
         protected override void Awake()
         {
-            if (_storageItemData != null && IsBuilt)
+            if (_storageItemData != null && FurnitureState == EFurnitureState.Built)
             {
                 Init(_storageItemData);
             }

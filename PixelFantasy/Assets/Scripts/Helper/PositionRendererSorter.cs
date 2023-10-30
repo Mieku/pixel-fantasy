@@ -7,13 +7,14 @@ public class PositionRendererSorter : MonoBehaviour
     [SerializeField] private float _offset = 0.5f;
     [SerializeField] private bool _runOnlyOnce = false;
     [SerializeField] private SortingGroup _sortingGroup;
+    [SerializeField] private bool _checkLocal;
     
     private int _sortingOrderBase = 0;
     private float _timer;
     private float _timerMax = 0.1f;
     private Renderer _myRenderer;
     private bool _isLocked;
-    
+
     private void Awake()
     {
         _myRenderer = gameObject.GetComponent<Renderer>();
@@ -43,14 +44,23 @@ public class PositionRendererSorter : MonoBehaviour
         _isLocked = isLocked;
     }
     
-    private void SortRendererPosition() {
+    private void SortRendererPosition()
+    {
+
+        float yPos = transform.position.y;
+        if (_checkLocal)
+        {
+            yPos = transform.localPosition.y;
+        }
+        
+        
         if (_sortingGroup != null)
         {
-            _sortingGroup.sortingOrder = (int)(_sortingOrderBase - (transform.position.y + _offset) * 10);
+            _sortingGroup.sortingOrder = (int)(_sortingOrderBase - (yPos + _offset) * 10);
         }
         else
         {
-            _myRenderer.sortingOrder = (int)(_sortingOrderBase - (transform.position.y + _offset) * 10);
+            _myRenderer.sortingOrder = (int)(_sortingOrderBase - (yPos + _offset) * 10);
         }
     }
 
@@ -66,4 +76,6 @@ public class PositionRendererSorter : MonoBehaviour
         _sortingGroup = gameObject.GetComponent<SortingGroup>();
         SortRendererPosition();
     }
+
+    public float Offset => _offset;
 }

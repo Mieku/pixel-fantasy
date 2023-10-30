@@ -7,9 +7,11 @@ using Controllers;
 using Items;
 using Managers;
 using ScriptableObjects;
+using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using TaskSystem;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Buildings
 {
@@ -28,6 +30,17 @@ namespace Buildings
         [SerializeField] private GameObject _shadowboxHandle;
         [SerializeField] private Transform _constructionStandPos;
         [SerializeField] private BuildingInteriorDetector _buildingInteriorDetector;
+        [SerializeField] private GameObject _furnitureParentHandle;
+        
+        [TitleGroup("Layering")] [SerializeField] private float _buildingDepth;
+        [TitleGroup("Layering")] [SerializeField] private SortingGroup _exteriorSortingGroup;
+        [TitleGroup("Layering")] [SerializeField] private SpriteRenderer _interiorSortingGroup;
+        [TitleGroup("Layering")] [SerializeField] private SpriteRenderer _interiorForegroundSortingGroup;
+        [TitleGroup("Layering")] [SerializeField] private SortingGroup _doorSortingGroup;
+        public const float _exteriorOffset = 0.25f;
+        public const float _interiorOffset = 0.5f;
+        public const float _interiorForegroundOffset = 0.3f;
+        public const float _doorOffset = 0;
 
         public BuildingData BuildingData => _buildingData;
 
@@ -45,6 +58,23 @@ namespace Buildings
         public List<Furniture> AllFurniture => _allFurniture;
         public Action<List<Furniture>> OnBuildingFurnitureChanged;
         public Action OnBuildingPlaced;
+
+        [Button("Update Layering")]
+        public void UpdateLayering()
+        {
+            //_sortingGroup.sortingOrder = (int)(_sortingOrderBase - (yPos + _offset) * 10);
+            var yPos = transform.position.y;
+            var buildingDepthOffset = yPos + _buildingDepth;
+            var exteriorOffset = 0f - (yPos + _exteriorOffset) * 10;
+            var interiorOffset = 0f - (buildingDepthOffset + _interiorOffset) * 10;
+            var interiorForegroundOffset = 0f - (yPos + _interiorForegroundOffset) * 10;
+            var doorOffset = 0f - (yPos + _doorOffset) * 10;
+
+            _exteriorSortingGroup.sortingOrder = (int)exteriorOffset;
+            _interiorSortingGroup.sortingOrder = (int)interiorOffset;
+            _interiorForegroundSortingGroup.sortingOrder = (int)interiorForegroundOffset;
+            _doorSortingGroup.sortingOrder = (int)doorOffset;
+        }
 
         public void TriggerPlaced()
         {
@@ -97,6 +127,11 @@ namespace Buildings
             Debug.LogError($"Tried to update an not existing bill: {originalBill}, created instead");
             AddLogisticBill(newBill);
         }
+
+        public void EnableFurniture(bool isEnabled)
+        {
+            _furnitureParentHandle.SetActive(isEnabled);
+        }
         
         public void RegisterFurniture(Furniture furniture)
         {
@@ -106,6 +141,7 @@ namespace Buildings
                 return;
             }
             
+            Debug.Log($"Furniture Registered: {furniture.FurnitureItemData.ItemName}");
             _allFurniture.Add(furniture);
             
             if(OnBuildingFurnitureChanged != null)
@@ -120,6 +156,7 @@ namespace Buildings
                 return;
             }
             
+            Debug.Log($"Furniture Deregistered: {furniture.FurnitureItemData.ItemName}");
             _allFurniture.Remove(furniture);
             
             if(OnBuildingFurnitureChanged != null)
@@ -134,7 +171,7 @@ namespace Buildings
                 Storage storage = furniture as Storage;
                 if (storage != null)
                 {
-                    if (storage.IsBuilt)
+                    if (storage.FurnitureState == Furniture.EFurnitureState.Built)
                     {
                         results.Add(storage);
                     }
@@ -248,6 +285,7 @@ namespace Buildings
         {
             base.Awake();
             GameEvents.OnHideRoofsToggled += ToggleInternalView;
+            EnableFurniture(false);
         }
 
         private void Start()
@@ -324,6 +362,7 @@ namespace Buildings
             {
                 FollowCursor();
                 CheckPlacement();
+                UpdateLayering();
             }
 
             if (_state == BuildingState.Built)
@@ -362,6 +401,7 @@ namespace Buildings
         private void Built_Enter()
         {
             ColourSprites(Color.white);
+            EnableFurniture(true);
         }
         
         private void FollowCursor()
@@ -456,6 +496,17 @@ namespace Buildings
         public Vector2 ConstructionStandPosition()
         {
             return _constructionStandPos.position;
+        }
+
+        public float InteriorRenderOffset()
+        {
+            var interiorRendererSorter = _internalHandle.GetComponent<PositionRendererSorter>();
+            if (interiorRendererSorter != null)
+            {
+                return interiorRendererSorter.Offset;
+            }
+
+            return 0f;
         }
         
         public enum BuildingState

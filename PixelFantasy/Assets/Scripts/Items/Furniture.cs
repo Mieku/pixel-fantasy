@@ -9,42 +9,51 @@ using ScriptableObjects;
 using Systems.SmartObjects.Scripts;
 using TaskSystem;
 using UnityEngine;
+using UnityEngine.Rendering;
 using Zones;
 
 namespace Items
 {
     public class Furniture : PlayerInteractable
     {
+        public enum EFurnitureState
+        {
+            Planning,
+            Pending,
+            Built,
+            Available,
+            Unavailable,
+        }
+        
         [SerializeField] protected Transform _spritesRoot;
         [SerializeField] private Transform _useageMarkersRoot;
         [SerializeField] protected FurnitureItemData _furnitureItemData;
         [SerializeField] protected SmartObject _smartObject;
         [SerializeField] protected bool _singleOwner;
 
-        public bool IsBuilt;
-        
+        public EFurnitureState FurnitureState;
+
         private SpriteRenderer[] _allSprites;
         protected List<SpriteRenderer> _useageMarkers;
         private List<Material> _materials = new List<Material>();
         private int _fadePropertyID;
         
-        private bool _isPlanning;
         private float _remainingWork;
         private bool _isOutlineLocked;
         private Unit _assignedKinling;
         protected Building _parentBuilding;
-        //protected RoomZone _parentRoom;
+        protected SortingGroup _sortingGroup;
 
         public FurnitureItemData FurnitureItemData => _furnitureItemData;
         public Building ParentBuilding => _parentBuilding;
-        //public RoomZone ParentRoom => _parentRoom;
-        
+
         protected virtual void Awake()
         {
             if(_smartObject != null) _smartObject.gameObject.SetActive(false);
             _allSprites = _spritesRoot.GetComponentsInChildren<SpriteRenderer>();
             _useageMarkers = _useageMarkersRoot.GetComponentsInChildren<SpriteRenderer>(true).ToList();
             _fadePropertyID = Shader.PropertyToID("_OuterOutlineFade");
+            _sortingGroup = GetComponent<SortingGroup>();
             foreach (var spriteRenderer in _allSprites)
             {
                 _materials.Add(spriteRenderer.material);
@@ -61,17 +70,23 @@ namespace Items
 
         protected virtual void Start()
         {
-            if (_furnitureItemData != null && !_isPlanning)
+            switch (FurnitureState)
             {
-                if (IsBuilt)
-                {
-                    CompletePlacement();
-                }
-                else
-                {
+                case EFurnitureState.Planning:
+                    break;
+                case EFurnitureState.Pending:
                     _remainingWork = _furnitureItemData.WorkCost;
                     PrepareToBuild();
-                }
+                    break;
+                case EFurnitureState.Built:
+                    CompletePlacement();
+                    break;
+                case EFurnitureState.Available:
+                    break;
+                case EFurnitureState.Unavailable:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -95,16 +110,14 @@ namespace Items
         {
             Init(furnitureItemData);
             _remainingWork = _furnitureItemData.WorkCost;
-            // Follows cursor
-            _isPlanning = true;
+            FurnitureState = EFurnitureState.Planning;
             DisplayUseageMarkers(true);
         }
 
         public void PrepareToBuild()
         {
             DisplayUseageMarkers(false);
-            // Stop Following cursor, set build task
-            _isPlanning = false;
+            FurnitureState = EFurnitureState.Pending;
             ColourArt(ColourStates.Blueprint);
             CreateFurnitureHaulingTask();
         }
@@ -171,8 +184,8 @@ namespace Items
             DisplayUseageMarkers(false);
             _remainingWork = _furnitureItemData.WorkCost;
             ColourArt(ColourStates.Built);
-            IsBuilt = true;
-            
+            FurnitureState = EFurnitureState.Built;
+
             // Check if this was placed in a room, if so add it to the room
             var building = Helper.IsPositionInBuilding(transform.position);
             if (building != null)
@@ -192,12 +205,13 @@ namespace Items
             }
 
             _parentBuilding = building;
+
             building.RegisterFurniture(this);
         }
         
         private void Update()
         {
-            if (_isPlanning)
+            if (FurnitureState == EFurnitureState.Planning)//if (_isPlanning)
             {
                 FollowCursor();
                 CheckPlacement();
@@ -206,7 +220,7 @@ namespace Items
         
         private void OnMouseEnter()
         {
-            if(!IsBuilt) return;
+            if (FurnitureState != EFurnitureState.Built) return;
             if(_isOutlineLocked) return;
             
             TriggerOutline(true);
@@ -214,7 +228,7 @@ namespace Items
 
         private void OnMouseExit()
         {
-            if(!IsBuilt) return;
+            if (FurnitureState != EFurnitureState.Built) return;
             if(_isOutlineLocked) return;
             
             TriggerOutline(false);
@@ -222,8 +236,8 @@ namespace Items
 
         private void OnMouseDown()
         {
-            if(_isPlanning) return;
-            
+            if (FurnitureState != EFurnitureState.Planning) return;
+
             OnClicked();
         }
 
@@ -256,7 +270,7 @@ namespace Items
                 else
                 {
                     material.SetFloat(_fadePropertyID, 0);
-                    if (!IsBuilt)
+                    if(FurnitureState == EFurnitureState.Planning)
                     {
                         ColourArt(ColourStates.Blueprint);
                     }
@@ -342,8 +356,7 @@ namespace Items
 
         public bool CanKinlingUseThis(Unit kinling)
         {
-            if (_isPlanning) return false;
-            if (!IsBuilt) return false;
+            if (FurnitureState != EFurnitureState.Built) return false;
             if (_singleOwner)
             {
                 if (_assignedKinling == null)
