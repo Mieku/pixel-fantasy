@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: Stool
   m_EditorClassIdentifier: 
   ItemName: Stool
+  ItemDescription: 
   MaxStackSize: 1
   ItemSprite: {fileID: -1997294335, guid: 90f5efa4e4d76d34cb9b37730541f11f, type: 3}
   DefaultSpriteScale: {x: 1, y: 1}
   Durability: 100
   InteractionConfigs: []
-  RequiredCraftingTable: {fileID: 11400000, guid: 644004581d1321d41993fc7be87087b5, type: 2}
+  RequiredCraftingTable: {fileID: 11400000, guid: 92ae49093fe4f4240bcc66f7c88f3749, type: 2}
+  RequiredCraftingJob: {fileID: 11400000, guid: 8cc115b907c69de4da24cb986f35866f, type: 2}
   WorkCost: 5
   _resourceCosts:
   - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
@@ -28,9 +30,5 @@ MonoBehaviour:
   - Wall
   - Obstacle
   Catergory: 0
-  DefaultDirection: 0
-  North_FurniturePrefab: {fileID: 8679221839148330440, guid: e219a8e018e3d244b8d0ef8b035b149b, type: 3}
-  East_FurniturePrefab: {fileID: 8679221839148330440, guid: e219a8e018e3d244b8d0ef8b035b149b, type: 3}
-  South_FurniturePrefab: {fileID: 8679221839148330440, guid: e219a8e018e3d244b8d0ef8b035b149b, type: 3}
-  West_FurniturePrefab: {fileID: 8679221839148330440, guid: e219a8e018e3d244b8d0ef8b035b149b, type: 3}
+  FurniturePrefab: {fileID: 8679221839148330440, guid: e219a8e018e3d244b8d0ef8b035b149b, type: 3}
   Varients: []

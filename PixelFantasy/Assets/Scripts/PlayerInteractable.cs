@@ -10,7 +10,7 @@ public abstract class PlayerInteractable : UniqueObject
     [SerializeField] private SpriteRenderer _icon;
     public List<Command> Commands = new List<Command>();
     public Command PendingCommand;
-    
+
     public void CreateTask(Command command)
     {
         if (IsPending(command)) return;

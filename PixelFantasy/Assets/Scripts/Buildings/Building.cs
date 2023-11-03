@@ -46,6 +46,7 @@ namespace Buildings
 
         private BuildingState _state;
         private string _buildingName;
+        private bool _internalViewToggled;
 
         private List<BuildingNote> _buildingNotes = new List<BuildingNote>();
         private List<Unit> _occupants = new List<Unit>();
@@ -58,6 +59,11 @@ namespace Buildings
         public List<Furniture> AllFurniture => _allFurniture;
         public Action<List<Furniture>> OnBuildingFurnitureChanged;
         public Action OnBuildingPlaced;
+
+        // Furniture
+        private bool _showCraftableFurniture;
+        private List<Furniture> _craftableFurniture = new List<Furniture>();
+        private bool _isDetailsOpen;
 
         [Button("Update Layering")]
         public void UpdateLayering()
@@ -131,6 +137,55 @@ namespace Buildings
         public void EnableFurniture(bool isEnabled)
         {
             _furnitureParentHandle.SetActive(isEnabled);
+        }
+
+        public void RegisterCraftableFurniture(Furniture furniture)
+        {
+            if (_craftableFurniture.Contains(furniture))
+            {
+                Debug.LogError($"Attempted to register already registered craftable furniture: {furniture.FurnitureItemData.ItemName}");
+                return;
+            }
+            
+            Debug.Log($"Craftable Furniture Registered: {furniture.FurnitureItemData.ItemName}");
+            _craftableFurniture.Add(furniture);
+            
+            furniture.ShowCraftable(_showCraftableFurniture);
+        }
+
+        public void DeregisterCraftableFurniture(Furniture furniture)
+        {
+            if (!_craftableFurniture.Contains(furniture))
+            {
+                Debug.LogError($"Attempted to deregister not registered craftable furniture: {furniture.FurnitureItemData.ItemName}");
+                return;
+            }
+            
+            Debug.Log($"Craftable Furniture Deregistered: {furniture.FurnitureItemData.ItemName}");
+            _craftableFurniture.Remove(furniture);
+        }
+
+        public bool ToggleShowCraftableFurniture()
+        {
+            _showCraftableFurniture = !_showCraftableFurniture;
+            foreach (var craftableFurniture in _craftableFurniture)
+            {
+                craftableFurniture.ShowCraftable(_showCraftableFurniture);
+            }
+
+            return _showCraftableFurniture;
+        }
+
+        public void HideCraftableFurniture()
+        {
+            if (_showCraftableFurniture)
+            {
+                _showCraftableFurniture = false;
+                foreach (var craftableFurniture in _craftableFurniture)
+                {
+                    craftableFurniture.ShowCraftable(_showCraftableFurniture);
+                }
+            }
         }
         
         public void RegisterFurniture(Furniture furniture)
@@ -244,12 +299,22 @@ namespace Buildings
 
         public void AddOccupant(Unit unit)
         {
-            _occupants.Add(unit);   
+            _occupants.Add(unit);
+
+            if (BuildingData.WorkersJob != null)
+            {
+                unit.GetUnitState().ChangeJob(BuildingData.WorkersJob);
+            }
         }
 
         public void RemoveOccupant(Unit unit)
         {
             _occupants.Remove(unit);
+            
+            if (BuildingData.WorkersJob != null)
+            {
+                unit.GetUnitState().ChangeJob(null);
+            }
         }
         
         public List<BuildingNote> BuildingNotes
@@ -284,7 +349,7 @@ namespace Buildings
         protected override void Awake()
         {
             base.Awake();
-            GameEvents.OnHideRoofsToggled += ToggleInternalView;
+            GameEvents.OnHideRoofsToggled += GameEvents_OnHideRoofsToggled;
             EnableFurniture(false);
         }
 
@@ -295,7 +360,13 @@ namespace Buildings
 
         private void OnDestroy()
         {
-            GameEvents.OnHideRoofsToggled -= ToggleInternalView;
+            GameEvents.OnHideRoofsToggled -= GameEvents_OnHideRoofsToggled;
+        }
+
+        private void GameEvents_OnHideRoofsToggled(bool showInternal)
+        {
+            _internalViewToggled = showInternal;
+            ToggleInternalView(showInternal);
         }
 
         public void OnBuildingClicked()
@@ -305,14 +376,55 @@ namespace Buildings
             HUDController.Instance.ShowBuildingDetails(this);
         }
 
+        public void OnShowDetails()
+        {
+            _isDetailsOpen = true;
+            CheckShouldToggleInternalView(true);
+        }
+
+        public void OnHideDetails()
+        {
+            _isDetailsOpen = false;
+            CheckShouldToggleInternalView(false);
+        }
+
+        private bool _isCursorOnBuilding;
         public void OnCursorEnter()
         {
+            _isCursorOnBuilding = true;
             if (_state == BuildingState.Planning) return;
+
+            CheckShouldToggleInternalView(true);
         }
 
         public void OnCurserExit()
         {
+            _isCursorOnBuilding = false;
             if (_state == BuildingState.Planning) return;
+
+            CheckShouldToggleInternalView(false);
+        }
+
+        private void CheckShouldToggleInternalView(bool showInternal)
+        {
+            if (!_internalViewToggled)
+            {
+                if (!showInternal && _isDetailsOpen) return;
+                if (!showInternal && _isCursorOnBuilding) return;
+                if (!showInternal && IsBuildingFurnitureSelected()) return;
+                
+                ToggleInternalView(showInternal);
+            }
+        }
+
+        private bool IsBuildingFurnitureSelected()
+        {
+            foreach (var furniture in _allFurniture)
+            {
+                if (furniture.GetClickObject().IsSelected) return true;
+            }
+
+            return false;
         }
 
         public void SetState(BuildingState state)

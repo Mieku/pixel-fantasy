@@ -12,14 +12,14 @@ namespace Systems.Details.Generic_Details.Scripts
         [SerializeField] private Transform _resourcesLayout;
         [SerializeField] private DetailsEntryResourceAmountDisplay _resourceAmountDisplayPrefab;
 
-        public void Init(List<ItemAmount> resources, string title = "Yields")
+        public void Init(List<ItemAmount> resources, string title = "Yields", bool showTilda = true)
         {
             _title.text = $"{title}:";
 
             foreach (var resource in resources)
             {
                 var resourceAmount = Instantiate(_resourceAmountDisplayPrefab, _resourcesLayout);
-                resourceAmount.Init(resource);
+                resourceAmount.Init(resource, showTilda);
             }
         }
     }

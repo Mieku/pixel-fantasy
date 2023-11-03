@@ -249,6 +249,7 @@ MonoBehaviour:
   _offset: 0
   _runOnlyOnce: 0
   _sortingGroup: {fileID: 442730807166098999}
+  _checkLocal: 0
 --- !u!210 &442730807166098999
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -339,10 +340,23 @@ MonoBehaviour:
   _icon: {fileID: 4386351996110386924}
   Commands: []
   PendingCommand: {fileID: 0}
-  _spritesRoot: {fileID: 8679221838297705576}
-  _useageMarkersRoot: {fileID: 795657465536751454}
-  _furnitureItemData: {fileID: 0}
-  IsBuilt: 0
+  _southHandle: {fileID: 0}
+  _southSpritesRoot: {fileID: 0}
+  _southUseageMarkersRoot: {fileID: 0}
+  _westHandle: {fileID: 0}
+  _westSpritesRoot: {fileID: 0}
+  _westUseageMarkersRoot: {fileID: 0}
+  _northHandle: {fileID: 0}
+  _northSpritesRoot: {fileID: 0}
+  _northUseageMarkersRoot: {fileID: 0}
+  _eastHandle: {fileID: 0}
+  _eastSpritesRoot: {fileID: 0}
+  _eastUseageMarkersRoot: {fileID: 0}
+  _furnitureItemData: {fileID: 11400000, guid: 644004581d1321d41993fc7be87087b5, type: 2}
+  _smartObject: {fileID: 0}
+  _singleOwner: 0
+  FurnitureState: 0
+  CraftersUID: 
   _craftingPreview: {fileID: 5242019932516885535}
   IsInUse: 0
   _curTask:
@@ -352,8 +366,10 @@ MonoBehaviour:
     Owner:
       FamilyName: 
       UID: 
-      FamilyHead: {fileID: 0}
       Members: []
+      Buildings: []
+      Furniture: []
+      FamilyJob: {fileID: 0}
       IsPlayer: 0
     Materials: []
     TaskType: 0

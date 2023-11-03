@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: Builder's Table
   m_EditorClassIdentifier: 
   ItemName: Builder's Table
+  ItemDescription: 
   MaxStackSize: 1
   ItemSprite: {fileID: -2106620571, guid: 4d5895fa30c428843a9032c52ee06e38, type: 3}
   DefaultSpriteScale: {x: 1, y: 1}
   Durability: 100
   InteractionConfigs: []
   RequiredCraftingTable: {fileID: 11400000}
+  RequiredCraftingJob: {fileID: 0}
   WorkCost: 5
   _resourceCosts:
   - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
@@ -28,9 +30,5 @@ MonoBehaviour:
   - Wall
   - Obstacle
   Catergory: 0
-  DefaultDirection: 0
-  North_FurniturePrefab: {fileID: 5259353419307902018, guid: 00efb1b08405d734ea032aba545657c2, type: 3}
-  East_FurniturePrefab: {fileID: 5259353419307902018, guid: 00efb1b08405d734ea032aba545657c2, type: 3}
-  South_FurniturePrefab: {fileID: 5259353419307902018, guid: 00efb1b08405d734ea032aba545657c2, type: 3}
-  West_FurniturePrefab: {fileID: 5259353419307902018, guid: 00efb1b08405d734ea032aba545657c2, type: 3}
+  FurniturePrefab: {fileID: 5259353419307902018, guid: 00efb1b08405d734ea032aba545657c2, type: 3}
   Varients: []

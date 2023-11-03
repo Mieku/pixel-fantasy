@@ -11,7 +11,8 @@ namespace ScriptableObjects
     [CreateAssetMenu(fileName = "CraftedItemData", menuName = "ItemData/CraftedItemData/CraftedItemData", order = 1)]
     public class CraftedItemData : ItemData
     {
-        [TitleGroup("Crafted Data")] public FurnitureItemData RequiredCraftingTable; 
+        [TitleGroup("Crafted Data")] public FurnitureItemData RequiredCraftingTable;
+        [TitleGroup("Crafted Data")] public JobData RequiredCraftingJob;
         [TitleGroup("Crafted Data")] public float WorkCost;
         [TitleGroup("Crafted Data")] [SerializeField] private List<ItemAmount> _resourceCosts;
         [TitleGroup("Crafted Data")] [SerializeField] private List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle" };

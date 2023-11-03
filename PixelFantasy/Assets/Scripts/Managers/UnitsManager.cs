@@ -14,6 +14,19 @@ namespace Managers
         public List<Unit> UnemployedKinlings => _allKinlings.Where(kinling => kinling.GetUnitState().AssignedWorkplace == null).ToList();
         public List<Unit> HomelessKinlings => _allKinlings.Where(kinling => kinling.GetUnitState().AssignedHome == null).ToList();
 
+        public bool AnyUnitHaveJob(JobData jobData)
+        {
+            foreach (var kinling in _allKinlings)
+            {
+                if (kinling.GetUnitState().CurrentJob.JobData == jobData)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        
         public List<Unit> GetAllUnitsInRadius(Vector2 startPoint, float radius)
         {
             return _allKinlings.Where(kinling => 

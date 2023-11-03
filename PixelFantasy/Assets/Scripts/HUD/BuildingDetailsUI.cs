@@ -20,13 +20,20 @@ namespace HUD
         {
             this._building = building;
             
+            _building.OnShowDetails();
             _panel.gameObject.SetActive(true);
             _panel.Init(_building);
         }
 
         public void Hide()
         {
-            _building = null;
+            if (_building != null)
+            {
+                _building.OnHideDetails();
+                _building = null;
+            }
+            
+            _panel.Hide();
             _panel.gameObject.SetActive(false);
         }
     }

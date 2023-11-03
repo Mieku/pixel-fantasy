@@ -37,6 +37,9 @@ namespace Systems.Details.Generic_Details.Scripts
 
             ApplyResourceEntries(_clickableObject);
             ApplyItemEntries(_clickableObject);
+            ApplyFurnitureEntries(_clickableObject);
+
+            ApplyFurnitureButtons();
         }
 
         private void ApplyResourceEntries(IClickableObject clickableObject)
@@ -108,6 +111,124 @@ namespace Systems.Details.Generic_Details.Scripts
                     titledEntry.Init("Crafted By", craftersName);
                     _displayedEntries.Add(bar.gameObject);
                 }
+            }
+        }
+
+        private void ApplyFurnitureEntries(IClickableObject clickableObject)
+        {
+            var furniture = clickableObject as Furniture;
+            if(furniture == null) return;
+            
+            // Durability
+            var durabilityIcon = Librarian.Instance.GetSprite("Health");
+            var bar = Instantiate(_entryBarDisplayPrefab, _contentLayout);
+            bar.Init("Durability", durabilityIcon, furniture.DurabilityPercentage);
+            _displayedEntries.Add(bar.gameObject);
+            
+            // Category
+            var category = furniture.FurnitureItemData.Catergory.GetDescription();
+            var categoryEntry = Instantiate(_entryTitledTextDisplayPrefab, _contentLayout);
+            categoryEntry.Init("Type", category);
+            _displayedEntries.Add(categoryEntry.gameObject);
+            
+            // Description
+            var description = furniture.FurnitureItemData.ItemDescription;
+            if (!string.IsNullOrEmpty(description))
+            {
+                var descriptionEntry = Instantiate(_entryTextDisplayPrefab, _contentLayout);
+                descriptionEntry.Init(description);
+                _displayedEntries.Add(descriptionEntry.gameObject);
+            }
+
+            // TODO: Storage
+            
+            // Assigned to
+            if (furniture.SingleOwner)
+            {
+                var assignedEntry = Instantiate(_entryTitledTextDisplayPrefab, _contentLayout);
+                if (furniture.AssignedKinling == null)
+                {
+                    
+                    assignedEntry.Init("Assigned To", "Unassigned");
+                    
+                }
+                else
+                {
+                    assignedEntry.Init("Assigned To", furniture.AssignedKinling.GetUnitState().FullName);
+                }
+                _displayedEntries.Add(assignedEntry.gameObject);
+            }
+            
+            // Order Details
+            if (furniture.FurnitureState == Furniture.EFurnitureState.Craftable)
+            {
+                // Crafter Job
+                string craftMsg = "";
+                
+                if (furniture.FurnitureItemData.RequiredCraftingJob != null)
+                {
+                    craftMsg += furniture.FurnitureItemData.RequiredCraftingJob.JobName;
+                }
+
+                if (furniture.FurnitureItemData.RequiredCraftingTable != null)
+                {
+                    if (!string.IsNullOrEmpty(craftMsg))
+                        craftMsg += ", ";
+
+                    craftMsg += furniture.FurnitureItemData.RequiredCraftingTable.ItemName;
+                }
+
+                if (!string.IsNullOrEmpty(craftMsg))
+                {
+                    if (!furniture.CanBeCrafted())
+                    {
+                        craftMsg = $"<color=red>{craftMsg}</color>";
+                    }
+                    
+                    var requiresEntry = Instantiate(_entryTitledTextDisplayPrefab, _contentLayout);
+                    requiresEntry.Init("Requires", craftMsg);
+                    _displayedEntries.Add(requiresEntry.gameObject);
+                }
+                
+                var craftCosts = furniture.FurnitureItemData.GetResourceCosts();
+                var resourceEntry = Instantiate(_entryResourcesDisplayPrefab, _contentLayout);
+                resourceEntry.Init(craftCosts, "Materials", false);
+                _displayedEntries.Add(resourceEntry.gameObject);
+            }
+            
+            // Crafted by
+            if (furniture.WasCrafted)
+            {
+                var craftersName = furniture.GetCrafter().GetUnitState().FullName;
+                var craftersEntry = Instantiate(_entryTitledTextDisplayPrefab, _contentLayout);
+                craftersEntry.Init("Crafted By", craftersName);
+                _displayedEntries.Add(craftersEntry.gameObject);
+            }
+        }
+
+        private void ApplyFurnitureButtons()
+        {
+            var furniture = _clickableObject as Furniture;
+            if (furniture == null) return;
+
+            if (furniture.FurnitureState == Furniture.EFurnitureState.Craftable)
+            {
+                Sprite orderIcon = Librarian.Instance.GetSprite("Order Icon");
+                void OnPressed()
+                {
+                    furniture.Order();
+                }
+                CreateOrderButton(orderIcon, OnPressed, false, "Order");
+            }
+            
+            if (furniture.FurnitureState != Furniture.EFurnitureState.InProduction)
+            {
+                Sprite orderIcon = Librarian.Instance.GetSprite("Move Icon");
+                void OnPressed()
+                {
+                    furniture.Trigger_Move();
+                }
+                CreateOrderButton(orderIcon, OnPressed, false, "Move");
             }
         }
         

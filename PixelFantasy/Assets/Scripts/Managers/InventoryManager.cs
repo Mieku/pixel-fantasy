@@ -42,7 +42,9 @@ namespace Managers
         {
             foreach (var storage in _allStorage)
             {
-                if ((!globalOnly || storage.IsGlobal) && storage.IsItemInStorage(itemData))
+                if (storage.FurnitureState == Furniture.EFurnitureState.Built 
+                    && (!globalOnly || storage.IsGlobal) 
+                    && storage.IsItemInStorage(itemData))
                 {
                     return true;
                 }
@@ -55,7 +57,8 @@ namespace Managers
         {
             foreach (var storage in _allStorage)
             {
-                if(storage.AmountCanBeDeposited(item.GetItemData()) > 0)
+                if(storage.FurnitureState == Furniture.EFurnitureState.Built 
+                   && storage.AmountCanBeDeposited(item.GetItemData()) > 0)
                 {
                     return storage;
                 }
@@ -68,7 +71,9 @@ namespace Managers
         {
             foreach (var storage in _allStorage)
             {
-                if(storage.IsGlobal && storage.AmountCanBeDeposited(item) > 0)
+                if(storage.FurnitureState == Furniture.EFurnitureState.Built 
+                   && storage.IsGlobal 
+                   && storage.AmountCanBeDeposited(item) > 0)
                 {
                     return storage;
                 }
@@ -81,7 +86,8 @@ namespace Managers
         {
             foreach (var storage in _allStorage)
             {
-                if (storage.AmountCanBeWithdrawn(itemData) > 0)
+                if (storage.FurnitureState == Furniture.EFurnitureState.Built 
+                    && storage.AmountCanBeWithdrawn(itemData) > 0)
                 {
                     return storage.SetClaimed(itemData);
                 }
@@ -94,7 +100,9 @@ namespace Managers
         {
             foreach (var storage in _allStorage)
             {
-                if (storage.IsGlobal && storage.AmountCanBeWithdrawn(itemData) > 0)
+                if (storage.FurnitureState == Furniture.EFurnitureState.Built 
+                    && storage.IsGlobal 
+                    && storage.AmountCanBeWithdrawn(itemData) > 0)
                 {
                     return storage.SetClaimed(itemData);
                 }
@@ -108,7 +116,8 @@ namespace Managers
             var allBuildingStorage = building.GetBuildingStorages();
             foreach (var storage in allBuildingStorage)
             {
-                if (storage.AmountCanBeWithdrawn(itemData) > 0)
+                if (storage.FurnitureState == Furniture.EFurnitureState.Built 
+                    && storage.AmountCanBeWithdrawn(itemData) > 0)
                 {
                     return storage.SetClaimed(itemData);
                 }

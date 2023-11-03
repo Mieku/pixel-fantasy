@@ -215,8 +215,7 @@ namespace Managers
             {
                 if (_plannedFurniture.CheckPlacement())
                 {
-                    //PlayerInputController.Instance.ChangeState(PlayerInputState.None);
-                    _plannedFurniture.PrepareToBuild();
+                    _plannedFurniture.SetState(Furniture.EFurnitureState.InProduction);
                     var key = _plannedFurniture.FurnitureItemData.ItemName;
                     _plannedFurniture = null;
                     
@@ -274,7 +273,7 @@ namespace Managers
             ShowPlacementIcon(false);
             _invalidPlacementTags.Clear();
             CancelPlanning();
-            PlacementDirection = PlacementDirection.Down;
+            PlacementDirection = PlacementDirection.South;
             _plannedFurnitureItemData = null;
             _plannedBuilding = null;
         }
@@ -492,8 +491,9 @@ namespace Managers
         {
             _plannedFurnitureItemData = furnitureData;
             var cursorPos = Helper.ConvertMousePosToGridPos(UtilsClass.GetMouseWorldPosition());
-            var furniture = Instantiate(furnitureData.GetFurniturePrefab(PlacementDirection), cursorPos, Quaternion.identity, _furnitureParent);
-            furniture.Plan(furnitureData);
+            var furniture = Instantiate(furnitureData.FurniturePrefab, cursorPos, Quaternion.identity, _furnitureParent);
+            furniture.Init(furnitureData);
+            furniture.SetState(Furniture.EFurnitureState.Planning);
             _plannedFurniture = furniture;
         }
 
@@ -940,9 +940,9 @@ namespace Managers
     [Serializable]
     public enum PlacementDirection
     {
-        Down,
-        Up,
-        Left, 
-        Right
+        South,
+        North,
+        West, 
+        East
     }
 }

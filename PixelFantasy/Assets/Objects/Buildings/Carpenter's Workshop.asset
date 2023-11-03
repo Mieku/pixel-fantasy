@@ -34,3 +34,4 @@ MonoBehaviour:
   MaxOccupants: 2
   AllowedFurniture: []
   LinkedBuilding: {fileID: 4238431909352924083, guid: 9afc3e54cd7e52148b24992b9d4aa1f4, type: 3}
+  WorkersJob: {fileID: 11400000, guid: 8cc115b907c69de4da24cb986f35866f, type: 2}

@@ -50,6 +50,7 @@ namespace Characters
         public ESexualPreference SexualPreference;
         public Gender Gender;
         public Unit Partner;
+        public Family Family;
 
         private Building _insideBuidling;
 
@@ -65,6 +66,8 @@ namespace Characters
             Equipment.Init(this);
             _appearance.Init(this);
             _mood.Init();
+
+            Family = FamilyManager.Instance.FindOrCreateFamily(this);
         }
 
         private void OnDestroy()

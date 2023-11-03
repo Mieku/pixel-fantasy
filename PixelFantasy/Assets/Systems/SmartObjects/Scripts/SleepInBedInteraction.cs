@@ -20,10 +20,10 @@ namespace Systems.SmartObjects.Scripts
         }
         [InfoBox("Note: All Stat Values are per hour!")]
         [SerializeField] private BedFurniture _linkedFurniture;
-        [SerializeField] private Transform _sleepLocation;
         
         private PerformerInfo _currentPerformer;
         private Vector2 _preTeleportPos;
+        private Transform _sleepLocation => _linkedFurniture.SleepLocation;
 
         private void Awake()
         {

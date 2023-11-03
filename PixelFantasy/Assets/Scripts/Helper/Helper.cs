@@ -363,17 +363,17 @@ public static class Helper
     {
         switch (curDirection)
         {
-            case PlacementDirection.Up:
-                return PlacementDirection.Right;
-            case PlacementDirection.Right:
-                return PlacementDirection.Down;
-            case PlacementDirection.Down:
-                return PlacementDirection.Left;
-            case PlacementDirection.Left:
-                return PlacementDirection.Up;
+            case PlacementDirection.North:
+                return PlacementDirection.East;
+            case PlacementDirection.East:
+                return PlacementDirection.South;
+            case PlacementDirection.South:
+                return PlacementDirection.West;
+            case PlacementDirection.West:
+                return PlacementDirection.North;
         }
 
-        return PlacementDirection.Down;
+        return PlacementDirection.South;
     }
 
     /// <summary>
@@ -385,17 +385,17 @@ public static class Helper
     {
         switch (curDirection)
         {
-            case PlacementDirection.Up:
-                return PlacementDirection.Left;
-            case PlacementDirection.Right:
-                return PlacementDirection.Up;
-            case PlacementDirection.Down:
-                return PlacementDirection.Right;
-            case PlacementDirection.Left:
-                return PlacementDirection.Down;
+            case PlacementDirection.North:
+                return PlacementDirection.West;
+            case PlacementDirection.East:
+                return PlacementDirection.North;
+            case PlacementDirection.South:
+                return PlacementDirection.East;
+            case PlacementDirection.West:
+                return PlacementDirection.South;
         }
 
-        return PlacementDirection.Down;
+        return PlacementDirection.South;
     }
     
     public static Vector2 LerpByDistance(Vector3 a, Vector3 b, float x)

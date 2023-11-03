@@ -135,10 +135,10 @@ namespace TaskSystem
             if (task == null && _state != State.ExecutingInteraction)
             {
                 // Check if any needs are critical
-                if (_needsAI.AreAnyNeedsCritical(out var criticalStat))
-                {
-                    DoInteraction(criticalStat);
-                }
+                // if (_needsAI.AreAnyNeedsCritical(out var criticalStat))
+                // {
+                //     DoInteraction(criticalStat);
+                // }
             }
             
             if (task == null && _state != State.ExecutingInteraction)
@@ -171,11 +171,11 @@ namespace TaskSystem
                 }
             }
 
-            if (task == null && _state != State.ExecutingInteraction)
-            {
-                // Fulfill personal needs if nothing to do
-                DoInteraction();
-            }
+            // if (task == null && _state != State.ExecutingInteraction)
+            // {
+            //     // Fulfill personal needs if nothing to do
+            //     DoInteraction();
+            // }
 
             if (task == null)
             {

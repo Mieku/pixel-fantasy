@@ -4,6 +4,7 @@ using ScriptableObjects;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.Rendering;
 using Zones;
 
 namespace Items
@@ -63,6 +64,7 @@ namespace Items
             }
             else
             {
+                _craftingPreview.sortingOrder = SpritesRoot().GetComponent<SortingGroup>().sortingOrder + 1;
                 _craftingPreview.sprite = craftingImg;
                 _craftingPreview.gameObject.SetActive(true);
             }

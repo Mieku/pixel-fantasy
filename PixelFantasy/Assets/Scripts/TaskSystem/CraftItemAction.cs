@@ -205,6 +205,7 @@ namespace TaskSystem
             base.ConcludeAction();
             
             UnitAnimController.SetUnitAction(UnitAction.Nothing);
+
             _task = null;
             _targetStorage = null;
             _isHoldingItem = false;

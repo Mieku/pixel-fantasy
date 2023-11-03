@@ -30,7 +30,7 @@ namespace Items
             base.Awake();
         }
         
-        protected override void CompletePlacement()
+        protected override void Built_Enter()
         {
             for (int i = 0; i < _storageItemData.NumSlots; i++)
             {
@@ -41,7 +41,7 @@ namespace Items
             GameEvents.Trigger_RefreshInventoryDisplay();
             RefreshDisplayedInventoryPanel();
             
-            base.CompletePlacement();
+            base.Built_Enter();
         }
 
         public int AmountCanBeDeposited(ItemData itemData)
@@ -243,10 +243,10 @@ namespace Items
             }
         }
         
-        protected override void OnClicked()
-        {
-            _inventoryPanel.Init(_storageItemData, _storageSlots, this);
-        }
+        // protected override void OnClicked()
+        // {
+        //     _inventoryPanel.Init(_storageItemData, _storageSlots, this);
+        // }
 
         public bool IsItemInStorage(ItemData itemData)
         {

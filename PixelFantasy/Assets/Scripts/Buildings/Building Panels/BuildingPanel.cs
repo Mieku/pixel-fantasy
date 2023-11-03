@@ -49,6 +49,14 @@ namespace Buildings.Building_Panels
             SetState(PanelState.General);
         }
 
+        public void Hide()
+        {
+            // if (_building != null)
+            // {
+            //     _building.HideCraftableFurniture();
+            // }
+        }
+
         public void OnBuildingNameChanged()
         {
             string newValue = _buildingNameIF.text;
@@ -180,7 +188,16 @@ namespace Buildings.Building_Panels
 
         public void OnFurniturePressed()
         {
-            SetState(PanelState.Furniture);
+            //SetState(PanelState.Furniture);
+            var isToggled = _building.ToggleShowCraftableFurniture();
+            if (isToggled)
+            {
+                ChangeBtnIconColour(_furnitureBtn, _btnIconColourSelected);
+            }
+            else
+            {
+                ChangeBtnIconColour(_furnitureBtn, _btnIconColourUnselected);
+            }
         }
 
         public void OnProductionPressed()

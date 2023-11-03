@@ -31,7 +31,6 @@ namespace TaskSystem
                 OnTaskCancel();
                 return;
             }
-            
             _ai.Unit.UnitAgent.SetMovePosition(_claimedItem.AssignedStorage.transform.position);
             _buildingStorage.SetIncoming(_claimedItem);
         }

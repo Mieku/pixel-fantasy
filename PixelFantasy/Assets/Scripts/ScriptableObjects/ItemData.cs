@@ -11,6 +11,7 @@ namespace ScriptableObjects
     public class ItemData : ScriptableObject
     {
         [TitleGroup("Item Data")] public string ItemName;
+        [TitleGroup("Item Data")] public string ItemDescription;
         [TitleGroup("Item Data")] public int MaxStackSize;
         [TitleGroup("Item Data")] [PreviewField] public Sprite ItemSprite;
         [TitleGroup("Item Data")] public Vector2 DefaultSpriteScale = Vector2.one;
