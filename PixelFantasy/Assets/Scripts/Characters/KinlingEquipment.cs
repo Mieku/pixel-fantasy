@@ -449,9 +449,8 @@ namespace Characters
             CraftingBill.RequestedItemInfo requestedItemInfo =
                 new CraftingBill.RequestedItemInfo(gearState.LinkedItem, 1);
             
-            Task equipItemTask = new Task
+            Task equipItemTask = new Task("Equip Item", gearState.LinkedItem)
             {
-                TaskId = "Equip Item",
                 TaskType = TaskType.Haul,
                 Materials = new List<CraftingBill.RequestedItemInfo> { requestedItemInfo },
             };

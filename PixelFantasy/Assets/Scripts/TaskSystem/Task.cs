@@ -1,12 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Characters;
 using Managers;
-using ScriptableObjects;
-using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Serialization;
-using Object = UnityEngine.Object;
 
 namespace TaskSystem
 {
@@ -21,6 +15,17 @@ namespace TaskSystem
         public Queue<Task> SubTasks = new Queue<Task>();
         public Action<Task> OnTaskComplete;
         public TaskType TaskType;
+
+        public Task(string taskID, PlayerInteractable requestor)
+        {
+            TaskId = taskID;
+            Requestor = requestor;
+
+            if (Requestor != null)
+            {
+                Requestor.RegisterTask(this);
+            }
+        }
 
         public bool IsEqual(Task otherTask)
         {
@@ -53,13 +58,11 @@ namespace TaskSystem
                 subTasks.Enqueue(subTask);
             }
             
-            return new Task()
+            return new Task(this.TaskId, this.Requestor)
             {
-                TaskId = this.TaskId,
-                Requestor = this.Requestor,
+                TaskType =  this.TaskType,
                 Payload = this.Payload,
                 Owner = this.Owner,
-                TaskType = this.TaskType,
                 SubTasks = subTasks,
             };
         }

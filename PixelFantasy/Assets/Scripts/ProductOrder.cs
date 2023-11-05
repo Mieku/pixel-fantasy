@@ -31,15 +31,12 @@ public class ProductOrder
     {
         List<CraftingBill.RequestedItemInfo> claimedMats = ClaimRequiredMaterials(craftedItemData);
         
-        Task task = new Task()
+        Task task = new Task("Craft Item", craftingTable)
         {
-            TaskId = "Craft Item",
-            Requestor = craftingTable,
             Payload = craftedItemData.ItemName,
             TaskType = TaskType.Craft,
             OnTaskComplete = OnTaskCompleted,
             Materials = claimedMats,
-            
         };
         amountInProgress++;
         return task;

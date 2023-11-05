@@ -2079,7 +2079,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0014839172, y: 0.14206886}
+  m_Offset: {x: 0.011832714, y: -0.03126812}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -2090,7 +2090,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0013638, y: 1.5711937}
+  m_Size: {x: 1.3635607, y: 1.2245197}
   m_EdgeRadius: 0
 --- !u!114 &5935236254734965145
 MonoBehaviour:
@@ -2122,6 +2122,7 @@ MonoBehaviour:
   _furnitureItemData: {fileID: 11400000, guid: 54f7579509018e142be034f672827fb3, type: 2}
   _smartObject: {fileID: 75389027220361237}
   _singleOwner: 1
+  CurrentDirection: 0
   FurnitureState: 0
   CraftersUID: 
   UsingParent: {fileID: 5476185194505731617}

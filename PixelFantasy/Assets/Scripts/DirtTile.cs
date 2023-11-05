@@ -110,11 +110,7 @@ public class DirtTile : PlayerInteractable, IPersistent
 
     private void CreateClearGrassTask()
     {
-        Task task = new Task()
-        {
-            TaskId = "Clear Grass",
-            Requestor = this,
-        };
+        Task task = new Task("Clear Grass", this);
         task.Enqueue();
     }
 

@@ -69,6 +69,7 @@ namespace Items
         private Color _availableTransparent;
         private Color _unavailableTransparent;
         private ClickObject _clickObject;
+        private Collider2D _placementCollider;
        
         public FurnitureItemData FurnitureItemData => _furnitureItemData;
         public Building ParentBuilding => _parentBuilding;
@@ -86,6 +87,7 @@ namespace Items
             _availableTransparent = Librarian.Instance.GetColour("Available Transparent");
             _unavailableTransparent = Librarian.Instance.GetColour("Unavailable Transparent");
             _clickObject = GetComponent<ClickObject>();
+            _placementCollider = GetComponent<Collider2D>();
             
             FurnitureManager.Instance.RegisterFurniture(this);
 
@@ -407,10 +409,8 @@ namespace Items
             var claimedItem = InventoryManager.Instance.ClaimItem(_furnitureItemData);
             if (claimedItem != null)
             {
-                Task task = new Task
+                Task task = new Task("Place Furniture", this)
                 {
-                    TaskId = "Place Furniture",
-                    Requestor = this,
                     Materials = new List<CraftingBill.RequestedItemInfo>(){ new CraftingBill.RequestedItemInfo(claimedItem, 1)},
                     TaskType = TaskType.Haul,
                 };
@@ -555,6 +555,11 @@ namespace Items
         public virtual bool CheckPlacement()
         {
             bool result = Helper.IsGridPosValidToBuild(transform.position, _furnitureItemData.InvalidPlacementTags);
+
+            if (result && _parentBuilding != null)
+            {
+                result = _parentBuilding.IsColliderInInterior(_placementCollider);
+            }
 
             // Check the useage markers
             if (_useageMarkers != null)

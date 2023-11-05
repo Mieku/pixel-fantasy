@@ -82,6 +82,11 @@ namespace Buildings
             _doorSortingGroup.sortingOrder = (int)doorOffset;
         }
 
+        public bool IsColliderInInterior(Collider2D colliderToCheck)
+        {
+            return _buildingInteriorDetector.IsColliderInInterior(colliderToCheck);
+        }
+
         public void TriggerPlaced()
         {
             if (OnBuildingPlaced != null)
@@ -585,10 +590,8 @@ namespace Buildings
 
         protected override void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
         {
-            Task task = new Task
+            Task task = new Task("Withdraw Item Construction", this)
             {
-                TaskId = "Withdraw Item Construction",
-                Requestor = this,
                 Payload = resourceData.ItemName,
                 TaskType = TaskType.Haul,
             };
@@ -597,11 +600,7 @@ namespace Buildings
 
         public override void CreateConstructTask(bool autoAssign = true)
         {
-            Task constuctTask = new Task()
-            {
-                TaskId = "Build Building",
-                Requestor = this,
-            };
+            Task constuctTask = new Task("Build Building", this);
             constuctTask.Enqueue();
         }
 

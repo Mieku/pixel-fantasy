@@ -10,6 +10,18 @@ public abstract class PlayerInteractable : UniqueObject
     [SerializeField] private SpriteRenderer _icon;
     public List<Command> Commands = new List<Command>();
     public Command PendingCommand;
+    public List<Task> RegisteredTasks = new List<Task>();
+
+    public void RegisterTask(Task task)
+    {
+        RegisteredTasks.Add(task);
+        task.OnTaskComplete += DeregisterTask;
+    }
+
+    public void DeregisterTask(Task task)
+    {
+        RegisteredTasks.Remove(task);
+    }
 
     public void CreateTask(Command command)
     {
@@ -21,14 +33,13 @@ public abstract class PlayerInteractable : UniqueObject
             CancelCommand(PendingCommand);
         }
 
-        Task task = new Task
+        Task task = new Task(command.Task.TaskId, this)
         {
-            TaskId = command.Task.TaskId,
-            Requestor = this
+            TaskType = command.Task.TaskType
         };
 
         PendingCommand = command;
-
+        
         TaskManager.Instance.AddTask(task);
         
         DisplayTaskIcon(command.Icon);
@@ -38,10 +49,9 @@ public abstract class PlayerInteractable : UniqueObject
     {
         PendingCommand = null;
         
-        Task task = new Task
+        Task task = new Task(command.Task.TaskId, this)
         {
-            TaskId = command.Task.TaskId,
-            Requestor = this
+            TaskType = command.Task.TaskType
         };
 
         TaskManager.Instance.CancelTask(task);

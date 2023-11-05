@@ -96,13 +96,11 @@ namespace Items
 
         public void CreateHaulTask()
         {
-            Task task = new Task
+            Task task = new Task("Store Item", this)
             {
-                TaskId = "Store Item",
-                Requestor = this,
                 TaskType = TaskType.Haul
             };
-            
+
             TaskManager.Instance.AddTask(task);
             _currentTask = task;
         }

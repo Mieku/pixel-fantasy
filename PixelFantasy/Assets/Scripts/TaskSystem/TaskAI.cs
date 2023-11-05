@@ -391,9 +391,8 @@ namespace TaskSystem
             
             _needsAI.CancelInteraction();
             
-            Task forcedTask = new Task()
+            Task forcedTask = new Task(taskID, null)
             {
-                TaskId = taskID,
                 TaskType = TaskType.Emergency,
                 OnTaskComplete = OnForcedTaskComplete
             };
@@ -421,9 +420,8 @@ namespace TaskSystem
 
         public bool IsActionPossible(string taskID)
         {
-            Task forcedTask = new Task()
+            Task forcedTask = new Task(taskID, null)
             {
-                TaskId = taskID,
                 TaskType = TaskType.Emergency,
                 OnTaskComplete = OnForcedTaskComplete
             };

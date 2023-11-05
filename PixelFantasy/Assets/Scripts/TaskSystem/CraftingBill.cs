@@ -119,10 +119,8 @@ namespace TaskSystem
 
         public Task CreateTask(CraftingTable craftingTable)
         {
-            Task task = new Task()
+            Task task = new Task("Craft Placed Item", Requestor)
             {
-                TaskId = "Craft Placed Item",
-                Requestor = Requestor,
                 Payload = craftingTable.UniqueId,
                 TaskType = TaskType.Craft,
                 Materials = RequestedItemInfos,

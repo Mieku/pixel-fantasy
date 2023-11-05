@@ -354,11 +354,7 @@ namespace Zones
 
         private void CreateTillSoilTask()
         {
-            Task task = new Task()
-            {
-                TaskId = "Till Soil",
-                Requestor = this,
-            };
+            Task task = new Task("Till Soil", this);
             task.Enqueue();
         }
 
@@ -373,11 +369,7 @@ namespace Zones
         
         private void CreateDigHoleTask()
         {
-            Task task = new Task()
-            {
-                TaskId = "Dig Hole",
-                Requestor = this,
-            };
+            Task task = new Task("Dig Hole", this);
             task.Enqueue();
         }
         
@@ -392,11 +384,7 @@ namespace Zones
         
         private void CreatePlantCropTask()
         {
-            Task task = new Task()
-            {
-                TaskId = "Plant Crop",
-                Requestor = this,
-            };
+            Task task = new Task("Plant Crop", this);
             task.Enqueue();
         }
 
@@ -411,11 +399,7 @@ namespace Zones
         {
             _wateringTaskSet = true;
 
-            Task task = new Task()
-            {
-                TaskId = "Water Crop",
-                Requestor = this,
-            };
+            Task task = new Task("Water Crop", this);
             task.Enqueue();
         }
 
@@ -429,11 +413,7 @@ namespace Zones
         
         private void CreateHarvestCropTask()
         {
-            Task task = new Task()
-            {
-                TaskId = "Harvest Crop",
-                Requestor = this,
-            };
+            Task task = new Task("Harvest Crop", this);
             task.Enqueue();
         }
 
@@ -491,21 +471,13 @@ namespace Zones
         
         private void CreateSwapCropTask()
         {
-            Task task = new Task()
-            {
-                TaskId = "Crop Swap",
-                Requestor = this,
-            };
+            Task task = new Task("Crop Swap", this);
             task.Enqueue();
         }
         
         private void CreateClearCropTask()
         {
-            Task task = new Task()
-            {
-                TaskId = "Clear Crop",
-                Requestor = this,
-            };
+            Task task = new Task("Clear Crop", this);
             task.Enqueue();
         }
         

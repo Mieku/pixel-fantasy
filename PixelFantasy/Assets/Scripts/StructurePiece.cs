@@ -87,10 +87,8 @@ public class StructurePiece : Construction
     
     protected override void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
     {
-        Task task = new Task
+        Task task = new Task("Withdraw Item", this)
         {
-            TaskId = "Withdraw Item",
-            Requestor = this,
             Payload = resourceData.ItemName,
             TaskType = TaskType.Haul,
         };
@@ -99,10 +97,8 @@ public class StructurePiece : Construction
     
     public override void CreateConstructTask(bool autoAssign = true)
     {
-        Task constuctTask = new Task()
+        Task constuctTask = new Task("Build Construction", this)
         {
-            TaskId = "Build Construction",
-            Requestor = this,
             TaskType = TaskType.Construction,
         };
         constuctTask.Enqueue();
