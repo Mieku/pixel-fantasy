@@ -1,18 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Managers;
-using Popups.Inventory;
 using ScriptableObjects;
-using Systems.SmartObjects.Scripts;
 using UnityEngine;
 
 namespace Items
 {
     public class Storage : Furniture
     {
-        [SerializeField] protected InventoryPanel _inventoryPanel;
-
         [SerializeField] private List<StorageSlot> _storageSlots = new List<StorageSlot>();
 
         public Transform StoredItemParent;
@@ -20,6 +15,7 @@ namespace Items
         protected StorageItemData _storageItemData => _furnitureItemData as StorageItemData;
 
         public bool IsGlobal => _parentBuilding == null;
+        public List<StorageSlot> StorageSlots => _storageSlots;
 
         protected override void Awake()
         {
@@ -39,8 +35,7 @@ namespace Items
             
             InventoryManager.Instance.AddStorage(this);
             GameEvents.Trigger_RefreshInventoryDisplay();
-            RefreshDisplayedInventoryPanel();
-            
+
             base.Built_Enter();
         }
 
@@ -86,7 +81,6 @@ namespace Items
                 {
                     slot.AddItem(item, this);
                     GameEvents.Trigger_RefreshInventoryDisplay();
-                    RefreshDisplayedInventoryPanel();
                     return;
                 }
             }
@@ -181,7 +175,6 @@ namespace Items
                 slot.RemoveItem(item);
                 item.gameObject.SetActive(true);
                 GameEvents.Trigger_RefreshInventoryDisplay();
-                RefreshDisplayedInventoryPanel();
                 return;
             }
             
@@ -196,7 +189,6 @@ namespace Items
                 
                 var item = slot.RemoveItem(itemState);
                 GameEvents.Trigger_RefreshInventoryDisplay();
-                RefreshDisplayedInventoryPanel();
                 item.gameObject.SetActive(true);
                 return item;
             }
@@ -234,20 +226,7 @@ namespace Items
                 return results;
             }
         }
-
-        protected void RefreshDisplayedInventoryPanel()
-        {
-            if (_inventoryPanel.IsOpen)
-            {
-                _inventoryPanel.UpdateDisplayedInventory(_storageSlots);
-            }
-        }
         
-        // protected override void OnClicked()
-        // {
-        //     _inventoryPanel.Init(_storageItemData, _storageSlots, this);
-        // }
-
         public bool IsItemInStorage(ItemData itemData)
         {
             foreach (var slot in _storageSlots)
@@ -336,6 +315,7 @@ namespace Items
             {
                 if (!Claimed.Contains(storedItem))
                 {
+                    Debug.Log($"Claimed: {storedItem.GetItemData().ItemName}");
                     Claimed.Add(storedItem);
                     return storedItem;
                 }

@@ -32,5 +32,4 @@ MonoBehaviour:
   Catergory: 2
   FurniturePrefab: {fileID: 5465201506073250537, guid: ad37035a922cc6e4799db5aee18bd59c, type: 3}
   Varients: []
-  NumColumns: 3
-  NumRows: 3
+  NumSlots: 6

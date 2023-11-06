@@ -24,7 +24,7 @@ namespace Buildings
         [SerializeField] private GameObject _internalHandle;
         [SerializeField] private GameObject _exteriorHandle;
         [SerializeField] private GameObject _roofHandle;
-        [SerializeField] private GameObject _doorHandle;
+        [SerializeField] private DoorOpener _doorOpener;
         [SerializeField] private GameObject _floorHandle;
         [SerializeField] private GameObject _obstaclesHandle;
         [SerializeField] private GameObject _shadowboxHandle;
@@ -354,6 +354,7 @@ namespace Buildings
         protected override void Awake()
         {
             base.Awake();
+            _doorOpener = GetComponentInChildren<DoorOpener>(true);
             GameEvents.OnHideRoofsToggled += GameEvents_OnHideRoofsToggled;
             EnableFurniture(false);
         }
@@ -497,12 +498,14 @@ namespace Buildings
         {
             _footings.DisplayFootings(true);
             _obstaclesHandle.SetActive(false);
+            _doorOpener.LockClosed(true);
         }
 
         private void Construction_Enter()
         {
             _footings.DisplayFootings(false);
             _obstaclesHandle.SetActive(true);
+            _doorOpener.LockClosed(true);
             ColourSprites(Librarian.Instance.GetColour("Blueprint"));
             
             _remainingResourceCosts = new List<ItemAmount> (_buildingData.GetResourceCosts());
@@ -519,6 +522,7 @@ namespace Buildings
         {
             ColourSprites(Color.white);
             EnableFurniture(true);
+            _doorOpener.LockClosed(false);
         }
         
         private void FollowCursor()
@@ -552,7 +556,7 @@ namespace Buildings
                 }
             }
                     
-            var doorSpriteRenderers = _doorHandle.GetComponentsInChildren<SpriteRenderer>(true);
+            var doorSpriteRenderer = _doorOpener.GetComponent<SpriteRenderer>();
 
             if (_floorHandle != null)
             {
@@ -573,13 +577,8 @@ namespace Buildings
             {
                 rend.color = colour;
             }
-            
-            
-            
-            foreach (var rend in doorSpriteRenderers)
-            {
-                rend.color = colour;
-            }
+
+            doorSpriteRenderer.color = colour;
         }
         
         private void CreateConstructionHaulingTasks()

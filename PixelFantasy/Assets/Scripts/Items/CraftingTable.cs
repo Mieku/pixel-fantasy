@@ -1,6 +1,8 @@
 using System;
 using Buildings;
+using Managers;
 using ScriptableObjects;
+using Sirenix.OdinInspector;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -11,8 +13,11 @@ namespace Items
 {
     public class CraftingTable : Furniture
     {
-        [SerializeField] private SpriteRenderer _craftingPreview;
-
+        [TitleGroup("South")] [SerializeField] private SpriteRenderer _southCraftingPreview;
+        [TitleGroup("West")] [SerializeField] private SpriteRenderer _westCraftingPreview;
+        [TitleGroup("North")] [SerializeField] private SpriteRenderer _northCraftingPreview;
+        [TitleGroup("East")] [SerializeField] private SpriteRenderer _eastCraftingPreview;
+        
         protected float _remainingCraftAmount;
 
         public bool IsInUse;
@@ -27,6 +32,34 @@ namespace Items
         private void LateUpdate()
         {
             SearchForTask();
+        }
+
+        private SpriteRenderer CraftingPreview
+        {
+            get
+            {
+                switch (CurrentDirection)
+                {
+                    case PlacementDirection.South:
+                        return _southCraftingPreview;
+                    case PlacementDirection.North:
+                        return _northCraftingPreview;
+                    case PlacementDirection.West:
+                        return _westCraftingPreview;
+                    case PlacementDirection.East:
+                        return _eastCraftingPreview;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+
+        private void HideCraftingPreview()
+        {
+            if(_southCraftingPreview != null) _southCraftingPreview.gameObject.SetActive(false);
+            if(_northCraftingPreview != null) _northCraftingPreview.gameObject.SetActive(false);
+            if(_westCraftingPreview != null) _westCraftingPreview.gameObject.SetActive(false);
+            if(_eastCraftingPreview != null) _eastCraftingPreview.gameObject.SetActive(false);
         }
 
         private void SearchForTask()
@@ -58,15 +91,17 @@ namespace Items
 
         public void ShowCraftingPreview(Sprite craftingImg)
         {
+            HideCraftingPreview();
+            
             if (craftingImg == null)
             {
-                _craftingPreview.gameObject.SetActive(false);
+                CraftingPreview.gameObject.SetActive(false);
             }
             else
             {
-                _craftingPreview.sortingOrder = SpritesRoot().GetComponent<SortingGroup>().sortingOrder + 1;
-                _craftingPreview.sprite = craftingImg;
-                _craftingPreview.gameObject.SetActive(true);
+                CraftingPreview.sortingOrder = SpritesRoot().GetComponent<SortingGroup>().sortingOrder + 1;
+                CraftingPreview.sprite = craftingImg;
+                CraftingPreview.gameObject.SetActive(true);
             }
         }
 

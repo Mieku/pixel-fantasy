@@ -52,6 +52,25 @@ namespace Managers
 
             return false;
         }
+        
+        public bool IsItemInStorage(string itemName, bool globalOnly = false)
+        {
+            if (string.IsNullOrEmpty(itemName)) return false;
+            
+            var itemData = Librarian.Instance.GetItemData(itemName);
+            
+            foreach (var storage in _allStorage)
+            {
+                if (storage.FurnitureState == Furniture.EFurnitureState.Built 
+                    && (!globalOnly || storage.IsGlobal) 
+                    && storage.IsItemInStorage(itemData))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
         public Storage GetAvailableStorage(Item item)
         {

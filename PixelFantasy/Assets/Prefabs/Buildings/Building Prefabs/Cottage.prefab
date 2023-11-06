@@ -3255,6 +3255,8 @@ GameObject:
   - component: {fileID: 8157149515416230095}
   - component: {fileID: 9014743273962867153}
   - component: {fileID: 6027005244054005478}
+  - component: {fileID: 5700875772182518088}
+  - component: {fileID: 6969172176875535342}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -3340,6 +3342,44 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &5700875772182518088
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8336179859126647631}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5833334, y: 0.11111111}
+    oldSize: {x: 6, y: 9}
+    newSize: {x: 0.96, y: 1.44}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.25, y: 1.25}
+  m_EdgeRadius: 0
+--- !u!114 &6969172176875535342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8336179859126647631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaaa5db2a28414a4c9da2cfe8db2fa98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8345522700022040403
 GameObject:
   m_ObjectHideFlags: 0
@@ -3903,13 +3943,14 @@ MonoBehaviour:
   _icon: {fileID: 0}
   Commands: []
   PendingCommand: {fileID: 0}
+  RegisteredTasks: []
   BuildingID: Cottage
   _buildingData: {fileID: 11400000, guid: 6d593da13671482418da31ade96795d4, type: 2}
   _footings: {fileID: 4983041443223141814}
   _internalHandle: {fileID: 4928138789695397395}
   _exteriorHandle: {fileID: 1141357286028535369}
   _roofHandle: {fileID: 0}
-  _doorHandle: {fileID: 8336179859126647631}
+  _doorOpener: {fileID: 6969172176875535342}
   _floorHandle: {fileID: 0}
   _obstaclesHandle: {fileID: 7673647128273325333}
   _shadowboxHandle: {fileID: 131913839724598154}

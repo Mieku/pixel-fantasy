@@ -108,13 +108,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 721698069095815085}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.227, y: 0.429, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8679221839148330294}
-  m_RootOrder: 1
+  m_Father: {fileID: 2078905185680302776}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5242019932516885535
 SpriteRenderer:
@@ -252,6 +252,40 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1692590278096435369
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2078905185680302776}
+  m_Layer: 0
+  m_Name: South
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2078905185680302776
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692590278096435369}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5905338738007735574}
+  - {fileID: 795657465536751454}
+  - {fileID: 8679221838297705576}
+  m_Father: {fileID: 8679221839148330294}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1973494032774344049
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,7 +317,7 @@ Transform:
   - {fileID: 4604921250404184405}
   - {fileID: 4209417161624299722}
   m_Father: {fileID: 8679221839148330294}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2889879149490471433
 GameObject:
@@ -392,14 +426,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7604479951860380168}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6786059750696783792}
-  m_Father: {fileID: 8679221839148330294}
-  m_RootOrder: 2
+  m_Father: {fileID: 2078905185680302776}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8679221838297705577
 GameObject:
@@ -426,14 +460,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8679221838297705577}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.246, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8679221839988455410}
-  m_Father: {fileID: 8679221839148330294}
-  m_RootOrder: 3
+  m_Father: {fileID: 2078905185680302776}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6590395231956412082
 MonoBehaviour:
@@ -495,9 +529,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4538975448664881012}
-  - {fileID: 5905338738007735574}
-  - {fileID: 795657465536751454}
-  - {fileID: 8679221838297705576}
+  - {fileID: 2078905185680302776}
   - {fileID: 6457680685461231635}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -543,14 +575,29 @@ MonoBehaviour:
   _icon: {fileID: 4386351996110386924}
   Commands: []
   PendingCommand: {fileID: 0}
-  _spritesRoot: {fileID: 8679221838297705576}
-  _useageMarkersRoot: {fileID: 795657465536751454}
+  RegisteredTasks: []
+  _southHandle: {fileID: 1692590278096435369}
+  _southSpritesRoot: {fileID: 8679221838297705576}
+  _southUseageMarkersRoot: {fileID: 795657465536751454}
+  _westHandle: {fileID: 0}
+  _westSpritesRoot: {fileID: 0}
+  _westUseageMarkersRoot: {fileID: 0}
+  _northHandle: {fileID: 0}
+  _northSpritesRoot: {fileID: 0}
+  _northUseageMarkersRoot: {fileID: 0}
+  _eastHandle: {fileID: 0}
+  _eastSpritesRoot: {fileID: 0}
+  _eastUseageMarkersRoot: {fileID: 0}
   _furnitureItemData: {fileID: 11400000, guid: 92ae49093fe4f4240bcc66f7c88f3749, type: 2}
   _smartObject: {fileID: 0}
   _singleOwner: 0
+  CurrentDirection: 0
   FurnitureState: 0
   CraftersUID: 
-  _craftingPreview: {fileID: 5242019932516885535}
+  _southCraftingPreview: {fileID: 5242019932516885535}
+  _westCraftingPreview: {fileID: 0}
+  _northCraftingPreview: {fileID: 0}
+  _eastCraftingPreview: {fileID: 0}
   IsInUse: 0
   _curTask:
     TaskId: 

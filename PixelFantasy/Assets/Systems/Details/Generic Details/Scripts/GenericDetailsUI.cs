@@ -19,6 +19,7 @@ namespace Systems.Details.Generic_Details.Scripts
         [SerializeField] private DetailsEntryResourcesDisplay _entryResourcesDisplayPrefab;
         [SerializeField] private DetailsEntryTitledTextDisplay _entryTitledTextDisplayPrefab;
         [SerializeField] private DetailsEntryTextDisplay _entryTextDisplayPrefab;
+        [SerializeField] private DetailsEntryInventoryDisplay _entryInventoryDisplayPrefab;
         [SerializeField] private OrderButton _orderButtonPrefab;
         [SerializeField] private Transform _ordersLayout;
         
@@ -194,6 +195,19 @@ namespace Systems.Details.Generic_Details.Scripts
                 var resourceEntry = Instantiate(_entryResourcesDisplayPrefab, _contentLayout);
                 resourceEntry.Init(craftCosts, "Materials", false);
                 _displayedEntries.Add(resourceEntry.gameObject);
+            }
+            
+            // Storage
+            var storage = furniture as Storage;
+            if (storage != null)
+            {
+                if (storage.FurnitureState == Furniture.EFurnitureState.Built)
+                {
+                    // Inventory
+                    var inventoryEntry = Instantiate(_entryInventoryDisplayPrefab, _contentLayout);
+                    inventoryEntry.Init(storage);
+                    _displayedEntries.Add(inventoryEntry.gameObject);
+                }
             }
             
             // Crafted by

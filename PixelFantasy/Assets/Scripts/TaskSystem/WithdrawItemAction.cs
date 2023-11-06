@@ -45,8 +45,7 @@ namespace TaskSystem
                 return false;
             }
 
-            _targetItem = FindItem(payload);
-            return _targetItem != null;
+            return InventoryManager.Instance.IsItemInStorage(payload);
         }
 
         public override void PrepareAction(Task task)
@@ -55,6 +54,9 @@ namespace TaskSystem
             _requestor = _task.Requestor;
             _isHoldingItem = false;
             _isMoving = false;
+            
+            var payload = task.Payload;
+            _targetItem = ClaimItem(payload);
         }
 
         public override void DoAction()
@@ -123,7 +125,7 @@ namespace TaskSystem
             base.OnTaskCancel();
         }
         
-        public Item FindItem(string itemName)
+        public Item ClaimItem(string itemName)
         {
             if (string.IsNullOrEmpty(itemName)) return null;
             
