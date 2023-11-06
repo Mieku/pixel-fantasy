@@ -36,6 +36,11 @@ namespace Items
             return this;
         }
 
+        public void AssignCommand(Command command)
+        {
+            CreateTask(command);
+        }
+
         public ClickObject GetClickObject()
         {
             return _clickObject;

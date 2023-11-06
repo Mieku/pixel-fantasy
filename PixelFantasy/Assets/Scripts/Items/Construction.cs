@@ -51,6 +51,11 @@ namespace Items
         {
             _remainingWork = GetWorkAmount();
         }
+        
+        public void AssignCommand(Command command)
+        {
+            CreateTask(command);
+        }
 
         public float WorkDone(float workAmount)
         {

@@ -8,9 +8,9 @@ namespace Systems.Build_Controls.Scripts
 {
     public class BuildController : MonoBehaviour
     {
-        [SerializeField] private List<CatergoryBtn> _catergoryBtns = new List<CatergoryBtn>();
+        [SerializeField] private List<CategoryBtn> _catergoryBtns = new List<CategoryBtn>();
 
-        private CatergoryBtn _selectedBtn;
+        private CategoryBtn _selectedBtn;
 
         private void Awake()
         {
@@ -30,7 +30,7 @@ namespace Systems.Build_Controls.Scripts
             }
         }
 
-        public void HideOtherOptions(CatergoryBtn buttonToKeep)
+        public void HideOtherOptions(CategoryBtn buttonToKeep)
         {
             foreach (var option in _catergoryBtns.Where(option => option != buttonToKeep))
             {
@@ -46,7 +46,7 @@ namespace Systems.Build_Controls.Scripts
             }
         }
 
-        public void AssignSelected(CatergoryBtn selectedBtn)
+        public void AssignSelected(CategoryBtn selectedBtn)
         {
             if (_selectedBtn != null)
             {
@@ -56,7 +56,7 @@ namespace Systems.Build_Controls.Scripts
             _selectedBtn = selectedBtn;
         }
 
-        public void AssignUnselected(CatergoryBtn btnToUnselect)
+        public void AssignUnselected(CategoryBtn btnToUnselect)
         {
             if (_selectedBtn != btnToUnselect)
             {

@@ -21,6 +21,11 @@ namespace Items
         protected Task _curTask;
 
         public float Health;
+        
+        public void AssignCommand(Command command)
+        {
+            CreateTask(command);
+        }
 
         public PlayerInteractable GetPlayerInteractable()
         {

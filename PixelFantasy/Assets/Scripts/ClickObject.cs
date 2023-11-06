@@ -116,30 +116,37 @@ public class ClickObject : MonoBehaviour
         }
     }
 
-    // public void AreaSelectObject(ActionBase orderForSelection)
-    // {
-    //     if (ObjectValidForSelection(orderForSelection))
-    //     {
-    //         _selectedIcon.SetActive(true);
-    //     }
-    // }
+    public void AreaSelectObject(Command pendingCommand)
+    {
+        if (ObjectValidForSelection(pendingCommand))
+        {
+            SelectObject();
+        }
+    }
 
     public void UnselectAreaSelection()
     {
-        _selectedIcon.SetActive(false);
+        UnselectObject();
     }
 
-    // public bool ObjectValidForSelection(ActionBase actionForSelection)
-    // {
-    //     var clickableObject = GetComponent<IClickableObject>();
-    //     if (clickableObject != null)
-    //     {
-    //         var possibleOrders = clickableObject.GetActions();
-    //         return possibleOrders.Any(possibleOrder => possibleOrder == actionForSelection);
-    //     }
-    //     
-    //     return false;
-    // }
+    public bool ObjectValidForSelection(Command pendingCommand)
+    {
+        var clickableObject = GetComponent<IClickableObject>();
+        if (clickableObject != null)
+        {
+            if (pendingCommand.Name == "Cancel Command")
+            {
+                return clickableObject.GetPlayerInteractable().PendingCommand != null;
+            }
+            else
+            {
+                var possibleCommand = clickableObject.GetCommands();
+                return possibleCommand.Any(cmd => cmd == pendingCommand);
+            }
+        }
+        
+        return false;
+    }
 
     public void UnselectObject()
     {

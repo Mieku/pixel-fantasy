@@ -12,8 +12,8 @@ namespace Systems.Build_Controls.Scripts
         [SerializeField] protected TextMeshProUGUI _optionName;
         [SerializeField] protected TextMeshProUGUI _optionDetails;
         
-        private bool _isOpen;
-        protected CatergoryBtn _ownerCatergoryBtn;
+        protected bool _isOpen;
+        protected CategoryBtn _ownerCategoryBtn;
         
         protected abstract void ShowDetails();
         protected abstract void HideDetails();
@@ -25,25 +25,25 @@ namespace Systems.Build_Controls.Scripts
             {
                 _isOpen = false;
                 HideDetails();
-                _ownerCatergoryBtn.UnassignOptionSelected(this);
+                _ownerCategoryBtn.UnassignOptionSelected(this);
             }
 
             else
             {
                 _isOpen = true;
                 ShowDetails();
-                _ownerCatergoryBtn.AssignOptionSelected(this);
+                _ownerCategoryBtn.AssignOptionSelected(this);
                 TriggerOptionEffect();
             }
         }
         
-        public void Cancel()
+        public virtual void Cancel()
         {
             if (_isOpen)
             {
                 _isOpen = false;
                 HideDetails();
-                _ownerCatergoryBtn.UnassignOptionSelected(this);
+                _ownerCategoryBtn.UnassignOptionSelected(this);
             }
             else
             {

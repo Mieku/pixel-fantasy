@@ -11,6 +11,7 @@ namespace Interfaces
         public List<Command> GetCommands();
         public string DisplayName { get; }
         public PlayerInteractable GetPlayerInteractable();
+        public void AssignCommand(Command command);
     }
 
     public interface IClickableTile : IClickableObject

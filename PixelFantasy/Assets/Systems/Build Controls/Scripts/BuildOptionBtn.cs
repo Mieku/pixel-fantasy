@@ -17,9 +17,9 @@ namespace Systems.Build_Controls.Scripts
         private BuildingData _buildingData;
         private List<BuildControlCostDisplay> _displayedCosts = new List<BuildControlCostDisplay>();
 
-        public void Init(BuildingData buildingData, CatergoryBtn catergoryBtn)
+        public void Init(BuildingData buildingData, CategoryBtn categoryBtn)
         {
-            _ownerCatergoryBtn = catergoryBtn;
+            _ownerCategoryBtn = categoryBtn;
             _buildingData = buildingData;
             _icon.sprite = _buildingData.Icon;
         }

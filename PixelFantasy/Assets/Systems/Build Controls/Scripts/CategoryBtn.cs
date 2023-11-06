@@ -2,9 +2,11 @@ using UnityEngine;
 
 namespace Systems.Build_Controls.Scripts
 {
-    public class CatergoryBtn : MonoBehaviour
+    public class CategoryBtn : MonoBehaviour
     {
         [SerializeField] protected BuildController _buildController;
+        [SerializeField] protected GameObject _arrowHandle;
+        [SerializeField] protected GameObject _optionsLayout;
         
         protected bool _isActive;
         protected OptionBtn _selectedOption;
@@ -65,11 +67,29 @@ namespace Systems.Build_Controls.Scripts
         protected virtual void ButtonActivated()
         {
             _isActive = true;
+            DisplayOptions();
         }
 
         protected virtual void ButtonDeactivated()
         {
             _isActive = false;
+            HideOptions();
+        }
+
+        protected virtual void DisplayOptions()
+        {
+            _arrowHandle.SetActive(true);
+            _optionsLayout.SetActive(true);
+
+            _buildController.HideOtherOptions(this);
+        }
+        
+        protected virtual void HideOptions()
+        {
+            _arrowHandle.SetActive(false);
+            _optionsLayout.SetActive(false);
+
+            _buildController.ShowAllOptions();
         }
     }
 }

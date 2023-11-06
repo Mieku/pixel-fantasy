@@ -25,6 +25,12 @@ public abstract class PlayerInteractable : UniqueObject
 
     public void CreateTask(Command command)
     {
+        if (command.Name == "Cancel Command")
+        {
+            CancelPending();
+            return;
+        }
+        
         if (IsPending(command)) return;
 
         // Only one command can be active

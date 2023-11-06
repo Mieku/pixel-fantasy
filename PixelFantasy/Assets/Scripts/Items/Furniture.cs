@@ -120,6 +120,11 @@ namespace Items
             SetState(FurnitureState);
         }
         
+        public void AssignCommand(Command command)
+        {
+            CreateTask(command);
+        }
+        
         protected void SetNextDirection(bool isClockwise)
         {
             if (isClockwise)
