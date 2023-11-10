@@ -13,6 +13,9 @@ namespace Systems.Build_Controls.Scripts
     {
         [SerializeField] protected Transform _costsLayout;
         [SerializeField] protected BuildControlCostDisplay _costDisplayPrefab;
+        [SerializeField] protected GameObject _detailsPanel;
+        [SerializeField] protected TextMeshProUGUI _optionName;
+        [SerializeField] protected TextMeshProUGUI _optionDetails;
 
         private BuildingData _buildingData;
         private List<BuildControlCostDisplay> _displayedCosts = new List<BuildControlCostDisplay>();
@@ -24,7 +27,7 @@ namespace Systems.Build_Controls.Scripts
             _icon.sprite = _buildingData.Icon;
         }
 
-        protected override void ShowDetails()
+        protected override void ToggledOn()
         {
             _detailsPanel.SetActive(true);
             _optionName.text = _buildingData.ConstructionName;
@@ -38,7 +41,7 @@ namespace Systems.Build_Controls.Scripts
             }
         }
 
-        protected override void HideDetails()
+        protected override void ToggledOff()
         {
             foreach (var displayedCost in _displayedCosts)
             {

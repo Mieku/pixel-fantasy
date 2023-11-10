@@ -63,12 +63,12 @@ namespace Managers
         public WallData WallData { get; set; }
         public BuildingData BuildingData { get; set; }
         public DoorData DoorData { get; set; }
-        public FloorData FloorData { get; set; }
         public CropData CropData { get; set; }
         public RoofData RoofData { get; set; }
 
         public Transform ItemsParent => _itemsParent;
         public Transform BuildingsParent => _structureParent;
+        public Transform FlooringParent => _flooringParent;
 
         public PlacementDirection SetNextPlacementDirection(bool isClockwise)
         {
@@ -135,18 +135,6 @@ namespace Managers
                 PlanRoof(mousePos);
             }
             
-            if (inputState == PlayerInputState.BuildFlooring)
-            {
-                if (PlayerInputController.Instance.StoredKey == "Dirt")
-                {
-                    PlanDirt(mousePos);
-                }
-                else
-                {
-                    PlanFloor(mousePos, FloorData.PlanningMode);
-                }
-            }
-
             if (inputState == PlayerInputState.BuildFarm)
             {
                 PlanFarm(mousePos);
@@ -184,32 +172,6 @@ namespace Managers
             {
                 var roofData = Librarian.Instance.GetRoofData(PlayerInputController.Instance.StoredKey);
                 SpawnRoof(roofData, Helper.ConvertMousePosToGridPos(mousePos));
-            }
-            else if (inputState == PlayerInputState.BuildFlooring)
-            {
-                if (PlayerInputController.Instance.StoredKey == "Dirt")
-                {
-                    if (_planningStructure)
-                    {
-                        SpawnPlannedDirt();
-                    }
-                    else
-                    {
-                        SpawnDirtTile(Helper.ConvertMousePosToGridPos(mousePos));
-                    }
-                }
-                else
-                {
-                    if (_planningStructure)
-                    {
-                        SpawnPlannedFloor();
-                    }
-                    else
-                    {
-                        var floorData = Librarian.Instance.GetFloorData(PlayerInputController.Instance.StoredKey);
-                        SpawnFloor(floorData, Helper.ConvertMousePosToGridPos(mousePos));
-                    }
-                }
             }
             else if (inputState == PlayerInputState.BuildFurniture && _plannedFurniture != null)
             {
@@ -496,19 +458,7 @@ namespace Managers
             furniture.SetState(Furniture.EFurnitureState.Planning);
             _plannedFurniture = furniture;
         }
-
-        public void SpawnFloor(FloorData floorData, Vector3 spawnPosition)
-        {
-            if (Helper.IsGridPosValidToBuild(spawnPosition, floorData.InvalidPlacementTags))
-            {
-                spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
-                var floorObj = Instantiate(_floorPrefab, spawnPosition, Quaternion.identity);
-                floorObj.transform.SetParent(_flooringParent);
-                var floor = floorObj.GetComponent<Floor>();
-                floor.Init(floorData);
-            }
-        }
-
+        
         public void SpawnTree(Vector3 spawnPosition, GrowingResourceData growingResourceData)
         {
             spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
@@ -524,25 +474,7 @@ namespace Managers
             plant.transform.SetParent(_resourceParent);
             plant.GetComponent<GrowingResource>().Init(growingResourceData, _plantPrefab);
         }
-
-        public void SpawnDirtTile(Vector3 spawnPosition, Structure requestingStructure = null)
-        {
-            spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
-            var dirt = Instantiate(_dirtTilePrefab, spawnPosition, Quaternion.identity);
-            dirt.transform.SetParent(_flooringParent);
-            dirt.GetComponent<DirtTile>().Init(requestingStructure);
-        }
         
-        public DirtTile SpawnDirtTile(Vector3 spawnPosition, Floor requestingFloor)
-        {
-            spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
-            var dirt = Instantiate(_dirtTilePrefab, spawnPosition, Quaternion.identity);
-            dirt.transform.SetParent(_flooringParent);
-            var dirtTile = dirt.GetComponent<DirtTile>();
-            dirtTile.Init(requestingFloor);
-            return dirtTile;
-        }
-
         #region Structure
 
         private void CancelPlanning()
@@ -624,24 +556,7 @@ namespace Managers
             _plannedGrid.Clear();
             _planningStructure = false;
         }
-
-        private void SpawnPlannedFloor()
-        {
-            if (!_planningStructure) return;
-
-            foreach (var gridPos in _plannedGrid)
-            {
-                if (Helper.IsGridPosValidToBuild(gridPos, FloorData.InvalidPlacementTags))
-                {
-                    SpawnFloor(FloorData, gridPos);
-                }
-            }
-
-            ClearPlannedBlueprint();
-            _plannedGrid.Clear();
-            _planningStructure = false;
-        }
-
+        
         private void PlanRoof(Vector2 mousePos)
         {
             if (!_planningStructure) return;
@@ -760,112 +675,8 @@ namespace Managers
             
         }
 
-        private void PlanFloor(Vector2 mousePos, PlanningMode planningMode)
-        {
-            if (!_planningStructure) return;
-
-            Vector3 curGridPos = Helper.ConvertMousePosToGridPos(mousePos);
-            List<Vector2> gridPositions = new List<Vector2>();
-
-            switch (planningMode)
-            {
-                case PlanningMode.Rectangle:
-                    gridPositions = Helper.GetRectangleGridPositionsBetweenPoints(_startPos, curGridPos);
-                    break;
-                case PlanningMode.Line:
-                    gridPositions = Helper.GetLineGridPositionsBetweenPoints(_startPos, mousePos);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(planningMode), planningMode, null);
-            }
-
-            if (gridPositions.Count != _plannedGrid.Count)
-            {
-                _plannedGrid = gridPositions;
-                
-                // Clear previous display, then display new blueprints
-                ClearPlannedBlueprint();
-
-                foreach (var gridPos in gridPositions)
-                {
-                    var blueprint = new GameObject("blueprint", typeof(SpriteRenderer));
-                    blueprint.transform.position = gridPos;
-                    var spriteRenderer = blueprint.GetComponent<SpriteRenderer>();
-                    spriteRenderer.sprite = FloorData.Icon;
-                    if (Helper.IsGridPosValidToBuild(gridPos, FloorData.InvalidPlacementTags))
-                    {
-                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Green");
-                    }
-                    else
-                    {
-                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Red");
-                    }
-                    
-                    spriteRenderer.sortingLayerName = "Floor";
-                    _blueprints.Add(blueprint);
-                }
-            }
-            
-        }
-
         #endregion
-
-        private void PlanDirt(Vector2 mousePos)
-        {
-            if (!_planningStructure) return;
-
-            Vector3 curGridPos = Helper.ConvertMousePosToGridPos(mousePos);
-            List<Vector2> gridPositions = new List<Vector2>();
-            gridPositions = Helper.GetRectangleGridPositionsBetweenPoints(_startPos, curGridPos);
-
-            if (gridPositions.Count != _plannedGrid.Count)
-            {
-                _plannedGrid = gridPositions;
-                
-                // Clear previous display, then display new blueprints
-                ClearPlannedBlueprint();
-
-                foreach (var gridPos in gridPositions)
-                {
-                    var blueprint = new GameObject("blueprint", typeof(SpriteRenderer));
-                    blueprint.transform.position = gridPos;
-                    var spriteRenderer = blueprint.GetComponent<SpriteRenderer>();
-                    var dirt = _dirtTilePrefab.GetComponent<DirtTile>();
-                    spriteRenderer.sprite = dirt.PlacementIcon;
-                    if (Helper.IsGridPosValidToBuild(gridPos, dirt.InvalidPlacementTags))
-                    {
-                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Green");
-                    }
-                    else
-                    {
-                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Red");
-                    }
-                    
-                    spriteRenderer.sortingLayerName = "DirtTile";
-                    _blueprints.Add(blueprint);
-                }
-            }
-        }
-
-        private void SpawnPlannedDirt()
-        {
-            if (!_planningStructure) return;
-
-            foreach (var gridPos in _plannedGrid)
-            {
-                var dirt = _dirtTilePrefab.GetComponent<DirtTile>();
-                if (Helper.IsGridPosValidToBuild(gridPos, dirt.InvalidPlacementTags))
-                {
-                    SpawnDirtTile(gridPos);
-                }
-            }
-
-            ClearPlannedBlueprint();
-            _plannedGrid.Clear();
-            _planningStructure = false;
-            CancelInput();
-        }
-
+        
         private void PlanFarm(Vector2 mousePos)
         {
             if (!_planningStructure) return;

@@ -28,7 +28,7 @@ namespace Systems.Build_Controls.Scripts
             ButtonDeactivated();
         }
         
-        public void OnPressed()
+        public virtual void OnPressed()
         {
             if (_isActive)
             {
@@ -46,8 +46,7 @@ namespace Systems.Build_Controls.Scripts
         {
             if (_selectedOption != null)
             {
-                Debug.LogError("Tried to assign an option selected, when there is one selected already");
-                return;
+                _selectedOption.Cancel();
             }
 
             _selectedOption = selectedOption;

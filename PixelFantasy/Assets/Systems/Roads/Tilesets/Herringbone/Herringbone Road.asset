@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 245cfde6fd91ac7419ec097dc26402fe, type: 3}
+  m_Name: Herringbone Road
+  m_EditorClassIdentifier: 
+  <RoadName>k__BackingField: Herringbone
+  <RoadOptions>k__BackingField:
+  - _optionName: Light
+    _optionIcon: {fileID: -1832011683, guid: b5de8cbb2dd934246ab560b14b6cf3a1, type: 3}
+    _roadRuleTile: {fileID: 11400000, guid: fb21e8f7d548ac043a291bc37d0809c5, type: 2}
+    _workCost: 5
+    _requiredJob: {fileID: 0}
+    _optionResourceCosts:
+    - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
+      Quantity: 2
+  - _optionName: Grey
+    _optionIcon: {fileID: 430793170, guid: 10a1031e5a2fa3446b0eae90df80af2b, type: 3}
+    _roadRuleTile: {fileID: 11400000, guid: cf8e41359187b6644828ec949ba8e55e, type: 2}
+    _workCost: 5
+    _requiredJob: {fileID: 11400000, guid: 8cc115b907c69de4da24cb986f35866f, type: 2}
+    _optionResourceCosts:
+    - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
+      Quantity: 1

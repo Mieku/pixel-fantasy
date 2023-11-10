@@ -1,12 +1,12 @@
 using Managers;
+using Systems.Roads.Scripts;
 using UnityEngine;
 
 namespace TaskSystem
 {
     public class ClearGrassAction : TaskAction
     {
-        
-        private DirtTile _dirtTile;
+        private Dirt _dirt;
         private float _timer;
         private Vector2? _movePos;
         private bool _isMoving;
@@ -19,8 +19,8 @@ namespace TaskSystem
         public override void PrepareAction(Task task)
         {
             _task = task;
-            _dirtTile = task.Requestor as DirtTile;
-            _movePos = _ai.GetAdjacentPosition(_dirtTile.transform.position);
+            _dirt = task.Requestor as Dirt;
+            _movePos = _ai.GetAdjacentPosition(_dirt.transform.position);
         }
 
         public override void DoAction()
@@ -37,13 +37,13 @@ namespace TaskSystem
         
         private void DoClearGrass()
         {
-            UnitAnimController.SetUnitAction(UnitAction.Digging, _ai.GetActionDirection(_dirtTile.transform.position));
+            UnitAnimController.SetUnitAction(UnitAction.Digging, _ai.GetActionDirection(_dirt.transform.position));
             
             _timer += TimeManager.Instance.DeltaTime;
             if(_timer >= WORK_SPEED) 
             {
                 _timer = 0;
-                if (_dirtTile.DoWork(WORK_AMOUNT)) 
+                if (_dirt.DoConstruction(WORK_AMOUNT))
                 {
                     // When work is complete
                     ConcludeAction();
@@ -65,16 +65,10 @@ namespace TaskSystem
             base.ConcludeAction();
             
             UnitAnimController.SetUnitAction(UnitAction.Nothing);
-            _dirtTile = null;
+            _dirt = null;
             _task = null;
             _movePos = null;
             _isMoving = false;
         }
-
-        // public override void OnTaskCancel()
-        // {
-        //     _ai.Unit.UnitAgent.SetMovePosition(transform.position);
-        //     ConcludeAction();
-        // }
     }
 }

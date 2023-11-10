@@ -22,7 +22,6 @@ namespace Controllers
         [SerializeField] private List<Order> _furnitureOrders;
         [SerializeField] private List<Order> _roofOrders;
         
-        [SerializeField] private DirtTile _dirtPrefab;
         [SerializeField] private Sprite _zoneSprite;
 
         #region Button Hooks
@@ -141,15 +140,6 @@ namespace Controllers
                         BuildDoorPressed(dataKey);
                     };
                     break;
-                case OrderType.ClearGrass:
-                    onpressed += ClearGrassPressed;
-                    break;
-                case OrderType.BuildFloor:
-                    onpressed += () =>
-                    {
-                        BuildFloorPressed(dataKey);
-                    };
-                    break;
                 case OrderType.BuildFurniture:
                     onpressed += () =>
                     {
@@ -245,22 +235,6 @@ namespace Controllers
             var doorData = Librarian.Instance.GetDoorData(PlayerInputController.Instance.StoredKey);
             Spawner.Instance.DoorData = doorData;
             Spawner.Instance.ShowPlacementIcon(true, doorData.Icon, doorData.InvalidPlacementTags);
-        }
-        
-        public void ClearGrassPressed()
-        {
-            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildFlooring, "Dirt");
-            Spawner.Instance.ShowPlacementIcon(true, _dirtPrefab.PlacementIcon, _dirtPrefab.InvalidPlacementTags);
-        }
-
-        public void BuildFloorPressed(string key)
-        {
-            Spawner.Instance.CancelInput();
-            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildFlooring, key);
-            
-            var floorData = Librarian.Instance.GetFloorData(PlayerInputController.Instance.StoredKey);
-            Spawner.Instance.FloorData = floorData;
-            Spawner.Instance.ShowPlacementIcon(true, floorData.Icon, floorData.InvalidPlacementTags);
         }
         
         private void ShowSubMenu(List<Order> subMenu, List<Order> curMenu, bool hasBackBtn)

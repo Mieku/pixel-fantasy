@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 245cfde6fd91ac7419ec097dc26402fe, type: 3}
+  m_Name: Smooth Road
+  m_EditorClassIdentifier: 
+  <RoadName>k__BackingField: Smooth
+  <RoadOptions>k__BackingField:
+  - _optionName: Light
+    _optionIcon: {fileID: -1842436959, guid: 57447c536ada4864a9059183ebf2cbb6, type: 3}
+    _roadRuleTile: {fileID: 11400000, guid: 2363d8c9aa099b04590f3adf464403be, type: 2}
+    _workCost: 5
+    _requiredJob: {fileID: 0}
+    _optionResourceCosts:
+    - Item: {fileID: 11400000, guid: 75f99dfbebb440d4499e1b83387d86e1, type: 2}
+      Quantity: 2

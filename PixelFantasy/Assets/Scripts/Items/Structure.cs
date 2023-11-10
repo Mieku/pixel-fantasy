@@ -155,12 +155,7 @@ namespace Items
         {
             return Helper.DoesGridContainTag(transform.position, "Dirt");
         }
-
-        private void ClearGrass()
-        {
-            Spawner.Instance.SpawnDirtTile(Helper.ConvertMousePosToGridPos(transform.position), this);
-        }
-
+        
         private void CreateConstructionHaulingTasks()
         {
             var resourceCosts = _structureData.GetResourceCosts();

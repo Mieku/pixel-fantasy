@@ -14,7 +14,6 @@ namespace Managers
     {
         [SerializeField] private List<ColourData> _colourLibrary;
         [SerializeField] private List<StructureData> _structureLibrary;
-        [SerializeField] private List<FloorData> _floorLibrary;
         [SerializeField] private List<DoorData> _doorLibrary;
         [SerializeField] private List<Sprite> _sprites;
         [SerializeField] private List<SpriteRef> _orderIcons;
@@ -188,16 +187,6 @@ namespace Managers
             return results;
         }
         
-        public FloorData GetFloorData(string key)
-        {
-            var result = _floorLibrary.Find(s => s.ConstructionName == key);
-            if (result == null)
-            {
-                Debug.LogError("Unknown Floor: " + key);
-            }
-            return result;
-        }
-
         public CropData GetCropData(string key)
         {
             var result = _cropLibrary.Find(s => s.CropName == key);

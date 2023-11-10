@@ -53,14 +53,14 @@ public class PositionRendererSorter : MonoBehaviour
             yPos = transform.localPosition.y;
         }
         
-        
+        int sortingOrder = (int)(_sortingOrderBase - (yPos + _offset) * 10);
         if (_sortingGroup != null)
         {
-            _sortingGroup.sortingOrder = (int)(_sortingOrderBase - (yPos + _offset) * 10);
+            _sortingGroup.sortingOrder = sortingOrder;
         }
         else
         {
-            _myRenderer.sortingOrder = (int)(_sortingOrderBase - (yPos + _offset) * 10);
+            _myRenderer.sortingOrder = sortingOrder;
         }
     }
 

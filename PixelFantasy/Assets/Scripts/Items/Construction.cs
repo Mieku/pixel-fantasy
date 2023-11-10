@@ -391,7 +391,7 @@ namespace Items
 
         protected virtual void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
         {
-            Task task = new Task("Withdraw Item", this)
+            Task task = new Task("Withdraw Item Construction", this)
             {
                 Payload = resourceData.ItemName,
                 TaskType = TaskType.Haul,

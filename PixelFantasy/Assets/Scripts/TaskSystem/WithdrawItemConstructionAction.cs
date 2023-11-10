@@ -40,7 +40,15 @@ namespace TaskSystem
             _targetItem = ClaimItem(payload);
 
             var building = _requestor as Building;
-            _constructionPos = building.ConstructionStandPosition();
+            if (building != null)
+            {
+                _constructionPos = building.ConstructionStandPosition();
+            }
+            else
+            {
+                _constructionPos = _requestor.transform.position;
+            }
+            
         }
 
         public override void DoAction()

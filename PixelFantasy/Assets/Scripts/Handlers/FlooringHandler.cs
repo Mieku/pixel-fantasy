@@ -12,8 +12,6 @@ namespace Handlers
         protected override string StateName => "Flooring";
         public override int LoadOrder => 1;
         
-        [SerializeField] private GameObject _flooringPrefab;
-        [SerializeField] private GameObject _dirtPrefab;
         [SerializeField] private GameObject _cropPrefab;
 
         protected override void ClearChildStates(List<object> childrenStates)
@@ -37,17 +35,7 @@ namespace Handlers
             // Instantiate all the children in data, Trigger RestoreState with their state data
             foreach (var childState in childrenStates)
             {
-                if (childState is Floor.Data floorData)
-                {
-                    var childObj = Instantiate(_flooringPrefab, transform);
-                    childObj.GetComponent<IPersistent>().RestoreState(floorData);
-                } 
-                else if (childState is DirtTile.DirtData dirtData)
-                {
-                    var childObj = Instantiate(_dirtPrefab, transform);
-                    childObj.GetComponent<IPersistent>().RestoreState(dirtData);
-                }
-                else if (childState is Crop.CropState cropState)
+                if (childState is Crop.CropState cropState)
                 {
                     var childObj = Instantiate(_cropPrefab, transform);
                     childObj.GetComponent<IPersistent>().RestoreState(cropState);

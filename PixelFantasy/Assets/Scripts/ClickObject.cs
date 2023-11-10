@@ -22,7 +22,6 @@ public class ClickObject : MonoBehaviour
     private ItemData _itemData;
     private ConstructionData _structureData;
     private ResourceData growingResourceData;
-    private FloorData _floorData;
     private Unit _unit;
 
     private IClickableObject _clickableObject; // Cache
@@ -59,7 +58,7 @@ public class ClickObject : MonoBehaviour
                 growingResourceData = GetComponent<Resource>().GetResourceData();
                 break;
             case ObjectType.Floor:
-                _floorData = GetComponent<Floor>().FloorData;
+                //_floorData = GetComponent<Floor>().FloorData;
                 break;
             case ObjectType.Furniture:
                 //_furnitureData = GetComponent<Furniture>().FurnitureData;

@@ -315,7 +315,6 @@ namespace Items
             {
                 if (!Claimed.Contains(storedItem))
                 {
-                    Debug.Log($"Claimed: {storedItem.GetItemData().ItemName}");
                     Claimed.Add(storedItem);
                     return storedItem;
                 }

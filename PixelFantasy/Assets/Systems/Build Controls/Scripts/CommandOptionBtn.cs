@@ -19,13 +19,13 @@ namespace Systems.Build_Controls.Scripts
             _icon.sprite = _command.Icon;
         }
 
-        protected override void ShowDetails()
+        protected override void ToggledOn()
         {
             // No Details are needed
             _btnBG.sprite = _activeBtnSpr;
         }
 
-        protected override void HideDetails()
+        protected override void ToggledOff()
         {
             // No Details are needed
             _btnBG.sprite = _defaultBtnSpr;
