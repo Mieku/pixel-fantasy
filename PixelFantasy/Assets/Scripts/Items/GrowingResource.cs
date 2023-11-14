@@ -53,11 +53,9 @@ namespace Items
             }
         }
 
-        public void Init(GrowingResourceData growingResourceData, GameObject prefab)
+        public void Init(GrowingResourceData growingResourceData)
         {
             base.ResourceData = growingResourceData;
-            Prefab = prefab;
-            
             Init();
         }
         

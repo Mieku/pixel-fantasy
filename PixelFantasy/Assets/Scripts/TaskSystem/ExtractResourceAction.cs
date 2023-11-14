@@ -22,7 +22,7 @@ namespace TaskSystem
             _task = task;
             _resource = task.Requestor as Resource;
             _actionAnimation = _resource.GetExtractActionAnim();
-            _movePos = _ai.GetAdjacentPosition(_task.Requestor.transform.position);
+            _movePos = _ai.GetAdjacentPosition(_task.Requestor.transform.position, _resource.MinWorkDistance);
         }
         
         public override void ConcludeAction()

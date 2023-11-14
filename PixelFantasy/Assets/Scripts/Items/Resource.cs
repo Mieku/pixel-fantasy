@@ -11,8 +11,6 @@ namespace Items
 {
     public class Resource : PlayerInteractable, IClickableObject, IPersistent
     {
-        public GameObject Prefab;
-        
         public ResourceData ResourceData;
         [SerializeField] protected SpriteRenderer _spriteRenderer;
         [SerializeField] private ClickObject _clickObject;
@@ -46,6 +44,8 @@ namespace Items
         {
             return Health / GetWorkAmount();
         }
+
+        public virtual float MinWorkDistance => 1f;
 
         public virtual string DisplayName => ResourceData.ResourceName;
 
@@ -118,7 +118,6 @@ namespace Items
             return new Data
             {
                 UID = UniqueId,
-                Prefab = Prefab,
                 Position = transform.position,
                 ResourceData = ResourceData,
                 IsAllowed = this.IsAllowed,
@@ -130,7 +129,6 @@ namespace Items
         {
             var stateData = (Data)data;
             UniqueId = stateData.UID;
-            Prefab = stateData.Prefab;
             transform.position = stateData.Position;
             ResourceData = stateData.ResourceData;
             IsAllowed = stateData.IsAllowed;

@@ -464,7 +464,7 @@ namespace Managers
             spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
             var tree = Instantiate(_treePrefab, spawnPosition, Quaternion.identity);
             tree.transform.SetParent(_resourceParent);
-            tree.GetComponent<GrowingResource>().Init(growingResourceData, _treePrefab);
+            tree.GetComponent<GrowingResource>().Init(growingResourceData);
         }
 
         public void SpawnPlant(Vector3 spawnPosition, GrowingResourceData growingResourceData)
@@ -472,7 +472,7 @@ namespace Managers
             spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
             var plant = Instantiate(_plantPrefab, spawnPosition, Quaternion.identity);
             plant.transform.SetParent(_resourceParent);
-            plant.GetComponent<GrowingResource>().Init(growingResourceData, _plantPrefab);
+            plant.GetComponent<GrowingResource>().Init(growingResourceData);
         }
         
         #region Structure
