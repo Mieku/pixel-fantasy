@@ -12,7 +12,5 @@ namespace Systems.Notifications.Scripts
             var toast = Instantiate(_toastPrefab, _toastParent);
             toast.Init(message);
         }
-        
-        
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Characters;
 using Managers;
+using Systems.Notifications.Scripts;
 using Systems.Traits.Scripts;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -321,6 +322,7 @@ namespace Systems.Social.Scripts
             RelationshipState result = _relationships.Find(state => state.KinlingUniqueID == otherUID);
             if (result == null)
             {
+                NotificationManager.Instance.CreateKinlingLog(_unit, $"{_unit.GetUnitState().FullName} has met {otherKinling._unit.GetUnitState().FullName}", LogData.ELogType.Message);
                 result = new RelationshipState(otherKinling);
                 _relationships.Add(result);
             }
@@ -336,6 +338,7 @@ namespace Systems.Social.Scripts
             
             Debug.Log($"Relationship started!");
             _unit.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("Started Relationship")); // Mood Buff
+            NotificationManager.Instance.CreateKinlingLog(_unit, $"{_unit.GetUnitState().FullName} is now in a relationship with {otherKinling._unit.GetUnitState().FullName}!", LogData.ELogType.Positive);
         }
     }
 }
