@@ -9,6 +9,7 @@ namespace Managers
         [Range(0, 23.99f)] [SerializeField] private float _timeOfDay;
         [SerializeField] private AnimationCurve _lightingCurve;
 
+        [SerializeField] private int _currentDay;
         [SerializeField] private int _currentHour;
         [SerializeField] private int _currentMin;
         [SerializeField] private bool _isPM;
@@ -18,7 +19,7 @@ namespace Managers
         private float _gameDayTimer;
         private int _cur24Hour;
         
-        public GameTime GameTime => new GameTime(_currentHour, _currentMin, _isPM);
+        public GameTime GameTime => new GameTime( _currentDay, _currentHour, _currentMin, _isPM);
 
         protected override void Awake()
         {
@@ -50,6 +51,7 @@ namespace Managers
             if (_gameDayTimer >= 23.99f)
             {
                 _gameDayTimer = 0f;
+                _currentDay++;
             }
 
             var hour24 = (int)_gameDayTimer;
@@ -95,6 +97,7 @@ namespace Managers
 
     public class GameTime
     {
+        public int Day;
         public int Hour;
         public int Minute;
         public bool IsPM;
@@ -114,8 +117,9 @@ namespace Managers
             return Hour + 12;
         }
 
-        public GameTime(int hour, int min, bool isPM)
+        public GameTime(int day, int hour, int min, bool isPM)
         {
+            Day = day;
             Hour = hour;
             Minute = min;
             IsPM = isPM;

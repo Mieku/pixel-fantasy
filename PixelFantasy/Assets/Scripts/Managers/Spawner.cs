@@ -5,6 +5,7 @@ using CodeMonkey.Utils;
 using Controllers;
 using Items;
 using ScriptableObjects;
+using Systems.Notifications.Scripts;
 using UnityEngine;
 using Zones;
 
@@ -210,6 +211,10 @@ namespace Managers
                     PlayerInputController.Instance.ChangeState(PlayerInputState.None);
                     plannedBuilding.SetState(Building.BuildingState.Construction);
                     plannedBuilding.TriggerPlaced();
+                }
+                else
+                {
+                    NotificationManager.Instance.Toast("Invalid Location");
                 }
             }
         }

@@ -362,11 +362,21 @@ namespace Buildings
         private void Start()
         {
             ToggleInternalView(false);
+            
+            if (_state != BuildingState.Planning)
+            {
+                BuildingsManager.Instance.RegisterBuilding(this);
+            }
         }
 
         private void OnDestroy()
         {
             GameEvents.OnHideRoofsToggled -= GameEvents_OnHideRoofsToggled;
+
+            if (_state != BuildingState.Planning)
+            {
+                BuildingsManager.Instance.DeregisterBuilding(this);
+            }
         }
 
         private void GameEvents_OnHideRoofsToggled(bool showInternal)
@@ -503,6 +513,8 @@ namespace Buildings
 
         private void Construction_Enter()
         {
+            BuildingsManager.Instance.RegisterBuilding(this);
+            
             _footings.DisplayFootings(false);
             _obstaclesHandle.SetActive(true);
             _doorOpener.LockClosed(true);

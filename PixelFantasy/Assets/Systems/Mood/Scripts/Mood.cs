@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Characters;
 using Managers;
+using Systems.Notifications.Scripts;
 using Systems.Traits.Scripts;
 using TaskSystem;
 using UnityEngine;
@@ -301,10 +302,8 @@ namespace Systems.Mood.Scripts
 
         private void OnBreakdownBegin()
         {
-            Debug.Log("Breakdown has begun!");
-            // TODO: Display a msg for the player that a breakdown is happening
-            
-            
+            NotificationManager.Instance.CreateKinlingLog(_unit, $"{_unit.GetUnitState().FullName} is having a Breakdown!", LogData.ELogType.Danger);
+
             // Start a breakdown action
             _curBreakdownAction = _taskAI.ForceTask(_pendingBreakdownState.Breakdown.BreakdownTaskId);
             if (_curBreakdownAction == null)
@@ -330,13 +329,11 @@ namespace Systems.Mood.Scripts
 
         private void OnBreakdownComplete()
         {
-            Debug.Log("Breakdown is over!");
+            NotificationManager.Instance.CreateKinlingLog(_unit, $"{_unit.GetUnitState().FullName}'s Breakdown is over!", LogData.ELogType.Notification);
             
             // End the breakdown Action
             _curBreakdownAction.ConcludeAction();
             _pendingBreakdownState = null;
-            
-            // TODO: If there is currently a msg for the player about a breakdown, remove it
             
             // Give the Kinling an emotion to boost it out of danger
             var catharsisEmotion = Librarian.Instance.GetEmotion("Catharsis");

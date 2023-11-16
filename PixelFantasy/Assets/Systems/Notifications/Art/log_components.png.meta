@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: decb3c08c1ec4154cb5369c94f503b51
+guid: 3204b529c3f8719419aebe8626111b6f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,7 +117,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cell_phone_all_parts_0
+      name: notification_bg
       rect:
         serializedVersion: 2
         x: 64
@@ -138,7 +138,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cell_phone_all_parts_1
+      name: log_bg
       rect:
         serializedVersion: 2
         x: 80
@@ -159,7 +159,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cell_phone_all_parts_2
+      name: notification_frame
       rect:
         serializedVersion: 2
         x: 13
@@ -190,9 +190,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      cell_phone_all_parts_0: -57769351
-      cell_phone_all_parts_1: -1188175715
-      cell_phone_all_parts_2: -1234905676
+      log_bg: -1188175715
+      notification_bg: -57769351
+      notification_frame: -1234905676
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

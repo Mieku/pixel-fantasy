@@ -5,6 +5,7 @@ using Controllers;
 using Interfaces;
 using Items;
 using Systems.Details.Generic_Details.Scripts;
+using Systems.Notifications.Scripts;
 using TMPro;
 using UnityEngine;
 
@@ -21,6 +22,9 @@ namespace HUD
         [Header("Building Details")] 
         [SerializeField] private BuildingDetailsUI _buildingDetails;
         
+        [Header("Notification Log")]
+        [SerializeField] private NotificationLogger _notificationLogger;
+        
         private void Start()
         {
             HideAllDetails();
@@ -29,6 +33,7 @@ namespace HUD
         public void ShowUnitDetails(Unit unit)
         {
             HideAllDetails();
+            _notificationLogger.Hide();
 
             _kinlingDetails.Show(unit);
         }
@@ -36,6 +41,7 @@ namespace HUD
         public void ShowBuildingDetails(Building building)
         {
             HideAllDetails();
+            _notificationLogger.Hide();
 
             _buildingDetails.Show(building);
         }
@@ -45,11 +51,14 @@ namespace HUD
             _genericDetails.Hide();
             _kinlingDetails.Hide();
             _buildingDetails.Hide();
+            
+            _notificationLogger.Show();
         }
 
         public void ShowItemDetails(IClickableObject clickableObject)
         {
             HideAllDetails();
+            _notificationLogger.Hide();
             
             _genericDetails.Show(clickableObject);
         }

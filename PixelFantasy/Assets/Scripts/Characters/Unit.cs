@@ -51,11 +51,14 @@ namespace Characters
         public Gender Gender;
         public Unit Partner;
         public Family Family;
+        public ClickObject ClickObject;
 
         private Building _insideBuidling;
 
         private void Awake()
         {
+            ClickObject = GetComponent<ClickObject>();
+            
             UnitsManager.Instance.RegisterKinling(this);
 
             GameEvents.OnGlimraDue += GameEvent_OnGlimraDue;

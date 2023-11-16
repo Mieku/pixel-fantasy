@@ -62,5 +62,14 @@ namespace Managers
         {
             return AllKinlings.Find(unit => unit.UniqueId == uniqueID);
         }
+
+        public void SelectKinling(string uniqueID)
+        {
+            var kinling = GetUnit(uniqueID);
+            if (kinling != null)
+            {
+                kinling.ClickObject.TriggerSelected(true);
+            }
+        }
     }
 }

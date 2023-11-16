@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: decb3c08c1ec4154cb5369c94f503b51
+guid: a3f6eea7ade3a074786fdbdf0e85a5be
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,64 +117,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cell_phone_all_parts_0
+      name: notification_slider_handle
       rect:
         serializedVersion: 2
-        x: 64
-        y: 48
-        width: 16
-        height: 16
+        x: 84
+        y: 52
+        width: 6
+        height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 2, y: 2, z: 2, w: 2}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7568b7d42c988c4493e8ae16bcd6b2f
-      internalID: -57769351
+      spriteID: 3c5ad0a99e494884f8e91e9ee8e1d6f1
+      internalID: -326901397
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cell_phone_all_parts_1
+      name: notification_slider_bar_grey
       rect:
         serializedVersion: 2
-        x: 80
-        y: 112
-        width: 16
-        height: 16
+        x: 276
+        y: 18
+        width: 6
+        height: 44
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 3, y: 3, z: 3, w: 3}
+      border: {x: 2, y: 3, z: 2, w: 3}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c6f96f9dc04502b488d18edb54cfb3a7
-      internalID: -1188175715
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cell_phone_all_parts_2
-      rect:
-        serializedVersion: 2
-        x: 13
-        y: 109
-        width: 22
-        height: 22
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 3, y: 3, z: 3, w: 3}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cb6fe4ad54fee7048bf92bfad9bce68d
-      internalID: -1234905676
+      spriteID: 23a7cdba8bd0eaa4c80f84831bd6e4e2
+      internalID: -732681729
       vertices: []
       indices: 
       edges: []
@@ -190,9 +169,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      cell_phone_all_parts_0: -57769351
-      cell_phone_all_parts_1: -1188175715
-      cell_phone_all_parts_2: -1234905676
+      notification_slider_bar_grey: -732681729
+      notification_slider_handle: -326901397
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
