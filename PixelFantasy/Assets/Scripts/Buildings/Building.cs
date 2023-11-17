@@ -9,6 +9,7 @@ using Managers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
+using Systems.Notifications.Scripts;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -31,6 +32,7 @@ namespace Buildings
         [SerializeField] private Transform _constructionStandPos;
         [SerializeField] private BuildingInteriorDetector _buildingInteriorDetector;
         [SerializeField] private GameObject _furnitureParentHandle;
+        [SerializeField] protected BuildingNotification _buildingNotification;
         
         [TitleGroup("Layering")] [SerializeField] private float _buildingDepth;
         [TitleGroup("Layering")] [SerializeField] private SortingGroup _exteriorSortingGroup;
@@ -44,11 +46,11 @@ namespace Buildings
 
         public BuildingData BuildingData => _buildingData;
 
-        private BuildingState _state;
+        protected BuildingState _state;
         private string _buildingName;
         private bool _internalViewToggled;
 
-        private List<BuildingNote> _buildingNotes = new List<BuildingNote>();
+        protected List<BuildingNote> _buildingNotes = new List<BuildingNote>();
         private List<Unit> _occupants = new List<Unit>();
         private List<Furniture> _allFurniture = new List<Furniture>();
         private List<InventoryLogisticBill> _logisticsBills = new List<InventoryLogisticBill>();
@@ -329,7 +331,7 @@ namespace Buildings
                 if (_buildingNotes.Count == 0)
                 {
                     var notes = new List<BuildingNote>();
-                    notes.Add(new BuildingNote("Everything is great!", true));
+                    notes.Add(new BuildingNote("Everything is great!", true, "No Issues"));
                     return notes;
                 }
 
@@ -356,6 +358,7 @@ namespace Buildings
             base.Awake();
             _doorOpener = GetComponentInChildren<DoorOpener>(true);
             GameEvents.OnHideRoofsToggled += GameEvents_OnHideRoofsToggled;
+            GameEvents.MinuteTick += GameEvents_MinuteTick;
             EnableFurniture(false);
         }
 
@@ -372,12 +375,26 @@ namespace Buildings
         private void OnDestroy()
         {
             GameEvents.OnHideRoofsToggled -= GameEvents_OnHideRoofsToggled;
+            GameEvents.MinuteTick -= GameEvents_MinuteTick;
 
             if (_state != BuildingState.Planning)
             {
                 BuildingsManager.Instance.DeregisterBuilding(this);
             }
         }
+
+        protected virtual void GameEvents_MinuteTick()
+        {
+            CheckForIssues();
+        }
+
+        protected virtual bool CheckForIssues()
+        {
+            // Check for things like upgradeable furniture, etc
+            bool hasIssue = false;
+
+            return false;
+        } 
 
         private void GameEvents_OnHideRoofsToggled(bool showInternal)
         {
@@ -642,11 +659,13 @@ namespace Buildings
         {
             public string Note;
             public bool IsPositive;
+            public string ID;
 
-            public BuildingNote(string note, bool isPositive)
+            public BuildingNote(string note, bool isPositive, string id)
             {
                 Note = note;
                 IsPositive = isPositive;
+                ID = id;
             }
         }
         
