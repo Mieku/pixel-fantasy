@@ -7,6 +7,7 @@ namespace Managers
     public class BuildingsManager : Singleton<BuildingsManager>
     {
         private List<Building> _allBuildings = new List<Building>();
+        public List<Building> AllBuildings => _allBuildings;
         
         public void RegisterBuilding(Building building)
         {

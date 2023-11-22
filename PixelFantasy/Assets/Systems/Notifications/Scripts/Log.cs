@@ -64,7 +64,7 @@ namespace Systems.Notifications.Scripts
                     _logMessage.color = _warningTextColour;
                     _logMessage.text = $"{TimeStampLog}{_logData.Message}";
                     break;
-                case LogData.ELogType.Alert:
+                case LogData.ELogType.Negative:
                     _logBG.color = _defaultLogBGColour;
                     _logMessage.alignment = TextAlignmentOptions.Left;
                     _logMessage.color = _alertTextColour;
@@ -111,7 +111,7 @@ namespace Systems.Notifications.Scripts
                 case LogData.ELogType.Message:
                 case LogData.ELogType.Positive:
                 case LogData.ELogType.Warning:
-                case LogData.ELogType.Alert:
+                case LogData.ELogType.Negative:
                     break;
                 case LogData.ELogType.Danger:
                 case LogData.ELogType.Notification:
@@ -138,7 +138,7 @@ namespace Systems.Notifications.Scripts
             Message,
             Positive,
             Warning,
-            Alert,
+            Negative,
             Danger,
             Notification,
         }

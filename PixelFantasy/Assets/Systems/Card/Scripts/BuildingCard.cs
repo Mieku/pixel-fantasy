@@ -42,7 +42,7 @@ namespace Systems.Card.Scripts
 
         public override void TriggerCardPower()
         {
-            if (_plannedBuilding.CheckPlacement() && CurrencyManager.Instance.RemoveGlimra(GetCardData().CardCost))
+            if (_plannedBuilding.CheckPlacement() && CurrencyManager.Instance.RemoveCoins(GetCardData().CardCost))
             {
                 _plannedBuilding.SetState(Building.BuildingState.Construction);
                 RemoveCard();

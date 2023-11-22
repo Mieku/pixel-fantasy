@@ -1,4 +1,5 @@
 using DG.Tweening;
+using HUD.Tooltip;
 using TMPro;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ namespace Systems.Currency.Scripts
         [SerializeField] private TextMeshProUGUI _amountDisplay;
         [SerializeField] private Color _positiveChange;
         [SerializeField] private Color _negativeChange;
+        [SerializeField] private TooltipTrigger _iconTooltip;
 
         private int _prevAmount;
         private Color _originalColor;
@@ -23,20 +25,43 @@ namespace Systems.Currency.Scripts
             _prevAmount = 0;
         }
         
-        public void UpdateAmount(int newTotal)
+        public void UpdateDisplay(bool showFeedback)
         {
-            _amountDisplay.text = newTotal.ToString();
-
-            if (newTotal < _prevAmount)
+            int newTotal = CurrencyManager.Instance.TotalCoins;
+            int dailyIncome = CurrencyManager.Instance.GetDailyIncomeAmount();
+            string incomeMsg;
+            if (dailyIncome < 0)
             {
-                ShowNegativeChange();
-            } 
-            else if (newTotal > _prevAmount)
+                incomeMsg = $"<color={Helper.ColorToHex(_negativeChange)}>{dailyIncome}</color>";
+            }
+            else if (dailyIncome > 0)
             {
-                ShowPositiveChange();
+                incomeMsg = $"<color={Helper.ColorToHex(_positiveChange)}>+{dailyIncome}</color>";
+            }
+            else
+            {
+                incomeMsg = $"<color={Helper.ColorToHex(Color.white)}>+{dailyIncome}</color>";
             }
 
+            _amountDisplay.text = $"{newTotal} {incomeMsg}";
+
+            if (showFeedback)
+            {
+                if (newTotal < _prevAmount)
+                {
+                    ShowNegativeChange();
+                } 
+                else if (newTotal > _prevAmount)
+                {
+                    ShowPositiveChange();
+                }
+            }
+            
             _prevAmount = newTotal;
+            
+            // Update Tooltip
+            _iconTooltip.Header = "Coins";
+            _iconTooltip.Content = CurrencyManager.Instance.GetIncomeBreakdown();
         }
 
         private void ShowPositiveChange()

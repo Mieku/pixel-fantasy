@@ -1,18 +1,20 @@
 using System;
 using Managers;
 using Sirenix.OdinInspector;
+using Systems.Notifications.Scripts;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Systems.Currency.Scripts
 {
     public class CurrencyManager : Singleton<CurrencyManager>
     {
-        [SerializeField] private Sprite _glimraIcon;
-        [SerializeField] private int _timeToRequestGlimra;
+        [SerializeField] private Sprite _coinsIcon;
+        [SerializeField] private int _timeToRequestCoins;
 
-        private int _totalGlimra;
+        private int _totalCoins;
 
-        public int TotalGlimra => _totalGlimra;
+        public int TotalCoins => _totalCoins;
 
         protected override void Awake()
         {
@@ -23,7 +25,7 @@ namespace Systems.Currency.Scripts
 
         private void Start()
         {
-            AddGlimra(100); // TODO: Remove this!
+            AddCoins(100); // TODO: Remove this!
         }
 
         private void OnDestroy()
@@ -33,46 +35,103 @@ namespace Systems.Currency.Scripts
 
         private void GameEvent_HourTick(int hour)
         {
-            if (hour == _timeToRequestGlimra)
+            if (hour == _timeToRequestCoins)
             {
-                GameEvents.Trigger_OnGlimraDue();
+                CollectIncome();
             }
         }
 
-        public void AddGlimra(int amountToAdd)
+        private void CollectIncome()
         {
-            _totalGlimra += amountToAdd;
+            int income = GetDailyIncomeAmount();
+            _totalCoins += income;
             
-            GameEvents.Trigger_OnGlimraTotalChanged(_totalGlimra);
+            GameEvents.Trigger_OnCoinsTotalChanged();
+
+            if (income < 0)
+            {
+                NotificationManager.Instance.CreateGeneralLog($"Today's Income: {income}<sprite name=\"Coins\">", LogData.ELogType.Negative);
+            }
+            else
+            {
+                NotificationManager.Instance.CreateGeneralLog($"Today's Income: +{income}<sprite name=\"Coins\">", LogData.ELogType.Positive);
+            }
+        }
+
+        public int GetDailyIncomeAmount()
+        {
+            int incomeAmount = 0;
+            // Get Income From Kinlings
+            foreach (var kinling in UnitsManager.Instance.AllKinlings)
+            {
+                incomeAmount += kinling.DailyIncome();
+            }
+            
+            foreach (var building in BuildingsManager.Instance.AllBuildings)
+            {
+                incomeAmount += building.DailyUpkeep();
+            }
+
+            return incomeAmount;
+        }
+
+        public string GetIncomeBreakdown()
+        {
+            int kinlingIncome = 0;
+            foreach (var kinling in UnitsManager.Instance.AllKinlings)
+            {
+                kinlingIncome += kinling.DailyIncome();
+            }
+
+            int buildingUpkeep = 0;
+            foreach (var building in BuildingsManager.Instance.AllBuildings)
+            {
+                buildingUpkeep += building.DailyUpkeep();
+            }
+
+            string result = $"Income: +{kinlingIncome}\nBuilding Upkeep: {buildingUpkeep}";
+            return result;
+        }
+
+        public int GetTotalCoins()
+        {
+            return _totalCoins;
+        }
+
+        public void AddCoins(int amountToAdd)
+        {
+            _totalCoins += amountToAdd;
+            
+            GameEvents.Trigger_OnCoinsTotalChanged();
         }
 
         /// <summary>
         /// Returns false if can't remove it all, doesn't remove any if it can't
         /// </summary>
-        public bool RemoveGlimra(int amountToRemove)
+        public bool RemoveCoins(int amountToRemove)
         {
-            if (_totalGlimra < amountToRemove)
+            if (_totalCoins < amountToRemove)
             {
                 return false;
             }
 
-            _totalGlimra -= amountToRemove;
+            _totalCoins -= amountToRemove;
             
-            GameEvents.Trigger_OnGlimraTotalChanged(_totalGlimra);
+            GameEvents.Trigger_OnCoinsTotalChanged();
 
             return true;
         }
 
-        [Button("Add 10 Glimra")]
-        public void DebugAddGlimra()
+        [Button("Add 10 Coins")]
+        public void DebugAddCoins()
         {
-            AddGlimra(10);
+            AddCoins(10);
         }
 
-        [Button("Remove 5 Glimra")]
-        public void DebugRemoveGlimra()
+        [Button("Remove 5 Coins")]
+        public void DebugRemoveCoins()
         {
-            RemoveGlimra(5);
+            RemoveCoins(5);
         }
     }
 }

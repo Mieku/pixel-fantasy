@@ -55,13 +55,13 @@ namespace Systems.Card.Scripts
             _canvasGroup = GetComponent<CanvasGroup>();
             _defaultCostColour = _cardCostDisplay.color;
 
-            GameEvents.OnGlimraTotalChanged += GameEvent_OnGlimraTotalChanged;
+            //GameEvents.OnCoinsTotalChanged += GameEvent_OnCoinsTotalChanged;
             GameEvents.OnRightClickUp += GameEvents_OnRightClickUp;
         }
 
         private void OnDestroy()
         {
-            GameEvents.OnGlimraTotalChanged -= GameEvent_OnGlimraTotalChanged;
+            //GameEvents.OnCoinsTotalChanged -= GameEvent_OnCoinsTotalChanged;
             GameEvents.OnRightClickUp -= GameEvents_OnRightClickUp;
         }
         
@@ -88,7 +88,7 @@ namespace Systems.Card.Scripts
             Destroy(gameObject);
         }
 
-        private void GameEvent_OnGlimraTotalChanged(int totalGlimra)
+        private void GameEvent_OnCoinsTotalChanged(int totalGlimra)
         {
             CheckIfAffordCard(totalGlimra);
         }
@@ -116,7 +116,7 @@ namespace Systems.Card.Scripts
             _outlineObj.SetActive(false);
             _cardContentPrefab.gameObject.SetActive(false);
             
-            CheckIfAffordCard(CurrencyManager.Instance.TotalGlimra);
+            CheckIfAffordCard(CurrencyManager.Instance.TotalCoins);
         }
 
         public void AssignSlot(CardSlot cardSlot)

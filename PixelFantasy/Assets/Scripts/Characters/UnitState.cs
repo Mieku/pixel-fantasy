@@ -18,7 +18,18 @@ namespace Characters
         public TaskPriorities Priorities;
         
         public Schedule Schedule = new Schedule();
-        public Building AssignedHome;
+
+        private Building _assignedHome;
+        public Building AssignedHome
+        {
+            get => _assignedHome;
+            set
+            {
+                _assignedHome = value;
+                GameEvents.Trigger_OnCoinsIncomeChanged();
+            }
+        }
+
         public Building AssignedWorkplace;
         
         private List<JobState> _jobHistory = new List<JobState>();

@@ -50,7 +50,7 @@ namespace Systems.Notifications.Scripts
                 case LogData.ELogType.Message:
                 case LogData.ELogType.Positive:
                 case LogData.ELogType.Warning:
-                case LogData.ELogType.Alert:
+                case LogData.ELogType.Negative:
                     CreateNormalLog(logData);
                     break;
                 case LogData.ELogType.Danger:

@@ -33,7 +33,7 @@ namespace Buildings
         [SerializeField] private BuildingInteriorDetector _buildingInteriorDetector;
         [SerializeField] private GameObject _furnitureParentHandle;
         [SerializeField] protected BuildingNotification _buildingNotification;
-        
+
         [TitleGroup("Layering")] [SerializeField] private float _buildingDepth;
         [TitleGroup("Layering")] [SerializeField] private SortingGroup _exteriorSortingGroup;
         [TitleGroup("Layering")] [SerializeField] private SpriteRenderer _interiorSortingGroup;
@@ -552,6 +552,7 @@ namespace Buildings
             ColourSprites(Color.white);
             EnableFurniture(true);
             _doorOpener.LockClosed(false);
+            GameEvents.Trigger_OnCoinsIncomeChanged();
         }
         
         private void FollowCursor()
@@ -646,6 +647,18 @@ namespace Buildings
             }
 
             return 0f;
+        }
+
+        public int DailyUpkeep()
+        {
+            if (_state == BuildingState.Built)
+            {
+                return _buildingData.DailyUpkeep;
+            }
+            else
+            {
+                return 0;
+            }
         }
         
         public enum BuildingState

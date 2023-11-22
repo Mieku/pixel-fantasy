@@ -43,6 +43,7 @@ namespace Managers
             }
             
             _allKinlings.Add(kinling);
+            
         }
 
         public void DeregisterKinling(Unit kinling)

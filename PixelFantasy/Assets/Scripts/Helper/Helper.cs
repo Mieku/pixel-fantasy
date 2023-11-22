@@ -453,6 +453,26 @@ public static class Helper
 
         return default(T);  // This line should never be reached
     }
+    
+    /// <summary>
+    /// Converts a colour to a hex code including the #, ex: #CDCDCD
+    /// </summary>
+    public static string ColorToHex(Color color, bool includeAlpha = false)
+    {
+        int r = Mathf.RoundToInt(color.r * 255);
+        int g = Mathf.RoundToInt(color.g * 255);
+        int b = Mathf.RoundToInt(color.b * 255);
+        int a = Mathf.RoundToInt(color.a * 255);
+
+        if(includeAlpha)
+        {
+            return $"#{r:X2}{g:X2}{b:X2}{a:X2}";
+        }
+        else
+        {
+            return $"#{r:X2}{g:X2}{b:X2}";
+        }
+    }
 
 }
 

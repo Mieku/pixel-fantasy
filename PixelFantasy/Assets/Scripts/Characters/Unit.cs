@@ -14,6 +14,7 @@ using TaskSystem;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 
 namespace Characters
 {
@@ -30,9 +31,9 @@ namespace Characters
         
         [Header("Traits")] 
         [SerializeField] protected List<Trait> _traits;
-
-        [Header("Glimra")] 
-        [SerializeField] protected int _dailyGlimra;
+        
+        [Header("Income")] 
+        [SerializeField] protected int _dailyCoinsIncome;
  
         [SerializeField] private SortingGroup _sortingGroup;
         [SerializeField] private PositionRendererSorter _positionRendererSorter;
@@ -61,7 +62,6 @@ namespace Characters
             
             UnitsManager.Instance.RegisterKinling(this);
 
-            GameEvents.OnGlimraDue += GameEvent_OnGlimraDue;
         }
 
         private void Start()
@@ -71,20 +71,27 @@ namespace Characters
             _mood.Init();
 
             Family = FamilyManager.Instance.FindOrCreateFamily(this);
+            
+            GameEvents.Trigger_OnCoinsIncomeChanged();
         }
 
         private void OnDestroy()
         {
             UnitsManager.Instance.DeregisterKinling(this);
             
-            GameEvents.OnGlimraDue -= GameEvent_OnGlimraDue;
+            GameEvents.Trigger_OnCoinsIncomeChanged();
         }
 
-        private void GameEvent_OnGlimraDue()
+        public int DailyIncome()
         {
-            CurrencyManager.Instance.AddGlimra(_dailyGlimra);
-        }
+            if (_unitState.AssignedHome == null)
+            {
+                return 0;
+            }
 
+            return _dailyCoinsIncome;
+        }
+        
         public void SetInsideBuilding(Building building)
         {
             _insideBuidling = building;

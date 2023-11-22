@@ -160,16 +160,16 @@ public class GameEvents : MonoBehaviour
     {
         if (OnKinlingChanged != null) OnKinlingChanged(unit);
     }
-
-    public static event Action OnGlimraDue;
-    public static void Trigger_OnGlimraDue()
+    
+    public static event Action OnCoinsTotalChanged;
+    public static void Trigger_OnCoinsTotalChanged()
     {
-        if (OnGlimraDue != null) OnGlimraDue();
+        if (OnCoinsTotalChanged != null) OnCoinsTotalChanged();
     }
-
-    public static event Action<int> OnGlimraTotalChanged;
-    public static void Trigger_OnGlimraTotalChanged(int totalGlimra)
+    
+    public static event Action OnCoinsIncomeChanged;
+    public static void Trigger_OnCoinsIncomeChanged()
     {
-        if (OnGlimraTotalChanged != null) OnGlimraTotalChanged(totalGlimra);
+        if (OnCoinsIncomeChanged != null) OnCoinsIncomeChanged();
     }
 }
