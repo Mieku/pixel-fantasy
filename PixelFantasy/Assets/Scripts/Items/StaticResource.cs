@@ -23,15 +23,7 @@ namespace Items
             UpdateSprite();
             Health = GetWorkAmount();
         }
-
-        private void OnValidate()
-        {
-            if (ResourceData != null)
-            {
-                UpdateSprite();
-            }
-        }
-
+        
         public override int GetWorkAmount()
         {
             return _staticResourceData.WorkToExtract;
