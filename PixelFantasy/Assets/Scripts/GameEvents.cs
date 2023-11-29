@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Buildings;
 using Characters;
 using Controllers;
 using ScriptableObjects;
@@ -171,5 +172,11 @@ public class GameEvents : MonoBehaviour
     public static void Trigger_OnCoinsIncomeChanged()
     {
         if (OnCoinsIncomeChanged != null) OnCoinsIncomeChanged();
+    }
+
+    public static event Action<Building> OnBuildingChanged;
+    public static void Trigger_OnBuildingChanged(Building building)
+    {
+        if (OnBuildingChanged != null) OnBuildingChanged(building);
     }
 }

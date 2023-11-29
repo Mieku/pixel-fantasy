@@ -12,6 +12,7 @@ namespace ScriptableObjects
         [TextArea] public string ConstructionDetails;
         public float WorkCost;
         public Sprite Icon;
+        public float MaxDurability;
 
         [SerializeField] private List<ItemAmount> _resourceCosts;
         [SerializeField] private List<string> _invalidPlacementTags;

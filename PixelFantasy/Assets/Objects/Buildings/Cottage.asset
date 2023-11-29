@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: Cottage
   m_EditorClassIdentifier: 
   ConstructionName: Cottage
-  ConstructionDetails: 'A Small Home
-
-    - Houses 1 Kinling'
+  ConstructionDetails: A small home, houses 1 Kinling
   WorkCost: 10
   Icon: {fileID: 21300000, guid: d68903f84656adc4a85c41fa8b42fe29, type: 3}
+  MaxDurability: 100
   _resourceCosts:
   - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
     Quantity: 5
@@ -36,3 +35,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8054ef9a56e8daa448e71e48663b1de4, type: 2}
   - {fileID: 11400000, guid: 54f7579509018e142be034f672827fb3, type: 2}
   LinkedBuilding: {fileID: 4529720070378484586, guid: 956cf5e9de1369447a9ad0215fbf639d, type: 3}
+  WorkersJob: {fileID: 0}
+  DailyUpkeep: -5

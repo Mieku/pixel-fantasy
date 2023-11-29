@@ -61,6 +61,7 @@ namespace Buildings
         public List<Furniture> AllFurniture => _allFurniture;
         public Action<List<Furniture>> OnBuildingFurnitureChanged;
         public Action OnBuildingPlaced;
+        public float CurrentDurability;
 
         // Furniture
         private bool _showCraftableFurniture;
@@ -328,12 +329,12 @@ namespace Buildings
         {
             get
             {
-                if (_buildingNotes.Count == 0)
-                {
-                    var notes = new List<BuildingNote>();
-                    notes.Add(new BuildingNote("Everything is great!", true, "No Issues"));
-                    return notes;
-                }
+                // if (_buildingNotes.Count == 0)
+                // {
+                //     var notes = new List<BuildingNote>();
+                //     notes.Add(new BuildingNote("Everything is great!", true, "No Issues"));
+                //     return notes;
+                // }
 
                 return _buildingNotes;
             }
@@ -365,6 +366,7 @@ namespace Buildings
         private void Start()
         {
             ToggleInternalView(false);
+            CurrentDurability = _buildingData.MaxDurability;
             
             if (_state != BuildingState.Planning)
             {

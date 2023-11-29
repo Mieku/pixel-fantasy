@@ -4,6 +4,7 @@ using Characters;
 using Controllers;
 using Interfaces;
 using Items;
+using Systems.Details.Building_Details.Scripts;
 using Systems.Details.Generic_Details.Scripts;
 using Systems.Notifications.Scripts;
 using TMPro;
@@ -20,7 +21,7 @@ namespace HUD
         [SerializeField] private KinlingDetailsUI _kinlingDetails;
 
         [Header("Building Details")] 
-        [SerializeField] private BuildingDetailsUI _buildingDetails;
+        [SerializeField] private BuildingDetails _buildingDetails;
         
         [Header("Notification Log")]
         [SerializeField] private NotificationLogger _notificationLogger;
