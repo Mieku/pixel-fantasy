@@ -179,6 +179,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: log_components_0
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 13
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 3, y: 3, z: 3, w: 3}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 150d15ecdf8e01e40b98ca8697f364ca
+      internalID: -1990805655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -191,6 +212,7 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       log_bg: -1188175715
+      log_components_0: -1990805655
       notification_bg: -57769351
       notification_frame: -1234905676
   spritePackingTag: 

@@ -120,8 +120,8 @@ TextureImporter:
       name: checkboxes_0
       rect:
         serializedVersion: 2
-        x: 212
-        y: 36
+        x: 161
+        y: 28
         width: 8
         height: 8
       alignment: 0
@@ -200,6 +200,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: checkboxes_4
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 36
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6838cb7cca37d484fb60eec8e1b952b6
+      internalID: -202692065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -215,6 +236,7 @@ TextureImporter:
       checkboxes_1: 1446787731
       checkboxes_2: 758436872
       checkboxes_3: 2086875658
+      checkboxes_4: -202692065
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

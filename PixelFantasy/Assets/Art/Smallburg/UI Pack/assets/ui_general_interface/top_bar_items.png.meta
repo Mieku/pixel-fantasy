@@ -146,7 +146,7 @@ TextureImporter:
         width: 7
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -154,6 +154,48 @@ TextureImporter:
       bones: []
       spriteID: 3d2ef8d0b52cc7049b0bdd7db409af38
       internalID: -1168930870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: top_bar_items_2
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 53
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46dbf88905a93fc4f80bdb5adeeeb914
+      internalID: 1961633490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: top_bar_items_3
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 53
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f390d516bff5144a8e43afb185786a5
+      internalID: -1699735775
       vertices: []
       indices: 
       edges: []
@@ -171,6 +213,8 @@ TextureImporter:
     nameFileIdTable:
       top_bar_items_0: 1623124123
       top_bar_items_1: -1168930870
+      top_bar_items_2: 1961633490
+      top_bar_items_3: -1699735775
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
