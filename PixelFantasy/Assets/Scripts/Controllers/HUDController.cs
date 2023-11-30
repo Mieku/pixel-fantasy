@@ -45,9 +45,9 @@ namespace Controllers
             _selectedItemInfoPanel.ShowItemDetails(clickableObject);
         }
 
-        public void ShowBuildingDetails(Building building)
+        public void ShowBuildingDetails(Building building, bool openConstructionTab = false)
         {
-            _selectedItemInfoPanel.ShowBuildingDetails(building);
+            _selectedItemInfoPanel.ShowBuildingDetails(building, openConstructionTab);
         }
         
         public void HideDetails()

@@ -3964,6 +3964,7 @@ MonoBehaviour:
   _interiorSortingGroup: {fileID: 2736135947198935376}
   _interiorForegroundSortingGroup: {fileID: 8407811110570999269}
   _doorSortingGroup: {fileID: 9014743273962867153}
+  CurrentDurability: 0
 --- !u!114 &5596007926291928697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4199,7 +4200,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2360488137504369317, guid: e219a8e018e3d244b8d0ef8b035b149b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8679221839148330294, guid: e219a8e018e3d244b8d0ef8b035b149b, type: 3}
       propertyPath: m_RootOrder

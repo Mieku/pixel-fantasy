@@ -62,7 +62,7 @@ namespace Systems.Build_Controls.Scripts
         {
             Spawner.Instance.CancelInput();
             PlayerInputController.Instance.ChangeState(PlayerInputState.BuildBuilding, _buildingData.ConstructionName);
-            Spawner.Instance.PlanBuilding(_buildingData.LinkedBuilding, PlanBuilding);
+            Spawner.Instance.PlanBuilding(_buildingData.LinkedBuilding);
         }
 
     }

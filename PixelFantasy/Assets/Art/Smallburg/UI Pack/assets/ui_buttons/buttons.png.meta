@@ -225,13 +225,13 @@ TextureImporter:
       name: buttons_5
       rect:
         serializedVersion: 2
-        x: 74
-        y: 504
-        width: 20
-        height: 12
+        x: 73
+        y: 503
+        width: 22
+        height: 14
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 3, y: 3, z: 3, w: 3}
+      border: {x: 4, y: 4, z: 4, w: 4}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -389,6 +389,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: buttons_red
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 647
+        width: 22
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 4, y: 4, z: 4, w: 4}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2ac2a2b1a7ded04ebce12642d7e201b
+      internalID: 770380695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buttons_red_outlined
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 647
+        width: 22
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 4, y: 4, z: 4, w: 4}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d06e56b61c067c4d9f5c504c86b0051
+      internalID: 21452231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -413,6 +455,8 @@ TextureImporter:
       buttons_7: -5024874
       buttons_8: -1480282275
       buttons_9: 1379474686
+      buttons_red: 770380695
+      buttons_red_outlined: 21452231
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

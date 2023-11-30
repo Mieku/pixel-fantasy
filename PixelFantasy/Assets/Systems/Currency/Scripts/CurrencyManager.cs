@@ -122,6 +122,11 @@ namespace Systems.Currency.Scripts
             return true;
         }
 
+        public bool CanAfford(int amountToCheck)
+        {
+            return amountToCheck <= _totalCoins;
+        }
+
         [Button("Add 10 Coins")]
         public void DebugAddCoins()
         {

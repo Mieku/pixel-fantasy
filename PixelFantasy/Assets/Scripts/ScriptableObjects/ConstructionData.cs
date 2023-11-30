@@ -13,6 +13,7 @@ namespace ScriptableObjects
         public float WorkCost;
         public Sprite Icon;
         public float MaxDurability;
+        public int Price;
 
         [SerializeField] private List<ItemAmount> _resourceCosts;
         [SerializeField] private List<string> _invalidPlacementTags;

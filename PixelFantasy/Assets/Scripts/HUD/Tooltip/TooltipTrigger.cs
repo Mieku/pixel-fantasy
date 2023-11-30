@@ -55,5 +55,15 @@ namespace HUD.Tooltip
                 _isShowingTooltip = false;
             }
         }
+
+        private void OnDisable()
+        {
+            if (_isShowingTooltip)
+            {
+                LeanTween.cancel(delay.uniqueId);
+                TooltipSystem.Hide();
+                _isShowingTooltip = false;
+            }
+        }
     }
 }

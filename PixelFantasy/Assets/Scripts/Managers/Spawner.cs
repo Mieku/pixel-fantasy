@@ -209,7 +209,7 @@ namespace Managers
                     var plannedBuilding = _plannedBuilding;
                     _plannedBuilding = null;
                     PlayerInputController.Instance.ChangeState(PlayerInputState.None);
-                    plannedBuilding.SetState(Building.BuildingState.Construction);
+                    plannedBuilding.SetState(Building.BuildingState.Planning);
                     plannedBuilding.TriggerPlaced();
                 }
                 else
@@ -448,7 +448,7 @@ namespace Managers
         public void PlanBuilding(Building building, Action onBuildingPlaced = null)
         {
             _plannedBuilding = Instantiate(building, _structureParent);
-            _plannedBuilding.SetState(Building.BuildingState.Planning);
+            _plannedBuilding.SetState(Building.BuildingState.BeingPlaced);
             _plannedBuilding.OnBuildingPlaced = onBuildingPlaced;
         }
 

@@ -9,6 +9,7 @@ using Managers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
+using Systems.Currency.Scripts;
 using Systems.Notifications.Scripts;
 using TaskSystem;
 using UnityEngine;
@@ -45,10 +46,13 @@ namespace Buildings
         public const float _doorOffset = 0;
 
         public BuildingData BuildingData => _buildingData;
+        public BuildingState State => _state;
 
         protected BuildingState _state;
         private string _buildingName;
         private bool _internalViewToggled;
+        private bool _beingMoved;
+        private bool _repairsRequested;
 
         protected List<BuildingNote> _buildingNotes = new List<BuildingNote>();
         private List<Unit> _occupants = new List<Unit>();
@@ -176,6 +180,25 @@ namespace Buildings
         public bool ToggleShowCraftableFurniture()
         {
             _showCraftableFurniture = !_showCraftableFurniture;
+            foreach (var craftableFurniture in _craftableFurniture)
+            {
+                craftableFurniture.ShowCraftable(_showCraftableFurniture);
+            }
+
+            return _showCraftableFurniture;
+        }
+
+        private void OrderCraftableFurniture()
+        {
+            foreach (var craftableFurniture in _craftableFurniture)
+            {
+                craftableFurniture.Order();
+            }
+        }
+        
+        public bool ShowCraftableFurniture()
+        {
+            _showCraftableFurniture = true;
             foreach (var craftableFurniture in _craftableFurniture)
             {
                 craftableFurniture.ShowCraftable(_showCraftableFurniture);
@@ -368,7 +391,7 @@ namespace Buildings
             ToggleInternalView(false);
             CurrentDurability = _buildingData.MaxDurability;
             
-            if (_state != BuildingState.Planning)
+            if (_state != BuildingState.BeingPlaced)
             {
                 BuildingsManager.Instance.RegisterBuilding(this);
             }
@@ -406,7 +429,7 @@ namespace Buildings
 
         public void OnBuildingClicked()
         {
-            if (_state == BuildingState.Planning) return;
+            if (_state == BuildingState.BeingPlaced || IsBuildingMoving) return;
 
             HUDController.Instance.ShowBuildingDetails(this);
         }
@@ -427,7 +450,7 @@ namespace Buildings
         public void OnCursorEnter()
         {
             _isCursorOnBuilding = true;
-            if (_state == BuildingState.Planning) return;
+            if (_state == BuildingState.BeingPlaced) return;
 
             CheckShouldToggleInternalView(true);
         }
@@ -467,6 +490,9 @@ namespace Buildings
             _state = state;
             switch (state)
             {
+                case BuildingState.BeingPlaced:
+                    BeingPlaced_Enter();
+                    break;
                 case BuildingState.Planning:
                     Plan_Enter();
                     break;
@@ -479,6 +505,8 @@ namespace Buildings
                 default:
                     throw new ArgumentOutOfRangeException(nameof(state), state, null);
             }
+            
+            GameEvents.Trigger_OnBuildingChanged(this);
         }
 
         public void ToggleInternalView(bool showInternal)
@@ -505,7 +533,7 @@ namespace Buildings
 
         private void Update()
         {
-            if (_state == BuildingState.Planning)
+            if (_state == BuildingState.BeingPlaced)
             {
                 FollowCursor();
                 CheckPlacement();
@@ -523,17 +551,25 @@ namespace Buildings
             }
         }
 
-        private void Plan_Enter()
+        private void BeingPlaced_Enter()
         {
             _footings.DisplayFootings(true);
             _obstaclesHandle.SetActive(false);
             _doorOpener.LockClosed(true);
         }
 
+        private void Plan_Enter()
+        {
+            HUDController.Instance.ShowBuildingDetails(this, true);
+            EnableFurniture(true);
+            ShowCraftableFurniture();
+            ColourSprites(Librarian.Instance.GetColour("Planning Transparent"));
+            ToggleInternalView(true);
+            BuildingsManager.Instance.RegisterBuilding(this);
+        }
+
         private void Construction_Enter()
         {
-            BuildingsManager.Instance.RegisterBuilding(this);
-            
             _footings.DisplayFootings(false);
             _obstaclesHandle.SetActive(true);
             _doorOpener.LockClosed(true);
@@ -552,7 +588,7 @@ namespace Buildings
         private void Built_Enter()
         {
             ColourSprites(Color.white);
-            EnableFurniture(true);
+            OrderCraftableFurniture();
             _doorOpener.LockClosed(false);
             GameEvents.Trigger_OnCoinsIncomeChanged();
         }
@@ -599,7 +635,6 @@ namespace Buildings
                 }
             }
             
-
             foreach (var rend in internalSpriteRenderers)
             {
                 rend.color = colour;
@@ -634,7 +669,7 @@ namespace Buildings
             Task constuctTask = new Task("Build Building", this);
             constuctTask.Enqueue();
         }
-
+        
         public Vector2 ConstructionStandPosition()
         {
             return _constructionStandPos.position;
@@ -662,9 +697,96 @@ namespace Buildings
                 return 0;
             }
         }
+
+        public bool AreBuildRequirementsMet
+        {
+            get
+            {
+                // TODO: Check furniture, zones...
+                return true;
+            }
+        }
+        
+        public void ToggleMoveBuilding(bool beingMoved)
+        {
+            _beingMoved = beingMoved;
+        }
+
+        public bool IsBuildingMoving => _beingMoved;
+
+        public void ToggleDeconstruct()
+        {
+            if (_isDeconstructing)
+            {
+                // Cancel Deconstruct
+                _isDeconstructing = false;
+            }
+            else
+            {
+                // Begin Deconstruct
+                _isDeconstructing = true;
+            }
+        }
+
+        public void CancelBuilding()
+        {
+            if (_state == BuildingState.Built)
+            {
+                Debug.LogError("Should be able to cancel built building");
+                return;
+            }
+
+            if (_state is BuildingState.Planning or BuildingState.BeingPlaced)
+            {
+                // Nothing Spent, just cancel
+                HUDController.Instance.HideDetails();
+                Destroy(gameObject);
+                return;
+            }
+
+            if (_state == BuildingState.Construction)
+            {
+                // Refund, then cancel
+                var price = _buildingData.Price;
+                CurrencyManager.Instance.AddCoins(price);
+                
+                HUDController.Instance.HideDetails();
+                Destroy(gameObject);
+                return;
+            }
+        }
+
+        public bool IsDeconstructing => _isDeconstructing;
+        
+        public void RequestRepairs()
+        {
+            if (!_repairsRequested)
+            {
+                // TODO: Make a repair task
+            }
+            
+            _repairsRequested = true;
+        }
+
+        public bool RepairsRequested => _repairsRequested;
+
+        public bool SetBuild()
+        {
+            var price = _buildingData.Price;
+            if (CurrencyManager.Instance.RemoveCoins(price))
+            {
+                SetState(BuildingState.Construction);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         
         public enum BuildingState
         {
+            BeingPlaced,
             Planning,
             Construction,
             Built,
