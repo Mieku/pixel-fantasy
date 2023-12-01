@@ -24,7 +24,7 @@ namespace Items
             Health = GetWorkAmount();
         }
         
-        public override int GetWorkAmount()
+        public override float GetWorkAmount()
         {
             return _staticResourceData.WorkToExtract;
         }

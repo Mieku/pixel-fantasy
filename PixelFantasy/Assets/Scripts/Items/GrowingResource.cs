@@ -280,7 +280,7 @@ namespace Items
         //     Destroy(gameObject);
         // }
         
-        public override int GetWorkAmount()
+        public override float GetWorkAmount()
         {
             return growingResourceData.GetWorkToCut(_growthIndex);
         }

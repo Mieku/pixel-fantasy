@@ -10,6 +10,7 @@ namespace TaskSystem
         private float _timer;
         private Vector2? _movePos;
         private bool _isMoving;
+        private bool _jobsDone;
 
         private const float WORK_SPEED = 1f; // TODO: Get the work speed from the Kinling's stats
         private const float WORK_AMOUNT = 1f; // TODO: Get the amount of work from the Kinling's stats
@@ -21,6 +22,7 @@ namespace TaskSystem
             _task = task;
             _building = _task.Requestor as Building;
             _movePos = _building.ConstructionStandPosition();
+            _jobsDone = false;
         }
 
         public override void DoAction()
@@ -46,6 +48,8 @@ namespace TaskSystem
 
         private void DoConstruction()
         {
+            if(_jobsDone) return;
+
             UnitAnimController.SetUnitAction(UnitAction.Swinging, _ai.GetActionDirection(_building.transform.position));
             
             _timer += TimeManager.Instance.DeltaTime;
@@ -55,6 +59,7 @@ namespace TaskSystem
                 if (_building.DoConstruction(WORK_AMOUNT)) 
                 {
                     // When work is complete
+                    _jobsDone = true;
                     ConcludeAction();
                 } 
             }

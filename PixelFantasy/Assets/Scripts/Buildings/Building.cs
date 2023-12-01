@@ -69,7 +69,7 @@ namespace Buildings
 
         // Furniture
         private bool _showCraftableFurniture;
-        private List<Furniture> _craftableFurniture = new List<Furniture>();
+        //private List<Furniture> _craftableFurniture = new List<Furniture>();
         private bool _isDetailsOpen;
 
         [Button("Update Layering")]
@@ -151,38 +151,38 @@ namespace Buildings
             _furnitureParentHandle.SetActive(isEnabled);
         }
 
-        public void RegisterCraftableFurniture(Furniture furniture)
-        {
-            if (_craftableFurniture.Contains(furniture))
-            {
-                Debug.LogError($"Attempted to register already registered craftable furniture: {furniture.FurnitureItemData.ItemName}");
-                return;
-            }
-            
-            Debug.Log($"Craftable Furniture Registered: {furniture.FurnitureItemData.ItemName}");
-            _craftableFurniture.Add(furniture);
-            
-            furniture.ShowCraftable(_showCraftableFurniture);
-        }
+        // public void RegisterCraftableFurniture(Furniture furniture)
+        // {
+        //     if (_craftableFurniture.Contains(furniture))
+        //     {
+        //         Debug.LogError($"Attempted to register already registered craftable furniture: {furniture.FurnitureItemData.ItemName}");
+        //         return;
+        //     }
+        //     
+        //     Debug.Log($"Craftable Furniture Registered: {furniture.FurnitureItemData.ItemName}");
+        //     _craftableFurniture.Add(furniture);
+        //     
+        //     furniture.ShowCraftable(_showCraftableFurniture);
+        // }
 
-        public void DeregisterCraftableFurniture(Furniture furniture)
-        {
-            if (!_craftableFurniture.Contains(furniture))
-            {
-                Debug.LogError($"Attempted to deregister not registered craftable furniture: {furniture.FurnitureItemData.ItemName}");
-                return;
-            }
-            
-            Debug.Log($"Craftable Furniture Deregistered: {furniture.FurnitureItemData.ItemName}");
-            _craftableFurniture.Remove(furniture);
-        }
+        // public void DeregisterCraftableFurniture(Furniture furniture)
+        // {
+        //     if (!_craftableFurniture.Contains(furniture))
+        //     {
+        //         Debug.LogError($"Attempted to deregister not registered craftable furniture: {furniture.FurnitureItemData.ItemName}");
+        //         return;
+        //     }
+        //     
+        //     Debug.Log($"Craftable Furniture Deregistered: {furniture.FurnitureItemData.ItemName}");
+        //     _craftableFurniture.Remove(furniture);
+        // }
 
         public bool ToggleShowCraftableFurniture()
         {
             _showCraftableFurniture = !_showCraftableFurniture;
-            foreach (var craftableFurniture in _craftableFurniture)
+            foreach (var furniture in _allFurniture)
             {
-                craftableFurniture.ShowCraftable(_showCraftableFurniture);
+                furniture.ShowCraftable(_showCraftableFurniture);
             }
 
             return _showCraftableFurniture;
@@ -190,34 +190,34 @@ namespace Buildings
 
         private void OrderCraftableFurniture()
         {
-            foreach (var craftableFurniture in _craftableFurniture)
+            foreach (var furniture in _allFurniture)
             {
-                craftableFurniture.Order();
+                furniture.Order();
             }
         }
         
         public bool ShowCraftableFurniture()
         {
             _showCraftableFurniture = true;
-            foreach (var craftableFurniture in _craftableFurniture)
+            foreach (var furniture in _allFurniture)
             {
-                craftableFurniture.ShowCraftable(_showCraftableFurniture);
+                furniture.ShowCraftable(_showCraftableFurniture);
             }
 
             return _showCraftableFurniture;
         }
 
-        public void HideCraftableFurniture()
-        {
-            if (_showCraftableFurniture)
-            {
-                _showCraftableFurniture = false;
-                foreach (var craftableFurniture in _craftableFurniture)
-                {
-                    craftableFurniture.ShowCraftable(_showCraftableFurniture);
-                }
-            }
-        }
+        // public void HideCraftableFurniture()
+        // {
+        //     if (_showCraftableFurniture)
+        //     {
+        //         _showCraftableFurniture = false;
+        //         foreach (var craftableFurniture in _craftableFurniture)
+        //         {
+        //             craftableFurniture.ShowCraftable(_showCraftableFurniture);
+        //         }
+        //     }
+        // }
         
         public void RegisterFurniture(Furniture furniture)
         {
@@ -575,12 +575,14 @@ namespace Buildings
 
         private void Plan_Enter()
         {
-            HUDController.Instance.ShowBuildingDetails(this, true);
             EnableFurniture(true);
             ShowCraftableFurniture();
             ColourSprites(Librarian.Instance.GetColour("Planning Transparent"));
             ToggleInternalView(true);
             BuildingsManager.Instance.RegisterBuilding(this);
+            _remainingResourceCosts = new List<ItemAmount> (_buildingData.GetResourceCosts());
+            _remainingWork = GetWorkAmount();
+            HUDController.Instance.ShowBuildingDetails(this, true);
         }
 
         private void Construction_Enter()
@@ -590,7 +592,6 @@ namespace Buildings
             _doorOpener.LockClosed(true);
             ColourSprites(Librarian.Instance.GetColour("Blueprint"));
             
-            _remainingResourceCosts = new List<ItemAmount> (_buildingData.GetResourceCosts());
             CreateConstructionHaulingTasks();
         }
 
@@ -598,6 +599,7 @@ namespace Buildings
         {
             base.CompleteConstruction();
             SetState(BuildingState.Built);
+            Changed();
         }
 
         private void Built_Enter()
@@ -612,6 +614,11 @@ namespace Buildings
         {
             var cursorPos = Helper.ConvertMousePosToGridPos(UtilsClass.GetMouseWorldPosition());
             gameObject.transform.position = cursorPos;
+        }
+
+        public override float GetWorkAmount()
+        {
+            return _buildingData.WorkCost;
         }
 
         /// <summary>
@@ -798,7 +805,12 @@ namespace Buildings
                 return false;
             }
         }
-        
+
+        protected override void Changed()
+        {
+            GameEvents.Trigger_OnBuildingChanged(this);
+        }
+
         public enum BuildingState
         {
             BeingPlaced,

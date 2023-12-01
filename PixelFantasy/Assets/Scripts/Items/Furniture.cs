@@ -117,7 +117,7 @@ namespace Items
                 AssignBuilding(building);
             }
             
-            SetState(FurnitureState);
+            AssignState(FurnitureState);
         }
         
         public void AssignCommand(Command command)
@@ -255,28 +255,32 @@ namespace Items
         private EFurnitureState _prevousState;
         public void SetState(EFurnitureState newState)
         {
-            if (FurnitureState != newState)
+            if(FurnitureState == newState) return;
+            
+            _prevousState = FurnitureState;
+            switch (FurnitureState)
             {
-                _prevousState = FurnitureState;
-                switch (FurnitureState)
-                {
-                    case EFurnitureState.Planning:
-                        break;
-                    case EFurnitureState.InProduction:
-                        break;
-                    case EFurnitureState.Built:
-                        break;
-                    case EFurnitureState.Craftable:
-                        Craftable_Exit();
-                        break;
-                    case EFurnitureState.Moving:
-                        Moving_Exit();
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                case EFurnitureState.Planning:
+                    break;
+                case EFurnitureState.InProduction:
+                    break;
+                case EFurnitureState.Built:
+                    break;
+                case EFurnitureState.Craftable:
+                    //Craftable_Exit();
+                    break;
+                case EFurnitureState.Moving:
+                    Moving_Exit();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
             
+            AssignState(newState);
+        }
+
+        private void AssignState(EFurnitureState newState)
+        {
             FurnitureState = newState;
             switch (FurnitureState)
             {
@@ -318,6 +322,8 @@ namespace Items
 
         public void ShowCraftable(bool isShown)
         {
+            if(FurnitureState != EFurnitureState.Craftable) return;
+            
             if (isShown)
             {
                 Show(true);
@@ -355,13 +361,13 @@ namespace Items
             
         }
 
-        private void Craftable_Exit()
-        {
-            if (_parentBuilding != null)
-            {
-                _parentBuilding.DeregisterCraftableFurniture(this);
-            }
-        }
+        // private void Craftable_Exit()
+        // {
+        //     if (_parentBuilding != null)
+        //     {
+        //         _parentBuilding.DeregisterCraftableFurniture(this);
+        //     }
+        // }
 
         private Vector2 _beforeMovedPosition;
         private void Moving_Enter()
@@ -478,10 +484,10 @@ namespace Items
 
             building.RegisterFurniture(this);
 
-            if (FurnitureState == EFurnitureState.Craftable)
-            {
-                building.RegisterCraftableFurniture(this);
-            }
+            // if (FurnitureState == EFurnitureState.Craftable)
+            // {
+            //     building.RegisterCraftableFurniture(this);
+            // }
         }
         
         private void Update()
@@ -680,7 +686,10 @@ namespace Items
 
         public void Order()
         {
-            SetState(EFurnitureState.InProduction);
+            if (FurnitureState == EFurnitureState.Craftable)
+            {
+                SetState(EFurnitureState.InProduction);
+            }
         }
 
         public void Trigger_Move()

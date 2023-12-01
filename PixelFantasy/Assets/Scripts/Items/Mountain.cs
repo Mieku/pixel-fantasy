@@ -112,7 +112,7 @@ namespace Items
             Destroy(gameObject);
         }
 
-        public override int GetWorkAmount()
+        public override float GetWorkAmount()
         {
             return _mountainData.GetWorkAmount();
         }

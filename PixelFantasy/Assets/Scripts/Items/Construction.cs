@@ -23,6 +23,7 @@ namespace Items
         protected Action _onDeconstructed;
         protected float _remainingWork;
 
+        public float RemainingWork => _remainingWork;
         public string DisplayName => GetConstructionData().ConstructionName;
         
         public PlayerInteractable GetPlayerInteractable()
@@ -56,16 +57,11 @@ namespace Items
         {
             CreateTask(command);
         }
-
-        public float WorkDone(float workAmount)
+        
+        public virtual bool DoConstruction(float workAmount)
         {
             _remainingWork -= workAmount;
-            return _remainingWork;
-        }
-
-        public bool DoConstruction(float workAmount)
-        {
-            _remainingWork -= workAmount;
+            Changed();
             if (_remainingWork <= 0)
             {
                 CompleteConstruction();
@@ -75,9 +71,10 @@ namespace Items
             return false;
         }
 
-        public bool DoDeconstruction(float workAmount)
+        public virtual bool DoDeconstruction(float workAmount)
         {
             _remainingWork -= workAmount;
+            Changed();
             if (_remainingWork <= 0)
             {
                 CompleteDeconstruction();
@@ -85,6 +82,12 @@ namespace Items
             }
             
             return false;
+        }
+
+        // When values change this should be called, is a hook for callbacks
+        protected virtual void Changed()
+        {
+            
         }
 
         public virtual void CancelConstruction()
@@ -142,6 +145,8 @@ namespace Items
             {
                 CreateConstructTask();
             }
+            
+            Changed();
         }
 
         public virtual float GetWorkPerResource()
@@ -151,7 +156,7 @@ namespace Items
         
         public virtual void CompleteConstruction()
         {
-            _remainingWork = GetWorkAmount();
+            _remainingWork = 0;
         }
 
         public virtual void CompleteDeconstruction()
@@ -173,6 +178,8 @@ namespace Items
             {
                 _onDeconstructed.Invoke();
             }
+            
+            Changed();
             
             // Delete the structure
             Destroy(gameObject);
@@ -258,7 +265,7 @@ namespace Items
             }
         }
 
-        protected List<ItemAmount> GetRemainingMissingItems()
+        public List<ItemAmount> GetRemainingMissingItems()
         {
             _pendingResourceCosts ??= new List<ItemAmount>();
             _incomingResourceCosts ??= new List<ItemAmount>();

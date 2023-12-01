@@ -82,7 +82,7 @@ public abstract class PlayerInteractable : UniqueObject
         PendingCommand = null;
     }
 
-    public virtual int GetWorkAmount()
+    public virtual float GetWorkAmount()
     {
         return 1;
     }

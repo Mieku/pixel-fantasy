@@ -39,6 +39,12 @@ namespace Systems.Details.Building_Details.Scripts
             {
                 _occupantsPanel.Init(_building);
             }
+            
+            // Under Construction Panel
+            if (_building.State is Building.BuildingState.Construction or Building.BuildingState.Planning)
+            {
+                _underConstructionPanel.Init(_building);
+            }
         }
 
         private void HideAllPanels()
@@ -77,6 +83,7 @@ namespace Systems.Details.Building_Details.Scripts
 
         public void Show(Building building, EDetailsTab tab = EDetailsTab.General)
         {
+            GameEvents.OnBuildingChanged += GameEvent_OnBuildingChanged;
             _building = building;
             _mainPanel.SetActive(true);
             HideAllPanels();
@@ -86,9 +93,16 @@ namespace Systems.Details.Building_Details.Scripts
 
         public void Hide()
         {
+            GameEvents.OnBuildingChanged -= GameEvent_OnBuildingChanged;
             _building = null;
             _mainPanel.SetActive(false);
             HideAllPanels();
+        }
+
+        private void GameEvent_OnBuildingChanged(Building changedBuilding)
+        {
+            HideAllPanels();
+            DeterminePanelsToShow();
         }
 
         public void GeneralTabPressed()
