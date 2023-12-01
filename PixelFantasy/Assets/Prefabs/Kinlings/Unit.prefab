@@ -304,6 +304,7 @@ MonoBehaviour:
   _offset: 1
   _runOnlyOnce: 0
   _sortingGroup: {fileID: 0}
+  _checkLocal: 0
 --- !u!1 &2341590179856157572
 GameObject:
   m_ObjectHideFlags: 0
@@ -943,7 +944,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -177695485
-  m_SortingLayer: -3
+  m_SortingLayer: -4
   m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: 90ab9fc734f8b16488abe87d00fcd22f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1104,11 +1105,26 @@ MonoBehaviour:
   _mood: {fileID: 4888200492756624676}
   _socialAI: {fileID: 5256464669028443073}
   _traits: []
+  _dailyCoinsIncome: 0
   _sortingGroup: {fileID: 4624679516539662858}
   _positionRendererSorter: {fileID: 1822529751762045447}
   Equipment: {fileID: 12347069629172064}
   UnitAnimController: {fileID: 1198530704868288865}
   UnitAgent: {fileID: 6234467081272595317}
+  IsAsleep: 0
+  MaturityStage: 0
+  SexualPreference: 0
+  Gender: 0
+  Partner: {fileID: 0}
+  Family:
+    FamilyName: 
+    UID: 
+    Members: []
+    Buildings: []
+    Furniture: []
+    FamilyJob: {fileID: 0}
+    IsPlayer: 0
+  ClickObject: {fileID: 0}
 --- !u!61 &1211023406118596035
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1148,22 +1164,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uid: {fileID: 8745535366893241182}
+  _relevantStatColour: {r: 0.050980393, g: 0.7529412, b: 0, a: 1}
   FirstName: 
   LastName: 
   Abilities:
     Strength:
       Level: 0
       Exp: 0
-    Charisma:
-      Level: 0
-      Exp: 0
-    Dexterity:
+    Vitality:
       Level: 0
       Exp: 0
     Intelligence:
       Level: 0
       Exp: 0
-    Toughness:
+    Expertise:
       Level: 0
       Exp: 0
   Priorities:
@@ -1210,7 +1224,6 @@ MonoBehaviour:
     - TaskType: 11
       PriorityLevel: 3
       IsEnabled: 1
-  AssignedHome: {fileID: 0}
   AssignedWorkplace: {fileID: 0}
 --- !u!114 &9189890898419539547
 MonoBehaviour:
@@ -1255,6 +1268,7 @@ MonoBehaviour:
   _offset: 0.5
   _runOnlyOnce: 0
   _sortingGroup: {fileID: 4624679516539662858}
+  _checkLocal: 0
 --- !u!114 &2273999213966366943
 MonoBehaviour:
   m_ObjectHideFlags: 0

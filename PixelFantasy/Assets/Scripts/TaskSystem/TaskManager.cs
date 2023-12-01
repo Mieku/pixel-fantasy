@@ -14,16 +14,16 @@ namespace TaskSystem
         public TaskQueue MineTasks = new TaskQueue(TaskType.Mine, AbilityType.Strength);
         public TaskQueue ConstructionTasks = new TaskQueue(TaskType.Construction, AbilityType.Strength);
         public TaskQueue HarvestTasks = new TaskQueue(TaskType.Harvest, AbilityType.Strength);
-        public TaskQueue AnimalsTasks = new TaskQueue(TaskType.Animals, AbilityType.Charisma);
-        public TaskQueue ArtTasks = new TaskQueue(TaskType.Art, AbilityType.Charisma);
-        public TaskQueue CraftTasks = new TaskQueue(TaskType.Craft, AbilityType.Dexterity);
-        public TaskQueue HuntTasks = new TaskQueue(TaskType.Hunt, AbilityType.Dexterity);
-        public TaskQueue GrowTasks = new TaskQueue(TaskType.Grow, AbilityType.Dexterity);
-        public TaskQueue CookTasks = new TaskQueue(TaskType.Cook, AbilityType.Dexterity);
+        public TaskQueue AnimalsTasks = new TaskQueue(TaskType.Animals, AbilityType.Strength);
+        public TaskQueue ArtTasks = new TaskQueue(TaskType.Art, AbilityType.Strength);
+        public TaskQueue CraftTasks = new TaskQueue(TaskType.Craft, AbilityType.Strength);
+        public TaskQueue HuntTasks = new TaskQueue(TaskType.Hunt, AbilityType.Strength);
+        public TaskQueue GrowTasks = new TaskQueue(TaskType.Grow, AbilityType.Strength);
+        public TaskQueue CookTasks = new TaskQueue(TaskType.Cook, AbilityType.Strength);
         public TaskQueue HealTasks = new TaskQueue(TaskType.Heal, AbilityType.Intelligence);
         public TaskQueue ResearchTasks = new TaskQueue(TaskType.Research, AbilityType.Intelligence);
-        public TaskQueue CleanTasks = new TaskQueue(TaskType.Clean, AbilityType.Toughness);
-        public TaskQueue Emergency = new TaskQueue(TaskType.Emergency, AbilityType.Toughness);
+        public TaskQueue CleanTasks = new TaskQueue(TaskType.Clean, AbilityType.Strength);
+        public TaskQueue Emergency = new TaskQueue(TaskType.Emergency, AbilityType.Strength);
 
         // public TaskQueue LabourerTasks = new TaskQueue();
         // public TaskQueue BuilderTasks = new TaskQueue();

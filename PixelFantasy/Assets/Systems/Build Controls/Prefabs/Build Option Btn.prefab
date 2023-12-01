@@ -93,11 +93,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _icon: {fileID: 2696155637075933428}
+  _costsLayout: {fileID: 2696155637109016033}
+  _costDisplayPrefab: {fileID: 7305799825615461289, guid: 482a1b917dc671f4794a030f7d6507fc, type: 3}
   _detailsPanel: {fileID: 2696155636949223068}
   _optionName: {fileID: 2696155636574556891}
   _optionDetails: {fileID: 2696155637270048837}
-  _costsLayout: {fileID: 2696155637109016033}
-  _costDisplayPrefab: {fileID: 7305799825615461289, guid: 482a1b917dc671f4794a030f7d6507fc, type: 3}
 --- !u!114 &2696155635674128097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -731,7 +731,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}

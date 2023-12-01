@@ -33,8 +33,12 @@ namespace Systems.Details.Building_Details.Scripts
             // Header and Footer are always shown
             _headerPanel.Init(_building);
             _footerPanel.Init(_building);
-            
-            
+
+            // Occupants Panel
+            if (_building.BuildingData.MaxOccupants > 0)
+            {
+                _occupantsPanel.Init(_building);
+            }
         }
 
         private void HideAllPanels()

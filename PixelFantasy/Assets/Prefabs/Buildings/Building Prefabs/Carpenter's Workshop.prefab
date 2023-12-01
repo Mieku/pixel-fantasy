@@ -4633,7 +4633,7 @@ MonoBehaviour:
   PendingCommand: {fileID: 0}
   RegisteredTasks: []
   BuildingID: Carpenter's Workshop
-  _buildingData: {fileID: 11400000, guid: 2b49964598c29ac43b0d5a5c3784e6e9, type: 2}
+  _buildingData: {fileID: 11400000, guid: 600d852752b125e478694d5d800cb362, type: 2}
   _footings: {fileID: 4983041443223141814}
   _internalHandle: {fileID: 4928138789695397395}
   _exteriorHandle: {fileID: 1141357286028535369}
@@ -4651,6 +4651,7 @@ MonoBehaviour:
   _interiorSortingGroup: {fileID: 2736135947198935376}
   _interiorForegroundSortingGroup: {fileID: 8407811110570999269}
   _doorSortingGroup: {fileID: 9014743273962867153}
+  CurrentDurability: 0
 --- !u!114 &5596007926291928697
 MonoBehaviour:
   m_ObjectHideFlags: 0

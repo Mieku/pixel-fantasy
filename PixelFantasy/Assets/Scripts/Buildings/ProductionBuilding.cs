@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
+using Characters;
 using Items;
+using Managers;
 using ScriptableObjects;
 using Systems.Notifications.Scripts;
 using TaskSystem;
@@ -11,7 +14,19 @@ namespace Buildings
     {
         private ProductionBuildingData _prodBuildingData => _buildingData as ProductionBuildingData;
         public ProductOrderQueue OrderQueue = new ProductOrderQueue();
-        
+
+        public override string OccupantAdjective => "Workers";
+
+        public override List<Unit> GetPotentialOccupants()
+        {
+            var relevantAbilites = _prodBuildingData.RelevantAbilityTypes;
+            
+            var unemployed = UnitsManager.Instance.UnemployedKinlings;
+            List<Unit> sortedKinlings = unemployed
+                .OrderByDescending(kinling => kinling.GetUnitState().RelevantAbilityScore(relevantAbilites)).ToList();
+            return sortedKinlings;
+        }
+
         public Task CreateProductionTask(CraftingTable craftingTable)
         {
             var task = OrderQueue.RequestTask(craftingTable);

@@ -14,8 +14,8 @@ namespace ScriptableObjects
         public int MaxOccupants;
         public List<FurnitureItemData> AllowedFurniture = new List<FurnitureItemData>();
         public Building LinkedBuilding;
-        public JobData WorkersJob;
         public int DailyUpkeep;
+        public List<AbilityType> RelevantAbilityTypes = new List<AbilityType>();
 
         public bool IsFurnitureAllowed(FurnitureItemData furnitureItemData)
         {

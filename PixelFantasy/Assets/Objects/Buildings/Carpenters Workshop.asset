@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ae75de740915d04586f444cfdcb0ebe, type: 3}
-  m_Name: Carpenter's Workshop
+  m_Script: {fileID: 11500000, guid: c81ce2b36f308334bb6b748a8f0e168e, type: 3}
+  m_Name: Carpenters Workshop
   m_EditorClassIdentifier: 
   ConstructionName: Carpenter's Workshop
   ConstructionDetails: The Carpenter's Workplace, they craft furniture and tools
@@ -31,5 +31,7 @@ MonoBehaviour:
   MaxOccupants: 2
   AllowedFurniture: []
   LinkedBuilding: {fileID: 4238431909352924083, guid: 9afc3e54cd7e52148b24992b9d4aa1f4, type: 3}
-  WorkersJob: {fileID: 11400000, guid: 8cc115b907c69de4da24cb986f35866f, type: 2}
   DailyUpkeep: 3
+  RelevantAbilityTypes: 03000000
+  WorkersJob: {fileID: 11400000, guid: 8cc115b907c69de4da24cb986f35866f, type: 2}
+  ProductionOptions: []

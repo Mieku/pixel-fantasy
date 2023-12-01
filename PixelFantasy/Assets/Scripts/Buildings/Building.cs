@@ -323,6 +323,13 @@ namespace Buildings
             return results;
         }
 
+        public virtual string OccupantAdjective => "Occupants";
+
+        public virtual List<Unit> GetPotentialOccupants()
+        {
+            return UnitsManager.Instance.HomelessKinlings;
+        }
+
         public List<Unit> GetOccupants()
         {
             return _occupants;
@@ -332,9 +339,13 @@ namespace Buildings
         {
             _occupants.Add(unit);
 
-            if (BuildingData.WorkersJob != null)
+            if (BuildingData.BuildingType == BuildingType.Home)
             {
-                unit.GetUnitState().ChangeJob(BuildingData.WorkersJob);
+                unit.GetUnitState().AssignedHome = this;
+            }
+            else
+            {
+                unit.GetUnitState().AssignedWorkplace = this;
             }
         }
 
@@ -342,9 +353,13 @@ namespace Buildings
         {
             _occupants.Remove(unit);
             
-            if (BuildingData.WorkersJob != null)
+            if (BuildingData.BuildingType == BuildingType.Home)
             {
-                unit.GetUnitState().ChangeJob(null);
+                unit.GetUnitState().AssignedHome = null;
+            }
+            else
+            {
+                unit.GetUnitState().AssignedWorkplace = null;
             }
         }
         

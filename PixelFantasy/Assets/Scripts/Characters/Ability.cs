@@ -21,10 +21,9 @@ namespace Characters
     public class Abilities
     {
         public Ability Strength;
-        public Ability Charisma;
-        public Ability Dexterity;
+        public Ability Vitality;
         public Ability Intelligence;
-        public Ability Toughness;
+        public Ability Expertise;
 
         public Ability GetAbilityByType(AbilityType type)
         {
@@ -32,14 +31,12 @@ namespace Characters
             {
                 case AbilityType.Strength:
                     return Strength;
-                case AbilityType.Charisma:
-                    return Charisma;
-                case AbilityType.Dexterity:
-                    return Dexterity;
+                case AbilityType.Vitality:
+                    return Vitality;
                 case AbilityType.Intelligence:
                     return Intelligence;
-                case AbilityType.Toughness:
-                    return Toughness;
+                case AbilityType.Expertise:
+                    return Expertise;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
@@ -48,20 +45,18 @@ namespace Characters
         [Button("Randomize Scores")]
         public void RandomizeScores()
         {
-            Strength.Level = Random.Range(1, 21);
-            Charisma.Level = Random.Range(1, 21);
-            Dexterity.Level = Random.Range(1, 21);
-            Intelligence.Level = Random.Range(1, 21);
-            Toughness.Level = Random.Range(1, 21);
+            Strength.Level = Random.Range(2, 8);
+            Vitality.Level = Random.Range(2, 8);
+            Intelligence.Level = Random.Range(2, 8);
+            Expertise.Level = Random.Range(2, 8);
         }
     }
 
     public enum AbilityType
     {
         Strength,
-        Charisma,
-        Dexterity,
+        Vitality,
         Intelligence,
-        Toughness,
+        Expertise,
     }
 }
