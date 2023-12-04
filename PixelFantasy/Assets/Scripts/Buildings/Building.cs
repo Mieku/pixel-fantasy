@@ -69,13 +69,11 @@ namespace Buildings
 
         // Furniture
         private bool _showCraftableFurniture;
-        //private List<Furniture> _craftableFurniture = new List<Furniture>();
         private bool _isDetailsOpen;
 
         [Button("Update Layering")]
         public void UpdateLayering()
         {
-            //_sortingGroup.sortingOrder = (int)(_sortingOrderBase - (yPos + _offset) * 10);
             var yPos = transform.position.y;
             var buildingDepthOffset = yPos + _buildingDepth;
             var exteriorOffset = 0f - (yPos + _exteriorOffset) * 10;
@@ -151,32 +149,6 @@ namespace Buildings
             _furnitureParentHandle.SetActive(isEnabled);
         }
 
-        // public void RegisterCraftableFurniture(Furniture furniture)
-        // {
-        //     if (_craftableFurniture.Contains(furniture))
-        //     {
-        //         Debug.LogError($"Attempted to register already registered craftable furniture: {furniture.FurnitureItemData.ItemName}");
-        //         return;
-        //     }
-        //     
-        //     Debug.Log($"Craftable Furniture Registered: {furniture.FurnitureItemData.ItemName}");
-        //     _craftableFurniture.Add(furniture);
-        //     
-        //     furniture.ShowCraftable(_showCraftableFurniture);
-        // }
-
-        // public void DeregisterCraftableFurniture(Furniture furniture)
-        // {
-        //     if (!_craftableFurniture.Contains(furniture))
-        //     {
-        //         Debug.LogError($"Attempted to deregister not registered craftable furniture: {furniture.FurnitureItemData.ItemName}");
-        //         return;
-        //     }
-        //     
-        //     Debug.Log($"Craftable Furniture Deregistered: {furniture.FurnitureItemData.ItemName}");
-        //     _craftableFurniture.Remove(furniture);
-        // }
-
         public bool ToggleShowCraftableFurniture()
         {
             _showCraftableFurniture = !_showCraftableFurniture;
@@ -206,18 +178,6 @@ namespace Buildings
 
             return _showCraftableFurniture;
         }
-
-        // public void HideCraftableFurniture()
-        // {
-        //     if (_showCraftableFurniture)
-        //     {
-        //         _showCraftableFurniture = false;
-        //         foreach (var craftableFurniture in _craftableFurniture)
-        //         {
-        //             craftableFurniture.ShowCraftable(_showCraftableFurniture);
-        //         }
-        //     }
-        // }
         
         public void RegisterFurniture(Furniture furniture)
         {
@@ -363,20 +323,7 @@ namespace Buildings
             }
         }
         
-        public List<BuildingNote> BuildingNotes
-        {
-            get
-            {
-                // if (_buildingNotes.Count == 0)
-                // {
-                //     var notes = new List<BuildingNote>();
-                //     notes.Add(new BuildingNote("Everything is great!", true, "No Issues"));
-                //     return notes;
-                // }
-
-                return _buildingNotes;
-            }
-        }
+        public List<BuildingNote> BuildingNotes => _buildingNotes;
 
         public string BuildingName
         {
@@ -621,18 +568,6 @@ namespace Buildings
             return _buildingData.WorkCost;
         }
 
-        /// <summary>
-        /// No point keeping the sorter after the building is placed
-        /// </summary>
-        private void RemoveRendererSorter()
-        {
-            var sorter = GetComponent<PositionRendererSorter>();
-            if (sorter != null)
-            {
-                sorter.DestroySelf();
-            }
-        }
-
         private void ColourSprites(Color colour)
         {
             var internalSpriteRenderers = _internalHandle.GetComponentsInChildren<SpriteRenderer>(true);
@@ -696,18 +631,7 @@ namespace Buildings
         {
             return _constructionStandPos.position;
         }
-
-        public float InteriorRenderOffset()
-        {
-            var interiorRendererSorter = _internalHandle.GetComponent<PositionRendererSorter>();
-            if (interiorRendererSorter != null)
-            {
-                return interiorRendererSorter.Offset;
-            }
-
-            return 0f;
-        }
-
+        
         public int DailyUpkeep()
         {
             if (_state == BuildingState.Built)
@@ -777,8 +701,6 @@ namespace Buildings
                 return;
             }
         }
-
-        public bool IsDeconstructing => _isDeconstructing;
         
         public void RequestRepairs()
         {

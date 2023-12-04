@@ -30,8 +30,8 @@ MonoBehaviour:
     serializationDepthLimit: 64
     assemblyNames:
     - NodeCanvas
-    - Assembly-CSharp
     - Assembly-CSharp-firstpass
+    - Assembly-CSharp
     - Cinemachine
     - ParadoxNotion
     - NavMeshPlus
