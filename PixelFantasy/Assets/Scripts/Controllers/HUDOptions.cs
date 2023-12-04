@@ -122,24 +122,6 @@ namespace Controllers
             
             switch (orderType)
             {
-                case OrderType.BuildWall:
-                    onpressed += () =>
-                    {
-                        BuildWallPressed(dataKey);
-                    };
-                    break;
-                case OrderType.BuildStructure:
-                    onpressed += () =>
-                    {
-                        BuildStructurePressed(dataKey);
-                    };
-                    break;
-                case OrderType.BuildDoor:
-                    onpressed += () =>
-                    {
-                        BuildDoorPressed(dataKey);
-                    };
-                    break;
                 case OrderType.BuildFurniture:
                     onpressed += () =>
                     {
@@ -164,12 +146,6 @@ namespace Controllers
                         BuildBuildingPressed(dataKey);
                     };
                     break;
-                case OrderType.BuildRoof:
-                    onpressed += () =>
-                    {
-                        BuildRoofPressed(dataKey);
-                    };
-                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(orderType), orderType, null);
             }
@@ -186,38 +162,6 @@ namespace Controllers
             Spawner.Instance.PlanFurniture(furnitureData);
         }
 
-        public void BuildWallPressed(string key)
-        {
-            Spawner.Instance.CancelInput();
-            RoofManager.Instance.ShowRoofs(false);
-            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildWall, key);
-
-            var wallData = Librarian.Instance.GetWallData(key);
-            Spawner.Instance.WallData = wallData;
-            Spawner.Instance.ShowPlacementIcon(true, null, wallData.InvalidPlacementTags);
-        }
-
-        public void BuildRoofPressed(string key)
-        {
-            Spawner.Instance.CancelInput();
-            RoofManager.Instance.ShowRoofs(true);
-            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildRoof, key);
-
-            var roofData = Librarian.Instance.GetRoofData(key);
-            Spawner.Instance.RoofData = roofData;
-            Spawner.Instance.ShowPlacementIcon(true, null, roofData.InvalidPlacementTags);
-        }
-
-        public void BuildStructurePressed(string key)
-        {
-            Spawner.Instance.CancelInput();
-            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildStructure, key);
-            
-            var structureData = Librarian.Instance.GetStructureData(PlayerInputController.Instance.StoredKey);
-            Spawner.Instance.StructureData = structureData;
-            Spawner.Instance.ShowPlacementIcon(true, structureData.Icon, structureData.InvalidPlacementTags);
-        }
-
         public void BuildBuildingPressed(string key)
         {
             Spawner.Instance.CancelInput();
@@ -225,16 +169,6 @@ namespace Controllers
             
             var building = Librarian.Instance.GetBuilding(PlayerInputController.Instance.StoredKey);
             Spawner.Instance.PlanBuilding(building);
-        }
-        
-        public void BuildDoorPressed(string key)
-        {
-            Spawner.Instance.CancelInput();
-            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildDoor, key);
-            
-            var doorData = Librarian.Instance.GetDoorData(PlayerInputController.Instance.StoredKey);
-            Spawner.Instance.DoorData = doorData;
-            Spawner.Instance.ShowPlacementIcon(true, doorData.Icon, doorData.InvalidPlacementTags);
         }
         
         private void ShowSubMenu(List<Order> subMenu, List<Order> curMenu, bool hasBackBtn)

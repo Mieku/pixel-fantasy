@@ -13,8 +13,6 @@ namespace Managers
     public class Librarian : Singleton<Librarian>
     {
         [SerializeField] private List<ColourData> _colourLibrary;
-        [SerializeField] private List<StructureData> _structureLibrary;
-        [SerializeField] private List<DoorData> _doorLibrary;
         [SerializeField] private List<Sprite> _sprites;
         [SerializeField] private List<SpriteRef> _orderIcons;
         [SerializeField] private List<CropData> _cropLibrary;
@@ -23,8 +21,6 @@ namespace Managers
         [SerializeField] private List<ItemData> _itemDataLibrary;
         [SerializeField] private List<Building> _buildingLibrary;
         [SerializeField] private List<Command> _commandLibrary;
-        [SerializeField] private List<WallData> _wallLibrary;
-        [SerializeField] private List<RoofData> _roofLibrary;
         [SerializeField] private List<JobData> _jobLibrary;
         [SerializeField] private List<RaceData> _races;
         [SerializeField] private List<AIStat> _stats;
@@ -85,18 +81,7 @@ namespace Managers
 
             return result;
         }
-        
-        public RoofData GetRoofData(string roofName)
-        {
-            var result = _roofLibrary.Find(roof => roof.ConstructionName == roofName);
-            if (result == null)
-            {
-                Debug.LogError($"Unknown Roof: {roofName}");
-            }
 
-            return result;
-        }
-        
         public Command GetCommand(string taskId)
         {
             var result = _commandLibrary.Find(cmd => cmd.Task.TaskId == taskId);
@@ -120,27 +105,7 @@ namespace Managers
                 return Color.magenta;
             }
         }
-        
-        public DoorData GetDoorData(string key)
-        {
-            var result = _doorLibrary.Find(s => s.ConstructionName == key);
-            if (result == null)
-            {
-                Debug.LogError("Unknown Door: " + key);
-            }
-            return result;
-        }
 
-        public StructureData GetStructureData(string key)
-        {
-            var result = _structureLibrary.Find(s => s.ConstructionName == key);
-            if (result == null)
-            {
-                Debug.LogError("Unknown Structure: " + key);
-            }
-            return result;
-        }
-        
         public Building GetBuilding(string key)
         {
             var result = _buildingLibrary.Find(b => b.BuildingID == key);
@@ -148,17 +113,6 @@ namespace Managers
             {
                 Debug.LogError("Unknown Building: " + key);
             }
-            return result;
-        }
-
-        public WallData GetWallData(string key)
-        {
-            var result = _wallLibrary.Find(w => w.Name == key);
-            if (result == null)
-            {
-                Debug.LogError("Unknown WallData: " + key);
-            }
-
             return result;
         }
 

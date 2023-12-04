@@ -205,11 +205,8 @@ namespace Controllers
 
         private void EnableStructureGuides(PlayerInputState newState)
         {
-            if (newState is PlayerInputState.BuildWall 
-                or PlayerInputState.BuildDoor 
-                or PlayerInputState.Zone 
-                or PlayerInputState.BuildFlooring
-                or PlayerInputState.BuildRoof)
+            if (newState is PlayerInputState.Zone 
+                or PlayerInputState.BuildFlooring)
             {
                 GameEvents.Trigger_OnStructureGuideToggled(true);
             }
@@ -235,14 +232,10 @@ namespace Controllers
         None,
         BuildStorage,
         CHEAT_SpawnResource,
-        BuildStructure,
         BuildFlooring,
         BuildFurniture,
         BuildFarm,
-        BuildDoor,
         Zone,
         BuildBuilding,
-        BuildWall,
-        BuildRoof,
     }
 }

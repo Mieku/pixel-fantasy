@@ -26,16 +26,11 @@ namespace HUD
     public enum OrderType
     {
         SpawnObject,
-        BuildStructure,
         Zone,
-        BuildFloor,
         ClearGrass,
         BuildFurniture,
         SubMenu,
         Menu,
-        BuildDoor,
         BuildBuilding,
-        BuildWall,
-        BuildRoof,
     }
 }

@@ -21,15 +21,7 @@ namespace Managers
         [SerializeField] private GameObject _plantPrefab;
     
         [SerializeField] private Transform _structureParent;
-        [SerializeField] private GameObject _structurePrefab;
-        [SerializeField] private GameObject _buildingPrefab;
-        [SerializeField] private StructurePiece _wallPrefab;
         
-        [SerializeField] private Transform _doorsParent;
-        [SerializeField] private GameObject _doorPrefab;
-        
-        [SerializeField] private GameObject _dirtTilePrefab;
-        [SerializeField] private GameObject _floorPrefab;
         [SerializeField] private Transform _flooringParent;
 
         [SerializeField] private GameObject _craftingTablePrefab;
@@ -41,13 +33,8 @@ namespace Managers
         [SerializeField] private SpriteRenderer _placementIcon;
         [SerializeField] private Sprite _genericPlacementSprite;
         
-        [SerializeField] private GameObject _settlementFlag;
-
         [SerializeField] private Transform _storageParent;
         [SerializeField] private GameObject _storageContainerPrefab;
-
-        [SerializeField] private Transform _roofParent;
-        [SerializeField] private Roof _roofPrefab;
 
         private bool _showPlacement;
         private List<string> _invalidPlacementTags = new List<string>();
@@ -60,12 +47,7 @@ namespace Managers
         private List<Vector2> _plannedGrid = new List<Vector2>();
         
         public PlacementDirection PlacementDirection;
-        public StructureData StructureData { get; set; }
-        public WallData WallData { get; set; }
-        public BuildingData BuildingData { get; set; }
-        public DoorData DoorData { get; set; }
         public CropData CropData { get; set; }
-        public RoofData RoofData { get; set; }
 
         public Transform ItemsParent => _itemsParent;
         public Transform BuildingsParent => _structureParent;
@@ -108,11 +90,8 @@ namespace Managers
         protected virtual void GameEvents_OnLeftClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
         {
             if (isOverUI) return;
-            if (inputState == PlayerInputState.BuildStructure 
-                || inputState == PlayerInputState.BuildFlooring
-                || inputState == PlayerInputState.BuildFarm 
-                || inputState == PlayerInputState.BuildWall
-                || inputState == PlayerInputState.BuildRoof)
+            if (inputState == PlayerInputState.BuildFlooring
+                || inputState == PlayerInputState.BuildFarm)
             {
                 _planningStructure = true;
                 _startPos = Helper.ConvertMousePosToGridPos(mousePos);
@@ -121,21 +100,6 @@ namespace Managers
         
         protected virtual void GameEvents_OnLeftClickHeld(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
         {
-            if (inputState == PlayerInputState.BuildStructure)
-            {
-                PlanStructure(mousePos, StructureData.PlanningMode);
-            }
-
-            if (inputState == PlayerInputState.BuildWall)
-            {
-                PlanWall(mousePos);
-            }
-
-            if (inputState == PlayerInputState.BuildRoof)
-            {
-                PlanRoof(mousePos);
-            }
-            
             if (inputState == PlayerInputState.BuildFarm)
             {
                 PlanFarm(mousePos);
@@ -146,35 +110,7 @@ namespace Managers
         {
             if (isOverUI) return;
             
-            if (inputState == PlayerInputState.BuildStructure && _planningStructure)
-            {
-                SpawnPlannedStructure();
-            }
-            else if (inputState == PlayerInputState.BuildStructure)
-            {
-                var structureData = Librarian.Instance.GetStructureData(PlayerInputController.Instance.StoredKey);
-                SpawnStructure(structureData, Helper.ConvertMousePosToGridPos(mousePos));
-                
-            }
-            else if (inputState == PlayerInputState.BuildWall && _planningStructure)
-            {
-                SpawnPlannedWall();
-            }
-            else if (inputState == PlayerInputState.BuildWall)
-            {
-                var wallData = Librarian.Instance.GetWallData(PlayerInputController.Instance.StoredKey);
-                SpawnWall(wallData, Helper.ConvertMousePosToGridPos(mousePos));
-            }
-            else if (inputState == PlayerInputState.BuildRoof && _planningStructure)
-            {
-                SpawnPlannedRoof();
-            }
-            else if (inputState == PlayerInputState.BuildRoof)
-            {
-                var roofData = Librarian.Instance.GetRoofData(PlayerInputController.Instance.StoredKey);
-                SpawnRoof(roofData, Helper.ConvertMousePosToGridPos(mousePos));
-            }
-            else if (inputState == PlayerInputState.BuildFurniture && _plannedFurniture != null)
+            if (inputState == PlayerInputState.BuildFurniture && _plannedFurniture != null)
             {
                 if (_plannedFurniture.CheckPlacement())
                 {
@@ -197,10 +133,6 @@ namespace Managers
                 {
                     SpawnSoilTile(Helper.ConvertMousePosToGridPos(mousePos), CropData, null);
                 }
-            }
-            else if (inputState == PlayerInputState.BuildDoor)
-            {
-                SpawnDoor(DoorData, Helper.ConvertMousePosToGridPos(mousePos));
             }
             else if (inputState == PlayerInputState.BuildBuilding && _plannedBuilding != null)
             {
@@ -389,40 +321,6 @@ namespace Managers
             return itemScript;
         }
 
-        public void SpawnStructure(StructureData structureData, Vector3 spawnPosition)
-        {
-            if (Helper.IsGridPosValidToBuild(spawnPosition, structureData.InvalidPlacementTags))
-            {
-                spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
-                var structureObj = Instantiate(_structurePrefab, spawnPosition, Quaternion.identity);
-                structureObj.transform.SetParent(_structureParent);
-                var structure = structureObj.GetComponent<Structure>();
-                structure.Init(structureData);
-            }
-        }
-
-        private void SpawnRoof(RoofData roofData, Vector3 spawnPosition)
-        {
-            if (Helper.IsGridPosValidToBuild(spawnPosition, roofData.InvalidPlacementTags))
-            {
-                spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
-                var roof = Instantiate(_roofPrefab, spawnPosition, Quaternion.identity);
-                roof.transform.SetParent(_roofParent);
-                roof.Init(roofData);
-            }
-        }
-
-        public void SpawnWall(WallData wallData, Vector3 spawnPosition)
-        {
-            if (Helper.IsGridPosValidToBuild(spawnPosition, wallData.InvalidPlacementTags))
-            {
-                spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
-                var wall = Instantiate(_wallPrefab, spawnPosition, Quaternion.identity);
-                wall.transform.SetParent(_structureParent);
-                wall.Init(wallData);
-            }
-        }
-
         public Storage SpawnStorageContainer(StorageItemData storageData, Vector3 spawnPosition)
         {
             var containerObj = Instantiate(_storageContainerPrefab, spawnPosition, Quaternion.identity);
@@ -430,18 +328,6 @@ namespace Managers
             var container = containerObj.GetComponent<Storage>();
             container.Init(storageData);
             return container;
-        }
-        
-        public void SpawnDoor(DoorData doorData, Vector3 spawnPosition)
-        {
-            if (Helper.IsGridPosValidToBuild(spawnPosition, doorData.InvalidPlacementTags))
-            {
-                spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
-                var doorObj = Instantiate(_doorPrefab, spawnPosition, Quaternion.identity);
-                doorObj.transform.SetParent(_doorsParent);
-                var door = doorObj.GetComponent<Door>();
-                door.Init(doorData);
-            }
         }
         
         private Building _plannedBuilding;
@@ -510,176 +396,6 @@ namespace Managers
             _blueprints.Clear();
         }
         
-        private void SpawnPlannedStructure()
-        {
-            if (!_planningStructure) return;
-
-            foreach (var gridPos in _plannedGrid)
-            {
-                if (Helper.IsGridPosValidToBuild(gridPos, StructureData.InvalidPlacementTags))
-                {
-                    SpawnStructure(StructureData, gridPos);
-                }
-            }
-
-            ClearPlannedBlueprint();
-            _plannedGrid.Clear();
-            _planningStructure = false;
-            CancelInput();
-        }
-
-        private void SpawnPlannedRoof()
-        {
-            if (!_planningStructure) return;
-
-            foreach (var gridPos in _plannedGrid)
-            {
-                if (Helper.IsGridPosValidToBuild(gridPos, RoofData.InvalidPlacementTags))
-                {
-                    SpawnRoof(RoofData, gridPos);
-                }
-            }
-
-            ClearPlannedBlueprint();
-            _plannedGrid.Clear();
-            _planningStructure = false;
-        }
-
-        private void SpawnPlannedWall()
-        {
-            if (!_planningStructure) return;
-
-            foreach (var gridPos in _plannedGrid)
-            {
-                if (Helper.IsGridPosValidToBuild(gridPos, WallData.InvalidPlacementTags))
-                {
-                    SpawnWall(WallData, gridPos);
-                }
-            }
-
-            ClearPlannedBlueprint();
-            _plannedGrid.Clear();
-            _planningStructure = false;
-        }
-        
-        private void PlanRoof(Vector2 mousePos)
-        {
-            if (!_planningStructure) return;
-
-            List<Vector2> gridPositions = new List<Vector2>();
-            gridPositions = Helper.GetRectangleGridPositionsBetweenPoints(_startPos, mousePos);
-
-            if (gridPositions.Count != _plannedGrid.Count)
-            {
-                _plannedGrid = gridPositions;
-                
-                // Clear previous display, then display new blueprints
-                ClearPlannedBlueprint();
-
-                foreach (var gridPos in gridPositions)
-                {
-                    var blueprint = new GameObject("blueprint", typeof(SpriteRenderer));
-                    blueprint.transform.position = gridPos;
-                    var spriteRenderer = blueprint.GetComponent<SpriteRenderer>();
-                    spriteRenderer.sprite = _genericPlacementSprite;
-                    if (Helper.IsGridPosValidToBuild(gridPos, RoofData.InvalidPlacementTags))
-                    {
-                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Green");
-                    }
-                    else
-                    {
-                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Red");
-                    }
-                    
-                    spriteRenderer.sortingLayerName = "Roofing";
-                    _blueprints.Add(blueprint);
-                }
-            }
-        }
-
-        private void PlanWall(Vector2 mousePos)
-        {
-            if (!_planningStructure) return;
-
-            List<Vector2> gridPositions = new List<Vector2>();
-            gridPositions = Helper.GetBoxPositionsBetweenPoints(_startPos, mousePos);
-
-            if (gridPositions.Count != _plannedGrid.Count)
-            {
-                _plannedGrid = gridPositions;
-                
-                // Clear previous display, then display new blueprints
-                ClearPlannedBlueprint();
-
-                foreach (var gridPos in gridPositions)
-                {
-                    var blueprint = new GameObject("blueprint", typeof(SpriteRenderer));
-                    blueprint.transform.position = gridPos;
-                    var spriteRenderer = blueprint.GetComponent<SpriteRenderer>();
-                    spriteRenderer.sprite = _genericPlacementSprite;
-                    if (Helper.IsGridPosValidToBuild(gridPos, WallData.InvalidPlacementTags))
-                    {
-                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Green");
-                    }
-                    else
-                    {
-                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Red");
-                    }
-                    
-                    spriteRenderer.sortingLayerName = "Structure";
-                    _blueprints.Add(blueprint);
-                }
-            }
-        }
-
-        private void PlanStructure(Vector2 mousePos, PlanningMode planningMode)
-        {
-            if (!_planningStructure) return;
-
-            Vector3 curGridPos = Helper.ConvertMousePosToGridPos(mousePos);
-            List<Vector2> gridPositions = new List<Vector2>();
-
-            switch (planningMode)
-            {
-                case PlanningMode.Rectangle:
-                    gridPositions = Helper.GetRectangleGridPositionsBetweenPoints(_startPos, curGridPos);
-                    break;
-                case PlanningMode.Line:
-                    gridPositions = Helper.GetLineGridPositionsBetweenPoints(_startPos, mousePos);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(planningMode), planningMode, null);
-            }
-
-            if (gridPositions.Count != _plannedGrid.Count)
-            {
-                _plannedGrid = gridPositions;
-                
-                // Clear previous display, then display new blueprints
-                ClearPlannedBlueprint();
-
-                foreach (var gridPos in gridPositions)
-                {
-                    var blueprint = new GameObject("blueprint", typeof(SpriteRenderer));
-                    blueprint.transform.position = gridPos;
-                    var spriteRenderer = blueprint.GetComponent<SpriteRenderer>();
-                    spriteRenderer.sprite = StructureData.Icon;
-                    if (Helper.IsGridPosValidToBuild(gridPos, StructureData.InvalidPlacementTags))
-                    {
-                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Green");
-                    }
-                    else
-                    {
-                        spriteRenderer.color = Librarian.Instance.GetColour("Placement Red");
-                    }
-                    
-                    spriteRenderer.sortingLayerName = "Structure";
-                    _blueprints.Add(blueprint);
-                }
-            }
-            
-        }
-
         #endregion
         
         private void PlanFarm(Vector2 mousePos)
