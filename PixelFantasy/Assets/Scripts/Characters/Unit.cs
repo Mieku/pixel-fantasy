@@ -25,7 +25,6 @@ namespace Characters
         [SerializeField] private NeedsAI _needsAI;
         [SerializeField] private UnitState _unitState;
         [SerializeField] private UnitAppearance _appearance;
-        [SerializeField] private UnitInventory _inventory;
         [SerializeField] private Mood _mood;
         [SerializeField] private SocialAI _socialAI;
         

@@ -8,10 +8,10 @@ namespace Systems.Details.Generic_Details.Scripts
     public class DetailsEntryInventoryDisplay : MonoBehaviour
     {
         [SerializeField] private Transform _slotLayout;
-        [SerializeField] private InventoryEntrySlot _slotPrefab;
+        //[SerializeField] private InventoryEntrySlot _slotPrefab;
 
         private Storage _linkedStorage;
-        private List<InventoryEntrySlot> _displayedSlots = new List<InventoryEntrySlot>();
+        //private List<InventoryEntrySlot> _displayedSlots = new List<InventoryEntrySlot>();
         
         private void Awake()
         {
@@ -39,22 +39,22 @@ namespace Systems.Details.Generic_Details.Scripts
         {
              ClearSlots();
             
-            var storageSlots = _linkedStorage.StorageSlots;
-            foreach (var storageSlot in storageSlots)
-            {
-                var slot = Instantiate(_slotPrefab, _slotLayout);
-                _displayedSlots.Add(slot);
-                slot.Init(storageSlot);
-            }
+            // var storageSlots = _linkedStorage.StorageSlots;
+            // foreach (var storageSlot in storageSlots)
+            // {
+            //     var slot = Instantiate(_slotPrefab, _slotLayout);
+            //     _displayedSlots.Add(slot);
+            //     slot.Init(storageSlot);
+            // }
         }
 
         private void ClearSlots()
         {
-            foreach (var displayedSlot in _displayedSlots)
-            {
-                Destroy(displayedSlot.gameObject);
-            }
-            _displayedSlots.Clear();
+            // foreach (var displayedSlot in _displayedSlots)
+            // {
+            //     Destroy(displayedSlot.gameObject);
+            // }
+            // _displayedSlots.Clear();
         }
     }
 }

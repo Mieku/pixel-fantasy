@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Cabbage
   m_EditorClassIdentifier: 
   ItemName: Cabbage
+  ItemDescription: 
   MaxStackSize: 5
   ItemSprite: {fileID: 21300000, guid: 7d01f5c90c6c4264b818b605801d5967, type: 3}
   DefaultSpriteScale: {x: 1, y: 1}
@@ -26,5 +27,6 @@ MonoBehaviour:
     Duration: 5
     DestroyItemAfterInteraction: 1
     InteractionEmotion: {fileID: 11400000, guid: f46afef359650ae4e978520a99cd379b, type: 2}
+  Category: 3
   FoodType: 1
   FoodNutrition: 0.2

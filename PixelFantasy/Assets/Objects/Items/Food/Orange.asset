@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Orange
   m_EditorClassIdentifier: 
   ItemName: Orange
+  ItemDescription: 
   MaxStackSize: 5
   ItemSprite: {fileID: -270428748, guid: 6f37856933bf9674fb472dd26b81b58e, type: 3}
   DefaultSpriteScale: {x: 1, y: 1}
@@ -26,5 +27,6 @@ MonoBehaviour:
     Duration: 5
     DestroyItemAfterInteraction: 1
     InteractionEmotion: {fileID: 11400000, guid: f46afef359650ae4e978520a99cd379b, type: 2}
+  Category: 3
   FoodType: 0
   FoodNutrition: 0.1

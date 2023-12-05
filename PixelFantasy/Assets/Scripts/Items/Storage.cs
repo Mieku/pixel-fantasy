@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Managers;
 using ScriptableObjects;
@@ -8,14 +7,15 @@ namespace Items
 {
     public class Storage : Furniture
     {
-        [SerializeField] private List<StorageSlot> _storageSlots = new List<StorageSlot>();
+        public List<Item> Stored = new List<Item>();
+        public List<Item> Incoming = new List<Item>();
+        public List<Item> Claimed = new List<Item>();
 
         public Transform StoredItemParent;
         
         protected StorageItemData _storageItemData => _furnitureItemData as StorageItemData;
 
         public bool IsGlobal => _parentBuilding == null;
-        public List<StorageSlot> StorageSlots => _storageSlots;
 
         protected override void Awake()
         {
@@ -28,289 +28,90 @@ namespace Items
         
         protected override void Built_Enter()
         {
-            for (int i = 0; i < _storageItemData.NumSlots; i++)
-            {
-                _storageSlots.Add(new StorageSlot());
-            }
-            
             InventoryManager.Instance.AddStorage(this);
             GameEvents.Trigger_RefreshInventoryDisplay();
 
             base.Built_Enter();
         }
 
+        public bool IsItemValidToStore(ItemData itemData)
+        {
+            return _storageItemData.AcceptedCategories.Contains(itemData.Category);
+        }
+
         public int AmountCanBeDeposited(ItemData itemData)
         {
-            int result = 0;
-            foreach (var slot in _storageSlots)
+            if (!IsItemValidToStore(itemData))
             {
-                result += slot.AmountCanBeDeposited(itemData);
+                return 0;
             }
-            return result;
+
+            int maxStorage = _storageItemData.MaxStorage;
+            
+            return maxStorage - (Stored.Count + Incoming.Count);
         }
 
         public int AmountCanBeWithdrawn(ItemData itemData)
         {
-            int result = 0;
-            foreach (var slot in _storageSlots)
-            {
-                result += slot.AmountCanBeWithdrawn(itemData);
-            }
-            return result;
+            if (!IsItemValidToStore(itemData)) return 0;
+            return Stored.Count - Claimed.Count;
         }
         
         public void SetIncoming(Item item)
         {
-            foreach (var slot in _storageSlots)
+            if (!IsItemValidToStore(item.GetItemData()))
             {
-                int amountSpaceAvailable = slot.AmountCanBeDeposited(item.GetItemData());
-                if (amountSpaceAvailable != 0)
-                {
-                    slot.SetIncoming(item);
-                    return;
-                }
+                Debug.LogError("Attempting to store the wrong item category");
+                return;
             }
+
+            var availableSpace = AmountCanBeDeposited(item.GetItemData());
+            if (availableSpace <= 0)
+            {
+                Debug.LogError("Attempted to set incoming with no space available");
+                return;
+            }
+            
+            Incoming.Add(item);
         }
 
         public void DepositItems(Item item)
         {
-            foreach (var slot in _storageSlots)
+            if (!Incoming.Contains(item))
             {
-                if(slot.StoredItemData() != item.GetItemData()) continue;
-                if (slot.Incoming.Contains(item))
-                {
-                    slot.AddItem(item, this);
-                    GameEvents.Trigger_RefreshInventoryDisplay();
-                    return;
-                }
+                Debug.LogError("Tried to deposit an item that was not set as incoming");
+                return;
             }
             
-            Debug.LogError($"Item: {item.State.UID} was not deposited, was not found as incoming");
+            item.transform.parent = StoredItemParent;
+            item.AssignedStorage = this;
+            item.gameObject.SetActive(false);
+            Stored.Add(item);
+            Incoming.Remove(item);
+            
+            GameEvents.Trigger_RefreshInventoryDisplay();
         }
 
         public void RestoreClaimed(Item item)
         {
-            foreach (var slot in _storageSlots)
+            if (!Claimed.Contains(item))
             {
-                if (slot.Claimed.Contains(item))
-                {
-                    slot.Claimed.Remove(item);
-                    return;
-                }
-            }
-
-            Debug.LogError($"Item Claim: {item.State.UID} was not restored, was not found in claimed");
-        }
-        
-        public void RestoreClaimed(ItemState itemState)
-        {
-            foreach (var slot in _storageSlots)
-            {
-                foreach (var claimedItem in slot.Claimed)
-                {
-                    if (claimedItem.State.Equals(itemState))
-                    {
-                        slot.Claimed.Remove(claimedItem);
-                        return;
-                    }
-                }
-            }
-
-            Debug.LogError($"Item Claim: {itemState.UID} was not restored, was not found in claimed");
-        }
-        
-        public Item SetClaimed(ItemData itemData)
-        {
-            foreach (var slot in _storageSlots)
-            {
-                int amountClaimable = slot.AmountCanBeWithdrawn(itemData);
-                if (amountClaimable > 0)
-                {
-                    var claimedItemState = slot.ClaimItem();
-                    return claimedItemState;
-                }
-            }
-            
-            Debug.LogError($"Item Claim: {itemData.ItemName} was not set, nothing could be withdrawn");
-            return null;
-        }
-
-        public bool SetClaimedItem(Item itemToClaim)
-        {
-            foreach (var slot in _storageSlots)
-            {
-                if (slot.Stored.Contains(itemToClaim))
-                {
-                    if (slot.ClaimItemState(itemToClaim))
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
-        }
-
-        public bool CanItemBeClaimed(Item item)
-        {
-            foreach (var slot in _storageSlots)
-            {
-                if (slot.Stored.Contains(item))
-                {
-                    if (slot.Claimed.Contains(item)) return false;
-
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public void WithdrawItem(Item item)
-        {
-            foreach (var slot in _storageSlots)
-            {
-                if(slot.StoredItemData() != item.GetItemData()) continue;
-                
-                slot.RemoveItem(item);
-                item.gameObject.SetActive(true);
-                GameEvents.Trigger_RefreshInventoryDisplay();
+                Debug.LogError($"Item Claim: {item.State.UID} was not restored, was not found in claimed");
                 return;
             }
-            
-            Debug.LogError($"Item Withdrawl: {item.State.UID} was not set, could not find the requested item");
-        }
-        
-        public Item WithdrawItem(ItemState itemState)
-        {
-            foreach (var slot in _storageSlots)
-            {
-                if(slot.StoredItemData() != itemState.Data) continue;
-                
-                var item = slot.RemoveItem(itemState);
-                GameEvents.Trigger_RefreshInventoryDisplay();
-                item.gameObject.SetActive(true);
-                return item;
-            }
-            
-            Debug.LogError($"Item Withdrawl: {itemState.UID} was not set, could not find the requested item");
-            return null;
+
+            Claimed.Remove(item);
         }
 
-        public Dictionary<ItemData, List<Item>> AvailableInventory
+        public Item SetClaimed(ItemData itemData)
         {
-            get
+            int amountClaimable = AmountCanBeWithdrawn(itemData);
+            if (amountClaimable <= 0)
             {
-                Dictionary<ItemData, List<Item>> results = new Dictionary<ItemData, List<Item>>();
-                foreach (var slot in _storageSlots)
-                {
-                    if (slot != null && !slot.IsEmpty())
-                    {
-                        foreach (var storedItem in slot.Stored)
-                        {
-                            if (!slot.Claimed.Contains(storedItem))
-                            {
-                                if (results.ContainsKey(storedItem.GetItemData()))
-                                {
-                                    results[storedItem.GetItemData()].Add(storedItem);
-                                }
-                                else
-                                {
-                                    results.Add(storedItem.GetItemData(), new List<Item>(){storedItem});
-                                }
-                            }
-                        }
-                    }
-                }
-
-                return results;
-            }
-        }
-        
-        public bool IsItemInStorage(ItemData itemData)
-        {
-            foreach (var slot in _storageSlots)
-            {
-                if(slot.StoredItemData() != itemData) continue;
-
-                return slot.NumAvailable > 0;
+                Debug.LogError("Nothing could be withdrawn");
+                return null;
             }
 
-            return false;
-        }
-
-        public List<Item> GetAllFoodItems()
-        {
-            List<Item> foodItems = new List<Item>();
-            foreach (var slot in _storageSlots)
-            {
-                var foodItemData = slot.StoredItemData() as RawFoodItemData;
-                if (foodItemData != null && slot.NumAvailable > 0)
-                {
-                    var slotFoodItems = slot.UnclaimedStored;
-                    foreach (var slotFoodItem in slotFoodItems)
-                    {
-                        foodItems.Add(slotFoodItem);
-                    }
-                }
-            }
-
-            return foodItems;
-        }
-    }
-
-    [Serializable]
-    public class StorageSlot
-    {
-        public List<Item> Stored = new List<Item>();
-        public List<Item> Incoming = new List<Item>();
-        public List<Item> Claimed = new List<Item>();
-
-        public List<Item> UnclaimedStored
-        {
-            get
-            {
-                List<Item> results = new List<Item>();
-                foreach (var storedItem in Stored)
-                {
-                    if (!Claimed.Contains(storedItem))
-                    {
-                        results.Add(storedItem);
-                    }
-                }
-
-                return results;
-            }
-        }
-
-        public int NumStored => Stored.Count;
-        public int NumIncoming => Incoming.Count;
-        public int NumClaimed => Claimed.Count;
-
-        public int NumAvailable => Stored.Count - Claimed.Count;
-
-        /// <summary>
-        /// Inform the Slot that an item is on its way
-        /// </summary>
-        public void SetIncoming(Item item)
-        {
-            Incoming.Add(item);
-        }
-        
-        /// <summary>
-        /// Add the item to the storage
-        /// </summary>
-        public void AddItem(Item item, Storage storage)
-        {
-            item.transform.parent = storage.StoredItemParent;
-            item.AssignedStorage = storage;
-            item.gameObject.SetActive(false);
-            Stored.Add(item);
-            Incoming.Remove(item);
-        }
-
-        public Item ClaimItem()
-        {
             foreach (var storedItem in Stored)
             {
                 if (!Claimed.Contains(storedItem))
@@ -319,44 +120,67 @@ namespace Items
                     return storedItem;
                 }
             }
-            
-            Debug.LogError($"No items are left available to be claimed");
+
+            Debug.LogError($"Item Claim: {itemData.ItemName} was not set, nothing could be withdrawn");
             return null;
         }
-        
-        public bool ClaimItemState(Item item)
+
+        public bool SetClaimedItem(Item itemToClaim)
         {
             foreach (var storedItem in Stored)
             {
-                if (storedItem == item)
+                if (storedItem == itemToClaim)
                 {
-                    if (Claimed.Contains(item))
+                    if (Claimed.Contains(itemToClaim))
                     {
-                        Debug.LogError($"Attempted to Claim {item.State.UID}, but it was already claimed");
+                        Debug.LogError($"Attempted to Claim {itemToClaim.State.UID}, but it was already claimed");
                         return false;
                     }
                     
-                    Claimed.Add(item);
+                    Claimed.Add(itemToClaim);
                     return true;
                 }
             }
-
-            Debug.LogError($"Could not find {item.State.UID} in storage");
+            
+            Debug.LogError($"Could not find {itemToClaim.State.UID} in storage");
             return false;
         }
 
-        /// <summary>
-        /// Remove the item from storage
-        /// </summary>
-        public void RemoveItem(Item item)
+        public bool CanItemBeClaimed(Item item)
         {
+            if (Stored.Contains(item))
+            {
+                if (Claimed.Contains(item)) return false;
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public void WithdrawItem(Item item)
+        {
+            if (!Stored.Contains(item))
+            {
+                Debug.LogError("Tried to withdraw an item that is not stored");
+            }
+
+            if (!Claimed.Contains(item))
+            {
+                Debug.LogError("Tried to withdraw an item that is not claimed");
+            }
+            
             item.AssignedStorage = null;
             Stored.Remove(item);
             Claimed.Remove(item);
+            
+            item.gameObject.SetActive(true);
+            GameEvents.Trigger_RefreshInventoryDisplay();
         }
-
-        public Item RemoveItem(ItemState itemState)
+        
+        public Item WithdrawItem(ItemState itemState)
         {
+            Item result = null;
             foreach (var claimedItem in Claimed)
             {
                 if (claimedItem.State.Equals(itemState))
@@ -371,70 +195,76 @@ namespace Items
                 if (storedItem.State.Equals(itemState))
                 {
                     Stored.Remove(storedItem);
-                    return storedItem;
+                    result = storedItem;
+                    break;
                 }
             }
 
-            return null;
-        }
-
-        public bool IsEmpty()
-        {
-            return Stored.Count == 0 && Incoming.Count == 0;
-        }
-        
-        private bool IsItemValidToStore(ItemData itemData)
-        {
-            if (IsEmpty()) return true;
-            if (StoredItemData() == null) return true;
-
-            return StoredItemData() == itemData;
-        }
-
-        public ItemData StoredItemData()
-        {
-            if (IsEmpty()) return null;
-            if (Stored.Count > 0)
+            if (result != null)
             {
-                if (Stored[0].GetItemData() != null)
-                {
-                    return Stored[0].GetItemData();
-                }
+                result.gameObject.SetActive(true);
             }
             
-            if (Incoming.Count > 0)
+            GameEvents.Trigger_RefreshInventoryDisplay();
+            return result;
+        }
+
+        public Dictionary<ItemData, List<Item>> AvailableInventory
+        {
+            get
             {
-                if (Incoming[0].GetItemData() != null)
+                Dictionary<ItemData, List<Item>> results = new Dictionary<ItemData, List<Item>>();
+                foreach (var storedItem in Stored)
                 {
-                    return Incoming[0].GetItemData();
+                    if (!Claimed.Contains(storedItem))
+                    {
+                        if (results.ContainsKey(storedItem.GetItemData()))
+                        {
+                            results[storedItem.GetItemData()].Add(storedItem);
+                        }
+                        else
+                        {
+                            results.Add(storedItem.GetItemData(), new List<Item>(){storedItem});
+                        }
+                    }
+                }
+
+                return results;
+            }
+        }
+        
+        public bool IsItemInStorage(ItemData itemData)
+        {
+            if (IsItemValidToStore(itemData))
+            {
+                foreach (var storagedItem in Stored)
+                {
+                    if (storagedItem.GetItemData() == itemData && !Claimed.Contains(storagedItem))
+                    {
+                        return true;
+                    }
                 }
             }
 
-            return null;
+            return false;
         }
 
-        public int AmountCanBeWithdrawn(ItemData item)
+        public List<Item> GetAllFoodItems()
         {
-            if (IsEmpty()) return 0;
-            if (!IsItemValidToStore(item)) return 0;
-
-            return Stored.Count - Claimed.Count;
-        }
-
-        public int AmountCanBeDeposited(ItemData item)
-        {
-            var storedItemData = StoredItemData();
-            if (storedItemData == null)
+            List<Item> foodItems = new List<Item>();
+            foreach (var storedItem in Stored)
             {
-                return item.MaxStackSize;
+                if (!Claimed.Contains(storedItem))
+                {
+                    var foodItemData = storedItem.GetItemData() as RawFoodItemData;
+                    if (foodItemData != null)
+                    {
+                        foodItems.Add(storedItem);
+                    }
+                }
             }
 
-            if (storedItemData != item)
-            {
-                return 0;
-            }
-
-            return item.MaxStackSize - (Stored.Count + Incoming.Count);
+            return foodItems;
         }
     }
 }

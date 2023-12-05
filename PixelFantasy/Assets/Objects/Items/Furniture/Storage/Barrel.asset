@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e5458c6e9e8d0f4c8152dcd32e4793a, type: 3}
-  m_Name: Crate
+  m_Name: Barrel
   m_EditorClassIdentifier: 
-  ItemName: Crate
-  ItemDescription: 
+  ItemName: Barrel
+  ItemDescription: Stores food items
   MaxStackSize: 1
-  ItemSprite: {fileID: 21300000, guid: c5dc3fbeb7cad2949bf0873f5c636af9, type: 3}
+  ItemSprite: {fileID: -1833610153, guid: 9f7d87b58161cbd4aa86794c2ca49b34, type: 3}
   DefaultSpriteScale: {x: 1, y: 1}
   Durability: 100
   InteractionConfigs: []
   Category: 4
-  RequiredCraftingTable: {fileID: 11400000, guid: 644004581d1321d41993fc7be87087b5, type: 2}
-  RequiredCraftingJob: {fileID: 0}
+  RequiredCraftingTable: {fileID: 11400000, guid: 92ae49093fe4f4240bcc66f7c88f3749, type: 2}
+  RequiredCraftingJob: {fileID: 11400000, guid: 8cc115b907c69de4da24cb986f35866f, type: 2}
   WorkCost: 5
   _resourceCosts:
   - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
@@ -33,5 +33,5 @@ MonoBehaviour:
   Catergory: 2
   FurniturePrefab: {fileID: 5465201506073250537, guid: ad37035a922cc6e4799db5aee18bd59c, type: 3}
   Varients: []
-  MaxStorage: 25
-  AcceptedCategories: 00000000
+  MaxStorage: 20
+  AcceptedCategories: 03000000

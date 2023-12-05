@@ -19,6 +19,7 @@ MonoBehaviour:
   DefaultSpriteScale: {x: 1, y: 1}
   Durability: 100
   InteractionConfigs: []
+  Category: 5
   RequiredCraftingTable: {fileID: 11400000, guid: 92ae49093fe4f4240bcc66f7c88f3749, type: 2}
   RequiredCraftingJob: {fileID: 11400000, guid: 8cc115b907c69de4da24cb986f35866f, type: 2}
   WorkCost: 5

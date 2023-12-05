@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Strawberry
   m_EditorClassIdentifier: 
   ItemName: Strawberry
+  ItemDescription: 
   MaxStackSize: 5
   ItemSprite: {fileID: 422682441, guid: 18a57a0db5b8b6d43ae249ec6016319a, type: 3}
   DefaultSpriteScale: {x: 1, y: 1}
@@ -26,5 +27,6 @@ MonoBehaviour:
     Duration: 5
     DestroyItemAfterInteraction: 1
     InteractionEmotion: {fileID: 11400000, guid: f46afef359650ae4e978520a99cd379b, type: 2}
+  Category: 3
   FoodType: 0
   FoodNutrition: 0.1

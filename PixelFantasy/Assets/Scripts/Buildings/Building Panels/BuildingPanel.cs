@@ -135,15 +135,15 @@ namespace Buildings.Building_Panels
                 _productionBtn.gameObject.SetActive(false);
             }
 
-            // Don't show furniture if there are none
-            if (_building.BuildingData.AllowedFurniture.Count > 0)
-            {
-                _furnitureBtn.gameObject.SetActive(true);
-            }
-            else
-            {
-                _furnitureBtn.gameObject.SetActive(false);
-            }
+            // // Don't show furniture if there are none
+            // if (_building.BuildingData.AllowedFurniture.Count > 0)
+            // {
+            //     _furnitureBtn.gameObject.SetActive(true);
+            // }
+            // else
+            // {
+            //     _furnitureBtn.gameObject.SetActive(false);
+            // }
         }
 
         private void DeactivateAllControlBtns()

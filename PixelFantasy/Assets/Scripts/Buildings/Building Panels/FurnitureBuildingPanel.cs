@@ -118,20 +118,20 @@ namespace Buildings.Building_Panels
 
         private void RefreshFurnitureDictionary()
         {
-            _furnitureDictionary.Clear();
-            var allFurniture = _building.BuildingData.AllowedFurniture;
-            foreach (var furniture in allFurniture)
-            {
-                if (_furnitureDictionary.ContainsKey(furniture.Catergory))
-                {
-                    _furnitureDictionary[furniture.Catergory].Add(furniture);
-                }
-                else
-                {
-                    List<FurnitureItemData> newFurnList = new List<FurnitureItemData> { furniture };
-                    _furnitureDictionary.Add(furniture.Catergory, newFurnList);
-                }
-            }
+            // _furnitureDictionary.Clear();
+            // var allFurniture = _building.BuildingData.AllowedFurniture;
+            // foreach (var furniture in allFurniture)
+            // {
+            //     if (_furnitureDictionary.ContainsKey(furniture.Catergory))
+            //     {
+            //         _furnitureDictionary[furniture.Catergory].Add(furniture);
+            //     }
+            //     else
+            //     {
+            //         List<FurnitureItemData> newFurnList = new List<FurnitureItemData> { furniture };
+            //         _furnitureDictionary.Add(furniture.Catergory, newFurnList);
+            //     }
+            // }
         }
 
         public void Close()

@@ -13,11 +13,15 @@ MonoBehaviour:
   m_Name: Skirt
   m_EditorClassIdentifier: 
   ItemName: Skirt
+  ItemDescription: 
   MaxStackSize: 1
   ItemSprite: {fileID: 21300000, guid: 04210316eb27bf44f921c1589ecf8f2c, type: 3}
   DefaultSpriteScale: {x: 1, y: 1}
   Durability: 100
+  InteractionConfigs: []
+  Category: 3
   RequiredCraftingTable: {fileID: 11400000, guid: 644004581d1321d41993fc7be87087b5, type: 2}
+  RequiredCraftingJob: {fileID: 0}
   WorkCost: 10
   _resourceCosts:
   - Item: {fileID: 11400000, guid: 4932a754447f82345899f6bc214df25b, type: 2}
@@ -29,6 +33,7 @@ MonoBehaviour:
   Type: 2
   CanBeDyed: 1
   DefaultDyePalette: {fileID: 11400000, guid: 06364608d9707aa4da0b1e7547502fa4, type: 2}
+  RequiredJob: {fileID: 0}
   MainHandHeldGear: {fileID: 0}
   OffHandHeldGear: {fileID: 0}
   HatGear: {fileID: 0}

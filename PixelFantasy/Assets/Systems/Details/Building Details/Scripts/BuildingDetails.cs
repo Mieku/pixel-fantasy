@@ -45,6 +45,13 @@ namespace Systems.Details.Building_Details.Scripts
             {
                 _underConstructionPanel.Init(_building);
             }
+            
+            // Stockpile Building Panels
+            var stockpileBuilding = _building as StockpileBuilding;
+            if (stockpileBuilding != null && _building.State == Building.BuildingState.Built)
+            {
+                _stockpilePanel.Init(_building);
+            }
         }
 
         private void HideAllPanels()

@@ -12,20 +12,14 @@ namespace ScriptableObjects
     {
         public BuildingType BuildingType;
         public int MaxOccupants;
-        public List<FurnitureItemData> AllowedFurniture = new List<FurnitureItemData>();
-        public Building LinkedBuilding;
         public int DailyUpkeep;
         public List<AbilityType> RelevantAbilityTypes = new List<AbilityType>();
-
-        public bool IsFurnitureAllowed(FurnitureItemData furnitureItemData)
-        {
-            return AllowedFurniture.Contains(furnitureItemData);
-        }
     }
 
     public enum BuildingType
     {
         Home,
         Production,
+        Stockpile,
     }
 }

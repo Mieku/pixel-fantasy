@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 2996897229605571945}
   - component: {fileID: 2373780174562721659}
   m_Layer: 0
-  m_Name: Storage Container
+  m_Name: Crate
   m_TagString: Furniture
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
