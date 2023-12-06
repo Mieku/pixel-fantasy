@@ -16,6 +16,9 @@ namespace Items
         protected StorageItemData _storageItemData => _furnitureItemData as StorageItemData;
 
         public bool IsGlobal => _parentBuilding == null;
+        public int MaxStorage => _storageItemData.MaxStorage;
+
+        public int UsedStorage => Stored.Count;
 
         protected override void Awake()
         {
@@ -30,6 +33,10 @@ namespace Items
         {
             InventoryManager.Instance.AddStorage(this);
             GameEvents.Trigger_RefreshInventoryDisplay();
+            if (_parentBuilding != null)
+            {
+                GameEvents.Trigger_OnBuildingChanged(_parentBuilding);
+            }
 
             base.Built_Enter();
         }
@@ -38,6 +45,8 @@ namespace Items
         {
             return _storageItemData.AcceptedCategories.Contains(itemData.Category);
         }
+
+        public List<EItemCategory> AcceptedCategories => _storageItemData.AcceptedCategories;
 
         public int AmountCanBeDeposited(ItemData itemData)
         {
@@ -90,6 +99,10 @@ namespace Items
             Incoming.Remove(item);
             
             GameEvents.Trigger_RefreshInventoryDisplay();
+            if (_parentBuilding != null)
+            {
+                GameEvents.Trigger_OnBuildingChanged(_parentBuilding);
+            }
         }
 
         public void RestoreClaimed(Item item)
@@ -176,6 +189,10 @@ namespace Items
             
             item.gameObject.SetActive(true);
             GameEvents.Trigger_RefreshInventoryDisplay();
+            if (_parentBuilding != null)
+            {
+                GameEvents.Trigger_OnBuildingChanged(_parentBuilding);
+            }
         }
         
         public Item WithdrawItem(ItemState itemState)
@@ -206,6 +223,10 @@ namespace Items
             }
             
             GameEvents.Trigger_RefreshInventoryDisplay();
+            if (_parentBuilding != null)
+            {
+                GameEvents.Trigger_OnBuildingChanged(_parentBuilding);
+            }
             return result;
         }
 

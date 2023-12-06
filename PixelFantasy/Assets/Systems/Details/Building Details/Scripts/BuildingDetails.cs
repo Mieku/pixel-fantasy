@@ -27,30 +27,31 @@ namespace Systems.Details.Building_Details.Scripts
 
         private Building _building;
         private EDetailsTab _tab;
+        private Building.BuildingState? _curBuildingState = null;
 
         private void DeterminePanelsToShow()
         {
             // Header and Footer are always shown
-            _headerPanel.Init(_building);
-            _footerPanel.Init(_building);
+            _headerPanel.Init(_building, this);
+            _footerPanel.Init(_building, this);
 
             // Occupants Panel
             if (_building.BuildingData.MaxOccupants > 0)
             {
-                _occupantsPanel.Init(_building);
+                _occupantsPanel.Init(_building, this);
             }
             
             // Under Construction Panel
             if (_building.State is Building.BuildingState.Construction or Building.BuildingState.Planning)
             {
-                _underConstructionPanel.Init(_building);
+                _underConstructionPanel.Init(_building, this);
             }
             
             // Stockpile Building Panels
             var stockpileBuilding = _building as StockpileBuilding;
             if (stockpileBuilding != null && _building.State == Building.BuildingState.Built)
             {
-                _stockpilePanel.Init(_building);
+                _stockpilePanel.Init(_building, this);
             }
         }
 
@@ -108,8 +109,14 @@ namespace Systems.Details.Building_Details.Scripts
 
         private void GameEvent_OnBuildingChanged(Building changedBuilding)
         {
-            HideAllPanels();
-            DeterminePanelsToShow();
+            if (changedBuilding != _building) return;
+
+            if (_curBuildingState != _building.State)
+            {
+                _curBuildingState = _building.State;
+                HideAllPanels();
+                DeterminePanelsToShow();
+            }
         }
 
         public void GeneralTabPressed()
@@ -120,6 +127,11 @@ namespace Systems.Details.Building_Details.Scripts
         public void ConstructionTabPressed()
         {
             SetTab(EDetailsTab.Construction);
+        }
+        
+        public void RefreshLayout()
+        {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
         }
 
         public enum EDetailsTab

@@ -1,21 +1,25 @@
 using Buildings;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Systems.Details.Building_Details.Scripts
 {
     public abstract class BuildingPanel : MonoBehaviour
     {
         protected Building _building;
+        protected BuildingDetails _buildingDetails;
 
-        public void Init(Building building)
+        public void Init(Building building, BuildingDetails details)
         {
             _building = building;
+            _buildingDetails = details;
             GameEvents.OnBuildingChanged += GameEvent_OnBuildingChanged;
             gameObject.SetActive(true);
             Show();
+            RefreshLayout();
         }
 
-        public void Hide()
+        public virtual void Hide()
         {
             _building = null;
             GameEvents.OnBuildingChanged -= GameEvent_OnBuildingChanged;
@@ -28,6 +32,12 @@ namespace Systems.Details.Building_Details.Scripts
             {
                 Refresh();
             }
+        }
+        
+        public void RefreshLayout()
+        {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
+            _buildingDetails.RefreshLayout();
         }
 
         protected abstract void Show();

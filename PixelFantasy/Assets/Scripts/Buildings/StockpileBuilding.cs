@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Characters;
+using Items;
 using Managers;
 using ScriptableObjects;
 using Systems.Notifications.Scripts;
@@ -11,7 +12,103 @@ namespace Buildings
     public class StockpileBuilding : Building
     {
         private StockpileBuildingData _stockpileBuildingData => _buildingData as StockpileBuildingData;
+        private List<ItemData> _unallowedItems = new List<ItemData>();
+        
         public override string OccupantAdjective => "Workers";
+
+        public int GetStorageUsedForCategory(EItemCategory category)
+        {
+            var allStorage = GetBuildingStorages();
+            int result = 0;
+            foreach (var storage in allStorage)
+            {
+                if (storage.AcceptedCategories.Contains(category))
+                {
+                    result += storage.UsedStorage;
+                }
+            }
+
+            return result;
+        }
+
+        public int GetMaxStorageForCategory(EItemCategory category)
+        {
+            var allStorage = GetBuildingStorages();
+            int result = 0;
+            foreach (var storage in allStorage)
+            {
+                if (storage.AcceptedCategories.Contains(category))
+                {
+                    result += storage.MaxStorage;
+                }
+            }
+
+            return result;
+        }
+
+        public List<ItemAmount> GetStoredItemsByCategory(EItemCategory category)
+        {
+            List<ItemAmount> results = new List<ItemAmount>();
+            var allQuantities = GetBuildingInventoryQuantities();
+            foreach (var kvp in allQuantities)
+            {
+                if (kvp.Key.Category == category)
+                {
+                    var storedResult = results.Find(i => i.Item == kvp.Key);
+                    if (storedResult == null)
+                    {
+                        storedResult = new ItemAmount
+                        {
+                            Item = kvp.Key,
+                            Quantity = kvp.Value
+                        };
+                        results.Add(storedResult);
+                    }
+                    else
+                    {
+                        storedResult.Quantity += kvp.Value;
+                    }
+                }
+            }
+
+            return results;
+        }
+
+        public int AmountItemStored(ItemData itemData)
+        {
+            var allQuantities = GetBuildingInventoryQuantities();
+            if (allQuantities.TryGetValue(itemData, out var stored))
+            {
+                return stored;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public bool IsItemStockpileAllowed(ItemData itemData)
+        {
+            return !_unallowedItems.Contains(itemData);
+        }
+
+        public void SetAllowedStockpileItem(ItemData itemData, bool isAllowed)
+        {
+            if (isAllowed)
+            {
+                if (_unallowedItems.Contains(itemData))
+                {
+                    _unallowedItems.Remove(itemData);
+                }
+            }
+            else
+            {
+                if (!_unallowedItems.Contains(itemData))
+                {
+                    _unallowedItems.Add(itemData);
+                }
+            }
+        }
         
         public override List<Unit> GetPotentialOccupants()
         {

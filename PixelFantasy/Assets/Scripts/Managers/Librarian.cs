@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Buildings;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
@@ -26,6 +27,23 @@ namespace Managers
         [SerializeField] private List<AIStat> _stats;
         [SerializeField] private List<Emotion> _emotions;
         [SerializeField] private List<EmotionalBreakdown> _emotionalBreakdowns;
+
+        public List<ItemData> GetAllItemsForCategory(EItemCategory category, bool alphabeticalOrder)
+        {
+            List<ItemData> unsortedList = new List<ItemData>();
+            foreach (var itemData in _itemDataLibrary)
+            {
+                if (itemData.Category == category)
+                {
+                    unsortedList.Add(itemData);
+                }
+            }
+
+            if (!alphabeticalOrder) return unsortedList;
+
+            List<ItemData> sortedList = unsortedList.OrderBy(i => i.ItemName).ToList();
+            return sortedList;
+        }
 
         public EmotionalBreakdown GetEmotionalBreakdown(string breakdownTaskId)
         {
