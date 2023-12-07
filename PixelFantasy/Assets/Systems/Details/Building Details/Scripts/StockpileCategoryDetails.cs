@@ -33,7 +33,7 @@ namespace Systems.Details.Building_Details.Scripts
             _building = building as StockpileBuilding;
             _stockpileBuildingPanel = parentPanel;
             
-            SetState(CategoryDisplayState.Closed);
+            SetState(CategoryDisplayState.Open);
             _categoryNameText.text = _category.GetDescription();
             CreateDisplays();
             Refresh();
@@ -130,7 +130,7 @@ namespace Systems.Details.Building_Details.Scripts
         {
             _collapseIcon.sprite = _closedSprite;
             _contentHandle.SetActive(false);
-            Refresh();
+            RefreshLayout();
         }
 
         private void Enter_Open()

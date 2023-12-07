@@ -86,6 +86,77 @@ namespace Buildings
             _interiorForegroundSortingGroup.sortingOrder = (int)interiorForegroundOffset;
             _doorSortingGroup.sortingOrder = (int)doorOffset;
         }
+        
+        public int GetStorageUsedForCategory(EItemCategory category)
+        {
+            var allStorage = GetBuildingStorages();
+            int result = 0;
+            foreach (var storage in allStorage)
+            {
+                if (storage.AcceptedCategories.Contains(category))
+                {
+                    result += storage.UsedStorage;
+                }
+            }
+
+            return result;
+        }
+
+        public int GetMaxStorageForCategory(EItemCategory category)
+        {
+            var allStorage = GetBuildingStorages();
+            int result = 0;
+            foreach (var storage in allStorage)
+            {
+                if (storage.AcceptedCategories.Contains(category))
+                {
+                    result += storage.MaxStorage;
+                }
+            }
+
+            return result;
+        }
+        
+        public int AmountItemStored(ItemData itemData)
+        {
+            var allQuantities = GetBuildingInventoryQuantities();
+            if (allQuantities.TryGetValue(itemData, out var stored))
+            {
+                return stored;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        
+        public List<ItemAmount> GetStoredItemsByCategory(EItemCategory category)
+        {
+            List<ItemAmount> results = new List<ItemAmount>();
+            var allQuantities = GetBuildingInventoryQuantities();
+            foreach (var kvp in allQuantities)
+            {
+                if (kvp.Key.Category == category)
+                {
+                    var storedResult = results.Find(i => i.Item == kvp.Key);
+                    if (storedResult == null)
+                    {
+                        storedResult = new ItemAmount
+                        {
+                            Item = kvp.Key,
+                            Quantity = kvp.Value
+                        };
+                        results.Add(storedResult);
+                    }
+                    else
+                    {
+                        storedResult.Quantity += kvp.Value;
+                    }
+                }
+            }
+
+            return results;
+        }
 
         public bool IsColliderInInterior(Collider2D colliderToCheck)
         {

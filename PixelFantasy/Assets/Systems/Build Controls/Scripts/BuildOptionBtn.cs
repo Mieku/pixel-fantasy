@@ -55,6 +55,7 @@ namespace Systems.Build_Controls.Scripts
         protected override void TriggerOptionEffect()
         {
             PlanBuilding();
+            ToggledOff();
         }
         
         private Building _plannedBuilding;

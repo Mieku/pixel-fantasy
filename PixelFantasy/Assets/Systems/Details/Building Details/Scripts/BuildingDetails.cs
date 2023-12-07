@@ -53,6 +53,14 @@ namespace Systems.Details.Building_Details.Scripts
             {
                 _stockpilePanel.Init(_building, this);
             }
+            
+            // Storage Building Panel
+            if (stockpileBuilding == null 
+                && _building.State == Building.BuildingState.Built 
+                && _building.GetBuildingStorages().Count > 0)
+            {
+                _storagePanel.Init(_building, this);
+            }
         }
 
         private void HideAllPanels()
