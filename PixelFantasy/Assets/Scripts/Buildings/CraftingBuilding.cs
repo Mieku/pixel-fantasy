@@ -14,7 +14,6 @@ namespace Buildings
     public class CraftingBuilding : Building
     {
         private CraftingBuildingData _prodBuildingData => _buildingData as CraftingBuildingData;
-        //public ProductOrderQueue OrderQueue = new ProductOrderQueue();
 
         public override string OccupantAdjective => "Workers";
         public bool AcceptNewOrders = true;
@@ -55,6 +54,10 @@ namespace Buildings
                 if (CurrentCraftingOrder?.CraftedItem == null)
                 {
                     CurrentCraftingOrder = RequestNextCraftingOrder();
+                }
+
+                if (CurrentCraftingOrder?.State == CraftingOrder.EOrderState.Queued)
+                {
                     result = CurrentCraftingOrder?.CreateTask(this, OnOrderComplete);
                 }
             }
@@ -64,40 +67,9 @@ namespace Buildings
 
         private void OnOrderComplete(Task task)
         {
-            Debug.Log("Order complete");
             CurrentCraftingOrder = null;
         }
-
-        // public Task CreateProductionTask(CraftingTable craftingTable)
-        // {
-        //     var task = OrderQueue.RequestTask(craftingTable);
-        //     if (task != null)
-        //     {
-        //         task.Enqueue();
-        //     }
-        //
-        //     if (task == null)
-        //     {
-        //         // Check Global
-        //         var bill = TaskManager.Instance.GetNextCraftingBillByCraftingTable(craftingTable);
-        //         if (bill != null)
-        //         {
-        //             task = bill.CreateTask(craftingTable);
-        //             if (task != null)
-        //             {
-        //                 task.Enqueue();
-        //             }
-        //         }
-        //     }
-        //     
-        //     return task;
-        // }
         
-        // public List<CraftedItemData> GetProductionOptions()
-        // {
-        //     return new List<CraftedItemData>(_prodBuildingData.CraftingOptions);
-        // }
-
         protected override bool CheckForIssues()
         {
             bool hasIssue = base.CheckForIssues();
