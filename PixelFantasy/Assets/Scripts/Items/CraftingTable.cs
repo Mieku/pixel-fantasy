@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Buildings;
 using Managers;
 using ScriptableObjects;
@@ -17,8 +18,10 @@ namespace Items
         [TitleGroup("West")] [SerializeField] private SpriteRenderer _westCraftingPreview;
         [TitleGroup("North")] [SerializeField] private SpriteRenderer _northCraftingPreview;
         [TitleGroup("East")] [SerializeField] private SpriteRenderer _eastCraftingPreview;
-        
+
+        private CraftedItemData _craftedItem;
         protected float _remainingCraftAmount;
+        private List<ItemAmount> _remainingMaterials;
 
         public bool IsInUse;
         public Task _curTask;
@@ -27,11 +30,6 @@ namespace Items
         {
             base.Start();
             ShowCraftingPreview(null);
-        }
-
-        private void LateUpdate()
-        {
-            SearchForTask();
         }
 
         private SpriteRenderer CraftingPreview
@@ -61,28 +59,20 @@ namespace Items
             if(_westCraftingPreview != null) _westCraftingPreview.gameObject.SetActive(false);
             if(_eastCraftingPreview != null) _eastCraftingPreview.gameObject.SetActive(false);
         }
-
-        private void SearchForTask()
-        {
-            // if (FurnitureState != EFurnitureState.Built) return;
-            // if (IsInUse || (_curTask != null && _curTask.TaskId != "")) return;
-            //
-            // if (_parentBuilding is CraftingBuilding craftingBuilding)
-            // {
-            //     _curTask = craftingBuilding.CreateProductionTask(this);
-            // }
-        }
-
+        
         public void AssignItemToTable(CraftedItemData craftedItem)
         {
             if (craftedItem != null)
             {
+                _craftedItem = craftedItem;
                 IsInUse = true;
                 ShowCraftingPreview(craftedItem.ItemSprite);
                 _remainingCraftAmount = craftedItem.WorkCost;
+                _remainingMaterials = new List<ItemAmount>(craftedItem.GetResourceCosts());
             }
             else
             {
+                _craftedItem = null;
                 IsInUse = false;
                 ShowCraftingPreview(null);
                 _remainingCraftAmount = 0;
@@ -108,6 +98,12 @@ namespace Items
         public bool DoCraft(float workAmount)
         {
             _remainingCraftAmount -= workAmount;
+            
+            if (_parentBuilding != null)
+            {
+                GameEvents.Trigger_OnBuildingChanged(_parentBuilding);
+            }
+            
             if (_remainingCraftAmount <= 0)
             {
                 CompleteCraft();
@@ -115,6 +111,57 @@ namespace Items
             }
             
             return false;
+        }
+
+        public float GetPercentCraftingComplete()
+        {
+            if (_craftedItem == null) return 0f;
+            
+            return 1 - (_remainingCraftAmount / _craftedItem.WorkCost);
+        }
+
+        public void ReceiveMaterial(Item item)
+        {
+            foreach (var remainingMaterial in _remainingMaterials)
+            {
+                if (remainingMaterial.Item == item.GetItemData())
+                {
+                    remainingMaterial.Quantity -= 1;
+                }
+            }
+            Destroy(item.gameObject);
+            
+            // Refresh building
+            if (_parentBuilding != null)
+            {
+                GameEvents.Trigger_OnBuildingChanged(_parentBuilding);
+            }
+        }
+
+        public float GetPercentMaterialsReceived()
+        {
+            if (_craftedItem == null) return 0f;
+            
+            int numItemsNeeded = 0;
+            foreach (var cost in _craftedItem.GetResourceCosts())
+            {
+                numItemsNeeded += cost.Quantity;
+            }
+
+            int numItemsRemaining = 0;
+            foreach (var remaining in _remainingMaterials)
+            {
+                numItemsRemaining += remaining.Quantity;
+            }
+            
+            if (numItemsNeeded == 0)
+            {
+                return 1f;
+            }
+            else
+            {
+                return 1f - (numItemsRemaining / (float)numItemsNeeded);
+            }
         }
 
         private void CompleteCraft()

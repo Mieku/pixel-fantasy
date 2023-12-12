@@ -76,6 +76,7 @@ namespace Systems.Crafting.Scripts
                     throw new ArgumentOutOfRangeException();
             }
 
+            State = EOrderState.Claimed;
             OnOrderClaimed.Invoke();
             return task;
         }

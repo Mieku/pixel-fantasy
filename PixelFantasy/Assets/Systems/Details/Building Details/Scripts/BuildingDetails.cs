@@ -37,7 +37,7 @@ namespace Systems.Details.Building_Details.Scripts
             _footerPanel.Init(_building, this);
 
             // Occupants Panel
-            if (_building.BuildingData.MaxOccupants > 0)
+            if (_building.BuildingData.MaxOccupants > 0 && _building.State == Building.BuildingState.Built)
             {
                 _occupantsPanel.Init(_building, this);
             }

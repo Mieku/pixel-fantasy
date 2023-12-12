@@ -20,8 +20,8 @@ MonoBehaviour:
   Durability: 100
   InteractionConfigs: []
   Category: 5
-  RequiredCraftingTable: {fileID: 11400000, guid: 644004581d1321d41993fc7be87087b5, type: 2}
-  RequiredCraftingJob: {fileID: 0}
+  RequiredCraftingTable: {fileID: 11400000, guid: 92ae49093fe4f4240bcc66f7c88f3749, type: 2}
+  RequiredCraftingJob: {fileID: 11400000, guid: 8cc115b907c69de4da24cb986f35866f, type: 2}
   WorkCost: 5
   _resourceCosts:
   - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
@@ -33,6 +33,6 @@ MonoBehaviour:
   - Wall
   - Obstacle
   Catergory: 0
-  FurniturePrefab: {fileID: 0}
+  FurniturePrefab: {fileID: 5935236254734965145, guid: dd1324a0af4a86b41b638230c8941527, type: 3}
   Varients:
   - {fileID: 11400000, guid: 96e95feee83c1e54481ff72b05fd2b5b, type: 2}

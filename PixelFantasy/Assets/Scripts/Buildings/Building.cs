@@ -56,9 +56,9 @@ namespace Buildings
         private bool _repairsRequested;
 
         protected List<BuildingNote> _buildingNotes = new List<BuildingNote>();
-        private List<Unit> _occupants = new List<Unit>();
-        private List<Furniture> _allFurniture = new List<Furniture>();
-        private List<InventoryLogisticBill> _logisticsBills = new List<InventoryLogisticBill>();
+        protected List<Unit> _occupants = new List<Unit>();
+        protected List<Furniture> _allFurniture = new List<Furniture>();
+        protected List<InventoryLogisticBill> _logisticsBills = new List<InventoryLogisticBill>();
         
         private float _logiCheckTimer;
 
@@ -259,7 +259,6 @@ namespace Buildings
                 return;
             }
             
-            Debug.Log($"Furniture Registered: {furniture.FurnitureItemData.ItemName}");
             _allFurniture.Add(furniture);
             
             if(OnBuildingFurnitureChanged != null)
@@ -274,7 +273,6 @@ namespace Buildings
                 return;
             }
             
-            Debug.Log($"Furniture Deregistered: {furniture.FurnitureItemData.ItemName}");
             _allFurniture.Remove(furniture);
             
             if(OnBuildingFurnitureChanged != null)
@@ -626,7 +624,7 @@ namespace Buildings
             Changed();
         }
 
-        private void Built_Enter()
+        protected virtual void Built_Enter()
         {
             ColourSprites(Color.white);
             OrderCraftableFurniture();

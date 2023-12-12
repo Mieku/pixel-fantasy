@@ -101,7 +101,7 @@ namespace TaskSystem
 
         private void OnArrivedAtCraftingTable()
         {
-            _craftingTable.ReceiveItem(_targetItem);
+            _craftingTable.ReceiveMaterial(_targetItem);
             _targetItem = null;
             _materialIndex++;
 

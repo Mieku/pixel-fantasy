@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using Buildings;
 using HUD.Tooltip;
+using Items;
+using Systems.Crafting.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,6 +30,7 @@ namespace Systems.Details.Building_Details.Scripts
 
         private List<CraftQueueItem> _displayedQueueItems = new List<CraftQueueItem>();
         private CraftingBuilding _craftingBuilding => _building as CraftingBuilding;
+        private CraftingTable _craftingTable => _craftingBuilding.CraftingTable;
         
         protected override void Show()
         {
@@ -38,6 +41,10 @@ namespace Systems.Details.Building_Details.Scripts
         {
             _acceptNewOrdersToggle.SetIsOnWithoutNotify(_craftingBuilding.AcceptNewOrders);
             _prioritizeOrdersMatsToggle.SetIsOnWithoutNotify(_craftingBuilding.PrioritizeOrdersWithMats);
+
+            RefreshCurrentInProd();
+            RefreshQueue();
+            RefreshLayout();
         }
         
         public override void Hide()
@@ -45,9 +52,72 @@ namespace Systems.Details.Building_Details.Scripts
             base.Hide();
         }
 
+        private void RefreshCurrentInProd()
+        {
+            var curCraftingOrder = _craftingBuilding.CurrentCraftingOrder;
+            if (curCraftingOrder?.CraftedItem == null)
+            {
+                _craftingLayout.SetActive(false);
+            }
+            else
+            {
+                _craftingLayout.SetActive(true);
+                _curProdIcon.sprite = curCraftingOrder.CraftedItem.ItemSprite;
+                _curProdMatsBar.fillAmount = _craftingTable.GetPercentMaterialsReceived();
+                _curProdWorkBar.fillAmount = _craftingTable.GetPercentCraftingComplete();
+
+                _curProdTooltip.Header = curCraftingOrder.CraftedItem.ItemName;
+                _curProdTooltip.Content = curCraftingOrder.CraftedItem.MaterialsList;
+
+                if (curCraftingOrder.State == CraftingOrder.EOrderState.Queued)
+                {
+                    _curProdBG.sprite = curCraftingOrder.CanBeCrafted(_building) ? _defaultBG : _redBG;
+                }
+                else
+                {
+                    _curProdBG.sprite = _defaultBG;
+                }
+                
+                if (curCraftingOrder.State == CraftingOrder.EOrderState.Queued && _craftingBuilding.QueuedOrders().Count > 0)
+                {
+                    _curProdDecreasePriorityBtn.SetActive(true);
+                }
+                else
+                {
+                    _curProdDecreasePriorityBtn.SetActive(false);
+                }
+            }
+        }
+
+        private void RefreshQueue()
+        {
+            ClearDisplayedQueueItems();
+            
+            var queuedOrders = _craftingBuilding.QueuedOrders();
+            foreach (var queuedOrder in queuedOrders)
+            {
+                var queuedItem = Instantiate(_craftQueueItemPrefab, _queueParent);
+                queuedItem.Init(queuedOrder, _craftingBuilding);
+                _displayedQueueItems.Add(queuedItem);
+            }
+        }
+
+        private void ClearDisplayedQueueItems()
+        {
+            foreach (var displayedQueueItem in _displayedQueueItems)
+            {
+                Destroy(displayedQueueItem.gameObject);
+            }
+            _displayedQueueItems.Clear();
+        }
+
         public void OnCurProdDecreasePriorityPressed()
         {
-            
+            if (_craftingBuilding.CurrentCraftingOrder != null)
+            {
+                _craftingBuilding.ReturnCurrentOrderToQueue();
+                GameEvents.Trigger_OnBuildingChanged(_building);
+            }
         }
 
         public void OnAcceptNewOrdersToggleChanged(bool value)

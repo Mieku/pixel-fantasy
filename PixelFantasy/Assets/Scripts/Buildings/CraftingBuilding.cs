@@ -16,6 +16,7 @@ namespace Buildings
         private CraftingBuildingData _prodBuildingData => _buildingData as CraftingBuildingData;
 
         public override string OccupantAdjective => "Workers";
+        public CraftingTable CraftingTable;
         public bool AcceptNewOrders = true;
         public bool PrioritizeOrdersWithMats = true;
         public CraftingOrder CurrentCraftingOrder = null;
@@ -28,6 +29,12 @@ namespace Buildings
             List<Unit> sortedKinlings = unemployed
                 .OrderByDescending(kinling => kinling.GetUnitState().RelevantAbilityScore(relevantAbilites)).ToList();
             return sortedKinlings;
+        }
+
+        public void ReturnCurrentOrderToQueue()
+        {
+            CraftingOrdersManager.Instance.SubmitOrder(CurrentCraftingOrder);
+            CurrentCraftingOrder = RequestNextCraftingOrder();
         }
 
         private CraftingOrder RequestNextCraftingOrder()
@@ -43,6 +50,7 @@ namespace Buildings
                 result = CraftingOrdersManager.Instance.GetNextOrder(_prodBuildingData.WorkersJob);
             }
 
+            GameEvents.Trigger_OnBuildingChanged(this);
             return result;
         }
 
@@ -62,7 +70,13 @@ namespace Buildings
                 }
             }
 
+            GameEvents.Trigger_OnBuildingChanged(this);
             return result;
+        }
+
+        public List<CraftingOrder> QueuedOrders()
+        {
+            return CraftingOrdersManager.Instance.GetAllOrders(_prodBuildingData.WorkersJob);
         }
 
         private void OnOrderComplete(Task task)

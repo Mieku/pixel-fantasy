@@ -44,7 +44,8 @@ namespace Systems.Crafting.Scripts
                 {
                     if (order.CanBeCrafted(building))
                     {
-                        queue.Orders.RemoveAt(0);
+                        int orderIndex = queue.Orders.IndexOf(order);
+                        queue.Orders.RemoveAt(orderIndex);
                         return order;
                     }
                 }
@@ -69,6 +70,50 @@ namespace Systems.Crafting.Scripts
             {
                 queue.Orders.Remove(order);
             }
+        }
+
+        public void IncreaseOrderPriority(CraftingOrder order)
+        {
+            CraftingOrderQueue queue = _queues.Find(q => q.Job == order.CraftedItem.RequiredCraftingJob);
+            if (queue != null && queue.Orders.Contains(order))
+            {
+                int orderIndex = queue.Orders.IndexOf(order);
+                orderIndex = Mathf.Clamp(orderIndex - 1, 0, queue.Orders.Count - 1);
+                queue.Orders.Remove(order);
+                queue.Orders.Insert(orderIndex, order);
+            }
+        }
+
+        public void DecreaseOrderPriority(CraftingOrder order)
+        {
+            CraftingOrderQueue queue = _queues.Find(q => q.Job == order.CraftedItem.RequiredCraftingJob);
+            if (queue != null && queue.Orders.Contains(order))
+            {
+                int orderIndex = queue.Orders.IndexOf(order);
+                orderIndex = Mathf.Clamp(orderIndex + 1, 0, queue.Orders.Count - 1);
+                queue.Orders.Remove(order);
+                queue.Orders.Insert(orderIndex, order);
+            }
+        }
+
+        public bool IsFirstInQueue(CraftingOrder order)
+        {
+            CraftingOrderQueue queue = _queues.Find(q => q.Job == order.CraftedItem.RequiredCraftingJob);
+            if (queue != null && queue.Orders.Count > 0)
+            {
+                return queue.Orders[0] == order;
+            }
+            return false;
+        }
+        
+        public bool IsLastInQueue(CraftingOrder order)
+        {
+            CraftingOrderQueue queue = _queues.Find(q => q.Job == order.CraftedItem.RequiredCraftingJob);
+            if (queue != null && queue.Orders.Count > 0)
+            {
+                return queue.Orders[^1] == order;
+            }
+            return false;
         }
     }
 

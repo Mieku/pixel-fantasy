@@ -33,6 +33,19 @@ namespace ScriptableObjects
             return clone;
         }
 
+        public string MaterialsList
+        {
+            get
+            {
+                string materialsList = "";
+                foreach (var cost in _resourceCosts)
+                {
+                    materialsList += cost.Quantity + "x " + cost.Item.ItemName + "\n";
+                }
+                return materialsList;
+            }
+        }
+
         public bool AreResourcesAvailable()
         {
             foreach (var cost in _resourceCosts)

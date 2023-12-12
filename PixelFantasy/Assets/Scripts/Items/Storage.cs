@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Buildings;
 using Managers;
 using ScriptableObjects;
 using UnityEngine;
@@ -15,7 +16,22 @@ namespace Items
         
         protected StorageItemData _storageItemData => _furnitureItemData as StorageItemData;
 
-        public bool IsGlobal => _parentBuilding == null;
+        public bool IsGlobal
+        {
+            get
+            {
+                if (_parentBuilding == null)
+                {
+                    return true;
+                } 
+                else if (_parentBuilding as StockpileBuilding != null)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
         public int MaxStorage => _storageItemData.MaxStorage;
 
         public int UsedStorage => Stored.Count;
