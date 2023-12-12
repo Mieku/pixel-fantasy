@@ -148,6 +148,10 @@ namespace TaskSystem
             }
 
             // TODO: First Check Their Assigned Work Room
+            if (_unit.GetUnitState().AssignedWorkplace != null && task == null && _state != State.ExecutingInteraction)
+            {
+                task = _unit.GetUnitState().AssignedWorkplace.GetBuildingTask();
+            }
 
             if (task == null && _state != State.ExecutingInteraction)
             {

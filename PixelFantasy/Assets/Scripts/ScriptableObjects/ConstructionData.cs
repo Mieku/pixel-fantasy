@@ -75,5 +75,10 @@ namespace ScriptableObjects
     {
         public ItemData Item;
         public int Quantity;
+
+        public bool CanAfford()
+        {
+            return InventoryManager.Instance.CanAfford(Item, Quantity);
+        }
     }
 }

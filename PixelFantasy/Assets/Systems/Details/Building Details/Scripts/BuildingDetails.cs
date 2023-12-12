@@ -12,6 +12,7 @@ namespace Systems.Details.Building_Details.Scripts
         [SerializeField] private HeaderBuildingPanel _headerPanel;
         [SerializeField] private OccupantsBuildingPanel _occupantsPanel;
         [SerializeField] private ProductionBuildingPanel _productionPanel;
+        [SerializeField] private CraftingOrdersBuildingPanel _craftingOrdersPanel;
         [SerializeField] private StorageBuildingPanel _storagePanel;
         [SerializeField] private StockpileBuildingPanel _stockpilePanel;
         [SerializeField] private UnderConstructionBuildingPanel _underConstructionPanel;
@@ -61,6 +62,20 @@ namespace Systems.Details.Building_Details.Scripts
             {
                 _storagePanel.Init(_building, this);
             }
+            
+            // Crafting Orders Panel
+            var craftingBuilding = _building as CraftingBuilding;
+            if (craftingBuilding != null && _building.State == Building.BuildingState.Built)
+            {
+                _craftingOrdersPanel.Init(_building, this);
+            }
+
+            // Production Panel
+            var productionBuilding = _building as ProductionBuilding;
+            if (productionBuilding != null && _building.State == Building.BuildingState.Built)
+            {
+                _productionPanel.Init(_building, this);
+            }
         }
 
         private void HideAllPanels()
@@ -68,6 +83,7 @@ namespace Systems.Details.Building_Details.Scripts
             _headerPanel.Hide();
             _occupantsPanel.Hide();
             _productionPanel.Hide();
+            _craftingOrdersPanel.Hide();
             _storagePanel.Hide();
             _stockpilePanel.Hide();
             _underConstructionPanel.Hide();

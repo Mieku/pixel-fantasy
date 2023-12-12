@@ -214,6 +214,17 @@ namespace Items
             return Commands;
         }
 
+        public void UnclaimItem()
+        {
+            if (AssignedStorage == null)
+            {
+                Debug.LogError("Tried to unclaim an item that is not assigned to storage");
+                return;
+            }
+            
+            AssignedStorage.RestoreClaimed(this);
+        }
+
         public string DisplayName => _itemData.ItemName;
 
         public object CaptureState()

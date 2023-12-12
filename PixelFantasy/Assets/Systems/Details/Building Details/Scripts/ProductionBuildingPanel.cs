@@ -13,5 +13,10 @@ namespace Systems.Details.Building_Details.Scripts
         {
             
         }
+
+        public override void Hide()
+        {
+            base.Hide();
+        }
     }
 }

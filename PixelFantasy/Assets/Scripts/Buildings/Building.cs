@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Buildings.Building_Panels;
 using Characters;
 using CodeMonkey.Utils;
@@ -278,6 +279,11 @@ namespace Buildings
             
             if(OnBuildingFurnitureChanged != null)
                 OnBuildingFurnitureChanged.Invoke(_allFurniture);
+        }
+
+        public Furniture GetAvailableFurniture(FurnitureItemData furnitureItemData)
+        {
+            return _allFurniture.FirstOrDefault(f => f.FurnitureItemData == furnitureItemData && f.FurnitureState == Furniture.EFurnitureState.Built);
         }
 
         public List<Storage> GetBuildingStorages()
@@ -824,6 +830,11 @@ namespace Buildings
                 IsPositive = isPositive;
                 ID = id;
             }
+        }
+
+        public virtual Task GetBuildingTask()
+        {
+            return null;
         }
         
     }
