@@ -123,12 +123,13 @@ namespace TaskSystem
             {
                 Payload = craftingTable.UniqueId,
                 TaskType = TaskType.Craft,
-                Materials = RequestedItemInfos,
+                //Materials = RequestedItemInfos,
             };
             
             return task;
         }
 
+        // TODO: Get rid of this
         [Serializable]
         public class RequestedItemInfo
         {

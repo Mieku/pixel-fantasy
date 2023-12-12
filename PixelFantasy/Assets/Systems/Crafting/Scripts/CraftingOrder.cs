@@ -15,31 +15,36 @@ namespace Systems.Crafting.Scripts
         public CraftedItemData CraftedItem;
         public PlayerInteractable Requestor;
         public EOrderState State;
+        public EOrderType OrderType;
         
-        public Action OnOrderDelivered;
+        public Action OnOrderComplete;
         public Action OnOrderClaimed;
         public Action OnOrderCancelled;
         
         private List<ItemAmount> _remainingMaterials = new List<ItemAmount>();
 
+        public enum EOrderType
+        {
+            Furniture,
+        }
+
         public enum EOrderState
         {
             None,
             Queued,
-            GatheringMaterials,
-            Crafting,
-            Delivering,
+            Claimed,
             Completed,
             Cancelled,
         }
 
-        public CraftingOrder(CraftedItemData craftedItem, PlayerInteractable requestor, Action onOrderClaimed, Action onOrderDelivered,
+        public CraftingOrder(CraftedItemData craftedItem, PlayerInteractable requestor, EOrderType orderType, Action onOrderClaimed, Action onOrderComplete,
             Action onOrderCancelled)
         {
             CraftedItem = craftedItem;
             Requestor = requestor;
+            OrderType = orderType;
             OnOrderClaimed = onOrderClaimed;
-            OnOrderDelivered = onOrderDelivered;
+            OnOrderComplete = onOrderComplete;
             OnOrderCancelled = onOrderCancelled;
             
             _remainingMaterials = CraftedItem.GetResourceCosts();
@@ -47,21 +52,29 @@ namespace Systems.Crafting.Scripts
             SetOrderState(EOrderState.Queued);
         }
 
-        public Task CreateTask(Building building)
+        public Task CreateTask(CraftingBuilding building, Action<Task> onTaskComplete)
         {
             List<Item> claimedMats = ClaimRequiredMaterials(building);
             if (claimedMats == null)
             {
                 return null;
             }
-        
-            Task task = new Task("Craft Item Order", Requestor)
+
+            Task task;
+            switch (OrderType)
             {
-                Payload = CraftedItem.ItemName,
-                TaskType = TaskType.Craft,
-                OnTaskComplete = OnTaskComplete,
-                Materials = claimedMats,
-            };
+                case EOrderType.Furniture:
+                    task = new Task("Craft Furniture Order", Requestor)
+                    {
+                        Payload = CraftedItem.ItemName,
+                        TaskType = TaskType.Craft,
+                        OnTaskComplete = onTaskComplete,
+                        Materials = claimedMats,
+                    };
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
             OnOrderClaimed.Invoke();
             return task;
@@ -150,14 +163,8 @@ namespace Systems.Crafting.Scripts
                 case EOrderState.Queued:
                     Enter_Queued();
                     break;
-                case EOrderState.GatheringMaterials:
-                    Enter_GatheringMaterials();
-                    break;
-                case EOrderState.Crafting:
-                    Enter_Crafting();
-                    break;
-                case EOrderState.Delivering:
-                    Enter_Delivering();
+                case EOrderState.Claimed:
+                    Enter_Claimed();
                     break;
                 case EOrderState.Completed:
                     Enter_Completed();
@@ -175,24 +182,14 @@ namespace Systems.Crafting.Scripts
             CraftingOrdersManager.Instance.SubmitOrder(this);
         }
 
-        private void Enter_GatheringMaterials()
-        {
-            
-        }
-
-        private void Enter_Crafting()
-        {
-            
-        }
-        
-        private void Enter_Delivering()
+        private void Enter_Claimed()
         {
             
         }
 
         private void Enter_Completed()
         {
-            OnOrderDelivered?.Invoke();
+            OnOrderComplete?.Invoke();
         }
         
         private void Enter_Cancelled()
@@ -203,7 +200,7 @@ namespace Systems.Crafting.Scripts
 
         private void OnTaskComplete(Task task)
         {
-            OnOrderDelivered.Invoke();
+            SetOrderState(EOrderState.Completed);
         }
     }
 }

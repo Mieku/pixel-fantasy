@@ -29,17 +29,18 @@ public class ProductOrder
 
     public Task CreateTask(CraftingTable craftingTable)
     {
-        List<CraftingBill.RequestedItemInfo> claimedMats = ClaimRequiredMaterials(craftedItemData);
-        
-        Task task = new Task("Craft Item", craftingTable)
-        {
-            Payload = craftedItemData.ItemName,
-            TaskType = TaskType.Craft,
-            OnTaskComplete = OnTaskCompleted,
-            Materials = claimedMats,
-        };
-        amountInProgress++;
-        return task;
+        // List<CraftingBill.RequestedItemInfo> claimedMats = ClaimRequiredMaterials(craftedItemData);
+        //
+        // Task task = new Task("Craft Item", craftingTable)
+        // {
+        //     Payload = craftedItemData.ItemName,
+        //     TaskType = TaskType.Craft,
+        //     OnTaskComplete = OnTaskCompleted,
+        //     Materials = claimedMats,
+        // };
+        // amountInProgress++;
+        // return task;
+        return null;
     }
     
     private void OnTaskCompleted(Task task)

@@ -1466,7 +1466,7 @@ GameObject:
   - component: {fileID: 3500687174380350705}
   - component: {fileID: 5735428014187059916}
   m_Layer: 6
-  m_Name: Craft Item Order
+  m_Name: Craft Furniture Order
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1499,7 +1499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 862acd041e55a3841aec295d2d4d6696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TaskId: Craft Item Order
+  TaskId: Craft Furniture Order
 --- !u!1 &6077939752023387253
 GameObject:
   m_ObjectHideFlags: 0

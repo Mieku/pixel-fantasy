@@ -22,7 +22,7 @@ namespace TaskSystem
         public override void PrepareAction(Task task)
         {
             _task = task;
-            _itemToPlace = task.Materials[0].Item;
+            _itemToPlace = task.Materials[0];
             _isHoldingItem = false;
             _isMoving = false;
             _isPlacingItem = false;

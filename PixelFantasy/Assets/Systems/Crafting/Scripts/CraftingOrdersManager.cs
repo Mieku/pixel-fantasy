@@ -44,6 +44,7 @@ namespace Systems.Crafting.Scripts
                 {
                     if (order.CanBeCrafted(building))
                     {
+                        queue.Orders.RemoveAt(0);
                         return order;
                     }
                 }

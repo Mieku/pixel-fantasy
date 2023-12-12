@@ -7,6 +7,7 @@ using ScriptableObjects;
 using Systems.Crafting.Scripts;
 using Systems.Notifications.Scripts;
 using TaskSystem;
+using UnityEngine;
 
 namespace Buildings
 {
@@ -18,7 +19,7 @@ namespace Buildings
         public override string OccupantAdjective => "Workers";
         public bool AcceptNewOrders = true;
         public bool PrioritizeOrdersWithMats = true;
-        public CraftingOrder CurrentCraftingOrder;
+        public CraftingOrder CurrentCraftingOrder = null;
 
         public override List<Unit> GetPotentialOccupants()
         {
@@ -51,14 +52,20 @@ namespace Buildings
             Task result = base.GetBuildingTask();
             if (result == null)
             {
-                if (CurrentCraftingOrder == null)
+                if (CurrentCraftingOrder?.CraftedItem == null)
                 {
                     CurrentCraftingOrder = RequestNextCraftingOrder();
-                    result = CurrentCraftingOrder?.CreateTask(this);
+                    result = CurrentCraftingOrder?.CreateTask(this, OnOrderComplete);
                 }
             }
 
             return result;
+        }
+
+        private void OnOrderComplete(Task task)
+        {
+            Debug.Log("Order complete");
+            CurrentCraftingOrder = null;
         }
 
         // public Task CreateProductionTask(CraftingTable craftingTable)

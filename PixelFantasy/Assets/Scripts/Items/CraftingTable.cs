@@ -64,13 +64,13 @@ namespace Items
 
         private void SearchForTask()
         {
-            if (FurnitureState != EFurnitureState.Built) return;
-            if (IsInUse || (_curTask != null && _curTask.TaskId != "")) return;
-
-            if (_parentBuilding is ProductionBuilding prodBuilding)
-            {
-                _curTask = prodBuilding.CreateProductionTask(this);
-            }
+            // if (FurnitureState != EFurnitureState.Built) return;
+            // if (IsInUse || (_curTask != null && _curTask.TaskId != "")) return;
+            //
+            // if (_parentBuilding is CraftingBuilding craftingBuilding)
+            // {
+            //     _curTask = craftingBuilding.CreateProductionTask(this);
+            // }
         }
 
         public void AssignItemToTable(CraftedItemData craftedItem)

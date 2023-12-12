@@ -10,7 +10,7 @@ namespace TaskSystem
     {
         private CraftedItemData _itemToCraft;
         private CraftingTable _craftingTable;
-        private List<CraftingBill.RequestedItemInfo> _materials;
+        private List<Item> _materials;
         private PlayerInteractable _requestor;
         private Furniture _furniture;
         private TaskState _state;
@@ -57,7 +57,7 @@ namespace TaskSystem
                 // for each of the materials, haul the material to the crafting table
                 if (_targetStorage == null || _item == null)
                 {
-                    _item = _materials[_materialIndex].Item;
+                    _item = _materials[_materialIndex];
                     _targetStorage = _item.AssignedStorage;
                 }
                 
@@ -82,8 +82,8 @@ namespace TaskSystem
                     _targetStorage = null;
                     _item = null;
 
-                    if (_quantityHauled >= _materials[_materialIndex].Quantity)
-                    {
+                    // if (_quantityHauled >= _materials[_materialIndex].Quantity)
+                    // {
                         _materialIndex++;
                         if (_materialIndex >= _materials.Count)
                         {
@@ -93,7 +93,7 @@ namespace TaskSystem
                         {
                             _quantityHauled = 0;
                         }
-                    }
+                    // }
                     
                     return;
                 }

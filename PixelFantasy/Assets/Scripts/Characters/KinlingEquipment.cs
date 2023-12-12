@@ -446,13 +446,10 @@ namespace Characters
 
         private Task CreateEquipTask(GearState gearState)
         {
-            CraftingBill.RequestedItemInfo requestedItemInfo =
-                new CraftingBill.RequestedItemInfo(gearState.LinkedItem, 1);
-            
             Task equipItemTask = new Task("Equip Item", gearState.LinkedItem)
             {
                 TaskType = TaskType.Haul,
-                Materials = new List<CraftingBill.RequestedItemInfo> { requestedItemInfo },
+                Materials = new List<Item> { gearState.LinkedItem },
             };
 
             return equipItemTask;

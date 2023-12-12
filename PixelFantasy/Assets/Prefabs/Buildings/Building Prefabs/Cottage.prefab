@@ -4311,7 +4311,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8679221839148330440, guid: e219a8e018e3d244b8d0ef8b035b149b, type: 3}
       propertyPath: FurnitureState
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e219a8e018e3d244b8d0ef8b035b149b, type: 3}

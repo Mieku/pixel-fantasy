@@ -632,6 +632,14 @@ namespace Buildings
             OrderCraftableFurniture();
             _doorOpener.LockClosed(false);
             GameEvents.Trigger_OnCoinsIncomeChanged();
+
+            foreach (var furniture in _allFurniture)
+            {
+                if (furniture.FurnitureState == Furniture.EFurnitureState.Craftable)
+                {
+                    furniture.SetState(Furniture.EFurnitureState.InProduction);
+                }
+            }
         }
         
         private void FollowCursor()

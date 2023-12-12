@@ -10,6 +10,7 @@ using Interfaces;
 using Managers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
+using Systems.Crafting.Scripts;
 using Systems.SmartObjects.Scripts;
 using TaskSystem;
 using UnityEngine;
@@ -70,6 +71,8 @@ namespace Items
         private Color _unavailableTransparent;
         private ClickObject _clickObject;
         private Collider2D _placementCollider;
+
+        private CraftingOrder _craftingOrder;
        
         public FurnitureItemData FurnitureItemData => _furnitureItemData;
         public Building ParentBuilding => _parentBuilding;
@@ -320,6 +323,12 @@ namespace Items
             return results;
         }
 
+        public Transform UseagePosition()
+        {
+            // TODO: Expand this to handle best position for situation
+            return UseagePositions()[0];
+        }
+
         public void ShowCraftable(bool isShown)
         {
             if(FurnitureState != EFurnitureState.Craftable) return;
@@ -422,23 +431,45 @@ namespace Items
             {
                 Task task = new Task("Place Furniture", this)
                 {
-                    Materials = new List<CraftingBill.RequestedItemInfo>(){ new CraftingBill.RequestedItemInfo(claimedItem, 1)},
+                    Materials = new List<Item>(){ claimedItem },
                     TaskType = TaskType.Haul,
                 };
                 TaskManager.Instance.AddTask(task);
             }
             else
             {
-                CraftingBill bill = new CraftingBill
-                {
-                    ItemToCraft = _furnitureItemData,
-                    Requestor = this,
-                    OnCancelled = OnCraftingBillCancelled,
-                };
-                TaskManager.Instance.AddBill(bill);
+                // CraftingBill bill = new CraftingBill
+                // {
+                //     ItemToCraft = _furnitureItemData,
+                //     Requestor = this,
+                //     OnCancelled = OnCraftingBillCancelled,
+                // };
+                // TaskManager.Instance.AddBill(bill);
+
+                _craftingOrder = new CraftingOrder(_furnitureItemData, 
+                    this,
+                    CraftingOrder.EOrderType.Furniture,
+                    OnOrderClaimed, 
+                    OnCraftingOrderDelivered,
+                    OnCraftingOrderCancelled);
             }
         }
 
+        private void OnOrderClaimed()
+        {
+            
+        }
+
+        private void OnCraftingOrderDelivered()
+        {
+            
+        }
+
+        private void OnCraftingOrderCancelled()
+        {
+            
+        }
+        
         public void OnCraftingBillCancelled()
         {
             
@@ -448,6 +479,14 @@ namespace Items
         {
             CraftersUID = item.State.CraftersUID;
             Destroy(item.gameObject);
+        }
+
+        public void PlaceFurniture(Item furnitureItem)
+        {
+            CraftersUID = furnitureItem.State.CraftersUID;
+            Destroy(furnitureItem.gameObject);
+            
+            SetState(EFurnitureState.Built);
         }
         
         public bool DoPlacement(float workAmount)

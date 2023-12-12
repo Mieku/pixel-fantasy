@@ -865,7 +865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 1
+  _offset: 0.75
   _runOnlyOnce: 0
   _sortingGroup: {fileID: 7323725909646230736}
   _checkLocal: 0
@@ -1010,7 +1010,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 1
+  _offset: 0.75
   _runOnlyOnce: 0
   _sortingGroup: {fileID: 1581972917290878965}
   _checkLocal: 0
@@ -1388,7 +1388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 1
+  _offset: 0.75
   _runOnlyOnce: 0
   _sortingGroup: {fileID: 7750591463387969904}
   _checkLocal: 0
@@ -1475,6 +1475,7 @@ MonoBehaviour:
   _icon: {fileID: 4386351996110386924}
   Commands: []
   PendingCommand: {fileID: 0}
+  RegisteredTasks: []
   _southHandle: {fileID: 2101369082256798506}
   _southSpritesRoot: {fileID: 8679221838297705576}
   _southUseageMarkersRoot: {fileID: 795657465536751454}
@@ -1490,6 +1491,7 @@ MonoBehaviour:
   _furnitureItemData: {fileID: 11400000, guid: f1cb3944f249ec24f909ab4be3e97f91, type: 2}
   _smartObject: {fileID: 1994508337855468786}
   _singleOwner: 0
+  CurrentDirection: 0
   FurnitureState: 0
   CraftersUID: 
 --- !u!114 &8425493286625524663
@@ -1663,7 +1665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 1
+  _offset: 0.75
   _runOnlyOnce: 0
   _sortingGroup: {fileID: 6439259402987331194}
   _checkLocal: 0

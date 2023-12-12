@@ -17,7 +17,7 @@ namespace Buildings.Building_Panels
         [SerializeField] private TMP_Dropdown _productionTypeDD;
         
         private ProductOrder _order;
-        private ProductionBuilding _building;
+        private CraftingBuilding _building;
         private Action<ProductionBill> _onBillPriorityChangedCallback;
 
         private void Start()
@@ -35,7 +35,7 @@ namespace Buildings.Building_Panels
             RefreshDisplay();
         }
 
-        public void Init(ProductOrder order, ProductionBuilding building, Action<ProductionBill> onBillPriorityChangedCallback)
+        public void Init(ProductOrder order, CraftingBuilding building, Action<ProductionBill> onBillPriorityChangedCallback)
         {
             _order = order;
             _building = building;
@@ -46,50 +46,50 @@ namespace Buildings.Building_Panels
 
         private void RefreshDisplay()
         {
-            _productName.text = _order.craftedItemData.ItemName;
-            _productImage.sprite = _order.craftedItemData.ItemSprite;
-            
-            // Rotate Icon if suspended
-            if (_order.isSuspended)
-            {
-                _suspendBtn.gameObject.transform.localRotation = new Quaternion(0, 0, 45, 0);
-            }
-            else
-            {
-                _suspendBtn.gameObject.transform.localRotation = new Quaternion(0, 0, 0, 0);
-            }
-            
-            switch (_order.productionType)
-            {
-                case ProductOrder.ProductionType.Finite:
-                    _productionTypeDD.SetValueWithoutNotify(0);
-                    _quantity.text = $"{_order.valueSet - _order.amountMade}x";
-                    break;
-                case ProductOrder.ProductionType.MaintainAmount:
-                    _productionTypeDD.SetValueWithoutNotify(1);
-                    int amountAvailable = InventoryManager.Instance.GetAmountAvailable(_order.craftedItemData);
-                    _quantity.text = $"{amountAvailable}/{_order.valueSet}";
-                    break;
-                case ProductOrder.ProductionType.Infinite:
-                    _productionTypeDD.SetValueWithoutNotify(2);
-                    _quantity.text = "Infinite";
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            _upArrow.SetActive(true);
-            _downArrow.SetActive(true);
-            var thisOrderIndex = _building.OrderQueue.AllOrders.IndexOf(_order);
-            if (thisOrderIndex == 0)
-            {
-                _upArrow.SetActive(false);
-            }
-
-            if (thisOrderIndex == _building.OrderQueue.AllOrders.Count - 1)
-            {
-                _downArrow.SetActive(false);
-            }
+            // _productName.text = _order.craftedItemData.ItemName;
+            // _productImage.sprite = _order.craftedItemData.ItemSprite;
+            //
+            // // Rotate Icon if suspended
+            // if (_order.isSuspended)
+            // {
+            //     _suspendBtn.gameObject.transform.localRotation = new Quaternion(0, 0, 45, 0);
+            // }
+            // else
+            // {
+            //     _suspendBtn.gameObject.transform.localRotation = new Quaternion(0, 0, 0, 0);
+            // }
+            //
+            // switch (_order.productionType)
+            // {
+            //     case ProductOrder.ProductionType.Finite:
+            //         _productionTypeDD.SetValueWithoutNotify(0);
+            //         _quantity.text = $"{_order.valueSet - _order.amountMade}x";
+            //         break;
+            //     case ProductOrder.ProductionType.MaintainAmount:
+            //         _productionTypeDD.SetValueWithoutNotify(1);
+            //         int amountAvailable = InventoryManager.Instance.GetAmountAvailable(_order.craftedItemData);
+            //         _quantity.text = $"{amountAvailable}/{_order.valueSet}";
+            //         break;
+            //     case ProductOrder.ProductionType.Infinite:
+            //         _productionTypeDD.SetValueWithoutNotify(2);
+            //         _quantity.text = "Infinite";
+            //         break;
+            //     default:
+            //         throw new ArgumentOutOfRangeException();
+            // }
+            //
+            // _upArrow.SetActive(true);
+            // _downArrow.SetActive(true);
+            // var thisOrderIndex = _building.OrderQueue.AllOrders.IndexOf(_order);
+            // if (thisOrderIndex == 0)
+            // {
+            //     _upArrow.SetActive(false);
+            // }
+            //
+            // if (thisOrderIndex == _building.OrderQueue.AllOrders.Count - 1)
+            // {
+            //     _downArrow.SetActive(false);
+            // }
         }
 
         public void IncreaseQtyPressed()
@@ -113,14 +113,14 @@ namespace Buildings.Building_Panels
 
         public void IncreasePriorityPressed()
         {
-            _building.OrderQueue.IncreaseOrderPriority(_order);
-            _onBillPriorityChangedCallback.Invoke(this);
+            // _building.OrderQueue.IncreaseOrderPriority(_order);
+            // _onBillPriorityChangedCallback.Invoke(this);
         }
 
         public void DecreasePriorityPressed()
         {
-            _building.OrderQueue.DecreaseOrderPriority(_order);
-            _onBillPriorityChangedCallback.Invoke(this);
+            // _building.OrderQueue.DecreaseOrderPriority(_order);
+            // _onBillPriorityChangedCallback.Invoke(this);
         }
 
         public void SuspendPressed()
@@ -131,8 +131,8 @@ namespace Buildings.Building_Panels
 
         public void DeleteBillPressed()
         {
-            _building.OrderQueue.DeleteOrder(_order);
-            _onBillPriorityChangedCallback.Invoke(this);
+            // _building.OrderQueue.DeleteOrder(_order);
+            // _onBillPriorityChangedCallback.Invoke(this);
         }
 
         public void OnDropdownChanged(Int32 value)

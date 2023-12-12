@@ -11,7 +11,7 @@ namespace TaskSystem
     {
         private CraftedItemData _itemToCraft;
         private CraftingTable _craftingTable;
-        private List<CraftingBill.RequestedItemInfo> _materials;
+        private List<Item> _materials;
         private TaskState _state;
         private int _materialIndex;
         private int _quantityHauled;
@@ -56,7 +56,7 @@ namespace TaskSystem
                 // for each of the materials, haul the material to the crafting table
                 if (_targetStorage == null || _targetItem == null)
                 {
-                    _targetItem = _materials[_materialIndex].Item;
+                    _targetItem = _materials[_materialIndex];
                     _targetStorage = _targetItem.AssignedStorage;
                 }
                 
@@ -81,18 +81,18 @@ namespace TaskSystem
                     _targetStorage = null;
                     _targetItem = null;
 
-                    if (_quantityHauled >= _materials[_materialIndex].Quantity)
-                    {
-                        _materialIndex++;
-                        if (_materialIndex >= _materials.Count)
-                        {
-                            _state = TaskState.WorkAtTable;
-                        }
-                        else
-                        {
-                            _quantityHauled = 0;
-                        }
-                    }
+                    // if (_quantityHauled >= _materials[_materialIndex].Quantity)
+                    // {
+                    //     _materialIndex++;
+                    //     if (_materialIndex >= _materials.Count)
+                    //     {
+                    //         _state = TaskState.WorkAtTable;
+                    //     }
+                    //     else
+                    //     {
+                    //         _quantityHauled = 0;
+                    //     }
+                    // }
                     
                     return;
                 }

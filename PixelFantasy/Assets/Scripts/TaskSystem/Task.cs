@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Items;
 using Managers;
 
 namespace TaskSystem
@@ -11,7 +12,7 @@ namespace TaskSystem
         public PlayerInteractable Requestor;
         public string Payload;
         public Family Owner;
-        public List<CraftingBill.RequestedItemInfo> Materials;
+        public List<Item> Materials;
         public Queue<Task> SubTasks = new Queue<Task>();
         public Action<Task> OnTaskComplete;
         public TaskType TaskType;

@@ -17,7 +17,7 @@ namespace TaskSystem
         public override void PrepareAction(Task task)
         {
             var request = task.Materials[0];
-            _claimedGear = request.Item.State as GearState;
+            _claimedGear = request.State as GearState;
             _gear = _claimedGear.GearData;
             _state = TaskState.GoingToStorage;
             _ai.Unit.UnitAgent.SetMovePosition(_claimedGear.Storage.transform.position);
