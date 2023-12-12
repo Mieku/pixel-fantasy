@@ -30,7 +30,7 @@ namespace Buildings.Building_Panels
         [SerializeField] private GeneralBuildingPanel _generalPanel;
         [SerializeField] private ZoningBuildingPanel _zoningPanel;
         [SerializeField] private FurnitureBuildingPanel _furniturePanel;
-        [SerializeField] private ProductionBuildingPanel _productionPanel;
+        //[SerializeField] private ProductionBuildingPanel _productionPanel;
         [SerializeField] private ExteriorBuildingPanel _exteriorPanel;
 
         [Header("Misc")]
@@ -90,10 +90,10 @@ namespace Buildings.Building_Panels
                     _furniturePanel.gameObject.SetActive(true);
                     _furniturePanel.Init(_building);
                     break;
-                case PanelState.Production:
-                    ChangeBtnIconColour(_productionBtn, _btnIconColourSelected);
-                    _productionPanel.Init(_building);
-                    break;
+                // case PanelState.Production:
+                //     ChangeBtnIconColour(_productionBtn, _btnIconColourSelected);
+                //     _productionPanel.Init(_building);
+                //     break;
                 case PanelState.Exterior:
                     ChangeBtnIconColour(_exteriorBtn, _btnIconColourSelected);
                     _exteriorPanel.gameObject.SetActive(true);
@@ -108,7 +108,7 @@ namespace Buildings.Building_Panels
         {
             _generalPanel.Close();
             _furniturePanel.Close();
-            _productionPanel.Close();
+            //_productionPanel.Close();
             
             _zoningPanel.gameObject.SetActive(false);
             _exteriorPanel.gameObject.SetActive(false);

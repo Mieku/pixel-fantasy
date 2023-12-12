@@ -24,22 +24,7 @@ namespace TaskSystem
         public TaskQueue ResearchTasks = new TaskQueue(TaskType.Research, AbilityType.Intelligence);
         public TaskQueue CleanTasks = new TaskQueue(TaskType.Clean, AbilityType.Strength);
         public TaskQueue Emergency = new TaskQueue(TaskType.Emergency, AbilityType.Strength);
-
-        // public TaskQueue LabourerTasks = new TaskQueue();
-        // public TaskQueue BuilderTasks = new TaskQueue();
-
-        public CraftingBillQueue CraftingBills = new CraftingBillQueue();
         
-        // public Task GetNextTaskByProfession(ProfessionData profession)
-        // {
-        //     return profession.ProfessionName switch
-        //     {
-        //         "Labourer" => LabourerTasks.NextTask,
-        //         "Builder" => BuilderTasks.NextTask,
-        //         _ => null
-        //     };
-        // }
-
         public Task GetNextTaskByType(TaskType taskType)
         {
             var queue = GetQueueByType(taskType);
@@ -81,22 +66,6 @@ namespace TaskSystem
                 default:
                     throw new ArgumentOutOfRangeException(nameof(taskType), taskType, null);
             }
-        }
-
-        public void AddBill(CraftingBill bill)
-        {
-            CraftingBills.Add(bill);
-        }
-
-        public void CancelBill(CraftingBill bill)
-        {
-            CraftingBills.Cancel(bill);
-        }
-        
-        public CraftingBill GetNextCraftingBillByCraftingTable(CraftingTable craftingTable)
-        {
-            CraftingBill result = CraftingBills.GetNextBillByCraftingTable(craftingTable);
-            return result;
         }
         
         public void AddTask(Task task)
