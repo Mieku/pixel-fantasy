@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 311b077a8587d06469b0e4af4f74bd11, type: 3}
+  m_Name: Gold Bar
+  m_EditorClassIdentifier: 
+  ItemName: Gold Bar
+  ItemDescription: 
+  MaxStackSize: 10
+  ItemSprite: {fileID: 21300000, guid: 148e7a7b303bd6f4dabe129d388517ba, type: 3}
+  DefaultSpriteScale: {x: 1, y: 1}
+  Durability: 100
+  InteractionConfigs: []
+  Category: 0
+  RequiredCraftingTable: {fileID: 11400000, guid: 021f9be13507f3c4593b8475814394df, type: 2}
+  RequiredCraftingJob: {fileID: 11400000, guid: ba86bcc46aa4a554b91215f79666482b, type: 2}
+  WorkCost: 10
+  _resourceCosts:
+  - Item: {fileID: 11400000, guid: 5673a5361f99e854a8c3ebf28532f520, type: 2}
+    Quantity: 2
+  _invalidPlacementTags:
+  - Water
+  - Wall
+  - Obstacle

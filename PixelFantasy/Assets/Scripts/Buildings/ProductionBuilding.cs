@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Characters;
@@ -13,8 +14,18 @@ namespace Buildings
     public class ProductionBuilding : Building
     {
         private ProductionBuildingData _prodBuildingData => _buildingData as ProductionBuildingData;
+        
+        public CraftingTable CraftingTable;
+        public List<ProductionSettings> ProductionSettings;
 
         public override string OccupantAdjective => "Workers";
+
+        protected override void Start()
+        {
+            base.Start();
+
+            CreateProductionSettings();
+        }
 
         public override List<Unit> GetPotentialOccupants()
         {
@@ -60,6 +71,32 @@ namespace Buildings
             }
 
             return hasIssue;
+        }
+
+        private void CreateProductionSettings()
+        {
+            foreach (var craftedOption in _prodBuildingData.ProductionOptions)
+            {
+                ProductionSettings newSetting = new ProductionSettings(craftedOption);
+                ProductionSettings.Add(newSetting);
+            }
+        }
+    }
+    
+    [Serializable]
+    public class ProductionSettings
+    {
+        public CraftedItemData CraftedItem;
+        public bool HasLimit;
+        public int Limit;
+        public bool IsPaused;
+
+        public ProductionSettings(CraftedItemData craftedItemData)
+        {
+            CraftedItem = craftedItemData;
+            HasLimit = false;
+            Limit = 0;
+            IsPaused = false;
         }
     }
 }

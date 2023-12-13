@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ScriptableObjects
@@ -6,5 +7,6 @@ namespace ScriptableObjects
     public class ProductionBuildingData : BuildingData
     {
         public JobData WorkersJob;
+        public List<CraftedItemData> ProductionOptions = new List<CraftedItemData>();
     }
 }

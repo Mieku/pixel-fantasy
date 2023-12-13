@@ -423,7 +423,7 @@ namespace Buildings
             EnableFurniture(false);
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             ToggleInternalView(false);
             CurrentDurability = _buildingData.MaxDurability;
@@ -434,7 +434,7 @@ namespace Buildings
             }
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             GameEvents.OnHideRoofsToggled -= GameEvents_OnHideRoofsToggled;
             GameEvents.MinuteTick -= GameEvents_MinuteTick;
