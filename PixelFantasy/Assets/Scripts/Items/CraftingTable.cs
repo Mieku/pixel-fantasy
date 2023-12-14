@@ -25,6 +25,7 @@ namespace Items
 
         public bool IsInUse;
         public Task _curTask;
+        public CraftedItemData ItemBeingCrafted => _craftedItem;
         
         protected override void Start()
         {

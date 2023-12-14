@@ -143,10 +143,13 @@ namespace Items
 
             foreach (var storedItem in Stored)
             {
-                if (!Claimed.Contains(storedItem))
+                if (storedItem.GetItemData() == itemData)
                 {
-                    Claimed.Add(storedItem);
-                    return storedItem;
+                    if (!Claimed.Contains(storedItem))
+                    {
+                        Claimed.Add(storedItem);
+                        return storedItem;
+                    }
                 }
             }
 

@@ -28,8 +28,7 @@ namespace Systems.Details.Building_Details.Scripts
 
         private float DetermineProductionProgress(ProductionSettings settings)
         {
-            // TODO: Build this
-            return 0f;
+            return _prodBuilding.GetProductionProgress(settings.CraftedItem);
         }
 
         private void CreateOptions()

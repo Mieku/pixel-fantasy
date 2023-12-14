@@ -27,6 +27,44 @@ namespace Buildings
             CreateProductionSettings();
         }
 
+        public float GetProductionProgress(CraftedItemData item)
+        {
+            if (CraftingTable == null) return 0;
+
+            if (CraftingTable.ItemBeingCrafted != item) return 0;
+
+            return CraftingTable.GetPercentCraftingComplete();
+        }
+
+        public override Task GetBuildingTask()
+        {
+            Task result = base.GetBuildingTask();
+            if (result == null)
+            {
+                for (int i = 0; i < ProductionSettings.Count; i++)
+                {
+                    var setting = ProductionSettings[i];
+                    if (setting.AreMaterialsAvailable() && !setting.IsLimitReached())
+                    {
+                        result = setting.CreateTask(this, OnTaskComplete);
+                        break;
+                    }
+                }
+            }
+
+            if (result != null)
+            {
+                GameEvents.Trigger_OnBuildingChanged(this);
+            }
+            
+            return result;
+        }
+
+        private void OnTaskComplete(Task task)
+        {
+            
+        }
+
         public override List<Unit> GetPotentialOccupants()
         {
             var relevantAbilites = _prodBuildingData.RelevantAbilityTypes;
@@ -97,6 +135,82 @@ namespace Buildings
             HasLimit = false;
             Limit = 0;
             IsPaused = false;
+        }
+
+        public bool IsLimitReached()
+        {
+            if (IsPaused) return true;
+            if (!HasLimit) return false;
+
+            int curAmount = InventoryManager.Instance.GetAmountAvailable(CraftedItem);
+            return curAmount >= Limit;
+        }
+
+        public bool AreMaterialsAvailable()
+        {
+            foreach (var resourceCost in CraftedItem.GetResourceCosts())
+            {
+                if (!InventoryManager.Instance.CanAfford(resourceCost.Item, resourceCost.Quantity))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        private List<Item> ClaimRequiredMaterials(Building building)
+        {
+            var requiredItems = CraftedItem.GetResourceCosts();
+            List<Item> claimedItems = new List<Item>();
+            
+            foreach (var requiredItem in requiredItems)
+            {
+                for (int i = 0; i < requiredItem.Quantity; i++)
+                {
+                    // Check building storage first, then check global
+                    var claimedItem = InventoryManager.Instance.ClaimItemBuilding(requiredItem.Item, building);
+                    if (claimedItem == null)
+                    {
+                        claimedItem = InventoryManager.Instance.ClaimItemGlobal(requiredItem.Item);
+                    }
+
+                    if (claimedItem == null)
+                    {
+                        // If for some reason the building can't get everything, unclaim all the materials and return null
+                        foreach (var itemToUnclaim in claimedItems)
+                        {
+                            itemToUnclaim.UnclaimItem();
+                        }
+
+                        return null;
+                    }
+                    else
+                    {
+                        claimedItems.Add(claimedItem);
+                    }
+                }
+            }
+
+            return claimedItems;
+        }
+
+        public Task CreateTask(ProductionBuilding building, Action<Task> onTaskComplete)
+        {
+            List<Item> claimedMats = ClaimRequiredMaterials(building);
+            if (claimedMats == null)
+            {
+                return null;
+            }
+            
+            Task task = new Task("Produce Item", building)
+            {
+                Payload = CraftedItem.ItemName,
+                TaskType = TaskType.Craft,
+                OnTaskComplete = onTaskComplete,
+                Materials = claimedMats,
+            };
+
+            return task;
         }
     }
 }
