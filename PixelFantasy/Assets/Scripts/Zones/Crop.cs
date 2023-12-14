@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Buildings;
 using Controllers;
 using DataPersistence;
 using Items;
@@ -39,7 +40,7 @@ namespace Zones
         private float _remainingWaterWork;
         private float _remainingHarvestWork;
 
-        private Family _owner;
+        private Building _building;
         
         public List<string> InvalidPlacementTags
         {
@@ -61,7 +62,7 @@ namespace Zones
                 TilemapController.Instance.GetTilemap(TilemapLayer.Dirt);
         }
 
-        public void Init(CropData cropData, Family owner)
+        public void Init(CropData cropData, Building linkedBuilding)
         {
             _cropData = cropData;
             _soilHoleRenderer.gameObject.SetActive(false);
@@ -77,7 +78,7 @@ namespace Zones
             _remainingWaterWork = GetWaterWorkAmount();
             _remainingHarvestWork = GetHarvestWorkAmount();
 
-            _owner = owner;
+            _building = linkedBuilding;
         }
 
         public float GetTillWorkAmount()
@@ -354,7 +355,7 @@ namespace Zones
 
         private void CreateTillSoilTask()
         {
-            Task task = new Task("Till Soil", this);
+            Task task = new Task("Till Soil", this, _building.GetBuildingJob());
             task.Enqueue();
         }
 
@@ -369,7 +370,7 @@ namespace Zones
         
         private void CreateDigHoleTask()
         {
-            Task task = new Task("Dig Hole", this);
+            Task task = new Task("Dig Hole", this, _building.GetBuildingJob());
             task.Enqueue();
         }
         
@@ -384,7 +385,7 @@ namespace Zones
         
         private void CreatePlantCropTask()
         {
-            Task task = new Task("Plant Crop", this);
+            Task task = new Task("Plant Crop", this, _building.GetBuildingJob());
             task.Enqueue();
         }
 
@@ -399,7 +400,7 @@ namespace Zones
         {
             _wateringTaskSet = true;
 
-            Task task = new Task("Water Crop", this);
+            Task task = new Task("Water Crop", this, _building.GetBuildingJob());
             task.Enqueue();
         }
 
@@ -413,7 +414,7 @@ namespace Zones
         
         private void CreateHarvestCropTask()
         {
-            Task task = new Task("Harvest Crop", this);
+            Task task = new Task("Harvest Crop", this, _building.GetBuildingJob());
             task.Enqueue();
         }
 
@@ -471,13 +472,13 @@ namespace Zones
         
         private void CreateSwapCropTask()
         {
-            Task task = new Task("Crop Swap", this);
+            Task task = new Task("Crop Swap", this, _building.GetBuildingJob());
             task.Enqueue();
         }
         
         private void CreateClearCropTask()
         {
-            Task task = new Task("Clear Crop", this);
+            Task task = new Task("Clear Crop", this, _building.GetBuildingJob());
             task.Enqueue();
         }
         

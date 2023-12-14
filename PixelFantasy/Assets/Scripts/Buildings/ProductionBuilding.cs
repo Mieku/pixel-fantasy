@@ -119,6 +119,11 @@ namespace Buildings
                 ProductionSettings.Add(newSetting);
             }
         }
+        
+        public override JobData GetBuildingJob()
+        {
+            return _prodBuildingData.WorkersJob;
+        }
     }
     
     [Serializable]
@@ -202,10 +207,9 @@ namespace Buildings
                 return null;
             }
             
-            Task task = new Task("Produce Item", building)
+            Task task = new Task("Produce Item", building, building.GetBuildingJob())
             {
                 Payload = CraftedItem.ItemName,
-                TaskType = TaskType.Craft,
                 OnTaskComplete = onTaskComplete,
                 Materials = claimedMats,
             };

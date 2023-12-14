@@ -62,7 +62,7 @@ namespace Popups.Change_Job_Popup
 
         private void SelectCurrentJob()
         {
-            var job = _unit.GetUnitState().CurrentJob.JobData;
+            var job = _unit.GetUnitState().CurrentJob;
             foreach (var option in _allOptions)
             {
                 if (option.Job == job)
@@ -76,7 +76,7 @@ namespace Popups.Change_Job_Popup
         private void RefreshJobs()
         {
             _kinlingName.text = _unit.GetUnitState().FullName;
-            _kinlingJobName.text = _unit.GetUnitState().CurrentJob.JobNameWithTitle;
+            _kinlingJobName.text = _unit.GetUnitState().JobName;
             
             _allOptions.Clear();
             _allOptions = _jobOptionParent.GetComponentsInChildren<ChangeJobOption>().ToList();
@@ -85,7 +85,7 @@ namespace Popups.Change_Job_Popup
                 var job = option.Job;
                 if (job != null)
                 {
-                    if (_unit.GetUnitState().CurrentJob.JobData == job)
+                    if (_unit.GetUnitState().CurrentJob == job)
                     {
                         option.Init(ChangeJobOption.JobOptionState.Current, OnJobSelected);
                     }
@@ -120,27 +120,27 @@ namespace Popups.Change_Job_Popup
 
         private bool IsJobRequirementFulfilled(JobData job)
         {
-            var reqJob = job.PrereqJob;
-            if (reqJob == null) return true;
-            
-            var reqLv = job.PrereqJobLv;
-            var jobHistory = _unit.GetUnitState().JobHistory;
-            foreach (var prevJob in jobHistory)
-            {
-                if (prevJob.JobData == job && prevJob.CurrentLevel >= reqLv)
-                {
-                    return true;
-                }
-            }
-            
-            
+            // var reqJob = job.PrereqJob;
+            // if (reqJob == null) return true;
+            //
+            // var reqLv = job.PrereqJobLv;
+            // var jobHistory = _unit.GetUnitState().JobHistory;
+            // foreach (var prevJob in jobHistory)
+            // {
+            //     if (prevJob.JobData == job && prevJob.CurrentLevel >= reqLv)
+            //     {
+            //         return true;
+            //     }
+            // }
+            //
+            //
             return false;
         }
 
         public void ChangeJobPressed()
         {
-            _unit.GetUnitState().ChangeJob(_curJob);
-            RefreshJobs();
+            // _unit.GetUnitState().ChangeJob(_curJob);
+            // RefreshJobs();
         }
         
         public void OnJobSelected(JobData jobData, ChangeJobOption optionPressed)

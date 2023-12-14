@@ -18,7 +18,7 @@ namespace Managers
         {
             foreach (var kinling in _allKinlings)
             {
-                if (kinling.GetUnitState().CurrentJob.JobData == jobData)
+                if (kinling.GetUnitState().CurrentJob == jobData)
                 {
                     return true;
                 }

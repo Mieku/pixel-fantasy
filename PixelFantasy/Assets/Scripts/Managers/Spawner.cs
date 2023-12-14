@@ -454,11 +454,11 @@ namespace Managers
             CancelInput();
         }
 
-        public void SpawnSoilTile(Vector2 spawnPos, CropData cropData, Family owner)
+        public void SpawnSoilTile(Vector2 spawnPos, CropData cropData, Building building)
         {
             var soil = Instantiate(_soilPrefab, spawnPos, Quaternion.identity);
             soil.transform.SetParent(_flooringParent);
-            soil.GetComponent<Crop>().Init(cropData, owner);
+            soil.GetComponent<Crop>().Init(cropData, building);
         }
     }
 

@@ -13,7 +13,7 @@ namespace Buildings
 {
     public class CraftingBuilding : Building
     {
-        private CraftingBuildingData _prodBuildingData => _buildingData as CraftingBuildingData;
+        private CraftingBuildingData _craftingBuildingData => _buildingData as CraftingBuildingData;
 
         public override string OccupantAdjective => "Workers";
         public CraftingTable CraftingTable;
@@ -23,7 +23,7 @@ namespace Buildings
 
         public override List<Unit> GetPotentialOccupants()
         {
-            var relevantAbilites = _prodBuildingData.RelevantAbilityTypes;
+            var relevantAbilites = _craftingBuildingData.RelevantAbilityTypes;
             
             var unemployed = UnitsManager.Instance.UnemployedKinlings;
             List<Unit> sortedKinlings = unemployed
@@ -42,12 +42,12 @@ namespace Buildings
             CraftingOrder result = null;
             if (PrioritizeOrdersWithMats)
             {
-                result = CraftingOrdersManager.Instance.GetNextCraftableOrder(_prodBuildingData.WorkersJob, this);
+                result = CraftingOrdersManager.Instance.GetNextCraftableOrder(_craftingBuildingData.WorkersJob, this);
             }
 
             if (result == null)
             {
-                result = CraftingOrdersManager.Instance.GetNextOrder(_prodBuildingData.WorkersJob);
+                result = CraftingOrdersManager.Instance.GetNextOrder(_craftingBuildingData.WorkersJob);
             }
 
             GameEvents.Trigger_OnBuildingChanged(this);
@@ -76,7 +76,7 @@ namespace Buildings
 
         public List<CraftingOrder> QueuedOrders()
         {
-            return CraftingOrdersManager.Instance.GetAllOrders(_prodBuildingData.WorkersJob);
+            return CraftingOrdersManager.Instance.GetAllOrders(_craftingBuildingData.WorkersJob);
         }
 
         private void OnOrderComplete(Task task)
@@ -118,6 +118,11 @@ namespace Buildings
             }
 
             return hasIssue;
+        }
+        
+        public override JobData GetBuildingJob()
+        {
+            return _craftingBuildingData.WorkersJob;
         }
     }
 }

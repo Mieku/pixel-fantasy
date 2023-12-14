@@ -60,18 +60,18 @@ namespace Popups.Kinling_Info_Popup
         private void Refresh()
         {
             _kinlingNameDisp.text = _selectedUnit.GetUnitState().FullName;
-            _jobName.text = _selectedUnit.GetUnitState().CurrentJob.JobNameWithTitle;
-            if (_selectedUnit.GetUnitState().CurrentJob.JobData.JobIcon != null)
+            _jobName.text = _selectedUnit.GetUnitState().JobName;
+            if (_selectedUnit.GetUnitState().CurrentJob.JobIcon != null)
             {
-                _jobIcon.sprite = _selectedUnit.GetUnitState().CurrentJob.JobData.JobIcon;
+                _jobIcon.sprite = _selectedUnit.GetUnitState().CurrentJob.JobIcon;
             }
             else
             {
                 _jobIcon.sprite = Librarian.Instance.GetSprite("Question Mark");
             }
 
-            var percentExp = _selectedUnit.GetUnitState().CurrentJob.CurrentLevelProgress();
-            _jobExpFill.fillAmount = percentExp;
+            // var percentExp = _selectedUnit.GetUnitState().CurrentJob.CurrentLevelProgress();
+            // _jobExpFill.fillAmount = percentExp;
         }
         
         private void Update()

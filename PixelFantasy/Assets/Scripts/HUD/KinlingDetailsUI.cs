@@ -30,10 +30,10 @@ namespace HUD
             _root.SetActive(true);
             
             _unitName.text = unit.GetUnitState().FullName;
-            _jobName.text = unit.GetUnitState().CurrentJob.JobNameWithTitle;
-            if (_unit.GetUnitState().CurrentJob.JobData.JobIcon != null)
+            _jobName.text = unit.GetUnitState().JobName;
+            if (_unit.GetUnitState().CurrentJob.JobIcon != null)
             {
-                _jobIcon.sprite = _unit.GetUnitState().CurrentJob.JobData.JobIcon;
+                _jobIcon.sprite = _unit.GetUnitState().CurrentJob.JobIcon;
             }
             else
             {

@@ -112,7 +112,7 @@ namespace Systems.Roads.Scripts
 
         public override void CreateConstructTask(bool autoAssign = true)
         {
-            Task task = new Task("Clear Grass", this);
+            Task task = new Task("Clear Grass", this, Librarian.Instance.GetJob("Worker"));
             task.Enqueue();
         }
 

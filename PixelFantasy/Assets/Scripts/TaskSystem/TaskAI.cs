@@ -25,8 +25,6 @@ namespace TaskSystem
         private const float WAIT_TIMER_MAX = 0.2f; // 200ms
 
         public Unit Unit => _unit;
-        public Family Family => FamilyManager.Instance.GetFamily(_unit.GetUnitState());
-        public TaskPriorities Priorities => _unit.GetUnitState().Priorities;
 
         public enum State
         {
@@ -147,33 +145,47 @@ namespace TaskSystem
                 task = CheckEquipment();
             }
 
-            // TODO: First Check Their Assigned Work Room
+            // First Check Their Assigned Workplace
             if (_unit.GetUnitState().AssignedWorkplace != null && task == null && _state != State.ExecutingInteraction)
             {
                 task = _unit.GetUnitState().AssignedWorkplace.GetBuildingTask();
             }
-
+            
             if (task == null && _state != State.ExecutingInteraction)
             {
-                var sortedPriorities = Priorities.SortedPriorities;
-                foreach (var sortedPriority in sortedPriorities)
+                task = TaskManager.Instance.GetTask(_unit.GetUnitState().CurrentJob);
+                if (task != null)
                 {
-                    task = TaskManager.Instance.GetNextTaskByType(sortedPriority.TaskType);
-                    if (task != null)
+                    var taskAction = FindTaskActionFor(task);
+                    if (!taskAction.CanDoTask(task))
                     {
-                        var taskAction = FindTaskActionFor(task);
-                        if (taskAction.CanDoTask(task))
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            TaskManager.Instance.AddTask(task);
-                            task = null;
-                        }
+                        TaskManager.Instance.AddTask(task);
+                        task = null;
                     }
                 }
             }
+
+            // if (task == null && _state != State.ExecutingInteraction)
+            // {
+            //     var sortedPriorities = Priorities.SortedPriorities;
+            //     foreach (var sortedPriority in sortedPriorities)
+            //     {
+            //         task = TaskManager.Instance.GetNextTaskByType(sortedPriority.TaskType);
+            //         if (task != null)
+            //         {
+            //             var taskAction = FindTaskActionFor(task);
+            //             if (taskAction.CanDoTask(task))
+            //             {
+            //                 break;
+            //             }
+            //             else
+            //             {
+            //                 TaskManager.Instance.AddTask(task);
+            //                 task = null;
+            //             }
+            //         }
+            //     }
+            // }
 
             // if (task == null && _state != State.ExecutingInteraction)
             // {
@@ -395,9 +407,8 @@ namespace TaskSystem
             
             _needsAI.CancelInteraction();
             
-            Task forcedTask = new Task(taskID, null)
+            Task forcedTask = new Task(taskID, null, null)
             {
-                TaskType = TaskType.Emergency,
                 OnTaskComplete = OnForcedTaskComplete
             };
 
@@ -424,9 +435,8 @@ namespace TaskSystem
 
         public bool IsActionPossible(string taskID)
         {
-            Task forcedTask = new Task(taskID, null)
+            Task forcedTask = new Task(taskID, null, null)
             {
-                TaskType = TaskType.Emergency,
                 OnTaskComplete = OnForcedTaskComplete
             };
             

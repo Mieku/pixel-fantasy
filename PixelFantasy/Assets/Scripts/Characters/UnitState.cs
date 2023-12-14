@@ -17,7 +17,6 @@ namespace Characters
         
         public string FirstName, LastName;
         public Abilities Abilities;
-        public TaskPriorities Priorities;
         
         public Schedule Schedule = new Schedule();
 
@@ -33,11 +32,9 @@ namespace Characters
         }
 
         public Building AssignedWorkplace;
-        
-        private List<JobState> _jobHistory = new List<JobState>();
 
         public string FullName => FirstName + " " + LastName;
-        public string JobName => CurrentJob.JobNameWithTitle;
+        public string JobName => CurrentJob.JobName;
         public string UID => _uid.uniqueID;
 
         public int RelevantAbilityScore(List<AbilityType> relevantAbilities)
@@ -139,64 +136,20 @@ namespace Characters
         {
             public string FirstName, LastName;
         }
-
-        public JobState CurrentJob
+        
+        public JobData CurrentJob
         {
             get
             {
-                foreach (var job in _jobHistory)
+                if (AssignedWorkplace == null)
                 {
-                    if (job.IsCurrentJob)
-                    {
-                        return job;
-                    }
+                    return Librarian.Instance.GetJob("Worker");
                 }
-                
-                // Create a Worker Job State and return it
-                var workerData = Librarian.Instance.GetJob("Worker");
-                JobState workerJobState = new JobState(workerData, 0, true);
-                return workerJobState;
-            }
-        }
-
-        public void ChangeJob(JobData newJob)
-        {
-            // Unassign currentJob
-            CurrentJob.IsCurrentJob = false;
-
-            // Check if the job already is in history
-            foreach (var job in _jobHistory)
-            {
-                if (job.JobData == newJob)
+                else
                 {
-                    job.IsCurrentJob = true;
-                    return;
-                }
-            }
-
-            if (newJob == null)
-            {
-                newJob = Librarian.Instance.GetJob("Worker");
-            }
-            
-            // If doesn't already exist, create new state
-            JobState newJobState = new JobState(newJob, 0, true);
-            if (newJob.JobName != "Worker")
-            {
-                _jobHistory.Add(newJobState);
-            }
-
-            if (newJob.RequiredTool != null)
-            {
-                var claimedTool = InventoryManager.Instance.ClaimItemGlobal(newJob.RequiredTool);
-                if (claimedTool != null)
-                {
-                    var unit = GetComponent<Unit>();
-                    unit.Equipment.AssignDesiredEquipment(claimedTool.State as GearState);
+                    return AssignedWorkplace.GetBuildingJob();
                 }
             }
         }
-
-        public List<JobState> JobHistory => _jobHistory;
     }
 }

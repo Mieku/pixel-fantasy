@@ -101,10 +101,7 @@ namespace Items
 
         public void CreateHaulTask()
         {
-            Task task = new Task("Store Item", this)
-            {
-                TaskType = TaskType.Haul
-            };
+            Task task = new Task("Store Item", this, Librarian.Instance.GetJob("Worker"));
 
             TaskManager.Instance.AddTask(task);
             _currentTask = task;

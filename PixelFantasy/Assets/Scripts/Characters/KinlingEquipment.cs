@@ -446,9 +446,8 @@ namespace Characters
 
         private Task CreateEquipTask(GearState gearState)
         {
-            Task equipItemTask = new Task("Equip Item", gearState.LinkedItem)
+            Task equipItemTask = new Task("Equip Item", gearState.LinkedItem, null)
             {
-                TaskType = TaskType.Haul,
                 Materials = new List<Item> { gearState.LinkedItem },
             };
 

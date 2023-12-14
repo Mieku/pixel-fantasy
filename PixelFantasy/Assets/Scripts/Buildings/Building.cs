@@ -707,17 +707,16 @@ namespace Buildings
 
         protected override void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
         {
-            Task task = new Task("Withdraw Item Construction", this)
+            Task task = new Task("Withdraw Item Construction", this, Librarian.Instance.GetJob("Worker"))
             {
                 Payload = resourceData.ItemName,
-                TaskType = TaskType.Haul,
             };
             TaskManager.Instance.AddTask(task);
         }
 
         public override void CreateConstructTask(bool autoAssign = true)
         {
-            Task constuctTask = new Task("Build Building", this);
+            Task constuctTask = new Task("Build Building", this, Librarian.Instance.GetJob("Worker"));
             constuctTask.Enqueue();
         }
         
@@ -853,6 +852,10 @@ namespace Buildings
         {
             return null;
         }
-        
+
+        public virtual JobData GetBuildingJob()
+        {
+            return Librarian.Instance.GetJob("Worker");
+        }
     }
 }

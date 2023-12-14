@@ -11,13 +11,11 @@ namespace TaskSystem
     {
         [SerializeField] private List<Task> _tasks = new List<Task>();
 
-        private TaskType _taskType;
-        private AbilityType _abilityType;
+        public JobData Job;
 
-        public TaskQueue(TaskType taskType, AbilityType abilityType)
+        public TaskQueue(JobData job)
         {
-            _taskType = taskType;
-            _abilityType = abilityType;
+            Job = job;
         }
         
         public void AddTask(Task task)
@@ -59,21 +57,21 @@ namespace TaskSystem
         }
     }
 
-    public enum TaskType
-    {
-        Haul,
-        Mine,
-        Construction,
-        Harvest,
-        Animals,
-        Art,
-        Craft,
-        Hunt,
-        Grow,
-        Cook,
-        Heal,
-        Research,
-        Clean,
-        Emergency
-    }
+    // public enum TaskType
+    // {
+    //     Haul,
+    //     Mine,
+    //     Construction,
+    //     Harvest,
+    //     Animals,
+    //     Art,
+    //     Craft,
+    //     Hunt,
+    //     Grow,
+    //     Cook,
+    //     Heal,
+    //     Research,
+    //     Clean,
+    //     Emergency
+    // }
 }

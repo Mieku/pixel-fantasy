@@ -72,7 +72,7 @@ namespace Managers
             
             var familyname = unit.GetUnitState().LastName;
             var members = new List<UnitState> { unit.GetUnitState() };
-            var job = unit.GetUnitState().CurrentJob.JobData;
+            var job = unit.GetUnitState().CurrentJob;
 
             Family family = new Family(familyname, members, job);
             _families.Add(family);

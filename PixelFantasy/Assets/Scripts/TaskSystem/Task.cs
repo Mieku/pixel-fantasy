@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Items;
 using Managers;
+using ScriptableObjects;
 
 namespace TaskSystem
 {
@@ -9,18 +10,21 @@ namespace TaskSystem
     public class Task
     {
         public string TaskId;
+        public JobData Job;
         public PlayerInteractable Requestor;
         public string Payload;
         public Family Owner;
         public List<Item> Materials;
         public Queue<Task> SubTasks = new Queue<Task>();
         public Action<Task> OnTaskComplete;
-        public TaskType TaskType;
+        public bool IsEmergancy;
 
-        public Task(string taskID, PlayerInteractable requestor)
+        public Task(string taskID, PlayerInteractable requestor, JobData job, bool isEmergancy = false)
         {
             TaskId = taskID;
             Requestor = requestor;
+            Job = job;
+            IsEmergancy = isEmergancy;
 
             if (Requestor != null)
             {
@@ -34,7 +38,7 @@ namespace TaskSystem
                    && Requestor == otherTask.Requestor
                    && Payload == otherTask.Payload
                    && Owner == otherTask.Owner
-                   && TaskType == otherTask.TaskType;
+                   && IsEmergancy == otherTask.IsEmergancy;
         }
 
         public void Cancel()
@@ -59,9 +63,8 @@ namespace TaskSystem
                 subTasks.Enqueue(subTask);
             }
             
-            return new Task(this.TaskId, this.Requestor)
+            return new Task(this.TaskId, this.Requestor, this.Job, this.IsEmergancy)
             {
-                TaskType =  this.TaskType,
                 Payload = this.Payload,
                 Owner = this.Owner,
                 SubTasks = subTasks,

@@ -1,3 +1,4 @@
+using ScriptableObjects;
 using TaskSystem;
 using UnityEngine;
 
@@ -7,4 +8,5 @@ public class Command : ScriptableObject
     public string Name;
     public Sprite Icon;
     public Task Task;
+    public JobData Job => Task.Job;
 }

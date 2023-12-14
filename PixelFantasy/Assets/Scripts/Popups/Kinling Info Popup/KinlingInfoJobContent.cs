@@ -28,24 +28,24 @@ namespace Popups.Kinling_Info_Popup
 
         private void RefreshJobs()
         {
-            _curJobPanel.Init(_unit.GetUnitState().CurrentJob);
-
-            foreach (var displayedRetired in _displayedRetiredJobs)
-            {
-                Destroy(displayedRetired.gameObject);
-            }
-            _displayedRetiredJobs.Clear();
-
-            foreach (var job in _unit.GetUnitState().JobHistory)
-            {
-                if (!job.IsCurrentJob)
-                {
-                    var jobPanel = Instantiate(_curJobPanel, _prevJobSkillsParent);
-                    jobPanel.Init(job);
-                    jobPanel.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
-                    _displayedRetiredJobs.Add(jobPanel);
-                }
-            }
+            // _curJobPanel.Init(_unit.GetUnitState().CurrentJob);
+            //
+            // foreach (var displayedRetired in _displayedRetiredJobs)
+            // {
+            //     Destroy(displayedRetired.gameObject);
+            // }
+            // _displayedRetiredJobs.Clear();
+            //
+            // foreach (var job in _unit.GetUnitState().JobHistory)
+            // {
+            //     if (!job.IsCurrentJob)
+            //     {
+            //         var jobPanel = Instantiate(_curJobPanel, _prevJobSkillsParent);
+            //         jobPanel.Init(job);
+            //         jobPanel.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
+            //         _displayedRetiredJobs.Add(jobPanel);
+            //     }
+            // }
         }
 
         public void ChangeJobPressed()
