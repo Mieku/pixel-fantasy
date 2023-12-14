@@ -427,6 +427,7 @@ namespace Buildings
         {
             ToggleInternalView(false);
             CurrentDurability = _buildingData.MaxDurability;
+            IncludeDefaultLogistics();
             
             if (_state != BuildingState.BeingPlaced)
             {
@@ -456,7 +457,17 @@ namespace Buildings
             bool hasIssue = false;
 
             return false;
-        } 
+        }
+
+        private void IncludeDefaultLogistics()
+        {
+            var defaultLogi = _buildingData.DefaultLogistics;
+            foreach (var logi in defaultLogi)
+            {
+                InventoryLogisticBill bill = new InventoryLogisticBill(logi.Type, logi.Item, logi.Value, this);
+                AddLogisticBill(bill);
+            }
+        }
 
         private void GameEvents_OnHideRoofsToggled(bool showInternal)
         {

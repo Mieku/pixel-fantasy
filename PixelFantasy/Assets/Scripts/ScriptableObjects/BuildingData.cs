@@ -14,6 +14,7 @@ namespace ScriptableObjects
         public int MaxOccupants;
         public int DailyUpkeep;
         public List<AbilityType> RelevantAbilityTypes = new List<AbilityType>();
+        public List<InventoryLogisticBill> DefaultLogistics = new List<InventoryLogisticBill>();
     }
 
     public enum BuildingType

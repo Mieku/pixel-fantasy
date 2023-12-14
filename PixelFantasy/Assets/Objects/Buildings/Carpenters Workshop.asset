@@ -29,9 +29,12 @@ MonoBehaviour:
   _requiredConstructorJob: {fileID: 11400000, guid: 2a72d8ac25ff79b44b0d862e30e16ba6, type: 2}
   BuildingType: 1
   MaxOccupants: 2
-  AllowedFurniture: []
-  LinkedBuilding: {fileID: 4238431909352924083, guid: 9afc3e54cd7e52148b24992b9d4aa1f4, type: 3}
   DailyUpkeep: 3
   RelevantAbilityTypes: 03000000
+  DefaultLogistics:
+  - Type: 0
+    Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
+    Value: 10
+    Building: {fileID: 0}
   WorkersJob: {fileID: 11400000, guid: 8cc115b907c69de4da24cb986f35866f, type: 2}
-  ProductionOptions: []
+  CraftingOptions: []
