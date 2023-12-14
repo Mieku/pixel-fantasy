@@ -107,8 +107,8 @@ namespace Systems.Details.Building_Details.Scripts
             // Search for any missed bills and add them
             foreach (var logiBill in logiBills)
             {
-                var equivStored = allStoredItems.Find(item => item.Item == logiBill.Item);
-                if (equivStored == null)
+                var equivDisplay = _displayedStorageItems.Find(display => display.ItemData == logiBill.Item);
+                if (equivDisplay == null)
                 {
                     var itemDisplay = Instantiate(_storageDisplayPrefab, _contentHandle.transform);
                     itemDisplay.Init(logiBill.Item, 0, logiBill.Value);
