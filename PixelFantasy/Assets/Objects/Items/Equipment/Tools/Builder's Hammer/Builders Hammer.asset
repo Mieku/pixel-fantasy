@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f41d69dc56dd97499cc1254ff16fe66, type: 3}
+  m_Name: Builders Hammer
+  m_EditorClassIdentifier: 
+  ItemName: Builder's Hammer
+  ItemDescription: 
+  MaxStackSize: 5
+  ItemSprite: {fileID: 21300000, guid: 859989a7fb3e7c444b8164245a2ea34c, type: 3}
+  DefaultSpriteScale: {x: 1, y: 1}
+  Durability: 100
+  InteractionConfigs: []
+  Category: 1
+  RequiredCraftingTable: {fileID: 11400000, guid: 92ae49093fe4f4240bcc66f7c88f3749, type: 2}
+  RequiredCraftingJob: {fileID: 0}
+  WorkCost: 5
+  _resourceCosts:
+  - Item: {fileID: 11400000, guid: 75f99dfbebb440d4499e1b83387d86e1, type: 2}
+    Quantity: 1
+  - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
+    Quantity: 2
+  _invalidPlacementTags:
+  - Water
+  - Wall
+  - Obstacle
+  Type: 4
+  CanBeDyed: 0
+  DefaultDyePalette: {fileID: 0}
+  RequiredJob: {fileID: 11400000, guid: 2a72d8ac25ff79b44b0d862e30e16ba6, type: 2}
+  TierLevel: 1
+  MainHandHeldGear: {fileID: 8574784959301920401, guid: d6ffa9c539c80934eab49dd7cfb7c73d, type: 3}
+  OffHandHeldGear: {fileID: 0}
+  HatGear: {fileID: 0}
+  BodyGear: {fileID: 0}
+  MainHandGear: {fileID: 0}
+  OffHandGear: {fileID: 0}
+  HipsGear: {fileID: 0}
+  LeftLegGear: {fileID: 0}
+  RightLegGear: {fileID: 0}
+  ToolType: 1

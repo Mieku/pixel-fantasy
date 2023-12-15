@@ -2,6 +2,7 @@ using System;
 using Controllers;
 using Items;
 using Managers;
+using ScriptableObjects;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -112,7 +113,7 @@ namespace Systems.Roads.Scripts
 
         public override void CreateConstructTask(bool autoAssign = true)
         {
-            Task task = new Task("Clear Grass", this, Librarian.Instance.GetJob("Worker"));
+            Task task = new Task("Clear Grass", this, Librarian.Instance.GetJob("Worker"), EToolType.None);
             task.Enqueue();
         }
 

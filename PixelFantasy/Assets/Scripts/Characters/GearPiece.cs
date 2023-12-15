@@ -132,5 +132,16 @@ namespace Characters
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
         }
+
+        public bool IsToolType(EToolType toolType)
+        {
+            var toolData = _gearData as ToolData;
+            if (toolData != null)
+            {
+                return toolData.ToolType == toolType;
+            }
+
+            return false;
+        }
     }
 }

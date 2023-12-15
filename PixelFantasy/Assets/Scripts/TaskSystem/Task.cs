@@ -17,14 +17,16 @@ namespace TaskSystem
         public List<Item> Materials;
         public Queue<Task> SubTasks = new Queue<Task>();
         public Action<Task> OnTaskComplete;
+        public EToolType RequiredToolType;
         public bool IsEmergancy;
 
-        public Task(string taskID, PlayerInteractable requestor, JobData job, bool isEmergancy = false)
+        public Task(string taskID, PlayerInteractable requestor, JobData job, EToolType requiredToolType, bool isEmergancy = false)
         {
             TaskId = taskID;
             Requestor = requestor;
             Job = job;
             IsEmergancy = isEmergancy;
+            RequiredToolType = requiredToolType;
 
             if (Requestor != null)
             {
@@ -38,7 +40,8 @@ namespace TaskSystem
                    && Requestor == otherTask.Requestor
                    && Payload == otherTask.Payload
                    && Owner == otherTask.Owner
-                   && IsEmergancy == otherTask.IsEmergancy;
+                   && IsEmergancy == otherTask.IsEmergancy
+                   && RequiredToolType == otherTask.RequiredToolType;
         }
 
         public void Cancel()
@@ -63,7 +66,7 @@ namespace TaskSystem
                 subTasks.Enqueue(subTask);
             }
             
-            return new Task(this.TaskId, this.Requestor, this.Job, this.IsEmergancy)
+            return new Task(this.TaskId, this.Requestor, this.Job, this.RequiredToolType, this.IsEmergancy)
             {
                 Payload = this.Payload,
                 Owner = this.Owner,

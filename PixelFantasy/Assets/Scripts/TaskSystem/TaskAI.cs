@@ -4,6 +4,7 @@ using System.Linq;
 using Characters;
 using Items;
 using Managers;
+using ScriptableObjects;
 using Systems.SmartObjects.Scripts;
 using Systems.Stats.Scripts;
 using UnityEngine;
@@ -29,6 +30,7 @@ namespace TaskSystem
         public enum State
         {
             WaitingForNextTask,
+            GettingTool,
             ExecutingTask,
             ExecutingInteraction,
             ForcedTask,
@@ -60,6 +62,8 @@ namespace TaskSystem
                         _waitingTimer = WAIT_TIMER_MAX;
                         RequestNextTask();
                     }
+                    break;
+                case State.GettingTool:
                     break;
                 case State.ExecutingTask:
                     _curTaskAction?.DoAction();
@@ -257,8 +261,21 @@ namespace TaskSystem
 
             _curTaskAction = taskAction;
             taskAction.InitAction(task);
-            taskAction.PrepareAction(task);
-            _state = State.ExecutingTask;
+            
+            // Get tool if needed
+            _state = State.GettingTool;
+            taskAction.PickupRequiredTool(() =>
+            {
+                taskAction.PrepareAction(task);
+                _state = State.ExecutingTask;
+            }, 
+                () =>
+            {
+                // If action can't be done, return it to the queue
+                TaskManager.Instance.AddTask(task);
+                _state = State.WaitingForNextTask;
+                return;
+            });
         }
 
         private Task CheckEquipment()
@@ -407,7 +424,7 @@ namespace TaskSystem
             
             _needsAI.CancelInteraction();
             
-            Task forcedTask = new Task(taskID, null, null)
+            Task forcedTask = new Task(taskID, null, null, EToolType.None)
             {
                 OnTaskComplete = OnForcedTaskComplete
             };
@@ -435,7 +452,7 @@ namespace TaskSystem
 
         public bool IsActionPossible(string taskID)
         {
-            Task forcedTask = new Task(taskID, null, null)
+            Task forcedTask = new Task(taskID, null, null, EToolType.None)
             {
                 OnTaskComplete = OnForcedTaskComplete
             };
@@ -444,6 +461,11 @@ namespace TaskSystem
             if (forcedTaskAction == null) return false;
 
             return forcedTaskAction.CanDoTask(forcedTask);
+        }
+
+        public bool HasToolTypeEquipped(EToolType toolType)
+        {
+            return _unit.Equipment.HasToolTypeEquipped(toolType);
         }
     }
 }

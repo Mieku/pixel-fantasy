@@ -1241,7 +1241,7 @@ TextureImporter:
         width: 16
         height: 19
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1249,6 +1249,48 @@ TextureImporter:
       bones: []
       spriteID: 5d3635449504eff4888cf84b50d0ff87
       internalID: -2106620571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Weapon Rack
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 146
+        width: 26
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f768f6b32d96e924bbde8b8cb84bc703
+      internalID: 801754901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Armour Rack
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 176
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c11c50134dd183e4ebb4288dd0202f8f
+      internalID: 1500927907
       vertices: []
       indices: 
       edges: []
@@ -1264,6 +1306,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Armour Rack: 1500927907
       Crafting Table: -2106620571
       Village_Tileset_0: 2881922054504902259
       Village_Tileset_1: 1669837975278995745
@@ -1311,6 +1354,7 @@ TextureImporter:
       Village_Tileset_7: 3586505580100664840
       Village_Tileset_8: -3897075156819975261
       Village_Tileset_9: -7020408599194189675
+      Weapon Rack: 801754901
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

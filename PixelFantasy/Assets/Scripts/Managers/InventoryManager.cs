@@ -144,23 +144,87 @@ namespace Managers
 
             return null;
         }
+
+        public Item ClaimToolTypeBuilding(EToolType toolType, Building building)
+        {
+            List<ToolData> potentialItems = new List<ToolData>();
+            
+            var allBuildingStorage = building.GetBuildingStorages();
+            foreach (var storage in allBuildingStorage)
+            {
+                var storedItems = storage.AvailableInventory;
+                foreach (var kvp in storedItems)
+                {
+                    var tool = kvp.Key as ToolData;
+                    if (tool != null && tool.ToolType == toolType && kvp.Value.Any())
+                    {
+                        potentialItems.Add(tool);
+                    }
+                }
+            }
+            
+            // Sort by tier
+            var sortedTools = potentialItems.OrderByDescending(toolData => toolData.TierLevel).ToList();
+            if (sortedTools.Any())
+            {
+                var bestToolData = sortedTools.First();
+                var claimedTool = ClaimItemBuilding(bestToolData, building);
+                return claimedTool;
+            }
+            
+            return null;
+        }
+
+        public Item ClaimToolTypeGlobal(EToolType toolType)
+        {
+            List<ToolData> potentialItems = new List<ToolData>();
+            foreach (var storage in _allStorage)
+            {
+                if (storage.IsGlobal)
+                {
+                    var storedItems = storage.AvailableInventory;
+                    foreach (var kvp in storedItems)
+                    {
+                        var tool = kvp.Key as ToolData;
+                        if (tool != null && tool.ToolType == toolType && kvp.Value.Any())
+                        {
+                            potentialItems.Add(tool);
+                        }
+                    }
+                }
+            }
+
+            // Sort by tier
+            var sortedTools = potentialItems.OrderByDescending(toolData => toolData.TierLevel).ToList();
+            if (sortedTools.Any())
+            {
+                var bestToolData = sortedTools.First();
+                var claimedTool = ClaimItemGlobal(bestToolData);
+                return claimedTool;
+            }
+            
+            return null;
+        }
         
-        public Dictionary<ItemData, List<Item>> GetAvailableInventory()
+        public Dictionary<ItemData, List<Item>> GetAvailableInventory(bool globalOnly)
         {
             Dictionary<ItemData, List<Item>> results = new Dictionary<ItemData, List<Item>>();
             foreach (var storage in _allStorage)
             {
-                var contents = storage.AvailableInventory;
-                foreach (var content in contents)
+                if (storage.IsGlobal || !globalOnly)
                 {
-                    if (!results.ContainsKey(content.Key))
+                    var contents = storage.AvailableInventory;
+                    foreach (var content in contents)
                     {
-                        results.Add(content.Key, new List<Item>());
-                    }
+                        if (!results.ContainsKey(content.Key))
+                        {
+                            results.Add(content.Key, new List<Item>());
+                        }
 
-                    foreach (var item in content.Value)
-                    {
-                        results[content.Key].Add(item);
+                        foreach (var item in content.Value)
+                        {
+                            results[content.Key].Add(item);
+                        }
                     }
                 }
             }
@@ -168,10 +232,10 @@ namespace Managers
             return results;
         }
 
-        public Dictionary<ItemData, int> GetAvailableInventoryQuantities()
+        public Dictionary<ItemData, int> GetAvailableInventoryQuantities(bool globalOnly)
         {
             Dictionary<ItemData, int> results = new Dictionary<ItemData, int>();
-            var availableInventory = GetAvailableInventory();
+            var availableInventory = GetAvailableInventory(globalOnly);
             foreach (var availKVP in availableInventory)
             {
                 if (!results.ContainsKey(availKVP.Key))
@@ -187,9 +251,9 @@ namespace Managers
             return results;
         }
 
-        public int GetAmountAvailable(ItemData itemData)
+        public int GetAmountAvailable(ItemData itemData, bool globalOnly)
         {
-            var allAvailable = GetAvailableInventory();
+            var allAvailable = GetAvailableInventory(globalOnly);
             if (allAvailable.ContainsKey(itemData))
             {
                 return allAvailable[itemData].Count;
@@ -202,7 +266,7 @@ namespace Managers
 
         public bool CanAfford(ItemData itemData, int amount)
         {
-            var availableAmount = GetAmountAvailable(itemData);
+            var availableAmount = GetAmountAvailable(itemData, true);
             return amount <= availableAmount;
         }
     }

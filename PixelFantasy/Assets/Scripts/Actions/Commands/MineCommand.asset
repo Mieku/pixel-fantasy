@@ -28,4 +28,5 @@ MonoBehaviour:
       FamilyJob: {fileID: 0}
       IsPlayer: 0
     Materials: []
+    RequiredToolType: 3
     IsEmergancy: 0

@@ -9,18 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e2d095f655ef3b4fb68a14f210e14e5, type: 3}
-  m_Name: Builder's Hammer
+  m_Script: {fileID: 11500000, guid: 7f41d69dc56dd97499cc1254ff16fe66, type: 3}
+  m_Name: Foresters Axe
   m_EditorClassIdentifier: 
-  ItemName: Builder's Hammer
+  ItemName: Forestor's Axe
   ItemDescription: 
   MaxStackSize: 5
-  ItemSprite: {fileID: 21300000, guid: 629f52fe0755e8a4dbaddaeeaeb365ba, type: 3}
+  ItemSprite: {fileID: 21300000, guid: 06084bf227aa3ff48932331b46a4f4a2, type: 3}
   DefaultSpriteScale: {x: 1, y: 1}
   Durability: 100
   InteractionConfigs: []
   Category: 1
-  RequiredCraftingTable: {fileID: 11400000, guid: 644004581d1321d41993fc7be87087b5, type: 2}
+  RequiredCraftingTable: {fileID: 11400000, guid: 92ae49093fe4f4240bcc66f7c88f3749, type: 2}
   RequiredCraftingJob: {fileID: 0}
   WorkCost: 5
   _resourceCosts:
@@ -35,8 +35,9 @@ MonoBehaviour:
   Type: 4
   CanBeDyed: 0
   DefaultDyePalette: {fileID: 0}
-  RequiredJob: {fileID: 11400000, guid: 2a72d8ac25ff79b44b0d862e30e16ba6, type: 2}
-  MainHandHeldGear: {fileID: 8574784959301920401, guid: d6ffa9c539c80934eab49dd7cfb7c73d, type: 3}
+  RequiredJob: {fileID: 11400000, guid: 52bc686649354e94eb770098fd6c5c29, type: 2}
+  TierLevel: 1
+  MainHandHeldGear: {fileID: 2109487599534607570, guid: 28befeca93672a2498df8a8de29ba83f, type: 3}
   OffHandHeldGear: {fileID: 0}
   HatGear: {fileID: 0}
   BodyGear: {fileID: 0}
@@ -45,3 +46,4 @@ MonoBehaviour:
   HipsGear: {fileID: 0}
   LeftLegGear: {fileID: 0}
   RightLegGear: {fileID: 0}
+  ToolType: 2

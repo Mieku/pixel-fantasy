@@ -39,7 +39,7 @@ public abstract class PlayerInteractable : UniqueObject
             CancelCommand(PendingCommand);
         }
 
-        Task task = new Task(command.Task.TaskId, this, command.Job);
+        Task task = new Task(command.Task.TaskId, this, command.Job, command.RequiredToolType);
 
         PendingCommand = command;
         
@@ -52,7 +52,7 @@ public abstract class PlayerInteractable : UniqueObject
     {
         PendingCommand = null;
 
-        Task task = new Task(command.Task.TaskId, this, command.Job);
+        Task task = new Task(command.Task.TaskId, this, command.Job, command.RequiredToolType);
 
         TaskManager.Instance.CancelTask(task);
 

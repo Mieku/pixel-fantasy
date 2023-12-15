@@ -147,7 +147,7 @@ namespace Buildings
             if (IsPaused) return true;
             if (!HasLimit) return false;
 
-            int curAmount = InventoryManager.Instance.GetAmountAvailable(CraftedItem);
+            int curAmount = InventoryManager.Instance.GetAmountAvailable(CraftedItem, true);
             return curAmount >= Limit;
         }
 
@@ -207,7 +207,7 @@ namespace Buildings
                 return null;
             }
             
-            Task task = new Task("Produce Item", building, building.GetBuildingJob())
+            Task task = new Task("Produce Item", building, building.GetBuildingJob(), EToolType.None)
             {
                 Payload = CraftedItem.ItemName,
                 OnTaskComplete = onTaskComplete,

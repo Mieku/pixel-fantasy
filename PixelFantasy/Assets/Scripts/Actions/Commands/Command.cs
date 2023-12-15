@@ -9,4 +9,5 @@ public class Command : ScriptableObject
     public Sprite Icon;
     public Task Task;
     public JobData Job => Task.Job;
+    public EToolType RequiredToolType => Task.RequiredToolType;
 }

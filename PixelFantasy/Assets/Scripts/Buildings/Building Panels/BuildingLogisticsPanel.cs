@@ -86,7 +86,7 @@ namespace Buildings.Building_Panels
         {
             ClearAllSlots();
             
-            var allInventory = InventoryManager.Instance.GetAvailableInventory();
+            var allInventory = InventoryManager.Instance.GetAvailableInventory(true);
             List<ItemData> possibleItems = new List<ItemData>();
             foreach (var kvp in allInventory)
             {

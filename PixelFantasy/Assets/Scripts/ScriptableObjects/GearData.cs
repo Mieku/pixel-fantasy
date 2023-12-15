@@ -12,6 +12,7 @@ namespace ScriptableObjects
         public bool CanBeDyed;
         [ShowIf("CanBeDyed")] public DyePaletteData DefaultDyePalette;
         [Tooltip("Can be left empty for no requirement")] public JobData RequiredJob;
+        public int TierLevel;
         
         [ShowIf("@Type == GearType.MainHand || Type == GearType.BothHands")] public GearPiece MainHandHeldGear;
         [ShowIf("Type", GearType.OffHand)] public GearPiece OffHandHeldGear;

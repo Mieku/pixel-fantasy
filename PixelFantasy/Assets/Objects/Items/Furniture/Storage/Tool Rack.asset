@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e5458c6e9e8d0f4c8152dcd32e4793a, type: 3}
-  m_Name: Barrel
+  m_Name: Tool Rack
   m_EditorClassIdentifier: 
-  ItemName: Barrel
-  ItemDescription: Stores food items
+  ItemName: Tool Rack
+  ItemDescription: Stores Tools and Weapons
   MaxStackSize: 1
-  ItemSprite: {fileID: -1833610153, guid: 9f7d87b58161cbd4aa86794c2ca49b34, type: 3}
+  ItemSprite: {fileID: 801754901, guid: 4d5895fa30c428843a9032c52ee06e38, type: 3}
   DefaultSpriteScale: {x: 1, y: 1}
   Durability: 100
   InteractionConfigs: []
@@ -31,7 +31,7 @@ MonoBehaviour:
   - Wall
   - Obstacle
   Catergory: 2
-  FurniturePrefab: {fileID: 5465201506073250537, guid: ad37035a922cc6e4799db5aee18bd59c, type: 3}
+  FurniturePrefab: {fileID: 5465201506073250537, guid: 1862542d3e26c704b996476df5f760ea, type: 3}
   Varients: []
   MaxStorage: 20
-  AcceptedCategories: 03000000
+  AcceptedCategories: 01000000

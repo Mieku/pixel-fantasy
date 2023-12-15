@@ -429,7 +429,7 @@ namespace Items
             var claimedItem = InventoryManager.Instance.ClaimItem(_furnitureItemData);
             if (claimedItem != null)
             {
-                Task task = new Task("Place Furniture", this, Librarian.Instance.GetJob("Worker"))
+                Task task = new Task("Place Furniture", this, Librarian.Instance.GetJob("Worker"), EToolType.None)
                 {
                     Materials = new List<Item>(){ claimedItem },
                 };

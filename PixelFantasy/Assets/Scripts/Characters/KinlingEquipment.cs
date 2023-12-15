@@ -446,7 +446,7 @@ namespace Characters
 
         private Task CreateEquipTask(GearState gearState)
         {
-            Task equipItemTask = new Task("Equip Item", gearState.LinkedItem, null)
+            Task equipItemTask = new Task("Equip Item", gearState.LinkedItem, null, EToolType.None)
             {
                 Materials = new List<Item> { gearState.LinkedItem },
             };
@@ -457,6 +457,56 @@ namespace Characters
         public void AssignDesiredEquipment(GearState desiredGear)
         {
             DesiredEquipmentState.SetGear(desiredGear);
+        }
+
+        public bool HasToolTypeEquipped(EToolType toolType)
+        {
+            if (_mainHandHeldObj != null && _mainHandHeldObj.IsToolType(toolType))
+            {
+                return true;
+            }
+            
+            if (_offHandHeldObj != null && _offHandHeldObj.IsToolType(toolType))
+            {
+                return true;
+            }
+            
+            if (_headGearObj != null && _headGearObj.IsToolType(toolType))
+            {
+                return true;
+            }
+ 
+            if (_bodyGearObj != null && _bodyGearObj.IsToolType(toolType))
+            {
+                return true;
+            }
+            
+            if (_pantsGearHipsObj != null && _pantsGearHipsObj.IsToolType(toolType))
+            {
+                return true;
+            }
+            
+            if (_pantsGearLeftLegObj != null && _pantsGearLeftLegObj.IsToolType(toolType))
+            {
+                return true;
+            }
+            
+            if (_pantsGearRightLegObj != null && _pantsGearRightLegObj.IsToolType(toolType))
+            {
+                return true;
+            }
+            
+            if (_handsGearMainHandObj != null && _handsGearMainHandObj.IsToolType(toolType))
+            {
+                return true;
+            }
+
+            if (_handsGearOffHandObj != null && _handsGearOffHandObj.IsToolType(toolType))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

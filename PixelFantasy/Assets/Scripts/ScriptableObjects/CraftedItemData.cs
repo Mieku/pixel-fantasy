@@ -45,20 +45,6 @@ namespace ScriptableObjects
                 return materialsList;
             }
         }
-
-        public bool AreResourcesAvailable()
-        {
-            foreach (var cost in _resourceCosts)
-            {
-                var availableAmount = InventoryManager.Instance.GetAmountAvailable(cost.Item);
-                if (availableAmount < cost.Quantity)
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
         
         public List<string> InvalidPlacementTags
         {

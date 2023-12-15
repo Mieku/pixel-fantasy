@@ -64,7 +64,7 @@ namespace Systems.Crafting.Scripts
             switch (OrderType)
             {
                 case EOrderType.Furniture:
-                    task = new Task("Craft Furniture Order", Requestor, building.GetBuildingJob())
+                    task = new Task("Craft Furniture Order", Requestor, building.GetBuildingJob(), EToolType.None)
                     {
                         Payload = CraftedItem.ItemName,
                         OnTaskComplete = onTaskComplete,

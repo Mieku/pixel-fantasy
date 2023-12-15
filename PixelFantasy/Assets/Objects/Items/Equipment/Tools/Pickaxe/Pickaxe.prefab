@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 859989a7fb3e7c444b8164245a2ea34c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e370c426c2ac47f47a0027b5c004a559, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 5682188297679996802}
   - component: {fileID: 8574784959301920401}
   m_Layer: 0
-  m_Name: Builder's Hammer
+  m_Name: Pickaxe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 029c408f6dc19fb4c9271cbc73c7b0e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gearData: {fileID: 11400000, guid: 71cf622eee61fe04195564bf6d6c1dfb, type: 2}
+  _gearData: {fileID: 11400000, guid: fc5344dc1b93c6c4f9df8a1d21a56f11, type: 2}
   _sideView: {fileID: 6035091945487584459}
   _upView: {fileID: 3933725110886289719}
   _downView: {fileID: 5300799257077313186}
@@ -208,7 +208,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 859989a7fb3e7c444b8164245a2ea34c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e370c426c2ac47f47a0027b5c004a559, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -292,7 +292,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 859989a7fb3e7c444b8164245a2ea34c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e370c426c2ac47f47a0027b5c004a559, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
