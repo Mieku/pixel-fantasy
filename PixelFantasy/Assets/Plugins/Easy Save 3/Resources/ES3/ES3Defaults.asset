@@ -37,10 +37,22 @@ MonoBehaviour:
     - NavMeshPlus
     - AllIn1SpriteShaderAssembly
     - Sirenix.OdinInspector.CompatibilityLayer
+    - QFSW.QC
+    - QFSW.QC.Serializers
+    - QFSW.QC.Extras
+    - QFSW.QC.Suggestors
+    - QFSW.QC.Grammar
+    - QFSW.QC.UI
+    - QFSW.QC.Parsers
+    - QFSW.QC.Demo
+    - QFSW.QC.ScanRules
     - PsdPlugin
     - Sirenix.OdinInspector.CompatibilityLayer.Editor
     - NavMeshPlusEditor
     - Sirenix.OdinInspector.Modules.UnityMathematics
+    - QFSW.QC.Editor
+    - QFSW.QC.Editor.Tools
+    - QFSW.QC.QGUI
     showAdvancedSettings: 1
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

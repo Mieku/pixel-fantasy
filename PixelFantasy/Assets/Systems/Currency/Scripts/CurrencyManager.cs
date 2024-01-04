@@ -1,9 +1,11 @@
 using System;
 using Managers;
+using QFSW.QC;
 using Sirenix.OdinInspector;
 using Systems.Notifications.Scripts;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Log = Systems.Notifications.Scripts.Log;
 
 namespace Systems.Currency.Scripts
 {
@@ -31,6 +33,20 @@ namespace Systems.Currency.Scripts
         private void OnDestroy()
         {
             GameEvents.HourTick -= GameEvent_HourTick;
+        }
+
+        [Command("add_coins")]
+        private void CMD_Add_Coins(int amount)
+        {
+            Debug.Log($"coins added: {amount}");
+            AddCoins(amount);
+        }
+
+        [Command("set_coins")]
+        private void CMD_Set_Coins(int amount)
+        {
+            Debug.Log($"coins set: {amount}");
+            SetCoins(amount);
         }
 
         private void GameEvent_HourTick(int hour)
@@ -96,6 +112,13 @@ namespace Systems.Currency.Scripts
         public int GetTotalCoins()
         {
             return _totalCoins;
+        }
+
+        private void SetCoins(int amount)
+        {
+            _totalCoins = amount;
+            
+            GameEvents.Trigger_OnCoinsTotalChanged();
         }
 
         public void AddCoins(int amountToAdd)

@@ -1,4 +1,5 @@
 using System;
+using QFSW.QC;
 using UnityEngine;
 
 namespace Managers
@@ -58,11 +59,20 @@ namespace Managers
         }
 
         public float DeltaTime => Time.deltaTime * GameSpeedMod;
+
+        private bool IsConsoleOpen()
+        {
+            if (QuantumConsole.Instance == null) return false;
+
+            return QuantumConsole.Instance.IsActive;
+        }
         
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                if (IsConsoleOpen()) return;
+                
                 if (GameSpeed == GameSpeed.Paused)
                 {
                     if (_prevSpeed == GameSpeed.Paused)
@@ -79,16 +89,19 @@ namespace Managers
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
+                if (IsConsoleOpen()) return;
                 SetGameSpeed(GameSpeed.Play);
             }
             
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
+                if (IsConsoleOpen()) return;
                 SetGameSpeed(GameSpeed.Fast);
             }
             
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
+                if (IsConsoleOpen()) return;
                 SetGameSpeed(GameSpeed.Fastest);
             }
         }

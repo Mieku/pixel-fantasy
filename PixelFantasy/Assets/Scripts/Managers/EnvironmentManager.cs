@@ -1,6 +1,7 @@
 using System;
 using FunkyCode;
 using UnityEngine;
+using QFSW.QC;
 
 namespace Managers
 {
@@ -33,6 +34,21 @@ namespace Managers
         {
             CalculateTimeOfDay();
             CalculateLighting();
+        }
+
+        [Command("set_time")]
+        private void CMD_SetGameTime(int hour24, int min)
+        {
+            hour24 = Mathf.Clamp(hour24, 0, 23);
+            min = Mathf.Clamp(min, 0, 59);
+            float fractionalMin = min / 60f;
+            float value = hour24 + fractionalMin;
+            Debug.Log($"Time Set: {value}");
+            _timeOfDay = value;
+            
+            _gameDayTimer = _timeOfDay;
+            _cur24Hour = (int)_gameDayTimer;
+            CalculateTimeOfDay();
         }
 
         private void CalculateLighting()
