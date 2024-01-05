@@ -10,17 +10,9 @@ namespace ScriptableObjects
     [CreateAssetMenu(fileName = "BuildingData", menuName = "Buildings/BuildingData", order = 1)]
     public class BuildingData : ConstructionData
     {
-        public BuildingType BuildingType;
         public int MaxOccupants;
         public int DailyUpkeep;
         public List<AbilityType> RelevantAbilityTypes = new List<AbilityType>();
         public List<InventoryLogisticBill> DefaultLogistics = new List<InventoryLogisticBill>();
-    }
-
-    public enum BuildingType
-    {
-        Home,
-        Production,
-        Stockpile,
     }
 }

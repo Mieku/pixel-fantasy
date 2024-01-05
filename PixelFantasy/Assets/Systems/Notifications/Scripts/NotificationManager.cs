@@ -75,21 +75,5 @@ namespace Systems.Notifications.Scripts
         {
             _logger.Log(logData);
         }
-
-        private int logNum = 0;
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                CreateGeneralLog($"Tester Normal Log: {logNum}", LogData.ELogType.Message);
-                logNum++;
-            }
-            
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                CreateGeneralLog($"Tester Danger Log: {logNum}", LogData.ELogType.Danger);
-                logNum++;
-            }
-        }
     }
 }

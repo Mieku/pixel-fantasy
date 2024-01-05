@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using Buildings;
+using Characters;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Managers
 {
@@ -43,6 +46,31 @@ namespace Managers
             {
                 building.GetClickObject().TriggerSelected(true);
             }
+        }
+
+        public List<HouseholdBuilding> AllHouseholds => _allBuildings.OfType<HouseholdBuilding>().ToList();
+
+        public void ClaimEmptyHome(Unit requestingUnit)
+        {
+            var emptyHouses = AllHouseholds.FindAll(house => house.IsVacant);
+            if (emptyHouses.Count == 0) return;
+            
+            List<(HouseholdBuilding, float)> houseDistances = new List<(HouseholdBuilding, float)>();
+            foreach (var emptyHouse in emptyHouses)
+            {
+                NavMeshPath path = new NavMeshPath();
+                if (NavMesh.CalculatePath(emptyHouse.ConstructionStandPosition(),
+                        requestingUnit.transform.position, NavMesh.AllAreas, path))
+                {
+                    float distance = Helper.GetPathLength(path);
+                    houseDistances.Add((emptyHouse, distance));
+                }
+            }
+
+            var sortedHouses = houseDistances.OrderBy(x => x.Item2).Select(x => x.Item1).ToList();
+            var selectedHouse = sortedHouses[0];
+            selectedHouse.AddOccupant(requestingUnit);
+            selectedHouse.BuildingName = $"{requestingUnit.GetUnitState().LastName} {selectedHouse.BuildingData.ConstructionName}";
         }
     }
 }

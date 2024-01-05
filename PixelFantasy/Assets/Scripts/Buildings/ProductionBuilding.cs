@@ -14,6 +14,7 @@ namespace Buildings
     public class ProductionBuilding : Building
     {
         private ProductionBuildingData _prodBuildingData => _buildingData as ProductionBuildingData;
+        public override BuildingType BuildingType => BuildingType.Production;
         
         public CraftingTable CraftingTable;
         public List<ProductionSettings> ProductionSettings;

@@ -18,17 +18,25 @@ using UnityEngine.Rendering;
 
 namespace Buildings
 {
-    public class Building : Construction
+    public enum BuildingType
+    {
+        Home = 0,
+        Production = 1,
+        Stockpile = 2,
+        TownHall = 3,
+        Crafting = 4,
+    }
+    
+    public abstract class Building : Construction
     {
         public string BuildingID;
+        public abstract BuildingType BuildingType { get; }
         
         [SerializeField] protected BuildingData _buildingData;
         [SerializeField] private Footings _footings;
         [SerializeField] private GameObject _internalHandle;
         [SerializeField] private GameObject _exteriorHandle;
-        [SerializeField] private GameObject _roofHandle;
         [SerializeField] private DoorOpener _doorOpener;
-        [SerializeField] private GameObject _floorHandle;
         [SerializeField] private GameObject _obstaclesHandle;
         [SerializeField] private GameObject _shadowboxHandle;
         [SerializeField] private Transform _constructionStandPos;
@@ -370,32 +378,18 @@ namespace Buildings
             return _occupants;
         }
 
-        public void AddOccupant(Unit unit)
+        public virtual void AddOccupant(Unit unit)
         {
             _occupants.Add(unit);
-
-            if (BuildingData.BuildingType == BuildingType.Home)
-            {
-                unit.GetUnitState().AssignedHome = this;
-            }
-            else
-            {
-                unit.GetUnitState().AssignedWorkplace = this;
-            }
+            
+            unit.GetUnitState().AssignedWorkplace = this;
         }
 
-        public void RemoveOccupant(Unit unit)
+        public virtual void RemoveOccupant(Unit unit)
         {
             _occupants.Remove(unit);
             
-            if (BuildingData.BuildingType == BuildingType.Home)
-            {
-                unit.GetUnitState().AssignedHome = null;
-            }
-            else
-            {
-                unit.GetUnitState().AssignedWorkplace = null;
-            }
+            unit.GetUnitState().AssignedWorkplace = null;
         }
         
         public List<BuildingNote> BuildingNotes => _buildingNotes;
@@ -561,14 +555,11 @@ namespace Buildings
         {
             if (showInternal)
             {
-                if(_roofHandle != null) _roofHandle.SetActive(false);
                 _exteriorHandle.SetActive(false);
                 _shadowboxHandle.SetActive(true);
             }
             else
             {
-                if(_roofHandle != null) _roofHandle.SetActive(true);
-                
                 _exteriorHandle.SetActive(true);
                 _shadowboxHandle.SetActive(false);
             }
@@ -666,25 +657,8 @@ namespace Buildings
         {
             var internalSpriteRenderers = _internalHandle.GetComponentsInChildren<SpriteRenderer>(true);
             var exteriorlSpriteRenderers = _exteriorHandle.GetComponentsInChildren<SpriteRenderer>(true);
-            if (_roofHandle != null)
-            {
-                var roofSpriteRenderers = _roofHandle.GetComponentsInChildren<SpriteRenderer>(true);
-                foreach (var rend in roofSpriteRenderers)
-                {
-                    rend.color = colour;
-                }
-            }
                     
             var doorSpriteRenderer = _doorOpener.GetComponent<SpriteRenderer>();
-
-            if (_floorHandle != null)
-            {
-                var floorSpriteRenderers = _floorHandle.GetComponentsInChildren<SpriteRenderer>(true);
-                foreach (var rend in floorSpriteRenderers)
-                {
-                    rend.color = colour;
-                }
-            }
             
             foreach (var rend in internalSpriteRenderers)
             {

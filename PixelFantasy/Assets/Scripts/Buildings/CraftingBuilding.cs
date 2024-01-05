@@ -14,6 +14,7 @@ namespace Buildings
     public class CraftingBuilding : Building
     {
         private CraftingBuildingData _craftingBuildingData => _buildingData as CraftingBuildingData;
+        public override BuildingType BuildingType => BuildingType.Crafting;
 
         public override string OccupantAdjective => "Workers";
         public CraftingTable CraftingTable;

@@ -37,7 +37,7 @@ namespace Buildings.Building_Panels
                 CreateKinlingSelector(_currentUnit);
             }
 
-            if (_building.BuildingData.BuildingType == BuildingType.Home)
+            if (_building.BuildingType == BuildingType.Home)
             {
                 var homelessKinlings = UnitsManager.Instance.HomelessKinlings;
                 foreach (var homelessKinling in homelessKinlings)

@@ -661,7 +661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d312e7a58ff699f428fff54710658a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _building: {fileID: 4529720070378484586}
+  _building: {fileID: 5170125556009286064}
 --- !u!1 &1141357286028535369
 GameObject:
   m_ObjectHideFlags: 0
@@ -4540,7 +4540,7 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4529720070378484586}
+      - m_Target: {fileID: 5170125556009286064}
         m_TargetAssemblyTypeName: Buildings.Building, Assembly-CSharp
         m_MethodName: OnBuildingClicked
         m_Mode: 1
@@ -4555,7 +4555,7 @@ MonoBehaviour:
   OnCursorEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4529720070378484586}
+      - m_Target: {fileID: 5170125556009286064}
         m_TargetAssemblyTypeName: Buildings.Building, Assembly-CSharp
         m_MethodName: OnCursorEnter
         m_Mode: 1
@@ -4570,7 +4570,7 @@ MonoBehaviour:
   OnCursorExit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4529720070378484586}
+      - m_Target: {fileID: 5170125556009286064}
         m_TargetAssemblyTypeName: Buildings.Building, Assembly-CSharp
         m_MethodName: OnCurserExit
         m_Mode: 1
@@ -4759,7 +4759,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6579909187644268839}
-  - component: {fileID: 4529720070378484586}
+  - component: {fileID: 5170125556009286064}
   - component: {fileID: 5596007926291928697}
   - component: {fileID: 3164130514233476479}
   m_Layer: 0
@@ -4794,7 +4794,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4529720070378484586
+--- !u!114 &5170125556009286064
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4803,7 +4803,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9163534741776685432}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be5fad749ce82f649acc9a011c42c1c4, type: 3}
+  m_Script: {fileID: 11500000, guid: ccfc67ea82179034db569393c09750cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _icon: {fileID: 0}

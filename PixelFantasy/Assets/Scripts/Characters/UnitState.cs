@@ -20,8 +20,8 @@ namespace Characters
         
         public Schedule Schedule = new Schedule();
 
-        private Building _assignedHome;
-        public Building AssignedHome
+        private HouseholdBuilding _assignedHome;
+        public HouseholdBuilding AssignedHome
         {
             get => _assignedHome;
             set
@@ -150,6 +150,13 @@ namespace Characters
                     return AssignedWorkplace.GetBuildingJob();
                 }
             }
+        }
+
+        public void AssignHome(HouseholdBuilding home)
+        {
+            
+            
+            GameEvents.Trigger_OnCoinsIncomeChanged();
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Buildings
     {
         private StockpileBuildingData _stockpileBuildingData => _buildingData as StockpileBuildingData;
         private List<ItemData> _unallowedItems = new List<ItemData>();
+        public override BuildingType BuildingType => BuildingType.Stockpile;
         
         public override string OccupantAdjective => "Workers";
         

@@ -7,6 +7,7 @@ using Buildings;
 using Items;
 using Managers;
 using UnityEngine;
+using UnityEngine.AI;
 using Zones;
 using Random = UnityEngine.Random;
 
@@ -474,6 +475,21 @@ public static class Helper
         }
     }
 
+    /// <summary>
+    /// Returns the length of a navmesh path
+    /// </summary>
+    public static float GetPathLength(NavMeshPath path)
+    {
+        float length = 0;
+        if (path.corners.Length < 2)
+            return length;
+
+        for (int i = 0; i < path.corners.Length - 1; i++)
+        {
+            length += Vector3.Distance(path.corners[i], path.corners[i + 1]);
+        }
+        return length;
+    }
 }
 
 public static class EnumExtensions

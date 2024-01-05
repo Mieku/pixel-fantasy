@@ -145,6 +145,11 @@ namespace TaskSystem
             
             if (task == null && _state != State.ExecutingInteraction)
             {
+                task = CheckPersonal();
+            }
+            
+            if (task == null && _state != State.ExecutingInteraction)
+            {
                 // Check if they are missing any required Equipment
                 task = CheckEquipment();
             }
@@ -281,6 +286,28 @@ namespace TaskSystem
         private Task CheckEquipment()
         {
             return _unit.Equipment.CheckDesiredEquipment();
+        }
+
+        /// <summary>
+        /// Check important personal requirements, for example look for a house if homeless. Invite Kinlings on dates... etc
+        /// </summary>
+        private Task CheckPersonal()
+        {
+            // If homeless, find a home
+            if (_unit.GetUnitState().AssignedHome == null)
+            {
+                // Does partner have home?
+                if (_unit.Partner != null && _unit.Partner.GetUnitState().AssignedHome != null)
+                {
+                    _unit.GetUnitState().AssignedHome = _unit.Partner.GetUnitState().AssignedHome;
+                }
+                else
+                {
+                    BuildingsManager.Instance.ClaimEmptyHome(_unit);
+                }
+            }
+
+            return null;
         }
         
         public UnitActionDirection GetActionDirection(Vector3 targetPos)
