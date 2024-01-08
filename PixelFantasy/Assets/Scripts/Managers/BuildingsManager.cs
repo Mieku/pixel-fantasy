@@ -69,8 +69,7 @@ namespace Managers
 
             var sortedHouses = houseDistances.OrderBy(x => x.Item2).Select(x => x.Item1).ToList();
             var selectedHouse = sortedHouses[0];
-            selectedHouse.AddOccupant(requestingUnit);
-            selectedHouse.BuildingName = $"{requestingUnit.GetUnitState().LastName} {selectedHouse.BuildingData.ConstructionName}";
+            selectedHouse.AssignHeadHousehold(requestingUnit);
         }
     }
 }

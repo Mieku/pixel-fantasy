@@ -73,6 +73,11 @@ namespace Characters
             _face.Init(BodyData, _curDirection);
         }
 
+        public void SetEyesClosed(bool setClosed)
+        {
+            _face.SetForcedEyesClosed(setClosed);
+        }
+
         public void ApplyAppearanceState(AppearanceState appearanceState)
         {
             _appearanceState = appearanceState;

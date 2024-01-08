@@ -143,6 +143,7 @@ Transform:
   - {fileID: 3643544760287507894}
   - {fileID: 3500687174380350705}
   - {fileID: 2586568719187880621}
+  - {fileID: 8076538520986657675}
   m_Father: {fileID: 5532418264530240428}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1134,50 +1135,6 @@ MonoBehaviour:
     Expertise:
       Level: 0
       Exp: 0
-  Priorities:
-    AllPriorities:
-    - TaskType: 13
-      PriorityLevel: 3
-      IsEnabled: 1
-    - TaskType: 10
-      PriorityLevel: 3
-      IsEnabled: 1
-    - TaskType: 4
-      PriorityLevel: 3
-      IsEnabled: 1
-    - TaskType: 9
-      PriorityLevel: 3
-      IsEnabled: 1
-    - TaskType: 7
-      PriorityLevel: 3
-      IsEnabled: 1
-    - TaskType: 2
-      PriorityLevel: 3
-      IsEnabled: 1
-    - TaskType: 8
-      PriorityLevel: 3
-      IsEnabled: 1
-    - TaskType: 1
-      PriorityLevel: 3
-      IsEnabled: 1
-    - TaskType: 3
-      PriorityLevel: 3
-      IsEnabled: 1
-    - TaskType: 6
-      PriorityLevel: 3
-      IsEnabled: 1
-    - TaskType: 5
-      PriorityLevel: 3
-      IsEnabled: 1
-    - TaskType: 0
-      PriorityLevel: 3
-      IsEnabled: 1
-    - TaskType: 12
-      PriorityLevel: 3
-      IsEnabled: 1
-    - TaskType: 11
-      PriorityLevel: 3
-      IsEnabled: 1
   AssignedWorkplace: {fileID: 0}
 --- !u!114 &9189890898419539547
 MonoBehaviour:
@@ -1714,6 +1671,51 @@ Transform:
   m_Father: {fileID: 5532418264530240428}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8013352204884381741
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8076538520986657675}
+  - component: {fileID: 1185268915247852183}
+  m_Layer: 6
+  m_Name: Go To Sleep
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8076538520986657675
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8013352204884381741}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8355272791609113398}
+  m_RootOrder: 24
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1185268915247852183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8013352204884381741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f960bab607d50c645a3b4098cc12eba1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TaskId: Go To Sleep
 --- !u!1 &8079841030640490175
 GameObject:
   m_ObjectHideFlags: 0

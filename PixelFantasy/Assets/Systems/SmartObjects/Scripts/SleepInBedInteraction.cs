@@ -23,7 +23,7 @@ namespace Systems.SmartObjects.Scripts
         
         private PerformerInfo _currentPerformer;
         private Vector2 _preTeleportPos;
-        private Transform _sleepLocation => _linkedFurniture.SleepLocation;
+        private Transform _sleepLocation => _linkedFurniture.GetSleepLocation(null);
 
         private void Awake()
         {

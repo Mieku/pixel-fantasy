@@ -19,6 +19,7 @@ namespace Characters
         private const string DIG = "isDigging";
         private const string WATER = "isWatering";
         private const string SWING = "isSwinging";
+        private const string SLEEP = "isSleeping";
 
         private const string UP = "isUp";
         private const string DOWN = "isDown";
@@ -43,6 +44,11 @@ namespace Characters
             _anim.speed = speedMod;
         }
 
+        public void SetEyesClosed(bool setClosed)
+        {
+            Appearance.SetEyesClosed(setClosed);
+        }
+
         public void SetUnitAction(UnitAction unitAction)
         {
             switch (unitAction)
@@ -62,7 +68,9 @@ namespace Characters
                 case UnitAction.Swinging:
                     SetUnitAction(SWING);
                     break;
-
+                case UnitAction.Sleeping:
+                    SetUnitAction(SLEEP);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(unitAction), unitAction, null);
             }
@@ -109,6 +117,9 @@ namespace Characters
                 case UnitAction.Swinging:
                     SetUnitAction(SWING);
                     break;
+                case UnitAction.Sleeping:
+                    SetUnitAction(SLEEP);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(unitAction), unitAction, null);
             }
@@ -125,6 +136,7 @@ namespace Characters
             SetUnitAction(DIG, false);
             SetUnitAction(WATER, false);
             SetUnitAction(SWING, false);
+            SetUnitAction(SLEEP, false);
         }
 
         public void SetMovementVelocity(Vector2 velocityVector)
@@ -182,6 +194,7 @@ public enum UnitAction
         Digging,
         Watering,
         Swinging,
+        Sleeping,
     }
 
     public enum UnitActionDirection

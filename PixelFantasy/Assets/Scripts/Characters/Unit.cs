@@ -54,6 +54,7 @@ namespace Characters
         public ClickObject ClickObject;
 
         private Building _insideBuidling;
+        private BedFurniture _bed;
 
         private void Awake()
         {
@@ -255,6 +256,13 @@ namespace Characters
                     throw new ArgumentOutOfRangeException();
             }
         }
+
+        public void AssignBed(BedFurniture bed)
+        {
+            _bed = bed;
+        }
+
+        public BedFurniture AssignedBed => _bed;
     }
 
     public enum EMaturityStage

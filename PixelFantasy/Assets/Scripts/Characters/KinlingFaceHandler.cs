@@ -20,6 +20,7 @@ namespace Characters
         private float _stareTime;
         private float _blinkTime;
         private bool _isBlinking;
+        private bool _isForceClosed;
 
         private readonly int colorSwapRed = Shader.PropertyToID("_ColorSwapRed");
         private readonly int colorSwapGreen = Shader.PropertyToID("_ColorSwapGreen");
@@ -52,6 +53,8 @@ namespace Characters
 
         private void HandleBlinking()
         {
+            if (_isForceClosed) return;
+            
             _eyesTimer += TimeManager.Instance.DeltaTime;
 
             if (_isBlinking)
@@ -69,6 +72,20 @@ namespace Characters
                 _stareTime = Random.Range(MIN_EYES_OPEN, MAX_EYES_OPEN);
                 _isBlinking = true;
                 CloseEyes();
+            }
+        }
+
+        public void SetForcedEyesClosed(bool forceClosed)
+        {
+            if (forceClosed)
+            {
+                _isForceClosed = true;
+                CloseEyes();
+            }
+            else
+            {
+                _isForceClosed = false;
+                OpenEyes();
             }
         }
 

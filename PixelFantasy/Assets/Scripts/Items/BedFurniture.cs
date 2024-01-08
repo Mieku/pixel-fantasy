@@ -10,22 +10,80 @@ namespace Items
     public class BedFurniture : Furniture
     {
         public Transform UsingParent;
+
+        private int _spotsUsed;
+        private string _assignedKinling;
+        private string _assignedKinling2;
+
+        public bool IsAvailable(Unit unit)
+        {
+            if (string.IsNullOrEmpty(_assignedKinling))
+            {
+                return true;
+            }
+            else
+            {
+                if (unit.Partner.UniqueId == _assignedKinling)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public void AssignKinling(Unit unit)
+        {
+            unit.AssignBed(this);
+            if (string.IsNullOrEmpty(_assignedKinling))
+            {
+                _assignedKinling = unit.UniqueId;
+            }
+            else
+            {
+                _assignedKinling2 = unit.UniqueId;
+            }
+        }
+
+        public bool IsDouble
+        {
+            get
+            {
+                switch (CurrentDirection)
+                {
+                    case PlacementDirection.South:
+                        return _southSleepMarker2 != null;
+                    case PlacementDirection.North:
+                        return _northSleepMarker2 != null;
+                    case PlacementDirection.West:
+                        return _westSleepMarker2 != null;
+                    case PlacementDirection.East:
+                        return _eastSleepMarker2 != null;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
         
         [TitleGroup("South")] [SerializeField] private SpriteRenderer _southTopSheet;
         [TitleGroup("South")] [SerializeField] private Transform _southSleepMarker;
+        [TitleGroup("South")] [SerializeField] private Transform _southSleepMarker2;
         
         [TitleGroup("West")] [SerializeField] private SpriteRenderer _westTopSheet;
         [TitleGroup("West")] [SerializeField] private Transform _westSleepMarker;
+        [TitleGroup("West")] [SerializeField] private Transform _westSleepMarker2;
         
         [TitleGroup("North")] [SerializeField] private SpriteRenderer _northTopSheet;
         [TitleGroup("North")] [SerializeField] private Transform _northSleepMarker;
+        [TitleGroup("North")] [SerializeField] private Transform _northSleepMarker2;
         
         [TitleGroup("East")] [SerializeField] private SpriteRenderer _eastTopSheet;
         [TitleGroup("East")] [SerializeField] private Transform _eastSleepMarker;
+        [TitleGroup("East")] [SerializeField] private Transform _eastSleepMarker2;
 
-        public Transform SleepLocation
+        public Transform GetSleepLocation(Unit unit)
         {
-            get
+            if (_assignedKinling == unit.UniqueId)
             {
                 return CurrentDirection switch
                 {
@@ -36,7 +94,62 @@ namespace Items
                     _ => throw new ArgumentOutOfRangeException()
                 };
             }
+
+            if (_assignedKinling2 == unit.UniqueId)
+            {
+                return CurrentDirection switch
+                {
+                    PlacementDirection.South => _southSleepMarker2,
+                    PlacementDirection.North => _northSleepMarker2,
+                    PlacementDirection.West => _westSleepMarker2,
+                    PlacementDirection.East => _eastSleepMarker2,
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+            }
+            
+            Debug.LogError("Attempted to sleep in a bed that isn't assigned");
+            return CurrentDirection switch
+            {
+                PlacementDirection.South => _southSleepMarker,
+                PlacementDirection.North => _northSleepMarker,
+                PlacementDirection.West => _westSleepMarker,
+                PlacementDirection.East => _eastSleepMarker,
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
+        
+        // public Transform SleepLocation
+        // {
+        //     get
+        //     {
+        //         if (_spotsUsed == 0)
+        //         {
+        //             return CurrentDirection switch
+        //             {
+        //                 PlacementDirection.South => _southSleepMarker,
+        //                 PlacementDirection.North => _northSleepMarker,
+        //                 PlacementDirection.West => _westSleepMarker,
+        //                 PlacementDirection.East => _eastSleepMarker,
+        //                 _ => throw new ArgumentOutOfRangeException()
+        //             };
+        //         } 
+        //         
+        //         if (_spotsUsed == 1)
+        //         {
+        //             return CurrentDirection switch
+        //             {
+        //                 PlacementDirection.South => _southSleepMarker2,
+        //                 PlacementDirection.North => _northSleepMarker2,
+        //                 PlacementDirection.West => _westSleepMarker2,
+        //                 PlacementDirection.East => _eastSleepMarker2,
+        //                 _ => throw new ArgumentOutOfRangeException()
+        //             };
+        //         }
+        //         
+        //         Debug.LogError($"To many spots used: {_spotsUsed}");
+        //         return transform;
+        //     }
+        // }
         
         public void ShowTopSheet(bool isShown)
         {
@@ -77,10 +190,10 @@ namespace Items
         {
             unit.transform.SetParent(UsingParent);
             unit.IsAsleep = true;
-            AssignFurnitureToKinling(unit);
             ShowTopSheet(true);
             int orderlayer = GetBetweenTheSheetsLayerOrder();
             unit.AssignAndLockLayerOrder(orderlayer);
+            _spotsUsed++;
         }
 
         public void ExitBed(Unit unit)
@@ -89,6 +202,7 @@ namespace Items
             unit.IsAsleep = false;
             ShowTopSheet(false);
             unit.UnlockLayerOrder();
+            _spotsUsed--;
         }
 
         public int GetBetweenTheSheetsLayerOrder()

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ccf96a84d55e80f4fb659aa05135d154
+guid: 9de3597d8bf1f7d44b2e361158db20a4
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DoubleBed_Red_Vert
+      name: DoubleBed_Red_South
       rect:
         serializedVersion: 2
-        x: 12
+        x: 15
         y: 61
-        width: 25
-        height: 26
+        width: 18
+        height: 27
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3cbab5fbd060d17459327c2dc2bbc937
-      internalID: 340157479
+      spriteID: 5f3ea7a763c38734dbdfa63e5e9f59b4
+      internalID: -1986180085
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DoubleBed_Red_Vert_Sheets
+      name: DoubleBed_Red_South_Sheet
       rect:
         serializedVersion: 2
-        x: 44
+        x: 47
         y: 61
-        width: 25
-        height: 26
+        width: 18
+        height: 27
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,14 +152,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e1ad556f5bc1c34bb969b97ba2be131
-      internalID: -486623282
+      spriteID: b1e75647d34cce44397fc020a43466f9
+      internalID: 1129297951
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DoubleBed_Red_0
+      name: DoubleBed_Red_East
       rect:
         serializedVersion: 2
         x: 14
@@ -167,20 +167,20 @@ TextureImporter:
         width: 21
         height: 28
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f041034814bdf6948b50dc671587cdb1
-      internalID: 477393259
+      spriteID: 29a2cc818af243645aa9cd188a651dbd
+      internalID: -216283301
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DoubleBed_Red_1
+      name: DoubleBed_Red_East_Sheet
       rect:
         serializedVersion: 2
         x: 46
@@ -188,14 +188,14 @@ TextureImporter:
         width: 21
         height: 28
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 558d3228e8b80b04e964e068ebe8cb34
-      internalID: 2029514839
+      spriteID: aa8363090597e9f4a9ed3633251761d7
+      internalID: 649113794
       vertices: []
       indices: 
       edges: []
@@ -211,10 +211,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      DoubleBed_Red_0: 477393259
-      DoubleBed_Red_1: 2029514839
-      DoubleBed_Red_Vert: 340157479
-      DoubleBed_Red_Vert_Sheets: -486623282
+      DoubleBed_Red_East: -216283301
+      DoubleBed_Red_East_Sheet: 649113794
+      DoubleBed_Red_South: -1986180085
+      DoubleBed_Red_South_Sheet: 1129297951
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

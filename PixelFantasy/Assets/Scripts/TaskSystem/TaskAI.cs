@@ -101,15 +101,18 @@ namespace TaskSystem
             switch (currentSchedule)
             {
                 case ScheduleOption.Sleep:
-                    var energyStat = Librarian.Instance.GetStat("Energy");
-                    if (_needsAI.GetStatValue(energyStat) <= 0.70f)
-                    {
-                        DoInteraction(Librarian.Instance.GetStat("Energy"));
-                    }
-                    else
-                    {
-                        DoInteraction();
-                    }
+                //     var energyStat = Librarian.Instance.GetStat("Energy");
+                //     if (_needsAI.GetStatValue(energyStat) <= 0.70f)
+                //     {
+                //         DoInteraction(Librarian.Instance.GetStat("Energy"));
+                //     }
+                //     else
+                //     {
+                //         DoInteraction();
+                //     }
+                //     break;
+
+                    ForceTask("Go To Sleep");
                     break;
                 case ScheduleOption.Work:
                     RequestNextJobTask();
@@ -121,7 +124,7 @@ namespace TaskSystem
                     throw new ArgumentOutOfRangeException();
             }
         }
-
+        
         private void RequestNextJobTask()
         {
             if (_state == State.ForcedTask) return;
@@ -299,7 +302,7 @@ namespace TaskSystem
                 // Does partner have home?
                 if (_unit.Partner != null && _unit.Partner.GetUnitState().AssignedHome != null)
                 {
-                    _unit.GetUnitState().AssignedHome = _unit.Partner.GetUnitState().AssignedHome;
+                    _unit.Partner.GetUnitState().AssignedHome.AssignPartner(_unit);
                 }
                 else
                 {

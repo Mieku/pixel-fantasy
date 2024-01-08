@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Characters;
+using QFSW.QC;
 using ScriptableObjects;
+using Systems.Notifications.Scripts;
 using UnityEngine;
 
 namespace Managers
@@ -71,6 +73,29 @@ namespace Managers
             {
                 kinling.ClickObject.TriggerSelected(true);
             }
+        }
+
+        [Command("set_love")]
+        private void CMD_SetLove(string instigatorFirstName, string receiverFirstName)
+        {
+            Unit instigator = _allKinlings.Find(unit => unit.GetUnitState().FirstName == instigatorFirstName);
+            Unit receiver = _allKinlings.Find(unit => unit.GetUnitState().FirstName == receiverFirstName);
+
+            if (instigator == null)
+            {
+                Debug.LogError($"Can't find Instigator: {instigatorFirstName}");
+                return;
+            }
+            
+            if (receiver == null)
+            {
+                Debug.LogError($"Can't find Receiver: {receiverFirstName}");
+                return;
+            }
+
+            instigator.Partner = receiver;
+            receiver.Partner = instigator;
+            NotificationManager.Instance.CreateKinlingLog(instigator, $"{instigator.GetUnitState().FullName} is now in a relationship with {receiver.GetUnitState().FullName}!", LogData.ELogType.Positive);
         }
     }
 }

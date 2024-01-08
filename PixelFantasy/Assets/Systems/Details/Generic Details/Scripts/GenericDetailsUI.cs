@@ -144,21 +144,21 @@ namespace Systems.Details.Generic_Details.Scripts
             // TODO: Storage
             
             // Assigned to
-            if (furniture.SingleOwner)
-            {
-                var assignedEntry = Instantiate(_entryTitledTextDisplayPrefab, _contentLayout);
-                if (furniture.AssignedKinling == null)
-                {
-                    
-                    assignedEntry.Init("Assigned To", "Unassigned");
-                    
-                }
-                else
-                {
-                    assignedEntry.Init("Assigned To", furniture.AssignedKinling.GetUnitState().FullName);
-                }
-                _displayedEntries.Add(assignedEntry.gameObject);
-            }
+            // if (furniture.SingleOwner)
+            // {
+            //     var assignedEntry = Instantiate(_entryTitledTextDisplayPrefab, _contentLayout);
+            //     if (furniture.AssignedKinling == null)
+            //     {
+            //         
+            //         assignedEntry.Init("Assigned To", "Unassigned");
+            //         
+            //     }
+            //     else
+            //     {
+            //         assignedEntry.Init("Assigned To", furniture.AssignedKinling.GetUnitState().FullName);
+            //     }
+            //     _displayedEntries.Add(assignedEntry.gameObject);
+            // }
             
             // Order Details
             if (furniture.FurnitureState == Furniture.EFurnitureState.Craftable)

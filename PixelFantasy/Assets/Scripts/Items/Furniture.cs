@@ -50,7 +50,6 @@ namespace Items
         [TitleGroup("General")]
         [SerializeField] protected FurnitureItemData _furnitureItemData;
         [SerializeField] protected SmartObject _smartObject;
-        [SerializeField] protected bool _singleOwner;
         public PlacementDirection CurrentDirection;
 
         public EFurnitureState FurnitureState = EFurnitureState.Craftable;
@@ -63,7 +62,6 @@ namespace Items
         
         private float _remainingWork;
         private bool _isOutlineLocked;
-        private Unit _assignedKinling;
         protected Building _parentBuilding;
         private int _durabiliy;
 
@@ -688,29 +686,8 @@ namespace Items
         public bool CanKinlingUseThis(Unit kinling)
         {
             if (FurnitureState != EFurnitureState.Built) return false;
-            if (_singleOwner)
-            {
-                if (_assignedKinling == null)
-                {
-                    return true;
-                } 
-                else if (_assignedKinling != kinling)
-                {
-                    return false;
-                }
-            }
 
             return true;
-        }
-
-        public bool SingleOwner => _singleOwner;
-        public Unit AssignedKinling => _assignedKinling;
-
-        public void AssignFurnitureToKinling(Unit kinling)
-        {
-            if (!_singleOwner) return;
-
-            _assignedKinling = kinling;
         }
 
         public bool CanBeOrdered()
