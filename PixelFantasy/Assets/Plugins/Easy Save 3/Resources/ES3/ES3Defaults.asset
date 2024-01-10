@@ -53,8 +53,8 @@ MonoBehaviour:
     - QFSW.QC.Editor
     - NavMeshPlusEditor
     - QFSW.QC.Editor.Tools
-    - Sirenix.OdinInspector.Modules.UnityMathematics
     - FangAutoTile.Editor
+    - Sirenix.OdinInspector.Modules.UnityMathematics
     showAdvancedSettings: 1
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

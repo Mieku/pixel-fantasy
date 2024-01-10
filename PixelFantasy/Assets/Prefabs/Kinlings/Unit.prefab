@@ -999,6 +999,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5532418264530240428}
   - component: {fileID: 5584874993929393806}
+  - component: {fileID: 6110830004571278970}
   - component: {fileID: 1211023406118596035}
   - component: {fileID: 6459717783198305047}
   - component: {fileID: 9189890898419539547}
@@ -1058,12 +1059,6 @@ MonoBehaviour:
   _socialAI: {fileID: 5256464669028443073}
   _traits: []
   _dailyCoinsIncome: 0
-  _foodStat:
-    _statData: {fileID: 11400000, guid: 4f3e8f8c1fbb9ba48b82a8cd1b27ee9a, type: 2}
-    _value: 0
-  _energyStat:
-    _statData: {fileID: 11400000, guid: bbd6477af2cdf1c4683d1378eeb200c1, type: 2}
-    _value: 0
   _sortingGroup: {fileID: 4624679516539662858}
   _positionRendererSorter: {fileID: 1822529751762045447}
   Equipment: {fileID: 12347069629172064}
@@ -1083,6 +1078,25 @@ MonoBehaviour:
     FamilyJob: {fileID: 0}
     IsPlayer: 0
   ClickObject: {fileID: 0}
+  Stats: {fileID: 6110830004571278970}
+--- !u!114 &6110830004571278970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5532418264530240426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffedb8f8a9fd4d849acbaf1a002a761d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _foodStat:
+    _statData: {fileID: 11400000, guid: 4f3e8f8c1fbb9ba48b82a8cd1b27ee9a, type: 2}
+    _value: 0
+  _energyStat:
+    _statData: {fileID: 11400000, guid: bbd6477af2cdf1c4683d1378eeb200c1, type: 2}
+    _value: 0
 --- !u!61 &1211023406118596035
 BoxCollider2D:
   m_ObjectHideFlags: 0

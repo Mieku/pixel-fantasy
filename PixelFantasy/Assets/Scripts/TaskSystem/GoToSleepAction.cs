@@ -10,16 +10,8 @@ namespace TaskSystem
         private BedFurniture _bed;
         private Vector2 _bedsidePos;
         private bool _isAsleep;
-        
-        private void Awake()
-        {
-            GameEvents.MinuteTick += GameEvent_MinuteTick;
-        }
 
-        private void OnDestroy()
-        {
-            GameEvents.MinuteTick -= GameEvent_MinuteTick;
-        }
+        private const float NO_BED_ENERGY_PER_HOUR = 0.10f;
         
         public override void PrepareAction(Task task)
         {
@@ -38,6 +30,7 @@ namespace TaskSystem
                     _ai.Unit.UnitAnimController.SetEyesClosed(true);
                     _ai.Unit.UnitAnimController.SetUnitAction(UnitAction.Sleeping);
                     _isAsleep = true;
+                    _ai.Unit.Stats.RegisterStatChangePerHour(_bed.IsUseStatChange);
                 });
             }
             else
@@ -48,6 +41,7 @@ namespace TaskSystem
                 _ai.Unit.UnitAnimController.SetEyesClosed(true);
                 _ai.Unit.UnitAnimController.SetUnitAction(UnitAction.Sleeping);
                 _isAsleep = true;
+                _ai.Unit.Stats.RegisterStatChangePerHour("sleep on ground", StatType.Energy, NO_BED_ENERGY_PER_HOUR);
             }
         }
 
@@ -69,14 +63,6 @@ namespace TaskSystem
             var schedule = _ai.Unit.GetUnitState().Schedule.GetHour(currentHour);
             return schedule != ScheduleOption.Sleep;
         }
-
-        private void GameEvent_MinuteTick()
-        {
-            if (_isAsleep)
-            {
-                // TODO: Apply Sleep value
-            }
-        }
         
         public override void ConcludeAction()
         {
@@ -87,6 +73,7 @@ namespace TaskSystem
                 _isAsleep = false;
                 if (_bed != null)
                 {
+                    _ai.Unit.Stats.DeregisterStatChangePerHour(_bed.IsUseStatChange);
                     _ai.Unit.UnitAgent.TeleportToPosition(_bedsidePos, false);
                     _bed.ExitBed(_ai.Unit);
                     _ai.Unit.UnitAnimController.SetEyesClosed(false);
@@ -94,6 +81,7 @@ namespace TaskSystem
                 }
                 else
                 {
+                    _ai.Unit.Stats.DeregisterStatChangePerHour("sleep on ground");
                     _ai.Unit.UnitAnimController.SetEyesClosed(false);
                     _ai.Unit.UnitAnimController.SetUnitAction(UnitAction.Nothing);
                 }

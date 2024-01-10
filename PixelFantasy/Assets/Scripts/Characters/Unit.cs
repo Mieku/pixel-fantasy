@@ -33,10 +33,6 @@ namespace Characters
         
         [Header("Income")] 
         [SerializeField] protected int _dailyCoinsIncome;
-
-        [Header("Stats")] 
-        [SerializeField] protected Stat _foodStat;
-        [SerializeField] protected Stat _energyStat;
  
         [SerializeField] private SortingGroup _sortingGroup;
         [SerializeField] private PositionRendererSorter _positionRendererSorter;
@@ -56,17 +52,16 @@ namespace Characters
         public Unit Partner;
         public Family Family;
         public ClickObject ClickObject;
+        public KinlingStats Stats;
 
         private Building _insideBuidling;
         private BedFurniture _bed;
 
         private void Awake()
         {
-            GameEvents.MinuteTick += GameEvent_MinuteTick;
             ClickObject = GetComponent<ClickObject>();
             
             UnitsManager.Instance.RegisterKinling(this);
-
         }
 
         private void Start()
@@ -84,7 +79,7 @@ namespace Characters
 
         private void OnDestroy()
         {
-            GameEvents.MinuteTick -= GameEvent_MinuteTick;
+            
             UnitsManager.Instance.DeregisterKinling(this);
             
             GameEvents.Trigger_OnCoinsIncomeChanged();
@@ -92,24 +87,7 @@ namespace Characters
 
         private void Initialize()
         {
-            InitializeStats();
-        }
-
-        private void GameEvent_MinuteTick()
-        {
-            DecayStats();
-        }
-
-        private void InitializeStats()
-        {
-            _foodStat.Initialize();
-            _energyStat.Initialize();
-        }
-
-        private void DecayStats()
-        {
-            _foodStat.MinuteTickDecayStat();
-            _energyStat.MinuteTickDecayStat();
+            Stats.Initialize();
         }
 
         public int DailyIncome()

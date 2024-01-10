@@ -34,5 +34,9 @@ MonoBehaviour:
   - Obstacle
   Catergory: 0
   FurniturePrefab: {fileID: 5935236254734965145, guid: dd1324a0af4a86b41b638230c8941527, type: 3}
+  InUseStatChange:
+    SourceID: Sleep in Wooden Bed
+    AmountPerHour: 0.15
+    StatType: 1
   Varients:
   - {fileID: 11400000, guid: 96e95feee83c1e54481ff72b05fd2b5b, type: 2}

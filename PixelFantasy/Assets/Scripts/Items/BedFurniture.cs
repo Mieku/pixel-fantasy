@@ -10,8 +10,7 @@ namespace Items
     public class BedFurniture : Furniture
     {
         public Transform UsingParent;
-
-        private int _spotsUsed;
+        
         private string _assignedKinling;
         private string _assignedKinling2;
 
@@ -118,39 +117,6 @@ namespace Items
             };
         }
         
-        // public Transform SleepLocation
-        // {
-        //     get
-        //     {
-        //         if (_spotsUsed == 0)
-        //         {
-        //             return CurrentDirection switch
-        //             {
-        //                 PlacementDirection.South => _southSleepMarker,
-        //                 PlacementDirection.North => _northSleepMarker,
-        //                 PlacementDirection.West => _westSleepMarker,
-        //                 PlacementDirection.East => _eastSleepMarker,
-        //                 _ => throw new ArgumentOutOfRangeException()
-        //             };
-        //         } 
-        //         
-        //         if (_spotsUsed == 1)
-        //         {
-        //             return CurrentDirection switch
-        //             {
-        //                 PlacementDirection.South => _southSleepMarker2,
-        //                 PlacementDirection.North => _northSleepMarker2,
-        //                 PlacementDirection.West => _westSleepMarker2,
-        //                 PlacementDirection.East => _eastSleepMarker2,
-        //                 _ => throw new ArgumentOutOfRangeException()
-        //             };
-        //         }
-        //         
-        //         Debug.LogError($"To many spots used: {_spotsUsed}");
-        //         return transform;
-        //     }
-        // }
-        
         public void ShowTopSheet(bool isShown)
         {
             if (!isShown)
@@ -193,7 +159,6 @@ namespace Items
             ShowTopSheet(true);
             int orderlayer = GetBetweenTheSheetsLayerOrder();
             unit.AssignAndLockLayerOrder(orderlayer);
-            _spotsUsed++;
         }
 
         public void ExitBed(Unit unit)
@@ -202,7 +167,6 @@ namespace Items
             unit.IsAsleep = false;
             ShowTopSheet(false);
             unit.UnlockLayerOrder();
-            _spotsUsed--;
         }
 
         public int GetBetweenTheSheetsLayerOrder()

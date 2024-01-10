@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Characters;
 using Items;
 using Managers;
 using Sirenix.OdinInspector;
@@ -14,6 +15,7 @@ namespace ScriptableObjects
         [Header("General")]
         [TitleGroup("Furniture Item Data")] public FurnitureCatergory Catergory;
         [TitleGroup("Furniture Item Data")] public Furniture FurniturePrefab;
+        [TitleGroup("Furniture Item Data")] public StatChange InUseStatChange;
 
         [Header("Varients")]
         [TitleGroup("Furniture Item Data")] public List<FurnitureItemData> Varients;
