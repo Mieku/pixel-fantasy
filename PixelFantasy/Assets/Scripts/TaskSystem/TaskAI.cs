@@ -5,8 +5,6 @@ using Characters;
 using Items;
 using Managers;
 using ScriptableObjects;
-using Systems.SmartObjects.Scripts;
-using Systems.Stats.Scripts;
 using UnityEngine;
 
 namespace TaskSystem
@@ -14,7 +12,6 @@ namespace TaskSystem
     public class TaskAI : MonoBehaviour
     {
         [SerializeField] private Unit _unit;
-        [SerializeField] private NeedsAI _needsAI;
 
         private List<TaskAction> _taskActions;
         private State _state;
@@ -32,7 +29,6 @@ namespace TaskSystem
             WaitingForNextTask,
             GettingTool,
             ExecutingTask,
-            ExecutingInteraction,
             ForcedTask,
         }
         
@@ -68,8 +64,6 @@ namespace TaskSystem
                 case State.ExecutingTask:
                     _curTaskAction?.DoAction();
                     break;
-                case State.ExecutingInteraction:
-                    break;
                 case State.ForcedTask:
                     _curTaskAction?.DoAction();
                     break;
@@ -101,24 +95,13 @@ namespace TaskSystem
             switch (currentSchedule)
             {
                 case ScheduleOption.Sleep:
-                //     var energyStat = Librarian.Instance.GetStat("Energy");
-                //     if (_needsAI.GetStatValue(energyStat) <= 0.70f)
-                //     {
-                //         DoInteraction(Librarian.Instance.GetStat("Energy"));
-                //     }
-                //     else
-                //     {
-                //         DoInteraction();
-                //     }
-                //     break;
-
                     ForceTask("Go To Sleep");
                     break;
                 case ScheduleOption.Work:
                     RequestNextJobTask();
                     break;
                 case ScheduleOption.Recreation:
-                    DoInteraction();
+                    RequestNextRecreationTask();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -137,33 +120,24 @@ namespace TaskSystem
                 task = _queuedTasks.Dequeue();
             }
             
-            if (task == null && _state != State.ExecutingInteraction)
-            {
-                // Check if any needs are critical
-                // if (_needsAI.AreAnyNeedsCritical(out var criticalStat))
-                // {
-                //     DoInteraction(criticalStat);
-                // }
-            }
-            
-            if (task == null && _state != State.ExecutingInteraction)
+            if (task == null)
             {
                 task = CheckPersonal();
             }
             
-            if (task == null && _state != State.ExecutingInteraction)
+            if (task == null)
             {
                 // Check if they are missing any required Equipment
                 task = CheckEquipment();
             }
 
             // First Check Their Assigned Workplace
-            if (_unit.GetUnitState().AssignedWorkplace != null && task == null && _state != State.ExecutingInteraction)
+            if (_unit.GetUnitState().AssignedWorkplace != null && task == null)
             {
                 task = _unit.GetUnitState().AssignedWorkplace.GetBuildingTask();
             }
             
-            if (task == null && _state != State.ExecutingInteraction)
+            if (task == null)
             {
                 task = TaskManager.Instance.GetTask(_unit.GetUnitState().CurrentJob);
                 if (task != null)
@@ -176,41 +150,10 @@ namespace TaskSystem
                     }
                 }
             }
-
-            // if (task == null && _state != State.ExecutingInteraction)
-            // {
-            //     var sortedPriorities = Priorities.SortedPriorities;
-            //     foreach (var sortedPriority in sortedPriorities)
-            //     {
-            //         task = TaskManager.Instance.GetNextTaskByType(sortedPriority.TaskType);
-            //         if (task != null)
-            //         {
-            //             var taskAction = FindTaskActionFor(task);
-            //             if (taskAction.CanDoTask(task))
-            //             {
-            //                 break;
-            //             }
-            //             else
-            //             {
-            //                 TaskManager.Instance.AddTask(task);
-            //                 task = null;
-            //             }
-            //         }
-            //     }
-            // }
-
-            // if (task == null && _state != State.ExecutingInteraction)
-            // {
-            //     // Fulfill personal needs if nothing to do
-            //     DoInteraction();
-            // }
-
+            
             if (task == null)
             {
-                if (_state != State.ExecutingInteraction)
-                {
-                    _state = State.WaitingForNextTask;
-                }
+                _state = State.WaitingForNextTask;
                 return;
             }
 
@@ -234,19 +177,63 @@ namespace TaskSystem
             SetupTaskAction(task);
         }
 
-        private void DoInteraction(AIStat focusStat = null)
+        private void RequestNextRecreationTask()
         {
-            if (_needsAI.PickBestInteraction(OnInteractionComplete, focusStat))
+            if (_state == State.ForcedTask) return;
+            
+            Task task = null;
+            
+            // Check if they have a queued task
+            if (_queuedTasks.Count > 0)
             {
-                _state = State.ExecutingInteraction;
+                task = _queuedTasks.Dequeue();
             }
-        }
+            
+            if (task == null)
+            {
+                task = CheckPersonal();
+            }
+            
+            
+            // New recreation tasks go here
+            
+            // Make sure there is 2 day's worth of food in home
+            
+            // Eat food
+            
+            // Go on dates
+            
+            // Do fun things
+            
+            // End of new recreation tasks
+            
+            
+            if (task == null)
+            {
+                _state = State.WaitingForNextTask;
+                return;
+            }
 
-        private void OnInteractionComplete(BaseInteraction interaction)
-        {
-            _state = State.WaitingForNextTask;
-        }
+            // Queue the subtasks
+            if (task.SubTasks.Count > 0)
+            {
+                Queue<Task> newSubtasks = new Queue<Task>(task.SubTasks);
+                task.SubTasks.Clear();
+                
+                foreach (var queuedTask in _queuedTasks)
+                {
+                    newSubtasks.Enqueue(queuedTask);
+                }
 
+                _queuedTasks = newSubtasks;
+                
+                _state = State.WaitingForNextTask;
+                return;
+            }
+
+            SetupTaskAction(task);
+        }
+        
         private void SetupTaskAction(Task task)
         {
             // Find the task's equivalent action
@@ -451,8 +438,6 @@ namespace TaskSystem
         {
             if(_curTaskAction != null)
                  _curTaskAction.OnTaskCancel();
-            
-            _needsAI.CancelInteraction();
             
             Task forcedTask = new Task(taskID, null, null, EToolType.None)
             {

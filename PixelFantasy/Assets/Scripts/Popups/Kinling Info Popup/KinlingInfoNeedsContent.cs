@@ -34,51 +34,51 @@ namespace Popups.Kinling_Info_Popup
 
         private void DisplayNeeds()
         {
-            foreach (var displayedNeed in _displayedNeeds)
-            {
-                Destroy(displayedNeed.gameObject);
-            }
-            _displayedNeeds.Clear();
-
-            var allStatConfigs = _unit.NeedsAI.AllStatConfigurations;
-            List<AIStat> allNeeds = new List<AIStat>();
-            foreach (var statConfig in allStatConfigs)
-            {
-                allNeeds.Add(statConfig.LinkedStat);
-            }
-
-            bool isLeft = true;
-            foreach (var need in allNeeds)
-            {
-                if (isLeft)
-                {
-                    var needValue = _unit.NeedsAI.GetStatValue(need);
-                    var needDisplay = Instantiate(_leftNeedPrefeb, _leftNeedParent);
-                    needDisplay.Init(need, needValue);
-                    _displayedNeeds.Add(needDisplay);
-                }
-                else
-                {
-                    var needValue = _unit.NeedsAI.GetStatValue(need);
-                    var needDisplay = Instantiate(_rightNeedPrefeb, _rightNeedParent);
-                    needDisplay.Init(need, needValue);
-                    _displayedNeeds.Add(needDisplay);
-                }
-
-                isLeft = !isLeft;
-            }
+            // foreach (var displayedNeed in _displayedNeeds)
+            // {
+            //     Destroy(displayedNeed.gameObject);
+            // }
+            // _displayedNeeds.Clear();
+            //
+            // var allStatConfigs = _unit.NeedsAI.AllStatConfigurations;
+            // List<AIStat> allNeeds = new List<AIStat>();
+            // foreach (var statConfig in allStatConfigs)
+            // {
+            //     allNeeds.Add(statConfig.LinkedStat);
+            // }
+            //
+            // bool isLeft = true;
+            // foreach (var need in allNeeds)
+            // {
+            //     if (isLeft)
+            //     {
+            //         var needValue = _unit.NeedsAI.GetStatValue(need);
+            //         var needDisplay = Instantiate(_leftNeedPrefeb, _leftNeedParent);
+            //         needDisplay.Init(need, needValue);
+            //         _displayedNeeds.Add(needDisplay);
+            //     }
+            //     else
+            //     {
+            //         var needValue = _unit.NeedsAI.GetStatValue(need);
+            //         var needDisplay = Instantiate(_rightNeedPrefeb, _rightNeedParent);
+            //         needDisplay.Init(need, needValue);
+            //         _displayedNeeds.Add(needDisplay);
+            //     }
+            //
+            //     isLeft = !isLeft;
+            // }
         }
 
         private void Refresh()
         {
             if(!_isVisible) return;
 
-            foreach (var needDisplay in _displayedNeeds)
-            {
-                var stat = needDisplay.Stat;
-                var value = _unit.NeedsAI.GetStatValue(stat);
-                needDisplay.RefreshValue(value);
-            }
+            // foreach (var needDisplay in _displayedNeeds)
+            // {
+            //     var stat = needDisplay.Stat;
+            //     var value = _unit.NeedsAI.GetStatValue(stat);
+            //     needDisplay.RefreshValue(value);
+            // }
         }
 
         private void Update()

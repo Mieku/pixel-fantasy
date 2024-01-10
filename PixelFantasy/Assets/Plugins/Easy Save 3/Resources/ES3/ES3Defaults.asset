@@ -46,6 +46,7 @@ MonoBehaviour:
     - Sirenix.OdinInspector.CompatibilityLayer
     - QFSW.QC.UI
     - QFSW.QC.ScanRules
+    - FangAutoTile
     - PsdPlugin
     - Sirenix.OdinInspector.CompatibilityLayer.Editor
     - QFSW.QC.QGUI
@@ -53,6 +54,7 @@ MonoBehaviour:
     - NavMeshPlusEditor
     - QFSW.QC.Editor.Tools
     - Sirenix.OdinInspector.Modules.UnityMathematics
+    - FangAutoTile.Editor
     showAdvancedSettings: 1
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

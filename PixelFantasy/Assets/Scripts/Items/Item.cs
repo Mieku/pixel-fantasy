@@ -76,7 +76,7 @@ namespace Items
         {
             if (AssignedStorage == null && !_isHeld)
             {
-                AssignedStorage = InventoryManager.Instance.GetAvailableStorage(this);
+                AssignedStorage = InventoryManager.Instance.GetAvailableStorage(this, true);
                 if (AssignedStorage != null)
                 {
                     AssignedStorage.SetIncoming(this);

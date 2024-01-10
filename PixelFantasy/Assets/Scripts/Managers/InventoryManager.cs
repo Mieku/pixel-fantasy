@@ -72,14 +72,17 @@ namespace Managers
             return false;
         }
 
-        public Storage GetAvailableStorage(Item item)
+        public Storage GetAvailableStorage(Item item, bool globalOnly)
         {
             foreach (var storage in _allStorage)
             {
                 if(storage.FurnitureState == Furniture.EFurnitureState.Built 
                    && storage.AmountCanBeDeposited(item.GetItemData()) > 0)
                 {
-                    return storage;
+                    if (globalOnly && storage.IsGlobal)
+                    {
+                        return storage;
+                    }
                 }
             }
 

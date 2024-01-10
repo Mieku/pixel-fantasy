@@ -89,7 +89,7 @@ namespace TaskSystem
                 _receivingStorage = _prodBuilding.FindBuildingStorage(_targetItem.GetItemData());
                 if (_receivingStorage == null)
                 {
-                    _receivingStorage = InventoryManager.Instance.GetAvailableStorage(_targetItem);
+                    _receivingStorage = InventoryManager.Instance.GetAvailableStorage(_targetItem, true);
                     if (_receivingStorage == null)
                     {
                         // THROW IT ON THE GROUND!

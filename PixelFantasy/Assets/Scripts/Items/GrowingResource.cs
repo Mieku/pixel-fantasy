@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using ScriptableObjects;
 using Managers;
+using QFSW.QC;
 using TaskSystem;
 using UnityEngine;
 
@@ -125,6 +126,15 @@ namespace Items
                     
                     UpdateSprite();
                 }
+            }
+        }
+
+        [Command("instant_fruit", MonoTargetType.All)]
+        private void CMD_InstantFruit()
+        {
+            if (!_hasFruitAvailable)
+            {
+                _fruitTimer = growingResourceData.TimeToGrowFruit;
             }
         }
 

@@ -9,6 +9,7 @@ using Systems.Currency.Scripts;
 using Systems.Mood.Scripts;
 using Systems.SmartObjects.Scripts;
 using Systems.Social.Scripts;
+using Systems.Stats.Scripts;
 using Systems.Traits.Scripts;
 using TaskSystem;
 using UnityEngine;
@@ -22,7 +23,6 @@ namespace Characters
     {
         [SerializeField] private RaceData _race;
         [SerializeField] private TaskAI _taskAI;
-        [SerializeField] private NeedsAI _needsAI;
         [SerializeField] private UnitState _unitState;
         [SerializeField] private UnitAppearance _appearance;
         [SerializeField] private Mood _mood;
@@ -33,6 +33,10 @@ namespace Characters
         
         [Header("Income")] 
         [SerializeField] protected int _dailyCoinsIncome;
+
+        [Header("Stats")] 
+        [SerializeField] protected Stat _foodStat;
+        [SerializeField] protected Stat _energyStat;
  
         [SerializeField] private SortingGroup _sortingGroup;
         [SerializeField] private PositionRendererSorter _positionRendererSorter;
@@ -58,6 +62,7 @@ namespace Characters
 
         private void Awake()
         {
+            GameEvents.MinuteTick += GameEvent_MinuteTick;
             ClickObject = GetComponent<ClickObject>();
             
             UnitsManager.Instance.RegisterKinling(this);
@@ -73,13 +78,38 @@ namespace Characters
             Family = FamilyManager.Instance.FindOrCreateFamily(this);
             
             GameEvents.Trigger_OnCoinsIncomeChanged();
+            
+            Initialize();
         }
 
         private void OnDestroy()
         {
+            GameEvents.MinuteTick -= GameEvent_MinuteTick;
             UnitsManager.Instance.DeregisterKinling(this);
             
             GameEvents.Trigger_OnCoinsIncomeChanged();
+        }
+
+        private void Initialize()
+        {
+            InitializeStats();
+        }
+
+        private void GameEvent_MinuteTick()
+        {
+            DecayStats();
+        }
+
+        private void InitializeStats()
+        {
+            _foodStat.Initialize();
+            _energyStat.Initialize();
+        }
+
+        private void DecayStats()
+        {
+            _foodStat.MinuteTickDecayStat();
+            _energyStat.MinuteTickDecayStat();
         }
 
         public int DailyIncome()
@@ -102,24 +132,6 @@ namespace Characters
             return _insideBuidling != null;
         }
 
-        // public void AssignHeldTool(ItemData toolItemData)
-        // {
-        //     _heldTool = toolItemData;
-        //     UnitAnimController.Appearance.DisplayTool(toolItemData);
-        // }
-        //
-        // public void DropHeldTool()
-        // {
-        //     Spawner.Instance.SpawnItem(_heldTool, transform.position, true);
-        //     _heldTool = null;
-        //     UnitAnimController.Appearance.DisplayTool(null);
-        // }
-        //
-        // public bool IsHoldingTool()
-        // {
-        //     return _heldTool != null;
-        // }
-
         public void AssignAndLockLayerOrder(int orderInLayer)
         {
             _positionRendererSorter.SetLocked(true);
@@ -137,39 +149,11 @@ namespace Characters
         }
 
         public TaskAI TaskAI => _taskAI;
-        public NeedsAI NeedsAI => _needsAI;
 
         public UnitAppearance GetAppearance()
         {
             return _appearance;
         }
-        
-        // public void AssignProfession(ProfessionData newProfession)
-        // {
-        //     CraftingBill.RequestedItemInfo tool = null;
-        //     if (newProfession.RequiredTool != null)
-        //     {
-        //         // Claim the tool
-        //         var claimedToolStorage = InventoryManager.Instance.ClaimItem(newProfession.RequiredTool);
-        //         tool = new CraftingBill.RequestedItemInfo(newProfession.RequiredTool, claimedToolStorage, 1);
-        //     }
-        //     
-        //     List<CraftingBill.RequestedItemInfo> mats = new List<CraftingBill.RequestedItemInfo>();
-        //     if (tool != null)
-        //     {
-        //         mats.Add(tool);
-        //     }
-        //
-        //     Task task = new Task()
-        //     {
-        //         TaskId = "Change Profession",
-        //         Requestor = null,
-        //         Payload = newProfession.ProfessionName,
-        //         Materials = mats,
-        //     };
-        //     
-        //     _taskAI.QueueTask(task);
-        // }
 
         public List<StatTrait> GetStatTraits()
         {

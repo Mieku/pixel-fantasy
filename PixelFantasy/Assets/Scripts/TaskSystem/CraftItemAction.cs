@@ -151,7 +151,7 @@ namespace TaskSystem
                 _receivingStorage = _craftingTable.ParentBuilding.FindBuildingStorage(_itemToCraft);
                 if (_receivingStorage == null)
                 {
-                    _receivingStorage = InventoryManager.Instance.GetAvailableStorage(_craftedItem);
+                    _receivingStorage = InventoryManager.Instance.GetAvailableStorage(_craftedItem, true);
                     if (_receivingStorage == null)
                     {
                         // THROW IT ON THE GROUND!

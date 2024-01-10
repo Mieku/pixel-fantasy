@@ -183,7 +183,7 @@ namespace Systems.Social.Scripts
                 _unit.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("Rejected")); // Mood De-buff
             }
             
-            _unit.NeedsAI.UpdateIndividualStat(Librarian.Instance.GetStat("Social"), CHAT_SOCIAL_NEED_BENEFIT, StatTrait.ETargetType.Impact);
+            //_unit.NeedsAI.UpdateIndividualStat(Librarian.Instance.GetStat("Social"), CHAT_SOCIAL_NEED_BENEFIT, StatTrait.ETargetType.Impact);
         }
 
         private void InitiateChitChat(SocialAI targetKinling)
@@ -260,7 +260,7 @@ namespace Systems.Social.Scripts
                 responderRelationshipState.AddToScore(NEGATIVE_INTERACTION_SCORE);
             }
             
-            _unit.NeedsAI.UpdateIndividualStat(Librarian.Instance.GetStat("Social"), CHAT_SOCIAL_NEED_BENEFIT, StatTrait.ETargetType.Impact);
+            //_unit.NeedsAI.UpdateIndividualStat(Librarian.Instance.GetStat("Social"), CHAT_SOCIAL_NEED_BENEFIT, StatTrait.ETargetType.Impact);
         }
 
         private void DisplayChatBubble(SocialTopic topic)
