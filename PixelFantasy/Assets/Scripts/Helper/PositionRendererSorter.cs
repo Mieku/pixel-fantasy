@@ -6,7 +6,7 @@ public class PositionRendererSorter : MonoBehaviour
 {
     [SerializeField] private float _offset = 0.5f;
     [SerializeField] private bool _runOnlyOnce = false;
-    [SerializeField] private SortingGroup _sortingGroup;
+    private SortingGroup _sortingGroup;
     [SerializeField] private bool _checkLocal;
     
     private int _sortingOrderBase = 0;
@@ -19,17 +19,22 @@ public class PositionRendererSorter : MonoBehaviour
     {
         _myRenderer = gameObject.GetComponent<Renderer>();
         _sortingGroup = gameObject.GetComponent<SortingGroup>();
+
+        if (_myRenderer == null && _sortingGroup == null)
+        {
+            Debug.LogWarning("PositionRendererSorter: Missing Renderer and SortingGroup components on Awake.");
+        }
     }
 
     private void LateUpdate()
     {
-        if(_isLocked) return;
-        
+        if (_isLocked) return;
+
         _timer -= Time.deltaTime;
         if (_timer <= 0f)
         {
             _timer = _timerMax;
-            
+            DebugComponentState();
             SortRendererPosition();
             
             if (_runOnlyOnce)
@@ -39,29 +44,47 @@ public class PositionRendererSorter : MonoBehaviour
         }
     }
 
-    public void SetLocked(bool isLocked)
+    private void DebugComponentState()
     {
-        _isLocked = isLocked;
+        if (_myRenderer == null && _sortingGroup == null)
+        {
+            Debug.LogError("PositionRendererSorter: Both Renderer and SortingGroup are null.");
+        }
+        else
+        {
+            if (_myRenderer != null && !_myRenderer.enabled)
+            {
+                Debug.LogWarning("PositionRendererSorter: Renderer is disabled.");
+            }
+            if (_sortingGroup != null && !_sortingGroup.enabled)
+            {
+                Debug.LogWarning("PositionRendererSorter: SortingGroup is disabled.");
+            }
+        }
     }
-    
+
     private void SortRendererPosition()
     {
+        float yPos = _checkLocal ? transform.localPosition.y : transform.position.y;
+        int sortingOrder = Mathf.Clamp((int)(_sortingOrderBase - (yPos + _offset) * 10), -32768, 32767);
 
-        float yPos = transform.position.y;
-        if (_checkLocal)
-        {
-            yPos = transform.localPosition.y;
-        }
-        
-        int sortingOrder = (int)(_sortingOrderBase - (yPos + _offset) * 10);
         if (_sortingGroup != null)
         {
             _sortingGroup.sortingOrder = sortingOrder;
         }
-        else
+        else if (_myRenderer != null)
         {
             _myRenderer.sortingOrder = sortingOrder;
         }
+        else
+        {
+            Debug.LogError("PositionRendererSorter: No Renderer or SortingGroup to sort at runtime.");
+        }
+    }
+
+    public void SetLocked(bool isLocked)
+    {
+        _isLocked = isLocked;
     }
 
     public void DestroySelf()
@@ -72,8 +95,7 @@ public class PositionRendererSorter : MonoBehaviour
     [Button("Sort Position")]
     private void EditorSortPosition()
     {
-        _myRenderer = gameObject.GetComponent<Renderer>();
-        _sortingGroup = gameObject.GetComponent<SortingGroup>();
+        DebugComponentState();
         SortRendererPosition();
     }
 

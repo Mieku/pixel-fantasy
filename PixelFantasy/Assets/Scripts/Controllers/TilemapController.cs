@@ -13,8 +13,9 @@ namespace Controllers
 
         private GenericGrid<LandGridCell> tilemapGrid;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             DetermineTilemapGrid();
         }
 

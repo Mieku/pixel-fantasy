@@ -14,7 +14,7 @@ namespace Items
         private string _assignedKinling;
         private string _assignedKinling2;
 
-        public bool IsAvailable(Unit unit)
+        public bool IsUnassigned(Unit unit)
         {
             if (string.IsNullOrEmpty(_assignedKinling))
             {

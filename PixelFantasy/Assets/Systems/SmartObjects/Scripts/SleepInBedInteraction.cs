@@ -47,7 +47,7 @@ namespace Systems.SmartObjects.Scripts
             if (potentialPerformer.Unit.GetUnitState().AssignedHome != _linkedFurniture.ParentBuilding) return false;
 
             // Can Kinling use this furniture
-            if (!_linkedFurniture.CanKinlingUseThis(potentialPerformer.Unit)) return false;
+            if (!_linkedFurniture.CanKinlingUseThis()) return false;
 
             return true;
         }

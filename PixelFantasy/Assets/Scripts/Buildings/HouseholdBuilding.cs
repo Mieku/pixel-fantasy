@@ -60,6 +60,26 @@ namespace Buildings
                 return result;
             }
         }
+
+        public Item ClaimBestAvailableFood()
+        {
+            var storages = GetBuildingStorages();
+            List<Item> storedFood = new List<Item>();
+            foreach (var storage in storages)
+            {
+                var food = storage.GetAllFoodItems(false, false);
+                storedFood.AddRange(food);
+            }
+
+            if (storedFood.Count == 0)
+            {
+                return null;
+            }
+            
+            var selectedFood = storedFood.OrderByDescending(food => ((RawFoodItemData)food.GetItemData()).FoodNutrition).ToList()[0];
+            selectedFood.ClaimItem();
+            return selectedFood;
+        }
         
         public bool IsVacant
         {
@@ -96,7 +116,7 @@ namespace Buildings
 
             foreach (var singleBed in AdditionalBeds)
             {
-                if (singleBed.IsAvailable(unit))
+                if (singleBed.IsUnassigned(unit))
                 {
                     singleBed.AssignKinling(unit);
                     return;

@@ -4832,6 +4832,9 @@ MonoBehaviour:
   AdditionalBeds:
   - {fileID: 4420206375730245585}
   - {fileID: 2262509056134424945}
+  HeadHousehold: 
+  Partner: 
+  Children: []
 --- !u!114 &5596007926291928697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5198,6 +5201,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stool (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8679221839148330295, guid: e219a8e018e3d244b8d0ef8b035b149b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8679221839148330440, guid: e219a8e018e3d244b8d0ef8b035b149b, type: 3}
       propertyPath: FurnitureState
       value: 2
@@ -5360,6 +5367,10 @@ PrefabInstance:
     - target: {fileID: 8679221839148330295, guid: e219a8e018e3d244b8d0ef8b035b149b, type: 3}
       propertyPath: m_Name
       value: Stool
+      objectReference: {fileID: 0}
+    - target: {fileID: 8679221839148330295, guid: e219a8e018e3d244b8d0ef8b035b149b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8679221839148330440, guid: e219a8e018e3d244b8d0ef8b035b149b, type: 3}
       propertyPath: FurnitureState

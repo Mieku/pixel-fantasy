@@ -166,7 +166,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -177695485
-  m_SortingLayer: -3
+  m_SortingLayer: -4
   m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: 90ab9fc734f8b16488abe87d00fcd22f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -344,7 +344,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6258552550227322581}
   - component: {fileID: 6319101082123291704}
-  - component: {fileID: 3224890646227808617}
   m_Layer: 0
   m_Name: Fruit Overlay
   m_TagString: Untagged
@@ -419,21 +418,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3224890646227808617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3918054697811288451}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _offset: -3
-  _runOnlyOnce: 1
-  _sortingGroup: {fileID: 0}
 --- !u!1 &6066542379500048073
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,6 +488,7 @@ GameObject:
   - component: {fileID: 7155256550381879070}
   - component: {fileID: 7155256550381879071}
   - component: {fileID: 8897537879774038492}
+  - component: {fileID: 5409644490048135930}
   m_Layer: 0
   m_Name: Tree Sprite
   m_TagString: Untagged
@@ -593,7 +578,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _offset: 0.5
   _runOnlyOnce: 1
-  _sortingGroup: {fileID: 0}
+  _sortingGroup: {fileID: 5409644490048135930}
+  _checkLocal: 0
 --- !u!114 &8897537879774038492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -631,6 +617,17 @@ MonoBehaviour:
     maskType: 1
     maskPivot: 0
     transform: {fileID: 7155256550381879068}
+--- !u!210 &5409644490048135930
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7155256550381879069}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &7155256550430962558
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,7 +848,7 @@ MonoBehaviour:
   Commands:
   - {fileID: 11400000, guid: 741035aabc10ee741a67711d029540d3, type: 2}
   PendingCommand: {fileID: 0}
-  Prefab: {fileID: 0}
+  RegisteredTasks: []
   ResourceData: {fileID: 0}
   _spriteRenderer: {fileID: 7155256550381879070}
   _clickObject: {fileID: 7155256551760761719}

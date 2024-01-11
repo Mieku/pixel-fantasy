@@ -42,7 +42,7 @@ namespace Managers
         {
             foreach (var storage in _allStorage)
             {
-                if (storage.FurnitureState == Furniture.EFurnitureState.Built 
+                if (storage.IsAvailable
                     && (!globalOnly || storage.IsGlobal) 
                     && storage.IsItemInStorage(itemData))
                 {
@@ -61,7 +61,7 @@ namespace Managers
             
             foreach (var storage in _allStorage)
             {
-                if (storage.FurnitureState == Furniture.EFurnitureState.Built 
+                if (storage.IsAvailable 
                     && (!globalOnly || storage.IsGlobal) 
                     && storage.IsItemInStorage(itemData))
                 {
@@ -76,7 +76,7 @@ namespace Managers
         {
             foreach (var storage in _allStorage)
             {
-                if(storage.FurnitureState == Furniture.EFurnitureState.Built 
+                if(storage.IsAvailable 
                    && storage.AmountCanBeDeposited(item.GetItemData()) > 0)
                 {
                     if (globalOnly && storage.IsGlobal)
@@ -93,7 +93,7 @@ namespace Managers
         {
             foreach (var storage in _allStorage)
             {
-                if(storage.FurnitureState == Furniture.EFurnitureState.Built 
+                if(storage.IsAvailable 
                    && storage.IsGlobal 
                    && storage.AmountCanBeDeposited(item) > 0)
                 {
@@ -108,7 +108,7 @@ namespace Managers
         {
             foreach (var storage in _allStorage)
             {
-                if (storage.FurnitureState == Furniture.EFurnitureState.Built 
+                if (storage.IsAvailable 
                     && storage.AmountCanBeWithdrawn(itemData) > 0)
                 {
                     return storage.SetClaimed(itemData);
@@ -122,7 +122,7 @@ namespace Managers
         {
             foreach (var storage in _allStorage)
             {
-                if (storage.FurnitureState == Furniture.EFurnitureState.Built 
+                if (storage.IsAvailable 
                     && storage.IsGlobal 
                     && storage.AmountCanBeWithdrawn(itemData) > 0)
                 {
@@ -138,7 +138,7 @@ namespace Managers
             List<Item> availableFood = new List<Item>();
             foreach (var storage in _allStorage)
             {
-                if (storage.FurnitureState == Furniture.EFurnitureState.Built
+                if (storage.IsAvailable
                     && storage.IsGlobal)
                 {
                     availableFood.AddRange(storage.GetAllFoodItems(false));
@@ -165,7 +165,7 @@ namespace Managers
             var allBuildingStorage = building.GetBuildingStorages();
             foreach (var storage in allBuildingStorage)
             {
-                if (storage.FurnitureState == Furniture.EFurnitureState.Built 
+                if (storage.IsAvailable 
                     && storage.AmountCanBeWithdrawn(itemData) > 0)
                 {
                     return storage.SetClaimed(itemData);

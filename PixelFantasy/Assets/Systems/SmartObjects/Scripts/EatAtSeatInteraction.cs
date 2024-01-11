@@ -198,7 +198,7 @@ namespace Systems.SmartObjects.Scripts
             if (_selectedFoodItem != null)
             {
                 performer.Unit.TaskAI.DropCarriedItem();
-                _selectedFoodItem.SetHeld(true);
+                _selectedFoodItem.SetHeld(false);
             }
         }
         

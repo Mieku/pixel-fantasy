@@ -106,6 +106,42 @@ namespace Characters
                     throw new ArgumentOutOfRangeException(nameof(statType), statType, null);
             }
         }
+
+        public float GetStatValue(StatType statType)
+        {
+            var stat = GetStatByType(statType);
+            if (stat == null)
+            {
+                Debug.LogError($"Unable to get stat value for {statType}");
+                return 0f;
+            }
+
+            return stat.Value;
+        }
+
+        public float IncreaseStatValue(StatType statType, float amount)
+        {
+            var stat = GetStatByType(statType);
+            if (stat == null)
+            {
+                Debug.LogError($"Unable to get stat for {statType}");
+                return 0f;
+            }
+
+            return stat.IncreaseStat(amount);
+        }
+        
+        public float DecreaseStatValue(StatType statType, float amount)
+        {
+            var stat = GetStatByType(statType);
+            if (stat == null)
+            {
+                Debug.LogError($"Unable to get stat for {statType}");
+                return 0f;
+            }
+
+            return stat.DecreaseStat(amount);
+        }
     }
 
     [Serializable]

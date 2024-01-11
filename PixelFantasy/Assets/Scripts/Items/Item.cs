@@ -222,6 +222,20 @@ namespace Items
             AssignedStorage.RestoreClaimed(this);
         }
 
+        public void ClaimItem()
+        {
+            if (AssignedStorage == null)
+            {
+                Debug.LogError("Tried to Claim an item that is not assigned to storage");
+                return;
+            }
+
+            if (!AssignedStorage.SetClaimedItem(this))
+            {
+                Debug.LogError("Failded to claim item");
+            }
+        }
+
         public string DisplayName => _itemData.ItemName;
 
         public object CaptureState()

@@ -121,6 +121,28 @@ namespace Items
             AssignState(FurnitureState);
         }
         
+        public bool IsAvailable
+        {
+            get
+            {
+                if (FurnitureState != EFurnitureState.Built)
+                {
+                    return false;
+                }
+                else
+                {
+                    if (_parentBuilding != null)
+                    {
+                        return _parentBuilding.State == Building.BuildingState.Built;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        
         public void AssignCommand(Command command)
         {
             CreateTask(command);
@@ -435,14 +457,6 @@ namespace Items
             }
             else
             {
-                // CraftingBill bill = new CraftingBill
-                // {
-                //     ItemToCraft = _furnitureItemData,
-                //     Requestor = this,
-                //     OnCancelled = OnCraftingBillCancelled,
-                // };
-                // TaskManager.Instance.AddBill(bill);
-
                 _craftingOrder = new CraftingOrder(_furnitureItemData, 
                     this,
                     CraftingOrder.EOrderType.Furniture,
@@ -683,9 +697,9 @@ namespace Items
             CantPlace,
         }
 
-        public bool CanKinlingUseThis(Unit kinling)
+        public virtual bool CanKinlingUseThis()
         {
-            if (FurnitureState != EFurnitureState.Built) return false;
+            if (IsAvailable) return false;
 
             return true;
         }

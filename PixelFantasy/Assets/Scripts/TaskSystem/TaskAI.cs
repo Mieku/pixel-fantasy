@@ -122,19 +122,23 @@ namespace TaskSystem
             
             if (task == null)
             {
-                task = CheckPersonal();
+                CheckPersonal();
             }
             
             if (task == null)
             {
                 // Check if they are missing any required Equipment
                 task = CheckEquipment();
+                if (AttemptStartTask(task, false)) return;
+                else task = null;
             }
 
             // First Check Their Assigned Workplace
             if (_unit.GetUnitState().AssignedWorkplace != null && task == null)
             {
                 task = _unit.GetUnitState().AssignedWorkplace.GetBuildingTask();
+                if (AttemptStartTask(task, true)) return;
+                else task = null;
             }
             
             if (task == null)
@@ -142,12 +146,8 @@ namespace TaskSystem
                 task = TaskManager.Instance.GetTask(_unit.GetUnitState().CurrentJob);
                 if (task != null)
                 {
-                    var taskAction = FindTaskActionFor(task);
-                    if (!taskAction.CanDoTask(task))
-                    {
-                        TaskManager.Instance.AddTask(task);
-                        task = null;
-                    }
+                    if (AttemptStartTask(task, true)) return;
+                    else task = null;
                 }
             }
             
@@ -173,8 +173,6 @@ namespace TaskSystem
                 _state = State.WaitingForNextTask;
                 return;
             }
-
-            SetupTaskAction(task);
         }
 
         private void RequestNextRecreationTask()
@@ -191,14 +189,22 @@ namespace TaskSystem
             
             if (task == null)
             {
-                task = CheckPersonal();
+                CheckPersonal();
             }
             
             
             // New recreation tasks go here
             
+            // Eat food
+            if (task == null && _unit.Stats.GetStatValue(StatType.Food) < 0.75f)
+            {
+                task = new Task("Eat Food", _unit.GetUnitState().AssignedHome, null, EToolType.None);
+                if (AttemptStartTask(task, false)) return;
+                else task = null;
+            }
+            
             // Make sure there is 1 day's worth of food in home
-            if (_unit.GetUnitState().AssignedHome != null)
+            if (task == null && _unit.GetUnitState().AssignedHome != null)
             {
                 var suggestedNutrition = _unit.GetUnitState().AssignedHome.SuggestedStoredNutrition;
                 var curHouseholdNutrition = _unit.GetUnitState().AssignedHome.CurrentStoredNutrition;
@@ -206,15 +212,10 @@ namespace TaskSystem
                 {
                     // Set up a task to pick up some food and store it at home
                     task = new Task("Store Food", _unit.GetUnitState().AssignedHome, null, EToolType.None);
-                    var taskAction = FindTaskActionFor(task);
-                    if (!taskAction.CanDoTask(task))
-                    {
-                        task = null;
-                    }
+                    if (AttemptStartTask(task, false)) return;
+                    else task = null;
                 }
             }
-            
-            // Eat food
             
             // Go on dates
             
@@ -245,8 +246,49 @@ namespace TaskSystem
                 _state = State.WaitingForNextTask;
                 return;
             }
+        }
 
-            SetupTaskAction(task);
+        private bool AttemptStartTask(Task task, bool returnToQueueOnFail)
+        {
+            if (task == null)
+            {
+                return false;
+            }
+            
+            var taskAction = FindTaskActionFor(task);
+            if (!taskAction.CanDoTask(task))
+            {
+                if (returnToQueueOnFail)
+                {
+                    // If action can't be done, return it to the queue
+                    TaskManager.Instance.AddTask(task);
+                }
+                
+                return false;
+            }
+            else
+            {
+                _curTaskAction = taskAction;
+                taskAction.InitAction(task);
+                // Get tool if needed
+                _state = State.GettingTool;
+                taskAction.PickupRequiredTool(() =>
+                    {
+                        taskAction.PrepareAction(task);
+                        _state = State.ExecutingTask;
+                    }, 
+                    () =>
+                    {
+                        if (returnToQueueOnFail)
+                        {
+                            // If action can't be done, return it to the queue
+                            TaskManager.Instance.AddTask(task);
+                        }
+                        _state = State.WaitingForNextTask;
+                    });
+
+                return true;
+            }
         }
         
         private void SetupTaskAction(Task task)
@@ -296,7 +338,7 @@ namespace TaskSystem
         /// <summary>
         /// Check important personal requirements, for example look for a house if homeless. Invite Kinlings on dates... etc
         /// </summary>
-        private Task CheckPersonal()
+        private void CheckPersonal()
         {
             // If homeless, find a home
             if (_unit.GetUnitState().AssignedHome == null)
@@ -311,8 +353,6 @@ namespace TaskSystem
                     BuildingsManager.Instance.ClaimEmptyHome(_unit);
                 }
             }
-
-            return null;
         }
         
         public UnitActionDirection GetActionDirection(Vector3 targetPos)

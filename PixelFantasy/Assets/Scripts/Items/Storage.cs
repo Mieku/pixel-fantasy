@@ -33,6 +33,7 @@ namespace Items
                 return false;
             }
         }
+        
         public int MaxStorage => _storageItemData.MaxStorage;
 
         public int UsedStorage => Stored.Count;

@@ -289,7 +289,7 @@ namespace Buildings
 
         public Furniture GetAvailableFurniture(FurnitureItemData furnitureItemData)
         {
-            return _allFurniture.FirstOrDefault(f => f.FurnitureItemData == furnitureItemData && f.FurnitureState == Furniture.EFurnitureState.Built);
+            return _allFurniture.FirstOrDefault(f => f.FurnitureItemData == furnitureItemData && f.IsAvailable);
         }
 
         public List<Storage> GetBuildingStorages()
@@ -300,7 +300,7 @@ namespace Buildings
                 Storage storage = furniture as Storage;
                 if (storage != null)
                 {
-                    if (storage.FurnitureState == Furniture.EFurnitureState.Built)
+                    if (storage.IsAvailable)
                     {
                         results.Add(storage);
                     }
@@ -830,6 +830,33 @@ namespace Buildings
         public virtual JobData GetBuildingJob()
         {
             return Librarian.Instance.GetJob("Worker");
+        }
+
+        public SeatFurniture FindAvailableSeat()
+        {
+            // TODO: Make sure works as intended
+            var allSeats = _allFurniture.OfType<SeatFurniture>().Where(seat =>
+                seat.IsAvailable && seat.CanKinlingUseThis()).OrderBy(seat => seat.HasTable).ToList();
+
+            if (allSeats.Count == 0)
+            {
+                return null;
+            }
+
+            return allSeats[0];
+        }
+
+        public Vector2 GetRandomIndoorsPosition(Unit kinling)
+        {
+            Vector2? potentialPosition = _buildingInteriorDetector.GetRandomInteriorPosition(kinling);
+
+            if (potentialPosition == null)
+            {
+                Debug.LogError($"Attempted to find a random interior position in {_buildingName}, but failed");
+                return _constructionStandPos.position;
+            }
+
+            return (Vector2)potentialPosition;
         }
     }
 }

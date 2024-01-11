@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Characters;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Buildings
 {
@@ -32,6 +33,38 @@ namespace Buildings
 
             // If all corners are inside at least one of the _interiorColliders, then otherCollider is considered inside
             return true;
+        }
+
+        public Vector2? GetRandomInteriorPosition(Unit kinling)
+        {
+            const int maxAttempts = 100;
+
+            for (int i = 0; i < maxAttempts; i++)
+            {
+                BoxCollider2D chosenCollider = _interiorColliders[UnityEngine.Random.Range(0, _interiorColliders.Length)];
+                Vector2 randomPosition = GetRandomPositionInCollider(chosenCollider);
+
+                if (kinling.UnitAgent.IsDestinationPossible(randomPosition))
+                {
+                    return randomPosition;
+                }
+            }
+
+            return null;
+        }
+        
+        private Vector2 GetRandomPositionInCollider(BoxCollider2D collider)
+        {
+            Vector2 randomPoint = new Vector2(
+                UnityEngine.Random.Range(-collider.size.x / 2, collider.size.x / 2),
+                UnityEngine.Random.Range(-collider.size.y / 2, collider.size.y / 2)
+            );
+            
+            // Debugging
+            Vector2 worldPosition = collider.transform.TransformPoint(randomPoint + collider.offset);
+            Debug.DrawLine(worldPosition, worldPosition + Vector2.up * 0.5f, Color.red, 2f);
+            
+            return worldPosition;
         }
 
         private Vector2[] GetColliderCorners(Collider2D collider)
