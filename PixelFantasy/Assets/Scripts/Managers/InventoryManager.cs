@@ -132,6 +132,33 @@ namespace Managers
 
             return null;
         }
+
+        public Item FindAndClaimBestAvailableFoodGlobal()
+        {
+            List<Item> availableFood = new List<Item>();
+            foreach (var storage in _allStorage)
+            {
+                if (storage.FurnitureState == Furniture.EFurnitureState.Built
+                    && storage.IsGlobal)
+                {
+                    availableFood.AddRange(storage.GetAllFoodItems(false));
+                }
+            }
+            
+            // Sort by nutrition
+            var sortedFood = availableFood.OrderByDescending(food => (food.GetItemData() as RawFoodItemData).FoodNutrition).ToList();
+
+            if (sortedFood.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                var selectedFood = sortedFood[0];
+                var claimedFood = selectedFood.AssignedStorage.SetClaimed(selectedFood.GetItemData());
+                return claimedFood;
+            }
+        }
         
         public Item ClaimItemBuilding(ItemData itemData, Building building)
         {

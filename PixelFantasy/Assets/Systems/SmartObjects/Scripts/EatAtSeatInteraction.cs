@@ -56,7 +56,7 @@ namespace Systems.SmartObjects.Scripts
             // Check the storages recorded if there is any food available
             foreach (var storage in _storages)
             {
-                if (storage.GetAllFoodItems().Count > 0)
+                if (storage.GetAllFoodItems(false).Count > 0)
                 {
                     return true;
                 }
@@ -73,7 +73,7 @@ namespace Systems.SmartObjects.Scripts
             List<Item> foodItems = new List<Item>();
             foreach (var storage in _storages)
             {
-                var allStorageFood = storage.GetAllFoodItems();
+                var allStorageFood = storage.GetAllFoodItems(false);
                 foreach (var foodItem in allStorageFood)
                 {
                     foodItems.Add(foodItem);

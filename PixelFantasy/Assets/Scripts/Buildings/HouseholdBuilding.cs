@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Characters;
 using Items;
 using ScriptableObjects;
@@ -16,6 +17,49 @@ namespace Buildings
         public string HeadHousehold;
         public string Partner;
         public List<string> Children;
+
+        private const float RECOMMENDED_DAILY_NUTRITION_PER_RESIDENT = 0.75f;
+
+        public int NumResidents
+        {
+            get
+            {
+                int result = 0;
+                if (!string.IsNullOrEmpty(HeadHousehold)) result++;
+                if (!string.IsNullOrEmpty(Partner)) result++;
+                result += Children.Count(child => !string.IsNullOrEmpty(child));
+
+                return result;
+            }
+        }
+
+        public float SuggestedStoredNutrition => RECOMMENDED_DAILY_NUTRITION_PER_RESIDENT * NumResidents;
+
+        public float CurrentStoredNutrition
+        {
+            get
+            {
+                float result = 0;
+                var storages = GetBuildingStorages();
+                List<Item> storedFood = new List<Item>();
+                foreach (var storage in storages)
+                {
+                    var food = storage.GetAllFoodItems(false, true);
+                    storedFood.AddRange(food);
+                }
+
+                foreach (var availableItem in storedFood)
+                {
+                    var foodItem = availableItem.GetItemData() as RawFoodItemData;
+                    if (foodItem != null)
+                    {
+                        result += foodItem.FoodNutrition;
+                    }
+                }
+
+                return result;
+            }
+        }
         
         public bool IsVacant
         {

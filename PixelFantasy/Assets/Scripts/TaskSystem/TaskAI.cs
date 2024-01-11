@@ -197,7 +197,22 @@ namespace TaskSystem
             
             // New recreation tasks go here
             
-            // Make sure there is 2 day's worth of food in home
+            // Make sure there is 1 day's worth of food in home
+            if (_unit.GetUnitState().AssignedHome != null)
+            {
+                var suggestedNutrition = _unit.GetUnitState().AssignedHome.SuggestedStoredNutrition;
+                var curHouseholdNutrition = _unit.GetUnitState().AssignedHome.CurrentStoredNutrition;
+                if (curHouseholdNutrition < suggestedNutrition)
+                {
+                    // Set up a task to pick up some food and store it at home
+                    task = new Task("Store Food", _unit.GetUnitState().AssignedHome, null, EToolType.None);
+                    var taskAction = FindTaskActionFor(task);
+                    if (!taskAction.CanDoTask(task))
+                    {
+                        task = null;
+                    }
+                }
+            }
             
             // Eat food
             

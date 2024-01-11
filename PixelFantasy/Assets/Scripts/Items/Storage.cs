@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Buildings;
 using Managers;
 using ScriptableObjects;
@@ -289,7 +290,7 @@ namespace Items
             return false;
         }
 
-        public List<Item> GetAllFoodItems()
+        public List<Item> GetAllFoodItems(bool sortByBestNutrition, bool includeIncoming = false)
         {
             List<Item> foodItems = new List<Item>();
             foreach (var storedItem in Stored)
@@ -304,6 +305,23 @@ namespace Items
                 }
             }
 
+            if (includeIncoming)
+            {
+                foreach (var incomingItem in Incoming)
+                {
+                    var foodItemData = incomingItem.GetItemData() as RawFoodItemData;
+                    if (foodItemData != null)
+                    {
+                        foodItems.Add(incomingItem);
+                    }
+                }
+            }
+
+            if (sortByBestNutrition)
+            {
+                return foodItems.OrderByDescending(food => (food.GetItemData() as RawFoodItemData).FoodNutrition).ToList();
+            }
+            
             return foodItems;
         }
     }
