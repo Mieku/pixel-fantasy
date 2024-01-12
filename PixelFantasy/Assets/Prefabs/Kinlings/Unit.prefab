@@ -306,7 +306,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _offset: 1
   _runOnlyOnce: 0
-  _sortingGroup: {fileID: 0}
   _checkLocal: 0
 --- !u!1 &2341590179856157572
 GameObject:
@@ -441,6 +440,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4206875608973562891}
   - component: {fileID: 5862985457493895760}
+  - component: {fileID: 7951026827627008970}
   m_Layer: 6
   m_Name: Speech Bubble Image
   m_TagString: Untagged
@@ -515,6 +515,44 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7951026827627008970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3010343328883400537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d62ac029b1017974ead8b6ad01623c82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightLayer: 1
+  type: 1
+  spriteMode: 1
+  sprite: {fileID: 21300000, guid: c1be884cfa3c6194398d2a1637dd57f3, type: 3}
+  color: {r: 686.24084, g: 686.24084, b: 686.24084, a: 1}
+  flipX: 0
+  flipY: 0
+  lightSpriteTransform:
+    applyRotation: 1
+    scale: {x: 1, y: 1}
+    rotation: 0
+    position: {x: 0, y: 0}
+  lightSpriteShape:
+    update: 0
+  meshMode:
+    enable: 0
+    alpha: 0.5
+    shader: 0
+    materials:
+    - {fileID: 0}
+    sortingLayer:
+      name: Default
+      Order: 0
+  glowMode:
+    enable: 0
+    glowRadius: 1
 --- !u!1 &3180216717831855428
 GameObject:
   m_ObjectHideFlags: 0
@@ -1243,7 +1281,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _offset: 0.5
   _runOnlyOnce: 0
-  _sortingGroup: {fileID: 4624679516539662858}
   _checkLocal: 0
 --- !u!114 &2273999213966366943
 MonoBehaviour:

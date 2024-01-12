@@ -43,7 +43,6 @@ namespace Managers
             min = Mathf.Clamp(min, 0, 59);
             float fractionalMin = min / 60f;
             float value = hour24 + fractionalMin;
-            Debug.Log($"Time Set: {value}");
             _timeOfDay = value;
             
             _gameDayTimer = _timeOfDay;
@@ -53,12 +52,19 @@ namespace Managers
 
         private void CalculateLighting()
         {
-            var dayPercent = _timeOfDay / 23.99f;
-            var curveHeight = _lightingCurve.Evaluate(dayPercent);
-            var darkness = _maxDarkness * curveHeight;
-            
             Lighting2D.DarknessColor = new Color(Lighting2D.DarknessColor.r, Lighting2D.DarknessColor.g,
-                Lighting2D.DarknessColor.b, darkness);
+                Lighting2D.DarknessColor.b, GlobalDarkness);
+        }
+
+        private float GlobalDarkness
+        {
+            get
+            {
+                var dayPercent = _timeOfDay / 23.99f;
+                var curveHeight = _lightingCurve.Evaluate(dayPercent);
+                var darkness = _maxDarkness * curveHeight;
+                return darkness;
+            }
         }
         
         private void CalculateTimeOfDay()
@@ -109,6 +115,8 @@ namespace Managers
                 _isPM = true;
             }
         }
+        
+        public float DoorLightInteriorAlpha => 1 - (GlobalDarkness / _maxDarkness);
     }
 
     public class GameTime
