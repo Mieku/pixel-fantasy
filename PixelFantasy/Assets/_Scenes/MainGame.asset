@@ -42,6 +42,9 @@ MonoBehaviour:
         - id: 0
           type: 0
           sorting: 0
+        - id: 1
+          type: 0
+          sorting: 0
   lightPresets:
     list:
     - name: 
@@ -120,10 +123,7 @@ MonoBehaviour:
     lightLayers:
       names:
       - Light Layer 1
-      - Light Layer 2
-      - Light Layer 3
-      - Light Layer 4
-      - Light Layer 5
+      - Interior
     dayLayers:
       names:
       - Day Layer 1

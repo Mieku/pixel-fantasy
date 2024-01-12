@@ -602,7 +602,7 @@ namespace Buildings
             EnableFurniture(true);
             ShowCraftableFurniture();
             ColourSprites(Librarian.Instance.GetColour("Planning Transparent"));
-            ToggleInternalView(true);
+            ToggleInternalView(false);
             BuildingsManager.Instance.RegisterBuilding(this);
             _remainingResourceCosts = new List<ItemAmount> (_buildingData.GetResourceCosts());
             _remainingWork = GetWorkAmount();

@@ -16,12 +16,14 @@ namespace Buildings
         private bool _lockedClosed;
         private Light2D _doorLight;
         private bool _showingLight;
+        private LightSprite2D _doorLightMask;
 
         private void Awake()
         {
             _doorRenderer = GetComponent<SpriteRenderer>();
             _boxCollider = GetComponent<BoxCollider2D>();
             _doorLight = GetComponentInChildren<Light2D>();
+            _doorLightMask = GetComponent<LightSprite2D>();
         }
 
         private void Start()
@@ -34,7 +36,7 @@ namespace Buildings
             if (isLocked)
             {
                 _lockedClosed = true;
-                _doorRenderer.enabled = true;
+                CloseDoor();
             }
             else
             {
@@ -62,6 +64,7 @@ namespace Buildings
             _doorRenderer.enabled = false;
             _doorLight.enabled = true;
             _showingLight = true;
+            _doorLightMask.enabled = false;
         }
 
         private void CloseDoor()
@@ -69,6 +72,7 @@ namespace Buildings
             _doorRenderer.enabled = true;
             _doorLight.enabled = false;
             _showingLight = false;
+            _doorLightMask.enabled = true;
         }
 
         private void Update()

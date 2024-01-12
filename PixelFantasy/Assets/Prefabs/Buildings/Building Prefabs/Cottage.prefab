@@ -1381,7 +1381,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 88b88ea1a6077974eb17a0a5ed76eb63, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1429,7 +1429,7 @@ MonoBehaviour:
   type: 1
   spriteMode: 1
   sprite: {fileID: 21300000, guid: c1be884cfa3c6194398d2a1637dd57f3, type: 3}
-  color: {r: 686.24084, g: 686.24084, b: 686.24084, a: 1}
+  color: {r: 2.9960785, g: 2.9960785, b: 2.9960785, a: 1}
   flipX: 0
   flipY: 0
   lightSpriteTransform:
@@ -4213,7 +4213,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 88b88ea1a6077974eb17a0a5ed76eb63, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4299,7 +4299,7 @@ MonoBehaviour:
   type: 1
   spriteMode: 1
   sprite: {fileID: 21300000, guid: dcf3e5a1eee328f42bf4b9604d100f95, type: 3}
-  color: {r: 686.24084, g: 686.24084, b: 686.24084, a: 1}
+  color: {r: 2.9960785, g: 2.9960785, b: 2.9960785, a: 1}
   flipX: 0
   flipY: 0
   lightSpriteTransform:

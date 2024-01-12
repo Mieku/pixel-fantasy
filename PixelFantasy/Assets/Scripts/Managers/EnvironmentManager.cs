@@ -16,6 +16,7 @@ namespace Managers
         [SerializeField] private bool _isPM;
         [SerializeField, Range(0f, 1f)] private float _maxDarkness;
         [Tooltip("The amount to real minutes in a day at normal speed")][SerializeField] private float _realMinsInADay;
+        [SerializeField] private Material _environmentMaterial;
 
         private float _gameDayTimer;
         private int _cur24Hour;
@@ -52,6 +53,8 @@ namespace Managers
 
         private void CalculateLighting()
         {
+            _environmentMaterial.SetFloat("_Lit", GlobalDarkness);
+            
             Lighting2D.DarknessColor = new Color(Lighting2D.DarknessColor.r, Lighting2D.DarknessColor.g,
                 Lighting2D.DarknessColor.b, GlobalDarkness);
         }
