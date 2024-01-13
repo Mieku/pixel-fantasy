@@ -59,7 +59,7 @@ namespace Buildings
 
         protected BuildingState _state;
         private string _buildingName;
-        private bool _internalViewToggled;
+        private bool _defaultToInternalView;
         private bool _beingMoved;
         private bool _repairsRequested;
 
@@ -411,6 +411,7 @@ namespace Buildings
         protected override void Awake()
         {
             base.Awake();
+            _defaultToInternalView = BuildingsManager.Instance.ShowInteriorByDefault;
             _doorOpener = GetComponentInChildren<DoorOpener>(true);
             GameEvents.OnHideRoofsToggled += GameEvents_OnHideRoofsToggled;
             GameEvents.MinuteTick += GameEvents_MinuteTick;
@@ -419,7 +420,7 @@ namespace Buildings
 
         protected virtual void Start()
         {
-            ToggleInternalView(false);
+            TryToggleInternalView(false);
             CurrentDurability = _buildingData.MaxDurability;
             IncludeDefaultLogistics();
             
@@ -463,12 +464,6 @@ namespace Buildings
             }
         }
 
-        private void GameEvents_OnHideRoofsToggled(bool showInternal)
-        {
-            _internalViewToggled = showInternal;
-            ToggleInternalView(showInternal);
-        }
-
         public void OnBuildingClicked()
         {
             if (_state == BuildingState.BeingPlaced || IsBuildingMoving) return;
@@ -479,13 +474,13 @@ namespace Buildings
         public void OnShowDetails()
         {
             _isDetailsOpen = true;
-            CheckShouldToggleInternalView(true);
+            TryToggleInternalView(true);
         }
 
         public void OnHideDetails()
         {
             _isDetailsOpen = false;
-            CheckShouldToggleInternalView(false);
+            TryToggleInternalView(false);
         }
 
         private bool _isCursorOnBuilding;
@@ -494,7 +489,7 @@ namespace Buildings
             _isCursorOnBuilding = true;
             if (_state == BuildingState.BeingPlaced) return;
 
-            CheckShouldToggleInternalView(true);
+            TryToggleInternalView(true);
         }
 
         public void OnCurserExit()
@@ -502,19 +497,7 @@ namespace Buildings
             _isCursorOnBuilding = false;
             if (_state == BuildingState.Planning) return;
 
-            CheckShouldToggleInternalView(false);
-        }
-
-        private void CheckShouldToggleInternalView(bool showInternal)
-        {
-            if (!_internalViewToggled)
-            {
-                if (!showInternal && _isDetailsOpen) return;
-                if (!showInternal && _isCursorOnBuilding) return;
-                if (!showInternal && IsBuildingFurnitureSelected()) return;
-                
-                ToggleInternalView(showInternal);
-            }
+            TryToggleInternalView(false);
         }
 
         private bool IsBuildingFurnitureSelected()
@@ -550,8 +533,40 @@ namespace Buildings
             
             GameEvents.Trigger_OnBuildingChanged(this);
         }
+        
+        private void GameEvents_OnHideRoofsToggled(bool showInternal)
+        {
+            _defaultToInternalView = showInternal;
+            TryToggleInternalView(showInternal);
+        }
+        
+        private void TryToggleInternalView(bool showInternal)
+        {
+            // Cases where show always be no showing internal
+            if (State is BuildingState.Planning or BuildingState.BeingPlaced)
+            {
+                ToggleInternalView(false);
+                return;
+            }
+            
+            if (!showInternal)
+            {
+                if (_defaultToInternalView || _isDetailsOpen || IsBuildingFurnitureSelected())
+                {
+                    ToggleInternalView(true);
+                }
+                else
+                {
+                    ToggleInternalView(false);
+                }
+            }
+            else
+            {
+                ToggleInternalView(true);
+            }
+        }
 
-        public void ToggleInternalView(bool showInternal)
+        private void ToggleInternalView(bool showInternal)
         {
             if (showInternal)
             {
@@ -599,10 +614,8 @@ namespace Buildings
 
         private void Plan_Enter()
         {
-            EnableFurniture(true);
-            ShowCraftableFurniture();
             ColourSprites(Librarian.Instance.GetColour("Planning Transparent"));
-            ToggleInternalView(false);
+            TryToggleInternalView(false);
             BuildingsManager.Instance.RegisterBuilding(this);
             _remainingResourceCosts = new List<ItemAmount> (_buildingData.GetResourceCosts());
             _remainingWork = GetWorkAmount();
@@ -615,6 +628,8 @@ namespace Buildings
             _obstaclesHandle.SetActive(true);
             _doorOpener.LockClosed(true);
             ColourSprites(Librarian.Instance.GetColour("Blueprint"));
+            EnableFurniture(true);
+            ShowCraftableFurniture();
             
             CreateConstructionHaulingTasks();
         }

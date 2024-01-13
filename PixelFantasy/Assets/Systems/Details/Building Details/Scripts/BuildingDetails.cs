@@ -121,12 +121,17 @@ namespace Systems.Details.Building_Details.Scripts
             HideAllPanels();
             SetTab(tab);
             DeterminePanelsToShow();
+            _building.OnShowDetails();
         }
 
         public void Hide()
         {
             GameEvents.OnBuildingChanged -= GameEvent_OnBuildingChanged;
-            _building = null;
+            if (_building != null)
+            {
+                _building.OnHideDetails();
+                _building = null;
+            }
             _mainPanel.SetActive(false);
             HideAllPanels();
         }

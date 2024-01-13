@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Buildings;
@@ -11,7 +12,25 @@ namespace Managers
     {
         private List<Building> _allBuildings = new List<Building>();
         public List<Building> AllBuildings => _allBuildings;
-        
+
+        public bool ShowInteriorByDefault;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            GameEvents.OnHideRoofsToggled += GameEvents_ShowInteriorByDefault;
+        }
+
+        private void OnDestroy()
+        {
+            GameEvents.OnHideRoofsToggled -= GameEvents_ShowInteriorByDefault;
+        }
+
+        private void GameEvents_ShowInteriorByDefault(bool showInterior)
+        {
+            ShowInteriorByDefault = showInterior;
+        }
+
         public void RegisterBuilding(Building building)
         {
             if (_allBuildings.Contains(building))

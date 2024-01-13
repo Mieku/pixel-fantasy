@@ -1,3 +1,4 @@
+using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -74,7 +75,16 @@ public class PositionRendererSorter : MonoBehaviour
         }
         else if (_myRenderer != null)
         {
-            _myRenderer.sortingOrder = sortingOrder;
+            try
+            {
+                _myRenderer.sortingOrder = sortingOrder; // TODO: I think this is where it is failing... put in try catch for now
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Failed attampting to set the sorting order: " + sortingOrder);
+                Console.WriteLine(e);
+                throw;
+            }
         }
         else
         {
