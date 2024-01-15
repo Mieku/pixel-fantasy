@@ -1,5 +1,102 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &42179020637482304
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8420530305977115228}
+  - component: {fileID: 2475329806950298238}
+  m_Layer: 0
+  m_Name: Door Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8420530305977115228
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42179020637482304}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.43, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8157149515416230095}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2475329806950298238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42179020637482304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85a34663ca705a54eac3205e225a6d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightType: 2
+  lightPresetId: 0
+  eventPresetId: 1
+  lightLayer: 1
+  occlusionLayer: 2
+  translucentLayer: 3
+  translucentPresetId: 0
+  color: {r: 1, g: 1, b: 1, a: 1}
+  size: 1.9118025
+  spotAngleInner: 360
+  spotAngleOuter: 360
+  coreSize: 0.5
+  falloff: 0
+  lightStrength: 0.74
+  outerAngle: 15
+  lightRadius: 1
+  shadowDistanceClose: 0
+  shadowDistanceFar: 5
+  maskTranslucencyQuality: 1
+  maskTranslucencyStrength: 0.225
+  applyRotation: 0
+  textureSize: 1
+  meshMode:
+    enable: 0
+    alpha: 0.5
+    shader: 0
+    materials:
+    - {fileID: 0}
+    sortingLayer:
+      name: My Lighting
+      Order: 0
+  bumpMap:
+    intensity: 1
+    depth: 1
+  whenInsideCollider: 0
+  lightSprite: 0
+  sprite: {fileID: 21300000, guid: 6592d6be03fd808449716a11558d506f, type: 3}
+  spriteFlipX: 0
+  spriteFlipY: 0
+  freeFormFalloff: 0.48
+  freeFormPoint: 0.925
+  freeFormFalloffStrength: 1
+  freeFormPoints:
+    points:
+    - {x: 0.33482027, y: -0.08496475}
+    - {x: 0.6492915, y: 1.1161709}
+    - {x: 0.358325, y: 1.3609905}
+    - {x: 0.0140028, y: 1.4317341}
+    - {x: -0.32957888, y: 1.3563671}
+    - {x: -0.61556673, y: 1.109354}
+    - {x: -0.327765, y: -0.08888435}
+  drawingEnabled: 1
+  drawingTranslucencyEnabled: 1
 --- !u!1 &131913839724598154
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,26 +483,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -3.970738, y: 1.5868225}
-      - {x: -3.941951, y: -2.7276373}
-      - {x: -3.0546994, y: -2.7514591}
-      - {x: -3.055203, y: -2.120205}
-      - {x: -3.1174278, y: -2.1198025}
-      - {x: -3.1166897, y: -1.745964}
-      - {x: -3.0561008, y: -1.746067}
-      - {x: -3.055501, y: -1.6829929}
-      - {x: -1.8047886, y: -1.6824627}
-      - {x: -1.8047671, y: -1.7447414}
-      - {x: -1.7432556, y: -1.7459888}
-      - {x: -1.7427411, y: -2.119547}
-      - {x: -1.8068123, y: -2.120081}
-      - {x: -1.8063431, y: -2.752798}
-      - {x: -1.4973941, y: -2.7524776}
-      - {x: 2.0600348, y: -2.751807}
-      - {x: 2.0562274, y: -1.50413}
-      - {x: 2.0529194, y: -0.8649912}
-      - {x: 2.0531917, y: -0.24923253}
-      - {x: 2.082567, y: 1.5957589}
+    - - {x: -4.093578, y: 1.7474594}
+      - {x: -4.0909967, y: -2.7524784}
+      - {x: 2.1867461, y: -2.7514591}
+      - {x: 2.236364, y: 1.7445285}
 --- !u!114 &5122289721996469556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -418,8 +499,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db5c6afd22840254fb7f314ed86f958c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightLayer: 0
-  color: {r: 0, g: 0, b: 0, a: 0.70980394}
+  lightLayer: 1
+  color: {r: 0, g: 0, b: 0, a: 0.69803923}
   shape:
     type: 0
 --- !u!1 &593353393138838029
@@ -1773,6 +1854,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7131668130241055199}
   - component: {fileID: 8407811110570999269}
+  - component: {fileID: 6406570026587235594}
   m_Layer: 0
   m_Name: Interior Foreground
   m_TagString: Untagged
@@ -1815,7 +1897,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 88b88ea1a6077974eb17a0a5ed76eb63, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1847,6 +1929,44 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6406570026587235594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2646570066296507008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d62ac029b1017974ead8b6ad01623c82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightLayer: 1
+  type: 1
+  spriteMode: 1
+  sprite: {fileID: 21300000, guid: 418b3352d7b94504fad3384653fcac1f, type: 3}
+  color: {r: 2.9960785, g: 2.9960785, b: 2.9960785, a: 1}
+  flipX: 0
+  flipY: 0
+  lightSpriteTransform:
+    applyRotation: 1
+    scale: {x: 1, y: 1}
+    rotation: 0
+    position: {x: 0, y: 0}
+  lightSpriteShape:
+    update: 0
+  meshMode:
+    enable: 0
+    alpha: 0.5
+    shader: 0
+    materials:
+    - {fileID: 0}
+    sortingLayer:
+      name: Default
+      Order: 0
+  glowMode:
+    enable: 0
+    glowRadius: 1
 --- !u!1 &3415910735546737860
 GameObject:
   m_ObjectHideFlags: 0
@@ -3947,6 +4067,7 @@ GameObject:
   - component: {fileID: 6027005244054005478}
   - component: {fileID: 5405419404385065954}
   - component: {fileID: 9116887316522050035}
+  - component: {fileID: 1398961684004028277}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -3965,7 +4086,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8420530305977115228}
   m_Father: {fileID: 6579909187644268839}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4000,7 +4122,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 88b88ea1a6077974eb17a0a5ed76eb63, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4070,6 +4192,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaaa5db2a28414a4c9da2cfe8db2fa98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1398961684004028277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8336179859126647631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d62ac029b1017974ead8b6ad01623c82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightLayer: 1
+  type: 1
+  spriteMode: 1
+  sprite: {fileID: 21300000, guid: 0c42bc696b9d3434bb5c0013d491eb27, type: 3}
+  color: {r: 2.9960785, g: 2.9960785, b: 2.9960785, a: 1}
+  flipX: 0
+  flipY: 0
+  lightSpriteTransform:
+    applyRotation: 1
+    scale: {x: 1, y: 1}
+    rotation: 0
+    position: {x: 0, y: 0}
+  lightSpriteShape:
+    update: 0
+  meshMode:
+    enable: 0
+    alpha: 0.5
+    shader: 0
+    materials:
+    - {fileID: 0}
+    sortingLayer:
+      name: Default
+      Order: 0
+  glowMode:
+    enable: 0
+    glowRadius: 1
 --- !u!1 &8345522700022040403
 GameObject:
   m_ObjectHideFlags: 0
@@ -4640,9 +4800,7 @@ MonoBehaviour:
   _footings: {fileID: 4983041443223141814}
   _internalHandle: {fileID: 4928138789695397395}
   _exteriorHandle: {fileID: 1141357286028535369}
-  _roofHandle: {fileID: 0}
   _doorOpener: {fileID: 9116887316522050035}
-  _floorHandle: {fileID: 0}
   _obstaclesHandle: {fileID: 7673647128273325333}
   _shadowboxHandle: {fileID: 131913839724598154}
   _constructionStandPos: {fileID: 3148152069110956621}
