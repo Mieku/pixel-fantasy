@@ -6,6 +6,7 @@ using Items;
 using Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ScriptableObjects
 {
@@ -15,7 +16,7 @@ namespace ScriptableObjects
         [Header("General")]
         [TitleGroup("Furniture Item Data")] public FurnitureCatergory Catergory;
         [TitleGroup("Furniture Item Data")] public Furniture FurniturePrefab;
-        [TitleGroup("Furniture Item Data")] public StatChange InUseStatChange;
+        [FormerlySerializedAs("InUseStatChange")] [TitleGroup("Furniture Item Data")] public NeedChange InUseNeedChange;
 
         [Header("Varients")]
         [TitleGroup("Furniture Item Data")] public List<FurnitureItemData> Varients;

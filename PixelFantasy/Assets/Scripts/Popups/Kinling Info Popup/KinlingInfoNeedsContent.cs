@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Characters;
-using Systems.Stats.Scripts;
+using Systems.Needs.Scripts;
 using UnityEngine;
 
 namespace Popups.Kinling_Info_Popup

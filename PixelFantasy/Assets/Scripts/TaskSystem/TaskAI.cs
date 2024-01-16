@@ -4,8 +4,10 @@ using System.Linq;
 using Characters;
 using Items;
 using Managers;
+using Mono.CSharp;
 using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 namespace TaskSystem
 {
@@ -196,7 +198,7 @@ namespace TaskSystem
             // New recreation tasks go here
             
             // Eat food
-            if (task == null && _unit.Stats.GetStatValue(StatType.Food) < 0.75f)
+            if (task == null && _unit.Needs.GetNeedValue(NeedType.Food) < 0.75f)
             {
                 task = new Task("Eat Food", _unit.GetUnitState().AssignedHome, null, EToolType.None);
                 if (AttemptStartTask(task, false)) return;
@@ -218,6 +220,17 @@ namespace TaskSystem
             }
             
             // Go on dates
+            
+            // Have sex
+            if (task == null && _unit.Partner != null)
+            {
+                if (_unit.Needs.CheckSexDrive() && _unit.Partner.Needs.CheckSexDrive())
+                {
+                    task = new Task("Have Sex", _unit.AssignedBed, null, EToolType.None);
+                    if (AttemptStartTask(task, false)) return;
+                    else task = null;
+                }
+            }
             
             // Do fun things
             

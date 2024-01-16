@@ -17,7 +17,7 @@ namespace Systems.Details.Building_Details.Scripts
         private Action<Unit> _onPressedCallback;
         private Unit _kinling;
 
-        public void Init(Unit kinling, List<AbilityType> relevantAbilityTypes, Action<Unit> onPressedCallback)
+        public void Init(Unit kinling, List<StatType> relevantAbilityTypes, Action<Unit> onPressedCallback)
         {
             _kinling = kinling;
             _onPressedCallback = onPressedCallback;

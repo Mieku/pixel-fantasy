@@ -1,8 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Systems.Stats.Scripts;
+using Systems.Needs.Scripts;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Systems.Traits.Scripts
 {
@@ -10,7 +11,7 @@ namespace Systems.Traits.Scripts
     public class TraitElement
     {
         //public NeedType NeedType;
-        public AIStat LinkedStat;
+        [FormerlySerializedAs("LinkedStat")] public NeedData LinkedNeed;
             
         [Header("Scoring Scales")]
         [Range(0.5f, 1.5f)] public float Scoring_PositiveScale = 1f;
@@ -23,25 +24,25 @@ namespace Systems.Traits.Scripts
         [Header("Decay Rate")] 
         [Range(0.5f, 1.5f)] public float DecayRateScale = 1f;
 
-        public float Apply(AIStat targetStat, StatTrait.ETargetType targetType, float currentValue)
+        public float Apply(NeedData targetStat, NeedTrait.ETargetType targetType, float currentValue)
         {
-            if (targetStat == LinkedStat)
+            if (targetStat == LinkedNeed)
             {
                 switch (targetType)
                 {
-                    case StatTrait.ETargetType.Score:
+                    case NeedTrait.ETargetType.Score:
                         if (currentValue > 0)
                             currentValue *= Scoring_PositiveScale;
                         else if (currentValue < 0)
                             currentValue *= Scoring_NegativeScale;
                         break;
-                    case StatTrait.ETargetType.Impact:
+                    case NeedTrait.ETargetType.Impact:
                         if (currentValue > 0)
                             currentValue *= Impact_PositiveScale;
                         else if (currentValue < 0)
                             currentValue *= Impact_NegativeScale;
                         break;
-                    case StatTrait.ETargetType.DecayRate:
+                    case NeedTrait.ETargetType.DecayRate:
                         currentValue *= DecayRateScale;
                         break;
                     default:
@@ -53,8 +54,8 @@ namespace Systems.Traits.Scripts
         }
     }
 
-    [CreateAssetMenu(menuName = "AI/Trait/Stat Trait", fileName = "StatTrait")]
-    public class StatTrait : Trait
+    [CreateAssetMenu(menuName = "AI/Trait/Need Trait", fileName = "NeedTrait")]
+    public class NeedTrait : Trait
     {
         public enum ETargetType
         {
@@ -65,11 +66,11 @@ namespace Systems.Traits.Scripts
             
         public TraitElement[] Impacts;
             
-        public float Apply(AIStat targetStat, ETargetType targetType, float currentValue)
+        public float Apply(NeedData targetNeed, ETargetType targetType, float currentValue)
         {
             foreach (var impact in Impacts)
             {
-                currentValue = impact.Apply(targetStat, targetType, currentValue);
+                currentValue = impact.Apply(targetNeed, targetType, currentValue);
             }
 
             return currentValue;

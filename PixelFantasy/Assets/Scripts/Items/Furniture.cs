@@ -784,6 +784,6 @@ namespace Items
 
         public bool WasCrafted => !string.IsNullOrEmpty(CraftersUID);
 
-        public StatChange IsUseStatChange => _furnitureItemData.InUseStatChange;
+        public NeedChange InUseNeedChange => _furnitureItemData.InUseNeedChange;
     }
 }

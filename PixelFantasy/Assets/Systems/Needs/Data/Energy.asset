@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebbfc4e905e1c8040825f047f6a17432, type: 3}
+  m_Name: Energy
+  m_EditorClassIdentifier: 
+  <DisplayName>k__BackingField: Energy
+  <Description>k__BackingField: 
+  <StatIcon>k__BackingField: {fileID: 21300000, guid: 7cc2c49e3e61a2c4dac2367a8d5c6ae2, type: 3}
+  <IsVisible>k__BackingField: 1
+  <InitialValue>k__BackingField: 0.5
+  <DailyDecayRate>k__BackingField: 0.25
+  <IntensityCurve>k__BackingField:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -2.4655042
+      outSlope: -2.4655042
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.040555917
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.24016604
+      outSlope: -0.24016604
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.06854272
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  CriticalThreshold:
+    ThresholdValue: 0.1
+    BelowThresholdEmotion: {fileID: 11400000, guid: 37ba5cf7b30a7bc40909726f0a446ec7, type: 2}
+  Thresholds:
+  - ThresholdValue: 0.25
+    BelowThresholdEmotion: {fileID: 11400000, guid: 272e25fb8d3c9dc48a62014dc8833b59, type: 2}
+  - ThresholdValue: 0.5
+    BelowThresholdEmotion: {fileID: 11400000, guid: 2b8c18f634899fd4db7e66db0f81b911, type: 2}

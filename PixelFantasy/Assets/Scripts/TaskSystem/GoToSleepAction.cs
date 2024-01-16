@@ -30,7 +30,7 @@ namespace TaskSystem
                     _ai.Unit.UnitAnimController.SetEyesClosed(true);
                     _ai.Unit.UnitAnimController.SetUnitAction(UnitAction.Sleeping);
                     _isAsleep = true;
-                    _ai.Unit.Stats.RegisterStatChangePerHour(_bed.IsUseStatChange);
+                    _ai.Unit.Needs.RegisterNeedChangePerHour(_bed.InUseNeedChange);
                 });
             }
             else
@@ -41,7 +41,7 @@ namespace TaskSystem
                 _ai.Unit.UnitAnimController.SetEyesClosed(true);
                 _ai.Unit.UnitAnimController.SetUnitAction(UnitAction.Sleeping);
                 _isAsleep = true;
-                _ai.Unit.Stats.RegisterStatChangePerHour("sleep on ground", StatType.Energy, NO_BED_ENERGY_PER_HOUR);
+                _ai.Unit.Needs.RegisterNeedChangePerHour("sleep on ground", NeedType.Energy, NO_BED_ENERGY_PER_HOUR);
             }
         }
 
@@ -73,7 +73,7 @@ namespace TaskSystem
                 _isAsleep = false;
                 if (_bed != null)
                 {
-                    _ai.Unit.Stats.DeregisterStatChangePerHour(_bed.IsUseStatChange);
+                    _ai.Unit.Needs.DeregisterNeedChangePerHour(_bed.InUseNeedChange);
                     _ai.Unit.UnitAgent.TeleportToPosition(_bedsidePos, false);
                     _bed.ExitBed(_ai.Unit);
                     _ai.Unit.UnitAnimController.SetEyesClosed(false);
@@ -81,7 +81,7 @@ namespace TaskSystem
                 }
                 else
                 {
-                    _ai.Unit.Stats.DeregisterStatChangePerHour("sleep on ground");
+                    _ai.Unit.Needs.DeregisterNeedChangePerHour("sleep on ground");
                     _ai.Unit.UnitAnimController.SetEyesClosed(false);
                     _ai.Unit.UnitAnimController.SetUnitAction(UnitAction.Nothing);
                 }

@@ -5,12 +5,12 @@ using Random = UnityEngine.Random;
 namespace Characters
 {
     [Serializable]
-    public class Ability
+    public class Stat
     {
         public int Level;
         public float Exp;
 
-        public Ability(int level, float exp = 0)
+        public Stat(int level, float exp = 0)
         {
             Level = level;
             Exp = exp;
@@ -18,24 +18,24 @@ namespace Characters
     }
 
     [Serializable]
-    public class Abilities
+    public class Stats
     {
-        public Ability Strength;
-        public Ability Vitality;
-        public Ability Intelligence;
-        public Ability Expertise;
+        public Stat Strength;
+        public Stat Vitality;
+        public Stat Intelligence;
+        public Stat Expertise;
 
-        public Ability GetAbilityByType(AbilityType type)
+        public Stat GetStatByType(StatType type)
         {
             switch (type)
             {
-                case AbilityType.Strength:
+                case StatType.Strength:
                     return Strength;
-                case AbilityType.Vitality:
+                case StatType.Vitality:
                     return Vitality;
-                case AbilityType.Intelligence:
+                case StatType.Intelligence:
                     return Intelligence;
-                case AbilityType.Expertise:
+                case StatType.Expertise:
                     return Expertise;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
@@ -52,7 +52,7 @@ namespace Characters
         }
     }
 
-    public enum AbilityType
+    public enum StatType
     {
         Strength,
         Vitality,

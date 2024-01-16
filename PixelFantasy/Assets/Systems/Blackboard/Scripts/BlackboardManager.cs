@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Managers;
-using Systems.Stats.Scripts;
+using Systems.Needs.Scripts;
 using UnityEngine;
 
 namespace Systems.Blackboard.Scripts
@@ -23,7 +23,7 @@ namespace Systems.Blackboard.Scripts
         private Dictionary<EBlackboardKey, GameObject>  _gameObjectValues    = new Dictionary<EBlackboardKey, GameObject>();
         private Dictionary<EBlackboardKey, object>      _genericValues       = new Dictionary<EBlackboardKey, object>();
 
-        private Dictionary<AIStat, float>               _aIStatValues        = new Dictionary<AIStat, float>();
+        private Dictionary<NeedData, float>               _aIStatValues        = new Dictionary<NeedData, float>();
 
         public void SetGeneric<T>(EBlackboardKey key, T value)
         {
@@ -70,12 +70,12 @@ namespace Systems.Blackboard.Scripts
             return false;
         }
         
-        public void SetStat(AIStat linkedStat, float value)
+        public void SetStat(NeedData linkedStat, float value)
         {
             _aIStatValues[linkedStat] = value;
         }
 
-        public float GetStat(AIStat linkedStat)
+        public float GetStat(NeedData linkedStat)
         {
             if (!_aIStatValues.ContainsKey(linkedStat))
                 throw new System.ArgumentException($"Could not find value for {linkedStat.DisplayName} in _aIStatValues");
@@ -83,7 +83,7 @@ namespace Systems.Blackboard.Scripts
             return _aIStatValues[linkedStat];
         }
         
-        public bool TryGetStat(AIStat linkedStat, out float value, float defaultValue = 0f)
+        public bool TryGetStat(NeedData linkedStat, out float value, float defaultValue = 0f)
         {
             if (_aIStatValues.ContainsKey(linkedStat))
             {

@@ -5,6 +5,7 @@ using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Systems.Traits.Scripts;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Characters
 {
@@ -34,7 +35,7 @@ namespace Characters
         [BoxGroup("Appearance")] public AppearanceState Appearance;
         [BoxGroup("Gear")] public KinlingGearData Gear;
         [BoxGroup("Traits")] public List<Trait> Traits;
-        [BoxGroup("Abilities")] public Abilities Abilities;
+        [FormerlySerializedAs("Abilities")] [BoxGroup("Abilities")] public Stats Stats;
         [BoxGroup("Family")] public string Partner;
         [BoxGroup("Family")] public List<string> Children;
         

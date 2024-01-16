@@ -11,6 +11,7 @@ using Systems.Traits.Scripts;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 
 namespace Characters
 {
@@ -46,9 +47,8 @@ namespace Characters
         public Gender Gender;
         public Unit Partner;
         public List<Unit> Children = new List<Unit>();
-        public Family Family;
         public ClickObject ClickObject;
-        public KinlingStats Stats;
+        [FormerlySerializedAs("Stats")] public KinlingNeeds Needs;
 
         private Building _insideBuidling;
         private BedFurniture _bed;
@@ -87,7 +87,7 @@ namespace Characters
             Equipment.Init(this, kinlingData.Gear);
             _traits = kinlingData.Traits;
 
-            _unitState.Abilities = kinlingData.Abilities;
+            _unitState.Stats = kinlingData.Stats;
 
             if (!string.IsNullOrEmpty(kinlingData.Partner))
             {
@@ -121,7 +121,7 @@ namespace Characters
         
         private void Initialize()
         {
-            Stats.Initialize();
+            Needs.Initialize();
             
             GameEvents.Trigger_OnCoinsIncomeChanged();
         }
@@ -177,12 +177,12 @@ namespace Characters
             return _appearance;
         }
 
-        public List<StatTrait> GetStatTraits()
+        public List<NeedTrait> GetStatTraits()
         {
-            List<StatTrait> results = new List<StatTrait>();
+            List<NeedTrait> results = new List<NeedTrait>();
             foreach (var trait in _traits)
             {
-                var statTrait = trait as StatTrait;
+                var statTrait = trait as NeedTrait;
                 if (statTrait != null)
                 {
                     results.Add(statTrait);

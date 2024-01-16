@@ -5,28 +5,28 @@ using Managers;
 using Systems.Mood.Scripts;
 using UnityEngine;
 
-namespace Systems.Stats.Scripts
+namespace Systems.Needs.Scripts
 {
-    [CreateAssetMenu(menuName = "AI/Stat", fileName = "AIStat")]
-    public class AIStat : ScriptableObject
+    [CreateAssetMenu(menuName = "AI/Need", fileName = "NeedData")]
+    public class NeedData : ScriptableObject
     {
         [field: SerializeField] public string DisplayName { get; protected set; }
         [field: SerializeField] public string Description { get; protected set; }
-        [field: SerializeField] public Sprite StatIcon { get; protected set; }
+        [field: SerializeField] public Sprite NeedIcon { get; protected set; }
         [field: SerializeField] public bool IsVisible { get; protected set; } = true;
         [field: SerializeField, Range(0f, 1f)] public float InitialValue { get; protected set; } = 0.5f;
         [field: SerializeField] public float DailyDecayRate { get; protected set; } = 0.25f;
         [field: SerializeField] public AnimationCurve IntensityCurve { get; protected set; }
 
         [Header("Thresholds")]
-        [field: SerializeField] public StatThreshold CriticalThreshold;
-        [field: SerializeField] public StatThreshold[] Thresholds;
+        [field: SerializeField] public NeedThreshold CriticalThreshold;
+        [field: SerializeField] public NeedThreshold[] Thresholds;
 
-        public List<StatThreshold> AllThresholds
+        public List<NeedThreshold> AllThresholds
         {
             get
             {
-                List<StatThreshold> results = new List<StatThreshold>();
+                List<NeedThreshold> results = new List<NeedThreshold>();
                 if (CriticalThreshold != null && CriticalThreshold.BelowThresholdEmotion != null)
                 {
                     results.Add(CriticalThreshold);
@@ -41,9 +41,9 @@ namespace Systems.Stats.Scripts
             }
         }
 
-        public float CalculateIntensity(float statValue)
+        public float CalculateIntensity(float needValue)
         {
-            float intensity = IntensityCurve.Evaluate(statValue);
+            float intensity = IntensityCurve.Evaluate(needValue);
             return intensity;
         }
 
@@ -57,12 +57,12 @@ namespace Systems.Stats.Scripts
             }
         }
 
-        public Emotion CheckThresholds(float statValue)
+        public Emotion CheckThresholds(float needValue)
         {
             var allThresholdsSorted = AllThresholds.OrderBy(threshold => threshold.ThresholdValue);
             foreach (var threshold in allThresholdsSorted)
             {
-                if (statValue <= threshold.ThresholdValue)
+                if (needValue <= threshold.ThresholdValue)
                 {
                     return threshold.BelowThresholdEmotion;
                 }
@@ -73,7 +73,7 @@ namespace Systems.Stats.Scripts
     }
 
     [Serializable]
-    public class StatThreshold
+    public class NeedThreshold
     {
         [field: SerializeField, Range(0f, 1f)] public float ThresholdValue;
         [field: SerializeField] public Emotion BelowThresholdEmotion;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Characters;
 using Managers;
 using Systems.Blackboard.Scripts;
-using Systems.Stats.Scripts;
+using Systems.Needs.Scripts;
 using Systems.Traits.Scripts;
 using TaskSystem;
 using UnityEngine;
@@ -13,7 +13,7 @@ namespace Systems.SmartObjects.Scripts
     [Serializable]
     public class AIStatConfiguration
     {
-        [field: SerializeField] public AIStat LinkedStat { get; private set; }
+        [field: SerializeField] public NeedData LinkedStat { get; private set; }
         [field: SerializeField] public bool OverrideDefaults { get; private set; } = false;
         [field: SerializeField, Range(0f, 1f)] public float Override_InitialValue { get; protected set; } = 0.5f;
         [field: SerializeField, Range(0f, 1f)] public float Override_DecayRate { get; protected set; } = 0.005f;
@@ -39,7 +39,7 @@ namespace Systems.SmartObjects.Scripts
 
         protected UnitAgent _navAgent;
         public Unit Unit { get; protected set; }
-        protected Dictionary<AIStat, float> _decayRates = new Dictionary<AIStat, float>();
+        protected Dictionary<NeedData, float> _decayRates = new Dictionary<NeedData, float>();
         protected Action<BaseInteraction> _onInteractionComplete;
         
         public Blackboard.Scripts.Blackboard IndividualBlackboard { get; protected set; }
@@ -132,7 +132,7 @@ namespace Systems.SmartObjects.Scripts
             _curInteraction = null;
         }
 
-        public void UpdateIndividualStat(AIStat linkedStat, float amount, StatTrait.ETargetType targetType)
+        public void UpdateIndividualStat(NeedData linkedStat, float amount, NeedTrait.ETargetType targetType)
         {
             float adjustedAmount = ApplyTraitsTo(linkedStat, targetType, amount);
             float newValue = Mathf.Clamp01(GetStatValue(linkedStat) + adjustedAmount);
@@ -140,7 +140,7 @@ namespace Systems.SmartObjects.Scripts
             IndividualBlackboard.SetStat(linkedStat, newValue);
         }
         
-        protected float ApplyTraitsTo(AIStat targetStat, StatTrait.ETargetType targetType, float currentValue)
+        protected float ApplyTraitsTo(NeedData targetStat, NeedTrait.ETargetType targetType, float currentValue)
         {
             foreach (var trait in Unit.GetStatTraits())
             {
@@ -150,12 +150,12 @@ namespace Systems.SmartObjects.Scripts
             return currentValue;
         }
 
-        public float GetStatValue(AIStat linkedStat)
+        public float GetStatValue(NeedData linkedStat)
         {
             return IndividualBlackboard.GetStat(linkedStat);
         }
         
-        public bool AreAnyNeedsCritical(out AIStat criticalStat)
+        public bool AreAnyNeedsCritical(out NeedData criticalStat)
         {
             foreach (var statConfig in _stats)
             {
@@ -179,7 +179,7 @@ namespace Systems.SmartObjects.Scripts
         {
             foreach (var statConfig in _stats)
             {
-                UpdateIndividualStat(statConfig.LinkedStat, -_decayRates[statConfig.LinkedStat], StatTrait.ETargetType.DecayRate);
+                UpdateIndividualStat(statConfig.LinkedStat, -_decayRates[statConfig.LinkedStat], NeedTrait.ETargetType.DecayRate);
                 
                 // Check the thresholds for the stat
                 var emotion = statConfig.LinkedStat.CheckThresholds(GetStatValue(statConfig.LinkedStat));

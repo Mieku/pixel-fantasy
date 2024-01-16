@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Systems.Mood.Scripts;
-using Systems.Stats.Scripts;
+using Systems.Needs.Scripts;
 using Systems.Traits.Scripts;
 using UnityEngine;
 using UnityEngine.Events;
@@ -20,7 +20,7 @@ namespace Systems.SmartObjects.Scripts
     [System.Serializable]
     public class InteractionStatChange
     {
-        public AIStat LinkedStat;
+        public NeedData LinkedStat;
         public float Value;
     }
     
@@ -86,7 +86,7 @@ namespace Systems.SmartObjects.Scripts
             ApplyEmotion(performer);
         }
 
-        public bool ContainsPositiveStatChange(AIStat stat)
+        public bool ContainsPositiveStatChange(NeedData stat)
         {
             foreach (var statChange in _statChanges)
             {
@@ -103,7 +103,7 @@ namespace Systems.SmartObjects.Scripts
         {
             foreach (var statChange in _statChanges)
             {
-                performer.UpdateIndividualStat(statChange.LinkedStat, statChange.Value * proportion, StatTrait.ETargetType.Impact);
+                //performer.UpdateIndividualStat(statChange.LinkedStat, statChange.Value * proportion, NeedTrait.ETargetType.Impact);
             }
         }
 

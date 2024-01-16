@@ -5,7 +5,7 @@ using Buildings;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Systems.Mood.Scripts;
-using Systems.Stats.Scripts;
+using Systems.Needs.Scripts;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -24,7 +24,7 @@ namespace Managers
         [SerializeField] private List<Command> _commandLibrary;
         [SerializeField] private List<JobData> _jobLibrary;
         [SerializeField] private List<RaceData> _races;
-        [SerializeField] private List<AIStat> _stats;
+        [SerializeField] private List<NeedData> _stats;
         [SerializeField] private List<Emotion> _emotions;
         [SerializeField] private List<EmotionalBreakdown> _emotionalBreakdowns;
 
@@ -67,7 +67,7 @@ namespace Managers
             return result;
         }
         
-        public AIStat GetStat(string statName)
+        public NeedData GetStat(string statName)
         {
             var result = _stats.Find(stat => stat.DisplayName == statName);
             if (result == null)

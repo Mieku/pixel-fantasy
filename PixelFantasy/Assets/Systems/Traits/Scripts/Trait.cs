@@ -1,6 +1,6 @@
 using System;
 using ScriptableObjects;
-using Systems.Stats.Scripts;
+using Systems.Needs.Scripts;
 using UnityEngine;
 using UnityEngine.Serialization;
 

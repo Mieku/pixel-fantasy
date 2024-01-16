@@ -1142,8 +1142,7 @@ MonoBehaviour:
   _appearance: {fileID: 4680592222557511252}
   _mood: {fileID: 4888200492756624676}
   _socialAI: {fileID: 5256464669028443073}
-  _traits:
-  - {fileID: 11400000, guid: 40d3b0377c52425459b56fdd2d4c6ebc, type: 2}
+  _traits: []
   _dailyCoinsIncome: 5
   _sortingGroup: {fileID: 4624679516539662858}
   _positionRendererSorter: {fileID: 1822529751762045447}
@@ -1151,20 +1150,13 @@ MonoBehaviour:
   UnitAnimController: {fileID: 1198530704868288865}
   UnitAgent: {fileID: 6234467081272595317}
   IsAsleep: 0
-  MaturityStage: 2
+  MaturityStage: 1
   SexualPreference: 3
   Gender: 1
   Partner: {fileID: 0}
-  Family:
-    FamilyName: 
-    UID: 
-    Members: []
-    Buildings: []
-    Furniture: []
-    FamilyJob: {fileID: 0}
-    IsPlayer: 0
+  Children: []
   ClickObject: {fileID: 0}
-  Stats: {fileID: 6110830004571278970}
+  Needs: {fileID: 6110830004571278970}
 --- !u!114 &6110830004571278970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1177,13 +1169,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffedb8f8a9fd4d849acbaf1a002a761d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _foodStat:
-    _statData: {fileID: 11400000, guid: 4f3e8f8c1fbb9ba48b82a8cd1b27ee9a, type: 2}
+  _foodNeedState:
+    _needData: {fileID: 11400000, guid: 4f3e8f8c1fbb9ba48b82a8cd1b27ee9a, type: 2}
     _value: 0
-  _energyStat:
-    _statData: {fileID: 11400000, guid: bbd6477af2cdf1c4683d1378eeb200c1, type: 2}
+  _waterNeedState:
+    _needData: {fileID: 11400000, guid: eee817a549ce6564eb0ca938046d605f, type: 2}
     _value: 0
-  _registeredStatChanges: []
+  _energyNeedState:
+    _needData: {fileID: 11400000, guid: bbd6477af2cdf1c4683d1378eeb200c1, type: 2}
+    _value: 0
+  _registeredNeedChanges: []
 --- !u!61 &1211023406118596035
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1224,20 +1219,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uid: {fileID: 8745535366893241182}
   _relevantStatColour: {r: 0.050980393, g: 0.7529412, b: 0, a: 1}
-  FirstName: Anika
-  LastName: Nagy
-  Abilities:
+  FirstName: 
+  LastName: 
+  Stats:
     Strength:
-      Level: 3
+      Level: 0
       Exp: 0
     Vitality:
-      Level: 2
+      Level: 0
       Exp: 0
     Intelligence:
-      Level: 7
+      Level: 0
       Exp: 0
     Expertise:
-      Level: 6
+      Level: 0
       Exp: 0
   AssignedWorkplace: {fileID: 0}
 --- !u!114 &9189890898419539547
@@ -2313,34 +2308,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5532418264530240428}
     m_Modifications:
-    - target: {fileID: 4422763052601818589, guid: 1e2bb1c49f851a748977151db6ddf733, type: 3}
-      propertyPath: BodyData
-      value: 
-      objectReference: {fileID: 11400000, guid: c9c88524c486f324387bba30244f1667, type: 2}
-    - target: {fileID: 4422763052601818589, guid: 1e2bb1c49f851a748977151db6ddf733, type: 3}
-      propertyPath: HairData
-      value: 
-      objectReference: {fileID: 11400000, guid: 49522be5d857b064e8a918596649a13e, type: 2}
-    - target: {fileID: 5307320317114055897, guid: 1e2bb1c49f851a748977151db6ddf733, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ba76a392411471c4f9f775d7d047773d, type: 2}
-    - target: {fileID: 5307320317377109596, guid: 1e2bb1c49f851a748977151db6ddf733, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e3daef169f1a509488e1998d8510a249, type: 2}
-    - target: {fileID: 5307320317452644663, guid: 1e2bb1c49f851a748977151db6ddf733, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 5c0c1327ab04bdf45a2b7af465ad73be, type: 2}
-    - target: {fileID: 5307320317462130724, guid: 1e2bb1c49f851a748977151db6ddf733, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 616d4304e34ea634ebe8e607053730b9, type: 2}
-    - target: {fileID: 5307320317958221091, guid: 1e2bb1c49f851a748977151db6ddf733, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e85318cd836945e499ae5fee668bb1c4, type: 2}
     - target: {fileID: 5307320318234238344, guid: 1e2bb1c49f851a748977151db6ddf733, type: 3}
       propertyPath: m_Name
       value: Avatar Root
@@ -2348,10 +2315,6 @@ PrefabInstance:
     - target: {fileID: 5307320318234238347, guid: 1e2bb1c49f851a748977151db6ddf733, type: 3}
       propertyPath: m_RootOrder
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5307320318234238347, guid: 1e2bb1c49f851a748977151db6ddf733, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5307320318234238347, guid: 1e2bb1c49f851a748977151db6ddf733, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2393,22 +2356,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5307320318269627950, guid: 1e2bb1c49f851a748977151db6ddf733, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: c296597e571ddb147ad315204469a08e, type: 2}
-    - target: {fileID: 5307320318738625384, guid: 1e2bb1c49f851a748977151db6ddf733, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5307320318817747362, guid: 1e2bb1c49f851a748977151db6ddf733, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 0698830f7198bbf488cdad0dd018aa60, type: 2}
-    - target: {fileID: 5307320319018243044, guid: 1e2bb1c49f851a748977151db6ddf733, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 74df9ca8499b7c348a77a7c8efcff4e2, type: 2}
     - target: {fileID: 7869489566181231336, guid: 1e2bb1c49f851a748977151db6ddf733, type: 3}
       propertyPath: _navMeshAgent
       value: 

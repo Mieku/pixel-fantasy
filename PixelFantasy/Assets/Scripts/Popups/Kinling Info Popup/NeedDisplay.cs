@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Systems.Stats.Scripts;
+using Systems.Needs.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,29 +15,29 @@ namespace Popups.Kinling_Info_Popup
         [SerializeField] private Color _emptyColour;
         [SerializeField] private BarThresholdDisplay _thresholdDisplay;
 
-        private AIStat _assignedStat;
-        public AIStat Stat => _assignedStat;
+        private NeedData _assignedStat;
+        public NeedData Stat => _assignedStat;
 
-        public void Init(AIStat stat, float value)
+        public void Init(NeedData stat, float value)
         {
             _assignedStat = stat;
             _needNameText.text = stat.DisplayName;
 
-            if (stat.StatIcon == null)
+            if (stat.NeedIcon == null)
             {
                 _needIcon.gameObject.SetActive(false);
             }
             else
             {
                 _needIcon.gameObject.SetActive(true);
-                _needIcon.sprite = stat.StatIcon;
+                _needIcon.sprite = stat.NeedIcon;
             }
 
             DetermineThresholds(stat);
             RefreshValue(value);
         }
 
-        private void DetermineThresholds(AIStat stat)
+        private void DetermineThresholds(NeedData stat)
         {
             List<float> allThresholds = new List<float>();
             if (stat.CriticalThreshold != null)

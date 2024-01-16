@@ -81,7 +81,7 @@ namespace TaskSystem
                         _seat.EnterSeat(_ai.Unit);
                         // TODO: Add Sitting and eating Animation
                         _isEating = true;
-                        _ai.Unit.Stats.RegisterStatChangePerHour(_seat.IsUseStatChange);
+                        _ai.Unit.Needs.RegisterNeedChangePerHour(_seat.InUseNeedChange);
                     }
                     else
                     {
@@ -101,7 +101,7 @@ namespace TaskSystem
                 {
                     // Apply the Nutrition
                     var food = (RawFoodItemData)_claimedFood.GetItemData();
-                    _ai.Unit.Stats.IncreaseStatValue(StatType.Food, food.FoodNutrition);
+                    _ai.Unit.Needs.IncreaseNeedValue(NeedType.Food, food.FoodNutrition);
                     
                     Destroy(_claimedFood.gameObject);
                     _claimedFood = null;
@@ -120,7 +120,7 @@ namespace TaskSystem
 
                 if (_seat != null)
                 {
-                    _ai.Unit.Stats.DeregisterStatChangePerHour(_seat.IsUseStatChange);
+                    _ai.Unit.Needs.DeregisterNeedChangePerHour(_seat.InUseNeedChange);
                     _seat.ExitSeat(_ai.Unit);
                 }
                 

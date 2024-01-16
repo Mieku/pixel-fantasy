@@ -1,12 +1,9 @@
 using System.Collections.Generic;
-using System.Linq;
 using Buildings;
-using Items;
 using Managers;
 using ScriptableObjects;
-using TaskSystem;
 using UnityEngine;
-using Zones;
+using UnityEngine.Serialization;
 
 namespace Characters
 {
@@ -16,7 +13,7 @@ namespace Characters
         [SerializeField] private Color _relevantStatColour;
         
         public string FirstName, LastName;
-        public Abilities Abilities;
+        [FormerlySerializedAs("Abilities")] public Stats Stats;
         
         public Schedule Schedule = new Schedule();
 
@@ -37,30 +34,30 @@ namespace Characters
         public string JobName => CurrentJob.JobName;
         public string UID => _uid.uniqueID;
 
-        public int RelevantAbilityScore(List<AbilityType> relevantAbilities)
+        public int RelevantAbilityScore(List<StatType> relevantAbilities)
         {
             int score = 0;
-            if (relevantAbilities.Contains(AbilityType.Strength))
+            if (relevantAbilities.Contains(StatType.Strength))
             {
-                score += Abilities.Strength.Level;
+                score += Stats.Strength.Level;
             }
-            if (relevantAbilities.Contains(AbilityType.Vitality))
+            if (relevantAbilities.Contains(StatType.Vitality))
             {
-                score += Abilities.Vitality.Level;
+                score += Stats.Vitality.Level;
             }
-            if (relevantAbilities.Contains(AbilityType.Intelligence))
+            if (relevantAbilities.Contains(StatType.Intelligence))
             {
-                score += Abilities.Intelligence.Level;
+                score += Stats.Intelligence.Level;
             }
-            if (relevantAbilities.Contains(AbilityType.Expertise))
+            if (relevantAbilities.Contains(StatType.Expertise))
             {
-                score += Abilities.Expertise.Level;
+                score += Stats.Expertise.Level;
             }
 
             return score;
         }
         
-        public string GetAbilityList(List<AbilityType> relevantAbilities, Color relevantColourOverride = default)
+        public string GetAbilityList(List<StatType> relevantAbilities, Color relevantColourOverride = default)
         {
             Color relevantColour = _relevantStatColour;
             if (relevantColourOverride != default)
@@ -68,14 +65,14 @@ namespace Characters
                 relevantColour = relevantColourOverride;
             }
             
-            int strength = Abilities.Strength.Level;
-            int vitality = Abilities.Vitality.Level;
-            int intelligence = Abilities.Intelligence.Level;
-            int expertise = Abilities.Expertise.Level;
+            int strength = Stats.Strength.Level;
+            int vitality = Stats.Vitality.Level;
+            int intelligence = Stats.Intelligence.Level;
+            int expertise = Stats.Expertise.Level;
 
             string result = "";
             // Strength
-            if (relevantAbilities.Contains(AbilityType.Strength))
+            if (relevantAbilities.Contains(StatType.Strength))
             {
                 result += $"<color={Helper.ColorToHex(relevantColour)}>{strength} Strength</color><br>";
             }
@@ -85,7 +82,7 @@ namespace Characters
             }
             
             // Vitality
-            if (relevantAbilities.Contains(AbilityType.Vitality))
+            if (relevantAbilities.Contains(StatType.Vitality))
             {
                 result += $"<color={Helper.ColorToHex(relevantColour)}>{vitality} Vitality</color><br>";
             }
@@ -95,7 +92,7 @@ namespace Characters
             }
             
             // Intelligence
-            if (relevantAbilities.Contains(AbilityType.Intelligence))
+            if (relevantAbilities.Contains(StatType.Intelligence))
             {
                 result += $"<color={Helper.ColorToHex(relevantColour)}>{intelligence} Intelligence</color><br>";
             }
@@ -105,7 +102,7 @@ namespace Characters
             }
             
             // Expertise
-            if (relevantAbilities.Contains(AbilityType.Expertise))
+            if (relevantAbilities.Contains(StatType.Expertise))
             {
                 result += $"<color={Helper.ColorToHex(relevantColour)}>{expertise} Expertise</color>";
             }
