@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Buildings;
+using Characters;
 using CodeMonkey.Utils;
 using Controllers;
 using Items;
@@ -35,6 +36,9 @@ namespace Managers
         
         [SerializeField] private Transform _storageParent;
         [SerializeField] private GameObject _storageContainerPrefab;
+
+        [SerializeField] private Transform _kinlingsParent;
+        [SerializeField] private Unit _kinlingPrefab;
 
         private bool _showPlacement;
         private List<string> _invalidPlacementTags = new List<string>();
@@ -297,6 +301,15 @@ namespace Managers
             }
         }
 
+        public Unit SpawnKinling(KinlingData kinlingData, Vector2 spawnPosition)
+        {
+            Unit kinling = Instantiate(_kinlingPrefab, _kinlingsParent);
+            kinling.transform.position = spawnPosition;
+            kinling.gameObject.name = $"Kinling_{kinlingData.Firstname}_{kinlingData.Lastname}";
+            kinling.LoadKinlingData(kinlingData);
+            return kinling;
+        }
+
         public void SpawnItem(ItemData itemData, Vector3 spawnPosition, bool canBeHauled, int quantity)
         {
             for (int i = 0; i < quantity; i++)
@@ -314,6 +327,7 @@ namespace Managers
             spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
             var item = Instantiate(_itemPrefab, spawnPosition, Quaternion.identity);
             item.transform.SetParent(_itemsParent);
+            item.gameObject.name = $"Item_{itemData.ItemName}";
             var itemScript = item.GetComponent<Item>();
             itemScript.InitializeItem(itemData, canBeHauled, itemState, populateInteractions);
             

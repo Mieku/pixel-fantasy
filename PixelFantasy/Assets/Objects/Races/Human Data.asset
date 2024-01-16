@@ -21,3 +21,6 @@ MonoBehaviour:
   - {r: 0, g: 0.8018868, b: 0.14210989, a: 1}
   - {r: 0.509434, g: 0.27460206, b: 0.03604485, a: 1}
   - {r: 0, g: 0, b: 0, a: 1}
+  _childBodyData: {fileID: 11400000, guid: c9c88524c486f324387bba30244f1667, type: 2}
+  _adultBodyData: {fileID: 11400000, guid: c9c88524c486f324387bba30244f1667, type: 2}
+  _seniorBodyData: {fileID: 11400000, guid: c9c88524c486f324387bba30244f1667, type: 2}

@@ -13,6 +13,7 @@ namespace Characters
         public KinlingSkinToneData SkinTone;
         public Gender Gender;
         public RaceData Race;
+        public HairData Hair;
 
         public AppearanceState(RaceData race, Gender gender)
         {

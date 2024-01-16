@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Items;
@@ -23,6 +24,12 @@ namespace ScriptableObjects
         public virtual ItemState CreateState(string uid, Item item)
         {
             return new ItemState(this, uid, item);
+        }
+
+        public virtual ItemState CreateState()
+        {
+            string uid = $"{ItemName}_{Guid.NewGuid()}";
+            return new ItemState(this, uid, null);
         }
     }
     

@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
+using Characters;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace ScriptableObjects
 {
@@ -10,6 +13,9 @@ namespace ScriptableObjects
         public List<KinlingSkinToneData> AvailableSkinTones = new List<KinlingSkinToneData>();
         [ColorUsage(true, true)] public List<Color> AvailableEyeColours = new List<Color>();
         
+        [SerializeField] private BodyData _childBodyData;
+        [SerializeField] private BodyData _adultBodyData;
+        [SerializeField] private BodyData _seniorBodyData;
         
         public KinlingSkinToneData GetRandomSkinTone()
         {
@@ -21,6 +27,21 @@ namespace ScriptableObjects
         {
             int index = Random.Range(0, AvailableEyeColours.Count);
             return AvailableEyeColours[index];
+        }
+
+        public BodyData GetBodyDataByMaturity(EMaturityStage maturityStage)
+        {
+            switch (maturityStage)
+            {
+                case EMaturityStage.Child:
+                    return _childBodyData;
+                case EMaturityStage.Adult:
+                    return _adultBodyData;
+                case EMaturityStage.Senior:
+                    return _seniorBodyData;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(maturityStage), maturityStage, null);
+            }
         }
     }
 }

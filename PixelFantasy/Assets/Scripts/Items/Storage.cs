@@ -123,6 +123,23 @@ namespace Items
             }
         }
 
+        /// <summary>
+        /// To be used when initializing the game or loading saves
+        /// </summary>
+        public void ForceDepositItem(Item item)
+        {
+            item.transform.parent = StoredItemParent;
+            item.AssignedStorage = this;
+            item.gameObject.SetActive(false);
+            Stored.Add(item);
+            
+            GameEvents.Trigger_RefreshInventoryDisplay();
+            if (_parentBuilding != null)
+            {
+                GameEvents.Trigger_OnBuildingChanged(_parentBuilding);
+            }
+        }
+
         public void RestoreClaimed(Item item)
         {
             if (!Claimed.Contains(item))

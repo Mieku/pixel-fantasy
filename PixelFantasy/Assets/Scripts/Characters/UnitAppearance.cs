@@ -59,16 +59,21 @@ namespace Characters
             
         }
 
-        public void Init(Unit unit)
+        public void Init(Unit unit, AppearanceState appearanceState)
         {
             _unit = unit;
-            if (_appearanceState == null)
+            if (appearanceState == null)
             {
                 // Create a random one
                 var randomAppearance = new AppearanceState(_unit.Race, _unit.Gender);
                 randomAppearance.RandomizeAppearance();
                 _appearanceState = randomAppearance;
             }
+            else
+            {
+                _appearanceState = appearanceState;
+            }
+            
             ApplyAppearanceState(_appearanceState);
             _face.Init(BodyData, _curDirection);
         }
@@ -81,12 +86,20 @@ namespace Characters
         public void ApplyAppearanceState(AppearanceState appearanceState)
         {
             _appearanceState = appearanceState;
+            BodyData = appearanceState.Race.GetBodyDataByMaturity(_unit.MaturityStage);
+            HairData = appearanceState.Hair;
             ApplySkinTone();
+            ApplyHair();
         }
 
         public AppearanceState GetAppearanceState()
         {
             return _appearanceState;
+        }
+
+        private void ApplyHair()
+        {
+            SetHairDirection(_curDirection);
         }
 
         [Button("Apply Skin Tone")]
@@ -122,7 +135,7 @@ namespace Characters
 
         private void ApplyMaterialRecolour(SpriteRenderer spriteRenderer, Color redSwap, Color greenSwap, Color blueSwap)
         {
-            var mat = spriteRenderer.sharedMaterial;
+            var mat = spriteRenderer.material;
             mat.EnableKeyword("COLORSWAP_ON");
             mat.SetTexture("_ColorSwapTex", spriteRenderer.sprite.texture);
             

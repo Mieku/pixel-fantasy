@@ -2,6 +2,7 @@ using System;
 using Characters;
 using Managers;
 using ScriptableObjects;
+using UnityEngine;
 
 namespace Items
 {
@@ -12,15 +13,26 @@ namespace Items
         public int Durability;
         public string UID;
         public Storage Storage => LinkedItem.AssignedStorage;
-        public Item LinkedItem;
         public string CraftersUID;
+
+        protected Item _linkedItem;
+        public Item LinkedItem
+        {
+            get
+            {
+                // Return the linked item if there is one, if not spawn one
+                if (_linkedItem == null) _linkedItem = Spawner.Instance.SpawnItem(Data, Vector3.zero, false, this);
+                
+                return _linkedItem;
+            }
+        }
 
         public ItemState(ItemData data, string uid, Item linkedItem)
         {
             Data = data;
             Durability = Data.Durability;
             UID = uid;
-            LinkedItem = linkedItem;
+            _linkedItem = linkedItem;
         }
 
         public ItemState(ItemState other)
@@ -28,7 +40,7 @@ namespace Items
             Data = other.Data;
             Durability = other.Durability;
             UID = other.UID;
-            LinkedItem = other.LinkedItem;
+            _linkedItem = other.LinkedItem;
         }
 
         public float DurabilityPercentage()

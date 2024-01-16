@@ -490,6 +490,15 @@ public static class Helper
         }
         return length;
     }
+    
+    public static Vector3 RandomLocationInRange(Vector2 centerPoint, float range = 5f)
+    {
+        Vector3 randomLocation = centerPoint;
+        randomLocation += Random.Range(-range, range) * Vector3.up;
+        randomLocation += Random.Range(-range, range) * Vector3.right;
+
+        return randomLocation;
+    }
 }
 
 public static class EnumExtensions

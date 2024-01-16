@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Items;
 using Managers;
+using QFSW.QC;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using TaskSystem;
@@ -12,16 +13,33 @@ namespace Characters
 {
     public class KinlingEquipment : MonoBehaviour
     {
-        [BoxGroup("Equipment Renderers")][SerializeField] private Transform _headGear;
-        [BoxGroup("Equipment Renderers")][SerializeField] private Transform _bodyGear;
-        [BoxGroup("Equipment Renderers")][SerializeField] private Transform _pantsGearHips;
-        [BoxGroup("Equipment Renderers")][SerializeField] private Transform _pantsGearLeftLeg;
-        [BoxGroup("Equipment Renderers")][SerializeField] private Transform _pantsGearRightLeg;
-        [BoxGroup("Equipment Renderers")][SerializeField] private Transform _handsGearMainHand;
-        [BoxGroup("Equipment Renderers")][SerializeField] private Transform _handsGearOffHand;
-        [BoxGroup("Equipment Renderers")][SerializeField] private Transform _mainHandHeld;
-        [BoxGroup("Equipment Renderers")][SerializeField] private Transform _offHandHeld;
-        
+        [BoxGroup("Equipment Renderers")] [SerializeField]
+        private Transform _headGear;
+
+        [BoxGroup("Equipment Renderers")] [SerializeField]
+        private Transform _bodyGear;
+
+        [BoxGroup("Equipment Renderers")] [SerializeField]
+        private Transform _pantsGearHips;
+
+        [BoxGroup("Equipment Renderers")] [SerializeField]
+        private Transform _pantsGearLeftLeg;
+
+        [BoxGroup("Equipment Renderers")] [SerializeField]
+        private Transform _pantsGearRightLeg;
+
+        [BoxGroup("Equipment Renderers")] [SerializeField]
+        private Transform _handsGearMainHand;
+
+        [BoxGroup("Equipment Renderers")] [SerializeField]
+        private Transform _handsGearOffHand;
+
+        [BoxGroup("Equipment Renderers")] [SerializeField]
+        private Transform _mainHandHeld;
+
+        [BoxGroup("Equipment Renderers")] [SerializeField]
+        private Transform _offHandHeld;
+
         private GearPiece _headGearObj;
         private GearPiece _bodyGearObj;
         private GearPiece _pantsGearHipsObj;
@@ -45,9 +63,99 @@ namespace Characters
             ShowCurrentGear();
         }
 
-        public void Init(Unit unit)
+        public void Init(Unit unit, KinlingGearData kinlingGearData)
         {
             _unit = unit;
+
+            InitializeGear(kinlingGearData, GearType.Head);
+            InitializeGear(kinlingGearData, GearType.Body);
+            InitializeGear(kinlingGearData, GearType.Pants);
+            InitializeGear(kinlingGearData, GearType.Hands);
+            InitializeGear(kinlingGearData, GearType.MainHand);
+            InitializeGear(kinlingGearData, GearType.OffHand);
+            InitializeGear(kinlingGearData, GearType.BothHands);
+        }
+
+        private void InitializeGear(KinlingGearData kinlingGearData, GearType gearType)
+        {
+            var gearData = kinlingGearData.GetGearData(gearType);
+            var gearDye = kinlingGearData.GetDyePaletteData(gearType);
+
+            if (gearData != null)
+            {
+                var equipmentState = gearData.CreateState() as GearState;
+                if (equipmentState == null)
+                {
+                    Debug.LogError($"{gearData} has null state");
+                    return;
+                }
+
+                if (gearData != null)
+                {
+                    equipmentState.AssignedDye = gearDye;
+                }
+
+                switch (gearType)
+                {
+                    case GearType.Head:
+                        EquipmentState.Head = equipmentState;
+                        if (EquipmentState.Head.Equals(DesiredEquipmentState.Head)) DesiredEquipmentState.Head = null;
+                        break;
+                    case GearType.Body:
+                        EquipmentState.Body = equipmentState;
+                        if (EquipmentState.Body.Equals(DesiredEquipmentState.Body)) DesiredEquipmentState.Body = null;
+                        break;
+                    case GearType.Pants:
+                        EquipmentState.Pants = equipmentState;
+                        if (EquipmentState.Pants.Equals(DesiredEquipmentState.Pants))
+                            DesiredEquipmentState.Pants = null;
+                        break;
+                    case GearType.Hands:
+                        EquipmentState.Hands = equipmentState;
+                        if (EquipmentState.Hands.Equals(DesiredEquipmentState.Hands))
+                            DesiredEquipmentState.Hands = null;
+                        break;
+                    case GearType.MainHand:
+                        EquipmentState.MainHand = equipmentState;
+                        if (EquipmentState.MainHand.Equals(DesiredEquipmentState.MainHand))
+                            DesiredEquipmentState.MainHand = null;
+                        break;
+                    case GearType.OffHand:
+                        EquipmentState.OffHand = equipmentState;
+                        if (EquipmentState.OffHand.Equals(DesiredEquipmentState.OffHand))
+                            DesiredEquipmentState.OffHand = null;
+                        break;
+                    case GearType.BothHands:
+                        EquipmentState.MainHand = equipmentState;
+                        if (EquipmentState.MainHand.Equals(DesiredEquipmentState.MainHand))
+                            DesiredEquipmentState.MainHand = null;
+                        break;
+                    case GearType.Necklace:
+                        EquipmentState.Necklace = equipmentState;
+                        if (EquipmentState.Necklace.Equals(DesiredEquipmentState.Necklace))
+                            DesiredEquipmentState.Necklace = null;
+                        break;
+                    case GearType.Ring:
+                        if (EquipmentState.Ring1 == null)
+                        {
+                            EquipmentState.Ring1 = equipmentState;
+                            if (EquipmentState.Ring1.Equals(DesiredEquipmentState.Ring1))
+                                DesiredEquipmentState.Ring1 = null;
+                        }
+                        else
+                        {
+                            EquipmentState.Ring2 = equipmentState;
+                        }
+
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
+                DisplayGear(equipmentState);
+
+                GameEvents.Trigger_OnKinlingChanged(_unit);
+            }
         }
 
         [Button("Show Current Gear")]
@@ -58,40 +166,40 @@ namespace Characters
 
         public void DisplayEquipmentState(EquipmentState equipmentState)
         {
-            if(equipmentState.Head != null) DisplayGear(equipmentState.Head); 
+            if (equipmentState.Head != null) DisplayGear(equipmentState.Head);
             else ClearDisplayedGear(GearType.Head);
-            
-            if(equipmentState.Body != null) DisplayGear(equipmentState.Body);
+
+            if (equipmentState.Body != null) DisplayGear(equipmentState.Body);
             else ClearDisplayedGear(GearType.Body);
-            
-            if(equipmentState.Pants != null) DisplayGear(equipmentState.Pants);
+
+            if (equipmentState.Pants != null) DisplayGear(equipmentState.Pants);
             else ClearDisplayedGear(GearType.Pants);
-            
-            if(equipmentState.MainHand != null) DisplayGear(equipmentState.MainHand);
+
+            if (equipmentState.MainHand != null) DisplayGear(equipmentState.MainHand);
             else ClearDisplayedGear(GearType.MainHand);
-            
-            if(equipmentState.OffHand != null) DisplayGear(equipmentState.OffHand);
+
+            if (equipmentState.OffHand != null) DisplayGear(equipmentState.OffHand);
             else ClearDisplayedGear(GearType.OffHand);
-            
-            if(equipmentState.Hands != null) DisplayGear(equipmentState.Hands);
+
+            if (equipmentState.Hands != null) DisplayGear(equipmentState.Hands);
             else ClearDisplayedGear(GearType.Hands);
         }
 
         public void AssignDirection(UnitActionDirection direction)
         {
             _curDirection = direction;
-            
-            if(_headGearObj != null)  _headGearObj.AssignDirection(_curDirection);
-            if(_bodyGearObj != null) _bodyGearObj.AssignDirection(_curDirection);
-            if(_pantsGearHipsObj != null) _pantsGearHipsObj.AssignDirection(_curDirection);
-            if(_pantsGearLeftLegObj != null) _pantsGearLeftLegObj.AssignDirection(_curDirection);
-            if(_pantsGearRightLegObj != null) _pantsGearRightLegObj.AssignDirection(_curDirection);
-            if(_handsGearMainHandObj != null) _handsGearMainHandObj.AssignDirection(_curDirection);
-            if(_handsGearOffHandObj != null) _handsGearOffHandObj.AssignDirection(_curDirection);
-            if(_mainHandHeldObj != null) _mainHandHeldObj.AssignDirection(_curDirection);
-            if(_offHandHeldObj != null) _offHandHeldObj.AssignDirection(_curDirection);
+
+            if (_headGearObj != null) _headGearObj.AssignDirection(_curDirection);
+            if (_bodyGearObj != null) _bodyGearObj.AssignDirection(_curDirection);
+            if (_pantsGearHipsObj != null) _pantsGearHipsObj.AssignDirection(_curDirection);
+            if (_pantsGearLeftLegObj != null) _pantsGearLeftLegObj.AssignDirection(_curDirection);
+            if (_pantsGearRightLegObj != null) _pantsGearRightLegObj.AssignDirection(_curDirection);
+            if (_handsGearMainHandObj != null) _handsGearMainHandObj.AssignDirection(_curDirection);
+            if (_handsGearOffHandObj != null) _handsGearOffHandObj.AssignDirection(_curDirection);
+            if (_mainHandHeldObj != null) _mainHandHeldObj.AssignDirection(_curDirection);
+            if (_offHandHeldObj != null) _offHandHeldObj.AssignDirection(_curDirection);
         }
-        
+
         public void Equip(Item item)
         {
             var equipmentState = item.State as GearState;
@@ -117,37 +225,43 @@ namespace Characters
                     break;
                 case GearType.MainHand:
                     EquipmentState.MainHand = equipmentState;
-                    if (EquipmentState.MainHand.Equals(DesiredEquipmentState.MainHand)) DesiredEquipmentState.MainHand = null;
+                    if (EquipmentState.MainHand.Equals(DesiredEquipmentState.MainHand))
+                        DesiredEquipmentState.MainHand = null;
                     break;
                 case GearType.OffHand:
                     EquipmentState.OffHand = equipmentState;
-                    if (EquipmentState.OffHand.Equals(DesiredEquipmentState.OffHand)) DesiredEquipmentState.OffHand = null;
+                    if (EquipmentState.OffHand.Equals(DesiredEquipmentState.OffHand))
+                        DesiredEquipmentState.OffHand = null;
                     break;
                 case GearType.BothHands:
                     EquipmentState.MainHand = equipmentState;
-                    if (EquipmentState.MainHand.Equals(DesiredEquipmentState.MainHand)) DesiredEquipmentState.MainHand = null;
+                    if (EquipmentState.MainHand.Equals(DesiredEquipmentState.MainHand))
+                        DesiredEquipmentState.MainHand = null;
                     break;
                 case GearType.Necklace:
                     EquipmentState.Necklace = equipmentState;
-                    if (EquipmentState.Necklace.Equals(DesiredEquipmentState.Necklace)) DesiredEquipmentState.Necklace = null;
+                    if (EquipmentState.Necklace.Equals(DesiredEquipmentState.Necklace))
+                        DesiredEquipmentState.Necklace = null;
                     break;
                 case GearType.Ring:
                     if (EquipmentState.Ring1 == null)
                     {
                         EquipmentState.Ring1 = equipmentState;
-                        if (EquipmentState.Ring1.Equals(DesiredEquipmentState.Ring1)) DesiredEquipmentState.Ring1 = null;
+                        if (EquipmentState.Ring1.Equals(DesiredEquipmentState.Ring1))
+                            DesiredEquipmentState.Ring1 = null;
                     }
                     else
                     {
                         EquipmentState.Ring2 = equipmentState;
                     }
+
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            
+
             DisplayGear(equipmentState);
-            
+
             GameEvents.Trigger_OnKinlingChanged(_unit);
         }
 
@@ -164,54 +278,64 @@ namespace Characters
                     {
                         _headGearObj = SpawnGearOnBody(equip.HatGear, gearState, _headGear);
                     }
+
                     break;
                 case GearType.Body:
                     if (equip.BodyGear != null)
                     {
                         _bodyGearObj = SpawnGearOnBody(equip.BodyGear, gearState, _bodyGear);
                     }
+
                     break;
                 case GearType.Pants:
                     if (equip.HipsGear != null)
                     {
                         _pantsGearHipsObj = SpawnGearOnBody(equip.HipsGear, gearState, _pantsGearHips);
                     }
+
                     if (equip.LeftLegGear != null)
                     {
                         _pantsGearLeftLegObj = SpawnGearOnBody(equip.LeftLegGear, gearState, _pantsGearLeftLeg);
                     }
+
                     if (equip.RightLegGear != null)
                     {
                         _pantsGearRightLegObj = SpawnGearOnBody(equip.RightLegGear, gearState, _pantsGearRightLeg);
                     }
+
                     break;
                 case GearType.Hands:
                     if (equip.MainHandGear != null)
                     {
                         _handsGearMainHandObj = SpawnGearOnBody(equip.MainHandGear, gearState, _handsGearMainHand);
                     }
+
                     if (equip.OffHandGear != null)
                     {
                         _handsGearOffHandObj = SpawnGearOnBody(equip.OffHandGear, gearState, _handsGearOffHand);
                     }
+
                     break;
                 case GearType.MainHand:
                     if (equip.MainHandHeldGear != null)
                     {
                         _mainHandHeldObj = SpawnGearOnBody(equip.MainHandHeldGear, gearState, _mainHandHeld);
                     }
+
                     break;
                 case GearType.OffHand:
                     if (equip.OffHandHeldGear != null)
                     {
                         _offHandHeldObj = SpawnGearOnBody(equip.OffHandHeldGear, gearState, _offHandHeld);
                     }
+
                     break;
                 case GearType.BothHands:
                     if (equip.MainHandHeldGear != null)
                     {
                         _mainHandHeldObj = SpawnGearOnBody(equip.MainHandHeldGear, gearState, _mainHandHeld);
                     }
+
                     break;
                 case GearType.Carried:
                     Debug.LogError("Carried is not built yet");
@@ -232,6 +356,7 @@ namespace Characters
             {
                 child.gameObject.layer = parent.gameObject.layer;
             }
+
             return gear;
         }
 
@@ -245,6 +370,7 @@ namespace Characters
                         Destroy(_headGearObj.gameObject);
                         _headGearObj = null;
                     }
+
                     break;
                 case GearType.Body:
                     if (_bodyGearObj != null)
@@ -252,6 +378,7 @@ namespace Characters
                         Destroy(_bodyGearObj.gameObject);
                         _bodyGearObj = null;
                     }
+
                     break;
                 case GearType.Pants:
                     if (_pantsGearHipsObj != null)
@@ -259,16 +386,19 @@ namespace Characters
                         Destroy(_pantsGearHipsObj.gameObject);
                         _pantsGearHipsObj = null;
                     }
+
                     if (_pantsGearLeftLegObj != null)
                     {
                         Destroy(_pantsGearLeftLegObj.gameObject);
                         _pantsGearLeftLegObj = null;
                     }
+
                     if (_pantsGearRightLegObj != null)
                     {
                         Destroy(_pantsGearRightLegObj.gameObject);
                         _pantsGearRightLegObj = null;
                     }
+
                     break;
                 case GearType.Hands:
                     if (_handsGearMainHandObj != null)
@@ -276,11 +406,13 @@ namespace Characters
                         Destroy(_handsGearMainHandObj.gameObject);
                         _handsGearMainHandObj = null;
                     }
+
                     if (_handsGearOffHandObj != null)
                     {
                         Destroy(_handsGearOffHandObj.gameObject);
                         _handsGearOffHandObj = null;
                     }
+
                     break;
                 case GearType.MainHand:
                     if (_mainHandHeldObj != null)
@@ -288,6 +420,7 @@ namespace Characters
                         Destroy(_mainHandHeldObj.gameObject);
                         _mainHandHeldObj = null;
                     }
+
                     break;
                 case GearType.OffHand:
                     if (_offHandHeldObj != null)
@@ -295,6 +428,7 @@ namespace Characters
                         Destroy(_offHandHeldObj.gameObject);
                         _offHandHeldObj = null;
                     }
+
                     break;
                 case GearType.BothHands:
                     if (_mainHandHeldObj != null)
@@ -302,11 +436,13 @@ namespace Characters
                         Destroy(_mainHandHeldObj.gameObject);
                         _mainHandHeldObj = null;
                     }
+
                     if (_offHandHeldObj != null)
                     {
                         Destroy(_offHandHeldObj.gameObject);
                         _offHandHeldObj = null;
                     }
+
                     break;
                 case GearType.Carried:
                     Debug.LogError("Carried is not built yet");
@@ -314,6 +450,32 @@ namespace Characters
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
+        }
+
+        [Command("strip_all", MonoTargetType.All)]
+        private void CMD_StripAll() // TODO: Remove this!
+        {
+            Unequip(GearType.Head);
+            Unequip(GearType.Body);
+            Unequip(GearType.Pants);
+            Unequip(GearType.Hands);
+            Unequip(GearType.MainHand);
+            Unequip(GearType.OffHand);
+            Unequip(GearType.BothHands);
+            Unequip(GearType.Ring);
+            Unequip(GearType.Necklace);
+        }
+        
+        public Item Unequip(GearType gearType)
+        {
+            var curEquippedItem = EquipmentState.GetGearByType(gearType);
+            if (curEquippedItem != null)
+            {
+                var item = Unequip(curEquippedItem);
+                return item;
+            }
+            
+            return null;
         }
 
         public Item Unequip(GearState gear)
@@ -365,8 +527,10 @@ namespace Characters
             }
             
             ClearDisplayedGear(data.Type);
-            
-            var droppedItem = Spawner.Instance.SpawnItem(gear.Data, transform.position, true, gear);
+
+            var droppedItem = gear.LinkedItem;//Spawner.Instance.SpawnItem(gear.Data, transform.position, true, gear);
+            droppedItem.transform.position = transform.position;
+            droppedItem.IsAllowed = true;
             return droppedItem;
         }
 

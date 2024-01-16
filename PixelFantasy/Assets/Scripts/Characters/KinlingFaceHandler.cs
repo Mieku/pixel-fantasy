@@ -152,7 +152,7 @@ namespace Characters
         
         private void ApplyMaterialRecolour(SpriteRenderer spriteRenderer, Color redSwap, Color greenSwap, Color blueSwap)
         {
-            var mat = spriteRenderer.sharedMaterial;
+            var mat = spriteRenderer.material;
             mat.EnableKeyword("COLORSWAP_ON");
             mat.SetTexture("_ColorSwapTex", spriteRenderer.sprite.texture);
             

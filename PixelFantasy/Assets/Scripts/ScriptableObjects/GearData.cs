@@ -1,3 +1,4 @@
+using System;
 using Characters;
 using Items;
 using Sirenix.OdinInspector;
@@ -27,6 +28,12 @@ namespace ScriptableObjects
         public override ItemState CreateState(string uid, Item item)
         {
             return new GearState(this, uid, item);
+        }
+        
+        public override ItemState CreateState()
+        {
+            string uid = $"{ItemName}_{Guid.NewGuid()}";
+            return new GearState(this, uid, null);
         }
     }
 

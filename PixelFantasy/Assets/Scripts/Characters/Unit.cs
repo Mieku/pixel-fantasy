@@ -5,17 +5,12 @@ using DataPersistence;
 using Items;
 using Managers;
 using ScriptableObjects;
-using Systems.Currency.Scripts;
 using Systems.Mood.Scripts;
-using Systems.SmartObjects.Scripts;
 using Systems.Social.Scripts;
-using Systems.Stats.Scripts;
 using Systems.Traits.Scripts;
 using TaskSystem;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.Rendering;
-using UnityEngine.Serialization;
 
 namespace Characters
 {
@@ -66,15 +61,38 @@ namespace Characters
 
         private void Start()
         {
-            Equipment.Init(this);
-            _appearance.Init(this);
-            _mood.Init();
+            // Equipment.Init(this);
+            // _appearance.Init(this);
+            // _mood.Init();
+            //
+            // Family = FamilyManager.Instance.FindOrCreateFamily(this);
+            //
+            // GameEvents.Trigger_OnCoinsIncomeChanged();
+            //
+            // Initialize();
+        }
 
-            Family = FamilyManager.Instance.FindOrCreateFamily(this);
+        public void LoadKinlingData(KinlingData kinlingData)
+        {
+            UniqueId = kinlingData.UID;
+            _unitState.FirstName = kinlingData.Firstname;
+            _unitState.LastName = kinlingData.Lastname;
+            MaturityStage = kinlingData.MaturityStage;
+            Gender = kinlingData.Gender;
+            SexualPreference = kinlingData.SexualPreference;
+            _race = kinlingData.Appearance.Race;
             
-            GameEvents.Trigger_OnCoinsIncomeChanged();
+            _appearance.Init(this, kinlingData.Appearance);
+            Equipment.Init(this, kinlingData.Gear);
             
             Initialize();
+        }
+        
+        private void Initialize()
+        {
+            Stats.Initialize();
+            
+            GameEvents.Trigger_OnCoinsIncomeChanged();
         }
 
         private void OnDestroy()
@@ -83,11 +101,6 @@ namespace Characters
             UnitsManager.Instance.DeregisterKinling(this);
             
             GameEvents.Trigger_OnCoinsIncomeChanged();
-        }
-
-        private void Initialize()
-        {
-            Stats.Initialize();
         }
 
         public int DailyIncome()
@@ -230,9 +243,8 @@ namespace Characters
     public enum EMaturityStage
     {
         Child = 0,
-        Teen = 1,
-        Adult = 2,
-        Senior = 3,
+        Adult = 1,
+        Senior = 2,
     }
 
     public enum ESexualPreference

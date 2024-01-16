@@ -16,7 +16,7 @@ namespace Items
         {
             Data = data;
             UID = uid;
-            LinkedItem = item;
+            _linkedItem = item;
         }
         
         public GearState(GearState other) : base(other)
