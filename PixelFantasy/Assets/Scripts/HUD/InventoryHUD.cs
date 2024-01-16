@@ -15,6 +15,8 @@ namespace HUD
         private void Start()
         {
             GameEvents.RefreshInventoryDisplay += GameEvents_RefreshInventoryDisplay;
+            
+            GameEvents_RefreshInventoryDisplay();
         }
 
         private void OnDestroy()

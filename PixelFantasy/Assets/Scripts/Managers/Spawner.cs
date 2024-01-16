@@ -301,12 +301,21 @@ namespace Managers
             }
         }
 
-        public Unit SpawnKinling(KinlingData kinlingData, Vector2 spawnPosition)
+        public Unit SpawnKinling(KinlingData kinlingData, Vector2 spawnPosition, bool preloadWithKinlingData = true)
         {
             Unit kinling = Instantiate(_kinlingPrefab, _kinlingsParent);
             kinling.transform.position = spawnPosition;
             kinling.gameObject.name = $"Kinling_{kinlingData.Firstname}_{kinlingData.Lastname}";
-            kinling.LoadKinlingData(kinlingData);
+
+            if (preloadWithKinlingData)
+            {
+                kinling.LoadKinlingData(kinlingData);
+            }
+            else
+            {
+                kinling.UniqueId = kinlingData.UID;
+            }
+            
             return kinling;
         }
 

@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using Items;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
+using Systems.Traits.Scripts;
 using UnityEngine;
 
 namespace Characters
@@ -9,18 +11,18 @@ namespace Characters
     [Serializable]
     public class KinlingData
     {
-        private string _uid;
+        [BoxGroup("General")] [SerializeField] private string _uid;
         public string UID
         {
             get
             {
                 if (string.IsNullOrEmpty(_uid))
                 {
-                    _uid = $"Kinling_{Firstname}_{Lastname}_{Guid.NewGuid()}";
+                    GenerateUID();
                 }
                 return _uid;
             }
-            set => _uid = value;
+            protected set => _uid = value;
         }
         
         [BoxGroup("General")] public string Firstname;
@@ -31,5 +33,15 @@ namespace Characters
         
         [BoxGroup("Appearance")] public AppearanceState Appearance;
         [BoxGroup("Gear")] public KinlingGearData Gear;
+        [BoxGroup("Traits")] public List<Trait> Traits;
+        [BoxGroup("Abilities")] public Abilities Abilities;
+        [BoxGroup("Family")] public string Partner;
+        [BoxGroup("Family")] public List<string> Children;
+        
+        [BoxGroup("General")] [Button("Create UID")]
+        private void GenerateUID()
+        {
+            _uid = $"Kinling_{Firstname}_{Lastname}_{Guid.NewGuid()}";
+        }
     }
 }

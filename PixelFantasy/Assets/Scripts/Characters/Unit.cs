@@ -45,6 +45,7 @@ namespace Characters
         public ESexualPreference SexualPreference;
         public Gender Gender;
         public Unit Partner;
+        public List<Unit> Children = new List<Unit>();
         public Family Family;
         public ClickObject ClickObject;
         public KinlingStats Stats;
@@ -84,6 +85,36 @@ namespace Characters
             
             _appearance.Init(this, kinlingData.Appearance);
             Equipment.Init(this, kinlingData.Gear);
+            _traits = kinlingData.Traits;
+
+            _unitState.Abilities = kinlingData.Abilities;
+
+            if (!string.IsNullOrEmpty(kinlingData.Partner))
+            {
+                Unit partner = UnitsManager.Instance.GetUnit(kinlingData.Partner);
+                if (partner == null)
+                {
+                    Debug.LogError($"Can't find Partner: {kinlingData.Partner}");
+                    return;
+                }
+
+                Partner = partner;
+            }
+
+            foreach (var childUID in kinlingData.Children)
+            {
+                if (!string.IsNullOrEmpty(childUID))
+                {
+                    Unit child = UnitsManager.Instance.GetUnit(childUID);
+                    if (child == null)
+                    {
+                        Debug.LogError($"Can't find child: {childUID}");
+                        return;
+                    }
+
+                    Children.Add(child);
+                }
+            }
             
             Initialize();
         }

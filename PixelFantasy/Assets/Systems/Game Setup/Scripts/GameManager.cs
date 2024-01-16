@@ -32,6 +32,8 @@ namespace Systems.Game_Setup.Scripts
             
             LoadStarterStockpile(_startingItems);
             LoadStarterKinlings(_starterKinlings);
+            
+            GameEvents.Trigger_RefreshInventoryDisplay();
         }
 
         private void LoadStarterStockpile(List<ItemAmount> preloadedItems)
@@ -46,13 +48,24 @@ namespace Systems.Game_Setup.Scripts
                 }
             }
         }
-
+        
         private void LoadStarterKinlings(List<KinlingData> starterKinlings)
         {
+            List<Unit> spawnedKinlings = new List<Unit>();
+            
+            // Spawn First
             foreach (var kinling in starterKinlings)
             {
                 var pos = Helper.RandomLocationInRange(_starterStockpile.transform.position);
-                Spawner.Instance.SpawnKinling(kinling, pos);
+                var spawnedKinling = Spawner.Instance.SpawnKinling(kinling, pos, false);
+                spawnedKinlings.Add(spawnedKinling);
+            }
+
+            // Load Data
+            foreach (var kinling in spawnedKinlings)
+            {
+                var data = starterKinlings.Find(kinlingData => kinlingData.UID == kinling.UniqueId);
+                kinling.LoadKinlingData(data);
             }
         }
     }

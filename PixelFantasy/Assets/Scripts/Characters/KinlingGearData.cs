@@ -9,22 +9,26 @@ namespace Characters
     public class KinlingGearData
     {
         [BoxGroup("Head")] public GearData HeadGearData;
-        [ShowIf("@HeadGearData != null")] [BoxGroup("Head")] public DyePaletteData HeadGearDye;
+        [ShowIf("@HeadGearData != null && HeadGearData.CanBeDyed")] [BoxGroup("Head")] public DyePaletteData HeadGearDye;
         
         [BoxGroup("Body")] public GearData BodyGearData;
-        [ShowIf("@BodyGearData != null")] [BoxGroup("Body")] public DyePaletteData BodyGearDye;
+        [ShowIf("@BodyGearData != null && BodyGearData.CanBeDyed")] [BoxGroup("Body")] public DyePaletteData BodyGearDye;
         
         [BoxGroup("Pants")] public GearData PantsGearData;
-        [ShowIf("@PantsGearData != null")] [BoxGroup("Pants")] public DyePaletteData PantsGearDye;
+        [ShowIf("@PantsGearData != null && PantsGearData.CanBeDyed")] [BoxGroup("Pants")] public DyePaletteData PantsGearDye;
         
         [BoxGroup("Hands")] public GearData HandsGearData;
-        [ShowIf("@HandsGearData != null")] [BoxGroup("Hands")] public DyePaletteData HandsGearDye;
+        [ShowIf("@HandsGearData != null && HandsGearData.CanBeDyed")] [BoxGroup("Hands")] public DyePaletteData HandsGearDye;
         
         [BoxGroup("Main Hand")] public GearData MainHandGearData;
-        [ShowIf("@MainHandGearData != null")] [BoxGroup("Main Hand")] public DyePaletteData MainHandGearDye;
+        [ShowIf("@MainHandGearData != null && MainHandGearData.CanBeDyed")] [BoxGroup("Main Hand")] public DyePaletteData MainHandGearDye;
         
         [BoxGroup("Off Hand")] public GearData OffHandGearData;
-        [ShowIf("@OffHandGearData != null")] [BoxGroup("Off Hand")] public DyePaletteData OffHandGearDye;
+        [ShowIf("@OffHandGearData != null && OffHandGearData.CanBeDyed")] [BoxGroup("Off Hand")] public DyePaletteData OffHandGearDye;
+        
+        [BoxGroup("Ring")] public GearData RingGearData;
+        
+        [BoxGroup("Necklace")] public GearData NecklaceGearData;
 
         public GearData GetGearData(GearType gearType)
         {
@@ -45,7 +49,9 @@ namespace Characters
                 case GearType.BothHands:
                     return MainHandGearData;
                 case GearType.Necklace:
+                    return NecklaceGearData;
                 case GearType.Ring:
+                    return RingGearData;
                 case GearType.Carried:
                     Debug.LogError("This gear type is not supported");
                     return null;
