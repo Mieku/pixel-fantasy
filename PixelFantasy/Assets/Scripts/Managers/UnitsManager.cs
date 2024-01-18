@@ -4,6 +4,7 @@ using Characters;
 using QFSW.QC;
 using ScriptableObjects;
 using Systems.Notifications.Scripts;
+using TaskSystem;
 using UnityEngine;
 
 namespace Managers
@@ -96,6 +97,47 @@ namespace Managers
             instigator.Partner = receiver;
             receiver.Partner = instigator;
             NotificationManager.Instance.CreateKinlingLog(instigator, $"{instigator.GetUnitState().FullName} is now in a relationship with {receiver.GetUnitState().FullName}!", LogData.ELogType.Positive);
+        }
+
+        [Command("mate")]
+        private void CMD_Mate(string instigatorFirstName, string receiverFirstName)
+        {
+            Unit instigator = _allKinlings.Find(unit => unit.GetUnitState().FirstName == instigatorFirstName);
+            Unit receiver = _allKinlings.Find(unit => unit.GetUnitState().FirstName == receiverFirstName);
+            
+            if (instigator == null)
+            {
+                Debug.LogError($"Can't find Instigator: {instigatorFirstName}");
+                return;
+            }
+            
+            if (receiver == null)
+            {
+                Debug.LogError($"Can't find Receiver: {receiverFirstName}");
+                return;
+            }
+
+            Task task = new Task("Mate", instigator.AssignedBed, null, EToolType.None);
+            instigator.TaskAI.QueueTask(task);
+        }
+
+        public Unit CreateChild(Unit mother, Unit father)
+        {
+            KinlingData childData = new KinlingData(mother.GetKinlingData(), father.GetKinlingData());
+            var child = Spawner.Instance.SpawnKinling(childData, mother.transform.position, true);
+            
+            mother.Children.Add(child);
+            father.Children.Add(child);
+
+            var home = mother.GetUnitState().AssignedHome;
+            if (home == null)
+            {
+                Debug.LogError($"Child was born without home??");
+            }
+
+            home.AssignChild(child);
+            
+            return child;
         }
     }
 }

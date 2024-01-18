@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using Characters;
 using Managers;
+using ScriptableObjects;
 using Systems.Notifications.Scripts;
 using Systems.Traits.Scripts;
+using TaskSystem;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -34,6 +36,8 @@ namespace Systems.Social.Scripts
         private const int MOOD_COHESION_BASE = 20;
         private const int MIN_OPINION_TO_FLIRT = 15;
         private const float BASE_ATTEMPT_FLIRTING_CHANCE = 0.10f;
+
+        private const float BASE_PREGNANCY_CHANCE = 50f;
         
         private ESocialState _state;
         private float _chatTimer;
@@ -88,6 +92,16 @@ namespace Systems.Social.Scripts
                     EndChat();
                 }
             }
+        }
+
+        public void ForceFlirtChatBubble()
+        {
+            var topic = _romanticTopics.GetRandomTopic();
+            DisplayChatBubble(topic);
+
+            _chatTimer = 0;
+            _bubbleTimer = 0; 
+            _state = ESocialState.Chatting;
         }
 
         private void BeginChat(SocialAI targetKinling)
@@ -339,6 +353,63 @@ namespace Systems.Social.Scripts
             Debug.Log($"Relationship started!");
             _unit.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("Started Relationship")); // Mood Buff
             NotificationManager.Instance.CreateKinlingLog(_unit, $"{_unit.GetUnitState().FullName} is now in a relationship with {otherKinling._unit.GetUnitState().FullName}!", LogData.ELogType.Positive);
+        }
+
+        public void ReceiveMateRequest()
+        {
+            Task mateTask = new Task("Receive Mate", null, null, EToolType.None);
+            
+            _unit.TaskAI.QueueTask(mateTask);
+        }
+
+        public bool ReadyToGoMate
+        {
+            get;
+            set;
+        }
+
+        public void CancelMateRequest()
+        {
+            _unit.TaskAI.CancelTask("Receive Mate");
+            _unit.TaskAI.CancelTask("Mate");
+        }
+
+        public void MatingComplete(bool wasSuccessful)
+        {
+            if (wasSuccessful)
+            {
+                _unit.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("Got some Lovin'"));
+                CheckPregnancy();
+            }
+            else
+            {
+                _unit.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("Lovin' was Disturbed"));
+            }
+        }
+
+        private void CheckPregnancy()
+        {
+            if (_unit.Gender == Gender.Female && _unit.Partner.Gender == Gender.Male)
+            {
+                if (_unit.MaturityStage == EMaturityStage.Adult && _unit.Partner.MaturityStage == EMaturityStage.Adult)
+                {
+                    var spaceForKids = _unit.GetUnitState().AssignedHome.HasSpaceForChildren();
+                    if (spaceForKids)
+                    {
+                        bool isPregnant = Helper.RollDice(BASE_PREGNANCY_CHANCE);
+                        if (isPregnant)
+                        {
+                            Unit child = UnitsManager.Instance.CreateChild(_unit, _unit.Partner);
+                            if (child != null)
+                            {
+                                NotificationManager.Instance.CreateKinlingLog(child, 
+                                    $"{_unit.GetUnitState().FirstName} and {_unit.Partner.GetUnitState().FirstName} had a child named {child.GetUnitState().FullName}", 
+                                    LogData.ELogType.Positive);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

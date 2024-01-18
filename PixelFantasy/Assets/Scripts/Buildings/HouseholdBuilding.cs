@@ -17,9 +17,15 @@ namespace Buildings
         public string HeadHousehold;
         public string Partner;
         public List<string> Children;
+        public bool InMatingMode { get; protected set; }
 
         private const float RECOMMENDED_DAILY_NUTRITION_PER_RESIDENT = 0.75f;
 
+        public bool HasSpaceForChildren()
+        {
+            return Children.Count < AdditionalBeds.Count;
+        }
+        
         public int NumResidents
         {
             get
@@ -138,6 +144,40 @@ namespace Buildings
             _occupants.Remove(unit);
             
             unit.GetUnitState().AssignedHome = null;
+        }
+
+        protected override bool IsInternalViewAllowed()
+        {
+            bool result = base.IsInternalViewAllowed();
+            if (result)
+            {
+                result = !InMatingMode;
+            }
+
+            return result;
+        }
+
+        public void TriggerMatingMode(bool isOn)
+        {
+            if(InMatingMode == isOn) return;
+            
+            InMatingMode = isOn;
+
+            if (isOn)
+            {
+                TryToggleInternalView(false);
+                _animator.SetAnimation(EBuildingAnimation.Mating);
+            }
+            else
+            {
+                TryToggleInternalView(_defaultToInternalView);
+                _animator.SetAnimation(EBuildingAnimation.None);
+            }
+            
+            /* TODO: 
+             * Ensure the inside of the building is no longer visible.
+             * Do house mating animation while in mating mode.
+             */
         }
     }
 }

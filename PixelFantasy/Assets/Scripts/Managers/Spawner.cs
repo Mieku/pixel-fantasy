@@ -309,7 +309,7 @@ namespace Managers
 
             if (preloadWithKinlingData)
             {
-                kinling.LoadKinlingData(kinlingData);
+                kinling.SetKinlingData(kinlingData);
             }
             else
             {

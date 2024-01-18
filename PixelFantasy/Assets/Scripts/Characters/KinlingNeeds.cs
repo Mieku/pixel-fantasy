@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Timers;
+using Managers;
 using Systems.Needs.Scripts;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -15,8 +17,11 @@ namespace Characters
 
         [SerializeField] private List<NeedChange> _registeredNeedChanges = new List<NeedChange>();
 
+        private Unit _kinling;
+
         private void Awake()
         {
+            _kinling = GetComponent<Unit>();
             GameEvents.MinuteTick += GameEvent_MinuteTick;
         }
 
@@ -149,9 +154,26 @@ namespace Characters
             return need.DecreaseNeed(amount);
         }
 
+        private const float BASE_SEX_DRIVE = 50f;
+        private int lastDayChecked = -1;
         public bool CheckSexDrive()
         {
-            return false; // TODO: Build me!
+            // Is adult
+            if (_kinling.MaturityStage == EMaturityStage.Child) return false;
+            
+            // Check only once a day
+            int currentDay = EnvironmentManager.Instance.GameTime.Day;
+            if (currentDay == lastDayChecked) return false;
+            
+            // Have the sex drive be influenced by mood
+            lastDayChecked = currentDay;
+            var currentMood = _kinling.KinlingMood.OverallMood;
+            float sexDriveModifier = (1f / 75f) * currentMood;
+            float sexDrive = BASE_SEX_DRIVE * sexDriveModifier;
+            Debug.Log($"Sex Drive: {sexDrive}");
+
+            bool result = Helper.RollDice(sexDrive);
+            return result;
         }
     }
 

@@ -65,7 +65,7 @@ namespace Systems.Game_Setup.Scripts
             foreach (var kinling in spawnedKinlings)
             {
                 var data = starterKinlings.Find(kinlingData => kinlingData.UID == kinling.UniqueId);
-                kinling.LoadKinlingData(data);
+                kinling.SetKinlingData(data);
             }
         }
     }

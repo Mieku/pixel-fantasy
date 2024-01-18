@@ -6,6 +6,7 @@ using Items;
 using Managers;
 using ScriptableObjects;
 using Systems.Mood.Scripts;
+using Systems.Notifications.Scripts;
 using Systems.Social.Scripts;
 using Systems.Traits.Scripts;
 using TaskSystem;
@@ -52,6 +53,7 @@ namespace Characters
 
         private Building _insideBuidling;
         private BedFurniture _bed;
+        private KinlingData _kinlingData;
 
         private void Awake()
         {
@@ -73,8 +75,14 @@ namespace Characters
             // Initialize();
         }
 
-        public void LoadKinlingData(KinlingData kinlingData)
+        public KinlingData GetKinlingData()
         {
+            return _kinlingData;
+        }
+
+        public void SetKinlingData(KinlingData kinlingData)
+        {
+            _kinlingData = kinlingData;
             UniqueId = kinlingData.UID;
             _unitState.FirstName = kinlingData.Firstname;
             _unitState.LastName = kinlingData.Lastname;
@@ -88,6 +96,8 @@ namespace Characters
             _traits = kinlingData.Traits;
 
             _unitState.Stats = kinlingData.Stats;
+            
+            _mood.Init();
 
             if (!string.IsNullOrEmpty(kinlingData.Partner))
             {

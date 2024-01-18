@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Characters;
 using Managers;
 using Sirenix.OdinInspector;
@@ -13,6 +14,7 @@ namespace Items
         
         private string _assignedKinling;
         private string _assignedKinling2;
+        private List<string> _kinlingsInBed = new List<string>();
 
         public bool IsUnassigned(Unit unit)
         {
@@ -22,7 +24,7 @@ namespace Items
             }
             else
             {
-                if (unit.Partner.UniqueId == _assignedKinling)
+                if (unit.Partner != null && unit.Partner.UniqueId == _assignedKinling)
                 {
                     return true;
                 }
@@ -159,6 +161,8 @@ namespace Items
             ShowTopSheet(true);
             int orderlayer = GetBetweenTheSheetsLayerOrder();
             unit.AssignAndLockLayerOrder(orderlayer);
+            
+            _kinlingsInBed.Add(unit.UniqueId);
         }
 
         public void ExitBed(Unit unit)
@@ -167,6 +171,16 @@ namespace Items
             unit.IsAsleep = false;
             ShowTopSheet(false);
             unit.UnlockLayerOrder();
+            
+            _kinlingsInBed.Remove(unit.UniqueId);
+        }
+
+        public bool IsPartnerInBed(Unit kinling)
+        {
+            if (kinling.Partner == null) return false;
+
+            string partnerID = kinling.Partner.UniqueId;
+            return _kinlingsInBed.Contains(partnerID);
         }
 
         public int GetBetweenTheSheetsLayerOrder()

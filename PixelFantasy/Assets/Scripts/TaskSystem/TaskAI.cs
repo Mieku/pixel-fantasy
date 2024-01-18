@@ -120,6 +120,12 @@ namespace TaskSystem
             if (_queuedTasks.Count > 0)
             {
                 task = _queuedTasks.Dequeue();
+                if (AttemptStartTask(task, false)) return;
+                else
+                {
+                    _queuedTasks.Enqueue(task);
+                    task = null;
+                }
             }
             
             if (task == null)
@@ -187,6 +193,12 @@ namespace TaskSystem
             if (_queuedTasks.Count > 0)
             {
                 task = _queuedTasks.Dequeue();
+                if (AttemptStartTask(task, false)) return;
+                else
+                {
+                    _queuedTasks.Enqueue(task);
+                    task = null;
+                }
             }
             
             if (task == null)
@@ -226,7 +238,7 @@ namespace TaskSystem
             {
                 if (_unit.Needs.CheckSexDrive() && _unit.Partner.Needs.CheckSexDrive())
                 {
-                    task = new Task("Have Sex", _unit.AssignedBed, null, EToolType.None);
+                    task = new Task("Mate", _unit.AssignedBed, null, EToolType.None);
                     if (AttemptStartTask(task, false)) return;
                     else task = null;
                 }
@@ -497,9 +509,35 @@ namespace TaskSystem
             _heldItem = null;
         }
 
+        public void CancelTask(string taskID)
+        {
+            // Check queued tasks
+            RemoveTaskFromQueue(taskID);
+            if (_curTaskAction.TaskId == taskID)
+            {
+                _curTaskAction.OnTaskCancel();
+            }
+        }
+
         public void QueueTask(Task task)
         {
             _queuedTasks.Enqueue(task);
+        }
+
+        private void RemoveTaskFromQueue(string taskID)
+        {
+            Queue<Task> tempQueue = new Queue<Task>();
+
+            while (_queuedTasks.Count > 0)
+            {
+                var item = _queuedTasks.Dequeue();
+                if (item.TaskId != taskID)
+                {
+                    tempQueue.Enqueue(item);
+                }
+            }
+
+            _queuedTasks = tempQueue;
         }
 
         public TaskAction ForceTask(string taskID)

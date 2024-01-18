@@ -50,6 +50,39 @@ namespace Characters
             Intelligence.Level = Random.Range(2, 8);
             Expertise.Level = Random.Range(2, 8);
         }
+
+        private Stat GetGeneticStat(Stat motherStat, Stat fatherStat)
+        {
+            Stat stat;
+            if (Helper.RollDice(50))
+            {
+                // Inherit
+                stat = Helper.RollDice(50) ? motherStat : fatherStat;
+                return stat;
+            }
+            else
+            {
+                // Not Inherited
+                var statLvl = Random.Range(2, 8);
+                stat = new Stat(statLvl);
+                return stat;
+            }
+        }
+
+        public Stats(Stats motherStats, Stats fatherStats)
+        {
+            Strength = GetGeneticStat(motherStats.GetStatByType(StatType.Strength),
+                fatherStats.GetStatByType(StatType.Strength));
+            
+            Vitality = GetGeneticStat(motherStats.GetStatByType(StatType.Vitality),
+                fatherStats.GetStatByType(StatType.Vitality));
+            
+            Intelligence = GetGeneticStat(motherStats.GetStatByType(StatType.Intelligence),
+                fatherStats.GetStatByType(StatType.Intelligence));
+            
+            Expertise = GetGeneticStat(motherStats.GetStatByType(StatType.Expertise),
+                fatherStats.GetStatByType(StatType.Expertise));
+        }
     }
 
     public enum StatType

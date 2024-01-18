@@ -28,24 +28,28 @@ namespace Characters
             SkinTone = other.SkinTone;
             Gender = other.Gender;
         }
+
+        public AppearanceState(Gender gender, AppearanceState motherAppearance, AppearanceState fatherAppearance)
+        {
+            EyeColour = Helper.RollDice(50) ? motherAppearance.EyeColour : fatherAppearance.EyeColour;
+            Race = motherAppearance.Race;
+            SkinTone = Helper.RollDice(50) ? motherAppearance.SkinTone : fatherAppearance.SkinTone;
+            Hair = GetRandomHairByGender(gender);
+        }
         
         public void RandomizeAppearance()
         {
             // Make a random one
             SkinTone = Race.GetRandomSkinTone();
 
-            // int genderIndex = Random.Range(0, 2);
-            // if (genderIndex == 0)
-            // {
-            //     Gender = Gender.Male;
-            // }
-            // else
-            // {
-            //     Gender = Gender.Female;
-            // }
-
             // Create a random HDR color
             EyeColour = Race.GetRandomEyeColour();
+        }
+
+        private HairData GetRandomHairByGender(Gender gender)
+        {
+            var hair = Race.GetRandomHairByGender(gender);
+            return hair;
         }
     }
 }

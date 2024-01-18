@@ -43,6 +43,7 @@ namespace Buildings
         [SerializeField] private BuildingInteriorDetector _buildingInteriorDetector;
         [SerializeField] private GameObject _furnitureParentHandle;
         [SerializeField] protected BuildingNotification _buildingNotification;
+        [SerializeField] protected BuildingAnimator _animator;
 
         [TitleGroup("Layering")] [SerializeField] private float _buildingDepth;
         [TitleGroup("Layering")] [SerializeField] private SortingGroup _exteriorSortingGroup;
@@ -59,7 +60,7 @@ namespace Buildings
 
         protected BuildingState _state;
         private string _buildingName;
-        private bool _defaultToInternalView;
+        protected bool _defaultToInternalView;
         private bool _beingMoved;
         private bool _repairsRequested;
 
@@ -540,10 +541,10 @@ namespace Buildings
             TryToggleInternalView(showInternal);
         }
         
-        private void TryToggleInternalView(bool showInternal)
+        protected void TryToggleInternalView(bool showInternal)
         {
-            // Cases where show always be no showing internal
-            if (State is BuildingState.Planning or BuildingState.BeingPlaced)
+            // // Cases where show always be no showing internal
+            if (!IsInternalViewAllowed())
             {
                 ToggleInternalView(false);
                 return;
@@ -563,6 +564,18 @@ namespace Buildings
             else
             {
                 ToggleInternalView(true);
+            }
+        }
+
+        protected virtual bool IsInternalViewAllowed()
+        {
+            if (State is BuildingState.Planning or BuildingState.BeingPlaced)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
             }
         }
 
@@ -632,6 +645,7 @@ namespace Buildings
             ShowCraftableFurniture();
             
             CreateConstructionHaulingTasks();
+            TryToggleInternalView(_defaultToInternalView);
         }
 
         public override void CompleteConstruction()
