@@ -20,7 +20,6 @@ namespace Characters
     {
         [SerializeField] private RaceData _race;
         [SerializeField] private TaskAI _taskAI;
-        [SerializeField] private UnitState _unitState;
         [SerializeField] private UnitAppearance _appearance;
         [SerializeField] private Mood _mood;
         [SerializeField] private SocialAI _socialAI;
@@ -30,9 +29,30 @@ namespace Characters
         
         [Header("Income")] 
         [SerializeField] protected int _dailyCoinsIncome;
+        
+        [SerializeField] private Color _relevantStatColour;
  
         [SerializeField] private SortingGroup _sortingGroup;
         [SerializeField] private PositionRendererSorter _positionRendererSorter;
+        
+        public string FirstName, LastName;
+        public Schedule Schedule = new Schedule();
+
+        private HouseholdBuilding _assignedHome;
+        public HouseholdBuilding AssignedHome
+        {
+            get => _assignedHome;
+            set
+            {
+                _assignedHome = value;
+                GameEvents.Trigger_OnCoinsIncomeChanged();
+            }
+        }
+
+        public Building AssignedWorkplace;
+        public string JobName => CurrentJob.JobName;
+
+        public string FullName => FirstName + " " + LastName;
         
         public KinlingEquipment Equipment;
         public UnitAnimController UnitAnimController;
@@ -49,7 +69,9 @@ namespace Characters
         public Unit Partner;
         public List<Unit> Children = new List<Unit>();
         public ClickObject ClickObject;
-        [FormerlySerializedAs("Stats")] public KinlingNeeds Needs;
+        public KinlingNeeds Needs;
+        public Stats Stats;
+        
 
         private Building _insideBuidling;
         private BedFurniture _bed;
@@ -84,8 +106,8 @@ namespace Characters
         {
             _kinlingData = kinlingData;
             UniqueId = kinlingData.UID;
-            _unitState.FirstName = kinlingData.Firstname;
-            _unitState.LastName = kinlingData.Lastname;
+            FirstName = kinlingData.Firstname;
+            LastName = kinlingData.Lastname;
             MaturityStage = kinlingData.MaturityStage;
             Gender = kinlingData.Gender;
             SexualPreference = kinlingData.SexualPreference;
@@ -95,7 +117,7 @@ namespace Characters
             Equipment.Init(this, kinlingData.Gear);
             _traits = kinlingData.Traits;
 
-            _unitState.Stats = kinlingData.Stats;
+            Stats = kinlingData.Stats;
             
             _mood.Init();
 
@@ -146,7 +168,7 @@ namespace Characters
 
         public int DailyIncome()
         {
-            if (_unitState.AssignedHome == null)
+            if (AssignedHome == null)
             {
                 return 0;
             }
@@ -173,11 +195,6 @@ namespace Characters
         public void UnlockLayerOrder()
         {
             _positionRendererSorter.SetLocked(false);
-        }
-
-        public UnitState GetUnitState()
-        {
-            return _unitState;
         }
 
         public TaskAI TaskAI => _taskAI;
@@ -218,14 +235,12 @@ namespace Characters
         
         public object CaptureState()
         {
-            var unitStateData = _unitState.GetStateData();
             var appearanceData = _appearance.GetSaveData();
 
             return new UnitData
             {
                 UID = UniqueId,
                 Position = transform.position,
-                UnitStateData = unitStateData,
                 AppearanceData = appearanceData,
             };
         }
@@ -236,9 +251,6 @@ namespace Characters
 
             UniqueId = unitData.UID;
             transform.position = unitData.Position;
-            
-            // Send the data to all components
-            _unitState.SetLoadData(unitData.UnitStateData);
             _appearance.SetLoadData(unitData.AppearanceData);
         }
 
@@ -246,10 +258,6 @@ namespace Characters
         {
             public string UID;
             public Vector3 Position;
-
-            
-            // Unit State
-            public UnitState.UnitStateData UnitStateData;
             
             // Unit Appearance
             public UnitAppearance.AppearanceData AppearanceData;
@@ -271,6 +279,101 @@ namespace Characters
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+        
+        public JobData CurrentJob
+        {
+            get
+            {
+                if (AssignedWorkplace == null)
+                {
+                    return Librarian.Instance.GetJob("Worker");
+                }
+                else
+                {
+                    return AssignedWorkplace.GetBuildingJob();
+                }
+            }
+        }
+        
+        public int RelevantStatScore(List<StatType> relevantStats)
+        {
+            int score = 0;
+            if (relevantStats.Contains(StatType.Strength))
+            {
+                score += Stats.Strength.Level;
+            }
+            if (relevantStats.Contains(StatType.Vitality))
+            {
+                score += Stats.Vitality.Level;
+            }
+            if (relevantStats.Contains(StatType.Intelligence))
+            {
+                score += Stats.Intelligence.Level;
+            }
+            if (relevantStats.Contains(StatType.Expertise))
+            {
+                score += Stats.Expertise.Level;
+            }
+
+            return score;
+        }
+        
+        public string GetStatList(List<StatType> relevantStats, Color relevantColourOverride = default)
+        {
+            Color relevantColour = _relevantStatColour;
+            if (relevantColourOverride != default)
+            {
+                relevantColour = relevantColourOverride;
+            }
+            
+            int strength = Stats.Strength.Level;
+            int vitality = Stats.Vitality.Level;
+            int intelligence = Stats.Intelligence.Level;
+            int expertise = Stats.Expertise.Level;
+
+            string result = "";
+            // Strength
+            if (relevantStats.Contains(StatType.Strength))
+            {
+                result += $"<color={Helper.ColorToHex(relevantColour)}>{strength} Strength</color><br>";
+            }
+            else
+            {
+                result += $"{strength} Strength<br>";
+            }
+            
+            // Vitality
+            if (relevantStats.Contains(StatType.Vitality))
+            {
+                result += $"<color={Helper.ColorToHex(relevantColour)}>{vitality} Vitality</color><br>";
+            }
+            else
+            {
+                result += $"{vitality} Vitality<br>";
+            }
+            
+            // Intelligence
+            if (relevantStats.Contains(StatType.Intelligence))
+            {
+                result += $"<color={Helper.ColorToHex(relevantColour)}>{intelligence} Intelligence</color><br>";
+            }
+            else
+            {
+                result += $"{intelligence} Intelligence<br>";
+            }
+            
+            // Expertise
+            if (relevantStats.Contains(StatType.Expertise))
+            {
+                result += $"<color={Helper.ColorToHex(relevantColour)}>{expertise} Expertise</color>";
+            }
+            else
+            {
+                result += $"{expertise} Expertise";
+            }
+
+            return result;
         }
 
         public void AssignBed(BedFurniture bed)

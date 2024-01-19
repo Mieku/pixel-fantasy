@@ -88,7 +88,7 @@ namespace TaskSystem
         public ScheduleOption GetCurrentScheduleOption()
         {
             int currentHour = EnvironmentManager.Instance.GameTime.GetCurrentHour24();
-            return _unit.GetUnitState().Schedule.GetHour(currentHour);
+            return _unit.Schedule.GetHour(currentHour);
         }
 
         private void RequestNextTask()
@@ -142,16 +142,16 @@ namespace TaskSystem
             }
 
             // First Check Their Assigned Workplace
-            if (_unit.GetUnitState().AssignedWorkplace != null && task == null)
+            if (_unit.AssignedWorkplace != null && task == null)
             {
-                task = _unit.GetUnitState().AssignedWorkplace.GetBuildingTask();
+                task = _unit.AssignedWorkplace.GetBuildingTask();
                 if (AttemptStartTask(task, true)) return;
                 else task = null;
             }
             
             if (task == null)
             {
-                task = TaskManager.Instance.GetTask(_unit.GetUnitState().CurrentJob);
+                task = TaskManager.Instance.GetTask(_unit.CurrentJob);
                 if (task != null)
                 {
                     if (AttemptStartTask(task, true)) return;
@@ -212,20 +212,20 @@ namespace TaskSystem
             // Eat food
             if (task == null && _unit.Needs.GetNeedValue(NeedType.Food) < 0.75f)
             {
-                task = new Task("Eat Food", _unit.GetUnitState().AssignedHome, null, EToolType.None);
+                task = new Task("Eat Food", _unit.AssignedHome, null, EToolType.None);
                 if (AttemptStartTask(task, false)) return;
                 else task = null;
             }
             
             // Make sure there is 1 day's worth of food in home
-            if (task == null && _unit.GetUnitState().AssignedHome != null)
+            if (task == null && _unit.AssignedHome != null)
             {
-                var suggestedNutrition = _unit.GetUnitState().AssignedHome.SuggestedStoredNutrition;
-                var curHouseholdNutrition = _unit.GetUnitState().AssignedHome.CurrentStoredNutrition;
+                var suggestedNutrition = _unit.AssignedHome.SuggestedStoredNutrition;
+                var curHouseholdNutrition = _unit.AssignedHome.CurrentStoredNutrition;
                 if (curHouseholdNutrition < suggestedNutrition)
                 {
                     // Set up a task to pick up some food and store it at home
-                    task = new Task("Store Food", _unit.GetUnitState().AssignedHome, null, EToolType.None);
+                    task = new Task("Store Food", _unit.AssignedHome, null, EToolType.None);
                     if (AttemptStartTask(task, false)) return;
                     else task = null;
                 }
@@ -366,12 +366,12 @@ namespace TaskSystem
         private void CheckPersonal()
         {
             // If homeless, find a home
-            if (_unit.GetUnitState().AssignedHome == null)
+            if (_unit.AssignedHome == null)
             {
                 // Does partner have home?
-                if (_unit.Partner != null && _unit.Partner.GetUnitState().AssignedHome != null)
+                if (_unit.Partner != null && _unit.Partner.AssignedHome != null)
                 {
-                    _unit.Partner.GetUnitState().AssignedHome.AssignPartner(_unit);
+                    _unit.Partner.AssignedHome.AssignPartner(_unit);
                 }
                 else
                 {

@@ -14,14 +14,14 @@ namespace Managers
         private List<Unit> _allKinlings = new List<Unit>();
 
         public List<Unit> AllKinlings => _allKinlings;
-        public List<Unit> UnemployedKinlings => _allKinlings.Where(kinling => kinling.GetUnitState().AssignedWorkplace == null).ToList();
-        public List<Unit> HomelessKinlings => _allKinlings.Where(kinling => kinling.GetUnitState().AssignedHome == null).ToList();
+        public List<Unit> UnemployedKinlings => _allKinlings.Where(kinling => kinling.AssignedWorkplace == null).ToList();
+        public List<Unit> HomelessKinlings => _allKinlings.Where(kinling => kinling.AssignedHome == null).ToList();
 
         public bool AnyUnitHaveJob(JobData jobData)
         {
             foreach (var kinling in _allKinlings)
             {
-                if (kinling.GetUnitState().CurrentJob == jobData)
+                if (kinling.CurrentJob == jobData)
                 {
                     return true;
                 }
@@ -41,7 +41,7 @@ namespace Managers
         {
             if (_allKinlings.Contains(kinling))
             {
-                Debug.LogError("Tried to register the same Kinling Twice: " + kinling.GetUnitState().FullName);
+                Debug.LogError("Tried to register the same Kinling Twice: " + kinling.FullName);
                 return;
             }
             
@@ -53,14 +53,12 @@ namespace Managers
         {
             if (!_allKinlings.Contains(kinling))
             {
-                Debug.LogError("Tried to deregister a non-registered Kinling: " + kinling.GetUnitState().FullName);
+                Debug.LogError("Tried to deregister a non-registered Kinling: " + kinling.FullName);
                 return;
             }
 
             _allKinlings.Remove(kinling);
         }
-
-        public List<UnitState> AllUnits => GetComponentsInChildren<UnitState>().ToList();
         
         public Unit GetUnit(string uniqueID)
         {
@@ -79,8 +77,8 @@ namespace Managers
         [Command("set_love")]
         private void CMD_SetLove(string instigatorFirstName, string receiverFirstName)
         {
-            Unit instigator = _allKinlings.Find(unit => unit.GetUnitState().FirstName == instigatorFirstName);
-            Unit receiver = _allKinlings.Find(unit => unit.GetUnitState().FirstName == receiverFirstName);
+            Unit instigator = _allKinlings.Find(unit => unit.FirstName == instigatorFirstName);
+            Unit receiver = _allKinlings.Find(unit => unit.FirstName == receiverFirstName);
 
             if (instigator == null)
             {
@@ -96,14 +94,14 @@ namespace Managers
 
             instigator.Partner = receiver;
             receiver.Partner = instigator;
-            NotificationManager.Instance.CreateKinlingLog(instigator, $"{instigator.GetUnitState().FullName} is now in a relationship with {receiver.GetUnitState().FullName}!", LogData.ELogType.Positive);
+            NotificationManager.Instance.CreateKinlingLog(instigator, $"{instigator.FullName} is now in a relationship with {receiver.FullName}!", LogData.ELogType.Positive);
         }
 
         [Command("mate")]
         private void CMD_Mate(string instigatorFirstName, string receiverFirstName)
         {
-            Unit instigator = _allKinlings.Find(unit => unit.GetUnitState().FirstName == instigatorFirstName);
-            Unit receiver = _allKinlings.Find(unit => unit.GetUnitState().FirstName == receiverFirstName);
+            Unit instigator = _allKinlings.Find(unit => unit.FirstName == instigatorFirstName);
+            Unit receiver = _allKinlings.Find(unit => unit.FirstName == receiverFirstName);
             
             if (instigator == null)
             {
@@ -129,7 +127,7 @@ namespace Managers
             mother.Children.Add(child);
             father.Children.Add(child);
 
-            var home = mother.GetUnitState().AssignedHome;
+            var home = mother.AssignedHome;
             if (home == null)
             {
                 Debug.LogError($"Child was born without home??");

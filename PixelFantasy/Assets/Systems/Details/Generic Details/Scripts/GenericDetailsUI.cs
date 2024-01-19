@@ -107,7 +107,7 @@ namespace Systems.Details.Generic_Details.Scripts
 
                 if (item.State.WasCrafted)
                 {
-                    var craftersName = item.State.GetCrafter().GetUnitState().FullName;
+                    var craftersName = item.State.GetCrafter().FullName;
                     var titledEntry = Instantiate(_entryTitledTextDisplayPrefab, _contentLayout);
                     titledEntry.Init("Crafted By", craftersName);
                     _displayedEntries.Add(bar.gameObject);
@@ -213,7 +213,7 @@ namespace Systems.Details.Generic_Details.Scripts
             // Crafted by
             if (furniture.WasCrafted)
             {
-                var craftersName = furniture.GetCrafter().GetUnitState().FullName;
+                var craftersName = furniture.GetCrafter().FullName;
                 var craftersEntry = Instantiate(_entryTitledTextDisplayPrefab, _contentLayout);
                 craftersEntry.Init("Crafted By", craftersName);
                 _displayedEntries.Add(craftersEntry.gameObject);

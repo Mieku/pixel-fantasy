@@ -302,7 +302,7 @@ namespace Systems.Mood.Scripts
 
         private void OnBreakdownBegin()
         {
-            NotificationManager.Instance.CreateKinlingLog(_unit, $"{_unit.GetUnitState().FullName} is having a Breakdown!", LogData.ELogType.Danger);
+            NotificationManager.Instance.CreateKinlingLog(_unit, $"{_unit.FullName} is having a Breakdown!", LogData.ELogType.Danger);
 
             // Start a breakdown action
             _curBreakdownAction = _taskAI.ForceTask(_pendingBreakdownState.Breakdown.BreakdownTaskId);
@@ -329,7 +329,7 @@ namespace Systems.Mood.Scripts
 
         private void OnBreakdownComplete()
         {
-            NotificationManager.Instance.CreateKinlingLog(_unit, $"{_unit.GetUnitState().FullName}'s Breakdown is over!", LogData.ELogType.Notification);
+            NotificationManager.Instance.CreateKinlingLog(_unit, $"{_unit.FullName}'s Breakdown is over!", LogData.ELogType.Notification);
             
             // End the breakdown Action
             _curBreakdownAction.ConcludeAction();

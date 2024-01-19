@@ -59,11 +59,11 @@ namespace Popups.Kinling_Info_Popup
         
         private void Refresh()
         {
-            _kinlingNameDisp.text = _selectedUnit.GetUnitState().FullName;
-            _jobName.text = _selectedUnit.GetUnitState().JobName;
-            if (_selectedUnit.GetUnitState().CurrentJob.JobIcon != null)
+            _kinlingNameDisp.text = _selectedUnit.FullName;
+            _jobName.text = _selectedUnit.JobName;
+            if (_selectedUnit.CurrentJob.JobIcon != null)
             {
-                _jobIcon.sprite = _selectedUnit.GetUnitState().CurrentJob.JobIcon;
+                _jobIcon.sprite = _selectedUnit.CurrentJob.JobIcon;
             }
             else
             {

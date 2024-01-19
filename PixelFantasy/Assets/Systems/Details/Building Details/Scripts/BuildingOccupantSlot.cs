@@ -41,8 +41,8 @@ namespace Systems.Details.Building_Details.Scripts
             if (_assignedKinling != null)
             {
                 _portraitImage.gameObject.SetActive(true);
-                _tooltip.Header = _assignedKinling.GetUnitState().FullName;
-                _tooltip.Content = _assignedKinling.GetUnitState().GetAbilityList(_linkedBuilding.BuildingData.RelevantAbilityTypes);
+                _tooltip.Header = _assignedKinling.FullName;
+                _tooltip.Content = _assignedKinling.GetStatList(_linkedBuilding.BuildingData.RelevantAbilityTypes);
             }
             else
             {
@@ -60,9 +60,9 @@ namespace Systems.Details.Building_Details.Scripts
             if (_assignedKinling != null)
             {
                 _removeCurrentHandle.SetActive(true);
-                _removeCurrentName.text = _assignedKinling.GetUnitState().FullName;
-                _removeCurrentTooltip.Header = _assignedKinling.GetUnitState().FullName;
-                _removeCurrentTooltip.Content = _assignedKinling.GetUnitState().GetAbilityList(_linkedBuilding.BuildingData.RelevantAbilityTypes);
+                _removeCurrentName.text = _assignedKinling.FullName;
+                _removeCurrentTooltip.Header = _assignedKinling.FullName;
+                _removeCurrentTooltip.Content = _assignedKinling.GetStatList(_linkedBuilding.BuildingData.RelevantAbilityTypes);
             }
             else
             {

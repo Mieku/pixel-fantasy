@@ -60,7 +60,7 @@ namespace TaskSystem
         private bool CheckWakeupTime()
         {
             int currentHour = EnvironmentManager.Instance.GameTime.GetCurrentHour24();
-            var schedule = _ai.Unit.GetUnitState().Schedule.GetHour(currentHour);
+            var schedule = _ai.Unit.Schedule.GetHour(currentHour);
             return schedule != ScheduleOption.Sleep;
         }
         

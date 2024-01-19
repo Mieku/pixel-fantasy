@@ -1178,7 +1178,6 @@ GameObject:
   - component: {fileID: 5584874993929393806}
   - component: {fileID: 6110830004571278970}
   - component: {fileID: 1211023406118596035}
-  - component: {fileID: 6459717783198305047}
   - component: {fileID: 9189890898419539547}
   - component: {fileID: 4624679516539662858}
   - component: {fileID: 1822529751762045447}
@@ -1230,12 +1229,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _race: {fileID: 11400000, guid: b2e28ba30006afd4d8287ab34a7aa6d5, type: 2}
   _taskAI: {fileID: 6965329135388678903}
-  _unitState: {fileID: 6459717783198305047}
+  _unitState: {fileID: 0}
   _appearance: {fileID: 4680592222557511252}
   _mood: {fileID: 4888200492756624676}
   _socialAI: {fileID: 5256464669028443073}
   _traits: []
   _dailyCoinsIncome: 5
+  _relevantStatColour: {r: 0.050980393, g: 0.7529412, b: 0, a: 1}
   _sortingGroup: {fileID: 4624679516539662858}
   _positionRendererSorter: {fileID: 1822529751762045447}
   Equipment: {fileID: 12347069629172064}
@@ -1249,6 +1249,19 @@ MonoBehaviour:
   Children: []
   ClickObject: {fileID: 0}
   Needs: {fileID: 6110830004571278970}
+  Stats:
+    Strength:
+      Level: 0
+      Exp: 0
+    Vitality:
+      Level: 0
+      Exp: 0
+    Intelligence:
+      Level: 0
+      Exp: 0
+    Expertise:
+      Level: 0
+      Exp: 0
 --- !u!114 &6110830004571278970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1297,36 +1310,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8101332, y: 0.57954216}
   m_EdgeRadius: 0
---- !u!114 &6459717783198305047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5532418264530240426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7921fba718c42974d82c4835aebb9b2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _uid: {fileID: 8745535366893241182}
-  _relevantStatColour: {r: 0.050980393, g: 0.7529412, b: 0, a: 1}
-  FirstName: 
-  LastName: 
-  Stats:
-    Strength:
-      Level: 0
-      Exp: 0
-    Vitality:
-      Level: 0
-      Exp: 0
-    Intelligence:
-      Level: 0
-      Exp: 0
-    Expertise:
-      Level: 0
-      Exp: 0
-  AssignedWorkplace: {fileID: 0}
 --- !u!114 &9189890898419539547
 MonoBehaviour:
   m_ObjectHideFlags: 0

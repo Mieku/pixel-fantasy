@@ -105,7 +105,7 @@ namespace Buildings
             HeadHousehold = unit.UniqueId;
             AddOccupant(unit);
             DoubleBed.AssignKinling(unit);
-            BuildingName = $"{unit.GetUnitState().LastName} {BuildingData.ConstructionName}";
+            BuildingName = $"{unit.LastName} {BuildingData.ConstructionName}";
         }
 
         public void AssignPartner(Unit unit)
@@ -136,14 +136,14 @@ namespace Buildings
         {
             _occupants.Add(unit);
             
-            unit.GetUnitState().AssignedHome = this;
+            unit.AssignedHome = this;
         }
 
         public override void RemoveOccupant(Unit unit)
         {
             _occupants.Remove(unit);
             
-            unit.GetUnitState().AssignedHome = null;
+            unit.AssignedHome = null;
         }
 
         protected override bool IsInternalViewAllowed()

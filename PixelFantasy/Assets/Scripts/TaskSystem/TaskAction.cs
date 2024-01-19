@@ -63,16 +63,16 @@ namespace TaskSystem
 
             Item claimedTool = null;
             // Find the tool
-            if (_ai.Unit.GetUnitState().AssignedWorkplace != null)
+            if (_ai.Unit.AssignedWorkplace != null)
             {
                 claimedTool = InventoryManager.Instance.ClaimToolTypeBuilding(_task.RequiredToolType,
-                    _ai.Unit.GetUnitState().AssignedWorkplace);
+                    _ai.Unit.AssignedWorkplace);
             }
             
-            if (claimedTool == null && _ai.Unit.GetUnitState().AssignedHome != null)
+            if (claimedTool == null && _ai.Unit.AssignedHome != null)
             {
                 claimedTool = InventoryManager.Instance.ClaimToolTypeBuilding(_task.RequiredToolType,
-                    _ai.Unit.GetUnitState().AssignedHome);
+                    _ai.Unit.AssignedHome);
             }
 
             if (claimedTool == null)
@@ -124,15 +124,15 @@ namespace TaskSystem
 
                     Storage storageToPlaceOldItem = null;
                     // Try put tool in workplace
-                    if (_ai.Unit.GetUnitState().AssignedWorkplace != null)
+                    if (_ai.Unit.AssignedWorkplace != null)
                     {
-                        storageToPlaceOldItem = _ai.Unit.GetUnitState().AssignedWorkplace.FindBuildingStorage(droppedItem.GetItemData());
+                        storageToPlaceOldItem = _ai.Unit.AssignedWorkplace.FindBuildingStorage(droppedItem.GetItemData());
                     }
                     
                     // Try put tool in home
-                    if (storageToPlaceOldItem == null && _ai.Unit.GetUnitState().AssignedHome != null)
+                    if (storageToPlaceOldItem == null && _ai.Unit.AssignedHome != null)
                     {
-                        storageToPlaceOldItem = _ai.Unit.GetUnitState().AssignedHome.FindBuildingStorage(droppedItem.GetItemData());
+                        storageToPlaceOldItem = _ai.Unit.AssignedHome.FindBuildingStorage(droppedItem.GetItemData());
                     }
                     
                     // Try put tool in global

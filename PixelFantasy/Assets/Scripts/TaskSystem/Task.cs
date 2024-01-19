@@ -13,7 +13,6 @@ namespace TaskSystem
         public JobData Job;
         public PlayerInteractable Requestor;
         public string Payload;
-        public Family Owner;
         public List<Item> Materials;
         public Queue<Task> SubTasks = new Queue<Task>();
         public Action<Task> OnTaskComplete;
@@ -39,7 +38,6 @@ namespace TaskSystem
             return TaskId == otherTask.TaskId
                    && Requestor == otherTask.Requestor
                    && Payload == otherTask.Payload
-                   && Owner == otherTask.Owner
                    && IsEmergancy == otherTask.IsEmergancy
                    && RequiredToolType == otherTask.RequiredToolType;
         }
@@ -69,7 +67,6 @@ namespace TaskSystem
             return new Task(this.TaskId, this.Requestor, this.Job, this.RequiredToolType, this.IsEmergancy)
             {
                 Payload = this.Payload,
-                Owner = this.Owner,
                 SubTasks = subTasks,
             };
         }

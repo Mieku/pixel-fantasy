@@ -40,13 +40,13 @@ namespace Popups.Kinling_Info_Popup
         public void OnHourClicked(int hour, KinlingScheduleHourDisplay hourDisplay)
         {
             hourDisplay.SetColour(GetCurOptionColour());
-            _unit.GetUnitState().Schedule.SetHour(hour, _currentSelected.Option);
+            _unit.Schedule.SetHour(hour, _currentSelected.Option);
             RefreshDisplayedHours();
         }
 
         private void RefreshDisplayedHours()
         {
-            var schedule = _unit.GetUnitState().Schedule;
+            var schedule = _unit.Schedule;
             foreach (var hour in _hours)
             {
                 var option = schedule.GetHour(hour.Hour);

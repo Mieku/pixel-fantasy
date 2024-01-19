@@ -44,7 +44,7 @@ namespace Systems.SmartObjects.Scripts
             if (potentialPerformer.Unit.TaskAI.GetCurrentScheduleOption() != ScheduleOption.Sleep) return false;
             
             // Is the Kinling's home
-            if (potentialPerformer.Unit.GetUnitState().AssignedHome != _linkedFurniture.ParentBuilding) return false;
+            if (potentialPerformer.Unit.AssignedHome != _linkedFurniture.ParentBuilding) return false;
 
             // Can Kinling use this furniture
             if (!_linkedFurniture.CanKinlingUseThis()) return false;

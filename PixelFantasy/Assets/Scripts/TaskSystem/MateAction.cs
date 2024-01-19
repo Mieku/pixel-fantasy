@@ -43,7 +43,7 @@ namespace TaskSystem
         public override bool CanDoTask(Task task)
         {
             if (_ai.Unit.Partner == null) return false;
-            if (_ai.Unit.GetUnitState().AssignedHome == null) return false;
+            if (_ai.Unit.AssignedHome == null) return false;
 
             return true;
         }
@@ -98,7 +98,7 @@ namespace TaskSystem
                     _taskState = TaskState.Mating;
                     
                     // Tell building to go in mating mode
-                    _ai.Unit.GetUnitState().AssignedHome.TriggerMatingMode(true);
+                    _ai.Unit.AssignedHome.TriggerMatingMode(true);
                 }
             }
 
@@ -110,7 +110,7 @@ namespace TaskSystem
                 {
                     // When countdown finishes
                     _ai.Unit.SocialAI.MatingComplete(true);
-                    _ai.Unit.GetUnitState().AssignedHome.TriggerMatingMode(false);
+                    _ai.Unit.AssignedHome.TriggerMatingMode(false);
                     ConcludeAction();
                 }
             }
@@ -147,7 +147,7 @@ namespace TaskSystem
                 _bed.ExitBed(_ai.Unit);
                 _ai.Unit.UnitAnimController.SetEyesClosed(false);
                 _ai.Unit.UnitAnimController.SetUnitAction(UnitAction.Nothing);
-                _ai.Unit.GetUnitState().AssignedHome.TriggerMatingMode(false);
+                _ai.Unit.AssignedHome.TriggerMatingMode(false);
             }
             
             ResetValues();

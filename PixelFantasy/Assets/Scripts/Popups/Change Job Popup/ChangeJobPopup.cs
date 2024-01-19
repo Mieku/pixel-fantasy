@@ -62,7 +62,7 @@ namespace Popups.Change_Job_Popup
 
         private void SelectCurrentJob()
         {
-            var job = _unit.GetUnitState().CurrentJob;
+            var job = _unit.CurrentJob;
             foreach (var option in _allOptions)
             {
                 if (option.Job == job)
@@ -75,8 +75,8 @@ namespace Popups.Change_Job_Popup
 
         private void RefreshJobs()
         {
-            _kinlingName.text = _unit.GetUnitState().FullName;
-            _kinlingJobName.text = _unit.GetUnitState().JobName;
+            _kinlingName.text = _unit.FullName;
+            _kinlingJobName.text = _unit.JobName;
             
             _allOptions.Clear();
             _allOptions = _jobOptionParent.GetComponentsInChildren<ChangeJobOption>().ToList();
@@ -85,7 +85,7 @@ namespace Popups.Change_Job_Popup
                 var job = option.Job;
                 if (job != null)
                 {
-                    if (_unit.GetUnitState().CurrentJob == job)
+                    if (_unit.CurrentJob == job)
                     {
                         option.Init(ChangeJobOption.JobOptionState.Current, OnJobSelected);
                     }

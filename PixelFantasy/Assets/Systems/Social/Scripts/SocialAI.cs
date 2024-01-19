@@ -336,7 +336,7 @@ namespace Systems.Social.Scripts
             RelationshipState result = _relationships.Find(state => state.KinlingUniqueID == otherUID);
             if (result == null)
             {
-                NotificationManager.Instance.CreateKinlingLog(_unit, $"{_unit.GetUnitState().FullName} has met {otherKinling._unit.GetUnitState().FullName}", LogData.ELogType.Message);
+                NotificationManager.Instance.CreateKinlingLog(_unit, $"{_unit.FullName} has met {otherKinling._unit.FullName}", LogData.ELogType.Message);
                 result = new RelationshipState(otherKinling);
                 _relationships.Add(result);
             }
@@ -352,7 +352,7 @@ namespace Systems.Social.Scripts
             
             Debug.Log($"Relationship started!");
             _unit.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("Started Relationship")); // Mood Buff
-            NotificationManager.Instance.CreateKinlingLog(_unit, $"{_unit.GetUnitState().FullName} is now in a relationship with {otherKinling._unit.GetUnitState().FullName}!", LogData.ELogType.Positive);
+            NotificationManager.Instance.CreateKinlingLog(_unit, $"{_unit.FullName} is now in a relationship with {otherKinling._unit.FullName}!", LogData.ELogType.Positive);
         }
 
         public void ReceiveMateRequest()
@@ -393,7 +393,7 @@ namespace Systems.Social.Scripts
             {
                 if (_unit.MaturityStage == EMaturityStage.Adult && _unit.Partner.MaturityStage == EMaturityStage.Adult)
                 {
-                    var spaceForKids = _unit.GetUnitState().AssignedHome.HasSpaceForChildren();
+                    var spaceForKids = _unit.AssignedHome.HasSpaceForChildren();
                     if (spaceForKids)
                     {
                         bool isPregnant = Helper.RollDice(BASE_PREGNANCY_CHANCE);
@@ -403,7 +403,7 @@ namespace Systems.Social.Scripts
                             if (child != null)
                             {
                                 NotificationManager.Instance.CreateKinlingLog(child, 
-                                    $"{_unit.GetUnitState().FirstName} and {_unit.Partner.GetUnitState().FirstName} had a child named {child.GetUnitState().FullName}", 
+                                    $"{_unit.FirstName} and {_unit.Partner.FirstName} had a child named {child.FullName}", 
                                     LogData.ELogType.Positive);
                             }
                         }

@@ -18,8 +18,8 @@ namespace Buildings
             _kinling = kinling;
             _onPressedCallback = onPressedCallback;
 
-            _kinlingName.text = _kinling.GetUnitState().FullName;
-            _kinlingJobTitle.text = _kinling.GetUnitState().JobName;
+            _kinlingName.text = _kinling.FullName;
+            _kinlingJobTitle.text = _kinling.JobName;
         }
 
         public void OnPressed()

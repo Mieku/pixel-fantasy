@@ -383,14 +383,14 @@ namespace Buildings
         {
             _occupants.Add(unit);
             
-            unit.GetUnitState().AssignedWorkplace = this;
+            unit.AssignedWorkplace = this;
         }
 
         public virtual void RemoveOccupant(Unit unit)
         {
             _occupants.Remove(unit);
             
-            unit.GetUnitState().AssignedWorkplace = null;
+            unit.AssignedWorkplace = null;
         }
         
         public List<BuildingNote> BuildingNotes => _buildingNotes;

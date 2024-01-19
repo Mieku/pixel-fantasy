@@ -114,8 +114,8 @@ public class GameEvents : MonoBehaviour
         if (OnTaskCancelled != null) OnTaskCancelled(task);
     }
 
-    public static event Action<UnitState> OnUnitOccupationChanged;
-    public static void Trigger_OnUnitOccupationChanged(UnitState unit)
+    public static event Action<Unit> OnUnitOccupationChanged;
+    public static void Trigger_OnUnitOccupationChanged(Unit unit)
     {
         if (OnUnitOccupationChanged != null) OnUnitOccupationChanged(unit);
     }

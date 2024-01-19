@@ -24,7 +24,7 @@ namespace Buildings
             {
                 _addSymbol.SetActive(false);
                 _portrait.SetActive(true);
-                _nameText.text = unit.GetUnitState().FullName;
+                _nameText.text = unit.FullName;
                 _titleText.text = "Resident";
             }
             else

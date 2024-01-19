@@ -22,9 +22,9 @@ namespace Systems.Details.Building_Details.Scripts
             _kinling = kinling;
             _onPressedCallback = onPressedCallback;
 
-            _occupantName.text = _kinling.GetUnitState().FirstName;
-            _tooltip.Header = _kinling.GetUnitState().FirstName;
-            var abilityList = _kinling.GetUnitState().GetAbilityList(relevantAbilityTypes);
+            _occupantName.text = _kinling.FirstName;
+            _tooltip.Header = _kinling.FirstName;
+            var abilityList = _kinling.GetStatList(relevantAbilityTypes);
             _tooltip.Content = abilityList;
         }
 

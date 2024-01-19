@@ -105,11 +105,11 @@ namespace Buildings.Building_Panels
                 _building.AddOccupant(unit);
                 if (_building.BuildingType == BuildingType.Home)
                 {
-                    unit.GetUnitState().AssignedHome = _building as HouseholdBuilding;
+                    unit.AssignedHome = _building as HouseholdBuilding;
                 }
                 else
                 {
-                    unit.GetUnitState().AssignedWorkplace = _building;
+                    unit.AssignedWorkplace = _building;
                 }
                 
                 RefreshOccupants();
@@ -121,11 +121,11 @@ namespace Buildings.Building_Panels
                 _building.RemoveOccupant(originalUnit);
                 if (_building.BuildingType == BuildingType.Home)
                 {
-                    originalUnit.GetUnitState().AssignedHome = null;
+                    originalUnit.AssignedHome = null;
                 }
                 else
                 {
-                    originalUnit.GetUnitState().AssignedWorkplace = null;
+                    originalUnit.AssignedWorkplace = null;
                 }
                 
                 RefreshOccupants();
@@ -137,11 +137,11 @@ namespace Buildings.Building_Panels
                 _building.RemoveOccupant(unit);
                 if (_building.BuildingType == BuildingType.Home)
                 {
-                    unit.GetUnitState().AssignedHome = null;
+                    unit.AssignedHome = null;
                 }
                 else
                 {
-                    unit.GetUnitState().AssignedWorkplace = null;
+                    unit.AssignedWorkplace = null;
                 }
                 
                 RefreshOccupants();

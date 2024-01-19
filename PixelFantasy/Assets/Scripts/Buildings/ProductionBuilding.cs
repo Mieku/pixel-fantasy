@@ -72,7 +72,7 @@ namespace Buildings
             
             var unemployed = UnitsManager.Instance.UnemployedKinlings;
             List<Unit> sortedKinlings = unemployed
-                .OrderByDescending(kinling => kinling.GetUnitState().RelevantAbilityScore(relevantAbilites)).ToList();
+                .OrderByDescending(kinling => kinling.RelevantStatScore(relevantAbilites)).ToList();
             return sortedKinlings;
         }
 

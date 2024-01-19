@@ -30,7 +30,7 @@ namespace Items
             if (Durability <= 0) return false;
             if (GearData.RequiredJob != null)
             {
-                var unitJobData = unit.GetUnitState().CurrentJob;
+                var unitJobData = unit.CurrentJob;
                 if (GearData.RequiredJob == unitJobData)
                 {
                     return true;

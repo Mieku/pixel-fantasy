@@ -29,11 +29,11 @@ namespace HUD
             _unit = unit;
             _root.SetActive(true);
             
-            _unitName.text = unit.GetUnitState().FullName;
-            _jobName.text = unit.GetUnitState().JobName;
-            if (_unit.GetUnitState().CurrentJob.JobIcon != null)
+            _unitName.text = unit.FullName;
+            _jobName.text = unit.JobName;
+            if (_unit.CurrentJob.JobIcon != null)
             {
-                _jobIcon.sprite = _unit.GetUnitState().CurrentJob.JobIcon;
+                _jobIcon.sprite = _unit.CurrentJob.JobIcon;
             }
             else
             {
