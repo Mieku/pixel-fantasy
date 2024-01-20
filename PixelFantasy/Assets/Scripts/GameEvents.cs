@@ -156,6 +156,12 @@ public class GameEvents : MonoBehaviour
         if (HourTick != null) HourTick(currentHour);
     }
 
+    public static event Action DayTick;
+    public static void Trigger_DayTick()
+    {
+        if (DayTick != null) DayTick();
+    }
+
     public static event Action<Unit> OnKinlingChanged;
     public static void Trigger_OnKinlingChanged(Unit unit)
     {

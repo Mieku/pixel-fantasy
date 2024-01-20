@@ -30,7 +30,7 @@ namespace Characters
         
         [BoxGroup("General")] public string Firstname;
         [BoxGroup("General")] public string Lastname;
-        [BoxGroup("General")] public EMaturityStage MaturityStage;
+        [BoxGroup("General")] public int CurrentAge;
         [BoxGroup("General")] public Gender Gender;
         [BoxGroup("General")] public ESexualPreference SexualPreference;
         
@@ -49,7 +49,7 @@ namespace Characters
 
         public KinlingData(KinlingData mother, KinlingData father)
         {
-            MaturityStage = EMaturityStage.Child;
+            CurrentAge = 0;
             if (Helper.RollDice(50))
             {
                 Gender = Gender.Male;

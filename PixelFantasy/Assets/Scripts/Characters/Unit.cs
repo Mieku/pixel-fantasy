@@ -63,7 +63,8 @@ namespace Characters
         public SocialAI SocialAI => _socialAI;
         public List<Trait> AllTraits => _traits;
         public bool IsAsleep;
-        public EMaturityStage MaturityStage;
+        public Age Age;
+        public EMaturityStage MaturityStage => Age.MaturityStage;
         public ESexualPreference SexualPreference;
         public Gender Gender;
         public Unit Partner;
@@ -82,6 +83,18 @@ namespace Characters
             ClickObject = GetComponent<ClickObject>();
             
             UnitsManager.Instance.RegisterKinling(this);
+
+            GameEvents.DayTick += GameEvents_DayTick;
+        }
+        
+        private void OnDestroy()
+        {
+            
+            UnitsManager.Instance.DeregisterKinling(this);
+            
+            GameEvents.Trigger_OnCoinsIncomeChanged();
+            
+            GameEvents.DayTick -= GameEvents_DayTick;
         }
 
         private void Start()
@@ -108,10 +121,10 @@ namespace Characters
             UniqueId = kinlingData.UID;
             FirstName = kinlingData.Firstname;
             LastName = kinlingData.Lastname;
-            MaturityStage = kinlingData.MaturityStage;
             Gender = kinlingData.Gender;
             SexualPreference = kinlingData.SexualPreference;
             _race = kinlingData.Appearance.Race;
+            Age = new Age(kinlingData.CurrentAge, _race.RacialAgeData);
             
             _appearance.Init(this, kinlingData.Appearance);
             Equipment.Init(this, kinlingData.Gear);
@@ -154,14 +167,6 @@ namespace Characters
         private void Initialize()
         {
             Needs.Initialize();
-            
-            GameEvents.Trigger_OnCoinsIncomeChanged();
-        }
-
-        private void OnDestroy()
-        {
-            
-            UnitsManager.Instance.DeregisterKinling(this);
             
             GameEvents.Trigger_OnCoinsIncomeChanged();
         }
@@ -382,13 +387,11 @@ namespace Characters
         }
 
         public BedFurniture AssignedBed => _bed;
-    }
 
-    public enum EMaturityStage
-    {
-        Child = 0,
-        Adult = 1,
-        Senior = 2,
+        private void GameEvents_DayTick()
+        {
+            Age.IncrementAge();
+        }
     }
 
     public enum ESexualPreference

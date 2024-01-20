@@ -29,6 +29,8 @@ namespace ScriptableObjects
         [SerializeField] private string _maleNamesFilePath;
         [SerializeField] private string _femaleNamesFilePath;
         [SerializeField] private string _surnamesFilePath;
+
+        [SerializeField] private RacialAgeData _racialAgeData;
         
         [Button("Load Male Names from file")]
         private void LoadMaleNamesFromFile()
@@ -113,5 +115,7 @@ namespace ScriptableObjects
         {
             return _lastNames[Random.Range(0, _lastNames.Count)];
         }
+
+        public RacialAgeData RacialAgeData => _racialAgeData;
     }
 }

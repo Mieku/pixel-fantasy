@@ -84,6 +84,12 @@ namespace Managers
             {
                 _cur24Hour = hour24;
                 GameEvents.Trigger_HourTick(_cur24Hour);
+
+                if (_cur24Hour == 0)
+                {
+                    Debug.Log("New Day");
+                    GameEvents.Trigger_DayTick();
+                }
             }
             
             _timeOfDay = _gameDayTimer;

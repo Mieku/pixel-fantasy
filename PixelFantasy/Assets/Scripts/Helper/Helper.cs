@@ -490,6 +490,20 @@ public static class Helper
         }
         return length;
     }
+
+    public static bool DoesPathExist(Vector2 startPoint, Vector2 endPoint)
+    {
+        NavMeshPath path = new NavMeshPath();
+        if (NavMesh.CalculatePath(startPoint,
+                endPoint, NavMesh.AllAreas, path))
+        {
+            return path.status == NavMeshPathStatus.PathComplete;
+        }
+        else
+        {
+            return false;
+        }
+    }
     
     public static Vector3 RandomLocationInRange(Vector2 centerPoint, float range = 5f)
     {

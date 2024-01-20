@@ -17,12 +17,28 @@ namespace TaskSystem
 
         private float DistanceFromRequestor => Vector2.Distance((Vector2)_movePos, transform.position);
 
+        public override bool CanDoTask(Task task)
+        {
+            var result = base.CanDoTask(task);
+            if (!result) return false;
+
+            _resource = task.Requestor as Resource;
+            _movePos = _ai.GetAdjacentPosition(task.Requestor.transform.position, _resource.MinWorkDistance);
+            
+            if (_movePos == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public override void PrepareAction(Task task)
         {
             _task = task;
-            _resource = task.Requestor as Resource;
+            
             _actionAnimation = _resource.GetExtractActionAnim();
-            _movePos = _ai.GetAdjacentPosition(_task.Requestor.transform.position, _resource.MinWorkDistance);
+            //_movePos = _ai.GetAdjacentPosition(_task.Requestor.transform.position, _resource.MinWorkDistance);
         }
         
         public override void ConcludeAction()
