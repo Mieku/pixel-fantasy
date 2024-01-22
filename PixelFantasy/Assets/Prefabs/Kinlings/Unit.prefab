@@ -1229,7 +1229,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _race: {fileID: 11400000, guid: b2e28ba30006afd4d8287ab34a7aa6d5, type: 2}
   _taskAI: {fileID: 6965329135388678903}
-  _unitState: {fileID: 0}
   _appearance: {fileID: 4680592222557511252}
   _mood: {fileID: 4888200492756624676}
   _socialAI: {fileID: 5256464669028443073}
@@ -1238,11 +1237,15 @@ MonoBehaviour:
   _relevantStatColour: {r: 0.050980393, g: 0.7529412, b: 0, a: 1}
   _sortingGroup: {fileID: 4624679516539662858}
   _positionRendererSorter: {fileID: 1822529751762045447}
+  FirstName: 
+  LastName: 
+  AssignedWorkplace: {fileID: 0}
   Equipment: {fileID: 12347069629172064}
   UnitAnimController: {fileID: 1198530704868288865}
   UnitAgent: {fileID: 6234467081272595317}
   IsAsleep: 0
-  MaturityStage: 1
+  Age:
+    CurrentAge: 0
   SexualPreference: 3
   Gender: 1
   Partner: {fileID: 0}

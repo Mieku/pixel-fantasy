@@ -34,6 +34,7 @@ namespace Buildings
         
         [SerializeField] protected BuildingData _buildingData;
         [SerializeField] private Footings _footings;
+        [SerializeField] private GameObject _constructionFence;
         [SerializeField] private GameObject _internalHandle;
         [SerializeField] private GameObject _exteriorHandle;
         [SerializeField] private DoorOpener _doorOpener;
@@ -511,6 +512,11 @@ namespace Buildings
             return false;
         }
 
+        protected void DisplayConstructionFence(bool displayFence)
+        {
+            _constructionFence.SetActive(displayFence);
+        }
+
         public void SetState(BuildingState state)
         {
             _state = state;
@@ -546,7 +552,7 @@ namespace Buildings
             // // Cases where show always be no showing internal
             if (!IsInternalViewAllowed())
             {
-                ToggleInternalView(false);
+                //ToggleInternalView(false);
                 return;
             }
             
@@ -569,13 +575,13 @@ namespace Buildings
 
         protected virtual bool IsInternalViewAllowed()
         {
-            if (State is BuildingState.Planning or BuildingState.BeingPlaced)
+            if (State is BuildingState.Built)
             {
-                return false;
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
         }
 
@@ -623,6 +629,12 @@ namespace Buildings
             _footings.DisplayFootings(true);
             _obstaclesHandle.SetActive(false);
             _doorOpener.LockClosed(true);
+            DisplayConstructionFence(false);
+            
+            _doorSortingGroup.gameObject.SetActive(true);
+            _internalHandle.SetActive(false);
+            _shadowboxHandle.SetActive(false);
+            _exteriorHandle.SetActive(true);
         }
 
         private void Plan_Enter()
@@ -633,19 +645,26 @@ namespace Buildings
             _remainingResourceCosts = new List<ItemAmount> (_buildingData.GetResourceCosts());
             _remainingWork = GetWorkAmount();
             HUDController.Instance.ShowBuildingDetails(this, true);
+            DisplayConstructionFence(false);
+            
+            _doorSortingGroup.gameObject.SetActive(true);
+            _internalHandle.SetActive(false);
+            _shadowboxHandle.SetActive(false);
+            _exteriorHandle.SetActive(true);
         }
 
         private void Construction_Enter()
         {
             _footings.DisplayFootings(false);
-            _obstaclesHandle.SetActive(true);
             _doorOpener.LockClosed(true);
             ColourSprites(Librarian.Instance.GetColour("Blueprint"));
-            EnableFurniture(true);
-            ShowCraftableFurniture();
-            
             CreateConstructionHaulingTasks();
-            TryToggleInternalView(_defaultToInternalView);
+            DisplayConstructionFence(true);
+            
+            _doorSortingGroup.gameObject.SetActive(false);
+            _internalHandle.SetActive(false);
+            _shadowboxHandle.SetActive(false);
+            _exteriorHandle.SetActive(false);
         }
 
         public override void CompleteConstruction()
@@ -658,9 +677,18 @@ namespace Buildings
         protected virtual void Built_Enter()
         {
             ColourSprites(Color.white);
+            DisplayConstructionFence(false);
+            EnableFurniture(true);
+            ShowCraftableFurniture();
             OrderCraftableFurniture();
+            _obstaclesHandle.SetActive(true);
             _doorOpener.LockClosed(false);
             GameEvents.Trigger_OnCoinsIncomeChanged();
+            
+            _internalHandle.SetActive(true);
+            _doorSortingGroup.gameObject.SetActive(true);
+            
+            TryToggleInternalView(_defaultToInternalView);
 
             foreach (var furniture in _allFurniture)
             {

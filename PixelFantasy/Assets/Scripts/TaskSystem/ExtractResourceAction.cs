@@ -36,9 +36,7 @@ namespace TaskSystem
         public override void PrepareAction(Task task)
         {
             _task = task;
-            
             _actionAnimation = _resource.GetExtractActionAnim();
-            //_movePos = _ai.GetAdjacentPosition(_task.Requestor.transform.position, _resource.MinWorkDistance);
         }
         
         public override void ConcludeAction()
