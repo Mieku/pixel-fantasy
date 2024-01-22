@@ -5141,7 +5141,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6760286144327044373}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!208 &1178740614126223355
 NavMeshObstacle:
@@ -5412,7 +5412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 0.5
+  _offset: 0.25
   _runOnlyOnce: 1
   _checkLocal: 0
 --- !u!1 &593353393138838029
@@ -5573,7 +5573,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 485124123, guid: 0247229ea3f2fc445b0075c469d1847b, type: 3}
+  m_Sprite: {fileID: -315184552, guid: 0247229ea3f2fc445b0075c469d1847b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5596,7 +5596,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 0.5
+  _offset: 0.25
   _runOnlyOnce: 1
   _checkLocal: 0
 --- !u!1 &1022640440376432700
@@ -5696,7 +5696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 0.5
+  _offset: 0.25
   _runOnlyOnce: 1
   _checkLocal: 0
 --- !u!1 &1047678971504603553
@@ -5886,7 +5886,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6266664421544779500}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!210 &5538017467425793120
 SortingGroup:
@@ -6066,7 +6066,7 @@ Transform:
   m_Children:
   - {fileID: 8823685089739367771}
   m_Father: {fileID: 6266664421544779500}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4983041443223141814
 MonoBehaviour:
@@ -6465,7 +6465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 0.5
+  _offset: 0.25
   _runOnlyOnce: 1
   _checkLocal: 0
 --- !u!1 &2040623938905206254
@@ -6565,7 +6565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 0.5
+  _offset: 0.25
   _runOnlyOnce: 1
   _checkLocal: 0
 --- !u!1 &2077066832725518434
@@ -7001,7 +7001,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 0.5
+  _offset: 0.25
   _runOnlyOnce: 1
   _checkLocal: 0
 --- !u!1 &2375826371424886537
@@ -7476,7 +7476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 0.5
+  _offset: 0.25
   _runOnlyOnce: 1
   _checkLocal: 0
 --- !u!1 &3369032209022440272
@@ -7553,7 +7553,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 485124123, guid: 0247229ea3f2fc445b0075c469d1847b, type: 3}
+  m_Sprite: {fileID: 1072499517, guid: 0247229ea3f2fc445b0075c469d1847b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -7576,7 +7576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 0.5
+  _offset: 0.25
   _runOnlyOnce: 1
   _checkLocal: 0
 --- !u!1 &3415910735546737860
@@ -7844,7 +7844,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 0.5
+  _offset: 0.25
   _runOnlyOnce: 1
   _checkLocal: 0
 --- !u!1 &3657050241941024986
@@ -8028,7 +8028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 0.5
+  _offset: 0.25
   _runOnlyOnce: 1
   _checkLocal: 0
 --- !u!1 &4038109448198146774
@@ -8212,7 +8212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 0.5
+  _offset: 0.25
   _runOnlyOnce: 1
   _checkLocal: 0
 --- !u!1 &4759269125816949336
@@ -8396,7 +8396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 0.5
+  _offset: 0.25
   _runOnlyOnce: 1
   _checkLocal: 0
 --- !u!1 &4928138789695397395
@@ -8431,7 +8431,7 @@ Transform:
   - {fileID: 7131668130241055199}
   - {fileID: 4254883013145022122}
   m_Father: {fileID: 6266664421544779500}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2736135947198935376
 SpriteRenderer:
@@ -8582,7 +8582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 0.5
+  _offset: 0.25
   _runOnlyOnce: 1
   _checkLocal: 0
 --- !u!1 &5281285232713444938
@@ -8766,7 +8766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 0.5
+  _offset: 0.25
   _runOnlyOnce: 1
   _checkLocal: 0
 --- !u!1 &5410785950933912808
@@ -8866,7 +8866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 0.5
+  _offset: 0.25
   _runOnlyOnce: 1
   _checkLocal: 0
 --- !u!1 &5531170295371982118
@@ -8893,13 +8893,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5531170295371982118}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.98, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.48000002, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6760286144327044373}
-  m_RootOrder: 0
+  m_Father: {fileID: 6266664421544779500}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &3516127373332637661
 PolygonCollider2D:
@@ -9127,7 +9127,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6266664421544779500}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6222570333731760923
 GameObject:
@@ -9226,7 +9226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 0.5
+  _offset: 0.25
   _runOnlyOnce: 1
   _checkLocal: 0
 --- !u!1 &6525594554164685075
@@ -9410,7 +9410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 0.5
+  _offset: 0.25
   _runOnlyOnce: 1
   _checkLocal: 0
 --- !u!1 &6653670339193843281
@@ -9445,7 +9445,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6760286144327044373}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!208 &5534977804532721191
 NavMeshObstacle:
@@ -9722,7 +9722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 0.5
+  _offset: 0.25
   _runOnlyOnce: 1
   _checkLocal: 0
 --- !u!1 &7120856375021965307
@@ -9822,7 +9822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 0.5
+  _offset: 0.25
   _runOnlyOnce: 1
   _checkLocal: 0
 --- !u!1 &7153302221386111273
@@ -9857,7 +9857,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6760286144327044373}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!208 &9125305408565539847
 NavMeshObstacle:
@@ -10237,7 +10237,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6760286144327044373}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!208 &1962220575533528610
 NavMeshObstacle:
@@ -10365,7 +10365,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6760286144327044373}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!208 &2150386598551300761
 NavMeshObstacle:
@@ -10510,7 +10510,7 @@ Transform:
   - {fileID: 5601002719145123273}
   - {fileID: 358930370870010407}
   m_Father: {fileID: 6266664421544779500}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7673647128273325333
 GameObject:
@@ -10540,14 +10540,13 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 161140620587458057}
   - {fileID: 7734553670347336847}
   - {fileID: 7473642042484828902}
   - {fileID: 5173549277679828205}
   - {fileID: 8280019424181672918}
   - {fileID: 6850183513749072525}
   m_Father: {fileID: 6266664421544779500}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7851041193038146572
 GameObject:
@@ -10884,7 +10883,7 @@ Transform:
   m_Children:
   - {fileID: 8420530305977115228}
   m_Father: {fileID: 6266664421544779500}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!210 &9014743273962867153
 SortingGroup:
@@ -11143,6 +11142,7 @@ Transform:
   - {fileID: 3726876394079314911}
   - {fileID: 3746311868412090071}
   - {fileID: 7968517887510204638}
+  - {fileID: 161140620587458057}
   - {fileID: 6760286144327044373}
   - {fileID: 3148152069110956621}
   - {fileID: 1641715084270528839}
@@ -11261,7 +11261,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 485124123, guid: 0247229ea3f2fc445b0075c469d1847b, type: 3}
+  m_Sprite: {fileID: 22178473, guid: 54e38bc333db83845930f2da66234f2e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -11284,7 +11284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offset: 0.5
+  _offset: 0.25
   _runOnlyOnce: 1
   _checkLocal: 0
 --- !u!1 &8559455631824076507
@@ -11767,6 +11767,7 @@ MonoBehaviour:
   _internalHandle: {fileID: 4928138789695397395}
   _exteriorHandle: {fileID: 1141357286028535369}
   _doorOpener: {fileID: 9116887316522050035}
+  _placementObstacle: {fileID: 5531170295371982118}
   _obstaclesHandle: {fileID: 7673647128273325333}
   _shadowboxHandle: {fileID: 131913839724598154}
   _constructionStandPos: {fileID: 3148152069110956621}

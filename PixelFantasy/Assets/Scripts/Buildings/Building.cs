@@ -38,6 +38,7 @@ namespace Buildings
         [SerializeField] private GameObject _internalHandle;
         [SerializeField] private GameObject _exteriorHandle;
         [SerializeField] private DoorOpener _doorOpener;
+        [SerializeField] private GameObject _placementObstacle;
         [SerializeField] private GameObject _obstaclesHandle;
         [SerializeField] private GameObject _shadowboxHandle;
         [SerializeField] private Transform _constructionStandPos;
@@ -627,6 +628,7 @@ namespace Buildings
         private void BeingPlaced_Enter()
         {
             _footings.DisplayFootings(true);
+            _placementObstacle.SetActive(false);
             _obstaclesHandle.SetActive(false);
             _doorOpener.LockClosed(true);
             DisplayConstructionFence(false);
@@ -646,6 +648,7 @@ namespace Buildings
             _remainingWork = GetWorkAmount();
             HUDController.Instance.ShowBuildingDetails(this, true);
             DisplayConstructionFence(false);
+            _placementObstacle.SetActive(true);
             
             _doorSortingGroup.gameObject.SetActive(true);
             _internalHandle.SetActive(false);
@@ -660,6 +663,7 @@ namespace Buildings
             ColourSprites(Librarian.Instance.GetColour("Blueprint"));
             CreateConstructionHaulingTasks();
             DisplayConstructionFence(true);
+            _placementObstacle.SetActive(true);
             
             _doorSortingGroup.gameObject.SetActive(false);
             _internalHandle.SetActive(false);
@@ -682,6 +686,7 @@ namespace Buildings
             ShowCraftableFurniture();
             OrderCraftableFurniture();
             _obstaclesHandle.SetActive(true);
+            _placementObstacle.SetActive(true);
             _doorOpener.LockClosed(false);
             GameEvents.Trigger_OnCoinsIncomeChanged();
             

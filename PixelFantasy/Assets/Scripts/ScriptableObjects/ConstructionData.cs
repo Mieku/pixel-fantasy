@@ -16,7 +16,7 @@ namespace ScriptableObjects
         public int Price;
 
         [SerializeField] private List<ItemAmount> _resourceCosts;
-        [SerializeField] private List<string> _invalidPlacementTags = new List<string>(){"Water", "Wall", "Obstacle"};
+        [SerializeField] private List<string> _invalidPlacementTags = new List<string>(){"Water", "Wall", "Obstacle", "Furniture", "Structure"};
         [SerializeField] private PlanningMode _planningMode;
         [SerializeField] private JobData _requiredConstructorJob;
         

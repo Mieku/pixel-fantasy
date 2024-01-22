@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Builder's Workshop
   m_EditorClassIdentifier: 
   ConstructionName: Builder's Workshop
+  ConstructionDetails: 
   WorkCost: 10
   Icon: {fileID: 7033359609419058202, guid: 0aad73a0f4fe3f341bb7faa0e248191d, type: 3}
-  CraftersProfession: {fileID: 11400000, guid: 4caf7254bcc8f464e832ea1d99442ee5, type: 2}
+  MaxDurability: 0
+  Price: 0
   _resourceCosts:
   - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
     Quantity: 5
@@ -23,9 +25,11 @@ MonoBehaviour:
   - Water
   - Wall
   - Obstacle
+  - Furniture
+  - Structure
   _planningMode: 2
-  Exterior: {fileID: 8169095293177233799, guid: b1f6e147347fb5a4fbff13f150f3b2cf, type: 3}
-  Interior: {fileID: 6185368100350882037, guid: 2b6057d9bf919614ebb16854f5a54a2c, type: 3}
-  BuildingPanel: {fileID: 5265251578499439108, guid: dd5410a02a7835d42a0b6c576a5c31e1, type: 3}
+  _requiredConstructorJob: {fileID: 0}
   MaxOccupants: 3
-  WorkersProfession: {fileID: 11400000, guid: 4caf7254bcc8f464e832ea1d99442ee5, type: 2}
+  DailyUpkeep: 0
+  RelevantAbilityTypes: 
+  DefaultLogistics: []

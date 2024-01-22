@@ -263,6 +263,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Fence Hori L End
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94aa06c972b2ad94c98b6e7d3ce0e2c7
+      internalID: 1072499517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fence Hori R End
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 256
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 095d202f74f1ca9489c9a78af4b8592d
+      internalID: -315184552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -280,6 +322,8 @@ TextureImporter:
       Fence Corner SW: 402869003
       Fence Cross: -716642645
       Fence Hori: 485124123
+      Fence Hori L End: 1072499517
+      Fence Hori R End: -315184552
       Fence Vert: 2061677999
   spritePackingTag: 
   pSDRemoveMatte: 0

@@ -25,9 +25,12 @@ MonoBehaviour:
   - Water
   - Wall
   - Obstacle
+  - Furniture
+  - Structure
   _planningMode: 2
   _requiredConstructorJob: {fileID: 11400000, guid: 2a72d8ac25ff79b44b0d862e30e16ba6, type: 2}
-  BuildingType: 2
   MaxOccupants: 1
   DailyUpkeep: 5
   RelevantAbilityTypes: 00000000
+  DefaultLogistics: []
+  WorkersJob: {fileID: 0}
