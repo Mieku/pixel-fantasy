@@ -12,7 +12,7 @@ namespace TaskSystem
         public string TaskId;
         public JobData Job;
         public PlayerInteractable Requestor;
-        public string Payload;
+        public object Payload;
         public List<Item> Materials;
         public Queue<Task> SubTasks = new Queue<Task>();
         public Action<Task> OnTaskComplete;

@@ -578,7 +578,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _offset: 0.5
   _runOnlyOnce: 1
-  _sortingGroup: {fileID: 5409644490048135930}
   _checkLocal: 0
 --- !u!114 &8897537879774038492
 MonoBehaviour:
@@ -852,6 +851,8 @@ MonoBehaviour:
   ResourceData: {fileID: 0}
   _spriteRenderer: {fileID: 7155256550381879070}
   _clickObject: {fileID: 7155256551760761719}
+  _defaultClearCmd: {fileID: 11400000, guid: 741035aabc10ee741a67711d029540d3, type: 2}
+  _obstacleBox: {fileID: 8460987969156190623}
   Health: 0
   _overrideFullGrowth: 1
   _fruitOverlay: {fileID: 6319101082123291704}

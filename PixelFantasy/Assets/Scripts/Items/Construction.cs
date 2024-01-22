@@ -53,9 +53,9 @@ namespace Items
             _remainingWork = GetWorkAmount();
         }
         
-        public void AssignCommand(Command command)
+        public void AssignCommand(Command command, object payload = null)
         {
-            CreateTask(command);
+            CreateTask(command, payload);
         }
         
         public virtual bool DoConstruction(float workAmount)

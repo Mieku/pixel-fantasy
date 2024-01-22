@@ -54,6 +54,7 @@ namespace Items
         protected override void DestroyResource()
         {
             MineMountain();
+            base.DestroyResource();
         }
 
         private void SetTile()
@@ -108,8 +109,6 @@ namespace Items
 
             // Delete Self
             RefreshSelection();
-            
-            Destroy(gameObject);
         }
 
         public override float GetWorkAmount()

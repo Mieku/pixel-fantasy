@@ -36,9 +36,9 @@ namespace Items
             return this;
         }
 
-        public void AssignCommand(Command command)
+        public void AssignCommand(Command command, object payload = null)
         {
-            CreateTask(command);
+            CreateTask(command, payload);
         }
 
         public ClickObject GetClickObject()
@@ -111,10 +111,18 @@ namespace Items
         {
             if (_currentTask != null)
             {
-                AssignedStorage = null;
-                _currentTask.Cancel();
+                if (AssignedStorage != null)
+                {
+                    AssignedStorage.CancelIncoming(this);
+                    AssignedStorage = null;
+                }
                 
-                SeekForSlot();
+                _currentTask.Cancel();
+
+                if (lookToHaul)
+                {
+                    SeekForSlot();
+                }
             }
         }
 
@@ -126,6 +134,26 @@ namespace Items
         public void SetHeld(bool isHeld)
         {
             _isHeld = isHeld;
+        }
+
+        public void PickUpItem()
+        {
+            SetHeld(true);
+        }
+
+        public void DropItem()
+        {
+            SetHeld(false);
+            
+            if (_onItemRelocatedCallback != null)
+            {
+                _onItemRelocatedCallback.Invoke();
+            }
+
+            if (IsAllowed)
+            {
+                SeekForSlot();
+            }
         }
 
         public void AddItemToSlot()
@@ -232,7 +260,19 @@ namespace Items
 
             if (!AssignedStorage.SetClaimedItem(this))
             {
-                Debug.LogError("Failded to claim item");
+                Debug.LogError("Failed to claim item");
+            }
+        }
+
+        private Action _onItemRelocatedCallback;
+        public void RelocateItem(Action onItemRelocated, Vector2 newLocation)
+        {
+            if (_currentTask is not { TaskId: "Relocate Item" })
+            {
+                CancelTask(false);
+                
+                _onItemRelocatedCallback = onItemRelocated;
+                AssignCommand(Librarian.Instance.GetCommand("Relocate Item"), newLocation);
             }
         }
 

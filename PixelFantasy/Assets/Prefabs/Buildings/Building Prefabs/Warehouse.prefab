@@ -6116,6 +6116,7 @@ MonoBehaviour:
   - {fileID: 6828561540412777757}
   _doorIcon: {fileID: 2770270567566102181}
   _footingsHandle: {fileID: 7851041193038146572}
+  _doorSpaceFooting: {fileID: 2699917035186742822}
 --- !u!1 &1782881040438550456
 GameObject:
   m_ObjectHideFlags: 0

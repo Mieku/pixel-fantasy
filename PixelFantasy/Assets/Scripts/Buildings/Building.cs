@@ -65,6 +65,7 @@ namespace Buildings
         protected bool _defaultToInternalView;
         private bool _beingMoved;
         private bool _repairsRequested;
+        private bool _haulingTasksCreated;
 
         protected List<BuildingNote> _buildingNotes = new List<BuildingNote>();
         protected List<Unit> _occupants = new List<Unit>();
@@ -661,7 +662,7 @@ namespace Buildings
             _footings.DisplayFootings(false);
             _doorOpener.LockClosed(true);
             ColourSprites(Librarian.Instance.GetColour("Blueprint"));
-            CreateConstructionHaulingTasks();
+            ClearAreaForConstruction();
             DisplayConstructionFence(true);
             _placementObstacle.SetActive(true);
             
@@ -733,6 +734,51 @@ namespace Buildings
             }
 
             doorSpriteRenderer.color = colour;
+        }
+
+        private void CheckIfAreaIsClear()
+        {
+            var clearables = _footings.GetClearbleResourcesInFootingsArea();
+            var items = _footings.GetItemsInFootingArea();
+            foreach (var itemToRelocate in items)
+            {
+                itemToRelocate.RelocateItem(CheckIfAreaIsClear, _constructionStandPos.position);
+            }
+            
+            if (clearables.Count == 0 && items.Count == 0)
+            {
+                var notClear = _buildingNotes.Find(note => note.ID == "Area Not Clear");
+                if (notClear != null)
+                {
+                    _buildingNotes.Remove(notClear);
+                }
+
+                if (!_haulingTasksCreated)
+                {
+                    _haulingTasksCreated = true;
+                    CreateConstructionHaulingTasks();
+                }
+            }
+            else
+            {
+                var notClear = _buildingNotes.Find(note => note.ID == "Area Not Clear");
+                if (notClear == null)
+                {
+                    _buildingNotes.Add(new BuildingNote("Construction area is not clear", false, "Area Not Clear"));
+                }
+            }
+        }
+
+        private void ClearAreaForConstruction()
+        {
+            // Get a list of all the items in the footings area
+            var clearables = _footings.GetClearbleResourcesInFootingsArea();
+            foreach (var resourceToClear in clearables)
+            {
+                resourceToClear.ClearResource(CheckIfAreaIsClear);
+            }
+            
+            CheckIfAreaIsClear();
         }
         
         private void CreateConstructionHaulingTasks()

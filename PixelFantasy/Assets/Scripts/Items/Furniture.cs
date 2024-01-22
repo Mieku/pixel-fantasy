@@ -143,9 +143,9 @@ namespace Items
             }
         }
         
-        public void AssignCommand(Command command)
+        public void AssignCommand(Command command, object payload = null)
         {
-            CreateTask(command);
+            CreateTask(command, payload);
         }
         
         protected void SetNextDirection(bool isClockwise)

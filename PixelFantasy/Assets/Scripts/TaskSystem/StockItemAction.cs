@@ -21,7 +21,7 @@ namespace TaskSystem
         
         public override void PrepareAction(Task task)
         {
-            _itemData = Librarian.Instance.GetItemData(task.Payload);
+            _itemData = Librarian.Instance.GetItemData((string)task.Payload);
             _state = TaskState.GoingToGlobalStorage;
             
             _claimedItem = InventoryManager.Instance.ClaimItemGlobal(_itemData);
@@ -38,7 +38,7 @@ namespace TaskSystem
         public override bool CanDoTask(Task task)
         {
             var building = task.Requestor as Building;
-            var itemData = Librarian.Instance.GetItemData(task.Payload);
+            var itemData = Librarian.Instance.GetItemData((string)task.Payload);
             
             // Check both if the building can accept storage and if there is an item available to fill it
             if (!InventoryManager.Instance.IsItemInStorage(itemData, true))

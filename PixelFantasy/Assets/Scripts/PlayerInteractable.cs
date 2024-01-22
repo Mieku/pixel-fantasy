@@ -23,7 +23,7 @@ public abstract class PlayerInteractable : UniqueObject
         RegisteredTasks.Remove(task);
     }
 
-    public void CreateTask(Command command)
+    public void CreateTask(Command command, object payload = null)
     {
         if (command.Name == "Cancel Command")
         {
@@ -40,7 +40,11 @@ public abstract class PlayerInteractable : UniqueObject
         }
 
         Task task = new Task(command.Task.TaskId, this, command.Job, command.RequiredToolType);
-
+        if (payload != null)
+        {
+            task.Payload = payload;
+        }
+        
         PendingCommand = command;
         
         TaskManager.Instance.AddTask(task);

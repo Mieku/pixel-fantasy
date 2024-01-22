@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Items;
 using Managers;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace Buildings
         [SerializeField] private List<SpriteRenderer> _footings;
         [SerializeField] private SpriteRenderer _doorIcon;
         [SerializeField] private GameObject _footingsHandle;
+        [SerializeField] private SpriteRenderer _doorSpaceFooting;
         
         private Color _cantPlaceColour;
 
@@ -42,6 +44,48 @@ namespace Buildings
             }
 
             return result;
+        }
+
+        public List<Resource> GetClearbleResourcesInFootingsArea()
+        {
+            List<Resource> results = new List<Resource>();
+            List<Vector2> locations = new List<Vector2>();
+            foreach (var footing in _footings)
+            {
+                locations.Add(footing.transform.position);
+            }
+
+            var potentialResources = Helper.GetAllGenericOnGridPositions<Resource>(locations);
+            foreach (var potentialResource in potentialResources)
+            {
+                foreach (var location in locations)
+                {
+                    bool inArea = potentialResource.IsGridInObstacleArea(location);
+                    if (inArea)
+                    {
+                        results.Add(potentialResource);
+                        break;
+                    }
+                }
+            }
+            
+            return results;
+        }
+
+        public List<Item> GetItemsInFootingArea()
+        {
+            List<Item> results;
+            List<Vector2> locations = new List<Vector2>();
+            foreach (var footing in _footings)
+            {
+                if (footing != _doorSpaceFooting)
+                {
+                    locations.Add(footing.transform.position);
+                }
+            }
+
+            results = Helper.GetAllGenericOnGridPositions<Item>(locations);
+            return results;
         }
     }
 }

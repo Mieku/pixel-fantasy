@@ -255,7 +255,7 @@ namespace Items
             
             RefreshSelection();
             
-            Destroy(gameObject);
+            base.DestroyResource();
         }
 
         // public void CutDownPlant()

@@ -35,7 +35,7 @@ namespace TaskSystem
         
         public override void PrepareAction(Task task)
         {
-            _itemToCraft = Librarian.Instance.GetItemData(task.Payload) as CraftedItemData;
+            _itemToCraft = Librarian.Instance.GetItemData((string)task.Payload) as CraftedItemData;
             _craftingTable = _ai.Unit.AssignedWorkplace.GetAvailableFurniture(_itemToCraft.RequiredCraftingTable) as CraftingTable;
             _materials = task.Materials;
             _requestingFurniture = task.Requestor as Furniture;

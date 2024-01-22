@@ -21,12 +21,12 @@ namespace TaskSystem
         public override bool CanDoTask(Task task)
         {
             var payload = task.Payload;
-            if ( string.IsNullOrEmpty(payload))
+            if ( string.IsNullOrEmpty((string)payload))
             {
                 return false;
             }
 
-            return InventoryManager.Instance.IsItemInStorage(payload);
+            return InventoryManager.Instance.IsItemInStorage((string)payload);
         }
 
         public override void PrepareAction(Task task)
@@ -37,7 +37,7 @@ namespace TaskSystem
             _isMoving = false;
             
             var payload = task.Payload;
-            _targetItem = ClaimItem(payload);
+            _targetItem = ClaimItem((string)payload);
 
             var building = _requestor as Building;
             if (building != null)

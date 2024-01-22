@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DataPersistence;
 using Interfaces;
@@ -14,15 +15,18 @@ namespace Items
         public ResourceData ResourceData;
         [SerializeField] protected SpriteRenderer _spriteRenderer;
         [SerializeField] private ClickObject _clickObject;
+        [SerializeField] private Command _defaultClearCmd;
+        [SerializeField] private BoxCollider2D _obstacleBox;
 
         protected Spawner spawner => Spawner.Instance;
         protected Task _curTask;
+        protected Action _onResourceClearedCallback;
 
         public float Health;
         
-        public void AssignCommand(Command command)
+        public void AssignCommand(Command command, object payload = null)
         {
-            CreateTask(command);
+            CreateTask(command, payload);
         }
 
         public PlayerInteractable GetPlayerInteractable()
@@ -92,8 +96,39 @@ namespace Items
             return false;
         }
 
+        public virtual void ClearResource(Action onResourceCleared)
+        {
+            _onResourceClearedCallback = onResourceCleared;
+            AssignCommand(_defaultClearCmd);
+        }
+
+        public bool IsGridInObstacleArea(Vector2 gridPos)
+        {
+            Vector2[] corners = new Vector2[]
+            {
+                new Vector2(gridPos.x, gridPos.y),
+                new Vector2(gridPos.x + 0.5f, gridPos.y + 0.5f),
+                new Vector2(gridPos.x - 0.5f, gridPos.y - 0.5f),
+                new Vector2(gridPos.x + 0.5f, gridPos.y - 0.5f),
+                new Vector2(gridPos.x - 0.5f, gridPos.y + 0.5f),
+            };
+
+            foreach (var corner in corners)
+            {
+                if (_obstacleBox.OverlapPoint(corner))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         protected virtual void DestroyResource()
         {
+            Destroy(gameObject);
+            
+            if(_onResourceClearedCallback != null) _onResourceClearedCallback.Invoke();
         }
 
         public virtual UnitAction GetExtractActionAnim()

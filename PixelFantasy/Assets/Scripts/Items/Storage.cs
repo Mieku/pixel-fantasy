@@ -83,6 +83,14 @@ namespace Items
             if (!IsItemValidToStore(itemData)) return 0;
             return Stored.Count - Claimed.Count;
         }
+
+        public void CancelIncoming(Item item)
+        {
+            if (Incoming.Contains(item))
+            {
+                Incoming.Remove(item);
+            }
+        }
         
         public void SetIncoming(Item item)
         {

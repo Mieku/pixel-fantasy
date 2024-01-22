@@ -23,7 +23,7 @@ namespace TaskSystem
         public override void PrepareAction(Task task)
         {
             _building = task.Requestor as Building;
-            _itemData = Librarian.Instance.GetItemData(task.Payload);
+            _itemData = Librarian.Instance.GetItemData((string)task.Payload);
 
             _buildingStorage = _building.FindBuildingStorage(_itemData);
             _claimedItem = _buildingStorage.SetClaimed(_itemData);
@@ -35,7 +35,7 @@ namespace TaskSystem
         
         public override bool CanDoTask(Task task)
         {
-            var itemData = Librarian.Instance.GetItemData(task.Payload);
+            var itemData = Librarian.Instance.GetItemData((string)task.Payload);
             
             // Check if there is accepting Storage available
             _availableItemStorage = InventoryManager.Instance.FindAvailableGlobalStorage(itemData);

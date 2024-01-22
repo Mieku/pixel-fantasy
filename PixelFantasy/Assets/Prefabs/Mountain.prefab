@@ -164,10 +164,12 @@ MonoBehaviour:
   Commands:
   - {fileID: 11400000, guid: 90beea586271c8b42a6c9334b222964d, type: 2}
   PendingCommand: {fileID: 0}
-  Prefab: {fileID: 0}
+  RegisteredTasks: []
   ResourceData: {fileID: 0}
   _spriteRenderer: {fileID: 0}
   _clickObject: {fileID: 0}
+  _defaultClearCmd: {fileID: 11400000, guid: 90beea586271c8b42a6c9334b222964d, type: 2}
+  _obstacleBox: {fileID: 9173330314039135114}
   Health: 0
   _tempPlacementDisp: {fileID: 6838393442220519969}
   _selectionTintColour: {r: 0.7529412, g: 0.8980392, b: 0.65882355, a: 1}

@@ -244,6 +244,8 @@ MonoBehaviour:
   ResourceData: {fileID: 11400000, guid: d3f616e0c463cef489ca2b6d768a2d50, type: 2}
   _spriteRenderer: {fileID: 5512936734772712621}
   _clickObject: {fileID: 5512936734434505607}
+  _defaultClearCmd: {fileID: 11400000, guid: 1cc80951a1dad2e4aba7c19a791cd226, type: 2}
+  _obstacleBox: {fileID: 5512936734434505604}
   Health: 0
 --- !u!114 &5512936734434505601
 MonoBehaviour:
@@ -360,7 +362,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _offset: 0
   _runOnlyOnce: 1
-  _sortingGroup: {fileID: 5512936734772712623}
   _checkLocal: 0
 --- !u!210 &5512936734772712623
 SortingGroup:
