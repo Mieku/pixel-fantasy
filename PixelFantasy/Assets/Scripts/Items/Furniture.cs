@@ -522,8 +522,10 @@ namespace Items
             if(_smartObject != null) _smartObject.gameObject.SetActive(true);
         }
 
-        private void AssignBuilding(Building building)
+        public void AssignBuilding(Building building)
         {
+            if (_parentBuilding == building) return;
+            
             if (building == null)
             {
                 Debug.LogError($"Attmepted to assign {_furnitureItemData.ItemName} to null building");

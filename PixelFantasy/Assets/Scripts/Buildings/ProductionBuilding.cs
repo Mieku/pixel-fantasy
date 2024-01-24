@@ -11,13 +11,22 @@ using UnityEngine;
 
 namespace Buildings
 {
-    public class ProductionBuilding : Building
+    public interface IProductionBuilding : IBuilding
     {
-        private ProductionBuildingData _prodBuildingData => _buildingData as ProductionBuildingData;
+        public float GetProductionProgress(CraftedItemData item);
+        public List<ProductionSettings> ProductionSettings { get; }
+        public CraftingTable CraftingTable { get; set; }
+    }
+    
+    public class ProductionBuilding : Building, IProductionBuilding
+    {
+        [SerializeField] private JobData _workersJob;
+        [SerializeField] private List<CraftedItemData> _productionOptions = new List<CraftedItemData>();
+        
         public override BuildingType BuildingType => BuildingType.Production;
         
-        public CraftingTable CraftingTable;
-        public List<ProductionSettings> ProductionSettings;
+        public CraftingTable CraftingTable { get; set; }
+        public List<ProductionSettings> ProductionSettings { get; } = new List<ProductionSettings>();
 
         public override string OccupantAdjective => "Workers";
 
@@ -68,7 +77,7 @@ namespace Buildings
 
         public override List<Unit> GetPotentialOccupants()
         {
-            var relevantAbilites = _prodBuildingData.RelevantAbilityTypes;
+            var relevantAbilites = _buildingData.RelevantAbilityTypes;
             
             var unemployed = UnitsManager.Instance.UnemployedKinlings;
             List<Unit> sortedKinlings = unemployed
@@ -114,7 +123,7 @@ namespace Buildings
 
         private void CreateProductionSettings()
         {
-            foreach (var craftedOption in _prodBuildingData.ProductionOptions)
+            foreach (var craftedOption in _productionOptions)
             {
                 ProductionSettings newSetting = new ProductionSettings(craftedOption);
                 ProductionSettings.Add(newSetting);
@@ -123,7 +132,7 @@ namespace Buildings
         
         public override JobData GetBuildingJob()
         {
-            return _prodBuildingData.WorkersJob;
+            return _workersJob;
         }
     }
     

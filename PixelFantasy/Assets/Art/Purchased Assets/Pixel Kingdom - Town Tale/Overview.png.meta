@@ -188,7 +188,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -196,6 +196,27 @@ TextureImporter:
       bones: []
       spriteID: 119a741d93289124f9717aec624c2311
       internalID: 22178473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bench
+      rect:
+        serializedVersion: 2
+        x: 833
+        y: 3208
+        width: 30
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db6f0ff388e374843935ed145972de5e
+      internalID: 483908963
       vertices: []
       indices: 
       edges: []
@@ -212,6 +233,7 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       Anvil: 1648328910
+      Bench: 483908963
       Forge: -952506661
       Quencher: -1321726773
       Sign: 22178473

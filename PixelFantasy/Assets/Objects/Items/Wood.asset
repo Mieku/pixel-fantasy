@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Wood
   m_EditorClassIdentifier: 
   ItemName: Wood
+  ItemDescription: 
   MaxStackSize: 5
   ItemSprite: {fileID: 3480877028203309643, guid: 825658b1c6986bd46b087bb3ad70d904, type: 3}
   DefaultSpriteScale: {x: 0.75, y: 0.75}
-  _constructionMethod: 0
-  _resourceCosts: []
-  _craftedQuatity: 1
-  _workToCraft: 0
+  Durability: 100
+  InteractionConfigs: []
+  Category: 0

@@ -281,7 +281,7 @@ namespace Systems.Details.Building_Details.Scripts
 
         public void OnMovePressed()
         {
-            _building.ToggleMoveBuilding(!_building.IsBuildingMoving);
+            _building.ToggleMoveBuilding();
             
             DetermineBuildingState();
         }

@@ -49,7 +49,7 @@ namespace Systems.Details.Building_Details.Scripts
             }
             
             // Stockpile Building Panels
-            var stockpileBuilding = _building as StockpileBuilding;
+            var stockpileBuilding = _building as IStockpileBuilding;
             if (stockpileBuilding != null && _building.State == Building.BuildingState.Built)
             {
                 _stockpilePanel.Init(_building, this);
@@ -64,14 +64,14 @@ namespace Systems.Details.Building_Details.Scripts
             }
             
             // Crafting Orders Panel
-            var craftingBuilding = _building as CraftingBuilding;
+            var craftingBuilding = _building as ICraftingBuilding;
             if (craftingBuilding != null && _building.State == Building.BuildingState.Built)
             {
                 _craftingOrdersPanel.Init(_building, this);
             }
 
             // Production Panel
-            var productionBuilding = _building as ProductionBuilding;
+            var productionBuilding = _building as IProductionBuilding;
             if (productionBuilding != null && _building.State == Building.BuildingState.Built)
             {
                 _productionPanel.Init(_building, this);

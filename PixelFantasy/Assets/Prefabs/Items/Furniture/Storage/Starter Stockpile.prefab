@@ -651,7 +651,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _offset: 0
   _runOnlyOnce: 0
-  _sortingGroup: {fileID: 7149336142590516266}
   _checkLocal: 0
 --- !u!1 &6820769599711126613
 GameObject:
@@ -836,7 +835,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7127226482418418437
 Transform:
   m_ObjectHideFlags: 0

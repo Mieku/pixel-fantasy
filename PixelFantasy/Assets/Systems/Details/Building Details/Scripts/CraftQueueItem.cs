@@ -18,9 +18,9 @@ namespace Systems.Details.Building_Details.Scripts
         [SerializeField] private Sprite _redBG;
 
         private CraftingOrder _order;
-        private CraftingBuilding _building;
+        private ICraftingBuilding _building;
 
-        public void Init(CraftingOrder order, CraftingBuilding building)
+        public void Init(CraftingOrder order, ICraftingBuilding building)
         {
             _order = order;
             _building = building;
@@ -42,13 +42,13 @@ namespace Systems.Details.Building_Details.Scripts
         public void OnIncreasePressed()
         {
             CraftingOrdersManager.Instance.IncreaseOrderPriority(_order);
-            GameEvents.Trigger_OnBuildingChanged(_building);
+            GameEvents.Trigger_OnBuildingChanged((Building)_building);
         }
 
         public void OnDecreasePressed()
         {
             CraftingOrdersManager.Instance.DecreaseOrderPriority(_order);
-            GameEvents.Trigger_OnBuildingChanged(_building);
+            GameEvents.Trigger_OnBuildingChanged((Building)_building);
         }
     }
 }

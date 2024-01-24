@@ -10,7 +10,7 @@ namespace Systems.Details.Building_Details.Scripts
         [SerializeField] private Transform _productionOptionsParent;
 
         private List<ProductionOption> _displayedOptions = new List<ProductionOption>();
-        private ProductionBuilding _prodBuilding => _building as ProductionBuilding;
+        private IProductionBuilding _prodBuilding => _building as IProductionBuilding;
         
         protected override void Show()
         {

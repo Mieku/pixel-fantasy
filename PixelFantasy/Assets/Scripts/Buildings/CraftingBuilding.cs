@@ -11,20 +11,31 @@ using UnityEngine;
 
 namespace Buildings
 {
-    public class CraftingBuilding : Building
+    public interface ICraftingBuilding : IBuilding
     {
-        private CraftingBuildingData _craftingBuildingData => _buildingData as CraftingBuildingData;
+        public bool AcceptNewOrders { get; set; }
+        public bool PrioritizeOrdersWithMats { get; set; }
+        public CraftingOrder CurrentCraftingOrder { get; set; }
+        public List<CraftingOrder> QueuedOrders();
+        public void ReturnCurrentOrderToQueue();
+        public CraftingTable CraftingTable { get; set; }
+    }
+    
+    public class CraftingBuilding : Building, ICraftingBuilding
+    {
+        [SerializeField] private JobData _workersJob;
+        [SerializeField] private List<CraftedItemData> _craftingOptions = new List<CraftedItemData>();
         public override BuildingType BuildingType => BuildingType.Crafting;
 
         public override string OccupantAdjective => "Workers";
-        public CraftingTable CraftingTable;
-        public bool AcceptNewOrders = true;
-        public bool PrioritizeOrdersWithMats = true;
-        public CraftingOrder CurrentCraftingOrder = null;
+        public CraftingTable CraftingTable { get; set; }
+        public bool AcceptNewOrders { get; set; }
+        public bool PrioritizeOrdersWithMats { get; set; }
+        public CraftingOrder CurrentCraftingOrder { get; set; }
 
         public override List<Unit> GetPotentialOccupants()
         {
-            var relevantAbilites = _craftingBuildingData.RelevantAbilityTypes;
+            var relevantAbilites = _buildingData.RelevantAbilityTypes;
             
             var unemployed = UnitsManager.Instance.UnemployedKinlings;
             List<Unit> sortedKinlings = unemployed
@@ -43,12 +54,12 @@ namespace Buildings
             CraftingOrder result = null;
             if (PrioritizeOrdersWithMats)
             {
-                result = CraftingOrdersManager.Instance.GetNextCraftableOrder(_craftingBuildingData.WorkersJob, this);
+                result = CraftingOrdersManager.Instance.GetNextCraftableOrder(_workersJob, this);
             }
 
             if (result == null)
             {
-                result = CraftingOrdersManager.Instance.GetNextOrder(_craftingBuildingData.WorkersJob);
+                result = CraftingOrdersManager.Instance.GetNextOrder(_workersJob);
             }
 
             GameEvents.Trigger_OnBuildingChanged(this);
@@ -77,7 +88,7 @@ namespace Buildings
 
         public List<CraftingOrder> QueuedOrders()
         {
-            return CraftingOrdersManager.Instance.GetAllOrders(_craftingBuildingData.WorkersJob);
+            return CraftingOrdersManager.Instance.GetAllOrders(_workersJob);
         }
 
         private void OnOrderComplete(Task task)
@@ -123,7 +134,7 @@ namespace Buildings
         
         public override JobData GetBuildingJob()
         {
-            return _craftingBuildingData.WorkersJob;
+            return _workersJob;
         }
     }
 }

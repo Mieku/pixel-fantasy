@@ -26,6 +26,14 @@ namespace Buildings
         TownHall = 3,
         Crafting = 4,
     }
+
+    public interface IBuilding
+    {
+        public int GetStorageUsedForCategory(EItemCategory category);
+        public int GetMaxStorageForCategory(EItemCategory category);
+        public int AmountItemStored(ItemData itemData);
+        public List<ItemAmount> GetStoredItemsByCategory(EItemCategory category);
+    }
     
     public abstract class Building : Construction
     {
@@ -44,6 +52,8 @@ namespace Buildings
         [SerializeField] private Transform _constructionStandPos;
         [SerializeField] private BuildingInteriorDetector _buildingInteriorDetector;
         [SerializeField] private GameObject _furnitureParentHandle;
+        [SerializeField] private GameObject _exteriorElementsHandle;
+        [SerializeField] private GameObject _exteriorFurnitureParentHandle;
         [SerializeField] protected BuildingNotification _buildingNotification;
         [SerializeField] protected BuildingAnimator _animator;
 
@@ -78,7 +88,7 @@ namespace Buildings
         public List<Furniture> AllFurniture => _allFurniture;
         public Action<List<Furniture>> OnBuildingFurnitureChanged;
         public Action OnBuildingPlaced;
-        public float CurrentDurability;
+        public float CurrentDurability { get; set; }
 
         // Furniture
         private bool _showCraftableFurniture;
@@ -228,6 +238,27 @@ namespace Buildings
             AddLogisticBill(newBill);
         }
 
+        private void AssignFurnitureToBuilding()
+        {
+            if (_furnitureParentHandle != null)
+            {
+                var interiorFurniture = _furnitureParentHandle.GetComponentsInChildren<Furniture>();
+                foreach (var furniture in interiorFurniture)
+                {
+                    furniture.AssignBuilding(this);
+                }
+            }
+
+            if (_exteriorFurnitureParentHandle != null)
+            {
+                var exteriorFurniture = _exteriorFurnitureParentHandle.GetComponentsInChildren<Furniture>();
+                foreach (var furniture in exteriorFurniture)
+                {
+                    furniture.AssignBuilding(this);
+                }
+            }
+        }
+
         public void EnableFurniture(bool isEnabled)
         {
             _furnitureParentHandle.SetActive(isEnabled);
@@ -289,6 +320,14 @@ namespace Buildings
             
             if(OnBuildingFurnitureChanged != null)
                 OnBuildingFurnitureChanged.Invoke(_allFurniture);
+        }
+
+        private void DisplayExteriorElements(bool shouldDisplay)
+        {
+            if (_exteriorElementsHandle != null)
+            {
+                _exteriorElementsHandle.SetActive(shouldDisplay);
+            }
         }
 
         public Furniture GetAvailableFurniture(FurnitureItemData furnitureItemData)
@@ -427,6 +466,7 @@ namespace Buildings
             TryToggleInternalView(false);
             CurrentDurability = _buildingData.MaxDurability;
             IncludeDefaultLogistics();
+            AssignFurnitureToBuilding();
             
             if (_state != BuildingState.BeingPlaced)
             {
@@ -554,7 +594,6 @@ namespace Buildings
             // // Cases where show always be no showing internal
             if (!IsInternalViewAllowed())
             {
-                //ToggleInternalView(false);
                 return;
             }
             
@@ -638,6 +677,8 @@ namespace Buildings
             _internalHandle.SetActive(false);
             _shadowboxHandle.SetActive(false);
             _exteriorHandle.SetActive(true);
+
+            DisplayExteriorElements(true);
         }
 
         private void Plan_Enter()
@@ -655,6 +696,8 @@ namespace Buildings
             _internalHandle.SetActive(false);
             _shadowboxHandle.SetActive(false);
             _exteriorHandle.SetActive(true);
+
+            DisplayExteriorElements(true);
         }
 
         private void Construction_Enter()
@@ -670,6 +713,8 @@ namespace Buildings
             _internalHandle.SetActive(false);
             _shadowboxHandle.SetActive(false);
             _exteriorHandle.SetActive(false);
+
+            DisplayExteriorElements(false);
         }
 
         public override void CompleteConstruction()
@@ -693,6 +738,7 @@ namespace Buildings
             
             _internalHandle.SetActive(true);
             _doorSortingGroup.gameObject.SetActive(true);
+            DisplayExteriorElements(true);
             
             TryToggleInternalView(_defaultToInternalView);
 
@@ -828,9 +874,9 @@ namespace Buildings
             }
         }
         
-        public void ToggleMoveBuilding(bool beingMoved)
+        public void ToggleMoveBuilding()
         {
-            _beingMoved = beingMoved;
+            _beingMoved = !_beingMoved;
         }
 
         public bool IsBuildingMoving => _beingMoved;

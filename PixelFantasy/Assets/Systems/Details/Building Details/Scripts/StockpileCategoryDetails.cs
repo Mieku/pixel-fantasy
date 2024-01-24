@@ -22,7 +22,7 @@ namespace Systems.Details.Building_Details.Scripts
         [SerializeField] private ItemStockpileDisplay _stockpileDisplayPrefab;
 
         private EItemCategory _category;
-        private StockpileBuilding _building;
+        private IStockpileBuilding _building;
         private CategoryDisplayState _state;
         private List<ItemStockpileDisplay> _displayedStockpileItems = new List<ItemStockpileDisplay>();
         private StockpileBuildingPanel _stockpileBuildingPanel;
@@ -30,7 +30,7 @@ namespace Systems.Details.Building_Details.Scripts
         public void Init(EItemCategory category, Building building, StockpileBuildingPanel parentPanel)
         {
             _category = category;
-            _building = building as StockpileBuilding;
+            _building = building as IStockpileBuilding;
             _stockpileBuildingPanel = parentPanel;
             
             SetState(CategoryDisplayState.Open);

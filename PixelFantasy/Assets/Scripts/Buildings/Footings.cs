@@ -14,10 +14,12 @@ namespace Buildings
         [SerializeField] private SpriteRenderer _doorSpaceFooting;
         
         private Color _cantPlaceColour;
+        private GameObject _parent;
 
         private void Awake()
         {
             _cantPlaceColour = Librarian.Instance.GetColour("Placement Red");
+            _parent = transform.parent.gameObject;
         }
 
         public void DisplayFootings(bool display)
@@ -31,7 +33,7 @@ namespace Buildings
 
             foreach (var footing in _footings)
             {
-                if (Helper.IsGridPosValidToBuild(footing.transform.position, invalidPlacementTags))
+                if (Helper.IsGridPosValidToBuild(footing.transform.position, invalidPlacementTags, _parent))
                 {
                     footing.gameObject.SetActive(false);
                 }

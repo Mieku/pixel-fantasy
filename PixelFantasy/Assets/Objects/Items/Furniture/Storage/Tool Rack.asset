@@ -32,6 +32,11 @@ MonoBehaviour:
   - Obstacle
   Catergory: 2
   FurniturePrefab: {fileID: 5465201506073250537, guid: 1862542d3e26c704b996476df5f760ea, type: 3}
+  InUseNeedChange:
+    SourceID: 
+    AmountPerHour: 0
+    NeedType: 0
   Varients: []
   MaxStorage: 20
   AcceptedCategories: 01000000
+  SpecificStorage: []

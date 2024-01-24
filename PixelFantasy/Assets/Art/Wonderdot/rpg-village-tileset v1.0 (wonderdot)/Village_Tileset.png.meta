@@ -1262,7 +1262,7 @@ TextureImporter:
         width: 26
         height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1283,7 +1283,7 @@ TextureImporter:
         width: 14
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1291,6 +1291,48 @@ TextureImporter:
       bones: []
       spriteID: c11c50134dd183e4ebb4288dd0202f8f
       internalID: 1500927907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cooking table
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 320
+        width: 32
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74271524834009747a36eb77abfd591e
+      internalID: -122136614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Crafting Tabl
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 320
+        width: 32
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7acd6beef07cd314b9314874daaedf2c
+      internalID: 1952996830
       vertices: []
       indices: 
       edges: []
@@ -1307,54 +1349,56 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       Armour Rack: 1500927907
-      Crafting Table: -2106620571
-      Village_Tileset_0: 2881922054504902259
-      Village_Tileset_1: 1669837975278995745
-      Village_Tileset_10: -540321527398368897
-      Village_Tileset_11: -3109822164937254706
-      Village_Tileset_12: -1844867105820771708
-      Village_Tileset_13: 1414572317998506106
-      Village_Tileset_14: 3334643094958623598
-      Village_Tileset_15: 6846712912213581895
-      Village_Tileset_16: 9177225683091140985
-      Village_Tileset_17: -3460193935407167229
-      Village_Tileset_18: 3009984123452781100
-      Village_Tileset_19: -612499718919224218
-      Village_Tileset_2: 1063815733179196971
-      Village_Tileset_20: -8691392994516942630
-      Village_Tileset_21: 4070436027937236153
-      Village_Tileset_22: -6796459571592398525
-      Village_Tileset_23: -2265797533831237022
-      Village_Tileset_24: -5713845035399628508
-      Village_Tileset_25: 1435941671522787379
-      Village_Tileset_26: 6030667479404793703
-      Village_Tileset_27: 6411845376537306521
-      Village_Tileset_28: 3474057674296087023
-      Village_Tileset_29: 407325999408674998
-      Village_Tileset_3: -495478904496991610
-      Village_Tileset_30: -7029101728351474339
-      Village_Tileset_31: 1657167438618362575
-      Village_Tileset_32: -4508356841719444189
-      Village_Tileset_33: -5932618471271501977
-      Village_Tileset_34: -8539762731959019332
-      Village_Tileset_35: -5408136489987820196
-      Village_Tileset_36: 1448080942728076565
-      Village_Tileset_37: 5890913579088109911
-      Village_Tileset_38: 9062329525141474745
-      Village_Tileset_39: 710953972999394123
-      Village_Tileset_4: -8995898924477132789
-      Village_Tileset_40: -7535607281173295408
-      Village_Tileset_41: -541459917521826333
-      Village_Tileset_42: -8282096895955342195
-      Village_Tileset_43: 6270709137272860204
-      Village_Tileset_44: -5323335606646855081
-      Village_Tileset_45: 1641636222100675014
-      Village_Tileset_5: -3987532910670729712
-      Village_Tileset_6: 9107011978545948665
-      Village_Tileset_7: 3586505580100664840
-      Village_Tileset_8: -3897075156819975261
-      Village_Tileset_9: -7020408599194189675
-      Weapon Rack: 801754901
+      Crafting Tabl: -2106620571
+      Crafting Table: 2881922054504902259
+      Village_Tileset_0: 1669837975278995745
+      Village_Tileset_1: -540321527398368897
+      Village_Tileset_10: -3109822164937254706
+      Village_Tileset_11: -1844867105820771708
+      Village_Tileset_12: 1414572317998506106
+      Village_Tileset_13: 3334643094958623598
+      Village_Tileset_14: 6846712912213581895
+      Village_Tileset_15: 9177225683091140985
+      Village_Tileset_16: -3460193935407167229
+      Village_Tileset_17: 3009984123452781100
+      Village_Tileset_18: -612499718919224218
+      Village_Tileset_19: 1063815733179196971
+      Village_Tileset_2: -8691392994516942630
+      Village_Tileset_20: 4070436027937236153
+      Village_Tileset_21: -6796459571592398525
+      Village_Tileset_22: -2265797533831237022
+      Village_Tileset_23: -5713845035399628508
+      Village_Tileset_24: 1435941671522787379
+      Village_Tileset_25: 6030667479404793703
+      Village_Tileset_26: 6411845376537306521
+      Village_Tileset_27: 3474057674296087023
+      Village_Tileset_28: 407325999408674998
+      Village_Tileset_29: -495478904496991610
+      Village_Tileset_3: -7029101728351474339
+      Village_Tileset_30: 1657167438618362575
+      Village_Tileset_31: -4508356841719444189
+      Village_Tileset_32: -5932618471271501977
+      Village_Tileset_33: -8539762731959019332
+      Village_Tileset_34: -5408136489987820196
+      Village_Tileset_35: 1448080942728076565
+      Village_Tileset_36: 5890913579088109911
+      Village_Tileset_37: 9062329525141474745
+      Village_Tileset_38: 710953972999394123
+      Village_Tileset_39: -8995898924477132789
+      Village_Tileset_4: -7535607281173295408
+      Village_Tileset_40: -541459917521826333
+      Village_Tileset_41: -8282096895955342195
+      Village_Tileset_42: 6270709137272860204
+      Village_Tileset_43: -5323335606646855081
+      Village_Tileset_44: 1641636222100675014
+      Village_Tileset_45: -3987532910670729712
+      Village_Tileset_5: 9107011978545948665
+      Village_Tileset_6: 3586505580100664840
+      Village_Tileset_7: -3897075156819975261
+      Village_Tileset_8: -7020408599194189675
+      Village_Tileset_9: 801754901
+      Weapon Rack: -122136614
+      cooking table: 1952996830
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

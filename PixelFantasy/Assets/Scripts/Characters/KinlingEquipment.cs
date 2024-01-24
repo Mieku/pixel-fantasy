@@ -528,9 +528,10 @@ namespace Characters
             
             ClearDisplayedGear(data.Type);
 
-            var droppedItem = gear.LinkedItem;//Spawner.Instance.SpawnItem(gear.Data, transform.position, true, gear);
+            var droppedItem = gear.LinkedItem;
             droppedItem.transform.position = transform.position;
             droppedItem.IsAllowed = true;
+            droppedItem.SetHeld(false);
             return droppedItem;
         }
 

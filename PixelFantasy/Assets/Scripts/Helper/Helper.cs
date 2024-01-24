@@ -199,9 +199,9 @@ public static class Helper
     /// <summary>
     /// Determines if the grid position is a valid position to build on
     /// </summary>
-    public static bool IsGridPosValidToBuild(Vector2 gridPos, List<string> listOfInvalidTags)
+    public static bool IsGridPosValidToBuild(Vector2 gridPos, List<string> listOfInvalidTags, GameObject parent = null)
     {
-        var detectedTags = GetTagsAtGridPos(gridPos);
+        var detectedTags = GetTagsAtGridPos(gridPos, parent);
         
         // Ensure On Ground
         // if (!detectedTags.Contains("Ground"))
@@ -222,7 +222,7 @@ public static class Helper
     /// <summary>
     /// Returns a list of all the tags located at the specified grid position
     /// </summary>
-    public static List<string> GetTagsAtGridPos(Vector2 gridPos)
+    public static List<string> GetTagsAtGridPos(Vector2 gridPos, GameObject parent = null)
     {
         var leftStart = new Vector2(gridPos.x - 0.25f, gridPos.y);
         var bottomStart = new Vector2(gridPos.x, gridPos.y - 0.25f);
@@ -233,11 +233,31 @@ public static class Helper
         List<string> detectedTags = new List<string>();
         foreach (var hitHor in allHitHor)
         {
-            detectedTags.Add(hitHor.transform.tag);
+            if (parent != null)
+            {
+                if (!hitHor.transform.IsChildOf(parent.transform))
+                {
+                    detectedTags.Add(hitHor.transform.tag);
+                }
+            }
+            else
+            {
+                detectedTags.Add(hitHor.transform.tag);
+            }
         }
         foreach (var hitVert in allHitVert)
         {
-            detectedTags.Add(hitVert.transform.tag);
+            if (parent != null)
+            {
+                if (!hitVert.transform.IsChildOf(parent.transform))
+                {
+                    detectedTags.Add(hitVert.transform.tag);
+                }
+            }
+            else
+            {
+                detectedTags.Add(hitVert.transform.tag);
+            }
         }
 
         return detectedTags;

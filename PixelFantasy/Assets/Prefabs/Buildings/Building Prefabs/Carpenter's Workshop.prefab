@@ -11760,7 +11760,7 @@ MonoBehaviour:
   PendingCommand: {fileID: 0}
   RegisteredTasks: []
   BuildingID: Carpenter's Workshop
-  _buildingData: {fileID: 11400000, guid: 600d852752b125e478694d5d800cb362, type: 2}
+  _buildingData: {fileID: 11400000, guid: 1d0bbcd08aaa40e45884c8815f01de4e, type: 2}
   _footings: {fileID: 4983041443223141814}
   _constructionFence: {fileID: 7583062966648948478}
   _internalHandle: {fileID: 4928138789695397395}
@@ -11772,6 +11772,8 @@ MonoBehaviour:
   _constructionStandPos: {fileID: 3148152069110956621}
   _buildingInteriorDetector: {fileID: 3379571567444607411}
   _furnitureParentHandle: {fileID: 8002960609839333592}
+  _exteriorElementsHandle: {fileID: 0}
+  _exteriorFurnitureParentHandle: {fileID: 0}
   _buildingNotification: {fileID: 5529698122534435302}
   _animator: {fileID: 0}
   _buildingDepth: 3
@@ -11780,6 +11782,8 @@ MonoBehaviour:
   _interiorForegroundSortingGroup: {fileID: 8407811110570999269}
   _doorSortingGroup: {fileID: 9014743273962867153}
   CurrentDurability: 0
+  _workersJob: {fileID: 11400000, guid: 8cc115b907c69de4da24cb986f35866f, type: 2}
+  _craftingOptions: []
   CraftingTable: {fileID: 3999322141052321807}
   AcceptNewOrders: 1
   PrioritizeOrdersWithMats: 1

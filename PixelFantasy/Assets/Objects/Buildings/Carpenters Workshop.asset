@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c81ce2b36f308334bb6b748a8f0e168e, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ae75de740915d04586f444cfdcb0ebe, type: 3}
   m_Name: Carpenters Workshop
   m_EditorClassIdentifier: 
   ConstructionName: Carpenter's Workshop
@@ -37,5 +37,3 @@ MonoBehaviour:
     Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
     Value: 10
     Building: {fileID: 0}
-  WorkersJob: {fileID: 11400000, guid: 8cc115b907c69de4da24cb986f35866f, type: 2}
-  CraftingOptions: []

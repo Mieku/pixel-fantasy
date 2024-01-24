@@ -11762,7 +11762,7 @@ MonoBehaviour:
   PendingCommand: {fileID: 0}
   RegisteredTasks: []
   BuildingID: Warehouse
-  _buildingData: {fileID: 11400000, guid: d3ef88e3eb6cdb347be037ac1d7f1c1c, type: 2}
+  _buildingData: {fileID: 11400000, guid: d2e0c847e07c0e349bb25d8cd46484f4, type: 2}
   _footings: {fileID: 4983041443223141814}
   _constructionFence: {fileID: 7657843211745940374}
   _internalHandle: {fileID: 4928138789695397395}
@@ -11774,6 +11774,8 @@ MonoBehaviour:
   _constructionStandPos: {fileID: 3148152069110956621}
   _buildingInteriorDetector: {fileID: 3379571567444607411}
   _furnitureParentHandle: {fileID: 8002960609839333592}
+  _exteriorElementsHandle: {fileID: 0}
+  _exteriorFurnitureParentHandle: {fileID: 0}
   _buildingNotification: {fileID: 5529698122534435302}
   _animator: {fileID: 0}
   _buildingDepth: 3

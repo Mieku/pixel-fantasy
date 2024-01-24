@@ -29,7 +29,7 @@ namespace Systems.Details.Building_Details.Scripts
         [SerializeField] private CraftQueueItem _craftQueueItemPrefab;
 
         private List<CraftQueueItem> _displayedQueueItems = new List<CraftQueueItem>();
-        private CraftingBuilding _craftingBuilding => _building as CraftingBuilding;
+        private ICraftingBuilding _craftingBuilding => _building as ICraftingBuilding;
         private CraftingTable _craftingTable => _craftingBuilding.CraftingTable;
         
         protected override void Show()

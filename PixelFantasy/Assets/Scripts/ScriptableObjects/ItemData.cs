@@ -40,5 +40,7 @@ namespace ScriptableObjects
         [Description("Clothing")] Clothing,
         [Description("Food")] Food,
         [Description("Furniture")] Furniture,
+        [Description("Specific Storage")] SpecificStorage,
+        [Description("Bulky Resource")] BulkyResource,
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Buildings;
+using Buildings.Building_Types;
 using Managers;
 using ScriptableObjects;
 using UnityEngine;
@@ -25,7 +26,8 @@ namespace Items
                 {
                     return true;
                 } 
-                else if (_parentBuilding as StockpileBuilding != null)
+                
+                if (_parentBuilding as StockpileBuilding != null || _parentBuilding as TownCenterBuilding != null)
                 {
                     return true;
                 }
@@ -61,6 +63,14 @@ namespace Items
 
         public bool IsItemValidToStore(ItemData itemData)
         {
+            if (AcceptedCategories.Contains(EItemCategory.SpecificStorage))
+            {
+                if (_storageItemData.SpecificStorage.Contains(itemData))
+                {
+                    return true;
+                }
+            }
+            
             return _storageItemData.AcceptedCategories.Contains(itemData.Category);
         }
 

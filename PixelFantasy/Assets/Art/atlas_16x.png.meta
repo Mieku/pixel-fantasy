@@ -338,6 +338,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Firepit
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 129
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c987bd5c18bb3e54ab276a224d4b8924
+      internalID: -1075325373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -349,6 +370,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Firepit: -1075325373
       Stool: -1997294335
       atlas_16x_0: 8220004207842343721
       atlas_16x_1: -8917494276948081965

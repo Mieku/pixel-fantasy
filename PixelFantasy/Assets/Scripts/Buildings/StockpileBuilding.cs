@@ -9,9 +9,14 @@ using UnityEngine;
 
 namespace Buildings
 {
-    public class StockpileBuilding : Building
+    public interface IStockpileBuilding : IBuilding
     {
-        private StockpileBuildingData _stockpileBuildingData => _buildingData as StockpileBuildingData;
+        public bool IsItemStockpileAllowed(ItemData itemData);
+        public void SetAllowedStockpileItem(ItemData itemData, bool isAllowed);
+    }
+    
+    public class StockpileBuilding : Building, IStockpileBuilding
+    {
         private List<ItemData> _unallowedItems = new List<ItemData>();
         public override BuildingType BuildingType => BuildingType.Stockpile;
         
@@ -42,7 +47,7 @@ namespace Buildings
         
         public override List<Unit> GetPotentialOccupants()
         {
-            var relevantAbilites = _stockpileBuildingData.RelevantAbilityTypes;
+            var relevantAbilites = _buildingData.RelevantAbilityTypes;
             
             var unemployed = UnitsManager.Instance.UnemployedKinlings;
             List<Unit> sortedKinlings = unemployed

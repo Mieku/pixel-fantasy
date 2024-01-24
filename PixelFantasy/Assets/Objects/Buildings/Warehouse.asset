@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d99ae2b06dd552b4880c133286f5e116, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ae75de740915d04586f444cfdcb0ebe, type: 3}
   m_Name: Warehouse
   m_EditorClassIdentifier: 
   ConstructionName: Warehouse
@@ -33,4 +33,3 @@ MonoBehaviour:
   DailyUpkeep: 5
   RelevantAbilityTypes: 00000000
   DefaultLogistics: []
-  WorkersJob: {fileID: 0}

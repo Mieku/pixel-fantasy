@@ -12047,7 +12047,7 @@ MonoBehaviour:
   PendingCommand: {fileID: 0}
   RegisteredTasks: []
   BuildingID: Smithy
-  _buildingData: {fileID: 11400000, guid: a97a24e3dce64484dbdef3f99a33f8c7, type: 2}
+  _buildingData: {fileID: 11400000, guid: 26170f390a51ce94aa81641b608d0277, type: 2}
   _footings: {fileID: 4983041443223141814}
   _constructionFence: {fileID: 7737183946616722548}
   _internalHandle: {fileID: 4928138789695397395}
@@ -12059,6 +12059,8 @@ MonoBehaviour:
   _constructionStandPos: {fileID: 3148152069110956621}
   _buildingInteriorDetector: {fileID: 3379571567444607411}
   _furnitureParentHandle: {fileID: 8002960609839333592}
+  _exteriorElementsHandle: {fileID: 0}
+  _exteriorFurnitureParentHandle: {fileID: 0}
   _buildingNotification: {fileID: 5529698122534435302}
   _animator: {fileID: 0}
   _buildingDepth: 3
@@ -12067,8 +12069,13 @@ MonoBehaviour:
   _interiorForegroundSortingGroup: {fileID: 8407811110570999269}
   _doorSortingGroup: {fileID: 9014743273962867153}
   CurrentDurability: 0
+  _workersJob: {fileID: 11400000, guid: ba86bcc46aa4a554b91215f79666482b, type: 2}
+  _productionOptions:
+  - {fileID: 11400000, guid: 88709ad2cfd7dd94297cea2dbbbfa57b, type: 2}
+  - {fileID: 11400000, guid: 2b2e2036768598b4fa44a2a14c7259c3, type: 2}
+  - {fileID: 11400000, guid: 968e99eea35e84d46b20020ab55c92c3, type: 2}
+  - {fileID: 11400000, guid: b531e4b4f83aed843af081dc8adea923, type: 2}
   CraftingTable: {fileID: 7648244304949262572}
-  ProductionSettings: []
 --- !u!114 &5596007926291928697
 MonoBehaviour:
   m_ObjectHideFlags: 0
