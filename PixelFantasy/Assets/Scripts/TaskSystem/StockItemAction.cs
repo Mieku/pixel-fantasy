@@ -100,6 +100,12 @@ namespace TaskSystem
         {
             base.ConcludeAction();
             
+            var building = _task.Requestor as Building;
+            if (building != null)
+            {
+                building.CheckLogistics();
+            }
+            
             _task = null;
             _itemData = null;
 

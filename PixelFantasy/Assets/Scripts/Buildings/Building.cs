@@ -194,7 +194,7 @@ namespace Buildings
             }
         }
         
-        private void CheckLogistics()
+        public void CheckLogistics()
         {
             foreach (var bill in _logisticsBills)
             {
@@ -744,6 +744,11 @@ namespace Buildings
 
             foreach (var furniture in _allFurniture)
             {
+                if (furniture.FurnitureState == Furniture.EFurnitureState.Built)
+                {
+                    furniture.AssignState(Furniture.EFurnitureState.Built);
+                }
+                
                 if (furniture.FurnitureState == Furniture.EFurnitureState.Craftable)
                 {
                     furniture.SetState(Furniture.EFurnitureState.InProduction);
@@ -986,18 +991,26 @@ namespace Buildings
             return Librarian.Instance.GetJob("Worker");
         }
 
-        public SeatFurniture FindAvailableSeat()
+        public ChairFurniture FindAvailableChair()
         {
-            // TODO: Make sure works as intended
-            var allSeats = _allFurniture.OfType<SeatFurniture>().Where(seat =>
+            var allChairs = _allFurniture.OfType<ChairFurniture>().Where(seat =>
                 seat.IsAvailable && seat.CanKinlingUseThis()).OrderBy(seat => seat.HasTable).ToList();
 
-            if (allSeats.Count == 0)
+            if (allChairs.Count == 0)
             {
                 return null;
             }
 
-            return allSeats[0];
+            return allChairs[0];
+        }
+
+        public List<CraftingTable> CraftingTables
+        {
+            get
+            {
+                return _allFurniture.OfType<CraftingTable>()
+                    .Where(table => table.FurnitureState == Furniture.EFurnitureState.Built).ToList();
+            }
         }
 
         public Vector2 GetRandomIndoorsPosition(Unit kinling)

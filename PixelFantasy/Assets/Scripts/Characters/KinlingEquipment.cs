@@ -6,6 +6,7 @@ using QFSW.QC;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using TaskSystem;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -198,6 +199,13 @@ namespace Characters
             if (_handsGearOffHandObj != null) _handsGearOffHandObj.AssignDirection(_curDirection);
             if (_mainHandHeldObj != null) _mainHandHeldObj.AssignDirection(_curDirection);
             if (_offHandHeldObj != null) _offHandHeldObj.AssignDirection(_curDirection);
+        }
+
+        private GearState _equippedTool;
+        public void EquipTool(Item toolItem)
+        {
+            _equippedTool = toolItem.State as GearState;
+            Equip(toolItem);
         }
 
         public void Equip(Item item)
@@ -476,6 +484,19 @@ namespace Characters
             }
             
             return null;
+        }
+
+        public Item ReturnEquippedTool()
+        {
+            if (_equippedTool == null) return null;
+            
+            return UnequipTool(_equippedTool);
+        }
+
+        public Item UnequipTool(GearState gear)
+        {
+            _equippedTool = null;
+            return Unequip(gear);
         }
 
         public Item Unequip(GearState gear)

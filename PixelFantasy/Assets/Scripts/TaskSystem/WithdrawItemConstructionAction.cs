@@ -26,7 +26,7 @@ namespace TaskSystem
                 return false;
             }
 
-            return InventoryManager.Instance.IsItemInStorage((string)payload);
+            return InventoryManager.Instance.IsItemInStorage((string)payload, true);
         }
 
         public override void PrepareAction(Task task)
@@ -38,6 +38,10 @@ namespace TaskSystem
             
             var payload = task.Payload;
             _targetItem = ClaimItem((string)payload);
+            if (_targetItem == null)
+            {
+                OnTaskCancel();
+            }
 
             var building = _requestor as Building;
             if (building != null)

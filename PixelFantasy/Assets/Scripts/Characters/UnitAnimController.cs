@@ -20,6 +20,7 @@ namespace Characters
         private const string WATER = "isWatering";
         private const string SWING = "isSwinging";
         private const string SLEEP = "isSleeping";
+        private const string SIT = "isSitting";
 
         private const string UP = "isUp";
         private const string DOWN = "isDown";
@@ -76,6 +77,32 @@ namespace Characters
             }
         }
 
+        private UnitActionDirection ConvertPlacementDirection(PlacementDirection placementDirection)
+        {
+            switch (placementDirection)
+            {
+                case PlacementDirection.South:
+                    return UnitActionDirection.Down;
+                case PlacementDirection.North:
+                    return UnitActionDirection.Up;
+                case PlacementDirection.West:
+                    FlipRendererX(true);
+                    return UnitActionDirection.Side;
+                case PlacementDirection.East:
+                    FlipRendererX(false);
+                    return UnitActionDirection.Side;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(placementDirection), placementDirection, null);
+            }
+        }
+
+        public void SetUnitAction(UnitAction unitAction, PlacementDirection direction)
+        {
+            // Flip the renderer
+            var actionDir = ConvertPlacementDirection(direction);
+            SetUnitAction(unitAction, actionDir);
+        }
+
         public void SetUnitAction(UnitAction unitAction, UnitActionDirection direction)
         {
             ClearAllActions();
@@ -121,6 +148,7 @@ namespace Characters
                     SetUnitAction(SLEEP);
                     break;
                 default:
+                    ClearAllActions();
                     throw new ArgumentOutOfRangeException(nameof(unitAction), unitAction, null);
             }
         }
@@ -195,6 +223,7 @@ public enum UnitAction
         Watering,
         Swinging,
         Sleeping,
+        Sitting,
     }
 
     public enum UnitActionDirection

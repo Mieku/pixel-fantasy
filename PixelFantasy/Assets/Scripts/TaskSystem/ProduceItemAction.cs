@@ -37,7 +37,7 @@ namespace TaskSystem
         {
             _itemToCraft = Librarian.Instance.GetItemData((string)task.Payload) as CraftedItemData;
             _prodBuilding = task.Requestor as ProductionBuilding;
-            _craftingTable = _prodBuilding.CraftingTable;
+            _craftingTable = _prodBuilding.FindCraftingTable(_itemToCraft);
             _materials = task.Materials;
             _state = ETaskState.ClaimTable;
         }

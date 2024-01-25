@@ -30,7 +30,6 @@ namespace Systems.Details.Building_Details.Scripts
 
         private List<CraftQueueItem> _displayedQueueItems = new List<CraftQueueItem>();
         private ICraftingBuilding _craftingBuilding => _building as ICraftingBuilding;
-        private CraftingTable _craftingTable => _craftingBuilding.CraftingTable;
         
         protected override void Show()
         {
@@ -61,10 +60,11 @@ namespace Systems.Details.Building_Details.Scripts
             }
             else
             {
+                var craftingTable = _craftingBuilding.FindCraftingTable(curCraftingOrder.CraftedItem);
                 _craftingLayout.SetActive(true);
                 _curProdIcon.sprite = curCraftingOrder.CraftedItem.ItemSprite;
-                _curProdMatsBar.fillAmount = _craftingTable.GetPercentMaterialsReceived();
-                _curProdWorkBar.fillAmount = _craftingTable.GetPercentCraftingComplete();
+                _curProdMatsBar.fillAmount = craftingTable.GetPercentMaterialsReceived();
+                _curProdWorkBar.fillAmount = craftingTable.GetPercentCraftingComplete();
 
                 _curProdTooltip.Header = curCraftingOrder.CraftedItem.ItemName;
                 _curProdTooltip.Content = curCraftingOrder.CraftedItem.MaterialsList;

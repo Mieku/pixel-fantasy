@@ -22,6 +22,8 @@ namespace TaskSystem
         {
             _tasks.Add(task);
         }
+
+        public int Count => _tasks.Count;
         
         public Task NextTask
         {
@@ -36,6 +38,18 @@ namespace TaskSystem
 
                 return null;
             }
+        }
+
+        public Task PeekTask(int index)
+        {
+            return _tasks[index];
+        }
+
+        public Task GetTask(int index)
+        {
+            var task = _tasks[index];
+            _tasks.RemoveAt(index);
+            return task;
         }
 
         public void CancelTask(Task taskToCancel)
@@ -56,22 +70,4 @@ namespace TaskSystem
             }
         }
     }
-
-    // public enum TaskType
-    // {
-    //     Haul,
-    //     Mine,
-    //     Construction,
-    //     Harvest,
-    //     Animals,
-    //     Art,
-    //     Craft,
-    //     Hunt,
-    //     Grow,
-    //     Cook,
-    //     Heal,
-    //     Research,
-    //     Clean,
-    //     Emergency
-    // }
 }

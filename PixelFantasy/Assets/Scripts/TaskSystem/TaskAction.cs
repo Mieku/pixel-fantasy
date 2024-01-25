@@ -100,7 +100,7 @@ namespace TaskSystem
                 var curEquippedItem = _ai.Unit.Equipment.EquipmentState.GetGearByType(claimedToolData.Type);
                 if (curEquippedItem != null)
                 {
-                    droppedItem = _ai.Unit.Equipment.Unequip(curEquippedItem);
+                    droppedItem = _ai.Unit.Equipment.UnequipTool(curEquippedItem);
                     
                     // Pick it up
                     _ai.HoldItem(droppedItem);
@@ -109,7 +109,7 @@ namespace TaskSystem
                 
                 // Equip item
                 claimedToolsStorage.WithdrawItem(claimedTool);
-                _ai.Unit.Equipment.Equip(claimedTool);
+                _ai.Unit.Equipment.EquipTool(claimedTool);
                 
                 // put unequipped item away
                 if (droppedItem == null)
@@ -126,7 +126,7 @@ namespace TaskSystem
                         onReadyForTask.Invoke();
                         return;
                     }
-
+                    
                     Storage storageToPlaceOldItem = null;
                     // Try put tool in workplace
                     if (_ai.Unit.AssignedWorkplace != null)
@@ -146,7 +146,7 @@ namespace TaskSystem
                         storageToPlaceOldItem =
                             InventoryManager.Instance.FindAvailableGlobalStorage(droppedItem.GetItemData());
                     }
-
+                    
                     if (storageToPlaceOldItem == null)
                     {
                         // Put on ground

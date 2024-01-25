@@ -14,6 +14,7 @@ namespace Characters
         private bool _inTransit;
         private UnitAnimController _charAnimController;
         private float _defaultSpeed;
+        private Unit _unit;
 
         private const float NEAREST_POINT_SEARCH_RANGE = 5f;
 
@@ -23,6 +24,7 @@ namespace Characters
             _agent.updateRotation = false;
             _agent.updateUpAxis = false;
             _defaultSpeed = _agent.speed;
+            _unit = GetComponent<Unit>();
             
             _charAnimController = GetComponent<Unit>().UnitAnimController;
             
@@ -37,6 +39,12 @@ namespace Characters
 
         public bool SetMovePosition(Vector2 movePosition, Action onReachedMovePosition = null)
         {
+            // If they are seated, get up
+            if (_unit.GetChair != null)
+            {
+                _unit.GetChair.ExitSeat(_unit);
+            }
+            
             if (_agent.SetDestination(movePosition))
             {
                 _inTransit = true;
@@ -54,8 +62,20 @@ namespace Characters
         public bool IsDestinationPossible(Vector2 position)
         {
             NavMeshPath path = new NavMeshPath();
-            _agent.CalculatePath(position, path);
-            return path.status == NavMeshPathStatus.PathComplete;
+            if (NavMesh.CalculatePath(transform.position,
+                    position, NavMesh.AllAreas, path))
+            {
+                if (path.status == NavMeshPathStatus.PathComplete)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            
+            return false;
         }
 
         private void DetermineIfDestination()

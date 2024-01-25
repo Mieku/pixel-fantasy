@@ -90,5 +90,39 @@ namespace Managers
             var selectedHouse = sortedHouses[0];
             selectedHouse.AssignHeadHousehold(requestingUnit);
         }
+
+        public List<T> GetBuildingsOfType<T>()
+        {
+            return _allBuildings.OfType<T>().ToList();
+        }
+
+        public Building GetClosestBuildingOfType<T>(Vector2 resquestorPos)
+        {
+            var allBuildingsOfType = GetBuildingsOfType<T>();
+            List<(Building, float)> buildingDistances = new List<(Building, float)>();
+            foreach (var buildingT  in allBuildingsOfType)
+            {
+                var building = buildingT as Building;
+                if (building != null && building.State == Building.BuildingState.Built)
+                {
+                    NavMeshPath path = new NavMeshPath();
+                    if (NavMesh.CalculatePath(building.ConstructionStandPosition(),
+                            resquestorPos, NavMesh.AllAreas, path))
+                    {
+                        float distance = Helper.GetPathLength(path);
+                        buildingDistances.Add((building, distance));
+                    }
+                }
+            }
+
+            if (buildingDistances.Count == 0)
+            {
+                return null;
+            }
+            
+            var sortedBuildings = buildingDistances.OrderBy(x => x.Item2).Select(x => x.Item1).ToList();
+            var selectedBuilding = sortedBuildings[0];
+            return selectedBuilding;
+        }
     }
 }

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Buildings;
+using Buildings.Building_Types;
 using Characters;
 using Items;
 using Managers;
@@ -18,11 +20,13 @@ namespace TaskSystem
         private List<TaskAction> _taskActions;
         private State _state;
         private float _waitingTimer;
+        private float _idleTimer;
         private TaskAction _curTaskAction;
         private Item _heldItem;
         private Queue<Task> _queuedTasks = new Queue<Task>();
         
         private const float WAIT_TIMER_MAX = 0.2f; // 200ms
+        private const float IDLE_TIME = 10f;
 
         public Unit Unit => _unit;
 
@@ -32,6 +36,7 @@ namespace TaskSystem
             GettingTool,
             ExecutingTask,
             ForcedTask,
+            Idling,
         }
         
         private void Awake()
@@ -54,7 +59,7 @@ namespace TaskSystem
             {
                 case State.WaitingForNextTask:
                     // Waiting to request the next task
-                    _waitingTimer -= Time.deltaTime;
+                    _waitingTimer -= TimeManager.Instance.DeltaTime;
                     if (_waitingTimer <= 0)
                     {
                         _waitingTimer = WAIT_TIMER_MAX;
@@ -69,12 +74,20 @@ namespace TaskSystem
                 case State.ForcedTask:
                     _curTaskAction?.DoAction();
                     break;
+                case State.Idling:
+                    _idleTimer += TimeManager.Instance.DeltaTime;
+                    if (_idleTimer > IDLE_TIME)
+                    {
+                        _idleTimer = 0;
+                        RequestNextTask();
+                    }
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
-        private TaskAction FindTaskActionFor(Task task)
+        public TaskAction FindTaskActionFor(Task task)
         {
             return _taskActions.Find(taskAction => taskAction.TaskId == task.TaskId);
         }
@@ -151,7 +164,7 @@ namespace TaskSystem
             
             if (task == null)
             {
-                task = TaskManager.Instance.GetTask(_unit.CurrentJob);
+                task = TaskManager.Instance.RequestTask(_unit);
                 if (task != null)
                 {
                     if (AttemptStartTask(task, true)) return;
@@ -161,7 +174,7 @@ namespace TaskSystem
             
             if (task == null)
             {
-                _state = State.WaitingForNextTask;
+                IdleAtWork();
                 return;
             }
 
@@ -295,6 +308,7 @@ namespace TaskSystem
             {
                 _curTaskAction = taskAction;
                 taskAction.InitAction(task);
+                
                 // Get tool if needed
                 _state = State.GettingTool;
                 taskAction.PickupRequiredTool(() =>
@@ -587,6 +601,59 @@ namespace TaskSystem
         public bool HasToolTypeEquipped(EToolType toolType)
         {
             return _unit.Equipment.HasToolTypeEquipped(toolType);
+        }
+        
+        private void IdleAtWork()
+        {
+            _state = State.Idling;
+            
+            Building buildingToIdleIn = null;
+            if (_unit.AssignedWorkplace == null)
+            {
+                // Idle at town center
+                buildingToIdleIn = BuildingsManager.Instance.GetClosestBuildingOfType<TownCenterBuilding>(_unit.transform.position);
+            }
+            else
+            {
+                buildingToIdleIn = _unit.AssignedWorkplace;
+            }
+
+            if (buildingToIdleIn == null)
+            {
+                buildingToIdleIn = _unit.AssignedHome;
+            }
+            
+            if (!_unit.IsSeated || (_unit.GetChair != null && _unit.GetChair.ParentBuilding != buildingToIdleIn ))
+            {
+                Vector2 moveTarget;
+                ChairFurniture chair = null;
+                if (buildingToIdleIn != null)
+                {
+                    chair = buildingToIdleIn.FindAvailableChair();
+                    if (chair != null)
+                    {
+                        var seat = chair.ClaimSeat(_unit);
+                        moveTarget = seat.Position;
+                    }
+                    else
+                    {
+                        moveTarget = buildingToIdleIn.GetRandomIndoorsPosition(_unit);
+                    }
+                }
+                else
+                {
+                    // Just wander
+                    moveTarget = _unit.UnitAgent.PickLocationInRange(10.0f);
+                }
+
+                _unit.UnitAgent.SetMovePosition(moveTarget, () =>
+                {
+                    if (chair != null)
+                    {
+                        chair.EnterSeat(_unit);
+                    }
+                });
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ namespace TaskSystem
     {
         private HouseholdBuilding _home;
         private Item _claimedFood;
-        private SeatFurniture _seat;
+        private ChairFurniture _chair;
         private Vector2 _eatPos;
 
         private bool _isEating;
@@ -47,12 +47,12 @@ namespace TaskSystem
             // If has a home, find a seat. If no seat, stand some place in home
             if (_home != null)
             {
-                _seat = _home.FindAvailableSeat();
+                _chair = _home.FindAvailableChair();
                 
-                if (_seat != null)
+                if (_chair != null)
                 {
-                    _seat.ClaimSeat();
-                    _eatPos = _seat.UseagePosition().position;
+                    _chair.ClaimSeat(_ai.Unit);
+                    _eatPos = _chair.UseagePosition().position;
                 }
             }
             
@@ -62,7 +62,7 @@ namespace TaskSystem
                 _ai.Unit.TaskAI.HoldItem(_claimedFood);
                 _claimedFood.SetHeld(true);
 
-                if (_seat == null)
+                if (_chair == null)
                 {
                     if (_home == null)
                     {
@@ -76,12 +76,12 @@ namespace TaskSystem
                 
                 _ai.Unit.UnitAgent.SetMovePosition(_eatPos, () =>
                 {
-                    if (_seat != null)
+                    if (_chair != null)
                     {
-                        _seat.EnterSeat(_ai.Unit);
+                        _chair.EnterSeat(_ai.Unit);
                         // TODO: Add Sitting and eating Animation
                         _isEating = true;
-                        _ai.Unit.Needs.RegisterNeedChangePerHour(_seat.InUseNeedChange);
+                        _ai.Unit.Needs.RegisterNeedChangePerHour(_chair.InUseNeedChange);
                     }
                     else
                     {
@@ -118,10 +118,10 @@ namespace TaskSystem
             {
                 _isEating = false;
 
-                if (_seat != null)
+                if (_chair != null)
                 {
-                    _ai.Unit.Needs.DeregisterNeedChangePerHour(_seat.InUseNeedChange);
-                    _seat.ExitSeat(_ai.Unit);
+                    _ai.Unit.Needs.DeregisterNeedChangePerHour(_chair.InUseNeedChange);
+                    _chair.ExitSeat(_ai.Unit);
                 }
                 
                 _ai.Unit.UnitAnimController.SetUnitAction(UnitAction.Nothing);
@@ -135,7 +135,7 @@ namespace TaskSystem
                 
                 _home = null;
                 _claimedFood = null;
-                _seat = null;
+                _chair = null;
                 _eatPos = default;
                 _eatingTimer = 0;
             }

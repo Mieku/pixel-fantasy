@@ -302,7 +302,7 @@ namespace Items
             AssignState(newState);
         }
 
-        private void AssignState(EFurnitureState newState)
+        public void AssignState(EFurnitureState newState)
         {
             FurnitureState = newState;
             switch (FurnitureState)
@@ -701,7 +701,7 @@ namespace Items
 
         public virtual bool CanKinlingUseThis()
         {
-            if (IsAvailable) return false;
+            if (!IsAvailable) return false;
 
             return true;
         }

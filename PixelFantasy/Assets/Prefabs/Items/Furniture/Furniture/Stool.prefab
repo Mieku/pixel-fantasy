@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &298884942399716787
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3836281627419005536}
+  m_Layer: 0
+  m_Name: _Using Parent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3836281627419005536
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298884942399716787}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8679221839148330294}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &819884679576190606
 GameObject:
   m_ObjectHideFlags: 0
@@ -963,7 +994,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _offset: 0.75
   _runOnlyOnce: 0
-  _sortingGroup: {fileID: 7323725909646230736}
   _checkLocal: 0
 --- !u!1 &7196590669887469809
 GameObject:
@@ -1139,7 +1169,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _offset: 0.75
   _runOnlyOnce: 0
-  _sortingGroup: {fileID: 1581972917290878965}
   _checkLocal: 0
 --- !u!1 &7604479951860380168
 GameObject:
@@ -1518,7 +1547,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _offset: 0.75
   _runOnlyOnce: 0
-  _sortingGroup: {fileID: 7750591463387969904}
   _checkLocal: 0
 --- !u!1 &8679221839148330295
 GameObject:
@@ -1559,6 +1587,7 @@ Transform:
   - {fileID: 3101135016809354570}
   - {fileID: 6107438904446420042}
   - {fileID: 1053635618747585728}
+  - {fileID: 3836281627419005536}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1621,6 +1650,7 @@ MonoBehaviour:
   CurrentDirection: 0
   FurnitureState: 2
   CraftersUID: 
+  _usingParent: {fileID: 3836281627419005536}
   _southTableCheckTransform: {fileID: 2514928358787516302}
   _westTableCheckTransform: {fileID: 6995081151164634383}
   _northTableCheckTransform: {fileID: 188957067791303385}
@@ -1798,7 +1828,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _offset: 0.75
   _runOnlyOnce: 0
-  _sortingGroup: {fileID: 6439259402987331194}
   _checkLocal: 0
 --- !u!1 &9101772992041647831
 GameObject:

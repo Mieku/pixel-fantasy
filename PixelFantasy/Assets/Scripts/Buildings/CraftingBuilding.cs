@@ -18,7 +18,7 @@ namespace Buildings
         public CraftingOrder CurrentCraftingOrder { get; set; }
         public List<CraftingOrder> QueuedOrders();
         public void ReturnCurrentOrderToQueue();
-        public CraftingTable CraftingTable { get; set; }
+        public CraftingTable FindCraftingTable(CraftedItemData craftedItemData);
     }
     
     public class CraftingBuilding : Building, ICraftingBuilding
@@ -64,6 +64,20 @@ namespace Buildings
 
             GameEvents.Trigger_OnBuildingChanged(this);
             return result;
+        }
+        
+        public CraftingTable FindCraftingTable(CraftedItemData craftedItemData)
+        {
+            var allCraftingTables = CraftingTables;
+            foreach (var table in allCraftingTables)
+            {
+                if (table.ItemBeingCrafted == craftedItemData)
+                {
+                    return table;
+                }
+            }
+
+            return null;
         }
 
         public override Task GetBuildingTask()

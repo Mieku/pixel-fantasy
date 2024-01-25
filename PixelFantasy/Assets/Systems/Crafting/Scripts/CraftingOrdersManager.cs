@@ -60,7 +60,8 @@ namespace Systems.Crafting.Scripts
             {
                 return queue.Orders;
             }
-            return null;
+
+            return new List<CraftingOrder>();
         }
         
         public void CancelOrder(CraftingOrder order)

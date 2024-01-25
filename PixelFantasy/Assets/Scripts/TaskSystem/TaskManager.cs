@@ -26,6 +26,37 @@ namespace TaskSystem
             
             return queue.NextTask;
         }
+
+        public Task RequestTask(Unit kinling)
+        {
+            // Get the next job, check if the kinling can do it.
+            // if not, get the next one until either a task is found or hit the end of available tasks, if so return null
+
+            var job = kinling.CurrentJob;
+            var queue = GetTaskQueue(job);
+            if (queue == null)
+            {
+                return null;
+            }
+
+            for (int i = 0; i < queue.Count; i++)
+            {
+                var potentialTask = queue.PeekTask(i);
+                if (potentialTask == null)
+                {
+                    return null;
+                }
+            
+                var taskAction = kinling.TaskAI.FindTaskActionFor(potentialTask);
+                if (taskAction.CanDoTask(potentialTask))
+                {
+                    var task = queue.GetTask(i);
+                    return task;
+                }
+            }
+
+            return null;
+        }
         
         public void AddTask(Task task)
         {

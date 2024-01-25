@@ -46,5 +46,19 @@ namespace Buildings.Building_Types
 
             return CraftingTable.GetPercentCraftingComplete();
         }
+        
+        public CraftingTable FindCraftingTable(CraftedItemData craftedItemData)
+        {
+            var allCraftingTables = CraftingTables;
+            foreach (var table in allCraftingTables)
+            {
+                if (table.ItemBeingCrafted == craftedItemData)
+                {
+                    return table;
+                }
+            }
+
+            return null;
+        }
     }
 }

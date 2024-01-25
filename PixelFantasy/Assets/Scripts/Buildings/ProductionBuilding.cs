@@ -15,7 +15,7 @@ namespace Buildings
     {
         public float GetProductionProgress(CraftedItemData item);
         public List<ProductionSettings> ProductionSettings { get; }
-        public CraftingTable CraftingTable { get; set; }
+        public CraftingTable FindCraftingTable(CraftedItemData craftedItemData);
     }
     
     public class ProductionBuilding : Building, IProductionBuilding
@@ -25,7 +25,6 @@ namespace Buildings
         
         public override BuildingType BuildingType => BuildingType.Production;
         
-        public CraftingTable CraftingTable { get; set; }
         public List<ProductionSettings> ProductionSettings { get; } = new List<ProductionSettings>();
 
         public override string OccupantAdjective => "Workers";
@@ -37,13 +36,28 @@ namespace Buildings
             CreateProductionSettings();
         }
 
+        public CraftingTable FindCraftingTable(CraftedItemData craftedItemData)
+        {
+            var allCraftingTables = CraftingTables;
+            foreach (var table in allCraftingTables)
+            {
+                if (craftedItemData.RequiredCraftingTable == table.FurnitureItemData)
+                {
+                    return table;
+                }
+            }
+
+            return null;
+        }
+
         public float GetProductionProgress(CraftedItemData item)
         {
-            if (CraftingTable == null) return 0;
+            var craftingTable = FindCraftingTable(item);
+            if (craftingTable == null) return 0;
 
-            if (CraftingTable.ItemBeingCrafted != item) return 0;
+            if (craftingTable.ItemBeingCrafted != item) return 0;
 
-            return CraftingTable.GetPercentCraftingComplete();
+            return craftingTable.GetPercentCraftingComplete();
         }
 
         public override Task GetBuildingTask()

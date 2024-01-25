@@ -77,6 +77,7 @@ namespace Characters
         private Building _insideBuidling;
         private BedFurniture _bed;
         private KinlingData _kinlingData;
+        private ChairFurniture _currentChair;
 
         private void Awake()
         {
@@ -185,6 +186,14 @@ namespace Characters
         {
             _insideBuidling = building;
         }
+
+        public void SetSeated(ChairFurniture chair)
+        {
+            _currentChair = chair;
+        }
+
+        public bool IsSeated => _currentChair != null;
+        public ChairFurniture GetChair => _currentChair;
 
         public bool IsIndoors()
         {
