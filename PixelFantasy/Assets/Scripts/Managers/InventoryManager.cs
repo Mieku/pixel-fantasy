@@ -27,6 +27,12 @@ namespace Managers
         
         public void AddStorage(Storage storage)
         {
+            if (_allStorage.Contains(storage))
+            {
+                Debug.LogError("Attempted to register the same storage twice");
+                return;
+            }
+            
             _allStorage.Add(storage);
         }
 
@@ -146,7 +152,7 @@ namespace Managers
             }
             
             // Sort by nutrition
-            var sortedFood = availableFood.OrderByDescending(food => (food.GetItemData() as RawFoodItemData).FoodNutrition).ToList();
+            var sortedFood = availableFood.OrderByDescending(food => ((IFoodItem)food.GetItemData()).FoodNutrition).ToList();
 
             if (sortedFood.Count == 0)
             {
@@ -160,7 +166,7 @@ namespace Managers
             }
         }
         
-        public Item ClaimItemBuilding(ItemData itemData, Building building)
+        public Item ClaimItemBuilding(ItemData itemData, IBuilding building)
         {
             var allBuildingStorage = building.GetBuildingStorages();
             foreach (var storage in allBuildingStorage)
@@ -198,7 +204,7 @@ namespace Managers
             if (sortedTools.Any())
             {
                 var bestToolData = sortedTools.First();
-                var claimedTool = ClaimItemBuilding(bestToolData, building);
+                var claimedTool = ClaimItemBuilding(bestToolData, (IBuilding)building);
                 return claimedTool;
             }
             

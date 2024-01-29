@@ -14,6 +14,7 @@ using Systems.Crafting.Scripts;
 using Systems.SmartObjects.Scripts;
 using TaskSystem;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 using Zones;
@@ -117,8 +118,10 @@ namespace Items
             {
                 AssignBuilding(building);
             }
-            
-            AssignState(FurnitureState);
+            else
+            {
+                AssignState(FurnitureState);
+            }
         }
         
         public bool IsAvailable
@@ -332,7 +335,7 @@ namespace Items
             _furnitureItemData = furnitureItemData;
         }
 
-        public List<Transform> UseagePositions()
+        private List<Transform> UseagePositions()
         {
             List<Transform> results = new List<Transform>();
             foreach (var marker in _useageMarkers)
@@ -343,10 +346,53 @@ namespace Items
             return results;
         }
 
-        public Transform UseagePosition()
+        public Transform UseagePosition(Vector2 requestorPosition)
         {
-            // TODO: Expand this to handle best position for situation
-            return UseagePositions()[0];
+            List<Transform> potentialPositions = new List<Transform>();
+            
+            foreach (var useageMarker in UseagePositions())
+            {
+                bool result = Helper.IsGridPosValidToBuild(useageMarker.position, _furnitureItemData.InvalidPlacementTags);
+
+                // Make sure that if the position is indoors if the furniture is indoors and vice versa
+                if (result && _parentBuilding != null)
+                {
+                    result = _parentBuilding.IsPositionInInterior(useageMarker.position);
+                }
+
+                if (result)
+                {
+                    potentialPositions.Add(useageMarker);
+                }
+            }
+            
+            List<(Transform, float)> distances = new List<(Transform, float)>();
+            foreach (var potentialPosition in potentialPositions)
+            {
+                NavMeshPath path = new NavMeshPath();
+                if (NavMesh.CalculatePath(requestorPosition,
+                        potentialPosition.position, NavMesh.AllAreas, path))
+                {
+                    // Ensure there is a path
+                    if (path.status == NavMeshPathStatus.PathComplete)
+                    {
+                        float distance = Helper.GetPathLength(path);
+                        distances.Add((potentialPosition, distance));
+                    }
+                }
+            }
+
+            // if for some reason there is no remaining position, log an error but also just prove the furniture's transform position
+            if (distances.Count == 0)
+            {
+                Debug.LogError($"Could not find a possible position for {gameObject.name}");
+                return transform;
+            }
+            
+            // Compile the positions that pass the above tests and sort them by distance
+            var sortedDistances = distances.OrderBy(x => x.Item2).Select(x => x.Item1).ToList();
+            var selectedDistance = sortedDistances[0];
+            return selectedDistance;
         }
 
         public void ShowCraftable(bool isShown)

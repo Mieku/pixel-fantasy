@@ -10,7 +10,7 @@ namespace TaskSystem
     public class ProduceItemAction : TaskAction
     {
         private CraftedItemData _itemToCraft;
-        private ProductionBuilding _prodBuilding;
+        private IProductionBuilding _prodBuilding;
         private CraftingTable _craftingTable;
         private List<Item> _materials;
         private ETaskState _state;
@@ -36,7 +36,7 @@ namespace TaskSystem
         public override void PrepareAction(Task task)
         {
             _itemToCraft = Librarian.Instance.GetItemData((string)task.Payload) as CraftedItemData;
-            _prodBuilding = task.Requestor as ProductionBuilding;
+            _prodBuilding = (IProductionBuilding)task.Requestor;
             _craftingTable = _prodBuilding.FindCraftingTable(_itemToCraft);
             _materials = task.Materials;
             _state = ETaskState.ClaimTable;
@@ -53,7 +53,7 @@ namespace TaskSystem
             if (_state == ETaskState.GatherMats)
             {
                 _targetItem = _materials[_materialIndex];
-                _ai.Unit.UnitAgent.SetMovePosition(_targetItem.AssignedStorage.UseagePosition().position,
+                _ai.Unit.UnitAgent.SetMovePosition(_targetItem.AssignedStorage.UseagePosition(_ai.Unit.transform.position).position,
                     OnArrivedAtStorageForPickup);
                 _state = ETaskState.WaitingOnMats;
             }
@@ -101,7 +101,7 @@ namespace TaskSystem
                 
                 _receivingStorage.SetIncoming(_targetItem);
                 
-                _ai.Unit.UnitAgent.SetMovePosition(_receivingStorage.UseagePosition().position, OnProductDelivered);
+                _ai.Unit.UnitAgent.SetMovePosition(_receivingStorage.UseagePosition(_ai.Unit.transform.position).position, OnProductDelivered);
                 _state = ETaskState.WaitingOnDelivery;
             }
         }
@@ -111,7 +111,7 @@ namespace TaskSystem
             _targetItem.AssignedStorage.WithdrawItem(_targetItem);
             _ai.HoldItem(_targetItem);
             _targetItem.SetHeld(true);
-            _ai.Unit.UnitAgent.SetMovePosition(_craftingTable.UseagePosition().position, OnArrivedAtCraftingTable);
+            _ai.Unit.UnitAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Unit.transform.position).position, OnArrivedAtCraftingTable);
         }
 
         private void OnArrivedAtCraftingTable()
@@ -123,7 +123,7 @@ namespace TaskSystem
             // Are there more items to gather?
             if (_materialIndex > _materials.Count - 1)
             {
-                _ai.Unit.UnitAgent.SetMovePosition(_craftingTable.UseagePosition().position, () =>
+                _ai.Unit.UnitAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Unit.transform.position).position, () =>
                 {
                     _state = ETaskState.CraftItem;
                 });
@@ -131,7 +131,7 @@ namespace TaskSystem
             else
             {
                 _targetItem = _materials[_materialIndex];
-                _ai.Unit.UnitAgent.SetMovePosition(_targetItem.AssignedStorage.UseagePosition().position,
+                _ai.Unit.UnitAgent.SetMovePosition(_targetItem.AssignedStorage.UseagePosition(_ai.Unit.transform.position).position,
                     OnArrivedAtStorageForPickup);
             }
         }

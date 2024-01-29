@@ -87,15 +87,17 @@ namespace Systems.SmartObjects.Scripts
                 return null;
             }
             
-            List<Item> sortedFoodItems = foodItems.OrderByDescending(food => (food.GetItemData() as RawFoodItemData).FoodNutrition).ToList();
+            List<Item> sortedFoodItems = foodItems.OrderByDescending(food => ((IFoodItem)food.GetItemData()).FoodNutrition).ToList();
             _selectedFoodItem = sortedFoodItems[0];
             
             // Make a stat change based on this food item
-            var foodData = _selectedFoodItem.GetItemData() as RawFoodItemData;
-            InteractionStatChange foodStat = new InteractionStatChange();
-            foodStat.LinkedStat = Librarian.Instance.GetStat("Food");
-            foodStat.Value = foodData.FoodNutrition;
-            
+            var foodData = (IFoodItem)_selectedFoodItem.GetItemData();
+            InteractionStatChange foodStat = new InteractionStatChange
+            {
+                LinkedStat = Librarian.Instance.GetStat("Food"),
+                Value = foodData.FoodNutrition
+            };
+
             results.Add(foodStat);
             
             return results;

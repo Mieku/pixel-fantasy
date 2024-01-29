@@ -63,7 +63,7 @@ namespace TaskSystem
                 _ai.Unit.SocialAI.ForceFlirtChatBubble();
                 _ai.Unit.SocialAI.ReadyToGoMate = true;
                 _taskState = TaskState.GoToBed;
-                _bedsidePos = _bed.UseagePosition().position;
+                _bedsidePos = _bed.UseagePosition(_ai.Unit.transform.position).position;
                 _ai.Unit.UnitAgent.SetMovePosition(_bedsidePos, () =>
                 {
                     _taskState = TaskState.InBed;

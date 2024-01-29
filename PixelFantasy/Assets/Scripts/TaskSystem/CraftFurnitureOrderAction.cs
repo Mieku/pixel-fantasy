@@ -53,7 +53,7 @@ namespace TaskSystem
             if (_state == ETaskState.GatherMats)
             {
                 _targetItem = _materials[_materialIndex];
-                _ai.Unit.UnitAgent.SetMovePosition(_targetItem.AssignedStorage.UseagePosition().position,
+                _ai.Unit.UnitAgent.SetMovePosition(_targetItem.AssignedStorage.UseagePosition(_ai.Unit.transform.position).position,
                     OnArrivedAtStorageForPickup);
                 _state = ETaskState.WaitingOnMats;
             }
@@ -86,7 +86,7 @@ namespace TaskSystem
 
             if (_state == ETaskState.DeliverItem)
             {
-                _ai.Unit.UnitAgent.SetMovePosition(_requestingFurniture.UseagePosition().position, OnFurnitureDelivered);
+                _ai.Unit.UnitAgent.SetMovePosition(_requestingFurniture.UseagePosition(_ai.Unit.transform.position).position, OnFurnitureDelivered);
                 _state = ETaskState.WaitingOnDelivery;
             }
         }
@@ -96,7 +96,7 @@ namespace TaskSystem
             _targetItem.AssignedStorage.WithdrawItem(_targetItem);
             _ai.HoldItem(_targetItem);
             _targetItem.SetHeld(true);
-            _ai.Unit.UnitAgent.SetMovePosition(_craftingTable.UseagePosition().position, OnArrivedAtCraftingTable);
+            _ai.Unit.UnitAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Unit.transform.position).position, OnArrivedAtCraftingTable);
         }
 
         private void OnArrivedAtCraftingTable()
@@ -108,7 +108,7 @@ namespace TaskSystem
             // Are there more items to gather?
             if (_materialIndex > _materials.Count - 1)
             {
-                _ai.Unit.UnitAgent.SetMovePosition(_craftingTable.UseagePosition().position, () =>
+                _ai.Unit.UnitAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Unit.transform.position).position, () =>
                 {
                     _state = ETaskState.CraftItem;
                 });
@@ -116,7 +116,7 @@ namespace TaskSystem
             else
             {
                 _targetItem = _materials[_materialIndex];
-                _ai.Unit.UnitAgent.SetMovePosition(_targetItem.AssignedStorage.UseagePosition().position,
+                _ai.Unit.UnitAgent.SetMovePosition(_targetItem.AssignedStorage.UseagePosition(_ai.Unit.transform.position).position,
                     OnArrivedAtStorageForPickup);
             }
         }

@@ -113,7 +113,7 @@ namespace TaskSystem
                 {
                     if (!_isMoving)
                     {
-                        _ai.Unit.UnitAgent.SetMovePosition(_craftingTable.UseagePositions()[0].transform.position);
+                        _ai.Unit.UnitAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Unit.transform.position).transform.position);
                         _isMoving = true;
                         return;
                     }

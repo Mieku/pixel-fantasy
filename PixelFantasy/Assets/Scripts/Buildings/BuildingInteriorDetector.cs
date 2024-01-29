@@ -26,13 +26,18 @@ namespace Buildings
             // Check if each corner of the otherCollider is within any of the _interiorColliders
             foreach (var corner in otherColliderCorners)
             {
-                isInside = _interiorColliders.Any(interiorCollider => interiorCollider.bounds.Contains(corner));
+                isInside = IsPositionInInterior(corner);
                 // If any corner is not inside any of the _interiorColliders, then otherCollider is not fully inside
                 if (!isInside) return false;
             }
 
             // If all corners are inside at least one of the _interiorColliders, then otherCollider is considered inside
             return true;
+        }
+
+        public bool IsPositionInInterior(Vector2 pos)
+        {
+            return _interiorColliders.Any(interiorCollider => interiorCollider.bounds.Contains(pos));
         }
 
         public Vector2? GetRandomInteriorPosition(Unit kinling)

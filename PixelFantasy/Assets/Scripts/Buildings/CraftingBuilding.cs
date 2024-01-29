@@ -28,7 +28,6 @@ namespace Buildings
         public override BuildingType BuildingType => BuildingType.Crafting;
 
         public override string OccupantAdjective => "Workers";
-        public CraftingTable CraftingTable { get; set; }
         public bool AcceptNewOrders { get; set; }
         public bool PrioritizeOrdersWithMats { get; set; }
         public CraftingOrder CurrentCraftingOrder { get; set; }

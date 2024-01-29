@@ -80,7 +80,7 @@ namespace Systems.Crafting.Scripts
             return task;
         }
 
-        private List<Item> ClaimRequiredMaterials(Building building)
+        private List<Item> ClaimRequiredMaterials(IBuilding building)
         {
             var requiredItems = CraftedItem.GetResourceCosts();
             List<Item> claimedItems = new List<Item>();

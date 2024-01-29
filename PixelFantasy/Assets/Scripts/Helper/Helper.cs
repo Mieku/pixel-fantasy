@@ -203,10 +203,6 @@ public static class Helper
     {
         var detectedTags = GetTagsAtGridPos(gridPos, parent);
         
-        // Ensure On Ground
-        // if (!detectedTags.Contains("Ground"))
-        //     return false;
-
         return listOfInvalidTags.All(invalidTag => !detectedTags.Contains(invalidTag));
     }
 

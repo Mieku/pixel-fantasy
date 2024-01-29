@@ -61,8 +61,7 @@ namespace Buildings
 
                 foreach (var availableItem in storedFood)
                 {
-                    var foodItem = availableItem.GetItemData() as RawFoodItemData;
-                    if (foodItem != null)
+                    if (availableItem.GetItemData() is IFoodItem foodItem)
                     {
                         result += foodItem.FoodNutrition;
                     }
@@ -87,7 +86,7 @@ namespace Buildings
                 return null;
             }
             
-            var selectedFood = storedFood.OrderByDescending(food => ((RawFoodItemData)food.GetItemData()).FoodNutrition).ToList()[0];
+            var selectedFood = storedFood.OrderByDescending(food => ((IFoodItem)food.GetItemData()).FoodNutrition).ToList()[0];
             selectedFood.ClaimItem();
             return selectedFood;
         }

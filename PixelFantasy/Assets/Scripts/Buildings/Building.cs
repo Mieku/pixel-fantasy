@@ -35,6 +35,9 @@ namespace Buildings
         public List<ItemAmount> GetStoredItemsByCategory(EItemCategory category);
         public ChairFurniture FindAvailableChair();
         public Vector2 GetRandomIndoorsPosition(Unit kinling);
+        public List<Storage> GetBuildingStorages();
+        public Storage FindBuildingStorage(ItemData itemData);
+        public JobData GetBuildingJob();
     }
     
     public abstract class Building : Construction
@@ -186,6 +189,10 @@ namespace Buildings
         public bool IsColliderInInterior(Collider2D colliderToCheck)
         {
             return _buildingInteriorDetector.IsColliderInInterior(colliderToCheck);
+        }
+        
+        public bool IsPositionInInterior(Vector2 pos) {
+            return _buildingInteriorDetector.IsPositionInInterior(pos);
         }
 
         public void TriggerPlaced()
@@ -481,7 +488,7 @@ namespace Buildings
             GameEvents.OnHideRoofsToggled -= GameEvents_OnHideRoofsToggled;
             GameEvents.MinuteTick -= GameEvents_MinuteTick;
 
-            if (_state != BuildingState.Planning)
+            if (_state != BuildingState.BeingPlaced)
             {
                 BuildingsManager.Instance.DeregisterBuilding(this);
             }

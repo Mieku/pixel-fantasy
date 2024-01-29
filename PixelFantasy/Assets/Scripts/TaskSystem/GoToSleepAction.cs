@@ -20,7 +20,7 @@ namespace TaskSystem
             if (_bed != null)
             {
                 // Walk to the bed
-                _bedsidePos = _bed.UseagePosition().position;
+                _bedsidePos = _bed.UseagePosition(_ai.Unit.transform.position).position;
                 var sleepLocation = _bed.GetSleepLocation(_ai.Unit);
                 _ai.Unit.UnitAgent.SetMovePosition(_bedsidePos, () =>
                 {

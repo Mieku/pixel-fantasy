@@ -52,7 +52,7 @@ namespace TaskSystem
                 if (_chair != null)
                 {
                     _chair.ClaimSeat(_ai.Unit);
-                    _eatPos = _chair.UseagePosition().position;
+                    _eatPos = _chair.UseagePosition(_ai.Unit.transform.position).position;
                 }
             }
             
@@ -100,7 +100,7 @@ namespace TaskSystem
                 if (_eatingTimer > EATING_TIME)
                 {
                     // Apply the Nutrition
-                    var food = (RawFoodItemData)_claimedFood.GetItemData();
+                    var food = (IFoodItem)_claimedFood.GetItemData();
                     _ai.Unit.Needs.IncreaseNeedValue(NeedType.Food, food.FoodNutrition);
                     
                     Destroy(_claimedFood.gameObject);

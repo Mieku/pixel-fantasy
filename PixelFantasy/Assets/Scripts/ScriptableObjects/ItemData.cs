@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using Items;
 using Sirenix.OdinInspector;
-using Systems.Mood.Scripts;
 using Systems.SmartObjects.Scripts;
 using UnityEngine;
 

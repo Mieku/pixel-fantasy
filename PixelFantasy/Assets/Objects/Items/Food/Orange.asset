@@ -28,5 +28,3 @@ MonoBehaviour:
     DestroyItemAfterInteraction: 1
     InteractionEmotion: {fileID: 11400000, guid: f46afef359650ae4e978520a99cd379b, type: 2}
   Category: 3
-  FoodType: 0
-  FoodNutrition: 0.25

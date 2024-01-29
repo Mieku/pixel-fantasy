@@ -91,7 +91,7 @@ namespace TaskSystem
                 return;
             }
 
-            _ai.Unit.UnitAgent.SetMovePosition(claimedTool.AssignedStorage.UseagePosition().position, () =>
+            _ai.Unit.UnitAgent.SetMovePosition(claimedTool.AssignedStorage.UseagePosition(_ai.Unit.transform.position).position, () =>
             {
                 // Unequip current item if there is one
                 Item droppedItem = null;
@@ -158,7 +158,7 @@ namespace TaskSystem
                     {
                         // Put in storage
                         storageToPlaceOldItem.SetIncoming(droppedItem);
-                        _ai.Unit.UnitAgent.SetMovePosition(storageToPlaceOldItem.UseagePosition().position, () =>
+                        _ai.Unit.UnitAgent.SetMovePosition(storageToPlaceOldItem.UseagePosition(_ai.Unit.transform.position).position, () =>
                         {
                             storageToPlaceOldItem.DepositItems(droppedItem);
                             onReadyForTask.Invoke();

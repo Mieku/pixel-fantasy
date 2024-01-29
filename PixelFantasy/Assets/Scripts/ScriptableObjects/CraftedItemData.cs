@@ -1,8 +1,4 @@
 using System.Collections.Generic;
-using Buildings;
-using Characters;
-using Items;
-using Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

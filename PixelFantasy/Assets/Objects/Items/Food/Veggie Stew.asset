@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3749328dffe9624ab707b29a9f820aa, type: 3}
+  m_Name: Veggie Stew
+  m_EditorClassIdentifier: 
+  ItemName: Stew
+  ItemDescription: 
+  MaxStackSize: 5
+  ItemSprite: {fileID: 21300000, guid: 6ccaf7783366a644d8a31e791422e8b3, type: 3}
+  DefaultSpriteScale: {x: 1, y: 1}
+  Durability: 100
+  InteractionConfigs: []
+  Category: 3
+  RequiredCraftingTable: {fileID: 11400000, guid: 508f981cd7fb39944b15bc0f7e16d1d5, type: 2}
+  RequiredCraftingJob: {fileID: 11400000, guid: 1194ce9e58192cc43b20dd106885a09c, type: 2}
+  WorkCost: 5
+  _resourceCosts:
+  - Item: {fileID: 11400000, guid: 2a877d19f1312e544a22a1f2d4f952d2, type: 2}
+    Quantity: 1
+  - Item: {fileID: 11400000, guid: d8b3c3b4d1873dd46a0561559ba6e21a, type: 2}
+    Quantity: 1
+  _invalidPlacementTags:
+  - Water
+  - Wall
+  - Obstacle

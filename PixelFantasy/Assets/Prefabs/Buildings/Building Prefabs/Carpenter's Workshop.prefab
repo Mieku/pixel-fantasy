@@ -11781,17 +11781,10 @@ MonoBehaviour:
   _interiorSortingGroup: {fileID: 2736135947198935376}
   _interiorForegroundSortingGroup: {fileID: 8407811110570999269}
   _doorSortingGroup: {fileID: 9014743273962867153}
-  CurrentDurability: 0
   _workersJob: {fileID: 11400000, guid: 8cc115b907c69de4da24cb986f35866f, type: 2}
-  _craftingOptions: []
-  CraftingTable: {fileID: 3999322141052321807}
-  AcceptNewOrders: 1
-  PrioritizeOrdersWithMats: 1
-  CurrentCraftingOrder:
-    CraftedItem: {fileID: 0}
-    Requestor: {fileID: 0}
-    State: 0
-    OrderType: 0
+  _craftingOptions:
+  - {fileID: 11400000, guid: 71cf622eee61fe04195564bf6d6c1dfb, type: 2}
+  - {fileID: 11400000, guid: cb1571c5fcbe6a74bb6276f779e04a8a, type: 2}
 --- !u!114 &5596007926291928697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12076,14 +12069,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8679221839148330294, guid: be4a398949bc5a64586937612dbb7c08, type: 3}
   m_PrefabInstance: {fileID: 9186367275455882317}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3999322141052321807 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5259353419307902018, guid: be4a398949bc5a64586937612dbb7c08, type: 3}
-  m_PrefabInstance: {fileID: 9186367275455882317}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb2c5e7acc7b8ef4aa4099c4632ac077, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

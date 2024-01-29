@@ -91,7 +91,50 @@ namespace Items
         public int AmountCanBeWithdrawn(ItemData itemData)
         {
             if (!IsItemValidToStore(itemData)) return 0;
-            return Stored.Count - Claimed.Count;
+
+            return NumStored(itemData) - NumClaimed(itemData);
+        }
+
+        private int NumStored(ItemData itemData)
+        {
+            int result = 0;
+            foreach (var storedItem in Stored)
+            {
+                if (storedItem.GetItemData() == itemData)
+                {
+                    result++;
+                }
+            }
+
+            return result;
+        }
+
+        private int NumClaimed(ItemData itemData)
+        {
+            int result = 0;
+            foreach (var claimedItem in Claimed)
+            {
+                if (claimedItem.GetItemData() == itemData)
+                {
+                    result++;
+                }
+            }
+
+            return result;
+        }
+
+        private int NumIncoming(ItemData itemData)
+        {
+            int result = 0;
+            foreach (var incomingItem in Incoming)
+            {
+                if (incomingItem.GetItemData() == itemData)
+                {
+                    result++;
+                }
+            }
+
+            return result;
         }
 
         public void CancelIncoming(Item item)
@@ -126,7 +169,7 @@ namespace Items
             {
                 Debug.LogError("Tried to deposit an item that was not set as incoming");
                 return;
-            }
+            } 
             
             item.transform.parent = StoredItemParent;
             item.AssignedStorage = this;
@@ -333,8 +376,7 @@ namespace Items
             {
                 if (!Claimed.Contains(storedItem))
                 {
-                    var foodItemData = storedItem.GetItemData() as RawFoodItemData;
-                    if (foodItemData != null)
+                    if (storedItem.GetItemData() is IFoodItem)
                     {
                         foodItems.Add(storedItem);
                     }
@@ -345,8 +387,7 @@ namespace Items
             {
                 foreach (var incomingItem in Incoming)
                 {
-                    var foodItemData = incomingItem.GetItemData() as RawFoodItemData;
-                    if (foodItemData != null)
+                    if (incomingItem.GetItemData() is IFoodItem)
                     {
                         foodItems.Add(incomingItem);
                     }
@@ -355,7 +396,7 @@ namespace Items
 
             if (sortByBestNutrition)
             {
-                return foodItems.OrderByDescending(food => (food.GetItemData() as RawFoodItemData).FoodNutrition).ToList();
+                return foodItems.OrderByDescending(food => ((IFoodItem)food.GetItemData()).FoodNutrition).ToList();
             }
             
             return foodItems;

@@ -187,7 +187,7 @@ namespace Buildings
             return true;
         }
         
-        private List<Item> ClaimRequiredMaterials(Building building)
+        private List<Item> ClaimRequiredMaterials(IBuilding building)
         {
             var requiredItems = CraftedItem.GetResourceCosts();
             List<Item> claimedItems = new List<Item>();
@@ -223,7 +223,7 @@ namespace Buildings
             return claimedItems;
         }
 
-        public Task CreateTask(ProductionBuilding building, Action<Task> onTaskComplete)
+        public Task CreateTask(IProductionBuilding building, Action<Task> onTaskComplete)
         {
             List<Item> claimedMats = ClaimRequiredMaterials(building);
             if (claimedMats == null)
@@ -231,7 +231,7 @@ namespace Buildings
                 return null;
             }
             
-            Task task = new Task("Produce Item", building, building.GetBuildingJob(), EToolType.None)
+            Task task = new Task("Produce Item", (Building)building, building.GetBuildingJob(), EToolType.None)
             {
                 Payload = CraftedItem.ItemName,
                 OnTaskComplete = onTaskComplete,
