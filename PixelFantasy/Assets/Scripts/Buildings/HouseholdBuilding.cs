@@ -8,7 +8,12 @@ using UnityEngine;
 
 namespace Buildings
 {
-    public class HouseholdBuilding : Building
+    public interface IEateryBuilding : IBuilding
+    {
+        public Item ClaimBestAvailableFood();
+    }
+    
+    public class HouseholdBuilding : Building, IEateryBuilding
     {
         public override BuildingType BuildingType => BuildingType.Home;
         public BedFurniture DoubleBed;
@@ -173,11 +178,6 @@ namespace Buildings
                 TryToggleInternalView(_defaultToInternalView);
                 _animator.SetAnimation(EBuildingAnimation.None);
             }
-            
-            /* TODO: 
-             * Ensure the inside of the building is no longer visible.
-             * Do house mating animation while in mating mode.
-             */
         }
     }
 }

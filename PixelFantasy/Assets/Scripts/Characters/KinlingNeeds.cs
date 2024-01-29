@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Timers;
 using Managers;
+using QFSW.QC;
 using Systems.Needs.Scripts;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -174,6 +175,57 @@ namespace Characters
 
             bool result = Helper.RollDice(sexDrive);
             return result;
+        }
+
+        [Command("set_need_all", "The supported needs are Food, Energy, Water", MonoTargetType.All)]
+        private void CMD_SetNeedAll(string needName, int amount)
+        {
+            NeedType targetNeed;
+            switch (needName)
+            {
+                case "Food":
+                    targetNeed = NeedType.Food;
+                    break;
+                case "Energy":
+                    targetNeed = NeedType.Energy;
+                    break;
+                case "Water":
+                    targetNeed = NeedType.Water;
+                    break;
+                default:
+                    Debug.LogError("Unknown Need: " + needName);
+                    return;
+            }
+
+            var need = GetNeedByType(targetNeed);
+            need.SetNeed(amount);
+        }
+        
+        [Command("set_need", "The supported needs are Food, Energy, Water", MonoTargetType.All)]
+        private void CMD_SetNeed(string firstname, string needName, int amount)
+        {
+            if(_kinling.FirstName == firstname)
+            {
+                NeedType targetNeed;
+                switch (needName)
+                {
+                    case "Food":
+                        targetNeed = NeedType.Food;
+                        break;
+                    case "Energy":
+                        targetNeed = NeedType.Energy;
+                        break;
+                    case "Water":
+                        targetNeed = NeedType.Water;
+                        break;
+                    default:
+                        Debug.LogError("Unknown Need: " + needName);
+                        return;
+                }
+
+                var need = GetNeedByType(targetNeed);
+                need.SetNeed(amount);
+            }
         }
     }
 

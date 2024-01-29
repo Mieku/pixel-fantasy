@@ -47,6 +47,12 @@ namespace Systems.Needs.Scripts
             return _value;
         }
 
+        public float SetNeed(float amount)
+        {
+            _value = Mathf.Clamp01(amount);
+            return _value;
+        }
+
         public void MinuteTickDecayNeed()
         {
             var decayPerMin = _needData.DecayRate;

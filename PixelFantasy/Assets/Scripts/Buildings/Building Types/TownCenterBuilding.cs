@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using System.Linq;
 using Items;
 using ScriptableObjects;
 
 namespace Buildings.Building_Types
 {
-    public class TownCenterBuilding : Building, IStockpileBuilding, IProductionBuilding
+    public class TownCenterBuilding : Building, IStockpileBuilding, IProductionBuilding, IEateryBuilding
     {
         public override BuildingType BuildingType => BuildingType.TownHall;
         
@@ -59,6 +60,26 @@ namespace Buildings.Building_Types
             }
 
             return null;
+        }
+
+        public Item ClaimBestAvailableFood()
+        {
+            var storages = GetBuildingStorages();
+            List<Item> storedFood = new List<Item>();
+            foreach (var storage in storages)
+            {
+                var food = storage.GetAllFoodItems(false, false);
+                storedFood.AddRange(food);
+            }
+
+            if (storedFood.Count == 0)
+            {
+                return null;
+            }
+            
+            var selectedFood = storedFood.OrderByDescending(food => ((RawFoodItemData)food.GetItemData()).FoodNutrition).ToList()[0];
+            selectedFood.ClaimItem();
+            return selectedFood;
         }
     }
 }

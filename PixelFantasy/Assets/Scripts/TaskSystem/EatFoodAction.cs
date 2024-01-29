@@ -7,9 +7,9 @@ using UnityEngine;
 
 namespace TaskSystem
 {
-    public class EatFoodAction : TaskAction
+    public class EatFoodAction : TaskAction // Task ID: Eat Food
     {
-        private HouseholdBuilding _home;
+        private IEateryBuilding _eateryBuilding;
         private Item _claimedFood;
         private ChairFurniture _chair;
         private Vector2 _eatPos;
@@ -21,12 +21,12 @@ namespace TaskSystem
         
         public override bool CanDoTask(Task task)
         {
-            _home = task.Requestor as HouseholdBuilding;
+            _eateryBuilding = task.Requestor as IEateryBuilding;
 
-            // Find Food, starting with household, if not then global
-            if (_home != null)
+            // Find Food, starting with eatery, if not then global
+            if (_eateryBuilding != null)
             {
-                _claimedFood = _home.ClaimBestAvailableFood();
+                _claimedFood = _eateryBuilding.ClaimBestAvailableFood();
             }
 
             if (_claimedFood == null)
@@ -45,9 +45,9 @@ namespace TaskSystem
         public override void PrepareAction(Task task)
         {
             // If has a home, find a seat. If no seat, stand some place in home
-            if (_home != null)
+            if (_eateryBuilding != null)
             {
-                _chair = _home.FindAvailableChair();
+                _chair = _eateryBuilding.FindAvailableChair();
                 
                 if (_chair != null)
                 {
@@ -64,13 +64,13 @@ namespace TaskSystem
 
                 if (_chair == null)
                 {
-                    if (_home == null)
+                    if (_eateryBuilding == null)
                     {
                         _eatPos = _ai.Unit.UnitAgent.PickLocationInRange(5f);
                     }
                     else
                     {
-                        _eatPos = _home.GetRandomIndoorsPosition(_ai.Unit);
+                        _eatPos = _eateryBuilding.GetRandomIndoorsPosition(_ai.Unit);
                     }
                 }
                 
@@ -133,7 +133,7 @@ namespace TaskSystem
                     _claimedFood.SetHeld(true);
                 }
                 
-                _home = null;
+                _eateryBuilding = null;
                 _claimedFood = null;
                 _chair = null;
                 _eatPos = default;

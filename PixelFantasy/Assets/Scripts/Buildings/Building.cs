@@ -33,6 +33,8 @@ namespace Buildings
         public int GetMaxStorageForCategory(EItemCategory category);
         public int AmountItemStored(ItemData itemData);
         public List<ItemAmount> GetStoredItemsByCategory(EItemCategory category);
+        public ChairFurniture FindAvailableChair();
+        public Vector2 GetRandomIndoorsPosition(Unit kinling);
     }
     
     public abstract class Building : Construction

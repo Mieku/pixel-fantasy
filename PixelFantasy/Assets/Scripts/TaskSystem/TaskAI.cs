@@ -225,9 +225,23 @@ namespace TaskSystem
             // Eat food
             if (task == null && _unit.Needs.GetNeedValue(NeedType.Food) < 0.75f)
             {
-                task = new Task("Eat Food", _unit.AssignedHome, null, EToolType.None);
-                if (AttemptStartTask(task, false)) return;
-                else task = null;
+                if (_unit.AssignedHome != null)
+                {
+                    task = new Task("Eat Food", _unit.AssignedHome, null, EToolType.None);
+                    if (AttemptStartTask(task, false)) return;
+                    else task = null;
+                }
+                else
+                {
+                    var eatery = BuildingsManager.Instance.GetClosestBuildingOfType<IEateryBuilding>(_unit.transform.position);
+                    if (eatery != null)
+                    {
+                        task = new Task("Eat Food", eatery, null, EToolType.None);
+                        if (AttemptStartTask(task, false)) return;
+                        else task = null;
+                    }
+                }
+                
             }
             
             // Make sure there is 1 day's worth of food in home
