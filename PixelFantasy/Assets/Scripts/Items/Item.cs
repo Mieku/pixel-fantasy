@@ -323,5 +323,10 @@ namespace Items
             public string AssignedUnitUID;
             public bool IsHeld;
         }
+
+        public override Transform UseagePosition(Vector2 requestorPosition)
+        {
+            return transform;
+        }
     }
 }

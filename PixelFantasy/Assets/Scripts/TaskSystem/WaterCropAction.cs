@@ -19,8 +19,8 @@ namespace TaskSystem
         public override void PrepareAction(Task task)
         {
             _task = task;
-            _crop = task.Requestor as Crop;
-            _movePos = _ai.GetAdjacentPosition(_crop.transform.position);
+            _crop = (Crop)task.Requestor;
+            _movePos = _crop.UseagePosition(_ai.Unit.transform.position).position;
         }
 
         public override void DoAction()

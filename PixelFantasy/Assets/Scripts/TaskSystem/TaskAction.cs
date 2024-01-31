@@ -36,7 +36,9 @@ namespace TaskSystem
         {
             if (task.Requestor != null)
             {
-                return Helper.DoesPathExist(_ai.Unit.transform.position, task.Requestor.transform.position);
+                return task.Requestor.UseagePosition(_ai.Unit.transform.position) != null;
+                
+                //return Helper.DoesPathExist(_ai.Unit.transform.position, task.Requestor.transform.position);
             }
             
             return true;

@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using DataPersistence;
 using Interfaces;
 using Managers;
 using ScriptableObjects;
-using Systems.Details.Generic_Details.Scripts;
 using TaskSystem;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Items
 {
@@ -17,13 +18,50 @@ namespace Items
         [SerializeField] private ClickObject _clickObject;
         [SerializeField] private Command _defaultClearCmd;
         [SerializeField] private BoxCollider2D _obstacleBox;
+        [SerializeField] private List<Transform> _workPoints;
 
         protected Spawner spawner => Spawner.Instance;
         protected Task _curTask;
         protected Action _onResourceClearedCallback;
 
         public float Health;
-        
+
+        public override Transform UseagePosition(Vector2 requestorPosition)
+        {
+            List<(Transform, float)> distances = new List<(Transform, float)>();
+            foreach (var workPoint in _workPoints)
+            {
+                var pos = workPoint.position;
+                pos.z = 0;
+                NavMeshPath path = new NavMeshPath();
+                if (NavMesh.CalculatePath(requestorPosition,
+                        pos, NavMesh.AllAreas, path))
+                {
+                    // Ensure there is a path
+                    if (path.status == NavMeshPathStatus.PathComplete)
+                    {
+                        float distance = Helper.GetPathLength(path);
+                        distances.Add((workPoint, distance));
+                    }
+                    
+                    for (int i = 0; i < path.corners.Length - 1; i++)
+                        Debug.DrawLine(path.corners[i], path.corners[i + 1], Color.red, 10f);
+                }
+            }
+
+            // if for some reason there is no remaining position, log an error but also just prove the furniture's transform position
+            if (distances.Count == 0)
+            {
+                Debug.LogError($"Could not find a possible position for {gameObject.name}");
+                return transform;
+            }
+            
+            // Compile the positions that pass the above tests and sort them by distance
+            var sortedDistances = distances.OrderBy(x => x.Item2).Select(x => x.Item1).ToList();
+            var selectedDistance = sortedDistances[0];
+            return selectedDistance;
+        }
+
         public void AssignCommand(Command command, object payload = null)
         {
             CreateTask(command, payload);

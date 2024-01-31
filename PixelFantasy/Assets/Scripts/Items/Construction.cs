@@ -53,6 +53,8 @@ namespace Items
             _remainingWork = GetWorkAmount();
         }
         
+        
+        
         public void AssignCommand(Command command, object payload = null)
         {
             CreateTask(command, payload);
@@ -147,6 +149,11 @@ namespace Items
             }
             
             Changed();
+        }
+
+        public override Transform UseagePosition(Vector2 requestorPosition)
+        {
+            return transform;
         }
 
         public virtual float GetWorkPerResource()

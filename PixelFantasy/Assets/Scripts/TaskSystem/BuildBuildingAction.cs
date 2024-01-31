@@ -20,8 +20,8 @@ namespace TaskSystem
         public override void PrepareAction(Task task)
         {
             _task = task;
-            _building = _task.Requestor as Building;
-            _movePos = _building.ConstructionStandPosition();
+            _building = (Building)_task.Requestor;
+            _movePos = _building.UseagePosition(_ai.Unit.transform.position).position;
             _jobsDone = false;
         }
 

@@ -625,5 +625,10 @@ namespace Zones
             public float RemainingWaterWork;
             public float RemainingHarvestWork;
         }
+
+        public override Transform UseagePosition(Vector2 requestorPosition)
+        {
+            return transform;
+        }
     }
 }

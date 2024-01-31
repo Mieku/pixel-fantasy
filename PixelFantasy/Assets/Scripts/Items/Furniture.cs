@@ -346,7 +346,7 @@ namespace Items
             return results;
         }
 
-        public Transform UseagePosition(Vector2 requestorPosition)
+        public override Transform UseagePosition(Vector2 requestorPosition)
         {
             List<Transform> potentialPositions = new List<Transform>();
             

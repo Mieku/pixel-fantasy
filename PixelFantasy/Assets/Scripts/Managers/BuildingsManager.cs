@@ -78,7 +78,7 @@ namespace Managers
             foreach (var emptyHouse in emptyHouses)
             {
                 NavMeshPath path = new NavMeshPath();
-                if (NavMesh.CalculatePath(emptyHouse.ConstructionStandPosition(),
+                if (NavMesh.CalculatePath(emptyHouse.UseagePosition(requestingUnit.transform.position).position,
                         requestingUnit.transform.position, NavMesh.AllAreas, path))
                 {
                     float distance = Helper.GetPathLength(path);
@@ -106,7 +106,7 @@ namespace Managers
                 if (building != null && building.State == Building.BuildingState.Built)
                 {
                     NavMeshPath path = new NavMeshPath();
-                    if (NavMesh.CalculatePath(building.ConstructionStandPosition(),
+                    if (NavMesh.CalculatePath(building.UseagePosition(resquestorPos).position,
                             resquestorPos, NavMesh.AllAreas, path))
                     {
                         float distance = Helper.GetPathLength(path);

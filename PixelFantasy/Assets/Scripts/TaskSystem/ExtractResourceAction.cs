@@ -22,8 +22,8 @@ namespace TaskSystem
             var result = base.CanDoTask(task);
             if (!result) return false;
 
-            _resource = task.Requestor as Resource;
-            _movePos = _ai.GetAdjacentPosition(task.Requestor.transform.position, _resource.MinWorkDistance);
+            _resource = (Resource)task.Requestor;
+            _movePos = _resource.UseagePosition(_ai.Unit.transform.position).position;
             
             if (_movePos == null)
             {

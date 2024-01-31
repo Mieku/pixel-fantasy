@@ -19,8 +19,9 @@ namespace TaskSystem
         public override void PrepareAction(Task task)
         {
             _task = task;
-            _construction = _task.Requestor as Construction;
-            _movePos = _ai.GetAdjacentPosition(_task.Requestor.transform.position, 0.25f);
+            _construction = (Construction)_task.Requestor;
+            _movePos = _construction.UseagePosition(_ai.Unit.transform.position)
+                .position;
         }
 
         public override void DoAction()
@@ -28,7 +29,8 @@ namespace TaskSystem
             if (!_ai.IsPositionPossible((Vector2)_movePos))
             {
                 Debug.Log($"Position: {(Vector2)_movePos} Impossible, recalculated");
-                _movePos = _ai.GetAdjacentPosition(_task.Requestor.transform.position, 0.25f);
+                _movePos = _construction.UseagePosition(_ai.Unit.transform.position)
+                    .position;
                 Debug.Log($"Recalculated Position is: {(Vector2)_movePos}");
             }
             

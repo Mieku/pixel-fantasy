@@ -288,7 +288,7 @@ namespace Systems.Details.Building_Details.Scripts
         
         public void OnSelectPressed()
         {
-            var lookPos = _building.ConstructionStandPosition();
+            var lookPos = _building.UseagePosition(Vector2.zero).position;
             Camera.main.GetComponent<CameraController>().LookAtPosition(lookPos);
         }
 

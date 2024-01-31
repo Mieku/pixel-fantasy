@@ -20,9 +20,9 @@ namespace TaskSystem
         public override void PrepareAction(Task task)
         {
             _task = task;
-            _resource = task.Requestor as GrowingResource;
+            _resource = (GrowingResource)task.Requestor;
             _actionAnimation = UnitAction.Doing;
-            _movePos = _ai.GetAdjacentPosition(_task.Requestor.transform.position);
+            _movePos = _resource.UseagePosition(_ai.Unit.transform.position).position;
         }
         
         public override void ConcludeAction()

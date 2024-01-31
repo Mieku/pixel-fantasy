@@ -890,9 +890,9 @@ namespace Buildings
             constuctTask.Enqueue();
         }
         
-        public Vector2 ConstructionStandPosition()
+        public override Transform UseagePosition(Vector2 requestorPosition)
         {
-            return _constructionStandPos.position;
+            return _constructionStandPos;
         }
         
         public int DailyUpkeep()

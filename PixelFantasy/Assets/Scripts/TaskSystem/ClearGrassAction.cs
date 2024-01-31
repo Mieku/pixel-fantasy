@@ -19,8 +19,9 @@ namespace TaskSystem
         public override void PrepareAction(Task task)
         {
             _task = task;
-            _dirt = task.Requestor as Dirt;
-            _movePos = _ai.GetAdjacentPosition(_dirt.transform.position);
+            _dirt = (Dirt)task.Requestor;
+            _movePos = _dirt.UseagePosition(_ai.Unit.transform.position)
+                .position;
         }
 
         public override void DoAction()
