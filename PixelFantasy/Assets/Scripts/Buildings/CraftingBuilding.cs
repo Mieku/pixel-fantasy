@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Characters;
 using Items;
 using Managers;
 using ScriptableObjects;
+using Sirenix.OdinInspector;
 using Systems.Crafting.Scripts;
 using Systems.Notifications.Scripts;
 using TaskSystem;
@@ -13,12 +15,14 @@ namespace Buildings
 {
     public interface ICraftingBuilding : IBuilding
     {
-        public bool AcceptNewOrders { get; set; }
         public bool PrioritizeOrdersWithMats { get; set; }
         public CraftingOrder CurrentCraftingOrder { get; set; }
         public List<CraftingOrder> QueuedOrders();
         public void ReturnCurrentOrderToQueue();
         public CraftingTable FindCraftingTable(CraftedItemData craftedItemData);
+        public List<CraftedItemData> CraftingOptions { get; }
+        public BuildingCraftQueue BuildingCraftQueue { get; }
+        public void CreateLocalOrder(CraftedItemData itemToOrder);
     }
     
     public class CraftingBuilding : Building, ICraftingBuilding
@@ -28,10 +32,12 @@ namespace Buildings
         public override BuildingType BuildingType => BuildingType.Crafting;
 
         public override string OccupantAdjective => "Workers";
-        public bool AcceptNewOrders { get; set; }
-        public bool PrioritizeOrdersWithMats { get; set; }
+        public bool PrioritizeOrdersWithMats { get; set; } = true;
         public CraftingOrder CurrentCraftingOrder { get; set; }
 
+        public List<CraftedItemData> CraftingOptions => _craftingOptions;
+        [ShowInInspector] public BuildingCraftQueue BuildingCraftQueue { get; } = new BuildingCraftQueue();
+        
         public override List<Unit> GetPotentialOccupants()
         {
             var relevantAbilites = _buildingData.RelevantAbilityTypes;
@@ -44,14 +50,36 @@ namespace Buildings
 
         public void ReturnCurrentOrderToQueue()
         {
-            CraftingOrdersManager.Instance.SubmitOrder(CurrentCraftingOrder);
+            if (CurrentCraftingOrder.IsGlobal)
+            {
+                CraftingOrdersManager.Instance.SubmitOrder(CurrentCraftingOrder);
+            }
+            else
+            {
+                CraftingTable tableForOrder = FindCraftingTable(CurrentCraftingOrder.CraftedItem);
+                BuildingCraftQueue.SubmitOrder(CurrentCraftingOrder, tableForOrder);
+            }
+            
             CurrentCraftingOrder = RequestNextCraftingOrder();
         }
 
         private CraftingOrder RequestNextCraftingOrder()
         {
             CraftingOrder result = null;
+            
+            // Do Building's orders first
             if (PrioritizeOrdersWithMats)
+            {
+                result = BuildingCraftQueue.GetNextCraftableOrder(this);
+            }
+
+            if (result == null)
+            {
+                result = BuildingCraftQueue.GetNextOrder(this);
+            }
+            
+            // Global Orders
+            if (result == null && PrioritizeOrdersWithMats)
             {
                 result = CraftingOrdersManager.Instance.GetNextCraftableOrder(_workersJob, this);
             }
@@ -70,7 +98,7 @@ namespace Buildings
             var allCraftingTables = CraftingTables;
             foreach (var table in allCraftingTables)
             {
-                if (table.ItemBeingCrafted == craftedItemData)
+                if (craftedItemData.IsCraftingTableValid(table.FurnitureItemData))
                 {
                     return table;
                 }
@@ -101,7 +129,10 @@ namespace Buildings
 
         public List<CraftingOrder> QueuedOrders()
         {
-            return CraftingOrdersManager.Instance.GetAllOrders(_workersJob);
+            var allOrders = BuildingCraftQueue.GetAllOrders(this);
+            allOrders.AddRange(CraftingOrdersManager.Instance.GetAllOrders(_workersJob));
+
+            return allOrders;
         }
 
         private void OnOrderComplete(Task task)
@@ -148,6 +179,15 @@ namespace Buildings
         public override JobData GetBuildingJob()
         {
             return _workersJob;
+        }
+        
+        public void CreateLocalOrder(CraftedItemData itemToOrder)
+        {
+            CraftingTable tableForOrder = FindCraftingTable(itemToOrder);
+            CraftingOrder order = new CraftingOrder(itemToOrder, this, CraftingOrder.EOrderType.Item, false, null,
+                null, null);
+            
+            BuildingCraftQueue.SubmitOrder(order, tableForOrder);
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Characters;
 using Items;
 using Sirenix.OdinInspector;
@@ -14,6 +15,7 @@ namespace ScriptableObjects
         [ShowIf("CanBeDyed")] public DyePaletteData DefaultDyePalette;
         [Tooltip("Can be left empty for no requirement")] public JobData RequiredJob;
         public int TierLevel;
+        public List<StatModifier> StatModifiers = new List<StatModifier>();
         
         [ShowIf("@Type == GearType.MainHand || Type == GearType.BothHands")] public GearPiece MainHandHeldGear;
         [ShowIf("Type", GearType.OffHand)] public GearPiece OffHandHeldGear;

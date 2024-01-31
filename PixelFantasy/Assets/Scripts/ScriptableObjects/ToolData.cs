@@ -1,3 +1,5 @@
+using System.ComponentModel;
+using Characters;
 using UnityEngine;
 
 namespace ScriptableObjects
@@ -6,13 +8,30 @@ namespace ScriptableObjects
     public class ToolData : GearData
     {
         public EToolType ToolType;
+        public int WorkValue;
+
+        public override string GetDetailsMsg(string headerColourCode = "#272736")
+        {
+            string msg = "";
+            msg += $"<color={headerColourCode}>Tier {TierLevel}:</color> <b>{ToolType.GetDescription()}</b>\n";
+            msg += $"<color={headerColourCode}>Work:</color> <b>{WorkValue}</b>\n";
+            
+            // Attribute modifiers
+            foreach (var statModifier in StatModifiers)
+            {
+                msg += $"<color={headerColourCode}>{statModifier.StatName}:</color> <b>{statModifier.ModifierString}</b>\n";
+            }
+            
+            msg += $"<color={headerColourCode}>Durability:</color> <b>{Durability}</b>\n";
+            return msg;
+        }
     }
 
     public enum EToolType
     {
-        None = 0,
-        BuildersHammer = 1,
-        WoodcuttingAxe = 2,
-        Pickaxe = 3,
+        [Description("")] None = 0,
+        [Description("Builder's Hammer")] BuildersHammer = 1,
+        [Description("Woodcutting Axe")] WoodcuttingAxe = 2,
+        [Description("Pickaxe")] Pickaxe = 3,
     }
 }

@@ -9,121 +9,62 @@ namespace TaskSystem
 {
     public class CraftItemAction : TaskAction
     {
-        private CraftedItemData _itemToCraft;
+         private CraftedItemData _itemToCraft;
+        private ICraftingBuilding _craftBuilding;
         private CraftingTable _craftingTable;
         private List<Item> _materials;
-        private TaskState _state;
-        private int _materialIndex;
-        private int _quantityHauled;
-        
-        private Storage _targetStorage;
-        private Item _targetItem;
-        private Item _craftedItem;
-        private bool _isMoving;
-        private bool _isHoldingItem;
-        private float _timer;
+        private ETaskState _state;
         private Storage _receivingStorage;
-        private bool _assignedIncomingStorage;
+        
+        private Item _targetItem;
+        private int _materialIndex;
+        private float _timer;
         
         private const float WORK_SPEED = 1f; // TODO: Get the work speed from the Kinling's stats
         private const float WORK_AMOUNT = 1f; // TODO: Get the amount of work from the Kinling's stats
 
-        public float DistanceToStorage => Vector2.Distance(_targetStorage.transform.position, transform.position);
-        public float DistanceToCraftingTable => Vector2.Distance(_craftingTable.transform.position, transform.position);
-        public float DistanceToReceivingStorage => Vector2.Distance(_receivingStorage.transform.position, transform.position);
-
+        private enum ETaskState
+        {
+            ClaimTable,
+            GatherMats,
+            WaitingOnMats,
+            CraftItem,
+            DeliverItem,
+            WaitingOnDelivery,
+        }
+        
         public override void PrepareAction(Task task)
         {
             _itemToCraft = Librarian.Instance.GetItemData((string)task.Payload) as CraftedItemData;
-            _craftingTable = task.Requestor as CraftingTable;
+            _craftBuilding = (ICraftingBuilding)task.Requestor;
+            _craftingTable = _craftBuilding.FindCraftingTable(_itemToCraft);
             _materials = task.Materials;
-            _state = TaskState.AssignTable;
-            _materialIndex = 0;
-            _quantityHauled = 0;
+            _state = ETaskState.ClaimTable;
         }
 
         public override void DoAction()
         {
-            if (_state == TaskState.AssignTable)
+            if (_state == ETaskState.ClaimTable)
             {
-                // Trigger the Crafting Table to be in use, and show a preview of item
                 _craftingTable.AssignItemToTable(_itemToCraft);
-                _state = TaskState.HaulMaterials;
+                _state = ETaskState.GatherMats;
             }
-            
-            if (_state == TaskState.HaulMaterials)
-            {
-                // for each of the materials, haul the material to the crafting table
-                if (_targetStorage == null || _targetItem == null)
-                {
-                    _targetItem = _materials[_materialIndex];
-                    _targetStorage = _targetItem.AssignedStorage;
-                }
-                
-                // Pick Up Item
-                if (!_isHoldingItem && _targetStorage != null && DistanceToStorage <= 1f)
-                {
-                    _isMoving = false;
-                    _isHoldingItem = true;
-                    _targetStorage.WithdrawItem(_targetItem);
-                    _ai.HoldItem(_targetItem);
-                    _targetItem.SetHeld(true);
-                    return;
-                }
-                
-                // Drop Item Off
-                if (_isHoldingItem && DistanceToCraftingTable <= 1f)
-                {
-                    _isHoldingItem = false;
-                    _isMoving = false;
-                    _craftingTable.ReceiveItem(_targetItem);
-                    _quantityHauled++;
-                    _targetStorage = null;
-                    _targetItem = null;
 
-                    // if (_quantityHauled >= _materials[_materialIndex].Quantity)
-                    // {
-                    //     _materialIndex++;
-                    //     if (_materialIndex >= _materials.Count)
-                    //     {
-                    //         _state = TaskState.WorkAtTable;
-                    //     }
-                    //     else
-                    //     {
-                    //         _quantityHauled = 0;
-                    //     }
-                    // }
-                    
-                    return;
-                }
-                
-                // Move to Item
-                if (!_isHoldingItem && _targetStorage != null)
-                {
-                    if (!_isMoving)
-                    {
-                        _ai.Unit.UnitAgent.SetMovePosition(_targetStorage.transform.position);
-                        _isMoving = true;
-                        return;
-                    }
-                }
-                
-                // Move to table
-                if (_isHoldingItem)
-                {
-                    if (!_isMoving)
-                    {
-                        _ai.Unit.UnitAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Unit.transform.position).transform.position);
-                        _isMoving = true;
-                        return;
-                    }
-                }
-            }
-            
-            if (_state == TaskState.WorkAtTable)
+            if (_state == ETaskState.GatherMats)
             {
-                // Do work at the crafting table with doing animation
-                // When done work, free up the crafting table
+                _targetItem = _materials[_materialIndex];
+                _ai.Unit.UnitAgent.SetMovePosition(_targetItem.AssignedStorage.UseagePosition(_ai.Unit.transform.position).position,
+                    OnArrivedAtStorageForPickup);
+                _state = ETaskState.WaitingOnMats;
+            }
+
+            if (_state == ETaskState.WaitingOnMats)
+            {
+                
+            }
+
+            if (_state == ETaskState.CraftItem)
+            {
                 UnitAnimController.SetUnitAction(UnitAction.Doing, _ai.GetActionDirection(_craftingTable.transform.position));
                 _timer += TimeManager.Instance.DeltaTime;
                 if(_timer >= WORK_SPEED) 
@@ -132,26 +73,23 @@ namespace TaskSystem
                     if (_craftingTable.DoCraft(WORK_AMOUNT))
                     {
                         UnitAnimController.SetUnitAction(UnitAction.Nothing);
-                        _state = TaskState.HaulCraftedItem;
                         
-                        _isHoldingItem = true;
-                        _craftedItem = Spawner.Instance.SpawnItem(_itemToCraft, _craftingTable.transform.position, false);
-                        _craftedItem.State.CraftersUID = _ai.Unit.UniqueId;
-                        _ai.HoldItem(_craftedItem);
-                        _craftedItem.SetHeld(true);
+                        _targetItem = Spawner.Instance.SpawnItem(_itemToCraft, _craftingTable.transform.position, false);
+                        _targetItem.State.CraftersUID = _ai.Unit.UniqueId;
+                        _ai.HoldItem(_targetItem);
+                        _targetItem.SetHeld(true);
                         
-                        return;
+                        _state = ETaskState.DeliverItem;
                     }
                 }
             }
-            
-            if (_state == TaskState.HaulCraftedItem)
+
+            if (_state == ETaskState.DeliverItem)
             {
-                // Find storage to place the item, prefer the building's, if nothing... drop on the floor
-                _receivingStorage = _craftingTable.ParentBuilding.FindBuildingStorage(_itemToCraft);
+                _receivingStorage = _craftBuilding.FindBuildingStorage(_targetItem.GetItemData());
                 if (_receivingStorage == null)
                 {
-                    _receivingStorage = InventoryManager.Instance.GetAvailableStorage(_craftedItem, true);
+                    _receivingStorage = InventoryManager.Instance.GetAvailableStorage(_targetItem, true);
                     if (_receivingStorage == null)
                     {
                         // THROW IT ON THE GROUND!
@@ -160,72 +98,67 @@ namespace TaskSystem
                         return;
                     }
                 }
-
-                if (!_assignedIncomingStorage)
-                {
-                    _receivingStorage.SetIncoming(_craftedItem);
-                    _assignedIncomingStorage = true;
-                }
                 
-                // Store the item
-                if ((_isHoldingItem) && DistanceToReceivingStorage <= 1f)
-                {
-                    if (_isHoldingItem)
-                    {
-                        _receivingStorage.DepositItems(_craftedItem);
-                        _craftedItem = null;
-                        _isHoldingItem = false;
-                    }
+                _receivingStorage.SetIncoming(_targetItem);
                 
-                    _isMoving = false;
-                    ConcludeAction();
-                    return;
-                }
-                
-                // Move to Storage
-                if (_isHoldingItem)
-                {
-                    if (!_isMoving)
-                    {
-                        _ai.Unit.UnitAgent.SetMovePosition(_receivingStorage.transform.position);
-                        _isMoving = true;
-                        return;
-                    }
-                }
+                _ai.Unit.UnitAgent.SetMovePosition(_receivingStorage.UseagePosition(_ai.Unit.transform.position).position, OnProductDelivered);
+                _state = ETaskState.WaitingOnDelivery;
             }
         }
 
-        // public override void OnTaskCancel()
-        // {
-        //     
-        // }
-        
+        private void OnArrivedAtStorageForPickup()
+        {
+            _targetItem.AssignedStorage.WithdrawItem(_targetItem);
+            _ai.HoldItem(_targetItem);
+            _targetItem.SetHeld(true);
+            _ai.Unit.UnitAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Unit.transform.position).position, OnArrivedAtCraftingTable);
+        }
+
+        private void OnArrivedAtCraftingTable()
+        {
+            _craftingTable.ReceiveMaterial(_targetItem);
+            _targetItem = null;
+            _materialIndex++;
+
+            // Are there more items to gather?
+            if (_materialIndex > _materials.Count - 1)
+            {
+                _ai.Unit.UnitAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Unit.transform.position).position, () =>
+                {
+                    _state = ETaskState.CraftItem;
+                });
+            }
+            else
+            {
+                _targetItem = _materials[_materialIndex];
+                _ai.Unit.UnitAgent.SetMovePosition(_targetItem.AssignedStorage.UseagePosition(_ai.Unit.transform.position).position,
+                    OnArrivedAtStorageForPickup);
+            }
+        }
+
+        private void OnProductDelivered()
+        {
+            _receivingStorage.DepositItems(_targetItem);
+            
+            _ai.DropCarriedItem();
+            _targetItem = null;
+            ConcludeAction();
+        }
+
+        public override void OnTaskCancel()
+        {
+            base.OnTaskCancel();
+        }
+
         public override void ConcludeAction()
         {
             base.ConcludeAction();
             
             UnitAnimController.SetUnitAction(UnitAction.Nothing);
-
             _task = null;
-            _targetStorage = null;
-            _isHoldingItem = false;
-            _isMoving = false;
-            _targetItem = null;
             _itemToCraft = null;
-            _craftingTable = null;
-            _materials.Clear();
-            _state = TaskState.AssignTable;
             _materialIndex = 0;
-            _quantityHauled = 0;
-            _assignedIncomingStorage = false;
-        }
-        
-        public enum TaskState
-        {
-            AssignTable,
-            HaulMaterials,
-            WorkAtTable,
-            HaulCraftedItem,
+            _receivingStorage = null;
         }
     }
 }

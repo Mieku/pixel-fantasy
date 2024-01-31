@@ -1,4 +1,5 @@
 using System;
+using ParadoxNotion.Design;
 using Sirenix.OdinInspector;
 using Random = UnityEngine.Random;
 
@@ -8,12 +9,10 @@ namespace Characters
     public class Stat
     {
         public int Level;
-        public float Exp;
 
-        public Stat(int level, float exp = 0)
+        public Stat(int level)
         {
             Level = level;
-            Exp = exp;
         }
     }
 
@@ -87,9 +86,36 @@ namespace Characters
 
     public enum StatType
     {
-        Strength,
-        Vitality,
-        Intelligence,
-        Expertise,
+        [Description("Strength")] Strength,
+        [Description("Vitality")] Vitality,
+        [Description("Intelligence")] Intelligence,
+        [Description("Expertise")]  Expertise,
+    }
+
+    [Serializable]
+    public class StatModifier
+    {
+        public StatType StatType;
+        public int Modifier;
+
+        public string ModifierString
+        {
+            get
+            {
+                if (Modifier < 0)
+                {
+                    return $"-{Modifier}";
+                }
+
+                if (Modifier > 0)
+                {
+                    return $"+{Modifier}";
+                }
+                
+                return $"{Modifier}";
+            }
+        }
+
+        public string StatName => StatType.GetDescription();
     }
 }

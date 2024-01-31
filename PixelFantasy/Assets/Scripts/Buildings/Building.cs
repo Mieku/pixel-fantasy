@@ -344,6 +344,34 @@ namespace Buildings
             return _allFurniture.FirstOrDefault(f => f.FurnitureItemData == furnitureItemData && f.IsAvailable);
         }
 
+        public bool ContainsCraftingTableForItem(CraftedItemData item)
+        {
+            var tables = CraftingTables;
+            foreach (var table in tables)
+            {
+                if (item.IsCraftingTableValid(table.FurnitureItemData))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public CraftingTable GetCraftingTableForItem(CraftedItemData item)
+        {
+            var tables = CraftingTables;
+            foreach (var table in tables)
+            {
+                if (item.IsCraftingTableValid(table.FurnitureItemData))
+                {
+                    return table;
+                }
+            }
+
+            return null;
+        }
+
         public List<Storage> GetBuildingStorages()
         {
             List<Storage> results = new List<Storage>();

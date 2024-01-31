@@ -55,7 +55,7 @@ namespace Systems.Build_Controls.Scripts
         protected override void TriggerOptionEffect()
         {
             PlanBuilding();
-            ToggledOff();
+            //ToggledOff();
         }
         
         private Building _plannedBuilding;
@@ -64,7 +64,7 @@ namespace Systems.Build_Controls.Scripts
             Spawner.Instance.CancelInput();
             PlayerInputController.Instance.ChangeState(PlayerInputState.BuildBuilding, _buildingData.ConstructionName);
             var building = Librarian.Instance.GetBuilding(_buildingData.ConstructionName);
-            Spawner.Instance.PlanBuilding(building);
+            Spawner.Instance.PlanBuilding(building, ToggledOff);
         }
 
     }

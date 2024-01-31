@@ -20,7 +20,7 @@ namespace Systems.Details.Building_Details.Scripts
         private CraftingOrder _order;
         private ICraftingBuilding _building;
 
-        public void Init(CraftingOrder order, ICraftingBuilding building)
+        public void Init(CraftingOrder order, ICraftingBuilding building, bool isFirst, bool isLast)
         {
             _order = order;
             _building = building;
@@ -28,9 +28,7 @@ namespace Systems.Details.Building_Details.Scripts
             _itemIcon.sprite = _order.CraftedItem.ItemSprite;
             _tooltip.Header = _order.CraftedItem.ItemName;
             _tooltip.Content = _order.CraftedItem.MaterialsList;
-
-            bool isFirst = CraftingOrdersManager.Instance.IsFirstInQueue(_order);
-            bool isLast  = CraftingOrdersManager.Instance.IsLastInQueue(_order);
+            
             _increaseBtn.SetActive(!isFirst);
             _decreaseBtn.SetActive(!isLast);
 

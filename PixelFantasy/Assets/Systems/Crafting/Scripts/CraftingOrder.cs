@@ -16,6 +16,7 @@ namespace Systems.Crafting.Scripts
         public PlayerInteractable Requestor;
         public EOrderState State;
         public EOrderType OrderType;
+        public bool IsGlobal;
         
         public Action OnOrderComplete;
         public Action OnOrderClaimed;
@@ -26,6 +27,7 @@ namespace Systems.Crafting.Scripts
         public enum EOrderType
         {
             Furniture,
+            Item,
         }
 
         public enum EOrderState
@@ -37,12 +39,13 @@ namespace Systems.Crafting.Scripts
             Cancelled,
         }
 
-        public CraftingOrder(CraftedItemData craftedItem, PlayerInteractable requestor, EOrderType orderType, Action onOrderClaimed, Action onOrderComplete,
+        public CraftingOrder(CraftedItemData craftedItem, PlayerInteractable requestor, EOrderType orderType, bool isGlobal, Action onOrderClaimed, Action onOrderComplete,
             Action onOrderCancelled)
         {
             CraftedItem = craftedItem;
             Requestor = requestor;
             OrderType = orderType;
+            IsGlobal = isGlobal;
             OnOrderClaimed = onOrderClaimed;
             OnOrderComplete = onOrderComplete;
             OnOrderCancelled = onOrderCancelled;
@@ -52,7 +55,7 @@ namespace Systems.Crafting.Scripts
             SetOrderState(EOrderState.Queued);
         }
 
-        public Task CreateTask(CraftingBuilding building, Action<Task> onTaskComplete)
+        public Task CreateTask(ICraftingBuilding building, Action<Task> onTaskComplete)
         {
             List<Item> claimedMats = ClaimRequiredMaterials(building);
             if (claimedMats == null)
@@ -71,12 +74,20 @@ namespace Systems.Crafting.Scripts
                         Materials = claimedMats,
                     };
                     break;
+                case EOrderType.Item:
+                    task = new Task("Craft Item", Requestor, building.GetBuildingJob(), EToolType.None)
+                    {
+                        Payload = CraftedItem.ItemName,
+                        OnTaskComplete = onTaskComplete,
+                        Materials = claimedMats,
+                    };
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
             State = EOrderState.Claimed;
-            OnOrderClaimed.Invoke();
+            OnOrderClaimed?.Invoke();
             return task;
         }
 
@@ -118,15 +129,15 @@ namespace Systems.Crafting.Scripts
 
         public void ClaimOrder()
         {
-            OnOrderClaimed.Invoke();
+            OnOrderClaimed?.Invoke();
         }
 
         public bool CanBeCrafted(Building building)
         {
-            if (CraftedItem.RequiredCraftingTable != null)
+            if (CraftedItem.RequiredCraftingTableOptions.Count > 0)
             {
-                var craftingTable = building.GetAvailableFurniture(CraftedItem.RequiredCraftingTable);
-                if (craftingTable == null)
+                var hasCraftingTable = building.ContainsCraftingTableForItem(CraftedItem);
+                if (!hasCraftingTable)
                 {
                     return false;
                 }
@@ -179,7 +190,10 @@ namespace Systems.Crafting.Scripts
 
         private void Enter_Queued()
         {
-            CraftingOrdersManager.Instance.SubmitOrder(this);
+            if (IsGlobal)
+            {
+                CraftingOrdersManager.Instance.SubmitOrder(this);
+            }
         }
 
         private void Enter_Claimed()
@@ -194,7 +208,11 @@ namespace Systems.Crafting.Scripts
         
         private void Enter_Cancelled()
         {
-            CraftingOrdersManager.Instance.CancelOrder(this);
+            if (IsGlobal)
+            {
+                CraftingOrdersManager.Instance.CancelOrder(this);
+            }
+            
             OnOrderCancelled?.Invoke();
         }
 

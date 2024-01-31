@@ -41,7 +41,7 @@ namespace Buildings
             var allCraftingTables = CraftingTables;
             foreach (var table in allCraftingTables)
             {
-                if (craftedItemData.RequiredCraftingTable == table.FurnitureItemData)
+                if (craftedItemData.IsCraftingTableValid(table.FurnitureItemData))
                 {
                     return table;
                 }

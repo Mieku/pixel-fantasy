@@ -74,7 +74,11 @@ namespace Buildings.Building_Panels
 
         private void RefreshDetails(FurnitureItemData furnitureItemData)
         {
-            string craftedWith = furnitureItemData.RequiredCraftingTable.ItemName;
+            string craftedWith = "";
+            foreach (var option in furnitureItemData.RequiredCraftingTableOptions)
+            {
+                craftedWith += $"{option.ItemName} ";
+            }
 
             string details = $"Crafted with: <color=blue>{craftedWith}</color>";
             _detailsText.text = details;

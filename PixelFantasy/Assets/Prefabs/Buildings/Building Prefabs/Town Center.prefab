@@ -5410,7 +5410,11 @@ MonoBehaviour:
   _workersJob: {fileID: 11400000, guid: 1194ce9e58192cc43b20dd106885a09c, type: 2}
   _productionOptions:
   - {fileID: 11400000, guid: b0e075e5f4b73284b8ddc1db525c8e7b, type: 2}
-  _craftingOptions: []
+  _craftingOptions:
+  - {fileID: 11400000, guid: fc5344dc1b93c6c4f9df8a1d21a56f11, type: 2}
+  - {fileID: 11400000, guid: 71cf622eee61fe04195564bf6d6c1dfb, type: 2}
+  - {fileID: 11400000, guid: cb1571c5fcbe6a74bb6276f779e04a8a, type: 2}
+  - {fileID: 11400000, guid: 2479b243811e84e41adf4ce854213cf9, type: 2}
 --- !u!114 &3805024475255751806
 MonoBehaviour:
   m_ObjectHideFlags: 0

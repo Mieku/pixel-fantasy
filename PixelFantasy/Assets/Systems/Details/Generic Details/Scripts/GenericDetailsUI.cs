@@ -170,13 +170,13 @@ namespace Systems.Details.Generic_Details.Scripts
                 {
                     craftMsg += furniture.FurnitureItemData.RequiredCraftingJob.JobName;
                 }
-
-                if (furniture.FurnitureItemData.RequiredCraftingTable != null)
+                
+                foreach (var option in furniture.FurnitureItemData.RequiredCraftingTableOptions)
                 {
                     if (!string.IsNullOrEmpty(craftMsg))
                         craftMsg += ", ";
 
-                    craftMsg += furniture.FurnitureItemData.RequiredCraftingTable.ItemName;
+                    craftMsg += $"{option.ItemName} ";
                 }
 
                 if (!string.IsNullOrEmpty(craftMsg))

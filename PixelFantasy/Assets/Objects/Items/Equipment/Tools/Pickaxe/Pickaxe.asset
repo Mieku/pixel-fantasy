@@ -20,7 +20,9 @@ MonoBehaviour:
   Durability: 100
   InteractionConfigs: []
   Category: 1
-  RequiredCraftingTable: {fileID: 11400000, guid: 92ae49093fe4f4240bcc66f7c88f3749, type: 2}
+  RequiredCraftingTableOptions:
+  - {fileID: 11400000, guid: 92ae49093fe4f4240bcc66f7c88f3749, type: 2}
+  - {fileID: 11400000, guid: e949c9d3f49ed8c42b31e92b4ea628a4, type: 2}
   RequiredCraftingJob: {fileID: 0}
   WorkCost: 5
   _resourceCosts:
@@ -37,6 +39,7 @@ MonoBehaviour:
   DefaultDyePalette: {fileID: 0}
   RequiredJob: {fileID: 11400000, guid: 8cc115b907c69de4da24cb986f35866f, type: 2}
   TierLevel: 1
+  StatModifiers: []
   MainHandHeldGear: {fileID: 8574784959301920401, guid: 62d5ac3ae1205e64eabe031e3a2b6bb4, type: 3}
   OffHandHeldGear: {fileID: 0}
   HatGear: {fileID: 0}
@@ -47,3 +50,4 @@ MonoBehaviour:
   LeftLegGear: {fileID: 0}
   RightLegGear: {fileID: 0}
   ToolType: 3
+  WorkValue: 1

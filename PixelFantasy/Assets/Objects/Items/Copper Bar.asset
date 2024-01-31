@@ -20,7 +20,8 @@ MonoBehaviour:
   Durability: 100
   InteractionConfigs: []
   Category: 0
-  RequiredCraftingTable: {fileID: 11400000, guid: 021f9be13507f3c4593b8475814394df, type: 2}
+  RequiredCraftingTableOptions:
+  - {fileID: 11400000, guid: 021f9be13507f3c4593b8475814394df, type: 2}
   RequiredCraftingJob: {fileID: 11400000, guid: ba86bcc46aa4a554b91215f79666482b, type: 2}
   WorkCost: 10
   _resourceCosts:

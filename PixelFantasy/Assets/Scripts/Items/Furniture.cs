@@ -425,10 +425,15 @@ namespace Items
             if (!UnitsManager.Instance.AnyUnitHaveJob(requiredJob)) return false;
             
             // Check if crafting table exits
-            var requiredFurniture = _furnitureItemData.RequiredCraftingTable;
-            if (!FurnitureManager.Instance.DoesFurnitureExist(requiredFurniture)) return false;
-            
-            return true;
+            foreach (var option in _furnitureItemData.RequiredCraftingTableOptions)
+            {
+                if (FurnitureManager.Instance.DoesFurnitureExist(option))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private void Craftable_Enter()
@@ -506,6 +511,7 @@ namespace Items
                 _craftingOrder = new CraftingOrder(_furnitureItemData, 
                     this,
                     CraftingOrder.EOrderType.Furniture,
+                    true,
                     OnOrderClaimed, 
                     OnCraftingOrderDelivered,
                     OnCraftingOrderCancelled);

@@ -12068,14 +12068,12 @@ MonoBehaviour:
   _interiorSortingGroup: {fileID: 2736135947198935376}
   _interiorForegroundSortingGroup: {fileID: 8407811110570999269}
   _doorSortingGroup: {fileID: 9014743273962867153}
-  CurrentDurability: 0
   _workersJob: {fileID: 11400000, guid: ba86bcc46aa4a554b91215f79666482b, type: 2}
   _productionOptions:
   - {fileID: 11400000, guid: 88709ad2cfd7dd94297cea2dbbbfa57b, type: 2}
   - {fileID: 11400000, guid: 2b2e2036768598b4fa44a2a14c7259c3, type: 2}
   - {fileID: 11400000, guid: 968e99eea35e84d46b20020ab55c92c3, type: 2}
   - {fileID: 11400000, guid: b531e4b4f83aed843af081dc8adea923, type: 2}
-  CraftingTable: {fileID: 7648244304949262572}
 --- !u!114 &5596007926291928697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12140,7 +12138,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8679221839148330294, guid: aa50bd15bc8fa914181164f7dfd8dd31, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.13
+      value: 1.28
       objectReference: {fileID: 0}
     - target: {fileID: 8679221839148330294, guid: aa50bd15bc8fa914181164f7dfd8dd31, type: 3}
       propertyPath: m_LocalPosition.z
@@ -12185,17 +12183,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8679221839148330294, guid: aa50bd15bc8fa914181164f7dfd8dd31, type: 3}
   m_PrefabInstance: {fileID: 2511037981720239278}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7648244304949262572 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5259353419307902018, guid: aa50bd15bc8fa914181164f7dfd8dd31, type: 3}
-  m_PrefabInstance: {fileID: 2511037981720239278}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb2c5e7acc7b8ef4aa4099c4632ac077, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2980903023899402241
 PrefabInstance:
   m_ObjectHideFlags: 0

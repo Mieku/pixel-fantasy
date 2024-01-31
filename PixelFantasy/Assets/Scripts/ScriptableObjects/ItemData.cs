@@ -29,6 +29,13 @@ namespace ScriptableObjects
             string uid = $"{ItemName}_{Guid.NewGuid()}";
             return new ItemState(this, uid, null);
         }
+
+        public virtual string GetDetailsMsg(string headerColourCode = "#272736")
+        {
+            string msg = "";
+            msg += $"<color={headerColourCode}>Durability:</color> <b>{Durability}</b>\n";
+            return msg;
+        }
     }
     
     public enum EItemCategory

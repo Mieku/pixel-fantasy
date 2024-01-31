@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using Buildings;
 using HUD.Tooltip;
 using Items;
+using ScriptableObjects;
 using Systems.Crafting.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,9 +12,7 @@ namespace Systems.Details.Building_Details.Scripts
 {
     public class CraftingOrdersBuildingPanel : BuildingPanel
     {
-        [SerializeField] private Toggle _acceptNewOrdersToggle;
         [SerializeField] private Toggle _prioritizeOrdersMatsToggle;
-        [SerializeField] private GameObject _craftingLayout; // If nothing is being crafted or queued, hide
         
         [Header("Current Production")]
         [SerializeField] private TooltipTrigger _curProdTooltip;
@@ -23,6 +23,10 @@ namespace Systems.Details.Building_Details.Scripts
         [SerializeField] private Sprite _defaultBG;
         [SerializeField] private Sprite _redBG;
         [SerializeField] private GameObject _curProdDecreasePriorityBtn;
+        [SerializeField] private CraftingOrderControlPanel _craftingOrderControlPanel;
+        [SerializeField] private Button _addOrderBtn;
+        [SerializeField] private GameObject _inProgessDetails;
+        [SerializeField] private GameObject _nothingProgessDetails;
 
         [Header("Queue")] 
         [SerializeField] private Transform _queueParent;
@@ -30,6 +34,7 @@ namespace Systems.Details.Building_Details.Scripts
 
         private List<CraftQueueItem> _displayedQueueItems = new List<CraftQueueItem>();
         private ICraftingBuilding _craftingBuilding => _building as ICraftingBuilding;
+        private bool _craftingOrderControlsOpen;
         
         protected override void Show()
         {
@@ -38,12 +43,14 @@ namespace Systems.Details.Building_Details.Scripts
 
         protected override void Refresh()
         {
-            _acceptNewOrdersToggle.SetIsOnWithoutNotify(_craftingBuilding.AcceptNewOrders);
             _prioritizeOrdersMatsToggle.SetIsOnWithoutNotify(_craftingBuilding.PrioritizeOrdersWithMats);
 
             RefreshCurrentInProd();
             RefreshQueue();
             RefreshLayout();
+
+            _addOrderBtn.interactable = _craftingBuilding.CraftingOptions.Count != 0;
+            HideCraftingOrderControlPanel();
         }
         
         public override void Hide()
@@ -56,12 +63,15 @@ namespace Systems.Details.Building_Details.Scripts
             var curCraftingOrder = _craftingBuilding.CurrentCraftingOrder;
             if (curCraftingOrder?.CraftedItem == null)
             {
-                _craftingLayout.SetActive(false);
+                _nothingProgessDetails.SetActive(true);
+                _inProgessDetails.SetActive(false);
+                _curProdDecreasePriorityBtn.SetActive(false);
             }
             else
             {
                 var craftingTable = _craftingBuilding.FindCraftingTable(curCraftingOrder.CraftedItem);
-                _craftingLayout.SetActive(true);
+                _nothingProgessDetails.SetActive(false);
+                _inProgessDetails.SetActive(true);
                 _curProdIcon.sprite = curCraftingOrder.CraftedItem.ItemSprite;
                 _curProdMatsBar.fillAmount = craftingTable.GetPercentMaterialsReceived();
                 _curProdWorkBar.fillAmount = craftingTable.GetPercentCraftingComplete();
@@ -96,8 +106,11 @@ namespace Systems.Details.Building_Details.Scripts
             var queuedOrders = _craftingBuilding.QueuedOrders();
             foreach (var queuedOrder in queuedOrders)
             {
+                bool isFirst = queuedOrders.First() == queuedOrder;
+                bool isLast = queuedOrders.LastOrDefault() == queuedOrder;
+                
                 var queuedItem = Instantiate(_craftQueueItemPrefab, _queueParent);
-                queuedItem.Init(queuedOrder, _craftingBuilding);
+                queuedItem.Init(queuedOrder, _craftingBuilding, isFirst, isLast);
                 _displayedQueueItems.Add(queuedItem);
             }
         }
@@ -120,14 +133,43 @@ namespace Systems.Details.Building_Details.Scripts
             }
         }
 
-        public void OnAcceptNewOrdersToggleChanged(bool value)
-        {
-            _craftingBuilding.AcceptNewOrders = value;
-        }
-
         public void OnPrioritizeOrdersWithMatsToggleChanged(bool value)
         {
             _craftingBuilding.PrioritizeOrdersWithMats = value;
+        }
+
+        public void AddOrderPressed()
+        {
+            if (_craftingOrderControlsOpen)
+            {
+                HideCraftingOrderControlPanel();
+            }
+            else
+            {
+                ShowCraftingOrderControlPanel();
+            }
+        }
+
+        private void ShowCraftingOrderControlPanel()
+        {
+            _craftingOrderControlsOpen = true;
+            _craftingOrderControlPanel.gameObject.SetActive(true);
+            _craftingOrderControlPanel.Init(_craftingBuilding, AddCraftingOrder);
+        }
+
+        private void HideCraftingOrderControlPanel()
+        {
+            _craftingOrderControlsOpen = false;
+            _craftingOrderControlPanel.gameObject.SetActive(false);
+        }
+
+        public void AddCraftingOrder(CraftedItemData itemToCraft)
+        {
+            _craftingBuilding.CreateLocalOrder(itemToCraft);
+            
+            RefreshCurrentInProd();
+            RefreshQueue();
+            RefreshLayout();
         }
     }
 }
