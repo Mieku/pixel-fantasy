@@ -53,8 +53,8 @@ namespace TaskSystem
             if (_state == ETaskState.GatherMats)
             {
                 _targetItem = _materials[_materialIndex];
-                _ai.Unit.UnitAgent.SetMovePosition(_targetItem.AssignedStorage.UseagePosition(_ai.Unit.transform.position).position,
-                    OnArrivedAtStorageForPickup);
+                _ai.Unit.UnitAgent.SetMovePosition(_targetItem.AssignedStorage.UseagePosition(_ai.Unit.transform.position),
+                    OnArrivedAtStorageForPickup, OnTaskCancel);
                 _state = ETaskState.WaitingOnMats;
             }
 
@@ -101,7 +101,7 @@ namespace TaskSystem
                 
                 _receivingStorage.SetIncoming(_targetItem);
                 
-                _ai.Unit.UnitAgent.SetMovePosition(_receivingStorage.UseagePosition(_ai.Unit.transform.position).position, OnProductDelivered);
+                _ai.Unit.UnitAgent.SetMovePosition(_receivingStorage.UseagePosition(_ai.Unit.transform.position), OnProductDelivered, OnTaskCancel);
                 _state = ETaskState.WaitingOnDelivery;
             }
         }
@@ -111,7 +111,7 @@ namespace TaskSystem
             _targetItem.AssignedStorage.WithdrawItem(_targetItem);
             _ai.HoldItem(_targetItem);
             _targetItem.SetHeld(true);
-            _ai.Unit.UnitAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Unit.transform.position).position, OnArrivedAtCraftingTable);
+            _ai.Unit.UnitAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Unit.transform.position), OnArrivedAtCraftingTable, OnTaskCancel);
         }
 
         private void OnArrivedAtCraftingTable()
@@ -123,16 +123,16 @@ namespace TaskSystem
             // Are there more items to gather?
             if (_materialIndex > _materials.Count - 1)
             {
-                _ai.Unit.UnitAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Unit.transform.position).position, () =>
+                _ai.Unit.UnitAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Unit.transform.position), () =>
                 {
                     _state = ETaskState.CraftItem;
-                });
+                }, OnTaskCancel);
             }
             else
             {
                 _targetItem = _materials[_materialIndex];
-                _ai.Unit.UnitAgent.SetMovePosition(_targetItem.AssignedStorage.UseagePosition(_ai.Unit.transform.position).position,
-                    OnArrivedAtStorageForPickup);
+                _ai.Unit.UnitAgent.SetMovePosition(_targetItem.AssignedStorage.UseagePosition(_ai.Unit.transform.position),
+                    OnArrivedAtStorageForPickup, OnTaskCancel);
             }
         }
 

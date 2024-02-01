@@ -27,7 +27,7 @@ namespace TaskSystem
         private TaskState _taskState;
         private Vector3 _curMovePos;
         private BedFurniture _bed;
-        private Vector2 _bedsidePos;
+        private Vector2? _bedsidePos;
         private float _distanceFromPartner => Vector2.Distance(_partner.transform.position, transform.position);
         private const float MATE_TIME = 60f;
         private float _matingTimer = 0f;
@@ -78,7 +78,7 @@ namespace TaskSystem
                 {
                     _ai.Unit.SocialAI.ForceFlirtChatBubble();
                     _taskState = TaskState.GoToBed;
-                    _bedsidePos = _bed.UseagePosition(_ai.Unit.transform.position).position;
+                    _bedsidePos = _bed.UseagePosition(_ai.Unit.transform.position);
                     _ai.Unit.UnitAgent.SetMovePosition(_bedsidePos, () =>
                     {
                         _taskState = TaskState.InBed;
@@ -86,7 +86,7 @@ namespace TaskSystem
                         // Hop into bed
                         _ai.Unit.UnitAgent.TeleportToPosition(sleepLocation.position, true);
                         _bed.EnterBed(_ai.Unit);
-                    });
+                    }, OnTaskCancel);
                 }
             }
 
@@ -119,7 +119,8 @@ namespace TaskSystem
         public override void ConcludeAction()
         {
             base.ConcludeAction();
-            _ai.Unit.UnitAgent.TeleportToPosition(_bedsidePos, false);
+            _bedsidePos ??= _bed.transform.position;
+            _ai.Unit.UnitAgent.TeleportToPosition((Vector2)_bedsidePos, false);
             _bed.ExitBed(_ai.Unit);
             _ai.Unit.UnitAnimController.SetEyesClosed(false);
             _ai.Unit.UnitAnimController.SetUnitAction(UnitAction.Nothing);
@@ -134,7 +135,8 @@ namespace TaskSystem
             
             if (_taskState == TaskState.InBed)
             {
-                _ai.Unit.UnitAgent.TeleportToPosition(_bedsidePos, false);
+                _bedsidePos ??= _bed.transform.position;
+                _ai.Unit.UnitAgent.TeleportToPosition((Vector2)_bedsidePos, false);
                 _bed.ExitBed(_ai.Unit);
                 _ai.Unit.UnitAnimController.SetEyesClosed(false);
                 _ai.Unit.UnitAnimController.SetUnitAction(UnitAction.Nothing);
@@ -143,7 +145,8 @@ namespace TaskSystem
             if (_taskState == TaskState.Mating)
             {
                 _ai.Unit.SocialAI.MatingComplete(false);
-                _ai.Unit.UnitAgent.TeleportToPosition(_bedsidePos, false);
+                _bedsidePos ??= _bed.transform.position;
+                _ai.Unit.UnitAgent.TeleportToPosition((Vector2)_bedsidePos, false);
                 _bed.ExitBed(_ai.Unit);
                 _ai.Unit.UnitAnimController.SetEyesClosed(false);
                 _ai.Unit.UnitAnimController.SetUnitAction(UnitAction.Nothing);

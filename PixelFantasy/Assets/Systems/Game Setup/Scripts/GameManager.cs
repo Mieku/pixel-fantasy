@@ -19,6 +19,7 @@ namespace Systems.Game_Setup.Scripts
         private void Start()
         {
             SetUpGame();
+            NavMeshManager.Instance.UpdateNavMesh();
         }
 
         [Button("Set Up Game")]

@@ -97,20 +97,7 @@ namespace Characters
             
             GameEvents.DayTick -= GameEvents_DayTick;
         }
-
-        private void Start()
-        {
-            // Equipment.Init(this);
-            // _appearance.Init(this);
-            // _mood.Init();
-            //
-            // Family = FamilyManager.Instance.FindOrCreateFamily(this);
-            //
-            // GameEvents.Trigger_OnCoinsIncomeChanged();
-            //
-            // Initialize();
-        }
-
+        
         public KinlingData GetKinlingData()
         {
             return _kinlingData;

@@ -21,7 +21,7 @@ namespace TaskSystem
         {
             _task = task;
             _building = (Building)_task.Requestor;
-            _movePos = _building.UseagePosition(_ai.Unit.transform.position).position;
+            _movePos = _building.UseagePosition(_ai.Unit.transform.position);
             _jobsDone = false;
         }
 

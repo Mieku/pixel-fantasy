@@ -20,8 +20,7 @@ namespace TaskSystem
         {
             _task = task;
             _construction = (Construction)_task.Requestor;
-            _movePos = _construction.UseagePosition(_ai.Unit.transform.position)
-                .position;
+            _movePos = _construction.UseagePosition(_ai.Unit.transform.position);
         }
 
         public override void DoAction()
@@ -29,8 +28,7 @@ namespace TaskSystem
             if (!_ai.IsPositionPossible((Vector2)_movePos))
             {
                 Debug.Log($"Position: {(Vector2)_movePos} Impossible, recalculated");
-                _movePos = _construction.UseagePosition(_ai.Unit.transform.position)
-                    .position;
+                _movePos = _construction.UseagePosition(_ai.Unit.transform.position);
                 Debug.Log($"Recalculated Position is: {(Vector2)_movePos}");
             }
             

@@ -8,7 +8,7 @@ namespace TaskSystem
     public class GoToSleepAction : TaskAction
     {
         private BedFurniture _bed;
-        private Vector2 _bedsidePos;
+        private Vector2? _bedsidePos;
         private bool _isAsleep;
 
         private const float NO_BED_ENERGY_PER_HOUR = 0.10f;
@@ -20,7 +20,7 @@ namespace TaskSystem
             if (_bed != null)
             {
                 // Walk to the bed
-                _bedsidePos = _bed.UseagePosition(_ai.Unit.transform.position).position;
+                _bedsidePos = _bed.UseagePosition(_ai.Unit.transform.position);
                 var sleepLocation = _bed.GetSleepLocation(_ai.Unit);
                 _ai.Unit.UnitAgent.SetMovePosition(_bedsidePos, () =>
                 {
@@ -31,7 +31,7 @@ namespace TaskSystem
                     _ai.Unit.UnitAnimController.SetUnitAction(UnitAction.Sleeping);
                     _isAsleep = true;
                     _ai.Unit.Needs.RegisterNeedChangePerHour(_bed.InUseNeedChange);
-                });
+                }, OnTaskCancel);
             }
             else
             {
@@ -73,8 +73,10 @@ namespace TaskSystem
                 _isAsleep = false;
                 if (_bed != null)
                 {
+                    _bedsidePos ??= _bed.transform.position;
+                    
                     _ai.Unit.Needs.DeregisterNeedChangePerHour(_bed.InUseNeedChange);
-                    _ai.Unit.UnitAgent.TeleportToPosition(_bedsidePos, false);
+                    _ai.Unit.UnitAgent.TeleportToPosition((Vector2) _bedsidePos, false);
                     _bed.ExitBed(_ai.Unit);
                     _ai.Unit.UnitAnimController.SetEyesClosed(false);
                     _ai.Unit.UnitAnimController.SetUnitAction(UnitAction.Nothing);

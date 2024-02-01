@@ -12,7 +12,7 @@ namespace TaskSystem
         private IEateryBuilding _eateryBuilding;
         private Item _claimedFood;
         private ChairFurniture _chair;
-        private Vector2 _eatPos;
+        private Vector2? _eatPos;
 
         private bool _isEating;
 
@@ -52,7 +52,7 @@ namespace TaskSystem
                 if (_chair != null)
                 {
                     _chair.ClaimSeat(_ai.Unit);
-                    _eatPos = _chair.UseagePosition(_ai.Unit.transform.position).position;
+                    _eatPos = _chair.UseagePosition(_ai.Unit.transform.position);
                 }
             }
             
@@ -88,7 +88,7 @@ namespace TaskSystem
                         // TODO: Add Standing and eating Animation
                         _isEating = true;
                     }
-                });
+                }, OnTaskCancel);
             });
         }
 

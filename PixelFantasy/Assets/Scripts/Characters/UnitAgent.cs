@@ -14,6 +14,8 @@ namespace Characters
         private bool _inTransit;
         private UnitAnimController _charAnimController;
         private float _defaultSpeed;
+        private float _defaultAcceleration;
+        private float _defaultAngularSpeed;
         private Unit _unit;
 
         private const float NEAREST_POINT_SEARCH_RANGE = 5f;
@@ -23,7 +25,10 @@ namespace Characters
             _agent = GetComponent<NavMeshAgent>();
             _agent.updateRotation = false;
             _agent.updateUpAxis = false;
+
             _defaultSpeed = _agent.speed;
+            _defaultAcceleration = _agent.acceleration;
+            _defaultAngularSpeed = _agent.angularSpeed;
             _unit = GetComponent<Unit>();
             
             _charAnimController = GetComponent<Unit>().UnitAnimController;
@@ -31,25 +36,36 @@ namespace Characters
             OnSpeedUpdated();
         }
 
+        public void SetPriority(int priority)
+        {
+            _agent.avoidancePriority = priority;
+        }
+        
         public void TeleportToPosition(Vector2 teleportPos, bool disableNav)
         {
             _agent.enabled = !disableNav;
             gameObject.transform.position = teleportPos;
         }
 
-        public bool SetMovePosition(Vector2 movePosition, Action onReachedMovePosition = null)
+        public bool SetMovePosition(Vector2? movePosition, Action onReachedMovePosition = null, Action onImpossiblePosition = null)
         {
+            if (movePosition == null)
+            {
+                onImpossiblePosition?.Invoke();
+                return false;
+            }
+            
             // If they are seated, get up
             if (_unit.GetChair != null)
             {
                 _unit.GetChair.ExitSeat(_unit);
             }
             
-            if (_agent.SetDestination(movePosition))
+            if (_agent.SetDestination((Vector2)movePosition))
             {
                 _inTransit = true;
                 _onReachedMovePosition = onReachedMovePosition;
-                _charAnimController.SetMovementVelocity(movePosition);
+                _charAnimController.SetMovementVelocity((Vector2)movePosition);
                 _charAnimController.Appearance.SetDirection(UnitActionDirection.Side);
                 return true;
             }
@@ -61,21 +77,8 @@ namespace Characters
 
         public bool IsDestinationPossible(Vector2 position)
         {
-            NavMeshPath path = new NavMeshPath();
-            if (NavMesh.CalculatePath(transform.position,
-                    position, NavMesh.AllAreas, path))
-            {
-                if (path.status == NavMeshPathStatus.PathComplete)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            
-            return false;
+            var result = Helper.DoesPathExist(transform.position, position);
+            return result.pathExists;
         }
 
         private void DetermineIfDestination()
@@ -106,6 +109,8 @@ namespace Characters
         {
             var speedMod = TimeManager.Instance.GameSpeedMod;
             _agent.speed = _defaultSpeed * speedMod;
+            _agent.acceleration = _defaultAcceleration * speedMod; // Adjust acceleration proportionally
+            _agent.angularSpeed = _defaultAngularSpeed * speedMod; // Adjust angularSpeed proportionally
         }
         
         public Vector3 PickLocationInRange(float range)

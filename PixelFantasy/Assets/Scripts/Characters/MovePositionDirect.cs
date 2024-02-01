@@ -17,9 +17,15 @@ namespace Characters
             moveVelocity = GetComponent<IMoveVelocity>();
         }
 
-        public bool SetMovePosition(Vector2 movePosition, Action onReachedMovePosition)
+        public bool SetMovePosition(Vector2? movePos, Action onReachedMovePosition, Action onImpossiblePosition)
         {
-            this.movePosition = movePosition;
+            if (movePos == null)
+            {
+                onImpossiblePosition?.Invoke();
+                return false;
+            }
+            
+            this.movePosition = (Vector2)movePos;
             movingToPos = true;
             return true;
         }

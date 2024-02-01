@@ -23,7 +23,7 @@ namespace TaskSystem
             if (!result) return false;
 
             _resource = (Resource)task.Requestor;
-            _movePos = _resource.UseagePosition(_ai.Unit.transform.position).position;
+            _movePos = _resource.UseagePosition(_ai.Unit.transform.position);
             
             if (_movePos == null)
             {

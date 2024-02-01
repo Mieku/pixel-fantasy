@@ -1,5 +1,7 @@
+using System;
 using Managers;
 using NavMeshPlus.Components;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 [RequireComponent(typeof(NavMeshSurface))]
@@ -13,32 +15,18 @@ public class NavMeshManager : Singleton<NavMeshManager>
         _meshSurface = GetComponent<NavMeshSurface>();
         _meshSurface.hideEditorLogs = true;
     }
-
+    
     private void Start()
     {
-        // Check if the NavMesh data is already available
-        if (_meshSurface.navMeshData == null)
-        {
-            // If not, build the NavMesh
-            _meshSurface.BuildNavMeshAsync();
-        }
-        // Optionally, if the NavMesh data is already present but you want to rebuild it every time
-        else
-        {
-            _meshSurface.UpdateNavMesh(_meshSurface.navMeshData);
-        }
+        _meshSurface.BuildNavMesh();
     }
 
-    [ContextMenu("Update Nav Mesh")]
+    [Button("Update NavMesh")]
     public void UpdateNavMesh()
     {
-        if (_meshSurface.navMeshData != null)
+        if (_meshSurface != null)
         {
             _meshSurface.UpdateNavMesh(_meshSurface.navMeshData);
-        }
-        else
-        {
-            _meshSurface.BuildNavMeshAsync();
         }
     }
 }

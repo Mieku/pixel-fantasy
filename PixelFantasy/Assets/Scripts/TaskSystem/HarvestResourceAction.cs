@@ -22,7 +22,7 @@ namespace TaskSystem
             _task = task;
             _resource = (GrowingResource)task.Requestor;
             _actionAnimation = UnitAction.Doing;
-            _movePos = _resource.UseagePosition(_ai.Unit.transform.position).position;
+            _movePos = _resource.UseagePosition(_ai.Unit.transform.position);
         }
         
         public override void ConcludeAction()

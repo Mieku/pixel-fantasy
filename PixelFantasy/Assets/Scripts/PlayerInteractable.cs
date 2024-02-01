@@ -106,5 +106,5 @@ public abstract class PlayerInteractable : UniqueObject
         Debug.LogError($"Item unexpectely received: {item.name}");
     }
 
-    public abstract Transform UseagePosition(Vector2 requestorPosition);
+    public abstract Vector2? UseagePosition(Vector2 requestorPosition);
 }

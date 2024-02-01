@@ -301,6 +301,7 @@ namespace Managers
             }
         }
 
+        private int _agentPriority = 0;
         public Unit SpawnKinling(KinlingData kinlingData, Vector2 spawnPosition, bool preloadWithKinlingData = true)
         {
             Unit kinling = Instantiate(_kinlingPrefab, _kinlingsParent);
@@ -314,6 +315,13 @@ namespace Managers
             else
             {
                 kinling.UniqueId = kinlingData.UID;
+            }
+
+            kinling.UnitAgent.SetPriority(_agentPriority);
+            _agentPriority++;
+            if (_agentPriority > 99)
+            {
+                _agentPriority = 0;
             }
             
             return kinling;

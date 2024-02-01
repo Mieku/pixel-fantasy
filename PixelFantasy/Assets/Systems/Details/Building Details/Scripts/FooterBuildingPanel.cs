@@ -288,8 +288,11 @@ namespace Systems.Details.Building_Details.Scripts
         
         public void OnSelectPressed()
         {
-            var lookPos = _building.UseagePosition(Vector2.zero).position;
-            Camera.main.GetComponent<CameraController>().LookAtPosition(lookPos);
+            var lookPos = _building.UseagePosition(Vector2.zero);
+            if (lookPos != null && Camera.main != null)
+            {
+                Camera.main.GetComponent<CameraController>().LookAtPosition((Vector2)lookPos);
+            }
         }
 
         public void OnPausePressed()

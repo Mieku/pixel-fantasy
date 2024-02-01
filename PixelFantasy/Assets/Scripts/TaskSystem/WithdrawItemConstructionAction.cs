@@ -46,7 +46,15 @@ namespace TaskSystem
             var building = _requestor as Building;
             if (building != null)
             {
-                _constructionPos = building.UseagePosition(_ai.Unit.transform.position).position;
+                var pos = building.UseagePosition(_ai.Unit.transform.position);
+                if (pos != null)
+                {
+                    _constructionPos = (Vector2)pos;
+                }
+                else
+                {
+                    _constructionPos = _requestor.transform.position;
+                }
             }
             else
             {

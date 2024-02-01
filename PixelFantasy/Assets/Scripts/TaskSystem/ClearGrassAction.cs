@@ -20,8 +20,7 @@ namespace TaskSystem
         {
             _task = task;
             _dirt = (Dirt)task.Requestor;
-            _movePos = _dirt.UseagePosition(_ai.Unit.transform.position)
-                .position;
+            _movePos = _dirt.UseagePosition(_ai.Unit.transform.position);
         }
 
         public override void DoAction()

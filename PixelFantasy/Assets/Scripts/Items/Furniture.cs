@@ -346,7 +346,7 @@ namespace Items
             return results;
         }
 
-        public override Transform UseagePosition(Vector2 requestorPosition)
+        public override Vector2? UseagePosition(Vector2 requestorPosition)
         {
             List<Transform> potentialPositions = new List<Transform>();
             
@@ -369,16 +369,11 @@ namespace Items
             List<(Transform, float)> distances = new List<(Transform, float)>();
             foreach (var potentialPosition in potentialPositions)
             {
-                NavMeshPath path = new NavMeshPath();
-                if (NavMesh.CalculatePath(requestorPosition,
-                        potentialPosition.position, NavMesh.AllAreas, path))
+                var pathResult = Helper.DoesPathExist(requestorPosition, potentialPosition.position);
+                if (pathResult.pathExists)
                 {
-                    // Ensure there is a path
-                    if (path.status == NavMeshPathStatus.PathComplete)
-                    {
-                        float distance = Helper.GetPathLength(path);
-                        distances.Add((potentialPosition, distance));
-                    }
+                    float distance = Helper.GetPathLength(pathResult.navMeshPath);
+                    distances.Add((potentialPosition, distance));
                 }
             }
 
@@ -386,13 +381,13 @@ namespace Items
             if (distances.Count == 0)
             {
                 Debug.LogError($"Could not find a possible position for {gameObject.name}");
-                return transform;
+                return null;
             }
             
             // Compile the positions that pass the above tests and sort them by distance
             var sortedDistances = distances.OrderBy(x => x.Item2).Select(x => x.Item1).ToList();
             var selectedDistance = sortedDistances[0];
-            return selectedDistance;
+            return selectedDistance.position;
         }
 
         public void ShowCraftable(bool isShown)

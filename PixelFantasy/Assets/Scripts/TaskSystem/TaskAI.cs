@@ -526,6 +526,7 @@ namespace TaskSystem
 
             _heldItem.transform.SetParent(Spawner.Instance.ItemsParent);
             _heldItem.IsAllowed = true;
+            _heldItem.DropItem();
             _heldItem = null;
         }
 

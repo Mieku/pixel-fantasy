@@ -77,12 +77,15 @@ namespace Managers
             List<(HouseholdBuilding, float)> houseDistances = new List<(HouseholdBuilding, float)>();
             foreach (var emptyHouse in emptyHouses)
             {
-                NavMeshPath path = new NavMeshPath();
-                if (NavMesh.CalculatePath(emptyHouse.UseagePosition(requestingUnit.transform.position).position,
-                        requestingUnit.transform.position, NavMesh.AllAreas, path))
+                var buildingPos = emptyHouse.UseagePosition(requestingUnit.transform.position);
+                if (buildingPos != null)
                 {
-                    float distance = Helper.GetPathLength(path);
-                    houseDistances.Add((emptyHouse, distance));
+                    var pathResult = Helper.DoesPathExist(requestingUnit.transform.position, (Vector2)buildingPos);
+                    if (pathResult.pathExists)
+                    {
+                        float distance = Helper.GetPathLength(pathResult.navMeshPath);
+                        houseDistances.Add((emptyHouse, distance));
+                    }
                 }
             }
 
@@ -105,12 +108,15 @@ namespace Managers
                 var building = buildingT as Building;
                 if (building != null && building.State == Building.BuildingState.Built)
                 {
-                    NavMeshPath path = new NavMeshPath();
-                    if (NavMesh.CalculatePath(building.UseagePosition(resquestorPos).position,
-                            resquestorPos, NavMesh.AllAreas, path))
+                    var buildingPos = building.UseagePosition(resquestorPos);
+                    if (buildingPos != null)
                     {
-                        float distance = Helper.GetPathLength(path);
-                        buildingDistances.Add((building, distance));
+                        var pathResult = Helper.DoesPathExist((Vector2)buildingPos, resquestorPos);
+                        if (pathResult.pathExists)
+                        {
+                            float distance = Helper.GetPathLength(pathResult.navMeshPath);
+                            buildingDistances.Add((building, distance));
+                        }
                     }
                 }
             }

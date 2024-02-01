@@ -4,6 +4,7 @@ using Characters;
 using Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Items
 {
@@ -78,9 +79,15 @@ namespace Items
             
             // Correct Layering
             kinling.transform.SetParent(_usingParent);
-            kinling.AssignAndLockLayerOrder(1);
+            kinling.AssignAndLockLayerOrder(GetSeatedLayerOrder());
             
             kinling.SetSeated(this);
+        }
+
+        private int GetSeatedLayerOrder()
+        {
+            var spritesSort = SpritesRoot().GetComponent<SortingGroup>().sortingOrder;
+            return spritesSort + 1;
         }
 
         public void ExitSeat(Unit kinling)

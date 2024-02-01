@@ -20,7 +20,7 @@ namespace TaskSystem
         {
             _task = task;
             _construction = (Construction)_task.Requestor;
-            _movePos = _construction.UseagePosition(_ai.Unit.transform.position).position;
+            _movePos = _construction.UseagePosition(_ai.Unit.transform.position);
         }
 
         public override void DoAction()

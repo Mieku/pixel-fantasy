@@ -507,25 +507,55 @@ public static class Helper
         return length;
     }
 
-    public static bool DoesPathExist(Vector2 startPoint, Vector2 endPoint)
+    public struct PathResult
     {
-        NavMeshPath path = new NavMeshPath();
-        if (NavMesh.CalculatePath(startPoint,
-                endPoint, NavMesh.AllAreas, path))
+        public bool pathExists;
+        public NavMeshPath navMeshPath;
+    }
+
+    public static PathResult DoesPathExist(Vector2 startPoint2D, Vector2 endPoint2D)
+    {
+        float defaultZLevel = 0f;
+        
+        // Bitmask for all areas
+        int allAreasMask = 0xFFFFFF;
+        // Clear the bit for the 'Not Walkable' area (assuming it's at index 1)
+        int walkableAreasMask = allAreasMask & ~(1 << 1);
+        
+        Vector3 startPoint = new Vector3(startPoint2D.x, startPoint2D.y, defaultZLevel);
+        Vector3 endPoint = new Vector3(endPoint2D.x, endPoint2D.y, defaultZLevel);
+        
+        NavMeshHit startHit, endHit;
+        bool startValid = NavMesh.SamplePosition(startPoint, out startHit, 0.1f, walkableAreasMask);
+        bool endValid = NavMesh.SamplePosition(endPoint, out endHit, 0.1f, walkableAreasMask);
+        
+        PathResult result;
+        result.navMeshPath = new NavMeshPath();
+        
+        if (startValid && endValid)
         {
-            return path.status == NavMeshPathStatus.PathComplete;
+            NavMesh.CalculatePath(startHit.position, endHit.position, walkableAreasMask, result.navMeshPath);
+            result.pathExists = result.navMeshPath.status == NavMeshPathStatus.PathComplete;
         }
         else
         {
-            return false;
+            result.pathExists = false;
         }
+        
+        return result;
+    }
+
+    public static void DebugPath(NavMeshPath path, Color colour, float duration)
+    {
+        for (int i = 0; i < path.corners.Length - 1; i++)
+            Debug.DrawLine(path.corners[i], path.corners[i + 1], colour, duration);
     }
     
-    public static Vector3 RandomLocationInRange(Vector2 centerPoint, float range = 5f)
+    public static Vector2 RandomLocationInRange(Vector2 centerPoint, float range = 5f)
     {
-        Vector3 randomLocation = centerPoint;
-        randomLocation += Random.Range(-range, range) * Vector3.up;
-        randomLocation += Random.Range(-range, range) * Vector3.right;
+        Vector2 randomLocation = centerPoint;
+        randomLocation += Random.Range(-range, range) * Vector2.up;
+        randomLocation += Random.Range(-range, range) * Vector2.right;
 
         return randomLocation;
     }
