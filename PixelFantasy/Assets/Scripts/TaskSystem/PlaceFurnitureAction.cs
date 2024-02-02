@@ -46,7 +46,7 @@ namespace TaskSystem
             {
                 if (!_isMoving)
                 {
-                    _ai.Unit.UnitAgent.SetMovePosition(_itemToPlace.AssignedStorage.transform.position);
+                    _ai.Kinling.KinlingAgent.SetMovePosition(_itemToPlace.AssignedStorage.transform.position);
                     _isMoving = true;
                     return;
                 }
@@ -57,7 +57,7 @@ namespace TaskSystem
             {
                 if (!_isMoving)
                 {
-                    _ai.Unit.UnitAgent.SetMovePosition(_furniture.transform.position);
+                    _ai.Kinling.KinlingAgent.SetMovePosition(_furniture.transform.position);
                     _isMoving = true;
                     return;
                 }
@@ -82,7 +82,7 @@ namespace TaskSystem
 
         private void DoPlacement()
         {
-            UnitAnimController.SetUnitAction(UnitAction.Doing, _ai.GetActionDirection(_furniture.transform.position));
+            KinlingAnimController.SetUnitAction(UnitAction.Doing, _ai.GetActionDirection(_furniture.transform.position));
             _isPlacingItem = true;
             
             _timer += TimeManager.Instance.DeltaTime;
@@ -101,7 +101,7 @@ namespace TaskSystem
         {
             base.ConcludeAction();
             
-            UnitAnimController.SetUnitAction(UnitAction.Nothing);
+            KinlingAnimController.SetUnitAction(UnitAction.Nothing);
             _task = null;
             _itemToPlace = null;
             _isHoldingItem = false;

@@ -1,11 +1,11 @@
 using Handlers;
+using UnityEngine.Serialization;
 
 namespace Managers
 {
     public class ControllerManager : Singleton<ControllerManager>
     {
-        //public InventoryController InventoryController;
         public ItemsHandler ItemsHandler;
-        public UnitsHandler UnitsHandler;
+        public KinlingsHandler KinlingsHandler;
     }
 }

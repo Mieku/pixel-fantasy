@@ -56,7 +56,7 @@ namespace Items
             }
         }
 
-        private Seat GetKinlingsSeat(Unit kinling)
+        private Seat GetKinlingsSeat(Kinling kinling)
         {
             foreach (var seat in _seats)
             {
@@ -69,13 +69,13 @@ namespace Items
             return null;
         }
 
-        public void EnterSeat(Unit kinling)
+        public void EnterSeat(Kinling kinling)
         {
             var seat = GetKinlingsSeat(kinling);
 
             seat.IsInUse = true;
-            kinling.UnitAgent.TeleportToPosition(seat.Position, true);
-            kinling.UnitAnimController.SetUnitAction(UnitAction.Nothing, seat.Direction); // TODO: Add in sitting animation
+            kinling.KinlingAgent.TeleportToPosition(seat.Position, true);
+            kinling.kinlingAnimController.SetUnitAction(UnitAction.Nothing, seat.Direction); // TODO: Add in sitting animation
             
             // Correct Layering
             kinling.transform.SetParent(_usingParent);
@@ -90,23 +90,23 @@ namespace Items
             return spritesSort + 1;
         }
 
-        public void ExitSeat(Unit kinling)
+        public void ExitSeat(Kinling kinling)
         {
             var seat = GetKinlingsSeat(kinling);
             seat.IsInUse = false;
             
-            kinling.UnitAgent.TeleportToPosition(seat.Position, false);
+            kinling.KinlingAgent.TeleportToPosition(seat.Position, false);
             kinling.SetSeated(null);
             
-            kinling.transform.SetParent(UnitsManager.Instance.transform);
+            kinling.transform.SetParent(KinlingsManager.Instance.transform);
             kinling.UnlockLayerOrder();
             
-            kinling.UnitAnimController.SetUnitAction(UnitAction.Nothing);
+            kinling.kinlingAnimController.SetUnitAction(UnitAction.Nothing);
             
             UnclaimSeat(seat);
         }
 
-        public Seat ClaimSeat(Unit kinling)
+        public Seat ClaimSeat(Kinling kinling)
         {
             var seat = GetAvailableSeat();
             seat.claimedKinlingUID = kinling.UniqueId;

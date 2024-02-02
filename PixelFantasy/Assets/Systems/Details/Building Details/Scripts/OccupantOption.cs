@@ -14,10 +14,10 @@ namespace Systems.Details.Building_Details.Scripts
         [SerializeField] private Color _hoverTextColour;
         [SerializeField] private TooltipTrigger _tooltip;
 
-        private Action<Unit> _onPressedCallback;
-        private Unit _kinling;
+        private Action<Kinling> _onPressedCallback;
+        private Kinling _kinling;
 
-        public void Init(Unit kinling, List<StatType> relevantAbilityTypes, Action<Unit> onPressedCallback)
+        public void Init(Kinling kinling, List<StatType> relevantAbilityTypes, Action<Kinling> onPressedCallback)
         {
             _kinling = kinling;
             _onPressedCallback = onPressedCallback;

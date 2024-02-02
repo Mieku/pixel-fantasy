@@ -17,13 +17,13 @@ namespace Popups.Kinling_Info_Popup
         [SerializeField] private EmotionDisplay _positiveEmotionDisplayPrefab;
         [SerializeField] private EmotionDisplay _negativeEmotionDisplayPrefab;
         
-        private Unit _unit;
-        private Mood _kinlingMood => _unit.KinlingMood;
+        private Kinling _kinling;
+        private Mood _kinlingMood => _kinling.KinlingMood;
         private List<EmotionDisplay> _displayedEmotions = new List<EmotionDisplay>();
 
-        public void Show(Unit unit)
+        public void Show(Kinling kinling)
         {
-            _unit = unit;
+            _kinling = kinling;
             _positiveEmotionDisplayPrefab.gameObject.SetActive(false);
             _negativeEmotionDisplayPrefab.gameObject.SetActive(false);
             

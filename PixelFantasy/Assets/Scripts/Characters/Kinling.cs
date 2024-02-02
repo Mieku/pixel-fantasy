@@ -6,7 +6,6 @@ using Items;
 using Managers;
 using ScriptableObjects;
 using Systems.Mood.Scripts;
-using Systems.Notifications.Scripts;
 using Systems.Social.Scripts;
 using Systems.Traits.Scripts;
 using TaskSystem;
@@ -16,13 +15,15 @@ using UnityEngine.Serialization;
 
 namespace Characters
 {
-    public class Unit : UniqueObject, IPersistent
+    public class Kinling : UniqueObject, IPersistent
     {
         [SerializeField] private RaceData _race;
         [SerializeField] private TaskAI _taskAI;
-        [SerializeField] private UnitAppearance _appearance;
+        [SerializeField] private KinlingAppearance _appearance;
         [SerializeField] private Mood _mood;
         [SerializeField] private SocialAI _socialAI;
+        
+        public Stats Stats;
         
         [Header("Traits")] 
         [SerializeField] protected List<Trait> _traits;
@@ -55,8 +56,8 @@ namespace Characters
         public string FullName => FirstName + " " + LastName;
         
         public KinlingEquipment Equipment;
-        public UnitAnimController UnitAnimController;
-        public UnitAgent UnitAgent;
+        [FormerlySerializedAs("UnitAnimController")] public KinlingAnimController kinlingAnimController;
+        public KinlingAgent KinlingAgent;
 
         public RaceData Race => _race;
         public Mood KinlingMood => _mood;
@@ -67,13 +68,11 @@ namespace Characters
         public EMaturityStage MaturityStage => Age.MaturityStage;
         public ESexualPreference SexualPreference;
         public Gender Gender;
-        public Unit Partner;
-        public List<Unit> Children = new List<Unit>();
+        public Kinling Partner;
+        public List<Kinling> Children = new List<Kinling>();
         public ClickObject ClickObject;
         public KinlingNeeds Needs;
-        public Stats Stats;
         
-
         private Building _insideBuidling;
         private BedFurniture _bed;
         private KinlingData _kinlingData;
@@ -83,7 +82,7 @@ namespace Characters
         {
             ClickObject = GetComponent<ClickObject>();
             
-            UnitsManager.Instance.RegisterKinling(this);
+            KinlingsManager.Instance.RegisterKinling(this);
 
             GameEvents.DayTick += GameEvents_DayTick;
         }
@@ -91,7 +90,7 @@ namespace Characters
         private void OnDestroy()
         {
             
-            UnitsManager.Instance.DeregisterKinling(this);
+            KinlingsManager.Instance.DeregisterKinling(this);
             
             GameEvents.Trigger_OnCoinsIncomeChanged();
             
@@ -118,13 +117,13 @@ namespace Characters
             Equipment.Init(this, kinlingData.Gear);
             _traits = kinlingData.Traits;
 
-            Stats = kinlingData.Stats;
+            Stats.Init(kinlingData.Stats);
             
             _mood.Init();
 
             if (!string.IsNullOrEmpty(kinlingData.Partner))
             {
-                Unit partner = UnitsManager.Instance.GetUnit(kinlingData.Partner);
+                Kinling partner = KinlingsManager.Instance.GetUnit(kinlingData.Partner);
                 if (partner == null)
                 {
                     Debug.LogError($"Can't find Partner: {kinlingData.Partner}");
@@ -138,7 +137,7 @@ namespace Characters
             {
                 if (!string.IsNullOrEmpty(childUID))
                 {
-                    Unit child = UnitsManager.Instance.GetUnit(childUID);
+                    Kinling child = KinlingsManager.Instance.GetUnit(childUID);
                     if (child == null)
                     {
                         Debug.LogError($"Can't find child: {childUID}");
@@ -200,7 +199,7 @@ namespace Characters
 
         public TaskAI TaskAI => _taskAI;
 
-        public UnitAppearance GetAppearance()
+        public KinlingAppearance GetAppearance()
         {
             return _appearance;
         }
@@ -261,10 +260,10 @@ namespace Characters
             public Vector3 Position;
             
             // Unit Appearance
-            public UnitAppearance.AppearanceData AppearanceData;
+            public KinlingAppearance.AppearanceData AppearanceData;
         }
 
-        public bool IsKinlingAttractedTo(Unit otherKinling)
+        public bool IsKinlingAttractedTo(Kinling otherKinling)
         {
             var otherKinlingGender = otherKinling._appearance.GetAppearanceState().Gender;
             switch (SexualPreference)
@@ -302,19 +301,19 @@ namespace Characters
             int score = 0;
             if (relevantStats.Contains(StatType.Strength))
             {
-                score += Stats.Strength.Level;
+                score += Stats.GetStatByType(StatType.Strength).Level;
             }
             if (relevantStats.Contains(StatType.Vitality))
             {
-                score += Stats.Vitality.Level;
+                score += Stats.GetStatByType(StatType.Vitality).Level;
             }
             if (relevantStats.Contains(StatType.Intelligence))
             {
-                score += Stats.Intelligence.Level;
+                score += Stats.GetStatByType(StatType.Intelligence).Level;
             }
             if (relevantStats.Contains(StatType.Expertise))
             {
-                score += Stats.Expertise.Level;
+                score += Stats.GetStatByType(StatType.Expertise).Level;
             }
 
             return score;
@@ -328,10 +327,10 @@ namespace Characters
                 relevantColour = relevantColourOverride;
             }
             
-            int strength = Stats.Strength.Level;
-            int vitality = Stats.Vitality.Level;
-            int intelligence = Stats.Intelligence.Level;
-            int expertise = Stats.Expertise.Level;
+            int strength = Stats.GetStatByType(StatType.Strength).Level;
+            int vitality = Stats.GetStatByType(StatType.Vitality).Level;
+            int intelligence = Stats.GetStatByType(StatType.Intelligence).Level;
+            int expertise = Stats.GetStatByType(StatType.Expertise).Level;
 
             string result = "";
             // Strength

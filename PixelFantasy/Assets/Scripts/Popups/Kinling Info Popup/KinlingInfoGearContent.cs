@@ -32,7 +32,7 @@ namespace Popups.Kinling_Info_Popup
         [SerializeField] private Button _unequipBtn;
         [SerializeField] private Button _equipBtn;
         
-        private Unit _unit;
+        private Kinling _kinling;
         private List<KinlingInfoOwnedItemSlot> _displayedOwnedItemSlots = new List<KinlingInfoOwnedItemSlot>();
         private GearContentSlot _currentGearSlot;
         private KinlingInfoOwnedItemSlot _currentSelectedItem;
@@ -58,16 +58,16 @@ namespace Popups.Kinling_Info_Popup
             GameEvents.OnKinlingChanged -= GameEvent_OnKinlingChanged;
         }
 
-        private void GameEvent_OnKinlingChanged(Unit unit)
+        private void GameEvent_OnKinlingChanged(Kinling kinling)
         {
-            if (_unit != unit) return;
+            if (_kinling != kinling) return;
             
             Refresh();
         }
 
-        public void Show(Unit unit)
+        public void Show(Kinling kinling)
         {
-            _unit = unit;
+            _kinling = kinling;
             
             gameObject.SetActive(true);
             Refresh();
@@ -87,8 +87,8 @@ namespace Popups.Kinling_Info_Popup
             }
             
             
-            StageManager.Instance.StagedKinling.ApplyAppearance(_unit.GetAppearance().GetAppearanceState());
-            StageManager.Instance.StagedKinling.ApplyEquipment(_unit.Equipment.EquipmentState);
+            StageManager.Instance.StagedKinling.ApplyAppearance(_kinling.GetAppearance().GetAppearanceState());
+            StageManager.Instance.StagedKinling.ApplyEquipment(_kinling.Equipment.EquipmentState);
         }
 
         private void DisplaySlotDetails(GearType type)
@@ -129,7 +129,7 @@ namespace Popups.Kinling_Info_Popup
 
         private void RefreshGear()
         {
-            var equipment = _unit.Equipment.EquipmentState;
+            var equipment = _kinling.Equipment.EquipmentState;
             
             var head = equipment.Head;
             var body = equipment.Body;
@@ -161,7 +161,7 @@ namespace Popups.Kinling_Info_Popup
                 _gearDetailsName.text = gearState.GearData.ItemName;
                 _gearDetails.text = $"{gearState.Durability} / {gearState.GearData.Durability} Durability";
                 
-                var curEquipped = _unit.Equipment.EquipmentState.GetGearByType(gearState.GearData.Type);
+                var curEquipped = _kinling.Equipment.EquipmentState.GetGearByType(gearState.GearData.Type);
                 if (curEquipped != null && curEquipped.Equals(gearState))
                 {
                     _unequipBtn.gameObject.SetActive(true);
@@ -191,7 +191,7 @@ namespace Popups.Kinling_Info_Popup
             }
             _displayedOwnedItemSlots.Clear();
             
-            var curEquipped = _unit.Equipment.EquipmentState.GetGearByType(gearType);
+            var curEquipped = _kinling.Equipment.EquipmentState.GetGearByType(gearType);
             var allAvailableItems = InventoryManager.Instance.GetAvailableInventory(false);
 
             int minItems = 1;
@@ -207,7 +207,7 @@ namespace Popups.Kinling_Info_Popup
                         foreach (var item in availableItem.Value)
                         {
                             var equipment = item.State as GearState;
-                            if (equipment != null && equipment.CanBeEquippedByUnit(_unit))
+                            if (equipment != null && equipment.CanBeEquippedByUnit(_kinling))
                             {
                                 applicableItems.Add(item.State);
                             }
@@ -245,7 +245,7 @@ namespace Popups.Kinling_Info_Popup
                 
                 // Check if this item is in the desired equipment state, if so show the equipping indicator
                 var gearState = item as GearState;
-                var desired = _unit.Equipment.DesiredEquipmentState.GetGearByType(gearState.GearData.Type);
+                var desired = _kinling.Equipment.DesiredEquipmentState.GetGearByType(gearState.GearData.Type);
                 if (desired != null && desired.Equals(gearState))
                 {
                     _displayedOwnedItemSlots[index].ShowEquippingIndicator(true);
@@ -269,7 +269,7 @@ namespace Popups.Kinling_Info_Popup
             _currentGearSlot = pressedSlot;
             _currentGearSlot.DisplaySelected(true);
             
-            RefreshGearDetails(_unit.Equipment.EquipmentState.GetGearByType(gearType));
+            RefreshGearDetails(_kinling.Equipment.EquipmentState.GetGearByType(gearType));
             DisplayItemsForSlot(gearType);
         }
 
@@ -293,7 +293,7 @@ namespace Popups.Kinling_Info_Popup
 
         public void UnequipPressed()
         {
-            _unit.Equipment.Unequip(_selectedGear);
+            _kinling.Equipment.Unequip(_selectedGear);
             RefreshGear();
             
             DisplaySlotDetails(_selectedGear.GearData.Type);
@@ -301,7 +301,7 @@ namespace Popups.Kinling_Info_Popup
 
         public void EquipPressed()
         {
-            _unit.Equipment.AssignDesiredEquipment(_selectedGear);
+            _kinling.Equipment.AssignDesiredEquipment(_selectedGear);
             
             RefreshGear();
             

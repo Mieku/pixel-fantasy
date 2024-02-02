@@ -22,14 +22,14 @@ namespace TaskSystem
             _task = task;
             _resource = (GrowingResource)task.Requestor;
             _actionAnimation = UnitAction.Doing;
-            _movePos = _resource.UseagePosition(_ai.Unit.transform.position);
+            _movePos = _resource.UseagePosition(_ai.Kinling.transform.position);
         }
         
         public override void ConcludeAction()
         {
             base.ConcludeAction();
             
-            UnitAnimController.SetUnitAction(UnitAction.Nothing);
+            KinlingAnimController.SetUnitAction(UnitAction.Nothing);
             _resource = null;
             _task = null;
             _actionAnimation = UnitAction.Nothing;
@@ -53,14 +53,14 @@ namespace TaskSystem
         {
             if (!_isMoving)
             {
-                _ai.Unit.UnitAgent.SetMovePosition((Vector2)_movePos);
+                _ai.Kinling.KinlingAgent.SetMovePosition((Vector2)_movePos);
                 _isMoving = true;
             }
         }
 
         private void DoHarvest()
         {
-            UnitAnimController.SetUnitAction(_actionAnimation, _ai.GetActionDirection(_resource.transform.position));
+            KinlingAnimController.SetUnitAction(_actionAnimation, _ai.GetActionDirection(_resource.transform.position));
             
             _timer += TimeManager.Instance.DeltaTime;
             if(_timer >= WORK_SPEED) 

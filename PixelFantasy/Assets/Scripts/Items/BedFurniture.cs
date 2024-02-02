@@ -16,7 +16,7 @@ namespace Items
         private string _assignedKinling2;
         private List<string> _kinlingsInBed = new List<string>();
 
-        public bool IsUnassigned(Unit unit)
+        public bool IsUnassigned(Kinling kinling)
         {
             if (string.IsNullOrEmpty(_assignedKinling))
             {
@@ -24,7 +24,7 @@ namespace Items
             }
             else
             {
-                if (unit.Partner != null && unit.Partner.UniqueId == _assignedKinling)
+                if (kinling.Partner != null && kinling.Partner.UniqueId == _assignedKinling)
                 {
                     return true;
                 }
@@ -33,16 +33,16 @@ namespace Items
             return false;
         }
 
-        public void AssignKinling(Unit unit)
+        public void AssignKinling(Kinling kinling)
         {
-            unit.AssignBed(this);
+            kinling.AssignBed(this);
             if (string.IsNullOrEmpty(_assignedKinling))
             {
-                _assignedKinling = unit.UniqueId;
+                _assignedKinling = kinling.UniqueId;
             }
             else
             {
-                _assignedKinling2 = unit.UniqueId;
+                _assignedKinling2 = kinling.UniqueId;
             }
         }
 
@@ -82,9 +82,9 @@ namespace Items
         [TitleGroup("East")] [SerializeField] private Transform _eastSleepMarker;
         [TitleGroup("East")] [SerializeField] private Transform _eastSleepMarker2;
 
-        public Transform GetSleepLocation(Unit unit)
+        public Transform GetSleepLocation(Kinling kinling)
         {
-            if (_assignedKinling == unit.UniqueId)
+            if (_assignedKinling == kinling.UniqueId)
             {
                 return CurrentDirection switch
                 {
@@ -96,7 +96,7 @@ namespace Items
                 };
             }
 
-            if (_assignedKinling2 == unit.UniqueId)
+            if (_assignedKinling2 == kinling.UniqueId)
             {
                 return CurrentDirection switch
                 {
@@ -154,28 +154,28 @@ namespace Items
             }
         }
 
-        public void EnterBed(Unit unit)
+        public void EnterBed(Kinling kinling)
         {
-            unit.transform.SetParent(UsingParent);
-            unit.IsAsleep = true;
+            kinling.transform.SetParent(UsingParent);
+            kinling.IsAsleep = true;
             ShowTopSheet(true);
             int orderlayer = GetBetweenTheSheetsLayerOrder();
-            unit.AssignAndLockLayerOrder(orderlayer);
+            kinling.AssignAndLockLayerOrder(orderlayer);
             
-            _kinlingsInBed.Add(unit.UniqueId);
+            _kinlingsInBed.Add(kinling.UniqueId);
         }
 
-        public void ExitBed(Unit unit)
+        public void ExitBed(Kinling kinling)
         {
-            unit.transform.SetParent(UnitsManager.Instance.transform);
-            unit.IsAsleep = false;
+            kinling.transform.SetParent(KinlingsManager.Instance.transform);
+            kinling.IsAsleep = false;
             ShowTopSheet(false);
-            unit.UnlockLayerOrder();
+            kinling.UnlockLayerOrder();
             
-            _kinlingsInBed.Remove(unit.UniqueId);
+            _kinlingsInBed.Remove(kinling.UniqueId);
         }
 
-        public bool IsPartnerInBed(Unit kinling)
+        public bool IsPartnerInBed(Kinling kinling)
         {
             if (kinling.Partner == null) return false;
 

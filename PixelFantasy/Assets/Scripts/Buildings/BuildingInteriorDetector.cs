@@ -40,7 +40,7 @@ namespace Buildings
             return _interiorColliders.Any(interiorCollider => interiorCollider.bounds.Contains(pos));
         }
 
-        public Vector2? GetRandomInteriorPosition(Unit kinling)
+        public Vector2? GetRandomInteriorPosition(Kinling kinling)
         {
             const int maxAttempts = 100;
 
@@ -49,7 +49,7 @@ namespace Buildings
                 BoxCollider2D chosenCollider = _interiorColliders[UnityEngine.Random.Range(0, _interiorColliders.Length)];
                 Vector2 randomPosition = GetRandomPositionInCollider(chosenCollider);
 
-                if (kinling.UnitAgent.IsDestinationPossible(randomPosition))
+                if (kinling.KinlingAgent.IsDestinationPossible(randomPosition))
                 {
                     return randomPosition;
                 }
@@ -96,19 +96,19 @@ namespace Buildings
         
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Unit unit = other.GetComponent<Unit>();
-            if (unit != null)
+            Kinling kinling = other.GetComponent<Kinling>();
+            if (kinling != null)
             {
-                unit.SetInsideBuilding(_building);
+                kinling.SetInsideBuilding(_building);
             }
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            Unit unit = other.GetComponent<Unit>();
-            if (unit != null)
+            Kinling kinling = other.GetComponent<Kinling>();
+            if (kinling != null)
             {
-                unit.SetInsideBuilding(null);
+                kinling.SetInsideBuilding(null);
             }
         }
     }

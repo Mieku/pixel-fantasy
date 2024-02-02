@@ -130,9 +130,9 @@ namespace Buildings.Building_Types
         public bool PrioritizeOrdersWithMats { get; set; } = true;
         public CraftingOrder CurrentCraftingOrder { get; set; }
 
-        public override List<Unit> GetPotentialOccupants()
+        public override List<Kinling> GetPotentialOccupants()
         {
-            return UnitsManager.Instance.UnemployedKinlings;
+            return KinlingsManager.Instance.UnemployedKinlings;
         }
 
         public List<CraftingOrder> QueuedOrders()

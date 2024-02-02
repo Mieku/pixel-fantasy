@@ -49,7 +49,7 @@ namespace Systems.Details.Building_Details.Scripts
             _displayedSlots.Clear();
         }
 
-        private void OnKinlingSelected(Unit selectedKinling, Unit previousKinling)
+        private void OnKinlingSelected(Kinling selectedKinling, Kinling previousKinling)
         {
             if (previousKinling != null)
             {

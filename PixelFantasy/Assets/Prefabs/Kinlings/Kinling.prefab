@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1163a30bed39e5040bc983cfe9b147ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unit: {fileID: 5584874993929393806}
+  _kinling: {fileID: 5584874993929393806}
 --- !u!1 &1522359248027392421
 GameObject:
   m_ObjectHideFlags: 0
@@ -781,7 +781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05c752dd17140ed4a90043e6323b3a63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unit: {fileID: 5584874993929393806}
+  _kinling: {fileID: 5584874993929393806}
   _speechBubbleHandle: {fileID: 2341590179856157572}
   _speechTopicIcon: {fileID: 3228472232261255473}
   _socialTopics: {fileID: 11400000, guid: 3c113fafdab79484a80f88ec3f732f61, type: 2}
@@ -1233,8 +1233,9 @@ GameObject:
   - component: {fileID: 6234467081272595317}
   - component: {fileID: 4888200492756624676}
   - component: {fileID: 1019713362702754046}
+  - component: {fileID: 4421225838997015194}
   m_Layer: 6
-  m_Name: Unit
+  m_Name: Kinling
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1278,6 +1279,7 @@ MonoBehaviour:
   _appearance: {fileID: 4680592222557511252}
   _mood: {fileID: 4888200492756624676}
   _socialAI: {fileID: 5256464669028443073}
+  Stats: {fileID: 4421225838997015194}
   _traits: []
   _dailyCoinsIncome: 5
   _relevantStatColour: {r: 0.050980393, g: 0.7529412, b: 0, a: 1}
@@ -1287,8 +1289,8 @@ MonoBehaviour:
   LastName: 
   AssignedWorkplace: {fileID: 0}
   Equipment: {fileID: 12347069629172064}
-  UnitAnimController: {fileID: 1198530704868288865}
-  UnitAgent: {fileID: 6234467081272595317}
+  kinlingAnimController: {fileID: 1198530704868288865}
+  KinlingAgent: {fileID: 6234467081272595317}
   IsAsleep: 0
   Age:
     CurrentAge: 0
@@ -1296,17 +1298,8 @@ MonoBehaviour:
   Gender: 1
   Partner: {fileID: 0}
   Children: []
-  ClickObject: {fileID: 0}
+  ClickObject: {fileID: 2273999213966366943}
   Needs: {fileID: 6110830004571278970}
-  Stats:
-    Strength:
-      Level: 0
-    Vitality:
-      Level: 0
-    Intelligence:
-      Level: 0
-    Expertise:
-      Level: 0
 --- !u!114 &6110830004571278970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1499,6 +1492,30 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4421225838997015194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5532418264530240426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0cfb1b121cb6e489f16ac387dc30e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Strength:
+    Level: 0
+    Type: 0
+  Vitality:
+    Level: 0
+    Type: 1
+  Intelligence:
+    Level: 0
+    Type: 2
+  Expertise:
+    Level: 0
+    Type: 3
 --- !u!1 &5537650040891410994
 GameObject:
   m_ObjectHideFlags: 0

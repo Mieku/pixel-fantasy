@@ -10,10 +10,10 @@ namespace Buildings
         [SerializeField] private TextMeshProUGUI _kinlingName;
         [SerializeField] private TextMeshProUGUI _kinlingJobTitle;
 
-        private Action<Unit> _onPressedCallback;
-        private Unit _kinling;
+        private Action<Kinling> _onPressedCallback;
+        private Kinling _kinling;
 
-        public void Init(Unit kinling, Action<Unit> onPressedCallback)
+        public void Init(Kinling kinling, Action<Kinling> onPressedCallback)
         {
             _kinling = kinling;
             _onPressedCallback = onPressedCallback;

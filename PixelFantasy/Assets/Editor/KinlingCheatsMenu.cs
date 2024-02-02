@@ -70,12 +70,12 @@ public class KinlingCheatsMenu : EditorWindow
         }
     }
 
-    private List<Unit> GetSelectedUnits()
+    private List<Kinling> GetSelectedUnits()
     {
-        List<Unit> results = new List<Unit>();
+        List<Kinling> results = new List<Kinling>();
         foreach (var obj in Selection.gameObjects)
         {
-            var unit = obj.GetComponent<Unit>();
+            var unit = obj.GetComponent<Kinling>();
             if (unit != null)
             {
                 results.Add(unit);

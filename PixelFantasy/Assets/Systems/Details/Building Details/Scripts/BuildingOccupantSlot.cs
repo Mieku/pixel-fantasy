@@ -27,12 +27,12 @@ namespace Systems.Details.Building_Details.Scripts
         [SerializeField] private Transform _occupantOptionParent;
         [SerializeField] private GameObject _noneAvailableHandle;
 
-        private Unit _assignedKinling;
+        private Kinling _assignedKinling;
         private Building _linkedBuilding;
-        private Action<Unit, Unit> _onKinlingSelected;
+        private Action<Kinling, Kinling> _onKinlingSelected;
         private List<OccupantOption> _displayedOptions = new List<OccupantOption>();
 
-        public void Init(Unit assignedKinling, Building building, Action<Unit, Unit> onKinlingSelected)
+        public void Init(Kinling assignedKinling, Building building, Action<Kinling, Kinling> onKinlingSelected)
         {
             _assignedKinling = assignedKinling;
             _linkedBuilding = building;
@@ -69,7 +69,7 @@ namespace Systems.Details.Building_Details.Scripts
                 _removeCurrentHandle.SetActive(false);
             }
 
-            List<Unit> potentialOccupants = _linkedBuilding.GetPotentialOccupants();
+            List<Kinling> potentialOccupants = _linkedBuilding.GetPotentialOccupants();
             if (potentialOccupants.Count == 0)
             {
                 _noneAvailableHandle.SetActive(true);
@@ -117,7 +117,7 @@ namespace Systems.Details.Building_Details.Scripts
             _onKinlingSelected.Invoke(null, _assignedKinling);
         }
 
-        private void OnOptionSelected(Unit selectedKinling)
+        private void OnOptionSelected(Kinling selectedKinling)
         {
             HideSelect();
             _onKinlingSelected.Invoke(selectedKinling, _assignedKinling);

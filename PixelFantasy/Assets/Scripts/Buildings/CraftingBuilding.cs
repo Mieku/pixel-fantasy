@@ -38,12 +38,12 @@ namespace Buildings
         public List<CraftedItemData> CraftingOptions => _craftingOptions;
         [ShowInInspector] public BuildingCraftQueue BuildingCraftQueue { get; } = new BuildingCraftQueue();
         
-        public override List<Unit> GetPotentialOccupants()
+        public override List<Kinling> GetPotentialOccupants()
         {
             var relevantAbilites = _buildingData.RelevantAbilityTypes;
             
-            var unemployed = UnitsManager.Instance.UnemployedKinlings;
-            List<Unit> sortedKinlings = unemployed
+            var unemployed = KinlingsManager.Instance.UnemployedKinlings;
+            List<Kinling> sortedKinlings = unemployed
                 .OrderByDescending(kinling => kinling.RelevantStatScore(relevantAbilites)).ToList();
             return sortedKinlings;
         }

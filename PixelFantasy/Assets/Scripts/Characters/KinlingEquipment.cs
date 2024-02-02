@@ -57,16 +57,16 @@ namespace Characters
         public Item Carried;
 
         private UnitActionDirection _curDirection;
-        private Unit _unit;
+        private Kinling _kinling;
 
         private void Start()
         {
             ShowCurrentGear();
         }
 
-        public void Init(Unit unit, KinlingGearData kinlingGearData)
+        public void Init(Kinling kinling, KinlingGearData kinlingGearData)
         {
-            _unit = unit;
+            _kinling = kinling;
 
             InitializeGear(kinlingGearData, GearType.Head);
             InitializeGear(kinlingGearData, GearType.Body);
@@ -155,7 +155,7 @@ namespace Characters
 
                 DisplayGear(equipmentState);
 
-                GameEvents.Trigger_OnKinlingChanged(_unit);
+                GameEvents.Trigger_OnKinlingChanged(_kinling);
             }
         }
 
@@ -270,7 +270,7 @@ namespace Characters
 
             DisplayGear(equipmentState);
 
-            GameEvents.Trigger_OnKinlingChanged(_unit);
+            GameEvents.Trigger_OnKinlingChanged(_kinling);
         }
 
         private void DisplayGear(GearState gearState)

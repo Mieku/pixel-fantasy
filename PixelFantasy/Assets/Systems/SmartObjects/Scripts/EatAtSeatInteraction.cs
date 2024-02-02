@@ -143,19 +143,19 @@ namespace Systems.SmartObjects.Scripts
             }
             
             // Take the item out of storage
-            return _currentPerformer.Performer.Unit.UnitAgent.SetMovePosition(_selectedFoodItem.AssignedStorage.transform.position, 
+            return _currentPerformer.Performer.Kinling.KinlingAgent.SetMovePosition(_selectedFoodItem.AssignedStorage.transform.position, 
                 () =>
             {
                 _selectedFoodItem.AssignedStorage.WithdrawItem(_selectedFoodItem);
-                performer.Unit.TaskAI.HoldItem(_selectedFoodItem);
+                performer.Kinling.TaskAI.HoldItem(_selectedFoodItem);
                 _selectedFoodItem.SetHeld(true);
                 
-                _currentPerformer.Performer.Unit.UnitAgent.SetMovePosition(gameObject.transform.position, () =>
+                _currentPerformer.Performer.Kinling.KinlingAgent.SetMovePosition(gameObject.transform.position, () =>
                 {
                     // Start perform animation
                     if (_performingAnimation != UnitAction.Nothing)
                     {
-                        performer.Unit.UnitAnimController.SetUnitAction(_performingAnimation);
+                        performer.Kinling.kinlingAnimController.SetUnitAction(_performingAnimation);
                     }
                     
                     _currentPerformer.ElapsedTime = 0f;
@@ -193,13 +193,13 @@ namespace Systems.SmartObjects.Scripts
         {
             base.OnInteractionCompleted(performer, _currentPerformer.OnCompleted);
             
-            performer.Unit.UnitAnimController.SetUnitAction(UnitAction.Nothing);
+            performer.Kinling.kinlingAnimController.SetUnitAction(UnitAction.Nothing);
             _currentPerformer.OnCompleted.Invoke(this);
             
             // Drop Item
             if (_selectedFoodItem != null)
             {
-                performer.Unit.TaskAI.DropCarriedItem();
+                performer.Kinling.TaskAI.DropCarriedItem();
                 _selectedFoodItem.SetHeld(false);
             }
         }
@@ -216,7 +216,7 @@ namespace Systems.SmartObjects.Scripts
         {
             base.OnInteractionCompleted(performer, onCompleted);
             
-            performer.Unit.UnitAnimController.SetUnitAction(UnitAction.Nothing);
+            performer.Kinling.kinlingAnimController.SetUnitAction(UnitAction.Nothing);
             onCompleted.Invoke(this);
             
             Destroy(_selectedFoodItem.gameObject);

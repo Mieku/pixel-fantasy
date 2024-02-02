@@ -22,8 +22,8 @@ namespace TaskSystem
 
         private void ChooseNewLocation()
         {
-            var wanderTarget = _ai.Unit.UnitAgent.PickLocationInRange(1.0f);
-            _ai.Unit.UnitAgent.SetMovePosition(wanderTarget, OnReachedLocation);
+            var wanderTarget = _ai.Kinling.KinlingAgent.PickLocationInRange(1.0f);
+            _ai.Kinling.KinlingAgent.SetMovePosition(wanderTarget, OnReachedLocation);
         }
 
         private void OnReachedLocation()
@@ -34,7 +34,7 @@ namespace TaskSystem
         public override void ConcludeAction()
         {
             base.ConcludeAction();
-            _ai.Unit.UnitAgent.SetMovePosition(transform.position);
+            _ai.Kinling.KinlingAgent.SetMovePosition(transform.position);
         }
     }
 }

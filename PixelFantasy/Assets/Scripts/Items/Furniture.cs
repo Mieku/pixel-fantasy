@@ -417,7 +417,7 @@ namespace Items
         {
             // Check if the required crafter exists
             var requiredJob = _furnitureItemData.RequiredCraftingJob;
-            if (!UnitsManager.Instance.AnyUnitHaveJob(requiredJob)) return false;
+            if (!KinlingsManager.Instance.AnyUnitHaveJob(requiredJob)) return false;
             
             // Check if crafting table exits
             foreach (var option in _furnitureItemData.RequiredCraftingTableOptions)
@@ -824,11 +824,11 @@ namespace Items
             return this;
         }
         
-        public Unit GetCrafter()
+        public Kinling GetCrafter()
         {
             if (!WasCrafted) return null;
 
-            return UnitsManager.Instance.GetUnit(CraftersUID);
+            return KinlingsManager.Instance.GetUnit(CraftersUID);
         }
 
         public bool WasCrafted => !string.IsNullOrEmpty(CraftersUID);

@@ -20,7 +20,7 @@ namespace TaskSystem
             _claimedGear = request.State as GearState;
             _gear = _claimedGear.GearData;
             _state = TaskState.GoingToStorage;
-            _ai.Unit.UnitAgent.SetMovePosition(_claimedGear.Storage.transform.position);
+            _ai.Kinling.KinlingAgent.SetMovePosition(_claimedGear.Storage.transform.position);
         }
 
         public override void DoAction()
@@ -51,10 +51,10 @@ namespace TaskSystem
 
         private void DoUnequipCurrentGear()
         {
-            var curEquippedItem = _ai.Unit.Equipment.EquipmentState.GetGearByType(_gear.Type);
+            var curEquippedItem = _ai.Kinling.Equipment.EquipmentState.GetGearByType(_gear.Type);
             if (curEquippedItem != null)
             {
-                _ai.Unit.Equipment.Unequip(curEquippedItem);
+                _ai.Kinling.Equipment.Unequip(curEquippedItem);
             }
 
             _state = TaskState.EquipNewGear;
@@ -63,7 +63,7 @@ namespace TaskSystem
         private void DoEquipNewGear()
         {
             var item = _claimedGear.Storage.WithdrawItem(_claimedGear);
-            _ai.Unit.Equipment.Equip(item);
+            _ai.Kinling.Equipment.Equip(item);
             ConcludeAction();
         }
 

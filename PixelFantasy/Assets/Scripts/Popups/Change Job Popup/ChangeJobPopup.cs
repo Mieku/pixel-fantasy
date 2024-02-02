@@ -38,14 +38,14 @@ namespace Popups.Change_Job_Popup
         [Header("Job Options")] 
         [SerializeField] private Transform _jobOptionParent;
         
-        private Unit _unit;
+        private Kinling _kinling;
         private JobData _curJob;
         private ChangeJobOption _curSelectedOption;
         private List<ChangeJobOption> _allOptions = new List<ChangeJobOption>();
 
-        public static void Show(Unit unit)
+        public static void Show(Kinling kinling)
         {
-            Open(() => Instance.Init(unit), false);
+            Open(() => Instance.Init(kinling), false);
         }
         
         public override void OnBackPressed()
@@ -53,16 +53,16 @@ namespace Popups.Change_Job_Popup
             Hide();
         }
         
-        private void Init(Unit unit)
+        private void Init(Kinling kinling)
         {
-            _unit = unit;
+            _kinling = kinling;
             RefreshJobs();
             SelectCurrentJob();
         }
 
         private void SelectCurrentJob()
         {
-            var job = _unit.CurrentJob;
+            var job = _kinling.CurrentJob;
             foreach (var option in _allOptions)
             {
                 if (option.Job == job)
@@ -75,8 +75,8 @@ namespace Popups.Change_Job_Popup
 
         private void RefreshJobs()
         {
-            _kinlingName.text = _unit.FullName;
-            _kinlingJobName.text = _unit.JobName;
+            _kinlingName.text = _kinling.FullName;
+            _kinlingJobName.text = _kinling.JobName;
             
             _allOptions.Clear();
             _allOptions = _jobOptionParent.GetComponentsInChildren<ChangeJobOption>().ToList();
@@ -85,7 +85,7 @@ namespace Popups.Change_Job_Popup
                 var job = option.Job;
                 if (job != null)
                 {
-                    if (_unit.CurrentJob == job)
+                    if (_kinling.CurrentJob == job)
                     {
                         option.Init(ChangeJobOption.JobOptionState.Current, OnJobSelected);
                     }

@@ -18,11 +18,11 @@ namespace Characters
 
         [SerializeField] private List<NeedChange> _registeredNeedChanges = new List<NeedChange>();
 
-        private Unit _kinling;
+        private Kinling _kinling;
 
         private void Awake()
         {
-            _kinling = GetComponent<Unit>();
+            _kinling = GetComponent<Kinling>();
             GameEvents.MinuteTick += GameEvent_MinuteTick;
         }
 

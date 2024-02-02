@@ -36,7 +36,7 @@ namespace TaskSystem
         public override void PrepareAction(Task task)
         {
             _itemToCraft = Librarian.Instance.GetItemData((string)task.Payload) as CraftedItemData;
-            _craftingTable = _ai.Unit.AssignedWorkplace.GetCraftingTableForItem(_itemToCraft);
+            _craftingTable = _ai.Kinling.AssignedWorkplace.GetCraftingTableForItem(_itemToCraft);
             _materials = task.Materials;
             _requestingFurniture = task.Requestor as Furniture;
             _state = ETaskState.ClaimTable;
@@ -53,8 +53,8 @@ namespace TaskSystem
             if (_state == ETaskState.GatherMats)
             {
                 _targetItem = _materials[_materialIndex];
-                var movePos = _targetItem.AssignedStorage.UseagePosition(_ai.Unit.transform.position);
-                _ai.Unit.UnitAgent.SetMovePosition(movePos, OnArrivedAtStorageForPickup, OnTaskCancel);
+                var movePos = _targetItem.AssignedStorage.UseagePosition(_ai.Kinling.transform.position);
+                _ai.Kinling.KinlingAgent.SetMovePosition(movePos, OnArrivedAtStorageForPickup, OnTaskCancel);
                 _state = ETaskState.WaitingOnMats;
             }
 
@@ -65,17 +65,17 @@ namespace TaskSystem
 
             if (_state == ETaskState.CraftItem)
             {
-                UnitAnimController.SetUnitAction(UnitAction.Doing, _ai.GetActionDirection(_craftingTable.transform.position));
+                KinlingAnimController.SetUnitAction(UnitAction.Doing, _ai.GetActionDirection(_craftingTable.transform.position));
                 _timer += TimeManager.Instance.DeltaTime;
                 if(_timer >= WORK_SPEED) 
                 {
                     _timer = 0;
                     if (_craftingTable.DoCraft(WORK_AMOUNT))
                     {
-                        UnitAnimController.SetUnitAction(UnitAction.Nothing);
+                        KinlingAnimController.SetUnitAction(UnitAction.Nothing);
                         
                         _targetItem = Spawner.Instance.SpawnItem(_itemToCraft, _craftingTable.transform.position, false);
-                        _targetItem.State.CraftersUID = _ai.Unit.UniqueId;
+                        _targetItem.State.CraftersUID = _ai.Kinling.UniqueId;
                         _ai.HoldItem(_targetItem);
                         _targetItem.SetHeld(true);
                         
@@ -86,7 +86,7 @@ namespace TaskSystem
 
             if (_state == ETaskState.DeliverItem)
             {
-                _ai.Unit.UnitAgent.SetMovePosition(_requestingFurniture.UseagePosition(_ai.Unit.transform.position), OnFurnitureDelivered, OnTaskCancel);
+                _ai.Kinling.KinlingAgent.SetMovePosition(_requestingFurniture.UseagePosition(_ai.Kinling.transform.position), OnFurnitureDelivered, OnTaskCancel);
                 _state = ETaskState.WaitingOnDelivery;
             }
         }
@@ -96,7 +96,7 @@ namespace TaskSystem
             _targetItem.AssignedStorage.WithdrawItem(_targetItem);
             _ai.HoldItem(_targetItem);
             _targetItem.SetHeld(true);
-            _ai.Unit.UnitAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Unit.transform.position), OnArrivedAtCraftingTable, OnTaskCancel);
+            _ai.Kinling.KinlingAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Kinling.transform.position), OnArrivedAtCraftingTable, OnTaskCancel);
         }
 
         private void OnArrivedAtCraftingTable()
@@ -108,7 +108,7 @@ namespace TaskSystem
             // Are there more items to gather?
             if (_materialIndex > _materials.Count - 1)
             {
-                _ai.Unit.UnitAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Unit.transform.position), () =>
+                _ai.Kinling.KinlingAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Kinling.transform.position), () =>
                 {
                     _state = ETaskState.CraftItem;
                 }, OnTaskCancel);
@@ -116,7 +116,7 @@ namespace TaskSystem
             else
             {
                 _targetItem = _materials[_materialIndex];
-                _ai.Unit.UnitAgent.SetMovePosition(_targetItem.AssignedStorage.UseagePosition(_ai.Unit.transform.position),
+                _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.AssignedStorage.UseagePosition(_ai.Kinling.transform.position),
                     OnArrivedAtStorageForPickup, OnTaskCancel);
             }
         }
@@ -138,7 +138,7 @@ namespace TaskSystem
         {
             base.ConcludeAction();
             
-            UnitAnimController.SetUnitAction(UnitAction.Nothing);
+            KinlingAnimController.SetUnitAction(UnitAction.Nothing);
             _task = null;
             _itemToCraft = null;
             _requestingFurniture = null;

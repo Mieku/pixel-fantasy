@@ -9,18 +9,18 @@ namespace Popups.Kinling_Info_Popup
     {
         [SerializeField] private KinlingScheduleDisplay _kinlingSchedule;
         
-        private Unit _unit;
+        private Kinling _kinling;
 
-        public void Show(Unit unit)
+        public void Show(Kinling kinling)
         {
-            _unit = unit;
+            _kinling = kinling;
             
             RefreshSchedule();
         }
 
         private void RefreshSchedule()
         {
-            _kinlingSchedule.Refresh(_unit);
+            _kinlingSchedule.Refresh(_kinling);
         }
     }
 }

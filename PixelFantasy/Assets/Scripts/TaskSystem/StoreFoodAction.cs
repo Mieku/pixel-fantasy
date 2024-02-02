@@ -27,7 +27,7 @@ namespace TaskSystem
                 OnTaskCancel();
                 return;
             }
-            _ai.Unit.UnitAgent.SetMovePosition(_claimedFood.AssignedStorage.transform.position);
+            _ai.Kinling.KinlingAgent.SetMovePosition(_claimedFood.AssignedStorage.transform.position);
             _buildingStorage.SetIncoming(_claimedFood);
         }
 
@@ -75,7 +75,7 @@ namespace TaskSystem
                 _claimedFood.SetHeld(true);
                 
                 _state = TaskState.GoingToBuildingStorage;
-                _ai.Unit.UnitAgent.SetMovePosition(_buildingStorage.transform.position);
+                _ai.Kinling.KinlingAgent.SetMovePosition(_buildingStorage.transform.position);
             }
         }
 

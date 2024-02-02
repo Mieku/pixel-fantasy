@@ -15,14 +15,14 @@ namespace Buildings.Building_Panels
         [SerializeField] private Transform _kinlingSelectParent;
         
         private Building _building;
-        private Unit _currentUnit;
-        private Action<Unit, Unit> _kinlingSelectedCallback;
+        private Kinling _currentKinling;
+        private Action<Kinling, Kinling> _kinlingSelectedCallback;
         private List<BuildingKinlingSelect> _displayedSelectors = new List<BuildingKinlingSelect>();
         
-        public void Init(Building building, Unit currentUnit, Action<Unit, Unit> kinlingSelectedCallback)
+        public void Init(Building building, Kinling currentKinling, Action<Kinling, Kinling> kinlingSelectedCallback)
         {
             _building = building;
-            _currentUnit = currentUnit;
+            _currentKinling = currentKinling;
             _kinlingSelectedCallback = kinlingSelectedCallback;
             
             DisplayAvailableKinlings();
@@ -32,14 +32,14 @@ namespace Buildings.Building_Panels
         {
             RemoveCurrentlyDisplayedSelectors();
             
-            if (_currentUnit != null)
+            if (_currentKinling != null)
             {
-                CreateKinlingSelector(_currentUnit);
+                CreateKinlingSelector(_currentKinling);
             }
 
             if (_building.BuildingType == BuildingType.Home)
             {
-                var homelessKinlings = UnitsManager.Instance.HomelessKinlings;
+                var homelessKinlings = KinlingsManager.Instance.HomelessKinlings;
                 foreach (var homelessKinling in homelessKinlings)
                 {
                     CreateKinlingSelector(homelessKinling);
@@ -47,7 +47,7 @@ namespace Buildings.Building_Panels
             }
             else
             {
-                var unemployedKinlings = UnitsManager.Instance.UnemployedKinlings;
+                var unemployedKinlings = KinlingsManager.Instance.UnemployedKinlings;
                 foreach (var unemployedKinling in unemployedKinlings)
                 {
                     CreateKinlingSelector(unemployedKinling);
@@ -67,22 +67,22 @@ namespace Buildings.Building_Panels
             _displayedSelectors.Clear();
         }
 
-        private void CreateKinlingSelector(Unit unit)
+        private void CreateKinlingSelector(Kinling kinling)
         {
             var selector = Instantiate(_kinlingSelectPrefab, _kinlingSelectParent);
             _displayedSelectors.Add(selector);
 
-            selector.Init(unit, OnKinlingSelected);
+            selector.Init(kinling, OnKinlingSelected);
         }
 
-        private void OnKinlingSelected(Unit selectedKinling)
+        private void OnKinlingSelected(Kinling selectedKinling)
         {
-            _kinlingSelectedCallback.Invoke(selectedKinling, _currentUnit);
+            _kinlingSelectedCallback.Invoke(selectedKinling, _currentKinling);
         }
 
         public void CloseBtnPressed()
         {
-            _kinlingSelectedCallback.Invoke(null, _currentUnit);
+            _kinlingSelectedCallback.Invoke(null, _currentKinling);
         }
     }
 }

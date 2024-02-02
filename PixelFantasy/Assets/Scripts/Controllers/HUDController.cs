@@ -35,9 +35,9 @@ namespace Controllers
             RefreshSpeedDisplay();
         }
 
-        public void ShowUnitDetails(Unit unit)
+        public void ShowUnitDetails(Kinling kinling)
         {
-            _selectedItemInfoPanel.ShowUnitDetails(unit);
+            _selectedItemInfoPanel.ShowUnitDetails(kinling);
         }
 
         public void ShowItemDetails(IClickableObject clickableObject)

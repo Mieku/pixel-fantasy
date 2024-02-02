@@ -17,23 +17,23 @@ namespace HUD
         [SerializeField] private Image _jobBarFill;
         [SerializeField] private GameObject _root;
 
-        private Unit _unit;
+        private Kinling _kinling;
         
         private void Start()
         {
             _root.SetActive(false);
         }
 
-        public void Show(Unit unit)
+        public void Show(Kinling kinling)
         {
-            _unit = unit;
+            _kinling = kinling;
             _root.SetActive(true);
             
-            _unitName.text = unit.FullName;
-            _jobName.text = unit.JobName;
-            if (_unit.CurrentJob.JobIcon != null)
+            _unitName.text = kinling.FullName;
+            _jobName.text = kinling.JobName;
+            if (_kinling.CurrentJob.JobIcon != null)
             {
-                _jobIcon.sprite = _unit.CurrentJob.JobIcon;
+                _jobIcon.sprite = _kinling.CurrentJob.JobIcon;
             }
             else
             {
@@ -43,13 +43,13 @@ namespace HUD
 
         public void Hide()
         {
-            _unit = null;
+            _kinling = null;
             _root.SetActive(false);
         }
         
         public void ShowKinlingInfoPopupPressed()
         {
-            KinlingInfoPopup.Show(_unit);
+            KinlingInfoPopup.Show(_kinling);
         }
     }
 }

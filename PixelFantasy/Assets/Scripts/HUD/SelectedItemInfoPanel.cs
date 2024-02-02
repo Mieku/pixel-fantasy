@@ -31,12 +31,12 @@ namespace HUD
             HideAllDetails();
         }
 
-        public void ShowUnitDetails(Unit unit)
+        public void ShowUnitDetails(Kinling kinling)
         {
             HideAllDetails();
             _notificationLogger.Hide();
 
-            _kinlingDetails.Show(unit);
+            _kinlingDetails.Show(kinling);
         }
 
         public void ShowBuildingDetails(Building building, bool openConstructionTab = false)

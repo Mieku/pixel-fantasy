@@ -94,7 +94,7 @@ namespace Systems.Notifications.Scripts
                 case LogData.ELogPayloadType.None:
                     break;
                 case LogData.ELogPayloadType.Kinling:
-                    UnitsManager.Instance.SelectKinling(_logData.Payload);
+                    KinlingsManager.Instance.SelectKinling(_logData.Payload);
                     break;
                 case LogData.ELogPayloadType.Building:
                     BuildingsManager.Instance.SelectBuilding(_logData.Payload);

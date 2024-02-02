@@ -8,7 +8,7 @@ namespace Items
     [Serializable]
     public class GearState : ItemState
     {
-        public Unit Owner;
+        public Kinling Owner;
         public GearData GearData => Data as GearData;
         public DyePaletteData AssignedDye;
         
@@ -25,12 +25,12 @@ namespace Items
             AssignedDye = other.AssignedDye;
         }
 
-        public bool CanBeEquippedByUnit(Unit unit)
+        public bool CanBeEquippedByUnit(Kinling kinling)
         {
             if (Durability <= 0) return false;
             if (GearData.RequiredJob != null)
             {
-                var unitJobData = unit.CurrentJob;
+                var unitJobData = kinling.CurrentJob;
                 if (GearData.RequiredJob == unitJobData)
                 {
                     return true;

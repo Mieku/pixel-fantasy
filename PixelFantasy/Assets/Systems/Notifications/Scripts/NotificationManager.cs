@@ -33,7 +33,7 @@ namespace Systems.Notifications.Scripts
             SubmitLogData(logData);
         }
 
-        public void CreateKinlingLog(Unit kinling, string message, LogData.ELogType logType, GameTime gameTime = null)
+        public void CreateKinlingLog(Kinling kinling, string message, LogData.ELogType logType, GameTime gameTime = null)
         {
             if (gameTime == null)
             {

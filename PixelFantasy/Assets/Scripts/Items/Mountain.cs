@@ -66,18 +66,6 @@ namespace Items
             var dirtCell = _dirtTM.WorldToCell(transform.position);
             _dirtTM.SetTile(dirtCell, _dirtRuleTile);
         }
-
-        public SelectionData GetSelectionData()
-        {
-            SelectionData result = new SelectionData
-            {
-                ItemName = _mountainData.ResourceName,
-                ClickObject = GetClickObject(),
-                Requestor = GetComponent<PlayerInteractable>(),
-            };
-
-            return result;
-        }
         
         public void TintTile()
         {

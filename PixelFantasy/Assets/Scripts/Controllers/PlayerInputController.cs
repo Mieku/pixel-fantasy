@@ -44,7 +44,7 @@ namespace Controllers
             HUDController.Instance.HideDetails();
         }
 
-        public void SelectUnit(ClickObject clickObject, Unit unit)
+        public void SelectUnit(ClickObject clickObject, Kinling kinling)
         {
             CloseDetailsPanels();
             
@@ -58,7 +58,7 @@ namespace Controllers
             if (_curSelectedObject != null)
             {
                 _curSelectedObject.SelectObject();
-                HUDController.Instance.ShowUnitDetails(unit);
+                HUDController.Instance.ShowUnitDetails(kinling);
             }
         }
 

@@ -13,14 +13,14 @@ namespace Popups.Kinling_Info_Popup
         [SerializeField] private Transform _leftNeedParent;
         [SerializeField] private Transform _rightNeedParent;
         
-        private Unit _unit;
+        private Kinling _kinling;
         private bool _isVisible => gameObject.activeSelf;
         private List<NeedDisplay> _displayedNeeds = new List<NeedDisplay>();
         
     
-        public void Show(Unit unit)
+        public void Show(Kinling kinling)
         {
-            _unit = unit;
+            _kinling = kinling;
             
             gameObject.SetActive(true);
             DisplayNeeds();

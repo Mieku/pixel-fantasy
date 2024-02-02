@@ -69,7 +69,7 @@ namespace Managers
 
         public List<HouseholdBuilding> AllHouseholds => _allBuildings.OfType<HouseholdBuilding>().ToList();
 
-        public void ClaimEmptyHome(Unit requestingUnit)
+        public void ClaimEmptyHome(Kinling requestingKinling)
         {
             var emptyHouses = AllHouseholds.FindAll(house => house.IsVacant);
             if (emptyHouses.Count == 0) return;
@@ -77,10 +77,10 @@ namespace Managers
             List<(HouseholdBuilding, float)> houseDistances = new List<(HouseholdBuilding, float)>();
             foreach (var emptyHouse in emptyHouses)
             {
-                var buildingPos = emptyHouse.UseagePosition(requestingUnit.transform.position);
+                var buildingPos = emptyHouse.UseagePosition(requestingKinling.transform.position);
                 if (buildingPos != null)
                 {
-                    var pathResult = Helper.DoesPathExist(requestingUnit.transform.position, (Vector2)buildingPos);
+                    var pathResult = Helper.DoesPathExist(requestingKinling.transform.position, (Vector2)buildingPos);
                     if (pathResult.pathExists)
                     {
                         float distance = Helper.GetPathLength(pathResult.navMeshPath);
@@ -91,7 +91,7 @@ namespace Managers
 
             var sortedHouses = houseDistances.OrderBy(x => x.Item2).Select(x => x.Item1).ToList();
             var selectedHouse = sortedHouses[0];
-            selectedHouse.AssignHeadHousehold(requestingUnit);
+            selectedHouse.AssignHeadHousehold(requestingKinling);
         }
 
         public List<T> GetBuildingsOfType<T>()

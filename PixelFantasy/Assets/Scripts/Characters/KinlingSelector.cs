@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Characters
 {
-    public class UnitSelector : MonoBehaviour
+    public class KinlingSelector : MonoBehaviour
     {
         private GameObject selectedIcon;
         private IMovePosition movePosition;

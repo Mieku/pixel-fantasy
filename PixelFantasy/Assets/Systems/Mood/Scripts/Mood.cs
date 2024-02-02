@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 
 namespace Systems.Mood.Scripts
 {
-    [RequireComponent(typeof(Unit))]
+    [RequireComponent(typeof(Kinling))]
     public class Mood : MonoBehaviour
     {
         [SerializeField] private List<EmotionalBreakdown> _availableBreakdowns = new List<EmotionalBreakdown>();
@@ -33,8 +33,8 @@ namespace Systems.Mood.Scripts
 
         private int _moodTarget;
         private float _overallMood;
-        private Unit _unit;
-        private TaskAI _taskAI => _unit.TaskAI;
+        private Kinling _kinling;
+        private TaskAI _taskAI => _kinling.TaskAI;
         private MoodThresholdTrait _moodThresholdTrait;
         private int _minorBreakThreshold;
         private int _majorBreakThreshold;
@@ -64,8 +64,8 @@ namespace Systems.Mood.Scripts
 
         private void Awake()
         {
-            _unit = GetComponent<Unit>();
-            _moodThresholdTrait = _unit.GetMoodThresholdTrait();
+            _kinling = GetComponent<Kinling>();
+            _moodThresholdTrait = _kinling.GetMoodThresholdTrait();
             
             GameEvents.MinuteTick += GameEvents_MinuteTick;
         }
@@ -302,7 +302,7 @@ namespace Systems.Mood.Scripts
 
         private void OnBreakdownBegin()
         {
-            NotificationManager.Instance.CreateKinlingLog(_unit, $"{_unit.FullName} is having a Breakdown!", LogData.ELogType.Danger);
+            NotificationManager.Instance.CreateKinlingLog(_kinling, $"{_kinling.FullName} is having a Breakdown!", LogData.ELogType.Danger);
 
             // Start a breakdown action
             _curBreakdownAction = _taskAI.ForceTask(_pendingBreakdownState.Breakdown.BreakdownTaskId);
@@ -329,7 +329,7 @@ namespace Systems.Mood.Scripts
 
         private void OnBreakdownComplete()
         {
-            NotificationManager.Instance.CreateKinlingLog(_unit, $"{_unit.FullName}'s Breakdown is over!", LogData.ELogType.Notification);
+            NotificationManager.Instance.CreateKinlingLog(_kinling, $"{_kinling.FullName}'s Breakdown is over!", LogData.ELogType.Notification);
             
             // End the breakdown Action
             _curBreakdownAction.ConcludeAction();

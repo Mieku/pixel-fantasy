@@ -23,7 +23,7 @@ namespace TaskSystem
      */
     public class MateAction : TaskAction // ID: Mate
     {
-        private Unit _partner;
+        private Kinling _partner;
         private TaskState _taskState;
         private Vector3 _curMovePos;
         private BedFurniture _bed;
@@ -42,16 +42,16 @@ namespace TaskSystem
         
         public override bool CanDoTask(Task task)
         {
-            if (_ai.Unit.Partner == null) return false;
-            if (_ai.Unit.AssignedHome == null) return false;
+            if (_ai.Kinling.Partner == null) return false;
+            if (_ai.Kinling.AssignedHome == null) return false;
 
             return true;
         }
 
         public override void PrepareAction(Task task)
         {
-            _partner = _ai.Unit.Partner;
-            _bed = _ai.Unit.AssignedBed;
+            _partner = _ai.Kinling.Partner;
+            _bed = _ai.Kinling.AssignedBed;
 
             _taskState = TaskState.GoToPartner;
             _partner.SocialAI.ReceiveMateRequest();
@@ -65,10 +65,10 @@ namespace TaskSystem
                 {
                     _curMovePos = _partner.transform.position;
                     var nearbyPos = Helper.RandomLocationInRange(_curMovePos, 1f);
-                    _ai.Unit.UnitAgent.SetMovePosition(nearbyPos);
+                    _ai.Kinling.KinlingAgent.SetMovePosition(nearbyPos);
                 }
                 
-                _ai.Unit.UnitAgent.SetMovePosition(_partner.transform.position);
+                _ai.Kinling.KinlingAgent.SetMovePosition(_partner.transform.position);
             } 
             else if (_taskState == TaskState.GoToPartner)
             {
@@ -76,16 +76,16 @@ namespace TaskSystem
                 bool partnerReady = _partner.SocialAI.ReadyToGoMate;
                 if (partnerReady)
                 {
-                    _ai.Unit.SocialAI.ForceFlirtChatBubble();
+                    _ai.Kinling.SocialAI.ForceFlirtChatBubble();
                     _taskState = TaskState.GoToBed;
-                    _bedsidePos = _bed.UseagePosition(_ai.Unit.transform.position);
-                    _ai.Unit.UnitAgent.SetMovePosition(_bedsidePos, () =>
+                    _bedsidePos = _bed.UseagePosition(_ai.Kinling.transform.position);
+                    _ai.Kinling.KinlingAgent.SetMovePosition(_bedsidePos, () =>
                     {
                         _taskState = TaskState.InBed;
-                        var sleepLocation = _bed.GetSleepLocation(_ai.Unit);
+                        var sleepLocation = _bed.GetSleepLocation(_ai.Kinling);
                         // Hop into bed
-                        _ai.Unit.UnitAgent.TeleportToPosition(sleepLocation.position, true);
-                        _bed.EnterBed(_ai.Unit);
+                        _ai.Kinling.KinlingAgent.TeleportToPosition(sleepLocation.position, true);
+                        _bed.EnterBed(_ai.Kinling);
                     }, OnTaskCancel);
                 }
             }
@@ -93,12 +93,12 @@ namespace TaskSystem
             if (_taskState == TaskState.InBed)
             {
                 // Check if partner is in bed
-                if (_bed.IsPartnerInBed(_ai.Unit))
+                if (_bed.IsPartnerInBed(_ai.Kinling))
                 {
                     _taskState = TaskState.Mating;
                     
                     // Tell building to go in mating mode
-                    _ai.Unit.AssignedHome.TriggerMatingMode(true);
+                    _ai.Kinling.AssignedHome.TriggerMatingMode(true);
                 }
             }
 
@@ -109,8 +109,8 @@ namespace TaskSystem
                 if (_matingTimer > MATE_TIME)
                 {
                     // When countdown finishes
-                    _ai.Unit.SocialAI.MatingComplete(true);
-                    _ai.Unit.AssignedHome.TriggerMatingMode(false);
+                    _ai.Kinling.SocialAI.MatingComplete(true);
+                    _ai.Kinling.AssignedHome.TriggerMatingMode(false);
                     ConcludeAction();
                 }
             }
@@ -120,10 +120,10 @@ namespace TaskSystem
         {
             base.ConcludeAction();
             _bedsidePos ??= _bed.transform.position;
-            _ai.Unit.UnitAgent.TeleportToPosition((Vector2)_bedsidePos, false);
-            _bed.ExitBed(_ai.Unit);
-            _ai.Unit.UnitAnimController.SetEyesClosed(false);
-            _ai.Unit.UnitAnimController.SetUnitAction(UnitAction.Nothing);
+            _ai.Kinling.KinlingAgent.TeleportToPosition((Vector2)_bedsidePos, false);
+            _bed.ExitBed(_ai.Kinling);
+            _ai.Kinling.kinlingAnimController.SetEyesClosed(false);
+            _ai.Kinling.kinlingAnimController.SetUnitAction(UnitAction.Nothing);
             
             ResetValues();
         }
@@ -136,21 +136,21 @@ namespace TaskSystem
             if (_taskState == TaskState.InBed)
             {
                 _bedsidePos ??= _bed.transform.position;
-                _ai.Unit.UnitAgent.TeleportToPosition((Vector2)_bedsidePos, false);
-                _bed.ExitBed(_ai.Unit);
-                _ai.Unit.UnitAnimController.SetEyesClosed(false);
-                _ai.Unit.UnitAnimController.SetUnitAction(UnitAction.Nothing);
+                _ai.Kinling.KinlingAgent.TeleportToPosition((Vector2)_bedsidePos, false);
+                _bed.ExitBed(_ai.Kinling);
+                _ai.Kinling.kinlingAnimController.SetEyesClosed(false);
+                _ai.Kinling.kinlingAnimController.SetUnitAction(UnitAction.Nothing);
             }
             
             if (_taskState == TaskState.Mating)
             {
-                _ai.Unit.SocialAI.MatingComplete(false);
+                _ai.Kinling.SocialAI.MatingComplete(false);
                 _bedsidePos ??= _bed.transform.position;
-                _ai.Unit.UnitAgent.TeleportToPosition((Vector2)_bedsidePos, false);
-                _bed.ExitBed(_ai.Unit);
-                _ai.Unit.UnitAnimController.SetEyesClosed(false);
-                _ai.Unit.UnitAnimController.SetUnitAction(UnitAction.Nothing);
-                _ai.Unit.AssignedHome.TriggerMatingMode(false);
+                _ai.Kinling.KinlingAgent.TeleportToPosition((Vector2)_bedsidePos, false);
+                _bed.ExitBed(_ai.Kinling);
+                _ai.Kinling.kinlingAnimController.SetEyesClosed(false);
+                _ai.Kinling.kinlingAnimController.SetUnitAction(UnitAction.Nothing);
+                _ai.Kinling.AssignedHome.TriggerMatingMode(false);
             }
             
             ResetValues();

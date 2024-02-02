@@ -30,7 +30,7 @@ namespace TaskSystem
             _availableItemStorage.SetIncoming(_claimedItem);
 
             _state = TaskState.GoingToBuildingStorage;
-            _ai.Unit.UnitAgent.SetMovePosition(_buildingStorage.transform.position);
+            _ai.Kinling.KinlingAgent.SetMovePosition(_buildingStorage.transform.position);
         }
         
         public override bool CanDoTask(Task task)
@@ -67,7 +67,7 @@ namespace TaskSystem
                 _claimedItem.SetHeld(true);
                 
                 _state = TaskState.GoingToGlobalStorage;
-                _ai.Unit.UnitAgent.SetMovePosition(_availableItemStorage.transform.position);
+                _ai.Kinling.KinlingAgent.SetMovePosition(_availableItemStorage.transform.position);
             }
         }
 

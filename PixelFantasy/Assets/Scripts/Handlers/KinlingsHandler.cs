@@ -6,12 +6,12 @@ using UnityEngine;
 
 namespace Handlers
 {
-    public class UnitsHandler : Saveable
+    public class KinlingsHandler : Saveable
     {
         protected override string StateName => "Units";
         public override int LoadOrder => 2;
 
-        private List<Unit> _units = new List<Unit>();
+        private List<Kinling> _units = new List<Kinling>();
 
         [SerializeField] private GameObject _unitPrefab;
 
@@ -20,7 +20,7 @@ namespace Handlers
             var currentChildren = GetPersistentChildren();
             foreach (var child in currentChildren)
             {
-                var unit = child.GetComponent<Unit>();
+                var unit = child.GetComponent<Kinling>();
                 if (unit != null)
                 {
                     _units.Add(unit);
@@ -28,12 +28,12 @@ namespace Handlers
             }
         }
 
-        public void AddUnit(Unit unit)
+        public void AddUnit(Kinling kinling)
         {
-            _units.Add(unit);
+            _units.Add(kinling);
         }
 
-        public List<Unit> GetAllUnits()
+        public List<Kinling> GetAllUnits()
         {
             return _units;
         }
@@ -59,7 +59,7 @@ namespace Handlers
             // Instantiate all the children in data, Trigger RestoreState with their state data
             foreach (var childState in childrenStates)
             {
-                var data = (Characters.Unit.UnitData)childState;
+                var data = (Characters.Kinling.UnitData)childState;
                 var childObj = Instantiate(_unitPrefab, transform);
                 childObj.GetComponent<IPersistent>().RestoreState(data);
             }

@@ -37,7 +37,7 @@ namespace TaskSystem
         
         private void DoHarvest()
         {
-            UnitAnimController.SetUnitAction(UnitAction.Doing, _ai.GetActionDirection(_crop.transform.position));
+            KinlingAnimController.SetUnitAction(UnitAction.Doing, _ai.GetActionDirection(_crop.transform.position));
             
             _timer += TimeManager.Instance.DeltaTime;
             if(_timer >= WORK_SPEED) 
@@ -55,7 +55,7 @@ namespace TaskSystem
         {
             if (!_isMoving)
             {
-                _ai.Unit.UnitAgent.SetMovePosition((Vector2)_movePos);
+                _ai.Kinling.KinlingAgent.SetMovePosition((Vector2)_movePos);
                 _isMoving = true;
             }
         }
@@ -64,7 +64,7 @@ namespace TaskSystem
         {
             base.ConcludeAction();
             
-            UnitAnimController.SetUnitAction(UnitAction.Nothing);
+            KinlingAnimController.SetUnitAction(UnitAction.Nothing);
             _crop = null;
             _task = null;
             _movePos = null;

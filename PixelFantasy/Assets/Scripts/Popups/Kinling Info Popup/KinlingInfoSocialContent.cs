@@ -11,12 +11,12 @@ namespace Popups.Kinling_Info_Popup
         [SerializeField] private Transform _outsiderLayout;
         [SerializeField] private RelationshipDisplay _relationshipDisplayPrefab;
         
-        private Unit _unit;
+        private Kinling _kinling;
         private List<RelationshipDisplay> _displayedRelationships = new List<RelationshipDisplay>();
         
-        public void Show(Unit unit)
+        public void Show(Kinling kinling)
         {
-            _unit = unit;
+            _kinling = kinling;
             
             gameObject.SetActive(true);
             Refresh();
@@ -32,7 +32,7 @@ namespace Popups.Kinling_Info_Popup
         {
             ClearDisplayedRelationships();
 
-            var allRelationships = _unit.SocialAI.Relationships;
+            var allRelationships = _kinling.SocialAI.Relationships;
             foreach (var relationship in allRelationships)
             {
                 if (relationship.IsPartner)

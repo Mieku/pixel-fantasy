@@ -65,11 +65,11 @@ namespace Items
             return UID.GetHashCode();
         }
 
-        public Unit GetCrafter()
+        public Kinling GetCrafter()
         {
             if (!WasCrafted) return null;
 
-            return UnitsManager.Instance.GetUnit(CraftersUID);
+            return KinlingsManager.Instance.GetUnit(CraftersUID);
         }
 
         public bool WasCrafted => !string.IsNullOrEmpty(CraftersUID);

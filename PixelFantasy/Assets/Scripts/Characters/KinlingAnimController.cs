@@ -7,9 +7,9 @@ using UnityEngine.Serialization;
 
 namespace Characters
 {
-    public class UnitAnimController : MonoBehaviour, ICharacterAnimController
+    public class KinlingAnimController : MonoBehaviour, ICharacterAnimController
     {
-        public UnitAppearance Appearance;
+        public KinlingAppearance Appearance;
         
         [SerializeField] private Animator _anim;
         [SerializeField] private NavMeshAgent _navMeshAgent;

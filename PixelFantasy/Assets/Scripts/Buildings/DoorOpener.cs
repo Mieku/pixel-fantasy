@@ -12,7 +12,7 @@ namespace Buildings
     {
         private SpriteRenderer _doorRenderer;
         private BoxCollider2D _boxCollider;
-        private List<Unit> _kinlingsInDoorway = new List<Unit>();
+        private List<Kinling> _kinlingsInDoorway = new List<Kinling>();
         private bool _lockedClosed;
         private Light2D _doorLight;
         private bool _showingLight;
@@ -91,12 +91,12 @@ namespace Buildings
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Unit unit = other.GetComponent<Unit>();
-            if (unit != null)
+            Kinling kinling = other.GetComponent<Kinling>();
+            if (kinling != null)
             {
-                if (!_kinlingsInDoorway.Contains(unit))
+                if (!_kinlingsInDoorway.Contains(kinling))
                 {
-                    _kinlingsInDoorway.Add(unit);
+                    _kinlingsInDoorway.Add(kinling);
                 }
             }
             CheckIfDoorShouldOpen();
@@ -104,12 +104,12 @@ namespace Buildings
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            Unit unit = other.GetComponent<Unit>();
-            if (unit != null)
+            Kinling kinling = other.GetComponent<Kinling>();
+            if (kinling != null)
             {
-                if (_kinlingsInDoorway.Contains(unit))
+                if (_kinlingsInDoorway.Contains(kinling))
                 {
-                    _kinlingsInDoorway.Remove(unit);
+                    _kinlingsInDoorway.Remove(kinling);
                 }
             }
             CheckIfDoorShouldOpen();

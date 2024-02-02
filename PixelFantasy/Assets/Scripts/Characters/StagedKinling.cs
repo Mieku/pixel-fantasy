@@ -5,7 +5,7 @@ namespace Characters
 {
     public class StagedKinling : MonoBehaviour
     {
-        [SerializeField] private UnitAppearance _appearance;
+        [SerializeField] private KinlingAppearance _appearance;
         [SerializeField] private KinlingEquipment _equipment;
         
         public void ApplyAppearance(AppearanceState appearanceState)

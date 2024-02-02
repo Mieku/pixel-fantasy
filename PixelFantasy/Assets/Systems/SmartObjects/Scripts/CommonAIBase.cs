@@ -30,15 +30,15 @@ namespace Systems.SmartObjects.Scripts
         }
     }
     
-    [RequireComponent(typeof(UnitAgent))]
+    [RequireComponent(typeof(KinlingAgent))]
     public class CommonAIBase : MonoBehaviour
     {
         [Header("General")]
         [SerializeField] private int _householdID = 1;
         [field: SerializeField] private AIStatConfiguration[] _stats;
 
-        protected UnitAgent _navAgent;
-        public Unit Unit { get; protected set; }
+        protected KinlingAgent _navAgent;
+        public Kinling Kinling { get; protected set; }
         protected Dictionary<NeedData, float> _decayRates = new Dictionary<NeedData, float>();
         protected Action<BaseInteraction> _onInteractionComplete;
         
@@ -88,8 +88,8 @@ namespace Systems.SmartObjects.Scripts
         
         protected virtual void Awake()
         {
-            _navAgent = GetComponent<UnitAgent>();
-            Unit = GetComponent<Unit>();
+            _navAgent = GetComponent<KinlingAgent>();
+            Kinling = GetComponent<Kinling>();
 
             GameEvents.MinuteTick += MinuteTick;
         }
@@ -142,7 +142,7 @@ namespace Systems.SmartObjects.Scripts
         
         protected float ApplyTraitsTo(NeedData targetStat, NeedTrait.ETargetType targetType, float currentValue)
         {
-            foreach (var trait in Unit.GetStatTraits())
+            foreach (var trait in Kinling.GetStatTraits())
             {
                 currentValue = trait.Apply(targetStat, targetType, currentValue);
             }
@@ -183,7 +183,7 @@ namespace Systems.SmartObjects.Scripts
                 
                 // Check the thresholds for the stat
                 var emotion = statConfig.LinkedStat.CheckThresholds(GetStatValue(statConfig.LinkedStat));
-                if (!Unit.KinlingMood.HasEmotion(emotion))
+                if (!Kinling.KinlingMood.HasEmotion(emotion))
                 {
                     // Remove the others
                     foreach (var threshold in statConfig.LinkedStat.AllThresholds)
@@ -191,13 +191,13 @@ namespace Systems.SmartObjects.Scripts
                         var otherEmotion = threshold.BelowThresholdEmotion;
                         if (otherEmotion != null)
                         {
-                            Unit.KinlingMood.RemoveEmotion(otherEmotion);
+                            Kinling.KinlingMood.RemoveEmotion(otherEmotion);
                         }
                     }
                     
                     if (emotion != null)
                     {
-                        Unit.KinlingMood.ApplyEmotion(emotion);
+                        Kinling.KinlingMood.ApplyEmotion(emotion);
                     }
                 }
             }

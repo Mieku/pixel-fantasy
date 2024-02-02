@@ -35,13 +35,13 @@ namespace Popups.Kinling_Info_Popup
         [SerializeField] private KinlingInfoSocialContent _socialContent;
         [SerializeField] private KinlingInfoGearContent _gearContent;
 
-        private static Unit _selectedUnit;
+        private static Kinling _selectedKinling;
         private const float _refreshRateS = 1f;
         private float _refreshTimer;
         
-        public static void Show(Unit unit)
+        public static void Show(Kinling kinling)
         {
-            Open(() => Instance.Init(unit), false);
+            Open(() => Instance.Init(kinling), false);
         }
     
         public override void OnBackPressed()
@@ -50,20 +50,20 @@ namespace Popups.Kinling_Info_Popup
             Hide();
         }
 
-        private void Init(Unit unit)
+        private void Init(Kinling kinling)
         {
-            _selectedUnit = unit;
+            _selectedKinling = kinling;
             Refresh();
             ShowTabContent(KinlingInfoTab.Needs);
         }
         
         private void Refresh()
         {
-            _kinlingNameDisp.text = _selectedUnit.FullName;
-            _jobName.text = _selectedUnit.JobName;
-            if (_selectedUnit.CurrentJob.JobIcon != null)
+            _kinlingNameDisp.text = _selectedKinling.FullName;
+            _jobName.text = _selectedKinling.JobName;
+            if (_selectedKinling.CurrentJob.JobIcon != null)
             {
-                _jobIcon.sprite = _selectedUnit.CurrentJob.JobIcon;
+                _jobIcon.sprite = _selectedKinling.CurrentJob.JobIcon;
             }
             else
             {
@@ -76,7 +76,7 @@ namespace Popups.Kinling_Info_Popup
         
         private void Update()
         {
-            if (_selectedUnit != null)
+            if (_selectedKinling != null)
             {
                 _refreshTimer += Time.deltaTime;
                 if (_refreshTimer > _refreshRateS)
@@ -97,7 +97,7 @@ namespace Popups.Kinling_Info_Popup
             {
                 case KinlingInfoTab.Mood:
                     _moodTab.sprite = _tabSelectedSpr;
-                    _moodContent.Show(_selectedUnit);
+                    _moodContent.Show(_selectedKinling);
                     break;
                 case KinlingInfoTab.Health:
                     _healthTab.sprite = _tabSelectedSpr;
@@ -105,11 +105,11 @@ namespace Popups.Kinling_Info_Popup
                     break;
                 case KinlingInfoTab.Job:
                     _jobsTab.sprite = _tabSelectedSpr;
-                    _jobsContent.Show(_selectedUnit);
+                    _jobsContent.Show(_selectedKinling);
                     break;
                 case KinlingInfoTab.Needs:
                     _needsTab.sprite = _tabSelectedSpr;
-                    _needsContent.Show(_selectedUnit);
+                    _needsContent.Show(_selectedKinling);
                     break;
                 case KinlingInfoTab.Wants:
                     _wantsTab.sprite = _tabSelectedSpr;
@@ -117,11 +117,11 @@ namespace Popups.Kinling_Info_Popup
                     break;
                 case KinlingInfoTab.Social:
                     _socialTab.sprite = _tabSelectedSpr;
-                    _socialContent.Show(_selectedUnit);
+                    _socialContent.Show(_selectedKinling);
                     break;
                 case KinlingInfoTab.Gear:
                     _gearTab.sprite = _tabSelectedSpr;
-                    _gearContent.Show(_selectedUnit);
+                    _gearContent.Show(_selectedKinling);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(tab), tab, null);

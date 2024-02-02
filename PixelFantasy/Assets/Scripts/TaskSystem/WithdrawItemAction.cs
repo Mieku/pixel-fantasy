@@ -89,7 +89,7 @@ namespace TaskSystem
             {
                 if (!_isMoving)
                 {
-                    _ai.Unit.UnitAgent.SetMovePosition(_targetItem.AssignedStorage.transform.position);
+                    _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.AssignedStorage.transform.position);
                     _isMoving = true;
                     return;
                 }
@@ -100,7 +100,7 @@ namespace TaskSystem
             {
                 if (!_isMoving)
                 {
-                    _ai.Unit.UnitAgent.SetMovePosition(_requestor.transform.position);
+                    _ai.Kinling.KinlingAgent.SetMovePosition(_requestor.transform.position);
                     _isMoving = true;
                     return;
                 }
@@ -111,7 +111,7 @@ namespace TaskSystem
         {
             base.ConcludeAction();
             
-            UnitAnimController.SetUnitAction(UnitAction.Nothing);
+            KinlingAnimController.SetUnitAction(UnitAction.Nothing);
             _task = null;
             _requestor = null;
             _isHoldingItem = false;

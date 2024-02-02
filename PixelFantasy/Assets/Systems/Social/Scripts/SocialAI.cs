@@ -8,13 +8,14 @@ using Systems.Notifications.Scripts;
 using Systems.Traits.Scripts;
 using TaskSystem;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Systems.Social.Scripts
 {
     public class SocialAI : MonoBehaviour
     {
-        [SerializeField] private Unit _unit;
+        [FormerlySerializedAs("_unit")] [SerializeField] private Kinling _kinling;
         [SerializeField] private GameObject _speechBubbleHandle;
         [SerializeField] private SpriteRenderer _speechTopicIcon;
         [SerializeField] private SocialTopicOptionsData _socialTopics;
@@ -22,8 +23,8 @@ namespace Systems.Social.Scripts
         [SerializeField] private SocialTopicOptionsData _positiveResponses;
         [SerializeField] private SocialTopicOptionsData _negativeResponses;
 
-        public bool AvailableToChat => _state == ESocialState.Available && !_unit.IsAsleep;
-        public string UniqueId => _unit.UniqueId;
+        public bool AvailableToChat => _state == ESocialState.Available && !_kinling.IsAsleep;
+        public string UniqueId => _kinling.UniqueId;
 
         private const float CHAT_COOLDOWN = 5.0f;
         private const float SOCIAL_RADIUS = 6f;
@@ -55,7 +56,7 @@ namespace Systems.Social.Scripts
         
         private void Update()
         {
-            if (_unit.IsAsleep) return;
+            if (_kinling.IsAsleep) return;
             
             if (_state == ESocialState.Available)
             {
@@ -124,14 +125,14 @@ namespace Systems.Social.Scripts
         {
             var relationship = GetRelationshipState(targetKinling);
             // Make sure they are not in a romantic relationship with someone else
-            if (_unit.Partner != null) return false;
-            if (targetKinling._unit.Partner != null) return false;
+            if (_kinling.Partner != null) return false;
+            if (targetKinling._kinling.Partner != null) return false;
             // Make sure they are an appropriate age
-            if (_unit.MaturityStage < EMaturityStage.Adult) return false;
-            if (_unit.MaturityStage != targetKinling._unit.MaturityStage) return false;
+            if (_kinling.MaturityStage < EMaturityStage.Adult) return false;
+            if (_kinling.MaturityStage != targetKinling._kinling.MaturityStage) return false;
             // Make sure they align with their sexual preference
-            if (!_unit.IsKinlingAttractedTo(targetKinling._unit)) return false;
-            if (!targetKinling._unit.IsKinlingAttractedTo(_unit)) return false;
+            if (!_kinling.IsKinlingAttractedTo(targetKinling._kinling)) return false;
+            if (!targetKinling._kinling.IsKinlingAttractedTo(_kinling)) return false;
             // Make sure their opinion is high enough
             if (relationship.Opinion < MIN_OPINION_TO_FLIRT) return false;
 
@@ -170,7 +171,7 @@ namespace Systems.Social.Scripts
             // This is based on their cohesion, relationship and mood
             int weight = ROMANTIC_COHESION_BASE;
             var otherKinlingRelationship = GetRelationshipState(otherKinling);
-            var curOverallMood = _unit.KinlingMood.OverallMood / 100f;
+            var curOverallMood = _kinling.KinlingMood.OverallMood / 100f;
             int moodCohesion = (int)(MOOD_COHESION_BASE * curOverallMood) - (MOOD_COHESION_BASE / 2);
             
             weight += otherKinlingRelationship.OverallCohesion;
@@ -194,7 +195,7 @@ namespace Systems.Social.Scripts
             else
             {
                 responderRelationshipState.AddToScore(NEGATIVE_INTERACTION_SCORE);
-                _unit.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("Rejected")); // Mood De-buff
+                _kinling.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("Rejected")); // Mood De-buff
             }
             
             //_unit.NeedsAI.UpdateIndividualStat(Librarian.Instance.GetStat("Social"), CHAT_SOCIAL_NEED_BENEFIT, StatTrait.ETargetType.Impact);
@@ -249,7 +250,7 @@ namespace Systems.Social.Scripts
             // This is based on their cohesion, relationship and mood
             int weight = COHESION_BASE;
             var otherKinlingRelationship = GetRelationshipState(otherKinling);
-            var curOverallMood = _unit.KinlingMood.OverallMood / 100f;
+            var curOverallMood = _kinling.KinlingMood.OverallMood / 100f;
             int moodCohesion = (int)(MOOD_COHESION_BASE * curOverallMood) - (MOOD_COHESION_BASE / 2);
             
             weight += otherKinlingRelationship.OverallCohesion;
@@ -313,12 +314,12 @@ namespace Systems.Social.Scripts
 
         private List<SocialAI> NearbyKinlings()
         {
-            bool isIndoors = _unit.IsIndoors();
-            var allUnits = UnitsManager.Instance.GetAllUnitsInRadius(transform.position, SOCIAL_RADIUS);
+            bool isIndoors = _kinling.IsIndoors();
+            var allUnits = KinlingsManager.Instance.GetAllUnitsInRadius(transform.position, SOCIAL_RADIUS);
             List<SocialAI> results = new List<SocialAI>();
             foreach (var unit in allUnits)
             {
-                if (unit != _unit)
+                if (unit != _kinling)
                 {
                     if (isIndoors == unit.IsIndoors() && unit.SocialAI.AvailableToChat)
                     {
@@ -332,11 +333,11 @@ namespace Systems.Social.Scripts
 
         private RelationshipState GetRelationshipState(SocialAI otherKinling)
         {
-            string otherUID = otherKinling._unit.UniqueId;
+            string otherUID = otherKinling._kinling.UniqueId;
             RelationshipState result = _relationships.Find(state => state.KinlingUniqueID == otherUID);
             if (result == null)
             {
-                NotificationManager.Instance.CreateKinlingLog(_unit, $"{_unit.FullName} has met {otherKinling._unit.FullName}", LogData.ELogType.Message);
+                NotificationManager.Instance.CreateKinlingLog(_kinling, $"{_kinling.FullName} has met {otherKinling._kinling.FullName}", LogData.ELogType.Message);
                 result = new RelationshipState(otherKinling);
                 _relationships.Add(result);
             }
@@ -348,18 +349,18 @@ namespace Systems.Social.Scripts
         {
             var relationship = GetRelationshipState(otherKinling);
             relationship.IsPartner = true;
-            _unit.Partner = otherKinling._unit;
+            _kinling.Partner = otherKinling._kinling;
             
             Debug.Log($"Relationship started!");
-            _unit.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("Started Relationship")); // Mood Buff
-            NotificationManager.Instance.CreateKinlingLog(_unit, $"{_unit.FullName} is now in a relationship with {otherKinling._unit.FullName}!", LogData.ELogType.Positive);
+            _kinling.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("Started Relationship")); // Mood Buff
+            NotificationManager.Instance.CreateKinlingLog(_kinling, $"{_kinling.FullName} is now in a relationship with {otherKinling._kinling.FullName}!", LogData.ELogType.Positive);
         }
 
         public void ReceiveMateRequest()
         {
             Task mateTask = new Task("Receive Mate", null, null, EToolType.None);
             
-            _unit.TaskAI.QueueTask(mateTask);
+            _kinling.TaskAI.QueueTask(mateTask);
         }
 
         public bool ReadyToGoMate
@@ -370,40 +371,40 @@ namespace Systems.Social.Scripts
 
         public void CancelMateRequest()
         {
-            _unit.TaskAI.CancelTask("Receive Mate");
-            _unit.TaskAI.CancelTask("Mate");
+            _kinling.TaskAI.CancelTask("Receive Mate");
+            _kinling.TaskAI.CancelTask("Mate");
         }
 
         public void MatingComplete(bool wasSuccessful)
         {
             if (wasSuccessful)
             {
-                _unit.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("Got some Lovin'"));
+                _kinling.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("Got some Lovin'"));
                 CheckPregnancy();
             }
             else
             {
-                _unit.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("Lovin' was Disturbed"));
+                _kinling.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("Lovin' was Disturbed"));
             }
         }
 
         private void CheckPregnancy()
         {
-            if (_unit.Gender == Gender.Female && _unit.Partner.Gender == Gender.Male)
+            if (_kinling.Gender == Gender.Female && _kinling.Partner.Gender == Gender.Male)
             {
-                if (_unit.MaturityStage == EMaturityStage.Adult && _unit.Partner.MaturityStage == EMaturityStage.Adult)
+                if (_kinling.MaturityStage == EMaturityStage.Adult && _kinling.Partner.MaturityStage == EMaturityStage.Adult)
                 {
-                    var spaceForKids = _unit.AssignedHome.HasSpaceForChildren();
+                    var spaceForKids = _kinling.AssignedHome.HasSpaceForChildren();
                     if (spaceForKids)
                     {
                         bool isPregnant = Helper.RollDice(BASE_PREGNANCY_CHANCE);
                         if (isPregnant)
                         {
-                            Unit child = UnitsManager.Instance.CreateChild(_unit, _unit.Partner);
+                            Kinling child = KinlingsManager.Instance.CreateChild(_kinling, _kinling.Partner);
                             if (child != null)
                             {
                                 NotificationManager.Instance.CreateKinlingLog(child, 
-                                    $"{_unit.FirstName} and {_unit.Partner.FirstName} had a child named {child.FullName}", 
+                                    $"{_kinling.FirstName} and {_kinling.Partner.FirstName} had a child named {child.FullName}", 
                                     LogData.ELogType.Positive);
                             }
                         }

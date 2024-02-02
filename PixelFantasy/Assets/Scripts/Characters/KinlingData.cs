@@ -37,7 +37,7 @@ namespace Characters
         [BoxGroup("Appearance")] public AppearanceState Appearance;
         [BoxGroup("Gear")] public KinlingGearData Gear;
         [BoxGroup("Traits")] public List<Trait> Traits = new List<Trait>();
-        [BoxGroup("Stats")] public Stats Stats;
+        [BoxGroup("Stats")] public StatsData Stats;
         [BoxGroup("Family")] public string Partner;
         [BoxGroup("Family")] public List<string> Children = new List<string>();
         
@@ -62,7 +62,7 @@ namespace Characters
             SexualPreference = DetermineSexuality();
             Appearance = new AppearanceState(Gender, mother.Appearance, father.Appearance);
             Gear = new KinlingGearData();
-            Stats = new Stats(mother.Stats, father.Stats);
+            Stats = new StatsData(mother.Stats, father.Stats);
             Traits = GetTraitsFromParents(mother.Traits, father.Traits);
 
             Firstname = Appearance.Race.GetRandomFirstName(Gender);

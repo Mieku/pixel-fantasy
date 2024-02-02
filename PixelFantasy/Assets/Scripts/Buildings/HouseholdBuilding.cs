@@ -104,31 +104,31 @@ namespace Buildings
             }
         }
 
-        public void AssignHeadHousehold(Unit unit)
+        public void AssignHeadHousehold(Kinling kinling)
         {
-            HeadHousehold = unit.UniqueId;
-            AddOccupant(unit);
-            DoubleBed.AssignKinling(unit);
-            BuildingName = $"{unit.LastName} {BuildingData.ConstructionName}";
+            HeadHousehold = kinling.UniqueId;
+            AddOccupant(kinling);
+            DoubleBed.AssignKinling(kinling);
+            BuildingName = $"{kinling.LastName} {BuildingData.ConstructionName}";
         }
 
-        public void AssignPartner(Unit unit)
+        public void AssignPartner(Kinling kinling)
         {
-            Partner = unit.UniqueId;
-            AddOccupant(unit);
-            DoubleBed.AssignKinling(unit);
+            Partner = kinling.UniqueId;
+            AddOccupant(kinling);
+            DoubleBed.AssignKinling(kinling);
         }
 
-        public void AssignChild(Unit unit)
+        public void AssignChild(Kinling kinling)
         {
-            Children.Add(unit.UniqueId);
-            AddOccupant(unit);
+            Children.Add(kinling.UniqueId);
+            AddOccupant(kinling);
 
             foreach (var singleBed in AdditionalBeds)
             {
-                if (singleBed.IsUnassigned(unit))
+                if (singleBed.IsUnassigned(kinling))
                 {
-                    singleBed.AssignKinling(unit);
+                    singleBed.AssignKinling(kinling);
                     return;
                 }
             }
@@ -136,18 +136,18 @@ namespace Buildings
             Debug.LogError($"Could not assign bed for child");
         }
 
-        public override void AddOccupant(Unit unit)
+        public override void AddOccupant(Kinling kinling)
         {
-            _occupants.Add(unit);
+            _occupants.Add(kinling);
             
-            unit.AssignedHome = this;
+            kinling.AssignedHome = this;
         }
 
-        public override void RemoveOccupant(Unit unit)
+        public override void RemoveOccupant(Kinling kinling)
         {
-            _occupants.Remove(unit);
+            _occupants.Remove(kinling);
             
-            unit.AssignedHome = null;
+            kinling.AssignedHome = null;
         }
 
         protected override bool IsInternalViewAllowed()

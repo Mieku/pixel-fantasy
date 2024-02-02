@@ -7,16 +7,16 @@ using Random = UnityEngine.Random;
 
 namespace Characters
 {
-    public class UnitAgent : MonoBehaviour, IMovePosition
+    public class KinlingAgent : MonoBehaviour, IMovePosition
     {
         private NavMeshAgent _agent;
         private Action _onReachedMovePosition;
         private bool _inTransit;
-        private UnitAnimController _charAnimController;
+        private KinlingAnimController _charAnimController;
         private float _defaultSpeed;
         private float _defaultAcceleration;
         private float _defaultAngularSpeed;
-        private Unit _unit;
+        private Kinling _kinling;
 
         private const float NEAREST_POINT_SEARCH_RANGE = 5f;
 
@@ -29,9 +29,9 @@ namespace Characters
             _defaultSpeed = _agent.speed;
             _defaultAcceleration = _agent.acceleration;
             _defaultAngularSpeed = _agent.angularSpeed;
-            _unit = GetComponent<Unit>();
+            _kinling = GetComponent<Kinling>();
             
-            _charAnimController = GetComponent<Unit>().UnitAnimController;
+            _charAnimController = GetComponent<Kinling>().kinlingAnimController;
             
             OnSpeedUpdated();
         }
@@ -56,9 +56,9 @@ namespace Characters
             }
             
             // If they are seated, get up
-            if (_unit.GetChair != null)
+            if (_kinling.GetChair != null)
             {
-                _unit.GetChair.ExitSeat(_unit);
+                _kinling.GetChair.ExitSeat(_kinling);
             }
             
             if (_agent.SetDestination((Vector2)movePosition))

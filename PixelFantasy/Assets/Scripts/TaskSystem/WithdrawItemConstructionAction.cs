@@ -46,7 +46,7 @@ namespace TaskSystem
             var building = _requestor as Building;
             if (building != null)
             {
-                var pos = building.UseagePosition(_ai.Unit.transform.position);
+                var pos = building.UseagePosition(_ai.Kinling.transform.position);
                 if (pos != null)
                 {
                     _constructionPos = (Vector2)pos;
@@ -93,7 +93,7 @@ namespace TaskSystem
             {
                 if (!_isMoving)
                 {
-                    _ai.Unit.UnitAgent.SetMovePosition(_targetItem.AssignedStorage.transform.position);
+                    _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.AssignedStorage.transform.position);
                     _isMoving = true;
                     return;
                 }
@@ -104,7 +104,7 @@ namespace TaskSystem
             {
                 if (!_isMoving)
                 {
-                    _ai.Unit.UnitAgent.SetMovePosition(_constructionPos);
+                    _ai.Kinling.KinlingAgent.SetMovePosition(_constructionPos);
                     _isMoving = true;
                     return;
                 }
@@ -115,7 +115,7 @@ namespace TaskSystem
         {
             base.ConcludeAction();
             
-            UnitAnimController.SetUnitAction(UnitAction.Nothing);
+            KinlingAnimController.SetUnitAction(UnitAction.Nothing);
             _task = null;
             _requestor = null;
             _isHoldingItem = false;

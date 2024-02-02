@@ -8,7 +8,7 @@ using UnityEngine.Rendering;
 
 namespace Characters
 {
-    public class UnitAppearance : MonoBehaviour
+    public class KinlingAppearance : MonoBehaviour
     {
         [SerializeField] private KinlingEquipment _equipment;
         
@@ -52,20 +52,20 @@ namespace Characters
 
         private UnitActionDirection _curDirection;
         [CanBeNull] private AppearanceState _appearanceState;
-        private Unit _unit;
+        private Kinling _kinling;
 
         private void Start()
         {
             
         }
 
-        public void Init(Unit unit, AppearanceState appearanceState)
+        public void Init(Kinling kinling, AppearanceState appearanceState)
         {
-            _unit = unit;
+            _kinling = kinling;
             if (appearanceState == null)
             {
                 // Create a random one
-                var randomAppearance = new AppearanceState(_unit.Race, _unit.Gender);
+                var randomAppearance = new AppearanceState(_kinling.Race, _kinling.Gender);
                 randomAppearance.RandomizeAppearance();
                 _appearanceState = randomAppearance;
             }
@@ -86,7 +86,7 @@ namespace Characters
         public void ApplyAppearanceState(AppearanceState appearanceState)
         {
             _appearanceState = appearanceState;
-            BodyData = appearanceState.Race.GetBodyDataByMaturity(_unit.MaturityStage);
+            BodyData = appearanceState.Race.GetBodyDataByMaturity(_kinling.MaturityStage);
             HairData = appearanceState.Hair;
             ApplySkinTone();
             ApplyHair();
@@ -157,7 +157,7 @@ namespace Characters
         {
             _curDirection = dir;
 
-            if (_unit == null) return;
+            if (_kinling == null) return;
             
             // Set Layers and Enable/Disable
             switch (dir)

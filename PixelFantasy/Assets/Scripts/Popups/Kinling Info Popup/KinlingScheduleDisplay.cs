@@ -17,12 +17,12 @@ namespace Popups.Kinling_Info_Popup
         [SerializeField] private List<KinlingScheduleHourDisplay> _hours;
 
         private KinlingScheduleOption _currentSelected;
-        private Unit _unit;
+        private Kinling _kinling;
 
-        public void Refresh(Unit unit)
+        public void Refresh(Kinling kinling)
         {
             OptionSelected(_sleepOption);
-            _unit = unit;
+            _kinling = kinling;
             RefreshDisplayedHours();
         }
 
@@ -40,13 +40,13 @@ namespace Popups.Kinling_Info_Popup
         public void OnHourClicked(int hour, KinlingScheduleHourDisplay hourDisplay)
         {
             hourDisplay.SetColour(GetCurOptionColour());
-            _unit.Schedule.SetHour(hour, _currentSelected.Option);
+            _kinling.Schedule.SetHour(hour, _currentSelected.Option);
             RefreshDisplayedHours();
         }
 
         private void RefreshDisplayedHours()
         {
-            var schedule = _unit.Schedule;
+            var schedule = _kinling.Schedule;
             foreach (var hour in _hours)
             {
                 var option = schedule.GetHour(hour.Hour);

@@ -15,7 +15,7 @@ namespace TaskSystem
         protected Task _task;
         protected const float MIN_DISTANCE_FROM_REQUESTOR = 0.5f;
 
-        protected UnitAnimController UnitAnimController => _ai.Unit.UnitAnimController;
+        protected KinlingAnimController KinlingAnimController => _ai.Kinling.kinlingAnimController;
 
         private void Awake()
         {
@@ -36,7 +36,7 @@ namespace TaskSystem
         {
             if (task.Requestor != null)
             {
-                return task.Requestor.UseagePosition(_ai.Unit.transform.position) != null;
+                return task.Requestor.UseagePosition(_ai.Kinling.transform.position) != null;
                 
                 //return Helper.DoesPathExist(_ai.Unit.transform.position, task.Requestor.transform.position);
             }
@@ -70,16 +70,16 @@ namespace TaskSystem
 
             Item claimedTool = null;
             // Find the tool
-            if (_ai.Unit.AssignedWorkplace != null)
+            if (_ai.Kinling.AssignedWorkplace != null)
             {
                 claimedTool = InventoryManager.Instance.ClaimToolTypeBuilding(_task.RequiredToolType,
-                    _ai.Unit.AssignedWorkplace);
+                    _ai.Kinling.AssignedWorkplace);
             }
             
-            if (claimedTool == null && _ai.Unit.AssignedHome != null)
+            if (claimedTool == null && _ai.Kinling.AssignedHome != null)
             {
                 claimedTool = InventoryManager.Instance.ClaimToolTypeBuilding(_task.RequiredToolType,
-                    _ai.Unit.AssignedHome);
+                    _ai.Kinling.AssignedHome);
             }
 
             if (claimedTool == null)
@@ -93,16 +93,16 @@ namespace TaskSystem
                 return;
             }
 
-            _ai.Unit.UnitAgent.SetMovePosition(claimedTool.AssignedStorage.UseagePosition(_ai.Unit.transform.position), () =>
+            _ai.Kinling.KinlingAgent.SetMovePosition(claimedTool.AssignedStorage.UseagePosition(_ai.Kinling.transform.position), () =>
             {
                 // Unequip current item if there is one
                 Item droppedItem = null;
                 var claimedToolsStorage = claimedTool.AssignedStorage;
                 var claimedToolData = (GearData)claimedTool.GetItemData();
-                var curEquippedItem = _ai.Unit.Equipment.EquipmentState.GetGearByType(claimedToolData.Type);
+                var curEquippedItem = _ai.Kinling.Equipment.EquipmentState.GetGearByType(claimedToolData.Type);
                 if (curEquippedItem != null)
                 {
-                    droppedItem = _ai.Unit.Equipment.UnequipTool(curEquippedItem);
+                    droppedItem = _ai.Kinling.Equipment.UnequipTool(curEquippedItem);
                     
                     // Pick it up
                     _ai.HoldItem(droppedItem);
@@ -111,7 +111,7 @@ namespace TaskSystem
                 
                 // Equip item
                 claimedToolsStorage.WithdrawItem(claimedTool);
-                _ai.Unit.Equipment.EquipTool(claimedTool);
+                _ai.Kinling.Equipment.EquipTool(claimedTool);
                 
                 // put unequipped item away
                 if (droppedItem == null)
@@ -131,15 +131,15 @@ namespace TaskSystem
                     
                     Storage storageToPlaceOldItem = null;
                     // Try put tool in workplace
-                    if (_ai.Unit.AssignedWorkplace != null)
+                    if (_ai.Kinling.AssignedWorkplace != null)
                     {
-                        storageToPlaceOldItem = _ai.Unit.AssignedWorkplace.FindBuildingStorage(droppedItem.GetItemData());
+                        storageToPlaceOldItem = _ai.Kinling.AssignedWorkplace.FindBuildingStorage(droppedItem.GetItemData());
                     }
                     
                     // Try put tool in home
-                    if (storageToPlaceOldItem == null && _ai.Unit.AssignedHome != null)
+                    if (storageToPlaceOldItem == null && _ai.Kinling.AssignedHome != null)
                     {
-                        storageToPlaceOldItem = _ai.Unit.AssignedHome.FindBuildingStorage(droppedItem.GetItemData());
+                        storageToPlaceOldItem = _ai.Kinling.AssignedHome.FindBuildingStorage(droppedItem.GetItemData());
                     }
                     
                     // Try put tool in global
@@ -160,7 +160,7 @@ namespace TaskSystem
                     {
                         // Put in storage
                         storageToPlaceOldItem.SetIncoming(droppedItem);
-                        _ai.Unit.UnitAgent.SetMovePosition(storageToPlaceOldItem.UseagePosition(_ai.Unit.transform.position), () =>
+                        _ai.Kinling.KinlingAgent.SetMovePosition(storageToPlaceOldItem.UseagePosition(_ai.Kinling.transform.position), () =>
                         {
                             storageToPlaceOldItem.DepositItems(droppedItem);
                             onReadyForTask.Invoke();
@@ -180,7 +180,7 @@ namespace TaskSystem
         public virtual void OnTaskCancel()
         {
             TaskManager.Instance.AddTask(_task);
-            _ai.Unit.UnitAgent.SetMovePosition(transform.position);
+            _ai.Kinling.KinlingAgent.SetMovePosition(transform.position);
             ConcludeAction();
         }
         

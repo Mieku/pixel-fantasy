@@ -18,7 +18,7 @@ namespace Popups.Kinling_Info_Popup
         public void Init(RelationshipState relationshipState)
         {
             _relationshipState = relationshipState;
-            _kinlingName.text = _relationshipState.Unit.FullName;
+            _kinlingName.text = _relationshipState.Kinling.FullName;
             _relationshipType.text = _relationshipState.RelationshipTypeName;
             if (_relationshipState.Opinion >= 0)
             {

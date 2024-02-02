@@ -41,10 +41,10 @@ namespace Systems.SmartObjects.Scripts
             if (_currentPerformer != null) return false;
             
             // Is the correct time of day
-            if (potentialPerformer.Unit.TaskAI.GetCurrentScheduleOption() != ScheduleOption.Sleep) return false;
+            if (potentialPerformer.Kinling.TaskAI.GetCurrentScheduleOption() != ScheduleOption.Sleep) return false;
             
             // Is the Kinling's home
-            if (potentialPerformer.Unit.AssignedHome != _linkedFurniture.ParentBuilding) return false;
+            if (potentialPerformer.Kinling.AssignedHome != _linkedFurniture.ParentBuilding) return false;
 
             // Can Kinling use this furniture
             if (!_linkedFurniture.CanKinlingUseThis()) return false;
@@ -87,11 +87,11 @@ namespace Systems.SmartObjects.Scripts
             
             // Teleport them into the bed
             _preTeleportPos = _currentPerformer.Performer.transform.position;
-            _currentPerformer.Performer.Unit.UnitAgent.TeleportToPosition(_sleepLocation.position, true);
-            _linkedFurniture.EnterBed(_currentPerformer.Performer.Unit);
+            _currentPerformer.Performer.Kinling.KinlingAgent.TeleportToPosition(_sleepLocation.position, true);
+            _linkedFurniture.EnterBed(_currentPerformer.Performer.Kinling);
             
             // Do sleeping Animation
-            performer.Unit.UnitAnimController.SetUnitAction(_performingAnimation);
+            performer.Kinling.kinlingAnimController.SetUnitAction(_performingAnimation);
             
             // Begin timer
             _currentPerformer.ElapsedTime = 0f;
@@ -138,11 +138,11 @@ namespace Systems.SmartObjects.Scripts
 
             if (_currentPerformer.HasStarted)
             {
-                _currentPerformer.Performer.Unit.UnitAgent.TeleportToPosition(_preTeleportPos, false);
-                _linkedFurniture.ExitBed(_currentPerformer.Performer.Unit);
+                _currentPerformer.Performer.Kinling.KinlingAgent.TeleportToPosition(_preTeleportPos, false);
+                _linkedFurniture.ExitBed(_currentPerformer.Performer.Kinling);
             }
             
-            performer.Unit.UnitAnimController.SetUnitAction(UnitAction.Nothing);
+            performer.Kinling.kinlingAnimController.SetUnitAction(UnitAction.Nothing);
             onCompleted.Invoke(this);
         }
         
@@ -165,7 +165,7 @@ namespace Systems.SmartObjects.Scripts
             }
 
             // If no longer sleep time turn it off
-            if (_currentPerformer.Performer.Unit.TaskAI.GetCurrentScheduleOption() != ScheduleOption.Sleep)
+            if (_currentPerformer.Performer.Kinling.TaskAI.GetCurrentScheduleOption() != ScheduleOption.Sleep)
             {
                 OnInteractionCompleted(_currentPerformer.Performer, _currentPerformer.OnCompleted);
             }

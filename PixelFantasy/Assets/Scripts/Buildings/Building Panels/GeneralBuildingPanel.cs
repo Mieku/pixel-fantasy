@@ -91,67 +91,67 @@ namespace Buildings.Building_Panels
             }
         }
 
-        private void OnOccupantPressed(Unit unit)
+        private void OnOccupantPressed(Kinling kinling)
         {
-            OpenSelectKinlingPanel(unit);
+            OpenSelectKinlingPanel(kinling);
         }
 
         // Chosen Unit can be null
-        private void OnOccupantChosen(Unit unit, Unit originalUnit)
+        private void OnOccupantChosen(Kinling kinling, Kinling originalKinling)
         {
             _selectKinlingSidePanel.gameObject.SetActive(false);
-            if (unit != null)
+            if (kinling != null)
             {
-                _building.AddOccupant(unit);
+                _building.AddOccupant(kinling);
                 if (_building.BuildingType == BuildingType.Home)
                 {
-                    unit.AssignedHome = _building as HouseholdBuilding;
+                    kinling.AssignedHome = _building as HouseholdBuilding;
                 }
                 else
                 {
-                    unit.AssignedWorkplace = _building;
+                    kinling.AssignedWorkplace = _building;
                 }
                 
                 RefreshOccupants();
             }
 
             // For Swapping if needed
-            if (originalUnit != null)
+            if (originalKinling != null)
             {
-                _building.RemoveOccupant(originalUnit);
+                _building.RemoveOccupant(originalKinling);
                 if (_building.BuildingType == BuildingType.Home)
                 {
-                    originalUnit.AssignedHome = null;
+                    originalKinling.AssignedHome = null;
                 }
                 else
                 {
-                    originalUnit.AssignedWorkplace = null;
+                    originalKinling.AssignedWorkplace = null;
                 }
                 
                 RefreshOccupants();
             }
 
             // Remove them
-            if (unit == originalUnit)
+            if (kinling == originalKinling)
             {
-                _building.RemoveOccupant(unit);
+                _building.RemoveOccupant(kinling);
                 if (_building.BuildingType == BuildingType.Home)
                 {
-                    unit.AssignedHome = null;
+                    kinling.AssignedHome = null;
                 }
                 else
                 {
-                    unit.AssignedWorkplace = null;
+                    kinling.AssignedWorkplace = null;
                 }
                 
                 RefreshOccupants();
             }
         }
 
-        private void OpenSelectKinlingPanel(Unit unit)
+        private void OpenSelectKinlingPanel(Kinling kinling)
         {
             _selectKinlingSidePanel.gameObject.SetActive(true);
-            _selectKinlingSidePanel.Init(_building, unit, OnOccupantChosen);
+            _selectKinlingSidePanel.Init(_building, kinling, OnOccupantChosen);
         }
 
         private void RefreshInventory()

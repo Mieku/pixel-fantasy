@@ -114,10 +114,10 @@ public class GameEvents : MonoBehaviour
         if (OnTaskCancelled != null) OnTaskCancelled(task);
     }
 
-    public static event Action<Unit> OnUnitOccupationChanged;
-    public static void Trigger_OnUnitOccupationChanged(Unit unit)
+    public static event Action<Kinling> OnUnitOccupationChanged;
+    public static void Trigger_OnUnitOccupationChanged(Kinling kinling)
     {
-        if (OnUnitOccupationChanged != null) OnUnitOccupationChanged(unit);
+        if (OnUnitOccupationChanged != null) OnUnitOccupationChanged(kinling);
     }
     
     public static event Action<bool> OnStructureGuideToggled;
@@ -162,10 +162,10 @@ public class GameEvents : MonoBehaviour
         if (DayTick != null) DayTick();
     }
 
-    public static event Action<Unit> OnKinlingChanged;
-    public static void Trigger_OnKinlingChanged(Unit unit)
+    public static event Action<Kinling> OnKinlingChanged;
+    public static void Trigger_OnKinlingChanged(Kinling kinling)
     {
-        if (OnKinlingChanged != null) OnKinlingChanged(unit);
+        if (OnKinlingChanged != null) OnKinlingChanged(kinling);
     }
     
     public static event Action OnCoinsTotalChanged;

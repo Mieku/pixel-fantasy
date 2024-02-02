@@ -9,13 +9,13 @@ using UnityEngine;
 
 namespace Managers
 {
-    public class UnitsManager : Singleton<UnitsManager>
+    public class KinlingsManager : Singleton<KinlingsManager>
     {
-        private List<Unit> _allKinlings = new List<Unit>();
+        private List<Kinling> _allKinlings = new List<Kinling>();
 
-        public List<Unit> AllKinlings => _allKinlings;
-        public List<Unit> UnemployedKinlings => _allKinlings.Where(kinling => kinling.AssignedWorkplace == null).ToList();
-        public List<Unit> HomelessKinlings => _allKinlings.Where(kinling => kinling.AssignedHome == null).ToList();
+        public List<Kinling> AllKinlings => _allKinlings;
+        public List<Kinling> UnemployedKinlings => _allKinlings.Where(kinling => kinling.AssignedWorkplace == null).ToList();
+        public List<Kinling> HomelessKinlings => _allKinlings.Where(kinling => kinling.AssignedHome == null).ToList();
 
         public bool AnyUnitHaveJob(JobData jobData)
         {
@@ -30,14 +30,14 @@ namespace Managers
             return false;
         }
         
-        public List<Unit> GetAllUnitsInRadius(Vector2 startPoint, float radius)
+        public List<Kinling> GetAllUnitsInRadius(Vector2 startPoint, float radius)
         {
             return _allKinlings.Where(kinling => 
                 Vector2.Distance(startPoint, kinling.transform.position) <= radius
             ).ToList();
         }
         
-        public void RegisterKinling(Unit kinling)
+        public void RegisterKinling(Kinling kinling)
         {
             if (_allKinlings.Contains(kinling))
             {
@@ -49,7 +49,7 @@ namespace Managers
             
         }
 
-        public void DeregisterKinling(Unit kinling)
+        public void DeregisterKinling(Kinling kinling)
         {
             if (!_allKinlings.Contains(kinling))
             {
@@ -60,7 +60,7 @@ namespace Managers
             _allKinlings.Remove(kinling);
         }
         
-        public Unit GetUnit(string uniqueID)
+        public Kinling GetUnit(string uniqueID)
         {
             return AllKinlings.Find(unit => unit.UniqueId == uniqueID);
         }
@@ -77,8 +77,8 @@ namespace Managers
         [Command("set_love")]
         private void CMD_SetLove(string instigatorFirstName, string receiverFirstName)
         {
-            Unit instigator = _allKinlings.Find(unit => unit.FirstName == instigatorFirstName);
-            Unit receiver = _allKinlings.Find(unit => unit.FirstName == receiverFirstName);
+            Kinling instigator = _allKinlings.Find(unit => unit.FirstName == instigatorFirstName);
+            Kinling receiver = _allKinlings.Find(unit => unit.FirstName == receiverFirstName);
 
             if (instigator == null)
             {
@@ -100,8 +100,8 @@ namespace Managers
         [Command("mate")]
         private void CMD_Mate(string instigatorFirstName, string receiverFirstName)
         {
-            Unit instigator = _allKinlings.Find(unit => unit.FirstName == instigatorFirstName);
-            Unit receiver = _allKinlings.Find(unit => unit.FirstName == receiverFirstName);
+            Kinling instigator = _allKinlings.Find(unit => unit.FirstName == instigatorFirstName);
+            Kinling receiver = _allKinlings.Find(unit => unit.FirstName == receiverFirstName);
             
             if (instigator == null)
             {
@@ -119,7 +119,7 @@ namespace Managers
             instigator.TaskAI.QueueTask(task);
         }
 
-        public Unit CreateChild(Unit mother, Unit father)
+        public Kinling CreateChild(Kinling mother, Kinling father)
         {
             KinlingData childData = new KinlingData(mother.GetKinlingData(), father.GetKinlingData());
             var child = Spawner.Instance.SpawnKinling(childData, mother.transform.position, true);

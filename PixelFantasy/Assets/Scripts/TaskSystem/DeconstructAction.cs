@@ -20,7 +20,7 @@ namespace TaskSystem
         {
             _task = task;
             _construction = (Construction)_task.Requestor;
-            _movePos = _construction.UseagePosition(_ai.Unit.transform.position);
+            _movePos = _construction.UseagePosition(_ai.Kinling.transform.position);
         }
 
         public override void DoAction()
@@ -39,14 +39,14 @@ namespace TaskSystem
         {
             if (!_isMoving)
             {
-                _ai.Unit.UnitAgent.SetMovePosition((Vector2)_movePos);
+                _ai.Kinling.KinlingAgent.SetMovePosition((Vector2)_movePos);
                 _isMoving = true;
             }
         }
 
         private void DoConstruction()
         {
-            UnitAnimController.SetUnitAction(UnitAction.Swinging, _ai.GetActionDirection(_construction.transform.position));
+            KinlingAnimController.SetUnitAction(UnitAction.Swinging, _ai.GetActionDirection(_construction.transform.position));
             
             _timer += TimeManager.Instance.DeltaTime;
             if(_timer >= WORK_SPEED) 
@@ -64,7 +64,7 @@ namespace TaskSystem
         {
             base.ConcludeAction();
             
-            UnitAnimController.SetUnitAction(UnitAction.Nothing);
+            KinlingAnimController.SetUnitAction(UnitAction.Nothing);
             _construction = null;
             _task = null;
             _movePos = null;

@@ -20,7 +20,7 @@ namespace TaskSystem
         {
             _task = task;
             _crop = (Crop)task.Requestor;
-            _movePos = _crop.UseagePosition(_ai.Unit.transform.position);
+            _movePos = _crop.UseagePosition(_ai.Kinling.transform.position);
         }
 
         public override void DoAction()
@@ -37,7 +37,7 @@ namespace TaskSystem
         
         private void DoTillSoil()
         {
-            UnitAnimController.SetUnitAction(UnitAction.Digging, _ai.GetActionDirection(_crop.transform.position));
+            KinlingAnimController.SetUnitAction(UnitAction.Digging, _ai.GetActionDirection(_crop.transform.position));
             
             _timer += TimeManager.Instance.DeltaTime;
             if(_timer >= WORK_SPEED) 
@@ -55,7 +55,7 @@ namespace TaskSystem
         {
             if (!_isMoving)
             {
-                _ai.Unit.UnitAgent.SetMovePosition((Vector2)_movePos);
+                _ai.Kinling.KinlingAgent.SetMovePosition((Vector2)_movePos);
                 _isMoving = true;
             }
         }
@@ -64,7 +64,7 @@ namespace TaskSystem
         {
             base.ConcludeAction();
             
-            UnitAnimController.SetUnitAction(UnitAction.Nothing);
+            KinlingAnimController.SetUnitAction(UnitAction.Nothing);
             _crop = null;
             _task = null;
             _movePos = null;

@@ -58,7 +58,7 @@ namespace Systems.SmartObjects.Scripts
             // Start perform animation
             if (_performingAnimation != UnitAction.Nothing)
             {
-                performer.Unit.UnitAnimController.SetUnitAction(_performingAnimation);
+                performer.Kinling.kinlingAnimController.SetUnitAction(_performingAnimation);
             }
 
             // Check the interaction type
@@ -111,7 +111,7 @@ namespace Systems.SmartObjects.Scripts
         {
             base.OnInteractionCompleted(performer, onCompleted);
             
-            performer.Unit.UnitAnimController.SetUnitAction(UnitAction.Nothing);
+            performer.Kinling.kinlingAnimController.SetUnitAction(UnitAction.Nothing);
 
             if (onCompleted != null)
             {

@@ -12,19 +12,19 @@ namespace Buildings
         [SerializeField] private TextMeshProUGUI _nameText;
         [SerializeField] private TextMeshProUGUI _titleText;
 
-        private Unit _unit;
-        private Action<Unit> _onPressedCallback;
+        private Kinling _kinling;
+        private Action<Kinling> _onPressedCallback;
         
-        public void Init(Unit unit, Action<Unit> onPressedCallback)
+        public void Init(Kinling kinling, Action<Kinling> onPressedCallback)
         {
-            _unit = unit;
+            _kinling = kinling;
             _onPressedCallback = onPressedCallback;
 
-            if (unit != null)
+            if (kinling != null)
             {
                 _addSymbol.SetActive(false);
                 _portrait.SetActive(true);
-                _nameText.text = unit.FullName;
+                _nameText.text = kinling.FullName;
                 _titleText.text = "Resident";
             }
             else
@@ -38,7 +38,7 @@ namespace Buildings
         
         public void OnPressed()
         {
-            _onPressedCallback.Invoke(_unit);
+            _onPressedCallback.Invoke(_kinling);
         }
     }
 }

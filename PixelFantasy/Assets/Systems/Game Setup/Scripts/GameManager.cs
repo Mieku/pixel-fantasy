@@ -52,7 +52,7 @@ namespace Systems.Game_Setup.Scripts
         
         private void LoadStarterKinlings(List<KinlingData> starterKinlings)
         {
-            List<Unit> spawnedKinlings = new List<Unit>();
+            List<Kinling> spawnedKinlings = new List<Kinling>();
             
             // Spawn First
             foreach (var kinling in starterKinlings)

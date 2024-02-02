@@ -111,7 +111,7 @@ namespace Systems.SmartObjects.Scripts
         {
             if (_interactionEmotion != null)
             {
-                performer.Unit.KinlingMood.ApplyEmotion(_interactionEmotion);
+                performer.Kinling.KinlingMood.ApplyEmotion(_interactionEmotion);
             }
         }
 

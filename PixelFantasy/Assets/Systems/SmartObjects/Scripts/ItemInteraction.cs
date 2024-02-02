@@ -100,11 +100,11 @@ namespace Systems.SmartObjects.Scripts
             
             // Take the item out of storage
             LinkedItem.AssignedStorage.WithdrawItem(LinkedItem);
-            performer.Unit.TaskAI.HoldItem(LinkedItem);
+            performer.Kinling.TaskAI.HoldItem(LinkedItem);
             LinkedItem.SetHeld(true);
                 
-            var standPos = _currentPerformer.Performer.Unit.UnitAgent.PickLocationInRange(1.0f);
-            return _currentPerformer.Performer.Unit.UnitAgent.SetMovePosition(standPos, () =>
+            var standPos = _currentPerformer.Performer.Kinling.KinlingAgent.PickLocationInRange(1.0f);
+            return _currentPerformer.Performer.Kinling.KinlingAgent.SetMovePosition(standPos, () =>
             {
                 if (_interactionType == EInteractionType.Instantaneous)
                 {
@@ -120,7 +120,7 @@ namespace Systems.SmartObjects.Scripts
                     // Start perform animation
                     if (_performingAnimation != UnitAction.Nothing)
                     {
-                        performer.Unit.UnitAnimController.SetUnitAction(_performingAnimation);
+                        performer.Kinling.kinlingAnimController.SetUnitAction(_performingAnimation);
                     }
                         
                     _currentPerformer.ElapsedTime = 0f;
@@ -154,13 +154,13 @@ namespace Systems.SmartObjects.Scripts
         {
             base.OnInteractionCompleted(performer, _currentPerformer.OnCompleted);
             
-            performer.Unit.UnitAnimController.SetUnitAction(UnitAction.Nothing);
+            performer.Kinling.kinlingAnimController.SetUnitAction(UnitAction.Nothing);
             _currentPerformer.OnCompleted.Invoke(this);
             
             // Drop Item
             if (LinkedItem != null)
             {
-                performer.Unit.TaskAI.DropCarriedItem();
+                performer.Kinling.TaskAI.DropCarriedItem();
                 LinkedItem.SetHeld(true);
             }
         }
@@ -177,7 +177,7 @@ namespace Systems.SmartObjects.Scripts
         {
             base.OnInteractionCompleted(performer, onCompleted);
             
-            performer.Unit.UnitAnimController.SetUnitAction(UnitAction.Nothing);
+            performer.Kinling.kinlingAnimController.SetUnitAction(UnitAction.Nothing);
             onCompleted.Invoke(this);
 
             if (_destroyItemAfterInteraction)

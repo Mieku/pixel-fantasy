@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Characters
 {
-    public class UnitThought : MonoBehaviour
+    public class KinlingThought : MonoBehaviour
     {
         public enum ThoughtState
         {

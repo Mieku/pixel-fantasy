@@ -10,12 +10,12 @@ namespace Popups.Kinling_Info_Popup
         [SerializeField] private Transform _prevJobSkillsParent;
         [SerializeField] private JobSkillsPanel _curJobPanel;
         
-        private Unit _unit;
+        private Kinling _kinling;
         private List<JobSkillsPanel> _displayedRetiredJobs = new List<JobSkillsPanel>();
 
-        public void Show(Unit unit)
+        public void Show(Kinling kinling)
         {
-            _unit = unit;
+            _kinling = kinling;
             
             gameObject.SetActive(true);
             RefreshJobs();
@@ -50,7 +50,7 @@ namespace Popups.Kinling_Info_Popup
 
         public void ChangeJobPressed()
         {
-            ChangeJobPopup.Show(_unit);
+            ChangeJobPopup.Show(_kinling);
         }
     }
 }

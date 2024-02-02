@@ -10,12 +10,13 @@ using Mono.CSharp;
 using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Analytics;
+using UnityEngine.Serialization;
 
 namespace TaskSystem
 {
     public class TaskAI : MonoBehaviour
     {
-        [SerializeField] private Unit _unit;
+        [FormerlySerializedAs("_unit")] [SerializeField] private Kinling _kinling;
 
         private List<TaskAction> _taskActions;
         private State _state;
@@ -28,7 +29,7 @@ namespace TaskSystem
         private const float WAIT_TIMER_MAX = 0.2f; // 200ms
         private const float IDLE_TIME = 10f;
 
-        public Unit Unit => _unit;
+        public Kinling Kinling => _kinling;
 
         public enum State
         {
@@ -101,7 +102,7 @@ namespace TaskSystem
         public ScheduleOption GetCurrentScheduleOption()
         {
             int currentHour = EnvironmentManager.Instance.GameTime.GetCurrentHour24();
-            return _unit.Schedule.GetHour(currentHour);
+            return _kinling.Schedule.GetHour(currentHour);
         }
 
         private void RequestNextTask()
@@ -155,16 +156,16 @@ namespace TaskSystem
             }
 
             // First Check Their Assigned Workplace
-            if (_unit.AssignedWorkplace != null && task == null)
+            if (_kinling.AssignedWorkplace != null && task == null)
             {
-                task = _unit.AssignedWorkplace.GetBuildingTask();
+                task = _kinling.AssignedWorkplace.GetBuildingTask();
                 if (AttemptStartTask(task, true)) return;
                 else task = null;
             }
             
             if (task == null)
             {
-                task = TaskManager.Instance.RequestTask(_unit);
+                task = TaskManager.Instance.RequestTask(_kinling);
                 if (task != null)
                 {
                     if (AttemptStartTask(task, true)) return;
@@ -223,17 +224,17 @@ namespace TaskSystem
             // New recreation tasks go here
             
             // Eat food
-            if (task == null && _unit.Needs.GetNeedValue(NeedType.Food) < 0.75f)
+            if (task == null && _kinling.Needs.GetNeedValue(NeedType.Food) < 0.75f)
             {
-                if (_unit.AssignedHome != null)
+                if (_kinling.AssignedHome != null)
                 {
-                    task = new Task("Eat Food", _unit.AssignedHome, null, EToolType.None);
+                    task = new Task("Eat Food", _kinling.AssignedHome, null, EToolType.None);
                     if (AttemptStartTask(task, false)) return;
                     else task = null;
                 }
                 else
                 {
-                    var eatery = BuildingsManager.Instance.GetClosestBuildingOfType<IEateryBuilding>(_unit.transform.position);
+                    var eatery = BuildingsManager.Instance.GetClosestBuildingOfType<IEateryBuilding>(_kinling.transform.position);
                     if (eatery != null)
                     {
                         task = new Task("Eat Food", eatery, null, EToolType.None);
@@ -245,14 +246,14 @@ namespace TaskSystem
             }
             
             // Make sure there is 1 day's worth of food in home
-            if (task == null && _unit.AssignedHome != null)
+            if (task == null && _kinling.AssignedHome != null)
             {
-                var suggestedNutrition = _unit.AssignedHome.SuggestedStoredNutrition;
-                var curHouseholdNutrition = _unit.AssignedHome.CurrentStoredNutrition;
+                var suggestedNutrition = _kinling.AssignedHome.SuggestedStoredNutrition;
+                var curHouseholdNutrition = _kinling.AssignedHome.CurrentStoredNutrition;
                 if (curHouseholdNutrition < suggestedNutrition)
                 {
                     // Set up a task to pick up some food and store it at home
-                    task = new Task("Store Food", _unit.AssignedHome, null, EToolType.None);
+                    task = new Task("Store Food", _kinling.AssignedHome, null, EToolType.None);
                     if (AttemptStartTask(task, false)) return;
                     else task = null;
                 }
@@ -261,11 +262,11 @@ namespace TaskSystem
             // Go on dates
             
             // Have sex
-            if (task == null && _unit.Partner != null)
+            if (task == null && _kinling.Partner != null)
             {
-                if (_unit.Needs.CheckSexDrive() && _unit.Partner.Needs.CheckSexDrive())
+                if (_kinling.Needs.CheckSexDrive() && _kinling.Partner.Needs.CheckSexDrive())
                 {
-                    task = new Task("Mate", _unit.AssignedBed, null, EToolType.None);
+                    task = new Task("Mate", _kinling.AssignedBed, null, EToolType.None);
                     if (AttemptStartTask(task, false)) return;
                     else task = null;
                 }
@@ -385,7 +386,7 @@ namespace TaskSystem
 
         private Task CheckEquipment()
         {
-            return _unit.Equipment.CheckDesiredEquipment();
+            return _kinling.Equipment.CheckDesiredEquipment();
         }
 
         /// <summary>
@@ -394,16 +395,16 @@ namespace TaskSystem
         private void CheckPersonal()
         {
             // If homeless, find a home
-            if (_unit.AssignedHome == null)
+            if (_kinling.AssignedHome == null)
             {
                 // Does partner have home?
-                if (_unit.Partner != null && _unit.Partner.AssignedHome != null)
+                if (_kinling.Partner != null && _kinling.Partner.AssignedHome != null)
                 {
-                    _unit.Partner.AssignedHome.AssignPartner(_unit);
+                    _kinling.Partner.AssignedHome.AssignPartner(_kinling);
                 }
                 else
                 {
-                    BuildingsManager.Instance.ClaimEmptyHome(_unit);
+                    BuildingsManager.Instance.ClaimEmptyHome(_kinling);
                 }
             }
         }
@@ -433,7 +434,7 @@ namespace TaskSystem
 
         public bool IsPositionPossible(Vector2 pos)
         {
-            return Unit.UnitAgent.IsDestinationPossible(pos);
+            return Kinling.KinlingAgent.IsDestinationPossible(pos);
         }
         
         // public Vector2? GetAdjacentPosition(Vector2 workPosition, float distanceAway = 1f)
@@ -615,7 +616,7 @@ namespace TaskSystem
 
         public bool HasToolTypeEquipped(EToolType toolType)
         {
-            return _unit.Equipment.HasToolTypeEquipped(toolType);
+            return _kinling.Equipment.HasToolTypeEquipped(toolType);
         }
         
         private void IdleAtWork()
@@ -623,22 +624,22 @@ namespace TaskSystem
             _state = State.Idling;
             
             Building buildingToIdleIn = null;
-            if (_unit.AssignedWorkplace == null)
+            if (_kinling.AssignedWorkplace == null)
             {
                 // Idle at town center
-                buildingToIdleIn = BuildingsManager.Instance.GetClosestBuildingOfType<TownCenterBuilding>(_unit.transform.position);
+                buildingToIdleIn = BuildingsManager.Instance.GetClosestBuildingOfType<TownCenterBuilding>(_kinling.transform.position);
             }
             else
             {
-                buildingToIdleIn = _unit.AssignedWorkplace;
+                buildingToIdleIn = _kinling.AssignedWorkplace;
             }
 
             if (buildingToIdleIn == null)
             {
-                buildingToIdleIn = _unit.AssignedHome;
+                buildingToIdleIn = _kinling.AssignedHome;
             }
             
-            if (!_unit.IsSeated || (_unit.GetChair != null && _unit.GetChair.ParentBuilding != buildingToIdleIn ))
+            if (!_kinling.IsSeated || (_kinling.GetChair != null && _kinling.GetChair.ParentBuilding != buildingToIdleIn ))
             {
                 Vector2 moveTarget;
                 ChairFurniture chair = null;
@@ -647,25 +648,25 @@ namespace TaskSystem
                     chair = buildingToIdleIn.FindAvailableChair();
                     if (chair != null)
                     {
-                        var seat = chair.ClaimSeat(_unit);
+                        var seat = chair.ClaimSeat(_kinling);
                         moveTarget = seat.Position;
                     }
                     else
                     {
-                        moveTarget = buildingToIdleIn.GetRandomIndoorsPosition(_unit);
+                        moveTarget = buildingToIdleIn.GetRandomIndoorsPosition(_kinling);
                     }
                 }
                 else
                 {
                     // Just wander
-                    moveTarget = _unit.UnitAgent.PickLocationInRange(10.0f);
+                    moveTarget = _kinling.KinlingAgent.PickLocationInRange(10.0f);
                 }
 
-                _unit.UnitAgent.SetMovePosition(moveTarget, () =>
+                _kinling.KinlingAgent.SetMovePosition(moveTarget, () =>
                 {
                     if (chair != null)
                     {
-                        chair.EnterSeat(_unit);
+                        chair.EnterSeat(_kinling);
                     }
                 });
             }

@@ -34,7 +34,7 @@ namespace Buildings
         public int AmountItemStored(ItemData itemData);
         public List<ItemAmount> GetStoredItemsByCategory(EItemCategory category);
         public ChairFurniture FindAvailableChair();
-        public Vector2 GetRandomIndoorsPosition(Unit kinling);
+        public Vector2 GetRandomIndoorsPosition(Kinling kinling);
         public List<Storage> GetBuildingStorages();
         public Storage FindBuildingStorage(ItemData itemData);
         public JobData GetBuildingJob();
@@ -83,7 +83,7 @@ namespace Buildings
         private bool _haulingTasksCreated;
 
         protected List<BuildingNote> _buildingNotes = new List<BuildingNote>();
-        protected List<Unit> _occupants = new List<Unit>();
+        protected List<Kinling> _occupants = new List<Kinling>();
         protected List<Furniture> _allFurniture = new List<Furniture>();
         protected List<InventoryLogisticBill> _logisticsBills = new List<InventoryLogisticBill>();
         
@@ -448,28 +448,28 @@ namespace Buildings
 
         public virtual string OccupantAdjective => "Occupants";
 
-        public virtual List<Unit> GetPotentialOccupants()
+        public virtual List<Kinling> GetPotentialOccupants()
         {
-            return UnitsManager.Instance.HomelessKinlings;
+            return KinlingsManager.Instance.HomelessKinlings;
         }
 
-        public List<Unit> GetOccupants()
+        public List<Kinling> GetOccupants()
         {
             return _occupants;
         }
 
-        public virtual void AddOccupant(Unit unit)
+        public virtual void AddOccupant(Kinling kinling)
         {
-            _occupants.Add(unit);
+            _occupants.Add(kinling);
             
-            unit.AssignedWorkplace = this;
+            kinling.AssignedWorkplace = this;
         }
 
-        public virtual void RemoveOccupant(Unit unit)
+        public virtual void RemoveOccupant(Kinling kinling)
         {
-            _occupants.Remove(unit);
+            _occupants.Remove(kinling);
             
-            unit.AssignedWorkplace = null;
+            kinling.AssignedWorkplace = null;
         }
         
         public List<BuildingNote> BuildingNotes => _buildingNotes;
@@ -1050,7 +1050,7 @@ namespace Buildings
             }
         }
 
-        public Vector2 GetRandomIndoorsPosition(Unit kinling)
+        public Vector2 GetRandomIndoorsPosition(Kinling kinling)
         {
             Vector2? potentialPosition = _buildingInteriorDetector.GetRandomInteriorPosition(kinling);
 

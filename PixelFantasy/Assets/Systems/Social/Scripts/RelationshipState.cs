@@ -20,7 +20,7 @@ namespace Systems.Social.Scripts
         public string KinlingUniqueID;
         public int Opinion;
         public bool IsPartner;
-        public Unit Unit => UnitsManager.Instance.GetUnit(KinlingUniqueID);
+        public Kinling Kinling => KinlingsManager.Instance.GetUnit(KinlingUniqueID);
         public int NaturalCohesion { get; protected set; }
 
         private const int MIN_NATURAL_COHESION = -10;

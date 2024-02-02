@@ -12,11 +12,11 @@ namespace Controllers
         [SerializeField] private Transform selectionAreaTransform;
         
         private Vector3 startPosition;
-        private List<UnitSelector> selectedCharacters;
+        private List<KinlingSelector> selectedCharacters;
 
         private void Awake()
         {
-            selectedCharacters = new List<UnitSelector>();
+            selectedCharacters = new List<KinlingSelector>();
             selectionAreaTransform.gameObject.SetActive(false);
         }
 
@@ -59,7 +59,7 @@ namespace Controllers
                 
                 foreach (var collider2D in collider2DArray)
                 {
-                    UnitSelector selector = collider2D.GetComponent<UnitSelector>();
+                    KinlingSelector selector = collider2D.GetComponent<KinlingSelector>();
                     if (selector != null)
                     {
                         selectedCharacters.Add(selector);

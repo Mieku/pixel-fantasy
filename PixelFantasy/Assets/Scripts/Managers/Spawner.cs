@@ -38,7 +38,7 @@ namespace Managers
         [SerializeField] private GameObject _storageContainerPrefab;
 
         [SerializeField] private Transform _kinlingsParent;
-        [SerializeField] private Unit _kinlingPrefab;
+        [SerializeField] private Kinling _kinlingPrefab;
 
         private bool _showPlacement;
         private List<string> _invalidPlacementTags = new List<string>();
@@ -302,9 +302,9 @@ namespace Managers
         }
 
         private int _agentPriority = 0;
-        public Unit SpawnKinling(KinlingData kinlingData, Vector2 spawnPosition, bool preloadWithKinlingData = true)
+        public Kinling SpawnKinling(KinlingData kinlingData, Vector2 spawnPosition, bool preloadWithKinlingData = true)
         {
-            Unit kinling = Instantiate(_kinlingPrefab, _kinlingsParent);
+            Kinling kinling = Instantiate(_kinlingPrefab, _kinlingsParent);
             kinling.transform.position = spawnPosition;
             kinling.gameObject.name = $"Kinling_{kinlingData.Firstname}_{kinlingData.Lastname}";
 
@@ -317,7 +317,7 @@ namespace Managers
                 kinling.UniqueId = kinlingData.UID;
             }
 
-            kinling.UnitAgent.SetPriority(_agentPriority);
+            kinling.KinlingAgent.SetPriority(_agentPriority);
             _agentPriority++;
             if (_agentPriority > 99)
             {

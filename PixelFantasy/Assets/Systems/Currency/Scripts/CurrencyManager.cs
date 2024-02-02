@@ -78,7 +78,7 @@ namespace Systems.Currency.Scripts
         {
             int incomeAmount = 0;
             // Get Income From Kinlings
-            foreach (var kinling in UnitsManager.Instance.AllKinlings)
+            foreach (var kinling in KinlingsManager.Instance.AllKinlings)
             {
                 incomeAmount += kinling.DailyIncome();
             }
@@ -94,7 +94,7 @@ namespace Systems.Currency.Scripts
         public string GetIncomeBreakdown()
         {
             int kinlingIncome = 0;
-            foreach (var kinling in UnitsManager.Instance.AllKinlings)
+            foreach (var kinling in KinlingsManager.Instance.AllKinlings)
             {
                 kinlingIncome += kinling.DailyIncome();
             }
