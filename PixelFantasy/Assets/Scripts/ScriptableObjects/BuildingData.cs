@@ -12,7 +12,7 @@ namespace ScriptableObjects
     {
         public int MaxOccupants;
         public int DailyUpkeep;
-        public List<StatType> RelevantAbilityTypes = new List<StatType>();
+        [FormerlySerializedAs("RelevantAbilityTypes")] public List<StatType> RelevantStatTypes = new List<StatType>();
         public List<InventoryLogisticBill> DefaultLogistics = new List<InventoryLogisticBill>();
     }
 }

@@ -4,16 +4,13 @@ using UnityEngine;
 
 namespace TaskSystem
 {
-    public class BuildBuildingAction : TaskAction
+    public class BuildBuildingAction : TaskAction // ID: Build Building
     {
         private Building _building;
         private float _timer;
         private Vector2? _movePos;
         private bool _isMoving;
         private bool _jobsDone;
-
-        private const float WORK_SPEED = 1f; // TODO: Get the work speed from the Kinling's stats
-        private const float WORK_AMOUNT = 1f; // TODO: Get the amount of work from the Kinling's stats
         
         private float DistanceFromRequestor => Vector2.Distance((Vector2)_movePos, transform.position);
         
@@ -53,10 +50,10 @@ namespace TaskSystem
             KinlingAnimController.SetUnitAction(UnitAction.Swinging, _ai.GetActionDirection(_building.transform.position));
             
             _timer += TimeManager.Instance.DeltaTime;
-            if(_timer >= WORK_SPEED) 
+            if(_timer >= ActionSpeed) 
             {
                 _timer = 0;
-                if (_building.DoConstruction(WORK_AMOUNT)) 
+                if (_building.DoConstruction(WorkAmount)) 
                 {
                     // When work is complete
                     _jobsDone = true;

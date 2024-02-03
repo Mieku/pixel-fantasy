@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace TaskSystem
 {
-    public class PlaceFurnitureAction : TaskAction
+    public class PlaceFurnitureAction : TaskAction // ID: Place Furniture
     {
         private Item _itemToPlace;
         private Furniture _furniture => _task.Requestor as Furniture;
@@ -14,8 +14,6 @@ namespace TaskSystem
         private float _timer;
         private bool _isPlacingItem;
         
-        private const float WORK_SPEED = 1f; // TODO: Get the work speed from the Kinling's stats
-        private const float WORK_AMOUNT = 1f; // TODO: Get the amount of work from the Kinling's stats
         public float DistanceToRequestor => Vector2.Distance(_furniture.transform.position, transform.position);
         public float DistanceToStorage => Vector2.Distance(_itemToPlace.AssignedStorage.transform.position, transform.position);
         
@@ -86,10 +84,10 @@ namespace TaskSystem
             _isPlacingItem = true;
             
             _timer += TimeManager.Instance.DeltaTime;
-            if(_timer >= WORK_SPEED) 
+            if(_timer >= ActionSpeed) 
             {
                 _timer = 0;
-                if (_furniture.DoPlacement(WORK_AMOUNT)) 
+                if (_furniture.DoPlacement(WorkAmount)) 
                 {
                     // When work is complete
                     ConcludeAction();

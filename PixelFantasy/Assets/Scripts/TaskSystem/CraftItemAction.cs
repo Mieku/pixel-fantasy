@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace TaskSystem
 {
-    public class CraftItemAction : TaskAction
+    public class CraftItemAction : TaskAction // ID: Craft Item
     {
          private CraftedItemData _itemToCraft;
         private ICraftingBuilding _craftBuilding;
@@ -19,9 +19,6 @@ namespace TaskSystem
         private Item _targetItem;
         private int _materialIndex;
         private float _timer;
-        
-        private const float WORK_SPEED = 1f; // TODO: Get the work speed from the Kinling's stats
-        private const float WORK_AMOUNT = 1f; // TODO: Get the amount of work from the Kinling's stats
 
         private enum ETaskState
         {
@@ -67,10 +64,10 @@ namespace TaskSystem
             {
                 KinlingAnimController.SetUnitAction(UnitAction.Doing, _ai.GetActionDirection(_craftingTable.transform.position));
                 _timer += TimeManager.Instance.DeltaTime;
-                if(_timer >= WORK_SPEED) 
+                if(_timer >= ActionSpeed) 
                 {
                     _timer = 0;
-                    if (_craftingTable.DoCraft(WORK_AMOUNT))
+                    if (_craftingTable.DoCraft(WorkAmount))
                     {
                         KinlingAnimController.SetUnitAction(UnitAction.Nothing);
                         

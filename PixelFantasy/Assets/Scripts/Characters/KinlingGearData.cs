@@ -46,8 +46,6 @@ namespace Characters
                     return MainHandGearData;
                 case GearType.OffHand:
                     return OffHandGearData;
-                case GearType.BothHands:
-                    return MainHandGearData;
                 case GearType.Necklace:
                     return NecklaceGearData;
                 case GearType.Ring:
@@ -76,8 +74,6 @@ namespace Characters
                     return MainHandGearDye;
                 case GearType.OffHand:
                     return OffHandGearDye;
-                case GearType.BothHands:
-                    return MainHandGearDye;
                 case GearType.Necklace:
                 case GearType.Ring:
                 case GearType.Carried:

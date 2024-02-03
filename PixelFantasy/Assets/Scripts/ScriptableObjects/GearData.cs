@@ -47,7 +47,7 @@ namespace ScriptableObjects
         Hands = 3,
         MainHand = 4,
         OffHand = 5,
-        BothHands = 6,
+        //BothHands = 6,
         Necklace = 7,
         Ring = 8,
         Carried = 9,

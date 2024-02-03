@@ -73,9 +73,6 @@ namespace Items
                 case GearType.OffHand:
                     OffHand = gear;
                     break;
-                case GearType.BothHands:
-                    MainHand = gear;
-                    break;
                 case GearType.Necklace:
                     Necklace = gear;
                     break;
@@ -109,10 +106,6 @@ namespace Items
                 case GearType.OffHand:
                     OffHand = null;
                     break;
-                case GearType.BothHands:
-                    MainHand = null;
-                    OffHand = null;
-                    break;
                 case GearType.Necklace:
                     Necklace = null;
                     break;
@@ -139,12 +132,6 @@ namespace Items
                 case GearType.MainHand:
                     return MainHand;
                 case GearType.OffHand:
-                    return OffHand;
-                case GearType.BothHands:
-                    if (MainHand != null)
-                    {
-                        return MainHand;
-                    }
                     return OffHand;
                 case GearType.Necklace:
                     return Necklace;

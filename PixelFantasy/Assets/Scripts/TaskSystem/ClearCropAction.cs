@@ -4,15 +4,12 @@ using Zones;
 
 namespace TaskSystem
 {
-    public class ClearCropAction : TaskAction
+    public class ClearCropAction : TaskAction // ID: Clear Crop
     {
         private Crop _crop;
         private float _timer;
         private Vector2? _movePos;
         private bool _isMoving;
-
-        private const float WORK_SPEED = 1f; // TODO: Get the work speed from the Kinling's stats
-        private const float WORK_AMOUNT = 1f; // TODO: Get the amount of work from the Kinling's stats
         
         private float DistanceFromRequestor => Vector2.Distance((Vector2)_movePos, transform.position);
         
@@ -40,10 +37,10 @@ namespace TaskSystem
             KinlingAnimController.SetUnitAction(UnitAction.Digging, _ai.GetActionDirection(_crop.transform.position));
             
             _timer += TimeManager.Instance.DeltaTime;
-            if(_timer >= WORK_SPEED) 
+            if(_timer >= ActionSpeed) 
             {
                 _timer = 0;
-                if (_crop.DoClearingWork(WORK_AMOUNT)) 
+                if (_crop.DoClearingWork(WorkAmount)) 
                 {
                     // When work is complete
                     ConcludeAction();

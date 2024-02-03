@@ -91,7 +91,7 @@ namespace Buildings
 
         public override List<Kinling> GetPotentialOccupants()
         {
-            var relevantAbilites = _buildingData.RelevantAbilityTypes;
+            var relevantAbilites = _buildingData.RelevantStatTypes;
             
             var unemployed = KinlingsManager.Instance.UnemployedKinlings;
             List<Kinling> sortedKinlings = unemployed

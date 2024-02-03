@@ -42,7 +42,7 @@ namespace Systems.Details.Building_Details.Scripts
             {
                 _portraitImage.gameObject.SetActive(true);
                 _tooltip.Header = _assignedKinling.FullName;
-                _tooltip.Content = _assignedKinling.GetStatList(_linkedBuilding.BuildingData.RelevantAbilityTypes);
+                _tooltip.Content = _assignedKinling.GetStatList(_linkedBuilding.BuildingData.RelevantStatTypes);
             }
             else
             {
@@ -62,7 +62,7 @@ namespace Systems.Details.Building_Details.Scripts
                 _removeCurrentHandle.SetActive(true);
                 _removeCurrentName.text = _assignedKinling.FullName;
                 _removeCurrentTooltip.Header = _assignedKinling.FullName;
-                _removeCurrentTooltip.Content = _assignedKinling.GetStatList(_linkedBuilding.BuildingData.RelevantAbilityTypes);
+                _removeCurrentTooltip.Content = _assignedKinling.GetStatList(_linkedBuilding.BuildingData.RelevantStatTypes);
             }
             else
             {
@@ -80,7 +80,7 @@ namespace Systems.Details.Building_Details.Scripts
                 foreach (var potentialOccupant in potentialOccupants)
                 {
                     var option = Instantiate(_occupantOptionPrefab, _occupantOptionParent);
-                    option.Init(potentialOccupant, _linkedBuilding.BuildingData.RelevantAbilityTypes, OnOptionSelected);
+                    option.Init(potentialOccupant, _linkedBuilding.BuildingData.RelevantStatTypes, OnOptionSelected);
                     _displayedOptions.Add(option);
                 }
             }

@@ -74,7 +74,6 @@ namespace Characters
             InitializeGear(kinlingGearData, GearType.Hands);
             InitializeGear(kinlingGearData, GearType.MainHand);
             InitializeGear(kinlingGearData, GearType.OffHand);
-            InitializeGear(kinlingGearData, GearType.BothHands);
         }
 
         private void InitializeGear(KinlingGearData kinlingGearData, GearType gearType)
@@ -95,67 +94,8 @@ namespace Characters
                 {
                     equipmentState.AssignedDye = gearDye;
                 }
-
-                switch (gearType)
-                {
-                    case GearType.Head:
-                        EquipmentState.Head = equipmentState;
-                        if (EquipmentState.Head.Equals(DesiredEquipmentState.Head)) DesiredEquipmentState.Head = null;
-                        break;
-                    case GearType.Body:
-                        EquipmentState.Body = equipmentState;
-                        if (EquipmentState.Body.Equals(DesiredEquipmentState.Body)) DesiredEquipmentState.Body = null;
-                        break;
-                    case GearType.Pants:
-                        EquipmentState.Pants = equipmentState;
-                        if (EquipmentState.Pants.Equals(DesiredEquipmentState.Pants))
-                            DesiredEquipmentState.Pants = null;
-                        break;
-                    case GearType.Hands:
-                        EquipmentState.Hands = equipmentState;
-                        if (EquipmentState.Hands.Equals(DesiredEquipmentState.Hands))
-                            DesiredEquipmentState.Hands = null;
-                        break;
-                    case GearType.MainHand:
-                        EquipmentState.MainHand = equipmentState;
-                        if (EquipmentState.MainHand.Equals(DesiredEquipmentState.MainHand))
-                            DesiredEquipmentState.MainHand = null;
-                        break;
-                    case GearType.OffHand:
-                        EquipmentState.OffHand = equipmentState;
-                        if (EquipmentState.OffHand.Equals(DesiredEquipmentState.OffHand))
-                            DesiredEquipmentState.OffHand = null;
-                        break;
-                    case GearType.BothHands:
-                        EquipmentState.MainHand = equipmentState;
-                        if (EquipmentState.MainHand.Equals(DesiredEquipmentState.MainHand))
-                            DesiredEquipmentState.MainHand = null;
-                        break;
-                    case GearType.Necklace:
-                        EquipmentState.Necklace = equipmentState;
-                        if (EquipmentState.Necklace.Equals(DesiredEquipmentState.Necklace))
-                            DesiredEquipmentState.Necklace = null;
-                        break;
-                    case GearType.Ring:
-                        if (EquipmentState.Ring1 == null)
-                        {
-                            EquipmentState.Ring1 = equipmentState;
-                            if (EquipmentState.Ring1.Equals(DesiredEquipmentState.Ring1))
-                                DesiredEquipmentState.Ring1 = null;
-                        }
-                        else
-                        {
-                            EquipmentState.Ring2 = equipmentState;
-                        }
-
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-
-                DisplayGear(equipmentState);
-
-                GameEvents.Trigger_OnKinlingChanged(_kinling);
+                
+                Equip(equipmentState);
             }
         }
 
@@ -212,7 +152,12 @@ namespace Characters
         {
             var equipmentState = item.State as GearState;
             Destroy(item.gameObject);
+            Equip(equipmentState);
+        }
 
+        private void Equip(GearState equipmentState)
+        {
+            _kinling.Stats.ApplyStatModifiers(equipmentState);
             switch (equipmentState.GearData.Type)
             {
                 case GearType.Head:
@@ -240,11 +185,6 @@ namespace Characters
                     EquipmentState.OffHand = equipmentState;
                     if (EquipmentState.OffHand.Equals(DesiredEquipmentState.OffHand))
                         DesiredEquipmentState.OffHand = null;
-                    break;
-                case GearType.BothHands:
-                    EquipmentState.MainHand = equipmentState;
-                    if (EquipmentState.MainHand.Equals(DesiredEquipmentState.MainHand))
-                        DesiredEquipmentState.MainHand = null;
                     break;
                 case GearType.Necklace:
                     EquipmentState.Necklace = equipmentState;
@@ -335,13 +275,6 @@ namespace Characters
                     if (equip.OffHandHeldGear != null)
                     {
                         _offHandHeldObj = SpawnGearOnBody(equip.OffHandHeldGear, gearState, _offHandHeld);
-                    }
-
-                    break;
-                case GearType.BothHands:
-                    if (equip.MainHandHeldGear != null)
-                    {
-                        _mainHandHeldObj = SpawnGearOnBody(equip.MainHandHeldGear, gearState, _mainHandHeld);
                     }
 
                     break;
@@ -438,20 +371,6 @@ namespace Characters
                     }
 
                     break;
-                case GearType.BothHands:
-                    if (_mainHandHeldObj != null)
-                    {
-                        Destroy(_mainHandHeldObj.gameObject);
-                        _mainHandHeldObj = null;
-                    }
-
-                    if (_offHandHeldObj != null)
-                    {
-                        Destroy(_offHandHeldObj.gameObject);
-                        _offHandHeldObj = null;
-                    }
-
-                    break;
                 case GearType.Carried:
                     Debug.LogError("Carried is not built yet");
                     break;
@@ -469,7 +388,6 @@ namespace Characters
             Unequip(GearType.Hands);
             Unequip(GearType.MainHand);
             Unequip(GearType.OffHand);
-            Unequip(GearType.BothHands);
             Unequip(GearType.Ring);
             Unequip(GearType.Necklace);
         }
@@ -501,6 +419,7 @@ namespace Characters
 
         public Item Unequip(GearState gear)
         {
+            _kinling.Stats.RemoveStatModifiers(gear);
             var data = gear.GearData;
             if (data == null) return null;
 
@@ -526,9 +445,6 @@ namespace Characters
                     break;
                 case GearType.OffHand:
                     EquipmentState.OffHand = null;
-                    break;
-                case GearType.BothHands:
-                    EquipmentState.MainHand = null;
                     break;
                 case GearType.Necklace:
                     EquipmentState.Necklace = null;
@@ -580,9 +496,6 @@ namespace Characters
                 case GearType.OffHand:
                     if (EquipmentState.OffHand.Data == gearData) return true;
                     break;
-                case GearType.BothHands:
-                    if (EquipmentState.MainHand.Data == gearData) return true;
-                    break;
                 case GearType.Necklace:
                     if (EquipmentState.Necklace.Data == gearData) return true;
                     break;
@@ -616,9 +529,6 @@ namespace Characters
             
             if (DesiredEquipmentState.GetGearByType(GearType.OffHand) != null) 
                 return CreateEquipTask(DesiredEquipmentState.GetGearByType(GearType.OffHand));
-            
-            if (DesiredEquipmentState.GetGearByType(GearType.BothHands) != null) 
-                return CreateEquipTask(DesiredEquipmentState.GetGearByType(GearType.BothHands));
             
             if (DesiredEquipmentState.GetGearByType(GearType.Necklace) != null) 
                 return CreateEquipTask(DesiredEquipmentState.GetGearByType(GearType.Necklace));

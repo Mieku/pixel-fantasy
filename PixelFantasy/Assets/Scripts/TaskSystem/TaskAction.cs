@@ -10,10 +10,14 @@ namespace TaskSystem
     public abstract class TaskAction : MonoBehaviour
     {
         public string TaskId;
+        public StatType RelevantStatType;
 
         protected TaskAI _ai;
         protected Task _task;
         protected const float MIN_DISTANCE_FROM_REQUESTOR = 0.5f;
+
+        public float ActionSpeed => _ai.Kinling.Stats.GetActionSpeed(RelevantStatType);
+        public float WorkAmount => _ai.Kinling.Stats.GetWorkAmount(_task.RequiredToolType);
 
         protected KinlingAnimController KinlingAnimController => _ai.Kinling.kinlingAnimController;
 

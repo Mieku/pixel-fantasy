@@ -113,9 +113,6 @@ namespace Popups.Kinling_Info_Popup
                 case GearType.OffHand:
                     OnGearSlotPressed(GearType.OffHand, _offHandSlot);
                     break;
-                case GearType.BothHands:
-                    OnGearSlotPressed(GearType.MainHand, _mainHandSlot);
-                    break;
                 case GearType.Necklace:
                     OnGearSlotPressed(GearType.Necklace, _necklaceSlot);
                     break;

@@ -40,7 +40,7 @@ MonoBehaviour:
   RequiredJob: {fileID: 11400000, guid: 52bc686649354e94eb770098fd6c5c29, type: 2}
   TierLevel: 2
   StatModifiers:
-  - StatType: 0
+  - StatType: 1
     Modifier: 1
   MainHandHeldGear: {fileID: 2109487599534607570, guid: 090d27e88b049864b80346639ede66d4, type: 3}
   OffHandHeldGear: {fileID: 0}
