@@ -1473,6 +1473,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe23d5d2ff33b7546aea083476eacfda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _smallDotPrefab: {fileID: 4432061326701732338, guid: b673637e1e18e214ea8b45b097d63532, type: 3}
+  _largeDotPrefab: {fileID: 186539459406950648, guid: 50bf3c7a6fe78cb48893aacad7b68417, type: 3}
+  _goalPrefab: {fileID: 8394141543129858345, guid: 9b1fa3f0d903e6341be7d175f1f1db18, type: 3}
+  _dotSpacing: 1
 --- !u!114 &4888200492756624676
 MonoBehaviour:
   m_ObjectHideFlags: 0

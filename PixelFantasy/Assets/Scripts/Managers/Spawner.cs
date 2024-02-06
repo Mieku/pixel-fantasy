@@ -40,6 +40,8 @@ namespace Managers
         [SerializeField] private Transform _kinlingsParent;
         [SerializeField] private Kinling _kinlingPrefab;
 
+        [SerializeField] private Transform _miscParent;
+
         private bool _showPlacement;
         private List<string> _invalidPlacementTags = new List<string>();
         private Color? _colourOverride;
@@ -56,6 +58,7 @@ namespace Managers
         public Transform ItemsParent => _itemsParent;
         public Transform BuildingsParent => _structureParent;
         public Transform FlooringParent => _flooringParent;
+        public Transform MiscParent => _miscParent;
 
         public PlacementDirection SetNextPlacementDirection(bool isClockwise)
         {

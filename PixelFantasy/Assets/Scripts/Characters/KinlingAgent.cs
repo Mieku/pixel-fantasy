@@ -1,14 +1,20 @@
 using System;
+using System.Collections.Generic;
 using Characters.Interfaces;
 using Managers;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Characters
 {
     public class KinlingAgent : MonoBehaviour, IMovePosition
     {
+        [SerializeField] private GameObject _smallDotPrefab;
+        [SerializeField] private GameObject _goalPrefab;
+        [SerializeField] private float _dotSpacing;
+        
         private NavMeshAgent _agent;
         private Action _onReachedMovePosition;
         private bool _inTransit;
@@ -17,6 +23,8 @@ namespace Characters
         private float _defaultAcceleration;
         private float _defaultAngularSpeed;
         private Kinling _kinling;
+        private NavMeshPath _currentPath;
+        private bool _isPathVisible;
 
         private const float NEAREST_POINT_SEARCH_RANGE = 5f;
 
@@ -67,6 +75,16 @@ namespace Characters
                 _onReachedMovePosition = onReachedMovePosition;
                 _charAnimController.SetMovementVelocity((Vector2)movePosition);
                 _charAnimController.Appearance.SetDirection(UnitActionDirection.Side);
+                
+                // Retrieve and store the NavMesh path
+                _currentPath = new NavMeshPath();
+                _agent.CalculatePath((Vector3)movePosition, _currentPath);
+
+                if (_isPathVisible)
+                {
+                    DisplayPath();
+                }
+                
                 return true;
             }
             else
@@ -94,6 +112,10 @@ namespace Characters
                         {
                             _onReachedMovePosition.Invoke();   
                         }
+                        
+                        // Clear the path visualization if the Kinling reached the destination
+                        ClearPathVisualization();
+                        _currentPath = null;
                     }
                 }
             }
@@ -132,6 +154,93 @@ namespace Characters
            DetermineIfDestination();
            RefreshAnimVector();
            OnSpeedUpdated();
+        }
+        
+        private List<GameObject> pathVisuals = new List<GameObject>();  // To keep track of instantiated path objects
+        private void DisplayPath()
+        {
+            // Clear previous path visualization
+            foreach (var visual in pathVisuals)
+            {
+                Destroy(visual);
+            }
+            pathVisuals.Clear();
+
+            if (_currentPath.corners.Length < 2) return; // No path to display
+
+            Vector3 previousCorner = _currentPath.corners[0];
+
+            // Iterate through the path's corners
+            for (int i = 1; i < _currentPath.corners.Length; i++)
+            {
+                Vector3 currentCorner = _currentPath.corners[i];
+        
+                // Draw small dots between the previous corner and the current corner
+                DrawDottedLine(previousCorner, currentCorner);
+
+                previousCorner = currentCorner; // Update the previous corner
+            }
+
+            // Place the movement goal sprite at the end of the path
+            Vector3 goalPosition = _currentPath.corners[_currentPath.corners.Length - 1];
+            GameObject goalVisual = Instantiate(_goalPrefab, goalPosition, Quaternion.identity);
+            goalVisual.transform.SetParent(Spawner.Instance.MiscParent);
+            pathVisuals.Add(goalVisual);
+        }
+        
+        private void DrawDottedLine(Vector3 start, Vector3 end)
+        {
+            float distance = Vector3.Distance(start, end);
+            int dotCount = Mathf.FloorToInt(distance / _dotSpacing);  // _dotSpacing is a serialized field or constant
+            Vector3 direction = (end - start).normalized;
+
+            Vector3 lastDotPosition = start;
+
+            for (int i = 1; i <= dotCount; i++)
+            {
+                Vector3 dotPosition = start + direction * _dotSpacing * i;
+                GameObject dotVisual = Instantiate(_smallDotPrefab, dotPosition, Quaternion.identity);
+                dotVisual.transform.SetParent(Spawner.Instance.MiscParent);
+                pathVisuals.Add(dotVisual);
+                lastDotPosition = dotPosition;
+            }
+
+            // Ensure a dot is placed close to the end, but avoid overlap
+            float distanceToLastDot = Vector3.Distance(end, lastDotPosition);
+            float distanceToNextDot = Vector3.Distance(end, lastDotPosition + direction * _dotSpacing);
+
+            // Place the last dot only if it doesn't overlap with the previous dot or the corner
+            if (distanceToLastDot > _dotSpacing * 0.4f && distanceToNextDot > _dotSpacing * 0.4f)
+            {
+                GameObject dotVisual = Instantiate(_smallDotPrefab, end - direction * _dotSpacing, Quaternion.identity);
+                dotVisual.transform.SetParent(Spawner.Instance.MiscParent);
+                pathVisuals.Add(dotVisual);
+            }
+        }
+        
+        private void ClearPathVisualization()
+        {
+            foreach (var visual in pathVisuals)
+            {
+                Destroy(visual);
+            }
+            pathVisuals.Clear();
+        }
+        
+        public void SetPathVisibility(bool showPath)
+        {
+            _isPathVisible = showPath;
+
+            if (_isPathVisible && _currentPath != null)
+            {
+                // Path is toggled on and there is a path to display
+                DisplayPath();
+            }
+            else
+            {
+                // Path is toggled off or there is no path
+                ClearPathVisualization();
+            }
         }
     }
 }

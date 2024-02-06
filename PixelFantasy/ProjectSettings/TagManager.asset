@@ -74,6 +74,9 @@ TagManager:
   - name: Indoors
     uniqueID: 1749739409
     locked: 0
+  - name: Paths
+    uniqueID: 1669005145
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

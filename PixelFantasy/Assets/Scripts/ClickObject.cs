@@ -104,6 +104,11 @@ public class ClickObject : MonoBehaviour
         
         IsSelected = true;
 
+        if (_kinling != null)
+        {
+            _kinling.KinlingAgent.SetPathVisibility(true);
+        }
+
         if (_objectRenderer != null)
         {
             //_selectedIcon.GetComponent<SpriteRenderer>().size = _objectRenderer.bounds.size;
@@ -153,6 +158,11 @@ public class ClickObject : MonoBehaviour
         if (_selectedIcon != null)
         {
             _selectedIcon.SetActive(false);
+        }
+        
+        if (_kinling != null)
+        {
+            _kinling.KinlingAgent.SetPathVisibility(false);
         }
         
         if (_usesTintedSelection)
