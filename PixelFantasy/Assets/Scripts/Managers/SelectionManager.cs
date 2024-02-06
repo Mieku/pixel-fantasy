@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using CodeMonkey.Utils;
 using Controllers;
 using Interfaces;
+using Sirenix.Utilities;
 using Systems.CursorHandler.Scripts;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Managers
 {
@@ -133,7 +135,15 @@ namespace Managers
         {
             if (Input.GetMouseButtonDown(0))
             {
+                var isOverUI = EventSystem.current.IsPointerOverGameObject();
+                if(isOverUI) return;
+                
                 var clickObjs = Helper.GetClickObjectsAtPos(UtilsClass.GetMouseWorldPosition());
+                if (clickObjs.IsNullOrEmpty())
+                {
+                    PlayerInputController.Instance.ClearSelection();
+                }
+                
                 if (clickObjs.Count > 0)
                 {
                     if (AreClickObjectsSame(_prevClickObjects, clickObjs))
@@ -155,8 +165,51 @@ namespace Managers
                 {
                     _prevClickObjectIndex = 0;
                 }
-
                 _prevClickObjects = clickObjs;
+            }
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                var isOverUI = EventSystem.current.IsPointerOverGameObject();
+                if(isOverUI) return;
+                
+                if (PlayerInputController.Instance.SelectedKinling != null)
+                {
+                    var clickObjs = Helper.GetClickObjectsAtPos(UtilsClass.GetMouseWorldPosition());
+                    if (clickObjs.IsNullOrEmpty())
+                    {
+                        // Give Move Command
+                        CommandController.Instance.ShowMoveCommand(UtilsClass.GetMouseWorldPosition(), PlayerInputController.Instance.SelectedKinling);
+                    }
+                    
+                    if (clickObjs.Count > 0)
+                    {
+                        if (AreClickObjectsSame(_prevClickObjects, clickObjs))
+                        {
+                            _prevClickObjectIndex++;
+                            if (_prevClickObjectIndex > _prevClickObjects.Count - 1)
+                            {
+                                _prevClickObjectIndex = 0;
+                            }
+                            clickObjs[_prevClickObjectIndex].TriggerShowCommands(PlayerInputController.Instance.SelectedKinling);
+                        }
+                        else
+                        {
+                            _prevClickObjectIndex = 0;
+                            clickObjs[_prevClickObjectIndex].TriggerShowCommands(PlayerInputController.Instance.SelectedKinling);
+                        }
+                    }
+                    else
+                    {
+                        _prevClickObjectIndex = 0;
+                    }
+
+                    _prevClickObjects = clickObjs;
+                }
+                else
+                {
+                    PlayerInputController.Instance.ClearSelection();
+                }
             }
         }
 

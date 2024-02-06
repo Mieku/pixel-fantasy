@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using Buildings;
 using Items;
-using Systems.Details.Generic_Details.Scripts;
 using TaskSystem;
 using UnityEngine;
 
@@ -10,18 +8,6 @@ public abstract class PlayerInteractable : UniqueObject
     [SerializeField] private SpriteRenderer _icon;
     public List<Command> Commands = new List<Command>();
     public Command PendingCommand;
-    public List<Task> RegisteredTasks = new List<Task>();
-
-    public void RegisterTask(Task task)
-    {
-        RegisteredTasks.Add(task);
-        task.OnTaskComplete += DeregisterTask;
-    }
-
-    public void DeregisterTask(Task task)
-    {
-        RegisteredTasks.Remove(task);
-    }
 
     public void CreateTask(Command command, object payload = null)
     {
@@ -57,7 +43,7 @@ public abstract class PlayerInteractable : UniqueObject
         PendingCommand = null;
 
         Task task = new Task(command.Task.TaskId, this, command.Job, command.RequiredToolType);
-
+        
         TaskManager.Instance.CancelTask(task);
 
         DisplayTaskIcon(null);

@@ -27,11 +27,6 @@ namespace TaskSystem
             Job = job;
             IsEmergancy = isEmergancy;
             RequiredToolType = requiredToolType;
-
-            if (Requestor != null)
-            {
-                Requestor.RegisterTask(this);
-            }
         }
 
         public bool IsEqual(Task otherTask)

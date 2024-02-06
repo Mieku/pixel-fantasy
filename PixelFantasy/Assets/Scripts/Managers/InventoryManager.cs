@@ -181,6 +181,46 @@ namespace Managers
             return null;
         }
 
+        public bool HasToolTypeBuilding(EToolType toolType, Building building)
+        {
+            var allBuildingStorage = building.GetBuildingStorages();
+            foreach (var storage in allBuildingStorage)
+            {
+                var storedItems = storage.AvailableInventory;
+                foreach (var kvp in storedItems)
+                {
+                    var tool = kvp.Key as ToolData;
+                    if (tool != null && tool.ToolType == toolType && kvp.Value.Any())
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public bool HasToolTypeGlobal(EToolType toolType)
+        {
+            foreach (var storage in _allStorage)
+            {
+                if (storage.IsGlobal)
+                {
+                    var storedItems = storage.AvailableInventory;
+                    foreach (var kvp in storedItems)
+                    {
+                        var tool = kvp.Key as ToolData;
+                        if (tool != null && tool.ToolType == toolType && kvp.Value.Any())
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
         public Item ClaimToolTypeBuilding(EToolType toolType, Building building)
         {
             List<ToolData> potentialItems = new List<ToolData>();

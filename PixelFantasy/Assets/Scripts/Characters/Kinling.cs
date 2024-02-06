@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Buildings;
 using DataPersistence;
+using Interfaces;
 using Items;
 using Managers;
 using ScriptableObjects;
@@ -15,7 +16,7 @@ using UnityEngine.Serialization;
 
 namespace Characters
 {
-    public class Kinling : UniqueObject, IPersistent
+    public class Kinling : PlayerInteractable, IClickableObject
     {
         [SerializeField] private RaceData _race;
         [SerializeField] private TaskAI _taskAI;
@@ -386,6 +387,36 @@ namespace Characters
         private void GameEvents_DayTick()
         {
             Age.IncrementAge();
+        }
+
+        public ClickObject GetClickObject() => ClickObject;
+
+        public bool IsClickDisabled { get; set; }
+        public bool IsAllowed { get; set; }
+
+        public void ToggleAllowed(bool isAllowed)
+        {
+        }
+
+        public string DisplayName => FullName;
+        public PlayerInteractable GetPlayerInteractable()
+        {
+            return this;
+        }
+        
+        public List<Command> GetCommands()
+        {
+            return new List<Command>(Commands);
+        }
+
+        public void AssignCommand(Command command, object payload = null)
+        {
+            CreateTask(command, payload);
+        }
+        
+        public override Vector2? UseagePosition(Vector2 requestorPosition)
+        {
+            return transform.position;
         }
     }
 

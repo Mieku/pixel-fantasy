@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Characters;
 using CodeMonkey.Utils;
 using Managers;
+using Systems.CursorHandler.Scripts;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,6 +15,7 @@ namespace Controllers
         private ClickObject _curSelectedObject;
         private bool _isOverUI;
         private bool _buildingInternalViewEnabled;
+        private Kinling _curSelectedKinling;
 
         public string StoredKey;
 
@@ -30,7 +32,7 @@ namespace Controllers
         
         protected void GameEvents_OnRightClickUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
         {
-            ClearSelection();
+            //ClearSelection();
         }
         
         private void Update()
@@ -43,6 +45,8 @@ namespace Controllers
         {
             HUDController.Instance.HideDetails();
         }
+
+        public Kinling SelectedKinling => _curSelectedKinling;
 
         public void SelectUnit(ClickObject clickObject, Kinling kinling)
         {
@@ -58,6 +62,7 @@ namespace Controllers
             if (_curSelectedObject != null)
             {
                 _curSelectedObject.SelectObject();
+                _curSelectedKinling = kinling;
                 HUDController.Instance.ShowUnitDetails(kinling);
             }
         }
@@ -72,6 +77,7 @@ namespace Controllers
             }
 
             _curSelectedObject = clickObject;
+            _curSelectedKinling = null;
 
             if (_curSelectedObject != null)
             {
@@ -85,7 +91,9 @@ namespace Controllers
             if (_curSelectedObject != null)
             {
                 _curSelectedObject.UnselectObject();
+                _curSelectedKinling = null;
                 HUDController.Instance.HideDetails();
+                CommandController.Instance.HideCommands();
             }
         }
 

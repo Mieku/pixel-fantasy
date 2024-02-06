@@ -18,6 +18,7 @@ namespace TaskSystem
 
         public float ActionSpeed => _ai.Kinling.Stats.GetActionSpeed(RelevantStatType);
         public float WorkAmount => _ai.Kinling.Stats.GetWorkAmount(_task.RequiredToolType);
+        public Task Task => _task;
 
         protected KinlingAnimController KinlingAnimController => _ai.Kinling.kinlingAnimController;
 
@@ -40,9 +41,38 @@ namespace TaskSystem
         {
             if (task.Requestor != null)
             {
-                return task.Requestor.UseagePosition(_ai.Kinling.transform.position) != null;
+                // Check if there is a possible tool to use, if needed and not held
+                if (task.RequiredToolType != EToolType.None)
+                {
+                    if (!_ai.HasToolTypeEquipped(task.RequiredToolType))
+                    {
+                        bool foundTool = false;
+                        
+                        if (_ai.Kinling.AssignedWorkplace != null)
+                        {
+                            foundTool = InventoryManager.Instance.HasToolTypeBuilding(task.RequiredToolType,
+                                _ai.Kinling.AssignedWorkplace);
+                        }
+                        
+                        if (!foundTool && _ai.Kinling.AssignedHome != null)
+                        {
+                            foundTool = InventoryManager.Instance.HasToolTypeBuilding(task.RequiredToolType,
+                                _ai.Kinling.AssignedHome);
+                        }
+
+                        if (!foundTool)
+                        {
+                            foundTool = InventoryManager.Instance.HasToolTypeGlobal(task.RequiredToolType);
+                        }
+
+                        if (!foundTool)
+                        {
+                            return false;
+                        }
+                    }
+                }
                 
-                //return Helper.DoesPathExist(_ai.Unit.transform.position, task.Requestor.transform.position);
+                return task.Requestor.UseagePosition(_ai.Kinling.transform.position) != null;
             }
             
             return true;

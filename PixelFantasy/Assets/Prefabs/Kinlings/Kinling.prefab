@@ -243,6 +243,7 @@ Transform:
   - {fileID: 1669068697371462707}
   - {fileID: 1547420690405168955}
   - {fileID: 3037783762484731446}
+  - {fileID: 7545860082148926271}
   m_Father: {fileID: 5532418264530240428}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1288,6 +1289,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542b82983f052024dbd7209516f6adf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _icon: {fileID: 0}
+  Commands: []
+  PendingCommand: {fileID: 0}
   _race: {fileID: 11400000, guid: b2e28ba30006afd4d8287ab34a7aa6d5, type: 2}
   _taskAI: {fileID: 6965329135388678903}
   _appearance: {fileID: 4680592222557511252}
@@ -1520,16 +1524,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Strength:
     Level: 0
-    Type: 1
   Vitality:
     Level: 0
-    Type: 2
   Intelligence:
     Level: 0
-    Type: 3
   Expertise:
     Level: 0
-    Type: 4
 --- !u!1 &5537650040891410994
 GameObject:
   m_ObjectHideFlags: 0
@@ -1714,6 +1714,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TaskId: Harvest Resource
   RelevantStatType: 1
+--- !u!1 &6275583461605454403
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7545860082148926271}
+  - component: {fileID: 3782102192739272705}
+  m_Layer: 6
+  m_Name: Move
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7545860082148926271
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6275583461605454403}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8355272791609113398}
+  m_RootOrder: 30
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3782102192739272705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6275583461605454403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7818095e4a99e454b99e82c3fbce66bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TaskId: Move
+  RelevantStatType: 0
+  _afterMoveDelay: 5
 --- !u!1 &6867738790174552894
 GameObject:
   m_ObjectHideFlags: 0

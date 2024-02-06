@@ -7,6 +7,7 @@ using Controllers;
 using Interfaces;
 using Items;
 using ScriptableObjects;
+using Systems.CursorHandler.Scripts;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -188,6 +189,11 @@ public class ClickObject : MonoBehaviour
                 PlayerInputController.Instance.SelectObject(this);
             }
         }
+    }
+
+    public void TriggerShowCommands(Kinling kinlingToHandleCommand)
+    {
+        CommandController.Instance.ShowCommands(this, kinlingToHandleCommand);
     }
 }
 
