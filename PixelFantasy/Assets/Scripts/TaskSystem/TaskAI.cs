@@ -436,6 +436,15 @@ namespace TaskSystem
             }
         }
 
+        public void CancelCurrentTask()
+        {
+            if(_curTaskAction == null) return;
+
+            var taskID = _curTaskAction.TaskId;
+            RemoveTaskFromQueue(taskID);
+            _curTaskAction.OnTaskCancel();
+        }
+
         public void QueueTask(Task task)
         {
             _queuedTasks.Enqueue(task);

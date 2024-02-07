@@ -65,6 +65,8 @@ namespace Controllers
                 _curSelectedKinling = kinling;
                 HUDController.Instance.ShowUnitDetails(kinling);
             }
+            
+            CommandController.Instance.HideCommands();
         }
 
         public void SelectObject(ClickObject clickObject)
@@ -84,6 +86,8 @@ namespace Controllers
                 _curSelectedObject.SelectObject();
                 HUDController.Instance.ShowItemDetails(_curSelectedObject.Owner);
             }
+            
+            CommandController.Instance.HideCommands();
         }
 
         public void ClearSelection()

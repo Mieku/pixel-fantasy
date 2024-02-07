@@ -17,8 +17,10 @@ namespace TaskSystem
         public List<Item> Materials;
         public Queue<Task> SubTasks = new Queue<Task>();
         public Action<Task> OnTaskComplete;
+        public Action OnTaskCancel;
         public EToolType RequiredToolType;
         public bool IsEmergancy;
+        public bool IsKinlingSpecific; // Kinling was selected and the command was assigned via right click
 
         public Task(string taskID, PlayerInteractable requestor, JobData job, EToolType requiredToolType, bool isEmergancy = false)
         {
@@ -35,16 +37,22 @@ namespace TaskSystem
                    && Requestor == otherTask.Requestor
                    && Payload == otherTask.Payload
                    && IsEmergancy == otherTask.IsEmergancy
-                   && RequiredToolType == otherTask.RequiredToolType;
+                   && RequiredToolType == otherTask.RequiredToolType
+                   && IsKinlingSpecific == otherTask.IsKinlingSpecific;
         }
 
         public void Cancel()
         {
-            TaskManager.Instance.CancelTask(this);
-            foreach (var subTask in SubTasks)
+            if (!IsKinlingSpecific)
             {
-                TaskManager.Instance.CancelTask(subTask);
+                TaskManager.Instance.CancelTask(this);
+                foreach (var subTask in SubTasks)
+                {
+                    TaskManager.Instance.CancelTask(subTask);
+                }
             }
+            
+            OnTaskCancel?.Invoke();
         }
 
         public void Enqueue()
@@ -64,6 +72,7 @@ namespace TaskSystem
             {
                 Payload = this.Payload,
                 SubTasks = subTasks,
+                IsKinlingSpecific = this.IsKinlingSpecific,
             };
         }
     }

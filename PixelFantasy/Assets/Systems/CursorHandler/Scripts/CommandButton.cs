@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 namespace Systems.CursorHandler.Scripts
 {
+    [RequireComponent(typeof(Button))]
     public class CommandButton : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _commandText;
@@ -15,16 +16,17 @@ namespace Systems.CursorHandler.Scripts
         [SerializeField] private Sprite _activeBGHover;
         [SerializeField] private Sprite _inactiveBG;
         [SerializeField] private Sprite _inactiveBGHover;
-        [SerializeField] private Sprite _invalidBG;
 
         private bool _isActive;
         private bool _isInvalid;
         private bool _isHovered;
         private Command _command;
         private Action<Command> _onCommandBtnPressed;
+        private Button _button;
 
         public void Init(Command command, bool isActive, bool isInvalid, Action<Command> onCommandBtnPressed)
         {
+            _button = GetComponent<Button>();
             _command = command;
             _isActive = isActive;
             _isInvalid = isInvalid;
@@ -37,6 +39,13 @@ namespace Systems.CursorHandler.Scripts
 
         private void Refresh()
         {
+            _button.interactable = !_isInvalid;
+            if (_isInvalid)
+            {
+                _commandText.color = _activeTextColour;
+                return;
+            }
+            
             if (_isActive)
             {
                 _commandText.color = _activeTextColour;
@@ -48,11 +57,6 @@ namespace Systems.CursorHandler.Scripts
                 {
                     _btnBGImage.sprite = _activeBG;
                 }
-            }
-            else if (_isInvalid)
-            {
-                _commandText.color = _activeTextColour;
-                _btnBGImage.sprite = _invalidBG;
             }
             else
             {
@@ -70,6 +74,8 @@ namespace Systems.CursorHandler.Scripts
 
         public void OnBtnPressed()
         {
+            if (_isInvalid) return;
+            
             _onCommandBtnPressed?.Invoke(_command);
         }
 

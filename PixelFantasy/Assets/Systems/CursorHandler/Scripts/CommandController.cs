@@ -11,27 +11,45 @@ namespace Systems.CursorHandler.Scripts
     {
         [SerializeField] private CommandControls _controls;
         [SerializeField] private Command _moveCommand;
+
+        private bool IsActiveCommand(Kinling kinling, PlayerInteractable playerInteractable)
+        {
+            var currentAction = kinling.TaskAI.CurrentAction;
+            var pendingCmd = playerInteractable.PendingCommand;
+
+            if (currentAction == null || pendingCmd == null) return false;
+
+            if (currentAction.Task.Requestor == playerInteractable &&
+                currentAction.Task == pendingCmd.Task)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         
         public void ShowCommands(ClickObject clickObject, Kinling kinlingToHandleCommand)
         {
-            List<Command> allowedCommands = new List<Command>();
+            List<Command> invalidCommands = new List<Command>();
             var allCommands = clickObject.Owner.GetCommands();
             foreach (var possibleCmd in allCommands)
             {
-                if (possibleCmd.CanDoCommand(kinlingToHandleCommand, clickObject.Owner.GetPlayerInteractable()))
+                if (!possibleCmd.CanDoCommand(kinlingToHandleCommand, clickObject.Owner.GetPlayerInteractable()))
                 {
-                    allowedCommands.Add(possibleCmd);
+                    invalidCommands.Add(possibleCmd);
                 }
             }
 
             var currentAction = kinlingToHandleCommand.TaskAI.CurrentAction;
             var pendingCmd = clickObject.Owner.GetPlayerInteractable().PendingCommand;
             Command inProgressCmd = null;
-            List<Command> invalidCommands = new List<Command>();
+            
             
             if (currentAction != null && pendingCmd != null)
             {
-                if (currentAction.Task.Requestor == clickObject.Owner.GetPlayerInteractable() && currentAction.Task == pendingCmd.Task)
+                if (IsActiveCommand(kinlingToHandleCommand, clickObject.Owner.GetPlayerInteractable()))
                 {
                     inProgressCmd = pendingCmd;
                 }
@@ -41,14 +59,29 @@ namespace Systems.CursorHandler.Scripts
                 }
             }
             
-            _controls.ShowControls(clickObject.transform, clickObject.Owner.DisplayName, allowedCommands, inProgressCmd, invalidCommands,
+            _controls.ShowControls(clickObject.transform, clickObject.Owner.DisplayName, allCommands, inProgressCmd, invalidCommands,
                 (command) =>
                 {
-                    Debug.Log($"Command: {command.Name} was selected");
-                    Task task = command.Task;
-                    task.Requestor = clickObject.Owner.GetPlayerInteractable();
-                    kinlingToHandleCommand.TaskAI.AssignCommandTask(task);
-                    HideCommands();
+                    if (IsActiveCommand(kinlingToHandleCommand, clickObject.Owner.GetPlayerInteractable()))
+                    {
+                        // Cancel command
+                        kinlingToHandleCommand.TaskAI.CancelCurrentTask();
+                        clickObject.Owner.GetPlayerInteractable().CancelPlayerCommand(command);
+                        HideCommands();
+                    }
+                    else
+                    {
+                        Task task = command.Task;
+                        task.Requestor = clickObject.Owner.GetPlayerInteractable();
+                        task.IsKinlingSpecific = true;
+                        task.OnTaskCancel = () =>
+                        {
+                            task.Requestor.CancelPlayerCommand();
+                        };
+                        kinlingToHandleCommand.TaskAI.AssignCommandTask(task);
+                        clickObject.Owner.GetPlayerInteractable().AssignPlayerCommand(command);
+                        HideCommands();
+                    }
                 } );
         }
 
@@ -67,9 +100,9 @@ namespace Systems.CursorHandler.Scripts
             _controls.ShowControls(worldPos, kinlingToHandleCommand.FullName, commands, null, invalidCommands,
                 (command) =>
                 {
-                    Debug.Log($"Command: {command.Name} was selected");
                     Task task = command.Task;
                     task.Payload = worldPos;
+                    task.IsKinlingSpecific = true;
                     kinlingToHandleCommand.TaskAI.AssignCommandTask(task);
                     HideCommands();
                 } );

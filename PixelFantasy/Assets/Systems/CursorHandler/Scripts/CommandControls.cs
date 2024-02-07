@@ -36,21 +36,23 @@ namespace Systems.CursorHandler.Scripts
         
         public void ShowControls(Transform followTransform, string header, List<Command> commands, Command inProgressCmd, List<Command> invalidCommands, Action<Command> onCommandPressed)
         {
-            _canvasGroup.alpha = 1;
             _targetTransform = followTransform;
+            transform.position = _targetTransform.position;
             _isActive = true;
             _headerText.text = header;
             DisplayCommands(commands, inProgressCmd, invalidCommands, onCommandPressed);
+            _canvasGroup.alpha = 1;
         }
 
         public void ShowControls(Vector2 worldPosition, string header, List<Command> commands, Command inProgressCmd, List<Command> invalidCommands, Action<Command> onCommandPressed)
         {
-            _canvasGroup.alpha = 1;
             _targetPosition = worldPosition;
             _targetTransform = null;
+            transform.position = _targetPosition;
             _isActive = true;
             _headerText.text = header;
             DisplayCommands(commands, inProgressCmd, invalidCommands, onCommandPressed);
+            _canvasGroup.alpha = 1;
         }
 
         private void DisplayCommands(List<Command> commands, Command inProgressCmd, List<Command> invalidCommands, Action<Command> onCommandPressed)

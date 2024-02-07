@@ -213,8 +213,13 @@ namespace TaskSystem
 
         public virtual void OnTaskCancel()
         {
-            TaskManager.Instance.AddTask(_task);
+            if (!_task.IsKinlingSpecific)
+            {
+                TaskManager.Instance.AddTask(_task);
+            }
+            
             _ai.Kinling.KinlingAgent.SetMovePosition(transform.position);
+            _task.OnTaskCancel?.Invoke();
             ConcludeAction();
         }
         

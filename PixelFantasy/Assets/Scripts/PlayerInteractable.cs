@@ -9,6 +9,38 @@ public abstract class PlayerInteractable : UniqueObject
     public List<Command> Commands = new List<Command>();
     public Command PendingCommand;
 
+    public void CancelPlayerCommand(Command command = null)
+    {
+        if (command != null)
+        {
+            if (!IsPending(command)) return;
+        }
+        
+        CancelPending();
+        DisplayTaskIcon(null);
+    }
+    
+    public void AssignPlayerCommand(Command command, object payload = null)
+    {
+        if (command.Name == "Cancel Command")
+        {
+            CancelPending();
+            return;
+        }
+        
+        if (IsPending(command)) return;
+
+        // Only one command can be active
+        if (PendingCommand != null)
+        {
+            CancelCommand(PendingCommand);
+        }
+        
+        PendingCommand = command;
+        
+        DisplayTaskIcon(command.Icon);
+    }
+    
     public void CreateTask(Command command, object payload = null)
     {
         if (command.Name == "Cancel Command")
