@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Buildings;
 using CodeMonkey.Utils;
 using Controllers;
 using Interfaces;
@@ -141,7 +142,11 @@ namespace Managers
                 var clickObjs = Helper.GetClickObjectsAtPos(UtilsClass.GetMouseWorldPosition());
                 if (clickObjs.IsNullOrEmpty())
                 {
-                    PlayerInputController.Instance.ClearSelection();
+                    var clickDetector = Helper.GetObjectAtPosition<ClickDetector>(UtilsClass.GetMouseWorldPosition());
+                    if (clickDetector == null)
+                    {
+                        PlayerInputController.Instance.ClearSelection();
+                    }
                 }
                 
                 if (clickObjs.Count > 0)

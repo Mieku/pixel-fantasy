@@ -96,9 +96,10 @@ namespace Controllers
             {
                 _curSelectedObject.UnselectObject();
                 _curSelectedKinling = null;
-                HUDController.Instance.HideDetails();
-                CommandController.Instance.HideCommands();
             }
+
+            HUDController.Instance.HideDetails();
+            CommandController.Instance.HideCommands();
         }
 
         #region Mouse Handlers

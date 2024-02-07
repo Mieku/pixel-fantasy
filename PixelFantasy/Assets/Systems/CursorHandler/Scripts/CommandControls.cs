@@ -41,7 +41,7 @@ namespace Systems.CursorHandler.Scripts
             _isActive = true;
             _headerText.text = header;
             DisplayCommands(commands, inProgressCmd, invalidCommands, onCommandPressed);
-            _canvasGroup.alpha = 1;
+            gameObject.SetActive(true);
         }
 
         public void ShowControls(Vector2 worldPosition, string header, List<Command> commands, Command inProgressCmd, List<Command> invalidCommands, Action<Command> onCommandPressed)
@@ -52,7 +52,7 @@ namespace Systems.CursorHandler.Scripts
             _isActive = true;
             _headerText.text = header;
             DisplayCommands(commands, inProgressCmd, invalidCommands, onCommandPressed);
-            _canvasGroup.alpha = 1;
+            gameObject.SetActive(true);
         }
 
         private void DisplayCommands(List<Command> commands, Command inProgressCmd, List<Command> invalidCommands, Action<Command> onCommandPressed)
@@ -70,7 +70,7 @@ namespace Systems.CursorHandler.Scripts
 
         public void HideControls()
         {
-            _canvasGroup.alpha = 0;
+            gameObject.SetActive(false);
             _isActive = false;
             ClearDisplayedBtns();
         }

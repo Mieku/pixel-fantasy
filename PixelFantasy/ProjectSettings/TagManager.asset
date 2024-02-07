@@ -24,7 +24,7 @@ TagManager:
   - Building Interior
   - Furniture
   - Roof
-  - Card Dock
+  - Building
   layers:
   - Default
   - TransparentFX
