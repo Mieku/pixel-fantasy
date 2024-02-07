@@ -131,8 +131,16 @@ namespace Characters
         {
             var speedMod = TimeManager.Instance.GameSpeedMod;
             _agent.speed = _defaultSpeed * speedMod;
-            _agent.acceleration = _defaultAcceleration * speedMod; // Adjust acceleration proportionally
-            _agent.angularSpeed = _defaultAngularSpeed * speedMod; // Adjust angularSpeed proportionally
+
+            if (speedMod == 0)
+            {
+                _agent.acceleration = 99;
+            }
+            else
+            {
+                _agent.acceleration = _defaultAcceleration * speedMod; // Adjust acceleration proportionally
+                _agent.angularSpeed = _defaultAngularSpeed * speedMod; // Adjust angularSpeed proportionally
+            }
         }
         
         public Vector3 PickLocationInRange(float range)
