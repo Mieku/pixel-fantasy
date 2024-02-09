@@ -291,7 +291,7 @@ namespace Systems.Details.Building_Details.Scripts
             var lookPos = _building.UseagePosition(Vector2.zero);
             if (lookPos != null && Camera.main != null)
             {
-                Camera.main.GetComponent<CameraController>().LookAtPosition((Vector2)lookPos);
+                CameraManager.Instance.LookAtPosition((Vector2)lookPos);
             }
         }
 

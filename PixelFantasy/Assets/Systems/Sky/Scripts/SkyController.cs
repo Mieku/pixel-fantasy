@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Cinemachine;
 using Managers;
 
 namespace Systems.Sky.Scripts
@@ -13,34 +14,50 @@ namespace Systems.Sky.Scripts
         public int maxClouds = 20;
         public int initialClouds = 5;
         public Vector2 cloudDirection = new Vector2(1, 0); // Default direction: moving to the right
+        public CinemachineVirtualCamera VCamera;
 
-        private Transform mainCamera;
+        private Transform mainCameraTranform;
         private int currentClouds = 0;
 
         void Start()
         {
-            mainCamera = Camera.main.transform;
-
-            float height = Camera.main.orthographicSize * 2;
-            float initialYSpacing = height / initialClouds;
-
-            for (int i = 0; i < initialClouds; i++)
-            {
-                float yPos = mainCamera.position.y + initialYSpacing * i - (height / 2);
-                SpawnInitialCloud(new Vector3(mainCamera.position.x + Random.Range(-height * Camera.main.aspect / 2, height * Camera.main.aspect / 2), yPos, 0));
-            }
-
+            mainCameraTranform = VCamera.transform;
+            SetupInitialClouds();
             InvokeRepeating("SpawnCloud", 0.0f, spawnRate);
         }
 
         void Update()
         {
+            MoveAndUpdateClouds();
+        }
+        
+        void SetupInitialClouds()
+        {
+            float height = VCamera.m_Lens.OrthographicSize * 2;
+            float width = height * VCamera.m_Lens.Aspect;
+
+            // Calculate initial Y spacing to distribute clouds vertically
+            float initialYSpacing = height / (initialClouds + 1);
+
+            for (int i = 0; i < initialClouds; i++)
+            {
+                // Randomize initial X position across the entire width of the spawn area
+                float x = mainCameraTranform.position.x + Random.Range(-width / 2, width / 2);
+
+                // Distribute initial Y positions evenly across the height of the camera view
+                float y = mainCameraTranform.position.y - VCamera.m_Lens.OrthographicSize + (initialYSpacing * (i + 1));
+
+                // Use the updated position for spawning the cloud
+                SpawnInitialCloud(new Vector3(x, y, 0));
+            }
+        }
+        
+        void MoveAndUpdateClouds()
+        {
             foreach (Transform child in transform)
             {
                 child.position += new Vector3(cloudDirection.x * cloudSpeed, cloudDirection.y * cloudSpeed, 0) * TimeManager.Instance.DeltaTime;
-
                 float cloudWidth = child.GetComponent<SpriteRenderer>().bounds.size.x;
-
                 if (IsNaturallyOutOfBounds(child.position, cloudWidth))
                 {
                     Destroy(child.gameObject);
@@ -79,20 +96,20 @@ namespace Systems.Sky.Scripts
 
         Vector3 GeneratePositionOutsideCameraBounds()
         {
-            float height = Camera.main.orthographicSize * 2;
-            float width = height * Camera.main.aspect;
+            float height = VCamera.m_Lens.OrthographicSize * 2;
+            float width = height * VCamera.m_Lens.Aspect;
 
-            float x = mainCamera.position.x + ((cloudDirection.x > 0) ? -width / 2 : width / 2) + 5;
-            float y = mainCamera.position.y + Random.Range(-height / 2, height / 2);
+            float x = mainCameraTranform.position.x + ((cloudDirection.x > 0) ? -width / 2 : width / 2) + 5;
+            float y = mainCameraTranform.position.y + Random.Range(-height / 2, height / 2);
 
             return new Vector3(x, y, 0);
         }
 
         bool IsNaturallyOutOfBounds(Vector3 position, float cloudWidth)
         {
-            float width = Camera.main.orthographicSize * 2 * Camera.main.aspect;
+            float width = VCamera.m_Lens.OrthographicSize * 2 * VCamera.m_Lens.Aspect;
 
-            return position.x < mainCamera.position.x - width / 2 - cloudWidth;
+            return position.x < mainCameraTranform.position.x - width / 2 - cloudWidth;
         }
     }
 }

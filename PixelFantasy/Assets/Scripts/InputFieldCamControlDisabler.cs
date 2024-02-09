@@ -39,7 +39,7 @@ public class InputFieldCamControlDisabler : MonoBehaviour
 
     private void DisableCamInput(bool disabled)
     {
-        Camera.main.GetComponent<CameraController>().IgnoreKeyboardInput = disabled;
+        CameraManager.Instance.IgnoreKeyboardInput = disabled;
         _disabledInput = disabled;
     }
 }
