@@ -75,7 +75,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 3
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &597828111827750451
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,7 +134,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &597828112328339960
 RectTransform:
   m_ObjectHideFlags: 0
@@ -150,10 +150,10 @@ RectTransform:
   m_Father: {fileID: 597828113046479387}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 215, y: -36.753098}
-  m_SizeDelta: {x: 400, y: 12}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 215, y: 0}
+  m_SizeDelta: {x: 400, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &597828112328339965
 MonoBehaviour:
@@ -372,7 +372,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 17.5, y: -15}
-  m_SizeDelta: {x: 15, y: 15}
+  m_SizeDelta: {x: 14, y: 14}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &597828112966427002
 CanvasRenderer:
@@ -673,7 +673,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 3
+  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &597828113046479386
 MonoBehaviour:
   m_ObjectHideFlags: 0
