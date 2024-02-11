@@ -37,8 +37,6 @@ namespace Systems.Social.Scripts
         private const int MOOD_COHESION_BASE = 20;
         private const int MIN_OPINION_TO_FLIRT = 15;
         private const float BASE_ATTEMPT_FLIRTING_CHANCE = 0.10f;
-
-        private const float BASE_PREGNANCY_CHANCE = 50f;
         
         private ESocialState _state;
         private float _chatTimer;
@@ -397,7 +395,7 @@ namespace Systems.Social.Scripts
                     var spaceForKids = _kinling.AssignedHome.HasSpaceForChildren();
                     if (spaceForKids)
                     {
-                        bool isPregnant = Helper.RollDice(BASE_PREGNANCY_CHANCE);
+                        bool isPregnant = Helper.RollDice(GameSettings.Instance.BasePregnancyChance);
                         if (isPregnant)
                         {
                             Kinling child = KinlingsManager.Instance.CreateChild(_kinling, _kinling.Partner);
