@@ -10,14 +10,13 @@ namespace TaskSystem
     public abstract class TaskAction : MonoBehaviour
     {
         public string TaskId;
-        public StatType RelevantStatType;
 
         protected TaskAI _ai;
         protected Task _task;
         protected const float MIN_DISTANCE_FROM_REQUESTOR = 0.5f;
 
-        public float ActionSpeed => _ai.Kinling.Stats.GetActionSpeed(RelevantStatType);
-        public float WorkAmount => _ai.Kinling.Stats.GetWorkAmount(_task.RequiredToolType);
+        public float ActionSpeed => 1f;
+        public float WorkAmount => _ai.Kinling.Skills.GetWorkAmount(_task.SkillType);
         public Task Task => _task;
 
         protected KinlingAnimController KinlingAnimController => _ai.Kinling.kinlingAnimController;
@@ -236,9 +235,9 @@ namespace TaskSystem
             _ai.CurrentTaskDone();
         }
         
-        private void Event_OnTaskCancelled(Task task)
+        private void Event_OnTaskCancelled(string taskID, PlayerInteractable requestor)
         {
-            if (_task != null && _task.IsEqual(task))
+            if (_task != null && _task.TaskId == taskID && _task.Requestor == requestor)
             {
                 OnTaskCancel();
             }

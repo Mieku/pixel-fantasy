@@ -12,6 +12,7 @@ using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using Systems.Currency.Scripts;
 using Systems.Notifications.Scripts;
+using Systems.Skills.Scripts;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -877,7 +878,7 @@ namespace Buildings
 
         protected override void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
         {
-            Task task = new Task("Withdraw Item Construction", this, Librarian.Instance.GetJob("Worker"), EToolType.None)
+            Task task = new Task("Withdraw Item Construction", this, Librarian.Instance.GetJob("Worker"), EToolType.None, SkillType.None)
             {
                 Payload = resourceData.ItemName,
             };
@@ -886,7 +887,7 @@ namespace Buildings
 
         public override void CreateConstructTask(bool autoAssign = true)
         {
-            Task constuctTask = new Task("Build Building", this, Librarian.Instance.GetJob("Worker"), EToolType.BuildersHammer);
+            Task constuctTask = new Task("Build Building", this, Librarian.Instance.GetJob("Worker"), EToolType.BuildersHammer, SkillType.Construction);
             constuctTask.Enqueue();
         }
         

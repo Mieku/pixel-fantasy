@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: Stone Mountain
   m_EditorClassIdentifier: 
   ResourceName: Mountain
-  _availableActions:
-  - {fileID: 11400000, guid: 7c972d23bb221b84ab79715c8bbfd1e1, type: 2}
   _workToMine: 30
   _minedResources:
     _harvestableItems:

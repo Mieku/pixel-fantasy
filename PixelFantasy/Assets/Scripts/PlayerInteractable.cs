@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using Items;
+using ScriptableObjects;
+using Systems.Skills.Scripts;
 using TaskSystem;
 using UnityEngine;
 
@@ -57,7 +59,7 @@ public abstract class PlayerInteractable : UniqueObject
             CancelCommand(PendingCommand);
         }
 
-        Task task = new Task(command.Task.TaskId, this, command.Job, command.RequiredToolType);
+        Task task = new Task(command.Task.TaskId, this, command.Job, command.RequiredToolType, command.SkillType);
         if (payload != null)
         {
             task.Payload = payload;
@@ -74,9 +76,7 @@ public abstract class PlayerInteractable : UniqueObject
     {
         PendingCommand = null;
 
-        Task task = new Task(command.Task.TaskId, this, command.Job, command.RequiredToolType);
-        
-        TaskManager.Instance.CancelTask(task);
+        TaskManager.Instance.CancelTask(command.Task.TaskId, this);
 
         DisplayTaskIcon(null);
     }

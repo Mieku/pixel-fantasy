@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using Systems.Skills.Scripts;
 using UnityEngine;
 
 namespace ScriptableObjects
@@ -9,6 +10,8 @@ namespace ScriptableObjects
     {
         [TitleGroup("Crafted Data")] public List<FurnitureItemData> RequiredCraftingTableOptions;
         [TitleGroup("Crafted Data")] public JobData RequiredCraftingJob;
+        [TitleGroup("Crafted Data")] public SkillType ProductionSkillType;
+        [TitleGroup("Crafted Data")] public int MinProductionSkill;
         [TitleGroup("Crafted Data")] public float WorkCost;
         [TitleGroup("Crafted Data")] [SerializeField] private List<ItemAmount> _resourceCosts;
         [TitleGroup("Crafted Data")] [SerializeField] private List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle" };

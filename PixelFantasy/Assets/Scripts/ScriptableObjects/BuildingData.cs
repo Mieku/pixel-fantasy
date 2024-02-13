@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using Buildings;
 using Buildings.Building_Panels;
-using Characters;
+using Systems.Skills.Scripts;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ScriptableObjects
 {
@@ -12,7 +10,7 @@ namespace ScriptableObjects
     {
         public int MaxOccupants;
         public int DailyUpkeep;
-        [FormerlySerializedAs("RelevantAbilityTypes")] public List<StatType> RelevantStatTypes = new List<StatType>();
+        public SkillType RelevantSkillType;
         public List<InventoryLogisticBill> DefaultLogistics = new List<InventoryLogisticBill>();
     }
 }

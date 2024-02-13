@@ -24,6 +24,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 92ae49093fe4f4240bcc66f7c88f3749, type: 2}
   - {fileID: 11400000, guid: e949c9d3f49ed8c42b31e92b4ea628a4, type: 2}
   RequiredCraftingJob: {fileID: 0}
+  ProductionSkillType: 0
+  MinProductionSkill: 0
   WorkCost: 5
   _resourceCosts:
   - Item: {fileID: 11400000, guid: 75f99dfbebb440d4499e1b83387d86e1, type: 2}
@@ -39,7 +41,9 @@ MonoBehaviour:
   DefaultDyePalette: {fileID: 0}
   RequiredJob: {fileID: 11400000, guid: 2a72d8ac25ff79b44b0d862e30e16ba6, type: 2}
   TierLevel: 1
-  StatModifiers: []
+  SkillStats:
+  - SkillType: 6
+    Amount: 1
   MainHandHeldGear: {fileID: 8574784959301920401, guid: d6ffa9c539c80934eab49dd7cfb7c73d, type: 3}
   OffHandHeldGear: {fileID: 0}
   HatGear: {fileID: 0}

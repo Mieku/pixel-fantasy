@@ -13,11 +13,6 @@ MonoBehaviour:
   m_Name: Bush
   m_EditorClassIdentifier: 
   ResourceName: Bush
-  _reproduces: 1
-  _reproductiveRateSec: 30
-  _childRangeMin: 1
-  _childRangeMax: 6
-  _keepSpace: 1
   _growthStages:
   - StageName: Young
     GrowthSprite: {fileID: 21300000, guid: 0fd3f59d6e5bc924fbc75655b4a41224, type: 3}
@@ -45,8 +40,6 @@ MonoBehaviour:
   - Structure
   - Zone
   - Dirt
-  _availableActions:
-  - {fileID: 11400000, guid: 589250b837e32b84d90b6e4686766a41, type: 2}
   _hasFruit: 0
   _growFruitTime: 0
   _fruitOverlay: {fileID: 0}

@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Equip Item
-  RelevantStatType: 0
 --- !u!1 &631212833682016970
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,7 +90,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Water Crop
-  RelevantStatType: 1
 --- !u!1 &918357296778643008
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,7 +135,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Relocate Item
-  RelevantStatType: 0
 --- !u!1 &1073945786127637263
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +180,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Store Food
-  RelevantStatType: 0
 --- !u!1 &1387483833084547474
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,7 +301,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Mate
-  RelevantStatType: 0
 --- !u!1 &2308111677143592993
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,7 +479,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Place Furniture
-  RelevantStatType: 4
 --- !u!1 &2535716412193577077
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,7 +524,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Withdraw Item
-  RelevantStatType: 0
 --- !u!1 &3010343328883400537
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,7 +692,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Crop Swap
-  RelevantStatType: 1
 --- !u!1 &3207227071544537587
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,7 +737,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Build Construction
-  RelevantStatType: 4
 --- !u!1 &3235353390575542222
 GameObject:
   m_ObjectHideFlags: 0
@@ -843,7 +834,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Withdraw Item Construction
-  RelevantStatType: 0
 --- !u!1 &3610773845214743973
 GameObject:
   m_ObjectHideFlags: 0
@@ -889,7 +879,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Clear Grass
-  RelevantStatType: 1
 --- !u!1 &3742401547343047349
 GameObject:
   m_ObjectHideFlags: 0
@@ -1019,7 +1008,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Extract Resource
-  RelevantStatType: 1
 --- !u!1 &4071566059678546085
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,7 +1079,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -177695485
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: 90ab9fc734f8b16488abe87d00fcd22f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1149,7 +1137,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Dig Hole
-  RelevantStatType: 1
 --- !u!1 &4961899841476339721
 GameObject:
   m_ObjectHideFlags: 0
@@ -1226,7 +1213,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Receive Mate
-  RelevantStatType: 0
 --- !u!1 &5532418264530240426
 GameObject:
   m_ObjectHideFlags: 0
@@ -1238,6 +1224,7 @@ GameObject:
   - component: {fileID: 5532418264530240428}
   - component: {fileID: 5584874993929393806}
   - component: {fileID: 6110830004571278970}
+  - component: {fileID: 1273177201407003409}
   - component: {fileID: 1211023406118596035}
   - component: {fileID: 9189890898419539547}
   - component: {fileID: 4624679516539662858}
@@ -1248,7 +1235,6 @@ GameObject:
   - component: {fileID: 6234467081272595317}
   - component: {fileID: 4888200492756624676}
   - component: {fileID: 1019713362702754046}
-  - component: {fileID: 4421225838997015194}
   m_Layer: 6
   m_Name: Kinling
   m_TagString: Unit
@@ -1297,10 +1283,9 @@ MonoBehaviour:
   _appearance: {fileID: 4680592222557511252}
   _mood: {fileID: 4888200492756624676}
   _socialAI: {fileID: 5256464669028443073}
-  Stats: {fileID: 4421225838997015194}
+  Skills: {fileID: 1273177201407003409}
   _traits: []
   _dailyCoinsIncome: 5
-  _relevantStatColour: {r: 0.050980393, g: 0.7529412, b: 0, a: 1}
   _sortingGroup: {fileID: 4624679516539662858}
   _positionRendererSorter: {fileID: 1822529751762045447}
   FirstName: 
@@ -1340,6 +1325,19 @@ MonoBehaviour:
     _needData: {fileID: 11400000, guid: bbd6477af2cdf1c4683d1378eeb200c1, type: 2}
     _value: 0
   _registeredNeedChanges: []
+--- !u!114 &1273177201407003409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5532418264530240426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de2c02365053f6349bbc76be929e6279, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _relevantStatColour: {r: 0.050980393, g: 0.7529412, b: 0, a: 1}
 --- !u!61 &1211023406118596035
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1474,7 +1472,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _smallDotPrefab: {fileID: 4432061326701732338, guid: b673637e1e18e214ea8b45b097d63532, type: 3}
-  _largeDotPrefab: {fileID: 186539459406950648, guid: 50bf3c7a6fe78cb48893aacad7b68417, type: 3}
   _goalPrefab: {fileID: 8394141543129858345, guid: 9b1fa3f0d903e6341be7d175f1f1db18, type: 3}
   _dotSpacing: 1
 --- !u!114 &4888200492756624676
@@ -1514,26 +1511,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &4421225838997015194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5532418264530240426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0cfb1b121cb6e489f16ac387dc30e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Strength:
-    Level: 0
-  Vitality:
-    Level: 0
-  Intelligence:
-    Level: 0
-  Expertise:
-    Level: 0
 --- !u!1 &5537650040891410994
 GameObject:
   m_ObjectHideFlags: 0
@@ -1579,7 +1556,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Unstock Item
-  RelevantStatType: 0
 --- !u!1 &5714144126929920779
 GameObject:
   m_ObjectHideFlags: 0
@@ -1625,7 +1601,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Produce Item
-  RelevantStatType: 4
 --- !u!1 &5719924548177687575
 GameObject:
   m_ObjectHideFlags: 0
@@ -1671,7 +1646,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Craft Furniture Order
-  RelevantStatType: 4
 --- !u!1 &6077939752023387253
 GameObject:
   m_ObjectHideFlags: 0
@@ -1717,7 +1691,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Harvest Resource
-  RelevantStatType: 1
 --- !u!1 &6275583461605454403
 GameObject:
   m_ObjectHideFlags: 0
@@ -1763,7 +1736,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Move
-  RelevantStatType: 0
   _afterMoveDelay: 5
 --- !u!1 &6867738790174552894
 GameObject:
@@ -1810,7 +1782,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Craft Item
-  RelevantStatType: 4
 --- !u!1 &7450743699584522153
 GameObject:
   m_ObjectHideFlags: 0
@@ -1856,7 +1827,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Plant Crop
-  RelevantStatType: 1
 --- !u!1 &7490949102065234245
 GameObject:
   m_ObjectHideFlags: 0
@@ -1902,7 +1872,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Harvest Crop
-  RelevantStatType: 1
 --- !u!1 &7966535961772041823
 GameObject:
   m_ObjectHideFlags: 0
@@ -1982,7 +1951,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Go To Sleep
-  RelevantStatType: 0
 --- !u!1 &8079841030640490175
 GameObject:
   m_ObjectHideFlags: 0
@@ -2028,7 +1996,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Store Item
-  RelevantStatType: 0
 --- !u!1 &8517563228461411567
 GameObject:
   m_ObjectHideFlags: 0
@@ -2074,7 +2041,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Wander Breakdown
-  RelevantStatType: 0
 --- !u!1 &8595187099755971220
 GameObject:
   m_ObjectHideFlags: 0
@@ -2120,7 +2086,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Eat Food
-  RelevantStatType: 0
 --- !u!1 &8753240305063951622
 GameObject:
   m_ObjectHideFlags: 0
@@ -2250,7 +2215,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Clear Crop
-  RelevantStatType: 1
 --- !u!1 &8973889112328986646
 GameObject:
   m_ObjectHideFlags: 0
@@ -2380,7 +2344,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Deconstruct
-  RelevantStatType: 4
 --- !u!1 &9119150484914675750
 GameObject:
   m_ObjectHideFlags: 0
@@ -2426,7 +2389,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Build Building
-  RelevantStatType: 4
 --- !u!1 &9137085281033103935
 GameObject:
   m_ObjectHideFlags: 0
@@ -2472,7 +2434,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Stock Item
-  RelevantStatType: 0
 --- !u!1 &9161926596539569848
 GameObject:
   m_ObjectHideFlags: 0
@@ -2518,7 +2479,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Till Soil
-  RelevantStatType: 1
 --- !u!1001 &9048860040763712393
 PrefabInstance:
   m_ObjectHideFlags: 0

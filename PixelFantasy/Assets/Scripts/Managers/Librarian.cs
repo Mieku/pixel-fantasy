@@ -6,6 +6,7 @@ using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Systems.Mood.Scripts;
 using Systems.Needs.Scripts;
+using Systems.Skills.Scripts;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -27,6 +28,24 @@ namespace Managers
         [SerializeField] private List<NeedData> _stats;
         [SerializeField] private List<Emotion> _emotions;
         [SerializeField] private List<EmotionalBreakdown> _emotionalBreakdowns;
+        [SerializeField] private List<TalentSO> _talents;
+        
+        public TalentSO GetTalent(string talentName)
+        {
+            var result = _talents.Find(talent => talent.TalentName == talentName);
+            if (result == null)
+            {
+                Debug.LogError($"Unknown Talent: {talentName}");
+            }
+
+            return result;
+        }
+
+        public TalentSO GetRandomTalent()
+        {
+            int index = Random.Range(0, _talents.Count);
+            return _talents[index];
+        }
 
         public List<ItemData> GetAllItemsForCategory(EItemCategory category, bool alphabeticalOrder)
         {

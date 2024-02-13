@@ -4,6 +4,7 @@ using Characters;
 using QFSW.QC;
 using ScriptableObjects;
 using Systems.Notifications.Scripts;
+using Systems.Skills.Scripts;
 using TaskSystem;
 using UnityEngine;
 
@@ -115,7 +116,7 @@ namespace Managers
                 return;
             }
 
-            Task task = new Task("Mate", instigator.AssignedBed, null, EToolType.None);
+            Task task = new Task("Mate", instigator.AssignedBed, null, EToolType.None, SkillType.None);
             instigator.TaskAI.QueueTask(task);
         }
 

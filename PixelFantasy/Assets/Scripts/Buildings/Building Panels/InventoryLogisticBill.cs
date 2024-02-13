@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Items;
 using ScriptableObjects;
+using Systems.Skills.Scripts;
 using TaskSystem;
 using UnityEngine;
 
@@ -58,7 +59,7 @@ namespace Buildings.Building_Panels
             if (_requestType == RequestType.More) return; // Don't request the same multiple times
             _requestType = RequestType.More;
             
-            Task task = new Task("Stock Item", Building, Building.GetBuildingJob(), EToolType.None)
+            Task task = new Task("Stock Item", Building, Building.GetBuildingJob(), EToolType.None, SkillType.None)
             {
                 Payload = Item.ItemName,
                 OnTaskComplete = RequestDone,
@@ -72,7 +73,7 @@ namespace Buildings.Building_Panels
             if (_requestType == RequestType.Less) return; // Don't request the same multiple times
             _requestType = RequestType.Less;
             
-            Task task = new Task("Unstock Item", Building, Building.GetBuildingJob(), EToolType.None)
+            Task task = new Task("Unstock Item", Building, Building.GetBuildingJob(), EToolType.None, SkillType.None)
             {
                 Payload = Item.ItemName,
                 OnTaskComplete = RequestDone,

@@ -4,6 +4,7 @@ using DataPersistence;
 using Interfaces;
 using Managers;
 using ScriptableObjects;
+using Systems.Skills.Scripts;
 using Systems.SmartObjects.Scripts;
 using TaskSystem;
 using UnityEngine;
@@ -101,7 +102,7 @@ namespace Items
 
         public void CreateHaulTask()
         {
-            Task task = new Task("Store Item", this, Librarian.Instance.GetJob("Worker"), EToolType.None);
+            Task task = new Task("Store Item", this, Librarian.Instance.GetJob("Worker"), EToolType.None, SkillType.None);
 
             TaskManager.Instance.AddTask(task);
             _currentTask = task;

@@ -42,6 +42,9 @@ MonoBehaviour:
   StatModifiers:
   - StatType: 1
     Modifier: 1
+  SkillStats:
+  - SkillType: 1
+    Amount: 2
   MainHandHeldGear: {fileID: 2109487599534607570, guid: 090d27e88b049864b80346639ede66d4, type: 3}
   OffHandHeldGear: {fileID: 0}
   HatGear: {fileID: 0}

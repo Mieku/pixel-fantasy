@@ -5,6 +5,7 @@ using Managers;
 using QFSW.QC;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
+using Systems.Skills.Scripts;
 using TaskSystem;
 using UnityEditor;
 using UnityEngine;
@@ -157,7 +158,7 @@ namespace Characters
 
         private void Equip(GearState equipmentState)
         {
-            _kinling.Stats.ApplyStatModifiers(equipmentState);
+            _kinling.Skills.ApplyGearSkills(equipmentState.GearData.SkillStats);
             switch (equipmentState.GearData.Type)
             {
                 case GearType.Head:
@@ -419,7 +420,7 @@ namespace Characters
 
         public Item Unequip(GearState gear)
         {
-            _kinling.Stats.RemoveStatModifiers(gear);
+            _kinling.Skills.RemoveGearSkills(gear.GearData.SkillStats);
             var data = gear.GearData;
             if (data == null) return null;
 
@@ -542,7 +543,7 @@ namespace Characters
 
         private Task CreateEquipTask(GearState gearState)
         {
-            Task equipItemTask = new Task("Equip Item", gearState.LinkedItem, null, EToolType.None)
+            Task equipItemTask = new Task("Equip Item", gearState.LinkedItem, null, EToolType.None, SkillType.None)
             {
                 Materials = new List<Item> { gearState.LinkedItem },
             };

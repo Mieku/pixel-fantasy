@@ -7,6 +7,7 @@ using Items;
 using Managers;
 using ScriptableObjects;
 using Systems.Mood.Scripts;
+using Systems.Skills.Scripts;
 using Systems.Social.Scripts;
 using Systems.Traits.Scripts;
 using TaskSystem;
@@ -24,15 +25,13 @@ namespace Characters
         [SerializeField] private Mood _mood;
         [SerializeField] private SocialAI _socialAI;
         
-        public Stats Stats;
+        public KinlingSkills Skills;
         
         [Header("Traits")] 
         [SerializeField] protected List<Trait> _traits;
         
         [Header("Income")] 
         [SerializeField] protected int _dailyCoinsIncome;
-        
-        [SerializeField] private Color _relevantStatColour;
  
         [SerializeField] private SortingGroup _sortingGroup;
         [SerializeField] private PositionRendererSorter _positionRendererSorter;
@@ -117,8 +116,8 @@ namespace Characters
             _appearance.Init(this, kinlingData.Appearance);
             Equipment.Init(this, kinlingData.Gear);
             _traits = kinlingData.Traits;
-
-            Stats.Init(kinlingData.Stats);
+            
+            Skills.Init(kinlingData.Talents);
             
             _mood.Init();
 
@@ -295,86 +294,6 @@ namespace Characters
                     return AssignedWorkplace.GetBuildingJob();
                 }
             }
-        }
-        
-        public int RelevantStatScore(List<StatType> relevantStats)
-        {
-            int score = 0;
-            if (relevantStats.Contains(StatType.Strength))
-            {
-                score += Stats.GetStatByType(StatType.Strength).Level;
-            }
-            if (relevantStats.Contains(StatType.Vitality))
-            {
-                score += Stats.GetStatByType(StatType.Vitality).Level;
-            }
-            if (relevantStats.Contains(StatType.Intelligence))
-            {
-                score += Stats.GetStatByType(StatType.Intelligence).Level;
-            }
-            if (relevantStats.Contains(StatType.Expertise))
-            {
-                score += Stats.GetStatByType(StatType.Expertise).Level;
-            }
-
-            return score;
-        }
-        
-        public string GetStatList(List<StatType> relevantStats, Color relevantColourOverride = default)
-        {
-            Color relevantColour = _relevantStatColour;
-            if (relevantColourOverride != default)
-            {
-                relevantColour = relevantColourOverride;
-            }
-            
-            int strength = Stats.GetStatByType(StatType.Strength).Level;
-            int vitality = Stats.GetStatByType(StatType.Vitality).Level;
-            int intelligence = Stats.GetStatByType(StatType.Intelligence).Level;
-            int expertise = Stats.GetStatByType(StatType.Expertise).Level;
-
-            string result = "";
-            // Strength
-            if (relevantStats.Contains(StatType.Strength))
-            {
-                result += $"<color={Helper.ColorToHex(relevantColour)}>{strength} Strength</color><br>";
-            }
-            else
-            {
-                result += $"{strength} Strength<br>";
-            }
-            
-            // Vitality
-            if (relevantStats.Contains(StatType.Vitality))
-            {
-                result += $"<color={Helper.ColorToHex(relevantColour)}>{vitality} Vitality</color><br>";
-            }
-            else
-            {
-                result += $"{vitality} Vitality<br>";
-            }
-            
-            // Intelligence
-            if (relevantStats.Contains(StatType.Intelligence))
-            {
-                result += $"<color={Helper.ColorToHex(relevantColour)}>{intelligence} Intelligence</color><br>";
-            }
-            else
-            {
-                result += $"{intelligence} Intelligence<br>";
-            }
-            
-            // Expertise
-            if (relevantStats.Contains(StatType.Expertise))
-            {
-                result += $"<color={Helper.ColorToHex(relevantColour)}>{expertise} Expertise</color>";
-            }
-            else
-            {
-                result += $"{expertise} Expertise";
-            }
-
-            return result;
         }
 
         public void AssignBed(BedFurniture bed)

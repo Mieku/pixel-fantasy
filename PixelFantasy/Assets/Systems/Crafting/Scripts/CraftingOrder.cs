@@ -67,7 +67,7 @@ namespace Systems.Crafting.Scripts
             switch (OrderType)
             {
                 case EOrderType.Furniture:
-                    task = new Task("Craft Furniture Order", Requestor, building.GetBuildingJob(), EToolType.None)
+                    task = new Task("Craft Furniture Order", Requestor, building.GetBuildingJob(), EToolType.None, CraftedItem.ProductionSkillType)
                     {
                         Payload = CraftedItem.ItemName,
                         OnTaskComplete = onTaskComplete,
@@ -75,7 +75,7 @@ namespace Systems.Crafting.Scripts
                     };
                     break;
                 case EOrderType.Item:
-                    task = new Task("Craft Item", Requestor, building.GetBuildingJob(), EToolType.None)
+                    task = new Task("Craft Item", Requestor, building.GetBuildingJob(), EToolType.None, CraftedItem.ProductionSkillType)
                     {
                         Payload = CraftedItem.ItemName,
                         OnTaskComplete = onTaskComplete,

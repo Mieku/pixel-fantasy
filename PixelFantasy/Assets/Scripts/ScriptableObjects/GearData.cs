@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Characters;
 using Items;
 using Sirenix.OdinInspector;
+using Systems.Skills.Scripts;
 using UnityEngine;
 
 namespace ScriptableObjects
@@ -15,9 +16,9 @@ namespace ScriptableObjects
         [ShowIf("CanBeDyed")] public DyePaletteData DefaultDyePalette;
         [Tooltip("Can be left empty for no requirement")] public JobData RequiredJob;
         public int TierLevel;
-        public List<StatModifier> StatModifiers = new List<StatModifier>();
+        public List<Skill> SkillStats = new List<Skill>();
         
-        [ShowIf("@Type == GearType.MainHand || Type == GearType.BothHands")] public GearPiece MainHandHeldGear;
+        [ShowIf("@Type == GearType.MainHand")] public GearPiece MainHandHeldGear;
         [ShowIf("Type", GearType.OffHand)] public GearPiece OffHandHeldGear;
         [ShowIf("Type", GearType.Head)] public GearPiece HatGear;
         [ShowIf("Type", GearType.Body)] public GearPiece BodyGear;
@@ -47,9 +48,8 @@ namespace ScriptableObjects
         Hands = 3,
         MainHand = 4,
         OffHand = 5,
-        //BothHands = 6,
-        Necklace = 7,
-        Ring = 8,
-        Carried = 9,
+        Necklace = 6,
+        Ring = 7,
+        Carried = 8,
     }
 }

@@ -47,11 +47,10 @@ namespace Buildings
         
         public override List<Kinling> GetPotentialOccupants()
         {
-            var relevantAbilites = _buildingData.RelevantStatTypes;
-            
+            var relevantSkill = _buildingData.RelevantSkillType;
             var unemployed = KinlingsManager.Instance.UnemployedKinlings;
             List<Kinling> sortedKinlings = unemployed
-                .OrderByDescending(kinling => kinling.RelevantStatScore(relevantAbilites)).ToList();
+                .OrderByDescending(kinling => kinling.Skills.GetTotalSkill(relevantSkill)).ToList();
             return sortedKinlings;
         }
         

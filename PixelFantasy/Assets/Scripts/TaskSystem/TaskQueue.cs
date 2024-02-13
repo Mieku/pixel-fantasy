@@ -52,12 +52,12 @@ namespace TaskSystem
             return task;
         }
 
-        public void CancelTask(Task taskToCancel)
+        public void CancelTask(string taskID, PlayerInteractable requestor)
         {
             Task target = null;
             foreach (var task in _tasks)
             {
-                if (task.IsEqual(taskToCancel))
+                if (task.TaskId == taskID && task.Requestor == requestor)
                 {
                     target = task;
                     break;

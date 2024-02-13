@@ -108,10 +108,10 @@ public class GameEvents : MonoBehaviour
         if (OnZoneDisplayChanged != null) OnZoneDisplayChanged(zonesVisible);
     }
     
-    public static event Action<Task> OnTaskCancelled;
-    public static void Trigger_OnTaskCancelled(Task task)
+    public static event Action<string, PlayerInteractable> OnTaskCancelled;
+    public static void Trigger_OnTaskCancelled(string taskID, PlayerInteractable requestor)
     {
-        if (OnTaskCancelled != null) OnTaskCancelled(task);
+        if (OnTaskCancelled != null) OnTaskCancelled(taskID, requestor);
     }
 
     public static event Action<Kinling> OnUnitOccupationChanged;

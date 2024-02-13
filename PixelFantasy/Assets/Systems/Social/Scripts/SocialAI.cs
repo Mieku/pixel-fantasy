@@ -5,6 +5,7 @@ using Characters;
 using Managers;
 using ScriptableObjects;
 using Systems.Notifications.Scripts;
+using Systems.Skills.Scripts;
 using Systems.Traits.Scripts;
 using TaskSystem;
 using UnityEngine;
@@ -356,7 +357,7 @@ namespace Systems.Social.Scripts
 
         public void ReceiveMateRequest()
         {
-            Task mateTask = new Task("Receive Mate", null, null, EToolType.None);
+            Task mateTask = new Task("Receive Mate", null, null, EToolType.None, SkillType.None);
             
             _kinling.TaskAI.QueueTask(mateTask);
         }

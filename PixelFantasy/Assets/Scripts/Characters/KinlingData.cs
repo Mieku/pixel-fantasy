@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Items;
+using Managers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
+using Systems.Skills.Scripts;
 using Systems.Traits.Scripts;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -37,9 +39,9 @@ namespace Characters
         [BoxGroup("Appearance")] public AppearanceState Appearance;
         [BoxGroup("Gear")] public KinlingGearData Gear;
         [BoxGroup("Traits")] public List<Trait> Traits = new List<Trait>();
-        [BoxGroup("Stats")] public StatsData Stats;
         [BoxGroup("Family")] public string Partner;
         [BoxGroup("Family")] public List<string> Children = new List<string>();
+        [BoxGroup("Skills")] public List<TalentSO> Talents = new List<TalentSO>();
         
         [BoxGroup("General")] [Button("Create UID")]
         private void GenerateUID()
@@ -62,7 +64,7 @@ namespace Characters
             SexualPreference = DetermineSexuality();
             Appearance = new AppearanceState(Gender, mother.Appearance, father.Appearance);
             Gear = new KinlingGearData();
-            Stats = new StatsData(mother.Stats, father.Stats);
+            Talents = InheritTalentsFromParents(mother.Talents, father.Talents);
             Traits = GetTraitsFromParents(mother.Traits, father.Traits);
 
             Firstname = Appearance.Race.GetRandomFirstName(Gender);
@@ -128,6 +130,38 @@ namespace Characters
 
             childTraits = childTraits.Distinct().ToList();
             return childTraits;
+        }
+
+        private List<TalentSO> InheritTalentsFromParents(List<TalentSO> motherTalents, List<TalentSO> fatherTalents)
+        {
+            List<TalentSO> childTalents = new List<TalentSO>();
+            foreach (var momTalent in motherTalents)
+            {
+                if (Helper.RollDice(50))
+                {
+                    childTalents.Add(momTalent);
+                }
+            }
+            
+            foreach (var dadTalent in fatherTalents)
+            {
+                if (Helper.RollDice(50))
+                {
+                    childTalents.Add(dadTalent);
+                }
+            }
+            
+            childTalents = childTalents.Distinct().ToList();
+
+            if (childTalents.Count == 0)
+            {
+                if (Helper.RollDice(50))
+                {
+                    childTalents.Add(Librarian.Instance.GetRandomTalent());
+                }
+            }
+
+            return childTalents;
         }
     }
 }

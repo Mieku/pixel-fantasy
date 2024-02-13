@@ -8,6 +8,7 @@ using Items;
 using Managers;
 using Mono.CSharp;
 using ScriptableObjects;
+using Systems.Skills.Scripts;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.Serialization;
@@ -229,7 +230,7 @@ namespace TaskSystem
             {
                 if (_kinling.AssignedHome != null)
                 {
-                    task = new Task("Eat Food", _kinling.AssignedHome, null, EToolType.None);
+                    task = new Task("Eat Food", _kinling.AssignedHome, null, EToolType.None, SkillType.None);
                     if (AttemptStartTask(task, false)) return;
                     else task = null;
                 }
@@ -238,7 +239,7 @@ namespace TaskSystem
                     var eatery = BuildingsManager.Instance.GetClosestBuildingOfType<IEateryBuilding>(_kinling.transform.position);
                     if (eatery != null)
                     {
-                        task = new Task("Eat Food", eatery, null, EToolType.None);
+                        task = new Task("Eat Food", eatery, null, EToolType.None, SkillType.None);
                         if (AttemptStartTask(task, false)) return;
                         else task = null;
                     }
@@ -254,7 +255,7 @@ namespace TaskSystem
                 if (curHouseholdNutrition < suggestedNutrition)
                 {
                     // Set up a task to pick up some food and store it at home
-                    task = new Task("Store Food", _kinling.AssignedHome, null, EToolType.None);
+                    task = new Task("Store Food", _kinling.AssignedHome, null, EToolType.None, SkillType.None);
                     if (AttemptStartTask(task, false)) return;
                     else task = null;
                 }
@@ -267,7 +268,7 @@ namespace TaskSystem
             {
                 if (_kinling.Needs.CheckSexDrive() && _kinling.Partner.Needs.CheckSexDrive())
                 {
-                    task = new Task("Mate", _kinling.AssignedBed, null, EToolType.None);
+                    task = new Task("Mate", _kinling.AssignedBed, null, EToolType.None, SkillType.None);
                     if (AttemptStartTask(task, false)) return;
                     else task = null;
                 }
@@ -480,7 +481,7 @@ namespace TaskSystem
             if(_curTaskAction != null)
                  _curTaskAction.OnTaskCancel();
             
-            Task forcedTask = new Task(taskID, null, null, EToolType.None)
+            Task forcedTask = new Task(taskID, null, null, EToolType.None, SkillType.None)
             {
                 OnTaskComplete = OnForcedTaskComplete
             };
@@ -508,7 +509,7 @@ namespace TaskSystem
 
         public bool IsActionPossible(string taskID)
         {
-            Task forcedTask = new Task(taskID, null, null, EToolType.None)
+            Task forcedTask = new Task(taskID, null, null, EToolType.None, SkillType.None)
             {
                 OnTaskComplete = OnForcedTaskComplete
             };

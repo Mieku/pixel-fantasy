@@ -1,6 +1,7 @@
 using Characters;
 using Managers;
 using ScriptableObjects;
+using Systems.Skills.Scripts;
 using TaskSystem;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ public class Command : ScriptableObject
     public Task Task;
     public JobData Job => Task.Job;
     public EToolType RequiredToolType => Task.RequiredToolType;
+    public SkillType SkillType => Task.SkillType;
 
     public bool CanDoCommand(Kinling kinling, PlayerInteractable interactable)
     {

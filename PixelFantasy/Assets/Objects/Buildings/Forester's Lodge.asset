@@ -31,5 +31,5 @@ MonoBehaviour:
   _requiredConstructorJob: {fileID: 0}
   MaxOccupants: 3
   DailyUpkeep: 0
-  RelevantAbilityTypes: 
+  RelevantSkillType: 1
   DefaultLogistics: []

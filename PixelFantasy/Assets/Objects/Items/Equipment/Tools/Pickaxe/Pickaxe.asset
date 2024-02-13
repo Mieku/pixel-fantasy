@@ -40,6 +40,9 @@ MonoBehaviour:
   RequiredJob: {fileID: 11400000, guid: 8cc115b907c69de4da24cb986f35866f, type: 2}
   TierLevel: 1
   StatModifiers: []
+  SkillStats:
+  - SkillType: 2
+    Amount: 1
   MainHandHeldGear: {fileID: 8574784959301920401, guid: 62d5ac3ae1205e64eabe031e3a2b6bb4, type: 3}
   OffHandHeldGear: {fileID: 0}
   HatGear: {fileID: 0}

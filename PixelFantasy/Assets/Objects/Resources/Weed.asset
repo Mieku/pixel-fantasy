@@ -13,11 +13,6 @@ MonoBehaviour:
   m_Name: Weed
   m_EditorClassIdentifier: 
   ResourceName: Weed
-  _reproduces: 1
-  _reproductiveRateSec: 30
-  _childRangeMin: 1
-  _childRangeMax: 6
-  _keepSpace: 0
   _growthStages:
   - StageName: Young Weed
     GrowthSprite: {fileID: -3607200102559689332, guid: 7d1c51339019cce45bfe46e7d51a000f, type: 3}
@@ -39,7 +34,6 @@ MonoBehaviour:
         MinDrop: 1
         MaxDrop: 2
     WorkToCut: 8
-  _options: 03000000
   _invalidPlacementTags:
   - Water
   - Nature
@@ -49,6 +43,7 @@ MonoBehaviour:
   _hasFruit: 0
   _growFruitTime: 0
   _fruitOverlay: {fileID: 0}
+  _fruitFlowersOverlay: {fileID: 0}
   _harvestableFruit:
     _harvestableItems: []
   _workToHarvest: 0

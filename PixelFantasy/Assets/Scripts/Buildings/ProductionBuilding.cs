@@ -91,11 +91,10 @@ namespace Buildings
 
         public override List<Kinling> GetPotentialOccupants()
         {
-            var relevantAbilites = _buildingData.RelevantStatTypes;
-            
+            var relevantSkill = _buildingData.RelevantSkillType;
             var unemployed = KinlingsManager.Instance.UnemployedKinlings;
             List<Kinling> sortedKinlings = unemployed
-                .OrderByDescending(kinling => kinling.RelevantStatScore(relevantAbilites)).ToList();
+                .OrderByDescending(kinling => kinling.Skills.GetTotalSkill(relevantSkill)).ToList();
             return sortedKinlings;
         }
 
@@ -231,7 +230,7 @@ namespace Buildings
                 return null;
             }
             
-            Task task = new Task("Produce Item", (Building)building, building.GetBuildingJob(), EToolType.None)
+            Task task = new Task("Produce Item", (Building)building, building.GetBuildingJob(), EToolType.None, CraftedItem.ProductionSkillType)
             {
                 Payload = CraftedItem.ItemName,
                 OnTaskComplete = onTaskComplete,

@@ -31,7 +31,7 @@ MonoBehaviour:
   _requiredConstructorJob: {fileID: 11400000, guid: 2a72d8ac25ff79b44b0d862e30e16ba6, type: 2}
   MaxOccupants: 2
   DailyUpkeep: 3
-  RelevantStatTypes: 04000000
+  RelevantSkillType: 8
   DefaultLogistics:
   - Type: 0
     Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}

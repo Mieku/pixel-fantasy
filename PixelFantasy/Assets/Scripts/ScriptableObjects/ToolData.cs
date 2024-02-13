@@ -17,9 +17,9 @@ namespace ScriptableObjects
             msg += $"<color={headerColourCode}>Work:</color> <b>{WorkValue}</b>\n";
             
             // Attribute modifiers
-            foreach (var statModifier in StatModifiers)
+            foreach (var skillStat in SkillStats)
             {
-                msg += $"<color={headerColourCode}>{statModifier.StatName}:</color> <b>{statModifier.ModifierString}</b>\n";
+                msg += $"<color={headerColourCode}>{skillStat.SkillType.GetDescription()}:</color> <b>{skillStat.AmountString()}</b>\n";
             }
             
             msg += $"<color={headerColourCode}>Durability:</color> <b>{Durability}</b>\n";

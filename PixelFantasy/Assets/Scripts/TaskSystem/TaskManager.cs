@@ -69,15 +69,13 @@ namespace TaskSystem
 
             queue.AddTask(task);
         }
-        
-        public void CancelTask(Task task)
+
+        public void CancelTask(string taskID, PlayerInteractable requestor)
         {
-            GameEvents.Trigger_OnTaskCancelled(task);
-            
-            var queue = GetTaskQueue(task.Job);
-            if (queue != null)
+            GameEvents.Trigger_OnTaskCancelled(taskID, requestor);
+            foreach (var queue in AllTasks)
             {
-                queue.CancelTask(task);
+                queue.CancelTask(taskID, requestor);
             }
         }
     }

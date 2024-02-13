@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Items;
 using Managers;
 using ScriptableObjects;
+using Systems.Skills.Scripts;
 using UnityEngine;
 
 namespace TaskSystem
@@ -19,16 +20,18 @@ namespace TaskSystem
         public Action<Task> OnTaskComplete;
         public Action OnTaskCancel;
         public EToolType RequiredToolType;
+        public SkillType SkillType;
         public bool IsEmergancy;
         public bool IsKinlingSpecific; // Kinling was selected and the command was assigned via right click
 
-        public Task(string taskID, PlayerInteractable requestor, JobData job, EToolType requiredToolType, bool isEmergancy = false)
+        public Task(string taskID, PlayerInteractable requestor, JobData job, EToolType requiredToolType, SkillType skillType, bool isEmergancy = false)
         {
             TaskId = taskID;
             Requestor = requestor;
             Job = job;
             IsEmergancy = isEmergancy;
             RequiredToolType = requiredToolType;
+            SkillType = skillType;
         }
 
         public bool IsEqual(Task otherTask)
@@ -38,6 +41,7 @@ namespace TaskSystem
                    && Payload == otherTask.Payload
                    && IsEmergancy == otherTask.IsEmergancy
                    && RequiredToolType == otherTask.RequiredToolType
+                   && SkillType == otherTask.SkillType
                    && IsKinlingSpecific == otherTask.IsKinlingSpecific;
         }
 
@@ -45,10 +49,10 @@ namespace TaskSystem
         {
             if (!IsKinlingSpecific)
             {
-                TaskManager.Instance.CancelTask(this);
+                TaskManager.Instance.CancelTask(TaskId, Requestor);
                 foreach (var subTask in SubTasks)
                 {
-                    TaskManager.Instance.CancelTask(subTask);
+                    TaskManager.Instance.CancelTask(subTask.TaskId, subTask.Requestor);
                 }
             }
             
@@ -68,11 +72,13 @@ namespace TaskSystem
                 subTasks.Enqueue(subTask);
             }
             
-            return new Task(this.TaskId, this.Requestor, this.Job, this.RequiredToolType, this.IsEmergancy)
+            return new Task(this.TaskId, this.Requestor, this.Job, this.RequiredToolType, this.SkillType, this.IsEmergancy)
             {
                 Payload = this.Payload,
                 SubTasks = subTasks,
                 IsKinlingSpecific = this.IsKinlingSpecific,
+                RequiredToolType = this.RequiredToolType,
+                SkillType = this.SkillType,
             };
         }
     }

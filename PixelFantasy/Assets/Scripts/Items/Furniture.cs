@@ -11,6 +11,7 @@ using Managers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Systems.Crafting.Scripts;
+using Systems.Skills.Scripts;
 using Systems.SmartObjects.Scripts;
 using TaskSystem;
 using UnityEngine;
@@ -495,7 +496,7 @@ namespace Items
             var claimedItem = InventoryManager.Instance.ClaimItem(_furnitureItemData);
             if (claimedItem != null)
             {
-                Task task = new Task("Place Furniture", this, Librarian.Instance.GetJob("Worker"), EToolType.None)
+                Task task = new Task("Place Furniture", this, Librarian.Instance.GetJob("Worker"), EToolType.None, SkillType.None)
                 {
                     Materials = new List<Item>(){ claimedItem },
                 };
