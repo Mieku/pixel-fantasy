@@ -372,7 +372,7 @@ namespace TaskSystem
             }
             
             // Auto Assign to a building if missing a workplace and have a job
-            if (_kinling.AssignedWorkplace == null & _kinling.Job != Librarian.Instance.GetJob("Worker"))
+            if (_kinling.AssignedWorkplace == null & _kinling.Job != null)
             {
                 BuildingsManager.Instance.ClaimUnfilledWorkplace(_kinling);
             }

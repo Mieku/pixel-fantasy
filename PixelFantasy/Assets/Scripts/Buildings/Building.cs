@@ -885,7 +885,7 @@ namespace Buildings
 
         protected override void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
         {
-            Task task = new Task("Withdraw Item Construction", this, Librarian.Instance.GetJob("Worker"), EToolType.None, SkillType.None)
+            Task task = new Task("Withdraw Item Construction", this, null, EToolType.None, SkillType.None)
             {
                 Payload = resourceData.ItemName,
             };

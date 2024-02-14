@@ -18,9 +18,6 @@ namespace Managers
         public List<Kinling> UnemployedKinlings => _allKinlings.Where(kinling => kinling.AssignedWorkplace == null).ToList();
         public List<Kinling> HomelessKinlings => _allKinlings.Where(kinling => kinling.AssignedHome == null).ToList();
 
-        public List<Kinling> MissingWorkplace => _allKinlings.Where(kinling =>
-            kinling.Job != Librarian.Instance.GetJob("Worker") && kinling.AssignedWorkplace == null).ToList();
-
         public bool AnyUnitHaveJob(JobData jobData)
         {
             foreach (var kinling in _allKinlings)

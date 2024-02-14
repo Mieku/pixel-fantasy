@@ -52,22 +52,20 @@ namespace Characters
         }
 
         public Building AssignedWorkplace;
-        [ShowInInspector] private JobData _job;
+        public JobData Job;
 
-        public JobData Job
+        public string JobName
         {
             get
             {
-                if (_job == null)
+                if (Job == null)
                 {
-                    _job = Librarian.Instance.GetJob("Worker");
+                    return "Unemployed";
                 }
 
-                return _job;
+                return Job.JobName;
             }
-            set => _job = value;
         }
-        public string JobName => Job.JobName;
 
         public string FullName => FirstName + " " + LastName;
         

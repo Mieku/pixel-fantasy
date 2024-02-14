@@ -361,14 +361,14 @@ namespace Items
         
         public virtual void CreateConstructTask(bool autoAssign = true)
         {
-            Task constuctTask = new Task("Build Construction", this, Librarian.Instance.GetJob("Worker"), EToolType.BuildersHammer, SkillType.Construction);
+            Task constuctTask = new Task("Build Construction", this, GetConstructionData().RequiredConstructorJob, EToolType.BuildersHammer, SkillType.Construction);
             constuctTask.Enqueue();
         }
 
         public void CreateDeconstructionTask(bool autoAssign = true, Action onDeconstructed = null)
         {
             _onDeconstructed = onDeconstructed;
-            Task constuctTask = new Task("Deconstruct", this, Librarian.Instance.GetJob("Worker"), EToolType.BuildersHammer, SkillType.Construction);
+            Task constuctTask = new Task("Deconstruct", this, GetConstructionData().RequiredConstructorJob, EToolType.BuildersHammer, SkillType.Construction);
             constuctTask.Enqueue();
         }
     
@@ -406,7 +406,7 @@ namespace Items
 
         protected virtual void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
         {
-            Task task = new Task("Withdraw Item Construction", this, Librarian.Instance.GetJob("Worker"), EToolType.None, SkillType.None)
+            Task task = new Task("Withdraw Item Construction", this, null, EToolType.None, SkillType.None)
             {
                 Payload = resourceData.ItemName,
             };
