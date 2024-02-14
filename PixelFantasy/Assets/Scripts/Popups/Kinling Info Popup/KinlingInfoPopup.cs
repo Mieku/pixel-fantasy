@@ -1,7 +1,6 @@
 using System;
 using Characters;
 using Managers;
-using Popups.Change_Job_Popup;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

@@ -894,7 +894,7 @@ namespace Buildings
 
         public override void CreateConstructTask(bool autoAssign = true)
         {
-            Task constuctTask = new Task("Build Building", this, Librarian.Instance.GetJob("Worker"), EToolType.BuildersHammer, SkillType.Construction);
+            Task constuctTask = new Task("Build Building", this, _buildingData.RequiredConstructorJob, EToolType.BuildersHammer, SkillType.Construction);
             constuctTask.Enqueue();
         }
         
