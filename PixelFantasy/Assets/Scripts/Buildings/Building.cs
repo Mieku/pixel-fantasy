@@ -115,6 +115,13 @@ namespace Buildings
             _interiorForegroundSortingGroup.sortingOrder = (int)interiorForegroundOffset;
             _doorSortingGroup.sortingOrder = (int)doorOffset;
         }
+
+        public int AvailableOccupantSpace()
+        {
+            var max = _buildingData.MaxOccupants;
+            var cur = GetOccupants().Count;
+            return max - cur;
+        }
         
         public int GetStorageUsedForCategory(EItemCategory category)
         {
@@ -1024,10 +1031,7 @@ namespace Buildings
             return null;
         }
 
-        public virtual JobData GetBuildingJob()
-        {
-            return Librarian.Instance.GetJob("Worker");
-        }
+        public abstract JobData GetBuildingJob();
 
         public ChairFurniture FindAvailableChair()
         {

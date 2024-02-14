@@ -61,9 +61,9 @@ namespace Popups.Kinling_Info_Popup
         {
             _kinlingNameDisp.text = _selectedKinling.FullName;
             _jobName.text = _selectedKinling.JobName;
-            if (_selectedKinling.CurrentJob.JobIcon != null)
+            if (_selectedKinling.Job.JobIcon != null)
             {
-                _jobIcon.sprite = _selectedKinling.CurrentJob.JobIcon;
+                _jobIcon.sprite = _selectedKinling.Job.JobIcon;
             }
             else
             {

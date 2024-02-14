@@ -42,6 +42,7 @@ namespace Characters
         [BoxGroup("Family")] public string Partner;
         [BoxGroup("Family")] public List<string> Children = new List<string>();
         [BoxGroup("Skills")] public List<TalentSO> Talents = new List<TalentSO>();
+        [BoxGroup("Job")] public JobData Job;
         
         [BoxGroup("General")] [Button("Create UID")]
         private void GenerateUID()
@@ -66,6 +67,7 @@ namespace Characters
             Gear = new KinlingGearData();
             Talents = InheritTalentsFromParents(mother.Talents, father.Talents);
             Traits = GetTraitsFromParents(mother.Traits, father.Traits);
+            Job = null;
 
             Firstname = Appearance.Race.GetRandomFirstName(Gender);
             Lastname = mother.Lastname;

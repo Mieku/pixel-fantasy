@@ -30,7 +30,7 @@ namespace Items
             if (Durability <= 0) return false;
             if (GearData.RequiredJob != null)
             {
-                var unitJobData = kinling.CurrentJob;
+                var unitJobData = kinling.Job;
                 if (GearData.RequiredJob == unitJobData)
                 {
                     return true;

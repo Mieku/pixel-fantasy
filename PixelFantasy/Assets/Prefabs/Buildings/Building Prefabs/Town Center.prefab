@@ -5405,7 +5405,7 @@ MonoBehaviour:
   _interiorSortingGroup: {fileID: 6674228215694222167}
   _interiorForegroundSortingGroup: {fileID: 993503032232996834}
   _doorSortingGroup: {fileID: 323668908136061910}
-  _workersJob: {fileID: 11400000, guid: 1194ce9e58192cc43b20dd106885a09c, type: 2}
+  _workersJob: {fileID: 11400000, guid: 2a72d8ac25ff79b44b0d862e30e16ba6, type: 2}
   _productionOptions:
   - {fileID: 11400000, guid: b0e075e5f4b73284b8ddc1db525c8e7b, type: 2}
   _craftingOptions:

@@ -370,6 +370,12 @@ namespace TaskSystem
                     BuildingsManager.Instance.ClaimEmptyHome(_kinling);
                 }
             }
+            
+            // Auto Assign to a building if missing a workplace and have a job
+            if (_kinling.AssignedWorkplace == null & _kinling.Job != Librarian.Instance.GetJob("Worker"))
+            {
+                BuildingsManager.Instance.ClaimUnfilledWorkplace(_kinling);
+            }
         }
         
         public UnitActionDirection GetActionDirection(Vector3 targetPos)

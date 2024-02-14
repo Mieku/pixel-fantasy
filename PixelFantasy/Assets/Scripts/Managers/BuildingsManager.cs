@@ -13,6 +13,9 @@ namespace Managers
         private List<Building> _allBuildings = new List<Building>();
         public List<Building> AllBuildings => _allBuildings;
 
+        public List<Building> AllBuiltBuildings =>
+            _allBuildings.Where(building => building.State == Building.BuildingState.Built).ToList();
+
         public bool ShowInteriorByDefault;
 
         protected override void Awake()
@@ -67,7 +70,7 @@ namespace Managers
             }
         }
 
-        public List<HouseholdBuilding> AllHouseholds => _allBuildings.OfType<HouseholdBuilding>().ToList();
+        public List<HouseholdBuilding> AllHouseholds => AllBuiltBuildings.OfType<HouseholdBuilding>().ToList();
 
         public void ClaimEmptyHome(Kinling requestingKinling)
         {
@@ -92,6 +95,25 @@ namespace Managers
             var sortedHouses = houseDistances.OrderBy(x => x.Item2).Select(x => x.Item1).ToList();
             var selectedHouse = sortedHouses[0];
             selectedHouse.AssignHeadHousehold(requestingKinling);
+        }
+
+        public void ClaimUnfilledWorkplace(Kinling kinling)
+        {
+            var job = kinling.Job;
+            foreach (var building in AllBuiltBuildings)
+            {
+                if (building is not HouseholdBuilding)
+                {
+                    var buildingJob = building.GetBuildingJob();
+                    var availableSpace = building.AvailableOccupantSpace();
+                    
+                    if (building.GetBuildingJob() == job && building.AvailableOccupantSpace() > 0)
+                    {
+                        building.AddOccupant(kinling);
+                        return;
+                    }
+                }
+            }
         }
 
         public List<T> GetBuildingsOfType<T>()

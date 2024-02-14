@@ -22,9 +22,8 @@ namespace Systems.Details.Building_Details.Scripts
         protected override void Refresh()
         {
             ClearSlots();
-            int maxOccupants = _building.BuildingData.MaxOccupants;
             var occupants = _building.GetOccupants();
-            int emptySlots = maxOccupants - occupants.Count;
+            int emptySlots = _building.AvailableOccupantSpace();
             foreach (var occupant in occupants)
             {
                 var slot = Instantiate(_slotPrefab, _slotParent);

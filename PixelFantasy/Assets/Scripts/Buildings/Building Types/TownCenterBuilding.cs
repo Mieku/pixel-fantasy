@@ -116,7 +116,12 @@ namespace Buildings.Building_Types
             
             return result;
         }
-        
+
+        public override JobData GetBuildingJob()
+        {
+            return _workersJob;
+        }
+
         private void OnTaskComplete(Task task)
         {
             

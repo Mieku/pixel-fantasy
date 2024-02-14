@@ -32,7 +32,7 @@ namespace TaskSystem
             // Get the next job, check if the kinling can do it.
             // if not, get the next one until either a task is found or hit the end of available tasks, if so return null
 
-            var job = kinling.CurrentJob;
+            var job = kinling.Job;
             var queue = GetTaskQueue(job);
             if (queue == null)
             {

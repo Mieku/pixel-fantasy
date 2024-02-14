@@ -17,6 +17,7 @@ namespace Buildings
     
     public class StockpileBuilding : Building, IStockpileBuilding
     {
+        [SerializeField] private JobData _workersJob;
         private List<ItemData> _unallowedItems = new List<ItemData>();
         public override BuildingType BuildingType => BuildingType.Stockpile;
         
@@ -88,6 +89,11 @@ namespace Buildings
             }
 
             return hasIssue;
+        }
+
+        public override JobData GetBuildingJob()
+        {
+            return _workersJob;
         }
     }
 }

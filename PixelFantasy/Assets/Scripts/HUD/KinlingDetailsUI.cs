@@ -31,9 +31,9 @@ namespace HUD
             
             _unitName.text = kinling.FullName;
             _jobName.text = kinling.JobName;
-            if (_kinling.CurrentJob.JobIcon != null)
+            if (_kinling.Job.JobIcon != null)
             {
-                _jobIcon.sprite = _kinling.CurrentJob.JobIcon;
+                _jobIcon.sprite = _kinling.Job.JobIcon;
             }
             else
             {

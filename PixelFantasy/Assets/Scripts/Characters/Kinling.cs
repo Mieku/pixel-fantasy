@@ -6,6 +6,7 @@ using Interfaces;
 using Items;
 using Managers;
 using ScriptableObjects;
+using Sirenix.OdinInspector;
 using Systems.Mood.Scripts;
 using Systems.Skills.Scripts;
 using Systems.Social.Scripts;
@@ -51,7 +52,22 @@ namespace Characters
         }
 
         public Building AssignedWorkplace;
-        public string JobName => CurrentJob.JobName;
+        [ShowInInspector] private JobData _job;
+
+        public JobData Job
+        {
+            get
+            {
+                if (_job == null)
+                {
+                    _job = Librarian.Instance.GetJob("Worker");
+                }
+
+                return _job;
+            }
+            set => _job = value;
+        }
+        public string JobName => Job.JobName;
 
         public string FullName => FirstName + " " + LastName;
         
@@ -118,6 +134,11 @@ namespace Characters
             _traits = kinlingData.Traits;
             
             Skills.Init(kinlingData.Talents);
+
+            if (kinlingData.Job != null)
+            {
+                Job = kinlingData.Job;
+            }
             
             _mood.Init();
 
@@ -278,21 +299,6 @@ namespace Characters
                     return true;
                 default:
                     throw new ArgumentOutOfRangeException();
-            }
-        }
-        
-        public JobData CurrentJob
-        {
-            get
-            {
-                if (AssignedWorkplace == null)
-                {
-                    return Librarian.Instance.GetJob("Worker");
-                }
-                else
-                {
-                    return AssignedWorkplace.GetBuildingJob();
-                }
             }
         }
 

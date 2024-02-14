@@ -161,6 +161,11 @@ namespace Buildings
             return result;
         }
 
+        public override JobData GetBuildingJob()
+        {
+            return null;
+        }
+
         public void TriggerMatingMode(bool isOn)
         {
             if(InMatingMode == isOn) return;

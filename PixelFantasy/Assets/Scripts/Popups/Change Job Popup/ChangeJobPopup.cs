@@ -62,7 +62,7 @@ namespace Popups.Change_Job_Popup
 
         private void SelectCurrentJob()
         {
-            var job = _kinling.CurrentJob;
+            var job = _kinling.Job;
             foreach (var option in _allOptions)
             {
                 if (option.Job == job)
@@ -85,7 +85,7 @@ namespace Popups.Change_Job_Popup
                 var job = option.Job;
                 if (job != null)
                 {
-                    if (_kinling.CurrentJob == job)
+                    if (_kinling.Job == job)
                     {
                         option.Init(ChangeJobOption.JobOptionState.Current, OnJobSelected);
                     }
