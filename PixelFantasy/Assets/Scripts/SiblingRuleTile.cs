@@ -11,6 +11,7 @@ public class SiblingRuleTile : RuleTile
     {
         Walls,
         Floor,
+        Ground,
     }
     public SibingGroup sibingGroup;
 
