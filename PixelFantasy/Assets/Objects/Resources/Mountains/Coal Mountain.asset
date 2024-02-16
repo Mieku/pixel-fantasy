@@ -20,3 +20,4 @@ MonoBehaviour:
       MinDrop: 2
       MaxDrop: 5
   _ruleTile: {fileID: 11400000, guid: 93e70c7ca59bc304194a8337ca2b45d0, type: 2}
+  MountainTileType: 3

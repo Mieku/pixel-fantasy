@@ -13,8 +13,8 @@ namespace Items
         [SerializeField] private Color _selectionTintColour;
         [SerializeField] private RuleTile _dirtRuleTile;
 
-        private Tilemap _mountainTM;
-        private Tilemap _dirtTM;
+        private Tilemap _mountainTM => TilemapController.Instance.GetTilemap(TilemapLayer.Mountain);
+        private Tilemap _dirtTM => TilemapController.Instance.GetTilemap(TilemapLayer.Dirt);
         
         protected float _remainingWork;
 
@@ -25,23 +25,26 @@ namespace Items
             base.Awake();
             
             _tempPlacementDisp.SetActive(false);
-            _mountainTM =
-                TilemapController.Instance.GetTilemap(TilemapLayer.Mountain);
-            _dirtTM =
-                TilemapController.Instance.GetTilemap(TilemapLayer.Dirt);
-
-            Init();
         }
 
-        private void Init()
+        public void Init(MountainData mountainData)
         {
-            if (_mountainData == null) return;
+            _tempPlacementDisp.SetActive(false);
+            ResourceData = mountainData;
             
-            Health = GetWorkAmount();
+            Refresh();
         }
 
         private void Start()
         {
+            if (_mountainData == null) return;
+            
+            Refresh();
+        }
+
+        private void Refresh()
+        {
+            Health = GetWorkAmount();
             SetTile();
             _remainingWork = GetWorkAmount();
         }
@@ -134,7 +137,7 @@ namespace Items
             ResourceData = stateData.MountainData;
             _remainingWork = stateData.RemainingWork;
 
-            Init();
+            Refresh();
         }
         
         public struct State

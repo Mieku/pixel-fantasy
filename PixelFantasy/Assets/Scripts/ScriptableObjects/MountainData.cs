@@ -12,6 +12,7 @@ namespace ScriptableObjects
         [SerializeField] private RuleTile _ruleTile;
 
         public HarvestableItems HarvestableItems => _minedResources;
+        public MountainTileType MountainTileType;
         
         public RuleTile GetRuleTile()
         {
@@ -32,5 +33,16 @@ namespace ScriptableObjects
         {
             return _workToMine;
         }
+    }
+    
+    public enum MountainTileType
+    {
+        Empty,
+        Stone,
+        Copper,
+        Coal,
+        Tin,
+        Iron,
+        Gold,
     }
 }
