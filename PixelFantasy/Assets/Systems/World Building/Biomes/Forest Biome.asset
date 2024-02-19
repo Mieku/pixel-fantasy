@@ -16,11 +16,13 @@ MonoBehaviour:
   WorldCreatorAsset: {fileID: 11400000, guid: f9973e89cb5e72b418daa899a14560fd, type: 2}
   Mountains:
   - mountainData: {fileID: 11400000, guid: 9d1924c167f265344adbc616ce17dd49, type: 2}
-    spawnPercentage: 0.65
+    spawnPercentage: 0.54999995
   - mountainData: {fileID: 11400000, guid: 5b309bb4243f991479534755a7526096, type: 2}
     spawnPercentage: 0.1
   - mountainData: {fileID: 11400000, guid: 911acc6786258224db907e2c1d3ffd71, type: 2}
     spawnPercentage: 0.2
   - mountainData: {fileID: 11400000, guid: 3d605ceba9c6671438f6aeb7386c2977, type: 2}
     spawnPercentage: 0.05
+  - mountainData: {fileID: 11400000, guid: 6ed64a8da01e9f944aa761d0b7feecc8, type: 2}
+    spawnPercentage: 0.1
   DefaultMountainType: 1
