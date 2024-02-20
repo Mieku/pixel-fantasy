@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Controllers;
 using DataPersistence;
@@ -9,14 +10,12 @@ using UnityEngine.Tilemaps;
 
 namespace Handlers
 {
-    public class MountainsHandler : Saveable
+    public class MountainsHandler : MonoBehaviour
     {
         [SerializeField] private Mountain _mountainPrefab;
-        
-        protected override string StateName => "Mountains";
-        public override int LoadOrder => 1;
 
         private List<Mountain> _mountains = new List<Mountain>();
+
         private Tilemap _mountainTM => TilemapController.Instance.GetTilemap(TilemapLayer.Mountain);
 
         [Button("Debug Mountain Stats")]
@@ -49,12 +48,20 @@ namespace Handlers
             Debug.Log(statLog);
         }
 
-        public void DeleteChildren()
+        public void DeleteMountains()
         {
-            foreach (var mountain in _mountains)
+            List<GameObject> children = new List<GameObject>();
+            foreach (Transform child in transform)
             {
-                DestroyImmediate(mountain.gameObject);
+                // Destroy immediate to ensure the object is removed instantly
+                children.Add(child.gameObject);
             }
+
+            foreach (var child in children)
+            {
+                DestroyImmediate(child);
+            }
+            
             _mountains.Clear();
             
             _mountainTM.ClearAllTiles();
@@ -67,33 +74,6 @@ namespace Handlers
             mountain.Init(mountainData);
             mountain.gameObject.name = mountainData.ResourceName;
             _mountains.Add(mountain);
-        }
-
-        protected override void ClearChildStates(List<object> childrenStates)
-        {
-            // Delete current persistent children
-            var currentChildren = GetPersistentChildren();
-            foreach (var child in currentChildren)
-            {
-                child.GetComponent<UID>().RemoveUID();
-            }
-            
-            foreach (var child in currentChildren)
-            {
-                DestroyImmediate(child);
-            }
-            currentChildren.Clear();
-        }
-        
-        protected override void SetChildStates(List<object> childrenStates)
-        {
-            // Instantiate all the children in data, Trigger RestoreState with their state data
-            foreach (var childState in childrenStates)
-            {
-                var resourceData = (Mountain.State)childState;
-                var childObj = Instantiate(_mountainPrefab, transform);
-                childObj.GetComponent<IPersistent>().RestoreState(resourceData);
-            }
         }
     }
     

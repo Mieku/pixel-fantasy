@@ -14,10 +14,6 @@ public class NavMeshManager : Singleton<NavMeshManager>
         base.Awake();
         _meshSurface = GetComponent<NavMeshSurface>();
         _meshSurface.hideEditorLogs = true;
-    }
-    
-    private void Start()
-    {
         _meshSurface.BuildNavMesh();
     }
 
@@ -27,6 +23,11 @@ public class NavMeshManager : Singleton<NavMeshManager>
         if (_meshSurface != null)
         {
             _meshSurface.UpdateNavMesh(_meshSurface.navMeshData);
+        }
+        else
+        {
+            _meshSurface = GetComponent<NavMeshSurface>();
+            _meshSurface.BuildNavMesh();
         }
     }
 }

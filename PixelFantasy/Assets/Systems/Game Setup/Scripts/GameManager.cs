@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Characters;
+using Controllers;
 using Items;
 using Managers;
 using ScriptableObjects;
@@ -19,7 +20,8 @@ namespace Systems.Game_Setup.Scripts
         private void Start()
         {
             SetUpGame();
-            NavMeshManager.Instance.UpdateNavMesh();
+            
+            CameraManager.Instance.LookAtPosition(_starterStockpile.transform.position);
         }
 
         [Button("Set Up Game")]
@@ -32,6 +34,9 @@ namespace Systems.Game_Setup.Scripts
             }
             
             LoadStarterStockpile(_startingItems);
+
+            NavMeshManager.Instance.UpdateNavMesh();
+            
             LoadStarterKinlings(_starterKinlings);
             
             GameEvents.Trigger_RefreshInventoryDisplay();

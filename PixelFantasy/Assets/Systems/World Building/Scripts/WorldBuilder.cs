@@ -17,6 +17,7 @@ namespace Systems.World_Building.Scripts
         [SerializeField] private BiomeData _currentBiome;
         [SerializeField] private WorldSpawner _spawner;
         [SerializeField] private MountainsHandler _mountainsHandler;
+        [SerializeField] private RampsHandler _rampsHandler;
         [SerializeField] private Transform _resourcesParent;
 
         [SerializeField] private Tilemap _grassTilemap;
@@ -66,6 +67,12 @@ namespace Systems.World_Building.Scripts
             if (elevationBlueprint != null)
             {
                 BuildTilemap(elevationBlueprint.map, _elevationTilemap, _elevationRuleTile);
+                
+                var rampsBlueprint = blueprintLayers.Find(layer => layer.layerName == "Ramps");
+                if (rampsBlueprint != null)
+                {
+                    SpawnRamps(rampsBlueprint.map, elevationBlueprint.map);
+                }
             }
             
             var dirtBlueprint = blueprintLayers.Find(layer => layer.layerName == "Dirt");
@@ -92,7 +99,8 @@ namespace Systems.World_Building.Scripts
             _elevationTilemap.ClearAllTiles();
             _groundCoverTilemap.ClearAllTiles();
             
-            _mountainsHandler.DeleteChildren();
+            _mountainsHandler.DeleteMountains();
+            _rampsHandler.DeleteRamps();
         }
 
         private void DetermineStartPosition(TileWorldCreatorAsset.BlueprintLayerData layerData)
@@ -151,9 +159,97 @@ namespace Systems.World_Building.Scripts
             }
         }
 
+        private void SpawnRamps(bool[,] rampsBlueprint, bool[,] elevationBlueprint)
+        {
+            _rampsHandler.DeleteRamps();
+            
+            for (int x = 0; x < rampsBlueprint.GetLength(0); x++)
+            {
+                for (int y = 0; y < rampsBlueprint.GetLength(1); y++)
+                {
+                    if (rampsBlueprint[x, y])
+                    {
+                        var cellStart = new Vector3Int(x * 2, y * 2, 0);
+                        
+                        bool n = false;
+                        if (elevationBlueprint.GetLength(1) >= y + 1)
+                        {
+                            n = elevationBlueprint[x, y + 1];
+                        }
+                        
+                        bool e = false;
+                        if (elevationBlueprint.GetLength(0) >= x + 1)
+                        {
+                            e = elevationBlueprint[x + 1, y];
+                        }
+                        
+                        bool s = false;
+                        if (y != 0)
+                        {
+                            s = elevationBlueprint[x, y - 1];
+                        }
+                        
+                        bool w = false;
+                        if (x != 0)
+                        {
+                            w = elevationBlueprint[x - 1, y];
+                        }
+                        
+                        bool ne = false;
+                        if (elevationBlueprint.GetLength(0) >= x + 1 && elevationBlueprint.GetLength(1) >= y + 1)
+                        {
+                            ne = elevationBlueprint[x + 1, y + 1];
+                        }
+                        
+                        bool nw = false;
+                        if (x != 0 && elevationBlueprint.GetLength(1) >= y + 1)
+                        {
+                            nw = elevationBlueprint[x - 1, y + 1];
+                        }
+                        
+                        bool sw = false;
+                        if (x != 0 && y != 0)
+                        {
+                            sw = elevationBlueprint[x - 1, y - 1];
+                        }
+                        
+                        bool se = false;
+                        if (elevationBlueprint.GetLength(0) >= x + 1 && y != 0)
+                        {
+                            se = elevationBlueprint[x + 1, y - 1];
+                        }
+
+                        // North
+                        if (!n && !ne && !nw && e && w)
+                        {
+                            _rampsHandler.SpawnRamp(ERampDirection.North, cellStart.x + 1f, cellStart.y + 1.5f);
+                        }
+                        
+                        // East
+                        if (!e && !ne && !se && n && s)
+                        {
+                            _rampsHandler.SpawnRamp(ERampDirection.East, cellStart.x + 1.5f, cellStart.y + 1f);
+                        }
+                        
+                        // South
+                        if (!s && !sw && !se && w && e)
+                        {
+                            _rampsHandler.SpawnRamp(ERampDirection.South, cellStart.x + 1f, cellStart.y + 0.5f); // perfect!
+                        }
+                        
+                        // West
+                        if (!w && !nw && !sw && s && n)
+                        {
+                            _rampsHandler.SpawnRamp(ERampDirection.West, cellStart.x + 0.5f, cellStart.y + 1f);
+                        }
+                    }
+                }
+            }
+        }
+
         private void SpawnMountains(bool [,] mountainsBlueprint)
         {
-            _mountainsHandler.DeleteChildren();
+            _mountainsHandler.DeleteMountains();
             
             // Scale the blueprint up so one cell is 2x2 cells
             bool[,] scaledBlueprint =

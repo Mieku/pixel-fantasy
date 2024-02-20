@@ -79,5 +79,6 @@ namespace Controllers
         Zones,
         PendingZones,
         Roof,
+        Elevation,
     }
 }
