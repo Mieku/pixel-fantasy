@@ -14,6 +14,11 @@ namespace Systems.World_Building.Scripts
         public List<MountainDataPercentage> Mountains = new List<MountainDataPercentage>();
         public MountainTileType DefaultMountainType;
 
+        public List<ResourceDataPercentage> ForestTreeResources = new List<ResourceDataPercentage>();
+        public List<ResourceDataPercentage> ForestAdditionalResources = new List<ResourceDataPercentage>();
+        public int ForestTreeDensity; // The min number of trees per tile
+        public int ForestAdditionalDensity; // The max number of trees per tile
+
         public float GetMountainTypePercentage(MountainTileType tileType)
         {
             if (tileType == MountainTileType.Empty) return 0f;
@@ -43,8 +48,32 @@ namespace Systems.World_Building.Scripts
 
             return null;
         }
+
+        public void AddMountain(MountainData mountainData)
+        {
+            var mountainPercent = new MountainDataPercentage(mountainData, 0f);
+            Mountains.Add(mountainPercent);
+        }
+
+        public void AddForestTree(GrowingResourceData treeData)
+        {
+            var treePercent = new ResourceDataPercentage(treeData, 0f);
+            ForestTreeResources.Add(treePercent);
+        }
     }
-    
+
+    [System.Serializable]
+    public class ResourceDataPercentage
+    {
+        public ResourceData ResourceData;
+        public float SpawnPercentage = 0f;
+
+        public ResourceDataPercentage(ResourceData data, float percentage)
+        {
+            ResourceData = data;
+            SpawnPercentage = percentage;
+        }
+    }
     
     [System.Serializable]
     public class MountainDataPercentage

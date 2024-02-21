@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using ScriptableObjects;
 using UnityEditor;
@@ -15,7 +16,7 @@ public class BiomeEditor : Editor
 
         BiomeData biome = (BiomeData)target;
 
-        // Start of Box Group
+        // Start of Mountains Box Group
         EditorGUILayout.BeginVertical("box");
         GUILayout.Label("Mountains", EditorStyles.boldLabel); // Optional: Add a label for the group
         // Dropdown or ObjectField for selecting MountainData
@@ -64,6 +65,52 @@ public class BiomeEditor : Editor
         
         EditorGUILayout.EndVertical();
         // End of Mountains Box Group
+        
+        DisplayPercentagesOptions<ResourceData>("Forest Trees", biome.ForestTreeResources);
+        DisplayPercentagesOptions<GrowingResourceData>("Forest Additionals", biome.ForestAdditionalResources);
+    }
+    
+    // Adjust the DisplayPercentagesOptions method to be generic
+    private void DisplayPercentagesOptions<T>(string header, List<ResourceDataPercentage> biomePercentages) where T : ResourceData
+    {
+        EditorGUILayout.BeginVertical("box");
+        GUILayout.Label(header, EditorStyles.boldLabel);
+        
+        if (biomePercentages == null)
+        {
+            biomePercentages = new List<ResourceDataPercentage>();
+        }
+
+        EditorGUI.BeginChangeCheck();
+
+        for (int i = 0; i < biomePercentages.Count; i++)
+        {
+            var resource = biomePercentages[i];
+            if (resource != null && resource.ResourceData != null)
+            {
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField(resource.ResourceData.name, GUILayout.MaxWidth(200));
+                resource.SpawnPercentage = EditorGUILayout.Slider(resource.SpawnPercentage, 0f, 1f);
+                EditorGUILayout.EndHorizontal();
+            }
+            else
+            {
+                EditorGUILayout.LabelField("Uninitialized Resource Data", GUILayout.MaxWidth(200));
+            }
+        }
+
+        if (EditorGUI.EndChangeCheck())
+        {
+            NormalizePercentages(biomePercentages);
+            EditorUtility.SetDirty(target);
+        }
+
+        if (GUILayout.Button("Normalize Percentages"))
+        {
+            NormalizePercentages(biomePercentages);
+        }
+    
+        EditorGUILayout.EndVertical();
     }
     
     private void AddNewMountain(BiomeData biome, MountainData mountainData)
@@ -109,5 +156,33 @@ public class BiomeEditor : Editor
 
         // Adjust the default mountain's percentage
         mountains[0].spawnPercentage = 1f - nonDefaultTotalPercentage; // This ensures the sum equals 100%
+    }
+    
+    private void NormalizePercentages(List<ResourceDataPercentage> resources)
+    {
+        if (resources == null || resources.Count < 2) return; // Need at least 2 resources to normalize
+
+        // Calculate the total percentage of non-default resources
+        float nonDefaultTotalPercentage = 0f;
+        for (int i = 1; i < resources.Count; i++) // Start from 1 to exclude the default mountain
+        {
+            nonDefaultTotalPercentage += resources[i].SpawnPercentage;
+        }
+
+        // Check if adjustments are needed
+        if (nonDefaultTotalPercentage > 1f)
+        {
+            // Scale down non-default mountains if total exceeds 100%
+            float scale = 1f / nonDefaultTotalPercentage; // Calculate scale factor
+            for (int i = 1; i < resources.Count; i++)
+            {
+                resources[i].SpawnPercentage *= scale; // Apply scaling
+            }
+            // After scaling, the non-default total should now be 1, making the default mountain's percentage 0
+            nonDefaultTotalPercentage = 1f;
+        }
+
+        // Adjust the default mountain's percentage
+        resources[0].SpawnPercentage = 1f - nonDefaultTotalPercentage; // This ensures the sum equals 100%
     }
 }

@@ -26,3 +26,15 @@ MonoBehaviour:
   - mountainData: {fileID: 11400000, guid: 6ed64a8da01e9f944aa761d0b7feecc8, type: 2}
     spawnPercentage: 0.1
   DefaultMountainType: 1
+  ForestTreeResources:
+  - ResourceData: {fileID: 11400000, guid: acae2f2813abbd54eaf3d47f146c2889, type: 2}
+    SpawnPercentage: 0.752
+  - ResourceData: {fileID: 11400000, guid: fad0228418b7d9540bfd7262047d9d6a, type: 2}
+    SpawnPercentage: 0.248
+  ForestAdditionalResources:
+  - ResourceData: {fileID: 11400000, guid: d04160d608e6353478b1c797c8dd3336, type: 2}
+    SpawnPercentage: 0.89
+  - ResourceData: {fileID: 11400000, guid: 1fbb747bbddeab24ebad474b68a92fdd, type: 2}
+    SpawnPercentage: 0.11
+  ForestTreeDensity: 0
+  ForestAdditionalDensity: 0
