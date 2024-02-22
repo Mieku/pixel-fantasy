@@ -15,6 +15,7 @@ namespace Systems.Game_Setup.Scripts
     public class GameManager : Singleton<GameManager>
     {
         [SerializeField] private WorldBuilder _worldBuilder;
+        [SerializeField] private bool _generateWorldOnStart;
         
         [BoxGroup("Starting Items")] [SerializeField] private Storage _starterStockpile;
         [BoxGroup("Starting Items")] [SerializeField] private List<ItemAmount> _startingItems = new List<ItemAmount>();
@@ -40,7 +41,10 @@ namespace Systems.Game_Setup.Scripts
         
         public IEnumerator SetUpGameCoroutine()
         {
-            yield return StartCoroutine(_worldBuilder.GeneratePlaneCoroutine());
+            if (_generateWorldOnStart)
+            {
+                yield return StartCoroutine(_worldBuilder.GeneratePlaneCoroutine());
+            }
             
             LoadStarterStockpile(_startingItems);
             
