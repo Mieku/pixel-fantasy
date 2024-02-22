@@ -73,7 +73,7 @@ namespace Systems.World_Building.Scripts
             }
             
             var elevationBlueprint = blueprintLayers.Find(layer => layer.layerName == "Elevation");
-            if (elevationBlueprint != null)
+            if (elevationBlueprint != null && elevationBlueprint.active)
             {
                 yield return StartCoroutine(BuildTilemap(elevationBlueprint.map, _elevationTilemap, _elevationRuleTile));
                 
@@ -96,7 +96,7 @@ namespace Systems.World_Building.Scripts
                 yield return StartCoroutine(BuildTilemap(elevatedDirtBlueprint.map, _groundCoverTilemap, _dirtRuleTile));
             }
             
-            yield return StartCoroutine(DetermineStartPosition(blueprintLayers.Find(layer => layer.layerName == "Start Points")));
+            yield return StartCoroutine(DetermineStartPosition(blueprintLayers.Find(layer => layer.layerName == "Start Point")));
         }
 
         [Button("Clear All Tilemaps")]

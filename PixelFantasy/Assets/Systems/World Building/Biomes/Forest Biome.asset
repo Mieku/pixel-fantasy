@@ -88,4 +88,4 @@ MonoBehaviour:
     SpawnPercentage: 0.098
   - ResourceData: {fileID: 11400000, guid: 1298fe8963a0d954fadd09cae38140d1, type: 2}
     SpawnPercentage: 0.137
-  AdditionalsChanceToSpawn: 15
+  AdditionalsChanceToSpawn: 5

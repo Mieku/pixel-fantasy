@@ -135,21 +135,41 @@ namespace Systems.World_Building.Scripts.Generators
 
         private bool CheckEnclosedWater(int x, int y, bool[,] map, bool[,] visited, List<Vector2Int> fillCandidates)
         {
-            if (x < 0 || x >= width || y < 0 || y >= height) return false; // Out of bounds, not enclosed
-            if (visited[x, y]) return true; // Already visited
-            if (map[x, y]) return true; // It's land, so the current path is enclosed so far
+            if (x < 0 || x >= width || y < 0 || y >= height) return false; // Initial bounds check (might be redundant here but safe to keep)
 
-            visited[x, y] = true;
-            fillCandidates.Add(new Vector2Int(x, y)); // Add as a candidate for filling
-
-            // Recursively check all directions
+            Queue<Vector2Int> queue = new Queue<Vector2Int>();
+            queue.Enqueue(new Vector2Int(x, y));
             bool enclosed = true;
-            enclosed &= CheckEnclosedWater(x + 1, y, map, visited, fillCandidates);
-            enclosed &= CheckEnclosedWater(x - 1, y, map, visited, fillCandidates);
-            enclosed &= CheckEnclosedWater(x, y + 1, map, visited, fillCandidates);
-            enclosed &= CheckEnclosedWater(x, y - 1, map, visited, fillCandidates);
+
+            while (queue.Count > 0)
+            {
+                Vector2Int current = queue.Dequeue();
+                if (current.x < 0 || current.x >= width || current.y < 0 || current.y >= height)
+                {
+                    enclosed = false; // Reached the boundary, so it's not enclosed.
+                    continue;
+                }
+                if (visited[current.x, current.y] || map[current.x, current.y]) continue; // Already visited or it's land.
+
+                visited[current.x, current.y] = true;
+                fillCandidates.Add(current); // Add as a candidate for filling.
+
+                // Enqueue all unvisited, valid neighbors
+                EnqueueIfValid(queue, current.x + 1, current.y, map, visited);
+                EnqueueIfValid(queue, current.x - 1, current.y, map, visited);
+                EnqueueIfValid(queue, current.x, current.y + 1, map, visited);
+                EnqueueIfValid(queue, current.x, current.y - 1, map, visited);
+            }
 
             return enclosed;
+        }
+
+        private void EnqueueIfValid(Queue<Vector2Int> queue, int x, int y, bool[,] map, bool[,] visited)
+        {
+            if (x >= 0 && x < width && y >= 0 && y < height && !visited[x, y] && !map[x, y])
+            {
+                queue.Enqueue(new Vector2Int(x, y));
+            }
         }
 
         private void SmoothIslandEdges(bool[,] map)
