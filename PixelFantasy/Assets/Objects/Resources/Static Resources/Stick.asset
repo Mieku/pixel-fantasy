@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Stick
   m_EditorClassIdentifier: 
   ResourceName: Stick
+  ResourcePrefab: {fileID: 6694835006370969256, guid: 83b276780b22eee4d925461adebde20c, type: 3}
   _workToExtract: 5
   _harvestableItems:
     _harvestableItems:

@@ -470,7 +470,6 @@ MonoBehaviour:
   Commands:
   - {fileID: 11400000, guid: f0e8dad8b311df84aaa187ea24d20432, type: 2}
   PendingCommand: {fileID: 0}
-  RegisteredTasks: []
   ResourceData: {fileID: 0}
   _spriteRenderer: {fileID: 2315027090632040887}
   _clickObject: {fileID: 2315027091890448863}
@@ -481,6 +480,7 @@ MonoBehaviour:
   - {fileID: 975979938783382945}
   - {fileID: 7428149355254719869}
   - {fileID: 538873249448268034}
+  _sorter: {fileID: 8050244462905838584}
   Health: 0
   _overrideFullGrowth: 0
   _fruitOverlay: {fileID: 569324571}
@@ -717,7 +717,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -177695485
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: 90ab9fc734f8b16488abe87d00fcd22f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

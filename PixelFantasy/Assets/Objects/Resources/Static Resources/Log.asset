@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Log
   m_EditorClassIdentifier: 
   ResourceName: Log
+  ResourcePrefab: {fileID: 5512936734434505606, guid: 2405aa579d18a204cbaae7185fe98266, type: 3}
   _workToExtract: 5
   _harvestableItems:
     _harvestableItems:

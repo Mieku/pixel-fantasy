@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Oak
   m_EditorClassIdentifier: 
   ResourceName: Oak
+  ResourcePrefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
   _growthStages:
   - StageName: Sapling
     GrowthSprite: {fileID: 21300000, guid: e594107e0ac22204bb5b9f8b3ffe804a, type: 3}

@@ -60,36 +60,49 @@ namespace Characters
             if (movePosition == null)
             {
                 onImpossiblePosition?.Invoke();
-                return false;
+                return false; // Early return if no movePosition provided
             }
-            
-            // If they are seated, get up
-            if (_kinling.GetChair != null)
-            {
-                _kinling.GetChair.ExitSeat(_kinling);
-            }
-            
-            if (_agent.SetDestination((Vector2)movePosition))
-            {
-                _inTransit = true;
-                _onReachedMovePosition = onReachedMovePosition;
-                _charAnimController.SetMovementVelocity((Vector2)movePosition);
-                _charAnimController.Appearance.SetDirection(UnitActionDirection.Side);
-                
-                // Retrieve and store the NavMesh path
-                _currentPath = new NavMeshPath();
-                _agent.CalculatePath((Vector3)movePosition, _currentPath);
 
+            // Ensure the NavMeshAgent is enabled
+            if (!_agent.enabled)
+            {
+                _agent.enabled = true;
+            }
+
+            // Wait until the agent is on the NavMesh
+            if (!_agent.isOnNavMesh)
+            {
+                // Attempt to place the agent on the NavMesh
+                if (!NavMesh.SamplePosition(transform.position, out NavMeshHit hit, NEAREST_POINT_SEARCH_RANGE, NavMesh.AllAreas))
+                {
+                    onImpossiblePosition?.Invoke();
+                    return false; // Failed to find a valid position on the NavMesh
+                }
+
+                _agent.Warp(hit.position); // Use Warp to accurately place the agent on the NavMesh
+            }
+
+            Vector3 targetPosition = new Vector3(movePosition.Value.x, movePosition.Value.y, 0 );
+
+            // Now that we're sure the agent is on the NavMesh and enabled, set the destination
+            _agent.SetDestination(targetPosition);
+            _inTransit = true;
+            _onReachedMovePosition = onReachedMovePosition;
+
+            // Retrieve and store the NavMesh path
+            _currentPath = new NavMeshPath();
+            if (_agent.CalculatePath(targetPosition, _currentPath))
+            {
                 if (_isPathVisible)
                 {
                     DisplayPath();
                 }
-                
-                return true;
+                return true; // Successful in setting a destination and calculating the path
             }
             else
             {
-                return false;
+                onImpossiblePosition?.Invoke();
+                return false; // Failed to calculate a path to the destination
             }
         }
 
@@ -101,21 +114,25 @@ namespace Characters
 
         private void DetermineIfDestination()
         {
-            if (!_agent.pathPending && _inTransit)
+            // Ensure the agent is enabled and on the NavMesh before checking its state
+            if (_agent.enabled && _agent.isOnNavMesh)
             {
-                if (_agent.remainingDistance <= _agent.stoppingDistance)
+                if (!_agent.pathPending && _inTransit)
                 {
-                    if (!_agent.hasPath || _agent.velocity.sqrMagnitude == 0f)
+                    if (_agent.remainingDistance <= _agent.stoppingDistance)
                     {
-                        _inTransit = false;
-                        if (_onReachedMovePosition != null)
+                        if (!_agent.hasPath || _agent.velocity.sqrMagnitude == 0f)
                         {
-                            _onReachedMovePosition.Invoke();   
+                            _inTransit = false;
+                            if (_onReachedMovePosition != null)
+                            {
+                                _onReachedMovePosition.Invoke();
+                            }
+                    
+                            // Clear the path visualization if the Kinling reached the destination
+                            ClearPathVisualization();
+                            _currentPath = null;
                         }
-                        
-                        // Clear the path visualization if the Kinling reached the destination
-                        ClearPathVisualization();
-                        _currentPath = null;
                     }
                 }
             }

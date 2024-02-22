@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Handlers;
@@ -15,10 +16,9 @@ namespace Systems.World_Building.Scripts
     {
         [SerializeField] private TileWorldCreator _tileWorldCreator;
         [SerializeField] private BiomeData _currentBiome;
-        [SerializeField] private WorldSpawner _spawner;
         [SerializeField] private MountainsHandler _mountainsHandler;
+        [SerializeField] private ResourcesHandler _resourcesHandler;
         [SerializeField] private RampsHandler _rampsHandler;
-        [SerializeField] private Transform _resourcesParent;
 
         [SerializeField] private Tilemap _grassTilemap;
         [SerializeField] private RuleTile _grassRuleTile;
@@ -36,59 +36,67 @@ namespace Systems.World_Building.Scripts
         [Button("Generate Plane")]
         private void GeneratePlane()
         {
+            StartCoroutine(GeneratePlaneCoroutine());
+        }
+        
+        public IEnumerator GeneratePlaneCoroutine()
+        {
+            // Immediate operations
             _tileWorldCreator.twcAsset = _currentBiome.WorldCreatorAsset;
             _tileWorldCreator.ExecuteAllBlueprintLayers();
 
-            RefreshPlane();
-
-            SpawnResources();
+            // Allow frame to render and update UI/loading screen here
+            yield return StartCoroutine(RefreshPlaneCoroutine());
+            
+            yield return StartCoroutine(SpawnResourcesCoroutine());
         }
-
-        [Button("Refresh Plane")]
-        private void RefreshPlane()
+        
+        public IEnumerator RefreshPlaneCoroutine()
         {
             ClearAllTilemaps();
+            // Perform operations, yielding as necessary
+            yield return null;
+            // Continue with other steps
             
             var blueprintLayers = _tileWorldCreator.twcAsset.mapBlueprintLayers;
             
             var grassBlueprint = blueprintLayers.Find(layer => layer.layerName == "Grass");
             if (grassBlueprint != null)
             {
-                BuildTilemap(grassBlueprint.map, _grassTilemap, _grassRuleTile);
+                yield return StartCoroutine(BuildTilemap(grassBlueprint.map, _grassTilemap, _grassRuleTile));
             }
             
             var waterBlueprint = blueprintLayers.Find(layer => layer.layerName == "Water");
             if (waterBlueprint != null)
             {
-                BuildTilemap(waterBlueprint.map, _waterTilemap, _waterRuleTile);
+                yield return StartCoroutine(BuildTilemap(waterBlueprint.map, _waterTilemap, _waterRuleTile));
             }
             
             var elevationBlueprint = blueprintLayers.Find(layer => layer.layerName == "Elevation");
             if (elevationBlueprint != null)
             {
-                BuildTilemap(elevationBlueprint.map, _elevationTilemap, _elevationRuleTile);
+                yield return StartCoroutine(BuildTilemap(elevationBlueprint.map, _elevationTilemap, _elevationRuleTile));
                 
                 var rampsBlueprint = blueprintLayers.Find(layer => layer.layerName == "Ramps");
                 if (rampsBlueprint != null)
                 {
-                    SpawnRamps(rampsBlueprint.map, elevationBlueprint.map);
+                    yield return StartCoroutine(SpawnRamps(rampsBlueprint.map, elevationBlueprint.map));
                 }
             }
             
             var dirtBlueprint = blueprintLayers.Find(layer => layer.layerName == "Dirt");
             if (dirtBlueprint != null)
             {
-                BuildTilemap(dirtBlueprint.map, _groundCoverTilemap, _dirtRuleTile);
+                yield return StartCoroutine(BuildTilemap(dirtBlueprint.map, _groundCoverTilemap, _dirtRuleTile));
             }
             
             var elevatedDirtBlueprint = blueprintLayers.Find(layer => layer.layerName == "Elevated Dirt");
             if (elevatedDirtBlueprint != null)
             {
-                BuildTilemap(elevatedDirtBlueprint.map, _groundCoverTilemap, _dirtRuleTile);
+                yield return StartCoroutine(BuildTilemap(elevatedDirtBlueprint.map, _groundCoverTilemap, _dirtRuleTile));
             }
             
-            
-            DetermineStartPosition(blueprintLayers.Find(layer => layer.layerName == "Start Points"));
+            yield return StartCoroutine(DetermineStartPosition(blueprintLayers.Find(layer => layer.layerName == "Start Points")));
         }
 
         [Button("Clear All Tilemaps")]
@@ -101,9 +109,10 @@ namespace Systems.World_Building.Scripts
             
             _mountainsHandler.DeleteMountains();
             _rampsHandler.DeleteRamps();
+            _resourcesHandler.DeleteResources();
         }
 
-        private void DetermineStartPosition(TileWorldCreatorAsset.BlueprintLayerData layerData)
+        private IEnumerator DetermineStartPosition(TileWorldCreatorAsset.BlueprintLayerData layerData)
         {
             List<Vector3Int> startpoints = new List<Vector3Int>();
             var map = layerData.map;
@@ -126,9 +135,11 @@ namespace Systems.World_Building.Scripts
 
             var random = Random.Range(0, startpoints.Count);
             _starterStockPile.transform.position = startpoints[random];
+
+            yield return null;
         }
 
-        private void BuildTilemap(bool [,] blueprint, Tilemap tileMap, RuleTile ruleTile)
+        private IEnumerator BuildTilemap(bool [,] blueprint, Tilemap tileMap, RuleTile ruleTile)
         {
             for (int x = 0; x < blueprint.GetLength(0); x++)
             {
@@ -144,22 +155,41 @@ namespace Systems.World_Building.Scripts
                     }
                 }
             }
+
+            yield return null;
         }
 
-        [Button("Spawn Resources")]
-        private void SpawnResources()
+        private IEnumerator SpawnResourcesCoroutine()
         {
-            _spawner.Init(_currentBiome, _resourcesParent);
-            
             var blueprintLayers = _tileWorldCreator.twcAsset.mapBlueprintLayers;
             var mountainsBlueprint = blueprintLayers.Find(layer => layer.layerName == "Mountains");
             if (mountainsBlueprint != null)
             {
-                SpawnMountains(mountainsBlueprint.map);
+                yield return StartCoroutine(SpawnMountains(mountainsBlueprint.map));
+            }
+
+            _resourcesHandler.DeleteResources();
+            
+            var forestBlueprint = blueprintLayers.Find(layer => layer.layerName == "Forest");
+            if (forestBlueprint != null)
+            {
+                yield return StartCoroutine(SpawnForest(forestBlueprint.map));
+            }
+
+            var vegitationBlueprint = blueprintLayers.Find(layer => layer.layerName == "Vegitation");
+            if (vegitationBlueprint != null)
+            {
+                yield return StartCoroutine(SpawnVegetation(vegitationBlueprint.map));
+            }
+            
+            var additionalsBlueprint = blueprintLayers.Find(layer => layer.layerName == "Additionals");
+            if (additionalsBlueprint != null)
+            {
+                yield return StartCoroutine(SpawnAdditionals(additionalsBlueprint.map));
             }
         }
 
-        private void SpawnRamps(bool[,] rampsBlueprint, bool[,] elevationBlueprint)
+        private IEnumerator SpawnRamps(bool[,] rampsBlueprint, bool[,] elevationBlueprint)
         {
             _rampsHandler.DeleteRamps();
             
@@ -234,7 +264,7 @@ namespace Systems.World_Building.Scripts
                         // South
                         if (!s && !sw && !se && w && e)
                         {
-                            _rampsHandler.SpawnRamp(ERampDirection.South, cellStart.x + 1f, cellStart.y + 0.5f); // perfect!
+                            _rampsHandler.SpawnRamp(ERampDirection.South, cellStart.x + 1f, cellStart.y + 0.5f);
                         }
                         
                         // West
@@ -245,9 +275,178 @@ namespace Systems.World_Building.Scripts
                     }
                 }
             }
+
+            yield return null;
         }
 
-        private void SpawnMountains(bool [,] mountainsBlueprint)
+        private IEnumerator SpawnAdditionals(bool[,] additionalsBlueprint)
+        {
+            // Scale the blueprint up so one cell is 2x2 cells
+            bool[,] scaledBlueprint =
+                new bool[additionalsBlueprint.GetLength(0) * 2, additionalsBlueprint.GetLength(1) * 2];
+            
+            for (int x = 0; x < additionalsBlueprint.GetLength(0); x++)
+            {
+                for (int y = 0; y < additionalsBlueprint.GetLength(1); y++)
+                {
+                    var cellStart = new Vector2Int(x * 2, y * 2);
+
+                    scaledBlueprint[cellStart.x, cellStart.y] = additionalsBlueprint[x, y];
+                    scaledBlueprint[cellStart.x, cellStart.y + 1] = additionalsBlueprint[x, y];
+                    scaledBlueprint[cellStart.x + 1, cellStart.y] = additionalsBlueprint[x, y];
+                    scaledBlueprint[cellStart.x + 1, cellStart.y + 1] = additionalsBlueprint[x, y];
+                }
+            }
+
+            for (int x = 0; x < scaledBlueprint.GetLength(0); x++)
+            {
+                for (int y = 0; y < scaledBlueprint.GetLength(1); y++)
+                {
+                    if (scaledBlueprint[x, y] && Helper.RollDice(_currentBiome.AdditionalsChanceToSpawn))
+                    {
+                        float offsetX = Random.Range(0f, 1.75f); // Adjust this value to ensure it fits within the cell
+                        float offsetY = Random.Range(0f, 1.75f); // Adjust this value to ensure it fits within the cell
+                        
+                        float posX = Random.Range(0.1f, 0.9f);
+                        float posY = Random.Range(0.1f, 0.9f);
+                        var spawnPos = new Vector2(x + posX, y + posY);
+                        
+                        var vegetationType = _currentBiome.GetRandomAdditional();
+                        _resourcesHandler.SpawnResource(vegetationType, spawnPos);
+                    }
+                }
+            }
+            
+            yield return null;
+        }
+
+        private IEnumerator SpawnVegetation(bool[,] vegetationBlueprint)
+        {
+            int clusterRadius = _currentBiome.VegitationClusterRadius;
+            int maxVegetationPerCluster = _currentBiome.MaxVegetationPerCluster;
+            
+            // Directly use the original blueprint for iterating through potential vegetation centers
+            List<Vector2Int> potentialCenters = new List<Vector2Int>();
+            for (int x = 0; x < vegetationBlueprint.GetLength(0); x++)
+            {
+                for (int y = 0; y < vegetationBlueprint.GetLength(1); y++)
+                {
+                    if (vegetationBlueprint[x, y]) // Position is marked for potential vegetation
+                    {
+                        potentialCenters.Add(new Vector2Int(x, y));
+                    }
+                }
+            }
+
+            // Shuffle the list of potential centers to randomize cluster starting points
+            potentialCenters = potentialCenters.OrderBy(a => Guid.NewGuid()).ToList();
+
+            // Create clusters
+            foreach (var center in potentialCenters)
+            {
+                int vegetationCount = Random.Range(1, maxVegetationPerCluster + 1);
+                List<Vector2Int> placedPositions = new List<Vector2Int>();
+
+                for (int i = 0; i < vegetationCount; i++)
+                {
+                    Vector2Int spawnPos;
+                    int attempts = 0;
+                    do
+                    {
+                        int offsetX = Random.Range(-clusterRadius, clusterRadius + 1);
+                        int offsetY = Random.Range(-clusterRadius, clusterRadius + 1);
+                        spawnPos = new Vector2Int(center.x + offsetX, center.y + offsetY);
+
+                        bool withinBounds = spawnPos.x >= 0 && spawnPos.y >= 0 && spawnPos.x < vegetationBlueprint.GetLength(0) && spawnPos.y < vegetationBlueprint.GetLength(1);
+                        if (withinBounds && vegetationBlueprint[spawnPos.x, spawnPos.y] && !placedPositions.Contains(spawnPos))
+                        {
+                            break; // Found a valid position
+                        }
+                        attempts++;
+                    } while (attempts < 20); // Limit attempts to avoid infinite loops
+
+                    if (attempts < 20)
+                    {
+                        // Apply a precise random offset within each cell for more organic yet contained placement
+                        float offsetX = Random.Range(0f, 1.75f); // Adjust this value to ensure it fits within the cell
+                        float offsetY = Random.Range(0f, 1.75f); // Adjust this value to ensure it fits within the cell
+                        Vector3 worldPosition = new Vector3((spawnPos.x * 2) + offsetX, (spawnPos.y * 2) + offsetY, 0); // Adjust the multiplication factor according to your world's scale
+                        var vegetationType = _currentBiome.GetRandomVegitation();
+                        _resourcesHandler.SpawnResource(vegetationType, worldPosition);
+                        placedPositions.Add(spawnPos);
+                    }
+                }
+            }
+
+            yield return null;
+        }
+
+
+        private IEnumerator SpawnForest(bool[,] forestBlueprint)
+        {
+            // Define a minimum distance between resources
+            float minDistanceBetweenResources = 1.0f; // Adjust as needed
+
+            for (int x = 0; x < forestBlueprint.GetLength(0); x++)
+            {
+                for (int y = 0; y < forestBlueprint.GetLength(1); y++)
+                {
+                    if (forestBlueprint[x, y])
+                    {
+                        var cellStart = new Vector2Int(x * 2, y * 2);
+                        List<Vector2> usedPositions = new List<Vector2>();
+                        int randTreeAmount = Random.Range(1, _currentBiome.ForestTreeDensity);
+
+                        // Spawn trees while ensuring they don't get too close to each other
+                        for (int i = 0; i < randTreeAmount; i++)
+                        {
+                            Vector2 spawnPos;
+                            int attemptCounter = 0;
+                            do
+                            {
+                                float posX = Random.Range(0.1f, 1.9f);
+                                float posY = Random.Range(0.1f, 1.9f);
+                                spawnPos = new Vector2(cellStart.x + posX, cellStart.y + posY);
+                                attemptCounter++;
+                            } while (Helper.IsTooCloseToOthers(spawnPos, usedPositions, minDistanceBetweenResources) && attemptCounter < 10);
+
+                            if (attemptCounter < 10) // Ensures a position was found that satisfies the minimum distance constraint
+                            {
+                                var forestTree = _currentBiome.GetRandomForestTree();
+                                _resourcesHandler.SpawnResource(forestTree, spawnPos);
+                                usedPositions.Add(spawnPos);
+                            }
+                        }
+
+                        // Now, spawn additional resources with the same distance constraints
+                        int randAdditionalAmount = Random.Range(0, _currentBiome.ForestAdditionalDensity);
+                        for (int i = 0; i < randAdditionalAmount; i++)
+                        {
+                            Vector2 spawnPos;
+                            int attemptCounter = 0;
+                            do
+                            {
+                                float posX = Random.Range(0.1f, 1.9f);
+                                float posY = Random.Range(0.1f, 1.9f);
+                                spawnPos = new Vector2(cellStart.x + posX, cellStart.y + posY);
+                                attemptCounter++;
+                            } while (Helper.IsTooCloseToOthers(spawnPos, usedPositions, minDistanceBetweenResources) && attemptCounter < 10);
+
+                            if (attemptCounter < 10) // Ensures a position was found that satisfies the minimum distance constraint
+                            {
+                                var forestResource = _currentBiome.GetRandomForestAdditional();
+                                _resourcesHandler.SpawnResource(forestResource, spawnPos);
+                                usedPositions.Add(spawnPos);
+                            }
+                        }
+                    }
+                }
+            }
+
+            yield return null;
+        }
+
+        private IEnumerator SpawnMountains(bool [,] mountainsBlueprint)
         {
             _mountainsHandler.DeleteMountains();
             
@@ -288,6 +487,8 @@ namespace Systems.World_Building.Scripts
                 }
             }
             _mountainsHandler.Debug_MountainStats();
+
+            yield return null;
         }
         
         private void InitializeClusterCenters(bool[,] scaledBlueprint, BiomeData biomeData, out Dictionary<MountainTileType, List<Vector2Int>> clusterCenters)

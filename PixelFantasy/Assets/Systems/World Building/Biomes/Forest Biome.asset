@@ -28,13 +28,64 @@ MonoBehaviour:
   DefaultMountainType: 1
   ForestTreeResources:
   - ResourceData: {fileID: 11400000, guid: acae2f2813abbd54eaf3d47f146c2889, type: 2}
-    SpawnPercentage: 0.752
+    SpawnPercentage: 0.16399997
   - ResourceData: {fileID: 11400000, guid: fad0228418b7d9540bfd7262047d9d6a, type: 2}
-    SpawnPercentage: 0.248
+    SpawnPercentage: 0.127
+  - ResourceData: {fileID: 11400000, guid: 03ec36301cda5e54db0556dc45865eb3, type: 2}
+    SpawnPercentage: 0.102
+  - ResourceData: {fileID: 11400000, guid: 8a7a98e8d89b4584ba79e6b3cc9912ce, type: 2}
+    SpawnPercentage: 0.171
+  - ResourceData: {fileID: 11400000, guid: 46cd0ab94cf7adc48bb0c40e06b5b8b2, type: 2}
+    SpawnPercentage: 0.195
+  - ResourceData: {fileID: 11400000, guid: bb64ded908030a34db6f481725170b87, type: 2}
+    SpawnPercentage: 0.159
+  - ResourceData: {fileID: 11400000, guid: 9c8bbcd46ae9d7c44b18552b98e9d7c7, type: 2}
+    SpawnPercentage: 0.082
   ForestAdditionalResources:
+  - ResourceData: {fileID: 11400000, guid: 74acf5d05236c6643801f5f924a8bd55, type: 2}
+    SpawnPercentage: 0.10799998
   - ResourceData: {fileID: 11400000, guid: d04160d608e6353478b1c797c8dd3336, type: 2}
-    SpawnPercentage: 0.89
+    SpawnPercentage: 0.195
   - ResourceData: {fileID: 11400000, guid: 1fbb747bbddeab24ebad474b68a92fdd, type: 2}
+    SpawnPercentage: 0.159
+  - ResourceData: {fileID: 11400000, guid: 48757da1fe776fb4a9faf23f27a37973, type: 2}
+    SpawnPercentage: 0.179
+  - ResourceData: {fileID: 11400000, guid: b827dd6b1a83a2341967db90120cdea4, type: 2}
+    SpawnPercentage: 0.072
+  - ResourceData: {fileID: 11400000, guid: d3f616e0c463cef489ca2b6d768a2d50, type: 2}
+    SpawnPercentage: 0.043
+  - ResourceData: {fileID: 11400000, guid: 1298fe8963a0d954fadd09cae38140d1, type: 2}
+    SpawnPercentage: 0.134
+  - ResourceData: {fileID: 11400000, guid: dbe6c1e2fbfcca94e836eb3e88389aef, type: 2}
     SpawnPercentage: 0.11
-  ForestTreeDensity: 0
-  ForestAdditionalDensity: 0
+  ForestTreeDensity: 1
+  ForestAdditionalDensity: 2
+  VegitationResources:
+  - ResourceData: {fileID: 11400000, guid: 74acf5d05236c6643801f5f924a8bd55, type: 2}
+    SpawnPercentage: 0.5262857
+  - ResourceData: {fileID: 11400000, guid: 1fbb747bbddeab24ebad474b68a92fdd, type: 2}
+    SpawnPercentage: 0.14285715
+  - ResourceData: {fileID: 11400000, guid: 48757da1fe776fb4a9faf23f27a37973, type: 2}
+    SpawnPercentage: 0.14285715
+  - ResourceData: {fileID: 11400000, guid: b827dd6b1a83a2341967db90120cdea4, type: 2}
+    SpawnPercentage: 0.082
+  - ResourceData: {fileID: 11400000, guid: dbe6c1e2fbfcca94e836eb3e88389aef, type: 2}
+    SpawnPercentage: 0.106
+  VegitationClusterRadius: 5
+  MaxVegetationPerCluster: 10
+  AdditionalResources:
+  - ResourceData: {fileID: 11400000, guid: dbe6c1e2fbfcca94e836eb3e88389aef, type: 2}
+    SpawnPercentage: 0.263
+  - ResourceData: {fileID: 11400000, guid: b827dd6b1a83a2341967db90120cdea4, type: 2}
+    SpawnPercentage: 0.081
+  - ResourceData: {fileID: 11400000, guid: 48757da1fe776fb4a9faf23f27a37973, type: 2}
+    SpawnPercentage: 0.109
+  - ResourceData: {fileID: 11400000, guid: 1fbb747bbddeab24ebad474b68a92fdd, type: 2}
+    SpawnPercentage: 0.187
+  - ResourceData: {fileID: 11400000, guid: 74acf5d05236c6643801f5f924a8bd55, type: 2}
+    SpawnPercentage: 0.125
+  - ResourceData: {fileID: 11400000, guid: b25a267727ce92f479c493b2fbc0dbc3, type: 2}
+    SpawnPercentage: 0.098
+  - ResourceData: {fileID: 11400000, guid: 1298fe8963a0d954fadd09cae38140d1, type: 2}
+    SpawnPercentage: 0.137
+  AdditionalsChanceToSpawn: 15

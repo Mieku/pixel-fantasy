@@ -1,41 +1,32 @@
-using System;
 using System.Collections.Generic;
-using DataPersistence;
-using Items;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace Handlers
 {
-    public class ResourcesHandler : Saveable
+    public class ResourcesHandler : MonoBehaviour
     {
-        protected override string StateName => "Resources";
-        public override int LoadOrder => 1;
 
-        protected override void ClearChildStates(List<object> childrenStates)
+        public void DeleteResources()
         {
-            // Delete current persistent children
-            var currentChildren = GetPersistentChildren();
-            foreach (var child in currentChildren)
+            List<GameObject> children = new List<GameObject>();
+            foreach (Transform child in transform)
             {
-                child.GetComponent<UID>().RemoveUID();
+                // Destroy immediate to ensure the object is removed instantly
+                children.Add(child.gameObject);
             }
-            
-            foreach (var child in currentChildren)
+
+            foreach (var child in children)
             {
-                Destroy(child);
+                DestroyImmediate(child);
             }
-            currentChildren.Clear();
         }
         
-        protected override void SetChildStates(List<object> childrenStates)
+        public void SpawnResource(ResourceData data, Vector2 spawnPos)
         {
-            // Instantiate all the children in data, Trigger RestoreState with their state data
-            foreach (var childState in childrenStates)
-            {
-                var resourceData = (Resource.Data)childState;
-                var childObj = Instantiate(resourceData.Prefab, transform);
-                childObj.GetComponent<IPersistent>().RestoreState(resourceData);
-            }
+            var resource = Instantiate(data.ResourcePrefab, new Vector3(spawnPos.x, spawnPos.y, -1), Quaternion.identity, transform);
+            resource.gameObject.name = data.ResourceName;
+            resource.Init(data);
         }
     }
 }

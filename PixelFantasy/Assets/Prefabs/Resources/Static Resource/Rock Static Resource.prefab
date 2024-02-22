@@ -176,7 +176,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1579557821959806360}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 17.54, y: 31.47, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -246,7 +246,6 @@ MonoBehaviour:
   Commands:
   - {fileID: 11400000, guid: 1cc80951a1dad2e4aba7c19a791cd226, type: 2}
   PendingCommand: {fileID: 0}
-  RegisteredTasks: []
   ResourceData: {fileID: 11400000, guid: b25a267727ce92f479c493b2fbc0dbc3, type: 2}
   _spriteRenderer: {fileID: 1579557820734690575}
   _clickObject: {fileID: 1579557821959806311}
@@ -257,6 +256,7 @@ MonoBehaviour:
   - {fileID: 6908616808019763370}
   - {fileID: 7036760194046176883}
   - {fileID: 1790173408549504229}
+  _sorter: {fileID: 6517589405574463296}
   Health: 0
 --- !u!114 &7354906226666983930
 MonoBehaviour:
@@ -738,7 +738,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -177695485
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: 90ab9fc734f8b16488abe87d00fcd22f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

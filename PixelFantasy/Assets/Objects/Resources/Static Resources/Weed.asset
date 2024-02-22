@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Weed
   m_EditorClassIdentifier: 
   ResourceName: Weed
+  ResourcePrefab: {fileID: 4679838361854419014, guid: 8025b15f75a03e249b86e4b29cb3a92f, type: 3}
   _workToExtract: 5
   _harvestableItems:
     _harvestableItems: []

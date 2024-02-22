@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: OrangeTree
   m_EditorClassIdentifier: 
   ResourceName: Orange Tree
+  ResourcePrefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
   _growthStages:
   - StageName: Sapling
     GrowthSprite: {fileID: 21300000, guid: 340e51f3e8e15714689db84a04c628ba, type: 3}

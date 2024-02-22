@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Mushroom
   m_EditorClassIdentifier: 
   ResourceName: Mushroom
+  ResourcePrefab: {fileID: 3091066442031153234, guid: 47d3a3f0d00e1b44fbd10ad53ebff7b5, type: 3}
   _workToExtract: 5
   _harvestableItems:
     _harvestableItems: []

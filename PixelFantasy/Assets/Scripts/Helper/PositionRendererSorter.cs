@@ -64,6 +64,13 @@ public class PositionRendererSorter : MonoBehaviour
         }
     }
 
+    public void ManualSortRendererPosition()
+    {
+        _myRenderer = gameObject.GetComponent<Renderer>();
+        _sortingGroup = gameObject.GetComponent<SortingGroup>();
+        SortRendererPosition();
+    }
+
     private void SortRendererPosition()
     {
         float yPos = _checkLocal ? transform.localPosition.y : transform.position.y;

@@ -19,12 +19,25 @@ namespace Items
         [SerializeField] private Command _defaultClearCmd;
         [SerializeField] private BoxCollider2D _obstacleBox;
         [SerializeField] private List<Transform> _workPoints;
+        [SerializeField] private PositionRendererSorter _sorter;
 
         protected Spawner spawner => Spawner.Instance;
         protected Task _curTask;
         protected Action _onResourceClearedCallback;
 
         public float Health;
+
+        public virtual void Init(ResourceData data)
+        {
+            ResourceData = data;
+            
+            if (_sorter != null)
+            {
+                _sorter.ManualSortRendererPosition();
+            }
+            
+            
+        }
 
         public override Vector2? UseagePosition(Vector2 requestorPosition)
         {
@@ -84,7 +97,7 @@ namespace Items
         protected virtual void Awake()
         {
             _clickObject = GetComponent<ClickObject>();
-            Health = GetWorkAmount();
+            //Health = GetWorkAmount();
         }
 
         public bool HasTask => _curTask != null;

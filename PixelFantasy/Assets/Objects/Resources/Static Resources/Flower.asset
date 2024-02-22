@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Flower
   m_EditorClassIdentifier: 
   ResourceName: Flower
+  ResourcePrefab: {fileID: 3940770932414872684, guid: 7d7f9b7dc6a672e45ae9ab91f1a9431c, type: 3}
   _workToExtract: 5
   _harvestableItems:
     _harvestableItems: []

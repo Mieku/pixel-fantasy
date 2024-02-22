@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Spruce
   m_EditorClassIdentifier: 
   ResourceName: Spruce
+  ResourcePrefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
   _growthStages:
   - StageName: Sapling
     GrowthSprite: {fileID: 21300000, guid: 848c8a290210208458a065fe90d72377, type: 3}

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Characters;
 using Controllers;
@@ -6,12 +7,15 @@ using Items;
 using Managers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
+using Systems.World_Building.Scripts;
 using UnityEngine;
 
 namespace Systems.Game_Setup.Scripts
 {
     public class GameManager : Singleton<GameManager>
     {
+        [SerializeField] private WorldBuilder _worldBuilder;
+        
         [BoxGroup("Starting Items")] [SerializeField] private Storage _starterStockpile;
         [BoxGroup("Starting Items")] [SerializeField] private List<ItemAmount> _startingItems = new List<ItemAmount>();
         
@@ -20,8 +24,6 @@ namespace Systems.Game_Setup.Scripts
         private void Start()
         {
             SetUpGame();
-            
-            CameraManager.Instance.LookAtPosition(_starterStockpile.transform.position);
         }
 
         [Button("Set Up Game")]
@@ -32,14 +34,33 @@ namespace Systems.Game_Setup.Scripts
                 Debug.LogError("Game must be playing to set up game");
                 return;
             }
+
+            StartCoroutine(SetUpGameCoroutine());
+        }
+        
+        public IEnumerator SetUpGameCoroutine()
+        {
+            yield return StartCoroutine(_worldBuilder.GeneratePlaneCoroutine());
             
             LoadStarterStockpile(_startingItems);
+            
+            // Allow frame to render and update UI/loading screen here
+            yield return null;
+            
+            // Wait for a frame after all world-building tasks are complete before updating the NavMesh
+            yield return new WaitForEndOfFrame();
 
-            NavMeshManager.Instance.UpdateNavMesh();
+            NavMeshManager.Instance.UpdateNavMesh(forceRebuild: true);
+            
+            // Again, yield to keep the UI responsive
+            yield return null;
             
             LoadStarterKinlings(_starterKinlings);
+            yield return null;
             
             GameEvents.Trigger_RefreshInventoryDisplay();
+            CameraManager.Instance.LookAtPosition(_starterStockpile.transform.position);
+            yield return null;
         }
 
         private void LoadStarterStockpile(List<ItemAmount> preloadedItems)

@@ -5,6 +5,7 @@ using Managers;
 using QFSW.QC;
 using TaskSystem;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Items
 {
@@ -31,6 +32,37 @@ namespace Items
 
         private GrowingResourceData growingResourceData => ResourceData as GrowingResourceData;
 
+        public override void Init(ResourceData data)
+        {
+            base.Init(data);
+            
+            if (_overrideFullGrowth)
+            {
+                _fullyGrown = true;
+                _growthIndex = growingResourceData.GrowthStages.Count - 1;
+            }
+            else
+            {
+                _growthIndex = Random.Range(0, growingResourceData.GrowthStages.Count);
+            }
+
+            _ageSec = Random.Range(0, growingResourceData.TotalGrowTime() * 1.5f);
+            _fullyGrown = _ageSec >= growingResourceData.TotalGrowTime();
+            
+            if (growingResourceData.HasFruit && _ageSec > growingResourceData.TotalGrowTime())
+            {
+                _fruitTimer = Random.Range(0, growingResourceData.TimeToGrowFruit * 1.5f);
+                _hasFruitAvailable = _fruitTimer >= growingResourceData.TimeToGrowFruit;
+            }
+            
+            _remainingCutWork = GetWorkAmount();
+            _remainingHarvestWork = GetHarvestWorkAmount();
+            Health = GetWorkAmount();
+            
+            GrowthCheck();
+            FruitCheck();
+        }
+
         public override string DisplayName
         {
             get
@@ -43,38 +75,6 @@ namespace Items
 
                 return ResourceData.ResourceName;
             }
-        }
-
-        protected override void Awake()
-        {
-            base.Awake();
-            if (ResourceData != null)
-            {
-                Init();
-            }
-        }
-
-        public void Init(GrowingResourceData growingResourceData)
-        {
-            base.ResourceData = growingResourceData;
-            Init();
-        }
-        
-        private void Init()
-        {
-            if (_overrideFullGrowth)
-            {
-                _fullyGrown = true;
-                _growthIndex = growingResourceData.GrowthStages.Count - 1;
-            }
-            
-            var stage = growingResourceData.GetGrowthStage(_growthIndex);
-            _ageForNextGrowth += stage.SecsInStage;
-
-            UpdateSprite();
-            _remainingCutWork = GetWorkAmount();
-            _remainingHarvestWork = GetHarvestWorkAmount();
-            Health = GetWorkAmount();
         }
         
         protected void UpdateSprite()
@@ -257,38 +257,6 @@ namespace Items
             
             base.DestroyResource();
         }
-
-        // public void CutDownPlant()
-        // {
-        //     var resources = growingResourceData.GetGrowthStage(_growthIndex).HarvestableItems.GetItemDrop();
-        //     foreach (var resource in resources)
-        //     {
-        //         for (int i = 0; i < resource.Quantity; i++)
-        //         {
-        //             spawner.SpawnItem(resource.Item, transform.position, true);
-        //         }
-        //     }
-        //     
-        //     HarvestFruit();
-        //
-        //     foreach (var taskRequestor in TaskRequestors)
-        //     {
-        //         if (taskRequestor != null)
-        //         {
-        //             var dirt = taskRequestor.GetComponent<DirtTile>();
-        //             if (dirt != null)
-        //             {
-        //                 //dirt.CreateTaskById("Clear Grass");
-        //             }
-        //         }
-        //     }
-        //     
-        //     TaskRequestors.Clear();
-        //     
-        //     RefreshSelection();
-        //     
-        //     Destroy(gameObject);
-        // }
         
         public override float GetWorkAmount()
         {

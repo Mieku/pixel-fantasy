@@ -559,6 +559,39 @@ public static class Helper
 
         return randomLocation;
     }
+    
+    public static List<int> GenerateDistinctRandoms(int quantity, int min, int max)
+    {
+        if (max - min + 1 < quantity)
+        {
+            throw new ArgumentException("The range is not sufficient for the requested quantity of distinct numbers.");
+        }
+
+        var random = new System.Random();
+        var numbers = new HashSet<int>();
+
+        while (numbers.Count < quantity)
+        {
+            int number = random.Next(min, max + 1);
+            numbers.Add(number);
+        }
+
+        // Convert the HashSet to a List to maintain order and return.
+        List<int> distinctNumbersList = new List<int>(numbers);
+        return distinctNumbersList;
+    }
+    
+    public static bool IsTooCloseToOthers(Vector2 position, List<Vector2> others, float minDistance)
+    {
+        foreach (var other in others)
+        {
+            if (Vector2.Distance(position, other) < minDistance)
+            {
+                return true; // Found a position too close to the current one
+            }
+        }
+        return false; // No positions too close were found
+    }
 }
 
 public static class EnumExtensions

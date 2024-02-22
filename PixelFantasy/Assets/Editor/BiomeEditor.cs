@@ -68,6 +68,8 @@ public class BiomeEditor : Editor
         
         DisplayPercentagesOptions<ResourceData>("Forest Trees", biome.ForestTreeResources);
         DisplayPercentagesOptions<GrowingResourceData>("Forest Additionals", biome.ForestAdditionalResources);
+        DisplayPercentagesOptions<ResourceData>("Vegitation", biome.VegitationResources);
+        DisplayPercentagesOptions<ResourceData>("Additional Resources", biome.AdditionalResources);
     }
     
     // Adjust the DisplayPercentagesOptions method to be generic
@@ -108,6 +110,11 @@ public class BiomeEditor : Editor
         if (GUILayout.Button("Normalize Percentages"))
         {
             NormalizePercentages(biomePercentages);
+        }
+        
+        if (GUILayout.Button("Equalize Percentages"))
+        {
+            EqualizePercentages(biomePercentages);
         }
     
         EditorGUILayout.EndVertical();
@@ -184,5 +191,15 @@ public class BiomeEditor : Editor
 
         // Adjust the default mountain's percentage
         resources[0].SpawnPercentage = 1f - nonDefaultTotalPercentage; // This ensures the sum equals 100%
+    }
+
+    private void EqualizePercentages(List<ResourceDataPercentage> resources)
+    {
+        if (resources == null || resources.Count < 2) return; // Need at least 2 resources to equalize
+        float percent = 1f / resources.Count;
+        foreach (var resource in resources)
+        {
+            resource.SpawnPercentage = percent;
+        }
     }
 }

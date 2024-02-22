@@ -18,6 +18,13 @@ namespace Systems.World_Building.Scripts
         public List<ResourceDataPercentage> ForestAdditionalResources = new List<ResourceDataPercentage>();
         public int ForestTreeDensity; // The min number of trees per tile
         public int ForestAdditionalDensity; // The max number of trees per tile
+        
+        public List<ResourceDataPercentage> VegitationResources = new List<ResourceDataPercentage>();
+        public int VegitationClusterRadius;
+        public int MaxVegetationPerCluster;
+        
+        public List<ResourceDataPercentage> AdditionalResources = new List<ResourceDataPercentage>();
+        public float AdditionalsChanceToSpawn;
 
         public float GetMountainTypePercentage(MountainTileType tileType)
         {
@@ -59,6 +66,90 @@ namespace Systems.World_Building.Scripts
         {
             var treePercent = new ResourceDataPercentage(treeData, 0f);
             ForestTreeResources.Add(treePercent);
+        }
+
+        public GrowingResourceData GetRandomForestTree()
+        {
+            float totalWeight = 0f;
+            foreach (var resource in ForestTreeResources)
+            {
+                totalWeight += resource.SpawnPercentage;
+            }
+
+            float randomPoint = Random.Range(0f, totalWeight);
+            foreach (var resource in ForestTreeResources)
+            {
+                if (randomPoint < resource.SpawnPercentage)
+                {
+                    return resource.ResourceData as GrowingResourceData;
+                }
+                randomPoint -= resource.SpawnPercentage;
+            }
+
+            return null; // In case something goes wrong
+        }
+
+        public ResourceData GetRandomForestAdditional()
+        {
+            float totalWeight = 0f;
+            foreach (var resource in ForestAdditionalResources)
+            {
+                totalWeight += resource.SpawnPercentage;
+            }
+
+            float randomPoint = Random.Range(0f, totalWeight);
+            foreach (var resource in ForestAdditionalResources)
+            {
+                if (randomPoint < resource.SpawnPercentage)
+                {
+                    return resource.ResourceData;
+                }
+                randomPoint -= resource.SpawnPercentage;
+            }
+
+            return null; // In case something goes wrong
+        }
+
+        public ResourceData GetRandomVegitation()
+        {
+            float totalWeight = 0f;
+            foreach (var resource in VegitationResources)
+            {
+                totalWeight += resource.SpawnPercentage;
+            }
+
+            float randomPoint = Random.Range(0f, totalWeight);
+            foreach (var resource in VegitationResources)
+            {
+                if (randomPoint < resource.SpawnPercentage)
+                {
+                    return resource.ResourceData;
+                }
+                randomPoint -= resource.SpawnPercentage;
+            }
+
+            return null; // In case something goes wrong
+        }
+
+        public ResourceData GetRandomAdditional()
+        {
+            float totalWeight = 0f;
+            foreach (var resource in AdditionalResources)
+            {
+                totalWeight += resource.SpawnPercentage;
+            }
+
+            float randomPoint = Random.Range(0f, totalWeight);
+            foreach (var resource in AdditionalResources)
+            {
+                if (randomPoint < resource.SpawnPercentage)
+                {
+                    return resource.ResourceData;
+                }
+                randomPoint -= resource.SpawnPercentage;
+            }
+
+            return null; // In case something goes wrong
         }
     }
 

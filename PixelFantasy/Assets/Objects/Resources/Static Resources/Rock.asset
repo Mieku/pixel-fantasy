@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Rock
   m_EditorClassIdentifier: 
   ResourceName: Rock
+  ResourcePrefab: {fileID: 7354906226666983931, guid: 1e285695b28aebc48a8bab97dfdd4b87, type: 3}
   _workToExtract: 5
   _harvestableItems:
     _harvestableItems:

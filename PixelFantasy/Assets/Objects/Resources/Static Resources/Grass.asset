@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Grass
   m_EditorClassIdentifier: 
   ResourceName: Grass
+  ResourcePrefab: {fileID: 371740161797959518, guid: f6e3f4dcab112d84ca793e69ed2f6dbf, type: 3}
   _workToExtract: 5
   _harvestableItems:
     _harvestableItems: []

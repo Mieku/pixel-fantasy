@@ -12,17 +12,25 @@ namespace Items
         protected override void Awake()
         {
             base.Awake();
-            if (ResourceData != null)
-            {
-                Init();
-            }
+            // if (ResourceData != null)
+            // {
+            //     Init();
+            // }
         }
-        
-        private void Init()
+
+        public override void Init(ResourceData data)
         {
+            base.Init(data);
+            
             UpdateSprite();
             Health = GetWorkAmount();
         }
+
+        // private void Init()
+        // {
+        //     UpdateSprite();
+        //     Health = GetWorkAmount();
+        // }
         
         public override float GetWorkAmount()
         {

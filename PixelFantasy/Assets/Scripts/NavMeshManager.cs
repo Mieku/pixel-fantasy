@@ -18,9 +18,13 @@ public class NavMeshManager : Singleton<NavMeshManager>
     }
 
     [Button("Update NavMesh")]
-    public void UpdateNavMesh()
+    public void UpdateNavMesh(bool forceRebuild = false)
     {
-        if (_meshSurface != null)
+        if (forceRebuild)
+        {
+            _meshSurface.BuildNavMesh();
+        }
+        else if (_meshSurface != null)
         {
             _meshSurface.UpdateNavMesh(_meshSurface.navMeshData);
         }

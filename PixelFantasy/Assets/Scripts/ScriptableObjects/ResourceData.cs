@@ -8,5 +8,6 @@ namespace ScriptableObjects
     public class ResourceData : ScriptableObject
     {
         public string ResourceName;
+        public Resource ResourcePrefab;
     }
 }
