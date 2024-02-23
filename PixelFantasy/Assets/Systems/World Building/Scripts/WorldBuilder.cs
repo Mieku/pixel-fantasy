@@ -41,6 +41,8 @@ namespace Systems.World_Building.Scripts
         
         public IEnumerator GeneratePlaneCoroutine()
         {
+            Debug.Log("Beginning World Generation");
+            
             // Immediate operations
             _tileWorldCreator.twcAsset = _currentBiome.WorldCreatorAsset;
             _tileWorldCreator.ExecuteAllBlueprintLayers();
@@ -49,6 +51,8 @@ namespace Systems.World_Building.Scripts
             yield return StartCoroutine(RefreshPlaneCoroutine());
             
             yield return StartCoroutine(SpawnResourcesCoroutine());
+            
+            Debug.Log("World was generated");
         }
         
         public IEnumerator RefreshPlaneCoroutine()
