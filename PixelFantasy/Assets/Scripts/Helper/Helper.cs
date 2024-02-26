@@ -592,6 +592,30 @@ public static class Helper
         }
         return false; // No positions too close were found
     }
+    
+    /// <summary>
+    /// Calculates the boundary box for a list of affected cells.
+    /// </summary>
+    public static (Vector2Int min, Vector2Int max) CalculateBoundaryBox(List<Vector2Int> affectedCells)
+    {
+        if (affectedCells == null || !affectedCells.Any())
+            return (new Vector2Int(int.MaxValue, int.MaxValue), new Vector2Int(int.MinValue, int.MinValue));
+
+        int minX = affectedCells.Min(cell => cell.x);
+        int maxX = affectedCells.Max(cell => cell.x);
+        int minY = affectedCells.Min(cell => cell.y);
+        int maxY = affectedCells.Max(cell => cell.y);
+
+        return (new Vector2Int(minX, minY), new Vector2Int(maxX, maxY));
+    }
+    
+    /// <summary>
+    /// Checks if a given cell is within the specified boundary box.
+    /// </summary>
+    public static bool IsWithinBounds(Vector2Int cell, Vector2Int min, Vector2Int max)
+    {
+        return cell.x >= min.x && cell.x <= max.x && cell.y >= min.y && cell.y <= max.y;
+    }
 }
 
 public static class EnumExtensions

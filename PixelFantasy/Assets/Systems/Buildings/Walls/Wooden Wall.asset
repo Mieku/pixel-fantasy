@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a971d0689f4a174b842c1bc046e4949, type: 3}
+  m_Name: Wooden Wall
+  m_EditorClassIdentifier: 
+  <WallName>k__BackingField: Wooden Wall
+  <WallOptions>k__BackingField:
+  - _optionName: Wood
+    _optionIcon: {fileID: -1127179300, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
+    _exteriorRuleTile: {fileID: 11400000, guid: f91b311b42950d84fb7392825b419fe0, type: 2}
+    _interiorRuleTile: {fileID: 11400000, guid: f296c6c9d32e2ca47888f29895bc1dbc, type: 2}
+    _workCost: 5
+    _requiredJob: {fileID: 11400000, guid: 2a72d8ac25ff79b44b0d862e30e16ba6, type: 2}
+    _optionResourceCosts:
+    - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
+      Quantity: 2

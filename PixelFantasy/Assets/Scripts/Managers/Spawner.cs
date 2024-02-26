@@ -6,6 +6,7 @@ using CodeMonkey.Utils;
 using Controllers;
 using Items;
 using ScriptableObjects;
+using Systems.Buildings.Scripts;
 using Systems.Notifications.Scripts;
 using UnityEngine;
 using Zones;
@@ -56,9 +57,10 @@ namespace Managers
         public CropData CropData { get; set; }
 
         public Transform ItemsParent => _itemsParent;
-        public Transform BuildingsParent => _structureParent;
+        public Transform StructureParent => _structureParent;
         public Transform FlooringParent => _flooringParent;
         public Transform MiscParent => _miscParent;
+        public RuleTile WallPlanRuleTile;
 
         public PlacementDirection SetNextPlacementDirection(bool isClockwise)
         {
@@ -156,6 +158,21 @@ namespace Managers
                     NotificationManager.Instance.Toast("Invalid Location");
                 }
             }
+            else if (inputState == PlayerInputState.BuildDoor && _plannedDoor != null)
+            {
+                if (_plannedDoor.CheckPlacement())
+                {
+                    var plannedDoor = _plannedDoor;
+                    _plannedDoor = null;
+                    PlayerInputController.Instance.ChangeState(PlayerInputState.None);
+                    plannedDoor.SetState(Door.EDoorState.Construction);
+                    plannedDoor.TriggerPlaced();
+                }
+                else
+                {
+                    NotificationManager.Instance.Toast("Invalid Location");
+                }
+            }
         }
         
         protected virtual void GameEvents_OnRightClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
@@ -182,6 +199,7 @@ namespace Managers
             PlacementDirection = PlacementDirection.South;
             _plannedFurnitureItemData = null;
             _plannedBuilding = null;
+            _plannedDoor = null;
         }
 
         public void ShowPlacementIcon(bool show, Sprite icon = null, List<String> invalidPlacementTags = null, float sizeOverride = 1f, Color? colourOverride = null)
@@ -371,6 +389,15 @@ namespace Managers
             _plannedBuilding.SetState(Building.BuildingState.BeingPlaced);
             _plannedBuilding.OnBuildingPlaced = onBuildingPlaced;
         }
+        
+        private Door _plannedDoor;
+        public void PlanDoor(DoorSO doorSO, Action onDoorPlaced = null)
+        {
+            _plannedDoor = Instantiate(doorSO.DoorPrefab, _structureParent);
+            _plannedDoor.Init(doorSO);
+            _plannedDoor.SetState(Door.EDoorState.BeingPlaced);
+            _plannedDoor.OnDoorPlaced = onDoorPlaced;
+        }
 
         private Furniture _plannedFurniture;
         private FurnitureItemData _plannedFurnitureItemData;
@@ -418,6 +445,12 @@ namespace Managers
             {
                 Destroy(_plannedFurniture.gameObject);
                 _plannedFurniture = null;
+            }
+
+            if (_plannedDoor != null)
+            {
+                Destroy(_plannedDoor.gameObject);
+                _plannedDoor = null;
             }
         }
         

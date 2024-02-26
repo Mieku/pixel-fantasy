@@ -7,6 +7,7 @@ using Items;
 using Managers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
+using Systems.Buildings.Scripts;
 using Systems.World_Building.Scripts;
 using UnityEngine;
 
@@ -37,6 +38,9 @@ namespace Systems.Game_Setup.Scripts
             }
 
             StartCoroutine(SetUpGameCoroutine());
+            
+            
+            StructureManager.Instance.Init(_worldBuilder.WorldSize);
         }
         
         public IEnumerator SetUpGameCoroutine()

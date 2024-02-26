@@ -365,7 +365,7 @@ namespace Items
             constuctTask.Enqueue();
         }
 
-        public void CreateDeconstructionTask(bool autoAssign = true, Action onDeconstructed = null)
+        public virtual void CreateDeconstructionTask(bool autoAssign = true, Action onDeconstructed = null)
         {
             _onDeconstructed = onDeconstructed;
             Task constuctTask = new Task("Deconstruct", this, GetConstructionData().RequiredConstructorJob, EToolType.BuildersHammer, SkillType.Construction);

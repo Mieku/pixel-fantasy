@@ -250,5 +250,6 @@ namespace Controllers
         BuildFarm,
         Zone,
         BuildBuilding,
+        BuildDoor,
     }
 }

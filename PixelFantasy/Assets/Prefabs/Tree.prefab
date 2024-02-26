@@ -273,9 +273,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 390895937
-  m_SortingLayer: 3
-  m_SortingOrder: -295
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 48ee55af15a3565478364b54e85d85d1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -479,7 +479,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7155256550381879068}
   - component: {fileID: 7155256550381879070}
-  - component: {fileID: 7155256550381879071}
   - component: {fileID: 8897537879774038492}
   - component: {fileID: 5409644490048135930}
   m_Layer: 0
@@ -545,7 +544,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -330
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9ef8790bd2426b44aa479b2178f73efe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -556,22 +555,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!114 &7155256550381879071
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7155256550381879069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _offset: 0.5
-  _runOnlyOnce: 1
-  _checkLocal: 0
+  m_SpriteSortPoint: 1
 --- !u!114 &8897537879774038492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -848,7 +832,7 @@ MonoBehaviour:
   - {fileID: 4926678527165709686}
   - {fileID: 1107829154276342319}
   - {fileID: 7010396961728710624}
-  _sorter: {fileID: 7155256550381879071}
+  _sorter: {fileID: 0}
   Health: 0
   _overrideFullGrowth: 0
   _fruitOverlay: {fileID: 6319101082123291704}

@@ -107,7 +107,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4679838360167495992}
   - component: {fileID: 4679838360167495991}
-  - component: {fileID: 4679838360167495990}
   - component: {fileID: 4679838360167495993}
   m_Layer: 0
   m_Name: Resource Sprite
@@ -184,22 +183,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!114 &4679838360167495990
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4679838360167495995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _offset: 0
-  _runOnlyOnce: 1
-  _checkLocal: 0
+  m_SpriteSortPoint: 1
 --- !u!210 &4679838360167495993
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -630,7 +614,7 @@ MonoBehaviour:
   - {fileID: 4060256409854242269}
   - {fileID: 8671356423201911275}
   - {fileID: 8565200217476746286}
-  _sorter: {fileID: 4679838360167495990}
+  _sorter: {fileID: 0}
   Health: 0
 --- !u!114 &4679838361854419017
 MonoBehaviour:

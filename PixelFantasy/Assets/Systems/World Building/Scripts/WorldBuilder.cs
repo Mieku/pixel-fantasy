@@ -32,6 +32,17 @@ namespace Systems.World_Building.Scripts
         [SerializeField] private RuleTile _forestFloorRuleTile;
 
         [SerializeField] private GameObject _starterStockPile;
+
+        public Vector2Int WorldSize
+        {
+            get
+            {
+                Vector2Int result = new Vector2Int();
+                result.x = _tileWorldCreator.twcAsset.mapWidth;
+                result.y = _tileWorldCreator.twcAsset.mapHeight;
+                return result;
+            }
+        }
         
         [Button("Generate Plane")]
         private void GeneratePlane()
