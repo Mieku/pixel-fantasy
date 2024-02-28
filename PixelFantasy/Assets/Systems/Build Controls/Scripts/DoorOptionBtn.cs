@@ -34,8 +34,8 @@ namespace Systems.Build_Controls.Scripts
             _detailsPanel.SetActive(true);
             _optionName.text = _doorSO.DoorName;
             _optionDetails.text = "Not implemented yet";
-
-            foreach (var cost in _doorSO.ResourceCosts)
+            
+            foreach (var cost in _doorSO.GetResourceCosts())
             {
                 var costDisplay = Instantiate(_costDisplayPrefab, _costsLayout);
                 costDisplay.Init(cost);

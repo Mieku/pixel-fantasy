@@ -16,4 +16,8 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: -1095791776, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
   <DoorPrefab>k__BackingField: {fileID: 7340745770291212362, guid: 51da4637610249947a40d8d8f72ae22e, type: 3}
   <RequiredJob>k__BackingField: {fileID: 11400000, guid: 2a72d8ac25ff79b44b0d862e30e16ba6, type: 2}
-  <ResourceCosts>k__BackingField: []
+  <HorizontalDoorframe>k__BackingField: {fileID: -1095791776, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
+  <VerticalDoorframe>k__BackingField: {fileID: -468987788, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
+  _resourceCosts:
+  - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
+    Quantity: 1

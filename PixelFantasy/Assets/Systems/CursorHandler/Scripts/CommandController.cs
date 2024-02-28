@@ -72,7 +72,7 @@ namespace Systems.CursorHandler.Scripts
                     else
                     {
                         Task task = command.Task;
-                        task.Requestor = clickObject.Owner.GetPlayerInteractable();
+                        task.SetRequestor(clickObject.Owner.GetPlayerInteractable());
                         task.IsKinlingSpecific = true;
                         task.OnTaskCancel = () =>
                         {

@@ -148,7 +148,6 @@ namespace Systems.SmartObjects.Scripts
             {
                 _selectedFoodItem.AssignedStorage.WithdrawItem(_selectedFoodItem);
                 performer.Kinling.TaskAI.HoldItem(_selectedFoodItem);
-                _selectedFoodItem.SetHeld(true);
                 
                 _currentPerformer.Performer.Kinling.KinlingAgent.SetMovePosition(gameObject.transform.position, () =>
                 {
@@ -200,7 +199,6 @@ namespace Systems.SmartObjects.Scripts
             if (_selectedFoodItem != null)
             {
                 performer.Kinling.TaskAI.DropCarriedItem();
-                _selectedFoodItem.SetHeld(false);
             }
         }
         

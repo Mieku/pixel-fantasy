@@ -38,9 +38,16 @@ namespace TaskSystem
             
             var payload = task.Payload;
             _targetItem = ClaimItem((string)payload);
+            
             if (_targetItem == null)
             {
                 OnTaskCancel();
+            }
+
+            var construction = _requestor as Construction;
+            if (construction != null)
+            {
+                construction.AddToIncomingItems(_targetItem);
             }
 
             var building = _requestor as Building;
@@ -73,7 +80,6 @@ namespace TaskSystem
                 
                 _targetItem.AssignedStorage.WithdrawItem(_targetItem);
                 _ai.HoldItem(_targetItem);
-                _targetItem.SetHeld(true);
                 return;
             }
             

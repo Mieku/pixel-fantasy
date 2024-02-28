@@ -24,5 +24,16 @@ namespace Systems.Buildings.Scripts
         }
 
         public abstract void RefreshTile();
+
+        public void ShowCell(bool shouldShow)
+        {
+            Cell.CellRenderer.enabled = shouldShow;
+        }
+        
+        public override void CancelConstruction()
+        {
+            OnDeconstructed();
+            base.CancelConstruction();
+        }
     }
 }

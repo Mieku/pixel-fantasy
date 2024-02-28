@@ -60,7 +60,6 @@ namespace TaskSystem
             {
                 _claimedFood.AssignedStorage.WithdrawItem(_claimedFood);
                 _ai.Kinling.TaskAI.HoldItem(_claimedFood);
-                _claimedFood.SetHeld(true);
 
                 if (_chair == null)
                 {
@@ -130,7 +129,6 @@ namespace TaskSystem
                 if (_claimedFood != null)
                 {
                     _ai.Kinling.TaskAI.DropCarriedItem();
-                    _claimedFood.SetHeld(true);
                 }
                 
                 _eateryBuilding = null;

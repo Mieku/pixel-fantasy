@@ -10,8 +10,26 @@ namespace Systems.Buildings.Scripts
         [field: SerializeField] public string DoorName { get; protected set; }
         [field: SerializeField] public Sprite Icon { get; protected set; }
         [field: SerializeField] public Door DoorPrefab { get; protected set; }
-        public List<string> InvalidPlacementTags => new List<string>() { "Water", "Floor", "Obstacle" };
         [field: SerializeField] public JobData RequiredJob { get; protected set; }
-        [field: SerializeField] public List<ItemAmount> ResourceCosts { get; protected set; }
+        [field: SerializeField] public Sprite HorizontalDoorframe { get; protected set; }
+        [field: SerializeField] public Sprite VerticalDoorframe { get; protected set; }
+
+        [SerializeField] private List<ItemAmount> _resourceCosts;
+        
+        public List<ItemAmount> GetResourceCosts()
+        {
+            List<ItemAmount> clone = new List<ItemAmount>();
+            foreach (var resourceCost in _resourceCosts)
+            {
+                ItemAmount cost = new ItemAmount
+                {
+                    Item = resourceCost.Item,
+                    Quantity = resourceCost.Quantity
+                };
+                clone.Add(cost);
+            }
+
+            return clone;
+        }
     }
 }

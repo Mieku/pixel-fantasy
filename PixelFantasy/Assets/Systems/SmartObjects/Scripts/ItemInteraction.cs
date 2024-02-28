@@ -101,7 +101,6 @@ namespace Systems.SmartObjects.Scripts
             // Take the item out of storage
             LinkedItem.AssignedStorage.WithdrawItem(LinkedItem);
             performer.Kinling.TaskAI.HoldItem(LinkedItem);
-            LinkedItem.SetHeld(true);
                 
             var standPos = _currentPerformer.Performer.Kinling.KinlingAgent.PickLocationInRange(1.0f);
             return _currentPerformer.Performer.Kinling.KinlingAgent.SetMovePosition(standPos, () =>
@@ -161,7 +160,6 @@ namespace Systems.SmartObjects.Scripts
             if (LinkedItem != null)
             {
                 performer.Kinling.TaskAI.DropCarriedItem();
-                LinkedItem.SetHeld(true);
             }
         }
         

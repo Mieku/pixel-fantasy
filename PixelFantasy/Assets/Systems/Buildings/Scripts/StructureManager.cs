@@ -113,7 +113,6 @@ namespace Systems.Buildings.Scripts
                 _grid[cell.x, cell.y] = EStructureCell.Interior;
             }
             
-            // TODO: Update the StructurePieces one cell above the room cells
             List<Vector2Int> possibleCells = new List<Vector2Int>();
             foreach (var roomCell in roomCells)
             {
@@ -133,6 +132,27 @@ namespace Systems.Buildings.Scripts
                 StructurePiece sPiece = _registeredPieces.Find(s => s.Cell.CellPos == possibleCell);
                 sPiece.RefreshTile();
             }
+        }
+
+        public StructurePiece GetStructureAtCell(Vector2Int cell)
+        {
+            if (IsWithinGrid(cell))
+            {
+                StructurePiece sPiece = _registeredPieces.Find(s => s.Cell.CellPos == cell);
+                return sPiece;
+            }
+
+            return null;
+        }
+
+        public EStructureCell GetStructureCell(Vector2Int cell)
+        {
+            if (IsWithinGrid(cell))
+            {
+                return _grid[cell.x, cell.y];
+            }
+
+            return EStructureCell.None;
         }
 
         private bool RoomHasAtLeastOneDoor(List<Vector2Int> roomCells)

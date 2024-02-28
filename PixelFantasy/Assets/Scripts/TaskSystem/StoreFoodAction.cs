@@ -72,7 +72,6 @@ namespace TaskSystem
             {
                 _claimedFood.AssignedStorage.WithdrawItem(_claimedFood);
                 _ai.HoldItem(_claimedFood);
-                _claimedFood.SetHeld(true);
                 
                 _state = TaskState.GoingToBuildingStorage;
                 _ai.Kinling.KinlingAgent.SetMovePosition(_buildingStorage.transform.position);

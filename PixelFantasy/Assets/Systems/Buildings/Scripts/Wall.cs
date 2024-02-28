@@ -13,7 +13,6 @@ namespace Systems.Buildings.Scripts
 {
     public class Wall : StructurePiece
     {
-        [SerializeField] private SpriteRenderer _cellRenderer;
         [SerializeField] private GameObject _obstacle;
         
         private WallOption _wallOption;
@@ -68,7 +67,6 @@ namespace Systems.Buildings.Scripts
             base.Awake();
             
             _structureTilemap = TilemapController.Instance.GetTilemap(TilemapLayer.Structure);
-            _cellRenderer.enabled = false;
         }
 
         public void Init(WallOption wallOption)
@@ -86,15 +84,22 @@ namespace Systems.Buildings.Scripts
         
         public override void CreateDeconstructionTask(bool autoAssign = true, Action onDeconstructed = null)
         {
-            _onDeconstructed = onDeconstructed;
-            Task constuctTask = new Task("Deconstruct", this, _wallOption.RequiredJob, EToolType.BuildersHammer, SkillType.Construction);
-            constuctTask.Enqueue();
+            if (_wallState == EWallState.Built)
+            {
+                _onDeconstructed = onDeconstructed;
+                Task constuctTask = new Task("Deconstruct", this, _wallOption.RequiredJob, EToolType.BuildersHammer, SkillType.Construction);
+                constuctTask.Enqueue();
+            }
+            else
+            {
+                CancelConstruction();
+                onDeconstructed?.Invoke();
+            }
         }
 
         private void BlueprintState_Enter()
         {
             _remainingResourceCosts = _wallOption.OptionResourceCosts;
-            _cellRenderer.enabled = false;
             OnPlaced();
             EnableObstacle(false);
             RefreshTile();
@@ -133,6 +138,12 @@ namespace Systems.Buildings.Scripts
             }
         }
 
+        private void ClearTile()
+        {
+            var cell = _structureTilemap.WorldToCell(transform.position);
+            _structureTilemap.SetTile(cell ,null);
+        }
+
         private void ColourTile(Color colour)
         {
             var cell = _structureTilemap.WorldToCell(transform.position);
@@ -143,6 +154,8 @@ namespace Systems.Buildings.Scripts
         {
             OnDeconstructed();
             base.CompleteDeconstruction();
+
+            ClearTile();
         }
         
         private void CreateConstructionHaulingTasks()
@@ -151,29 +164,9 @@ namespace Systems.Buildings.Scripts
             CreateConstuctionHaulingTasksForItems(resourceCosts);
         }
         
-        public override void CancelConstruction()
+        public override List<ItemAmount> GetResourceCosts()
         {
-            if (!_isBuilt)
-            {
-                CancelTasks();
-                
-                // Spawn All the resources used
-                SpawnUsedResources(100f);
-
-                // Delete this blueprint
-                Destroy(gameObject);
-            }
-        }
-
-        private void CancelTasks()
-        {
-            // Drop all incoming resources
-            foreach (var incomingItem in _incomingItems)
-            {
-                incomingItem.SeekForSlot();
-            }
-            _pendingResourceCosts.Clear();
-            _incomingItems.Clear();
+            return _wallOption.OptionResourceCosts;
         }
         
         public override void CompleteConstruction()

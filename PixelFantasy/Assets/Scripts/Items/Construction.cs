@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using DataPersistence;
 using HUD;
 using Interfaces;
@@ -23,6 +24,8 @@ namespace Items
         protected bool _hasUnitIncoming;
         protected Action _onDeconstructed;
         protected float _remainingWork;
+        
+        [SerializeField] private List<Transform> _workPoints;
 
         public float RemainingWork => _remainingWork;
         public string DisplayName => GetConstructionData().ConstructionName;
@@ -53,8 +56,6 @@ namespace Items
         {
             _remainingWork = GetWorkAmount();
         }
-        
-        
         
         public void AssignCommand(Command command, object payload = null)
         {
@@ -95,14 +96,16 @@ namespace Items
 
         public virtual void CancelConstruction()
         {
-            //CancelAllTasks();
-
-            var claimed = GetClaimedResourcesCosts();
+            if (!_isBuilt)
+            {
+                CancelRequestorTasks();
                 
-            // Spawn All the resources used
-            SpawnUsedResources(100f);
-            
-            Destroy(gameObject);
+                // Spawn All the resources used
+                SpawnUsedResources(100f);
+
+                // Delete this blueprint
+                Destroy(gameObject);
+            }
         }
 
         public void AddResourceToBlueprint(ItemData itemData)
@@ -126,6 +129,8 @@ namespace Items
 
         public override void ReceiveItem(Item item)
         {
+            RemoveFromIncomingItems(item);
+            
             var itemData = item.GetItemData();
             Destroy(item.gameObject);
             RemoveFromPendingResourceCosts(itemData);
@@ -151,10 +156,31 @@ namespace Items
             
             Changed();
         }
-
+        
         public override Vector2? UseagePosition(Vector2 requestorPosition)
         {
-            return transform.position;
+            List<(Transform, float)> distances = new List<(Transform, float)>();
+            foreach (var workPoint in _workPoints)
+            {
+                var pathResult = Helper.DoesPathExist(requestorPosition, workPoint.position);
+                if (pathResult.pathExists)
+                {
+                    float distance = Helper.GetPathLength(pathResult.navMeshPath);
+                    distances.Add((workPoint, distance));
+                }
+            }
+            
+            if (distances.Count == 0)
+            {
+                return null;
+            }
+            
+            // Compile the positions that pass the above tests and sort them by distance
+            var sortedDistances = distances.OrderBy(x => x.Item2).Select(x => x.Item1).ToList();
+            var selectedDistance = sortedDistances[0];
+            
+            Vector2 result = selectedDistance.position;
+            return result;
         }
 
         public virtual float GetWorkPerResource()
@@ -216,7 +242,7 @@ namespace Items
             });
         }
         
-        public void RemoveFromIncomingItems(Item item)
+        private void RemoveFromIncomingItems(Item item)
         {
             _incomingItems ??= new List<Item>();
             _incomingItems.Remove(item);

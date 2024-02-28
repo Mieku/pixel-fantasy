@@ -30,7 +30,6 @@ namespace TaskSystem
                 _isMoving = false;
                 _isHoldingItem = true;
                 _ai.HoldItem(_item);
-                _item.SetHeld(true);
                 return;
             } 
             

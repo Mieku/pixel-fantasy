@@ -11,7 +11,7 @@ namespace Systems.Buildings.Scripts
     {
         [field: SerializeField] public string WallName { get; protected set; }
         [field: SerializeField] public List<WallOption> WallOptions { get; protected set; }
-        public List<string> InvalidPlacementTags => new List<string>() { "Water", "Wall", "Floor", "Obstacle" };
+        public List<string> InvalidPlacementTags => new List<string>() { "Water", "Wall", "Structure", "Obstacle" };
         
     }
     

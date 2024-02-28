@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Characters;
 using DataPersistence;
 using Interfaces;
 using Managers;
@@ -25,6 +26,7 @@ namespace Items
         public string _assignedSlotUID;
         private string _assignedUnitUID;
         private bool _isHeld;
+        private Kinling _carryingKinling;
 
         private Transform _originalParent;
 
@@ -117,6 +119,11 @@ namespace Items
                     AssignedStorage.CancelIncoming(this);
                     AssignedStorage = null;
                 }
+
+                if (_carryingKinling != null)
+                {
+                    _carryingKinling.TaskAI.CancelTask(_currentTask.TaskId);
+                }
                 
                 _currentTask.Cancel();
 
@@ -132,19 +139,21 @@ namespace Items
             SeekForSlot();
         }
 
-        public void SetHeld(bool isHeld)
+        private void SetHeld(bool isHeld)
         {
             _isHeld = isHeld;
         }
 
-        public void PickUpItem()
+        public void ItemPickedUp(Kinling kinling)
         {
+            _carryingKinling = kinling;
             SetHeld(true);
         }
 
-        public void DropItem()
+        public void ItemDropped()
         {
             SetHeld(false);
+            _carryingKinling = null;
             
             if (_onItemRelocatedCallback != null)
             {

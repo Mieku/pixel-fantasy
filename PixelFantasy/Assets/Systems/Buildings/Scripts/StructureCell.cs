@@ -1,3 +1,4 @@
+using System;
 using Controllers;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -9,6 +10,13 @@ namespace Systems.Buildings.Scripts
         private Tilemap _groundTM => TilemapController.Instance.GetTilemap(TilemapLayer.Grass);
         
         public EStructureCell CellType;
+        public SpriteRenderer CellRenderer;
+
+        private void Awake()
+        {
+            CellRenderer = GetComponent<SpriteRenderer>();
+            CellRenderer.enabled = false;
+        }
 
         public Vector2Int CellPos
         {

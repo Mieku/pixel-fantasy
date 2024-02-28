@@ -35,7 +35,6 @@ namespace TaskSystem
                 _isHoldingItem = true;
                 _itemToPlace.AssignedStorage.WithdrawItem(_itemToPlace);
                 _ai.HoldItem(_itemToPlace);
-                _itemToPlace.SetHeld(true);
                 return;
             }
             

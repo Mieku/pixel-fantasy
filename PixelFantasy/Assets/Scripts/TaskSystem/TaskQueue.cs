@@ -69,5 +69,24 @@ namespace TaskSystem
                 _tasks.Remove(target);
             }
         }
+
+        public void CancelRequestorTasks(PlayerInteractable requestor)
+        {
+            List<Task> tasksToCancel = new List<Task>();
+            
+            foreach (var task in _tasks)
+            {
+                if (task.Requestor == requestor)
+                {
+                    tasksToCancel.Add(task);
+                }
+            }
+
+            foreach (var task in tasksToCancel)
+            {
+                GameEvents.Trigger_OnTaskCancelled(task.TaskId, requestor);
+                task.Cancel();
+            }
+        }
     }
 }

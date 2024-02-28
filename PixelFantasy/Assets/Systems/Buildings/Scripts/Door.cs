@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using CodeMonkey.Utils;
 using Controllers;
 using Managers;
@@ -16,6 +17,14 @@ namespace Systems.Buildings.Scripts
         private EDoorState _doorState;
         private DoorSO _doorSO;
         public Action OnDoorPlaced;
+
+        [SerializeField] private SpriteRenderer _doorSprite;
+        [SerializeField] private GameObject _topCBlocker, _bottomCBlocker, _leftCBlocker, _rightCBlocker;
+        [SerializeField] private RuleTile _wallFillerRT;
+        [SerializeField] private DoorOpener _horizontalDoorOpener;
+        [SerializeField] private DoorOpener _verticalDoorOpener;
+
+        private bool _isBeingPlaced => _doorState == EDoorState.BeingPlaced;
 
         public enum EDoorState
         {
@@ -45,22 +54,45 @@ namespace Systems.Buildings.Scripts
 
         private void BeingPlaced_Enter()
         {
-            
+
         }
 
         private void Construction_Enter()
         {
-            _remainingResourceCosts = _doorSO.ResourceCosts;
-            CreateConstructionHaulingTasks();
-            OnPlaced();
+            _remainingResourceCosts = _doorSO.GetResourceCosts();
+            ColourSprite(Librarian.Instance.GetColour("Blueprint"));
+
+            var wall = StructureManager.Instance.GetStructureAtCell(Cell.CellPos);
+            if (wall != null)
+            {
+                // Check if there's a wall under the door, if so cancel or deconstruct it first
+                wall.CreateDeconstructionTask(true, () =>
+                {
+                    CreateConstructionHaulingTasks();
+                    OnPlaced();
+                });
+            }
+            else
+            {
+                CreateConstructionHaulingTasks();
+                OnPlaced();
+            }
         }
 
         private void Update()
         {
-            if (_doorState == EDoorState.BeingPlaced)
+            if (_isBeingPlaced)
             {
                 FollowCursor();
-                CheckPlacement();
+                var canPlace = CheckPlacement();
+                if (canPlace)
+                {
+                    ColourSprite(Librarian.Instance.GetColour("Placement Green"));
+                }
+                else
+                {
+                    ColourSprite(Librarian.Instance.GetColour("Placement Red"));
+                }
             }
         }
         
@@ -81,6 +113,7 @@ namespace Systems.Buildings.Scripts
         {
             _doorSO = doorSO;
             SetState(EDoorState.BeingPlaced);
+            SetOrientationVertical(false);
         }
 
         public override void CreateConstructTask(bool autoAssign = true)
@@ -95,83 +128,55 @@ namespace Systems.Buildings.Scripts
             Task constuctTask = new Task("Deconstruct", this, _doorSO.RequiredJob, EToolType.BuildersHammer, SkillType.Construction);
             constuctTask.Enqueue();
         }
-
-        private void BlueprintState_Enter()
-        {
-            _remainingResourceCosts = _doorSO.ResourceCosts;
-            OnPlaced();
-            // ClearTile();
-            // ColourTile(Librarian.Instance.GetColour("Blueprint"));
-            CreateConstructionHaulingTasks();
-        }
         
-        private void BlueprintState_Exit()
-        {
-            
-        }
-
         private void BuiltState_Enter()
         {
-            ColourTile(Color.white);
+            ColourSprite(Color.white);
+            AddWallFiller();
         }
         
         private void BuiltState_Exit()
         {
-            ClearTile();
+            
         }
 
-        public override void RefreshTile()
+        private void AddWallFiller()
         {
-            
+            var cell = _wallTilemap.WorldToCell(transform.position);
+            _wallTilemap.SetTile(cell ,_wallFillerRT);
+        }
+
+        private void RemoveWallFiller()
+        {
+            var cell = _wallTilemap.WorldToCell(transform.position);
+            _wallTilemap.SetTile(cell ,null);
         }
 
         public override void CompleteDeconstruction()
         {
+            RemoveWallFiller();
             OnDeconstructed();
             base.CompleteDeconstruction();
         }
 
-        private void ClearTile()
+        private void ColourSprite(Color colour)
         {
-            var cell = _wallTilemap.WorldToCell(transform.position);
-            _wallTilemap.SetTile(cell, null);
-        }
-
-        private void ColourTile(Color colour)
-        {
-            var cell = _wallTilemap.WorldToCell(transform.position);
-            _wallTilemap.SetColor(cell, colour);
+            _doorSprite.color = colour;
+            
+            if(_horizontalDoorOpener != null) _horizontalDoorOpener.ColourDoorSprite(colour);
+            
+            if(_verticalDoorOpener != null) _verticalDoorOpener.ColourDoorSprite(colour);
         }
         
         private void CreateConstructionHaulingTasks()
         {
-            var resourceCosts = _doorSO.ResourceCosts;
+            var resourceCosts = _doorSO.GetResourceCosts();
             CreateConstuctionHaulingTasksForItems(resourceCosts);
         }
-        
-        public override void CancelConstruction()
-        {
-            if (!_isBuilt)
-            {
-                CancelTasks();
-                
-                // Spawn All the resources used
-                SpawnUsedResources(100f);
 
-                // Delete this blueprint
-                Destroy(gameObject);
-            }
-        }
-
-        private void CancelTasks()
+        public override List<ItemAmount> GetResourceCosts()
         {
-            // Drop all incoming resources
-            foreach (var incomingItem in _incomingItems)
-            {
-                incomingItem.SeekForSlot();
-            }
-            _pendingResourceCosts.Clear();
-            _incomingItems.Clear();
+            return _doorSO.GetResourceCosts();
         }
         
         public override void CompleteConstruction()
@@ -192,7 +197,53 @@ namespace Systems.Buildings.Scripts
         
         public bool CheckPlacement()
         {
-            return true; // TODO: Make this check walls
+            bool hasLeftWall = StructureManager.Instance.GetStructureCell(Cell.CellPos + Vector2Int.left) == EStructureCell.Wall;
+            bool hasRightWall = StructureManager.Instance.GetStructureCell(Cell.CellPos + Vector2Int.right) == EStructureCell.Wall;
+            bool hasDownWall = StructureManager.Instance.GetStructureCell(Cell.CellPos + Vector2Int.down) == EStructureCell.Wall;
+            bool hasUpWall = StructureManager.Instance.GetStructureCell(Cell.CellPos + Vector2Int.up) == EStructureCell.Wall;
+
+            if (hasLeftWall && hasRightWall && !hasUpWall && !hasDownWall)
+            {
+                SetOrientationVertical(false);
+                return true;
+            }
+
+            if (!hasLeftWall && !hasRightWall && hasUpWall && hasDownWall)
+            {
+                SetOrientationVertical(true);
+                return true;
+            }
+            
+            return false;
+        }
+
+        private void SetOrientationVertical(bool isVertical)
+        {
+            if (isVertical)
+            {
+                _doorSprite.sprite = _doorSO.VerticalDoorframe;
+                _topCBlocker.SetActive(false);
+                _bottomCBlocker.SetActive(false);
+                _leftCBlocker.SetActive(true);
+                _rightCBlocker.SetActive(true);
+                _horizontalDoorOpener.gameObject.SetActive(false);
+                _verticalDoorOpener.gameObject.SetActive(true);
+            }
+            else
+            {
+                _doorSprite.sprite = _doorSO.HorizontalDoorframe;
+                _topCBlocker.SetActive(true);
+                _bottomCBlocker.SetActive(true);
+                _leftCBlocker.SetActive(false);
+                _rightCBlocker.SetActive(false);
+                _horizontalDoorOpener.gameObject.SetActive(true);
+                _verticalDoorOpener.gameObject.SetActive(false);
+            }
+        }
+
+        public override void RefreshTile()
+        {
+            
         }
     }
 }

@@ -324,7 +324,7 @@ namespace TaskSystem
             else
             {
                 _curTaskAction = taskAction;
-                taskAction.InitAction(task);
+                taskAction.InitAction(task, _kinling);
                 
                 // Get tool if needed
                 _state = State.GettingTool;
@@ -409,6 +409,7 @@ namespace TaskSystem
         public void HoldItem(Item item)
         {
             _heldItem = item;
+            _heldItem.ItemPickedUp(_kinling);
             item.transform.SetParent(transform);
             item.transform.localPosition = Vector3.zero;
         }
@@ -421,7 +422,7 @@ namespace TaskSystem
 
             _heldItem.transform.SetParent(Spawner.Instance.ItemsParent);
             _heldItem.IsAllowed = true;
-            _heldItem.DropItem();
+            _heldItem.ItemDropped();
             _heldItem = null;
         }
 
@@ -501,7 +502,7 @@ namespace TaskSystem
             }
 
             _curTaskAction = forcedTaskAction;
-            forcedTaskAction.InitAction(forcedTask);
+            forcedTaskAction.InitAction(forcedTask, _kinling);
             forcedTaskAction.PrepareAction(forcedTask);
             _state = State.ForcedTask;
             

@@ -69,7 +69,6 @@ namespace TaskSystem
                 
                 _targetItem.AssignedStorage.WithdrawItem(_targetItem);
                 _ai.HoldItem(_targetItem);
-                _targetItem.SetHeld(true);
                 return;
             }
             

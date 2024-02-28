@@ -17,11 +17,9 @@ namespace TaskSystem
             _ai.Kinling.KinlingAgent.SetMovePosition(_item.transform.position, () =>
             {
                 _ai.HoldItem(_item);
-                _item.PickUpItem();
                 _ai.Kinling.KinlingAgent.SetMovePosition(_relocationPosition, () =>
                 {
                     _ai.DropCarriedItem();
-                    _item.DropItem();
                     ConcludeAction();
                 });
             });

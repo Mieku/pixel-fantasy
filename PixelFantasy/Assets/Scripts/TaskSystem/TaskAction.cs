@@ -77,9 +77,10 @@ namespace TaskSystem
             return true;
         }
 
-        public void InitAction(Task task)
+        public void InitAction(Task task, Kinling kinling)
         {
             _task = task;
+            _task.KinlingAssignedToTask = kinling;
         }
 
         /// <summary>
@@ -139,7 +140,6 @@ namespace TaskSystem
                     
                     // Pick it up
                     _ai.HoldItem(droppedItem);
-                    droppedItem.SetHeld(true);
                 }
                 
                 // Equip item
@@ -233,6 +233,7 @@ namespace TaskSystem
             }
             
             _ai.CurrentTaskDone();
+            _task.KinlingAssignedToTask = null;
         }
         
         private void Event_OnTaskCancelled(string taskID, PlayerInteractable requestor)

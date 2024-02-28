@@ -78,5 +78,13 @@ namespace TaskSystem
                 queue.CancelTask(taskID, requestor);
             }
         }
+
+        public void CancelRequestorTasks(PlayerInteractable requestor)
+        {
+            foreach (var queue in AllTasks)
+            {
+                queue.CancelRequestorTasks(requestor);
+            }
+        }
     }
 }

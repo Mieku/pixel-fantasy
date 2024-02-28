@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Characters;
 using Items;
 using Managers;
 using ScriptableObjects;
@@ -13,7 +14,8 @@ namespace TaskSystem
     {
         public string TaskId;
         public JobData Job;
-        public PlayerInteractable Requestor;
+        public Kinling KinlingAssignedToTask;
+        public PlayerInteractable Requestor => _requestor;
         public object Payload;
         public List<Item> Materials;
         public Queue<Task> SubTasks = new Queue<Task>();
@@ -24,14 +26,22 @@ namespace TaskSystem
         public bool IsEmergancy;
         public bool IsKinlingSpecific; // Kinling was selected and the command was assigned via right click
 
+        private PlayerInteractable _requestor;
+
         public Task(string taskID, PlayerInteractable requestor, JobData job, EToolType requiredToolType, SkillType skillType, bool isEmergancy = false)
         {
             TaskId = taskID;
-            Requestor = requestor;
+            SetRequestor(requestor);
             Job = job;
             IsEmergancy = isEmergancy;
             RequiredToolType = requiredToolType;
             SkillType = skillType;
+        }
+
+        public void SetRequestor(PlayerInteractable requestor)
+        {
+            _requestor = requestor;
+            requestor.AddTaskToRequested(this);
         }
 
         public bool IsEqual(Task otherTask)
@@ -54,6 +64,11 @@ namespace TaskSystem
                 {
                     TaskManager.Instance.CancelTask(subTask.TaskId, subTask.Requestor);
                 }
+            }
+
+            if (KinlingAssignedToTask != null)
+            {
+                KinlingAssignedToTask.TaskAI.CancelTask(TaskId);
             }
             
             OnTaskCancel?.Invoke();

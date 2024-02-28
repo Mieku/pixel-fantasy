@@ -469,7 +469,7 @@ namespace Characters
             var droppedItem = gear.LinkedItem;
             droppedItem.transform.position = transform.position;
             droppedItem.IsAllowed = true;
-            droppedItem.SetHeld(false);
+            droppedItem.ItemDropped();
             return droppedItem;
         }
 

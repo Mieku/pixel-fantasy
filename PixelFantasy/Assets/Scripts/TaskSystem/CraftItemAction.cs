@@ -74,7 +74,6 @@ namespace TaskSystem
                         _targetItem = Spawner.Instance.SpawnItem(_itemToCraft, _craftingTable.transform.position, false);
                         _targetItem.State.CraftersUID = _ai.Kinling.UniqueId;
                         _ai.HoldItem(_targetItem);
-                        _targetItem.SetHeld(true);
                         
                         _state = ETaskState.DeliverItem;
                     }
@@ -107,7 +106,6 @@ namespace TaskSystem
         {
             _targetItem.AssignedStorage.WithdrawItem(_targetItem);
             _ai.HoldItem(_targetItem);
-            _targetItem.SetHeld(true);
             _ai.Kinling.KinlingAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Kinling.transform.position), OnArrivedAtCraftingTable, OnTaskCancel);
         }
 

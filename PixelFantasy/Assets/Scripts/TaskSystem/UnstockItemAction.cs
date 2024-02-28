@@ -64,7 +64,6 @@ namespace TaskSystem
             {
                 _buildingStorage.WithdrawItem(_claimedItem);
                 _ai.HoldItem(_claimedItem);
-                _claimedItem.SetHeld(true);
                 
                 _state = TaskState.GoingToGlobalStorage;
                 _ai.Kinling.KinlingAgent.SetMovePosition(_availableItemStorage.transform.position);

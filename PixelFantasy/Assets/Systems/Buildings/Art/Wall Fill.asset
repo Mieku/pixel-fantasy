@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46276a4fd0cbceb4db3721e33b9ddb8f, type: 3}
-  m_Name: Room Fill
+  m_Name: Wall Fill
   m_EditorClassIdentifier: 
   m_DefaultSprite: {fileID: -2100880132, guid: 281a7a07321bc97448181322eb340da7, type: 3}
   m_DefaultGameObject: {fileID: 0}

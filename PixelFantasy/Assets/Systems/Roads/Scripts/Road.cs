@@ -118,19 +118,19 @@ namespace Systems.Roads.Scripts
             CreateConstuctionHaulingTasksForItems(resourceCosts);
         }
         
-        public override void CancelConstruction()
-        {
-            if (!_isBuilt)
-            {
-                CancelTasks();
-                
-                // Spawn All the resources used
-                SpawnUsedResources(100f);
-
-                // Delete this blueprint
-                Destroy(gameObject);
-            }
-        }
+        // public override void CancelConstruction()
+        // {
+        //     if (!_isBuilt)
+        //     {
+        //         CancelTasks();
+        //         
+        //         // Spawn All the resources used
+        //         SpawnUsedResources(100f);
+        //
+        //         // Delete this blueprint
+        //         Destroy(gameObject);
+        //     }
+        // }
 
         private void CancelTasks()
         {
