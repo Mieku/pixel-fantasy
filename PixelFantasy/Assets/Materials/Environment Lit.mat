@@ -85,7 +85,7 @@ Material:
     - _LightIntensity: 1
     - _LightMapLit: 1
     - _LinearColor: 0
-    - _Lit: 0.01737757
+    - _Lit: 0.0048979465
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionDepth: 1
