@@ -35,13 +35,21 @@ namespace Items
             {
                 _sorter.ManualSortRendererPosition();
             }
-            
-            
         }
 
         public override Vector2? UseagePosition(Vector2 requestorPosition)
         {
             List<(Transform, float)> distances = new List<(Transform, float)>();
+            
+            if (_workPoints.Count == 0)
+            {
+                var pathResult = Helper.DoesPathExist(requestorPosition, transform.position);
+                if (pathResult.pathExists)
+                {
+                    return transform.position;
+                }
+            }
+            
             foreach (var workPoint in _workPoints)
             {
                 var pathResult = Helper.DoesPathExist(requestorPosition, workPoint.position);

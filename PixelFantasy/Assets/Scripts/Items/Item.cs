@@ -104,7 +104,7 @@ namespace Items
 
         public void CreateHaulTask()
         {
-            Task task = new Task("Store Item", this, null, EToolType.None, SkillType.None);
+            Task task = new Task("Store Item", ETaskType.Hauling, this, EToolType.None);
 
             TaskManager.Instance.AddTask(task);
             _currentTask = task;

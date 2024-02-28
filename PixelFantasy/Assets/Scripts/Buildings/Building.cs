@@ -885,7 +885,7 @@ namespace Buildings
 
         protected override void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
         {
-            Task task = new Task("Withdraw Item Construction", this, null, EToolType.None, SkillType.None)
+            Task task = new Task("Withdraw Item Construction", ETaskType.Hauling, this, EToolType.None)
             {
                 Payload = resourceData.ItemName,
             };
@@ -894,7 +894,7 @@ namespace Buildings
 
         public override void CreateConstructTask(bool autoAssign = true)
         {
-            Task constuctTask = new Task("Build Building", this, _buildingData.RequiredConstructorJob, EToolType.BuildersHammer, SkillType.Construction);
+            Task constuctTask = new Task("Build Building", ETaskType.Construction, this, EToolType.BuildersHammer);
             constuctTask.Enqueue();
         }
         

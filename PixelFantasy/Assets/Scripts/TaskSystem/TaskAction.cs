@@ -16,7 +16,7 @@ namespace TaskSystem
         protected const float MIN_DISTANCE_FROM_REQUESTOR = 0.5f;
 
         public float ActionSpeed => 1f;
-        public float WorkAmount => _ai.Kinling.Skills.GetWorkAmount(_task.SkillType);
+        public float WorkAmount => _ai.Kinling.Skills.GetWorkAmount(_task.TaskType);
         public Task Task => _task;
 
         protected KinlingAnimController KinlingAnimController => _ai.Kinling.kinlingAnimController;

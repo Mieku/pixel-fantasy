@@ -78,7 +78,7 @@ namespace Systems.Buildings.Scripts
 
         public override void CreateConstructTask(bool autoAssign = true)
         {
-            Task constuctTask = new Task("Build Construction", this, _wallOption.RequiredJob, EToolType.BuildersHammer, SkillType.Construction);
+            Task constuctTask = new Task("Build Construction", ETaskType.Construction, this, EToolType.BuildersHammer);
             constuctTask.Enqueue();
         }
         
@@ -87,7 +87,7 @@ namespace Systems.Buildings.Scripts
             if (_wallState == EWallState.Built)
             {
                 _onDeconstructed = onDeconstructed;
-                Task constuctTask = new Task("Deconstruct", this, _wallOption.RequiredJob, EToolType.BuildersHammer, SkillType.Construction);
+                Task constuctTask = new Task("Deconstruct", ETaskType.Construction, this, EToolType.BuildersHammer);
                 constuctTask.Enqueue();
             }
             else

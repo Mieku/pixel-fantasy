@@ -114,7 +114,7 @@ namespace Systems.Roads.Scripts
 
         public override void CreateConstructTask(bool autoAssign = true)
         {
-            Task task = new Task("Clear Grass", this, null, EToolType.None, SkillType.None);
+            Task task = new Task("Clear Grass", ETaskType.Farming, this, EToolType.None);
             task.Enqueue();
         }
 

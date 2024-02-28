@@ -61,7 +61,7 @@ public abstract class PlayerInteractable : UniqueObject
             CancelCommand(PendingCommand);
         }
 
-        Task task = new Task(command.Task.TaskId, this, command.Job, command.RequiredToolType, command.SkillType);
+        Task task = new Task(command.Task.TaskId, command.Task.TaskType, this, command.RequiredToolType);
         if (payload != null)
         {
             task.Payload = payload;

@@ -417,8 +417,8 @@ namespace Items
         public bool CanBeCrafted()
         {
             // Check if the required crafter exists
-            var requiredJob = _furnitureItemData.RequiredCraftingJob;
-            if (!KinlingsManager.Instance.AnyUnitHaveJob(requiredJob)) return false;
+            // var requiredJob = _furnitureItemData.RequiredCraftingJob;
+            // if (!KinlingsManager.Instance.AnyUnitHaveJob(requiredJob)) return false;
             
             // Check if crafting table exits
             foreach (var option in _furnitureItemData.RequiredCraftingTableOptions)
@@ -496,7 +496,7 @@ namespace Items
             var claimedItem = InventoryManager.Instance.ClaimItem(_furnitureItemData);
             if (claimedItem != null)
             {
-                Task task = new Task("Place Furniture", this, null, EToolType.None, SkillType.None)
+                Task task = new Task("Place Furniture", ETaskType.Hauling, this, EToolType.None)
                 {
                     Materials = new List<Item>(){ claimedItem },
                 };

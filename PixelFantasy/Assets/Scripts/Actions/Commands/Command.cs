@@ -11,9 +11,7 @@ public class Command : ScriptableObject
     public string Name;
     public Sprite Icon;
     public Task Task;
-    public JobData Job => Task.Job;
     public EToolType RequiredToolType => Task.RequiredToolType;
-    public SkillType SkillType => Task.SkillType;
 
     public bool CanDoCommand(Kinling kinling, PlayerInteractable interactable)
     {

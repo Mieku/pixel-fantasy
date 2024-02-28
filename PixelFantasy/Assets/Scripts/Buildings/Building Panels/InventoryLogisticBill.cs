@@ -59,7 +59,7 @@ namespace Buildings.Building_Panels
             if (_requestType == RequestType.More) return; // Don't request the same multiple times
             _requestType = RequestType.More;
             
-            Task task = new Task("Stock Item", Building, Building.GetBuildingJob(), EToolType.None, SkillType.None)
+            Task task = new Task("Stock Item", ETaskType.Hauling, Building, EToolType.None)
             {
                 Payload = Item.ItemName,
                 OnTaskComplete = RequestDone,
@@ -73,7 +73,7 @@ namespace Buildings.Building_Panels
             if (_requestType == RequestType.Less) return; // Don't request the same multiple times
             _requestType = RequestType.Less;
             
-            Task task = new Task("Unstock Item", Building, Building.GetBuildingJob(), EToolType.None, SkillType.None)
+            Task task = new Task("Unstock Item", ETaskType.Hauling, Building, EToolType.None)
             {
                 Payload = Item.ItemName,
                 OnTaskComplete = RequestDone,

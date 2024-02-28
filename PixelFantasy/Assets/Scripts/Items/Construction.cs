@@ -160,6 +160,16 @@ namespace Items
         public override Vector2? UseagePosition(Vector2 requestorPosition)
         {
             List<(Transform, float)> distances = new List<(Transform, float)>();
+
+            if (_workPoints.Count == 0)
+            {
+                var pathResult = Helper.DoesPathExist(requestorPosition, transform.position);
+                if (pathResult.pathExists)
+                {
+                    return transform.position;
+                }
+            }
+            
             foreach (var workPoint in _workPoints)
             {
                 var pathResult = Helper.DoesPathExist(requestorPosition, workPoint.position);
@@ -387,14 +397,14 @@ namespace Items
         
         public virtual void CreateConstructTask(bool autoAssign = true)
         {
-            Task constuctTask = new Task("Build Construction", this, GetConstructionData().RequiredConstructorJob, EToolType.BuildersHammer, SkillType.Construction);
+            Task constuctTask = new Task("Build Construction", ETaskType.Construction, this, EToolType.BuildersHammer);
             constuctTask.Enqueue();
         }
 
         public virtual void CreateDeconstructionTask(bool autoAssign = true, Action onDeconstructed = null)
         {
             _onDeconstructed = onDeconstructed;
-            Task constuctTask = new Task("Deconstruct", this, GetConstructionData().RequiredConstructorJob, EToolType.BuildersHammer, SkillType.Construction);
+            Task constuctTask = new Task("Deconstruct", ETaskType.Construction, this, EToolType.BuildersHammer);
             constuctTask.Enqueue();
         }
     
@@ -432,7 +442,7 @@ namespace Items
 
         protected virtual void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
         {
-            Task task = new Task("Withdraw Item Construction", this, null, EToolType.None, SkillType.None)
+            Task task = new Task("Withdraw Item Construction", ETaskType.Hauling, this, EToolType.None)
             {
                 Payload = resourceData.ItemName,
             };

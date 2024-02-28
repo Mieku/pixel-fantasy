@@ -543,7 +543,7 @@ namespace Characters
 
         private Task CreateEquipTask(GearState gearState)
         {
-            Task equipItemTask = new Task("Equip Item", gearState.LinkedItem, null, EToolType.None, SkillType.None)
+            Task equipItemTask = new Task("Equip Item", ETaskType.Personal , gearState.LinkedItem, EToolType.None)
             {
                 Materials = new List<Item> { gearState.LinkedItem },
             };

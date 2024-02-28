@@ -16,10 +16,8 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 64716bcd8e7630d4899c357ba86fd54e, type: 3}
   Task:
     TaskId: Harvest Resource
-    Job: {fileID: 11400000, guid: 0001dad20a3027e41a0001679f75d2fd, type: 2}
-    Requestor: {fileID: 0}
+    TaskType: 8
+    KinlingAssignedToTask: {fileID: 0}
     Materials: []
     RequiredToolType: 0
-    SkillType: 7
-    IsEmergancy: 0
     IsKinlingSpecific: 0

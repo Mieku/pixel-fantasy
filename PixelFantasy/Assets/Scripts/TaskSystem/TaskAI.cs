@@ -6,19 +6,18 @@ using Buildings.Building_Types;
 using Characters;
 using Items;
 using Managers;
-using Mono.CSharp;
 using ScriptableObjects;
 using Systems.Skills.Scripts;
 using UnityEngine;
-using UnityEngine.Analytics;
 using UnityEngine.Serialization;
 
 namespace TaskSystem
 {
     public class TaskAI : MonoBehaviour
     {
-        [FormerlySerializedAs("_unit")] [SerializeField] private Kinling _kinling;
+        [SerializeField] private Kinling _kinling;
 
+        private TaskPriorities _taskPriorities = new TaskPriorities();
         private List<TaskAction> _taskActions;
         private State _state;
         private float _waitingTimer;
@@ -156,45 +155,20 @@ namespace TaskSystem
                 if (AttemptStartTask(task, false)) return;
                 else task = null;
             }
-
-            // First Check Their Assigned Workplace
-            if (_kinling.AssignedWorkplace != null && task == null)
-            {
-                task = _kinling.AssignedWorkplace.GetBuildingTask();
-                if (AttemptStartTask(task, true)) return;
-                else task = null;
-            }
             
             if (task == null)
             {
-                task = TaskManager.Instance.RequestTask(_kinling);
+                task = TaskManager.Instance.RequestTask(_kinling, _taskPriorities.SortedPriorities());
                 if (task != null)
                 {
                     if (AttemptStartTask(task, true)) return;
                     else task = null;
                 }
             }
-            
+
             if (task == null)
             {
                 IdleAtWork();
-                return;
-            }
-
-            // Queue the subtasks
-            if (task.SubTasks.Count > 0)
-            {
-                Queue<Task> newSubtasks = new Queue<Task>(task.SubTasks);
-                task.SubTasks.Clear();
-                
-                foreach (var queuedTask in _queuedTasks)
-                {
-                    newSubtasks.Enqueue(queuedTask);
-                }
-
-                _queuedTasks = newSubtasks;
-                
-                _state = State.WaitingForNextTask;
                 return;
             }
         }
@@ -230,7 +204,7 @@ namespace TaskSystem
             {
                 if (_kinling.AssignedHome != null)
                 {
-                    task = new Task("Eat Food", _kinling.AssignedHome, null, EToolType.None, SkillType.None);
+                    task = new Task("Eat Food", ETaskType.Personal, _kinling.AssignedHome, EToolType.None);
                     if (AttemptStartTask(task, false)) return;
                     else task = null;
                 }
@@ -239,7 +213,7 @@ namespace TaskSystem
                     var eatery = BuildingsManager.Instance.GetClosestBuildingOfType<IEateryBuilding>(_kinling.transform.position);
                     if (eatery != null)
                     {
-                        task = new Task("Eat Food", eatery, null, EToolType.None, SkillType.None);
+                        task = new Task("Eat Food", ETaskType.Personal, eatery, EToolType.None);
                         if (AttemptStartTask(task, false)) return;
                         else task = null;
                     }
@@ -255,7 +229,7 @@ namespace TaskSystem
                 if (curHouseholdNutrition < suggestedNutrition)
                 {
                     // Set up a task to pick up some food and store it at home
-                    task = new Task("Store Food", _kinling.AssignedHome, null, EToolType.None, SkillType.None);
+                    task = new Task("Store Food", ETaskType.Personal, _kinling.AssignedHome, EToolType.None);
                     if (AttemptStartTask(task, false)) return;
                     else task = null;
                 }
@@ -268,7 +242,7 @@ namespace TaskSystem
             {
                 if (_kinling.Needs.CheckSexDrive() && _kinling.Partner.Needs.CheckSexDrive())
                 {
-                    task = new Task("Mate", _kinling.AssignedBed, null, EToolType.None, SkillType.None);
+                    task = new Task("Mate", ETaskType.Personal, _kinling.AssignedBed, EToolType.None);
                     if (AttemptStartTask(task, false)) return;
                     else task = null;
                 }
@@ -277,27 +251,9 @@ namespace TaskSystem
             // Do fun things
             
             // End of new recreation tasks
-            
-            
+
             if (task == null)
             {
-                _state = State.WaitingForNextTask;
-                return;
-            }
-
-            // Queue the subtasks
-            if (task.SubTasks.Count > 0)
-            {
-                Queue<Task> newSubtasks = new Queue<Task>(task.SubTasks);
-                task.SubTasks.Clear();
-                
-                foreach (var queuedTask in _queuedTasks)
-                {
-                    newSubtasks.Enqueue(queuedTask);
-                }
-
-                _queuedTasks = newSubtasks;
-                
                 _state = State.WaitingForNextTask;
                 return;
             }
@@ -488,7 +444,7 @@ namespace TaskSystem
             if(_curTaskAction != null)
                  _curTaskAction.OnTaskCancel();
             
-            Task forcedTask = new Task(taskID, null, null, EToolType.None, SkillType.None)
+            Task forcedTask = new Task(taskID, ETaskType.Personal, null, EToolType.None)
             {
                 OnTaskComplete = OnForcedTaskComplete
             };
@@ -516,7 +472,7 @@ namespace TaskSystem
 
         public bool IsActionPossible(string taskID)
         {
-            Task forcedTask = new Task(taskID, null, null, EToolType.None, SkillType.None)
+            Task forcedTask = new Task(taskID, ETaskType.Personal, null, EToolType.None)
             {
                 OnTaskComplete = OnForcedTaskComplete
             };

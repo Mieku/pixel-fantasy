@@ -14,6 +14,7 @@ namespace Systems.Crafting.Scripts
     {
         public CraftedItemData CraftedItem;
         public PlayerInteractable Requestor;
+        public CraftingTable AssignedTable;
         public EOrderState State;
         public EOrderType OrderType;
         public bool IsGlobal;
@@ -55,9 +56,9 @@ namespace Systems.Crafting.Scripts
             SetOrderState(EOrderState.Queued);
         }
 
-        public Task CreateTask(ICraftingBuilding building, Action<Task> onTaskComplete)
+        public Task CreateTask(Action<Task> onTaskComplete)
         {
-            List<Item> claimedMats = ClaimRequiredMaterials(building);
+            List<Item> claimedMats = ClaimRequiredMaterials();
             if (claimedMats == null)
             {
                 return null;
@@ -67,7 +68,7 @@ namespace Systems.Crafting.Scripts
             switch (OrderType)
             {
                 case EOrderType.Furniture:
-                    task = new Task("Craft Furniture Order", Requestor, building.GetBuildingJob(), EToolType.None, CraftedItem.ProductionSkillType)
+                    task = new Task("Craft Furniture Order", CraftedItem.ProductionTaskType, Requestor, CraftedItem.ProductionToolType)
                     {
                         Payload = CraftedItem.ItemName,
                         OnTaskComplete = onTaskComplete,
@@ -75,7 +76,7 @@ namespace Systems.Crafting.Scripts
                     };
                     break;
                 case EOrderType.Item:
-                    task = new Task("Craft Item", Requestor, building.GetBuildingJob(), EToolType.None, CraftedItem.ProductionSkillType)
+                    task = new Task("Craft Item", CraftedItem.ProductionTaskType, Requestor, CraftedItem.ProductionToolType)
                     {
                         Payload = CraftedItem.ItemName,
                         OnTaskComplete = onTaskComplete,
@@ -91,7 +92,7 @@ namespace Systems.Crafting.Scripts
             return task;
         }
 
-        private List<Item> ClaimRequiredMaterials(IBuilding building)
+        private List<Item> ClaimRequiredMaterials()
         {
             var requiredItems = CraftedItem.GetResourceCosts();
             List<Item> claimedItems = new List<Item>();
@@ -101,15 +102,11 @@ namespace Systems.Crafting.Scripts
                 for (int i = 0; i < requiredItem.Quantity; i++)
                 {
                     // Check building storage first, then check global
-                    var claimedItem = InventoryManager.Instance.ClaimItemBuilding(requiredItem.Item, building);
-                    if (claimedItem == null)
-                    {
-                        claimedItem = InventoryManager.Instance.ClaimItemGlobal(requiredItem.Item);
-                    }
+                    var claimedItem = InventoryManager.Instance.ClaimItemGlobal(requiredItem.Item);
 
                     if (claimedItem == null)
                     {
-                        // If for some reason the building can't get everything, unclaim all the materials and return null
+                        // If for some reason they can't get everything, unclaim all the materials and return null
                         foreach (var itemToUnclaim in claimedItems)
                         {
                             itemToUnclaim.UnclaimItem();
@@ -132,16 +129,16 @@ namespace Systems.Crafting.Scripts
             OnOrderClaimed?.Invoke();
         }
 
-        public bool CanBeCrafted(Building building)
+        public bool CanBeCrafted()
         {
-            if (CraftedItem.RequiredCraftingTableOptions.Count > 0)
-            {
-                var hasCraftingTable = building.ContainsCraftingTableForItem(CraftedItem);
-                if (!hasCraftingTable)
-                {
-                    return false;
-                }
-            }
+            // if (CraftedItem.RequiredCraftingTableOptions.Count > 0)
+            // {
+            //     var hasCraftingTable = building.ContainsCraftingTableForItem(CraftedItem);
+            //     if (!hasCraftingTable)
+            //     {
+            //         return false;
+            //     }
+            // }
 
             if (!AreMaterialsAvailable())
             {

@@ -16,10 +16,8 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 8fccbe6959fe32b4394524a1bddf7632, type: 3}
   Task:
     TaskId: Extract Resource
-    Job: {fileID: 11400000, guid: d21e794a01446084a883a700c6482eb9, type: 2}
-    Requestor: {fileID: 0}
+    TaskType: 7
+    KinlingAssignedToTask: {fileID: 0}
     Materials: []
     RequiredToolType: 3
-    SkillType: 2
-    IsEmergancy: 0
     IsKinlingSpecific: 0

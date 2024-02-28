@@ -118,14 +118,14 @@ namespace Systems.Buildings.Scripts
 
         public override void CreateConstructTask(bool autoAssign = true)
         {
-            Task constuctTask = new Task("Build Construction", this, _doorSO.RequiredJob, EToolType.BuildersHammer, SkillType.Construction);
+            Task constuctTask = new Task("Build Construction", ETaskType.Construction, this, EToolType.BuildersHammer);
             constuctTask.Enqueue();
         }
         
         public override void CreateDeconstructionTask(bool autoAssign = true, Action onDeconstructed = null)
         {
             _onDeconstructed = onDeconstructed;
-            Task constuctTask = new Task("Deconstruct", this, _doorSO.RequiredJob, EToolType.BuildersHammer, SkillType.Construction);
+            Task constuctTask = new Task("Deconstruct", ETaskType.Construction, this, EToolType.BuildersHammer);
             constuctTask.Enqueue();
         }
         

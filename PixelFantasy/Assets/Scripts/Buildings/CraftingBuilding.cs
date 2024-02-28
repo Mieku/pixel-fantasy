@@ -80,12 +80,12 @@ namespace Buildings
             // Global Orders
             if (result == null && PrioritizeOrdersWithMats)
             {
-                result = CraftingOrdersManager.Instance.GetNextCraftableOrder(_workersJob, this);
+                //result = CraftingOrdersManager.Instance.GetNextCraftableOrder(_workersJob, this);
             }
 
             if (result == null)
             {
-                result = CraftingOrdersManager.Instance.GetNextOrder(_workersJob);
+                //result = CraftingOrdersManager.Instance.GetNextOrder(_workersJob);
             }
 
             GameEvents.Trigger_OnBuildingChanged(this);
@@ -108,28 +108,29 @@ namespace Buildings
 
         public override Task GetBuildingTask()
         {
-            Task result = base.GetBuildingTask();
-            if (result == null)
-            {
-                if (CurrentCraftingOrder?.CraftedItem == null)
-                {
-                    CurrentCraftingOrder = RequestNextCraftingOrder();
-                }
-
-                if (CurrentCraftingOrder?.State == CraftingOrder.EOrderState.Queued)
-                {
-                    result = CurrentCraftingOrder?.CreateTask(this, OnOrderComplete);
-                }
-            }
-
-            GameEvents.Trigger_OnBuildingChanged(this);
-            return result;
+            // Task result = base.GetBuildingTask();
+            // if (result == null)
+            // {
+            //     if (CurrentCraftingOrder?.CraftedItem == null)
+            //     {
+            //         CurrentCraftingOrder = RequestNextCraftingOrder();
+            //     }
+            //
+            //     if (CurrentCraftingOrder?.State == CraftingOrder.EOrderState.Queued)
+            //     {
+            //         result = CurrentCraftingOrder?.CreateTask(this, OnOrderComplete);
+            //     }
+            // }
+            //
+            // GameEvents.Trigger_OnBuildingChanged(this);
+            // return result;
+            return null;
         }
 
         public List<CraftingOrder> QueuedOrders()
         {
             var allOrders = BuildingCraftQueue.GetAllOrders(this);
-            allOrders.AddRange(CraftingOrdersManager.Instance.GetAllOrders(_workersJob));
+            //allOrders.AddRange(CraftingOrdersManager.Instance.GetAllOrders(_workersJob));
 
             return allOrders;
         }

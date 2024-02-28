@@ -116,7 +116,7 @@ namespace Managers
                 return;
             }
 
-            Task task = new Task("Mate", instigator.AssignedBed, null, EToolType.None, SkillType.None);
+            Task task = new Task("Mate", ETaskType.Personal, instigator.AssignedBed, EToolType.None);
             instigator.TaskAI.QueueTask(task);
         }
 

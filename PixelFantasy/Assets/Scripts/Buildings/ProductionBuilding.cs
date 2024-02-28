@@ -230,7 +230,7 @@ namespace Buildings
                 return null;
             }
             
-            Task task = new Task("Produce Item", (Building)building, building.GetBuildingJob(), EToolType.None, CraftedItem.ProductionSkillType)
+            Task task = new Task("Produce Item", CraftedItem.ProductionTaskType, (Building)building, CraftedItem.ProductionToolType)
             {
                 Payload = CraftedItem.ItemName,
                 OnTaskComplete = onTaskComplete,

@@ -356,7 +356,7 @@ namespace Zones
 
         private void CreateTillSoilTask()
         {
-            Task task = new Task("Till Soil", this, _building.GetBuildingJob(), EToolType.None, SkillType.Farming);
+            Task task = new Task("Till Soil", ETaskType.Farming, this, EToolType.None);
             task.Enqueue();
         }
 
@@ -371,7 +371,7 @@ namespace Zones
         
         private void CreateDigHoleTask()
         {
-            Task task = new Task("Dig Hole", this, _building.GetBuildingJob(), EToolType.None, SkillType.Farming);
+            Task task = new Task("Dig Hole", ETaskType.Farming, this, EToolType.None);
             task.Enqueue();
         }
         
@@ -386,7 +386,7 @@ namespace Zones
         
         private void CreatePlantCropTask()
         {
-            Task task = new Task("Plant Crop", this, _building.GetBuildingJob(), EToolType.None, SkillType.Farming);
+            Task task = new Task("Plant Crop", ETaskType.Farming, this, EToolType.None);
             task.Enqueue();
         }
 
@@ -401,7 +401,7 @@ namespace Zones
         {
             _wateringTaskSet = true;
 
-            Task task = new Task("Water Crop", this, _building.GetBuildingJob(), EToolType.None, SkillType.Farming);
+            Task task = new Task("Water Crop", ETaskType.Farming, this, EToolType.None);
             task.Enqueue();
         }
 
@@ -415,7 +415,7 @@ namespace Zones
         
         private void CreateHarvestCropTask()
         {
-            Task task = new Task("Harvest Crop", this, _building.GetBuildingJob(), EToolType.None, SkillType.Farming);
+            Task task = new Task("Harvest Crop", ETaskType.Farming, this, EToolType.None);
             task.Enqueue();
         }
 
@@ -473,21 +473,15 @@ namespace Zones
         
         private void CreateSwapCropTask()
         {
-            Task task = new Task("Crop Swap", this, _building.GetBuildingJob(), EToolType.None, SkillType.Farming);
+            Task task = new Task("Crop Swap", ETaskType.Farming, this, EToolType.None);
             task.Enqueue();
         }
         
         private void CreateClearCropTask()
         {
-            Task task = new Task("Clear Crop", this, _building.GetBuildingJob(), EToolType.None, SkillType.Farming);
+            Task task = new Task("Clear Crop", ETaskType.Farming, this, EToolType.None);
             task.Enqueue();
         }
-        
-        // private void CreateSwapCropTask()
-        // {
-        //     var swapAction = Librarian.Instance.GetAction("Swap Crop");
-        //     CreateTask(swapAction);
-        // }
         
         public void CropSwapped()
         {

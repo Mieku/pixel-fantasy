@@ -357,7 +357,7 @@ namespace Systems.Social.Scripts
 
         public void ReceiveMateRequest()
         {
-            Task mateTask = new Task("Receive Mate", null, null, EToolType.None, SkillType.None);
+            Task mateTask = new Task("Receive Mate", ETaskType.Personal, null, EToolType.None);
             
             _kinling.TaskAI.QueueTask(mateTask);
         }

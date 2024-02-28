@@ -16,8 +16,8 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 9fb6416dc90846a4f9895a34e8609804, type: 3}
   Task:
     TaskId: Relocate Item
-    Job: {fileID: 11400000, guid: 0001dad20a3027e41a0001679f75d2fd, type: 2}
-    Requestor: {fileID: 0}
+    TaskType: 11
+    KinlingAssignedToTask: {fileID: 0}
     Materials: []
     RequiredToolType: 0
-    IsEmergancy: 0
+    IsKinlingSpecific: 0

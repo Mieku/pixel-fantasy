@@ -16,15 +16,8 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 9369a0df8d92b2a41af1e6d7be118f65, type: 3}
   Task:
     TaskId: Cancel Command
-    Requestor: {fileID: 0}
-    Payload: 
-    Owner:
-      FamilyName: 
-      UID: 
-      Members: []
-      Buildings: []
-      Furniture: []
-      FamilyJob: {fileID: 0}
-      IsPlayer: 0
+    TaskType: 0
+    KinlingAssignedToTask: {fileID: 0}
     Materials: []
-    TaskType: 13
+    RequiredToolType: 0
+    IsKinlingSpecific: 0

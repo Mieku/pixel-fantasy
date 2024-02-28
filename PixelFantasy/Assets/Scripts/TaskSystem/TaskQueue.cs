@@ -11,11 +11,12 @@ namespace TaskSystem
     {
         [SerializeField] private List<Task> _tasks = new List<Task>();
 
-        public JobData Job;
+        public ETaskType TaskType;
 
-        public TaskQueue(JobData job)
+        public TaskQueue(ETaskType taskType)
         {
-            Job = job;
+            TaskType = taskType;
+            _tasks = new List<Task>();
         }
         
         public void AddTask(Task task)

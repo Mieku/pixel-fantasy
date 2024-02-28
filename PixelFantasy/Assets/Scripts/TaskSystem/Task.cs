@@ -13,29 +13,24 @@ namespace TaskSystem
     public class Task
     {
         public string TaskId;
-        public JobData Job;
+        public ETaskType TaskType;
         public Kinling KinlingAssignedToTask;
         public PlayerInteractable Requestor => _requestor;
         public object Payload;
         public List<Item> Materials;
-        public Queue<Task> SubTasks = new Queue<Task>();
         public Action<Task> OnTaskComplete;
         public Action OnTaskCancel;
         public EToolType RequiredToolType;
-        public SkillType SkillType;
-        public bool IsEmergancy;
         public bool IsKinlingSpecific; // Kinling was selected and the command was assigned via right click
 
         private PlayerInteractable _requestor;
 
-        public Task(string taskID, PlayerInteractable requestor, JobData job, EToolType requiredToolType, SkillType skillType, bool isEmergancy = false)
+        public Task(string taskID, ETaskType taskType, PlayerInteractable requestor, EToolType requiredToolType)
         {
             TaskId = taskID;
+            TaskType = taskType;
             SetRequestor(requestor);
-            Job = job;
-            IsEmergancy = isEmergancy;
             RequiredToolType = requiredToolType;
-            SkillType = skillType;
         }
 
         public void SetRequestor(PlayerInteractable requestor)
@@ -49,9 +44,8 @@ namespace TaskSystem
             return TaskId == otherTask.TaskId
                    && Requestor == otherTask.Requestor
                    && Payload == otherTask.Payload
-                   && IsEmergancy == otherTask.IsEmergancy
+                   && TaskType == otherTask.TaskType
                    && RequiredToolType == otherTask.RequiredToolType
-                   && SkillType == otherTask.SkillType
                    && IsKinlingSpecific == otherTask.IsKinlingSpecific;
         }
 
@@ -60,10 +54,6 @@ namespace TaskSystem
             if (!IsKinlingSpecific)
             {
                 TaskManager.Instance.CancelTask(TaskId, Requestor);
-                foreach (var subTask in SubTasks)
-                {
-                    TaskManager.Instance.CancelTask(subTask.TaskId, subTask.Requestor);
-                }
             }
 
             if (KinlingAssignedToTask != null)
@@ -77,24 +67,6 @@ namespace TaskSystem
         public void Enqueue()
         {
             TaskManager.Instance.AddTask(this);
-        }
-
-        public Task Clone()
-        {
-            Queue<Task> subTasks = new Queue<Task>();
-            foreach (var subTask in SubTasks)
-            {
-                subTasks.Enqueue(subTask);
-            }
-            
-            return new Task(this.TaskId, this.Requestor, this.Job, this.RequiredToolType, this.SkillType, this.IsEmergancy)
-            {
-                Payload = this.Payload,
-                SubTasks = subTasks,
-                IsKinlingSpecific = this.IsKinlingSpecific,
-                RequiredToolType = this.RequiredToolType,
-                SkillType = this.SkillType,
-            };
         }
     }
 }

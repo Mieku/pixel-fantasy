@@ -54,7 +54,7 @@ namespace Systems.Crafting.Scripts
                 {
                     foreach (CraftingOrder order in queue.Orders)
                     {
-                        if (order.CanBeCrafted(building))
+                        if (order.CanBeCrafted())
                         {
                             int orderIndex = queue.Orders.IndexOf(order);
                             queue.Orders.RemoveAt(orderIndex);

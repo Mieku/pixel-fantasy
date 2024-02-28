@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Systems.Skills.Scripts;
+using TaskSystem;
 using UnityEngine;
 
 namespace ScriptableObjects
@@ -9,8 +10,8 @@ namespace ScriptableObjects
     public class CraftedItemData : ItemData
     {
         [TitleGroup("Crafted Data")] public List<FurnitureItemData> RequiredCraftingTableOptions;
-        [TitleGroup("Crafted Data")] public JobData RequiredCraftingJob;
-        [TitleGroup("Crafted Data")] public SkillType ProductionSkillType;
+        [TitleGroup("Crafted Data")] public ETaskType ProductionTaskType;
+        [TitleGroup("Crafted Data")] public EToolType ProductionToolType;
         [TitleGroup("Crafted Data")] public int MinProductionSkill;
         [TitleGroup("Crafted Data")] public float WorkCost;
         [TitleGroup("Crafted Data")] [SerializeField] private List<ItemAmount> _resourceCosts;

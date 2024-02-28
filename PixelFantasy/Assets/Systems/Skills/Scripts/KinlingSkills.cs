@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
+using TaskSystem;
 using UnityEngine;
 
 namespace Systems.Skills.Scripts
@@ -82,21 +83,24 @@ namespace Systems.Skills.Scripts
             return (from skill in AllSkills where skill.SkillType == skillType select skill.Amount).FirstOrDefault();
         }
 
-        public float GetWorkAmount(SkillType skillType)
+        public float GetWorkAmount(ETaskType taskType)
         {
-            float defaultChangePerLevel = 0.1f;
-            if (skillType == SkillType.None)
-            {
-                return 1;
-            }
+            // float defaultChangePerLevel = 0.1f;
+            // if (skillType == SkillType.None)
+            // {
+            //     return 1;
+            // }
+            //
+            // var totalSkill = GetTotalSkill(skillType);
+            // if (totalSkill <= 0)
+            // {
+            //     return 0.5f;
+            // }
+            //
+            // return 1 + (defaultChangePerLevel * totalSkill);
             
-            var totalSkill = GetTotalSkill(skillType);
-            if (totalSkill <= 0)
-            {
-                return 0.5f;
-            }
-
-            return 1 + (defaultChangePerLevel * totalSkill);
+            // TODO: Needs redesign
+            return 1;
         }
 
         public bool DoSkillRoll(SkillType skillType, float baseChance, int minSkillForSuccess = 0)

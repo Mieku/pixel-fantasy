@@ -166,11 +166,6 @@ namespace Systems.Details.Generic_Details.Scripts
                 // Crafter Job
                 string craftMsg = "";
                 
-                if (furniture.FurnitureItemData.RequiredCraftingJob != null)
-                {
-                    craftMsg += furniture.FurnitureItemData.RequiredCraftingJob.JobName;
-                }
-                
                 foreach (var option in furniture.FurnitureItemData.RequiredCraftingTableOptions)
                 {
                     if (!string.IsNullOrEmpty(craftMsg))

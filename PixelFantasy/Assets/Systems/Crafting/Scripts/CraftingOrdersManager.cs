@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Buildings;
+using Items;
 using Managers;
 using ScriptableObjects;
 using UnityEngine;
@@ -14,18 +15,18 @@ namespace Systems.Crafting.Scripts
 
         public void SubmitOrder(CraftingOrder order)
         {
-            CraftingOrderQueue queue = _queues.Find(q => q.Job == order.CraftedItem.RequiredCraftingJob);
+            CraftingOrderQueue queue = _queues.Find(q => q.CraftingTable == order.AssignedTable);
             if (queue == null)
             {
-                queue = new CraftingOrderQueue { Job = order.CraftedItem.RequiredCraftingJob };
+                queue = new CraftingOrderQueue { CraftingTable = order.AssignedTable };
                 _queues.Add(queue);
             }
             queue.Orders.Add(order);
         }
         
-        public CraftingOrder GetNextOrder(JobData job)
+        public CraftingOrder GetNextOrder(CraftingTable table)
         {
-            CraftingOrderQueue queue = _queues.Find(q => q.Job == job);
+            CraftingOrderQueue queue = _queues.Find(q => q.CraftingTable == table);
             if (queue != null && queue.Orders.Count > 0)
             {
                 CraftingOrder order = queue.Orders[0];
@@ -35,14 +36,14 @@ namespace Systems.Crafting.Scripts
             return null;
         }
 
-        public CraftingOrder GetNextCraftableOrder(JobData job, Building building)
+        public CraftingOrder GetNextCraftableOrder(CraftingTable table)
         {
-            CraftingOrderQueue queue = _queues.Find(q => q.Job == job);
+            CraftingOrderQueue queue = _queues.Find(q => q.CraftingTable == table);
             if (queue != null)
             {
                 foreach (CraftingOrder order in queue.Orders)
                 {
-                    if (order.CanBeCrafted(building))
+                    if (order.CanBeCrafted())
                     {
                         int orderIndex = queue.Orders.IndexOf(order);
                         queue.Orders.RemoveAt(orderIndex);
@@ -53,9 +54,9 @@ namespace Systems.Crafting.Scripts
             return null;
         }
         
-        public List<CraftingOrder> GetAllOrders(JobData job)
+        public List<CraftingOrder> GetAllOrders(CraftingTable table)
         {
-            CraftingOrderQueue queue = _queues.Find(q => q.Job == job);
+            CraftingOrderQueue queue = _queues.Find(q => q.CraftingTable == table);
             if (queue != null)
             {
                 return queue.Orders;
@@ -66,7 +67,7 @@ namespace Systems.Crafting.Scripts
         
         public void CancelOrder(CraftingOrder order)
         {
-            CraftingOrderQueue queue = _queues.Find(q => q.Job == order.CraftedItem.RequiredCraftingJob);
+            CraftingOrderQueue queue = _queues.Find(q => q.CraftingTable == order.AssignedTable);
             if (queue != null && queue.Orders.Contains(order))
             {
                 queue.Orders.Remove(order);
@@ -75,7 +76,7 @@ namespace Systems.Crafting.Scripts
 
         public void IncreaseOrderPriority(CraftingOrder order)
         {
-            CraftingOrderQueue queue = _queues.Find(q => q.Job == order.CraftedItem.RequiredCraftingJob);
+            CraftingOrderQueue queue = _queues.Find(q => q.CraftingTable == order.AssignedTable);
             if (queue != null && queue.Orders.Contains(order))
             {
                 int orderIndex = queue.Orders.IndexOf(order);
@@ -87,7 +88,7 @@ namespace Systems.Crafting.Scripts
 
         public void DecreaseOrderPriority(CraftingOrder order)
         {
-            CraftingOrderQueue queue = _queues.Find(q => q.Job == order.CraftedItem.RequiredCraftingJob);
+            CraftingOrderQueue queue = _queues.Find(q => q.CraftingTable == order.AssignedTable);
             if (queue != null && queue.Orders.Contains(order))
             {
                 int orderIndex = queue.Orders.IndexOf(order);
@@ -99,7 +100,7 @@ namespace Systems.Crafting.Scripts
 
         public bool IsFirstInQueue(CraftingOrder order)
         {
-            CraftingOrderQueue queue = _queues.Find(q => q.Job == order.CraftedItem.RequiredCraftingJob);
+            CraftingOrderQueue queue = _queues.Find(q => q.CraftingTable == order.AssignedTable);
             if (queue != null && queue.Orders.Count > 0)
             {
                 return queue.Orders[0] == order;
@@ -109,7 +110,7 @@ namespace Systems.Crafting.Scripts
         
         public bool IsLastInQueue(CraftingOrder order)
         {
-            CraftingOrderQueue queue = _queues.Find(q => q.Job == order.CraftedItem.RequiredCraftingJob);
+            CraftingOrderQueue queue = _queues.Find(q => q.CraftingTable == order.AssignedTable);
             if (queue != null && queue.Orders.Count > 0)
             {
                 return queue.Orders[^1] == order;
@@ -121,7 +122,7 @@ namespace Systems.Crafting.Scripts
     [Serializable]
     public class CraftingOrderQueue
     {
-        public JobData Job;
+        public CraftingTable CraftingTable;
         public List<CraftingOrder> Orders = new List<CraftingOrder>();
     }
 }

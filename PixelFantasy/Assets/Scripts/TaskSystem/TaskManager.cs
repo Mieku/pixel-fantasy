@@ -1,57 +1,41 @@
-using System;
 using System.Collections.Generic;
-using Buildings;
 using Characters;
-using Items;
 using Managers;
-using ScriptableObjects;
-using UnityEngine;
 
 namespace TaskSystem
 {
     public class TaskManager : Singleton<TaskManager>
     {
         public List<TaskQueue> AllTasks = new List<TaskQueue>();
-
-        private TaskQueue GetTaskQueue(JobData job)
+        
+        private TaskQueue GetTaskQueue(ETaskType taskType)
         {
-            var queue = AllTasks.Find(q => q.Job == job);
+            var queue = AllTasks.Find(q => q.TaskType == taskType);
             return queue;
         }
-        
-        public Task GetTask(JobData job)
-        {
-            var queue = GetTaskQueue(job);
-            if (queue == null) return null;
-            
-            return queue.NextTask;
-        }
 
-        public Task RequestTask(Kinling kinling)
+        public Task RequestTask(Kinling kinling, List<ETaskType> priorities)
         {
             // Get the next job, check if the kinling can do it.
             // if not, get the next one until either a task is found or hit the end of available tasks, if so return null
-
-            var job = kinling.Job;
-            var queue = GetTaskQueue(job);
-            if (queue == null)
+            foreach (var taskType in priorities)
             {
-                return null;
-            }
-
-            for (int i = 0; i < queue.Count; i++)
-            {
-                var potentialTask = queue.PeekTask(i);
-                if (potentialTask == null)
+                var queue = GetTaskQueue(taskType);
+                if (queue != null)
                 {
-                    return null;
-                }
-            
-                var taskAction = kinling.TaskAI.FindTaskActionFor(potentialTask);
-                if (taskAction.CanDoTask(potentialTask))
-                {
-                    var task = queue.GetTask(i);
-                    return task;
+                    for (int i = 0; i < queue.Count; i++)
+                    {
+                        var potentialTask = queue.PeekTask(i);
+                        if (potentialTask != null)
+                        {
+                            var taskAction = kinling.TaskAI.FindTaskActionFor(potentialTask);
+                            if (taskAction.CanDoTask(potentialTask))
+                            {
+                                var task = queue.GetTask(i);
+                                return task;
+                            }
+                        }
+                    }
                 }
             }
 
@@ -60,10 +44,10 @@ namespace TaskSystem
         
         public void AddTask(Task task)
         {
-            var queue = GetTaskQueue(task.Job);
+            var queue = GetTaskQueue(task.TaskType);
             if (queue == null)
             {
-                queue = new TaskQueue(task.Job);
+                queue = new TaskQueue(task.TaskType);
                 AllTasks.Add(queue);
             }
 
@@ -86,5 +70,24 @@ namespace TaskSystem
                 queue.CancelRequestorTasks(requestor);
             }
         }
+    }
+    
+    public enum ETaskType
+    {
+        Emergancy = 0,
+        Healing = 1,
+        Construction = 2,
+        AnimalHandling = 3,
+        Cooking = 4,
+        Hunting = 5,
+        Farming = 6,
+        Mining = 7,
+        Harvesting = 8,
+        Forestry = 9,
+        Crafting = 10,
+        Hauling = 11,
+        
+        Personal = 20,
+        Misc = 100
     }
 }

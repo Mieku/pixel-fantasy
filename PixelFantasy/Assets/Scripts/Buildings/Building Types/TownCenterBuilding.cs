@@ -91,7 +91,7 @@ namespace Buildings.Building_Types
 
                 if (CurrentCraftingOrder?.State == CraftingOrder.EOrderState.Queued)
                 {
-                    result = CurrentCraftingOrder?.CreateTask(this, OnOrderComplete);
+                    //result = CurrentCraftingOrder?.CreateTask(this, OnOrderComplete);
                 }
             }
             
@@ -143,7 +143,7 @@ namespace Buildings.Building_Types
         public List<CraftingOrder> QueuedOrders()
         {
             var allOrders = BuildingCraftQueue.GetAllOrders(this);
-            allOrders.AddRange(CraftingOrdersManager.Instance.GetAllOrders(_workersJob));
+            //allOrders.AddRange(CraftingOrdersManager.Instance.GetAllOrders(_workersJob));
 
             return allOrders;
         }
@@ -181,12 +181,12 @@ namespace Buildings.Building_Types
             // Global Orders
             if (result == null && PrioritizeOrdersWithMats)
             {
-                result = CraftingOrdersManager.Instance.GetNextCraftableOrder(_workersJob, this);
+                //result = CraftingOrdersManager.Instance.GetNextCraftableOrder(_workersJob, this);
             }
 
             if (result == null)
             {
-                result = CraftingOrdersManager.Instance.GetNextOrder(_workersJob);
+                //result = CraftingOrdersManager.Instance.GetNextOrder(_workersJob);
             }
 
             GameEvents.Trigger_OnBuildingChanged(this);

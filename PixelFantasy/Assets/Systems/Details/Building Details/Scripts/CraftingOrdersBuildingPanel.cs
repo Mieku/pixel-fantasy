@@ -81,7 +81,7 @@ namespace Systems.Details.Building_Details.Scripts
 
                 if (curCraftingOrder.State == CraftingOrder.EOrderState.Queued)
                 {
-                    _curProdBG.sprite = curCraftingOrder.CanBeCrafted(_building) ? _defaultBG : _redBG;
+                    _curProdBG.sprite = curCraftingOrder.CanBeCrafted() ? _defaultBG : _redBG;
                 }
                 else
                 {
