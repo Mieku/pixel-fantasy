@@ -43,7 +43,7 @@ namespace TaskSystem
         public override bool CanDoTask(Task task)
         {
             if (_ai.Kinling.Partner == null) return false;
-            if (_ai.Kinling.AssignedHome == null) return false;
+            if (_ai.Kinling.AssignedBed == null) return false;
 
             return true;
         }
@@ -96,9 +96,6 @@ namespace TaskSystem
                 if (_bed.IsPartnerInBed(_ai.Kinling))
                 {
                     _taskState = TaskState.Mating;
-                    
-                    // Tell building to go in mating mode
-                    _ai.Kinling.AssignedHome.TriggerMatingMode(true);
                 }
             }
 
@@ -110,7 +107,6 @@ namespace TaskSystem
                 {
                     // When countdown finishes
                     _ai.Kinling.SocialAI.MatingComplete(true);
-                    _ai.Kinling.AssignedHome.TriggerMatingMode(false);
                     ConcludeAction();
                 }
             }
@@ -150,7 +146,6 @@ namespace TaskSystem
                 _bed.ExitBed(_ai.Kinling);
                 _ai.Kinling.kinlingAnimController.SetEyesClosed(false);
                 _ai.Kinling.kinlingAnimController.SetUnitAction(UnitAction.Nothing);
-                _ai.Kinling.AssignedHome.TriggerMatingMode(false);
             }
             
             ResetValues();

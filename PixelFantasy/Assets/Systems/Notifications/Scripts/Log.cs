@@ -96,9 +96,6 @@ namespace Systems.Notifications.Scripts
                 case LogData.ELogPayloadType.Kinling:
                     KinlingsManager.Instance.SelectKinling(_logData.Payload);
                     break;
-                case LogData.ELogPayloadType.Building:
-                    BuildingsManager.Instance.SelectBuilding(_logData.Payload);
-                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -147,7 +144,6 @@ namespace Systems.Notifications.Scripts
         {
             None,
             Kinling,
-            Building,
         }
     }
 }

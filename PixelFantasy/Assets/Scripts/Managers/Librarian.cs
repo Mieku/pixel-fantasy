@@ -21,7 +21,6 @@ namespace Managers
         [SerializeField] private List<GrowingResourceData> _growingResourceLibrary;
         [SerializeField] private List<HairData> _hairLibrary;
         [SerializeField] private List<ItemData> _itemDataLibrary;
-        [SerializeField] private List<Building> _buildingLibrary;
         [SerializeField] private List<Command> _commandLibrary;
         [SerializeField] private List<JobData> _jobLibrary;
         [SerializeField] private List<RaceData> _races;
@@ -141,16 +140,6 @@ namespace Managers
                 Debug.LogError("Unknown Colour: " + colourName);
                 return Color.magenta;
             }
-        }
-
-        public Building GetBuilding(string key)
-        {
-            var result = _buildingLibrary.Find(b => b.BuildingID == key);
-            if (result == null)
-            {
-                Debug.LogError("Unknown Building: " + key);
-            }
-            return result;
         }
 
         public ItemData GetItemData(string key)

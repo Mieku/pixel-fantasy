@@ -140,24 +140,24 @@ namespace Managers
                 }
                 else
                 {
-                    SpawnSoilTile(Helper.ConvertMousePosToGridPos(mousePos), CropData, null);
+                    SpawnSoilTile(Helper.ConvertMousePosToGridPos(mousePos), CropData);
                 }
             }
-            else if (inputState == PlayerInputState.BuildBuilding && _plannedBuilding != null)
-            {
-                if (_plannedBuilding.CheckPlacement())
-                {
-                    var plannedBuilding = _plannedBuilding;
-                    _plannedBuilding = null;
-                    PlayerInputController.Instance.ChangeState(PlayerInputState.None);
-                    plannedBuilding.SetState(Building.BuildingState.Planning);
-                    plannedBuilding.TriggerPlaced();
-                }
-                else
-                {
-                    NotificationManager.Instance.Toast("Invalid Location");
-                }
-            }
+            // else if (inputState == PlayerInputState.BuildBuilding && _plannedBuilding != null)
+            // {
+            //     if (_plannedBuilding.CheckPlacement())
+            //     {
+            //         var plannedBuilding = _plannedBuilding;
+            //         _plannedBuilding = null;
+            //         PlayerInputController.Instance.ChangeState(PlayerInputState.None);
+            //         plannedBuilding.SetState(Building.BuildingState.Planning);
+            //         plannedBuilding.TriggerPlaced();
+            //     }
+            //     else
+            //     {
+            //         NotificationManager.Instance.Toast("Invalid Location");
+            //     }
+            // }
             else if (inputState == PlayerInputState.BuildDoor && _plannedDoor != null)
             {
                 if (_plannedDoor.CheckPlacement())
@@ -198,7 +198,6 @@ namespace Managers
             CancelPlanning();
             PlacementDirection = PlacementDirection.South;
             _plannedFurnitureItemData = null;
-            _plannedBuilding = null;
             _plannedDoor = null;
         }
 
@@ -382,13 +381,13 @@ namespace Managers
             return container;
         }
         
-        private Building _plannedBuilding;
-        public void PlanBuilding(Building building, Action onBuildingPlaced = null)
-        {
-            _plannedBuilding = Instantiate(building, _structureParent);
-            _plannedBuilding.SetState(Building.BuildingState.BeingPlaced);
-            _plannedBuilding.OnBuildingPlaced = onBuildingPlaced;
-        }
+        // private Building _plannedBuilding;
+        // public void PlanBuilding(Building building, Action onBuildingPlaced = null)
+        // {
+        //     _plannedBuilding = Instantiate(building, _structureParent);
+        //     _plannedBuilding.SetState(Building.BuildingState.BeingPlaced);
+        //     _plannedBuilding.OnBuildingPlaced = onBuildingPlaced;
+        // }
         
         private Door _plannedDoor;
         public void PlanDoor(DoorSO doorSO, Action onDoorPlaced = null)
@@ -435,11 +434,11 @@ namespace Managers
             ClearPlannedBlueprint();
             _plannedGrid.Clear();
 
-            if (_plannedBuilding != null)
-            {
-                Destroy(_plannedBuilding.gameObject);
-                _plannedBuilding = null;
-            }
+            // if (_plannedBuilding != null)
+            // {
+            //     Destroy(_plannedBuilding.gameObject);
+            //     _plannedBuilding = null;
+            // }
 
             if (_plannedFurniture != null)
             {
@@ -511,7 +510,7 @@ namespace Managers
                 var soil = _soilPrefab.GetComponent<Crop>();
                 if (Helper.IsGridPosValidToBuild(gridPos, soil.InvalidPlacementTags))
                 {
-                    SpawnSoilTile(gridPos, CropData, null);
+                    SpawnSoilTile(gridPos, CropData);
                 }
             }
 
@@ -521,11 +520,11 @@ namespace Managers
             CancelInput();
         }
 
-        public void SpawnSoilTile(Vector2 spawnPos, CropData cropData, Building building)
+        public void SpawnSoilTile(Vector2 spawnPos, CropData cropData)
         {
             var soil = Instantiate(_soilPrefab, spawnPos, Quaternion.identity);
             soil.transform.SetParent(_flooringParent);
-            soil.GetComponent<Crop>().Init(cropData, building);
+            soil.GetComponent<Crop>().Init(cropData);
         }
     }
 

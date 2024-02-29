@@ -29,7 +29,6 @@ namespace Items
             Planning,
             InProduction,
             Built,
-            Craftable,
             Moving,
         }
 
@@ -54,7 +53,7 @@ namespace Items
         [SerializeField] protected SmartObject _smartObject;
         public PlacementDirection CurrentDirection;
 
-        public EFurnitureState FurnitureState = EFurnitureState.Craftable;
+        public EFurnitureState FurnitureState = EFurnitureState.Built;
         public string CraftersUID;
 
         private SpriteRenderer[] _allSprites;
@@ -64,7 +63,7 @@ namespace Items
         
         private float _remainingWork;
         private bool _isOutlineLocked;
-        protected Building _parentBuilding;
+        // protected Building _parentBuilding;
         private int _durabiliy;
 
         private Color _availableTransparent;
@@ -75,7 +74,7 @@ namespace Items
         private CraftingOrder _craftingOrder;
        
         public FurnitureItemData FurnitureItemData => _furnitureItemData;
-        public Building ParentBuilding => _parentBuilding;
+        // public Building ParentBuilding => _parentBuilding;
 
         protected virtual void Awake()
         {
@@ -100,11 +99,6 @@ namespace Items
 
         private void OnDestroy()
         {
-            if (_parentBuilding != null)
-            {
-                _parentBuilding.DeregisterFurniture(this);
-            }
-            
             FurnitureManager.Instance.DeregisterFurniture(this);
             
             GameEvents.OnLeftClickUp -= GameEvents_OnLeftClickUp;
@@ -113,16 +107,7 @@ namespace Items
 
         protected virtual void Start()
         {
-            // Check if this was placed in a room, if so add it to the room
-            var building = Helper.IsPositionInBuilding(transform.position);
-            if (building != null)
-            {
-                AssignBuilding(building);
-            }
-            else
-            {
-                AssignState(FurnitureState);
-            }
+            AssignState(FurnitureState);
         }
         
         public bool IsAvailable
@@ -135,14 +120,7 @@ namespace Items
                 }
                 else
                 {
-                    if (_parentBuilding != null)
-                    {
-                        return _parentBuilding.State == Building.BuildingState.Built;
-                    }
-                    else
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
         }
@@ -293,9 +271,6 @@ namespace Items
                     break;
                 case EFurnitureState.Built:
                     break;
-                case EFurnitureState.Craftable:
-                    //Craftable_Exit();
-                    break;
                 case EFurnitureState.Moving:
                     Moving_Exit();
                     break;
@@ -319,9 +294,6 @@ namespace Items
                     break;
                 case EFurnitureState.Built:
                     Built_Enter();
-                    break;
-                case EFurnitureState.Craftable:
-                    Craftable_Enter();
                     break;
                 case EFurnitureState.Moving:
                     Moving_Enter();
@@ -355,12 +327,6 @@ namespace Items
             {
                 bool result = Helper.IsGridPosValidToBuild(useageMarker.position, _furnitureItemData.InvalidPlacementTags);
 
-                // Make sure that if the position is indoors if the furniture is indoors and vice versa
-                if (result && _parentBuilding != null)
-                {
-                    result = _parentBuilding.IsPositionInInterior(useageMarker.position);
-                }
-
                 if (result)
                 {
                     potentialPositions.Add(useageMarker);
@@ -391,35 +357,8 @@ namespace Items
             return selectedDistance.position;
         }
 
-        public void ShowCraftable(bool isShown)
-        {
-            if(FurnitureState != EFurnitureState.Craftable) return;
-            
-            if (isShown)
-            {
-                Show(true);
-                // If it is possible to craft, show the item in transparent. When clicked add an order to craft it
-                if (CanBeCrafted())
-                {
-                    ColourArt(_availableTransparent);
-                }
-                else // If it is not possible to craft, show the item in red transparent. When clicked, explain why
-                {
-                    ColourArt(_unavailableTransparent);
-                }
-            }
-            else
-            {
-                Show(false);
-            }
-        }
-
         public bool CanBeCrafted()
         {
-            // Check if the required crafter exists
-            // var requiredJob = _furnitureItemData.RequiredCraftingJob;
-            // if (!KinlingsManager.Instance.AnyUnitHaveJob(requiredJob)) return false;
-            
             // Check if crafting table exits
             foreach (var option in _furnitureItemData.RequiredCraftingTableOptions)
             {
@@ -431,19 +370,6 @@ namespace Items
 
             return false;
         }
-
-        private void Craftable_Enter()
-        {
-            
-        }
-
-        // private void Craftable_Exit()
-        // {
-        //     if (_parentBuilding != null)
-        //     {
-        //         _parentBuilding.DeregisterCraftableFurniture(this);
-        //     }
-        // }
 
         private Vector2 _beforeMovedPosition;
         private void Moving_Enter()
@@ -569,26 +495,6 @@ namespace Items
             
             if(_smartObject != null) _smartObject.gameObject.SetActive(true);
         }
-
-        public void AssignBuilding(Building building)
-        {
-            if (_parentBuilding == building) return;
-            
-            if (building == null)
-            {
-                Debug.LogError($"Attmepted to assign {_furnitureItemData.ItemName} to null building");
-                return;
-            }
-
-            _parentBuilding = building;
-
-            building.RegisterFurniture(this);
-
-            // if (FurnitureState == EFurnitureState.Craftable)
-            // {
-            //     building.RegisterCraftableFurniture(this);
-            // }
-        }
         
         private void Update()
         {
@@ -666,11 +572,6 @@ namespace Items
         public virtual bool CheckPlacement()
         {
             bool result = Helper.IsGridPosValidToBuild(transform.position, _furnitureItemData.InvalidPlacementTags);
-
-            if (result && _parentBuilding != null)
-            {
-                result = _parentBuilding.IsColliderInInterior(_placementCollider);
-            }
 
             // Check the useage markers
             if (_useageMarkers != null)
@@ -754,22 +655,21 @@ namespace Items
             return true;
         }
 
-        public bool CanBeOrdered()
-        {
-            if (FurnitureState != EFurnitureState.Craftable) return false;
-            if (!CanBeCrafted()) return false;
-
-
-            return true;
-        }
-
-        public void Order()
-        {
-            if (FurnitureState == EFurnitureState.Craftable)
-            {
-                SetState(EFurnitureState.InProduction);
-            }
-        }
+        // public bool CanBeOrdered()
+        // {
+        //     if (!CanBeCrafted()) return false;
+        //
+        //
+        //     return true;
+        // }
+        //
+        // public void Order()
+        // {
+        //     if (FurnitureState == EFurnitureState.Craftable)
+        //     {
+        //         SetState(EFurnitureState.InProduction);
+        //     }
+        // }
 
         public void Trigger_Move()
         {
@@ -806,9 +706,6 @@ namespace Items
                         result += " (Ordered)";
                         break;
                     case EFurnitureState.Built:
-                        break;
-                    case EFurnitureState.Craftable:
-                        result += " (Blueprint)";
                         break;
                     case EFurnitureState.Moving:
                         break;

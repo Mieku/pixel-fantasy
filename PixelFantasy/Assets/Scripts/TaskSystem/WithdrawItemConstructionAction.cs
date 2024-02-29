@@ -50,24 +50,7 @@ namespace TaskSystem
                 construction.AddToIncomingItems(_targetItem);
             }
 
-            var building = _requestor as Building;
-            if (building != null)
-            {
-                var pos = building.UseagePosition(_ai.Kinling.transform.position);
-                if (pos != null)
-                {
-                    _constructionPos = (Vector2)pos;
-                }
-                else
-                {
-                    _constructionPos = _requestor.transform.position;
-                }
-            }
-            else
-            {
-                _constructionPos = _requestor.transform.position;
-            }
-            
+            _constructionPos = _requestor.transform.position;
         }
 
         public override void DoAction()

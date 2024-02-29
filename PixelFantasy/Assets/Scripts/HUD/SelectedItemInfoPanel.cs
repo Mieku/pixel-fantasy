@@ -20,8 +20,8 @@ namespace HUD
         [Header("Kinling Details")] 
         [SerializeField] private KinlingDetailsUI _kinlingDetails;
 
-        [Header("Building Details")] 
-        [SerializeField] private BuildingDetails _buildingDetails;
+        // [Header("Building Details")] 
+        // [SerializeField] private BuildingDetails _buildingDetails;
         
         [Header("Notification Log")]
         [SerializeField] private NotificationLogger _notificationLogger;
@@ -39,27 +39,27 @@ namespace HUD
             _kinlingDetails.Show(kinling);
         }
 
-        public void ShowBuildingDetails(Building building, bool openConstructionTab = false)
-        {
-            HideAllDetails();
-            _notificationLogger.Hide();
-
-            if (openConstructionTab)
-            {
-                _buildingDetails.Show(building, BuildingDetails.EDetailsTab.Construction);
-            }
-            else
-            {
-                _buildingDetails.Show(building);
-            }
-            
-        }
+        // public void ShowBuildingDetails(Building building, bool openConstructionTab = false)
+        // {
+        //     HideAllDetails();
+        //     _notificationLogger.Hide();
+        //
+        //     if (openConstructionTab)
+        //     {
+        //         _buildingDetails.Show(building, BuildingDetails.EDetailsTab.Construction);
+        //     }
+        //     else
+        //     {
+        //         _buildingDetails.Show(building);
+        //     }
+        //     
+        // }
         
         public void HideAllDetails()
         {
             _genericDetails.Hide();
             _kinlingDetails.Hide();
-            _buildingDetails.Hide();
+            // _buildingDetails.Hide();
             
             _notificationLogger.Show();
         }

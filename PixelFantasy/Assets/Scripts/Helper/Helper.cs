@@ -428,20 +428,20 @@ public static class Helper
         return Quaternion.FromToRotation(Vector3.up, to - from).eulerAngles.z;
     }
 
-    public static Building IsPositionInBuilding(Vector2 worldPos)
-    {
-        var gos = GetGameObjectsOnTile(worldPos, "Building Interior");
-        foreach (var go in gos)
-        {
-            var building = go.GetComponentInParent<Building>(true);
-            if (building != null)
-            {
-                return building;
-            }
-        }
-
-        return null;
-    }
+    // public static Building IsPositionInBuilding(Vector2 worldPos)
+    // {
+    //     var gos = GetGameObjectsOnTile(worldPos, "Building Interior");
+    //     foreach (var go in gos)
+    //     {
+    //         var building = go.GetComponentInParent<Building>(true);
+    //         if (building != null)
+    //         {
+    //             return building;
+    //         }
+    //     }
+    //
+    //     return null;
+    // }
     
     public static List<WeightedObject<T>> GenerateCumulativeDistribution<T>(List<WeightedObject<T>> items)
     {

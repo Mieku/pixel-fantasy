@@ -12,9 +12,6 @@ namespace HUD
     {
         [SerializeField] private TextMeshProUGUI _unitName;
         [SerializeField] private TextMeshProUGUI _currentAction;
-        [SerializeField] private Image _jobIcon;
-        [SerializeField] private TextMeshProUGUI _jobName;
-        [SerializeField] private Image _jobBarFill;
         [SerializeField] private GameObject _root;
 
         private Kinling _kinling;
@@ -30,15 +27,6 @@ namespace HUD
             _root.SetActive(true);
             
             _unitName.text = kinling.FullName;
-            _jobName.text = kinling.JobName;
-            if (_kinling.Job != null && _kinling.Job.JobIcon != null)
-            {
-                _jobIcon.sprite = _kinling.Job.JobIcon;
-            }
-            else
-            {
-                _jobIcon.sprite = Librarian.Instance.GetSprite("Question Mark");
-            }
         }
 
         public void Hide()

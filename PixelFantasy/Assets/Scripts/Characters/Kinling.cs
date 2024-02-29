@@ -40,32 +40,32 @@ namespace Characters
         public string FirstName, LastName;
         public Schedule Schedule = new Schedule();
 
-        private HouseholdBuilding _assignedHome;
-        public HouseholdBuilding AssignedHome
-        {
-            get => _assignedHome;
-            set
-            {
-                _assignedHome = value;
-                GameEvents.Trigger_OnCoinsIncomeChanged();
-            }
-        }
+        // private HouseholdBuilding _assignedHome;
+        // public HouseholdBuilding AssignedHome
+        // {
+        //     get => _assignedHome;
+        //     set
+        //     {
+        //         _assignedHome = value;
+        //         GameEvents.Trigger_OnCoinsIncomeChanged();
+        //     }
+        // }
 
-        public Building AssignedWorkplace;
-        public JobData Job;
-
-        public string JobName
-        {
-            get
-            {
-                if (Job == null)
-                {
-                    return "Unemployed";
-                }
-
-                return Job.JobName;
-            }
-        }
+        // public Building AssignedWorkplace;
+        // public JobData Job;
+        //
+        // public string JobName
+        // {
+        //     get
+        //     {
+        //         if (Job == null)
+        //         {
+        //             return "Unemployed";
+        //         }
+        //
+        //         return Job.JobName;
+        //     }
+        // }
 
         public string FullName => FirstName + " " + LastName;
         
@@ -87,7 +87,7 @@ namespace Characters
         public ClickObject ClickObject;
         public KinlingNeeds Needs;
         
-        private Building _insideBuidling;
+        // private Building _insideBuidling;
         private BedFurniture _bed;
         private KinlingData _kinlingData;
         private ChairFurniture _currentChair;
@@ -132,11 +132,6 @@ namespace Characters
             _traits = kinlingData.Traits;
             
             Skills.Init(kinlingData.Talents);
-
-            if (kinlingData.Job != null)
-            {
-                Job = kinlingData.Job;
-            }
             
             _mood.Init();
 
@@ -179,17 +174,7 @@ namespace Characters
 
         public int DailyIncome()
         {
-            if (AssignedHome == null)
-            {
-                return 0;
-            }
-
             return _dailyCoinsIncome;
-        }
-        
-        public void SetInsideBuilding(Building building)
-        {
-            _insideBuidling = building;
         }
 
         public void SetSeated(ChairFurniture chair)
@@ -199,11 +184,6 @@ namespace Characters
 
         public bool IsSeated => _currentChair != null;
         public ChairFurniture GetChair => _currentChair;
-
-        public bool IsIndoors()
-        {
-            return _insideBuidling != null;
-        }
 
         public void AssignAndLockLayerOrder(int orderInLayer)
         {

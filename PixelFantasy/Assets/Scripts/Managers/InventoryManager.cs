@@ -166,39 +166,39 @@ namespace Managers
             }
         }
         
-        public Item ClaimItemBuilding(ItemData itemData, IBuilding building)
-        {
-            var allBuildingStorage = building.GetBuildingStorages();
-            foreach (var storage in allBuildingStorage)
-            {
-                if (storage.IsAvailable 
-                    && storage.AmountCanBeWithdrawn(itemData) > 0)
-                {
-                    return storage.SetClaimed(itemData);
-                }
-            }
-
-            return null;
-        }
-
-        public bool HasToolTypeBuilding(EToolType toolType, Building building)
-        {
-            var allBuildingStorage = building.GetBuildingStorages();
-            foreach (var storage in allBuildingStorage)
-            {
-                var storedItems = storage.AvailableInventory;
-                foreach (var kvp in storedItems)
-                {
-                    var tool = kvp.Key as ToolData;
-                    if (tool != null && tool.ToolType == toolType && kvp.Value.Any())
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
-        }
+        // public Item ClaimItemBuilding(ItemData itemData, IBuilding building)
+        // {
+        //     var allBuildingStorage = building.GetBuildingStorages();
+        //     foreach (var storage in allBuildingStorage)
+        //     {
+        //         if (storage.IsAvailable 
+        //             && storage.AmountCanBeWithdrawn(itemData) > 0)
+        //         {
+        //             return storage.SetClaimed(itemData);
+        //         }
+        //     }
+        //
+        //     return null;
+        // }
+        //
+        // public bool HasToolTypeBuilding(EToolType toolType, Building building)
+        // {
+        //     var allBuildingStorage = building.GetBuildingStorages();
+        //     foreach (var storage in allBuildingStorage)
+        //     {
+        //         var storedItems = storage.AvailableInventory;
+        //         foreach (var kvp in storedItems)
+        //         {
+        //             var tool = kvp.Key as ToolData;
+        //             if (tool != null && tool.ToolType == toolType && kvp.Value.Any())
+        //             {
+        //                 return true;
+        //             }
+        //         }
+        //     }
+        //
+        //     return false;
+        // }
 
         public bool HasToolTypeGlobal(EToolType toolType)
         {
@@ -221,35 +221,35 @@ namespace Managers
             return false;
         }
 
-        public Item ClaimToolTypeBuilding(EToolType toolType, Building building)
-        {
-            List<ToolData> potentialItems = new List<ToolData>();
-            
-            var allBuildingStorage = building.GetBuildingStorages();
-            foreach (var storage in allBuildingStorage)
-            {
-                var storedItems = storage.AvailableInventory;
-                foreach (var kvp in storedItems)
-                {
-                    var tool = kvp.Key as ToolData;
-                    if (tool != null && tool.ToolType == toolType && kvp.Value.Any())
-                    {
-                        potentialItems.Add(tool);
-                    }
-                }
-            }
-            
-            // Sort by tier
-            var sortedTools = potentialItems.OrderByDescending(toolData => toolData.TierLevel).ToList();
-            if (sortedTools.Any())
-            {
-                var bestToolData = sortedTools.First();
-                var claimedTool = ClaimItemBuilding(bestToolData, (IBuilding)building);
-                return claimedTool;
-            }
-            
-            return null;
-        }
+        // public Item ClaimToolTypeBuilding(EToolType toolType, Building building)
+        // {
+        //     List<ToolData> potentialItems = new List<ToolData>();
+        //     
+        //     var allBuildingStorage = building.GetBuildingStorages();
+        //     foreach (var storage in allBuildingStorage)
+        //     {
+        //         var storedItems = storage.AvailableInventory;
+        //         foreach (var kvp in storedItems)
+        //         {
+        //             var tool = kvp.Key as ToolData;
+        //             if (tool != null && tool.ToolType == toolType && kvp.Value.Any())
+        //             {
+        //                 potentialItems.Add(tool);
+        //             }
+        //         }
+        //     }
+        //     
+        //     // Sort by tier
+        //     var sortedTools = potentialItems.OrderByDescending(toolData => toolData.TierLevel).ToList();
+        //     if (sortedTools.Any())
+        //     {
+        //         var bestToolData = sortedTools.First();
+        //         var claimedTool = ClaimItemBuilding(bestToolData, (IBuilding)building);
+        //         return claimedTool;
+        //     }
+        //     
+        //     return null;
+        // }
 
         public Item ClaimToolTypeGlobal(EToolType toolType)
         {

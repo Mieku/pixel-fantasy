@@ -161,36 +161,36 @@ namespace Systems.Details.Generic_Details.Scripts
             // }
             
             // Order Details
-            if (furniture.FurnitureState == Furniture.EFurnitureState.Craftable)
-            {
-                // Crafter Job
-                string craftMsg = "";
-                
-                foreach (var option in furniture.FurnitureItemData.RequiredCraftingTableOptions)
-                {
-                    if (!string.IsNullOrEmpty(craftMsg))
-                        craftMsg += ", ";
-
-                    craftMsg += $"{option.ItemName} ";
-                }
-
-                if (!string.IsNullOrEmpty(craftMsg))
-                {
-                    if (!furniture.CanBeCrafted())
-                    {
-                        craftMsg = $"<color=red>{craftMsg}</color>";
-                    }
-                    
-                    var requiresEntry = Instantiate(_entryTitledTextDisplayPrefab, _contentLayout);
-                    requiresEntry.Init("Requires", craftMsg);
-                    _displayedEntries.Add(requiresEntry.gameObject);
-                }
-                
-                var craftCosts = furniture.FurnitureItemData.GetResourceCosts();
-                var resourceEntry = Instantiate(_entryResourcesDisplayPrefab, _contentLayout);
-                resourceEntry.Init(craftCosts, "Materials", false);
-                _displayedEntries.Add(resourceEntry.gameObject);
-            }
+            // if (furniture.FurnitureState == Furniture.EFurnitureState.Craftable)
+            // {
+            //     // Crafter Job
+            //     string craftMsg = "";
+            //     
+            //     foreach (var option in furniture.FurnitureItemData.RequiredCraftingTableOptions)
+            //     {
+            //         if (!string.IsNullOrEmpty(craftMsg))
+            //             craftMsg += ", ";
+            //
+            //         craftMsg += $"{option.ItemName} ";
+            //     }
+            //
+            //     if (!string.IsNullOrEmpty(craftMsg))
+            //     {
+            //         if (!furniture.CanBeCrafted())
+            //         {
+            //             craftMsg = $"<color=red>{craftMsg}</color>";
+            //         }
+            //         
+            //         var requiresEntry = Instantiate(_entryTitledTextDisplayPrefab, _contentLayout);
+            //         requiresEntry.Init("Requires", craftMsg);
+            //         _displayedEntries.Add(requiresEntry.gameObject);
+            //     }
+            //     
+            //     var craftCosts = furniture.FurnitureItemData.GetResourceCosts();
+            //     var resourceEntry = Instantiate(_entryResourcesDisplayPrefab, _contentLayout);
+            //     resourceEntry.Init(craftCosts, "Materials", false);
+            //     _displayedEntries.Add(resourceEntry.gameObject);
+            // }
             
             // Storage
             var storage = furniture as Storage;
@@ -220,15 +220,15 @@ namespace Systems.Details.Generic_Details.Scripts
             var furniture = _clickableObject as Furniture;
             if (furniture == null) return;
 
-            if (furniture.FurnitureState == Furniture.EFurnitureState.Craftable)
-            {
-                Sprite orderIcon = Librarian.Instance.GetSprite("Order Icon");
-                void OnPressed()
-                {
-                    furniture.Order();
-                }
-                CreateOrderButton(orderIcon, OnPressed, false, "Order");
-            }
+            // if (furniture.FurnitureState == Furniture.EFurnitureState.Craftable)
+            // {
+            //     Sprite orderIcon = Librarian.Instance.GetSprite("Order Icon");
+            //     void OnPressed()
+            //     {
+            //         furniture.Order();
+            //     }
+            //     CreateOrderButton(orderIcon, OnPressed, false, "Order");
+            // }
             
             if (furniture.FurnitureState != Furniture.EFurnitureState.InProduction)
             {

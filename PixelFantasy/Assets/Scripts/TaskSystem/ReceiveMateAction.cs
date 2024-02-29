@@ -78,7 +78,7 @@ namespace TaskSystem
             if (_taskState == TaskState.InBed)
             {
                 // Check if partner is in bed
-                if (_ai.Kinling.AssignedHome.InMatingMode)
+                if (_bed.IsPartnerInBed(_ai.Kinling))
                 {
                     _taskState = TaskState.Mating;
                 }
@@ -87,7 +87,7 @@ namespace TaskSystem
             if (_taskState == TaskState.Mating)
             {
                 // Watch household
-                if (!_ai.Kinling.AssignedHome.InMatingMode)
+                if (!_bed.IsPartnerInBed(_ai.Kinling))
                 {
                     _ai.Kinling.SocialAI.MatingComplete(true);
                     ConcludeAction();

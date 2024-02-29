@@ -14,7 +14,6 @@ namespace ScriptableObjects
         [TitleGroup("Equipment")] public GearType Type;
         public bool CanBeDyed;
         [ShowIf("CanBeDyed")] public DyePaletteData DefaultDyePalette;
-        [Tooltip("Can be left empty for no requirement")] public JobData RequiredJob;
         public int TierLevel;
         public List<Skill> SkillStats = new List<Skill>();
         

@@ -83,10 +83,10 @@ namespace Systems.Currency.Scripts
                 incomeAmount += kinling.DailyIncome();
             }
             
-            foreach (var building in BuildingsManager.Instance.AllBuildings)
-            {
-                incomeAmount += building.DailyUpkeep();
-            }
+            // foreach (var building in BuildingsManager.Instance.AllBuildings)
+            // {
+            //     incomeAmount += building.DailyUpkeep();
+            // }
 
             return incomeAmount;
         }
@@ -99,13 +99,13 @@ namespace Systems.Currency.Scripts
                 kinlingIncome += kinling.DailyIncome();
             }
 
-            int buildingUpkeep = 0;
-            foreach (var building in BuildingsManager.Instance.AllBuildings)
-            {
-                buildingUpkeep += building.DailyUpkeep();
-            }
+            // int buildingUpkeep = 0;
+            // foreach (var building in BuildingsManager.Instance.AllBuildings)
+            // {
+            //     buildingUpkeep += building.DailyUpkeep();
+            // }
 
-            string result = $"Income: +{kinlingIncome}\nBuilding Upkeep: {buildingUpkeep}";
+            string result = $"Income: +{kinlingIncome}";
             return result;
         }
 

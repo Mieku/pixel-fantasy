@@ -45,29 +45,8 @@ namespace TaskSystem
                 {
                     if (!_ai.HasToolTypeEquipped(task.RequiredToolType))
                     {
-                        bool foundTool = false;
-                        
-                        if (_ai.Kinling.AssignedWorkplace != null)
-                        {
-                            foundTool = InventoryManager.Instance.HasToolTypeBuilding(task.RequiredToolType,
-                                _ai.Kinling.AssignedWorkplace);
-                        }
-                        
-                        if (!foundTool && _ai.Kinling.AssignedHome != null)
-                        {
-                            foundTool = InventoryManager.Instance.HasToolTypeBuilding(task.RequiredToolType,
-                                _ai.Kinling.AssignedHome);
-                        }
-
-                        if (!foundTool)
-                        {
-                            foundTool = InventoryManager.Instance.HasToolTypeGlobal(task.RequiredToolType);
-                        }
-
-                        if (!foundTool)
-                        {
-                            return false;
-                        }
+                        bool foundTool = InventoryManager.Instance.HasToolTypeGlobal(task.RequiredToolType);
+                        return foundTool;
                     }
                 }
                 
@@ -102,24 +81,7 @@ namespace TaskSystem
                 return;
             }
 
-            Item claimedTool = null;
-            // Find the tool
-            if (_ai.Kinling.AssignedWorkplace != null)
-            {
-                claimedTool = InventoryManager.Instance.ClaimToolTypeBuilding(_task.RequiredToolType,
-                    _ai.Kinling.AssignedWorkplace);
-            }
-            
-            if (claimedTool == null && _ai.Kinling.AssignedHome != null)
-            {
-                claimedTool = InventoryManager.Instance.ClaimToolTypeBuilding(_task.RequiredToolType,
-                    _ai.Kinling.AssignedHome);
-            }
-
-            if (claimedTool == null)
-            {
-                claimedTool = InventoryManager.Instance.ClaimToolTypeGlobal(_task.RequiredToolType);
-            }
+            Item claimedTool = InventoryManager.Instance.ClaimToolTypeGlobal(_task.RequiredToolType);
 
             if (claimedTool == null)
             {
@@ -162,25 +124,7 @@ namespace TaskSystem
                         return;
                     }
                     
-                    Storage storageToPlaceOldItem = null;
-                    // Try put tool in workplace
-                    if (_ai.Kinling.AssignedWorkplace != null)
-                    {
-                        storageToPlaceOldItem = _ai.Kinling.AssignedWorkplace.FindBuildingStorage(droppedItem.GetItemData());
-                    }
-                    
-                    // Try put tool in home
-                    if (storageToPlaceOldItem == null && _ai.Kinling.AssignedHome != null)
-                    {
-                        storageToPlaceOldItem = _ai.Kinling.AssignedHome.FindBuildingStorage(droppedItem.GetItemData());
-                    }
-                    
-                    // Try put tool in global
-                    if (storageToPlaceOldItem == null)
-                    {
-                        storageToPlaceOldItem =
-                            InventoryManager.Instance.FindAvailableGlobalStorage(droppedItem.GetItemData());
-                    }
+                    Storage storageToPlaceOldItem = InventoryManager.Instance.FindAvailableGlobalStorage(droppedItem.GetItemData());
                     
                     if (storageToPlaceOldItem == null)
                     {

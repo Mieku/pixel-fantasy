@@ -15,21 +15,6 @@ namespace Managers
         private List<Kinling> _allKinlings = new List<Kinling>();
 
         public List<Kinling> AllKinlings => _allKinlings;
-        public List<Kinling> UnemployedKinlings => _allKinlings.Where(kinling => kinling.AssignedWorkplace == null).ToList();
-        public List<Kinling> HomelessKinlings => _allKinlings.Where(kinling => kinling.AssignedHome == null).ToList();
-
-        public bool AnyUnitHaveJob(JobData jobData)
-        {
-            foreach (var kinling in _allKinlings)
-            {
-                if (kinling.Job == jobData)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
         
         public List<Kinling> GetAllUnitsInRadius(Vector2 startPoint, float radius)
         {
@@ -127,14 +112,6 @@ namespace Managers
             
             mother.Children.Add(child);
             father.Children.Add(child);
-
-            var home = mother.AssignedHome;
-            if (home == null)
-            {
-                Debug.LogError($"Child was born without home??");
-            }
-
-            home.AssignChild(child);
             
             return child;
         }

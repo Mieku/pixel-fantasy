@@ -1,11 +1,9 @@
 using System.Collections.Generic;
-using Buildings;
 using Controllers;
 using DataPersistence;
 using Items;
 using Managers;
 using ScriptableObjects;
-using Systems.Skills.Scripts;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -40,8 +38,6 @@ namespace Zones
         private float _remainingPlantingWork;
         private float _remainingWaterWork;
         private float _remainingHarvestWork;
-
-        private Building _building;
         
         public List<string> InvalidPlacementTags
         {
@@ -63,7 +59,7 @@ namespace Zones
                 TilemapController.Instance.GetTilemap(TilemapLayer.Dirt);
         }
 
-        public void Init(CropData cropData, Building linkedBuilding)
+        public void Init(CropData cropData)
         {
             _cropData = cropData;
             _soilHoleRenderer.gameObject.SetActive(false);
@@ -78,8 +74,6 @@ namespace Zones
             _remainingPlantingWork = GetPlantingWorkAmount();
             _remainingWaterWork = GetWaterWorkAmount();
             _remainingHarvestWork = GetHarvestWorkAmount();
-
-            _building = linkedBuilding;
         }
 
         public float GetTillWorkAmount()

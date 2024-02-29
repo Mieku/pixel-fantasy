@@ -10,7 +10,6 @@ namespace Systems.Buildings.Scripts
         [field: SerializeField] public string DoorName { get; protected set; }
         [field: SerializeField] public Sprite Icon { get; protected set; }
         [field: SerializeField] public Door DoorPrefab { get; protected set; }
-        [field: SerializeField] public JobData RequiredJob { get; protected set; }
         [field: SerializeField] public Sprite HorizontalDoorframe { get; protected set; }
         [field: SerializeField] public Sprite HorizontalDoormat { get; protected set; }
         [field: SerializeField] public Sprite VerticalDoorframe { get; protected set; }

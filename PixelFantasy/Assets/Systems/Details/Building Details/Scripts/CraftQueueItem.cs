@@ -1,5 +1,6 @@
 using Buildings;
 using HUD.Tooltip;
+using Items;
 using Managers;
 using Systems.Crafting.Scripts;
 using UnityEngine;
@@ -18,12 +19,12 @@ namespace Systems.Details.Building_Details.Scripts
         [SerializeField] private Sprite _redBG;
 
         private CraftingOrder _order;
-        private ICraftingBuilding _building;
+        private CraftingTable _craftingTable;
 
-        public void Init(CraftingOrder order, ICraftingBuilding building, bool isFirst, bool isLast)
+        public void Init(CraftingOrder order, CraftingTable craftingTable, bool isFirst, bool isLast)
         {
             _order = order;
-            _building = building;
+            _craftingTable = craftingTable;
 
             _itemIcon.sprite = _order.CraftedItem.ItemSprite;
             _tooltip.Header = _order.CraftedItem.ItemName;
@@ -40,13 +41,13 @@ namespace Systems.Details.Building_Details.Scripts
         public void OnIncreasePressed()
         {
             CraftingOrdersManager.Instance.IncreaseOrderPriority(_order);
-            GameEvents.Trigger_OnBuildingChanged((Building)_building);
+            // GameEvents.Trigger_OnBuildingChanged((Building)_building);
         }
 
         public void OnDecreasePressed()
         {
             CraftingOrdersManager.Instance.DecreaseOrderPriority(_order);
-            GameEvents.Trigger_OnBuildingChanged((Building)_building);
+            // GameEvents.Trigger_OnBuildingChanged((Building)_building);
         }
     }
 }

@@ -28,19 +28,7 @@ namespace Items
         public bool CanBeEquippedByUnit(Kinling kinling)
         {
             if (Durability <= 0) return false;
-            if (GearData.RequiredJob != null)
-            {
-                var unitJobData = kinling.Job;
-                if (GearData.RequiredJob == unitJobData)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-
+           
             return true;
         }
     }

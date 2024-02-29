@@ -59,15 +59,15 @@ namespace Popups.Kinling_Info_Popup
         private void Refresh()
         {
             _kinlingNameDisp.text = _selectedKinling.FullName;
-            _jobName.text = _selectedKinling.JobName;
-            if (_selectedKinling.Job.JobIcon != null)
-            {
-                _jobIcon.sprite = _selectedKinling.Job.JobIcon;
-            }
-            else
-            {
-                _jobIcon.sprite = Librarian.Instance.GetSprite("Question Mark");
-            }
+            // _jobName.text = _selectedKinling.JobName;
+            // if (_selectedKinling.Job.JobIcon != null)
+            // {
+            //     _jobIcon.sprite = _selectedKinling.Job.JobIcon;
+            // }
+            // else
+            // {
+            //     _jobIcon.sprite = Librarian.Instance.GetSprite("Question Mark");
+            // }
 
             // var percentExp = _selectedUnit.GetUnitState().CurrentJob.CurrentLevelProgress();
             // _jobExpFill.fillAmount = percentExp;

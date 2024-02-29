@@ -10,7 +10,6 @@ namespace TaskSystem
     public class CraftItemAction : TaskAction // ID: Craft Item
     {
          private CraftedItemData _itemToCraft;
-        private ICraftingBuilding _craftBuilding;
         private CraftingTable _craftingTable;
         private List<Item> _materials;
         private ETaskState _state;
@@ -33,8 +32,7 @@ namespace TaskSystem
         public override void PrepareAction(Task task)
         {
             _itemToCraft = Librarian.Instance.GetItemData((string)task.Payload) as CraftedItemData;
-            _craftBuilding = (ICraftingBuilding)task.Requestor;
-            _craftingTable = _craftBuilding.FindCraftingTable(_itemToCraft);
+            _craftingTable = (CraftingTable)task.Requestor;
             _materials = task.Materials;
             _state = ETaskState.ClaimTable;
         }
@@ -82,17 +80,13 @@ namespace TaskSystem
 
             if (_state == ETaskState.DeliverItem)
             {
-                _receivingStorage = _craftBuilding.FindBuildingStorage(_targetItem.GetItemData());
+                _receivingStorage = InventoryManager.Instance.GetAvailableStorage(_targetItem, true);
                 if (_receivingStorage == null)
                 {
-                    _receivingStorage = InventoryManager.Instance.GetAvailableStorage(_targetItem, true);
-                    if (_receivingStorage == null)
-                    {
-                        // THROW IT ON THE GROUND!
-                        _ai.DropCarriedItem();
-                        ConcludeAction();
-                        return;
-                    }
+                    // THROW IT ON THE GROUND!
+                    _ai.DropCarriedItem();
+                    ConcludeAction();
+                    return;
                 }
                 
                 _receivingStorage.SetIncoming(_targetItem);

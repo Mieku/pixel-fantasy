@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Buildings;
-using Buildings.Building_Types;
 using Managers;
 using ScriptableObjects;
 using UnityEngine;
@@ -22,17 +20,7 @@ namespace Items
         {
             get
             {
-                if (_parentBuilding == null)
-                {
-                    return true;
-                } 
-                
-                if (_parentBuilding as StockpileBuilding != null || _parentBuilding as TownCenterBuilding != null)
-                {
-                    return true;
-                }
-
-                return false;
+                return true;
             }
         }
         
@@ -53,10 +41,6 @@ namespace Items
         {
             InventoryManager.Instance.AddStorage(this);
             GameEvents.Trigger_RefreshInventoryDisplay();
-            if (_parentBuilding != null)
-            {
-                GameEvents.Trigger_OnBuildingChanged(_parentBuilding);
-            }
 
             base.Built_Enter();
         }
@@ -178,10 +162,6 @@ namespace Items
             Incoming.Remove(item);
             
             GameEvents.Trigger_RefreshInventoryDisplay();
-            if (_parentBuilding != null)
-            {
-                GameEvents.Trigger_OnBuildingChanged(_parentBuilding);
-            }
         }
 
         /// <summary>
@@ -195,10 +175,6 @@ namespace Items
             Stored.Add(item);
             
             GameEvents.Trigger_RefreshInventoryDisplay();
-            if (_parentBuilding != null)
-            {
-                GameEvents.Trigger_OnBuildingChanged(_parentBuilding);
-            }
         }
 
         public void RestoreClaimed(Item item)
@@ -288,10 +264,6 @@ namespace Items
             
             item.gameObject.SetActive(true);
             GameEvents.Trigger_RefreshInventoryDisplay();
-            if (_parentBuilding != null)
-            {
-                GameEvents.Trigger_OnBuildingChanged(_parentBuilding);
-            }
         }
         
         public Item WithdrawItem(ItemState itemState)
@@ -322,10 +294,6 @@ namespace Items
             }
             
             GameEvents.Trigger_RefreshInventoryDisplay();
-            if (_parentBuilding != null)
-            {
-                GameEvents.Trigger_OnBuildingChanged(_parentBuilding);
-            }
             return result;
         }
 

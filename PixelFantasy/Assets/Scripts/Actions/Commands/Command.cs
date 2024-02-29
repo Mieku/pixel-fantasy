@@ -26,29 +26,8 @@ public class Command : ScriptableObject
         {
             if (!taskAI.HasToolTypeEquipped(Task.RequiredToolType))
             {
-                bool foundTool = false;
-                        
-                if (kinling.AssignedWorkplace != null)
-                {
-                    foundTool = InventoryManager.Instance.HasToolTypeBuilding(Task.RequiredToolType,
-                        kinling.AssignedWorkplace);
-                }
-                        
-                if (!foundTool && kinling.AssignedHome != null)
-                {
-                    foundTool = InventoryManager.Instance.HasToolTypeBuilding(Task.RequiredToolType,
-                        kinling.AssignedHome);
-                }
-
-                if (!foundTool)
-                {
-                    foundTool = InventoryManager.Instance.HasToolTypeGlobal(Task.RequiredToolType);
-                }
-
-                if (!foundTool)
-                {
-                    return false;
-                }
+                bool foundTool = InventoryManager.Instance.HasToolTypeGlobal(Task.RequiredToolType);
+                return foundTool;
             }
         }
 

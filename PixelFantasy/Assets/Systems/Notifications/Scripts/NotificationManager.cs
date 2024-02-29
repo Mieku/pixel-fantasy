@@ -52,24 +52,24 @@ namespace Systems.Notifications.Scripts
             SubmitLogData(logData);
         }
 
-        public void CreateBuildingLog(Building building, string message, LogData.ELogType logType, GameTime gameTime = null)
-        {
-            if (gameTime == null)
-            {
-                gameTime = EnvironmentManager.Instance.GameTime;
-            }
-            
-            LogData logData = new LogData
-            {
-                GameTime = gameTime,
-                Message = message,
-                LogType = logType,
-                Payload = building.UniqueId,
-                PayloadType = LogData.ELogPayloadType.Building
-            };
-            
-            SubmitLogData(logData);
-        }
+        // public void CreateBuildingLog(Building building, string message, LogData.ELogType logType, GameTime gameTime = null)
+        // {
+        //     if (gameTime == null)
+        //     {
+        //         gameTime = EnvironmentManager.Instance.GameTime;
+        //     }
+        //     
+        //     LogData logData = new LogData
+        //     {
+        //         GameTime = gameTime,
+        //         Message = message,
+        //         LogType = logType,
+        //         Payload = building.UniqueId,
+        //         PayloadType = LogData.ELogPayloadType.Building
+        //     };
+        //     
+        //     SubmitLogData(logData);
+        // }
 
         private void SubmitLogData(LogData logData)
         {

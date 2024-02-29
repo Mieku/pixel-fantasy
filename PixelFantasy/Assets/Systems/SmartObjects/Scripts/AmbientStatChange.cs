@@ -14,7 +14,7 @@ namespace Systems.SmartObjects.Scripts
         private CircleCollider2D _ambienceRadius;
         private List<BaseInteraction> _currentInteractions = new List<BaseInteraction>();
         
-        private Building _containingBuilding;
+        //private Building _containingBuilding;
 
         public List<InteractionStatChange> StatChanges => _statChanges;
 
@@ -23,24 +23,24 @@ namespace Systems.SmartObjects.Scripts
             _ambienceRadius = GetComponent<CircleCollider2D>();
         }
 
-        private void OnDestroy()
-        {
-            if (_containingBuilding != null)
-            {
-                _containingBuilding.OnBuildingFurnitureChanged -= OnBuildingFurnitureChanged;
-            }
-        }
+        // private void OnDestroy()
+        // {
+        //     if (_containingBuilding != null)
+        //     {
+        //         _containingBuilding.OnBuildingFurnitureChanged -= OnBuildingFurnitureChanged;
+        //     }
+        // }
 
-        private void Start()
-        {
-            var building = Helper.IsPositionInBuilding(transform.position);
-            if (building != null)
-            {
-                _containingBuilding = building;
-                _containingBuilding.OnBuildingFurnitureChanged += OnBuildingFurnitureChanged;
-                UpdateRegisteredInteractionsFromFurniture(_containingBuilding.AllFurniture);
-            }
-        }
+        // private void Start()
+        // {
+        //     var building = Helper.IsPositionInBuilding(transform.position);
+        //     if (building != null)
+        //     {
+        //         _containingBuilding = building;
+        //         _containingBuilding.OnBuildingFurnitureChanged += OnBuildingFurnitureChanged;
+        //         UpdateRegisteredInteractionsFromFurniture(_containingBuilding.AllFurniture);
+        //     }
+        // }
 
         private void OnBuildingFurnitureChanged(List<Furniture> buildingFurniture)
         {
@@ -68,10 +68,10 @@ namespace Systems.SmartObjects.Scripts
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if(_containingBuilding != null) return;
-            
-            var building = Helper.IsPositionInBuilding(other.transform.position);
-            if (building != null) return;
+            // if(_containingBuilding != null) return;
+            //
+            // var building = Helper.IsPositionInBuilding(other.transform.position);
+            // if (building != null) return;
 
             BaseInteraction interaction = other.GetComponent<BaseInteraction>();
             if (interaction != null)
@@ -83,10 +83,10 @@ namespace Systems.SmartObjects.Scripts
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if(_containingBuilding != null) return;
-            
-            var building = Helper.IsPositionInBuilding(other.transform.position);
-            if (building != null) return;
+            // if(_containingBuilding != null) return;
+            //
+            // var building = Helper.IsPositionInBuilding(other.transform.position);
+            // if (building != null) return;
 
             BaseInteraction interaction = other.GetComponent<BaseInteraction>();
             if (interaction != null)

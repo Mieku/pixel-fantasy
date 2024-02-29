@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Buildings;
 using Buildings.Building_Panels;
+using Items;
 using ScriptableObjects;
 using TMPro;
 using UnityEngine;
@@ -18,25 +19,25 @@ namespace Systems.Details.Building_Details.Scripts
         [SerializeField] private ResourceCost _resourceCostPrefab;
         
         
-        private ICraftingBuilding _craftingBuilding;
+        private CraftingTable _craftingTable;
         private CraftedItemData _selectedItem;
         private List<CraftingOrderOption> _displayedOptions = new List<CraftingOrderOption>();
         private List<ResourceCost> _displayedCosts = new List<ResourceCost>();
         private Action<CraftedItemData> _addOrderCallback;
         
-        public void Init(ICraftingBuilding craftingBuilidng, Action<CraftedItemData> addOrderCallback)
+        public void Init(CraftingTable craftingTable, Action<CraftedItemData> addOrderCallback)
         {
-            _craftingBuilding = craftingBuilidng;
+            _craftingTable = craftingTable;
             _addOrderCallback = addOrderCallback;
             RefreshOptions();
-            SelectOrder(_craftingBuilding.CraftingOptions[0]);
+            SelectOrder(_craftingTable.GetCraftingOptions()[0]);
         }
 
         private void RefreshOptions()
         {
             ClearOptions();
             _orderOptionPrefab.gameObject.SetActive(false);
-            var options = _craftingBuilding.CraftingOptions;
+            var options = _craftingTable.GetCraftingOptions();
             foreach (var option in options)
             {
                 var orderOption = Instantiate(_orderOptionPrefab, _optionsLayout);

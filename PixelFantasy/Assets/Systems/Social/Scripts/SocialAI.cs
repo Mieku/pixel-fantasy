@@ -313,14 +313,13 @@ namespace Systems.Social.Scripts
 
         private List<SocialAI> NearbyKinlings()
         {
-            bool isIndoors = _kinling.IsIndoors();
             var allUnits = KinlingsManager.Instance.GetAllUnitsInRadius(transform.position, SOCIAL_RADIUS);
             List<SocialAI> results = new List<SocialAI>();
             foreach (var unit in allUnits)
             {
                 if (unit != _kinling)
                 {
-                    if (isIndoors == unit.IsIndoors() && unit.SocialAI.AvailableToChat)
+                    if (unit.SocialAI.AvailableToChat)
                     {
                         results.Add(unit.SocialAI);
                     }
@@ -393,19 +392,15 @@ namespace Systems.Social.Scripts
             {
                 if (_kinling.MaturityStage == EMaturityStage.Adult && _kinling.Partner.MaturityStage == EMaturityStage.Adult)
                 {
-                    var spaceForKids = _kinling.AssignedHome.HasSpaceForChildren();
-                    if (spaceForKids)
+                    bool isPregnant = Helper.RollDice(GameSettings.Instance.BasePregnancyChance);
+                    if (isPregnant)
                     {
-                        bool isPregnant = Helper.RollDice(GameSettings.Instance.BasePregnancyChance);
-                        if (isPregnant)
+                        Kinling child = KinlingsManager.Instance.CreateChild(_kinling, _kinling.Partner);
+                        if (child != null)
                         {
-                            Kinling child = KinlingsManager.Instance.CreateChild(_kinling, _kinling.Partner);
-                            if (child != null)
-                            {
-                                NotificationManager.Instance.CreateKinlingLog(child, 
-                                    $"{_kinling.FirstName} and {_kinling.Partner.FirstName} had a child named {child.FullName}", 
-                                    LogData.ELogType.Positive);
-                            }
+                            NotificationManager.Instance.CreateKinlingLog(child, 
+                                $"{_kinling.FirstName} and {_kinling.Partner.FirstName} had a child named {child.FullName}", 
+                                LogData.ELogType.Positive);
                         }
                     }
                 }

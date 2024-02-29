@@ -1,15 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Buildings;
-using Buildings.Building_Types;
 using Characters;
+using Handlers;
 using Items;
 using Managers;
 using ScriptableObjects;
-using Systems.Skills.Scripts;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace TaskSystem
 {
@@ -112,7 +109,7 @@ namespace TaskSystem
             switch (currentSchedule)
             {
                 case ScheduleOption.Sleep:
-                    ForceTask("Go To Sleep");
+                    RequestSleepTask();
                     break;
                 case ScheduleOption.Work:
                     RequestNextJobTask();
@@ -123,6 +120,18 @@ namespace TaskSystem
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private void RequestSleepTask()
+        {
+            // If the kinling lacks a bed, claim one if available
+            if (_kinling.AssignedBed == null)
+            {
+                var bed = FurnitureManager.Instance.FindClosestUnclaimedBed(_kinling);
+                bed.AssignKinling(_kinling);
+            }
+            
+            ForceTask("Go To Sleep");
         }
         
         private void RequestNextJobTask()
@@ -202,37 +211,25 @@ namespace TaskSystem
             // Eat food
             if (task == null && _kinling.Needs.GetNeedValue(NeedType.Food) < 0.75f)
             {
-                if (_kinling.AssignedHome != null)
-                {
-                    task = new Task("Eat Food", ETaskType.Personal, _kinling.AssignedHome, EToolType.None);
-                    if (AttemptStartTask(task, false)) return;
-                    else task = null;
-                }
-                else
-                {
-                    var eatery = BuildingsManager.Instance.GetClosestBuildingOfType<IEateryBuilding>(_kinling.transform.position);
-                    if (eatery != null)
-                    {
-                        task = new Task("Eat Food", ETaskType.Personal, eatery, EToolType.None);
-                        if (AttemptStartTask(task, false)) return;
-                        else task = null;
-                    }
-                }
+                // TODO: Look for a table near the food, if none, choose a spot to stand and eat
                 
-            }
-            
-            // Make sure there is 1 day's worth of food in home
-            if (task == null && _kinling.AssignedHome != null)
-            {
-                var suggestedNutrition = _kinling.AssignedHome.SuggestedStoredNutrition;
-                var curHouseholdNutrition = _kinling.AssignedHome.CurrentStoredNutrition;
-                if (curHouseholdNutrition < suggestedNutrition)
-                {
-                    // Set up a task to pick up some food and store it at home
-                    task = new Task("Store Food", ETaskType.Personal, _kinling.AssignedHome, EToolType.None);
-                    if (AttemptStartTask(task, false)) return;
-                    else task = null;
-                }
+                // if (_kinling.AssignedHome != null)
+                // {
+                //     task = new Task("Eat Food", ETaskType.Personal, _kinling.AssignedHome, EToolType.None);
+                //     if (AttemptStartTask(task, false)) return;
+                //     else task = null;
+                // }
+                // else
+                // {
+                //     var eatery = BuildingsManager.Instance.GetClosestBuildingOfType<IEateryBuilding>(_kinling.transform.position);
+                //     if (eatery != null)
+                //     {
+                //         task = new Task("Eat Food", ETaskType.Personal, eatery, EToolType.None);
+                //         if (AttemptStartTask(task, false)) return;
+                //         else task = null;
+                //     }
+                // }
+                
             }
             
             // Go on dates
@@ -313,25 +310,25 @@ namespace TaskSystem
         /// </summary>
         private void CheckPersonal()
         {
-            // If homeless, find a home
-            if (_kinling.AssignedHome == null)
-            {
-                // Does partner have home?
-                if (_kinling.Partner != null && _kinling.Partner.AssignedHome != null)
-                {
-                    _kinling.Partner.AssignedHome.AssignPartner(_kinling);
-                }
-                else
-                {
-                    BuildingsManager.Instance.ClaimEmptyHome(_kinling);
-                }
-            }
-            
-            // Auto Assign to a building if missing a workplace and have a job
-            if (_kinling.AssignedWorkplace == null & _kinling.Job != null)
-            {
-                BuildingsManager.Instance.ClaimUnfilledWorkplace(_kinling);
-            }
+            // // If homeless, find a home
+            // if (_kinling.AssignedHome == null)
+            // {
+            //     // Does partner have home?
+            //     if (_kinling.Partner != null && _kinling.Partner.AssignedHome != null)
+            //     {
+            //         _kinling.Partner.AssignedHome.AssignPartner(_kinling);
+            //     }
+            //     else
+            //     {
+            //         BuildingsManager.Instance.ClaimEmptyHome(_kinling);
+            //     }
+            // }
+            //
+            // // Auto Assign to a building if missing a workplace and have a job
+            // if (_kinling.AssignedWorkplace == null & _kinling.Job != null)
+            // {
+            //     BuildingsManager.Instance.ClaimUnfilledWorkplace(_kinling);
+            // }
         }
         
         public UnitActionDirection GetActionDirection(Vector3 targetPos)
@@ -492,51 +489,58 @@ namespace TaskSystem
         {
             _state = State.Idling;
             
-            Building buildingToIdleIn = null;
-            if (_kinling.AssignedWorkplace == null)
-            {
-                // Idle at town center
-                buildingToIdleIn = BuildingsManager.Instance.GetClosestBuildingOfType<TownCenterBuilding>(_kinling.transform.position);
-            }
-            else
-            {
-                buildingToIdleIn = _kinling.AssignedWorkplace;
-            }
-
-            if (buildingToIdleIn == null)
-            {
-                buildingToIdleIn = _kinling.AssignedHome;
-            }
+            // Building buildingToIdleIn = null;
+            // if (_kinling.AssignedWorkplace == null)
+            // {
+            //     // Idle at town center
+            //     buildingToIdleIn = BuildingsManager.Instance.GetClosestBuildingOfType<TownCenterBuilding>(_kinling.transform.position);
+            // }
+            // else
+            // {
+            //     buildingToIdleIn = _kinling.AssignedWorkplace;
+            // }
+            //
+            // if (buildingToIdleIn == null)
+            // {
+            //     buildingToIdleIn = _kinling.AssignedHome;
+            // }
             
-            if (!_kinling.IsSeated || (_kinling.GetChair != null && _kinling.GetChair.ParentBuilding != buildingToIdleIn ))
+            if (!_kinling.IsSeated) //|| (_kinling.GetChair != null && _kinling.GetChair.ParentBuilding != buildingToIdleIn ))
             {
-                Vector2 moveTarget;
-                ChairFurniture chair = null;
-                if (buildingToIdleIn != null)
-                {
-                    chair = buildingToIdleIn.FindAvailableChair();
-                    if (chair != null)
-                    {
-                        var seat = chair.ClaimSeat(_kinling);
-                        moveTarget = seat.Position;
-                    }
-                    else
-                    {
-                        moveTarget = buildingToIdleIn.GetRandomIndoorsPosition(_kinling);
-                    }
-                }
-                else
-                {
-                    // Just wander
-                    moveTarget = _kinling.KinlingAgent.PickLocationInRange(10.0f);
-                }
-
+                // Vector2 moveTarget;
+                // ChairFurniture chair = null;
+                // if (buildingToIdleIn != null)
+                // {
+                //     chair = buildingToIdleIn.FindAvailableChair();
+                //     if (chair != null)
+                //     {
+                //         var seat = chair.ClaimSeat(_kinling);
+                //         moveTarget = seat.Position;
+                //     }
+                //     else
+                //     {
+                //         moveTarget = buildingToIdleIn.GetRandomIndoorsPosition(_kinling);
+                //     }
+                // }
+                // else
+                // {
+                //     // Just wander
+                //     moveTarget = _kinling.KinlingAgent.PickLocationInRange(10.0f);
+                // }
+                //
+                // _kinling.KinlingAgent.SetMovePosition(moveTarget, () =>
+                // {
+                //     if (chair != null)
+                //     {
+                //         chair.EnterSeat(_kinling);
+                //     }
+                // });
+                
+                
+                var moveTarget = _kinling.KinlingAgent.PickLocationInRange(10.0f);
                 _kinling.KinlingAgent.SetMovePosition(moveTarget, () =>
                 {
-                    if (chair != null)
-                    {
-                        chair.EnterSeat(_kinling);
-                    }
+                    
                 });
             }
         }

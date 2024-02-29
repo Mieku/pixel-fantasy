@@ -180,9 +180,9 @@ public class GameEvents : MonoBehaviour
         if (OnCoinsIncomeChanged != null) OnCoinsIncomeChanged();
     }
 
-    public static event Action<Building> OnBuildingChanged;
-    public static void Trigger_OnBuildingChanged(Building building)
-    {
-        if (OnBuildingChanged != null) OnBuildingChanged(building);
-    }
+    // public static event Action<Building> OnBuildingChanged;
+    // public static void Trigger_OnBuildingChanged(Building building)
+    // {
+    //     if (OnBuildingChanged != null) OnBuildingChanged(building);
+    // }
 }

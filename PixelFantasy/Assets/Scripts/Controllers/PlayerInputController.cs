@@ -249,7 +249,7 @@ namespace Controllers
         BuildFurniture,
         BuildFarm,
         Zone,
-        BuildBuilding,
+        //BuildBuilding,
         BuildDoor,
     }
 }

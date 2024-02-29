@@ -100,11 +100,6 @@ namespace Items
         {
             _remainingCraftAmount -= workAmount;
             
-            if (_parentBuilding != null)
-            {
-                GameEvents.Trigger_OnBuildingChanged(_parentBuilding);
-            }
-            
             if (_remainingCraftAmount <= 0)
             {
                 CompleteCraft();
@@ -131,12 +126,6 @@ namespace Items
                 }
             }
             Destroy(item.gameObject);
-            
-            // Refresh building
-            if (_parentBuilding != null)
-            {
-                GameEvents.Trigger_OnBuildingChanged(_parentBuilding);
-            }
         }
 
         public float GetPercentMaterialsReceived()
@@ -169,6 +158,29 @@ namespace Items
         {
             AssignItemToTable(null);
             _curTask = null;
+        }
+
+        public List<CraftedItemData> GetCraftingOptions()
+        {
+            // TODO: Get all the available options for the crafting table to craft
+            throw new System.NotImplementedException();
+        }
+
+        public bool CanCraftItem(CraftedItemData item)
+        {
+            var validToCraft = GetCraftingOptions().Contains(item);
+            if (!validToCraft) return false;
+            
+            // Are the mats available?
+            foreach (var cost in _craftedItem.GetResourceCosts())
+            {
+                if (!cost.CanAfford())
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

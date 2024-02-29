@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Handlers;
 using Items;
 using Managers;
 using ScriptableObjects;
@@ -29,11 +30,23 @@ namespace TaskSystem
             WaitingOnDelivery,
             PlaceItem,
         }
-        
+
+        public override bool CanDoTask(Task task)
+        {
+            var result = base.CanDoTask(task);
+
+            if (!result) return false;
+            
+            var itemToCraft = Librarian.Instance.GetItemData((string)task.Payload) as CraftedItemData;
+            var table = FurnitureManager.Instance.GetCraftingTableForItem(itemToCraft);
+
+            return table != null;
+        }
+
         public override void PrepareAction(Task task)
         {
             _itemToCraft = Librarian.Instance.GetItemData((string)task.Payload) as CraftedItemData;
-            _craftingTable = _ai.Kinling.AssignedWorkplace.GetCraftingTableForItem(_itemToCraft);
+            _craftingTable = FurnitureManager.Instance.GetCraftingTableForItem(_itemToCraft);
             _materials = task.Materials;
             _requestingFurniture = task.Requestor as Furniture;
             _state = ETaskState.ClaimTable;
