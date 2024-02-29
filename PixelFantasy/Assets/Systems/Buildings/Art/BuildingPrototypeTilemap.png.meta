@@ -457,11 +457,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 125
-        y: 57
+        y: 63
         width: 22
-        height: 32
+        height: 26
       alignment: 9
-      pivot: {x: 0.5, y: 0.34375}
+      pivot: {x: 0.5, y: 0.1923077}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -662,6 +662,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Horizontal Doormat
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 9
+        width: 20
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.42307693}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 436e0ebc0895f344da664c1782769e56
+      internalID: -1380345715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vertical Doormat
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 13
+        width: 26
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c96314df411f4242ba815de78b1cc2d
+      internalID: 20403438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -683,6 +725,7 @@ TextureImporter:
       Fill: 1530794187
       Front Door: 1910622010
       Horizontal Doorframe: -1095791776
+      Horizontal Doormat: -1380345715
       Horizontal Wall: -204468750
       Horizontal Wall End Interior Left: -1935409522
       Horizontal Wall End Interior Right: -1546860391
@@ -699,6 +742,7 @@ TextureImporter:
       South Wall End: 1743106293
       Vert Wall: 2093076170
       Vertical Doorframe: -468987788
+      Vertical Doormat: 20403438
       WNE Intersection: -363038088
       WNE Intersection Interior: -259283872
       WSE Intersection: 315988301

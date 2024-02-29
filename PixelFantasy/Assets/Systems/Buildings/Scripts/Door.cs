@@ -19,6 +19,7 @@ namespace Systems.Buildings.Scripts
         public Action OnDoorPlaced;
 
         [SerializeField] private SpriteRenderer _doorSprite;
+        [SerializeField] private SpriteRenderer _doormatSprite;
         [SerializeField] private GameObject _topCBlocker, _bottomCBlocker, _leftCBlocker, _rightCBlocker;
         [SerializeField] private RuleTile _wallFillerRT;
         [SerializeField] private DoorOpener _horizontalDoorOpener;
@@ -162,6 +163,7 @@ namespace Systems.Buildings.Scripts
         private void ColourSprite(Color colour)
         {
             _doorSprite.color = colour;
+            _doormatSprite.color = colour;
             
             if(_horizontalDoorOpener != null) _horizontalDoorOpener.ColourDoorSprite(colour);
             
@@ -222,6 +224,7 @@ namespace Systems.Buildings.Scripts
             if (isVertical)
             {
                 _doorSprite.sprite = _doorSO.VerticalDoorframe;
+                _doormatSprite.sprite = _doorSO.VerticalDoormat;
                 _topCBlocker.SetActive(false);
                 _bottomCBlocker.SetActive(false);
                 _leftCBlocker.SetActive(true);
@@ -232,6 +235,7 @@ namespace Systems.Buildings.Scripts
             else
             {
                 _doorSprite.sprite = _doorSO.HorizontalDoorframe;
+                _doormatSprite.sprite = _doorSO.HorizontalDoormat;
                 _topCBlocker.SetActive(true);
                 _bottomCBlocker.SetActive(true);
                 _leftCBlocker.SetActive(false);

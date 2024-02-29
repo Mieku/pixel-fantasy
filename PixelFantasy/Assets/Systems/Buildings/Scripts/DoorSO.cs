@@ -12,8 +12,10 @@ namespace Systems.Buildings.Scripts
         [field: SerializeField] public Door DoorPrefab { get; protected set; }
         [field: SerializeField] public JobData RequiredJob { get; protected set; }
         [field: SerializeField] public Sprite HorizontalDoorframe { get; protected set; }
+        [field: SerializeField] public Sprite HorizontalDoormat { get; protected set; }
         [field: SerializeField] public Sprite VerticalDoorframe { get; protected set; }
-
+        [field: SerializeField] public Sprite VerticalDoormat { get; protected set; }
+        
         [SerializeField] private List<ItemAmount> _resourceCosts;
         
         public List<ItemAmount> GetResourceCosts()

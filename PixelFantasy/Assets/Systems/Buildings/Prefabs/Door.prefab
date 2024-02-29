@@ -401,7 +401,7 @@ Transform:
   - {fileID: 3385619136738828789}
   - {fileID: 8646870220780750628}
   m_Father: {fileID: 2025644752096595464}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2408029653828822483
 GameObject:
@@ -436,7 +436,7 @@ Transform:
   m_Children:
   - {fileID: 5766096940900088186}
   m_Father: {fileID: 2025644752096595464}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!210 &6804189094679875469
 SortingGroup:
@@ -547,7 +547,7 @@ Transform:
   - {fileID: 2211060952739558301}
   - {fileID: 7842202914991562355}
   m_Father: {fileID: 2025644752096595464}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3439933099469921571
 GameObject:
@@ -898,6 +898,7 @@ Transform:
   - {fileID: 2199620870273272121}
   - {fileID: 8651089870120900967}
   - {fileID: 9028191485710668837}
+  - {fileID: 7982660504192160910}
   - {fileID: 4019177284231882244}
   - {fileID: 2347269695948785069}
   - {fileID: 9114361945027170711}
@@ -953,6 +954,7 @@ MonoBehaviour:
   - {fileID: 8646870220780750628}
   _cell: {fileID: 327027309830071820}
   _doorSprite: {fileID: 2796273483583580941}
+  _doormatSprite: {fileID: 6068670229126120947}
   _topCBlocker: {fileID: 1243071927244354356}
   _bottomCBlocker: {fileID: 3439933099469921571}
   _leftCBlocker: {fileID: 1131894227151539591}
@@ -990,6 +992,90 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueID: 
+--- !u!1 &4808331332564890444
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7982660504192160910}
+  - component: {fileID: 6068670229126120947}
+  m_Layer: 0
+  m_Name: Doormat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7982660504192160910
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4808331332564890444}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2025644752096595464}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &6068670229126120947
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4808331332564890444}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 257
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -177695485
+  m_SortingLayer: -5
+  m_SortingOrder: 0
+  m_Sprite: {fileID: -1380345715, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 1
 --- !u!1 &5041588278388300414
 GameObject:
   m_ObjectHideFlags: 0
@@ -1435,7 +1521,7 @@ Transform:
   - {fileID: 959455904939659299}
   - {fileID: 8552829383136762404}
   m_Father: {fileID: 2025644752096595464}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!210 &8272951747672784738
 SortingGroup:
