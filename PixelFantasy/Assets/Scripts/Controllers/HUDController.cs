@@ -8,7 +8,9 @@ using Interfaces;
 using Items;
 using Managers;
 using Popups;
+using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.UI;
 using Zones;
 
 namespace Controllers
@@ -16,7 +18,8 @@ namespace Controllers
     public class HUDController : Singleton<HUDController>
     {
         [SerializeField] private SelectedItemInfoPanel _selectedItemInfoPanel;
-        [SerializeField] private GameObject _pauseHighlight, _playHighlight, _fastHighlight, _fastestHighlight;
+        [SerializeField] private Image _pause, _normalSpeed, _fastSpeed, _fastestSpeed;
+        [SerializeField] private Color _defaultColour, _selectedColour;
 
         protected override void Awake()
         {
@@ -43,6 +46,13 @@ namespace Controllers
         public void ShowItemDetails(IClickableObject clickableObject)
         {
             _selectedItemInfoPanel.ShowItemDetails(clickableObject);
+        }
+
+        public void ShowBuildDetails(string header, List<CraftedItemData> options )
+        {
+            HideDetails();
+            
+            _selectedItemInfoPanel.ShowBuildDetails(header, options);
         }
 
         // public void ShowBuildingDetails(Building building, bool openConstructionTab = false)
@@ -74,25 +84,25 @@ namespace Controllers
         private void RefreshSpeedDisplay()
         {
             var speed = TimeManager.Instance.GameSpeed;
-            
-            _pauseHighlight.SetActive(false);
-            _playHighlight.SetActive(false);
-            _fastHighlight.SetActive(false);
-            _fastestHighlight.SetActive(false);
+
+            _pause.color = _defaultColour;
+            _normalSpeed.color = _defaultColour;
+            _fastSpeed.color = _defaultColour;
+            _fastestSpeed.color = _defaultColour;
             
             switch (speed)
             {
                 case GameSpeed.Paused:
-                    _pauseHighlight.SetActive(true);
+                    _pause.color = _selectedColour;
                     break;
                 case GameSpeed.Play:
-                    _playHighlight.SetActive(true);
+                    _normalSpeed.color = _selectedColour;
                     break;
                 case GameSpeed.Fast:
-                    _fastHighlight.SetActive(true);
+                    _fastSpeed.color = _selectedColour;
                     break;
                 case GameSpeed.Fastest:
-                    _fastestHighlight.SetActive(true);
+                    _fastestSpeed.color = _selectedColour;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

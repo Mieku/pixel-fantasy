@@ -19,7 +19,6 @@ namespace Items
         [SerializeField] private ItemData _itemData;
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private ClickObject _clickObject;
-        [SerializeField] private SmartObjectItem _smartObject;
 
         private Task _currentTask;
         
@@ -64,8 +63,6 @@ namespace Items
                 State = state;
                 UniqueId = State.UID;
             }
-
-            _smartObject.Init(this, populateInteraction);
             
             DisplayItemSprite();
 
@@ -177,7 +174,6 @@ namespace Items
             if (_itemData == null) return;
 
             _spriteRenderer.sprite = _itemData.ItemSprite;
-            _spriteRenderer.transform.localScale = _itemData.DefaultSpriteScale;
         }
 
         public bool IsSameItemType(Item item)

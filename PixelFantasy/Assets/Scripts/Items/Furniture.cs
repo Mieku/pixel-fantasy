@@ -357,19 +357,19 @@ namespace Items
             return selectedDistance.position;
         }
 
-        public bool CanBeCrafted()
-        {
-            // Check if crafting table exits
-            foreach (var option in _furnitureItemData.RequiredCraftingTableOptions)
-            {
-                if (FurnitureManager.Instance.DoesFurnitureExist(option))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
+        // public bool CanBeCrafted()
+        // {
+        //     // Check if crafting table exits
+        //     foreach (var option in _furnitureItemData.RequiredCraftingTableOptions)
+        //     {
+        //         if (FurnitureManager.Instance.DoesFurnitureExist(option))
+        //         {
+        //             return true;
+        //         }
+        //     }
+        //
+        //     return false;
+        // }
 
         private Vector2 _beforeMovedPosition;
         private void Moving_Enter()

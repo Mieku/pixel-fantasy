@@ -13,21 +13,15 @@ namespace ScriptableObjects
     [CreateAssetMenu(fileName = "FurnitureItemData", menuName = "ItemData/CraftedItemData/FurnitureItemData/FurnitureItemData", order = 1)]
     public class FurnitureItemData : CraftedItemData
     {
-        [Header("General")]
-        [TitleGroup("Furniture Item Data")] public FurnitureCatergory Catergory;
+        [Header("General")] 
+        [TitleGroup("Furniture Item Data")] public List<FurnitureVarient> Varients;
         [TitleGroup("Furniture Item Data")] public Furniture FurniturePrefab;
-        [FormerlySerializedAs("InUseStatChange")] [TitleGroup("Furniture Item Data")] public NeedChange InUseNeedChange;
-
-        [Header("Varients")]
-        [TitleGroup("Furniture Item Data")] public List<FurnitureItemData> Varients;
+        [TitleGroup("Furniture Item Data")] public NeedChange InUseNeedChange;
     }
-
-    public enum FurnitureCatergory
+    
+    [Serializable]
+    public class FurnitureVarient : MaterialVarient
     {
-        [Description("Furniture")] Furniture,
-        [Description("Decoration")] Decorations,
-        [Description("Storage")] Storage,
-        [Description("Production")] Production,
-        [Description("Lighting")] Lighting,
+        public Furniture Prefab;
     }
 }

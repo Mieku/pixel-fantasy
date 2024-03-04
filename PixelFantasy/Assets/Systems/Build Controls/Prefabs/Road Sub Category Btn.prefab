@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0, y: 0}
-  m_SizeDelta: {x: 66, y: 66}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 38.813, y: 38.813}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5710759633561759572
 CanvasRenderer:
@@ -105,7 +105,7 @@ RectTransform:
   m_GameObject: {fileID: 5710759634307074370}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8000001, y: 0.8000001, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5710759633561759574}
@@ -117,7 +117,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 85, y: 85}
+  m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5710759634307074374
 CanvasRenderer:
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1021048326, guid: 78088a8877f40a847bbc16bcb0956b4b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3180c22011506394f890537a25ea31c1, type: 3}
   m_Type: 1
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 2
+  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &7519639290497646329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,8 +173,8 @@ MonoBehaviour:
   _arrowHandle: {fileID: 6259884957544528937}
   _optionsLayout: {fileID: 5983953128504511428}
   _btnBG: {fileID: 5710759634307074375}
-  _defaultBtnSpr: {fileID: -1021048326, guid: 78088a8877f40a847bbc16bcb0956b4b, type: 3}
-  _activeBtnSpr: {fileID: 1751907161, guid: 78088a8877f40a847bbc16bcb0956b4b, type: 3}
+  _defaultBtnSpr: {fileID: 21300000, guid: 3180c22011506394f890537a25ea31c1, type: 3}
+  _activeBtnSpr: {fileID: 21300000, guid: 6530b720168417645a865f0f2554c795, type: 3}
   _icon: {fileID: 5710759633561759573}
   _roadOptionPrefab: {fileID: 6700267063026246787, guid: 8ae3b278afd454549ae063bc44dcbceb, type: 3}
 --- !u!114 &5710759634307074368
@@ -206,7 +206,7 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 1751907161, guid: 78088a8877f40a847bbc16bcb0956b4b, type: 3}
+    m_HighlightedSprite: {fileID: 21300000, guid: 6530b720168417645a865f0f2554c795, type: 3}
     m_PressedSprite: {fileID: 0}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}

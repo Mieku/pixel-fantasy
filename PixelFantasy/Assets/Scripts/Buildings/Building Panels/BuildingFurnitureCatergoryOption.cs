@@ -14,24 +14,24 @@ namespace Buildings.Building_Panels
         [SerializeField] private Sprite _selectedSpr;
         [SerializeField] private Sprite _unselectedSpr;
 
-        private FurnitureCatergory _catergory;
-        private Action<FurnitureCatergory, BuildingFurnitureCatergoryOption> _onPressedCallback;
-
-        public FurnitureCatergory Catergory => _catergory;
+        // private FurnitureCatergory _catergory;
+        // private Action<FurnitureCatergory, BuildingFurnitureCatergoryOption> _onPressedCallback;
+        //
+        // public FurnitureCatergory Catergory => _catergory;
         
-        public void Init(FurnitureCatergory catergory,
-            Action<FurnitureCatergory, BuildingFurnitureCatergoryOption> onPressedCallback)
-        {
-            _catergory = catergory;
-            _onPressedCallback = onPressedCallback;
-
-            _catergoryText.text = _catergory.GetDescription();
-            DisplaySelected(false);
-        }
+        // public void Init(FurnitureCatergory catergory,
+        //     Action<FurnitureCatergory, BuildingFurnitureCatergoryOption> onPressedCallback)
+        // {
+        //     _catergory = catergory;
+        //     _onPressedCallback = onPressedCallback;
+        //
+        //     _catergoryText.text = _catergory.GetDescription();
+        //     DisplaySelected(false);
+        // }
         
         public void OnCatergoryPressed()
         {
-            _onPressedCallback.Invoke(_catergory, this);
+            //_onPressedCallback.Invoke(_catergory, this);
         }
 
         public void DisplaySelected(bool isSelected)

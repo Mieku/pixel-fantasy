@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
 using Buildings;
 using Characters;
 using Controllers;
 using Interfaces;
 using Items;
+using ScriptableObjects;
+using Systems.Details.Build_Details.Scripts;
 using Systems.Details.Building_Details.Scripts;
 using Systems.Details.Generic_Details.Scripts;
 using Systems.Notifications.Scripts;
@@ -22,6 +25,9 @@ namespace HUD
 
         // [Header("Building Details")] 
         // [SerializeField] private BuildingDetails _buildingDetails;
+
+        [Header("Build Details")] 
+        [SerializeField] private BuildDetailsUI _buildDetails;
         
         [Header("Notification Log")]
         [SerializeField] private NotificationLogger _notificationLogger;
@@ -59,6 +65,7 @@ namespace HUD
         {
             _genericDetails.Hide();
             _kinlingDetails.Hide();
+            _buildDetails.Hide();
             // _buildingDetails.Hide();
             
             _notificationLogger.Show();
@@ -70,6 +77,14 @@ namespace HUD
             _notificationLogger.Hide();
             
             _genericDetails.Show(clickableObject);
+        }
+
+        public void ShowBuildDetails(string header, List<CraftedItemData> options )
+        {
+            HideAllDetails();
+            _notificationLogger.Hide();
+            
+            _buildDetails.Show(header, options);
         }
     }
 }

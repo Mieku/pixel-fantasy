@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Systems.Skills.Scripts;
@@ -9,18 +10,11 @@ namespace ScriptableObjects
     [CreateAssetMenu(fileName = "CraftedItemData", menuName = "ItemData/CraftedItemData/CraftedItemData", order = 1)]
     public class CraftedItemData : ItemData
     {
-        [TitleGroup("Crafted Data")] public List<FurnitureItemData> RequiredCraftingTableOptions;
         [TitleGroup("Crafted Data")] public ETaskType ProductionTaskType;
         [TitleGroup("Crafted Data")] public EToolType ProductionToolType;
-        [TitleGroup("Crafted Data")] public int MinProductionSkill;
         [TitleGroup("Crafted Data")] public float WorkCost;
         [TitleGroup("Crafted Data")] [SerializeField] private List<ItemAmount> _resourceCosts;
         [TitleGroup("Crafted Data")] [SerializeField] private List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle" };
-
-        public bool IsCraftingTableValid(FurnitureItemData furnitureItemData)
-        {
-            return RequiredCraftingTableOptions.Contains(furnitureItemData);
-        }
         
         public List<ItemAmount> GetResourceCosts()
         {
@@ -75,5 +69,23 @@ namespace ScriptableObjects
 
             return WorkCost / totalQuantity;
         }
+    }
+
+    [Serializable]
+    public class MaterialVarient
+    {
+        public string VarientName;
+        public Sprite VarientSprite;
+        public Sprite MaterialSelectIcon; // Typically the icon of the material change
+        public List<ItemAmount> MaterialCosts;
+        public float WorkCost;
+        public CraftRequirements CraftRequirements;
+    }
+
+    [Serializable]
+    public class CraftRequirements
+    {
+        public int MinCraftingSkillLevel;
+        public ETaskType CraftingSkill;
     }
 }

@@ -12,11 +12,8 @@ namespace ScriptableObjects
     {
         [TitleGroup("Item Data")] public string ItemName;
         [TitleGroup("Item Data")] public string ItemDescription;
-        [TitleGroup("Item Data")] public int MaxStackSize;
         [TitleGroup("Item Data")] [PreviewField] public Sprite ItemSprite;
-        [TitleGroup("Item Data")] public Vector2 DefaultSpriteScale = Vector2.one;
         [TitleGroup("Item Data")] public int Durability = 100;
-        [TitleGroup("Item Data")] public InteractionConfiguration[] InteractionConfigs;
         [TitleGroup("Item Data")] public EItemCategory Category;
 
         public virtual ItemState CreateState(string uid, Item item)

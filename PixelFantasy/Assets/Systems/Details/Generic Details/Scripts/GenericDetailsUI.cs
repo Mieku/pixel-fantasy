@@ -127,10 +127,10 @@ namespace Systems.Details.Generic_Details.Scripts
             _displayedEntries.Add(bar.gameObject);
             
             // Category
-            var category = furniture.FurnitureItemData.Catergory.GetDescription();
-            var categoryEntry = Instantiate(_entryTitledTextDisplayPrefab, _contentLayout);
-            categoryEntry.Init("Type", category);
-            _displayedEntries.Add(categoryEntry.gameObject);
+            //var category = furniture.FurnitureItemData.Catergory.GetDescription();
+            // var categoryEntry = Instantiate(_entryTitledTextDisplayPrefab, _contentLayout);
+            // categoryEntry.Init("Type", category);
+            // _displayedEntries.Add(categoryEntry.gameObject);
             
             // Description
             var description = furniture.FurnitureItemData.ItemDescription;

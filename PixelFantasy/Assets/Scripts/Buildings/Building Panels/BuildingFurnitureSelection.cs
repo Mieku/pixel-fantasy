@@ -44,12 +44,12 @@ namespace Buildings.Building_Panels
             _displayedVarientOptions.Add(option);
 
             // Then the rest
-            foreach (var varient in _defaultFurnitureItemData.Varients)
-            {
-                var varientOption = Instantiate(_furnitureVarientPrefab, _varientsParent);
-                varientOption.Init(varient, OnVarientSelected);
-                _displayedVarientOptions.Add(varientOption);
-            }
+            // foreach (var varient in _defaultFurnitureItemData.Varients)
+            // {
+            //     var varientOption = Instantiate(_furnitureVarientPrefab, _varientsParent);
+            //     varientOption.Init(varient, OnVarientSelected);
+            //     _displayedVarientOptions.Add(varientOption);
+            // }
         }
 
         private void OnVarientSelected(FurnitureItemData furnitureItemData, FurnitureVarientOption varientOption)
@@ -74,14 +74,14 @@ namespace Buildings.Building_Panels
 
         private void RefreshDetails(FurnitureItemData furnitureItemData)
         {
-            string craftedWith = "";
-            foreach (var option in furnitureItemData.RequiredCraftingTableOptions)
-            {
-                craftedWith += $"{option.ItemName} ";
-            }
-
-            string details = $"Crafted with: <color=blue>{craftedWith}</color>";
-            _detailsText.text = details;
+            // string craftedWith = "";
+            // foreach (var option in furnitureItemData.RequiredCraftingTableOptions)
+            // {
+            //     craftedWith += $"{option.ItemName} ";
+            // }
+            //
+            // string details = $"Crafted with: <color=blue>{craftedWith}</color>";
+            // _detailsText.text = details;
         }
 
         private void RefreshCosts(FurnitureItemData furnitureItemData)

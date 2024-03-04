@@ -14,14 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Wooden Bed (Red)
   ItemDescription: 
-  MaxStackSize: 1
   ItemSprite: {fileID: -1986180085, guid: 128e7404977fef1479d14ee0c70721c3, type: 3}
-  DefaultSpriteScale: {x: 1, y: 1}
   Durability: 100
-  InteractionConfigs: []
-  Category: 5
-  RequiredCraftingTable: {fileID: 11400000, guid: 92ae49093fe4f4240bcc66f7c88f3749, type: 2}
-  RequiredCraftingJob: {fileID: 11400000, guid: 8cc115b907c69de4da24cb986f35866f, type: 2}
+  Category: 4
+  ProductionTaskType: 10
+  ProductionToolType: 0
   WorkCost: 5
   _resourceCosts:
   - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
@@ -32,11 +29,20 @@ MonoBehaviour:
   - Water
   - Wall
   - Obstacle
-  Catergory: 0
+  Varients:
+  - VarientName: Wooden Double Bed
+    VarientSprite: {fileID: -1986180085, guid: 128e7404977fef1479d14ee0c70721c3, type: 3}
+    MaterialSelectIcon: {fileID: 0}
+    MaterialCosts:
+    - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
+      Quantity: 2
+    WorkCost: 20
+    CraftRequirements:
+      MinCraftingSkillLevel: 2
+      CraftingSkill: 10
+    Prefab: {fileID: 5935236254734965145, guid: dd1324a0af4a86b41b638230c8941527, type: 3}
   FurniturePrefab: {fileID: 5935236254734965145, guid: dd1324a0af4a86b41b638230c8941527, type: 3}
-  InUseStatChange:
+  InUseNeedChange:
     SourceID: Sleep in Wooden Bed
     AmountPerHour: 0.15
-    StatType: 1
-  Varients:
-  - {fileID: 11400000, guid: 96e95feee83c1e54481ff72b05fd2b5b, type: 2}
+    NeedType: 1
