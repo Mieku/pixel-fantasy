@@ -33,7 +33,7 @@ namespace Systems.Build_Controls.Scripts
         {
             HighlightBtn(true);
             
-            HUDController.Instance.ShowBuildDetails($"{_optionName} Furniture", new List<CraftedItemData>(_options));
+            HUDController.Instance.ShowBuildDetails($"{_optionName} Furniture", new List<FurnitureItemData>(_options));
         }
 
         public void Cancel()

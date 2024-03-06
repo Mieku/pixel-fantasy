@@ -14,22 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Forge
   ItemDescription: 
-  MaxStackSize: 1
   ItemSprite: {fileID: -952506661, guid: 54e38bc333db83845930f2da66234f2e, type: 3}
-  DefaultSpriteScale: {x: 1, y: 1}
   Durability: 100
-  InteractionConfigs: []
   Category: 4
-  RequiredCraftingTable: {fileID: 0}
-  RequiredCraftingJob: {fileID: 0}
-  WorkCost: 5
-  _resourceCosts:
-  - Item: {fileID: 11400000, guid: 75f99dfbebb440d4499e1b83387d86e1, type: 2}
-    Quantity: 2
+  CraftRequirements:
+    MinCraftingSkillLevel: 0
+    CraftingSkill: 10
+    MaterialCosts:
+    - Item: {fileID: 11400000, guid: 75f99dfbebb440d4499e1b83387d86e1, type: 2}
+      Quantity: 3
+    WorkCost: 10
+    RequiredCraftingToolType: 0
   _invalidPlacementTags:
   - Water
   - Wall
   - Obstacle
-  Catergory: 0
   FurniturePrefab: {fileID: 5259353419307902018, guid: aa50bd15bc8fa914181164f7dfd8dd31, type: 3}
+  InUseNeedChange:
+    SourceID: 
+    AmountPerHour: 0
+    NeedType: 0
+  ColourOptions:
+    ColourOptionsHeader: 
+    DyePalettes: []
   Varients: []

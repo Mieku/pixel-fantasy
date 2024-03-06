@@ -28,7 +28,7 @@ namespace Systems.Details.Building_Details.Scripts
 
             _itemIcon.sprite = _order.CraftedItem.ItemSprite;
             _tooltip.Header = _order.CraftedItem.ItemName;
-            _tooltip.Content = _order.CraftedItem.MaterialsList;
+            _tooltip.Content = _order.CraftedItem.CraftRequirements.MaterialsList;
             
             _increaseBtn.SetActive(!isFirst);
             _decreaseBtn.SetActive(!isLast);

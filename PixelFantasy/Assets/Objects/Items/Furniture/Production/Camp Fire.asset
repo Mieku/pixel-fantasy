@@ -14,26 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Camp Fire
   ItemDescription: 
-  MaxStackSize: 1
   ItemSprite: {fileID: -80888902, guid: 4e8ee64723e4ad04e83bf9838d2f1fa5, type: 3}
-  DefaultSpriteScale: {x: 1, y: 1}
   Durability: 100
-  InteractionConfigs: []
   Category: 4
-  RequiredCraftingTable: {fileID: 0}
-  RequiredCraftingJob: {fileID: 0}
-  WorkCost: 5
-  _resourceCosts:
-  - Item: {fileID: 11400000, guid: 75f99dfbebb440d4499e1b83387d86e1, type: 2}
-    Quantity: 2
+  CraftRequirements:
+    MinCraftingSkillLevel: 0
+    CraftingSkill: 10
+    MaterialCosts:
+    - Item: {fileID: 11400000, guid: 75f99dfbebb440d4499e1b83387d86e1, type: 2}
+      Quantity: 2
+    WorkCost: 5
+    RequiredCraftingToolType: 0
   _invalidPlacementTags:
   - Water
   - Wall
   - Obstacle
-  Catergory: 0
   FurniturePrefab: {fileID: 7901035948059328099, guid: 5f1a3707032217746a8778574d03512b, type: 3}
   InUseNeedChange:
     SourceID: 
     AmountPerHour: 0
     NeedType: 0
+  ColourOptions:
+    ColourOptionsHeader: 
+    DyePalettes: []
   Varients: []

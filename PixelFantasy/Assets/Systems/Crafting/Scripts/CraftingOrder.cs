@@ -51,7 +51,7 @@ namespace Systems.Crafting.Scripts
             OnOrderComplete = onOrderComplete;
             OnOrderCancelled = onOrderCancelled;
             
-            _remainingMaterials = CraftedItem.GetResourceCosts();
+            _remainingMaterials = CraftedItem.CraftRequirements.GetResourceCosts();
             
             SetOrderState(EOrderState.Queued);
         }
@@ -68,7 +68,7 @@ namespace Systems.Crafting.Scripts
             switch (OrderType)
             {
                 case EOrderType.Furniture:
-                    task = new Task("Craft Furniture Order", CraftedItem.ProductionTaskType, Requestor, CraftedItem.ProductionToolType)
+                    task = new Task("Craft Furniture Order", CraftedItem.CraftRequirements.CraftingSkill, Requestor, CraftedItem.CraftRequirements.RequiredCraftingToolType)
                     {
                         Payload = CraftedItem.ItemName,
                         OnTaskComplete = onTaskComplete,
@@ -76,7 +76,7 @@ namespace Systems.Crafting.Scripts
                     };
                     break;
                 case EOrderType.Item:
-                    task = new Task("Craft Item", CraftedItem.ProductionTaskType, Requestor, CraftedItem.ProductionToolType)
+                    task = new Task("Craft Item", CraftedItem.CraftRequirements.CraftingSkill, Requestor, CraftedItem.CraftRequirements.RequiredCraftingToolType)
                     {
                         Payload = CraftedItem.ItemName,
                         OnTaskComplete = onTaskComplete,
@@ -94,7 +94,7 @@ namespace Systems.Crafting.Scripts
 
         private List<Item> ClaimRequiredMaterials()
         {
-            var requiredItems = CraftedItem.GetResourceCosts();
+            var requiredItems = CraftedItem.CraftRequirements.GetResourceCosts();
             List<Item> claimedItems = new List<Item>();
             
             foreach (var requiredItem in requiredItems)

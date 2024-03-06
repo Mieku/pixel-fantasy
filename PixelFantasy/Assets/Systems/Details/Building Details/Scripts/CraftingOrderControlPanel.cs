@@ -80,7 +80,7 @@ namespace Systems.Details.Building_Details.Scripts
             }
             _displayedCosts.Clear();
 
-            var itemCosts = craftedItemData.GetResourceCosts();
+            var itemCosts = craftedItemData.CraftRequirements.GetResourceCosts();
             foreach (var itemCost in itemCosts)
             {
                 var cost = Instantiate(_resourceCostPrefab, _resouceCostsLayout);

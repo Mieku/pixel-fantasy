@@ -92,7 +92,7 @@ namespace Buildings.Building_Panels
             }
             _displayedCosts.Clear();
 
-            var costs = furnitureItemData.GetResourceCosts();
+            var costs = furnitureItemData.CraftRequirements.GetResourceCosts();
             foreach (var costAmount in costs)
             {
                 var cost = Instantiate(_costPrefab, _costsParent);
@@ -103,9 +103,9 @@ namespace Buildings.Building_Panels
 
         private void StartPlanningFurniture(FurnitureItemData furnitureItemData)
         {
-            Spawner.Instance.CancelInput();
-            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildFurniture, furnitureItemData.ItemName);
-            Spawner.Instance.PlanFurniture(furnitureItemData);
+            // Spawner.Instance.CancelInput();
+            // PlayerInputController.Instance.ChangeState(PlayerInputState.BuildFurniture, furnitureItemData.ItemName);
+            // Spawner.Instance.PlanFurniture(furnitureItemData);
         }
     }
 }

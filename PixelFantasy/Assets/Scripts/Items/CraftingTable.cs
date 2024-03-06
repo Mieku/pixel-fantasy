@@ -68,8 +68,8 @@ namespace Items
                 _craftedItem = craftedItem;
                 IsInUse = true;
                 ShowCraftingPreview(craftedItem.ItemSprite);
-                _remainingCraftAmount = craftedItem.WorkCost;
-                _remainingMaterials = new List<ItemAmount>(craftedItem.GetResourceCosts());
+                _remainingCraftAmount = craftedItem.CraftRequirements.WorkCost;
+                _remainingMaterials = new List<ItemAmount>(craftedItem.CraftRequirements.GetResourceCosts());
             }
             else
             {
@@ -113,7 +113,7 @@ namespace Items
         {
             if (_craftedItem == null) return 0f;
             
-            return 1 - (_remainingCraftAmount / _craftedItem.WorkCost);
+            return 1 - (_remainingCraftAmount / _craftedItem.CraftRequirements.WorkCost);
         }
 
         public void ReceiveMaterial(Item item)
@@ -133,7 +133,7 @@ namespace Items
             if (_craftedItem == null) return 0f;
             
             int numItemsNeeded = 0;
-            foreach (var cost in _craftedItem.GetResourceCosts())
+            foreach (var cost in _craftedItem.CraftRequirements.GetResourceCosts())
             {
                 numItemsNeeded += cost.Quantity;
             }
@@ -172,7 +172,7 @@ namespace Items
             if (!validToCraft) return false;
             
             // Are the mats available?
-            foreach (var cost in _craftedItem.GetResourceCosts())
+            foreach (var cost in _craftedItem.CraftRequirements.GetResourceCosts())
             {
                 if (!cost.CanAfford())
                 {

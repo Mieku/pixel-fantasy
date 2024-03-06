@@ -14,30 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Starter Stockpile
   ItemDescription: 
-  MaxStackSize: 1
   ItemSprite: {fileID: 21300000, guid: c5dc3fbeb7cad2949bf0873f5c636af9, type: 3}
-  DefaultSpriteScale: {x: 1, y: 1}
   Durability: 100
-  InteractionConfigs: []
   Category: 4
-  RequiredCraftingTableOptions: []
-  ProductionTaskType: 0
-  ProductionToolType: 0
-  MinProductionSkill: 0
-  WorkCost: 5
-  _resourceCosts:
-  - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
-    Quantity: 5
+  CraftRequirements:
+    MinCraftingSkillLevel: 0
+    CraftingSkill: 10
+    MaterialCosts:
+    - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
+      Quantity: 3
+    WorkCost: 5
+    RequiredCraftingToolType: 0
   _invalidPlacementTags:
   - Water
   - Wall
   - Obstacle
-  Catergory: 2
   FurniturePrefab: {fileID: 5465201506073250537, guid: ad37035a922cc6e4799db5aee18bd59c, type: 3}
   InUseNeedChange:
     SourceID: 
     AmountPerHour: 0
     NeedType: 0
+  ColourOptions:
+    ColourOptionsHeader: 
+    DyePalettes: []
   Varients: []
   MaxStorage: 100
   AcceptedCategories: 00000000030000000100000002000000

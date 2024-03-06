@@ -11,6 +11,7 @@ using Managers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Systems.Crafting.Scripts;
+using Systems.Details.Build_Details.Scripts;
 using Systems.Skills.Scripts;
 using Systems.SmartObjects.Scripts;
 using TaskSystem;
@@ -308,6 +309,14 @@ namespace Items
             _furnitureItemData = furnitureItemData;
         }
 
+        public void Init(BuildDetailsUI.SelectedFurnitureData selectedFurnitureData)
+        {
+            _furnitureItemData = selectedFurnitureData.Furniture;
+            
+            // TODO: Apply variant data
+            // TODO: Apply dye data
+        }
+
         private List<Transform> UseagePositions()
         {
             List<Transform> results = new List<Transform>();
@@ -390,13 +399,13 @@ namespace Items
         
         private void Planning_Enter()
         {
-            _remainingWork = _furnitureItemData.WorkCost;
+            _remainingWork = _furnitureItemData.CraftRequirements.WorkCost;
             DisplayUseageMarkers(true);
         }
 
         public void InProduction_Enter()
         {
-            _remainingWork = _furnitureItemData.WorkCost;
+            _remainingWork = _furnitureItemData.CraftRequirements.WorkCost;
             DisplayUseageMarkers(false);
             Show(true);
             ColourArt(ColourStates.Blueprint);
@@ -490,7 +499,7 @@ namespace Items
         {
             DisplayUseageMarkers(false);
             _durabiliy = _furnitureItemData.Durability;
-            _remainingWork = _furnitureItemData.WorkCost;
+            _remainingWork = _furnitureItemData.CraftRequirements.WorkCost;
             ColourArt(ColourStates.Built);
             
             if(_smartObject != null) _smartObject.gameObject.SetActive(true);

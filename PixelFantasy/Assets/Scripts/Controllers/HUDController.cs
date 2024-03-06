@@ -48,7 +48,7 @@ namespace Controllers
             _selectedItemInfoPanel.ShowItemDetails(clickableObject);
         }
 
-        public void ShowBuildDetails(string header, List<CraftedItemData> options )
+        public void ShowBuildDetails(string header, List<FurnitureItemData> options )
         {
             HideDetails();
             

@@ -14,28 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Tool Rack
   ItemDescription: Stores Tools and Weapons
-  MaxStackSize: 1
   ItemSprite: {fileID: 801754901, guid: 4d5895fa30c428843a9032c52ee06e38, type: 3}
-  DefaultSpriteScale: {x: 1, y: 1}
   Durability: 100
-  InteractionConfigs: []
   Category: 4
-  RequiredCraftingTable: {fileID: 11400000, guid: 92ae49093fe4f4240bcc66f7c88f3749, type: 2}
-  RequiredCraftingJob: {fileID: 11400000, guid: 8cc115b907c69de4da24cb986f35866f, type: 2}
-  WorkCost: 5
-  _resourceCosts:
-  - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
-    Quantity: 5
+  CraftRequirements:
+    MinCraftingSkillLevel: 0
+    CraftingSkill: 10
+    MaterialCosts:
+    - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
+      Quantity: 3
+    WorkCost: 5
+    RequiredCraftingToolType: 0
   _invalidPlacementTags:
   - Water
   - Wall
   - Obstacle
-  Catergory: 2
   FurniturePrefab: {fileID: 5465201506073250537, guid: 1862542d3e26c704b996476df5f760ea, type: 3}
   InUseNeedChange:
     SourceID: 
     AmountPerHour: 0
     NeedType: 0
+  ColourOptions:
+    ColourOptionsHeader: 
+    DyePalettes: []
   Varients: []
   MaxStorage: 20
   AcceptedCategories: 01000000

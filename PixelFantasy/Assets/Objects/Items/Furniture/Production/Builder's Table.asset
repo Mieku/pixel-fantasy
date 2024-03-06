@@ -14,22 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Builder's Table
   ItemDescription: 
-  MaxStackSize: 1
   ItemSprite: {fileID: -2106620571, guid: 4d5895fa30c428843a9032c52ee06e38, type: 3}
-  DefaultSpriteScale: {x: 1, y: 1}
   Durability: 100
-  InteractionConfigs: []
   Category: 4
-  RequiredCraftingTable: {fileID: 11400000}
-  RequiredCraftingJob: {fileID: 0}
-  WorkCost: 5
-  _resourceCosts:
-  - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
-    Quantity: 2
+  CraftRequirements:
+    MinCraftingSkillLevel: 0
+    CraftingSkill: 10
+    MaterialCosts:
+    - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
+      Quantity: 2
+    WorkCost: 5
+    RequiredCraftingToolType: 0
   _invalidPlacementTags:
   - Water
   - Wall
   - Obstacle
-  Catergory: 0
   FurniturePrefab: {fileID: 5259353419307902018, guid: 00efb1b08405d734ea032aba545657c2, type: 3}
+  InUseNeedChange:
+    SourceID: 
+    AmountPerHour: 0
+    NeedType: 0
+  ColourOptions:
+    ColourOptionsHeader: 
+    DyePalettes: []
   Varients: []

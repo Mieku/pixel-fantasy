@@ -14,26 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Cooking Table
   ItemDescription: 
-  MaxStackSize: 1
   ItemSprite: {fileID: -122136614, guid: 4d5895fa30c428843a9032c52ee06e38, type: 3}
-  DefaultSpriteScale: {x: 1, y: 1}
   Durability: 100
-  InteractionConfigs: []
   Category: 4
-  RequiredCraftingTable: {fileID: 11400000, guid: 92ae49093fe4f4240bcc66f7c88f3749, type: 2}
-  RequiredCraftingJob: {fileID: 11400000, guid: 8cc115b907c69de4da24cb986f35866f, type: 2}
-  WorkCost: 5
-  _resourceCosts:
-  - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
-    Quantity: 2
+  CraftRequirements:
+    MinCraftingSkillLevel: 0
+    CraftingSkill: 10
+    MaterialCosts:
+    - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
+      Quantity: 2
+    WorkCost: 5
+    RequiredCraftingToolType: 0
   _invalidPlacementTags:
   - Water
   - Wall
   - Obstacle
-  Catergory: 0
   FurniturePrefab: {fileID: 2244473554392837629, guid: 76e2628adfcdee94ab126d30430ecd32, type: 3}
   InUseNeedChange:
     SourceID: 
     AmountPerHour: 0
     NeedType: 0
+  ColourOptions:
+    ColourOptionsHeader: 
+    DyePalettes: []
   Varients: []

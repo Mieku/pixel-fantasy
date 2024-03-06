@@ -10,40 +10,8 @@ namespace ScriptableObjects
     [CreateAssetMenu(fileName = "CraftedItemData", menuName = "ItemData/CraftedItemData/CraftedItemData", order = 1)]
     public class CraftedItemData : ItemData
     {
-        [TitleGroup("Crafted Data")] public ETaskType ProductionTaskType;
-        [TitleGroup("Crafted Data")] public EToolType ProductionToolType;
-        [TitleGroup("Crafted Data")] public float WorkCost;
-        [TitleGroup("Crafted Data")] [SerializeField] private List<ItemAmount> _resourceCosts;
+        [TitleGroup("Crafted Data")] public CraftRequirements CraftRequirements;
         [TitleGroup("Crafted Data")] [SerializeField] private List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle" };
-        
-        public List<ItemAmount> GetResourceCosts()
-        {
-            List<ItemAmount> clone = new List<ItemAmount>();
-            foreach (var resourceCost in _resourceCosts)
-            {
-                ItemAmount cost = new ItemAmount
-                {
-                    Item = resourceCost.Item,
-                    Quantity = resourceCost.Quantity
-                };
-                clone.Add(cost);
-            }
-
-            return clone;
-        }
-
-        public string MaterialsList
-        {
-            get
-            {
-                string materialsList = "";
-                foreach (var cost in _resourceCosts)
-                {
-                    materialsList += cost.Quantity + "x " + cost.Item.ItemName + "\n";
-                }
-                return materialsList;
-            }
-        }
         
         public List<string> InvalidPlacementTags
         {
@@ -58,17 +26,6 @@ namespace ScriptableObjects
                 return clone;
             }
         }
-        
-        public float GetWorkPerResource()
-        {
-            int totalQuantity = 0;
-            foreach (var resourceCost in _resourceCosts)
-            {
-                totalQuantity += resourceCost.Quantity;
-            }
-
-            return WorkCost / totalQuantity;
-        }
     }
 
     [Serializable]
@@ -77,9 +34,8 @@ namespace ScriptableObjects
         public string VarientName;
         public Sprite VarientSprite;
         public Sprite MaterialSelectIcon; // Typically the icon of the material change
-        public List<ItemAmount> MaterialCosts;
-        public float WorkCost;
         public CraftRequirements CraftRequirements;
+        public int Durability = 100;
     }
 
     [Serializable]
@@ -87,5 +43,62 @@ namespace ScriptableObjects
     {
         public int MinCraftingSkillLevel;
         public ETaskType CraftingSkill;
+        public List<ItemAmount> MaterialCosts;
+        public float WorkCost;
+        public EToolType RequiredCraftingToolType;
+        
+        public float GetWorkPerResource()
+        {
+            int totalQuantity = 0;
+            foreach (var resourceCost in MaterialCosts)
+            {
+                totalQuantity += resourceCost.Quantity;
+            }
+
+            return WorkCost / totalQuantity;
+        }
+        
+        public string MaterialsList
+        {
+            get
+            {
+                string materialsList = "";
+                foreach (var cost in MaterialCosts)
+                {
+                    materialsList += cost.Quantity + "x " + cost.Item.ItemName + "\n";
+                }
+                return materialsList;
+            }
+        }
+        
+        public List<ItemAmount> GetResourceCosts()
+        {
+            List<ItemAmount> clone = new List<ItemAmount>(MaterialCosts);
+            return clone;
+        }
+
+        public bool MaterialsAreAvailable
+        {
+            get
+            {
+                foreach (var cost in MaterialCosts)
+                {
+                    if (!cost.CanAfford()) return false;
+                }
+
+                return true;
+            }
+        }
+
+        public bool SomeoneHasCraftingSkillNeeded
+        {
+            get
+            { 
+                // TODO: Build me!
+                return true;
+            }
+        }
+
+        public bool CanBeCrafted => MaterialsAreAvailable && SomeoneHasCraftingSkillNeeded;
     }
 }

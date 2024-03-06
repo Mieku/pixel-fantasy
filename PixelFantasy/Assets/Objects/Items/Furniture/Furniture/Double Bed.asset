@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ea08642fa677164181cf71b3420aa61, type: 3}
+  m_Name: Double Bed
+  m_EditorClassIdentifier: 
+  ItemName: Wooden Double Bed
+  ItemDescription: 
+  ItemSprite: {fileID: -1986180085, guid: 128e7404977fef1479d14ee0c70721c3, type: 3}
+  Durability: 100
+  Category: 4
+  CraftRequirements:
+    MinCraftingSkillLevel: 2
+    CraftingSkill: 10
+    MaterialCosts:
+    - Item: {fileID: 11400000, guid: 31b92cc3897ad39439189df7981b1f10, type: 2}
+      Quantity: 2
+    WorkCost: 5
+    RequiredCraftingToolType: 0
+  _invalidPlacementTags:
+  - Water
+  - Wall
+  - Obstacle
+  FurniturePrefab: {fileID: 5935236254734965145, guid: dd1324a0af4a86b41b638230c8941527, type: 3}
+  InUseNeedChange:
+    SourceID: Sleep in Wooden Bed
+    AmountPerHour: 0.15
+    NeedType: 1
+  ColourOptions:
+    ColourOptionsHeader: Sheet Color
+    DyePalettes:
+    - {fileID: 11400000, guid: 5f7885d520275e940aa972ab28670750, type: 2}
+    - {fileID: 11400000, guid: 06364608d9707aa4da0b1e7547502fa4, type: 2}
+  Varients:
+  - VarientName: Copper Double Bed
+    VarientSprite: {fileID: -1986180085, guid: 128e7404977fef1479d14ee0c70721c3, type: 3}
+    MaterialSelectIcon: {fileID: 21300000, guid: 848cd147474beaa4f96afb2ae1f9b455, type: 3}
+    CraftRequirements:
+      MinCraftingSkillLevel: 4
+      CraftingSkill: 10
+      MaterialCosts:
+      - Item: {fileID: 11400000, guid: 88709ad2cfd7dd94297cea2dbbbfa57b, type: 2}
+        Quantity: 2
+      WorkCost: 7
+      RequiredCraftingToolType: 0
+    Durability: 125
+    Prefab: {fileID: 5935236254734965145, guid: dd1324a0af4a86b41b638230c8941527, type: 3}
+    InUseNeedChange:
+      SourceID: 
+      AmountPerHour: 0
+      NeedType: 0

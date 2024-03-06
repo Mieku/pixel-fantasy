@@ -7,6 +7,7 @@ using Controllers;
 using Items;
 using ScriptableObjects;
 using Systems.Buildings.Scripts;
+using Systems.Details.Build_Details.Scripts;
 using Systems.Notifications.Scripts;
 using UnityEngine;
 using Zones;
@@ -124,12 +125,10 @@ namespace Managers
                 if (_plannedFurniture.CheckPlacement())
                 {
                     _plannedFurniture.SetState(Furniture.EFurnitureState.InProduction);
-                    var key = _plannedFurniture.FurnitureItemData.ItemName;
                     _plannedFurniture = null;
                     
-                    // Allows the player to make multiple
-                    var furnitureData = Librarian.Instance.GetItemData(key) as FurnitureItemData;
-                    PlanFurniture(furnitureData);
+                    // Allows the player to place multiple
+                    PlanFurniture(_selectedFurnitureData);
                 }
             }
             else if (inputState == PlayerInputState.BuildFarm)
@@ -197,7 +196,7 @@ namespace Managers
             _invalidPlacementTags.Clear();
             CancelPlanning();
             PlacementDirection = PlacementDirection.South;
-            _plannedFurnitureItemData = null;
+            _selectedFurnitureData = null;
             _plannedDoor = null;
         }
 
@@ -293,7 +292,7 @@ namespace Managers
                 }
             }
 
-            if (_plannedFurnitureItemData != null)
+            if (_selectedFurnitureData != null)
             {
                 if (Input.GetKeyDown(KeyCode.E)) // Clockwise
                 {
@@ -304,7 +303,7 @@ namespace Managers
                         _plannedFurniture = null;
                     }
 
-                    PlanFurniture(_plannedFurnitureItemData);
+                    PlanFurniture(_selectedFurnitureData);
                 }
                 
                 if (Input.GetKeyDown(KeyCode.Q)) // Counter Clockwise
@@ -316,7 +315,7 @@ namespace Managers
                         _plannedFurniture = null;
                     }
 
-                    PlanFurniture(_plannedFurnitureItemData);
+                    PlanFurniture(_selectedFurnitureData);
                 }
             }
         }
@@ -399,13 +398,29 @@ namespace Managers
         }
 
         private Furniture _plannedFurniture;
-        private FurnitureItemData _plannedFurnitureItemData;
-        public void PlanFurniture(FurnitureItemData furnitureData)
+        private BuildDetailsUI.SelectedFurnitureData _selectedFurnitureData;
+        // private FurnitureItemData _plannedFurnitureItemData;
+        // public void PlanFurniture(FurnitureItemData furnitureData)
+        // {
+        //     _plannedFurnitureItemData = furnitureData;
+        //     var cursorPos = Helper.ConvertMousePosToGridPos(UtilsClass.GetMouseWorldPosition());
+        //     var furniture = Instantiate(furnitureData.FurniturePrefab, cursorPos, Quaternion.identity, _furnitureParent);
+        //     furniture.Init(furnitureData);
+        //     furniture.SetState(Furniture.EFurnitureState.Planning);
+        //     _plannedFurniture = furniture;
+        // }
+
+        public void PlanFurniture(BuildDetailsUI.SelectedFurnitureData selectedFurnitureData)
         {
-            _plannedFurnitureItemData = furnitureData;
+            _selectedFurnitureData = selectedFurnitureData;
+            Furniture furniturePrefab = selectedFurnitureData.Furniture.FurniturePrefab;
+            if (selectedFurnitureData.Varient != null && selectedFurnitureData.Varient.Prefab != null)
+            {
+                furniturePrefab = selectedFurnitureData.Varient.Prefab;
+            }
             var cursorPos = Helper.ConvertMousePosToGridPos(UtilsClass.GetMouseWorldPosition());
-            var furniture = Instantiate(furnitureData.FurniturePrefab, cursorPos, Quaternion.identity, _furnitureParent);
-            furniture.Init(furnitureData);
+            var furniture = Instantiate(furniturePrefab, cursorPos, Quaternion.identity, _flooringParent);
+            furniture.Init(selectedFurnitureData);
             furniture.SetState(Furniture.EFurnitureState.Planning);
             _plannedFurniture = furniture;
         }
