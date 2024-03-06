@@ -10,11 +10,11 @@ namespace Buildings.Building_Panels
         [SerializeField] private Image _itemImage;
         [SerializeField] private GameObject _selectorHandle;
 
-        private FurnitureItemData _furniture;
-        private Action<FurnitureItemData, BuildingFurnitureOption> _onPressedCallback;
+        private FurnitureSettings _furniture;
+        private Action<FurnitureSettings, BuildingFurnitureOption> _onPressedCallback;
 
-        public void Init(FurnitureItemData furniture,
-            Action<FurnitureItemData, BuildingFurnitureOption> onPressedCallback)
+        public void Init(FurnitureSettings furniture,
+            Action<FurnitureSettings, BuildingFurnitureOption> onPressedCallback)
         {
             _furniture = furniture;
             _onPressedCallback = onPressedCallback;

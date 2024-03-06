@@ -12,7 +12,7 @@ namespace TaskSystem
         private PlayerInteractable _requestor;
         private bool _isHoldingItem;
         private bool _isMoving;
-        private ItemData _itemData;
+        private ItemSettings _itemSettings;
         private Vector2 _constructionPos;
         
         public float DistanceToRequestor => Vector2.Distance(_constructionPos, transform.position);
@@ -121,8 +121,8 @@ namespace TaskSystem
         {
             if (string.IsNullOrEmpty(itemName)) return null;
             
-            _itemData = Librarian.Instance.GetItemData(itemName);
-            return InventoryManager.Instance.ClaimItem(_itemData);
+            _itemSettings = Librarian.Instance.GetItemData(itemName);
+            return InventoryManager.Instance.ClaimItem(_itemSettings);
         }
     }
 }

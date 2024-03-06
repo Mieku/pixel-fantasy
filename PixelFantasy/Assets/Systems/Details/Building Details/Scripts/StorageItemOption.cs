@@ -11,18 +11,18 @@ namespace Systems.Details.Building_Details.Scripts
         [SerializeField] private GameObject _selectedHandle;
         [SerializeField] private GameObject _ruleIcon;
 
-        private ItemData _itemData;
-        private Action<ItemData> _onPressedCallback;
+        private ItemSettings _itemSettings;
+        private Action<ItemSettings> _onPressedCallback;
         private bool _isSelected;
 
-        public ItemData ItemData => _itemData;
+        public ItemSettings ItemSettings => _itemSettings;
         
-        public void Init(ItemData itemData, bool isSelected, bool hasRule, Action<ItemData> onPressedCallback)
+        public void Init(ItemSettings itemSettings, bool isSelected, bool hasRule, Action<ItemSettings> onPressedCallback)
         {
-            _itemData = itemData;
+            _itemSettings = itemSettings;
             _onPressedCallback = onPressedCallback;
 
-            _itemIcon.sprite = _itemData.ItemSprite;
+            _itemIcon.sprite = _itemSettings.ItemSprite;
             SetSelected(isSelected);
             SetHasRule(hasRule);
         }
@@ -40,7 +40,7 @@ namespace Systems.Details.Building_Details.Scripts
         
         public void OnPressed()
         {
-            _onPressedCallback.Invoke(_itemData);
+            _onPressedCallback.Invoke(_itemSettings);
         }
     }
 }

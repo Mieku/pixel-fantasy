@@ -35,7 +35,7 @@ namespace Items
             return this;
         }
         
-        public virtual ConstructionData GetConstructionData()
+        public virtual ConstructionSettings GetConstructionData()
         {
             return null;
         }
@@ -108,13 +108,13 @@ namespace Items
             }
         }
 
-        public void AddResourceToBlueprint(ItemData itemData)
+        public void AddResourceToBlueprint(ItemSettings itemSettings)
         {
-            RemoveFromPendingResourceCosts(itemData);
+            RemoveFromPendingResourceCosts(itemSettings);
             
             foreach (var cost in _remainingResourceCosts)
             {
-                if (cost.Item == itemData && cost.Quantity > 0)
+                if (cost.Item == itemSettings && cost.Quantity > 0)
                 {
                     cost.Quantity--;
                     if (cost.Quantity <= 0)
@@ -272,13 +272,13 @@ namespace Items
             }
         }
         
-        public void AddToPendingResourceCosts(ItemData itemData, int quantity = 1)
+        public void AddToPendingResourceCosts(ItemSettings itemSettings, int quantity = 1)
         {
             _pendingResourceCosts ??= new List<ItemAmount>();
 
             foreach (var cost in _pendingResourceCosts)
             {
-                if (cost.Item == itemData)
+                if (cost.Item == itemSettings)
                 {
                     cost.Quantity += quantity;
                     return;
@@ -287,16 +287,16 @@ namespace Items
             
             _pendingResourceCosts.Add(new ItemAmount
             {
-                Item = itemData,
+                Item = itemSettings,
                 Quantity = quantity
             });
         }
 
-        public void RemoveFromPendingResourceCosts(ItemData itemData, int quantity = 1)
+        public void RemoveFromPendingResourceCosts(ItemSettings itemSettings, int quantity = 1)
         {
             foreach (var cost in _pendingResourceCosts)
             {
-                if (cost.Item == itemData)
+                if (cost.Item == itemSettings)
                 {
                     cost.Quantity -= quantity;
                     if (cost.Quantity <= 0)
@@ -440,11 +440,11 @@ namespace Items
             }
         }
 
-        protected virtual void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceData)
+        protected virtual void EnqueueCreateTakeResourceToBlueprintTask(ItemSettings resourceSettings)
         {
             Task task = new Task("Withdraw Item Construction", ETaskType.Hauling, this, EToolType.None)
             {
-                Payload = resourceData.ItemName,
+                Payload = resourceSettings.ItemName,
             };
             TaskManager.Instance.AddTask(task);
         }

@@ -15,7 +15,7 @@ namespace Systems.World_Building.Scripts
     public class WorldBuilder : MonoBehaviour
     {
         [SerializeField] private TileWorldCreator _tileWorldCreator;
-        [SerializeField] private BiomeData _currentBiome;
+        [SerializeField] private BiomeSettings _currentBiome;
         [SerializeField] private MountainsHandler _mountainsHandler;
         [SerializeField] private ResourcesHandler _resourcesHandler;
         [SerializeField] private RampsHandler _rampsHandler;
@@ -506,7 +506,7 @@ namespace Systems.World_Building.Scripts
             yield return null;
         }
         
-        private void InitializeClusterCenters(bool[,] scaledBlueprint, BiomeData biomeData, out Dictionary<MountainTileType, List<Vector2Int>> clusterCenters)
+        private void InitializeClusterCenters(bool[,] scaledBlueprint, BiomeSettings biomeSettings, out Dictionary<MountainTileType, List<Vector2Int>> clusterCenters)
         {
             clusterCenters = new Dictionary<MountainTileType, List<Vector2Int>>();
 
@@ -515,7 +515,7 @@ namespace Systems.World_Building.Scripts
             {
                 if (mountainType == MountainTileType.Empty) continue; // Skip the 'Empty' type
 
-                int centerCount = CalculateCenterCountForMountainType(mountainType, biomeData, scaledBlueprint); // Implement this based on biome data
+                int centerCount = CalculateCenterCountForMountainType(mountainType, biomeSettings, scaledBlueprint); // Implement this based on biome data
         
                 clusterCenters[mountainType] = new List<Vector2Int>();
 
@@ -532,7 +532,7 @@ namespace Systems.World_Building.Scripts
             }
         }
 
-        private int CalculateCenterCountForMountainType(MountainTileType mountainType, BiomeData biomeData, bool[,] scaledBlueprint)
+        private int CalculateCenterCountForMountainType(MountainTileType mountainType, BiomeSettings biomeSettings, bool[,] scaledBlueprint)
         {
             int totalMountainCells = 0;
             for (int x = 0; x < scaledBlueprint.GetLength(0); x++)
@@ -544,16 +544,16 @@ namespace Systems.World_Building.Scripts
             }
 
             // Assuming each cell represents a 2x2 area, adjust the calculation if necessary
-            float percentage = biomeData.GetMountainTypePercentage(mountainType);
+            float percentage = biomeSettings.GetMountainTypePercentage(mountainType);
             int centerCount = Mathf.RoundToInt(totalMountainCells * percentage);
 
             return centerCount;
         }
         
-        private void ExpandClusters(bool[,] scaledBlueprint, Dictionary<MountainTileType, List<Vector2Int>> clusterCenters, ref MountainTileType[,] tileMap, BiomeData biomeData)
+        private void ExpandClusters(bool[,] scaledBlueprint, Dictionary<MountainTileType, List<Vector2Int>> clusterCenters, ref MountainTileType[,] tileMap, BiomeSettings biomeSettings)
         {
             // Calculate the maximum number of tiles allowed for each mountain type based on biome data
-            var maxTilesPerType = CalculateMaxTilesPerType(scaledBlueprint, biomeData);
+            var maxTilesPerType = CalculateMaxTilesPerType(scaledBlueprint, biomeSettings);
             var currentTilesPerType = new Dictionary<MountainTileType, int>();
             foreach (var type in maxTilesPerType.Keys)
             {
@@ -564,7 +564,7 @@ namespace Systems.World_Building.Scripts
             foreach (var mountainType in clusterCenters.Keys)
             {
                 // Skip the default type during the initial expansion phase
-                if (mountainType == biomeData.DefaultMountainType) continue;
+                if (mountainType == biomeSettings.DefaultMountainType) continue;
 
                 foreach (var center in clusterCenters[mountainType])
                 {
@@ -602,7 +602,7 @@ namespace Systems.World_Building.Scripts
             RedistributeTiles(ref tileMap, currentTilesPerType, maxTilesPerType, scaledBlueprint);
 
             // Fill in the remaining unassigned spaces with the default mountain type
-            FillRemainingWithDefault(scaledBlueprint, ref tileMap, biomeData.DefaultMountainType);
+            FillRemainingWithDefault(scaledBlueprint, ref tileMap, biomeSettings.DefaultMountainType);
         }
 
         private void FillRemainingWithDefault(bool[,] scaledBlueprint, ref MountainTileType[,] tileMap, MountainTileType defaultType)
@@ -671,7 +671,7 @@ namespace Systems.World_Building.Scripts
         }
 
         
-        private Dictionary<MountainTileType, int> CalculateMaxTilesPerType(bool[,] scaledBlueprint, BiomeData biomeData)
+        private Dictionary<MountainTileType, int> CalculateMaxTilesPerType(bool[,] scaledBlueprint, BiomeSettings biomeSettings)
         {
             int totalMountainCells = 0;
             for (int x = 0; x < scaledBlueprint.GetLength(0); x++)
@@ -683,7 +683,7 @@ namespace Systems.World_Building.Scripts
             }
 
             var maxTilesPerType = new Dictionary<MountainTileType, int>();
-            foreach (var mountain in biomeData.Mountains)
+            foreach (var mountain in biomeSettings.Mountains)
             {
                 int maxTiles = Mathf.RoundToInt(totalMountainCells * mountain.spawnPercentage);
                 maxTilesPerType[mountain.GetMountainTileType()] = maxTiles;

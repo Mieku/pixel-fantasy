@@ -10,13 +10,13 @@ namespace Systems.Details.Building_Details.Scripts
         [SerializeField] private TextMeshProUGUI _quantityText;
         [SerializeField] private Image _itemIcon;
 
-        private ItemData _itemData;
-        public ItemData ItemData => _itemData;
+        private ItemSettings _itemSettings;
+        public ItemSettings ItemSettings => _itemSettings;
 
-        public void Init(ItemData itemData, int amount, int? minimum = null)
+        public void Init(ItemSettings itemSettings, int amount, int? minimum = null)
         {
-            _itemData = itemData;
-            _itemIcon.sprite = _itemData.ItemSprite;
+            _itemSettings = itemSettings;
+            _itemIcon.sprite = _itemSettings.ItemSprite;
             
             RefreshValues(amount, minimum);
         }

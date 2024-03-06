@@ -24,11 +24,11 @@ namespace Handlers
             List<MountainStats> stats = new List<MountainStats>();
             foreach (var mountain in _mountains)
             {
-                var stat = stats.Find(mount => mount.Data == mountain.ResourceData as MountainData);
+                var stat = stats.Find(mount => mount.Settings == mountain.ResourceSettings as MountainSettings);
                 if (stat == null)
                 {
                     stat = new MountainStats();
-                    stat.Data = mountain.ResourceData as MountainData;
+                    stat.Settings = mountain.ResourceSettings as MountainSettings;
                     stat.Count = 1;
                     stats.Add(stat);
                 }
@@ -43,7 +43,7 @@ namespace Handlers
             foreach (var stat in stats)
             {
                 var percent = (stat.Count / total) * 100f;
-                statLog += $"{stat.Data.ResourceName}: {stat.Count} {percent:0.00}%\n";
+                statLog += $"{stat.Settings.ResourceName}: {stat.Count} {percent:0.00}%\n";
             }
             Debug.Log(statLog);
         }
@@ -67,19 +67,19 @@ namespace Handlers
             _mountainTM.ClearAllTiles();
         }
 
-        public void SpawnMountain(MountainData mountainData, float x, float y)
+        public void SpawnMountain(MountainSettings mountainSettings, float x, float y)
         {
             var spawnPosition = new Vector3(x, y, -1);
             var mountain = Instantiate(_mountainPrefab, spawnPosition, Quaternion.identity, transform);
-            mountain.Init(mountainData);
-            mountain.gameObject.name = mountainData.ResourceName;
+            mountain.Init(mountainSettings);
+            mountain.gameObject.name = mountainSettings.ResourceName;
             _mountains.Add(mountain);
         }
     }
     
     public class MountainStats
     {
-        public MountainData Data;
+        public MountainSettings Settings;
         public int Count;
     }
 }

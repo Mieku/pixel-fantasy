@@ -10,12 +10,12 @@ namespace Buildings.Building_Panels
         [SerializeField] private Image _itemImage;
         [SerializeField] private Image _selectorImage;
 
-        private Action<ItemData, BuildingLogisticsItemSlot> _onSlotSelected;
-        private ItemData _item;
+        private Action<ItemSettings, BuildingLogisticsItemSlot> _onSlotSelected;
+        private ItemSettings _item;
 
-        public ItemData AssignedItem => _item;
+        public ItemSettings AssignedItem => _item;
 
-        public void AssignItem(ItemData item, Action<ItemData, BuildingLogisticsItemSlot> onSlotSelected)
+        public void AssignItem(ItemSettings item, Action<ItemSettings, BuildingLogisticsItemSlot> onSlotSelected)
         {
             if (item != null)
             {

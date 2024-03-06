@@ -1,22 +1,25 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "GameSettings", menuName = "Game/Settings")]
-public class GameSettings : ScriptableObject
+namespace ScriptableObjects
 {
-    private static GameSettings _instance;
-
-    public static GameSettings Instance
+    [CreateAssetMenu(fileName = "GameSettings", menuName = "Settings/Game Settings", order = 0)]
+    public class GameSettings : ScriptableObject
     {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = Resources.Load<GameSettings>($"Settings/GameSettings");
-            }
-            return _instance;
-        }
-    }
+        private static GameSettings _instance;
 
-    [BoxGroup("Social"), ShowInInspector] public float BasePregnancyChance { get; private set; } = 50f;
+        public static GameSettings Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = Resources.Load<GameSettings>($"Settings/GameSettings");
+                }
+                return _instance;
+            }
+        }
+
+        [BoxGroup("Social"), ShowInInspector] public float BasePregnancyChance { get; private set; } = 50f;
+    }
 }

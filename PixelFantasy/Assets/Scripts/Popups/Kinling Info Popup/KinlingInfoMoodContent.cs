@@ -69,7 +69,7 @@ namespace Popups.Kinling_Info_Popup
                 if (!displayedEmotionStates.Contains(emotionState))
                 {
                     EmotionDisplay newEmotionDisplay;
-                    if (emotionState.LinkedEmotion.MoodModifier >= 0)
+                    if (emotionState.LinkedEmotionSettings.MoodModifier >= 0)
                     {
                         newEmotionDisplay = GetFromPool(positivePool, _positiveEmotionDisplayPrefab, _positiveEmotionParent);
                     }
@@ -92,7 +92,7 @@ namespace Popups.Kinling_Info_Popup
                     _displayedEmotions.Remove(expiredDisplay);
                     expiredDisplay.gameObject.SetActive(false);
 
-                    if (expiredDisplay.EmotionState.LinkedEmotion.MoodModifier >= 0)
+                    if (expiredDisplay.EmotionState.LinkedEmotionSettings.MoodModifier >= 0)
                     {
                         positivePool.Add(expiredDisplay);
                     }

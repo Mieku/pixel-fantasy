@@ -7,22 +7,22 @@ namespace Systems.Build_Controls.Scripts
     {
         [SerializeField] private WallOptionBtn _wallOptionPrefab;
 
-        private WallSO _wallSo;
+        private WallSettings _wallSettings;
         private WallsCategoryBtn _categoryBtn;
 
-        public void Init(WallSO wallSo, WallsCategoryBtn categoryBtn)
+        public void Init(WallSettings wallSettings, WallsCategoryBtn categoryBtn)
         {
-            _wallSo = wallSo;
+            _wallSettings = wallSettings;
             _categoryBtn = categoryBtn;
-            _icon.sprite = _wallSo.WallOptions[0].OptionIcon;
+            _icon.sprite = _wallSettings.WallOptions[0].OptionIcon;
         }
         
         protected override void PopulateOptions()
         {
-            foreach (var option in _wallSo.WallOptions)
+            foreach (var option in _wallSettings.WallOptions)
             {
                 var optionDisplay = Instantiate(_wallOptionPrefab, _optionsLayout.transform);
-                optionDisplay.Init(option, _wallSo, this);
+                optionDisplay.Init(option, _wallSettings, this);
                 _displayedOptions.Add(optionDisplay);
             }
         }

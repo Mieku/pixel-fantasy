@@ -4,32 +4,32 @@ namespace Systems.Mood.Scripts
 {
     public class EmotionState
     {
-        public Emotion LinkedEmotion;
+        public EmotionSettings LinkedEmotionSettings;
         public float RemainingTimeMins;
 
-        public int MoodModifier => LinkedEmotion.MoodModifier;
+        public int MoodModifier => LinkedEmotionSettings.MoodModifier;
 
-        public EmotionState(Emotion emotion)
+        public EmotionState(EmotionSettings emotionSettings)
         {
-            LinkedEmotion = emotion;
-            if (!emotion.IsIndefinite)
+            LinkedEmotionSettings = emotionSettings;
+            if (!emotionSettings.IsIndefinite)
             {
-                RemainingTimeMins = emotion.Duration * 60f;
+                RemainingTimeMins = emotionSettings.Duration * 60f;
             }
         }
 
         public void ResetDuration()
         {
-            if (!LinkedEmotion.IsIndefinite)
+            if (!LinkedEmotionSettings.IsIndefinite)
             {
-                RemainingTimeMins = LinkedEmotion.Duration * 60f;
+                RemainingTimeMins = LinkedEmotionSettings.Duration * 60f;
             }
         }
         
         /// <returns>Whether the emotion's duration is complete</returns>
         public bool TickEmotionState()
         {
-            if (!LinkedEmotion.IsIndefinite)
+            if (!LinkedEmotionSettings.IsIndefinite)
             {
                 RemainingTimeMins--;
                 return RemainingTimeMins <= 0;
@@ -55,7 +55,7 @@ namespace Systems.Mood.Scripts
         {
             get
             {
-                if (LinkedEmotion.IsIndefinite)
+                if (LinkedEmotionSettings.IsIndefinite)
                 {
                     return "";
                 }

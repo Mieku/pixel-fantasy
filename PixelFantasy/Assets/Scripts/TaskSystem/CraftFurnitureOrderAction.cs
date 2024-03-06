@@ -10,7 +10,7 @@ namespace TaskSystem
 {
     public class CraftFurnitureOrderAction : TaskAction // ID: Craft Furniture Order
     {
-        private CraftedItemData _itemToCraft;
+        private CraftedItemSettings _itemToCraft;
         private CraftingTable _craftingTable;
         private List<Item> _materials;
         private ETaskState _state;
@@ -37,7 +37,7 @@ namespace TaskSystem
 
             if (!result) return false;
             
-            var itemToCraft = Librarian.Instance.GetItemData((string)task.Payload) as CraftedItemData;
+            var itemToCraft = Librarian.Instance.GetItemData((string)task.Payload) as CraftedItemSettings;
             var table = FurnitureManager.Instance.GetCraftingTableForItem(itemToCraft);
 
             return table != null;
@@ -45,7 +45,7 @@ namespace TaskSystem
 
         public override void PrepareAction(Task task)
         {
-            _itemToCraft = Librarian.Instance.GetItemData((string)task.Payload) as CraftedItemData;
+            _itemToCraft = Librarian.Instance.GetItemData((string)task.Payload) as CraftedItemSettings;
             _craftingTable = FurnitureManager.Instance.GetCraftingTableForItem(_itemToCraft);
             _materials = task.Materials;
             _requestingFurniture = task.Requestor as Furniture;

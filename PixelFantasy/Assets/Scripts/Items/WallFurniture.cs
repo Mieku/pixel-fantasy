@@ -9,7 +9,7 @@ namespace Items
         {
             // TODO: alter this to only go on walls
             
-            bool result = Helper.IsGridPosValidToBuild(transform.position, _furnitureItemData.InvalidPlacementTags);
+            bool result = Helper.IsGridPosValidToBuild(transform.position, _furnitureSettings.InvalidPlacementTags);
 
             // Check the useage markers
             if (_useageMarkers != null)
@@ -17,7 +17,7 @@ namespace Items
                 bool markersPass = false;
                 foreach (var marker in _useageMarkers)
                 {
-                    if (Helper.IsGridPosValidToBuild(marker.transform.position, _furnitureItemData.InvalidPlacementTags))
+                    if (Helper.IsGridPosValidToBuild(marker.transform.position, _furnitureSettings.InvalidPlacementTags))
                     {
                         //ColourArt(ColourStates.CanPlace);
                         marker.color = Color.white;

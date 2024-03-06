@@ -65,22 +65,22 @@ namespace Characters
             ShowCurrentGear();
         }
 
-        public void Init(Kinling kinling, KinlingGearData kinlingGearData)
+        public void Init(Kinling kinling, KinlingGear kinlingGear)
         {
             _kinling = kinling;
 
-            InitializeGear(kinlingGearData, GearType.Head);
-            InitializeGear(kinlingGearData, GearType.Body);
-            InitializeGear(kinlingGearData, GearType.Pants);
-            InitializeGear(kinlingGearData, GearType.Hands);
-            InitializeGear(kinlingGearData, GearType.MainHand);
-            InitializeGear(kinlingGearData, GearType.OffHand);
+            InitializeGear(kinlingGear, GearType.Head);
+            InitializeGear(kinlingGear, GearType.Body);
+            InitializeGear(kinlingGear, GearType.Pants);
+            InitializeGear(kinlingGear, GearType.Hands);
+            InitializeGear(kinlingGear, GearType.MainHand);
+            InitializeGear(kinlingGear, GearType.OffHand);
         }
 
-        private void InitializeGear(KinlingGearData kinlingGearData, GearType gearType)
+        private void InitializeGear(KinlingGear kinlingGear, GearType gearType)
         {
-            var gearData = kinlingGearData.GetGearData(gearType);
-            var gearDye = kinlingGearData.GetDyePaletteData(gearType);
+            var gearData = kinlingGear.GetGearData(gearType);
+            var gearDye = kinlingGear.GetDyePaletteData(gearType);
 
             if (gearData != null)
             {
@@ -158,8 +158,8 @@ namespace Characters
 
         private void Equip(GearState equipmentState)
         {
-            _kinling.Skills.ApplyGearSkills(equipmentState.GearData.SkillStats);
-            switch (equipmentState.GearData.Type)
+            _kinling.Skills.ApplyGearSkills(equipmentState.GearSettings.SkillStats);
+            switch (equipmentState.GearSettings.Type)
             {
                 case GearType.Head:
                     EquipmentState.Head = equipmentState;
@@ -216,8 +216,8 @@ namespace Characters
 
         private void DisplayGear(GearState gearState)
         {
-            var type = gearState.GearData.Type;
-            var equip = gearState.GearData;
+            var type = gearState.GearSettings.Type;
+            var equip = gearState.GearSettings;
             ClearDisplayedGear(type);
 
             switch (type)
@@ -420,8 +420,8 @@ namespace Characters
 
         public Item Unequip(GearState gear)
         {
-            _kinling.Skills.RemoveGearSkills(gear.GearData.SkillStats);
-            var data = gear.GearData;
+            _kinling.Skills.RemoveGearSkills(gear.GearSettings.SkillStats);
+            var data = gear.GearSettings;
             if (data == null) return null;
 
             if (!HasEquipped(data)) return null;
@@ -451,7 +451,7 @@ namespace Characters
                     EquipmentState.Necklace = null;
                     break;
                 case GearType.Ring:
-                    if (EquipmentState.Ring1.Data == data)
+                    if (EquipmentState.Ring1.Settings == data)
                     {
                         EquipmentState.Ring1 = null;
                     }
@@ -473,36 +473,36 @@ namespace Characters
             return droppedItem;
         }
 
-        public bool HasEquipped(GearData gearData)
+        public bool HasEquipped(GearSettings gearSettings)
         {
-            if (gearData == null) return true;
+            if (gearSettings == null) return true;
 
-            switch (gearData.Type)
+            switch (gearSettings.Type)
             {
                 case GearType.Head:
-                    if (EquipmentState.Head.Data == gearData) return true;
+                    if (EquipmentState.Head.Settings == gearSettings) return true;
                     break;
                 case GearType.Body:
-                    if (EquipmentState.Body.Data == gearData) return true;
+                    if (EquipmentState.Body.Settings == gearSettings) return true;
                     break;
                 case GearType.Pants:
-                    if (EquipmentState.Pants.Data == gearData) return true;
+                    if (EquipmentState.Pants.Settings == gearSettings) return true;
                     break;
                 case GearType.Hands:
-                    if (EquipmentState.Hands.Data == gearData) return true;
+                    if (EquipmentState.Hands.Settings == gearSettings) return true;
                     break;
                 case GearType.MainHand:
-                    if (EquipmentState.MainHand.Data == gearData) return true;
+                    if (EquipmentState.MainHand.Settings == gearSettings) return true;
                     break;
                 case GearType.OffHand:
-                    if (EquipmentState.OffHand.Data == gearData) return true;
+                    if (EquipmentState.OffHand.Settings == gearSettings) return true;
                     break;
                 case GearType.Necklace:
-                    if (EquipmentState.Necklace.Data == gearData) return true;
+                    if (EquipmentState.Necklace.Settings == gearSettings) return true;
                     break;
                 case GearType.Ring:
-                    if (EquipmentState.Ring1.Data == gearData) return true;
-                    if (EquipmentState.Ring2.Data == gearData) return true;
+                    if (EquipmentState.Ring1.Settings == gearSettings) return true;
+                    if (EquipmentState.Ring2.Settings == gearSettings) return true;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

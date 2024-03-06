@@ -19,7 +19,7 @@ namespace Zones
         // Soil Types
         [SerializeField] private Sprite _soilHole, _soilCovered, _soilWatered;
 
-        private CropData _cropData;
+        private CropSettings _cropSettings;
         private bool _isTilled;
         private bool _isWatered;
         private bool _wateringTaskSet;
@@ -31,7 +31,7 @@ namespace Zones
         private float _timeGrowing;
         [SerializeField] private List<string> _invalidPlacementTags;
         private Tilemap _dirtTilemap;
-        private CropData _pendingCropSwap;
+        private CropSettings _pendingCropSwap;
 
         private float _remainingTillWork;
         private float _remainingDigWork;
@@ -59,9 +59,9 @@ namespace Zones
                 TilemapController.Instance.GetTilemap(TilemapLayer.Dirt);
         }
 
-        public void Init(CropData cropData)
+        public void Init(CropSettings cropSettings)
         {
-            _cropData = cropData;
+            _cropSettings = cropSettings;
             _soilHoleRenderer.gameObject.SetActive(false);
             _cropRenderer.gameObject.SetActive(false);
             
@@ -296,7 +296,7 @@ namespace Zones
                 if (_isWatered)
                 {
                     _timeWithWater += TimeManager.Instance.DeltaTime;
-                    if (_timeWithWater > _cropData.WaterFrequencySec)
+                    if (_timeWithWater > _cropSettings.WaterFrequencySec)
                     {
                         _timeWithWater = 0f;
                         DrySoil();
@@ -313,7 +313,7 @@ namespace Zones
                 {
                     _timeGrowing += TimeManager.Instance.DeltaTime;
                     RefreshCropStage(_timeGrowing);
-                    if (_timeGrowing > _cropData.TimeToHarvestSec)
+                    if (_timeGrowing > _cropSettings.TimeToHarvestSec)
                     {
                         _timeGrowing = 0f;
                         CropReadyToHarvest();
@@ -324,7 +324,7 @@ namespace Zones
 
         private void RefreshCropStage(float timeGrowing)
         {
-            var cropImage = _cropData.GetCropImage(timeGrowing);
+            var cropImage = _cropSettings.GetCropImage(timeGrowing);
             if (cropImage == null)
             {
                 _cropRenderer.gameObject.SetActive(false);
@@ -425,10 +425,10 @@ namespace Zones
             CreatePlantCropTask();
             
             // Spawn the crop
-            Spawner.Instance.SpawnItem(_cropData.HarvestedItem, transform.position, true, _cropData.AmountToHarvest);
+            Spawner.Instance.SpawnItem(_cropSettings.HarvestedItem, transform.position, true, _cropSettings.AmountToHarvest);
         }
 
-        public void ChangeCrop(CropData newCrop)
+        public void ChangeCrop(CropSettings newCrop)
         {
             _pauseGrowing = true;
             
@@ -442,7 +442,7 @@ namespace Zones
                 // Change the crop
                 if (_hasCrop == false) // If no crop is planted yet, continue with actions but with new crop
                 {
-                    _cropData = newCrop;
+                    _cropSettings = newCrop;
                     _pauseGrowing = false;
                 }
                 else
@@ -458,7 +458,7 @@ namespace Zones
             // Kinling goes to crop, does Digging anim and the soil and crop are removed
         }
 
-        public void SwapCrop(CropData newCrop)
+        public void SwapCrop(CropSettings newCrop)
         {
             _pendingCropSwap = newCrop;
             CreateSwapCropTask();
@@ -492,7 +492,7 @@ namespace Zones
             _remainingWaterWork = GetWaterWorkAmount();
             _remainingHarvestWork = GetHarvestWorkAmount();
             
-            _cropData = _pendingCropSwap;
+            _cropSettings = _pendingCropSwap;
             _cropRenderer.gameObject.SetActive(false);
 
             _pauseGrowing = false;
@@ -543,7 +543,7 @@ namespace Zones
             {
                 UID = UniqueId,
                 Position = transform.position,
-                CropData = _cropData,
+                CropSettings = _cropSettings,
                 IsTilled = _isTilled,
                 IsWatered = _isWatered,
                 WateringTaskSet = _wateringTaskSet,
@@ -569,7 +569,7 @@ namespace Zones
             var state = (CropState)data;
             UniqueId = state.UID;
             transform.position = state.Position;
-            _cropData = state.CropData;
+            _cropSettings = state.CropSettings;
             _isTilled = state.IsTilled;
             _isWatered = state.IsWatered;
             _wateringTaskSet = state.WateringTaskSet;
@@ -595,7 +595,7 @@ namespace Zones
         {
             public string UID;
             public Vector2 Position;
-            public CropData CropData;
+            public CropSettings CropSettings;
             public bool IsTilled;
             public bool IsWatered;
             public bool WateringTaskSet;

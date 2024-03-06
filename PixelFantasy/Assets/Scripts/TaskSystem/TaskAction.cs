@@ -94,7 +94,7 @@ namespace TaskSystem
                 // Unequip current item if there is one
                 Item droppedItem = null;
                 var claimedToolsStorage = claimedTool.AssignedStorage;
-                var claimedToolData = (GearData)claimedTool.GetItemData();
+                var claimedToolData = (GearSettings)claimedTool.GetItemData();
                 var curEquippedItem = _ai.Kinling.Equipment.EquipmentState.GetGearByType(claimedToolData.Type);
                 if (curEquippedItem != null)
                 {

@@ -12,11 +12,11 @@ namespace Handlers
     {
         private List<Furniture> _allFurniture = new List<Furniture>();
 
-        public bool DoesFurnitureExist(FurnitureItemData furnitureData)
+        public bool DoesFurnitureExist(FurnitureSettings furnitureData)
         {
             foreach (var furniture in _allFurniture)
             {
-                if (furniture.FurnitureItemData == furnitureData)
+                if (furniture.FurnitureSettings == furnitureData)
                 {
                     return true;
                 }
@@ -29,7 +29,7 @@ namespace Handlers
         {
             if (_allFurniture.Contains(furniture))
             {
-                Debug.LogError($"Attempted to register already registered furniture: {furniture.FurnitureItemData.ItemName}");
+                Debug.LogError($"Attempted to register already registered furniture: {furniture.FurnitureSettings.ItemName}");
                 return;
             }
             
@@ -40,7 +40,7 @@ namespace Handlers
         {
             if (!_allFurniture.Contains(furniture))
             {
-                Debug.LogError($"Attempted to deregister not registered furniture: {furniture.FurnitureItemData.ItemName}");
+                Debug.LogError($"Attempted to deregister not registered furniture: {furniture.FurnitureSettings.ItemName}");
                 return;
             }
 
@@ -117,7 +117,7 @@ namespace Handlers
             return selectedFurniture;
         }
 
-        public CraftingTable GetCraftingTableForItem(CraftedItemData item)
+        public CraftingTable GetCraftingTableForItem(CraftedItemSettings item)
         {
             var allTables = FindFurnituresOfType<CraftingTable>();
             foreach (var table in allTables)

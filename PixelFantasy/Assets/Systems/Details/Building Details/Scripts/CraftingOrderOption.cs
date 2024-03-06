@@ -10,11 +10,11 @@ namespace Systems.Details.Building_Details.Scripts
         [SerializeField] private Image _itemIcon;
         [SerializeField] private GameObject _selectedHandle;
 
-        public CraftedItemData Item { get; private set; }
+        public CraftedItemSettings Item { get; private set; }
 
-        private Action<CraftedItemData> _onSelectedCallback;
+        private Action<CraftedItemSettings> _onSelectedCallback;
 
-        public void Init(CraftedItemData item, Action<CraftedItemData> onSelectedCallback)
+        public void Init(CraftedItemSettings item, Action<CraftedItemSettings> onSelectedCallback)
         {
             Item = item;
             _itemIcon.sprite = item.ItemSprite;

@@ -7,10 +7,10 @@ namespace Systems.Needs.Scripts
     [Serializable]
     public class NeedState
     {
-        [SerializeField] private NeedData _needData;
+        [FormerlySerializedAs("_needData")] [SerializeField] private NeedSettings _needSettings;
         [SerializeField] private float _value;
 
-        public float Intensity => _needData.CalculateIntensity(_value);
+        public float Intensity => _needSettings.CalculateIntensity(_value);
         public float Value => _value;
 
         /// <summary>
@@ -55,13 +55,13 @@ namespace Systems.Needs.Scripts
 
         public void MinuteTickDecayNeed()
         {
-            var decayPerMin = _needData.DecayRate;
+            var decayPerMin = _needSettings.DecayRate;
             DecreaseNeed(decayPerMin);
         }
 
         public void Initialize()
         {
-            _value = _needData.InitialValue;
+            _value = _needSettings.InitialValue;
         }
     }
 }

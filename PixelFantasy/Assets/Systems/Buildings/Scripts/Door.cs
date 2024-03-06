@@ -15,7 +15,7 @@ namespace Systems.Buildings.Scripts
     {
         private Tilemap _wallTilemap;
         private EDoorState _doorState;
-        private DoorSO _doorSO;
+        private DoorSettings _doorSettings;
         public Action OnDoorPlaced;
 
         [SerializeField] private SpriteRenderer _doorSprite;
@@ -60,7 +60,7 @@ namespace Systems.Buildings.Scripts
 
         private void Construction_Enter()
         {
-            _remainingResourceCosts = _doorSO.GetResourceCosts();
+            _remainingResourceCosts = _doorSettings.GetResourceCosts();
             ColourSprite(Librarian.Instance.GetColour("Blueprint"));
 
             var wall = StructureManager.Instance.GetStructureAtCell(Cell.CellPos);
@@ -110,9 +110,9 @@ namespace Systems.Buildings.Scripts
             _wallTilemap = TilemapController.Instance.GetTilemap(TilemapLayer.Structure);
         }
 
-        public void Init(DoorSO doorSO)
+        public void Init(DoorSettings doorSettings)
         {
-            _doorSO = doorSO;
+            _doorSettings = doorSettings;
             SetState(EDoorState.BeingPlaced);
             SetOrientationVertical(false);
         }
@@ -172,13 +172,13 @@ namespace Systems.Buildings.Scripts
         
         private void CreateConstructionHaulingTasks()
         {
-            var resourceCosts = _doorSO.GetResourceCosts();
+            var resourceCosts = _doorSettings.GetResourceCosts();
             CreateConstuctionHaulingTasksForItems(resourceCosts);
         }
 
         public override List<ItemAmount> GetResourceCosts()
         {
-            return _doorSO.GetResourceCosts();
+            return _doorSettings.GetResourceCosts();
         }
         
         public override void CompleteConstruction()
@@ -223,8 +223,8 @@ namespace Systems.Buildings.Scripts
         {
             if (isVertical)
             {
-                _doorSprite.sprite = _doorSO.VerticalDoorframe;
-                _doormatSprite.sprite = _doorSO.VerticalDoormat;
+                _doorSprite.sprite = _doorSettings.VerticalDoorframe;
+                _doormatSprite.sprite = _doorSettings.VerticalDoormat;
                 _topCBlocker.SetActive(false);
                 _bottomCBlocker.SetActive(false);
                 _leftCBlocker.SetActive(true);
@@ -234,8 +234,8 @@ namespace Systems.Buildings.Scripts
             }
             else
             {
-                _doorSprite.sprite = _doorSO.HorizontalDoorframe;
-                _doormatSprite.sprite = _doorSO.HorizontalDoormat;
+                _doorSprite.sprite = _doorSettings.HorizontalDoorframe;
+                _doormatSprite.sprite = _doorSettings.HorizontalDoormat;
                 _topCBlocker.SetActive(true);
                 _bottomCBlocker.SetActive(true);
                 _leftCBlocker.SetActive(false);

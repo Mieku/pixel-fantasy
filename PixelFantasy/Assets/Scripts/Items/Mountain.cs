@@ -18,7 +18,7 @@ namespace Items
         
         protected float _remainingWork;
 
-        private MountainData _mountainData => ResourceData as MountainData;
+        private MountainSettings _mountainSettings => ResourceSettings as MountainSettings;
         
         protected override void Awake()
         {
@@ -27,17 +27,17 @@ namespace Items
             _tempPlacementDisp.SetActive(false);
         }
 
-        public void Init(MountainData mountainData)
+        public void Init(MountainSettings mountainSettings)
         {
             _tempPlacementDisp.SetActive(false);
-            ResourceData = mountainData;
+            ResourceSettings = mountainSettings;
             
             Refresh();
         }
 
         private void Start()
         {
-            if (_mountainData == null) return;
+            if (_mountainSettings == null) return;
             
             Refresh();
         }
@@ -63,7 +63,7 @@ namespace Items
         private void SetTile()
         {
             var cell = _mountainTM.WorldToCell(transform.position);
-            _mountainTM.SetTile(cell, _mountainData.GetRuleTile());
+            _mountainTM.SetTile(cell, _mountainSettings.GetRuleTile());
             
 
             var dirtCell = _dirtTM.WorldToCell(transform.position);
@@ -89,7 +89,7 @@ namespace Items
             _mountainTM.SetTile(mountainCell, null);
                         
             // Spawn Resources
-            var minedDrops = _mountainData.GetMineDrop();
+            var minedDrops = _mountainSettings.GetMineDrop();
             foreach (var minedDrop in minedDrops)
             {
                 for (int i = 0; i < minedDrop.Quantity; i++)
@@ -104,7 +104,7 @@ namespace Items
 
         public override float GetWorkAmount()
         {
-            return _mountainData.GetWorkAmount();
+            return _mountainSettings.GetWorkAmount();
         }
         
         public float WorkDone(float workAmount)
@@ -115,7 +115,7 @@ namespace Items
 
         public override HarvestableItems GetHarvestableItems()
         {
-            return _mountainData.HarvestableItems;
+            return _mountainSettings.HarvestableItems;
         }
 
         public override object CaptureState()
@@ -124,7 +124,7 @@ namespace Items
             {
                 UID = UniqueId,
                 Position = transform.position,
-                MountainData = _mountainData,
+                MountainSettings = _mountainSettings,
                 RemainingWork = _remainingWork,
             };
         }
@@ -134,7 +134,7 @@ namespace Items
             var stateData = (State)data;
             UniqueId = stateData.UID;
             transform.position = stateData.Position;
-            ResourceData = stateData.MountainData;
+            ResourceSettings = stateData.MountainSettings;
             _remainingWork = stateData.RemainingWork;
 
             Refresh();
@@ -144,7 +144,7 @@ namespace Items
         {
             public string UID;
             public Vector3 Position;
-            public MountainData MountainData;
+            public MountainSettings MountainSettings;
             public float RemainingWork;
         }
     }

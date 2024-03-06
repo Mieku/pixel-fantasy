@@ -37,12 +37,12 @@ namespace Characters
         [BoxGroup("General")] public ESexualPreference SexualPreference;
         
         [BoxGroup("Appearance")] public AppearanceState Appearance;
-        [BoxGroup("Gear")] public KinlingGearData Gear;
-        [BoxGroup("Traits")] public List<Trait> Traits = new List<Trait>();
+        [BoxGroup("Gear")] public KinlingGear Gear;
+        [BoxGroup("Traits")] public List<TraitSettings> Traits = new List<TraitSettings>();
         [BoxGroup("Family")] public string Partner;
         [BoxGroup("Family")] public List<string> Children = new List<string>();
-        [BoxGroup("Skills")] public List<TalentSO> Talents = new List<TalentSO>();
-        [BoxGroup("Job")] public JobData Job;
+        [BoxGroup("Skills")] public List<TalentSettings> Talents = new List<TalentSettings>();
+        [BoxGroup("Job")] public JobSettings Job;
         
         [BoxGroup("General")] [Button("Create UID")]
         private void GenerateUID()
@@ -64,7 +64,7 @@ namespace Characters
 
             SexualPreference = DetermineSexuality();
             Appearance = new AppearanceState(Gender, mother.Appearance, father.Appearance);
-            Gear = new KinlingGearData();
+            Gear = new KinlingGear();
             Talents = InheritTalentsFromParents(mother.Talents, father.Talents);
             Traits = GetTraitsFromParents(mother.Traits, father.Traits);
             Job = null;
@@ -111,9 +111,9 @@ namespace Characters
             }
         }
 
-        private List<Trait> GetTraitsFromParents(List<Trait> motherTraits, List<Trait> fatherTraits)
+        private List<TraitSettings> GetTraitsFromParents(List<TraitSettings> motherTraits, List<TraitSettings> fatherTraits)
         {
-            List<Trait> childTraits = new List<Trait>();
+            List<TraitSettings> childTraits = new List<TraitSettings>();
             foreach (var motherTrait in motherTraits)
             {
                 if (Helper.RollDice(50))
@@ -134,9 +134,9 @@ namespace Characters
             return childTraits;
         }
 
-        private List<TalentSO> InheritTalentsFromParents(List<TalentSO> motherTalents, List<TalentSO> fatherTalents)
+        private List<TalentSettings> InheritTalentsFromParents(List<TalentSettings> motherTalents, List<TalentSettings> fatherTalents)
         {
-            List<TalentSO> childTalents = new List<TalentSO>();
+            List<TalentSettings> childTalents = new List<TalentSettings>();
             foreach (var momTalent in motherTalents)
             {
                 if (Helper.RollDice(50))

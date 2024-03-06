@@ -20,7 +20,7 @@ namespace Systems.SmartObjects.Scripts
     [System.Serializable]
     public class InteractionStatChange
     {
-        public NeedData LinkedStat;
+        public NeedSettings LinkedStat;
         public float Value;
     }
     
@@ -32,7 +32,7 @@ namespace Systems.SmartObjects.Scripts
         [SerializeField] protected List<InteractionStatChange> _statChanges;
         [SerializeField] protected bool _allowAmbientStats;
         [SerializeField] protected bool _beginInteractionAtSmartObject = true;
-        [SerializeField] protected Emotion _interactionEmotion;
+        [FormerlySerializedAs("_interactionEmotion")] [SerializeField] protected EmotionSettings _interactionEmotionSettings;
 
         protected List<AmbientStatChange> _ambientStatChanges = new List<AmbientStatChange>();
 
@@ -86,7 +86,7 @@ namespace Systems.SmartObjects.Scripts
             ApplyEmotion(performer);
         }
 
-        public bool ContainsPositiveStatChange(NeedData stat)
+        public bool ContainsPositiveStatChange(NeedSettings stat)
         {
             foreach (var statChange in _statChanges)
             {
@@ -109,9 +109,9 @@ namespace Systems.SmartObjects.Scripts
 
         protected void ApplyEmotion(CommonAIBase performer)
         {
-            if (_interactionEmotion != null)
+            if (_interactionEmotionSettings != null)
             {
-                performer.Kinling.KinlingMood.ApplyEmotion(_interactionEmotion);
+                performer.Kinling.KinlingMood.ApplyEmotion(_interactionEmotionSettings);
             }
         }
 

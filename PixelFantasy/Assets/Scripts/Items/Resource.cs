@@ -8,12 +8,13 @@ using ScriptableObjects;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 namespace Items
 {
     public class Resource : PlayerInteractable, IClickableObject, IPersistent
     {
-        public ResourceData ResourceData;
+        [FormerlySerializedAs("ResourceData")] public ResourceSettings ResourceSettings;
         [SerializeField] protected SpriteRenderer _spriteRenderer;
         [SerializeField] private ClickObject _clickObject;
         [SerializeField] private Command _defaultClearCmd;
@@ -27,9 +28,9 @@ namespace Items
 
         public float Health;
 
-        public virtual void Init(ResourceData data)
+        public virtual void Init(ResourceSettings settings)
         {
-            ResourceData = data;
+            ResourceSettings = settings;
             
             if (_sorter != null)
             {
@@ -100,7 +101,7 @@ namespace Items
 
         public virtual float MinWorkDistance => 1f;
 
-        public virtual string DisplayName => ResourceData.ResourceName;
+        public virtual string DisplayName => ResourceSettings.ResourceName;
 
         protected virtual void Awake()
         {
@@ -110,9 +111,9 @@ namespace Items
 
         public bool HasTask => _curTask != null;
 
-        public ResourceData GetResourceData()
+        public ResourceSettings GetResourceData()
         {
-            return ResourceData;
+            return ResourceSettings;
         }
 
         public ClickObject GetClickObject()
@@ -203,7 +204,7 @@ namespace Items
             {
                 UID = UniqueId,
                 Position = transform.position,
-                ResourceData = ResourceData,
+                ResourceSettings = ResourceSettings,
                 IsAllowed = this.IsAllowed,
                 IsClickDisabled = this.IsClickDisabled,
             };
@@ -214,7 +215,7 @@ namespace Items
             var stateData = (Data)data;
             UniqueId = stateData.UID;
             transform.position = stateData.Position;
-            ResourceData = stateData.ResourceData;
+            ResourceSettings = stateData.ResourceSettings;
             IsAllowed = stateData.IsAllowed;
             IsClickDisabled = stateData.IsClickDisabled;
         }
@@ -224,7 +225,7 @@ namespace Items
             public string UID;
             public GameObject Prefab;
             public Vector3 Position;
-            public ResourceData ResourceData;
+            public ResourceSettings ResourceSettings;
             public bool IsAllowed;
             public bool IsClickDisabled;
 

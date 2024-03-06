@@ -5,6 +5,7 @@ using ScriptableObjects;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 
 namespace Characters
 {
@@ -12,8 +13,8 @@ namespace Characters
     {
         [SerializeField] private KinlingEquipment _equipment;
         
-        public HairData HairData;
-        public BodyData BodyData;
+        [FormerlySerializedAs("HairData")] public HairSettings HairSettings;
+        [FormerlySerializedAs("BodyData")] public BodySettings BodySettings;
         [SerializeField] private KinlingFaceHandler _face;
 
         [SerializeField] private SpriteRenderer _hairRenderer;
@@ -75,7 +76,7 @@ namespace Characters
             }
             
             ApplyAppearanceState(_appearanceState);
-            _face.Init(BodyData, _curDirection);
+            _face.Init(BodySettings, _curDirection);
         }
 
         public void SetEyesClosed(bool setClosed)
@@ -86,8 +87,8 @@ namespace Characters
         public void ApplyAppearanceState(AppearanceState appearanceState)
         {
             _appearanceState = appearanceState;
-            BodyData = appearanceState.Race.GetBodyDataByMaturity(_kinling.MaturityStage);
-            HairData = appearanceState.Hair;
+            BodySettings = appearanceState.Race.GetBodyDataByMaturity(_kinling.MaturityStage);
+            HairSettings = appearanceState.Hair;
             ApplySkinTone();
             ApplyHair();
         }
@@ -193,9 +194,9 @@ namespace Characters
         {
             _hairRenderer.sprite = dir switch
             {
-                UnitActionDirection.Side => HairData.Side,
-                UnitActionDirection.Up => HairData.Back,
-                UnitActionDirection.Down => HairData.Front,
+                UnitActionDirection.Side => HairSettings.Side,
+                UnitActionDirection.Up => HairSettings.Back,
+                UnitActionDirection.Down => HairSettings.Front,
                 _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, null)
             };
         }
@@ -207,20 +208,20 @@ namespace Characters
             // {
             //     _faceRanderer.sprite = BodyData.GetBodySprite(BodyPart.Face, dir);
             // }
-            _headRenderer.sprite = BodyData.GetBodySprite(BodyPart.Head, dir);
-            _bodyNudeRenderer.sprite = BodyData.GetBodySprite(BodyPart.Body, dir);
-            _outerHandRenderer.sprite = BodyData.GetBodySprite(BodyPart.MainHand, dir);
-            _backHandRenderer.sprite = BodyData.GetBodySprite(BodyPart.OffHand, dir);
-            _leftLegRenderer.sprite = BodyData.GetBodySprite(BodyPart.LeftLeg, dir);
-            _rightLegRenderer.sprite = BodyData.GetBodySprite(BodyPart.RightLeg, dir);
-            _hipsRenderer.sprite = BodyData.GetBodySprite(BodyPart.Hips, dir);
+            _headRenderer.sprite = BodySettings.GetBodySprite(BodyPart.Head, dir);
+            _bodyNudeRenderer.sprite = BodySettings.GetBodySprite(BodyPart.Body, dir);
+            _outerHandRenderer.sprite = BodySettings.GetBodySprite(BodyPart.MainHand, dir);
+            _backHandRenderer.sprite = BodySettings.GetBodySprite(BodyPart.OffHand, dir);
+            _leftLegRenderer.sprite = BodySettings.GetBodySprite(BodyPart.LeftLeg, dir);
+            _rightLegRenderer.sprite = BodySettings.GetBodySprite(BodyPart.RightLeg, dir);
+            _hipsRenderer.sprite = BodySettings.GetBodySprite(BodyPart.Hips, dir);
 
             ApplySkinTone();
         }
     
         public void SetLoadData(AppearanceData data)
         {
-            HairData = Librarian.Instance.GetHairData(data.Hair);
+            HairSettings = Librarian.Instance.GetHairData(data.Hair);
             //SetGender(data.Gender);
         }
 
@@ -228,7 +229,7 @@ namespace Characters
         {
             return new AppearanceData
             {
-                Hair = HairData.Name,
+                Hair = HairSettings.Name,
                // Gender = Gender,
             };
         }

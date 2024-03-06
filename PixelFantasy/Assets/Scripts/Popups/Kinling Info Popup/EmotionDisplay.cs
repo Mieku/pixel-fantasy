@@ -16,7 +16,7 @@ namespace Popups.Kinling_Info_Popup
         public void Init(EmotionState emotionState)
         {
             _emotionState = emotionState;
-            _emotionNameText.text = _emotionState.LinkedEmotion.DisplayName;
+            _emotionNameText.text = _emotionState.LinkedEmotionSettings.DisplayName;
             
             Refresh();
         }

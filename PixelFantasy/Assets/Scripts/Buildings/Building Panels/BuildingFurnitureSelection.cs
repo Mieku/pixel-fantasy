@@ -16,14 +16,14 @@ namespace Buildings.Building_Panels
         [SerializeField] private Transform _costsParent;
         [SerializeField] private ResourceCost _costPrefab;
 
-        private FurnitureItemData _defaultFurnitureItemData;
+        private FurnitureSettings _defaultFurnitureSettings;
         private List<FurnitureVarientOption> _displayedVarientOptions = new List<FurnitureVarientOption>();
         private FurnitureVarientOption _curSelectedVarientOption;
         private List<ResourceCost> _displayedCosts = new List<ResourceCost>();
         
-        public void Init(FurnitureItemData furnitureItemData)
+        public void Init(FurnitureSettings furnitureSettings)
         {
-            _defaultFurnitureItemData = furnitureItemData;
+            _defaultFurnitureSettings = furnitureSettings;
             DisplayVarientOptions();
             
             // Start by pressing the default
@@ -40,7 +40,7 @@ namespace Buildings.Building_Panels
             
             // Start with the default
             var option = Instantiate(_furnitureVarientPrefab, _varientsParent);
-            option.Init(_defaultFurnitureItemData, OnVarientSelected);
+            option.Init(_defaultFurnitureSettings, OnVarientSelected);
             _displayedVarientOptions.Add(option);
 
             // Then the rest
@@ -52,7 +52,7 @@ namespace Buildings.Building_Panels
             // }
         }
 
-        private void OnVarientSelected(FurnitureItemData furnitureItemData, FurnitureVarientOption varientOption)
+        private void OnVarientSelected(FurnitureSettings furnitureSettings, FurnitureVarientOption varientOption)
         {
             if (_curSelectedVarientOption != null)
             {
@@ -61,18 +61,18 @@ namespace Buildings.Building_Panels
             _curSelectedVarientOption = varientOption;
             _curSelectedVarientOption.DisplaySelected(true);
             
-            DisplaySelectedOptionDetails(furnitureItemData);
+            DisplaySelectedOptionDetails(furnitureSettings);
         }
 
-        private void DisplaySelectedOptionDetails(FurnitureItemData furnitureItemData)
+        private void DisplaySelectedOptionDetails(FurnitureSettings furnitureSettings)
         {
-            _productName.text = furnitureItemData.ItemName;
-            RefreshDetails(furnitureItemData);
-            RefreshCosts(furnitureItemData);
-            StartPlanningFurniture(furnitureItemData);
+            _productName.text = furnitureSettings.ItemName;
+            RefreshDetails(furnitureSettings);
+            RefreshCosts(furnitureSettings);
+            StartPlanningFurniture(furnitureSettings);
         }
 
-        private void RefreshDetails(FurnitureItemData furnitureItemData)
+        private void RefreshDetails(FurnitureSettings furnitureSettings)
         {
             // string craftedWith = "";
             // foreach (var option in furnitureItemData.RequiredCraftingTableOptions)
@@ -84,7 +84,7 @@ namespace Buildings.Building_Panels
             // _detailsText.text = details;
         }
 
-        private void RefreshCosts(FurnitureItemData furnitureItemData)
+        private void RefreshCosts(FurnitureSettings furnitureSettings)
         {
             foreach (var displayedCost in _displayedCosts)
             {
@@ -92,7 +92,7 @@ namespace Buildings.Building_Panels
             }
             _displayedCosts.Clear();
 
-            var costs = furnitureItemData.CraftRequirements.GetResourceCosts();
+            var costs = furnitureSettings.CraftRequirements.GetResourceCosts();
             foreach (var costAmount in costs)
             {
                 var cost = Instantiate(_costPrefab, _costsParent);
@@ -101,7 +101,7 @@ namespace Buildings.Building_Panels
             }
         }
 
-        private void StartPlanningFurniture(FurnitureItemData furnitureItemData)
+        private void StartPlanningFurniture(FurnitureSettings furnitureSettings)
         {
             // Spawner.Instance.CancelInput();
             // PlayerInputController.Instance.ChangeState(PlayerInputState.BuildFurniture, furnitureItemData.ItemName);

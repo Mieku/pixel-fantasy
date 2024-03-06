@@ -6,7 +6,7 @@ namespace Items
 {
     public class StaticResource : Resource
     {
-        private StaticResourceData _staticResourceData => ResourceData as StaticResourceData;
+        private StaticResourceSettings _staticResourceSettings => ResourceSettings as StaticResourceSettings;
         private int _spriteIndex;
         
         protected override void Awake()
@@ -18,9 +18,9 @@ namespace Items
             // }
         }
 
-        public override void Init(ResourceData data)
+        public override void Init(ResourceSettings settings)
         {
-            base.Init(data);
+            base.Init(settings);
             
             UpdateSprite();
             Health = GetWorkAmount();
@@ -34,25 +34,25 @@ namespace Items
         
         public override float GetWorkAmount()
         {
-            return _staticResourceData.WorkToExtract;
+            return _staticResourceSettings.WorkToExtract;
         }
 
         public override float MinWorkDistance => 0.75f;
 
         protected void UpdateSprite()
         {
-            _spriteIndex = _staticResourceData.GetRandomSpriteIndex();
-            _spriteRenderer.sprite = _staticResourceData.GetSprite(_spriteIndex);
+            _spriteIndex = _staticResourceSettings.GetRandomSpriteIndex();
+            _spriteRenderer.sprite = _staticResourceSettings.GetSprite(_spriteIndex);
         }
         
         public override HarvestableItems GetHarvestableItems()
         {
-            return _staticResourceData.HarvestableItems;
+            return _staticResourceSettings.HarvestableItems;
         }
 
         protected override void DestroyResource()
         {
-            var resources = _staticResourceData.HarvestableItems.GetItemDrop();
+            var resources = _staticResourceSettings.HarvestableItems.GetItemDrop();
             foreach (var resource in resources)
             {
                 for (int i = 0; i < resource.Quantity; i++)

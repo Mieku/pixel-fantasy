@@ -83,7 +83,7 @@ namespace Popups.Kinling_Info_Popup
             }
             else
             {
-                DisplaySlotDetails(_selectedGear.GearData.Type);
+                DisplaySlotDetails(_selectedGear.GearSettings.Type);
             }
             
             
@@ -153,12 +153,12 @@ namespace Popups.Kinling_Info_Popup
         {
             _selectedGear = gearState;
             
-            if (gearState != null && gearState.GearData != null)
+            if (gearState != null && gearState.GearSettings != null)
             {
-                _gearDetailsName.text = gearState.GearData.ItemName;
-                _gearDetails.text = $"{gearState.Durability} / {gearState.GearData.Durability} Durability";
+                _gearDetailsName.text = gearState.GearSettings.ItemName;
+                _gearDetails.text = $"{gearState.Durability} / {gearState.GearSettings.Durability} Durability";
                 
-                var curEquipped = _kinling.Equipment.EquipmentState.GetGearByType(gearState.GearData.Type);
+                var curEquipped = _kinling.Equipment.EquipmentState.GetGearByType(gearState.GearSettings.Type);
                 if (curEquipped != null && curEquipped.Equals(gearState))
                 {
                     _unequipBtn.gameObject.SetActive(true);
@@ -195,7 +195,7 @@ namespace Popups.Kinling_Info_Popup
             List<ItemState> applicableItems = new List<ItemState>();
             foreach (var availableItem in allAvailableItems)
             {
-                var equipmentData = availableItem.Key as GearData;
+                var equipmentData = availableItem.Key as GearSettings;
                 if (equipmentData != null)
                 {
                     if (equipmentData.Type == gearType)
@@ -229,7 +229,7 @@ namespace Popups.Kinling_Info_Popup
             }
             
             int index = 0;
-            if (curEquipped != null && curEquipped.GearData != null)
+            if (curEquipped != null && curEquipped.GearSettings != null)
             {
                 _displayedOwnedItemSlots[index].AssignItem(curEquipped, true);
                 _displayedOwnedItemSlots[index].TriggerSelected();
@@ -242,7 +242,7 @@ namespace Popups.Kinling_Info_Popup
                 
                 // Check if this item is in the desired equipment state, if so show the equipping indicator
                 var gearState = item as GearState;
-                var desired = _kinling.Equipment.DesiredEquipmentState.GetGearByType(gearState.GearData.Type);
+                var desired = _kinling.Equipment.DesiredEquipmentState.GetGearByType(gearState.GearSettings.Type);
                 if (desired != null && desired.Equals(gearState))
                 {
                     _displayedOwnedItemSlots[index].ShowEquippingIndicator(true);
@@ -293,7 +293,7 @@ namespace Popups.Kinling_Info_Popup
             _kinling.Equipment.Unequip(_selectedGear);
             RefreshGear();
             
-            DisplaySlotDetails(_selectedGear.GearData.Type);
+            DisplaySlotDetails(_selectedGear.GearSettings.Type);
         }
 
         public void EquipPressed()
@@ -302,7 +302,7 @@ namespace Popups.Kinling_Info_Popup
             
             RefreshGear();
             
-            DisplaySlotDetails(_selectedGear.GearData.Type);
+            DisplaySlotDetails(_selectedGear.GearSettings.Type);
         }
     }
 }

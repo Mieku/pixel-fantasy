@@ -8,11 +8,11 @@ namespace HUD.Cheats
 {
     public class HUDCheatResourcesOptions : InputAwareComponent
     {
-        private ItemData _itemDataSelected;
+        private ItemSettings _selectedItemSettings;
         
-        public void SpawnResourcePressed(ItemData itemData)
+        public void SpawnResourcePressed(ItemSettings itemSettings)
         {
-            _itemDataSelected = itemData;
+            _selectedItemSettings = itemSettings;
             PlayerInputController.Instance.ChangeState(PlayerInputState.CHEAT_SpawnResource);
         }
         
@@ -36,7 +36,7 @@ namespace HUD.Cheats
         private void CancelCheat()
         {
             PlayerInputController.Instance.ChangeState(PlayerInputState.None);
-            _itemDataSelected = null;
+            _selectedItemSettings = null;
         }
     }
 }

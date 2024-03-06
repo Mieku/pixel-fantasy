@@ -10,15 +10,15 @@ namespace Buildings.Building_Panels
         [SerializeField] private Image _itemImage;
         [SerializeField] private GameObject _selectionHandle;
         
-        private Action<FurnitureItemData, FurnitureVarientOption> _onPressedCallback;
-        private FurnitureItemData _furnitureItemData;
+        private Action<FurnitureSettings, FurnitureVarientOption> _onPressedCallback;
+        private FurnitureSettings _furnitureSettings;
         
-        public void Init(FurnitureItemData furnitureItemData, Action<FurnitureItemData, FurnitureVarientOption> onPressedCallback)
+        public void Init(FurnitureSettings furnitureSettings, Action<FurnitureSettings, FurnitureVarientOption> onPressedCallback)
         {
-            _furnitureItemData = furnitureItemData;
+            _furnitureSettings = furnitureSettings;
             _onPressedCallback = onPressedCallback;
 
-            _itemImage.sprite = _furnitureItemData.ItemSprite;
+            _itemImage.sprite = _furnitureSettings.ItemSprite;
             DisplaySelected(false);
         }
 
@@ -29,7 +29,7 @@ namespace Buildings.Building_Panels
 
         public void VarientSelected()
         {
-            _onPressedCallback.Invoke(_furnitureItemData, this);
+            _onPressedCallback.Invoke(_furnitureSettings, this);
         }
     }
 }

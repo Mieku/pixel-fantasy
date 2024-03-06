@@ -45,7 +45,7 @@ namespace Popups.Kinling_Info_Popup
 
         private void Refresh()
         {
-            if (_item?.Data == null)
+            if (_item?.Settings == null)
             {
                 _quantityText.text = "";
                 _itemImage.gameObject.SetActive(false);
@@ -57,7 +57,7 @@ namespace Popups.Kinling_Info_Popup
                     _quantityText.text = "E";
                 }
                 _itemImage.gameObject.SetActive(true);
-                _itemImage.sprite = _item.Data.ItemSprite;
+                _itemImage.sprite = _item.Settings.ItemSprite;
             }
         }
         

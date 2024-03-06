@@ -13,7 +13,7 @@ namespace TaskSystem
         private bool _isHoldingItem;
         private Item _item;
         private bool _isMoving;
-        private ItemData _itemData;
+        private ItemSettings _itemSettings;
         
         public float DistanceToRequestor => Vector2.Distance(_requestor.transform.position, transform.position);
         public float DistanceToStorage => Vector2.Distance(_targetItem.AssignedStorage.transform.position, transform.position);
@@ -128,8 +128,8 @@ namespace TaskSystem
         {
             if (string.IsNullOrEmpty(itemName)) return null;
             
-            _itemData = Librarian.Instance.GetItemData(itemName);
-            return InventoryManager.Instance.ClaimItem(_itemData);
+            _itemSettings = Librarian.Instance.GetItemData(itemName);
+            return InventoryManager.Instance.ClaimItem(_itemSettings);
         }
     }
 }

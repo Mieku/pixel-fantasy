@@ -26,7 +26,7 @@ namespace Systems.Build_Controls.Scripts
         private List<BuildControlCostDisplay> _displayedCosts = new List<BuildControlCostDisplay>();
 
         private RoadOption _roadOption;
-        private RoadSO _roadSO;
+        private RoadSettings _roadSettings;
         private bool _isEnabled;
         private bool _isPlanning;
         private Vector2 _startPos;
@@ -50,10 +50,10 @@ namespace Systems.Build_Controls.Scripts
             GameEvents.OnLeftClickUp -= GameEvents_OnLeftClickUp;
         }
 
-        public void Init(RoadOption roadOption, RoadSO roadSo, SubCategoryBtn categoryBtn)
+        public void Init(RoadOption roadOption, RoadSettings roadSettings, SubCategoryBtn categoryBtn)
         {
             _roadOption = roadOption;
-            _roadSO = roadSo;
+            _roadSettings = roadSettings;
             _ownerCategoryBtn = categoryBtn;
             _floorParent = Spawner.Instance.FlooringParent;
 
@@ -78,7 +78,7 @@ namespace Systems.Build_Controls.Scripts
         private void ShowDetailsPanel()
         {
             _detailsPanel.SetActive(true);
-            _optionName.text = _roadSO.RoadName;
+            _optionName.text = _roadSettings.RoadName;
             _optionDetails.text = _roadOption.OptionName;
 
             foreach (var cost in _roadOption.OptionResourceCosts)
@@ -103,7 +103,7 @@ namespace Systems.Build_Controls.Scripts
         protected override void TriggerOptionEffect()
         {
             CursorManager.Instance.ChangeCursorState(ECursorState.AreaSelect);
-            Spawner.Instance.ShowPlacementIcon(true, _roadOption.OptionIcon, _roadSO.InvalidPlacementTags);
+            Spawner.Instance.ShowPlacementIcon(true, _roadOption.OptionIcon, _roadSettings.InvalidPlacementTags);
             _isEnabled = true;
         }
 
@@ -165,7 +165,7 @@ namespace Systems.Build_Controls.Scripts
                     var tilePlan = tilePlanGO.GetComponent<TilePlan>();
                     var tileMap = TilemapController.Instance.GetTilemap(TilemapLayer.Flooring);
                     Color placementColour;
-                    if (Helper.IsGridPosValidToBuild(gridPos, _roadSO.InvalidPlacementTags))
+                    if (Helper.IsGridPosValidToBuild(gridPos, _roadSettings.InvalidPlacementTags))
                     {
                         placementColour = Librarian.Instance.GetColour("Placement Green");
                     }
@@ -185,12 +185,12 @@ namespace Systems.Build_Controls.Scripts
         {
             if (!_isPlanning) return;
             
-            Spawner.Instance.ShowPlacementIcon(true, _roadOption.OptionIcon, _roadSO.InvalidPlacementTags);
+            Spawner.Instance.ShowPlacementIcon(true, _roadOption.OptionIcon, _roadSettings.InvalidPlacementTags);
             ClearTilePlan();
 
             foreach (var gridPos in _plannedGrid)
             {
-                if (Helper.IsGridPosValidToBuild(gridPos, _roadSO.InvalidPlacementTags))
+                if (Helper.IsGridPosValidToBuild(gridPos, _roadSettings.InvalidPlacementTags))
                 {
                     SpawnFloor(_roadOption, gridPos);
                 }
@@ -202,7 +202,7 @@ namespace Systems.Build_Controls.Scripts
         
         public void SpawnFloor(RoadOption roadOption, Vector3 spawnPosition)
         {
-            if (Helper.IsGridPosValidToBuild(spawnPosition, _roadSO.InvalidPlacementTags))
+            if (Helper.IsGridPosValidToBuild(spawnPosition, _roadSettings.InvalidPlacementTags))
             {
                 spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
                 var road = Instantiate(_roadPrefab, spawnPosition, Quaternion.identity);

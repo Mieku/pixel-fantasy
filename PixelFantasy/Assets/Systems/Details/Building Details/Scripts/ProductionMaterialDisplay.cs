@@ -12,7 +12,7 @@ namespace Systems.Details.Building_Details.Scripts
         [SerializeField] private TextMeshProUGUI _amountText;
         [SerializeField] private TooltipTrigger _tooltip;
 
-        public void Init(ItemData item, int quantity)
+        public void Init(ItemSettings item, int quantity)
         {
             _icon.sprite = item.ItemSprite;
             _amountText.text = quantity.ToString();

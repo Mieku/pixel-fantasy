@@ -17,19 +17,19 @@ namespace Managers
         [SerializeField] private List<ColourData> _colourLibrary;
         [SerializeField] private List<Sprite> _sprites;
         [SerializeField] private List<SpriteRef> _orderIcons;
-        [SerializeField] private List<CropData> _cropLibrary;
-        [SerializeField] private List<GrowingResourceData> _growingResourceLibrary;
-        [SerializeField] private List<HairData> _hairLibrary;
-        [SerializeField] private List<ItemData> _itemDataLibrary;
+        [SerializeField] private List<CropSettings> _cropLibrary;
+        [SerializeField] private List<GrowingResourceSettings> _growingResourceLibrary;
+        [SerializeField] private List<HairSettings> _hairLibrary;
+        [SerializeField] private List<ItemSettings> _itemDataLibrary;
         [SerializeField] private List<Command> _commandLibrary;
-        [SerializeField] private List<JobData> _jobLibrary;
-        [SerializeField] private List<RaceData> _races;
-        [SerializeField] private List<NeedData> _stats;
-        [SerializeField] private List<Emotion> _emotions;
-        [SerializeField] private List<EmotionalBreakdown> _emotionalBreakdowns;
-        [SerializeField] private List<TalentSO> _talents;
+        [SerializeField] private List<JobSettings> _jobLibrary;
+        [SerializeField] private List<RaceSettings> _races;
+        [SerializeField] private List<NeedSettings> _stats;
+        [SerializeField] private List<EmotionSettings> _emotions;
+        [SerializeField] private List<EmotionalBreakdownSettings> _emotionalBreakdowns;
+        [SerializeField] private List<TalentSettings> _talents;
         
-        public TalentSO GetTalent(string talentName)
+        public TalentSettings GetTalent(string talentName)
         {
             var result = _talents.Find(talent => talent.TalentName == talentName);
             if (result == null)
@@ -40,15 +40,15 @@ namespace Managers
             return result;
         }
 
-        public TalentSO GetRandomTalent()
+        public TalentSettings GetRandomTalent()
         {
             int index = Random.Range(0, _talents.Count);
             return _talents[index];
         }
 
-        public List<ItemData> GetAllItemsForCategory(EItemCategory category, bool alphabeticalOrder)
+        public List<ItemSettings> GetAllItemsForCategory(EItemCategory category, bool alphabeticalOrder)
         {
-            List<ItemData> unsortedList = new List<ItemData>();
+            List<ItemSettings> unsortedList = new List<ItemSettings>();
             foreach (var itemData in _itemDataLibrary)
             {
                 if (itemData.Category == category)
@@ -59,11 +59,11 @@ namespace Managers
 
             if (!alphabeticalOrder) return unsortedList;
 
-            List<ItemData> sortedList = unsortedList.OrderBy(i => i.ItemName).ToList();
+            List<ItemSettings> sortedList = unsortedList.OrderBy(i => i.ItemName).ToList();
             return sortedList;
         }
 
-        public EmotionalBreakdown GetEmotionalBreakdown(string breakdownTaskId)
+        public EmotionalBreakdownSettings GetEmotionalBreakdown(string breakdownTaskId)
         {
             var result = _emotionalBreakdowns.Find(emotion => emotion.BreakdownTaskId == breakdownTaskId);
             if (result == null)
@@ -74,7 +74,7 @@ namespace Managers
             return result;
         }
         
-        public Emotion GetEmotion(string emotionName)
+        public EmotionSettings GetEmotion(string emotionName)
         {
             var result = _emotions.Find(emotion => emotion.DisplayName == emotionName);
             if (result == null)
@@ -85,7 +85,7 @@ namespace Managers
             return result;
         }
         
-        public NeedData GetStat(string statName)
+        public NeedSettings GetStat(string statName)
         {
             var result = _stats.Find(stat => stat.DisplayName == statName);
             if (result == null)
@@ -96,7 +96,7 @@ namespace Managers
             return result;
         }
         
-        public RaceData GetRace(string raceName)
+        public RaceSettings GetRace(string raceName)
         {
             var result = _races.Find(race => race.RaceName == raceName);
             if (result == null)
@@ -107,7 +107,7 @@ namespace Managers
             return result;
         }
 
-        public JobData GetJob(string jobName)
+        public JobSettings GetJob(string jobName)
         {
             var result = _jobLibrary.Find(job => job.JobName == jobName);
             if (result == null)
@@ -142,7 +142,7 @@ namespace Managers
             }
         }
 
-        public ItemData GetItemData(string key)
+        public ItemSettings GetItemData(string key)
         {
             var result = _itemDataLibrary.Find(i => i.ItemName == key);
             if (result == null)
@@ -152,12 +152,12 @@ namespace Managers
             return result;
         }
 
-        public List<CraftedItemData> GetAllCraftedItemDatas()
+        public List<CraftedItemSettings> GetAllCraftedItemDatas()
         {
-            List<CraftedItemData> results = new List<CraftedItemData>();
+            List<CraftedItemSettings> results = new List<CraftedItemSettings>();
             foreach (var itemData in _itemDataLibrary)
             {
-                var craftable = itemData as CraftedItemData;
+                var craftable = itemData as CraftedItemSettings;
                 if (craftable != null)
                 {
                     results.Add(craftable);
@@ -167,7 +167,7 @@ namespace Managers
             return results;
         }
         
-        public CropData GetCropData(string key)
+        public CropSettings GetCropData(string key)
         {
             var result = _cropLibrary.Find(s => s.CropName == key);
             if (result == null)
@@ -177,9 +177,9 @@ namespace Managers
             return result;
         }
 
-        public List<CropData> GetAllCropData()
+        public List<CropSettings> GetAllCropData()
         {
-            return new List<CropData>(_cropLibrary);
+            return new List<CropSettings>(_cropLibrary);
         }
 
         public Sprite GetSprite(string spriteName)
@@ -193,12 +193,12 @@ namespace Managers
             return _orderIcons.Find(i => i.Name == spriteName).Sprite;
         }
         
-        public GrowingResourceData GetGrowingResourceData(string resourceName)
+        public GrowingResourceSettings GetGrowingResourceData(string resourceName)
         {
             return _growingResourceLibrary.Find(i => i.ResourceName == resourceName);
         }
 
-        public HairData GetHairData(string hairName)
+        public HairSettings GetHairData(string hairName)
         {
             var result = _hairLibrary.Find(s => s.Name == hairName);
             if (result == null)

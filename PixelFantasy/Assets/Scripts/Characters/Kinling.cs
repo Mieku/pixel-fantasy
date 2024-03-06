@@ -20,7 +20,7 @@ namespace Characters
 {
     public class Kinling : PlayerInteractable, IClickableObject
     {
-        [SerializeField] private RaceData _race;
+        [SerializeField] private RaceSettings _race;
         [SerializeField] private TaskAI _taskAI;
         [SerializeField] private KinlingAppearance _appearance;
         [SerializeField] private Mood _mood;
@@ -29,7 +29,7 @@ namespace Characters
         public KinlingSkills Skills;
         
         [Header("Traits")] 
-        [SerializeField] protected List<Trait> _traits;
+        [SerializeField] protected List<TraitSettings> _traits;
         
         [Header("Income")] 
         [SerializeField] protected int _dailyCoinsIncome;
@@ -73,10 +73,10 @@ namespace Characters
         [FormerlySerializedAs("UnitAnimController")] public KinlingAnimController kinlingAnimController;
         public KinlingAgent KinlingAgent;
 
-        public RaceData Race => _race;
+        public RaceSettings Race => _race;
         public Mood KinlingMood => _mood;
         public SocialAI SocialAI => _socialAI;
-        public List<Trait> AllTraits => _traits;
+        public List<TraitSettings> AllTraits => _traits;
         public bool IsAsleep;
         public Age Age;
         public EMaturityStage MaturityStage => Age.MaturityStage;
@@ -203,12 +203,12 @@ namespace Characters
             return _appearance;
         }
 
-        public List<NeedTrait> GetStatTraits()
+        public List<NeedTraitSettings> GetStatTraits()
         {
-            List<NeedTrait> results = new List<NeedTrait>();
+            List<NeedTraitSettings> results = new List<NeedTraitSettings>();
             foreach (var trait in _traits)
             {
-                var statTrait = trait as NeedTrait;
+                var statTrait = trait as NeedTraitSettings;
                 if (statTrait != null)
                 {
                     results.Add(statTrait);
@@ -218,11 +218,11 @@ namespace Characters
             return results;
         }
         
-        public MoodThresholdTrait GetMoodThresholdTrait()
+        public MoodThresholdSettings GetMoodThresholdTrait()
         {
             foreach (var trait in _traits)
             {
-                var moodThresholdTrait = trait as MoodThresholdTrait;
+                var moodThresholdTrait = trait as MoodThresholdSettings;
                 if (moodThresholdTrait != null)
                 {
                     return moodThresholdTrait;

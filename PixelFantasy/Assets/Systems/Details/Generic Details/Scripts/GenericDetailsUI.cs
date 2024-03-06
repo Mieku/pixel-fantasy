@@ -133,7 +133,7 @@ namespace Systems.Details.Generic_Details.Scripts
             // _displayedEntries.Add(categoryEntry.gameObject);
             
             // Description
-            var description = furniture.FurnitureItemData.ItemDescription;
+            var description = furniture.FurnitureSettings.ItemDescription;
             if (!string.IsNullOrEmpty(description))
             {
                 var descriptionEntry = Instantiate(_entryTextDisplayPrefab, _contentLayout);

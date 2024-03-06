@@ -9,7 +9,7 @@ namespace TaskSystem
     public class EquipItemAction : TaskAction
     {
         private GearState _claimedGear;
-        private GearData _gear;
+        private GearSettings _gear;
         private TaskState _state;
 
         public float DistanceToStorage => Vector2.Distance(_claimedGear.Storage.transform.position, transform.position);
@@ -18,7 +18,7 @@ namespace TaskSystem
         {
             var request = task.Materials[0];
             _claimedGear = request.State as GearState;
-            _gear = _claimedGear.GearData;
+            _gear = _claimedGear.GearSettings;
             _state = TaskState.GoingToStorage;
             _ai.Kinling.KinlingAgent.SetMovePosition(_claimedGear.Storage.transform.position);
         }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Systems.Mood.Scripts;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Systems.SmartObjects.Scripts
 {
@@ -13,6 +14,6 @@ namespace Systems.SmartObjects.Scripts
         public List<InteractionStatChange> StatChanges;
         public float Duration;
         public bool DestroyItemAfterInteraction;
-        public Emotion InteractionEmotion;
+        [FormerlySerializedAs("InteractionEmotion")] public EmotionSettings InteractionEmotionSettings;
     }
 }

@@ -46,13 +46,13 @@ namespace Items
 
         public void SetGear(GearState gear)
         {
-            if (gear == null || gear.GearData == null)
+            if (gear == null || gear.GearSettings == null)
             {
                 Debug.LogError($"Attempted to set null Gear");
                 return;
             }
 
-            var type = gear.GearData.Type;
+            var type = gear.GearSettings.Type;
             switch (type)
             {
                 case GearType.Head:

@@ -61,7 +61,7 @@ namespace Items
     [Serializable]
     public class HarvestableItem
     {
-        public ItemData Item;
+        public ItemSettings Item;
         public int MinDrop;
         public int MaxDrop;
     }

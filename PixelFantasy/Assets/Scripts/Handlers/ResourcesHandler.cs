@@ -22,11 +22,11 @@ namespace Handlers
             }
         }
         
-        public void SpawnResource(ResourceData data, Vector2 spawnPos)
+        public void SpawnResource(ResourceSettings settings, Vector2 spawnPos)
         {
-            var resource = Instantiate(data.ResourcePrefab, new Vector3(spawnPos.x, spawnPos.y, -1), Quaternion.identity, transform);
-            resource.gameObject.name = data.ResourceName;
-            resource.Init(data);
+            var resource = Instantiate(settings.ResourcePrefab, new Vector3(spawnPos.x, spawnPos.y, -1), Quaternion.identity, transform);
+            resource.gameObject.name = settings.ResourceName;
+            resource.Init(settings);
         }
     }
 }

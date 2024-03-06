@@ -8,13 +8,13 @@ namespace Characters
 {
     public class GearPiece : MonoBehaviour
     {
-        [FormerlySerializedAs("_equipmentData")] [SerializeField] private GearData _gearData;
+        [FormerlySerializedAs("_gearData")] [FormerlySerializedAs("_equipmentData")] [SerializeField] private GearSettings _gearSettings;
         [SerializeField] private GameObject _sideView;
         [SerializeField] private GameObject _upView;
         [SerializeField] private GameObject _downView;
 
         private UnitActionDirection _curDirection;
-        private DyePaletteData _assignedDyePalette;
+        private DyeSettings _assignedDyePalette;
         
         private readonly int colorSwapRed = Shader.PropertyToID("_ColorSwapRed");
         private readonly int colorSwapGreen = Shader.PropertyToID("_ColorSwapGreen");
@@ -27,9 +27,9 @@ namespace Characters
         // For Debugging
         private void DisplayDefaultDye()
         {
-            if (_gearData.CanBeDyed && _gearData.DefaultDyePalette != null)
+            if (_gearSettings.CanBeDyed && _gearSettings.DefaultDyePalette != null)
             {
-                AssignDyePallet(_gearData.DefaultDyePalette);
+                AssignDyePallet(_gearSettings.DefaultDyePalette);
             }
             else
             {
@@ -37,13 +37,13 @@ namespace Characters
             }
         }
 
-        public void AssignDyePallet(DyePaletteData dyePalette)
+        public void AssignDyePallet(DyeSettings dyePalette)
         {
-            if(!_gearData.CanBeDyed) return;
+            if(!_gearSettings.CanBeDyed) return;
             
             if (dyePalette == null)
             {
-                _assignedDyePalette = _gearData.DefaultDyePalette;
+                _assignedDyePalette = _gearSettings.DefaultDyePalette;
             }
             else
             {
@@ -57,9 +57,9 @@ namespace Characters
         {
             if (_assignedDyePalette == null)
             {
-                if (_gearData.CanBeDyed && _gearData.DefaultDyePalette != null)
+                if (_gearSettings.CanBeDyed && _gearSettings.DefaultDyePalette != null)
                 {
-                    _assignedDyePalette = _gearData.DefaultDyePalette;
+                    _assignedDyePalette = _gearSettings.DefaultDyePalette;
                 }
                 else
                 {
@@ -83,7 +83,7 @@ namespace Characters
             }
         }
 
-        private void ApplyMaterialRecolour(GameObject view, DyePaletteData dye)
+        private void ApplyMaterialRecolour(GameObject view, DyeSettings dye)
         {
             var spriteRenderer = view.GetComponent<SpriteRenderer>();
             if (spriteRenderer != null)
@@ -135,7 +135,7 @@ namespace Characters
 
         public bool IsToolType(EToolType toolType)
         {
-            var toolData = _gearData as ToolData;
+            var toolData = _gearSettings as ToolSettings;
             if (toolData != null)
             {
                 return toolData.ToolType == toolType;

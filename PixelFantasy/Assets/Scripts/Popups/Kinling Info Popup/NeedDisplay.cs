@@ -15,10 +15,10 @@ namespace Popups.Kinling_Info_Popup
         [SerializeField] private Color _emptyColour;
         [SerializeField] private BarThresholdDisplay _thresholdDisplay;
 
-        private NeedData _assignedStat;
-        public NeedData Stat => _assignedStat;
+        private NeedSettings _assignedStat;
+        public NeedSettings Stat => _assignedStat;
 
-        public void Init(NeedData stat, float value)
+        public void Init(NeedSettings stat, float value)
         {
             _assignedStat = stat;
             _needNameText.text = stat.DisplayName;
@@ -37,7 +37,7 @@ namespace Popups.Kinling_Info_Popup
             RefreshValue(value);
         }
 
-        private void DetermineThresholds(NeedData stat)
+        private void DetermineThresholds(NeedSettings stat)
         {
             List<float> allThresholds = new List<float>();
             if (stat.CriticalThreshold != null)

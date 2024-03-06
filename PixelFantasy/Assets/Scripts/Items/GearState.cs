@@ -9,12 +9,12 @@ namespace Items
     public class GearState : ItemState
     {
         public Kinling Owner;
-        public GearData GearData => Data as GearData;
-        public DyePaletteData AssignedDye;
+        public GearSettings GearSettings => Settings as GearSettings;
+        public DyeSettings AssignedDye;
         
-        public GearState(GearData data, string uid, Item item) : base(data, uid, item)
+        public GearState(GearSettings settings, string uid, Item item) : base(settings, uid, item)
         {
-            Data = data;
+            Settings = settings;
             UID = uid;
             _linkedItem = item;
         }

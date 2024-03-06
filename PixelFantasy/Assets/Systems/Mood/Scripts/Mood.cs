@@ -13,7 +13,7 @@ namespace Systems.Mood.Scripts
     [RequireComponent(typeof(Kinling))]
     public class Mood : MonoBehaviour
     {
-        [SerializeField] private List<EmotionalBreakdown> _availableBreakdowns = new List<EmotionalBreakdown>();
+        [SerializeField] private List<EmotionalBreakdownSettings> _availableBreakdowns = new List<EmotionalBreakdownSettings>();
         
         private List<EmotionState> _allEmotionalStates = new List<EmotionState>();
         
@@ -35,7 +35,7 @@ namespace Systems.Mood.Scripts
         private float _overallMood;
         private Kinling _kinling;
         private TaskAI _taskAI => _kinling.TaskAI;
-        private MoodThresholdTrait _moodThresholdTrait;
+        private MoodThresholdSettings _moodThresholdSettings;
         private int _minorBreakThreshold;
         private int _majorBreakThreshold;
         private int _extremeBreakThreshold;
@@ -65,7 +65,7 @@ namespace Systems.Mood.Scripts
         private void Awake()
         {
             _kinling = GetComponent<Kinling>();
-            _moodThresholdTrait = _kinling.GetMoodThresholdTrait();
+            _moodThresholdSettings = _kinling.GetMoodThresholdTrait();
             
             GameEvents.MinuteTick += GameEvents_MinuteTick;
         }
@@ -88,9 +88,9 @@ namespace Systems.Mood.Scripts
 
         private void AssignThresholds()
         {
-            if (_moodThresholdTrait != null)
+            if (_moodThresholdSettings != null)
             {
-                _minorBreakThreshold = BASE_BREAK_THRESHOLD + _moodThresholdTrait.EmotionalBreakdownThresholdChange;
+                _minorBreakThreshold = BASE_BREAK_THRESHOLD + _moodThresholdSettings.EmotionalBreakdownThresholdChange;
             }
             else
             {
@@ -113,19 +113,19 @@ namespace Systems.Mood.Scripts
             _moodTarget = moodModifier;
         }
 
-        public bool HasEmotion(Emotion emotion)
+        public bool HasEmotion(EmotionSettings emotionSettings)
         {
-            return FindEmotionState(emotion) != null;
+            return FindEmotionState(emotionSettings) != null;
         }
 
-        public void RemoveEmotion(Emotion emotionToRemove)
+        public void RemoveEmotion(EmotionSettings emotionSettingsToRemove)
         {
             // Make sure it has the emotion
-            if (HasEmotion(emotionToRemove))
+            if (HasEmotion(emotionSettingsToRemove))
             {
                 foreach (var emotionState in _allEmotionalStates)
                 {
-                    if (emotionState.LinkedEmotion == emotionToRemove)
+                    if (emotionState.LinkedEmotionSettings == emotionSettingsToRemove)
                     {
                         _allEmotionalStates.Remove(emotionState);
                         return;
@@ -134,28 +134,28 @@ namespace Systems.Mood.Scripts
             }
         }
 
-        public void ApplyEmotion(Emotion emotionToAdd)
+        public void ApplyEmotion(EmotionSettings emotionSettingsToAdd)
         {
             // When applying, make sure there is no current state with the emotion. If there is, reset its timer
-            var curEmotionState = FindEmotionState(emotionToAdd);
+            var curEmotionState = FindEmotionState(emotionSettingsToAdd);
             if (curEmotionState != null)
             {
                 curEmotionState.ResetDuration();
             }
             else
             {
-                EmotionState newEmotion = new EmotionState(emotionToAdd);
+                EmotionState newEmotion = new EmotionState(emotionSettingsToAdd);
                 _allEmotionalStates.Add(newEmotion);
             }
             
             CalculateTargetMood();
         }
 
-        private EmotionState FindEmotionState(Emotion emotion)
+        private EmotionState FindEmotionState(EmotionSettings emotionSettings)
         {
             foreach (var emotionalState in _allEmotionalStates)
             {
-                if (emotionalState.LinkedEmotion == emotion)
+                if (emotionalState.LinkedEmotionSettings == emotionSettings)
                 {
                     return emotionalState;
                 }
@@ -173,7 +173,7 @@ namespace Systems.Mood.Scripts
                 List<EmotionState> results = new List<EmotionState>();
                 foreach (var emotionalState in _allEmotionalStates)
                 {
-                    if (emotionalState.LinkedEmotion.MoodModifier >= 0)
+                    if (emotionalState.LinkedEmotionSettings.MoodModifier >= 0)
                     {
                         results.Add(emotionalState);
                     }
@@ -190,7 +190,7 @@ namespace Systems.Mood.Scripts
                 List<EmotionState> results = new List<EmotionState>();
                 foreach (var emotionalState in _allEmotionalStates)
                 {
-                    if (emotionalState.LinkedEmotion.MoodModifier < 0)
+                    if (emotionalState.LinkedEmotionSettings.MoodModifier < 0)
                     {
                         results.Add(emotionalState);
                     }
@@ -282,7 +282,7 @@ namespace Systems.Mood.Scripts
         }
 
         private PendingBreakdownState CreateRandomBreakdownState(EMoodBreakType breakType,
-            List<EmotionalBreakdown> allBreakdownOptions)
+            List<EmotionalBreakdownSettings> allBreakdownOptions)
         {
             var filteredBreakdownOptions =
                 allBreakdownOptions.FindAll(breakdown => breakdown.BreakdownType == breakType && _taskAI.IsActionPossible(breakdown.BreakdownTaskId));
@@ -305,7 +305,7 @@ namespace Systems.Mood.Scripts
             NotificationManager.Instance.CreateKinlingLog(_kinling, $"{_kinling.FullName} is having a Breakdown!", LogData.ELogType.Danger);
 
             // Start a breakdown action
-            _curBreakdownAction = _taskAI.ForceTask(_pendingBreakdownState.Breakdown.BreakdownTaskId);
+            _curBreakdownAction = _taskAI.ForceTask(_pendingBreakdownState.BreakdownSettings.BreakdownTaskId);
             if (_curBreakdownAction == null)
             {
                 // Check if the breakdown is still possible, if not swap with something else possible
@@ -315,9 +315,9 @@ namespace Systems.Mood.Scripts
             }
         }
 
-        public void DEBUG_TriggerBreakdown(EmotionalBreakdown breakdown)
+        public void DEBUG_TriggerBreakdown(EmotionalBreakdownSettings breakdownSettings)
         {
-            PendingBreakdownState breakdownState = new PendingBreakdownState(breakdown, OnBreakdownBegin, OnBreakdownComplete);
+            PendingBreakdownState breakdownState = new PendingBreakdownState(breakdownSettings, OnBreakdownBegin, OnBreakdownComplete);
             breakdownState.RemainingMinsToStart = 0;
             _pendingBreakdownState = breakdownState;
         }
@@ -350,7 +350,7 @@ namespace Systems.Mood.Scripts
 
         public class PendingBreakdownState
         {
-            public EmotionalBreakdown Breakdown;
+            public EmotionalBreakdownSettings BreakdownSettings;
             public int RemainingMinsToStart;
             public int RemainingMinsForRecovery;
 
@@ -358,11 +358,11 @@ namespace Systems.Mood.Scripts
             private Action _onBreakdownComplete;
             private bool _isBreakingdown;
 
-            public PendingBreakdownState(EmotionalBreakdown breakdown, Action onBreakdownBegin, Action onBreakdownComplete)
+            public PendingBreakdownState(EmotionalBreakdownSettings breakdownSettings, Action onBreakdownBegin, Action onBreakdownComplete)
             {
-                Breakdown = breakdown;
-                RemainingMinsToStart = breakdown.MaxMinutesUntilBreakdown;
-                RemainingMinsForRecovery = breakdown.RecoveryTimeMins;
+                BreakdownSettings = breakdownSettings;
+                RemainingMinsToStart = breakdownSettings.MaxMinutesUntilBreakdown;
+                RemainingMinsForRecovery = breakdownSettings.RecoveryTimeMins;
                 
                 _onBreakdownBegin = onBreakdownBegin;
                 _onBreakdownComplete = onBreakdownComplete;

@@ -8,7 +8,7 @@ namespace Systems.Skills.Scripts
 {
     public class KinlingSkills : MonoBehaviour
     {
-        [ShowInInspector] private List<TalentSO> _talents = new List<TalentSO>();
+        [ShowInInspector] private List<TalentSettings> _talents = new List<TalentSettings>();
         [ShowInInspector] private List<Skill> _gearSkills = new List<Skill>();
 
         [SerializeField] private Color _relevantStatColour;
@@ -117,7 +117,7 @@ namespace Systems.Skills.Scripts
             return Helper.RollDice(chance);
         }
 
-        public void Init(List<TalentSO> talents)
+        public void Init(List<TalentSettings> talents)
         {
             _talents.AddRange(talents);
         }

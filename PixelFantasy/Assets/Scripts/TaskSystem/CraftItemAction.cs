@@ -9,7 +9,7 @@ namespace TaskSystem
 {
     public class CraftItemAction : TaskAction // ID: Craft Item
     {
-         private CraftedItemData _itemToCraft;
+         private CraftedItemSettings _itemToCraft;
         private CraftingTable _craftingTable;
         private List<Item> _materials;
         private ETaskState _state;
@@ -31,7 +31,7 @@ namespace TaskSystem
         
         public override void PrepareAction(Task task)
         {
-            _itemToCraft = Librarian.Instance.GetItemData((string)task.Payload) as CraftedItemData;
+            _itemToCraft = Librarian.Instance.GetItemData((string)task.Payload) as CraftedItemSettings;
             _craftingTable = (CraftingTable)task.Requestor;
             _materials = task.Materials;
             _state = ETaskState.ClaimTable;

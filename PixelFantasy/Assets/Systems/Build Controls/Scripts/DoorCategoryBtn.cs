@@ -7,7 +7,7 @@ namespace Systems.Build_Controls.Scripts
     public class DoorCategoryBtn : CategoryBtn
     {
         [SerializeField] private DoorOptionBtn _doorOptionBtnPrefab;
-        [SerializeField] private List<DoorSO> _buildOptions = new List<DoorSO>();
+        [SerializeField] private List<DoorSettings> _buildOptions = new List<DoorSettings>();
 
         private List<DoorOptionBtn> _displayedBuildOptions = new List<DoorOptionBtn>();
         

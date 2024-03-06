@@ -10,7 +10,7 @@ namespace Characters
     public class KinlingFaceHandler : MonoBehaviour
     {
         private SpriteRenderer _faceRenderer;
-        private BodyData _bodyData;
+        private BodySettings _bodySettings;
         private UnitActionDirection _dir;
         private bool _overrideEyesClosed;
         private bool _eyesClosed;
@@ -38,15 +38,15 @@ namespace Characters
             _faceRenderer = GetComponent<SpriteRenderer>();
         }
 
-        public void Init(BodyData bodyData, UnitActionDirection dir)
+        public void Init(BodySettings bodySettings, UnitActionDirection dir)
         {
-            _bodyData = bodyData;
+            _bodySettings = bodySettings;
             SetDirection(dir);
         }
 
         private void Update()
         {
-            if (_bodyData == null) return;
+            if (_bodySettings == null) return;
             
             HandleBlinking();
         }
@@ -92,14 +92,14 @@ namespace Characters
         private void CloseEyes()
         {
             _eyesClosed = true;
-            _faceRenderer.sprite = _bodyData.GetBodySprite(BodyPart.Face_EyesClosed, _dir);
+            _faceRenderer.sprite = _bodySettings.GetBodySprite(BodyPart.Face_EyesClosed, _dir);
             RefreshMaterials();
         }
 
         private void OpenEyes()
         {
             _eyesClosed = false;
-            _faceRenderer.sprite = _bodyData.GetBodySprite(BodyPart.Face, _dir);
+            _faceRenderer.sprite = _bodySettings.GetBodySprite(BodyPart.Face, _dir);
             RefreshMaterials();
         }
 
@@ -138,11 +138,11 @@ namespace Characters
                 {
                     if (_eyesClosed)
                     {
-                        _faceRenderer.sprite = _bodyData.GetBodySprite(BodyPart.Face_EyesClosed, dir);
+                        _faceRenderer.sprite = _bodySettings.GetBodySprite(BodyPart.Face_EyesClosed, dir);
                     }
                     else
                     {
-                        _faceRenderer.sprite = _bodyData.GetBodySprite(BodyPart.Face, dir);
+                        _faceRenderer.sprite = _bodySettings.GetBodySprite(BodyPart.Face, dir);
                     }
                 }
             }

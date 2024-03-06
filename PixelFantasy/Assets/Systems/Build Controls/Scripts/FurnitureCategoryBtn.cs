@@ -8,15 +8,15 @@ namespace Systems.Build_Controls.Scripts
     public class FurnitureCategoryBtn : CategoryBtn
     {
         [SerializeField] private Sprite _storageIcon;
-        [SerializeField] private List<FurnitureItemData> _storageOptions;
+        [SerializeField] private List<FurnitureSettings> _storageOptions;
         [SerializeField] private Sprite _decorationIcon;
-        [SerializeField] private List<FurnitureItemData> _decorationOptions;
+        [SerializeField] private List<FurnitureSettings> _decorationOptions;
         [SerializeField] private Sprite _productionIcon;
-        [SerializeField] private List<FurnitureItemData> _productionOptions;
+        [SerializeField] private List<FurnitureSettings> _productionOptions;
         [SerializeField] private Sprite _lightingIcon;
-        [SerializeField] private List<FurnitureItemData> _lightingOptions;
+        [SerializeField] private List<FurnitureSettings> _lightingOptions;
         [SerializeField] private Sprite _lifestyleIcon;
-        [SerializeField] private List<FurnitureItemData> _lifestyleOptions;
+        [SerializeField] private List<FurnitureSettings> _lifestyleOptions;
 
         [SerializeField] private FurnitureSubCategoryBtn _furnitureSubCategoryPrefab;
 
@@ -71,7 +71,7 @@ namespace Systems.Build_Controls.Scripts
             _selectedSubCategoryBtn = null;
         }
 
-        private void CreateOptionBtn(string optionName, Sprite optionIcon, List<FurnitureItemData> options, Action<FurnitureSubCategoryBtn> onSelectedCallback)
+        private void CreateOptionBtn(string optionName, Sprite optionIcon, List<FurnitureSettings> options, Action<FurnitureSubCategoryBtn> onSelectedCallback)
         {
             if(options == null || options.Count == 0) return;
 

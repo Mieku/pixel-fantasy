@@ -26,11 +26,11 @@ namespace Popups.Kinling_Info_Popup
 
         private void Refresh()
         {
-            if (_gearState != null && _gearState.GearData != null)
+            if (_gearState != null && _gearState.GearSettings != null)
             {
                 _slotIcon.SetActive(false);
                 _itemIcon.gameObject.SetActive(true);
-                _itemIcon.sprite = _gearState.GearData.ItemSprite;
+                _itemIcon.sprite = _gearState.GearSettings.ItemSprite;
             }
             else
             {

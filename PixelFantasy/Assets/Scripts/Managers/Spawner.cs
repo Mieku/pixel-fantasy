@@ -55,7 +55,7 @@ namespace Managers
         private List<Vector2> _plannedGrid = new List<Vector2>();
         
         public PlacementDirection PlacementDirection;
-        public CropData CropData { get; set; }
+        public CropSettings CropSettings { get; set; }
 
         public Transform ItemsParent => _itemsParent;
         public Transform StructureParent => _structureParent;
@@ -139,7 +139,7 @@ namespace Managers
                 }
                 else
                 {
-                    SpawnSoilTile(Helper.ConvertMousePosToGridPos(mousePos), CropData);
+                    SpawnSoilTile(Helper.ConvertMousePosToGridPos(mousePos), CropSettings);
                 }
             }
             // else if (inputState == PlayerInputState.BuildBuilding && _plannedBuilding != null)
@@ -346,7 +346,7 @@ namespace Managers
             return kinling;
         }
 
-        public void SpawnItem(ItemData itemData, Vector3 spawnPosition, bool canBeHauled, int quantity)
+        public void SpawnItem(ItemSettings itemSettings, Vector3 spawnPosition, bool canBeHauled, int quantity)
         {
             for (int i = 0; i < quantity; i++)
             {
@@ -354,24 +354,24 @@ namespace Managers
                 var item = Instantiate(_itemPrefab, spawnPosition, Quaternion.identity);
                 item.transform.SetParent(_itemsParent);
                 var itemScript = item.GetComponent<Item>();
-                itemScript.InitializeItem(itemData, canBeHauled);
+                itemScript.InitializeItem(itemSettings, canBeHauled);
             }
         }
         
-        public Item SpawnItem(ItemData itemData, Vector3 spawnPosition, bool canBeHauled, ItemState itemState = null, bool populateInteractions = true)
+        public Item SpawnItem(ItemSettings itemSettings, Vector3 spawnPosition, bool canBeHauled, ItemState itemState = null, bool populateInteractions = true)
         {
             spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
             var item = Instantiate(_itemPrefab, spawnPosition, Quaternion.identity);
             item.transform.SetParent(_itemsParent);
-            item.gameObject.name = $"Item_{itemData.ItemName}";
+            item.gameObject.name = $"Item_{itemSettings.ItemName}";
             var itemScript = item.GetComponent<Item>();
-            itemScript.InitializeItem(itemData, canBeHauled, itemState, populateInteractions);
+            itemScript.InitializeItem(itemSettings, canBeHauled, itemState, populateInteractions);
             
             item.SetActive(true);
             return itemScript;
         }
 
-        public Storage SpawnStorageContainer(StorageItemData storageData, Vector3 spawnPosition)
+        public Storage SpawnStorageContainer(StorageSettings storageData, Vector3 spawnPosition)
         {
             var containerObj = Instantiate(_storageContainerPrefab, spawnPosition, Quaternion.identity);
             containerObj.transform.SetParent(_storageParent);
@@ -389,10 +389,10 @@ namespace Managers
         // }
         
         private Door _plannedDoor;
-        public void PlanDoor(DoorSO doorSO, Action onDoorPlaced = null)
+        public void PlanDoor(DoorSettings doorSettings, Action onDoorPlaced = null)
         {
-            _plannedDoor = Instantiate(doorSO.DoorPrefab, _structureParent);
-            _plannedDoor.Init(doorSO);
+            _plannedDoor = Instantiate(doorSettings.DoorPrefab, _structureParent);
+            _plannedDoor.Init(doorSettings);
             _plannedDoor.SetState(Door.EDoorState.BeingPlaced);
             _plannedDoor.OnDoorPlaced = onDoorPlaced;
         }
@@ -425,20 +425,20 @@ namespace Managers
             _plannedFurniture = furniture;
         }
         
-        public void SpawnTree(Vector3 spawnPosition, GrowingResourceData growingResourceData)
+        public void SpawnTree(Vector3 spawnPosition, GrowingResourceSettings growingResourceSettings)
         {
             spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
             var tree = Instantiate(_treePrefab, spawnPosition, Quaternion.identity);
             tree.transform.SetParent(_resourceParent);
-            tree.GetComponent<GrowingResource>().Init(growingResourceData);
+            tree.GetComponent<GrowingResource>().Init(growingResourceSettings);
         }
 
-        public void SpawnPlant(Vector3 spawnPosition, GrowingResourceData growingResourceData)
+        public void SpawnPlant(Vector3 spawnPosition, GrowingResourceSettings growingResourceSettings)
         {
             spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
             var plant = Instantiate(_plantPrefab, spawnPosition, Quaternion.identity);
             plant.transform.SetParent(_resourceParent);
-            plant.GetComponent<GrowingResource>().Init(growingResourceData);
+            plant.GetComponent<GrowingResource>().Init(growingResourceSettings);
         }
         
         #region Structure
@@ -525,7 +525,7 @@ namespace Managers
                 var soil = _soilPrefab.GetComponent<Crop>();
                 if (Helper.IsGridPosValidToBuild(gridPos, soil.InvalidPlacementTags))
                 {
-                    SpawnSoilTile(gridPos, CropData);
+                    SpawnSoilTile(gridPos, CropSettings);
                 }
             }
 
@@ -535,11 +535,11 @@ namespace Managers
             CancelInput();
         }
 
-        public void SpawnSoilTile(Vector2 spawnPos, CropData cropData)
+        public void SpawnSoilTile(Vector2 spawnPos, CropSettings cropSettings)
         {
             var soil = Instantiate(_soilPrefab, spawnPos, Quaternion.identity);
             soil.transform.SetParent(_flooringParent);
-            soil.GetComponent<Crop>().Init(cropData);
+            soil.GetComponent<Crop>().Init(cropSettings);
         }
     }
 

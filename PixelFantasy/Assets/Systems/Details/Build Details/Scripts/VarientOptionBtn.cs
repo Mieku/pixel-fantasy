@@ -14,15 +14,15 @@ namespace Systems.Details.Build_Details.Scripts
         [SerializeField] private Color _defaultColour;
         [SerializeField] private Color _unavailableColour;
         
-        private Action<VarientOptionBtn, FurnitureItemData> _onPressedCallback;
+        private Action<VarientOptionBtn, FurnitureSettings> _onPressedCallback;
         private bool _isHighlighted;
         private CraftRequirements _craftRequirements;
-        private FurnitureItemData _furnitureItemData;
+        private FurnitureSettings _furnitureSettings;
 
         public bool IsColourMode;
         public bool IsDefault;
         public FurnitureVarient Varient;
-        public DyePaletteData DyePalette;
+        public DyeSettings DyePalette;
 
         private void Start()
         {
@@ -71,27 +71,27 @@ namespace Systems.Details.Build_Details.Scripts
             }
         }
 
-        public void Init(DyePaletteData dyePaletteData, FurnitureItemData furnitureItemData, Action<VarientOptionBtn, FurnitureItemData> onPressedCallback)
+        public void Init(DyeSettings dyeSettings, FurnitureSettings furnitureSettings, Action<VarientOptionBtn, FurnitureSettings> onPressedCallback)
         {
             IsDefault = false;
             IsColourMode = true;
-            DyePalette = dyePaletteData;
-            _furnitureItemData = furnitureItemData;
+            DyePalette = dyeSettings;
+            _furnitureSettings = furnitureSettings;
             _onPressedCallback = onPressedCallback;
 
             _borderImg.enabled = false;
-            _bgImg.color = dyePaletteData.Primary;
+            _bgImg.color = dyeSettings.Primary;
             _itemIcon.enabled = false;
             
             RemoveHighlight();
         }
 
-        public void Init(FurnitureVarient varient, FurnitureItemData furnitureItemData, Action<VarientOptionBtn, FurnitureItemData> onPressedCallback)
+        public void Init(FurnitureVarient varient, FurnitureSettings furnitureSettings, Action<VarientOptionBtn, FurnitureSettings> onPressedCallback)
         {
             IsDefault = false;
             IsColourMode = false;
             Varient = varient;
-            _furnitureItemData = furnitureItemData;
+            _furnitureSettings = furnitureSettings;
             _craftRequirements = varient.CraftRequirements;
             _onPressedCallback = onPressedCallback;
 
@@ -101,15 +101,15 @@ namespace Systems.Details.Build_Details.Scripts
             RemoveHighlight();
         }
 
-        public void InitDefault(FurnitureItemData furnitureItemData, Action<VarientOptionBtn, FurnitureItemData> onPressedCallback)
+        public void InitDefault(FurnitureSettings furnitureSettings, Action<VarientOptionBtn, FurnitureSettings> onPressedCallback)
         {
             IsDefault = true;
-            _furnitureItemData = furnitureItemData;
+            _furnitureSettings = furnitureSettings;
             _onPressedCallback = onPressedCallback;
-            _craftRequirements = furnitureItemData.CraftRequirements;
+            _craftRequirements = furnitureSettings.CraftRequirements;
             
             _borderImg.enabled = true;
-            _itemIcon.sprite = furnitureItemData.CraftRequirements.MaterialCosts[0].Item.ItemSprite;
+            _itemIcon.sprite = furnitureSettings.CraftRequirements.MaterialCosts[0].Item.ItemSprite;
             
             RemoveHighlight();
         }
@@ -138,7 +138,7 @@ namespace Systems.Details.Build_Details.Scripts
 
         public void OnPressed()
         {
-            _onPressedCallback?.Invoke(this, _furnitureItemData);
+            _onPressedCallback?.Invoke(this, _furnitureSettings);
             ShowHighlight();
         }
     }

@@ -19,7 +19,7 @@ namespace Buildings.Building_Panels.Components
             _slotBG.sprite = _emptySlotBGSpr;
         }
 
-        public void ShowItem(ItemData item, int quantity)
+        public void ShowItem(ItemSettings item, int quantity)
         {
             _itemIcon.gameObject.SetActive(true);
             _itemIcon.sprite = item.ItemSprite;

@@ -12,12 +12,12 @@ namespace Systems.Details.Building_Details.Scripts
         [SerializeField] private Image _itemIcon;
         [SerializeField] private TooltipTrigger _tooltip;
 
-        public void Init(ItemData itemData, float currentAmount, float maxAmount)
+        public void Init(ItemSettings itemSettings, float currentAmount, float maxAmount)
         {
-            _tooltip.Header = itemData.ItemName;
-            _tooltip.Content = itemData.ItemDescription;
+            _tooltip.Header = itemSettings.ItemName;
+            _tooltip.Content = itemSettings.ItemDescription;
 
-            _itemIcon.sprite = itemData.ItemSprite;
+            _itemIcon.sprite = itemSettings.ItemSprite;
             _amountText.text = $"{currentAmount} / {maxAmount}";
         }
     }

@@ -44,13 +44,13 @@ namespace Managers
         /// <summary>
         /// Checks if the item is available in storage without claiming it
         /// </summary>
-        public bool IsItemInStorage(ItemData itemData, bool globalOnly = false)
+        public bool IsItemInStorage(ItemSettings itemSettings, bool globalOnly = false)
         {
             foreach (var storage in _allStorage)
             {
                 if (storage.IsAvailable
                     && (!globalOnly || storage.IsGlobal) 
-                    && storage.IsItemInStorage(itemData))
+                    && storage.IsItemInStorage(itemSettings))
                 {
                     return true;
                 }
@@ -95,7 +95,7 @@ namespace Managers
             return null;
         }
         
-        public Storage FindAvailableGlobalStorage(ItemData item)
+        public Storage FindAvailableGlobalStorage(ItemSettings item)
         {
             foreach (var storage in _allStorage)
             {
@@ -110,29 +110,29 @@ namespace Managers
             return null;
         }
 
-        public Item ClaimItem(ItemData itemData)
+        public Item ClaimItem(ItemSettings itemSettings)
         {
             foreach (var storage in _allStorage)
             {
                 if (storage.IsAvailable 
-                    && storage.AmountCanBeWithdrawn(itemData) > 0)
+                    && storage.AmountCanBeWithdrawn(itemSettings) > 0)
                 {
-                    return storage.SetClaimed(itemData);
+                    return storage.SetClaimed(itemSettings);
                 }
             }
 
             return null;
         }
         
-        public Item ClaimItemGlobal(ItemData itemData)
+        public Item ClaimItemGlobal(ItemSettings itemSettings)
         {
             foreach (var storage in _allStorage)
             {
                 if (storage.IsAvailable 
                     && storage.IsGlobal 
-                    && storage.AmountCanBeWithdrawn(itemData) > 0)
+                    && storage.AmountCanBeWithdrawn(itemSettings) > 0)
                 {
-                    return storage.SetClaimed(itemData);
+                    return storage.SetClaimed(itemSettings);
                 }
             }
 
@@ -209,7 +209,7 @@ namespace Managers
                     var storedItems = storage.AvailableInventory;
                     foreach (var kvp in storedItems)
                     {
-                        var tool = kvp.Key as ToolData;
+                        var tool = kvp.Key as ToolSettings;
                         if (tool != null && tool.ToolType == toolType && kvp.Value.Any())
                         {
                             return true;
@@ -253,7 +253,7 @@ namespace Managers
 
         public Item ClaimToolTypeGlobal(EToolType toolType)
         {
-            List<ToolData> potentialItems = new List<ToolData>();
+            List<ToolSettings> potentialItems = new List<ToolSettings>();
             foreach (var storage in _allStorage)
             {
                 if (storage.IsGlobal)
@@ -261,7 +261,7 @@ namespace Managers
                     var storedItems = storage.AvailableInventory;
                     foreach (var kvp in storedItems)
                     {
-                        var tool = kvp.Key as ToolData;
+                        var tool = kvp.Key as ToolSettings;
                         if (tool != null && tool.ToolType == toolType && kvp.Value.Any())
                         {
                             potentialItems.Add(tool);
@@ -282,9 +282,9 @@ namespace Managers
             return null;
         }
         
-        public Dictionary<ItemData, List<Item>> GetAvailableInventory(bool globalOnly)
+        public Dictionary<ItemSettings, List<Item>> GetAvailableInventory(bool globalOnly)
         {
-            Dictionary<ItemData, List<Item>> results = new Dictionary<ItemData, List<Item>>();
+            Dictionary<ItemSettings, List<Item>> results = new Dictionary<ItemSettings, List<Item>>();
             foreach (var storage in _allStorage)
             {
                 if (storage.IsGlobal || !globalOnly)
@@ -308,9 +308,9 @@ namespace Managers
             return results;
         }
 
-        public Dictionary<ItemData, int> GetAvailableInventoryQuantities(bool globalOnly)
+        public Dictionary<ItemSettings, int> GetAvailableInventoryQuantities(bool globalOnly)
         {
-            Dictionary<ItemData, int> results = new Dictionary<ItemData, int>();
+            Dictionary<ItemSettings, int> results = new Dictionary<ItemSettings, int>();
             var availableInventory = GetAvailableInventory(globalOnly);
             foreach (var availKVP in availableInventory)
             {
@@ -327,12 +327,12 @@ namespace Managers
             return results;
         }
 
-        public int GetAmountAvailable(ItemData itemData, bool globalOnly)
+        public int GetAmountAvailable(ItemSettings itemSettings, bool globalOnly)
         {
             var allAvailable = GetAvailableInventory(globalOnly);
-            if (allAvailable.ContainsKey(itemData))
+            if (allAvailable.ContainsKey(itemSettings))
             {
-                return allAvailable[itemData].Count;
+                return allAvailable[itemSettings].Count;
             }
             else
             {
@@ -340,9 +340,9 @@ namespace Managers
             }
         }
 
-        public bool CanAfford(ItemData itemData, int amount)
+        public bool CanAfford(ItemSettings itemSettings, int amount)
         {
-            var availableAmount = GetAmountAvailable(itemData, true);
+            var availableAmount = GetAmountAvailable(itemSettings, true);
             return amount <= availableAmount;
         }
     }

@@ -12,19 +12,19 @@ namespace Systems.Details.Building_Details.Scripts
         [SerializeField] private Image _itemIcon;
         [SerializeField] private Toggle _toggle;
 
-        private ItemData _itemData;
-        private Action<ItemData, bool> _onAllowStockpileChanged;
+        private ItemSettings _itemSettings;
+        private Action<ItemSettings, bool> _onAllowStockpileChanged;
 
-        public ItemData ItemData => _itemData;
+        public ItemSettings ItemSettings => _itemSettings;
 
         public void Init(ItemAmount itemAmount, bool isAllowed,
-            Action<ItemData, bool> onAllowStockpileChanged)
+            Action<ItemSettings, bool> onAllowStockpileChanged)
         {
-            _itemData = itemAmount.Item;
+            _itemSettings = itemAmount.Item;
             _onAllowStockpileChanged = onAllowStockpileChanged;
 
             _amountText.text = $"{itemAmount.Quantity}";
-            _itemIcon.sprite = _itemData.ItemSprite;
+            _itemIcon.sprite = _itemSettings.ItemSprite;
             _toggle.SetIsOnWithoutNotify(isAllowed);
         }
 
@@ -36,7 +36,7 @@ namespace Systems.Details.Building_Details.Scripts
 
         public void OnToggleChanged(bool value)
         {
-            _onAllowStockpileChanged.Invoke(_itemData, value);
+            _onAllowStockpileChanged.Invoke(_itemSettings, value);
         }
     }
 }

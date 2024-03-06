@@ -11,9 +11,9 @@ namespace HUD
         [SerializeField] private Image _iconRenderer;
         [SerializeField] private TextMeshProUGUI _amountDisplay;
 
-        public void Init(ItemData itemData, string amount)
+        public void Init(ItemSettings itemSettings, string amount)
         {
-            _iconRenderer.sprite = itemData.ItemSprite;
+            _iconRenderer.sprite = itemSettings.ItemSprite;
             _amountDisplay.text = amount;
         }
 

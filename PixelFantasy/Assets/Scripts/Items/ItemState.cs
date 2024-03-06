@@ -3,13 +3,14 @@ using Characters;
 using Managers;
 using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Items
 {
     [Serializable]
     public class ItemState
     {
-        public ItemData Data;
+        [FormerlySerializedAs("Data")] public ItemSettings Settings;
         public int Durability;
         public string UID;
         public Storage Storage => LinkedItem.AssignedStorage;
@@ -21,23 +22,23 @@ namespace Items
             get
             {
                 // Return the linked item if there is one, if not spawn one
-                if (_linkedItem == null) _linkedItem = Spawner.Instance.SpawnItem(Data, Vector3.zero, false, this);
+                if (_linkedItem == null) _linkedItem = Spawner.Instance.SpawnItem(Settings, Vector3.zero, false, this);
                 
                 return _linkedItem;
             }
         }
 
-        public ItemState(ItemData data, string uid, Item linkedItem)
+        public ItemState(ItemSettings settings, string uid, Item linkedItem)
         {
-            Data = data;
-            Durability = Data.Durability;
+            Settings = settings;
+            Durability = Settings.Durability;
             UID = uid;
             _linkedItem = linkedItem;
         }
 
         public ItemState(ItemState other)
         {
-            Data = other.Data;
+            Settings = other.Settings;
             Durability = other.Durability;
             UID = other.UID;
             _linkedItem = other.LinkedItem;
@@ -45,7 +46,7 @@ namespace Items
 
         public float DurabilityPercentage()
         {
-            float percent = (float)Durability / Data.Durability;
+            float percent = (float)Durability / Settings.Durability;
             return percent;
         }
 

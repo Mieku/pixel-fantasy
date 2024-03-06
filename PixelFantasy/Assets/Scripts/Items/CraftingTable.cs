@@ -19,13 +19,13 @@ namespace Items
         [TitleGroup("North")] [SerializeField] private SpriteRenderer _northCraftingPreview;
         [TitleGroup("East")] [SerializeField] private SpriteRenderer _eastCraftingPreview;
 
-        private CraftedItemData _craftedItem;
+        private CraftedItemSettings _craftedItem;
         protected float _remainingCraftAmount;
         private List<ItemAmount> _remainingMaterials;
 
         public bool IsInUse;
         public Task _curTask;
-        public CraftedItemData ItemBeingCrafted => _craftedItem;
+        public CraftedItemSettings ItemBeingCrafted => _craftedItem;
         
         protected override void Start()
         {
@@ -61,7 +61,7 @@ namespace Items
             if(_eastCraftingPreview != null) _eastCraftingPreview.gameObject.SetActive(false);
         }
         
-        public void AssignItemToTable(CraftedItemData craftedItem)
+        public void AssignItemToTable(CraftedItemSettings craftedItem)
         {
             if (craftedItem != null)
             {
@@ -160,13 +160,13 @@ namespace Items
             _curTask = null;
         }
 
-        public List<CraftedItemData> GetCraftingOptions()
+        public List<CraftedItemSettings> GetCraftingOptions()
         {
             // TODO: Get all the available options for the crafting table to craft
             throw new System.NotImplementedException();
         }
 
-        public bool CanCraftItem(CraftedItemData item)
+        public bool CanCraftItem(CraftedItemSettings item)
         {
             var validToCraft = GetCraftingOptions().Contains(item);
             if (!validToCraft) return false;

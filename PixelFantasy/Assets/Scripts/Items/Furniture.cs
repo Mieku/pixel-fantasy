@@ -49,8 +49,9 @@ namespace Items
         [TitleGroup("East")] [SerializeField] protected Transform _eastSpritesRoot;
         [TitleGroup("East")] [SerializeField] protected Transform _eastUseageMarkersRoot;
         
+        [FormerlySerializedAs("_furnitureItemData")]
         [TitleGroup("General")]
-        [SerializeField] protected FurnitureItemData _furnitureItemData;
+        [SerializeField] protected FurnitureSettings _furnitureSettings;
         [SerializeField] protected SmartObject _smartObject;
         public PlacementDirection CurrentDirection;
 
@@ -74,7 +75,7 @@ namespace Items
 
         private CraftingOrder _craftingOrder;
        
-        public FurnitureItemData FurnitureItemData => _furnitureItemData;
+        public FurnitureSettings FurnitureSettings => _furnitureSettings;
         // public Building ParentBuilding => _parentBuilding;
 
         protected virtual void Awake()
@@ -304,14 +305,14 @@ namespace Items
             }
         }
 
-        public virtual void Init(FurnitureItemData furnitureItemData)
+        public virtual void Init(FurnitureSettings furnitureSettings)
         {
-            _furnitureItemData = furnitureItemData;
+            _furnitureSettings = furnitureSettings;
         }
 
         public void Init(BuildDetailsUI.SelectedFurnitureData selectedFurnitureData)
         {
-            _furnitureItemData = selectedFurnitureData.Furniture;
+            _furnitureSettings = selectedFurnitureData.Furniture;
             
             // TODO: Apply variant data
             // TODO: Apply dye data
@@ -334,7 +335,7 @@ namespace Items
             
             foreach (var useageMarker in UseagePositions())
             {
-                bool result = Helper.IsGridPosValidToBuild(useageMarker.position, _furnitureItemData.InvalidPlacementTags);
+                bool result = Helper.IsGridPosValidToBuild(useageMarker.position, _furnitureSettings.InvalidPlacementTags);
 
                 if (result)
                 {
@@ -399,13 +400,13 @@ namespace Items
         
         private void Planning_Enter()
         {
-            _remainingWork = _furnitureItemData.CraftRequirements.WorkCost;
+            _remainingWork = _furnitureSettings.CraftRequirements.WorkCost;
             DisplayUseageMarkers(true);
         }
 
         public void InProduction_Enter()
         {
-            _remainingWork = _furnitureItemData.CraftRequirements.WorkCost;
+            _remainingWork = _furnitureSettings.CraftRequirements.WorkCost;
             DisplayUseageMarkers(false);
             Show(true);
             ColourArt(ColourStates.Blueprint);
@@ -422,13 +423,13 @@ namespace Items
 
         public float DurabilityPercentage()
         {
-            return (float)_durabiliy / _furnitureItemData.Durability;
+            return (float)_durabiliy / _furnitureSettings.Durability;
         }
         
         private void CreateFurnitureHaulingTask()
         {
             // If item exists, claim it
-            var claimedItem = InventoryManager.Instance.ClaimItem(_furnitureItemData);
+            var claimedItem = InventoryManager.Instance.ClaimItem(_furnitureSettings);
             if (claimedItem != null)
             {
                 Task task = new Task("Place Furniture", ETaskType.Hauling, this, EToolType.None)
@@ -439,7 +440,7 @@ namespace Items
             }
             else
             {
-                _craftingOrder = new CraftingOrder(_furnitureItemData, 
+                _craftingOrder = new CraftingOrder(_furnitureSettings, 
                     this,
                     CraftingOrder.EOrderType.Furniture,
                     true,
@@ -498,8 +499,8 @@ namespace Items
         protected virtual void Built_Enter()
         {
             DisplayUseageMarkers(false);
-            _durabiliy = _furnitureItemData.Durability;
-            _remainingWork = _furnitureItemData.CraftRequirements.WorkCost;
+            _durabiliy = _furnitureSettings.Durability;
+            _remainingWork = _furnitureSettings.CraftRequirements.WorkCost;
             ColourArt(ColourStates.Built);
             
             if(_smartObject != null) _smartObject.gameObject.SetActive(true);
@@ -580,7 +581,7 @@ namespace Items
         
         public virtual bool CheckPlacement()
         {
-            bool result = Helper.IsGridPosValidToBuild(transform.position, _furnitureItemData.InvalidPlacementTags);
+            bool result = Helper.IsGridPosValidToBuild(transform.position, _furnitureSettings.InvalidPlacementTags);
 
             // Check the useage markers
             if (_useageMarkers != null)
@@ -588,7 +589,7 @@ namespace Items
                 bool markersPass = false;
                 foreach (var marker in _useageMarkers)
                 {
-                    if (Helper.IsGridPosValidToBuild(marker.transform.position, _furnitureItemData.InvalidPlacementTags))
+                    if (Helper.IsGridPosValidToBuild(marker.transform.position, _furnitureSettings.InvalidPlacementTags))
                     {
                         marker.color = Color.white;
                         markersPass = true;
@@ -706,7 +707,7 @@ namespace Items
         {
             get
             {
-                string result = _furnitureItemData.ItemName;
+                string result = _furnitureSettings.ItemName;
                 switch (FurnitureState)
                 {
                     case EFurnitureState.Planning:
@@ -740,6 +741,6 @@ namespace Items
 
         public bool WasCrafted => !string.IsNullOrEmpty(CraftersUID);
 
-        public NeedChange InUseNeedChange => _furnitureItemData.InUseNeedChange;
+        public NeedChange InUseNeedChange => _furnitureSettings.InUseNeedChange;
     }
 }

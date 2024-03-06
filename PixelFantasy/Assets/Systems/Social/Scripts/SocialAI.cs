@@ -19,10 +19,10 @@ namespace Systems.Social.Scripts
         [FormerlySerializedAs("_unit")] [SerializeField] private Kinling _kinling;
         [SerializeField] private GameObject _speechBubbleHandle;
         [SerializeField] private SpriteRenderer _speechTopicIcon;
-        [SerializeField] private SocialTopicOptionsData _socialTopics;
-        [SerializeField] private SocialTopicOptionsData _romanticTopics;
-        [SerializeField] private SocialTopicOptionsData _positiveResponses;
-        [SerializeField] private SocialTopicOptionsData _negativeResponses;
+        [SerializeField] private SocialTopicSettings _socialTopics;
+        [SerializeField] private SocialTopicSettings _romanticTopics;
+        [SerializeField] private SocialTopicSettings _positiveResponses;
+        [SerializeField] private SocialTopicSettings _negativeResponses;
 
         public bool AvailableToChat => _state == ESocialState.Available && !_kinling.IsAsleep;
         public string UniqueId => _kinling.UniqueId;

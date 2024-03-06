@@ -16,7 +16,7 @@ namespace Items
 {
     public class Item : PlayerInteractable, IClickableObject, IPersistent
     {
-        [SerializeField] private ItemData _itemData;
+        [FormerlySerializedAs("_itemData")] [SerializeField] private ItemSettings _itemSettings;
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private ClickObject _clickObject;
 
@@ -48,15 +48,15 @@ namespace Items
             return _clickObject;
         }
         
-        public void InitializeItem(ItemData itemData, bool allowed, ItemState state = null, bool populateInteraction = true)
+        public void InitializeItem(ItemSettings itemSettings, bool allowed, ItemState state = null, bool populateInteraction = true)
         {
-            _itemData = itemData;
+            _itemSettings = itemSettings;
             IsAllowed = allowed;
 
-            if (state == null || state.Data == null)
+            if (state == null || state.Settings == null)
             {
                 InitUID();
-                State = _itemData.CreateState(UniqueId, this);
+                State = _itemSettings.CreateState(UniqueId, this);
             }
             else
             {
@@ -171,19 +171,19 @@ namespace Items
 
         private void DisplayItemSprite()
         {
-            if (_itemData == null) return;
+            if (_itemSettings == null) return;
 
-            _spriteRenderer.sprite = _itemData.ItemSprite;
+            _spriteRenderer.sprite = _itemSettings.ItemSprite;
         }
 
         public bool IsSameItemType(Item item)
         {
-            return _itemData == item.GetItemData();
+            return _itemSettings == item.GetItemData();
         }
 
-        public ItemData GetItemData()
+        public ItemSettings GetItemData()
         {
-            return _itemData;
+            return _itemSettings;
         }
 
         private void OnValidate()
@@ -216,9 +216,9 @@ namespace Items
         {
             GameEvents.OnInventoryAvailabilityChanged += GameEvent_OnInventoryAvailabilityChanged;
             
-            if (_itemData != null && State == null)
+            if (_itemSettings != null && State == null)
             {
-                InitializeItem(_itemData, true, State);
+                InitializeItem(_itemSettings, true, State);
             }
         }
 
@@ -282,7 +282,7 @@ namespace Items
             }
         }
 
-        public string DisplayName => _itemData.ItemName;
+        public string DisplayName => _itemSettings.ItemName;
 
         public object CaptureState()
         {
@@ -290,7 +290,7 @@ namespace Items
             {
                 UID = UniqueId,
                 Position = transform.position,
-                ItemData = _itemData,
+                ItemSettings = _itemSettings,
                 OriginalParent = _originalParent,
                 IsAllowed = this.IsAllowed,
                 IsClickDisabled = this.IsClickDisabled,
@@ -313,14 +313,14 @@ namespace Items
             _assignedUnitUID = itemState.AssignedUnitUID;
             _isHeld = itemState.IsHeld;
 
-            InitializeItem(itemState.ItemData, IsAllowed);
+            InitializeItem(itemState.ItemSettings, IsAllowed);
         }
 
         public struct Data
         {
             public string UID;
             public Vector3 Position;
-            public ItemData ItemData;
+            public ItemSettings ItemSettings;
             public Transform OriginalParent;
             public bool IsAllowed;
             public bool IsClickDisabled;

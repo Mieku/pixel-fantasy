@@ -31,7 +31,7 @@ namespace Systems.SmartObjects.Scripts
             _statChanges = config.StatChanges;
             _duration = config.Duration;
             _destroyItemAfterInteraction = config.DestroyItemAfterInteraction;
-            _interactionEmotion = config.InteractionEmotion;
+            _interactionEmotionSettings = config.InteractionEmotionSettings;
         }
         
         public override bool CanPerform(CommonAIBase potentialPerformer)

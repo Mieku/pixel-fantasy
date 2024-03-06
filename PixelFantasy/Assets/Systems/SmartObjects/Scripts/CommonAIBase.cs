@@ -13,7 +13,7 @@ namespace Systems.SmartObjects.Scripts
     [Serializable]
     public class AIStatConfiguration
     {
-        [field: SerializeField] public NeedData LinkedStat { get; private set; }
+        [field: SerializeField] public NeedSettings LinkedStat { get; private set; }
         [field: SerializeField] public bool OverrideDefaults { get; private set; } = false;
         [field: SerializeField, Range(0f, 1f)] public float Override_InitialValue { get; protected set; } = 0.5f;
         [field: SerializeField, Range(0f, 1f)] public float Override_DecayRate { get; protected set; } = 0.005f;
@@ -39,7 +39,7 @@ namespace Systems.SmartObjects.Scripts
 
         protected KinlingAgent _navAgent;
         public Kinling Kinling { get; protected set; }
-        protected Dictionary<NeedData, float> _decayRates = new Dictionary<NeedData, float>();
+        protected Dictionary<NeedSettings, float> _decayRates = new Dictionary<NeedSettings, float>();
         protected Action<BaseInteraction> _onInteractionComplete;
         
         public Blackboard.Scripts.Blackboard IndividualBlackboard { get; protected set; }
@@ -132,7 +132,7 @@ namespace Systems.SmartObjects.Scripts
             _curInteraction = null;
         }
 
-        public void UpdateIndividualStat(NeedData linkedStat, float amount, NeedTrait.ETargetType targetType)
+        public void UpdateIndividualStat(NeedSettings linkedStat, float amount, NeedTraitSettings.ETargetType targetType)
         {
             float adjustedAmount = ApplyTraitsTo(linkedStat, targetType, amount);
             float newValue = Mathf.Clamp01(GetStatValue(linkedStat) + adjustedAmount);
@@ -140,7 +140,7 @@ namespace Systems.SmartObjects.Scripts
             IndividualBlackboard.SetStat(linkedStat, newValue);
         }
         
-        protected float ApplyTraitsTo(NeedData targetStat, NeedTrait.ETargetType targetType, float currentValue)
+        protected float ApplyTraitsTo(NeedSettings targetStat, NeedTraitSettings.ETargetType targetType, float currentValue)
         {
             foreach (var trait in Kinling.GetStatTraits())
             {
@@ -150,12 +150,12 @@ namespace Systems.SmartObjects.Scripts
             return currentValue;
         }
 
-        public float GetStatValue(NeedData linkedStat)
+        public float GetStatValue(NeedSettings linkedStat)
         {
             return IndividualBlackboard.GetStat(linkedStat);
         }
         
-        public bool AreAnyNeedsCritical(out NeedData criticalStat)
+        public bool AreAnyNeedsCritical(out NeedSettings criticalStat)
         {
             foreach (var statConfig in _stats)
             {
@@ -179,7 +179,7 @@ namespace Systems.SmartObjects.Scripts
         {
             foreach (var statConfig in _stats)
             {
-                UpdateIndividualStat(statConfig.LinkedStat, -_decayRates[statConfig.LinkedStat], NeedTrait.ETargetType.DecayRate);
+                UpdateIndividualStat(statConfig.LinkedStat, -_decayRates[statConfig.LinkedStat], NeedTraitSettings.ETargetType.DecayRate);
                 
                 // Check the thresholds for the stat
                 var emotion = statConfig.LinkedStat.CheckThresholds(GetStatValue(statConfig.LinkedStat));
@@ -188,7 +188,7 @@ namespace Systems.SmartObjects.Scripts
                     // Remove the others
                     foreach (var threshold in statConfig.LinkedStat.AllThresholds)
                     {
-                        var otherEmotion = threshold.BelowThresholdEmotion;
+                        var otherEmotion = threshold.BelowThresholdEmotionSettings;
                         if (otherEmotion != null)
                         {
                             Kinling.KinlingMood.RemoveEmotion(otherEmotion);

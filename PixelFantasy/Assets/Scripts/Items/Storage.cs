@@ -14,7 +14,7 @@ namespace Items
 
         public Transform StoredItemParent;
         
-        protected StorageItemData _storageItemData => _furnitureItemData as StorageItemData;
+        protected StorageSettings _storageSettings => _furnitureSettings as StorageSettings;
 
         public bool IsGlobal
         {
@@ -24,15 +24,15 @@ namespace Items
             }
         }
         
-        public int MaxStorage => _storageItemData.MaxStorage;
+        public int MaxStorage => _storageSettings.MaxStorage;
 
         public int UsedStorage => Stored.Count;
 
         protected override void Awake()
         {
-            if (_storageItemData != null && FurnitureState == EFurnitureState.Built)
+            if (_storageSettings != null && FurnitureState == EFurnitureState.Built)
             {
-                Init(_storageItemData);
+                Init(_storageSettings);
             }
             base.Awake();
         }
@@ -45,46 +45,46 @@ namespace Items
             base.Built_Enter();
         }
 
-        public bool IsItemValidToStore(ItemData itemData)
+        public bool IsItemValidToStore(ItemSettings itemSettings)
         {
             if (AcceptedCategories.Contains(EItemCategory.SpecificStorage))
             {
-                if (_storageItemData.SpecificStorage.Contains(itemData))
+                if (_storageSettings.SpecificStorage.Contains(itemSettings))
                 {
                     return true;
                 }
             }
             
-            return _storageItemData.AcceptedCategories.Contains(itemData.Category);
+            return _storageSettings.AcceptedCategories.Contains(itemSettings.Category);
         }
 
-        public List<EItemCategory> AcceptedCategories => _storageItemData.AcceptedCategories;
+        public List<EItemCategory> AcceptedCategories => _storageSettings.AcceptedCategories;
 
-        public int AmountCanBeDeposited(ItemData itemData)
+        public int AmountCanBeDeposited(ItemSettings itemSettings)
         {
-            if (!IsItemValidToStore(itemData))
+            if (!IsItemValidToStore(itemSettings))
             {
                 return 0;
             }
 
-            int maxStorage = _storageItemData.MaxStorage;
+            int maxStorage = _storageSettings.MaxStorage;
             
             return maxStorage - (Stored.Count + Incoming.Count);
         }
 
-        public int AmountCanBeWithdrawn(ItemData itemData)
+        public int AmountCanBeWithdrawn(ItemSettings itemSettings)
         {
-            if (!IsItemValidToStore(itemData)) return 0;
+            if (!IsItemValidToStore(itemSettings)) return 0;
 
-            return NumStored(itemData) - NumClaimed(itemData);
+            return NumStored(itemSettings) - NumClaimed(itemSettings);
         }
 
-        private int NumStored(ItemData itemData)
+        private int NumStored(ItemSettings itemSettings)
         {
             int result = 0;
             foreach (var storedItem in Stored)
             {
-                if (storedItem.GetItemData() == itemData)
+                if (storedItem.GetItemData() == itemSettings)
                 {
                     result++;
                 }
@@ -93,12 +93,12 @@ namespace Items
             return result;
         }
 
-        private int NumClaimed(ItemData itemData)
+        private int NumClaimed(ItemSettings itemSettings)
         {
             int result = 0;
             foreach (var claimedItem in Claimed)
             {
-                if (claimedItem.GetItemData() == itemData)
+                if (claimedItem.GetItemData() == itemSettings)
                 {
                     result++;
                 }
@@ -107,12 +107,12 @@ namespace Items
             return result;
         }
 
-        private int NumIncoming(ItemData itemData)
+        private int NumIncoming(ItemSettings itemSettings)
         {
             int result = 0;
             foreach (var incomingItem in Incoming)
             {
-                if (incomingItem.GetItemData() == itemData)
+                if (incomingItem.GetItemData() == itemSettings)
                 {
                     result++;
                 }
@@ -188,9 +188,9 @@ namespace Items
             Claimed.Remove(item);
         }
 
-        public Item SetClaimed(ItemData itemData)
+        public Item SetClaimed(ItemSettings itemSettings)
         {
-            int amountClaimable = AmountCanBeWithdrawn(itemData);
+            int amountClaimable = AmountCanBeWithdrawn(itemSettings);
             if (amountClaimable <= 0)
             {
                 Debug.LogError("Nothing could be withdrawn");
@@ -199,7 +199,7 @@ namespace Items
 
             foreach (var storedItem in Stored)
             {
-                if (storedItem.GetItemData() == itemData)
+                if (storedItem.GetItemData() == itemSettings)
                 {
                     if (!Claimed.Contains(storedItem))
                     {
@@ -209,7 +209,7 @@ namespace Items
                 }
             }
 
-            Debug.LogError($"Item Claim: {itemData.ItemName} was not set, nothing could be withdrawn");
+            Debug.LogError($"Item Claim: {itemSettings.ItemName} was not set, nothing could be withdrawn");
             return null;
         }
 
@@ -297,11 +297,11 @@ namespace Items
             return result;
         }
 
-        public Dictionary<ItemData, List<Item>> AvailableInventory
+        public Dictionary<ItemSettings, List<Item>> AvailableInventory
         {
             get
             {
-                Dictionary<ItemData, List<Item>> results = new Dictionary<ItemData, List<Item>>();
+                Dictionary<ItemSettings, List<Item>> results = new Dictionary<ItemSettings, List<Item>>();
                 foreach (var storedItem in Stored)
                 {
                     if (!Claimed.Contains(storedItem))
@@ -321,13 +321,13 @@ namespace Items
             }
         }
         
-        public bool IsItemInStorage(ItemData itemData)
+        public bool IsItemInStorage(ItemSettings itemSettings)
         {
-            if (IsItemValidToStore(itemData))
+            if (IsItemValidToStore(itemSettings))
             {
                 foreach (var storagedItem in Stored)
                 {
-                    if (storagedItem.GetItemData() == itemData && !Claimed.Contains(storagedItem))
+                    if (storagedItem.GetItemData() == itemSettings && !Claimed.Contains(storagedItem))
                     {
                         return true;
                     }

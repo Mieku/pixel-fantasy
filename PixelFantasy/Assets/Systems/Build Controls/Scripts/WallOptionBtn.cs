@@ -28,7 +28,7 @@ namespace Systems.Build_Controls.Scripts
         private List<BuildControlCostDisplay> _displayedCosts = new List<BuildControlCostDisplay>();
     
         private WallOption _wallOption;
-        private WallSO _wallSO;
+        private WallSettings _wallSettings;
         private bool _isEnabled;
         private bool _isPlanning;
         private Vector2 _startPos;
@@ -52,10 +52,10 @@ namespace Systems.Build_Controls.Scripts
             GameEvents.OnLeftClickUp -= GameEvents_OnLeftClickUp;
         }
 
-        public void Init(WallOption wallOption, WallSO wallSo, SubCategoryBtn categoryBtn)
+        public void Init(WallOption wallOption, WallSettings wallSettings, SubCategoryBtn categoryBtn)
         {
             _wallOption = wallOption;
-            _wallSO = wallSo;
+            _wallSettings = wallSettings;
             _ownerCategoryBtn = categoryBtn;
             _structureParent = Spawner.Instance.StructureParent;
 
@@ -80,7 +80,7 @@ namespace Systems.Build_Controls.Scripts
         private void ShowDetailsPanel()
         {
             _detailsPanel.SetActive(true);
-            _optionName.text = _wallSO.WallName;
+            _optionName.text = _wallSettings.WallName;
             _optionDetails.text = _wallOption.OptionName;
 
             foreach (var cost in _wallOption.OptionResourceCosts)
@@ -105,7 +105,7 @@ namespace Systems.Build_Controls.Scripts
         protected override void TriggerOptionEffect()
         {
             CursorManager.Instance.ChangeCursorState(ECursorState.AreaSelect);
-            Spawner.Instance.ShowPlacementIcon(true, _wallOption.OptionIcon, _wallSO.InvalidPlacementTags);
+            Spawner.Instance.ShowPlacementIcon(true, _wallOption.OptionIcon, _wallSettings.InvalidPlacementTags);
             _isEnabled = true;
         }
     
@@ -167,7 +167,7 @@ namespace Systems.Build_Controls.Scripts
                     var tilePlan = tilePlanGO.GetComponent<TilePlan>();
                     var tileMap = TilemapController.Instance.GetTilemap(TilemapLayer.Structure);
                     Color placementColour;
-                    if (Helper.IsGridPosValidToBuild(gridPos, _wallSO.InvalidPlacementTags))
+                    if (Helper.IsGridPosValidToBuild(gridPos, _wallSettings.InvalidPlacementTags))
                     {
                         placementColour = Librarian.Instance.GetColour("Placement Green");
                     }
@@ -187,12 +187,12 @@ namespace Systems.Build_Controls.Scripts
         {
             if (!_isPlanning) return;
             
-            Spawner.Instance.ShowPlacementIcon(true, _wallOption.OptionIcon, _wallSO.InvalidPlacementTags);
+            Spawner.Instance.ShowPlacementIcon(true, _wallOption.OptionIcon, _wallSettings.InvalidPlacementTags);
             ClearTilePlan();
             
             foreach (var gridPos in _plannedGrid)
             {
-                if (Helper.IsGridPosValidToBuild(gridPos, _wallSO.InvalidPlacementTags))
+                if (Helper.IsGridPosValidToBuild(gridPos, _wallSettings.InvalidPlacementTags))
                 {
                     SpawnWall(_wallOption, gridPos);
                 }
@@ -204,7 +204,7 @@ namespace Systems.Build_Controls.Scripts
     
         public void SpawnWall(WallOption wallOption, Vector3 spawnPosition)
         {
-            if (Helper.IsGridPosValidToBuild(spawnPosition, _wallSO.InvalidPlacementTags))
+            if (Helper.IsGridPosValidToBuild(spawnPosition, _wallSettings.InvalidPlacementTags))
             {
                 spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
                 var wall = Instantiate(_wallPrefab, spawnPosition, Quaternion.identity);

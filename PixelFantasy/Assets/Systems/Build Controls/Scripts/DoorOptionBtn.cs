@@ -19,23 +19,23 @@ namespace Systems.Build_Controls.Scripts
         [SerializeField] protected TextMeshProUGUI _optionName;
         [SerializeField] protected TextMeshProUGUI _optionDetails;
 
-        private DoorSO _doorSO;
+        private DoorSettings _doorSettings;
         private List<BuildControlCostDisplay> _displayedCosts = new List<BuildControlCostDisplay>();
 
-        public void Init(DoorSO doorSo, CategoryBtn categoryBtn)
+        public void Init(DoorSettings doorSettings, CategoryBtn categoryBtn)
         {
             _ownerCategoryBtn = categoryBtn;
-            _doorSO = doorSo;
-            _icon.sprite = doorSo.Icon;
+            _doorSettings = doorSettings;
+            _icon.sprite = doorSettings.Icon;
         }
 
         protected override void ToggledOn()
         {
             _detailsPanel.SetActive(true);
-            _optionName.text = _doorSO.DoorName;
+            _optionName.text = _doorSettings.DoorName;
             _optionDetails.text = "Not implemented yet";
             
-            foreach (var cost in _doorSO.GetResourceCosts())
+            foreach (var cost in _doorSettings.GetResourceCosts())
             {
                 var costDisplay = Instantiate(_costDisplayPrefab, _costsLayout);
                 costDisplay.Init(cost);
@@ -63,8 +63,8 @@ namespace Systems.Build_Controls.Scripts
         private void PlanDoor()
         {
             Spawner.Instance.CancelInput();
-            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildDoor, _doorSO.DoorName);
-            Spawner.Instance.PlanDoor(_doorSO, ToggledOff);
+            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildDoor, _doorSettings.DoorName);
+            Spawner.Instance.PlanDoor(_doorSettings, ToggledOff);
         }
     }
 }

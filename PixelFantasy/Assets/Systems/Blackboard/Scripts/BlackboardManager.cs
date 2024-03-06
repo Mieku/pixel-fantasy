@@ -23,7 +23,7 @@ namespace Systems.Blackboard.Scripts
         private Dictionary<EBlackboardKey, GameObject>  _gameObjectValues    = new Dictionary<EBlackboardKey, GameObject>();
         private Dictionary<EBlackboardKey, object>      _genericValues       = new Dictionary<EBlackboardKey, object>();
 
-        private Dictionary<NeedData, float>               _aIStatValues        = new Dictionary<NeedData, float>();
+        private Dictionary<NeedSettings, float>               _aIStatValues        = new Dictionary<NeedSettings, float>();
 
         public void SetGeneric<T>(EBlackboardKey key, T value)
         {
@@ -70,12 +70,12 @@ namespace Systems.Blackboard.Scripts
             return false;
         }
         
-        public void SetStat(NeedData linkedStat, float value)
+        public void SetStat(NeedSettings linkedStat, float value)
         {
             _aIStatValues[linkedStat] = value;
         }
 
-        public float GetStat(NeedData linkedStat)
+        public float GetStat(NeedSettings linkedStat)
         {
             if (!_aIStatValues.ContainsKey(linkedStat))
                 throw new System.ArgumentException($"Could not find value for {linkedStat.DisplayName} in _aIStatValues");
@@ -83,7 +83,7 @@ namespace Systems.Blackboard.Scripts
             return _aIStatValues[linkedStat];
         }
         
-        public bool TryGetStat(NeedData linkedStat, out float value, float defaultValue = 0f)
+        public bool TryGetStat(NeedSettings linkedStat, out float value, float defaultValue = 0f)
         {
             if (_aIStatValues.ContainsKey(linkedStat))
             {

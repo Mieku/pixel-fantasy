@@ -8,7 +8,7 @@ namespace Systems.Build_Controls.Scripts
     {
         [SerializeField] private RoadsSubCategoryBtn _roadSubCatBtnPrefab;
         [SerializeField] private DirtSubCategoryBtn _dirtSubCatBtnPrefab;
-        [SerializeField] private List<RoadSO> _roadOptions = new List<RoadSO>();
+        [SerializeField] private List<RoadSettings> _roadOptions = new List<RoadSettings>();
 
         private List<SubCategoryBtn> _displayedOptions = new List<SubCategoryBtn>();
         private SubCategoryBtn _selectedSubCategoryBtn;

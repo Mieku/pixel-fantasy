@@ -20,9 +20,9 @@ public class ClickObject : MonoBehaviour
     [SerializeField] private SpriteRenderer _objectRenderer;
     [SerializeField] private bool _usesTintedSelection;
 
-    private ItemData _itemData;
-    private ConstructionData _structureData;
-    private ResourceData growingResourceData;
+    private ItemSettings _itemSettings;
+    private ConstructionSettings _structureSettings;
+    private ResourceSettings _growingResourceSettings;
     private Kinling _kinling;
 
     private IClickableObject _clickableObject; // Cache
@@ -46,17 +46,17 @@ public class ClickObject : MonoBehaviour
         switch (_objectType)
         {
             case ObjectType.Item:
-                _itemData = GetComponent<Item>().GetItemData();
+                _itemSettings = GetComponent<Item>().GetItemData();
                 break;
             case ObjectType.Structure:
-                _structureData = GetComponent<Construction>().GetConstructionData();
+                _structureSettings = GetComponent<Construction>().GetConstructionData();
                 break;
             case ObjectType.Kinling:
                 _kinling = GetComponent<Kinling>();
                 break;
             case ObjectType.Resource:
             case ObjectType.Mountain:
-                growingResourceData = GetComponent<Resource>().GetResourceData();
+                _growingResourceSettings = GetComponent<Resource>().GetResourceData();
                 break;
             case ObjectType.Floor:
                 //_floorData = GetComponent<Floor>().FloorData;

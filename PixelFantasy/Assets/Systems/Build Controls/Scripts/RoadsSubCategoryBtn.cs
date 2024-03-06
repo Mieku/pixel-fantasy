@@ -7,22 +7,22 @@ namespace Systems.Build_Controls.Scripts
     {
         [SerializeField] private RoadOptionBtn _roadOptionPrefab;
 
-        private RoadSO _roadSo;
+        private RoadSettings _roadSettings;
         private RoadsCategoryBtn _categoryBtn;
 
-        public void Init(RoadSO roadSo, RoadsCategoryBtn categoryBtn)
+        public void Init(RoadSettings roadSettings, RoadsCategoryBtn categoryBtn)
         {
-            _roadSo = roadSo;
+            _roadSettings = roadSettings;
             _categoryBtn = categoryBtn;
-            _icon.sprite = _roadSo.RoadOptions[0].OptionIcon;
+            _icon.sprite = _roadSettings.RoadOptions[0].OptionIcon;
         }
         
         protected override void PopulateOptions()
         {
-            foreach (var option in _roadSo.RoadOptions)
+            foreach (var option in _roadSettings.RoadOptions)
             {
                 var optionDisplay = Instantiate(_roadOptionPrefab, _optionsLayout.transform);
-                optionDisplay.Init(option, _roadSo, this);
+                optionDisplay.Init(option, _roadSettings, this);
                 _displayedOptions.Add(optionDisplay);
             }
         }

@@ -10,7 +10,7 @@ namespace HUD
     {
         [SerializeField] private GameObject _inventoryResouceDisplayPrefab;
 
-        private Dictionary<ItemData, InventoryResourceDisplay> _displayedItems = new Dictionary<ItemData, InventoryResourceDisplay>();
+        private Dictionary<ItemSettings, InventoryResourceDisplay> _displayedItems = new Dictionary<ItemSettings, InventoryResourceDisplay>();
 
         private void Start()
         {
@@ -27,7 +27,7 @@ namespace HUD
         private void GameEvents_RefreshInventoryDisplay()
         {
             var availableInv = InventoryManager.Instance.GetAvailableInventoryQuantities(true);
-            List<ItemData> removeList = new List<ItemData>();
+            List<ItemSettings> removeList = new List<ItemSettings>();
             
             // Update current displayed
             foreach (var displayedItem in _displayedItems)

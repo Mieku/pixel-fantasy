@@ -1,0 +1,80 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using Systems.Needs.Scripts;
+using UnityEngine;
+using UnityEngine.Serialization;
+
+namespace Systems.Traits.Scripts
+{
+    [System.Serializable]
+    public class TraitElement
+    {
+        //public NeedType NeedType;
+        [FormerlySerializedAs("LinkedStat")] public NeedSettings LinkedNeed;
+            
+        [Header("Scoring Scales")]
+        [Range(0.5f, 1.5f)] public float Scoring_PositiveScale = 1f;
+        [Range(0.5f, 1.5f)] public float Scoring_NegativeScale = 1f;
+            
+        [Header("Impact Scales")]
+        [Range(0.5f, 1.5f)] public float Impact_PositiveScale = 1f;
+        [Range(0.5f, 1.5f)] public float Impact_NegativeScale = 1f;
+
+        [Header("Decay Rate")] 
+        [Range(0.5f, 1.5f)] public float DecayRateScale = 1f;
+
+        public float Apply(NeedSettings targetStat, NeedTraitSettings.ETargetType targetType, float currentValue)
+        {
+            if (targetStat == LinkedNeed)
+            {
+                switch (targetType)
+                {
+                    case NeedTraitSettings.ETargetType.Score:
+                        if (currentValue > 0)
+                            currentValue *= Scoring_PositiveScale;
+                        else if (currentValue < 0)
+                            currentValue *= Scoring_NegativeScale;
+                        break;
+                    case NeedTraitSettings.ETargetType.Impact:
+                        if (currentValue > 0)
+                            currentValue *= Impact_PositiveScale;
+                        else if (currentValue < 0)
+                            currentValue *= Impact_NegativeScale;
+                        break;
+                    case NeedTraitSettings.ETargetType.DecayRate:
+                        currentValue *= DecayRateScale;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(targetType), targetType, null);
+                }
+            }
+
+            return currentValue;
+        }
+    }
+
+    [CreateAssetMenu(menuName = "Settings/AI/Need Trait Settings", fileName = "NeedTraitSettings")]
+    public class NeedTraitSettings : TraitSettings
+    {
+        public enum ETargetType
+        {
+            Score,
+            Impact,
+            DecayRate,
+        }
+            
+        public TraitElement[] Impacts;
+            
+        public float Apply(NeedSettings targetNeed, ETargetType targetType, float currentValue)
+        {
+            foreach (var impact in Impacts)
+            {
+                currentValue = impact.Apply(targetNeed, targetType, currentValue);
+            }
+
+            return currentValue;
+        }
+    }
+}
+

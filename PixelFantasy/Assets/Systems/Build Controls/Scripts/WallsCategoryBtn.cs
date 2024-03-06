@@ -8,7 +8,7 @@ namespace Systems.Build_Controls.Scripts
     public class WallsCategoryBtn : CategoryBtn
     {
         [SerializeField] private WallsSubCategoryBtn _wallSubCatBtnPrefab;
-        [SerializeField] private List<WallSO> _wallOptions = new List<WallSO>();
+        [SerializeField] private List<WallSettings> _wallOptions = new List<WallSettings>();
 
         private List<SubCategoryBtn> _displayedOptions = new List<SubCategoryBtn>();
         private SubCategoryBtn _selectedSubCategoryBtn;

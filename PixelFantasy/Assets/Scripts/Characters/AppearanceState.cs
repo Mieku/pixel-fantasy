@@ -10,12 +10,12 @@ namespace Characters
     public class AppearanceState
     {
         [ColorUsage(true, true)] public Color EyeColour;
-        public KinlingSkinToneData SkinTone;
+        public SkinToneSettings SkinTone;
         public Gender Gender;
-        public RaceData Race;
-        public HairData Hair;
+        public RaceSettings Race;
+        public HairSettings Hair;
 
-        public AppearanceState(RaceData race, Gender gender)
+        public AppearanceState(RaceSettings race, Gender gender)
         {
             Race = race;
             Gender = gender;
@@ -46,7 +46,7 @@ namespace Characters
             EyeColour = Race.GetRandomEyeColour();
         }
 
-        private HairData GetRandomHairByGender(Gender gender)
+        private HairSettings GetRandomHairByGender(Gender gender)
         {
             var hair = Race.GetRandomHairByGender(gender);
             return hair;

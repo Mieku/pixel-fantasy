@@ -5,28 +5,28 @@ using UnityEditor;
 using UnityEngine;
 using Systems.World_Building.Scripts; // Ensure this namespace matches where your BiomeData is located
 
-[CustomEditor(typeof(BiomeData))]
+[CustomEditor(typeof(BiomeSettings))]
 public class BiomeEditor : Editor
 {
-    private MountainData selectedMountainData;
+    private MountainSettings _selectedMountainSettings;
     
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI(); // Draws the default inspector for non-custom fields
 
-        BiomeData biome = (BiomeData)target;
+        BiomeSettings biome = (BiomeSettings)target;
 
         // Start of Mountains Box Group
         EditorGUILayout.BeginVertical("box");
         GUILayout.Label("Mountains", EditorStyles.boldLabel); // Optional: Add a label for the group
         // Dropdown or ObjectField for selecting MountainData
-        selectedMountainData = (MountainData)EditorGUILayout.ObjectField("Select MountainData", selectedMountainData, typeof(MountainData), false);
+        _selectedMountainSettings = (MountainSettings)EditorGUILayout.ObjectField("Select MountainData", _selectedMountainSettings, typeof(MountainSettings), false);
 
         // Button for adding the selected MountainData to the list
-        if (GUILayout.Button("Add Selected Mountain") && selectedMountainData != null)
+        if (GUILayout.Button("Add Selected Mountain") && _selectedMountainSettings != null)
         {
-            AddNewMountain(biome, selectedMountainData);
-            selectedMountainData = null; // Reset selection
+            AddNewMountain(biome, _selectedMountainSettings);
+            _selectedMountainSettings = null; // Reset selection
         }
 
         if (biome.Mountains == null)
@@ -39,10 +39,10 @@ public class BiomeEditor : Editor
         for (int i = 0; i < biome.Mountains.Count; i++)
         {
             var mountain = biome.Mountains[i];
-            if (mountain != null && mountain.mountainData != null) // Null check for mountain and mountainData
+            if (mountain != null && mountain.mountainSettings != null) // Null check for mountain and mountainData
             {
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField(mountain.mountainData.name, GUILayout.MaxWidth(200)); // Display the mountain name
+                EditorGUILayout.LabelField(mountain.mountainSettings.name, GUILayout.MaxWidth(200)); // Display the mountain name
                 mountain.spawnPercentage = EditorGUILayout.Slider(mountain.spawnPercentage, 0f, 1f); // Slider for percentage
                 EditorGUILayout.EndHorizontal();
             }
@@ -66,14 +66,14 @@ public class BiomeEditor : Editor
         EditorGUILayout.EndVertical();
         // End of Mountains Box Group
         
-        DisplayPercentagesOptions<ResourceData>("Forest Trees", biome.ForestTreeResources);
-        DisplayPercentagesOptions<GrowingResourceData>("Forest Additionals", biome.ForestAdditionalResources);
-        DisplayPercentagesOptions<ResourceData>("Vegitation", biome.VegitationResources);
-        DisplayPercentagesOptions<ResourceData>("Additional Resources", biome.AdditionalResources);
+        DisplayPercentagesOptions<ResourceSettings>("Forest Trees", biome.ForestTreeResources);
+        DisplayPercentagesOptions<GrowingResourceSettings>("Forest Additionals", biome.ForestAdditionalResources);
+        DisplayPercentagesOptions<ResourceSettings>("Vegitation", biome.VegitationResources);
+        DisplayPercentagesOptions<ResourceSettings>("Additional Resources", biome.AdditionalResources);
     }
     
     // Adjust the DisplayPercentagesOptions method to be generic
-    private void DisplayPercentagesOptions<T>(string header, List<ResourceDataPercentage> biomePercentages) where T : ResourceData
+    private void DisplayPercentagesOptions<T>(string header, List<ResourceDataPercentage> biomePercentages) where T : ResourceSettings
     {
         EditorGUILayout.BeginVertical("box");
         GUILayout.Label(header, EditorStyles.boldLabel);
@@ -88,10 +88,10 @@ public class BiomeEditor : Editor
         for (int i = 0; i < biomePercentages.Count; i++)
         {
             var resource = biomePercentages[i];
-            if (resource != null && resource.ResourceData != null)
+            if (resource != null && resource.ResourceSettings != null)
             {
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField(resource.ResourceData.name, GUILayout.MaxWidth(200));
+                EditorGUILayout.LabelField(resource.ResourceSettings.name, GUILayout.MaxWidth(200));
                 resource.SpawnPercentage = EditorGUILayout.Slider(resource.SpawnPercentage, 0f, 1f);
                 EditorGUILayout.EndHorizontal();
             }
@@ -120,7 +120,7 @@ public class BiomeEditor : Editor
         EditorGUILayout.EndVertical();
     }
     
-    private void AddNewMountain(BiomeData biome, MountainData mountainData)
+    private void AddNewMountain(BiomeSettings biome, MountainSettings mountainSettings)
     {
         if (biome.Mountains == null)
         {
@@ -128,7 +128,7 @@ public class BiomeEditor : Editor
         }
 
         // Create a new MountainDataPercentage object with the selected MountainData
-        MountainDataPercentage newMountain = new MountainDataPercentage(mountainData, 0f); // Assuming a constructor exists that takes these parameters
+        MountainDataPercentage newMountain = new MountainDataPercentage(mountainSettings, 0f); // Assuming a constructor exists that takes these parameters
 
         // Add the new MountainDataPercentage object to the Mountains list
         biome.Mountains.Add(newMountain);
