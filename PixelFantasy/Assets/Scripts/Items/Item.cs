@@ -76,10 +76,10 @@ namespace Items
         {
             if (AssignedStorage == null && !_isHeld)
             {
-                AssignedStorage = InventoryManager.Instance.GetAvailableStorage(this, true);
+                AssignedStorage = InventoryManager.Instance.GetAvailableStorage(this);
                 if (AssignedStorage != null)
                 {
-                    AssignedStorage.SetIncoming(this);
+                    AssignedStorage.StorageData.SetIncoming(this);
                     CreateHaulTask();
                 }
             }
@@ -113,7 +113,7 @@ namespace Items
             {
                 if (AssignedStorage != null)
                 {
-                    AssignedStorage.CancelIncoming(this);
+                    AssignedStorage.StorageData.CancelIncoming(this);
                     AssignedStorage = null;
                 }
 
@@ -253,7 +253,7 @@ namespace Items
                 return;
             }
             
-            AssignedStorage.RestoreClaimed(this);
+            AssignedStorage.StorageData.RestoreClaimed(this);
         }
 
         public void ClaimItem()
@@ -264,7 +264,7 @@ namespace Items
                 return;
             }
 
-            if (!AssignedStorage.SetClaimedItem(this))
+            if (!AssignedStorage.StorageData.SetClaimedItem(this))
             {
                 Debug.LogError("Failed to claim item");
             }

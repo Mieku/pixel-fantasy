@@ -26,7 +26,7 @@ public class Command : ScriptableObject
         {
             if (!taskAI.HasToolTypeEquipped(Task.RequiredToolType))
             {
-                bool foundTool = InventoryManager.Instance.HasToolTypeGlobal(Task.RequiredToolType);
+                bool foundTool = InventoryManager.Instance.HasToolType(Task.RequiredToolType);
                 return foundTool;
             }
         }

@@ -80,7 +80,7 @@ namespace TaskSystem
 
             if (_state == ETaskState.DeliverItem)
             {
-                _receivingStorage = InventoryManager.Instance.GetAvailableStorage(_targetItem, true);
+                _receivingStorage = InventoryManager.Instance.GetAvailableStorage(_targetItem);
                 if (_receivingStorage == null)
                 {
                     // THROW IT ON THE GROUND!
@@ -89,7 +89,7 @@ namespace TaskSystem
                     return;
                 }
                 
-                _receivingStorage.SetIncoming(_targetItem);
+                _receivingStorage.StorageData.SetIncoming(_targetItem);
                 
                 _ai.Kinling.KinlingAgent.SetMovePosition(_receivingStorage.UseagePosition(_ai.Kinling.transform.position), OnProductDelivered,OnTaskCancel);
                 _state = ETaskState.WaitingOnDelivery;

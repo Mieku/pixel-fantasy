@@ -189,7 +189,7 @@ namespace Popups.Kinling_Info_Popup
             _displayedOwnedItemSlots.Clear();
             
             var curEquipped = _kinling.Equipment.EquipmentState.GetGearByType(gearType);
-            var allAvailableItems = InventoryManager.Instance.GetAvailableInventory(false);
+            var allAvailableItems = InventoryManager.Instance.GetAvailableInventory();
 
             int minItems = 1;
             List<ItemState> applicableItems = new List<ItemState>();

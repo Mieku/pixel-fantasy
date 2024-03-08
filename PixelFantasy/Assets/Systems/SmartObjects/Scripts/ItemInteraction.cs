@@ -43,7 +43,7 @@ namespace Systems.SmartObjects.Scripts
             if (!_isInStorage) return false;
             
             // Make sure the item was not claimed
-            if (!LinkedItem.AssignedStorage.CanItemBeClaimed(LinkedItem))
+            if (!LinkedItem.AssignedStorage.StorageData.CanItemBeClaimed(LinkedItem))
             {
                 return false;
             }
@@ -73,7 +73,7 @@ namespace Systems.SmartObjects.Scripts
                 HasStarted = false,
             };
             
-            LinkedItem.AssignedStorage.SetClaimedItem(LinkedItem);
+            LinkedItem.AssignedStorage.StorageData.SetClaimedItem(LinkedItem);
 
             return true;
         }
@@ -201,7 +201,7 @@ namespace Systems.SmartObjects.Scripts
             
             if (_isInStorage) // if it is still in storage, restore the claim
             {
-                LinkedItem.AssignedStorage.RestoreClaimed(LinkedItem);
+                LinkedItem.AssignedStorage.StorageData.RestoreClaimed(LinkedItem);
             }
 
             _currentPerformer = null;

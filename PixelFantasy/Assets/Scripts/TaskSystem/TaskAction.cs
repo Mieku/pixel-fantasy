@@ -45,7 +45,7 @@ namespace TaskSystem
                 {
                     if (!_ai.HasToolTypeEquipped(task.RequiredToolType))
                     {
-                        bool foundTool = InventoryManager.Instance.HasToolTypeGlobal(task.RequiredToolType);
+                        bool foundTool = InventoryManager.Instance.HasToolType(task.RequiredToolType);
                         return foundTool;
                     }
                 }
@@ -81,7 +81,7 @@ namespace TaskSystem
                 return;
             }
 
-            Item claimedTool = InventoryManager.Instance.ClaimToolTypeGlobal(_task.RequiredToolType);
+            Item claimedTool = InventoryManager.Instance.ClaimToolType(_task.RequiredToolType);
 
             if (claimedTool == null)
             {
@@ -116,15 +116,15 @@ namespace TaskSystem
                 else
                 {
                     // Try to put old tool in same storage as equipped tool
-                    if (claimedToolsStorage != null && claimedToolsStorage.AmountCanBeDeposited(droppedItem.GetItemData()) > 0)
+                    if (claimedToolsStorage != null && claimedToolsStorage.StorageData.AmountCanBeDeposited(droppedItem.GetItemData()) > 0)
                     {
-                        claimedToolsStorage.SetIncoming(droppedItem);
+                        claimedToolsStorage.StorageData.SetIncoming(droppedItem);
                         claimedToolsStorage.DepositItems(droppedItem);
                         onReadyForTask.Invoke();
                         return;
                     }
                     
-                    Storage storageToPlaceOldItem = InventoryManager.Instance.FindAvailableGlobalStorage(droppedItem.GetItemData());
+                    Storage storageToPlaceOldItem = InventoryManager.Instance.FindAvailableStorage(droppedItem.GetItemData());
                     
                     if (storageToPlaceOldItem == null)
                     {
@@ -136,7 +136,7 @@ namespace TaskSystem
                     else
                     {
                         // Put in storage
-                        storageToPlaceOldItem.SetIncoming(droppedItem);
+                        storageToPlaceOldItem.StorageData.SetIncoming(droppedItem);
                         _ai.Kinling.KinlingAgent.SetMovePosition(storageToPlaceOldItem.UseagePosition(_ai.Kinling.transform.position), () =>
                         {
                             storageToPlaceOldItem.DepositItems(droppedItem);

@@ -26,7 +26,7 @@ namespace TaskSystem
                 return false;
             }
 
-            return InventoryManager.Instance.IsItemInStorage((string)payload, true);
+            return InventoryManager.Instance.IsItemInStorage((string)payload);
         }
 
         public override void PrepareAction(Task task)

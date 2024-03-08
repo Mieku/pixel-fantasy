@@ -26,7 +26,7 @@ namespace HUD
 
         private void GameEvents_RefreshInventoryDisplay()
         {
-            var availableInv = InventoryManager.Instance.GetAvailableInventoryQuantities(true);
+            var availableInv = InventoryManager.Instance.GetAvailableInventoryQuantities();
             List<ItemSettings> removeList = new List<ItemSettings>();
             
             // Update current displayed

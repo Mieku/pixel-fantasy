@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Buildings;
 using Characters;
 using CodeMonkey.Utils;
 using Controllers;
@@ -370,23 +369,6 @@ namespace Managers
             item.SetActive(true);
             return itemScript;
         }
-
-        // public Storage SpawnStorageContainer(StorageSettings storageData, Vector3 spawnPosition)
-        // {
-        //     var containerObj = Instantiate(_storageContainerPrefab, spawnPosition, Quaternion.identity);
-        //     containerObj.transform.SetParent(_storageParent);
-        //     var container = containerObj.GetComponent<Storage>();
-        //     container.Init(storageData);
-        //     return container;
-        // }
-        
-        // private Building _plannedBuilding;
-        // public void PlanBuilding(Building building, Action onBuildingPlaced = null)
-        // {
-        //     _plannedBuilding = Instantiate(building, _structureParent);
-        //     _plannedBuilding.SetState(Building.BuildingState.BeingPlaced);
-        //     _plannedBuilding.OnBuildingPlaced = onBuildingPlaced;
-        // }
         
         private Door _plannedDoor;
         public void PlanDoor(DoorSettings doorSettings, Action onDoorPlaced = null)

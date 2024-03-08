@@ -7,7 +7,7 @@ namespace Items
 {
     public class CraftingTableData : FurnitureData
     {
-        [ShowInInspector] public List<ItemAmount> RemainingMaterials { get; set; }
+        [ShowInInspector] public List<ItemAmount> RemainingMaterials { get; set; } = new List<ItemAmount>();
         [ShowInInspector] public float RemainingCraftingWork { get; set; }
         [ShowInInspector] public CraftedItemSettings ItemBeingCrafted { get; set; }
 

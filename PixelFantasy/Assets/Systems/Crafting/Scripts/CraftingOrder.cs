@@ -102,7 +102,7 @@ namespace Systems.Crafting.Scripts
                 for (int i = 0; i < requiredItem.Quantity; i++)
                 {
                     // Check building storage first, then check global
-                    var claimedItem = InventoryManager.Instance.ClaimItemGlobal(requiredItem.Item);
+                    var claimedItem = InventoryManager.Instance.ClaimItem(requiredItem.Item);
 
                     if (claimedItem == null)
                     {
