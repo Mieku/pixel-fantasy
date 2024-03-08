@@ -23,20 +23,13 @@ namespace Managers
         [SerializeField] private GameObject _plantPrefab;
     
         [SerializeField] private Transform _structureParent;
-        
         [SerializeField] private Transform _flooringParent;
-
-        [SerializeField] private GameObject _craftingTablePrefab;
-        [SerializeField] private GameObject _furniturePrefab;
         [SerializeField] private Transform _furnitureParent;
 
         [SerializeField] private GameObject _soilPrefab;
         
         [SerializeField] private SpriteRenderer _placementIcon;
         [SerializeField] private Sprite _genericPlacementSprite;
-        
-        [SerializeField] private Transform _storageParent;
-        [SerializeField] private GameObject _storageContainerPrefab;
 
         [SerializeField] private Transform _kinlingsParent;
         [SerializeField] private Kinling _kinlingPrefab;
