@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Characters;
-using ScriptableObjects;
 using UnityEngine;
 
 namespace TaskSystem

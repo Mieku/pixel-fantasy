@@ -9,6 +9,7 @@ using Interfaces;
 using Managers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
+using Systems.Crafting.Scripts;
 using TaskSystem;
 using UnityEngine;
 
@@ -89,7 +90,7 @@ namespace Items
         {
             get
             {
-                if (Data.State != FurnitureData.EFurnitureState.Built)
+                if (Data.State != FurnitureData.EFurnitureState.Built && !Data.InUse)
                 {
                     return false;
                 }
@@ -280,6 +281,11 @@ namespace Items
                 results.Add(marker.transform);
             }
 
+            if (results.Count == 0)
+            {
+                results.Add(transform);
+            }
+
             return results;
         }
 
@@ -289,7 +295,7 @@ namespace Items
             
             foreach (var useageMarker in UseagePositions())
             {
-                bool result = Helper.IsGridPosValidToBuild(useageMarker.position, Settings.InvalidPlacementTags);
+                bool result = Helper.IsGridPosValidToBuild(useageMarker.position, Settings.InvalidPlacementTags, gameObject);
 
                 if (result)
                 {
@@ -386,16 +392,33 @@ namespace Items
                 };
                 TaskManager.Instance.AddTask(task);
             }
-            // else
-            // {
-            //     _craftingOrder = new CraftingOrder(_furnitureSettings, 
-            //         this,
-            //         CraftingOrder.EOrderType.Furniture,
-            //         true,
-            //         OnOrderClaimed, 
-            //         OnCraftingOrderDelivered,
-            //         OnCraftingOrderCancelled);
-            // }
+            else
+            {
+                var craftingOrder = new CraftingOrder(
+                        Settings, 
+                        this, 
+                        CraftingOrder.EOrderType.Furniture, 
+                        true,
+                        OnFurnitureOrderClaimed, 
+                        OnFurnitureOrderDelivered, 
+                        OnFurnitureOrderCancelled
+                    );
+            }
+        }
+
+        private void OnFurnitureOrderClaimed()
+        {
+            
+        }
+
+        private void OnFurnitureOrderDelivered()
+        {
+            
+        }
+
+        private void OnFurnitureOrderCancelled()
+        {
+            
         }
 
         public override void ReceiveItem(Item item)
@@ -423,7 +446,7 @@ namespace Items
             return false;
         }
         
-        private void Update()
+        protected virtual void Update()
         {
             if (Data.State is FurnitureData.EFurnitureState.Planning)
             {

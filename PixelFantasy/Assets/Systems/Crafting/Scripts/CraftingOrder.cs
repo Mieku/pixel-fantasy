@@ -129,7 +129,7 @@ namespace Systems.Crafting.Scripts
             OnOrderClaimed?.Invoke();
         }
 
-        public bool CanBeCrafted()
+        public bool CanBeCrafted(CraftingTable table)
         {
             // if (CraftedItem.RequiredCraftingTableOptions.Count > 0)
             // {
@@ -140,12 +140,14 @@ namespace Systems.Crafting.Scripts
             //     }
             // }
 
-            if (!AreMaterialsAvailable())
-            {
-                return false;
-            }
-
-            return true;
+            return table.TableData.CanCraftItem(CraftedItem);
+            //
+            // if (!AreMaterialsAvailable())
+            // {
+            //     return false;
+            // }
+            //
+            // return true;
         }
         
         public bool AreMaterialsAvailable()

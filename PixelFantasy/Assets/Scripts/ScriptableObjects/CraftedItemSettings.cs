@@ -1,18 +1,21 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Sirenix.OdinInspector;
 using Systems.Skills.Scripts;
 using TaskSystem;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ScriptableObjects
 {
     [CreateAssetMenu(fileName = "CraftedItemSettings", menuName = "Settings/Items/Crafted Item Settings")]
     public class CraftedItemSettings : ItemSettings
     {
-        [TitleGroup("Crafted Settings")] public CraftRequirements CraftRequirements;
-        
+        [TitleGroup("Crafted Settings")] [SerializeField] private CraftRequirements _craftRequirements;
         private readonly List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle"};
+        
+        public CraftRequirements CraftRequirements => _craftRequirements.Clone();
         
         public List<string> InvalidPlacementTags
         {
@@ -32,21 +35,33 @@ namespace ScriptableObjects
     [Serializable]
     public class MaterialVarient
     {
-        public string VarientName;
-        public Sprite VarientSprite;
-        public Sprite MaterialSelectIcon; // Typically the icon of the material change
-        public CraftRequirements CraftRequirements;
-        public int Durability = 100;
+        [SerializeField] private string _varientName;
+        [SerializeField] private Sprite _varientSprite;
+        [SerializeField] private Sprite _materialSelectIcon;
+        [SerializeField] private CraftRequirements _craftRequirements;
+        [SerializeField] private int _durability = 100;
+        
+        public string VarientName => _varientName;
+        public Sprite VarientSprite => _varientSprite;
+        public Sprite MaterialSelectIcon => _materialSelectIcon; // Typically the icon of the material change
+        public int Durability => _durability;
+        public CraftRequirements CraftRequirements => _craftRequirements.Clone();
     }
 
     [Serializable]
     public class CraftRequirements
     {
-        public int MinCraftingSkillLevel;
-        public ETaskType CraftingSkill;
-        public List<ItemAmount> MaterialCosts;
-        public float WorkCost;
-        public EToolType RequiredCraftingToolType;
+        [SerializeField] private int _minCraftingSkillLevel;
+        [SerializeField] private ETaskType _craftingSkill;
+        [SerializeField] private List<ItemAmount> _materialCosts;
+        [SerializeField] private float _workCost;
+        [SerializeField] private EToolType _requiredCraftingToolType;
+        
+        public float WorkCost => _workCost;
+        public EToolType RequiredCraftingToolType => _requiredCraftingToolType;
+        public int MinCraftingSkillLevel => _minCraftingSkillLevel;
+        public ETaskType CraftingSkill => _craftingSkill;
+        public List<ItemAmount> MaterialCosts => GetMaterialCosts();
         
         public float GetWorkPerResource()
         {
@@ -57,6 +72,12 @@ namespace ScriptableObjects
             }
 
             return WorkCost / totalQuantity;
+        }
+
+        public List<ItemAmount> GetMaterialCosts()
+        {
+            List<ItemAmount> clone = new List<ItemAmount>(_materialCosts);
+            return clone;
         }
         
         public string MaterialsList
@@ -74,7 +95,7 @@ namespace ScriptableObjects
         
         public List<ItemAmount> GetResourceCosts()
         {
-            List<ItemAmount> clone = new List<ItemAmount>(MaterialCosts);
+            List<ItemAmount> clone = new List<ItemAmount>(_materialCosts);
             return clone;
         }
 
@@ -101,5 +122,12 @@ namespace ScriptableObjects
         }
 
         public bool CanBeCrafted => MaterialsAreAvailable && SomeoneHasCraftingSkillNeeded;
+        
+        public CraftRequirements Clone()
+        {
+            CraftRequirements copy = (CraftRequirements)this.MemberwiseClone();
+            copy._materialCosts = this._materialCosts.Select(itemAmount => itemAmount.Clone()).ToList();
+            return copy;
+        }
     }
 }

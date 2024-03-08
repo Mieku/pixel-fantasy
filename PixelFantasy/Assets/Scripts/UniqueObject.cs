@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(UID))]
 public class UniqueObject : MonoBehaviour
 {
+    // TODO: Get rid of this, the UID should be from their data
     protected UID _uid;
     public string UniqueId 
     {

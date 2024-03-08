@@ -17,6 +17,7 @@ namespace Items
             Built,
         }
         
+        [ShowInInspector] public string UniqueID { get; private set; }
         [ShowInInspector] public EFurnitureState State { get; private set; }
         [ShowInInspector] public FurnitureSettings Settings { get; private set; }
         [ShowInInspector] public FurnitureVarient Variant { get; private set; }
@@ -26,6 +27,7 @@ namespace Items
         [ShowInInspector] public string CraftersUID { get; set; }
         [ShowInInspector] public PlacementDirection Direction { get; set; }
         [ShowInInspector] public bool IsAllowed { get; set; }
+        [ShowInInspector] public bool InUse { get; set; }
         
         public FurnitureData(FurnitureSettings settings)
             : this(settings, null, null) { }
@@ -33,7 +35,6 @@ namespace Items
         // Constructor for furniture with variants and/or dye settings
         public FurnitureData(FurnitureSettings settings, FurnitureVarient selectedVariant, DyeSettings selectedDyeSettings)
         {
-            Debug.Log("Init Furniture");
             Initialize(settings, selectedVariant, selectedDyeSettings);
         }
 
@@ -42,10 +43,14 @@ namespace Items
             Settings = settings;
             Variant = selectedVariant;
             DyeSettings = selectedDyeSettings;
+
+            var furnitureName = Variant != null ? Variant.VarientName : Settings.ItemName;
+            UniqueID = $"{furnitureName}_{Guid.NewGuid()}";
             
             // Set defaults
             Direction = PlacementDirection.South;
             IsAllowed = true;
+            InUse = false;
             State = EFurnitureState.Planning;
             
             // Calculate durability and remaining work based on whether a variant is provided

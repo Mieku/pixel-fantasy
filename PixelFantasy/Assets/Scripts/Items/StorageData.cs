@@ -16,7 +16,7 @@ namespace Items
 
         public StorageData(FurnitureSettings settings, FurnitureVarient selectedVariant, DyeSettings selectedDyeSettings) : base(settings, selectedVariant, selectedDyeSettings)
         {
-            Debug.Log("Init Storage");
+            
         }
         
         public int AmountCanBeDeposited(ItemSettings itemSettings)

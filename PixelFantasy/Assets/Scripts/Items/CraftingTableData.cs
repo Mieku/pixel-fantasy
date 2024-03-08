@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
+using Systems.Crafting.Scripts;
 using UnityEngine;
 
 namespace Items
@@ -10,12 +11,13 @@ namespace Items
         [ShowInInspector] public List<ItemAmount> RemainingMaterials { get; set; } = new List<ItemAmount>();
         [ShowInInspector] public float RemainingCraftingWork { get; set; }
         [ShowInInspector] public CraftedItemSettings ItemBeingCrafted { get; set; }
+        [ShowInInspector] public CraftingOrder CurrentOrder { get; set; }
 
         public CraftingTableSettings TableSettings => Settings as CraftingTableSettings;
         
         public CraftingTableData(CraftingTableSettings settings, FurnitureVarient selectedVariant, DyeSettings selectedDyeSettings) : base(settings, selectedVariant, selectedDyeSettings)
         {
-            Debug.Log("Init Table");
+            
         }
         
         public float GetPercentCraftingComplete()
@@ -64,6 +66,15 @@ namespace Items
                     return false;
                 }
             }
+
+            return true;
+        }
+
+        public bool IsAvailable()
+        {
+            if (State == EFurnitureState.InProduction) return false;
+            if (State == EFurnitureState.Planning) return false;
+            if (ItemBeingCrafted != null) return false;
 
             return true;
         }

@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using Managers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
+using Systems.Crafting.Scripts;
+using TaskSystem;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.Rendering;
 
 namespace Items
@@ -42,6 +45,42 @@ namespace Items
         {
             base.Planning_Enter();
             HideCraftingPreview();
+        }
+
+        protected override void InProduction_Enter()
+        {
+            base.InProduction_Enter();
+        }
+
+        protected override void Built_Enter()
+        {
+            base.Built_Enter();
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+            
+            SearchForCraftingOrder();
+        }
+        
+        private void SearchForCraftingOrder()
+        {
+            if (IsAvailable && TableData.CurrentOrder == null)
+            {
+                var order = CraftingOrdersManager.Instance.GetNextCraftableOrder(this);
+                if (order != null)
+                {
+                    TableData.CurrentOrder = order;
+                    var task = order.CreateTask(OnCraftingComplete);
+                    TaskManager.Instance.AddTask(task);
+                }
+            }
+        }
+
+        private void OnCraftingComplete(Task task)
+        {
+            TableData.CurrentOrder = null;
         }
 
         private SpriteRenderer CraftingPreview

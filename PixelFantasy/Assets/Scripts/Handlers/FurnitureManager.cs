@@ -11,6 +11,7 @@ namespace Handlers
     public class FurnitureManager : Singleton<FurnitureManager>
     {
         private List<Furniture> _allFurniture = new List<Furniture>();
+        public List<Furniture> AllFurniture => _allFurniture;
 
         public bool DoesFurnitureExist(FurnitureSettings furnitureSettings)
         {

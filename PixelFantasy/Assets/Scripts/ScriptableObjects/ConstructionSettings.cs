@@ -80,5 +80,14 @@ namespace ScriptableObjects
         {
             return InventoryManager.Instance.CanAfford(Item, Quantity);
         }
+
+        public ItemAmount Clone()
+        {
+            return new ItemAmount
+            {
+                Item = this.Item,
+                Quantity = this.Quantity
+            };
+        }
     }
 }
