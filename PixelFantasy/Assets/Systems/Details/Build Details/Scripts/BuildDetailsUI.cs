@@ -46,7 +46,7 @@ namespace Systems.Details.Build_Details.Scripts
         private List<SelectionOptionBtn> _displayedOptions = new List<SelectionOptionBtn>();
         private FurnitureSettings _selectedFurniture;
 
-        private SelectedFurnitureData _selectedFurnitureData;
+        private SelectedFurnitureDetails _selectedFurnitureDetails;
          
         public void Show(string header, List<FurnitureSettings> options)
         {
@@ -54,7 +54,7 @@ namespace Systems.Details.Build_Details.Scripts
             _panelTitle.text = header;
             _currentSelectionHandle.SetActive(false);
 
-            _selectedFurnitureData = new SelectedFurnitureData();
+            _selectedFurnitureDetails = new SelectedFurnitureDetails();
             
             DisplayOptions(options);
             RefreshLayout();
@@ -232,8 +232,8 @@ namespace Systems.Details.Build_Details.Scripts
 
         private void ApplyColour(DyeSettings dye)
         {
-            _selectedFurnitureData.Dye = dye;
-            TriggerFurniturePlacement(_selectedFurnitureData);
+            _selectedFurnitureDetails.Dye = dye;
+            TriggerFurniturePlacement(_selectedFurnitureDetails);
         }
 
         private void ApplyVarient(FurnitureVarient varient)
@@ -243,8 +243,8 @@ namespace Systems.Details.Build_Details.Scripts
             RefreshCraftingRequirements(varient.CraftRequirements);
             RefreshStatsDisplay(varient.Durability);
 
-            _selectedFurnitureData.Varient = varient;
-            TriggerFurniturePlacement(_selectedFurnitureData);
+            _selectedFurnitureDetails.Varient = varient;
+            TriggerFurniturePlacement(_selectedFurnitureDetails);
         }
 
         private void ApplyDefault(FurnitureSettings furnitureSettings)
@@ -254,9 +254,9 @@ namespace Systems.Details.Build_Details.Scripts
             RefreshCraftingRequirements(furnitureSettings.CraftRequirements);
             RefreshStatsDisplay(furnitureSettings.Durability);
 
-            _selectedFurnitureData.Furniture = furnitureSettings;
-            _selectedFurnitureData.Varient = null;
-            TriggerFurniturePlacement(_selectedFurnitureData);
+            _selectedFurnitureDetails.Furniture = furnitureSettings;
+            _selectedFurnitureDetails.Varient = null;
+            TriggerFurniturePlacement(_selectedFurnitureDetails);
         }
 
         private void RefreshStatsDisplay(int durability)
@@ -305,18 +305,18 @@ namespace Systems.Details.Build_Details.Scripts
              _layoutRebuilder.RefreshLayout();
          }
 
-        public class SelectedFurnitureData
+        public class SelectedFurnitureDetails
         {
             public FurnitureSettings Furniture;
             public FurnitureVarient Varient;
             public DyeSettings Dye;
         }
         
-        private void TriggerFurniturePlacement(SelectedFurnitureData selectedFurnitureData)
+        private void TriggerFurniturePlacement(SelectedFurnitureDetails selectedFurnitureDetails)
         {
             Spawner.Instance.CancelInput();
-            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildFurniture, selectedFurnitureData.Furniture.ItemName);
-            Spawner.Instance.PlanFurniture(selectedFurnitureData);
+            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildFurniture, selectedFurnitureDetails.Furniture.ItemName);
+            Spawner.Instance.PlanFurniture(selectedFurnitureDetails);
         }
     }
 }

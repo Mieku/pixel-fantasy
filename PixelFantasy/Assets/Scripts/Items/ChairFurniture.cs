@@ -51,7 +51,7 @@ namespace Items
             
             foreach (var marker in _useageMarkers)
             {
-                Seat seat = new Seat(marker.transform.position, CurrentDirection);
+                Seat seat = new Seat(marker.transform.position, Data.Direction);
                 _seats.Add(seat);
             }
         }
@@ -162,7 +162,7 @@ namespace Items
         public TableFurniture GetTable()
         {
             Transform checkTrans;
-            switch (CurrentDirection)
+            switch (Data.Direction)
             {
                 case PlacementDirection.South:
                     checkTrans = _southTableCheckTransform;

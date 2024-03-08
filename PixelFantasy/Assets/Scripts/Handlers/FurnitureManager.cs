@@ -12,11 +12,11 @@ namespace Handlers
     {
         private List<Furniture> _allFurniture = new List<Furniture>();
 
-        public bool DoesFurnitureExist(FurnitureSettings furnitureData)
+        public bool DoesFurnitureExist(FurnitureSettings furnitureSettings)
         {
             foreach (var furniture in _allFurniture)
             {
-                if (furniture.FurnitureSettings == furnitureData)
+                if (furniture.Settings == furnitureSettings)
                 {
                     return true;
                 }
@@ -29,7 +29,7 @@ namespace Handlers
         {
             if (_allFurniture.Contains(furniture))
             {
-                Debug.LogError($"Attempted to register already registered furniture: {furniture.FurnitureSettings.ItemName}");
+                Debug.LogError($"Attempted to register already registered furniture: {furniture.Settings.ItemName}");
                 return;
             }
             
@@ -40,7 +40,7 @@ namespace Handlers
         {
             if (!_allFurniture.Contains(furniture))
             {
-                Debug.LogError($"Attempted to deregister not registered furniture: {furniture.FurnitureSettings.ItemName}");
+                Debug.LogError($"Attempted to deregister not registered furniture: {furniture.Settings.ItemName}");
                 return;
             }
 
@@ -59,7 +59,7 @@ namespace Handlers
             foreach (var furnitureT  in allFurnituressOfType)
             {
                 var furniture = furnitureT as Furniture;
-                if (furniture != null && furniture.FurnitureState == Furniture.EFurnitureState.Built)
+                if (furniture != null && furniture.Data.State == FurnitureData.EFurnitureState.Built)
                 {
                     var furniturePos = furniture.UseagePosition(requestorPos);
                     if (furniturePos != null)
@@ -92,7 +92,7 @@ namespace Handlers
             List<(BedFurniture, float)> furnitureDistances = new List<(BedFurniture, float)>();
             foreach (var bed in allBeds)
             {
-                if (bed.FurnitureState == Furniture.EFurnitureState.Built)
+                if (bed.Data.State == FurnitureData.EFurnitureState.Built)
                 {
                     var furniturePos = bed.UseagePosition(requestorPos);
                     if (furniturePos != null)
@@ -122,7 +122,7 @@ namespace Handlers
             var allTables = FindFurnituresOfType<CraftingTable>();
             foreach (var table in allTables)
             {
-                if (table.CanCraftItem(item))
+                if (table.TableData.CanCraftItem(item))
                 {
                     return table;
                 }

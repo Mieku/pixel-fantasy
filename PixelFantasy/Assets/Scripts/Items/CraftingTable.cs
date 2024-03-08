@@ -1,43 +1,54 @@
 using System;
 using System.Collections.Generic;
-using Buildings;
 using Managers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
-using TaskSystem;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using UnityEngine.Rendering;
-using Zones;
 
 namespace Items
 {
-    public class CraftingTable : Furniture
+    public class CraftingTable : Furniture, IFurnitureInitializable
     {
         [TitleGroup("South")] [SerializeField] private SpriteRenderer _southCraftingPreview;
         [TitleGroup("West")] [SerializeField] private SpriteRenderer _westCraftingPreview;
         [TitleGroup("North")] [SerializeField] private SpriteRenderer _northCraftingPreview;
         [TitleGroup("East")] [SerializeField] private SpriteRenderer _eastCraftingPreview;
-
-        private CraftedItemSettings _craftedItem;
-        protected float _remainingCraftAmount;
-        private List<ItemAmount> _remainingMaterials;
-
-        public bool IsInUse;
-        public Task _curTask;
-        public CraftedItemSettings ItemBeingCrafted => _craftedItem;
         
-        protected override void Start()
+        public CraftingTableData TableData => Data as CraftingTableData;
+        
+        public new bool Init(FurnitureSettings settings, FurnitureVarient varient = null, DyeSettings dye = null)
         {
-            base.Start();
-            ShowCraftingPreview(null);
+            if (settings is CraftingTableSettings craftingTableSettings)
+            {
+                Data = new CraftingTableData(craftingTableSettings, varient, dye);
+                
+                AssignDirection(Data.Direction);
+                foreach (var spriteRenderer in _allSprites)
+                {
+                    _materials.Add(spriteRenderer.material);
+                }
+                
+                return true; // Initialization successful
+            }
+            else
+            {
+                Debug.LogError("Invalid settings type provided.");
+                return false; // Initialization failed
+            }
+        }
+
+        protected override void Planning_Enter()
+        {
+            base.Planning_Enter();
+            HideCraftingPreview();
         }
 
         private SpriteRenderer CraftingPreview
         {
             get
             {
-                switch (CurrentDirection)
+                switch (Data.Direction)
                 {
                     case PlacementDirection.South:
                         return _southCraftingPreview;
@@ -65,18 +76,16 @@ namespace Items
         {
             if (craftedItem != null)
             {
-                _craftedItem = craftedItem;
-                IsInUse = true;
                 ShowCraftingPreview(craftedItem.ItemSprite);
-                _remainingCraftAmount = craftedItem.CraftRequirements.WorkCost;
-                _remainingMaterials = new List<ItemAmount>(craftedItem.CraftRequirements.GetResourceCosts());
+                TableData.ItemBeingCrafted = craftedItem;
+                TableData.RemainingCraftingWork = craftedItem.CraftRequirements.WorkCost;
+                TableData.RemainingMaterials = new List<ItemAmount>(craftedItem.CraftRequirements.GetResourceCosts());
             }
             else
             {
-                _craftedItem = null;
-                IsInUse = false;
                 ShowCraftingPreview(null);
-                _remainingCraftAmount = 0;
+                TableData.ItemBeingCrafted = null;
+                TableData.RemainingCraftingWork = 0;
             }
         }
 
@@ -98,9 +107,9 @@ namespace Items
 
         public bool DoCraft(float workAmount)
         {
-            _remainingCraftAmount -= workAmount;
+            TableData.RemainingCraftingWork -= workAmount;
             
-            if (_remainingCraftAmount <= 0)
+            if (TableData.RemainingCraftingWork <= 0)
             {
                 CompleteCraft();
                 return true;
@@ -109,16 +118,9 @@ namespace Items
             return false;
         }
 
-        public float GetPercentCraftingComplete()
-        {
-            if (_craftedItem == null) return 0f;
-            
-            return 1 - (_remainingCraftAmount / _craftedItem.CraftRequirements.WorkCost);
-        }
-
         public void ReceiveMaterial(Item item)
         {
-            foreach (var remainingMaterial in _remainingMaterials)
+            foreach (var remainingMaterial in TableData.RemainingMaterials)
             {
                 if (remainingMaterial.Item == item.GetItemData())
                 {
@@ -128,59 +130,14 @@ namespace Items
             Destroy(item.gameObject);
         }
 
-        public float GetPercentMaterialsReceived()
-        {
-            if (_craftedItem == null) return 0f;
-            
-            int numItemsNeeded = 0;
-            foreach (var cost in _craftedItem.CraftRequirements.GetResourceCosts())
-            {
-                numItemsNeeded += cost.Quantity;
-            }
-
-            int numItemsRemaining = 0;
-            foreach (var remaining in _remainingMaterials)
-            {
-                numItemsRemaining += remaining.Quantity;
-            }
-            
-            if (numItemsNeeded == 0)
-            {
-                return 1f;
-            }
-            else
-            {
-                return 1f - (numItemsRemaining / (float)numItemsNeeded);
-            }
-        }
-
         private void CompleteCraft()
         {
             AssignItemToTable(null);
-            _curTask = null;
         }
 
-        public List<CraftedItemSettings> GetCraftingOptions()
+        public List<CraftedItemSettings> GetCraftableItems()
         {
-            // TODO: Get all the available options for the crafting table to craft
-            throw new System.NotImplementedException();
-        }
-
-        public bool CanCraftItem(CraftedItemSettings item)
-        {
-            var validToCraft = GetCraftingOptions().Contains(item);
-            if (!validToCraft) return false;
-            
-            // Are the mats available?
-            foreach (var cost in _craftedItem.CraftRequirements.GetResourceCosts())
-            {
-                if (!cost.CanAfford())
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return TableData.TableSettings.CraftableItems;
         }
     }
 }

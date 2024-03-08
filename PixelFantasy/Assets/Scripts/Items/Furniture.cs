@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Buildings;
 using Characters;
 using CodeMonkey.Utils;
 using Controllers;
@@ -10,88 +9,53 @@ using Interfaces;
 using Managers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
-using Systems.Crafting.Scripts;
-using Systems.Details.Build_Details.Scripts;
-using Systems.Skills.Scripts;
-using Systems.SmartObjects.Scripts;
 using TaskSystem;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.Rendering;
-using UnityEngine.Serialization;
-using Zones;
 
 namespace Items
 {
-    public class Furniture : PlayerInteractable, IClickableObject
+    public interface IFurnitureInitializable
     {
-        public enum EFurnitureState
-        {
-            Planning,
-            InProduction,
-            Built,
-            Moving,
-        }
-
+        bool Init(FurnitureSettings settings, FurnitureVarient varient = null, DyeSettings dye = null);
+    }
+    
+    public class Furniture : PlayerInteractable, IClickableObject, IFurnitureInitializable
+    {
         [TitleGroup("South")] [SerializeField] protected GameObject _southHandle;
         [TitleGroup("South")] [SerializeField] protected Transform _southSpritesRoot;
         [TitleGroup("South")] [SerializeField] protected Transform _southUseageMarkersRoot;
+        [TitleGroup("South")] [SerializeField] protected GameObject _southPlacementObstacle;
         
         [TitleGroup("West")] [SerializeField] protected GameObject _westHandle;
         [TitleGroup("West")] [SerializeField] protected Transform _westSpritesRoot;
         [TitleGroup("West")] [SerializeField] protected Transform _westUseageMarkersRoot;
+        [TitleGroup("West")] [SerializeField] protected GameObject _westPlacementObstacle;
         
         [TitleGroup("North")] [SerializeField] protected GameObject _northHandle;
         [TitleGroup("North")] [SerializeField] protected Transform _northSpritesRoot;
         [TitleGroup("North")] [SerializeField] protected Transform _northUseageMarkersRoot;
+        [TitleGroup("North")] [SerializeField] protected GameObject _northPlacementObstacle;
         
         [TitleGroup("East")] [SerializeField] protected GameObject _eastHandle;
         [TitleGroup("East")] [SerializeField] protected Transform _eastSpritesRoot;
         [TitleGroup("East")] [SerializeField] protected Transform _eastUseageMarkersRoot;
+        [TitleGroup("East")] [SerializeField] protected GameObject _eastPlacementObstacle;
         
-        [FormerlySerializedAs("_furnitureItemData")]
-        [TitleGroup("General")]
-        [SerializeField] protected FurnitureSettings _furnitureSettings;
-        [SerializeField] protected SmartObject _smartObject;
-        public PlacementDirection CurrentDirection;
-
-        public EFurnitureState FurnitureState = EFurnitureState.Built;
-        public string CraftersUID;
-
-        private SpriteRenderer[] _allSprites;
+        protected SpriteRenderer[] _allSprites;
         protected List<SpriteRenderer> _useageMarkers;
-        private List<Material> _materials = new List<Material>();
+        protected readonly List<Material> _materials = new List<Material>();
         private int _fadePropertyID;
         
-        private float _remainingWork;
         private bool _isOutlineLocked;
-        // protected Building _parentBuilding;
-        private int _durabiliy;
-
-        private Color _availableTransparent;
-        private Color _unavailableTransparent;
         private ClickObject _clickObject;
-        private Collider2D _placementCollider;
-
-        private CraftingOrder _craftingOrder;
        
-        public FurnitureSettings FurnitureSettings => _furnitureSettings;
-        // public Building ParentBuilding => _parentBuilding;
+        public FurnitureSettings Settings => Data.Settings;
+        [ShowInInspector, TitleGroup("Data")] public FurnitureData Data { get; protected set; }
 
         protected virtual void Awake()
         {
-            if(_smartObject != null) _smartObject.gameObject.SetActive(false);
-            AssignDirection(CurrentDirection);
-            
             _fadePropertyID = Shader.PropertyToID("_OuterOutlineFade");
-            foreach (var spriteRenderer in _allSprites)
-            {
-                _materials.Add(spriteRenderer.material);
-            }
-            _availableTransparent = Librarian.Instance.GetColour("Available Transparent");
-            _unavailableTransparent = Librarian.Instance.GetColour("Unavailable Transparent");
             _clickObject = GetComponent<ClickObject>();
-            _placementCollider = GetComponent<Collider2D>();
             
             FurnitureManager.Instance.RegisterFurniture(this);
 
@@ -107,16 +71,25 @@ namespace Items
             GameEvents.OnRightClickUp -= GameEvents_OnRightClickUp;
         }
 
-        protected virtual void Start()
+        public bool Init(FurnitureSettings furnitureSettings, FurnitureVarient varient = null, DyeSettings dye = null)
         {
-            AssignState(FurnitureState);
+            Data = new FurnitureData(furnitureSettings, varient, dye);
+            
+            // TODO: Figure out a better way to do this
+            AssignDirection(Data.Direction);
+            foreach (var spriteRenderer in _allSprites)
+            {
+                _materials.Add(spriteRenderer.material);
+            }
+
+            return true;
         }
-        
+
         public bool IsAvailable
         {
             get
             {
-                if (FurnitureState != EFurnitureState.Built)
+                if (Data.State != FurnitureData.EFurnitureState.Built)
                 {
                     return false;
                 }
@@ -136,14 +109,14 @@ namespace Items
         {
             if (isClockwise)
             {
-                if (!AssignDirection(Helper.GetNextDirection(CurrentDirection)))
+                if (!AssignDirection(Helper.GetNextDirection(Data.Direction)))
                 {
                     SetNextDirection(true);
                 }
             }
             else
             {
-                if (!AssignDirection(Helper.GetPrevDirection(CurrentDirection)))
+                if (!AssignDirection(Helper.GetPrevDirection(Data.Direction)))
                 {
                     SetNextDirection(false);
                 }
@@ -159,7 +132,7 @@ namespace Items
             if(_southHandle != null) _southHandle.SetActive(false);
             if(_westHandle != null) _westHandle.SetActive(false);
             
-            CurrentDirection = direction;
+            Data.Direction = direction;
             
             switch (direction)
             {
@@ -191,7 +164,41 @@ namespace Items
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
 
+            if (Data.State != FurnitureData.EFurnitureState.Planning)
+            {
+                EnablePlacementObstacle(true);
+            }
+
             return true;
+        }
+
+        protected void EnablePlacementObstacle(bool enable)
+        {
+            if(_eastPlacementObstacle != null) _eastPlacementObstacle.SetActive(false);
+            if(_westPlacementObstacle != null) _westPlacementObstacle.SetActive(false);
+            if(_northPlacementObstacle != null) _northPlacementObstacle.SetActive(false);
+            if(_southPlacementObstacle != null) _southPlacementObstacle.SetActive(false);
+            
+            if (enable)
+            {
+                switch (Data.Direction)
+                {
+                    case PlacementDirection.South:
+                        _southPlacementObstacle.SetActive(true);
+                        break;
+                    case PlacementDirection.North:
+                        _northPlacementObstacle.SetActive(true);
+                        break;
+                    case PlacementDirection.West:
+                        _westPlacementObstacle.SetActive(true);
+                        break;
+                    case PlacementDirection.East:
+                        _eastPlacementObstacle.SetActive(true);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
         }
 
         private void DisplaySprites(bool showSprites)
@@ -206,7 +213,7 @@ namespace Items
 
         protected Transform SpritesRoot()
         {
-            switch (CurrentDirection)
+            switch (Data.Direction)
             {
                 case PlacementDirection.South:
                     return _southSpritesRoot;
@@ -237,85 +244,32 @@ namespace Items
 
         private void GameEvents_OnLeftClickUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
         {
-            if (isOverUI) return;
-
-            if (FurnitureState == EFurnitureState.Moving)
-            {
-                if (CheckPlacement())
-                {
-                    SetState(_prevousState);
-                }
-            }
+            //if (isOverUI) return;
         }
         
         private void GameEvents_OnRightClickUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
         {
-            if (isOverUI) return;
 
-            if (FurnitureState == EFurnitureState.Moving)
-            {
-                Moving_Cancelled();
-                SetState(_prevousState);
-            }
         }
-
-        private EFurnitureState _prevousState;
-        public void SetState(EFurnitureState newState)
+        
+        [ShowInInspector] 
+        public void SetState(FurnitureData.EFurnitureState newState)
         {
-            if(FurnitureState == newState) return;
-            
-            _prevousState = FurnitureState;
-            switch (FurnitureState)
+            Data.ChangeState(newState);
+            switch (Data.State)
             {
-                case EFurnitureState.Planning:
-                    break;
-                case EFurnitureState.InProduction:
-                    break;
-                case EFurnitureState.Built:
-                    break;
-                case EFurnitureState.Moving:
-                    Moving_Exit();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-            
-            AssignState(newState);
-        }
-
-        public void AssignState(EFurnitureState newState)
-        {
-            FurnitureState = newState;
-            switch (FurnitureState)
-            {
-                case EFurnitureState.Planning:
+                case FurnitureData.EFurnitureState.Planning:
                     Planning_Enter();
                     break;
-                case EFurnitureState.InProduction:
+                case FurnitureData.EFurnitureState.InProduction:
                     InProduction_Enter();
                     break;
-                case EFurnitureState.Built:
+                case FurnitureData.EFurnitureState.Built:
                     Built_Enter();
-                    break;
-                case EFurnitureState.Moving:
-                    Moving_Enter();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        }
-
-        public virtual void Init(FurnitureSettings furnitureSettings)
-        {
-            _furnitureSettings = furnitureSettings;
-        }
-
-        public void Init(BuildDetailsUI.SelectedFurnitureData selectedFurnitureData)
-        {
-            _furnitureSettings = selectedFurnitureData.Furniture;
-            
-            // TODO: Apply variant data
-            // TODO: Apply dye data
         }
 
         private List<Transform> UseagePositions()
@@ -335,7 +289,7 @@ namespace Items
             
             foreach (var useageMarker in UseagePositions())
             {
-                bool result = Helper.IsGridPosValidToBuild(useageMarker.position, _furnitureSettings.InvalidPlacementTags);
+                bool result = Helper.IsGridPosValidToBuild(useageMarker.position, Settings.InvalidPlacementTags);
 
                 if (result)
                 {
@@ -380,56 +334,50 @@ namespace Items
         //
         //     return false;
         // }
-
-        private Vector2 _beforeMovedPosition;
-        private void Moving_Enter()
-        {
-            _beforeMovedPosition = transform.position;
-            DisplayUseageMarkers(true);
-        }
-
-        private void Moving_Cancelled()
-        {
-            transform.position = _beforeMovedPosition;
-        }
-
-        private void Moving_Exit()
-        {
-            DisplayUseageMarkers(false);
-        }
         
-        private void Planning_Enter()
+        protected virtual void Planning_Enter()
         {
-            _remainingWork = _furnitureSettings.CraftRequirements.WorkCost;
             DisplayUseageMarkers(true);
+            EnablePlacementObstacle(false);
         }
 
-        public void InProduction_Enter()
+        protected virtual void InProduction_Enter()
         {
-            _remainingWork = _furnitureSettings.CraftRequirements.WorkCost;
             DisplayUseageMarkers(false);
+            EnablePlacementObstacle(true);
             Show(true);
             ColourArt(ColourStates.Blueprint);
             CreateFurnitureHaulingTask();
         }
+        
+        protected virtual void Built_Enter()
+        {
+            DisplayUseageMarkers(false);
+            EnablePlacementObstacle(true);
+            ColourArt(ColourStates.Built);
+        }
 
         public void DisplayUseageMarkers(bool showMarkers)
         {
+            if (_useageMarkers == null) return;
+            
             foreach (var marker in _useageMarkers)
             {
                 marker.gameObject.SetActive(showMarkers);
             }
         }
-
-        public float DurabilityPercentage()
-        {
-            return (float)_durabiliy / _furnitureSettings.Durability;
-        }
         
         private void CreateFurnitureHaulingTask()
         {
+            // If there are no material costs, build instantly
+            if (Data.CraftRequirements.MaterialCosts.Count == 0)
+            {
+                SetState(FurnitureData.EFurnitureState.Built);
+                return;
+            }
+            
             // If item exists, claim it
-            var claimedItem = InventoryManager.Instance.ClaimItem(_furnitureSettings);
+            var claimedItem = InventoryManager.Instance.ClaimItem(Settings);
             if (claimedItem != null)
             {
                 Task task = new Task("Place Furniture", ETaskType.Hauling, this, EToolType.None)
@@ -438,89 +386,57 @@ namespace Items
                 };
                 TaskManager.Instance.AddTask(task);
             }
-            else
-            {
-                _craftingOrder = new CraftingOrder(_furnitureSettings, 
-                    this,
-                    CraftingOrder.EOrderType.Furniture,
-                    true,
-                    OnOrderClaimed, 
-                    OnCraftingOrderDelivered,
-                    OnCraftingOrderCancelled);
-            }
-        }
-
-        private void OnOrderClaimed()
-        {
-            
-        }
-
-        private void OnCraftingOrderDelivered()
-        {
-            
-        }
-
-        private void OnCraftingOrderCancelled()
-        {
-            
-        }
-        
-        public void OnCraftingBillCancelled()
-        {
-            
+            // else
+            // {
+            //     _craftingOrder = new CraftingOrder(_furnitureSettings, 
+            //         this,
+            //         CraftingOrder.EOrderType.Furniture,
+            //         true,
+            //         OnOrderClaimed, 
+            //         OnCraftingOrderDelivered,
+            //         OnCraftingOrderCancelled);
+            // }
         }
 
         public override void ReceiveItem(Item item)
         {
-            CraftersUID = item.State.CraftersUID;
             Destroy(item.gameObject);
         }
 
         public void PlaceFurniture(Item furnitureItem)
         {
-            CraftersUID = furnitureItem.State.CraftersUID;
+            Data.CraftersUID = furnitureItem.State.CraftersUID;
             Destroy(furnitureItem.gameObject);
             
-            SetState(EFurnitureState.Built);
+            SetState(FurnitureData.EFurnitureState.Built);
         }
         
         public bool DoPlacement(float workAmount)
         {
-            _remainingWork -= workAmount;
-            if (_remainingWork <= 0)
+            Data.RemainingWork -= workAmount;
+            if (Data.RemainingWork <= 0)
             {
-                SetState(EFurnitureState.Built);
+                SetState(FurnitureData.EFurnitureState.Built);
                 return true;
             }
             
             return false;
         }
-
-        protected virtual void Built_Enter()
-        {
-            DisplayUseageMarkers(false);
-            _durabiliy = _furnitureSettings.Durability;
-            _remainingWork = _furnitureSettings.CraftRequirements.WorkCost;
-            ColourArt(ColourStates.Built);
-            
-            if(_smartObject != null) _smartObject.gameObject.SetActive(true);
-        }
         
         private void Update()
         {
-            if (FurnitureState is EFurnitureState.Planning or EFurnitureState.Moving)
+            if (Data.State is FurnitureData.EFurnitureState.Planning)
             {
                 FollowCursor();
                 CheckPlacement();
             }
 
             HandleRotation();
-            
         }
 
         private void HandleRotation()
         {
-            if (FurnitureState is not (EFurnitureState.Planning or EFurnitureState.Moving)) return;
+            if (Data.State is not (FurnitureData.EFurnitureState.Planning)) return;
             if (Input.GetKeyDown(KeyCode.E)) // Clockwise
             {
                 SetNextDirection(true);
@@ -534,7 +450,7 @@ namespace Items
         
         private void OnMouseEnter()
         {
-            if (FurnitureState != EFurnitureState.Built) return;
+            if (Data.State != FurnitureData.EFurnitureState.Built) return;
             if(_isOutlineLocked) return;
             
             TriggerOutline(true);
@@ -542,7 +458,7 @@ namespace Items
 
         private void OnMouseExit()
         {
-            if (FurnitureState != EFurnitureState.Built) return;
+            if (Data.State != FurnitureData.EFurnitureState.Built) return;
             if(_isOutlineLocked) return;
             
             TriggerOutline(false);
@@ -571,7 +487,7 @@ namespace Items
                 else
                 {
                     material.SetFloat(_fadePropertyID, 0);
-                    if(FurnitureState == EFurnitureState.Planning)
+                    if(Data.State == FurnitureData.EFurnitureState.Planning)
                     {
                         ColourArt(ColourStates.Blueprint);
                     }
@@ -581,15 +497,15 @@ namespace Items
         
         public virtual bool CheckPlacement()
         {
-            bool result = Helper.IsGridPosValidToBuild(transform.position, _furnitureSettings.InvalidPlacementTags);
+            bool result = Helper.IsGridPosValidToBuild(transform.position, Settings.InvalidPlacementTags);
 
             // Check the useage markers
-            if (_useageMarkers != null)
+            if (_useageMarkers != null && _useageMarkers.Count > 0)
             {
                 bool markersPass = false;
                 foreach (var marker in _useageMarkers)
                 {
-                    if (Helper.IsGridPosValidToBuild(marker.transform.position, _furnitureSettings.InvalidPlacementTags))
+                    if (Helper.IsGridPosValidToBuild(marker.transform.position, Settings.InvalidPlacementTags))
                     {
                         marker.color = Color.white;
                         markersPass = true;
@@ -644,6 +560,7 @@ namespace Items
 
         private void ColourArt(Color colour)
         {
+            if (_allSprites == null) return;
             foreach (var spriteRenderer in _allSprites)
             {
                 spriteRenderer.color = colour;
@@ -665,25 +582,9 @@ namespace Items
             return true;
         }
 
-        // public bool CanBeOrdered()
-        // {
-        //     if (!CanBeCrafted()) return false;
-        //
-        //
-        //     return true;
-        // }
-        //
-        // public void Order()
-        // {
-        //     if (FurnitureState == EFurnitureState.Craftable)
-        //     {
-        //         SetState(EFurnitureState.InProduction);
-        //     }
-        // }
-
         public void Trigger_Move()
         {
-            SetState(EFurnitureState.Moving);
+
         }
 
         public ClickObject GetClickObject()
@@ -692,41 +593,15 @@ namespace Items
         }
 
         public bool IsClickDisabled { get; set; }
-        public bool IsAllowed { get; set; }
-        public void ToggleAllowed(bool isAllowed)
-        {
-            IsAllowed = isAllowed;
-        }
+
 
         public List<Command> GetCommands()
         {
             return Commands;
         }
         
-        public string DisplayName
-        {
-            get
-            {
-                string result = _furnitureSettings.ItemName;
-                switch (FurnitureState)
-                {
-                    case EFurnitureState.Planning:
-                        break;
-                    case EFurnitureState.InProduction:
-                        result += " (Ordered)";
-                        break;
-                    case EFurnitureState.Built:
-                        break;
-                    case EFurnitureState.Moving:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+        public string DisplayName => Settings.ItemName;
 
-                return result;
-            }
-        }
-        
         public PlayerInteractable GetPlayerInteractable()
         {
             return this;
@@ -736,11 +611,11 @@ namespace Items
         {
             if (!WasCrafted) return null;
 
-            return KinlingsManager.Instance.GetUnit(CraftersUID);
+            return KinlingsManager.Instance.GetUnit(Data.CraftersUID);
         }
 
-        public bool WasCrafted => !string.IsNullOrEmpty(CraftersUID);
+        public bool WasCrafted => !string.IsNullOrEmpty(Data.CraftersUID);
 
-        public NeedChange InUseNeedChange => _furnitureSettings.InUseNeedChange;
+        public NeedChange InUseNeedChange => Settings.InUseNeedChange;
     }
 }

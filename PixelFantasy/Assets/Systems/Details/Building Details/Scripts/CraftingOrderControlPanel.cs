@@ -30,14 +30,14 @@ namespace Systems.Details.Building_Details.Scripts
             _craftingTable = craftingTable;
             _addOrderCallback = addOrderCallback;
             RefreshOptions();
-            SelectOrder(_craftingTable.GetCraftingOptions()[0]);
+            SelectOrder(_craftingTable.GetCraftableItems()[0]);
         }
 
         private void RefreshOptions()
         {
             ClearOptions();
             _orderOptionPrefab.gameObject.SetActive(false);
-            var options = _craftingTable.GetCraftingOptions();
+            var options = _craftingTable.GetCraftableItems();
             foreach (var option in options)
             {
                 var orderOption = Instantiate(_orderOptionPrefab, _optionsLayout);

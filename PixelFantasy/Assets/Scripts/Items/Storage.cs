@@ -14,7 +14,7 @@ namespace Items
 
         public Transform StoredItemParent;
         
-        protected StorageSettings _storageSettings => _furnitureSettings as StorageSettings;
+        protected StorageSettings _storageSettings => Settings as StorageSettings;
 
         public bool IsGlobal
         {
@@ -30,10 +30,10 @@ namespace Items
 
         protected override void Awake()
         {
-            if (_storageSettings != null && FurnitureState == EFurnitureState.Built)
-            {
-                Init(_storageSettings);
-            }
+            // if (_storageSettings != null && Data.State == FurnitureData.EFurnitureState.Built)
+            // {
+            //     Init(_storageSettings);
+            // }
             base.Awake();
         }
         

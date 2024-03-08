@@ -25,10 +25,6 @@ MonoBehaviour:
       Quantity: 2
     WorkCost: 5
     RequiredCraftingToolType: 0
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
   FurniturePrefab: {fileID: 5935236254734965145, guid: dd1324a0af4a86b41b638230c8941527, type: 3}
   InUseNeedChange:
     SourceID: Sleep in Wooden Bed
@@ -52,7 +48,7 @@ MonoBehaviour:
       WorkCost: 7
       RequiredCraftingToolType: 0
     Durability: 125
-    Prefab: {fileID: 5935236254734965145, guid: dd1324a0af4a86b41b638230c8941527, type: 3}
+    Prefab: {fileID: 5935236254734965145, guid: d53577c50dbdf024492966a48b113a13, type: 3}
     InUseNeedChange:
       SourceID: 
       AmountPerHour: 0

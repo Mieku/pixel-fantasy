@@ -233,12 +233,12 @@ public static class Helper
             {
                 if (!hitHor.transform.IsChildOf(parent.transform))
                 {
-                    detectedTags.Add(hitHor.transform.tag);
+                    detectedTags.Add(hitHor.collider.transform.tag);
                 }
             }
             else
             {
-                detectedTags.Add(hitHor.transform.tag);
+                detectedTags.Add(hitHor.collider.transform.tag);
             }
         }
         foreach (var hitVert in allHitVert)
@@ -247,12 +247,12 @@ public static class Helper
             {
                 if (!hitVert.transform.IsChildOf(parent.transform))
                 {
-                    detectedTags.Add(hitVert.transform.tag);
+                    detectedTags.Add(hitVert.collider.transform.tag);
                 }
             }
             else
             {
-                detectedTags.Add(hitVert.transform.tag);
+                detectedTags.Add(hitVert.collider.transform.tag);
             }
         }
 

@@ -124,11 +124,11 @@ namespace Managers
             {
                 if (_plannedFurniture.CheckPlacement())
                 {
-                    _plannedFurniture.SetState(Furniture.EFurnitureState.InProduction);
+                    _plannedFurniture.SetState(FurnitureData.EFurnitureState.InProduction);
                     _plannedFurniture = null;
                     
                     // Allows the player to place multiple
-                    PlanFurniture(_selectedFurnitureData);
+                    PlanFurniture(_selectedFurnitureDetails);
                 }
             }
             else if (inputState == PlayerInputState.BuildFarm)
@@ -196,7 +196,7 @@ namespace Managers
             _invalidPlacementTags.Clear();
             CancelPlanning();
             PlacementDirection = PlacementDirection.South;
-            _selectedFurnitureData = null;
+            _selectedFurnitureDetails = null;
             _plannedDoor = null;
         }
 
@@ -292,7 +292,7 @@ namespace Managers
                 }
             }
 
-            if (_selectedFurnitureData != null)
+            if (_selectedFurnitureDetails != null)
             {
                 if (Input.GetKeyDown(KeyCode.E)) // Clockwise
                 {
@@ -303,7 +303,7 @@ namespace Managers
                         _plannedFurniture = null;
                     }
 
-                    PlanFurniture(_selectedFurnitureData);
+                    PlanFurniture(_selectedFurnitureDetails);
                 }
                 
                 if (Input.GetKeyDown(KeyCode.Q)) // Counter Clockwise
@@ -315,7 +315,7 @@ namespace Managers
                         _plannedFurniture = null;
                     }
 
-                    PlanFurniture(_selectedFurnitureData);
+                    PlanFurniture(_selectedFurnitureDetails);
                 }
             }
         }
@@ -371,14 +371,14 @@ namespace Managers
             return itemScript;
         }
 
-        public Storage SpawnStorageContainer(StorageSettings storageData, Vector3 spawnPosition)
-        {
-            var containerObj = Instantiate(_storageContainerPrefab, spawnPosition, Quaternion.identity);
-            containerObj.transform.SetParent(_storageParent);
-            var container = containerObj.GetComponent<Storage>();
-            container.Init(storageData);
-            return container;
-        }
+        // public Storage SpawnStorageContainer(StorageSettings storageData, Vector3 spawnPosition)
+        // {
+        //     var containerObj = Instantiate(_storageContainerPrefab, spawnPosition, Quaternion.identity);
+        //     containerObj.transform.SetParent(_storageParent);
+        //     var container = containerObj.GetComponent<Storage>();
+        //     container.Init(storageData);
+        //     return container;
+        // }
         
         // private Building _plannedBuilding;
         // public void PlanBuilding(Building building, Action onBuildingPlaced = null)
@@ -398,31 +398,30 @@ namespace Managers
         }
 
         private Furniture _plannedFurniture;
-        private BuildDetailsUI.SelectedFurnitureData _selectedFurnitureData;
-        // private FurnitureItemData _plannedFurnitureItemData;
-        // public void PlanFurniture(FurnitureItemData furnitureData)
-        // {
-        //     _plannedFurnitureItemData = furnitureData;
-        //     var cursorPos = Helper.ConvertMousePosToGridPos(UtilsClass.GetMouseWorldPosition());
-        //     var furniture = Instantiate(furnitureData.FurniturePrefab, cursorPos, Quaternion.identity, _furnitureParent);
-        //     furniture.Init(furnitureData);
-        //     furniture.SetState(Furniture.EFurnitureState.Planning);
-        //     _plannedFurniture = furniture;
-        // }
-
-        public void PlanFurniture(BuildDetailsUI.SelectedFurnitureData selectedFurnitureData)
+        private BuildDetailsUI.SelectedFurnitureDetails _selectedFurnitureDetails;
+        public Furniture SpawnFurniture(Furniture prefab, Vector3 position, BuildDetailsUI.SelectedFurnitureDetails selectedFurnitureDetails, Transform parent = null)
         {
-            _selectedFurnitureData = selectedFurnitureData;
-            Furniture furniturePrefab = selectedFurnitureData.Furniture.FurniturePrefab;
-            if (selectedFurnitureData.Varient != null && selectedFurnitureData.Varient.Prefab != null)
+            var furnitureObject = Instantiate(prefab, position, Quaternion.identity, parent ?? _furnitureParent);
+            if (furnitureObject.TryGetComponent<IFurnitureInitializable>(out var initializable))
             {
-                furniturePrefab = selectedFurnitureData.Varient.Prefab;
+                initializable.Init(selectedFurnitureDetails.Furniture, selectedFurnitureDetails.Varient, selectedFurnitureDetails.Dye);
             }
-            var cursorPos = Helper.ConvertMousePosToGridPos(UtilsClass.GetMouseWorldPosition());
-            var furniture = Instantiate(furniturePrefab, cursorPos, Quaternion.identity, _flooringParent);
-            furniture.Init(selectedFurnitureData);
-            furniture.SetState(Furniture.EFurnitureState.Planning);
-            _plannedFurniture = furniture;
+            else
+            {
+                Debug.LogError("The spawned furniture does not implement IFurnitureInitializable.");
+            }
+        
+            return furnitureObject.GetComponent<Furniture>();
+        }
+
+        public void PlanFurniture(BuildDetailsUI.SelectedFurnitureDetails selectedFurnitureDetails)
+        {
+            _selectedFurnitureDetails = selectedFurnitureDetails;
+            var prefab = selectedFurnitureDetails.Varient?.Prefab ?? selectedFurnitureDetails.Furniture.FurniturePrefab;
+            var position = Helper.ConvertMousePosToGridPos(UtilsClass.GetMouseWorldPosition());
+        
+            _plannedFurniture = SpawnFurniture(prefab, position, selectedFurnitureDetails);
+            _plannedFurniture.SetState(FurnitureData.EFurnitureState.Planning);
         }
         
         public void SpawnTree(Vector3 spawnPosition, GrowingResourceSettings growingResourceSettings)

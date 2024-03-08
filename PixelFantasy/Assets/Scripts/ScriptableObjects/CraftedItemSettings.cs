@@ -11,7 +11,8 @@ namespace ScriptableObjects
     public class CraftedItemSettings : ItemSettings
     {
         [TitleGroup("Crafted Settings")] public CraftRequirements CraftRequirements;
-        [TitleGroup("Crafted Settings")] [SerializeField] private List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle" };
+        
+        private readonly List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle"};
         
         public List<string> InvalidPlacementTags
         {

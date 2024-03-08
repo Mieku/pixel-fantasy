@@ -17,7 +17,8 @@ namespace Systems.Game_Setup.Scripts
     {
         [SerializeField] private WorldBuilder _worldBuilder;
         [SerializeField] private bool _generateWorldOnStart;
-        
+
+        [BoxGroup("Starting Items")] [SerializeField] private StorageSettings _starterStockpileSettings;
         [BoxGroup("Starting Items")] [SerializeField] private Storage _starterStockpile;
         [BoxGroup("Starting Items")] [SerializeField] private List<ItemAmount> _startingItems = new List<ItemAmount>();
         
@@ -73,6 +74,9 @@ namespace Systems.Game_Setup.Scripts
 
         private void LoadStarterStockpile(List<ItemAmount> preloadedItems)
         {
+            _starterStockpile.Init(_starterStockpileSettings);
+            _starterStockpile.SetState(FurnitureData.EFurnitureState.Built);
+            
             foreach (var preloadedItemAmount in preloadedItems)
             {
                 for (int i = 0; i < preloadedItemAmount.Quantity; i++)

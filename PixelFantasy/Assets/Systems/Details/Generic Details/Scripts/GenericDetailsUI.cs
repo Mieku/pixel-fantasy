@@ -123,7 +123,8 @@ namespace Systems.Details.Generic_Details.Scripts
             // Durability
             var durabilityIcon = Librarian.Instance.GetSprite("Health");
             var bar = Instantiate(_entryBarDisplayPrefab, _contentLayout);
-            bar.Init("Durability", durabilityIcon, furniture.DurabilityPercentage);
+            
+            bar.Init("Durability", durabilityIcon, furniture.Data.DurabilityPercentage);
             _displayedEntries.Add(bar.gameObject);
             
             // Category
@@ -133,7 +134,7 @@ namespace Systems.Details.Generic_Details.Scripts
             // _displayedEntries.Add(categoryEntry.gameObject);
             
             // Description
-            var description = furniture.FurnitureSettings.ItemDescription;
+            var description = furniture.Settings.ItemDescription;
             if (!string.IsNullOrEmpty(description))
             {
                 var descriptionEntry = Instantiate(_entryTextDisplayPrefab, _contentLayout);
@@ -196,7 +197,7 @@ namespace Systems.Details.Generic_Details.Scripts
             var storage = furniture as Storage;
             if (storage != null)
             {
-                if (storage.FurnitureState == Furniture.EFurnitureState.Built)
+                if (storage.Data.State == FurnitureData.EFurnitureState.Built)
                 {
                     // Inventory
                     var inventoryEntry = Instantiate(_entryInventoryDisplayPrefab, _contentLayout);
@@ -230,7 +231,7 @@ namespace Systems.Details.Generic_Details.Scripts
             //     CreateOrderButton(orderIcon, OnPressed, false, "Order");
             // }
             
-            if (furniture.FurnitureState != Furniture.EFurnitureState.InProduction)
+            if (furniture.Data.State != FurnitureData.EFurnitureState.InProduction)
             {
                 Sprite orderIcon = Librarian.Instance.GetSprite("Move Icon");
                 void OnPressed()

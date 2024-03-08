@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ScriptableObjects
 {
-    [CreateAssetMenu(fileName = "FurnitureSettings", menuName = "Settings/Items/Furniture Settings")]
+    [CreateAssetMenu(fileName = "FurnitureSettings", menuName = "Settings/Furniture/Basic Furniture Settings")]
     public class FurnitureSettings : CraftedItemSettings
     {
         [Header("General")] 

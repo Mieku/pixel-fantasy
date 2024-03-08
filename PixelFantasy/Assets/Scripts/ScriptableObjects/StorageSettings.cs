@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace ScriptableObjects
 {
-    [CreateAssetMenu(fileName = "StorageSettings", menuName = "Settings/Items/Storage Settings")]
+    [CreateAssetMenu(fileName = "StorageSettings", menuName = "Settings/Furniture/Storage Settings")]
     public class StorageSettings : FurnitureSettings
     {
-        [TitleGroup("Storage Item Data")] public int MaxStorage;
-        [TitleGroup("Storage Item Data")] public List<EItemCategory> AcceptedCategories = new List<EItemCategory>();
+        [TitleGroup("Storage Settings")] public int MaxStorage;
+        [TitleGroup("Storage Settings")] public List<EItemCategory> AcceptedCategories = new List<EItemCategory>();
 
-        [ShowIf("@AcceptedCategories.Contains(EItemCategory.SpecificStorage)")][TitleGroup("Storage Item Data")] public List<ItemSettings> SpecificStorage;
+        [ShowIf("@AcceptedCategories.Contains(EItemCategory.SpecificStorage)")][TitleGroup("Storage Settings")] public List<ItemSettings> SpecificStorage;
     }
 }
