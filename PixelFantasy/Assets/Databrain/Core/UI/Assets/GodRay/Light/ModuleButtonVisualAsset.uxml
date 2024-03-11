@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/Databrain/Core/UI/Assets/GodRay/Light/DatabrainStyleSheet.uss?fileID=7433441132597879392&amp;guid=74b42380aabed33438fb99d0dcee7fbf&amp;type=3#DatabrainStyleSheet" />
+    <ui:VisualElement name="moduleButton" class="baseButton" style="background-color: rgb(174, 177, 224);">
+        <ui:VisualElement name="icon" class="buttonIconRotate" style="width: 70%; height: 70%; background-image: none;" />
+    </ui:VisualElement>
+</ui:UXML>

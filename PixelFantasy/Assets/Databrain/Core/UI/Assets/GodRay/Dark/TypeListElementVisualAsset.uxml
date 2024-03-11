@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Databrain/Core/UI/Assets/GodRay/Dark/DatabrainStyleSheet.uss?fileID=7433441132597879392&amp;guid=76e405eba014f3542b8685b17274f7bd&amp;type=3#DatabrainStyleSheet" />
+    <ui:VisualElement name="typeListElement" style="flex-direction: row; flex-grow: 0; flex-shrink: 1;">
+        <ui:VisualElement name="typeIcon" style="background-image: url(&apos;project://database/Assets/Databrain/Core/Res/Icons/typeIcon.png?fileID=2800000&amp;guid=1167787ea4c2ad544b0d0ca405f7a9f7&amp;type=3#typeIcon&apos;); width: 16px; height: 16px; margin-left: 2px; margin-right: 2px; margin-top: 2px;" />
+        <ui:Button text="Button" display-tooltip-when-elided="true" name="typeListButton" class="listElement" style="flex-direction: row; flex-shrink: 1; flex-grow: 1; align-items: flex-start; height: 20px; padding-left: 3px; padding-right: 3px;" />
+        <ui:VisualElement name="warningIcon" style="align-items: center; justify-content: center; display: none; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 0;">
+            <ui:Label text="!" display-tooltip-when-elided="true" style="-unity-text-align: middle-center; -unity-font-style: bold; font-size: 12px; width: 16px; height: 16px; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; display: flex; visibility: visible; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(180, 66, 66); border-right-color: rgb(180, 66, 66); border-top-color: rgb(180, 66, 66); border-bottom-color: rgb(180, 66, 66);" />
+        </ui:VisualElement>
+        <ui:VisualElement name="saveIcon" style="align-items: center; justify-content: center; display: none; margin-left: 2px; margin-right: 2px; margin-top: 2px; margin-bottom: 0; width: 20px; height: 20px; flex-grow: 0;">
+            <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Databrain/Core/Res/Icons/addToSerialization.png?fileID=2800000&amp;guid=bd440b805efa96643aa71dbcd6e630c4&amp;type=3#addToSerialization&apos;); width: 16px; height: 16px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

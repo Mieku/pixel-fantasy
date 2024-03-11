@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/Databrain/Core/UI/Assets/Galaxy/Dark/DatabrainStyleSheet.uss?fileID=7433441132597879392&amp;guid=76e405eba014f3542b8685b17274f7bd&amp;type=3#DatabrainStyleSheet" />
+    <ui:VisualElement name="moduleButton" class="baseButton" style="background-color: rgb(53, 27, 43);">
+        <ui:VisualElement name="icon" class="buttonIconRotate" style="width: 70%; height: 70%; background-image: none;" />
+    </ui:VisualElement>
+</ui:UXML>

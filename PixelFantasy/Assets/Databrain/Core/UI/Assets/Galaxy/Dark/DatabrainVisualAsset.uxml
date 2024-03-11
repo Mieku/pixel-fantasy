@@ -1,0 +1,47 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/Databrain/Core/UI/Assets/GodRay/Dark/DatabrainStyleSheet.uss?fileID=7433441132597879392&amp;guid=76e405eba014f3542b8685b17274f7bd&amp;type=3#DatabrainStyleSheet" />
+    <ui:VisualElement name="Root" style="flex-grow: 1; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-left-color: rgb(209, 89, 89); border-right-color: rgb(209, 89, 89); border-top-color: rgb(209, 89, 89); border-bottom-color: rgb(209, 89, 89); background-color: rgb(31, 28, 38);">
+        <ui:VisualElement name="topBar" style="flex-direction: row; flex-grow: 0; height: 45px; background-color: rgb(53, 27, 43); border-left-width: 0; border-right-width: 0; border-top-width: 2px; border-bottom-width: 0; border-left-color: rgba(0, 0, 0, 0.47); border-right-color: rgba(0, 0, 0, 0.47); border-top-color: rgba(0, 0, 0, 0.47); border-bottom-color: rgba(0, 0, 0, 0.47);">
+            <ui:VisualElement name="logoIcon" style="background-image: none; width: 30px; height: 30px; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;" />
+            <ui:Label text="NAME" display-tooltip-when-elided="true" name="titleLabel" style="font-size: 18px; -unity-font-style: bold; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px; -unity-text-align: middle-left;" />
+            <ui:VisualElement name="mouseDownTest" style="flex-grow: 1;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="colorIndicator" style="height: 2px; background-color: rgb(159, 212, 176); display: none;" />
+        <Databrain.UI.Elements.SplitView name="splitview1" fixed-pane-initial-dimension="200">
+            <ui:VisualElement style="flex-grow: 1;">
+                <uie:Toolbar style="flex-grow: 0; flex-shrink: 1;" />
+                <ui:Label text="Types" display-tooltip-when-elided="true" style="font-size: 16px; -unity-font-style: bold; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px; padding-bottom: 10px;" />
+                <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="typeList" style="flex-grow: 1;" />
+            </ui:VisualElement>
+            <Databrain.UI.Elements.SplitView name="splitview2" fixed-pane-initial-dimension="240">
+                <ui:VisualElement style="flex-grow: 1;">
+                    <uie:Toolbar name="dataObjectsToolbar" style="flex-shrink: 0; flex-grow: 0;">
+                        <uie:ToolbarButton text="+ Create" display-tooltip-when-elided="true" name="createDataTypeButton" />
+                    </uie:Toolbar>
+                    <ui:Label text="Objects" display-tooltip-when-elided="true" style="font-size: 16px; -unity-font-style: bold; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;" />
+                    <ui:VisualElement name="dataFilter" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
+                    <ui:VisualElement name="dataTypeList" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
+                    <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="dataTypeList_old" style="flex-grow: 1; flex-shrink: 1; display: none;" />
+                </ui:VisualElement>
+                <ui:VisualElement style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;">
+                    <uie:Toolbar style="flex-grow: 0; flex-shrink: 1;">
+                        <uie:ToolbarButton text="Reset" display-tooltip-when-elided="true" name="resetDataButton" />
+                        <uie:ToolbarButton text="Edit" display-tooltip-when-elided="true" name="openFileButton" />
+                        <uie:ToolbarSpacer style="flex-grow: 1;" />
+                        <uie:ToolbarButton text="Go to Runtime Object" display-tooltip-when-elided="true" name="gotoRuntimeObjectButton" />
+                    </uie:Toolbar>
+                    <ui:VisualElement>
+                        <ui:VisualElement style="flex-shrink: 0; flex-direction: row;" />
+                        <ui:Label text="Data" display-tooltip-when-elided="true" name="dataTitle" style="font-size: 16px; -unity-font-style: bold; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px; flex-direction: row; flex-wrap: wrap; white-space: normal; color: rgb(210, 210, 210); padding-left: 1px; padding-right: 2px; padding-top: 0; padding-bottom: 0;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="baseType" />
+                    <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="dataInspectorBase" style="flex-grow: 0; margin-left: 9px; margin-right: 9px; margin-top: 0; margin-bottom: 2px; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; border-left-color: rgb(90, 90, 90); border-right-color: rgb(90, 90, 90); border-top-color: rgb(90, 90, 90); border-bottom-color: rgb(90, 90, 90); border-bottom-width: 2px; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px;" />
+                    <ui:VisualElement name="dataInspector" style="margin-left: 9px; margin-right: 9px; margin-top: 7px; margin-bottom: 7px; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; background-color: rgba(37, 36, 58, 0.47); flex-grow: 1;" />
+                </ui:VisualElement>
+            </Databrain.UI.Elements.SplitView>
+        </Databrain.UI.Elements.SplitView>
+        <uie:Toolbar style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px; background-color: rgb(53, 27, 43);">
+            <ui:Label display-tooltip-when-elided="true" name="statusInfoLabel" style="padding-left: 3px; flex-direction: row; flex-grow: 1; flex-shrink: 1;" />
+        </uie:Toolbar>
+    </ui:VisualElement>
+</ui:UXML>

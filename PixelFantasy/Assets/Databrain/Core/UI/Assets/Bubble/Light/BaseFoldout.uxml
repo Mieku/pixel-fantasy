@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Databrain/Core/UI/Assets/GodRay/Light/DatabrainStyleSheet.uss?fileID=7433441132597879392&amp;guid=74b42380aabed33438fb99d0dcee7fbf&amp;type=3#DatabrainStyleSheet" />
+    <ui:VisualElement name="baseFoldout" style="flex-direction: column;">
+        <ui:VisualElement style="flex-direction: row;">
+            <ui:VisualElement name="foldoutIcon" style="width: 16px; height: 16px; background-image: url(&apos;project://database/Assets/Databrain/Core/Res/Icons/namespaceIcon.png?fileID=2800000&amp;guid=1ac671de40032444ab3723bfe41e7939&amp;type=3#namespaceIcon&apos;); margin-left: 4px;" />
+            <ui:VisualElement name="foldoutChecked" class="baseFoldout" style="position: absolute; left: 38px; top: 0; right: 0; bottom: 0; height: 20px;" />
+            <ui:Foldout text="Foldout" name="foldout" class="baseFoldout2" style="flex-direction: column; flex-grow: 1; visibility: visible; overflow: hidden; display: flex;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb06e0d1c72aed499c5a416096c3e8a, type: 3}
+  m_Name: Galaxy
+  m_EditorClassIdentifier: 
+  serializedGroup:
+    light:
+      visualAsset: {fileID: 9197481963319205126, guid: ac9d13520f42d3e40a5e037cb47fac15, type: 3}
+      foldoutAsset: {fileID: 9197481963319205126, guid: faaddc45ffb9da04492294a606eac439, type: 3}
+      typeListElementAsset: {fileID: 9197481963319205126, guid: d7b65f8cce01ed345ae8f16902f623d4, type: 3}
+      dataListElementAsset: {fileID: 9197481963319205126, guid: b399ad66c2911a140a0ed600b02c1a03, type: 3}
+      searchFieldAsset: {fileID: 9197481963319205126, guid: bf27819523cdcd64a8ea17b5a776eadc, type: 3}
+      moduleButtonAsset: {fileID: 9197481963319205126, guid: 5c8d6a5216b75564f9b4859fd1dead83, type: 3}
+      styleSheet: {fileID: 7433441132597879392, guid: ad14eed3bd946f349b56d8ae3f2baf26, type: 3}
+    dark:
+      visualAsset: {fileID: 9197481963319205126, guid: 0a6272ea73f555f41b5903fcfde5480d, type: 3}
+      foldoutAsset: {fileID: 9197481963319205126, guid: 3baf3dacbf2e4c04390a21bfe42d3cf6, type: 3}
+      typeListElementAsset: {fileID: 9197481963319205126, guid: 605af79111970e74b8b7fae3fc4364e7, type: 3}
+      dataListElementAsset: {fileID: 9197481963319205126, guid: ec2032243eb5e514a8587e23944dbcdc, type: 3}
+      searchFieldAsset: {fileID: 9197481963319205126, guid: 9f3d2d4bca659fd4aa4b9a224ee3d522, type: 3}
+      moduleButtonAsset: {fileID: 9197481963319205126, guid: 11cc247c94168284dae13fc847e1bd54, type: 3}
+      styleSheet: {fileID: 7433441132597879392, guid: 53d81a6696a7fa145a4386b7a3fffaac, type: 3}

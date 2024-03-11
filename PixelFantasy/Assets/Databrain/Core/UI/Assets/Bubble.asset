@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb06e0d1c72aed499c5a416096c3e8a, type: 3}
+  m_Name: Bubble
+  m_EditorClassIdentifier: 
+  serializedGroup:
+    light:
+      visualAsset: {fileID: 9197481963319205126, guid: f4cbb084924b1b645876e3b32ee57537, type: 3}
+      foldoutAsset: {fileID: 9197481963319205126, guid: 8e22b7c3285b8f04a83f5d8a7d05e81a, type: 3}
+      typeListElementAsset: {fileID: 9197481963319205126, guid: 5fe3b724e67dc464d9a3054af60cc76c, type: 3}
+      dataListElementAsset: {fileID: 9197481963319205126, guid: 9f89b5777eec7b44db3d053312e82bf5, type: 3}
+      searchFieldAsset: {fileID: 9197481963319205126, guid: 6f84c8c890d159549a12122ca9f6b803, type: 3}
+      moduleButtonAsset: {fileID: 9197481963319205126, guid: fe2497d93e0ab714da50bd063a81757c, type: 3}
+      styleSheet: {fileID: 7433441132597879392, guid: 20c33ca6c2e2c794dbb1763b3e33982d, type: 3}
+    dark:
+      visualAsset: {fileID: 9197481963319205126, guid: b299914e2e01965478cf4013072e83e8, type: 3}
+      foldoutAsset: {fileID: 9197481963319205126, guid: 7aefe79afecabbb409448a9f06b7f1c0, type: 3}
+      typeListElementAsset: {fileID: 9197481963319205126, guid: 1092317d8174cf148894744e61747135, type: 3}
+      dataListElementAsset: {fileID: 9197481963319205126, guid: 90c4a183ad2e1184da7c4cbd1f192ee3, type: 3}
+      searchFieldAsset: {fileID: 9197481963319205126, guid: d4abb9231b266854aabcffde94430b16, type: 3}
+      moduleButtonAsset: {fileID: 9197481963319205126, guid: 0dc78b420d322cc42a725b9e3314097a, type: 3}
+      styleSheet: {fileID: 7433441132597879392, guid: cbcb40255d170444883ef42805e20461, type: 3}

@@ -1,0 +1,197 @@
+.typeListElement {
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    -unity-text-align: middle-left;
+}
+
+.typeListElement:hover {
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    -unity-text-align: middle-left;
+    background-color: rgb(202, 194, 128);
+    transition-property: background-color;
+    transition-duration: 200ms;
+    transition-timing-function: ease-in-out-sine;
+}
+
+.typeListElementSelected--checked {
+    background-color: rgb(202, 194, 128);
+    -unity-font-style: bold;
+}
+
+.listElement {
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    -unity-text-align: middle-left;
+    background-color: rgba(68, 101, 152, 0);
+}
+
+.listElement:hover {
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    -unity-text-align: middle-left;
+    background-color: rgb(202, 194, 128);
+    transition-duration: 200ms;
+    transition-timing-function: ease-in-out-sine;
+    transition-property: background-color;
+}
+
+.listElement--checked {
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    -unity-text-align: middle-left;
+    background-color: rgb(202, 194, 128);
+    -unity-font-style: bold;
+}
+
+.buttonIconRotate {
+    display: flex;
+    width: 70%;
+    height: 70%;
+    rotate: 0;
+}
+
+.buttonIconRotate:hover {
+    display: flex;
+    width: 70%;
+    height: 70%;
+    transition-property: translate;
+    transition-duration: 300ms;
+    transition-timing-function: ease-out;
+    -unity-background-image-tint-color: rgb(255, 62, 62);
+    translate: 0 2px;
+}
+
+.baseButton {
+    background-color: rgb(40, 40, 40);
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    width: 35px;
+    height: 35px;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.baseButton:hover {
+    background-color: rgb(60, 60, 60);
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    width: 35px;
+    height: 35px;
+    align-items: center;
+    justify-content: space-around;
+    transition-property: background-color;
+    transition-duration: 200ms;
+}
+
+.baseFoldout {
+    flex-grow: 1;
+    background-color: rgba(68, 101, 152, 0);
+}
+
+.baseFoldout--checked {
+    flex-grow: 1;
+    background-color: rgba(202, 194, 128, 0.47);
+    transition-property: background-color;
+    transition-duration: 200ms;
+    transition-timing-function: ease-in-out;
+}
+
+.unity-button-object {
+    height: 25px;
+    bottom: 10px;
+    background-image: url('project://database/Assets/Databrain/Core/Res/Icons/eye.png?fileID=2800000&guid=7cb85b74c51c9c0469114d840006d38f&type=3#eye');
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(180, 180, 180, 1);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    transition-property: height, width, background-image;
+    transition-duration: 0.2s, 0.2s, 0s;
+    transition-timing-function: ease, ease, ease;
+    transition-delay: 0s, 0s, 0.2s;
+     border-color: rgba(250, 227, 62, 0.7);
+    border-width: 2px;
+    width: 120px;
+}
+
+.unity-button-objectList {
+    opacity: 0;
+    transition-property: all, ignored, ignored;
+    transition-duration: 0s, 0s, 0s;
+    transition-timing-function: ease, ease, ease;
+    transition-delay: 0s, 0s, 0s;
+}
+
+.unity-button-object:hover {
+    height: 80%;
+    width: 50%;
+    background-image: none;
+    transition-property: height, width;
+    transition-duration: 0.2s, 0.2s;
+    transition-timing-function: ease, ease;
+    transition-delay: 0s, 0s;
+}
+
+.unity-button-object:hover > .unity-button-objectList {
+    opacity: 1;
+}

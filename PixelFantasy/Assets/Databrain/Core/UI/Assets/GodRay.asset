@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb06e0d1c72aed499c5a416096c3e8a, type: 3}
+  m_Name: GodRay
+  m_EditorClassIdentifier: 
+  serializedGroup:
+    light:
+      visualAsset: {fileID: 9197481963319205126, guid: 5e916598974460b468d5a96fb80943e5, type: 3}
+      foldoutAsset: {fileID: 9197481963319205126, guid: 086353fb9cadeb643b969388524d9daf, type: 3}
+      typeListElementAsset: {fileID: 9197481963319205126, guid: 9d08b16f472dc6d4dace500fd62545ec, type: 3}
+      dataListElementAsset: {fileID: 9197481963319205126, guid: 549269130d462d342b72a96c84e95838, type: 3}
+      searchFieldAsset: {fileID: 9197481963319205126, guid: 400295372a87e9949900d61c5068d3ce, type: 3}
+      moduleButtonAsset: {fileID: 9197481963319205126, guid: 790e9c02f6f385b479ea849bc3bd15f2, type: 3}
+      styleSheet: {fileID: 7433441132597879392, guid: 74b42380aabed33438fb99d0dcee7fbf, type: 3}
+    dark:
+      visualAsset: {fileID: 9197481963319205126, guid: 13b3c45ebe6e9b343830103add3831f3, type: 3}
+      foldoutAsset: {fileID: 9197481963319205126, guid: d0254b482eee15b4ca4e71f881b38883, type: 3}
+      typeListElementAsset: {fileID: 9197481963319205126, guid: b1f6a3ffed454074c99683839301ba78, type: 3}
+      dataListElementAsset: {fileID: 9197481963319205126, guid: 5b376ec4897a51e459a023e69af868a1, type: 3}
+      searchFieldAsset: {fileID: 9197481963319205126, guid: 609cdb35571440347add9b54689ef6bf, type: 3}
+      moduleButtonAsset: {fileID: 9197481963319205126, guid: dc617c4225347494eb6d37c5001c357d, type: 3}
+      styleSheet: {fileID: 7433441132597879392, guid: 76e405eba014f3542b8685b17274f7bd, type: 3}
