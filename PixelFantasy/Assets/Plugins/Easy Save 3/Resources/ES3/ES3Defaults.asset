@@ -29,34 +29,34 @@ MonoBehaviour:
     referenceMode: 2
     serializationDepthLimit: 64
     assemblyNames:
-    - NodeCanvas
-    - TileWorldCreator.OdinSerializer
     - Assembly-CSharp-firstpass
+    - FangAutoTile
     - Assembly-CSharp
-    - QFSW.QC.Grammar
-    - Cinemachine
-    - NavMeshPlus
-    - QFSW.QC
+    - TileWorldCreator.OdinSerializer
+    - NodeCanvas
     - ParadoxNotion
-    - QFSW.QC.Demo
-    - AllIn1SpriteShaderAssembly
-    - QFSW.QC.Suggestors
-    - QFSW.QC.Parsers
+    - QFSW.QC
+    - PsdPlugin
+    - Cinemachine
     - QFSW.QC.Extras
+    - Sirenix.OdinInspector.CompatibilityLayer.Editor
     - TileWorldCreator
-    - QFSW.QC.Serializers
+    - NavMeshPlusEditor
+    - QFSW.QC.Suggestors
+    - QFSW.QC.Grammar
+    - NavMeshPlus
+    - QFSW.QC.Editor
+    - QFSW.QC.Parsers
+    - TileWorldCreator.Editor
+    - AllIn1SpriteShaderAssembly
+    - QFSW.QC.QGUI
+    - QFSW.QC.Editor.Tools
+    - FangAutoTile.Editor
     - Sirenix.OdinInspector.CompatibilityLayer
     - QFSW.QC.UI
     - QFSW.QC.ScanRules
-    - FangAutoTile
-    - PsdPlugin
-    - Sirenix.OdinInspector.CompatibilityLayer.Editor
-    - QFSW.QC.QGUI
-    - QFSW.QC.Editor
-    - TileWorldCreator.Editor
-    - NavMeshPlusEditor
-    - QFSW.QC.Editor.Tools
-    - FangAutoTile.Editor
+    - QFSW.QC.Serializers
+    - QFSW.QC.Demo
     - Sirenix.OdinInspector.Modules.UnityMathematics
     showAdvancedSettings: 1
   addMgrToSceneAutomatically: 0
