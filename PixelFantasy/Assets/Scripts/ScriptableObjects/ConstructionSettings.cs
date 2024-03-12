@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Characters;
+using Data.Item;
+using Databrain;
+using Databrain.Attributes;
 using Managers;
 using UnityEngine;
 
@@ -73,7 +76,7 @@ namespace ScriptableObjects
     [Serializable]
     public class ItemAmount
     {
-        public ItemSettings Item;
+        [DataObjectDropdown("Materials", true)] public ItemData Item;
         public int Quantity;
 
         public bool CanAfford()

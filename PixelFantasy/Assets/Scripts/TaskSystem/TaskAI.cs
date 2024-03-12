@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Characters;
+using Data.Item;
 using Handlers;
 using Items;
 using Managers;
@@ -20,7 +21,7 @@ namespace TaskSystem
         private float _waitingTimer;
         private float _idleTimer;
         private TaskAction _curTaskAction;
-        private Item _heldItem;
+        private ItemData _heldItem;
         private Queue<Task> _queuedTasks = new Queue<Task>();
         
         private const float WAIT_TIMER_MAX = 0.2f; // 200ms
@@ -157,13 +158,13 @@ namespace TaskSystem
                 CheckPersonal();
             }
             
-            if (task == null)
-            {
-                // Check if they are missing any required Equipment
-                task = CheckEquipment();
-                if (AttemptStartTask(task, false)) return;
-                else task = null;
-            }
+            // if (task == null)
+            // {
+            //     // Check if they are missing any required Equipment
+            //     task = CheckEquipment();
+            //     if (AttemptStartTask(task, false)) return;
+            //     else task = null;
+            // }
             
             if (task == null)
             {
@@ -300,10 +301,10 @@ namespace TaskSystem
             }
         }
 
-        private Task CheckEquipment()
-        {
-            return _kinling.Equipment.CheckDesiredEquipment();
-        }
+        // private Task CheckEquipment()
+        // {
+        //     return _kinling.Equipment.CheckDesiredEquipment();
+        // }
 
         /// <summary>
         /// Check important personal requirements, for example look for a house if homeless. Invite Kinlings on dates... etc
@@ -361,21 +362,19 @@ namespace TaskSystem
         
         public void HoldItem(Item item)
         {
-            _heldItem = item;
-            _heldItem.ItemPickedUp(_kinling);
+            _heldItem = item.RuntimeData;
+            item.ItemPickedUp(_kinling);
             item.transform.SetParent(transform);
             item.transform.localPosition = Vector3.zero;
         }
-
-        public Item HeldItem => _heldItem;
 
         public void DropCarriedItem()
         {
             if (_heldItem == null) return;
 
-            _heldItem.transform.SetParent(Spawner.Instance.ItemsParent);
+            _heldItem.LinkedItem.transform.SetParent(Spawner.Instance.ItemsParent);
             _heldItem.IsAllowed = true;
-            _heldItem.ItemDropped();
+            _heldItem.LinkedItem.ItemDropped();
             _heldItem = null;
         }
 
@@ -482,7 +481,10 @@ namespace TaskSystem
 
         public bool HasToolTypeEquipped(EToolType toolType)
         {
-            return _kinling.Equipment.HasToolTypeEquipped(toolType);
+            // Temp
+            return true;
+            
+            // return _kinling.Equipment.HasToolTypeEquipped(toolType);
         }
         
         private void IdleAtWork()

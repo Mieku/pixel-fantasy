@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Characters;
+using Data.Item;
 using Managers;
 using ScriptableObjects;
 using Systems.Notifications.Scripts;

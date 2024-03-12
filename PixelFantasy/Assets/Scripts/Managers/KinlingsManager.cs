@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Characters;
+using Data.Item;
 using QFSW.QC;
 using ScriptableObjects;
 using Systems.Notifications.Scripts;

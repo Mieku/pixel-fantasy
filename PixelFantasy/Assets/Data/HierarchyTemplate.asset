@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57496849789459f4780199cf2d38c990, type: 3}
+  m_Name: HierarchyTemplate
+  m_EditorClassIdentifier: 
+  serializedGroup:
+  - foldout: 0
+    typeDisplayName: 
+    typeName: 
+    typeAssemblyQualifiedName: 
+    childCount: 4
+    indexOfFirstChild: 1
+  - foldout: 1
+    typeDisplayName: Materials
+    typeName: 
+    typeAssemblyQualifiedName: 
+    childCount: 2
+    indexOfFirstChild: 2
+  - foldout: 1
+    typeDisplayName: Items
+    typeName: ItemData
+    typeAssemblyQualifiedName: Data.Item.ItemData, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    childCount: 0
+    indexOfFirstChild: 3
+  - foldout: 0
+    typeDisplayName: Crafted Items
+    typeName: CraftedItemData
+    typeAssemblyQualifiedName: Data.Item.CraftedItemData, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    childCount: 0
+    indexOfFirstChild: 4
+  - foldout: 1
+    typeDisplayName: Constructables
+    typeName: 
+    typeAssemblyQualifiedName: 
+    childCount: 3
+    indexOfFirstChild: 5
+  - foldout: 0
+    typeDisplayName: Furniture
+    typeName: FurnitureData
+    typeAssemblyQualifiedName: Data.Item.FurnitureData, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    childCount: 0
+    indexOfFirstChild: 6
+  - foldout: 0
+    typeDisplayName: Storage
+    typeName: StorageData
+    typeAssemblyQualifiedName: Data.Item.StorageData, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    childCount: 0
+    indexOfFirstChild: 7
+  - foldout: 0
+    typeDisplayName: Crafting Tables
+    typeName: CraftingTableData
+    typeAssemblyQualifiedName: Data.Item.CraftingTableData, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    childCount: 0
+    indexOfFirstChild: 8
+  - foldout: 1
+    typeDisplayName: Resources
+    typeName: 
+    typeAssemblyQualifiedName: 
+    childCount: 1
+    indexOfFirstChild: 9
+  - foldout: 0
+    typeDisplayName: Crop
+    typeName: CropData
+    typeAssemblyQualifiedName: Data.Item.CropData, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    childCount: 0
+    indexOfFirstChild: 10
+  - foldout: 1
+    typeDisplayName: Equipment
+    typeName: 
+    typeAssemblyQualifiedName: 
+    childCount: 1
+    indexOfFirstChild: 11
+  - foldout: 0
+    typeDisplayName: Tools
+    typeName: ToolData
+    typeAssemblyQualifiedName: Data.Item.ToolData, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    childCount: 0
+    indexOfFirstChild: 12

@@ -12,7 +12,7 @@ namespace Buildings.Building_Panels
         
         public void Init(ItemAmount itemAmount)
         {
-            _itemImage.sprite = itemAmount.Item.ItemSprite;
+            _itemImage.sprite = itemAmount.Item.icon;
             _quantityText.text = itemAmount.Quantity.ToString();
         }
     }

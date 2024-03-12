@@ -1,4 +1,5 @@
 using System;
+using Data.Item;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -8,7 +9,7 @@ namespace Characters
 {
     public class GearPiece : MonoBehaviour
     {
-        [FormerlySerializedAs("_gearData")] [FormerlySerializedAs("_equipmentData")] [SerializeField] private GearSettings _gearSettings;
+        //[FormerlySerializedAs("_gearData")] [FormerlySerializedAs("_equipmentData")] [SerializeField] private GearSettings _gearSettings;
         [SerializeField] private GameObject _sideView;
         [SerializeField] private GameObject _upView;
         [SerializeField] private GameObject _downView;
@@ -27,44 +28,44 @@ namespace Characters
         // For Debugging
         private void DisplayDefaultDye()
         {
-            if (_gearSettings.CanBeDyed && _gearSettings.DefaultDyePalette != null)
-            {
-                AssignDyePallet(_gearSettings.DefaultDyePalette);
-            }
-            else
-            {
-                Debug.LogError("This Does Not Have Any Default Dye!");
-            }
+            // if (_gearSettings.CanBeDyed && _gearSettings.DefaultDyePalette != null)
+            // {
+            //     AssignDyePallet(_gearSettings.DefaultDyePalette);
+            // }
+            // else
+            // {
+            //     Debug.LogError("This Does Not Have Any Default Dye!");
+            // }
         }
 
         public void AssignDyePallet(DyeSettings dyePalette)
         {
-            if(!_gearSettings.CanBeDyed) return;
-            
-            if (dyePalette == null)
-            {
-                _assignedDyePalette = _gearSettings.DefaultDyePalette;
-            }
-            else
-            {
-                _assignedDyePalette = dyePalette;
-            }
-
-            DyeGear();
+            // if(!_gearSettings.CanBeDyed) return;
+            //
+            // if (dyePalette == null)
+            // {
+            //     _assignedDyePalette = _gearSettings.DefaultDyePalette;
+            // }
+            // else
+            // {
+            //     _assignedDyePalette = dyePalette;
+            // }
+            //
+            // DyeGear();
         }
         
         public void DyeGear()
         {
             if (_assignedDyePalette == null)
             {
-                if (_gearSettings.CanBeDyed && _gearSettings.DefaultDyePalette != null)
-                {
-                    _assignedDyePalette = _gearSettings.DefaultDyePalette;
-                }
-                else
-                {
-                    return;
-                }
+                // if (_gearSettings.CanBeDyed && _gearSettings.DefaultDyePalette != null)
+                // {
+                //     _assignedDyePalette = _gearSettings.DefaultDyePalette;
+                // }
+                // else
+                // {
+                //     return;
+                // }
             } 
 
             if (_sideView != null)
@@ -133,15 +134,15 @@ namespace Characters
             }
         }
 
-        public bool IsToolType(EToolType toolType)
-        {
-            var toolData = _gearSettings as ToolSettings;
-            if (toolData != null)
-            {
-                return toolData.ToolType == toolType;
-            }
-
-            return false;
-        }
+        // public bool IsToolType(EToolType toolType)
+        // {
+        //     var toolData = _gearSettings as ToolSettings;
+        //     if (toolData != null)
+        //     {
+        //         return toolData.ToolType == toolType;
+        //     }
+        //
+        //     return false;
+        // }
     }
 }

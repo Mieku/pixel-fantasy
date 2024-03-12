@@ -1,4 +1,5 @@
 using System;
+using Data.Item;
 using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -12,13 +13,13 @@ namespace Systems.Details.Build_Details.Scripts
         [SerializeField] private Image _selectionFrame;
 
         private Action<SelectionOptionBtn> _onPressedCallback;
-        [FormerlySerializedAs("FurnitureItemData")] public FurnitureSettings FurnitureSettings;
+        [FormerlySerializedAs("FurnitureItemData")] public FurnitureData FurnitureData;
 
-        public void Init(FurnitureSettings furnitureSettings, Action<SelectionOptionBtn> onPressedCallback)
+        public void Init(FurnitureData furnitureData, Action<SelectionOptionBtn> onPressedCallback)
         {
-            FurnitureSettings = furnitureSettings;
+            FurnitureData = furnitureData;
             _onPressedCallback = onPressedCallback;
-            _itemIcon.sprite = FurnitureSettings.ItemSprite;
+            _itemIcon.sprite = FurnitureData.ItemSprite;
             Highlight(false);
         }
 

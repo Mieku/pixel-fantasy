@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using Controllers;
+using Data.Item;
+using Databrain.Attributes;
 using DataPersistence;
 using Items;
 using Managers;
@@ -18,6 +20,10 @@ namespace Zones
         
         // Soil Types
         [SerializeField] private Sprite _soilHole, _soilCovered, _soilWatered;
+        
+        [DataObjectDropdown("DataLibrary")]
+        public CropData Data;
+        public CropData RuntimeData;
 
         private CropSettings _cropSettings;
         private bool _isTilled;
@@ -425,7 +431,7 @@ namespace Zones
             CreatePlantCropTask();
             
             // Spawn the crop
-            Spawner.Instance.SpawnItem(_cropSettings.HarvestedItem, transform.position, true, _cropSettings.AmountToHarvest);
+            Spawner.Instance.SpawnItem(Data.HarvestedItem, transform.position, true, Data.AmountToHarvest);
         }
 
         public void ChangeCrop(CropSettings newCrop)

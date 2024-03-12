@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Characters;
+using Data.Item;
+using Databrain.Attributes;
 using DataPersistence;
 using Interfaces;
 using Managers;
@@ -14,7 +16,7 @@ using Zones;
 
 namespace Items
 {
-    public class Item : PlayerInteractable, IClickableObject, IPersistent
+    public class Item : PlayerInteractable, IClickableObject
     {
         [FormerlySerializedAs("_itemData")] [SerializeField] private ItemSettings _itemSettings;
         [SerializeField] private SpriteRenderer _spriteRenderer;
@@ -31,7 +33,11 @@ namespace Items
 
         public Storage AssignedStorage;
 
-        public ItemState State { get; private set; }
+        //public ItemState State { get; private set; }
+        
+        [DataObjectDropdown("DataLibrary")]
+        public ItemData Data;
+        public ItemData RuntimeData;
         
         public PlayerInteractable GetPlayerInteractable()
         {
@@ -48,21 +54,11 @@ namespace Items
             return _clickObject;
         }
         
-        public void InitializeItem(ItemSettings itemSettings, bool allowed, ItemState state = null, bool populateInteraction = true)
+        public void InitializeItem(ItemData itemData, bool allowed)
         {
-            _itemSettings = itemSettings;
+            //_itemSettings = itemSettings;
+            Data = itemData;
             IsAllowed = allowed;
-
-            if (state == null || state.Settings == null)
-            {
-                InitUID();
-                State = _itemSettings.CreateState(UniqueId, this);
-            }
-            else
-            {
-                State = state;
-                UniqueId = State.UID;
-            }
             
             DisplayItemSprite();
 
@@ -76,10 +72,10 @@ namespace Items
         {
             if (AssignedStorage == null && !_isHeld)
             {
-                AssignedStorage = InventoryManager.Instance.GetAvailableStorage(this);
+                AssignedStorage = InventoryManager.Instance.GetAvailableStorage(RuntimeData);
                 if (AssignedStorage != null)
                 {
-                    AssignedStorage.StorageData.SetIncoming(this);
+                    AssignedStorage.StorageData.SetIncoming(RuntimeData);
                     CreateHaulTask();
                 }
             }
@@ -113,7 +109,7 @@ namespace Items
             {
                 if (AssignedStorage != null)
                 {
-                    AssignedStorage.StorageData.CancelIncoming(this);
+                    AssignedStorage.StorageData.CancelIncoming(RuntimeData);
                     AssignedStorage = null;
                 }
 
@@ -166,7 +162,7 @@ namespace Items
         public void AddItemToSlot()
         {
             _isHeld = false;
-            AssignedStorage.DepositItems(this);
+            AssignedStorage.DepositItems(RuntimeData);
         }
 
         private void DisplayItemSprite()
@@ -216,10 +212,10 @@ namespace Items
         {
             GameEvents.OnInventoryAvailabilityChanged += GameEvent_OnInventoryAvailabilityChanged;
             
-            if (_itemSettings != null && State == null)
-            {
-                InitializeItem(_itemSettings, true, State);
-            }
+            // if (_itemSettings != null && State == null)
+            // {
+            //     InitializeItem(_itemSettings, true, State);
+            // }
         }
 
         private void OnDestroy()
@@ -245,30 +241,7 @@ namespace Items
             return Commands;
         }
 
-        public void UnclaimItem()
-        {
-            if (AssignedStorage == null)
-            {
-                Debug.LogError("Tried to unclaim an item that is not assigned to storage");
-                return;
-            }
-            
-            AssignedStorage.StorageData.RestoreClaimed(this);
-        }
-
-        public void ClaimItem()
-        {
-            if (AssignedStorage == null)
-            {
-                Debug.LogError("Tried to Claim an item that is not assigned to storage");
-                return;
-            }
-
-            if (!AssignedStorage.StorageData.SetClaimedItem(this))
-            {
-                Debug.LogError("Failed to claim item");
-            }
-        }
+        
 
         private Action _onItemRelocatedCallback;
         public void RelocateItem(Action onItemRelocated, Vector2 newLocation)
@@ -284,51 +257,51 @@ namespace Items
 
         public string DisplayName => _itemSettings.ItemName;
 
-        public object CaptureState()
-        {
-            return new Data
-            {
-                UID = UniqueId,
-                Position = transform.position,
-                ItemSettings = _itemSettings,
-                OriginalParent = _originalParent,
-                IsAllowed = this.IsAllowed,
-                IsClickDisabled = this.IsClickDisabled,
-                AssignedSlotUID = _assignedSlotUID,
-                AssignedUnitUID = _assignedUnitUID,
-                IsHeld = _isHeld,
-            };
-        }
+        // public object CaptureState()
+        // {
+        //     return new Data
+        //     {
+        //         UID = UniqueId,
+        //         Position = transform.position,
+        //         ItemSettings = _itemSettings,
+        //         OriginalParent = _originalParent,
+        //         IsAllowed = this.IsAllowed,
+        //         IsClickDisabled = this.IsClickDisabled,
+        //         AssignedSlotUID = _assignedSlotUID,
+        //         AssignedUnitUID = _assignedUnitUID,
+        //         IsHeld = _isHeld,
+        //     };
+        // }
+        //
+        // public void RestoreState(object data)
+        // {
+        //     var itemState = (Data)data;
+        //
+        //     UniqueId = itemState.UID;
+        //     transform.position = itemState.Position;
+        //     _originalParent = itemState.OriginalParent;
+        //     IsAllowed = itemState.IsAllowed;
+        //     IsClickDisabled = itemState.IsClickDisabled;
+        //     _assignedSlotUID = itemState.AssignedSlotUID;
+        //     _assignedUnitUID = itemState.AssignedUnitUID;
+        //     _isHeld = itemState.IsHeld;
+        //
+        //     InitializeItem(itemState.ItemSettings, IsAllowed);
+        // }
 
-        public void RestoreState(object data)
-        {
-            var itemState = (Data)data;
-
-            UniqueId = itemState.UID;
-            transform.position = itemState.Position;
-            _originalParent = itemState.OriginalParent;
-            IsAllowed = itemState.IsAllowed;
-            IsClickDisabled = itemState.IsClickDisabled;
-            _assignedSlotUID = itemState.AssignedSlotUID;
-            _assignedUnitUID = itemState.AssignedUnitUID;
-            _isHeld = itemState.IsHeld;
-
-            InitializeItem(itemState.ItemSettings, IsAllowed);
-        }
-
-        public struct Data
-        {
-            public string UID;
-            public Vector3 Position;
-            public ItemSettings ItemSettings;
-            public Transform OriginalParent;
-            public bool IsAllowed;
-            public bool IsClickDisabled;
-            
-            public string AssignedSlotUID;
-            public string AssignedUnitUID;
-            public bool IsHeld;
-        }
+        // public struct Data
+        // {
+        //     public string UID;
+        //     public Vector3 Position;
+        //     public ItemSettings ItemSettings;
+        //     public Transform OriginalParent;
+        //     public bool IsAllowed;
+        //     public bool IsClickDisabled;
+        //     
+        //     public string AssignedSlotUID;
+        //     public string AssignedUnitUID;
+        //     public bool IsHeld;
+        // }
 
         public override Vector2? UseagePosition(Vector2 requestorPosition)
         {

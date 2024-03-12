@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Characters;
+using Data.Item;
 using Items;
 using Managers;
 using ScriptableObjects;
@@ -17,7 +18,7 @@ namespace TaskSystem
         public Kinling KinlingAssignedToTask;
         public PlayerInteractable Requestor => _requestor;
         public object Payload;
-        public List<Item> Materials;
+        public List<ItemData> Materials;
         public Action<Task> OnTaskComplete;
         public Action OnTaskCancel;
         public EToolType RequiredToolType;

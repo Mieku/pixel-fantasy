@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Characters;
 using CodeMonkey.Utils;
 using Controllers;
+using Data.Item;
 using Items;
 using ScriptableObjects;
 using Systems.Buildings.Scripts;
@@ -46,7 +47,7 @@ namespace Managers
         private List<GameObject> _blueprints = new List<GameObject>();
         private List<Vector2> _plannedGrid = new List<Vector2>();
         
-        public PlacementDirection PlacementDirection;
+        private PlacementDirection _prevPlacementDirection;
         public CropSettings CropSettings { get; set; }
 
         public Transform ItemsParent => _itemsParent;
@@ -55,19 +56,19 @@ namespace Managers
         public Transform MiscParent => _miscParent;
         public RuleTile WallPlanRuleTile;
 
-        public PlacementDirection SetNextPlacementDirection(bool isClockwise)
-        {
-            if (isClockwise)
-            {
-                PlacementDirection = Helper.GetNextDirection(PlacementDirection);
-            }
-            else
-            {
-                PlacementDirection = Helper.GetPrevDirection(PlacementDirection);
-            }
-            
-            return PlacementDirection;
-        }
+        // public PlacementDirection SetNextPlacementDirection(bool isClockwise)
+        // {
+        //     if (isClockwise)
+        //     {
+        //         PlacementDirection = Helper.GetNextDirection(PlacementDirection);
+        //     }
+        //     else
+        //     {
+        //         PlacementDirection = Helper.GetPrevDirection(PlacementDirection);
+        //     }
+        //     
+        //     return PlacementDirection;
+        // }
         
         private void OnEnable()
         {
@@ -116,11 +117,12 @@ namespace Managers
             {
                 if (_plannedFurniture.CheckPlacement())
                 {
-                    _plannedFurniture.SetState(FurnitureData.EFurnitureState.InProduction);
+                    _plannedFurniture.CompletePlanning();
+                    //_plannedFurniture.SetState(EFurnitureState.InProduction);
                     _plannedFurniture = null;
                     
                     // Allows the player to place multiple
-                    PlanFurniture(_selectedFurnitureDetails);
+                    PlanFurniture(_selectedFurnitureDetails, _prevPlacementDirection);
                 }
             }
             else if (inputState == PlayerInputState.BuildFarm)
@@ -187,9 +189,10 @@ namespace Managers
             ShowPlacementIcon(false);
             _invalidPlacementTags.Clear();
             CancelPlanning();
-            PlacementDirection = PlacementDirection.South;
+            //PlacementDirection = PlacementDirection.South;
             _selectedFurnitureDetails = null;
             _plannedDoor = null;
+            _prevPlacementDirection = default;
         }
 
         public void ShowPlacementIcon(bool show, Sprite icon = null, List<String> invalidPlacementTags = null, float sizeOverride = 1f, Color? colourOverride = null)
@@ -288,26 +291,29 @@ namespace Managers
             {
                 if (Input.GetKeyDown(KeyCode.E)) // Clockwise
                 {
-                    SetNextPlacementDirection(true);
+                    //SetNextPlacementDirection(true);
                     if (_plannedFurniture != null)
                     {
-                        Destroy(_plannedFurniture.gameObject);
-                        _plannedFurniture = null;
+                        // Destroy(_plannedFurniture.gameObject);
+                        // _plannedFurniture = null;
+                        //
+                        _prevPlacementDirection = _plannedFurniture.RotatePlan(true);
                     }
 
-                    PlanFurniture(_selectedFurnitureDetails);
+                    //PlanFurniture(_selectedFurnitureDetails);
                 }
                 
                 if (Input.GetKeyDown(KeyCode.Q)) // Counter Clockwise
                 {
-                    SetNextPlacementDirection(false);
+                    //SetNextPlacementDirection(false);
                     if (_plannedFurniture != null)
                     {
-                        Destroy(_plannedFurniture.gameObject);
-                        _plannedFurniture = null;
+                        // Destroy(_plannedFurniture.gameObject);
+                        // _plannedFurniture = null;
+                        _prevPlacementDirection = _plannedFurniture.RotatePlan(false);
                     }
 
-                    PlanFurniture(_selectedFurnitureDetails);
+                    // PlanFurniture(_selectedFurnitureDetails);
                 }
             }
         }
@@ -337,31 +343,69 @@ namespace Managers
             
             return kinling;
         }
-
-        public void SpawnItem(ItemSettings itemSettings, Vector3 spawnPosition, bool canBeHauled, int quantity)
+        
+        public Item SpawnItem(ItemData itemData, Vector3 position, bool canBeHauled, Transform parent = null)
         {
-            for (int i = 0; i < quantity; i++)
+            var itemObject = Instantiate(_itemPrefab, position, Quaternion.identity, parent ?? _itemsParent);
+            if (itemObject.TryGetComponent<Item>(out var initializable))
             {
-                spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
-                var item = Instantiate(_itemPrefab, spawnPosition, Quaternion.identity);
-                item.transform.SetParent(_itemsParent);
-                var itemScript = item.GetComponent<Item>();
-                itemScript.InitializeItem(itemSettings, canBeHauled);
+                initializable.InitializeItem(itemData, canBeHauled);
             }
+            else
+            {
+                Debug.LogError("The spawned item does not implement Item.");
+            }
+        
+            return itemObject.GetComponent<Item>();
         }
         
-        public Item SpawnItem(ItemSettings itemSettings, Vector3 spawnPosition, bool canBeHauled, ItemState itemState = null, bool populateInteractions = true)
+        public List<Item> SpawnItem(ItemData itemData, Vector3 position, bool canBeHauled, int amount, Transform parent = null)
         {
-            spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
-            var item = Instantiate(_itemPrefab, spawnPosition, Quaternion.identity);
-            item.transform.SetParent(_itemsParent);
-            item.gameObject.name = $"Item_{itemSettings.ItemName}";
-            var itemScript = item.GetComponent<Item>();
-            itemScript.InitializeItem(itemSettings, canBeHauled, itemState, populateInteractions);
-            
-            item.SetActive(true);
-            return itemScript;
+            List<Item> results = new List<Item>();
+
+            for (int i = 0; i < amount; i++)
+            {
+                var itemObject = Instantiate(_itemPrefab, position, Quaternion.identity, parent ?? _itemsParent);
+                if (itemObject.TryGetComponent<Item>(out var initializable))
+                {
+                    initializable.InitializeItem(itemData, canBeHauled);
+                    results.Add(itemObject.GetComponent<Item>());
+                }
+                else
+                {
+                    Debug.LogError("The spawned item does not implement Item.");
+                }
+            }
+
+
+            return results;
         }
+
+        // public void SpawnItem(ItemData itemData, Vector3 spawnPosition, bool canBeHauled, int quantity)
+        // {
+        //     for (int i = 0; i < quantity; i++)
+        //     {
+        //         spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
+        //         var item = Instantiate(itemData., spawnPosition, Quaternion.identity);
+        //         itemData.LinkedItem = item;
+        //         item.transform.SetParent(_itemsParent);
+        //         // var itemScript = item.GetComponent<Item>();
+        //         // itemScript.InitializeItem(itemSettings, canBeHauled);
+        //     }
+        // }
+        
+        // public Item SpawnItem(ItemSettings itemSettings, Vector3 spawnPosition, bool canBeHauled, ItemState itemState = null, bool populateInteractions = true)
+        // {
+        //     spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
+        //     var item = Instantiate(_itemPrefab, spawnPosition, Quaternion.identity);
+        //     item.transform.SetParent(_itemsParent);
+        //     item.gameObject.name = $"Item_{itemSettings.ItemName}";
+        //     var itemScript = item.GetComponent<Item>();
+        //     itemScript.InitializeItem(itemSettings, canBeHauled, itemState, populateInteractions);
+        //     
+        //     item.SetActive(true);
+        //     return itemScript;
+        // }
         
         private Door _plannedDoor;
         public void PlanDoor(DoorSettings doorSettings, Action onDoorPlaced = null)
@@ -379,7 +423,7 @@ namespace Managers
             var furnitureObject = Instantiate(prefab, position, Quaternion.identity, parent ?? _furnitureParent);
             if (furnitureObject.TryGetComponent<IFurnitureInitializable>(out var initializable))
             {
-                initializable.Init(selectedFurnitureDetails.Furniture, selectedFurnitureDetails.Varient, selectedFurnitureDetails.Dye);
+                //initializable.Init(selectedFurnitureDetails.Furniture, selectedFurnitureDetails.Varient, selectedFurnitureDetails.Dye);
             }
             else
             {
@@ -389,14 +433,15 @@ namespace Managers
             return furnitureObject.GetComponent<Furniture>();
         }
 
-        public void PlanFurniture(BuildDetailsUI.SelectedFurnitureDetails selectedFurnitureDetails)
+        public void PlanFurniture(BuildDetailsUI.SelectedFurnitureDetails selectedFurnitureDetails, PlacementDirection direction)
         {
             _selectedFurnitureDetails = selectedFurnitureDetails;
             var prefab = selectedFurnitureDetails.Varient?.Prefab ?? selectedFurnitureDetails.Furniture.FurniturePrefab;
             var position = Helper.ConvertMousePosToGridPos(UtilsClass.GetMouseWorldPosition());
         
             _plannedFurniture = SpawnFurniture(prefab, position, selectedFurnitureDetails);
-            _plannedFurniture.SetState(FurnitureData.EFurnitureState.Planning);
+            _plannedFurniture.StartPlanning(selectedFurnitureDetails, direction);
+            //_plannedFurniture.SetState(EFurnitureState.Planning);
         }
         
         public void SpawnTree(Vector3 spawnPosition, GrowingResourceSettings growingResourceSettings)

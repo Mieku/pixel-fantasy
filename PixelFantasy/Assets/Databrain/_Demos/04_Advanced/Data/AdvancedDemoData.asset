@@ -846,245 +846,8 @@ MonoBehaviour:
   - {fileID: 7112779497233160873}
   - {fileID: 2777962570249121240}
   existingNamespaces:
-  - namespaceName: Global
-    foldout: 0
-    hidden: 0
-    icon: 
-    existingTypes:
-    - typeName: ListTest
-      typeAssemblyQualifiedName: ListTest, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: MyEvent
-      typeAssemblyQualifiedName: MyEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: PlayerData
-      typeAssemblyQualifiedName: PlayerData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: EnemyData
-      typeAssemblyQualifiedName: EnemyData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      runtimeSerialization: 1
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: AttributesTest
-      typeAssemblyQualifiedName: AttributesTest, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: BType
-      typeAssemblyQualifiedName: BType, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: ReinforcementsEvent
-      typeAssemblyQualifiedName: ReinforcementsEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: Quak
-      typeAssemblyQualifiedName: Quak, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: AlienData
-      typeAssemblyQualifiedName: AlienData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      runtimeSerialization: 1
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: Buildables
-      typeAssemblyQualifiedName: Buildables, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: Buildings
-      typeAssemblyQualifiedName: Buildings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: Hotels
-      typeAssemblyQualifiedName: Hotels, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: HotelCategory1
-      typeAssemblyQualifiedName: HotelCategory1, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: HotelCategory2
-      typeAssemblyQualifiedName: HotelCategory2, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: MyData
-      typeAssemblyQualifiedName: MyData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: UserDiscordTest
-      typeAssemblyQualifiedName: UserDiscordTest, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 1
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: DailyTaskVariable
-      typeAssemblyQualifiedName: DailyTaskVariable, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 1
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: DataS
-      typeAssemblyQualifiedName: DataS, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: MyDataObject
-      typeAssemblyQualifiedName: MyDataObject, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 1
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-  - namespaceName: Databrain.Testcenter
-    foldout: 0
-    hidden: 1
-    icon: 
-    existingTypes:
-    - typeName: SphereData
-      typeAssemblyQualifiedName: Databrain.Testcenter.SphereData, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-  - namespaceName: Databrain.Inventory
-    foldout: 0
-    hidden: 0
-    icon: 
-    existingTypes:
-    - typeName: ItemData
-      typeAssemblyQualifiedName: Databrain.Inventory.ItemData, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: ItemsRootData
-      typeAssemblyQualifiedName: Databrain.Inventory.ItemsRootData, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: BlueprintData
-      typeAssemblyQualifiedName: Databrain.Inventory.BlueprintData, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: InventoryData
-      typeAssemblyQualifiedName: Databrain.Inventory.InventoryData, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 1
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: ItemRarityData
-      typeAssemblyQualifiedName: Databrain.Inventory.ItemRarityData, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: LootTableData
-      typeAssemblyQualifiedName: Databrain.Inventory.LootTableData, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: MoneyData
-      typeAssemblyQualifiedName: Databrain.Inventory.MoneyData, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 1
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: SlotIDData
-      typeAssemblyQualifiedName: Databrain.Inventory.SlotIDData, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 1
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-  - namespaceName: Databrain.Dialogue
-    foldout: 0
-    hidden: 1
-    icon: 
-    existingTypes:
-    - typeName: DialogueManager
-      typeAssemblyQualifiedName: Databrain.Dialogue.DialogueManager, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: Dialogues
-      typeAssemblyQualifiedName: Databrain.Dialogue.Dialogues, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 1
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: Actors
-      typeAssemblyQualifiedName: Databrain.Dialogue.Actors, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
   - namespaceName: Databrain.Examples
-    foldout: 1
+    foldout: 0
     hidden: 0
     icon: 
     existingTypes:
@@ -1116,126 +879,6 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-  - namespaceName: Databrain.Stats
-    foldout: 0
-    hidden: 0
-    icon: 
-    existingTypes:
-    - typeName: PlayerStats
-      typeAssemblyQualifiedName: Databrain.Stats.PlayerStats, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 1
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: StatsModifier
-      typeAssemblyQualifiedName: Databrain.Stats.StatsModifier, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: StatsProgression
-      typeAssemblyQualifiedName: Databrain.Stats.StatsProgression, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 1
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: StatsValue
-      typeAssemblyQualifiedName: Databrain.Stats.StatsValue, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 1
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: PlayerModifiers
-      typeAssemblyQualifiedName: Databrain.Stats.PlayerModifiers, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 1
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: StatsAchievement
-      typeAssemblyQualifiedName: Databrain.Stats.StatsAchievement, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 1
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-  - namespaceName: Databrain.Techtree
-    foldout: 0
-    hidden: 0
-    icon: 
-    existingTypes:
-    - typeName: TechtreeResources
-      typeAssemblyQualifiedName: Databrain.Techtree.TechtreeResources, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 1
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: TechtreeLocalization
-      typeAssemblyQualifiedName: Databrain.Techtree.TechtreeLocalization, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: Techtree
-      typeAssemblyQualifiedName: Databrain.Techtree.Techtree, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 1
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: TechtreeManager
-      typeAssemblyQualifiedName: Databrain.Techtree.TechtreeManager, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-  - namespaceName: Databrain.Logic
-    foldout: 1
-    hidden: 0
-    icon: 
-    existingTypes:
-    - typeName: LogicGraph
-      typeAssemblyQualifiedName: Databrain.Logic.LogicGraph, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 1
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: TechtreeGraph
-      typeAssemblyQualifiedName: Databrain.Logic.TechtreeGraph, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 1
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: SceneComponent
-      typeAssemblyQualifiedName: Databrain.Logic.SceneComponent, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: PlayerComponents
-      typeAssemblyQualifiedName: Databrain.Logic.PlayerComponents, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: GraphData
-      typeAssemblyQualifiedName: Databrain.Logic.GraphData, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 1
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
   - namespaceName: Databrain.Events
     foldout: 0
     hidden: 0
@@ -1255,43 +898,8 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-    - typeName: LocalizationEvents
-      typeAssemblyQualifiedName: Databrain.Events.LocalizationEvents, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: StatsEvents
-      typeAssemblyQualifiedName: Databrain.Events.StatsEvents, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
     - typeName: ExampleEvents
       typeAssemblyQualifiedName: Databrain.Events.ExampleEvents, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: DialogEvents
-      typeAssemblyQualifiedName: Databrain.Events.DialogEvents, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: InventoryEvents
-      typeAssemblyQualifiedName: Databrain.Events.InventoryEvents, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: TechtreeEvents
-      typeAssemblyQualifiedName: Databrain.Events.TechtreeEvents, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
@@ -1379,13 +987,6 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-    - typeName: FloatArray
-      typeAssemblyQualifiedName: Databrain.Blackboard.FloatArray, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 1
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
     - typeName: BlackboardGenericVariable`1
       typeAssemblyQualifiedName: Databrain.Blackboard.BlackboardGenericVariable`1,
         Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -1393,148 +994,63 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-  - namespaceName: Databrain.Localization
-    foldout: 0
+  - namespaceName: Data.Item
+    foldout: 1
     hidden: 0
     icon: 
     existingTypes:
-    - typeName: Localization
-      typeAssemblyQualifiedName: Databrain.Localization.Localization, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: DialogueLocalization
-      typeAssemblyQualifiedName: Databrain.Localization.DialogueLocalization, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: InventoryLocalization
-      typeAssemblyQualifiedName: Databrain.Localization.InventoryLocalization, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: QuestLocalization
-      typeAssemblyQualifiedName: Databrain.Localization.QuestLocalization, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: LocalizationManager
-      typeAssemblyQualifiedName: Databrain.Localization.LocalizationManager, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 1
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-  - namespaceName: Databrain.Quest
-    foldout: 0
-    hidden: 1
-    icon: 
-    existingTypes:
-    - typeName: QuestManager
-      typeAssemblyQualifiedName: Databrain.Quest.QuestManager, Assembly-CSharp, Version=0.0.0.0,
+    - typeName: FoodItemData
+      typeAssemblyQualifiedName: Data.Item.FoodItemData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-    - typeName: Quest
-      typeAssemblyQualifiedName: Databrain.Quest.Quest, Assembly-CSharp, Version=0.0.0.0,
+    - typeName: FurnitureData
+      typeAssemblyQualifiedName: Data.Item.FurnitureData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-  - namespaceName: EnemyN
-    foldout: 0
-    hidden: 0
-    icon: 
-    existingTypes:
-    - typeName: EnemyModifier
-      typeAssemblyQualifiedName: EnemyN.EnemyModifier, Assembly-CSharp, Version=0.0.0.0,
+    - typeName: CropData
+      typeAssemblyQualifiedName: Data.Item.CropData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-    - typeName: EnemyAMod
-      typeAssemblyQualifiedName: EnemyN.EnemyAMod, Assembly-CSharp, Version=0.0.0.0,
+    - typeName: CraftedItemData
+      typeAssemblyQualifiedName: Data.Item.CraftedItemData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-    - typeName: ExampleEnemyData
-      typeAssemblyQualifiedName: EnemyN.ExampleEnemyData, Assembly-CSharp, Version=0.0.0.0,
+    - typeName: StorageData
+      typeAssemblyQualifiedName: Data.Item.StorageData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-    - typeName: ExampleEnemyData2
-      typeAssemblyQualifiedName: EnemyN.ExampleEnemyData2, Assembly-CSharp, Version=0.0.0.0,
+    - typeName: CraftingTableData
+      typeAssemblyQualifiedName: Data.Item.CraftingTableData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-    - typeName: TENEMYDDD
-      typeAssemblyQualifiedName: EnemyN.TENEMYDDD, Assembly-CSharp, Version=0.0.0.0,
+    - typeName: ItemData
+      typeAssemblyQualifiedName: Data.Item.ItemData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-  - namespaceName: Test
-    foldout: 0
-    hidden: 0
-    icon: 
-    existingTypes:
-    - typeName: CType
-      typeAssemblyQualifiedName: Test.CType, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: CType2
-      typeAssemblyQualifiedName: Test.CType2, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: CType3
-      typeAssemblyQualifiedName: Test.CType3, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: DType
-      typeAssemblyQualifiedName: Test.DType, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: EType
-      typeAssemblyQualifiedName: Test.EType, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: AType
-      typeAssemblyQualifiedName: Test.AType, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
+    - typeName: ToolData
+      typeAssemblyQualifiedName: Data.Item.ToolData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
       titlesFilter: []

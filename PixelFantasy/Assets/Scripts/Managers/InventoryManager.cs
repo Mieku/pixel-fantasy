@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Buildings;
+using Data.Item;
 using Items;
 using ScriptableObjects;
 using UnityEngine;
+using EToolType = Data.Item.EToolType;
 
 namespace Managers
 {
@@ -44,12 +46,12 @@ namespace Managers
         /// <summary>
         /// Checks if the item is available in storage without claiming it
         /// </summary>
-        public bool IsItemInStorage(ItemSettings itemSettings)
+        public bool IsItemInStorage(ItemData itemData)
         {
             foreach (var storage in _allStorage)
             {
                 if (storage.IsAvailable
-                    && storage.StorageData.IsItemInStorage(itemSettings))
+                    && storage.RuntimeStorageData.IsItemInStorage(itemData))
                 {
                     return true;
                 }
@@ -58,104 +60,104 @@ namespace Managers
             return false;
         }
         
-        public bool IsItemInStorage(string itemName)
+        // public bool IsItemInStorage(string itemName)
+        // {
+        //     if (string.IsNullOrEmpty(itemName)) return false;
+        //     
+        //     var itemData = Librarian.Instance.GetItemData(itemName);
+        //     
+        //     foreach (var storage in _allStorage)
+        //     {
+        //         if (storage.IsAvailable 
+        //             && storage.StorageData.IsItemInStorage(itemData))
+        //         {
+        //             return true;
+        //         }
+        //     }
+        //
+        //     return false;
+        // }
+
+        
+        
+        
+        public Storage GetAvailableStorage(ItemData itemData)
         {
-            if (string.IsNullOrEmpty(itemName)) return false;
-            
-            var itemData = Librarian.Instance.GetItemData(itemName);
-            
+            foreach (var storage in _allStorage)
+            {
+                if(storage.IsAvailable 
+                   && storage.StorageData.AmountCanBeDeposited(itemData) > 0)
+                {
+                    return storage;
+                }
+            }
+
+            return null;
+        }
+        
+        public Storage FindAvailableStorage(ItemData itemData)
+        {
+            foreach (var storage in _allStorage)
+            {
+                if(storage.IsAvailable 
+                   && storage.StorageData.AmountCanBeDeposited(itemData) > 0)
+                {
+                    return storage;
+                }
+            }
+
+            return null;
+        }
+        
+        public bool ClaimItem(ItemData itemData)
+        {
             foreach (var storage in _allStorage)
             {
                 if (storage.IsAvailable 
-                    && storage.StorageData.IsItemInStorage(itemData))
+                    && storage.StorageData.AmountCanBeWithdrawn(itemData) > 0)
                 {
+                    storage.StorageData.SetClaimed(itemData);
                     return true;
                 }
             }
 
             return false;
         }
-
         
-        
-        
-        public Storage GetAvailableStorage(Item item)
-        {
-            foreach (var storage in _allStorage)
-            {
-                if(storage.IsAvailable 
-                   && storage.StorageData.AmountCanBeDeposited(item.GetItemData()) > 0)
-                {
-                    return storage;
-                }
-            }
-
-            return null;
-        }
-        
-        public Storage FindAvailableStorage(ItemSettings item)
-        {
-            foreach (var storage in _allStorage)
-            {
-                if(storage.IsAvailable 
-                   && storage.StorageData.AmountCanBeDeposited(item) > 0)
-                {
-                    return storage;
-                }
-            }
-
-            return null;
-        }
-
-        public Item ClaimItem(ItemSettings itemSettings)
-        {
-            foreach (var storage in _allStorage)
-            {
-                if (storage.IsAvailable 
-                    && storage.StorageData.AmountCanBeWithdrawn(itemSettings) > 0)
-                {
-                    return storage.StorageData.SetClaimed(itemSettings);
-                }
-            }
-
-            return null;
-        }
-        
-        public Item FindAndClaimBestAvailableFood()
-        {
-            List<Item> availableFood = new List<Item>();
-            foreach (var storage in _allStorage)
-            {
-                if (storage.IsAvailable)
-                {
-                    availableFood.AddRange(storage.StorageData.GetAllFoodItems(false));
-                }
-            }
-            
-            // Sort by nutrition
-            var sortedFood = availableFood.OrderByDescending(food => ((IFoodItem)food.GetItemData()).FoodNutrition).ToList();
-
-            if (sortedFood.Count == 0)
-            {
-                return null;
-            }
-            else
-            {
-                var selectedFood = sortedFood[0];
-                var claimedFood = selectedFood.AssignedStorage.StorageData.SetClaimed(selectedFood.GetItemData());
-                return claimedFood;
-            }
-        }
+        // public Item FindAndClaimBestAvailableFood()
+        // {
+        //     List<Item> availableFood = new List<Item>();
+        //     foreach (var storage in _allStorage)
+        //     {
+        //         if (storage.IsAvailable)
+        //         {
+        //             availableFood.AddRange(storage.StorageData.GetAllFoodItems(false));
+        //         }
+        //     }
+        //     
+        //     // Sort by nutrition
+        //     var sortedFood = availableFood.OrderByDescending(food => ((IFoodItem)food.GetItemData()).FoodNutrition).ToList();
+        //
+        //     if (sortedFood.Count == 0)
+        //     {
+        //         return null;
+        //     }
+        //     else
+        //     {
+        //         var selectedFood = sortedFood[0];
+        //         var claimedFood = selectedFood.AssignedStorage.StorageData.SetClaimed(selectedFood.GetItemData());
+        //         return claimedFood;
+        //     }
+        // }
 
         public bool HasToolType(EToolType toolType)
         {
             foreach (var storage in _allStorage)
             {
-                var storedItems = storage.StorageData.AvailableInventory;
-                foreach (var kvp in storedItems)
+                var storedItems = storage.RuntimeStorageData.GetAvailableInventory<ToolData>();
+                foreach (var tool in storedItems)
                 {
-                    var tool = kvp.Key as ToolSettings;
-                    if (tool != null && tool.ToolType == toolType && kvp.Value.Any())
+                    if (tool.ToolType == toolType)
                     {
                         return true;
                     }
@@ -165,16 +167,15 @@ namespace Managers
             return false;
         }
         
-        public Item ClaimToolType(EToolType toolType)
+        public ToolData ClaimToolType(EToolType toolType)
         {
-            List<ToolSettings> potentialItems = new List<ToolSettings>();
+            List<ToolData> potentialItems = new List<ToolData>();
             foreach (var storage in _allStorage)
             {
-                var storedItems = storage.StorageData.AvailableInventory;
-                foreach (var kvp in storedItems)
+                var storedItems = storage.RuntimeStorageData.GetAvailableInventory<ToolData>();
+                foreach (var tool in storedItems)
                 {
-                    var tool = kvp.Key as ToolSettings;
-                    if (tool != null && tool.ToolType == toolType && kvp.Value.Any())
+                    if (tool.ToolType == toolType)
                     {
                         potentialItems.Add(tool);
                     }
@@ -186,71 +187,80 @@ namespace Managers
             if (sortedTools.Any())
             {
                 var bestToolData = sortedTools.First();
-                var claimedTool = ClaimItem(bestToolData);
-                return claimedTool;
+                ClaimItem(bestToolData);
+                return bestToolData;
             }
             
             return null;
         }
         
-        public Dictionary<ItemSettings, List<Item>> GetAvailableInventory()
+        public List<T> GetAvailableInventory<T>()
         {
-            Dictionary<ItemSettings, List<Item>> results = new Dictionary<ItemSettings, List<Item>>();
+            List<T> results = new List<T>();
             foreach (var storage in _allStorage)
             {
-                var contents = storage.StorageData.AvailableInventory;
-                foreach (var content in contents)
+                var storedTypeList = storage.RuntimeStorageData.Stored.OfType<T>().ToList();
+                var claimedTypeList = storage.RuntimeStorageData.Claimed.OfType<T>().ToList();
+            
+                foreach (var storedItem in storedTypeList)
                 {
-                    if (!results.ContainsKey(content.Key))
+                    if (!claimedTypeList.Contains(storedItem))
                     {
-                        results.Add(content.Key, new List<Item>());
-                    }
-
-                    foreach (var item in content.Value)
-                    {
-                        results[content.Key].Add(item);
+                        results.Add(storedItem);
                     }
                 }
             }
 
             return results;
         }
+        
+        // public Dictionary<ItemSettings, List<Item>> GetAvailableInventory()
+        // {
+        //     Dictionary<ItemSettings, List<Item>> results = new Dictionary<ItemSettings, List<Item>>();
+        //     foreach (var storage in _allStorage)
+        //     {
+        //         var contents = storage.StorageData.AvailableInventory;
+        //         foreach (var content in contents)
+        //         {
+        //             if (!results.ContainsKey(content.Key))
+        //             {
+        //                 results.Add(content.Key, new List<Item>());
+        //             }
+        //
+        //             foreach (var item in content.Value)
+        //             {
+        //                 results[content.Key].Add(item);
+        //             }
+        //         }
+        //     }
+        //
+        //     return results;
+        // }
 
-        public Dictionary<ItemSettings, int> GetAvailableInventoryQuantities()
+        public Dictionary<ItemData, int> GetAvailableInventoryQuantities()
         {
-            Dictionary<ItemSettings, int> results = new Dictionary<ItemSettings, int>();
-            var availableInventory = GetAvailableInventory();
-            foreach (var availKVP in availableInventory)
+            Dictionary<ItemData, int> results = new Dictionary<ItemData, int>();
+            var availableInventory = GetAvailableInventory<ItemData>();
+            foreach (var item in availableInventory)
             {
-                if (!results.ContainsKey(availKVP.Key))
+                if (!results.TryAdd(item, 1))
                 {
-                    results.Add(availKVP.Key, availKVP.Value.Count);
-                }
-                else
-                {
-                    results[availKVP.Key] += availKVP.Value.Count;
+                    results[item]++;
                 }
             }
 
             return results;
         }
 
-        public int GetAmountAvailable(ItemSettings itemSettings)
+        public int GetAmountAvailable(ItemData itemData)
         {
-            var allAvailable = GetAvailableInventory();
-            if (allAvailable.TryGetValue(itemSettings, out var value))
-            {
-                return value.Count;
-            }
-            else
-            {
-                return 0;
-            }
+            var allAvailable = GetAvailableInventoryQuantities();
+            return allAvailable.GetValueOrDefault(itemData, 0);
         }
 
-        public bool CanAfford(ItemSettings itemSettings, int amount)
+        public bool CanAfford(ItemData itemData, int amount)
         {
-            var availableAmount = GetAmountAvailable(itemSettings);
+            var availableAmount = GetAmountAvailable(itemData);
             return amount <= availableAmount;
         }
     }

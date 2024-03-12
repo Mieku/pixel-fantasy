@@ -37,7 +37,7 @@ namespace HUD
         
         public void ShowKinlingInfoPopupPressed()
         {
-            KinlingInfoPopup.Show(_kinling);
+            //KinlingInfoPopup.Show(_kinling);
         }
     }
 }

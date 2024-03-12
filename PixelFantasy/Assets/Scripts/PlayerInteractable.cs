@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Data.Item;
 using Items;
 using ScriptableObjects;
 using Systems.Skills.Scripts;
@@ -143,7 +144,7 @@ public abstract class PlayerInteractable : UniqueObject
         }
     }
 
-    public virtual void ReceiveItem(Item item)
+    public virtual void ReceiveItem(ItemData item)
     {
         Debug.LogError($"Item unexpectely received: {item.name}");
     }

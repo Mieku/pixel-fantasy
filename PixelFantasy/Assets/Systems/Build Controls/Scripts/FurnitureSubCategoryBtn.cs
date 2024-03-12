@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Controllers;
+using Data.Item;
 using HUD.Tooltip;
 using ScriptableObjects;
 using UnityEngine;
@@ -18,9 +19,9 @@ namespace Systems.Build_Controls.Scripts
 
         private Action<FurnitureSubCategoryBtn> _onSelectedCallback;
         private string _optionName;
-        private List<FurnitureSettings> _options;
+        private List<FurnitureData> _options;
 
-        public void Init(string optionName, Sprite icon, List<FurnitureSettings> options, Action<FurnitureSubCategoryBtn> onSelectedCallback)
+        public void Init(string optionName, Sprite icon, List<FurnitureData> options, Action<FurnitureSubCategoryBtn> onSelectedCallback)
         {
             _tooltip.Header = optionName;
             _optionName = optionName;
@@ -33,7 +34,7 @@ namespace Systems.Build_Controls.Scripts
         {
             HighlightBtn(true);
             
-            HUDController.Instance.ShowBuildDetails($"{_optionName} Furniture", new List<FurnitureSettings>(_options));
+            HUDController.Instance.ShowBuildDetails($"{_optionName} Furniture", new List<FurnitureData>(_options));
         }
 
         public void Cancel()

@@ -69,7 +69,7 @@ namespace Characters
 
         public string FullName => FirstName + " " + LastName;
         
-        public KinlingEquipment Equipment;
+        //public KinlingEquipment Equipment;
         [FormerlySerializedAs("UnitAnimController")] public KinlingAnimController kinlingAnimController;
         public KinlingAgent KinlingAgent;
 
@@ -128,7 +128,7 @@ namespace Characters
             Age = new Age(kinlingData.CurrentAge, _race.RacialAgeData);
             
             _appearance.Init(this, kinlingData.Appearance);
-            Equipment.Init(this, kinlingData.Gear);
+            //Equipment.Init(this, kinlingData.Gear);
             _traits = kinlingData.Traits;
             
             Skills.Init(kinlingData.Talents);

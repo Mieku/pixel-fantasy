@@ -50,7 +50,7 @@ namespace Items
         {
             get
             {
-                switch (Data.Direction)
+                switch (_direction)
                 {
                     case PlacementDirection.South:
                         return _southSleepMarker2 != null;
@@ -86,7 +86,7 @@ namespace Items
         {
             if (_assignedKinling == kinling.UniqueId)
             {
-                return Data.Direction switch
+                return _direction switch
                 {
                     PlacementDirection.South => _southSleepMarker,
                     PlacementDirection.North => _northSleepMarker,
@@ -98,7 +98,7 @@ namespace Items
 
             if (_assignedKinling2 == kinling.UniqueId)
             {
-                return Data.Direction switch
+                return _direction switch
                 {
                     PlacementDirection.South => _southSleepMarker2,
                     PlacementDirection.North => _northSleepMarker2,
@@ -109,7 +109,7 @@ namespace Items
             }
             
             Debug.LogError("Attempted to sleep in a bed that isn't assigned");
-            return Data.Direction switch
+            return _direction switch
             {
                 PlacementDirection.South => _southSleepMarker,
                 PlacementDirection.North => _northSleepMarker,
@@ -130,7 +130,7 @@ namespace Items
             }
             else
             {
-                switch (Data.Direction)
+                switch (_direction)
                 {
                     case PlacementDirection.South:
                         _southTopSheet.gameObject.SetActive(true);

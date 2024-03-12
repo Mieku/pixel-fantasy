@@ -37,7 +37,7 @@ namespace Characters
         [BoxGroup("General")] public ESexualPreference SexualPreference;
         
         [BoxGroup("Appearance")] public AppearanceState Appearance;
-        [BoxGroup("Gear")] public KinlingGear Gear;
+        //[BoxGroup("Gear")] public KinlingGear Gear;
         [BoxGroup("Traits")] public List<TraitSettings> Traits = new List<TraitSettings>();
         [BoxGroup("Family")] public string Partner;
         [BoxGroup("Family")] public List<string> Children = new List<string>();
@@ -64,7 +64,7 @@ namespace Characters
 
             SexualPreference = DetermineSexuality();
             Appearance = new AppearanceState(Gender, mother.Appearance, father.Appearance);
-            Gear = new KinlingGear();
+            //Gear = new KinlingGear();
             Talents = InheritTalentsFromParents(mother.Talents, father.Talents);
             Traits = GetTraitsFromParents(mother.Traits, father.Traits);
             Job = null;

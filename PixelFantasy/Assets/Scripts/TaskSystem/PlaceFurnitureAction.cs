@@ -20,7 +20,7 @@ namespace TaskSystem
         public override void PrepareAction(Task task)
         {
             _task = task;
-            _itemToPlace = task.Materials[0];
+            _itemToPlace = task.Materials[0].LinkedItem;
             _isHoldingItem = false;
             _isMoving = false;
             _isPlacingItem = false;
@@ -33,7 +33,7 @@ namespace TaskSystem
             {
                 _isMoving = false;
                 _isHoldingItem = true;
-                _itemToPlace.AssignedStorage.WithdrawItem(_itemToPlace);
+                _itemToPlace.AssignedStorage.StorageData.WithdrawItem(_itemToPlace.Data);
                 _ai.HoldItem(_itemToPlace);
                 return;
             }
@@ -65,7 +65,7 @@ namespace TaskSystem
             {
                 if (_isHoldingItem)
                 {
-                    _furniture.ReceiveItem(_itemToPlace);
+                    _furniture.ReceiveItem(_itemToPlace.Data);
                     _itemToPlace = null;
                     _isHoldingItem = false;
                 }

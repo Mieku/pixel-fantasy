@@ -30,10 +30,12 @@ MonoBehaviour:
     serializationDepthLimit: 64
     assemblyNames:
     - Assembly-CSharp-firstpass
+    - Databrain.UnityAsync
     - FangAutoTile
     - Assembly-CSharp
     - TileWorldCreator.OdinSerializer
     - NodeCanvas
+    - Databrain
     - ParadoxNotion
     - QFSW.QC
     - PsdPlugin

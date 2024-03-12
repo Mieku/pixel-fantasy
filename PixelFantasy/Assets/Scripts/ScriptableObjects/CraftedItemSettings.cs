@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Data.Item;
 using Sirenix.OdinInspector;
 using Systems.Skills.Scripts;
 using TaskSystem;
@@ -87,7 +88,7 @@ namespace ScriptableObjects
                 string materialsList = "";
                 foreach (var cost in MaterialCosts)
                 {
-                    materialsList += cost.Quantity + "x " + cost.Item.ItemName + "\n";
+                    materialsList += cost.Quantity + "x " + cost.Item.title + "\n";
                 }
                 return materialsList;
             }

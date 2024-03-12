@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Buildings;
 using Buildings.Building_Panels;
+using Data.Item;
 using Items;
 using ScriptableObjects;
 using TMPro;
@@ -20,12 +21,12 @@ namespace Systems.Details.Building_Details.Scripts
         
         
         private CraftingTable _craftingTable;
-        private CraftedItemSettings _selectedItem;
+        private CraftedItemData _selectedItem;
         private List<CraftingOrderOption> _displayedOptions = new List<CraftingOrderOption>();
         private List<ResourceCost> _displayedCosts = new List<ResourceCost>();
-        private Action<CraftedItemSettings> _addOrderCallback;
+        private Action<CraftedItemData> _addOrderCallback;
         
-        public void Init(CraftingTable craftingTable, Action<CraftedItemSettings> addOrderCallback)
+        public void Init(CraftingTable craftingTable, Action<CraftedItemData> addOrderCallback)
         {
             _craftingTable = craftingTable;
             _addOrderCallback = addOrderCallback;
@@ -56,7 +57,7 @@ namespace Systems.Details.Building_Details.Scripts
             _displayedOptions.Clear();
         }
 
-        private void SelectOrder(CraftedItemSettings item)
+        private void SelectOrder(CraftedItemData item)
         {
             foreach (var displayedOption in _displayedOptions)
             {
@@ -71,7 +72,7 @@ namespace Systems.Details.Building_Details.Scripts
             _itemDetailsText.text = _selectedItem.GetDetailsMsg("#272736");
         }
 
-        private void RefreshResourceCosts(CraftedItemSettings craftedItemSettings)
+        private void RefreshResourceCosts(CraftedItemData craftedItemSettings)
         {
             _resourceCostPrefab.gameObject.SetActive(false);
             foreach (var cost in _displayedCosts)

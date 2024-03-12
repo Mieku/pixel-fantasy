@@ -1,4 +1,5 @@
 using System;
+using Data.Item;
 using ScriptableObjects;
 using TMPro;
 using UnityEngine;
@@ -11,9 +12,9 @@ namespace HUD
         [SerializeField] private Image _iconRenderer;
         [SerializeField] private TextMeshProUGUI _amountDisplay;
 
-        public void Init(ItemSettings itemSettings, string amount)
+        public void Init(ItemData itemData, string amount)
         {
-            _iconRenderer.sprite = itemSettings.ItemSprite;
+            _iconRenderer.sprite = itemData.icon;
             _amountDisplay.text = amount;
         }
 

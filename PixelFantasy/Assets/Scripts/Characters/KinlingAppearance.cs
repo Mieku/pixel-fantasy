@@ -11,7 +11,7 @@ namespace Characters
 {
     public class KinlingAppearance : MonoBehaviour
     {
-        [SerializeField] private KinlingEquipment _equipment;
+        //[SerializeField] private KinlingEquipment _equipment;
         
         [FormerlySerializedAs("HairData")] public HairSettings HairSettings;
         [FormerlySerializedAs("BodyData")] public BodySettings BodySettings;
@@ -187,7 +187,7 @@ namespace Characters
             
             SetHairDirection(dir);
             SetBodyDirection(dir);
-            _equipment.AssignDirection(dir);
+            //_equipment.AssignDirection(dir);
         }
         
         private void SetHairDirection(UnitActionDirection dir)

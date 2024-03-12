@@ -1,4 +1,5 @@
 using Buildings;
+using Data.Item;
 using Items;
 using Managers;
 using ScriptableObjects;
@@ -8,7 +9,7 @@ namespace TaskSystem
 {
     public class WithdrawItemConstructionAction : TaskAction
     {
-        private Item _targetItem;
+        private ItemData _targetItem;
         private PlayerInteractable _requestor;
         private bool _isHoldingItem;
         private bool _isMoving;
@@ -16,17 +17,17 @@ namespace TaskSystem
         private Vector2 _constructionPos;
         
         public float DistanceToRequestor => Vector2.Distance(_constructionPos, transform.position);
-        public float DistanceToStorage => Vector2.Distance(_targetItem.AssignedStorage.transform.position, transform.position);
+        public float DistanceToStorage => Vector2.Distance(_targetItem.AssignedStorage.LinkedItem.transform.position, transform.position);
         
         public override bool CanDoTask(Task task)
         {
-            var payload = task.Payload;
-            if ( string.IsNullOrEmpty((string)payload))
+            var item = task.Payload as ItemData;
+            if ( item == null)
             {
                 return false;
             }
 
-            return InventoryManager.Instance.IsItemInStorage((string)payload);
+            return InventoryManager.Instance.IsItemInStorage(item);
         }
 
         public override void PrepareAction(Task task)
@@ -36,8 +37,8 @@ namespace TaskSystem
             _isHoldingItem = false;
             _isMoving = false;
             
-            var payload = task.Payload;
-            _targetItem = ClaimItem((string)payload);
+            _targetItem = task.Payload as ItemData;
+            ClaimItem(_targetItem);
             
             if (_targetItem == null)
             {
@@ -62,7 +63,7 @@ namespace TaskSystem
                 _isHoldingItem = true;
                 
                 _targetItem.AssignedStorage.WithdrawItem(_targetItem);
-                _ai.HoldItem(_targetItem);
+                _ai.HoldItem(_targetItem.LinkedItem);
                 return;
             }
             
@@ -82,7 +83,7 @@ namespace TaskSystem
             {
                 if (!_isMoving)
                 {
-                    _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.AssignedStorage.transform.position);
+                    _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.AssignedStorage.LinkedItem.transform.position);
                     _isMoving = true;
                     return;
                 }
@@ -117,12 +118,9 @@ namespace TaskSystem
             base.OnTaskCancel();
         }
         
-        public Item ClaimItem(string itemName)
+        public void ClaimItem(ItemData item)
         {
-            if (string.IsNullOrEmpty(itemName)) return null;
-            
-            _itemSettings = Librarian.Instance.GetItemData(itemName);
-            return InventoryManager.Instance.ClaimItem(_itemSettings);
+            InventoryManager.Instance.ClaimItem(item);
         }
     }
 }

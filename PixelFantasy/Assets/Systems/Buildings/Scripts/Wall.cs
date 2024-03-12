@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Controllers;
+using Data.Item;
 using Items;
 using Managers;
 using ScriptableObjects;

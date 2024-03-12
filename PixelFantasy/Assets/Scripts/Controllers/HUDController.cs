@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Buildings;
 using Characters;
+using Data.Item;
 using HUD;
 using Interfaces;
 using Items;
@@ -48,7 +49,7 @@ namespace Controllers
             _selectedItemInfoPanel.ShowItemDetails(clickableObject);
         }
 
-        public void ShowBuildDetails(string header, List<FurnitureSettings> options )
+        public void ShowBuildDetails(string header, List<FurnitureData> options )
         {
             HideDetails();
             

@@ -1,23 +1,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using Characters;
+using Data.Item;
 using Items;
 using Managers;
 using ScriptableObjects;
 using UnityEngine;
+using FurnitureData = Data.Item.FurnitureData;
 
 namespace Handlers
 {
     public class FurnitureManager : Singleton<FurnitureManager>
     {
-        private List<Furniture> _allFurniture = new List<Furniture>();
-        public List<Furniture> AllFurniture => _allFurniture;
+        private List<FurnitureData> _allFurniture = new List<FurnitureData>();
+        public List<FurnitureData> AllFurniture => _allFurniture;
 
-        public bool DoesFurnitureExist(FurnitureSettings furnitureSettings)
+        public bool DoesFurnitureExist(FurnitureData furnitureData)
         {
             foreach (var furniture in _allFurniture)
             {
-                if (furniture.Settings == furnitureSettings)
+                if (furniture == furnitureData)
                 {
                     return true;
                 }
@@ -26,22 +28,22 @@ namespace Handlers
             return false;
         }
         
-        public void RegisterFurniture(Furniture furniture)
+        public void RegisterFurniture(FurnitureData furniture)
         {
             if (_allFurniture.Contains(furniture))
             {
-                Debug.LogError($"Attempted to register already registered furniture: {furniture.Settings.ItemName}");
+                Debug.LogError($"Attempted to register already registered furniture: {furniture.guid}");
                 return;
             }
             
             _allFurniture.Add(furniture);
         }
 
-        public void DeregisterFurniture(Furniture furniture)
+        public void DeregisterFurniture(FurnitureData furniture)
         {
             if (!_allFurniture.Contains(furniture))
             {
-                Debug.LogError($"Attempted to deregister not registered furniture: {furniture.Settings.ItemName}");
+                //Debug.LogError($"Attempted to deregister not registered furniture: {furniture.guid}");
                 return;
             }
 
@@ -59,10 +61,10 @@ namespace Handlers
             List<(T, float)> furnitureDistances = new List<(T, float)>();
             foreach (var furnitureT  in allFurnituressOfType)
             {
-                var furniture = furnitureT as Furniture;
-                if (furniture != null && furniture.Data.State == FurnitureData.EFurnitureState.Built)
+                var furniture = furnitureT as FurnitureData;
+                if (furniture != null && furniture.State == EFurnitureState.Built)
                 {
-                    var furniturePos = furniture.UseagePosition(requestorPos);
+                    var furniturePos = furniture.LinkedFurniture.UseagePosition(requestorPos);
                     if (furniturePos != null)
                     {
                         var pathResult = Helper.DoesPathExist((Vector2)furniturePos, requestorPos);
@@ -93,7 +95,7 @@ namespace Handlers
             List<(BedFurniture, float)> furnitureDistances = new List<(BedFurniture, float)>();
             foreach (var bed in allBeds)
             {
-                if (bed.Data.State == FurnitureData.EFurnitureState.Built)
+                if (bed.RuntimeData.State == EFurnitureState.Built)
                 {
                     var furniturePos = bed.UseagePosition(requestorPos);
                     if (furniturePos != null)
@@ -118,7 +120,7 @@ namespace Handlers
             return selectedFurniture;
         }
 
-        public CraftingTable GetCraftingTableForItem(CraftedItemSettings item)
+        public CraftingTable GetCraftingTableForItem(CraftedItemData item)
         {
             var allTables = FindFurnituresOfType<CraftingTable>();
             foreach (var table in allTables)

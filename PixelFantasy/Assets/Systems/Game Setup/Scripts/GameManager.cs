@@ -1,8 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Characters;
 using Controllers;
+using Data.Item;
+using Databrain;
+using Databrain.Attributes;
 using Items;
 using Managers;
 using ScriptableObjects;
@@ -18,7 +20,11 @@ namespace Systems.Game_Setup.Scripts
         [SerializeField] private WorldBuilder _worldBuilder;
         [SerializeField] private bool _generateWorldOnStart;
 
-        [BoxGroup("Starting Items")] [SerializeField] private StorageSettings _starterStockpileSettings;
+        public DataLibrary DataLibrary;
+        
+        [DataObjectDropdown("DataLibrary")]
+        [BoxGroup("Starting Items")] [SerializeField] private StorageData _starterStockpileData;
+        
         [BoxGroup("Starting Items")] [SerializeField] private Storage _starterStockpile;
         [BoxGroup("Starting Items")] [SerializeField] private List<ItemAmount> _startingItems = new List<ItemAmount>();
         
@@ -74,18 +80,18 @@ namespace Systems.Game_Setup.Scripts
 
         private void LoadStarterStockpile(List<ItemAmount> preloadedItems)
         {
-            _starterStockpile.Init(_starterStockpileSettings);
-            _starterStockpile.SetState(FurnitureData.EFurnitureState.Built);
-            
-            foreach (var preloadedItemAmount in preloadedItems)
-            {
-                for (int i = 0; i < preloadedItemAmount.Quantity; i++)
-                {
-                    var spawnedItem = Spawner.Instance.SpawnItem(preloadedItemAmount.Item,
-                        _starterStockpile.transform.position, false);
-                    _starterStockpile.ForceDepositItem(spawnedItem);
-                }
-            }
+            //_starterStockpile.Init(_starterStockpileData);
+            // _starterStockpile.SetState(EFurnitureState.Built);
+            //
+            // foreach (var preloadedItemAmount in preloadedItems)
+            // {
+            //     for (int i = 0; i < preloadedItemAmount.Quantity; i++)
+            //     {
+            //         var spawnedItem = Spawner.Instance.SpawnItem(preloadedItemAmount.Item,
+            //             _starterStockpile.transform.position, false);
+            //         _starterStockpile.ForceDepositItem(spawnedItem.Data);
+            //     }
+            // }
         }
         
         private void LoadStarterKinlings(List<KinlingData> starterKinlings)

@@ -1,22 +1,21 @@
 using System;
 using System.Collections.Generic;
+using Data.Item;
 using Handlers;
 using Items;
 using Managers;
-using ScriptableObjects;
-using UnityEngine;
 
 namespace TaskSystem
 {
     public class CraftFurnitureOrderAction : TaskAction // ID: Craft Furniture Order
     {
-        private CraftedItemSettings _itemToCraft;
+        private FurnitureData _itemToCraft;
         private CraftingTable _craftingTable;
-        private List<Item> _materials;
+        private List<ItemData> _materials;
         private ETaskState _state;
         private Furniture _requestingFurniture;
         
-        private Item _targetItem;
+        private ItemData _targetItem;
         private int _materialIndex;
         private float _timer;
 
@@ -37,7 +36,7 @@ namespace TaskSystem
 
             if (!result) return false;
             
-            var itemToCraft = Librarian.Instance.GetItemData((string)task.Payload) as CraftedItemSettings;
+            var itemToCraft = task.Payload as CraftedItemData;
             var table = FurnitureManager.Instance.GetCraftingTableForItem(itemToCraft);
 
             return table != null;
@@ -45,7 +44,7 @@ namespace TaskSystem
 
         public override void PrepareAction(Task task)
         {
-            _itemToCraft = Librarian.Instance.GetItemData((string)task.Payload) as CraftedItemSettings;
+            _itemToCraft = task.Payload as FurnitureData;
             _craftingTable = FurnitureManager.Instance.GetCraftingTableForItem(_itemToCraft);
             _materials = task.Materials;
             _requestingFurniture = task.Requestor as Furniture;
@@ -62,8 +61,8 @@ namespace TaskSystem
 
             if (_state == ETaskState.GatherMats)
             {
-                _targetItem = _materials[_materialIndex];
-                var movePos = _targetItem.AssignedStorage.UseagePosition(_ai.Kinling.transform.position);
+                _targetItem = _materials[_materialIndex] as CraftedItemData;
+                var movePos = _targetItem.AssignedStorage.LinkedItem.UseagePosition(_ai.Kinling.transform.position);
                 _ai.Kinling.KinlingAgent.SetMovePosition(movePos, OnArrivedAtStorageForPickup, OnTaskCancel);
                 _state = ETaskState.WaitingOnMats;
             }
@@ -84,9 +83,9 @@ namespace TaskSystem
                     {
                         KinlingAnimController.SetUnitAction(UnitAction.Nothing);
                         
-                        _targetItem = Spawner.Instance.SpawnItem(_itemToCraft, _craftingTable.transform.position, false);
-                        _targetItem.State.CraftersUID = _ai.Kinling.UniqueId;
-                        _ai.HoldItem(_targetItem);
+                        var targetItemObj = Spawner.Instance.SpawnItem(_itemToCraft, _craftingTable.transform.position, false);
+                        _targetItem = targetItemObj.RuntimeData;
+                        _ai.HoldItem(targetItemObj);
                         
                         _state = ETaskState.DeliverItem;
                     }
@@ -103,7 +102,7 @@ namespace TaskSystem
         private void OnArrivedAtStorageForPickup()
         {
             _targetItem.AssignedStorage.WithdrawItem(_targetItem);
-            _ai.HoldItem(_targetItem);
+            _ai.HoldItem(_targetItem.LinkedItem);
             _ai.Kinling.KinlingAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Kinling.transform.position), OnArrivedAtCraftingTable, OnTaskCancel);
         }
 
@@ -124,7 +123,7 @@ namespace TaskSystem
             else
             {
                 _targetItem = _materials[_materialIndex];
-                _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.AssignedStorage.UseagePosition(_ai.Kinling.transform.position),
+                _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.AssignedStorage.LinkedFurniture.UseagePosition(_ai.Kinling.transform.position),
                     OnArrivedAtStorageForPickup, OnTaskCancel);
             }
         }
@@ -132,7 +131,7 @@ namespace TaskSystem
         private void OnFurnitureDelivered()
         {
             _ai.DropCarriedItem();
-            _requestingFurniture.PlaceFurniture(_targetItem);
+            _requestingFurniture.PlaceFurniture(_itemToCraft);
             _targetItem = null;
             ConcludeAction();
         }

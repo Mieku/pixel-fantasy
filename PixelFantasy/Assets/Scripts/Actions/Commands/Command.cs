@@ -1,4 +1,5 @@
 using Characters;
+using Data.Item;
 using Managers;
 using ScriptableObjects;
 using Systems.Skills.Scripts;
@@ -11,7 +12,7 @@ public class Command : ScriptableObject
     public string Name;
     public Sprite Icon;
     public Task Task;
-    public EToolType RequiredToolType => Task.RequiredToolType;
+    public Data.Item.EToolType RequiredToolType => Task.RequiredToolType;
 
     public bool CanDoCommand(Kinling kinling, PlayerInteractable interactable)
     {

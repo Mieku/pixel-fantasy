@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Data.Item;
 using ScriptableObjects;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -61,7 +62,7 @@ namespace Items
     [Serializable]
     public class HarvestableItem
     {
-        public ItemSettings Item;
+        public ItemData Item;
         public int MinDrop;
         public int MaxDrop;
     }

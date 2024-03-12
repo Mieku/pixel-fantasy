@@ -1,4 +1,5 @@
 using System;
+using Data.Item;
 using ScriptableObjects;
 using TMPro;
 using UnityEngine;
@@ -12,13 +13,13 @@ namespace Systems.Details.Building_Details.Scripts
         [SerializeField] private Image _itemIcon;
         [SerializeField] private Toggle _toggle;
 
-        private ItemSettings _itemSettings;
-        private Action<ItemSettings, bool> _onAllowStockpileChanged;
+        private ItemData _itemSettings;
+        private Action<ItemData, bool> _onAllowStockpileChanged;
 
-        public ItemSettings ItemSettings => _itemSettings;
+        public ItemData ItemSettings => _itemSettings;
 
         public void Init(ItemAmount itemAmount, bool isAllowed,
-            Action<ItemSettings, bool> onAllowStockpileChanged)
+            Action<ItemData, bool> onAllowStockpileChanged)
         {
             _itemSettings = itemAmount.Item;
             _onAllowStockpileChanged = onAllowStockpileChanged;

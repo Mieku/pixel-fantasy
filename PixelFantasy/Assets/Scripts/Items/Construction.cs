@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Data.Item;
 using DataPersistence;
 using HUD;
 using Interfaces;
@@ -17,7 +18,7 @@ namespace Items
         protected List<ItemAmount> _remainingResourceCosts = new List<ItemAmount>();
         protected List<ItemAmount> _pendingResourceCosts = new List<ItemAmount>(); // Claimed by a task but not used yet
         protected List<ItemAmount> _incomingResourceCosts = new List<ItemAmount>(); // The item is on its way
-        protected List<Item> _incomingItems = new List<Item>();
+        protected List<ItemData> _incomingItems = new List<ItemData>();
     
         protected bool _isBuilt;
         protected bool _isDeconstructing;
@@ -108,13 +109,13 @@ namespace Items
             }
         }
 
-        public void AddResourceToBlueprint(ItemSettings itemSettings)
+        public void AddResourceToBlueprint(ItemData itemData)
         {
-            RemoveFromPendingResourceCosts(itemSettings);
+            RemoveFromPendingResourceCosts(itemData);
             
             foreach (var cost in _remainingResourceCosts)
             {
-                if (cost.Item == itemSettings && cost.Quantity > 0)
+                if (cost.Item == itemData && cost.Quantity > 0)
                 {
                     cost.Quantity--;
                     if (cost.Quantity <= 0)
@@ -127,12 +128,11 @@ namespace Items
             }
         }
 
-        public override void ReceiveItem(Item item)
+        public override void ReceiveItem(ItemData itemData)
         {
-            RemoveFromIncomingItems(item);
+            RemoveFromIncomingItems(itemData);
             
-            var itemData = item.GetItemData();
-            Destroy(item.gameObject);
+            Destroy(itemData.LinkedItem);
             RemoveFromPendingResourceCosts(itemData);
             
             foreach (var cost in _remainingResourceCosts)
@@ -229,16 +229,16 @@ namespace Items
             Destroy(gameObject);
         }
         
-        public void AddToIncomingItems(Item item)
+        public void AddToIncomingItems(ItemData itemData)
         {
-            _incomingItems ??= new List<Item>();
-            _incomingItems.Add(item);
+            _incomingItems ??= new List<ItemData>();
+            _incomingItems.Add(itemData);
             
             _incomingResourceCosts ??= new List<ItemAmount>();
 
             foreach (var cost in _incomingResourceCosts)
             {
-                if (cost.Item == item.GetItemData())
+                if (cost.Item == itemData)
                 {
                     cost.Quantity += 1;
                     return;
@@ -247,19 +247,19 @@ namespace Items
             
             _incomingResourceCosts.Add(new ItemAmount
             {
-                Item = item.GetItemData(),
+                Item = itemData,
                 Quantity = 1
             });
         }
         
-        private void RemoveFromIncomingItems(Item item)
+        private void RemoveFromIncomingItems(ItemData item)
         {
-            _incomingItems ??= new List<Item>();
+            _incomingItems ??= new List<ItemData>();
             _incomingItems.Remove(item);
             
             foreach (var cost in _incomingResourceCosts)
             {
-                if (cost.Item == item.GetItemData())
+                if (cost.Item == item)
                 {
                     cost.Quantity -= 1;
                     if (cost.Quantity <= 0)
@@ -272,13 +272,13 @@ namespace Items
             }
         }
         
-        public void AddToPendingResourceCosts(ItemSettings itemSettings, int quantity = 1)
+        public void AddToPendingResourceCosts(ItemData itemData, int quantity = 1)
         {
             _pendingResourceCosts ??= new List<ItemAmount>();
 
             foreach (var cost in _pendingResourceCosts)
             {
-                if (cost.Item == itemSettings)
+                if (cost.Item == itemData)
                 {
                     cost.Quantity += quantity;
                     return;
@@ -287,16 +287,16 @@ namespace Items
             
             _pendingResourceCosts.Add(new ItemAmount
             {
-                Item = itemSettings,
+                Item = itemData,
                 Quantity = quantity
             });
         }
 
-        public void RemoveFromPendingResourceCosts(ItemSettings itemSettings, int quantity = 1)
+        public void RemoveFromPendingResourceCosts(ItemData itemData, int quantity = 1)
         {
             foreach (var cost in _pendingResourceCosts)
             {
-                if (cost.Item == itemSettings)
+                if (cost.Item == itemData)
                 {
                     cost.Quantity -= quantity;
                     if (cost.Quantity <= 0)
@@ -440,11 +440,11 @@ namespace Items
             }
         }
 
-        protected virtual void EnqueueCreateTakeResourceToBlueprintTask(ItemSettings resourceSettings)
+        protected virtual void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceSettings)
         {
             Task task = new Task("Withdraw Item Construction", ETaskType.Hauling, this, EToolType.None)
             {
-                Payload = resourceSettings.ItemName,
+                Payload = resourceSettings,
             };
             TaskManager.Instance.AddTask(task);
         }

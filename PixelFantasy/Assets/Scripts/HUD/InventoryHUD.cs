@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Data.Item;
 using Managers;
 using ScriptableObjects;
 using UnityEngine;
@@ -10,7 +11,7 @@ namespace HUD
     {
         [SerializeField] private GameObject _inventoryResouceDisplayPrefab;
 
-        private Dictionary<ItemSettings, InventoryResourceDisplay> _displayedItems = new Dictionary<ItemSettings, InventoryResourceDisplay>();
+        private Dictionary<ItemData, InventoryResourceDisplay> _displayedItems = new Dictionary<ItemData, InventoryResourceDisplay>();
 
         private void Start()
         {
@@ -27,7 +28,7 @@ namespace HUD
         private void GameEvents_RefreshInventoryDisplay()
         {
             var availableInv = InventoryManager.Instance.GetAvailableInventoryQuantities();
-            List<ItemSettings> removeList = new List<ItemSettings>();
+            List<ItemData> removeList = new List<ItemData>();
             
             // Update current displayed
             foreach (var displayedItem in _displayedItems)

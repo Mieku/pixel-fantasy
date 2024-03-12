@@ -1,5 +1,6 @@
 using System;
 using Controllers;
+using Data.Item;
 using Items;
 using Managers;
 using ScriptableObjects;
@@ -137,7 +138,7 @@ namespace Systems.Roads.Scripts
             // Drop all incoming resources
             foreach (var incomingItem in _incomingItems)
             {
-                incomingItem.SeekForSlot();
+                incomingItem.LinkedItem.SeekForSlot();
             }
             _pendingResourceCosts.Clear();
             _incomingItems.Clear();

@@ -1,5 +1,6 @@
 using System;
 using Characters;
+using Data.Item;
 using Items;
 using Managers;
 using ScriptableObjects;
@@ -69,84 +70,88 @@ namespace TaskSystem
 
         public virtual void PickupRequiredTool(Action onReadyForTask, Action onFailedToGetTool)
         {
-            if (_task.RequiredToolType == EToolType.None)
-            {
-                onReadyForTask.Invoke();
-                return;
-            }
-
-            if (_ai.HasToolTypeEquipped(_task.RequiredToolType))
-            {
-                onReadyForTask.Invoke();
-                return;
-            }
-
-            Item claimedTool = InventoryManager.Instance.ClaimToolType(_task.RequiredToolType);
-
-            if (claimedTool == null)
-            {
-                onFailedToGetTool.Invoke();
-                return;
-            }
-
-            _ai.Kinling.KinlingAgent.SetMovePosition(claimedTool.AssignedStorage.UseagePosition(_ai.Kinling.transform.position), () =>
-            {
-                // Unequip current item if there is one
-                Item droppedItem = null;
-                var claimedToolsStorage = claimedTool.AssignedStorage;
-                var claimedToolData = (GearSettings)claimedTool.GetItemData();
-                var curEquippedItem = _ai.Kinling.Equipment.EquipmentState.GetGearByType(claimedToolData.Type);
-                if (curEquippedItem != null)
-                {
-                    droppedItem = _ai.Kinling.Equipment.UnequipTool(curEquippedItem);
-                    
-                    // Pick it up
-                    _ai.HoldItem(droppedItem);
-                }
-                
-                // Equip item
-                claimedToolsStorage.WithdrawItem(claimedTool);
-                _ai.Kinling.Equipment.EquipTool(claimedTool);
-                
-                // put unequipped item away
-                if (droppedItem == null)
-                {
-                    onReadyForTask.Invoke();
-                }
-                else
-                {
-                    // Try to put old tool in same storage as equipped tool
-                    if (claimedToolsStorage != null && claimedToolsStorage.StorageData.AmountCanBeDeposited(droppedItem.GetItemData()) > 0)
-                    {
-                        claimedToolsStorage.StorageData.SetIncoming(droppedItem);
-                        claimedToolsStorage.DepositItems(droppedItem);
-                        onReadyForTask.Invoke();
-                        return;
-                    }
-                    
-                    Storage storageToPlaceOldItem = InventoryManager.Instance.FindAvailableStorage(droppedItem.GetItemData());
-                    
-                    if (storageToPlaceOldItem == null)
-                    {
-                        // Put on ground
-                        _ai.DropCarriedItem();
-                        onReadyForTask.Invoke();
-                        return;
-                    }
-                    else
-                    {
-                        // Put in storage
-                        storageToPlaceOldItem.StorageData.SetIncoming(droppedItem);
-                        _ai.Kinling.KinlingAgent.SetMovePosition(storageToPlaceOldItem.UseagePosition(_ai.Kinling.transform.position), () =>
-                        {
-                            storageToPlaceOldItem.DepositItems(droppedItem);
-                            onReadyForTask.Invoke();
-                            return;
-                        }, OnTaskCancel);
-                    }
-                }
-                
-            }, OnTaskCancel);
+            // Temp override
+            onReadyForTask.Invoke();
+            return;
+            
+            //
+            // if (_task.RequiredToolType == EToolType.None)
+            // {
+            //     onReadyForTask.Invoke();
+            //     return;
+            // }
+            //
+            // if (_ai.HasToolTypeEquipped(_task.RequiredToolType))
+            // {
+            //     onReadyForTask.Invoke();
+            //     return;
+            // }
+            //
+            // ToolData claimedTool = InventoryManager.Instance.ClaimToolType(_task.RequiredToolType);
+            //
+            // if (claimedTool == null)
+            // {
+            //     onFailedToGetTool.Invoke();
+            //     return;
+            // }
+            //
+            // _ai.Kinling.KinlingAgent.SetMovePosition(claimedTool.AssignedStorage.LinkedFurniture.UseagePosition(_ai.Kinling.transform.position), () =>
+            // {
+            //     // Unequip current item if there is one
+            //     Item droppedItem = null;
+            //     var claimedToolsStorage = claimedTool.AssignedStorage;
+            //     var curEquippedItem = _ai.Kinling.Equipment.EquipmentState.GetGearByType(claimedTool.Type);
+            //     if (curEquippedItem != null)
+            //     {
+            //         droppedItem = _ai.Kinling.Equipment.UnequipTool(curEquippedItem);
+            //         
+            //         // Pick it up
+            //         _ai.HoldItem(droppedItem);
+            //     }
+            //     
+            //     // Equip item
+            //     claimedToolsStorage.WithdrawItem(claimedTool);
+            //     _ai.Kinling.Equipment.EquipTool(claimedTool);
+            //     
+            //     // put unequipped item away
+            //     if (droppedItem == null)
+            //     {
+            //         onReadyForTask.Invoke();
+            //     }
+            //     else
+            //     {
+            //         // Try to put old tool in same storage as equipped tool
+            //         if (claimedToolsStorage != null && claimedToolsStorage.StorageData.AmountCanBeDeposited(droppedItem.GetItemData()) > 0)
+            //         {
+            //             claimedToolsStorage.StorageData.SetIncoming(droppedItem);
+            //             claimedToolsStorage.DepositItems(droppedItem);
+            //             onReadyForTask.Invoke();
+            //             return;
+            //         }
+            //         
+            //         Storage storageToPlaceOldItem = InventoryManager.Instance.FindAvailableStorage(droppedItem.GetItemData());
+            //         
+            //         if (storageToPlaceOldItem == null)
+            //         {
+            //             // Put on ground
+            //             _ai.DropCarriedItem();
+            //             onReadyForTask.Invoke();
+            //             return;
+            //         }
+            //         else
+            //         {
+            //             // Put in storage
+            //             storageToPlaceOldItem.StorageData.SetIncoming(droppedItem);
+            //             _ai.Kinling.KinlingAgent.SetMovePosition(storageToPlaceOldItem.UseagePosition(_ai.Kinling.transform.position), () =>
+            //             {
+            //                 storageToPlaceOldItem.DepositItems(droppedItem);
+            //                 onReadyForTask.Invoke();
+            //                 return;
+            //             }, OnTaskCancel);
+            //         }
+            //     }
+            //     
+            // }, OnTaskCancel);
         }
         
         /// <summary>

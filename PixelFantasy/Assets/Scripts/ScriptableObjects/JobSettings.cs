@@ -1,4 +1,5 @@
 using System;
+using Data.Item;
 using UnityEngine;
 
 namespace ScriptableObjects

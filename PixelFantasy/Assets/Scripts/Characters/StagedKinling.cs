@@ -6,7 +6,7 @@ namespace Characters
     public class StagedKinling : MonoBehaviour
     {
         [SerializeField] private KinlingAppearance _appearance;
-        [SerializeField] private KinlingEquipment _equipment;
+        //[SerializeField] private KinlingEquipment _equipment;
         
         public void ApplyAppearance(AppearanceState appearanceState)
         {
@@ -14,10 +14,10 @@ namespace Characters
             _appearance.ApplyAppearanceState(clone);
         }
 
-        public void ApplyEquipment(EquipmentState equipmentState)
-        {
-            EquipmentState clone = new EquipmentState(equipmentState);
-            _equipment.DisplayEquipmentState(clone);
-        }
+        // public void ApplyEquipment(EquipmentState equipmentState)
+        // {
+        //     EquipmentState clone = new EquipmentState(equipmentState);
+        //     _equipment.DisplayEquipmentState(clone);
+        // }
     }
 }

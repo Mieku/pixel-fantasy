@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Data.Item;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

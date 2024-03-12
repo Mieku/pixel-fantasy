@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Data.Item;
+using Databrain.Attributes;
 using Managers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
@@ -11,7 +13,7 @@ using UnityEngine.Rendering;
 
 namespace Items
 {
-    public class CraftingTable : Furniture, IFurnitureInitializable
+    public class CraftingTable : Furniture
     {
         [TitleGroup("South")] [SerializeField] private SpriteRenderer _southCraftingPreview;
         [TitleGroup("West")] [SerializeField] private SpriteRenderer _westCraftingPreview;
@@ -19,31 +21,35 @@ namespace Items
         [TitleGroup("East")] [SerializeField] private SpriteRenderer _eastCraftingPreview;
         
         public CraftingTableData TableData => Data as CraftingTableData;
-        
-        public new bool Init(FurnitureSettings settings, FurnitureVarient varient = null, DyeSettings dye = null)
-        {
-            if (settings is CraftingTableSettings craftingTableSettings)
-            {
-                Data = new CraftingTableData(craftingTableSettings, varient, dye);
-                
-                AssignDirection(Data.Direction);
-                foreach (var spriteRenderer in _allSprites)
-                {
-                    _materials.Add(spriteRenderer.material);
-                }
-                
-                return true; // Initialization successful
-            }
-            else
-            {
-                Debug.LogError("Invalid settings type provided.");
-                return false; // Initialization failed
-            }
-        }
+        public CraftingTableData RuntimeTableData => RuntimeData as CraftingTableData;
 
-        protected override void Planning_Enter()
+        
+        // public CraftingTableData TableData => Data as CraftingTableData;
+        //
+        // public new bool Init(FurnitureSettings settings, FurnitureVarient varient = null, DyeSettings dye = null)
+        // {
+        //     if (settings is CraftingTableSettings craftingTableSettings)
+        //     {
+        //         Data = new CraftingTableData(craftingTableSettings, varient, dye);
+        //         
+        //         AssignDirection(Data.Direction);
+        //         foreach (var spriteRenderer in _allSprites)
+        //         {
+        //             _materials.Add(spriteRenderer.material);
+        //         }
+        //         
+        //         return true; // Initialization successful
+        //     }
+        //     else
+        //     {
+        //         Debug.LogError("Invalid settings type provided.");
+        //         return false; // Initialization failed
+        //     }
+        // }
+
+        public override void CompletePlanning()
         {
-            base.Planning_Enter();
+            base.CompletePlanning();
             HideCraftingPreview();
         }
 
@@ -66,12 +72,12 @@ namespace Items
         
         private void SearchForCraftingOrder()
         {
-            if (IsAvailable && TableData.CurrentOrder == null)
+            if (IsAvailable && RuntimeTableData.CurrentOrder == null)
             {
                 var order = CraftingOrdersManager.Instance.GetNextCraftableOrder(this);
                 if (order != null)
                 {
-                    TableData.CurrentOrder = order;
+                    RuntimeTableData.CurrentOrder = order;
                     var task = order.CreateTask(OnCraftingComplete);
                     TaskManager.Instance.AddTask(task);
                 }
@@ -80,14 +86,14 @@ namespace Items
 
         private void OnCraftingComplete(Task task)
         {
-            TableData.CurrentOrder = null;
+            RuntimeTableData.CurrentOrder = null;
         }
 
         private SpriteRenderer CraftingPreview
         {
             get
             {
-                switch (Data.Direction)
+                switch (_direction)
                 {
                     case PlacementDirection.South:
                         return _southCraftingPreview;
@@ -111,20 +117,20 @@ namespace Items
             if(_eastCraftingPreview != null) _eastCraftingPreview.gameObject.SetActive(false);
         }
         
-        public void AssignItemToTable(CraftedItemSettings craftedItem)
+        public void AssignItemToTable(CraftedItemData craftedItem)
         {
             if (craftedItem != null)
             {
-                ShowCraftingPreview(craftedItem.ItemSprite);
-                TableData.ItemBeingCrafted = craftedItem;
-                TableData.RemainingCraftingWork = craftedItem.CraftRequirements.WorkCost;
-                TableData.RemainingMaterials = new List<ItemAmount>(craftedItem.CraftRequirements.GetResourceCosts());
+                ShowCraftingPreview(craftedItem.icon);
+                RuntimeTableData.ItemBeingCrafted = craftedItem;
+                RuntimeTableData.RemainingCraftingWork = craftedItem.CraftRequirements.WorkCost;
+                RuntimeTableData.RemainingMaterials = new List<ItemAmount>(craftedItem.CraftRequirements.GetResourceCosts());
             }
             else
             {
                 ShowCraftingPreview(null);
-                TableData.ItemBeingCrafted = null;
-                TableData.RemainingCraftingWork = 0;
+                RuntimeTableData.ItemBeingCrafted = null;
+                RuntimeTableData.RemainingCraftingWork = 0;
             }
         }
 
@@ -146,9 +152,9 @@ namespace Items
 
         public bool DoCraft(float workAmount)
         {
-            TableData.RemainingCraftingWork -= workAmount;
+            RuntimeTableData.RemainingCraftingWork -= workAmount;
             
-            if (TableData.RemainingCraftingWork <= 0)
+            if (RuntimeTableData.RemainingCraftingWork <= 0)
             {
                 CompleteCraft();
                 return true;
@@ -157,16 +163,16 @@ namespace Items
             return false;
         }
 
-        public void ReceiveMaterial(Item item)
+        public void ReceiveMaterial(ItemData item)
         {
-            foreach (var remainingMaterial in TableData.RemainingMaterials)
+            foreach (var remainingMaterial in RuntimeTableData.RemainingMaterials)
             {
-                if (remainingMaterial.Item == item.GetItemData())
+                if (remainingMaterial.Item == item)
                 {
                     remainingMaterial.Quantity -= 1;
                 }
             }
-            Destroy(item.gameObject);
+            Destroy(item.LinkedItem.gameObject);
         }
 
         private void CompleteCraft()
@@ -174,9 +180,9 @@ namespace Items
             AssignItemToTable(null);
         }
 
-        public List<CraftedItemSettings> GetCraftableItems()
+        public List<CraftedItemData> GetCraftableItems()
         {
-            return TableData.TableSettings.CraftableItems;
+            return RuntimeTableData.CraftableItems;
         }
     }
 }
