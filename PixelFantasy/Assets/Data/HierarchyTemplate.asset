@@ -70,7 +70,7 @@ MonoBehaviour:
     typeDisplayName: Resources
     typeName: 
     typeAssemblyQualifiedName: 
-    childCount: 1
+    childCount: 3
     indexOfFirstChild: 9
   - foldout: 0
     typeDisplayName: Crop
@@ -79,16 +79,29 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     childCount: 0
     indexOfFirstChild: 10
+  - foldout: 0
+    typeDisplayName: Basic Resource
+    typeName: ResourceData
+    typeAssemblyQualifiedName: Data.Resource.ResourceData, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    childCount: 0
+    indexOfFirstChild: 11
+  - foldout: 0
+    typeDisplayName: Growing Resource
+    typeName: 
+    typeAssemblyQualifiedName: 
+    childCount: 0
+    indexOfFirstChild: 12
   - foldout: 1
     typeDisplayName: Equipment
     typeName: 
     typeAssemblyQualifiedName: 
     childCount: 1
-    indexOfFirstChild: 11
+    indexOfFirstChild: 13
   - foldout: 0
     typeDisplayName: Tools
     typeName: ToolData
     typeAssemblyQualifiedName: Data.Item.ToolData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     childCount: 0
-    indexOfFirstChild: 12
+    indexOfFirstChild: 14

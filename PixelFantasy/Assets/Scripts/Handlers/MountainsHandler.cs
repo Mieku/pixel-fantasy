@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Controllers;
+using Data.Resource;
 using DataPersistence;
 using Items;
 using ScriptableObjects;
@@ -24,11 +25,11 @@ namespace Handlers
             List<MountainStats> stats = new List<MountainStats>();
             foreach (var mountain in _mountains)
             {
-                var stat = stats.Find(mount => mount.Settings == mountain.ResourceSettings as MountainSettings);
+                var stat = stats.Find(mount => mount.MountainData == mountain.Data as MountainResourceData);
                 if (stat == null)
                 {
                     stat = new MountainStats();
-                    stat.Settings = mountain.ResourceSettings as MountainSettings;
+                    stat.MountainData = mountain.RuntimeMountainData as MountainResourceData;
                     stat.Count = 1;
                     stats.Add(stat);
                 }
@@ -43,7 +44,7 @@ namespace Handlers
             foreach (var stat in stats)
             {
                 var percent = (stat.Count / total) * 100f;
-                statLog += $"{stat.Settings.ResourceName}: {stat.Count} {percent:0.00}%\n";
+                statLog += $"{stat.MountainData.title}: {stat.Count} {percent:0.00}%\n";
             }
             Debug.Log(statLog);
         }
@@ -67,19 +68,19 @@ namespace Handlers
             _mountainTM.ClearAllTiles();
         }
 
-        public void SpawnMountain(MountainSettings mountainSettings, float x, float y)
+        public void SpawnMountain(MountainResourceData mountainData, float x, float y)
         {
             var spawnPosition = new Vector3(x, y, -1);
             var mountain = Instantiate(_mountainPrefab, spawnPosition, Quaternion.identity, transform);
-            mountain.Init(mountainSettings);
-            mountain.gameObject.name = mountainSettings.ResourceName;
+            mountain.Init(mountainData);
+            mountain.gameObject.name = mountainData.title;
             _mountains.Add(mountain);
         }
     }
     
     public class MountainStats
     {
-        public MountainSettings Settings;
+        public MountainResourceData MountainData;
         public int Count;
     }
 }

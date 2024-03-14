@@ -4,6 +4,7 @@ using Characters;
 using CodeMonkey.Utils;
 using Controllers;
 using Data.Item;
+using Data.Resource;
 using Items;
 using ScriptableObjects;
 using Systems.Buildings.Scripts;
@@ -55,20 +56,6 @@ namespace Managers
         public Transform FlooringParent => _flooringParent;
         public Transform MiscParent => _miscParent;
         public RuleTile WallPlanRuleTile;
-
-        // public PlacementDirection SetNextPlacementDirection(bool isClockwise)
-        // {
-        //     if (isClockwise)
-        //     {
-        //         PlacementDirection = Helper.GetNextDirection(PlacementDirection);
-        //     }
-        //     else
-        //     {
-        //         PlacementDirection = Helper.GetPrevDirection(PlacementDirection);
-        //     }
-        //     
-        //     return PlacementDirection;
-        // }
         
         private void OnEnable()
         {
@@ -118,7 +105,6 @@ namespace Managers
                 if (_plannedFurniture.CheckPlacement())
                 {
                     _plannedFurniture.CompletePlanning();
-                    //_plannedFurniture.SetState(EFurnitureState.InProduction);
                     _plannedFurniture = null;
                     
                     // Allows the player to place multiple
@@ -291,29 +277,18 @@ namespace Managers
             {
                 if (Input.GetKeyDown(KeyCode.E)) // Clockwise
                 {
-                    //SetNextPlacementDirection(true);
                     if (_plannedFurniture != null)
                     {
-                        // Destroy(_plannedFurniture.gameObject);
-                        // _plannedFurniture = null;
-                        //
                         _prevPlacementDirection = _plannedFurniture.RotatePlan(true);
                     }
-
-                    //PlanFurniture(_selectedFurnitureDetails);
                 }
                 
                 if (Input.GetKeyDown(KeyCode.Q)) // Counter Clockwise
                 {
-                    //SetNextPlacementDirection(false);
                     if (_plannedFurniture != null)
                     {
-                        // Destroy(_plannedFurniture.gameObject);
-                        // _plannedFurniture = null;
                         _prevPlacementDirection = _plannedFurniture.RotatePlan(false);
                     }
-
-                    // PlanFurniture(_selectedFurnitureDetails);
                 }
             }
         }
@@ -421,15 +396,6 @@ namespace Managers
         public Furniture SpawnFurniture(Furniture prefab, Vector3 position, BuildDetailsUI.SelectedFurnitureDetails selectedFurnitureDetails, Transform parent = null)
         {
             var furnitureObject = Instantiate(prefab, position, Quaternion.identity, parent ?? _furnitureParent);
-            if (furnitureObject.TryGetComponent<IFurnitureInitializable>(out var initializable))
-            {
-                //initializable.Init(selectedFurnitureDetails.Furniture, selectedFurnitureDetails.Varient, selectedFurnitureDetails.Dye);
-            }
-            else
-            {
-                Debug.LogError("The spawned furniture does not implement IFurnitureInitializable.");
-            }
-        
             return furnitureObject.GetComponent<Furniture>();
         }
 
@@ -441,23 +407,23 @@ namespace Managers
         
             _plannedFurniture = SpawnFurniture(prefab, position, selectedFurnitureDetails);
             _plannedFurniture.StartPlanning(selectedFurnitureDetails, direction);
-            //_plannedFurniture.SetState(EFurnitureState.Planning);
+            _prevPlacementDirection = direction;
         }
         
-        public void SpawnTree(Vector3 spawnPosition, GrowingResourceSettings growingResourceSettings)
+        public void SpawnTree(Vector3 spawnPosition, GrowingResourceData growingResourceData)
         {
             spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
             var tree = Instantiate(_treePrefab, spawnPosition, Quaternion.identity);
             tree.transform.SetParent(_resourceParent);
-            tree.GetComponent<GrowingResource>().Init(growingResourceSettings);
+            tree.GetComponent<GrowingResource>().Init(growingResourceData);
         }
 
-        public void SpawnPlant(Vector3 spawnPosition, GrowingResourceSettings growingResourceSettings)
+        public void SpawnPlant(Vector3 spawnPosition, GrowingResourceData growingResourceData)
         {
             spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
             var plant = Instantiate(_plantPrefab, spawnPosition, Quaternion.identity);
             plant.transform.SetParent(_resourceParent);
-            plant.GetComponent<GrowingResource>().Init(growingResourceSettings);
+            plant.GetComponent<GrowingResource>().Init(growingResourceData);
         }
         
         #region Structure

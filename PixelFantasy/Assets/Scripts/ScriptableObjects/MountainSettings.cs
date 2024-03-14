@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Data.Resource;
 using Items;
 using UnityEngine;
 
@@ -35,14 +36,14 @@ namespace ScriptableObjects
         }
     }
     
-    public enum MountainTileType
-    {
-        Empty,
-        Stone,
-        Copper,
-        Coal,
-        Tin,
-        Iron,
-        Gold,
-    }
+    // public enum MountainTileType
+    // {
+    //     Empty,
+    //     Stone,
+    //     Copper,
+    //     Coal,
+    //     Tin,
+    //     Iron,
+    //     Gold,
+    // }
 }

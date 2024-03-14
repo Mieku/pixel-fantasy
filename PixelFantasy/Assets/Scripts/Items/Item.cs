@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Characters;
 using Data.Item;
+using Databrain;
 using Databrain.Attributes;
 using DataPersistence;
 using Interfaces;
@@ -18,7 +19,7 @@ namespace Items
 {
     public class Item : PlayerInteractable, IClickableObject
     {
-        [FormerlySerializedAs("_itemData")] [SerializeField] private ItemSettings _itemSettings;
+        //[FormerlySerializedAs("_itemData")] [SerializeField] private ItemSettings _itemSettings;
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private ClickObject _clickObject;
 
@@ -34,6 +35,8 @@ namespace Items
         public Storage AssignedStorage;
 
         //public ItemState State { get; private set; }
+
+        public DataLibrary DataLibrary;
         
         [DataObjectDropdown("DataLibrary")]
         public ItemData Data;
@@ -58,6 +61,13 @@ namespace Items
         {
             //_itemSettings = itemSettings;
             Data = itemData;
+            RuntimeData = Data.GetRuntimeDataObject() as ItemData;
+
+            if (RuntimeData == null)
+            {
+                RuntimeData = (ItemData) DataLibrary.CloneDataObjectToRuntime(Data, gameObject);
+            }
+            
             IsAllowed = allowed;
             
             DisplayItemSprite();
@@ -75,7 +85,7 @@ namespace Items
                 AssignedStorage = InventoryManager.Instance.GetAvailableStorage(RuntimeData);
                 if (AssignedStorage != null)
                 {
-                    AssignedStorage.StorageData.SetIncoming(RuntimeData);
+                    AssignedStorage.RuntimeStorageData.SetIncoming(RuntimeData);
                     CreateHaulTask();
                 }
             }
@@ -109,7 +119,7 @@ namespace Items
             {
                 if (AssignedStorage != null)
                 {
-                    AssignedStorage.StorageData.CancelIncoming(RuntimeData);
+                    AssignedStorage.RuntimeStorageData.CancelIncoming(RuntimeData);
                     AssignedStorage = null;
                 }
 
@@ -167,25 +177,18 @@ namespace Items
 
         private void DisplayItemSprite()
         {
-            if (_itemSettings == null) return;
-
-            _spriteRenderer.sprite = _itemSettings.ItemSprite;
+            _spriteRenderer.sprite = Data.ItemSprite;
         }
 
         public bool IsSameItemType(Item item)
         {
-            return _itemSettings == item.GetItemData();
+            return Data == item.Data;
         }
-
-        public ItemSettings GetItemData()
-        {
-            return _itemSettings;
-        }
-
-        private void OnValidate()
-        {
-            DisplayItemSprite();
-        }
+        
+        // private void OnValidate()
+        // {
+        //     DisplayItemSprite();
+        // }
 
         public void ToggleAllowed(bool isAllowed)
         {
@@ -255,7 +258,7 @@ namespace Items
             }
         }
 
-        public string DisplayName => _itemSettings.ItemName;
+        public string DisplayName => Data.ItemName;
 
         // public object CaptureState()
         // {

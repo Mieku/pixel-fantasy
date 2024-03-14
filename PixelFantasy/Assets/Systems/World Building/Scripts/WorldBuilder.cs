@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Data.Resource;
 using Handlers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
@@ -30,8 +31,8 @@ namespace Systems.World_Building.Scripts
         [SerializeField] private Tilemap _groundCoverTilemap;
         [SerializeField] private RuleTile _dirtRuleTile;
         [SerializeField] private RuleTile _forestFloorRuleTile;
-
-        [SerializeField] private GameObject _starterStockPile;
+        
+        public Vector3Int StartPos;
 
         public Vector2Int WorldSize
         {
@@ -149,7 +150,7 @@ namespace Systems.World_Building.Scripts
             }
 
             var random = Random.Range(0, startpoints.Count);
-            _starterStockPile.transform.position = startpoints[random];
+            StartPos = startpoints[random];
 
             yield return null;
         }

@@ -20,30 +20,26 @@ MonoBehaviour:
   title: Wood
   description: This is a description of the newly created data entry.
   tags: []
-  index: 0
+  index: 2
   relatedLibraryObject: {fileID: 11400000}
   runtimeLibraryObject: {fileID: 0}
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _category: 0
+  _maxDurability: 100
   Durability: 100
-  Category: 0
-  LinkedItem: {fileID: 0}
   IsAllowed: 0
-  _currentTask:
+  CurrentTask:
     TaskId: 
     TaskType: 0
     KinlingAssignedToTask: {fileID: 0}
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
-  _assignedSlotUID: 
-  _assignedUnitUID: 
-  _isHeld: 0
-  _carryingKinling: {fileID: 0}
-  _originalParent: {fileID: 0}
+  CarryingKinlingUID: 
   AssignedStorage: {fileID: 0}
-  ItemSprite: {fileID: 21300000, guid: d12e3c3542b3a2446b1b909d5ff7ea05, type: 3}
+  LinkedItem: {fileID: 0}
 --- !u!114 &-4624164709437787247
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -57,6 +53,152 @@ MonoBehaviour:
   m_Name: HelpModule
   m_EditorClassIdentifier: 
   welcomeWindow: {fileID: 0}
+--- !u!114 &-4328041401239383635
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced93b085944109429e3862d6d268ab0, type: 3}
+  m_Name: Stick
+  m_EditorClassIdentifier: 
+  guid: 12a6e82f-3dd4-41a2-b654-43ebed68ff27
+  initialGuid: 12a6e82f-3dd4-41a2-b654-43ebed68ff27
+  runtimeIndexID: 
+  icon: {fileID: -168499877, guid: cde0bb39e0dd2f742954541f1d452824, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Stick
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 1
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 2919327189383101433, guid: 83b276780b22eee4d925461adebde20c, type: 3}
+  _workToExtract: 5
+  _harvestableItems:
+    _itemDrops:
+    - Item: {fileID: -5005131501070810583}
+      MinDrop: 0
+      MaxDrop: 1
+  _potentialSprites:
+  - {fileID: -168499877, guid: cde0bb39e0dd2f742954541f1d452824, type: 3}
+  _maxHealth: 5
+  _minWorkDistance: 0.75
+  _invalidPlacementTags:
+  - Water
+  - Wall
+  - Obstacle
+  - Nature
+  - Structure
+  SpriteIndex: 0
+  Health: 0
+  CurrentTask:
+    TaskId: 
+    TaskType: 0
+    KinlingAssignedToTask: {fileID: 0}
+    Materials: []
+    RequiredToolType: 0
+    IsKinlingSpecific: 0
+  Position: {x: 0, y: 0}
+--- !u!114 &-4106105843404846981
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbc9303aa2d135a4798c82e1a456a091, type: 3}
+  m_Name: Copper Ore
+  m_EditorClassIdentifier: 
+  guid: a48cc74b-9f59-4a6f-b554-b8f953276319
+  initialGuid: a48cc74b-9f59-4a6f-b554-b8f953276319
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: 1c851eae1881328409a3c8599d4113f8, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Copper Ore
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 1
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _category: 0
+  _maxDurability: 100
+  Durability: 100
+  IsAllowed: 0
+  CurrentTask:
+    TaskId: 
+    TaskType: 0
+    KinlingAssignedToTask: {fileID: 0}
+    Materials: []
+    RequiredToolType: 0
+    IsKinlingSpecific: 0
+  CarryingKinlingUID: 
+  AssignedStorage: {fileID: 0}
+  LinkedItem: {fileID: 0}
+--- !u!114 &-1362852035674046031
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced93b085944109429e3862d6d268ab0, type: 3}
+  m_Name: Log
+  m_EditorClassIdentifier: 
+  guid: ce25fbdd-8403-462d-8478-fdf243b8064f
+  initialGuid: ce25fbdd-8403-462d-8478-fdf243b8064f
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: ec6cc8498ba24f94d852e86cf7441df2, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Log
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 4
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 2237005579245771593, guid: 2405aa579d18a204cbaae7185fe98266, type: 3}
+  _workToExtract: 5
+  _harvestableItems:
+    _itemDrops:
+    - Item: {fileID: -5005131501070810583}
+      MinDrop: 1
+      MaxDrop: 1
+  _potentialSprites:
+  - {fileID: 21300000, guid: ec6cc8498ba24f94d852e86cf7441df2, type: 3}
+  _maxHealth: 5
+  _minWorkDistance: 0.75
+  _invalidPlacementTags:
+  - Water
+  - Wall
+  - Obstacle
+  - Nature
+  - Structure
+  SpriteIndex: 0
+  Health: 0
+  CurrentTask:
+    TaskId: 
+    TaskType: 0
+    KinlingAssignedToTask: {fileID: 0}
+    Materials: []
+    RequiredToolType: 0
+    IsKinlingSpecific: 0
+  Position: {x: 0, y: 0}
 --- !u!114 &-1021968146556891717
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -83,51 +225,100 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  Durability: 100
-  Category: 4
-  LinkedItem: {fileID: 0}
+  _category: 4
+  _maxDurability: 100
+  Durability: 0
   IsAllowed: 0
-  _currentTask:
+  CurrentTask:
     TaskId: 
     TaskType: 0
     KinlingAssignedToTask: {fileID: 0}
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
-  _assignedSlotUID: 
-  _assignedUnitUID: 
-  _isHeld: 0
-  _carryingKinling: {fileID: 0}
-  _originalParent: {fileID: 0}
+  CarryingKinlingUID: 
   AssignedStorage: {fileID: 0}
-  ItemSprite: {fileID: -1997294335, guid: 90f5efa4e4d76d34cb9b37730541f11f, type: 3}
-  CraftRequirements:
-    _minCraftingSkillLevel: 0
-    _craftingSkill: 0
+  LinkedItem: {fileID: 0}
+  _craftRequirements:
+    _minCraftingSkillLevel: 1
+    _craftingSkill: 10
     _materialCosts:
     - Item: {fileID: -5005131501070810583}
       Quantity: 2
-    _workCost: 0
+    _workCost: 10
     _requiredCraftingToolType: 0
-  InvalidPlacementTags:
+  CraftersUID: 
+  _invalidPlacementTags:
   - Water
   - Wall
   - Obstacle
-  CraftersUID: 
-  LinkedFurniture: {fileID: 0}
-  FurniturePrefab: {fileID: 4176969880153003644, guid: e219a8e018e3d244b8d0ef8b035b149b, type: 3}
-  InUseNeedChange:
+  _furniturePrefab: {fileID: 4176969880153003644, guid: e219a8e018e3d244b8d0ef8b035b149b, type: 3}
+  _inUseNeedChange:
     SourceID: 
     AmountPerHour: 0
     NeedType: 0
-  ColourOptions:
+  _colourOptions:
     ColourOptionsHeader: 
     DyePalettes: []
+  _varients: []
+  _workToCraft: 10
+  _defaultDirection: 0
   State: 0
   RemainingWork: 0
   Direction: 0
   InUse: 0
-  Varients: []
+  LinkedFurniture: {fileID: 0}
+--- !u!114 &-56553772185048440
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced93b085944109429e3862d6d268ab0, type: 3}
+  m_Name: Grass
+  m_EditorClassIdentifier: 
+  guid: 569b2018-188d-4f78-b981-de99581d0912
+  initialGuid: 569b2018-188d-4f78-b981-de99581d0912
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: 1108efb6e8213bb44adc20f64f5d7c41, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Grass
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 5
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 1567881098773952703, guid: f6e3f4dcab112d84ca793e69ed2f6dbf, type: 3}
+  _workToExtract: 5
+  _harvestableItems:
+    _itemDrops: []
+  _potentialSprites:
+  - {fileID: 21300000, guid: 1108efb6e8213bb44adc20f64f5d7c41, type: 3}
+  - {fileID: 21300000, guid: ecdc013dbc4bb7d4ab4a5c84dd70f7cf, type: 3}
+  _maxHealth: 5
+  _minWorkDistance: 0.75
+  _invalidPlacementTags:
+  - Water
+  - Wall
+  - Obstacle
+  - Nature
+  - Structure
+  SpriteIndex: 0
+  Health: 0
+  CurrentTask:
+    TaskId: 
+    TaskType: 0
+    KinlingAssignedToTask: {fileID: 0}
+    Materials: []
+    RequiredToolType: 0
+    IsKinlingSpecific: 0
+  Position: {x: 0, y: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,16 +348,28 @@ MonoBehaviour:
     - type: Data.Item.ItemData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 4384225487442251340}
+      - {fileID: -4106105843404846981}
       - {fileID: -5005131501070810583}
     - type: Data.Item.CraftedItemData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
       - {fileID: 366437865215858577}
+    - type: Data.Resource.ResourceData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
+      - {fileID: 7833847521327401813}
+      - {fileID: -4328041401239383635}
+      - {fileID: 115313260348806446}
+      - {fileID: 7531465296088124193}
+      - {fileID: -1362852035674046031}
+      - {fileID: -56553772185048440}
+      - {fileID: 6734689318582040478}
     _favoriteList: []
   copyData:
     _objectList: []
     _favoriteList: []
-  firstColumnWidth: 0
+  firstColumnWidth: 200
   secondColumnWidth: 240
   runtimeLibrary: {fileID: 7730749120145212212}
   runtimeLibraryGuid: 
@@ -197,7 +400,7 @@ MonoBehaviour:
       titlesFilter: []
       valuesFilter: []
   - namespaceName: Constructables
-    foldout: 1
+    foldout: 0
     hidden: 0
     icon: 
     existingTypes:
@@ -234,8 +437,21 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
+    - typeName: ResourceData
+      typeAssemblyQualifiedName: Data.Resource.ResourceData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: 
+      typeAssemblyQualifiedName: 
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
   - namespaceName: Equipment
-    foldout: 1
+    foldout: 0
     hidden: 0
     icon: 
     existingTypes:
@@ -252,6 +468,65 @@ MonoBehaviour:
   jsonFormatting: 0
   tags: []
   hierarchyTemplate: {fileID: 11400000, guid: e1f1dd703b7da4c4e907fb8e898fc4ca, type: 2}
+--- !u!114 &115313260348806446
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced93b085944109429e3862d6d268ab0, type: 3}
+  m_Name: Rock
+  m_EditorClassIdentifier: 
+  guid: 8a04012c-9d13-47bb-9f8a-3be8341f78e0
+  initialGuid: 8a04012c-9d13-47bb-9f8a-3be8341f78e0
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: 6bf4cd3e76b83c1499886fb77bf115d1, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Rock
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 2
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 3630224067709912070, guid: 1e285695b28aebc48a8bab97dfdd4b87, type: 3}
+  _workToExtract: 5
+  _harvestableItems:
+    _itemDrops:
+    - Item: {fileID: 4384225487442251340}
+      MinDrop: 1
+      MaxDrop: 1
+  _potentialSprites:
+  - {fileID: 21300000, guid: 6bf4cd3e76b83c1499886fb77bf115d1, type: 3}
+  - {fileID: 21300000, guid: 8755168f4f19fac4bb82847262828d42, type: 3}
+  - {fileID: 21300000, guid: 4a79996dfd517a346aa042b5307508ca, type: 3}
+  - {fileID: 21300000, guid: 2168842bba246f845a72943e2abbca90, type: 3}
+  - {fileID: 21300000, guid: a1e57c9368fb5684c87dd57f724d34fd, type: 3}
+  - {fileID: 21300000, guid: 1a123ce38e4dea54f9f4baf9aa60a329, type: 3}
+  - {fileID: 21300000, guid: 44cb070754958b241b8535b5d853801e, type: 3}
+  _maxHealth: 8
+  _minWorkDistance: 0.75
+  _invalidPlacementTags:
+  - Water
+  - Wall
+  - Obstacle
+  - Nature
+  - Structure
+  SpriteIndex: 0
+  Health: 0
+  CurrentTask:
+    TaskId: 
+    TaskType: 0
+    KinlingAssignedToTask: {fileID: 0}
+    Materials: []
+    RequiredToolType: 0
+    IsKinlingSpecific: 0
+  Position: {x: 0, y: 0}
 --- !u!114 &366437865215858577
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -278,34 +553,28 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  Durability: 100
-  Category: 0
-  LinkedItem: {fileID: 0}
+  _category: 0
+  _maxDurability: 100
+  Durability: 0
   IsAllowed: 0
-  _currentTask:
+  CurrentTask:
     TaskId: 
     TaskType: 0
     KinlingAssignedToTask: {fileID: 0}
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
-  _assignedSlotUID: 
-  _assignedUnitUID: 
-  _isHeld: 0
-  _carryingKinling: {fileID: 0}
-  _originalParent: {fileID: 0}
+  CarryingKinlingUID: 
   AssignedStorage: {fileID: 0}
-  ItemSprite: {fileID: 0}
-  CraftRequirements:
-    _minCraftingSkillLevel: 0
-    _craftingSkill: 0
-    _materialCosts: []
-    _workCost: 0
+  LinkedItem: {fileID: 0}
+  _craftRequirements:
+    _minCraftingSkillLevel: 2
+    _craftingSkill: 10
+    _materialCosts:
+    - Item: {fileID: -4106105843404846981}
+      Quantity: 2
+    _workCost: 5
     _requiredCraftingToolType: 0
-  InvalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
   CraftersUID: 
 --- !u!114 &1013997515501222643
 MonoBehaviour:
@@ -346,54 +615,53 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _category: 4
+  _maxDurability: 100
   Durability: 100
-  Category: 4
-  LinkedItem: {fileID: 0}
   IsAllowed: 0
-  _currentTask:
+  CurrentTask:
     TaskId: 
     TaskType: 0
     KinlingAssignedToTask: {fileID: 0}
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
-  _assignedSlotUID: 
-  _assignedUnitUID: 
-  _isHeld: 0
-  _carryingKinling: {fileID: 0}
-  _originalParent: {fileID: 0}
+  CarryingKinlingUID: 
   AssignedStorage: {fileID: 0}
-  ItemSprite: {fileID: 6042991441123128078, guid: afda4cedd10beb942a0a9fcb40a307b0, type: 3}
-  CraftRequirements:
+  LinkedItem: {fileID: 0}
+  _craftRequirements:
     _minCraftingSkillLevel: 1
     _craftingSkill: 10
-    _materialCosts:
-    - Item: {fileID: -5005131501070810583}
-      Quantity: 3
+    _materialCosts: []
     _workCost: 10
     _requiredCraftingToolType: 0
-  InvalidPlacementTags:
+  CraftersUID: 
+  _invalidPlacementTags:
   - Water
   - Wall
   - Obstacle
-  CraftersUID: 
-  LinkedFurniture: {fileID: 0}
-  FurniturePrefab: {fileID: 0}
-  InUseNeedChange:
+  _furniturePrefab: {fileID: 5465201506073250537, guid: 4126993f3ec383d47b0bc1b4432eb7bc, type: 3}
+  _inUseNeedChange:
     SourceID: 
     AmountPerHour: 0
     NeedType: 0
-  ColourOptions:
+  _colourOptions:
     ColourOptionsHeader: 
     DyePalettes: []
-  State: 2
+  _varients: []
+  _workToCraft: 10
+  _defaultDirection: 0
+  State: 1
   RemainingWork: 0
   Direction: 0
   InUse: 0
-  Varients: []
-  MaxStorage: 100
-  AcceptedCategories: 00000000030000000100000002000000
-  SpecificStorage: []
+  LinkedFurniture: {fileID: 0}
+  _maxStorage: 100
+  _acceptedCategories: 00000000030000000100000002000000
+  _specificStorage: []
+  Stored: []
+  Incoming: []
+  Claimed: []
 --- !u!114 &1983106924015250702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -494,6 +762,46 @@ MonoBehaviour:
     - worksheetTypeName: ToolData
       worksheetID: 
   csvImportSettings: []
+--- !u!114 &4384225487442251340
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbc9303aa2d135a4798c82e1a456a091, type: 3}
+  m_Name: Stone
+  m_EditorClassIdentifier: 
+  guid: d92893bc-1dbe-42f7-bac6-c4292d8457b5
+  initialGuid: d92893bc-1dbe-42f7-bac6-c4292d8457b5
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: 286743b833fa73a4c824303d4da3e3dd, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Stone
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _category: 0
+  _maxDurability: 100
+  Durability: 100
+  IsAllowed: 0
+  CurrentTask:
+    TaskId: 
+    TaskType: 0
+    KinlingAssignedToTask: {fileID: 0}
+    Materials: []
+    RequiredToolType: 0
+    IsKinlingSpecific: 0
+  CarryingKinlingUID: 
+  AssignedStorage: {fileID: 0}
+  LinkedItem: {fileID: 0}
 --- !u!114 &6553907554727160304
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -520,51 +828,116 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  Durability: 100
-  Category: 4
-  LinkedItem: {fileID: 0}
+  _category: 4
+  _maxDurability: 100
+  Durability: 0
   IsAllowed: 0
-  _currentTask:
+  CurrentTask:
     TaskId: 
     TaskType: 0
     KinlingAssignedToTask: {fileID: 0}
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
-  _assignedSlotUID: 
-  _assignedUnitUID: 
-  _isHeld: 0
-  _carryingKinling: {fileID: 0}
-  _originalParent: {fileID: 0}
+  CarryingKinlingUID: 
   AssignedStorage: {fileID: 0}
-  ItemSprite: {fileID: -1986180085, guid: 128e7404977fef1479d14ee0c70721c3, type: 3}
-  CraftRequirements:
-    _minCraftingSkillLevel: 2
+  LinkedItem: {fileID: 0}
+  _craftRequirements:
+    _minCraftingSkillLevel: 5
     _craftingSkill: 10
     _materialCosts:
     - Item: {fileID: 366437865215858577}
       Quantity: 2
     _workCost: 10
     _requiredCraftingToolType: 0
-  InvalidPlacementTags:
+  CraftersUID: 
+  _invalidPlacementTags:
   - Water
   - Wall
   - Obstacle
-  CraftersUID: 
-  LinkedFurniture: {fileID: 0}
-  FurniturePrefab: {fileID: 5935236254734965145, guid: dd1324a0af4a86b41b638230c8941527, type: 3}
-  InUseNeedChange:
+  _furniturePrefab: {fileID: 5935236254734965145, guid: d53577c50dbdf024492966a48b113a13, type: 3}
+  _inUseNeedChange:
     SourceID: 
     AmountPerHour: 0
     NeedType: 0
-  ColourOptions:
+  _colourOptions:
     ColourOptionsHeader: 
     DyePalettes: []
+  _varients: []
+  _workToCraft: 10
+  _defaultDirection: 0
   State: 0
   RemainingWork: 0
   Direction: 0
   InUse: 0
-  Varients: []
+  LinkedFurniture: {fileID: 0}
+--- !u!114 &6734689318582040478
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced93b085944109429e3862d6d268ab0, type: 3}
+  m_Name: Flower
+  m_EditorClassIdentifier: 
+  guid: f2155f3f-2cf5-4535-a67e-23faf4057889
+  initialGuid: f2155f3f-2cf5-4535-a67e-23faf4057889
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: d232dee733a0b284cb4f63fd44eb3b1e, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Flower
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 6
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 906310196879369055, guid: 7d7f9b7dc6a672e45ae9ab91f1a9431c, type: 3}
+  _workToExtract: 5
+  _harvestableItems:
+    _itemDrops: []
+  _potentialSprites:
+  - {fileID: 21300000, guid: d232dee733a0b284cb4f63fd44eb3b1e, type: 3}
+  - {fileID: 21300000, guid: 6c2f5d7e273ae9246a32cc8935289e56, type: 3}
+  - {fileID: 21300000, guid: 74eba1d1144661841bc8698f9e8848a4, type: 3}
+  - {fileID: 21300000, guid: e310043aa95880543b9cda01d0b9f2bb, type: 3}
+  - {fileID: 21300000, guid: 71c2f49998383de419512d8ba57c5d35, type: 3}
+  - {fileID: 21300000, guid: 632d58347372618469a818ad6ec81cf6, type: 3}
+  - {fileID: 21300000, guid: ff4f4b712e2f44343a65215909102c09, type: 3}
+  - {fileID: 21300000, guid: f6d2c60e470376846806d5b20663334a, type: 3}
+  - {fileID: 21300000, guid: 80366efda14cc2a40a733e8bcd8fd72e, type: 3}
+  - {fileID: 21300000, guid: 28c9531df6c2cf445a98c453ffe5fe85, type: 3}
+  - {fileID: 21300000, guid: 0b01e25436817084c90ae08952ea1091, type: 3}
+  - {fileID: 21300000, guid: acc0a0214dd89d14f9eaf71a69e52251, type: 3}
+  - {fileID: 21300000, guid: 4cee6a9231d83f84a978de07310c5ff7, type: 3}
+  - {fileID: 21300000, guid: e1ca26bfec56bf545b40564fe2191aad, type: 3}
+  - {fileID: 21300000, guid: 141e9ac0b8783f94bb1a0b2e2848f2d1, type: 3}
+  - {fileID: 21300000, guid: 2c6a352fb5e995d489699487abe815ad, type: 3}
+  - {fileID: 21300000, guid: cead492bd8bcd9949bf380d083ae3539, type: 3}
+  - {fileID: 21300000, guid: ba3fe77bde9281d4083966e7aa6c6c6e, type: 3}
+  _maxHealth: 5
+  _minWorkDistance: 0.75
+  _invalidPlacementTags:
+  - Water
+  - Wall
+  - Obstacle
+  - Nature
+  - Structure
+  SpriteIndex: 0
+  Health: 0
+  CurrentTask:
+    TaskId: 
+    TaskType: 0
+    KinlingAssignedToTask: {fileID: 0}
+    Materials: []
+    RequiredToolType: 0
+    IsKinlingSpecific: 0
+  Position: {x: 0, y: 0}
 --- !u!114 &7235637523369288592
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -591,51 +964,101 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  Durability: 100
-  Category: 4
-  LinkedItem: {fileID: 0}
+  _category: 4
+  _maxDurability: 100
+  Durability: 0
   IsAllowed: 0
-  _currentTask:
+  CurrentTask:
     TaskId: 
     TaskType: 0
     KinlingAssignedToTask: {fileID: 0}
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
-  _assignedSlotUID: 
-  _assignedUnitUID: 
-  _isHeld: 0
-  _carryingKinling: {fileID: 0}
-  _originalParent: {fileID: 0}
+  CarryingKinlingUID: 
   AssignedStorage: {fileID: 0}
-  ItemSprite: {fileID: -1986180085, guid: 128e7404977fef1479d14ee0c70721c3, type: 3}
-  CraftRequirements:
-    _minCraftingSkillLevel: 2
+  LinkedItem: {fileID: 0}
+  _craftRequirements:
+    _minCraftingSkillLevel: 1
     _craftingSkill: 10
     _materialCosts:
     - Item: {fileID: -5005131501070810583}
       Quantity: 2
     _workCost: 10
     _requiredCraftingToolType: 0
-  InvalidPlacementTags:
+  CraftersUID: 
+  _invalidPlacementTags:
   - Water
   - Wall
   - Obstacle
-  CraftersUID: 
-  LinkedFurniture: {fileID: 0}
-  FurniturePrefab: {fileID: 5935236254734965145, guid: dd1324a0af4a86b41b638230c8941527, type: 3}
-  InUseNeedChange:
+  _furniturePrefab: {fileID: 5935236254734965145, guid: dd1324a0af4a86b41b638230c8941527, type: 3}
+  _inUseNeedChange:
     SourceID: 
     AmountPerHour: 0
     NeedType: 0
-  ColourOptions:
+  _colourOptions:
     ColourOptionsHeader: 
     DyePalettes: []
+  _varients: []
+  _workToCraft: 10
+  _defaultDirection: 2
   State: 0
   RemainingWork: 0
   Direction: 0
   InUse: 0
-  Varients: []
+  LinkedFurniture: {fileID: 0}
+--- !u!114 &7531465296088124193
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced93b085944109429e3862d6d268ab0, type: 3}
+  m_Name: Mushroom
+  m_EditorClassIdentifier: 
+  guid: 3ec26f38-1aef-4c72-adf7-6ca70da0a6a6
+  initialGuid: 3ec26f38-1aef-4c72-adf7-6ca70da0a6a6
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: c0cec297fa7b5a94fa41d24c0f92ac25, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Mushroom
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 3
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 8171490800812371991, guid: 47d3a3f0d00e1b44fbd10ad53ebff7b5, type: 3}
+  _workToExtract: 5
+  _harvestableItems:
+    _itemDrops: []
+  _potentialSprites:
+  - {fileID: 21300000, guid: c0cec297fa7b5a94fa41d24c0f92ac25, type: 3}
+  - {fileID: 801511726, guid: 2aa1d04d9bcb58d49a8dafb36a7fe309, type: 3}
+  - {fileID: -278860237, guid: 2aa1d04d9bcb58d49a8dafb36a7fe309, type: 3}
+  _maxHealth: 5
+  _minWorkDistance: 0.75
+  _invalidPlacementTags:
+  - Water
+  - Wall
+  - Obstacle
+  - Nature
+  - Structure
+  SpriteIndex: 0
+  Health: 0
+  CurrentTask:
+    TaskId: 
+    TaskType: 0
+    KinlingAssignedToTask: {fileID: 0}
+    Materials: []
+    RequiredToolType: 0
+    IsKinlingSpecific: 0
+  Position: {x: 0, y: 0}
 --- !u!114 &7730749120145212212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,6 +1076,18 @@ MonoBehaviour:
   data:
     _objectList:
     - type: Data.Item.FurnitureData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+    - type: Data.Item.StorageData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects: []
+    - type: Data.Item.ItemData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects: []
+    - type: Data.Item.CraftedItemData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects: []
     _favoriteList: []
@@ -875,9 +1310,89 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
+  - namespaceName: Data.Resource
+    foldout: 0
+    hidden: 0
+    icon: 
+    existingTypes:
+    - typeName: ResourceData
+      typeAssemblyQualifiedName: Data.Resource.ResourceData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: MountainResourceData
+      typeAssemblyQualifiedName: Data.Resource.MountainResourceData, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: GrowingResourceData
+      typeAssemblyQualifiedName: Data.Resource.GrowingResourceData, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
   isRuntimeContainer: 1
   useXOREncryption: 0
   encryptionKey: 0
   jsonFormatting: 0
   tags: []
   hierarchyTemplate: {fileID: 0}
+--- !u!114 &7833847521327401813
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced93b085944109429e3862d6d268ab0, type: 3}
+  m_Name: Weed
+  m_EditorClassIdentifier: 
+  guid: aa83ad2b-3409-48de-972e-a7a1de339053
+  initialGuid: aa83ad2b-3409-48de-972e-a7a1de339053
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: 6445ea4b6f4fc3c45bd2afa90c10a269, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Weed
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 4128056971819822129, guid: 8025b15f75a03e249b86e4b29cb3a92f, type: 3}
+  _workToExtract: 5
+  _harvestableItems:
+    _itemDrops: []
+  _potentialSprites:
+  - {fileID: 21300000, guid: 6445ea4b6f4fc3c45bd2afa90c10a269, type: 3}
+  - {fileID: 21300000, guid: 0e23f67b29cb04a4d9f223500ae57149, type: 3}
+  - {fileID: 21300000, guid: 799ed2f70ba879946a5afbdfa46b8d0e, type: 3}
+  - {fileID: 21300000, guid: f0e6d6e19ba2be648bed15dcc3814ea3, type: 3}
+  - {fileID: 21300000, guid: 4674c1b26bcef104e8a33df79f9dcce0, type: 3}
+  _maxHealth: 5
+  _minWorkDistance: 0.75
+  _invalidPlacementTags:
+  - Water
+  - Wall
+  - Obstacle
+  - Nature
+  - Structure
+  SpriteIndex: 0
+  Health: 0
+  CurrentTask:
+    TaskId: 
+    TaskType: 0
+    KinlingAssignedToTask: {fileID: 0}
+    Materials: []
+    RequiredToolType: 0
+    IsKinlingSpecific: 0
+  Position: {x: 0, y: 0}

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Data.Item;
 using Managers;
 using ScriptableObjects;
@@ -7,9 +8,34 @@ namespace Items
 {
     public class Storage : Furniture
     {
-        public Transform StoredItemParent;
-        public StorageData StorageData => Data as Data.Item.StorageData;
-        public StorageData RuntimeStorageData => RuntimeData as Data.Item.StorageData;
+        public StorageData RuntimeStorageData => RuntimeData as StorageData;
+        
+        public void ForceLoadItems(List<ItemAmount> itemsToForceLoad)
+        {
+            _isPlanning = false;
+            DataLibrary.RegisterInitializationCallback((() =>
+            {
+                RuntimeData = (StorageData) DataLibrary.CloneDataObjectToRuntime(Data as StorageData, gameObject);
+                RuntimeData.InitData();
+                RuntimeData.State = EFurnitureState.Built;
+                RuntimeData.Direction = _direction;
+                SetState(RuntimeData.State);
+                AssignDirection(_direction);
+                
+                // Create ItemDatas
+                foreach (var itemAmount in itemsToForceLoad)
+                {
+                    for (int i = 0; i < itemAmount.Quantity; i++)
+                    {
+                        var itemData = (ItemData) DataLibrary.CloneDataObjectToRuntime(itemAmount.Item);
+                        itemData.InitData();
+                        ForceDepositItem(itemData);
+                    }
+                }
+            }));
+            DataLibrary.OnSaved += Saved;
+            DataLibrary.OnLoaded += Loaded;
+        }
         
         protected override void Built_Enter()
         {
@@ -21,17 +47,14 @@ namespace Items
         
         public void DepositItems(ItemData itemData)
         {
-            if (!StorageData.Incoming.Contains(itemData))
+            if (!RuntimeStorageData.Incoming.Contains(itemData))
             {
                 Debug.LogError("Tried to deposit an item that was not set as incoming");
                 return;
             } 
             
-            // item.transform.parent = StoredItemParent;
-            // item.AssignedStorage = this;
-            // item.gameObject.SetActive(false);
-            StorageData.Stored.Add(itemData);
-            StorageData.Incoming.Remove(itemData);
+            RuntimeStorageData.Stored.Add(itemData);
+            RuntimeStorageData.Incoming.Remove(itemData);
             
             GameEvents.Trigger_RefreshInventoryDisplay();
         }
@@ -41,45 +64,10 @@ namespace Items
         /// </summary>
         public void ForceDepositItem(ItemData itemData)
         {
-            // item.transform.parent = StoredItemParent;
-            // item.AssignedStorage = this;
-            // item.gameObject.SetActive(false);
-            StorageData.Stored.Add(itemData);
+            RuntimeStorageData.Stored.Add(itemData);
+            itemData.AssignedStorage = RuntimeStorageData;
             
             GameEvents.Trigger_RefreshInventoryDisplay();
         }
-        
-       
-        
-        // public Item WithdrawItem(ItemState itemState)
-        // {
-        //     Item result = null;
-        //     foreach (var claimedItem in StorageData.Claimed)
-        //     {
-        //         if (claimedItem.State.Equals(itemState))
-        //         {
-        //             StorageData.Claimed.Remove(claimedItem);
-        //             break;
-        //         }
-        //     }
-        //     
-        //     foreach (var storedItem in StorageData.Stored)
-        //     {
-        //         if (storedItem.State.Equals(itemState))
-        //         {
-        //             StorageData.Stored.Remove(storedItem);
-        //             result = storedItem;
-        //             break;
-        //         }
-        //     }
-        //
-        //     if (result != null)
-        //     {
-        //         result.gameObject.SetActive(true);
-        //     }
-        //     
-        //     GameEvents.Trigger_RefreshInventoryDisplay();
-        //     return result;
-        // }
     }
 }

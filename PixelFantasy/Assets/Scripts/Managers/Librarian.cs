@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Buildings;
 using Data.Item;
+using Databrain;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Systems.Mood.Scripts;
@@ -15,6 +16,7 @@ namespace Managers
 {
     public class Librarian : Singleton<Librarian>
     {
+        [SerializeField] private DataLibrary _dataLibrary;
         [SerializeField] private List<ColourData> _colourLibrary;
         [SerializeField] private List<Sprite> _sprites;
         [SerializeField] private List<SpriteRef> _orderIcons;
@@ -29,6 +31,8 @@ namespace Managers
         [SerializeField] private List<EmotionSettings> _emotions;
         [SerializeField] private List<EmotionalBreakdownSettings> _emotionalBreakdowns;
         [SerializeField] private List<TalentSettings> _talents;
+
+        public DataLibrary DataLibrary => _dataLibrary;
         
         public TalentSettings GetTalent(string talentName)
         {

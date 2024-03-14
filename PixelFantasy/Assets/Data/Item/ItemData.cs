@@ -1,9 +1,7 @@
 using System.ComponentModel;
-using Characters;
 using Databrain;
 using Databrain.Attributes;
-using ScriptableObjects;
-using Sirenix.OdinInspector;
+using Managers;
 using TaskSystem;
 using UnityEngine;
 
@@ -22,27 +20,36 @@ namespace Data.Item
     
     public class ItemData : DataObject
     {
-        public int Durability = 100;
-        public EItemCategory Category;
-        public Items.Item LinkedItem;
-        public bool IsAllowed;
+        // Settings
+        [SerializeField] protected EItemCategory _category;
+        [SerializeField] protected int _maxDurability;
         
-        
-        public Task _currentTask;
-        
-        public string _assignedSlotUID;
-        public string _assignedUnitUID;
-        public bool _isHeld;
-        public Kinling _carryingKinling;
-
-        public Transform _originalParent;
-
-        public StorageData AssignedStorage;
-        public Sprite ItemSprite;
-        
-        
-        
+        public EItemCategory Category => _category;
         public string ItemName => title;
+        public Sprite ItemSprite => icon;
+        
+        // Runtime
+        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public int Durability;
+        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public bool IsAllowed;
+        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public Task CurrentTask;
+        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public string CarryingKinlingUID;
+        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public StorageData AssignedStorage;
+        
+        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public Items.Item LinkedItem; // Not sure about this...
+
+        public virtual void InitData()
+        {
+            Durability = _maxDurability;
+            IsAllowed = true;
+        }
+
+        public void CreateItemObject(Vector2 pos)
+        {
+            var prefab = Resources.Load<Items.Item>($"Prefabs/ItemPrefab");
+            Items.Item itemObj = Instantiate(prefab, pos, Quaternion.identity, ParentsManager.Instance.ItemsParent);
+            itemObj.name = title;
+            itemObj.InitializeItem(this, true);
+        }
         
         public virtual string GetDetailsMsg(string headerColourCode = "#272736")
         {

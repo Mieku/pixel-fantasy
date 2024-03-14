@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Data.Item;
+using Databrain.Attributes;
 using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Items
@@ -11,17 +13,17 @@ namespace Items
     [Serializable]
     public class HarvestableItems
     {
-        [SerializeField] private List<HarvestableItem> _harvestableItems = new List<HarvestableItem>();
+        [SerializeField] private List<ItemDropRate> _itemDrops = new List<ItemDropRate>();
 
         public List<ItemAmount> GetItemDrop()
         {
-            if (_harvestableItems == null || _harvestableItems.Count == 0)
+            if (_itemDrops == null || _itemDrops.Count == 0)
             {
                 return new List<ItemAmount>();
             }
 
             var result = new List<ItemAmount>();
-            foreach (var harvestableItem in _harvestableItems)
+            foreach (var harvestableItem in _itemDrops)
             {
                 int quantity = Random.Range(harvestableItem.MinDrop, harvestableItem.MaxDrop + 1);
                 if (quantity > 0)
@@ -41,7 +43,7 @@ namespace Items
         public List<ItemAmount> GetDropAverages()
         {
             var results = new List<ItemAmount>();
-            foreach (var harvestableItem in _harvestableItems)
+            foreach (var harvestableItem in _itemDrops)
             {
 
                 int average = (harvestableItem.MinDrop + harvestableItem.MaxDrop) / 2;
@@ -60,9 +62,9 @@ namespace Items
     }
 
     [Serializable]
-    public class HarvestableItem
+    public class ItemDropRate
     {
-        public ItemData Item;
+        [DataObjectDropdown("DataLibrary", true)] public ItemData Item;
         public int MinDrop;
         public int MaxDrop;
     }

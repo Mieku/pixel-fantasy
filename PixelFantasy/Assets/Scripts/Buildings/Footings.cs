@@ -48,16 +48,16 @@ namespace Buildings
             return result;
         }
 
-        public List<Resource> GetClearbleResourcesInFootingsArea()
+        public List<BasicResource> GetClearbleResourcesInFootingsArea()
         {
-            List<Resource> results = new List<Resource>();
+            List<BasicResource> results = new List<BasicResource>();
             List<Vector2> locations = new List<Vector2>();
             foreach (var footing in _footings)
             {
                 locations.Add(footing.transform.position);
             }
 
-            var potentialResources = Helper.GetAllGenericOnGridPositions<Resource>(locations);
+            var potentialResources = Helper.GetAllGenericOnGridPositions<BasicResource>(locations);
             foreach (var potentialResource in potentialResources)
             {
                 foreach (var location in locations)

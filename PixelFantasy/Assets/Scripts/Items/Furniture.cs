@@ -49,7 +49,7 @@ namespace Items
 
         public DataLibrary DataLibrary;
         
-        [DataObjectDropdown("DataLibrary")]
+        [DataObjectDropdown("DataLibrary", true)]
         public FurnitureData Data;
         public FurnitureData RuntimeData;
         
@@ -85,19 +85,38 @@ namespace Items
             
         }
 
-        private void Saved()
+        protected void Saved()
         {
             
         }
 
-        private void Loaded()
+        protected void Loaded()
         {
             
         }
+        
+        public virtual void CompletePlanning()
+        {
+            _isPlanning = false;
+            DataLibrary.RegisterInitializationCallback(DataReady);
+            DataLibrary.OnSaved += Saved;
+            DataLibrary.OnLoaded += Loaded;
+        }
 
-        private void DataReady()
+        public bool Init(FurnitureData furnitureData, FurnitureVarient varient = null, DyeSettings dye = null)
+        {
+            Data = furnitureData;
+            DataLibrary.RegisterInitializationCallback(DataReady);
+            DataLibrary.OnSaved += Saved;
+            DataLibrary.OnLoaded += Loaded;
+        
+            return true;
+        }
+
+        protected void DataReady()
         {
             RuntimeData = (FurnitureData) DataLibrary.CloneDataObjectToRuntime(Data, gameObject);
+            RuntimeData.InitData();
 
             RuntimeData.Direction = _direction;
             SetState(RuntimeData.State);
@@ -122,25 +141,6 @@ namespace Items
         public PlacementDirection RotatePlan(bool isClockwise)
         {
             return SetNextDirection(isClockwise);
-        }
-
-        public virtual void CompletePlanning()
-        {
-            _isPlanning = false;
-            DataLibrary.RegisterInitializationCallback(DataReady);
-            DataLibrary.OnSaved += Saved;
-            DataLibrary.OnLoaded += Loaded;
-        }
-
-        public bool Init(FurnitureData furnitureData, FurnitureVarient varient = null, DyeSettings dye = null)
-        {
-            Data = furnitureData;
-            
-            DataLibrary.RegisterInitializationCallback(DataReady);
-            DataLibrary.OnSaved += Saved;
-            DataLibrary.OnLoaded += Loaded;
-        
-            return true;
         }
 
         public bool IsAvailable

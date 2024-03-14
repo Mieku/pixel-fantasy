@@ -33,7 +33,7 @@ namespace TaskSystem
             {
                 _isMoving = false;
                 _isHoldingItem = true;
-                _itemToPlace.AssignedStorage.StorageData.WithdrawItem(_itemToPlace.Data);
+                _itemToPlace.AssignedStorage.RuntimeStorageData.WithdrawItem(_itemToPlace.Data);
                 _ai.HoldItem(_itemToPlace);
                 return;
             }

@@ -317,7 +317,7 @@ namespace Systems.Details.Build_Details.Scripts
         {
             Spawner.Instance.CancelInput();
             PlayerInputController.Instance.ChangeState(PlayerInputState.BuildFurniture, selectedFurnitureDetails.Furniture.ItemName);
-            Spawner.Instance.PlanFurniture(selectedFurnitureDetails, selectedFurnitureDetails.Furniture.Direction);
+            Spawner.Instance.PlanFurniture(selectedFurnitureDetails, selectedFurnitureDetails.Furniture.DefaultDirection);
         }
     }
 }

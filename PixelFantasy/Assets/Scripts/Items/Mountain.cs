@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Controllers;
+using Data.Resource;
 using Interfaces;
 using ScriptableObjects;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine.Tilemaps;
 
 namespace Items
 {
-    public class Mountain : Resource, IClickableTile
+    public class Mountain : BasicResource, IClickableTile
     {
         [SerializeField] private GameObject _tempPlacementDisp;
         [SerializeField] private Color _selectionTintColour;
@@ -16,9 +17,12 @@ namespace Items
         private Tilemap _mountainTM => TilemapController.Instance.GetTilemap(TilemapLayer.Mountain);
         private Tilemap _dirtTM => TilemapController.Instance.GetTilemap(TilemapLayer.Dirt);
         
-        protected float _remainingWork;
+        //protected float _remainingWork;
 
-        private MountainSettings _mountainSettings => ResourceSettings as MountainSettings;
+        //private MountainSettings _mountainSettings => ResourceSettings as MountainSettings;
+        
+        public MountainResourceData RuntimeMountainData => RuntimeData as MountainResourceData;
+        private MountainResourceData MountainData => Data as MountainResourceData;
         
         protected override void Awake()
         {
@@ -26,27 +30,38 @@ namespace Items
             
             _tempPlacementDisp.SetActive(false);
         }
-
-        public void Init(MountainSettings mountainSettings)
+        
+        public override void Init(ResourceData data)
         {
+            base.Init(data);
             _tempPlacementDisp.SetActive(false);
-            ResourceSettings = mountainSettings;
+        }
+
+        protected override void InitialDataReady()
+        {
+            base.InitialDataReady();
             
             Refresh();
         }
 
-        private void Start()
-        {
-            if (_mountainSettings == null) return;
-            
-            Refresh();
-        }
+        // public void Init(MountainSettings mountainSettings)
+        // {
+        //     _tempPlacementDisp.SetActive(false);
+        //     ResourceSettings = mountainSettings;
+        //     
+        //     Refresh();
+        // }
+
+        // private void Start()
+        // {
+        //     if (_mountainSettings == null) return;
+        //     
+        //     Refresh();
+        // }
 
         private void Refresh()
         {
-            Health = GetWorkAmount();
             SetTile();
-            _remainingWork = GetWorkAmount();
         }
         
         public override UnitAction GetExtractActionAnim()
@@ -54,17 +69,16 @@ namespace Items
             return UnitAction.Swinging;
         }
 
-        protected override void DestroyResource()
+        protected override void HarvestResource()
         {
             MineMountain();
-            base.DestroyResource();
+            base.HarvestResource();
         }
 
         private void SetTile()
         {
             var cell = _mountainTM.WorldToCell(transform.position);
-            _mountainTM.SetTile(cell, _mountainSettings.GetRuleTile());
-            
+            _mountainTM.SetTile(cell, RuntimeMountainData.GetRuleTile());
 
             var dirtCell = _dirtTM.WorldToCell(transform.position);
             _dirtTM.SetTile(dirtCell, _dirtRuleTile);
@@ -89,7 +103,7 @@ namespace Items
             _mountainTM.SetTile(mountainCell, null);
                         
             // Spawn Resources
-            var minedDrops = _mountainSettings.GetMineDrop();
+            var minedDrops = RuntimeMountainData.GetMineDrop();
             foreach (var minedDrop in minedDrops)
             {
                 for (int i = 0; i < minedDrop.Quantity; i++)
@@ -102,50 +116,20 @@ namespace Items
             RefreshSelection();
         }
 
-        public override float GetWorkAmount()
-        {
-            return _mountainSettings.GetWorkAmount();
-        }
-        
-        public float WorkDone(float workAmount)
-        {
-            _remainingWork -= workAmount;
-            return _remainingWork;
-        }
+        // public override float GetWorkAmount()
+        // {
+        //     return _mountainSettings.GetWorkAmount();
+        // }
+        //
+        // public float WorkDone(float workAmount)
+        // {
+        //     _remainingWork -= workAmount;
+        //     return _remainingWork;
+        // }
 
-        public override HarvestableItems GetHarvestableItems()
-        {
-            return _mountainSettings.HarvestableItems;
-        }
-
-        public override object CaptureState()
-        {
-            return new State
-            {
-                UID = UniqueId,
-                Position = transform.position,
-                MountainSettings = _mountainSettings,
-                RemainingWork = _remainingWork,
-            };
-        }
-
-        public override void RestoreState(object data)
-        {
-            var stateData = (State)data;
-            UniqueId = stateData.UID;
-            transform.position = stateData.Position;
-            ResourceSettings = stateData.MountainSettings;
-            _remainingWork = stateData.RemainingWork;
-
-            Refresh();
-        }
-        
-        public struct State
-        {
-            public string UID;
-            public Vector3 Position;
-            public MountainSettings MountainSettings;
-            public float RemainingWork;
-        }
+        // public override HarvestableItems GetHarvestableItems()
+        // {
+        //     return RuntimeMountainData.HarvestableItems;
+        // }
     }
 }

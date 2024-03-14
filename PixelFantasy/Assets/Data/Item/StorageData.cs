@@ -1,21 +1,36 @@
 using System.Collections.Generic;
 using System.Linq;
+using Databrain.Attributes;
 using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Data.Item
 {
     public class StorageData : FurnitureData
     {
-        public int MaxStorage;
-        public List<EItemCategory> AcceptedCategories = new List<EItemCategory>();
+        // Settings
+        [SerializeField] private int _maxStorage;
+        [SerializeField, FormerlySerializedAs("AcceptedCategories")] private List<EItemCategory> _acceptedCategories = new List<EItemCategory>();
+        [SerializeField] List<ItemData> _specificStorage;
+        
+        // Accessors
+        public int MaxStorage => _maxStorage;
+        public List<EItemCategory> AcceptedCategories => _acceptedCategories;
+        public List<ItemData> SpecificStorage => _specificStorage;
+        
+        // Runtime
+        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public List<ItemData> Stored = new List<ItemData>();
+        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public List<ItemData> Incoming = new List<ItemData>();
+        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public List<ItemData> Claimed = new List<ItemData>();
 
-        public List<ItemData> SpecificStorage;
-        
-        public List<ItemData> Stored { get; set; } = new List<ItemData>();
-        public List<ItemData> Incoming { get; set; } = new List<ItemData>();
-        public List<ItemData> Claimed { get; set; } = new List<ItemData>();
-        
+
+        public override void InitData()
+        {
+            base.InitData();
+        }
+
+
         public int AmountCanBeDeposited(ItemData itemData)
         {
             if (!IsItemValidToStore(itemData))
@@ -187,47 +202,6 @@ namespace Data.Item
         
             return results;
         }
-
-        // public List<ItemData> AvailableInventory
-        // {
-        //     get
-        //     {
-        //         List<ItemData> results = new List<ItemData>();
-        //         foreach (var storedItem in Stored)
-        //         {
-        //             if (!Claimed.Contains(storedItem))
-        //             {
-        //                 results.Add(storedItem);
-        //             }
-        //         }
-        //
-        //         return results;
-        //     }
-        // }
-        
-        // public Dictionary<ItemSettings, List<Items.Item>> AvailableInventory
-        // {
-        //     get
-        //     {
-        //         Dictionary<ItemSettings, List<Items.Item>> results = new Dictionary<ItemSettings, List<Items.Item>>();
-        //         foreach (var storedItem in Stored)
-        //         {
-        //             if (!Claimed.Contains(storedItem))
-        //             {
-        //                 if (results.ContainsKey(storedItem.GetItemData()))
-        //                 {
-        //                     results[storedItem.GetItemData()].Add(storedItem);
-        //                 }
-        //                 else
-        //                 {
-        //                     results.Add(storedItem.GetItemData(), new List<Items.Item>(){storedItem});
-        //                 }
-        //             }
-        //         }
-        //
-        //         return results;
-        //     }
-        // }
         
         public bool IsItemInStorage(ItemData itemData)
         {
@@ -303,11 +277,9 @@ namespace Data.Item
                 Debug.LogError("Tried to withdraw an item that is not claimed");
             }
             
-            //item.AssignedStorage = null;
             Stored.Remove(itemData);
             Claimed.Remove(itemData);
             
-            //item.gameObject.SetActive(true);
             GameEvents.Trigger_RefreshInventoryDisplay();
         }
     }

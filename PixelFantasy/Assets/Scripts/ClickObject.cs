@@ -46,7 +46,7 @@ public class ClickObject : MonoBehaviour
         switch (_objectType)
         {
             case ObjectType.Item:
-                _itemSettings = GetComponent<Item>().GetItemData();
+                //_itemSettings = GetComponent<Item>().GetItemData();
                 break;
             case ObjectType.Structure:
                 _structureSettings = GetComponent<Construction>().GetConstructionData();
@@ -56,7 +56,7 @@ public class ClickObject : MonoBehaviour
                 break;
             case ObjectType.Resource:
             case ObjectType.Mountain:
-                _growingResourceSettings = GetComponent<Resource>().GetResourceData();
+                //_growingResourceSettings = GetComponent<BasicResource>().GetResourceData();
                 break;
             case ObjectType.Floor:
                 //_floorData = GetComponent<Floor>().FloorData;

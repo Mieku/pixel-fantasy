@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Data.Resource;
+using Databrain;
+using Databrain.Attributes;
 using DataPersistence;
 using Interfaces;
 using Managers;
@@ -12,30 +15,55 @@ using UnityEngine.Serialization;
 
 namespace Items
 {
-    public class Resource : PlayerInteractable, IClickableObject, IPersistent
+    public class BasicResource : PlayerInteractable, IClickableObject
     {
-        [FormerlySerializedAs("ResourceData")] public ResourceSettings ResourceSettings;
         [SerializeField] protected SpriteRenderer _spriteRenderer;
         [SerializeField] private ClickObject _clickObject;
         [SerializeField] private Command _defaultClearCmd;
         [SerializeField] private BoxCollider2D _obstacleBox;
         [SerializeField] private List<Transform> _workPoints;
-        [SerializeField] private PositionRendererSorter _sorter;
 
         protected Spawner spawner => Spawner.Instance;
-        protected Task _curTask;
         protected Action _onResourceClearedCallback;
+        
+        public DataLibrary DataLibrary;
+        
+        [DataObjectDropdown("DataLibrary", true)]
+        public ResourceData Data;
+        public ResourceData RuntimeData;
 
-        public float Health;
-
-        public virtual void Init(ResourceSettings settings)
+        public virtual void Init(ResourceData data)
         {
-            ResourceSettings = settings;
+            Data = data;
+
+            DataLibrary.RegisterInitializationCallback(InitialDataReady);
+            DataLibrary.OnSaved += Saved;
+            DataLibrary.OnLoaded += Loaded;
+        }
+        
+        protected virtual void InitialDataReady()
+        {
+            RuntimeData = (ResourceData) DataLibrary.CloneDataObjectToRuntime(Data, gameObject);
+            RuntimeData.InitData();
             
-            if (_sorter != null)
-            {
-                _sorter.ManualSortRendererPosition();
-            }
+            UpdateSprite();
+        }
+        
+        protected void Saved()
+        {
+            
+        }
+
+        protected void Loaded()
+        {
+            
+        }
+        
+        protected virtual void UpdateSprite()
+        {
+            var spriteIndex = RuntimeData.GetRandomSpriteIndex();
+            RuntimeData.SpriteIndex = spriteIndex;
+            _spriteRenderer.sprite = Data.GetSprite(spriteIndex);
         }
 
         public override Vector2? UseagePosition(Vector2 requestorPosition)
@@ -89,38 +117,20 @@ namespace Items
             return null;
         }
 
-        public Sprite GetHealthIcon()
-        {
-            return Librarian.Instance.GetSprite("Health");
-        }
-
-        public float GetHealthPercentage()
-        {
-            return Health / GetWorkAmount();
-        }
-
-        public virtual float MinWorkDistance => 1f;
-
-        public virtual string DisplayName => ResourceSettings.ResourceName;
+        public virtual string DisplayName => Data.title;
 
         protected virtual void Awake()
         {
             _clickObject = GetComponent<ClickObject>();
-            //Health = GetWorkAmount();
         }
-
-        public bool HasTask => _curTask != null;
-
-        public ResourceSettings GetResourceData()
-        {
-            return ResourceSettings;
-        }
-
+        
         public ClickObject GetClickObject()
         {
             return _clickObject;
         }
-        
+
+        public bool IsClickDisabled { get; set; }
+
         public void RefreshSelection()
         {
             if (_clickObject.IsSelected)
@@ -136,10 +146,10 @@ namespace Items
         /// <returns>If the work is complete</returns>
         public virtual bool DoWork(float workAmount)
         {
-            Health -= workAmount;
-            if (Health <= 0)
+            RuntimeData.Health -= workAmount;
+            if (RuntimeData.Health <= 0)
             {
-                DestroyResource();
+                HarvestResource();
                 return true;
             }
             
@@ -174,8 +184,19 @@ namespace Items
             return false;
         }
 
-        protected virtual void DestroyResource()
+        protected virtual void HarvestResource()
         {
+            var resources = Data.HarvestableItems.GetItemDrop();
+            foreach (var resource in resources)
+            {
+                for (int i = 0; i < resource.Quantity; i++)
+                {
+                    spawner.SpawnItem(resource.Item, transform.position, true);
+                }
+            }
+            
+            RefreshSelection();
+            
             Destroy(gameObject);
             
             if(_onResourceClearedCallback != null) _onResourceClearedCallback.Invoke();
@@ -185,9 +206,7 @@ namespace Items
         {
             return UnitAction.Doing;
         }
-
-        public bool IsClickDisabled { get; set; }
-        public bool IsAllowed { get; set; }
+        
         public virtual void ToggleAllowed(bool isAllowed)
         {
             
@@ -196,40 +215,6 @@ namespace Items
         public virtual List<Command> GetCommands()
         {
             return new List<Command>(Commands);
-        }
-        
-        public virtual object CaptureState()
-        {
-            return new Data
-            {
-                UID = UniqueId,
-                Position = transform.position,
-                ResourceSettings = ResourceSettings,
-                IsAllowed = this.IsAllowed,
-                IsClickDisabled = this.IsClickDisabled,
-            };
-        }
-
-        public virtual void RestoreState(object data)
-        {
-            var stateData = (Data)data;
-            UniqueId = stateData.UID;
-            transform.position = stateData.Position;
-            ResourceSettings = stateData.ResourceSettings;
-            IsAllowed = stateData.IsAllowed;
-            IsClickDisabled = stateData.IsClickDisabled;
-        }
-
-        public struct Data
-        {
-            public string UID;
-            public GameObject Prefab;
-            public Vector3 Position;
-            public ResourceSettings ResourceSettings;
-            public bool IsAllowed;
-            public bool IsClickDisabled;
-
-            public GrowingResource.GrowingData GrowingData;
         }
     }
 }

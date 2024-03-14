@@ -8,9 +8,13 @@ namespace Data.Item
     public class CraftedItemData : ItemData
     {
         // Crafted Item Settings
-        [ExposeToInspector] public CraftRequirements CraftRequirements;
-        [ExposeToInspector] public List<string> InvalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle"};
+        [SerializeField] protected CraftRequirements _craftRequirements;
 
-        public string CraftersUID;
+        // Accessors
+        public CraftRequirements CraftRequirements => _craftRequirements;
+        
+
+        // Runtime
+        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public string CraftersUID;
     }
 }

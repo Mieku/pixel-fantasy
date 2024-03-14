@@ -20,15 +20,18 @@ namespace Systems.Game_Setup.Scripts
         [SerializeField] private WorldBuilder _worldBuilder;
         [SerializeField] private bool _generateWorldOnStart;
 
+        public ItemData TestItemData;
+
         public DataLibrary DataLibrary;
         
         [DataObjectDropdown("DataLibrary")]
         [BoxGroup("Starting Items")] [SerializeField] private StorageData _starterStockpileData;
-        
-        [BoxGroup("Starting Items")] [SerializeField] private Storage _starterStockpile;
         [BoxGroup("Starting Items")] [SerializeField] private List<ItemAmount> _startingItems = new List<ItemAmount>();
+        [BoxGroup("Starting Items")] [SerializeField] private Transform _furnitureParent;
         
         [BoxGroup("Starting Kinlings")] [SerializeField] private List<KinlingData> _starterKinlings;
+        
+        private Storage _starterStockpile;
 
         private void Start()
         {
@@ -57,7 +60,7 @@ namespace Systems.Game_Setup.Scripts
                 yield return StartCoroutine(_worldBuilder.GeneratePlaneCoroutine());
             }
             
-            LoadStarterStockpile(_startingItems);
+            LoadStarterStockpile(_worldBuilder.StartPos ,_startingItems);
             
             // Allow frame to render and update UI/loading screen here
             yield return null;
@@ -70,7 +73,7 @@ namespace Systems.Game_Setup.Scripts
             // Again, yield to keep the UI responsive
             yield return null;
             
-            LoadStarterKinlings(_starterKinlings);
+            LoadStarterKinlings(_worldBuilder.StartPos, _starterKinlings);
             yield return null;
             
             GameEvents.Trigger_RefreshInventoryDisplay();
@@ -78,30 +81,26 @@ namespace Systems.Game_Setup.Scripts
             yield return null;
         }
 
-        private void LoadStarterStockpile(List<ItemAmount> preloadedItems)
+        private void LoadStarterStockpile(Vector3Int startCell, List<ItemAmount> preloadedItems)
         {
-            //_starterStockpile.Init(_starterStockpileData);
-            // _starterStockpile.SetState(EFurnitureState.Built);
-            //
-            // foreach (var preloadedItemAmount in preloadedItems)
-            // {
-            //     for (int i = 0; i < preloadedItemAmount.Quantity; i++)
-            //     {
-            //         var spawnedItem = Spawner.Instance.SpawnItem(preloadedItemAmount.Item,
-            //             _starterStockpile.transform.position, false);
-            //         _starterStockpile.ForceDepositItem(spawnedItem.Data);
-            //     }
-            // }
+            Vector2 startPos = new Vector2(startCell.x, startCell.y);
+
+            _starterStockpile = Instantiate(_starterStockpileData.FurniturePrefab, startPos, Quaternion.identity, _furnitureParent) as Storage;
+            _starterStockpile.ForceLoadItems(preloadedItems);
+            
+            // for testing..
+            TestItemData.CreateItemObject(new Vector2(startCell.x + 2, startCell.y + 2));
         }
         
-        private void LoadStarterKinlings(List<KinlingData> starterKinlings)
+        private void LoadStarterKinlings(Vector3Int startCell, List<KinlingData> starterKinlings)
         {
             List<Kinling> spawnedKinlings = new List<Kinling>();
+            Vector2 startPos = new Vector2(startCell.x, startCell.y);
             
             // Spawn First
             foreach (var kinling in starterKinlings)
             {
-                var pos = Helper.RandomLocationInRange(_starterStockpile.transform.position);
+                var pos = Helper.RandomLocationInRange(startPos);
                 var spawnedKinling = Spawner.Instance.SpawnKinling(kinling, pos, false);
                 spawnedKinlings.Add(spawnedKinling);
             }

@@ -6,7 +6,7 @@ namespace TaskSystem
 {
     public class ExtractResourceAction : TaskAction // ID: Extract Resource
     {
-        private Resource _resource;
+        private BasicResource _resource;
         private float _timer;
         private UnitAction _actionAnimation;
         private Vector2? _movePos;
@@ -19,7 +19,7 @@ namespace TaskSystem
             var result = base.CanDoTask(task);
             if (!result) return false;
 
-            _resource = (Resource)task.Requestor;
+            _resource = (BasicResource)task.Requestor;
             _movePos = _resource.UseagePosition(_ai.Kinling.transform.position);
             
             if (_movePos == null)

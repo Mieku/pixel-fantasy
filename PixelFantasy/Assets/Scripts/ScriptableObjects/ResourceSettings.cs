@@ -1,6 +1,7 @@
 using Items;
 using Systems.Skills.Scripts;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ScriptableObjects
 {
@@ -8,6 +9,6 @@ namespace ScriptableObjects
     public class ResourceSettings : ScriptableObject
     {
         public string ResourceName;
-        public Resource ResourcePrefab;
+        [FormerlySerializedAs("ResourcePrefab")] public BasicResource BasicResourcePrefab;
     }
 }

@@ -53,7 +53,7 @@ namespace ScriptableObjects
     public class CraftRequirements
     {
         [SerializeField] private int _minCraftingSkillLevel;
-        [SerializeField] private ETaskType _craftingSkill;
+        [SerializeField] private ETaskType _craftingSkill = ETaskType.Crafting;
         [SerializeField] private List<ItemAmount> _materialCosts;
         [SerializeField] private float _workCost;
         [SerializeField] private EToolType _requiredCraftingToolType;

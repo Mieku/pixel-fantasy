@@ -76,7 +76,7 @@ namespace ScriptableObjects
     [Serializable]
     public class ItemAmount
     {
-        [DataObjectDropdown("Materials", true)] public ItemData Item;
+        [DataObjectDropdown("DataLibrary", true)] public ItemData Item;
         public int Quantity;
 
         public bool CanAfford()

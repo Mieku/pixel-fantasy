@@ -86,7 +86,7 @@ namespace Managers
             foreach (var storage in _allStorage)
             {
                 if(storage.IsAvailable 
-                   && storage.StorageData.AmountCanBeDeposited(itemData) > 0)
+                   && storage.RuntimeStorageData.AmountCanBeDeposited(itemData) > 0)
                 {
                     return storage;
                 }
@@ -100,7 +100,7 @@ namespace Managers
             foreach (var storage in _allStorage)
             {
                 if(storage.IsAvailable 
-                   && storage.StorageData.AmountCanBeDeposited(itemData) > 0)
+                   && storage.RuntimeStorageData.AmountCanBeDeposited(itemData) > 0)
                 {
                     return storage;
                 }
@@ -114,9 +114,9 @@ namespace Managers
             foreach (var storage in _allStorage)
             {
                 if (storage.IsAvailable 
-                    && storage.StorageData.AmountCanBeWithdrawn(itemData) > 0)
+                    && storage.RuntimeStorageData.AmountCanBeWithdrawn(itemData) > 0)
                 {
-                    storage.StorageData.SetClaimed(itemData);
+                    storage.RuntimeStorageData.SetClaimed(itemData);
                     return true;
                 }
             }

@@ -91,7 +91,7 @@ namespace TaskSystem
                     return;
                 }
                 
-                _receivingStorage.StorageData.SetIncoming(_targetItem.Data);
+                _receivingStorage.RuntimeStorageData.SetIncoming(_targetItem.Data);
                 
                 _ai.Kinling.KinlingAgent.SetMovePosition(_receivingStorage.UseagePosition(_ai.Kinling.transform.position), OnProductDelivered, OnTaskCancel);
                 _state = ETaskState.WaitingOnDelivery;
@@ -100,7 +100,7 @@ namespace TaskSystem
 
         private void OnArrivedAtStorageForPickup()
         {
-            _targetItem.AssignedStorage.StorageData.WithdrawItem(_targetItem.Data);
+            _targetItem.AssignedStorage.RuntimeStorageData.WithdrawItem(_targetItem.Data);
             _ai.HoldItem(_targetItem);
             _ai.Kinling.KinlingAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Kinling.transform.position), OnArrivedAtCraftingTable, OnTaskCancel);
         }
