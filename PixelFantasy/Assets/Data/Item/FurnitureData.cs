@@ -18,7 +18,6 @@ namespace Data.Item
         [SerializeField] protected NeedChange _inUseNeedChange;
         [SerializeField] protected ColourOptions _colourOptions;
         [SerializeField] protected List<FurnitureVarient> _varients;
-        [SerializeField] protected float _workToCraft;
         [SerializeField] protected PlacementDirection _defaultDirection;
         
         // Accessors
@@ -39,7 +38,7 @@ namespace Data.Item
         public override void InitData()
         {
             base.InitData();
-            RemainingWork = _workToCraft;
+            RemainingWork = _craftRequirements.WorkCost;
             Direction = _defaultDirection;
         }
     }

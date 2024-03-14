@@ -32,6 +32,11 @@ namespace Managers
         [SerializeField] private List<TalentSettings> _talents;
 
         public DataLibrary DataLibrary => _dataLibrary;
+
+        public ItemData GetInitialItemDataByGuid(string guid)
+        {
+            return _dataLibrary.GetInitialDataObjectByGuid(guid) as ItemData;
+        }
         
         public TalentSettings GetTalent(string talentName)
         {

@@ -43,11 +43,11 @@ MonoBehaviour:
   _craftRequirements:
     _minCraftingSkillLevel: 2
     _craftingSkill: 10
+    _workCost: 10
+    _requiredCraftingToolType: 0
     _materialCosts:
     - Item: {fileID: 6445956091041958653}
       Quantity: 2
-    _workCost: 10
-    _requiredCraftingToolType: 0
   CraftersUID: 
 --- !u!114 &-6728472306890164557
 MonoBehaviour:
@@ -190,11 +190,11 @@ MonoBehaviour:
   _craftRequirements:
     _minCraftingSkillLevel: 2
     _craftingSkill: 10
+    _workCost: 10
+    _requiredCraftingToolType: 0
     _materialCosts:
     - Item: {fileID: -5298398873868244794}
       Quantity: 2
-    _workCost: 10
-    _requiredCraftingToolType: 0
   CraftersUID: 
 --- !u!114 &-5298398873868244794
 MonoBehaviour:
@@ -804,7 +804,7 @@ MonoBehaviour:
   isRuntimeInstance: 0
   boxFoldout: 0
   _category: 0
-  _maxDurability: 0
+  _maxDurability: 100
   Durability: 0
   IsAllowed: 0
   CurrentTask:
@@ -818,17 +818,19 @@ MonoBehaviour:
   AssignedStorage: {fileID: 0}
   LinkedItem: {fileID: 0}
   _craftRequirements:
-    _minCraftingSkillLevel: 0
+    _minCraftingSkillLevel: 2
     _craftingSkill: 10
-    _materialCosts: []
-    _workCost: 0
+    _workCost: 10
     _requiredCraftingToolType: 0
+    _materialCosts:
+    - Item: {fileID: -5005131501070810583}
+      Quantity: 2
   CraftersUID: 
   _invalidPlacementTags:
   - Water
   - Wall
   - Obstacle
-  _furniturePrefab: {fileID: 0}
+  _furniturePrefab: {fileID: 4176969880153003644, guid: e219a8e018e3d244b8d0ef8b035b149b, type: 3}
   _inUseNeedChange:
     SourceID: 
     AmountPerHour: 0
@@ -837,7 +839,6 @@ MonoBehaviour:
     ColourOptionsHeader: 
     DyePalettes: []
   _varients: []
-  _workToCraft: 0
   _defaultDirection: 0
   State: 0
   RemainingWork: 0
@@ -1282,11 +1283,11 @@ MonoBehaviour:
   _craftRequirements:
     _minCraftingSkillLevel: 2
     _craftingSkill: 10
+    _workCost: 10
+    _requiredCraftingToolType: 0
     _materialCosts:
     - Item: {fileID: -4106105843404846981}
       Quantity: 2
-    _workCost: 10
-    _requiredCraftingToolType: 0
   CraftersUID: 
 --- !u!114 &471811961056185065
 MonoBehaviour:
@@ -1331,13 +1332,13 @@ MonoBehaviour:
   _craftRequirements:
     _minCraftingSkillLevel: 8
     _craftingSkill: 10
+    _workCost: 30
+    _requiredCraftingToolType: 0
     _materialCosts:
     - Item: {fileID: -7963632896702530702}
       Quantity: 2
     - Item: {fileID: 3998079584738369031}
       Quantity: 1
-    _workCost: 30
-    _requiredCraftingToolType: 0
   CraftersUID: 
 --- !u!114 &1013997515501222643
 MonoBehaviour:
@@ -1395,9 +1396,9 @@ MonoBehaviour:
   _craftRequirements:
     _minCraftingSkillLevel: 0
     _craftingSkill: 10
-    _materialCosts: []
     _workCost: 0
     _requiredCraftingToolType: 0
+    _materialCosts: []
   CraftersUID: 
   _invalidPlacementTags:
   - Water
@@ -1412,7 +1413,6 @@ MonoBehaviour:
     ColourOptionsHeader: 
     DyePalettes: []
   _varients: []
-  _workToCraft: 0
   _defaultDirection: 0
   State: 1
   RemainingWork: 0
@@ -2135,7 +2135,7 @@ MonoBehaviour:
   isRuntimeInstance: 0
   boxFoldout: 0
   _category: 0
-  _maxDurability: 0
+  _maxDurability: 100
   Durability: 0
   IsAllowed: 0
   CurrentTask:
@@ -2149,17 +2149,19 @@ MonoBehaviour:
   AssignedStorage: {fileID: 0}
   LinkedItem: {fileID: 0}
   _craftRequirements:
-    _minCraftingSkillLevel: 0
+    _minCraftingSkillLevel: 2
     _craftingSkill: 10
-    _materialCosts: []
-    _workCost: 0
+    _workCost: 10
     _requiredCraftingToolType: 0
+    _materialCosts:
+    - Item: {fileID: 366437865215858577}
+      Quantity: 2
   CraftersUID: 
   _invalidPlacementTags:
   - Water
   - Wall
   - Obstacle
-  _furniturePrefab: {fileID: 0}
+  _furniturePrefab: {fileID: 5935236254734965145, guid: d53577c50dbdf024492966a48b113a13, type: 3}
   _inUseNeedChange:
     SourceID: 
     AmountPerHour: 0
@@ -2168,7 +2170,6 @@ MonoBehaviour:
     ColourOptionsHeader: 
     DyePalettes: []
   _varients: []
-  _workToCraft: 0
   _defaultDirection: 0
   State: 0
   RemainingWork: 0
@@ -2270,7 +2271,7 @@ MonoBehaviour:
   isRuntimeInstance: 0
   boxFoldout: 0
   _category: 0
-  _maxDurability: 0
+  _maxDurability: 100
   Durability: 0
   IsAllowed: 0
   CurrentTask:
@@ -2284,17 +2285,19 @@ MonoBehaviour:
   AssignedStorage: {fileID: 0}
   LinkedItem: {fileID: 0}
   _craftRequirements:
-    _minCraftingSkillLevel: 0
+    _minCraftingSkillLevel: 1
     _craftingSkill: 10
-    _materialCosts: []
-    _workCost: 0
+    _workCost: 10
     _requiredCraftingToolType: 0
+    _materialCosts:
+    - Item: {fileID: -5005131501070810583}
+      Quantity: 5
   CraftersUID: 
   _invalidPlacementTags:
   - Water
   - Wall
   - Obstacle
-  _furniturePrefab: {fileID: 0}
+  _furniturePrefab: {fileID: 5935236254734965145, guid: dd1324a0af4a86b41b638230c8941527, type: 3}
   _inUseNeedChange:
     SourceID: 
     AmountPerHour: 0
@@ -2303,7 +2306,6 @@ MonoBehaviour:
     ColourOptionsHeader: 
     DyePalettes: []
   _varients: []
-  _workToCraft: 0
   _defaultDirection: 0
   State: 0
   RemainingWork: 0
@@ -2437,18 +2439,34 @@ MonoBehaviour:
     _objectList:
     - type: Data.Item.FurnitureData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
+      dataObjects: []
     - type: Data.Item.StorageData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
+      dataObjects: []
     - type: Data.Item.ItemData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -2483,44 +2501,6 @@ MonoBehaviour:
     - type: Data.Resource.ResourceData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -2634,90 +2614,9 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Resource.MountainResourceData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}

@@ -243,12 +243,13 @@ namespace Managers
             var availableInventory = GetAvailableInventory<ItemData>();
             foreach (var item in availableInventory)
             {
-                if (!results.TryAdd(item, 1))
+                var initItemData = item.GetInitialData();
+                if (!results.TryAdd(initItemData, 1))
                 {
-                    results[item]++;
+                    results[initItemData]++;
                 }
             }
-
+            
             return results;
         }
 

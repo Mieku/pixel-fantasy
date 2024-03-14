@@ -43,6 +43,11 @@ namespace Data.Item
             IsAllowed = true;
         }
 
+        public ItemData GetInitialData()
+        {
+            return Librarian.Instance.GetInitialItemDataByGuid(initialGuid);
+        }
+
         public void CreateItemObject(Vector2 pos)
         {
             var prefab = Resources.Load<Items.Item>($"Prefabs/ItemPrefab");
@@ -81,6 +86,11 @@ namespace Data.Item
             {
                 Debug.LogError("Failed to claim item");
             }
+        }
+
+        public bool IsEqual(ItemData other)
+        {
+            return GetInitialData() == other.GetInitialData();
         }
     }
 }
