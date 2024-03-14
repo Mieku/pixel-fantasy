@@ -993,14 +993,14 @@ MonoBehaviour:
     - typeName: ItemData
       typeAssemblyQualifiedName: Data.Item.ItemData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
+      runtimeSerialization: 1
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
     - typeName: CraftedItemData
       typeAssemblyQualifiedName: Data.Item.CraftedItemData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
+      runtimeSerialization: 1
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
@@ -1012,21 +1012,21 @@ MonoBehaviour:
     - typeName: FurnitureData
       typeAssemblyQualifiedName: Data.Item.FurnitureData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
+      runtimeSerialization: 1
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
     - typeName: StorageData
       typeAssemblyQualifiedName: Data.Item.StorageData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
+      runtimeSerialization: 1
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
     - typeName: CraftingTableData
       typeAssemblyQualifiedName: Data.Item.CraftingTableData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
+      runtimeSerialization: 1
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
@@ -1038,28 +1038,28 @@ MonoBehaviour:
     - typeName: CropData
       typeAssemblyQualifiedName: Data.Item.CropData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
+      runtimeSerialization: 1
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
     - typeName: ResourceData
       typeAssemblyQualifiedName: Data.Resource.ResourceData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
+      runtimeSerialization: 1
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
     - typeName: GrowingResourceData
       typeAssemblyQualifiedName: Data.Resource.GrowingResourceData, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
+      runtimeSerialization: 1
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
     - typeName: MountainResourceData
       typeAssemblyQualifiedName: Data.Resource.MountainResourceData, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
+      runtimeSerialization: 1
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
@@ -1071,7 +1071,7 @@ MonoBehaviour:
     - typeName: ToolData
       typeAssemblyQualifiedName: Data.Item.ToolData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
+      runtimeSerialization: 1
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
