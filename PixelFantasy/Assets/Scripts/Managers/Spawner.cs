@@ -325,6 +325,7 @@ namespace Managers
             if (itemObject.TryGetComponent<Item>(out var initializable))
             {
                 initializable.InitializeItem(itemData, canBeHauled);
+                itemObject.name = itemData.title;
             }
             else
             {

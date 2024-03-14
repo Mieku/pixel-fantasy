@@ -643,7 +643,6 @@ MonoBehaviour:
   Commands:
   - {fileID: 11400000, guid: 1cc80951a1dad2e4aba7c19a791cd226, type: 2}
   PendingCommand: {fileID: 0}
-  ResourceSettings: {fileID: 0}
   _spriteRenderer: {fileID: 4679838360167495991}
   _clickObject: {fileID: 4679838361854419015}
   _defaultClearCmd: {fileID: 11400000, guid: 1cc80951a1dad2e4aba7c19a791cd226, type: 2}
@@ -653,8 +652,9 @@ MonoBehaviour:
   - {fileID: 4060256409854242269}
   - {fileID: 8671356423201911275}
   - {fileID: 8565200217476746286}
-  _sorter: {fileID: 0}
-  Health: 0
+  DataLibrary: {fileID: 11400000, guid: f88f4256e274c364981fac582520b73b, type: 2}
+  Data: {fileID: 0}
+  RuntimeData: {fileID: 0}
 --- !u!114 &4679838361854419017
 MonoBehaviour:
   m_ObjectHideFlags: 0

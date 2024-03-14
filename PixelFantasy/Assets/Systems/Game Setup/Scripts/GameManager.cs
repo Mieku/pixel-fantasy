@@ -20,8 +20,6 @@ namespace Systems.Game_Setup.Scripts
         [SerializeField] private WorldBuilder _worldBuilder;
         [SerializeField] private bool _generateWorldOnStart;
 
-        public ItemData TestItemData;
-
         public DataLibrary DataLibrary;
         
         [DataObjectDropdown("DataLibrary")]
@@ -87,9 +85,6 @@ namespace Systems.Game_Setup.Scripts
 
             _starterStockpile = Instantiate(_starterStockpileData.FurniturePrefab, startPos, Quaternion.identity, _furnitureParent) as Storage;
             _starterStockpile.ForceLoadItems(preloadedItems);
-            
-            // for testing..
-            TestItemData.CreateItemObject(new Vector2(startCell.x + 2, startCell.y + 2));
         }
         
         private void LoadStarterKinlings(Vector3Int startCell, List<KinlingData> starterKinlings)

@@ -93,6 +93,7 @@ MonoBehaviour:
   - Structure
   SpriteIndex: 0
   Health: 0
+  RemainingExtractWork: 0
   CurrentTask:
     TaskId: 
     TaskType: 0
@@ -132,7 +133,7 @@ MonoBehaviour:
         MinDrop: 2
         MaxDrop: 4
     WorkToCut: 8
-  _harvestCmd: {fileID: 11400000, guid: 741035aabc10ee741a67711d029540d3, type: 2}
+  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
   _hasFruit: 0
   _growFruitTime: 0
   _fruitOverlay: {fileID: 0}
@@ -142,10 +143,8 @@ MonoBehaviour:
   _workToHarvest: 0
   GrowthIndex: 0
   AgeSec: 0
-  AgeForNextGrowth: 0
   FruitTimer: 0
   ShowingFlowers: 0
-  RemainingCutWork: 0
   RemainingHarvestWork: 0
   HasFruitAvailable: 0
 --- !u!114 &-6683971750745164997
@@ -264,8 +263,8 @@ MonoBehaviour:
   isRuntimeInstance: 0
   boxFoldout: 0
   _category: 0
-  _maxDurability: 0
-  Durability: 100
+  _maxDurability: 100
+  Durability: 0
   IsAllowed: 0
   CurrentTask:
     TaskId: 
@@ -334,6 +333,7 @@ MonoBehaviour:
   - Structure
   SpriteIndex: 0
   Health: 0
+  RemainingExtractWork: 0
   CurrentTask:
     TaskId: 
     TaskType: 0
@@ -373,7 +373,7 @@ MonoBehaviour:
         MinDrop: 2
         MaxDrop: 4
     WorkToCut: 8
-  _harvestCmd: {fileID: 11400000, guid: 741035aabc10ee741a67711d029540d3, type: 2}
+  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
   _hasFruit: 0
   _growFruitTime: 0
   _fruitOverlay: {fileID: 0}
@@ -383,10 +383,8 @@ MonoBehaviour:
   _workToHarvest: 0
   GrowthIndex: 0
   AgeSec: 0
-  AgeForNextGrowth: 0
   FruitTimer: 0
   ShowingFlowers: 0
-  RemainingCutWork: 0
   RemainingHarvestWork: 0
   HasFruitAvailable: 0
 --- !u!114 &-4328041401239383635
@@ -434,6 +432,7 @@ MonoBehaviour:
   - Structure
   SpriteIndex: 0
   Health: 0
+  RemainingExtractWork: 0
   CurrentTask:
     TaskId: 
     TaskType: 0
@@ -526,6 +525,7 @@ MonoBehaviour:
   - Structure
   SpriteIndex: 0
   Health: 0
+  RemainingExtractWork: 0
   CurrentTask:
     TaskId: 
     TaskType: 0
@@ -565,7 +565,7 @@ MonoBehaviour:
         MinDrop: 2
         MaxDrop: 4
     WorkToCut: 8
-  _harvestCmd: {fileID: 11400000, guid: 741035aabc10ee741a67711d029540d3, type: 2}
+  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
   _hasFruit: 0
   _growFruitTime: 0
   _fruitOverlay: {fileID: 0}
@@ -575,10 +575,8 @@ MonoBehaviour:
   _workToHarvest: 0
   GrowthIndex: 0
   AgeSec: 0
-  AgeForNextGrowth: 0
   FruitTimer: 0
   ShowingFlowers: 0
-  RemainingCutWork: 0
   RemainingHarvestWork: 0
   HasFruitAvailable: 0
 --- !u!114 &-1887156828929915283
@@ -625,6 +623,7 @@ MonoBehaviour:
   - Structure
   SpriteIndex: 0
   Health: 0
+  RemainingExtractWork: 0
   CurrentTask:
     TaskId: 
     TaskType: 0
@@ -677,6 +676,7 @@ MonoBehaviour:
   - Structure
   SpriteIndex: 0
   Health: 0
+  RemainingExtractWork: 0
   CurrentTask:
     TaskId: 
     TaskType: 0
@@ -706,7 +706,7 @@ MonoBehaviour:
         MinDrop: 1
         MaxDrop: 2
     WorkToCut: 8
-  _harvestCmd: {fileID: 11400000, guid: f0e8dad8b311df84aaa187ea24d20432, type: 2}
+  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
   _hasFruit: 1
   _growFruitTime: 60
   _fruitOverlay: {fileID: 21300000, guid: c25c4600cb9c8d04f9ed7273032012cf, type: 3}
@@ -719,10 +719,8 @@ MonoBehaviour:
   _workToHarvest: 5
   GrowthIndex: 0
   AgeSec: 0
-  AgeForNextGrowth: 0
   FruitTimer: 0
   ShowingFlowers: 0
-  RemainingCutWork: 0
   RemainingHarvestWork: 0
   HasFruitAvailable: 0
 --- !u!114 &-1362852035674046031
@@ -770,6 +768,7 @@ MonoBehaviour:
   - Structure
   SpriteIndex: 0
   Health: 0
+  RemainingExtractWork: 0
   CurrentTask:
     TaskId: 
     TaskType: 0
@@ -888,6 +887,7 @@ MonoBehaviour:
   - Structure
   SpriteIndex: 0
   Health: 0
+  RemainingExtractWork: 0
   CurrentTask:
     TaskId: 
     TaskType: 0
@@ -1005,7 +1005,7 @@ MonoBehaviour:
       titlesFilter: []
       valuesFilter: []
   - namespaceName: Constructables
-    foldout: 0
+    foldout: 1
     hidden: 0
     icon: 
     existingTypes:
@@ -1125,6 +1125,7 @@ MonoBehaviour:
   - Structure
   SpriteIndex: 0
   Health: 0
+  RemainingExtractWork: 0
   CurrentTask:
     TaskId: 
     TaskType: 0
@@ -1164,7 +1165,7 @@ MonoBehaviour:
         MinDrop: 2
         MaxDrop: 4
     WorkToCut: 8
-  _harvestCmd: {fileID: 11400000, guid: 741035aabc10ee741a67711d029540d3, type: 2}
+  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
   _hasFruit: 0
   _growFruitTime: 0
   _fruitOverlay: {fileID: 0}
@@ -1174,10 +1175,8 @@ MonoBehaviour:
   _workToHarvest: 0
   GrowthIndex: 0
   AgeSec: 0
-  AgeForNextGrowth: 0
   FruitTimer: 0
   ShowingFlowers: 0
-  RemainingCutWork: 0
   RemainingHarvestWork: 0
   HasFruitAvailable: 0
 --- !u!114 &115313260348806446
@@ -1231,6 +1230,7 @@ MonoBehaviour:
   - Structure
   SpriteIndex: 0
   Health: 0
+  RemainingExtractWork: 0
   CurrentTask:
     TaskId: 
     TaskType: 0
@@ -1379,7 +1379,7 @@ MonoBehaviour:
   isRuntimeInstance: 0
   boxFoldout: 0
   _category: 0
-  _maxDurability: 0
+  _maxDurability: 100
   Durability: 100
   IsAllowed: 0
   CurrentTask:
@@ -1403,7 +1403,7 @@ MonoBehaviour:
   - Water
   - Wall
   - Obstacle
-  _furniturePrefab: {fileID: 0}
+  _furniturePrefab: {fileID: 5465201506073250537, guid: 4126993f3ec383d47b0bc1b4432eb7bc, type: 3}
   _inUseNeedChange:
     SourceID: 
     AmountPerHour: 0
@@ -1419,8 +1419,8 @@ MonoBehaviour:
   Direction: 0
   InUse: 0
   LinkedFurniture: {fileID: 0}
-  _maxStorage: 0
-  _acceptedCategories: 
+  _maxStorage: 100
+  _acceptedCategories: 0000000001000000020000000300000006000000
   _specificStorage: []
   Stored: []
   Incoming: []
@@ -1469,6 +1469,7 @@ MonoBehaviour:
   - Structure
   SpriteIndex: 0
   Health: 0
+  RemainingExtractWork: 0
   CurrentTask:
     TaskId: 
     TaskType: 0
@@ -1564,6 +1565,7 @@ MonoBehaviour:
   - Structure
   SpriteIndex: 0
   Health: 0
+  RemainingExtractWork: 0
   CurrentTask:
     TaskId: 
     TaskType: 0
@@ -1631,6 +1633,7 @@ MonoBehaviour:
   - Structure
   SpriteIndex: 0
   Health: 0
+  RemainingExtractWork: 0
   CurrentTask:
     TaskId: 
     TaskType: 0
@@ -1774,6 +1777,7 @@ MonoBehaviour:
   - Structure
   SpriteIndex: 0
   Health: 0
+  RemainingExtractWork: 0
   CurrentTask:
     TaskId: 
     TaskType: 0
@@ -1813,7 +1817,7 @@ MonoBehaviour:
         MinDrop: 2
         MaxDrop: 4
     WorkToCut: 8
-  _harvestCmd: {fileID: 11400000, guid: 741035aabc10ee741a67711d029540d3, type: 2}
+  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
   _hasFruit: 0
   _growFruitTime: 0
   _fruitOverlay: {fileID: 0}
@@ -1823,10 +1827,8 @@ MonoBehaviour:
   _workToHarvest: 0
   GrowthIndex: 0
   AgeSec: 0
-  AgeForNextGrowth: 0
   FruitTimer: 0
   ShowingFlowers: 0
-  RemainingCutWork: 0
   RemainingHarvestWork: 0
   HasFruitAvailable: 0
 --- !u!114 &3998079584738369031
@@ -1993,6 +1995,7 @@ MonoBehaviour:
   - Structure
   SpriteIndex: 0
   Health: 0
+  RemainingExtractWork: 0
   CurrentTask:
     TaskId: 
     TaskType: 0
@@ -2048,6 +2051,7 @@ MonoBehaviour:
   - Structure
   SpriteIndex: 0
   Health: 0
+  RemainingExtractWork: 0
   CurrentTask:
     TaskId: 
     TaskType: 0
@@ -2087,7 +2091,7 @@ MonoBehaviour:
         MinDrop: 2
         MaxDrop: 4
     WorkToCut: 8
-  _harvestCmd: {fileID: 11400000, guid: 741035aabc10ee741a67711d029540d3, type: 2}
+  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
   _hasFruit: 1
   _growFruitTime: 40
   _fruitOverlay: {fileID: 21300000, guid: 48ee55af15a3565478364b54e85d85d1, type: 3}
@@ -2100,10 +2104,8 @@ MonoBehaviour:
   _workToHarvest: 5
   GrowthIndex: 0
   AgeSec: 0
-  AgeForNextGrowth: 0
   FruitTimer: 0
   ShowingFlowers: 0
-  RemainingCutWork: 0
   RemainingHarvestWork: 0
   HasFruitAvailable: 0
 --- !u!114 &6553907554727160304
@@ -2232,6 +2234,7 @@ MonoBehaviour:
   - Structure
   SpriteIndex: 0
   Health: 0
+  RemainingExtractWork: 0
   CurrentTask:
     TaskId: 
     TaskType: 0
@@ -2351,6 +2354,7 @@ MonoBehaviour:
   - Structure
   SpriteIndex: 0
   Health: 0
+  RemainingExtractWork: 0
   CurrentTask:
     TaskId: 
     TaskType: 0
@@ -2403,6 +2407,7 @@ MonoBehaviour:
   - Structure
   SpriteIndex: 0
   Health: 0
+  RemainingExtractWork: 0
   CurrentTask:
     TaskId: 
     TaskType: 0
@@ -2438,13 +2443,290 @@ MonoBehaviour:
       - {fileID: 0}
     - type: Data.Item.StorageData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      dataObjects: []
+      dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Item.ItemData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      dataObjects: []
+      dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Item.CraftedItemData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      dataObjects: []
+      dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+    - type: Data.Resource.ResourceData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+    - type: Data.Resource.GrowingResourceData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+    - type: Data.Resource.MountainResourceData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     _favoriteList: []
   copyData:
     _objectList: []
@@ -2738,6 +3020,7 @@ MonoBehaviour:
   - Structure
   SpriteIndex: 0
   Health: 0
+  RemainingExtractWork: 0
   CurrentTask:
     TaskId: 
     TaskType: 0
@@ -2767,7 +3050,7 @@ MonoBehaviour:
         MinDrop: 1
         MaxDrop: 2
     WorkToCut: 8
-  _harvestCmd: {fileID: 11400000, guid: f0e8dad8b311df84aaa187ea24d20432, type: 2}
+  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
   _hasFruit: 0
   _growFruitTime: 0
   _fruitOverlay: {fileID: 0}
@@ -2777,10 +3060,8 @@ MonoBehaviour:
   _workToHarvest: 0
   GrowthIndex: 0
   AgeSec: 0
-  AgeForNextGrowth: 0
   FruitTimer: 0
   ShowingFlowers: 0
-  RemainingCutWork: 0
   RemainingHarvestWork: 0
   HasFruitAvailable: 0
 --- !u!114 &7833847521327401813
@@ -2829,6 +3110,7 @@ MonoBehaviour:
   - Structure
   SpriteIndex: 0
   Health: 0
+  RemainingExtractWork: 0
   CurrentTask:
     TaskId: 
     TaskType: 0
@@ -2881,6 +3163,7 @@ MonoBehaviour:
   - Structure
   SpriteIndex: 0
   Health: 0
+  RemainingExtractWork: 0
   CurrentTask:
     TaskId: 
     TaskType: 0
@@ -2920,7 +3203,7 @@ MonoBehaviour:
         MinDrop: 2
         MaxDrop: 4
     WorkToCut: 8
-  _harvestCmd: {fileID: 11400000, guid: 741035aabc10ee741a67711d029540d3, type: 2}
+  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
   _hasFruit: 1
   _growFruitTime: 40
   _fruitOverlay: {fileID: 21300000, guid: 7f3e56da82bb4904abc880881a2e95d8, type: 3}
@@ -2933,9 +3216,7 @@ MonoBehaviour:
   _workToHarvest: 5
   GrowthIndex: 0
   AgeSec: 0
-  AgeForNextGrowth: 0
   FruitTimer: 0
   ShowingFlowers: 0
-  RemainingCutWork: 0
   RemainingHarvestWork: 0
   HasFruitAvailable: 0

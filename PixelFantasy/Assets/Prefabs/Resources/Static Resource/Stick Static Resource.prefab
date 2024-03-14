@@ -550,7 +550,7 @@ MonoBehaviour:
   - {fileID: 5338305840822349805}
   - {fileID: 6955631116225880799}
   - {fileID: 6871900948410232430}
-  DataLibrary: {fileID: 0}
+  DataLibrary: {fileID: 11400000, guid: f88f4256e274c364981fac582520b73b, type: 2}
   Data: {fileID: 0}
   RuntimeData: {fileID: 0}
 --- !u!114 &6694835006370969259

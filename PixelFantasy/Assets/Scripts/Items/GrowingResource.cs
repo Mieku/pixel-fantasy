@@ -12,28 +12,14 @@ namespace Items
 {
     public class GrowingResource : BasicResource
     {
-        //[SerializeField] protected bool _overrideFullGrowth;
         [SerializeField] protected SpriteRenderer _fruitOverlay;
-        // [SerializeField] private Command _harvestCmd;
 
-        // public int _growthIndex;
-        // protected float _ageSec;
-        // protected float _ageForNextGrowth;
-        // protected bool _fullyGrown;
-        // protected float _fruitTimer;
-        // protected bool _hasFruitAvailable;
-        protected bool _showingFlowers;
-        // protected float _remainingCutWork;
-        // protected float _remainingHarvestWork;
-
-        // public bool HasFruitAvailable => _hasFruitAvailable;
-        // public bool FullyGrown => _fullyGrown;
         public bool IsFruiting => GrowingResourceData.HasFruit;
         public List<GameObject> TaskRequestors = new List<GameObject>();
-
-        // private GrowingResourceSettings growingResourceSettings => ResourceSettings as GrowingResourceSettings;
+        
         public GrowingResourceData RuntimeGrowingResourceData => RuntimeData as GrowingResourceData;
         private GrowingResourceData GrowingResourceData => Data as GrowingResourceData;
+        
         public override void Init(ResourceData data)
         {
             base.Init(data);
@@ -46,37 +32,6 @@ namespace Items
             GrowthCheck();
             FruitCheck();
         }
-
-        // public override void Init(ResourceSettings settings)
-        // {
-        //     base.Init(settings);
-        //     
-        //     if (_overrideFullGrowth)
-        //     {
-        //         _fullyGrown = true;
-        //         _growthIndex = growingResourceSettings.GrowthStages.Count - 1;
-        //     }
-        //     else
-        //     {
-        //         _growthIndex = Random.Range(0, growingResourceSettings.GrowthStages.Count);
-        //     }
-        //
-        //     _ageSec = Random.Range(0, growingResourceSettings.TotalGrowTime() * 1.5f);
-        //     _fullyGrown = _ageSec >= growingResourceSettings.TotalGrowTime();
-        //     
-        //     if (growingResourceSettings.HasFruit && _ageSec > growingResourceSettings.TotalGrowTime())
-        //     {
-        //         _fruitTimer = Random.Range(0, growingResourceSettings.TimeToGrowFruit * 1.5f);
-        //         _hasFruitAvailable = _fruitTimer >= growingResourceSettings.TimeToGrowFruit;
-        //     }
-        //     
-        //     _remainingCutWork = GetWorkAmount();
-        //     _remainingHarvestWork = GetHarvestWorkAmount();
-        //     Health = GetWorkAmount();
-        //     
-        //     GrowthCheck();
-        //     FruitCheck();
-        // }
 
         public override string DisplayName
         {
@@ -92,7 +47,7 @@ namespace Items
             }
         }
         
-        protected void UpdateSprite()
+        protected override void UpdateSprite()
         {
             var stage = RuntimeGrowingResourceData.GetGrowthStage();
             var scaleOverride = stage.Scale;
@@ -113,25 +68,21 @@ namespace Items
         
         protected void GrowthCheck()
         {
+            if (RuntimeGrowingResourceData == null) return;
+            
             if (!RuntimeGrowingResourceData.FullyGrown)
             {
                 RuntimeGrowingResourceData.AgeSec += TimeManager.Instance.DeltaTime;
                 if (RuntimeGrowingResourceData.AgeSec >= RuntimeGrowingResourceData.AgeForNextGrowth)
                 {
+                    var extractDiff = RuntimeGrowingResourceData.RemainingExtractWork - RuntimeGrowingResourceData.GetWorkToCut();
+                    
                     RuntimeGrowingResourceData.GrowthIndex++;
 
-                    if (RuntimeGrowingResourceData.GrowthIndex < RuntimeGrowingResourceData.GrowthStages.Count)
-                    {
-                        var stage = RuntimeGrowingResourceData.GetGrowthStage();
-                        RuntimeGrowingResourceData.AgeForNextGrowth += stage.SecsInStage;
-                        RefreshSelection();
-                    }
-                    // else
-                    // {
-                    //     _fullyGrown = true;
-                    //     RuntimeGrowingResourceData.FullyGrown = true;
-                    // }
-                    
+                    RuntimeGrowingResourceData.RemainingExtractWork =
+                        RuntimeGrowingResourceData.GetWorkToCut() - extractDiff;
+
+                    RefreshSelection();
                     UpdateSprite();
                 }
             }
@@ -155,6 +106,8 @@ namespace Items
 
         protected void FruitCheck()
         {
+            if (RuntimeGrowingResourceData == null) return;
+            
             if (!RuntimeGrowingResourceData.FullyGrown) return;
             
             if (RuntimeGrowingResourceData.HasFruit && !RuntimeGrowingResourceData.HasFruitAvailable)
@@ -170,9 +123,9 @@ namespace Items
                 } 
                 else if (RuntimeGrowingResourceData.FruitTimer >= RuntimeGrowingResourceData.GrowFruitTime / 2f)
                 {
-                    if (!_showingFlowers && RuntimeGrowingResourceData.HasFruitFlowers)
+                    if (!RuntimeGrowingResourceData.ShowingFlowers && RuntimeGrowingResourceData.HasFruitFlowers)
                     {
-                        _showingFlowers = true;
+                        RuntimeGrowingResourceData.ShowingFlowers = true;
                         _fruitOverlay.sprite = RuntimeGrowingResourceData.FruitFlowersOverlay;
                         _fruitOverlay.gameObject.SetActive(true);
                     }
@@ -241,7 +194,7 @@ namespace Items
             FruitCheck();
         }
 
-        protected override void HarvestResource()
+        protected override void ExtractResource()
         {
             HarvestFruit();
             
@@ -256,7 +209,7 @@ namespace Items
             
             RefreshSelection();
             
-            base.HarvestResource();
+            base.ExtractResource();
         }
         
         public override float GetWorkAmount()

@@ -77,7 +77,7 @@ namespace TaskSystem
             if(_timer >= ActionSpeed) 
             {
                 _timer = 0;
-                if (_resource.DoWork(WorkAmount)) 
+                if (_resource.DoExtractionWork(WorkAmount)) 
                 {
                     // When work is complete
                     ConcludeAction();

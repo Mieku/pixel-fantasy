@@ -28,6 +28,7 @@ namespace Data.Resource
         // Runtime
         [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public int SpriteIndex;
         [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public float Health;
+        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public float RemainingExtractWork;
         [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public Task CurrentTask;
         [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public Vector2 Position;
 
@@ -35,6 +36,7 @@ namespace Data.Resource
         public virtual void InitData()
         {
             Health = _maxHealth;
+            RemainingExtractWork = _workToExtract;
         }
         
         public int GetRandomSpriteIndex()

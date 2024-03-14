@@ -57,26 +57,70 @@ namespace Items
             return _clickObject;
         }
         
+        
         public void InitializeItem(ItemData itemData, bool allowed)
         {
-            //_itemSettings = itemSettings;
             Data = itemData;
-            RuntimeData = Data.GetRuntimeDataObject() as ItemData;
 
-            if (RuntimeData == null)
+            DataLibrary.RegisterInitializationCallback((() =>
             {
                 RuntimeData = (ItemData) DataLibrary.CloneDataObjectToRuntime(Data, gameObject);
-            }
+                RuntimeData.InitData();
             
-            IsAllowed = allowed;
-            
-            DisplayItemSprite();
+                DisplayItemSprite();
 
-            if (allowed)
-            {
-                SeekForSlot();
-            }
+                if (allowed)
+                {
+                    SeekForSlot();
+                }
+            }));
+            DataLibrary.OnSaved += Saved;
+            DataLibrary.OnLoaded += Loaded;
         }
+        
+        protected void Saved()
+        {
+            
+        }
+
+        protected void Loaded()
+        {
+            
+        }
+        
+        // protected virtual void InitialDataReady(bool allowed)
+        // {
+        //     RuntimeData = (ItemData) DataLibrary.CloneDataObjectToRuntime(Data, gameObject);
+        //     RuntimeData.InitData();
+        //     
+        //     DisplayItemSprite();
+        //
+        //     if (allowed)
+        //     {
+        //         SeekForSlot();
+        //     }
+        // }
+        
+        // public void InitializeItem(ItemData itemData, bool allowed)
+        // {
+        //     //_itemSettings = itemSettings;
+        //     Data = itemData;
+        //     RuntimeData = Data.GetRuntimeDataObject() as ItemData;
+        //
+        //     if (RuntimeData == null)
+        //     {
+        //         RuntimeData = (ItemData) DataLibrary.CloneDataObjectToRuntime(Data, gameObject);
+        //     }
+        //     
+        //     IsAllowed = allowed;
+        //     
+        //     DisplayItemSprite();
+        //
+        //     if (allowed)
+        //     {
+        //         SeekForSlot();
+        //     }
+        // }
 
         public void SeekForSlot()
         {
@@ -173,6 +217,8 @@ namespace Items
         {
             _isHeld = false;
             AssignedStorage.DepositItems(RuntimeData);
+            
+            Destroy(gameObject);
         }
 
         private void DisplayItemSprite()

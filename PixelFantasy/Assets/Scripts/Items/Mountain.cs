@@ -22,7 +22,7 @@ namespace Items
         //private MountainSettings _mountainSettings => ResourceSettings as MountainSettings;
         
         public MountainResourceData RuntimeMountainData => RuntimeData as MountainResourceData;
-        private MountainResourceData MountainData => Data as MountainResourceData;
+        private MountainResourceData _mountainData => Data as MountainResourceData;
         
         protected override void Awake()
         {
@@ -35,13 +35,12 @@ namespace Items
         {
             base.Init(data);
             _tempPlacementDisp.SetActive(false);
+            Refresh();
         }
 
         protected override void InitialDataReady()
         {
             base.InitialDataReady();
-            
-            Refresh();
         }
 
         // public void Init(MountainSettings mountainSettings)
@@ -59,6 +58,11 @@ namespace Items
         //     Refresh();
         // }
 
+        protected override void UpdateSprite()
+        {
+            // No sprite in need of updating
+        }
+
         private void Refresh()
         {
             SetTile();
@@ -69,16 +73,16 @@ namespace Items
             return UnitAction.Swinging;
         }
 
-        protected override void HarvestResource()
+        protected override void ExtractResource()
         {
             MineMountain();
-            base.HarvestResource();
+            base.ExtractResource();
         }
 
         private void SetTile()
         {
             var cell = _mountainTM.WorldToCell(transform.position);
-            _mountainTM.SetTile(cell, RuntimeMountainData.GetRuleTile());
+            _mountainTM.SetTile(cell, _mountainData.GetRuleTile());
 
             var dirtCell = _dirtTM.WorldToCell(transform.position);
             _dirtTM.SetTile(dirtCell, _dirtRuleTile);
@@ -115,21 +119,5 @@ namespace Items
             // Delete Self
             RefreshSelection();
         }
-
-        // public override float GetWorkAmount()
-        // {
-        //     return _mountainSettings.GetWorkAmount();
-        // }
-        //
-        // public float WorkDone(float workAmount)
-        // {
-        //     _remainingWork -= workAmount;
-        //     return _remainingWork;
-        // }
-
-        // public override HarvestableItems GetHarvestableItems()
-        // {
-        //     return RuntimeMountainData.HarvestableItems;
-        // }
     }
 }

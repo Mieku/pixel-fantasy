@@ -25,7 +25,7 @@ namespace Data.Resource
         
         // Accessors
         public bool HasFruit => _hasFruit;
-        public bool FullyGrown => AgeSec >= TotalGrowTime();
+        public bool FullyGrown => AgeForNextGrowth == 0f;//AgeSec >= TotalGrowTime();
         public List<GrowthStage> GrowthStages => _growthStages;
         public float GrowFruitTime => _growFruitTime;
         public Sprite FruitOverlay => _fruitOverlay;
@@ -33,14 +33,14 @@ namespace Data.Resource
         public int WorkToHarvest => _workToHarvest;
         public bool HasFruitFlowers => _fruitFlowersOverlay != null;
         public Command HarvestCmd => _harvestCmd;
+        public float AgeForNextGrowth => GetGrowthStage().SecsInStage;
         
         // Runtime
         [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public int GrowthIndex;
         [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public float AgeSec;
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public float AgeForNextGrowth;
         [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public float FruitTimer;
         [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public bool ShowingFlowers;
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public float RemainingCutWork;
+        //[Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public float RemainingCutWork;
         [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public float RemainingHarvestWork;
         [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public bool HasFruitAvailable;
         
@@ -50,14 +50,29 @@ namespace Data.Resource
             
             GrowthIndex = Random.Range(0, _growthStages.Count);
 
-            AgeSec = Random.Range(0, TotalGrowTime() * 1.5f);
+            float minAgeSec = 0f;
+            for (int i = 0; i < GrowthIndex - 1; i++)
+            {
+                minAgeSec += _growthStages[i].SecsInStage;
+            }
+
+            if (FullyGrown)
+            {
+                AgeSec = Random.Range(minAgeSec, TotalGrowTime() * 1.5f);
+            }
+            else
+            {
+                AgeSec = Random.Range(minAgeSec, GetGrowthStage().SecsInStage);
+            }
+            
             
             if (_hasFruit && AgeSec > TotalGrowTime())
             {
                 FruitTimer = Random.Range(0, _growFruitTime * 1.5f);
+                HasFruitAvailable = FruitTimer >= _growFruitTime;
             }
             
-            RemainingCutWork = _workToExtract;
+            RemainingExtractWork = GetWorkToCut();
             RemainingHarvestWork = _workToHarvest;
         }
         
@@ -113,11 +128,11 @@ namespace Data.Resource
             return Mathf.Clamp01(percent);
         }
         
-        public float CutWorkDone(float workAmount)
-        {
-            RemainingCutWork -= workAmount;
-            return RemainingCutWork;
-        }
+        // public float CutWorkDone(float workAmount)
+        // {
+        //     RemainingCutWork -= workAmount;
+        //     return RemainingCutWork;
+        // }
 
         public float HarvestWorkDone(float workAmount)
         {

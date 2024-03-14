@@ -29,7 +29,7 @@ namespace Handlers
                 if (stat == null)
                 {
                     stat = new MountainStats();
-                    stat.MountainData = mountain.RuntimeMountainData as MountainResourceData;
+                    stat.MountainData = mountain.Data as MountainResourceData;
                     stat.Count = 1;
                     stats.Add(stat);
                 }

@@ -4,13 +4,9 @@ using System.Linq;
 using Data.Resource;
 using Databrain;
 using Databrain.Attributes;
-using DataPersistence;
 using Interfaces;
 using Managers;
-using ScriptableObjects;
-using TaskSystem;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.Serialization;
 
 namespace Items
@@ -19,7 +15,7 @@ namespace Items
     {
         [SerializeField] protected SpriteRenderer _spriteRenderer;
         [SerializeField] private ClickObject _clickObject;
-        [SerializeField] private Command _defaultClearCmd;
+        [FormerlySerializedAs("_defaultClearCmd")] [SerializeField] private Command _defaultExtractCmd;
         [SerializeField] private BoxCollider2D _obstacleBox;
         [SerializeField] private List<Transform> _workPoints;
 
@@ -31,6 +27,14 @@ namespace Items
         [DataObjectDropdown("DataLibrary", true)]
         public ResourceData Data;
         public ResourceData RuntimeData;
+
+        private void Start()
+        {
+            if (Data != null && RuntimeData == null)
+            {
+                Init(Data);
+            }
+        }
 
         public virtual void Init(ResourceData data)
         {
@@ -63,7 +67,7 @@ namespace Items
         {
             var spriteIndex = RuntimeData.GetRandomSpriteIndex();
             RuntimeData.SpriteIndex = spriteIndex;
-            _spriteRenderer.sprite = Data.GetSprite(spriteIndex);
+            _spriteRenderer.sprite = RuntimeData.GetSprite(spriteIndex);
         }
 
         public override Vector2? UseagePosition(Vector2 requestorPosition)
@@ -144,12 +148,12 @@ namespace Items
         /// </summary>
         /// <param name="workAmount"></param>
         /// <returns>If the work is complete</returns>
-        public virtual bool DoWork(float workAmount)
+        public virtual bool DoExtractionWork(float workAmount)
         {
-            RuntimeData.Health -= workAmount;
-            if (RuntimeData.Health <= 0)
+            RuntimeData.RemainingExtractWork -= workAmount;
+            if (RuntimeData.RemainingExtractWork <= 0)
             {
-                HarvestResource();
+                ExtractResource();
                 return true;
             }
             
@@ -159,7 +163,7 @@ namespace Items
         public virtual void ClearResource(Action onResourceCleared)
         {
             _onResourceClearedCallback = onResourceCleared;
-            AssignCommand(_defaultClearCmd);
+            AssignCommand(_defaultExtractCmd);
         }
 
         public bool IsGridInObstacleArea(Vector2 gridPos)
@@ -184,7 +188,7 @@ namespace Items
             return false;
         }
 
-        protected virtual void HarvestResource()
+        protected virtual void ExtractResource()
         {
             var resources = Data.HarvestableItems.GetItemDrop();
             foreach (var resource in resources)
