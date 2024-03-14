@@ -22,7 +22,6 @@ public class ClickObject : MonoBehaviour
 
     private ItemSettings _itemSettings;
     private ConstructionSettings _structureSettings;
-    private ResourceSettings _growingResourceSettings;
     private Kinling _kinling;
 
     private IClickableObject _clickableObject; // Cache

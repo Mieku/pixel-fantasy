@@ -9,13 +9,10 @@ namespace Data.Resource
     public class MountainResourceData : ResourceData
     {
         // Settings
-        [SerializeField] protected int _workToMine;
-        [SerializeField] protected HarvestableItems _minedResources;
         [SerializeField] protected RuleTile _ruleTile;
         [SerializeField] protected MountainTileType _mountainTileType;
         
         // Accessors
-        public new HarvestableItems HarvestableItems => _minedResources;
         public MountainTileType MountainTileType => _mountainTileType;
         
         // Runtime
@@ -25,7 +22,7 @@ namespace Data.Resource
         {
             base.InitData();
 
-            RemainingWork = _workToMine;
+            RemainingWork = _workToExtract;
         }
 
         public RuleTile GetRuleTile()
@@ -35,17 +32,12 @@ namespace Data.Resource
 
         public List<ItemAmount> GetMineDrop()
         {
-            if (_minedResources != null)
+            if (_harvestableItems != null)
             {
-                return _minedResources.GetItemDrop();
+                return _harvestableItems.GetItemDrop();
             }
 
             return new List<ItemAmount>();
-        }
-
-        public int GetWorkAmount()
-        {
-            return _workToMine;
         }
     }
     

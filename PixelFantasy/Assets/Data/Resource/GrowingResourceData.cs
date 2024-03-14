@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using Databrain.Attributes;
 using Items;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Data.Resource
 {
@@ -24,7 +26,6 @@ namespace Data.Resource
         // Accessors
         public bool HasFruit => _hasFruit;
         public bool FullyGrown => AgeSec >= TotalGrowTime();
-        //public bool HasFruitAvailable => FruitTimer >= _growFruitTime;
         public List<GrowthStage> GrowthStages => _growthStages;
         public float GrowFruitTime => _growFruitTime;
         public Sprite FruitOverlay => _fruitOverlay;
@@ -123,5 +124,16 @@ namespace Data.Resource
             RemainingHarvestWork -= workAmount;
             return RemainingHarvestWork;
         }
+    }
+
+    [Serializable]
+    public class GrowthStage
+    {
+        public string StageName;
+        public Sprite GrowthSprite;
+        public float Scale;
+        public float SecsInStage;
+        public HarvestableItems HarvestableItems;
+        public int WorkToCut;
     }
 }

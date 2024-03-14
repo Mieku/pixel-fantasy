@@ -21,7 +21,6 @@ namespace Managers
         [SerializeField] private List<Sprite> _sprites;
         [SerializeField] private List<SpriteRef> _orderIcons;
         [SerializeField] private List<CropSettings> _cropLibrary;
-        [SerializeField] private List<GrowingResourceSettings> _growingResourceLibrary;
         [SerializeField] private List<HairSettings> _hairLibrary;
         [SerializeField] private List<ItemSettings> _itemDataLibrary;
         [SerializeField] private List<Command> _commandLibrary;
@@ -196,11 +195,6 @@ namespace Managers
         public Sprite GetOrderIcon(string spriteName)
         {
             return _orderIcons.Find(i => i.Name == spriteName).Sprite;
-        }
-        
-        public GrowingResourceSettings GetGrowingResourceData(string resourceName)
-        {
-            return _growingResourceLibrary.Find(i => i.ResourceName == resourceName);
         }
 
         public HairSettings GetHairData(string hairName)

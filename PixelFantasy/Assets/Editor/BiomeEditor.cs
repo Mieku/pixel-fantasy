@@ -21,7 +21,7 @@ public class BiomeEditor : Editor
         EditorGUILayout.BeginVertical("box");
         GUILayout.Label("Mountains", EditorStyles.boldLabel); // Optional: Add a label for the group
         // Dropdown or ObjectField for selecting MountainData
-        _selectedMountainSettings = (MountainResourceData)EditorGUILayout.ObjectField("Select MountainData", _selectedMountainSettings, typeof(MountainSettings), false);
+        _selectedMountainSettings = (MountainResourceData)EditorGUILayout.ObjectField("Select MountainData", _selectedMountainSettings, typeof(MountainResourceData), false);
 
         // Button for adding the selected MountainData to the list
         if (GUILayout.Button("Add Selected Mountain") && _selectedMountainSettings != null)
@@ -67,14 +67,14 @@ public class BiomeEditor : Editor
         EditorGUILayout.EndVertical();
         // End of Mountains Box Group
         
-        DisplayPercentagesOptions<ResourceSettings>("Forest Trees", biome.ForestTreeResources);
-        DisplayPercentagesOptions<GrowingResourceSettings>("Forest Additionals", biome.ForestAdditionalResources);
-        DisplayPercentagesOptions<ResourceSettings>("Vegitation", biome.VegitationResources);
-        DisplayPercentagesOptions<ResourceSettings>("Additional Resources", biome.AdditionalResources);
+        DisplayPercentagesOptions<ResourceData>("Forest Trees", biome.ForestTreeResources);
+        DisplayPercentagesOptions<GrowingResourceData>("Forest Additionals", biome.ForestAdditionalResources);
+        DisplayPercentagesOptions<ResourceData>("Vegitation", biome.VegitationResources);
+        DisplayPercentagesOptions<ResourceData>("Additional Resources", biome.AdditionalResources);
     }
     
     // Adjust the DisplayPercentagesOptions method to be generic
-    private void DisplayPercentagesOptions<T>(string header, List<ResourceDataPercentage> biomePercentages) where T : ResourceSettings
+    private void DisplayPercentagesOptions<T>(string header, List<ResourceDataPercentage> biomePercentages) where T : ResourceData
     {
         EditorGUILayout.BeginVertical("box");
         GUILayout.Label(header, EditorStyles.boldLabel);

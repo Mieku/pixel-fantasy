@@ -70,7 +70,7 @@ MonoBehaviour:
     typeDisplayName: Resources
     typeName: 
     typeAssemblyQualifiedName: 
-    childCount: 3
+    childCount: 4
     indexOfFirstChild: 9
   - foldout: 0
     typeDisplayName: Crop
@@ -88,20 +88,28 @@ MonoBehaviour:
     indexOfFirstChild: 11
   - foldout: 0
     typeDisplayName: Growing Resource
-    typeName: 
-    typeAssemblyQualifiedName: 
+    typeName: GrowingResourceData
+    typeAssemblyQualifiedName: Data.Resource.GrowingResourceData, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     childCount: 0
     indexOfFirstChild: 12
+  - foldout: 0
+    typeDisplayName: Mountain
+    typeName: MountainResourceData
+    typeAssemblyQualifiedName: Data.Resource.MountainResourceData, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    childCount: 0
+    indexOfFirstChild: 13
   - foldout: 1
     typeDisplayName: Equipment
     typeName: 
     typeAssemblyQualifiedName: 
     childCount: 1
-    indexOfFirstChild: 13
+    indexOfFirstChild: 14
   - foldout: 0
     typeDisplayName: Tools
     typeName: ToolData
     typeAssemblyQualifiedName: Data.Item.ToolData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     childCount: 0
-    indexOfFirstChild: 14
+    indexOfFirstChild: 15
