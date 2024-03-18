@@ -46,12 +46,12 @@ namespace Managers
         /// <summary>
         /// Checks if the item is available in storage without claiming it
         /// </summary>
-        public bool IsItemInStorage(ItemData itemData)
+        public bool IsItemInStorage(ItemData specificItem)
         {
             foreach (var storage in _allStorage)
             {
                 if (storage.IsAvailable
-                    && storage.RuntimeStorageData.IsItemInStorage(itemData))
+                    && storage.RuntimeStorageData.IsItemInStorage(specificItem))
                 {
                     return true;
                 }
@@ -59,27 +59,6 @@ namespace Managers
 
             return false;
         }
-        
-        // public bool IsItemInStorage(string itemName)
-        // {
-        //     if (string.IsNullOrEmpty(itemName)) return false;
-        //     
-        //     var itemData = Librarian.Instance.GetItemData(itemName);
-        //     
-        //     foreach (var storage in _allStorage)
-        //     {
-        //         if (storage.IsAvailable 
-        //             && storage.StorageData.IsItemInStorage(itemData))
-        //         {
-        //             return true;
-        //         }
-        //     }
-        //
-        //     return false;
-        // }
-
-        
-        
         
         public Storage GetAvailableStorage(ItemData itemData)
         {
@@ -108,53 +87,29 @@ namespace Managers
 
             return null;
         }
-        
-        public bool ClaimItem(ItemData itemData)
+
+        public ItemData GetItemOfType(string itemDataGuid)
         {
             foreach (var storage in _allStorage)
             {
-                if (storage.IsAvailable 
-                    && storage.RuntimeStorageData.AmountCanBeWithdrawn(itemData) > 0)
+                if (storage.IsAvailable)
                 {
-                    storage.RuntimeStorageData.SetClaimed(itemData);
-                    return true;
+                    var item = storage.RuntimeStorageData.GetItemDataOfType(itemDataGuid);
+                    if (item != null)
+                    {
+                        return item;
+                    }
                 }
             }
 
-            return false;
+            return null;
         }
         
-        // public Item FindAndClaimBestAvailableFood()
-        // {
-        //     List<Item> availableFood = new List<Item>();
-        //     foreach (var storage in _allStorage)
-        //     {
-        //         if (storage.IsAvailable)
-        //         {
-        //             availableFood.AddRange(storage.StorageData.GetAllFoodItems(false));
-        //         }
-        //     }
-        //     
-        //     // Sort by nutrition
-        //     var sortedFood = availableFood.OrderByDescending(food => ((IFoodItem)food.GetItemData()).FoodNutrition).ToList();
-        //
-        //     if (sortedFood.Count == 0)
-        //     {
-        //         return null;
-        //     }
-        //     else
-        //     {
-        //         var selectedFood = sortedFood[0];
-        //         var claimedFood = selectedFood.AssignedStorage.StorageData.SetClaimed(selectedFood.GetItemData());
-        //         return claimedFood;
-        //     }
-        // }
-
         public bool HasToolType(EToolType toolType)
         {
             foreach (var storage in _allStorage)
             {
-                var storedItems = storage.RuntimeStorageData.GetAvailableInventory<ToolData>();
+                var storedItems = storage.RuntimeStorageData.GetAllToolItems();
                 foreach (var tool in storedItems)
                 {
                     if (tool.ToolType == toolType)
@@ -172,7 +127,7 @@ namespace Managers
             List<ToolData> potentialItems = new List<ToolData>();
             foreach (var storage in _allStorage)
             {
-                var storedItems = storage.RuntimeStorageData.GetAvailableInventory<ToolData>();
+                var storedItems = storage.RuntimeStorageData.GetAllToolItems();
                 foreach (var tool in storedItems)
                 {
                     if (tool.ToolType == toolType)
@@ -187,7 +142,7 @@ namespace Managers
             if (sortedTools.Any())
             {
                 var bestToolData = sortedTools.First();
-                ClaimItem(bestToolData);
+                bestToolData.ClaimItem();
                 return bestToolData;
             }
             
@@ -213,29 +168,6 @@ namespace Managers
 
             return results;
         }
-        
-        // public Dictionary<ItemSettings, List<Item>> GetAvailableInventory()
-        // {
-        //     Dictionary<ItemSettings, List<Item>> results = new Dictionary<ItemSettings, List<Item>>();
-        //     foreach (var storage in _allStorage)
-        //     {
-        //         var contents = storage.StorageData.AvailableInventory;
-        //         foreach (var content in contents)
-        //         {
-        //             if (!results.ContainsKey(content.Key))
-        //             {
-        //                 results.Add(content.Key, new List<Item>());
-        //             }
-        //
-        //             foreach (var item in content.Value)
-        //             {
-        //                 results[content.Key].Add(item);
-        //             }
-        //         }
-        //     }
-        //
-        //     return results;
-        // }
 
         public Dictionary<ItemData, int> GetAvailableInventoryQuantities()
         {

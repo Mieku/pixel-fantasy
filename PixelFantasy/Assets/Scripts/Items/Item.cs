@@ -19,7 +19,6 @@ namespace Items
 {
     public class Item : PlayerInteractable, IClickableObject
     {
-        //[FormerlySerializedAs("_itemData")] [SerializeField] private ItemSettings _itemSettings;
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private ClickObject _clickObject;
 
@@ -33,8 +32,6 @@ namespace Items
         private Transform _originalParent;
 
         public Storage AssignedStorage;
-
-        //public ItemState State { get; private set; }
 
         public DataLibrary DataLibrary;
         
@@ -57,23 +54,40 @@ namespace Items
             return _clickObject;
         }
         
-        
-        public void InitializeItem(ItemData itemData, bool allowed)
+        public void InitializeItem(ItemData data, bool allowed)
         {
-            Data = itemData;
+            Data = data;
 
-            DataLibrary.RegisterInitializationCallback((() =>
+            DataLibrary.RegisterInitializationCallback(() =>
             {
-                RuntimeData = (ItemData) DataLibrary.CloneDataObjectToRuntime(Data, gameObject);
+                RuntimeData = (ItemData)DataLibrary.CloneDataObjectToRuntime(Data, gameObject);
+                RuntimeData.LinkedItem = this;
                 RuntimeData.InitData();
-            
+
                 DisplayItemSprite();
 
                 if (allowed)
                 {
                     SeekForSlot();
                 }
-            }));
+
+                DataLibrary.OnSaved += Saved;
+                DataLibrary.OnLoaded += Loaded;
+            });
+        }
+
+        public void LoadItemData(ItemData data, bool canHaul)
+        {
+            Data = data;
+            RuntimeData = Data.GetRuntimeData();
+            RuntimeData.LinkedItem = this;
+            DisplayItemSprite();
+
+            if (canHaul)
+            {
+                SeekForSlot();
+            }
+            
             DataLibrary.OnSaved += Saved;
             DataLibrary.OnLoaded += Loaded;
         }
@@ -87,41 +101,7 @@ namespace Items
         {
             
         }
-        
-        // protected virtual void InitialDataReady(bool allowed)
-        // {
-        //     RuntimeData = (ItemData) DataLibrary.CloneDataObjectToRuntime(Data, gameObject);
-        //     RuntimeData.InitData();
-        //     
-        //     DisplayItemSprite();
-        //
-        //     if (allowed)
-        //     {
-        //         SeekForSlot();
-        //     }
-        // }
-        
-        // public void InitializeItem(ItemData itemData, bool allowed)
-        // {
-        //     //_itemSettings = itemSettings;
-        //     Data = itemData;
-        //     RuntimeData = Data.GetRuntimeDataObject() as ItemData;
-        //
-        //     if (RuntimeData == null)
-        //     {
-        //         RuntimeData = (ItemData) DataLibrary.CloneDataObjectToRuntime(Data, gameObject);
-        //     }
-        //     
-        //     IsAllowed = allowed;
-        //     
-        //     DisplayItemSprite();
-        //
-        //     if (allowed)
-        //     {
-        //         SeekForSlot();
-        //     }
-        // }
-
+       
         public void SeekForSlot()
         {
             if (AssignedStorage == null && !_isHeld)
@@ -146,6 +126,11 @@ namespace Items
                     _seekTimer = 0;
                     SeekForSlot();
                 }
+            }
+
+            if (RuntimeData != null)
+            {
+                RuntimeData.Position = transform.position;
             }
         }
 
@@ -216,26 +201,14 @@ namespace Items
         public void AddItemToSlot()
         {
             _isHeld = false;
-            AssignedStorage.DepositItems(RuntimeData);
-            
-            Destroy(gameObject);
+            AssignedStorage.RuntimeStorageData.DepositItems(this);
         }
 
         private void DisplayItemSprite()
         {
             _spriteRenderer.sprite = Data.ItemSprite;
         }
-
-        public bool IsSameItemType(Item item)
-        {
-            return Data == item.Data;
-        }
         
-        // private void OnValidate()
-        // {
-        //     DisplayItemSprite();
-        // }
-
         public void ToggleAllowed(bool isAllowed)
         {
             IsAllowed = isAllowed;
@@ -260,11 +233,6 @@ namespace Items
         private void Start()
         {
             GameEvents.OnInventoryAvailabilityChanged += GameEvent_OnInventoryAvailabilityChanged;
-            
-            // if (_itemSettings != null && State == null)
-            // {
-            //     InitializeItem(_itemSettings, true, State);
-            // }
         }
 
         private void OnDestroy()
@@ -273,6 +241,11 @@ namespace Items
             
             if(_currentTask != null)
                 _currentTask.Cancel();
+
+            if (RuntimeData != null)
+            {
+                RuntimeData.LinkedItem = null;
+            }
         }
 
         public bool IsClickDisabled { get; set; }
@@ -305,52 +278,6 @@ namespace Items
         }
 
         public string DisplayName => Data.ItemName;
-
-        // public object CaptureState()
-        // {
-        //     return new Data
-        //     {
-        //         UID = UniqueId,
-        //         Position = transform.position,
-        //         ItemSettings = _itemSettings,
-        //         OriginalParent = _originalParent,
-        //         IsAllowed = this.IsAllowed,
-        //         IsClickDisabled = this.IsClickDisabled,
-        //         AssignedSlotUID = _assignedSlotUID,
-        //         AssignedUnitUID = _assignedUnitUID,
-        //         IsHeld = _isHeld,
-        //     };
-        // }
-        //
-        // public void RestoreState(object data)
-        // {
-        //     var itemState = (Data)data;
-        //
-        //     UniqueId = itemState.UID;
-        //     transform.position = itemState.Position;
-        //     _originalParent = itemState.OriginalParent;
-        //     IsAllowed = itemState.IsAllowed;
-        //     IsClickDisabled = itemState.IsClickDisabled;
-        //     _assignedSlotUID = itemState.AssignedSlotUID;
-        //     _assignedUnitUID = itemState.AssignedUnitUID;
-        //     _isHeld = itemState.IsHeld;
-        //
-        //     InitializeItem(itemState.ItemSettings, IsAllowed);
-        // }
-
-        // public struct Data
-        // {
-        //     public string UID;
-        //     public Vector3 Position;
-        //     public ItemSettings ItemSettings;
-        //     public Transform OriginalParent;
-        //     public bool IsAllowed;
-        //     public bool IsClickDisabled;
-        //     
-        //     public string AssignedSlotUID;
-        //     public string AssignedUnitUID;
-        //     public bool IsHeld;
-        // }
 
         public override Vector2? UseagePosition(Vector2 requestorPosition)
         {

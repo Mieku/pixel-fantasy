@@ -40,7 +40,6 @@ namespace Data.Resource
         [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public float AgeSec;
         [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public float FruitTimer;
         [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public bool ShowingFlowers;
-        //[Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public float RemainingCutWork;
         [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public float RemainingHarvestWork;
         [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public bool HasFruitAvailable;
         

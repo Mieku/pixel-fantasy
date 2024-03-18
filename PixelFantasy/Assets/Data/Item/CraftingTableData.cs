@@ -1,17 +1,25 @@
 using System.Collections.Generic;
+using Databrain.Attributes;
+using Managers;
 using ScriptableObjects;
 using Systems.Crafting.Scripts;
+using UnityEngine;
 
 namespace Data.Item
 {
     public class CraftingTableData : FurnitureData
     {
-        public List<CraftedItemData> CraftableItems;
-        public List<ItemAmount> RemainingMaterials = new List<ItemAmount>();
-        public float RemainingCraftingWork;
-        public CraftedItemData ItemBeingCrafted;
-        public CraftingOrder CurrentOrder;
+        // Settings
+        [DataObjectDropdown(true)] [SerializeField] protected List<CraftedItemData> _craftableItems;
         
+        // Accessors
+        public List<CraftedItemData> CraftableItems => _craftableItems;
+        
+        // Runtime
+        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public List<ItemAmount> RemainingMaterials = new List<ItemAmount>();
+        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public float RemainingCraftingWork;
+        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public CraftedItemData ItemBeingCrafted;
+        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public CraftingOrder CurrentOrder;
         
         public float GetPercentCraftingComplete()
         {
@@ -46,9 +54,10 @@ namespace Data.Item
             }
         }
         
-        public bool CanCraftItem(CraftedItemData item)
+        public bool CanCraftItem(string itemGUID)
         {
-            var validToCraft = CraftableItems.Contains(item);
+            var item = Librarian.Instance.GetInitialItemDataByGuid(itemGUID) as CraftedItemData;
+            var validToCraft = _craftableItems.Contains(item);
             if (!validToCraft) return false;
             
             // Are the mats available?

@@ -78,7 +78,7 @@ namespace TaskSystem
 
         public override void OnTaskCancel()
         {
-            _ai.DropCarriedItem();
+            _ai.DropCarriedItem(true);
             base.OnTaskCancel();
         }
     }

@@ -33,7 +33,6 @@ namespace TaskSystem
         public override void PrepareAction(Task task)
         {
             _itemToCraft = task.Payload as CraftedItemData;
-            //_itemToCraft = Librarian.Instance.GetItemData((string)task.Payload) as CraftedItemSettings;
             _craftingTable = (CraftingTable)task.Requestor;
             _materials = task.Materials;
             _state = ETaskState.ClaimTable;
@@ -71,8 +70,7 @@ namespace TaskSystem
                     {
                         KinlingAnimController.SetUnitAction(UnitAction.Nothing);
                         
-                        _targetItem = Spawner.Instance.SpawnItem(_itemToCraft, _craftingTable.transform.position, false);
-                        //_targetItem.State.CraftersUID = _ai.Kinling.UniqueId;
+                        _targetItem = Spawner.Instance.SpawnItem(_itemToCraft.initialGuid, _craftingTable.transform.position, false);
                         _ai.HoldItem(_targetItem);
                         
                         _state = ETaskState.DeliverItem;
@@ -86,7 +84,7 @@ namespace TaskSystem
                 if (_receivingStorage == null)
                 {
                     // THROW IT ON THE GROUND!
-                    _ai.DropCarriedItem();
+                    _ai.DropCarriedItem(true);
                     ConcludeAction();
                     return;
                 }
@@ -129,9 +127,8 @@ namespace TaskSystem
 
         private void OnProductDelivered()
         {
-            _receivingStorage.DepositItems(_targetItem.Data);
-            
-            _ai.DropCarriedItem();
+            //_receivingStorage.RuntimeStorageData.DepositItems(_targetItem);
+            _ai.DepositHeldItemInStorage(_receivingStorage);
             _targetItem = null;
             ConcludeAction();
         }

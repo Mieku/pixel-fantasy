@@ -24,21 +24,6 @@ namespace TaskSystem
 
         public int Count => _tasks.Count;
         
-        public Task NextTask
-        {
-            get
-            {
-                if (_tasks.Count > 0)
-                {
-                    var result = _tasks[0];
-                    _tasks.RemoveAt(0);
-                    return result;
-                }
-
-                return null;
-            }
-        }
-
         public Task PeekTask(int index)
         {
             return _tasks[index];

@@ -46,8 +46,7 @@ namespace Systems.Game_Setup.Scripts
             }
 
             StartCoroutine(SetUpGameCoroutine());
-            
-            
+                
             StructureManager.Instance.Init(_worldBuilder.WorldSize);
         }
         
@@ -83,7 +82,7 @@ namespace Systems.Game_Setup.Scripts
         {
             Vector2 startPos = new Vector2(startCell.x, startCell.y);
 
-            _starterStockpile = Instantiate(_starterStockpileData.FurniturePrefab, startPos, Quaternion.identity, _furnitureParent) as Storage;
+            _starterStockpile = Spawner.Instance.SpawnFurniture(_starterStockpileData.FurniturePrefab, startPos) as Storage;
             _starterStockpile.ForceLoadItems(preloadedItems);
         }
         

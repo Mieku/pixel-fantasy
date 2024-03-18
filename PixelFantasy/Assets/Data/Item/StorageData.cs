@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Databrain.Attributes;
+using Items;
+using Managers;
 using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -11,7 +13,7 @@ namespace Data.Item
     {
         // Settings
         [SerializeField] private int _maxStorage;
-        [SerializeField, FormerlySerializedAs("AcceptedCategories")] private List<EItemCategory> _acceptedCategories = new List<EItemCategory>();
+        [SerializeField] private List<EItemCategory> _acceptedCategories = new List<EItemCategory>();
         [SerializeField] List<ItemData> _specificStorage;
         
         // Accessors
@@ -29,8 +31,7 @@ namespace Data.Item
         {
             base.InitData();
         }
-
-
+        
         public int AmountCanBeDeposited(ItemData itemData)
         {
             if (!IsItemValidToStore(itemData))
@@ -55,7 +56,7 @@ namespace Data.Item
             int result = 0;
             foreach (var storedItem in Stored)
             {
-                if (storedItem == itemData)
+                if (storedItem.Equals(itemData))
                 {
                     result++;
                 }
@@ -69,7 +70,7 @@ namespace Data.Item
             int result = 0;
             foreach (var claimedItem in Claimed)
             {
-                if (claimedItem == itemData)
+                if (claimedItem.Equals(itemData))
                 {
                     result++;
                 }
@@ -83,7 +84,7 @@ namespace Data.Item
             int result = 0;
             foreach (var incomingItem in Incoming)
             {
-                if (incomingItem == itemData)
+                if (incomingItem.Equals(itemData))
                 {
                     result++;
                 }
@@ -94,10 +95,12 @@ namespace Data.Item
         
         public void CancelIncoming(ItemData itemData)
         {
-            if (Incoming.Contains(itemData))
+            if (IsSpecificItemDataIncoming(itemData))
             {
                 Incoming.Remove(itemData);
             }
+            
+            GameEvents.Trigger_RefreshInventoryDisplay();
         }
         
         public void SetIncoming(ItemData itemData)
@@ -116,56 +119,97 @@ namespace Data.Item
             }
             
             Incoming.Add(itemData);
+            GameEvents.Trigger_RefreshInventoryDisplay();
+        }
+
+        public bool IsSpecificItemDataClaimed(ItemData itemData)
+        {
+            var runtimeData = itemData.GetRuntimeData();
+            foreach (var claimed in Claimed)
+            {
+                if (claimed.GetRuntimeData() == runtimeData)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool IsSpecificItemDataIncoming(ItemData itemData)
+        {
+            var runtimeData = itemData.GetRuntimeData();
+            foreach (var incoming in Incoming)
+            {
+                if (incoming.GetRuntimeData() == runtimeData)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool IsSpecificItemDataStored(ItemData itemData)
+        {
+            var runtimeData = itemData.GetRuntimeData();
+            foreach (var stored in Stored)
+            {
+                if (stored.GetRuntimeData() == runtimeData)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
         
         public void RestoreClaimed(ItemData itemData)
         {
-            if (!Claimed.Contains(itemData))
+            if (!IsSpecificItemDataClaimed(itemData))
             {
                 Debug.LogError($"Item Claim: {itemData.guid} was not restored, was not found in claimed");
                 return;
             }
 
             Claimed.Remove(itemData);
+            GameEvents.Trigger_RefreshInventoryDisplay();
         }
-        
-        public void SetClaimed(ItemData itemData)
+
+        public ItemData GetItemDataOfType(string itemGuid)
         {
-            int amountClaimable = AmountCanBeWithdrawn(itemData);
+            var item = Librarian.Instance.GetInitialItemDataByGuid(itemGuid);
+            int amountClaimable = AmountCanBeWithdrawn(item);
             if (amountClaimable <= 0)
             {
-                Debug.LogError("Nothing could be withdrawn");
-                return;
+                return null;
             }
-
+            
             foreach (var storedItem in Stored)
             {
-                if (storedItem == itemData)
+                if (storedItem.initialGuid == itemGuid && !IsSpecificItemDataClaimed(storedItem))
                 {
-                    if (!Claimed.Contains(storedItem))
-                    {
-                        Claimed.Add(storedItem);
-                        return;
-                    }
+                    return storedItem.GetRuntimeData();
                 }
             }
-
-            Debug.LogError($"Item Claim: {itemData.guid} was not set, nothing could be withdrawn");
+            
+            return null;
         }
-
-        public bool SetClaimedItem(ItemData itemToClaim)
+       
+        public bool ClaimItem(ItemData itemToClaim)
         {
             foreach (var storedItem in Stored)
             {
                 if (storedItem == itemToClaim)
                 {
-                    if (Claimed.Contains(itemToClaim))
+                    if (IsSpecificItemDataClaimed(itemToClaim))
                     {
                         Debug.LogError($"Attempted to Claim {itemToClaim.guid}, but it was already claimed");
                         return false;
                     }
                     
                     Claimed.Add(itemToClaim);
+                    GameEvents.Trigger_RefreshInventoryDisplay();
                     return true;
                 }
             }
@@ -176,9 +220,9 @@ namespace Data.Item
         
         public bool CanItemBeClaimed(ItemData itemData)
         {
-            if (Stored.Contains(itemData))
+            if (IsSpecificItemDataStored(itemData))
             {
-                if (Claimed.Contains(itemData)) return false;
+                if (IsSpecificItemDataClaimed(itemData)) return false;
 
                 return true;
             }
@@ -186,15 +230,13 @@ namespace Data.Item
             return false;
         }
 
-        public List<T> GetAvailableInventory<T>()
+        public List<ItemData> GetAvailableInventory()
         {
-            List<T> results = new List<T>();
-            var storedTypeList = Stored.OfType<T>().ToList();
-            var claimedTypeList = Claimed.OfType<T>().ToList();
+            List<ItemData> results = new List<ItemData>();
             
-            foreach (var storedItem in storedTypeList)
+            foreach (var storedItem in Stored)
             {
-                if (!claimedTypeList.Contains(storedItem))
+                if (!IsSpecificItemDataClaimed(storedItem))
                 {
                     results.Add(storedItem);
                 }
@@ -209,7 +251,7 @@ namespace Data.Item
             {
                 foreach (var storagedItem in Stored)
                 {
-                    if (!Claimed.Contains(storagedItem))
+                    if (storagedItem.GetRuntimeData() == itemData.GetRuntimeData() && !IsSpecificItemDataClaimed(storagedItem))
                     {
                         return true;
                     }
@@ -218,13 +260,41 @@ namespace Data.Item
 
             return false;
         }
+
+        public List<ToolData> GetAllToolItems(bool includeIncoming = false)
+        {
+            List<ToolData> toolItems = new List<ToolData>();
+            foreach (var storedItem in Stored)
+            {
+                if (!IsSpecificItemDataClaimed(storedItem))
+                {
+                    if (storedItem is ToolData)
+                    {
+                        toolItems.Add(storedItem as ToolData);
+                    }
+                }
+            }
+            
+            if (includeIncoming)
+            {
+                foreach (var incomingItem in Incoming)
+                {
+                    if (incomingItem is ToolData)
+                    {
+                        toolItems.Add(incomingItem as ToolData);
+                    }
+                }
+            }
+
+            return toolItems;
+        }
         
         public List<IFoodItem> GetAllFoodItems(bool sortByBestNutrition, bool includeIncoming = false)
         {
             List<IFoodItem> foodItems = new List<IFoodItem>();
             foreach (var storedItem in Stored)
             {
-                if (!Claimed.Contains(storedItem))
+                if (!IsSpecificItemDataClaimed(storedItem))
                 {
                     if (storedItem is IFoodItem)
                     {
@@ -265,20 +335,57 @@ namespace Data.Item
             return AcceptedCategories.Contains(itemData.Category);
         }
         
-        public void WithdrawItem(ItemData itemData)
+        public Items.Item WithdrawItem(ItemData itemData)
         {
-            if (!Stored.Contains(itemData))
+            if (!IsSpecificItemDataStored(itemData))
             {
                 Debug.LogError("Tried to withdraw an item that is not stored");
             }
 
-            if (!Claimed.Contains(itemData))
+            if (!IsSpecificItemDataClaimed(itemData))
             {
                 Debug.LogError("Tried to withdraw an item that is not claimed");
             }
             
             Stored.Remove(itemData);
             Claimed.Remove(itemData);
+            
+            GameEvents.Trigger_RefreshInventoryDisplay();
+
+            var item = itemData.CreateItemObject(Position, false);
+            return item;
+        }
+        
+        public void DepositItems(Items.Item item)
+        {
+            var runtimeData = item.RuntimeData.GetRuntimeData();
+            
+            if (!IsSpecificItemDataIncoming(runtimeData))
+            {
+                Debug.LogError("Tried to deposit an item that was not set as incoming");
+                return;
+            }
+
+            runtimeData.AssignedStorage = (Storage)LinkedFurniture;
+            
+            Stored.Add(runtimeData);
+            Incoming.Remove(runtimeData);
+            
+            GameEvents.Trigger_RefreshInventoryDisplay();
+            
+            Destroy(item.gameObject);
+        }
+        
+        /// <summary>
+        /// To be used when initializing the game or loading saves
+        /// </summary>
+        public void ForceDepositItem(ItemData itemData)
+        {
+            var runtimeData = itemData.GetRuntimeData();
+            runtimeData.AssignedStorage = (Storage)LinkedFurniture;
+            runtimeData.Position = LinkedFurniture.transform.position;
+            
+            Stored.Add(runtimeData);
             
             GameEvents.Trigger_RefreshInventoryDisplay();
         }

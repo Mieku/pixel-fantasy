@@ -16,10 +16,11 @@ namespace Items
             DataLibrary.RegisterInitializationCallback((() =>
             {
                 RuntimeData = (StorageData) DataLibrary.CloneDataObjectToRuntime(Data as StorageData, gameObject);
-                RuntimeData.InitData();
-                RuntimeData.State = EFurnitureState.Built;
-                RuntimeData.Direction = _direction;
-                SetState(RuntimeData.State);
+                RuntimeStorageData.InitData();
+                RuntimeStorageData.State = EFurnitureState.Built;
+                RuntimeStorageData.Direction = _direction;
+                RuntimeStorageData.LinkedFurniture = this;
+                SetState(RuntimeStorageData.State);
                 AssignDirection(_direction);
                 
                 // Create ItemDatas
@@ -27,9 +28,10 @@ namespace Items
                 {
                     for (int i = 0; i < itemAmount.Quantity; i++)
                     {
-                        var itemData = (ItemData) DataLibrary.CloneDataObjectToRuntime(itemAmount.Item);
+                        var itemClone = (ItemData) DataLibrary.CloneDataObjectToRuntime(itemAmount.Item);
+                        var itemData = itemClone.GetRuntimeData();
                         itemData.InitData();
-                        ForceDepositItem(itemData);
+                        RuntimeStorageData.ForceDepositItem(itemData);
                     }
                 }
             }));
@@ -43,31 +45,6 @@ namespace Items
             GameEvents.Trigger_RefreshInventoryDisplay();
 
             base.Built_Enter();
-        }
-        
-        public void DepositItems(ItemData itemData)
-        {
-            if (!RuntimeStorageData.Incoming.Contains(itemData))
-            {
-                Debug.LogError("Tried to deposit an item that was not set as incoming");
-                return;
-            } 
-            
-            RuntimeStorageData.Stored.Add(itemData);
-            RuntimeStorageData.Incoming.Remove(itemData);
-            
-            GameEvents.Trigger_RefreshInventoryDisplay();
-        }
-
-        /// <summary>
-        /// To be used when initializing the game or loading saves
-        /// </summary>
-        public void ForceDepositItem(ItemData itemData)
-        {
-            RuntimeStorageData.Stored.Add(itemData);
-            itemData.AssignedStorage = RuntimeStorageData;
-            
-            GameEvents.Trigger_RefreshInventoryDisplay();
         }
     }
 }

@@ -17,7 +17,7 @@ MonoBehaviour:
     typeDisplayName: 
     typeName: 
     typeAssemblyQualifiedName: 
-    childCount: 4
+    childCount: 5
     indexOfFirstChild: 1
   - foldout: 1
     typeDisplayName: Materials
@@ -113,3 +113,16 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     childCount: 0
     indexOfFirstChild: 15
+  - foldout: 1
+    typeDisplayName: Misc
+    typeName: 
+    typeAssemblyQualifiedName: 
+    childCount: 1
+    indexOfFirstChild: 16
+  - foldout: 0
+    typeDisplayName: Dye
+    typeName: DyeData
+    typeAssemblyQualifiedName: Data.Dye.DyeData, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    childCount: 0
+    indexOfFirstChild: 17

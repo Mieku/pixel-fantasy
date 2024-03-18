@@ -4,28 +4,21 @@ using System.Linq;
 using Characters;
 using CodeMonkey.Utils;
 using Controllers;
+using Data.Dye;
 using Data.Item;
 using Databrain;
 using Databrain.Attributes;
 using Handlers;
 using Interfaces;
 using Managers;
-using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Systems.Crafting.Scripts;
-using Systems.Details.Build_Details.Scripts;
 using TaskSystem;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Items
 {
-    public interface IFurnitureInitializable
-    {
-        bool Init(FurnitureData data, FurnitureVarient varient = null, DyeSettings dye = null);
-    }
-    
-    public class Furniture : PlayerInteractable, IClickableObject, IFurnitureInitializable
+    public class Furniture : PlayerInteractable, IClickableObject
     {
         [TitleGroup("South")] [SerializeField] protected GameObject _southHandle;
         [TitleGroup("South")] [SerializeField] protected Transform _southSpritesRoot;
@@ -62,6 +55,7 @@ namespace Items
         protected PlacementDirection _direction;
         private bool _isOutlineLocked;
         private ClickObject _clickObject;
+        private DyeData _dyeOverride;
 
         protected virtual void Awake()
         {
@@ -74,7 +68,7 @@ namespace Items
 
         private void OnDestroy()
         {
-            FurnitureManager.Instance.DeregisterFurniture(RuntimeData);
+            FurnitureManager.Instance.DeregisterFurniture(this);
             
             GameEvents.OnLeftClickUp -= GameEvents_OnLeftClickUp;
             GameEvents.OnRightClickUp -= GameEvents_OnRightClickUp;
@@ -95,39 +89,10 @@ namespace Items
             
         }
         
-        public virtual void CompletePlanning()
-        {
-            _isPlanning = false;
-            DataLibrary.RegisterInitializationCallback(DataReady);
-            DataLibrary.OnSaved += Saved;
-            DataLibrary.OnLoaded += Loaded;
-        }
-
-        public bool Init(FurnitureData furnitureData, FurnitureVarient varient = null, DyeSettings dye = null)
-        {
-            Data = furnitureData;
-            DataLibrary.RegisterInitializationCallback(DataReady);
-            DataLibrary.OnSaved += Saved;
-            DataLibrary.OnLoaded += Loaded;
-        
-            return true;
-        }
-
-        protected void DataReady()
-        {
-            RuntimeData = (FurnitureData) DataLibrary.CloneDataObjectToRuntime(Data, gameObject);
-            RuntimeData.InitData();
-
-            RuntimeData.Direction = _direction;
-            SetState(RuntimeData.State);
-            AssignDirection(_direction);
-            
-        }
-        
-        public void StartPlanning(BuildDetailsUI.SelectedFurnitureDetails selectedFurnitureDetails, PlacementDirection initialDirection)
+        public virtual void StartPlanning(FurnitureData furnitureData, PlacementDirection initialDirection, DyeData dye)
         {
             _isPlanning = true;
-            Data = selectedFurnitureDetails.Furniture;
+            _dyeOverride = dye;
             AssignDirection(initialDirection);
             foreach (var spriteRenderer in _allSprites)
             {
@@ -136,6 +101,33 @@ namespace Items
             
             DisplayUseageMarkers(true);
             EnablePlacementObstacle(false);
+        }
+        
+        public virtual void CompletePlanning()
+        {
+            _isPlanning = false;
+        }
+
+        public virtual void InitializeFurniture(FurnitureData furnitureData, PlacementDirection direction, DyeData dye)
+        {
+            _dyeOverride = dye;
+            Data = furnitureData;
+            
+            DataLibrary.RegisterInitializationCallback(() =>
+            {
+                RuntimeData = (FurnitureData) DataLibrary.CloneDataObjectToRuntime(Data, gameObject);
+                RuntimeData.LinkedFurniture = this;
+                RuntimeData.InitData();
+                RuntimeData.Direction = direction;
+            
+                SetState(RuntimeData.State);
+                AssignDirection(direction);
+                
+                DataLibrary.OnSaved += Saved;
+                DataLibrary.OnLoaded += Loaded;
+            });
+            
+            
         }
 
         public PlacementDirection RotatePlan(bool isClockwise)
@@ -147,7 +139,7 @@ namespace Items
         {
             get
             {
-                if (RuntimeData.State != EFurnitureState.Built && !RuntimeData.InUse)
+                if (RuntimeData != null && RuntimeData.State != EFurnitureState.Built && !RuntimeData.InUse)
                 {
                     return false;
                 }
@@ -383,29 +375,10 @@ namespace Items
             return selectedDistance.position;
         }
 
-        // public bool CanBeCrafted()
-        // {
-        //     // Check if crafting table exits
-        //     foreach (var option in _furnitureItemData.RequiredCraftingTableOptions)
-        //     {
-        //         if (FurnitureManager.Instance.DoesFurnitureExist(option))
-        //         {
-        //             return true;
-        //         }
-        //     }
-        //
-        //     return false;
-        // }
-        
-        // protected virtual void Planning_Enter()
-        // {
-        //     DisplayUseageMarkers(true);
-        //     EnablePlacementObstacle(false);
-        // }
-
         protected virtual void InProduction_Enter()
         {
-            FurnitureManager.Instance.RegisterFurniture(RuntimeData);
+            RuntimeData.Position = transform.position;
+            FurnitureManager.Instance.RegisterFurniture(this);
             DisplayUseageMarkers(false);
             EnablePlacementObstacle(true);
             Show(true);
@@ -415,6 +388,7 @@ namespace Items
         
         protected virtual void Built_Enter()
         {
+            RuntimeData.Position = transform.position;
             DisplayUseageMarkers(false);
             EnablePlacementObstacle(true);
             ColourArt(ColourStates.Built);
@@ -440,8 +414,8 @@ namespace Items
             }
             
             // If item exists, claim it
-            var claimedItem = InventoryManager.Instance.ClaimItem(RuntimeData);
-            if (claimedItem)
+            var isAvailable = InventoryManager.Instance.IsItemInStorage(RuntimeData);
+            if (isAvailable)
             {
                 Task task = new Task("Place Furniture", ETaskType.Hauling, this, EToolType.None)
                 {
@@ -483,10 +457,9 @@ namespace Items
             Destroy(item.LinkedItem.gameObject);
         }
 
-        public void PlaceFurniture(FurnitureData furnitureItem)
+        public void PlaceFurniture(Item furnitureItem)
         {
-            RuntimeData.CraftersUID = furnitureItem.CraftersUID;
-            //Destroy(furnitureItem.gameObject);
+            Destroy(furnitureItem.gameObject);
             
             SetState(EFurnitureState.Built);
         }
@@ -505,29 +478,11 @@ namespace Items
         
         protected virtual void Update()
         {
-            //if (RuntimeData == null) return;
-            
             if (_isPlanning)
             {
                 FollowCursor();
                 CheckPlacement();
             }
-
-            HandleRotation();
-        }
-
-        private void HandleRotation()
-        {
-            // if (RuntimeData.State is not (EFurnitureState.Planning)) return;
-            // if (Input.GetKeyDown(KeyCode.E)) // Clockwise
-            // {
-            //     SetNextDirection(true);
-            // }
-            //
-            // if (Input.GetKeyDown(KeyCode.Q)) // Counter Clockwise
-            // {
-            //     SetNextDirection(false);
-            // }
         }
         
         private void OnMouseEnter()

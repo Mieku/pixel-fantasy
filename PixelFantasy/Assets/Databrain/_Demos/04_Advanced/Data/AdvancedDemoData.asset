@@ -78,7 +78,10 @@ MonoBehaviour:
   themeTemplate: {fileID: 0}
   isInitialized: 0
   data:
-    _objectList: []
+    _objectList:
+    - type: Databrain.Examples.EnemyDataDemo, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects: []
     _favoriteList: []
   copyData:
     _objectList: []

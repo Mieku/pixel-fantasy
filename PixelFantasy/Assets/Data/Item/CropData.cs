@@ -1,8 +1,10 @@
 using Databrain;
+using Databrain.Attributes;
 using UnityEngine;
 
 namespace Data.Item
 {
+    [DataObjectAddToRuntimeLibrary]
     public class CropData : DataObject
     {
         public string CropName;

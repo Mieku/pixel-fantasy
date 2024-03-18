@@ -1,7 +1,9 @@
 using System;
+using Data.Dye;
 using Data.Item;
 using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Systems.Details.Build_Details.Scripts
@@ -22,8 +24,8 @@ namespace Systems.Details.Build_Details.Scripts
 
         public bool IsColourMode;
         public bool IsDefault;
-        public FurnitureVarient Varient;
-        public DyeSettings DyePalette;
+        [FormerlySerializedAs("Varient")] public FurnitureVariant Variant;
+        public DyeData DyePalette;
 
         private void Start()
         {
@@ -72,7 +74,7 @@ namespace Systems.Details.Build_Details.Scripts
             }
         }
 
-        public void Init(DyeSettings dyeSettings, FurnitureData furnitureData, Action<VarientOptionBtn, FurnitureData> onPressedCallback)
+        public void Init(DyeData dyeSettings, FurnitureData furnitureData, Action<VarientOptionBtn, FurnitureData> onPressedCallback)
         {
             IsDefault = false;
             IsColourMode = true;
@@ -87,17 +89,17 @@ namespace Systems.Details.Build_Details.Scripts
             RemoveHighlight();
         }
 
-        public void Init(FurnitureVarient varient, FurnitureData furnitureData, Action<VarientOptionBtn, FurnitureData> onPressedCallback)
+        public void Init(FurnitureVariant variant, FurnitureData furnitureData, Action<VarientOptionBtn, FurnitureData> onPressedCallback)
         {
             IsDefault = false;
             IsColourMode = false;
-            Varient = varient;
+            Variant = variant;
             _furnitureSettings = furnitureData;
-            _craftRequirements = varient.CraftRequirements;
+            _craftRequirements = variant.FurnitureData.CraftRequirements;
             _onPressedCallback = onPressedCallback;
 
             _borderImg.enabled = true;
-            _itemIcon.sprite = varient.MaterialSelectIcon;
+            _itemIcon.sprite = variant.MaterialSelectIcon;
             
             RemoveHighlight();
         }

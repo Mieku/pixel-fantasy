@@ -17,7 +17,7 @@ namespace TaskSystem
         private Vector2 _constructionPos;
         
         public float DistanceToRequestor => Vector2.Distance(_constructionPos, transform.position);
-        public float DistanceToStorage => Vector2.Distance(_targetItem.AssignedStorage.LinkedItem.transform.position, transform.position);
+        public float DistanceToStorage => Vector2.Distance(_targetItem.AssignedStorage.transform.position, transform.position);
         
         public override bool CanDoTask(Task task)
         {
@@ -38,11 +38,15 @@ namespace TaskSystem
             _isMoving = false;
             
             _targetItem = task.Payload as ItemData;
-            ClaimItem(_targetItem);
+            _targetItem = InventoryManager.Instance.GetItemOfType(_targetItem.initialGuid);
             
             if (_targetItem == null)
             {
                 OnTaskCancel();
+            }
+            else
+            {
+                _targetItem.ClaimItem();
             }
 
             var construction = _requestor as Construction;
@@ -62,7 +66,7 @@ namespace TaskSystem
                 _isMoving = false;
                 _isHoldingItem = true;
                 
-                _targetItem.AssignedStorage.WithdrawItem(_targetItem);
+                _targetItem.AssignedStorage.RuntimeStorageData.WithdrawItem(_targetItem);
                 _ai.HoldItem(_targetItem.LinkedItem);
                 return;
             }
@@ -83,7 +87,7 @@ namespace TaskSystem
             {
                 if (!_isMoving)
                 {
-                    _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.AssignedStorage.LinkedItem.transform.position);
+                    _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.AssignedStorage.transform.position);
                     _isMoving = true;
                     return;
                 }
@@ -114,13 +118,8 @@ namespace TaskSystem
 
         public override void OnTaskCancel()
         {
-            _ai.DropCarriedItem();
+            _ai.DropCarriedItem(true);
             base.OnTaskCancel();
-        }
-        
-        public void ClaimItem(ItemData item)
-        {
-            InventoryManager.Instance.ClaimItem(item);
         }
     }
 }

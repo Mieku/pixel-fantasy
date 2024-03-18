@@ -431,7 +431,7 @@ namespace Zones
             CreatePlantCropTask();
             
             // Spawn the crop
-            Spawner.Instance.SpawnItem(Data.HarvestedItem, transform.position, true, Data.AmountToHarvest);
+            Spawner.Instance.SpawnItem(Data.HarvestedItem.initialGuid, transform.position, true, Data.AmountToHarvest);
         }
 
         public void ChangeCrop(CropSettings newCrop)

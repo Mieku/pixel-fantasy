@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Data.Dye;
 using Data.Item;
-using Databrain.Attributes;
 using Managers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Systems.Crafting.Scripts;
 using TaskSystem;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using UnityEngine.Rendering;
 
 namespace Items
@@ -23,29 +22,11 @@ namespace Items
         public CraftingTableData TableData => Data as CraftingTableData;
         public CraftingTableData RuntimeTableData => RuntimeData as CraftingTableData;
 
-        
-        // public CraftingTableData TableData => Data as CraftingTableData;
-        //
-        // public new bool Init(FurnitureSettings settings, FurnitureVarient varient = null, DyeSettings dye = null)
-        // {
-        //     if (settings is CraftingTableSettings craftingTableSettings)
-        //     {
-        //         Data = new CraftingTableData(craftingTableSettings, varient, dye);
-        //         
-        //         AssignDirection(Data.Direction);
-        //         foreach (var spriteRenderer in _allSprites)
-        //         {
-        //             _materials.Add(spriteRenderer.material);
-        //         }
-        //         
-        //         return true; // Initialization successful
-        //     }
-        //     else
-        //     {
-        //         Debug.LogError("Invalid settings type provided.");
-        //         return false; // Initialization failed
-        //     }
-        // }
+        public override void StartPlanning(FurnitureData furnitureData, PlacementDirection initialDirection, DyeData dye)
+        {
+            base.StartPlanning(furnitureData, initialDirection, dye);
+            HideCraftingPreview();
+        }
 
         public override void CompletePlanning()
         {
@@ -66,19 +47,22 @@ namespace Items
         protected override void Update()
         {
             base.Update();
-            
-            SearchForCraftingOrder();
+
+            if (!_isPlanning)
+            {
+                SearchForCraftingOrder();
+            }
         }
         
         private void SearchForCraftingOrder()
         {
-            if (IsAvailable && RuntimeTableData.CurrentOrder == null)
+            if (IsAvailable && RuntimeTableData.CurrentOrder.State == CraftingOrder.EOrderState.None)
             {
                 var order = CraftingOrdersManager.Instance.GetNextCraftableOrder(this);
                 if (order != null)
                 {
                     RuntimeTableData.CurrentOrder = order;
-                    var task = order.CreateTask(OnCraftingComplete);
+                    var task = order.CreateTask(OnCraftingComplete, this);
                     TaskManager.Instance.AddTask(task);
                 }
             }
@@ -86,7 +70,7 @@ namespace Items
 
         private void OnCraftingComplete(Task task)
         {
-            RuntimeTableData.CurrentOrder = null;
+            RuntimeTableData.CurrentOrder.State = CraftingOrder.EOrderState.None;
         }
 
         private SpriteRenderer CraftingPreview

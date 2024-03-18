@@ -29,25 +29,14 @@ namespace TaskSystem
             WaitingOnDelivery,
             PlaceItem,
         }
-
-        public override bool CanDoTask(Task task)
-        {
-            var result = base.CanDoTask(task);
-
-            if (!result) return false;
-            
-            var itemToCraft = task.Payload as CraftedItemData;
-            var table = FurnitureManager.Instance.GetCraftingTableForItem(itemToCraft);
-
-            return table != null;
-        }
-
+        
         public override void PrepareAction(Task task)
         {
-            _itemToCraft = task.Payload as FurnitureData;
-            _craftingTable = FurnitureManager.Instance.GetCraftingTableForItem(_itemToCraft);
+            var item = (FurnitureData)task.Payload;
+            _itemToCraft = (FurnitureData)item.GetRuntimeData();
+            _craftingTable = task.Requestor as CraftingTable; //FurnitureManager.Instance.GetCraftingTableForItem(_itemToCraft);
             _materials = task.Materials;
-            _requestingFurniture = task.Requestor as Furniture;
+            _requestingFurniture = _itemToCraft.LinkedFurniture;//task.Requestor as Furniture;
             _state = ETaskState.ClaimTable;
         }
 
@@ -61,8 +50,8 @@ namespace TaskSystem
 
             if (_state == ETaskState.GatherMats)
             {
-                _targetItem = _materials[_materialIndex] as CraftedItemData;
-                var movePos = _targetItem.AssignedStorage.LinkedItem.UseagePosition(_ai.Kinling.transform.position);
+                _targetItem = _materials[_materialIndex];
+                var movePos = _targetItem.AssignedStorage.UseagePosition(_ai.Kinling.transform.position);
                 _ai.Kinling.KinlingAgent.SetMovePosition(movePos, OnArrivedAtStorageForPickup, OnTaskCancel);
                 _state = ETaskState.WaitingOnMats;
             }
@@ -82,9 +71,10 @@ namespace TaskSystem
                     if (_craftingTable.DoCraft(WorkAmount))
                     {
                         KinlingAnimController.SetUnitAction(UnitAction.Nothing);
+                        _itemToCraft.CraftersUID = _ai.Kinling.UniqueId;
                         
-                        var targetItemObj = Spawner.Instance.SpawnItem(_itemToCraft, _craftingTable.transform.position, false);
-                        _targetItem = targetItemObj.RuntimeData;
+                        var targetItemObj = Spawner.Instance.SpawnItemWithRuntimeData(_itemToCraft, _craftingTable.transform.position, false);
+                        
                         _ai.HoldItem(targetItemObj);
                         
                         _state = ETaskState.DeliverItem;
@@ -101,8 +91,8 @@ namespace TaskSystem
 
         private void OnArrivedAtStorageForPickup()
         {
-            _targetItem.AssignedStorage.WithdrawItem(_targetItem);
-            _ai.HoldItem(_targetItem.LinkedItem);
+            var withdrawnItem = _targetItem.AssignedStorage.RuntimeStorageData.WithdrawItem(_targetItem);
+            _ai.HoldItem(withdrawnItem);
             _ai.Kinling.KinlingAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Kinling.transform.position), OnArrivedAtCraftingTable, OnTaskCancel);
         }
 
@@ -123,16 +113,17 @@ namespace TaskSystem
             else
             {
                 _targetItem = _materials[_materialIndex];
-                _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.AssignedStorage.LinkedFurniture.UseagePosition(_ai.Kinling.transform.position),
+                _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.AssignedStorage.UseagePosition(_ai.Kinling.transform.position),
                     OnArrivedAtStorageForPickup, OnTaskCancel);
             }
         }
 
         private void OnFurnitureDelivered()
         {
-            _ai.DropCarriedItem();
-            _requestingFurniture.PlaceFurniture(_itemToCraft);
+            var droppedItem = _ai.DropCarriedItem(false);
+            _requestingFurniture.PlaceFurniture(droppedItem);
             _targetItem = null;
+            _itemToCraft = null;
             ConcludeAction();
         }
 

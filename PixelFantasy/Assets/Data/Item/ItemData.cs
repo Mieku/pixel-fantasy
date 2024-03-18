@@ -1,6 +1,8 @@
+using System;
 using System.ComponentModel;
 using Databrain;
 using Databrain.Attributes;
+using Items;
 using Managers;
 using TaskSystem;
 using UnityEngine;
@@ -18,6 +20,7 @@ namespace Data.Item
         [Description("Bulky Resource")] BulkyResource,
     }
     
+    [DataObjectAddToRuntimeLibrary]
     public class ItemData : DataObject
     {
         // Settings
@@ -27,15 +30,16 @@ namespace Data.Item
         public EItemCategory Category => _category;
         public string ItemName => title;
         public Sprite ItemSprite => icon;
+        public int MaxDurability => _maxDurability;
         
         // Runtime
         [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public int Durability;
         [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public bool IsAllowed;
         [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public Task CurrentTask;
         [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public string CarryingKinlingUID;
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public StorageData AssignedStorage;
-        
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public Items.Item LinkedItem; // Not sure about this...
+        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public Storage AssignedStorage;
+        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public Vector2 Position;
+        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public Items.Item LinkedItem;
 
         public virtual void InitData()
         {
@@ -45,15 +49,30 @@ namespace Data.Item
 
         public ItemData GetInitialData()
         {
-            return Librarian.Instance.GetInitialItemDataByGuid(initialGuid);
+            return GetInitialDataObject() as ItemData;
         }
 
-        public void CreateItemObject(Vector2 pos)
+        public ItemData GetRuntimeData()
+        {
+            if (isRuntimeInstance)
+            {
+                return this;
+            }
+            else
+            {
+                var runtime = (ItemData) GetRuntimeDataObject();
+                return runtime;
+            }
+        }
+
+        public Items.Item CreateItemObject(Vector2 pos, bool createHaulTask)
         {
             var prefab = Resources.Load<Items.Item>($"Prefabs/ItemPrefab");
             Items.Item itemObj = Instantiate(prefab, pos, Quaternion.identity, ParentsManager.Instance.ItemsParent);
             itemObj.name = title;
-            itemObj.InitializeItem(this, true);
+            itemObj.LoadItemData(this, createHaulTask);
+            LinkedItem = itemObj;
+            return itemObj;
         }
         
         public virtual string GetDetailsMsg(string headerColourCode = "#272736")
@@ -71,7 +90,7 @@ namespace Data.Item
                 return;
             }
             
-            AssignedStorage.RestoreClaimed(this);
+            AssignedStorage.RuntimeStorageData.RestoreClaimed(this);
         }
 
         public void ClaimItem()
@@ -82,13 +101,13 @@ namespace Data.Item
                 return;
             }
 
-            if (!AssignedStorage.SetClaimedItem(this))
+            if (!AssignedStorage.RuntimeStorageData.ClaimItem(this))
             {
                 Debug.LogError("Failed to claim item");
             }
         }
 
-        public bool IsEqual(ItemData other)
+        public bool Equals(ItemData other)
         {
             return GetInitialData() == other.GetInitialData();
         }

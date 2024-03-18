@@ -21,7 +21,7 @@ namespace TaskSystem
         private float _waitingTimer;
         private float _idleTimer;
         private TaskAction _curTaskAction;
-        private ItemData _heldItem;
+        private Item _heldItem;
         private Queue<Task> _queuedTasks = new Queue<Task>();
         
         private const float WAIT_TIMER_MAX = 0.2f; // 200ms
@@ -362,27 +362,29 @@ namespace TaskSystem
         
         public void HoldItem(Item item)
         {
-            _heldItem = item.RuntimeData;
+            _heldItem = item;
             item.ItemPickedUp(_kinling);
             item.transform.SetParent(transform);
             item.transform.localPosition = Vector3.zero;
         }
-
-        public void DropCarriedItem()
+        
+        public Item DropCarriedItem(bool allowHauling)
         {
-            if (_heldItem == null) return;
+            if (_heldItem == null) return null;
 
-            _heldItem.LinkedItem.transform.SetParent(Spawner.Instance.ItemsParent);
-            _heldItem.IsAllowed = true;
-            _heldItem.LinkedItem.ItemDropped();
+            _heldItem.transform.SetParent(ParentsManager.Instance.ItemsParent);
+            _heldItem.IsAllowed = allowHauling;
+            _heldItem.ItemDropped();
+            var item = _heldItem;
             _heldItem = null;
+            return item;
         }
 
         public void DepositHeldItemInStorage(Storage storage)
         {
             if (_heldItem == null) return;
             
-            storage.DepositItems(_heldItem);
+            storage.RuntimeStorageData.DepositItems(_heldItem);
             _heldItem = null;
         }
 

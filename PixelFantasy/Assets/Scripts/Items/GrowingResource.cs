@@ -149,7 +149,7 @@ namespace Items
                 {
                     for (int i = 0; i < fruit.Quantity; i++)
                     {
-                        spawner.SpawnItem(fruit.Item, transform.position, true);
+                        spawner.SpawnItem(fruit.Item.initialGuid, transform.position, true);
                     }
                 }
                 RuntimeGrowingResourceData.HasFruitAvailable = false;
@@ -203,7 +203,7 @@ namespace Items
             {
                 for (int i = 0; i < resource.Quantity; i++)
                 {
-                    spawner.SpawnItem(resource.Item, transform.position, true);
+                    spawner.SpawnItem(resource.Item.initialGuid, transform.position, true);
                 }
             }
             

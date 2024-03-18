@@ -1,22 +1,17 @@
 using System;
 using System.Collections.Generic;
-using Buildings;
 using Data.Item;
 using Items;
 using Managers;
 using ScriptableObjects;
 using TaskSystem;
-using UnityEngine;
 
 namespace Systems.Crafting.Scripts
 {
     [Serializable]
     public class CraftingOrder
     {
-        public CraftedItemData Data;
         public CraftedItemData CraftedItem;
-        public PlayerInteractable Requestor;
-        public CraftingTable AssignedTable;
         public EOrderState State;
         public EOrderType OrderType;
         public bool IsGlobal;
@@ -42,39 +37,22 @@ namespace Systems.Crafting.Scripts
             Cancelled,
         }
         
-        public CraftingOrder(CraftedItemData itemData, PlayerInteractable requestor, EOrderType orderType, bool isGlobal, Action onOrderClaimed, Action onOrderComplete,
+        public CraftingOrder(CraftedItemData itemToCraft, PlayerInteractable requestor, EOrderType orderType, bool isGlobal, Action onOrderClaimed, Action onOrderComplete,
             Action onOrderCancelled)
         {
-            Data = itemData;
-            Requestor = requestor;
+            CraftedItem = itemToCraft;
             OrderType = orderType;
             IsGlobal = isGlobal;
             OnOrderClaimed = onOrderClaimed;
             OnOrderComplete = onOrderComplete;
             OnOrderCancelled = onOrderCancelled;
             
-            _remainingMaterials = Data.CraftRequirements.GetResourceCosts();
+            _remainingMaterials = itemToCraft.CraftRequirements.GetResourceCosts();
             
             SetOrderState(EOrderState.Queued);
         }
-
-        // public CraftingOrder(CraftedItemSettings craftedItem, PlayerInteractable requestor, EOrderType orderType, bool isGlobal, Action onOrderClaimed, Action onOrderComplete,
-        //     Action onOrderCancelled)
-        // {
-        //     CraftedItem = craftedItem;
-        //     Requestor = requestor;
-        //     OrderType = orderType;
-        //     IsGlobal = isGlobal;
-        //     OnOrderClaimed = onOrderClaimed;
-        //     OnOrderComplete = onOrderComplete;
-        //     OnOrderCancelled = onOrderCancelled;
-        //     
-        //     _remainingMaterials = CraftedItem.CraftRequirements.GetResourceCosts();
-        //     
-        //     SetOrderState(EOrderState.Queued);
-        // }
-
-        public Task CreateTask(Action<Task> onTaskComplete)
+        
+        public Task CreateTask(Action<Task> onTaskComplete, CraftingTable table)
         {
             List<ItemData> claimedMats = ClaimRequiredMaterials();
             if (claimedMats == null)
@@ -86,7 +64,7 @@ namespace Systems.Crafting.Scripts
             switch (OrderType)
             {
                 case EOrderType.Furniture:
-                    task = new Task("Craft Furniture Order", CraftedItem.CraftRequirements.CraftingSkill, Requestor, CraftedItem.CraftRequirements.RequiredCraftingToolType)
+                    task = new Task("Craft Furniture Order", CraftedItem.CraftRequirements.CraftingSkill, table, CraftedItem.CraftRequirements.RequiredCraftingToolType)
                     {
                         Payload = CraftedItem,
                         OnTaskComplete = onTaskComplete,
@@ -94,7 +72,7 @@ namespace Systems.Crafting.Scripts
                     };
                     break;
                 case EOrderType.Item:
-                    task = new Task("Craft Item", CraftedItem.CraftRequirements.CraftingSkill, Requestor, CraftedItem.CraftRequirements.RequiredCraftingToolType)
+                    task = new Task("Craft Item", CraftedItem.CraftRequirements.CraftingSkill, table, CraftedItem.CraftRequirements.RequiredCraftingToolType)
                     {
                         Payload = CraftedItem,
                         OnTaskComplete = onTaskComplete,
@@ -119,23 +97,10 @@ namespace Systems.Crafting.Scripts
             {
                 for (int i = 0; i < requiredItem.Quantity; i++)
                 {
-                    // Check building storage first, then check global
-                    var claimedItem = InventoryManager.Instance.ClaimItem(requiredItem.Item);
+                    var claimedItem = InventoryManager.Instance.GetItemOfType(requiredItem.Item.initialGuid);
 
-                    if (!claimedItem)
-                    {
-                        // If for some reason they can't get everything, unclaim all the materials and return null
-                        foreach (var itemToUnclaim in claimedItems)
-                        {
-                            itemToUnclaim.UnclaimItem();
-                        }
-
-                        return null;
-                    }
-                    else
-                    {
-                        claimedItems.Add(requiredItem.Item);
-                    }
+                    claimedItem.ClaimItem();
+                    claimedItems.Add(claimedItem);
                 }
             }
 
@@ -149,23 +114,7 @@ namespace Systems.Crafting.Scripts
 
         public bool CanBeCrafted(CraftingTable table)
         {
-            // if (CraftedItem.RequiredCraftingTableOptions.Count > 0)
-            // {
-            //     var hasCraftingTable = building.ContainsCraftingTableForItem(CraftedItem);
-            //     if (!hasCraftingTable)
-            //     {
-            //         return false;
-            //     }
-            // }
-
-            return table.TableData.CanCraftItem(CraftedItem);
-            //
-            // if (!AreMaterialsAvailable())
-            // {
-            //     return false;
-            // }
-            //
-            // return true;
+            return table.TableData.CanCraftItem(CraftedItem.initialGuid);
         }
         
         public bool AreMaterialsAvailable()

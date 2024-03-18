@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Characters;
+using Data.Dye;
+using Data.Item;
 using Databrain.Attributes;
 using Items;
 using Managers;
@@ -17,16 +19,18 @@ namespace Data.Item
         [SerializeField] protected Furniture _furniturePrefab;
         [SerializeField] protected NeedChange _inUseNeedChange;
         [SerializeField] protected ColourOptions _colourOptions;
-        [SerializeField] protected List<FurnitureVarient> _varients;
+        [SerializeField] protected List<FurnitureVariant> _varients;
         [SerializeField] protected PlacementDirection _defaultDirection;
+        [DataObjectDropdown][SerializeField] protected DyeData _defaultDye;
         
         // Accessors
         public List<string> InvalidPlacementTags => _invalidPlacementTags;
         public Furniture FurniturePrefab => _furniturePrefab;
         public NeedChange InUseNeedChange => _inUseNeedChange;
         public ColourOptions ColourOptions => _colourOptions;
-        public List<FurnitureVarient> Varients => _varients;
+        public List<FurnitureVariant> Varients => _varients;
         public PlacementDirection DefaultDirection => _defaultDirection;
+        public DyeData DefaultDye => _defaultDye;
         
         // Runtime
         [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public EFurnitureState State;
@@ -34,6 +38,7 @@ namespace Data.Item
         [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public PlacementDirection Direction;
         [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public bool InUse;
         [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public Furniture LinkedFurniture; // Not a fan of this...
+        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public DyeData DyeOverride;
 
         public override void InitData()
         {
@@ -49,4 +54,21 @@ public enum EFurnitureState
 {
     InProduction,
     Built,
+}
+
+[Serializable]
+public class FurnitureVariant
+{
+    [SerializeField] private Sprite _materialSelectIcon;
+    [SerializeField] private FurnitureData _furnitureData;
+
+    public Sprite MaterialSelectIcon => _materialSelectIcon; // Typically the icon of the material change
+    public FurnitureData FurnitureData => _furnitureData.GetInitialDataObject() as FurnitureData;
+}
+
+[Serializable]
+public class ColourOptions
+{
+    public string ColourOptionsHeader;
+    [DataObjectDropdown] public List<DyeData> DyePalettes;
 }

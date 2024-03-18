@@ -41,16 +41,18 @@ namespace Items
             Data = data;
 
             DataLibrary.RegisterInitializationCallback(InitialDataReady);
-            DataLibrary.OnSaved += Saved;
-            DataLibrary.OnLoaded += Loaded;
         }
         
         protected virtual void InitialDataReady()
         {
             RuntimeData = (ResourceData) DataLibrary.CloneDataObjectToRuntime(Data, gameObject);
             RuntimeData.InitData();
-            
+            RuntimeData.Position = transform.position;
+                
             UpdateSprite();
+                
+            DataLibrary.OnSaved += Saved;
+            DataLibrary.OnLoaded += Loaded;
         }
         
         protected void Saved()
@@ -195,7 +197,7 @@ namespace Items
             {
                 for (int i = 0; i < resource.Quantity; i++)
                 {
-                    spawner.SpawnItem(resource.Item, transform.position, true);
+                    spawner.SpawnItem(resource.Item.initialGuid, transform.position, true);
                 }
             }
             

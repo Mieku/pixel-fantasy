@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Data.Resource
 {
+    [DataObjectAddToRuntimeLibrary]
     public class ResourceData : DataObject
     {
         // Settings

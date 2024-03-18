@@ -132,7 +132,7 @@ namespace Items
         {
             RemoveFromIncomingItems(itemData);
             
-            Destroy(itemData.LinkedItem);
+            Destroy(itemData.LinkedItem.gameObject);
             RemoveFromPendingResourceCosts(itemData);
             
             foreach (var cost in _remainingResourceCosts)
@@ -504,7 +504,7 @@ namespace Items
                 {
                     if (Helper.RollDice(percentReturned))
                     {
-                        Spawner.Instance.SpawnItem(refundCost.Item, this.transform.position, true);
+                        Spawner.Instance.SpawnItem(refundCost.Item.initialGuid, this.transform.position, true);
                     }
                 }
             }
