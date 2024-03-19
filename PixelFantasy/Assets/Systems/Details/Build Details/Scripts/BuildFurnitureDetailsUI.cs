@@ -4,14 +4,13 @@ using Controllers;
 using Data.Dye;
 using Data.Item;
 using Managers;
-using ScriptableObjects;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Systems.Details.Build_Details.Scripts
 {
-    public class BuildDetailsUI : MonoBehaviour
+    public class BuildFurnitureDetailsUI : MonoBehaviour
     {
         [SerializeField] private PanelLayoutRebuilder _layoutRebuilder;
         [SerializeField] private GameObject _panelHandle;

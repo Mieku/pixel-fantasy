@@ -39,10 +39,19 @@ MonoBehaviour:
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-1418609819-0
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-1415656869-0
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-801601810-0
+        - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-1263217620473054-562139628
+        - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-63995888-0
+        - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-945739748-0
+        - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-939900872-0
+        - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-1187120508-0
+        - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-1114689666-0
+        - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-1826864762-0
+        - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-696327368-0
+        - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-542380640-0
         values:
-        - iColor: 4
+        - iColor: 1
           icon: Folder Icon
-        - iColor: 4
+        - iColor: 8
           icon: Settings Icon
         - iColor: 0
           icon: Settings Icon
@@ -82,12 +91,30 @@ MonoBehaviour:
           icon: PreMatCylinder
         - iColor: 0
           icon: AvatarMask On Icon
+        - iColor: 1
+          icon: StandaloneInputModule Icon
+        - iColor: 5
+          icon: Canvas Icon
+        - iColor: 2
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: DirectionalLight Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: StandaloneInputModule Icon
       goDatasByInstanceId:
-        keys: 10410100f4410100961501002c0c0100542d0100f8390100ee1b0100d0400100ac1401003e040100403501008e370100620b0100f60d01008019010060220100fe2b0100762e0100be35010074350100001f0100
+        keys: 10410100f4410100961501002c0c0100542d0100f8390100ee1b0100d0400100ac1401003e040100403501008e370100620b0100f60d01008019010060220100fe2b0100762e0100be35010074350100001f0100fcfaffff100501008eb2fffff6230100422d0100682a0100f24301009a1b010034160100
         values:
-        - iColor: 4
+        - iColor: 1
           icon: Folder Icon
-        - iColor: 4
+        - iColor: 8
           icon: Settings Icon
         - iColor: 0
           icon: Settings Icon
@@ -127,3 +154,21 @@ MonoBehaviour:
           icon: PreMatCylinder
         - iColor: 0
           icon: AvatarMask On Icon
+        - iColor: 1
+          icon: StandaloneInputModule Icon
+        - iColor: 5
+          icon: Canvas Icon
+        - iColor: 2
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: DirectionalLight Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: StandaloneInputModule Icon

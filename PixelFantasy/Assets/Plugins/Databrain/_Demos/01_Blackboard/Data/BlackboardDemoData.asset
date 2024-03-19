@@ -16,7 +16,7 @@ MonoBehaviour:
   isInitialized: 0
   data:
     _objectList:
-    - type: Databrain.Blackboard.FloatVariable, Assembly-CSharp, Version=0.0.0.0,
+    - type: Databrain.Blackboard.FloatVariable, Assembly-CSharp-firstpass, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       dataObjects:
       - {fileID: 0}

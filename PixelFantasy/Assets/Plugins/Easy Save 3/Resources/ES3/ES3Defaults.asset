@@ -29,14 +29,12 @@ MonoBehaviour:
     referenceMode: 2
     serializationDepthLimit: 64
     assemblyNames:
-    - Assembly-CSharp-firstpass
-    - Databrain.UnityAsync
-    - FangAutoTile
-    - Assembly-CSharp
-    - TileWorldCreator.OdinSerializer
     - NodeCanvas
-    - Databrain
+    - Assembly-CSharp-firstpass
     - ParadoxNotion
+    - Assembly-CSharp
+    - Databrain
+    - TileWorldCreator.OdinSerializer
     - QFSW.QC
     - PsdPlugin
     - Cinemachine
@@ -49,15 +47,16 @@ MonoBehaviour:
     - NavMeshPlus
     - VTabs
     - QFSW.QC.Editor
+    - Databrain.UnityAsync
+    - AllIn1SpriteShaderAssembly
     - VFavorites
     - QFSW.QC.Parsers
     - TileWorldCreator.Editor
     - VInspector
-    - AllIn1SpriteShaderAssembly
     - QFSW.QC.QGUI
     - QFSW.QC.Editor.Tools
     - VFolders
-    - FangAutoTile.Editor
+    - FangAutoTile
     - Sirenix.OdinInspector.CompatibilityLayer
     - QFSW.QC.UI
     - QFSW.QC.ScanRules
@@ -65,6 +64,7 @@ MonoBehaviour:
     - QFSW.QC.Demo
     - VRuler
     - VHierarchy
+    - FangAutoTile.Editor
     - Sirenix.OdinInspector.Modules.UnityMathematics
     showAdvancedSettings: 1
   addMgrToSceneAutomatically: 0

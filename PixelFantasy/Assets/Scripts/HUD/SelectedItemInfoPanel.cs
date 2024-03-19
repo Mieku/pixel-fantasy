@@ -13,6 +13,7 @@ using Systems.Details.Generic_Details.Scripts;
 using Systems.Notifications.Scripts;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace HUD
 {
@@ -27,8 +28,9 @@ namespace HUD
         // [Header("Building Details")] 
         // [SerializeField] private BuildingDetails _buildingDetails;
 
+        [FormerlySerializedAs("_buildDetails")]
         [Header("Build Details")] 
-        [SerializeField] private BuildDetailsUI _buildDetails;
+        [SerializeField] private BuildFurnitureDetailsUI _buildFurnitureDetails;
         
         [Header("Notification Log")]
         [SerializeField] private NotificationLogger _notificationLogger;
@@ -66,7 +68,7 @@ namespace HUD
         {
             //_genericDetails.Hide();
             _kinlingDetails.Hide();
-            _buildDetails.Hide();
+            _buildFurnitureDetails.Hide();
             // _buildingDetails.Hide();
             
             _notificationLogger.Show();
@@ -85,7 +87,7 @@ namespace HUD
             HideAllDetails();
             _notificationLogger.Hide();
             
-            _buildDetails.Show(header, options);
+            _buildFurnitureDetails.Show(header, options);
         }
     }
 }
