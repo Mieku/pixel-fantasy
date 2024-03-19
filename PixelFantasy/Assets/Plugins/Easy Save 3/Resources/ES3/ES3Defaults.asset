@@ -47,18 +47,24 @@ MonoBehaviour:
     - QFSW.QC.Suggestors
     - QFSW.QC.Grammar
     - NavMeshPlus
+    - VTabs
     - QFSW.QC.Editor
+    - VFavorites
     - QFSW.QC.Parsers
     - TileWorldCreator.Editor
+    - VInspector
     - AllIn1SpriteShaderAssembly
     - QFSW.QC.QGUI
     - QFSW.QC.Editor.Tools
+    - VFolders
     - FangAutoTile.Editor
     - Sirenix.OdinInspector.CompatibilityLayer
     - QFSW.QC.UI
     - QFSW.QC.ScanRules
     - QFSW.QC.Serializers
     - QFSW.QC.Demo
+    - VRuler
+    - VHierarchy
     - Sirenix.OdinInspector.Modules.UnityMathematics
     showAdvancedSettings: 1
   addMgrToSceneAutomatically: 0
