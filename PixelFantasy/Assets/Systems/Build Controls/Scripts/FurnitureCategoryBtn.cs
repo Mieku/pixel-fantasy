@@ -85,5 +85,13 @@ namespace Systems.Build_Controls.Scripts
             btn.Init(optionName, optionIcon, options, onSelectedCallback);
             _displayedOptions.Add(btn);
         }
+
+        public void HighlightSelectedButton(bool isHighlighted)
+        {
+            if (_selectedSubCategoryBtn != null)
+            {
+                _selectedSubCategoryBtn.HighlightBtn(isHighlighted);
+            }
+        }
     }
 }

@@ -10,6 +10,7 @@ using Items;
 using Managers;
 using Popups;
 using ScriptableObjects;
+using Systems.Build_Controls.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 using Zones;
@@ -21,6 +22,7 @@ namespace Controllers
         [SerializeField] private SelectedItemInfoPanel _selectedItemInfoPanel;
         [SerializeField] private Image _pause, _normalSpeed, _fastSpeed, _fastestSpeed;
         [SerializeField] private Color _defaultColour, _selectedColour;
+        [SerializeField] private BuildController _buildController;
 
         protected override void Awake()
         {
@@ -49,17 +51,19 @@ namespace Controllers
             _selectedItemInfoPanel.ShowItemDetails(clickableObject);
         }
 
-        public void ShowBuildDetails(string header, List<FurnitureData> options )
+        public void ShowBuildFurnitureDetails(string header, List<FurnitureData> options )
         {
             HideDetails();
             
-            _selectedItemInfoPanel.ShowBuildDetails(header, options);
+            _selectedItemInfoPanel.ShowBuildFurnitureDetails(header, options);
         }
 
-        // public void ShowBuildingDetails(Building building, bool openConstructionTab = false)
-        // {
-        //     _selectedItemInfoPanel.ShowBuildingDetails(building, openConstructionTab);
-        // }
+        public void ShowBuildStructureDetails()
+        {
+            HideDetails();
+            
+            _selectedItemInfoPanel.ShowBuildStructureDetails();
+        }
         
         public void HideDetails()
         {

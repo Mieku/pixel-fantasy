@@ -22,7 +22,6 @@ namespace Systems.Buildings.Scripts
 
         public enum EWallState
         {
-            
             Blueprint,
             Built,
         }

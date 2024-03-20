@@ -4,6 +4,7 @@ using Controllers;
 using Data.Dye;
 using Data.Item;
 using Managers;
+using Systems.Build_Controls.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,8 @@ namespace Systems.Details.Build_Details.Scripts
 {
     public class BuildFurnitureDetailsUI : MonoBehaviour
     {
+        [SerializeField] private FurnitureCategoryBtn _furnitureCategoryBtn;
+        
         [SerializeField] private PanelLayoutRebuilder _layoutRebuilder;
         [SerializeField] private GameObject _panelHandle;
         [SerializeField] private GameObject _currentSelectionHandle;
@@ -53,6 +56,7 @@ namespace Systems.Details.Build_Details.Scripts
             _panelHandle.SetActive(true);
             _panelTitle.text = header;
             _currentSelectionHandle.SetActive(false);
+            _furnitureCategoryBtn.HighlightSelectedButton(true);
 
             _selectedFurniture = null;
             
@@ -306,6 +310,7 @@ namespace Systems.Details.Build_Details.Scripts
         {
             _panelHandle.SetActive(false);
             ClearOptions();
+            _furnitureCategoryBtn.HighlightSelectedButton(false);
         }
         
         private void RefreshLayout()

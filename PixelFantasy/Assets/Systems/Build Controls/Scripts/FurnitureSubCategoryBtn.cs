@@ -34,7 +34,7 @@ namespace Systems.Build_Controls.Scripts
         {
             HighlightBtn(true);
             
-            HUDController.Instance.ShowBuildDetails($"{_optionName} Furniture", new List<FurnitureData>(_options));
+            HUDController.Instance.ShowBuildFurnitureDetails($"{_optionName} Furniture", new List<FurnitureData>(_options));
         }
 
         public void Cancel()
@@ -44,7 +44,7 @@ namespace Systems.Build_Controls.Scripts
             HUDController.Instance.HideDetails();
         }
 
-        private void HighlightBtn(bool isHighlighted)
+        public void HighlightBtn(bool isHighlighted)
         {
             if (isHighlighted)
             {

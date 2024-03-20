@@ -25,12 +25,10 @@ namespace HUD
         [Header("Kinling Details")] 
         [SerializeField] private KinlingDetailsUI _kinlingDetails;
 
-        // [Header("Building Details")] 
-        // [SerializeField] private BuildingDetails _buildingDetails;
-
         [FormerlySerializedAs("_buildDetails")]
         [Header("Build Details")] 
         [SerializeField] private BuildFurnitureDetailsUI _buildFurnitureDetails;
+        [SerializeField] private BuildStructureDetailsUI _buildStructureDetails;
         
         [Header("Notification Log")]
         [SerializeField] private NotificationLogger _notificationLogger;
@@ -47,29 +45,13 @@ namespace HUD
 
             _kinlingDetails.Show(kinling);
         }
-
-        // public void ShowBuildingDetails(Building building, bool openConstructionTab = false)
-        // {
-        //     HideAllDetails();
-        //     _notificationLogger.Hide();
-        //
-        //     if (openConstructionTab)
-        //     {
-        //         _buildingDetails.Show(building, BuildingDetails.EDetailsTab.Construction);
-        //     }
-        //     else
-        //     {
-        //         _buildingDetails.Show(building);
-        //     }
-        //     
-        // }
         
         public void HideAllDetails()
         {
             //_genericDetails.Hide();
             _kinlingDetails.Hide();
             _buildFurnitureDetails.Hide();
-            // _buildingDetails.Hide();
+            _buildStructureDetails.Hide();
             
             _notificationLogger.Show();
         }
@@ -78,16 +60,22 @@ namespace HUD
         {
             HideAllDetails();
             _notificationLogger.Hide();
-            
-            //_genericDetails.Show(clickableObject);
         }
 
-        public void ShowBuildDetails(string header, List<FurnitureData> options )
+        public void ShowBuildFurnitureDetails(string header, List<FurnitureData> options )
         {
             HideAllDetails();
             _notificationLogger.Hide();
             
             _buildFurnitureDetails.Show(header, options);
+        }
+
+        public void ShowBuildStructureDetails()
+        {
+            HideAllDetails();
+            _notificationLogger.Hide();
+            
+            _buildStructureDetails.Show();
         }
     }
 }

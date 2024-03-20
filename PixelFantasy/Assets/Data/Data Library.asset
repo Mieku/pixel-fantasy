@@ -989,6 +989,22 @@ MonoBehaviour:
       - {fileID: 4496512223619636680}
       - {fileID: 8555071837867117066}
       - {fileID: 1104450306893862740}
+    - type: Data.Structure.WallData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
+      - {fileID: 2219954506178974260}
+    - type: Data.Structure.WallSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
+      - {fileID: 1274975811134321187}
+      - {fileID: 5747519841221157967}
+    - type: Databrain.Blackboard.BlackboardVariable, Assembly-CSharp-firstpass, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      dataObjects:
+      - {fileID: 1240923166282598677}
+    - type: Databrain.Blackboard.FloatVariable, Assembly-CSharp-firstpass, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      dataObjects: []
     _favoriteList: []
   copyData:
     _objectList: []
@@ -1004,32 +1020,46 @@ MonoBehaviour:
   - {fileID: 1983106924015250702}
   - {fileID: -4624164709437787247}
   existingNamespaces:
-  - namespaceName: Materials
+  - namespaceName: Settings
     foldout: 1
     hidden: 0
     icon: 
     existingTypes:
-    - typeName: ItemData
-      typeAssemblyQualifiedName: Data.Item.ItemData, Assembly-CSharp, Version=0.0.0.0,
+    - typeName: WallSettings
+      typeAssemblyQualifiedName: Data.Structure.WallSettings, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 1
+      runtimeSerialization: 0
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-    - typeName: CraftedItemData
-      typeAssemblyQualifiedName: Data.Item.CraftedItemData, Assembly-CSharp, Version=0.0.0.0,
+    - typeName: DyeData
+      typeAssemblyQualifiedName: Data.Dye.DyeData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 1
+      runtimeSerialization: 0
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-  - namespaceName: Constructables
+  - namespaceName: Runtime
     foldout: 1
     hidden: 0
     icon: 
     existingTypes:
-    - typeName: FurnitureData
-      typeAssemblyQualifiedName: Data.Item.FurnitureData, Assembly-CSharp, Version=0.0.0.0,
+    - typeName: GrowingResourceData
+      typeAssemblyQualifiedName: Data.Resource.GrowingResourceData, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 1
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: MountainResourceData
+      typeAssemblyQualifiedName: Data.Resource.MountainResourceData, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 1
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: CropData
+      typeAssemblyQualifiedName: Data.Item.CropData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 1
       tagsFilter: []
@@ -1049,13 +1079,36 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-  - namespaceName: Resources
-    foldout: 1
-    hidden: 0
-    icon: 
-    existingTypes:
-    - typeName: CropData
-      typeAssemblyQualifiedName: Data.Item.CropData, Assembly-CSharp, Version=0.0.0.0,
+    - typeName: CraftedItemData
+      typeAssemblyQualifiedName: Data.Item.CraftedItemData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 1
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: WallData
+      typeAssemblyQualifiedName: Data.Structure.WallData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 1
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: DoorData
+      typeAssemblyQualifiedName: Data.Structure.DoorData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: FloorData
+      typeAssemblyQualifiedName: Data.Structure.FloorData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: ToolData
+      typeAssemblyQualifiedName: Data.Item.ToolData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 1
       tagsFilter: []
@@ -1068,41 +1121,17 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-    - typeName: GrowingResourceData
-      typeAssemblyQualifiedName: Data.Resource.GrowingResourceData, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 1
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: MountainResourceData
-      typeAssemblyQualifiedName: Data.Resource.MountainResourceData, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 1
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-  - namespaceName: Equipment
-    foldout: 1
-    hidden: 0
-    icon: 
-    existingTypes:
-    - typeName: ToolData
-      typeAssemblyQualifiedName: Data.Item.ToolData, Assembly-CSharp, Version=0.0.0.0,
+    - typeName: FurnitureData
+      typeAssemblyQualifiedName: Data.Item.FurnitureData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 1
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-  - namespaceName: Misc
-    foldout: 1
-    hidden: 0
-    icon: 
-    existingTypes:
-    - typeName: DyeData
-      typeAssemblyQualifiedName: Data.Dye.DyeData, Assembly-CSharp, Version=0.0.0.0,
+    - typeName: ItemData
+      typeAssemblyQualifiedName: Data.Item.ItemData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
+      runtimeSerialization: 1
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
@@ -1495,6 +1524,71 @@ MonoBehaviour:
   Primary: {r: 0.105882354, g: 0.15686275, b: 0.7529412, a: 1}
   PrimaryShade: {r: 0.05882353, g: 0.08627451, b: 0.38039216, a: 1}
   Accent: {r: 0.69411767, g: 0.3529412, b: 0.13333334, a: 1}
+--- !u!114 &1240923166282598677
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa0af2dd6392944a9ff777d932e90b2, type: 3}
+  m_Name: New Data entry
+  m_EditorClassIdentifier: 
+  guid: 16b7e5d5-c569-4ed8-a79a-836ea138e847
+  initialGuid: 16b7e5d5-c569-4ed8-a79a-836ea138e847
+  runtimeIndexID: 
+  icon: {fileID: 0}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: New Data entry
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  onValueChanged: {fileID: 0}
+--- !u!114 &1274975811134321187
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2533f3c15b7fbb441b28ea362919a00a, type: 3}
+  m_Name: Stone Wall
+  m_EditorClassIdentifier: 
+  guid: defce077-cc8b-41e3-a365-b44f5e6e099c
+  initialGuid: defce077-cc8b-41e3-a365-b44f5e6e099c
+  runtimeIndexID: 
+  icon: {fileID: -2067034400, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Stone Wall
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  OptionIcon: {fileID: 21300000, guid: 286743b833fa73a4c824303d4da3e3dd, type: 3}
+  MaxDurability: 50
+  ExteriorRuleTile: {fileID: 11400000, guid: f91b311b42950d84fb7392825b419fe0, type: 2}
+  InteriorRuleTile: {fileID: 11400000, guid: f296c6c9d32e2ca47888f29895bc1dbc, type: 2}
+  CraftRequirements:
+    _minCraftingSkillLevel: 5
+    _craftingSkill: 2
+    _workCost: 10
+    _requiredCraftingToolType: 1
+    _materialCosts:
+    - Item: {fileID: 4384225487442251340}
+      Quantity: 3
 --- !u!114 &1468006658073743336
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1735,6 +1829,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12538dea57d594a4c9c875422e1b2c7f, type: 3}
   m_Name: SettingsModule
   m_EditorClassIdentifier: 
+--- !u!114 &2219954506178974260
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd4beaa854198e947bae80e3737ee302, type: 3}
+  m_Name: Wall
+  m_EditorClassIdentifier: 
+  guid: 0eec06aa-d5af-428b-8dcc-524f10ba65d2
+  initialGuid: 0eec06aa-d5af-428b-8dcc-524f10ba65d2
+  runtimeIndexID: 
+  icon: {fileID: -1127179300, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Wall
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  SelectedWallOption: {fileID: 0}
+  Durability: 0
+  Position: {x: 0, y: 0}
+  State: 0
+  RemainingWork: 0
+  RemainingMaterialCosts: []
+  InteriorColour: {fileID: 0}
 --- !u!114 &2268203417634399997
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2088,6 +2215,44 @@ MonoBehaviour:
   Primary: {r: 0.77582246, g: 0.043735042, b: 0.057805434, a: 1}
   PrimaryShade: {r: 0.36130688, g: 0.019382361, b: 0.033104774, a: 1}
   Accent: {r: 0.69411767, g: 0.3529412, b: 0.13333334, a: 1}
+--- !u!114 &5747519841221157967
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2533f3c15b7fbb441b28ea362919a00a, type: 3}
+  m_Name: Wooden Wall
+  m_EditorClassIdentifier: 
+  guid: fdab8e05-a83d-4a78-8d2c-e3342903a94b
+  initialGuid: fdab8e05-a83d-4a78-8d2c-e3342903a94b
+  runtimeIndexID: 
+  icon: {fileID: -2067034400, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Wooden Wall
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 1
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  OptionIcon: {fileID: 21300000, guid: ae9afa1dfd4daca4b8ffd98162c852c9, type: 3}
+  MaxDurability: 50
+  ExteriorRuleTile: {fileID: 11400000, guid: f91b311b42950d84fb7392825b419fe0, type: 2}
+  InteriorRuleTile: {fileID: 11400000, guid: f296c6c9d32e2ca47888f29895bc1dbc, type: 2}
+  CraftRequirements:
+    _minCraftingSkillLevel: 3
+    _craftingSkill: 2
+    _workCost: 10
+    _requiredCraftingToolType: 1
+    _materialCosts:
+    - Item: {fileID: -5005131501070810583}
+      Quantity: 3
 --- !u!114 &6445956091041958653
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2296,7 +2461,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 04c6722eac38f8341abfa8480d4ca564, type: 3}
-  m_Name: Double Bed
+  m_Name: Copper Double Bed
   m_EditorClassIdentifier: 
   guid: 2eb6da54-5a8c-481b-bb48-f5566a6e4a7e
   initialGuid: 2eb6da54-5a8c-481b-bb48-f5566a6e4a7e
@@ -2630,7 +2795,11 @@ MonoBehaviour:
     _objectList:
     - type: Data.Item.FurnitureData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      dataObjects: []
+      dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Item.StorageData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
@@ -2912,6 +3081,10 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
     - type: Data.Item.CraftingTableData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
+      - {fileID: 0}
+    - type: Data.Structure.WallData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
       - {fileID: 0}
