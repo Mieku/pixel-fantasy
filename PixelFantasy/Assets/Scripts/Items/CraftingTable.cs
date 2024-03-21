@@ -19,10 +19,10 @@ namespace Items
         [TitleGroup("North")] [SerializeField] private SpriteRenderer _northCraftingPreview;
         [TitleGroup("East")] [SerializeField] private SpriteRenderer _eastCraftingPreview;
         
-        public CraftingTableData TableData => Data as CraftingTableData;
+        //public CraftingTableData TableData => Data as CraftingTableData;
         public CraftingTableData RuntimeTableData => RuntimeData as CraftingTableData;
 
-        public override void StartPlanning(FurnitureData furnitureData, PlacementDirection initialDirection, DyeData dye)
+        public override void StartPlanning(FurnitureDataSettings furnitureData, PlacementDirection initialDirection, DyeData dye)
         {
             base.StartPlanning(furnitureData, initialDirection, dye);
             HideCraftingPreview();
@@ -101,14 +101,14 @@ namespace Items
             if(_eastCraftingPreview != null) _eastCraftingPreview.gameObject.SetActive(false);
         }
         
-        public void AssignItemToTable(CraftedItemData craftedItem)
+        public void AssignItemToTable(CraftedItemDataSettings craftedItem)
         {
             if (craftedItem != null)
             {
                 ShowCraftingPreview(craftedItem.icon);
                 RuntimeTableData.ItemBeingCrafted = craftedItem;
                 RuntimeTableData.RemainingCraftingWork = craftedItem.CraftRequirements.WorkCost;
-                RuntimeTableData.RemainingMaterials = new List<ItemAmount>(craftedItem.CraftRequirements.GetResourceCosts());
+                RuntimeTableData.RemainingMaterials = new List<ItemAmount>(craftedItem.CraftRequirements.GetMaterialCosts());
             }
             else
             {
@@ -151,7 +151,7 @@ namespace Items
         {
             foreach (var remainingMaterial in RuntimeTableData.RemainingMaterials)
             {
-                if (remainingMaterial.Item == item)
+                if (remainingMaterial.Item == item.Settings)
                 {
                     remainingMaterial.Quantity -= 1;
                 }
@@ -164,9 +164,9 @@ namespace Items
             AssignItemToTable(null);
         }
 
-        public List<CraftedItemData> GetCraftableItems()
+        public List<CraftedItemDataSettings> GetCraftableItems()
         {
-            return RuntimeTableData.CraftableItems;
+            return RuntimeTableData.CraftingTableSettings.CraftableItems;
         }
     }
 }

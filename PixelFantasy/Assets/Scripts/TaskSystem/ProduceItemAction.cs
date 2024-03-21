@@ -10,7 +10,7 @@ namespace TaskSystem
 {
     public class ProduceItemAction : TaskAction // ID: Produce Item
     {
-        private CraftedItemData _itemToCraft;
+        private CraftedItemDataSettings _itemToCraft;
         private CraftingTable _craftingTable;
         private List<ItemData> _materials;
         private ETaskState _state;
@@ -32,7 +32,7 @@ namespace TaskSystem
         
         public override void PrepareAction(Task task)
         {
-            _itemToCraft = task.Payload as CraftedItemData;
+            _itemToCraft = task.Payload as CraftedItemDataSettings;
             _craftingTable = (CraftingTable)task.Requestor;
             _materials = task.Materials;
             _state = ETaskState.ClaimTable;
@@ -70,7 +70,7 @@ namespace TaskSystem
                     {
                         KinlingAnimController.SetUnitAction(UnitAction.Nothing);
                         
-                        _targetItem = Spawner.Instance.SpawnItem(_itemToCraft.initialGuid, _craftingTable.transform.position, false);
+                        _targetItem = Spawner.Instance.SpawnItem(_itemToCraft, _craftingTable.transform.position, false);
                         _ai.HoldItem(_targetItem);
                         
                         _state = ETaskState.DeliverItem;
@@ -80,7 +80,7 @@ namespace TaskSystem
 
             if (_state == ETaskState.DeliverItem)
             {
-                _receivingStorage = InventoryManager.Instance.GetAvailableStorage(_targetItem.Data);
+                _receivingStorage = InventoryManager.Instance.GetAvailableStorage(_targetItem.RuntimeData.Settings);
                 if (_receivingStorage == null)
                 {
                     // THROW IT ON THE GROUND!
@@ -89,7 +89,7 @@ namespace TaskSystem
                     return;
                 }
                 
-                _receivingStorage.RuntimeStorageData.SetIncoming(_targetItem.Data);
+                _receivingStorage.RuntimeStorageData.SetIncoming(_targetItem.RuntimeData);
                 
                 _ai.Kinling.KinlingAgent.SetMovePosition(_receivingStorage.UseagePosition(_ai.Kinling.transform.position), OnProductDelivered,OnTaskCancel);
                 _state = ETaskState.WaitingOnDelivery;
@@ -98,14 +98,14 @@ namespace TaskSystem
 
         private void OnArrivedAtStorageForPickup()
         {
-            _targetItem.AssignedStorage.RuntimeStorageData.WithdrawItem(_targetItem.Data);
+            _targetItem.AssignedStorage.RuntimeStorageData.WithdrawItem(_targetItem.RuntimeData);
             _ai.HoldItem(_targetItem);
             _ai.Kinling.KinlingAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Kinling.transform.position), OnArrivedAtCraftingTable, OnTaskCancel);
         }
 
         private void OnArrivedAtCraftingTable()
         {
-            _craftingTable.ReceiveMaterial(_targetItem.Data);
+            _craftingTable.ReceiveMaterial(_targetItem.RuntimeData);
             _targetItem = null;
             _materialIndex++;
 

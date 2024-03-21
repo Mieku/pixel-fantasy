@@ -6,6 +6,7 @@ using Databrain;
 using Databrain.Attributes;
 using ScriptableObjects;
 using UnityEngine;
+using CraftingTableSettings = Data.Item.CraftingTableSettings;
 
 namespace Systems.Build_Controls.Scripts
 {
@@ -14,15 +15,15 @@ namespace Systems.Build_Controls.Scripts
         public DataLibrary DataLibrary;
         
         [SerializeField] private Sprite _storageIcon;
-        [DataObjectDropdown("DataLibrary")] [SerializeField] private List<StorageData> _storageOptions;
+        [DataObjectDropdown("DataLibrary")] [SerializeField] private List<StorageDataSettings> _storageOptions;
         [SerializeField] private Sprite _decorationIcon;
-        [DataObjectDropdown("DataLibrary")] [SerializeField] private List<FurnitureData> _decorationOptions;
+        [DataObjectDropdown("DataLibrary")] [SerializeField] private List<FurnitureDataSettings> _decorationOptions;
         [SerializeField] private Sprite _productionIcon;
-        [DataObjectDropdown("DataLibrary")] [SerializeField] private List<CraftingTableData> _productionOptions;
+        [DataObjectDropdown("DataLibrary")] [SerializeField] private List<CraftingTableSettings> _productionOptions;
         [SerializeField] private Sprite _lightingIcon;
-        [DataObjectDropdown("DataLibrary")] [SerializeField] private List<FurnitureData> _lightingOptions;
+        [DataObjectDropdown("DataLibrary")] [SerializeField] private List<FurnitureDataSettings> _lightingOptions;
         [SerializeField] private Sprite _lifestyleIcon;
-        [DataObjectDropdown("DataLibrary")] [SerializeField] private List<FurnitureData> _lifestyleOptions;
+        [DataObjectDropdown("DataLibrary")] [SerializeField] private List<FurnitureDataSettings> _lifestyleOptions;
 
         [SerializeField] private FurnitureSubCategoryBtn _furnitureSubCategoryPrefab;
 
@@ -34,8 +35,8 @@ namespace Systems.Build_Controls.Scripts
             base.DisplayOptions();
             
             CreateOptionBtn("Lifestyle", _lifestyleIcon, _lifestyleOptions, OnSubCategorySelected);
-            CreateOptionBtn("Production", _productionIcon, _productionOptions.Cast<FurnitureData>().ToList(), OnSubCategorySelected);
-            CreateOptionBtn("Storage", _storageIcon, _storageOptions.Cast<FurnitureData>().ToList(), OnSubCategorySelected);
+            CreateOptionBtn("Production", _productionIcon, _productionOptions.Cast<FurnitureDataSettings>().ToList(), OnSubCategorySelected);
+            CreateOptionBtn("Storage", _storageIcon, _storageOptions.Cast<FurnitureDataSettings>().ToList(), OnSubCategorySelected);
             CreateOptionBtn("Lighting", _lightingIcon, _lightingOptions, OnSubCategorySelected);
             CreateOptionBtn("Decorations", _decorationIcon, _decorationOptions, OnSubCategorySelected);
         }
@@ -77,7 +78,7 @@ namespace Systems.Build_Controls.Scripts
             _selectedSubCategoryBtn = null;
         }
 
-        private void CreateOptionBtn(string optionName, Sprite optionIcon, List<FurnitureData> options, Action<FurnitureSubCategoryBtn> onSelectedCallback)
+        private void CreateOptionBtn(string optionName, Sprite optionIcon, List<FurnitureDataSettings> options, Action<FurnitureSubCategoryBtn> onSelectedCallback)
         {
             if(options == null || options.Count == 0) return;
 

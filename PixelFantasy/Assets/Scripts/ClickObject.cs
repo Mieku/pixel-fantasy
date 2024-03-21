@@ -48,7 +48,7 @@ public class ClickObject : MonoBehaviour
                 //_itemSettings = GetComponent<Item>().GetItemData();
                 break;
             case ObjectType.Structure:
-                _structureSettings = GetComponent<Construction>().GetConstructionData();
+                //_structureSettings = GetComponent<Construction>().GetConstructionData();
                 break;
             case ObjectType.Kinling:
                 _kinling = GetComponent<Kinling>();

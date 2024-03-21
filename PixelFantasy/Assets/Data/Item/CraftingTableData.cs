@@ -9,17 +9,13 @@ namespace Data.Item
 {
     public class CraftingTableData : FurnitureData
     {
-        // Settings
-        [DataObjectDropdown(true)] [SerializeField] protected List<CraftedItemData> _craftableItems;
-        
-        // Accessors
-        public List<CraftedItemData> CraftableItems => _craftableItems;
-        
         // Runtime
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public List<ItemAmount> RemainingMaterials = new List<ItemAmount>();
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public float RemainingCraftingWork;
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public CraftedItemData ItemBeingCrafted;
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public CraftingOrder CurrentOrder;
+        [ExposeToInspector, DatabrainSerialize] public List<ItemAmount> RemainingMaterials = new List<ItemAmount>();
+        [ExposeToInspector, DatabrainSerialize] public float RemainingCraftingWork;
+        [ExposeToInspector, DatabrainSerialize] public CraftedItemDataSettings ItemBeingCrafted;
+        [ExposeToInspector, DatabrainSerialize] public CraftingOrder CurrentOrder;
+        
+        public CraftingTableSettings CraftingTableSettings => Settings as CraftingTableSettings;
         
         public float GetPercentCraftingComplete()
         {
@@ -33,7 +29,7 @@ namespace Data.Item
             if (ItemBeingCrafted == null) return 0f;
             
             int numItemsNeeded = 0;
-            foreach (var cost in ItemBeingCrafted.CraftRequirements.GetResourceCosts())
+            foreach (var cost in ItemBeingCrafted.CraftRequirements.GetMaterialCosts())
             {
                 numItemsNeeded += cost.Quantity;
             }
@@ -54,14 +50,13 @@ namespace Data.Item
             }
         }
         
-        public bool CanCraftItem(string itemGUID)
+        public bool CanCraftItem(CraftedItemDataSettings settings)
         {
-            var item = Librarian.Instance.GetInitialItemDataByGuid(itemGUID) as CraftedItemData;
-            var validToCraft = _craftableItems.Contains(item);
+            var validToCraft = CraftingTableSettings.CraftableItems.Contains(settings);
             if (!validToCraft) return false;
             
             // Are the mats available?
-            foreach (var cost in item.CraftRequirements.GetResourceCosts())
+            foreach (var cost in settings.CraftRequirements.GetMaterialCosts())
             {
                 if (!cost.CanAfford())
                 {

@@ -61,7 +61,6 @@ namespace Systems.Buildings.Scripts
 
         private void Construction_Enter()
         {
-            _remainingResourceCosts = _doorSettings.GetResourceCosts();
             ColourSprite(Librarian.Instance.GetColour("Blueprint"));
 
             var wall = StructureManager.Instance.GetStructureAtCell(Cell.CellPos);
@@ -176,16 +175,10 @@ namespace Systems.Buildings.Scripts
             var resourceCosts = _doorSettings.GetResourceCosts();
             CreateConstuctionHaulingTasksForItems(resourceCosts);
         }
-
-        public override List<ItemAmount> GetResourceCosts()
-        {
-            return _doorSettings.GetResourceCosts();
-        }
         
         public override void CompleteConstruction()
         {
             base.CompleteConstruction();
-            _isBuilt = true;
             IsClickDisabled = true;
             SetState(EDoorState.Built);
         }

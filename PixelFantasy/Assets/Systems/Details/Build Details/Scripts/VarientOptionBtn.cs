@@ -17,10 +17,10 @@ namespace Systems.Details.Build_Details.Scripts
         [SerializeField] private Color _defaultColour;
         [SerializeField] private Color _unavailableColour;
         
-        private Action<VarientOptionBtn, FurnitureData> _onPressedCallback;
+        private Action<VarientOptionBtn, FurnitureDataSettings> _onPressedCallback;
         private bool _isHighlighted;
         private CraftRequirements _craftRequirements;
-        private FurnitureData _furnitureSettings;
+        private FurnitureDataSettings _furnitureSettings;
 
         public bool IsColourMode;
         public bool IsDefault;
@@ -74,7 +74,7 @@ namespace Systems.Details.Build_Details.Scripts
             }
         }
 
-        public void Init(DyeData dyeSettings, FurnitureData furnitureData, Action<VarientOptionBtn, FurnitureData> onPressedCallback)
+        public void Init(DyeData dyeSettings, FurnitureDataSettings furnitureData, Action<VarientOptionBtn, FurnitureDataSettings> onPressedCallback)
         {
             IsDefault = false;
             IsColourMode = true;
@@ -89,7 +89,7 @@ namespace Systems.Details.Build_Details.Scripts
             RemoveHighlight();
         }
 
-        public void Init(FurnitureVariant variant, FurnitureData furnitureData, Action<VarientOptionBtn, FurnitureData> onPressedCallback)
+        public void Init(FurnitureVariant variant, FurnitureDataSettings furnitureData, Action<VarientOptionBtn, FurnitureDataSettings> onPressedCallback)
         {
             IsDefault = false;
             IsColourMode = false;
@@ -104,7 +104,7 @@ namespace Systems.Details.Build_Details.Scripts
             RemoveHighlight();
         }
 
-        public void InitDefault(FurnitureData furnitureData, Action<VarientOptionBtn, FurnitureData> onPressedCallback)
+        public void InitDefault(FurnitureDataSettings furnitureData, Action<VarientOptionBtn, FurnitureDataSettings> onPressedCallback)
         {
             IsDefault = true;
             _furnitureSettings = furnitureData;

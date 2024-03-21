@@ -105,11 +105,11 @@ namespace Managers
                 if (_plannedFurniture.CheckPlacement())
                 {
                     _plannedFurniture.CompletePlanning();
-                    _plannedFurniture.InitializeFurniture(_selectedFurnitureData, _prevPlacementDirection, _selectedDyeOverride);
+                    _plannedFurniture.InitializeFurniture(_selectedFurnitureSettings, _prevPlacementDirection, _selectedDyeOverride);
                     _plannedFurniture = null;
                     
                     // Allows the player to place multiple
-                    PlanFurniture(_selectedFurnitureData, _prevPlacementDirection, _selectedDyeOverride);
+                    PlanFurniture(_selectedFurnitureSettings, _prevPlacementDirection, _selectedDyeOverride);
                 }
             }
             else if (inputState == PlayerInputState.BuildFarm)
@@ -161,7 +161,7 @@ namespace Managers
             ShowPlacementIcon(false);
             _invalidPlacementTags.Clear();
             CancelPlanning();
-            _selectedFurnitureData = null;
+            _selectedFurnitureSettings = null;
             _selectedDyeOverride = null;
             _plannedDoor = null;
             _prevPlacementDirection = default;
@@ -259,7 +259,7 @@ namespace Managers
                 }
             }
 
-            if (_selectedFurnitureData != null)
+            if (_selectedFurnitureSettings != null)
             {
                 if (Input.GetKeyDown(KeyCode.E)) // Clockwise
                 {
@@ -321,14 +321,13 @@ namespace Managers
             return itemObject.GetComponent<Item>();
         }
         
-        public Item SpawnItem(string itemDataGUID, Vector3 position, bool canBeHauled, Transform parent = null)
+        public Item SpawnItem(ItemDataSettings settings, Vector3 position, bool canBeHauled, Transform parent = null)
         {
-            ItemData itemData = Librarian.Instance.GetInitialItemDataByGuid(itemDataGUID);
             var itemObject = Instantiate(_itemPrefab, position, Quaternion.identity, parent ?? _itemsParent);
             if (itemObject.TryGetComponent<Item>(out var initializable))
             {
-                initializable.InitializeItem(itemData, canBeHauled);
-                itemObject.name = itemData.title;
+                initializable.InitializeItem(settings, canBeHauled);
+                itemObject.name = settings.title;
             }
             else
             {
@@ -338,17 +337,16 @@ namespace Managers
             return itemObject.GetComponent<Item>();
         }
         
-        public List<Item> SpawnItem(string itemDataGUID, Vector3 position, bool canBeHauled, int amount, Transform parent = null)
+        public List<Item> SpawnItem(ItemDataSettings settings, Vector3 position, bool canBeHauled, int amount, Transform parent = null)
         {
             List<Item> results = new List<Item>();
-            ItemData itemData = Librarian.Instance.GetInitialItemDataByGuid(itemDataGUID);
 
             for (int i = 0; i < amount; i++)
             {
                 var itemObject = Instantiate(_itemPrefab, position, Quaternion.identity, parent ?? _itemsParent);
                 if (itemObject.TryGetComponent<Item>(out var initializable))
                 {
-                    initializable.InitializeItem(itemData, canBeHauled);
+                    initializable.InitializeItem(settings, canBeHauled);
                     results.Add(itemObject.GetComponent<Item>());
                 }
                 else
@@ -371,7 +369,7 @@ namespace Managers
         }
 
         private Furniture _plannedFurniture;
-        private FurnitureData _selectedFurnitureData;
+        private FurnitureDataSettings _selectedFurnitureSettings;
         private DyeData _selectedDyeOverride;
         public Furniture SpawnFurniture(Furniture prefab, Vector3 position, Transform parent = null)
         {
@@ -379,9 +377,9 @@ namespace Managers
             return furnitureObject.GetComponent<Furniture>();
         }
 
-        public void PlanFurniture(FurnitureData furnitureData, PlacementDirection direction, DyeData dye)
+        public void PlanFurniture(FurnitureDataSettings furnitureData, PlacementDirection direction, DyeData dye)
         {
-            _selectedFurnitureData = furnitureData;
+            _selectedFurnitureSettings = furnitureData;
             _selectedDyeOverride = dye;
            
             var prefab = furnitureData.FurniturePrefab;

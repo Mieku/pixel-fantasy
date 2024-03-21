@@ -143,7 +143,11 @@ namespace Managers
                 if (clickObjs.IsNullOrEmpty())
                 {
                     var clickDetector = Helper.GetObjectAtPosition<ClickDetector>(UtilsClass.GetMouseWorldPosition());
-                    if (clickDetector == null)
+                    // if (clickDetector == null)
+                    // {
+                    //     PlayerInputController.Instance.ClearSelection();
+                    // }
+                    if (clickDetector != null)
                     {
                         PlayerInputController.Instance.ClearSelection();
                     }

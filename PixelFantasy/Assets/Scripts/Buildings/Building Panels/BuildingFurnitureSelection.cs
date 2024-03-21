@@ -92,7 +92,7 @@ namespace Buildings.Building_Panels
             }
             _displayedCosts.Clear();
 
-            var costs = furnitureSettings.CraftRequirements.GetResourceCosts();
+            var costs = furnitureSettings.CraftRequirements.GetMaterialCosts();
             foreach (var costAmount in costs)
             {
                 var cost = Instantiate(_costPrefab, _costsParent);

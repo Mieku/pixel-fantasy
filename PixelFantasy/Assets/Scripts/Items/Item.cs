@@ -36,7 +36,7 @@ namespace Items
         public DataLibrary DataLibrary;
         
         [DataObjectDropdown("DataLibrary")]
-        public ItemData Data;
+        //public ItemData Data;
         public ItemData RuntimeData;
         
         public PlayerInteractable GetPlayerInteractable()
@@ -54,15 +54,16 @@ namespace Items
             return _clickObject;
         }
         
-        public void InitializeItem(ItemData data, bool allowed)
+        public void InitializeItem(ItemDataSettings settings, bool allowed)
         {
-            Data = data;
+           // Data = data;
+           var data = settings.CreateInitialDataObject();
 
             DataLibrary.RegisterInitializationCallback(() =>
             {
-                RuntimeData = (ItemData)DataLibrary.CloneDataObjectToRuntime(Data, gameObject);
+                RuntimeData = (ItemData)DataLibrary.CloneDataObjectToRuntime(data, gameObject);
                 RuntimeData.LinkedItem = this;
-                RuntimeData.InitData();
+                RuntimeData.InitData(settings);
 
                 DisplayItemSprite();
 
@@ -78,8 +79,7 @@ namespace Items
 
         public void LoadItemData(ItemData data, bool canHaul)
         {
-            Data = data;
-            RuntimeData = Data.GetRuntimeData();
+            RuntimeData = data.GetRuntimeData();
             RuntimeData.LinkedItem = this;
             DisplayItemSprite();
 
@@ -106,7 +106,7 @@ namespace Items
         {
             if (AssignedStorage == null && !_isHeld)
             {
-                AssignedStorage = InventoryManager.Instance.GetAvailableStorage(RuntimeData);
+                AssignedStorage = InventoryManager.Instance.GetAvailableStorage(RuntimeData.Settings);
                 if (AssignedStorage != null)
                 {
                     AssignedStorage.RuntimeStorageData.SetIncoming(RuntimeData);
@@ -206,7 +206,7 @@ namespace Items
 
         private void DisplayItemSprite()
         {
-            _spriteRenderer.sprite = Data.ItemSprite;
+            _spriteRenderer.sprite = RuntimeData.Settings.ItemSprite;
         }
         
         public void ToggleAllowed(bool isAllowed)
@@ -277,7 +277,7 @@ namespace Items
             }
         }
 
-        public string DisplayName => Data.ItemName;
+        public string DisplayName => RuntimeData.Settings.ItemName;
 
         public override Vector2? UseagePosition(Vector2 requestorPosition)
         {

@@ -43,7 +43,7 @@ namespace Items
         public DataLibrary DataLibrary;
         
         [DataObjectDropdown("DataLibrary", true)]
-        public FurnitureData Data;
+        //public FurnitureData Data;
         public FurnitureData RuntimeData;
         
         protected SpriteRenderer[] _allSprites;
@@ -56,6 +56,7 @@ namespace Items
         private bool _isOutlineLocked;
         private ClickObject _clickObject;
         private DyeData _dyeOverride;
+        private readonly List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle"};
 
         protected virtual void Awake()
         {
@@ -89,7 +90,7 @@ namespace Items
             
         }
         
-        public virtual void StartPlanning(FurnitureData furnitureData, PlacementDirection initialDirection, DyeData dye)
+        public virtual void StartPlanning(FurnitureDataSettings furnitureData, PlacementDirection initialDirection, DyeData dye)
         {
             _isPlanning = true;
             _dyeOverride = dye;
@@ -108,16 +109,17 @@ namespace Items
             _isPlanning = false;
         }
 
-        public virtual void InitializeFurniture(FurnitureData furnitureData, PlacementDirection direction, DyeData dye)
+        public virtual void InitializeFurniture(FurnitureDataSettings furnitureSettings, PlacementDirection direction, DyeData dye)
         {
             _dyeOverride = dye;
-            Data = furnitureData;
+            var data = furnitureSettings.CreateInitialDataObject();
+            //Data = furnitureData;
             
             DataLibrary.RegisterInitializationCallback(() =>
             {
-                RuntimeData = (FurnitureData) DataLibrary.CloneDataObjectToRuntime(Data, gameObject);
+                RuntimeData = (FurnitureData) DataLibrary.CloneDataObjectToRuntime(data, gameObject);
                 RuntimeData.LinkedFurniture = this;
-                RuntimeData.InitData();
+                RuntimeData.InitData(furnitureSettings);
                 RuntimeData.Direction = direction;
             
                 SetState(RuntimeData.State);
@@ -343,7 +345,7 @@ namespace Items
             
             foreach (var useageMarker in UseagePositions())
             {
-                bool result = Helper.IsGridPosValidToBuild(useageMarker.position, Data.InvalidPlacementTags, gameObject);
+                bool result = Helper.IsGridPosValidToBuild(useageMarker.position, _invalidPlacementTags, gameObject);
 
                 if (result)
                 {
@@ -407,14 +409,14 @@ namespace Items
         private void CreateFurnitureHaulingTask()
         {
             // If there are no material costs, build instantly
-            if (RuntimeData.CraftRequirements.MaterialCosts.Count == 0)
+            if (RuntimeData.FurnitureSettings.CraftRequirements.MaterialCosts.Count == 0)
             {
                 SetState(EFurnitureState.Built);
                 return;
             }
             
             // If item exists, claim it
-            var isAvailable = InventoryManager.Instance.IsItemInStorage(RuntimeData);
+            var isAvailable = InventoryManager.Instance.IsSpecificItemInStorage(RuntimeData);
             if (isAvailable)
             {
                 Task task = new Task("Place Furniture", ETaskType.Hauling, this, EToolType.None)
@@ -538,7 +540,7 @@ namespace Items
         
         public virtual bool CheckPlacement()
         {
-            bool result = Helper.IsGridPosValidToBuild(transform.position, Data.InvalidPlacementTags);
+            bool result = Helper.IsGridPosValidToBuild(transform.position, _invalidPlacementTags);
 
             // Check the useage markers
             if (_useageMarkers != null && _useageMarkers.Count > 0)
@@ -546,7 +548,7 @@ namespace Items
                 bool markersPass = false;
                 foreach (var marker in _useageMarkers)
                 {
-                    if (Helper.IsGridPosValidToBuild(marker.transform.position, Data.InvalidPlacementTags))
+                    if (Helper.IsGridPosValidToBuild(marker.transform.position, _invalidPlacementTags))
                     {
                         marker.color = Color.white;
                         markersPass = true;
@@ -657,6 +659,6 @@ namespace Items
 
         public bool WasCrafted => !string.IsNullOrEmpty(RuntimeData.CraftersUID);
 
-        public NeedChange InUseNeedChange => RuntimeData.InUseNeedChange;
+        public NeedChange InUseNeedChange => RuntimeData.FurnitureSettings.InUseNeedChange;
     }
 }

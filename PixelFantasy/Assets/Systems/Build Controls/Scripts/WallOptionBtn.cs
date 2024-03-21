@@ -209,7 +209,7 @@ namespace Systems.Build_Controls.Scripts
                 spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
                 var wall = Instantiate(_wallPrefab, spawnPosition, Quaternion.identity);
                 wall.transform.SetParent(_structureParent);
-                wall.Init(wallOption);
+                //wall.Init(wallOption);
             }
         }
     

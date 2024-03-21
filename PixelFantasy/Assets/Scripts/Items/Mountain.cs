@@ -112,7 +112,7 @@ namespace Items
             {
                 for (int i = 0; i < minedDrop.Quantity; i++)
                 {
-                    spawner.SpawnItem(minedDrop.Item.initialGuid, transform.position, true);
+                    spawner.SpawnItem(minedDrop.Item, transform.position, true);
                 }
             }
 

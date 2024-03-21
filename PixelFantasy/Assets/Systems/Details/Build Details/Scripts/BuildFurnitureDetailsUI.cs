@@ -48,10 +48,10 @@ namespace Systems.Details.Build_Details.Scripts
         private List<VarientOptionBtn> _displayedMaterialOptions = new List<VarientOptionBtn>();
         private List<VarientOptionBtn> _displayedColourOptions = new List<VarientOptionBtn>();
         private List<SelectionOptionBtn> _displayedOptions = new List<SelectionOptionBtn>();
-        private FurnitureData _selectedFurniture;
+        private FurnitureDataSettings _selectedFurniture;
         private DyeData _selectedDye;
          
-        public void Show(string header, List<FurnitureData> options)
+        public void Show(string header, List<FurnitureDataSettings> options)
         {
             _panelHandle.SetActive(true);
             _panelTitle.text = header;
@@ -64,7 +64,7 @@ namespace Systems.Details.Build_Details.Scripts
             RefreshLayout();
         }
 
-        private void DisplayOptions(List<FurnitureData> options)
+        private void DisplayOptions(List<FurnitureDataSettings> options)
         {
             ClearOptions();
             _selectionOptionBtnPrefab.gameObject.SetActive(false);
@@ -99,7 +99,7 @@ namespace Systems.Details.Build_Details.Scripts
             _displayedOptions.Clear();
         }
 
-        private void ShowOptionSelection(FurnitureData furnitureData)
+        private void ShowOptionSelection(FurnitureDataSettings furnitureData)
         {
             _currentSelectionHandle.SetActive(true);
             _itemDescription.text = furnitureData.description;
@@ -138,7 +138,7 @@ namespace Systems.Details.Build_Details.Scripts
             }
         }
 
-        private void ShowMaterialVarients(FurnitureData furnitureData)
+        private void ShowMaterialVarients(FurnitureDataSettings furnitureData)
         {
             _materialOptionGroup.SetActive(true);
             _materialGroupHeader.text = "Material";
@@ -170,7 +170,7 @@ namespace Systems.Details.Build_Details.Scripts
             _displayedMaterialOptions.Clear();
         }
 
-        private void OnMaterialVarientSelected(VarientOptionBtn selectedBtn, FurnitureData furnitureData)
+        private void OnMaterialVarientSelected(VarientOptionBtn selectedBtn, FurnitureDataSettings furnitureData)
         {
             foreach (var materialOption in _displayedMaterialOptions)
             {
@@ -182,7 +182,7 @@ namespace Systems.Details.Build_Details.Scripts
             RefreshLayout();
         }
 
-        private void OnDefaultMaterialSelected(VarientOptionBtn selectedBtn, FurnitureData furnitureData)
+        private void OnDefaultMaterialSelected(VarientOptionBtn selectedBtn, FurnitureDataSettings furnitureData)
         {
             foreach (var materialOption in _displayedMaterialOptions)
             {
@@ -194,7 +194,7 @@ namespace Systems.Details.Build_Details.Scripts
             RefreshLayout();
         }
 
-        private void ShowColourVarients(FurnitureData furnitureData)
+        private void ShowColourVarients(FurnitureDataSettings furnitureData)
         {
             _optionGroupSeperator.SetActive(true);
             _colourOptionGroup.SetActive(true);
@@ -231,7 +231,7 @@ namespace Systems.Details.Build_Details.Scripts
             _displayedColourOptions.Clear();
         }
         
-        private void OnColourVarientSelected(VarientOptionBtn selectedBtn, FurnitureData furnitureData)
+        private void OnColourVarientSelected(VarientOptionBtn selectedBtn, FurnitureDataSettings furnitureData)
         {
             foreach (var displayedColourOption in _displayedColourOptions)
             {
@@ -259,12 +259,12 @@ namespace Systems.Details.Build_Details.Scripts
             TriggerFurniturePlacement(variant.FurnitureData);
         }
 
-        private void ApplyDefault(FurnitureData furnitureData)
+        private void ApplyDefault(FurnitureDataSettings furnitureData)
         {
             _itemImage.sprite = furnitureData.ItemSprite;
             _itemTitle.text = furnitureData.ItemName;
             RefreshCraftingRequirements(furnitureData.CraftRequirements);
-            RefreshStatsDisplay(furnitureData.Durability);
+            RefreshStatsDisplay(furnitureData.MaxDurability);
 
             _selectedFurniture = furnitureData;
             
@@ -297,7 +297,7 @@ namespace Systems.Details.Build_Details.Scripts
             _displayedResourceCosts.Clear();
             
             _resourceCostPrefab.gameObject.SetActive(false);
-            foreach (var costAmount in craftRequirements.GetResourceCosts())
+            foreach (var costAmount in craftRequirements.GetMaterialCosts())
             {
                 var cost = Instantiate(_resourceCostPrefab, _resourceCostParent);
                 cost.gameObject.SetActive(true);
@@ -318,7 +318,7 @@ namespace Systems.Details.Build_Details.Scripts
              _layoutRebuilder.RefreshLayout();
          }
         
-        private void TriggerFurniturePlacement(FurnitureData furnitureData)
+        private void TriggerFurniturePlacement(FurnitureDataSettings furnitureData)
         {
             Spawner.Instance.CancelInput();
             PlayerInputController.Instance.ChangeState(PlayerInputState.BuildFurniture, furnitureData.ItemName);

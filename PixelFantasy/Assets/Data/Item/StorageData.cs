@@ -11,52 +11,43 @@ namespace Data.Item
 {
     public class StorageData : FurnitureData
     {
-        // Settings
-        [SerializeField] private int _maxStorage;
-        [SerializeField] private List<EItemCategory> _acceptedCategories = new List<EItemCategory>();
-        [SerializeField] List<ItemData> _specificStorage;
-        
-        // Accessors
-        public int MaxStorage => _maxStorage;
-        public List<EItemCategory> AcceptedCategories => _acceptedCategories;
-        public List<ItemData> SpecificStorage => _specificStorage;
-        
         // Runtime
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public List<ItemData> Stored = new List<ItemData>();
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public List<ItemData> Incoming = new List<ItemData>();
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public List<ItemData> Claimed = new List<ItemData>();
+        [ExposeToInspector, DatabrainSerialize] public List<ItemData> Stored = new List<ItemData>();
+        [ExposeToInspector, DatabrainSerialize] public List<ItemData> Incoming = new List<ItemData>();
+        [ExposeToInspector, DatabrainSerialize] public List<ItemData> Claimed = new List<ItemData>();
 
+        public StorageDataSettings StorageSettings => Settings as StorageDataSettings;
 
-        public override void InitData()
+        public override void InitData(ItemDataSettings itemDataSettings)
         {
-            base.InitData();
+            base.InitData(itemDataSettings);
         }
         
-        public int AmountCanBeDeposited(ItemData itemData)
+        public int AmountCanBeDeposited(ItemDataSettings itemSettings)
         {
-            if (!IsItemValidToStore(itemData))
+            if (!IsItemValidToStore(itemSettings))
             {
                 return 0;
             }
 
-            int maxStorage = MaxStorage;
+            int maxStorage = StorageSettings.MaxStorage;
             
             return maxStorage - (Stored.Count + Incoming.Count);
         }
         
-        public int AmountCanBeWithdrawn(ItemData itemData)
+        public int AmountCanBeWithdrawn(ItemDataSettings itemSettings)
         {
-            if (!IsItemValidToStore(itemData)) return 0;
+            if (!IsItemValidToStore(itemSettings)) return 0;
 
-            return NumStored(itemData) - NumClaimed(itemData);
+            return NumStored(itemSettings) - NumClaimed(itemSettings);
         }
         
-        private int NumStored(ItemData itemData)
+        private int NumStored(ItemDataSettings itemSettings)
         {
             int result = 0;
             foreach (var storedItem in Stored)
             {
-                if (storedItem.Equals(itemData))
+                if (storedItem.Settings == itemSettings)
                 {
                     result++;
                 }
@@ -65,12 +56,12 @@ namespace Data.Item
             return result;
         }
 
-        private int NumClaimed(ItemData itemData)
+        private int NumClaimed(ItemDataSettings itemSettings)
         {
             int result = 0;
             foreach (var claimedItem in Claimed)
             {
-                if (claimedItem.Equals(itemData))
+                if (claimedItem.Settings == itemSettings)
                 {
                     result++;
                 }
@@ -79,12 +70,12 @@ namespace Data.Item
             return result;
         }
 
-        private int NumIncoming(ItemData itemData)
+        private int NumIncoming(ItemDataSettings itemSettings)
         {
             int result = 0;
             foreach (var incomingItem in Incoming)
             {
-                if (incomingItem.Equals(itemData))
+                if (incomingItem.Settings == itemSettings)
                 {
                     result++;
                 }
@@ -105,13 +96,13 @@ namespace Data.Item
         
         public void SetIncoming(ItemData itemData)
         {
-            if (!IsItemValidToStore(itemData))
+            if (!IsItemValidToStore(itemData.Settings))
             {
                 Debug.LogError("Attempting to store the wrong item category");
                 return;
             }
 
-            var availableSpace = AmountCanBeDeposited(itemData);
+            var availableSpace = AmountCanBeDeposited(itemData.Settings);
             if (availableSpace <= 0)
             {
                 Debug.LogError("Attempted to set incoming with no space available");
@@ -124,10 +115,9 @@ namespace Data.Item
 
         public bool IsSpecificItemDataClaimed(ItemData itemData)
         {
-            var runtimeData = itemData.GetRuntimeData();
             foreach (var claimed in Claimed)
             {
-                if (claimed.GetRuntimeData() == runtimeData)
+                if (claimed == itemData)
                 {
                     return true;
                 }
@@ -176,10 +166,9 @@ namespace Data.Item
             GameEvents.Trigger_RefreshInventoryDisplay();
         }
 
-        public ItemData GetItemDataOfType(string itemGuid)
+        public ItemData GetItemDataOfType(ItemDataSettings itemSettings)
         {
-            var item = Librarian.Instance.GetInitialItemDataByGuid(itemGuid);
-            int amountClaimable = AmountCanBeWithdrawn(item);
+            int amountClaimable = AmountCanBeWithdrawn(itemSettings);
             if (amountClaimable <= 0)
             {
                 return null;
@@ -187,7 +176,7 @@ namespace Data.Item
             
             foreach (var storedItem in Stored)
             {
-                if (storedItem.initialGuid == itemGuid && !IsSpecificItemDataClaimed(storedItem))
+                if (storedItem.Settings == itemSettings && !IsSpecificItemDataClaimed(storedItem))
                 {
                     return storedItem.GetRuntimeData();
                 }
@@ -245,13 +234,29 @@ namespace Data.Item
             return results;
         }
         
-        public bool IsItemInStorage(ItemData itemData)
+        public bool IsItemInStorage(ItemDataSettings itemSettings)
         {
-            if (IsItemValidToStore(itemData))
+            if (IsItemValidToStore(itemSettings))
             {
                 foreach (var storagedItem in Stored)
                 {
-                    if (storagedItem.GetRuntimeData() == itemData.GetRuntimeData() && !IsSpecificItemDataClaimed(storagedItem))
+                    if (storagedItem.Settings == itemSettings && !IsSpecificItemDataClaimed(storagedItem))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+        
+        public bool IsSpecificItemInStorage(ItemData itemData)
+        {
+            if (IsItemValidToStore(itemData.Settings))
+            {
+                foreach (var storagedItem in Stored)
+                {
+                    if (storagedItem.Settings == itemData.Settings && !IsSpecificItemDataClaimed(itemData))
                     {
                         return true;
                     }
@@ -322,17 +327,17 @@ namespace Data.Item
             return foodItems;
         }
         
-        public bool IsItemValidToStore(ItemData itemData)
+        public bool IsItemValidToStore(ItemDataSettings itemSettings)
         {
-            if (AcceptedCategories.Contains(EItemCategory.SpecificStorage))
+            if (StorageSettings.AcceptedCategories.Contains(EItemCategory.SpecificStorage))
             {
-                if (SpecificStorage.Contains(itemData))
+                if (StorageSettings.SpecificStorage.Contains(itemSettings))
                 {
                     return true;
                 }
             }
             
-            return AcceptedCategories.Contains(itemData.Category);
+            return StorageSettings.AcceptedCategories.Contains(itemSettings.Category);
         }
         
         public Items.Item WithdrawItem(ItemData itemData)

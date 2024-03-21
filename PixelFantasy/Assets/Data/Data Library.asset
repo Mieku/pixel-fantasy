@@ -26,8 +26,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _category: 0
-  _maxDurability: 100
   Durability: 0
   IsAllowed: 0
   CurrentTask:
@@ -41,15 +39,37 @@ MonoBehaviour:
   AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
-  _craftRequirements:
-    _minCraftingSkillLevel: 2
-    _craftingSkill: 10
-    _workCost: 10
-    _requiredCraftingToolType: 0
-    _materialCosts:
-    - Item: {fileID: 6445956091041958653}
-      Quantity: 2
+  Settings: {fileID: 0}
   CraftersUID: 
+--- !u!114 &-7757045536695828918
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f94f340aba0041f4cbc1eac4c35d1a41, type: 3}
+  m_Name: Stone
+  m_EditorClassIdentifier: 
+  guid: 378a209a-ee9b-4123-8ea5-ad9a8f005b45
+  initialGuid: 378a209a-ee9b-4123-8ea5-ad9a8f005b45
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: 286743b833fa73a4c824303d4da3e3dd, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Stone
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 1
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _category: 0
+  _maxDurability: 100
+  _baseData: {fileID: 4384225487442251340}
 --- !u!114 &-6728472306890164557
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -79,10 +99,7 @@ MonoBehaviour:
   _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
   _workToExtract: 20
   _harvestableItems:
-    _itemDrops:
-    - Item: {fileID: -5005131501070810583}
-      MinDrop: 2
-      MaxDrop: 4
+    _itemDrops: []
   _potentialSprites: []
   _maxHealth: 100
   _minWorkDistance: 0.75
@@ -110,7 +127,7 @@ MonoBehaviour:
     SecsInStage: 30
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: -5005131501070810583}
+      - Item: {fileID: 283630323700872253}
         MinDrop: 1
         MaxDrop: 1
     WorkToCut: 3
@@ -120,7 +137,7 @@ MonoBehaviour:
     SecsInStage: 60
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: -5005131501070810583}
+      - Item: {fileID: 283630323700872253}
         MinDrop: 1
         MaxDrop: 2
     WorkToCut: 8
@@ -130,7 +147,7 @@ MonoBehaviour:
     SecsInStage: 0
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: -5005131501070810583}
+      - Item: {fileID: 283630323700872253}
         MinDrop: 2
         MaxDrop: 4
     WorkToCut: 8
@@ -174,8 +191,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _category: 0
-  _maxDurability: 100
   Durability: 0
   IsAllowed: 0
   CurrentTask:
@@ -189,14 +204,7 @@ MonoBehaviour:
   AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
-  _craftRequirements:
-    _minCraftingSkillLevel: 2
-    _craftingSkill: 10
-    _workCost: 10
-    _requiredCraftingToolType: 0
-    _materialCosts:
-    - Item: {fileID: -5298398873868244794}
-      Quantity: 2
+  Settings: {fileID: 0}
   CraftersUID: 
 --- !u!114 &-5298398873868244794
 MonoBehaviour:
@@ -224,8 +232,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _category: 0
-  _maxDurability: 100
   Durability: 0
   IsAllowed: 0
   CurrentTask:
@@ -239,6 +245,7 @@ MonoBehaviour:
   AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
+  Settings: {fileID: 0}
 --- !u!114 &-5005131501070810583
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -265,8 +272,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _category: 0
-  _maxDurability: 100
   Durability: 0
   IsAllowed: 0
   CurrentTask:
@@ -280,6 +285,7 @@ MonoBehaviour:
   AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
+  Settings: {fileID: 0}
 --- !u!114 &-4624164709437787247
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -322,10 +328,7 @@ MonoBehaviour:
   _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
   _workToExtract: 20
   _harvestableItems:
-    _itemDrops:
-    - Item: {fileID: -5005131501070810583}
-      MinDrop: 2
-      MaxDrop: 4
+    _itemDrops: []
   _potentialSprites: []
   _maxHealth: 100
   _minWorkDistance: 0.75
@@ -353,7 +356,7 @@ MonoBehaviour:
     SecsInStage: 30
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: -5005131501070810583}
+      - Item: {fileID: 283630323700872253}
         MinDrop: 1
         MaxDrop: 1
     WorkToCut: 3
@@ -363,7 +366,7 @@ MonoBehaviour:
     SecsInStage: 60
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: -5005131501070810583}
+      - Item: {fileID: 283630323700872253}
         MinDrop: 1
         MaxDrop: 2
     WorkToCut: 8
@@ -373,7 +376,7 @@ MonoBehaviour:
     SecsInStage: 0
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: -5005131501070810583}
+      - Item: {fileID: 283630323700872253}
         MinDrop: 2
         MaxDrop: 4
     WorkToCut: 8
@@ -421,7 +424,7 @@ MonoBehaviour:
   _workToExtract: 5
   _harvestableItems:
     _itemDrops:
-    - Item: {fileID: -5005131501070810583}
+    - Item: {fileID: 283630323700872253}
       MinDrop: 0
       MaxDrop: 1
   _potentialSprites:
@@ -471,8 +474,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _category: 0
-  _maxDurability: 100
   Durability: 100
   IsAllowed: 0
   CurrentTask:
@@ -486,6 +487,190 @@ MonoBehaviour:
   AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
+  Settings: {fileID: 0}
+--- !u!114 &-3020583608536372809
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f94f340aba0041f4cbc1eac4c35d1a41, type: 3}
+  m_Name: Iron Ore
+  m_EditorClassIdentifier: 
+  guid: 6638e5ef-5ae1-42f1-b2c3-759ec5eacd40
+  initialGuid: 6638e5ef-5ae1-42f1-b2c3-759ec5eacd40
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: 699e2348d22f48040be65ab0afbd2424, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Iron Ore
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 5
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _category: 0
+  _maxDurability: 100
+  _baseData: {fileID: 6445956091041958653}
+--- !u!114 &-2868459388340172924
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21968d0dfbe07b848bd101c15cee8386, type: 3}
+  m_Name: Starter Stockpile
+  m_EditorClassIdentifier: 
+  guid: 3580d50e-4146-4ea3-af78-32e7ad1fdcc8
+  initialGuid: 3580d50e-4146-4ea3-af78-32e7ad1fdcc8
+  runtimeIndexID: 
+  icon: {fileID: 6042991441123128078, guid: afda4cedd10beb942a0a9fcb40a307b0, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Starter Stockpile
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _category: 4
+  _maxDurability: 100
+  _baseData: {fileID: 1468006658073743336}
+  _craftRequirements:
+    _minCraftingSkillLevel: 0
+    _craftingSkill: 10
+    _workCost: 0
+    _requiredCraftingToolType: 0
+    _materialCosts: []
+  _furniturePrefab: {fileID: 5465201506073250537, guid: 4126993f3ec383d47b0bc1b4432eb7bc, type: 3}
+  _inUseNeedChange:
+    SourceID: 
+    AmountPerHour: 0
+    NeedType: 0
+  _colourOptions:
+    ColourOptionsHeader: 
+    DyePalettes: []
+  _varients: []
+  _defaultDirection: 0
+  _defaultDye: {fileID: 0}
+  _maxStorage: 100
+  _acceptedCategories: 0000000001000000020000000300000006000000
+  _specificStorage: []
+--- !u!114 &-2864379102396860336
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8c2c6528c8336f439126aa1d54e6af1, type: 3}
+  m_Name: Double Bed
+  m_EditorClassIdentifier: 
+  guid: 6acd6eb9-885b-412a-9c51-3c3098ea86cb
+  initialGuid: 6acd6eb9-885b-412a-9c51-3c3098ea86cb
+  runtimeIndexID: 
+  icon: {fileID: -1986180085, guid: 128e7404977fef1479d14ee0c70721c3, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Double Bed
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 1
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _category: 4
+  _maxDurability: 100
+  _baseData: {fileID: 7235637523369288592}
+  _craftRequirements:
+    _minCraftingSkillLevel: 3
+    _craftingSkill: 10
+    _workCost: 10
+    _requiredCraftingToolType: 0
+    _materialCosts:
+    - Item: {fileID: 283630323700872253}
+      Quantity: 3
+  _furniturePrefab: {fileID: 5935236254734965145, guid: dd1324a0af4a86b41b638230c8941527, type: 3}
+  _inUseNeedChange:
+    SourceID: 
+    AmountPerHour: 0
+    NeedType: 0
+  _colourOptions:
+    ColourOptionsHeader: Sheet Color
+    DyePalettes:
+    - {fileID: 4496512223619636680}
+    - {fileID: 8555071837867117066}
+    - {fileID: 1104450306893862740}
+  _varients:
+  - _materialSelectIcon: {fileID: 21300000, guid: 848cd147474beaa4f96afb2ae1f9b455, type: 3}
+    _furnitureData: {fileID: -2429024163771652823}
+  _defaultDirection: 0
+  _defaultDye: {fileID: 4496512223619636680}
+--- !u!114 &-2429024163771652823
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8c2c6528c8336f439126aa1d54e6af1, type: 3}
+  m_Name: Copper Double Bed
+  m_EditorClassIdentifier: 
+  guid: 44943dc9-ad99-4437-bbd5-280c12ced4dd
+  initialGuid: 44943dc9-ad99-4437-bbd5-280c12ced4dd
+  runtimeIndexID: 
+  icon: {fileID: -1986180085, guid: 128e7404977fef1479d14ee0c70721c3, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Copper Double Bed
+  description: This is a description of the newly created data entry.
+  tags:
+  - Furniture Variant
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _category: 4
+  _maxDurability: 100
+  _baseData: {fileID: 6553907554727160304}
+  _craftRequirements:
+    _minCraftingSkillLevel: 3
+    _craftingSkill: 10
+    _workCost: 10
+    _requiredCraftingToolType: 0
+    _materialCosts:
+    - Item: {fileID: 4293936689025372978}
+      Quantity: 3
+  _furniturePrefab: {fileID: 5935236254734965145, guid: dd1324a0af4a86b41b638230c8941527, type: 3}
+  _inUseNeedChange:
+    SourceID: 
+    AmountPerHour: 0
+    NeedType: 0
+  _colourOptions:
+    ColourOptionsHeader: Sheet Color
+    DyePalettes:
+    - {fileID: 4496512223619636680}
+    - {fileID: 8555071837867117066}
+    - {fileID: 1104450306893862740}
+  _varients: []
+  _defaultDirection: 0
+  _defaultDye: {fileID: 4496512223619636680}
 --- !u!114 &-2419358363865988586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -515,10 +700,7 @@ MonoBehaviour:
   _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
   _workToExtract: 20
   _harvestableItems:
-    _itemDrops:
-    - Item: {fileID: -5005131501070810583}
-      MinDrop: 2
-      MaxDrop: 4
+    _itemDrops: []
   _potentialSprites: []
   _maxHealth: 100
   _minWorkDistance: 0.75
@@ -546,7 +728,7 @@ MonoBehaviour:
     SecsInStage: 30
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: -5005131501070810583}
+      - Item: {fileID: 283630323700872253}
         MinDrop: 1
         MaxDrop: 1
     WorkToCut: 3
@@ -556,7 +738,7 @@ MonoBehaviour:
     SecsInStage: 60
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: -5005131501070810583}
+      - Item: {fileID: 283630323700872253}
         MinDrop: 1
         MaxDrop: 2
     WorkToCut: 8
@@ -566,7 +748,7 @@ MonoBehaviour:
     SecsInStage: 0
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: -5005131501070810583}
+      - Item: {fileID: 283630323700872253}
         MinDrop: 2
         MaxDrop: 4
     WorkToCut: 8
@@ -614,7 +796,7 @@ MonoBehaviour:
   _workToExtract: 30
   _harvestableItems:
     _itemDrops:
-    - Item: {fileID: 3998079584738369031}
+    - Item: {fileID: -1220354795818533566}
       MinDrop: 1
       MaxDrop: 2
   _potentialSprites: []
@@ -697,7 +879,7 @@ MonoBehaviour:
     SecsInStage: 60
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: -5005131501070810583}
+      - Item: {fileID: 283630323700872253}
         MinDrop: 0
         MaxDrop: 1
     WorkToCut: 5
@@ -707,7 +889,7 @@ MonoBehaviour:
     SecsInStage: 0
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: -5005131501070810583}
+      - Item: {fileID: 283630323700872253}
         MinDrop: 1
         MaxDrop: 2
     WorkToCut: 8
@@ -718,7 +900,7 @@ MonoBehaviour:
   _fruitFlowersOverlay: {fileID: 0}
   _harvestableFruit:
     _itemDrops:
-    - Item: {fileID: 4384225487442251340}
+    - Item: {fileID: 0}
       MinDrop: 1
       MaxDrop: 1
   _workToHarvest: 5
@@ -758,7 +940,7 @@ MonoBehaviour:
   _workToExtract: 5
   _harvestableItems:
     _itemDrops:
-    - Item: {fileID: -5005131501070810583}
+    - Item: {fileID: 283630323700872253}
       MinDrop: 1
       MaxDrop: 1
   _potentialSprites:
@@ -782,6 +964,35 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
+--- !u!114 &-1220354795818533566
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f94f340aba0041f4cbc1eac4c35d1a41, type: 3}
+  m_Name: Coal
+  m_EditorClassIdentifier: 
+  guid: a8ee63e6-ac4c-4c16-9b4a-df92bf327488
+  initialGuid: a8ee63e6-ac4c-4c16-9b4a-df92bf327488
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: d5cf68acaa3035041956a72466172494, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Coal
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 2
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _category: 0
+  _maxDurability: 100
+  _baseData: {fileID: 3998079584738369031}
 --- !u!114 &-1021968146556891717
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -808,8 +1019,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _category: 0
-  _maxDurability: 100
   Durability: 0
   IsAllowed: 0
   CurrentTask:
@@ -823,20 +1032,50 @@ MonoBehaviour:
   AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
-  _craftRequirements:
-    _minCraftingSkillLevel: 2
-    _craftingSkill: 10
-    _workCost: 10
-    _requiredCraftingToolType: 0
-    _materialCosts:
-    - Item: {fileID: -5005131501070810583}
-      Quantity: 2
+  Settings: {fileID: 0}
   CraftersUID: 
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  _furniturePrefab: {fileID: 4176969880153003644, guid: e219a8e018e3d244b8d0ef8b035b149b, type: 3}
+  State: 0
+  RemainingWork: 0
+  Direction: 0
+  InUse: 0
+  LinkedFurniture: {fileID: 0}
+  DyeOverride: {fileID: 0}
+--- !u!114 &-191659240112778000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a01c9c06b2901384fb716247a2f4001a, type: 3}
+  m_Name: Basic Crafting Area
+  m_EditorClassIdentifier: 
+  guid: d0b79115-cca1-40f3-aa14-60c142a23fa9
+  initialGuid: d0b79115-cca1-40f3-aa14-60c142a23fa9
+  runtimeIndexID: 
+  icon: {fileID: 1670653853, guid: 49688975d6e4e9d4e9023f92ee002b97, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Basic Crafting Area
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _category: 4
+  _maxDurability: 5
+  _baseData: {fileID: 129112436663426907}
+  _craftRequirements:
+    _minCraftingSkillLevel: 0
+    _craftingSkill: 10
+    _workCost: 0
+    _requiredCraftingToolType: 0
+    _materialCosts: []
+  _furniturePrefab: {fileID: 7511741119468575872, guid: cac46f6ed332d5740a5de49433b2e3db, type: 3}
   _inUseNeedChange:
     SourceID: 
     AmountPerHour: 0
@@ -847,12 +1086,9 @@ MonoBehaviour:
   _varients: []
   _defaultDirection: 0
   _defaultDye: {fileID: 0}
-  State: 0
-  RemainingWork: 0
-  Direction: 0
-  InUse: 0
-  LinkedFurniture: {fileID: 0}
-  DyeOverride: {fileID: 0}
+  _craftableItems:
+  - {fileID: -2864379102396860336}
+  - {fileID: -2429024163771652823}
 --- !u!114 &-56553772185048440
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -905,6 +1141,43 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
+--- !u!114 &-36226739791890325
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a76c62dc32f973a478967d098378706b, type: 3}
+  m_Name: Gold Bar
+  m_EditorClassIdentifier: 
+  guid: baff5e3f-2bde-4441-af3c-930d7186278b
+  initialGuid: baff5e3f-2bde-4441-af3c-930d7186278b
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: 148e7a7b303bd6f4dabe129d388517ba, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Gold Bar
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _category: 0
+  _maxDurability: 100
+  _baseData: {fileID: -6683971750745164997}
+  _craftRequirements:
+    _minCraftingSkillLevel: 2
+    _craftingSkill: 10
+    _workCost: 10
+    _requiredCraftingToolType: 0
+    _materialCosts:
+    - Item: {fileID: 3255695680348296240}
+      Quantity: 3
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1005,6 +1278,36 @@ MonoBehaviour:
     - type: Databrain.Blackboard.FloatVariable, Assembly-CSharp-firstpass, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       dataObjects: []
+    - type: Data.Item.ItemDataSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
+      - {fileID: 283630323700872253}
+      - {fileID: -7757045536695828918}
+      - {fileID: -1220354795818533566}
+      - {fileID: 2545999382318138489}
+      - {fileID: 3255695680348296240}
+      - {fileID: -3020583608536372809}
+      - {fileID: 4497696957364699314}
+    - type: Data.Item.CraftedItemDataSettings, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      dataObjects:
+      - {fileID: -36226739791890325}
+      - {fileID: 4293936689025372978}
+      - {fileID: 2760536265605788022}
+      - {fileID: 7039194556294736213}
+    - type: Data.Item.FurnitureDataSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
+      - {fileID: -2429024163771652823}
+      - {fileID: -2864379102396860336}
+    - type: Data.Item.StorageDataSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
+      - {fileID: -2868459388340172924}
+    - type: Data.Item.CraftingTableSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
+      - {fileID: -191659240112778000}
     _favoriteList: []
   copyData:
     _objectList: []
@@ -1025,6 +1328,27 @@ MonoBehaviour:
     hidden: 0
     icon: 
     existingTypes:
+    - typeName: CraftedItemDataSettings
+      typeAssemblyQualifiedName: Data.Item.CraftedItemDataSettings, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: CraftingTableSettings
+      typeAssemblyQualifiedName: Data.Item.CraftingTableSettings, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: StorageDataSettings
+      typeAssemblyQualifiedName: Data.Item.StorageDataSettings, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
     - typeName: WallSettings
       typeAssemblyQualifiedName: Data.Structure.WallSettings, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
@@ -1035,6 +1359,20 @@ MonoBehaviour:
     - typeName: DyeData
       typeAssemblyQualifiedName: Data.Dye.DyeData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: ItemDataSettings
+      typeAssemblyQualifiedName: Data.Item.ItemDataSettings, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: FurnitureDataSettings
+      typeAssemblyQualifiedName: Data.Item.FurnitureDataSettings, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
       titlesFilter: []
@@ -1171,10 +1509,7 @@ MonoBehaviour:
   _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
   _workToExtract: 20
   _harvestableItems:
-    _itemDrops:
-    - Item: {fileID: -5005131501070810583}
-      MinDrop: 2
-      MaxDrop: 4
+    _itemDrops: []
   _potentialSprites: []
   _maxHealth: 100
   _minWorkDistance: 0.75
@@ -1202,7 +1537,7 @@ MonoBehaviour:
     SecsInStage: 30
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: -5005131501070810583}
+      - Item: {fileID: 283630323700872253}
         MinDrop: 1
         MaxDrop: 1
     WorkToCut: 3
@@ -1212,7 +1547,7 @@ MonoBehaviour:
     SecsInStage: 60
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: -5005131501070810583}
+      - Item: {fileID: 283630323700872253}
         MinDrop: 1
         MaxDrop: 2
     WorkToCut: 8
@@ -1222,7 +1557,7 @@ MonoBehaviour:
     SecsInStage: 0
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: -5005131501070810583}
+      - Item: {fileID: 283630323700872253}
         MinDrop: 2
         MaxDrop: 4
     WorkToCut: 8
@@ -1270,7 +1605,7 @@ MonoBehaviour:
   _workToExtract: 5
   _harvestableItems:
     _itemDrops:
-    - Item: {fileID: 4384225487442251340}
+    - Item: {fileID: -7757045536695828918}
       MinDrop: 1
       MaxDrop: 1
   _potentialSprites:
@@ -1326,8 +1661,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _category: 4
-  _maxDurability: 100
   Durability: 0
   IsAllowed: 0
   CurrentTask:
@@ -1341,37 +1674,14 @@ MonoBehaviour:
   AssignedStorage: {fileID: 0}
   Position: {x: 25.871244, y: 19.490984}
   LinkedItem: {fileID: 0}
-  _craftRequirements:
-    _minCraftingSkillLevel: 0
-    _craftingSkill: 10
-    _workCost: 0
-    _requiredCraftingToolType: 0
-    _materialCosts: []
+  Settings: {fileID: 0}
   CraftersUID: 
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  _furniturePrefab: {fileID: 7511741119468575872, guid: cac46f6ed332d5740a5de49433b2e3db, type: 3}
-  _inUseNeedChange:
-    SourceID: 
-    AmountPerHour: 0
-    NeedType: 0
-  _colourOptions:
-    ColourOptionsHeader: 
-    DyePalettes: []
-  _varients: []
-  _defaultDirection: 0
-  _defaultDye: {fileID: 0}
   State: 0
   RemainingWork: 0
   Direction: 0
   InUse: 0
   LinkedFurniture: {fileID: 0}
   DyeOverride: {fileID: 0}
-  _craftableItems:
-  - {fileID: 7235637523369288592}
-  - {fileID: -1021968146556891717}
   RemainingMaterials: []
   RemainingCraftingWork: 0
   ItemBeingCrafted: {fileID: 0}
@@ -1406,8 +1716,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _category: 0
-  _maxDurability: 100
   Durability: 0
   IsAllowed: 0
   CurrentTask:
@@ -1421,17 +1729,37 @@ MonoBehaviour:
   AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
-  _craftRequirements:
-    _minCraftingSkillLevel: 5
-    _craftingSkill: 10
-    _workCost: 10
-    _requiredCraftingToolType: 0
-    _materialCosts:
-    - Item: {fileID: -7963632896702530702}
-      Quantity: 2
-    - Item: {fileID: 3998079584738369031}
-      Quantity: 1
+  Settings: {fileID: 0}
   CraftersUID: 
+--- !u!114 &283630323700872253
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f94f340aba0041f4cbc1eac4c35d1a41, type: 3}
+  m_Name: Wood
+  m_EditorClassIdentifier: 
+  guid: aa10c71a-d79c-4b08-8371-b33ea7144d4e
+  initialGuid: aa10c71a-d79c-4b08-8371-b33ea7144d4e
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: ae9afa1dfd4daca4b8ffd98162c852c9, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Wood
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _category: 0
+  _maxDurability: 100
+  _baseData: {fileID: -5005131501070810583}
 --- !u!114 &366437865215858577
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1458,8 +1786,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _category: 0
-  _maxDurability: 100
   Durability: 0
   IsAllowed: 0
   CurrentTask:
@@ -1473,14 +1799,7 @@ MonoBehaviour:
   AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
-  _craftRequirements:
-    _minCraftingSkillLevel: 2
-    _craftingSkill: 10
-    _workCost: 10
-    _requiredCraftingToolType: 0
-    _materialCosts:
-    - Item: {fileID: -4106105843404846981}
-      Quantity: 2
+  Settings: {fileID: 0}
   CraftersUID: 
 --- !u!114 &1013997515501222643
 MonoBehaviour:
@@ -1577,18 +1896,18 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _craftRequirements:
+    _minCraftingSkillLevel: 5
+    _craftingSkill: 2
+    _workCost: 15
+    _requiredCraftingToolType: 0
+    _materialCosts:
+    - Item: {fileID: -7757045536695828918}
+      Quantity: 3
   OptionIcon: {fileID: 21300000, guid: 286743b833fa73a4c824303d4da3e3dd, type: 3}
   MaxDurability: 50
   ExteriorRuleTile: {fileID: 11400000, guid: f91b311b42950d84fb7392825b419fe0, type: 2}
   InteriorRuleTile: {fileID: 11400000, guid: f296c6c9d32e2ca47888f29895bc1dbc, type: 2}
-  CraftRequirements:
-    _minCraftingSkillLevel: 5
-    _craftingSkill: 2
-    _workCost: 10
-    _requiredCraftingToolType: 1
-    _materialCosts:
-    - Item: {fileID: 4384225487442251340}
-      Quantity: 3
 --- !u!114 &1468006658073743336
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1615,8 +1934,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _category: 0
-  _maxDurability: 100
   Durability: 100
   IsAllowed: 0
   CurrentTask:
@@ -1630,37 +1947,14 @@ MonoBehaviour:
   AssignedStorage: {fileID: 0}
   Position: {x: 24, y: 24}
   LinkedItem: {fileID: 0}
-  _craftRequirements:
-    _minCraftingSkillLevel: 0
-    _craftingSkill: 10
-    _workCost: 0
-    _requiredCraftingToolType: 0
-    _materialCosts: []
+  Settings: {fileID: 0}
   CraftersUID: 
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  _furniturePrefab: {fileID: 5465201506073250537, guid: 4126993f3ec383d47b0bc1b4432eb7bc, type: 3}
-  _inUseNeedChange:
-    SourceID: 
-    AmountPerHour: 0
-    NeedType: 0
-  _colourOptions:
-    ColourOptionsHeader: 
-    DyePalettes: []
-  _varients: []
-  _defaultDirection: 0
-  _defaultDye: {fileID: 0}
   State: 1
   RemainingWork: 0
   Direction: 0
   InUse: 0
   LinkedFurniture: {fileID: 0}
   DyeOverride: {fileID: 0}
-  _maxStorage: 100
-  _acceptedCategories: 0000000001000000020000000300000006000000
-  _specificStorage: []
   Stored: []
   Incoming: []
   Claimed: []
@@ -1694,7 +1988,7 @@ MonoBehaviour:
   _workToExtract: 30
   _harvestableItems:
     _itemDrops:
-    - Item: {fileID: 1851590692530616479}
+    - Item: {fileID: 4497696957364699314}
       MinDrop: 1
       MaxDrop: 2
   _potentialSprites: []
@@ -1746,10 +2040,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _category: 0
-  _maxDurability: 100
-  Durability: 0
-  IsAllowed: 0
+  Durability: 100
+  IsAllowed: 1
   CurrentTask:
     TaskId: 
     TaskType: 0
@@ -1761,6 +2053,7 @@ MonoBehaviour:
   AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
+  Settings: {fileID: -36226739791890325}
 --- !u!114 &1868634605682467714
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1791,7 +2084,7 @@ MonoBehaviour:
   _workToExtract: 30
   _harvestableItems:
     _itemDrops:
-    - Item: {fileID: 4384225487442251340}
+    - Item: {fileID: -7757045536695828918}
       MinDrop: 1
       MaxDrop: 2
   _potentialSprites: []
@@ -1855,12 +2148,22 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  SelectedWallOption: {fileID: 0}
   Durability: 0
   Position: {x: 0, y: 0}
   State: 0
   RemainingWork: 0
   RemainingMaterialCosts: []
+  PendingResourceCosts: []
+  IncomingResourceCosts: []
+  IncomingItems: []
+  CraftRequirements:
+    _minCraftingSkillLevel: 0
+    _craftingSkill: 10
+    _workCost: 0
+    _requiredCraftingToolType: 0
+    _materialCosts: []
+  MaxDurability: 0
+  SelectedWallOption: {fileID: 0}
   InteriorColour: {fileID: 0}
 --- !u!114 &2268203417634399997
 MonoBehaviour:
@@ -1892,7 +2195,7 @@ MonoBehaviour:
   _workToExtract: 30
   _harvestableItems:
     _itemDrops:
-    - Item: {fileID: -5298398873868244794}
+    - Item: {fileID: 3255695680348296240}
       MinDrop: 1
       MaxDrop: 2
   _potentialSprites: []
@@ -1918,6 +2221,72 @@ MonoBehaviour:
   _ruleTile: {fileID: 11400000, guid: 3bab186eaf5aef14aacaecfacdae194a, type: 2}
   _mountainTileType: 6
   RemainingWork: 0
+--- !u!114 &2545999382318138489
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f94f340aba0041f4cbc1eac4c35d1a41, type: 3}
+  m_Name: Copper Ore
+  m_EditorClassIdentifier: 
+  guid: a0da8bc5-ffcf-444b-b6dd-b112d95e7512
+  initialGuid: a0da8bc5-ffcf-444b-b6dd-b112d95e7512
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: 1c851eae1881328409a3c8599d4113f8, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Copper Ore
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 3
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _category: 0
+  _maxDurability: 100
+  _baseData: {fileID: -4106105843404846981}
+--- !u!114 &2760536265605788022
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a76c62dc32f973a478967d098378706b, type: 3}
+  m_Name: Iron Bar
+  m_EditorClassIdentifier: 
+  guid: 9848db97-55b3-4223-baed-3f76425c369e
+  initialGuid: 9848db97-55b3-4223-baed-3f76425c369e
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: 872b85ebed4e6114f9ee060e189c0f2f, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Iron Bar
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 2
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _category: 0
+  _maxDurability: 100
+  _baseData: {fileID: -7963632896702530702}
+  _craftRequirements:
+    _minCraftingSkillLevel: 2
+    _craftingSkill: 10
+    _workCost: 10
+    _requiredCraftingToolType: 0
+    _materialCosts:
+    - Item: {fileID: -3020583608536372809}
+      Quantity: 3
 --- !u!114 &3086282657986071168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2006,6 +2375,35 @@ MonoBehaviour:
     - worksheetTypeName: ToolData
       worksheetID: 
   csvImportSettings: []
+--- !u!114 &3255695680348296240
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f94f340aba0041f4cbc1eac4c35d1a41, type: 3}
+  m_Name: Gold Ore
+  m_EditorClassIdentifier: 
+  guid: 039b696d-8d74-4518-924a-765ae7b539d4
+  initialGuid: 039b696d-8d74-4518-924a-765ae7b539d4
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: c92a257e6a9b0f040bbf46122c71dffa, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Gold Ore
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 4
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _category: 0
+  _maxDurability: 100
+  _baseData: {fileID: -5298398873868244794}
 --- !u!114 &3669178811856810939
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2035,10 +2433,7 @@ MonoBehaviour:
   _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
   _workToExtract: 20
   _harvestableItems:
-    _itemDrops:
-    - Item: {fileID: -5005131501070810583}
-      MinDrop: 2
-      MaxDrop: 4
+    _itemDrops: []
   _potentialSprites: []
   _maxHealth: 100
   _minWorkDistance: 0.75
@@ -2066,7 +2461,7 @@ MonoBehaviour:
     SecsInStage: 30
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: -5005131501070810583}
+      - Item: {fileID: 283630323700872253}
         MinDrop: 1
         MaxDrop: 1
     WorkToCut: 3
@@ -2076,7 +2471,7 @@ MonoBehaviour:
     SecsInStage: 60
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: -5005131501070810583}
+      - Item: {fileID: 283630323700872253}
         MinDrop: 1
         MaxDrop: 2
     WorkToCut: 8
@@ -2086,7 +2481,7 @@ MonoBehaviour:
     SecsInStage: 0
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: -5005131501070810583}
+      - Item: {fileID: 283630323700872253}
         MinDrop: 2
         MaxDrop: 4
     WorkToCut: 8
@@ -2130,8 +2525,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _category: 0
-  _maxDurability: 100
   Durability: 0
   IsAllowed: 0
   CurrentTask:
@@ -2145,6 +2538,44 @@ MonoBehaviour:
   AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
+  Settings: {fileID: 0}
+--- !u!114 &4293936689025372978
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a76c62dc32f973a478967d098378706b, type: 3}
+  m_Name: Copper Bar
+  m_EditorClassIdentifier: 
+  guid: 2c927e88-6001-4f15-94a7-41c788c20aa9
+  initialGuid: 2c927e88-6001-4f15-94a7-41c788c20aa9
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: 848cd147474beaa4f96afb2ae1f9b455, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Copper Bar
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 1
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _category: 0
+  _maxDurability: 100
+  _baseData: {fileID: 366437865215858577}
+  _craftRequirements:
+    _minCraftingSkillLevel: 2
+    _craftingSkill: 10
+    _workCost: 10
+    _requiredCraftingToolType: 0
+    _materialCosts:
+    - Item: {fileID: 2545999382318138489}
+      Quantity: 3
 --- !u!114 &4384225487442251340
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2171,8 +2602,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _category: 0
-  _maxDurability: 100
   Durability: 100
   IsAllowed: 0
   CurrentTask:
@@ -2186,6 +2615,7 @@ MonoBehaviour:
   AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
+  Settings: {fileID: 0}
 --- !u!114 &4496512223619636680
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2215,6 +2645,35 @@ MonoBehaviour:
   Primary: {r: 0.77582246, g: 0.043735042, b: 0.057805434, a: 1}
   PrimaryShade: {r: 0.36130688, g: 0.019382361, b: 0.033104774, a: 1}
   Accent: {r: 0.69411767, g: 0.3529412, b: 0.13333334, a: 1}
+--- !u!114 &4497696957364699314
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f94f340aba0041f4cbc1eac4c35d1a41, type: 3}
+  m_Name: Tin Ore
+  m_EditorClassIdentifier: 
+  guid: 2173ec6f-9f96-4838-94cb-f852add4245b
+  initialGuid: 2173ec6f-9f96-4838-94cb-f852add4245b
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: 915809f404d8bc040859c2053d40eb2d, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Tin Ore
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 6
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _category: 0
+  _maxDurability: 100
+  _baseData: {fileID: 1851590692530616479}
 --- !u!114 &5747519841221157967
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2241,18 +2700,18 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _craftRequirements:
+    _minCraftingSkillLevel: 3
+    _craftingSkill: 2
+    _workCost: 10
+    _requiredCraftingToolType: 0
+    _materialCosts:
+    - Item: {fileID: 283630323700872253}
+      Quantity: 3
   OptionIcon: {fileID: 21300000, guid: ae9afa1dfd4daca4b8ffd98162c852c9, type: 3}
   MaxDurability: 50
   ExteriorRuleTile: {fileID: 11400000, guid: f91b311b42950d84fb7392825b419fe0, type: 2}
   InteriorRuleTile: {fileID: 11400000, guid: f296c6c9d32e2ca47888f29895bc1dbc, type: 2}
-  CraftRequirements:
-    _minCraftingSkillLevel: 3
-    _craftingSkill: 2
-    _workCost: 10
-    _requiredCraftingToolType: 1
-    _materialCosts:
-    - Item: {fileID: -5005131501070810583}
-      Quantity: 3
 --- !u!114 &6445956091041958653
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2279,8 +2738,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _category: 0
-  _maxDurability: 100
   Durability: 0
   IsAllowed: 0
   CurrentTask:
@@ -2294,6 +2751,7 @@ MonoBehaviour:
   AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
+  Settings: {fileID: 0}
 --- !u!114 &6512197022579626652
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2324,7 +2782,7 @@ MonoBehaviour:
   _workToExtract: 30
   _harvestableItems:
     _itemDrops:
-    - Item: {fileID: -4106105843404846981}
+    - Item: {fileID: 2545999382318138489}
       MinDrop: 1
       MaxDrop: 2
   _potentialSprites: []
@@ -2379,10 +2837,7 @@ MonoBehaviour:
   _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
   _workToExtract: 20
   _harvestableItems:
-    _itemDrops:
-    - Item: {fileID: -5005131501070810583}
-      MinDrop: 2
-      MaxDrop: 4
+    _itemDrops: []
   _potentialSprites: []
   _maxHealth: 100
   _minWorkDistance: 0.75
@@ -2410,7 +2865,7 @@ MonoBehaviour:
     SecsInStage: 30
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: -5005131501070810583}
+      - Item: {fileID: 283630323700872253}
         MinDrop: 1
         MaxDrop: 1
     WorkToCut: 3
@@ -2420,7 +2875,7 @@ MonoBehaviour:
     SecsInStage: 30
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: -5005131501070810583}
+      - Item: {fileID: 283630323700872253}
         MinDrop: 1
         MaxDrop: 2
     WorkToCut: 8
@@ -2430,7 +2885,7 @@ MonoBehaviour:
     SecsInStage: 0
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: -5005131501070810583}
+      - Item: {fileID: 283630323700872253}
         MinDrop: 2
         MaxDrop: 4
     WorkToCut: 8
@@ -2441,7 +2896,7 @@ MonoBehaviour:
   _fruitFlowersOverlay: {fileID: 21300000, guid: cf299772b1725cc48adc078fcf6d0f1f, type: 3}
   _harvestableFruit:
     _itemDrops:
-    - Item: {fileID: -4106105843404846981}
+    - Item: {fileID: 0}
       MinDrop: 2
       MaxDrop: 4
   _workToHarvest: 5
@@ -2478,8 +2933,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _category: 0
-  _maxDurability: 100
   Durability: 0
   IsAllowed: 0
   CurrentTask:
@@ -2493,32 +2946,8 @@ MonoBehaviour:
   AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
-  _craftRequirements:
-    _minCraftingSkillLevel: 2
-    _craftingSkill: 10
-    _workCost: 10
-    _requiredCraftingToolType: 0
-    _materialCosts:
-    - Item: {fileID: 366437865215858577}
-      Quantity: 2
+  Settings: {fileID: 0}
   CraftersUID: 
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  _furniturePrefab: {fileID: 5935236254734965145, guid: d53577c50dbdf024492966a48b113a13, type: 3}
-  _inUseNeedChange:
-    SourceID: 
-    AmountPerHour: 0
-    NeedType: 0
-  _colourOptions:
-    ColourOptionsHeader: Sheet Color
-    DyePalettes:
-    - {fileID: 8555071837867117066}
-    - {fileID: 1104450306893862740}
-  _varients: []
-  _defaultDirection: 0
-  _defaultDye: {fileID: 4496512223619636680}
   State: 0
   RemainingWork: 0
   Direction: 0
@@ -2593,6 +3022,45 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
+--- !u!114 &7039194556294736213
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a76c62dc32f973a478967d098378706b, type: 3}
+  m_Name: Steel Bar
+  m_EditorClassIdentifier: 
+  guid: adeb12f2-e1c2-40d9-9abb-54dd4285c9e8
+  initialGuid: adeb12f2-e1c2-40d9-9abb-54dd4285c9e8
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: be0ce54fb06e9514cbf76c3db094c57b, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Steel Bar
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 3
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _category: 0
+  _maxDurability: 100
+  _baseData: {fileID: 197161459398656425}
+  _craftRequirements:
+    _minCraftingSkillLevel: 2
+    _craftingSkill: 10
+    _workCost: 10
+    _requiredCraftingToolType: 0
+    _materialCosts:
+    - Item: {fileID: -3020583608536372809}
+      Quantity: 3
+    - Item: {fileID: -1220354795818533566}
+      Quantity: 1
 --- !u!114 &7235637523369288592
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2619,8 +3087,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _category: 0
-  _maxDurability: 100
   Durability: 0
   IsAllowed: 0
   CurrentTask:
@@ -2634,34 +3100,8 @@ MonoBehaviour:
   AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
-  _craftRequirements:
-    _minCraftingSkillLevel: 1
-    _craftingSkill: 10
-    _workCost: 10
-    _requiredCraftingToolType: 0
-    _materialCosts:
-    - Item: {fileID: -5005131501070810583}
-      Quantity: 5
+  Settings: {fileID: 0}
   CraftersUID: 
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  _furniturePrefab: {fileID: 5935236254734965145, guid: dd1324a0af4a86b41b638230c8941527, type: 3}
-  _inUseNeedChange:
-    SourceID: 
-    AmountPerHour: 0
-    NeedType: 0
-  _colourOptions:
-    ColourOptionsHeader: Sheet Color
-    DyePalettes:
-    - {fileID: 8555071837867117066}
-    - {fileID: 1104450306893862740}
-  _varients:
-  - _materialSelectIcon: {fileID: 21300000, guid: 848cd147474beaa4f96afb2ae1f9b455, type: 3}
-    _furnitureData: {fileID: 6553907554727160304}
-  _defaultDirection: 0
-  _defaultDye: {fileID: 4496512223619636680}
   State: 0
   RemainingWork: 0
   Direction: 0
@@ -2751,7 +3191,7 @@ MonoBehaviour:
   _workToExtract: 30
   _harvestableItems:
     _itemDrops:
-    - Item: {fileID: 6445956091041958653}
+    - Item: {fileID: -3020583608536372809}
       MinDrop: 1
       MaxDrop: 2
   _potentialSprites: []
@@ -2799,7 +3239,6 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Item.StorageData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
@@ -2815,20 +3254,9 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Item.CraftedItemData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
-      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -3088,6 +3516,7 @@ MonoBehaviour:
         PublicKeyToken=null
       dataObjects:
       - {fileID: 0}
+      - {fileID: 0}
     _favoriteList: []
   copyData:
     _objectList: []
@@ -3099,32 +3528,81 @@ MonoBehaviour:
   runtimeLibraryFolderPath: 
   modules: []
   existingNamespaces:
-  - namespaceName: Materials
-    foldout: 1
+  - namespaceName: Settings
+    foldout: 0
     hidden: 0
     icon: 
     existingTypes:
-    - typeName: ItemData
-      typeAssemblyQualifiedName: Data.Item.ItemData, Assembly-CSharp, Version=0.0.0.0,
+    - typeName: WallSettings
+      typeAssemblyQualifiedName: Data.Structure.WallSettings, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-    - typeName: CraftedItemData
-      typeAssemblyQualifiedName: Data.Item.CraftedItemData, Assembly-CSharp, Version=0.0.0.0,
+    - typeName: DyeData
+      typeAssemblyQualifiedName: Data.Dye.DyeData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-  - namespaceName: Constructables
+    - typeName: ItemDataSettings
+      typeAssemblyQualifiedName: Data.Item.ItemDataSettings, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: CraftedItemDataSettings
+      typeAssemblyQualifiedName: Data.Item.CraftedItemDataSettings, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: CraftingTableSettings
+      typeAssemblyQualifiedName: Data.Item.CraftingTableSettings, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: StorageDataSettings
+      typeAssemblyQualifiedName: Data.Item.StorageDataSettings, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: FurnitureDataSettings
+      typeAssemblyQualifiedName: Data.Item.FurnitureDataSettings, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+  - namespaceName: Runtime
     foldout: 1
     hidden: 0
     icon: 
     existingTypes:
-    - typeName: FurnitureData
-      typeAssemblyQualifiedName: Data.Item.FurnitureData, Assembly-CSharp, Version=0.0.0.0,
+    - typeName: GrowingResourceData
+      typeAssemblyQualifiedName: Data.Resource.GrowingResourceData, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: MountainResourceData
+      typeAssemblyQualifiedName: Data.Resource.MountainResourceData, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: CropData
+      typeAssemblyQualifiedName: Data.Item.CropData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
@@ -3144,13 +3622,36 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-  - namespaceName: Resources
-    foldout: 1
-    hidden: 0
-    icon: 
-    existingTypes:
-    - typeName: CropData
-      typeAssemblyQualifiedName: Data.Item.CropData, Assembly-CSharp, Version=0.0.0.0,
+    - typeName: CraftedItemData
+      typeAssemblyQualifiedName: Data.Item.CraftedItemData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: WallData
+      typeAssemblyQualifiedName: Data.Structure.WallData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: DoorData
+      typeAssemblyQualifiedName: Data.Structure.DoorData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: FloorData
+      typeAssemblyQualifiedName: Data.Structure.FloorData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: ToolData
+      typeAssemblyQualifiedName: Data.Item.ToolData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
@@ -3163,39 +3664,15 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-    - typeName: GrowingResourceData
-      typeAssemblyQualifiedName: Data.Resource.GrowingResourceData, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: MountainResourceData
-      typeAssemblyQualifiedName: Data.Resource.MountainResourceData, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-  - namespaceName: Equipment
-    foldout: 0
-    hidden: 0
-    icon: 
-    existingTypes:
-    - typeName: ToolData
-      typeAssemblyQualifiedName: Data.Item.ToolData, Assembly-CSharp, Version=0.0.0.0,
+    - typeName: FurnitureData
+      typeAssemblyQualifiedName: Data.Item.FurnitureData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-  - namespaceName: Misc
-    foldout: 1
-    hidden: 0
-    icon: 
-    existingTypes:
-    - typeName: DyeData
-      typeAssemblyQualifiedName: Data.Dye.DyeData, Assembly-CSharp, Version=0.0.0.0,
+    - typeName: ItemData
+      typeAssemblyQualifiedName: Data.Item.ItemData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
@@ -3264,7 +3741,7 @@ MonoBehaviour:
     SecsInStage: 60
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: -5005131501070810583}
+      - Item: {fileID: 283630323700872253}
         MinDrop: 0
         MaxDrop: 1
     WorkToCut: 5
@@ -3274,7 +3751,7 @@ MonoBehaviour:
     SecsInStage: 0
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: -5005131501070810583}
+      - Item: {fileID: 283630323700872253}
         MinDrop: 1
         MaxDrop: 2
     WorkToCut: 8
@@ -3376,10 +3853,7 @@ MonoBehaviour:
   _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
   _workToExtract: 20
   _harvestableItems:
-    _itemDrops:
-    - Item: {fileID: -5005131501070810583}
-      MinDrop: 2
-      MaxDrop: 4
+    _itemDrops: []
   _potentialSprites: []
   _maxHealth: 100
   _minWorkDistance: 0.75
@@ -3407,7 +3881,7 @@ MonoBehaviour:
     SecsInStage: 30
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: -5005131501070810583}
+      - Item: {fileID: 283630323700872253}
         MinDrop: 1
         MaxDrop: 1
     WorkToCut: 3
@@ -3417,7 +3891,7 @@ MonoBehaviour:
     SecsInStage: 30
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: -5005131501070810583}
+      - Item: {fileID: 283630323700872253}
         MinDrop: 1
         MaxDrop: 2
     WorkToCut: 8
@@ -3427,7 +3901,7 @@ MonoBehaviour:
     SecsInStage: 0
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: -5005131501070810583}
+      - Item: {fileID: 283630323700872253}
         MinDrop: 2
         MaxDrop: 4
     WorkToCut: 8
@@ -3438,7 +3912,7 @@ MonoBehaviour:
   _fruitFlowersOverlay: {fileID: 21300000, guid: cf299772b1725cc48adc078fcf6d0f1f, type: 3}
   _harvestableFruit:
     _itemDrops:
-    - Item: {fileID: 4384225487442251340}
+    - Item: {fileID: 0}
       MinDrop: 2
       MaxDrop: 4
   _workToHarvest: 5

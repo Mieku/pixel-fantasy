@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using Controllers;
+using Data.Dye;
 using Data.Item;
-using Items;
+using Data.Structure;
+using Databrain;
+using Databrain.Attributes;
 using Managers;
 using ScriptableObjects;
-using Systems.Skills.Scripts;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -16,25 +18,19 @@ namespace Systems.Buildings.Scripts
     {
         [SerializeField] private GameObject _obstacle;
         
-        private WallOption _wallOption;
-        private EWallState _wallState;
+        public WallData RuntimeWallData => RuntimeData as WallData;
+        
         private Tilemap _structureTilemap;
 
-        public enum EWallState
+        private void AssignWallState(EConstructionState state)
         {
-            Blueprint,
-            Built,
-        }
-
-        private void AssignWallState(EWallState state)
-        {
-            _wallState = state;
-            switch (_wallState)
+            RuntimeData.State = state;
+            switch (RuntimeData.State)
             {
-                case EWallState.Blueprint:
+                case EConstructionState.Blueprint:
                     BlueprintState_Enter();
                     break;
-                case EWallState.Built:
+                case EConstructionState.Built:
                     BuiltState_Enter();
                     break;
                 default:
@@ -42,16 +38,16 @@ namespace Systems.Buildings.Scripts
             }
         }
         
-        public void ChangeWallState(EWallState newState)
+        public void ChangeWallState(EConstructionState newState)
         {
-            if (_wallState != newState)
+            if (RuntimeData.State != newState)
             {
-                switch (_wallState)
+                switch (RuntimeData.State)
                 {
-                    case EWallState.Blueprint:
+                    case EConstructionState.Blueprint:
                         BlueprintState_Exit();
                         break;
-                    case EWallState.Built:
+                    case EConstructionState.Built:
                         BuiltState_Exit();
                         break;
                     default:
@@ -69,11 +65,30 @@ namespace Systems.Buildings.Scripts
             _structureTilemap = TilemapController.Instance.GetTilemap(TilemapLayer.Structure);
         }
 
-        public void Init(WallOption wallOption)
+        public void Init(Data.Structure.WallSettings wallSettings, DyeData colour)
         {
-            _wallOption = wallOption;
+            DataLibrary.RegisterInitializationCallback(() =>
+            {
+                RuntimeData = (WallData) DataLibrary.CloneDataObjectToRuntime(Data, gameObject);
+                RuntimeWallData.AssignWallOption(wallSettings, colour);
+                RuntimeWallData.Position = transform.position;
+                RuntimeWallData.title = wallSettings.title;
+                
+                DataLibrary.OnSaved += Saved;
+                DataLibrary.OnLoaded += Loaded;
+            });
             
-            AssignWallState(EWallState.Blueprint);
+            AssignWallState(EConstructionState.Blueprint);
+        }
+        
+        protected void Saved()
+        {
+            
+        }
+
+        protected void Loaded()
+        {
+            
         }
 
         public override void CreateConstructTask(bool autoAssign = true)
@@ -84,7 +99,7 @@ namespace Systems.Buildings.Scripts
         
         public override void CreateDeconstructionTask(bool autoAssign = true, Action onDeconstructed = null)
         {
-            if (_wallState == EWallState.Built)
+            if (RuntimeData.State == EConstructionState.Built)
             {
                 _onDeconstructed = onDeconstructed;
                 Task constuctTask = new Task("Deconstruct", ETaskType.Construction, this, EToolType.BuildersHammer);
@@ -99,7 +114,6 @@ namespace Systems.Buildings.Scripts
 
         private void BlueprintState_Enter()
         {
-            _remainingResourceCosts = _wallOption.OptionResourceCosts;
             OnPlaced();
             EnableObstacle(false);
             RefreshTile();
@@ -130,11 +144,11 @@ namespace Systems.Buildings.Scripts
             bool isInterior = StructureManager.Instance.IsInteriorBelow(Cell.CellPos);
             if (isInterior)
             {
-                _structureTilemap.SetTile(cell, _wallOption.InteriorWallRules);
+                _structureTilemap.SetTile(cell, RuntimeWallData.SelectedWallOption.InteriorRuleTile);
             }
             else
             {
-                _structureTilemap.SetTile(cell, _wallOption.ExteriorWallRules);
+                _structureTilemap.SetTile(cell, RuntimeWallData.SelectedWallOption.ExteriorRuleTile);
             }
         }
 
@@ -160,21 +174,15 @@ namespace Systems.Buildings.Scripts
         
         private void CreateConstructionHaulingTasks()
         {
-            var resourceCosts = _wallOption.OptionResourceCosts;
+            var resourceCosts = RuntimeData.RemainingMaterialCosts;
             CreateConstuctionHaulingTasksForItems(resourceCosts);
-        }
-        
-        public override List<ItemAmount> GetResourceCosts()
-        {
-            return _wallOption.OptionResourceCosts;
         }
         
         public override void CompleteConstruction()
         {
             base.CompleteConstruction();
-            _isBuilt = true;
             IsClickDisabled = true;
-            ChangeWallState(EWallState.Built);
+            ChangeWallState(EConstructionState.Built);
         }
 
         public void EnableObstacle(bool isEnabled)

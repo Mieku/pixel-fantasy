@@ -13,9 +13,9 @@ namespace Systems.Details.Build_Details.Scripts
         [SerializeField] private Image _selectionFrame;
 
         private Action<SelectionOptionBtn> _onPressedCallback;
-        [FormerlySerializedAs("FurnitureItemData")] public FurnitureData FurnitureData;
+        [FormerlySerializedAs("FurnitureItemData")] public FurnitureDataSettings FurnitureData;
 
-        public void Init(FurnitureData furnitureData, Action<SelectionOptionBtn> onPressedCallback)
+        public void Init(FurnitureDataSettings furnitureData, Action<SelectionOptionBtn> onPressedCallback)
         {
             FurnitureData = furnitureData;
             _onPressedCallback = onPressedCallback;

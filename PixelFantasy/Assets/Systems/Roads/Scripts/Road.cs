@@ -73,7 +73,6 @@ namespace Systems.Roads.Scripts
 
         private void BlueprintState_Enter()
         {
-            _remainingResourceCosts = _roadOption.OptionResourceCosts;
             SetTile();
             ColourTile(Librarian.Instance.GetColour("Blueprint"));
             CreateConstructionHaulingTasks();
@@ -131,22 +130,10 @@ namespace Systems.Roads.Scripts
         //         Destroy(gameObject);
         //     }
         // }
-
-        private void CancelTasks()
-        {
-            // Drop all incoming resources
-            foreach (var incomingItem in _incomingItems)
-            {
-                incomingItem.LinkedItem.SeekForSlot();
-            }
-            _pendingResourceCosts.Clear();
-            _incomingItems.Clear();
-        }
         
         public override void CompleteConstruction()
         {
             base.CompleteConstruction();
-            _isBuilt = true;
             IsClickDisabled = true;
             ChangeRoadState(ERoadState.Built);
         }

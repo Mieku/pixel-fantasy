@@ -10,29 +10,23 @@ namespace Items
     {
         public StorageData RuntimeStorageData => RuntimeData as StorageData;
         
-        public void ForceLoadItems(List<ItemAmount> itemsToForceLoad)
+        public void ForceLoadItems(List<ItemData> itemsToForceLoad, FurnitureDataSettings settings)
         {
             _isPlanning = false;
+            var data = settings.CreateInitialDataObject();
             DataLibrary.RegisterInitializationCallback((() =>
             {
-                RuntimeData = (StorageData) DataLibrary.CloneDataObjectToRuntime(Data as StorageData, gameObject);
-                RuntimeStorageData.InitData();
+                RuntimeData = (StorageData) DataLibrary.CloneDataObjectToRuntime(data as StorageData, gameObject);
+                RuntimeStorageData.InitData(settings);
                 RuntimeStorageData.State = EFurnitureState.Built;
                 RuntimeStorageData.Direction = _direction;
                 RuntimeStorageData.LinkedFurniture = this;
                 SetState(RuntimeStorageData.State);
                 AssignDirection(_direction);
                 
-                // Create ItemDatas
-                foreach (var itemAmount in itemsToForceLoad)
+                foreach (var itemData in itemsToForceLoad)
                 {
-                    for (int i = 0; i < itemAmount.Quantity; i++)
-                    {
-                        var itemClone = (ItemData) DataLibrary.CloneDataObjectToRuntime(itemAmount.Item);
-                        var itemData = itemClone.GetRuntimeData();
-                        itemData.InitData();
-                        RuntimeStorageData.ForceDepositItem(itemData);
-                    }
+                    RuntimeStorageData.ForceDepositItem(itemData);
                 }
             }));
             DataLibrary.OnSaved += Saved;

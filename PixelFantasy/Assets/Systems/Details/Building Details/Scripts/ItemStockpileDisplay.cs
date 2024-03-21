@@ -13,13 +13,13 @@ namespace Systems.Details.Building_Details.Scripts
         [SerializeField] private Image _itemIcon;
         [SerializeField] private Toggle _toggle;
 
-        private ItemData _itemSettings;
-        private Action<ItemData, bool> _onAllowStockpileChanged;
+        private ItemDataSettings _itemSettings;
+        private Action<ItemDataSettings, bool> _onAllowStockpileChanged;
 
-        public ItemData ItemSettings => _itemSettings;
+        public ItemDataSettings ItemSettings => _itemSettings;
 
         public void Init(ItemAmount itemAmount, bool isAllowed,
-            Action<ItemData, bool> onAllowStockpileChanged)
+            Action<ItemDataSettings, bool> onAllowStockpileChanged)
         {
             _itemSettings = itemAmount.Item;
             _onAllowStockpileChanged = onAllowStockpileChanged;

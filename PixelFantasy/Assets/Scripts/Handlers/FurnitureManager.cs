@@ -107,12 +107,12 @@ namespace Handlers
             return selectedFurniture;
         }
 
-        public CraftingTable GetCraftingTableForItem(CraftedItemData item)
+        public CraftingTable GetCraftingTableForItem(CraftedItemDataSettings item)
         {
             var allTables = FindFurnituresOfType<CraftingTable>();
             foreach (var table in allTables)
             {
-                if (table.TableData.CanCraftItem(item.initialGuid))
+                if (table.RuntimeTableData.CanCraftItem(item))
                 {
                     return table;
                 }

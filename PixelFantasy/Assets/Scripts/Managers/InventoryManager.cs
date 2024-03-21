@@ -46,12 +46,26 @@ namespace Managers
         /// <summary>
         /// Checks if the item is available in storage without claiming it
         /// </summary>
-        public bool IsItemInStorage(ItemData specificItem)
+        public bool IsItemInStorage(ItemDataSettings itemSettings)
         {
             foreach (var storage in _allStorage)
             {
                 if (storage.IsAvailable
-                    && storage.RuntimeStorageData.IsItemInStorage(specificItem))
+                    && storage.RuntimeStorageData.IsItemInStorage(itemSettings))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool IsSpecificItemInStorage(ItemData specificItem)
+        {
+            foreach (var storage in _allStorage)
+            {
+                if (storage.IsAvailable
+                    && storage.RuntimeStorageData.IsSpecificItemInStorage(specificItem))
                 {
                     return true;
                 }
@@ -60,12 +74,12 @@ namespace Managers
             return false;
         }
         
-        public Storage GetAvailableStorage(ItemData itemData)
+        public Storage GetAvailableStorage(ItemDataSettings itemSettings)
         {
             foreach (var storage in _allStorage)
             {
                 if(storage.IsAvailable 
-                   && storage.RuntimeStorageData.AmountCanBeDeposited(itemData) > 0)
+                   && storage.RuntimeStorageData.AmountCanBeDeposited(itemSettings) > 0)
                 {
                     return storage;
                 }
@@ -74,12 +88,12 @@ namespace Managers
             return null;
         }
         
-        public Storage FindAvailableStorage(ItemData itemData)
+        public Storage FindAvailableStorage(ItemDataSettings itemSettings)
         {
             foreach (var storage in _allStorage)
             {
                 if(storage.IsAvailable 
-                   && storage.RuntimeStorageData.AmountCanBeDeposited(itemData) > 0)
+                   && storage.RuntimeStorageData.AmountCanBeDeposited(itemSettings) > 0)
                 {
                     return storage;
                 }
@@ -88,13 +102,13 @@ namespace Managers
             return null;
         }
 
-        public ItemData GetItemOfType(string itemDataGuid)
+        public ItemData GetItemOfType(ItemDataSettings itemSettings)
         {
             foreach (var storage in _allStorage)
             {
                 if (storage.IsAvailable)
                 {
-                    var item = storage.RuntimeStorageData.GetItemDataOfType(itemDataGuid);
+                    var item = storage.RuntimeStorageData.GetItemDataOfType(itemSettings);
                     if (item != null)
                     {
                         return item;
@@ -169,31 +183,30 @@ namespace Managers
             return results;
         }
 
-        public Dictionary<ItemData, int> GetAvailableInventoryQuantities()
+        public Dictionary<ItemDataSettings, int> GetAvailableInventoryQuantities()
         {
-            Dictionary<ItemData, int> results = new Dictionary<ItemData, int>();
+            Dictionary<ItemDataSettings, int> results = new Dictionary<ItemDataSettings, int>();
             var availableInventory = GetAvailableInventory<ItemData>();
             foreach (var item in availableInventory)
             {
-                var initItemData = item.GetInitialData();
-                if (!results.TryAdd(initItemData, 1))
+                if (!results.TryAdd(item.Settings, 1))
                 {
-                    results[initItemData]++;
+                    results[item.Settings]++;
                 }
             }
             
             return results;
         }
 
-        public int GetAmountAvailable(ItemData itemData)
+        public int GetAmountAvailable(ItemDataSettings itemSettings)
         {
             var allAvailable = GetAvailableInventoryQuantities();
-            return allAvailable.GetValueOrDefault(itemData, 0);
+            return allAvailable.GetValueOrDefault(itemSettings, 0);
         }
 
-        public bool CanAfford(ItemData itemData, int amount)
+        public bool CanAfford(ItemDataSettings itemSettings, int amount)
         {
-            var availableAmount = GetAmountAvailable(itemData);
+            var availableAmount = GetAmountAvailable(itemSettings);
             return amount <= availableAmount;
         }
     }

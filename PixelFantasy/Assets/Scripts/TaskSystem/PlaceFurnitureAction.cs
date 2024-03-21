@@ -33,7 +33,7 @@ namespace TaskSystem
             {
                 _isMoving = false;
                 _isHoldingItem = true;
-                _itemToPlace.AssignedStorage.RuntimeStorageData.WithdrawItem(_itemToPlace.Data);
+                _itemToPlace.AssignedStorage.RuntimeStorageData.WithdrawItem(_itemToPlace.RuntimeData);
                 _ai.HoldItem(_itemToPlace);
                 return;
             }
@@ -65,7 +65,7 @@ namespace TaskSystem
             {
                 if (_isHoldingItem)
                 {
-                    _furniture.ReceiveItem(_itemToPlace.Data);
+                    _furniture.ReceiveItem(_itemToPlace.RuntimeData);
                     _itemToPlace = null;
                     _isHoldingItem = false;
                 }

@@ -23,9 +23,8 @@ namespace Systems.Game_Setup.Scripts
         public DataLibrary DataLibrary;
         
         [DataObjectDropdown("DataLibrary")]
-        [BoxGroup("Starting Items")] [SerializeField] private StorageData _starterStockpileData;
+        [BoxGroup("Starting Items")] [SerializeField] private StorageDataSettings _starterStockpileData;
         [BoxGroup("Starting Items")] [SerializeField] private List<ItemAmount> _startingItems = new List<ItemAmount>();
-        [BoxGroup("Starting Items")] [SerializeField] private Transform _furnitureParent;
         
         [BoxGroup("Starting Kinlings")] [SerializeField] private List<KinlingData> _starterKinlings;
         
@@ -82,8 +81,22 @@ namespace Systems.Game_Setup.Scripts
         {
             Vector2 startPos = new Vector2(startCell.x, startCell.y);
 
-            _starterStockpile = Spawner.Instance.SpawnFurniture(_starterStockpileData.FurniturePrefab, startPos) as Storage;
-            _starterStockpile.ForceLoadItems(preloadedItems);
+            _starterStockpile = (Storage)Spawner.Instance.SpawnFurniture(_starterStockpileData.FurniturePrefab, startPos);
+            
+            // Create the item datas
+            List<ItemData> datas = new List<ItemData>();
+            foreach (var preloadedItemAmount in preloadedItems)
+            {
+                for (int i = 0; i < preloadedItemAmount.Quantity; i++)
+                {
+                    var data = preloadedItemAmount.Item.CreateInitialDataObject();
+                    var item = (ItemData) DataLibrary.CloneDataObjectToRuntime(data);
+                    item.InitData(preloadedItemAmount.Item);
+                    datas.Add(item);
+                }
+            }
+            
+            _starterStockpile.ForceLoadItems(datas, _starterStockpileData);
         }
         
         private void LoadStarterKinlings(Vector3Int startCell, List<KinlingData> starterKinlings)

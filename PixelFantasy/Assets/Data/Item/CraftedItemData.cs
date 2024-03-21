@@ -10,14 +10,10 @@ namespace Data.Item
 {
     public class CraftedItemData : ItemData
     {
-        // Crafted Item Settings
-        [SerializeField] protected CraftRequirements _craftRequirements;
-
-        // Accessors
-        public CraftRequirements CraftRequirements => _craftRequirements;
-        
         // Runtime
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public string CraftersUID;
+        [ExposeToInspector, DatabrainSerialize] public string CraftersUID;
+        
+        public CraftedItemDataSettings CraftedItemDataSettings => Settings as CraftedItemDataSettings;
     }
     
     [Serializable]
@@ -63,12 +59,6 @@ namespace Data.Item
                 }
                 return materialsList;
             }
-        }
-        
-        public List<ItemAmount> GetResourceCosts()
-        {
-            List<ItemAmount> clone = new List<ItemAmount>(_materialCosts);
-            return clone;
         }
 
         public bool MaterialsAreAvailable

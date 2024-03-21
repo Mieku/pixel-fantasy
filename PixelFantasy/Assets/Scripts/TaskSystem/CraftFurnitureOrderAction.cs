@@ -33,10 +33,10 @@ namespace TaskSystem
         public override void PrepareAction(Task task)
         {
             var item = (FurnitureData)task.Payload;
-            _itemToCraft = (FurnitureData)item.GetRuntimeData();
+            _itemToCraft = item;
             _craftingTable = task.Requestor as CraftingTable; //FurnitureManager.Instance.GetCraftingTableForItem(_itemToCraft);
             _materials = task.Materials;
-            _requestingFurniture = _itemToCraft.LinkedFurniture;//task.Requestor as Furniture;
+            _requestingFurniture = item.LinkedFurniture;//task.Requestor as Furniture;
             _state = ETaskState.ClaimTable;
         }
 
@@ -44,7 +44,7 @@ namespace TaskSystem
         {
             if (_state == ETaskState.ClaimTable)
             {
-                _craftingTable.AssignItemToTable(_itemToCraft);
+                _craftingTable.AssignItemToTable(_itemToCraft.FurnitureSettings);
                 _state = ETaskState.GatherMats;
             }
 

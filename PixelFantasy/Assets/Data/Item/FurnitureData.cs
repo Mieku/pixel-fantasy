@@ -14,37 +14,22 @@ namespace Data.Item
 {
     public class FurnitureData : CraftedItemData
     {
-        // Furniture Settings
-        [SerializeField] protected List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle"};
-        [SerializeField] protected Furniture _furniturePrefab;
-        [SerializeField] protected NeedChange _inUseNeedChange;
-        [SerializeField] protected ColourOptions _colourOptions;
-        [SerializeField] protected List<FurnitureVariant> _varients;
-        [SerializeField] protected PlacementDirection _defaultDirection;
-        [DataObjectDropdown][SerializeField] protected DyeData _defaultDye;
-        
-        // Accessors
-        public List<string> InvalidPlacementTags => _invalidPlacementTags;
-        public Furniture FurniturePrefab => _furniturePrefab;
-        public NeedChange InUseNeedChange => _inUseNeedChange;
-        public ColourOptions ColourOptions => _colourOptions;
-        public List<FurnitureVariant> Varients => _varients;
-        public PlacementDirection DefaultDirection => _defaultDirection;
-        public DyeData DefaultDye => _defaultDye;
-        
         // Runtime
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public EFurnitureState State;
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public float RemainingWork;
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public PlacementDirection Direction;
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public bool InUse;
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public Furniture LinkedFurniture; // Not a fan of this...
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public DyeData DyeOverride;
+        [ExposeToInspector, DatabrainSerialize] public EFurnitureState State;
+        [ExposeToInspector, DatabrainSerialize] public float RemainingWork;
+        [ExposeToInspector, DatabrainSerialize] public PlacementDirection Direction;
+        [ExposeToInspector, DatabrainSerialize] public bool InUse;
+        [ExposeToInspector, DatabrainSerialize] public Furniture LinkedFurniture;
+        [ExposeToInspector, DatabrainSerialize] public DyeData DyeOverride;
 
-        public override void InitData()
+        public FurnitureDataSettings FurnitureSettings => Settings as FurnitureDataSettings;
+
+        public override void InitData(ItemDataSettings itemDataSettings)
         {
-            base.InitData();
-            RemainingWork = _craftRequirements.WorkCost;
-            Direction = _defaultDirection;
+            base.InitData(itemDataSettings);
+            var furnitureSettings = itemDataSettings as FurnitureDataSettings;
+            RemainingWork = furnitureSettings.CraftRequirements.WorkCost;
+            Direction = furnitureSettings.DefaultDirection;
         }
     }
 }
@@ -60,10 +45,10 @@ public enum EFurnitureState
 public class FurnitureVariant
 {
     [SerializeField] private Sprite _materialSelectIcon;
-    [SerializeField] private FurnitureData _furnitureData;
+    [SerializeField] private FurnitureDataSettings _furnitureData;
 
     public Sprite MaterialSelectIcon => _materialSelectIcon; // Typically the icon of the material change
-    public FurnitureData FurnitureData => _furnitureData.GetInitialDataObject() as FurnitureData;
+    public FurnitureDataSettings FurnitureData => _furnitureData;
 }
 
 [Serializable]

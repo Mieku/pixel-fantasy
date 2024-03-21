@@ -47,7 +47,7 @@ namespace Systems.Crafting.Scripts
             OnOrderComplete = onOrderComplete;
             OnOrderCancelled = onOrderCancelled;
             
-            _remainingMaterials = itemToCraft.CraftRequirements.GetResourceCosts();
+            _remainingMaterials = itemToCraft.CraftedItemDataSettings.CraftRequirements.GetMaterialCosts();
             
             SetOrderState(EOrderState.Queued);
         }
@@ -64,7 +64,7 @@ namespace Systems.Crafting.Scripts
             switch (OrderType)
             {
                 case EOrderType.Furniture:
-                    task = new Task("Craft Furniture Order", CraftedItem.CraftRequirements.CraftingSkill, table, CraftedItem.CraftRequirements.RequiredCraftingToolType)
+                    task = new Task("Craft Furniture Order", CraftedItem.CraftedItemDataSettings.CraftRequirements.CraftingSkill, table, CraftedItem.CraftedItemDataSettings.CraftRequirements.RequiredCraftingToolType)
                     {
                         Payload = CraftedItem,
                         OnTaskComplete = onTaskComplete,
@@ -72,7 +72,7 @@ namespace Systems.Crafting.Scripts
                     };
                     break;
                 case EOrderType.Item:
-                    task = new Task("Craft Item", CraftedItem.CraftRequirements.CraftingSkill, table, CraftedItem.CraftRequirements.RequiredCraftingToolType)
+                    task = new Task("Craft Item", CraftedItem.CraftedItemDataSettings.CraftRequirements.CraftingSkill, table, CraftedItem.CraftedItemDataSettings.CraftRequirements.RequiredCraftingToolType)
                     {
                         Payload = CraftedItem,
                         OnTaskComplete = onTaskComplete,
@@ -90,14 +90,14 @@ namespace Systems.Crafting.Scripts
 
         private List<ItemData> ClaimRequiredMaterials()
         {
-            var requiredItems = CraftedItem.CraftRequirements.GetResourceCosts();
+            var requiredItems = CraftedItem.CraftedItemDataSettings.CraftRequirements.GetMaterialCosts();
             List<ItemData> claimedItems = new List<ItemData>();
             
             foreach (var requiredItem in requiredItems)
             {
                 for (int i = 0; i < requiredItem.Quantity; i++)
                 {
-                    var claimedItem = InventoryManager.Instance.GetItemOfType(requiredItem.Item.initialGuid);
+                    var claimedItem = InventoryManager.Instance.GetItemOfType(requiredItem.Item);
 
                     claimedItem.ClaimItem();
                     claimedItems.Add(claimedItem);
@@ -114,7 +114,7 @@ namespace Systems.Crafting.Scripts
 
         public bool CanBeCrafted(CraftingTable table)
         {
-            return table.TableData.CanCraftItem(CraftedItem.initialGuid);
+            return table.RuntimeTableData.CanCraftItem(CraftedItem.CraftedItemDataSettings);
         }
         
         public bool AreMaterialsAvailable()

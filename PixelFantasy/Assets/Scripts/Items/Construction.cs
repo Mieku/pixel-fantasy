@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Data.Item;
+using Data.Structure;
+using Databrain;
+using Databrain.Attributes;
 using DataPersistence;
 using HUD;
 using Interfaces;
@@ -13,49 +16,28 @@ using Action = System.Action;
 
 namespace Items
 {
-    public class Construction : PlayerInteractable, IPersistent, IClickableObject
+    public class Construction : PlayerInteractable, IClickableObject
     {
-        protected List<ItemAmount> _remainingResourceCosts = new List<ItemAmount>();
-        protected List<ItemAmount> _pendingResourceCosts = new List<ItemAmount>(); // Claimed by a task but not used yet
-        protected List<ItemAmount> _incomingResourceCosts = new List<ItemAmount>(); // The item is on its way
-        protected List<ItemData> _incomingItems = new List<ItemData>();
-    
-        protected bool _isBuilt;
-        protected bool _isDeconstructing;
-        protected bool _hasUnitIncoming;
         protected Action _onDeconstructed;
-        protected float _remainingWork;
         
         [SerializeField] private List<Transform> _workPoints;
-
-        public float RemainingWork => _remainingWork;
-        public string DisplayName => GetConstructionData().ConstructionName;
+        
+        public string DisplayName => RuntimeData.name;
+        
+        public DataLibrary DataLibrary;
+        
+        [DataObjectDropdown("DataLibrary", true)]
+        public ConstructionData Data;
+        public ConstructionData RuntimeData;
         
         public PlayerInteractable GetPlayerInteractable()
         {
             return this;
         }
-        
-        public virtual ConstructionSettings GetConstructionData()
-        {
-            return null;
-        }
-        
-        public bool IsBuilt
-        {
-            get => _isBuilt;
-            set => _isBuilt = value;
-        }
-        
-        public bool IsDeconstructing
-        {
-            get => _isDeconstructing;
-            set => _isDeconstructing = value;
-        }
 
         protected virtual void Awake()
         {
-            _remainingWork = GetWorkAmount();
+            
         }
         
         public void AssignCommand(Command command, object payload = null)
@@ -65,9 +47,9 @@ namespace Items
         
         public virtual bool DoConstruction(float workAmount)
         {
-            _remainingWork -= workAmount;
+            RuntimeData.RemainingWork -= workAmount;
             Changed();
-            if (_remainingWork <= 0)
+            if (RuntimeData.RemainingWork <= 0)
             {
                 CompleteConstruction();
                 return true;
@@ -78,9 +60,9 @@ namespace Items
 
         public virtual bool DoDeconstruction(float workAmount)
         {
-            _remainingWork -= workAmount;
+            RuntimeData.RemainingWork -= workAmount;
             Changed();
-            if (_remainingWork <= 0)
+            if (RuntimeData.RemainingWork <= 0)
             {
                 CompleteDeconstruction();
                 return true;
@@ -97,7 +79,7 @@ namespace Items
 
         public virtual void CancelConstruction()
         {
-            if (!_isBuilt)
+            if (RuntimeData.State != EConstructionState.Built)
             {
                 CancelRequestorTasks();
                 
@@ -108,48 +90,17 @@ namespace Items
                 Destroy(gameObject);
             }
         }
-
-        public void AddResourceToBlueprint(ItemData itemData)
-        {
-            RemoveFromPendingResourceCosts(itemData);
-            
-            foreach (var cost in _remainingResourceCosts)
-            {
-                if (cost.Item == itemData && cost.Quantity > 0)
-                {
-                    cost.Quantity--;
-                    if (cost.Quantity <= 0)
-                    {
-                        _remainingResourceCosts.Remove(cost);
-                    }
-
-                    return;
-                }
-            }
-        }
-
+        
         public override void ReceiveItem(ItemData itemData)
         {
-            RemoveFromIncomingItems(itemData);
+            RuntimeData.RemoveFromIncomingItems(itemData);
             
             Destroy(itemData.LinkedItem.gameObject);
-            RemoveFromPendingResourceCosts(itemData);
             
-            foreach (var cost in _remainingResourceCosts)
-            {
-                if (cost.Item == itemData && cost.Quantity > 0)
-                {
-                    cost.Quantity--;
-                    if (cost.Quantity <= 0)
-                    {
-                        _remainingResourceCosts.Remove(cost);
-                    }
-
-                    break;
-                }
-            }
+            RuntimeData.RemoveFromPendingResourceCosts(itemData.Settings);
+            RuntimeData.DeductFromMaterialCosts(itemData.Settings);
             
-            if (_remainingResourceCosts.Count == 0)
+            if (RuntimeData.RemainingMaterialCosts.Count == 0)
             {
                 CreateConstructTask();
             }
@@ -192,15 +143,10 @@ namespace Items
             Vector2 result = selectedDistance.position;
             return result;
         }
-
-        public virtual float GetWorkPerResource()
-        {
-            return 0;
-        }
         
         public virtual void CompleteConstruction()
         {
-            _remainingWork = 0;
+            RuntimeData.RemainingWork = RuntimeData.CraftRequirements.WorkCost;
         }
 
         public virtual void CompleteDeconstruction()
@@ -229,167 +175,11 @@ namespace Items
             Destroy(gameObject);
         }
         
-        public void AddToIncomingItems(ItemData itemData)
-        {
-            _incomingItems ??= new List<ItemData>();
-            _incomingItems.Add(itemData);
-            
-            _incomingResourceCosts ??= new List<ItemAmount>();
-
-            foreach (var cost in _incomingResourceCosts)
-            {
-                if (cost.Item == itemData)
-                {
-                    cost.Quantity += 1;
-                    return;
-                }
-            }
-            
-            _incomingResourceCosts.Add(new ItemAmount
-            {
-                Item = itemData,
-                Quantity = 1
-            });
-        }
-        
-        private void RemoveFromIncomingItems(ItemData item)
-        {
-            _incomingItems ??= new List<ItemData>();
-            _incomingItems.Remove(item);
-            
-            foreach (var cost in _incomingResourceCosts)
-            {
-                if (cost.Item == item)
-                {
-                    cost.Quantity -= 1;
-                    if (cost.Quantity <= 0)
-                    {
-                        _incomingResourceCosts.Remove(cost);
-                    }
-
-                    return;
-                }
-            }
-        }
-        
-        public void AddToPendingResourceCosts(ItemData itemData, int quantity = 1)
-        {
-            _pendingResourceCosts ??= new List<ItemAmount>();
-
-            foreach (var cost in _pendingResourceCosts)
-            {
-                if (cost.Item == itemData)
-                {
-                    cost.Quantity += quantity;
-                    return;
-                }
-            }
-            
-            _pendingResourceCosts.Add(new ItemAmount
-            {
-                Item = itemData,
-                Quantity = quantity
-            });
-        }
-
-        public void RemoveFromPendingResourceCosts(ItemData itemData, int quantity = 1)
-        {
-            foreach (var cost in _pendingResourceCosts)
-            {
-                if (cost.Item == itemData)
-                {
-                    cost.Quantity -= quantity;
-                    if (cost.Quantity <= 0)
-                    {
-                        _pendingResourceCosts.Remove(cost);
-                    }
-
-                    return;
-                }
-            }
-        }
-
-        public List<ItemAmount> GetRemainingMissingItems()
-        {
-            _pendingResourceCosts ??= new List<ItemAmount>();
-            _incomingResourceCosts ??= new List<ItemAmount>();
-            List<ItemAmount> result = new List<ItemAmount>();
-
-            foreach (var remainingResourceCost in _remainingResourceCosts)
-            {
-                ItemAmount amount = new ItemAmount
-                {
-                    Item = remainingResourceCost.Item,
-                    Quantity = remainingResourceCost.Quantity,
-                };
-                
-                result.Add(amount);
-            }
-            
-            foreach (var pendingCost in _pendingResourceCosts)
-            {
-                foreach (var resultCost in result)
-                {
-                    if (resultCost.Item == pendingCost.Item)
-                    {
-                        resultCost.Quantity -= pendingCost.Quantity;
-                        if (resultCost.Quantity <= 0)
-                        {
-                            result.Remove(resultCost);
-                        }
-                    }
-                }
-            }
-
-            foreach (var incomingCost in _incomingResourceCosts)
-            {
-                foreach (var resultCost in result)
-                {
-                    if (resultCost.Item == incomingCost.Item)
-                    {
-                        resultCost.Quantity -= incomingCost.Quantity;
-                        if (resultCost.Quantity <= 0)
-                        {
-                            result.Remove(resultCost);
-                        }
-                    }
-                }
-            }
-            
-            return result;
-        }
-
-        protected List<ItemAmount> GetClaimedResourcesCosts()
-        {
-            _pendingResourceCosts ??= new List<ItemAmount>();
-            _incomingResourceCosts ??= new List<ItemAmount>();
-            
-            var results = new List<ItemAmount>();
-            foreach (var pendingResourceCost in _pendingResourceCosts)
-            {
-                results.Add(pendingResourceCost);
-            }
-
-            foreach (var incomingResourceCost in _incomingResourceCosts)
-            {
-                foreach (var result in results)
-                {
-                    if (result.Item == incomingResourceCost.Item)
-                    {
-                        result.Quantity -= incomingResourceCost.Quantity;
-                        break;
-                    }
-                }
-            }
-
-            return results;
-        }
-        
         public void CheckIfAllResourcesLoaded()
         {
-            if (_isBuilt) return;
+            if (RuntimeData.State == EConstructionState.Built) return;
             
-            if (_remainingResourceCosts.Count == 0)
+            if (RuntimeData.RemainingMaterialCosts.Count == 0)
             {
                 CreateConstructTask();
             }
@@ -407,27 +197,6 @@ namespace Items
             Task constuctTask = new Task("Deconstruct", ETaskType.Construction, this, EToolType.BuildersHammer);
             constuctTask.Enqueue();
         }
-    
-        public virtual object CaptureState()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public virtual void RestoreState(object data)
-        {
-            if (!_isBuilt)
-            {
-                var missingItems = GetRemainingMissingItems();
-                CreateConstuctionHaulingTasksForItems(missingItems);
-            
-                CheckIfAllResourcesLoaded();
-            }
-
-            if (_isDeconstructing && !_hasUnitIncoming)
-            {
-                CreateDeconstructionTask();
-            }
-        }
         
         public void CreateConstuctionHaulingTasksForItems(List<ItemAmount> remainingResources)
         {
@@ -440,7 +209,7 @@ namespace Items
             }
         }
 
-        protected virtual void EnqueueCreateTakeResourceToBlueprintTask(ItemData resourceSettings)
+        protected virtual void EnqueueCreateTakeResourceToBlueprintTask(ItemDataSettings resourceSettings)
         {
             Task task = new Task("Withdraw Item Construction", ETaskType.Hauling, this, EToolType.None)
             {
@@ -466,16 +235,11 @@ namespace Items
             return Commands;
         }
         
-        public virtual List<ItemAmount> GetResourceCosts()
-        {
-            throw new System.NotImplementedException();
-        }
-        
         public virtual void SpawnUsedResources(float percentReturned)
         {
             // Spawn All the resources used
-            var totalCosts = GetResourceCosts();
-            var remainingCosts = _remainingResourceCosts;
+            var totalCosts = RuntimeData.CraftRequirements.GetMaterialCosts();
+            var remainingCosts = RuntimeData.RemainingMaterialCosts;
             List<ItemAmount> difference = new List<ItemAmount>();
             foreach (var totalCost in totalCosts)
             {
@@ -504,10 +268,21 @@ namespace Items
                 {
                     if (Helper.RollDice(percentReturned))
                     {
-                        Spawner.Instance.SpawnItem(refundCost.Item.initialGuid, this.transform.position, true);
+                        Spawner.Instance.SpawnItem(refundCost.Item, this.transform.position, true);
                     }
                 }
             }
+        }
+        
+        protected virtual void CancelTasks()
+        {
+            // Drop all incoming resources
+            foreach (var incomingItem in RuntimeData.IncomingItems)
+            {
+                incomingItem.LinkedItem.SeekForSlot();
+            }
+            RuntimeData.PendingResourceCosts.Clear();
+            RuntimeData.IncomingItems.Clear();
         }
     }
 }

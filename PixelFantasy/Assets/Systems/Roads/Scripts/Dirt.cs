@@ -132,22 +132,10 @@ namespace Systems.Roads.Scripts
         //         Destroy(gameObject);
         //     }
         // }
-
-        private void CancelTasks()
-        {
-            // Drop all incoming resources
-            foreach (var incomingItem in _incomingItems)
-            {
-                incomingItem.LinkedItem.SeekForSlot();
-            }
-            _pendingResourceCosts.Clear();
-            _incomingItems.Clear();
-        }
         
         public override void CompleteConstruction()
         {
             base.CompleteConstruction();
-            _isBuilt = true;
             IsClickDisabled = true;
             ChangeDirtState(EDirtState.Built);
         }

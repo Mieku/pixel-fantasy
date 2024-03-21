@@ -13,7 +13,7 @@ namespace TaskSystem
         private PlayerInteractable _requestor;
         private bool _isHoldingItem;
         private bool _isMoving;
-        private ItemSettings _itemSettings;
+        private ItemDataSettings _itemSettings;
         private Vector2 _constructionPos;
         
         public float DistanceToRequestor => Vector2.Distance(_constructionPos, transform.position);
@@ -21,7 +21,7 @@ namespace TaskSystem
         
         public override bool CanDoTask(Task task)
         {
-            var item = task.Payload as ItemData;
+            var item = task.Payload as ItemDataSettings;
             if ( item == null)
             {
                 return false;
@@ -37,8 +37,9 @@ namespace TaskSystem
             _isHoldingItem = false;
             _isMoving = false;
             
-            _targetItem = task.Payload as ItemData;
-            _targetItem = InventoryManager.Instance.GetItemOfType(_targetItem.initialGuid);
+            _itemSettings = task.Payload as ItemDataSettings;
+            _targetItem = InventoryManager.Instance.GetItemOfType(_itemSettings);
+            //_targetItem = InventoryManager.Instance.GetItemOfType(_targetItem.Settings);
             
             if (_targetItem == null)
             {
@@ -52,7 +53,7 @@ namespace TaskSystem
             var construction = _requestor as Construction;
             if (construction != null)
             {
-                construction.AddToIncomingItems(_targetItem);
+                construction.RuntimeData.AddToIncomingItems(_targetItem);
             }
 
             _constructionPos = _requestor.transform.position;

@@ -9,41 +9,26 @@ using UnityEngine;
 
 namespace Data.Item
 {
-    public enum EItemCategory
-    {
-        [Description("Materials")] Materials,
-        [Description("Tools")] Tool,
-        [Description("Clothing")] Clothing,
-        [Description("Food")] Food,
-        [Description("Furniture")] Furniture,
-        [Description("Specific Storage")] SpecificStorage,
-        [Description("Bulky Resource")] BulkyResource,
-    }
+    
     
     [DataObjectAddToRuntimeLibrary]
     public class ItemData : DataObject
     {
-        // Settings
-        [SerializeField] protected EItemCategory _category;
-        [SerializeField] protected int _maxDurability;
-        
-        public EItemCategory Category => _category;
-        public string ItemName => title;
-        public Sprite ItemSprite => icon;
-        public int MaxDurability => _maxDurability;
-        
         // Runtime
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public int Durability;
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public bool IsAllowed;
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public Task CurrentTask;
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public string CarryingKinlingUID;
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public Storage AssignedStorage;
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public Vector2 Position;
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public Items.Item LinkedItem;
+        [ExposeToInspector, DatabrainSerialize] public int Durability;
+        [ExposeToInspector, DatabrainSerialize] public bool IsAllowed;
+        [ExposeToInspector, DatabrainSerialize] public Task CurrentTask;
+        [ExposeToInspector, DatabrainSerialize] public string CarryingKinlingUID;
+        [ExposeToInspector, DatabrainSerialize] public Storage AssignedStorage;
+        [ExposeToInspector, DatabrainSerialize] public Vector2 Position;
+        [ExposeToInspector, DatabrainSerialize] public Items.Item LinkedItem;
 
-        public virtual void InitData()
+        [ExposeToInspector, DatabrainSerialize]  public ItemDataSettings Settings;
+
+        public virtual void InitData(ItemDataSettings settings)
         {
-            Durability = _maxDurability;
+            Settings = settings;
+            Durability = Settings.MaxDurability;
             IsAllowed = true;
         }
 
@@ -73,13 +58,6 @@ namespace Data.Item
             itemObj.LoadItemData(this, createHaulTask);
             LinkedItem = itemObj;
             return itemObj;
-        }
-        
-        public virtual string GetDetailsMsg(string headerColourCode = "#272736")
-        {
-            string msg = "";
-            msg += $"<color={headerColourCode}>Durability:</color> <b>{Durability}</b>\n";
-            return msg;
         }
         
         public void UnclaimItem()

@@ -197,7 +197,7 @@ namespace Items
             {
                 for (int i = 0; i < resource.Quantity; i++)
                 {
-                    spawner.SpawnItem(resource.Item.initialGuid, transform.position, true);
+                    spawner.SpawnItem(resource.Item, transform.position, true);
                 }
             }
             

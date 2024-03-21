@@ -26,9 +26,9 @@ namespace Systems.Details.Building_Details.Scripts
             _order = order;
             _craftingTable = craftingTable;
 
-            _itemIcon.sprite = _order.CraftedItem.ItemSprite;
-            _tooltip.Header = _order.CraftedItem.ItemName;
-            _tooltip.Content = _order.CraftedItem.CraftRequirements.MaterialsList;
+            _itemIcon.sprite = _order.CraftedItem.CraftedItemDataSettings.ItemSprite;
+            _tooltip.Header = _order.CraftedItem.CraftedItemDataSettings.ItemName;
+            _tooltip.Content = _order.CraftedItem.CraftedItemDataSettings.CraftRequirements.MaterialsList;
             
             _increaseBtn.SetActive(!isFirst);
             _decreaseBtn.SetActive(!isLast);
