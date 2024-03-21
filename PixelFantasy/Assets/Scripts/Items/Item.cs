@@ -4,16 +4,10 @@ using Characters;
 using Data.Item;
 using Databrain;
 using Databrain.Attributes;
-using DataPersistence;
 using Interfaces;
 using Managers;
-using ScriptableObjects;
-using Systems.Skills.Scripts;
-using Systems.SmartObjects.Scripts;
 using TaskSystem;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Zones;
 
 namespace Items
 {
@@ -36,7 +30,6 @@ namespace Items
         public DataLibrary DataLibrary;
         
         [DataObjectDropdown("DataLibrary")]
-        //public ItemData Data;
         public ItemData RuntimeData;
         
         public PlayerInteractable GetPlayerInteractable()
@@ -79,7 +72,7 @@ namespace Items
 
         public void LoadItemData(ItemData data, bool canHaul)
         {
-            RuntimeData = data.GetRuntimeData();
+            RuntimeData = data;
             RuntimeData.LinkedItem = this;
             DisplayItemSprite();
 

@@ -32,24 +32,6 @@ namespace Data.Item
             IsAllowed = true;
         }
 
-        public ItemData GetInitialData()
-        {
-            return GetInitialDataObject() as ItemData;
-        }
-
-        public ItemData GetRuntimeData()
-        {
-            if (isRuntimeInstance)
-            {
-                return this;
-            }
-            else
-            {
-                var runtime = (ItemData) GetRuntimeDataObject();
-                return runtime;
-            }
-        }
-
         public Items.Item CreateItemObject(Vector2 pos, bool createHaulTask)
         {
             var prefab = Resources.Load<Items.Item>($"Prefabs/ItemPrefab");
@@ -87,7 +69,7 @@ namespace Data.Item
 
         public bool Equals(ItemData other)
         {
-            return GetInitialData() == other.GetInitialData();
+            return Settings == other.Settings;
         }
     }
 }

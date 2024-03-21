@@ -7,12 +7,11 @@ using Data.Dye;
 using Data.Item;
 using Data.Resource;
 using Items;
-using ScriptableObjects;
 using Systems.Buildings.Scripts;
-using Systems.Details.Build_Details.Scripts;
 using Systems.Notifications.Scripts;
 using UnityEngine;
 using Zones;
+using CropSettings = Data.Resource.CropSettings;
 
 namespace Managers
 {
@@ -22,8 +21,6 @@ namespace Managers
         [SerializeField] private GameObject _itemPrefab;
         
         [SerializeField] private Transform _resourceParent;
-        [SerializeField] private GameObject _treePrefab;
-        [SerializeField] private GameObject _plantPrefab;
     
         [SerializeField] private Transform _structureParent;
         [SerializeField] private Transform _flooringParent;
@@ -390,20 +387,12 @@ namespace Managers
             _prevPlacementDirection = direction;
         }
         
-        public void SpawnTree(Vector3 spawnPosition, GrowingResourceData growingResourceData)
+        public void SpawnPlant(Vector3 spawnPosition, GrowingResourceSettings settings)
         {
             spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
-            var tree = Instantiate(_treePrefab, spawnPosition, Quaternion.identity);
-            tree.transform.SetParent(_resourceParent);
-            tree.GetComponent<GrowingResource>().Init(growingResourceData);
-        }
-
-        public void SpawnPlant(Vector3 spawnPosition, GrowingResourceData growingResourceData)
-        {
-            spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
-            var plant = Instantiate(_plantPrefab, spawnPosition, Quaternion.identity);
+            var plant = Instantiate(settings.Prefab, spawnPosition, Quaternion.identity);
             plant.transform.SetParent(_resourceParent);
-            plant.GetComponent<GrowingResource>().Init(growingResourceData);
+            plant.GetComponent<GrowingResource>().InitializeResource(settings);
         }
         
         #region Structure

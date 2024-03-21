@@ -10,6 +10,7 @@ using Systems.Mood.Scripts;
 using Systems.Needs.Scripts;
 using Systems.Skills.Scripts;
 using UnityEngine;
+using CropSettings = Data.Resource.CropSettings;
 using Random = UnityEngine.Random;
 
 namespace Managers

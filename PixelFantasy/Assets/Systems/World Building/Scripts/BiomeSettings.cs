@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Data.Resource;
+using Databrain.Attributes;
 using ScriptableObjects;
 using TWC;
 using UnityEngine;
@@ -43,7 +44,7 @@ namespace Systems.World_Building.Scripts
             return 0f;
         }
 
-        public MountainResourceData GetMountainData(MountainTileType tileType)
+        public MountainSettings GetMountainSettings(MountainTileType tileType)
         {
             if (tileType == MountainTileType.Empty) return null;
 
@@ -51,26 +52,26 @@ namespace Systems.World_Building.Scripts
             {
                 if (mountain.GetMountainTileType() == tileType)
                 {
-                    return mountain.MountainData;
+                    return mountain.MountainSettings;
                 }
             }
 
             return null;
         }
 
-        public void AddMountain(MountainResourceData mountainData)
+        public void AddMountain(MountainSettings mountainSettings)
         {
-            var mountainPercent = new MountainDataPercentage(mountainData, 0f);
+            var mountainPercent = new MountainDataPercentage(mountainSettings, 0f);
             Mountains.Add(mountainPercent);
         }
 
-        public void AddForestTree(GrowingResourceData treeData)
+        public void AddForestTree(GrowingResourceSettings treeSettings)
         {
-            var treePercent = new ResourceDataPercentage(treeData, 0f);
+            var treePercent = new ResourceDataPercentage(treeSettings, 0f);
             ForestTreeResources.Add(treePercent);
         }
 
-        public GrowingResourceData GetRandomForestTree()
+        public GrowingResourceSettings GetRandomForestTree()
         {
             float totalWeight = 0f;
             foreach (var resource in ForestTreeResources)
@@ -83,7 +84,7 @@ namespace Systems.World_Building.Scripts
             {
                 if (randomPoint < resource.SpawnPercentage)
                 {
-                    return resource.ResourceData as GrowingResourceData;
+                    return resource.ResourceSettings as GrowingResourceSettings;
                 }
                 randomPoint -= resource.SpawnPercentage;
             }
@@ -91,7 +92,7 @@ namespace Systems.World_Building.Scripts
             return null; // In case something goes wrong
         }
 
-        public ResourceData GetRandomForestAdditional()
+        public ResourceSettings GetRandomForestAdditional()
         {
             float totalWeight = 0f;
             foreach (var resource in ForestAdditionalResources)
@@ -104,7 +105,7 @@ namespace Systems.World_Building.Scripts
             {
                 if (randomPoint < resource.SpawnPercentage)
                 {
-                    return resource.ResourceData;
+                    return resource.ResourceSettings;
                 }
                 randomPoint -= resource.SpawnPercentage;
             }
@@ -112,7 +113,7 @@ namespace Systems.World_Building.Scripts
             return null; // In case something goes wrong
         }
 
-        public ResourceData GetRandomVegitation()
+        public ResourceSettings GetRandomVegitation()
         {
             float totalWeight = 0f;
             foreach (var resource in VegitationResources)
@@ -125,7 +126,7 @@ namespace Systems.World_Building.Scripts
             {
                 if (randomPoint < resource.SpawnPercentage)
                 {
-                    return resource.ResourceData;
+                    return resource.ResourceSettings;
                 }
                 randomPoint -= resource.SpawnPercentage;
             }
@@ -133,7 +134,7 @@ namespace Systems.World_Building.Scripts
             return null; // In case something goes wrong
         }
 
-        public ResourceData GetRandomAdditional()
+        public ResourceSettings GetRandomAdditional()
         {
             float totalWeight = 0f;
             foreach (var resource in AdditionalResources)
@@ -146,7 +147,7 @@ namespace Systems.World_Building.Scripts
             {
                 if (randomPoint < resource.SpawnPercentage)
                 {
-                    return resource.ResourceData;
+                    return resource.ResourceSettings;
                 }
                 randomPoint -= resource.SpawnPercentage;
             }
@@ -158,12 +159,12 @@ namespace Systems.World_Building.Scripts
     [System.Serializable]
     public class ResourceDataPercentage
     {
-        public ResourceData ResourceData;
+        public ResourceSettings ResourceSettings;
         public float SpawnPercentage = 0f;
 
-        public ResourceDataPercentage(ResourceData resourceData, float percentage)
+        public ResourceDataPercentage(ResourceSettings resourceSettings, float percentage)
         {
-            ResourceData = resourceData;
+            ResourceSettings = resourceSettings;
             SpawnPercentage = percentage;
         }
     }
@@ -171,24 +172,24 @@ namespace Systems.World_Building.Scripts
     [System.Serializable]
     public class MountainDataPercentage
     {
-        public MountainResourceData MountainData;
+        public MountainSettings MountainSettings;
         public float spawnPercentage = 0f; // Default to 0 for new entries, except for the first one which we'll manage in the editor script.
 
         // Constructor to easily create new instances with default values
-        public MountainDataPercentage(MountainResourceData mountainData, float percentage)
+        public MountainDataPercentage(MountainSettings mountainSettings, float percentage)
         {
-            MountainData = mountainData;
+            MountainSettings = mountainSettings;
             spawnPercentage = percentage;
         }
 
         public MountainTileType GetMountainTileType()
         {
-            if (MountainData == null)
+            if (MountainSettings == null)
             {
                 return MountainTileType.Empty;
             }
 
-            return MountainData.MountainTileType;
+            return MountainSettings.MountainTileType;
         }
     }
 }

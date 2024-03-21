@@ -1,13 +1,13 @@
-using System;
+using Data.Item;
+using Databrain;
 using UnityEngine;
 
-namespace ScriptableObjects
+namespace Data.Resource
 {
-    [CreateAssetMenu(fileName = "CropSettings", menuName = "Settings/Resources/Crop Settings")]
-    public class CropSettings : ScriptableObject
+    public class CropSettings : DataObject
     {
         public string CropName;
-        public ItemSettings HarvestedItem;
+        public ItemDataSettings HarvestedItem;
         public Sprite Stage1, Stage2, Stage3, Stage4;
         public float TimeToHarvestSec;
         public float WaterFrequencySec;

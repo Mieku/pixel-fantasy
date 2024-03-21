@@ -1,5 +1,119 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8826856979854169033
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b5fa73f7440dec40bced78300c9515e, type: 3}
+  m_Name: Apple Tree
+  m_EditorClassIdentifier: 
+  guid: 77d08a34-f03b-4942-bae0-2a21418a5ef3
+  initialGuid: 77d08a34-f03b-4942-bae0-2a21418a5ef3
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: 9ef8790bd2426b44aa479b2178f73efe, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Apple Tree
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 2
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
+  _workToExtract: 20
+  _harvestableItems:
+    _itemDrops: []
+  _potentialSprites: []
+  _maxHealth: 100
+  _minWorkDistance: 0.75
+  _baseData: {fileID: 6551958446649319986}
+  _growthStages:
+  - StageName: Sapling
+    GrowthSprite: {fileID: 21300000, guid: 340e51f3e8e15714689db84a04c628ba, type: 3}
+    Scale: 1
+    SecsInStage: 30
+    HarvestableItems:
+      _itemDrops:
+      - Item: {fileID: 283630323700872253}
+        MinDrop: 1
+        MaxDrop: 1
+    WorkToCut: 3
+  - StageName: Young
+    GrowthSprite: {fileID: 21300000, guid: 6cbd7fdca17fd844c98ebff3ffe31450, type: 3}
+    Scale: 1
+    SecsInStage: 30
+    HarvestableItems:
+      _itemDrops:
+      - Item: {fileID: 283630323700872253}
+        MinDrop: 1
+        MaxDrop: 2
+    WorkToCut: 8
+  - StageName: Adult
+    GrowthSprite: {fileID: 21300000, guid: 9ef8790bd2426b44aa479b2178f73efe, type: 3}
+    Scale: 1
+    SecsInStage: 0
+    HarvestableItems:
+      _itemDrops:
+      - Item: {fileID: 283630323700872253}
+        MinDrop: 2
+        MaxDrop: 4
+    WorkToCut: 8
+  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
+  _hasFruit: 1
+  _growFruitTime: 40
+  _fruitOverlay: {fileID: 21300000, guid: 48ee55af15a3565478364b54e85d85d1, type: 3}
+  _fruitFlowersOverlay: {fileID: 21300000, guid: cf299772b1725cc48adc078fcf6d0f1f, type: 3}
+  _harvestableFruit:
+    _itemDrops:
+    - Item: {fileID: 3255695680348296240}
+      MinDrop: 2
+      MaxDrop: 4
+  _workToHarvest: 5
+--- !u!114 &-8551016356470875681
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fb31eb39cd3d1342a1ef7e1d52dc828, type: 3}
+  m_Name: Stick
+  m_EditorClassIdentifier: 
+  guid: 1c3c83e7-f434-458e-92c5-11e0565209ac
+  initialGuid: 1c3c83e7-f434-458e-92c5-11e0565209ac
+  runtimeIndexID: 
+  icon: {fileID: -168499877, guid: cde0bb39e0dd2f742954541f1d452824, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Stick
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 6
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 2919327189383101433, guid: 83b276780b22eee4d925461adebde20c, type: 3}
+  _workToExtract: 5
+  _harvestableItems:
+    _itemDrops:
+    - Item: {fileID: 283630323700872253}
+      MinDrop: 0
+      MaxDrop: 1
+  _potentialSprites:
+  - {fileID: -168499877, guid: cde0bb39e0dd2f742954541f1d452824, type: 3}
+  _maxHealth: 5
+  _minWorkDistance: 0.75
+  _baseData: {fileID: -4328041401239383635}
 --- !u!114 &-7963632896702530702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -70,6 +184,58 @@ MonoBehaviour:
   _category: 0
   _maxDurability: 100
   _baseData: {fileID: 4384225487442251340}
+--- !u!114 &-7537548514081941852
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fb31eb39cd3d1342a1ef7e1d52dc828, type: 3}
+  m_Name: Flower
+  m_EditorClassIdentifier: 
+  guid: a3d47a0e-2983-447f-ac48-42efb8a6d2cc
+  initialGuid: a3d47a0e-2983-447f-ac48-42efb8a6d2cc
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: f22dd3b7bb4fb5342b324d2f2b6fc0e5, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Flower
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 4
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 906310196879369055, guid: 7d7f9b7dc6a672e45ae9ab91f1a9431c, type: 3}
+  _workToExtract: 5
+  _harvestableItems:
+    _itemDrops: []
+  _potentialSprites:
+  - {fileID: 21300000, guid: d232dee733a0b284cb4f63fd44eb3b1e, type: 3}
+  - {fileID: 21300000, guid: 6c2f5d7e273ae9246a32cc8935289e56, type: 3}
+  - {fileID: 21300000, guid: 74eba1d1144661841bc8698f9e8848a4, type: 3}
+  - {fileID: 21300000, guid: e310043aa95880543b9cda01d0b9f2bb, type: 3}
+  - {fileID: 21300000, guid: 71c2f49998383de419512d8ba57c5d35, type: 3}
+  - {fileID: 21300000, guid: 632d58347372618469a818ad6ec81cf6, type: 3}
+  - {fileID: 21300000, guid: ff4f4b712e2f44343a65215909102c09, type: 3}
+  - {fileID: 21300000, guid: f6d2c60e470376846806d5b20663334a, type: 3}
+  - {fileID: 21300000, guid: 80366efda14cc2a40a733e8bcd8fd72e, type: 3}
+  - {fileID: 21300000, guid: 28c9531df6c2cf445a98c453ffe5fe85, type: 3}
+  - {fileID: 21300000, guid: 0b01e25436817084c90ae08952ea1091, type: 3}
+  - {fileID: 21300000, guid: acc0a0214dd89d14f9eaf71a69e52251, type: 3}
+  - {fileID: 21300000, guid: 4cee6a9231d83f84a978de07310c5ff7, type: 3}
+  - {fileID: 21300000, guid: e1ca26bfec56bf545b40564fe2191aad, type: 3}
+  - {fileID: 21300000, guid: 141e9ac0b8783f94bb1a0b2e2848f2d1, type: 3}
+  - {fileID: 21300000, guid: 2c6a352fb5e995d489699487abe815ad, type: 3}
+  - {fileID: 21300000, guid: cead492bd8bcd9949bf380d083ae3539, type: 3}
+  - {fileID: 21300000, guid: ba3fe77bde9281d4083966e7aa6c6c6e, type: 3}
+  _maxHealth: 5
+  _minWorkDistance: 0.75
+  _baseData: {fileID: 6734689318582040478}
 --- !u!114 &-6728472306890164557
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -80,7 +246,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f19df7a6b899d74a8f4bd5f23a7b97b, type: 3}
-  m_Name: Spruce
+  m_Name: Weed
   m_EditorClassIdentifier: 
   guid: afab236e-b3a0-4ef9-bd0a-8af1b7290840
   initialGuid: afab236e-b3a0-4ef9-bd0a-8af1b7290840
@@ -96,19 +262,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
-  _workToExtract: 20
-  _harvestableItems:
-    _itemDrops: []
-  _potentialSprites: []
-  _maxHealth: 100
-  _minWorkDistance: 0.75
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
   SpriteIndex: 0
   Health: 0
   RemainingExtractWork: 0
@@ -120,45 +273,7 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
-  _growthStages:
-  - StageName: Sapling
-    GrowthSprite: {fileID: 21300000, guid: 848c8a290210208458a065fe90d72377, type: 3}
-    Scale: 1
-    SecsInStage: 30
-    HarvestableItems:
-      _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 1
-    WorkToCut: 3
-  - StageName: Young
-    GrowthSprite: {fileID: 21300000, guid: e69f0d5d62afaac41a5d245a1b5e47f7, type: 3}
-    Scale: 1
-    SecsInStage: 60
-    HarvestableItems:
-      _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 2
-    WorkToCut: 8
-  - StageName: Adult
-    GrowthSprite: {fileID: 21300000, guid: 0669b6defaeb36f4fb13b0c77836a30d, type: 3}
-    Scale: 1
-    SecsInStage: 0
-    HarvestableItems:
-      _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 2
-        MaxDrop: 4
-    WorkToCut: 8
-  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
-  _hasFruit: 0
-  _growFruitTime: 0
-  _fruitOverlay: {fileID: 0}
-  _fruitFlowersOverlay: {fileID: 0}
-  _harvestableFruit:
-    _itemDrops: []
-  _workToHarvest: 0
+  Settings: {fileID: 0}
   GrowthIndex: 0
   AgeSec: 0
   FruitTimer: 0
@@ -206,6 +321,145 @@ MonoBehaviour:
   LinkedItem: {fileID: 0}
   Settings: {fileID: 0}
   CraftersUID: 
+--- !u!114 &-6019863603477039158
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b5fa73f7440dec40bced78300c9515e, type: 3}
+  m_Name: Bush
+  m_EditorClassIdentifier: 
+  guid: 5d94d31b-b0a7-47d7-9db0-38af4c34df43
+  initialGuid: 5d94d31b-b0a7-47d7-9db0-38af4c34df43
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: 0fd3f59d6e5bc924fbc75655b4a41224, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Bush
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 1
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 8379773904936381525, guid: e6965deb74f3c394a874724af113892a, type: 3}
+  _workToExtract: 10
+  _harvestableItems:
+    _itemDrops: []
+  _potentialSprites: []
+  _maxHealth: 100
+  _minWorkDistance: 0.75
+  _baseData: {fileID: 7784763088285507379}
+  _growthStages:
+  - StageName: Young
+    GrowthSprite: {fileID: 21300000, guid: 0fd3f59d6e5bc924fbc75655b4a41224, type: 3}
+    Scale: 0.75
+    SecsInStage: 60
+    HarvestableItems:
+      _itemDrops:
+      - Item: {fileID: 283630323700872253}
+        MinDrop: 0
+        MaxDrop: 1
+    WorkToCut: 5
+  - StageName: Adult
+    GrowthSprite: {fileID: 21300000, guid: 0fd3f59d6e5bc924fbc75655b4a41224, type: 3}
+    Scale: 1
+    SecsInStage: 0
+    HarvestableItems:
+      _itemDrops:
+      - Item: {fileID: 283630323700872253}
+        MinDrop: 1
+        MaxDrop: 2
+    WorkToCut: 8
+  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
+  _hasFruit: 0
+  _growFruitTime: 0
+  _fruitOverlay: {fileID: 0}
+  _fruitFlowersOverlay: {fileID: 0}
+  _harvestableFruit:
+    _itemDrops: []
+  _workToHarvest: 0
+--- !u!114 &-5616670523631247670
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fb31eb39cd3d1342a1ef7e1d52dc828, type: 3}
+  m_Name: Mushroom
+  m_EditorClassIdentifier: 
+  guid: 343b271c-2aec-47cf-b969-79afce4d0650
+  initialGuid: 343b271c-2aec-47cf-b969-79afce4d0650
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: c0cec297fa7b5a94fa41d24c0f92ac25, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Mushroom
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 1
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 8171490800812371991, guid: 47d3a3f0d00e1b44fbd10ad53ebff7b5, type: 3}
+  _workToExtract: 5
+  _harvestableItems:
+    _itemDrops: []
+  _potentialSprites:
+  - {fileID: 21300000, guid: c0cec297fa7b5a94fa41d24c0f92ac25, type: 3}
+  - {fileID: 801511726, guid: 2aa1d04d9bcb58d49a8dafb36a7fe309, type: 3}
+  - {fileID: -278860237, guid: 2aa1d04d9bcb58d49a8dafb36a7fe309, type: 3}
+  _maxHealth: 5
+  _minWorkDistance: 0.75
+  _baseData: {fileID: 7531465296088124193}
+--- !u!114 &-5382145946460636157
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc957fd26344204d8c99b17b78b454d, type: 3}
+  m_Name: Tin Mountain
+  m_EditorClassIdentifier: 
+  guid: 2fc2c1e1-3cdc-4f31-9f28-26eb92967acb
+  initialGuid: 2fc2c1e1-3cdc-4f31-9f28-26eb92967acb
+  runtimeIndexID: 
+  icon: {fileID: -1772041207, guid: 61df65287fe891b409309a049a6c7eea, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Tin Mountain
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 5
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 5442789227045615136, guid: a2f1f897b269aef4bb1bc9e05066305d, type: 3}
+  _workToExtract: 30
+  _harvestableItems:
+    _itemDrops:
+    - Item: {fileID: 4497696957364699314}
+      MinDrop: 1
+      MaxDrop: 2
+  _potentialSprites: []
+  _maxHealth: 100
+  _minWorkDistance: 0.75
+  _baseData: {fileID: 1636724805157081006}
+  _ruleTile: {fileID: 11400000, guid: c79f60c15b97a6a4b9c0809eee602674, type: 2}
+  _mountainTileType: 4
 --- !u!114 &-5298398873868244794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -246,6 +500,79 @@ MonoBehaviour:
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
   Settings: {fileID: 0}
+--- !u!114 &-5234865138297875417
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b5fa73f7440dec40bced78300c9515e, type: 3}
+  m_Name: Cedar
+  m_EditorClassIdentifier: 
+  guid: 8cddfda8-a43b-427d-9ae5-a5c249b1bb43
+  initialGuid: 8cddfda8-a43b-427d-9ae5-a5c249b1bb43
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: 1b981ea2884cab84c902e3da9496b3c9, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Cedar
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 6
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
+  _workToExtract: 20
+  _harvestableItems:
+    _itemDrops: []
+  _potentialSprites: []
+  _maxHealth: 100
+  _minWorkDistance: 0.75
+  _baseData: {fileID: -2419358363865988586}
+  _growthStages:
+  - StageName: Sapling
+    GrowthSprite: {fileID: 21300000, guid: 848c8a290210208458a065fe90d72377, type: 3}
+    Scale: 1
+    SecsInStage: 30
+    HarvestableItems:
+      _itemDrops:
+      - Item: {fileID: 283630323700872253}
+        MinDrop: 1
+        MaxDrop: 1
+    WorkToCut: 3
+  - StageName: Young
+    GrowthSprite: {fileID: 21300000, guid: a284e95ba7797e44ea5649dbe0341297, type: 3}
+    Scale: 1
+    SecsInStage: 60
+    HarvestableItems:
+      _itemDrops:
+      - Item: {fileID: 283630323700872253}
+        MinDrop: 1
+        MaxDrop: 2
+    WorkToCut: 8
+  - StageName: Adult
+    GrowthSprite: {fileID: 21300000, guid: 1b981ea2884cab84c902e3da9496b3c9, type: 3}
+    Scale: 1
+    SecsInStage: 0
+    HarvestableItems:
+      _itemDrops:
+      - Item: {fileID: 283630323700872253}
+        MinDrop: 2
+        MaxDrop: 4
+    WorkToCut: 8
+  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
+  _hasFruit: 0
+  _growFruitTime: 0
+  _fruitOverlay: {fileID: 0}
+  _fruitFlowersOverlay: {fileID: 0}
+  _harvestableFruit:
+    _itemDrops: []
+  _workToHarvest: 0
 --- !u!114 &-5005131501070810583
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -299,7 +626,7 @@ MonoBehaviour:
   m_Name: HelpModule
   m_EditorClassIdentifier: 
   welcomeWindow: {fileID: 0}
---- !u!114 &-4434914887024288142
+--- !u!114 &-4573124533214609923
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -308,18 +635,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f19df7a6b899d74a8f4bd5f23a7b97b, type: 3}
-  m_Name: Birch
+  m_Script: {fileID: 11500000, guid: 0b5fa73f7440dec40bced78300c9515e, type: 3}
+  m_Name: Oak
   m_EditorClassIdentifier: 
-  guid: 97982ef2-987a-4af7-a4e1-8367816fcc41
-  initialGuid: 97982ef2-987a-4af7-a4e1-8367816fcc41
+  guid: 8e81ba3b-928e-40c0-b8c4-63b5a0b998b6
+  initialGuid: 8e81ba3b-928e-40c0-b8c4-63b5a0b998b6
   runtimeIndexID: 
-  icon: {fileID: 21300000, guid: 96b07be1f86d0a74b92c49b4393339f9, type: 3}
+  icon: {fileID: 21300000, guid: 75dedd5215afc2a4fbb06f47f576e865, type: 3}
   color: {r: 0, g: 0, b: 0, a: 0}
-  title: Birch
+  title: Oak
   description: This is a description of the newly created data entry.
   tags: []
-  index: 4
+  index: 5
   relatedLibraryObject: {fileID: 11400000}
   runtimeLibraryObject: {fileID: 0}
   assignedGuid: 
@@ -332,23 +659,80 @@ MonoBehaviour:
   _potentialSprites: []
   _maxHealth: 100
   _minWorkDistance: 0.75
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
-  SpriteIndex: 0
-  Health: 0
-  RemainingExtractWork: 0
-  CurrentTask:
-    TaskId: 
-    TaskType: 0
-    KinlingAssignedToTask: {fileID: 0}
-    Materials: []
-    RequiredToolType: 0
-    IsKinlingSpecific: 0
-  Position: {x: 0, y: 0}
+  _baseData: {fileID: 3669178811856810939}
+  _growthStages:
+  - StageName: Sapling
+    GrowthSprite: {fileID: 21300000, guid: e594107e0ac22204bb5b9f8b3ffe804a, type: 3}
+    Scale: 1
+    SecsInStage: 30
+    HarvestableItems:
+      _itemDrops:
+      - Item: {fileID: 283630323700872253}
+        MinDrop: 1
+        MaxDrop: 1
+    WorkToCut: 3
+  - StageName: Young
+    GrowthSprite: {fileID: 21300000, guid: 91d83a0ef9e8579449e8efec2b58475d, type: 3}
+    Scale: 1
+    SecsInStage: 60
+    HarvestableItems:
+      _itemDrops:
+      - Item: {fileID: 283630323700872253}
+        MinDrop: 1
+        MaxDrop: 2
+    WorkToCut: 8
+  - StageName: Adult
+    GrowthSprite: {fileID: 21300000, guid: 75dedd5215afc2a4fbb06f47f576e865, type: 3}
+    Scale: 1
+    SecsInStage: 0
+    HarvestableItems:
+      _itemDrops:
+      - Item: {fileID: 283630323700872253}
+        MinDrop: 2
+        MaxDrop: 4
+    WorkToCut: 8
+  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
+  _hasFruit: 0
+  _growFruitTime: 0
+  _fruitOverlay: {fileID: 0}
+  _fruitFlowersOverlay: {fileID: 0}
+  _harvestableFruit:
+    _itemDrops: []
+  _workToHarvest: 0
+--- !u!114 &-4475304769038901388
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b5fa73f7440dec40bced78300c9515e, type: 3}
+  m_Name: Birch
+  m_EditorClassIdentifier: 
+  guid: 9b845cbf-6fc0-43ec-921a-8b3dfa0b405c
+  initialGuid: 9b845cbf-6fc0-43ec-921a-8b3dfa0b405c
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: 96b07be1f86d0a74b92c49b4393339f9, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Birch
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 7
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
+  _workToExtract: 20
+  _harvestableItems:
+    _itemDrops: []
+  _potentialSprites: []
+  _maxHealth: 100
+  _minWorkDistance: 0.75
+  _baseData: {fileID: -4434914887024288142}
   _growthStages:
   - StageName: Sapling
     GrowthSprite: {fileID: 21300000, guid: e594107e0ac22204bb5b9f8b3ffe804a, type: 3}
@@ -388,6 +772,44 @@ MonoBehaviour:
   _harvestableFruit:
     _itemDrops: []
   _workToHarvest: 0
+--- !u!114 &-4434914887024288142
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f19df7a6b899d74a8f4bd5f23a7b97b, type: 3}
+  m_Name: Birch
+  m_EditorClassIdentifier: 
+  guid: 97982ef2-987a-4af7-a4e1-8367816fcc41
+  initialGuid: 97982ef2-987a-4af7-a4e1-8367816fcc41
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: 96b07be1f86d0a74b92c49b4393339f9, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Birch
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 4
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  SpriteIndex: 0
+  Health: 0
+  RemainingExtractWork: 0
+  CurrentTask:
+    TaskId: 
+    TaskType: 0
+    KinlingAssignedToTask: {fileID: 0}
+    Materials: []
+    RequiredToolType: 0
+    IsKinlingSpecific: 0
+  Position: {x: 0, y: 0}
+  Settings: {fileID: 0}
   GrowthIndex: 0
   AgeSec: 0
   FruitTimer: 0
@@ -420,23 +842,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _prefab: {fileID: 2919327189383101433, guid: 83b276780b22eee4d925461adebde20c, type: 3}
-  _workToExtract: 5
-  _harvestableItems:
-    _itemDrops:
-    - Item: {fileID: 283630323700872253}
-      MinDrop: 0
-      MaxDrop: 1
-  _potentialSprites:
-  - {fileID: -168499877, guid: cde0bb39e0dd2f742954541f1d452824, type: 3}
-  _maxHealth: 5
-  _minWorkDistance: 0.75
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
   SpriteIndex: 0
   Health: 0
   RemainingExtractWork: 0
@@ -448,6 +853,7 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
+  Settings: {fileID: 0}
 --- !u!114 &-4106105843404846981
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -488,6 +894,89 @@ MonoBehaviour:
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
   Settings: {fileID: 0}
+--- !u!114 &-3988254819297850314
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fb31eb39cd3d1342a1ef7e1d52dc828, type: 3}
+  m_Name: Rock
+  m_EditorClassIdentifier: 
+  guid: 0ee8a132-4749-47c1-8c7b-407b2291f293
+  initialGuid: 0ee8a132-4749-47c1-8c7b-407b2291f293
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: 4a79996dfd517a346aa042b5307508ca, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Rock
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 3630224067709912070, guid: 1e285695b28aebc48a8bab97dfdd4b87, type: 3}
+  _workToExtract: 5
+  _harvestableItems:
+    _itemDrops:
+    - Item: {fileID: -7757045536695828918}
+      MinDrop: 1
+      MaxDrop: 1
+  _potentialSprites:
+  - {fileID: 21300000, guid: 6bf4cd3e76b83c1499886fb77bf115d1, type: 3}
+  - {fileID: 21300000, guid: 8755168f4f19fac4bb82847262828d42, type: 3}
+  - {fileID: 21300000, guid: 4a79996dfd517a346aa042b5307508ca, type: 3}
+  - {fileID: 21300000, guid: 2168842bba246f845a72943e2abbca90, type: 3}
+  - {fileID: 21300000, guid: a1e57c9368fb5684c87dd57f724d34fd, type: 3}
+  - {fileID: 21300000, guid: 1a123ce38e4dea54f9f4baf9aa60a329, type: 3}
+  - {fileID: 21300000, guid: 44cb070754958b241b8535b5d853801e, type: 3}
+  _maxHealth: 5
+  _minWorkDistance: 0.75
+  _baseData: {fileID: 115313260348806446}
+--- !u!114 &-3244215572019641743
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc957fd26344204d8c99b17b78b454d, type: 3}
+  m_Name: Gold Mountain
+  m_EditorClassIdentifier: 
+  guid: 690e9cad-b220-4a7e-a755-d54c5d4b17db
+  initialGuid: 690e9cad-b220-4a7e-a755-d54c5d4b17db
+  runtimeIndexID: 
+  icon: {fileID: -1737689449, guid: e2e91c8b60d6d9946bf99098e8c26f3d, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Gold Mountain
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 2
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 5442789227045615136, guid: a2f1f897b269aef4bb1bc9e05066305d, type: 3}
+  _workToExtract: 30
+  _harvestableItems:
+    _itemDrops:
+    - Item: {fileID: 3255695680348296240}
+      MinDrop: 1
+      MaxDrop: 2
+  _potentialSprites: []
+  _maxHealth: 100
+  _minWorkDistance: 0.75
+  _baseData: {fileID: 2268203417634399997}
+  _ruleTile: {fileID: 11400000, guid: 3bab186eaf5aef14aacaecfacdae194a, type: 2}
+  _mountainTileType: 6
 --- !u!114 &-3020583608536372809
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -697,19 +1186,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
-  _workToExtract: 20
-  _harvestableItems:
-    _itemDrops: []
-  _potentialSprites: []
-  _maxHealth: 100
-  _minWorkDistance: 0.75
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
   SpriteIndex: 0
   Health: 0
   RemainingExtractWork: 0
@@ -721,9 +1197,50 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
+  Settings: {fileID: 0}
+  GrowthIndex: 0
+  AgeSec: 0
+  FruitTimer: 0
+  ShowingFlowers: 0
+  RemainingHarvestWork: 0
+  HasFruitAvailable: 0
+--- !u!114 &-2223189296075001792
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b5fa73f7440dec40bced78300c9515e, type: 3}
+  m_Name: Orange Tree
+  m_EditorClassIdentifier: 
+  guid: 068babba-c052-475b-bec1-fa12b89251a3
+  initialGuid: 068babba-c052-475b-bec1-fa12b89251a3
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: 9ef8790bd2426b44aa479b2178f73efe, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Orange Tree
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 3
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
+  _workToExtract: 20
+  _harvestableItems:
+    _itemDrops: []
+  _potentialSprites: []
+  _maxHealth: 100
+  _minWorkDistance: 0.75
+  _baseData: {fileID: 8216239440353706561}
   _growthStages:
   - StageName: Sapling
-    GrowthSprite: {fileID: 21300000, guid: 848c8a290210208458a065fe90d72377, type: 3}
+    GrowthSprite: {fileID: 21300000, guid: 340e51f3e8e15714689db84a04c628ba, type: 3}
     Scale: 1
     SecsInStage: 30
     HarvestableItems:
@@ -733,9 +1250,9 @@ MonoBehaviour:
         MaxDrop: 1
     WorkToCut: 3
   - StageName: Young
-    GrowthSprite: {fileID: 21300000, guid: a284e95ba7797e44ea5649dbe0341297, type: 3}
+    GrowthSprite: {fileID: 21300000, guid: 6cbd7fdca17fd844c98ebff3ffe31450, type: 3}
     Scale: 1
-    SecsInStage: 60
+    SecsInStage: 30
     HarvestableItems:
       _itemDrops:
       - Item: {fileID: 283630323700872253}
@@ -743,7 +1260,7 @@ MonoBehaviour:
         MaxDrop: 2
     WorkToCut: 8
   - StageName: Adult
-    GrowthSprite: {fileID: 21300000, guid: 1b981ea2884cab84c902e3da9496b3c9, type: 3}
+    GrowthSprite: {fileID: 21300000, guid: 9ef8790bd2426b44aa479b2178f73efe, type: 3}
     Scale: 1
     SecsInStage: 0
     HarvestableItems:
@@ -753,19 +1270,16 @@ MonoBehaviour:
         MaxDrop: 4
     WorkToCut: 8
   _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
-  _hasFruit: 0
-  _growFruitTime: 0
-  _fruitOverlay: {fileID: 0}
-  _fruitFlowersOverlay: {fileID: 0}
+  _hasFruit: 1
+  _growFruitTime: 40
+  _fruitOverlay: {fileID: 21300000, guid: 7f3e56da82bb4904abc880881a2e95d8, type: 3}
+  _fruitFlowersOverlay: {fileID: 21300000, guid: cf299772b1725cc48adc078fcf6d0f1f, type: 3}
   _harvestableFruit:
-    _itemDrops: []
-  _workToHarvest: 0
-  GrowthIndex: 0
-  AgeSec: 0
-  FruitTimer: 0
-  ShowingFlowers: 0
-  RemainingHarvestWork: 0
-  HasFruitAvailable: 0
+    _itemDrops:
+    - Item: {fileID: 2545999382318138489}
+      MinDrop: 2
+      MaxDrop: 4
+  _workToHarvest: 5
 --- !u!114 &-1887156828929915283
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -792,22 +1306,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _prefab: {fileID: 5442789227045615136, guid: a2f1f897b269aef4bb1bc9e05066305d, type: 3}
-  _workToExtract: 30
-  _harvestableItems:
-    _itemDrops:
-    - Item: {fileID: -1220354795818533566}
-      MinDrop: 1
-      MaxDrop: 2
-  _potentialSprites: []
-  _maxHealth: 100
-  _minWorkDistance: 0.75
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
   SpriteIndex: 0
   Health: 0
   RemainingExtractWork: 0
@@ -819,8 +1317,7 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
-  _ruleTile: {fileID: 11400000, guid: 93e70c7ca59bc304194a8337ca2b45d0, type: 2}
-  _mountainTileType: 3
+  Settings: {fileID: 0}
   RemainingWork: 0
 --- !u!114 &-1752239673643862743
 MonoBehaviour:
@@ -848,19 +1345,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _prefab: {fileID: 8379773904936381525, guid: e6965deb74f3c394a874724af113892a, type: 3}
-  _workToExtract: 10
-  _harvestableItems:
-    _itemDrops: []
-  _potentialSprites: []
-  _maxHealth: 100
-  _minWorkDistance: 0.75
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
   SpriteIndex: 0
   Health: 0
   RemainingExtractWork: 0
@@ -872,44 +1356,125 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
-  _growthStages:
-  - StageName: Young
-    GrowthSprite: {fileID: 21300000, guid: 0fd3f59d6e5bc924fbc75655b4a41224, type: 3}
-    Scale: 0.75
-    SecsInStage: 60
-    HarvestableItems:
-      _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 0
-        MaxDrop: 1
-    WorkToCut: 5
-  - StageName: Adult
-    GrowthSprite: {fileID: 21300000, guid: 0fd3f59d6e5bc924fbc75655b4a41224, type: 3}
-    Scale: 1
-    SecsInStage: 0
-    HarvestableItems:
-      _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 2
-    WorkToCut: 8
-  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
-  _hasFruit: 1
-  _growFruitTime: 60
-  _fruitOverlay: {fileID: 21300000, guid: c25c4600cb9c8d04f9ed7273032012cf, type: 3}
-  _fruitFlowersOverlay: {fileID: 0}
-  _harvestableFruit:
-    _itemDrops:
-    - Item: {fileID: 0}
-      MinDrop: 1
-      MaxDrop: 1
-  _workToHarvest: 5
+  Settings: {fileID: 0}
   GrowthIndex: 0
   AgeSec: 0
   FruitTimer: 0
   ShowingFlowers: 0
   RemainingHarvestWork: 0
   HasFruitAvailable: 0
+--- !u!114 &-1507850535286381649
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc957fd26344204d8c99b17b78b454d, type: 3}
+  m_Name: Copper Mountain
+  m_EditorClassIdentifier: 
+  guid: 844bea08-715b-43d8-916e-4b4ff292ded9
+  initialGuid: 844bea08-715b-43d8-916e-4b4ff292ded9
+  runtimeIndexID: 
+  icon: {fileID: 1795128930, guid: e23672569b447584088f87cab31c4251, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Copper Mountain
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 3
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 5442789227045615136, guid: a2f1f897b269aef4bb1bc9e05066305d, type: 3}
+  _workToExtract: 30
+  _harvestableItems:
+    _itemDrops:
+    - Item: {fileID: 2545999382318138489}
+      MinDrop: 1
+      MaxDrop: 2
+  _potentialSprites: []
+  _maxHealth: 100
+  _minWorkDistance: 0.75
+  _baseData: {fileID: 6512197022579626652}
+  _ruleTile: {fileID: 11400000, guid: 103d4f7d42da3ba45a5b231963c3fde0, type: 2}
+  _mountainTileType: 2
+--- !u!114 &-1480566157623257057
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b5fa73f7440dec40bced78300c9515e, type: 3}
+  m_Name: Poplar
+  m_EditorClassIdentifier: 
+  guid: 008cc5b6-7da8-4ae2-89eb-bfea98f4baaf
+  initialGuid: 008cc5b6-7da8-4ae2-89eb-bfea98f4baaf
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: ccc921de49046a6468e4fa0270c5fbcf, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Poplar
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 4
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
+  _workToExtract: 20
+  _harvestableItems:
+    _itemDrops: []
+  _potentialSprites: []
+  _maxHealth: 100
+  _minWorkDistance: 0.75
+  _baseData: {fileID: 19725600825404008}
+  _growthStages:
+  - StageName: Sapling
+    GrowthSprite: {fileID: 21300000, guid: e594107e0ac22204bb5b9f8b3ffe804a, type: 3}
+    Scale: 1
+    SecsInStage: 30
+    HarvestableItems:
+      _itemDrops:
+      - Item: {fileID: 283630323700872253}
+        MinDrop: 1
+        MaxDrop: 1
+    WorkToCut: 3
+  - StageName: Young
+    GrowthSprite: {fileID: 21300000, guid: a0f6bcbb37221314296a09c1271f999f, type: 3}
+    Scale: 1
+    SecsInStage: 60
+    HarvestableItems:
+      _itemDrops:
+      - Item: {fileID: 283630323700872253}
+        MinDrop: 1
+        MaxDrop: 2
+    WorkToCut: 8
+  - StageName: Adult
+    GrowthSprite: {fileID: 21300000, guid: ccc921de49046a6468e4fa0270c5fbcf, type: 3}
+    Scale: 1
+    SecsInStage: 0
+    HarvestableItems:
+      _itemDrops:
+      - Item: {fileID: 283630323700872253}
+        MinDrop: 2
+        MaxDrop: 4
+    WorkToCut: 8
+  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
+  _hasFruit: 0
+  _growFruitTime: 0
+  _fruitOverlay: {fileID: 0}
+  _fruitFlowersOverlay: {fileID: 0}
+  _harvestableFruit:
+    _itemDrops: []
+  _workToHarvest: 0
 --- !u!114 &-1362852035674046031
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -936,23 +1501,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _prefab: {fileID: 2237005579245771593, guid: 2405aa579d18a204cbaae7185fe98266, type: 3}
-  _workToExtract: 5
-  _harvestableItems:
-    _itemDrops:
-    - Item: {fileID: 283630323700872253}
-      MinDrop: 1
-      MaxDrop: 1
-  _potentialSprites:
-  - {fileID: 21300000, guid: ec6cc8498ba24f94d852e86cf7441df2, type: 3}
-  _maxHealth: 5
-  _minWorkDistance: 0.75
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
   SpriteIndex: 0
   Health: 0
   RemainingExtractWork: 0
@@ -964,6 +1512,7 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
+  Settings: {fileID: 0}
 --- !u!114 &-1220354795818533566
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1115,21 +1664,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _prefab: {fileID: 1567881098773952703, guid: f6e3f4dcab112d84ca793e69ed2f6dbf, type: 3}
-  _workToExtract: 5
-  _harvestableItems:
-    _itemDrops: []
-  _potentialSprites:
-  - {fileID: 21300000, guid: 1108efb6e8213bb44adc20f64f5d7c41, type: 3}
-  - {fileID: 21300000, guid: ecdc013dbc4bb7d4ab4a5c84dd70f7cf, type: 3}
-  _maxHealth: 5
-  _minWorkDistance: 0.75
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
   SpriteIndex: 0
   Health: 0
   RemainingExtractWork: 0
@@ -1141,6 +1675,7 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
+  Settings: {fileID: 0}
 --- !u!114 &-36226739791890325
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1308,6 +1843,37 @@ MonoBehaviour:
         PublicKeyToken=null
       dataObjects:
       - {fileID: -191659240112778000}
+    - type: Data.Resource.MountainSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
+      - {fileID: 3668364348396301276}
+      - {fileID: 6402681467211676120}
+      - {fileID: -3244215572019641743}
+      - {fileID: -1507850535286381649}
+      - {fileID: 7513395007172917056}
+      - {fileID: -5382145946460636157}
+    - type: Data.Resource.ResourceSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
+      - {fileID: -3988254819297850314}
+      - {fileID: -5616670523631247670}
+      - {fileID: 3691257840117168964}
+      - {fileID: 1541201725904742396}
+      - {fileID: -7537548514081941852}
+      - {fileID: 1016202083419682433}
+      - {fileID: -8551016356470875681}
+    - type: Data.Resource.GrowingResourceSettings, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      dataObjects:
+      - {fileID: 2734676623599513326}
+      - {fileID: -6019863603477039158}
+      - {fileID: -8826856979854169033}
+      - {fileID: -2223189296075001792}
+      - {fileID: -1480566157623257057}
+      - {fileID: -4573124533214609923}
+      - {fileID: -5234865138297875417}
+      - {fileID: -4475304769038901388}
+      - {fileID: 2672976842291651213}
     _favoriteList: []
   copyData:
     _objectList: []
@@ -1349,6 +1915,27 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
+    - typeName: GrowingResourceSettings
+      typeAssemblyQualifiedName: Data.Resource.GrowingResourceSettings, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: CropSettings
+      typeAssemblyQualifiedName: Data.Resource.CropSettings, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: MountainSettings
+      typeAssemblyQualifiedName: Data.Resource.MountainSettings, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
     - typeName: WallSettings
       typeAssemblyQualifiedName: Data.Structure.WallSettings, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
@@ -1372,6 +1959,13 @@ MonoBehaviour:
       valuesFilter: []
     - typeName: FurnitureDataSettings
       typeAssemblyQualifiedName: Data.Item.FurnitureDataSettings, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: ResourceSettings
+      typeAssemblyQualifiedName: Data.Resource.ResourceSettings, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
@@ -1506,19 +2100,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
-  _workToExtract: 20
-  _harvestableItems:
-    _itemDrops: []
-  _potentialSprites: []
-  _maxHealth: 100
-  _minWorkDistance: 0.75
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
   SpriteIndex: 0
   Health: 0
   RemainingExtractWork: 0
@@ -1530,45 +2111,7 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
-  _growthStages:
-  - StageName: Sapling
-    GrowthSprite: {fileID: 21300000, guid: e594107e0ac22204bb5b9f8b3ffe804a, type: 3}
-    Scale: 1
-    SecsInStage: 30
-    HarvestableItems:
-      _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 1
-    WorkToCut: 3
-  - StageName: Young
-    GrowthSprite: {fileID: 21300000, guid: a0f6bcbb37221314296a09c1271f999f, type: 3}
-    Scale: 1
-    SecsInStage: 60
-    HarvestableItems:
-      _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 2
-    WorkToCut: 8
-  - StageName: Adult
-    GrowthSprite: {fileID: 21300000, guid: ccc921de49046a6468e4fa0270c5fbcf, type: 3}
-    Scale: 1
-    SecsInStage: 0
-    HarvestableItems:
-      _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 2
-        MaxDrop: 4
-    WorkToCut: 8
-  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
-  _hasFruit: 0
-  _growFruitTime: 0
-  _fruitOverlay: {fileID: 0}
-  _fruitFlowersOverlay: {fileID: 0}
-  _harvestableFruit:
-    _itemDrops: []
-  _workToHarvest: 0
+  Settings: {fileID: 0}
   GrowthIndex: 0
   AgeSec: 0
   FruitTimer: 0
@@ -1601,29 +2144,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _prefab: {fileID: 3630224067709912070, guid: 1e285695b28aebc48a8bab97dfdd4b87, type: 3}
-  _workToExtract: 5
-  _harvestableItems:
-    _itemDrops:
-    - Item: {fileID: -7757045536695828918}
-      MinDrop: 1
-      MaxDrop: 1
-  _potentialSprites:
-  - {fileID: 21300000, guid: 6bf4cd3e76b83c1499886fb77bf115d1, type: 3}
-  - {fileID: 21300000, guid: 8755168f4f19fac4bb82847262828d42, type: 3}
-  - {fileID: 21300000, guid: 4a79996dfd517a346aa042b5307508ca, type: 3}
-  - {fileID: 21300000, guid: 2168842bba246f845a72943e2abbca90, type: 3}
-  - {fileID: 21300000, guid: a1e57c9368fb5684c87dd57f724d34fd, type: 3}
-  - {fileID: 21300000, guid: 1a123ce38e4dea54f9f4baf9aa60a329, type: 3}
-  - {fileID: 21300000, guid: 44cb070754958b241b8535b5d853801e, type: 3}
-  _maxHealth: 8
-  _minWorkDistance: 0.75
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
   SpriteIndex: 0
   Health: 0
   RemainingExtractWork: 0
@@ -1635,6 +2155,7 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
+  Settings: {fileID: 0}
 --- !u!114 &129112436663426907
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1814,6 +2335,45 @@ MonoBehaviour:
   m_Name: SaveLoadModule
   m_EditorClassIdentifier: 
   dataLibrary: {fileID: 11400000}
+--- !u!114 &1016202083419682433
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fb31eb39cd3d1342a1ef7e1d52dc828, type: 3}
+  m_Name: Weed
+  m_EditorClassIdentifier: 
+  guid: fe5af1df-6843-4301-be46-224c8d698c22
+  initialGuid: fe5af1df-6843-4301-be46-224c8d698c22
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: f0e6d6e19ba2be648bed15dcc3814ea3, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Weed
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 5
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 4128056971819822129, guid: 8025b15f75a03e249b86e4b29cb3a92f, type: 3}
+  _workToExtract: 5
+  _harvestableItems:
+    _itemDrops: []
+  _potentialSprites:
+  - {fileID: 21300000, guid: 6445ea4b6f4fc3c45bd2afa90c10a269, type: 3}
+  - {fileID: 21300000, guid: 0e23f67b29cb04a4d9f223500ae57149, type: 3}
+  - {fileID: 21300000, guid: 799ed2f70ba879946a5afbdfa46b8d0e, type: 3}
+  - {fileID: 21300000, guid: f0e6d6e19ba2be648bed15dcc3814ea3, type: 3}
+  - {fileID: 21300000, guid: 4674c1b26bcef104e8a33df79f9dcce0, type: 3}
+  _maxHealth: 5
+  _minWorkDistance: 0.75
+  _baseData: {fileID: 7833847521327401813}
 --- !u!114 &1104450306893862740
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1958,6 +2518,42 @@ MonoBehaviour:
   Stored: []
   Incoming: []
   Claimed: []
+--- !u!114 &1541201725904742396
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fb31eb39cd3d1342a1ef7e1d52dc828, type: 3}
+  m_Name: Grass
+  m_EditorClassIdentifier: 
+  guid: 826a5894-c2dc-447a-b39b-c3c68da04117
+  initialGuid: 826a5894-c2dc-447a-b39b-c3c68da04117
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: 1108efb6e8213bb44adc20f64f5d7c41, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Grass
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 3
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 1567881098773952703, guid: f6e3f4dcab112d84ca793e69ed2f6dbf, type: 3}
+  _workToExtract: 5
+  _harvestableItems:
+    _itemDrops: []
+  _potentialSprites:
+  - {fileID: 21300000, guid: 1108efb6e8213bb44adc20f64f5d7c41, type: 3}
+  - {fileID: 21300000, guid: ecdc013dbc4bb7d4ab4a5c84dd70f7cf, type: 3}
+  _maxHealth: 5
+  _minWorkDistance: 0.75
+  _baseData: {fileID: -56553772185048440}
 --- !u!114 &1636724805157081006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1984,22 +2580,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _prefab: {fileID: 5442789227045615136, guid: a2f1f897b269aef4bb1bc9e05066305d, type: 3}
-  _workToExtract: 30
-  _harvestableItems:
-    _itemDrops:
-    - Item: {fileID: 4497696957364699314}
-      MinDrop: 1
-      MaxDrop: 2
-  _potentialSprites: []
-  _maxHealth: 100
-  _minWorkDistance: 0.75
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
   SpriteIndex: 0
   Health: 0
   RemainingExtractWork: 0
@@ -2011,8 +2591,7 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
-  _ruleTile: {fileID: 11400000, guid: c79f60c15b97a6a4b9c0809eee602674, type: 2}
-  _mountainTileType: 4
+  Settings: {fileID: 0}
   RemainingWork: 0
 --- !u!114 &1851590692530616479
 MonoBehaviour:
@@ -2080,22 +2659,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _prefab: {fileID: 5442789227045615136, guid: a2f1f897b269aef4bb1bc9e05066305d, type: 3}
-  _workToExtract: 30
-  _harvestableItems:
-    _itemDrops:
-    - Item: {fileID: -7757045536695828918}
-      MinDrop: 1
-      MaxDrop: 2
-  _potentialSprites: []
-  _maxHealth: 100
-  _minWorkDistance: 0.75
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
   SpriteIndex: 0
   Health: 0
   RemainingExtractWork: 0
@@ -2107,8 +2670,7 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
-  _ruleTile: {fileID: 11400000, guid: 600ac304e528db849a504d0f0d8c7057, type: 2}
-  _mountainTileType: 1
+  Settings: {fileID: 0}
   RemainingWork: 0
 --- !u!114 &1983106924015250702
 MonoBehaviour:
@@ -2191,22 +2753,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _prefab: {fileID: 5442789227045615136, guid: a2f1f897b269aef4bb1bc9e05066305d, type: 3}
-  _workToExtract: 30
-  _harvestableItems:
-    _itemDrops:
-    - Item: {fileID: 3255695680348296240}
-      MinDrop: 1
-      MaxDrop: 2
-  _potentialSprites: []
-  _maxHealth: 100
-  _minWorkDistance: 0.75
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
   SpriteIndex: 0
   Health: 0
   RemainingExtractWork: 0
@@ -2218,8 +2764,7 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
-  _ruleTile: {fileID: 11400000, guid: 3bab186eaf5aef14aacaecfacdae194a, type: 2}
-  _mountainTileType: 6
+  Settings: {fileID: 0}
   RemainingWork: 0
 --- !u!114 &2545999382318138489
 MonoBehaviour:
@@ -2250,6 +2795,145 @@ MonoBehaviour:
   _category: 0
   _maxDurability: 100
   _baseData: {fileID: -4106105843404846981}
+--- !u!114 &2672976842291651213
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b5fa73f7440dec40bced78300c9515e, type: 3}
+  m_Name: Spruce
+  m_EditorClassIdentifier: 
+  guid: 8d9cd2a8-848a-4627-9d4e-7bf431b0b332
+  initialGuid: 8d9cd2a8-848a-4627-9d4e-7bf431b0b332
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: 0669b6defaeb36f4fb13b0c77836a30d, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Spruce
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 8
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
+  _workToExtract: 20
+  _harvestableItems:
+    _itemDrops: []
+  _potentialSprites: []
+  _maxHealth: 100
+  _minWorkDistance: 0.75
+  _baseData: {fileID: -6728472306890164557}
+  _growthStages:
+  - StageName: Sapling
+    GrowthSprite: {fileID: 21300000, guid: 848c8a290210208458a065fe90d72377, type: 3}
+    Scale: 1
+    SecsInStage: 30
+    HarvestableItems:
+      _itemDrops:
+      - Item: {fileID: 283630323700872253}
+        MinDrop: 1
+        MaxDrop: 1
+    WorkToCut: 3
+  - StageName: Young
+    GrowthSprite: {fileID: 21300000, guid: e69f0d5d62afaac41a5d245a1b5e47f7, type: 3}
+    Scale: 1
+    SecsInStage: 60
+    HarvestableItems:
+      _itemDrops:
+      - Item: {fileID: 283630323700872253}
+        MinDrop: 1
+        MaxDrop: 2
+    WorkToCut: 8
+  - StageName: Adult
+    GrowthSprite: {fileID: 21300000, guid: 0669b6defaeb36f4fb13b0c77836a30d, type: 3}
+    Scale: 1
+    SecsInStage: 0
+    HarvestableItems:
+      _itemDrops:
+      - Item: {fileID: 283630323700872253}
+        MinDrop: 2
+        MaxDrop: 4
+    WorkToCut: 8
+  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
+  _hasFruit: 0
+  _growFruitTime: 0
+  _fruitOverlay: {fileID: 0}
+  _fruitFlowersOverlay: {fileID: 0}
+  _harvestableFruit:
+    _itemDrops: []
+  _workToHarvest: 0
+--- !u!114 &2734676623599513326
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b5fa73f7440dec40bced78300c9515e, type: 3}
+  m_Name: Berry Bush
+  m_EditorClassIdentifier: 
+  guid: 95b368af-c4da-4f2b-bed9-4e502c24dfd8
+  initialGuid: 95b368af-c4da-4f2b-bed9-4e502c24dfd8
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: 0fd3f59d6e5bc924fbc75655b4a41224, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Berry Bush
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 8379773904936381525, guid: e6965deb74f3c394a874724af113892a, type: 3}
+  _workToExtract: 10
+  _harvestableItems:
+    _itemDrops: []
+  _potentialSprites: []
+  _maxHealth: 100
+  _minWorkDistance: 0.75
+  _baseData: {fileID: -1752239673643862743}
+  _growthStages:
+  - StageName: Young
+    GrowthSprite: {fileID: 21300000, guid: 0fd3f59d6e5bc924fbc75655b4a41224, type: 3}
+    Scale: 0.75
+    SecsInStage: 60
+    HarvestableItems:
+      _itemDrops:
+      - Item: {fileID: 283630323700872253}
+        MinDrop: 0
+        MaxDrop: 1
+    WorkToCut: 5
+  - StageName: Adult
+    GrowthSprite: {fileID: 21300000, guid: 0fd3f59d6e5bc924fbc75655b4a41224, type: 3}
+    Scale: 1
+    SecsInStage: 0
+    HarvestableItems:
+      _itemDrops:
+      - Item: {fileID: 283630323700872253}
+        MinDrop: 1
+        MaxDrop: 2
+    WorkToCut: 8
+  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
+  _hasFruit: 1
+  _growFruitTime: 60
+  _fruitOverlay: {fileID: 21300000, guid: c25c4600cb9c8d04f9ed7273032012cf, type: 3}
+  _fruitFlowersOverlay: {fileID: 0}
+  _harvestableFruit:
+    _itemDrops:
+    - Item: {fileID: -1220354795818533566}
+      MinDrop: 1
+      MaxDrop: 1
+  _workToHarvest: 5
 --- !u!114 &2760536265605788022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2404,6 +3088,45 @@ MonoBehaviour:
   _category: 0
   _maxDurability: 100
   _baseData: {fileID: -5298398873868244794}
+--- !u!114 &3668364348396301276
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc957fd26344204d8c99b17b78b454d, type: 3}
+  m_Name: Mountain
+  m_EditorClassIdentifier: 
+  guid: 86f1ff39-2974-4f01-b2fe-3f56a0053dce
+  initialGuid: 86f1ff39-2974-4f01-b2fe-3f56a0053dce
+  runtimeIndexID: 
+  icon: {fileID: 1925443608, guid: 68263d632d49f9749b9b4981df13377b, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Mountain
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 5442789227045615136, guid: a2f1f897b269aef4bb1bc9e05066305d, type: 3}
+  _workToExtract: 30
+  _harvestableItems:
+    _itemDrops:
+    - Item: {fileID: -7757045536695828918}
+      MinDrop: 1
+      MaxDrop: 2
+  _potentialSprites: []
+  _maxHealth: 100
+  _minWorkDistance: 0.75
+  _baseData: {fileID: 1868634605682467714}
+  _ruleTile: {fileID: 11400000, guid: 600ac304e528db849a504d0f0d8c7057, type: 2}
+  _mountainTileType: 1
 --- !u!114 &3669178811856810939
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2430,19 +3153,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
-  _workToExtract: 20
-  _harvestableItems:
-    _itemDrops: []
-  _potentialSprites: []
-  _maxHealth: 100
-  _minWorkDistance: 0.75
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
   SpriteIndex: 0
   Health: 0
   RemainingExtractWork: 0
@@ -2454,51 +3164,51 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
-  _growthStages:
-  - StageName: Sapling
-    GrowthSprite: {fileID: 21300000, guid: e594107e0ac22204bb5b9f8b3ffe804a, type: 3}
-    Scale: 1
-    SecsInStage: 30
-    HarvestableItems:
-      _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 1
-    WorkToCut: 3
-  - StageName: Young
-    GrowthSprite: {fileID: 21300000, guid: 91d83a0ef9e8579449e8efec2b58475d, type: 3}
-    Scale: 1
-    SecsInStage: 60
-    HarvestableItems:
-      _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 2
-    WorkToCut: 8
-  - StageName: Adult
-    GrowthSprite: {fileID: 21300000, guid: 75dedd5215afc2a4fbb06f47f576e865, type: 3}
-    Scale: 1
-    SecsInStage: 0
-    HarvestableItems:
-      _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 2
-        MaxDrop: 4
-    WorkToCut: 8
-  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
-  _hasFruit: 0
-  _growFruitTime: 0
-  _fruitOverlay: {fileID: 0}
-  _fruitFlowersOverlay: {fileID: 0}
-  _harvestableFruit:
-    _itemDrops: []
-  _workToHarvest: 0
+  Settings: {fileID: 0}
   GrowthIndex: 0
   AgeSec: 0
   FruitTimer: 0
   ShowingFlowers: 0
   RemainingHarvestWork: 0
   HasFruitAvailable: 0
+--- !u!114 &3691257840117168964
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fb31eb39cd3d1342a1ef7e1d52dc828, type: 3}
+  m_Name: Log
+  m_EditorClassIdentifier: 
+  guid: a1985e57-887b-404c-8bfa-14987bfbc280
+  initialGuid: a1985e57-887b-404c-8bfa-14987bfbc280
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: ec6cc8498ba24f94d852e86cf7441df2, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Log
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 2
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 2237005579245771593, guid: 2405aa579d18a204cbaae7185fe98266, type: 3}
+  _workToExtract: 5
+  _harvestableItems:
+    _itemDrops:
+    - Item: {fileID: 283630323700872253}
+      MinDrop: 1
+      MaxDrop: 2
+  _potentialSprites:
+  - {fileID: 21300000, guid: ec6cc8498ba24f94d852e86cf7441df2, type: 3}
+  _maxHealth: 5
+  _minWorkDistance: 0.75
+  _baseData: {fileID: -1362852035674046031}
 --- !u!114 &3998079584738369031
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2712,6 +3422,45 @@ MonoBehaviour:
   MaxDurability: 50
   ExteriorRuleTile: {fileID: 11400000, guid: f91b311b42950d84fb7392825b419fe0, type: 2}
   InteriorRuleTile: {fileID: 11400000, guid: f296c6c9d32e2ca47888f29895bc1dbc, type: 2}
+--- !u!114 &6402681467211676120
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc957fd26344204d8c99b17b78b454d, type: 3}
+  m_Name: Iron Mountain
+  m_EditorClassIdentifier: 
+  guid: 8d998135-a0af-4e85-a362-4c734b6e1358
+  initialGuid: 8d998135-a0af-4e85-a362-4c734b6e1358
+  runtimeIndexID: 
+  icon: {fileID: 1957506917, guid: 825e13f50b814f5469a2770e65260a6b, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Iron Mountain
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 1
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 5442789227045615136, guid: a2f1f897b269aef4bb1bc9e05066305d, type: 3}
+  _workToExtract: 30
+  _harvestableItems:
+    _itemDrops:
+    - Item: {fileID: -3020583608536372809}
+      MinDrop: 1
+      MaxDrop: 2
+  _potentialSprites: []
+  _maxHealth: 100
+  _minWorkDistance: 0.75
+  _baseData: {fileID: 7716375742333856519}
+  _ruleTile: {fileID: 11400000, guid: 5eb250e0cf9becb42b2c397f550acf5f, type: 2}
+  _mountainTileType: 5
 --- !u!114 &6445956091041958653
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2778,22 +3527,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _prefab: {fileID: 5442789227045615136, guid: a2f1f897b269aef4bb1bc9e05066305d, type: 3}
-  _workToExtract: 30
-  _harvestableItems:
-    _itemDrops:
-    - Item: {fileID: 2545999382318138489}
-      MinDrop: 1
-      MaxDrop: 2
-  _potentialSprites: []
-  _maxHealth: 100
-  _minWorkDistance: 0.75
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
   SpriteIndex: 0
   Health: 0
   RemainingExtractWork: 0
@@ -2805,8 +3538,7 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
-  _ruleTile: {fileID: 11400000, guid: 103d4f7d42da3ba45a5b231963c3fde0, type: 2}
-  _mountainTileType: 2
+  Settings: {fileID: 0}
   RemainingWork: 0
 --- !u!114 &6551958446649319986
 MonoBehaviour:
@@ -2834,19 +3566,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
-  _workToExtract: 20
-  _harvestableItems:
-    _itemDrops: []
-  _potentialSprites: []
-  _maxHealth: 100
-  _minWorkDistance: 0.75
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
   SpriteIndex: 0
   Health: 0
   RemainingExtractWork: 0
@@ -2858,48 +3577,7 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
-  _growthStages:
-  - StageName: Sapling
-    GrowthSprite: {fileID: 21300000, guid: 340e51f3e8e15714689db84a04c628ba, type: 3}
-    Scale: 1
-    SecsInStage: 30
-    HarvestableItems:
-      _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 1
-    WorkToCut: 3
-  - StageName: Young
-    GrowthSprite: {fileID: 21300000, guid: 6cbd7fdca17fd844c98ebff3ffe31450, type: 3}
-    Scale: 1
-    SecsInStage: 30
-    HarvestableItems:
-      _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 2
-    WorkToCut: 8
-  - StageName: Adult
-    GrowthSprite: {fileID: 21300000, guid: 9ef8790bd2426b44aa479b2178f73efe, type: 3}
-    Scale: 1
-    SecsInStage: 0
-    HarvestableItems:
-      _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 2
-        MaxDrop: 4
-    WorkToCut: 8
-  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
-  _hasFruit: 1
-  _growFruitTime: 40
-  _fruitOverlay: {fileID: 21300000, guid: 48ee55af15a3565478364b54e85d85d1, type: 3}
-  _fruitFlowersOverlay: {fileID: 21300000, guid: cf299772b1725cc48adc078fcf6d0f1f, type: 3}
-  _harvestableFruit:
-    _itemDrops:
-    - Item: {fileID: 0}
-      MinDrop: 2
-      MaxDrop: 4
-  _workToHarvest: 5
+  Settings: {fileID: 0}
   GrowthIndex: 0
   AgeSec: 0
   FruitTimer: 0
@@ -2980,37 +3658,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _prefab: {fileID: 906310196879369055, guid: 7d7f9b7dc6a672e45ae9ab91f1a9431c, type: 3}
-  _workToExtract: 5
-  _harvestableItems:
-    _itemDrops: []
-  _potentialSprites:
-  - {fileID: 21300000, guid: d232dee733a0b284cb4f63fd44eb3b1e, type: 3}
-  - {fileID: 21300000, guid: 6c2f5d7e273ae9246a32cc8935289e56, type: 3}
-  - {fileID: 21300000, guid: 74eba1d1144661841bc8698f9e8848a4, type: 3}
-  - {fileID: 21300000, guid: e310043aa95880543b9cda01d0b9f2bb, type: 3}
-  - {fileID: 21300000, guid: 71c2f49998383de419512d8ba57c5d35, type: 3}
-  - {fileID: 21300000, guid: 632d58347372618469a818ad6ec81cf6, type: 3}
-  - {fileID: 21300000, guid: ff4f4b712e2f44343a65215909102c09, type: 3}
-  - {fileID: 21300000, guid: f6d2c60e470376846806d5b20663334a, type: 3}
-  - {fileID: 21300000, guid: 80366efda14cc2a40a733e8bcd8fd72e, type: 3}
-  - {fileID: 21300000, guid: 28c9531df6c2cf445a98c453ffe5fe85, type: 3}
-  - {fileID: 21300000, guid: 0b01e25436817084c90ae08952ea1091, type: 3}
-  - {fileID: 21300000, guid: acc0a0214dd89d14f9eaf71a69e52251, type: 3}
-  - {fileID: 21300000, guid: 4cee6a9231d83f84a978de07310c5ff7, type: 3}
-  - {fileID: 21300000, guid: e1ca26bfec56bf545b40564fe2191aad, type: 3}
-  - {fileID: 21300000, guid: 141e9ac0b8783f94bb1a0b2e2848f2d1, type: 3}
-  - {fileID: 21300000, guid: 2c6a352fb5e995d489699487abe815ad, type: 3}
-  - {fileID: 21300000, guid: cead492bd8bcd9949bf380d083ae3539, type: 3}
-  - {fileID: 21300000, guid: ba3fe77bde9281d4083966e7aa6c6c6e, type: 3}
-  _maxHealth: 5
-  _minWorkDistance: 0.75
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
   SpriteIndex: 0
   Health: 0
   RemainingExtractWork: 0
@@ -3022,6 +3669,7 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
+  Settings: {fileID: 0}
 --- !u!114 &7039194556294736213
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3108,6 +3756,45 @@ MonoBehaviour:
   InUse: 0
   LinkedFurniture: {fileID: 0}
   DyeOverride: {fileID: 0}
+--- !u!114 &7513395007172917056
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc957fd26344204d8c99b17b78b454d, type: 3}
+  m_Name: Coal Mountain
+  m_EditorClassIdentifier: 
+  guid: 3d1d0153-af20-46da-bd0e-c6ce08d4fc04
+  initialGuid: 3d1d0153-af20-46da-bd0e-c6ce08d4fc04
+  runtimeIndexID: 
+  icon: {fileID: -1059951920, guid: 2399ea14850c2e04ea1b59a6f2cc4725, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Coal Mountain
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 4
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _prefab: {fileID: 5442789227045615136, guid: a2f1f897b269aef4bb1bc9e05066305d, type: 3}
+  _workToExtract: 30
+  _harvestableItems:
+    _itemDrops:
+    - Item: {fileID: -1220354795818533566}
+      MinDrop: 1
+      MaxDrop: 2
+  _potentialSprites: []
+  _maxHealth: 100
+  _minWorkDistance: 0.75
+  _baseData: {fileID: -1887156828929915283}
+  _ruleTile: {fileID: 11400000, guid: 93e70c7ca59bc304194a8337ca2b45d0, type: 2}
+  _mountainTileType: 3
 --- !u!114 &7531465296088124193
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3134,22 +3821,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _prefab: {fileID: 8171490800812371991, guid: 47d3a3f0d00e1b44fbd10ad53ebff7b5, type: 3}
-  _workToExtract: 5
-  _harvestableItems:
-    _itemDrops: []
-  _potentialSprites:
-  - {fileID: 21300000, guid: c0cec297fa7b5a94fa41d24c0f92ac25, type: 3}
-  - {fileID: 801511726, guid: 2aa1d04d9bcb58d49a8dafb36a7fe309, type: 3}
-  - {fileID: -278860237, guid: 2aa1d04d9bcb58d49a8dafb36a7fe309, type: 3}
-  _maxHealth: 5
-  _minWorkDistance: 0.75
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
   SpriteIndex: 0
   Health: 0
   RemainingExtractWork: 0
@@ -3161,6 +3832,7 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
+  Settings: {fileID: 0}
 --- !u!114 &7716375742333856519
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3187,22 +3859,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _prefab: {fileID: 5442789227045615136, guid: a2f1f897b269aef4bb1bc9e05066305d, type: 3}
-  _workToExtract: 30
-  _harvestableItems:
-    _itemDrops:
-    - Item: {fileID: -3020583608536372809}
-      MinDrop: 1
-      MaxDrop: 2
-  _potentialSprites: []
-  _maxHealth: 100
-  _minWorkDistance: 0.75
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
   SpriteIndex: 0
   Health: 0
   RemainingExtractWork: 0
@@ -3214,8 +3870,7 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
-  _ruleTile: {fileID: 11400000, guid: 5eb250e0cf9becb42b2c397f550acf5f, type: 2}
-  _mountainTileType: 5
+  Settings: {fileID: 0}
   RemainingWork: 0
 --- !u!114 &7730749120145212212
 MonoBehaviour:
@@ -3244,9 +3899,84 @@ MonoBehaviour:
       dataObjects:
       - {fileID: 0}
       - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Item.ItemData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -3261,88 +3991,143 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Resource.ResourceData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
+      dataObjects: []
     - type: Data.Resource.GrowingResourceData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -3504,10 +4289,6 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Item.CraftingTableData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
@@ -3515,6 +4296,19 @@ MonoBehaviour:
     - type: Data.Structure.WallData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
     _favoriteList: []
@@ -3577,6 +4371,34 @@ MonoBehaviour:
       valuesFilter: []
     - typeName: FurnitureDataSettings
       typeAssemblyQualifiedName: Data.Item.FurnitureDataSettings, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: GrowingResourceSettings
+      typeAssemblyQualifiedName: Data.Resource.GrowingResourceSettings, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: CropSettings
+      typeAssemblyQualifiedName: Data.Resource.CropSettings, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: MountainSettings
+      typeAssemblyQualifiedName: Data.Resource.MountainSettings, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: ResourceSettings
+      typeAssemblyQualifiedName: Data.Resource.ResourceSettings, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
@@ -3710,19 +4532,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _prefab: {fileID: 8379773904936381525, guid: e6965deb74f3c394a874724af113892a, type: 3}
-  _workToExtract: 10
-  _harvestableItems:
-    _itemDrops: []
-  _potentialSprites: []
-  _maxHealth: 100
-  _minWorkDistance: 0.75
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
   SpriteIndex: 0
   Health: 0
   RemainingExtractWork: 0
@@ -3734,35 +4543,7 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
-  _growthStages:
-  - StageName: Young
-    GrowthSprite: {fileID: 21300000, guid: 0fd3f59d6e5bc924fbc75655b4a41224, type: 3}
-    Scale: 0.75
-    SecsInStage: 60
-    HarvestableItems:
-      _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 0
-        MaxDrop: 1
-    WorkToCut: 5
-  - StageName: Adult
-    GrowthSprite: {fileID: 21300000, guid: 0fd3f59d6e5bc924fbc75655b4a41224, type: 3}
-    Scale: 1
-    SecsInStage: 0
-    HarvestableItems:
-      _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 2
-    WorkToCut: 8
-  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
-  _hasFruit: 0
-  _growFruitTime: 0
-  _fruitOverlay: {fileID: 0}
-  _fruitFlowersOverlay: {fileID: 0}
-  _harvestableFruit:
-    _itemDrops: []
-  _workToHarvest: 0
+  Settings: {fileID: 0}
   GrowthIndex: 0
   AgeSec: 0
   FruitTimer: 0
@@ -3795,24 +4576,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _prefab: {fileID: 4128056971819822129, guid: 8025b15f75a03e249b86e4b29cb3a92f, type: 3}
-  _workToExtract: 5
-  _harvestableItems:
-    _itemDrops: []
-  _potentialSprites:
-  - {fileID: 21300000, guid: 6445ea4b6f4fc3c45bd2afa90c10a269, type: 3}
-  - {fileID: 21300000, guid: 0e23f67b29cb04a4d9f223500ae57149, type: 3}
-  - {fileID: 21300000, guid: 799ed2f70ba879946a5afbdfa46b8d0e, type: 3}
-  - {fileID: 21300000, guid: f0e6d6e19ba2be648bed15dcc3814ea3, type: 3}
-  - {fileID: 21300000, guid: 4674c1b26bcef104e8a33df79f9dcce0, type: 3}
-  _maxHealth: 5
-  _minWorkDistance: 0.75
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
   SpriteIndex: 0
   Health: 0
   RemainingExtractWork: 0
@@ -3824,6 +4587,7 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
+  Settings: {fileID: 0}
 --- !u!114 &8216239440353706561
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3850,19 +4614,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
-  _workToExtract: 20
-  _harvestableItems:
-    _itemDrops: []
-  _potentialSprites: []
-  _maxHealth: 100
-  _minWorkDistance: 0.75
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
   SpriteIndex: 0
   Health: 0
   RemainingExtractWork: 0
@@ -3874,48 +4625,7 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
-  _growthStages:
-  - StageName: Sapling
-    GrowthSprite: {fileID: 21300000, guid: 340e51f3e8e15714689db84a04c628ba, type: 3}
-    Scale: 1
-    SecsInStage: 30
-    HarvestableItems:
-      _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 1
-    WorkToCut: 3
-  - StageName: Young
-    GrowthSprite: {fileID: 21300000, guid: 6cbd7fdca17fd844c98ebff3ffe31450, type: 3}
-    Scale: 1
-    SecsInStage: 30
-    HarvestableItems:
-      _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 2
-    WorkToCut: 8
-  - StageName: Adult
-    GrowthSprite: {fileID: 21300000, guid: 9ef8790bd2426b44aa479b2178f73efe, type: 3}
-    Scale: 1
-    SecsInStage: 0
-    HarvestableItems:
-      _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 2
-        MaxDrop: 4
-    WorkToCut: 8
-  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
-  _hasFruit: 1
-  _growFruitTime: 40
-  _fruitOverlay: {fileID: 21300000, guid: 7f3e56da82bb4904abc880881a2e95d8, type: 3}
-  _fruitFlowersOverlay: {fileID: 21300000, guid: cf299772b1725cc48adc078fcf6d0f1f, type: 3}
-  _harvestableFruit:
-    _itemDrops:
-    - Item: {fileID: 0}
-      MinDrop: 2
-      MaxDrop: 4
-  _workToHarvest: 5
+  Settings: {fileID: 0}
   GrowthIndex: 0
   AgeSec: 0
   FruitTimer: 0

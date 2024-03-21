@@ -14,23 +14,29 @@ namespace Items
     {
         [SerializeField] protected SpriteRenderer _fruitOverlay;
 
-        public bool IsFruiting => GrowingResourceData.HasFruit;
+        public bool IsFruiting => RuntimeGrowingResourceData.GrowingResourceSettings.HasFruit;
         public List<GameObject> TaskRequestors = new List<GameObject>();
         
         public GrowingResourceData RuntimeGrowingResourceData => RuntimeData as GrowingResourceData;
-        private GrowingResourceData GrowingResourceData => Data as GrowingResourceData;
         
-        public override void Init(ResourceData data)
+        public override void InitializeResource(ResourceSettings settings)
         {
-            base.Init(data);
-        }
+            var data = settings.CreateInitialDataObject();
 
-        protected override void InitialDataReady()
-        {
-            base.InitialDataReady();
-            
-            GrowthCheck();
-            FruitCheck();
+            DataLibrary.RegisterInitializationCallback(() =>
+            {
+                RuntimeData = (ResourceData)DataLibrary.CloneDataObjectToRuntime(data, gameObject);
+                RuntimeData.InitData(settings);
+                RuntimeData.Position = transform.position;
+                
+                UpdateSprite();
+                
+                DataLibrary.OnSaved += Saved;
+                DataLibrary.OnLoaded += Loaded;
+                
+                GrowthCheck();
+                FruitCheck();
+            });
         }
 
         public override string DisplayName
@@ -40,10 +46,10 @@ namespace Items
                 if (!RuntimeGrowingResourceData.FullyGrown)
                 {
                     var stageName = RuntimeGrowingResourceData.GetGrowthStage().StageName;
-                    return $"{Data.title} ({stageName})";
+                    return $"{RuntimeData.Settings.title} ({stageName})";
                 }
 
-                return Data.title;
+                return RuntimeData.title;
             }
         }
         
@@ -93,7 +99,7 @@ namespace Items
         {
             if (!RuntimeGrowingResourceData.HasFruitAvailable)
             {
-                RuntimeGrowingResourceData.FruitTimer = RuntimeGrowingResourceData.GrowFruitTime;
+                RuntimeGrowingResourceData.FruitTimer = RuntimeGrowingResourceData.GrowingResourceSettings.GrowFruitTime;
             }
         }
 
@@ -110,23 +116,23 @@ namespace Items
             
             if (!RuntimeGrowingResourceData.FullyGrown) return;
             
-            if (RuntimeGrowingResourceData.HasFruit && !RuntimeGrowingResourceData.HasFruitAvailable)
+            if (RuntimeGrowingResourceData.GrowingResourceSettings.HasFruit && !RuntimeGrowingResourceData.HasFruitAvailable)
             {
                 RuntimeGrowingResourceData.FruitTimer += TimeManager.Instance.DeltaTime;
-                if (RuntimeGrowingResourceData.FruitTimer >= RuntimeGrowingResourceData.GrowFruitTime)
+                if (RuntimeGrowingResourceData.FruitTimer >= RuntimeGrowingResourceData.GrowingResourceSettings.GrowFruitTime)
                 {
                     RuntimeGrowingResourceData.FruitTimer = 0;
-                    _fruitOverlay.sprite = RuntimeGrowingResourceData.FruitOverlay;
+                    _fruitOverlay.sprite = RuntimeGrowingResourceData.GrowingResourceSettings.FruitOverlay;
                     _fruitOverlay.gameObject.SetActive(true);
                     RuntimeGrowingResourceData.HasFruitAvailable = true;
                     RefreshSelection();
                 } 
-                else if (RuntimeGrowingResourceData.FruitTimer >= RuntimeGrowingResourceData.GrowFruitTime / 2f)
+                else if (RuntimeGrowingResourceData.FruitTimer >= RuntimeGrowingResourceData.GrowingResourceSettings.GrowFruitTime / 2f)
                 {
-                    if (!RuntimeGrowingResourceData.ShowingFlowers && RuntimeGrowingResourceData.HasFruitFlowers)
+                    if (!RuntimeGrowingResourceData.ShowingFlowers && RuntimeGrowingResourceData.GrowingResourceSettings.HasFruitFlowers)
                     {
                         RuntimeGrowingResourceData.ShowingFlowers = true;
-                        _fruitOverlay.sprite = RuntimeGrowingResourceData.FruitFlowersOverlay;
+                        _fruitOverlay.sprite = RuntimeGrowingResourceData.GrowingResourceSettings.FruitFlowersOverlay;
                         _fruitOverlay.gameObject.SetActive(true);
                     }
                 }
@@ -134,7 +140,7 @@ namespace Items
 
             if (RuntimeGrowingResourceData.HasFruitAvailable)
             {
-                _fruitOverlay.sprite = RuntimeGrowingResourceData.FruitOverlay;
+                _fruitOverlay.sprite = RuntimeGrowingResourceData.GrowingResourceSettings.FruitOverlay;
                 _fruitOverlay.gameObject.SetActive(true);
             }
         }
@@ -156,13 +162,13 @@ namespace Items
                 RefreshSelection();
                 DisplayTaskIcon(null);
 
-                if (PendingCommand == RuntimeGrowingResourceData.HarvestCmd)
+                if (PendingCommand == RuntimeGrowingResourceData.GrowingResourceSettings.HarvestCmd)
                 {
                     PendingCommand = null;
                 }
             }
 
-            RuntimeGrowingResourceData.RemainingHarvestWork = RuntimeGrowingResourceData.WorkToHarvest;
+            RuntimeGrowingResourceData.RemainingHarvestWork = RuntimeGrowingResourceData.GrowingResourceSettings.WorkToHarvest;
         }
 
         public bool DoHarvest(float workAmount)
@@ -182,7 +188,7 @@ namespace Items
             var result = new List<Command>(Commands);
             if (RuntimeGrowingResourceData.HasFruitAvailable)
             {
-                result.Add(RuntimeGrowingResourceData.HarvestCmd);
+                result.Add(RuntimeGrowingResourceData.GrowingResourceSettings.HarvestCmd);
             }
 
             return result;
@@ -212,8 +218,6 @@ namespace Items
             Destroy(gameObject);
             
             if(_onResourceClearedCallback != null) _onResourceClearedCallback.Invoke();
-            
-            //base.ExtractResource();
         }
         
         public override float GetWorkAmount()

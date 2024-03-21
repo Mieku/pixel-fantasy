@@ -497,12 +497,11 @@ namespace Systems.World_Building.Scripts
                     var mountainType = tileMap[x, y];
                     if (mountainType != MountainTileType.Empty)
                     {
-                        var mountainData = _currentBiome.GetMountainData(mountainType);
+                        var mountainData = _currentBiome.GetMountainSettings(mountainType);
                         _mountainsHandler.SpawnMountain(mountainData, x + 0.5f, y + 0.5f);
                     }
                 }
             }
-            _mountainsHandler.Debug_MountainStats();
 
             yield return null;
         }

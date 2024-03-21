@@ -9,6 +9,7 @@ using ScriptableObjects;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using CropSettings = Data.Resource.CropSettings;
 
 namespace Zones
 {
@@ -431,7 +432,7 @@ namespace Zones
             CreatePlantCropTask();
             
             // Spawn the crop
-            Spawner.Instance.SpawnItem(Data.HarvestedItem, transform.position, true, Data.AmountToHarvest);
+            Spawner.Instance.SpawnItem(RuntimeData.Settings.HarvestedItem, transform.position, true, RuntimeData.Settings.AmountToHarvest);
         }
 
         public void ChangeCrop(CropSettings newCrop)

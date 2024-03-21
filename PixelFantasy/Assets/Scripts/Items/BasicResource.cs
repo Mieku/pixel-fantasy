@@ -18,6 +18,7 @@ namespace Items
         [FormerlySerializedAs("_defaultClearCmd")] [SerializeField] private Command _defaultExtractCmd;
         [SerializeField] private BoxCollider2D _obstacleBox;
         [SerializeField] private List<Transform> _workPoints;
+        [SerializeField] private List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle", "Nature", "Structure"};
 
         protected Spawner spawner => Spawner.Instance;
         protected Action _onResourceClearedCallback;
@@ -25,34 +26,23 @@ namespace Items
         public DataLibrary DataLibrary;
         
         [DataObjectDropdown("DataLibrary", true)]
-        public ResourceData Data;
         public ResourceData RuntimeData;
-
-        private void Start()
-        {
-            if (Data != null && RuntimeData == null)
-            {
-                Init(Data);
-            }
-        }
-
-        public virtual void Init(ResourceData data)
-        {
-            Data = data;
-
-            DataLibrary.RegisterInitializationCallback(InitialDataReady);
-        }
         
-        protected virtual void InitialDataReady()
+        public virtual void InitializeResource(ResourceSettings settings)
         {
-            RuntimeData = (ResourceData) DataLibrary.CloneDataObjectToRuntime(Data, gameObject);
-            RuntimeData.InitData();
-            RuntimeData.Position = transform.position;
+            var data = settings.CreateInitialDataObject();
+
+            DataLibrary.RegisterInitializationCallback(() =>
+            {
+                RuntimeData = (ResourceData)DataLibrary.CloneDataObjectToRuntime(data, gameObject);
+                RuntimeData.InitData(settings);
+                RuntimeData.Position = transform.position;
                 
-            UpdateSprite();
+                UpdateSprite();
                 
-            DataLibrary.OnSaved += Saved;
-            DataLibrary.OnLoaded += Loaded;
+                DataLibrary.OnSaved += Saved;
+                DataLibrary.OnLoaded += Loaded;
+            });
         }
         
         protected void Saved()
@@ -67,9 +57,9 @@ namespace Items
         
         protected virtual void UpdateSprite()
         {
-            var spriteIndex = RuntimeData.GetRandomSpriteIndex();
+            var spriteIndex = RuntimeData.Settings.GetRandomSpriteIndex();
             RuntimeData.SpriteIndex = spriteIndex;
-            _spriteRenderer.sprite = RuntimeData.GetSprite(spriteIndex);
+            _spriteRenderer.sprite = RuntimeData.Settings.GetSprite(spriteIndex);
         }
 
         public override Vector2? UseagePosition(Vector2 requestorPosition)
@@ -123,7 +113,7 @@ namespace Items
             return null;
         }
 
-        public virtual string DisplayName => Data.title;
+        public virtual string DisplayName => RuntimeData.Settings.title;
 
         protected virtual void Awake()
         {
@@ -192,7 +182,7 @@ namespace Items
 
         protected virtual void ExtractResource()
         {
-            var resources = Data.HarvestableItems.GetItemDrop();
+            var resources = RuntimeData.Settings.HarvestableItems.GetItemDrop();
             foreach (var resource in resources)
             {
                 for (int i = 0; i < resource.Quantity; i++)

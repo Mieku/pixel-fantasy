@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Data.Item;
 using Databrain.Attributes;
 using ScriptableObjects;
@@ -59,6 +60,13 @@ namespace Items
 
             return results;
         }
+        
+        public HarvestableItems Clone()
+        {
+            HarvestableItems copy = (HarvestableItems)this.MemberwiseClone();
+            copy._itemDrops = this._itemDrops.Select(drop => drop.Clone()).ToList();//.Select(itemAmount => itemAmount.Clone()).ToList();
+            return copy;
+        }
     }
 
     [Serializable]
@@ -67,5 +75,15 @@ namespace Items
         [DataObjectDropdown("DataLibrary", true)] public ItemDataSettings Item;
         public int MinDrop;
         public int MaxDrop;
+        
+        public ItemDropRate Clone()
+        {
+            return new ItemDropRate
+            {
+                Item = this.Item,
+                MinDrop = this.MinDrop,
+                MaxDrop = this.MaxDrop,
+            };
+        }
     }
 }

@@ -7,47 +7,30 @@ namespace Data.Resource
 {
     public class MountainResourceData : ResourceData
     {
-        // Settings
-        [SerializeField] protected RuleTile _ruleTile;
-        [SerializeField] protected MountainTileType _mountainTileType;
-        
-        // Accessors
-        public MountainTileType MountainTileType => _mountainTileType;
-        
         // Runtime
-        [Foldout("Runtime"), ExposeToInspector, DatabrainSerialize] public float RemainingWork;
+        [ExposeToInspector, DatabrainSerialize] public float RemainingWork;
+        
+        public MountainSettings MountainSettings => Settings as MountainSettings;
 
-        public override void InitData()
+        public override void InitData(ResourceSettings settings)
         {
-            base.InitData();
-
-            RemainingWork = _workToExtract;
+            base.InitData(settings);
+            RemainingWork = MountainSettings.WorkToExtract;
         }
-
+        
         public RuleTile GetRuleTile()
         {
-            return _ruleTile;
+            return MountainSettings.RuleTile;
         }
 
         public List<ItemAmount> GetMineDrop()
         {
-            if (_harvestableItems != null)
+            if (MountainSettings.HarvestableItems != null)
             {
-                return _harvestableItems.GetItemDrop();
+                return MountainSettings.HarvestableItems.GetItemDrop();
             }
 
             return new List<ItemAmount>();
         }
-    }
-    
-    public enum MountainTileType
-    {
-        Empty,
-        Stone,
-        Copper,
-        Coal,
-        Tin,
-        Iron,
-        Gold,
     }
 }

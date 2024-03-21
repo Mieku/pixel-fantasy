@@ -128,10 +128,9 @@ namespace Data.Item
 
         public bool IsSpecificItemDataIncoming(ItemData itemData)
         {
-            var runtimeData = itemData.GetRuntimeData();
             foreach (var incoming in Incoming)
             {
-                if (incoming.GetRuntimeData() == runtimeData)
+                if (incoming == itemData)
                 {
                     return true;
                 }
@@ -142,10 +141,9 @@ namespace Data.Item
 
         public bool IsSpecificItemDataStored(ItemData itemData)
         {
-            var runtimeData = itemData.GetRuntimeData();
             foreach (var stored in Stored)
             {
-                if (stored.GetRuntimeData() == runtimeData)
+                if (stored == itemData)
                 {
                     return true;
                 }
@@ -178,7 +176,7 @@ namespace Data.Item
             {
                 if (storedItem.Settings == itemSettings && !IsSpecificItemDataClaimed(storedItem))
                 {
-                    return storedItem.GetRuntimeData();
+                    return storedItem;
                 }
             }
             
@@ -363,7 +361,7 @@ namespace Data.Item
         
         public void DepositItems(Items.Item item)
         {
-            var runtimeData = item.RuntimeData.GetRuntimeData();
+            var runtimeData = item.RuntimeData;
             
             if (!IsSpecificItemDataIncoming(runtimeData))
             {
@@ -386,11 +384,10 @@ namespace Data.Item
         /// </summary>
         public void ForceDepositItem(ItemData itemData)
         {
-            var runtimeData = itemData.GetRuntimeData();
-            runtimeData.AssignedStorage = (Storage)LinkedFurniture;
-            runtimeData.Position = LinkedFurniture.transform.position;
+            itemData.AssignedStorage = (Storage)LinkedFurniture;
+            itemData.Position = LinkedFurniture.transform.position;
             
-            Stored.Add(runtimeData);
+            Stored.Add(itemData);
             
             GameEvents.Trigger_RefreshInventoryDisplay();
         }

@@ -26,6 +26,7 @@ namespace TaskSystem
             {
                 Debug.Log($"Position: {(Vector2)_movePos} Impossible, recalculated");
                 _movePos = _construction.UseagePosition(_ai.Kinling.transform.position);
+                _isMoving = false;
                 Debug.Log($"Recalculated Position is: {(Vector2)_movePos}");
             }
             

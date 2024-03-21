@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using Controllers;
 using Data.Resource;
 using Interfaces;
-using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -17,12 +15,7 @@ namespace Items
         private Tilemap _mountainTM => TilemapController.Instance.GetTilemap(TilemapLayer.Mountain);
         private Tilemap _dirtTM => TilemapController.Instance.GetTilemap(TilemapLayer.Dirt);
         
-        //protected float _remainingWork;
-
-        //private MountainSettings _mountainSettings => ResourceSettings as MountainSettings;
-        
         public MountainResourceData RuntimeMountainData => RuntimeData as MountainResourceData;
-        private MountainResourceData _mountainData => Data as MountainResourceData;
         
         protected override void Awake()
         {
@@ -31,32 +24,26 @@ namespace Items
             _tempPlacementDisp.SetActive(false);
         }
         
-        public override void Init(ResourceData data)
+        public override void InitializeResource(ResourceSettings settings)
         {
-            base.Init(data);
+            var data = settings.CreateInitialDataObject();
+
+            DataLibrary.RegisterInitializationCallback(() =>
+            {
+                RuntimeData = (ResourceData)DataLibrary.CloneDataObjectToRuntime(data, gameObject);
+                RuntimeData.InitData(settings);
+                RuntimeData.Position = transform.position;
+                
+                UpdateSprite();
+                
+                DataLibrary.OnSaved += Saved;
+                DataLibrary.OnLoaded += Loaded;
+                
+                Refresh();
+            });
+            
             _tempPlacementDisp.SetActive(false);
-            Refresh();
         }
-
-        protected override void InitialDataReady()
-        {
-            base.InitialDataReady();
-        }
-
-        // public void Init(MountainSettings mountainSettings)
-        // {
-        //     _tempPlacementDisp.SetActive(false);
-        //     ResourceSettings = mountainSettings;
-        //     
-        //     Refresh();
-        // }
-
-        // private void Start()
-        // {
-        //     if (_mountainSettings == null) return;
-        //     
-        //     Refresh();
-        // }
 
         protected override void UpdateSprite()
         {
@@ -82,7 +69,7 @@ namespace Items
         private void SetTile()
         {
             var cell = _mountainTM.WorldToCell(transform.position);
-            _mountainTM.SetTile(cell, _mountainData.GetRuleTile());
+            _mountainTM.SetTile(cell, RuntimeMountainData.GetRuleTile());
 
             var dirtCell = _dirtTM.WorldToCell(transform.position);
             _dirtTM.SetTile(dirtCell, _dirtRuleTile);

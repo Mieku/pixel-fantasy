@@ -25,11 +25,11 @@ namespace Handlers
             List<MountainStats> stats = new List<MountainStats>();
             foreach (var mountain in _mountains)
             {
-                var stat = stats.Find(mount => mount.MountainData == mountain.Data as MountainResourceData);
+                var stat = stats.Find(mount => mount.MountainSettings == mountain.RuntimeMountainData.MountainSettings);
                 if (stat == null)
                 {
                     stat = new MountainStats();
-                    stat.MountainData = mountain.Data as MountainResourceData;
+                    stat.MountainSettings = mountain.RuntimeMountainData.MountainSettings;
                     stat.Count = 1;
                     stats.Add(stat);
                 }
@@ -44,7 +44,7 @@ namespace Handlers
             foreach (var stat in stats)
             {
                 var percent = (stat.Count / total) * 100f;
-                statLog += $"{stat.MountainData.title}: {stat.Count} {percent:0.00}%\n";
+                statLog += $"{stat.MountainSettings.title}: {stat.Count} {percent:0.00}%\n";
             }
             Debug.Log(statLog);
         }
@@ -68,19 +68,19 @@ namespace Handlers
             _mountainTM.ClearAllTiles();
         }
 
-        public void SpawnMountain(MountainResourceData mountainData, float x, float y)
+        public void SpawnMountain(MountainSettings mountainSettings, float x, float y)
         {
             var spawnPosition = new Vector3(x, y, -1);
             var mountain = Instantiate(_mountainPrefab, spawnPosition, Quaternion.identity, transform);
-            mountain.Init(mountainData);
-            mountain.gameObject.name = mountainData.title;
+            mountain.InitializeResource(mountainSettings);
+            mountain.gameObject.name = mountainSettings.title;
             _mountains.Add(mountain);
         }
     }
     
     public class MountainStats
     {
-        public MountainResourceData MountainData;
+        public MountainSettings MountainSettings;
         public int Count;
     }
 }
