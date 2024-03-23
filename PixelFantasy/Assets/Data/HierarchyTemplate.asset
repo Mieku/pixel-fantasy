@@ -23,7 +23,7 @@ MonoBehaviour:
     typeDisplayName: Settings
     typeName: 
     typeAssemblyQualifiedName: 
-    childCount: 5
+    childCount: 6
     indexOfFirstChild: 2
   - foldout: 0
     typeDisplayName: Wall Settings
@@ -32,170 +32,177 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     childCount: 0
     indexOfFirstChild: 3
+  - foldout: 1
+    typeDisplayName: Door
+    typeName: DoorSettings
+    typeAssemblyQualifiedName: Data.Structure.DoorSettings, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    childCount: 0
+    indexOfFirstChild: 4
   - foldout: 0
     typeDisplayName: Dye
     typeName: DyeData
     typeAssemblyQualifiedName: Data.Dye.DyeData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     childCount: 0
-    indexOfFirstChild: 4
+    indexOfFirstChild: 5
   - foldout: 1
     typeDisplayName: Items
     typeName: ItemDataSettings
     typeAssemblyQualifiedName: Data.Item.ItemDataSettings, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     childCount: 1
-    indexOfFirstChild: 5
+    indexOfFirstChild: 6
   - foldout: 0
     typeDisplayName: Crafted Items
     typeName: CraftedItemDataSettings
     typeAssemblyQualifiedName: Data.Item.CraftedItemDataSettings, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     childCount: 0
-    indexOfFirstChild: 6
+    indexOfFirstChild: 7
   - foldout: 1
     typeDisplayName: Furnitures
     typeName: FurnitureDataSettings
     typeAssemblyQualifiedName: Data.Item.FurnitureDataSettings, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     childCount: 2
-    indexOfFirstChild: 7
+    indexOfFirstChild: 8
   - foldout: 0
     typeDisplayName: Crafting Tables
     typeName: CraftingTableSettings
     typeAssemblyQualifiedName: Data.Item.CraftingTableSettings, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     childCount: 0
-    indexOfFirstChild: 8
+    indexOfFirstChild: 9
   - foldout: 0
     typeDisplayName: Storages
     typeName: StorageDataSettings
     typeAssemblyQualifiedName: Data.Item.StorageDataSettings, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     childCount: 0
-    indexOfFirstChild: 9
+    indexOfFirstChild: 10
   - foldout: 1
     typeDisplayName: Resources
     typeName: ResourceSettings
     typeAssemblyQualifiedName: Data.Resource.ResourceSettings, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     childCount: 3
-    indexOfFirstChild: 10
+    indexOfFirstChild: 11
   - foldout: 0
     typeDisplayName: Growing Resource
     typeName: GrowingResourceSettings
     typeAssemblyQualifiedName: Data.Resource.GrowingResourceSettings, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     childCount: 0
-    indexOfFirstChild: 11
+    indexOfFirstChild: 12
   - foldout: 0
     typeDisplayName: Crop
     typeName: CropSettings
     typeAssemblyQualifiedName: Data.Resource.CropSettings, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     childCount: 0
-    indexOfFirstChild: 12
+    indexOfFirstChild: 13
   - foldout: 0
     typeDisplayName: Mountain
     typeName: MountainSettings
     typeAssemblyQualifiedName: Data.Resource.MountainSettings, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     childCount: 0
-    indexOfFirstChild: 13
-  - foldout: 1
+    indexOfFirstChild: 14
+  - foldout: 0
     typeDisplayName: Runtime
     typeName: 
     typeAssemblyQualifiedName: 
     childCount: 7
-    indexOfFirstChild: 14
+    indexOfFirstChild: 15
   - foldout: 1
     typeDisplayName: Wall
     typeName: WallData
     typeAssemblyQualifiedName: Data.Structure.WallData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     childCount: 0
-    indexOfFirstChild: 15
+    indexOfFirstChild: 16
   - foldout: 0
     typeDisplayName: Doors
     typeName: DoorData
     typeAssemblyQualifiedName: Data.Structure.DoorData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     childCount: 0
-    indexOfFirstChild: 16
+    indexOfFirstChild: 17
   - foldout: 0
     typeDisplayName: Floors
     typeName: FloorData
     typeAssemblyQualifiedName: Data.Structure.FloorData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     childCount: 0
-    indexOfFirstChild: 17
+    indexOfFirstChild: 18
   - foldout: 0
     typeDisplayName: Tools
     typeName: ToolData
     typeAssemblyQualifiedName: Data.Item.ToolData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     childCount: 0
-    indexOfFirstChild: 18
+    indexOfFirstChild: 19
   - foldout: 1
     typeDisplayName: Basic Resources
     typeName: ResourceData
     typeAssemblyQualifiedName: Data.Resource.ResourceData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     childCount: 3
-    indexOfFirstChild: 19
+    indexOfFirstChild: 20
   - foldout: 0
     typeDisplayName: Growing Resources
     typeName: GrowingResourceData
     typeAssemblyQualifiedName: Data.Resource.GrowingResourceData, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     childCount: 0
-    indexOfFirstChild: 20
+    indexOfFirstChild: 21
   - foldout: 0
     typeDisplayName: Mountains
     typeName: MountainResourceData
     typeAssemblyQualifiedName: Data.Resource.MountainResourceData, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     childCount: 0
-    indexOfFirstChild: 21
+    indexOfFirstChild: 22
   - foldout: 0
     typeDisplayName: Crops
     typeName: CropData
     typeAssemblyQualifiedName: Data.Item.CropData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     childCount: 0
-    indexOfFirstChild: 22
+    indexOfFirstChild: 23
   - foldout: 1
     typeDisplayName: Furniture
     typeName: FurnitureData
     typeAssemblyQualifiedName: Data.Item.FurnitureData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     childCount: 2
-    indexOfFirstChild: 23
+    indexOfFirstChild: 24
   - foldout: 0
     typeDisplayName: Storage
     typeName: StorageData
     typeAssemblyQualifiedName: Data.Item.StorageData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     childCount: 0
-    indexOfFirstChild: 24
+    indexOfFirstChild: 25
   - foldout: 0
     typeDisplayName: Crafting Tables
     typeName: CraftingTableData
     typeAssemblyQualifiedName: Data.Item.CraftingTableData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     childCount: 0
-    indexOfFirstChild: 25
+    indexOfFirstChild: 26
   - foldout: 1
     typeDisplayName: Items
     typeName: ItemData
     typeAssemblyQualifiedName: Data.Item.ItemData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     childCount: 1
-    indexOfFirstChild: 26
+    indexOfFirstChild: 27
   - foldout: 0
     typeDisplayName: Crafted Items
     typeName: CraftedItemData
     typeAssemblyQualifiedName: Data.Item.CraftedItemData, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     childCount: 0
-    indexOfFirstChild: 27
+    indexOfFirstChild: 28

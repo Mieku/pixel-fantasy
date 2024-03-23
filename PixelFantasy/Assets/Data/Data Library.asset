@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f19df7a6b899d74a8f4bd5f23a7b97b, type: 3}
-  m_Name: Weed
+  m_Name: Spruce
   m_EditorClassIdentifier: 
   guid: afab236e-b3a0-4ef9-bd0a-8af1b7290840
   initialGuid: afab236e-b3a0-4ef9-bd0a-8af1b7290840
@@ -1874,6 +1874,14 @@ MonoBehaviour:
       - {fileID: -5234865138297875417}
       - {fileID: -4475304769038901388}
       - {fileID: 2672976842291651213}
+    - type: Data.Structure.DoorData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
+      - {fileID: 7438404328449692925}
+    - type: Data.Structure.DoorSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
+      - {fileID: 5069011162588748535}
     _favoriteList: []
   copyData:
     _objectList: []
@@ -1938,6 +1946,13 @@ MonoBehaviour:
       valuesFilter: []
     - typeName: WallSettings
       typeAssemblyQualifiedName: Data.Structure.WallSettings, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: DoorSettings
+      typeAssemblyQualifiedName: Data.Structure.DoorSettings, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
@@ -2028,7 +2043,7 @@ MonoBehaviour:
     - typeName: DoorData
       typeAssemblyQualifiedName: Data.Structure.DoorData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
+      runtimeSerialization: 1
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
@@ -3384,6 +3399,46 @@ MonoBehaviour:
   _category: 0
   _maxDurability: 100
   _baseData: {fileID: 1851590692530616479}
+--- !u!114 &5069011162588748535
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af16a28867759a04a8e17cb40725fb35, type: 3}
+  m_Name: Wooden Door
+  m_EditorClassIdentifier: 
+  guid: aec3b56c-bb0c-4fd2-b684-2543358278aa
+  initialGuid: aec3b56c-bb0c-4fd2-b684-2543358278aa
+  runtimeIndexID: 
+  icon: {fileID: -1095791776, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Wooden Door
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _craftRequirements:
+    _minCraftingSkillLevel: 2
+    _craftingSkill: 2
+    _workCost: 10
+    _requiredCraftingToolType: 0
+    _materialCosts:
+    - Item: {fileID: 283630323700872253}
+      Quantity: 3
+  _optionIcon: {fileID: -1095791776, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
+  _maxDurability: 100
+  _horizontalDoorframe: {fileID: -1095791776, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
+  _horizontalDoormat: {fileID: -1380345715, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
+  _verticalDoorframe: {fileID: -468987788, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
+  _verticalDoormat: {fileID: 20403438, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
 --- !u!114 &5747519841221157967
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3756,6 +3811,50 @@ MonoBehaviour:
   InUse: 0
   LinkedFurniture: {fileID: 0}
   DyeOverride: {fileID: 0}
+--- !u!114 &7438404328449692925
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e406d9610e5a3d43b2bebefe90deecd, type: 3}
+  m_Name: Door
+  m_EditorClassIdentifier: 
+  guid: cc50de91-e3e1-441a-900a-7c7ac11ffae9
+  initialGuid: cc50de91-e3e1-441a-900a-7c7ac11ffae9
+  runtimeIndexID: 
+  icon: {fileID: 1910622010, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Door
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  Durability: 0
+  Position: {x: 0, y: 0}
+  State: 0
+  RemainingWork: 0
+  RemainingMaterialCosts: []
+  PendingResourceCosts: []
+  IncomingResourceCosts: []
+  IncomingItems: []
+  CraftRequirements:
+    _minCraftingSkillLevel: 0
+    _craftingSkill: 10
+    _workCost: 0
+    _requiredCraftingToolType: 0
+    _materialCosts: []
+  MaxDurability: 0
+  DoorSettings: {fileID: 0}
+  DoorColour: {fileID: 0}
+  MatColour: {fileID: 0}
 --- !u!114 &7513395007172917056
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4297,20 +4396,6 @@ MonoBehaviour:
         PublicKeyToken=null
       dataObjects:
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     _favoriteList: []
   copyData:
     _objectList: []
@@ -4400,6 +4485,13 @@ MonoBehaviour:
     - typeName: ResourceSettings
       typeAssemblyQualifiedName: Data.Resource.ResourceSettings, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: DoorSettings
+      typeAssemblyQualifiedName: Data.Structure.DoorSettings, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
       titlesFilter: []
