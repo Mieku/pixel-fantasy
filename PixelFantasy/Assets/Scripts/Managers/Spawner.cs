@@ -6,12 +6,14 @@ using Controllers;
 using Data.Dye;
 using Data.Item;
 using Data.Resource;
+using Data.Structure;
 using Items;
 using Systems.Buildings.Scripts;
 using Systems.Notifications.Scripts;
 using UnityEngine;
 using Zones;
 using CropSettings = Data.Resource.CropSettings;
+using DoorSettings = Data.Structure.DoorSettings;
 
 namespace Managers
 {
@@ -127,7 +129,7 @@ namespace Managers
                     var plannedDoor = _plannedDoor;
                     _plannedDoor = null;
                     PlayerInputController.Instance.ChangeState(PlayerInputState.None);
-                    plannedDoor.SetState(Door.EDoorState.Construction);
+                    plannedDoor.SetState(EConstructionState.Blueprint);
                     plannedDoor.TriggerPlaced();
                 }
                 else
@@ -357,11 +359,10 @@ namespace Managers
         }
         
         private Door _plannedDoor;
-        public void PlanDoor(DoorSettings doorSettings, Action onDoorPlaced = null)
+        public void PlanDoor(DoorSettings doorSettings, DyeData matColour, Action onDoorPlaced = null)
         {
             _plannedDoor = Instantiate(doorSettings.DoorPrefab, _structureParent);
-            _plannedDoor.Init(doorSettings);
-            _plannedDoor.SetState(Door.EDoorState.BeingPlaced);
+            _plannedDoor.Init(doorSettings, matColour);
             _plannedDoor.OnDoorPlaced = onDoorPlaced;
         }
 

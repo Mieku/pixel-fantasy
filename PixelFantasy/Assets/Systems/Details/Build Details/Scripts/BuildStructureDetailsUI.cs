@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Controllers;
 using Data.Dye;
 using Data.Structure;
 using Databrain;
 using Databrain.Attributes;
+using Managers;
 using Systems.Build_Controls.Scripts;
 using TMPro;
 using UnityEngine;
@@ -25,6 +27,7 @@ namespace Systems.Details.Build_Details.Scripts
         public DataLibrary DataLibrary;
         [DataObjectDropdown("DataLibrary")] [SerializeField] private List<DyeData> _colourOptions;
         [DataObjectDropdown("DataLibrary")] [SerializeField] private List<WallSettings> _wallOptions;
+        [DataObjectDropdown("DataLibrary")] [SerializeField] private List<DoorSettings> _doorOptions;
         
 
         [SerializeField] private StructureCategoryBtn _structureCategoryBtn;
@@ -200,7 +203,8 @@ namespace Systems.Details.Build_Details.Scripts
                 case EDetailsState.Door:
                     _colourOptionGroup.SetActive(true);
                     _optionGroupSeperator.SetActive(true);
-                    ShowColourOptions("Door", DoorColourSelected);
+                    ShowColourOptions("Mat", DoorColourSelected);
+                    ShowDoorMaterialOptions(DoorMaterialSelected);
                     break;
                 case EDetailsState.Floor:
                     HideColourOptions();
@@ -328,6 +332,52 @@ namespace Systems.Details.Build_Details.Scripts
             RefreshLayout();
             
             _wallBuilder.BeginWallBuild(settings, _currentColour);
+        }
+        
+        private void ShowDoorMaterialOptions(Action<string> onSelectedCallback)
+        {
+            HideMaterialOptions();
+            _currentColour = null;
+            _materialOptionBtnPrefab.gameObject.SetActive(false);
+            
+            foreach (var doorOption in _doorOptions)
+            {
+                var optionBtn = Instantiate(_materialOptionBtnPrefab, _materialLayoutParent);
+                optionBtn.Init(doorOption.initialGuid, doorOption.OptionIcon, doorOption.CraftRequirements, (btn, s) =>
+                {
+                    HighlightMaterialBtn(btn);
+                    onSelectedCallback.Invoke(s);
+                });
+                optionBtn.gameObject.SetActive(true);
+                _displayedMaterialOptions.Add(optionBtn);
+            }
+            
+            // Select the first
+            _displayedMaterialOptions[0].OnPressed();
+        }
+        
+        private void DoorMaterialSelected(string settingsGUID)
+        {
+            if (_currentColour == null)
+            {
+                _displayedColourOptions[0].OnPressed();
+            }
+
+            var settings = (DoorSettings)DataLibrary.GetInitialDataObjectByGuid(settingsGUID);
+            DisplayCurrentDoorSelection(settings);
+        }
+        
+        private void DisplayCurrentDoorSelection(DoorSettings settings)
+        {
+            _currentSelection.ShowDoorSelection(settings, _currentColour);
+            RefreshLayout();
+            
+            Spawner.Instance.CancelInput();
+            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildDoor, settings.title);
+            Spawner.Instance.PlanDoor(settings, _currentColour, () =>
+            {
+                DisplayCurrentDoorSelection(settings);
+            });
         }
         
         private void RefreshLayout()

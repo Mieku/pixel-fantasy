@@ -9,18 +9,18 @@ namespace Data.Structure
         [ExposeToInspector, DatabrainSerialize] 
         public DoorSettings DoorSettings;
 
-        [ExposeToInspector, DatabrainSerialize] 
-        public DyeData DoorColour;
+        // [ExposeToInspector, DatabrainSerialize] 
+        // public DyeData DoorColour;
         
         [ExposeToInspector, DatabrainSerialize] 
         public DyeData MatColour;
         
-        public void AssignDoorSettings(DoorSettings settings, DyeData doorColour, DyeData matColour)
+        public void AssignDoorSettings(DoorSettings settings, DyeData matColour)
         {
             DoorSettings = settings;
             CraftRequirements = settings.CraftRequirements;
             MaxDurability = settings.MaxDurability;
-            DoorColour = doorColour;
+            //DoorColour = doorColour;
             MatColour = matColour;
             
             InitData();

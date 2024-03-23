@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using Data.Item;
 using Databrain;
+using Systems.Buildings.Scripts;
 using UnityEngine;
 
 namespace Data.Structure
 {
     public class DoorSettings : DataObject
     {
+        [SerializeField] private Door _doorPrefab;
         [SerializeField] private CraftRequirements _craftRequirements;
         [SerializeField] private Sprite _optionIcon;
         [SerializeField] private int _maxDurability;
@@ -14,7 +16,8 @@ namespace Data.Structure
         [SerializeField] private Sprite _horizontalDoormat;
         [SerializeField] private Sprite _verticalDoorframe;
         [SerializeField] private Sprite _verticalDoormat;
-        
+
+        public Door DoorPrefab => _doorPrefab;
         public CraftRequirements CraftRequirements => _craftRequirements.Clone();
         public Sprite OptionIcon => _optionIcon;
         public int MaxDurability => _maxDurability;

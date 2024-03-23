@@ -11,6 +11,7 @@ namespace Data.Structure
     [Serializable]
     public enum EConstructionState
     {
+        Planning,
         Blueprint,
         Built,
     }

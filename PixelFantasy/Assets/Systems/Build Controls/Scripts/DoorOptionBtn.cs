@@ -62,9 +62,9 @@ namespace Systems.Build_Controls.Scripts
         private Door _plannedDoor;
         private void PlanDoor()
         {
-            Spawner.Instance.CancelInput();
-            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildDoor, _doorSettings.DoorName);
-            Spawner.Instance.PlanDoor(_doorSettings, ToggledOff);
+            // Spawner.Instance.CancelInput();
+            // PlayerInputController.Instance.ChangeState(PlayerInputState.BuildDoor, _doorSettings.DoorName);
+            // Spawner.Instance.PlanDoor(_doorSettings, ToggledOff);
         }
     }
 }

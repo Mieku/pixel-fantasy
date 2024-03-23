@@ -1,13 +1,9 @@
 using System;
-using System.Collections.Generic;
 using Controllers;
 using Data.Dye;
 using Data.Item;
 using Data.Structure;
-using Databrain;
-using Databrain.Attributes;
 using Managers;
-using ScriptableObjects;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -22,6 +18,39 @@ namespace Systems.Buildings.Scripts
         
         private Tilemap _structureTilemap;
 
+        protected override void Awake()
+        {
+            base.Awake();
+            
+            _structureTilemap = TilemapController.Instance.GetTilemap(TilemapLayer.Structure);
+        }
+
+        public void Init(Data.Structure.WallSettings wallSettings, DyeData colour)
+        {
+            DataLibrary.RegisterInitializationCallback(() =>
+            {
+                RuntimeData = (WallData) DataLibrary.CloneDataObjectToRuntime(Data, gameObject);
+                RuntimeWallData.AssignWallOption(wallSettings, colour);
+                RuntimeWallData.Position = transform.position;
+                RuntimeWallData.title = wallSettings.title;
+                
+                DataLibrary.OnSaved += Saved;
+                DataLibrary.OnLoaded += Loaded;
+            });
+            
+            AssignWallState(EConstructionState.Blueprint);
+        }
+        
+        protected void Saved()
+        {
+            
+        }
+
+        protected void Loaded()
+        {
+            
+        }
+        
         private void AssignWallState(EConstructionState state)
         {
             RuntimeData.State = state;
@@ -56,39 +85,6 @@ namespace Systems.Buildings.Scripts
 
                 AssignWallState(newState);
             }
-        }
-        
-        protected override void Awake()
-        {
-            base.Awake();
-            
-            _structureTilemap = TilemapController.Instance.GetTilemap(TilemapLayer.Structure);
-        }
-
-        public void Init(Data.Structure.WallSettings wallSettings, DyeData colour)
-        {
-            DataLibrary.RegisterInitializationCallback(() =>
-            {
-                RuntimeData = (WallData) DataLibrary.CloneDataObjectToRuntime(Data, gameObject);
-                RuntimeWallData.AssignWallOption(wallSettings, colour);
-                RuntimeWallData.Position = transform.position;
-                RuntimeWallData.title = wallSettings.title;
-                
-                DataLibrary.OnSaved += Saved;
-                DataLibrary.OnLoaded += Loaded;
-            });
-            
-            AssignWallState(EConstructionState.Blueprint);
-        }
-        
-        protected void Saved()
-        {
-            
-        }
-
-        protected void Loaded()
-        {
-            
         }
 
         public override void CreateConstructTask(bool autoAssign = true)

@@ -1,11 +1,10 @@
 using System;
-using System.Collections.Generic;
 using CodeMonkey.Utils;
 using Controllers;
+using Data.Dye;
 using Data.Item;
+using Data.Structure;
 using Managers;
-using ScriptableObjects;
-using Systems.Skills.Scripts;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -15,8 +14,8 @@ namespace Systems.Buildings.Scripts
     public class Door : StructurePiece
     {
         private Tilemap _wallTilemap;
-        private EDoorState _doorState;
-        private DoorSettings _doorSettings;
+        // private EDoorState _doorState;
+        // private DoorSettings _doorSettings;
         public Action OnDoorPlaced;
 
         [SerializeField] private SpriteRenderer _doorSprite;
@@ -26,27 +25,74 @@ namespace Systems.Buildings.Scripts
         [SerializeField] private DoorOpener _horizontalDoorOpener;
         [SerializeField] private DoorOpener _verticalDoorOpener;
 
-        private bool _isBeingPlaced => _doorState == EDoorState.BeingPlaced;
-
-        public enum EDoorState
+        private bool _isBeingPlaced => RuntimeDoorData.State == EConstructionState.Planning;
+        
+        public DoorData RuntimeDoorData => RuntimeData as DoorData;
+        
+        protected override void Awake()
         {
-            BeingPlaced,
-            Construction,
-            Built,
+            base.Awake();
+
+            _wallTilemap = TilemapController.Instance.GetTilemap(TilemapLayer.Structure);
+        }
+
+        // public void Init(DoorSettings doorSettings)
+        // {
+        //     _doorSettings = doorSettings;
+        //     SetState(EDoorState.BeingPlaced);
+        //     SetOrientationVertical(false);
+        // }
+
+        public void Init(Data.Structure.DoorSettings doorSettings, DyeData matColour)
+        {
+            DataLibrary.RegisterInitializationCallback(() =>
+            {
+                RuntimeData = (DoorData) DataLibrary.CloneDataObjectToRuntime(Data, gameObject);
+                RuntimeDoorData.AssignDoorSettings(doorSettings, matColour);
+                RuntimeDoorData.Position = transform.position;
+                RuntimeDoorData.title = doorSettings.title;
+                
+                DataLibrary.OnSaved += Saved;
+                DataLibrary.OnLoaded += Loaded;
+                
+                SetState(EConstructionState.Planning);
+                SetOrientationVertical(false);
+            });
         }
         
-        public void SetState(EDoorState state)
+        protected void Saved()
         {
-            _doorState = state;
-            switch (_doorState)
+            
+        }
+
+        protected void Loaded()
+        {
+            
+        }
+        
+        
+        
+        
+
+        // public enum EDoorState
+        // {
+        //     BeingPlaced,
+        //     Construction,
+        //     Built,
+        // }
+        
+        public void SetState(EConstructionState state)
+        {
+            RuntimeDoorData.State = state;
+            switch (state)
             {
-                case EDoorState.BeingPlaced: 
+                case EConstructionState.Planning: 
                     BeingPlaced_Enter();
                     break;
-                case EDoorState.Construction:
+                case EConstructionState.Blueprint:
                     Construction_Enter();
                     break;
-                case EDoorState.Built:
+                case EConstructionState.Built:
                     BuiltState_Enter();
                     break;
                 default:
@@ -101,20 +147,6 @@ namespace Systems.Buildings.Scripts
         {
             var cursorPos = Helper.ConvertMousePosToGridPos(UtilsClass.GetMouseWorldPosition());
             gameObject.transform.position = cursorPos;
-        }
-
-        protected override void Awake()
-        {
-            base.Awake();
-
-            _wallTilemap = TilemapController.Instance.GetTilemap(TilemapLayer.Structure);
-        }
-
-        public void Init(DoorSettings doorSettings)
-        {
-            _doorSettings = doorSettings;
-            SetState(EDoorState.BeingPlaced);
-            SetOrientationVertical(false);
         }
 
         public override void CreateConstructTask(bool autoAssign = true)
@@ -172,7 +204,7 @@ namespace Systems.Buildings.Scripts
         
         private void CreateConstructionHaulingTasks()
         {
-            var resourceCosts = _doorSettings.GetResourceCosts();
+            var resourceCosts = RuntimeDoorData.DoorSettings.CraftRequirements.GetMaterialCosts();
             CreateConstuctionHaulingTasksForItems(resourceCosts);
         }
         
@@ -180,7 +212,7 @@ namespace Systems.Buildings.Scripts
         {
             base.CompleteConstruction();
             IsClickDisabled = true;
-            SetState(EDoorState.Built);
+            SetState(EConstructionState.Built);
         }
         
         public void TriggerPlaced()
@@ -217,8 +249,8 @@ namespace Systems.Buildings.Scripts
         {
             if (isVertical)
             {
-                _doorSprite.sprite = _doorSettings.VerticalDoorframe;
-                _doormatSprite.sprite = _doorSettings.VerticalDoormat;
+                _doorSprite.sprite = RuntimeDoorData.DoorSettings.VerticalDoorframe;;
+                _doormatSprite.sprite = RuntimeDoorData.DoorSettings.VerticalDoormat;
                 _topCBlocker.SetActive(false);
                 _bottomCBlocker.SetActive(false);
                 _leftCBlocker.SetActive(true);
@@ -228,8 +260,8 @@ namespace Systems.Buildings.Scripts
             }
             else
             {
-                _doorSprite.sprite = _doorSettings.HorizontalDoorframe;
-                _doormatSprite.sprite = _doorSettings.HorizontalDoormat;
+                _doorSprite.sprite = RuntimeDoorData.DoorSettings.HorizontalDoorframe;
+                _doormatSprite.sprite = RuntimeDoorData.DoorSettings.HorizontalDoormat;
                 _topCBlocker.SetActive(true);
                 _bottomCBlocker.SetActive(true);
                 _leftCBlocker.SetActive(false);

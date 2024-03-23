@@ -29,6 +29,14 @@ namespace Systems.Details.Build_Details.Scripts
             RefreshCraftingRequirements(_requirements);
         }
         
+        public void ShowDoorSelection(DoorSettings doorSettings, DyeData matColour)
+        {
+            _requirements = doorSettings.CraftRequirements;
+            _title.text = doorSettings.title;
+            RefreshStatsDisplay(doorSettings.MaxDurability, doorSettings.GetStatsList());
+            RefreshCraftingRequirements(_requirements);
+        }
+        
         private void RefreshStatsDisplay(int durability, List<string> statsList)
         {
             string msg = $"Durability: {durability}\n";

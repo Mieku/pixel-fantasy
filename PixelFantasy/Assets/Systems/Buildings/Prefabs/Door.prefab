@@ -1068,7 +1068,7 @@ MonoBehaviour:
   - {fileID: 3385619136738828789}
   - {fileID: 8646870220780750628}
   DataLibrary: {fileID: 11400000, guid: f88f4256e274c364981fac582520b73b, type: 2}
-  Data: {fileID: 0}
+  Data: {fileID: 7438404328449692925, guid: f88f4256e274c364981fac582520b73b, type: 2}
   RuntimeData: {fileID: 0}
   _cell: {fileID: 327027309830071820}
   _doorSprite: {fileID: 2796273483583580941}
