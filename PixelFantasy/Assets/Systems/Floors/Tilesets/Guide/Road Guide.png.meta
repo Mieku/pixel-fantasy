@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b5de8cbb2dd934246ab560b14b6cf3a1
+guid: 36dee96f4e52b6b448343e03ab44ed29
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
   cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
@@ -75,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -87,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -99,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -111,13 +116,14 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Light Herringbone_0
+      name: Road Guide_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c87d541588dda4e4092035ec317e54bb
-      internalID: -1420836841
+      spriteID: 92cfac9ce5128b84a807135cc7adc0ff
+      internalID: 1664515453
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_1
+      name: Road Guide_1
       rect:
         serializedVersion: 2
         x: 16
@@ -152,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8546e7cb2772a8941a22ec9aeef3ae95
-      internalID: 819809705
+      spriteID: fcb9dd54fbe8738449a8443165208822
+      internalID: 2100428398
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_2
+      name: Road Guide_2
       rect:
         serializedVersion: 2
         x: 32
@@ -173,14 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be17cda1a07ce7c458386f7db5315edb
-      internalID: -1972590705
+      spriteID: 9997bfe3743568548bebd66ae7cf92a2
+      internalID: -1116803772
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_3
+      name: Road Guide_3
       rect:
         serializedVersion: 2
         x: 48
@@ -194,14 +200,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 381c388ba4b405d41b4a00727d278a2b
-      internalID: 714171279
+      spriteID: 747b747400c447141bfe7a13c82a0c5a
+      internalID: 267761946
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_4
+      name: Road Guide_4
       rect:
         serializedVersion: 2
         x: 64
@@ -215,14 +221,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b4e549f8e34d0054182dcb2a78902c28
-      internalID: -352729333
+      spriteID: 865750aa26db90048807b551e6acb278
+      internalID: 1488191948
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_5
+      name: Road Guide_5
       rect:
         serializedVersion: 2
         x: 80
@@ -236,14 +242,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ffdddf790b229d40870fbdd727ec552
-      internalID: -1878678413
+      spriteID: 8c5c9f53d8fcf204ca486b7ac639be7a
+      internalID: 628030725
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_6
+      name: Road Guide_6
       rect:
         serializedVersion: 2
         x: 96
@@ -257,14 +263,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dcb862fa1e0b14f4db79c3a674355fbe
-      internalID: -1790435818
+      spriteID: 928f5fa6d40c97a41919df26dba79b4f
+      internalID: 1449627752
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_7
+      name: Road Guide_7
       rect:
         serializedVersion: 2
         x: 112
@@ -278,14 +284,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dedf5a03ca91caf4ab1d99c6501f8b8a
-      internalID: 1360617370
+      spriteID: 17395f1d253c10c4593434182dce18f2
+      internalID: 1011956972
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_8
+      name: Road Guide_8
       rect:
         serializedVersion: 2
         x: 128
@@ -299,14 +305,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f77bc1efebc88574cb9065ad90814d95
-      internalID: -1168118440
+      spriteID: 8cd01b2c68ac34b4a85e80870ce13088
+      internalID: 1705890668
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_9
+      name: Road Guide_9
       rect:
         serializedVersion: 2
         x: 144
@@ -320,14 +326,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ff7ee402ad7a3f74fa8aca936f7e5924
-      internalID: -801875836
+      spriteID: ce2cb6c5b45716b4aac5defd0bb8166f
+      internalID: -1016319779
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_10
+      name: Road Guide_10
       rect:
         serializedVersion: 2
         x: 160
@@ -341,14 +347,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d858ea6ddcbc8bf4fb31ba71b56b8859
-      internalID: -250980492
+      spriteID: 4143f80921e890341a4832d3a9162032
+      internalID: 637012649
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_11
+      name: Road Guide_11
       rect:
         serializedVersion: 2
         x: 176
@@ -362,14 +368,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c6b1879765fcded4cac908c394d7fd91
-      internalID: 493929343
+      spriteID: 758c683d378333a4cbfc53ad885b832a
+      internalID: -1044307524
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_12
+      name: Road Guide_12
       rect:
         serializedVersion: 2
         x: 0
@@ -383,14 +389,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 87d3e33f6903e684fabf3c5f9f26bd45
-      internalID: 536201148
+      spriteID: b9b60972bc10f884a9c20fa8321652c5
+      internalID: 233072805
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_13
+      name: Road Guide_13
       rect:
         serializedVersion: 2
         x: 16
@@ -404,14 +410,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e81b07877c11a9248b913c16d5774e65
-      internalID: 1028869276
+      spriteID: f4b1c5b0e2326d441b2d37f95dbb50fa
+      internalID: 1046333261
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_14
+      name: Road Guide_14
       rect:
         serializedVersion: 2
         x: 32
@@ -425,14 +431,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6dcc9ff2d0c697044b45c2465ffc9b7b
-      internalID: -1727272238
+      spriteID: 622f72ab2c80f9e4c9ee6db907797f85
+      internalID: 578206032
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_15
+      name: Road Guide_15
       rect:
         serializedVersion: 2
         x: 48
@@ -446,14 +452,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 92ee3873d05324a418c56a64960782f3
-      internalID: -731909364
+      spriteID: 3e96a41a84d26f2419f0b1fe7caf58d4
+      internalID: 608095789
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_16
+      name: Road Guide_16
       rect:
         serializedVersion: 2
         x: 64
@@ -467,14 +473,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 275da953b51a16445aba02cd4a68637d
-      internalID: -1801687108
+      spriteID: 25e3c7d3fd9238a4582129ddff37a87b
+      internalID: -180648165
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_17
+      name: Road Guide_17
       rect:
         serializedVersion: 2
         x: 80
@@ -488,14 +494,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b3ae41eb9c7395a4d842b31f1daf033c
-      internalID: 1077909318
+      spriteID: 8fab9b42aa8178d4da9a58afc611bc6e
+      internalID: 736238359
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_18
+      name: Road Guide_18
       rect:
         serializedVersion: 2
         x: 96
@@ -509,14 +515,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0bd2231c978a4fb44b1e74114a34fb72
-      internalID: -2073880343
+      spriteID: 5effc189c31cb464696f614b2ba4500e
+      internalID: -1444244591
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_19
+      name: Road Guide_19
       rect:
         serializedVersion: 2
         x: 112
@@ -530,14 +536,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 35a5ba2e70c09ed48938e705dd6a8806
-      internalID: 2098500757
+      spriteID: cc4658c6d5ca92e49a4e48773c598ad9
+      internalID: 1065179415
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_20
+      name: Road Guide_20
       rect:
         serializedVersion: 2
         x: 128
@@ -551,14 +557,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c8453579195701e429f7e439f892123a
-      internalID: 2108931568
+      spriteID: a0814b2bdb262564085fa4955aa36069
+      internalID: -1652973390
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_21
+      name: Road Guide_21
       rect:
         serializedVersion: 2
         x: 144
@@ -572,14 +578,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6864c0b72fa609c4ca20abe4e53a7952
-      internalID: 1849637246
+      spriteID: c990cdf8b7e41714fa6f6815cf249bf0
+      internalID: -87113144
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_Icon
+      name: Road Guide_Icon
       rect:
         serializedVersion: 2
         x: 160
@@ -593,14 +599,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8618c1ea465ca0f4a83e9b8f36219712
-      internalID: -1832011683
+      spriteID: fc04b96f507427d4c9405c591927c30c
+      internalID: 2025049659
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_23
+      name: Road Guide_23
       rect:
         serializedVersion: 2
         x: 176
@@ -614,14 +620,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ae3bef633cc5f9e49a0cf40a43d279d8
-      internalID: 1293657472
+      spriteID: cdadfdbf12058284898b3fb3d25a7b88
+      internalID: 1212737616
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_24
+      name: Road Guide_24
       rect:
         serializedVersion: 2
         x: 0
@@ -635,14 +641,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 72838f6f84c7722419fefe1d35a21453
-      internalID: -2014720611
+      spriteID: 36b4cd695b8effd4796cd4ac0978f580
+      internalID: 235027561
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_25
+      name: Road Guide_25
       rect:
         serializedVersion: 2
         x: 16
@@ -656,14 +662,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1c42ca9a3fa99b341a6fc409ab7edf8f
-      internalID: 1878253665
+      spriteID: 9afc79c84508b7b44bd21d3d52c99dac
+      internalID: -904166528
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_26
+      name: Road Guide_26
       rect:
         serializedVersion: 2
         x: 32
@@ -677,14 +683,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1340a6e48337e9246945bf70593bae67
-      internalID: 430299966
+      spriteID: 090153f66225b3142bca44ef130043e5
+      internalID: 849558765
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_27
+      name: Road Guide_27
       rect:
         serializedVersion: 2
         x: 48
@@ -698,14 +704,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d75ead4b6549b0a4fbd8e7d1f7055c16
-      internalID: -1144500685
+      spriteID: 02d087bbf519ff041bb8b57ea28d8c81
+      internalID: 1501925872
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_28
+      name: Road Guide_28
       rect:
         serializedVersion: 2
         x: 64
@@ -719,14 +725,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 131d943c246944c4daf259aa3d2ccb23
-      internalID: -2096242475
+      spriteID: 8bf6546c5ead01643b1252015feb4601
+      internalID: 1146641239
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_29
+      name: Road Guide_29
       rect:
         serializedVersion: 2
         x: 80
@@ -740,14 +746,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e40f71f5637d5841b72df9f6347e492
-      internalID: 533603246
+      spriteID: 2d2c6a0d782ea3e4489f917f1ba01dc3
+      internalID: -997050152
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_30
+      name: Road Guide_30
       rect:
         serializedVersion: 2
         x: 96
@@ -761,14 +767,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 789445594ceb28d4a8785cd61509c66d
-      internalID: 1753107348
+      spriteID: 97cf6a40be788ab49895f8326ad49560
+      internalID: -634864555
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_31
+      name: Road Guide_31
       rect:
         serializedVersion: 2
         x: 112
@@ -782,14 +788,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0c37fa1a36a221b4a9961c97ec5e7d91
-      internalID: 1276083959
+      spriteID: 328568314774fdb4bb20ce7e555239c5
+      internalID: -1340121623
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_32
+      name: Road Guide_32
       rect:
         serializedVersion: 2
         x: 128
@@ -803,14 +809,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a553e0e68eae7164c924cff62e383001
-      internalID: 1714393396
+      spriteID: 4298076a6ea52af46962d149f483262d
+      internalID: -1592816605
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_33
+      name: Road Guide_33
       rect:
         serializedVersion: 2
         x: 144
@@ -824,14 +830,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f0d5a28e6b26d846b84bcfc13275b04
-      internalID: 55305759
+      spriteID: d886a438b5470f6408d84a4da9b9281f
+      internalID: -304272680
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_34
+      name: Road Guide_34
       rect:
         serializedVersion: 2
         x: 160
@@ -845,14 +851,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 01d92379856ba7348937513c91a07c34
-      internalID: 2035210665
+      spriteID: 2039cd5cf758ce840a87dccfe3fb6579
+      internalID: -782584909
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_35
+      name: Road Guide_35
       rect:
         serializedVersion: 2
         x: 176
@@ -866,14 +872,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 811b6f9a9a7cf8c4f92d96f4f59eb3b8
-      internalID: -1505889275
+      spriteID: b9ea413408602a449a618531460b1838
+      internalID: -897666986
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_36
+      name: Road Guide_36
       rect:
         serializedVersion: 2
         x: 0
@@ -887,14 +893,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 41ebda4a500ab4044878b4c8176b56b1
-      internalID: -1411524476
+      spriteID: e1a4eb95344218243b170b7fbea94d58
+      internalID: 841456481
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_37
+      name: Road Guide_37
       rect:
         serializedVersion: 2
         x: 16
@@ -908,14 +914,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5ba1021ad4d8f024e93fca78392151e9
-      internalID: -708437063
+      spriteID: 72ed43e16f69b84419707c5eaafbc060
+      internalID: 1783981170
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_38
+      name: Road Guide_38
       rect:
         serializedVersion: 2
         x: 32
@@ -929,14 +935,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dbad1a5520c403f4da1e400b6d59370a
-      internalID: -1153224676
+      spriteID: 91b8517458c7ed34cbd724366ab4c57d
+      internalID: -1927386006
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_39
+      name: Road Guide_39
       rect:
         serializedVersion: 2
         x: 48
@@ -950,14 +956,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c81b9fd6868617348b7a22c5758ec725
-      internalID: 1995578619
+      spriteID: f82d979075132154d96497479100b939
+      internalID: -1013266468
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_40
+      name: Road Guide_40
       rect:
         serializedVersion: 2
         x: 64
@@ -971,14 +977,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 977cfdbe3ea49034aaa8c454733efaf1
-      internalID: -1907588381
+      spriteID: 0ecc51c68b926294fa0b01d1e624906b
+      internalID: -1171171195
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_41
+      name: Road Guide_41
       rect:
         serializedVersion: 2
         x: 80
@@ -992,14 +998,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fa7a102eb01600549a2762638be6eea3
-      internalID: -1951483819
+      spriteID: fc5e06c2407be5b44b50b95badbc4334
+      internalID: -379995655
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_42
+      name: Road Guide_42
       rect:
         serializedVersion: 2
         x: 96
@@ -1013,14 +1019,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 36c4a5e9be98b0c46a55e46748bbb997
-      internalID: -24642666
+      spriteID: 79cbcb5162295b9448169f0472efd84b
+      internalID: -782614674
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_43
+      name: Road Guide_43
       rect:
         serializedVersion: 2
         x: 112
@@ -1034,14 +1040,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 506abfd59af12af4c9685769f35e168b
-      internalID: -766481157
+      spriteID: c5486c0401cd74943a370bab51485b63
+      internalID: 1929404150
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_44
+      name: Road Guide_44
       rect:
         serializedVersion: 2
         x: 128
@@ -1055,14 +1061,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 26c358c62dd7a674a8ae848613f59ffb
-      internalID: 1760952491
+      spriteID: c0f72d68be03dfc448ae437a6a78099d
+      internalID: -226739739
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_45
+      name: Road Guide_45
       rect:
         serializedVersion: 2
         x: 144
@@ -1076,14 +1082,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 17e49efff794f6c4daf376fd7f1b65aa
-      internalID: -292877828
+      spriteID: 1e0862fe67deec44097c811b061f9c62
+      internalID: -1687121309
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_46
+      name: Road Guide_46
       rect:
         serializedVersion: 2
         x: 160
@@ -1097,14 +1103,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e8347ad9be887fd44b7f7aba54f4db6b
-      internalID: 1912107372
+      spriteID: 035b07e6389f2e648b9baf3feb4cf199
+      internalID: 1148231581
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Herringbone_47
+      name: Road Guide_47
       rect:
         serializedVersion: 2
         x: 176
@@ -1118,8 +1124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e80eb26bc373034eba9cc29bcf218ca
-      internalID: -1000110322
+      spriteID: 748e625fbeca417469147cc6054433a5
+      internalID: -511207362
       vertices: []
       indices: 
       edges: []
@@ -1135,57 +1141,56 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Light Herringbone_0: -1420836841
-      Light Herringbone_1: 819809705
-      Light Herringbone_10: -250980492
-      Light Herringbone_11: 493929343
-      Light Herringbone_12: 536201148
-      Light Herringbone_13: 1028869276
-      Light Herringbone_14: -1727272238
-      Light Herringbone_15: -731909364
-      Light Herringbone_16: -1801687108
-      Light Herringbone_17: 1077909318
-      Light Herringbone_18: -2073880343
-      Light Herringbone_19: 2098500757
-      Light Herringbone_2: -1972590705
-      Light Herringbone_20: 2108931568
-      Light Herringbone_21: 1849637246
-      Light Herringbone_23: 1293657472
-      Light Herringbone_24: -2014720611
-      Light Herringbone_25: 1878253665
-      Light Herringbone_26: 430299966
-      Light Herringbone_27: -1144500685
-      Light Herringbone_28: -2096242475
-      Light Herringbone_29: 533603246
-      Light Herringbone_3: 714171279
-      Light Herringbone_30: 1753107348
-      Light Herringbone_31: 1276083959
-      Light Herringbone_32: 1714393396
-      Light Herringbone_33: 55305759
-      Light Herringbone_34: 2035210665
-      Light Herringbone_35: -1505889275
-      Light Herringbone_36: -1411524476
-      Light Herringbone_37: -708437063
-      Light Herringbone_38: -1153224676
-      Light Herringbone_39: 1995578619
-      Light Herringbone_4: -352729333
-      Light Herringbone_40: -1907588381
-      Light Herringbone_41: -1951483819
-      Light Herringbone_42: -24642666
-      Light Herringbone_43: -766481157
-      Light Herringbone_44: 1760952491
-      Light Herringbone_45: -292877828
-      Light Herringbone_46: 1912107372
-      Light Herringbone_47: -1000110322
-      Light Herringbone_5: -1878678413
-      Light Herringbone_6: -1790435818
-      Light Herringbone_7: 1360617370
-      Light Herringbone_8: -1168118440
-      Light Herringbone_9: -801875836
-      Light Herringbone_Icon: -1832011683
-  spritePackingTag: 
+      Road Guide_0: 1664515453
+      Road Guide_1: 2100428398
+      Road Guide_10: 637012649
+      Road Guide_11: -1044307524
+      Road Guide_12: 233072805
+      Road Guide_13: 1046333261
+      Road Guide_14: 578206032
+      Road Guide_15: 608095789
+      Road Guide_16: -180648165
+      Road Guide_17: 736238359
+      Road Guide_18: -1444244591
+      Road Guide_19: 1065179415
+      Road Guide_2: -1116803772
+      Road Guide_20: -1652973390
+      Road Guide_21: -87113144
+      Road Guide_23: 1212737616
+      Road Guide_24: 235027561
+      Road Guide_25: -904166528
+      Road Guide_26: 849558765
+      Road Guide_27: 1501925872
+      Road Guide_28: 1146641239
+      Road Guide_29: -997050152
+      Road Guide_3: 267761946
+      Road Guide_30: -634864555
+      Road Guide_31: -1340121623
+      Road Guide_32: -1592816605
+      Road Guide_33: -304272680
+      Road Guide_34: -782584909
+      Road Guide_35: -897666986
+      Road Guide_36: 841456481
+      Road Guide_37: 1783981170
+      Road Guide_38: -1927386006
+      Road Guide_39: -1013266468
+      Road Guide_4: 1488191948
+      Road Guide_40: -1171171195
+      Road Guide_41: -379995655
+      Road Guide_42: -782614674
+      Road Guide_43: 1929404150
+      Road Guide_44: -226739739
+      Road Guide_45: -1687121309
+      Road Guide_46: 1148231581
+      Road Guide_47: -511207362
+      Road Guide_5: 628030725
+      Road Guide_6: 1449627752
+      Road Guide_7: 1011956972
+      Road Guide_8: 1705890668
+      Road Guide_9: -1016319779
+      Road Guide_Icon: 2025049659
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

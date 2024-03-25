@@ -36,6 +36,14 @@ namespace Systems.Details.Build_Details.Scripts
             RefreshStatsDisplay(doorSettings.MaxDurability, doorSettings.GetStatsList());
             RefreshCraftingRequirements(_requirements);
         }
+
+        public void ShowFloorSelection(FloorSettings floorSettings, StyleOption styleOption)
+        {
+            _requirements = floorSettings.CraftRequirements;
+            _title.text = $"{floorSettings.title}";
+            RefreshStatsDisplay(floorSettings.MaxDurability, floorSettings.GetStatsList());
+            RefreshCraftingRequirements(_requirements);
+        }
         
         private void RefreshStatsDisplay(int durability, List<string> statsList)
         {

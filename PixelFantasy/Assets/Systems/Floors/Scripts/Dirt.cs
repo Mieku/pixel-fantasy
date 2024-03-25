@@ -1,35 +1,37 @@
 using System;
 using Controllers;
+using Data.Item;
 using Items;
 using Managers;
-using ScriptableObjects;
+using TaskSystem;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Systems.Roads.Scripts
+namespace Systems.Floors.Scripts
 {
-    public class Road : Construction
+    public class Dirt : Construction
     {
-        private Tilemap _roadTilemap;
-        private RoadOption _roadOption;
-        private ERoadState _roadState;
+        private Tilemap _dirtTilemap;
+        private EDirtState _dirtState;
 
-        public enum ERoadState
+        [SerializeField] private TileBase _dirtRuleTile;
+
+        public enum EDirtState
         {
             
             Blueprint,
             Built,
         }
 
-        private void AssignRoadState(ERoadState state)
+        private void AssignDirtState(EDirtState state)
         {
-            _roadState = state;
-            switch (_roadState)
+            _dirtState = state;
+            switch (_dirtState)
             {
-                case ERoadState.Blueprint:
+                case EDirtState.Blueprint:
                     BlueprintState_Enter();
                     break;
-                case ERoadState.Built:
+                case EDirtState.Built:
                     BuiltState_Enter();
                     break;
                 default:
@@ -37,23 +39,23 @@ namespace Systems.Roads.Scripts
             }
         }
 
-        public void ChangeRoadState(ERoadState newState)
+        public void ChangeDirtState(EDirtState newState)
         {
-            if (_roadState != newState)
+            if (_dirtState != newState)
             {
-                switch (_roadState)
+                switch (_dirtState)
                 {
-                    case ERoadState.Blueprint:
+                    case EDirtState.Blueprint:
                         BlueprintState_Exit();
                         break;
-                    case ERoadState.Built:
+                    case EDirtState.Built:
                         BuiltState_Exit();
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
 
-                AssignRoadState(newState);
+                AssignDirtState(newState);
             }
         }
         
@@ -61,21 +63,19 @@ namespace Systems.Roads.Scripts
         {
             base.Awake();
 
-            _roadTilemap = TilemapController.Instance.GetTilemap(TilemapLayer.Flooring);
+            _dirtTilemap = TilemapController.Instance.GetTilemap(TilemapLayer.Dirt);
         }
 
-        public void Init(RoadOption roadOption)
+        public void Init()
         {
-            _roadOption = roadOption;
-            
-            AssignRoadState(ERoadState.Blueprint);
+            AssignDirtState(EDirtState.Blueprint);
         }
 
         private void BlueprintState_Enter()
         {
             SetTile();
             ColourTile(Librarian.Instance.GetColour("Blueprint"));
-            CreateConstructionHaulingTasks();
+            CreateConstructTask();
         }
         
         private void BlueprintState_Exit()
@@ -95,28 +95,28 @@ namespace Systems.Roads.Scripts
 
         private void SetTile()
         {
-            var cell = _roadTilemap.WorldToCell(transform.position);
-            _roadTilemap.SetTile(cell, _roadOption.RoadRuleTile);
+            var cell = _dirtTilemap.WorldToCell(transform.position);
+            _dirtTilemap.SetTile(cell, _dirtRuleTile);
         }
 
         private void ClearTile()
         {
-            var cell = _roadTilemap.WorldToCell(transform.position);
-            _roadTilemap.SetTile(cell, null);
+            var cell = _dirtTilemap.WorldToCell(transform.position);
+            _dirtTilemap.SetTile(cell, null);
         }
 
         private void ColourTile(Color colour)
         {
-            var cell = _roadTilemap.WorldToCell(transform.position);
-            _roadTilemap.SetColor(cell, colour);
+            var cell = _dirtTilemap.WorldToCell(transform.position);
+            _dirtTilemap.SetColor(cell, colour);
         }
-        
-        private void CreateConstructionHaulingTasks()
+
+        public override void CreateConstructTask(bool autoAssign = true)
         {
-            var resourceCosts = _roadOption.OptionResourceCosts;
-            CreateConstuctionHaulingTasksForItems(resourceCosts);
+            Task task = new Task("Clear Grass", ETaskType.Farming, this, EToolType.None);
+            task.Enqueue();
         }
-        
+
         // public override void CancelConstruction()
         // {
         //     if (!_isBuilt)
@@ -135,7 +135,7 @@ namespace Systems.Roads.Scripts
         {
             base.CompleteConstruction();
             IsClickDisabled = true;
-            ChangeRoadState(ERoadState.Built);
+            ChangeDirtState(EDirtState.Built);
         }
     }
 }

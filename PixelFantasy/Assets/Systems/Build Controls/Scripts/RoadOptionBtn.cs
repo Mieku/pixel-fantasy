@@ -3,9 +3,10 @@ using Controllers;
 using Managers;
 using ScriptableObjects;
 using Systems.CursorHandler.Scripts;
-using Systems.Roads.Scripts;
+using Systems.Floors.Scripts;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Systems.Build_Controls.Scripts
@@ -15,7 +16,7 @@ namespace Systems.Build_Controls.Scripts
         [SerializeField] private Image _btnBG;
         [SerializeField] private Sprite _defaultBtnSpr;
         [SerializeField] private Sprite _activeBtnSpr;
-        [SerializeField] private Road _roadPrefab;
+        [FormerlySerializedAs("_roadPrefab")] [SerializeField] private Floor _floorPrefab;
         
         [SerializeField] protected Transform _costsLayout;
         [SerializeField] protected BuildControlCostDisplay _costDisplayPrefab;
@@ -205,9 +206,9 @@ namespace Systems.Build_Controls.Scripts
             if (Helper.IsGridPosValidToBuild(spawnPosition, _roadSettings.InvalidPlacementTags))
             {
                 spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
-                var road = Instantiate(_roadPrefab, spawnPosition, Quaternion.identity);
+                var road = Instantiate(_floorPrefab, spawnPosition, Quaternion.identity);
                 road.transform.SetParent(_floorParent);
-                road.Init(roadOption);
+                //road.Init(roadOption);
             }
         }
 

@@ -1,28 +1,51 @@
 using System.Collections.Generic;
 using Controllers;
-using Data.Dye;
+using Data.Structure;
 using Managers;
 using Systems.Build_Controls.Scripts;
-using Systems.Buildings.Scripts;
 using Systems.CursorHandler.Scripts;
+using Systems.Floors.Scripts;
 using UnityEngine;
-using WallSettings = Data.Structure.WallSettings;
 
 namespace Systems.Details.Build_Details.Scripts
 {
-    public class WallBuilder : MonoBehaviour
+    public class FloorBuilder : MonoBehaviour
     {
-        [SerializeField] private Wall _wallPrefab;
+        [SerializeField] private Floor _floorPrefab;
         [SerializeField] private Sprite _placementIcon;
-        
-        private WallSettings _wallSettings;
-        private DyeData _colour;
+
+        private FloorStyle _floorStyle;
+        private FloorSettings _floorSettings;
         private bool _isEnabled;
         private bool _isPlanning;
         private Vector2 _startPos;
         private List<Vector2> _plannedGrid = new List<Vector2>();
         private List<TilePlan> _plannedTiles = new List<TilePlan>();
-        private List<string> _invalidPlacementTags => new List<string>() { "Water", "Wall", "Structure", "Obstacle" };
+        private List<string> _invalidPlacementTags => new List<string>() { "Water", "Wall", "Floor", "Obstacle" };
+
+        public void BeginFloorBuild(FloorSettings settings, StyleOption style)
+        {
+            _floorSettings = settings;
+            _floorStyle = style as FloorStyle;
+            
+            CursorManager.Instance.ChangeCursorState(ECursorState.AreaSelect);
+            Spawner.Instance.ShowPlacementIcon(true, _placementIcon, _invalidPlacementTags);
+            _isEnabled = true;
+        }
+
+        public void UpdateStyle(StyleOption style)
+        {
+            _floorStyle = style as FloorStyle;
+        }
+        
+        public void CancelFloorBuild()
+        {
+            _isEnabled = false;
+            CursorManager.Instance.ChangeCursorState(ECursorState.Default);
+            Spawner.Instance.ShowPlacementIcon(false);
+            
+            ClearTilePlan();
+        }
         
         private void Awake()
         {
@@ -44,7 +67,7 @@ namespace Systems.Details.Build_Details.Scripts
         {
             if(!_isEnabled) return;
             
-            CancelWallBuild();
+            CancelFloorBuild();
         }
     
         protected void GameEvents_OnLeftClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
@@ -61,7 +84,7 @@ namespace Systems.Details.Build_Details.Scripts
             if (!_isEnabled) return;
             if (!_isPlanning) return;
             
-            PlanWall(mousePos);
+            PlanFloor(mousePos);
         }
 
         protected void GameEvents_OnLeftClickUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
@@ -70,43 +93,25 @@ namespace Systems.Details.Build_Details.Scripts
 
             if (_isPlanning)
             {
-                SpawnPlannedWall();
+                SpawnPlannedFloor();
             }
             else
             {
                 if (!isOverUI)
                 {
-                    SpawnWall(Helper.ConvertMousePosToGridPos(mousePos));
+                    SpawnFloor(Helper.ConvertMousePosToGridPos(mousePos));
                 }
             }
         }
-
-        public void BeginWallBuild(WallSettings wallSettings, DyeData colour)
-        {
-            _wallSettings = wallSettings;
-            _colour = colour;
-            CursorManager.Instance.ChangeCursorState(ECursorState.AreaSelect);
-            Spawner.Instance.ShowPlacementIcon(true, _placementIcon, _invalidPlacementTags);
-            _isEnabled = true;
-        }
-
-        public void CancelWallBuild()
-        {
-            _isEnabled = false;
-            CursorManager.Instance.ChangeCursorState(ECursorState.Default);
-            Spawner.Instance.ShowPlacementIcon(false);
-            
-            ClearTilePlan();
-        }
-
-        private void PlanWall(Vector2 mousePos)
+        
+        private void PlanFloor(Vector2 mousePos)
         {
             Spawner.Instance.ShowPlacementIcon(false);
             
             Vector3 curGridPos = Helper.ConvertMousePosToGridPos(mousePos);
             List<Vector2> gridPositions = new List<Vector2>();
             
-            gridPositions = Helper.GetBoxPositionsBetweenPoints(_startPos, curGridPos);
+            gridPositions = Helper.GetRectangleGridPositionsBetweenPoints(_startPos, curGridPos);
             
             if (gridPositions.Count != _plannedGrid.Count)
             {
@@ -121,7 +126,7 @@ namespace Systems.Details.Build_Details.Scripts
                     tilePlanGO.transform.position = gridPos;
             
                     var tilePlan = tilePlanGO.GetComponent<TilePlan>();
-                    var tileMap = TilemapController.Instance.GetTilemap(TilemapLayer.Structure);
+                    var tileMap = TilemapController.Instance.GetTilemap(TilemapLayer.Flooring);
                     Color placementColour;
                     if (Helper.IsGridPosValidToBuild(gridPos, _invalidPlacementTags))
                     {
@@ -132,14 +137,14 @@ namespace Systems.Details.Build_Details.Scripts
                         placementColour = Librarian.Instance.GetColour("Placement Red");
                     }
                 
-                    tilePlan.Init(_wallSettings.ExteriorRuleTile, tileMap, placementColour);
+                    tilePlan.Init(_floorStyle.Tiles, tileMap, placementColour);
             
                     _plannedTiles.Add(tilePlan);
                 }
             }
         }
-    
-        private void SpawnPlannedWall()
+        
+        private void SpawnPlannedFloor()
         {
             if (!_isPlanning) return;
             
@@ -150,22 +155,22 @@ namespace Systems.Details.Build_Details.Scripts
             {
                 if (Helper.IsGridPosValidToBuild(gridPos, _invalidPlacementTags))
                 {
-                    SpawnWall(gridPos);
+                    SpawnFloor(gridPos);
                 }
             }
             
             _plannedGrid.Clear();
             _isPlanning = false;
         }
-    
-        public void SpawnWall(Vector3 spawnPosition)
+        
+        public void SpawnFloor(Vector3 spawnPosition)
         {
             if (Helper.IsGridPosValidToBuild(spawnPosition, _invalidPlacementTags))
             {
                 spawnPosition = new Vector3(spawnPosition.x, spawnPosition.y, -1);
-                var wall = Instantiate(_wallPrefab, spawnPosition, Quaternion.identity);
-                wall.transform.SetParent(ParentsManager.Instance.StructuresParent);
-                wall.Init(_wallSettings, _colour);
+                var floor = Instantiate(_floorPrefab, spawnPosition, Quaternion.identity);
+                floor.transform.SetParent(ParentsManager.Instance.FlooringParent);
+                floor.Init(_floorSettings, _floorStyle);
             }
         }
     

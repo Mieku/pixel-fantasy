@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 36dee96f4e52b6b448343e03ab44ed29
+guid: 57447c536ada4864a9059183ebf2cbb6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
   cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
@@ -75,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -87,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -99,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -111,13 +116,14 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Road Guide_0
+      name: Light Smooth_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 92cfac9ce5128b84a807135cc7adc0ff
-      internalID: 1664515453
+      spriteID: c733b8f169064b84a8ed66411668edb9
+      internalID: 1831523545
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_1
+      name: Light Smooth_1
       rect:
         serializedVersion: 2
         x: 16
@@ -152,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fcb9dd54fbe8738449a8443165208822
-      internalID: 2100428398
+      spriteID: 54d34987237169141a6ae55dff7bba26
+      internalID: -1517400639
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_2
+      name: Light Smooth_2
       rect:
         serializedVersion: 2
         x: 32
@@ -173,14 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9997bfe3743568548bebd66ae7cf92a2
-      internalID: -1116803772
+      spriteID: 8e7015508b1f80d43bf4ce1beee578ed
+      internalID: 1987267913
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_3
+      name: Light Smooth_3
       rect:
         serializedVersion: 2
         x: 48
@@ -194,14 +200,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 747b747400c447141bfe7a13c82a0c5a
-      internalID: 267761946
+      spriteID: 55050ccb32a42c545be46ece3d6d6f81
+      internalID: 1673806752
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_4
+      name: Light Smooth_4
       rect:
         serializedVersion: 2
         x: 64
@@ -215,14 +221,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 865750aa26db90048807b551e6acb278
-      internalID: 1488191948
+      spriteID: b9701e7ff02eacb478b79720abb15dee
+      internalID: 1273583505
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_5
+      name: Light Smooth_5
       rect:
         serializedVersion: 2
         x: 80
@@ -236,14 +242,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8c5c9f53d8fcf204ca486b7ac639be7a
-      internalID: 628030725
+      spriteID: c9bf1cc027f77814ca261b3b55989b1e
+      internalID: 1751568631
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_6
+      name: Light Smooth_6
       rect:
         serializedVersion: 2
         x: 96
@@ -257,14 +263,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 928f5fa6d40c97a41919df26dba79b4f
-      internalID: 1449627752
+      spriteID: 230dfc33e51bd4346bf18d8c125845b8
+      internalID: -383202581
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_7
+      name: Light Smooth_7
       rect:
         serializedVersion: 2
         x: 112
@@ -278,14 +284,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 17395f1d253c10c4593434182dce18f2
-      internalID: 1011956972
+      spriteID: ee228d3500296164eac27db3496d2f02
+      internalID: -854496924
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_8
+      name: Light Smooth_8
       rect:
         serializedVersion: 2
         x: 128
@@ -299,14 +305,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8cd01b2c68ac34b4a85e80870ce13088
-      internalID: 1705890668
+      spriteID: cd5d182951bcfb74789ce4b61d6f505d
+      internalID: -526249813
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_9
+      name: Light Smooth_9
       rect:
         serializedVersion: 2
         x: 144
@@ -320,14 +326,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce2cb6c5b45716b4aac5defd0bb8166f
-      internalID: -1016319779
+      spriteID: d531c09dafb63174a9634043747ecc88
+      internalID: -787180770
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_10
+      name: Light Smooth_10
       rect:
         serializedVersion: 2
         x: 160
@@ -341,14 +347,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4143f80921e890341a4832d3a9162032
-      internalID: 637012649
+      spriteID: 5cb72883766335f4eb4c01e4c423109c
+      internalID: -1534499684
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_11
+      name: Light Smooth_11
       rect:
         serializedVersion: 2
         x: 176
@@ -362,14 +368,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 758c683d378333a4cbfc53ad885b832a
-      internalID: -1044307524
+      spriteID: 2407bb834655f09479388cec293e2a2c
+      internalID: -1825446417
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_12
+      name: Light Smooth_12
       rect:
         serializedVersion: 2
         x: 0
@@ -383,14 +389,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b9b60972bc10f884a9c20fa8321652c5
-      internalID: 233072805
+      spriteID: 143f6a0a080edef42a3f011d53f64293
+      internalID: 1700148474
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_13
+      name: Light Smooth_13
       rect:
         serializedVersion: 2
         x: 16
@@ -404,14 +410,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f4b1c5b0e2326d441b2d37f95dbb50fa
-      internalID: 1046333261
+      spriteID: 9e243c22b920cd744bc4b340a7fcb7ee
+      internalID: 344466336
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_14
+      name: Light Smooth_14
       rect:
         serializedVersion: 2
         x: 32
@@ -425,14 +431,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 622f72ab2c80f9e4c9ee6db907797f85
-      internalID: 578206032
+      spriteID: 13212b5e3717b804691b5b616ff00f96
+      internalID: -1873024298
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_15
+      name: Light Smooth_15
       rect:
         serializedVersion: 2
         x: 48
@@ -446,14 +452,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3e96a41a84d26f2419f0b1fe7caf58d4
-      internalID: 608095789
+      spriteID: 1e786545a69802f4e95836df5edc3e25
+      internalID: 780875364
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_16
+      name: Light Smooth_16
       rect:
         serializedVersion: 2
         x: 64
@@ -467,14 +473,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 25e3c7d3fd9238a4582129ddff37a87b
-      internalID: -180648165
+      spriteID: 1c98de8d2c04f3645a6e1817d184817f
+      internalID: -1411091149
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_17
+      name: Light Smooth_17
       rect:
         serializedVersion: 2
         x: 80
@@ -488,14 +494,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8fab9b42aa8178d4da9a58afc611bc6e
-      internalID: 736238359
+      spriteID: 9efe4b449e1d9714f93a58f71f0b4d6c
+      internalID: -1027170170
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_18
+      name: Light Smooth_18
       rect:
         serializedVersion: 2
         x: 96
@@ -509,14 +515,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5effc189c31cb464696f614b2ba4500e
-      internalID: -1444244591
+      spriteID: 7dac875f2d13d524b9e7b5521413f5ee
+      internalID: -1304361945
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_19
+      name: Light Smooth_19
       rect:
         serializedVersion: 2
         x: 112
@@ -530,14 +536,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cc4658c6d5ca92e49a4e48773c598ad9
-      internalID: 1065179415
+      spriteID: 66cdf9d4e6ff88146bd57e3c9abbf677
+      internalID: -1343911465
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_20
+      name: Light Smooth_20
       rect:
         serializedVersion: 2
         x: 128
@@ -551,14 +557,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a0814b2bdb262564085fa4955aa36069
-      internalID: -1652973390
+      spriteID: 4d72f1d40a30fcb4698970deb9bacb9b
+      internalID: 1142790913
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_21
+      name: Light Smooth_21
       rect:
         serializedVersion: 2
         x: 144
@@ -572,14 +578,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c990cdf8b7e41714fa6f6815cf249bf0
-      internalID: -87113144
+      spriteID: d046f1692dfa04e45816c83664c6505e
+      internalID: -522698444
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_Icon
+      name: Light Smooth_Icon
       rect:
         serializedVersion: 2
         x: 160
@@ -593,14 +599,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fc04b96f507427d4c9405c591927c30c
-      internalID: 2025049659
+      spriteID: 7624e47275cec1249b58c32a0ae86d5a
+      internalID: -1842436959
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_23
+      name: Light Smooth_23
       rect:
         serializedVersion: 2
         x: 176
@@ -614,14 +620,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cdadfdbf12058284898b3fb3d25a7b88
-      internalID: 1212737616
+      spriteID: 9219ebe2f5ad1f6488030e2444143ed4
+      internalID: -92240634
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_24
+      name: Light Smooth_24
       rect:
         serializedVersion: 2
         x: 0
@@ -635,14 +641,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 36b4cd695b8effd4796cd4ac0978f580
-      internalID: 235027561
+      spriteID: 4472ba28744a9284ebba7167e75b6468
+      internalID: 1218211691
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_25
+      name: Light Smooth_25
       rect:
         serializedVersion: 2
         x: 16
@@ -656,14 +662,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9afc79c84508b7b44bd21d3d52c99dac
-      internalID: -904166528
+      spriteID: 5e1b16daf191d234e836decb52f5b890
+      internalID: -1915163219
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_26
+      name: Light Smooth_26
       rect:
         serializedVersion: 2
         x: 32
@@ -677,14 +683,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 090153f66225b3142bca44ef130043e5
-      internalID: 849558765
+      spriteID: 6c933026d80950d40aee234a4ae2212f
+      internalID: -885938945
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_27
+      name: Light Smooth_27
       rect:
         serializedVersion: 2
         x: 48
@@ -698,14 +704,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 02d087bbf519ff041bb8b57ea28d8c81
-      internalID: 1501925872
+      spriteID: eb940c5766127674795f0867aabdbbeb
+      internalID: -1729460415
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_28
+      name: Light Smooth_28
       rect:
         serializedVersion: 2
         x: 64
@@ -719,14 +725,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8bf6546c5ead01643b1252015feb4601
-      internalID: 1146641239
+      spriteID: 69b3bbcf4e8866c4aa8ba3a3e5d98a3a
+      internalID: -693797146
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_29
+      name: Light Smooth_29
       rect:
         serializedVersion: 2
         x: 80
@@ -740,14 +746,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2d2c6a0d782ea3e4489f917f1ba01dc3
-      internalID: -997050152
+      spriteID: 9eb48eafeadd3924fb214bc7e657da40
+      internalID: -658759698
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_30
+      name: Light Smooth_30
       rect:
         serializedVersion: 2
         x: 96
@@ -761,14 +767,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 97cf6a40be788ab49895f8326ad49560
-      internalID: -634864555
+      spriteID: c8a0b9c1b85af31479c1f94d841c08d0
+      internalID: 1333706436
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_31
+      name: Light Smooth_31
       rect:
         serializedVersion: 2
         x: 112
@@ -782,14 +788,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 328568314774fdb4bb20ce7e555239c5
-      internalID: -1340121623
+      spriteID: 44350702c8dfc8b4d97356e6ae2603fe
+      internalID: 2066341675
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_32
+      name: Light Smooth_32
       rect:
         serializedVersion: 2
         x: 128
@@ -803,14 +809,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4298076a6ea52af46962d149f483262d
-      internalID: -1592816605
+      spriteID: 4d8f932a82a357f4bb8396893d2779e6
+      internalID: -987563064
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_33
+      name: Light Smooth_33
       rect:
         serializedVersion: 2
         x: 144
@@ -824,14 +830,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d886a438b5470f6408d84a4da9b9281f
-      internalID: -304272680
+      spriteID: 44ad54cffec71a647b9952b4269909f8
+      internalID: -1012922198
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_34
+      name: Light Smooth_34
       rect:
         serializedVersion: 2
         x: 160
@@ -845,14 +851,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2039cd5cf758ce840a87dccfe3fb6579
-      internalID: -782584909
+      spriteID: 3ca8203fb2b50de40b7c28216192887b
+      internalID: -401455254
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_35
+      name: Light Smooth_35
       rect:
         serializedVersion: 2
         x: 176
@@ -866,14 +872,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b9ea413408602a449a618531460b1838
-      internalID: -897666986
+      spriteID: 4ca9c78aadca0f24291a953f59b937d2
+      internalID: 1379514209
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_36
+      name: Light Smooth_36
       rect:
         serializedVersion: 2
         x: 0
@@ -887,14 +893,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e1a4eb95344218243b170b7fbea94d58
-      internalID: 841456481
+      spriteID: 7d2631211803a604b88ba6ee0c9b32ee
+      internalID: -1180257771
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_37
+      name: Light Smooth_37
       rect:
         serializedVersion: 2
         x: 16
@@ -908,14 +914,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 72ed43e16f69b84419707c5eaafbc060
-      internalID: 1783981170
+      spriteID: 9d66796c57be6014fb543e29b479f634
+      internalID: -1219884408
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_38
+      name: Light Smooth_38
       rect:
         serializedVersion: 2
         x: 32
@@ -929,14 +935,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 91b8517458c7ed34cbd724366ab4c57d
-      internalID: -1927386006
+      spriteID: da1f7e17783625e4aa1c2bd9e02449fa
+      internalID: -991971550
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_39
+      name: Light Smooth_39
       rect:
         serializedVersion: 2
         x: 48
@@ -950,14 +956,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f82d979075132154d96497479100b939
-      internalID: -1013266468
+      spriteID: 50269592824da3e44ab8d8eb00449994
+      internalID: 126170813
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_40
+      name: Light Smooth_40
       rect:
         serializedVersion: 2
         x: 64
@@ -971,14 +977,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0ecc51c68b926294fa0b01d1e624906b
-      internalID: -1171171195
+      spriteID: 4884b707ef0f22a4eb95e6a9be7eb020
+      internalID: -1921624921
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_41
+      name: Light Smooth_41
       rect:
         serializedVersion: 2
         x: 80
@@ -992,14 +998,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fc5e06c2407be5b44b50b95badbc4334
-      internalID: -379995655
+      spriteID: 4bedc9ba56350ea43934de1d3f641dac
+      internalID: 202231861
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_42
+      name: Light Smooth_42
       rect:
         serializedVersion: 2
         x: 96
@@ -1013,14 +1019,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 79cbcb5162295b9448169f0472efd84b
-      internalID: -782614674
+      spriteID: be3baa446c0a2774ca468be519c13e38
+      internalID: -888656012
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_43
+      name: Light Smooth_43
       rect:
         serializedVersion: 2
         x: 112
@@ -1034,14 +1040,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c5486c0401cd74943a370bab51485b63
-      internalID: 1929404150
+      spriteID: cfa4e2c85d1e35c4ab411da99bf9d3e4
+      internalID: 1881552970
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_44
+      name: Light Smooth_44
       rect:
         serializedVersion: 2
         x: 128
@@ -1055,14 +1061,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c0f72d68be03dfc448ae437a6a78099d
-      internalID: -226739739
+      spriteID: 6b539737ebfb8f54da423263f3c41e2d
+      internalID: 1215084534
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_45
+      name: Light Smooth_45
       rect:
         serializedVersion: 2
         x: 144
@@ -1076,14 +1082,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1e0862fe67deec44097c811b061f9c62
-      internalID: -1687121309
+      spriteID: 0494d024281aa4e4897cc65f74cb499e
+      internalID: -1873643491
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_46
+      name: Light Smooth_46
       rect:
         serializedVersion: 2
         x: 160
@@ -1097,14 +1103,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 035b07e6389f2e648b9baf3feb4cf199
-      internalID: 1148231581
+      spriteID: e55a00523423959499871a4c24c462ee
+      internalID: 1640366266
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Road Guide_47
+      name: Light Smooth_47
       rect:
         serializedVersion: 2
         x: 176
@@ -1118,8 +1124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 748e625fbeca417469147cc6054433a5
-      internalID: -511207362
+      spriteID: 7e0c59c54b77d664eb9617144325b768
+      internalID: -300307
       vertices: []
       indices: 
       edges: []
@@ -1135,57 +1141,56 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Road Guide_0: 1664515453
-      Road Guide_1: 2100428398
-      Road Guide_10: 637012649
-      Road Guide_11: -1044307524
-      Road Guide_12: 233072805
-      Road Guide_13: 1046333261
-      Road Guide_14: 578206032
-      Road Guide_15: 608095789
-      Road Guide_16: -180648165
-      Road Guide_17: 736238359
-      Road Guide_18: -1444244591
-      Road Guide_19: 1065179415
-      Road Guide_2: -1116803772
-      Road Guide_20: -1652973390
-      Road Guide_21: -87113144
-      Road Guide_23: 1212737616
-      Road Guide_24: 235027561
-      Road Guide_25: -904166528
-      Road Guide_26: 849558765
-      Road Guide_27: 1501925872
-      Road Guide_28: 1146641239
-      Road Guide_29: -997050152
-      Road Guide_3: 267761946
-      Road Guide_30: -634864555
-      Road Guide_31: -1340121623
-      Road Guide_32: -1592816605
-      Road Guide_33: -304272680
-      Road Guide_34: -782584909
-      Road Guide_35: -897666986
-      Road Guide_36: 841456481
-      Road Guide_37: 1783981170
-      Road Guide_38: -1927386006
-      Road Guide_39: -1013266468
-      Road Guide_4: 1488191948
-      Road Guide_40: -1171171195
-      Road Guide_41: -379995655
-      Road Guide_42: -782614674
-      Road Guide_43: 1929404150
-      Road Guide_44: -226739739
-      Road Guide_45: -1687121309
-      Road Guide_46: 1148231581
-      Road Guide_47: -511207362
-      Road Guide_5: 628030725
-      Road Guide_6: 1449627752
-      Road Guide_7: 1011956972
-      Road Guide_8: 1705890668
-      Road Guide_9: -1016319779
-      Road Guide_Icon: 2025049659
-  spritePackingTag: 
+      Light Smooth_0: 1831523545
+      Light Smooth_1: -1517400639
+      Light Smooth_10: -1534499684
+      Light Smooth_11: -1825446417
+      Light Smooth_12: 1700148474
+      Light Smooth_13: 344466336
+      Light Smooth_14: -1873024298
+      Light Smooth_15: 780875364
+      Light Smooth_16: -1411091149
+      Light Smooth_17: -1027170170
+      Light Smooth_18: -1304361945
+      Light Smooth_19: -1343911465
+      Light Smooth_2: 1987267913
+      Light Smooth_20: 1142790913
+      Light Smooth_21: -522698444
+      Light Smooth_23: -92240634
+      Light Smooth_24: 1218211691
+      Light Smooth_25: -1915163219
+      Light Smooth_26: -885938945
+      Light Smooth_27: -1729460415
+      Light Smooth_28: -693797146
+      Light Smooth_29: -658759698
+      Light Smooth_3: 1673806752
+      Light Smooth_30: 1333706436
+      Light Smooth_31: 2066341675
+      Light Smooth_32: -987563064
+      Light Smooth_33: -1012922198
+      Light Smooth_34: -401455254
+      Light Smooth_35: 1379514209
+      Light Smooth_36: -1180257771
+      Light Smooth_37: -1219884408
+      Light Smooth_38: -991971550
+      Light Smooth_39: 126170813
+      Light Smooth_4: 1273583505
+      Light Smooth_40: -1921624921
+      Light Smooth_41: 202231861
+      Light Smooth_42: -888656012
+      Light Smooth_43: 1881552970
+      Light Smooth_44: 1215084534
+      Light Smooth_45: -1873643491
+      Light Smooth_46: 1640366266
+      Light Smooth_47: -300307
+      Light Smooth_5: 1751568631
+      Light Smooth_6: -383202581
+      Light Smooth_7: -854496924
+      Light Smooth_8: -526249813
+      Light Smooth_9: -787180770
+      Light Smooth_Icon: -1842436959
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 57447c536ada4864a9059183ebf2cbb6
+guid: b5de8cbb2dd934246ab560b14b6cf3a1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
   cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
@@ -75,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -87,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -99,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -111,13 +116,14 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Light Smooth_0
+      name: Light Herringbone_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c733b8f169064b84a8ed66411668edb9
-      internalID: 1831523545
+      spriteID: c87d541588dda4e4092035ec317e54bb
+      internalID: -1420836841
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_1
+      name: Light Herringbone_1
       rect:
         serializedVersion: 2
         x: 16
@@ -152,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 54d34987237169141a6ae55dff7bba26
-      internalID: -1517400639
+      spriteID: 8546e7cb2772a8941a22ec9aeef3ae95
+      internalID: 819809705
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_2
+      name: Light Herringbone_2
       rect:
         serializedVersion: 2
         x: 32
@@ -173,14 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e7015508b1f80d43bf4ce1beee578ed
-      internalID: 1987267913
+      spriteID: be17cda1a07ce7c458386f7db5315edb
+      internalID: -1972590705
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_3
+      name: Light Herringbone_3
       rect:
         serializedVersion: 2
         x: 48
@@ -194,14 +200,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 55050ccb32a42c545be46ece3d6d6f81
-      internalID: 1673806752
+      spriteID: 381c388ba4b405d41b4a00727d278a2b
+      internalID: 714171279
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_4
+      name: Light Herringbone_4
       rect:
         serializedVersion: 2
         x: 64
@@ -215,14 +221,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b9701e7ff02eacb478b79720abb15dee
-      internalID: 1273583505
+      spriteID: b4e549f8e34d0054182dcb2a78902c28
+      internalID: -352729333
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_5
+      name: Light Herringbone_5
       rect:
         serializedVersion: 2
         x: 80
@@ -236,14 +242,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c9bf1cc027f77814ca261b3b55989b1e
-      internalID: 1751568631
+      spriteID: 1ffdddf790b229d40870fbdd727ec552
+      internalID: -1878678413
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_6
+      name: Light Herringbone_6
       rect:
         serializedVersion: 2
         x: 96
@@ -257,14 +263,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 230dfc33e51bd4346bf18d8c125845b8
-      internalID: -383202581
+      spriteID: dcb862fa1e0b14f4db79c3a674355fbe
+      internalID: -1790435818
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_7
+      name: Light Herringbone_7
       rect:
         serializedVersion: 2
         x: 112
@@ -278,14 +284,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ee228d3500296164eac27db3496d2f02
-      internalID: -854496924
+      spriteID: dedf5a03ca91caf4ab1d99c6501f8b8a
+      internalID: 1360617370
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_8
+      name: Light Herringbone_8
       rect:
         serializedVersion: 2
         x: 128
@@ -299,14 +305,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd5d182951bcfb74789ce4b61d6f505d
-      internalID: -526249813
+      spriteID: f77bc1efebc88574cb9065ad90814d95
+      internalID: -1168118440
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_9
+      name: Light Herringbone_9
       rect:
         serializedVersion: 2
         x: 144
@@ -320,14 +326,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d531c09dafb63174a9634043747ecc88
-      internalID: -787180770
+      spriteID: ff7ee402ad7a3f74fa8aca936f7e5924
+      internalID: -801875836
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_10
+      name: Light Herringbone_10
       rect:
         serializedVersion: 2
         x: 160
@@ -341,14 +347,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5cb72883766335f4eb4c01e4c423109c
-      internalID: -1534499684
+      spriteID: d858ea6ddcbc8bf4fb31ba71b56b8859
+      internalID: -250980492
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_11
+      name: Light Herringbone_11
       rect:
         serializedVersion: 2
         x: 176
@@ -362,14 +368,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2407bb834655f09479388cec293e2a2c
-      internalID: -1825446417
+      spriteID: c6b1879765fcded4cac908c394d7fd91
+      internalID: 493929343
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_12
+      name: Light Herringbone_12
       rect:
         serializedVersion: 2
         x: 0
@@ -383,14 +389,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 143f6a0a080edef42a3f011d53f64293
-      internalID: 1700148474
+      spriteID: 87d3e33f6903e684fabf3c5f9f26bd45
+      internalID: 536201148
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_13
+      name: Light Herringbone_13
       rect:
         serializedVersion: 2
         x: 16
@@ -404,14 +410,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e243c22b920cd744bc4b340a7fcb7ee
-      internalID: 344466336
+      spriteID: e81b07877c11a9248b913c16d5774e65
+      internalID: 1028869276
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_14
+      name: Light Herringbone_14
       rect:
         serializedVersion: 2
         x: 32
@@ -425,14 +431,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 13212b5e3717b804691b5b616ff00f96
-      internalID: -1873024298
+      spriteID: 6dcc9ff2d0c697044b45c2465ffc9b7b
+      internalID: -1727272238
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_15
+      name: Light Herringbone_15
       rect:
         serializedVersion: 2
         x: 48
@@ -446,14 +452,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1e786545a69802f4e95836df5edc3e25
-      internalID: 780875364
+      spriteID: 92ee3873d05324a418c56a64960782f3
+      internalID: -731909364
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_16
+      name: Light Herringbone_16
       rect:
         serializedVersion: 2
         x: 64
@@ -467,14 +473,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1c98de8d2c04f3645a6e1817d184817f
-      internalID: -1411091149
+      spriteID: 275da953b51a16445aba02cd4a68637d
+      internalID: -1801687108
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_17
+      name: Light Herringbone_17
       rect:
         serializedVersion: 2
         x: 80
@@ -488,14 +494,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9efe4b449e1d9714f93a58f71f0b4d6c
-      internalID: -1027170170
+      spriteID: b3ae41eb9c7395a4d842b31f1daf033c
+      internalID: 1077909318
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_18
+      name: Light Herringbone_18
       rect:
         serializedVersion: 2
         x: 96
@@ -509,14 +515,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7dac875f2d13d524b9e7b5521413f5ee
-      internalID: -1304361945
+      spriteID: 0bd2231c978a4fb44b1e74114a34fb72
+      internalID: -2073880343
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_19
+      name: Light Herringbone_19
       rect:
         serializedVersion: 2
         x: 112
@@ -530,14 +536,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 66cdf9d4e6ff88146bd57e3c9abbf677
-      internalID: -1343911465
+      spriteID: 35a5ba2e70c09ed48938e705dd6a8806
+      internalID: 2098500757
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_20
+      name: Light Herringbone_20
       rect:
         serializedVersion: 2
         x: 128
@@ -551,14 +557,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4d72f1d40a30fcb4698970deb9bacb9b
-      internalID: 1142790913
+      spriteID: c8453579195701e429f7e439f892123a
+      internalID: 2108931568
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_21
+      name: Light Herringbone_21
       rect:
         serializedVersion: 2
         x: 144
@@ -572,14 +578,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d046f1692dfa04e45816c83664c6505e
-      internalID: -522698444
+      spriteID: 6864c0b72fa609c4ca20abe4e53a7952
+      internalID: 1849637246
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_Icon
+      name: Light Herringbone_Icon
       rect:
         serializedVersion: 2
         x: 160
@@ -593,14 +599,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7624e47275cec1249b58c32a0ae86d5a
-      internalID: -1842436959
+      spriteID: 8618c1ea465ca0f4a83e9b8f36219712
+      internalID: -1832011683
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_23
+      name: Light Herringbone_23
       rect:
         serializedVersion: 2
         x: 176
@@ -614,14 +620,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9219ebe2f5ad1f6488030e2444143ed4
-      internalID: -92240634
+      spriteID: ae3bef633cc5f9e49a0cf40a43d279d8
+      internalID: 1293657472
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_24
+      name: Light Herringbone_24
       rect:
         serializedVersion: 2
         x: 0
@@ -635,14 +641,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4472ba28744a9284ebba7167e75b6468
-      internalID: 1218211691
+      spriteID: 72838f6f84c7722419fefe1d35a21453
+      internalID: -2014720611
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_25
+      name: Light Herringbone_25
       rect:
         serializedVersion: 2
         x: 16
@@ -656,14 +662,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5e1b16daf191d234e836decb52f5b890
-      internalID: -1915163219
+      spriteID: 1c42ca9a3fa99b341a6fc409ab7edf8f
+      internalID: 1878253665
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_26
+      name: Light Herringbone_26
       rect:
         serializedVersion: 2
         x: 32
@@ -677,14 +683,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6c933026d80950d40aee234a4ae2212f
-      internalID: -885938945
+      spriteID: 1340a6e48337e9246945bf70593bae67
+      internalID: 430299966
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_27
+      name: Light Herringbone_27
       rect:
         serializedVersion: 2
         x: 48
@@ -698,14 +704,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eb940c5766127674795f0867aabdbbeb
-      internalID: -1729460415
+      spriteID: d75ead4b6549b0a4fbd8e7d1f7055c16
+      internalID: -1144500685
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_28
+      name: Light Herringbone_28
       rect:
         serializedVersion: 2
         x: 64
@@ -719,14 +725,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 69b3bbcf4e8866c4aa8ba3a3e5d98a3a
-      internalID: -693797146
+      spriteID: 131d943c246944c4daf259aa3d2ccb23
+      internalID: -2096242475
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_29
+      name: Light Herringbone_29
       rect:
         serializedVersion: 2
         x: 80
@@ -740,14 +746,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9eb48eafeadd3924fb214bc7e657da40
-      internalID: -658759698
+      spriteID: 8e40f71f5637d5841b72df9f6347e492
+      internalID: 533603246
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_30
+      name: Light Herringbone_30
       rect:
         serializedVersion: 2
         x: 96
@@ -761,14 +767,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c8a0b9c1b85af31479c1f94d841c08d0
-      internalID: 1333706436
+      spriteID: 789445594ceb28d4a8785cd61509c66d
+      internalID: 1753107348
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_31
+      name: Light Herringbone_31
       rect:
         serializedVersion: 2
         x: 112
@@ -782,14 +788,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 44350702c8dfc8b4d97356e6ae2603fe
-      internalID: 2066341675
+      spriteID: 0c37fa1a36a221b4a9961c97ec5e7d91
+      internalID: 1276083959
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_32
+      name: Light Herringbone_32
       rect:
         serializedVersion: 2
         x: 128
@@ -803,14 +809,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4d8f932a82a357f4bb8396893d2779e6
-      internalID: -987563064
+      spriteID: a553e0e68eae7164c924cff62e383001
+      internalID: 1714393396
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_33
+      name: Light Herringbone_33
       rect:
         serializedVersion: 2
         x: 144
@@ -824,14 +830,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 44ad54cffec71a647b9952b4269909f8
-      internalID: -1012922198
+      spriteID: 6f0d5a28e6b26d846b84bcfc13275b04
+      internalID: 55305759
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_34
+      name: Light Herringbone_34
       rect:
         serializedVersion: 2
         x: 160
@@ -845,14 +851,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3ca8203fb2b50de40b7c28216192887b
-      internalID: -401455254
+      spriteID: 01d92379856ba7348937513c91a07c34
+      internalID: 2035210665
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_35
+      name: Light Herringbone_35
       rect:
         serializedVersion: 2
         x: 176
@@ -866,14 +872,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4ca9c78aadca0f24291a953f59b937d2
-      internalID: 1379514209
+      spriteID: 811b6f9a9a7cf8c4f92d96f4f59eb3b8
+      internalID: -1505889275
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_36
+      name: Light Herringbone_36
       rect:
         serializedVersion: 2
         x: 0
@@ -887,14 +893,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7d2631211803a604b88ba6ee0c9b32ee
-      internalID: -1180257771
+      spriteID: 41ebda4a500ab4044878b4c8176b56b1
+      internalID: -1411524476
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_37
+      name: Light Herringbone_37
       rect:
         serializedVersion: 2
         x: 16
@@ -908,14 +914,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d66796c57be6014fb543e29b479f634
-      internalID: -1219884408
+      spriteID: 5ba1021ad4d8f024e93fca78392151e9
+      internalID: -708437063
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_38
+      name: Light Herringbone_38
       rect:
         serializedVersion: 2
         x: 32
@@ -929,14 +935,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: da1f7e17783625e4aa1c2bd9e02449fa
-      internalID: -991971550
+      spriteID: dbad1a5520c403f4da1e400b6d59370a
+      internalID: -1153224676
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_39
+      name: Light Herringbone_39
       rect:
         serializedVersion: 2
         x: 48
@@ -950,14 +956,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 50269592824da3e44ab8d8eb00449994
-      internalID: 126170813
+      spriteID: c81b9fd6868617348b7a22c5758ec725
+      internalID: 1995578619
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_40
+      name: Light Herringbone_40
       rect:
         serializedVersion: 2
         x: 64
@@ -971,14 +977,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4884b707ef0f22a4eb95e6a9be7eb020
-      internalID: -1921624921
+      spriteID: 977cfdbe3ea49034aaa8c454733efaf1
+      internalID: -1907588381
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_41
+      name: Light Herringbone_41
       rect:
         serializedVersion: 2
         x: 80
@@ -992,14 +998,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4bedc9ba56350ea43934de1d3f641dac
-      internalID: 202231861
+      spriteID: fa7a102eb01600549a2762638be6eea3
+      internalID: -1951483819
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_42
+      name: Light Herringbone_42
       rect:
         serializedVersion: 2
         x: 96
@@ -1013,14 +1019,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be3baa446c0a2774ca468be519c13e38
-      internalID: -888656012
+      spriteID: 36c4a5e9be98b0c46a55e46748bbb997
+      internalID: -24642666
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_43
+      name: Light Herringbone_43
       rect:
         serializedVersion: 2
         x: 112
@@ -1034,14 +1040,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cfa4e2c85d1e35c4ab411da99bf9d3e4
-      internalID: 1881552970
+      spriteID: 506abfd59af12af4c9685769f35e168b
+      internalID: -766481157
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_44
+      name: Light Herringbone_44
       rect:
         serializedVersion: 2
         x: 128
@@ -1055,14 +1061,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6b539737ebfb8f54da423263f3c41e2d
-      internalID: 1215084534
+      spriteID: 26c358c62dd7a674a8ae848613f59ffb
+      internalID: 1760952491
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_45
+      name: Light Herringbone_45
       rect:
         serializedVersion: 2
         x: 144
@@ -1076,14 +1082,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0494d024281aa4e4897cc65f74cb499e
-      internalID: -1873643491
+      spriteID: 17e49efff794f6c4daf376fd7f1b65aa
+      internalID: -292877828
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_46
+      name: Light Herringbone_46
       rect:
         serializedVersion: 2
         x: 160
@@ -1097,14 +1103,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e55a00523423959499871a4c24c462ee
-      internalID: 1640366266
+      spriteID: e8347ad9be887fd44b7f7aba54f4db6b
+      internalID: 1912107372
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Light Smooth_47
+      name: Light Herringbone_47
       rect:
         serializedVersion: 2
         x: 176
@@ -1118,8 +1124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e0c59c54b77d664eb9617144325b768
-      internalID: -300307
+      spriteID: 8e80eb26bc373034eba9cc29bcf218ca
+      internalID: -1000110322
       vertices: []
       indices: 
       edges: []
@@ -1135,57 +1141,56 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Light Smooth_0: 1831523545
-      Light Smooth_1: -1517400639
-      Light Smooth_10: -1534499684
-      Light Smooth_11: -1825446417
-      Light Smooth_12: 1700148474
-      Light Smooth_13: 344466336
-      Light Smooth_14: -1873024298
-      Light Smooth_15: 780875364
-      Light Smooth_16: -1411091149
-      Light Smooth_17: -1027170170
-      Light Smooth_18: -1304361945
-      Light Smooth_19: -1343911465
-      Light Smooth_2: 1987267913
-      Light Smooth_20: 1142790913
-      Light Smooth_21: -522698444
-      Light Smooth_23: -92240634
-      Light Smooth_24: 1218211691
-      Light Smooth_25: -1915163219
-      Light Smooth_26: -885938945
-      Light Smooth_27: -1729460415
-      Light Smooth_28: -693797146
-      Light Smooth_29: -658759698
-      Light Smooth_3: 1673806752
-      Light Smooth_30: 1333706436
-      Light Smooth_31: 2066341675
-      Light Smooth_32: -987563064
-      Light Smooth_33: -1012922198
-      Light Smooth_34: -401455254
-      Light Smooth_35: 1379514209
-      Light Smooth_36: -1180257771
-      Light Smooth_37: -1219884408
-      Light Smooth_38: -991971550
-      Light Smooth_39: 126170813
-      Light Smooth_4: 1273583505
-      Light Smooth_40: -1921624921
-      Light Smooth_41: 202231861
-      Light Smooth_42: -888656012
-      Light Smooth_43: 1881552970
-      Light Smooth_44: 1215084534
-      Light Smooth_45: -1873643491
-      Light Smooth_46: 1640366266
-      Light Smooth_47: -300307
-      Light Smooth_5: 1751568631
-      Light Smooth_6: -383202581
-      Light Smooth_7: -854496924
-      Light Smooth_8: -526249813
-      Light Smooth_9: -787180770
-      Light Smooth_Icon: -1842436959
-  spritePackingTag: 
+      Light Herringbone_0: -1420836841
+      Light Herringbone_1: 819809705
+      Light Herringbone_10: -250980492
+      Light Herringbone_11: 493929343
+      Light Herringbone_12: 536201148
+      Light Herringbone_13: 1028869276
+      Light Herringbone_14: -1727272238
+      Light Herringbone_15: -731909364
+      Light Herringbone_16: -1801687108
+      Light Herringbone_17: 1077909318
+      Light Herringbone_18: -2073880343
+      Light Herringbone_19: 2098500757
+      Light Herringbone_2: -1972590705
+      Light Herringbone_20: 2108931568
+      Light Herringbone_21: 1849637246
+      Light Herringbone_23: 1293657472
+      Light Herringbone_24: -2014720611
+      Light Herringbone_25: 1878253665
+      Light Herringbone_26: 430299966
+      Light Herringbone_27: -1144500685
+      Light Herringbone_28: -2096242475
+      Light Herringbone_29: 533603246
+      Light Herringbone_3: 714171279
+      Light Herringbone_30: 1753107348
+      Light Herringbone_31: 1276083959
+      Light Herringbone_32: 1714393396
+      Light Herringbone_33: 55305759
+      Light Herringbone_34: 2035210665
+      Light Herringbone_35: -1505889275
+      Light Herringbone_36: -1411524476
+      Light Herringbone_37: -708437063
+      Light Herringbone_38: -1153224676
+      Light Herringbone_39: 1995578619
+      Light Herringbone_4: -352729333
+      Light Herringbone_40: -1907588381
+      Light Herringbone_41: -1951483819
+      Light Herringbone_42: -24642666
+      Light Herringbone_43: -766481157
+      Light Herringbone_44: 1760952491
+      Light Herringbone_45: -292877828
+      Light Herringbone_46: 1912107372
+      Light Herringbone_47: -1000110322
+      Light Herringbone_5: -1878678413
+      Light Herringbone_6: -1790435818
+      Light Herringbone_7: 1360617370
+      Light Herringbone_8: -1168118440
+      Light Herringbone_9: -801875836
+      Light Herringbone_Icon: -1832011683
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Controllers;
 using Data.Dye;
 using Data.Structure;
@@ -28,10 +29,11 @@ namespace Systems.Details.Build_Details.Scripts
         [DataObjectDropdown("DataLibrary")] [SerializeField] private List<DyeData> _colourOptions;
         [DataObjectDropdown("DataLibrary")] [SerializeField] private List<WallSettings> _wallOptions;
         [DataObjectDropdown("DataLibrary")] [SerializeField] private List<DoorSettings> _doorOptions;
-        
+        [DataObjectDropdown("DataLibrary")] [SerializeField] private List<FloorSettings> _floorOptions;
 
         [SerializeField] private StructureCategoryBtn _structureCategoryBtn;
         [SerializeField] private WallBuilder _wallBuilder;
+        [SerializeField] private FloorBuilder _floorBuilder;
         
         [SerializeField] private PanelLayoutRebuilder _layoutRebuilder;
         [SerializeField] private GameObject _panelHandle;
@@ -53,12 +55,18 @@ namespace Systems.Details.Build_Details.Scripts
         [SerializeField] private Transform _materialLayoutParent;
         [SerializeField] private MaterialOptionBtn _materialOptionBtnPrefab;
         
+        [SerializeField] private GameObject _styleOptionGroup;
+        [SerializeField] private Transform _styleLayoutParent;
+        [SerializeField] private TextMeshProUGUI _styleGroupHeader;
+        [SerializeField] private StyleOptionBtn _styleOptionBtnPrefab;
         
         private List<ColourOptionBtn> _displayedColourOptions = new List<ColourOptionBtn>();
         private List<MaterialOptionBtn> _displayedMaterialOptions = new List<MaterialOptionBtn>();
+        private List<StyleOptionBtn> _displayedStyleOptions = new List<StyleOptionBtn>();
 
         private EDetailsState _state;
         private DyeData _currentColour;
+        private StyleOption _currentStyleOption;
 
         public void Show()
         {
@@ -188,6 +196,7 @@ namespace Systems.Details.Build_Details.Scripts
         private void RefreshSelection()
         {
             _wallBuilder.CancelWallBuild();
+            _floorBuilder.CancelFloorBuild();
             
             switch (_state)
             {
@@ -197,23 +206,28 @@ namespace Systems.Details.Build_Details.Scripts
                 case EDetailsState.Wall:
                     _colourOptionGroup.SetActive(true);
                     _optionGroupSeperator.SetActive(true);
+                    _styleOptionGroup.SetActive(false);
                     ShowColourOptions("Interior Wall", WallColourSelected);
                     ShowWallMaterialOptions(WallMaterialSelected);
                     break;
                 case EDetailsState.Door:
                     _colourOptionGroup.SetActive(true);
                     _optionGroupSeperator.SetActive(true);
+                    _styleOptionGroup.SetActive(false);
                     ShowColourOptions("Mat", DoorColourSelected);
                     ShowDoorMaterialOptions(DoorMaterialSelected);
                     break;
                 case EDetailsState.Floor:
                     HideColourOptions();
                     _colourOptionGroup.SetActive(false);
-                    _optionGroupSeperator.SetActive(false);
+                    _optionGroupSeperator.SetActive(true);
+                    _styleOptionGroup.SetActive(true);
+                    ShowFloorMaterialOptions(FloorMaterialSelected);
                     break;
                 case EDetailsState.Paint:
                     _colourOptionGroup.SetActive(true);
                     _optionGroupSeperator.SetActive(true);
+                    _styleOptionGroup.SetActive(false);
                     ShowColourOptions("Paint", PaintColourSelected);
                     break;
                 default:
@@ -378,6 +392,97 @@ namespace Systems.Details.Build_Details.Scripts
             {
                 DisplayCurrentDoorSelection(settings);
             });
+        }
+        
+        private void ShowFloorMaterialOptions(Action<string> onSelectedCallback)
+        {
+            HideMaterialOptions();
+            _currentColour = null;
+            _currentStyleOption = null;
+            _materialOptionBtnPrefab.gameObject.SetActive(false);
+            
+            foreach (var floorOption in _floorOptions)
+            {
+                var optionBtn = Instantiate(_materialOptionBtnPrefab, _materialLayoutParent);
+                optionBtn.Init(floorOption.initialGuid, floorOption.MaterialIcon, floorOption.CraftRequirements, (btn, s) =>
+                {
+                    HighlightMaterialBtn(btn);
+                    onSelectedCallback.Invoke(s);
+                });
+                optionBtn.gameObject.SetActive(true);
+                _displayedMaterialOptions.Add(optionBtn);
+            }
+            
+            // Select the first
+            _displayedMaterialOptions[0].OnPressed();
+        }
+        
+        private void FloorMaterialSelected(string settingsGUID)
+        {
+            var settings = (FloorSettings)DataLibrary.GetInitialDataObjectByGuid(settingsGUID);
+            
+            ShowStyleOptions("Styles", settings.StyleOptions.OfType<StyleOption>().ToList(), FloorStyleSelected);
+
+            if (_currentStyleOption == null)
+            {
+                _displayedStyleOptions[0].OnPressed();
+            }
+            
+            DisplayCurrentFloorSelection(settings);
+        }
+        
+        private void DisplayCurrentFloorSelection(FloorSettings settings)
+        {
+            _currentSelection.ShowFloorSelection(settings, _currentStyleOption);
+            RefreshLayout();
+            
+            _floorBuilder.BeginFloorBuild(settings, _currentStyleOption);
+        }
+        
+        private void ShowStyleOptions(string header, List<StyleOption> options, Action<StyleOption> onSelectedCallback)
+        {
+            _styleOptionBtnPrefab.gameObject.SetActive(false);
+            
+            HideStyleOptions();
+
+            _styleGroupHeader.text = header;
+
+            foreach (var option in options)
+            {
+                var styleBtn = Instantiate(_styleOptionBtnPrefab, _styleLayoutParent);
+                styleBtn.Init(option, (btn, pressedBtn) =>
+                {
+                    HighlightStyleBtn(btn);
+                    onSelectedCallback.Invoke(pressedBtn);
+                });
+                styleBtn.gameObject.SetActive(true);
+                _displayedStyleOptions.Add(styleBtn);
+            }
+        }
+
+        private void HideStyleOptions()
+        {
+            foreach (var displayedStyleOption in _displayedStyleOptions)
+            {
+                Destroy(displayedStyleOption.gameObject);
+            }
+            _displayedStyleOptions.Clear();
+        }
+
+        private void FloorStyleSelected(StyleOption option)
+        {
+            _currentStyleOption = option;
+
+            _floorBuilder.UpdateStyle(option);
+        }
+        
+        private void HighlightStyleBtn(StyleOptionBtn styleBtn)
+        {
+            foreach (var option in _displayedStyleOptions)
+            {
+                option.RemoveHighlight();
+            }
+            styleBtn.ShowHighlight();
         }
         
         private void RefreshLayout()
