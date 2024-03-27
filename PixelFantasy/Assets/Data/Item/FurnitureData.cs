@@ -9,6 +9,7 @@ using Managers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Data.Item
 {
@@ -22,12 +23,12 @@ namespace Data.Item
         [ExposeToInspector, DatabrainSerialize] public Furniture LinkedFurniture;
         [ExposeToInspector, DatabrainSerialize] public DyeData DyeOverride;
 
-        public FurnitureDataSettings FurnitureSettings => Settings as FurnitureDataSettings;
+        public FurnitureSettings FurnitureSettings => Settings as FurnitureSettings;
 
-        public override void InitData(ItemDataSettings itemDataSettings)
+        public override void InitData(ItemSettings itemSettings)
         {
-            base.InitData(itemDataSettings);
-            var furnitureSettings = itemDataSettings as FurnitureDataSettings;
+            base.InitData(itemSettings);
+            var furnitureSettings = itemSettings as FurnitureSettings;
             RemainingWork = furnitureSettings.CraftRequirements.WorkCost;
             Direction = furnitureSettings.DefaultDirection;
         }
@@ -45,10 +46,10 @@ public enum EFurnitureState
 public class FurnitureVariant
 {
     [SerializeField] private Sprite _materialSelectIcon;
-    [SerializeField] private FurnitureDataSettings _furnitureData;
+    [FormerlySerializedAs("_furnitureData")] [SerializeField] private FurnitureSettings _furnitureSettings;
 
     public Sprite MaterialSelectIcon => _materialSelectIcon; // Typically the icon of the material change
-    public FurnitureDataSettings FurnitureData => _furnitureData;
+    public FurnitureSettings FurnitureSettings => _furnitureSettings;
 }
 
 [Serializable]

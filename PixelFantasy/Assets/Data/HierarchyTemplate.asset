@@ -55,16 +55,16 @@ MonoBehaviour:
     indexOfFirstChild: 6
   - foldout: 1
     typeDisplayName: Items
-    typeName: ItemDataSettings
-    typeAssemblyQualifiedName: Data.Item.ItemDataSettings, Assembly-CSharp, Version=0.0.0.0,
+    typeName: ItemSettings
+    typeAssemblyQualifiedName: Data.Item.ItemSettings, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     childCount: 1
     indexOfFirstChild: 7
   - foldout: 0
     typeDisplayName: Crafted Items
-    typeName: CraftedItemDataSettings
-    typeAssemblyQualifiedName: Data.Item.CraftedItemDataSettings, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    typeName: CraftedItemSettings
+    typeAssemblyQualifiedName: Data.Item.CraftedItemSettings, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
     childCount: 0
     indexOfFirstChild: 8
   - foldout: 1
@@ -83,9 +83,9 @@ MonoBehaviour:
     indexOfFirstChild: 10
   - foldout: 1
     typeDisplayName: Furnitures
-    typeName: FurnitureDataSettings
-    typeAssemblyQualifiedName: Data.Item.FurnitureDataSettings, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    typeName: FurnitureSettings
+    typeAssemblyQualifiedName: Data.Item.FurnitureSettings, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
     childCount: 2
     indexOfFirstChild: 11
   - foldout: 0
@@ -97,8 +97,8 @@ MonoBehaviour:
     indexOfFirstChild: 12
   - foldout: 0
     typeDisplayName: Storages
-    typeName: StorageDataSettings
-    typeAssemblyQualifiedName: Data.Item.StorageDataSettings, Assembly-CSharp, Version=0.0.0.0,
+    typeName: StorageSettings
+    typeAssemblyQualifiedName: Data.Item.StorageSettings, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     childCount: 0
     indexOfFirstChild: 13

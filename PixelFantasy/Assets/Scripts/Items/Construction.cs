@@ -209,7 +209,7 @@ namespace Items
             }
         }
 
-        protected virtual void EnqueueCreateTakeResourceToBlueprintTask(ItemDataSettings resourceSettings)
+        protected virtual void EnqueueCreateTakeResourceToBlueprintTask(ItemSettings resourceSettings)
         {
             Task task = new Task("Withdraw Item Construction", ETaskType.Hauling, this, EToolType.None)
             {

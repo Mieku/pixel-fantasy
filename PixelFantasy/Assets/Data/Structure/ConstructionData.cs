@@ -57,11 +57,11 @@ namespace Data.Structure
         }
         
         
-        public void DeductFromMaterialCosts(ItemDataSettings itemData)
+        public void DeductFromMaterialCosts(ItemSettings itemSettings)
         {
             foreach (var cost in RemainingMaterialCosts)
             {
-                if (cost.Item.initialGuid == itemData.initialGuid && cost.Quantity > 0)
+                if (cost.Item.initialGuid == itemSettings.initialGuid && cost.Quantity > 0)
                 {
                     cost.Quantity--;
                     if (cost.Quantity <= 0)
@@ -74,13 +74,13 @@ namespace Data.Structure
             }
         }
         
-        public void AddToPendingResourceCosts(ItemDataSettings itemData, int quantity = 1)
+        public void AddToPendingResourceCosts(ItemSettings itemSettings, int quantity = 1)
         {
             PendingResourceCosts ??= new List<ItemAmount>();
 
             foreach (var cost in PendingResourceCosts)
             {
-                if (cost.Item.initialGuid == itemData.initialGuid)
+                if (cost.Item.initialGuid == itemSettings.initialGuid)
                 {
                     cost.Quantity += quantity;
                     return;
@@ -89,16 +89,16 @@ namespace Data.Structure
             
             PendingResourceCosts.Add(new ItemAmount
             {
-                Item = itemData,
+                Item = itemSettings,
                 Quantity = quantity
             });
         }
         
-        public void RemoveFromPendingResourceCosts(ItemDataSettings itemData, int quantity = 1)
+        public void RemoveFromPendingResourceCosts(ItemSettings itemSettings, int quantity = 1)
         {
             foreach (var cost in PendingResourceCosts)
             {
-                if (cost.Item.initialGuid == itemData.initialGuid)
+                if (cost.Item.initialGuid == itemSettings.initialGuid)
                 {
                     cost.Quantity -= quantity;
                     if (cost.Quantity <= 0)

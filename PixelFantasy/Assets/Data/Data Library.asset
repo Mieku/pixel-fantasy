@@ -1335,7 +1335,7 @@ MonoBehaviour:
     - {fileID: 1104450306893862740}
   _varients:
   - _materialSelectIcon: {fileID: 21300000, guid: 848cd147474beaa4f96afb2ae1f9b455, type: 3}
-    _furnitureData: {fileID: -2429024163771652823}
+    _furnitureSettings: {fileID: -2429024163771652823}
   _defaultDirection: 0
   _defaultDye: {fileID: 4496512223619636680}
 --- !u!114 &-2429024163771652823
@@ -2045,7 +2045,7 @@ MonoBehaviour:
     - type: Databrain.Blackboard.FloatVariable, Assembly-CSharp-firstpass, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       dataObjects: []
-    - type: Data.Item.ItemDataSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    - type: Data.Item.ItemSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
       - {fileID: 283630323700872253}
@@ -2055,19 +2055,19 @@ MonoBehaviour:
       - {fileID: 3255695680348296240}
       - {fileID: -3020583608536372809}
       - {fileID: 4497696957364699314}
-    - type: Data.Item.CraftedItemDataSettings, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+    - type: Data.Item.CraftedItemSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
       dataObjects:
       - {fileID: -36226739791890325}
       - {fileID: 4293936689025372978}
       - {fileID: 2760536265605788022}
       - {fileID: 7039194556294736213}
-    - type: Data.Item.FurnitureDataSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    - type: Data.Item.FurnitureSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
       - {fileID: -2429024163771652823}
       - {fileID: -2864379102396860336}
-    - type: Data.Item.StorageDataSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    - type: Data.Item.StorageSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
       - {fileID: -2868459388340172924}
@@ -2162,8 +2162,8 @@ MonoBehaviour:
     hidden: 0
     icon: 
     existingTypes:
-    - typeName: CraftedItemDataSettings
-      typeAssemblyQualifiedName: Data.Item.CraftedItemDataSettings, Assembly-CSharp,
+    - typeName: CraftedItemSettings
+      typeAssemblyQualifiedName: Data.Item.CraftedItemSettings, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
@@ -2183,9 +2183,9 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-    - typeName: StorageDataSettings
-      typeAssemblyQualifiedName: Data.Item.StorageDataSettings, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - typeName: StorageSettings
+      typeAssemblyQualifiedName: Data.Item.StorageSettings, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
       titlesFilter: []
@@ -2239,8 +2239,8 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-    - typeName: ItemDataSettings
-      typeAssemblyQualifiedName: Data.Item.ItemDataSettings, Assembly-CSharp, Version=0.0.0.0,
+    - typeName: ItemSettings
+      typeAssemblyQualifiedName: Data.Item.ItemSettings, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
@@ -2253,9 +2253,9 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-    - typeName: FurnitureDataSettings
-      typeAssemblyQualifiedName: Data.Item.FurnitureDataSettings, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - typeName: FurnitureSettings
+      typeAssemblyQualifiedName: Data.Item.FurnitureSettings, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
       titlesFilter: []
@@ -2268,7 +2268,7 @@ MonoBehaviour:
       titlesFilter: []
       valuesFilter: []
   - namespaceName: Runtime
-    foldout: 1
+    foldout: 0
     hidden: 0
     icon: 
     existingTypes:
@@ -4413,6 +4413,98 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Item.CraftedItemData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
@@ -4420,17 +4512,9 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Resource.ResourceData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -5138,23 +5222,57 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Resource.MountainResourceData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -5167,11 +5285,14 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Structure.WallData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
     - type: Data.Structure.DoorData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
@@ -5189,11 +5310,17 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Item.MealData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
       - {fileID: 0}
     _favoriteList: []
   copyData:
@@ -5225,36 +5352,8 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-    - typeName: ItemDataSettings
-      typeAssemblyQualifiedName: Data.Item.ItemDataSettings, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: CraftedItemDataSettings
-      typeAssemblyQualifiedName: Data.Item.CraftedItemDataSettings, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
     - typeName: CraftingTableSettings
       typeAssemblyQualifiedName: Data.Item.CraftingTableSettings, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: StorageDataSettings
-      typeAssemblyQualifiedName: Data.Item.StorageDataSettings, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: FurnitureDataSettings
-      typeAssemblyQualifiedName: Data.Item.FurnitureDataSettings, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
@@ -5311,6 +5410,34 @@ MonoBehaviour:
       valuesFilter: []
     - typeName: RawFoodSettings
       typeAssemblyQualifiedName: Data.Item.RawFoodSettings, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: CraftedItemSettings
+      typeAssemblyQualifiedName: Data.Item.CraftedItemSettings, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: StorageSettings
+      typeAssemblyQualifiedName: Data.Item.StorageSettings, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: ItemSettings
+      typeAssemblyQualifiedName: Data.Item.ItemSettings, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: FurnitureSettings
+      typeAssemblyQualifiedName: Data.Item.FurnitureSettings, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
@@ -5639,7 +5766,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a01c9c06b2901384fb716247a2f4001a, type: 3}
-  m_Name: Basic Crafting Area
+  m_Name: Basic Cooking Area
   m_EditorClassIdentifier: 
   guid: 8ed716ae-3014-4d9c-9dd2-00ddefd8649d
   initialGuid: 8ed716ae-3014-4d9c-9dd2-00ddefd8649d

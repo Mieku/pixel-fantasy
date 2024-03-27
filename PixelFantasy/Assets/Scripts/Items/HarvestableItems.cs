@@ -72,7 +72,7 @@ namespace Items
     [Serializable]
     public class ItemDropRate
     {
-        [DataObjectDropdown("DataLibrary", true)] public ItemDataSettings Item;
+        [DataObjectDropdown("DataLibrary", true)] public ItemSettings Item;
         public int MinDrop;
         public int MaxDrop;
         

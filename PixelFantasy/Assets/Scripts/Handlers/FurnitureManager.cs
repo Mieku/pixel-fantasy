@@ -107,7 +107,7 @@ namespace Handlers
             return selectedFurniture;
         }
 
-        public CraftingTable GetCraftingTableForItem(CraftedItemDataSettings item)
+        public CraftingTable GetCraftingTableForItem(CraftedItemSettings item)
         {
             var allTables = FindFurnituresOfType<CraftingTable>();
             foreach (var table in allTables)

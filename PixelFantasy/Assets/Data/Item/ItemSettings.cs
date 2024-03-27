@@ -19,7 +19,7 @@ namespace Data.Item
         [Description("Bulky Resource")] BulkyResource,
     }
     
-    public class ItemDataSettings : DataObject
+    public class ItemSettings : DataObject
     {
         // Settings
         [SerializeField] protected EItemCategory _category;

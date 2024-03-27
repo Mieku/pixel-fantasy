@@ -20,8 +20,8 @@ public class ClickObject : MonoBehaviour
     [SerializeField] private SpriteRenderer _objectRenderer;
     [SerializeField] private bool _usesTintedSelection;
 
-    private ItemSettings _itemSettings;
-    private ConstructionSettings _structureSettings;
+    //private ItemSettings _itemSettings;
+    //private ConstructionSettings _structureSettings;
     private Kinling _kinling;
 
     private IClickableObject _clickableObject; // Cache

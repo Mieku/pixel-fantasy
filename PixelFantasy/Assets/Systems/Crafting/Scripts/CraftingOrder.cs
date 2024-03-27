@@ -12,7 +12,7 @@ namespace Systems.Crafting.Scripts
     [Serializable]
     public class CraftingOrder
     {
-        public CraftedItemDataSettings CraftedItem;
+        public CraftedItemSettings CraftedItem;
         public MealSettings CraftedMeal;
         public PlayerInteractable Requestor;
         public EOrderState State;
@@ -42,7 +42,7 @@ namespace Systems.Crafting.Scripts
             Cancelled,
         }
         
-        public CraftingOrder(CraftedItemDataSettings itemToCraft, PlayerInteractable requestor, EOrderType orderType, bool isGlobal, Action onOrderClaimed, Action onOrderComplete,
+        public CraftingOrder(CraftedItemSettings itemToCraft, PlayerInteractable requestor, EOrderType orderType, bool isGlobal, Action onOrderClaimed, Action onOrderComplete,
             Action onOrderCancelled)
         {
             CraftedItem = itemToCraft;

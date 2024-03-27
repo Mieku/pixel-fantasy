@@ -23,9 +23,9 @@ namespace Data.Item
         [ExposeToInspector, DatabrainSerialize] public Vector2 Position;
         [ExposeToInspector, DatabrainSerialize] public Items.Item LinkedItem;
 
-        [ExposeToInspector, DatabrainSerialize]  public ItemDataSettings Settings;
+        [ExposeToInspector, DatabrainSerialize]  public ItemSettings Settings;
 
-        public virtual void InitData(ItemDataSettings settings)
+        public virtual void InitData(ItemSettings settings)
         {
             Settings = settings;
             Durability = Settings.MaxDurability;

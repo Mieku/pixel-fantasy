@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Data.Item
 {
-    public class FurnitureDataSettings : CraftedItemDataSettings
+    public class FurnitureSettings : CraftedItemSettings
     {
         // Furniture Settings
         [SerializeField] protected Furniture _furniturePrefab;

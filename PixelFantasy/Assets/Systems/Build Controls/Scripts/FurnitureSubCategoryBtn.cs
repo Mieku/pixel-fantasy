@@ -19,9 +19,9 @@ namespace Systems.Build_Controls.Scripts
 
         private Action<FurnitureSubCategoryBtn> _onSelectedCallback;
         private string _optionName;
-        private List<FurnitureDataSettings> _options;
+        private List<FurnitureSettings> _options;
 
-        public void Init(string optionName, Sprite icon, List<FurnitureDataSettings> options, Action<FurnitureSubCategoryBtn> onSelectedCallback)
+        public void Init(string optionName, Sprite icon, List<FurnitureSettings> options, Action<FurnitureSubCategoryBtn> onSelectedCallback)
         {
             _tooltip.Header = optionName;
             _optionName = optionName;
@@ -34,7 +34,7 @@ namespace Systems.Build_Controls.Scripts
         {
             HighlightBtn(true);
             
-            HUDController.Instance.ShowBuildFurnitureDetails($"{_optionName} Furniture", new List<FurnitureDataSettings>(_options));
+            HUDController.Instance.ShowBuildFurnitureDetails($"{_optionName} Furniture", new List<FurnitureSettings>(_options));
         }
 
         public void Cancel()

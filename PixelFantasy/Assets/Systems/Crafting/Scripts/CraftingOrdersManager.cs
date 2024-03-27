@@ -13,7 +13,7 @@ namespace Systems.Crafting.Scripts
         [SerializeField] private CraftingOrderQueue _queue = new CraftingOrderQueue();
 
         public MealSettings testerJam;
-        public CraftedItemDataSettings testerGold;
+        public CraftedItemSettings testerGold;
         
         private void Update()
         {

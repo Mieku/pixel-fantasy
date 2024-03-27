@@ -47,7 +47,7 @@ namespace Items
             return _clickObject;
         }
         
-        public void InitializeItem(ItemDataSettings settings, bool allowed)
+        public void InitializeItem(ItemSettings settings, bool allowed)
         {
            // Data = data;
            var data = settings.CreateInitialDataObject();

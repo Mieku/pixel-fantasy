@@ -12,6 +12,7 @@ using Sirenix.OdinInspector;
 using Systems.Buildings.Scripts;
 using Systems.World_Building.Scripts;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Systems.Game_Setup.Scripts
 {
@@ -22,8 +23,9 @@ namespace Systems.Game_Setup.Scripts
 
         public DataLibrary DataLibrary;
         
+        [FormerlySerializedAs("_starterStockpileData")]
         [DataObjectDropdown("DataLibrary")]
-        [BoxGroup("Starting Items")] [SerializeField] private StorageDataSettings _starterStockpileData;
+        [BoxGroup("Starting Items")] [SerializeField] private StorageSettings _starterStockpileSettings;
         [BoxGroup("Starting Items")] [SerializeField] private List<ItemAmount> _startingItems = new List<ItemAmount>();
         
         [BoxGroup("Starting Kinlings")] [SerializeField] private List<KinlingData> _starterKinlings;
@@ -81,7 +83,7 @@ namespace Systems.Game_Setup.Scripts
         {
             Vector2 startPos = new Vector2(startCell.x, startCell.y);
 
-            _starterStockpile = (Storage)Spawner.Instance.SpawnFurniture(_starterStockpileData.FurniturePrefab, startPos);
+            _starterStockpile = (Storage)Spawner.Instance.SpawnFurniture(_starterStockpileSettings.FurniturePrefab, startPos);
             
             // Create the item datas
             List<ItemData> datas = new List<ItemData>();
@@ -96,7 +98,7 @@ namespace Systems.Game_Setup.Scripts
                 }
             }
             
-            _starterStockpile.ForceLoadItems(datas, _starterStockpileData);
+            _starterStockpile.ForceLoadItems(datas, _starterStockpileSettings);
         }
         
         private void LoadStarterKinlings(Vector3Int startCell, List<KinlingData> starterKinlings)

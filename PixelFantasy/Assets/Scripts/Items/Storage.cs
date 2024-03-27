@@ -10,7 +10,7 @@ namespace Items
     {
         public StorageData RuntimeStorageData => RuntimeData as StorageData;
         
-        public void ForceLoadItems(List<ItemData> itemsToForceLoad, FurnitureDataSettings settings)
+        public void ForceLoadItems(List<ItemData> itemsToForceLoad, FurnitureSettings settings)
         {
             _isPlanning = false;
             var data = settings.CreateInitialDataObject();

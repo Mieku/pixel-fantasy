@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Data.Item
 {
-    public class CraftedItemDataSettings : ItemDataSettings
+    public class CraftedItemSettings : ItemSettings
     {
         // Crafted Item Settings
         [SerializeField] protected CraftRequirements _craftRequirements;

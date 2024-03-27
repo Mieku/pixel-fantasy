@@ -21,12 +21,12 @@ namespace Systems.Details.Building_Details.Scripts
         
         
         private CraftingTable _craftingTable;
-        private CraftedItemDataSettings _selectedItem;
+        private CraftedItemSettings _selectedItem;
         private List<CraftingOrderOption> _displayedOptions = new List<CraftingOrderOption>();
         private List<ResourceCost> _displayedCosts = new List<ResourceCost>();
-        private Action<CraftedItemDataSettings> _addOrderCallback;
+        private Action<CraftedItemSettings> _addOrderCallback;
         
-        public void Init(CraftingTable craftingTable, Action<CraftedItemDataSettings> addOrderCallback)
+        public void Init(CraftingTable craftingTable, Action<CraftedItemSettings> addOrderCallback)
         {
             _craftingTable = craftingTable;
             _addOrderCallback = addOrderCallback;
@@ -57,7 +57,7 @@ namespace Systems.Details.Building_Details.Scripts
             _displayedOptions.Clear();
         }
 
-        private void SelectOrder(CraftedItemDataSettings item)
+        private void SelectOrder(CraftedItemSettings item)
         {
             foreach (var displayedOption in _displayedOptions)
             {
@@ -72,7 +72,7 @@ namespace Systems.Details.Building_Details.Scripts
             _itemDetailsText.text = _selectedItem.GetDetailsMsg("#272736");
         }
 
-        private void RefreshResourceCosts(CraftedItemDataSettings craftedItemSettings)
+        private void RefreshResourceCosts(CraftedItemSettings craftedItemSettings)
         {
             _resourceCostPrefab.gameObject.SetActive(false);
             foreach (var cost in _displayedCosts)

@@ -9,7 +9,7 @@ namespace TaskSystem
 {
     public class CraftFurnitureOrderAction : TaskAction // ID: Craft Furniture Order
     {
-        private FurnitureDataSettings _furnitureToCraft;
+        private FurnitureSettings _furnitureToCraft;
         private CraftingTable _craftingTable;
         private List<ItemData> _materials;
         private ETaskState _state;
@@ -32,7 +32,7 @@ namespace TaskSystem
         
         public override void PrepareAction(Task task)
         {
-            _furnitureToCraft = (FurnitureDataSettings)task.Payload;
+            _furnitureToCraft = (FurnitureSettings)task.Payload;
             _craftingTable = FurnitureManager.Instance.GetCraftingTableForItem(_furnitureToCraft);
             _materials = task.Materials;
             _requestingFurniture = task.Requestor as Furniture;

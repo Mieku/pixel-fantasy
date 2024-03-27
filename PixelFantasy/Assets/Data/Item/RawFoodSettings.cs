@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Data.Item
 {
-    public class RawFoodSettings : ItemDataSettings
+    public class RawFoodSettings : ItemSettings
     {
         [SerializeField] private EFoodType _foodType;
         [SerializeField] private float _nutrition;

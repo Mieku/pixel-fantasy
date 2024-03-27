@@ -21,9 +21,9 @@ namespace Items
         
         public CraftingTableData RuntimeTableData => RuntimeData as CraftingTableData;
 
-        public override void StartPlanning(FurnitureDataSettings furnitureData, PlacementDirection initialDirection, DyeData dye)
+        public override void StartPlanning(FurnitureSettings furnitureSettings, PlacementDirection initialDirection, DyeData dye)
         {
-            base.StartPlanning(furnitureData, initialDirection, dye);
+            base.StartPlanning(furnitureSettings, initialDirection, dye);
             HideCraftingPreview();
         }
 
@@ -100,7 +100,7 @@ namespace Items
             if(_eastCraftingPreview != null) _eastCraftingPreview.gameObject.SetActive(false);
         }
         
-        public void AssignItemToTable(CraftedItemDataSettings craftedItem, List<ItemData> claimedMats)
+        public void AssignItemToTable(CraftedItemSettings craftedItem, List<ItemData> claimedMats)
         {
             if (craftedItem != null)
             {
@@ -174,7 +174,7 @@ namespace Items
             AssignItemToTable(null, null);
         }
 
-        public List<CraftedItemDataSettings> GetCraftableItems()
+        public List<CraftedItemSettings> GetCraftableItems()
         {
             return RuntimeTableData.CraftingTableSettings.CraftableItems;
         }

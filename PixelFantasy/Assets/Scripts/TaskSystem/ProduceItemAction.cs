@@ -10,7 +10,7 @@ namespace TaskSystem
 {
     public class ProduceItemAction : TaskAction // ID: Produce Item
     {
-        private CraftedItemDataSettings _itemToCraft;
+        private CraftedItemSettings _itemToCraft;
         private CraftingTable _craftingTable;
         private List<ItemData> _materials;
         private ETaskState _state;
@@ -32,7 +32,7 @@ namespace TaskSystem
         
         public override void PrepareAction(Task task)
         {
-            _itemToCraft = task.Payload as CraftedItemDataSettings;
+            _itemToCraft = task.Payload as CraftedItemSettings;
             _craftingTable = (CraftingTable)task.Requestor;
             _materials = task.Materials;
             _state = ETaskState.ClaimTable;

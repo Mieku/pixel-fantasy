@@ -7,7 +7,7 @@ namespace Data.Resource
     public class CropSettings : DataObject
     {
         public string CropName;
-        public ItemDataSettings HarvestedItem;
+        public ItemSettings HarvestedItem;
         public Sprite Stage1, Stage2, Stage3, Stage4;
         public float TimeToHarvestSec;
         public float WaterFrequencySec;

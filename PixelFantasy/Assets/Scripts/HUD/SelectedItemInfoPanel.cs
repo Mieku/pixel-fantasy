@@ -62,7 +62,7 @@ namespace HUD
             _notificationLogger.Hide();
         }
 
-        public void ShowBuildFurnitureDetails(string header, List<FurnitureDataSettings> options )
+        public void ShowBuildFurnitureDetails(string header, List<FurnitureSettings> options )
         {
             HideAllDetails();
             _notificationLogger.Hide();

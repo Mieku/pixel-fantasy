@@ -13,7 +13,7 @@ namespace Data.Item
         // Runtime
         [ExposeToInspector, DatabrainSerialize] public string CraftersUID;
         
-        public CraftedItemDataSettings CraftedItemDataSettings => Settings as CraftedItemDataSettings;
+        public CraftedItemSettings CraftedItemSettings => Settings as CraftedItemSettings;
     }
     
     [Serializable]

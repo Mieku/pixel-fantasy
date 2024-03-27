@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Data.Item
 {
-    public class MealSettings : ItemDataSettings
+    public class MealSettings : ItemSettings
     {
         [SerializeField] private EMealQuality _mealQuality;
         [SerializeField] private float _nutrition;

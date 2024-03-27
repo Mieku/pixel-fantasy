@@ -13,13 +13,13 @@ namespace Systems.Details.Build_Details.Scripts
         [SerializeField] private Image _selectionFrame;
 
         private Action<SelectionOptionBtn> _onPressedCallback;
-        [FormerlySerializedAs("FurnitureItemData")] public FurnitureDataSettings FurnitureData;
+        [FormerlySerializedAs("FurnitureData")] [FormerlySerializedAs("FurnitureItemData")] public FurnitureSettings FurnitureSettings;
 
-        public void Init(FurnitureDataSettings furnitureData, Action<SelectionOptionBtn> onPressedCallback)
+        public void Init(FurnitureSettings furnitureSettings, Action<SelectionOptionBtn> onPressedCallback)
         {
-            FurnitureData = furnitureData;
+            FurnitureSettings = furnitureSettings;
             _onPressedCallback = onPressedCallback;
-            _itemIcon.sprite = FurnitureData.ItemSprite;
+            _itemIcon.sprite = FurnitureSettings.ItemSprite;
             Highlight(false);
         }
 

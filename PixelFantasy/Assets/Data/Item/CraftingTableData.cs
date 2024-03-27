@@ -12,7 +12,7 @@ namespace Data.Item
         // Runtime
         [ExposeToInspector, DatabrainSerialize] public List<ItemData> RemainingMaterials = new List<ItemData>();
         [ExposeToInspector, DatabrainSerialize] public float RemainingCraftingWork;
-        [ExposeToInspector, DatabrainSerialize] public CraftedItemDataSettings ItemBeingCrafted;
+        [ExposeToInspector, DatabrainSerialize] public CraftedItemSettings ItemBeingCrafted;
         [ExposeToInspector, DatabrainSerialize] public MealSettings MealBeingCooked;
         [ExposeToInspector, DatabrainSerialize] public CraftingOrder CurrentOrder;
         
@@ -57,7 +57,7 @@ namespace Data.Item
             }
         }
         
-        public bool CanCraftItem(CraftedItemDataSettings settings)
+        public bool CanCraftItem(CraftedItemSettings settings)
         {
             var validToCraft = CraftingTableSettings.CraftableItems.Contains(settings);
             if (!validToCraft) return false;

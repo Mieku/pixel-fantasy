@@ -23,9 +23,7 @@ namespace Managers
         [SerializeField] private List<SpriteRef> _orderIcons;
         [SerializeField] private List<CropSettings> _cropLibrary;
         [SerializeField] private List<HairSettings> _hairLibrary;
-        [SerializeField] private List<ItemSettings> _itemDataLibrary;
         [SerializeField] private List<Command> _commandLibrary;
-        [SerializeField] private List<JobSettings> _jobLibrary;
         [SerializeField] private List<RaceSettings> _races;
         [SerializeField] private List<NeedSettings> _stats;
         [SerializeField] private List<EmotionSettings> _emotions;
@@ -54,23 +52,6 @@ namespace Managers
         {
             int index = Random.Range(0, _talents.Count);
             return _talents[index];
-        }
-
-        public List<ItemSettings> GetAllItemsForCategory(EItemCategory category, bool alphabeticalOrder)
-        {
-            List<ItemSettings> unsortedList = new List<ItemSettings>();
-            foreach (var itemData in _itemDataLibrary)
-            {
-                if (itemData.Category == category)
-                {
-                    unsortedList.Add(itemData);
-                }
-            }
-
-            if (!alphabeticalOrder) return unsortedList;
-
-            List<ItemSettings> sortedList = unsortedList.OrderBy(i => i.ItemName).ToList();
-            return sortedList;
         }
 
         public EmotionalBreakdownSettings GetEmotionalBreakdown(string breakdownTaskId)
@@ -117,17 +98,6 @@ namespace Managers
             return result;
         }
 
-        public JobSettings GetJob(string jobName)
-        {
-            var result = _jobLibrary.Find(job => job.JobName == jobName);
-            if (result == null)
-            {
-                Debug.LogError($"Unknown Job: {jobName}");
-            }
-
-            return result;
-        }
-
         public Command GetCommand(string taskId)
         {
             var result = _commandLibrary.Find(cmd => cmd.Task.TaskId == taskId);
@@ -150,31 +120,6 @@ namespace Managers
                 Debug.LogError("Unknown Colour: " + colourName);
                 return Color.magenta;
             }
-        }
-
-        public ItemSettings GetItemData(string key)
-        {
-            var result = _itemDataLibrary.Find(i => i.ItemName == key);
-            if (result == null)
-            {
-                Debug.LogError("Unknown Item: " + key);
-            }
-            return result;
-        }
-
-        public List<CraftedItemSettings> GetAllCraftedItemDatas()
-        {
-            List<CraftedItemSettings> results = new List<CraftedItemSettings>();
-            foreach (var itemData in _itemDataLibrary)
-            {
-                var craftable = itemData as CraftedItemSettings;
-                if (craftable != null)
-                {
-                    results.Add(craftable);
-                }
-            }
-
-            return results;
         }
         
         public CropSettings GetCropData(string key)

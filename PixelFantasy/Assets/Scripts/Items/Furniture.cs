@@ -89,7 +89,7 @@ namespace Items
             
         }
         
-        public virtual void StartPlanning(FurnitureDataSettings furnitureData, PlacementDirection initialDirection, DyeData dye)
+        public virtual void StartPlanning(FurnitureSettings furnitureSettings, PlacementDirection initialDirection, DyeData dye)
         {
             _isPlanning = true;
             _dyeOverride = dye;
@@ -108,7 +108,7 @@ namespace Items
             _isPlanning = false;
         }
 
-        public virtual void InitializeFurniture(FurnitureDataSettings furnitureSettings, PlacementDirection direction, DyeData dye)
+        public virtual void InitializeFurniture(FurnitureSettings furnitureSettings, PlacementDirection direction, DyeData dye)
         {
             _dyeOverride = dye;
             var data = furnitureSettings.CreateInitialDataObject();

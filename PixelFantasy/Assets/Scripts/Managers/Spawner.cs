@@ -320,7 +320,7 @@ namespace Managers
             return itemObject.GetComponent<Item>();
         }
         
-        public Item SpawnItem(ItemDataSettings settings, Vector3 position, bool canBeHauled, Transform parent = null)
+        public Item SpawnItem(ItemSettings settings, Vector3 position, bool canBeHauled, Transform parent = null)
         {
             var itemObject = Instantiate(_itemPrefab, position, Quaternion.identity, parent ?? _itemsParent);
             if (itemObject.TryGetComponent<Item>(out var initializable))
@@ -336,7 +336,7 @@ namespace Managers
             return itemObject.GetComponent<Item>();
         }
         
-        public List<Item> SpawnItem(ItemDataSettings settings, Vector3 position, bool canBeHauled, int amount, Transform parent = null)
+        public List<Item> SpawnItem(ItemSettings settings, Vector3 position, bool canBeHauled, int amount, Transform parent = null)
         {
             List<Item> results = new List<Item>();
 
@@ -367,7 +367,7 @@ namespace Managers
         }
 
         private Furniture _plannedFurniture;
-        private FurnitureDataSettings _selectedFurnitureSettings;
+        private FurnitureSettings _selectedFurnitureSettings;
         private DyeData _selectedDyeOverride;
         public Furniture SpawnFurniture(Furniture prefab, Vector3 position, Transform parent = null)
         {
@@ -375,16 +375,16 @@ namespace Managers
             return furnitureObject.GetComponent<Furniture>();
         }
 
-        public void PlanFurniture(FurnitureDataSettings furnitureData, PlacementDirection direction, DyeData dye)
+        public void PlanFurniture(FurnitureSettings furnitureSettings, PlacementDirection direction, DyeData dye)
         {
-            _selectedFurnitureSettings = furnitureData;
+            _selectedFurnitureSettings = furnitureSettings;
             _selectedDyeOverride = dye;
            
-            var prefab = furnitureData.FurniturePrefab;
+            var prefab = furnitureSettings.FurniturePrefab;
             var position = Helper.ConvertMousePosToGridPos(UtilsClass.GetMouseWorldPosition());
         
             _plannedFurniture = SpawnFurniture(prefab, position);
-            _plannedFurniture.StartPlanning(furnitureData, direction, dye);
+            _plannedFurniture.StartPlanning(furnitureSettings, direction, dye);
             _prevPlacementDirection = direction;
         }
         

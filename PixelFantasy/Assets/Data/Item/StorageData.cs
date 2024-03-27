@@ -16,14 +16,14 @@ namespace Data.Item
         [ExposeToInspector, DatabrainSerialize] public List<ItemData> Incoming = new List<ItemData>();
         [ExposeToInspector, DatabrainSerialize] public List<ItemData> Claimed = new List<ItemData>();
 
-        public StorageDataSettings StorageSettings => Settings as StorageDataSettings;
+        public StorageSettings StorageSettings => Settings as StorageSettings;
 
-        public override void InitData(ItemDataSettings itemDataSettings)
+        public override void InitData(ItemSettings itemSettings)
         {
-            base.InitData(itemDataSettings);
+            base.InitData(itemSettings);
         }
         
-        public int AmountCanBeDeposited(ItemDataSettings itemSettings)
+        public int AmountCanBeDeposited(ItemSettings itemSettings)
         {
             if (!IsItemValidToStore(itemSettings))
             {
@@ -35,14 +35,14 @@ namespace Data.Item
             return maxStorage - (Stored.Count + Incoming.Count);
         }
         
-        public int AmountCanBeWithdrawn(ItemDataSettings itemSettings)
+        public int AmountCanBeWithdrawn(ItemSettings itemSettings)
         {
             if (!IsItemValidToStore(itemSettings)) return 0;
 
             return NumStored(itemSettings) - NumClaimed(itemSettings);
         }
         
-        private int NumStored(ItemDataSettings itemSettings)
+        private int NumStored(ItemSettings itemSettings)
         {
             int result = 0;
             foreach (var storedItem in Stored)
@@ -56,7 +56,7 @@ namespace Data.Item
             return result;
         }
 
-        private int NumClaimed(ItemDataSettings itemSettings)
+        private int NumClaimed(ItemSettings itemSettings)
         {
             int result = 0;
             foreach (var claimedItem in Claimed)
@@ -70,7 +70,7 @@ namespace Data.Item
             return result;
         }
 
-        private int NumIncoming(ItemDataSettings itemSettings)
+        private int NumIncoming(ItemSettings itemSettings)
         {
             int result = 0;
             foreach (var incomingItem in Incoming)
@@ -164,7 +164,7 @@ namespace Data.Item
             GameEvents.Trigger_RefreshInventoryDisplay();
         }
 
-        public ItemData GetItemDataOfType(ItemDataSettings itemSettings)
+        public ItemData GetItemDataOfType(ItemSettings itemSettings)
         {
             int amountClaimable = AmountCanBeWithdrawn(itemSettings);
             if (amountClaimable <= 0)
@@ -232,7 +232,7 @@ namespace Data.Item
             return results;
         }
         
-        public bool IsItemInStorage(ItemDataSettings itemSettings)
+        public bool IsItemInStorage(ItemSettings itemSettings)
         {
             if (IsItemValidToStore(itemSettings))
             {
@@ -291,41 +291,41 @@ namespace Data.Item
 
             return toolItems;
         }
+        //
+        // public List<IFoodItem> GetAllFoodItems(bool sortByBestNutrition, bool includeIncoming = false)
+        // {
+        //     List<IFoodItem> foodItems = new List<IFoodItem>();
+        //     foreach (var storedItem in Stored)
+        //     {
+        //         if (!IsSpecificItemDataClaimed(storedItem))
+        //         {
+        //             if (storedItem is IFoodItem)
+        //             {
+        //                 foodItems.Add(storedItem as IFoodItem);
+        //             }
+        //         }
+        //     }
+        //
+        //     if (includeIncoming)
+        //     {
+        //         foreach (var incomingItem in Incoming)
+        //         {
+        //             if (incomingItem is IFoodItem)
+        //             {
+        //                 foodItems.Add(incomingItem as IFoodItem);
+        //             }
+        //         }
+        //     }
+        //
+        //     if (sortByBestNutrition)
+        //     {
+        //         return foodItems.OrderByDescending(food => food.FoodNutrition).ToList();
+        //     }
+        //     
+        //     return foodItems;
+        // }
         
-        public List<IFoodItem> GetAllFoodItems(bool sortByBestNutrition, bool includeIncoming = false)
-        {
-            List<IFoodItem> foodItems = new List<IFoodItem>();
-            foreach (var storedItem in Stored)
-            {
-                if (!IsSpecificItemDataClaimed(storedItem))
-                {
-                    if (storedItem is IFoodItem)
-                    {
-                        foodItems.Add(storedItem as IFoodItem);
-                    }
-                }
-            }
-
-            if (includeIncoming)
-            {
-                foreach (var incomingItem in Incoming)
-                {
-                    if (incomingItem is IFoodItem)
-                    {
-                        foodItems.Add(incomingItem as IFoodItem);
-                    }
-                }
-            }
-
-            if (sortByBestNutrition)
-            {
-                return foodItems.OrderByDescending(food => food.FoodNutrition).ToList();
-            }
-            
-            return foodItems;
-        }
-        
-        public bool IsItemValidToStore(ItemDataSettings itemSettings)
+        public bool IsItemValidToStore(ItemSettings itemSettings)
         {
             if (StorageSettings.AcceptedCategories.Contains(EItemCategory.SpecificStorage))
             {

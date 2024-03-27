@@ -47,7 +47,7 @@ namespace Managers
         /// <summary>
         /// Checks if the item is available in storage without claiming it
         /// </summary>
-        public bool IsItemInStorage(ItemDataSettings itemSettings)
+        public bool IsItemInStorage(ItemSettings itemSettings)
         {
             foreach (var storage in _allStorage)
             {
@@ -75,7 +75,7 @@ namespace Managers
             return false;
         }
         
-        public Storage GetAvailableStorage(ItemDataSettings itemSettings)
+        public Storage GetAvailableStorage(ItemSettings itemSettings)
         {
             foreach (var storage in _allStorage)
             {
@@ -89,7 +89,7 @@ namespace Managers
             return null;
         }
         
-        public Storage FindAvailableStorage(ItemDataSettings itemSettings)
+        public Storage FindAvailableStorage(ItemSettings itemSettings)
         {
             foreach (var storage in _allStorage)
             {
@@ -103,7 +103,7 @@ namespace Managers
             return null;
         }
 
-        public ItemData GetItemOfType(ItemDataSettings itemSettings)
+        public ItemData GetItemOfType(ItemSettings itemSettings)
         {
             foreach (var storage in _allStorage)
             {
@@ -206,9 +206,9 @@ namespace Managers
             return results;
         }
 
-        public Dictionary<ItemDataSettings, int> GetAvailableInventoryQuantities()
+        public Dictionary<ItemSettings, int> GetAvailableInventoryQuantities()
         {
-            Dictionary<ItemDataSettings, int> results = new Dictionary<ItemDataSettings, int>();
+            Dictionary<ItemSettings, int> results = new Dictionary<ItemSettings, int>();
             var availableInventory = GetAvailableInventory<ItemData>();
             foreach (var item in availableInventory)
             {
@@ -221,13 +221,13 @@ namespace Managers
             return results;
         }
 
-        public int GetAmountAvailable(ItemDataSettings itemSettings)
+        public int GetAmountAvailable(ItemSettings itemSettings)
         {
             var allAvailable = GetAvailableInventoryQuantities();
             return allAvailable.GetValueOrDefault(itemSettings, 0);
         }
 
-        public bool CanAfford(ItemDataSettings itemSettings, int amount)
+        public bool CanAfford(ItemSettings itemSettings, int amount)
         {
             var availableAmount = GetAmountAvailable(itemSettings);
             return amount <= availableAmount;
