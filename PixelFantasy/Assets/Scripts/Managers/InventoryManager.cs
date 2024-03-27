@@ -5,6 +5,7 @@ using Data.Item;
 using Items;
 using ScriptableObjects;
 using UnityEngine;
+using EFoodType = Data.Item.EFoodType;
 using EToolType = Data.Item.EToolType;
 
 namespace Managers
@@ -118,6 +119,28 @@ namespace Managers
 
             return null;
         }
+
+        public ItemData GetFoodItemOfType(EFoodType foodType)
+        {
+            if (foodType == EFoodType.Meal)
+            {
+                var meals = GetAvailableInventory<MealData>();
+                return meals.FirstOrDefault();
+            }
+            else
+            {
+                var rawFoods = GetAvailableInventory<RawFoodData>();
+                foreach (var rawFood in rawFoods)
+                {
+                    if (rawFood.RawFoodSettings.FoodType == foodType)
+                    {
+                        return rawFood;
+                    }
+                }
+
+                return null;
+            }
+        }
         
         public bool HasToolType(EToolType toolType)
         {
@@ -208,6 +231,29 @@ namespace Managers
         {
             var availableAmount = GetAmountAvailable(itemSettings);
             return amount <= availableAmount;
+        }
+
+        public bool AreFoodTypesAvailable(EFoodType foodType, int amount)
+        {
+            int amountAvailable = 0;
+            if (foodType != EFoodType.Meal)
+            {
+                var rawFoods = GetAvailableInventory<RawFoodData>();
+                foreach (var rawFood in rawFoods)
+                {
+                    if (rawFood.RawFoodSettings.FoodType == foodType)
+                    {
+                        amountAvailable++;
+                    }
+                }
+
+                return amountAvailable >= amount;
+            }
+            else
+            {
+                var meals = GetAvailableInventory<MealData>();
+                return meals.Count >= amount;
+            }
         }
     }
 }

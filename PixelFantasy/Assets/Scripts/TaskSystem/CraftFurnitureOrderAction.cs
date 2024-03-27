@@ -9,7 +9,7 @@ namespace TaskSystem
 {
     public class CraftFurnitureOrderAction : TaskAction // ID: Craft Furniture Order
     {
-        private FurnitureData _itemToCraft;
+        private FurnitureDataSettings _furnitureToCraft;
         private CraftingTable _craftingTable;
         private List<ItemData> _materials;
         private ETaskState _state;
@@ -32,11 +32,10 @@ namespace TaskSystem
         
         public override void PrepareAction(Task task)
         {
-            var item = (FurnitureData)task.Payload;
-            _itemToCraft = item;
-            _craftingTable = task.Requestor as CraftingTable; //FurnitureManager.Instance.GetCraftingTableForItem(_itemToCraft);
+            _furnitureToCraft = (FurnitureDataSettings)task.Payload;
+            _craftingTable = FurnitureManager.Instance.GetCraftingTableForItem(_furnitureToCraft);
             _materials = task.Materials;
-            _requestingFurniture = item.LinkedFurniture;//task.Requestor as Furniture;
+            _requestingFurniture = task.Requestor as Furniture;
             _state = ETaskState.ClaimTable;
         }
 
@@ -44,7 +43,7 @@ namespace TaskSystem
         {
             if (_state == ETaskState.ClaimTable)
             {
-                _craftingTable.AssignItemToTable(_itemToCraft.FurnitureSettings);
+                _craftingTable.AssignItemToTable(_furnitureToCraft, _materials);
                 _state = ETaskState.GatherMats;
             }
 
@@ -71,9 +70,9 @@ namespace TaskSystem
                     if (_craftingTable.DoCraft(WorkAmount))
                     {
                         KinlingAnimController.SetUnitAction(UnitAction.Nothing);
-                        _itemToCraft.CraftersUID = _ai.Kinling.UniqueId;
                         
-                        var targetItemObj = Spawner.Instance.SpawnItemWithRuntimeData(_itemToCraft, _craftingTable.transform.position, false);
+                        var targetItemObj = Spawner.Instance.SpawnItemWithRuntimeData(_requestingFurniture.RuntimeData, _craftingTable.transform.position, false);
+                        _requestingFurniture.RuntimeData.CraftersUID = _ai.Kinling.UniqueId;
                         
                         _ai.HoldItem(targetItemObj);
                         
@@ -123,7 +122,7 @@ namespace TaskSystem
             var droppedItem = _ai.DropCarriedItem(false);
             _requestingFurniture.PlaceFurniture(droppedItem);
             _targetItem = null;
-            _itemToCraft = null;
+            _furnitureToCraft = null;
             ConcludeAction();
         }
 
@@ -138,7 +137,7 @@ namespace TaskSystem
             
             KinlingAnimController.SetUnitAction(UnitAction.Nothing);
             _task = null;
-            _itemToCraft = null;
+            _furnitureToCraft = null;
             _requestingFurniture = null;
             _materialIndex = 0;
         }

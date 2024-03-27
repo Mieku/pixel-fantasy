@@ -31,7 +31,7 @@ namespace TaskSystem
                         if (potentialTask != null)
                         {
                             var taskAction = kinling.TaskAI.FindTaskActionFor(potentialTask);
-                            if (taskAction.CanDoTask(potentialTask))
+                            if (taskAction != null && taskAction.CanDoTask(potentialTask))
                             {
                                 var task = queue.GetTask(i);
                                 return task;

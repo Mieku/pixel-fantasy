@@ -43,7 +43,6 @@ namespace Items
         public DataLibrary DataLibrary;
         
         [DataObjectDropdown("DataLibrary", true)]
-        //public FurnitureData Data;
         public FurnitureData RuntimeData;
         
         protected SpriteRenderer[] _allSprites;
@@ -428,7 +427,7 @@ namespace Items
             else
             {
                 var craftingOrder = new CraftingOrder(
-                        RuntimeData, 
+                        RuntimeData.FurnitureSettings, 
                         this, 
                         CraftingOrder.EOrderType.Furniture, 
                         true,

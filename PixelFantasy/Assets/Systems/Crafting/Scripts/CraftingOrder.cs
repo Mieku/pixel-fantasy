@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Data.Item;
 using Items;
 using Managers;
@@ -11,7 +12,9 @@ namespace Systems.Crafting.Scripts
     [Serializable]
     public class CraftingOrder
     {
-        public CraftedItemData CraftedItem;
+        public CraftedItemDataSettings CraftedItem;
+        public MealSettings CraftedMeal;
+        public PlayerInteractable Requestor;
         public EOrderState State;
         public EOrderType OrderType;
         public bool IsGlobal;
@@ -21,11 +24,13 @@ namespace Systems.Crafting.Scripts
         public Action OnOrderCancelled;
         
         private List<ItemAmount> _remainingMaterials = new List<ItemAmount>();
+        private List<Ingredient> _remainingIngredients = new List<Ingredient>();
 
         public enum EOrderType
         {
             Furniture,
             Item,
+            Meal,
         }
 
         public enum EOrderState
@@ -37,24 +42,52 @@ namespace Systems.Crafting.Scripts
             Cancelled,
         }
         
-        public CraftingOrder(CraftedItemData itemToCraft, PlayerInteractable requestor, EOrderType orderType, bool isGlobal, Action onOrderClaimed, Action onOrderComplete,
+        public CraftingOrder(CraftedItemDataSettings itemToCraft, PlayerInteractable requestor, EOrderType orderType, bool isGlobal, Action onOrderClaimed, Action onOrderComplete,
             Action onOrderCancelled)
         {
             CraftedItem = itemToCraft;
             OrderType = orderType;
+            Requestor = requestor;
             IsGlobal = isGlobal;
             OnOrderClaimed = onOrderClaimed;
             OnOrderComplete = onOrderComplete;
             OnOrderCancelled = onOrderCancelled;
             
-            _remainingMaterials = itemToCraft.CraftedItemDataSettings.CraftRequirements.GetMaterialCosts();
+            _remainingMaterials = itemToCraft.CraftRequirements.GetMaterialCosts();
+            
+            SetOrderState(EOrderState.Queued);
+        }
+        
+        // For Meals
+        public CraftingOrder(MealSettings mealToCraft, PlayerInteractable requestor, bool isGlobal, Action onOrderClaimed, Action onOrderComplete,
+            Action onOrderCancelled)
+        {
+            CraftedMeal = mealToCraft;
+            OrderType = EOrderType.Meal;
+            IsGlobal = isGlobal;
+            Requestor = requestor;
+            OnOrderClaimed = onOrderClaimed;
+            OnOrderComplete = onOrderComplete;
+            OnOrderCancelled = onOrderCancelled;
+
+            _remainingIngredients = mealToCraft.MealRequirements.GetIngredients();
             
             SetOrderState(EOrderState.Queued);
         }
         
         public Task CreateTask(Action<Task> onTaskComplete, CraftingTable table)
         {
-            List<ItemData> claimedMats = ClaimRequiredMaterials();
+            List<ItemData> claimedMats = null;
+
+            if (OrderType == EOrderType.Meal)
+            {
+                claimedMats = ClaimRequiredIngredients();
+            }
+            else
+            {
+                claimedMats = ClaimRequiredMaterials();
+            }
+            
             if (claimedMats == null)
             {
                 return null;
@@ -64,7 +97,7 @@ namespace Systems.Crafting.Scripts
             switch (OrderType)
             {
                 case EOrderType.Furniture:
-                    task = new Task("Craft Furniture Order", CraftedItem.CraftedItemDataSettings.CraftRequirements.CraftingSkill, table, CraftedItem.CraftedItemDataSettings.CraftRequirements.RequiredCraftingToolType)
+                    task = new Task("Craft Furniture Order", CraftedItem.CraftRequirements.CraftingSkill, Requestor, CraftedItem.CraftRequirements.RequiredCraftingToolType)
                     {
                         Payload = CraftedItem,
                         OnTaskComplete = onTaskComplete,
@@ -72,9 +105,18 @@ namespace Systems.Crafting.Scripts
                     };
                     break;
                 case EOrderType.Item:
-                    task = new Task("Craft Item", CraftedItem.CraftedItemDataSettings.CraftRequirements.CraftingSkill, table, CraftedItem.CraftedItemDataSettings.CraftRequirements.RequiredCraftingToolType)
+                    task = new Task("Craft Item", CraftedItem.CraftRequirements.CraftingSkill, table, CraftedItem.CraftRequirements.RequiredCraftingToolType)
                     {
                         Payload = CraftedItem,
+                        OnTaskComplete = onTaskComplete,
+                        Materials = claimedMats,
+                    };
+                    break;
+                case EOrderType.Meal:
+                    task = new Task("Cook Meal", CraftedMeal.MealRequirements.CraftingSkill, table,
+                        CraftedMeal.MealRequirements.RequiredCraftingToolType)
+                    {
+                        Payload = CraftedMeal,
                         OnTaskComplete = onTaskComplete,
                         Materials = claimedMats,
                     };
@@ -90,7 +132,7 @@ namespace Systems.Crafting.Scripts
 
         private List<ItemData> ClaimRequiredMaterials()
         {
-            var requiredItems = CraftedItem.CraftedItemDataSettings.CraftRequirements.GetMaterialCosts();
+            var requiredItems = CraftedItem.CraftRequirements.GetMaterialCosts();
             List<ItemData> claimedItems = new List<ItemData>();
             
             foreach (var requiredItem in requiredItems)
@@ -107,6 +149,25 @@ namespace Systems.Crafting.Scripts
             return claimedItems;
         }
 
+        private List<ItemData> ClaimRequiredIngredients()
+        {
+            var ingredients = CraftedMeal.MealRequirements.GetIngredients();
+            List<ItemData> claimedItems = new List<ItemData>();
+
+            foreach (var ingredient in ingredients)
+            {
+                for (int i = 0; i < ingredient.Amount; i++)
+                {
+                    ItemData claimedItem = InventoryManager.Instance.GetFoodItemOfType(ingredient.FoodType);
+                    
+                    claimedItem.ClaimItem();
+                    claimedItems.Add(claimedItem);
+                }
+            }
+
+            return claimedItems;
+        }
+
         public void ClaimOrder()
         {
             OnOrderClaimed?.Invoke();
@@ -114,20 +175,40 @@ namespace Systems.Crafting.Scripts
 
         public bool CanBeCrafted(CraftingTable table)
         {
-            return table.RuntimeTableData.CanCraftItem(CraftedItem.CraftedItemDataSettings);
+            switch (OrderType)
+            {
+                case EOrderType.Furniture:
+                case EOrderType.Item:
+                    return table.RuntimeTableData.CanCraftItem(CraftedItem);
+                case EOrderType.Meal:
+                    return table.RuntimeTableData.CanCookMeal(CraftedMeal);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
         }
         
         public bool AreMaterialsAvailable()
         {
-            foreach (var itemAmount in _remainingMaterials)
+            switch (OrderType)
             {
-                if (!itemAmount.CanAfford())
-                {
-                    return false;
-                }
+                case EOrderType.Furniture:
+                case EOrderType.Item:
+                    if (_remainingMaterials.Any(itemAmount => !itemAmount.CanAfford()))
+                    {
+                        return false;
+                    }
+                    return true;
+                case EOrderType.Meal:
+                    if (_remainingIngredients.Any(ingredient => !ingredient.CanAfford()))
+                    {
+                        return false;
+                    }
+                    return true;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
-
-            return true;
         }
 
         public void SetOrderState(EOrderState state)

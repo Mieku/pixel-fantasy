@@ -72,7 +72,7 @@ MonoBehaviour:
   _fruitFlowersOverlay: {fileID: 21300000, guid: cf299772b1725cc48adc078fcf6d0f1f, type: 3}
   _harvestableFruit:
     _itemDrops:
-    - Item: {fileID: 3255695680348296240}
+    - Item: {fileID: 7314705390567572713}
       MinDrop: 2
       MaxDrop: 4
   _workToHarvest: 5
@@ -155,6 +155,46 @@ MonoBehaviour:
   LinkedItem: {fileID: 0}
   Settings: {fileID: 0}
   CraftersUID: 
+--- !u!114 &-7963185361307739678
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 065000091ab7bee45b4843f4a1b8f92a, type: 3}
+  m_Name: Raw food Item
+  m_EditorClassIdentifier: 
+  guid: cd3a9e7b-2a68-4759-8237-7344b86a4324
+  initialGuid: cd3a9e7b-2a68-4759-8237-7344b86a4324
+  runtimeIndexID: 
+  icon: {fileID: 0}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Raw food Item
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  Durability: 0
+  IsAllowed: 0
+  CurrentTask:
+    TaskId: 
+    TaskType: 0
+    KinlingAssignedToTask: {fileID: 0}
+    Materials: []
+    RequiredToolType: 0
+    IsKinlingSpecific: 0
+  CarryingKinlingUID: 
+  AssignedStorage: {fileID: 0}
+  Position: {x: 0, y: 0}
+  LinkedItem: {fileID: 0}
+  Settings: {fileID: 0}
 --- !u!114 &-7757045536695828918
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -672,6 +712,45 @@ MonoBehaviour:
   m_Name: HelpModule
   m_EditorClassIdentifier: 
   welcomeWindow: {fileID: 0}
+--- !u!114 &-4595143124937531268
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0fedcf57d658f54a997dec2825cdde4, type: 3}
+  m_Name: Jam
+  m_EditorClassIdentifier: 
+  guid: 0f9e77cb-dd23-4a36-81ce-d3ac9ad43173
+  initialGuid: 0f9e77cb-dd23-4a36-81ce-d3ac9ad43173
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: a4d13c72e1b26014c8ecef0fec0ffda9, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Jam
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _category: 3
+  _maxDurability: 100
+  _baseData: {fileID: 8440898394350696192}
+  _mealQuality: 0
+  _nutrition: 1
+  _mealRequirements:
+    _minCraftingSkillLevel: 5
+    _craftingSkill: 4
+    _workCost: 10
+    _requiredCraftingToolType: 0
+    _ingredients:
+    - FoodType: 0
+      Amount: 2
 --- !u!114 &-4573124533214609923
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1027,6 +1106,37 @@ MonoBehaviour:
   _maxHealth: 5
   _minWorkDistance: 0.75
   _baseData: {fileID: 115313260348806446}
+--- !u!114 &-3594478725275268963
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1743272e3adb3943af0e7db05085a8a, type: 3}
+  m_Name: Orange
+  m_EditorClassIdentifier: 
+  guid: cc229749-9ca9-4ac8-9246-0a9ecf5952aa
+  initialGuid: cc229749-9ca9-4ac8-9246-0a9ecf5952aa
+  runtimeIndexID: 
+  icon: {fileID: -270428748, guid: 6f37856933bf9674fb472dd26b81b58e, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Orange
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 1
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _category: 3
+  _maxDurability: 100
+  _baseData: {fileID: -7963185361307739678}
+  _foodType: 0
+  _nutrition: 0.5
 --- !u!114 &-3244215572019641743
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1095,6 +1205,37 @@ MonoBehaviour:
   _category: 0
   _maxDurability: 100
   _baseData: {fileID: 6445956091041958653}
+--- !u!114 &-2905673160663084519
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1743272e3adb3943af0e7db05085a8a, type: 3}
+  m_Name: Strawberry
+  m_EditorClassIdentifier: 
+  guid: 182c5b2c-0dce-46ac-b957-4819787a75de
+  initialGuid: 182c5b2c-0dce-46ac-b957-4819787a75de
+  runtimeIndexID: 
+  icon: {fileID: 422682441, guid: 18a57a0db5b8b6d43ae249ec6016319a, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Strawberry
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _category: 3
+  _maxDurability: 100
+  _baseData: {fileID: -7963185361307739678}
+  _foodType: 0
+  _nutrition: 0.5
 --- !u!114 &-2868459388340172924
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1365,7 +1506,7 @@ MonoBehaviour:
   _fruitFlowersOverlay: {fileID: 21300000, guid: cf299772b1725cc48adc078fcf6d0f1f, type: 3}
   _harvestableFruit:
     _itemDrops:
-    - Item: {fileID: 2545999382318138489}
+    - Item: {fileID: -3594478725275268963}
       MinDrop: 2
       MaxDrop: 4
   _workToHarvest: 5
@@ -1698,7 +1839,7 @@ MonoBehaviour:
   title: Basic Crafting Area
   description: This is a description of the newly created data entry.
   tags: []
-  index: 0
+  index: 1
   relatedLibraryObject: {fileID: 11400000}
   runtimeLibraryObject: {fileID: 0}
   assignedGuid: 
@@ -1727,6 +1868,8 @@ MonoBehaviour:
   _craftableItems:
   - {fileID: -2864379102396860336}
   - {fileID: -2429024163771652823}
+  - {fileID: -36226739791890325}
+  _cookableMeals: []
 --- !u!114 &-56553772185048440
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1931,6 +2074,7 @@ MonoBehaviour:
     - type: Data.Item.CraftingTableSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 8585109893636993629}
       - {fileID: -191659240112778000}
     - type: Data.Resource.MountainSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
@@ -1980,6 +2124,24 @@ MonoBehaviour:
         PublicKeyToken=null
       dataObjects:
       - {fileID: -4167834067029810729}
+    - type: Data.Item.RawFoodSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
+      - {fileID: -2905673160663084519}
+      - {fileID: -3594478725275268963}
+      - {fileID: 7314705390567572713}
+    - type: Data.Item.RawFoodData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
+      - {fileID: -7963185361307739678}
+    - type: Data.Item.MealSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
+      - {fileID: -4595143124937531268}
+    - type: Data.Item.MealData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
+      - {fileID: 8440898394350696192}
     _favoriteList: []
   copyData:
     _objectList: []
@@ -2003,6 +2165,13 @@ MonoBehaviour:
     - typeName: CraftedItemDataSettings
       typeAssemblyQualifiedName: Data.Item.CraftedItemDataSettings, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: MealSettings
+      typeAssemblyQualifiedName: Data.Item.MealSettings, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
       titlesFilter: []
@@ -2077,6 +2246,13 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
+    - typeName: RawFoodSettings
+      typeAssemblyQualifiedName: Data.Item.RawFoodSettings, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
     - typeName: FurnitureDataSettings
       typeAssemblyQualifiedName: Data.Item.FurnitureDataSettings, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -2138,6 +2314,13 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
+    - typeName: MealData
+      typeAssemblyQualifiedName: Data.Item.MealData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 1
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
     - typeName: WallData
       typeAssemblyQualifiedName: Data.Structure.WallData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
@@ -2182,6 +2365,13 @@ MonoBehaviour:
       valuesFilter: []
     - typeName: ItemData
       typeAssemblyQualifiedName: Data.Item.ItemData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 1
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: RawFoodData
+      typeAssemblyQualifiedName: Data.Item.RawFoodData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 1
       tagsFilter: []
@@ -2326,8 +2516,11 @@ MonoBehaviour:
   RemainingMaterials: []
   RemainingCraftingWork: 0
   ItemBeingCrafted: {fileID: 0}
+  MealBeingCooked: {fileID: 0}
   CurrentOrder:
     CraftedItem: {fileID: 0}
+    CraftedMeal: {fileID: 0}
+    Requestor: {fileID: 0}
     State: 0
     OrderType: 0
     IsGlobal: 0
@@ -2793,7 +2986,7 @@ MonoBehaviour:
   AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
-  Settings: {fileID: -36226739791890325}
+  Settings: {fileID: 0}
 --- !u!114 &1868634605682467714
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3091,7 +3284,7 @@ MonoBehaviour:
   _fruitFlowersOverlay: {fileID: 0}
   _harvestableFruit:
     _itemDrops:
-    - Item: {fileID: -1220354795818533566}
+    - Item: {fileID: -2905673160663084519}
       MinDrop: 1
       MaxDrop: 1
   _workToHarvest: 5
@@ -3958,6 +4151,37 @@ MonoBehaviour:
   InUse: 0
   LinkedFurniture: {fileID: 0}
   DyeOverride: {fileID: 0}
+--- !u!114 &7314705390567572713
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1743272e3adb3943af0e7db05085a8a, type: 3}
+  m_Name: Apple
+  m_EditorClassIdentifier: 
+  guid: f0dee880-84a2-4bed-a541-4b7240e4149f
+  initialGuid: f0dee880-84a2-4bed-a541-4b7240e4149f
+  runtimeIndexID: 
+  icon: {fileID: -1708518733, guid: fc709a2304f6b9e449069e173139d1aa, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Apple
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 2
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _category: 3
+  _maxDurability: 100
+  _baseData: {fileID: -7963185361307739678}
+  _foodType: 0
+  _nutrition: 0.5
 --- !u!114 &7438404328449692925
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4139,6 +4363,8 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Item.StorageData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
@@ -4148,6 +4374,10 @@ MonoBehaviour:
     - type: Data.Item.ItemData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -4195,6 +4425,302 @@ MonoBehaviour:
     - type: Data.Resource.ResourceData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -4534,6 +5060,98 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Resource.MountainResourceData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       dataObjects:
@@ -4543,185 +5161,13 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Item.CraftingTableData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
     - type: Data.Structure.WallData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
@@ -4735,18 +5181,17 @@ MonoBehaviour:
         PublicKeyToken=null
       dataObjects:
       - {fileID: 0}
+    - type: Data.Item.RawFoodData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
+    - type: Data.Item.MealData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -4850,6 +5295,27 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
+    - typeName: MealSettings
+      typeAssemblyQualifiedName: Data.Item.MealSettings, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: FloorSettings
+      typeAssemblyQualifiedName: Data.Structure.FloorSettings, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: RawFoodSettings
+      typeAssemblyQualifiedName: Data.Item.RawFoodSettings, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
   - namespaceName: Runtime
     foldout: 1
     hidden: 0
@@ -4941,6 +5407,20 @@ MonoBehaviour:
       valuesFilter: []
     - typeName: ItemData
       typeAssemblyQualifiedName: Data.Item.ItemData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: MealData
+      typeAssemblyQualifiedName: Data.Item.MealData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: RawFoodData
+      typeAssemblyQualifiedName: Data.Item.RawFoodData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
@@ -5078,6 +5558,48 @@ MonoBehaviour:
   ShowingFlowers: 0
   RemainingHarvestWork: 0
   HasFruitAvailable: 0
+--- !u!114 &8440898394350696192
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07dda6669ad0ad34a9ba54536b259a5f, type: 3}
+  m_Name: Meal Item
+  m_EditorClassIdentifier: 
+  guid: f63f9a96-9367-4c89-8e47-ff4ac7ab7c02
+  initialGuid: f63f9a96-9367-4c89-8e47-ff4ac7ab7c02
+  runtimeIndexID: 
+  icon: {fileID: 0}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Meal Item
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  Durability: 0
+  IsAllowed: 0
+  CurrentTask:
+    TaskId: 
+    TaskType: 0
+    KinlingAssignedToTask: {fileID: 0}
+    Materials: []
+    RequiredToolType: 0
+    IsKinlingSpecific: 0
+  CarryingKinlingUID: 
+  AssignedStorage: {fileID: 0}
+  Position: {x: 0, y: 0}
+  LinkedItem: {fileID: 0}
+  Settings: {fileID: 0}
+  CraftersUID: 
+  IngredientsUsed: []
 --- !u!114 &8555071837867117066
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5107,3 +5629,52 @@ MonoBehaviour:
   Primary: {r: 0.6784314, g: 0.2, b: 0.49019608, a: 1}
   PrimaryShade: {r: 0.49019608, g: 0.14509805, b: 0.35686275, a: 1}
   Accent: {r: 0.6784314, g: 0.6784314, b: 0.6784314, a: 1}
+--- !u!114 &8585109893636993629
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a01c9c06b2901384fb716247a2f4001a, type: 3}
+  m_Name: Basic Crafting Area
+  m_EditorClassIdentifier: 
+  guid: 8ed716ae-3014-4d9c-9dd2-00ddefd8649d
+  initialGuid: 8ed716ae-3014-4d9c-9dd2-00ddefd8649d
+  runtimeIndexID: 
+  icon: {fileID: 1670653853, guid: 49688975d6e4e9d4e9023f92ee002b97, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Basic Cooking Area
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _category: 4
+  _maxDurability: 5
+  _baseData: {fileID: 129112436663426907}
+  _craftRequirements:
+    _minCraftingSkillLevel: 0
+    _craftingSkill: 10
+    _workCost: 0
+    _requiredCraftingToolType: 0
+    _materialCosts: []
+  _furniturePrefab: {fileID: 7511741119468575872, guid: cac46f6ed332d5740a5de49433b2e3db, type: 3}
+  _inUseNeedChange:
+    SourceID: 
+    AmountPerHour: 0
+    NeedType: 0
+  _colourOptions:
+    ColourOptionsHeader: 
+    DyePalettes: []
+  _varients: []
+  _defaultDirection: 0
+  _defaultDye: {fileID: 0}
+  _craftableItems: []
+  _cookableMeals:
+  - {fileID: -4595143124937531268}

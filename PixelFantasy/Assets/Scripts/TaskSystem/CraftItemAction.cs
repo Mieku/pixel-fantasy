@@ -1,10 +1,7 @@
 using System.Collections.Generic;
-using Buildings;
 using Data.Item;
 using Items;
 using Managers;
-using ScriptableObjects;
-using UnityEngine;
 
 namespace TaskSystem
 {
@@ -16,8 +13,7 @@ namespace TaskSystem
         private ETaskState _state;
         private Storage _receivingStorage;
         
-        private Item _targetItem;
-        private int _materialIndex;
+        private ItemData _targetItem;
         private float _timer;
 
         private enum ETaskState
@@ -42,13 +38,13 @@ namespace TaskSystem
         {
             if (_state == ETaskState.ClaimTable)
             {
-                _craftingTable.AssignItemToTable(_itemToCraft);
+                _craftingTable.AssignItemToTable(_itemToCraft, _materials);
                 _state = ETaskState.GatherMats;
             }
 
             if (_state == ETaskState.GatherMats)
             {
-                _targetItem = _materials[_materialIndex].LinkedItem;
+                _targetItem = _materials[0];
                 _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.AssignedStorage.UseagePosition(_ai.Kinling.transform.position),
                     OnArrivedAtStorageForPickup, OnTaskCancel);
                 _state = ETaskState.WaitingOnMats;
@@ -70,8 +66,9 @@ namespace TaskSystem
                     {
                         KinlingAnimController.SetUnitAction(UnitAction.Nothing);
                         
-                        _targetItem = Spawner.Instance.SpawnItem(_itemToCraft, _craftingTable.transform.position, false);
-                        _ai.HoldItem(_targetItem);
+                        var item = Spawner.Instance.SpawnItem(_itemToCraft, _craftingTable.transform.position, false);
+                        _targetItem = item.RuntimeData;
+                        _ai.HoldItem(item);
                         
                         _state = ETaskState.DeliverItem;
                     }
@@ -80,7 +77,7 @@ namespace TaskSystem
 
             if (_state == ETaskState.DeliverItem)
             {
-                _receivingStorage = InventoryManager.Instance.GetAvailableStorage(_targetItem.RuntimeData.Settings);
+                _receivingStorage = InventoryManager.Instance.GetAvailableStorage(_targetItem.Settings);
                 if (_receivingStorage == null)
                 {
                     // THROW IT ON THE GROUND!
@@ -89,7 +86,7 @@ namespace TaskSystem
                     return;
                 }
                 
-                _receivingStorage.RuntimeStorageData.SetIncoming(_targetItem.RuntimeData);
+                _receivingStorage.RuntimeStorageData.SetIncoming(_targetItem);
                 
                 _ai.Kinling.KinlingAgent.SetMovePosition(_receivingStorage.UseagePosition(_ai.Kinling.transform.position), OnProductDelivered, OnTaskCancel);
                 _state = ETaskState.WaitingOnDelivery;
@@ -98,36 +95,33 @@ namespace TaskSystem
 
         private void OnArrivedAtStorageForPickup()
         {
-            _targetItem.AssignedStorage.RuntimeStorageData.WithdrawItem(_targetItem.RuntimeData);
-            _ai.HoldItem(_targetItem);
+            var item = _targetItem.AssignedStorage.RuntimeStorageData.WithdrawItem(_targetItem);
+            _ai.HoldItem(item);
             _ai.Kinling.KinlingAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Kinling.transform.position), OnArrivedAtCraftingTable, OnTaskCancel);
         }
 
         private void OnArrivedAtCraftingTable()
         {
-            _craftingTable.ReceiveMaterial(_targetItem.RuntimeData);
+            _craftingTable.ReceiveMaterial(_targetItem);
             _targetItem = null;
-            _materialIndex++;
 
-            // Are there more items to gather?
-            if (_materialIndex > _materials.Count - 1)
+            if (_materials.Count > 0)
+            {
+                _targetItem = _materials[0];
+                _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.AssignedStorage.UseagePosition(_ai.Kinling.transform.position),
+                    OnArrivedAtStorageForPickup, OnTaskCancel);
+            }
+            else
             {
                 _ai.Kinling.KinlingAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Kinling.transform.position), () =>
                 {
                     _state = ETaskState.CraftItem;
                 }, OnTaskCancel);
             }
-            else
-            {
-                _targetItem = _materials[_materialIndex].LinkedItem;
-                _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.AssignedStorage.UseagePosition(_ai.Kinling.transform.position),
-                    OnArrivedAtStorageForPickup, OnTaskCancel);
-            }
         }
 
         private void OnProductDelivered()
         {
-            //_receivingStorage.RuntimeStorageData.DepositItems(_targetItem);
             _ai.DepositHeldItemInStorage(_receivingStorage);
             _targetItem = null;
             ConcludeAction();
@@ -145,7 +139,6 @@ namespace TaskSystem
             KinlingAnimController.SetUnitAction(UnitAction.Nothing);
             _task = null;
             _itemToCraft = null;
-            _materialIndex = 0;
             _receivingStorage = null;
         }
     }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Data.Item;
 using Items;
 using Managers;
 using UnityEngine;
@@ -10,6 +11,48 @@ namespace Systems.Crafting.Scripts
     {
         // Sort the orders by job
         [SerializeField] private CraftingOrderQueue _queue = new CraftingOrderQueue();
+
+        public MealSettings testerJam;
+        public CraftedItemDataSettings testerGold;
+        
+        private void Update()
+        {
+            // TODO: For testing... Remove
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                Debug.Log("Creating a cooking order");
+                CraftingOrder cookingOrder = new CraftingOrder(testerJam, null, true, 
+                    () =>
+                    {
+                        Debug.Log("Order was claimed");
+                    },
+                    () =>
+                    {
+                        Debug.Log("Order was completed");
+                    }, () =>
+                    {
+                        Debug.Log("Order was cancelled");
+                    });
+            }
+            
+            // TODO: For testing... Remove
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                Debug.Log("Creating a crafting order");
+                CraftingOrder cookingOrder = new CraftingOrder(testerGold, null, CraftingOrder.EOrderType.Item, true, 
+                    () =>
+                    {
+                        Debug.Log("Order was claimed");
+                    },
+                    () =>
+                    {
+                        Debug.Log("Order was completed");
+                    }, () =>
+                    {
+                        Debug.Log("Order was cancelled");
+                    });
+            }
+        }
 
         public void SubmitOrder(CraftingOrder order)
         {

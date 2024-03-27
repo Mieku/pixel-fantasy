@@ -19,7 +19,6 @@ namespace Items
         [TitleGroup("North")] [SerializeField] private SpriteRenderer _northCraftingPreview;
         [TitleGroup("East")] [SerializeField] private SpriteRenderer _eastCraftingPreview;
         
-        //public CraftingTableData TableData => Data as CraftingTableData;
         public CraftingTableData RuntimeTableData => RuntimeData as CraftingTableData;
 
         public override void StartPlanning(FurnitureDataSettings furnitureData, PlacementDirection initialDirection, DyeData dye)
@@ -101,14 +100,31 @@ namespace Items
             if(_eastCraftingPreview != null) _eastCraftingPreview.gameObject.SetActive(false);
         }
         
-        public void AssignItemToTable(CraftedItemDataSettings craftedItem)
+        public void AssignItemToTable(CraftedItemDataSettings craftedItem, List<ItemData> claimedMats)
         {
             if (craftedItem != null)
             {
                 ShowCraftingPreview(craftedItem.icon);
                 RuntimeTableData.ItemBeingCrafted = craftedItem;
                 RuntimeTableData.RemainingCraftingWork = craftedItem.CraftRequirements.WorkCost;
-                RuntimeTableData.RemainingMaterials = new List<ItemAmount>(craftedItem.CraftRequirements.GetMaterialCosts());
+                RuntimeTableData.RemainingMaterials = claimedMats;
+            }
+            else
+            {
+                ShowCraftingPreview(null);
+                RuntimeTableData.ItemBeingCrafted = null;
+                RuntimeTableData.RemainingCraftingWork = 0;
+            }
+        }
+
+        public void AssignMealToTable(MealSettings mealSettings, List<ItemData> claimedIngredients)
+        {
+            if (mealSettings != null)
+            {
+                ShowCraftingPreview(mealSettings.icon);
+                RuntimeTableData.MealBeingCooked = mealSettings;
+                RuntimeTableData.RemainingCraftingWork = mealSettings.MealRequirements.WorkCost;
+                RuntimeTableData.RemainingMaterials = claimedIngredients;
             }
             else
             {
@@ -149,19 +165,13 @@ namespace Items
 
         public void ReceiveMaterial(ItemData item)
         {
-            foreach (var remainingMaterial in RuntimeTableData.RemainingMaterials)
-            {
-                if (remainingMaterial.Item == item.Settings)
-                {
-                    remainingMaterial.Quantity -= 1;
-                }
-            }
+            RuntimeTableData.RemainingMaterials.Remove(item);
             Destroy(item.LinkedItem.gameObject);
         }
 
         private void CompleteCraft()
         {
-            AssignItemToTable(null);
+            AssignItemToTable(null, null);
         }
 
         public List<CraftedItemDataSettings> GetCraftableItems()
