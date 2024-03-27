@@ -23,8 +23,8 @@ namespace Systems.Details.Building_Details.Scripts
             _kinling = kinling;
             _onPressedCallback = onPressedCallback;
 
-            _occupantName.text = _kinling.FirstName;
-            _tooltip.Header = _kinling.FirstName;
+            _occupantName.text = _kinling.RuntimeData.Firstname;
+            _tooltip.Header = _kinling.RuntimeData.Firstname;
             var abilityList = _kinling.Skills.GetSkillList(relevantSkill);
             _tooltip.Content = abilityList;
         }

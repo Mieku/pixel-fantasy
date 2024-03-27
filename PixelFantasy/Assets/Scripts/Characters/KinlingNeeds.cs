@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Timers;
 using Managers;
 using QFSW.QC;
+using ScriptableObjects;
 using Systems.Needs.Scripts;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -160,7 +161,7 @@ namespace Characters
         public bool CheckSexDrive()
         {
             // Is adult
-            if (_kinling.MaturityStage == EMaturityStage.Child) return false;
+            if (_kinling.RuntimeData.MaturityStage == EMaturityStage.Child) return false;
             
             // Check only once a day
             int currentDay = EnvironmentManager.Instance.GameTime.Day;
@@ -204,7 +205,7 @@ namespace Characters
         [Command("set_need", "The supported needs are Food, Energy, Water", MonoTargetType.All)]
         private void CMD_SetNeed(string firstname, string needName, int amount)
         {
-            if(_kinling.FirstName == firstname)
+            if(_kinling.RuntimeData.Firstname == firstname)
             {
                 NeedType targetNeed;
                 switch (needName)

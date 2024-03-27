@@ -65,7 +65,6 @@ namespace Systems.Mood.Scripts
         private void Awake()
         {
             _kinling = GetComponent<Kinling>();
-            _moodThresholdSettings = _kinling.GetMoodThresholdTrait();
             
             GameEvents.MinuteTick += GameEvents_MinuteTick;
         }
@@ -77,6 +76,7 @@ namespace Systems.Mood.Scripts
 
         public void Init()
         {
+            _moodThresholdSettings = _kinling.GetMoodThresholdTrait();
             _moodTarget = _baseMood;
             _overallMood = _baseMood;
         }

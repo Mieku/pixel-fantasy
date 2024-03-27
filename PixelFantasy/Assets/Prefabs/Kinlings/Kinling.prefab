@@ -1215,6 +1215,8 @@ MonoBehaviour:
   _icon: {fileID: 0}
   Commands: []
   PendingCommand: {fileID: 0}
+  DataLibrary: {fileID: 11400000, guid: f88f4256e274c364981fac582520b73b, type: 2}
+  RuntimeData: {fileID: 0}
   _race: {fileID: 11400000, guid: b2e28ba30006afd4d8287ab34a7aa6d5, type: 2}
   _taskAI: {fileID: 6965329135388678903}
   _appearance: {fileID: 4680592222557511252}

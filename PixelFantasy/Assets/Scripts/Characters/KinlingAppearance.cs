@@ -66,7 +66,7 @@ namespace Characters
             if (appearanceState == null)
             {
                 // Create a random one
-                var randomAppearance = new AppearanceState(_kinling.Race, _kinling.Gender);
+                var randomAppearance = new AppearanceState(_kinling.RuntimeData.Race, _kinling.RuntimeData.Gender);
                 randomAppearance.RandomizeAppearance();
                 _appearanceState = randomAppearance;
             }
@@ -87,7 +87,7 @@ namespace Characters
         public void ApplyAppearanceState(AppearanceState appearanceState)
         {
             _appearanceState = appearanceState;
-            BodySettings = appearanceState.Race.GetBodyDataByMaturity(_kinling.MaturityStage);
+            BodySettings = appearanceState.Race.GetBodyDataByMaturity(_kinling.RuntimeData.MaturityStage);
             HairSettings = appearanceState.Hair;
             ApplySkinTone();
             ApplyHair();

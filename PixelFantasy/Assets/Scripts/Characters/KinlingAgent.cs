@@ -179,6 +179,8 @@ namespace Characters
            DetermineIfDestination();
            RefreshAnimVector();
            OnSpeedUpdated();
+
+           _kinling.RuntimeData.Position = transform.position;
         }
         
         private List<GameObject> pathVisuals = new List<GameObject>();  // To keep track of instantiated path objects

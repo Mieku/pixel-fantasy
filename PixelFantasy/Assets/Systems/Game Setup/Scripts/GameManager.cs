@@ -28,6 +28,7 @@ namespace Systems.Game_Setup.Scripts
         [BoxGroup("Starting Items")] [SerializeField] private StorageSettings _starterStockpileSettings;
         [BoxGroup("Starting Items")] [SerializeField] private List<ItemAmount> _startingItems = new List<ItemAmount>();
         
+        [DataObjectDropdown("DataLibrary")]
         [BoxGroup("Starting Kinlings")] [SerializeField] private List<KinlingData> _starterKinlings;
         
         private Storage _starterStockpile;
@@ -103,22 +104,19 @@ namespace Systems.Game_Setup.Scripts
         
         private void LoadStarterKinlings(Vector3Int startCell, List<KinlingData> starterKinlings)
         {
-            List<Kinling> spawnedKinlings = new List<Kinling>();
+            //List<Kinling> spawnedKinlings = new List<Kinling>();
             Vector2 startPos = new Vector2(startCell.x, startCell.y);
             
             // Spawn First
             foreach (var kinling in starterKinlings)
             {
                 var pos = Helper.RandomLocationInRange(startPos);
-                var spawnedKinling = Spawner.Instance.SpawnKinling(kinling, pos, false);
-                spawnedKinlings.Add(spawnedKinling);
-            }
-
-            // Load Data
-            foreach (var kinling in spawnedKinlings)
-            {
-                var data = starterKinlings.Find(kinlingData => kinlingData.UID == kinling.UniqueId);
-                kinling.SetKinlingData(data);
+                KinlingsManager.Instance.SpawnKinling(kinling, pos);
+                // var kinlingData = (KinlingData)DataLibrary.CloneDataObjectToRuntime(GenericKinlingData, gameObject);
+                // var pos = Helper.RandomLocationInRange(startPos);
+                // var spawnedKinling = Spawner.Instance.SpawnKinling(kinling, pos, false);
+                // spawnedKinling.SetKinlingData(kinling);
+                // spawnedKinlings.Add(spawnedKinling);
             }
         }
     }

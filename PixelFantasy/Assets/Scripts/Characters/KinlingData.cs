@@ -1,57 +1,97 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Data.Item;
+using Databrain;
+using Databrain.Attributes;
 using Items;
 using Managers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Systems.Skills.Scripts;
 using Systems.Traits.Scripts;
+using TaskSystem;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Characters
 {
-    [Serializable]
-    public class KinlingData
+    [DataObjectAddToRuntimeLibrary]
+    public class KinlingData : DataObject
     {
-        [BoxGroup("General")] [SerializeField] private string _uid;
-        public string UID
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_uid))
-                {
-                    GenerateUID();
-                }
-                return _uid;
-            }
-            protected set => _uid = value;
-        }
+        [ExposeToInspector, DatabrainSerialize] 
+        public string Firstname;
         
-        [BoxGroup("General")] public string Firstname;
-        [BoxGroup("General")] public string Lastname;
-        [BoxGroup("General")] public int CurrentAge;
-        [BoxGroup("General")] public Gender Gender;
-        [BoxGroup("General")] public ESexualPreference SexualPreference;
-        
-        [BoxGroup("Appearance")] public AppearanceState Appearance;
-        //[BoxGroup("Gear")] public KinlingGear Gear;
-        [BoxGroup("Traits")] public List<TraitSettings> Traits = new List<TraitSettings>();
-        [BoxGroup("Family")] public string Partner;
-        [BoxGroup("Family")] public List<string> Children = new List<string>();
-        [BoxGroup("Skills")] public List<TalentSettings> Talents = new List<TalentSettings>();
-        
-        [BoxGroup("General")] [Button("Create UID")]
-        private void GenerateUID()
-        {
-            _uid = $"Kinling_{Firstname}_{Lastname}_{Guid.NewGuid()}";
-        }
+        [ExposeToInspector, DatabrainSerialize] 
+        public string Lastname;
 
-        public KinlingData(KinlingData mother, KinlingData father)
+        [ExposeToInspector, DatabrainSerialize] 
+        public Vector2 Position;
+
+        [ExposeToInspector, DatabrainSerialize]
+        public Kinling Kinling;
+        
+        [ExposeToInspector, DatabrainSerialize] 
+        public int Age;
+        
+        [ExposeToInspector, DatabrainSerialize] 
+        public Gender Gender;
+
+        [ExposeToInspector, DatabrainSerialize]
+        public RaceSettings Race;
+        
+        [ExposeToInspector, DatabrainSerialize] 
+        public ESexualPreference SexualPreference;
+        
+        [ExposeToInspector, DatabrainSerialize] 
+        public AppearanceState Appearance;
+
+        [ExposeToInspector, DatabrainSerialize] 
+        public List<TraitSettings> Traits = new List<TraitSettings>();
+        
+        [ExposeToInspector, DatabrainSerialize]
+        public KinlingData Partner;
+        
+        [ExposeToInspector, DatabrainSerialize, DataObjectDropdown] 
+        public List<KinlingData> Children = new List<KinlingData>();
+        
+        [ExposeToInspector, DatabrainSerialize] 
+        public List<TalentSettings> Talents = new List<TalentSettings>();
+
+        [ExposeToInspector, DatabrainSerialize] 
+        public Schedule Schedule;
+
+        [ExposeToInspector, DatabrainSerialize]
+        public bool IsAsleep;
+
+        [ExposeToInspector, DatabrainSerialize, DataObjectDropdown]
+        public FurnitureData AssignedBed;
+
+        [ExposeToInspector, DatabrainSerialize, DataObjectDropdown]
+        public FurnitureData FurnitureInUse;
+
+        [ExposeToInspector, DatabrainSerialize]
+        public TaskPriorities TaskPriorities;
+        
+        [ExposeToInspector, DatabrainSerialize]
+        public TaskAI.TaskAIState TaskAIState;
+        
+        [ExposeToInspector, DatabrainSerialize]
+        public float WaitingTimer;
+        
+        [ExposeToInspector, DatabrainSerialize]
+        public float IdleTimer;
+        
+        [ExposeToInspector, DatabrainSerialize]
+        public TaskAction CurrentTaskAction;
+        
+        [ExposeToInspector, DatabrainSerialize]
+        public Item HeldItem;
+        
+        
+        public void InheritData(KinlingData mother, KinlingData father)
         {
-            CurrentAge = 0;
             if (Helper.RollDice(50))
             {
                 Gender = Gender.Male;
@@ -63,13 +103,11 @@ namespace Characters
 
             SexualPreference = DetermineSexuality();
             Appearance = new AppearanceState(Gender, mother.Appearance, father.Appearance);
-            //Gear = new KinlingGear();
             Talents = InheritTalentsFromParents(mother.Talents, father.Talents);
             Traits = GetTraitsFromParents(mother.Traits, father.Traits);
 
             Firstname = Appearance.Race.GetRandomFirstName(Gender);
             Lastname = mother.Lastname;
-            GenerateUID();
         }
 
         private ESexualPreference DetermineSexuality()
@@ -162,6 +200,31 @@ namespace Characters
             }
 
             return childTalents;
+        }
+        
+        public EMaturityStage MaturityStage
+        {
+            get
+            {
+                if (Age <= Race.RacialAgeData.ChildMaxAge)
+                {
+                    return EMaturityStage.Child;
+                }
+
+                if (Age <= Race.RacialAgeData.AdultMaxAge)
+                {
+                    return EMaturityStage.Adult;
+                }
+
+                return EMaturityStage.Senior;
+            }
+        }
+
+        public int IncrementAge()
+        {
+            Age++;
+
+            return Age;
         }
     }
 }

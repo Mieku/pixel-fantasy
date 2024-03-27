@@ -42,16 +42,16 @@ namespace TaskSystem
         
         public override bool CanDoTask(Task task)
         {
-            if (_ai.Kinling.Partner == null) return false;
-            if (_ai.Kinling.AssignedBed == null) return false;
+            if (_ai.Kinling.RuntimeData.Partner == null) return false;
+            if (_ai.Kinling.RuntimeData.AssignedBed == null) return false;
 
             return true;
         }
 
         public override void PrepareAction(Task task)
         {
-            _partner = _ai.Kinling.Partner;
-            _bed = _ai.Kinling.AssignedBed;
+            _partner = _ai.Kinling.RuntimeData.Partner.Kinling;
+            _bed = (BedFurniture)_ai.Kinling.RuntimeData.AssignedBed.LinkedFurniture;
 
             _taskState = TaskState.GoToPartner;
             _partner.SocialAI.ReceiveMateRequest();

@@ -15,7 +15,7 @@ namespace TaskSystem
         
         public override void PrepareAction(Task task)
         {
-            _bed = _ai.Kinling.AssignedBed;
+            _bed = (BedFurniture)_ai.Kinling.RuntimeData.AssignedBed.LinkedFurniture;
             
             if (_bed != null)
             {
@@ -60,7 +60,7 @@ namespace TaskSystem
         private bool CheckWakeupTime()
         {
             int currentHour = EnvironmentManager.Instance.GameTime.GetCurrentHour24();
-            var schedule = _ai.Kinling.Schedule.GetHour(currentHour);
+            var schedule = _ai.Kinling.RuntimeData.Schedule.GetHour(currentHour);
             return schedule != ScheduleOption.Sleep;
         }
         

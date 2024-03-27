@@ -1,33 +1,35 @@
+using System;
 using UnityEngine;
 
 namespace Characters
 {
+    [Serializable]
     public class Schedule
     {
-        private ScheduleOption Hour0;
-        private ScheduleOption Hour1;
-        private ScheduleOption Hour2;
-        private ScheduleOption Hour3;
-        private ScheduleOption Hour4;
-        private ScheduleOption Hour5;
-        private ScheduleOption Hour6;
-        private ScheduleOption Hour7;
-        private ScheduleOption Hour8;
-        private ScheduleOption Hour9;
-        private ScheduleOption Hour10;
-        private ScheduleOption Hour11;
-        private ScheduleOption Hour12;
-        private ScheduleOption Hour13;
-        private ScheduleOption Hour14;
-        private ScheduleOption Hour15;
-        private ScheduleOption Hour16;
-        private ScheduleOption Hour17;
-        private ScheduleOption Hour18;
-        private ScheduleOption Hour19;
-        private ScheduleOption Hour20;
-        private ScheduleOption Hour21;
-        private ScheduleOption Hour22;
-        private ScheduleOption Hour23;
+        [SerializeField] private ScheduleOption Hour0;
+        [SerializeField] private ScheduleOption Hour1;
+        [SerializeField] private ScheduleOption Hour2;
+        [SerializeField] private ScheduleOption Hour3;
+        [SerializeField] private ScheduleOption Hour4;
+        [SerializeField] private ScheduleOption Hour5;
+        [SerializeField] private ScheduleOption Hour6;
+        [SerializeField] private ScheduleOption Hour7;
+        [SerializeField] private ScheduleOption Hour8;
+        [SerializeField] private ScheduleOption Hour9;
+        [SerializeField] private ScheduleOption Hour10;
+        [SerializeField] private ScheduleOption Hour11;
+        [SerializeField] private ScheduleOption Hour12;
+        [SerializeField] private ScheduleOption Hour13;
+        [SerializeField] private ScheduleOption Hour14;
+        [SerializeField] private ScheduleOption Hour15;
+        [SerializeField] private ScheduleOption Hour16;
+        [SerializeField] private ScheduleOption Hour17;
+        [SerializeField] private ScheduleOption Hour18;
+        [SerializeField] private ScheduleOption Hour19;
+        [SerializeField] private ScheduleOption Hour20;
+        [SerializeField] private ScheduleOption Hour21;
+        [SerializeField] private ScheduleOption Hour22;
+        [SerializeField] private ScheduleOption Hour23;
 
         public Schedule()
         {

@@ -1,49 +1,44 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace TaskSystem
 {
+    [Serializable]
     public class TaskPriorities
     {
-        public List<TaskPriority> Priorities;
-        
-        private Dictionary<ETaskType, int> _inherentPriorities;
-
-        public TaskPriorities()
+        public List<TaskPriority> Priorities = new()
         {
-            Priorities = new List<TaskPriority>
-            {
-                new TaskPriority(ETaskType.Emergancy),
-                new TaskPriority(ETaskType.Healing),
-                new TaskPriority(ETaskType.Construction),
-                new TaskPriority(ETaskType.AnimalHandling),
-                new TaskPriority(ETaskType.Cooking),
-                new TaskPriority(ETaskType.Hunting),
-                new TaskPriority(ETaskType.Farming),
-                new TaskPriority(ETaskType.Mining),
-                new TaskPriority(ETaskType.Harvesting),
-                new TaskPriority(ETaskType.Forestry),
-                new TaskPriority(ETaskType.Crafting),
-                new TaskPriority(ETaskType.Hauling)
-            };
-
-            _inherentPriorities = new Dictionary<ETaskType, int>
-            {
-                { ETaskType.Emergancy, 1 },
-                { ETaskType.Healing, 2 },
-                { ETaskType.Construction, 3 },
-                { ETaskType.AnimalHandling, 4 },
-                { ETaskType.Cooking, 5 },
-                { ETaskType.Hunting, 6 },
-                { ETaskType.Farming, 7 },
-                { ETaskType.Mining, 8 },
-                { ETaskType.Harvesting, 9 },
-                { ETaskType.Forestry, 10 },
-                { ETaskType.Crafting, 11 },
-                { ETaskType.Hauling, 12 },
-            };
-        }
+            new TaskPriority(ETaskType.Emergancy),
+            new TaskPriority(ETaskType.Healing),
+            new TaskPriority(ETaskType.Construction),
+            new TaskPriority(ETaskType.AnimalHandling),
+            new TaskPriority(ETaskType.Cooking),
+            new TaskPriority(ETaskType.Hunting),
+            new TaskPriority(ETaskType.Farming),
+            new TaskPriority(ETaskType.Mining),
+            new TaskPriority(ETaskType.Harvesting),
+            new TaskPriority(ETaskType.Forestry),
+            new TaskPriority(ETaskType.Crafting),
+            new TaskPriority(ETaskType.Hauling)
+        };
         
+        private Dictionary<ETaskType, int> _inherentPriorities = new()
+        {
+            { ETaskType.Emergancy, 1 },
+            { ETaskType.Healing, 2 },
+            { ETaskType.Construction, 3 },
+            { ETaskType.AnimalHandling, 4 },
+            { ETaskType.Cooking, 5 },
+            { ETaskType.Hunting, 6 },
+            { ETaskType.Farming, 7 },
+            { ETaskType.Mining, 8 },
+            { ETaskType.Harvesting, 9 },
+            { ETaskType.Forestry, 10 },
+            { ETaskType.Crafting, 11 },
+            { ETaskType.Hauling, 12 },
+        };
+
         public List<ETaskType> SortedPriorities()
         {
             var sortedPriorities = Priorities
@@ -56,6 +51,7 @@ namespace TaskSystem
         }
     }
 
+    [Serializable]
     public class TaskPriority
     {
         public ETaskType TaskType;

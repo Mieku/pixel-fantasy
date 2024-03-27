@@ -279,21 +279,12 @@ namespace Managers
         }
 
         private int _agentPriority = 0;
-        public Kinling SpawnKinling(KinlingData kinlingData, Vector2 spawnPosition, bool preloadWithKinlingData = true)
+        public Kinling SpawnKinling(string fullname, Vector2 spawnPosition)
         {
             Kinling kinling = Instantiate(_kinlingPrefab, _kinlingsParent);
             kinling.transform.position = spawnPosition;
-            kinling.gameObject.name = $"Kinling_{kinlingData.Firstname}_{kinlingData.Lastname}";
-
-            if (preloadWithKinlingData)
-            {
-                kinling.SetKinlingData(kinlingData);
-            }
-            else
-            {
-                kinling.UniqueId = kinlingData.UID;
-            }
-
+            kinling.gameObject.name = $"Kinling_{fullname}";
+            
             kinling.KinlingAgent.SetPriority(_agentPriority);
             _agentPriority++;
             if (_agentPriority > 99)

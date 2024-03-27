@@ -25,7 +25,7 @@ namespace Systems.Social.Scripts
         [SerializeField] private SocialTopicSettings _positiveResponses;
         [SerializeField] private SocialTopicSettings _negativeResponses;
 
-        public bool AvailableToChat => _state == ESocialState.Available && !_kinling.IsAsleep;
+        public bool AvailableToChat => _state == ESocialState.Available && !_kinling.RuntimeData.IsAsleep;
         public string UniqueId => _kinling.UniqueId;
 
         private const float CHAT_COOLDOWN = 5.0f;
@@ -56,7 +56,7 @@ namespace Systems.Social.Scripts
         
         private void Update()
         {
-            if (_kinling.IsAsleep) return;
+            if (_kinling.RuntimeData.IsAsleep) return;
             
             if (_state == ESocialState.Available)
             {
@@ -125,11 +125,11 @@ namespace Systems.Social.Scripts
         {
             var relationship = GetRelationshipState(targetKinling);
             // Make sure they are not in a romantic relationship with someone else
-            if (_kinling.Partner != null) return false;
-            if (targetKinling._kinling.Partner != null) return false;
+            if (_kinling.RuntimeData.Partner != null) return false;
+            if (targetKinling._kinling.RuntimeData.Partner != null) return false;
             // Make sure they are an appropriate age
-            if (_kinling.MaturityStage < EMaturityStage.Adult) return false;
-            if (_kinling.MaturityStage != targetKinling._kinling.MaturityStage) return false;
+            if (_kinling.RuntimeData.MaturityStage < EMaturityStage.Adult) return false;
+            if (_kinling.RuntimeData.MaturityStage != targetKinling._kinling.RuntimeData.MaturityStage) return false;
             // Make sure they align with their sexual preference
             if (!_kinling.IsKinlingAttractedTo(targetKinling._kinling)) return false;
             if (!targetKinling._kinling.IsKinlingAttractedTo(_kinling)) return false;
@@ -348,7 +348,7 @@ namespace Systems.Social.Scripts
         {
             var relationship = GetRelationshipState(otherKinling);
             relationship.IsPartner = true;
-            _kinling.Partner = otherKinling._kinling;
+            _kinling.RuntimeData.Partner = otherKinling._kinling.RuntimeData;
             
             Debug.Log($"Relationship started!");
             _kinling.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("Started Relationship")); // Mood Buff
@@ -389,20 +389,14 @@ namespace Systems.Social.Scripts
 
         private void CheckPregnancy()
         {
-            if (_kinling.Gender == Gender.Female && _kinling.Partner.Gender == Gender.Male)
+            if (_kinling.RuntimeData.Gender == Gender.Female && _kinling.RuntimeData.Partner.Gender == Gender.Male)
             {
-                if (_kinling.MaturityStage == EMaturityStage.Adult && _kinling.Partner.MaturityStage == EMaturityStage.Adult)
+                if (_kinling.RuntimeData.MaturityStage == EMaturityStage.Adult && _kinling.RuntimeData.Partner.MaturityStage == EMaturityStage.Adult)
                 {
                     bool isPregnant = Helper.RollDice(GameSettings.Instance.BasePregnancyChance);
                     if (isPregnant)
                     {
-                        Kinling child = KinlingsManager.Instance.CreateChild(_kinling, _kinling.Partner);
-                        if (child != null)
-                        {
-                            NotificationManager.Instance.CreateKinlingLog(child, 
-                                $"{_kinling.FirstName} and {_kinling.Partner.FirstName} had a child named {child.FullName}", 
-                                LogData.ELogType.Positive);
-                        }
+                        KinlingsManager.Instance.SpawnChild(_kinling.RuntimeData, _kinling.RuntimeData.Partner);
                     }
                 }
             }

@@ -14,23 +14,19 @@ namespace TaskSystem
     public class TaskAI : MonoBehaviour
     {
         [SerializeField] private Kinling _kinling;
-
-        private TaskPriorities _taskPriorities = new TaskPriorities();
+        
         private List<TaskAction> _taskActions;
-        private State _state;
-        private float _waitingTimer;
-        private float _idleTimer;
-        private TaskAction _curTaskAction;
-        private Item _heldItem;
         private Queue<Task> _queuedTasks = new Queue<Task>();
         
         private const float WAIT_TIMER_MAX = 0.2f; // 200ms
         private const float IDLE_TIME = 10f;
 
         public Kinling Kinling => _kinling;
-        public TaskAction CurrentAction => _curTaskAction;
+        public TaskAction CurrentAction => _data.CurrentTaskAction;
 
-        public enum State
+        private KinlingData _data => _kinling.RuntimeData;
+
+        public enum TaskAIState
         {
             WaitingForNextTask,
             GettingTool,
@@ -55,30 +51,30 @@ namespace TaskSystem
 
         private void Update()
         {
-            switch (_state)
+            switch (_data.TaskAIState)
             {
-                case State.WaitingForNextTask:
+                case TaskAIState.WaitingForNextTask:
                     // Waiting to request the next task
-                    _waitingTimer -= TimeManager.Instance.DeltaTime;
-                    if (_waitingTimer <= 0)
+                    _data.WaitingTimer -= TimeManager.Instance.DeltaTime;
+                    if (_data.WaitingTimer <= 0)
                     {
-                        _waitingTimer = WAIT_TIMER_MAX;
+                        _data.WaitingTimer = WAIT_TIMER_MAX;
                         RequestNextTask();
                     }
                     break;
-                case State.GettingTool:
+                case TaskAIState.GettingTool:
                     break;
-                case State.ExecutingTask:
-                    _curTaskAction?.DoAction();
+                case TaskAIState.ExecutingTask:
+                    _data.CurrentTaskAction?.DoAction();
                     break;
-                case State.ForcedTask:
-                    _curTaskAction?.DoAction();
+                case TaskAIState.ForcedTask:
+                    _data.CurrentTaskAction?.DoAction();
                     break;
-                case State.Idling:
-                    _idleTimer += TimeManager.Instance.DeltaTime;
-                    if (_idleTimer > IDLE_TIME)
+                case TaskAIState.Idling:
+                    _data.IdleTimer += TimeManager.Instance.DeltaTime;
+                    if (_data.IdleTimer > IDLE_TIME)
                     {
-                        _idleTimer = 0;
+                        _data.IdleTimer = 0;
                         RequestNextTask();
                     }
                     break;
@@ -94,14 +90,14 @@ namespace TaskSystem
 
         public void CurrentTaskDone()
         {
-            _curTaskAction = null;
-            _state = State.WaitingForNextTask;
+            _data.CurrentTaskAction = null;
+            _data.TaskAIState = TaskAIState.WaitingForNextTask;
         }
 
         public ScheduleOption GetCurrentScheduleOption()
         {
             int currentHour = EnvironmentManager.Instance.GameTime.GetCurrentHour24();
-            return _kinling.Schedule.GetHour(currentHour);
+            return _kinling.RuntimeData.Schedule.GetHour(currentHour);
         }
 
         private void RequestNextTask()
@@ -126,7 +122,7 @@ namespace TaskSystem
         private void RequestSleepTask()
         {
             // If the kinling lacks a bed, claim one if available
-            if (_kinling.AssignedBed == null)
+            if (_kinling.RuntimeData.AssignedBed == null)
             {
                 var bed = FurnitureManager.Instance.FindClosestUnclaimedBed(_kinling);
                 bed.AssignKinling(_kinling);
@@ -137,7 +133,7 @@ namespace TaskSystem
         
         private void RequestNextJobTask()
         {
-            if (_state == State.ForcedTask) return;
+            if (_data.TaskAIState == TaskAIState.ForcedTask) return;
             
             Task task = null;
             
@@ -168,7 +164,7 @@ namespace TaskSystem
             
             if (task == null)
             {
-                task = TaskManager.Instance.RequestTask(_kinling, _taskPriorities.SortedPriorities());
+                task = TaskManager.Instance.RequestTask(_kinling, _data.TaskPriorities.SortedPriorities());
                 if (task != null)
                 {
                     if (AttemptStartTask(task, true)) return;
@@ -185,7 +181,7 @@ namespace TaskSystem
 
         private void RequestNextRecreationTask()
         {
-            if (_state == State.ForcedTask) return;
+            if (_data.TaskAIState == TaskAIState.ForcedTask) return;
             
             Task task = null;
             
@@ -236,11 +232,11 @@ namespace TaskSystem
             // Go on dates
             
             // Have sex
-            if (task == null && _kinling.Partner != null)
+            if (task == null && _kinling.RuntimeData.Partner != null)
             {
-                if (_kinling.Needs.CheckSexDrive() && _kinling.Partner.Needs.CheckSexDrive())
+                if (_kinling.Needs.CheckSexDrive() && _kinling.RuntimeData.Partner.Kinling.Needs.CheckSexDrive())
                 {
-                    task = new Task("Mate", ETaskType.Personal, _kinling.AssignedBed, EToolType.None);
+                    task = new Task("Mate", ETaskType.Personal, _kinling.RuntimeData.AssignedBed.LinkedFurniture, EToolType.None);
                     if (AttemptStartTask(task, false)) return;
                     else task = null;
                 }
@@ -252,7 +248,7 @@ namespace TaskSystem
 
             if (task == null)
             {
-                _state = State.WaitingForNextTask;
+                _data.TaskAIState = TaskAIState.WaitingForNextTask;
                 return;
             }
         }
@@ -277,15 +273,15 @@ namespace TaskSystem
             }
             else
             {
-                _curTaskAction = taskAction;
+                _data.CurrentTaskAction = taskAction;
                 taskAction.InitAction(task, _kinling);
                 
                 // Get tool if needed
-                _state = State.GettingTool;
+                _data.TaskAIState = TaskAIState.GettingTool;
                 taskAction.PickupRequiredTool(() =>
                     {
                         taskAction.PrepareAction(task);
-                        _state = State.ExecutingTask;
+                        _data.TaskAIState = TaskAIState.ExecutingTask;
                     }, 
                     () =>
                     {
@@ -294,7 +290,7 @@ namespace TaskSystem
                             // If action can't be done, return it to the queue
                             TaskManager.Instance.AddTask(task);
                         }
-                        _state = State.WaitingForNextTask;
+                        _data.TaskAIState = TaskAIState.WaitingForNextTask;
                     });
 
                 return true;
@@ -362,7 +358,7 @@ namespace TaskSystem
         
         public void HoldItem(Item item)
         {
-            _heldItem = item;
+            _data.HeldItem = item;
             item.ItemPickedUp(_kinling);
             item.transform.SetParent(transform);
             item.transform.localPosition = Vector3.zero;
@@ -370,41 +366,41 @@ namespace TaskSystem
         
         public Item DropCarriedItem(bool allowHauling)
         {
-            if (_heldItem == null) return null;
+            if (_data.HeldItem == null) return null;
 
-            _heldItem.transform.SetParent(ParentsManager.Instance.ItemsParent);
-            _heldItem.IsAllowed = allowHauling;
-            _heldItem.ItemDropped();
-            var item = _heldItem;
-            _heldItem = null;
+            _data.HeldItem.transform.SetParent(ParentsManager.Instance.ItemsParent);
+            _data.HeldItem.IsAllowed = allowHauling;
+            _data.HeldItem.ItemDropped();
+            var item = _data.HeldItem;
+            _data.HeldItem = null;
             return item;
         }
 
         public void DepositHeldItemInStorage(Storage storage)
         {
-            if (_heldItem == null) return;
+            if (_data.HeldItem == null) return;
             
-            storage.RuntimeStorageData.DepositItems(_heldItem);
-            _heldItem = null;
+            storage.RuntimeStorageData.DepositItems(_data.HeldItem);
+            _data.HeldItem = null;
         }
 
         public void CancelTask(string taskID)
         {
             // Check queued tasks
             RemoveTaskFromQueue(taskID);
-            if (_curTaskAction.TaskId == taskID)
+            if (_data.CurrentTaskAction.TaskId == taskID)
             {
-                _curTaskAction.OnTaskCancel();
+                _data.CurrentTaskAction.OnTaskCancel();
             }
         }
 
         public void CancelCurrentTask()
         {
-            if(_curTaskAction == null) return;
+            if(_data.CurrentTaskAction == null) return;
 
-            var taskID = _curTaskAction.TaskId;
+            var taskID = _data.CurrentTaskAction.TaskId;
             RemoveTaskFromQueue(taskID);
-            _curTaskAction.OnTaskCancel();
+            _data.CurrentTaskAction.OnTaskCancel();
         }
 
         public void QueueTask(Task task)
@@ -430,8 +426,8 @@ namespace TaskSystem
 
         public bool AssignCommandTask(Task task)
         {
-            if(_curTaskAction != null)
-                _curTaskAction.OnTaskCancel();
+            if(_data.CurrentTaskAction != null)
+                _data.CurrentTaskAction.OnTaskCancel();
 
             bool success = AttemptStartTask(task, false);
             return success;
@@ -439,8 +435,8 @@ namespace TaskSystem
 
         public TaskAction ForceTask(string taskID)
         {
-            if(_curTaskAction != null)
-                 _curTaskAction.OnTaskCancel();
+            if(_data.CurrentTaskAction != null)
+                _data.CurrentTaskAction.OnTaskCancel();
             
             Task forcedTask = new Task(taskID, ETaskType.Personal, null, EToolType.None)
             {
@@ -451,21 +447,21 @@ namespace TaskSystem
             if (forcedTaskAction == null) return null;
             if (!forcedTaskAction.CanDoTask(forcedTask))
             {
-                _state = State.WaitingForNextTask;
+                _data.TaskAIState = TaskAIState.WaitingForNextTask;
                 return null;
             }
 
-            _curTaskAction = forcedTaskAction;
+            _data.CurrentTaskAction = forcedTaskAction;
             forcedTaskAction.InitAction(forcedTask, _kinling);
             forcedTaskAction.PrepareAction(forcedTask);
-            _state = State.ForcedTask;
+            _data.TaskAIState = TaskAIState.ForcedTask;
             
-            return _curTaskAction;
+            return _data.CurrentTaskAction;
         }
 
         private void OnForcedTaskComplete(Task forcedTask)
         {
-            _state = State.WaitingForNextTask;
+            _data.TaskAIState = TaskAIState.WaitingForNextTask;
         }
 
         public bool IsActionPossible(string taskID)
@@ -491,7 +487,7 @@ namespace TaskSystem
         
         private void IdleAtWork()
         {
-            _state = State.Idling;
+            _data.TaskAIState = TaskAIState.Idling;
             
             // Building buildingToIdleIn = null;
             // if (_kinling.AssignedWorkplace == null)

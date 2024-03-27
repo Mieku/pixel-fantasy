@@ -119,4 +119,19 @@ namespace ScriptableObjects
 
         public RacialAgeData RacialAgeData => _racialAgeData;
     }
+    
+    [Serializable]
+    public class RacialAgeData
+    {
+        public int ChildMaxAge;
+        public int AdultMaxAge;
+        public int LifeExpectancy;
+    }
+    
+    public enum EMaturityStage
+    {
+        Child = 0,
+        Adult = 1,
+        Senior = 2,
+    }
 }

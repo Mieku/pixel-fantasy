@@ -134,7 +134,7 @@ MonoBehaviour:
     typeDisplayName: Runtime
     typeName: 
     typeAssemblyQualifiedName: 
-    childCount: 8
+    childCount: 9
     indexOfFirstChild: 18
   - foldout: 1
     typeDisplayName: Wall
@@ -241,3 +241,10 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     childCount: 0
     indexOfFirstChild: 33
+  - foldout: 0
+    typeDisplayName: Kinlings
+    typeName: KinlingData
+    typeAssemblyQualifiedName: Characters.KinlingData, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    childCount: 0
+    indexOfFirstChild: 34

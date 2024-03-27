@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Characters;
 using Data.Item;
+using Data.Structure;
+using Databrain;
 using QFSW.QC;
 using ScriptableObjects;
 using Systems.Notifications.Scripts;
@@ -13,6 +15,9 @@ namespace Managers
 {
     public class KinlingsManager : Singleton<KinlingsManager>
     {
+        public DataLibrary DataLibrary;
+        public KinlingData GenericKinlingData;
+        
         private List<Kinling> _allKinlings = new List<Kinling>();
 
         public List<Kinling> AllKinlings => _allKinlings;
@@ -64,8 +69,8 @@ namespace Managers
         [Command("set_love")]
         private void CMD_SetLove(string instigatorFirstName, string receiverFirstName)
         {
-            Kinling instigator = _allKinlings.Find(unit => unit.FirstName == instigatorFirstName);
-            Kinling receiver = _allKinlings.Find(unit => unit.FirstName == receiverFirstName);
+            Kinling instigator = _allKinlings.Find(unit => unit.RuntimeData.Firstname == instigatorFirstName);
+            Kinling receiver = _allKinlings.Find(unit => unit.RuntimeData.Firstname == receiverFirstName);
 
             if (instigator == null)
             {
@@ -79,16 +84,16 @@ namespace Managers
                 return;
             }
 
-            instigator.Partner = receiver;
-            receiver.Partner = instigator;
+            instigator.RuntimeData.Partner = receiver.RuntimeData;
+            receiver.RuntimeData.Partner = instigator.RuntimeData;
             NotificationManager.Instance.CreateKinlingLog(instigator, $"{instigator.FullName} is now in a relationship with {receiver.FullName}!", LogData.ELogType.Positive);
         }
 
         [Command("mate")]
         private void CMD_Mate(string instigatorFirstName, string receiverFirstName)
         {
-            Kinling instigator = _allKinlings.Find(unit => unit.FirstName == instigatorFirstName);
-            Kinling receiver = _allKinlings.Find(unit => unit.FirstName == receiverFirstName);
+            Kinling instigator = _allKinlings.Find(unit => unit.RuntimeData.Firstname == instigatorFirstName);
+            Kinling receiver = _allKinlings.Find(unit => unit.RuntimeData.Firstname == receiverFirstName);
             
             if (instigator == null)
             {
@@ -102,19 +107,35 @@ namespace Managers
                 return;
             }
 
-            Task task = new Task("Mate", ETaskType.Personal, instigator.AssignedBed, EToolType.None);
+            Task task = new Task("Mate", ETaskType.Personal, instigator.RuntimeData.AssignedBed.LinkedFurniture, EToolType.None);
             instigator.TaskAI.QueueTask(task);
         }
 
-        public Kinling CreateChild(Kinling mother, Kinling father)
+        public void SpawnChild(KinlingData mother, KinlingData father)
         {
-            KinlingData childData = new KinlingData(mother.GetKinlingData(), father.GetKinlingData());
-            var child = Spawner.Instance.SpawnKinling(childData, mother.transform.position, true);
+            DataLibrary.RegisterInitializationCallback(() =>
+            {
+                var kinlingData = (KinlingData)DataLibrary.CloneDataObjectToRuntime(GenericKinlingData, gameObject);
+                kinlingData.InheritData(mother, father);
+                var child = Spawner.Instance.SpawnKinling($"child", mother.Position);
+                
+                mother.Children.Add(child.RuntimeData);
+                father.Children.Add(child.RuntimeData);
+            });
+        }
+
+        public void SpawnKinling(KinlingData dataToLoad, Vector2 spawnPos)
+        {
+            var kinling = Spawner.Instance.SpawnKinling($"{dataToLoad.Firstname}_{dataToLoad.Lastname}", spawnPos);
+            kinling.SetKinlingData(dataToLoad);
             
-            mother.Children.Add(child);
-            father.Children.Add(child);
-            
-            return child;
+            // DataLibrary.RegisterInitializationCallback(() =>
+            // {
+            //     var kinling = Spawner.Instance.SpawnKinling($"{dataToLoad.Firstname}_{dataToLoad.Lastname}", spawnPos);
+            //     //var kinlingData = (KinlingData)DataLibrary.CloneDataObjectToRuntime(dataToLoad, kinling.gameObject);
+            //     kinling.SetKinlingData(dataToLoad);
+            //     //var kinling = Spawner.Instance.SpawnKinling(kinlingData, spawnPos);
+            // });
         }
     }
 }
