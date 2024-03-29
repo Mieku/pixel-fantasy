@@ -22,7 +22,6 @@ namespace Controllers
         [SerializeField] private SelectedItemInfoPanel _selectedItemInfoPanel;
         [SerializeField] private Image _pause, _normalSpeed, _fastSpeed, _fastestSpeed;
         [SerializeField] private Color _defaultColour, _selectedColour;
-        [SerializeField] private BuildController _buildController;
 
         protected override void Awake()
         {
