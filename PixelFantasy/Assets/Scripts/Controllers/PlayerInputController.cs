@@ -12,7 +12,7 @@ namespace Controllers
     {
         private PlayerInputState _playerInputState = PlayerInputState.None;
         private Vector3 _currentMousePos;
-        private ClickObject _curSelectedObject;
+        //private ClickObject _curSelectedObject;
         private bool _isOverUI;
         private bool _buildingInternalViewEnabled;
         private Kinling _curSelectedKinling;
@@ -48,23 +48,13 @@ namespace Controllers
 
         public Kinling SelectedKinling => _curSelectedKinling;
 
-        public void SelectUnit(ClickObject clickObject, Kinling kinling)
+        public void SelectUnit(Kinling kinling)
         {
             CloseDetailsPanels();
             
-            if (_curSelectedObject != null)
-            {
-                _curSelectedObject.UnselectObject();
-            }
+            _curSelectedKinling = kinling;
+            HUDController.Instance.ShowUnitDetails(kinling);
             
-            _curSelectedObject = clickObject;
-            
-            if (_curSelectedObject != null)
-            {
-                _curSelectedObject.SelectObject();
-                _curSelectedKinling = kinling;
-                HUDController.Instance.ShowUnitDetails(kinling);
-            }
             
             CommandController.Instance.HideCommands();
         }
@@ -72,32 +62,14 @@ namespace Controllers
         public void SelectObject(ClickObject clickObject)
         {
             CloseDetailsPanels();
-            
-            if (_curSelectedObject != null)
-            {
-                _curSelectedObject.UnselectObject();
-            }
 
-            _curSelectedObject = clickObject;
-            _curSelectedKinling = null;
-
-            if (_curSelectedObject != null)
-            {
-                _curSelectedObject.SelectObject();
-                HUDController.Instance.ShowItemDetails(_curSelectedObject.Owner);
-            }
+            HUDController.Instance.ShowItemDetails(clickObject.Owner);
             
             CommandController.Instance.HideCommands();
         }
 
         public void ClearSelection()
         {
-            if (_curSelectedObject != null)
-            {
-                _curSelectedObject.UnselectObject();
-                _curSelectedKinling = null;
-            }
-
             HUDController.Instance.HideDetails();
             CommandController.Instance.HideCommands();
         }

@@ -191,7 +191,7 @@ public class ClickObject : MonoBehaviour
         {
             if (_objectType == ObjectType.Kinling)
             {
-                PlayerInputController.Instance.SelectUnit(this, _kinling);
+                PlayerInputController.Instance.SelectUnit(_kinling);
             }
             else
             {

@@ -1,3 +1,4 @@
+using System;
 using Cinemachine;
 using Managers;
 using UnityEngine;
@@ -19,6 +20,7 @@ namespace Controllers
         
         private Vector3 _targetPosition;
         private bool _isMovingToTarget;
+        private const int PPU = 16;
 
         protected override void Awake()
         {
@@ -41,6 +43,14 @@ namespace Controllers
                     _isMovingToTarget = false; // Stop moving once close enough
                 }
             }
+        }
+
+        private void LateUpdate()
+        {
+            // Ensures the camera adheres to the PPU of the game
+            var position = transform.position;
+            position = new Vector3(Mathf.Round(position.x * PPU) / PPU, Mathf.Round(position.y * PPU) / PPU, position.z);
+            transform.position = position;
         }
 
         private void CameraPanningInput()

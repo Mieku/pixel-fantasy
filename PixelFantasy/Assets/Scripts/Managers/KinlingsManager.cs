@@ -10,6 +10,7 @@ using Systems.Notifications.Scripts;
 using Systems.Skills.Scripts;
 using TaskSystem;
 using UnityEngine;
+using KinlingSelector = Systems.Kinling_Selector.Scripts.KinlingSelector;
 
 namespace Managers
 {
@@ -39,6 +40,7 @@ namespace Managers
             
             _allKinlings.Add(kinling);
             
+            KinlingSelector.Instance.AddKinling(kinling.RuntimeData);
         }
 
         public void DeregisterKinling(Kinling kinling)
@@ -50,6 +52,8 @@ namespace Managers
             }
 
             _allKinlings.Remove(kinling);
+            
+            KinlingSelector.Instance.RemoveKinling(kinling.RuntimeData);
         }
         
         public Kinling GetUnit(string uniqueID)

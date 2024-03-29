@@ -54,7 +54,7 @@ namespace Characters
         {
             ClickObject = GetComponent<ClickObject>();
             
-            KinlingsManager.Instance.RegisterKinling(this);
+            //KinlingsManager.Instance.RegisterKinling(this);
 
             GameEvents.DayTick += GameEvents_DayTick;
         }
@@ -81,6 +81,8 @@ namespace Characters
                 Skills.Init(_data.Talents);
             
                 _mood.Init();
+                
+                KinlingsManager.Instance.RegisterKinling(this);
             
                 Initialize();
                 

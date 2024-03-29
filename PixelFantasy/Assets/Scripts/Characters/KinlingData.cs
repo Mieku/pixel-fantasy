@@ -21,6 +21,9 @@ namespace Characters
     public class KinlingData : DataObject
     {
         [ExposeToInspector, DatabrainSerialize] 
+        public string Nickname;
+        
+        [ExposeToInspector, DatabrainSerialize] 
         public string Firstname;
         
         [ExposeToInspector, DatabrainSerialize] 
@@ -226,5 +229,20 @@ namespace Characters
 
             return Age;
         }
+
+        /// <summary>
+        /// Returns their nickname if they have one, if not then their firstname
+        /// </summary>
+        public string GetNickname()
+        {
+            if (string.IsNullOrEmpty(Nickname))
+            {
+                return Firstname;
+            }
+
+            return Nickname;
+        }
+
+        public string Fullname => $"{Firstname} {Lastname}";
     }
 }
