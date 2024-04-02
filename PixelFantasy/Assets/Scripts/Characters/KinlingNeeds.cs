@@ -4,6 +4,7 @@ using System.Timers;
 using Managers;
 using QFSW.QC;
 using ScriptableObjects;
+using Systems.Appearance.Scripts;
 using Systems.Needs.Scripts;
 using UnityEngine;
 using UnityEngine.Serialization;

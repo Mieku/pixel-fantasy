@@ -8,9 +8,9 @@ namespace Characters
         [SerializeField] private KinlingAppearance _appearance;
         //[SerializeField] private KinlingEquipment _equipment;
         
-        public void ApplyAppearance(AppearanceState appearanceState)
+        public void ApplyAppearance(AppearanceData appearanceData)
         {
-            AppearanceState clone = new AppearanceState(appearanceState);
+            AppearanceData clone = new AppearanceData(appearanceData);
             _appearance.ApplyAppearanceState(clone);
         }
 

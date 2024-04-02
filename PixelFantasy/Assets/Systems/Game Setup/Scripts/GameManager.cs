@@ -9,6 +9,7 @@ using Items;
 using Managers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
+using Systems.Appearance.Scripts;
 using Systems.Buildings.Scripts;
 using Systems.World_Building.Scripts;
 using UnityEngine;
@@ -29,7 +30,8 @@ namespace Systems.Game_Setup.Scripts
         [BoxGroup("Starting Items")] [SerializeField] private List<ItemAmount> _startingItems = new List<ItemAmount>();
         
         [DataObjectDropdown("DataLibrary")]
-        [BoxGroup("Starting Kinlings")] [SerializeField] private List<KinlingData> _starterKinlings;
+        [SerializeField] private KinlingData _genericKinlingData;
+        [SerializeField] private RaceSettings _race;
         
         private Storage _starterStockpile;
 
@@ -72,7 +74,7 @@ namespace Systems.Game_Setup.Scripts
             // Again, yield to keep the UI responsive
             yield return null;
             
-            LoadStarterKinlings(_worldBuilder.StartPos, _starterKinlings);
+            LoadStarterKinlings(_worldBuilder.StartPos, 5);
             yield return null;
             
             GameEvents.Trigger_RefreshInventoryDisplay();
@@ -102,22 +104,35 @@ namespace Systems.Game_Setup.Scripts
             _starterStockpile.ForceLoadItems(datas, _starterStockpileSettings);
         }
         
-        private void LoadStarterKinlings(Vector3Int startCell, List<KinlingData> starterKinlings)
+        private void LoadStarterKinlings(Vector3Int startCell, int amount)
         {
             //List<Kinling> spawnedKinlings = new List<Kinling>();
             Vector2 startPos = new Vector2(startCell.x, startCell.y);
-            
-            // Spawn First
-            foreach (var kinling in starterKinlings)
+            for (int i = 0; i < amount; i++)
             {
-                var pos = Helper.RandomLocationInRange(startPos);
-                KinlingsManager.Instance.SpawnKinling(kinling, pos);
-                // var kinlingData = (KinlingData)DataLibrary.CloneDataObjectToRuntime(GenericKinlingData, gameObject);
-                // var pos = Helper.RandomLocationInRange(startPos);
-                // var spawnedKinling = Spawner.Instance.SpawnKinling(kinling, pos, false);
-                // spawnedKinling.SetKinlingData(kinling);
-                // spawnedKinlings.Add(spawnedKinling);
+                DataLibrary.RegisterInitializationCallback(() =>
+                {
+                    var kinlingData = (KinlingData)DataLibrary.CloneDataObjectToRuntime(_genericKinlingData);
+                    kinlingData.Randomize(_race);
+                    var pos = Helper.RandomLocationInRange(startPos);
+                    KinlingsManager.Instance.SpawnKinling(kinlingData, pos);
+                });
+                
+                
+                
             }
+            //
+            // // Spawn First
+            // foreach (var kinling in starterKinlings)
+            // {
+            //     var pos = Helper.RandomLocationInRange(startPos);
+            //     KinlingsManager.Instance.SpawnKinling(kinling, pos);
+            //     // var kinlingData = (KinlingData)DataLibrary.CloneDataObjectToRuntime(GenericKinlingData, gameObject);
+            //     // var pos = Helper.RandomLocationInRange(startPos);
+            //     // var spawnedKinling = Spawner.Instance.SpawnKinling(kinling, pos, false);
+            //     // spawnedKinling.SetKinlingData(kinling);
+            //     // spawnedKinlings.Add(spawnedKinling);
+            // }
         }
     }
 }

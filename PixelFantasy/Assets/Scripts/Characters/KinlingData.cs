@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Data.Item;
@@ -6,13 +5,11 @@ using Databrain;
 using Databrain.Attributes;
 using Items;
 using Managers;
-using ScriptableObjects;
-using Sirenix.OdinInspector;
+using Systems.Appearance.Scripts;
 using Systems.Skills.Scripts;
 using Systems.Traits.Scripts;
 using TaskSystem;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Characters
@@ -48,7 +45,7 @@ namespace Characters
         public ESexualPreference SexualPreference;
         
         [ExposeToInspector, DatabrainSerialize] 
-        public AppearanceState Appearance;
+        public AppearanceData Appearance;
 
         [ExposeToInspector, DatabrainSerialize] 
         public List<TraitSettings> Traits = new List<TraitSettings>();
@@ -91,7 +88,26 @@ namespace Characters
         
         [ExposeToInspector, DatabrainSerialize]
         public Item HeldItem;
-        
+
+        public void Randomize(RaceSettings race)
+        {
+            Race = race;
+            
+            if (Helper.RollDice(50))
+            {
+                Gender = Gender.Male;
+            }
+            else
+            {
+                Gender = Gender.Female;
+            }
+            
+            SexualPreference = DetermineSexuality(); 
+            Appearance = new AppearanceData(race, Gender);
+            
+            Firstname = Appearance.Race.GetRandomFirstName(Gender);
+            Lastname = Appearance.Race.GetRandomLastName();
+        }
         
         public void InheritData(KinlingData mother, KinlingData father)
         {
@@ -105,7 +121,7 @@ namespace Characters
             }
 
             SexualPreference = DetermineSexuality();
-            Appearance = new AppearanceState(Gender, mother.Appearance, father.Appearance);
+            Appearance = new AppearanceData(Gender, mother.Appearance, father.Appearance);
             Talents = InheritTalentsFromParents(mother.Talents, father.Talents);
             Traits = GetTraitsFromParents(mother.Traits, father.Traits);
 

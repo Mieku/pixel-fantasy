@@ -6,6 +6,7 @@ using Data.Item;
 using Databrain;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
+using Systems.Appearance.Scripts;
 using Systems.Mood.Scripts;
 using Systems.Needs.Scripts;
 using Systems.Skills.Scripts;

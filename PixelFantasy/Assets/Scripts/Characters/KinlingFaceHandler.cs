@@ -1,6 +1,7 @@
 using System;
 using Managers;
 using ScriptableObjects;
+using Systems.Appearance.Scripts;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

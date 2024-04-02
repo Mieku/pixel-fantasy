@@ -5,6 +5,7 @@ using Characters;
 using Data.Item;
 using Managers;
 using ScriptableObjects;
+using Systems.Appearance.Scripts;
 using Systems.Notifications.Scripts;
 using Systems.Skills.Scripts;
 using Systems.Traits.Scripts;

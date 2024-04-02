@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using Managers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
+using Systems.Appearance.Scripts;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Serialization;
@@ -13,7 +14,7 @@ namespace Characters
     {
         //[SerializeField] private KinlingEquipment _equipment;
         
-        [FormerlySerializedAs("HairData")] public HairSettings HairSettings;
+        [FormerlySerializedAs("HairData")] public HairColourOption HairSettings;
         [FormerlySerializedAs("BodyData")] public BodySettings BodySettings;
         [SerializeField] private KinlingFaceHandler _face;
 
@@ -52,7 +53,7 @@ namespace Characters
         private readonly int cwBlueLumin = Shader.PropertyToID("_ColorSwapBlueLuminosity");
 
         private UnitActionDirection _curDirection;
-        [CanBeNull] private AppearanceState _appearanceState;
+        [CanBeNull] private Characters.AppearanceData _appearanceData;
         private Kinling _kinling;
 
         private void Start()
@@ -60,22 +61,22 @@ namespace Characters
             
         }
 
-        public void Init(Kinling kinling, AppearanceState appearanceState)
+        public void Init(Kinling kinling, Characters.AppearanceData appearanceData)
         {
             _kinling = kinling;
-            if (appearanceState == null)
+            if (appearanceData == null)
             {
                 // Create a random one
-                var randomAppearance = new AppearanceState(_kinling.RuntimeData.Race, _kinling.RuntimeData.Gender);
+                var randomAppearance = new Characters.AppearanceData(_kinling.RuntimeData.Race, _kinling.RuntimeData.Gender);
                 randomAppearance.RandomizeAppearance();
-                _appearanceState = randomAppearance;
+                _appearanceData = randomAppearance;
             }
             else
             {
-                _appearanceState = appearanceState;
+                _appearanceData = appearanceData;
             }
             
-            ApplyAppearanceState(_appearanceState);
+            ApplyAppearanceState(_appearanceData);
             _face.Init(BodySettings, _curDirection);
         }
 
@@ -84,18 +85,18 @@ namespace Characters
             _face.SetForcedEyesClosed(setClosed);
         }
 
-        public void ApplyAppearanceState(AppearanceState appearanceState)
+        public void ApplyAppearanceState(Characters.AppearanceData appearanceData)
         {
-            _appearanceState = appearanceState;
-            BodySettings = appearanceState.Race.GetBodyDataByMaturity(_kinling.RuntimeData.MaturityStage);
-            HairSettings = appearanceState.Hair;
+            _appearanceData = appearanceData;
+            BodySettings = appearanceData.Race.GetBodyDataByMaturity(_kinling.RuntimeData.MaturityStage);
+            HairSettings = appearanceData.Hair;
             ApplySkinTone();
             ApplyHair();
         }
 
-        public AppearanceState GetAppearanceState()
+        public Characters.AppearanceData GetAppearanceState()
         {
-            return _appearanceState;
+            return _appearanceData;
         }
 
         private void ApplyHair()
@@ -106,10 +107,10 @@ namespace Characters
         [Button("Apply Skin Tone")]
         private void ApplySkinTone()
         {
-            var eyeColour = _appearanceState.EyeColour;
-            var blushTone = _appearanceState.SkinTone.BlushTone;
-            var shadeTone = _appearanceState.SkinTone.ShadeTone;
-            var primaryTone = _appearanceState.SkinTone.PrimaryTone;
+            var eyeColour = _appearanceData.Eyes.Colour;
+            var blushTone = _appearanceData.SkinTone.BlushTone;
+            var shadeTone = _appearanceData.SkinTone.ShadeTone;
+            var primaryTone = _appearanceData.SkinTone.PrimaryTone;
             
             // Face
             _face.AssignFaceColours(eyeColour, blushTone);
@@ -217,27 +218,6 @@ namespace Characters
             _hipsRenderer.sprite = BodySettings.GetBodySprite(BodyPart.Hips, dir);
 
             ApplySkinTone();
-        }
-    
-        public void SetLoadData(AppearanceData data)
-        {
-            HairSettings = Librarian.Instance.GetHairData(data.Hair);
-            //SetGender(data.Gender);
-        }
-
-        public AppearanceData GetSaveData()
-        {
-            return new AppearanceData
-            {
-                Hair = HairSettings.Name,
-               // Gender = Gender,
-            };
-        }
-
-        public struct AppearanceData
-        {
-            public string Hair;
-            public Gender Gender;
         }
     }
 

@@ -312,11 +312,18 @@ MonoBehaviour:
   Race: {fileID: 11400000, guid: b2e28ba30006afd4d8287ab34a7aa6d5, type: 2}
   SexualPreference: 2
   Appearance:
-    EyeColour: {r: 0, g: 0.8665142, b: 1, a: 1}
     SkinTone: {fileID: 11400000, guid: 05d2c2921e97ae548bf9adaa804d6eaf, type: 2}
     Gender: 0
     Race: {fileID: 11400000, guid: b2e28ba30006afd4d8287ab34a7aa6d5, type: 2}
-    Hair: {fileID: 11400000, guid: 2faa3b59f425dc743b4361f73c26d6ce, type: 2}
+    Hair:
+      Color: {r: 0, g: 0, b: 0, a: 0}
+      Side: {fileID: 0}
+      Front: {fileID: 0}
+      Back: {fileID: 0}
+      Portrait: {fileID: 0}
+    Eyes: {fileID: 0}
+    Eyelashes: {fileID: 0}
+    Eyebrows: {fileID: 0}
   Traits:
   - {fileID: 11400000, guid: 8dfc6aad4f260d34dafa29a4cb61c1e5, type: 2}
   Partner: {fileID: 0}
@@ -1454,7 +1461,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63bdd0795e6759041a124f39f7ebbbf5, type: 3}
-  m_Name: Gizelle Lucas
+  m_Name: Anika Nagy
   m_EditorClassIdentifier: 
   guid: c7564f30-52fc-436a-8d35-e54977cf3d0a
   initialGuid: c7564f30-52fc-436a-8d35-e54977cf3d0a
@@ -1480,11 +1487,18 @@ MonoBehaviour:
   Race: {fileID: 11400000, guid: b2e28ba30006afd4d8287ab34a7aa6d5, type: 2}
   SexualPreference: 1
   Appearance:
-    EyeColour: {r: 0.11485406, g: 0.6158516, b: 0.8396226, a: 1}
     SkinTone: {fileID: 11400000, guid: 31d25bdba1e0c50419adedf547541612, type: 2}
     Gender: 1
     Race: {fileID: 11400000, guid: b2e28ba30006afd4d8287ab34a7aa6d5, type: 2}
-    Hair: {fileID: 11400000, guid: 13b0c75d8166c744d8368b035de152be, type: 2}
+    Hair:
+      Color: {r: 0, g: 0, b: 0, a: 0}
+      Side: {fileID: 0}
+      Front: {fileID: 0}
+      Back: {fileID: 0}
+      Portrait: {fileID: 0}
+    Eyes: {fileID: 0}
+    Eyelashes: {fileID: 0}
+    Eyebrows: {fileID: 0}
   Traits: []
   Partner: {fileID: 0}
   Children: []
@@ -2065,11 +2079,18 @@ MonoBehaviour:
   Race: {fileID: 11400000, guid: b2e28ba30006afd4d8287ab34a7aa6d5, type: 2}
   SexualPreference: 1
   Appearance:
-    EyeColour: {r: 0.3962264, g: 0.16396798, b: 0.046724804, a: 1}
     SkinTone: {fileID: 11400000, guid: 05d2c2921e97ae548bf9adaa804d6eaf, type: 2}
     Gender: 0
     Race: {fileID: 11400000, guid: b2e28ba30006afd4d8287ab34a7aa6d5, type: 2}
-    Hair: {fileID: 11400000, guid: f03dcd486c7037c44a35c204b3a3b844, type: 2}
+    Hair:
+      Color: {r: 0, g: 0, b: 0, a: 0}
+      Side: {fileID: 0}
+      Front: {fileID: 0}
+      Back: {fileID: 0}
+      Portrait: {fileID: 0}
+    Eyes: {fileID: 0}
+    Eyelashes: {fileID: 0}
+    Eyebrows: {fileID: 0}
   Traits: []
   Partner: {fileID: 0}
   Children: []
@@ -4104,11 +4125,18 @@ MonoBehaviour:
   Race: {fileID: 11400000, guid: b2e28ba30006afd4d8287ab34a7aa6d5, type: 2}
   SexualPreference: 3
   Appearance:
-    EyeColour: {r: 0.25, g: 0.089486666, b: 0, a: 1}
     SkinTone: {fileID: 11400000, guid: 05d2c2921e97ae548bf9adaa804d6eaf, type: 2}
     Gender: 1
     Race: {fileID: 11400000, guid: b2e28ba30006afd4d8287ab34a7aa6d5, type: 2}
-    Hair: {fileID: 11400000, guid: 49522be5d857b064e8a918596649a13e, type: 2}
+    Hair:
+      Color: {r: 0, g: 0, b: 0, a: 0}
+      Side: {fileID: 0}
+      Front: {fileID: 0}
+      Back: {fileID: 0}
+      Portrait: {fileID: 0}
+    Eyes: {fileID: 0}
+    Eyelashes: {fileID: 0}
+    Eyebrows: {fileID: 0}
   Traits:
   - {fileID: 11400000, guid: 40d3b0377c52425459b56fdd2d4c6ebc, type: 2}
   Partner: {fileID: 0}
@@ -4289,11 +4317,18 @@ MonoBehaviour:
   Race: {fileID: 11400000, guid: b2e28ba30006afd4d8287ab34a7aa6d5, type: 2}
   SexualPreference: 0
   Appearance:
-    EyeColour: {r: 0, g: 0, b: 0, a: 0}
     SkinTone: {fileID: 0}
     Gender: 0
     Race: {fileID: 0}
-    Hair: {fileID: 0}
+    Hair:
+      Color: {r: 0, g: 0, b: 0, a: 0}
+      Side: {fileID: 0}
+      Front: {fileID: 0}
+      Back: {fileID: 0}
+      Portrait: {fileID: 0}
+    Eyes: {fileID: 0}
+    Eyelashes: {fileID: 0}
+    Eyebrows: {fileID: 0}
   Traits: []
   Partner: {fileID: 0}
   Children: []
@@ -4641,11 +4676,18 @@ MonoBehaviour:
   Race: {fileID: 11400000, guid: b2e28ba30006afd4d8287ab34a7aa6d5, type: 2}
   SexualPreference: 1
   Appearance:
-    EyeColour: {r: 0.11485406, g: 0.6158516, b: 0.8396226, a: 1}
     SkinTone: {fileID: 11400000, guid: 05d2c2921e97ae548bf9adaa804d6eaf, type: 2}
     Gender: 0
     Race: {fileID: 11400000, guid: b2e28ba30006afd4d8287ab34a7aa6d5, type: 2}
-    Hair: {fileID: 11400000, guid: d1e6cd5c40de730479f2cec367877722, type: 2}
+    Hair:
+      Color: {r: 0, g: 0, b: 0, a: 0}
+      Side: {fileID: 0}
+      Front: {fileID: 0}
+      Back: {fileID: 0}
+      Portrait: {fileID: 0}
+    Eyes: {fileID: 0}
+    Eyelashes: {fileID: 0}
+    Eyebrows: {fileID: 0}
   Traits: []
   Partner: {fileID: 0}
   Children: []
@@ -5172,9 +5214,151 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Resource.GrowingResourceData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -5501,22 +5685,6 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Item.CraftingTableData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
@@ -5544,6 +5712,11 @@ MonoBehaviour:
     - type: Characters.KinlingData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff5a5c104fc80b542a899369d673e505, type: 3}
+  m_Name: Sienna Skin Tone
+  m_EditorClassIdentifier: 
+  ToneName: Sienna
+  PrimaryTone: {r: 0.62396055, g: 0.33716366, b: 0.2015563, a: 1}
+  ShadeTone: {r: 0.5149178, g: 0.22322798, b: 0.10224175, a: 1}
+  BlushTone: {r: 0.5149178, g: 0.22322798, b: 0.10224175, a: 1}
+  PortraitHead: {fileID: 21300000, guid: 4a0de57bf30f94b47aed1fdccfded781, type: 3}
+  PortraitNose: {fileID: 21300000, guid: 0e36ee8bbd48a66499ab99756809b4bd, type: 3}
+  PortraitBlush: {fileID: 21300000, guid: 5b56d62d84c6a0e4ea1fd2c89070da96, type: 3}
