@@ -1216,28 +1216,17 @@ MonoBehaviour:
   Commands: []
   PendingCommand: {fileID: 0}
   DataLibrary: {fileID: 11400000, guid: f88f4256e274c364981fac582520b73b, type: 2}
+  _data: {fileID: 0}
   RuntimeData: {fileID: 0}
-  _race: {fileID: 11400000, guid: b2e28ba30006afd4d8287ab34a7aa6d5, type: 2}
   _taskAI: {fileID: 6965329135388678903}
   _appearance: {fileID: 4680592222557511252}
   _mood: {fileID: 4888200492756624676}
   _socialAI: {fileID: 5256464669028443073}
   Skills: {fileID: 1273177201407003409}
-  _traits: []
-  _dailyCoinsIncome: 5
   _sortingGroup: {fileID: 4624679516539662858}
   _positionRendererSorter: {fileID: 1822529751762045447}
-  FirstName: 
-  LastName: 
   kinlingAnimController: {fileID: 1198530704868288865}
   KinlingAgent: {fileID: 6234467081272595317}
-  IsAsleep: 0
-  Age:
-    CurrentAge: 0
-  SexualPreference: 3
-  Gender: 1
-  Partner: {fileID: 0}
-  Children: []
   ClickObject: {fileID: 2273999213966366943}
   Needs: {fileID: 6110830004571278970}
 --- !u!114 &6110830004571278970

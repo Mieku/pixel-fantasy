@@ -17,5 +17,5 @@ MonoBehaviour:
   ShadeTone: {r: 0.15292618, g: 0.03433981, b: 0.0074990317, a: 1}
   BlushTone: {r: 0.15292618, g: 0.03433981, b: 0.0074990317, a: 1}
   PortraitHead: {fileID: 21300000, guid: f11bcaa07b1b0cb478938d481c30cce2, type: 3}
-  PortraitNose: {fileID: 21300000, guid: 0e36ee8bbd48a66499ab99756809b4bd, type: 3}
+  PortraitNose: {fileID: 21300000, guid: 9a35c1790ef34b14da2e15425d12c24a, type: 3}
   PortraitBlush: {fileID: 21300000, guid: b8060d6e00d5a314ea15d56381b39c78, type: 3}
