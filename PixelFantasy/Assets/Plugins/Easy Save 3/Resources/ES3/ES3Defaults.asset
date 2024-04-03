@@ -31,10 +31,11 @@ MonoBehaviour:
     assemblyNames:
     - NodeCanvas
     - Assembly-CSharp-firstpass
+    - Databrain.UnityAsync
     - ParadoxNotion
     - Assembly-CSharp
-    - Databrain
     - TileWorldCreator.OdinSerializer
+    - Databrain
     - QFSW.QC
     - PsdPlugin
     - Cinemachine
@@ -47,7 +48,6 @@ MonoBehaviour:
     - NavMeshPlus
     - VTabs
     - QFSW.QC.Editor
-    - Databrain.UnityAsync
     - AllIn1SpriteShaderAssembly
     - VFavorites
     - QFSW.QC.Parsers

@@ -1,0 +1,310 @@
+1.1.0p1
+---
+
+Bugfix:
+- Fixed issue where runtime clone would return wrong reference.
+
+1.1.0
+---
+
+New:
+- Odin Inspector support! Databrain now supports drawing of Odin Inspector attributes for DataObject classes. 
+Add [UseOdinInspector] attribute to custom DataObject class.
+
+Improvements:
+- Greatly improved runtime data access time by a factor of 10x - 100x (on large data object lists). (Fastest is GetRuntimeDataByGuid)
+- Greatly reduced garbage collection to near zero when accessing data at runtime.
+- Improved runtime data object caching.
+- Improved editor hierarchy. Hierarchy does now unfold foldouts on deeper nested types when using search functionality and other editor functions.
+- Runtime library has better refresh behaviour. Refreshes now on loaded and on exiting play mode.
+- Added manual refresh button to runtime library.
+
+Bugfixes:
+- Fixed index out of range exception on data object dropdown property drawer in the Logic node inspector.
+- Removed IMGUI fallback support for data object dropdown property drawer as Odin Inspector now supports UIToolkit, and fallback solution was not on par with UIToolkit version.
+Additionally IMGUI version had some other issues in combination with Odin Inspector.
+
+1.0.10
+---
+
+New:
+- Added generic methods to all returning data objects methods on the data library. (No need to cast to type when returning a DataObject)
+
+Bugfixes:
+- Fixed Null Reference Exception on search bar when results are null.
+
+
+1.0.9p2
+---
+
+Bugfix:
+- Fixed issue which prevented to have multiple runtime data libraries in the same folder when using custom folder for runtime library.
+
+
+1.0.9p1
+---
+
+Changes:
+- Runtime library guid is now stored to the initial data library and assigned back to a newly generated runtime library to make sure it works with version control systems.
+(Initial Data Library not being marked as changed when adding external runtime library.)
+
+1.0.9
+---
+
+Bugfix:
+- Fixed issue where blackboard value changed event would be registered multiple times.
+- Fixed issue where data runtime library won't be initialized properly.
+
+Changed:
+- Changed behaviour when setting a custom path for the runtime library -> previous runtime library won't be destroyed.
+
+1.0.8
+---
+
+New:
+- Added ResetRuntimeDataLibrary method to data library which cleans up all data objects in the runtime library and resets it back to the initial state.
+
+Bugfix:
+- Fixed issue where runtime data objects would be cloned on every new scene load.
+
+1.0.7
+---
+
+New:
+- Added RegisterInitializationCallback method to DataLibrary to register a method to the OnDataInitialized event. This makes sure that actions are also called
+afterwards even if data is already initialized.
+
+1.0.6b
+---
+
+Bugfix:
+- Fixed additional issue where OnDataInitialized is not being called when DataLibrary is located in another scene which gets loaded later.
+
+1.0.6
+---
+
+Bugfix:
+- Fixed issue where OnDataInitialized is not being called when DataLibrary is located in another scene which gets loaded later. 
+
+1.0.5
+---
+
+Bugfix:
+- Fixed critical bug when deleting a DataObject, multiple other DataObjects in the list would be deleted as well. (Regression bug from 1.0.3))
+
+1.0.4
+---
+
+Bugfixes:
+- Fixed null reference issue when removing a custom hierarchy template from the settings.
+- Fixed issue where Hide attribute would create unexpecting behaviour in combination with custom Databrain Editor UI. (For example in the inventory add-on)
+
+
+1.0.3
+---
+
+Bugfixes:
+- Fixed issue where tags would be assigned or modified on wrong DataObject.
+
+
+1.0.2
+---
+
+Bugfixes
+- Fixed issue where the goto DataObject button on the DataObjectDropdown property drawer won't work when a newly created DataObject has been selected from the dropdown.
+- Fixed issue where runtime DataLibrary won't have a custom hierarchy template assigned.
+- Fixed issue when using a different runtime data library path. The relative path is now stored to the DataLibrary object. This means that it will get created even on different users computer running the same project.
+
+1.0.1
+---
+
+Bugfixes:
+- Fixed issue where the editor would "steal" the focus when entering play mode.
+- Fixed issue in 04_Advanced Demo scene, and removed [DataObjectAddToRuntimeLibrary] attribute from EnemyDataDemo.cs
+
+1.0
+----
+Out of beta release
+
+New:
+- Added LoadTexture to DatabrainHelpers class
+- Added possibility to set a hex color to the DataObjectIcon attribute
+
+0.9b
+----
+
+New:
+- Added possibility to set a different location for the runtime DataLibrary in the Save & Load settings. Useful when using VCS, so that the runtime library can be in a folder which can be ignored by VCS.
+- Added DatabrainNonSerialize attribute to mark specific fields as not serializable. This is useful for sub-classes where the parent class is marked as serializable but the subclass contains non serializable fields.
+- Added twitter link to welcome screen
+
+Improvements:
+- DataTypeList view is now hidden when using HideDataObjectTypeAttribute attribute
+
+Bugfixes
+- Fixed issue when displaying multiple DataObjectDropdown property drawers. (Wrong dropdown UI Element would get updated).
+- Fixed null reference exception when loading custom theme "Bubble".
+- Fixed null reference exception in the DataErrorCheck method.
+- Fixed issue with selectedGuid field when using version control.
+
+
+0.8.1b
+----
+
+Bugfixes
+- Fixed issue where the "Expose to inspector" popup view would open outside the Unity editor window.
+- Fixed issue where the columns in the Databrain editor won't remember their widths.
+- Fixed other issue (from 0.8b) where initial DataLibrary would accidentally add runtime data objects to the library at runtime. (visual bug) 
+
+
+0.8b
+----
+
+New
+- Added possibility to assign a method name which returns a DataLibray - instead of a field name - to the DataObjectDropdown attribute.
+
+Bugfixes
+- Fixed weird selection behaviour with DataObjectDropdown propertydrawer
+- Fixed issue where initial DataLibrary would accidentally add runtime data objects to the library at runtime. (visual bug)
+
+
+0.7.1b
+----
+
+Bugfix:
+- Fixed issue where visual assets won't load correctly because of newly introduced theme system.
+
+0.7b
+----
+
+New:
+- Added (experimental) theme system with three ready to use themes. Themes can be selected in the settings of the Databrain editor. (Many thanks to zerocu from the Discord community! <3)
+-> If there's no effect when assigning a theme make sure to delete all editor prefs: Tools/Databrain/Debug/Delete EditorPrefs.
+
+- Added new color field to the general DataObject fields (Many thanks to zerocu from the Discord community! <3)
+
+Bugfixes:
+- Fixed issue and added an error check which checks for lost DataObjects in the DataLibrary. 
+- Fixed issue where custom editor gui won't have been added to a scrollview.
+- Fixed issue where data object drag button in the list view would use wrong index when dragging to a reference field.
+
+
+0.6b
+----
+
+New:
+- Added new searchable popup list to the DataObject property drawer.
+- The icon of a DataObject is now also assigned to the object's asset file.
+
+
+Bugfixes:
+- Fixed null reference exception in save load module.
+- Fixed issue where DataObjectLock attribute would lock all inherited types as well.
+- Fixed issue where DataObject's asset file won't get named properly.
+
+
+0.5b
+----
+
+New:
+- Added possibility to serialize data with custom/third-party serializer such as Odin Serializer.
+
+Bugfixes:
+- Fixed issue where renaming a DataObject class would loose existing DataObjects in the list view.
+- Fixed various null reference exception.
+- Fixed issue where DataObjectDropdown attribute didn't worked correctly on arrays.
+
+
+
+0.4.5b
+------
+
+Bugfixes:
+- Fixed issue with multi selected data object deletion.
+- Fixed wrong order issue when importing data from google/csv.
+
+
+0.4.4b
+------
+
+Bugfixes:
+- Fixed issue when trying to delete a DataObject which caused deletion of another unselected DataObject.
+
+
+
+0.4.3b
+------
+
+Bugfixes:
+- Fixed nullref. exception caused by new tag filtering.
+- Open instances of Databrain editor windows are now being reloaded correctly after Unity editor starts up.
+- Fixed issue with filtering when using custom hierarchy template.
+
+Changes:
+- Removed DataObjectSmallListItem attribute feature as it intefered with the newly changed list view since v. 0.4b.
+
+
+0.4.2b
+------
+
+Hotfix:
+- Changed delete shortcut for deleting selected data objects in list view to: CTRL+Delete because 
+it conflicted with the delete shortcut for deleting nodes in the LOGIC add-on.
+- Added virtual duplication method to DataObjects to make sure add-ons are correctly duplication sub objects.
+- Changed duplicate button to the list view.
+- Clicking on duplicate button while having multiple DataObjects selected will duplicate all selected.
+- Clicking on remove button while having multiple DataObjects selected will remove all selected.
+
+
+0.4b
+---
+
+New:
+- New duplicate DataObject button.
+- New possibility to select multiple DataObjects in list view.
+- New possibility to delete and move multiple selected DataObjects.
+- New DataObject filter in the list view. Filter by title or tag. 
+- New duplicate selected DataObjects with CTRL+D.
+
+Bugfixes:
+- Fixed issue where save module did not display the data type's list with the correct name when using the DataObjectTypeName attribute.
+- Fixed issue where the runtime data library did not use a hierarchy template when defined.
+- Fixed issue where first data type in a namespace won't show up in the add to runtime library list in the settings.
+
+Improvements:
+- Icon in general tab is hidden when empty.
+- Icon AddToRuntimeLibrary is more subtle.
+
+0.3b
+---
+
+New:
+- New possibility to create a custom type hierarchy view by defining a hierarchy template in the settings.
+- Added IMGUI version of the DataObject-dropdown property drawer to make sure it works when Odin Inspector is installed. 
+
+Bugfixes:
+- Fixed import issue where replacing/appending from a Google sheet won't work correctly.
+- Fixed issue where ShowAssetPreview Attribute didn't work.
+- Fixed list import issue. Updated documentation accordingly to reflect which types are supported by default.
+
+
+0.2b
+---
+
+Bugfixes:
+- Fixed issue where a docked Databrain editor window would constantly undock.
+- Fixed issue which would not allow for having multiple Databrain editor windows open.
+- Fixed null reference exception in HighlightDataTypeList.
+
+Improvements:
+- Significantly improved runtime initialization time at start.
+- Improved editor loading and icon loading by caching resource folder paths.
+- Added all add-on changelogs to the welcome screen.
+- GameObject fields now only allow project prefabs in the Databrain editor.
+- Changed data object drag icon.
+
+
+0.1b
+---
+
+- initial beta release

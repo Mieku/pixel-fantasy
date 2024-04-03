@@ -1,5 +1,46 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9050092128877666307
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e5ec9373683b3d4ca3d756d41e9e87b, type: 3}
+  m_Name: Stockpile Zone
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  guid: b609f472-addd-4de3-9802-f8ea18b025ff
+  initialGuid: b609f472-addd-4de3-9802-f8ea18b025ff
+  runtimeIndexID: 
+  icon: {fileID: 1670653853, guid: 49688975d6e4e9d4e9023f92ee002b97, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Stockpile Zone
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  Tiles: {fileID: 11400000, guid: 62f63a728b271b64f95f386fefa6f490, type: 2}
+  ZoneType: 0
+  ZoneColour: {r: 0.2863564, g: 0.42566785, b: 0.9339623, a: 1}
+  DefaultPlayerSettings:
+    UsePriority: 2
+    DurabilityRange: {x: 0, y: 100}
 --- !u!114 &-8826856979854169033
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12,6 +53,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5fa73f7440dec40bced78300c9515e, type: 3}
   m_Name: Apple Tree
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 77d08a34-f03b-4942-bae0-2a21418a5ef3
   initialGuid: 77d08a34-f03b-4942-bae0-2a21418a5ef3
   runtimeIndexID: 
@@ -88,6 +138,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb31eb39cd3d1342a1ef7e1d52dc828, type: 3}
   m_Name: Stick
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 1c3c83e7-f434-458e-92c5-11e0565209ac
   initialGuid: 1c3c83e7-f434-458e-92c5-11e0565209ac
   runtimeIndexID: 
@@ -126,6 +185,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f2892ec734b9d46bd22d0737cc94b1, type: 3}
   m_Name: Iron Bar
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 35c873a7-4c07-40c4-aab1-eee6f273b11f
   initialGuid: 35c873a7-4c07-40c4-aab1-eee6f273b11f
   runtimeIndexID: 
@@ -167,6 +235,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 065000091ab7bee45b4843f4a1b8f92a, type: 3}
   m_Name: Raw food Item
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: cd3a9e7b-2a68-4759-8237-7344b86a4324
   initialGuid: cd3a9e7b-2a68-4759-8237-7344b86a4324
   runtimeIndexID: 
@@ -207,6 +284,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94f340aba0041f4cbc1eac4c35d1a41, type: 3}
   m_Name: Stone
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 378a209a-ee9b-4123-8ea5-ad9a8f005b45
   initialGuid: 378a209a-ee9b-4123-8ea5-ad9a8f005b45
   runtimeIndexID: 
@@ -236,6 +322,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb31eb39cd3d1342a1ef7e1d52dc828, type: 3}
   m_Name: Flower
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: a3d47a0e-2983-447f-ac48-42efb8a6d2cc
   initialGuid: a3d47a0e-2983-447f-ac48-42efb8a6d2cc
   runtimeIndexID: 
@@ -288,6 +383,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63bdd0795e6759041a124f39f7ebbbf5, type: 3}
   m_Name: Michael Altair
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 3ec4509e-6c69-4301-bf3f-e34c6d061606
   initialGuid: 3ec4509e-6c69-4301-bf3f-e34c6d061606
   runtimeIndexID: 
@@ -401,6 +505,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c562edd19fa68b4d90ec14c666b8911, type: 3}
   m_Name: Floor
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 67787a93-9c52-4296-aaea-03c240d2e553
   initialGuid: 67787a93-9c52-4296-aaea-03c240d2e553
   runtimeIndexID: 
@@ -447,6 +560,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19df7a6b899d74a8f4bd5f23a7b97b, type: 3}
   m_Name: Spruce
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: afab236e-b3a0-4ef9-bd0a-8af1b7290840
   initialGuid: afab236e-b3a0-4ef9-bd0a-8af1b7290840
   runtimeIndexID: 
@@ -491,6 +613,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f2892ec734b9d46bd22d0737cc94b1, type: 3}
   m_Name: Gold Bar
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 45c78f33-b1f4-418a-acbf-ce48e4560474
   initialGuid: 45c78f33-b1f4-418a-acbf-ce48e4560474
   runtimeIndexID: 
@@ -532,6 +663,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5fa73f7440dec40bced78300c9515e, type: 3}
   m_Name: Bush
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 5d94d31b-b0a7-47d7-9db0-38af4c34df43
   initialGuid: 5d94d31b-b0a7-47d7-9db0-38af4c34df43
   runtimeIndexID: 
@@ -595,6 +735,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb31eb39cd3d1342a1ef7e1d52dc828, type: 3}
   m_Name: Mushroom
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 343b271c-2aec-47cf-b969-79afce4d0650
   initialGuid: 343b271c-2aec-47cf-b969-79afce4d0650
   runtimeIndexID: 
@@ -632,6 +781,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc957fd26344204d8c99b17b78b454d, type: 3}
   m_Name: Tin Mountain
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 2fc2c1e1-3cdc-4f31-9f28-26eb92967acb
   initialGuid: 2fc2c1e1-3cdc-4f31-9f28-26eb92967acb
   runtimeIndexID: 
@@ -659,6 +817,47 @@ MonoBehaviour:
   _baseData: {fileID: 1636724805157081006}
   _ruleTile: {fileID: 11400000, guid: c79f60c15b97a6a4b9c0809eee602674, type: 2}
   _mountainTileType: 4
+--- !u!114 &-5303908421779173038
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd53c7e74b2cfa64c9843fe50312e790, type: 3}
+  m_Name: Generic Farming Zone
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  guid: 4e1edfe9-fa93-49f8-bfed-eff8384b9b10
+  initialGuid: 4e1edfe9-fa93-49f8-bfed-eff8384b9b10
+  runtimeIndexID: 
+  icon: {fileID: 0}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Generic Farming Zone
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  ZoneName: 
+  Cells: []
+  ZoneCellObjects: []
+  AssignedLayer: 0
+  IsVisible: 0
+  Settings: {fileID: 0}
 --- !u!114 &-5298398873868244794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -671,6 +870,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc9303aa2d135a4798c82e1a456a091, type: 3}
   m_Name: Gold Ore
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 92cc9d0d-b047-43cc-9743-9548ca0e6e56
   initialGuid: 92cc9d0d-b047-43cc-9743-9548ca0e6e56
   runtimeIndexID: 
@@ -711,6 +919,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5fa73f7440dec40bced78300c9515e, type: 3}
   m_Name: Cedar
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 8cddfda8-a43b-427d-9ae5-a5c249b1bb43
   initialGuid: 8cddfda8-a43b-427d-9ae5-a5c249b1bb43
   runtimeIndexID: 
@@ -784,6 +1001,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc9303aa2d135a4798c82e1a456a091, type: 3}
   m_Name: Wood
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: b782752e-da24-44fc-822f-ff03c94446a2
   initialGuid: b782752e-da24-44fc-822f-ff03c94446a2
   runtimeIndexID: 
@@ -837,6 +1063,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fedcf57d658f54a997dec2825cdde4, type: 3}
   m_Name: Jam
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 0f9e77cb-dd23-4a36-81ce-d3ac9ad43173
   initialGuid: 0f9e77cb-dd23-4a36-81ce-d3ac9ad43173
   runtimeIndexID: 
@@ -876,6 +1111,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5fa73f7440dec40bced78300c9515e, type: 3}
   m_Name: Oak
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 8e81ba3b-928e-40c0-b8c4-63b5a0b998b6
   initialGuid: 8e81ba3b-928e-40c0-b8c4-63b5a0b998b6
   runtimeIndexID: 
@@ -949,6 +1193,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5fa73f7440dec40bced78300c9515e, type: 3}
   m_Name: Birch
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 9b845cbf-6fc0-43ec-921a-8b3dfa0b405c
   initialGuid: 9b845cbf-6fc0-43ec-921a-8b3dfa0b405c
   runtimeIndexID: 
@@ -1022,6 +1275,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19df7a6b899d74a8f4bd5f23a7b97b, type: 3}
   m_Name: Birch
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 97982ef2-987a-4af7-a4e1-8367816fcc41
   initialGuid: 97982ef2-987a-4af7-a4e1-8367816fcc41
   runtimeIndexID: 
@@ -1066,6 +1328,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ced93b085944109429e3862d6d268ab0, type: 3}
   m_Name: Stick
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 12a6e82f-3dd4-41a2-b654-43ebed68ff27
   initialGuid: 12a6e82f-3dd4-41a2-b654-43ebed68ff27
   runtimeIndexID: 
@@ -1092,6 +1363,50 @@ MonoBehaviour:
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
   Settings: {fileID: 0}
+--- !u!114 &-4271032331850456467
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb72a1e78613a844baf2362f3e7da155, type: 3}
+  m_Name: Generic Stockpile Zone
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  guid: b6052f20-9051-4669-b214-6a0effab4263
+  initialGuid: b6052f20-9051-4669-b214-6a0effab4263
+  runtimeIndexID: 
+  icon: {fileID: 0}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Generic Stockpile Zone
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  ZoneName: 
+  Cells: []
+  ZoneCellObjects: []
+  AssignedLayer: 0
+  IsVisible: 0
+  Settings: {fileID: 0}
+  PlayerSettings:
+    UsePriority: 0
+    DurabilityRange: {x: 0, y: 0}
 --- !u!114 &-4167834067029810729
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1104,6 +1419,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af5b8ccca279860418e4d33134a1928e, type: 3}
   m_Name: Stone Floor
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 8d6a59f5-7ad0-4cb6-98d3-27a69bcb1bb3
   initialGuid: 8d6a59f5-7ad0-4cb6-98d3-27a69bcb1bb3
   runtimeIndexID: 
@@ -1147,6 +1471,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc9303aa2d135a4798c82e1a456a091, type: 3}
   m_Name: Copper Ore
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: a48cc74b-9f59-4a6f-b554-b8f953276319
   initialGuid: a48cc74b-9f59-4a6f-b554-b8f953276319
   runtimeIndexID: 
@@ -1187,6 +1520,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb31eb39cd3d1342a1ef7e1d52dc828, type: 3}
   m_Name: Rock
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 0ee8a132-4749-47c1-8c7b-407b2291f293
   initialGuid: 0ee8a132-4749-47c1-8c7b-407b2291f293
   runtimeIndexID: 
@@ -1219,6 +1561,51 @@ MonoBehaviour:
   _maxHealth: 5
   _minWorkDistance: 0.75
   _baseData: {fileID: 115313260348806446}
+--- !u!114 &-3963601841445953741
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f24a788a30cbe4842b898bc65a9cd5e8, type: 3}
+  m_Name: Generic Zone
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: []
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  guid: 60a96412-54eb-4b4c-a4ab-6819fb398d30
+  initialGuid: 60a96412-54eb-4b4c-a4ab-6819fb398d30
+  runtimeIndexID: 
+  icon: {fileID: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  title: Generic Zone
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
+  ZoneName: 
+  Cells: []
+  AssignedLayer: 0
+  IsVisible: 0
 --- !u!114 &-3594478725275268963
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1231,6 +1618,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1743272e3adb3943af0e7db05085a8a, type: 3}
   m_Name: Orange
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: cc229749-9ca9-4ac8-9246-0a9ecf5952aa
   initialGuid: cc229749-9ca9-4ac8-9246-0a9ecf5952aa
   runtimeIndexID: 
@@ -1262,6 +1658,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc957fd26344204d8c99b17b78b454d, type: 3}
   m_Name: Gold Mountain
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 690e9cad-b220-4a7e-a755-d54c5d4b17db
   initialGuid: 690e9cad-b220-4a7e-a755-d54c5d4b17db
   runtimeIndexID: 
@@ -1301,6 +1706,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94f340aba0041f4cbc1eac4c35d1a41, type: 3}
   m_Name: Iron Ore
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 6638e5ef-5ae1-42f1-b2c3-759ec5eacd40
   initialGuid: 6638e5ef-5ae1-42f1-b2c3-759ec5eacd40
   runtimeIndexID: 
@@ -1330,6 +1744,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1743272e3adb3943af0e7db05085a8a, type: 3}
   m_Name: Strawberry
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 182c5b2c-0dce-46ac-b957-4819787a75de
   initialGuid: 182c5b2c-0dce-46ac-b957-4819787a75de
   runtimeIndexID: 
@@ -1361,6 +1784,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21968d0dfbe07b848bd101c15cee8386, type: 3}
   m_Name: Starter Stockpile
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 3580d50e-4146-4ea3-af78-32e7ad1fdcc8
   initialGuid: 3580d50e-4146-4ea3-af78-32e7ad1fdcc8
   runtimeIndexID: 
@@ -1410,6 +1842,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8c2c6528c8336f439126aa1d54e6af1, type: 3}
   m_Name: Double Bed
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 6acd6eb9-885b-412a-9c51-3c3098ea86cb
   initialGuid: 6acd6eb9-885b-412a-9c51-3c3098ea86cb
   runtimeIndexID: 
@@ -1463,6 +1904,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63bdd0795e6759041a124f39f7ebbbf5, type: 3}
   m_Name: Arazoo Lucas
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: c7564f30-52fc-436a-8d35-e54977cf3d0a
   initialGuid: c7564f30-52fc-436a-8d35-e54977cf3d0a
   runtimeIndexID: 
@@ -1574,6 +2024,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8c2c6528c8336f439126aa1d54e6af1, type: 3}
   m_Name: Copper Double Bed
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 44943dc9-ad99-4437-bbd5-280c12ced4dd
   initialGuid: 44943dc9-ad99-4437-bbd5-280c12ced4dd
   runtimeIndexID: 
@@ -1626,6 +2085,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19df7a6b899d74a8f4bd5f23a7b97b, type: 3}
   m_Name: Cedar
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 52dc7cf6-9c32-4266-93d1-05beafd0df9a
   initialGuid: 52dc7cf6-9c32-4266-93d1-05beafd0df9a
   runtimeIndexID: 
@@ -1670,6 +2138,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5fa73f7440dec40bced78300c9515e, type: 3}
   m_Name: Orange Tree
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 068babba-c052-475b-bec1-fa12b89251a3
   initialGuid: 068babba-c052-475b-bec1-fa12b89251a3
   runtimeIndexID: 
@@ -1746,6 +2223,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91a12b211fda2a14c965c8c8af82a4aa, type: 3}
   m_Name: Coal Mountain
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 2c7cd8f6-025d-48c0-a52d-fb19ef1c127d
   initialGuid: 2c7cd8f6-025d-48c0-a52d-fb19ef1c127d
   runtimeIndexID: 
@@ -1785,6 +2271,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19df7a6b899d74a8f4bd5f23a7b97b, type: 3}
   m_Name: Berry Bush
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 3c2b2e6b-f413-4fd2-ad5a-2843c5af117d
   initialGuid: 3c2b2e6b-f413-4fd2-ad5a-2843c5af117d
   runtimeIndexID: 
@@ -1829,6 +2324,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc957fd26344204d8c99b17b78b454d, type: 3}
   m_Name: Copper Mountain
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 844bea08-715b-43d8-916e-4b4ff292ded9
   initialGuid: 844bea08-715b-43d8-916e-4b4ff292ded9
   runtimeIndexID: 
@@ -1868,6 +2372,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5fa73f7440dec40bced78300c9515e, type: 3}
   m_Name: Poplar
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 008cc5b6-7da8-4ae2-89eb-bfea98f4baaf
   initialGuid: 008cc5b6-7da8-4ae2-89eb-bfea98f4baaf
   runtimeIndexID: 
@@ -1941,6 +2454,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ced93b085944109429e3862d6d268ab0, type: 3}
   m_Name: Log
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: ce25fbdd-8403-462d-8478-fdf243b8064f
   initialGuid: ce25fbdd-8403-462d-8478-fdf243b8064f
   runtimeIndexID: 
@@ -1979,6 +2501,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94f340aba0041f4cbc1eac4c35d1a41, type: 3}
   m_Name: Coal
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: a8ee63e6-ac4c-4c16-9b4a-df92bf327488
   initialGuid: a8ee63e6-ac4c-4c16-9b4a-df92bf327488
   runtimeIndexID: 
@@ -2008,6 +2539,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04c6722eac38f8341abfa8480d4ca564, type: 3}
   m_Name: Stool
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 8094b730-76ad-4c26-807c-bbb0e0031ea8
   initialGuid: 8094b730-76ad-4c26-807c-bbb0e0031ea8
   runtimeIndexID: 
@@ -2055,6 +2595,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63bdd0795e6759041a124f39f7ebbbf5, type: 3}
   m_Name: Kevin Bolton
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 45184402-2089-4f65-ac2f-cf5be2a906b6
   initialGuid: 45184402-2089-4f65-ac2f-cf5be2a906b6
   runtimeIndexID: 
@@ -2166,6 +2715,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a01c9c06b2901384fb716247a2f4001a, type: 3}
   m_Name: Basic Crafting Area
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: d0b79115-cca1-40f3-aa14-60c142a23fa9
   initialGuid: d0b79115-cca1-40f3-aa14-60c142a23fa9
   runtimeIndexID: 
@@ -2217,6 +2775,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ced93b085944109429e3862d6d268ab0, type: 3}
   m_Name: Grass
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 569b2018-188d-4f78-b981-de99581d0912
   initialGuid: 569b2018-188d-4f78-b981-de99581d0912
   runtimeIndexID: 
@@ -2255,6 +2822,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76c62dc32f973a478967d098378706b, type: 3}
   m_Name: Gold Bar
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: baff5e3f-2bde-4441-af3c-930d7186278b
   initialGuid: baff5e3f-2bde-4441-af3c-930d7186278b
   runtimeIndexID: 
@@ -2373,7 +2949,7 @@ MonoBehaviour:
       dataObjects:
       - {fileID: 1274975811134321187}
       - {fileID: 5747519841221157967}
-    - type: Databrain.Blackboard.BlackboardVariable, Assembly-CSharp-firstpass, Version=0.0.0.0,
+    - type: Databrain.Blackboard.BlackboardVariable, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       dataObjects:
       - {fileID: 1240923166282598677}
@@ -2486,6 +3062,21 @@ MonoBehaviour:
       - {fileID: 4971306714869226098}
       - {fileID: -7223051035212598023}
       - {fileID: 5933055010327361580}
+    - type: Data.Zones.StockpileZoneSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
+      - {fileID: -9050092128877666307}
+    - type: Data.Zones.ZoneData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects: []
+    - type: Data.Zones.StockpileZoneData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
+      - {fileID: -4271032331850456467}
+    - type: Data.Zones.FarmingZoneData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
+      - {fileID: -5303908421779173038}
     _favoriteList: []
   copyData:
     _objectList: []
@@ -2495,6 +3086,7 @@ MonoBehaviour:
   runtimeLibrary: {fileID: 7730749120145212212}
   runtimeLibraryGuid: 
   runtimeLibraryFolderPath: 
+  initialLibrary: {fileID: 0}
   modules:
   - {fileID: 1013997515501222643}
   - {fileID: 3086282657986071168}
@@ -2502,7 +3094,7 @@ MonoBehaviour:
   - {fileID: -4624164709437787247}
   existingNamespaces:
   - namespaceName: Settings
-    foldout: 0
+    foldout: 1
     hidden: 0
     icon: 
     existingTypes:
@@ -2550,6 +3142,20 @@ MonoBehaviour:
       valuesFilter: []
     - typeName: MountainSettings
       typeAssemblyQualifiedName: Data.Resource.MountainSettings, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: StockpileZoneSettings
+      typeAssemblyQualifiedName: Data.Zones.StockpileZoneSettings, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: FarmingZoneSettings
+      typeAssemblyQualifiedName: Data.Zones.FarmingZoneSettings, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
@@ -2611,6 +3217,13 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
+    - typeName: ZoneSettings
+      typeAssemblyQualifiedName: Data.Zones.ZoneSettings, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
   - namespaceName: Runtime
     foldout: 1
     hidden: 0
@@ -2660,6 +3273,20 @@ MonoBehaviour:
       valuesFilter: []
     - typeName: MealData
       typeAssemblyQualifiedName: Data.Item.MealData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 1
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: StockpileZoneData
+      typeAssemblyQualifiedName: Data.Zones.StockpileZoneData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 1
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: FarmingZoneData
+      typeAssemblyQualifiedName: Data.Zones.FarmingZoneData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 1
       tagsFilter: []
@@ -2728,6 +3355,13 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
+    - typeName: ZoneData
+      typeAssemblyQualifiedName: Data.Zones.ZoneData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 1
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
   isRuntimeContainer: 0
   useXOREncryption: 0
   encryptionKey: 0
@@ -2747,6 +3381,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19df7a6b899d74a8f4bd5f23a7b97b, type: 3}
   m_Name: Poplar
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: f20a69df-0fa9-4eab-b9a5-30748168984b
   initialGuid: f20a69df-0fa9-4eab-b9a5-30748168984b
   runtimeIndexID: 
@@ -2791,6 +3434,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ced93b085944109429e3862d6d268ab0, type: 3}
   m_Name: Rock
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 8a04012c-9d13-47bb-9f8a-3be8341f78e0
   initialGuid: 8a04012c-9d13-47bb-9f8a-3be8341f78e0
   runtimeIndexID: 
@@ -2829,6 +3481,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ac8c373f3bc8e40b43409c4736230c, type: 3}
   m_Name: Basic Crafting Area
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: ece606e3-1a55-418f-a932-5043a451de4d
   initialGuid: ece606e3-1a55-418f-a932-5043a451de4d
   runtimeIndexID: 
@@ -2887,6 +3548,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f2892ec734b9d46bd22d0737cc94b1, type: 3}
   m_Name: Steel Bar
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 2270cd3f-4dbd-472f-a862-394c3e202dca
   initialGuid: 2270cd3f-4dbd-472f-a862-394c3e202dca
   runtimeIndexID: 
@@ -2928,6 +3598,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94f340aba0041f4cbc1eac4c35d1a41, type: 3}
   m_Name: Wood
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: aa10c71a-d79c-4b08-8371-b33ea7144d4e
   initialGuid: aa10c71a-d79c-4b08-8371-b33ea7144d4e
   runtimeIndexID: 
@@ -2957,6 +3636,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f2892ec734b9d46bd22d0737cc94b1, type: 3}
   m_Name: Copper Bar
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 25a63eb3-8fec-4114-a2a2-f3ce0c28f53a
   initialGuid: 25a63eb3-8fec-4114-a2a2-f3ce0c28f53a
   runtimeIndexID: 
@@ -3011,6 +3699,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb31eb39cd3d1342a1ef7e1d52dc828, type: 3}
   m_Name: Weed
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: fe5af1df-6843-4301-be46-224c8d698c22
   initialGuid: fe5af1df-6843-4301-be46-224c8d698c22
   runtimeIndexID: 
@@ -3050,6 +3747,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc4ad9caa0871b4bb4447dadd911f42, type: 3}
   m_Name: Blue
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: e277f8bc-bdd6-4f8a-8483-489263c40059
   initialGuid: e277f8bc-bdd6-4f8a-8483-489263c40059
   runtimeIndexID: 
@@ -3079,6 +3785,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa0af2dd6392944a9ff777d932e90b2, type: 3}
   m_Name: New Data entry
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 16b7e5d5-c569-4ed8-a79a-836ea138e847
   initialGuid: 16b7e5d5-c569-4ed8-a79a-836ea138e847
   runtimeIndexID: 
@@ -3106,6 +3821,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2533f3c15b7fbb441b28ea362919a00a, type: 3}
   m_Name: Stone Wall
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: defce077-cc8b-41e3-a365-b44f5e6e099c
   initialGuid: defce077-cc8b-41e3-a365-b44f5e6e099c
   runtimeIndexID: 
@@ -3144,6 +3868,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af16a28867759a04a8e17cb40725fb35, type: 3}
   m_Name: Stone Door
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 7d8e9577-84c6-4617-8fdd-dcae537bf0ae
   initialGuid: 7d8e9577-84c6-4617-8fdd-dcae537bf0ae
   runtimeIndexID: 
@@ -3185,6 +3918,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b70b13f9a7f6bda40ab2a582d1a60bd0, type: 3}
   m_Name: Starter Stockpile
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: d9eb7d5f-ca20-4b75-9ec9-ff4a422cc645
   initialGuid: d9eb7d5f-ca20-4b75-9ec9-ff4a422cc645
   runtimeIndexID: 
@@ -3235,6 +3977,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb31eb39cd3d1342a1ef7e1d52dc828, type: 3}
   m_Name: Grass
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 826a5894-c2dc-447a-b39b-c3c68da04117
   initialGuid: 826a5894-c2dc-447a-b39b-c3c68da04117
   runtimeIndexID: 
@@ -3271,6 +4022,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91a12b211fda2a14c965c8c8af82a4aa, type: 3}
   m_Name: Tin Mountain
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 2f8a8631-3249-4664-8a08-8ef0fb61cb7a
   initialGuid: 2f8a8631-3249-4664-8a08-8ef0fb61cb7a
   runtimeIndexID: 
@@ -3310,6 +4070,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc9303aa2d135a4798c82e1a456a091, type: 3}
   m_Name: Tin Ore
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: b50399ca-e079-47d7-8232-2a8d2e1448ae
   initialGuid: b50399ca-e079-47d7-8232-2a8d2e1448ae
   runtimeIndexID: 
@@ -3350,6 +4119,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91a12b211fda2a14c965c8c8af82a4aa, type: 3}
   m_Name: Mountain
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 1e1c6f0c-83e8-4fea-8f99-625e04a37066
   initialGuid: 1e1c6f0c-83e8-4fea-8f99-625e04a37066
   runtimeIndexID: 
@@ -3401,6 +4179,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd4beaa854198e947bae80e3737ee302, type: 3}
   m_Name: Wall
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 0eec06aa-d5af-428b-8dcc-524f10ba65d2
   initialGuid: 0eec06aa-d5af-428b-8dcc-524f10ba65d2
   runtimeIndexID: 
@@ -3444,6 +4231,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91a12b211fda2a14c965c8c8af82a4aa, type: 3}
   m_Name: Gold Mountain
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 41db0d22-adf5-4eb6-a08f-7d318918c3c6
   initialGuid: 41db0d22-adf5-4eb6-a08f-7d318918c3c6
   runtimeIndexID: 
@@ -3483,6 +4279,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94f340aba0041f4cbc1eac4c35d1a41, type: 3}
   m_Name: Copper Ore
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: a0da8bc5-ffcf-444b-b6dd-b112d95e7512
   initialGuid: a0da8bc5-ffcf-444b-b6dd-b112d95e7512
   runtimeIndexID: 
@@ -3512,6 +4317,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5fa73f7440dec40bced78300c9515e, type: 3}
   m_Name: Spruce
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 8d9cd2a8-848a-4627-9d4e-7bf431b0b332
   initialGuid: 8d9cd2a8-848a-4627-9d4e-7bf431b0b332
   runtimeIndexID: 
@@ -3585,6 +4399,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5fa73f7440dec40bced78300c9515e, type: 3}
   m_Name: Berry Bush
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 95b368af-c4da-4f2b-bed9-4e502c24dfd8
   initialGuid: 95b368af-c4da-4f2b-bed9-4e502c24dfd8
   runtimeIndexID: 
@@ -3651,6 +4474,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76c62dc32f973a478967d098378706b, type: 3}
   m_Name: Iron Bar
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 9848db97-55b3-4223-baed-3f76425c369e
   initialGuid: 9848db97-55b3-4223-baed-3f76425c369e
   runtimeIndexID: 
@@ -3776,6 +4608,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94f340aba0041f4cbc1eac4c35d1a41, type: 3}
   m_Name: Gold Ore
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 039b696d-8d74-4518-924a-765ae7b539d4
   initialGuid: 039b696d-8d74-4518-924a-765ae7b539d4
   runtimeIndexID: 
@@ -3805,6 +4646,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc957fd26344204d8c99b17b78b454d, type: 3}
   m_Name: Mountain
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 86f1ff39-2974-4f01-b2fe-3f56a0053dce
   initialGuid: 86f1ff39-2974-4f01-b2fe-3f56a0053dce
   runtimeIndexID: 
@@ -3844,6 +4694,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19df7a6b899d74a8f4bd5f23a7b97b, type: 3}
   m_Name: Oak
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 96171f78-d563-4fa5-b13e-cb5e3fd308b0
   initialGuid: 96171f78-d563-4fa5-b13e-cb5e3fd308b0
   runtimeIndexID: 
@@ -3888,6 +4747,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb31eb39cd3d1342a1ef7e1d52dc828, type: 3}
   m_Name: Log
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: a1985e57-887b-404c-8bfa-14987bfbc280
   initialGuid: a1985e57-887b-404c-8bfa-14987bfbc280
   runtimeIndexID: 
@@ -3926,6 +4794,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc9303aa2d135a4798c82e1a456a091, type: 3}
   m_Name: Coal
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 4aa46bed-c580-4ec4-b2e4-d7b80adc5227
   initialGuid: 4aa46bed-c580-4ec4-b2e4-d7b80adc5227
   runtimeIndexID: 
@@ -3966,6 +4843,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76c62dc32f973a478967d098378706b, type: 3}
   m_Name: Copper Bar
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 2c927e88-6001-4f15-94a7-41c788c20aa9
   initialGuid: 2c927e88-6001-4f15-94a7-41c788c20aa9
   runtimeIndexID: 
@@ -4003,6 +4889,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc9303aa2d135a4798c82e1a456a091, type: 3}
   m_Name: Stone
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: d92893bc-1dbe-42f7-bac6-c4292d8457b5
   initialGuid: d92893bc-1dbe-42f7-bac6-c4292d8457b5
   runtimeIndexID: 
@@ -4043,6 +4938,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc4ad9caa0871b4bb4447dadd911f42, type: 3}
   m_Name: Red
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 3abd7fa5-eadd-421c-a656-64f661b384f2
   initialGuid: 3abd7fa5-eadd-421c-a656-64f661b384f2
   runtimeIndexID: 
@@ -4072,6 +4976,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94f340aba0041f4cbc1eac4c35d1a41, type: 3}
   m_Name: Tin Ore
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 2173ec6f-9f96-4838-94cb-f852add4245b
   initialGuid: 2173ec6f-9f96-4838-94cb-f852add4245b
   runtimeIndexID: 
@@ -4101,6 +5014,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63bdd0795e6759041a124f39f7ebbbf5, type: 3}
   m_Name: Anika Nagy
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: dc353ac8-9602-48f4-891c-2ed5dbc3dcce
   initialGuid: dc353ac8-9602-48f4-891c-2ed5dbc3dcce
   runtimeIndexID: 
@@ -4214,6 +5136,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af16a28867759a04a8e17cb40725fb35, type: 3}
   m_Name: Wooden Door
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: aec3b56c-bb0c-4fd2-b684-2543358278aa
   initialGuid: aec3b56c-bb0c-4fd2-b684-2543358278aa
   runtimeIndexID: 
@@ -4255,6 +5186,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2533f3c15b7fbb441b28ea362919a00a, type: 3}
   m_Name: Wooden Wall
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: fdab8e05-a83d-4a78-8d2c-e3342903a94b
   initialGuid: fdab8e05-a83d-4a78-8d2c-e3342903a94b
   runtimeIndexID: 
@@ -4293,6 +5233,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63bdd0795e6759041a124f39f7ebbbf5, type: 3}
   m_Name: Generic Human
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 67eac315-9b3c-49f6-83b2-bbb96a133f57
   initialGuid: 67eac315-9b3c-49f6-83b2-bbb96a133f57
   runtimeIndexID: 
@@ -4404,6 +5353,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc957fd26344204d8c99b17b78b454d, type: 3}
   m_Name: Iron Mountain
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 8d998135-a0af-4e85-a362-4c734b6e1358
   initialGuid: 8d998135-a0af-4e85-a362-4c734b6e1358
   runtimeIndexID: 
@@ -4443,6 +5401,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc9303aa2d135a4798c82e1a456a091, type: 3}
   m_Name: Iron Ore
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 5c216237-e620-401e-861d-3836898e7639
   initialGuid: 5c216237-e620-401e-861d-3836898e7639
   runtimeIndexID: 
@@ -4483,6 +5450,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91a12b211fda2a14c965c8c8af82a4aa, type: 3}
   m_Name: Copper Mountain
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 562cbff7-9b55-4d8b-a71d-418e4fd11e47
   initialGuid: 562cbff7-9b55-4d8b-a71d-418e4fd11e47
   runtimeIndexID: 
@@ -4522,6 +5498,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19df7a6b899d74a8f4bd5f23a7b97b, type: 3}
   m_Name: Apple Tree
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 4d5b394f-a647-49fa-a9b3-0e3a6fecc382
   initialGuid: 4d5b394f-a647-49fa-a9b3-0e3a6fecc382
   runtimeIndexID: 
@@ -4566,6 +5551,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04c6722eac38f8341abfa8480d4ca564, type: 3}
   m_Name: Copper Double Bed
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 2eb6da54-5a8c-481b-bb48-f5566a6e4a7e
   initialGuid: 2eb6da54-5a8c-481b-bb48-f5566a6e4a7e
   runtimeIndexID: 
@@ -4614,6 +5608,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ced93b085944109429e3862d6d268ab0, type: 3}
   m_Name: Flower
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: f2155f3f-2cf5-4535-a67e-23faf4057889
   initialGuid: f2155f3f-2cf5-4535-a67e-23faf4057889
   runtimeIndexID: 
@@ -4652,6 +5655,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63bdd0795e6759041a124f39f7ebbbf5, type: 3}
   m_Name: Chris Bolton
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: c1b6a962-9a56-4e5b-9bba-61eb3d8ce9c7
   initialGuid: c1b6a962-9a56-4e5b-9bba-61eb3d8ce9c7
   runtimeIndexID: 
@@ -4763,6 +5775,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76c62dc32f973a478967d098378706b, type: 3}
   m_Name: Steel Bar
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: adeb12f2-e1c2-40d9-9abb-54dd4285c9e8
   initialGuid: adeb12f2-e1c2-40d9-9abb-54dd4285c9e8
   runtimeIndexID: 
@@ -4802,6 +5823,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04c6722eac38f8341abfa8480d4ca564, type: 3}
   m_Name: Double Bed
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: de5ec736-518a-4e41-ba02-529b01b2606c
   initialGuid: de5ec736-518a-4e41-ba02-529b01b2606c
   runtimeIndexID: 
@@ -4849,6 +5879,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1743272e3adb3943af0e7db05085a8a, type: 3}
   m_Name: Apple
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: f0dee880-84a2-4bed-a541-4b7240e4149f
   initialGuid: f0dee880-84a2-4bed-a541-4b7240e4149f
   runtimeIndexID: 
@@ -4880,6 +5919,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e406d9610e5a3d43b2bebefe90deecd, type: 3}
   m_Name: Door
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: cc50de91-e3e1-441a-900a-7c7ac11ffae9
   initialGuid: cc50de91-e3e1-441a-900a-7c7ac11ffae9
   runtimeIndexID: 
@@ -4923,6 +5971,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc957fd26344204d8c99b17b78b454d, type: 3}
   m_Name: Coal Mountain
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 3d1d0153-af20-46da-bd0e-c6ce08d4fc04
   initialGuid: 3d1d0153-af20-46da-bd0e-c6ce08d4fc04
   runtimeIndexID: 
@@ -4962,6 +6019,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ced93b085944109429e3862d6d268ab0, type: 3}
   m_Name: Mushroom
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 3ec26f38-1aef-4c72-adf7-6ca70da0a6a6
   initialGuid: 3ec26f38-1aef-4c72-adf7-6ca70da0a6a6
   runtimeIndexID: 
@@ -5000,6 +6066,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91a12b211fda2a14c965c8c8af82a4aa, type: 3}
   m_Name: Iron Mountain
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 61338dc0-7575-4a12-b670-c3f1d60fd1cc
   initialGuid: 61338dc0-7575-4a12-b670-c3f1d60fd1cc
   runtimeIndexID: 
@@ -5270,43 +6345,21 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Resource.GrowingResourceData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -5611,54 +6664,6 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Item.CraftingTableData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
@@ -5702,6 +6707,16 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
+    - type: Data.Zones.StockpileZoneData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+    - type: Data.Zones.FarmingZoneData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
+      - {fileID: 0}
     _favoriteList: []
   copyData:
     _objectList: []
@@ -5711,6 +6726,7 @@ MonoBehaviour:
   runtimeLibrary: {fileID: 0}
   runtimeLibraryGuid: 
   runtimeLibraryFolderPath: 
+  initialLibrary: {fileID: 11400000}
   modules: []
   existingNamespaces:
   - namespaceName: Settings
@@ -5718,15 +6734,15 @@ MonoBehaviour:
     hidden: 0
     icon: 
     existingTypes:
-    - typeName: WallSettings
-      typeAssemblyQualifiedName: Data.Structure.WallSettings, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+    - typeName: CraftedItemSettings
+      typeAssemblyQualifiedName: Data.Item.CraftedItemSettings, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-    - typeName: DyeData
-      typeAssemblyQualifiedName: Data.Dye.DyeData, Assembly-CSharp, Version=0.0.0.0,
+    - typeName: MealSettings
+      typeAssemblyQualifiedName: Data.Item.MealSettings, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
@@ -5735,6 +6751,13 @@ MonoBehaviour:
     - typeName: CraftingTableSettings
       typeAssemblyQualifiedName: Data.Item.CraftingTableSettings, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: StorageSettings
+      typeAssemblyQualifiedName: Data.Item.StorageSettings, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
       titlesFilter: []
@@ -5760,22 +6783,29 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-    - typeName: ResourceSettings
-      typeAssemblyQualifiedName: Data.Resource.ResourceSettings, Assembly-CSharp,
+    - typeName: StockpileZoneSettings
+      typeAssemblyQualifiedName: Data.Zones.StockpileZoneSettings, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: FarmingZoneSettings
+      typeAssemblyQualifiedName: Data.Zones.FarmingZoneSettings, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: WallSettings
+      typeAssemblyQualifiedName: Data.Structure.WallSettings, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
     - typeName: DoorSettings
       typeAssemblyQualifiedName: Data.Structure.DoorSettings, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: MealSettings
-      typeAssemblyQualifiedName: Data.Item.MealSettings, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
@@ -5788,22 +6818,8 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-    - typeName: RawFoodSettings
-      typeAssemblyQualifiedName: Data.Item.RawFoodSettings, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: CraftedItemSettings
-      typeAssemblyQualifiedName: Data.Item.CraftedItemSettings, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: StorageSettings
-      typeAssemblyQualifiedName: Data.Item.StorageSettings, Assembly-CSharp, Version=0.0.0.0,
+    - typeName: DyeData
+      typeAssemblyQualifiedName: Data.Dye.DyeData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
@@ -5816,8 +6832,29 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
+    - typeName: RawFoodSettings
+      typeAssemblyQualifiedName: Data.Item.RawFoodSettings, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
     - typeName: FurnitureSettings
       typeAssemblyQualifiedName: Data.Item.FurnitureSettings, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: ResourceSettings
+      typeAssemblyQualifiedName: Data.Resource.ResourceSettings, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: ZoneSettings
+      typeAssemblyQualifiedName: Data.Zones.ZoneSettings, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
@@ -5865,6 +6902,27 @@ MonoBehaviour:
       valuesFilter: []
     - typeName: CraftedItemData
       typeAssemblyQualifiedName: Data.Item.CraftedItemData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: MealData
+      typeAssemblyQualifiedName: Data.Item.MealData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: StockpileZoneData
+      typeAssemblyQualifiedName: Data.Zones.StockpileZoneData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: FarmingZoneData
+      typeAssemblyQualifiedName: Data.Zones.FarmingZoneData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
@@ -5919,13 +6977,6 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-    - typeName: MealData
-      typeAssemblyQualifiedName: Data.Item.MealData, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
     - typeName: RawFoodData
       typeAssemblyQualifiedName: Data.Item.RawFoodData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
@@ -5935,6 +6986,13 @@ MonoBehaviour:
       valuesFilter: []
     - typeName: KinlingData
       typeAssemblyQualifiedName: Characters.KinlingData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: ZoneData
+      typeAssemblyQualifiedName: Data.Zones.ZoneData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
@@ -5958,6 +7016,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19df7a6b899d74a8f4bd5f23a7b97b, type: 3}
   m_Name: Bush
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 76af91d7-2afe-4b5a-bb93-af10bc274976
   initialGuid: 76af91d7-2afe-4b5a-bb93-af10bc274976
   runtimeIndexID: 
@@ -6002,6 +7069,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ced93b085944109429e3862d6d268ab0, type: 3}
   m_Name: Weed
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: aa83ad2b-3409-48de-972e-a7a1de339053
   initialGuid: aa83ad2b-3409-48de-972e-a7a1de339053
   runtimeIndexID: 
@@ -6040,6 +7116,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19df7a6b899d74a8f4bd5f23a7b97b, type: 3}
   m_Name: Orange Tree
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: e0255c29-3abd-45e0-9687-717179ab94a8
   initialGuid: e0255c29-3abd-45e0-9687-717179ab94a8
   runtimeIndexID: 
@@ -6084,6 +7169,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07dda6669ad0ad34a9ba54536b259a5f, type: 3}
   m_Name: Meal Item
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: f63f9a96-9367-4c89-8e47-ff4ac7ab7c02
   initialGuid: f63f9a96-9367-4c89-8e47-ff4ac7ab7c02
   runtimeIndexID: 
@@ -6126,6 +7220,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc4ad9caa0871b4bb4447dadd911f42, type: 3}
   m_Name: Pink
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: a7e9b260-11a9-48dd-9ebd-58b5c19e9bc7
   initialGuid: a7e9b260-11a9-48dd-9ebd-58b5c19e9bc7
   runtimeIndexID: 
@@ -6155,6 +7258,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a01c9c06b2901384fb716247a2f4001a, type: 3}
   m_Name: Basic Cooking Area
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 8ed716ae-3014-4d9c-9dd2-00ddefd8649d
   initialGuid: 8ed716ae-3014-4d9c-9dd2-00ddefd8649d
   runtimeIndexID: 
