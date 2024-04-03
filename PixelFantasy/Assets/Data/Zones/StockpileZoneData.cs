@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using Data.Item;
 using Databrain.Attributes;
+using Systems.Zones.Scripts;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Data.Zones
 {
@@ -25,5 +27,9 @@ namespace Data.Zones
 
             ZoneName = $"Stockpile {AssignedLayer}";
         }
+        
+        public override Color ZoneColour => Settings.ZoneColour;
+        public override TileBase DefaultTiles => Settings.DefaultTiles;
+        public override TileBase SelectedTiles => Settings.SelectedTiles;
     }
 }

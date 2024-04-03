@@ -26,6 +26,16 @@ public static class Helper
         
         return new Vector2(xGrid, yGrid);
     }
+    
+    public static Vector3Int ConvertMousePosToGridCell(Vector2 mousePos)
+    {
+        int xGrid, yGrid;
+
+        xGrid = (int)(mousePos.x);
+        yGrid = (int)(mousePos.y);
+        
+        return new Vector3Int(xGrid, yGrid);
+    }
 
     
     /// <summary>

@@ -8,7 +8,8 @@ namespace Data.Zones
     // [UseOdinInspector]
     public class ZoneSettings : DataObject
     {
-        public TileBase Tiles;
+        public TileBase DefaultTiles;
+        public TileBase SelectedTiles;
         public EZoneType ZoneType;
         public Color ZoneColour;
     }

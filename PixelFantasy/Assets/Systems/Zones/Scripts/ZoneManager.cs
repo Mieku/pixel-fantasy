@@ -27,19 +27,37 @@ namespace Systems.Zones.Scripts
         private bool _isPlanning;
         private Vector2 _startPos;
         private List<Vector2> _plannedGrid = new List<Vector2>();
-        private List<TilePlan> _plannedTiles = new List<TilePlan>();
-        
+        private readonly List<TilePlan> _plannedTiles = new List<TilePlan>();
         private List<ZoneData> _currentZones = new List<ZoneData>();
-        private List<StockpileZoneData> _currentStockpileZones = new List<StockpileZoneData>();
-        private List<FarmingZoneData> _currentFarmZones = new List<FarmingZoneData>();
        
-        private List<string> _invalidPlacementTags => new List<string>() { "Water", "Zone"};
+        private List<string> _invalidPlacementTags => new List<string>() { "Water", "Zone", "Obstacle"};
 
         private ZoneSettings _curZoneSettings;
+        private ZoneData _curSelectedZone;
 
         public void SelectZone(ZoneData zone)
         {
-            Debug.Log(zone.ZoneName + " was selected");
+            UnselectZone();
+            _curSelectedZone = zone;
+            
+            var tilemap = _zoneLayeredTilemap.GetLayer(zone.AssignedLayer);
+            foreach (var cell in zone.Cells)
+            {
+                tilemap.SetTile(cell, zone.SelectedTiles);
+            }
+        }
+
+        public void UnselectZone()
+        {
+            if (_curSelectedZone != null)
+            {
+                var tilemap = _zoneLayeredTilemap.GetLayer(_curSelectedZone.AssignedLayer);
+                foreach (var cell in _curSelectedZone.Cells)
+                {
+                    tilemap.SetTile(cell, _curSelectedZone.DefaultTiles);
+                }
+                _curSelectedZone = null;
+            }
         }
 
         public void BeginPlanningZone(ZoneSettings zoneSettings)
@@ -80,7 +98,11 @@ namespace Systems.Zones.Scripts
         
         protected void GameEvents_OnRightClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
         {
-            if(!_isEnabled) return;
+            if (!_isEnabled)
+            {
+                UnselectZone();
+                return;
+            }
             
             CancelZone();
         }
@@ -110,18 +132,18 @@ namespace Systems.Zones.Scripts
             {
                 SpawnPlannedZone();
             }
-            else
-            {
-                if (!isOverUI)
-                {
-                    int layer = _zoneLayeredTilemap.GetLowestNotUsedLayer();
-                    List<Vector2> cells = new List<Vector2>();
-                    cells.Add(Helper.ConvertMousePosToGridPos(mousePos));
-                    SpawnZone(cells.First(), layer);
-                    var zone = CreateZone(cells, layer);
-                    SelectZone(zone);
-                }
-            }
+            // else
+            // {
+            //     if (!isOverUI)
+            //     {
+            //         int layer = _zoneLayeredTilemap.GetLowestNotUsedLayer();
+            //         List<Vector3Int> cells = new List<Vector3Int>();
+            //         cells.Add(Helper.ConvertMousePosToGridCell(mousePos));
+            //         SpawnZone(cells.First(), layer);
+            //         var zone = CreateZone(cells, layer);
+            //         SelectZone(zone);
+            //     }
+            // }
         }
         
         private void PlanZone(Vector2 mousePos)
@@ -129,9 +151,7 @@ namespace Systems.Zones.Scripts
             Spawner.Instance.ShowPlacementIcon(false);
             
             Vector3 curGridPos = Helper.ConvertMousePosToGridPos(mousePos);
-            List<Vector2> gridPositions = new List<Vector2>();
-            
-            gridPositions = Helper.GetRectangleGridPositionsBetweenPoints(_startPos, curGridPos);
+            List<Vector2> gridPositions = Helper.GetRectangleGridPositionsBetweenPoints(_startPos, curGridPos);
             
             if (gridPositions.Count != _plannedGrid.Count)
             {
@@ -157,7 +177,7 @@ namespace Systems.Zones.Scripts
                         placementColour = Librarian.Instance.GetColour("Placement Red");
                     }
                 
-                    tilePlan.Init(_curZoneSettings.Tiles, tileMap, placementColour);
+                    tilePlan.Init(_curZoneSettings.DefaultTiles, tileMap, placementColour);
             
                     _plannedTiles.Add(tilePlan);
                 }
@@ -173,12 +193,17 @@ namespace Systems.Zones.Scripts
             ClearTilePlan();
 
 
-            List<Vector2> validGrid = new List<Vector2>();
+            List<Vector3Int> validGrid = new List<Vector3Int>();
             foreach (var gridPos in _plannedGrid)
             {
                 if (Helper.IsGridPosValidToBuild(gridPos, _invalidPlacementTags))
                 {
-                    validGrid.Add(gridPos);
+                    Vector3Int cell = new Vector3Int
+                    {
+                        x = (int)gridPos.x,
+                        y = (int)gridPos.y
+                    };
+                    validGrid.Add(cell);
                     SpawnZone(gridPos, zoneLayer);
                 }
             }
@@ -191,18 +216,17 @@ namespace Systems.Zones.Scripts
             SelectZone(zone);
         }
         
-        public ZoneData CreateZone(List<Vector2> tilePositions, int layer)
+        public ZoneData CreateZone(List<Vector3Int> tilePositions, int layer)
         {
             List<ZoneCellObject> cellObjects = new List<ZoneCellObject>();
             switch (_curZoneSettings.ZoneType)
             {
                 case EZoneType.Stockpile:
                     var stockpileRuntimeData = (StockpileZoneData)DataLibrary.CloneDataObjectToRuntime(_genericStockpileZoneData);
-                    stockpileRuntimeData.Cells = new List<Vector2>(tilePositions);
+                    stockpileRuntimeData.Cells = new List<Vector3Int>(tilePositions);
                     stockpileRuntimeData.AssignedLayer = layer;
                     stockpileRuntimeData.IsVisible = _zonesVisible;
                     stockpileRuntimeData.InitData((StockpileZoneSettings)_curZoneSettings);
-                    _currentStockpileZones.Add(stockpileRuntimeData);
                     _currentZones.Add(stockpileRuntimeData);
                     
                     foreach (var tilePosition in tilePositions)
@@ -220,11 +244,10 @@ namespace Systems.Zones.Scripts
                     return stockpileRuntimeData;
                 case EZoneType.Farm:
                     var farmRuntimeData = (FarmingZoneData)DataLibrary.CloneDataObjectToRuntime(_genericFarmZoneData);
-                    farmRuntimeData.Cells = new List<Vector2>(tilePositions);
+                    farmRuntimeData.Cells = new List<Vector3Int>(tilePositions);
                     farmRuntimeData.AssignedLayer = layer;
                     farmRuntimeData.IsVisible = _zonesVisible;
                     farmRuntimeData.InitData((FarmingZoneSettings)_curZoneSettings);
-                    _currentFarmZones.Add(farmRuntimeData);
                     _currentZones.Add(farmRuntimeData);
                     
                     foreach (var tilePosition in tilePositions)
@@ -251,8 +274,24 @@ namespace Systems.Zones.Scripts
             {
                 var tileMap = _zoneLayeredTilemap.FindOrCreateLayer(layer);
                 var cell = tileMap.WorldToCell(spawnPosition);
-                tileMap.SetTile(cell, _curZoneSettings.Tiles);
+                tileMap.SetTile(cell, _curZoneSettings.DefaultTiles);
                 tileMap.SetColor(cell, _curZoneSettings.ZoneColour);
+            }
+        }
+
+        public void ColourZone(ZoneData zone, Color? colour)
+        {
+            var tilemap = _zoneLayeredTilemap.GetLayer(zone.AssignedLayer);
+            foreach (var cell in zone.Cells)
+            {
+                if (colour == null)
+                {
+                    tilemap.SetColor(cell, zone.ZoneColour);
+                }
+                else
+                {
+                    tilemap.SetColor(cell, (Color)colour);
+                }
             }
         }
     
