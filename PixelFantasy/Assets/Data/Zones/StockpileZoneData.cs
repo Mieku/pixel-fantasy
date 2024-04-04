@@ -24,6 +24,7 @@ namespace Data.Zones
         {
             Settings = settings;
             PlayerSettings = settings.DefaultPlayerSettings;
+            IsEnabled = true;
 
             ZoneName = $"Stockpile {AssignedLayer}";
         }
@@ -31,5 +32,6 @@ namespace Data.Zones
         public override Color ZoneColour => Settings.ZoneColour;
         public override TileBase DefaultTiles => Settings.DefaultTiles;
         public override TileBase SelectedTiles => Settings.SelectedTiles;
+        public override EZoneType ZoneType => EZoneType.Stockpile;
     }
 }

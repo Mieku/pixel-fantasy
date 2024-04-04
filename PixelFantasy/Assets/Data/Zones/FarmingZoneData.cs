@@ -13,10 +13,12 @@ namespace Data.Zones
         public void InitData(FarmingZoneSettings settings)
         {
             Settings = settings;
+            IsEnabled = true;
         }
 
         public override Color ZoneColour => Settings.ZoneColour;
         public override TileBase DefaultTiles => Settings.DefaultTiles;
         public override TileBase SelectedTiles => Settings.SelectedTiles;
+        public override EZoneType ZoneType => EZoneType.Farm;
     }
 }

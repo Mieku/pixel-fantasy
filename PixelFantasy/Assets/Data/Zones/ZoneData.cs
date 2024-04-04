@@ -23,13 +23,14 @@ namespace Data.Zones
         public int AssignedLayer;
 
         [ExposeToInspector, DatabrainSerialize]
-        public bool IsVisible;
+        public bool IsEnabled;
 
         public int NumCells => Cells.Count;
         
         public abstract Color ZoneColour { get; }
         public abstract TileBase DefaultTiles { get; }
         public abstract TileBase SelectedTiles { get; }
+        public abstract EZoneType ZoneType { get; }
         
         public virtual void SelectZone()
         {

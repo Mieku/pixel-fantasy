@@ -4,6 +4,7 @@ using Buildings;
 using Characters;
 using Controllers;
 using Data.Item;
+using Data.Zones;
 using Interfaces;
 using Items;
 using ScriptableObjects;
@@ -20,6 +21,7 @@ namespace HUD
     public class SelectedItemInfoPanel : MonoBehaviour
     {
         [Header("Generic Details")] 
+        [SerializeField] private ZoneDetails _zoneDetails;
         //[SerializeField] private GenericDetailsUI _genericDetails;
 
         [Header("Kinling Details")] 
@@ -49,6 +51,7 @@ namespace HUD
         public void HideAllDetails()
         {
             //_genericDetails.Hide();
+            _zoneDetails.Hide();
             _kinlingDetails.Hide();
             _buildFurnitureDetails.Hide();
             _buildStructureDetails.Hide();
@@ -60,6 +63,14 @@ namespace HUD
         {
             HideAllDetails();
             _notificationLogger.Hide();
+        }
+
+        public void ShowZoneDetails(ZoneData zoneData)
+        {
+            HideAllDetails();
+            _notificationLogger.Hide();
+            
+            _zoneDetails.Show(zoneData);
         }
 
         public void ShowBuildFurnitureDetails(string header, List<FurnitureSettings> options )

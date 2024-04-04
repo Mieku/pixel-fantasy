@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
 using Controllers;
-using Data.Item;
-using Data.Structure;
 using Data.Zones;
 using HUD.Tooltip;
 using Systems.Zones.Scripts;
@@ -20,13 +17,11 @@ namespace Systems.Build_Controls.Scripts
         [SerializeField] private Sprite _highlightedBtn;
 
         private Action<ZoneSubCategoryBtn> _onSelectedCallback;
-        private string _optionName;
         private ZoneSettings _zoneSettings;
 
         public void Init(string optionName, Sprite icon, ZoneSettings zoneSettings, Action<ZoneSubCategoryBtn> onSelectedCallback)
         {
             _tooltip.Header = optionName;
-            _optionName = optionName;
             _zoneSettings = zoneSettings;
             _btnIcon.sprite = icon;
             _onSelectedCallback = onSelectedCallback;
@@ -36,8 +31,12 @@ namespace Systems.Build_Controls.Scripts
         {
             HighlightBtn(true);
             
-            //HUDController.Instance.ShowBuildFurnitureDetails($"{_optionName} Furniture", new List<ZoneSettings>(_options));
-            ZoneManager.Instance.BeginPlanningZone(_zoneSettings);
+            ZoneManager.Instance.BeginPlanningZone(_zoneSettings, PlanningCompleteCallback);
+        }
+
+        private void PlanningCompleteCallback()
+        {
+            HighlightBtn(false);
         }
 
         public void Cancel()

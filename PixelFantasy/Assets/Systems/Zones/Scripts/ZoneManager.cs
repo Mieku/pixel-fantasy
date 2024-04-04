@@ -4,6 +4,7 @@ using System.Linq;
 using Controllers;
 using Data.Zones;
 using Databrain;
+using HUD;
 using Managers;
 using Systems.Build_Controls.Scripts;
 using Systems.CursorHandler.Scripts;
@@ -21,8 +22,7 @@ namespace Systems.Zones.Scripts
         [SerializeField] private StockpileZoneData _genericStockpileZoneData;
         [SerializeField] private FarmingZoneData _genericFarmZoneData;
         [SerializeField] private ZoneCellObject _zoneCellObjectPrefab;
-
-        private bool _zonesVisible;
+        
         private bool _isEnabled;
         private bool _isPlanning;
         private Vector2 _startPos;
@@ -34,6 +34,7 @@ namespace Systems.Zones.Scripts
 
         private ZoneSettings _curZoneSettings;
         private ZoneData _curSelectedZone;
+        private Action _planningCompleteCallback;
 
         public void SelectZone(ZoneData zone)
         {
@@ -45,6 +46,8 @@ namespace Systems.Zones.Scripts
             {
                 tilemap.SetTile(cell, zone.SelectedTiles);
             }
+            
+            HUDController.Instance.ShowZoneDetails(zone);
         }
 
         public void UnselectZone()
@@ -57,19 +60,43 @@ namespace Systems.Zones.Scripts
                     tilemap.SetTile(cell, _curSelectedZone.DefaultTiles);
                 }
                 _curSelectedZone = null;
+                
+                HUDController.Instance.HideDetails();
             }
         }
 
-        public void BeginPlanningZone(ZoneSettings zoneSettings)
+        public void DeleteZone(ZoneData zoneData)
+        {
+            _currentZones.Remove(zoneData);
+            
+            var tileMap = _zoneLayeredTilemap.FindOrCreateLayer(zoneData.AssignedLayer);
+            foreach (var cellPos in zoneData.Cells)
+            {
+                var cell = tileMap.WorldToCell(cellPos);
+                tileMap.SetTile(cell, null);
+            }
+            
+            _zoneLayeredTilemap.RemoveLayer(zoneData.AssignedLayer);
+
+            foreach (var cellObject in zoneData.ZoneCellObjects)
+            {
+                Destroy(cellObject.gameObject);
+            }
+
+            DataLibrary.RemoveDataObjectFromRuntime(zoneData);
+        }
+
+        public void BeginPlanningZone(ZoneSettings zoneSettings, Action planningCompleteCallback)
         {
             _curZoneSettings = zoneSettings;
+            _planningCompleteCallback = planningCompleteCallback;
             
             CursorManager.Instance.ChangeCursorState(ECursorState.AreaSelect);
             Spawner.Instance.ShowPlacementIcon(true, _placementIcon, _invalidPlacementTags);
             _isEnabled = true;
         }
         
-        public void CancelZone()
+        public void CancelZonePlanning()
         {
             _isEnabled = false;
             CursorManager.Instance.ChangeCursorState(ECursorState.Default);
@@ -77,6 +104,7 @@ namespace Systems.Zones.Scripts
             
             ClearTilePlan();
             _curZoneSettings = null;
+            _planningCompleteCallback?.Invoke();
         }
         
         protected override void Awake()
@@ -104,7 +132,7 @@ namespace Systems.Zones.Scripts
                 return;
             }
             
-            CancelZone();
+            CancelZonePlanning();
         }
     
         protected void GameEvents_OnLeftClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
@@ -131,19 +159,8 @@ namespace Systems.Zones.Scripts
             if (_isPlanning)
             {
                 SpawnPlannedZone();
+                CancelZonePlanning();
             }
-            // else
-            // {
-            //     if (!isOverUI)
-            //     {
-            //         int layer = _zoneLayeredTilemap.GetLowestNotUsedLayer();
-            //         List<Vector3Int> cells = new List<Vector3Int>();
-            //         cells.Add(Helper.ConvertMousePosToGridCell(mousePos));
-            //         SpawnZone(cells.First(), layer);
-            //         var zone = CreateZone(cells, layer);
-            //         SelectZone(zone);
-            //     }
-            // }
         }
         
         private void PlanZone(Vector2 mousePos)
@@ -225,7 +242,6 @@ namespace Systems.Zones.Scripts
                     var stockpileRuntimeData = (StockpileZoneData)DataLibrary.CloneDataObjectToRuntime(_genericStockpileZoneData);
                     stockpileRuntimeData.Cells = new List<Vector3Int>(tilePositions);
                     stockpileRuntimeData.AssignedLayer = layer;
-                    stockpileRuntimeData.IsVisible = _zonesVisible;
                     stockpileRuntimeData.InitData((StockpileZoneSettings)_curZoneSettings);
                     _currentZones.Add(stockpileRuntimeData);
                     
@@ -246,7 +262,6 @@ namespace Systems.Zones.Scripts
                     var farmRuntimeData = (FarmingZoneData)DataLibrary.CloneDataObjectToRuntime(_genericFarmZoneData);
                     farmRuntimeData.Cells = new List<Vector3Int>(tilePositions);
                     farmRuntimeData.AssignedLayer = layer;
-                    farmRuntimeData.IsVisible = _zonesVisible;
                     farmRuntimeData.InitData((FarmingZoneSettings)_curZoneSettings);
                     _currentZones.Add(farmRuntimeData);
                     
@@ -305,7 +320,7 @@ namespace Systems.Zones.Scripts
             _plannedTiles.Clear();
         }
 
-        public Vector2 ZoneCenter(List<Vector2> cells)
+        public Vector2 ZoneCenter(List<Vector3Int> cells)
         {
             List<float> horCells = new List<float>();
             List<float> vertCells = new List<float>();
@@ -329,9 +344,12 @@ namespace Systems.Zones.Scripts
             var vertMin = vertCells.Min();
             var vertMax = vertCells.Max();
 
-            Vector2 result = new Vector2();
-            result.x = (horMin + horMax) / 2f;
-            result.y = (vertMin + vertMax) / 2f;
+            Vector2 result = new Vector2
+            {
+                x = (horMin + horMax) / 2f,
+                y = (vertMin + vertMax) / 2f
+            };
+            
             return result;
         }
     }

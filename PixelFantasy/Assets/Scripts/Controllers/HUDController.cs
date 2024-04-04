@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Buildings;
 using Characters;
 using Data.Item;
+using Data.Zones;
 using HUD;
 using Interfaces;
 using Items;
@@ -48,6 +49,13 @@ namespace Controllers
         public void ShowItemDetails(IClickableObject clickableObject)
         {
             _selectedItemInfoPanel.ShowItemDetails(clickableObject);
+        }
+
+        public void ShowZoneDetails(ZoneData zoneData)
+        {
+            HideDetails();
+            
+            _selectedItemInfoPanel.ShowZoneDetails(zoneData);
         }
 
         public void ShowBuildFurnitureDetails(string header, List<FurnitureSettings> options )
