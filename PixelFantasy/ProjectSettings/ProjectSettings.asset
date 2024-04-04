@@ -696,7 +696,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Standalone: ODIN_INSPECTOR;ODIN_INSPECTOR_3;NODECANVAS;QC_DISABLE_BUILTIN_ALL
+    Standalone: ODIN_INSPECTOR;ODIN_INSPECTOR_3;NODECANVAS;QC_DISABLE_BUILTIN_ALL;ODIN_INSPECTOR_3_1
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}
