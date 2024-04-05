@@ -36,6 +36,7 @@ MonoBehaviour:
     - Databrain
     - NodeCanvas
     - QFSW.QC.Extras
+    - PPv2URPConverters
     - QFSW.QC
     - ParadoxNotion
     - TileWorldCreator

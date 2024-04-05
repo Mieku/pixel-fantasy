@@ -49,10 +49,12 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -166,6 +168,7 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3448804361492490818}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -189,7 +192,8 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,7 +204,6 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &5442789227045615136
@@ -221,15 +224,20 @@ MonoBehaviour:
   PendingCommand: {fileID: 0}
   _spriteRenderer: {fileID: 0}
   _clickObject: {fileID: 0}
-  _defaultClearCmd: {fileID: 11400000, guid: 90beea586271c8b42a6c9334b222964d, type: 2}
+  _defaultExtractCmd: {fileID: 11400000, guid: 90beea586271c8b42a6c9334b222964d, type: 2}
   _obstacleBox: {fileID: 9173330314039135114}
   _workPoints:
   - {fileID: 6040273706388099998}
   - {fileID: 6841534660435251749}
   - {fileID: 7499908909959832951}
   - {fileID: 2117584734873401374}
+  _invalidPlacementTags:
+  - Water
+  - Wall
+  - Obstacle
+  - Nature
+  - Structure
   DataLibrary: {fileID: 11400000, guid: f88f4256e274c364981fac582520b73b, type: 2}
-  Data: {fileID: 0}
   RuntimeData: {fileID: 0}
   _tempPlacementDisp: {fileID: 6838393442220519969}
   _selectionTintColour: {r: 0.7529412, g: 0.8980392, b: 0.65882355, a: 1}
@@ -453,10 +461,12 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
