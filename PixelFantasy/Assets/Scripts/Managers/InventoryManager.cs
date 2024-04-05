@@ -12,23 +12,9 @@ namespace Managers
 {
     public class InventoryManager : Singleton<InventoryManager>
     {
-        private List<Storage> _allStorage = new List<Storage>();
-
-        public Storage FindStorageByUID(string uid)
-        {
-            foreach (var storage in _allStorage)
-            {
-                if (storage.UniqueId == uid)
-                {
-                    return storage;
-                }
-            }
-
-            Debug.LogError($"Storage with UID: {uid} can't be found");
-            return null;
-        }
+        private List<IStorage> _allStorage = new List<IStorage>();
         
-        public void AddStorage(Storage storage)
+        public void AddStorage(IStorage storage)
         {
             if (_allStorage.Contains(storage))
             {
@@ -39,7 +25,7 @@ namespace Managers
             _allStorage.Add(storage);
         }
 
-        public void RemoveStorage(Storage storage)
+        public void RemoveStorage(IStorage storage)
         {
             _allStorage.Remove(storage);
         }
@@ -52,7 +38,7 @@ namespace Managers
             foreach (var storage in _allStorage)
             {
                 if (storage.IsAvailable
-                    && storage.RuntimeStorageData.IsItemInStorage(itemSettings))
+                    && storage.IsItemInStorage(itemSettings))
                 {
                     return true;
                 }
@@ -66,7 +52,7 @@ namespace Managers
             foreach (var storage in _allStorage)
             {
                 if (storage.IsAvailable
-                    && storage.RuntimeStorageData.IsSpecificItemInStorage(specificItem))
+                    && storage.IsSpecificItemInStorage(specificItem))
                 {
                     return true;
                 }
@@ -75,26 +61,12 @@ namespace Managers
             return false;
         }
         
-        public Storage GetAvailableStorage(ItemSettings itemSettings)
+        public IStorage GetAvailableStorage(ItemSettings itemSettings)
         {
             foreach (var storage in _allStorage)
             {
                 if(storage.IsAvailable 
-                   && storage.RuntimeStorageData.AmountCanBeDeposited(itemSettings) > 0)
-                {
-                    return storage;
-                }
-            }
-
-            return null;
-        }
-        
-        public Storage FindAvailableStorage(ItemSettings itemSettings)
-        {
-            foreach (var storage in _allStorage)
-            {
-                if(storage.IsAvailable 
-                   && storage.RuntimeStorageData.AmountCanBeDeposited(itemSettings) > 0)
+                   && storage.AmountCanBeDeposited(itemSettings) > 0)
                 {
                     return storage;
                 }
@@ -109,7 +81,7 @@ namespace Managers
             {
                 if (storage.IsAvailable)
                 {
-                    var item = storage.RuntimeStorageData.GetItemDataOfType(itemSettings);
+                    var item = storage.GetItemDataOfType(itemSettings);
                     if (item != null)
                     {
                         return item;
@@ -146,7 +118,7 @@ namespace Managers
         {
             foreach (var storage in _allStorage)
             {
-                var storedItems = storage.RuntimeStorageData.GetAllToolItems();
+                var storedItems = storage.GetAllToolItems();
                 foreach (var tool in storedItems)
                 {
                     if (tool.ToolType == toolType)
@@ -164,7 +136,7 @@ namespace Managers
             List<ToolData> potentialItems = new List<ToolData>();
             foreach (var storage in _allStorage)
             {
-                var storedItems = storage.RuntimeStorageData.GetAllToolItems();
+                var storedItems = storage.GetAllToolItems();
                 foreach (var tool in storedItems)
                 {
                     if (tool.ToolType == toolType)
@@ -191,8 +163,8 @@ namespace Managers
             List<T> results = new List<T>();
             foreach (var storage in _allStorage)
             {
-                var storedTypeList = storage.RuntimeStorageData.Stored.OfType<T>().ToList();
-                var claimedTypeList = storage.RuntimeStorageData.Claimed.OfType<T>().ToList();
+                var storedTypeList = storage.Stored.OfType<T>().ToList();
+                var claimedTypeList = storage.Claimed.OfType<T>().ToList();
             
                 foreach (var storedItem in storedTypeList)
                 {

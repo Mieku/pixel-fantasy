@@ -39,6 +39,7 @@ MonoBehaviour:
   SelectedTiles: {fileID: 11400000, guid: 7cf75855099f67a4db967a56a43619ce, type: 2}
   ZoneType: 0
   ZoneColour: {r: 0.2863564, g: 0.42566785, b: 0.9339623, a: 1}
+  CellPrefab: {fileID: 6308864470507814828, guid: 8ae4e74d9483cdb4d8cd74d97d5e865c, type: 3}
   DefaultPlayerSettings:
     UsePriority: 2
     DurabilityRange: {x: 0, y: 100}
@@ -194,7 +195,10 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: AssignedStorage
+      Entry: 6
+      Data: 
   guid: 35c873a7-4c07-40c4-aab1-eee6f273b11f
   initialGuid: 35c873a7-4c07-40c4-aab1-eee6f273b11f
   runtimeIndexID: 
@@ -219,7 +223,6 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   CarryingKinlingUID: 
-  AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
   Settings: {fileID: 0}
@@ -244,7 +247,10 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: AssignedStorage
+      Entry: 6
+      Data: 
   guid: cd3a9e7b-2a68-4759-8237-7344b86a4324
   initialGuid: cd3a9e7b-2a68-4759-8237-7344b86a4324
   runtimeIndexID: 
@@ -269,7 +275,6 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   CarryingKinlingUID: 
-  AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
   Settings: {fileID: 0}
@@ -310,6 +315,7 @@ MonoBehaviour:
   boxFoldout: 0
   _category: 0
   _maxDurability: 100
+  _maxStackSize: 25
   _baseData: {fileID: 4384225487442251340}
 --- !u!114 &-7537548514081941852
 MonoBehaviour:
@@ -622,7 +628,10 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: AssignedStorage
+      Entry: 6
+      Data: 
   guid: 45c78f33-b1f4-418a-acbf-ce48e4560474
   initialGuid: 45c78f33-b1f4-418a-acbf-ce48e4560474
   runtimeIndexID: 
@@ -647,7 +656,6 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   CarryingKinlingUID: 
-  AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
   Settings: {fileID: 0}
@@ -855,7 +863,7 @@ MonoBehaviour:
   boxFoldout: 0
   ZoneName: 
   Cells: []
-  ZoneCellObjects: []
+  ZoneCells: []
   AssignedLayer: 0
   IsEnabled: 0
   FarmingSettings: {fileID: 0}
@@ -879,7 +887,10 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: AssignedStorage
+      Entry: 6
+      Data: 
   guid: 92cc9d0d-b047-43cc-9743-9548ca0e6e56
   initialGuid: 92cc9d0d-b047-43cc-9743-9548ca0e6e56
   runtimeIndexID: 
@@ -904,7 +915,6 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   CarryingKinlingUID: 
-  AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
   Settings: {fileID: 0}
@@ -1010,7 +1020,10 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: AssignedStorage
+      Entry: 6
+      Data: 
   guid: b782752e-da24-44fc-822f-ff03c94446a2
   initialGuid: b782752e-da24-44fc-822f-ff03c94446a2
   runtimeIndexID: 
@@ -1035,7 +1048,6 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   CarryingKinlingUID: 
-  AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
   Settings: {fileID: 0}
@@ -1089,6 +1101,7 @@ MonoBehaviour:
   boxFoldout: 0
   _category: 3
   _maxDurability: 100
+  _maxStackSize: 25
   _baseData: {fileID: 8440898394350696192}
   _mealQuality: 0
   _nutrition: 1
@@ -1401,7 +1414,7 @@ MonoBehaviour:
   boxFoldout: 0
   ZoneName: 
   Cells: []
-  ZoneCellObjects: []
+  ZoneCells: []
   AssignedLayer: 0
   IsEnabled: 0
   StockpileSettings: {fileID: 0}
@@ -1480,7 +1493,10 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: AssignedStorage
+      Entry: 6
+      Data: 
   guid: a48cc74b-9f59-4a6f-b554-b8f953276319
   initialGuid: a48cc74b-9f59-4a6f-b554-b8f953276319
   runtimeIndexID: 
@@ -1505,7 +1521,6 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   CarryingKinlingUID: 
-  AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
   Settings: {fileID: 0}
@@ -1644,6 +1659,7 @@ MonoBehaviour:
   boxFoldout: 0
   _category: 3
   _maxDurability: 100
+  _maxStackSize: 25
   _baseData: {fileID: -7963185361307739678}
   _foodType: 0
   _nutrition: 0.5
@@ -1732,6 +1748,7 @@ MonoBehaviour:
   boxFoldout: 0
   _category: 0
   _maxDurability: 100
+  _maxStackSize: 25
   _baseData: {fileID: 6445956091041958653}
 --- !u!114 &-2905673160663084519
 MonoBehaviour:
@@ -1770,6 +1787,7 @@ MonoBehaviour:
   boxFoldout: 0
   _category: 3
   _maxDurability: 100
+  _maxStackSize: 25
   _baseData: {fileID: -7963185361307739678}
   _foodType: 0
   _nutrition: 0.5
@@ -1810,6 +1828,7 @@ MonoBehaviour:
   boxFoldout: 0
   _category: 4
   _maxDurability: 100
+  _maxStackSize: 1
   _baseData: {fileID: 1468006658073743336}
   _craftRequirements:
     _minCraftingSkillLevel: 0
@@ -1868,6 +1887,7 @@ MonoBehaviour:
   boxFoldout: 0
   _category: 4
   _maxDurability: 100
+  _maxStackSize: 1
   _baseData: {fileID: 7235637523369288592}
   _craftRequirements:
     _minCraftingSkillLevel: 3
@@ -2051,6 +2071,7 @@ MonoBehaviour:
   boxFoldout: 0
   _category: 4
   _maxDurability: 100
+  _maxStackSize: 1
   _baseData: {fileID: 6553907554727160304}
   _craftRequirements:
     _minCraftingSkillLevel: 3
@@ -2527,6 +2548,7 @@ MonoBehaviour:
   boxFoldout: 0
   _category: 0
   _maxDurability: 100
+  _maxStackSize: 25
   _baseData: {fileID: 3998079584738369031}
 --- !u!114 &-1021968146556891717
 MonoBehaviour:
@@ -2548,7 +2570,10 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: AssignedStorage
+      Entry: 6
+      Data: 
   guid: 8094b730-76ad-4c26-807c-bbb0e0031ea8
   initialGuid: 8094b730-76ad-4c26-807c-bbb0e0031ea8
   runtimeIndexID: 
@@ -2573,7 +2598,6 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   CarryingKinlingUID: 
-  AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
   Settings: {fileID: 0}
@@ -2741,6 +2765,7 @@ MonoBehaviour:
   boxFoldout: 0
   _category: 4
   _maxDurability: 5
+  _maxStackSize: 0
   _baseData: {fileID: 129112436663426907}
   _craftRequirements:
     _minCraftingSkillLevel: 0
@@ -2848,6 +2873,7 @@ MonoBehaviour:
   boxFoldout: 0
   _category: 0
   _maxDurability: 100
+  _maxStackSize: 25
   _baseData: {fileID: -6683971750745164997}
   _craftRequirements:
     _minCraftingSkillLevel: 2
@@ -3490,7 +3516,10 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: AssignedStorage
+      Entry: 6
+      Data: 
   guid: ece606e3-1a55-418f-a932-5043a451de4d
   initialGuid: ece606e3-1a55-418f-a932-5043a451de4d
   runtimeIndexID: 
@@ -3515,7 +3544,6 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   CarryingKinlingUID: 
-  AssignedStorage: {fileID: 0}
   Position: {x: 25.871244, y: 19.490984}
   LinkedItem: {fileID: 0}
   Settings: {fileID: 0}
@@ -3557,7 +3585,10 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: AssignedStorage
+      Entry: 6
+      Data: 
   guid: 2270cd3f-4dbd-472f-a862-394c3e202dca
   initialGuid: 2270cd3f-4dbd-472f-a862-394c3e202dca
   runtimeIndexID: 
@@ -3582,7 +3613,6 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   CarryingKinlingUID: 
-  AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
   Settings: {fileID: 0}
@@ -3624,6 +3654,7 @@ MonoBehaviour:
   boxFoldout: 0
   _category: 0
   _maxDurability: 100
+  _maxStackSize: 25
   _baseData: {fileID: -5005131501070810583}
 --- !u!114 &366437865215858577
 MonoBehaviour:
@@ -3645,7 +3676,10 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: AssignedStorage
+      Entry: 6
+      Data: 
   guid: 25a63eb3-8fec-4114-a2a2-f3ce0c28f53a
   initialGuid: 25a63eb3-8fec-4114-a2a2-f3ce0c28f53a
   runtimeIndexID: 
@@ -3670,7 +3704,6 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   CarryingKinlingUID: 
-  AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
   Settings: {fileID: 0}
@@ -3927,7 +3960,10 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: AssignedStorage
+      Entry: 6
+      Data: 
   guid: d9eb7d5f-ca20-4b75-9ec9-ff4a422cc645
   initialGuid: d9eb7d5f-ca20-4b75-9ec9-ff4a422cc645
   runtimeIndexID: 
@@ -3952,7 +3988,6 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   CarryingKinlingUID: 
-  AssignedStorage: {fileID: 0}
   Position: {x: 24, y: 24}
   LinkedItem: {fileID: 0}
   Settings: {fileID: 0}
@@ -4079,7 +4114,10 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: AssignedStorage
+      Entry: 6
+      Data: 
   guid: b50399ca-e079-47d7-8232-2a8d2e1448ae
   initialGuid: b50399ca-e079-47d7-8232-2a8d2e1448ae
   runtimeIndexID: 
@@ -4104,7 +4142,6 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   CarryingKinlingUID: 
-  AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
   Settings: {fileID: 0}
@@ -4305,6 +4342,7 @@ MonoBehaviour:
   boxFoldout: 0
   _category: 0
   _maxDurability: 100
+  _maxStackSize: 25
   _baseData: {fileID: -4106105843404846981}
 --- !u!114 &2672976842291651213
 MonoBehaviour:
@@ -4500,6 +4538,7 @@ MonoBehaviour:
   boxFoldout: 0
   _category: 0
   _maxDurability: 100
+  _maxStackSize: 25
   _baseData: {fileID: -7963632896702530702}
   _craftRequirements:
     _minCraftingSkillLevel: 2
@@ -4634,6 +4673,7 @@ MonoBehaviour:
   boxFoldout: 0
   _category: 0
   _maxDurability: 100
+  _maxStackSize: 25
   _baseData: {fileID: -5298398873868244794}
 --- !u!114 &3668364348396301276
 MonoBehaviour:
@@ -4803,7 +4843,10 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: AssignedStorage
+      Entry: 6
+      Data: 
   guid: 4aa46bed-c580-4ec4-b2e4-d7b80adc5227
   initialGuid: 4aa46bed-c580-4ec4-b2e4-d7b80adc5227
   runtimeIndexID: 
@@ -4828,7 +4871,6 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   CarryingKinlingUID: 
-  AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
   Settings: {fileID: 0}
@@ -4869,6 +4911,7 @@ MonoBehaviour:
   boxFoldout: 0
   _category: 0
   _maxDurability: 100
+  _maxStackSize: 25
   _baseData: {fileID: 366437865215858577}
   _craftRequirements:
     _minCraftingSkillLevel: 2
@@ -4898,7 +4941,10 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: AssignedStorage
+      Entry: 6
+      Data: 
   guid: d92893bc-1dbe-42f7-bac6-c4292d8457b5
   initialGuid: d92893bc-1dbe-42f7-bac6-c4292d8457b5
   runtimeIndexID: 
@@ -4923,7 +4969,6 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   CarryingKinlingUID: 
-  AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
   Settings: {fileID: 0}
@@ -5002,6 +5047,7 @@ MonoBehaviour:
   boxFoldout: 0
   _category: 0
   _maxDurability: 100
+  _maxStackSize: 25
   _baseData: {fileID: 1851590692530616479}
 --- !u!114 &4971306714869226098
 MonoBehaviour:
@@ -5410,7 +5456,10 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: AssignedStorage
+      Entry: 6
+      Data: 
   guid: 5c216237-e620-401e-861d-3836898e7639
   initialGuid: 5c216237-e620-401e-861d-3836898e7639
   runtimeIndexID: 
@@ -5435,7 +5484,6 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   CarryingKinlingUID: 
-  AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
   Settings: {fileID: 0}
@@ -5560,7 +5608,10 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: AssignedStorage
+      Entry: 6
+      Data: 
   guid: 2eb6da54-5a8c-481b-bb48-f5566a6e4a7e
   initialGuid: 2eb6da54-5a8c-481b-bb48-f5566a6e4a7e
   runtimeIndexID: 
@@ -5586,7 +5637,6 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   CarryingKinlingUID: 
-  AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
   Settings: {fileID: 0}
@@ -5801,6 +5851,7 @@ MonoBehaviour:
   boxFoldout: 0
   _category: 0
   _maxDurability: 100
+  _maxStackSize: 25
   _baseData: {fileID: 197161459398656425}
   _craftRequirements:
     _minCraftingSkillLevel: 2
@@ -5832,7 +5883,10 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: AssignedStorage
+      Entry: 6
+      Data: 
   guid: de5ec736-518a-4e41-ba02-529b01b2606c
   initialGuid: de5ec736-518a-4e41-ba02-529b01b2606c
   runtimeIndexID: 
@@ -5857,7 +5911,6 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   CarryingKinlingUID: 
-  AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
   Settings: {fileID: 0}
@@ -5905,6 +5958,7 @@ MonoBehaviour:
   boxFoldout: 0
   _category: 3
   _maxDurability: 100
+  _maxStackSize: 25
   _baseData: {fileID: -7963185361307739678}
   _foodType: 0
   _nutrition: 0.5
@@ -6173,6 +6227,406 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Item.CraftedItemData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
@@ -6183,24 +6637,6 @@ MonoBehaviour:
     - type: Data.Resource.ResourceData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -6824,75 +7260,9 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Resource.MountainResourceData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -6995,9 +7365,30 @@ MonoBehaviour:
         PublicKeyToken=null
       dataObjects:
       - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Structure.DoorData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
     - type: Data.Structure.FloorData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
@@ -7006,6 +7397,202 @@ MonoBehaviour:
     - type: Data.Item.RawFoodData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
     - type: Data.Item.MealData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
@@ -7033,6 +7620,7 @@ MonoBehaviour:
     - type: Data.Zones.StockpileZoneData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
       - {fileID: 0}
     - type: Data.Zones.FarmingZoneData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
@@ -7498,7 +8086,10 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: AssignedStorage
+      Entry: 6
+      Data: 
   guid: f63f9a96-9367-4c89-8e47-ff4ac7ab7c02
   initialGuid: f63f9a96-9367-4c89-8e47-ff4ac7ab7c02
   runtimeIndexID: 
@@ -7523,7 +8114,6 @@ MonoBehaviour:
     RequiredToolType: 0
     IsKinlingSpecific: 0
   CarryingKinlingUID: 
-  AssignedStorage: {fileID: 0}
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
   Settings: {fileID: 0}
@@ -7604,6 +8194,7 @@ MonoBehaviour:
   boxFoldout: 0
   _category: 4
   _maxDurability: 5
+  _maxStackSize: 0
   _baseData: {fileID: 129112436663426907}
   _craftRequirements:
     _minCraftingSkillLevel: 0

@@ -11,7 +11,7 @@ namespace TaskSystem
         private CraftingTable _craftingTable;
         private List<ItemData> _claimedIngredients;
         private ETaskState _state;
-        private Storage _receivingStorage;
+        private IStorage _receivingStorage;
         
         private ItemData _targetItem;
         private float _timer;
@@ -45,7 +45,7 @@ namespace TaskSystem
             if (_state == ETaskState.GatherMats)
             {
                 _targetItem = _claimedIngredients[0];
-                _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.AssignedStorage.UseagePosition(_ai.Kinling.transform.position),
+                _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.AssignedStorage.AccessPosition(_ai.transform.position, _targetItem),
                     OnArrivedAtStorageForPickup, OnTaskCancel);
                 _state = ETaskState.WaitingOnMats;
             }
@@ -86,16 +86,16 @@ namespace TaskSystem
                     return;
                 }
                 
-                _receivingStorage.RuntimeStorageData.SetIncoming(_targetItem);
+                _receivingStorage.SetIncoming(_targetItem);
                 
-                _ai.Kinling.KinlingAgent.SetMovePosition(_receivingStorage.UseagePosition(_ai.Kinling.transform.position), OnProductDelivered, OnTaskCancel);
+                _ai.Kinling.KinlingAgent.SetMovePosition(_receivingStorage.AccessPosition(_ai.Kinling.transform.position, _targetItem), OnProductDelivered, OnTaskCancel);
                 _state = ETaskState.WaitingOnDelivery;
             }
         }
 
         private void OnArrivedAtStorageForPickup()
         {
-            var item = _targetItem.AssignedStorage.RuntimeStorageData.WithdrawItem(_targetItem);
+            var item = _targetItem.AssignedStorage.WithdrawItem(_targetItem);
             _ai.HoldItem(item);
             _ai.Kinling.KinlingAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Kinling.transform.position), OnArrivedAtCraftingTable, OnTaskCancel);
         }
@@ -108,7 +108,7 @@ namespace TaskSystem
             if (_claimedIngredients.Count > 0)
             {
                 _targetItem = _claimedIngredients[0];
-                _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.AssignedStorage.UseagePosition(_ai.Kinling.transform.position),
+                _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.AssignedStorage.AccessPosition(_ai.transform.position, _targetItem),
                     OnArrivedAtStorageForPickup, OnTaskCancel);
             }
             else

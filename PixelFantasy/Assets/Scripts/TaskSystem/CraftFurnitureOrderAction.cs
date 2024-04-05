@@ -50,7 +50,7 @@ namespace TaskSystem
             if (_state == ETaskState.GatherMats)
             {
                 _targetItem = _materials[_materialIndex];
-                var movePos = _targetItem.AssignedStorage.UseagePosition(_ai.Kinling.transform.position);
+                var movePos = _targetItem.AssignedStorage.AccessPosition(_ai.transform.position, _targetItem);
                 _ai.Kinling.KinlingAgent.SetMovePosition(movePos, OnArrivedAtStorageForPickup, OnTaskCancel);
                 _state = ETaskState.WaitingOnMats;
             }
@@ -90,7 +90,7 @@ namespace TaskSystem
 
         private void OnArrivedAtStorageForPickup()
         {
-            var withdrawnItem = _targetItem.AssignedStorage.RuntimeStorageData.WithdrawItem(_targetItem);
+            var withdrawnItem = _targetItem.AssignedStorage.WithdrawItem(_targetItem);
             _ai.HoldItem(withdrawnItem);
             _ai.Kinling.KinlingAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Kinling.transform.position), OnArrivedAtCraftingTable, OnTaskCancel);
         }
@@ -112,7 +112,7 @@ namespace TaskSystem
             else
             {
                 _targetItem = _materials[_materialIndex];
-                _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.AssignedStorage.UseagePosition(_ai.Kinling.transform.position),
+                _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.AssignedStorage.AccessPosition(_ai.transform.position, _targetItem),
                     OnArrivedAtStorageForPickup, OnTaskCancel);
             }
         }

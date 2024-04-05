@@ -1,8 +1,6 @@
 using Data.Item;
-using Data.Structure;
-using Databrain;
 using Databrain.Attributes;
-using UnityEngine;
+using Systems.Zones.Scripts;
 
 namespace Data.Zones
 {

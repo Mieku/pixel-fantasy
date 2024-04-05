@@ -19,7 +19,7 @@ namespace Data.Item
         [ExposeToInspector, DatabrainSerialize] public bool IsAllowed;
         [ExposeToInspector, DatabrainSerialize] public Task CurrentTask;
         [ExposeToInspector, DatabrainSerialize] public string CarryingKinlingUID;
-        [ExposeToInspector, DatabrainSerialize] public Storage AssignedStorage;
+        [ExposeToInspector, DatabrainSerialize] public IStorage AssignedStorage;
         [ExposeToInspector, DatabrainSerialize] public Vector2 Position;
         [ExposeToInspector, DatabrainSerialize] public Items.Item LinkedItem;
 
@@ -50,7 +50,7 @@ namespace Data.Item
                 return;
             }
             
-            AssignedStorage.RuntimeStorageData.RestoreClaimed(this);
+            AssignedStorage.RestoreClaimed(this);
         }
 
         public void ClaimItem()
@@ -61,7 +61,7 @@ namespace Data.Item
                 return;
             }
 
-            if (!AssignedStorage.RuntimeStorageData.ClaimItem(this))
+            if (!AssignedStorage.ClaimItem(this))
             {
                 Debug.LogError("Failed to claim item");
             }

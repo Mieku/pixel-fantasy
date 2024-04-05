@@ -7,12 +7,12 @@ namespace TaskSystem
     public class StoreItemAction : TaskAction
     {
         private Item _item;
-        private Storage _storage;
+        private IStorage _storage;
         private bool _isHoldingItem;
         private bool _isMoving;
         
         public float DistanceToItem => Vector2.Distance(_item.transform.position, transform.position);
-        public float DistanceToSlot => Vector2.Distance(_storage.transform.position, transform.position);
+        public float DistanceToSlot => Vector2.Distance((Vector2)_storage.AccessPosition(_ai.transform.position, _item.RuntimeData), transform.position);
         
         public override void PrepareAction(Task task)
         {
@@ -48,7 +48,7 @@ namespace TaskSystem
             {
                 if (!_isMoving)
                 {
-                    _ai.Kinling.KinlingAgent.SetMovePosition(_storage.transform.position);
+                    _ai.Kinling.KinlingAgent.SetMovePosition(_storage.AccessPosition(_ai.transform.position, _item.RuntimeData));
                     _isMoving = true;
                     return;
                 }

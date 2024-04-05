@@ -376,11 +376,11 @@ namespace TaskSystem
             return item;
         }
 
-        public void DepositHeldItemInStorage(Storage storage)
+        public void DepositHeldItemInStorage(IStorage storage)
         {
             if (_data.HeldItem == null) return;
             
-            storage.RuntimeStorageData.DepositItems(_data.HeldItem);
+            storage.DepositItems(_data.HeldItem);
             _data.HeldItem = null;
         }
 

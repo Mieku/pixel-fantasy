@@ -39,7 +39,6 @@ MonoBehaviour:
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-1418609819-0
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-1415656869-0
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-801601810-0
-        - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-1263217620473054-562139628
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-63995888-0
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-945739748-0
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-939900872-0
@@ -48,6 +47,7 @@ MonoBehaviour:
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-1826864762-0
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-696327368-0
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-542380640-0
+        - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-1135055063-0
         values:
         - iColor: 1
           icon: Folder Icon
@@ -91,8 +91,6 @@ MonoBehaviour:
           icon: PreMatCylinder
         - iColor: 0
           icon: AvatarMask On Icon
-        - iColor: 1
-          icon: StandaloneInputModule Icon
         - iColor: 5
           icon: Canvas Icon
         - iColor: 2
@@ -109,8 +107,10 @@ MonoBehaviour:
           icon: Terrain Icon
         - iColor: 0
           icon: StandaloneInputModule Icon
+        - iColor: 5
+          icon: Canvas Icon
       goDatasByInstanceId:
-        keys: 10410100f4410100961501002c0c0100542d0100f8390100ee1b0100d0400100ac1401003e040100403501008e370100620b0100f60d01008019010060220100fe2b0100762e0100be35010074350100001f0100fcfaffff100501008eb2fffff6230100422d0100682a0100f24301009a1b010034160100
+        keys: 6656010090560100864c01001c4a010018520100ac5401003c4e010054560100544c010068480100d45301004a540100fe4901008c4a0100aa4d0100b44f0100da5101006a520100e6530100da530100f44e010094faffffa248010008500100f64f010006520100525101000e5701002a4e0100d64c01002ce1feff
         values:
         - iColor: 1
           icon: Folder Icon
@@ -172,3 +172,5 @@ MonoBehaviour:
           icon: Terrain Icon
         - iColor: 0
           icon: StandaloneInputModule Icon
+        - iColor: 5
+          icon: Canvas Icon

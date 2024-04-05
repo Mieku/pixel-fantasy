@@ -29,7 +29,12 @@ namespace Data.Item
         public void PasteSettings(StoragePlayerSettings otherSettings)
         {
             
-        } 
+        }
+
+        public bool IsItemValidToStore(ItemSettings itemSettings)
+        {
+            return true;
+        }
     }
     
 

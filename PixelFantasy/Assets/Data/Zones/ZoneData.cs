@@ -3,6 +3,7 @@ using Databrain;
 using Databrain.Attributes;
 using Systems.Zones.Scripts;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 namespace Data.Zones
@@ -17,7 +18,7 @@ namespace Data.Zones
         public List<Vector3Int> Cells = new List<Vector3Int>();
         
         [ExposeToInspector, DatabrainSerialize]
-        public List<ZoneCellObject> ZoneCellObjects = new List<ZoneCellObject>();
+        public List<ZoneCell> ZoneCells = new List<ZoneCell>();
 
         [ExposeToInspector, DatabrainSerialize]
         public int AssignedLayer;
@@ -41,8 +42,8 @@ namespace Data.Zones
         public virtual void RemoveCell(Vector3Int cell)
         {
             // Remove the cell at position
-            var cellObj = ZoneCellObjects.Find(cellObj => cellObj.CellPos == cell);
-            ZoneCellObjects.Remove(cellObj);
+            var cellObj = ZoneCells.Find(cellObj => cellObj.CellPos == cell);
+            ZoneCells.Remove(cellObj);
             Destroy(cellObj.gameObject);
 
             Cells.Remove(cell);
@@ -87,8 +88,8 @@ namespace Data.Zones
             foreach (var cell in cells)
             {
                 // Delete the old cell objs
-                var cellObj = ZoneCellObjects.Find(cellObj => cellObj.CellPos == cell);
-                ZoneCellObjects.Remove(cellObj);
+                var cellObj = ZoneCells.Find(cellObj => cellObj.CellPos == cell);
+                ZoneCells.Remove(cellObj);
                 Destroy(cellObj.gameObject);
                 
                 // Clear the currently displayed tiles

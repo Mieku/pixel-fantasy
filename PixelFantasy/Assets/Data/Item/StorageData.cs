@@ -291,39 +291,6 @@ namespace Data.Item
 
             return toolItems;
         }
-        //
-        // public List<IFoodItem> GetAllFoodItems(bool sortByBestNutrition, bool includeIncoming = false)
-        // {
-        //     List<IFoodItem> foodItems = new List<IFoodItem>();
-        //     foreach (var storedItem in Stored)
-        //     {
-        //         if (!IsSpecificItemDataClaimed(storedItem))
-        //         {
-        //             if (storedItem is IFoodItem)
-        //             {
-        //                 foodItems.Add(storedItem as IFoodItem);
-        //             }
-        //         }
-        //     }
-        //
-        //     if (includeIncoming)
-        //     {
-        //         foreach (var incomingItem in Incoming)
-        //         {
-        //             if (incomingItem is IFoodItem)
-        //             {
-        //                 foodItems.Add(incomingItem as IFoodItem);
-        //             }
-        //         }
-        //     }
-        //
-        //     if (sortByBestNutrition)
-        //     {
-        //         return foodItems.OrderByDescending(food => food.FoodNutrition).ToList();
-        //     }
-        //     
-        //     return foodItems;
-        // }
         
         public bool IsItemValidToStore(ItemSettings itemSettings)
         {

@@ -15,7 +15,7 @@ namespace TaskSystem
         private bool _isPlacingItem;
         
         public float DistanceToRequestor => Vector2.Distance(_furniture.transform.position, transform.position);
-        public float DistanceToStorage => Vector2.Distance(_itemToPlace.AssignedStorage.transform.position, transform.position);
+        public float DistanceToStorage => Vector2.Distance((Vector2)_itemToPlace.AssignedStorage.AccessPosition(_ai.transform.position, _itemToPlace.RuntimeData), transform.position);
         
         public override void PrepareAction(Task task)
         {
@@ -33,7 +33,7 @@ namespace TaskSystem
             {
                 _isMoving = false;
                 _isHoldingItem = true;
-                _itemToPlace.AssignedStorage.RuntimeStorageData.WithdrawItem(_itemToPlace.RuntimeData);
+                _itemToPlace.AssignedStorage.WithdrawItem(_itemToPlace.RuntimeData);
                 _ai.HoldItem(_itemToPlace);
                 return;
             }
@@ -43,7 +43,7 @@ namespace TaskSystem
             {
                 if (!_isMoving)
                 {
-                    _ai.Kinling.KinlingAgent.SetMovePosition(_itemToPlace.AssignedStorage.transform.position);
+                    _ai.Kinling.KinlingAgent.SetMovePosition(_itemToPlace.AssignedStorage.AccessPosition(_ai.transform.position, _itemToPlace.RuntimeData));
                     _isMoving = true;
                     return;
                 }

@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Systems.Zones.Scripts
 {
-    public class ZoneCellObject : MonoBehaviour
+    public class ZoneCell : MonoBehaviour
     {
-        private ZoneData _data;
+        protected ZoneData _data;
 
         public Vector3Int CellPos;
 
-        public void Init(ZoneData data, Vector3Int cellPos)
+        public virtual void Init(ZoneData data, Vector3Int cellPos)
         {
             _data = data;
             CellPos = cellPos;

@@ -8,6 +8,7 @@ using Managers;
 using Systems.Build_Controls.Scripts;
 using Systems.CursorHandler.Scripts;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 namespace Systems.Zones.Scripts
@@ -21,7 +22,6 @@ namespace Systems.Zones.Scripts
         [SerializeField] private TileBase _defaultZoneTiles;
         [SerializeField] private StockpileZoneData _genericStockpileZoneData;
         [SerializeField] private FarmingZoneData _genericFarmZoneData;
-        [SerializeField] private ZoneCellObject _zoneCellObjectPrefab;
         
         private bool _isEnabled;
         private bool _isPlanning;
@@ -79,9 +79,14 @@ namespace Systems.Zones.Scripts
             
             _zoneLayeredTilemap.RemoveLayer(zoneData.AssignedLayer);
 
-            foreach (var cellObject in zoneData.ZoneCellObjects)
+            foreach (var cellObject in zoneData.ZoneCells)
             {
                 Destroy(cellObject.gameObject);
+            }
+
+            if (zoneData.ZoneType == EZoneType.Stockpile)
+            {
+                InventoryManager.Instance.RemoveStorage((StockpileZoneData) zoneData);
             }
 
             DataLibrary.RemoveDataObjectFromRuntime(zoneData);
@@ -415,7 +420,7 @@ namespace Systems.Zones.Scripts
         
         public ZoneData CreateZone(List<Vector3Int> tilePositions, int layer)
         {
-            List<ZoneCellObject> cellObjects = new List<ZoneCellObject>();
+            List<ZoneCell> cellObjects = new List<ZoneCell>();
             switch (_curZoneSettings.ZoneType)
             {
                 case EZoneType.Stockpile:
@@ -428,14 +433,16 @@ namespace Systems.Zones.Scripts
                     foreach (var tilePosition in tilePositions)
                     {
                         // Create zone cell game objects
-                        var cellObj = Instantiate(_zoneCellObjectPrefab, tilePosition, Quaternion.identity, transform);
+                        var cellObj = Instantiate(stockpileRuntimeData.Settings.CellPrefab, tilePosition, Quaternion.identity, transform);
                         cellObj.Init(stockpileRuntimeData, tilePosition);
                         cellObjects.Add(cellObj);
                     }
-                    stockpileRuntimeData.ZoneCellObjects = cellObjects;
+                    stockpileRuntimeData.ZoneCells = cellObjects;
                     
                     // DataLibrary.OnSaved += Saved;
                     // DataLibrary.OnLoaded += Loaded;
+                    
+                    InventoryManager.Instance.AddStorage(stockpileRuntimeData);
 
                     return stockpileRuntimeData;
                 case EZoneType.Farm:
@@ -448,11 +455,11 @@ namespace Systems.Zones.Scripts
                     foreach (var tilePosition in tilePositions)
                     {
                         // Create zone cell game objects
-                        var cellObj = Instantiate(_zoneCellObjectPrefab, tilePosition, Quaternion.identity, transform);
+                        var cellObj = Instantiate(farmRuntimeData.Settings.CellPrefab, tilePosition, Quaternion.identity, transform);
                         cellObj.Init(farmRuntimeData, tilePosition);
                         cellObjects.Add(cellObj);
                     }
-                    farmRuntimeData.ZoneCellObjects = cellObjects;
+                    farmRuntimeData.ZoneCells = cellObjects;
                     
                     // DataLibrary.OnSaved += Saved;
                     // DataLibrary.OnLoaded += Loaded;
@@ -465,7 +472,7 @@ namespace Systems.Zones.Scripts
 
         public ZoneData CopyZone(List<Vector3Int> tilePositions, int layer, ZoneData originalData)
         {
-            List<ZoneCellObject> cellObjects = new List<ZoneCellObject>();
+            List<ZoneCell> cellObjects = new List<ZoneCell>();
             switch (originalData.Settings.ZoneType)
             {
                 case EZoneType.Stockpile:
@@ -478,15 +485,17 @@ namespace Systems.Zones.Scripts
                     foreach (var tilePosition in tilePositions)
                     {
                         // Create zone cell game objects
-                        var cellObj = Instantiate(_zoneCellObjectPrefab, tilePosition, Quaternion.identity, transform);
+                        var cellObj = Instantiate(stockpileRuntimeData.Settings.CellPrefab, tilePosition, Quaternion.identity, transform);
                         cellObj.Init(stockpileRuntimeData, tilePosition);
                         cellObjects.Add(cellObj);
                     }
-                    stockpileRuntimeData.ZoneCellObjects = cellObjects;
+                    stockpileRuntimeData.ZoneCells = cellObjects;
                     
                     // DataLibrary.OnSaved += Saved;
                     // DataLibrary.OnLoaded += Loaded;
 
+                    InventoryManager.Instance.AddStorage(stockpileRuntimeData);
+                    
                     return stockpileRuntimeData;
                 case EZoneType.Farm:
                     var farmRuntimeData = (FarmingZoneData) DataLibrary.CloneDataObjectToRuntime(_genericFarmZoneData);
@@ -498,11 +507,11 @@ namespace Systems.Zones.Scripts
                     foreach (var tilePosition in tilePositions)
                     {
                         // Create zone cell game objects
-                        var cellObj = Instantiate(_zoneCellObjectPrefab, tilePosition, Quaternion.identity, transform);
+                        var cellObj = Instantiate(farmRuntimeData.Settings.CellPrefab, tilePosition, Quaternion.identity, transform);
                         cellObj.Init(farmRuntimeData, tilePosition);
                         cellObjects.Add(cellObj);
                     }
-                    farmRuntimeData.ZoneCellObjects = cellObjects;
+                    farmRuntimeData.ZoneCells = cellObjects;
                     
                     // DataLibrary.OnSaved += Saved;
                     // DataLibrary.OnLoaded += Loaded;
@@ -515,15 +524,15 @@ namespace Systems.Zones.Scripts
 
         public ZoneData ExpandZone(List<Vector3Int> expansion, ZoneData zone)
         {
-            List<ZoneCellObject> cellObjects = new List<ZoneCellObject>();
+            List<ZoneCell> cellObjects = new List<ZoneCell>();
             foreach (var tilePosition in expansion)
             {
                 // Create zone cell game objects
-                var cellObj = Instantiate(_zoneCellObjectPrefab, tilePosition, Quaternion.identity, transform);
+                var cellObj = Instantiate(zone.Settings.CellPrefab, tilePosition, Quaternion.identity, transform);
                 cellObj.Init(zone, tilePosition);
                 cellObjects.Add(cellObj);
             }
-            zone.ZoneCellObjects.AddRange(cellObjects);
+            zone.ZoneCells.AddRange(cellObjects);
             zone.Cells.AddRange(new List<Vector3Int>(expansion));
             
             return zone;

@@ -136,7 +136,7 @@ namespace Items
             return SetNextDirection(isClockwise);
         }
 
-        public bool IsAvailable
+        public virtual bool IsAvailable
         {
             get
             {

@@ -24,12 +24,14 @@ namespace Data.Item
         // Settings
         [SerializeField] protected EItemCategory _category;
         [SerializeField] protected int _maxDurability;
+        [SerializeField] protected int _maxStackSize = 25;
         [DataObjectDropdown(true), SerializeField] private ItemData _baseData;
         
         public EItemCategory Category => _category;
         public string ItemName => title;
         public Sprite ItemSprite => icon;
         public int MaxDurability => _maxDurability;
+        public int MaxStackSize => _maxStackSize;
         
         public virtual string GetDetailsMsg(string headerColourCode = "#272736")
         {

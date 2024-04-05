@@ -25,7 +25,7 @@ namespace Items
 
         private Transform _originalParent;
 
-        public Storage AssignedStorage;
+        public IStorage AssignedStorage;
 
         public DataLibrary DataLibrary;
         
@@ -102,7 +102,7 @@ namespace Items
                 AssignedStorage = InventoryManager.Instance.GetAvailableStorage(RuntimeData.Settings);
                 if (AssignedStorage != null)
                 {
-                    AssignedStorage.RuntimeStorageData.SetIncoming(RuntimeData);
+                    AssignedStorage.SetIncoming(RuntimeData);
                     CreateHaulTask();
                 }
             }
@@ -141,7 +141,7 @@ namespace Items
             {
                 if (AssignedStorage != null)
                 {
-                    AssignedStorage.RuntimeStorageData.CancelIncoming(RuntimeData);
+                    AssignedStorage.CancelIncoming(RuntimeData);
                     AssignedStorage = null;
                 }
 
@@ -194,7 +194,7 @@ namespace Items
         public void AddItemToSlot()
         {
             _isHeld = false;
-            AssignedStorage.RuntimeStorageData.DepositItems(this);
+            AssignedStorage.DepositItems(this);
         }
 
         private void DisplayItemSprite()
