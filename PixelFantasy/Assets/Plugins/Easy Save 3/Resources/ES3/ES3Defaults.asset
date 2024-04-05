@@ -29,41 +29,41 @@ MonoBehaviour:
     referenceMode: 2
     serializationDepthLimit: 64
     assemblyNames:
-    - NodeCanvas
     - Assembly-CSharp-firstpass
     - Databrain.UnityAsync
-    - ParadoxNotion
     - Assembly-CSharp
     - TileWorldCreator.OdinSerializer
     - Databrain
-    - QFSW.QC
-    - PsdPlugin
-    - Cinemachine
+    - NodeCanvas
     - QFSW.QC.Extras
+    - QFSW.QC
+    - ParadoxNotion
     - TileWorldCreator
     - NavMeshPlusEditor
-    - QFSW.QC.Suggestors
     - QFSW.QC.Grammar
     - NavMeshPlus
     - VTabs
     - QFSW.QC.Editor
     - AllIn1SpriteShaderAssembly
-    - VFavorites
+    - PsdPlugin
     - QFSW.QC.Parsers
-    - TileWorldCreator.Editor
-    - VInspector
-    - QFSW.QC.QGUI
     - QFSW.QC.Editor.Tools
     - VFolders
-    - FangAutoTile
-    - QFSW.QC.UI
-    - QFSW.QC.ScanRules
     - QFSW.QC.Serializers
-    - QFSW.QC.Demo
-    - VRuler
+    - TileWorldCreator.Editor
+    - QFSW.QC.QGUI
+    - QFSW.QC.UI
+    - QFSW.QC.Suggestors
+    - VInspector
     - VHierarchy
+    - FangAutoTile
     - FangAutoTile.Editor
+    - QFSW.QC.Demo
     - Sirenix.OdinInspector.Modules.UnityMathematics
+    - ScriptablePacker
+    - VFavorites
+    - QFSW.QC.ScanRules
+    - VRuler
     showAdvancedSettings: 1
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

@@ -1,6 +1,6 @@
 using System;
-using Cinemachine;
 using Managers;
+using Unity.Cinemachine;
 using UnityEngine;
 
 namespace Controllers
@@ -16,7 +16,7 @@ namespace Controllers
         public bool IgnoreKeyboardInput { get; set; }
 
         private Vector3 _velocity = Vector3.zero;
-        private CinemachineVirtualCamera _cam;
+        private CinemachineCamera _cam;
         
         private Vector3 _targetPosition;
         private bool _isMovingToTarget;
@@ -25,7 +25,7 @@ namespace Controllers
         protected override void Awake()
         {
             base.Awake();
-            _cam = GetComponent<CinemachineVirtualCamera>();
+            _cam = GetComponent<CinemachineCamera>();
         }
         
         private void Update()
@@ -77,9 +77,9 @@ namespace Controllers
         private void CameraZoomInput()
         {
             float scroll = Input.GetAxis("Mouse ScrollWheel");
-            float dynamicZoomSpeed = _scrollSensitivity * _cam.m_Lens.OrthographicSize;
-            float newSize = _cam.m_Lens.OrthographicSize - scroll * dynamicZoomSpeed;
-            _cam.m_Lens.OrthographicSize = Mathf.Clamp(newSize, _minFov, _maxFov);
+            float dynamicZoomSpeed = _scrollSensitivity * _cam.Lens.OrthographicSize;
+            float newSize = _cam.Lens.OrthographicSize - scroll * dynamicZoomSpeed;
+            _cam.Lens.OrthographicSize = Mathf.Clamp(newSize, _minFov, _maxFov);
         }
 
         public void LookAtPosition(Vector2 pos)

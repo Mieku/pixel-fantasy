@@ -558,8 +558,7 @@ namespace VHierarchy
 
         static void UpdateExpandedIdsList()
         {
-            if (!Application.isPlaying)
-                expandedIds = hierarchyWindow?.GetFieldValue("m_SceneHierarchy").GetFieldValue("m_TreeViewState").GetPropertyValue<List<int>>("expandedIDs");
+            expandedIds = hierarchyWindow?.GetFieldValue("m_SceneHierarchy")?.GetFieldValue("m_TreeViewState")?.GetPropertyValue<List<int>>("expandedIDs") ?? new List<int>();
 
             EditorApplication.delayCall -= UpdateExpandedIdsList;
             EditorApplication.delayCall += UpdateExpandedIdsList;
@@ -720,7 +719,7 @@ namespace VHierarchy
 
 
 
-        public const string version = "1.0.20";
+        public const string version = "1.0.21";
 
     }
 }

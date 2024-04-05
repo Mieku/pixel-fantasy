@@ -5,3 +5,10 @@ AssemblyDefinitionImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 245620
+  packageName: vTabs
+  packageVersion: 1.0.14
+  assetPath: Assets/Plugins/vTabs/VTabs.asmdef
+  uploadId: 651589

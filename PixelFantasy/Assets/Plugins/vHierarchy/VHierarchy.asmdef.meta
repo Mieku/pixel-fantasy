@@ -5,3 +5,10 @@ AssemblyDefinitionImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 249759
+  packageName: vHierarchy
+  packageVersion: 1.0.20
+  assetPath: Assets/Plugins/vHierarchy/VHierarchy.asmdef
+  uploadId: 652174
