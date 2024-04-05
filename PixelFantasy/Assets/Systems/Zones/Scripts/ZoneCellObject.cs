@@ -8,9 +8,12 @@ namespace Systems.Zones.Scripts
     {
         private ZoneData _data;
 
-        public void Init(ZoneData data)
+        public Vector3Int CellPos;
+
+        public void Init(ZoneData data, Vector3Int cellPos)
         {
             _data = data;
+            CellPos = cellPos;
         }
 
         private void OnMouseDown()

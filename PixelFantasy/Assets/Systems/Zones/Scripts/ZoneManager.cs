@@ -4,7 +4,6 @@ using System.Linq;
 using Controllers;
 using Data.Zones;
 using Databrain;
-using HUD;
 using Managers;
 using Systems.Build_Controls.Scripts;
 using Systems.CursorHandler.Scripts;
@@ -19,21 +18,25 @@ namespace Systems.Zones.Scripts
         
         [SerializeField] private Sprite _placementIcon;
         [SerializeField] private LayeredTilemapManager _zoneLayeredTilemap;
+        [SerializeField] private TileBase _defaultZoneTiles;
         [SerializeField] private StockpileZoneData _genericStockpileZoneData;
         [SerializeField] private FarmingZoneData _genericFarmZoneData;
         [SerializeField] private ZoneCellObject _zoneCellObjectPrefab;
         
         private bool _isEnabled;
         private bool _isPlanning;
+        private bool _isPlanningShrink;
         private Vector2 _startPos;
         private List<Vector2> _plannedGrid = new List<Vector2>();
         private readonly List<TilePlan> _plannedTiles = new List<TilePlan>();
         private List<ZoneData> _currentZones = new List<ZoneData>();
        
         private List<string> _invalidPlacementTags => new List<string>() { "Water", "Zone", "Obstacle"};
+        private List<string> _requiredPlacementTagsForShrink => new List<string>() { "Zone" };
 
         private ZoneSettings _curZoneSettings;
         private ZoneData _curSelectedZone;
+        private ZoneData _expandingZone;
         private Action _planningCompleteCallback;
 
         public void SelectZone(ZoneData zone)
@@ -41,10 +44,9 @@ namespace Systems.Zones.Scripts
             UnselectZone();
             _curSelectedZone = zone;
             
-            var tilemap = _zoneLayeredTilemap.GetLayer(zone.AssignedLayer);
             foreach (var cell in zone.Cells)
             {
-                tilemap.SetTile(cell, zone.SelectedTiles);
+                DrawTileCell(cell, zone.AssignedLayer, zone.SelectedTiles, zone.ZoneColour);
             }
             
             HUDController.Instance.ShowZoneDetails(zone);
@@ -54,10 +56,9 @@ namespace Systems.Zones.Scripts
         {
             if (_curSelectedZone != null)
             {
-                var tilemap = _zoneLayeredTilemap.GetLayer(_curSelectedZone.AssignedLayer);
                 foreach (var cell in _curSelectedZone.Cells)
                 {
-                    tilemap.SetTile(cell, _curSelectedZone.DefaultTiles);
+                    DrawTileCell(cell, _curSelectedZone.AssignedLayer, _curSelectedZone.DefaultTiles, _curSelectedZone.ZoneColour);
                 }
                 _curSelectedZone = null;
                 
@@ -84,6 +85,8 @@ namespace Systems.Zones.Scripts
             }
 
             DataLibrary.RemoveDataObjectFromRuntime(zoneData);
+            
+            HUDController.Instance.HideDetails();
         }
 
         public void BeginPlanningZone(ZoneSettings zoneSettings, Action planningCompleteCallback)
@@ -95,6 +98,31 @@ namespace Systems.Zones.Scripts
             Spawner.Instance.ShowPlacementIcon(true, _placementIcon, _invalidPlacementTags);
             _isEnabled = true;
         }
+
+        /// <summary>
+        /// Expands the zone if connected to the original, or creates a copy if not connected
+        /// </summary>
+        public void BeginPlanningZoneExpansion(ZoneData original, Action planningCompleteCallback)
+        {
+            _expandingZone = original;
+            _curZoneSettings = original.Settings;
+            _planningCompleteCallback = planningCompleteCallback;
+            
+            CursorManager.Instance.ChangeCursorState(ECursorState.AreaSelect);
+            Spawner.Instance.ShowPlacementIcon(true, _placementIcon, _invalidPlacementTags);
+            _isEnabled = true;
+        }
+
+        // Shrinks any zone
+        public void BeginPlanningZoneShrinking(Action onCompleteCallback)
+        {
+            _planningCompleteCallback = onCompleteCallback;
+            
+            CursorManager.Instance.ChangeCursorState(ECursorState.AreaSelect);
+            Spawner.Instance.ShowPlacementIconForReqTags(true, _placementIcon, _requiredPlacementTagsForShrink);
+            _isEnabled = true;
+            _isPlanningShrink = true;
+        }
         
         public void CancelZonePlanning()
         {
@@ -104,6 +132,8 @@ namespace Systems.Zones.Scripts
             
             ClearTilePlan();
             _curZoneSettings = null;
+            _expandingZone = null;
+            _isPlanningShrink = false;
             _planningCompleteCallback?.Invoke();
         }
         
@@ -148,17 +178,33 @@ namespace Systems.Zones.Scripts
         {
             if (!_isEnabled) return;
             if (!_isPlanning) return;
-            
-            PlanZone(mousePos);
+
+            if (_isPlanningShrink)
+            {
+                PlanZoneShrink(mousePos);
+            }
+            else
+            {
+                PlanZone(mousePos);
+            }
         }
 
         protected void GameEvents_OnLeftClickUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
         {
             if (!_isEnabled) return;
+            if (isOverUI) return;
 
             if (_isPlanning)
             {
-                SpawnPlannedZone();
+                if (_isPlanningShrink)
+                {
+                    ShrinkPlannedZone();
+                }
+                else
+                {
+                    SpawnPlannedZone();
+                }
+                
                 CancelZonePlanning();
             }
         }
@@ -194,41 +240,175 @@ namespace Systems.Zones.Scripts
                         placementColour = Librarian.Instance.GetColour("Placement Red");
                     }
                 
-                    tilePlan.Init(_curZoneSettings.DefaultTiles, tileMap, placementColour);
+                    tilePlan.Init(_defaultZoneTiles, tileMap, placementColour);
             
                     _plannedTiles.Add(tilePlan);
                 }
+            }
+        }
+
+        private void PlanZoneShrink(Vector2 mousePos)
+        {
+            Spawner.Instance.ShowPlacementIcon(false);
+            
+            Vector3 curGridPos = Helper.ConvertMousePosToGridPos(mousePos);
+            List<Vector2> gridPositions = Helper.GetRectangleGridPositionsBetweenPoints(_startPos, curGridPos);
+            
+            if (gridPositions.Count != _plannedGrid.Count)
+            {
+                _plannedGrid = gridPositions;
+            
+                // Clear previous display, then display new blueprints
+                ClearTilePlan();
+            
+                foreach (var gridPos in gridPositions)
+                {
+                    var tilePlanGO = new GameObject("Tile Plan", typeof(TilePlan));
+                    tilePlanGO.transform.position = gridPos;
+            
+                    var tilePlan = tilePlanGO.GetComponent<TilePlan>();
+                    var tileMap = TilemapController.Instance.GetTilemap(TilemapLayer.PendingZones);
+                    Color placementColour;
+                    if (Helper.IsGridPosValidToBuild(gridPos, new List<string>(), _requiredPlacementTagsForShrink))
+                    {
+                        placementColour = Librarian.Instance.GetColour("Placement Green");
+                    }
+                    else
+                    {
+                        placementColour = Librarian.Instance.GetColour("Placement Red");
+                    }
+                
+                    tilePlan.Init(_defaultZoneTiles, tileMap, placementColour);
+            
+                    _plannedTiles.Add(tilePlan);
+                }
+            }
+        }
+
+        private void ShrinkPlannedZone()
+        {
+            // Make sure to update all zones affected!
+            if (!_isPlanning) return;
+            
+            Spawner.Instance.ShowPlacementIconForReqTags(true, _placementIcon, _requiredPlacementTagsForShrink);
+            ClearTilePlan();
+            
+            foreach (var gridPos in _plannedGrid)
+            {
+                if (Helper.IsGridPosValidToBuild(gridPos, new List<string>(), _requiredPlacementTagsForShrink))
+                {
+                    Vector3Int cell = new Vector3Int
+                    {
+                        x = (int)gridPos.x,
+                        y = (int)gridPos.y,
+                        z = 0
+                    };
+                    
+                    
+                    ZoneData affectedZone = GetZoneAtPosition(cell);
+                    if (affectedZone != null)
+                    {
+                        affectedZone.RemoveCell(cell);
+                    }
+                }
+            }
+            
+            _plannedGrid.Clear();
+            _isPlanning = false;
+            _expandingZone = null;
+            _isPlanningShrink = false;
+
+            if (_curSelectedZone != null)
+            {
+                SelectZone(_curSelectedZone);
+            }
+            else
+            {
+                UnselectZone();
             }
         }
         
         private void SpawnPlannedZone()
         {
             if (!_isPlanning) return;
-            int zoneLayer = _zoneLayeredTilemap.GetLowestNotUsedLayer();
             
             Spawner.Instance.ShowPlacementIcon(true, _placementIcon, _invalidPlacementTags);
             ClearTilePlan();
 
+            ZoneData zone;
 
-            List<Vector3Int> validGrid = new List<Vector3Int>();
-            foreach (var gridPos in _plannedGrid)
+            // Zone Expansion Logic
+            if (_expandingZone != null)
             {
-                if (Helper.IsGridPosValidToBuild(gridPos, _invalidPlacementTags))
+                bool isAdjacent = CheckIfAdjacent(_expandingZone.Cells, _plannedGrid);
+                if (isAdjacent)
                 {
-                    Vector3Int cell = new Vector3Int
+                    // Expand the zone
+                    int zoneLayer = _expandingZone.AssignedLayer;
+                    List<Vector3Int> validGrid = new List<Vector3Int>();
+                    foreach (var gridPos in _plannedGrid)
                     {
-                        x = (int)gridPos.x,
-                        y = (int)gridPos.y
-                    };
-                    validGrid.Add(cell);
-                    SpawnZone(gridPos, zoneLayer);
+                        if (Helper.IsGridPosValidToBuild(gridPos, _invalidPlacementTags))
+                        {
+                            Vector3Int cell = new Vector3Int
+                            {
+                                x = (int)gridPos.x,
+                                y = (int)gridPos.y
+                            };
+                            validGrid.Add(cell);
+                            DrawTileCell(gridPos, zoneLayer, _expandingZone.DefaultTiles, _expandingZone.ZoneColour);
+                        }
+                    }
+
+                    zone = ExpandZone(validGrid, _expandingZone);
+                }
+                else
+                {
+                    // Create a new zone with a copy of all the data (except name, and layer id)
+                    int zoneLayer = _zoneLayeredTilemap.GetLowestNotUsedLayer();
+                    List<Vector3Int> validGrid = new List<Vector3Int>();
+                    foreach (var gridPos in _plannedGrid)
+                    {
+                        if (Helper.IsGridPosValidToBuild(gridPos, _invalidPlacementTags))
+                        {
+                            Vector3Int cell = new Vector3Int
+                            {
+                                x = (int)gridPos.x,
+                                y = (int)gridPos.y
+                            };
+                            validGrid.Add(cell);
+                            DrawTileCell(gridPos, zoneLayer, _expandingZone.DefaultTiles, _expandingZone.ZoneColour);
+                        }
+                    }
+
+                    zone = CopyZone(validGrid, zoneLayer, _expandingZone);
                 }
             }
+            else
+            {
+                int zoneLayer = _zoneLayeredTilemap.GetLowestNotUsedLayer();
+
+                List<Vector3Int> validGrid = new List<Vector3Int>();
+                foreach (var gridPos in _plannedGrid)
+                {
+                    if (Helper.IsGridPosValidToBuild(gridPos, _invalidPlacementTags))
+                    {
+                        Vector3Int cell = new Vector3Int
+                        {
+                            x = (int)gridPos.x,
+                            y = (int)gridPos.y
+                        };
+                        validGrid.Add(cell);
+                        DrawTileCell(gridPos, zoneLayer, _curZoneSettings.DefaultTiles, _curZoneSettings.ZoneColour);
+                    }
+                }
             
-            var zone = CreateZone(validGrid, zoneLayer);
+                zone = CreateZone(validGrid, zoneLayer);
+            }
             
             _plannedGrid.Clear();
             _isPlanning = false;
+            _expandingZone = null;
             
             SelectZone(zone);
         }
@@ -247,9 +427,9 @@ namespace Systems.Zones.Scripts
                     
                     foreach (var tilePosition in tilePositions)
                     {
-                        // Create a zone cell gameobject
+                        // Create zone cell game objects
                         var cellObj = Instantiate(_zoneCellObjectPrefab, tilePosition, Quaternion.identity, transform);
-                        cellObj.Init(stockpileRuntimeData);
+                        cellObj.Init(stockpileRuntimeData, tilePosition);
                         cellObjects.Add(cellObj);
                     }
                     stockpileRuntimeData.ZoneCellObjects = cellObjects;
@@ -267,9 +447,9 @@ namespace Systems.Zones.Scripts
                     
                     foreach (var tilePosition in tilePositions)
                     {
-                        // Create a zone cell gameobject
+                        // Create zone cell game objects
                         var cellObj = Instantiate(_zoneCellObjectPrefab, tilePosition, Quaternion.identity, transform);
-                        cellObj.Init(farmRuntimeData);
+                        cellObj.Init(farmRuntimeData, tilePosition);
                         cellObjects.Add(cellObj);
                     }
                     farmRuntimeData.ZoneCellObjects = cellObjects;
@@ -282,16 +462,85 @@ namespace Systems.Zones.Scripts
                     throw new ArgumentOutOfRangeException();
             }
         }
-        
-        public void SpawnZone(Vector3 spawnPosition, int layer)
+
+        public ZoneData CopyZone(List<Vector3Int> tilePositions, int layer, ZoneData originalData)
         {
-            if (Helper.IsGridPosValidToBuild(spawnPosition, _invalidPlacementTags))
+            List<ZoneCellObject> cellObjects = new List<ZoneCellObject>();
+            switch (originalData.Settings.ZoneType)
             {
-                var tileMap = _zoneLayeredTilemap.FindOrCreateLayer(layer);
-                var cell = tileMap.WorldToCell(spawnPosition);
-                tileMap.SetTile(cell, _curZoneSettings.DefaultTiles);
-                tileMap.SetColor(cell, _curZoneSettings.ZoneColour);
+                case EZoneType.Stockpile:
+                    var stockpileRuntimeData = (StockpileZoneData) DataLibrary.CloneDataObjectToRuntime(_genericStockpileZoneData);
+                    stockpileRuntimeData.Cells = new List<Vector3Int>(tilePositions);
+                    stockpileRuntimeData.AssignedLayer = layer;
+                    stockpileRuntimeData.CopyData(originalData as StockpileZoneData);
+                    _currentZones.Add(stockpileRuntimeData);
+                    
+                    foreach (var tilePosition in tilePositions)
+                    {
+                        // Create zone cell game objects
+                        var cellObj = Instantiate(_zoneCellObjectPrefab, tilePosition, Quaternion.identity, transform);
+                        cellObj.Init(stockpileRuntimeData, tilePosition);
+                        cellObjects.Add(cellObj);
+                    }
+                    stockpileRuntimeData.ZoneCellObjects = cellObjects;
+                    
+                    // DataLibrary.OnSaved += Saved;
+                    // DataLibrary.OnLoaded += Loaded;
+
+                    return stockpileRuntimeData;
+                case EZoneType.Farm:
+                    var farmRuntimeData = (FarmingZoneData) DataLibrary.CloneDataObjectToRuntime(_genericFarmZoneData);
+                    farmRuntimeData.Cells = new List<Vector3Int>(tilePositions);
+                    farmRuntimeData.AssignedLayer = layer;
+                    farmRuntimeData.CopyData(originalData as FarmingZoneData);
+                    _currentZones.Add(farmRuntimeData);
+                    
+                    foreach (var tilePosition in tilePositions)
+                    {
+                        // Create zone cell game objects
+                        var cellObj = Instantiate(_zoneCellObjectPrefab, tilePosition, Quaternion.identity, transform);
+                        cellObj.Init(farmRuntimeData, tilePosition);
+                        cellObjects.Add(cellObj);
+                    }
+                    farmRuntimeData.ZoneCellObjects = cellObjects;
+                    
+                    // DataLibrary.OnSaved += Saved;
+                    // DataLibrary.OnLoaded += Loaded;
+
+                    return farmRuntimeData;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
+        }
+
+        public ZoneData ExpandZone(List<Vector3Int> expansion, ZoneData zone)
+        {
+            List<ZoneCellObject> cellObjects = new List<ZoneCellObject>();
+            foreach (var tilePosition in expansion)
+            {
+                // Create zone cell game objects
+                var cellObj = Instantiate(_zoneCellObjectPrefab, tilePosition, Quaternion.identity, transform);
+                cellObj.Init(zone, tilePosition);
+                cellObjects.Add(cellObj);
+            }
+            zone.ZoneCellObjects.AddRange(cellObjects);
+            zone.Cells.AddRange(new List<Vector3Int>(expansion));
+            
+            return zone;
+        }
+        
+        public void DrawTileCell(Vector3 spawnPosition, int layer, TileBase tile, Color colour)
+        {
+            var tileMap = _zoneLayeredTilemap.FindOrCreateLayer(layer);
+            var cell = tileMap.WorldToCell(spawnPosition);
+            tileMap.SetTile(cell, tile);
+            tileMap.SetColor(cell, colour);
+        }
+
+        public void ClearTileCell(Vector3Int cell, int layer)
+        {
+            var tileMap = _zoneLayeredTilemap.FindOrCreateLayer(layer);
+            tileMap.SetTile(cell, null);
         }
 
         public void ColourZone(ZoneData zone, Color? colour)
@@ -327,14 +576,7 @@ namespace Systems.Zones.Scripts
 
             foreach (var cell in cells)
             {
-                Vector3Int normCell = new Vector3Int
-                {
-                    x = (int)cell.x,
-                    y = (int)cell.y,
-                    z = 0
-                };
-
-                var pos = _zoneLayeredTilemap.grid.CellToWorld(normCell);
+                var pos = _zoneLayeredTilemap.grid.CellToWorld(cell);
                 horCells.Add(pos.x + 0.5f);
                 vertCells.Add(pos.y + 0.5f);
             }
@@ -352,5 +594,56 @@ namespace Systems.Zones.Scripts
             
             return result;
         }
-    }
+
+        /// <summary>
+        /// Check if any of _plannedGrid are adjacent to (and valid) to the expanding zone
+        /// </summary>
+        public bool CheckIfAdjacent(List<Vector3Int> exisitingCells, List<Vector2> plannedPositions)
+        {
+            foreach (var plannedPos in plannedPositions)
+            {
+                if (Helper.IsGridPosValidToBuild(plannedPos, _invalidPlacementTags))
+                {
+                    var neighbours = GetNeighbourCells(plannedPos);
+                    foreach (var neighbour in neighbours)
+                    {
+                        if (exisitingCells.Contains(neighbour))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            
+            return false;
+        }
+
+        public List<Vector3Int> GetNeighbourCells(Vector2 startPos)
+        {
+            Vector3Int startCell = new Vector3Int
+            {
+                x = (int)startPos.x,
+                y = (int)startPos.y,
+                z = 0
+            };
+
+            List<Vector3Int> results = new List<Vector3Int>();
+            results.Add(startCell + Vector3Int.up);
+            results.Add(startCell + Vector3Int.down);
+            results.Add(startCell + Vector3Int.left);
+            results.Add(startCell + Vector3Int.right);
+
+            return results;
+        }
+
+        public ZoneData GetZoneAtPosition(Vector3Int cell)
+        {
+            return _currentZones.FirstOrDefault(zone => zone.Cells.Contains(cell));
+        }
+
+        public int GetUniqueLayerId()
+        {
+            return _zoneLayeredTilemap.GetLowestNotUsedLayer();
+        }
+     }
 }

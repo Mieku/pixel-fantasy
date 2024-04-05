@@ -23,6 +23,13 @@ namespace Data.Item
 
         // Allowed Items
 
+        /// <summary>
+        /// Updates settings to be the same
+        /// </summary>
+        public void PasteSettings(StoragePlayerSettings otherSettings)
+        {
+            
+        } 
     }
     
 

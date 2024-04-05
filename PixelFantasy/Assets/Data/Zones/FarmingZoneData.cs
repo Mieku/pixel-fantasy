@@ -8,17 +8,24 @@ namespace Data.Zones
     public class FarmingZoneData : ZoneData
     {
         [ExposeToInspector, DatabrainSerialize]
-        public FarmingZoneSettings Settings;
+        public FarmingZoneSettings FarmingSettings;
         
         public void InitData(FarmingZoneSettings settings)
         {
-            Settings = settings;
+            FarmingSettings = settings;
             IsEnabled = true;
+        }
+        
+        public void CopyData(FarmingZoneData dataToCopy)
+        {
+            FarmingSettings = dataToCopy.FarmingSettings;
+            IsEnabled = dataToCopy.IsEnabled;
         }
 
         public override Color ZoneColour => Settings.ZoneColour;
         public override TileBase DefaultTiles => Settings.DefaultTiles;
         public override TileBase SelectedTiles => Settings.SelectedTiles;
         public override EZoneType ZoneType => EZoneType.Farm;
+        public override ZoneSettings Settings => FarmingSettings;
     }
 }

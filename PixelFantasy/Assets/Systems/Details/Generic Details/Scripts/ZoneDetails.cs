@@ -16,9 +16,12 @@ namespace Systems.Details.Generic_Details.Scripts
         [SerializeField] private GameObject _panelHandle;
         [SerializeField] private TextMeshProUGUI _panelTitle;
 
+        [BoxGroup("Buttons")] [SerializeField] private Sprite _defaultBtnSprite;
         [BoxGroup("Buttons")] [SerializeField] private Sprite _enabledBtnSprite;
         [BoxGroup("Buttons")] [SerializeField] private Sprite _disabledBtnSprite;
         [BoxGroup("Buttons")] [SerializeField] private Image _enableBtnBG;
+        [BoxGroup("Buttons")] [SerializeField] private Image _expandBtnBG;
+        [BoxGroup("Buttons")] [SerializeField] private Image _shrinkBtnBG;
 
         private ZoneData _zoneData;
         
@@ -68,18 +71,27 @@ namespace Systems.Details.Generic_Details.Scripts
 
         public void ExpandBtnPressed()
         {
+            _expandBtnBG.sprite = _enabledBtnSprite;
             
+            ZoneManager.Instance.BeginPlanningZoneExpansion(_zoneData, () =>
+            {
+                _expandBtnBG.sprite = _defaultBtnSprite;
+            });
         }
 
         public void ShrinkBtnPressed()
         {
+            _shrinkBtnBG.sprite = _enabledBtnSprite;
             
+            ZoneManager.Instance.BeginPlanningZoneShrinking(() =>
+            {
+                _shrinkBtnBG.sprite = _defaultBtnSprite;
+            });
         }
 
         public void DeleteBtnPressed()
         {
             ZoneManager.Instance.DeleteZone(_zoneData);
-            Hide();
         }
 
         public void LookAtBtnPressed()

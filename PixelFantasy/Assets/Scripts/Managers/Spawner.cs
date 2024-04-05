@@ -40,6 +40,7 @@ namespace Managers
 
         private bool _showPlacement;
         private List<string> _invalidPlacementTags = new List<string>();
+        private List<string> _requiredPlacementTags = new List<string>();
         private Color? _colourOverride;
         
         // Structure
@@ -159,11 +160,50 @@ namespace Managers
             PlayerInputController.Instance.ChangeState(PlayerInputState.None);
             ShowPlacementIcon(false);
             _invalidPlacementTags.Clear();
+            _requiredPlacementTags = null;
             CancelPlanning();
             _selectedFurnitureSettings = null;
             _selectedDyeOverride = null;
             _plannedDoor = null;
             _prevPlacementDirection = default;
+        }
+
+        public void ShowPlacementIconForReqTags(bool show, Sprite icon = null,
+            List<String> requiredPlacementTags = null, float sizeOverride = 1f, Color? colourOverride = null)
+        {
+            _placementIcon.enabled = true;
+            _colourOverride = colourOverride;
+
+            if (icon == null)
+            {
+                icon = _genericPlacementSprite;
+            }
+            
+            List<string> tags = null;
+            if (requiredPlacementTags != null)
+            {
+                tags = new List<string>(requiredPlacementTags);
+            }
+            
+            if (_placementIcon.transform.childCount > 0)
+            {
+                var child = _placementIcon.transform.GetChild(0).gameObject;
+                Destroy(child);
+            }
+            
+            if (show)
+            {
+                _placementIcon.gameObject.transform.localScale = new Vector2(sizeOverride, sizeOverride);
+                _placementIcon.sprite = icon;
+                _placementIcon.gameObject.SetActive(true);
+                _showPlacement = true;
+                _requiredPlacementTags = tags;
+                _invalidPlacementTags = new List<string>();
+            }
+            else
+            {   _placementIcon.gameObject.SetActive(false);
+                _showPlacement = false;
+            }
         }
 
         public void ShowPlacementIcon(bool show, Sprite icon = null, List<String> invalidPlacementTags = null, float sizeOverride = 1f, Color? colourOverride = null)
@@ -195,33 +235,12 @@ namespace Managers
                 _placementIcon.gameObject.SetActive(true);
                 _showPlacement = true;
                 _invalidPlacementTags = tags;
+                _requiredPlacementTags = new List<string>();
             }
             else
             {   _placementIcon.gameObject.SetActive(false);
                 _showPlacement = false;
-            }
-        }
-        
-        public void ShowPlacementObject(bool show, GameObject icon = null, List<String> invalidPlacementTags = null, float sizeOverride = 1f)
-        {
-            _placementIcon.enabled = false;
-            
-            if (_placementIcon.transform.childCount > 0)
-            {
-                var child = _placementIcon.transform.GetChild(0).gameObject;
-                Destroy(child);
-            }
-
-            if (show)
-            {
-                var placementObj = Instantiate(icon,_placementIcon.transform);
-                _placementIcon.gameObject.SetActive(true);
-                _showPlacement = true;
-                _invalidPlacementTags = invalidPlacementTags;
-            }
-            else
-            {   _placementIcon.gameObject.SetActive(false);
-                _showPlacement = false;
+                _requiredPlacementTags = null;
             }
         }
 
@@ -231,7 +250,7 @@ namespace Managers
             {
                 var gridPos = Helper.ConvertMousePosToGridPos(UtilsClass.GetMouseWorldPosition());
                 _placementIcon.transform.position = gridPos;
-                if (Helper.IsGridPosValidToBuild(gridPos, _invalidPlacementTags))
+                if (Helper.IsGridPosValidToBuild(gridPos, _invalidPlacementTags, _requiredPlacementTags))
                 {
                     Color placementColour = (Color)(_colourOverride != null ? _colourOverride : Librarian.Instance.GetColour("Placement Green"));
                     _placementIcon.color = placementColour;

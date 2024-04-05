@@ -40,7 +40,6 @@ MonoBehaviour:
     - PsdPlugin
     - Cinemachine
     - QFSW.QC.Extras
-    - Sirenix.OdinInspector.CompatibilityLayer.Editor
     - TileWorldCreator
     - NavMeshPlusEditor
     - QFSW.QC.Suggestors
@@ -57,7 +56,6 @@ MonoBehaviour:
     - QFSW.QC.Editor.Tools
     - VFolders
     - FangAutoTile
-    - Sirenix.OdinInspector.CompatibilityLayer
     - QFSW.QC.UI
     - QFSW.QC.ScanRules
     - QFSW.QC.Serializers

@@ -209,11 +209,19 @@ public static class Helper
     /// <summary>
     /// Determines if the grid position is a valid position to build on
     /// </summary>
-    public static bool IsGridPosValidToBuild(Vector2 gridPos, List<string> listOfInvalidTags, GameObject parent = null)
+    public static bool IsGridPosValidToBuild(Vector2 gridPos, List<string> listOfInvalidTags, List<string> listOfRequiredTags = null, GameObject parent = null)
     {
         var detectedTags = GetTagsAtGridPos(gridPos, parent);
+
+        bool passesInvalidTags = listOfInvalidTags.All(invalidTag => !detectedTags.Contains(invalidTag));
+        bool passesRequiredTags = true;
+
+        if (listOfRequiredTags != null)
+        {
+            passesRequiredTags = listOfRequiredTags.All(requiredTag => detectedTags.Contains(requiredTag));
+        }
         
-        return listOfInvalidTags.All(invalidTag => !detectedTags.Contains(invalidTag));
+        return passesInvalidTags && passesRequiredTags;
     }
 
     /// <summary>

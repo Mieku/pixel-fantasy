@@ -344,7 +344,7 @@ namespace Items
             
             foreach (var useageMarker in UseagePositions())
             {
-                bool result = Helper.IsGridPosValidToBuild(useageMarker.position, _invalidPlacementTags, gameObject);
+                bool result = Helper.IsGridPosValidToBuild(useageMarker.position, _invalidPlacementTags, new List<string>() ,gameObject);
 
                 if (result)
                 {

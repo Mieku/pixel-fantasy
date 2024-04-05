@@ -10,7 +10,7 @@ namespace Data.Zones
     public class StockpileZoneData : ZoneData
     {
         [ExposeToInspector, DatabrainSerialize]
-        public StockpileZoneSettings Settings;
+        public StockpileZoneSettings StockpileSettings;
         
         // What is stored? and Where? Maybe make a storage cell type
         
@@ -22,10 +22,21 @@ namespace Data.Zones
 
         public void InitData(StockpileZoneSettings settings)
         {
-            Settings = settings;
-            PlayerSettings = settings.DefaultPlayerSettings;
+            StockpileSettings = settings;
+            PlayerSettings = new StoragePlayerSettings();
+            PlayerSettings.PasteSettings(settings.DefaultPlayerSettings);
             IsEnabled = true;
 
+            ZoneName = $"Stockpile {AssignedLayer}";
+        }
+
+        public void CopyData(StockpileZoneData dataToCopy)
+        {
+            StockpileSettings = dataToCopy.StockpileSettings;
+            PlayerSettings = new StoragePlayerSettings();
+            PlayerSettings.PasteSettings(dataToCopy.PlayerSettings);
+            IsEnabled = dataToCopy.IsEnabled;
+            
             ZoneName = $"Stockpile {AssignedLayer}";
         }
         
@@ -33,5 +44,6 @@ namespace Data.Zones
         public override TileBase DefaultTiles => Settings.DefaultTiles;
         public override TileBase SelectedTiles => Settings.SelectedTiles;
         public override EZoneType ZoneType => EZoneType.Stockpile;
+        public override ZoneSettings Settings => StockpileSettings;
     }
 }

@@ -33,7 +33,7 @@ namespace Buildings
 
             foreach (var footing in _footings)
             {
-                if (Helper.IsGridPosValidToBuild(footing.transform.position, invalidPlacementTags, _parent))
+                if (Helper.IsGridPosValidToBuild(footing.transform.position, invalidPlacementTags, new List<string>() , _parent))
                 {
                     footing.gameObject.SetActive(false);
                 }
