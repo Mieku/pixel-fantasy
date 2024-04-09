@@ -95,6 +95,8 @@ public abstract class PlayerInteractable : UniqueObject
         {
             requestedTask.Cancel();
         }
+        
+        _requestedTasks.Clear();
     }
 
     public void CancelCommand(Command command)

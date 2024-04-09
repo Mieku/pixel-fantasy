@@ -151,6 +151,9 @@ namespace Items
                 }
                 
                 _currentTask.Cancel();
+                _currentTask = null;
+                
+                CancelRequestorTasks();
 
                 if (lookToHaul)
                 {

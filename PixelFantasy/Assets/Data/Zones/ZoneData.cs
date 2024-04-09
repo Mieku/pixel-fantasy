@@ -44,7 +44,9 @@ namespace Data.Zones
             // Remove the cell at position
             var cellObj = ZoneCells.Find(cellObj => cellObj.CellPos == cell);
             ZoneCells.Remove(cellObj);
-            Destroy(cellObj.gameObject);
+
+            IsEnabled = false;
+            cellObj.DeleteCell();
 
             Cells.Remove(cell);
             
@@ -84,13 +86,14 @@ namespace Data.Zones
         {
             // Determine a new layer id
             int layerId = ZoneManager.Instance.GetUniqueLayerId();
+            List<ZoneCell> cellsToTransfer = new List<ZoneCell>();
             
             foreach (var cell in cells)
             {
                 // Delete the old cell objs
                 var cellObj = ZoneCells.Find(cellObj => cellObj.CellPos == cell);
+                cellsToTransfer.Add(cellObj);
                 ZoneCells.Remove(cellObj);
-                Destroy(cellObj.gameObject);
                 
                 // Clear the currently displayed tiles
                 ZoneManager.Instance.ClearTileCell(cell, AssignedLayer);
@@ -99,7 +102,7 @@ namespace Data.Zones
             }
             
             // Create new zone copy
-            ZoneManager.Instance.CopyZone(cells, layerId, this);
+            ZoneManager.Instance.CopyZone(cells, layerId, this, cellsToTransfer);
         }
 
         private List<List<Vector3Int>> GetConnectedCellGroups()

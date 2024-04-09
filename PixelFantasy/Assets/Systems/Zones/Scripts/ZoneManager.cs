@@ -68,6 +68,11 @@ namespace Systems.Zones.Scripts
 
         public void DeleteZone(ZoneData zoneData)
         {
+            if (zoneData.ZoneType == EZoneType.Stockpile)
+            {
+                InventoryManager.Instance.RemoveStorage((StockpileZoneData) zoneData);
+            }
+            
             _currentZones.Remove(zoneData);
             
             var tileMap = _zoneLayeredTilemap.FindOrCreateLayer(zoneData.AssignedLayer);
@@ -81,15 +86,12 @@ namespace Systems.Zones.Scripts
 
             foreach (var cellObject in zoneData.ZoneCells)
             {
-                Destroy(cellObject.gameObject);
-            }
-
-            if (zoneData.ZoneType == EZoneType.Stockpile)
-            {
-                InventoryManager.Instance.RemoveStorage((StockpileZoneData) zoneData);
+                cellObject.DeleteCell();
             }
 
             DataLibrary.RemoveDataObjectFromRuntime(zoneData);
+            
+            GameEvents.Trigger_RefreshInventoryDisplay();
             
             HUDController.Instance.HideDetails();
         }
@@ -470,7 +472,7 @@ namespace Systems.Zones.Scripts
             }
         }
 
-        public ZoneData CopyZone(List<Vector3Int> tilePositions, int layer, ZoneData originalData)
+        public ZoneData CopyZone(List<Vector3Int> tilePositions, int layer, ZoneData originalData, List<ZoneCell> cellsToTransfer = default)
         {
             List<ZoneCell> cellObjects = new List<ZoneCell>();
             switch (originalData.Settings.ZoneType)
@@ -485,9 +487,18 @@ namespace Systems.Zones.Scripts
                     foreach (var tilePosition in tilePositions)
                     {
                         // Create zone cell game objects
-                        var cellObj = Instantiate(stockpileRuntimeData.Settings.CellPrefab, tilePosition, Quaternion.identity, transform);
-                        cellObj.Init(stockpileRuntimeData, tilePosition);
-                        cellObjects.Add(cellObj);
+                        var existingCell = cellsToTransfer?.Find(cell => cell.CellPos == tilePosition);
+                        if (existingCell != null)
+                        {
+                            existingCell.TransferOwner(stockpileRuntimeData);
+                            cellObjects.Add(existingCell);
+                        }
+                        else
+                        {
+                            var cellObj = Instantiate(stockpileRuntimeData.Settings.CellPrefab, tilePosition, Quaternion.identity, transform);
+                            cellObj.Init(stockpileRuntimeData, tilePosition);
+                            cellObjects.Add(cellObj);
+                        }
                     }
                     stockpileRuntimeData.ZoneCells = cellObjects;
                     
@@ -506,10 +517,19 @@ namespace Systems.Zones.Scripts
                     
                     foreach (var tilePosition in tilePositions)
                     {
-                        // Create zone cell game objects
-                        var cellObj = Instantiate(farmRuntimeData.Settings.CellPrefab, tilePosition, Quaternion.identity, transform);
-                        cellObj.Init(farmRuntimeData, tilePosition);
-                        cellObjects.Add(cellObj);
+                        var existingCell = cellsToTransfer?.Find(cell => cell.CellPos == tilePosition);
+                        if (existingCell != null)
+                        {
+                            existingCell.TransferOwner(farmRuntimeData);
+                            cellObjects.Add(existingCell);
+                        }
+                        else
+                        {
+                            // Create zone cell game objects
+                            var cellObj = Instantiate(farmRuntimeData.Settings.CellPrefab, tilePosition, Quaternion.identity, transform);
+                            cellObj.Init(farmRuntimeData, tilePosition);
+                            cellObjects.Add(cellObj);
+                        }
                     }
                     farmRuntimeData.ZoneCells = cellObjects;
                     

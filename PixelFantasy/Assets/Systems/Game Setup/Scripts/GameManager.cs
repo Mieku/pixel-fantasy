@@ -21,6 +21,7 @@ namespace Systems.Game_Setup.Scripts
     {
         [SerializeField] private WorldBuilder _worldBuilder;
         [SerializeField] private bool _generateWorldOnStart;
+        [SerializeField] private int _numStarterKinlings;
 
         public DataLibrary DataLibrary;
         
@@ -61,7 +62,7 @@ namespace Systems.Game_Setup.Scripts
                 yield return StartCoroutine(_worldBuilder.GeneratePlaneCoroutine());
             }
             
-            LoadStarterStockpile(_worldBuilder.StartPos ,_startingItems);
+            //LoadStarterStockpile(_worldBuilder.StartPos ,_startingItems);
             
             // Allow frame to render and update UI/loading screen here
             yield return null;
@@ -74,11 +75,17 @@ namespace Systems.Game_Setup.Scripts
             // Again, yield to keep the UI responsive
             yield return null;
             
-            LoadStarterKinlings(_worldBuilder.StartPos, 5);
+            LoadStarterKinlings(_worldBuilder.StartPos, _numStarterKinlings);
             yield return null;
             
             GameEvents.Trigger_RefreshInventoryDisplay();
-            CameraManager.Instance.LookAtPosition(_starterStockpile.transform.position);
+            
+            Vector2 lookPos = new Vector2
+            {
+                x = _worldBuilder.StartPos.x,
+                y = _worldBuilder.StartPos.y
+            };
+            CameraManager.Instance.LookAtPosition(lookPos);
             yield return null;
         }
 

@@ -25,6 +25,87 @@ namespace Systems.Zones.Scripts
             RefreshDisplay();
         }
 
+        public override void DeleteCell()
+        {
+            CancelTasks();
+
+            foreach (var stored in Stored)
+            {
+                stored.CreateItemObject(Position, true);
+            }
+            Stored.Clear();
+            
+            GameEvents.Trigger_RefreshInventoryDisplay();
+            
+            base.DeleteCell();
+        }
+
+        public override void TransferOwner(ZoneData zoneData)
+        {
+            CancelTasks();
+
+            foreach (var storedItem in Stored)
+            {
+                storedItem.AssignedStorage = zoneData as StockpileZoneData;
+            }
+            
+            GameEvents.Trigger_RefreshInventoryDisplay();
+            
+            base.TransferOwner(zoneData);
+        }
+
+        public void CancelTasks()
+        {
+            for (int i = Incoming.Count - 1; i >= 0; i--)
+            {
+                var incoming = Incoming[i];
+                if (incoming.LinkedItem != null)
+                {
+                    incoming.LinkedItem.CancelTask();
+                }
+
+                if (incoming.CurrentTask != null)
+                {
+                    incoming.CurrentTask.Cancel();
+                }
+            }
+            
+            for (int i = Stored.Count - 1; i >= 0; i--)
+            {
+                var stored = Stored[i];
+                if (stored.LinkedItem != null)
+                {
+                    stored.LinkedItem.CancelTask();
+                }
+
+                if (stored.CurrentTask != null)
+                {
+                    stored.CurrentTask.Cancel();
+                }
+            }
+            
+            // foreach (var incoming in Incoming)
+            // {
+            //     if (incoming.LinkedItem != null)
+            //     {
+            //         incoming.LinkedItem.CancelTask();
+            //     }
+            //
+            //     if (incoming.CurrentTask != null)
+            //     {
+            //         incoming.CurrentTask.Cancel();
+            //     }
+            // }
+            //
+            // foreach (var stored in Stored)
+            // {
+            //     if (stored.CurrentTask != null)
+            //     {
+            //         stored.CurrentTask.Cancel();
+            //     }
+            // }
+        }
+
         public void RefreshDisplay()
         {
             if (Stored.Count == 0)

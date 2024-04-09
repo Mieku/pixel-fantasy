@@ -16,6 +16,16 @@ namespace Systems.Zones.Scripts
             CellPos = cellPos;
         }
 
+        public virtual void DeleteCell()
+        {
+            Destroy(gameObject);
+        }
+
+        public virtual void TransferOwner(ZoneData zoneData)
+        {
+            _data = zoneData;
+        }
+
         private void OnMouseDown()
         {
             ZoneManager.Instance.SelectZone(_data);
