@@ -16,27 +16,43 @@ namespace Systems.Details.Generic_Details.Scripts
         [SerializeField] private GameObject _panelHandle;
         [SerializeField] private TextMeshProUGUI _panelTitle;
 
+        [BoxGroup("Generid")] [SerializeField] private TextMeshProUGUI _genericDetailsText;
+
         [BoxGroup("Buttons")] [SerializeField] private Sprite _defaultBtnSprite;
         [BoxGroup("Buttons")] [SerializeField] private Sprite _enabledBtnSprite;
         [BoxGroup("Buttons")] [SerializeField] private Sprite _disabledBtnSprite;
         [BoxGroup("Buttons")] [SerializeField] private Image _enableBtnBG;
         [BoxGroup("Buttons")] [SerializeField] private Image _expandBtnBG;
         [BoxGroup("Buttons")] [SerializeField] private Image _shrinkBtnBG;
+        [BoxGroup("Buttons")] [SerializeField] private Button _editSettingsBtn;
+        [BoxGroup("Buttons")] [SerializeField] private Image _editSettingsBtnBG;
 
         private ZoneData _zoneData;
+        private bool _isEditingSettings;
+        private Action<bool> _onEditSettingsPressed;
         
         public void Show(ZoneData zoneData)
         {
             _zoneData = zoneData;
+            _zoneData.OnZoneChanged += OnZoneChanged;
             _panelHandle.SetActive(true);
+            
+            ResetEditBtn();
 
-            switch (zoneData.ZoneType)
+            UpdateDisplayedDetails();
+        }
+
+        private void UpdateDisplayedDetails()
+        {
+            DisplayGenericZoneDetails();
+            
+            switch (_zoneData.ZoneType)
             {
                 case EZoneType.Stockpile:
-                    DisplayStockpileZoneDetails(zoneData as StockpileZoneData);
+                    DisplayStockpileZoneDetails(_zoneData as StockpileZoneData);
                     break;
                 case EZoneType.Farm:
-                    DisplayFarmingZoneDetails(zoneData as FarmingZoneData);
+                    DisplayFarmingZoneDetails(_zoneData as FarmingZoneData);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -47,19 +63,48 @@ namespace Systems.Details.Generic_Details.Scripts
             RefreshLayout();
         }
 
+        private void OnZoneChanged()
+        {
+            UpdateDisplayedDetails();
+        }
+
+        private void DisplayGenericZoneDetails()
+        {
+            _genericDetailsText.text = $"Size: {_zoneData.NumCells} Cells";
+        }
+
         private void DisplayStockpileZoneDetails(StockpileZoneData data)
         {
             _panelTitle.text = data.ZoneName;
+            
+            ShowEditSettingsBtn(DisplayStockpileSettings);
+        }
+
+        private void DisplayStockpileSettings(bool isShown)
+        {
+            Debug.Log("Displaying Stockpile settings: " + isShown);
         }
 
         private void DisplayFarmingZoneDetails(FarmingZoneData data)
         {
             _panelTitle.text = data.ZoneName;
+            
+            ShowEditSettingsBtn(DisplayFarmSettings);
+        }
+        
+        private void DisplayFarmSettings(bool isShown)
+        {
+            
         }
 
         public void Hide()
         {
             _panelHandle.SetActive(false);
+
+            if (_zoneData != null)
+            {
+                _zoneData.OnZoneChanged -= OnZoneChanged;
+            }
         }
         
         private void RefreshLayout()
@@ -115,6 +160,46 @@ namespace Systems.Details.Generic_Details.Scripts
             else
             {
                 _enableBtnBG.sprite = _disabledBtnSprite;
+            }
+        }
+
+        private void ShowEditSettingsBtn(Action<bool> onEditSettingsPressed)
+        {
+            _onEditSettingsPressed = onEditSettingsPressed;
+            _editSettingsBtn.gameObject.SetActive(true);
+        }
+
+        private void HideEditSettingsBtn()
+        {
+            _onEditSettingsPressed = null;
+            _editSettingsBtn.gameObject.SetActive(false);
+        }
+
+        public void EditBtnToggled()
+        {
+            _isEditingSettings = !_isEditingSettings;
+            RefreshEditBtnDisplay();
+
+            _onEditSettingsPressed.Invoke(_isEditingSettings);
+        }
+
+        private void ResetEditBtn()
+        {
+            _isEditingSettings = false;
+            RefreshEditBtnDisplay();
+            
+            _onEditSettingsPressed?.Invoke(false);
+        }
+
+        private void RefreshEditBtnDisplay()
+        {
+            if (_isEditingSettings)
+            {
+                _editSettingsBtnBG.sprite = _enabledBtnSprite;
+            }
+            else
+            {
+                _editSettingsBtnBG.sprite = _defaultBtnSprite;
             }
         }
 

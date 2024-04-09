@@ -136,12 +136,15 @@ namespace Data.Zones
             cell.DepositItem(runtimeData);
             
             Destroy(item.gameObject);
+            OnZoneChanged.Invoke();
         }
 
         public Items.Item WithdrawItem(ItemData itemData)
         {
             var cell = GetAssignedCellForSpecificItem(itemData);
-            return cell.WithdrawItem(itemData);
+            var item = cell.WithdrawItem(itemData);
+            OnZoneChanged.Invoke();
+            return item;
         }
 
         public bool ClaimItem(ItemData itemToClaim)

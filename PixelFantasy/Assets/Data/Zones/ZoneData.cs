@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Databrain;
 using Databrain.Attributes;
@@ -27,6 +28,7 @@ namespace Data.Zones
         public bool IsEnabled;
 
         public int NumCells => Cells.Count;
+        public Action OnZoneChanged;
         
         public abstract Color ZoneColour { get; }
         public abstract TileBase DefaultTiles { get; }
@@ -61,6 +63,8 @@ namespace Data.Zones
                 // Make sure all cells connect, if not create copies of the zone
                 CheckAndSplitZone();
             }
+            
+            OnZoneChanged.Invoke();
         }
         
         private void CheckAndSplitZone()
@@ -79,6 +83,8 @@ namespace Data.Zones
                     CreateNewZoneWithCells(connectedGroups[i]);
                 }
             }
+            
+            OnZoneChanged.Invoke();
         }
         
         private void CreateNewZoneWithCells(List<Vector3Int> cells)

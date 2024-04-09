@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.brogan89.minmaxslider": "https://github.com/brogan89/MinMaxSlider.git",
     "com.h8man.2d.navmeshplus": "https://github.com/h8man/NavMeshPlus.git",
     "com.unity.2d.animation": "10.1.1",
     "com.unity.2d.pixel-perfect": "5.0.3",
