@@ -56,7 +56,6 @@ MonoBehaviour:
     - QFSW.QC.UI
     - QFSW.QC.Suggestors
     - VInspector
-    - MinMaxSlider
     - VHierarchy
     - FangAutoTile
     - FangAutoTile.Editor
@@ -66,7 +65,6 @@ MonoBehaviour:
     - VFavorites
     - QFSW.QC.ScanRules
     - VRuler
-    - MinMaxSlider.Editor
     showAdvancedSettings: 1
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1
