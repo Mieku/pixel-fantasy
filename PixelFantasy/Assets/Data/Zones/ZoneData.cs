@@ -44,8 +44,7 @@ namespace Data.Zones
             // Remove the cell at position
             var cellObj = ZoneCells.Find(cellObj => cellObj.CellPos == cell);
             ZoneCells.Remove(cellObj);
-
-            IsEnabled = false;
+            
             cellObj.DeleteCell();
 
             Cells.Remove(cell);

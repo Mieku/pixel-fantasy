@@ -132,6 +132,7 @@ namespace VInspector
         public void Update()
         {
             if (headerElement is VisualElement v && v.panel == null) { headerElement.onGUIHandler = defaultHeaderGUI; headerElement = null; }
+            if (headerElement != null && headerElement.name != script.GetType().Name.Decamelcase() + " (Script)Header") { headerElement.onGUIHandler = defaultHeaderGUI; headerElement = null; } // fixes wrong headerElement after reordering components in 2022.3
             if (headerElement != null && headerElement.onGUIHandler.Method.DeclaringType == typeof(VICleanerHeader)) return;
             if (typeof(ScriptableObject).IsAssignableFrom(script.GetType())) return;
             if (!(editor.GetPropertyValue("propertyViewer") is EditorWindow window)) return;
