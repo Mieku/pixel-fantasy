@@ -10,6 +10,7 @@ namespace Items
     {
         public StorageData RuntimeStorageData => RuntimeData as StorageData;
         
+        
         public void ForceLoadItems(List<ItemData> itemsToForceLoad, FurnitureSettings settings)
         {
             _isPlanning = false;
@@ -45,6 +46,8 @@ namespace Items
         public List<ItemData> Stored => RuntimeStorageData.Stored;
         public List<ItemData> Incoming => RuntimeStorageData.Incoming;
         public List<ItemData> Claimed => RuntimeStorageData.Claimed;
+        public StoragePlayerSettings PlayerSettings => RuntimeStorageData.PlayerSettings;
+
         public void SetIncoming(ItemData itemData)
         {
             RuntimeStorageData.SetIncoming(itemData);

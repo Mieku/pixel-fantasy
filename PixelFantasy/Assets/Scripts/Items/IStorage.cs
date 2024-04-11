@@ -9,6 +9,8 @@ namespace Items
         public List<ItemData> Stored { get; }
         public List<ItemData> Incoming { get; }
         public List<ItemData> Claimed { get; }
+        
+        public StoragePlayerSettings PlayerSettings { get; }
 
         public void SetIncoming(ItemData itemData);
         public void CancelIncoming(ItemData itemData);

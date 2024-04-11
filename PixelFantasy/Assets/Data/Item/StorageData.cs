@@ -17,6 +17,10 @@ namespace Data.Item
         [ExposeToInspector, DatabrainSerialize] public List<ItemData> Claimed = new List<ItemData>();
 
         public StorageSettings StorageSettings => Settings as StorageSettings;
+        
+        [field: ExposeToInspector]
+        [field: DatabrainSerialize]
+        public StoragePlayerSettings PlayerSettings { get; private set; }
 
         public override void InitData(ItemSettings itemSettings)
         {

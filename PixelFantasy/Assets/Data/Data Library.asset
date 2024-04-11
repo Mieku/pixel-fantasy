@@ -43,6 +43,7 @@ MonoBehaviour:
   DefaultPlayerSettings:
     UsePriority: 2
     DurabilityRange: {x: 0, y: 100}
+    QualityRange: {x: 0, y: 4}
 --- !u!114 &-8826856979854169033
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -214,6 +215,7 @@ MonoBehaviour:
   isRuntimeInstance: 0
   boxFoldout: 0
   Durability: 0
+  Quality: 0
   IsAllowed: 0
   CurrentTask:
     TaskId: 
@@ -266,6 +268,7 @@ MonoBehaviour:
   isRuntimeInstance: 0
   boxFoldout: 0
   Durability: 0
+  Quality: 0
   IsAllowed: 0
   CurrentTask:
     TaskId: 
@@ -316,6 +319,8 @@ MonoBehaviour:
   _category: 0
   _maxDurability: 100
   _maxStackSize: 25
+  _hasQuality: 1
+  _defaultQuality: 1
   _baseData: {fileID: 4384225487442251340}
 --- !u!114 &-7537548514081941852
 MonoBehaviour:
@@ -647,6 +652,7 @@ MonoBehaviour:
   isRuntimeInstance: 0
   boxFoldout: 0
   Durability: 0
+  Quality: 0
   IsAllowed: 0
   CurrentTask:
     TaskId: 
@@ -909,6 +915,7 @@ MonoBehaviour:
   isRuntimeInstance: 0
   boxFoldout: 0
   Durability: 0
+  Quality: 0
   IsAllowed: 0
   CurrentTask:
     TaskId: 
@@ -1042,6 +1049,7 @@ MonoBehaviour:
   isRuntimeInstance: 0
   boxFoldout: 0
   Durability: 0
+  Quality: 0
   IsAllowed: 0
   CurrentTask:
     TaskId: 
@@ -1105,6 +1113,8 @@ MonoBehaviour:
   _category: 3
   _maxDurability: 100
   _maxStackSize: 25
+  _hasQuality: 1
+  _defaultQuality: 1
   _baseData: {fileID: 8440898394350696192}
   _mealQuality: 0
   _nutrition: 1
@@ -1424,9 +1434,10 @@ MonoBehaviour:
   AssignedLayer: 0
   IsEnabled: 0
   StockpileSettings: {fileID: 0}
-  PlayerSettings:
+  <PlayerSettings>k__BackingField:
     UsePriority: 0
     DurabilityRange: {x: 0, y: 0}
+    QualityRange: {x: 0, y: 0}
 --- !u!114 &-4167834067029810729
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1518,6 +1529,7 @@ MonoBehaviour:
   isRuntimeInstance: 0
   boxFoldout: 0
   Durability: 100
+  Quality: 0
   IsAllowed: 0
   CurrentTask:
     TaskId: 
@@ -1666,6 +1678,8 @@ MonoBehaviour:
   _category: 3
   _maxDurability: 100
   _maxStackSize: 25
+  _hasQuality: 1
+  _defaultQuality: 1
   _baseData: {fileID: -7963185361307739678}
   _foodType: 0
   _nutrition: 0.5
@@ -1755,6 +1769,8 @@ MonoBehaviour:
   _category: 0
   _maxDurability: 100
   _maxStackSize: 25
+  _hasQuality: 1
+  _defaultQuality: 1
   _baseData: {fileID: 6445956091041958653}
 --- !u!114 &-2905673160663084519
 MonoBehaviour:
@@ -1794,6 +1810,8 @@ MonoBehaviour:
   _category: 3
   _maxDurability: 100
   _maxStackSize: 25
+  _hasQuality: 1
+  _defaultQuality: 1
   _baseData: {fileID: -7963185361307739678}
   _foodType: 0
   _nutrition: 0.5
@@ -1835,6 +1853,8 @@ MonoBehaviour:
   _category: 4
   _maxDurability: 100
   _maxStackSize: 1
+  _hasQuality: 1
+  _defaultQuality: 1
   _baseData: {fileID: 1468006658073743336}
   _craftRequirements:
     _minCraftingSkillLevel: 0
@@ -1894,6 +1914,8 @@ MonoBehaviour:
   _category: 4
   _maxDurability: 100
   _maxStackSize: 1
+  _hasQuality: 1
+  _defaultQuality: 1
   _baseData: {fileID: 7235637523369288592}
   _craftRequirements:
     _minCraftingSkillLevel: 3
@@ -2078,6 +2100,8 @@ MonoBehaviour:
   _category: 4
   _maxDurability: 100
   _maxStackSize: 1
+  _hasQuality: 1
+  _defaultQuality: 1
   _baseData: {fileID: 6553907554727160304}
   _craftRequirements:
     _minCraftingSkillLevel: 3
@@ -2555,6 +2579,8 @@ MonoBehaviour:
   _category: 0
   _maxDurability: 100
   _maxStackSize: 25
+  _hasQuality: 1
+  _defaultQuality: 1
   _baseData: {fileID: 3998079584738369031}
 --- !u!114 &-1021968146556891717
 MonoBehaviour:
@@ -2595,6 +2621,7 @@ MonoBehaviour:
   isRuntimeInstance: 0
   boxFoldout: 0
   Durability: 0
+  Quality: 0
   IsAllowed: 0
   CurrentTask:
     TaskId: 
@@ -2772,6 +2799,8 @@ MonoBehaviour:
   _category: 4
   _maxDurability: 5
   _maxStackSize: 0
+  _hasQuality: 1
+  _defaultQuality: 1
   _baseData: {fileID: 129112436663426907}
   _craftRequirements:
     _minCraftingSkillLevel: 0
@@ -2880,6 +2909,8 @@ MonoBehaviour:
   _category: 0
   _maxDurability: 100
   _maxStackSize: 25
+  _hasQuality: 1
+  _defaultQuality: 1
   _baseData: {fileID: -6683971750745164997}
   _craftRequirements:
     _minCraftingSkillLevel: 2
@@ -3541,6 +3572,7 @@ MonoBehaviour:
   isRuntimeInstance: 0
   boxFoldout: 0
   Durability: 0
+  Quality: 0
   IsAllowed: 0
   CurrentTask:
     TaskId: 
@@ -3610,6 +3642,7 @@ MonoBehaviour:
   isRuntimeInstance: 0
   boxFoldout: 0
   Durability: 0
+  Quality: 0
   IsAllowed: 0
   CurrentTask:
     TaskId: 
@@ -3661,6 +3694,8 @@ MonoBehaviour:
   _category: 0
   _maxDurability: 100
   _maxStackSize: 25
+  _hasQuality: 1
+  _defaultQuality: 1
   _baseData: {fileID: -5005131501070810583}
 --- !u!114 &366437865215858577
 MonoBehaviour:
@@ -3701,6 +3736,7 @@ MonoBehaviour:
   isRuntimeInstance: 0
   boxFoldout: 0
   Durability: 0
+  Quality: 0
   IsAllowed: 0
   CurrentTask:
     TaskId: 
@@ -3985,6 +4021,7 @@ MonoBehaviour:
   isRuntimeInstance: 0
   boxFoldout: 0
   Durability: 100
+  Quality: 0
   IsAllowed: 0
   CurrentTask:
     TaskId: 
@@ -4139,6 +4176,7 @@ MonoBehaviour:
   isRuntimeInstance: 0
   boxFoldout: 0
   Durability: 100
+  Quality: 0
   IsAllowed: 1
   CurrentTask:
     TaskId: 
@@ -4349,6 +4387,8 @@ MonoBehaviour:
   _category: 0
   _maxDurability: 100
   _maxStackSize: 25
+  _hasQuality: 1
+  _defaultQuality: 1
   _baseData: {fileID: -4106105843404846981}
 --- !u!114 &2672976842291651213
 MonoBehaviour:
@@ -4545,6 +4585,8 @@ MonoBehaviour:
   _category: 0
   _maxDurability: 100
   _maxStackSize: 25
+  _hasQuality: 1
+  _defaultQuality: 1
   _baseData: {fileID: -7963632896702530702}
   _craftRequirements:
     _minCraftingSkillLevel: 2
@@ -4680,6 +4722,8 @@ MonoBehaviour:
   _category: 0
   _maxDurability: 100
   _maxStackSize: 25
+  _hasQuality: 1
+  _defaultQuality: 1
   _baseData: {fileID: -5298398873868244794}
 --- !u!114 &3668364348396301276
 MonoBehaviour:
@@ -4868,6 +4912,7 @@ MonoBehaviour:
   isRuntimeInstance: 0
   boxFoldout: 0
   Durability: 0
+  Quality: 0
   IsAllowed: 0
   CurrentTask:
     TaskId: 
@@ -4918,6 +4963,8 @@ MonoBehaviour:
   _category: 0
   _maxDurability: 100
   _maxStackSize: 25
+  _hasQuality: 1
+  _defaultQuality: 1
   _baseData: {fileID: 366437865215858577}
   _craftRequirements:
     _minCraftingSkillLevel: 2
@@ -4966,6 +5013,7 @@ MonoBehaviour:
   isRuntimeInstance: 0
   boxFoldout: 0
   Durability: 100
+  Quality: 0
   IsAllowed: 0
   CurrentTask:
     TaskId: 
@@ -5054,6 +5102,8 @@ MonoBehaviour:
   _category: 0
   _maxDurability: 100
   _maxStackSize: 25
+  _hasQuality: 1
+  _defaultQuality: 1
   _baseData: {fileID: 1851590692530616479}
 --- !u!114 &4971306714869226098
 MonoBehaviour:
@@ -5481,6 +5531,7 @@ MonoBehaviour:
   isRuntimeInstance: 0
   boxFoldout: 0
   Durability: 0
+  Quality: 0
   IsAllowed: 0
   CurrentTask:
     TaskId: 
@@ -5634,6 +5685,7 @@ MonoBehaviour:
   isRuntimeInstance: 0
   boxFoldout: 0
   Durability: 0
+  Quality: 0
   IsAllowed: 0
   CurrentTask:
     TaskId: 
@@ -5858,6 +5910,8 @@ MonoBehaviour:
   _category: 0
   _maxDurability: 100
   _maxStackSize: 25
+  _hasQuality: 1
+  _defaultQuality: 1
   _baseData: {fileID: 197161459398656425}
   _craftRequirements:
     _minCraftingSkillLevel: 2
@@ -5908,6 +5962,7 @@ MonoBehaviour:
   isRuntimeInstance: 0
   boxFoldout: 0
   Durability: 0
+  Quality: 0
   IsAllowed: 0
   CurrentTask:
     TaskId: 
@@ -5965,6 +6020,8 @@ MonoBehaviour:
   _category: 3
   _maxDurability: 100
   _maxStackSize: 25
+  _hasQuality: 1
+  _defaultQuality: 1
   _baseData: {fileID: -7963185361307739678}
   _foodType: 0
   _nutrition: 0.5
@@ -6209,18 +6266,6 @@ MonoBehaviour:
     - type: Data.Resource.ResourceData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -6700,115 +6745,9 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Resource.MountainResourceData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -6877,6 +6816,7 @@ MonoBehaviour:
     - type: Data.Zones.StockpileZoneData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
       - {fileID: 0}
     - type: Data.Zones.FarmingZoneData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
@@ -7361,6 +7301,7 @@ MonoBehaviour:
   isRuntimeInstance: 0
   boxFoldout: 0
   Durability: 0
+  Quality: 0
   IsAllowed: 0
   CurrentTask:
     TaskId: 
@@ -7451,6 +7392,8 @@ MonoBehaviour:
   _category: 4
   _maxDurability: 5
   _maxStackSize: 0
+  _hasQuality: 1
+  _defaultQuality: 1
   _baseData: {fileID: 129112436663426907}
   _craftRequirements:
     _minCraftingSkillLevel: 0

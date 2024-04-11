@@ -205,19 +205,16 @@ namespace Systems.Details.Components
 				float dragStartValue = GetValueOfPointInSliderBounds01(dragStartPosition);
 				
 				dragStartMinValue01 = GetMinHandleValue01(minHandle);
-				dragStartMinValue01 += HANDLE_TOUCH_TOL; // Add a bit of tolerance
-				
 				dragStartMaxValue01 = GetMaxHandleValue01(maxHandle);
-				dragStartMaxValue01 -= HANDLE_TOUCH_TOL; // More tolerance
 
 				// set drag state
-				if (dragStartValue < dragStartMinValue01)
+				if (dragStartValue < dragStartMinValue01 + HANDLE_TOUCH_TOL)
 				{
 					handleType = HandleType.Min;
 					minHandle.SetAsLastSibling();
 					minHandleImage.color = selectedColour;
 				}
-				else if (dragStartValue > dragStartMaxValue01)
+				else if (dragStartValue > dragStartMaxValue01 - HANDLE_TOUCH_TOL)
 				{
 					handleType = HandleType.Max;
 					maxHandle.SetAsLastSibling();

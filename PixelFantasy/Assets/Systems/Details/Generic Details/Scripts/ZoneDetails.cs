@@ -14,9 +14,11 @@ namespace Systems.Details.Generic_Details.Scripts
     {
         [SerializeField] private PanelLayoutRebuilder _layoutRebuilder;
         [SerializeField] private GameObject _panelHandle;
-        [SerializeField] private TextMeshProUGUI _panelTitle;
+        [SerializeField] private TMP_InputField _panelTitle;
 
-        [BoxGroup("Generid")] [SerializeField] private TextMeshProUGUI _genericDetailsText;
+        [BoxGroup("Generic")] [SerializeField] private TextMeshProUGUI _genericDetailsText;
+
+        [BoxGroup("Storage Settings")] [SerializeField] private StorageSettingsDetails _storageDetails;
 
         [BoxGroup("Buttons")] [SerializeField] private Sprite _defaultBtnSprite;
         [BoxGroup("Buttons")] [SerializeField] private Sprite _enabledBtnSprite;
@@ -37,9 +39,9 @@ namespace Systems.Details.Generic_Details.Scripts
             _zoneData.OnZoneChanged += OnZoneChanged;
             _panelHandle.SetActive(true);
             
-            ResetEditBtn();
-
             UpdateDisplayedDetails();
+            
+            ResetEditBtn();
         }
 
         private void UpdateDisplayedDetails()
@@ -75,14 +77,21 @@ namespace Systems.Details.Generic_Details.Scripts
 
         private void DisplayStockpileZoneDetails(StockpileZoneData data)
         {
-            _panelTitle.text = data.ZoneName;
+            _panelTitle.SetTextWithoutNotify(data.ZoneName);
             
             ShowEditSettingsBtn(DisplayStockpileSettings);
         }
 
         private void DisplayStockpileSettings(bool isShown)
         {
-            Debug.Log("Displaying Stockpile settings: " + isShown);
+            if (isShown)
+            {
+                _storageDetails.Show(_zoneData as StockpileZoneData);
+            }
+            else
+            {
+                _storageDetails.Hide();
+            }
         }
 
         private void DisplayFarmingZoneDetails(FarmingZoneData data)
@@ -201,6 +210,11 @@ namespace Systems.Details.Generic_Details.Scripts
             {
                 _editSettingsBtnBG.sprite = _defaultBtnSprite;
             }
+        }
+
+        public void OnZoneNameChanged(string value)
+        {
+            _zoneData.ChangeZoneName(value);
         }
 
         #endregion

@@ -169,5 +169,10 @@ namespace Data.Zones
 
             return neighbors;
         }
+
+        public void ChangeZoneName(string newName)
+        {
+            ZoneName = newName;
+        }
     }
 }

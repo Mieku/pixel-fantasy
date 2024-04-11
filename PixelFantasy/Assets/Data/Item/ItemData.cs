@@ -16,6 +16,7 @@ namespace Data.Item
     {
         // Runtime
         [ExposeToInspector, DatabrainSerialize] public int Durability;
+        [ExposeToInspector, DatabrainSerialize] public EItemQuality Quality;
         [ExposeToInspector, DatabrainSerialize] public bool IsAllowed;
         [ExposeToInspector, DatabrainSerialize] public Task CurrentTask;
         [ExposeToInspector, DatabrainSerialize] public string CarryingKinlingUID;
@@ -30,6 +31,7 @@ namespace Data.Item
             Settings = settings;
             Durability = Settings.MaxDurability;
             IsAllowed = true;
+            Quality = settings.DefaultQuality;
         }
 
         public Items.Item CreateItemObject(Vector2 pos, bool createHaulTask)
@@ -71,5 +73,14 @@ namespace Data.Item
         {
             return Settings == other.Settings;
         }
+    }
+
+    public enum EItemQuality
+    {
+        [Description("Poor")] Poor = 0,
+        [Description("Common")] Common = 1,
+        [Description("Remarkable")] Remarkable = 2,
+        [Description("Enchanted")] Enchanted = 3,
+        [Description("Mythical")] Mythical = 4,
     }
 }

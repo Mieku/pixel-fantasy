@@ -25,6 +25,9 @@ namespace Data.Item
         [SerializeField] protected EItemCategory _category;
         [SerializeField] protected int _maxDurability;
         [SerializeField] protected int _maxStackSize = 25;
+        [SerializeField] protected bool _hasQuality = true;
+        [SerializeField] protected EItemQuality _defaultQuality = EItemQuality.Common;
+        
         [DataObjectDropdown(true), SerializeField] private ItemData _baseData;
         
         public EItemCategory Category => _category;
@@ -32,6 +35,18 @@ namespace Data.Item
         public Sprite ItemSprite => icon;
         public int MaxDurability => _maxDurability;
         public int MaxStackSize => _maxStackSize;
+        public EItemQuality DefaultQuality
+        {
+            get
+            {
+                if (_hasQuality)
+                {
+                    return _defaultQuality;
+                }
+
+                return EItemQuality.Common;
+            }
+        }
         
         public virtual string GetDetailsMsg(string headerColourCode = "#272736")
         {

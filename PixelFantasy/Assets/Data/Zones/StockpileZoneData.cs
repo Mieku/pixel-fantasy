@@ -10,6 +10,7 @@ using UnityEngine.Tilemaps;
 
 namespace Data.Zones
 {
+    [UseOdinInspector]
     public class StockpileZoneData : ZoneData, IStorage
     {
         [ExposeToInspector, DatabrainSerialize]
@@ -19,8 +20,10 @@ namespace Data.Zones
         public List<StockpileCell> StockpileCells => ZoneCells.Cast<StockpileCell>().ToList();
         
         // Specific storage player settings chosen for area 
-        [ExposeToInspector, DatabrainSerialize]
-        public StoragePlayerSettings PlayerSettings;
+        [field: ExposeToInspector]
+        [field: DatabrainSerialize]
+        [field: SerializeField]
+        public StoragePlayerSettings PlayerSettings { get; private set; }
 
 
         public void InitData(StockpileZoneSettings settings)

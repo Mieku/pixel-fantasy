@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using Databrain.Attributes;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -14,12 +15,16 @@ namespace Data.Item
         
         // Durability Range
         [MinMaxSlider(0, 100, true)]
-        public Vector2 DurabilityRange;
-        public float DurabilityMin => DurabilityRange.x;
-        public float DurabilityMax => DurabilityRange.y;
+        public Vector2Int DurabilityRange;
+        public int DurabilityMin => DurabilityRange.x;
+        public int DurabilityMax => DurabilityRange.y;
 
         // Quality Range
-
+        [MinMaxSlider(0, 4, true)]
+        public Vector2Int QualityRange;
+        
+        public EItemQuality QualityMin => (EItemQuality)QualityRange.x;
+        public EItemQuality QualityMax => (EItemQuality)QualityRange.y;
 
         // Allowed Items
 
@@ -28,7 +33,9 @@ namespace Data.Item
         /// </summary>
         public void PasteSettings(StoragePlayerSettings otherSettings)
         {
-            
+            UsePriority = otherSettings.UsePriority;
+            DurabilityRange = otherSettings.DurabilityRange;
+            QualityRange = otherSettings.QualityRange;
         }
 
         public bool IsItemValidToStore(ItemSettings itemSettings)
@@ -40,10 +47,10 @@ namespace Data.Item
 
     public enum EUsePriority
     {
-        Ignore = 0,
-        Low = 1,
-        Normal = 2,
-        Important = 3,
-        Preferred = 4
+        [Description("Ignore")] Ignore = 0,
+        [Description("Low")] Low = 1,
+        [Description("Normal")] Normal = 2,
+        [Description("Preferred")] Preferred = 3,
+        [Description("Critical")] Critical = 4
     }
 }
