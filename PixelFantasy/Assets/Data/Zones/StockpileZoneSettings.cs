@@ -1,12 +1,12 @@
-using Data.Item;
+using Data.Item.DefaultStoragePlayerSettings;
 using Databrain.Attributes;
-using Systems.Zones.Scripts;
+using UnityEngine;
 
 namespace Data.Zones
 {
     [UseOdinInspector]
     public class StockpileZoneSettings : ZoneSettings
     {
-        public StoragePlayerSettings DefaultPlayerSettings;
+        [SerializeField] public DefaultStoragePlayerSettings DefaultPlayerSettings;
     }
 }

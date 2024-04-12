@@ -10,7 +10,6 @@ using Managers;
 using Systems.Build_Controls.Scripts;
 using TMPro;
 using UnityEngine;
-using VInspector.Libs;
 
 namespace Systems.Details.Build_Details.Scripts
 {

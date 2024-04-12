@@ -26,12 +26,8 @@ namespace Systems.Details.Generic_Details.Scripts
         [BoxGroup("Buttons")] [SerializeField] private Image _enableBtnBG;
         [BoxGroup("Buttons")] [SerializeField] private Image _expandBtnBG;
         [BoxGroup("Buttons")] [SerializeField] private Image _shrinkBtnBG;
-        [BoxGroup("Buttons")] [SerializeField] private Button _editSettingsBtn;
-        [BoxGroup("Buttons")] [SerializeField] private Image _editSettingsBtnBG;
 
         private ZoneData _zoneData;
-        private bool _isEditingSettings;
-        private Action<bool> _onEditSettingsPressed;
         
         public void Show(ZoneData zoneData)
         {
@@ -40,8 +36,6 @@ namespace Systems.Details.Generic_Details.Scripts
             _panelHandle.SetActive(true);
             
             UpdateDisplayedDetails();
-            
-            ResetEditBtn();
         }
 
         private void UpdateDisplayedDetails()
@@ -79,29 +73,22 @@ namespace Systems.Details.Generic_Details.Scripts
         {
             _panelTitle.SetTextWithoutNotify(data.ZoneName);
             
-            ShowEditSettingsBtn(DisplayStockpileSettings);
+            DisplayStockpileSettings();
         }
 
-        private void DisplayStockpileSettings(bool isShown)
+        private void DisplayStockpileSettings()
         {
-            if (isShown)
-            {
-                _storageDetails.Show(_zoneData as StockpileZoneData);
-            }
-            else
-            {
-                _storageDetails.Hide();
-            }
+            _storageDetails.Show(_zoneData as StockpileZoneData);
         }
 
         private void DisplayFarmingZoneDetails(FarmingZoneData data)
         {
             _panelTitle.text = data.ZoneName;
             
-            ShowEditSettingsBtn(DisplayFarmSettings);
+            DisplayFarmSettings();
         }
         
-        private void DisplayFarmSettings(bool isShown)
+        private void DisplayFarmSettings()
         {
             
         }
@@ -169,46 +156,6 @@ namespace Systems.Details.Generic_Details.Scripts
             else
             {
                 _enableBtnBG.sprite = _disabledBtnSprite;
-            }
-        }
-
-        private void ShowEditSettingsBtn(Action<bool> onEditSettingsPressed)
-        {
-            _onEditSettingsPressed = onEditSettingsPressed;
-            _editSettingsBtn.gameObject.SetActive(true);
-        }
-
-        private void HideEditSettingsBtn()
-        {
-            _onEditSettingsPressed = null;
-            _editSettingsBtn.gameObject.SetActive(false);
-        }
-
-        public void EditBtnToggled()
-        {
-            _isEditingSettings = !_isEditingSettings;
-            RefreshEditBtnDisplay();
-
-            _onEditSettingsPressed.Invoke(_isEditingSettings);
-        }
-
-        private void ResetEditBtn()
-        {
-            _isEditingSettings = false;
-            RefreshEditBtnDisplay();
-            
-            _onEditSettingsPressed?.Invoke(false);
-        }
-
-        private void RefreshEditBtnDisplay()
-        {
-            if (_isEditingSettings)
-            {
-                _editSettingsBtnBG.sprite = _enabledBtnSprite;
-            }
-            else
-            {
-                _editSettingsBtnBG.sprite = _defaultBtnSprite;
             }
         }
 

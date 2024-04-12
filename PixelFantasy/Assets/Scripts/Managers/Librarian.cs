@@ -33,9 +33,11 @@ namespace Managers
 
         public DataLibrary DataLibrary => _dataLibrary;
 
-        public ItemData GetInitialItemDataByGuid(string guid)
+        public List<ItemSettings> GetAllItemSettings()
         {
-            return _dataLibrary.GetInitialDataObjectByGuid(guid) as ItemData;
+            List<ItemSettings> itemSettingsList = _dataLibrary.GetAllInitialDataObjectsByType<ItemSettings>(true);
+            List<ItemSettings> clone = new List<ItemSettings>(itemSettingsList);
+            return clone;
         }
         
         public TalentSettings GetTalent(string talentName)

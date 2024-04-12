@@ -4,6 +4,8 @@ using System.Linq;
 using Data.Item;
 using Databrain.Attributes;
 using Items;
+using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using Systems.Zones.Scripts;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -16,21 +18,20 @@ namespace Data.Zones
         [ExposeToInspector, DatabrainSerialize]
         public StockpileZoneSettings StockpileSettings;
         
-        // What is stored? and Where? Maybe make a storage cell type
         public List<StockpileCell> StockpileCells => ZoneCells.Cast<StockpileCell>().ToList();
         
         // Specific storage player settings chosen for area 
-        [field: ExposeToInspector]
-        [field: DatabrainSerialize]
-        [field: SerializeField]
-        public StoragePlayerSettings PlayerSettings { get; private set; }
+        [OdinSerialize, ExposeToInspector, DatabrainSerialize]
+        private StoragePlayerSettings _playerSettings;
+
+        public StoragePlayerSettings PlayerSettings => _playerSettings;
 
 
         public void InitData(StockpileZoneSettings settings)
         {
             StockpileSettings = settings;
-            PlayerSettings = new StoragePlayerSettings();
-            PlayerSettings.PasteSettings(settings.DefaultPlayerSettings);
+            _playerSettings = new StoragePlayerSettings();
+            _playerSettings.PasteSettings(settings.DefaultPlayerSettings);
             IsEnabled = true;
 
             ZoneName = $"Stockpile {AssignedLayer}";
@@ -39,11 +40,16 @@ namespace Data.Zones
         public void CopyData(StockpileZoneData dataToCopy)
         {
             StockpileSettings = dataToCopy.StockpileSettings;
-            PlayerSettings = new StoragePlayerSettings();
-            PlayerSettings.PasteSettings(dataToCopy.PlayerSettings);
+            _playerSettings = new StoragePlayerSettings();
+            _playerSettings.PasteSettings(dataToCopy.PlayerSettings);
             IsEnabled = dataToCopy.IsEnabled;
             
             ZoneName = $"Stockpile {AssignedLayer}";
+        }
+
+        public void RestoreDefaultStockpileSettings()
+        {
+            _playerSettings.PasteSettings(StockpileSettings.DefaultPlayerSettings);
         }
         
         public override Color ZoneColour => Settings.ZoneColour;
@@ -93,7 +99,7 @@ namespace Data.Zones
         
         public void SetIncoming(ItemData itemData)
         {
-            if (!PlayerSettings.IsItemValidToStore(itemData.Settings))
+            if (!PlayerSettings.IsItemValidToStore(itemData))
             {
                 Debug.LogError("Attempting to store the wrong item category");
                 return;
@@ -139,14 +145,14 @@ namespace Data.Zones
             cell.DepositItem(runtimeData);
             
             Destroy(item.gameObject);
-            OnZoneChanged.Invoke();
+            OnZoneChanged?.Invoke();
         }
 
         public Items.Item WithdrawItem(ItemData itemData)
         {
             var cell = GetAssignedCellForSpecificItem(itemData);
             var item = cell.WithdrawItem(itemData);
-            OnZoneChanged.Invoke();
+            OnZoneChanged?.Invoke();
             return item;
         }
 
@@ -251,7 +257,7 @@ namespace Data.Zones
 
         public int AmountCanBeDeposited(ItemSettings itemSettings)
         {
-            if (!PlayerSettings.IsItemValidToStore(itemSettings)) return 0;
+            if (!PlayerSettings.IsItemTypeAllowed(itemSettings)) return 0;
 
             int result = 0;
             foreach (var cell in StockpileCells)

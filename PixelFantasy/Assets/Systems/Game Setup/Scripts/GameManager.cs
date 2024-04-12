@@ -7,7 +7,6 @@ using Databrain;
 using Databrain.Attributes;
 using Items;
 using Managers;
-using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Systems.Appearance.Scripts;
 using Systems.Buildings.Scripts;
@@ -113,7 +112,6 @@ namespace Systems.Game_Setup.Scripts
         
         private void LoadStarterKinlings(Vector3Int startCell, int amount)
         {
-            //List<Kinling> spawnedKinlings = new List<Kinling>();
             Vector2 startPos = new Vector2(startCell.x, startCell.y);
             for (int i = 0; i < amount; i++)
             {
@@ -124,22 +122,7 @@ namespace Systems.Game_Setup.Scripts
                     var pos = Helper.RandomLocationInRange(startPos);
                     KinlingsManager.Instance.SpawnKinling(kinlingData, pos);
                 });
-                
-                
-                
             }
-            //
-            // // Spawn First
-            // foreach (var kinling in starterKinlings)
-            // {
-            //     var pos = Helper.RandomLocationInRange(startPos);
-            //     KinlingsManager.Instance.SpawnKinling(kinling, pos);
-            //     // var kinlingData = (KinlingData)DataLibrary.CloneDataObjectToRuntime(GenericKinlingData, gameObject);
-            //     // var pos = Helper.RandomLocationInRange(startPos);
-            //     // var spawnedKinling = Spawner.Instance.SpawnKinling(kinling, pos, false);
-            //     // spawnedKinling.SetKinlingData(kinling);
-            //     // spawnedKinlings.Add(spawnedKinling);
-            // }
         }
     }
 }

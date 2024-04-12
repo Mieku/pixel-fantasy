@@ -55,7 +55,6 @@ MonoBehaviour:
     - QFSW.QC.QGUI
     - QFSW.QC.UI
     - QFSW.QC.Suggestors
-    - VInspector
     - VHierarchy
     - FangAutoTile
     - FangAutoTile.Editor

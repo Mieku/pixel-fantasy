@@ -19,6 +19,7 @@ namespace Data.Item
         [Description("Bulky Resource")] BulkyResource,
     }
     
+    [Serializable]
     public class ItemSettings : DataObject
     {
         // Settings
@@ -35,6 +36,9 @@ namespace Data.Item
         public Sprite ItemSprite => icon;
         public int MaxDurability => _maxDurability;
         public int MaxStackSize => _maxStackSize;
+
+        public bool CanBeStored => _maxStackSize > 0;
+        
         public EItemQuality DefaultQuality
         {
             get

@@ -73,6 +73,18 @@ namespace Data.Item
         {
             return Settings == other.Settings;
         }
+
+        /// <summary>
+        /// The percentage of durability remaining ex: 0.5 = 50%
+        /// </summary>
+        public float DurabilityPercent
+        {
+            get
+            {
+                var percent = (float)Durability / (float)Settings.MaxDurability;
+                return percent;
+            }
+        }
     }
 
     public enum EItemQuality
