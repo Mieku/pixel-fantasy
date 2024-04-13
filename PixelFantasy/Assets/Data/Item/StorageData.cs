@@ -20,7 +20,7 @@ namespace Data.Item
         
         [field: ExposeToInspector]
         [field: DatabrainSerialize]
-        public StoragePlayerSettings PlayerSettings { get; private set; }
+        public StorageConfigs StorageConfigs { get; private set; }
 
         public override void InitData(ItemSettings itemSettings)
         {

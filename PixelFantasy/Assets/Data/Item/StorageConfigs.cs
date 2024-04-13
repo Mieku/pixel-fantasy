@@ -6,15 +6,17 @@ using Databrain.Attributes;
 using Managers;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
-using Systems.Game_Setup.Scripts;
 using UnityEngine;
 
 namespace Data.Item
 {
     [Serializable]
     [UseOdinInspector]
-    public class StoragePlayerSettings
+    public class StorageConfigs : ICopyPasteConfig
     {
+        [field: SerializeField]
+        public EConfigType ConfigType { get; protected set; }
+        
         // Priority for storage
         [EnumPaging]
         public EUsePriority UsePriority;
@@ -38,17 +40,22 @@ namespace Data.Item
         /// <summary>
         /// Updates settings to be the same
         /// </summary>
-        public void PasteSettings(StoragePlayerSettings otherSettings)
+        public void PasteConfigs(ICopyPasteConfig otherConfigs)
         {
-            UsePriority = otherSettings.UsePriority;
-            DurabilityRange = otherSettings.DurabilityRange;
-            QualityRange = otherSettings.QualityRange;
-            StorageOptions = new AllowedStorageOptions(otherSettings.StorageOptions);
+            if (ConfigType == otherConfigs.ConfigType)
+            {
+                var storageConfigs = (StorageConfigs) otherConfigs;
+                ConfigType = storageConfigs.ConfigType;
+                UsePriority = storageConfigs.UsePriority;
+                DurabilityRange = storageConfigs.DurabilityRange;
+                QualityRange = storageConfigs.QualityRange;
+                StorageOptions = new AllowedStorageOptions(storageConfigs.StorageOptions);
+            }
         }
 
-        public void PasteSettings(DefaultStoragePlayerSettings.DefaultStoragePlayerSettings defaultSettings)
+        public void PasteConfigs(DefaultStoragePlayerSettings.DefaultStorageConfigs defaultSettings)
         {
-            PasteSettings(defaultSettings.Settings);
+            PasteConfigs(defaultSettings.StorageConfigs);
         }
 
         public bool IsItemTypeAllowed(ItemSettings itemSettings)

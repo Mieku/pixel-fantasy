@@ -22,16 +22,16 @@ namespace Data.Zones
         
         // Specific storage player settings chosen for area 
         [OdinSerialize, ExposeToInspector, DatabrainSerialize]
-        private StoragePlayerSettings _playerSettings;
+        private StorageConfigs _storageConfigs;
 
-        public StoragePlayerSettings PlayerSettings => _playerSettings;
+        public StorageConfigs StorageConfigs => _storageConfigs;
 
 
         public void InitData(StockpileZoneSettings settings)
         {
             StockpileSettings = settings;
-            _playerSettings = new StoragePlayerSettings();
-            _playerSettings.PasteSettings(settings.DefaultPlayerSettings);
+            _storageConfigs = new StorageConfigs();
+            _storageConfigs.PasteConfigs(settings.DefaultConfigs);
             IsEnabled = true;
 
             ZoneName = $"Stockpile {AssignedLayer}";
@@ -40,8 +40,8 @@ namespace Data.Zones
         public void CopyData(StockpileZoneData dataToCopy)
         {
             StockpileSettings = dataToCopy.StockpileSettings;
-            _playerSettings = new StoragePlayerSettings();
-            _playerSettings.PasteSettings(dataToCopy.PlayerSettings);
+            _storageConfigs = new StorageConfigs();
+            _storageConfigs.PasteConfigs(dataToCopy.StorageConfigs);
             IsEnabled = dataToCopy.IsEnabled;
             
             ZoneName = $"Stockpile {AssignedLayer}";
@@ -49,7 +49,7 @@ namespace Data.Zones
 
         public void RestoreDefaultStockpileSettings()
         {
-            _playerSettings.PasteSettings(StockpileSettings.DefaultPlayerSettings);
+            _storageConfigs.PasteConfigs(StockpileSettings.DefaultConfigs);
         }
         
         public override Color ZoneColour => Settings.ZoneColour;
@@ -99,7 +99,7 @@ namespace Data.Zones
         
         public void SetIncoming(ItemData itemData)
         {
-            if (!PlayerSettings.IsItemValidToStore(itemData))
+            if (!StorageConfigs.IsItemValidToStore(itemData))
             {
                 Debug.LogError("Attempting to store the wrong item category");
                 return;
@@ -257,7 +257,7 @@ namespace Data.Zones
 
         public int AmountCanBeDeposited(ItemSettings itemSettings)
         {
-            if (!PlayerSettings.IsItemTypeAllowed(itemSettings)) return 0;
+            if (!StorageConfigs.IsItemTypeAllowed(itemSettings)) return 0;
 
             int result = 0;
             foreach (var cell in StockpileCells)

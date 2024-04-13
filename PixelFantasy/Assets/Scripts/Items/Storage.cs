@@ -46,7 +46,7 @@ namespace Items
         public List<ItemData> Stored => RuntimeStorageData.Stored;
         public List<ItemData> Incoming => RuntimeStorageData.Incoming;
         public List<ItemData> Claimed => RuntimeStorageData.Claimed;
-        public StoragePlayerSettings PlayerSettings => RuntimeStorageData.PlayerSettings;
+        public StorageConfigs StorageConfigs => RuntimeStorageData.StorageConfigs;
 
         public void SetIncoming(ItemData itemData)
         {

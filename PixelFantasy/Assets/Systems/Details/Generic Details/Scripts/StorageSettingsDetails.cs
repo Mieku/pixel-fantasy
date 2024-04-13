@@ -5,8 +5,10 @@ using Items;
 using Sirenix.OdinInspector;
 using Systems.Details.Build_Details.Scripts;
 using Systems.Details.Components;
+using Systems.Notifications.Scripts;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Systems.Details.Generic_Details.Scripts
 {
@@ -20,18 +22,32 @@ namespace Systems.Details.Generic_Details.Scripts
         [BoxGroup("Controls"), SerializeField] private RangeSlider _qualitySlider;
         [BoxGroup("Controls"), SerializeField] private TextMeshProUGUI _qualityDetails;
         [BoxGroup("Controls"), SerializeField] private TMP_Dropdown _priorityDropdown;
-
+        [BoxGroup("Controls"), SerializeField] private Button _pasteBtn;
+        [BoxGroup("Controls"), SerializeField] private Image _pasteIcon;
+        [BoxGroup("Controls"), SerializeField] private Color _pasteActiveColour;
+        [BoxGroup("Controls"), SerializeField] private Color _pasteInactiveColour;
+ 
         [BoxGroup("Search"), SerializeField] private StorageSearchCategory _searchCategory;
         
         [BoxGroup("Category"), SerializeField] private StorageCategoryDisplay _categoryDisplayPrefab;
         
         private IStorage _storage;
-        private StoragePlayerSettings _settings => _storage.PlayerSettings;
+        private StorageConfigs _settings => _storage.StorageConfigs;
         private List<StorageCategoryDisplay> _displayedCategories = new List<StorageCategoryDisplay>();
 
         private void Awake()
         {
             _categoryDisplayPrefab.gameObject.SetActive(false);
+        }
+
+        private void OnEnable()
+        {
+            GameEvents.OnConfigClipboardChanged += RefreshPasteButton;
+        }
+
+        private void OnDisable()
+        {
+            GameEvents.OnConfigClipboardChanged -= RefreshPasteButton;
         }
 
         public void Show(IStorage storage)
@@ -54,6 +70,7 @@ namespace Systems.Details.Generic_Details.Scripts
 
         private void Refresh()
         {
+            RefreshPasteButton();
             RefreshDurabilityDisplay();
             RefreshQualityDisplay();
             RefreshPriorityDisplay();
@@ -181,6 +198,39 @@ namespace Systems.Details.Generic_Details.Scripts
             {
                 category.RefreshEntryDisplays();
                 category.RefreshAllowedToggle();
+            }
+        }
+
+        public void OnCopyConfigsPressed()
+        {
+            ConfigClipboard.Instance.Copy(_settings);
+            NotificationManager.Instance.Toast("Settings Copied to Clipboard");
+        }
+
+        public void OnPasteConfigsPressed()
+        {
+            if(!ConfigClipboard.Instance.HasConfig(_settings.ConfigType)) return;
+            
+            var pastedConfigs = ConfigClipboard.Instance.Paste(_settings.ConfigType);
+            _storage.StorageConfigs.PasteConfigs(pastedConfigs);
+            
+            Refresh();
+            
+            NotificationManager.Instance.Toast("Settings Pasted");
+        }
+
+        private void RefreshPasteButton()
+        {
+            bool configsAvailable = ConfigClipboard.Instance.HasConfig(_settings.ConfigType);
+            _pasteBtn.interactable = configsAvailable;
+
+            if (configsAvailable)
+            {
+                _pasteIcon.color = _pasteActiveColour;
+            }
+            else
+            {
+                _pasteIcon.color = _pasteInactiveColour;
             }
         }
 

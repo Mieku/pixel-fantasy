@@ -8,12 +8,12 @@ using UnityEngine;
 namespace Data.Item.DefaultStoragePlayerSettings
 {
     [CreateAssetMenu(fileName = "DefaultStorageSettings", menuName = "Settings/DefaultStorageSettings", order = 0)] 
-    public class DefaultStoragePlayerSettings : SerializedScriptableObject
+    public class DefaultStorageConfigs : SerializedScriptableObject
     {
-        [OdinSerialize] private StoragePlayerSettings _defaultSettings;
+        [OdinSerialize] private StorageConfigs _defaultConfigs;
 
-        public StoragePlayerSettings Settings => _defaultSettings;
-        private Dictionary<EItemCategory, List<AllowedStorageEntry>> Options => _defaultSettings.StorageOptions.Options;
+        public StorageConfigs StorageConfigs => _defaultConfigs;
+        private Dictionary<EItemCategory, List<AllowedStorageEntry>> Options => _defaultConfigs.StorageOptions.Options;
         
         [Button("UpdateListOfOptions")]
         private void UpdateListOfOptions() 
@@ -37,7 +37,7 @@ namespace Data.Item.DefaultStoragePlayerSettings
 
                     if (!allCurrentItemSettings.Contains(potentialItem))
                     {
-                        bool autoAllowed = !_defaultSettings.StorageOptions.AreAllInCategoryNotAllowed(potentialItem.Category);
+                        bool autoAllowed = !_defaultConfigs.StorageOptions.AreAllInCategoryNotAllowed(potentialItem.Category);
                         var newEntry = new AllowedStorageEntry(potentialItem, autoAllowed);
                         Options[newEntry.Category].Add(newEntry);
                     }

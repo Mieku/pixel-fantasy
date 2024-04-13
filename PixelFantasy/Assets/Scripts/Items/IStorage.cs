@@ -10,7 +10,7 @@ namespace Items
         public List<ItemData> Incoming { get; }
         public List<ItemData> Claimed { get; }
         
-        public StoragePlayerSettings PlayerSettings { get; }
+        public StorageConfigs StorageConfigs { get; }
 
         public void SetIncoming(ItemData itemData);
         public void CancelIncoming(ItemData itemData);

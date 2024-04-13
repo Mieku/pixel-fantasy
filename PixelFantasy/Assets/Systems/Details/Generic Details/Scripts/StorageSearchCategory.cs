@@ -20,7 +20,7 @@ namespace Systems.Details.Generic_Details.Scripts
             _entryDisplayPrefab.gameObject.SetActive(false);
         }
 
-        public void UpdateSearch(string searchString, StoragePlayerSettings playerSettings, Action onEntryChangedCallback, Action refreshLayoutCallback)
+        public void UpdateSearch(string searchString, StorageConfigs storageConfigs, Action onEntryChangedCallback, Action refreshLayoutCallback)
         {
             gameObject.SetActive(true);
 
@@ -33,7 +33,7 @@ namespace Systems.Details.Generic_Details.Scripts
             }
             _displayedEntries.Clear();
 
-            var searchedEntries = playerSettings.StorageOptions.SearchByName(searchString);
+            var searchedEntries = storageConfigs.StorageOptions.SearchByName(searchString);
             foreach (var searchedEntry in searchedEntries)
             {
                 var entryDisplay = Instantiate(_entryDisplayPrefab, _categoryContentParent);
