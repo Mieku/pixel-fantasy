@@ -65,7 +65,7 @@ namespace Databrain.Data
 		/// <summary>
 		/// Populates the runtime dictionary which will be used at runtime for faster access times
 		/// </summary>
-		public void PopulateRuntimeDictionary()
+		internal void PopulateRuntimeDictionary()
 		{
 			isRuntime = true;
 			runtimeDictionary = new Dictionary<Type, Dictionary<string, DataObject>>();
@@ -93,7 +93,7 @@ namespace Databrain.Data
 			}
 		}
 
-		public void ChangeRuntimeGUID(Type _type, string _oldGuid, string _newGuid)
+		internal void ChangeRuntimeGUID(Type _type, string _oldGuid, string _newGuid)
 		{
 			if (runtimeDictionary.ContainsKey(_type))
 			{
@@ -104,7 +104,7 @@ namespace Databrain.Data
 		}
 
 
-		public DataObject GetDataObjectByGuid(string _guid, Type _type = null)
+		internal DataObject GetDataObjectByGuid(string _guid, Type _type = null)
 		{
 			if (isRuntime)
 			{
@@ -147,7 +147,7 @@ namespace Databrain.Data
 			return null;
 		}
 
-		public T GetDataObjectByGuid<T>(string _guid) where T : DataObject
+		internal T GetDataObjectByGuid<T>(string _guid) where T : DataObject
 		{
 			if (isRuntime)
 			{
@@ -175,7 +175,7 @@ namespace Databrain.Data
 
 		
 		
-		public DataObject GetDataObjectByTitle(string _title, Type _type = null)
+		internal DataObject GetDataObjectByTitle(string _title, Type _type = null)
 		{
 			if (isRuntime)
 			{
@@ -216,7 +216,7 @@ namespace Databrain.Data
 			return null;
 		}
 
-		public T GetDataObjectByTitle<T>(string _title) where T : DataObject
+		internal T GetDataObjectByTitle<T>(string _title) where T : DataObject
 		{
 			if (isRuntime)
 			{
@@ -243,7 +243,7 @@ namespace Databrain.Data
 		}
 
 	
-		public DataObject GetFirstDataObjectByType(Type _type)
+		internal DataObject GetFirstDataObjectByType(Type _type)
 		{
 			if (isRuntime)
 			{
@@ -261,7 +261,7 @@ namespace Databrain.Data
             return null;
         }
 
-		public T GetFirstDataObjectByType<T>() where T : DataObject
+		internal T GetFirstDataObjectByType<T>() where T : DataObject
 		{
 			if (isRuntime)
 			{
@@ -281,7 +281,7 @@ namespace Databrain.Data
             return null;
         }
 
-		public List<T> GetAllDataObjectsByType<T>(bool _includeSubTypes) where T : DataObject
+		internal List<T> GetAllDataObjectsByType<T>(bool _includeSubTypes) where T : DataObject
 		{
 			if (isRuntime)
 			{
@@ -358,7 +358,7 @@ namespace Databrain.Data
 			return list;
 		}
 		
-		public List<DataObject> GetAllDataObjectsByType(Type _type, bool _includeSubTypes)
+		internal List<DataObject> GetAllDataObjectsByType(Type _type, bool _includeSubTypes)
 		{
 			if (isRuntime)
 			{
@@ -439,8 +439,33 @@ namespace Databrain.Data
 			return list;
         }
 
+		internal List<DataObject> GetAllDataObjectsByTags(string _tag, params string[] _tags)
+		{
+			if (isRuntime)
+			{
+				return GetAllDataObjectsByTagsRuntime(_tag, _tags);
+			}
 
-        public void AddDataObject(Type _type, DataObject _dataObject)
+			List<DataObject> list = new List<DataObject>();
+			for (int i = 0; i < _objectList.Count; i++)
+			{
+				for(var d = 0; d < _objectList[i].dataObjects.Count; d ++)
+				{
+					if (_objectList[i].dataObjects[d].tags !=null && _objectList[i].dataObjects[d].tags.Count > 0)
+					{
+						if (_objectList[i].dataObjects[d].tags.Contains(_tag) || _objectList[i].dataObjects[d].tags.Intersect(_tags).Count() > 0)
+						{
+							list.Add(_objectList[i].dataObjects[d]);
+						}
+					}
+				}
+			}
+
+			return list;
+		}
+
+
+        internal void AddDataObject(Type _type, DataObject _dataObject)
 		{
 			if (isRuntime)
 			{
@@ -467,7 +492,7 @@ namespace Databrain.Data
 			}
 		}
 		
-		public void RemoveDataObject(Type _type, DataObject _dataObject)
+		internal void RemoveDataObject(Type _type, DataObject _dataObject)
 		{
 			if (isRuntime)
 			{
@@ -490,12 +515,12 @@ namespace Databrain.Data
 		}
 
 
-		public void SetFavorite(DataObject _dataObject)
+		internal void SetFavorite(DataObject _dataObject)
 		{
 			_favoriteList.Add(new DataType(_dataObject.GetType(), _dataObject));
 		}
 
-		public void RemoveFromFavorite(DataObject _dataObject)
+		internal void RemoveFromFavorite(DataObject _dataObject)
 		{
 			for (int f = 0; f < _favoriteList.Count; f++)
 			{
@@ -509,7 +534,7 @@ namespace Databrain.Data
 			}
 		}
 
-		public bool IsFavorite(DataObject _dataObject)
+		internal bool IsFavorite(DataObject _dataObject)
 		{
 			for (int f = 0; f < _favoriteList.Count; f++)
 			{
@@ -530,6 +555,24 @@ namespace Databrain.Data
 
 		// Runtime data access uses the runtime dictionary for faster data access.
 		// measured 10x - 100x faster and nearly zero garbage collection.
+
+		private List<DataObject> GetAllDataObjectsByTagsRuntime(string _tag, params string[] _tags)
+		{
+			List<DataObject> list = new List<DataObject>();
+			foreach(var _key in runtimeDictionary.Keys)
+			{
+				foreach(var _data in runtimeDictionary[_key].Keys)
+				{
+					if (runtimeDictionary[_key][_data].tags.Contains(_tag) || runtimeDictionary[_key][_data].tags.Intersect(_tags).Count() > 0)
+					{
+						list.Add(runtimeDictionary[_key][_data]);
+					}
+				}
+			}
+
+			return list;
+		}
+
 
 		private DataObject GetDataObjectByGuidRuntime(string _guid, Type _type = null)
 		{

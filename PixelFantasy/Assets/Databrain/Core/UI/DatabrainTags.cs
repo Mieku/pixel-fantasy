@@ -64,7 +64,7 @@ namespace Databrain.UI
         }
 
 
-        public static void ShowTagsDataObject(VisualElement _tagContainer, List<string> _tagsList, Action<Type> _onRemoveItem = null)
+        public static void ShowTagsDataObject(VisualElement _tagContainer, List<string> _tagsList, List<string> _existingTags, Action<Type> _onRemoveItem = null)
         {
             if (_tagsList == null)
                 return;
@@ -92,6 +92,25 @@ namespace Databrain.UI
                 _tagContainer = new VisualElement();
                 _tagContainer.style.flexDirection = FlexDirection.Row;
                 _tagContainer.style.flexWrap = Wrap.Wrap;
+            }
+
+            // Cleanup tags list for non exsting tags
+            for (int t = _tagsList.Count - 1; t >= 0; t --)
+            {
+                var _exists = false;
+                for (int j = 0; j < _existingTags.Count; j ++)
+                {
+                    if (_tagsList[t] == _existingTags[j])
+                    {
+                        _exists = true;
+                        break;
+                    }
+                }
+
+                if (!_exists)
+                {
+                    _tagsList.RemoveAt(t);
+                }
             }
 
 
@@ -132,9 +151,9 @@ namespace Databrain.UI
                 _tagItemDelete.RegisterCallback<ClickEvent>(evt =>
                 {
                     _tagsList.RemoveAt(_tagIndex);
-                    ShowTagsDataObject(_tagContainer, _tagsList);
-
                     _onRemoveItem?.Invoke(null);
+                    ShowTagsDataObject(_tagContainer, _tagsList, _existingTags, null);
+                
                 });
 
                 _tagItem.Add(_tagIcon);
@@ -267,7 +286,7 @@ public class AssignTagsPopup : PopupWindowContent
                     {
                         dataObject.tags.Add(tagList[_tagIndex]);
 
-                        DatabrainTags.ShowTagsDataObject(tagContainer, dataObject.tags);
+                        DatabrainTags.ShowTagsDataObject( tagContainer, dataObject.tags, dataObject.relatedLibraryObject.tags);
                     }
 
                     editorWindow.Close();

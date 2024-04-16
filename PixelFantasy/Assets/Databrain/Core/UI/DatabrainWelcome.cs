@@ -25,8 +25,8 @@ namespace Databrain.UI
         List<string> choices = new List<string>() { "On startup", "On new version", "Never" };
 
         VisualElement rightContainer;
-
-
+        VisualElement changelogContainer;
+        private string selectedChangelog = "Databrain";
 
         [InitializeOnLoadMethod]
         public static void Init()
@@ -389,68 +389,90 @@ namespace Databrain.UI
         {
             rightContainer.Clear();
 
+            var _dropdown = new DropdownField();
+            _dropdown.choices = new List<string>()
+            {
+                
+                "Databrain",
+
+                #if DATABRAIN_LOGIC
+                "Logic", 
+                #endif
+                #if DATABRAIN_INVENTORY
+                "Inventory", 
+                #endif
+                #if DATABRAIN_TECHTREE
+                "Techtree", 
+                #endif
+                #if DATABRAIN_STATS
+                "Stats", 
+                #endif
+                #if DATABRAIN_LOCALIZATION
+                "Localization", 
+                #endif
+            };
+
+            _dropdown.value = "Databrain";
+            _dropdown.style.marginBottom = 10;
+            _dropdown.RegisterValueChangedCallback(evt => 
+            {
+                if (evt.newValue != evt.previousValue)
+                {
+                    selectedChangelog = evt.newValue;
+                    BuildChangelog();
+                }
+            });
+
+            if (changelogContainer == null)
+            {
+                changelogContainer = new VisualElement();
+            }
+
+            rightContainer.Add(_dropdown);
+            rightContainer.Add(changelogContainer);
+
+            BuildChangelog();
+        }
+
+        void BuildChangelog()
+        {
+            changelogContainer.Clear();
+
             var _scrollView = new ScrollView();
 
+            var _changelogFileName = "DatabrainRoot.cs";
+            switch (selectedChangelog)
+            {
+                case "Databrain":
+                _changelogFileName = "DatabrainRoot.cs";
+                break;
+                case "Logic":
+                _changelogFileName = "LogicRoot.cs";
+                break;
+                case "Inventory":
+                _changelogFileName = "InventoryRoot.cs";
+                break;
+                case "Techtree":
+                _changelogFileName = "TechtreeRoot.cs";
+                break;
+                case "Stats":
+                _changelogFileName = "StatsRoot.cs";
+                break;
+                case "Localization":
+                _changelogFileName = "LocalizationRoot.cs";
+                break;
+            }
            
             var _label = new Label();
             _label.style.backgroundColor = DatabrainColor.Grey.GetColor();
             _label.style.marginBottom = 2;
-            var _changelog = DatabrainHelpers.LoadChangelog("DatabrainRoot.cs");
-            _label.text += "<size=14><b>Databrain</b></size> \n";
-            _label.text += _changelog;
+            var _changelog = DatabrainHelpers.LoadChangelog(_changelogFileName);
+            _label.text = _changelog;
             _label.style.whiteSpace = WhiteSpace.Normal;
             _scrollView.Add(_label);
 
-#if DATABRAIN_LOGIC
-            var _logicChangelog = DatabrainHelpers.LoadChangelog("LogicRoot.cs");
-            var _logicLabel = new Label();
-            _logicLabel.style.backgroundColor = DatabrainColor.Grey.GetColor();
-            _logicLabel.style.marginBottom = 2;
-            _logicLabel.text += "<size=14><b>Logic</b></size> \n";
-            _logicLabel.text += _logicChangelog;
-            _scrollView.Add(_logicLabel);
-#endif
-#if DATABRAIN_INVENTORY
-
-            var _inventoryChangelog = DatabrainHelpers.LoadChangelog("InventoryRoot.cs");
-            var _inventoryLabel = new Label();
-            _inventoryLabel.style.backgroundColor = DatabrainColor.Grey.GetColor();
-            _inventoryLabel.style.marginBottom = 2;
-            _inventoryLabel.text += "<size=14><b>Inventory</b></size> \n";
-            _inventoryLabel.text += _inventoryChangelog;
-            _scrollView.Add(_inventoryLabel);
-#endif
-#if DATABRAIN_TECHTREE
-            var _techtreeChangelog = DatabrainHelpers.LoadChangelog("TechtreeRoot.cs");
-            var _techtreeLabel = new Label();
-            _techtreeLabel.style.backgroundColor = DatabrainColor.Grey.GetColor();
-            _techtreeLabel.style.marginBottom = 2;
-            _techtreeLabel.text += "<size=14><b>Techtree</b></size> \n";
-            _techtreeLabel.text += _techtreeChangelog;
-            _scrollView.Add(_techtreeLabel);
-#endif
-#if DATABRAIN_STATS
-            var _statsChangelog = DatabrainHelpers.LoadChangelog("StatsRoot.cs");
-            var _statsLabel = new Label();
-            _statsLabel.style.backgroundColor = DatabrainColor.Grey.GetColor();
-            _statsLabel.style.marginBottom = 2;
-            _statsLabel.text += "<size=14><b>Stats</b></size> \n";
-            _statsLabel.text += _statsChangelog;
-            _scrollView.Add(_statsLabel);
-#endif
-#if DATABRAIN_LOCALIZATION
-            var _localizationChangelog = DatabrainHelpers.LoadChangelog("LocalizationRoot.cs");
-            var _localizationLabel = new Label();
-            _localizationLabel.style.backgroundColor = DatabrainColor.Grey.GetColor();
-            _localizationLabel.style.marginBottom = 2;
-            _localizationLabel.text += "<size=14><b>Localization</b></size> \n";
-            _localizationLabel.text += _localizationChangelog;
-            _scrollView.Add(_localizationLabel);
-#endif
-
-            rightContainer.Add(_scrollView);
+            changelogContainer.Add(_scrollView);
         }
-
 
 
         VisualElement Card(string _title, string _bgImage, string _logoImage, string _URL)
