@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0d90c8e3dd5e24b40b888e9d57033296
+guid: 1aa0af2dd6392944a9ff777d932e90b2
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -9,10 +9,3 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 244557
-  packageName: Databrain - Ultimate game data framework
-  packageVersion: 1.2.0
-  assetPath: Assets/Databrain/Addons/Blackboard/BlackboardVariable.cs
-  uploadId: 657627

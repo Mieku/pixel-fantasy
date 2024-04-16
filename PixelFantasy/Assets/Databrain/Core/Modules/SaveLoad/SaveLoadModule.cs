@@ -4,15 +4,15 @@
  *	www.databrain.cc
  *	
  */
-
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEngine.UIElements;
-#if UNITY_EDITOR
+
 using UnityEditor;
 using UnityEditor.UIElements;
+
 using Databrain.Helpers;
 using Databrain.UI.Elements;
-#endif
 using System.Reflection;
 using Databrain.Attributes;
 using System.IO;
@@ -22,12 +22,9 @@ using System;
 
 namespace Databrain.Modules.SaveLoad
 {
-	#if UNITY_EDITOR
-	[DatabrainModuleAttribute("Save & Load", 0, "save.png")]
-	#endif
+	[DatacoreModuleAttribute("Save & Load", 0, "save.png")]
 	public class SaveLoadModule : DatabrainModuleBase
 	{
-		#if UNITY_EDITOR
 		public DataLibrary dataLibrary;
 
 		VisualElement root;
@@ -576,6 +573,6 @@ namespace Databrain.Modules.SaveLoad
             return _scrollView;
 		}
 		#endregion
-		#endif
 	}
 }
+#endif

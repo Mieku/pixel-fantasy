@@ -12,8 +12,7 @@ using UnityEngine;
 namespace Databrain.Blackboard
 {
     [HideDataObjectType]
-    // [DataObjectOrder(900)]
-    
+    [DataObjectOrder(900)]
     public class BlackboardGenericVariable<T> : BlackboardVariable, IEquatable<T>
     {
 

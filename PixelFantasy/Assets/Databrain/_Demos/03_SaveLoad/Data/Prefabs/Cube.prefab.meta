@@ -5,10 +5,3 @@ PrefabImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 244557
-  packageName: Databrain - Ultimate game data framework
-  packageVersion: 1.2.0
-  assetPath: Assets/Databrain/_Demos/03_SaveLoad/Data/Prefabs/Cube.prefab
-  uploadId: 657627

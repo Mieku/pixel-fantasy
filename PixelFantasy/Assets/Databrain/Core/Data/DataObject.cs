@@ -14,8 +14,6 @@ using UnityEditor;
 
 using Databrain.Attributes;
 using Databrain.Modules.Import;
-using Databrain.Blackboard;
-
 using System.Linq;
 
 namespace Databrain
@@ -67,8 +65,7 @@ namespace Databrain
 
 		[Hide]
 		[OdinHide]
-		[SerializeField]
-		private bool boxFoldout;
+		public bool boxFoldout;
 
 
 		private bool _isRuntimeSerialization;
@@ -114,46 +111,6 @@ namespace Databrain
 		[DatabrainNonSerialize]
 		private DataObject _runtimeClone;
 
-		// EXPERIMENTAL
-		#region dataproperties_experimental
-		// [Hide]
-		// [OdinHide]
-		// internal List<DataPropertyBase> dataProperties = new List<DataPropertyBase>();
-		// private Dictionary<string, DataPropertyBase> dataPropertiesDictionary = new Dictionary<string, DataPropertyBase>();
-
-
-		// internal void AddDataProperty(DataPropertyBase _dataProperty)
-		// {
-		// 	dataProperties.Add(_dataProperty);
-		// }
-
-		// internal void RemoveDataProperty(DataPropertyBase _dataProperty)
-		// {
-		// 	if (dataProperties.Contains(_dataProperty))
-		// 	{
-		// 		dataProperties.Remove(_dataProperty);
-		// 	}
-		// }
-		#endregion
-
-		/// <summary>
-		/// EXPERIMENTAL
-		/// Get the data property object
-		/// </summary>
-		/// <param name="_propertyName"></param>
-		/// <returns></returns>
-		// public DataPropertyBase GetDataProperty(string _propertyName)
-		// {
-		// 	foreach ( var _key in dataPropertiesDictionary.Keys)
-		// 	{
-		// 		if (dataPropertiesDictionary[_key].title == _propertyName)
-		// 		{
-		// 			return dataPropertiesDictionary[_key];
-		// 		}
-		// 	}
-		
-		// 	return null;
-		// }
 
 		/// <summary>
 		/// Get the runtime clone of this data object. A data object can have more than one runtime clone.
@@ -203,7 +160,7 @@ namespace Databrain
             return null;
 		}
 
-		internal void SetRuntimeSerialization(bool _value)
+		public void SetRuntimeSerialization(bool _value)
 		{
 			_isRuntimeSerialization = _value;
 		}
@@ -232,30 +189,6 @@ namespace Databrain
 			}
 		}
 		
-		/// <summary>
-		/// Called during initialization
-		/// </summary>
-		internal void Initialize()
-		{
-			
-			// if (dataPropertiesDictionary != null)
-			// {
-			// 	dataPropertiesDictionary.Clear();
-			// }
-			// else
-			// {
-			// 	dataPropertiesDictionary = new Dictionary<string, DataPropertyBase>();
-			// }
-
-			// foreach (var _dataProperty in dataProperties)
-			// {
-			// 	if (_dataProperty == null)
-			// 		continue;
-
-			// 	dataPropertiesDictionary.Add(_dataProperty.guid, _dataProperty);
-			// }
-		}
-
 		/// <summary>
 		/// Called on start after DataLibrary has been initialized
 		/// </summary>

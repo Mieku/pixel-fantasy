@@ -64,7 +64,6 @@ MonoBehaviour:
   runtimeLibraryGuid: 
   runtimeLibraryFolderPath: 
   initialLibrary: {fileID: 11400000}
-  selectedDataObject: {fileID: 0}
   modules: []
   existingNamespaces: []
   isRuntimeContainer: 1
@@ -103,7 +102,6 @@ MonoBehaviour:
   runtimeLibraryGuid: 
   runtimeLibraryFolderPath: 
   initialLibrary: {fileID: 0}
-  selectedDataObject: {fileID: 0}
   modules:
   - {fileID: -3123090691685529495}
   - {fileID: 6222875982471142975}
@@ -278,13 +276,6 @@ MonoBehaviour:
       valuesFilter: []
     - typeName: DailyTaskVariable
       typeAssemblyQualifiedName: DailyTaskVariable, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 1
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: GeneratorList
-      typeAssemblyQualifiedName: GeneratorList, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 1
       tagsFilter: []
@@ -834,6 +825,20 @@ MonoBehaviour:
     hidden: 0
     icon: 
     existingTypes:
+    - typeName: BlackboardGenericVariable`1
+      typeAssemblyQualifiedName: Databrain.Blackboard.BlackboardGenericVariable`1,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: BlackboardVariable
+      typeAssemblyQualifiedName: Databrain.Blackboard.BlackboardVariable, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
     - typeName: BooleanVariable
       typeAssemblyQualifiedName: Databrain.Blackboard.BooleanVariable, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -904,27 +909,6 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-    - typeName: DataProperty`1
-      typeAssemblyQualifiedName: Databrain.Blackboard.DataProperty`1, Databrain,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: DataPropertyBase
-      typeAssemblyQualifiedName: Databrain.Blackboard.DataPropertyBase, Databrain,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: SubIntegerVariable
-      typeAssemblyQualifiedName: Databrain.Blackboard.SubIntegerVariable, Databrain,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 1
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
   isRuntimeContainer: 0
   useXOREncryption: 0
   encryptionKey: 0
@@ -971,4 +955,3 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  dataProperties: []

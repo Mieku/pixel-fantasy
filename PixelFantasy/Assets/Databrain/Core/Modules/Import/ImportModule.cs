@@ -4,29 +4,27 @@
  *	www.databrain.cc
  *	
  */
-
+#if UNITY_EDITOR
 using System.Collections.Generic;
 using System.Linq;
-#if UNITY_EDITOR
+
 using UnityEditor;
 using UnityEditor.UIElements;
-using Databrain.UI.Elements;
-#endif
+
 
 using UnityEngine;
 using UnityEngine.UIElements;
 
+using Databrain.UI.Elements;
 using Databrain.Helpers;
 
 
 namespace Databrain.Modules.Import
 {
-	#if UNITY_EDITOR
-	[DatabrainModuleAttribute("Import", 1, "import.png")]
-	#endif
+	[DatacoreModuleAttribute("Import", 1, "import.png")]
 	public class ImportModule : DatabrainModuleBase
 	{
-		#if UNITY_EDITOR
+
 		private static DataLibrary dataLibrary;
         private static VisualElement contentVE;
 		private static VisualElement worksheetVE;
@@ -695,7 +693,6 @@ namespace Databrain.Modules.Import
 
 			return _out;
 		}
-		#endif
     }
-	
 }
+#endif

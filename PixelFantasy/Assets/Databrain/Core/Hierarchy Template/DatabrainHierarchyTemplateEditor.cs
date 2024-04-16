@@ -205,14 +205,13 @@ namespace Databrain
                 Draw();
             });
 
+            var _namespaceIcon = new VisualElement();
+            _namespaceIcon.style.backgroundImage = namespaceIcon;
+            _namespaceIcon.style.width = 18;
+            _namespaceIcon.style.height = 18;
+
             if (_depth == 1)
             {
-                var _namespaceIcon = new VisualElement();
-                _namespaceIcon.style.backgroundImage = namespaceIcon;
-                _namespaceIcon.style.width = 18;
-                _namespaceIcon.style.height = 18;
-
-           
                 _toolbar.Add(_namespaceIcon);
             }
 
@@ -298,34 +297,19 @@ namespace Databrain
                 _childElement.Add(_typeContainer);
             }
 
-            if (_depth == 1)
-            {
-                var _firstClass = new Toggle();
-                _firstClass.label = "Is FirstClass type";
-                _firstClass.value = nodeType.isFirstClassType;
-                _firstClass.RegisterCallback<ChangeEvent<bool>>(evt => 
-                {
-                    if (evt.newValue != evt.previousValue)
-                    {
-                        nodeType.isFirstClassType = evt.newValue;
-                        EditorUtility.SetDirty(template);
-                    }
-                });
 
-
-                _childElement.Add(_firstClass);
-            }
+            var _n = nodeType;
 
             var _addButton = new Button();
             _addButton.text = "Add Subtype";
             _addButton.style.marginBottom = 2;
             _addButton.RegisterCallback<ClickEvent>(evt =>
             {
-                nodeType.subTypes.Add(new DatabrainHierarchyTemplate.DatabrainTypes());
+                _n.subTypes.Add(new DatabrainHierarchyTemplate.DatabrainTypes());
                 Draw();
             });
 
-            
+
             _childElement.Add(_addButton);
 
             if (_groupFoldout != null)

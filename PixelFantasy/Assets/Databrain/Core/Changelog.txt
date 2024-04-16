@@ -1,29 +1,3 @@
-1.2.0
----
-
-New:
-- Added new tags foldout to hierarchy to quickly select objects by available tags.
-- Added type name to DataObject title label in  Databrain editor.
-- Added possibility to retrieve DataObjects by tags. (GetAllInitialDataObjectsByTags + GetAllRuntimeDataObjectsByTags)
-- Added new attributes:
-    * DataObjectSingleton
-    * DataObjectCustomNamespaceIcon
-    * DataObjectFirstClassType
-
-- New first class types attribute. Those types are being added on top of the hierarchy with custom icon. When using a custom template, you can set the first class option for every type.
-- New DataObjectSingleton attribute. Mark a DataObject class as singleton. Single DataObjects can be retrieved using appropriate API on data library. (GetSingleton<T>)
-
-Improvements:
-- Code cleanup.
-
-Bugfixes:
-- Fixed AssetReferenceGameObject field not drawing with correct property drawer.
-- Fixed DataObjectDropdown indicator not visible when label is too long.
-- Fixed DataObjectDropdown icon of selected DataObject not showing.
-- Fixed runtime error messages: "A scripted object has a different serialization layout when loading..."
-- Fixed issue when removing tags in settings, tags on DataObjects would still remain.
-
-
 1.1.0p1
 ---
 

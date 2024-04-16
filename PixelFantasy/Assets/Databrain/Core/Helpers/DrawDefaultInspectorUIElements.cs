@@ -179,10 +179,11 @@ namespace Databrain.Helpers
 
         static bool IsPropertyGameObject(SerializedProperty _property)
         {
-            if (_property.type.Contains("PPtr<$GameObject>"))
+            if (_property.type.Replace("PPtr<$", "").Replace(">", "").Contains("GameObject"))
             {
                 return true;
             }
+
             return false;
         }
 

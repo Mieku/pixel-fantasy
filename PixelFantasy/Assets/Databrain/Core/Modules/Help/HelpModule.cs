@@ -4,22 +4,18 @@
  *	www.databrain.cc
  *	
  */
+#if UNITY_EDITOR
 using UnityEngine.UIElements;
 using UnityEngine;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
 
 using Databrain.UI;
 
 namespace Databrain.Modules
 {
-	#if UNITY_EDITOR
-	[DatabrainModuleAttribute("Help", 3, "help.png")]
-	#endif
+	[DatacoreModuleAttribute("Help", 3, "help.png")]
 	public class HelpModule : DatabrainModuleBase
 	{
-		#if UNITY_EDITOR
 		[SerializeField]
 		private DatabrainWelcome welcomeWindow;
 
@@ -38,7 +34,6 @@ namespace Databrain.Modules
 
 			return _root;
 		}
-		
-		#endif
 	}
 }
+#endif

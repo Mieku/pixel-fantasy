@@ -122,51 +122,6 @@ namespace Databrain
 
             EditorUtility.SetDirty(_datacore);
         }
-
-
-		// public static DataProperty CreateSubDataObject(Type _type, DataObject _dataObject, DataLibrary _dataLibrary)
-		// {
-		// 	ScriptableObject _dbObject = null;
-		// 	try
-		// 	{
-        //         _dbObject = ScriptableObject.CreateInstance(_type);
-		// 	}
-		// 	catch (Exception _e)
-		// 	{
-                
-        //         Debug.LogWarning(_e);
-		// 		return null;
-		// 	}
-
-		// 	(_dbObject as DataProperty).guid = System.Guid.NewGuid().ToString();
-		// 	(_dbObject as DataProperty).initialGuid = (_dbObject as DataObject).guid;
-        //     (_dbObject as DataProperty).name = (_dbObject as DataObject).title + " / " + _type.Name;
-		// 	(_dbObject as DataProperty).relatedLibraryObject = _dataObject.relatedLibraryObject;
-		// 	(_dbObject as DataProperty).relatedDataObject = _dataObject;
-			
-		// 	(_dbObject as DataProperty).Reset();
-
-		// 	_dbObject.hideFlags = HideFlags.HideInHierarchy;
-
-		// 	AssetDatabase.AddObjectToAsset(_dbObject, _dataLibrary);
-
-		// 	EditorUtility.SetDirty(_dbObject);
-		// 	//AssetDatabase.SaveAssets();
-		// 	//AssetDatabase.Refresh();
-
-
-        //     string assetPath = AssetDatabase.GetAssetPath(_dbObject);
-        //     var _guidString = AssetDatabase.AssetPathToGUID(assetPath);
-        //     GUID _guid = GUID.Generate();
-        //     GUID.TryParse(_guidString, out _guid);
-        //     AssetDatabase.SaveAssetIfDirty(_guid);
-
-
-        //     // DataObjectCreator.AddDataObject(_dataLibrary, _type, _dbObject as DataObject);
-		// 	_dataObject.AddSubDataObject(_dbObject as DataProperty);
-
-        //     return _dbObject as DataProperty;
-		// }
     }
 }
 #endif

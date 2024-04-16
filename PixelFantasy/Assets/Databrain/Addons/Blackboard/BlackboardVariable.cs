@@ -11,7 +11,6 @@ namespace Databrain.Blackboard
 {
     [HideDataObjectType]
     [DataObjectOrder(900)]
-    [DataObjectFirstClassType("Blackboard", "edit", DatabrainColor.Black)]
     public class BlackboardVariable : DataObject
     {
         [DataObjectDropdown]
