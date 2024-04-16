@@ -92,7 +92,7 @@ namespace Data.Item
         [Description("Poor")] Poor = 0,
         [Description("Common")] Common = 1,
         [Description("Remarkable")] Remarkable = 2,
-        [Description("Enchanted")] Enchanted = 3,
+        [Description("Enchanted")] Excellent = 3,
         [Description("Mythical")] Mythical = 4,
     }
 }
