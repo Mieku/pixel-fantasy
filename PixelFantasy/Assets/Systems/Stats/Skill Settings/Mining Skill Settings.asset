@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69588d399afc7494fb677d78f136a4ab, type: 3}
+  m_Name: Mining Skill Settings
+  m_EditorClassIdentifier: 
+  Table:
+  - rid: 4161138421076328724
+  - rid: 4161138421076328725
+  - rid: 4161138421076328726
+  - rid: 4161138421076328727
+  - rid: 4161138421076328728
+  - rid: 4161138421076328729
+  - rid: 4161138421076328730
+  - rid: 4161138421076328731
+  - rid: 4161138421076328732
+  - rid: 4161138421076328733
+  references:
+    version: 2
+    RefIds:
+    - rid: 4161138421076328724
+      type: {class: MiningSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 1
+        MiningSpeed: 0.55
+        MiningYield: 0.5
+    - rid: 4161138421076328725
+      type: {class: MiningSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 2
+        MiningSpeed: 0.7
+        MiningYield: 0.65
+    - rid: 4161138421076328726
+      type: {class: MiningSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 3
+        MiningSpeed: 0.85
+        MiningYield: 0.8
+    - rid: 4161138421076328727
+      type: {class: MiningSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 4
+        MiningSpeed: 1
+        MiningYield: 1
+    - rid: 4161138421076328728
+      type: {class: MiningSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 5
+        MiningSpeed: 1.15
+        MiningYield: 1.05
+    - rid: 4161138421076328729
+      type: {class: MiningSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 6
+        MiningSpeed: 1.3
+        MiningYield: 1.1
+    - rid: 4161138421076328730
+      type: {class: MiningSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 7
+        MiningSpeed: 1.45
+        MiningYield: 1.15
+    - rid: 4161138421076328731
+      type: {class: MiningSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 8
+        MiningSpeed: 1.6
+        MiningYield: 1.2
+    - rid: 4161138421076328732
+      type: {class: MiningSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 9
+        MiningSpeed: 1.75
+        MiningYield: 1.25
+    - rid: 4161138421076328733
+      type: {class: MiningSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 10
+        MiningSpeed: 1.9
+        MiningYield: 1.3

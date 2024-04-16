@@ -1,22 +1,18 @@
 using System;
 using System.Collections.Generic;
-using Buildings;
 using Databrain;
 using Databrain.Attributes;
-using DataPersistence;
 using Interfaces;
 using Items;
 using Managers;
-using ScriptableObjects;
-using Sirenix.OdinInspector;
 using Systems.Mood.Scripts;
 using Systems.Skills.Scripts;
 using Systems.Social.Scripts;
+using Systems.Stats.Scripts;
 using Systems.Traits.Scripts;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Serialization;
 
 namespace Characters
 {
@@ -33,16 +29,17 @@ namespace Characters
         [SerializeField] private Mood _mood;
         [SerializeField] private SocialAI _socialAI;
         
+        
         public KinlingSkills Skills;
  
         [SerializeField] private SortingGroup _sortingGroup;
-        [SerializeField] private PositionRendererSorter _positionRendererSorter;
         
         public string FullName => RuntimeData.Firstname + " " + RuntimeData.Lastname;
 
         public KinlingAnimController kinlingAnimController;
         public KinlingAgent KinlingAgent;
 
+        public KinlingStats Stats;
 
         public Mood KinlingMood => _mood;
         public SocialAI SocialAI => _socialAI;
@@ -105,13 +102,12 @@ namespace Characters
 
         public void AssignAndLockLayerOrder(int orderInLayer)
         {
-            _positionRendererSorter.SetLocked(true);
             _sortingGroup.sortingOrder = orderInLayer;
         }
 
         public void UnlockLayerOrder()
         {
-            _positionRendererSorter.SetLocked(false);
+            //_positionRendererSorter.SetLocked(false);
         }
 
         public TaskAI TaskAI => _taskAI;

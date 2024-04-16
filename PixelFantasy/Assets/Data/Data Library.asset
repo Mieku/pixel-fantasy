@@ -502,6 +502,7 @@ MonoBehaviour:
   IdleTimer: 0.3832448
   CurrentTaskAction: {fileID: 0}
   HeldItem: {fileID: 0}
+  MiningLevel: 0
 --- !u!114 &-6853623058905891121
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2122,6 +2123,7 @@ MonoBehaviour:
   IdleTimer: 0
   CurrentTaskAction: {fileID: 0}
   HeldItem: {fileID: 0}
+  MiningLevel: 0
 --- !u!114 &-2429024163771652823
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2822,6 +2824,7 @@ MonoBehaviour:
   IdleTimer: 0
   CurrentTaskAction: {fileID: 0}
   HeldItem: {fileID: 0}
+  MiningLevel: 0
 --- !u!114 &-191659240112778000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3212,6 +3215,7 @@ MonoBehaviour:
   runtimeLibraryGuid: 
   runtimeLibraryFolderPath: 
   initialLibrary: {fileID: 0}
+  selectedDataObject: {fileID: 0}
   modules:
   - {fileID: 1013997515501222643}
   - {fileID: 3086282657986071168}
@@ -5288,6 +5292,7 @@ MonoBehaviour:
   IdleTimer: 6.9174747
   CurrentTaskAction: {fileID: 0}
   HeldItem: {fileID: 0}
+  MiningLevel: 0
 --- !u!114 &5069011162588748535
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5505,6 +5510,7 @@ MonoBehaviour:
   IdleTimer: 0
   CurrentTaskAction: {fileID: 0}
   HeldItem: {fileID: 0}
+  MiningLevel: 0
 --- !u!114 &6402681467211676120
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5933,6 +5939,7 @@ MonoBehaviour:
   IdleTimer: 0
   CurrentTaskAction: {fileID: 0}
   HeldItem: {fileID: 0}
+  MiningLevel: 0
 --- !u!114 &7039194556294736213
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6940,6 +6947,7 @@ MonoBehaviour:
   runtimeLibraryGuid: 
   runtimeLibraryFolderPath: 
   initialLibrary: {fileID: 11400000}
+  selectedDataObject: {fileID: 0}
   modules: []
   existingNamespaces:
   - namespaceName: Settings

@@ -7,6 +7,7 @@ using Items;
 using Managers;
 using Systems.Appearance.Scripts;
 using Systems.Skills.Scripts;
+using Systems.Stats.Scripts;
 using Systems.Traits.Scripts;
 using TaskSystem;
 using UnityEngine;
@@ -88,6 +89,8 @@ namespace Characters
         
         [ExposeToInspector, DatabrainSerialize]
         public Item HeldItem;
+
+        public int MiningLevel;
 
         public void Randomize(RaceSettings race)
         {
@@ -260,5 +263,10 @@ namespace Characters
         }
 
         public string Fullname => $"{Firstname} {Lastname}";
+        
+        public int GetLevelForSkill(ESkillType skillType)
+        {
+            return 1;
+        }
     }
 }
