@@ -5,3 +5,10 @@ AssemblyDefinitionImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 244557
+  packageName: Databrain - Ultimate game data framework
+  packageVersion: 1.2.0
+  assetPath: Assets/Databrain/Core/Helpers/UnityAsync/Databrain.UnityAsync.asmdef
+  uploadId: 657627

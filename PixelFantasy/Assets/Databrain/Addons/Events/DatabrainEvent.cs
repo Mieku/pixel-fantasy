@@ -21,7 +21,9 @@ namespace Databrain.Events
     /// </summary>
     [DataObjectIcon("event2", DatabrainColor.Gold)]
     [DataObjectTypeName("Databrain Events")]
-    [DataObjectOrder(200)]
+    [HideDataObjectType]
+    // [DataObjectOrder(200)]
+    [DataObjectFirstClassType("Events", "event2", DatabrainColor.Gold)]
     public class DatabrainEvent : DataObject
 	{
         private List<Action> listeners = new List<Action>();

@@ -137,6 +137,46 @@ namespace Databrain.UI.Elements
             return _root;
         }
 
+        public static VisualElement SmallButton(Texture2D _icon, Color _color)
+    {
+        var _newButton = new VisualElement();
+        _newButton.style.alignContent = Align.Center;
+        _newButton.style.alignItems = Align.Center;
+        _newButton.style.alignSelf = Align.FlexStart;
+        _newButton.style.flexDirection = FlexDirection.Row;
+        _newButton.style.justifyContent = new StyleEnum<Justify>(Justify.Center);
+        _newButton.style.borderRightWidth = 1;
+        _newButton.style.borderRightColor = DatabrainHelpers.colorDarkGrey;
+
+        DatabrainHelpers.SetMargin(_newButton, 4, 0, 0, 0);
+
+        _newButton.RegisterCallback<MouseOverEvent>(evt => 
+        {
+            _newButton.style.backgroundColor = Color.grey;
+        });
+        _newButton.RegisterCallback<MouseLeaveEvent>(evt => 
+        {
+            _newButton.style.backgroundColor = new Color(0,0,0,0);
+        });
+
+        var _iconElement = new VisualElement();
+        _iconElement.style.width = 14;
+        _iconElement.style.height = 14;
+        // _iconElement.style.marginTop = 5;
+        _iconElement.style.backgroundImage = _icon;
+        _iconElement.style.unityBackgroundImageTintColor = _color;
+        _iconElement.style.backgroundPositionX = new StyleBackgroundPosition(StyleKeyword.Auto);
+        _iconElement.style.backgroundPositionY = new StyleBackgroundPosition(StyleKeyword.Auto);
+        _iconElement.style.alignSelf = Align.Center;
+       
+        _newButton.style.width = 25;
+        _newButton.style.height = 22;
+        
+        _newButton.Add(_iconElement);
+
+        return _newButton;
+    }
+
         //public static VisualElement ReferenceFromOtherDataLibrary(System.Type _dataObjectType) //out DataObject otherDataObjectReference)
         //{
         //    var _root = new VisualElement();

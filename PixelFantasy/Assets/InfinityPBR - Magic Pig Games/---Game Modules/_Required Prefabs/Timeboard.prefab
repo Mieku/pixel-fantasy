@@ -1,0 +1,158 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8328951279416410632
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8328951279416410635}
+  - component: {fileID: 8328951279416410634}
+  - component: {fileID: 8328951279416410633}
+  - component: {fileID: 4544785713325150795}
+  - component: {fileID: 3365022218661750117}
+  m_Layer: 0
+  m_Name: Timeboard
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8328951279416410635
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8328951279416410632}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 31.8, z: -6.870371}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8328951279416410634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8328951279416410632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cfcadf19c46c4260a9335cde298f508, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingValues: []
+  dictionaries:
+    name: 
+    keyValues: []
+  notes: []
+  postedNotes: []
+  postedEvents: []
+  writeToConsole: 1
+  writeToConsoleColor: {r: 0.2, g: 0.2, b: 0.6, a: 1}
+  blackboardNotesToSave: []
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &8328951279416410633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8328951279416410632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebcca06ba2a264e3897de404e6938876, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gametime:
+    pauseLevelOnAwake: -1
+    pauseLevelWhenSceneChanges: -1
+    pauseLevelWhenNewSceneLoaded: -1
+    stopTimeOnPauseLevel: 1
+    useAmPm: 1
+    monthDayYear: 1
+    realWorldSecondsPerGameMinute: 3
+    secondsPerMinute: 60
+    minutesPerHour: 60
+    hoursPerDay: 24
+    daysPerMonth: 30
+    startingYear: 1288
+    startingMinute: 30
+    startingHour: 8
+    startingDay: 13
+    startingMonth: 5
+    dayNames:
+    - Sunday
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    monthNames:
+    - January
+    - February
+    - March
+    - April
+    - May
+    - June
+    - July
+    - August
+    - September
+    - October
+    - November
+    - December
+    seasonNames:
+    - Spring
+    - Summer
+    - Fall
+    - Winter
+    firstSeasonDaysFromNewYear: 0
+    pauseLevel: 0
+    _subCounter: 0
+    _dayOfWeek: 0
+    _gameTime: 190590
+    lastPauseLevel: 0
+    _isSetup: 0
+  sendEventOnPauseLevelChange: 1
+  sendEventOnMinuteChange: 1
+  sendEventOnHourChange: 0
+  sendEventOnDayChange: 0
+  sendEventOnWeekChange: 0
+  sendEventOnMonthChange: 0
+  sendEventOnSeasonChange: 0
+  sendEventOnYearChange: 0
+--- !u!114 &4544785713325150795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8328951279416410632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c318718943c8c4954ba7add4be3549e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3365022218661750117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8328951279416410632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91c846047ba214dadabf80074de2e53d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _saveId: ce998f1fde0ee45de86dd15003d0e28c
+  locked: 1

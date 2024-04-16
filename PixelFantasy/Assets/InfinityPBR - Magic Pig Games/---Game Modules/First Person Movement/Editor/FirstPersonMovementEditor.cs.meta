@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 01ab43f41b9854b08bfc63b218f68ae5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246034
+  packageName: Game Modules 4 - Make {YOUR} Game - Flexible Tools with Stats, Items,
+    Save/Load+
+  packageVersion: 4.0.19
+  assetPath: Assets/InfinityPBR - Magic Pig Games/---Game Modules/First Person Movement/Editor/FirstPersonMovementEditor.cs
+  uploadId: 656353

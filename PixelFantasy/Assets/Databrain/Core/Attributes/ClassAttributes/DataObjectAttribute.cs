@@ -101,4 +101,61 @@ namespace Databrain.Attributes
 	
 	[AttributeUsage(AttributeTargets.Class)]
 	public class DataObjectSmallListItem : Attribute { }
+
+	/// <summary>
+	/// Hide data properties on this DataObject
+	// /// </summary>
+	// [AttributeUsage(AttributeTargets.Class)]
+	// public class DataObjectHideDataProperties : Attribute{}
+	
+	/// <summary>
+	/// Mark this data object as a singleton
+	/// </summary>
+	[AttributeUsage(AttributeTargets.Class)]
+	public class DataObjectSingleton : Attribute 
+	{
+		public string title;
+		
+		public DataObjectSingleton(string _title)
+		{
+			title = _title;
+		}
+	}
+
+	/// <summary>
+	/// Custom icon override for namespace foldout in hierarchy. Only has to be added to one DataObject class which is in the corresponding namespace
+	/// </summary>
+	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
+	public class DataObjectCustomNamespaceIcon : Attribute
+	{
+		public string icon;
+		public DatabrainColor iconColor;
+
+		public DataObjectCustomNamespaceIcon(string _icon, DatabrainColor _iconColor = DatabrainColor.White)
+		{
+			icon = _icon;
+			iconColor = _iconColor;
+		}
+	}
+
+	/// <summary>
+	/// Marks this DataObject type and all other types which are in the same namespace as first class types.
+	/// These are being displayed first in the hierarchy with additional icon and custom title.
+	/// Only has to be added to one DataObject class which is in the corresponding namespace
+	/// </summary>
+	[AttributeUsage(AttributeTargets.Class)]
+	public class DataObjectFirstClassType : Attribute 
+	{
+		public string customNamespaceName;
+		public string icon;
+		public DatabrainColor iconColor;
+
+		public DataObjectFirstClassType(){}
+		public DataObjectFirstClassType(string _customNamespaceName = "", string _icon = "typeIcon", DatabrainColor _iconColor = DatabrainColor.White)
+		{ 
+			customNamespaceName = _customNamespaceName;
+			icon = _icon;
+			iconColor = _iconColor;
+		}
+	}
 }

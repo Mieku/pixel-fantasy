@@ -5,6 +5,7 @@
  *	
  */
 #if UNITY_EDITOR
+using Databrain.Blackboard;
 using Databrain.Helpers;
 using Databrain.UI;
 
@@ -54,9 +55,9 @@ namespace Databrain.Attributes
 			_newButton.style.alignItems = Align.Center;
 
 			var _iconElement = new VisualElement();
-			_iconElement.style.width = 12;
-			_iconElement.style.height = 12;
-			_iconElement.style.marginTop = 5;
+			_iconElement.style.width = 14;
+			_iconElement.style.height = 14;
+			_iconElement.style.marginTop = 3;
 			_iconElement.style.backgroundImage = _icon;
 
 
@@ -71,10 +72,24 @@ namespace Databrain.Attributes
 
 		public override VisualElement CreatePropertyGUI(SerializedProperty property)
 		{
+            
+            // if (fieldInfo.FieldType.BaseType == typeof(DataPropertyBase))
+            // {
+            //     var _labelNotSupported = new Label();
+            //     DatabrainHelpers.SetBorder(_labelNotSupported, 1, Color.black);
+            //     DatabrainHelpers.SetMargin(_labelNotSupported, 4, 4, 4, 4);
+            //     DatabrainHelpers.SetPadding(_labelNotSupported, 4, 4, 4, 4);
+            //     _labelNotSupported.text = "DataObjectDropdown attribute not supported on a DataProperty";
+
+            //     return _labelNotSupported;
+            // }
+
+
 			searchIcon = DatabrainHelpers.LoadIcon("search");
 			searchRuntimeIcon = DatabrainHelpers.LoadIcon("searchRuntime");
 			addIcon = DatabrainHelpers.LoadIcon("add");
 			quickAccessIcon = DatabrainHelpers.LoadIcon("eye");
+
 
 			root = new VisualElement();
 			root.style.flexDirection = FlexDirection.Row;
@@ -133,22 +148,24 @@ namespace Databrain.Attributes
 		{
 			var _attribute = (DataObjectDropdownAttribute)attribute;
 
+
             rootDropdown.Clear();
             rootDropdown.style.flexDirection = FlexDirection.Row;
             rootDropdown.style.flexGrow = 1;
             rootDropdown.style.backgroundColor = DatabrainHelpers.colorLightGrey;
-            rootDropdown.tooltip = _attribute.tooltip;
+            rootDropdown.tooltip = _attribute == null ? "" : _attribute.tooltip;
 			DatabrainHelpers.SetBorder(rootDropdown, 1, Color.black);
 			
 
 			var _indicator = new VisualElement();
 			_indicator.name = "Indicator";
 			_indicator.style.width = 5;
+            _indicator.style.flexShrink = 0;
 			DatabrainHelpers.SetMargin(_indicator, 0, 4, 0, 0);
 
             rootDropdown.Add(_indicator);
 
-			//Debug.Log("Build: " + property.serializedObject.targetObject.GetInstanceID());
+			// Debug.Log("Build: " + property.serializedObject.targetObject.GetInstanceID());
 
 
 			var _fieldType = fieldInfo.FieldType;
@@ -176,21 +193,24 @@ namespace Databrain.Attributes
             return;
             
 			// Find dataLibrary
-			container = property.serializedObject.FindProperty(_dataLibraryName);
-			if (container == null)
-			{
-				if (!string.IsNullOrEmpty(_attribute.dataLibraryFieldName))
-				{
-					container = property.serializedObject.FindProperty(_attribute.dataLibraryFieldName);
-				}
-			}
+            container = property.serializedObject.FindProperty(_dataLibraryName);
 
-            // Find property (property must have [field:SerializeField] attribute
-            if (container == null)
+            if (_attribute != null)
             {
-                container = property.serializedObject.FindProperty("<" + _attribute.dataLibraryFieldName + ">k__BackingField");
-            }
+                if (container == null)
+                {
+                    if (!string.IsNullOrEmpty(_attribute.dataLibraryFieldName))
+                    {
+                        container = property.serializedObject.FindProperty(_attribute.dataLibraryFieldName);
+                    }
+                }
 
+                // Find property (property must have [field:SerializeField] attribute
+                if (container == null)
+                {
+                    container = property.serializedObject.FindProperty("<" + _attribute.dataLibraryFieldName + ">k__BackingField");
+                }
+            }
 
 
             dataLibrary = null;
@@ -199,16 +219,19 @@ namespace Databrain.Attributes
                 dataLibrary = (container.objectReferenceValue as DataLibrary);
             }
             else
-            {
-                // Try to get Data Library from returning method
-                Component c = property.serializedObject.targetObject as Component;
-                var _methods = c.GetType().GetMethods();
-                foreach (var _m in _methods)
+            {  
+                if (_attribute != null)
                 {
-                    if (_m.Name == _attribute.dataLibraryFieldName)
+                    // Try to get Data Library from returning method
+                    Component c = property.serializedObject.targetObject as Component;
+                    var _methods = c.GetType().GetMethods();
+                    foreach (var _m in _methods)
                     {
-                        var _return = _m.Invoke(property.serializedObject.targetObject, null);
-                        dataLibrary = (_return as DataLibrary);
+                        if (_m.Name == _attribute.dataLibraryFieldName)
+                        {
+                            var _return = _m.Invoke(property.serializedObject.targetObject, null);
+                            dataLibrary = (_return as DataLibrary);
+                        }
                     }
                 }
             }
@@ -247,13 +270,13 @@ namespace Databrain.Attributes
 					}
 				}
 
-				availableTypesList = dataLibrary.GetAllInitialDataObjectsByType(_fieldType, _attribute.includeSubtypes);
+				availableTypesList = dataLibrary.GetAllInitialDataObjectsByType(_fieldType, _attribute == null ? false : _attribute.includeSubtypes);
 
 
                 var _iconAdded = false;
 #if DATABRAIN_LOGIC
                 // filter by scene component types
-                if (_attribute.sceneComponentType != null)
+                if (_attribute != null &&_attribute.sceneComponentType != null )
                 {
                     
                     // var _ttList = availableTypesList.Where(x => x.CheckForType(_attribute.sceneComponentType)).ToList();
@@ -263,7 +286,7 @@ namespace Databrain.Attributes
 					_iconT.name = "Icon";
 					_iconT.style.width = 20;
 					_iconT.style.minWidth = 20;
-
+                    _iconT.style.flexShrink = 0;
 					Texture _iconTexture = null;
 					var _res = EditorGUIUtility.Load(_attribute.sceneComponentType.Name + " Icon");
 					if (_res != null)
@@ -308,29 +331,29 @@ namespace Databrain.Attributes
 					if (availableTypesList.Count > 0)
 					{
 
-
                         var tlist = availableTypesList.Select(x => x.title.ToString()).ToList(); //.Where(x => !string.IsNullOrEmpty(x.title)).Select(x => x.title.ToString()).ToList();
 						tlist.Insert(0, "- none -");
 
 						DataObject _obj = null;
 
                         // show icon
-                        if (selectedIndex > 0 && selectedIndex < availableTypesList.Count)
+                        if (selectedIndex > 0 && selectedIndex <= availableTypesList.Count)
 						{
 							_obj = dataLibrary.GetInitialDataObjectByGuid(availableTypesList[selectedIndex - 1].guid); //, fieldInfo.FieldType);
 
-
 							if ((_obj as DataObject).icon != null && !_iconAdded)
 							{
-
 								var _icon = new VisualElement();
                                 _icon.style.width = 20;
                                 _icon.style.minWidth = 20;
-
+                                _icon.style.flexShrink = 0;
                                 _icon.style.backgroundImage = (_obj as DataObject).icon.texture;
 
-                                rootDropdown.Add(_icon);
-							}
+                                if ((_obj as DataObject).icon.texture != null)
+                                {
+                                    rootDropdown.Add(_icon);
+							    }
+                            }
 						}
 
 						if (selectedIndex == 0)
@@ -343,64 +366,20 @@ namespace Databrain.Attributes
 						}
 
 
-                        //DropdownField _dropdown = new DropdownField(tlist, selectedIndex);
-                        //_dropdown.index = selectedIndex;
-                        //_dropdown.style.flexGrow = 1;
-                        //_dropdown.style.marginRight = 5;
-
-                        //// Hide the dropdown field as we won't need it
-                        //// we only need the value change callback to make sure UIToolkit updates all visible property drawer instances.
-                        //// This is a very hacky way to force update. Because of some incomprehensible things going on with the Event system 
-                        //// and some differences between the RegisterValueChangedCallback and RegisterCallback<T> I'm using the dropdownfields value change callback instead.
-                        //_dropdown.style.width = 0;
-                        //_dropdown.style.maxWidth = 0;
-                        //_dropdown.RegisterValueChangedCallback(x =>
-                        //{
-                        //    selectedIndex = _dropdown.index;
-
-                        //    //if (selectedIndex == 0)
-                        //    //{
-                        //    //    property.objectReferenceValue = null; //, fieldInfo.FieldType);
-                        //    //}
-                        //    //else
-                        //    //{
-                        //    //    property.objectReferenceValue = (container.objectReferenceValue as DataLibrary).GetInitialDataObjectByGuid(availableTypesList[selectedIndex - 1].guid); //, fieldInfo.FieldType);
-
-                        //    //}
-
-                        //    property.serializedObject.ApplyModifiedProperties();
-                        //    property.serializedObject.Update();
-                        //    Debug.Log("build");
-                        //    //Build(property);
-                        //});
-
-                        
-
                         var _button = new Button();
                         _button.text = tlist[selectedIndex];
                         _button.style.flexGrow = 1;
+                        _button.style.alignItems = Align.FlexEnd;
+
+                        var _dropdownIcon = new VisualElement();
+                        _dropdownIcon.style.backgroundImage = DatabrainHelpers.LoadIcon("arrowDown");
+                        _dropdownIcon.style.width = 20;
+                        _dropdownIcon.style.height = 20;
+                        
+                        _button.Add(_dropdownIcon);
 
                         _button.RegisterCallback<ClickEvent>(x =>
                         {
-                            //Action action = () => 
-                            //{
-                                //Debug.Log("hello " + tlist.Count + " _ " + selectedIndex);
-                                //BuildDelayed(property);
-                                
-                                //UpdateDelayed(tlist[selectedIndex+1], _button, property);
-                                //root.schedule.Execute(() =>
-                                //{
-                                //    Debug.Log("execute");
-                                //    _dropdown.index = selectedIndex;
-                                //    _dropdown.value = tlist[selectedIndex];
-                                //    _button.text = tlist[selectedIndex];
-
-                                //    property.serializedObject.ApplyModifiedProperties();
-                                //    property.serializedObject.Update();
-                                //    Build(property);
-
-                                //}).ExecuteLater(200);
-                            //};
 
                             var _panel = new DataObjectSelectionPopup(_fieldType, dataLibrary, property, (x) => 
                             { 
@@ -411,11 +390,6 @@ namespace Databrain.Attributes
                                 }
                                 else
                                 {
-                                    // Debug.Log(tlist.Count + " _ "  + selectedIndex);
-                                    // if (selectedIndex >= tlist.Count)
-                                    // {
-                                    //     selectedIndex = tlist.Count - 1;
-                                    // }
                                     UpdateDelayed(root, tlist[selectedIndex], _button, property);
                                 }
 
@@ -429,17 +403,17 @@ namespace Databrain.Attributes
 						_label.text = property.displayName;
 						_label.style.unityTextAlign = (TextAnchor.MiddleLeft);
 						_label.style.unityFontStyleAndWeight = FontStyle.Bold;
+                        _label.style.overflow = Overflow.Hidden;
+                        _label.style.flexShrink = 1;
+                        _label.style.maxWidth = 250;
+
                         rootDropdown.Add(_label);
 
 						var _space = new VisualElement();
 						_space.style.flexDirection = FlexDirection.Row;
 						_space.style.flexGrow = 1;
 
-
-						//rootDropdown.Add(_space);
-                        //rootDropdown.Add(_dropdown);
                         rootDropdown.Add(_button);
-                      
 
 					}
 					else
@@ -508,22 +482,6 @@ namespace Databrain.Attributes
                     rootDropdown.Add(_createButton);
 				}
 			}
-			//else
-			//{
-			//	_indicator.style.backgroundColor = colorRed;
-
-			//	var _label = new UnityEngine.UIElements.Label();
-			//	_label.text = "No data library defined";
-   //             _label.style.unityTextAlign = TextAnchor.MiddleLeft;
-
-   //             rootDropdown.Add(_label);
-			//}
-
-
-			//if (!buttonsBuilt)
-			//{
-			//	BuildButtons(property);
-			//}
 
             property.serializedObject.ApplyModifiedProperties();
 			
@@ -562,46 +520,8 @@ namespace Databrain.Attributes
             {
                 return;
             }
-   //         if (container == null)
-			//{
-   //             var _dataLibraryName = "relatedLibraryObject";
-   //             container = property.serializedObject.FindProperty(_dataLibraryName);
-   //             if (container == null)
-   //             {
-   //                 if (!string.IsNullOrEmpty(_attribute.dataLibraryFieldName))
-   //                 {
-   //                     container = property.serializedObject.FindProperty(_attribute.dataLibraryFieldName);
-   //                 }
-   //             }
-			
-			
-			//	if (container == null)
-			//	{
-			//		return;
-			//	}
-			//}
 
-   //         if (container == null)
-   //         {
-   //             return;
-   //         }
-
-			//try
-			//{
-			//	if (container.objectReferenceValue == null)
-			//	{
-			//		return;
-			//	}
-			//}
-			//catch
-			//{
-			//	return;
-			//}
-
-
-            //buttonsBuilt = true;
-
-            var availableTypesList = dataLibrary.GetAllInitialDataObjectsByType(fieldInfo.FieldType, _attribute.includeSubtypes);
+            var availableTypesList = dataLibrary.GetAllInitialDataObjectsByType(fieldInfo.FieldType, _attribute != null ? _attribute.includeSubtypes : false);
 
 			if (availableTypesList != null)
 			{
@@ -727,6 +647,33 @@ namespace Databrain.Attributes
 			}
 		}
 
+
+
+        // void BuildDataProperties(SerializedProperty property)
+        // {
+        //     dataPropertiesContainer = new VisualElement();
+
+        //     var _dbObject = property.objectReferenceValue as DataObject;
+
+
+        //     // Debug.Log(property.serializedObject.GetType().Name);
+        //     if (_dbObject == null)
+        //         return;
+
+        //     Editor _dbEditor = Editor.CreateEditor(_dbObject);
+            
+        //     if (_dbObject.dataProperties == null)
+        //         return;
+
+
+        //     for (int i = 0; i < _dbObject.dataProperties.Count; i++)
+        //     {
+        //         var _prop = new PropertyField();
+        //         _prop.BindProperty(_dbEditor.serializedObject.FindProperty("dataProperties").GetArrayElementAtIndex(i));
+
+        //         dataPropertiesContainer.Add(_prop);
+        //     }
+        // }
 
         // this is now OBSOLETE as Odin Inspector now supports UIToolkit
         // Only for downward compatibility when Odin inspector is installed.

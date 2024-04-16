@@ -21,8 +21,9 @@ namespace Databrain
             public bool foldout;
             public string typeDisplayName;
             public string typeName;
-            public string typeAssemblyQualifiedName;
-
+            public string typeAssemblyQualifiedName;    
+            public bool isFirstClassType;
+           
             public int childCount;
             public int indexOfFirstChild;
 
@@ -33,15 +34,17 @@ namespace Databrain
 
         public DatabrainTypes rootDatabrainTypes = new DatabrainTypes();
 
-       
         public class DatabrainTypes
-        {
+        {   
+
             public bool foldout;
-            public string name;
+            public string name;  
             public string type;
             [Hide]
             public string assemblyQualifiedTypeName;
+            public bool isFirstClassType;
 
+            // public Texture2D namespaceIcon;
 
             public List<DatabrainTypes> subTypes;
 
@@ -123,6 +126,7 @@ namespace Databrain
                 type = serializedNode.typeName,
                 name = serializedNode.typeDisplayName,
                 assemblyQualifiedTypeName = serializedNode.typeAssemblyQualifiedName,
+                isFirstClassType = serializedNode.isFirstClassType,
 
                 subTypes = new List<DatabrainTypes>()
             };
@@ -146,6 +150,7 @@ namespace Databrain
                 typeDisplayName = _rootDatabrainTypes.name,
                 typeName = _rootDatabrainTypes.type,
                 typeAssemblyQualifiedName = _rootDatabrainTypes.assemblyQualifiedTypeName,
+                isFirstClassType = _rootDatabrainTypes.isFirstClassType,
 
                 childCount = _rootDatabrainTypes.subTypes.Count,
                 indexOfFirstChild = serializedGroup.Count + 1

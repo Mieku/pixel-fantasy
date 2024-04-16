@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 7076a14216c448f887d00d74a1b284ee
+timeCreated: 1673849239
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246034
+  packageName: Game Modules 4 - Make {YOUR} Game - Flexible Tools with Stats, Items,
+    Save/Load+
+  packageVersion: 4.0.19
+  assetPath: Assets/InfinityPBR - Magic Pig Games/---Game Modules/Scripts/Interfaces/IHaveStartActions.cs
+  uploadId: 656353

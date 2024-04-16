@@ -7,7 +7,7 @@
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.UIElements;
-
+#endif
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -18,9 +18,12 @@ using System.Linq;
 namespace Databrain.Modules.Settings
 {
 
-	[DatacoreModuleAttribute("Settings", 2, "settings.png")]
+    #if UNITY_EDITOR
+	[DatabrainModuleAttribute("Settings", 2, "settings.png")]
+    #endif
 	public class SettingsModule : DatabrainModuleBase
 	{
+        #if UNITY_EDITOR
 		private VisualElement tagContainer;
 
 		public override VisualElement DrawGUI(DataLibrary _dataLibrary, DatabrainEditorWindow _editorWindow)
@@ -54,7 +57,8 @@ namespace Databrain.Modules.Settings
                 if (!_dataLibrary.tags.Contains(_tagField.value))
                 {
                     _dataLibrary.tags.Add(_tagField.value);
-                    DatabrainTags.ShowTagsDataObject(tagContainer, _dataLibrary.tags);
+                    DatabrainTags.ShowTagsDataObject( tagContainer, _dataLibrary.tags, _dataLibrary.tags, null);
+                    _editorWindow.SetupForceRebuild(_dataLibrary, true);
                 }
             });
 
@@ -72,7 +76,10 @@ namespace Databrain.Modules.Settings
             _tagsSettings.Add(tagContainer);
 
 
-            DatabrainTags.ShowTagsDataObject(tagContainer, _dataLibrary.tags);
+            DatabrainTags.ShowTagsDataObject( tagContainer, _dataLibrary.tags, _dataLibrary.tags, (type) => 
+            {
+                _editorWindow.SetupForceRebuild(_dataLibrary, true);
+            });
             #endregion
 
 
@@ -304,6 +311,7 @@ namespace Databrain.Modules.Settings
             EditorUtility.SetDirty(assetImporter);
             assetImporter.SaveAndReimport();
         }
+        #endif
     }
+    
 }
-#endif

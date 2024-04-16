@@ -23,6 +23,7 @@ using Databrain.Helpers;
 using Databrain.UI.Elements;
 using Databrain.UI;
 using Databrain.Modules.SaveLoad;
+using Databrain.Blackboard;
 
 namespace Databrain
 {
@@ -52,6 +53,7 @@ namespace Databrain
 		private VisualElement searchResultContainer;
 		private VisualElement dataFilterContainer;
 		private ScrollView dataViewScrollView;
+		private VisualElement dataPropertiesContainer;
 		private SplitView splitView1;
 		private SplitView splitView2;
 
@@ -69,6 +71,7 @@ namespace Databrain
 		private Label dataTitle;
 		private VisualElement logoIconVE;
         private Foldout favoritesFoldout;
+		private Foldout taggedObjectsFoldout;
         private VisualElement runtimeOverlayBlock;
         public ListView dataTypelistView;
 
@@ -78,6 +81,7 @@ namespace Databrain
 		private bool windowDestroyed = true;
         private static  Type selectedDataType;
 		private static string selectedGuid;
+		private int selectedModule;
         private int selectedTypeIndex;
 		private int selectedObjectIndex;
 		
@@ -245,7 +249,7 @@ namespace Databrain
 				}
 			}
 			
-			public void Build(Action<Type> _action, VisualElement _parentElement, VisualTreeAsset _listElement, Foldout _foldout, List<Button> _typeButtons, int _depth)
+			public void Build(Action<Type, string> _action, VisualElement _parentElement, VisualTreeAsset _listElement, Foldout _foldout, List<Button> _typeButtons, int _depth)
 			{
 				bool _skip = false;
 				
@@ -324,7 +328,7 @@ namespace Databrain
                             selectedGuid = "";
                             //DataLibrary.selectedType = type;
 							
-							_action.Invoke(type);	
+							_action.Invoke(type, "");	
 							
 							
 							for (int i = 0; i < _typeButtons.Count; i ++)
@@ -435,7 +439,7 @@ namespace Databrain
 							
                             //DataLibrary.selectedType = type;
 							
-							_action.Invoke(type);
+							_action.Invoke(type, "");
 							
 							
 							for (int i = 0; i < _typeButtons.Count; i ++)
@@ -631,7 +635,7 @@ namespace Databrain
             }
         }
 
-		public void SetupForceRebuild(DataLibrary _library)
+		public void SetupForceRebuild(DataLibrary _library, bool _showModule = false)
 		{
 			windowDestroyed = true;
 			container.existingNamespaces = null;
@@ -639,8 +643,15 @@ namespace Databrain
 			typeListSV.Clear();
 			rootDataTypes = new Dictionary<string, List<DataTypes>>();
 			favoritesFoldout = null;
+			taggedObjectsFoldout = null;
 			searchFieldVE = null;
-            Setup(_library, _library.isRuntimeContainer ? null : _library);
+
+            Setup(_library, _library.isRuntimeContainer ? null : _library, _showModule);
+
+			if (_showModule)
+			{
+				ShowModule(selectedModule);
+			}
 		}
 
 
@@ -655,7 +666,7 @@ namespace Databrain
 			HighlightDataTypeListDelayed(2000);
 		}
 
-		public void Setup(DataLibrary _library, DataLibrary _initialLibrary) 
+		public void Setup(DataLibrary _library, DataLibrary _initialLibrary, bool _showModule = false) 
 		{
 			// if (_library.isRuntimeContainer)
 			// {
@@ -725,8 +736,11 @@ namespace Databrain
 				}
 			}
 
-            ShowLastSelected();
-        } 
+			if (!_showModule)
+			{
+        	    ShowLastSelected();
+			}
+		} 
 
 
 		private void OnDestroy()
@@ -775,12 +789,12 @@ namespace Databrain
 			for (int i = 0; i < _modules.Count; i ++)
 			{
 				// Sort by attribute
-				var _orderAttribute = _modules[i].GetCustomAttribute(typeof(DatacoreModuleAttribute)) as DatacoreModuleAttribute;
+				var _orderAttribute = _modules[i].GetCustomAttribute(typeof(DatabrainModuleAttribute)) as DatabrainModuleAttribute;
 					
 				if (_orderAttribute != null)
 				{
 					// Get order number
-					var _order = (_orderAttribute as DatacoreModuleAttribute).order;	
+					var _order = (_orderAttribute as DatabrainModuleAttribute).order;	
 					_sortedModules[i].index = _order;		
 				}
 				else
@@ -841,7 +855,7 @@ namespace Databrain
 
 					_moduleButton.name = container.modules[m].name;
 
-					var _attribute = container.modules[m].GetType().GetCustomAttribute(typeof(DatacoreModuleAttribute)) as DatacoreModuleAttribute;
+					var _attribute = container.modules[m].GetType().GetCustomAttribute(typeof(DatabrainModuleAttribute)) as DatabrainModuleAttribute;
 
 					if (_attribute != null)
 					{
@@ -857,6 +871,7 @@ namespace Databrain
 					int _mi = m;
 					_moduleButton.RegisterCallback<ClickEvent>(click =>
 					{
+						selectedModule = _mi;
 						ShowModule(_mi);
 					});
 
@@ -1068,15 +1083,31 @@ namespace Databrain
 
             typeButtons = new List<Button>();
 
-            // Build favorites list
+            // Build favorites foldout
             BuildFavoritesList();
+			// Build tagged objects foldout
+			BuildTaggedObjectsFoldout();
+		
+
+			var _space = new VisualElement();
+			_space.style.height = 2;
+			_space.style.flexGrow = 1;
+			_space.style.backgroundColor = DatabrainColor.DarkGrey.GetColor();
+			_space.style.marginBottom = 6;
+			_space.style.marginTop = -6;
+			
 
 			if (container.hierarchyTemplate == null)
 			{
+				// Build first class data object types
+				BuildTypeHierarchyDefault(true);
+				typeListSV.Add(_space);
 				BuildTypeHierarchyDefault();
 			}
 			else
 			{
+				BuildTypeHierarchyFromTemplate(true);
+				typeListSV.Add(_space);
 				BuildTypeHierarchyFromTemplate();
 			}
 
@@ -1102,14 +1133,67 @@ namespace Databrain
 
 		}
 
-
-
-		void BuildTypeHierarchyDefault()
+		void BuildTypeHierarchyDefault(bool _firstClassTypes = false)
 		{
+			DataObjectFirstClassType _firstClassAttribute = null;
             // Build Types buttons
             foreach (var _namespace in rootDataTypes.Keys)
-            {
-                var _namespaceFoldout = SetupBaseFoldout(typeListSV, _namespace) as Foldout;
+            {	
+				if (_firstClassTypes)
+				{
+					var _hasFirstClassAttribute = false;
+					for (int t = 0; t < rootDataTypes[_namespace].Count; t ++)
+					{
+						var _a = rootDataTypes[_namespace][t];
+						if (_a != null)
+						{
+							_firstClassAttribute  =_a.type.GetCustomAttribute<DataObjectFirstClassType>();
+							if (_firstClassAttribute != null)
+							{
+								_hasFirstClassAttribute = true;
+								break;
+							}
+						}
+					}
+
+					if (_hasFirstClassAttribute == false)
+					{
+						continue;
+					}
+				}
+				else
+				{
+					var _hasFirstClassAttribute = false;
+					for (int t = 0; t < rootDataTypes[_namespace].Count; t ++)
+					{
+						var _a = rootDataTypes[_namespace][t];
+						if (_a != null)
+						{
+							_firstClassAttribute  =_a.type.GetCustomAttribute<DataObjectFirstClassType>();
+							if (_firstClassAttribute != null)
+							{
+								_hasFirstClassAttribute = true;
+								break;
+							}
+						}
+					}
+
+					// already added as first class types do not add it again to the default hierarchy
+					if (_hasFirstClassAttribute == true)
+					{
+						continue;
+					}
+				}
+
+				Foldout _namespaceFoldout = null;
+				if (_firstClassTypes && _firstClassAttribute != null && !string.IsNullOrEmpty(_firstClassAttribute.customNamespaceName))
+				{
+					_namespaceFoldout = SetupBaseFoldout(typeListSV, _firstClassAttribute.customNamespaceName) as Foldout;
+				}
+				else
+				{
+					_namespaceFoldout = SetupBaseFoldout(typeListSV, _namespace) as Foldout;
+				}
 
                 _namespaceFoldout.value = false;
                 _namespaceFoldout.RegisterCallback<ChangeEvent<bool>>(e =>
@@ -1117,6 +1201,39 @@ namespace Databrain
                     SetNamespaceFoldoutValue(_namespace, e.newValue);
                 });
 
+
+				if (_firstClassTypes)
+				{
+					if (_firstClassAttribute != null)
+					{
+						var _icon = _namespaceFoldout.parent.Q<VisualElement>("foldoutIcon");
+						_icon.style.backgroundImage = DatabrainHelpers.LoadIcon(_firstClassAttribute.icon + ".png");
+						_icon.style.unityBackgroundImageTintColor = new StyleColor(_firstClassAttribute.iconColor.GetColor());
+					}
+				}
+				else
+				{
+					DataObjectCustomNamespaceIcon _customNamespaceIconAttribute = null;
+					for (int t = 0; t < rootDataTypes[_namespace].Count; t ++)
+					{
+						var _a = rootDataTypes[_namespace][t];
+						if (_a != null)
+						{
+							_customNamespaceIconAttribute  =_a.type.GetCustomAttribute<DataObjectCustomNamespaceIcon>();
+							if (_customNamespaceIconAttribute != null)
+							{
+								break;
+							}
+						}
+					}
+
+					if (_customNamespaceIconAttribute != null)
+					{
+						var _icon = _namespaceFoldout.parent.Q<VisualElement>("foldoutIcon");
+						_icon.style.backgroundImage = DatabrainHelpers.LoadIcon(_customNamespaceIconAttribute.icon + ".png");
+						_icon.style.unityBackgroundImageTintColor = new StyleColor(_customNamespaceIconAttribute.iconColor.GetColor());
+					}
+				}
 
                 for (int d = 0; d < rootDataTypes[_namespace].Count; d++)
                 {
@@ -1225,13 +1342,13 @@ namespace Databrain
                         //for (int t = 0; t < rootDataTypes[_namespace][d].dataTypes.Count; t++)
                         //{
                         //Debug.Log(rootDataTypes[_namespace][d].dataTypes[t].type.Name);
-                        rootDataTypes[_namespace][d].Build(new Action<Type>(PopulateDataTypeList), _namespaceFoldout, typeListElementAsset, _foldout, typeButtons, 0);
+                        rootDataTypes[_namespace][d].Build(new Action<Type, string>(PopulateDataTypeList), _namespaceFoldout, typeListElementAsset, _foldout, typeButtons, 0);
                         //}
                     }
                     else
                     {
                         // Build sub types buttons and add them directly to the namespace foldout
-                        rootDataTypes[_namespace][d].Build(new Action<Type>(PopulateDataTypeList), _namespaceFoldout, typeListElementAsset, _namespaceFoldout, typeButtons, 0);
+                        rootDataTypes[_namespace][d].Build(new Action<Type, string>(PopulateDataTypeList), _namespaceFoldout, typeListElementAsset, _namespaceFoldout, typeButtons, 0);
                     }
                 }
             }
@@ -1256,10 +1373,63 @@ namespace Databrain
 
 
 
-		void BuildTypeHierarchyFromTemplate()
+		void BuildTypeHierarchyFromTemplate(bool _firstClassType = false)
 		{
+			// DataObjectFirstClassType _firstClassAttribute = null;
+
             for (int g = 0; g < container.hierarchyTemplate.rootDatabrainTypes.subTypes.Count; g++)
             {
+				if (_firstClassType)
+				{
+					// var _hasFirstClassAttribute = false;
+
+					var _hasFirstClassAttribute = container.hierarchyTemplate.rootDatabrainTypes.subTypes[g].isFirstClassType;
+
+					// var _a = Type.GetType(container.hierarchyTemplate.rootDatabrainTypes.subTypes[g].assemblyQualifiedTypeName);
+					// if (_a != null)
+					// {
+					// 	_firstClassAttribute  =_a.GetCustomAttribute<DataObjectFirstClassType>();
+						// if (_firstClassAttribute != null)
+						// {
+						// 	_hasFirstClassAttribute = true;
+						// 	break;
+						// }
+					// }
+					
+
+					if (_hasFirstClassAttribute == false)
+					{
+						continue;
+					}
+				}
+				else
+				{
+					
+					// var _hasFirstClassAttribute = false;
+					
+					// var _a = Type.GetType(container.hierarchyTemplate.rootDatabrainTypes.subTypes[g].assemblyQualifiedTypeName);
+					// if (_a != null)
+					// {
+					// 	_firstClassAttribute  =_a.GetCustomAttribute<DataObjectFirstClassType>();
+					// 	if (_firstClassAttribute != null)
+					// 	{
+					// 		_hasFirstClassAttribute = true;
+					// 		break;
+					// 	}
+					// }
+
+					var _hasFirstClassAttribute = container.hierarchyTemplate.rootDatabrainTypes.subTypes[g].isFirstClassType;
+
+					
+
+					// already added as first class types do not add it again to the default hierarchy
+					if (_hasFirstClassAttribute == true)
+					{
+						continue;
+					}
+				}
+
+
                 var _groupIndex = g;
                 var _namespaceFoldout = SetupBaseFoldout(typeListSV, container.hierarchyTemplate.rootDatabrainTypes.subTypes[g].name) as Foldout;
 
@@ -1396,7 +1566,7 @@ namespace Databrain
 
 
 
-        public void BuildFavoritesList()
+        internal void BuildFavoritesList()
 		{
 		
 
@@ -1466,6 +1636,7 @@ namespace Databrain
 
 					});
 
+					typeButtons.Add(_rootButton);
 					favoritesFoldout.Add(_typeListElement);
 				}
 				else
@@ -1476,6 +1647,64 @@ namespace Databrain
 
           
         }
+
+		void BuildTaggedObjectsFoldout()
+		{
+			if (taggedObjectsFoldout == null)
+			{
+				var _taggedObjectsFoldout = SetupBaseFoldout(typeListSV, "Tags") as Foldout;
+				_taggedObjectsFoldout.value = false;
+
+				var _taggedObjectsIcon = _taggedObjectsFoldout.parent.Q<VisualElement>("foldoutIcon");
+				_taggedObjectsIcon.style.backgroundImage = DatabrainHelpers.LoadIcon("tagoutline.png");
+				_taggedObjectsIcon.style.unityBackgroundImageTintColor = new StyleColor(DatabrainColor.Blue.GetColor());
+
+                taggedObjectsFoldout = _taggedObjectsFoldout;
+
+                taggedObjectsFoldout.BringToFront();
+            }
+			else
+			{
+				taggedObjectsFoldout.Clear();
+			}
+
+
+			for (int i = 0; i < container.tags.Count; i ++)
+			{
+				typeListElementAsset.CloneTree(typeListSV);
+                var _typeListElement = typeListSV.Q<VisualElement>("typeListElement");
+                var _rootButton = typeListSV.Query<VisualElement>("typeListElement").Children<Button>("typeListButton").First();
+                var _typeIcon = typeListSV.Query<VisualElement>("typeListElement").Children<VisualElement>("typeIcon").First();
+				_typeIcon.style.backgroundImage = DatabrainHelpers.LoadIcon("tagoutline.png");
+				_typeIcon.style.unityBackgroundImageTintColor = new StyleColor(DatabrainColor.Blue.GetColor());
+
+				_typeListElement.name = "tag_" + container.tags[i];
+				_rootButton.name = "tag_" + container.tags[i];
+				_rootButton.text = container.tags[i];
+
+				int _index = i;
+				_rootButton.RegisterCallback<ClickEvent>(click =>
+				{
+					var _objsWithTag = container.GetAllInitialDataObjectsByTags(container.tags[_index]);
+					if (_objsWithTag != null && _objsWithTag.Count > 0)
+					{	
+						PopulateData(_objsWithTag[0].guid);
+						selectedDataType = _objsWithTag[0].GetType();
+						selectedGuid = _objsWithTag[0].guid;
+					}
+
+					PopulateDataTypeList(null, container.tags[_index]);
+					HighlightTypeButton(null, "tag_" + container.tags[_index]);
+					
+				});
+
+				typeButtons.Add(_rootButton);
+
+				taggedObjectsFoldout.Add(_typeListElement);
+			}
+		}
+
+
 		void OnKeyUpShortcut(KeyUpEvent evt)
 		{
 			//Debug.Log(evt.imguiEvent.keyCode);
@@ -2056,7 +2285,7 @@ namespace Databrain
             resetDataButton.SetEnabled(false);
 			openFileButton.SetEnabled(false);
 			
-			var _attribute = container.modules[index].GetType().GetCustomAttribute(typeof(DatacoreModuleAttribute)) as DatacoreModuleAttribute;
+			var _attribute = container.modules[index].GetType().GetCustomAttribute(typeof(DatabrainModuleAttribute)) as DatabrainModuleAttribute;
 			if (_attribute != null)
 			{
 				dataTitle.text = _attribute.title;
@@ -2113,15 +2342,23 @@ namespace Databrain
 			}
 		}
 
-		private void HighlightTypeButton(Type _type)
+		private void HighlightTypeButton(Type _type, string _elementName = "")
 		{
+			var _parentName = "";
 			if (_type == null)
-				return;
+			{
+				_parentName = _elementName;
+			}
+			else
+			{
+				_parentName = _type.Name;
+			}
 
 			for (int i = 0; i < typeButtons.Count; i++)
-			{
-				if (typeButtons[i].parent.name == _type.Name)
+			{	
+				if (typeButtons[i].parent.name == _parentName)
 				{
+					
 					var _foldout = typeButtons[i].GetFirstAncestorOfType<Foldout>();
 					_foldout.value = true;
 
@@ -2156,6 +2393,8 @@ namespace Databrain
 			//selectedDataObject = _newObj;
             selectedDataObjects = new List<DataObject>();
 			selectedDataObjects.Add(_newObj);
+
+			container.selectedDataObject = selectedDataObjects.First();
 
             PopulateDataTypeList(selectedDataType);
 		}
@@ -2211,13 +2450,37 @@ namespace Databrain
 		}
 
 
-		private void PopulateDataTypeList(Type _type)
+		private void PopulateDataTypeList(Type _type, string _tag = "")
 		{
 			if (container == null)
 				return;
 
-			if (_type == null)
-				return;
+			DataObjectSingleton _singletonAttribute = null;
+			if (_type != null)
+			{
+				_singletonAttribute = _type.GetCustomAttribute<DataObjectSingleton>();
+			}
+
+			var _availableObjsList = container.GetAllInitialDataObjectsByType(_type);
+						
+			if (_availableObjsList != null && _availableObjsList.Count == 0)
+			{
+				
+				if (_singletonAttribute != null)
+				{
+					// Create new singleton object
+					var _singleton = DataObjectCreator.CreateNewDataObject(container, _type);
+					_singleton.title = _singletonAttribute.title;
+					selectedGuid = _singleton.guid;
+					selectedDataObjects = new List<DataObject>();
+					selectedDataObjects.Add(_singleton);
+
+					container.selectedDataObject = selectedDataObjects.First();
+
+					PopulateDataTypeList(selectedDataType);
+
+				}
+			}
 
 			dataTypeListContainer.Clear();
 			dataFilterContainer.Clear();
@@ -2289,7 +2552,6 @@ namespace Databrain
 						}
 
 						var _assignedTitlesFilter = container.GetAssignedTitlesFiltersFromType(selectedDataType);
-						var _availableObjsList = container.GetAllInitialDataObjectsByType(selectedDataType);
 						
 						var _foundTitle = false;
 						for (int i = _split.Count - 1; i >= 0; i--)
@@ -2325,7 +2587,7 @@ namespace Databrain
 
                         }
 
-						PopulateDataTypeList(selectedDataType);
+						PopulateDataTypeList(selectedDataType, _tag);
 
                         filterInput.value = "";
                     }
@@ -2333,10 +2595,10 @@ namespace Databrain
 			}
 		
 			var _assignedTags = container.GetAssignedTagsFromType(selectedDataType);
-			DatabrainTags.ShowTagsDataObject(_tagContainer, _assignedTags, (x) => { PopulateDataTypeList(selectedDataType); });
+			DatabrainTags.ShowTagsDataObject( _tagContainer, _assignedTags, container.tags, (x) => { PopulateDataTypeList(selectedDataType, _tag); });
 
 			var _assignedTitlesFilter = container.GetAssignedTitlesFiltersFromType(selectedDataType);
-			DatabrainTags.ShowTitlesDataObject(_titlesContainer, _assignedTitlesFilter, (x) => { PopulateDataTypeList(selectedDataType); });
+			DatabrainTags.ShowTitlesDataObject(_titlesContainer, _assignedTitlesFilter, (x) => { PopulateDataTypeList(selectedDataType, _tag); });
 
 			_filterInputContainer.Add(_filterLabel);
 			_filterInputContainer.Add(filterInput);
@@ -2347,20 +2609,50 @@ namespace Databrain
 
             dataFilterContainer.Add(_tagParentContainer);
 
-            var _lockAttribute = _type.GetCustomAttribute<DataObjectLockAttribute>(false);
-			if (_lockAttribute != null)
+			DataObjectLockAttribute _lockAttribute = null;
+			if (_type != null)
 			{
-				createDataTypeButton.SetEnabled(false);
-            }
+				_lockAttribute = _type.GetCustomAttribute<DataObjectLockAttribute>(false);
+				if (_lockAttribute != null)
+				{
+					createDataTypeButton.SetEnabled(false);
+				}
+				else
+				{
+					createDataTypeButton.SetEnabled(true);
+				}
+			}
 			else
 			{
-				createDataTypeButton.SetEnabled(true);
-            }
+				createDataTypeButton.SetEnabled(false);
+			}
 
 			availableObjsList = new List<DataObject>();
 
-			availableObjsList = container.GetAllInitialDataObjectsByType(_type);
-	
+			if (_type != null)
+			{
+				availableObjsList = container.GetAllInitialDataObjectsByType(_type);
+			}
+			else
+			{
+				if (!string.IsNullOrEmpty(_tag))
+				{
+					for (int i = 0; i < container.data.ObjectList.Count; i ++)
+					{
+						for(int d = 0; d < container.data.ObjectList[i].dataObjects.Count; d ++)
+						{
+							if (container.data.ObjectList[i].dataObjects[d].tags != null)
+							{
+								if (container.data.ObjectList[i].dataObjects[d].tags.Contains(_tag))
+								{
+									availableObjsList.Add(container.data.ObjectList[i].dataObjects[d]);
+								}
+							}
+						}
+					}
+				}
+			}
+
 			if (availableObjsList != null)
 			{
 
@@ -2432,18 +2724,25 @@ namespace Databrain
 
                 selectedDataObjects = new List<DataObject>();
 
-
-                var _datacoreMaxObjectsAttribute = _type.GetCustomAttribute(typeof(DataObjectMaxObjectsAttribute)) as DataObjectMaxObjectsAttribute;
-			
-				if (_datacoreMaxObjectsAttribute != null)
+				if (_type != null)
 				{
-					if (availableObjsList.Count >= _datacoreMaxObjectsAttribute.maxObjects)
+					var _datacoreMaxObjectsAttribute = _type.GetCustomAttribute(typeof(DataObjectMaxObjectsAttribute)) as DataObjectMaxObjectsAttribute;
+				
+					if (_datacoreMaxObjectsAttribute != null)
+					{
+						if (availableObjsList.Count >= _datacoreMaxObjectsAttribute.maxObjects)
+						{
+							createDataTypeButton.SetEnabled(false);
+							statusLabel.text = "available entries: " + availableObjsList.Count + " - max objects reached";
+						}
+					}
+
+					if (_singletonAttribute != null)
 					{
 						createDataTypeButton.SetEnabled(false);
-						statusLabel.text = "available entries: " + availableObjsList.Count + " - max objects reached";
 					}
 				}
-				
+
 				statusLabel.text = "available entries: " + availableObjsList.Count;
 
 				
@@ -2494,8 +2793,15 @@ namespace Databrain
 							var _do = (elements.First() as DataObject);
 							PopulateData(_do.guid);
 							_do.Selected();
+
+							if (selectedDataObjects.Count > 0)
+							{
+								container.selectedDataObject = _do;
+							}
 						}
 
+
+						
 					};
 
 					dataTypelistView.itemsChosen += elements =>
@@ -2523,6 +2829,11 @@ namespace Databrain
                             var _do = (elements.First() as DataObject);
                             PopulateData(_do.guid);
                             _do.Selected();
+
+							if (selectedDataObjects.Count > 0)
+							{
+								container.selectedDataObject = _do;
+							}
                         }
                     }; 
 
@@ -2633,7 +2944,7 @@ namespace Databrain
 					dataInspectorVE.Clear();
 					dataInspectorBaseVE.Clear();
 					dataInspectorBaseVE.style.display = DisplayStyle.None;
-					if (_lockAttribute == null)
+					if (_lockAttribute == null && _type != null)
 					{
 						dataInspectorVE.Add(NoDataObjects());
 					} 
@@ -2648,14 +2959,14 @@ namespace Databrain
                 dataInspectorVE.Clear();
                 dataInspectorBaseVE.Clear();
                 dataInspectorBaseVE.style.display = DisplayStyle.None;
-				if (_lockAttribute == null)
+				if (_lockAttribute == null && _type != null)
 				{
 					dataInspectorVE.Add(NoDataObjects());
 				}
             }
 
 
-			if (_lockAttribute != null)
+			if (_lockAttribute != null && _type != null)
 			{
 				var _lockedLabel = new Label();
 				_lockedLabel.text = "";
@@ -2823,13 +3134,31 @@ namespace Databrain
                         if (typeButtons[t].parent.name == container.existingNamespaces[i].existingTypes[s].typeName)
                         {
                             var _listElement = typeButtons[t].parent;
-                            var _warningIcon = _listElement.Q<VisualElement>("saveIcon");
+                            var _saveIcon = _listElement.Q<VisualElement>("saveIcon");
 
-                            _warningIcon.style.display = _runtimeSerialization ? DisplayStyle.Flex : DisplayStyle.None;
-                        }
+                            _saveIcon.style.display = _runtimeSerialization ? DisplayStyle.Flex : DisplayStyle.None;
+						}
                     }
 
+					
+					var _type = Type.GetType(container.existingNamespaces[i].existingTypes[s].typeAssemblyQualifiedName);
+					if (_type != null)
+					{
+						var _singletonAttribute = _type.GetCustomAttribute<DataObjectSingleton>();
+						if (_singletonAttribute != null)
+						{
+							for (int t = 0; t < typeButtons.Count; t++)
+							{
+								if (typeButtons[t].parent.name == container.existingNamespaces[i].existingTypes[s].typeName)
+								{
+									var _listElement = typeButtons[t].parent;
+									var _singletonIcon = _listElement.Q<VisualElement>("singletonIcon");
 
+									_singletonIcon.style.display = _singletonAttribute != null ? DisplayStyle.Flex : DisplayStyle.None;
+								}
+							}
+						}
+					}
 
 					// Set warning icons
 					var _isValid = true;
@@ -2994,13 +3323,14 @@ namespace Databrain
             if (selectedDataObjects.Count == 0)
 			{
 				selectedDataObjects.Add(_obj);
+				container.selectedDataObject = selectedDataObjects.First();
             }
 
 
             if (_obj == null)
 				return;
 			
-			dataTitle.text = _obj.title;
+			dataTitle.text = _obj.title + " <size=10>  /  " + _obj.GetType().Name + "</size>";
 			
 			_obj.name = _obj.title;
 			
@@ -3091,6 +3421,8 @@ namespace Databrain
 			//	}
 			//}
 
+
+			
 			if (dataViewScrollView != null)
 			{
 				dataViewScrollView.Clear();
@@ -3130,10 +3462,239 @@ namespace Databrain
 
 			}
 
+			// EXPERIMENTAL
+			// if (!_obj.GetType().IsSubclassOf(typeof(DataPropertyBase)))
+			// {
+			// 	var _hideDataPropertiesAttr = _obj.GetType().GetCustomAttribute(typeof(DataObjectHideDataProperties));
+			// 	if (_hideDataPropertiesAttr == null)
+			// 	{
+			// 		var _dataPropertiesSeparator = DatabrainHelpers.Separator(2, DatabrainHelpers.colorDarkGrey);
+			// 		DatabrainHelpers.SetMargin(_dataPropertiesSeparator, 50, 50, 30, 15);
+			// 		_dataPropertiesSeparator.style.flexGrow = 0;
+			// 		dataViewScrollView.Add(_dataPropertiesSeparator);
+
+			// 		DrawDataProperties(_obj, editor);
+
+			// 		dataViewScrollView.Add(dataPropertiesContainer);
+			// 	}
+			// }
+
 			dataInspectorVE.Add(dataViewScrollView);
-         
 		}
+
+
+		// EXPERIMENTAL
+		#region experimentalDataPropertiesDisplay
+
+		// public void DrawDataProperties(DataObject _obj, Editor _editor)
+		// {
+		// 	if (dataPropertiesContainer == null)
+		// 	{
+		// 		dataPropertiesContainer = new VisualElement();
+		// 	}
+		// 	else
+		// 	{
+		// 		dataPropertiesContainer.Clear();
+		// 	}
+	
+
+		// 	var _subDataObjectsContainer = new VisualElement();
+		// 	_subDataObjectsContainer.style.borderTopColor = DatabrainHelpers.colorDarkGrey;
+			
+		// 	_subDataObjectsContainer.style.backgroundColor = new Color(60f / 255f, 60f / 255f, 60f / 255f);
+		// 	DatabrainHelpers.SetMargin(_subDataObjectsContainer, 0, 0, 5, 0);
+
+		// 	var _dataPropertiesHeader = new VisualElement();
+		// 	_dataPropertiesHeader.style.alignItems = Align.Center;
+		// 	_dataPropertiesHeader.style.flexDirection = FlexDirection.Row;
+		// 	_dataPropertiesHeader.style.flexGrow = 1;
+		// 	_dataPropertiesHeader.style.backgroundColor = DatabrainHelpers.colorLightGrey;
+		// 	_dataPropertiesHeader.style.borderBottomWidth = 2;
+		// 	_dataPropertiesHeader.style.borderBottomColor = DatabrainHelpers.colorDarkGrey;
+
+		// 	var _subDataObjectLabel = new Label();
+		// 	_subDataObjectLabel.style.flexGrow = 1;
+		// 	_subDataObjectLabel.style.fontSize = 14;
+		// 	DatabrainHelpers.SetPadding(_subDataObjectLabel, 5, 5, 5, 5);
+		// 	_subDataObjectLabel.text = "Data Properties";
+			
+		// 	var _addNewDataProperty = new Button();
+		// 	_addNewDataProperty.tooltip = "Create new data property";
+		// 	_addNewDataProperty.style.width = 22;
+		// 	_addNewDataProperty.style.height = 22;
+		// 	_addNewDataProperty.style.justifyContent = new StyleEnum<Justify>(Justify.Center);
+		// 	var _addNewDataPropertyIcon = new VisualElement();
+		// 	_addNewDataPropertyIcon.style.backgroundImage = DatabrainHelpers.LoadIcon("add");
+		// 	_addNewDataPropertyIcon.style.width = 18;
+		// 	_addNewDataPropertyIcon.style.height = 18;
+		// 	_addNewDataPropertyIcon.style.marginLeft = -5;
+		// 	_addNewDataProperty.Add(_addNewDataPropertyIcon);
+
+		// 	_addNewDataProperty.RegisterCallback<ClickEvent>(click => 
+		// 	{
+		// 		// DataPropertyPopup _popup = new DataPropertyPopup(container, _obj, _editor, () => DrawDataProperties(_obj, _editor), false);
+		// 		// DataPropertyPopup.ShowPanel(Event.current.mousePosition, _popup);
+		// 	});
+
+		// 	var _linkNewDataProperty = new Button();
+		// 	_addNewDataProperty.tooltip = "Link existing data property";
+		// 	_linkNewDataProperty.style.width = 22;
+		// 	_linkNewDataProperty.style.height = 22;
+		// 	_linkNewDataProperty.style.justifyContent = new StyleEnum<Justify>(Justify.Center);
+		// 	var _linkNewDataPropertyIcon = new VisualElement();
+		// 	_linkNewDataPropertyIcon.style.backgroundImage = DatabrainHelpers.LoadIcon("link");
+		// 	_linkNewDataPropertyIcon.style.width = 18;
+		// 	_linkNewDataPropertyIcon.style.height = 18;
+		// 	_linkNewDataPropertyIcon.style.marginLeft = -5;
+		// 	_linkNewDataProperty.Add(_linkNewDataPropertyIcon);
+
+		// 	_linkNewDataProperty.RegisterCallback<ClickEvent>(click => 
+		// 	{
+		// 		// DataPropertyPopup _popup = new DataPropertyPopup(container, _obj, _editor, () => DrawDataProperties(_obj, _editor), true);
+		// 		// DataPropertyPopup.ShowPanel(Event.current.mousePosition, _popup);
+		// 	});
+
+
+		// 	_dataPropertiesHeader.Add(_subDataObjectLabel);
+		// 	_dataPropertiesHeader.Add(_addNewDataProperty);
+		// 	_dataPropertiesHeader.Add(_linkNewDataProperty);
+
+		// 	_subDataObjectsContainer.Add(_dataPropertiesHeader);
+			
+		// 	// Clean up data properties list
+		// 	if (_obj.dataProperties != null)
+		// 	{
+				
+		// 		for (int i = _obj.dataProperties.Count - 1; i >= 0; i --)
+		// 		{
+		// 			if (_obj.dataProperties[i] == null)
+		// 			{
+		// 				_obj.dataProperties.RemoveAt(i);
+		// 				continue;
+		// 			}
+
+		// 			for (int j = _obj.dataProperties[i].linkedDataObjects.Count -1; j >= 0; j --)
+		// 			{
+		// 				if (_obj.dataProperties[i].linkedDataObjects[j].linkedDataObject == null)
+		// 				{
+		// 					_obj.dataProperties[i].linkedDataObjects.RemoveAt(j);
+		// 				}
+		// 			}
+		// 		}
 		
+		// 		var _scrollviewProperties = new ScrollView();
+
+		// 		for (int i = 0; i < _obj.dataProperties.Count; i ++)
+		// 		{
+		// 			var _index = i;
+		// 			var _element = new VisualElement();
+		// 			_element.style.flexGrow = 1;
+		// 			_element.style.flexDirection = FlexDirection.Row;
+
+				
+
+		// 			var _property = new PropertyField();
+		// 			_property.style.flexGrow = 1;
+		// 			_property.BindProperty(_editor.serializedObject.FindProperty("dataProperties").GetArrayElementAtIndex(_index));
+					
+		// 			var _moveDown = DatabrainUIElements.SmallButton(DatabrainHelpers.LoadIcon("up"), Color.white);
+		// 			_moveDown.RegisterCallback<ClickEvent>(evt => 
+		// 			{
+		// 				_moveDown.schedule.Execute(() => 
+		// 				{
+		// 					if (_index - 1 >= 0)
+		// 					{
+		// 						var _temp = _obj.dataProperties[_index];
+		// 						_obj.dataProperties.RemoveAt(_index);
+		// 						_obj.dataProperties.Insert(_index - 1, _temp);
+								
+		// 						_editor.serializedObject.ApplyModifiedProperties();
+		// 						_editor.serializedObject.Update();
+		// 						DrawDataProperties(_obj, _editor);
+		// 					}
+		// 				}).ExecuteLater(10);
+		// 			});
+
+		// 			var _moveUp = DatabrainUIElements.SmallButton(DatabrainHelpers.LoadIcon("down"), Color.white);
+		// 			_moveUp.RegisterCallback<ClickEvent>(evt => 
+		// 			{
+		// 				_moveUp.schedule.Execute(() => 
+		// 				{
+		// 					if (_index + 1 < _obj.dataProperties.Count)
+		// 					{
+		// 						var _temp = _obj.dataProperties[_index];
+		// 						_obj.dataProperties.RemoveAt(_index);
+		// 						_obj.dataProperties.Insert(_index + 1, _temp);
+
+		// 						_editor.serializedObject.ApplyModifiedProperties();
+		// 						_editor.serializedObject.Update();
+		// 						DrawDataProperties(_obj, _editor);
+		// 					}
+		// 				}).ExecuteLater(10);
+		// 			});
+
+		// 			if (_index == 0)
+		// 			{
+		// 				_moveDown.SetEnabled(false);
+		// 			}
+		// 			if (_index == _obj.dataProperties.Count - 1)
+		// 			{
+		// 				_moveUp.SetEnabled(false);
+		// 			}
+
+
+		// 			_element.Add(_moveDown);
+		// 			_element.Add(_moveUp);
+
+		// 			var _iconAttr = _obj.dataProperties[i].GetType().GetCustomAttribute<DataObjectIconAttribute>();
+		// 			if (_iconAttr != null)
+		// 			{
+						
+		// 					var _iconElement = new VisualElement();
+		// 					_iconElement.style.backgroundImage = DatabrainHelpers.LoadIcon(_iconAttr.iconPath);
+		// 					_iconElement.style.width = 14;
+		// 					_iconElement.style.height = 14;
+		// 					_iconElement.style.marginLeft = 5;
+		// 					_iconElement.style.marginTop = 4;
+		// 					_iconElement.style.alignSelf = Align.FlexStart;
+		// 					_iconElement.style.marginRight = 5;
+
+		// 					_element.Add(_iconElement);
+		// 			}
+
+
+		// 			_element.Add(_property);
+
+		// 			// var _element = new DataPropertyListItemElement();
+		// 			// _element.Bind(_obj.dataProperties[i], _editor.serializedObject.FindProperty("dataProperties").GetArrayElementAtIndex(_index));
+
+		// 			_scrollviewProperties.Add(_element);
+		// 		}
+
+		// 		// var _listProperties = new ListView();
+		// 		// _listProperties.itemsSource = _obj.dataProperties;
+		// 		// _listProperties.reorderable = true;
+		// 		// _listProperties.reorderMode = ListViewReorderMode.Simple;
+		// 		// _listProperties.showBorder = false;
+		// 		// _listProperties.showBoundCollectionSize = false;
+		// 		// _listProperties.fixedItemHeight = 25;
+			
+
+		// 		// _listProperties.makeItem = () => { return new DataPropertyListItemElement(); };
+		// 		// _listProperties.bindItem = (element, index) =>
+		// 		// {
+		// 		// 	(element as DataPropertyListItemElement).Bind(_obj.dataProperties[index], _editor.serializedObject.FindProperty("dataProperties").GetArrayElementAtIndex(index)); //availableObjsList[index], index, container, this, dataTypelistView);
+		// 		// };
+
+		// 		// _scrollviewProperties.Add(_listProperties);
+		// 		_subDataObjectsContainer.Add(_scrollviewProperties);
+
+		// 	}
+
+		// 	dataPropertiesContainer.Add(_subDataObjectsContainer);
+
+		// }
+		#endregion
 
 #if ODIN_INSPECTOR || ODIN_INSPECTOR_3 || ODIN_INSPECTOR_3_1
 		void DrawDefaultInspectorWithOdin(Sirenix.OdinInspector.Editor.OdinEditor _odinEditor)
@@ -3430,7 +3991,7 @@ namespace Databrain
             var _assignTag = DatabrainTags.ShowAssignTags(_tagContainer, selectedDataObjects.First());
 
             _tagContainer.Add(_assignTag);
-            DatabrainTags.ShowTagsDataObject(_tagContainer, selectedDataObjects.First().tags);
+            DatabrainTags.ShowTagsDataObject( _tagContainer, selectedDataObjects.First().tags, selectedDataObjects.First().relatedLibraryObject.tags);
 
 
             _tagParentContainer.Add(_tagContainer);

@@ -1,3 +1,10 @@
 ﻿fileFormatVersion: 2
 guid: 4b9bcc4d2b194cddae0a0a4b9a457fc1
 timeCreated: 1565448564
+AssetOrigin:
+  serializedVersion: 1
+  productId: 244557
+  packageName: Databrain - Ultimate game data framework
+  packageVersion: 1.2.0
+  assetPath: Assets/Databrain/Core/Helpers/UnityAsync/AwaitInstructions/WaitWhile`T.cs
+  uploadId: 657627

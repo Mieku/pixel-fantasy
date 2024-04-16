@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1753550253504403706
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2710454007475170559}
+  - component: {fileID: 938835404829179586}
+  m_Layer: 0
+  m_Name: Items Repository [To Be Deprecated]
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2710454007475170559
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753550253504403706}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 509.86237, y: 517.89075, z: -40.122566}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &938835404829179586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753550253504403706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48bd7fe413a1e4408b0d4751fc30116d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scriptableObjects: []
+  itemObjects:
+  - {fileID: 11400000, guid: dd3cd44bebe594218b7378a8b0c539b3, type: 2}
+  - {fileID: 11400000, guid: 3fd8f0eb1e1da4c3591ff38a08e2a6d0, type: 2}
+  - {fileID: 11400000, guid: 1259a57c01beb494291810813449d44b, type: 2}
+  - {fileID: 11400000, guid: ace867a27a8a34a4cad56e81dfdf5535, type: 2}
+  - {fileID: 11400000, guid: 968a720216e7f40cc9404336f8431f7a, type: 2}
+  - {fileID: 11400000, guid: 5cfe204d5643449bf92501d5972d5a21, type: 2}
+  - {fileID: 11400000, guid: 0f0b0c8f45ebc4654808409060c7f274, type: 2}
+  - {fileID: 11400000, guid: ebc67c3aa4fcc489d887b239fc90400b, type: 2}
+  - {fileID: 11400000, guid: ffb6e4026cd234c6c8075c36810de347, type: 2}
+  - {fileID: 11400000, guid: 00d4ff9132d0e4e5eb2ce8a96ea6c721, type: 2}
+  - {fileID: 11400000, guid: 8fa520ce8ef7440f3b3dd145a4fc154a, type: 2}
+  - {fileID: 11400000, guid: f09c289a1345b43a4b0c9b0c5350c269, type: 2}
+  - {fileID: 11400000, guid: 1421b7e1b21ab45d19c533facecc00e3, type: 2}
+  itemAttributes:
+  - {fileID: 11400000, guid: d6a72364d16a4442686b342f197a7f59, type: 2}
+  - {fileID: 11400000, guid: 4b22a30818ab34146a9ac1bda877d96c, type: 2}
+  - {fileID: 11400000, guid: cfa6646aa77ca4d359acc6ad48c165f1, type: 2}
+  - {fileID: 11400000, guid: 62ba3ea78e6d04a9ea3a6d8a386eaedc, type: 2}
+  - {fileID: 11400000, guid: 7be4520a34ff441fb9e7d31f95f15a66, type: 2}
+  - {fileID: 11400000, guid: 7eb5e70ab62bc4650a9330d6e0161901, type: 2}
+  - {fileID: 11400000, guid: 37e7c4c0a077d4b808bcef67dd75237a, type: 2}
+  - {fileID: 11400000, guid: 4c58102aab67a48fd8c3033203d97623, type: 2}
+  - {fileID: 11400000, guid: f5121da3b3eea417193d3ae73e15e114, type: 2}
+  - {fileID: 11400000, guid: fb736d24abe564ae39a28cff217bff0a, type: 2}
+  - {fileID: 11400000, guid: 37d4194e1d4a04d9db4ac37340032c4c, type: 2}
+  - {fileID: 11400000, guid: 3d11e15b0ce7c4ed6a0a3323980e1c60, type: 2}
+  - {fileID: 11400000, guid: 5f6c8cff973074cc991b6fbf52ad2734, type: 2}
+  - {fileID: 11400000, guid: 716da4df071ce47c3a24d14fc6346cff, type: 2}
+  - {fileID: 11400000, guid: 93ffa463160c74ca8ab791e2b6169057, type: 2}
+  - {fileID: 11400000, guid: 8787506f6b9f04810bcaf0937362ee70, type: 2}
+  - {fileID: 11400000, guid: 41b1e861838904dca8a604bca18813bb, type: 2}
+  - {fileID: 11400000, guid: 19093a1d3d1274cb783d400e9eb98fd7, type: 2}
+  - {fileID: 11400000, guid: 8c0060f7212a9498a9a9b867f867a12f, type: 2}
+  - {fileID: 11400000, guid: 359a7a5ea844f4175ae32ced87a86a4c, type: 2}
+  - {fileID: 11400000, guid: edebafd41b04e4af891109c0401c96ec, type: 2}
+  - {fileID: 11400000, guid: 78ccfd494f80b4a5c8a937873cb0b303, type: 2}
+  - {fileID: 11400000, guid: f1ef216bd2616430d86776770d449a95, type: 2}
+  - {fileID: 11400000, guid: efd7f1873564140f992a1d6380d66d5c, type: 2}
+  - {fileID: 11400000, guid: e359de7898d364e05a195e5689d93501, type: 2}
+  - {fileID: 11400000, guid: 13c6f65e1b4f846279bb07cc925ecd28, type: 2}
+  - {fileID: 11400000, guid: 557a917ad18c84dd4886d299915b724a, type: 2}
+  - {fileID: 11400000, guid: 6c65293bd9f5549848001a32be51949e, type: 2}
+  - {fileID: 11400000, guid: f2fa1b9ab109041549888d379dec782e, type: 2}
+  - {fileID: 11400000, guid: 15996a706909b48499cdbace7bd2c9df, type: 2}
+  - {fileID: 11400000, guid: a6f35a8fc735b49a397e1da139bf6f19, type: 2}
+  - {fileID: 11400000, guid: 56ee8a7438bfc4918b1cca5029a7292e, type: 2}
+  - {fileID: 11400000, guid: a1de627227ab74ac09a82e2dc1794182, type: 2}
+  - {fileID: 11400000, guid: 16fee8fa3ed7e4688846fb59cfcb2d0a, type: 2}
+  - {fileID: 11400000, guid: aef084e21b18544cbb021e09221c7eaa, type: 2}
+  - {fileID: 11400000, guid: 6e70b4aaefcfb4aeba22c9f5baed62d7, type: 2}
+  - {fileID: 11400000, guid: db8b0a5c4a5114ff4ae04247454d5352, type: 2}
+  - {fileID: 11400000, guid: 8b74f14ce42fc46cf8d7b46c5036e996, type: 2}
+  itemObjectTypes:
+  - Armor
+  - Boots
+  - Helmet
+  - Shield
+  - Weapon
+  itemAttributeTypes:
+  - Character Class
+  - Character Race
+  - Gender
+  - Prefix
+  - Quality
+  - Rarity
+  - Suffix
+  - Test

@@ -10,7 +10,9 @@ using System.IO;
 using System.Threading.Tasks;
 
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine.Events;
 
 using Databrain.Attributes;
@@ -69,8 +71,7 @@ namespace Databrain
 		public string runtimeLibraryFolderPath;
 		public DataLibrary initialLibrary;
 
-		// public string runtimeLibraryFolderPath { get { return _runtimeLibraryFolderPath; } set {  _runtimeLibraryFolderPath = value; } }
-
+        public DataObject selectedDataObject;
 
 #if UNITY_EDITOR
         /// <summary>
@@ -318,19 +319,23 @@ namespace Databrain
 
         async void OnBegin()
 		{
-			if (!isRuntimeContainer)
-			{
-				runtimeLibrary.initialLibrary = this;
-			}
-
-
-			data.PopulateRuntimeDictionary();
+		
 
 			if (isRuntimeContainer)
 				return;
 
+		
+
+			data.PopulateRuntimeDictionary();
+
 			if (runtimeLibrary != null)
 			{
+				if (!isRuntimeContainer)
+				{
+					runtimeLibrary.initialLibrary = this;
+				}
+
+
                 runtimeLibrary.data = new DataObjectList();
                 runtimeLibrary.isRuntimeContainer = true;
 
@@ -344,6 +349,18 @@ namespace Databrain
 						}
 					}
 				}
+
+				for (var i = 0; i < data.ObjectList.Count; i++)
+				{
+					for (int j = 0; j < data.ObjectList[i].dataObjects.Count; j++)
+					{
+						if (data.ObjectList[i].dataObjects[j] != null)
+						{
+							data.ObjectList[i].dataObjects[j].Initialize();
+						}
+					}
+				}
+
                 int currentFrame = Time.frameCount;
 				while (currentFrame + 5 >= Time.frameCount)
 					await Task.Yield();
@@ -804,6 +821,32 @@ namespace Databrain
             return szOutStringBuild.ToString();
         }
 
+		/// <summary>
+		/// Returns a singleton data object. Tries to get the runtime data object first.
+		/// If there isn't any, it will return the initial data object.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <returns></returns>
+		public T GetSingleton<T>(bool _forceReturnInitial = false) where T : DataObject
+		{
+			if (_forceReturnInitial)
+			{
+				return data.GetFirstDataObjectByType<T>();
+			}
+
+			if (runtimeLibrary == null)
+			{
+				Debug.LogError("No runtime Databrain object. Please create one in the save&load module");
+				return null;
+			}
+			if (runtimeLibrary != null)
+			{
+				return runtimeLibrary.data.GetFirstDataObjectByType<T>();
+			}
+			
+			return data.GetFirstDataObjectByType<T>();
+		}
+
         /// <summary>
         /// Get a runtime-DataObject by guid. Please use generic version for better performance.
         /// </summary>
@@ -997,6 +1040,35 @@ namespace Databrain
 		}
 
 		/// <summary>
+		/// Retrieves all initial data objects by given tags.
+		/// </summary>
+		/// <param name="_tag"></param>
+		/// <param name="_tags"></param>
+		/// <returns></returns>
+		public List<DataObject> GetAllInitialDataObjectsByTags(string _tag, params string[] _tags)
+		{
+			return data.GetAllDataObjectsByTags(_tag, _tags);
+		}
+
+		/// <summary>
+		/// Retrieves all runtime data objects by a given tag.
+		/// </summary>
+		/// <param name="_tag"></param>
+		/// <param name="_tags"></param>
+		/// <returns></returns>
+		public List<DataObject> GetAllRuntimeDataObjectsByTags(string _tag, params string[] _tags)
+		{
+			if (runtimeLibrary == null)
+			{
+				return null;
+			}
+			else
+			{
+				return runtimeLibrary.data.GetAllDataObjectsByTags(_tag, _tags);
+			}
+		}
+
+		/// <summary>
 		/// Returns true or false wether a DataObject exists or not
 		/// </summary>
 		/// <param name="_guid"></param>
@@ -1063,6 +1135,8 @@ namespace Databrain
 		/// <returns></returns>
 		public DataObject CloneDataObjectToRuntime(DataObject _data, GameObject _ownerGameObject = null)
 		{
+			if (isRuntimeContainer)
+				return null;
 
 			if (runtimeLibrary == null)
 			{
