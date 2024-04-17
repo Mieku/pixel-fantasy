@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Systems.Stats.Scripts
 {
-    [CreateAssetMenu(fileName = "MiningSkillSettings", menuName = "Skill System/Mining Skill Settings")]
+    [CreateAssetMenu(fileName = "Mining Skill Settings", menuName = "Skill System/Mining Skill Settings")]
     public class MiningSkillSettings : SkillSettings
     {
         public override ESkillType SkillType => ESkillType.Mining;
@@ -30,7 +30,7 @@ namespace Systems.Stats.Scripts
     public class MiningSkillLevelData : SkillLevelData
     {
         [TableColumnWidth(100)]
-        public float MiningSpeed;
+        public float MiningWorkModifier;
         
         [TableColumnWidth(100)]
         public float MiningYield;
@@ -39,8 +39,8 @@ namespace Systems.Stats.Scripts
         {
             switch (attributeType)
             {
-                case EAttributeType.MiningSpeed: return MiningSpeed;
-                case EAttributeType.MiningYield: return MiningYield;
+                case EAttributeType.WorkModifier: return MiningWorkModifier;
+                case EAttributeType.YieldModifier: return MiningYield;
                 default: throw new ArgumentOutOfRangeException(nameof(attributeType), $"Not supported attribute {attributeType} for mining.");
             }
         }

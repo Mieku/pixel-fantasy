@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Systems.Stats.Scripts
 {
-    [CreateAssetMenu(fileName = "CookingSkillSettings", menuName = "Skill System/Cooking Skill Settings")]
+    [CreateAssetMenu(fileName = "Cooking Skill Settings", menuName = "Skill System/Cooking Skill Settings")]
     public class CookingSkillSettings : SkillSettings
     {
         public override ESkillType SkillType => ESkillType.Cooking; 
@@ -30,7 +30,7 @@ namespace Systems.Stats.Scripts
     public class CookingSkillLevelData : SkillLevelData
     {
         [TableColumnWidth(100)]
-        public float CookingSpeed;
+        public float CookingWorkModifier;
         
         [TableColumnWidth(100)]
         public float ButcheringYield;
@@ -42,8 +42,8 @@ namespace Systems.Stats.Scripts
         {
             switch (attributeType)
             {
-                case EAttributeType.CookingSpeed: return CookingSpeed;
-                case EAttributeType.ButcheringYield: return ButcheringYield;
+                case EAttributeType.WorkModifier: return CookingWorkModifier;
+                case EAttributeType.YieldModifier: return ButcheringYield;
                 case EAttributeType.FoodPoisonChance: return FoodPoisonChance;
                 default: throw new ArgumentOutOfRangeException(nameof(attributeType), $"Not supported attribute {attributeType} for cooking.");
             }

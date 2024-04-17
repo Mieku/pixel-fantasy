@@ -9,7 +9,7 @@ namespace TaskSystem
     {
         public List<TaskPriority> Priorities = new()
         {
-            new TaskPriority(ETaskType.Emergancy),
+            new TaskPriority(ETaskType.Emergency),
             new TaskPriority(ETaskType.Healing),
             new TaskPriority(ETaskType.Construction),
             new TaskPriority(ETaskType.AnimalHandling),
@@ -25,7 +25,7 @@ namespace TaskSystem
         
         private Dictionary<ETaskType, int> _inherentPriorities = new()
         {
-            { ETaskType.Emergancy, 1 },
+            { ETaskType.Emergency, 1 },
             { ETaskType.Healing, 2 },
             { ETaskType.Construction, 3 },
             { ETaskType.AnimalHandling, 4 },

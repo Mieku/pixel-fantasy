@@ -90,7 +90,9 @@ namespace Characters
         [ExposeToInspector, DatabrainSerialize]
         public Item HeldItem;
 
-        public int MiningLevel;
+        [ExposeToInspector, DatabrainSerialize]
+        public KinlingStatsData StatsData;
+        
 
         public void Randomize(RaceSettings race)
         {
@@ -110,6 +112,8 @@ namespace Characters
             
             Firstname = Appearance.Race.GetRandomFirstName(Gender);
             Lastname = Appearance.Race.GetRandomLastName();
+            
+            StatsData.RandomizeSkillLevels();
         }
         
         public void InheritData(KinlingData mother, KinlingData father)
@@ -130,6 +134,8 @@ namespace Characters
 
             Firstname = Appearance.Race.GetRandomFirstName(Gender);
             Lastname = mother.Lastname;
+            
+            StatsData.RandomizeSkillLevels();
         }
 
         private ESexualPreference DetermineSexuality()
@@ -266,7 +272,7 @@ namespace Characters
         
         public int GetLevelForSkill(ESkillType skillType)
         {
-            return 1;
+            return StatsData.GetLevelForSkill(skillType);
         }
     }
 }

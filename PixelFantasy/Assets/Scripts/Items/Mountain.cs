@@ -60,10 +60,10 @@ namespace Items
             return UnitAction.Swinging;
         }
 
-        protected override void ExtractResource()
+        protected override void ExtractResource(float yield)
         {
             MineMountain();
-            base.ExtractResource();
+            base.ExtractResource(yield);
         }
 
         private void SetTile()

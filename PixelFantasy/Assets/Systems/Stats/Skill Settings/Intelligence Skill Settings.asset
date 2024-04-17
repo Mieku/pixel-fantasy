@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8390968a8b3d174b8da96a613376ea5, type: 3}
+  m_Name: Intelligence Skill Settings
+  m_EditorClassIdentifier: 
+  Table:
+  - rid: 4161138440409186527
+  - rid: 4161138440409186528
+  - rid: 4161138440409186529
+  - rid: 4161138440409186530
+  - rid: 4161138440409186531
+  - rid: 4161138440409186532
+  - rid: 4161138440409186533
+  - rid: 4161138440409186534
+  - rid: 4161138440409186535
+  - rid: 4161138440409186536
+  references:
+    version: 2
+    RefIds:
+    - rid: 4161138440409186527
+      type: {class: IntelligenceSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 1
+        ResearchWorkModifier: 0.25
+        LearningModifier: 0.7
+    - rid: 4161138440409186528
+      type: {class: IntelligenceSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 2
+        ResearchWorkModifier: 0.5
+        LearningModifier: 0.8
+    - rid: 4161138440409186529
+      type: {class: IntelligenceSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 3
+        ResearchWorkModifier: 0.75
+        LearningModifier: 0.9
+    - rid: 4161138440409186530
+      type: {class: IntelligenceSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 4
+        ResearchWorkModifier: 1
+        LearningModifier: 1
+    - rid: 4161138440409186531
+      type: {class: IntelligenceSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 5
+        ResearchWorkModifier: 1.25
+        LearningModifier: 1.1
+    - rid: 4161138440409186532
+      type: {class: IntelligenceSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 6
+        ResearchWorkModifier: 1.5
+        LearningModifier: 1.2
+    - rid: 4161138440409186533
+      type: {class: IntelligenceSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 7
+        ResearchWorkModifier: 1.75
+        LearningModifier: 1.3
+    - rid: 4161138440409186534
+      type: {class: IntelligenceSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 8
+        ResearchWorkModifier: 2
+        LearningModifier: 1.4
+    - rid: 4161138440409186535
+      type: {class: IntelligenceSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 9
+        ResearchWorkModifier: 2.25
+        LearningModifier: 1.5
+    - rid: 4161138440409186536
+      type: {class: IntelligenceSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 10
+        ResearchWorkModifier: 2.5
+        LearningModifier: 1.6

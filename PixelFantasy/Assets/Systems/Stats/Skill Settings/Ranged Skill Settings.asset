@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8804d142574608498b0183b1cda973a, type: 3}
+  m_Name: Ranged Skill Settings
+  m_EditorClassIdentifier: 
+  Table:
+  - rid: 4161138440409186456
+  - rid: 4161138440409186457
+  - rid: 4161138440409186458
+  - rid: 4161138440409186459
+  - rid: 4161138440409186460
+  - rid: 4161138440409186461
+  - rid: 4161138440409186462
+  - rid: 4161138440409186463
+  - rid: 4161138440409186464
+  - rid: 4161138440409186465
+  references:
+    version: 2
+    RefIds:
+    - rid: 4161138440409186456
+      type: {class: RangedSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 1
+        HuntingStealth: 0.2
+        RangedAccuracy: 0.9
+    - rid: 4161138440409186457
+      type: {class: RangedSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 2
+        HuntingStealth: 0.4
+        RangedAccuracy: 0.91
+    - rid: 4161138440409186458
+      type: {class: RangedSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 3
+        HuntingStealth: 0.5
+        RangedAccuracy: 0.92
+    - rid: 4161138440409186459
+      type: {class: RangedSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 4
+        HuntingStealth: 0.55
+        RangedAccuracy: 0.93
+    - rid: 4161138440409186460
+      type: {class: RangedSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 5
+        HuntingStealth: 0.6
+        RangedAccuracy: 0.94
+    - rid: 4161138440409186461
+      type: {class: RangedSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 6
+        HuntingStealth: 0.65
+        RangedAccuracy: 0.95
+    - rid: 4161138440409186462
+      type: {class: RangedSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 7
+        HuntingStealth: 0.7
+        RangedAccuracy: 0.96
+    - rid: 4161138440409186463
+      type: {class: RangedSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 8
+        HuntingStealth: 0.75
+        RangedAccuracy: 0.97
+    - rid: 4161138440409186464
+      type: {class: RangedSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 9
+        HuntingStealth: 0.8
+        RangedAccuracy: 0.98
+    - rid: 4161138440409186465
+      type: {class: RangedSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 10
+        HuntingStealth: 0.9
+        RangedAccuracy: 0.99

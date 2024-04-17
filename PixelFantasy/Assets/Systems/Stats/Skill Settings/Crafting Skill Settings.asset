@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64de3c13011ac344b8eb76a9c4f6948f, type: 3}
+  m_Name: Crafting Skill Settings
+  m_EditorClassIdentifier: 
+  Table:
+  - rid: 4161138440409186487
+  - rid: 4161138440409186488
+  - rid: 4161138440409186489
+  - rid: 4161138440409186490
+  - rid: 4161138440409186491
+  - rid: 4161138440409186492
+  - rid: 4161138440409186493
+  - rid: 4161138440409186494
+  - rid: 4161138440409186495
+  - rid: 4161138440409186496
+  references:
+    version: 2
+    RefIds:
+    - rid: 4161138440409186487
+      type: {class: CraftingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 1
+        CraftingWorkModifier: 0.55
+    - rid: 4161138440409186488
+      type: {class: CraftingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 2
+        CraftingWorkModifier: 0.7
+    - rid: 4161138440409186489
+      type: {class: CraftingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 3
+        CraftingWorkModifier: 0.85
+    - rid: 4161138440409186490
+      type: {class: CraftingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 4
+        CraftingWorkModifier: 1
+    - rid: 4161138440409186491
+      type: {class: CraftingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 5
+        CraftingWorkModifier: 1.15
+    - rid: 4161138440409186492
+      type: {class: CraftingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 6
+        CraftingWorkModifier: 1.3
+    - rid: 4161138440409186493
+      type: {class: CraftingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 7
+        CraftingWorkModifier: 1.45
+    - rid: 4161138440409186494
+      type: {class: CraftingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 8
+        CraftingWorkModifier: 1.6
+    - rid: 4161138440409186495
+      type: {class: CraftingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 9
+        CraftingWorkModifier: 1.75
+    - rid: 4161138440409186496
+      type: {class: CraftingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 10
+        CraftingWorkModifier: 1.9

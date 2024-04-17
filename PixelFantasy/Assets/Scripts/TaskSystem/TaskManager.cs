@@ -76,7 +76,7 @@ namespace TaskSystem
     
     public enum ETaskType
     {
-        Emergancy = 0,
+        Emergency = 0,
         Healing = 1,
         Construction = 2,
         AnimalHandling = 3,

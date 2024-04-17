@@ -48,17 +48,53 @@ namespace Systems.Stats.Scripts
     
     public enum EAttributeType
     {
-        MiningSpeed, 
-        MiningYield, 
+        // Generic
+        WorkModifier,
+        YieldModifier,
         
-        CookingSpeed, 
+        // Cooking
         FoodPoisonChance, 
-        ButcheringYield
+        
+        // Melee
+        MeleeChanceToHit,
+        MeleeChanceToDodge,
+        
+        // Ranged
+        HuntingStealth,
+        RangedAccuracy,
+        
+        // Construction
+        ConstructionSuccessChance,
+        
+        // Beast Mastery
+        TameBeastChance,
+        TrainBeastChance,
+        
+        // Medical
+        SurgerySuccessChance,
+        TendQuality,
+        
+        // Social
+        TradePriceBuy,
+        TradePriceSell,
+        SocialImpact,
+        
+        // Intelligence
+        LearningModifier,
     }
 
     public enum ESkillType
     {
         Mining, 
         Cooking,
+        Melee,
+        Ranged,
+        Construction,
+        Botany,
+        Crafting,
+        BeastMastery,
+        Medical,
+        Social,
+        Intelligence,
     }
 }

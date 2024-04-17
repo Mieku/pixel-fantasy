@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Characters;
 using Data.Resource;
 using Databrain;
 using Databrain.Attributes;
 using Interfaces;
 using Managers;
+using Systems.Stats.Scripts;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -140,12 +142,15 @@ namespace Items
         /// </summary>
         /// <param name="workAmount"></param>
         /// <returns>If the work is complete</returns>
-        public virtual bool DoExtractionWork(float workAmount)
+        public virtual bool DoExtractionWork(KinlingStats stats)
         {
+            var workAmount = stats.GetActionWorkForSkill(RuntimeData.Settings.ExtractionSkillType);
             RuntimeData.RemainingExtractWork -= workAmount;
             if (RuntimeData.RemainingExtractWork <= 0)
             {
-                ExtractResource();
+                var yield = stats.GetYieldForSkill(RuntimeData.Settings.ExtractionSkillType);
+                stats.AddExpToSkill(RuntimeData.Settings.ExtractionSkillType, RuntimeData.Settings.ExpFromExtraction);
+                ExtractResource(yield);
                 return true;
             }
             
@@ -180,12 +185,13 @@ namespace Items
             return false;
         }
 
-        protected virtual void ExtractResource()
+        protected virtual void ExtractResource(float yield)
         {
             var resources = RuntimeData.Settings.HarvestableItems.GetItemDrop();
             foreach (var resource in resources)
             {
-                for (int i = 0; i < resource.Quantity; i++)
+                int amount = (int)(resource.Quantity * yield);
+                for (int i = 0; i < amount; i++)
                 {
                     spawner.SpawnItem(resource.Item, transform.position, true);
                 }

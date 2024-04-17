@@ -21,5 +21,7 @@ namespace ScriptableObjects
         }
 
         [BoxGroup("Social"), ShowInInspector] public float BasePregnancyChance { get; private set; } = 50f;
+
+        [BoxGroup("Work"), ShowInInspector] public float BaseWorkPerAction { get; private set; } = 10f;
     }
 }

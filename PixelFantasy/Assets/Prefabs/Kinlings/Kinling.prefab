@@ -1251,8 +1251,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _kinling: {fileID: 5584874993929393806}
   _skillSettings:
+  - {fileID: 11400000, guid: 6f8b040d8f981144c8a0ed89812aefaf, type: 2}
+  - {fileID: 11400000, guid: 0e477be7614c7814aa3d4a578b8f766e, type: 2}
+  - {fileID: 11400000, guid: 35816dc5fb2818840a8e039dd4926a07, type: 2}
   - {fileID: 11400000, guid: 78667b5605cf81c4aa9a39f3e10ca120, type: 2}
+  - {fileID: 11400000, guid: 027ede597f7637e4b930381753ce7a48, type: 2}
+  - {fileID: 11400000, guid: 4caf47c1afa25ba40b0f8cb90a17cb18, type: 2}
+  - {fileID: 11400000, guid: 75967d33dded1d840a5a180b4163dff2, type: 2}
+  - {fileID: 11400000, guid: 2ae93406c18fd3644a426b38e589e5b7, type: 2}
   - {fileID: 11400000, guid: 5eaaf3e325591244ba54464a961e85cb, type: 2}
+  - {fileID: 11400000, guid: 356c64e640a68be499d8e66272b3877a, type: 2}
+  - {fileID: 11400000, guid: 182fdcbdd93c996439df9d835efec7cf, type: 2}
 --- !u!114 &6110830004571278970
 MonoBehaviour:
   m_ObjectHideFlags: 0

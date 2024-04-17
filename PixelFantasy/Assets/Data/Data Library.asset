@@ -83,6 +83,8 @@ MonoBehaviour:
   _potentialSprites: []
   _maxHealth: 100
   _minWorkDistance: 0.75
+  _extractionSkillType: 5
+  _expFromExtraction: 15
   _baseData: {fileID: 6551958446649319986}
   _growthStages:
   - StageName: Sapling
@@ -172,6 +174,8 @@ MonoBehaviour:
   - {fileID: -168499877, guid: cde0bb39e0dd2f742954541f1d452824, type: 3}
   _maxHealth: 5
   _minWorkDistance: 0.75
+  _extractionSkillType: 5
+  _expFromExtraction: 2
   _baseData: {fileID: -4328041401239383635}
 --- !u!114 &-7963632896702530702
 MonoBehaviour:
@@ -379,6 +383,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ba3fe77bde9281d4083966e7aa6c6c6e, type: 3}
   _maxHealth: 5
   _minWorkDistance: 0.75
+  _extractionSkillType: 5
+  _expFromExtraction: 2
   _baseData: {fileID: 6734689318582040478}
 --- !u!114 &-7223051035212598023
 MonoBehaviour:
@@ -502,7 +508,29 @@ MonoBehaviour:
   IdleTimer: 0.3832448
   CurrentTaskAction: {fileID: 0}
   HeldItem: {fileID: 0}
-  MiningLevel: 0
+  StatsData:
+    MeleeLevel: 0
+    MeleeExp: 0
+    RangedLevel: 0
+    RangedExp: 0
+    ConstructionLevel: 0
+    ConstructionExp: 0
+    MiningLevel: 0
+    MiningExp: 0
+    BotanyLevel: 0
+    BotanyExp: 0
+    CookingLevel: 0
+    CookingExp: 0
+    CraftingLevel: 0
+    CraftingExp: 0
+    BeastMasteryLevel: 0
+    BeastMasteryExp: 0
+    MedicalLevel: 0
+    MedicalExp: 0
+    SocialLevel: 0
+    SocialExp: 0
+    IntelligenceLevel: 0
+    IntelligenceExp: 0
 --- !u!114 &-6853623058905891121
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -706,6 +734,8 @@ MonoBehaviour:
   _potentialSprites: []
   _maxHealth: 100
   _minWorkDistance: 0.75
+  _extractionSkillType: 5
+  _expFromExtraction: 10
   _baseData: {fileID: 7784763088285507379}
   _growthStages:
   - StageName: Young
@@ -781,6 +811,8 @@ MonoBehaviour:
   - {fileID: -278860237, guid: 2aa1d04d9bcb58d49a8dafb36a7fe309, type: 3}
   _maxHealth: 5
   _minWorkDistance: 0.75
+  _extractionSkillType: 5
+  _expFromExtraction: 5
   _baseData: {fileID: 7531465296088124193}
 --- !u!114 &-5382145946460636157
 MonoBehaviour:
@@ -827,6 +859,8 @@ MonoBehaviour:
   _potentialSprites: []
   _maxHealth: 100
   _minWorkDistance: 0.75
+  _extractionSkillType: 0
+  _expFromExtraction: 25
   _baseData: {fileID: 1636724805157081006}
   _ruleTile: {fileID: 11400000, guid: c79f60c15b97a6a4b9c0809eee602674, type: 2}
   _mountainTileType: 4
@@ -968,6 +1002,8 @@ MonoBehaviour:
   _potentialSprites: []
   _maxHealth: 100
   _minWorkDistance: 0.75
+  _extractionSkillType: 5
+  _expFromExtraction: 15
   _baseData: {fileID: -2419358363865988586}
   _growthStages:
   - StageName: Sapling
@@ -1166,6 +1202,8 @@ MonoBehaviour:
   _potentialSprites: []
   _maxHealth: 100
   _minWorkDistance: 0.75
+  _extractionSkillType: 5
+  _expFromExtraction: 15
   _baseData: {fileID: 3669178811856810939}
   _growthStages:
   - StageName: Sapling
@@ -1248,6 +1286,8 @@ MonoBehaviour:
   _potentialSprites: []
   _maxHealth: 100
   _minWorkDistance: 0.75
+  _extractionSkillType: 5
+  _expFromExtraction: 15
   _baseData: {fileID: -4434914887024288142}
   _growthStages:
   - StageName: Sapling
@@ -1656,6 +1696,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 44cb070754958b241b8535b5d853801e, type: 3}
   _maxHealth: 5
   _minWorkDistance: 0.75
+  _extractionSkillType: 0
+  _expFromExtraction: 5
   _baseData: {fileID: 115313260348806446}
 --- !u!114 &-3963601841445953741
 MonoBehaviour:
@@ -1790,6 +1832,8 @@ MonoBehaviour:
   _potentialSprites: []
   _maxHealth: 100
   _minWorkDistance: 0.75
+  _extractionSkillType: 0
+  _expFromExtraction: 25
   _baseData: {fileID: 2268203417634399997}
   _ruleTile: {fileID: 11400000, guid: 3bab186eaf5aef14aacaecfacdae194a, type: 2}
   _mountainTileType: 6
@@ -2123,7 +2167,29 @@ MonoBehaviour:
   IdleTimer: 0
   CurrentTaskAction: {fileID: 0}
   HeldItem: {fileID: 0}
-  MiningLevel: 0
+  StatsData:
+    MeleeLevel: 0
+    MeleeExp: 0
+    RangedLevel: 0
+    RangedExp: 0
+    ConstructionLevel: 0
+    ConstructionExp: 0
+    MiningLevel: 0
+    MiningExp: 0
+    BotanyLevel: 0
+    BotanyExp: 0
+    CookingLevel: 0
+    CookingExp: 0
+    CraftingLevel: 0
+    CraftingExp: 0
+    BeastMasteryLevel: 0
+    BeastMasteryExp: 0
+    MedicalLevel: 0
+    MedicalExp: 0
+    SocialLevel: 0
+    SocialExp: 0
+    IntelligenceLevel: 0
+    IntelligenceExp: 0
 --- !u!114 &-2429024163771652823
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2283,6 +2349,8 @@ MonoBehaviour:
   _potentialSprites: []
   _maxHealth: 100
   _minWorkDistance: 0.75
+  _extractionSkillType: 5
+  _expFromExtraction: 15
   _baseData: {fileID: 8216239440353706561}
   _growthStages:
   - StageName: Sapling
@@ -2472,6 +2540,8 @@ MonoBehaviour:
   _potentialSprites: []
   _maxHealth: 100
   _minWorkDistance: 0.75
+  _extractionSkillType: 0
+  _expFromExtraction: 25
   _baseData: {fileID: 6512197022579626652}
   _ruleTile: {fileID: 11400000, guid: 103d4f7d42da3ba45a5b231963c3fde0, type: 2}
   _mountainTileType: 2
@@ -2517,6 +2587,8 @@ MonoBehaviour:
   _potentialSprites: []
   _maxHealth: 100
   _minWorkDistance: 0.75
+  _extractionSkillType: 5
+  _expFromExtraction: 15
   _baseData: {fileID: 19725600825404008}
   _growthStages:
   - StageName: Sapling
@@ -2824,7 +2896,29 @@ MonoBehaviour:
   IdleTimer: 0
   CurrentTaskAction: {fileID: 0}
   HeldItem: {fileID: 0}
-  MiningLevel: 0
+  StatsData:
+    MeleeLevel: 0
+    MeleeExp: 0
+    RangedLevel: 0
+    RangedExp: 0
+    ConstructionLevel: 0
+    ConstructionExp: 0
+    MiningLevel: 0
+    MiningExp: 0
+    BotanyLevel: 0
+    BotanyExp: 0
+    CookingLevel: 0
+    CookingExp: 0
+    CraftingLevel: 0
+    CraftingExp: 0
+    BeastMasteryLevel: 0
+    BeastMasteryExp: 0
+    MedicalLevel: 0
+    MedicalExp: 0
+    SocialLevel: 0
+    SocialExp: 0
+    IntelligenceLevel: 0
+    IntelligenceExp: 0
 --- !u!114 &-191659240112778000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3215,7 +3309,7 @@ MonoBehaviour:
   runtimeLibraryGuid: 
   runtimeLibraryFolderPath: 
   initialLibrary: {fileID: 0}
-  selectedDataObject: {fileID: 0}
+  selectedDataObject: {fileID: -2541106388917036282}
   modules:
   - {fileID: 1013997515501222643}
   - {fileID: 3086282657986071168}
@@ -3875,6 +3969,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4674c1b26bcef104e8a33df79f9dcce0, type: 3}
   _maxHealth: 5
   _minWorkDistance: 0.75
+  _extractionSkillType: 5
+  _expFromExtraction: 2
   _baseData: {fileID: 7833847521327401813}
 --- !u!114 &1104450306893862740
 MonoBehaviour:
@@ -4153,6 +4249,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ecdc013dbc4bb7d4ab4a5c84dd70f7cf, type: 3}
   _maxHealth: 5
   _minWorkDistance: 0.75
+  _extractionSkillType: 5
+  _expFromExtraction: 2
   _baseData: {fileID: -56553772185048440}
 --- !u!114 &1636724805157081006
 MonoBehaviour:
@@ -4497,6 +4595,8 @@ MonoBehaviour:
   _potentialSprites: []
   _maxHealth: 100
   _minWorkDistance: 0.75
+  _extractionSkillType: 5
+  _expFromExtraction: 15
   _baseData: {fileID: -6728472306890164557}
   _growthStages:
   - StageName: Sapling
@@ -4579,6 +4679,8 @@ MonoBehaviour:
   _potentialSprites: []
   _maxHealth: 100
   _minWorkDistance: 0.75
+  _extractionSkillType: 5
+  _expFromExtraction: 10
   _baseData: {fileID: -1752239673643862743}
   _growthStages:
   - StageName: Young
@@ -4835,6 +4937,8 @@ MonoBehaviour:
   _potentialSprites: []
   _maxHealth: 100
   _minWorkDistance: 0.75
+  _extractionSkillType: 0
+  _expFromExtraction: 25
   _baseData: {fileID: 1868634605682467714}
   _ruleTile: {fileID: 11400000, guid: 600ac304e528db849a504d0f0d8c7057, type: 2}
   _mountainTileType: 1
@@ -4937,6 +5041,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ec6cc8498ba24f94d852e86cf7441df2, type: 3}
   _maxHealth: 5
   _minWorkDistance: 0.75
+  _extractionSkillType: 5
+  _expFromExtraction: 5
   _baseData: {fileID: -1362852035674046031}
 --- !u!114 &3998079584738369031
 MonoBehaviour:
@@ -5292,7 +5398,29 @@ MonoBehaviour:
   IdleTimer: 6.9174747
   CurrentTaskAction: {fileID: 0}
   HeldItem: {fileID: 0}
-  MiningLevel: 0
+  StatsData:
+    MeleeLevel: 0
+    MeleeExp: 0
+    RangedLevel: 0
+    RangedExp: 0
+    ConstructionLevel: 0
+    ConstructionExp: 0
+    MiningLevel: 0
+    MiningExp: 0
+    BotanyLevel: 0
+    BotanyExp: 0
+    CookingLevel: 0
+    CookingExp: 0
+    CraftingLevel: 0
+    CraftingExp: 0
+    BeastMasteryLevel: 0
+    BeastMasteryExp: 0
+    MedicalLevel: 0
+    MedicalExp: 0
+    SocialLevel: 0
+    SocialExp: 0
+    IntelligenceLevel: 0
+    IntelligenceExp: 0
 --- !u!114 &5069011162588748535
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5510,7 +5638,29 @@ MonoBehaviour:
   IdleTimer: 0
   CurrentTaskAction: {fileID: 0}
   HeldItem: {fileID: 0}
-  MiningLevel: 0
+  StatsData:
+    MeleeLevel: 0
+    MeleeExp: 0
+    RangedLevel: 0
+    RangedExp: 0
+    ConstructionLevel: 0
+    ConstructionExp: 0
+    MiningLevel: 0
+    MiningExp: 0
+    BotanyLevel: 0
+    BotanyExp: 0
+    CookingLevel: 0
+    CookingExp: 0
+    CraftingLevel: 0
+    CraftingExp: 0
+    BeastMasteryLevel: 0
+    BeastMasteryExp: 0
+    MedicalLevel: 0
+    MedicalExp: 0
+    SocialLevel: 0
+    SocialExp: 0
+    IntelligenceLevel: 0
+    IntelligenceExp: 0
 --- !u!114 &6402681467211676120
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5556,6 +5706,8 @@ MonoBehaviour:
   _potentialSprites: []
   _maxHealth: 100
   _minWorkDistance: 0.75
+  _extractionSkillType: 0
+  _expFromExtraction: 25
   _baseData: {fileID: 7716375742333856519}
   _ruleTile: {fileID: 11400000, guid: 5eb250e0cf9becb42b2c397f550acf5f, type: 2}
   _mountainTileType: 5
@@ -5939,7 +6091,29 @@ MonoBehaviour:
   IdleTimer: 0
   CurrentTaskAction: {fileID: 0}
   HeldItem: {fileID: 0}
-  MiningLevel: 0
+  StatsData:
+    MeleeLevel: 0
+    MeleeExp: 0
+    RangedLevel: 0
+    RangedExp: 0
+    ConstructionLevel: 0
+    ConstructionExp: 0
+    MiningLevel: 0
+    MiningExp: 0
+    BotanyLevel: 0
+    BotanyExp: 0
+    CookingLevel: 0
+    CookingExp: 0
+    CraftingLevel: 0
+    CraftingExp: 0
+    BeastMasteryLevel: 0
+    BeastMasteryExp: 0
+    MedicalLevel: 0
+    MedicalExp: 0
+    SocialLevel: 0
+    SocialExp: 0
+    IntelligenceLevel: 0
+    IntelligenceExp: 0
 --- !u!114 &7039194556294736213
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6190,6 +6364,8 @@ MonoBehaviour:
   _potentialSprites: []
   _maxHealth: 100
   _minWorkDistance: 0.75
+  _extractionSkillType: 0
+  _expFromExtraction: 25
   _baseData: {fileID: -1887156828929915283}
   _ruleTile: {fileID: 11400000, guid: 93e70c7ca59bc304194a8337ca2b45d0, type: 2}
   _mountainTileType: 3
@@ -6324,6 +6500,12 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Item.CraftedItemData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
@@ -6334,6 +6516,114 @@ MonoBehaviour:
     - type: Data.Resource.ResourceData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -6843,9 +7133,149 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Resource.MountainResourceData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -6910,28 +7340,10 @@ MonoBehaviour:
       - {fileID: 0}
     - type: Characters.KinlingData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
+      dataObjects: []
     - type: Data.Zones.StockpileZoneData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
       - {fileID: 0}
     - type: Data.Zones.FarmingZoneData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null

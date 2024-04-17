@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a174a0ea65e615f40be99f958a4ed7be, type: 3}
+  m_Name: Melee Skill Settings
+  m_EditorClassIdentifier: 
+  Table:
+  - rid: 4161138440409186446
+  - rid: 4161138440409186447
+  - rid: 4161138440409186448
+  - rid: 4161138440409186449
+  - rid: 4161138440409186450
+  - rid: 4161138440409186451
+  - rid: 4161138440409186452
+  - rid: 4161138440409186453
+  - rid: 4161138440409186454
+  - rid: 4161138440409186455
+  references:
+    version: 2
+    RefIds:
+    - rid: 4161138440409186446
+      type: {class: MeleeSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 1
+        ChanceToHit: 0.45
+        ChanceToDodge: 0
+    - rid: 4161138440409186447
+      type: {class: MeleeSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 2
+        ChanceToHit: 0.5
+        ChanceToDodge: 0
+    - rid: 4161138440409186448
+      type: {class: MeleeSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 3
+        ChanceToHit: 0.55
+        ChanceToDodge: 0
+    - rid: 4161138440409186449
+      type: {class: MeleeSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 4
+        ChanceToHit: 0.6
+        ChanceToDodge: 0
+    - rid: 4161138440409186450
+      type: {class: MeleeSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 5
+        ChanceToHit: 0.65
+        ChanceToDodge: 0.05
+    - rid: 4161138440409186451
+      type: {class: MeleeSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 6
+        ChanceToHit: 0.7
+        ChanceToDodge: 0.1
+    - rid: 4161138440409186452
+      type: {class: MeleeSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 7
+        ChanceToHit: 0.75
+        ChanceToDodge: 0.15
+    - rid: 4161138440409186453
+      type: {class: MeleeSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 8
+        ChanceToHit: 0.8
+        ChanceToDodge: 0.2
+    - rid: 4161138440409186454
+      type: {class: MeleeSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 9
+        ChanceToHit: 0.85
+        ChanceToDodge: 0.25
+    - rid: 4161138440409186455
+      type: {class: MeleeSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 10
+        ChanceToHit: 0.9
+        ChanceToDodge: 0.3

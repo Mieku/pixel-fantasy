@@ -200,14 +200,15 @@ namespace Items
             FruitCheck();
         }
 
-        protected override void ExtractResource()
+        protected override void ExtractResource(float yield)
         {
             HarvestFruit();
             
             var resources = RuntimeGrowingResourceData.GetGrowthStage().HarvestableItems.GetItemDrop();
             foreach (var resource in resources)
             {
-                for (int i = 0; i < resource.Quantity; i++)
+                int amount = (int)(resource.Quantity * yield);
+                for (int i = 0; i < amount; i++)
                 {
                     spawner.SpawnItem(resource.Item, transform.position, true);
                 }

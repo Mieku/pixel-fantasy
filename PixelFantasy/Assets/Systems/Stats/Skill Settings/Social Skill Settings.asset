@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 821933b33d3e78f4ba6a1d0549d5904f, type: 3}
+  m_Name: Social Skill Settings
+  m_EditorClassIdentifier: 
+  Table:
+  - rid: 4161138440409186517
+  - rid: 4161138440409186518
+  - rid: 4161138440409186519
+  - rid: 4161138440409186520
+  - rid: 4161138440409186521
+  - rid: 4161138440409186522
+  - rid: 4161138440409186523
+  - rid: 4161138440409186524
+  - rid: 4161138440409186525
+  - rid: 4161138440409186526
+  references:
+    version: 2
+    RefIds:
+    - rid: 4161138440409186517
+      type: {class: SocialSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 1
+        TradePriceBuyModifier: 1.4
+        TradePriceSellModifier: 0.525
+        SocialImpact: 0.6
+    - rid: 4161138440409186518
+      type: {class: SocialSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 2
+        TradePriceBuyModifier: 1.35
+        TradePriceSellModifier: 0.55
+        SocialImpact: 0.7
+    - rid: 4161138440409186519
+      type: {class: SocialSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 3
+        TradePriceBuyModifier: 1.3
+        TradePriceSellModifier: 0.575
+        SocialImpact: 0.8
+    - rid: 4161138440409186520
+      type: {class: SocialSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 4
+        TradePriceBuyModifier: 1.25
+        TradePriceSellModifier: 0.6
+        SocialImpact: 0.9
+    - rid: 4161138440409186521
+      type: {class: SocialSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 5
+        TradePriceBuyModifier: 1.2
+        TradePriceSellModifier: 0.625
+        SocialImpact: 1
+    - rid: 4161138440409186522
+      type: {class: SocialSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 6
+        TradePriceBuyModifier: 1.15
+        TradePriceSellModifier: 0.65
+        SocialImpact: 1.1
+    - rid: 4161138440409186523
+      type: {class: SocialSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 7
+        TradePriceBuyModifier: 1.1
+        TradePriceSellModifier: 0.675
+        SocialImpact: 1.2
+    - rid: 4161138440409186524
+      type: {class: SocialSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 8
+        TradePriceBuyModifier: 1.05
+        TradePriceSellModifier: 0.7
+        SocialImpact: 1.3
+    - rid: 4161138440409186525
+      type: {class: SocialSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 9
+        TradePriceBuyModifier: 1
+        TradePriceSellModifier: 0.725
+        SocialImpact: 1.4
+    - rid: 4161138440409186526
+      type: {class: SocialSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 10
+        TradePriceBuyModifier: 0.95
+        TradePriceSellModifier: 0.75
+        SocialImpact: 1.5

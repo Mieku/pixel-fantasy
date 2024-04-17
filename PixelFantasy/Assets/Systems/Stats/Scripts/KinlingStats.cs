@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Characters;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace Systems.Stats.Scripts
@@ -17,7 +18,29 @@ namespace Systems.Stats.Scripts
                 return settings.GetValueForLevel(attributeType, _kinling.RuntimeData.GetLevelForSkill(skillType));
             }
             Debug.LogError($"SkillSettings not found for {skillType}");
-            return 0;
+            return 1;
+        }
+        
+        public float GetActionWorkForSkill(ESkillType skillType)
+        {
+            float baseActionWork = GameSettings.Instance.BaseWorkPerAction;
+            float workModifier = GetAttributeValue(skillType, EAttributeType.WorkModifier);
+            float result = baseActionWork * workModifier;
+            
+            return result;
+        }
+
+        public float GetYieldForSkill(ESkillType skillType)
+        {
+            float yield = GetAttributeValue(skillType, EAttributeType.YieldModifier);
+            return yield;
+        }
+
+        public void AddExpToSkill(ESkillType skillType, int amount)
+        {
+            float modifier = GetAttributeValue(ESkillType.Intelligence, EAttributeType.LearningModifier);
+            int modifiedAmount = (int)(amount * modifier);
+            _kinling.RuntimeData.StatsData.AddExpToSkill(skillType, modifiedAmount);
         }
     }
 }

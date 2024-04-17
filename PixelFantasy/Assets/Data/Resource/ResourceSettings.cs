@@ -3,6 +3,7 @@ using Databrain;
 using Databrain.Attributes;
 using Items;
 using Managers;
+using Systems.Stats.Scripts;
 using UnityEngine;
 
 namespace Data.Resource
@@ -16,6 +17,11 @@ namespace Data.Resource
         [SerializeField] protected List<Sprite> _potentialSprites = new List<Sprite>();
         [SerializeField] protected float _maxHealth;
         [SerializeField] protected float _minWorkDistance = 0.75f;
+        
+        // Type of skill to extract
+        [SerializeField] protected ESkillType _extractionSkillType;
+        [SerializeField] protected int _expFromExtraction;
+        
         [DataObjectDropdown(true), SerializeField] private ResourceData _baseData;
         
         // Accessors
@@ -25,6 +31,8 @@ namespace Data.Resource
         public BasicResource Prefab => _prefab;
         public float MaxHealth => _maxHealth;
         public List<Sprite> PotentialSprites => _potentialSprites;
+        public ESkillType ExtractionSkillType => _extractionSkillType;
+        public int ExpFromExtraction => _expFromExtraction;
         
         public ResourceData CreateInitialDataObject()
         {

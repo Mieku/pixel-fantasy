@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9758a24cf5c865b41b218bdcc652f436, type: 3}
+  m_Name: Construction Skill Settings
+  m_EditorClassIdentifier: 
+  Table:
+  - rid: 4161138440409186466
+  - rid: 4161138440409186467
+  - rid: 4161138440409186468
+  - rid: 4161138440409186469
+  - rid: 4161138440409186470
+  - rid: 4161138440409186471
+  - rid: 4161138440409186472
+  - rid: 4161138440409186473
+  - rid: 4161138440409186474
+  - rid: 4161138440409186475
+  references:
+    version: 2
+    RefIds:
+    - rid: 4161138440409186466
+      type: {class: ConstructionSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 1
+        ConstructionWorkModifier: 0.55
+        SuccessChance: 0.75
+    - rid: 4161138440409186467
+      type: {class: ConstructionSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 2
+        ConstructionWorkModifier: 0.7
+        SuccessChance: 0.8
+    - rid: 4161138440409186468
+      type: {class: ConstructionSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 3
+        ConstructionWorkModifier: 0.85
+        SuccessChance: 0.85
+    - rid: 4161138440409186469
+      type: {class: ConstructionSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 4
+        ConstructionWorkModifier: 1
+        SuccessChance: 0.95
+    - rid: 4161138440409186470
+      type: {class: ConstructionSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 5
+        ConstructionWorkModifier: 1.15
+        SuccessChance: 1
+    - rid: 4161138440409186471
+      type: {class: ConstructionSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 6
+        ConstructionWorkModifier: 1.3
+        SuccessChance: 1
+    - rid: 4161138440409186472
+      type: {class: ConstructionSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 7
+        ConstructionWorkModifier: 1.45
+        SuccessChance: 1
+    - rid: 4161138440409186473
+      type: {class: ConstructionSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 8
+        ConstructionWorkModifier: 1.6
+        SuccessChance: 1
+    - rid: 4161138440409186474
+      type: {class: ConstructionSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 9
+        ConstructionWorkModifier: 1.75
+        SuccessChance: 1
+    - rid: 4161138440409186475
+      type: {class: ConstructionSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 10
+        ConstructionWorkModifier: 1.9
+        SuccessChance: 1
