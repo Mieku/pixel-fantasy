@@ -18,7 +18,6 @@ namespace Data.Resource
         [BoxGroup("Fruit")][ShowIf("_hasFruit")] [SerializeField] private Sprite _fruitFlowersOverlay;
         [BoxGroup("Fruit")][ShowIf("_hasFruit")] [SerializeField] private HarvestableItems _harvestableFruit;
         [BoxGroup("Fruit")][ShowIf("_hasFruit")] [SerializeField] private int _workToHarvest;
-        [BoxGroup("Fruit")][ShowIf("_hasFruit")] [SerializeField] private int _expFromHarvest;
         
         // Accessors
         public bool HasFruit => _hasFruit;
@@ -30,7 +29,6 @@ namespace Data.Resource
         public bool HasFruitFlowers => _fruitFlowersOverlay != null;
         public Command HarvestCmd => _harvestCmd;
         public HarvestableItems HarvestableFruit => _harvestableFruit.Clone();
-        public int ExpFromHarvest => _expFromHarvest;
         
         public float TotalGrowTime()
         {

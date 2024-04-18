@@ -7,8 +7,6 @@ using Managers;
 using ScriptableObjects;
 using Systems.Appearance.Scripts;
 using Systems.Notifications.Scripts;
-using Systems.Skills.Scripts;
-using Systems.Traits.Scripts;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.Serialization;

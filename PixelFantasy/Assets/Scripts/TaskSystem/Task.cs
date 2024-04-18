@@ -2,11 +2,6 @@ using System;
 using System.Collections.Generic;
 using Characters;
 using Data.Item;
-using Items;
-using Managers;
-using ScriptableObjects;
-using Systems.Skills.Scripts;
-using UnityEngine;
 
 namespace TaskSystem
 {

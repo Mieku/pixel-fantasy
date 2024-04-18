@@ -1,8 +1,6 @@
 using Characters;
 using Data.Item;
 using Managers;
-using ScriptableObjects;
-using Systems.Skills.Scripts;
 using TaskSystem;
 using UnityEngine;
 

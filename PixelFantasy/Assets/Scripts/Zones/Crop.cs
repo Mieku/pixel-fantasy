@@ -6,6 +6,7 @@ using DataPersistence;
 using Items;
 using Managers;
 using ScriptableObjects;
+using Systems.Stats.Scripts;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -108,8 +109,9 @@ namespace Zones
             return 8;
         }
         
-        public bool DoTillingWork(float workAmount)
+        public bool DoTillingWork(KinlingStats stats)
         {
+            var workAmount = stats.GetActionWorkForSkill(ESkillType.Botany, true);
             _remainingTillWork -= workAmount;
             if (_remainingTillWork <= 0)
             {
@@ -120,8 +122,9 @@ namespace Zones
             return false;
         }
         
-        public bool DoDiggingWork(float workAmount)
+        public bool DoDiggingWork(KinlingStats stats)
         {
+            var workAmount = stats.GetActionWorkForSkill(ESkillType.Botany, true);
             _remainingDigWork -= workAmount;
             if (_remainingDigWork <= 0)
             {
@@ -132,8 +135,9 @@ namespace Zones
             return false;
         }
         
-        public bool DoPlantingWork(float workAmount)
+        public bool DoPlantingWork(KinlingStats stats)
         {
+            var workAmount = stats.GetActionWorkForSkill(ESkillType.Botany, true);
             _remainingPlantingWork -= workAmount;
             if (_remainingPlantingWork <= 0)
             {
@@ -144,8 +148,9 @@ namespace Zones
             return false;
         }
         
-        public bool DoWateringWork(float workAmount)
+        public bool DoWateringWork(KinlingStats stats)
         {
+            var workAmount = stats.GetActionWorkForSkill(ESkillType.Botany, true);
             _remainingWaterWork -= workAmount;
             if (_remainingWaterWork <= 0)
             {
@@ -156,20 +161,22 @@ namespace Zones
             return false;
         }
         
-        public bool DoHarvestingWork(float workAmount)
+        public bool DoHarvestingWork(KinlingStats stats)
         {
+            var workAmount = stats.GetActionWorkForSkill(ESkillType.Botany, true);
             _remainingHarvestWork -= workAmount;
             if (_remainingHarvestWork <= 0)
             {
-                CropHarvested();
+                CropHarvested(stats);
                 return true;
             }
             
             return false;
         }
 
-        public bool DoClearingWork(float workAmount)
+        public bool DoClearingWork(KinlingStats stats)
         {
+            var workAmount = stats.GetActionWorkForSkill(ESkillType.Botany, true);
             _remainingPlantingWork -= workAmount;
             if (_remainingPlantingWork <= 0)
             {
@@ -180,8 +187,9 @@ namespace Zones
             return false;
         }
         
-        public bool DoCropSwappingWork(float workAmount)
+        public bool DoCropSwappingWork(KinlingStats stats)
         {
+            var workAmount = stats.GetActionWorkForSkill(ESkillType.Botany, true);
             _remainingPlantingWork -= workAmount;
             if (_remainingPlantingWork <= 0)
             {
@@ -192,35 +200,35 @@ namespace Zones
             return false;
         }
         
-        public float TillWorkDone(float workAmount)
-        {
-            _remainingTillWork -= workAmount;
-            return _remainingTillWork;
-        }
-        
-        public float DigWorkDone(float workAmount)
-        {
-            _remainingDigWork -= workAmount;
-            return _remainingDigWork;
-        }
-        
-        public float PlantingWorkDone(float workAmount)
-        {
-            _remainingPlantingWork -= workAmount;
-            return _remainingPlantingWork;
-        }
-        
-        public float WaterWorkDone(float workAmount)
-        {
-            _remainingWaterWork -= workAmount;
-            return _remainingWaterWork;
-        }
-        
-        public float HarvestWorkDone(float workAmount)
-        {
-            _remainingHarvestWork -= workAmount;
-            return _remainingHarvestWork;
-        }
+        // public float TillWorkDone(float workAmount)
+        // {
+        //     _remainingTillWork -= workAmount;
+        //     return _remainingTillWork;
+        // }
+        //
+        // public float DigWorkDone(float workAmount)
+        // {
+        //     _remainingDigWork -= workAmount;
+        //     return _remainingDigWork;
+        // }
+        //
+        // public float PlantingWorkDone(float workAmount)
+        // {
+        //     _remainingPlantingWork -= workAmount;
+        //     return _remainingPlantingWork;
+        // }
+        //
+        // public float WaterWorkDone(float workAmount)
+        // {
+        //     _remainingWaterWork -= workAmount;
+        //     return _remainingWaterWork;
+        // }
+        //
+        // public float HarvestWorkDone(float workAmount)
+        // {
+        //     _remainingHarvestWork -= workAmount;
+        //     return _remainingHarvestWork;
+        // }
         
         private void Update()
         {
@@ -420,7 +428,7 @@ namespace Zones
             task.Enqueue();
         }
 
-        public void CropHarvested()
+        public void CropHarvested(KinlingStats stats)
         {
             _cropReadyToHarvest = false;
             
@@ -432,7 +440,8 @@ namespace Zones
             CreatePlantCropTask();
             
             // Spawn the crop
-            Spawner.Instance.SpawnItem(RuntimeData.Settings.HarvestedItem, transform.position, true, RuntimeData.Settings.AmountToHarvest);
+            int yield = stats.DetermineAmountYielded(ESkillType.Botany, RuntimeData.Settings.AmountToHarvest);
+            Spawner.Instance.SpawnItem(RuntimeData.Settings.HarvestedItem, transform.position, true, yield);
         }
 
         public void ChangeCrop(CropSettings newCrop)

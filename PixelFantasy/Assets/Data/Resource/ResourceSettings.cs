@@ -20,7 +20,6 @@ namespace Data.Resource
         
         // Type of skill to extract
         [SerializeField] protected ESkillType _extractionSkillType;
-        [SerializeField] protected int _expFromExtraction;
         
         [DataObjectDropdown(true), SerializeField] private ResourceData _baseData;
         
@@ -32,7 +31,6 @@ namespace Data.Resource
         public float MaxHealth => _maxHealth;
         public List<Sprite> PotentialSprites => _potentialSprites;
         public ESkillType ExtractionSkillType => _extractionSkillType;
-        public int ExpFromExtraction => _expFromExtraction;
         
         public ResourceData CreateInitialDataObject()
         {

@@ -12,6 +12,9 @@ namespace Data.Resource
         public float TimeToHarvestSec;
         public float WaterFrequencySec;
         public int AmountToHarvest;
+        public int ExpFromHarvest;
+        public int ExpFromMaintenance;
+        public int ExpFromPlanting;
 
         public Sprite GetCropImage(float growthTime)
         {

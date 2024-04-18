@@ -40,7 +40,7 @@ namespace TaskSystem
             if(_timer >= ActionSpeed) 
             {
                 _timer = 0;
-                if (_crop.DoCropSwappingWork(WorkAmount)) 
+                if (_crop.DoCropSwappingWork(_ai.Kinling.Stats)) 
                 {
                     // When work is complete
                     ConcludeAction();

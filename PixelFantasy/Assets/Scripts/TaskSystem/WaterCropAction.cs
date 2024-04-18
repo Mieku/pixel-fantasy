@@ -40,7 +40,7 @@ namespace TaskSystem
             if(_timer >= ActionSpeed) 
             {
                 _timer = 0;
-                if (_crop.DoWateringWork(WorkAmount)) 
+                if (_crop.DoWateringWork(_ai.Kinling.Stats)) 
                 {
                     // When work is complete
                     ConcludeAction();

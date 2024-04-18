@@ -13,6 +13,7 @@ using Interfaces;
 using Managers;
 using Sirenix.OdinInspector;
 using Systems.Crafting.Scripts;
+using Systems.Stats.Scripts;
 using TaskSystem;
 using UnityEngine;
 
@@ -465,8 +466,9 @@ namespace Items
             SetState(EFurnitureState.Built);
         }
         
-        public bool DoPlacement(float workAmount)
+        public bool DoPlacement(KinlingStats stats)
         {
+            var workAmount = stats.GetActionWorkForSkill(ESkillType.Crafting, true);
             RuntimeData.RemainingWork -= workAmount;
             if (RuntimeData.RemainingWork <= 0)
             {

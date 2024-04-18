@@ -176,12 +176,10 @@ namespace Items
 
         public bool DoHarvest(KinlingStats stats)
         {
-            var workAmount = stats.GetActionWorkForSkill(RuntimeGrowingResourceData.Settings.ExtractionSkillType);
+            var workAmount = stats.GetActionWorkForSkill(RuntimeGrowingResourceData.Settings.ExtractionSkillType, true);
             RuntimeGrowingResourceData.RemainingHarvestWork -= workAmount;
             if (RuntimeGrowingResourceData.RemainingHarvestWork <= 0)
             {
-                stats.AddExpToSkill(RuntimeGrowingResourceData.Settings.ExtractionSkillType, RuntimeGrowingResourceData.GrowingResourceSettings.ExpFromHarvest);
-                
                 HarvestFruit(stats);
                 return true;
             }

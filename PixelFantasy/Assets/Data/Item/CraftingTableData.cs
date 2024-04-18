@@ -3,6 +3,7 @@ using Databrain.Attributes;
 using Managers;
 using ScriptableObjects;
 using Systems.Crafting.Scripts;
+using Systems.Stats.Scripts;
 using UnityEngine;
 
 namespace Data.Item
@@ -95,8 +96,25 @@ namespace Data.Item
         {
             if (State == EFurnitureState.InProduction) return false;
             if (ItemBeingCrafted != null) return false;
+            if (MealBeingCooked != null) return false;
 
             return true;
+        }
+
+        public ESkillType CraftingSkillType()
+        {
+            if (ItemBeingCrafted != null)
+            {
+                return ESkillType.Crafting;
+            }
+
+            if (MealBeingCooked != null)
+            {
+                return ESkillType.Cooking;
+            }
+            
+            Debug.LogError("Unknown item being crafted");
+            return ESkillType.Crafting;
         }
     }
 }

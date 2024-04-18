@@ -9,7 +9,6 @@ using Sirenix.OdinInspector;
 using Systems.Appearance.Scripts;
 using Systems.Mood.Scripts;
 using Systems.Needs.Scripts;
-using Systems.Skills.Scripts;
 using UnityEngine;
 using CropSettings = Data.Resource.CropSettings;
 using Random = UnityEngine.Random;
@@ -29,7 +28,7 @@ namespace Managers
         [SerializeField] private List<NeedSettings> _stats;
         [SerializeField] private List<EmotionSettings> _emotions;
         [SerializeField] private List<EmotionalBreakdownSettings> _emotionalBreakdowns;
-        [SerializeField] private List<TalentSettings> _talents;
+       // [SerializeField] private List<TalentSettings> _talents;
 
         public DataLibrary DataLibrary => _dataLibrary;
 
@@ -40,22 +39,22 @@ namespace Managers
             return clone;
         }
         
-        public TalentSettings GetTalent(string talentName)
-        {
-            var result = _talents.Find(talent => talent.TalentName == talentName);
-            if (result == null)
-            {
-                Debug.LogError($"Unknown Talent: {talentName}");
-            }
-
-            return result;
-        }
-
-        public TalentSettings GetRandomTalent()
-        {
-            int index = Random.Range(0, _talents.Count);
-            return _talents[index];
-        }
+        // public TalentSettings GetTalent(string talentName)
+        // {
+        //     var result = _talents.Find(talent => talent.TalentName == talentName);
+        //     if (result == null)
+        //     {
+        //         Debug.LogError($"Unknown Talent: {talentName}");
+        //     }
+        //
+        //     return result;
+        // }
+        //
+        // public TalentSettings GetRandomTalent()
+        // {
+        //     int index = Random.Range(0, _talents.Count);
+        //     return _talents[index];
+        // }
 
         public EmotionalBreakdownSettings GetEmotionalBreakdown(string breakdownTaskId)
         {

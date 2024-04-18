@@ -144,11 +144,10 @@ namespace Items
         /// <returns>If the work is complete</returns>
         public virtual bool DoExtractionWork(KinlingStats stats)
         {
-            var workAmount = stats.GetActionWorkForSkill(RuntimeData.Settings.ExtractionSkillType);
+            var workAmount = stats.GetActionWorkForSkill(RuntimeData.Settings.ExtractionSkillType, transform);
             RuntimeData.RemainingExtractWork -= workAmount;
             if (RuntimeData.RemainingExtractWork <= 0)
             {
-                stats.AddExpToSkill(RuntimeData.Settings.ExtractionSkillType, RuntimeData.Settings.ExpFromExtraction);
                 ExtractResource(stats);
                 return true;
             }

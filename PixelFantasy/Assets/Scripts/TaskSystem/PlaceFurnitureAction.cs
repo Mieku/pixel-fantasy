@@ -86,7 +86,7 @@ namespace TaskSystem
             if(_timer >= ActionSpeed) 
             {
                 _timer = 0;
-                if (_furniture.DoPlacement(WorkAmount)) 
+                if (_furniture.DoPlacement(_ai.Kinling.Stats)) 
                 {
                     // When work is complete
                     ConcludeAction();

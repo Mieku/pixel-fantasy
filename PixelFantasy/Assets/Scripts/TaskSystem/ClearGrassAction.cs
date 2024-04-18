@@ -40,7 +40,7 @@ namespace TaskSystem
             if(_timer >= ActionSpeed) 
             {
                 _timer = 0;
-                if (_dirt.DoConstruction(WorkAmount))
+                if (_dirt.DoConstruction(_ai.Kinling.Stats))
                 {
                     // When work is complete
                     ConcludeAction();

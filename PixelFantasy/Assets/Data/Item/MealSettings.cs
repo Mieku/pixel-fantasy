@@ -14,9 +14,8 @@ namespace Data.Item
     {
         [SerializeField] private EMealQuality _mealQuality;
         [SerializeField] private float _nutrition;
-        
         [SerializeField] private MealRequirements _mealRequirements;
-
+        
         public EFoodType FoodType => EFoodType.Meal;
         public EMealQuality Quality => _mealQuality;
         public float Nutrition => _nutrition;

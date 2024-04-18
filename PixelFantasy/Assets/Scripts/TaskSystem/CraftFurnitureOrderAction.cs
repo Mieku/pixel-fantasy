@@ -67,7 +67,7 @@ namespace TaskSystem
                 if(_timer >= ActionSpeed) 
                 {
                     _timer = 0;
-                    if (_craftingTable.DoCraft(WorkAmount))
+                    if (_craftingTable.DoCraft(_ai.Kinling.Stats))
                     {
                         KinlingAnimController.SetUnitAction(UnitAction.Nothing);
                         

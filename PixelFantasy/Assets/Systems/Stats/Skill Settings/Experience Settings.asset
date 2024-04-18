@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4adae646fac2f5a469982e1116151f7f, type: 3}
+  m_Name: Experience Settings
+  m_EditorClassIdentifier: 
+  <BaseExpPerWork>k__BackingField: 10
+  Table:
+  - rid: 4161138462503993492
+  - rid: 4161138462503993493
+  - rid: 4161138462503993494
+  - rid: 4161138462503993495
+  - rid: 4161138462503993496
+  - rid: 4161138462503993497
+  - rid: 4161138462503993498
+  - rid: 4161138462503993499
+  - rid: 4161138462503993500
+  - rid: 4161138462503993501
+  - rid: 4161138462503993502
+  references:
+    version: 2
+    RefIds:
+    - rid: 4161138462503993492
+      type: {class: ExpLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 0
+        Name: Incapable
+        MinExp: 0
+        DailyExpDecayRate: 0
+    - rid: 4161138462503993493
+      type: {class: ExpLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 1
+        Name: Novice
+        MinExp: 0
+        DailyExpDecayRate: 0
+    - rid: 4161138462503993494
+      type: {class: ExpLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 2
+        Name: Apprentice
+        MinExp: 800
+        DailyExpDecayRate: 0
+    - rid: 4161138462503993495
+      type: {class: ExpLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 3
+        Name: Amateur
+        MinExp: 1800
+        DailyExpDecayRate: 0
+    - rid: 4161138462503993496
+      type: {class: ExpLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 4
+        Name: Proficient
+        MinExp: 4000
+        DailyExpDecayRate: 0
+    - rid: 4161138462503993497
+      type: {class: ExpLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 5
+        Name: Adept
+        MinExp: 9000
+        DailyExpDecayRate: 0
+    - rid: 4161138462503993498
+      type: {class: ExpLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 6
+        Name: Expert
+        MinExp: 20500
+        DailyExpDecayRate: 250
+    - rid: 4161138462503993499
+      type: {class: ExpLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 7
+        Name: Master
+        MinExp: 46000
+        DailyExpDecayRate: 575
+    - rid: 4161138462503993500
+      type: {class: ExpLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 8
+        Name: Sage
+        MinExp: 104000
+        DailyExpDecayRate: 1300
+    - rid: 4161138462503993501
+      type: {class: ExpLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 9
+        Name: Virtuoso
+        MinExp: 235000
+        DailyExpDecayRate: 3000
+    - rid: 4161138462503993502
+      type: {class: ExpLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        Level: 10
+        Name: Legendary
+        MinExp: 525000
+        DailyExpDecayRate: 6500

@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e142b54ef99c75e4ba5692a7ebf652e4, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
+  ExpSettings: {fileID: 11400000, guid: e92cb91e3e0544949be811da368cb8f7, type: 2}

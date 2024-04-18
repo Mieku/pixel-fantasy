@@ -6,6 +6,7 @@ using Managers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Systems.Crafting.Scripts;
+using Systems.Stats.Scripts;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -150,8 +151,9 @@ namespace Items
             }
         }
 
-        public bool DoCraft(float workAmount)
+        public bool DoCraft(KinlingStats stats)
         {
+            var workAmount = stats.GetActionWorkForSkill(RuntimeTableData.CraftingSkillType(), true);
             RuntimeTableData.RemainingCraftingWork -= workAmount;
             
             if (RuntimeTableData.RemainingCraftingWork <= 0)

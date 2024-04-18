@@ -4,12 +4,10 @@ using Data.Item;
 using Data.Structure;
 using Databrain;
 using Databrain.Attributes;
-using DataPersistence;
 using HUD;
 using Interfaces;
 using Managers;
-using ScriptableObjects;
-using Systems.Skills.Scripts;
+using Systems.Stats.Scripts;
 using TaskSystem;
 using UnityEngine;
 using Action = System.Action;
@@ -45,8 +43,9 @@ namespace Items
             CreateTask(command, payload);
         }
         
-        public virtual bool DoConstruction(float workAmount)
+        public virtual bool DoConstruction(KinlingStats stats)
         {
+            var workAmount = stats.GetActionWorkForSkill(ESkillType.Construction, true);
             RuntimeData.RemainingWork -= workAmount;
             Changed();
             if (RuntimeData.RemainingWork <= 0)
@@ -58,8 +57,9 @@ namespace Items
             return false;
         }
 
-        public virtual bool DoDeconstruction(float workAmount)
+        public virtual bool DoDeconstruction(KinlingStats stats)
         {
+            var workAmount = stats.GetActionWorkForSkill(ESkillType.Construction, true);
             RuntimeData.RemainingWork -= workAmount;
             Changed();
             if (RuntimeData.RemainingWork <= 0)

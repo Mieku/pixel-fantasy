@@ -1,8 +1,5 @@
 using System.Collections.Generic;
 using Data.Item;
-using Items;
-using ScriptableObjects;
-using Systems.Skills.Scripts;
 using TaskSystem;
 using UnityEngine;
 

@@ -6,7 +6,6 @@ using Interfaces;
 using Items;
 using Managers;
 using Systems.Mood.Scripts;
-using Systems.Skills.Scripts;
 using Systems.Social.Scripts;
 using Systems.Stats.Scripts;
 using Systems.Traits.Scripts;
@@ -28,10 +27,6 @@ namespace Characters
         [SerializeField] private KinlingAppearance _appearance;
         [SerializeField] private Mood _mood;
         [SerializeField] private SocialAI _socialAI;
-        
-        
-        public KinlingSkills Skills;
- 
         [SerializeField] private SortingGroup _sortingGroup;
         
         public string FullName => RuntimeData.Firstname + " " + RuntimeData.Lastname;
@@ -75,7 +70,6 @@ namespace Characters
                 RuntimeData.Kinling = this;
                 
                 _appearance.Init(this, _data.Appearance);
-                Skills.Init(_data.Talents);
             
                 _mood.Init();
                 
