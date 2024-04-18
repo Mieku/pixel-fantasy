@@ -1,6 +1,7 @@
 using Controllers;
 using Data.Resource;
 using Interfaces;
+using Systems.Stats.Scripts;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -60,10 +61,10 @@ namespace Items
             return UnitAction.Swinging;
         }
 
-        protected override void ExtractResource(float yield)
+        protected override void ExtractResource(KinlingStats stats)
         {
             MineMountain();
-            base.ExtractResource(yield);
+            base.ExtractResource(stats);
         }
 
         private void SetTile()

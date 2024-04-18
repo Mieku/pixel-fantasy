@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Characters;
 using ScriptableObjects;
@@ -30,16 +31,17 @@ namespace Systems.Stats.Scripts
             return result;
         }
 
-        public float GetYieldForSkill(ESkillType skillType)
+        public int DetermineAmountYielded(ESkillType skillType, int dropAmount)
         {
             float yield = GetAttributeValue(skillType, EAttributeType.YieldModifier);
-            return yield;
+            int result = (int) Math.Ceiling(dropAmount * yield);
+            return result;
         }
 
         public void AddExpToSkill(ESkillType skillType, int amount)
         {
             float modifier = GetAttributeValue(ESkillType.Intelligence, EAttributeType.LearningModifier);
-            int modifiedAmount = (int)(amount * modifier);
+            int modifiedAmount = (int) Math.Ceiling(amount * modifier);
             _kinling.RuntimeData.StatsData.AddExpToSkill(skillType, modifiedAmount);
         }
     }

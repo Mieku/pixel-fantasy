@@ -128,6 +128,7 @@ MonoBehaviour:
       MinDrop: 2
       MaxDrop: 4
   _workToHarvest: 5
+  _expFromHarvest: 5
 --- !u!114 &-8551016356470875681
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -415,7 +416,7 @@ MonoBehaviour:
   title: Michael Altair
   description: This is a description of the newly created data entry.
   tags: []
-  index: 4
+  index: 0
   relatedLibraryObject: {fileID: 11400000}
   runtimeLibraryObject: {fileID: 0}
   assignedGuid: 
@@ -766,6 +767,7 @@ MonoBehaviour:
   _harvestableFruit:
     _itemDrops: []
   _workToHarvest: 0
+  _expFromHarvest: 0
 --- !u!114 &-5616670523631247670
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1044,6 +1046,7 @@ MonoBehaviour:
   _harvestableFruit:
     _itemDrops: []
   _workToHarvest: 0
+  _expFromHarvest: 0
 --- !u!114 &-5005131501070810583
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1244,6 +1247,7 @@ MonoBehaviour:
   _harvestableFruit:
     _itemDrops: []
   _workToHarvest: 0
+  _expFromHarvest: 0
 --- !u!114 &-4475304769038901388
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1328,6 +1332,7 @@ MonoBehaviour:
   _harvestableFruit:
     _itemDrops: []
   _workToHarvest: 0
+  _expFromHarvest: 0
 --- !u!114 &-4434914887024288142
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2047,149 +2052,6 @@ MonoBehaviour:
     _furnitureSettings: {fileID: -2429024163771652823}
   _defaultDirection: 0
   _defaultDye: {fileID: 4496512223619636680}
---- !u!114 &-2541106388917036282
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63bdd0795e6759041a124f39f7ebbbf5, type: 3}
-  m_Name: Arazoo Lucas
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  guid: c7564f30-52fc-436a-8d35-e54977cf3d0a
-  initialGuid: c7564f30-52fc-436a-8d35-e54977cf3d0a
-  runtimeIndexID: 
-  icon: {fileID: 0}
-  color: {r: 0, g: 0, b: 0, a: 0}
-  title: Arazoo Lucas
-  description: This is a description of the newly created data entry.
-  tags: []
-  index: 0
-  relatedLibraryObject: {fileID: 11400000}
-  runtimeLibraryObject: {fileID: 0}
-  assignedGuid: 
-  isRuntimeInstance: 0
-  boxFoldout: 0
-  Nickname: 
-  Firstname: Arazoo
-  Lastname: Lucas
-  Position: {x: 0, y: 0}
-  Kinling: {fileID: 0}
-  Age: 20
-  Gender: 1
-  Race: {fileID: 11400000, guid: b2e28ba30006afd4d8287ab34a7aa6d5, type: 2}
-  SexualPreference: 1
-  Appearance:
-    SkinTone: {fileID: 11400000, guid: 31d25bdba1e0c50419adedf547541612, type: 2}
-    Gender: 1
-    Race: {fileID: 11400000, guid: b2e28ba30006afd4d8287ab34a7aa6d5, type: 2}
-    Hair:
-      Color: {r: 0, g: 0, b: 0, a: 0}
-      Side: {fileID: 0}
-      Front: {fileID: 0}
-      Back: {fileID: 0}
-      Portrait: {fileID: 0}
-    Eyes: {fileID: 0}
-    Eyelashes: {fileID: 0}
-    Eyebrows: {fileID: 0}
-  Traits: []
-  Partner: {fileID: 0}
-  Children: []
-  Talents: []
-  Schedule:
-    Hour0: 0
-    Hour1: 0
-    Hour2: 0
-    Hour3: 0
-    Hour4: 0
-    Hour5: 0
-    Hour6: 0
-    Hour7: 2
-    Hour8: 1
-    Hour9: 1
-    Hour10: 1
-    Hour11: 1
-    Hour12: 1
-    Hour13: 1
-    Hour14: 1
-    Hour15: 1
-    Hour16: 1
-    Hour17: 1
-    Hour18: 1
-    Hour19: 1
-    Hour20: 1
-    Hour21: 2
-    Hour22: 2
-    Hour23: 2
-  IsAsleep: 0
-  AssignedBed: {fileID: 0}
-  FurnitureInUse: {fileID: 0}
-  TaskPriorities:
-    Priorities:
-    - TaskType: 0
-      Priority: 3
-    - TaskType: 1
-      Priority: 3
-    - TaskType: 2
-      Priority: 3
-    - TaskType: 3
-      Priority: 3
-    - TaskType: 4
-      Priority: 3
-    - TaskType: 5
-      Priority: 3
-    - TaskType: 6
-      Priority: 3
-    - TaskType: 7
-      Priority: 3
-    - TaskType: 8
-      Priority: 3
-    - TaskType: 9
-      Priority: 3
-    - TaskType: 10
-      Priority: 3
-    - TaskType: 11
-      Priority: 3
-  TaskAIState: 4
-  WaitingTimer: 0
-  IdleTimer: 0
-  CurrentTaskAction: {fileID: 0}
-  HeldItem: {fileID: 0}
-  StatsData:
-    MeleeLevel: 0
-    MeleeExp: 0
-    RangedLevel: 0
-    RangedExp: 0
-    ConstructionLevel: 0
-    ConstructionExp: 0
-    MiningLevel: 0
-    MiningExp: 0
-    BotanyLevel: 0
-    BotanyExp: 0
-    CookingLevel: 0
-    CookingExp: 0
-    CraftingLevel: 0
-    CraftingExp: 0
-    BeastMasteryLevel: 0
-    BeastMasteryExp: 0
-    MedicalLevel: 0
-    MedicalExp: 0
-    SocialLevel: 0
-    SocialExp: 0
-    IntelligenceLevel: 0
-    IntelligenceExp: 0
 --- !u!114 &-2429024163771652823
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2394,6 +2256,7 @@ MonoBehaviour:
       MinDrop: 2
       MaxDrop: 4
   _workToHarvest: 5
+  _expFromHarvest: 5
 --- !u!114 &-1887156828929915283
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2629,6 +2492,7 @@ MonoBehaviour:
   _harvestableFruit:
     _itemDrops: []
   _workToHarvest: 0
+  _expFromHarvest: 0
 --- !u!114 &-1362852035674046031
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2776,149 +2640,6 @@ MonoBehaviour:
   InUse: 0
   LinkedFurniture: {fileID: 0}
   DyeOverride: {fileID: 0}
---- !u!114 &-278790164698840448
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63bdd0795e6759041a124f39f7ebbbf5, type: 3}
-  m_Name: Kevin Bolton
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  guid: 45184402-2089-4f65-ac2f-cf5be2a906b6
-  initialGuid: 45184402-2089-4f65-ac2f-cf5be2a906b6
-  runtimeIndexID: 
-  icon: {fileID: 0}
-  color: {r: 0, g: 0, b: 0, a: 0}
-  title: Kevin Bolton
-  description: This is a description of the newly created data entry.
-  tags: []
-  index: 2
-  relatedLibraryObject: {fileID: 11400000}
-  runtimeLibraryObject: {fileID: 0}
-  assignedGuid: 
-  isRuntimeInstance: 0
-  boxFoldout: 0
-  Nickname: 
-  Firstname: Kevin
-  Lastname: Bolton
-  Position: {x: 0, y: 0}
-  Kinling: {fileID: 0}
-  Age: 28
-  Gender: 0
-  Race: {fileID: 11400000, guid: b2e28ba30006afd4d8287ab34a7aa6d5, type: 2}
-  SexualPreference: 1
-  Appearance:
-    SkinTone: {fileID: 11400000, guid: 05d2c2921e97ae548bf9adaa804d6eaf, type: 2}
-    Gender: 0
-    Race: {fileID: 11400000, guid: b2e28ba30006afd4d8287ab34a7aa6d5, type: 2}
-    Hair:
-      Color: {r: 0, g: 0, b: 0, a: 0}
-      Side: {fileID: 0}
-      Front: {fileID: 0}
-      Back: {fileID: 0}
-      Portrait: {fileID: 0}
-    Eyes: {fileID: 0}
-    Eyelashes: {fileID: 0}
-    Eyebrows: {fileID: 0}
-  Traits: []
-  Partner: {fileID: 0}
-  Children: []
-  Talents: []
-  Schedule:
-    Hour0: 0
-    Hour1: 0
-    Hour2: 0
-    Hour3: 0
-    Hour4: 0
-    Hour5: 0
-    Hour6: 0
-    Hour7: 2
-    Hour8: 1
-    Hour9: 1
-    Hour10: 1
-    Hour11: 1
-    Hour12: 1
-    Hour13: 1
-    Hour14: 1
-    Hour15: 1
-    Hour16: 1
-    Hour17: 1
-    Hour18: 1
-    Hour19: 1
-    Hour20: 1
-    Hour21: 2
-    Hour22: 2
-    Hour23: 2
-  IsAsleep: 0
-  AssignedBed: {fileID: 0}
-  FurnitureInUse: {fileID: 0}
-  TaskPriorities:
-    Priorities:
-    - TaskType: 0
-      Priority: 3
-    - TaskType: 1
-      Priority: 3
-    - TaskType: 2
-      Priority: 3
-    - TaskType: 3
-      Priority: 3
-    - TaskType: 4
-      Priority: 3
-    - TaskType: 5
-      Priority: 3
-    - TaskType: 6
-      Priority: 3
-    - TaskType: 7
-      Priority: 3
-    - TaskType: 8
-      Priority: 3
-    - TaskType: 9
-      Priority: 3
-    - TaskType: 10
-      Priority: 3
-    - TaskType: 11
-      Priority: 3
-  TaskAIState: 4
-  WaitingTimer: 0
-  IdleTimer: 0
-  CurrentTaskAction: {fileID: 0}
-  HeldItem: {fileID: 0}
-  StatsData:
-    MeleeLevel: 0
-    MeleeExp: 0
-    RangedLevel: 0
-    RangedExp: 0
-    ConstructionLevel: 0
-    ConstructionExp: 0
-    MiningLevel: 0
-    MiningExp: 0
-    BotanyLevel: 0
-    BotanyExp: 0
-    CookingLevel: 0
-    CookingExp: 0
-    CraftingLevel: 0
-    CraftingExp: 0
-    BeastMasteryLevel: 0
-    BeastMasteryExp: 0
-    MedicalLevel: 0
-    MedicalExp: 0
-    SocialLevel: 0
-    SocialExp: 0
-    IntelligenceLevel: 0
-    IntelligenceExp: 0
 --- !u!114 &-191659240112778000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3173,8 +2894,7 @@ MonoBehaviour:
       - {fileID: 5747519841221157967}
     - type: Databrain.Blackboard.BlackboardVariable, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-      dataObjects:
-      - {fileID: 1240923166282598677}
+      dataObjects: []
     - type: Databrain.Blackboard.FloatVariable, Assembly-CSharp-firstpass, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       dataObjects: []
@@ -3278,10 +2998,6 @@ MonoBehaviour:
     - type: Characters.KinlingData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
-      - {fileID: -2541106388917036282}
-      - {fileID: 6794456801034920518}
-      - {fileID: -278790164698840448}
-      - {fileID: 4971306714869226098}
       - {fileID: -7223051035212598023}
       - {fileID: 5933055010327361580}
     - type: Data.Zones.StockpileZoneSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
@@ -3309,7 +3025,7 @@ MonoBehaviour:
   runtimeLibraryGuid: 
   runtimeLibraryFolderPath: 
   initialLibrary: {fileID: 0}
-  selectedDataObject: {fileID: -2541106388917036282}
+  selectedDataObject: {fileID: -8551016356470875681}
   modules:
   - {fileID: 1013997515501222643}
   - {fileID: 3086282657986071168}
@@ -4637,6 +4353,7 @@ MonoBehaviour:
   _harvestableFruit:
     _itemDrops: []
   _workToHarvest: 0
+  _expFromHarvest: 0
 --- !u!114 &2734676623599513326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4714,6 +4431,7 @@ MonoBehaviour:
       MinDrop: 1
       MaxDrop: 1
   _workToHarvest: 5
+  _expFromHarvest: 2
 --- !u!114 &2760536265605788022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5276,151 +4994,6 @@ MonoBehaviour:
   _hasQuality: 1
   _defaultQuality: 1
   _baseData: {fileID: 1851590692530616479}
---- !u!114 &4971306714869226098
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63bdd0795e6759041a124f39f7ebbbf5, type: 3}
-  m_Name: Anika Nagy
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  guid: dc353ac8-9602-48f4-891c-2ed5dbc3dcce
-  initialGuid: dc353ac8-9602-48f4-891c-2ed5dbc3dcce
-  runtimeIndexID: 
-  icon: {fileID: 0}
-  color: {r: 0, g: 0, b: 0, a: 0}
-  title: Anika Nagy
-  description: This is a description of the newly created data entry.
-  tags: []
-  index: 3
-  relatedLibraryObject: {fileID: 11400000}
-  runtimeLibraryObject: {fileID: 0}
-  assignedGuid: 
-  isRuntimeInstance: 0
-  boxFoldout: 0
-  Nickname: 
-  Firstname: Anika
-  Lastname: Nagy
-  Position: {x: 0, y: 0}
-  Kinling: {fileID: 0}
-  Age: 32
-  Gender: 1
-  Race: {fileID: 11400000, guid: b2e28ba30006afd4d8287ab34a7aa6d5, type: 2}
-  SexualPreference: 3
-  Appearance:
-    SkinTone: {fileID: 11400000, guid: 05d2c2921e97ae548bf9adaa804d6eaf, type: 2}
-    Gender: 1
-    Race: {fileID: 11400000, guid: b2e28ba30006afd4d8287ab34a7aa6d5, type: 2}
-    Hair:
-      Color: {r: 0, g: 0, b: 0, a: 0}
-      Side: {fileID: 0}
-      Front: {fileID: 0}
-      Back: {fileID: 0}
-      Portrait: {fileID: 0}
-    Eyes: {fileID: 0}
-    Eyelashes: {fileID: 0}
-    Eyebrows: {fileID: 0}
-  Traits:
-  - {fileID: 11400000, guid: 40d3b0377c52425459b56fdd2d4c6ebc, type: 2}
-  Partner: {fileID: 0}
-  Children: []
-  Talents:
-  - {fileID: 11400000, guid: 45e20a801c09cd2468ffe0a9297ce3d0, type: 2}
-  Schedule:
-    Hour0: 0
-    Hour1: 0
-    Hour2: 0
-    Hour3: 0
-    Hour4: 0
-    Hour5: 0
-    Hour6: 0
-    Hour7: 2
-    Hour8: 1
-    Hour9: 1
-    Hour10: 1
-    Hour11: 1
-    Hour12: 1
-    Hour13: 1
-    Hour14: 1
-    Hour15: 1
-    Hour16: 1
-    Hour17: 1
-    Hour18: 1
-    Hour19: 1
-    Hour20: 1
-    Hour21: 2
-    Hour22: 2
-    Hour23: 2
-  IsAsleep: 0
-  AssignedBed: {fileID: 0}
-  FurnitureInUse: {fileID: 0}
-  TaskPriorities:
-    Priorities:
-    - TaskType: 0
-      Priority: 3
-    - TaskType: 1
-      Priority: 3
-    - TaskType: 2
-      Priority: 3
-    - TaskType: 3
-      Priority: 3
-    - TaskType: 4
-      Priority: 3
-    - TaskType: 5
-      Priority: 3
-    - TaskType: 6
-      Priority: 3
-    - TaskType: 7
-      Priority: 3
-    - TaskType: 8
-      Priority: 3
-    - TaskType: 9
-      Priority: 3
-    - TaskType: 10
-      Priority: 3
-    - TaskType: 11
-      Priority: 3
-  TaskAIState: 4
-  WaitingTimer: 0.2
-  IdleTimer: 6.9174747
-  CurrentTaskAction: {fileID: 0}
-  HeldItem: {fileID: 0}
-  StatsData:
-    MeleeLevel: 0
-    MeleeExp: 0
-    RangedLevel: 0
-    RangedExp: 0
-    ConstructionLevel: 0
-    ConstructionExp: 0
-    MiningLevel: 0
-    MiningExp: 0
-    BotanyLevel: 0
-    BotanyExp: 0
-    CookingLevel: 0
-    CookingExp: 0
-    CraftingLevel: 0
-    CraftingExp: 0
-    BeastMasteryLevel: 0
-    BeastMasteryExp: 0
-    MedicalLevel: 0
-    MedicalExp: 0
-    SocialLevel: 0
-    SocialExp: 0
-    IntelligenceLevel: 0
-    IntelligenceExp: 0
 --- !u!114 &5069011162588748535
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5547,7 +5120,7 @@ MonoBehaviour:
   title: Generic Human
   description: This is a description of the newly created data entry.
   tags: []
-  index: 5
+  index: 1
   relatedLibraryObject: {fileID: 11400000}
   runtimeLibraryObject: {fileID: 0}
   assignedGuid: 
@@ -5971,149 +5544,6 @@ MonoBehaviour:
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
   Settings: {fileID: 0}
---- !u!114 &6794456801034920518
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63bdd0795e6759041a124f39f7ebbbf5, type: 3}
-  m_Name: Chris Bolton
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  guid: c1b6a962-9a56-4e5b-9bba-61eb3d8ce9c7
-  initialGuid: c1b6a962-9a56-4e5b-9bba-61eb3d8ce9c7
-  runtimeIndexID: 
-  icon: {fileID: 0}
-  color: {r: 0, g: 0, b: 0, a: 0}
-  title: Chris Bolton
-  description: This is a description of the newly created data entry.
-  tags: []
-  index: 1
-  relatedLibraryObject: {fileID: 11400000}
-  runtimeLibraryObject: {fileID: 0}
-  assignedGuid: 
-  isRuntimeInstance: 0
-  boxFoldout: 0
-  Nickname: 
-  Firstname: Chris
-  Lastname: Bolton
-  Position: {x: 0, y: 0}
-  Kinling: {fileID: 0}
-  Age: 29
-  Gender: 0
-  Race: {fileID: 11400000, guid: b2e28ba30006afd4d8287ab34a7aa6d5, type: 2}
-  SexualPreference: 1
-  Appearance:
-    SkinTone: {fileID: 11400000, guid: 05d2c2921e97ae548bf9adaa804d6eaf, type: 2}
-    Gender: 0
-    Race: {fileID: 11400000, guid: b2e28ba30006afd4d8287ab34a7aa6d5, type: 2}
-    Hair:
-      Color: {r: 0, g: 0, b: 0, a: 0}
-      Side: {fileID: 0}
-      Front: {fileID: 0}
-      Back: {fileID: 0}
-      Portrait: {fileID: 0}
-    Eyes: {fileID: 0}
-    Eyelashes: {fileID: 0}
-    Eyebrows: {fileID: 0}
-  Traits: []
-  Partner: {fileID: 0}
-  Children: []
-  Talents: []
-  Schedule:
-    Hour0: 0
-    Hour1: 0
-    Hour2: 0
-    Hour3: 0
-    Hour4: 0
-    Hour5: 0
-    Hour6: 0
-    Hour7: 2
-    Hour8: 1
-    Hour9: 1
-    Hour10: 1
-    Hour11: 1
-    Hour12: 1
-    Hour13: 1
-    Hour14: 1
-    Hour15: 1
-    Hour16: 1
-    Hour17: 1
-    Hour18: 1
-    Hour19: 1
-    Hour20: 1
-    Hour21: 2
-    Hour22: 2
-    Hour23: 2
-  IsAsleep: 0
-  AssignedBed: {fileID: 0}
-  FurnitureInUse: {fileID: 0}
-  TaskPriorities:
-    Priorities:
-    - TaskType: 0
-      Priority: 3
-    - TaskType: 1
-      Priority: 3
-    - TaskType: 2
-      Priority: 3
-    - TaskType: 3
-      Priority: 3
-    - TaskType: 4
-      Priority: 3
-    - TaskType: 5
-      Priority: 3
-    - TaskType: 6
-      Priority: 3
-    - TaskType: 7
-      Priority: 3
-    - TaskType: 8
-      Priority: 3
-    - TaskType: 9
-      Priority: 3
-    - TaskType: 10
-      Priority: 3
-    - TaskType: 11
-      Priority: 3
-  TaskAIState: 4
-  WaitingTimer: 0
-  IdleTimer: 0
-  CurrentTaskAction: {fileID: 0}
-  HeldItem: {fileID: 0}
-  StatsData:
-    MeleeLevel: 0
-    MeleeExp: 0
-    RangedLevel: 0
-    RangedExp: 0
-    ConstructionLevel: 0
-    ConstructionExp: 0
-    MiningLevel: 0
-    MiningExp: 0
-    BotanyLevel: 0
-    BotanyExp: 0
-    CookingLevel: 0
-    CookingExp: 0
-    CraftingLevel: 0
-    CraftingExp: 0
-    BeastMasteryLevel: 0
-    BeastMasteryExp: 0
-    MedicalLevel: 0
-    MedicalExp: 0
-    SocialLevel: 0
-    SocialExp: 0
-    IntelligenceLevel: 0
-    IntelligenceExp: 0
 --- !u!114 &7039194556294736213
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6500,12 +5930,6 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Item.CraftedItemData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
@@ -6516,12 +5940,6 @@ MonoBehaviour:
     - type: Data.Resource.ResourceData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -7223,67 +6641,9 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Resource.MountainResourceData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -7334,13 +6694,27 @@ MonoBehaviour:
         PublicKeyToken=null
       dataObjects:
       - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Item.MealData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
       - {fileID: 0}
     - type: Characters.KinlingData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      dataObjects: []
+      dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Zones.StockpileZoneData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:

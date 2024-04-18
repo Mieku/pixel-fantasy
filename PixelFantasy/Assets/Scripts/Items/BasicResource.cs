@@ -148,9 +148,8 @@ namespace Items
             RuntimeData.RemainingExtractWork -= workAmount;
             if (RuntimeData.RemainingExtractWork <= 0)
             {
-                var yield = stats.GetYieldForSkill(RuntimeData.Settings.ExtractionSkillType);
                 stats.AddExpToSkill(RuntimeData.Settings.ExtractionSkillType, RuntimeData.Settings.ExpFromExtraction);
-                ExtractResource(yield);
+                ExtractResource(stats);
                 return true;
             }
             
@@ -185,12 +184,12 @@ namespace Items
             return false;
         }
 
-        protected virtual void ExtractResource(float yield)
+        protected virtual void ExtractResource(KinlingStats stats)
         {
             var resources = RuntimeData.Settings.HarvestableItems.GetItemDrop();
             foreach (var resource in resources)
             {
-                int amount = (int)(resource.Quantity * yield);
+                int amount = stats.DetermineAmountYielded(RuntimeData.Settings.ExtractionSkillType, resource.Quantity);
                 for (int i = 0; i < amount; i++)
                 {
                     spawner.SpawnItem(resource.Item, transform.position, true);

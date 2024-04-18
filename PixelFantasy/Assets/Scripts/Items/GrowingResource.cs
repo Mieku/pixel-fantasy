@@ -4,6 +4,7 @@ using Data.Resource;
 using ScriptableObjects;
 using Managers;
 using QFSW.QC;
+using Systems.Stats.Scripts;
 using TaskSystem;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -145,7 +146,7 @@ namespace Items
             }
         }
 
-        public void HarvestFruit()
+        public void HarvestFruit(KinlingStats stats)
         {
             if (RuntimeGrowingResourceData.HasFruitAvailable)
             {
@@ -153,7 +154,9 @@ namespace Items
                 List<ItemAmount> fruits = RuntimeGrowingResourceData.GetFruitLoot();
                 foreach (var fruit in fruits)
                 {
-                    for (int i = 0; i < fruit.Quantity; i++)
+                    int amount = stats.DetermineAmountYielded(
+                        RuntimeGrowingResourceData.GrowingResourceSettings.ExtractionSkillType, fruit.Quantity);
+                    for (int i = 0; i < amount; i++)
                     {
                         spawner.SpawnItem(fruit.Item, transform.position, true);
                     }
@@ -171,12 +174,15 @@ namespace Items
             RuntimeGrowingResourceData.RemainingHarvestWork = RuntimeGrowingResourceData.GrowingResourceSettings.WorkToHarvest;
         }
 
-        public bool DoHarvest(float workAmount)
+        public bool DoHarvest(KinlingStats stats)
         {
+            var workAmount = stats.GetActionWorkForSkill(RuntimeGrowingResourceData.Settings.ExtractionSkillType);
             RuntimeGrowingResourceData.RemainingHarvestWork -= workAmount;
             if (RuntimeGrowingResourceData.RemainingHarvestWork <= 0)
             {
-                HarvestFruit();
+                stats.AddExpToSkill(RuntimeGrowingResourceData.Settings.ExtractionSkillType, RuntimeGrowingResourceData.GrowingResourceSettings.ExpFromHarvest);
+                
+                HarvestFruit(stats);
                 return true;
             }
             
@@ -200,14 +206,15 @@ namespace Items
             FruitCheck();
         }
 
-        protected override void ExtractResource(float yield)
+        protected override void ExtractResource(KinlingStats stats)
         {
-            HarvestFruit();
+            HarvestFruit(stats);
             
             var resources = RuntimeGrowingResourceData.GetGrowthStage().HarvestableItems.GetItemDrop();
             foreach (var resource in resources)
             {
-                int amount = (int)(resource.Quantity * yield);
+                int amount = stats.DetermineAmountYielded(
+                    RuntimeGrowingResourceData.GrowingResourceSettings.ExtractionSkillType, resource.Quantity);
                 for (int i = 0; i < amount; i++)
                 {
                     spawner.SpawnItem(resource.Item, transform.position, true);
