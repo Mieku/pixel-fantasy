@@ -79,13 +79,45 @@ namespace Characters
             return skill.Level;
         }
 
-        public void AddExpToSkill(ESkillType skillType, int expToAdd)
+        public void AddExpToSkill(ESkillType skillType, float expToAdd, bool includeModifiers = true)
         {
             var skill = GetSkillByType(skillType);
-            skill.Exp += expToAdd;
+
+            float moddedExp = expToAdd;
+
+            if (includeModifiers)
+            {
+                moddedExp += GetExpPassionModifierBonus(skillType, expToAdd);
+            }
+            
+            skill.Exp += moddedExp;
 
             var expSettings = GameSettings.Instance.ExpSettings;
             skill.Level = expSettings.GetLevelForTotalExp(skill.Exp);
+        }
+
+        private float GetExpPassionModifierBonus(ESkillType skillType, float originalAmount)
+        {
+            var expSettings = GameSettings.Instance.ExpSettings;
+            float moddedAmount;
+            
+            var skillPassion = GetSkillByType(skillType).Passion;
+            switch (skillPassion)
+            {
+                case ESkillPassion.None:
+                    moddedAmount = originalAmount * expSettings.NoPassionExpMod;
+                    break;
+                case ESkillPassion.Minor:
+                    moddedAmount = originalAmount * expSettings.MinorPassionExpMod;
+                    break;
+                case ESkillPassion.Major:
+                    moddedAmount = originalAmount * expSettings.MajorPassionExpMod;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            return moddedAmount;
         }
 
         public void DeductExpFromSkill(ESkillType skillType, int expToRemove)
@@ -103,37 +135,48 @@ namespace Characters
             var expSettings = GameSettings.Instance.ExpSettings;
             
             var miningExp = expSettings.GetMinExpForLevel(Random.Range(1, 6));
-            AddExpToSkill(ESkillType.Mining, miningExp);
+            AddExpToSkill(ESkillType.Mining, miningExp, false);
+            MiningSkill.RandomlyAssignPassion();
             
             var cookingExp = expSettings.GetMinExpForLevel(Random.Range(1, 6));
-            AddExpToSkill(ESkillType.Cooking, cookingExp);
+            AddExpToSkill(ESkillType.Cooking, cookingExp, false);
+            CookingSkill.RandomlyAssignPassion();
             
             var meleeExp = expSettings.GetMinExpForLevel(Random.Range(1, 6));
-            AddExpToSkill(ESkillType.Melee, meleeExp);
+            AddExpToSkill(ESkillType.Melee, meleeExp, false);
+            MeleeSkill.RandomlyAssignPassion();
             
             var rangedExp = expSettings.GetMinExpForLevel(Random.Range(1, 6));
-            AddExpToSkill(ESkillType.Ranged, rangedExp);
+            AddExpToSkill(ESkillType.Ranged, rangedExp, false);
+            RangedSkill.RandomlyAssignPassion();
             
             var constructionExp = expSettings.GetMinExpForLevel(Random.Range(1, 6));
-            AddExpToSkill(ESkillType.Construction, constructionExp);
+            AddExpToSkill(ESkillType.Construction, constructionExp, false);
+            ConstructionSkill.RandomlyAssignPassion();
             
             var botanyExp = expSettings.GetMinExpForLevel(Random.Range(1, 6));
-            AddExpToSkill(ESkillType.Botany, botanyExp);
+            AddExpToSkill(ESkillType.Botany, botanyExp, false);
+            BotanySkill.RandomlyAssignPassion();
             
             var craftingExp = expSettings.GetMinExpForLevel(Random.Range(1, 6));
-            AddExpToSkill(ESkillType.Crafting, craftingExp);
+            AddExpToSkill(ESkillType.Crafting, craftingExp, false);
+            CraftingSkill.RandomlyAssignPassion();
             
             var beastMasteryExp = expSettings.GetMinExpForLevel(Random.Range(1, 6));
-            AddExpToSkill(ESkillType.BeastMastery, beastMasteryExp);
+            AddExpToSkill(ESkillType.BeastMastery, beastMasteryExp, false);
+            BeastMasterySkill.RandomlyAssignPassion();
             
             var medicalExp = expSettings.GetMinExpForLevel(Random.Range(1, 6));
-            AddExpToSkill(ESkillType.Medical, medicalExp);
+            AddExpToSkill(ESkillType.Medical, medicalExp, false);
+            MedicalSkill.RandomlyAssignPassion();
             
             var socialExp = expSettings.GetMinExpForLevel(Random.Range(1, 6));
-            AddExpToSkill(ESkillType.Social, socialExp);
+            AddExpToSkill(ESkillType.Social, socialExp, false);
+            SocialSkill.RandomlyAssignPassion();
             
             var intelligenceExp = expSettings.GetMinExpForLevel(Random.Range(1, 6));
-            AddExpToSkill(ESkillType.Intelligence, intelligenceExp);
+            AddExpToSkill(ESkillType.Intelligence, intelligenceExp, false);
+            IntelligenceSkill.RandomlyAssignPassion();
         }
 
         public void DoDailyExpDecay()

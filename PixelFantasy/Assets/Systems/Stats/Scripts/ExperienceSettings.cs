@@ -8,13 +8,20 @@ namespace Systems.Stats.Scripts
     [CreateAssetMenu(fileName = "Experience Settings", menuName = "Skill System/Experience Settings")]
     public class ExperienceSettings : ScriptableObject
     {
-        [field: SerializeField]
-        public int BaseExpPerWork { get; private set; }
+        [field: SerializeField] public int BaseExpPerWork { get; private set; }
+        
+        
+        [field: SerializeField] public float NoPassionExpMod { get; private set; }
+        [field: SerializeField] public float MinorPassionExpMod { get; private set; }
+        [field: SerializeField, Tooltip("100 Format")] public int ChanceForMinorPassion { get; private set; }
+        [field: SerializeField] public float MajorPassionExpMod { get; private set; }
+        [field: SerializeField, Tooltip("100 Format")] public int ChanceForMajorPassion { get; private set; }
+        
         
         [TableList(AlwaysExpanded = true), SerializeReference]
         public List<ExpLevelData> Table = new List<ExpLevelData>();
 
-        public int GetLevelForTotalExp(int totalExp)
+        public int GetLevelForTotalExp(float totalExp)
         {
             for (int i = Table.Count - 1; i > 0; i--)
             {

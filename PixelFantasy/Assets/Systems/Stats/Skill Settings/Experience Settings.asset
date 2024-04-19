@@ -13,6 +13,11 @@ MonoBehaviour:
   m_Name: Experience Settings
   m_EditorClassIdentifier: 
   <BaseExpPerWork>k__BackingField: 10
+  <NoPassionExpMod>k__BackingField: 0
+  <MinorPassionExpMod>k__BackingField: 0.25
+  <ChanceForMinorPassion>k__BackingField: 20
+  <MajorPassionExpMod>k__BackingField: 0.5
+  <ChanceForMajorPassion>k__BackingField: 10
   Table:
   - rid: 4161138462503993492
   - rid: 4161138462503993493
