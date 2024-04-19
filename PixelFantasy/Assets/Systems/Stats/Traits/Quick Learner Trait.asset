@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Quick Learner Trait
   m_EditorClassIdentifier: 
   <TraitName>k__BackingField: Quick Learner
-  <TraitDescription>k__BackingField: 
+  <TraitDescription>k__BackingField: '{Kinling_Name} absorbs new information like
+    a sponge, quickly mastering new skills and concepts that others struggle with.'
   <Modifiers>k__BackingField:
   - rid: 4161138484699201646
   <IncompatibleTraits>k__BackingField:
@@ -27,3 +28,5 @@ MonoBehaviour:
         <ModifierType>k__BackingField: 0
         AttributeType: 16
         Modifier: 0.25
+        SpecificSkill: 10
+        IsGlobal: 1

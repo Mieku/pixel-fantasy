@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eecc00c610baf0d40a37aaa45a191910, type: 3}
+  m_Name: Farmer History
+  m_EditorClassIdentifier: 
+  <HistoryName>k__BackingField: Farmer
+  <HistoryDescription>k__BackingField: 
+  <Modifiers>k__BackingField:
+  - rid: 4161138484699201695
+  - rid: 4161138484699201696
+  - rid: 4161138484699201701
+  - rid: 4161138484699201703
+  references:
+    version: 2
+    RefIds:
+    - rid: 4161138484699201695
+      type: {class: SkillModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 1
+        SkillType: 5
+        LevelBoost: 2
+        PassionOverride: 2
+    - rid: 4161138484699201696
+      type: {class: SkillModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 1
+        SkillType: 7
+        LevelBoost: 1
+        PassionOverride: 1
+    - rid: 4161138484699201701
+      type: {class: IncapableSkillModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 2
+        IncapableSkill: 0
+    - rid: 4161138484699201703
+      type: {class: AddTraitModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 3
+        TraitToAdd: {fileID: 11400000, guid: 9dc3a211c37142644a1e593997fa8397, type: 2}

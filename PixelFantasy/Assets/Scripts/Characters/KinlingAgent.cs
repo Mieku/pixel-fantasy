@@ -44,7 +44,7 @@ namespace Characters
 
         private void Start()
         {
-            _defaultSpeed = _agent.speed + _kinling.Stats.GetAttributeModifierBonus(EAttributeType.WalkSpeed, _agent.speed);
+            _defaultSpeed = _agent.speed + _kinling.Stats.GetAttributeModifierBonus(EAttributeType.WalkSpeed, _agent.speed, null);
             _defaultAcceleration = _agent.acceleration;
             _defaultAngularSpeed = _agent.angularSpeed;
             _isInitialized = true;

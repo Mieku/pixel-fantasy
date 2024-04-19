@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Forgetful Trait
   m_EditorClassIdentifier: 
   <TraitName>k__BackingField: Forgetful
-  <TraitDescription>k__BackingField: 
+  <TraitDescription>k__BackingField: '{Kinling_Name} tends to forget details shortly
+    after learning them, often misplacing items or needing frequent reminders.'
   <Modifiers>k__BackingField:
   - rid: 4161138484699201649
   <IncompatibleTraits>k__BackingField:
@@ -27,3 +28,5 @@ MonoBehaviour:
         <ModifierType>k__BackingField: 0
         AttributeType: 17
         Modifier: 0.25
+        SpecificSkill: 10
+        IsGlobal: 1

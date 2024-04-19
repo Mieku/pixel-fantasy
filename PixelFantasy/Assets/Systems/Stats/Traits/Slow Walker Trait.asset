@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Slow Walker Trait
   m_EditorClassIdentifier: 
   <TraitName>k__BackingField: Slow Walker
-  <TraitDescription>k__BackingField: 
+  <TraitDescription>k__BackingField: '{Kinling_Name} prefers to take their time,
+    moving at a leisurely pace that can be both calming and, occasionally, a bit
+    frustrating for others.'
   <Modifiers>k__BackingField:
   - rid: 4161138484699201650
   <IncompatibleTraits>k__BackingField:
@@ -27,3 +29,5 @@ MonoBehaviour:
         <ModifierType>k__BackingField: 0
         AttributeType: 2
         Modifier: -0.25
+        SpecificSkill: 0
+        IsGlobal: 1

@@ -47,6 +47,12 @@ namespace Characters
         [ExposeToInspector, DatabrainSerialize]
         public List<Trait> Traits = new List<Trait>();
 
+        [ExposeToInspector, DatabrainSerialize]
+        public History History;
+
+        [ExposeToInspector, DatabrainSerialize]
+        public List<AttributeModifier> AttributeModifiers = new List<AttributeModifier>();
+
         public SkillData GetSkillByType(ESkillType skillType)
         {
             switch (skillType)

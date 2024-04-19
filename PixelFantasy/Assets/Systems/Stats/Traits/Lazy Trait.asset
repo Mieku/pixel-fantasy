@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Lazy Trait
   m_EditorClassIdentifier: 
   <TraitName>k__BackingField: Lazy
-  <TraitDescription>k__BackingField: 
+  <TraitDescription>k__BackingField: Fond of taking it easy, {Kinling_Name} often
+    finds ways to minimize effort, preferring leisure over labor whenever possible.
   <Modifiers>k__BackingField:
   - rid: 4161138484699201631
   <IncompatibleTraits>k__BackingField:
@@ -27,3 +28,5 @@ MonoBehaviour:
         <ModifierType>k__BackingField: 0
         AttributeType: 0
         Modifier: -0.25
+        SpecificSkill: 0
+        IsGlobal: 1

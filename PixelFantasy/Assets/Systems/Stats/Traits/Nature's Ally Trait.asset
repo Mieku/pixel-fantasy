@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95b089bfd6eb5494189e17f599031c5a, type: 3}
+  m_Name: Nature's Ally Trait
+  m_EditorClassIdentifier: 
+  <TraitName>k__BackingField: Nature's Ally
+  <TraitDescription>k__BackingField: This Kinling has a deep connection with nature,
+    attracting wildlife and aiding plant growth.
+  <Modifiers>k__BackingField:
+  - rid: 4161138484699201713
+  - rid: 4161138484699201714
+  <IncompatibleTraits>k__BackingField: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 4161138484699201713
+      type: {class: AttributeModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 0
+        AttributeType: 1
+        Modifier: 0.25
+        SpecificSkill: 5
+        IsGlobal: 0
+    - rid: 4161138484699201714
+      type: {class: AttributeModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 0
+        AttributeType: 6
+        Modifier: 0.25
+        SpecificSkill: 3
+        IsGlobal: 0

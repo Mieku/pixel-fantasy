@@ -1,4 +1,5 @@
 using System;
+using Characters;
 using UnityEngine;
 
 namespace Systems.Stats.Scripts
@@ -6,12 +7,18 @@ namespace Systems.Stats.Scripts
     [Serializable]
     public abstract class Modifier
     {
-        [field: SerializeField] public EModifierType ModifierType { get; private set; }
+        [field: SerializeField] public virtual EModifierType ModifierType { get; private set; }
+
+        public abstract void ApplyModifier(KinlingData kinlingData);
     }
 
     public enum EModifierType
     {
         Attribute,
+        Skill,
+        IncapableSkill,
+        AddTrait,
+        PermanentMood,
     }
     
     [Serializable]
@@ -19,6 +26,24 @@ namespace Systems.Stats.Scripts
     {
         public EAttributeType AttributeType;
         public float Modifier;
+        public ESkillType SpecificSkill;
+        public bool IsGlobal;
+        public override EModifierType ModifierType => EModifierType.Attribute;
+        
+        public override void ApplyModifier(KinlingData kinlingData)
+        {
+            if (!kinlingData.StatsData.AttributeModifiers.Contains(this))
+            {
+                kinlingData.StatsData.AttributeModifiers.Add(this);
+            }
+        }
+
+        public bool AvailableForSkill(ESkillType? skillType)
+        {
+            if (IsGlobal || skillType == null) return true;
+
+            return SpecificSkill == skillType;
+        }
     }
     
     public enum EAttributeType
@@ -41,5 +66,6 @@ namespace Systems.Stats.Scripts
         SocialImpact = 15,
         LearningModifier = 16,
         SkillDecay = 17,
+        QualityModifier = 18,
     }
 }

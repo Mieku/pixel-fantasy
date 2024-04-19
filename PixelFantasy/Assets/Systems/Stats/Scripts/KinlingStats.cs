@@ -39,7 +39,7 @@ namespace Systems.Stats.Scripts
             // Modifiers
             float moddedWork = baseActionWork;
             moddedWork += baseActionWork * GetSkillAttributeValue(skillType, EAttributeType.WorkModifier);
-            moddedWork += GetAttributeModifierBonus(EAttributeType.WorkModifier, baseActionWork);
+            moddedWork += GetAttributeModifierBonus(EAttributeType.WorkModifier, baseActionWork, skillType);
 
             if (autoAddExp)
             {
@@ -56,7 +56,7 @@ namespace Systems.Stats.Scripts
             float moddedYield = dropAmount;
             
             moddedYield += dropAmount * GetSkillAttributeValue(skillType, EAttributeType.YieldModifier);
-            moddedYield += GetAttributeModifierBonus(EAttributeType.YieldModifier, dropAmount);
+            moddedYield += GetAttributeModifierBonus(EAttributeType.YieldModifier, dropAmount, skillType);
 
             return (int) Math.Ceiling(moddedYield);
         }
@@ -66,20 +66,20 @@ namespace Systems.Stats.Scripts
             float moddedExp = amount;
             
             moddedExp += amount * GetSkillAttributeValue(ESkillType.Intelligence, EAttributeType.LearningModifier);
-            moddedExp += GetAttributeModifierBonus(EAttributeType.LearningModifier, amount);
+            moddedExp += GetAttributeModifierBonus(EAttributeType.LearningModifier, amount, ESkillType.Intelligence);
             
             _kinling.RuntimeData.StatsData.AddExpToSkill(skillType, moddedExp);
         }
 
         private void DailyExpDecay()
         {
-            float decayModifier = _kinling.RuntimeData.GetTotalAttributeModifier(EAttributeType.SkillDecay);
+            float decayModifier = _kinling.RuntimeData.GetTotalAttributeModifier(EAttributeType.SkillDecay, ESkillType.Intelligence);
             _kinling.RuntimeData.StatsData.DoDailyExpDecay(decayModifier);
         }
 
-        public float GetAttributeModifierBonus(EAttributeType attributeType, float originalAmount)
+        public float GetAttributeModifierBonus(EAttributeType attributeType, float originalAmount, ESkillType? skillType)
         {
-            var totalModifier = _kinling.RuntimeData.GetTotalAttributeModifier(attributeType);
+            var totalModifier = _kinling.RuntimeData.GetTotalAttributeModifier(attributeType, skillType);
             var result = originalAmount * totalModifier;
             return result;
         }

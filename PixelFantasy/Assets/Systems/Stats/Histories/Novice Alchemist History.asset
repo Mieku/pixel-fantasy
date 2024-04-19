@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eecc00c610baf0d40a37aaa45a191910, type: 3}
+  m_Name: Novice Alchemist History
+  m_EditorClassIdentifier: 
+  <HistoryName>k__BackingField: Novice Alchemist
+  <HistoryDescription>k__BackingField: '{Kinling_Name} dabbled in alchemy, with mixed
+    results and a few explosions.'
+  <Modifiers>k__BackingField:
+  - rid: 4161138484699201754
+  - rid: 4161138484699201755
+  - rid: 4161138484699201756
+  references:
+    version: 2
+    RefIds:
+    - rid: 4161138484699201754
+      type: {class: SkillModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 1
+        SkillType: 6
+        LevelBoost: 1
+        PassionOverride: 0
+    - rid: 4161138484699201755
+      type: {class: SkillModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 1
+        SkillType: 8
+        LevelBoost: 1
+        PassionOverride: 0
+    - rid: 4161138484699201756
+      type: {class: AddTraitModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 3
+        TraitToAdd: {fileID: 11400000, guid: 2bbd77303a1e221409715cab0588f63a, type: 2}

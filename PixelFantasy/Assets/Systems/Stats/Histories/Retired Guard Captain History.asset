@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eecc00c610baf0d40a37aaa45a191910, type: 3}
+  m_Name: Retired Guard Captain History
+  m_EditorClassIdentifier: 
+  <HistoryName>k__BackingField: Retired Guard Captain
+  <HistoryDescription>k__BackingField: '{Kinling_Name} once commanded the town guard,
+    respected for their leadership and bravery.'
+  <Modifiers>k__BackingField:
+  - rid: 4161138484699201751
+  - rid: 4161138484699201752
+  - rid: 4161138484699201753
+  references:
+    version: 2
+    RefIds:
+    - rid: 4161138484699201751
+      type: {class: SkillModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 1
+        SkillType: 2
+        LevelBoost: 3
+        PassionOverride: 2
+    - rid: 4161138484699201752
+      type: {class: SkillModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 1
+        SkillType: 9
+        LevelBoost: 1
+        PassionOverride: 0
+    - rid: 4161138484699201753
+      type: {class: AddTraitModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 3
+        TraitToAdd: {fileID: 11400000, guid: d5f8afb0acb1ac5488906d4357120dd3, type: 2}

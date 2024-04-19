@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eecc00c610baf0d40a37aaa45a191910, type: 3}
+  m_Name: Quiet Botanist History
+  m_EditorClassIdentifier: 
+  <HistoryName>k__BackingField: Quiet Botanist
+  <HistoryDescription>k__BackingField: '{Kinling_Name} communicates better with plants
+    than people, expert in their growth and care.'
+  <Modifiers>k__BackingField:
+  - rid: 4161138484699201785
+  - rid: 4161138484699201786
+  references:
+    version: 2
+    RefIds:
+    - rid: 4161138484699201785
+      type: {class: SkillModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 1
+        SkillType: 5
+        LevelBoost: 4
+        PassionOverride: 0
+    - rid: 4161138484699201786
+      type: {class: IncapableSkillModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 2
+        IncapableSkill: 9

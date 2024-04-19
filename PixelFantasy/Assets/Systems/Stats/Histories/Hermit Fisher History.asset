@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eecc00c610baf0d40a37aaa45a191910, type: 3}
+  m_Name: Hermit Fisher History
+  m_EditorClassIdentifier: 
+  <HistoryName>k__BackingField: Hermit Fisher
+  <HistoryDescription>k__BackingField: '{Kinling_Name} spent years in solitude by
+    the lake, fishing and pondering life''s mysteries.'
+  <Modifiers>k__BackingField:
+  - rid: 4161138484699201772
+  - rid: 4161138484699201773
+  - rid: 4161138484699201774
+  references:
+    version: 2
+    RefIds:
+    - rid: 4161138484699201772
+      type: {class: SkillModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 1
+        SkillType: 7
+        LevelBoost: 2
+        PassionOverride: 0
+    - rid: 4161138484699201773
+      type: {class: AddTraitModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 3
+        TraitToAdd: {fileID: 11400000, guid: bb37069c007ce3b43824683cf7a7564c, type: 2}
+    - rid: 4161138484699201774
+      type: {class: AddTraitModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 3
+        TraitToAdd: {fileID: 11400000, guid: 124527846abf463419b9d01abe8b89af, type: 2}

@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Hard Worker Trait
   m_EditorClassIdentifier: 
   <TraitName>k__BackingField: Hard Worker
-  <TraitDescription>k__BackingField: 
+  <TraitDescription>k__BackingField: '{Kinling_Name} has an impressive work ethic,
+    dedicating themselves tirelessly to any task at hand and often outlasting their
+    peers in sheer effort.'
   <Modifiers>k__BackingField:
   - rid: 4161138484699201643
   <IncompatibleTraits>k__BackingField:
@@ -27,3 +29,5 @@ MonoBehaviour:
         <ModifierType>k__BackingField: 0
         AttributeType: 0
         Modifier: 0.25
+        SpecificSkill: 0
+        IsGlobal: 1

@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95b089bfd6eb5494189e17f599031c5a, type: 3}
+  m_Name: Artisan's Touch Trait
+  m_EditorClassIdentifier: 
+  <TraitName>k__BackingField: Artisan's Touch
+  <TraitDescription>k__BackingField: '{Kinling_Name} has an exceptional talent for
+    crafting, making items of higher quality than most.'
+  <Modifiers>k__BackingField:
+  - rid: 4161138484699201718
+  - rid: 4161138484699201719
+  <IncompatibleTraits>k__BackingField: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 4161138484699201718
+      type: {class: AttributeModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 0
+        AttributeType: 0
+        Modifier: 0.1
+        SpecificSkill: 6
+        IsGlobal: 0
+    - rid: 4161138484699201719
+      type: {class: AttributeModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 0
+        AttributeType: 18
+        Modifier: 0.15
+        SpecificSkill: 6
+        IsGlobal: 0

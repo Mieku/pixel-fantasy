@@ -112,7 +112,32 @@ namespace Characters
             Lastname = Appearance.Race.GetRandomLastName();
             
             StatsData.RandomizeSkillLevels();
-            StatsData.Traits = Race.GetRandomTraits(Random.Range(0, 4));
+            AssignHistory(Race.GetRandomHistory());
+            AssignTraits(Race.GetRandomTraits(Random.Range(0, 4)));
+        }
+        
+        public void AssignHistory(History history)
+        {
+            StatsData.History = history;
+            foreach (var modifier in history.Modifiers)
+            {
+                modifier.ApplyModifier(this);
+            }
+        }
+
+        public void AssignTraits(List<Trait> traits)
+        {
+            foreach (var trait in traits)
+            {
+                if (!StatsData.Traits.Contains(trait))
+                {
+                    StatsData.Traits.Add(trait);
+                    foreach (var traitModifier in trait.Modifiers)
+                    {
+                        traitModifier.ApplyModifier(this);
+                    }
+                }
+            }
         }
         
         public void InheritData(KinlingData mother, KinlingData father)
@@ -279,22 +304,15 @@ namespace Characters
             StatsData.SetLevelForSkill(skillType, assignedLevel);
         }
 
-        public float GetTotalAttributeModifier(EAttributeType attributeType)
+        public float GetTotalAttributeModifier(EAttributeType attributeType, ESkillType? skillType)
         {
             float totalModifier = 0;
-            var traits = StatsData.Traits;
-            foreach (var trait in traits)
+            var modifiers = StatsData.AttributeModifiers;
+            foreach (var modifier in modifiers)
             {
-                foreach (var modifier in trait.Modifiers)
+                if (modifier.AttributeType == attributeType && modifier.AvailableForSkill(skillType))
                 {
-                    if (modifier.ModifierType == EModifierType.Attribute)
-                    {
-                        var attrModifier = (AttributeModifier) modifier;
-                        if (attrModifier.AttributeType == attributeType)
-                        {
-                            totalModifier += attrModifier.Modifier;
-                        }
-                    }
+                    totalModifier += modifier.Modifier;
                 }
             }
             

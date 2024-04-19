@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Great Memory Trait
   m_EditorClassIdentifier: 
   <TraitName>k__BackingField: Great Memory
-  <TraitDescription>k__BackingField: 
+  <TraitDescription>k__BackingField: '{Kinling_Name} remembers details with uncanny
+    accuracy, never forgetting a face, a fact, or where they left their tools.'
   <Modifiers>k__BackingField:
   - rid: 4161138484699201648
   <IncompatibleTraits>k__BackingField:
@@ -27,3 +28,5 @@ MonoBehaviour:
         <ModifierType>k__BackingField: 0
         AttributeType: 17
         Modifier: -0.25
+        SpecificSkill: 10
+        IsGlobal: 1

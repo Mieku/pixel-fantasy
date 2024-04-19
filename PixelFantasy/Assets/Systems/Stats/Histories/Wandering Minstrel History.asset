@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eecc00c610baf0d40a37aaa45a191910, type: 3}
+  m_Name: Wandering Minstrel History
+  m_EditorClassIdentifier: 
+  <HistoryName>k__BackingField: Wandering Minstrel
+  <HistoryDescription>k__BackingField: '{Kinling_Name} traveled the lands, capturing
+    hearts with their enchanting music and tales.'
+  <Modifiers>k__BackingField:
+  - rid: 4161138484699201744
+  - rid: 4161138484699201745
+  - rid: 4161138484699201746
+  references:
+    version: 2
+    RefIds:
+    - rid: 4161138484699201744
+      type: {class: SkillModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 1
+        SkillType: 9
+        LevelBoost: 2
+        PassionOverride: 2
+    - rid: 4161138484699201745
+      type: {class: AddTraitModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 3
+        TraitToAdd: {fileID: 11400000, guid: 5c087ece1ba93e84eb94fe67e5bba397, type: 2}
+    - rid: 4161138484699201746
+      type: {class: IncapableSkillModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 2
+        IncapableSkill: 4

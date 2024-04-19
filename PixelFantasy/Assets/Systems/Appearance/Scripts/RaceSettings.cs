@@ -40,6 +40,7 @@ namespace Systems.Appearance.Scripts
         [SerializeField] private RacialAgeData _racialAgeData;
 
         [SerializeField] private List<Trait> _allTraits = new List<Trait>();
+        [SerializeField] private List<History> _allHistories = new List<History>();
         
         [Button("Load Male Names from file")]
         private void LoadMaleNamesFromFile()
@@ -152,6 +153,12 @@ namespace Systems.Appearance.Scripts
         }
 
         public RacialAgeData RacialAgeData => _racialAgeData;
+
+        public History GetRandomHistory()
+        {
+            int randomIndex = Random.Range(0, _allHistories.Count);
+            return _allHistories[randomIndex];
+        }
 
         // Method to get a specified number of random, distinct, and non-conflicting traits
         public List<Trait> GetRandomTraits(int amount)

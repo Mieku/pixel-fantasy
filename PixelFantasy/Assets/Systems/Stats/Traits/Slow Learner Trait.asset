@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Slow Learner Trait
   m_EditorClassIdentifier: 
   <TraitName>k__BackingField: Slow Learner
-  <TraitDescription>k__BackingField: 
+  <TraitDescription>k__BackingField: It takes time for {Kinling_Name} to grasp new
+    ideas and skills, requiring patience and repeated practice to achieve proficiency.
   <Modifiers>k__BackingField:
   - rid: 4161138484699201647
   <IncompatibleTraits>k__BackingField:
@@ -27,3 +28,5 @@ MonoBehaviour:
         <ModifierType>k__BackingField: 0
         AttributeType: 16
         Modifier: -0.25
+        SpecificSkill: 10
+        IsGlobal: 1

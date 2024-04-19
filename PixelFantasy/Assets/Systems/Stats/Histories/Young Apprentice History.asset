@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eecc00c610baf0d40a37aaa45a191910, type: 3}
+  m_Name: Young Apprentice History
+  m_EditorClassIdentifier: 
+  <HistoryName>k__BackingField: Young Apprentice
+  <HistoryDescription>k__BackingField: '{Kinling_Name} is just starting out in the
+    world, eager to learn and full of potential.'
+  <Modifiers>k__BackingField:
+  - rid: 4161138484699201775
+  - rid: 4161138484699201776
+  references:
+    version: 2
+    RefIds:
+    - rid: 4161138484699201775
+      type: {class: SkillModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 1
+        SkillType: 6
+        LevelBoost: 1
+        PassionOverride: 2
+    - rid: 4161138484699201776
+      type: {class: AddTraitModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 3
+        TraitToAdd: {fileID: 11400000, guid: 6ab44b37b2c212943a06c2a98202d37a, type: 2}
