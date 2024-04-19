@@ -113,8 +113,6 @@ namespace Characters
             
             StatsData.RandomizeSkillLevels();
             StatsData.Traits = Race.GetRandomTraits(Random.Range(0, 4));
-            
-            StatsData.SetLevelForSkill(ESkillType.Botany, 0);
         }
         
         public void InheritData(KinlingData mother, KinlingData father)
