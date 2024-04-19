@@ -88,6 +88,7 @@ namespace TaskSystem
         Forestry = 9,
         Crafting = 10,
         Hauling = 11,
+        Research = 12,
         
         Personal = 20,
         Misc = 100

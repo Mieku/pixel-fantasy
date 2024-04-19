@@ -4,6 +4,7 @@ using System.IO;
 using Characters;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
+using Systems.Stats.Scripts;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -37,6 +38,8 @@ namespace Systems.Appearance.Scripts
         [SerializeField] private string _surnamesFilePath;
 
         [SerializeField] private RacialAgeData _racialAgeData;
+
+        [SerializeField] private List<Trait> _allTraits = new List<Trait>();
         
         [Button("Load Male Names from file")]
         private void LoadMaleNamesFromFile()
@@ -149,6 +152,49 @@ namespace Systems.Appearance.Scripts
         }
 
         public RacialAgeData RacialAgeData => _racialAgeData;
+
+        // Method to get a specified number of random, distinct, and non-conflicting traits
+        public List<Trait> GetRandomTraits(int amount)
+        {
+            List<Trait> selectedTraits = new List<Trait>();
+            List<Trait> tempTraits = new List<Trait>(_allTraits); // Copy all traits to a temporary list
+            HashSet<Trait> disallowedTraits = new HashSet<Trait>(); // To track traits that cannot be selected
+
+            if (amount > _allTraits.Count)
+            {
+                Debug.LogError("Requested more traits than available, returning fewer traits.");
+                amount = _allTraits.Count;
+            }
+
+            while (selectedTraits.Count < amount && tempTraits.Count > 0)
+            {
+                int randomIndex = Random.Range(0, tempTraits.Count); // Get a random index
+                Trait potentialTrait = tempTraits[randomIndex];
+
+                // Check if the potential trait is in the disallowed list
+                if (!disallowedTraits.Contains(potentialTrait))
+                {
+                    selectedTraits.Add(potentialTrait); // Add the selected trait
+                    // Add all no-pair traits of the selected trait to the disallowed set
+                    foreach (Trait noPair in potentialTrait.IncompatibleTraits)
+                    {
+                        disallowedTraits.Add(noPair);
+                    }
+
+                    // Also disallow selecting this trait again (if it's not inherently part of its own NoPairTraits)
+                    disallowedTraits.Add(potentialTrait);
+                }
+
+                tempTraits.RemoveAt(randomIndex); // Remove the potential trait from consideration
+            }
+
+            if (selectedTraits.Count < amount)
+            {
+                Debug.LogWarning("Could not select the requested number of traits due to conflict restrictions.");
+            }
+
+            return selectedTraits;
+        }
     }
     
     [Serializable]

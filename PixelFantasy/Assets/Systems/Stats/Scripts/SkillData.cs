@@ -18,6 +18,8 @@ namespace Systems.Stats.Scripts
         [ExposeToInspector, DatabrainSerialize]
         public ESkillPassion Passion;
 
+        public bool Incapable => Level == 0;
+
         public void RandomlyAssignPassion()
         {
             // Generate a random number between 1 and 100

@@ -30,79 +30,79 @@ MonoBehaviour:
       type: {class: BeastMasterySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 1
-        BeastGatherWorkModifier: 0.55
-        BeastGatherYield: 0.5
+        BeastGatherWorkModifier: -0.45
+        BeastGatherYield: -0.5
         TameBeastChance: 0.05
         TrainBeastChance: 0.1
     - rid: 4161138440409186498
       type: {class: BeastMasterySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 2
-        BeastGatherWorkModifier: 0.7
-        BeastGatherYield: 0.65
+        BeastGatherWorkModifier: -0.3
+        BeastGatherYield: -0.35
         TameBeastChance: 0.1
         TrainBeastChance: 0.2
     - rid: 4161138440409186499
       type: {class: BeastMasterySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 3
-        BeastGatherWorkModifier: 0.85
-        BeastGatherYield: 0.8
+        BeastGatherWorkModifier: -0.15
+        BeastGatherYield: -0.2
         TameBeastChance: 0.15
         TrainBeastChance: 0.3
     - rid: 4161138440409186500
       type: {class: BeastMasterySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 4
-        BeastGatherWorkModifier: 1
-        BeastGatherYield: 1
+        BeastGatherWorkModifier: 0
+        BeastGatherYield: 0
         TameBeastChance: 0.2
         TrainBeastChance: 0.4
     - rid: 4161138440409186501
       type: {class: BeastMasterySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 5
-        BeastGatherWorkModifier: 1.15
-        BeastGatherYield: 1.05
+        BeastGatherWorkModifier: 0.15
+        BeastGatherYield: 0.05
         TameBeastChance: 0.25
         TrainBeastChance: 0.5
     - rid: 4161138440409186502
       type: {class: BeastMasterySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 6
-        BeastGatherWorkModifier: 1.3
-        BeastGatherYield: 1.1
+        BeastGatherWorkModifier: 0.3
+        BeastGatherYield: 0.1
         TameBeastChance: 0.3
         TrainBeastChance: 0.6
     - rid: 4161138440409186503
       type: {class: BeastMasterySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 7
-        BeastGatherWorkModifier: 1.45
-        BeastGatherYield: 1.15
+        BeastGatherWorkModifier: 0.45
+        BeastGatherYield: 0.15
         TameBeastChance: 0.35
         TrainBeastChance: 0.7
     - rid: 4161138440409186504
       type: {class: BeastMasterySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 8
-        BeastGatherWorkModifier: 1.6
-        BeastGatherYield: 1.2
+        BeastGatherWorkModifier: 0.6
+        BeastGatherYield: 0.2
         TameBeastChance: 0.4
         TrainBeastChance: 0.8
     - rid: 4161138440409186505
       type: {class: BeastMasterySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 9
-        BeastGatherWorkModifier: 1.75
-        BeastGatherYield: 1.25
+        BeastGatherWorkModifier: 0.75
+        BeastGatherYield: 0.25
         TameBeastChance: 0.45
         TrainBeastChance: 0.9
     - rid: 4161138440409186506
       type: {class: BeastMasterySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 10
-        BeastGatherWorkModifier: 1.9
-        BeastGatherYield: 1.3
+        BeastGatherWorkModifier: 0.9
+        BeastGatherYield: 0.3
         TameBeastChance: 0.5
         TrainBeastChance: 1

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Systems.Stats.Scripts;
 
 namespace TaskSystem
 {
@@ -20,7 +21,8 @@ namespace TaskSystem
             new TaskPriority(ETaskType.Harvesting),
             new TaskPriority(ETaskType.Forestry),
             new TaskPriority(ETaskType.Crafting),
-            new TaskPriority(ETaskType.Hauling)
+            new TaskPriority(ETaskType.Hauling),
+            new TaskPriority(ETaskType.Research),
         };
         
         private Dictionary<ETaskType, int> _inherentPriorities = new()
@@ -37,6 +39,7 @@ namespace TaskSystem
             { ETaskType.Forestry, 10 },
             { ETaskType.Crafting, 11 },
             { ETaskType.Hauling, 12 },
+            { ETaskType.Research, 13 }
         };
 
         public List<ETaskType> SortedPriorities()
@@ -48,6 +51,37 @@ namespace TaskSystem
                 .ToList();
 
             return sortedPriorities;
+        }
+
+        public List<ETaskType> GetAssociatedTaskTypes(ESkillType skillType)
+        {
+            switch (skillType)
+            {
+                case ESkillType.Mining:
+                    return new List<ETaskType>() { ETaskType.Mining };
+                case ESkillType.Cooking:
+                    return new List<ETaskType>() { ETaskType.Cooking };
+                case ESkillType.Melee:
+                    return new List<ETaskType>() {  };
+                case ESkillType.Ranged:
+                    return new List<ETaskType>() { ETaskType.Hunting };
+                case ESkillType.Construction:
+                    return new List<ETaskType>() { ETaskType.Construction };
+                case ESkillType.Botany:
+                    return new List<ETaskType>() { ETaskType.Farming, ETaskType.Forestry };
+                case ESkillType.Crafting:
+                    return new List<ETaskType>() { ETaskType.Crafting };
+                case ESkillType.BeastMastery:
+                    return new List<ETaskType>() { ETaskType.AnimalHandling };
+                case ESkillType.Medical:
+                    return new List<ETaskType>() { ETaskType.Healing };
+                case ESkillType.Social:
+                    return new List<ETaskType>() {  };
+                case ESkillType.Intelligence:
+                    return new List<ETaskType>() { ETaskType.Research };
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(skillType), skillType, null);
+            }
         }
     }
 

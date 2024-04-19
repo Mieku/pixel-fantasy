@@ -9,6 +9,7 @@ using Sirenix.OdinInspector;
 using Systems.Appearance.Scripts;
 using Systems.Mood.Scripts;
 using Systems.Needs.Scripts;
+using Systems.Stats.Scripts;
 using UnityEngine;
 using CropSettings = Data.Resource.CropSettings;
 using Random = UnityEngine.Random;

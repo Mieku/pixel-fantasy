@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using Databrain.Attributes;
 using ScriptableObjects;
 using Systems.Stats.Scripts;
+using TaskSystem;
 using Random = UnityEngine.Random;
 
 namespace Characters
@@ -42,6 +44,9 @@ namespace Characters
         [ExposeToInspector, DatabrainSerialize]
         public SkillData IntelligenceSkill;
 
+        [ExposeToInspector, DatabrainSerialize]
+        public List<Trait> Traits = new List<Trait>();
+
         public SkillData GetSkillByType(ESkillType skillType)
         {
             switch (skillType)
@@ -77,6 +82,23 @@ namespace Characters
         {
             var skill = GetSkillByType(skillType);
             return skill.Level;
+        }
+        
+        public void SetLevelForSkill(ESkillType skillType, int assignedLevel)
+        {
+            var skill = GetSkillByType(skillType);
+
+            if (assignedLevel == 0)
+            {
+                skill.Exp = 0;
+                skill.Level = 0;
+                return;
+            }
+            
+            var expSettings = GameSettings.Instance.ExpSettings;
+            var minExp = expSettings.GetMinExpForLevel(assignedLevel);
+            skill.Exp = minExp;
+            skill.Level = assignedLevel;
         }
 
         public void AddExpToSkill(ESkillType skillType, float expToAdd, bool includeModifiers = true)
@@ -123,7 +145,9 @@ namespace Characters
         public void DeductExpFromSkill(ESkillType skillType, int expToRemove)
         {
             var skill = GetSkillByType(skillType);
+
             skill.Exp -= expToRemove;
+            
             if (skill.Exp < 0) skill.Exp = 0;
             
             var expSettings = GameSettings.Instance.ExpSettings;
@@ -179,42 +203,118 @@ namespace Characters
             IntelligenceSkill.RandomlyAssignPassion();
         }
 
-        public void DoDailyExpDecay()
+        public void DoDailyExpDecay(float decayModifier)
         {
             var expSettings = GameSettings.Instance.ExpSettings;
             
             var miningExp = expSettings.GetDailyDecayRateForLevel(MiningSkill.Level);
+            miningExp += (int)Math.Ceiling(miningExp * decayModifier);
             DeductExpFromSkill(ESkillType.Mining, miningExp);
             
             var cookingExp = expSettings.GetDailyDecayRateForLevel(CookingSkill.Level);
+            cookingExp += (int)Math.Ceiling(cookingExp * decayModifier);
             DeductExpFromSkill(ESkillType.Cooking, cookingExp);
             
             var meleeExp = expSettings.GetDailyDecayRateForLevel(MeleeSkill.Level);
+            meleeExp += (int)Math.Ceiling(meleeExp * decayModifier);
             DeductExpFromSkill(ESkillType.Melee, meleeExp);
             
             var rangedExp = expSettings.GetDailyDecayRateForLevel(RangedSkill.Level);
+            rangedExp += (int)Math.Ceiling(rangedExp * decayModifier);
             DeductExpFromSkill(ESkillType.Ranged, rangedExp);
             
             var constructionExp = expSettings.GetDailyDecayRateForLevel(ConstructionSkill.Level);
+            constructionExp += (int)Math.Ceiling(constructionExp * decayModifier);
             DeductExpFromSkill(ESkillType.Construction, constructionExp);
             
             var botanyExp = expSettings.GetDailyDecayRateForLevel(BotanySkill.Level);
+            botanyExp += (int)Math.Ceiling(botanyExp * decayModifier);
             DeductExpFromSkill(ESkillType.Botany, botanyExp);
             
             var craftingExp = expSettings.GetDailyDecayRateForLevel(CraftingSkill.Level);
+            craftingExp += (int)Math.Ceiling(craftingExp * decayModifier);
             DeductExpFromSkill(ESkillType.Crafting, craftingExp);
             
             var beastMasteryExp = expSettings.GetDailyDecayRateForLevel(BeastMasterySkill.Level);
+            beastMasteryExp += (int)Math.Ceiling(beastMasteryExp * decayModifier);
             DeductExpFromSkill(ESkillType.BeastMastery, beastMasteryExp);
             
             var medicalExp = expSettings.GetDailyDecayRateForLevel(MedicalSkill.Level);
+            medicalExp += (int)Math.Ceiling(medicalExp * decayModifier);
             DeductExpFromSkill(ESkillType.Medical, medicalExp);
             
             var socialExp = expSettings.GetDailyDecayRateForLevel(SocialSkill.Level);
+            socialExp += (int)Math.Ceiling(socialExp * decayModifier);
             DeductExpFromSkill(ESkillType.Social, socialExp);
             
             var intelligenceExp = expSettings.GetDailyDecayRateForLevel(IntelligenceSkill.Level);
+            intelligenceExp += (int)Math.Ceiling(intelligenceExp * decayModifier);
             DeductExpFromSkill(ESkillType.Intelligence, intelligenceExp);
+        }
+
+        public bool CanDoTaskType(ETaskType taskType)
+        {
+            var associatedSkills = GetAssociatedSkillsForTaskType(taskType);
+            foreach (var skill in associatedSkills)
+            {
+                if (skill.Incapable)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public List<SkillData> GetAssociatedSkillsForTaskType(ETaskType taskType)
+        {
+            List<SkillData> results = new List<SkillData>();
+
+            switch (taskType)
+            {
+                case ETaskType.Emergency:
+                    break;
+                case ETaskType.Healing:
+                    results.Add(GetSkillByType(ESkillType.Medical));
+                    break;
+                case ETaskType.Construction:
+                    results.Add(GetSkillByType(ESkillType.Construction));
+                    break;
+                case ETaskType.AnimalHandling:
+                    results.Add(GetSkillByType(ESkillType.BeastMastery));
+                    break;
+                case ETaskType.Cooking:
+                    results.Add(GetSkillByType(ESkillType.Cooking));
+                    break;
+                case ETaskType.Hunting:
+                    results.Add(GetSkillByType(ESkillType.BeastMastery));
+                    results.Add(GetSkillByType(ESkillType.Ranged));
+                    break;
+                case ETaskType.Mining:
+                    results.Add(GetSkillByType(ESkillType.Mining));
+                    break;
+                case ETaskType.Farming:
+                case ETaskType.Harvesting:
+                case ETaskType.Forestry:
+                    results.Add(GetSkillByType(ESkillType.Botany));
+                    break;
+                case ETaskType.Crafting:
+                    results.Add(GetSkillByType(ESkillType.Crafting));
+                    break;
+                case ETaskType.Hauling:
+                    break;
+                case ETaskType.Research:
+                    results.Add(GetSkillByType(ESkillType.Intelligence));
+                    break;
+                case ETaskType.Personal:
+                    break;
+                case ETaskType.Misc:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(taskType), taskType, null);
+            }
+
+            return results;
         }
     }
 }

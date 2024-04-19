@@ -7,6 +7,7 @@ using Handlers;
 using Items;
 using Managers;
 using ScriptableObjects;
+using Systems.Stats.Scripts;
 using UnityEngine;
 
 namespace TaskSystem
@@ -261,7 +262,7 @@ namespace TaskSystem
             }
             
             var taskAction = FindTaskActionFor(task);
-            if (!taskAction.CanDoTask(task))
+             if (!taskAction.CanDoTask(task))
             {
                 if (returnToQueueOnFail)
                 {

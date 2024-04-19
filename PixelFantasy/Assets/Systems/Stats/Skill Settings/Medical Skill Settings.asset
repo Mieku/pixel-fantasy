@@ -30,69 +30,69 @@ MonoBehaviour:
       type: {class: MedicalSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 1
-        MedicalWorkModifier: 0.55
+        MedicalWorkModifier: -0.45
         SurgerySuccessChance: 0.2
         TendQuality: 0.45
     - rid: 4161138440409186508
       type: {class: MedicalSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 2
-        MedicalWorkModifier: 0.7
+        MedicalWorkModifier: -0.3
         SurgerySuccessChance: 0.3
         TendQuality: 0.6
     - rid: 4161138440409186509
       type: {class: MedicalSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 3
-        MedicalWorkModifier: 0.85
+        MedicalWorkModifier: -0.15
         SurgerySuccessChance: 0.4
         TendQuality: 0.75
     - rid: 4161138440409186510
       type: {class: MedicalSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 4
-        MedicalWorkModifier: 1
+        MedicalWorkModifier: 0
         SurgerySuccessChance: 0.5
         TendQuality: 0.9
     - rid: 4161138440409186511
       type: {class: MedicalSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 5
-        MedicalWorkModifier: 1.15
+        MedicalWorkModifier: 0.15
         SurgerySuccessChance: 0.6
         TendQuality: 1
     - rid: 4161138440409186512
       type: {class: MedicalSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 6
-        MedicalWorkModifier: 1.3
+        MedicalWorkModifier: 0.3
         SurgerySuccessChance: 0.7
         TendQuality: 1.1
     - rid: 4161138440409186513
       type: {class: MedicalSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 7
-        MedicalWorkModifier: 1.45
+        MedicalWorkModifier: 0.45
         SurgerySuccessChance: 0.8
         TendQuality: 1.2
     - rid: 4161138440409186514
       type: {class: MedicalSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 8
-        MedicalWorkModifier: 1.6
+        MedicalWorkModifier: 0.6
         SurgerySuccessChance: 0.9
         TendQuality: 1.3
     - rid: 4161138440409186515
       type: {class: MedicalSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 9
-        MedicalWorkModifier: 1.75
+        MedicalWorkModifier: 0.75
         SurgerySuccessChance: 1
         TendQuality: 1.4
     - rid: 4161138440409186516
       type: {class: MedicalSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 10
-        MedicalWorkModifier: 1.9
+        MedicalWorkModifier: 0.9
         SurgerySuccessChance: 1.1
         TendQuality: 1.5

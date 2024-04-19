@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Characters.Interfaces;
 using Managers;
+using Systems.Stats.Scripts;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
@@ -25,6 +26,7 @@ namespace Characters
         private Kinling _kinling;
         private NavMeshPath _currentPath;
         private bool _isPathVisible;
+        private bool _isInitialized;
 
         private const float NEAREST_POINT_SEARCH_RANGE = 5f;
 
@@ -34,13 +36,18 @@ namespace Characters
             _agent.updateRotation = false;
             _agent.updateUpAxis = false;
 
-            _defaultSpeed = _agent.speed;
-            _defaultAcceleration = _agent.acceleration;
-            _defaultAngularSpeed = _agent.angularSpeed;
             _kinling = GetComponent<Kinling>();
-            
             _charAnimController = GetComponent<Kinling>().kinlingAnimController;
             
+            // OnSpeedUpdated();
+        }
+
+        private void Start()
+        {
+            _defaultSpeed = _agent.speed + _kinling.Stats.GetAttributeModifierBonus(EAttributeType.WalkSpeed, _agent.speed);
+            _defaultAcceleration = _agent.acceleration;
+            _defaultAngularSpeed = _agent.angularSpeed;
+            _isInitialized = true;
             OnSpeedUpdated();
         }
 
@@ -146,6 +153,8 @@ namespace Characters
         
         private void OnSpeedUpdated()
         {
+            if (!_isInitialized) return;
+            
             var speedMod = TimeManager.Instance.GameSpeedMod;
             _agent.speed = _defaultSpeed * speedMod;
 
@@ -176,6 +185,8 @@ namespace Characters
 
         private void Update()
         {
+           if(!_isInitialized) return;
+            
            DetermineIfDestination();
            RefreshAnimVector();
            OnSpeedUpdated();

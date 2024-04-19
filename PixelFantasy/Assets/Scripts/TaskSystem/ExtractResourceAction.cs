@@ -76,7 +76,6 @@ namespace TaskSystem
             _timer += TimeManager.Instance.DeltaTime;
             if(_timer >= ActionSpeed) 
             {   
-                Debug.Log($"Action Tick: {EnvironmentManager.Instance.GameTime.Readable()}");
                 _timer = 0;
                 if (_resource.DoExtractionWork(_ai.Kinling.Stats)) 
                 {

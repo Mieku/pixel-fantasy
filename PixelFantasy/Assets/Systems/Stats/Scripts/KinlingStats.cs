@@ -21,7 +21,7 @@ namespace Systems.Stats.Scripts
             GameEvents.DayTick -= DailyExpDecay;
         }
 
-        public float GetAttributeValue(ESkillType skillType, EAttributeType attributeType)
+        public float GetSkillAttributeValue(ESkillType skillType, EAttributeType attributeType)
         {
             var settings = _skillSettings.Find(s => s.SkillType == skillType);
             if (settings != null)
@@ -35,36 +35,53 @@ namespace Systems.Stats.Scripts
         public float GetActionWorkForSkill(ESkillType skillType, bool autoAddExp)
         {
             float baseActionWork = GameSettings.Instance.BaseWorkPerAction;
-            float workModifier = GetAttributeValue(skillType, EAttributeType.WorkModifier);
-            float result = baseActionWork * workModifier;
+            
+            // Modifiers
+            float moddedWork = baseActionWork;
+            moddedWork += baseActionWork * GetSkillAttributeValue(skillType, EAttributeType.WorkModifier);
+            moddedWork += GetAttributeModifierBonus(EAttributeType.WorkModifier, baseActionWork);
 
             if (autoAddExp)
             {
-                float expGain = result;
+                float expGain = moddedWork;
                 expGain *= GameSettings.Instance.ExpSettings.BaseExpPerWork;
                 AddExpToSkill(skillType, expGain);
             }
             
-            return result;
+            return moddedWork;
         }
 
         public int DetermineAmountYielded(ESkillType skillType, int dropAmount)
         {
-            float yield = GetAttributeValue(skillType, EAttributeType.YieldModifier);
-            int result = (int) Math.Ceiling(dropAmount * yield);
-            return result;
+            float moddedYield = dropAmount;
+            
+            moddedYield += dropAmount * GetSkillAttributeValue(skillType, EAttributeType.YieldModifier);
+            moddedYield += GetAttributeModifierBonus(EAttributeType.YieldModifier, dropAmount);
+
+            return (int) Math.Ceiling(moddedYield);
         }
 
         public void AddExpToSkill(ESkillType skillType, float amount)
         {
-            float modifier = GetAttributeValue(ESkillType.Intelligence, EAttributeType.LearningModifier);
-            int modifiedAmount = (int) Math.Ceiling(amount * modifier);
-            _kinling.RuntimeData.StatsData.AddExpToSkill(skillType, modifiedAmount);
+            float moddedExp = amount;
+            
+            moddedExp += amount * GetSkillAttributeValue(ESkillType.Intelligence, EAttributeType.LearningModifier);
+            moddedExp += GetAttributeModifierBonus(EAttributeType.LearningModifier, amount);
+            
+            _kinling.RuntimeData.StatsData.AddExpToSkill(skillType, moddedExp);
         }
 
         private void DailyExpDecay()
         {
-            _kinling.RuntimeData.StatsData.DoDailyExpDecay();
+            float decayModifier = _kinling.RuntimeData.GetTotalAttributeModifier(EAttributeType.SkillDecay);
+            _kinling.RuntimeData.StatsData.DoDailyExpDecay(decayModifier);
+        }
+
+        public float GetAttributeModifierBonus(EAttributeType attributeType, float originalAmount)
+        {
+            var totalModifier = _kinling.RuntimeData.GetTotalAttributeModifier(attributeType);
+            var result = originalAmount * totalModifier;
+            return result;
         }
     }
 }

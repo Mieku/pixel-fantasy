@@ -30,69 +30,69 @@ MonoBehaviour:
       type: {class: CookingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 1
-        CookingWorkModifier: 0.55
-        ButcheringYield: 0.5
+        CookingWorkModifier: -0.45
+        ButcheringYield: -0.5
         FoodPoisonChance: 0.05
     - rid: 4161138421076328747
       type: {class: CookingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 2
-        CookingWorkModifier: 0.7
-        ButcheringYield: 0.65
+        CookingWorkModifier: -0.3
+        ButcheringYield: -0.35
         FoodPoisonChance: 0.04
     - rid: 4161138421076328748
       type: {class: CookingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 3
-        CookingWorkModifier: 0.85
-        ButcheringYield: 0.8
+        CookingWorkModifier: -0.15
+        ButcheringYield: -0.2
         FoodPoisonChance: 0.02
     - rid: 4161138421076328749
       type: {class: CookingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 4
-        CookingWorkModifier: 1
-        ButcheringYield: 1
+        CookingWorkModifier: 0
+        ButcheringYield: 0
         FoodPoisonChance: 0.01
     - rid: 4161138421076328750
       type: {class: CookingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 5
-        CookingWorkModifier: 1.15
-        ButcheringYield: 1.05
+        CookingWorkModifier: 0.15
+        ButcheringYield: 0.05
         FoodPoisonChance: 0.005
     - rid: 4161138421076328751
       type: {class: CookingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 6
-        CookingWorkModifier: 1.3
-        ButcheringYield: 1.1
+        CookingWorkModifier: 0.3
+        ButcheringYield: 0.1
         FoodPoisonChance: 0.0025
     - rid: 4161138421076328752
       type: {class: CookingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 7
-        CookingWorkModifier: 1.45
-        ButcheringYield: 1.15
+        CookingWorkModifier: 0.45
+        ButcheringYield: 0.15
         FoodPoisonChance: 0
     - rid: 4161138421076328753
       type: {class: CookingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 8
-        CookingWorkModifier: 1.6
-        ButcheringYield: 1.2
+        CookingWorkModifier: 0.6
+        ButcheringYield: 0.2
         FoodPoisonChance: -0.02
     - rid: 4161138421076328754
       type: {class: CookingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 9
-        CookingWorkModifier: 1.75
-        ButcheringYield: 1.25
+        CookingWorkModifier: 0.75
+        ButcheringYield: 0.25
         FoodPoisonChance: -0.05
     - rid: 4161138421076328755
       type: {class: CookingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 10
-        CookingWorkModifier: 1.9
-        ButcheringYield: 1.3
+        CookingWorkModifier: 0.9
+        ButcheringYield: 0.3
         FoodPoisonChance: -0.1

@@ -30,59 +30,59 @@ MonoBehaviour:
       type: {class: BotanySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 1
-        BotanyWorkModifier: 0.55
-        BotanyYield: 0.5
+        BotanyWorkModifier: -0.45
+        BotanyYield: -0.5
     - rid: 4161138440409186478
       type: {class: BotanySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 2
-        BotanyWorkModifier: 0.7
-        BotanyYield: 0.65
+        BotanyWorkModifier: -0.3
+        BotanyYield: -0.35
     - rid: 4161138440409186479
       type: {class: BotanySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 3
-        BotanyWorkModifier: 0.85
-        BotanyYield: 0.8
+        BotanyWorkModifier: -0.15
+        BotanyYield: -0.2
     - rid: 4161138440409186480
       type: {class: BotanySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 4
-        BotanyWorkModifier: 1
-        BotanyYield: 1
+        BotanyWorkModifier: 0
+        BotanyYield: 0
     - rid: 4161138440409186481
       type: {class: BotanySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 5
-        BotanyWorkModifier: 1.15
-        BotanyYield: 1.05
+        BotanyWorkModifier: 0.15
+        BotanyYield: 0.05
     - rid: 4161138440409186482
       type: {class: BotanySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 6
-        BotanyWorkModifier: 1.3
-        BotanyYield: 1.1
+        BotanyWorkModifier: 0.3
+        BotanyYield: 0.1
     - rid: 4161138440409186483
       type: {class: BotanySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 7
-        BotanyWorkModifier: 1.45
-        BotanyYield: 1.15
+        BotanyWorkModifier: 0.45
+        BotanyYield: 0.15
     - rid: 4161138440409186484
       type: {class: BotanySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 8
-        BotanyWorkModifier: 1.6
-        BotanyYield: 1.2
+        BotanyWorkModifier: 0.6
+        BotanyYield: 0.2
     - rid: 4161138440409186485
       type: {class: BotanySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 9
-        BotanyWorkModifier: 1.75
-        BotanyYield: 1.25
+        BotanyWorkModifier: 0.75
+        BotanyYield: 0.25
     - rid: 4161138440409186486
       type: {class: BotanySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 10
-        BotanyWorkModifier: 1.9
-        BotanyYield: 1.3
+        BotanyWorkModifier: 0.9
+        BotanyYield: 0.3

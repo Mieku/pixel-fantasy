@@ -45,43 +45,6 @@ namespace Systems.Stats.Scripts
 
         public abstract float GetAttribute(EAttributeType attributeType);
     }
-    
-    public enum EAttributeType
-    {
-        // Generic
-        WorkModifier,
-        YieldModifier,
-        
-        // Cooking
-        FoodPoisonChance, 
-        
-        // Melee
-        MeleeChanceToHit,
-        MeleeChanceToDodge,
-        
-        // Ranged
-        HuntingStealth,
-        RangedAccuracy,
-        
-        // Construction
-        ConstructionSuccessChance,
-        
-        // Beast Mastery
-        TameBeastChance,
-        TrainBeastChance,
-        
-        // Medical
-        SurgerySuccessChance,
-        TendQuality,
-        
-        // Social
-        TradePriceBuy,
-        TradePriceSell,
-        SocialImpact,
-        
-        // Intelligence
-        LearningModifier,
-    }
 
     public enum ESkillType
     {

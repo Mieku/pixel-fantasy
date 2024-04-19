@@ -30,49 +30,49 @@ MonoBehaviour:
       type: {class: CraftingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 1
-        CraftingWorkModifier: 0.55
+        CraftingWorkModifier: -0.45
     - rid: 4161138440409186488
       type: {class: CraftingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 2
-        CraftingWorkModifier: 0.7
+        CraftingWorkModifier: -0.3
     - rid: 4161138440409186489
       type: {class: CraftingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 3
-        CraftingWorkModifier: 0.85
+        CraftingWorkModifier: -0.15
     - rid: 4161138440409186490
       type: {class: CraftingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 4
-        CraftingWorkModifier: 1
+        CraftingWorkModifier: 0
     - rid: 4161138440409186491
       type: {class: CraftingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 5
-        CraftingWorkModifier: 1.15
+        CraftingWorkModifier: 0.15
     - rid: 4161138440409186492
       type: {class: CraftingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 6
-        CraftingWorkModifier: 1.3
+        CraftingWorkModifier: 0.3
     - rid: 4161138440409186493
       type: {class: CraftingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 7
-        CraftingWorkModifier: 1.45
+        CraftingWorkModifier: 0.45
     - rid: 4161138440409186494
       type: {class: CraftingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 8
-        CraftingWorkModifier: 1.6
+        CraftingWorkModifier: 0.6
     - rid: 4161138440409186495
       type: {class: CraftingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 9
-        CraftingWorkModifier: 1.75
+        CraftingWorkModifier: 0.75
     - rid: 4161138440409186496
       type: {class: CraftingSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 10
-        CraftingWorkModifier: 1.9
+        CraftingWorkModifier: 0.9

@@ -112,6 +112,9 @@ namespace Characters
             Lastname = Appearance.Race.GetRandomLastName();
             
             StatsData.RandomizeSkillLevels();
+            StatsData.Traits = Race.GetRandomTraits(Random.Range(0, 4));
+            
+            StatsData.SetLevelForSkill(ESkillType.Botany, 0);
         }
         
         public void InheritData(KinlingData mother, KinlingData father)
@@ -271,6 +274,33 @@ namespace Characters
         public int GetLevelForSkill(ESkillType skillType)
         {
             return StatsData.GetLevelForSkill(skillType);
+        }
+
+        public void SetLevelForSkill(ESkillType skillType, int assignedLevel)
+        {
+            StatsData.SetLevelForSkill(skillType, assignedLevel);
+        }
+
+        public float GetTotalAttributeModifier(EAttributeType attributeType)
+        {
+            float totalModifier = 0;
+            var traits = StatsData.Traits;
+            foreach (var trait in traits)
+            {
+                foreach (var modifier in trait.Modifiers)
+                {
+                    if (modifier.ModifierType == EModifierType.Attribute)
+                    {
+                        var attrModifier = (AttributeModifier) modifier;
+                        if (attrModifier.AttributeType == attributeType)
+                        {
+                            totalModifier += attrModifier.Modifier;
+                        }
+                    }
+                }
+            }
+            
+            return totalModifier;
         }
     }
 }
