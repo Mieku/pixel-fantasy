@@ -1,3 +1,4 @@
+using System;
 using Characters;
 using Controllers;
 using Systems.Appearance.Scripts;
@@ -10,9 +11,11 @@ namespace Systems.Kinling_Selector.Scripts
     public class KinlingDisplay : MonoBehaviour
     {
         [SerializeField] private Portrait _portrait;
-        [SerializeField] private Image _statusIcon;
-        [SerializeField] private GameObject _statusHandle;
         [SerializeField] private TextMeshProUGUI _nicknameText;
+        [SerializeField] private TextMeshProUGUI _actionText;
+        [SerializeField] private Image _moodTint;
+        [SerializeField] private Color _positiveColour;
+        [SerializeField] private Color _negativeColour;
         
         private float _lastClickTime = 0f;
         private const float DOUBLE_CLICK_TIME = 0.3f; // Time in seconds
@@ -22,18 +25,20 @@ namespace Systems.Kinling_Selector.Scripts
         public void Init(KinlingData kinlingData)
         {
             KinlingData = kinlingData;
-            _nicknameText.text = KinlingData.GetNickname();
+            
             _portrait.Init(KinlingData);
-            CheckStatus(KinlingData);
         }
 
-        private void CheckStatus(KinlingData kinlingData)
+
+        private void Update()
         {
-            if(kinlingData != KinlingData) return;
-            
-            // TODO: Set up a game event when a kinling's status changes and subscribe this.
-            // For now just deactivated
-            _statusHandle.SetActive(false);
+            if (KinlingData != null)
+            {
+                _nicknameText.text = KinlingData.GetNickname();
+                _actionText.text = KinlingData.Kinling.TaskAI.CurrentStateName;
+                
+                _moodTint.color = Color.Lerp(_negativeColour, _positiveColour, Mathf.Clamp(KinlingData.Kinling.KinlingMood.OverallMood, 0.0f, 1.0f));
+            }
         }
         
         public void OnPressed()

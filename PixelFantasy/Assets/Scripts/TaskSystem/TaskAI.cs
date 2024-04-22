@@ -35,6 +35,27 @@ namespace TaskSystem
             ForcedTask,
             Idling,
         }
+
+        public string CurrentStateName
+        {
+            get
+            {
+                switch (_data.TaskAIState)
+                {
+                    case TaskAIState.WaitingForNextTask:
+                        return "Idle";
+                    case TaskAIState.GettingTool:
+                        return "Equipping";
+                    case TaskAIState.ForcedTask:
+                    case TaskAIState.ExecutingTask:
+                        return $"{_data.CurrentTaskAction.TaskId}";
+                    case TaskAIState.Idling:
+                        return "Idle";
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
         
         private void Awake()
         {
