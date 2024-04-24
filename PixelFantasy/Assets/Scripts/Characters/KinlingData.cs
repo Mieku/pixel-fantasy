@@ -17,7 +17,7 @@ namespace Characters
     public class KinlingData : DataObject
     {
         [ExposeToInspector, DatabrainSerialize] 
-        public string Nickname;
+        private string Nickname;
         
         [ExposeToInspector, DatabrainSerialize] 
         public string Firstname;

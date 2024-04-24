@@ -15,5 +15,16 @@ namespace Systems.Stats.Scripts
         {
             Debug.LogError("Not built yet");
         }
+
+        public override string GetModifierString()
+        {
+            string change = MoodChange.ToString();
+            if (MoodChange > 0)
+            {
+                change = $"+{MoodChange}";
+            }
+            
+            return $"Mood {change}";
+        }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using Databrain.Attributes;
 using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Systems.Stats.Scripts
@@ -13,12 +14,13 @@ namespace Systems.Stats.Scripts
         public int Level;
         
         [ExposeToInspector, DatabrainSerialize]
-        public float Exp;
+        public float TotalExp;
 
         [ExposeToInspector, DatabrainSerialize]
         public ESkillPassion Passion;
 
         public bool Incapable => Level == 0;
+        public bool IsMaxLevel => Level == 10;
 
         public void RandomlyAssignPassion()
         {
@@ -42,6 +44,79 @@ namespace Systems.Stats.Scripts
             {
                 Passion = ESkillPassion.Major; // Least common, major passion
             }
+        }
+
+        public float CurrentExp
+        {
+            get
+            {
+                if (Incapable) return 0;
+
+                var minExpForLvl = GameSettings.Instance.ExpSettings.GetMinExpForLevel(Level);
+                float curExp = TotalExp - minExpForLvl;
+                return curExp;
+            }
+        }
+        
+        public float GetPercentExp()
+        {
+            if (IsMaxLevel)
+            {
+                return 1;
+            }
+
+            if (Incapable)
+            {
+                return 0;
+            }
+
+            var expNextLevel = GameSettings.Instance.ExpSettings.GetMinExpForLevel(Level + 1);
+            return CurrentExp / expNextLevel;
+        }
+
+        public string PercentString
+        {
+            get
+            {
+                int percent = (int)(GetPercentExp() * 100f);
+                return $"{percent}";
+            }
+        }
+
+        public string RankString
+        {
+            get
+            {
+                if (Incapable) return "Incapable";
+
+                var rankName = GameSettings.Instance.ExpSettings.DetermineLevelName(Level);
+                
+                return $"Lv {Level} : {rankName}";
+            }
+        }
+
+        public string ExpString
+        {
+            get
+            {
+                if (IsMaxLevel) return "MAX";
+                if (Incapable) return "";
+
+                int curExp = (int) CurrentExp;
+                var expNextLevel = GameSettings.Instance.ExpSettings.GetMinExpForLevel(Level + 1);
+
+                return $"{FormatNumber(curExp)} / {FormatNumber(expNextLevel)}";
+            }
+        }
+
+        private string FormatNumber(int number)
+        {
+            if (number >= 1000000)
+                return (number / 1000000D).ToString("0.#M"); // Converts millions
+            if (number >= 1000)
+                return (number / 1000D).ToString("0.#k"); // Converts thousands
+
+            return number.ToString(); // Returns the number as is if it's less than 1000
         }
     }
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace Systems.Stats.Scripts
@@ -10,5 +11,17 @@ namespace Systems.Stats.Scripts
         [field: SerializeField, TextArea] public string TraitDescription { get; private set; }
         [field: SerializeReference] public List<Modifier> Modifiers { get; private set; } = new List<Modifier>();
         [field: SerializeField] public List<Trait> IncompatibleTraits { get; private set; } = new List<Trait>();
+
+        public string DescriptionString(string kinlingName)
+        {
+            string description = Regex.Replace(TraitDescription, @"\{Kinling_Name\}", kinlingName, RegexOptions.IgnoreCase);
+
+            foreach (var mod in Modifiers)
+            {
+                description += $"\n- {mod.GetModifierString()}";
+            }
+
+            return description;
+        }
     }
 }

@@ -17,6 +17,11 @@ namespace Systems.Appearance.Scripts
         [SerializeField] private Image _eyebrows;
         [SerializeField] private Image _blush;
         [SerializeField] private Image _hair;
+
+        [SerializeField] private Sprite _sadMouth;
+        [SerializeField] private Sprite _unhappyMouth;
+        [SerializeField] private Sprite _happyMouth;
+        [SerializeField] private Sprite _veryHappyMouth;
         
         private const float BLINK_SPEED = 0.1f;
         private const float MIN_EYES_OPEN = 1.0f;
@@ -47,13 +52,31 @@ namespace Systems.Appearance.Scripts
 
         private void Update()
         {
-            //HandleBlinking();
+            HandleBlinking();
             UpdateMood();
         }
 
         private void UpdateMood()
         {
+            if (_kinlingData == null) return;
             
+            float mood = _kinlingData.Kinling.KinlingMood.OverallMood / 100f;;
+            if (mood < 0.25f)
+            {
+                _mouth.sprite = _sadMouth;
+            }
+            else if (mood < .5f)
+            {
+                _mouth.sprite = _unhappyMouth;
+            }
+            else if(mood < 0.75f)
+            {
+                _mouth.sprite = _happyMouth;
+            }
+            else
+            {
+                _mouth.sprite = _veryHappyMouth;
+            }
         }
         
         private void HandleBlinking()

@@ -418,7 +418,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  Nickname: Sparky
   Firstname: Michael
   Lastname: Altair
   Position: {x: 0, y: 0}
@@ -506,47 +505,47 @@ MonoBehaviour:
   StatsData:
     MeleeSkill:
       Level: 0
-      Exp: 0
+      TotalExp: 0
       Passion: 0
     RangedSkill:
       Level: 0
-      Exp: 0
+      TotalExp: 0
       Passion: 0
     ConstructionSkill:
       Level: 0
-      Exp: 0
+      TotalExp: 0
       Passion: 0
     MiningSkill:
       Level: 0
-      Exp: 0
+      TotalExp: 0
       Passion: 0
     BotanySkill:
       Level: 0
-      Exp: 0
+      TotalExp: 0
       Passion: 0
     CookingSkill:
       Level: 0
-      Exp: 0
+      TotalExp: 0
       Passion: 0
     CraftingSkill:
       Level: 0
-      Exp: 0
+      TotalExp: 0
       Passion: 0
     BeastMasterySkill:
       Level: 0
-      Exp: 0
+      TotalExp: 0
       Passion: 0
     MedicalSkill:
       Level: 0
-      Exp: 0
+      TotalExp: 0
       Passion: 0
     SocialSkill:
       Level: 0
-      Exp: 0
+      TotalExp: 0
       Passion: 0
     IntelligenceSkill:
       Level: 0
-      Exp: 0
+      TotalExp: 0
       Passion: 0
     Traits: []
     History: {fileID: 0}
@@ -5120,7 +5119,6 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  Nickname: 
   Firstname: 
   Lastname: 
   Position: {x: 0, y: 0}
@@ -5207,47 +5205,47 @@ MonoBehaviour:
   StatsData:
     MeleeSkill:
       Level: 0
-      Exp: 0
+      TotalExp: 0
       Passion: 0
     RangedSkill:
       Level: 0
-      Exp: 0
+      TotalExp: 0
       Passion: 0
     ConstructionSkill:
       Level: 0
-      Exp: 0
+      TotalExp: 0
       Passion: 0
     MiningSkill:
       Level: 0
-      Exp: 0
+      TotalExp: 0
       Passion: 0
     BotanySkill:
       Level: 0
-      Exp: 0
+      TotalExp: 0
       Passion: 0
     CookingSkill:
       Level: 0
-      Exp: 0
+      TotalExp: 0
       Passion: 0
     CraftingSkill:
       Level: 0
-      Exp: 0
+      TotalExp: 0
       Passion: 0
     BeastMasterySkill:
       Level: 0
-      Exp: 0
+      TotalExp: 0
       Passion: 0
     MedicalSkill:
       Level: 0
-      Exp: 0
+      TotalExp: 0
       Passion: 0
     SocialSkill:
       Level: 0
-      Exp: 0
+      TotalExp: 0
       Passion: 0
     IntelligenceSkill:
       Level: 0
-      Exp: 0
+      TotalExp: 0
       Passion: 0
     Traits: []
     History: {fileID: 0}
@@ -6057,72 +6055,6 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Resource.GrowingResourceData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       dataObjects:
@@ -6327,17 +6259,33 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Resource.MountainResourceData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}

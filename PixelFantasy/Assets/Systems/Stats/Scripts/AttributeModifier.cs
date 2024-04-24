@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using Characters;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace Systems.Stats.Scripts
         [field: SerializeField] public virtual EModifierType ModifierType { get; private set; }
 
         public abstract void ApplyModifier(KinlingData kinlingData);
+        public abstract string GetModifierString();
     }
 
     public enum EModifierType
@@ -38,6 +40,27 @@ namespace Systems.Stats.Scripts
             }
         }
 
+        public override string GetModifierString()
+        {
+            string modifier;
+            if (Modifier > 0)
+            {
+                modifier = $"+{(Modifier * 100f)}%";
+            } 
+            else
+            {
+                modifier = $"{(Modifier * 100f)}%";
+            }
+            
+            string result = $"{AttributeType.GetDescription()} {modifier}";
+            if (!IsGlobal)
+            {
+                result += $" for {SpecificSkill.GetDescription()}";
+            }
+
+            return result;
+        }
+
         public bool AvailableForSkill(ESkillType? skillType)
         {
             if (IsGlobal || skillType == null) return true;
@@ -48,24 +71,24 @@ namespace Systems.Stats.Scripts
     
     public enum EAttributeType
     {
-        WorkModifier = 0,
-        YieldModifier = 1,
-        WalkSpeed = 2,
-        FoodPoisonChance = 3, 
-        MeleeChanceToHit = 4,
-        MeleeChanceToDodge = 5,
-        HuntingStealth = 6,
-        RangedAccuracy = 7,
-        ConstructionSuccessChance = 8,
-        TameBeastChance = 9,
-        TrainBeastChance = 10,
-        SurgerySuccessChance = 11,
-        TendQuality = 12,
-        TradePriceBuy = 13,
-        TradePriceSell = 14,
-        SocialImpact = 15,
-        LearningModifier = 16,
-        SkillDecay = 17,
-        QualityModifier = 18,
+        [Description("Work Modifier")] WorkModifier = 0,
+        [Description("Yield Modifier")] YieldModifier = 1,
+        [Description("Walk Speed")] WalkSpeed = 2,
+        [Description("Food Poison Chance")] FoodPoisonChance = 3, 
+        [Description("Melee Chance To Hit")] MeleeChanceToHit = 4,
+        [Description("Melee Chance To Dodge")] MeleeChanceToDodge = 5,
+        [Description("Hunting Stealth")] HuntingStealth = 6,
+        [Description("Ranged Accuracy")] RangedAccuracy = 7,
+        [Description("Construction Success Chance")] ConstructionSuccessChance = 8,
+        [Description("Tame Beast Chance")] TameBeastChance = 9,
+        [Description("Train Beast Chance")] TrainBeastChance = 10,
+        [Description("Surgery Success Chance")] SurgerySuccessChance = 11,
+        [Description("Tend Quality")] TendQuality = 12,
+        [Description("Trade Price Buy")] TradePriceBuy = 13,
+        [Description("Trade Price Sell")] TradePriceSell = 14,
+        [Description("Social Impact")] SocialImpact = 15,
+        [Description("Leanering Modifier")] LearningModifier = 16,
+        [Description("Skill Decay")] SkillDecay = 17,
+        [Description("Quality Modifier")] QualityModifier = 18,
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ScriptableObjects;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -73,6 +74,25 @@ namespace Systems.Stats.Scripts
         {
             return new ExpLevelData(level);
         }
+        
+        public string DetermineLevelName(int level)
+        {
+            return level switch
+            {
+                0 => "Incapable",
+                1 => "Novice",
+                2 => "Apprentice",
+                3 => "Amateur",
+                4 => "Proficient",
+                5 => "Adept",
+                6 => "Expert",
+                7 => "Master",
+                8 => "Sage",
+                9 => "Virtuoso",
+                10 => "Legendary",
+                _ => "Unknown"
+            };
+        }
     }
 
     [Serializable]
@@ -93,26 +113,7 @@ namespace Systems.Stats.Scripts
         public ExpLevelData(int level)
         {
             Level = level;
-            Name = DetermineLevelName(level);
-        }
-
-        private string DetermineLevelName(int level)
-        {
-            return Level switch
-            {
-                0 => "Incapable",
-                1 => "Novice",
-                2 => "Apprentice",
-                3 => "Amateur",
-                4 => "Proficient",
-                5 => "Adept",
-                6 => "Expert",
-                7 => "Master",
-                8 => "Sage",
-                9 => "Virtuoso",
-                10 => "Legendary",
-                _ => "Unknown"
-            };
+            Name = GameSettings.Instance.ExpSettings.DetermineLevelName(level);
         }
     }
 }

@@ -25,6 +25,21 @@ namespace Systems.Stats.Scripts
                 skill.Passion = PassionOverride;
             }
         }
+
+        public override string GetModifierString()
+        {
+            string modifier;
+            if (LevelBoost > 0)
+            {
+                modifier = $"+{LevelBoost}";
+            }
+            else
+            {
+                modifier = $"{LevelBoost}";
+            }
+            
+            return $"{SkillType.GetDescription()} {modifier}";
+        }
     }
 
     [Serializable]
@@ -37,6 +52,11 @@ namespace Systems.Stats.Scripts
         {
             kinlingData.SetLevelForSkill(IncapableSkill, 0);
         }
+
+        public override string GetModifierString()
+        {
+            return $"Incapable Skill: {IncapableSkill.GetDescription()}";
+        }
     }
 
     [Serializable]
@@ -48,6 +68,11 @@ namespace Systems.Stats.Scripts
         public override void ApplyModifier(KinlingData kinlingData)
         {
             kinlingData.AssignTraits(new List<Trait>() { TraitToAdd });
+        }
+
+        public override string GetModifierString()
+        {
+            return $"Add Trait: {TraitToAdd.TraitName}";
         }
     }
 }

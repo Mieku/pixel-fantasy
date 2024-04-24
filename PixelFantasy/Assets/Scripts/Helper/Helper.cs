@@ -634,6 +634,34 @@ public static class Helper
     {
         return cell.x >= min.x && cell.x <= max.x && cell.y >= min.y && cell.y <= max.y;
     }
+    
+    public static Color AdjustColorLuminance(Color light, Color dark, Color target)
+    {
+        float lightLuminance = GetLuminance(light);
+        float darkLuminance = GetLuminance(dark);
+        float targetLuminance = GetLuminance(target);
+
+        float brightnessDifference = lightLuminance - darkLuminance;
+        float adjustedLuminance = targetLuminance - brightnessDifference;
+
+        return ChangeLuminance(target, adjustedLuminance);
+    }
+    
+    static float GetLuminance(Color color)
+    {
+        return 0.2126f * color.r + 0.7152f * color.g + 0.0722f * color.b;
+    }
+    
+    static Color ChangeLuminance(Color original, float newLuminance)
+    {
+        float currentLuminance = GetLuminance(original);
+        float luminanceRatio = newLuminance / currentLuminance;
+
+        // Clamp the color values to ensure they are valid
+        return new Color(Mathf.Clamp(original.r * luminanceRatio, 0, 1),
+            Mathf.Clamp(original.g * luminanceRatio, 0, 1),
+            Mathf.Clamp(original.b * luminanceRatio, 0, 1));
+    }
 }
 
 public static class EnumExtensions

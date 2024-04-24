@@ -96,14 +96,14 @@ namespace Characters
 
             if (assignedLevel == 0)
             {
-                skill.Exp = 0;
+                skill.TotalExp = 0;
                 skill.Level = 0;
                 return;
             }
             
             var expSettings = GameSettings.Instance.ExpSettings;
             var minExp = expSettings.GetMinExpForLevel(assignedLevel);
-            skill.Exp = minExp;
+            skill.TotalExp = minExp;
             skill.Level = assignedLevel;
         }
 
@@ -118,10 +118,10 @@ namespace Characters
                 moddedExp += GetExpPassionModifierBonus(skillType, expToAdd);
             }
             
-            skill.Exp += moddedExp;
+            skill.TotalExp += moddedExp;
 
             var expSettings = GameSettings.Instance.ExpSettings;
-            skill.Level = expSettings.GetLevelForTotalExp(skill.Exp);
+            skill.Level = expSettings.GetLevelForTotalExp(skill.TotalExp);
         }
 
         private float GetExpPassionModifierBonus(ESkillType skillType, float originalAmount)
@@ -152,12 +152,12 @@ namespace Characters
         {
             var skill = GetSkillByType(skillType);
 
-            skill.Exp -= expToRemove;
+            skill.TotalExp -= expToRemove;
             
-            if (skill.Exp < 0) skill.Exp = 0;
+            if (skill.TotalExp < 0) skill.TotalExp = 0;
             
             var expSettings = GameSettings.Instance.ExpSettings;
-            skill.Level = expSettings.GetLevelForTotalExp(skill.Exp);
+            skill.Level = expSettings.GetLevelForTotalExp(skill.TotalExp);
         }
         
         public void RandomizeSkillLevels()

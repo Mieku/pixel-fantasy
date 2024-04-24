@@ -11,6 +11,7 @@ using ScriptableObjects;
 using Systems.Details.Build_Details.Scripts;
 using Systems.Details.Building_Details.Scripts;
 using Systems.Details.Generic_Details.Scripts;
+using Systems.Details.Kinling_Details;
 using Systems.Notifications.Scripts;
 using TMPro;
 using UnityEngine;
@@ -25,7 +26,7 @@ namespace HUD
         //[SerializeField] private GenericDetailsUI _genericDetails;
 
         [Header("Kinling Details")] 
-        [SerializeField] private KinlingDetailsUI _kinlingDetails;
+        [SerializeField] private KinlingDetails _kinlingDetails;
 
         [FormerlySerializedAs("_buildDetails")]
         [Header("Build Details")] 
