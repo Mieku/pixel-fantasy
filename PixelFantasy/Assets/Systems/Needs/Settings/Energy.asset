@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <DisplayName>k__BackingField: Energy
   <Description>k__BackingField: 
-  <StatIcon>k__BackingField: {fileID: 21300000, guid: 7cc2c49e3e61a2c4dac2367a8d5c6ae2, type: 3}
+  <NeedIcon>k__BackingField: {fileID: 0}
   <IsVisible>k__BackingField: 1
   <InitialValue>k__BackingField: 0.5
   <DailyDecayRate>k__BackingField: 0.25
@@ -44,9 +44,14 @@ MonoBehaviour:
     m_RotationOrder: 4
   CriticalThreshold:
     ThresholdValue: 0.1
-    BelowThresholdEmotion: {fileID: 11400000, guid: 37ba5cf7b30a7bc40909726f0a446ec7, type: 2}
+    BelowThresholdEmotionSettings: {fileID: 0}
+    <HideThreshold>k__BackingField: 0
   Thresholds:
   - ThresholdValue: 0.25
-    BelowThresholdEmotion: {fileID: 11400000, guid: 272e25fb8d3c9dc48a62014dc8833b59, type: 2}
+    BelowThresholdEmotionSettings: {fileID: 0}
+    <HideThreshold>k__BackingField: 0
   - ThresholdValue: 0.5
-    BelowThresholdEmotion: {fileID: 11400000, guid: 2b8c18f634899fd4db7e66db0f81b911, type: 2}
+    BelowThresholdEmotionSettings: {fileID: 0}
+    <HideThreshold>k__BackingField: 0
+  <PositiveHourlyTickRate>k__BackingField: 0.4
+  <NegativeHourlyTickRate>k__BackingField: -0.3

@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 namespace Systems.Mood.Scripts
 {
+    [Serializable]
     public class EmotionState
     {
         public EmotionSettings LinkedEmotionSettings;

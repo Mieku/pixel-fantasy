@@ -22,6 +22,9 @@ namespace Systems.Needs.Scripts
         [Header("Thresholds")]
         [field: SerializeField] public NeedThreshold CriticalThreshold;
         [field: SerializeField] public NeedThreshold[] Thresholds;
+        
+        [field: SerializeField] public float PositiveHourlyTickRate { get; private set; } = .4f;
+        [field: SerializeField] public float NegativeHourlyTickRate { get; private set; } = -0.3f;
 
         public List<NeedThreshold> AllThresholds
         {
@@ -77,6 +80,7 @@ namespace Systems.Needs.Scripts
     public class NeedThreshold
     {
         [field: SerializeField, Range(0f, 1f)] public float ThresholdValue;
-        [FormerlySerializedAs("BelowThresholdEmotion")] [field: SerializeField] public EmotionSettings BelowThresholdEmotionSettings;
+        [field: SerializeField] public EmotionSettings BelowThresholdEmotionSettings;
+        [field: SerializeField] public bool HideThreshold { get; private set; }
     }
 }

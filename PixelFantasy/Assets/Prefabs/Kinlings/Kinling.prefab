@@ -1169,7 +1169,6 @@ GameObject:
   - component: {fileID: 5532418264530240428}
   - component: {fileID: 5584874993929393806}
   - component: {fileID: 2146090965460376989}
-  - component: {fileID: 6110830004571278970}
   - component: {fileID: 1211023406118596035}
   - component: {fileID: 9189890898419539547}
   - component: {fileID: 4624679516539662858}
@@ -1177,7 +1176,6 @@ GameObject:
   - component: {fileID: 8745535366893241182}
   - component: {fileID: 3299422044965414669}
   - component: {fileID: 6234467081272595317}
-  - component: {fileID: 4888200492756624676}
   - component: {fileID: 1019713362702754046}
   m_Layer: 6
   m_Name: Kinling
@@ -1227,14 +1225,12 @@ MonoBehaviour:
   RuntimeData: {fileID: 0}
   _taskAI: {fileID: 6965329135388678903}
   _appearance: {fileID: 4680592222557511252}
-  _mood: {fileID: 4888200492756624676}
   _socialAI: {fileID: 5256464669028443073}
   _sortingGroup: {fileID: 4624679516539662858}
   kinlingAnimController: {fileID: 1198530704868288865}
   KinlingAgent: {fileID: 6234467081272595317}
   Stats: {fileID: 2146090965460376989}
   ClickObject: {fileID: 2273999213966366943}
-  Needs: {fileID: 6110830004571278970}
 --- !u!114 &2146090965460376989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1260,29 +1256,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5eaaf3e325591244ba54464a961e85cb, type: 2}
   - {fileID: 11400000, guid: 356c64e640a68be499d8e66272b3877a, type: 2}
   - {fileID: 11400000, guid: 182fdcbdd93c996439df9d835efec7cf, type: 2}
-  _expSettings: {fileID: 11400000, guid: e92cb91e3e0544949be811da368cb8f7, type: 2}
---- !u!114 &6110830004571278970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5532418264530240426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffedb8f8a9fd4d849acbaf1a002a761d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _foodNeedState:
-    _needSettings: {fileID: 11400000, guid: 4f3e8f8c1fbb9ba48b82a8cd1b27ee9a, type: 2}
-    _value: 0
-  _waterNeedState:
-    _needSettings: {fileID: 11400000, guid: eee817a549ce6564eb0ca938046d605f, type: 2}
-    _value: 0
-  _energyNeedState:
-    _needSettings: {fileID: 11400000, guid: bbd6477af2cdf1c4683d1378eeb200c1, type: 2}
-    _value: 0
-  _registeredNeedChanges: []
 --- !u!61 &1211023406118596035
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1425,22 +1398,6 @@ MonoBehaviour:
   _smallDotPrefab: {fileID: 4432061326701732338, guid: b673637e1e18e214ea8b45b097d63532, type: 3}
   _goalPrefab: {fileID: 8394141543129858345, guid: 9b1fa3f0d903e6341be7d175f1f1db18, type: 3}
   _dotSpacing: 1
---- !u!114 &4888200492756624676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5532418264530240426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceaee67606c958d4d9ff3a23d21f2e55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _availableBreakdowns:
-  - {fileID: 11400000, guid: 0125287c4f7c51548ac6a5e80ba8738b, type: 2}
-  - {fileID: 11400000, guid: c42f2bbf0fff4124a90c43497ab4ea49, type: 2}
-  - {fileID: 11400000, guid: 0866ed8ecd5fa664da633e81c9c71338, type: 2}
 --- !u!50 &1019713362702754046
 Rigidbody2D:
   serializedVersion: 4

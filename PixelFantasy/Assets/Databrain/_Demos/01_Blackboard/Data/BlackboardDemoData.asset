@@ -16,10 +16,10 @@ MonoBehaviour:
   isInitialized: 0
   data:
     _objectList:
-    - type: Databrain.Blackboard.FloatVariable, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+    - type: Databrain.Blackboard.FloatVariable, Databrain, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
       dataObjects:
-      - {fileID: 7818062080806671256}
+      - {fileID: 0}
     _favoriteList: []
   copyData:
     _objectList: []
@@ -29,6 +29,8 @@ MonoBehaviour:
   runtimeLibrary: {fileID: 0}
   runtimeLibraryGuid: 
   runtimeLibraryFolderPath: 
+  initialLibrary: {fileID: 11400000}
+  selectedDataObject: {fileID: 0}
   modules: []
   existingNamespaces:
   - namespaceName: Global
@@ -789,6 +791,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eef104f7702ecdf46a0e78252d567489, type: 3}
   m_Name: OnValueChanged
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 9175ff0a-e2cb-4e0c-882d-dbf2f650d088
   initialGuid: 9175ff0a-e2cb-4e0c-882d-dbf2f650d088
   runtimeIndexID: 
@@ -815,6 +826,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bbf4d3b97c30cf46a2257cdb92bf290, type: 3}
   m_Name: OnFloatValueChanged
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: 71385010-c544-4e31-b458-c1b5f5c9a90a
   initialGuid: 71385010-c544-4e31-b458-c1b5f5c9a90a
   runtimeIndexID: 
@@ -842,7 +862,7 @@ MonoBehaviour:
   m_Name: BlackboardDemoData
   m_EditorClassIdentifier: 
   themeTemplate: {fileID: 0}
-  isInitialized: 1
+  isInitialized: 0
   data:
     _objectList:
     - type: Databrain.Blackboard.FloatVariable, Assembly-CSharp, Version=0.0.0.0,
@@ -869,6 +889,8 @@ MonoBehaviour:
   runtimeLibrary: {fileID: -4759926381942953116}
   runtimeLibraryGuid: 
   runtimeLibraryFolderPath: 
+  initialLibrary: {fileID: 0}
+  selectedDataObject: {fileID: 0}
   modules:
   - {fileID: 4284138331326722020}
   - {fileID: -3503477028783675425}
@@ -1644,6 +1666,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bea2e05884bc8af4b806a389bf0d5463, type: 3}
   m_Name: FloatValue
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   guid: f8f7a58c-4915-4e94-ad8a-1fe94a28effd
   initialGuid: f8f7a58c-4915-4e94-ad8a-1fe94a28effd
   runtimeIndexID: 
@@ -1673,59 +1704,3 @@ MonoBehaviour:
   m_Name: HelpModule
   m_EditorClassIdentifier: 
   welcomeWindow: {fileID: 0}
---- !u!114 &6164062032379132026
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bea2e05884bc8af4b806a389bf0d5463, type: 3}
-  m_Name: FloatValue(Clone)
-  m_EditorClassIdentifier: 
-  guid: 129822aa-cf3c-4f04-92cb-f344b767140b
-  initialGuid: f8f7a58c-4915-4e94-ad8a-1fe94a28effd
-  runtimeIndexID: f8f7a58c-4915-4e94-ad8a-1fe94a28effd_0
-  icon: {fileID: 0}
-  color: {r: 0, g: 0, b: 0, a: 0}
-  title: FloatValue
-  description: This is a description of the newly created data entry.
-  tags: []
-  index: 0
-  relatedLibraryObject: {fileID: 11400000}
-  runtimeLibraryObject: {fileID: -4759926381942953116}
-  assignedGuid: 
-  isRuntimeInstance: 1
-  boxFoldout: 1
-  onValueChanged: {fileID: -1067388479266014053}
-  _value: 0
---- !u!114 &7818062080806671256
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bea2e05884bc8af4b806a389bf0d5463, type: 3}
-  m_Name: FloatValue(Clone)
-  m_EditorClassIdentifier: 
-  guid: 2e74b7a8-892c-4eea-8c2c-54b6748cfc5d
-  initialGuid: f8f7a58c-4915-4e94-ad8a-1fe94a28effd
-  runtimeIndexID: f8f7a58c-4915-4e94-ad8a-1fe94a28effd_0
-  icon: {fileID: 0}
-  color: {r: 0, g: 0, b: 0, a: 0}
-  title: FloatValue
-  description: This is a description of the newly created data entry.
-  tags: []
-  index: 0
-  relatedLibraryObject: {fileID: 11400000}
-  runtimeLibraryObject: {fileID: -4759926381942953116}
-  assignedGuid: 
-  isRuntimeInstance: 1
-  boxFoldout: 1
-  onValueChanged: {fileID: -1067388479266014053}
-  _value: 0

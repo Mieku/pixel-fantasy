@@ -20,6 +20,7 @@ namespace Systems.Details.Kinling_Details
         [SerializeField] private TextMeshProUGUI _currentAction;
 
         [SerializeField] private SkillsSection _skillsSection;
+        [SerializeField] private NeedsSection _needsSection;
         
         [SerializeField, BoxGroup("Mood")] private BarThresholdDisplay _thresholdDisplay;
         [SerializeField, BoxGroup("Mood")] private BarTargetIndicator _targetIndicator;
@@ -71,6 +72,7 @@ namespace Systems.Details.Kinling_Details
             GameEvents.MinuteTick -= GameEvent_MinuteTick;
             
             _panelHandle.SetActive(false);
+            HideAllSections();
             _kinling = null;
         }
         
@@ -102,6 +104,7 @@ namespace Systems.Details.Kinling_Details
                     break;
                 case EDetailsState.Needs:
                     _needsBtnBG.sprite = _activeBtnBG;
+                    _needsSection.ShowSection(_kinling.RuntimeData);
                     break;
                 case EDetailsState.Log:
                     _logBtnBG.sprite = _activeBtnBG;
@@ -116,6 +119,7 @@ namespace Systems.Details.Kinling_Details
         private void HideAllSections()
         {
             _skillsSection.Hide();
+            _needsSection.Hide();
         }
         
         private void RefreshOverallMoodDisplay()

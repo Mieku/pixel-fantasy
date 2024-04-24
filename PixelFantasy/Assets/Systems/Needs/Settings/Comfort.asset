@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ebbfc4e905e1c8040825f047f6a17432, type: 3}
-  m_Name: Comfort_AIStat
+  m_Name: Comfort
   m_EditorClassIdentifier: 
   <DisplayName>k__BackingField: Comfort
   <Description>k__BackingField: 
-  <StatIcon>k__BackingField: {fileID: -1065338794, guid: 1e0c6ec3659f9e2429b5a4b0f1fd090f, type: 3}
+  <NeedIcon>k__BackingField: {fileID: 0}
   <IsVisible>k__BackingField: 1
   <InitialValue>k__BackingField: 0.5
   <DailyDecayRate>k__BackingField: 0.25
@@ -53,17 +53,26 @@ MonoBehaviour:
     m_RotationOrder: 4
   CriticalThreshold:
     ThresholdValue: 0
-    BelowThresholdEmotion: {fileID: 0}
+    BelowThresholdEmotionSettings: {fileID: 0}
+    <HideThreshold>k__BackingField: 0
   Thresholds:
   - ThresholdValue: 0.15
-    BelowThresholdEmotion: {fileID: 11400000, guid: 2d27ad5bd25e94c4f9b95adb8c8df2db, type: 2}
+    BelowThresholdEmotionSettings: {fileID: 11400000, guid: 2d27ad5bd25e94c4f9b95adb8c8df2db, type: 2}
+    <HideThreshold>k__BackingField: 0
   - ThresholdValue: 0.4
-    BelowThresholdEmotion: {fileID: 11400000, guid: 6e84128121c356e46a724338daf6fafa, type: 2}
+    BelowThresholdEmotionSettings: {fileID: 11400000, guid: 6e84128121c356e46a724338daf6fafa, type: 2}
+    <HideThreshold>k__BackingField: 0
   - ThresholdValue: 0.6
-    BelowThresholdEmotion: {fileID: 11400000, guid: ef2bdb56b22ccf6489c512012f652376, type: 2}
+    BelowThresholdEmotionSettings: {fileID: 11400000, guid: ef2bdb56b22ccf6489c512012f652376, type: 2}
+    <HideThreshold>k__BackingField: 0
   - ThresholdValue: 0.75
-    BelowThresholdEmotion: {fileID: 11400000, guid: 3bd1c683364e32344a10937d6f521372, type: 2}
+    BelowThresholdEmotionSettings: {fileID: 11400000, guid: 3bd1c683364e32344a10937d6f521372, type: 2}
+    <HideThreshold>k__BackingField: 0
   - ThresholdValue: 0.85
-    BelowThresholdEmotion: {fileID: 11400000, guid: 0923eb03079707749bb2a3b0ab4240a7, type: 2}
+    BelowThresholdEmotionSettings: {fileID: 11400000, guid: 0923eb03079707749bb2a3b0ab4240a7, type: 2}
+    <HideThreshold>k__BackingField: 0
   - ThresholdValue: 1
-    BelowThresholdEmotion: {fileID: 11400000, guid: f35ad5eadc135814491401e6eb601e7b, type: 2}
+    BelowThresholdEmotionSettings: {fileID: 11400000, guid: f35ad5eadc135814491401e6eb601e7b, type: 2}
+    <HideThreshold>k__BackingField: 1
+  <PositiveHourlyTickRate>k__BackingField: 0.4
+  <NegativeHourlyTickRate>k__BackingField: -0.3

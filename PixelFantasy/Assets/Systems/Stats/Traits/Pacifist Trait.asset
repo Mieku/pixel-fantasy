@@ -54,5 +54,4 @@ MonoBehaviour:
       type: {class: PermanentMoodModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         <ModifierType>k__BackingField: 4
-        MoodChangeTitle: Pacifist
-        MoodChange: 5
+        PermanentEmotion: {fileID: 11400000, guid: c0eb538bb7c3af84f92e0e822baae764, type: 2}

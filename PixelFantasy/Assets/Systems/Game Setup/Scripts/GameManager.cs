@@ -121,6 +121,7 @@ namespace Systems.Game_Setup.Scripts
                     kinlingData.Randomize(_race);
                     kinlingData.title = kinlingData.Fullname;
                     var pos = Helper.RandomLocationInRange(startPos);
+                    kinlingData.Mood.JumpMoodToTarget();
                     KinlingsManager.Instance.SpawnKinling(kinlingData, pos);
                 });
             }

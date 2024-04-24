@@ -25,7 +25,6 @@ namespace Characters
         
         [SerializeField] private TaskAI _taskAI;
         [SerializeField] private KinlingAppearance _appearance;
-        [SerializeField] private Mood _mood;
         [SerializeField] private SocialAI _socialAI;
         [SerializeField] private SortingGroup _sortingGroup;
         
@@ -36,11 +35,13 @@ namespace Characters
 
         public KinlingStats Stats;
 
-        public Mood KinlingMood => _mood;
+        public Mood KinlingMood => RuntimeData.Mood;
+        public KinlingNeeds Needs => RuntimeData.Needs;
+        
         public SocialAI SocialAI => _socialAI;
         
         public ClickObject ClickObject;
-        public KinlingNeeds Needs;
+        
 
         private void Awake()
         {
@@ -49,6 +50,7 @@ namespace Characters
             //KinlingsManager.Instance.RegisterKinling(this);
 
             GameEvents.DayTick += GameEvents_DayTick;
+            GameEvents.MinuteTick += GameEvents_MinuteTick;
         }
         
         private void OnDestroy()
@@ -59,6 +61,7 @@ namespace Characters
             GameEvents.Trigger_OnCoinsIncomeChanged();
             
             GameEvents.DayTick -= GameEvents_DayTick;
+            GameEvents.MinuteTick -= GameEvents_MinuteTick;
         }
 
         public void SetKinlingData(KinlingData data)
@@ -70,10 +73,8 @@ namespace Characters
                 RuntimeData.Kinling = this;
                 
                 _appearance.Init(this, _data.Appearance);
-            
-                _mood.Init();
                 
-                KinlingsManager.Instance.RegisterKinling(this);
+                KinlingsManager.Instance.RegisterKinling(this); 
             
                 Initialize();
                 
@@ -84,7 +85,8 @@ namespace Characters
         
         private void Initialize()
         {
-            Needs.Initialize();
+            Needs.Initialize(this);
+            KinlingMood.Init(RuntimeData);
         }
 
         public void SetSeated(ChairFurniture chair)
@@ -121,20 +123,6 @@ namespace Characters
             return results;
         }
         
-        public MoodThresholdSettings GetMoodThresholdTrait()
-        {
-            foreach (var trait in RuntimeData.Traits)
-            {
-                var moodThresholdTrait = trait as MoodThresholdSettings;
-                if (moodThresholdTrait != null)
-                {
-                    return moodThresholdTrait;
-                }
-            }
-
-            return null;
-        }
-        
         public bool IsKinlingAttractedTo(Kinling otherKinling)
         {
             var otherKinlingGender = otherKinling._appearance.GetAppearanceState().Gender;
@@ -161,6 +149,11 @@ namespace Characters
         private void GameEvents_DayTick()
         {
             RuntimeData.IncrementAge();
+        }
+
+        private void GameEvents_MinuteTick()
+        {
+            RuntimeData?.MinuteTick();
         }
 
         public ClickObject GetClickObject() => ClickObject;

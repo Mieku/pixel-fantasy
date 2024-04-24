@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Characters;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -7,11 +9,17 @@ namespace Systems.Needs.Scripts
     [Serializable]
     public class NeedState
     {
-        [FormerlySerializedAs("_needData")] [SerializeField] private NeedSettings _needSettings;
+        [SerializeField] private NeedSettings _needSettings;
         [SerializeField] private float _value;
+        [SerializeField] private float _targetValue;
+        [SerializeField] private bool _hasTargetValue;
 
         public float Intensity => _needSettings.CalculateIntensity(_value);
         public float Value => _value;
+        public float TargetValue => _targetValue;
+        public bool HasTargetValue => _hasTargetValue;
+
+        private Kinling _kinling;
 
         /// <summary>
         /// Increases the Need by percentage
@@ -53,15 +61,77 @@ namespace Systems.Needs.Scripts
             return _value;
         }
 
+        public void SetTargetValue(float target)
+        {
+            _targetValue = target;
+            _hasTargetValue = true;
+        }
+
+        public void RemoveTargetValue()
+        {
+            _hasTargetValue = false;
+            _targetValue = 0;
+        }
+
         public void MinuteTickDecayNeed()
         {
             var decayPerMin = _needSettings.DecayRate;
             DecreaseNeed(decayPerMin);
         }
 
-        public void Initialize()
+        public void MinuteTick()
         {
+            MinuteTickDecayNeed();
+
+            if (_hasTargetValue)
+            {
+                // Tick the overallMood towards the target
+                if (_targetValue > _value)
+                {
+                    float tickAmount = Mathf.Min(_targetValue - _value,  _needSettings.PositiveHourlyTickRate / 60f);
+                    _value += tickAmount;
+                } 
+                else if (_targetValue < _value)
+                {
+                    float tickAmount = Mathf.Max(_targetValue - _value, _needSettings.NegativeHourlyTickRate / 60f);
+                    _value += tickAmount;
+                }
+            }
+            
+            CheckThresholds();
+        }
+
+        public void Initialize(Kinling kinling)
+        {
+            _kinling = kinling;
             _value = _needSettings.InitialValue;
+        }
+
+        public List<NeedThreshold> GetThresholds()
+        {
+            return _needSettings.AllThresholds;
+        }
+
+        private void CheckThresholds()
+        {
+            var emotion = _needSettings.CheckThresholds(_value);
+            if (!_kinling.KinlingMood.HasEmotion(emotion))
+            {
+                // Remove the others
+                foreach (var threshold in GetThresholds())
+                {
+                    var otherEmotion = threshold.BelowThresholdEmotionSettings;
+                    if (otherEmotion != null)
+                    {
+                        _kinling.KinlingMood.RemoveEmotion(otherEmotion);
+                    }
+                }
+                    
+                if (emotion != null)
+                {
+                    _kinling.KinlingMood.ApplyEmotion(emotion);
+                }
+            }
         }
     }
 }

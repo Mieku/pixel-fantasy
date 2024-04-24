@@ -1598,6 +1598,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ff31acc37481e5a4fb4bf4310833227a, type: 2}
   - {fileID: 11400000, guid: 5c087ece1ba93e84eb94fe67e5bba397, type: 2}
   - {fileID: 11400000, guid: 124527846abf463419b9d01abe8b89af, type: 2}
+  - {fileID: 11400000, guid: 5b7f249ecf527d849bfdf94f93856a0e, type: 2}
+  - {fileID: 11400000, guid: f87fca71da029a94080790b11976c3de, type: 2}
   _allHistories:
   - {fileID: 11400000, guid: 28fa7b01372dcbb46aa601f2909b1f0c, type: 2}
   - {fileID: 11400000, guid: cf5f350169f0ab8459c025a4f81d46ea, type: 2}

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Characters;
+using Databrain.Attributes;
 using Managers;
 using Systems.Notifications.Scripts;
 using Systems.Traits.Scripts;
@@ -10,11 +11,12 @@ using Random = UnityEngine.Random;
 
 namespace Systems.Mood.Scripts
 {
-    [RequireComponent(typeof(Kinling))]
-    public class Mood : MonoBehaviour
+    [Serializable]
+    public class Mood
     {
         [SerializeField] private List<EmotionalBreakdownSettings> _availableBreakdowns = new List<EmotionalBreakdownSettings>();
         
+        [ExposeToInspector, SerializeField] 
         private List<EmotionState> _allEmotionalStates = new List<EmotionState>();
         
         /*
@@ -31,15 +33,28 @@ namespace Systems.Mood.Scripts
         private const int NEGATIVE_HOURLY_TICK_RATE = -8; // From RimWorld, should re-balance for Kinlings
         private const int BASE_BREAK_THRESHOLD = 35; // From RimWorld, should re-balance for Kinlings
 
+        [ExposeToInspector, SerializeField]
         private int _moodTarget;
+        
+        [ExposeToInspector, SerializeField]
         private float _overallMood;
-        private Kinling _kinling;
-        private TaskAI _taskAI => _kinling.TaskAI;
+        
+        private KinlingData _kinlingData;
+        private TaskAI _taskAI => _kinlingData.Kinling.TaskAI;
         private MoodThresholdSettings _moodThresholdSettings;
+        
+        [ExposeToInspector, SerializeField]
         private int _minorBreakThreshold;
+        
+        [ExposeToInspector, SerializeField]
         private int _majorBreakThreshold;
+        
+        [ExposeToInspector, SerializeField]
         private int _extremeBreakThreshold;
+        
+        [ExposeToInspector, SerializeField]
         private EMoodBreakType _moodState;
+        
         private PendingBreakdownState _pendingBreakdownState;
         private TaskAction _curBreakdownAction;
 
@@ -61,31 +76,26 @@ namespace Systems.Mood.Scripts
 
         public float OverallMood => _overallMood;
         public int MoodTarget => _moodTarget;
-
-        private void Awake()
+        
+        public void Init(KinlingData kinlingData)
         {
-            _kinling = GetComponent<Kinling>();
-            
-            GameEvents.MinuteTick += GameEvents_MinuteTick;
-        }
-
-        private void OnDestroy()
-        {
-            GameEvents.MinuteTick -= GameEvents_MinuteTick;
-        }
-
-        public void Init()
-        {
-            _moodThresholdSettings = _kinling.GetMoodThresholdTrait();
+            _kinlingData = kinlingData;
+            _moodThresholdSettings = _kinlingData.GetMoodThresholdTrait();
+  
             _moodTarget = _baseMood;
             _overallMood = _baseMood;
-        }
-
-        private void Start()
-        {
+            
             AssignThresholds();
+            
+            CalculateTargetMood();
         }
 
+        public void JumpMoodToTarget()
+        {
+            CalculateTargetMood();
+            _overallMood = _moodTarget;
+        }
+        
         private void AssignThresholds()
         {
             if (_moodThresholdSettings != null)
@@ -200,8 +210,10 @@ namespace Systems.Mood.Scripts
             }
         }
 
-        private void GameEvents_MinuteTick()
+        public void MinuteTick()
         {
+            if(_kinlingData == null) return;
+            
             List<EmotionState> expiredEmotions = new List<EmotionState>();
             foreach (var emotionalState in _allEmotionalStates)
             {
@@ -302,7 +314,7 @@ namespace Systems.Mood.Scripts
 
         private void OnBreakdownBegin()
         {
-            NotificationManager.Instance.CreateKinlingLog(_kinling, $"{_kinling.FullName} is having a Breakdown!", LogData.ELogType.Danger);
+            NotificationManager.Instance.CreateKinlingLog(_kinlingData.Kinling, $"{_kinlingData.Fullname} is having a Breakdown!", LogData.ELogType.Danger);
 
             // Start a breakdown action
             _curBreakdownAction = _taskAI.ForceTask(_pendingBreakdownState.BreakdownSettings.BreakdownTaskId);
@@ -329,7 +341,7 @@ namespace Systems.Mood.Scripts
 
         private void OnBreakdownComplete()
         {
-            NotificationManager.Instance.CreateKinlingLog(_kinling, $"{_kinling.FullName}'s Breakdown is over!", LogData.ELogType.Notification);
+            NotificationManager.Instance.CreateKinlingLog(_kinlingData.Kinling, $"{_kinlingData.Fullname}'s Breakdown is over!", LogData.ELogType.Notification);
             
             // End the breakdown Action
             _curBreakdownAction.ConcludeAction();

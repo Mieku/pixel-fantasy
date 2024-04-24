@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Timers;
 using Managers;
 using QFSW.QC;
-using ScriptableObjects;
 using Systems.Appearance.Scripts;
 using Systems.Needs.Scripts;
 using UnityEngine;
@@ -11,46 +9,40 @@ using UnityEngine.Serialization;
 
 namespace Characters
 {
-    public class KinlingNeeds : MonoBehaviour
+    [Serializable]
+    public class KinlingNeeds
     {
         [Header("Needs")] 
         [SerializeField] protected NeedState _foodNeedState;
-        [SerializeField] protected NeedState _waterNeedState;
         [SerializeField] protected NeedState _energyNeedState;
+        [SerializeField] protected NeedState _funNeedState;
+        [SerializeField] protected NeedState _beautyNeedState;
+        [SerializeField] protected NeedState _comfortNeedState;
 
         [SerializeField] private List<NeedChange> _registeredNeedChanges = new List<NeedChange>();
 
         private Kinling _kinling;
-
-        private void Awake()
-        {
-            _kinling = GetComponent<Kinling>();
-            GameEvents.MinuteTick += GameEvent_MinuteTick;
-        }
-
-        private void OnDestroy()
-        {
-            GameEvents.MinuteTick -= GameEvent_MinuteTick;
-        }
         
-        private void GameEvent_MinuteTick()
+        public void MinuteTick()
         {
-            DecayNeeds();
             NeedChangePerMin();
+            
+            _foodNeedState.MinuteTick();
+            _energyNeedState.MinuteTick();
+            _funNeedState.MinuteTick();
+            _beautyNeedState.MinuteTick();
+            _comfortNeedState.MinuteTick();
         }
 
-        public void Initialize()
+        public void Initialize(Kinling kinling)
         {
-            _foodNeedState.Initialize();
-            _energyNeedState.Initialize();
-            _waterNeedState.Initialize();
-        }
-
-        private void DecayNeeds()
-        {
-            _foodNeedState.MinuteTickDecayNeed();
-            _energyNeedState.MinuteTickDecayNeed();
-            _waterNeedState.MinuteTickDecayNeed();
+            _kinling = kinling;
+            
+            _foodNeedState.Initialize(_kinling);
+            _energyNeedState.Initialize(_kinling);
+            _funNeedState.Initialize(_kinling);
+            _beautyNeedState.Initialize(_kinling);
+            _comfortNeedState.Initialize(_kinling);
         }
 
         private void NeedChangePerMin()
@@ -108,17 +100,15 @@ namespace Characters
 
         public NeedState GetNeedByType(NeedType needType)
         {
-            switch (needType)
+            return needType switch
             {
-                case NeedType.Food:
-                    return _foodNeedState;
-                case NeedType.Energy:
-                    return _energyNeedState;
-                case NeedType.Water:
-                    return _waterNeedState;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(needType), needType, null);
-            }
+                NeedType.Food => _foodNeedState,
+                NeedType.Energy => _energyNeedState,
+                NeedType.Fun => _funNeedState,
+                NeedType.Beauty => _beautyNeedState,
+                NeedType.Comfort => _comfortNeedState,
+                _ => throw new ArgumentOutOfRangeException(nameof(needType), needType, null)
+            };
         }
 
         public float GetNeedValue(NeedType needType)
@@ -179,7 +169,7 @@ namespace Characters
             return result;
         }
 
-        [Command("set_need_all", "The supported needs are Food, Energy, Water", MonoTargetType.All)]
+        [Command("set_need_all", "The supported needs are Food, Energy", MonoTargetType.All)]
         private void CMD_SetNeedAll(string needName, int amount)
         {
             NeedType targetNeed;
@@ -191,8 +181,14 @@ namespace Characters
                 case "Energy":
                     targetNeed = NeedType.Energy;
                     break;
-                case "Water":
-                    targetNeed = NeedType.Water;
+                case "Fun":
+                    targetNeed = NeedType.Fun;
+                    break;
+                case "Beauty":
+                    targetNeed = NeedType.Beauty;
+                    break;
+                case "Comfort":
+                    targetNeed = NeedType.Comfort;
                     break;
                 default:
                     Debug.LogError("Unknown Need: " + needName);
@@ -203,7 +199,7 @@ namespace Characters
             need.SetNeed(amount);
         }
         
-        [Command("set_need", "The supported needs are Food, Energy, Water", MonoTargetType.All)]
+        [Command("set_need", "The supported needs are Food, Energy, Fun, Beauty, Comfort", MonoTargetType.All)]
         private void CMD_SetNeed(string firstname, string needName, int amount)
         {
             if(_kinling.RuntimeData.Firstname == firstname)
@@ -217,8 +213,14 @@ namespace Characters
                     case "Energy":
                         targetNeed = NeedType.Energy;
                         break;
-                    case "Water":
-                        targetNeed = NeedType.Water;
+                    case "Fun":
+                        targetNeed = NeedType.Fun;
+                        break;
+                    case "Beauty":
+                        targetNeed = NeedType.Beauty;
+                        break;
+                    case "Comfort":
+                        targetNeed = NeedType.Comfort;
                         break;
                     default:
                         Debug.LogError("Unknown Need: " + needName);
@@ -251,6 +253,8 @@ namespace Characters
     {
         Food = 0,
         Energy = 1,
-        Water = 2,
+        Fun = 2,
+        Beauty = 3,
+        Comfort = 4,
     }
 }

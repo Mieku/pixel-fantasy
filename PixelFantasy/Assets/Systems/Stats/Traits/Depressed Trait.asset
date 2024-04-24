@@ -10,19 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95b089bfd6eb5494189e17f599031c5a, type: 3}
-  m_Name: Stoic Trait
+  m_Name: Depressed Trait
   m_EditorClassIdentifier: 
-  <TraitName>k__BackingField: Stoic
-  <TraitDescription>k__BackingField: '{Kinling_Name} can endure great hardships without
-    complaint, maintaining their composure under stress.'
+  <TraitName>k__BackingField: Depressed
+  <TraitDescription>k__BackingField: '{Kinling_Name} is suffering from depression'
   <Modifiers>k__BackingField:
-  - rid: 4161138484699201726
+  - rid: 4161138597100257400
   <IncompatibleTraits>k__BackingField: []
   references:
     version: 2
     RefIds:
-    - rid: 4161138484699201726
+    - rid: 4161138597100257400
       type: {class: PermanentMoodModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
-        <ModifierType>k__BackingField: 4
-        PermanentEmotion: {fileID: 11400000, guid: 44d2a70a40109834c86ef804411df4fd, type: 2}
+        <ModifierType>k__BackingField: 0
+        PermanentEmotion: {fileID: 11400000, guid: c43aa22a7513bea469c7d41b3769411a, type: 2}

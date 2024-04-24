@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ebbfc4e905e1c8040825f047f6a17432, type: 3}
-  m_Name: Fun_AIStat
+  m_Name: Fun
   m_EditorClassIdentifier: 
   <DisplayName>k__BackingField: Fun
   <Description>k__BackingField: 
-  <StatIcon>k__BackingField: {fileID: -1066092303, guid: 1e0c6ec3659f9e2429b5a4b0f1fd090f, type: 3}
+  <NeedIcon>k__BackingField: {fileID: 0}
   <IsVisible>k__BackingField: 1
   <InitialValue>k__BackingField: 0.5
   <DailyDecayRate>k__BackingField: 0.25
@@ -53,15 +53,23 @@ MonoBehaviour:
     m_RotationOrder: 4
   CriticalThreshold:
     ThresholdValue: 0
-    BelowThresholdEmotion: {fileID: 0}
+    BelowThresholdEmotionSettings: {fileID: 0}
+    <HideThreshold>k__BackingField: 0
   Thresholds:
   - ThresholdValue: 0.15
-    BelowThresholdEmotion: {fileID: 11400000, guid: 213cf5ebd87cf3e4ea42fa094b159cfd, type: 2}
+    BelowThresholdEmotionSettings: {fileID: 11400000, guid: 213cf5ebd87cf3e4ea42fa094b159cfd, type: 2}
+    <HideThreshold>k__BackingField: 0
   - ThresholdValue: 0.35
-    BelowThresholdEmotion: {fileID: 11400000, guid: db1467f1a08f50a4183b5065ee86c4eb, type: 2}
+    BelowThresholdEmotionSettings: {fileID: 11400000, guid: db1467f1a08f50a4183b5065ee86c4eb, type: 2}
+    <HideThreshold>k__BackingField: 0
   - ThresholdValue: 0.45
-    BelowThresholdEmotion: {fileID: 11400000, guid: 1c19dc8bb09cc62418d14e645d8d600f, type: 2}
+    BelowThresholdEmotionSettings: {fileID: 11400000, guid: 1c19dc8bb09cc62418d14e645d8d600f, type: 2}
+    <HideThreshold>k__BackingField: 0
   - ThresholdValue: 0.75
-    BelowThresholdEmotion: {fileID: 11400000, guid: a635a4290872ec3449f3f13d5f4a40f0, type: 2}
+    BelowThresholdEmotionSettings: {fileID: 11400000, guid: a635a4290872ec3449f3f13d5f4a40f0, type: 2}
+    <HideThreshold>k__BackingField: 0
   - ThresholdValue: 1
-    BelowThresholdEmotion: {fileID: 11400000, guid: 4caae818ce65f004dbac9ddfe4d4a28d, type: 2}
+    BelowThresholdEmotionSettings: {fileID: 11400000, guid: 4caae818ce65f004dbac9ddfe4d4a28d, type: 2}
+    <HideThreshold>k__BackingField: 1
+  <PositiveHourlyTickRate>k__BackingField: 0.4
+  <NegativeHourlyTickRate>k__BackingField: -0.3

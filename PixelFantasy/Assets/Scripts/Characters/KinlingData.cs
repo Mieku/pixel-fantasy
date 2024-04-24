@@ -5,6 +5,7 @@ using Databrain;
 using Databrain.Attributes;
 using Items;
 using Systems.Appearance.Scripts;
+using Systems.Mood.Scripts;
 using Systems.Stats.Scripts;
 using Systems.Traits.Scripts;
 using TaskSystem;
@@ -55,9 +56,6 @@ namespace Characters
         [ExposeToInspector, DatabrainSerialize, DataObjectDropdown] 
         public List<KinlingData> Children = new List<KinlingData>();
         
-        // [ExposeToInspector, DatabrainSerialize] 
-        // public List<TalentSettings> Talents = new List<TalentSettings>();
-
         [ExposeToInspector, DatabrainSerialize] 
         public Schedule Schedule;
 
@@ -90,7 +88,12 @@ namespace Characters
 
         [ExposeToInspector, DatabrainSerialize]
         public KinlingStatsData StatsData;
-        
+
+        [ExposeToInspector, DatabrainSerialize]
+        public KinlingNeeds Needs;
+
+        [ExposeToInspector, DatabrainSerialize]
+        public Mood Mood;
 
         public void Randomize(RaceSettings race)
         {
@@ -114,6 +117,8 @@ namespace Characters
             StatsData.RandomizeSkillLevels();
             AssignHistory(Race.GetRandomHistory());
             AssignTraits(Race.GetRandomTraits(Random.Range(0, 4)));
+            
+            //Mood.Init(this);
         }
         
         public void AssignHistory(History history)
@@ -138,6 +143,20 @@ namespace Characters
                     }
                 }
             }
+        }
+        
+        public MoodThresholdSettings GetMoodThresholdTrait()
+        {
+            foreach (var trait in Traits)
+            {
+                var moodThresholdTrait = trait as MoodThresholdSettings;
+                if (moodThresholdTrait != null)
+                {
+                    return moodThresholdTrait;
+                }
+            }
+
+            return null;
         }
         
         public void InheritData(KinlingData mother, KinlingData father)
@@ -221,38 +240,6 @@ namespace Characters
             childTraits = childTraits.Distinct().ToList();
             return childTraits;
         }
-
-        // private List<TalentSettings> InheritTalentsFromParents(List<TalentSettings> motherTalents, List<TalentSettings> fatherTalents)
-        // {
-        //     List<TalentSettings> childTalents = new List<TalentSettings>();
-        //     foreach (var momTalent in motherTalents)
-        //     {
-        //         if (Helper.RollDice(50))
-        //         {
-        //             childTalents.Add(momTalent);
-        //         }
-        //     }
-        //     
-        //     foreach (var dadTalent in fatherTalents)
-        //     {
-        //         if (Helper.RollDice(50))
-        //         {
-        //             childTalents.Add(dadTalent);
-        //         }
-        //     }
-        //     
-        //     childTalents = childTalents.Distinct().ToList();
-        //
-        //     if (childTalents.Count == 0)
-        //     {
-        //         if (Helper.RollDice(50))
-        //         {
-        //             childTalents.Add(Librarian.Instance.GetRandomTalent());
-        //         }
-        //     }
-        //
-        //     return childTalents;
-        // }
         
         public EMaturityStage MaturityStage
         {
@@ -277,6 +264,14 @@ namespace Characters
             Age++;
 
             return Age;
+        }
+
+        public void MinuteTick()
+        {
+            if (Kinling == null) return;
+            
+            Mood.MinuteTick();
+            Needs.MinuteTick();
         }
 
         /// <summary>

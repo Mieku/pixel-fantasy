@@ -20,6 +20,11 @@ namespace Popups.Kinling_Info_Popup
             // Assign the modified anchored position back to the RectTransform.
             _targetIndicator.anchoredPosition = anchoredPosition;
         }
+
+        public void DisplayIndicator(bool showIndicator)
+        {
+            _targetIndicator.gameObject.SetActive(showIndicator);
+        }
         
         private float GetXPosForPercentage(float percentage)
         {

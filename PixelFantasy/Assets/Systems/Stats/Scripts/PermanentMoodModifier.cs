@@ -1,5 +1,6 @@
 using System;
 using Characters;
+using Systems.Mood.Scripts;
 using UnityEngine;
 
 namespace Systems.Stats.Scripts
@@ -8,20 +9,22 @@ namespace Systems.Stats.Scripts
     public class PermanentMoodModifier : Modifier
     {
         public override EModifierType ModifierType => EModifierType.PermanentMood;
-        public string MoodChangeTitle;
-        public int MoodChange;
+        public EmotionSettings PermanentEmotion;
         
         public override void ApplyModifier(KinlingData kinlingData)
         {
-            Debug.LogError("Not built yet");
+            if (!kinlingData.Mood.HasEmotion(PermanentEmotion))
+            {
+                kinlingData.Mood.ApplyEmotion(PermanentEmotion);
+            }
         }
 
         public override string GetModifierString()
         {
-            string change = MoodChange.ToString();
-            if (MoodChange > 0)
+            string change = PermanentEmotion.MoodModifier.ToString();
+            if (PermanentEmotion.MoodModifier > 0)
             {
-                change = $"+{MoodChange}";
+                change = $"+{PermanentEmotion.MoodModifier}";
             }
             
             return $"Mood {change}";

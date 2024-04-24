@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Systems.Needs.Scripts;
 using UnityEngine;
 
 namespace Popups.Kinling_Info_Popup
@@ -10,6 +11,20 @@ namespace Popups.Kinling_Info_Popup
 
         private readonly List<GameObject> _displayedIndicators = new List<GameObject>();
         private float _barWidth;
+
+        public void ShowThresholds(List<NeedThreshold> needThresholds)
+        {
+            List<float> simpleThresholds = new List<float>();
+            foreach (var needThreshold in needThresholds)
+            {
+                if (!needThreshold.HideThreshold)
+                {
+                    simpleThresholds.Add(needThreshold.ThresholdValue);
+                }
+            }
+            
+            ShowThresholds(simpleThresholds);
+        }
         
         public void ShowThresholds(List<float> allThresholds)
         {
