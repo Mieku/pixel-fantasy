@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Characters;
 using Popups.Kinling_Info_Popup;
@@ -83,7 +84,7 @@ namespace Systems.Details.Kinling_Details
                 _displayedEmotions.Add(emo);
                 index++;
             }
-            
+
             _refreshLayoutCallback.Invoke();
         }
         

@@ -1,4 +1,6 @@
 using System;
+using System.ComponentModel;
+using Managers;
 using UnityEngine;
 
 namespace Characters
@@ -173,6 +175,12 @@ namespace Characters
             }
         }
 
+        public ScheduleOption GetCurrentScheduleOption()
+        {
+            int currentHour = EnvironmentManager.Instance.GameTime.GetCurrentHour24();
+            return GetHour(currentHour);
+        }
+
         public void SetDefaultValues()
         {
             SetHour(0, ScheduleOption.Sleep);
@@ -204,8 +212,8 @@ namespace Characters
     
     public enum ScheduleOption
     {
-        Sleep,
-        Work,
-        Recreation,
+        [Description("Sleep")] Sleep,
+        [Description("Work")] Work,
+        [Description("Recreation")] Recreation,
     }
 }

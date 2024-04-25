@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Characters;
 using Controllers;
 using Popups.Kinling_Info_Popup;
@@ -18,6 +20,7 @@ namespace Systems.Details.Kinling_Details
         [SerializeField] private TextMeshProUGUI _kinlingName;
         [SerializeField] private Portrait _portrait;
         [SerializeField] private TextMeshProUGUI _currentAction;
+        [SerializeField] private TextMeshProUGUI _currentSchedule;
 
         [SerializeField] private SkillsSection _skillsSection;
         [SerializeField] private NeedsSection _needsSection;
@@ -43,11 +46,11 @@ namespace Systems.Details.Kinling_Details
             _kinlingName.text = _kinling.FullName;
             _portrait.Init(kinling.RuntimeData);
             
-            ChangeContentState(EDetailsState.Skills);
+            ChangeContentState(_detailsState);
+            
+            GameEvents.OnKinlingChanged += GameEvent_OnKinlingChanged;
             
             RefreshLayout();
-
-            GameEvents.OnKinlingChanged += GameEvent_OnKinlingChanged;
         }
 
         private void Update()
@@ -55,6 +58,7 @@ namespace Systems.Details.Kinling_Details
             if(_kinling == null) return;
             
             _currentAction.text = _kinling.TaskAI.CurrentStateName;
+            _currentSchedule.text = _kinling.RuntimeData.Schedule.GetCurrentScheduleOption().GetDescription();
         }
 
         public void Hide()
@@ -205,6 +209,11 @@ namespace Systems.Details.Kinling_Details
         public void MoodBtnPressed()
         {
             ChangeContentState(EDetailsState.Mood);
+        }
+
+        public void DraftBtnPressed()
+        {
+            
         }
 
         #endregion
