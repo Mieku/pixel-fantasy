@@ -21,15 +21,7 @@ namespace Systems.Details.Kinling_Details
 
         [SerializeField] private SkillsSection _skillsSection;
         [SerializeField] private NeedsSection _needsSection;
-        
-        [SerializeField, BoxGroup("Mood")] private BarThresholdDisplay _thresholdDisplay;
-        [SerializeField, BoxGroup("Mood")] private BarTargetIndicator _targetIndicator;
-        [SerializeField, BoxGroup("Mood")] private Image _overallMoodBarFill;
-        [SerializeField, BoxGroup("Mood")] private Image _overallMoodBarBG;
-        [SerializeField, BoxGroup("Mood")] private Color _positiveColour;
-        [SerializeField, BoxGroup("Mood")] private Color _negativeColour;
-        [SerializeField, BoxGroup("Mood")] private Color _sampleLight;
-        [SerializeField, BoxGroup("Mood")] private Color _sampleDark;
+        [SerializeField] private MoodSection _moodSection;
         
         [SerializeField, BoxGroup("Buttons")] private Image _skillsBtnBG;
         [SerializeField, BoxGroup("Buttons")] private Image _socialBtnBG;
@@ -37,6 +29,7 @@ namespace Systems.Details.Kinling_Details
         [SerializeField, BoxGroup("Buttons")] private Image _healthBtnBG;
         [SerializeField, BoxGroup("Buttons")] private Image _needsBtnBG;
         [SerializeField, BoxGroup("Buttons")] private Image _logBtnBG;
+        [SerializeField, BoxGroup("Buttons")] private Image _moodBtnBG;
         [SerializeField, BoxGroup("Buttons")] private Sprite _defaultBtnBG;
         [SerializeField, BoxGroup("Buttons")] private Sprite _activeBtnBG;
 
@@ -45,19 +38,16 @@ namespace Systems.Details.Kinling_Details
         
         public void Show(Kinling kinling)
         {
-            GameEvents.MinuteTick += GameEvent_MinuteTick;
-            
             _kinling = kinling;
             _panelHandle.SetActive(true);
             _kinlingName.text = _kinling.FullName;
             _portrait.Init(kinling.RuntimeData);
             
-            _thresholdDisplay.ShowThresholds(_kinling.KinlingMood.AllThresholds);
-            RefreshOverallMoodDisplay();
-            
             ChangeContentState(EDetailsState.Skills);
             
             RefreshLayout();
+
+            GameEvents.OnKinlingChanged += GameEvent_OnKinlingChanged;
         }
 
         private void Update()
@@ -69,14 +59,21 @@ namespace Systems.Details.Kinling_Details
 
         public void Hide()
         {
-            GameEvents.MinuteTick -= GameEvent_MinuteTick;
+            GameEvents.OnKinlingChanged -= GameEvent_OnKinlingChanged;
             
             _panelHandle.SetActive(false);
             HideAllSections();
             _kinling = null;
         }
+
+        private void GameEvent_OnKinlingChanged(Kinling kinling)
+        {
+            if(kinling != _kinling) return;
+            
+            RefreshContentState(_detailsState);
+        }
         
-        private void RefreshLayout()
+        public void RefreshLayout()
         {
             _layoutRebuilder.RefreshLayout();
         }
@@ -109,37 +106,52 @@ namespace Systems.Details.Kinling_Details
                 case EDetailsState.Log:
                     _logBtnBG.sprite = _activeBtnBG;
                     break;
+                case EDetailsState.Mood:
+                    _moodBtnBG.sprite = _activeBtnBG;
+                    _moodSection.ShowSection(_kinling.RuntimeData, RefreshLayout);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(state), state, null);
             }
             
             RefreshLayout();
         }
+        
+        private void RefreshContentState(EDetailsState state)
+        {
+            switch (state)
+            {
+                case EDetailsState.Skills:
+                    
+                    break;
+                case EDetailsState.Social:
+                    
+                    break;
+                case EDetailsState.Gear:
+                    
+                    break;
+                case EDetailsState.Health:
+                    
+                    break;
+                case EDetailsState.Needs:
+                    
+                    break;
+                case EDetailsState.Log:
+                    
+                    break;
+                case EDetailsState.Mood:
+                    _moodSection.KinlingUpdateRefresh();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(state), state, null);
+            }
+        }
 
         private void HideAllSections()
         {
             _skillsSection.Hide();
             _needsSection.Hide();
-        }
-        
-        private void RefreshOverallMoodDisplay()
-        {
-            var overallMoodPercent = _kinling.KinlingMood.OverallMood / 100f;
-            var targetMoodPercent = _kinling.KinlingMood.MoodTarget / 100f;
-            
-            Color lerpedColour = Color.Lerp(_negativeColour, _positiveColour, Mathf.Clamp(overallMoodPercent, 0.0f, 1.0f));
-            _overallMoodBarFill.color = lerpedColour;
-            
-            var darkLuminance = Helper.AdjustColorLuminance(_sampleLight, _sampleDark, lerpedColour);
-            _overallMoodBarBG.color = darkLuminance;
-
-            _overallMoodBarFill.fillAmount = overallMoodPercent;
-            _targetIndicator.SetTargetIndicator(targetMoodPercent);
-        }
-
-        private void GameEvent_MinuteTick()
-        {
-            RefreshOverallMoodDisplay();
+            _moodSection.Hide();
         }
 
         #region Buttons
@@ -152,6 +164,7 @@ namespace Systems.Details.Kinling_Details
             _healthBtnBG.sprite = _defaultBtnBG;
             _needsBtnBG.sprite = _defaultBtnBG;
             _logBtnBG.sprite = _defaultBtnBG;
+            _moodBtnBG.sprite = _defaultBtnBG;
         }
 
         public void SkillsBtnPressed()
@@ -189,6 +202,11 @@ namespace Systems.Details.Kinling_Details
             CameraManager.Instance.LookAtPosition(_kinling.RuntimeData.Position);
         }
 
+        public void MoodBtnPressed()
+        {
+            ChangeContentState(EDetailsState.Mood);
+        }
+
         #endregion
 
         private enum EDetailsState
@@ -199,6 +217,7 @@ namespace Systems.Details.Kinling_Details
             Health,
             Needs,
             Log,
+            Mood,
         }
     }
 }
