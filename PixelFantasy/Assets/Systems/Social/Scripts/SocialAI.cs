@@ -196,6 +196,7 @@ namespace Systems.Social.Scripts
             }
             
             _kinling.RuntimeData.Needs.IncreaseNeedValue(NeedType.Fun, CHAT_SOCIAL_NEED_BENEFIT);
+            GameEvents.Trigger_OnKinlingChanged(_kinling.RuntimeData);
         }
 
         private void InitiateChitChat(KinlingData targetKinling)
@@ -273,6 +274,7 @@ namespace Systems.Social.Scripts
             }
             
             _kinling.RuntimeData.Needs.IncreaseNeedValue(NeedType.Fun, CHAT_SOCIAL_NEED_BENEFIT);
+            GameEvents.Trigger_OnKinlingChanged(_kinling.RuntimeData);
         }
 
         private void DisplayChatBubble(SocialTopic topic)
@@ -335,6 +337,8 @@ namespace Systems.Social.Scripts
                 NotificationManager.Instance.CreateKinlingLog(_kinling, $"{_kinling.FullName} has met {otherKinling.Fullname}", LogData.ELogType.Message);
                 result = new RelationshipState(otherKinling);
                 _kinling.RuntimeData.Relationships.Add(result);
+                
+                GameEvents.Trigger_OnKinlingChanged(_kinling.RuntimeData);
             }
 
             return result;
@@ -349,6 +353,7 @@ namespace Systems.Social.Scripts
             Debug.Log($"Relationship started!");
             _kinling.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("Started Relationship")); // Mood Buff
             NotificationManager.Instance.CreateKinlingLog(_kinling, $"{_kinling.FullName} is now in a relationship with {otherKinling.Fullname}!", LogData.ELogType.Positive);
+            GameEvents.Trigger_OnKinlingChanged(_kinling.RuntimeData);
         }
 
         public void ReceiveMateRequest()
@@ -393,6 +398,7 @@ namespace Systems.Social.Scripts
                     if (isPregnant)
                     {
                         KinlingsManager.Instance.SpawnChild(_kinling.RuntimeData, _kinling.RuntimeData.Partner);
+                        GameEvents.Trigger_OnKinlingChanged(_kinling.RuntimeData);
                     }
                 }
             }

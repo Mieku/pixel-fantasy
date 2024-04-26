@@ -128,5 +128,20 @@ namespace Systems.Social.Scripts
         {
             Opinion = Mathf.Clamp(Opinion + amount, -100, 100);
         }
+
+        public string OpinionText
+        {
+            get
+            {
+                if (Opinion > 0)
+                {
+                    return $"+{Opinion}";
+                }
+                else
+                {
+                    return $"{Opinion}";
+                }
+            }
+        }
     }
 }

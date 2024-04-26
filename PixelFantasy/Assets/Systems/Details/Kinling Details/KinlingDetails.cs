@@ -131,7 +131,7 @@ namespace Systems.Details.Kinling_Details
                     
                     break;
                 case EDetailsState.Social:
-                    
+                    _socialSection.RefreshContent();
                     break;
                 case EDetailsState.Gear:
                     
