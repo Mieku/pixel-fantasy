@@ -25,6 +25,7 @@ namespace Systems.Details.Kinling_Details
         [SerializeField] private SkillsSection _skillsSection;
         [SerializeField] private NeedsSection _needsSection;
         [SerializeField] private MoodSection _moodSection;
+        [SerializeField] private SocialSection _socialSection;
         
         [SerializeField, BoxGroup("Buttons")] private Image _skillsBtnBG;
         [SerializeField, BoxGroup("Buttons")] private Image _socialBtnBG;
@@ -70,9 +71,9 @@ namespace Systems.Details.Kinling_Details
             _kinling = null;
         }
 
-        private void GameEvent_OnKinlingChanged(Kinling kinling)
+        private void GameEvent_OnKinlingChanged(KinlingData kinling)
         {
-            if(kinling != _kinling) return;
+            if(kinling != _kinling.RuntimeData) return;
             
             RefreshContentState(_detailsState);
         }
@@ -96,6 +97,7 @@ namespace Systems.Details.Kinling_Details
                     break;
                 case EDetailsState.Social:
                     _socialBtnBG.sprite = _activeBtnBG;
+                    _socialSection.ShowSection(_kinling.RuntimeData, RefreshLayout);
                     break;
                 case EDetailsState.Gear:
                     _gearBtnBG.sprite = _activeBtnBG;
@@ -156,6 +158,7 @@ namespace Systems.Details.Kinling_Details
             _skillsSection.Hide();
             _needsSection.Hide();
             _moodSection.Hide();
+            _socialSection.Hide();
         }
 
         #region Buttons

@@ -120,6 +120,7 @@ namespace Systems.Game_Setup.Scripts
                     var kinlingData = (KinlingData)DataLibrary.CloneDataObjectToRuntime(_genericKinlingData);
                     kinlingData.Randomize(_race);
                     kinlingData.title = kinlingData.Fullname;
+                    kinlingData.name = $"{kinlingData.Fullname}_{kinlingData.guid}";
                     var pos = Helper.RandomLocationInRange(startPos);
                     kinlingData.Mood.JumpMoodToTarget();
                     KinlingsManager.Instance.SpawnKinling(kinlingData, pos);

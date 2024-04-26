@@ -162,8 +162,8 @@ public class GameEvents : MonoBehaviour
         if (DayTick != null) DayTick();
     }
 
-    public static event Action<Kinling> OnKinlingChanged;
-    public static void Trigger_OnKinlingChanged(Kinling kinling)
+    public static event Action<KinlingData> OnKinlingChanged;
+    public static void Trigger_OnKinlingChanged(KinlingData kinling)
     {
         if (OnKinlingChanged != null) OnKinlingChanged(kinling);
     }

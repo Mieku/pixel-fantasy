@@ -1,3 +1,4 @@
+using System;
 using HUD.Tooltip;
 using Systems.Mood.Scripts;
 using TMPro;
@@ -13,8 +14,10 @@ namespace Systems.Details.Kinling_Details
         [SerializeField] private Color _negativeColour;
         [SerializeField] private GameObject _bg;
         [SerializeField] private TooltipTrigger _tooltip;
+        [SerializeField] private TextMeshProUGUI _timeLeft;
 
         private EmotionState _emotionState;
+        private bool _hasTimer;
 
         public void Init(EmotionState emotionState, int index)
         {
@@ -36,6 +39,30 @@ namespace Systems.Details.Kinling_Details
 
             _tooltip.Header = emotionState.LinkedEmotionSettings.DisplayName;
             _tooltip.Content = emotionState.LinkedEmotionSettings.Description;
+
+            if (!emotionState.LinkedEmotionSettings.IsIndefinite)
+            {
+                _timeLeft.gameObject.SetActive(true);
+                _timeLeft.text = emotionState.TimeLeftHoursDisplay;
+                GameEvents.MinuteTick += GameEvent_MinuteTick;
+            }
+            else
+            {
+                _timeLeft.gameObject.SetActive(false);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (_hasTimer)
+            {
+                GameEvents.MinuteTick -= GameEvent_MinuteTick;
+            }
+        }
+
+        private void GameEvent_MinuteTick()
+        {
+            _timeLeft.text = _emotionState.TimeLeftHoursDisplay;
         }
     }
 }

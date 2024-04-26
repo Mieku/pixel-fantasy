@@ -159,6 +159,8 @@ namespace Systems.Mood.Scripts
             }
             
             CalculateTargetMood();
+            
+            GameEvents.Trigger_OnKinlingChanged(_kinlingData);
         }
 
         private EmotionState FindEmotionState(EmotionSettings emotionSettings)
@@ -233,6 +235,7 @@ namespace Systems.Mood.Scripts
                 expiredEmotions.Clear();
                 
                 CalculateTargetMood();
+                GameEvents.Trigger_OnKinlingChanged(_kinlingData);
             }
             
             // Tick the overallMood towards the target
@@ -325,6 +328,8 @@ namespace Systems.Mood.Scripts
                 _pendingBreakdownState = CreateRandomBreakdownState(_moodState, _availableBreakdowns);
                 _pendingBreakdownState.RemainingMinsToStart = 0;
             }
+            
+            GameEvents.Trigger_OnKinlingChanged(_kinlingData);
         }
 
         public void DEBUG_TriggerBreakdown(EmotionalBreakdownSettings breakdownSettings)

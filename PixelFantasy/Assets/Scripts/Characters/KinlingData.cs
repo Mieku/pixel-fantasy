@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Data.Item;
@@ -6,6 +7,7 @@ using Databrain.Attributes;
 using Items;
 using Systems.Appearance.Scripts;
 using Systems.Mood.Scripts;
+using Systems.Social.Scripts;
 using Systems.Stats.Scripts;
 using Systems.Traits.Scripts;
 using TaskSystem;
@@ -94,6 +96,9 @@ namespace Characters
 
         [ExposeToInspector, DatabrainSerialize]
         public Mood Mood;
+        
+        [ExposeToInspector, DatabrainSerialize] 
+        public List<RelationshipState> Relationships = new List<RelationshipState>();
 
         public void Randomize(RaceSettings race)
         {
@@ -312,6 +317,24 @@ namespace Characters
             }
             
             return totalModifier;
+        }
+        
+        public bool IsKinlingAttractedTo(KinlingData otherKinling)
+        {
+            var otherKinlingGender = otherKinling.Gender;
+            switch (SexualPreference)
+            {
+                case ESexualPreference.None:
+                    return false;
+                case ESexualPreference.Male:
+                    return otherKinlingGender == Gender.Male;
+                case ESexualPreference.Female:
+                    return otherKinlingGender == Gender.Female;
+                case ESexualPreference.Both:
+                    return true;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

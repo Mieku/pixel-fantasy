@@ -73,6 +73,8 @@ namespace TaskSystem
 
         private void Update()
         {
+            if (!_kinling.HasInitialized) return;
+            
             switch (_data.TaskAIState)
             {
                 case TaskAIState.WaitingForNextTask:

@@ -63,7 +63,7 @@ namespace Systems.Mood.Scripts
                 }
                 
                 var timeLeftHours = (int)(RemainingTimeMins / 60);
-                int remainderMins = (int)(RemainingTimeMins / 60f - timeLeftHours) * 60;
+                int remainderMins = (int)RemainingTimeMins;
 
                 if (timeLeftHours > 0)
                 {

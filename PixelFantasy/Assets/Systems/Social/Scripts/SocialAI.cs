@@ -16,7 +16,7 @@ namespace Systems.Social.Scripts
 {
     public class SocialAI : MonoBehaviour
     {
-        [FormerlySerializedAs("_unit")] [SerializeField] private Kinling _kinling;
+        [SerializeField] private Kinling _kinling;
         [SerializeField] private GameObject _speechBubbleHandle;
         [SerializeField] private SpriteRenderer _speechTopicIcon;
         [SerializeField] private SocialTopicSettings _socialTopics;
@@ -25,8 +25,7 @@ namespace Systems.Social.Scripts
         [SerializeField] private SocialTopicSettings _negativeResponses;
 
         public bool AvailableToChat => _state == ESocialState.Available && !_kinling.RuntimeData.IsAsleep;
-        public string UniqueId => _kinling.UniqueId;
-
+        
         private const float CHAT_COOLDOWN = 5.0f;
         private const float SOCIAL_RADIUS = 6f;
         private const float BUBBLE_DURATION = 4.0f;
@@ -42,11 +41,9 @@ namespace Systems.Social.Scripts
         private ESocialState _state;
         private float _chatTimer;
         private float _bubbleTimer;
-
-        private List<RelationshipState> _relationships = new List<RelationshipState>();
-        public List<RelationshipState> Relationships => _relationships;
-
-
+        
+        public List<RelationshipState> Relationships => _kinling.RuntimeData.Relationships;
+        
         public enum ESocialState
         {
             Available,
@@ -55,6 +52,7 @@ namespace Systems.Social.Scripts
         
         private void Update()
         {
+            if(!_kinling.HasInitialized) return;
             if (_kinling.RuntimeData.IsAsleep) return;
             
             if (_state == ESocialState.Available)
@@ -104,7 +102,7 @@ namespace Systems.Social.Scripts
             _state = ESocialState.Chatting;
         }
 
-        private void BeginChat(SocialAI targetKinling)
+        private void BeginChat(KinlingData targetKinling)
         {
             _state = ESocialState.Chatting;
 
@@ -120,18 +118,18 @@ namespace Systems.Social.Scripts
             }
         }
 
-        private bool CheckShouldFlirt(SocialAI targetKinling)
+        private bool CheckShouldFlirt(KinlingData targetKinling)
         {
             var relationship = GetRelationshipState(targetKinling);
             // Make sure they are not in a romantic relationship with someone else
             if (_kinling.RuntimeData.Partner != null) return false;
-            if (targetKinling._kinling.RuntimeData.Partner != null) return false;
+            if (targetKinling.Partner != null) return false;
             // Make sure they are an appropriate age
             if (_kinling.RuntimeData.MaturityStage < EMaturityStage.Adult) return false;
-            if (_kinling.RuntimeData.MaturityStage != targetKinling._kinling.RuntimeData.MaturityStage) return false;
+            if (_kinling.RuntimeData.MaturityStage != targetKinling.MaturityStage) return false;
             // Make sure they align with their sexual preference
-            if (!_kinling.IsKinlingAttractedTo(targetKinling._kinling)) return false;
-            if (!targetKinling._kinling.IsKinlingAttractedTo(_kinling)) return false;
+            if (!_kinling.RuntimeData.IsKinlingAttractedTo(targetKinling)) return false;
+            if (!targetKinling.IsKinlingAttractedTo(_kinling.RuntimeData)) return false;
             // Make sure their opinion is high enough
             if (relationship.Opinion < MIN_OPINION_TO_FLIRT) return false;
 
@@ -140,14 +138,14 @@ namespace Systems.Social.Scripts
             return roll <= attemptFlirtingChance;
         }
 
-        private void InitiateFlirt(SocialAI targetKinling)
+        private void InitiateFlirt(KinlingData targetKinling)
         {
             var topic = _romanticTopics.GetRandomTopic();
             DisplayChatBubble(topic);
-            targetKinling.RecieveFlirt(this, GetFlirtResponse);
+            targetKinling.Kinling.SocialAI.ReceiveFlirt(_kinling.RuntimeData, GetFlirtResponse);
         }
         
-        public void RecieveFlirt(SocialAI otherKinling, Action<bool, SocialAI> onResponse)
+        public void ReceiveFlirt(KinlingData otherKinling, Action<bool, KinlingData> onResponse)
         {
             _state = ESocialState.Chatting;
             bool isPositiveResponse = DetermineFlirtResponse(otherKinling);
@@ -165,7 +163,7 @@ namespace Systems.Social.Scripts
             StartCoroutine(ResponseSequence(otherKinling, responseTopic, isPositiveResponse, onResponse));
         }
         
-        private bool DetermineFlirtResponse(SocialAI otherKinling)
+        private bool DetermineFlirtResponse(KinlingData otherKinling)
         {
             // This is based on their cohesion, relationship and mood
             int weight = ROMANTIC_COHESION_BASE;
@@ -182,7 +180,7 @@ namespace Systems.Social.Scripts
             return random100 <= weight;
         }
         
-        private void GetFlirtResponse(bool isPositive, SocialAI responder)
+        private void GetFlirtResponse(bool isPositive, KinlingData responder)
         {
             var responderRelationshipState = GetRelationshipState(responder);
 
@@ -197,17 +195,17 @@ namespace Systems.Social.Scripts
                 _kinling.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("Rejected")); // Mood De-buff
             }
             
-            //_unit.NeedsAI.UpdateIndividualStat(Librarian.Instance.GetStat("Social"), CHAT_SOCIAL_NEED_BENEFIT, StatTrait.ETargetType.Impact);
+            _kinling.RuntimeData.Needs.IncreaseNeedValue(NeedType.Fun, CHAT_SOCIAL_NEED_BENEFIT);
         }
 
-        private void InitiateChitChat(SocialAI targetKinling)
+        private void InitiateChitChat(KinlingData targetKinling)
         {
             var topic = _socialTopics.GetRandomTopic();
             DisplayChatBubble(topic);
-            targetKinling.RecieveChat(this, GetChatResponse);
+            targetKinling.Kinling.SocialAI.RecieveChat(_kinling.RuntimeData, GetChatResponse);
         }
         
-        public void RecieveChat(SocialAI otherKinling, Action<bool, SocialAI> onResponse)
+        public void RecieveChat(KinlingData otherKinling, Action<bool, KinlingData> onResponse)
         {
             _state = ESocialState.Chatting;
             bool isPositiveResponse = DetermineResponse(otherKinling);
@@ -224,13 +222,13 @@ namespace Systems.Social.Scripts
             StartCoroutine(ResponseSequence(otherKinling, responseTopic, isPositiveResponse, onResponse));
         }
 
-        IEnumerator ResponseSequence(SocialAI otherKinling, SocialTopic topic, bool isPositiveResponse, Action<bool, SocialAI> onResponse)
+        IEnumerator ResponseSequence(KinlingData otherKinling, SocialTopic topic, bool isPositiveResponse, Action<bool, KinlingData> onResponse)
         {
             yield return new WaitForSeconds(1);
             
             DisplayChatBubble(topic);
 
-            onResponse.Invoke(isPositiveResponse, this);
+            onResponse.Invoke(isPositiveResponse, _kinling.RuntimeData);
 
             var otherKinlingRelationshipState = GetRelationshipState(otherKinling);
 
@@ -244,7 +242,7 @@ namespace Systems.Social.Scripts
             }
         }
 
-        private bool DetermineResponse(SocialAI otherKinling)
+        private bool DetermineResponse(KinlingData otherKinling)
         {
             // This is based on their cohesion, relationship and mood
             int weight = COHESION_BASE;
@@ -261,7 +259,7 @@ namespace Systems.Social.Scripts
             return random100 <= weight;
         }
 
-        private void GetChatResponse(bool isPositive, SocialAI responder)
+        private void GetChatResponse(bool isPositive, KinlingData responder)
         {
             var responderRelationshipState = GetRelationshipState(responder);
 
@@ -274,7 +272,7 @@ namespace Systems.Social.Scripts
                 responderRelationshipState.AddToScore(NEGATIVE_INTERACTION_SCORE);
             }
             
-            //_unit.NeedsAI.UpdateIndividualStat(Librarian.Instance.GetStat("Social"), CHAT_SOCIAL_NEED_BENEFIT, StatTrait.ETargetType.Impact);
+            _kinling.RuntimeData.Needs.IncreaseNeedValue(NeedType.Fun, CHAT_SOCIAL_NEED_BENEFIT);
         }
 
         private void DisplayChatBubble(SocialTopic topic)
@@ -292,16 +290,16 @@ namespace Systems.Social.Scripts
             _state = ESocialState.Available;
         }
 
-        private SocialAI ChooseKinlingToChatWith(List<SocialAI> options)
+        private KinlingData ChooseKinlingToChatWith(List<KinlingData> options)
         {
-            List<WeightedObject<SocialAI>> weightedRelationships =
-                new List<WeightedObject<SocialAI>>();
+            List<WeightedObject<KinlingData>> weightedRelationships =
+                new List<WeightedObject<KinlingData>>();
             foreach (var option in options)
             {
                 var relationshipState = GetRelationshipState(option);
                 var weight = relationshipState.InteractionWeight;
-                WeightedObject<SocialAI> weightedState =
-                    new WeightedObject<SocialAI>(option, weight);
+                WeightedObject<KinlingData> weightedState =
+                    new WeightedObject<KinlingData>(option, weight);
                 weightedRelationships.Add(weightedState);
             }
 
@@ -311,17 +309,17 @@ namespace Systems.Social.Scripts
             return randomKinling;
         }
 
-        private List<SocialAI> NearbyKinlings()
+        private List<KinlingData> NearbyKinlings()
         {
             var allUnits = KinlingsManager.Instance.GetAllUnitsInRadius(transform.position, SOCIAL_RADIUS);
-            List<SocialAI> results = new List<SocialAI>();
+            List<KinlingData> results = new List<KinlingData>();
             foreach (var unit in allUnits)
             {
-                if (unit != _kinling)
+                if (unit != _kinling.RuntimeData)
                 {
-                    if (unit.SocialAI.AvailableToChat)
+                    if (unit.Kinling.SocialAI.AvailableToChat)
                     {
-                        results.Add(unit.SocialAI);
+                        results.Add(unit);
                     }
                 }
             }
@@ -329,29 +327,28 @@ namespace Systems.Social.Scripts
             return results;
         }
 
-        private RelationshipState GetRelationshipState(SocialAI otherKinling)
+        private RelationshipState GetRelationshipState(KinlingData otherKinling)
         {
-            string otherUID = otherKinling._kinling.UniqueId;
-            RelationshipState result = _relationships.Find(state => state.KinlingUniqueID == otherUID);
+            RelationshipState result = Relationships.Find(state => state.KinlingData == otherKinling);
             if (result == null)
             {
-                NotificationManager.Instance.CreateKinlingLog(_kinling, $"{_kinling.FullName} has met {otherKinling._kinling.FullName}", LogData.ELogType.Message);
+                NotificationManager.Instance.CreateKinlingLog(_kinling, $"{_kinling.FullName} has met {otherKinling.Fullname}", LogData.ELogType.Message);
                 result = new RelationshipState(otherKinling);
-                _relationships.Add(result);
+                _kinling.RuntimeData.Relationships.Add(result);
             }
 
             return result;
         }
 
-        private void FormRomanticRelationship(SocialAI otherKinling)
+        public void FormRomanticRelationship(KinlingData otherKinling)
         {
             var relationship = GetRelationshipState(otherKinling);
             relationship.IsPartner = true;
-            _kinling.RuntimeData.Partner = otherKinling._kinling.RuntimeData;
+            _kinling.RuntimeData.Partner = otherKinling;
             
             Debug.Log($"Relationship started!");
             _kinling.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("Started Relationship")); // Mood Buff
-            NotificationManager.Instance.CreateKinlingLog(_kinling, $"{_kinling.FullName} is now in a relationship with {otherKinling._kinling.FullName}!", LogData.ELogType.Positive);
+            NotificationManager.Instance.CreateKinlingLog(_kinling, $"{_kinling.FullName} is now in a relationship with {otherKinling.Fullname}!", LogData.ELogType.Positive);
         }
 
         public void ReceiveMateRequest()

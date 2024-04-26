@@ -15,6 +15,7 @@ MonoBehaviour:
   sceneDatasByGuid:
     keys:
     - 44b1509b4c9601d4f9dc525072d9be55
+    - 
     values:
     - goDatasByGlobalId:
         keys:
@@ -47,7 +48,6 @@ MonoBehaviour:
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-1826864762-0
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-696327368-0
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-542380640-0
-        - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-1135055063-0
         values:
         - iColor: 1
           icon: Folder Icon
@@ -107,10 +107,8 @@ MonoBehaviour:
           icon: Terrain Icon
         - iColor: 0
           icon: StandaloneInputModule Icon
-        - iColor: 5
-          icon: Canvas Icon
       goDatasByInstanceId:
-        keys: 6656010090560100864c01001c4a010018520100ac5401003c4e010054560100544c010068480100d45301004a540100fe4901008c4a0100aa4d0100b44f0100da5101006a520100e6530100da530100f44e010094faffffa248010008500100f64f010006520100525101000e5701002a4e0100d64c01002ce1feff
+        keys: 8a580100de580100644d0100d84a0100ae530100d65601004e4f0100785801002e4d0100d4480100bc5501002c560100b44a0100504b0100b84e0100e450010066530100f2530100ce550100c25501001a50010020490100405101002e5101009a530100ce5201005a590100444f0100b24d0100e037efff
         values:
         - iColor: 1
           icon: Folder Icon
@@ -154,8 +152,6 @@ MonoBehaviour:
           icon: PreMatCylinder
         - iColor: 0
           icon: AvatarMask On Icon
-        - iColor: 1
-          icon: StandaloneInputModule Icon
         - iColor: 5
           icon: Canvas Icon
         - iColor: 2
@@ -172,5 +168,11 @@ MonoBehaviour:
           icon: Terrain Icon
         - iColor: 0
           icon: StandaloneInputModule Icon
-        - iColor: 5
-          icon: Canvas Icon
+        - iColor: 0
+          icon: 
+    - goDatasByGlobalId:
+        keys: []
+        values: []
+      goDatasByInstanceId:
+        keys: 
+        values: []

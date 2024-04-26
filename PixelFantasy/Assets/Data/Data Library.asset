@@ -586,6 +586,7 @@ MonoBehaviour:
     _majorBreakThreshold: 0
     _extremeBreakThreshold: 0
     _moodState: 0
+  Relationships: []
 --- !u!114 &-6853623058905891121
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3062,7 +3063,7 @@ MonoBehaviour:
   runtimeLibraryGuid: 
   runtimeLibraryFolderPath: 
   initialLibrary: {fileID: 0}
-  selectedDataObject: {fileID: 5933055010327361580}
+  selectedDataObject: {fileID: -7223051035212598023}
   modules:
   - {fileID: 1013997515501222643}
   - {fileID: 3086282657986071168}
@@ -5157,7 +5158,7 @@ MonoBehaviour:
   boxFoldout: 0
   Firstname: 
   Lastname: 
-  Position: {x: 0, y: 0}
+  Position: {x: 23.687092, y: 16.30963}
   Kinling: {fileID: 0}
   Age: 0
   Gender: 0
@@ -5233,9 +5234,9 @@ MonoBehaviour:
       Priority: 3
     - TaskType: 11
       Priority: 3
-  TaskAIState: 0
-  WaitingTimer: 0
-  IdleTimer: 0
+  TaskAIState: 4
+  WaitingTimer: 0.2
+  IdleTimer: 6.012439
   CurrentTaskAction: {fileID: 0}
   HeldItem: {fileID: 0}
   StatsData:
@@ -5299,7 +5300,7 @@ MonoBehaviour:
       _hasTargetValue: 0
     _funNeedState:
       _needSettings: {fileID: 11400000, guid: 8cebde6bc4f4e484687fbb6cea6b4dae, type: 2}
-      _value: 0
+      _value: 0.3
       _targetValue: 0
       _hasTargetValue: 0
     _beautyNeedState:
@@ -5325,6 +5326,7 @@ MonoBehaviour:
     _majorBreakThreshold: 0
     _extremeBreakThreshold: 0
     _moodState: 0
+  Relationships: []
 --- !u!114 &6402681467211676120
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6118,9 +6120,181 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Resource.GrowingResourceData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -6351,54 +6525,6 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Item.CraftingTableData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
@@ -6433,11 +6559,6 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Zones.StockpileZoneData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
@@ -6460,7 +6581,7 @@ MonoBehaviour:
   modules: []
   existingNamespaces:
   - namespaceName: Settings
-    foldout: 0
+    foldout: 1
     hidden: 0
     icon: 
     existingTypes:

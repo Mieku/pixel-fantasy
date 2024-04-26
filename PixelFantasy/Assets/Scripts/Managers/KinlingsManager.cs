@@ -16,46 +16,46 @@ namespace Managers
         public DataLibrary DataLibrary;
         public KinlingData GenericKinlingData;
         
-        private List<Kinling> _allKinlings = new List<Kinling>();
+        private List<KinlingData> _allKinlings = new List<KinlingData>();
 
-        public List<Kinling> AllKinlings => _allKinlings;
+        public List<KinlingData> AllKinlings => _allKinlings;
         
-        public List<Kinling> GetAllUnitsInRadius(Vector2 startPoint, float radius)
+        public List<KinlingData> GetAllUnitsInRadius(Vector2 startPoint, float radius)
         {
             return _allKinlings.Where(kinling => 
-                Vector2.Distance(startPoint, kinling.transform.position) <= radius
+                Vector2.Distance(startPoint, kinling.Position) <= radius
             ).ToList();
         }
         
-        public void RegisterKinling(Kinling kinling)
+        public void RegisterKinling(KinlingData kinling)
         {
             if (_allKinlings.Contains(kinling))
             {
-                Debug.LogError("Tried to register the same Kinling Twice: " + kinling.FullName);
+                Debug.LogError("Tried to register the same Kinling Twice: " + kinling.Fullname);
                 return;
             }
             
             _allKinlings.Add(kinling);
             
-            KinlingSelector.Instance.AddKinling(kinling.RuntimeData);
+            KinlingSelector.Instance.AddKinling(kinling);
         }
 
-        public void DeregisterKinling(Kinling kinling)
+        public void DeregisterKinling(KinlingData kinling)
         {
             if (!_allKinlings.Contains(kinling))
             {
-                Debug.LogError("Tried to deregister a non-registered Kinling: " + kinling.FullName);
+                Debug.LogError("Tried to deregister a non-registered Kinling: " + kinling.Fullname);
                 return;
             }
 
             _allKinlings.Remove(kinling);
             
-            KinlingSelector.Instance.RemoveKinling(kinling.RuntimeData);
+            KinlingSelector.Instance.RemoveKinling(kinling);
         }
         
         public Kinling GetUnit(string uniqueID)
         {
-            return AllKinlings.Find(unit => unit.UniqueId == uniqueID);
+            return AllKinlings.Find(unit => unit.guid == uniqueID).Kinling;
         }
 
         public void SelectKinling(string uniqueID)
@@ -70,8 +70,8 @@ namespace Managers
         [Command("set_love")]
         private void CMD_SetLove(string instigatorFirstName, string receiverFirstName)
         {
-            Kinling instigator = _allKinlings.Find(unit => unit.RuntimeData.Firstname == instigatorFirstName);
-            Kinling receiver = _allKinlings.Find(unit => unit.RuntimeData.Firstname == receiverFirstName);
+            KinlingData instigator = _allKinlings.Find(unit => unit.Firstname == instigatorFirstName);
+            KinlingData receiver = _allKinlings.Find(unit => unit.Firstname == receiverFirstName);
 
             if (instigator == null)
             {
@@ -84,17 +84,16 @@ namespace Managers
                 Debug.LogError($"Can't find Receiver: {receiverFirstName}");
                 return;
             }
-
-            instigator.RuntimeData.Partner = receiver.RuntimeData;
-            receiver.RuntimeData.Partner = instigator.RuntimeData;
-            NotificationManager.Instance.CreateKinlingLog(instigator, $"{instigator.FullName} is now in a relationship with {receiver.FullName}!", LogData.ELogType.Positive);
+            
+            instigator.Kinling.SocialAI.FormRomanticRelationship(receiver);
+            receiver.Kinling.SocialAI.FormRomanticRelationship(instigator);
         }
 
         [Command("mate")]
         private void CMD_Mate(string instigatorFirstName, string receiverFirstName)
         {
-            Kinling instigator = _allKinlings.Find(unit => unit.RuntimeData.Firstname == instigatorFirstName);
-            Kinling receiver = _allKinlings.Find(unit => unit.RuntimeData.Firstname == receiverFirstName);
+            KinlingData instigator = _allKinlings.Find(unit => unit.Firstname == instigatorFirstName);
+            KinlingData receiver = _allKinlings.Find(unit => unit.Firstname == receiverFirstName);
             
             if (instigator == null)
             {
@@ -108,8 +107,8 @@ namespace Managers
                 return;
             }
 
-            Task task = new Task("Mate", ETaskType.Personal, instigator.RuntimeData.AssignedBed.LinkedFurniture, EToolType.None);
-            instigator.TaskAI.QueueTask(task);
+            Task task = new Task("Mate", ETaskType.Personal, instigator.AssignedBed.LinkedFurniture, EToolType.None);
+            instigator.Kinling.TaskAI.QueueTask(task);
         }
 
         public void SpawnChild(KinlingData mother, KinlingData father)

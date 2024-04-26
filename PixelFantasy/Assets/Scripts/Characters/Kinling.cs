@@ -19,8 +19,7 @@ namespace Characters
     {
         public DataLibrary DataLibrary;
         
-        [DataObjectDropdown("DataLibrary"), SerializeField] 
-        private KinlingData _data;
+        [DataObjectDropdown("DataLibrary")] 
         public KinlingData RuntimeData;
         
         [SerializeField] private TaskAI _taskAI;
@@ -41,22 +40,20 @@ namespace Characters
         public SocialAI SocialAI => _socialAI;
         
         public ClickObject ClickObject;
+        public bool HasInitialized { get; private set; }
         
 
         private void Awake()
         {
             ClickObject = GetComponent<ClickObject>();
             
-            //KinlingsManager.Instance.RegisterKinling(this);
-
             GameEvents.DayTick += GameEvents_DayTick;
             GameEvents.MinuteTick += GameEvents_MinuteTick;
         }
         
         private void OnDestroy()
         {
-            
-            KinlingsManager.Instance.DeregisterKinling(this);
+            KinlingsManager.Instance.DeregisterKinling(RuntimeData);
             
             GameEvents.Trigger_OnCoinsIncomeChanged();
             
@@ -66,25 +63,19 @@ namespace Characters
 
         public void SetKinlingData(KinlingData data)
         {
-            _data = data;
-            DataLibrary.RegisterInitializationCallback(() =>
-            {
-                RuntimeData = (KinlingData) DataLibrary.CloneDataObjectToRuntime(_data, gameObject);
-                RuntimeData.Kinling = this;
+            RuntimeData = data;
+            RuntimeData.Kinling = this;
                 
-                _appearance.Init(this, _data.Appearance);
+            _appearance.Init(this, RuntimeData.Appearance);
                 
-                KinlingsManager.Instance.RegisterKinling(this); 
+            KinlingsManager.Instance.RegisterKinling(RuntimeData); 
             
-                Initialize();
-                
-                // DataLibrary.OnSaved += Saved;
-                // DataLibrary.OnLoaded += Loaded;
-            });
+            Initialize();
         }
         
         private void Initialize()
         {
+            HasInitialized = true;
             Needs.Initialize(this);
             KinlingMood.Init(RuntimeData);
         }
@@ -123,24 +114,6 @@ namespace Characters
             return results;
         }
         
-        public bool IsKinlingAttractedTo(Kinling otherKinling)
-        {
-            var otherKinlingGender = otherKinling._appearance.GetAppearanceState().Gender;
-            switch (RuntimeData.SexualPreference)
-            {
-                case ESexualPreference.None:
-                    return false;
-                case ESexualPreference.Male:
-                    return otherKinlingGender == Gender.Male;
-                case ESexualPreference.Female:
-                    return otherKinlingGender == Gender.Female;
-                case ESexualPreference.Both:
-                    return true;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-
         public void AssignBed(BedFurniture bed)
         {
             RuntimeData.AssignedBed = bed.RuntimeData;

@@ -1,6 +1,8 @@
 using System;
 using Characters;
+using Databrain.Attributes;
 using Managers;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -17,11 +19,11 @@ namespace Systems.Social.Scripts
             Rival,
         }
         
-        public string KinlingUniqueID;
+        public KinlingData KinlingData;
         public int Opinion;
         public bool IsPartner;
-        public Kinling Kinling => KinlingsManager.Instance.GetUnit(KinlingUniqueID);
-        public int NaturalCohesion { get; protected set; }
+        
+        [field: SerializeField] public int NaturalCohesion { get; protected set; }
 
         private const int MIN_NATURAL_COHESION = -10;
         private const int MAX_NATURAL_COHESION = 10;
@@ -29,9 +31,9 @@ namespace Systems.Social.Scripts
         private const int FRIEND_COHESION = 15;
         private const int RIVAL_COHESION = -15;
 
-        public RelationshipState(SocialAI socialAI, int opinion = 0)
+        public RelationshipState(KinlingData kinlingData, int opinion = 0)
         {
-            KinlingUniqueID = socialAI.UniqueId;
+            KinlingData = kinlingData;
             Opinion = opinion;
             NaturalCohesion = Random.Range(MIN_NATURAL_COHESION, MAX_NATURAL_COHESION + 1);
             IsPartner = false;

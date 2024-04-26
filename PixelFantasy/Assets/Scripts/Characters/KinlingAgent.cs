@@ -185,13 +185,14 @@ namespace Characters
 
         private void Update()
         {
-           if(!_isInitialized) return;
-            
-           DetermineIfDestination();
-           RefreshAnimVector();
-           OnSpeedUpdated();
+            if(!_kinling.HasInitialized) return;
+            if(!_isInitialized) return;
 
-           _kinling.RuntimeData.Position = transform.position;
+            DetermineIfDestination();
+            RefreshAnimVector();
+            OnSpeedUpdated();
+
+            _kinling.RuntimeData.Position = transform.position;
         }
         
         private List<GameObject> pathVisuals = new List<GameObject>();  // To keep track of instantiated path objects
