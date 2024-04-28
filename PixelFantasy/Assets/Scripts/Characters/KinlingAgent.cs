@@ -38,13 +38,11 @@ namespace Characters
 
             _kinling = GetComponent<Kinling>();
             _charAnimController = GetComponent<Kinling>().kinlingAnimController;
-            
-            // OnSpeedUpdated();
         }
 
         private void Start()
         {
-            _defaultSpeed = _agent.speed + _kinling.Stats.GetAttributeModifierBonus(EAttributeType.WalkSpeed, _agent.speed, null);
+            _defaultSpeed = _agent.speed + _kinling.Stats.GetAttributeModifierBonus(EAttributeType.WalkSpeed, _agent.speed);
             _defaultAcceleration = _agent.acceleration;
             _defaultAngularSpeed = _agent.angularSpeed;
             _isInitialized = true;

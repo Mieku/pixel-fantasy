@@ -17,7 +17,8 @@ MonoBehaviour:
     situation'
   <Modifiers>k__BackingField:
   - rid: 4161138597100257403
-  <IncompatibleTraits>k__BackingField: []
+  <IncompatibleTraits>k__BackingField:
+  - {fileID: 11400000, guid: 5b7f249ecf527d849bfdf94f93856a0e, type: 2}
   references:
     version: 2
     RefIds:

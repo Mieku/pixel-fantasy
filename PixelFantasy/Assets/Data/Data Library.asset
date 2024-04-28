@@ -502,76 +502,87 @@ MonoBehaviour:
   IdleTimer: 0.3832448
   CurrentTaskAction: {fileID: 0}
   HeldItem: {fileID: 0}
-  StatsData:
+  Stats:
     MeleeSkill:
       Level: 0
       TotalExp: 0
       Passion: 0
+      _skillSettings: {fileID: 0}
     RangedSkill:
       Level: 0
       TotalExp: 0
       Passion: 0
+      _skillSettings: {fileID: 0}
     ConstructionSkill:
       Level: 0
       TotalExp: 0
       Passion: 0
+      _skillSettings: {fileID: 0}
     MiningSkill:
       Level: 0
       TotalExp: 0
       Passion: 0
+      _skillSettings: {fileID: 0}
     BotanySkill:
       Level: 0
       TotalExp: 0
       Passion: 0
+      _skillSettings: {fileID: 0}
     CookingSkill:
       Level: 0
       TotalExp: 0
       Passion: 0
+      _skillSettings: {fileID: 0}
     CraftingSkill:
       Level: 0
       TotalExp: 0
       Passion: 0
+      _skillSettings: {fileID: 0}
     BeastMasterySkill:
       Level: 0
       TotalExp: 0
       Passion: 0
+      _skillSettings: {fileID: 0}
     MedicalSkill:
       Level: 0
       TotalExp: 0
       Passion: 0
+      _skillSettings: {fileID: 0}
     SocialSkill:
       Level: 0
       TotalExp: 0
       Passion: 0
+      _skillSettings: {fileID: 0}
     IntelligenceSkill:
       Level: 0
       TotalExp: 0
       Passion: 0
+      _skillSettings: {fileID: 0}
     Traits: []
     History: {fileID: 0}
     AttributeModifiers: []
   Needs:
-    _foodNeedState:
+    _foodNeed:
       _needSettings: {fileID: 0}
       _value: 0
       _targetValue: 0
       _hasTargetValue: 0
-    _energyNeedState:
+    _energyNeed:
       _needSettings: {fileID: 0}
       _value: 0
       _targetValue: 0
       _hasTargetValue: 0
-    _funNeedState:
+    _funNeed:
       _needSettings: {fileID: 0}
       _value: 0
       _targetValue: 0
       _hasTargetValue: 0
-    _beautyNeedState:
+    _beautyNeed:
       _needSettings: {fileID: 0}
       _value: 0
       _targetValue: 0
       _hasTargetValue: 0
-    _comfortNeedState:
+    _comfortNeed:
       _needSettings: {fileID: 0}
       _value: 0
       _targetValue: 0
@@ -587,6 +598,7 @@ MonoBehaviour:
     _extremeBreakThreshold: 0
     _moodState: 0
   Relationships: []
+  _personalLog: []
 --- !u!114 &-6853623058905891121
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3063,7 +3075,7 @@ MonoBehaviour:
   runtimeLibraryGuid: 
   runtimeLibraryFolderPath: 
   initialLibrary: {fileID: 0}
-  selectedDataObject: {fileID: -7223051035212598023}
+  selectedDataObject: {fileID: 5933055010327361580}
   modules:
   - {fileID: 1013997515501222643}
   - {fileID: 3086282657986071168}
@@ -5239,76 +5251,87 @@ MonoBehaviour:
   IdleTimer: 6.012439
   CurrentTaskAction: {fileID: 0}
   HeldItem: {fileID: 0}
-  StatsData:
+  Stats:
     MeleeSkill:
       Level: 0
       TotalExp: 0
       Passion: 0
+      _skillSettings: {fileID: 11400000, guid: 2ae93406c18fd3644a426b38e589e5b7, type: 2}
     RangedSkill:
       Level: 0
       TotalExp: 0
       Passion: 0
+      _skillSettings: {fileID: 11400000, guid: 356c64e640a68be499d8e66272b3877a, type: 2}
     ConstructionSkill:
       Level: 0
       TotalExp: 0
       Passion: 0
+      _skillSettings: {fileID: 11400000, guid: 35816dc5fb2818840a8e039dd4926a07, type: 2}
     MiningSkill:
       Level: 0
       TotalExp: 0
       Passion: 0
+      _skillSettings: {fileID: 11400000, guid: 5eaaf3e325591244ba54464a961e85cb, type: 2}
     BotanySkill:
       Level: 0
       TotalExp: 0
       Passion: 0
+      _skillSettings: {fileID: 11400000, guid: 0e477be7614c7814aa3d4a578b8f766e, type: 2}
     CookingSkill:
       Level: 0
       TotalExp: 0
       Passion: 0
+      _skillSettings: {fileID: 11400000, guid: 78667b5605cf81c4aa9a39f3e10ca120, type: 2}
     CraftingSkill:
       Level: 0
       TotalExp: 0
       Passion: 0
+      _skillSettings: {fileID: 11400000, guid: 027ede597f7637e4b930381753ce7a48, type: 2}
     BeastMasterySkill:
       Level: 0
       TotalExp: 0
       Passion: 0
+      _skillSettings: {fileID: 11400000, guid: 6f8b040d8f981144c8a0ed89812aefaf, type: 2}
     MedicalSkill:
       Level: 0
       TotalExp: 0
       Passion: 0
+      _skillSettings: {fileID: 11400000, guid: 75967d33dded1d840a5a180b4163dff2, type: 2}
     SocialSkill:
       Level: 0
       TotalExp: 0
       Passion: 0
+      _skillSettings: {fileID: 11400000, guid: 182fdcbdd93c996439df9d835efec7cf, type: 2}
     IntelligenceSkill:
       Level: 0
       TotalExp: 0
       Passion: 0
+      _skillSettings: {fileID: 11400000, guid: 4caf47c1afa25ba40b0f8cb90a17cb18, type: 2}
     Traits: []
     History: {fileID: 0}
     AttributeModifiers: []
   Needs:
-    _foodNeedState:
+    _foodNeed:
       _needSettings: {fileID: 11400000, guid: 4f3e8f8c1fbb9ba48b82a8cd1b27ee9a, type: 2}
       _value: 0
       _targetValue: 0
       _hasTargetValue: 0
-    _energyNeedState:
+    _energyNeed:
       _needSettings: {fileID: 11400000, guid: bbd6477af2cdf1c4683d1378eeb200c1, type: 2}
       _value: 0
       _targetValue: 0
       _hasTargetValue: 0
-    _funNeedState:
+    _funNeed:
       _needSettings: {fileID: 11400000, guid: 8cebde6bc4f4e484687fbb6cea6b4dae, type: 2}
       _value: 0.3
       _targetValue: 0
       _hasTargetValue: 0
-    _beautyNeedState:
+    _beautyNeed:
       _needSettings: {fileID: 11400000, guid: f6be4198f644b944d8d90f07fc34691d, type: 2}
       _value: 0
       _targetValue: 0
       _hasTargetValue: 0
-    _comfortNeedState:
+    _comfortNeed:
       _needSettings: {fileID: 11400000, guid: 802eee3bc0319ec4c80e8b37b07de847, type: 2}
       _value: 0
       _targetValue: 0
@@ -5327,6 +5350,7 @@ MonoBehaviour:
     _extremeBreakThreshold: 0
     _moodState: 0
   Relationships: []
+  _personalLog: []
 --- !u!114 &6402681467211676120
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6178,9 +6202,311 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Resource.GrowingResourceData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -6447,14 +6773,6 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Item.CraftingTableData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
@@ -6481,14 +6799,7 @@ MonoBehaviour:
       - {fileID: 0}
     - type: Characters.KinlingData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
+      dataObjects: []
     - type: Data.Zones.StockpileZoneData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
@@ -6511,7 +6822,7 @@ MonoBehaviour:
   modules: []
   existingNamespaces:
   - namespaceName: Settings
-    foldout: 1
+    foldout: 0
     hidden: 0
     icon: 
     existingTypes:

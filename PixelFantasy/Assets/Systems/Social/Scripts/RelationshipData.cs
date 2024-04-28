@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 namespace Systems.Social.Scripts
 {
     [Serializable]
-    public class RelationshipState
+    public class RelationshipData
     {
         public enum ERelationshipType
         {
@@ -31,7 +31,7 @@ namespace Systems.Social.Scripts
         private const int FRIEND_COHESION = 15;
         private const int RIVAL_COHESION = -15;
 
-        public RelationshipState(KinlingData kinlingData, int opinion = 0)
+        public RelationshipData(KinlingData kinlingData, int opinion = 0)
         {
             KinlingData = kinlingData;
             Opinion = opinion;

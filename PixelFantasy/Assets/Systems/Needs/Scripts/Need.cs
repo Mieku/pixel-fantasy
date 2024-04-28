@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 namespace Systems.Needs.Scripts
 {
     [Serializable]
-    public class NeedState
+    public class Need
     {
         [SerializeField] private NeedSettings _needSettings;
         [SerializeField] private float _value;
@@ -115,7 +115,7 @@ namespace Systems.Needs.Scripts
         private void CheckThresholds()
         {
             var emotion = _needSettings.CheckThresholds(_value);
-            if (!_kinling.KinlingMood.HasEmotion(emotion))
+            if (!_kinling.MoodData.HasEmotion(emotion))
             {
                 // Remove the others
                 foreach (var threshold in GetThresholds())
@@ -123,13 +123,13 @@ namespace Systems.Needs.Scripts
                     var otherEmotion = threshold.BelowThresholdEmotionSettings;
                     if (otherEmotion != null)
                     {
-                        _kinling.KinlingMood.RemoveEmotion(otherEmotion);
+                        _kinling.MoodData.RemoveEmotion(otherEmotion);
                     }
                 }
                     
                 if (emotion != null)
                 {
-                    _kinling.KinlingMood.ApplyEmotion(emotion);
+                    _kinling.MoodData.ApplyEmotion(emotion);
                 }
             }
         }

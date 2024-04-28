@@ -4,12 +4,13 @@ using Databrain.Attributes;
 using ScriptableObjects;
 using Systems.Stats.Scripts;
 using TaskSystem;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Characters
 {
     [Serializable]
-    public class KinlingStatsData
+    public class StatsData
     {
         [ExposeToInspector, DatabrainSerialize]
         public SkillData MeleeSkill;
@@ -112,9 +113,10 @@ namespace Characters
             var skill = GetSkillByType(skillType);
 
             float moddedExp = expToAdd;
-
+            
             if (includeModifiers)
             {
+                moddedExp += GetAttributeModifierBonus(EAttributeType.LearningModifier, expToAdd);
                 moddedExp += GetExpPassionModifierBonus(skillType, expToAdd);
             }
             
@@ -208,10 +210,11 @@ namespace Characters
             AddExpToSkill(ESkillType.Intelligence, intelligenceExp, false);
             IntelligenceSkill.RandomlyAssignPassion();
         }
-
-        public void DoDailyExpDecay(float decayModifier)
+        
+        public void DoDailyExpDecay()
         {
             var expSettings = GameSettings.Instance.ExpSettings;
+            float decayModifier = GetTotalAttributeModifier(EAttributeType.SkillDecay);
             
             var miningExp = expSettings.GetDailyDecayRateForLevel(MiningSkill.Level);
             miningExp += (int)Math.Ceiling(miningExp * decayModifier);
@@ -321,6 +324,221 @@ namespace Characters
             }
 
             return results;
+        }
+        
+        public float GetSkillAttributeValue(ESkillType skillType, EAttributeType attributeType)
+        {
+            var settings = GetSkillByType(skillType).Settings;
+            if (settings != null)
+            {
+                return settings.GetValueForLevel(attributeType, GetLevelForSkill(skillType));
+            }
+            Debug.LogError($"SkillSettings not found for {skillType}");
+            return 1;
+        }
+        
+        public float GetActionSpeedForSkill(ESkillType skillType, bool autoAddExp)
+        {
+            float baseActionWork = GameSettings.Instance.BaseWorkPerAction;
+            
+            // Modifiers
+            float moddedWork = baseActionWork;
+            moddedWork += GetAttributeModifierBonus(EAttributeType.GlobalWorkSpeed, baseActionWork);
+
+            switch (skillType)
+            {
+                case ESkillType.Mining:
+                    moddedWork += GetAttributeModifierBonus(EAttributeType.MiningSpeed, baseActionWork);
+                    break;
+                case ESkillType.Cooking:
+                    moddedWork += GetAttributeModifierBonus(EAttributeType.CookingSpeed, baseActionWork);
+                    break;
+                case ESkillType.Construction:
+                    moddedWork += GetAttributeModifierBonus(EAttributeType.ConstructionSpeed, baseActionWork);
+                    break;
+                case ESkillType.Botany:
+                    moddedWork += GetAttributeModifierBonus(EAttributeType.BotanySpeed, baseActionWork);
+                    break;
+                case ESkillType.Crafting:
+                    moddedWork += GetAttributeModifierBonus(EAttributeType.CraftingSpeed, baseActionWork);
+                    break;
+                case ESkillType.BeastMastery:
+                    moddedWork += GetAttributeModifierBonus(EAttributeType.BeastWorkSpeed, baseActionWork);
+                    break;
+                case ESkillType.Medical:
+                    moddedWork += GetAttributeModifierBonus(EAttributeType.MedicalSpeed, baseActionWork);
+                    break;
+                case ESkillType.Intelligence:
+                    moddedWork += GetAttributeModifierBonus(EAttributeType.ResearchSpeed, baseActionWork);
+                    break;
+                case ESkillType.Social:
+                case ESkillType.Melee:
+                case ESkillType.Ranged:
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(skillType), skillType, null);
+            }
+
+            if (autoAddExp)
+            {
+                float expGain = moddedWork;
+                expGain *= GameSettings.Instance.ExpSettings.BaseExpPerWork;
+                AddExpToSkill(skillType, expGain);
+            }
+            
+            return moddedWork;
+        }
+
+        public int DetermineAmountYielded(ESkillType skillType, int dropAmount)
+        {
+            float moddedYield = dropAmount;
+
+            switch (skillType)
+            {
+                case ESkillType.Mining:
+                    moddedYield += GetAttributeModifierBonus(EAttributeType.MiningSpeed, dropAmount);
+                    break;
+                case ESkillType.Cooking:
+                    moddedYield += GetAttributeModifierBonus(EAttributeType.ButcheringYield, dropAmount);
+                    break;
+                case ESkillType.Botany:
+                    moddedYield += GetAttributeModifierBonus(EAttributeType.BotanyYield, dropAmount);
+                    break;
+                case ESkillType.BeastMastery:
+                    moddedYield += GetAttributeModifierBonus(EAttributeType.BeastGatherYield, dropAmount);
+                    break;
+                case ESkillType.Melee:
+                case ESkillType.Ranged:
+                case ESkillType.Construction:
+                case ESkillType.Crafting:
+                case ESkillType.Medical:
+                case ESkillType.Social:
+                case ESkillType.Intelligence:
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(skillType), skillType, null);
+            }
+
+            return (int) Math.Ceiling(moddedYield);
+        }
+
+        public float GetAttributeModifierBonus(EAttributeType attributeType, float originalAmount)
+        {
+            var totalModifier = GetTotalAttributeModifier(attributeType);
+            var result = originalAmount * totalModifier;
+            return result;
+        }
+        
+        public float GetTotalAttributeModifier(EAttributeType attributeType)
+        {
+            float totalModifier = 0;
+            var modifiers = AttributeModifiers;
+            foreach (var modifier in modifiers)
+            {
+                if (modifier.AttributeType == attributeType)
+                {
+                    totalModifier += modifier.Modifier;
+                }
+            }
+            
+            switch (attributeType)
+            {
+                case EAttributeType.GlobalWorkSpeed:
+                    break;
+                case EAttributeType.WalkSpeed:
+                    break;
+                case EAttributeType.SkillDecay:
+                    break;
+                case EAttributeType.Appetite:
+                    break;
+                case EAttributeType.Attractiveness:
+                    break;
+                case EAttributeType.SocialFrequency:
+                    break;
+                case EAttributeType.BeastWorkSpeed:
+                    totalModifier += GetSkillAttributeValue(ESkillType.BeastMastery, EAttributeType.BeastWorkSpeed);
+                    break;
+                case EAttributeType.BeastGatherYield:
+                    totalModifier += GetSkillAttributeValue(ESkillType.BeastMastery, EAttributeType.BeastGatherYield);
+                    break;
+                case EAttributeType.TameBeastChance:
+                    totalModifier += GetSkillAttributeValue(ESkillType.BeastMastery, EAttributeType.TameBeastChance);
+                    break;
+                case EAttributeType.TrainBeastChance:
+                    totalModifier += GetSkillAttributeValue(ESkillType.BeastMastery, EAttributeType.TrainBeastChance);
+                    break;
+                case EAttributeType.BotanySpeed:
+                    totalModifier += GetSkillAttributeValue(ESkillType.Botany, EAttributeType.BotanySpeed);
+                    break;
+                case EAttributeType.BotanyYield:
+                    totalModifier += GetSkillAttributeValue(ESkillType.Botany, EAttributeType.BotanyYield);
+                    break;
+                case EAttributeType.ConstructionSpeed:
+                    totalModifier += GetSkillAttributeValue(ESkillType.Construction, EAttributeType.ConstructionSpeed);
+                    break;
+                case EAttributeType.ConstructionSuccessChance:
+                    totalModifier += GetSkillAttributeValue(ESkillType.Construction, EAttributeType.ConstructionSuccessChance);
+                    break;
+                case EAttributeType.CookingSpeed:
+                    totalModifier += GetSkillAttributeValue(ESkillType.Cooking, EAttributeType.CookingSpeed);
+                    break;
+                case EAttributeType.ButcheringYield:
+                    totalModifier += GetSkillAttributeValue(ESkillType.Cooking, EAttributeType.ButcheringYield);
+                    break;
+                case EAttributeType.FoodPoisonChance:
+                    totalModifier += GetSkillAttributeValue(ESkillType.Cooking, EAttributeType.FoodPoisonChance);
+                    break;
+                case EAttributeType.CraftingSpeed:
+                    totalModifier += GetSkillAttributeValue(ESkillType.Crafting, EAttributeType.CraftingSpeed);
+                    break;
+                case EAttributeType.CraftingQuality:
+                    totalModifier += GetSkillAttributeValue(ESkillType.Crafting, EAttributeType.CraftingQuality);
+                    break;
+                case EAttributeType.ResearchSpeed:
+                    totalModifier += GetSkillAttributeValue(ESkillType.Intelligence, EAttributeType.ResearchSpeed);
+                    break;
+                case EAttributeType.LearningModifier:
+                    totalModifier += GetSkillAttributeValue(ESkillType.Intelligence, EAttributeType.LearningModifier);
+                    break;
+                case EAttributeType.MedicalSpeed:
+                    totalModifier += GetSkillAttributeValue(ESkillType.Medical, EAttributeType.MedicalSpeed);
+                    break;
+                case EAttributeType.SurgerySuccessChance:
+                    totalModifier += GetSkillAttributeValue(ESkillType.Medical, EAttributeType.SurgerySuccessChance);
+                    break;
+                case EAttributeType.TendQuality:
+                    totalModifier += GetSkillAttributeValue(ESkillType.Medical, EAttributeType.TendQuality);
+                    break;
+                case EAttributeType.MeleeChanceToHit:
+                    totalModifier += GetSkillAttributeValue(ESkillType.Melee, EAttributeType.MeleeChanceToHit);
+                    break;
+                case EAttributeType.MeleeChanceToDodge:
+                    totalModifier += GetSkillAttributeValue(ESkillType.Melee, EAttributeType.MeleeChanceToDodge);
+                    break;
+                case EAttributeType.MiningSpeed:
+                    totalModifier += GetSkillAttributeValue(ESkillType.Mining, EAttributeType.MiningSpeed);
+                    break;
+                case EAttributeType.MiningYield:
+                    totalModifier += GetSkillAttributeValue(ESkillType.Mining, EAttributeType.MiningYield);
+                    break;
+                case EAttributeType.HuntingStealth:
+                    totalModifier += GetSkillAttributeValue(ESkillType.Ranged, EAttributeType.HuntingStealth);
+                    break;
+                case EAttributeType.RangedAccuracy:
+                    totalModifier += GetSkillAttributeValue(ESkillType.Ranged, EAttributeType.RangedAccuracy);
+                    break;
+                case EAttributeType.TradePriceBuy:
+                    totalModifier += GetSkillAttributeValue(ESkillType.Social, EAttributeType.TradePriceBuy);
+                    break;
+                case EAttributeType.TradePriceSell:
+                    totalModifier += GetSkillAttributeValue(ESkillType.Social, EAttributeType.TradePriceSell);
+                    break;
+                case EAttributeType.SocialImpact:
+                    totalModifier += GetSkillAttributeValue(ESkillType.Social, EAttributeType.SocialImpact);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(attributeType), attributeType, null);
+            }
+            
+            return totalModifier;
         }
     }
 }

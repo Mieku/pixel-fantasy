@@ -12,7 +12,7 @@ using Random = UnityEngine.Random;
 namespace Systems.Mood.Scripts
 {
     [Serializable]
-    public class Mood
+    public class MoodData
     {
         [SerializeField] private List<EmotionalBreakdownSettings> _availableBreakdowns = new List<EmotionalBreakdownSettings>();
         

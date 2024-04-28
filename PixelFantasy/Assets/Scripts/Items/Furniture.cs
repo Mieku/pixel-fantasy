@@ -466,9 +466,9 @@ namespace Items
             SetState(EFurnitureState.Built);
         }
         
-        public bool DoPlacement(KinlingStats stats)
+        public bool DoPlacement(StatsData stats)
         {
-            var workAmount = stats.GetActionWorkForSkill(ESkillType.Crafting, true);
+            var workAmount = stats.GetActionSpeedForSkill(ESkillType.Crafting, true);
             RuntimeData.RemainingWork -= workAmount;
             if (RuntimeData.RemainingWork <= 0)
             {

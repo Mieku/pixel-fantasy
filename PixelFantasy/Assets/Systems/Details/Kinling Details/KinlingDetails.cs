@@ -1,14 +1,12 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Characters;
 using Controllers;
-using Popups.Kinling_Info_Popup;
 using Sirenix.OdinInspector;
 using Systems.Appearance.Scripts;
 using Systems.Details.Build_Details.Scripts;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Systems.Details.Kinling_Details
@@ -26,13 +24,14 @@ namespace Systems.Details.Kinling_Details
         [SerializeField] private NeedsSection _needsSection;
         [SerializeField] private MoodSection _moodSection;
         [SerializeField] private SocialSection _socialSection;
+        [SerializeField] private StatsSection _statsSection;
         
         [SerializeField, BoxGroup("Buttons")] private Image _skillsBtnBG;
         [SerializeField, BoxGroup("Buttons")] private Image _socialBtnBG;
         [SerializeField, BoxGroup("Buttons")] private Image _gearBtnBG;
         [SerializeField, BoxGroup("Buttons")] private Image _healthBtnBG;
         [SerializeField, BoxGroup("Buttons")] private Image _needsBtnBG;
-        [SerializeField, BoxGroup("Buttons")] private Image _logBtnBG;
+        [SerializeField, BoxGroup("Buttons")] private Image _statsBtnBG;
         [SerializeField, BoxGroup("Buttons")] private Image _moodBtnBG;
         [SerializeField, BoxGroup("Buttons")] private Sprite _defaultBtnBG;
         [SerializeField, BoxGroup("Buttons")] private Sprite _activeBtnBG;
@@ -109,8 +108,9 @@ namespace Systems.Details.Kinling_Details
                     _needsBtnBG.sprite = _activeBtnBG;
                     _needsSection.ShowSection(_kinling.RuntimeData);
                     break;
-                case EDetailsState.Log:
-                    _logBtnBG.sprite = _activeBtnBG;
+                case EDetailsState.Stats:
+                    _statsBtnBG.sprite = _activeBtnBG;
+                    _statsSection.ShowSection(_kinling.RuntimeData, RefreshLayout);
                     break;
                 case EDetailsState.Mood:
                     _moodBtnBG.sprite = _activeBtnBG;
@@ -142,8 +142,8 @@ namespace Systems.Details.Kinling_Details
                 case EDetailsState.Needs:
                     
                     break;
-                case EDetailsState.Log:
-                    
+                case EDetailsState.Stats:
+                    _statsSection.RefreshContent();
                     break;
                 case EDetailsState.Mood:
                     _moodSection.KinlingUpdateRefresh();
@@ -159,6 +159,7 @@ namespace Systems.Details.Kinling_Details
             _needsSection.Hide();
             _moodSection.Hide();
             _socialSection.Hide();
+            _statsSection.Hide();
         }
 
         #region Buttons
@@ -170,7 +171,7 @@ namespace Systems.Details.Kinling_Details
             _gearBtnBG.sprite = _defaultBtnBG;
             _healthBtnBG.sprite = _defaultBtnBG;
             _needsBtnBG.sprite = _defaultBtnBG;
-            _logBtnBG.sprite = _defaultBtnBG;
+            _statsBtnBG.sprite = _defaultBtnBG;
             _moodBtnBG.sprite = _defaultBtnBG;
         }
 
@@ -199,9 +200,9 @@ namespace Systems.Details.Kinling_Details
             ChangeContentState(EDetailsState.Needs);
         }
 
-        public void LogBtnPressed()
+        public void StatsBtnPressed()
         {
-            ChangeContentState(EDetailsState.Log);
+            ChangeContentState(EDetailsState.Stats);
         }
 
         public void LookAtBtnPressed()
@@ -228,7 +229,7 @@ namespace Systems.Details.Kinling_Details
             Gear,
             Health,
             Needs,
-            Log,
+            Stats,
             Mood,
         }
     }

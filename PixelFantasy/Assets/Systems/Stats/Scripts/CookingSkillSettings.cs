@@ -1,6 +1,7 @@
 using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Systems.Stats.Scripts
 {
@@ -30,7 +31,7 @@ namespace Systems.Stats.Scripts
     public class CookingSkillLevelData : SkillLevelData
     {
         [TableColumnWidth(100)]
-        public float CookingWorkModifier;
+        public float CookingSpeed;
         
         [TableColumnWidth(100)]
         public float ButcheringYield;
@@ -42,8 +43,8 @@ namespace Systems.Stats.Scripts
         {
             switch (attributeType)
             {
-                case EAttributeType.WorkModifier: return CookingWorkModifier;
-                case EAttributeType.YieldModifier: return ButcheringYield;
+                case EAttributeType.CookingSpeed: return CookingSpeed;
+                case EAttributeType.ButcheringYield: return ButcheringYield;
                 case EAttributeType.FoodPoisonChance: return FoodPoisonChance;
                 default: throw new ArgumentOutOfRangeException(nameof(attributeType), $"Not supported attribute {attributeType} for cooking.");
             }

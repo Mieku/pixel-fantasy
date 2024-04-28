@@ -32,10 +32,10 @@ namespace Characters
         public KinlingAnimController kinlingAnimController;
         public KinlingAgent KinlingAgent;
 
-        public KinlingStats Stats;
+        public StatsData Stats => RuntimeData.Stats;
 
-        public Mood KinlingMood => RuntimeData.Mood;
-        public KinlingNeeds Needs => RuntimeData.Needs;
+        public MoodData MoodData => RuntimeData.Mood;
+        public NeedsData Needs => RuntimeData.Needs;
         
         public SocialAI SocialAI => _socialAI;
         
@@ -77,7 +77,8 @@ namespace Characters
         {
             HasInitialized = true;
             Needs.Initialize(this);
-            KinlingMood.Init(RuntimeData);
+            MoodData.Init(RuntimeData);
+            MoodData.JumpMoodToTarget();
         }
 
         public void SetSeated(ChairFurniture chair)
@@ -121,7 +122,7 @@ namespace Characters
 
         private void GameEvents_DayTick()
         {
-            RuntimeData.IncrementAge();
+            RuntimeData?.DayTick();
         }
 
         private void GameEvents_MinuteTick()

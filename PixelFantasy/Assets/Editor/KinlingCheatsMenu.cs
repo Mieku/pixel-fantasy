@@ -37,7 +37,7 @@ public class KinlingCheatsMenu : EditorWindow
             var units = GetSelectedUnits();
             foreach (var unit in units)
             {
-                unit.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("DEBUG_PLUS_50"));
+                unit.MoodData.ApplyEmotion(Librarian.Instance.GetEmotion("DEBUG_PLUS_50"));
             }
         }
         
@@ -46,7 +46,7 @@ public class KinlingCheatsMenu : EditorWindow
             var units = GetSelectedUnits();
             foreach (var unit in units)
             {
-                unit.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("DEBUG_NEG_50"));
+                unit.MoodData.ApplyEmotion(Librarian.Instance.GetEmotion("DEBUG_NEG_50"));
             }
         }
 
@@ -56,7 +56,7 @@ public class KinlingCheatsMenu : EditorWindow
             var units = GetSelectedUnits();
             foreach (var unit in units)
             {
-                unit.KinlingMood.DEBUG_TriggerBreakdown(breakdown);
+                unit.MoodData.DEBUG_TriggerBreakdown(breakdown);
             }
         }
         
@@ -65,7 +65,7 @@ public class KinlingCheatsMenu : EditorWindow
             var units = GetSelectedUnits();
             foreach (var unit in units)
             {
-                unit.KinlingMood.DEBUG_EndBreakdown();
+                unit.MoodData.DEBUG_EndBreakdown();
             }
         }
     }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Characters;
 using Controllers;
 using Data.Item;
 using Databrain.Attributes;
@@ -109,9 +110,9 @@ namespace Zones
             return 8;
         }
         
-        public bool DoTillingWork(KinlingStats stats)
+        public bool DoTillingWork(StatsData stats)
         {
-            var workAmount = stats.GetActionWorkForSkill(ESkillType.Botany, true);
+            var workAmount = stats.GetActionSpeedForSkill(ESkillType.Botany, true);
             _remainingTillWork -= workAmount;
             if (_remainingTillWork <= 0)
             {
@@ -122,9 +123,9 @@ namespace Zones
             return false;
         }
         
-        public bool DoDiggingWork(KinlingStats stats)
+        public bool DoDiggingWork(StatsData stats)
         {
-            var workAmount = stats.GetActionWorkForSkill(ESkillType.Botany, true);
+            var workAmount = stats.GetActionSpeedForSkill(ESkillType.Botany, true);
             _remainingDigWork -= workAmount;
             if (_remainingDigWork <= 0)
             {
@@ -135,9 +136,9 @@ namespace Zones
             return false;
         }
         
-        public bool DoPlantingWork(KinlingStats stats)
+        public bool DoPlantingWork(StatsData stats)
         {
-            var workAmount = stats.GetActionWorkForSkill(ESkillType.Botany, true);
+            var workAmount = stats.GetActionSpeedForSkill(ESkillType.Botany, true);
             _remainingPlantingWork -= workAmount;
             if (_remainingPlantingWork <= 0)
             {
@@ -148,9 +149,9 @@ namespace Zones
             return false;
         }
         
-        public bool DoWateringWork(KinlingStats stats)
+        public bool DoWateringWork(StatsData stats)
         {
-            var workAmount = stats.GetActionWorkForSkill(ESkillType.Botany, true);
+            var workAmount = stats.GetActionSpeedForSkill(ESkillType.Botany, true);
             _remainingWaterWork -= workAmount;
             if (_remainingWaterWork <= 0)
             {
@@ -161,9 +162,9 @@ namespace Zones
             return false;
         }
         
-        public bool DoHarvestingWork(KinlingStats stats)
+        public bool DoHarvestingWork(StatsData stats)
         {
-            var workAmount = stats.GetActionWorkForSkill(ESkillType.Botany, true);
+            var workAmount = stats.GetActionSpeedForSkill(ESkillType.Botany, true);
             _remainingHarvestWork -= workAmount;
             if (_remainingHarvestWork <= 0)
             {
@@ -174,9 +175,9 @@ namespace Zones
             return false;
         }
 
-        public bool DoClearingWork(KinlingStats stats)
+        public bool DoClearingWork(StatsData stats)
         {
-            var workAmount = stats.GetActionWorkForSkill(ESkillType.Botany, true);
+            var workAmount = stats.GetActionSpeedForSkill(ESkillType.Botany, true);
             _remainingPlantingWork -= workAmount;
             if (_remainingPlantingWork <= 0)
             {
@@ -187,9 +188,9 @@ namespace Zones
             return false;
         }
         
-        public bool DoCropSwappingWork(KinlingStats stats)
+        public bool DoCropSwappingWork(StatsData stats)
         {
-            var workAmount = stats.GetActionWorkForSkill(ESkillType.Botany, true);
+            var workAmount = stats.GetActionSpeedForSkill(ESkillType.Botany, true);
             _remainingPlantingWork -= workAmount;
             if (_remainingPlantingWork <= 0)
             {
@@ -428,7 +429,7 @@ namespace Zones
             task.Enqueue();
         }
 
-        public void CropHarvested(KinlingStats stats)
+        public void CropHarvested(StatsData stats)
         {
             _cropReadyToHarvest = false;
             

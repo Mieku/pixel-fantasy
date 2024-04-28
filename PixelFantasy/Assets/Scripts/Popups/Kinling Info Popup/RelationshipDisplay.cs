@@ -13,22 +13,22 @@ namespace Popups.Kinling_Info_Popup
         [SerializeField] private Color _positiveColour;
         [SerializeField] private Color _negativeColour;
 
-        private RelationshipState _relationshipState;
+        private RelationshipData _relationshipData;
 
-        public void Init(RelationshipState relationshipState)
+        public void Init(RelationshipData relationshipData)
         {
-            _relationshipState = relationshipState;
+            _relationshipData = relationshipData;
            // _kinlingName.text = _relationshipState.Kinling.FullName;
-            _relationshipType.text = _relationshipState.RelationshipTypeName;
-            if (_relationshipState.Opinion >= 0)
+            _relationshipType.text = _relationshipData.RelationshipTypeName;
+            if (_relationshipData.Opinion >= 0)
             {
                 _opinion.color = _positiveColour;
-                _opinion.text = "+" + _relationshipState.Opinion;
+                _opinion.text = "+" + _relationshipData.Opinion;
             }
             else
             {
                 _opinion.color = _negativeColour;
-                _opinion.text = "" + _relationshipState.Opinion;
+                _opinion.text = "" + _relationshipData.Opinion;
             }
         }
     }

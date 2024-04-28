@@ -30,7 +30,7 @@ MonoBehaviour:
       type: {class: BeastMasterySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 1
-        BeastGatherWorkModifier: -0.45
+        BeastWorkSpeed: -0.45
         BeastGatherYield: -0.5
         TameBeastChance: 0.05
         TrainBeastChance: 0.1
@@ -38,7 +38,7 @@ MonoBehaviour:
       type: {class: BeastMasterySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 2
-        BeastGatherWorkModifier: -0.3
+        BeastWorkSpeed: -0.3
         BeastGatherYield: -0.35
         TameBeastChance: 0.1
         TrainBeastChance: 0.2
@@ -46,7 +46,7 @@ MonoBehaviour:
       type: {class: BeastMasterySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 3
-        BeastGatherWorkModifier: -0.15
+        BeastWorkSpeed: -0.15
         BeastGatherYield: -0.2
         TameBeastChance: 0.15
         TrainBeastChance: 0.3
@@ -54,7 +54,7 @@ MonoBehaviour:
       type: {class: BeastMasterySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 4
-        BeastGatherWorkModifier: 0
+        BeastWorkSpeed: 0
         BeastGatherYield: 0
         TameBeastChance: 0.2
         TrainBeastChance: 0.4
@@ -62,7 +62,7 @@ MonoBehaviour:
       type: {class: BeastMasterySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 5
-        BeastGatherWorkModifier: 0.15
+        BeastWorkSpeed: 0.15
         BeastGatherYield: 0.05
         TameBeastChance: 0.25
         TrainBeastChance: 0.5
@@ -70,7 +70,7 @@ MonoBehaviour:
       type: {class: BeastMasterySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 6
-        BeastGatherWorkModifier: 0.3
+        BeastWorkSpeed: 0.3
         BeastGatherYield: 0.1
         TameBeastChance: 0.3
         TrainBeastChance: 0.6
@@ -78,7 +78,7 @@ MonoBehaviour:
       type: {class: BeastMasterySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 7
-        BeastGatherWorkModifier: 0.45
+        BeastWorkSpeed: 0.45
         BeastGatherYield: 0.15
         TameBeastChance: 0.35
         TrainBeastChance: 0.7
@@ -86,7 +86,7 @@ MonoBehaviour:
       type: {class: BeastMasterySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 8
-        BeastGatherWorkModifier: 0.6
+        BeastWorkSpeed: 0.6
         BeastGatherYield: 0.2
         TameBeastChance: 0.4
         TrainBeastChance: 0.8
@@ -94,7 +94,7 @@ MonoBehaviour:
       type: {class: BeastMasterySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 9
-        BeastGatherWorkModifier: 0.75
+        BeastWorkSpeed: 0.75
         BeastGatherYield: 0.25
         TameBeastChance: 0.45
         TrainBeastChance: 0.9
@@ -102,7 +102,7 @@ MonoBehaviour:
       type: {class: BeastMasterySkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 10
-        BeastGatherWorkModifier: 0.9
+        BeastWorkSpeed: 0.9
         BeastGatherYield: 0.3
         TameBeastChance: 0.5
         TrainBeastChance: 1

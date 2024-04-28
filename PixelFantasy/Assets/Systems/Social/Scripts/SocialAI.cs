@@ -42,7 +42,7 @@ namespace Systems.Social.Scripts
         private float _chatTimer;
         private float _bubbleTimer;
         
-        public List<RelationshipState> Relationships => _kinling.RuntimeData.Relationships;
+        public List<RelationshipData> Relationships => _kinling.RuntimeData.Relationships;
         
         public enum ESocialState
         {
@@ -168,7 +168,7 @@ namespace Systems.Social.Scripts
             // This is based on their cohesion, relationship and mood
             int weight = ROMANTIC_COHESION_BASE;
             var otherKinlingRelationship = GetRelationshipState(otherKinling);
-            var curOverallMood = _kinling.KinlingMood.OverallMood / 100f;
+            var curOverallMood = _kinling.MoodData.OverallMood / 100f;
             int moodCohesion = (int)(MOOD_COHESION_BASE * curOverallMood) - (MOOD_COHESION_BASE / 2);
             
             weight += otherKinlingRelationship.OverallCohesion;
@@ -192,7 +192,7 @@ namespace Systems.Social.Scripts
             else
             {
                 responderRelationshipState.AddToScore(NEGATIVE_INTERACTION_SCORE);
-                _kinling.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("Rejected")); // Mood De-buff
+                _kinling.MoodData.ApplyEmotion(Librarian.Instance.GetEmotion("Rejected")); // Mood De-buff
             }
             
             _kinling.RuntimeData.Needs.IncreaseNeedValue(NeedType.Fun, CHAT_SOCIAL_NEED_BENEFIT);
@@ -248,7 +248,7 @@ namespace Systems.Social.Scripts
             // This is based on their cohesion, relationship and mood
             int weight = COHESION_BASE;
             var otherKinlingRelationship = GetRelationshipState(otherKinling);
-            var curOverallMood = _kinling.KinlingMood.OverallMood / 100f;
+            var curOverallMood = _kinling.MoodData.OverallMood / 100f;
             int moodCohesion = (int)(MOOD_COHESION_BASE * curOverallMood) - (MOOD_COHESION_BASE / 2);
             
             weight += otherKinlingRelationship.OverallCohesion;
@@ -329,13 +329,13 @@ namespace Systems.Social.Scripts
             return results;
         }
 
-        private RelationshipState GetRelationshipState(KinlingData otherKinling)
+        private RelationshipData GetRelationshipState(KinlingData otherKinling)
         {
-            RelationshipState result = Relationships.Find(state => state.KinlingData == otherKinling);
+            RelationshipData result = Relationships.Find(state => state.KinlingData == otherKinling);
             if (result == null)
             {
-                NotificationManager.Instance.CreateKinlingLog(_kinling, $"{_kinling.FullName} has met {otherKinling.Fullname}", LogData.ELogType.Message);
-                result = new RelationshipState(otherKinling);
+                NotificationManager.Instance.CreatePersonalLog(_kinling, $"{_kinling.FullName} has met {otherKinling.Fullname}", LogData.ELogType.Message);
+                result = new RelationshipData(otherKinling);
                 _kinling.RuntimeData.Relationships.Add(result);
                 
                 GameEvents.Trigger_OnKinlingChanged(_kinling.RuntimeData);
@@ -350,8 +350,7 @@ namespace Systems.Social.Scripts
             relationship.IsPartner = true;
             _kinling.RuntimeData.Partner = otherKinling;
             
-            Debug.Log($"Relationship started!");
-            _kinling.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("Started Relationship")); // Mood Buff
+            _kinling.MoodData.ApplyEmotion(Librarian.Instance.GetEmotion("Started Relationship")); // Mood Buff
             NotificationManager.Instance.CreateKinlingLog(_kinling, $"{_kinling.FullName} is now in a relationship with {otherKinling.Fullname}!", LogData.ELogType.Positive);
             GameEvents.Trigger_OnKinlingChanged(_kinling.RuntimeData);
         }
@@ -379,12 +378,12 @@ namespace Systems.Social.Scripts
         {
             if (wasSuccessful)
             {
-                _kinling.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("Got some Lovin'"));
+                _kinling.MoodData.ApplyEmotion(Librarian.Instance.GetEmotion("Got some Lovin'"));
                 CheckPregnancy();
             }
             else
             {
-                _kinling.KinlingMood.ApplyEmotion(Librarian.Instance.GetEmotion("Lovin' was Disturbed"));
+                _kinling.MoodData.ApplyEmotion(Librarian.Instance.GetEmotion("Lovin' was Disturbed"));
             }
         }
 

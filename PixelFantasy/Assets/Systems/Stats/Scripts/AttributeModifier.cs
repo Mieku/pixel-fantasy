@@ -28,15 +28,14 @@ namespace Systems.Stats.Scripts
     {
         public EAttributeType AttributeType;
         public float Modifier;
-        public ESkillType SpecificSkill;
-        public bool IsGlobal;
+ 
         public override EModifierType ModifierType => EModifierType.Attribute;
         
         public override void ApplyModifier(KinlingData kinlingData)
         {
-            if (!kinlingData.StatsData.AttributeModifiers.Contains(this))
+            if (!kinlingData.Stats.AttributeModifiers.Contains(this))
             {
-                kinlingData.StatsData.AttributeModifiers.Add(this);
+                kinlingData.Stats.AttributeModifiers.Add(this);
             }
         }
 
@@ -53,42 +52,69 @@ namespace Systems.Stats.Scripts
             }
             
             string result = $"{AttributeType.GetDescription()} {modifier}";
-            if (!IsGlobal)
-            {
-                result += $" for {SpecificSkill.GetDescription()}";
-            }
 
             return result;
-        }
-
-        public bool AvailableForSkill(ESkillType? skillType)
-        {
-            if (IsGlobal || skillType == null) return true;
-
-            return SpecificSkill == skillType;
         }
     }
     
     public enum EAttributeType
     {
-        [Description("Work Modifier")] WorkModifier = 0,
-        [Description("Yield Modifier")] YieldModifier = 1,
-        [Description("Walk Speed")] WalkSpeed = 2,
-        [Description("Food Poison Chance")] FoodPoisonChance = 3, 
-        [Description("Melee Chance To Hit")] MeleeChanceToHit = 4,
-        [Description("Melee Chance To Dodge")] MeleeChanceToDodge = 5,
-        [Description("Hunting Stealth")] HuntingStealth = 6,
-        [Description("Ranged Accuracy")] RangedAccuracy = 7,
-        [Description("Construction Success Chance")] ConstructionSuccessChance = 8,
-        [Description("Tame Beast Chance")] TameBeastChance = 9,
-        [Description("Train Beast Chance")] TrainBeastChance = 10,
-        [Description("Surgery Success Chance")] SurgerySuccessChance = 11,
-        [Description("Tend Quality")] TendQuality = 12,
-        [Description("Trade Price Buy")] TradePriceBuy = 13,
-        [Description("Trade Price Sell")] TradePriceSell = 14,
-        [Description("Social Impact")] SocialImpact = 15,
-        [Description("Leanering Modifier")] LearningModifier = 16,
-        [Description("Skill Decay")] SkillDecay = 17,
-        [Description("Quality Modifier")] QualityModifier = 18,
+        // General
+        [Description("Global Work Speed")] GlobalWorkSpeed = 0,
+        [Description("Walk Speed")] WalkSpeed = 1,
+        [Description("Skill Decay")] SkillDecay = 2,
+        [Description("Appetite")] Appetite = 3,
+        [Description("Attractiveness")] Attractiveness = 4,
+        [Description("Social Frequency")] SocialFrequency = 5,
+        
+        // Beast Mastery
+        [Description("Beast Work Speed")] BeastWorkSpeed = 20,
+        [Description("Beast Gather Yield")] BeastGatherYield = 21,
+        [Description("Tame Beast Chance")] TameBeastChance = 22,
+        [Description("Train Beast Chance")] TrainBeastChance = 23,
+        
+        // Botany
+        [Description("Botany Speed")] BotanySpeed = 30,
+        [Description("Botany Yield")] BotanyYield = 31,
+        
+        // Construction
+        [Description("Construction Speed")] ConstructionSpeed = 40,
+        [Description("Construction Chance")] ConstructionSuccessChance = 41,
+        
+        // Cooking
+        [Description("Cooking Speed")] CookingSpeed = 50,
+        [Description("Butchering Yield")] ButcheringYield = 51,
+        [Description("Food Poison Chance")] FoodPoisonChance = 52, 
+        
+        // Crafting
+        [Description("Crafting Speed")] CraftingSpeed = 60,
+        [Description("Crafting Quality")] CraftingQuality = 61,
+        
+        // Intelligence
+        [Description("Research Speed")] ResearchSpeed = 70,
+        [Description("Learning Speed")] LearningModifier = 71,
+        
+        // Medical
+        [Description("Medical Speed")] MedicalSpeed = 80,
+        [Description("Surgery Success Chance")] SurgerySuccessChance = 81,
+        [Description("Tend Quality")] TendQuality = 82,
+        
+        // Melee
+        [Description("Melee Chance To Hit")] MeleeChanceToHit = 90,
+        [Description("Melee Chance To Dodge")] MeleeChanceToDodge = 91,
+        
+        // Mining
+        [Description("Mining Speed")] MiningSpeed = 100,
+        [Description("Mining Yield")] MiningYield = 101,
+        
+        // Ranged
+        [Description("Hunting Stealth")] HuntingStealth = 110,
+        [Description("Ranged Accuracy")] RangedAccuracy = 111,
+        
+        // Social
+        [Description("Trade Price Buy")] TradePriceBuy = 120,
+        [Description("Trade Price Sell")] TradePriceSell = 121,
+        [Description("Social Impact")] SocialImpact = 123,
+
     }
 }

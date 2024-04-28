@@ -183,7 +183,7 @@ namespace Systems.SmartObjects.Scripts
                 
                 // Check the thresholds for the stat
                 var emotion = statConfig.LinkedStat.CheckThresholds(GetStatValue(statConfig.LinkedStat));
-                if (!Kinling.KinlingMood.HasEmotion(emotion))
+                if (!Kinling.MoodData.HasEmotion(emotion))
                 {
                     // Remove the others
                     foreach (var threshold in statConfig.LinkedStat.AllThresholds)
@@ -191,13 +191,13 @@ namespace Systems.SmartObjects.Scripts
                         var otherEmotion = threshold.BelowThresholdEmotionSettings;
                         if (otherEmotion != null)
                         {
-                            Kinling.KinlingMood.RemoveEmotion(otherEmotion);
+                            Kinling.MoodData.RemoveEmotion(otherEmotion);
                         }
                     }
                     
                     if (emotion != null)
                     {
-                        Kinling.KinlingMood.ApplyEmotion(emotion);
+                        Kinling.MoodData.ApplyEmotion(emotion);
                     }
                 }
             }

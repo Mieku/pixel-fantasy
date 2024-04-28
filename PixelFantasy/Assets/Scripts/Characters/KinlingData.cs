@@ -7,11 +7,13 @@ using Databrain.Attributes;
 using Items;
 using Systems.Appearance.Scripts;
 using Systems.Mood.Scripts;
+using Systems.Notifications.Scripts;
 using Systems.Social.Scripts;
 using Systems.Stats.Scripts;
 using Systems.Traits.Scripts;
 using TaskSystem;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Characters
@@ -58,8 +60,8 @@ namespace Characters
         [ExposeToInspector, DatabrainSerialize, DataObjectDropdown] 
         public List<KinlingData> Children = new List<KinlingData>();
         
-        [ExposeToInspector, DatabrainSerialize] 
-        public Schedule Schedule;
+        [FormerlySerializedAs("Schedule")] [ExposeToInspector, DatabrainSerialize] 
+        public ScheduleData Schedule;
 
         [ExposeToInspector, DatabrainSerialize]
         public bool IsAsleep;
@@ -89,16 +91,19 @@ namespace Characters
         public Item HeldItem;
 
         [ExposeToInspector, DatabrainSerialize]
-        public KinlingStatsData StatsData;
+        public StatsData Stats;
 
         [ExposeToInspector, DatabrainSerialize]
-        public KinlingNeeds Needs;
+        public NeedsData Needs;
 
         [ExposeToInspector, DatabrainSerialize]
-        public Mood Mood;
+        public MoodData Mood;
         
         [ExposeToInspector, DatabrainSerialize] 
-        public List<RelationshipState> Relationships = new List<RelationshipState>();
+        public List<RelationshipData> Relationships = new List<RelationshipData>();
+
+        [ExposeToInspector, DatabrainSerialize, SerializeField] 
+        private List<LogData> _personalLog = new List<LogData>();
 
         public void Randomize(RaceSettings race)
         {
@@ -119,16 +124,14 @@ namespace Characters
             Firstname = Appearance.Race.GetRandomFirstName(Gender);
             Lastname = Appearance.Race.GetRandomLastName();
             
-            StatsData.RandomizeSkillLevels();
+            Stats.RandomizeSkillLevels();
             AssignHistory(Race.GetRandomHistory());
             AssignTraits(Race.GetRandomTraits(Random.Range(0, 4)));
-            
-            //Mood.Init(this);
         }
         
         public void AssignHistory(History history)
         {
-            StatsData.History = history;
+            Stats.History = history;
             foreach (var modifier in history.Modifiers)
             {
                 modifier.ApplyModifier(this);
@@ -139,9 +142,9 @@ namespace Characters
         {
             foreach (var trait in traits)
             {
-                if (!StatsData.Traits.Contains(trait))
+                if (!Stats.Traits.Contains(trait))
                 {
-                    StatsData.Traits.Add(trait);
+                    Stats.Traits.Add(trait);
                     foreach (var traitModifier in trait.Modifiers)
                     {
                         traitModifier.ApplyModifier(this);
@@ -183,7 +186,7 @@ namespace Characters
             Firstname = Appearance.Race.GetRandomFirstName(Gender);
             Lastname = mother.Lastname;
             
-            StatsData.RandomizeSkillLevels();
+            Stats.RandomizeSkillLevels();
         }
 
         private ESexualPreference DetermineSexuality()
@@ -264,19 +267,26 @@ namespace Characters
             }
         }
 
-        public int IncrementAge()
-        {
-            Age++;
-
-            return Age;
-        }
-
         public void MinuteTick()
         {
             if (Kinling == null) return;
             
             Mood.MinuteTick();
             Needs.MinuteTick();
+        }
+
+        public void DayTick()
+        {
+            
+            IncrementAge();
+            Stats.DoDailyExpDecay();
+        }
+        
+        public int IncrementAge()
+        {
+            Age++;
+
+            return Age;
         }
 
         /// <summary>
@@ -296,27 +306,12 @@ namespace Characters
         
         public int GetLevelForSkill(ESkillType skillType)
         {
-            return StatsData.GetLevelForSkill(skillType);
+            return Stats.GetLevelForSkill(skillType);
         }
 
         public void SetLevelForSkill(ESkillType skillType, int assignedLevel)
         {
-            StatsData.SetLevelForSkill(skillType, assignedLevel);
-        }
-
-        public float GetTotalAttributeModifier(EAttributeType attributeType, ESkillType? skillType)
-        {
-            float totalModifier = 0;
-            var modifiers = StatsData.AttributeModifiers;
-            foreach (var modifier in modifiers)
-            {
-                if (modifier.AttributeType == attributeType && modifier.AvailableForSkill(skillType))
-                {
-                    totalModifier += modifier.Modifier;
-                }
-            }
-            
-            return totalModifier;
+            Stats.SetLevelForSkill(skillType, assignedLevel);
         }
         
         public bool IsKinlingAttractedTo(KinlingData otherKinling)
@@ -335,6 +330,18 @@ namespace Characters
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        public void SubmitPersonalLog(LogData logData)
+        {
+            _personalLog.Add(logData);
+            GameEvents.Trigger_OnKinlingChanged(this);
+        }
+
+        public List<LogData> GetPersonalLog()
+        {
+            List<LogData> log = _personalLog.ToList();
+            return log;
         }
     }
 }

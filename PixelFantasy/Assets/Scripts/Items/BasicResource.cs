@@ -142,9 +142,9 @@ namespace Items
         /// </summary>
         /// <param name="workAmount"></param>
         /// <returns>If the work is complete</returns>
-        public virtual bool DoExtractionWork(KinlingStats stats)
+        public virtual bool DoExtractionWork(StatsData stats)
         {
-            var workAmount = stats.GetActionWorkForSkill(RuntimeData.Settings.ExtractionSkillType, transform);
+            var workAmount = stats.GetActionSpeedForSkill(RuntimeData.Settings.ExtractionSkillType, transform);
             RuntimeData.RemainingExtractWork -= workAmount;
             if (RuntimeData.RemainingExtractWork <= 0)
             {
@@ -183,7 +183,7 @@ namespace Items
             return false;
         }
 
-        protected virtual void ExtractResource(KinlingStats stats)
+        protected virtual void ExtractResource(StatsData stats)
         {
             var resources = RuntimeData.Settings.HarvestableItems.GetItemDrop();
             foreach (var resource in resources)

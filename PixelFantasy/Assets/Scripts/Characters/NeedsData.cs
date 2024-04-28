@@ -10,14 +10,13 @@ using UnityEngine.Serialization;
 namespace Characters
 {
     [Serializable]
-    public class KinlingNeeds
+    public class NeedsData
     {
-        [Header("Needs")] 
-        [SerializeField] protected NeedState _foodNeedState;
-        [SerializeField] protected NeedState _energyNeedState;
-        [SerializeField] protected NeedState _funNeedState;
-        [SerializeField] protected NeedState _beautyNeedState;
-        [SerializeField] protected NeedState _comfortNeedState;
+        [SerializeField] protected Need _foodNeed;
+        [SerializeField] protected Need _energyNeed;
+        [SerializeField] protected Need _funNeed;
+        [SerializeField] protected Need _beautyNeed;
+        [SerializeField] protected Need _comfortNeed;
 
         [SerializeField] private List<NeedChange> _registeredNeedChanges = new List<NeedChange>();
 
@@ -27,22 +26,22 @@ namespace Characters
         {
             NeedChangePerMin();
             
-            _foodNeedState.MinuteTick();
-            _energyNeedState.MinuteTick();
-            _funNeedState.MinuteTick();
-            _beautyNeedState.MinuteTick();
-            _comfortNeedState.MinuteTick();
+            _foodNeed.MinuteTick();
+            _energyNeed.MinuteTick();
+            _funNeed.MinuteTick();
+            _beautyNeed.MinuteTick();
+            _comfortNeed.MinuteTick();
         }
 
         public void Initialize(Kinling kinling)
         {
             _kinling = kinling;
             
-            _foodNeedState.Initialize(_kinling);
-            _energyNeedState.Initialize(_kinling);
-            _funNeedState.Initialize(_kinling);
-            _beautyNeedState.Initialize(_kinling);
-            _comfortNeedState.Initialize(_kinling);
+            _foodNeed.Initialize(_kinling);
+            _energyNeed.Initialize(_kinling);
+            _funNeed.Initialize(_kinling);
+            _beautyNeed.Initialize(_kinling);
+            _comfortNeed.Initialize(_kinling);
         }
 
         private void NeedChangePerMin()
@@ -98,15 +97,15 @@ namespace Characters
             }
         }
 
-        public NeedState GetNeedByType(NeedType needType)
+        public Need GetNeedByType(NeedType needType)
         {
             return needType switch
             {
-                NeedType.Food => _foodNeedState,
-                NeedType.Energy => _energyNeedState,
-                NeedType.Fun => _funNeedState,
-                NeedType.Beauty => _beautyNeedState,
-                NeedType.Comfort => _comfortNeedState,
+                NeedType.Food => _foodNeed,
+                NeedType.Energy => _energyNeed,
+                NeedType.Fun => _funNeed,
+                NeedType.Beauty => _beautyNeed,
+                NeedType.Comfort => _comfortNeed,
                 _ => throw new ArgumentOutOfRangeException(nameof(needType), needType, null)
             };
         }
@@ -160,7 +159,7 @@ namespace Characters
             
             // Have the sex drive be influenced by mood
             lastDayChecked = currentDay;
-            var currentMood = _kinling.KinlingMood.OverallMood;
+            var currentMood = _kinling.MoodData.OverallMood;
             float sexDriveModifier = (1f / 75f) * currentMood;
             float sexDrive = BASE_SEX_DRIVE * sexDriveModifier;
             Debug.Log($"Sex Drive: {sexDrive}");

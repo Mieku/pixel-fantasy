@@ -30,59 +30,59 @@ MonoBehaviour:
       type: {class: MiningSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 1
-        MiningWorkModifier: -0.45
+        MiningSpeed: -0.45
         MiningYield: -0.5
     - rid: 4161138421076328725
       type: {class: MiningSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 2
-        MiningWorkModifier: -0.3
+        MiningSpeed: -0.3
         MiningYield: -0.35
     - rid: 4161138421076328726
       type: {class: MiningSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 3
-        MiningWorkModifier: -0.15
+        MiningSpeed: -0.15
         MiningYield: -0.2
     - rid: 4161138421076328727
       type: {class: MiningSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 4
-        MiningWorkModifier: 0
+        MiningSpeed: 0
         MiningYield: 0
     - rid: 4161138421076328728
       type: {class: MiningSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 5
-        MiningWorkModifier: 0.15
+        MiningSpeed: 0.15
         MiningYield: 0.05
     - rid: 4161138421076328729
       type: {class: MiningSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 6
-        MiningWorkModifier: 0.3
+        MiningSpeed: 0.3
         MiningYield: 0.1
     - rid: 4161138421076328730
       type: {class: MiningSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 7
-        MiningWorkModifier: 0.45
+        MiningSpeed: 0.45
         MiningYield: 0.15
     - rid: 4161138421076328731
       type: {class: MiningSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 8
-        MiningWorkModifier: 0.6
+        MiningSpeed: 0.6
         MiningYield: 0.2
     - rid: 4161138421076328732
       type: {class: MiningSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 9
-        MiningWorkModifier: 0.75
+        MiningSpeed: 0.75
         MiningYield: 0.25
     - rid: 4161138421076328733
       type: {class: MiningSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 10
-        MiningWorkModifier: 0.9
+        MiningSpeed: 0.9
         MiningYield: 0.3

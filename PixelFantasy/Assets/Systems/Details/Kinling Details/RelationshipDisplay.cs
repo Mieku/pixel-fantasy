@@ -15,10 +15,10 @@ namespace Systems.Details.Kinling_Details
         [SerializeField] private Color _positiveColour;
         [SerializeField] private Color _negativeColour;
 
-        public RelationshipState Relationship;
+        public RelationshipData Relationship;
         private KinlingData _thisKinling;
 
-        public void Init(RelationshipState relationship, KinlingData thisKinling, int index)
+        public void Init(RelationshipData relationship, KinlingData thisKinling, int index)
         {
             Relationship = relationship;
             _thisKinling = thisKinling;

@@ -41,7 +41,7 @@ namespace TaskSystem
             if (task.Requestor != null)
             {
                 // Check if the requester has the skill to do the task
-                if (!_ai.Kinling.RuntimeData.StatsData.CanDoTaskType(task.TaskType)) return false;
+                if (!_ai.Kinling.RuntimeData.Stats.CanDoTaskType(task.TaskType)) return false;
                 
                 // Check if there is a possible tool to use, if needed and not held
                 if (task.RequiredToolType != EToolType.None)

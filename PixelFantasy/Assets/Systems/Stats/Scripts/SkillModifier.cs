@@ -21,7 +21,7 @@ namespace Systems.Stats.Scripts
 
             if (PassionOverride != ESkillPassion.None)
             {
-                var skill = kinlingData.StatsData.GetSkillByType(SkillType);
+                var skill = kinlingData.Stats.GetSkillByType(SkillType);
                 skill.Passion = PassionOverride;
             }
         }

@@ -77,7 +77,7 @@ namespace TaskSystem
             if(_timer >= ActionSpeed) 
             {   
                 _timer = 0;
-                if (_resource.DoExtractionWork(_ai.Kinling.Stats)) 
+                if (_resource.DoExtractionWork(_ai.Kinling.RuntimeData.Stats)) 
                 {
                     // When work is complete
                     ConcludeAction();

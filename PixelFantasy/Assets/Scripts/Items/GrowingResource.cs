@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Characters;
 using Data.Resource;
 using ScriptableObjects;
 using Managers;
@@ -146,7 +147,7 @@ namespace Items
             }
         }
 
-        public void HarvestFruit(KinlingStats stats)
+        public void HarvestFruit(StatsData stats)
         {
             if (RuntimeGrowingResourceData.HasFruitAvailable)
             {
@@ -174,9 +175,9 @@ namespace Items
             RuntimeGrowingResourceData.RemainingHarvestWork = RuntimeGrowingResourceData.GrowingResourceSettings.WorkToHarvest;
         }
 
-        public bool DoHarvest(KinlingStats stats)
+        public bool DoHarvest(StatsData stats)
         {
-            var workAmount = stats.GetActionWorkForSkill(RuntimeGrowingResourceData.Settings.ExtractionSkillType, true);
+            var workAmount = stats.GetActionSpeedForSkill(RuntimeGrowingResourceData.Settings.ExtractionSkillType, true);
             RuntimeGrowingResourceData.RemainingHarvestWork -= workAmount;
             if (RuntimeGrowingResourceData.RemainingHarvestWork <= 0)
             {
@@ -204,7 +205,7 @@ namespace Items
             FruitCheck();
         }
 
-        protected override void ExtractResource(KinlingStats stats)
+        protected override void ExtractResource(StatsData stats)
         {
             HarvestFruit(stats);
             

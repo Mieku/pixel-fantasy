@@ -1,3 +1,4 @@
+using Characters;
 using Controllers;
 using Data.Resource;
 using Interfaces;
@@ -61,7 +62,7 @@ namespace Items
             return UnitAction.Swinging;
         }
 
-        protected override void ExtractResource(KinlingStats stats)
+        protected override void ExtractResource(StatsData stats)
         {
             MineMountain();
             base.ExtractResource(stats);

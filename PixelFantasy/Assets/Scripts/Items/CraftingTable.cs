@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Characters;
 using Data.Dye;
 using Data.Item;
 using Managers;
@@ -151,9 +152,9 @@ namespace Items
             }
         }
 
-        public bool DoCraft(KinlingStats stats)
+        public bool DoCraft(StatsData stats)
         {
-            var workAmount = stats.GetActionWorkForSkill(RuntimeTableData.CraftingSkillType(), true);
+            var workAmount = stats.GetActionSpeedForSkill(RuntimeTableData.CraftingSkillType(), true);
             RuntimeTableData.RemainingCraftingWork -= workAmount;
             
             if (RuntimeTableData.RemainingCraftingWork <= 0)

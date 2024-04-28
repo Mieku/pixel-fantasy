@@ -1,6 +1,7 @@
 using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Systems.Stats.Scripts
 {
@@ -30,7 +31,7 @@ namespace Systems.Stats.Scripts
     public class ConstructionSkillLevelData : SkillLevelData
     {
         [TableColumnWidth(100)]
-        public float ConstructionWorkModifier;
+        public float ConstructionSpeed;
         
         [TableColumnWidth(100)]
         public float SuccessChance;
@@ -39,7 +40,7 @@ namespace Systems.Stats.Scripts
         {
             switch (attributeType)
             {
-                case EAttributeType.WorkModifier: return ConstructionWorkModifier;
+                case EAttributeType.ConstructionSpeed: return ConstructionSpeed;
                 case EAttributeType.ConstructionSuccessChance: return SuccessChance;
                 default: throw new ArgumentOutOfRangeException(nameof(attributeType), $"Not supported attribute {attributeType} for construction.");
             }

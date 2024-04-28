@@ -1,6 +1,7 @@
 using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Systems.Stats.Scripts
 {
@@ -31,7 +32,7 @@ namespace Systems.Stats.Scripts
     public class BotanySkillLevelData : SkillLevelData
     {
         [TableColumnWidth(100)]
-        public float BotanyWorkModifier;
+        public float BotanySpeed;
         
         [TableColumnWidth(100)]
         public float BotanyYield;
@@ -40,8 +41,8 @@ namespace Systems.Stats.Scripts
         {
             switch (attributeType)
             {
-                case EAttributeType.WorkModifier: return BotanyWorkModifier;
-                case EAttributeType.YieldModifier: return BotanyYield;
+                case EAttributeType.BotanySpeed: return BotanySpeed;
+                case EAttributeType.BotanyYield: return BotanyYield;
                 default: throw new ArgumentOutOfRangeException(nameof(attributeType), $"Not supported attribute {attributeType} for botany.");
             }
         }

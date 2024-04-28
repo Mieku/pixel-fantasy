@@ -30,59 +30,59 @@ MonoBehaviour:
       type: {class: ConstructionSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 1
-        ConstructionWorkModifier: -0.45
+        ConstructionSpeed: -0.45
         SuccessChance: 0.75
     - rid: 4161138440409186467
       type: {class: ConstructionSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 2
-        ConstructionWorkModifier: -0.3
+        ConstructionSpeed: -0.3
         SuccessChance: 0.8
     - rid: 4161138440409186468
       type: {class: ConstructionSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 3
-        ConstructionWorkModifier: -0.15
+        ConstructionSpeed: -0.15
         SuccessChance: 0.85
     - rid: 4161138440409186469
       type: {class: ConstructionSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 4
-        ConstructionWorkModifier: 0
+        ConstructionSpeed: 0
         SuccessChance: 0.95
     - rid: 4161138440409186470
       type: {class: ConstructionSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 5
-        ConstructionWorkModifier: 0.15
+        ConstructionSpeed: 0.15
         SuccessChance: 1
     - rid: 4161138440409186471
       type: {class: ConstructionSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 6
-        ConstructionWorkModifier: 0.3
+        ConstructionSpeed: 0.3
         SuccessChance: 1
     - rid: 4161138440409186472
       type: {class: ConstructionSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 7
-        ConstructionWorkModifier: 0.45
+        ConstructionSpeed: 0.45
         SuccessChance: 1
     - rid: 4161138440409186473
       type: {class: ConstructionSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 8
-        ConstructionWorkModifier: 0.6
+        ConstructionSpeed: 0.6
         SuccessChance: 1
     - rid: 4161138440409186474
       type: {class: ConstructionSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 9
-        ConstructionWorkModifier: 0.75
+        ConstructionSpeed: 0.75
         SuccessChance: 1
     - rid: 4161138440409186475
       type: {class: ConstructionSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 10
-        ConstructionWorkModifier: 0.9
+        ConstructionSpeed: 0.9
         SuccessChance: 1

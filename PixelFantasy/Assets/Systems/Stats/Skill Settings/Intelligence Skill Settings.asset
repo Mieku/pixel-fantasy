@@ -30,59 +30,59 @@ MonoBehaviour:
       type: {class: IntelligenceSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 1
-        ResearchWorkModifier: -0.75
+        ResearchSpeed: -0.75
         LearningModifier: -0.3
     - rid: 4161138440409186528
       type: {class: IntelligenceSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 2
-        ResearchWorkModifier: -0.5
+        ResearchSpeed: -0.5
         LearningModifier: -0.2
     - rid: 4161138440409186529
       type: {class: IntelligenceSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 3
-        ResearchWorkModifier: -0.25
+        ResearchSpeed: -0.25
         LearningModifier: -0.1
     - rid: 4161138440409186530
       type: {class: IntelligenceSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 4
-        ResearchWorkModifier: 0
+        ResearchSpeed: 0
         LearningModifier: 0
     - rid: 4161138440409186531
       type: {class: IntelligenceSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 5
-        ResearchWorkModifier: 0.25
+        ResearchSpeed: 0.25
         LearningModifier: 0.1
     - rid: 4161138440409186532
       type: {class: IntelligenceSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 6
-        ResearchWorkModifier: 0.5
+        ResearchSpeed: 0.5
         LearningModifier: 0.2
     - rid: 4161138440409186533
       type: {class: IntelligenceSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 7
-        ResearchWorkModifier: 0.75
+        ResearchSpeed: 0.75
         LearningModifier: 0.3
     - rid: 4161138440409186534
       type: {class: IntelligenceSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 8
-        ResearchWorkModifier: 1
+        ResearchSpeed: 1
         LearningModifier: 0.4
     - rid: 4161138440409186535
       type: {class: IntelligenceSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 9
-        ResearchWorkModifier: 1.25
+        ResearchSpeed: 1.25
         LearningModifier: 0.5
     - rid: 4161138440409186536
       type: {class: IntelligenceSkillLevelData, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         Level: 10
-        ResearchWorkModifier: 1.5
+        ResearchSpeed: 0.5
         LearningModifier: 0.6

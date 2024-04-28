@@ -112,7 +112,7 @@ namespace Systems.Notifications.Scripts
                     break;
                 case LogData.ELogType.Danger:
                 case LogData.ELogType.Notification:
-                    _logger.ClearLog(this);
+                    _logger?.ClearLog(this);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -120,6 +120,7 @@ namespace Systems.Notifications.Scripts
         }
     }
 
+    [Serializable]
     public class LogData
     {
         public string Message;

@@ -18,9 +18,14 @@ namespace Systems.Stats.Scripts
 
         [ExposeToInspector, DatabrainSerialize]
         public ESkillPassion Passion;
+        
+        [ExposeToInspector, DatabrainSerialize, SerializeField] 
+        private SkillSettings _skillSettings;
 
         public bool Incapable => Level == 0;
         public bool IsMaxLevel => Level == 10;
+
+        public SkillSettings Settings => _skillSettings;
 
         public void RandomlyAssignPassion()
         {

@@ -15,29 +15,29 @@ namespace Systems.Details.Kinling_Details
         [SerializeField] private GameObject _increasingArrow;
         [SerializeField] private GameObject _decreasingArrow;
 
-        private NeedState _needState;
+        private Need _need;
         private float _prevValue;
 
-        public void Init(NeedState needState)
+        public void Init(Need need)
         {
-            _needState = needState;
+            _need = need;
             
-            _thresholdDisplay.ShowThresholds(_needState.GetThresholds());
+            _thresholdDisplay.ShowThresholds(_need.GetThresholds());
 
-            _prevValue = _needState.Value;
+            _prevValue = _need.Value;
             Refresh();
         }
 
         public void Refresh()
         {
-            _barFill.fillAmount = _needState.Value;
+            _barFill.fillAmount = _need.Value;
 
-            if (_prevValue > _needState.Value) // Decreasing
+            if (_prevValue > _need.Value) // Decreasing
             {
                 _increasingArrow.SetActive(false);
                 _decreasingArrow.SetActive(true);
             } 
-            else if (_prevValue < _needState.Value) // Increasing
+            else if (_prevValue < _need.Value) // Increasing
             {
                 _increasingArrow.SetActive(true);
                 _decreasingArrow.SetActive(false);
@@ -49,12 +49,12 @@ namespace Systems.Details.Kinling_Details
                 _decreasingArrow.SetActive(false);
             }
 
-            _prevValue = _needState.Value;
+            _prevValue = _need.Value;
             
-            if (_needState.HasTargetValue)
+            if (_need.HasTargetValue)
             {
                 _targetIndicator.DisplayIndicator(true);
-                _targetIndicator.SetTargetIndicator(_needState.TargetValue);
+                _targetIndicator.SetTargetIndicator(_need.TargetValue);
             }
             else
             {

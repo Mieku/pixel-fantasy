@@ -19,7 +19,6 @@ MonoBehaviour:
   - rid: 4161138484699201728
   - rid: 4161138484699201729
   - rid: 4161138484699201730
-  - rid: 4161138484699201732
   - rid: 4161138484699201733
   <IncompatibleTraits>k__BackingField: []
   references:
@@ -39,17 +38,8 @@ MonoBehaviour:
       type: {class: AttributeModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         <ModifierType>k__BackingField: 0
-        AttributeType: 15
+        AttributeType: 123
         Modifier: 0.25
-        SpecificSkill: 9
-        IsGlobal: 0
-    - rid: 4161138484699201732
-      type: {class: SkillModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
-      data:
-        <ModifierType>k__BackingField: 1
-        SkillType: 9
-        LevelBoost: 3
-        PassionOverride: 0
     - rid: 4161138484699201733
       type: {class: PermanentMoodModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:

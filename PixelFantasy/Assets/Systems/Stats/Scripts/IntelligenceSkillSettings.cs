@@ -1,6 +1,7 @@
 using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Systems.Stats.Scripts
 {
@@ -30,7 +31,7 @@ namespace Systems.Stats.Scripts
     public class IntelligenceSkillLevelData : SkillLevelData
     {
         [TableColumnWidth(100)]
-        public float ResearchWorkModifier;
+        public float ResearchSpeed;
         
         [TableColumnWidth(100)]
         public float LearningModifier;
@@ -39,7 +40,7 @@ namespace Systems.Stats.Scripts
         {
             switch (attributeType)
             {
-                case EAttributeType.WorkModifier: return ResearchWorkModifier;
+                case EAttributeType.ResearchSpeed: return ResearchSpeed;
                 case EAttributeType.LearningModifier: return LearningModifier;
                 default: throw new ArgumentOutOfRangeException(nameof(attributeType), $"Not supported attribute {attributeType} for intelligence.");
             }

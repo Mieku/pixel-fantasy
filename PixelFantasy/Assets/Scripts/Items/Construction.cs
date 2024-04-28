@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Characters;
 using Data.Item;
 using Data.Structure;
 using Databrain;
@@ -43,9 +44,9 @@ namespace Items
             CreateTask(command, payload);
         }
         
-        public virtual bool DoConstruction(KinlingStats stats)
+        public virtual bool DoConstruction(StatsData stats)
         {
-            var workAmount = stats.GetActionWorkForSkill(ESkillType.Construction, true);
+            var workAmount = stats.GetActionSpeedForSkill(ESkillType.Construction, true);
             RuntimeData.RemainingWork -= workAmount;
             Changed();
             if (RuntimeData.RemainingWork <= 0)
@@ -57,9 +58,9 @@ namespace Items
             return false;
         }
 
-        public virtual bool DoDeconstruction(KinlingStats stats)
+        public virtual bool DoDeconstruction(StatsData stats)
         {
-            var workAmount = stats.GetActionWorkForSkill(ESkillType.Construction, true);
+            var workAmount = stats.GetActionSpeedForSkill(ESkillType.Construction, true);
             RuntimeData.RemainingWork -= workAmount;
             Changed();
             if (RuntimeData.RemainingWork <= 0)

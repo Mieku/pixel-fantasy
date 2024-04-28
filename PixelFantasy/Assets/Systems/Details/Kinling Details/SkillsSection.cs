@@ -30,17 +30,17 @@ namespace Systems.Details.Kinling_Details
             gameObject.SetActive(true);
             _kinlingData = kinlingData;
 
-            _meleeDisplay.Init(_kinlingData.StatsData.MeleeSkill, "Melee");
-            _rangedDisplay.Init(_kinlingData.StatsData.RangedSkill, "Ranged");
-            _constructionDisplay.Init(_kinlingData.StatsData.ConstructionSkill, "Construction");
-            _miningDisplay.Init(_kinlingData.StatsData.MiningSkill, "Mining");
-            _botanyDisplay.Init(_kinlingData.StatsData.BotanySkill, "Botany");
-            _cookingDisplay.Init(_kinlingData.StatsData.CookingSkill, "Cooking");
-            _craftingDisplay.Init(_kinlingData.StatsData.CraftingSkill, "Crafting");
-            _beastMasteryDisplay.Init(_kinlingData.StatsData.BeastMasterySkill, "Beast Mastery");
-            _medicalDisplay.Init(_kinlingData.StatsData.MedicalSkill, "Medical");
-            _socialDisplay.Init(_kinlingData.StatsData.SocialSkill, "Social");
-            _intelligenceDisplay.Init(_kinlingData.StatsData.IntelligenceSkill, "Intelligence");
+            _meleeDisplay.Init(_kinlingData.Stats.MeleeSkill, "Melee");
+            _rangedDisplay.Init(_kinlingData.Stats.RangedSkill, "Ranged");
+            _constructionDisplay.Init(_kinlingData.Stats.ConstructionSkill, "Construction");
+            _miningDisplay.Init(_kinlingData.Stats.MiningSkill, "Mining");
+            _botanyDisplay.Init(_kinlingData.Stats.BotanySkill, "Botany");
+            _cookingDisplay.Init(_kinlingData.Stats.CookingSkill, "Cooking");
+            _craftingDisplay.Init(_kinlingData.Stats.CraftingSkill, "Crafting");
+            _beastMasteryDisplay.Init(_kinlingData.Stats.BeastMasterySkill, "Beast Mastery");
+            _medicalDisplay.Init(_kinlingData.Stats.MedicalSkill, "Medical");
+            _socialDisplay.Init(_kinlingData.Stats.SocialSkill, "Social");
+            _intelligenceDisplay.Init(_kinlingData.Stats.IntelligenceSkill, "Intelligence");
             
             RefreshTraits();
         }
@@ -59,9 +59,9 @@ namespace Systems.Details.Kinling_Details
             }
             _displayedTraits.Clear();
             
-            _historyTrait.Init(_kinlingData.StatsData.History.HistoryName, _kinlingData.StatsData.History.DescriptionString(_kinlingData.GetNickname()));
+            _historyTrait.Init(_kinlingData.Stats.History.HistoryName, _kinlingData.Stats.History.DescriptionString(_kinlingData.GetNickname()));
 
-            foreach (var trait in _kinlingData.StatsData.Traits)
+            foreach (var trait in _kinlingData.Stats.Traits)
             {
                 var traitDisplay = Instantiate(_historyTrait, _traitsLayout);
                 traitDisplay.Init(trait.TraitName, trait.DescriptionString(_kinlingData.GetNickname()));

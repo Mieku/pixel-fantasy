@@ -26,7 +26,5 @@ MonoBehaviour:
       type: {class: AttributeModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         <ModifierType>k__BackingField: 0
-        AttributeType: 17
+        AttributeType: 2
         Modifier: 0.25
-        SpecificSkill: 10
-        IsGlobal: 1

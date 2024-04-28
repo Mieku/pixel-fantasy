@@ -1,6 +1,7 @@
 using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Systems.Stats.Scripts
 {
@@ -30,7 +31,7 @@ namespace Systems.Stats.Scripts
     public class MedicalSkillLevelData : SkillLevelData
     {
         [TableColumnWidth(100)]
-        public float MedicalWorkModifier;
+        public float MedicalSpeed;
         
         [TableColumnWidth(100)]
         public float SurgerySuccessChance;
@@ -42,7 +43,7 @@ namespace Systems.Stats.Scripts
         {
             switch (attributeType)
             {
-                case EAttributeType.WorkModifier: return MedicalWorkModifier;
+                case EAttributeType.MedicalSpeed: return MedicalSpeed;
                 case EAttributeType.SurgerySuccessChance: return SurgerySuccessChance;
                 case EAttributeType.TendQuality: return TendQuality;
                 default: throw new ArgumentOutOfRangeException(nameof(attributeType), $"Not supported attribute {attributeType} for medical.");

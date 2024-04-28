@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Characters
 {
     [Serializable]
-    public class Schedule
+    public class ScheduleData
     {
         [SerializeField] private ScheduleOption Hour0;
         [SerializeField] private ScheduleOption Hour1;
@@ -33,7 +33,7 @@ namespace Characters
         [SerializeField] private ScheduleOption Hour22;
         [SerializeField] private ScheduleOption Hour23;
 
-        public Schedule()
+        public ScheduleData()
         {
             SetDefaultValues();
         }

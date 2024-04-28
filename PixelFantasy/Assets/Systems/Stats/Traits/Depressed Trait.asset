@@ -16,7 +16,8 @@ MonoBehaviour:
   <TraitDescription>k__BackingField: '{Kinling_Name} is suffering from depression'
   <Modifiers>k__BackingField:
   - rid: 4161138597100257400
-  <IncompatibleTraits>k__BackingField: []
+  <IncompatibleTraits>k__BackingField:
+  - {fileID: 11400000, guid: f87fca71da029a94080790b11976c3de, type: 2}
   references:
     version: 2
     RefIds:

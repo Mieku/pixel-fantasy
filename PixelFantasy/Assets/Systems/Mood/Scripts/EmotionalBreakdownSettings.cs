@@ -9,7 +9,7 @@ namespace Systems.Mood.Scripts
     [CreateAssetMenu(fileName = "EmotionalBreakdownSettings", menuName = "Settings/AI/Emotional Breakdown Settings")]
     public class EmotionalBreakdownSettings : ScriptableObject
     {
-        public Mood.EMoodBreakType BreakdownType;
+        public MoodData.EMoodBreakType BreakdownType;
         public int MinRecoveryHours = 12;
         public int MaxRecoveryHours = 24;
 
@@ -30,11 +30,11 @@ namespace Systems.Mood.Scripts
             {
                 switch (BreakdownType)
                 {
-                    case Mood.EMoodBreakType.MinorBreak:
+                    case MoodData.EMoodBreakType.MinorBreak:
                         return Random.Range(MIN_MINOR_BREAK_TIME, MAX_MINOR_BREAK_TIME);
-                    case Mood.EMoodBreakType.MajorBreak:
+                    case MoodData.EMoodBreakType.MajorBreak:
                         return Random.Range(MIN_MAJOR_BREAK_TIME, MAX_MAJOR_BREAK_TIME);
-                    case Mood.EMoodBreakType.ExtremeBreak:
+                    case MoodData.EMoodBreakType.ExtremeBreak:
                         return Random.Range(MIN_EXTREME_BREAK_TIME, MAX_EXTREME_BREAK_TIME);
                     default:
                         throw new ArgumentOutOfRangeException();

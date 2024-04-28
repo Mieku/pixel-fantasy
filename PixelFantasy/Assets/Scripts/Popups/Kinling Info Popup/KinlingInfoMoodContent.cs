@@ -18,7 +18,7 @@ namespace Popups.Kinling_Info_Popup
         [SerializeField] private EmotionDisplay _negativeEmotionDisplayPrefab;
         
         private Kinling _kinling;
-        private Mood _kinlingMood => _kinling.KinlingMood;
+        private MoodData _moodData => _kinling.MoodData;
         private List<EmotionDisplay> _displayedEmotions = new List<EmotionDisplay>();
 
         public void Show(Kinling kinling)
@@ -29,7 +29,7 @@ namespace Popups.Kinling_Info_Popup
             
             gameObject.SetActive(true);
             
-            _thresholdDisplay.ShowThresholds(_kinlingMood.AllThresholds);
+            _thresholdDisplay.ShowThresholds(_moodData.AllThresholds);
 
             GameEvents.MinuteTick += GameEvent_MinuteTick;
         }
@@ -56,7 +56,7 @@ namespace Popups.Kinling_Info_Popup
         {
             RefreshOverallMoodDisplay();
 
-            var emotionStates = new HashSet<EmotionState>(_kinlingMood.AllEmotions);
+            var emotionStates = new HashSet<EmotionState>(_moodData.AllEmotions);
             var displayedEmotionStates = new HashSet<EmotionState>(DisplayedEmotionState());
 
             // Object pools for positive and negative emotions
@@ -185,8 +185,8 @@ namespace Popups.Kinling_Info_Popup
 
         private void RefreshOverallMoodDisplay()
         {
-            var overallMoodPercent = _kinlingMood.OverallMood / 100f;
-            var targetMoodPercent = _kinlingMood.MoodTarget / 100f;
+            var overallMoodPercent = _moodData.OverallMood / 100f;
+            var targetMoodPercent = _moodData.MoodTarget / 100f;
 
             _overallMoodBarFill.fillAmount = overallMoodPercent;
             _targetIndicator.SetTargetIndicator(targetMoodPercent);

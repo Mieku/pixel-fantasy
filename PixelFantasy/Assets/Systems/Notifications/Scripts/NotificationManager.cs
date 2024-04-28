@@ -45,31 +45,33 @@ namespace Systems.Notifications.Scripts
                 GameTime = gameTime,
                 Message = message,
                 LogType = logType,
-                Payload = kinling.UniqueId,
+                Payload = kinling.RuntimeData.guid,
                 PayloadType = LogData.ELogPayloadType.Kinling
             };
             
             SubmitLogData(logData);
+            kinling.RuntimeData.SubmitPersonalLog(logData);
         }
 
-        // public void CreateBuildingLog(Building building, string message, LogData.ELogType logType, GameTime gameTime = null)
-        // {
-        //     if (gameTime == null)
-        //     {
-        //         gameTime = EnvironmentManager.Instance.GameTime;
-        //     }
-        //     
-        //     LogData logData = new LogData
-        //     {
-        //         GameTime = gameTime,
-        //         Message = message,
-        //         LogType = logType,
-        //         Payload = building.UniqueId,
-        //         PayloadType = LogData.ELogPayloadType.Building
-        //     };
-        //     
-        //     SubmitLogData(logData);
-        // }
+        public void CreatePersonalLog(Kinling kinling, string message, LogData.ELogType logType,
+            GameTime gameTime = null)
+        {
+            if (gameTime == null)
+            {
+                gameTime = EnvironmentManager.Instance.GameTime;
+            }
+            
+            LogData logData = new LogData
+            {
+                GameTime = gameTime,
+                Message = message,
+                LogType = logType,
+                Payload = kinling.RuntimeData.guid,
+                PayloadType = LogData.ELogPayloadType.Kinling
+            };
+            
+            kinling.RuntimeData.SubmitPersonalLog(logData);
+        }
 
         private void SubmitLogData(LogData logData)
         {

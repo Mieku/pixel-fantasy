@@ -1,6 +1,7 @@
 using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Systems.Stats.Scripts
 {
@@ -30,7 +31,7 @@ namespace Systems.Stats.Scripts
     public class BeastMasterySkillLevelData : SkillLevelData
     {
         [TableColumnWidth(100)]
-        public float BeastGatherWorkModifier;
+        public float BeastWorkSpeed;
         
         [TableColumnWidth(100)]
         public float BeastGatherYield;
@@ -45,8 +46,8 @@ namespace Systems.Stats.Scripts
         {
             switch (attributeType)
             {
-                case EAttributeType.WorkModifier: return BeastGatherWorkModifier;
-                case EAttributeType.YieldModifier: return BeastGatherYield;
+                case EAttributeType.BeastWorkSpeed: return BeastWorkSpeed;
+                case EAttributeType.BeastGatherYield: return BeastGatherYield;
                 case EAttributeType.TameBeastChance: return TameBeastChance;
                 case EAttributeType.TrainBeastChance: return TrainBeastChance;
                 default: throw new ArgumentOutOfRangeException(nameof(attributeType), $"Not supported attribute {attributeType} for beast master.");

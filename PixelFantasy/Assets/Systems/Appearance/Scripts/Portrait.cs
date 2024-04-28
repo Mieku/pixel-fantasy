@@ -60,7 +60,7 @@ namespace Systems.Appearance.Scripts
         {
             if (_kinlingData == null) return;
             
-            float mood = _kinlingData.Kinling.KinlingMood.OverallMood / 100f;;
+            float mood = _kinlingData.Kinling.MoodData.OverallMood / 100f;;
             if (mood < 0.25f)
             {
                 _mouth.sprite = _sadMouth;

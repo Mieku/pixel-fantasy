@@ -1,6 +1,7 @@
 using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Systems.Stats.Scripts
 {
@@ -30,13 +31,13 @@ namespace Systems.Stats.Scripts
     public class CraftingSkillLevelData : SkillLevelData
     {
         [TableColumnWidth(100)]
-        public float CraftingWorkModifier;
+        public float CraftingSpeed;
 
         public override float GetAttribute(EAttributeType attributeType)
         {
             switch (attributeType)
             {
-                case EAttributeType.WorkModifier: return CraftingWorkModifier;
+                case EAttributeType.CraftingSpeed: return CraftingSpeed;
                 default: throw new ArgumentOutOfRangeException(nameof(attributeType), $"Not supported attribute {attributeType} for crafting.");
             }
         }

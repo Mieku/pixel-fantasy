@@ -17,6 +17,7 @@ MonoBehaviour:
     palate and can cook exceptionally well when motivated.
   <Modifiers>k__BackingField:
   - rid: 4161138484699201727
+  - rid: 4161138690148532339
   <IncompatibleTraits>k__BackingField: []
   references:
     version: 2
@@ -25,7 +26,11 @@ MonoBehaviour:
       type: {class: AttributeModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
       data:
         <ModifierType>k__BackingField: 0
-        AttributeType: 0
+        AttributeType: 50
         Modifier: 0.15
-        SpecificSkill: 1
-        IsGlobal: 0
+    - rid: 4161138690148532339
+      type: {class: AttributeModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 0
+        AttributeType: 3
+        Modifier: 0.15
