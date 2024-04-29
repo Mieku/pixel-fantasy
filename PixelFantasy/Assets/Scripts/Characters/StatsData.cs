@@ -420,6 +420,27 @@ namespace Characters
             return (int) Math.Ceiling(moddedYield);
         }
 
+        public float GetSocialFrequency()
+        {
+            float baseSocialFrequency = GameSettings.Instance.BaseSocialFrequency;
+            
+            // Modifiers
+            float moddedAmount = baseSocialFrequency;
+            moddedAmount += GetAttributeModifierBonus(EAttributeType.SocialFrequency, baseSocialFrequency);
+
+            return moddedAmount;
+        }
+
+        public float GetAttractiveness()
+        {
+            float baseAttractiveness = 1f;
+            
+            float moddedAmount = baseAttractiveness;
+            moddedAmount += GetAttributeModifierBonus(EAttributeType.Attractiveness, baseAttractiveness);
+            
+            return moddedAmount;
+        }
+
         public float GetAttributeModifierBonus(EAttributeType attributeType, float originalAmount)
         {
             var totalModifier = GetTotalAttributeModifier(attributeType);

@@ -7,6 +7,7 @@ using Managers;
 using ScriptableObjects;
 using Systems.Appearance.Scripts;
 using Systems.Notifications.Scripts;
+using Systems.Stats.Scripts;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -26,7 +27,7 @@ namespace Systems.Social.Scripts
 
         public bool AvailableToChat => _state == ESocialState.Available && !_kinling.RuntimeData.IsAsleep;
         
-        private const float CHAT_COOLDOWN = 5.0f;
+        //private const float CHAT_COOLDOWN = 5.0f;
         private const float SOCIAL_RADIUS = 6f;
         private const float BUBBLE_DURATION = 4.0f;
         private const float CHAT_SOCIAL_NEED_BENEFIT = 0.1f;
@@ -41,6 +42,7 @@ namespace Systems.Social.Scripts
         private ESocialState _state;
         private float _chatTimer;
         private float _bubbleTimer;
+        private float _socialFrequency => _kinling.RuntimeData.Stats.GetSocialFrequency() * 60f;
         
         public List<RelationshipData> Relationships => _kinling.RuntimeData.Relationships;
         
@@ -58,7 +60,7 @@ namespace Systems.Social.Scripts
             if (_state == ESocialState.Available)
             {
                 _chatTimer += TimeManager.Instance.DeltaTime;
-                if (_chatTimer >= CHAT_COOLDOWN)
+                if (_chatTimer >= _socialFrequency)
                 {
                     // Try to chat
                     var nearbyKinlings = NearbyKinlings();
@@ -77,7 +79,7 @@ namespace Systems.Social.Scripts
                     }
                     else // No one is available
                     {
-                        _chatTimer = 0;
+                        _chatTimer = _socialFrequency * .1f;
                     }
                 }
             }
@@ -133,7 +135,7 @@ namespace Systems.Social.Scripts
             // Make sure their opinion is high enough
             if (relationship.Opinion < MIN_OPINION_TO_FLIRT) return false;
 
-            float attemptFlirtingChance = BASE_ATTEMPT_FLIRTING_CHANCE + (relationship.OverallCohesion / 100f);
+            float attemptFlirtingChance = (BASE_ATTEMPT_FLIRTING_CHANCE * _kinling.RuntimeData.Stats.GetAttractiveness()) + relationship.OverallCohesion / 100f;
             float roll = Random.Range(0f, 1f);
             return roll <= attemptFlirtingChance;
         }
@@ -166,7 +168,7 @@ namespace Systems.Social.Scripts
         private bool DetermineFlirtResponse(KinlingData otherKinling)
         {
             // This is based on their cohesion, relationship and mood
-            int weight = ROMANTIC_COHESION_BASE;
+            int weight = (int)(ROMANTIC_COHESION_BASE  * _kinling.RuntimeData.Stats.GetAttractiveness());
             var otherKinlingRelationship = GetRelationshipState(otherKinling);
             var curOverallMood = _kinling.MoodData.OverallMood / 100f;
             int moodCohesion = (int)(MOOD_COHESION_BASE * curOverallMood) - (MOOD_COHESION_BASE / 2);
@@ -246,7 +248,7 @@ namespace Systems.Social.Scripts
         private bool DetermineResponse(KinlingData otherKinling)
         {
             // This is based on their cohesion, relationship and mood
-            int weight = COHESION_BASE;
+            int weight = (int)(COHESION_BASE * _kinling.RuntimeData.Stats.GetAttractiveness());
             var otherKinlingRelationship = GetRelationshipState(otherKinling);
             var curOverallMood = _kinling.MoodData.OverallMood / 100f;
             int moodCohesion = (int)(MOOD_COHESION_BASE * curOverallMood) - (MOOD_COHESION_BASE / 2);

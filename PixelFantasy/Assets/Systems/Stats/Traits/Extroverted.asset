@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95b089bfd6eb5494189e17f599031c5a, type: 3}
+  m_Name: Extroverted
+  m_EditorClassIdentifier: 
+  <TraitName>k__BackingField: Extroverted
+  <TraitDescription>k__BackingField: '{Kinling_Name} is very talkative'
+  <Modifiers>k__BackingField:
+  - rid: 4161138710475178069
+  - rid: 4161138710475178070
+  <IncompatibleTraits>k__BackingField:
+  - {fileID: 11400000, guid: dcd349d7825281b4ea7b5958df34edc9, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 4161138710475178069
+      type: {class: AttributeModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 0
+        AttributeType: 5
+        Modifier: -0.5
+    - rid: 4161138710475178070
+      type: {class: SkillModifier, ns: Systems.Stats.Scripts, asm: Assembly-CSharp}
+      data:
+        <ModifierType>k__BackingField: 0
+        SkillType: 9
+        LevelBoost: 1
+        PassionOverride: 1

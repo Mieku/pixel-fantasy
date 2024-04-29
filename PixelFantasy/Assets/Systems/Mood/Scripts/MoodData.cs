@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Characters;
 using Databrain.Attributes;
 using Managers;
+using ScriptableObjects;
 using Systems.Notifications.Scripts;
 using Systems.Traits.Scripts;
 using TaskSystem;
@@ -29,8 +30,6 @@ namespace Systems.Mood.Scripts
             Blood and dust	27
          */
         private int _baseMood = 37;
-        private const int POSITIVE_HOURLY_TICK_RATE = 12; // From RimWorld, should re-balance for Kinlings
-        private const int NEGATIVE_HOURLY_TICK_RATE = -8; // From RimWorld, should re-balance for Kinlings
         private const int BASE_BREAK_THRESHOLD = 35; // From RimWorld, should re-balance for Kinlings
 
         [ExposeToInspector, SerializeField]
@@ -61,6 +60,9 @@ namespace Systems.Mood.Scripts
         public float MinorBreakThresholdPercent => _minorBreakThreshold / 100f;
         public float MajorBreakThresholdPercent => _majorBreakThreshold / 100f;
         public float ExtremeBreakThresholdPercent => _extremeBreakThreshold / 100f;
+
+        private float _positiveMinuteTick => GameSettings.Instance.MoodPositiveHourlyRate / 60f;
+        private float _negativeMinuteTick => GameSettings.Instance.MoodNegativeHourlyRate / 60f;
 
         public List<float> AllThresholds
         {
@@ -241,12 +243,12 @@ namespace Systems.Mood.Scripts
             // Tick the overallMood towards the target
             if (_moodTarget > _overallMood)
             {
-                float tickAmount = Mathf.Min(_moodTarget - _overallMood, POSITIVE_HOURLY_TICK_RATE / 60f);
+                float tickAmount = Mathf.Min(_moodTarget - _overallMood, _positiveMinuteTick);
                 _overallMood += tickAmount;
             } 
             else if (_moodTarget < _overallMood)
             {
-                float tickAmount = Mathf.Max(_moodTarget - _overallMood, NEGATIVE_HOURLY_TICK_RATE / 60f);
+                float tickAmount = Mathf.Max(_moodTarget - _overallMood, _negativeMinuteTick);
                 _overallMood += tickAmount;
             }
             

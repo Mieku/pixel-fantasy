@@ -14,11 +14,21 @@ namespace Systems.Details.Kinling_Details
         [SerializeField] private TooltipTrigger _tooltip;
         [SerializeField] private string _valueSuffix = "%";
         [SerializeField] private float _baseValue = 100;
+        [SerializeField] private bool _isMultiplier;
 
         public void Refresh(KinlingData kinlingData)
         {
             var value = kinlingData.Stats.GetTotalAttributeModifier(Attribute);
-            value = _baseValue + (value * 100f);
+
+            if (_isMultiplier)
+            {
+                value = _baseValue + (_baseValue * value);
+            }
+            else
+            {
+                value = _baseValue + (value * 100f);
+            }
+            
             _statValue.text = $"{value}{_valueSuffix}";
         }
     }
