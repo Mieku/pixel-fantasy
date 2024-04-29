@@ -22,7 +22,7 @@
     },
     "com.unity.2d.common": {
       "version": "9.0.4",
-      "depth": 1,
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.2d.sprite": "1.0.0",

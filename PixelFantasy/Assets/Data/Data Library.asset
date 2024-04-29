@@ -6463,14 +6463,7 @@ MonoBehaviour:
       - {fileID: 0}
     - type: Characters.KinlingData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
+      dataObjects: []
     - type: Data.Zones.StockpileZoneData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
