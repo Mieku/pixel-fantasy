@@ -105,6 +105,9 @@ namespace Characters
         [ExposeToInspector, DatabrainSerialize, SerializeField] 
         private List<LogData> _personalLog = new List<LogData>();
 
+        [ExposeToInspector, DatabrainSerialize]
+        public AvatarData Avatar;
+
         public void Randomize(RaceSettings race)
         {
             Race = race;

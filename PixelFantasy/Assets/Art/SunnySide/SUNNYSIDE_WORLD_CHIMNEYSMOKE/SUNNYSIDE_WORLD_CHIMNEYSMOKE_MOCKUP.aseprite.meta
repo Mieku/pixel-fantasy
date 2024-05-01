@@ -1,7 +1,1009 @@
 fileFormatVersion: 2
 guid: da56462a94e742247887c38f57a82108
-DefaultImporter:
+ScriptedImporter:
+  internalIDToNameTable: []
   externalObjects: {}
+  serializedVersion: 2
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_0
+    originalName: 
+    pivot: {x: 0.47619048, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 336
+      height: 192
+    spriteID: 0b7dcb167ebf57e45a46498b446a3b17
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_1
+    originalName: 
+    pivot: {x: 0.47619048, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 204
+      width: 336
+      height: 192
+    spriteID: f71285fe5f7845945aed72e55dfa323d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 204}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_2
+    originalName: 
+    pivot: {x: 0.47619048, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 404
+      width: 336
+      height: 192
+    spriteID: 0de2d6dd630bb134eb697b545c319016
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 404}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_3
+    originalName: 
+    pivot: {x: 0.47619048, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 604
+      width: 336
+      height: 192
+    spriteID: 47d0deca62e36bf49a493e835be4378e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 604}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_4
+    originalName: 
+    pivot: {x: 0.47619048, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 804
+      width: 336
+      height: 192
+    spriteID: 43a05bccf5a4fe54da77d4aae856c0c2
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 804}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_5
+    originalName: 
+    pivot: {x: 0.47619048, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 1004
+      width: 336
+      height: 192
+    spriteID: f3ff0bd3d40503b4bad718306c1cc4ff
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 1004}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_6
+    originalName: 
+    pivot: {x: 0.47619048, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 1204
+      width: 336
+      height: 192
+    spriteID: a5b820fff11e29c4fab08b61f38437f3
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 1204}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_7
+    originalName: 
+    pivot: {x: 0.47619048, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 1404
+      width: 336
+      height: 192
+    spriteID: 95a114902aaaa73428084afc65192ecd
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 1404}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_8
+    originalName: 
+    pivot: {x: 0.47619048, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 1604
+      width: 336
+      height: 192
+    spriteID: 590468b0938dbab418a9d6536bdb6f39
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 1604}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_9
+    originalName: 
+    pivot: {x: 0.47619048, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 1804
+      width: 336
+      height: 192
+    spriteID: f6704c214fdc8e74d9604045841c92d5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 1804}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_10
+    originalName: 
+    pivot: {x: 0.47619048, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 348
+      y: 4
+      width: 336
+      height: 192
+    spriteID: 4098564b631617040bfdcb7b966d2d36
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 348, y: 4}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_11
+    originalName: 
+    pivot: {x: 0.47619048, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 348
+      y: 204
+      width: 336
+      height: 192
+    spriteID: 2db7413bb2691614f879bb2d5baaa649
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 348, y: 204}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_12
+    originalName: 
+    pivot: {x: 0.47619048, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 348
+      y: 404
+      width: 336
+      height: 192
+    spriteID: 51307a6a1a4492248b28f8ef62ce62be
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 348, y: 404}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_13
+    originalName: 
+    pivot: {x: 0.47619048, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 348
+      y: 604
+      width: 336
+      height: 192
+    spriteID: 12a59a494c8189d4ea7b043e294ce8c4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 348, y: 604}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_14
+    originalName: 
+    pivot: {x: 0.47619048, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 348
+      y: 804
+      width: 336
+      height: 192
+    spriteID: fd5fd94febe842b4e8cf4c22f48a3de9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 348, y: 804}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_15
+    originalName: 
+    pivot: {x: 0.47619048, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 348
+      y: 1004
+      width: 336
+      height: 192
+    spriteID: 559e0f18eafc48c41a79b4d9796cebc9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 348, y: 1004}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_16
+    originalName: 
+    pivot: {x: 0.47619048, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 348
+      y: 1204
+      width: 336
+      height: 192
+    spriteID: ba53d1f885f4f7e4ba12c9c86c8cf117
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 348, y: 1204}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_17
+    originalName: 
+    pivot: {x: 0.47619048, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 348
+      y: 1404
+      width: 336
+      height: 192
+    spriteID: 212bf637b693b8645b12982e1b32a771
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 348, y: 1404}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_18
+    originalName: 
+    pivot: {x: 0.47619048, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 348
+      y: 1604
+      width: 336
+      height: 192
+    spriteID: d963be0bac248994583d447750027a40
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 348, y: 1604}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_19
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 692
+      y: 4
+      width: 320
+      height: 192
+    spriteID: 6c49d3c7ef00d81418f272871634f5a2
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 692, y: 4}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_20
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 692
+      y: 204
+      width: 320
+      height: 192
+    spriteID: 798369f75f5dc4447aa57c1b87c42a42
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 692, y: 204}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_21
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 692
+      y: 404
+      width: 320
+      height: 192
+    spriteID: 43d0a7acfbe5b684ea7d9728022aa2da
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 692, y: 404}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_22
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 692
+      y: 604
+      width: 320
+      height: 192
+    spriteID: 43c8631c71f9fe44cb9b04c2ccbe008a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 692, y: 604}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_23
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 692
+      y: 804
+      width: 320
+      height: 192
+    spriteID: 9a6d525f572fa954fa48ad5c7b308866
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 692, y: 804}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_24
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 692
+      y: 1004
+      width: 320
+      height: 192
+    spriteID: c7e1ba7efe3779044a8d46c68ebed61f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 692, y: 1004}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_25
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 692
+      y: 1204
+      width: 320
+      height: 192
+    spriteID: b1b1e2e82e28b8746978e7f9616df1e6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 692, y: 1204}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_26
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 692
+      y: 1404
+      width: 320
+      height: 192
+    spriteID: eb3caa195a222ef4d830ab3bdf3295a4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 692, y: 1404}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_27
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 692
+      y: 1604
+      width: 320
+      height: 192
+    spriteID: b213a2bbaf86dfb489bc2a6450ad0c42
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 692, y: 1604}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_28
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 348
+      y: 1804
+      width: 320
+      height: 192
+    spriteID: 10a977a2f2477664185175a1015f5259
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 348, y: 1804}
+  - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_29
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 676
+      y: 1804
+      width: 320
+      height: 192
+    spriteID: 9dde5be651cd9034caf39e0217a8d57c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 676, y: 1804}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: -1289415948
+    name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_0
+      frameIndex: 0
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 336
+        height: 192
+      spriteId: 0b7dcb167ebf57e45a46498b446a3b17
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_1
+      frameIndex: 1
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 336
+        height: 192
+      spriteId: f71285fe5f7845945aed72e55dfa323d
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_2
+      frameIndex: 2
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 336
+        height: 192
+      spriteId: 0de2d6dd630bb134eb697b545c319016
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_3
+      frameIndex: 3
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 336
+        height: 192
+      spriteId: 47d0deca62e36bf49a493e835be4378e
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_4
+      frameIndex: 4
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 336
+        height: 192
+      spriteId: 43a05bccf5a4fe54da77d4aae856c0c2
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_5
+      frameIndex: 5
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 336
+        height: 192
+      spriteId: f3ff0bd3d40503b4bad718306c1cc4ff
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_6
+      frameIndex: 6
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 336
+        height: 192
+      spriteId: a5b820fff11e29c4fab08b61f38437f3
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_7
+      frameIndex: 7
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 336
+        height: 192
+      spriteId: 95a114902aaaa73428084afc65192ecd
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_8
+      frameIndex: 8
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 336
+        height: 192
+      spriteId: 590468b0938dbab418a9d6536bdb6f39
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_9
+      frameIndex: 9
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 336
+        height: 192
+      spriteId: f6704c214fdc8e74d9604045841c92d5
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_10
+      frameIndex: 10
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 336
+        height: 192
+      spriteId: 4098564b631617040bfdcb7b966d2d36
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_11
+      frameIndex: 11
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 336
+        height: 192
+      spriteId: 2db7413bb2691614f879bb2d5baaa649
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_12
+      frameIndex: 12
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 336
+        height: 192
+      spriteId: 51307a6a1a4492248b28f8ef62ce62be
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_13
+      frameIndex: 13
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 336
+        height: 192
+      spriteId: 12a59a494c8189d4ea7b043e294ce8c4
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_14
+      frameIndex: 14
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 336
+        height: 192
+      spriteId: fd5fd94febe842b4e8cf4c22f48a3de9
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_15
+      frameIndex: 15
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 336
+        height: 192
+      spriteId: 559e0f18eafc48c41a79b4d9796cebc9
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_16
+      frameIndex: 16
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 336
+        height: 192
+      spriteId: ba53d1f885f4f7e4ba12c9c86c8cf117
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_17
+      frameIndex: 17
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 336
+        height: 192
+      spriteId: 212bf637b693b8645b12982e1b32a771
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_18
+      frameIndex: 18
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 336
+        height: 192
+      spriteId: d963be0bac248994583d447750027a40
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_19
+      frameIndex: 19
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 320
+        height: 192
+      spriteId: 6c49d3c7ef00d81418f272871634f5a2
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_20
+      frameIndex: 20
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 320
+        height: 192
+      spriteId: 798369f75f5dc4447aa57c1b87c42a42
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_21
+      frameIndex: 21
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 320
+        height: 192
+      spriteId: 43d0a7acfbe5b684ea7d9728022aa2da
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_22
+      frameIndex: 22
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 320
+        height: 192
+      spriteId: 43c8631c71f9fe44cb9b04c2ccbe008a
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_23
+      frameIndex: 23
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 320
+        height: 192
+      spriteId: 9a6d525f572fa954fa48ad5c7b308866
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_24
+      frameIndex: 24
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 320
+        height: 192
+      spriteId: c7e1ba7efe3779044a8d46c68ebed61f
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_25
+      frameIndex: 25
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 320
+        height: 192
+      spriteId: b1b1e2e82e28b8746978e7f9616df1e6
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_26
+      frameIndex: 26
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 320
+        height: 192
+      spriteId: eb3caa195a222ef4d830ab3bdf3295a4
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_27
+      frameIndex: 27
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 320
+        height: 192
+      spriteId: b213a2bbaf86dfb489bc2a6450ad0c42
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_28
+      frameIndex: 28
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 320
+        height: 192
+      spriteId: 10a977a2f2477664185175a1015f5259
+    - name: SUNNYSIDE_WORLD_CHIMNEYSMOKE_MOCKUP_Frame_29
+      frameIndex: 29
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 320
+        height: 192
+      spriteId: 9dde5be651cd9034caf39e0217a8d57c
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  generatePhysicsShape: 0
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 320, y: 192}
