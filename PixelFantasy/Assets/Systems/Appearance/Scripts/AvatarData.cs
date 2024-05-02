@@ -6,7 +6,7 @@ namespace Systems.Appearance.Scripts
     [Serializable]
     public class AvatarData
     {
-        // Data looks like this: PirateCostume#FFFFFF/0:0:0
+        // Data looks like this: PirateCostume/#FFFFFF/0:0:0
         
         public string Body;
         public string Hands;

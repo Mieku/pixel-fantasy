@@ -4,6 +4,7 @@ using System.Linq;
 using Assets.PixelFantasy.PixelHeroes.Common.Scripts.Utils;
 using Characters;
 using Sirenix.OdinInspector;
+using TWC.OdinSerializer.Utilities;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 
@@ -18,8 +19,11 @@ namespace Systems.Appearance.Scripts
         public Avatar Avatar;
         public Texture2D Texture { get; private set; }
         public AppearanceCollection Collection;
+
+        public AvatarData DebugAvatarData;
         
-        private AvatarData _avatarData => _kinling.RuntimeData.Avatar;
+        //private AvatarData _avatarData => _kinling.RuntimeData.Avatar; // TODO: Bring this back, using a tester for... testing!
+        private AvatarData _avatarData => DebugAvatarData;
         private Dictionary<string, Sprite> _sprites;
 
         [Button("Rebuild")]
@@ -32,18 +36,19 @@ namespace Systems.Appearance.Scripts
             var dict = Collection.Layers.ToDictionary(i => i.Name, i => i);
             var layers = new Dictionary<string, Color32[]>();
             
-            if (_avatarData.Body != "") layers.Add("Body", dict["Body"].GetPixels(_avatarData.Body, null, changed, Avatar.Direction));
-            if (_avatarData.Hands != "") layers.Add("Hands", dict["Hands"].GetPixels(_avatarData.Hands, null, changed, Avatar.Direction));
-            if (_avatarData.Eyes != "") layers.Add("Eyes", dict["Eyes"].GetPixels(_avatarData.Eyes, null, changed, Avatar.Direction));
-            if (_avatarData.Blush != "") layers.Add("Blush", dict["Blush"].GetPixels(_avatarData.Blush, null, changed, Avatar.Direction));
-            if (_avatarData.Hair != "") layers.Add("Hair", dict["Hair"].GetPixels(_avatarData.Hair, _avatarData.Hat == "" ? null : layers["Body"], changed, Avatar.Direction));
             
-            if (_avatarData.Beard != "") layers.Add("Beard", dict["Beard"].GetPixels(_avatarData.Beard, null, changed, Avatar.Direction));
-            if (_avatarData.Clothing != "") layers.Add("Clothing", dict["Clothing"].GetPixels(_avatarData.Clothing, null, changed, Avatar.Direction));
-            if (_avatarData.Hat != "") layers.Add("Hat", dict["Hat"].GetPixels(_avatarData.Hat, null, changed, Avatar.Direction));
-            if (_avatarData.FaceAccessory != "") layers.Add("FaceAccessory", dict["FaceAccessory"].GetPixels(_avatarData.FaceAccessory, null, changed, Avatar.Direction));
-            if (_avatarData.Weapon != "") layers.Add("Weapon", dict["Weapon"].GetPixels(_avatarData.Weapon, null, changed, Avatar.Direction));
-            if (_avatarData.Offhand != "") layers.Add("Offhand", dict["Offhand"].GetPixels(_avatarData.Offhand, null, changed, Avatar.Direction));
+            if(!string.IsNullOrEmpty(_avatarData.Body)) layers.Add("Body", dict["Body"].GetPixels(_avatarData.Body, null, changed, Avatar.Direction));
+            if(!string.IsNullOrEmpty(_avatarData.Hands)) layers.Add("Hands", dict["Hands"].GetPixels(_avatarData.Hands, null, changed, Avatar.Direction));
+            if(!string.IsNullOrEmpty(_avatarData.Eyes)) layers.Add("Eyes", dict["Eyes"].GetPixels(_avatarData.Eyes, null, changed, Avatar.Direction));
+            if(!string.IsNullOrEmpty(_avatarData.Blush)) layers.Add("Blush", dict["Blush"].GetPixels(_avatarData.Blush, null, changed, Avatar.Direction));
+            if(!string.IsNullOrEmpty(_avatarData.Hair)) layers.Add("Hair", dict["Hair"].GetPixels(_avatarData.Hair, _avatarData.Hat == "" ? null : layers["Body"], changed, Avatar.Direction));
+            
+            if(!string.IsNullOrEmpty(_avatarData.Beard)) layers.Add("Beard", dict["Beard"].GetPixels(_avatarData.Beard, null, changed, Avatar.Direction));
+            if(!string.IsNullOrEmpty(_avatarData.Clothing)) layers.Add("Clothing", dict["Clothing"].GetPixels(_avatarData.Clothing, null, changed, Avatar.Direction));
+            if(!string.IsNullOrEmpty(_avatarData.Hat)) layers.Add("Hat", dict["Hat"].GetPixels(_avatarData.Hat, null, changed, Avatar.Direction));
+            if(!string.IsNullOrEmpty(_avatarData.FaceAccessory)) layers.Add("FaceAccessory", dict["FaceAccessory"].GetPixels(_avatarData.FaceAccessory, null, changed, Avatar.Direction));
+            if(!string.IsNullOrEmpty(_avatarData.Weapon)) layers.Add("Weapon", dict["Weapon"].GetPixels(_avatarData.Weapon, null, changed, Avatar.Direction));
+            if(!string.IsNullOrEmpty(_avatarData.Offhand)) layers.Add("Offhand", dict["Offhand"].GetPixels(_avatarData.Offhand, null, changed, Avatar.Direction));
             
             var order = Collection.Layers.Select(i => i.Name).ToList();
 
@@ -51,7 +56,7 @@ namespace Systems.Appearance.Scripts
 
             if (Texture == null) Texture = new Texture2D(width, height) { filterMode = FilterMode.Point };
             
-            if (_avatarData.Offhand != "")
+            if(!string.IsNullOrEmpty(_avatarData.Offhand)) 
             {
                 var offHand = layers["Offhand"];
                 var last = layers.Last(i => i.Key != "Weapon");

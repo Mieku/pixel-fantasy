@@ -110,13 +110,22 @@ namespace Systems.Appearance.Scripts
         public List<Texture2D> SideTextures;
         public List<Texture2D> UpTextures;
         public List<Texture2D> DownTextures;
-        //public List<Texture2D> Textures;
 
         private Color32[] _pixels;
 
         public List<Texture2D> GetTexturesByDirection(EAppearanceDirection direction)
         {
-            return null;
+            switch (direction)
+            {
+                case EAppearanceDirection.Side:
+                    return SideTextures;
+                case EAppearanceDirection.Up:
+                    return UpTextures;
+                case EAppearanceDirection.Down:
+                    return DownTextures;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+            }
         }
 
         public void Refresh(List<Color32> palette)
@@ -199,7 +208,7 @@ namespace Systems.Appearance.Scripts
         
         public Color32[] GetPixels(string data, Color32[] mask, string changed, EAppearanceDirection direction)
         {
-            var match = Regex.Match(data, @"(?<Name>[\w\- \[\]]+)(?<Paint>#\w+)?(?:\/(?<H>[-\d]+):(?<S>[-\d]+):(?<V>[-\d]+))?");
+            var match = Regex.Match(data, @"(?<Name>[\w\- \[\]]+?)/(?<Paint>#\w+)/(?<H>[-\d]+):(?<S>[-\d]+):(?<V>[-\d]+)");
             var name = match.Groups["Name"].Value;
             var textures = GetTexturesByDirection(direction);
             var index = textures.FindIndex(i => i.name == name);
