@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Human Eyes Walk_0: 5285736615735915439
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

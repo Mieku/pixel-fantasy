@@ -394,7 +394,19 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Human Hands Walk_0: -2756400671937368871
+      Human Hands Walk_1: -7393803109319033622
+      Human Hands Walk_10: -5787837790695337214
+      Human Hands Walk_11: 1494211176959578557
+      Human Hands Walk_2: 441065935820043125
+      Human Hands Walk_3: -2079469127829938351
+      Human Hands Walk_4: 2388774962653796826
+      Human Hands Walk_5: 8894499308478778514
+      Human Hands Walk_6: 3853662574596651989
+      Human Hands Walk_7: 3918542121476416549
+      Human Hands Walk_8: -1804346277792511195
+      Human Hands Walk_9: -5458580536705681982
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

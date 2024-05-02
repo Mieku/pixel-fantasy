@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Human Blush Walk_0: 3976578790941115433
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
