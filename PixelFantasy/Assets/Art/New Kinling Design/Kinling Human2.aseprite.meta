@@ -132,7 +132,7 @@ ScriptedImporter:
       y: 0
       width: 12
       height: 16
-    spriteID: 2c7f16c1b077b0c4fbcda8f73eaf632a
+    spriteID: e5b07e882014f8a44bccac22ad277889
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -152,7 +152,7 @@ ScriptedImporter:
       y: 0
       width: 12
       height: 16
-    spriteID: c610c2cc453b8d84c81ac26d60819937
+    spriteID: 04e70d3432c128044aeb5bcd5e6dd452
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -172,7 +172,7 @@ ScriptedImporter:
       y: 0
       width: 12
       height: 16
-    spriteID: e2af4583f74b4794e8506feb7916b208
+    spriteID: 7a0ded3b18008144486b088daba6cff3
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -192,7 +192,7 @@ ScriptedImporter:
       y: 16
       width: 12
       height: 15
-    spriteID: 6921ec9433778204298f41eb0c54291a
+    spriteID: bd9b270edc55ca24189701036b6d22e3
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -212,7 +212,7 @@ ScriptedImporter:
       y: 16
       width: 12
       height: 15
-    spriteID: 00c33a57cf0e65d4b9c32d166c9b388e
+    spriteID: 6789a8e5aa441c54d8813a978253b178
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -232,7 +232,7 @@ ScriptedImporter:
       y: 0
       width: 12
       height: 16
-    spriteID: 1edf9430c0c54ad439959f9731d6f11f
+    spriteID: fc097b52b88985f4b8f399985dbbd724
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -252,7 +252,7 @@ ScriptedImporter:
       y: 16
       width: 12
       height: 15
-    spriteID: cc81106220894314c94c2ec0174ec1f7
+    spriteID: f81709c8e3ae90a4a8dc7c98e48159d1
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -272,7 +272,7 @@ ScriptedImporter:
       y: 0
       width: 12
       height: 16
-    spriteID: 2db893453656f9a419840bc6dd6f339e
+    spriteID: 6b21803f146e823419d41dbf5c04e4eb
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -292,7 +292,7 @@ ScriptedImporter:
       y: 16
       width: 12
       height: 15
-    spriteID: 3deb2745c9ab7eb47a13afda9c05a929
+    spriteID: 01dc843c54ed3dc49a771915019a332c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -301,6 +301,186 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 36, y: 16}
+  - name: Eyes Side_Frame_0
+    originalName: 
+    pivot: {x: 0, y: -5.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 60
+      y: 0
+      width: 4
+      height: 2
+    spriteID: 2048524c6e7b98441b697844fa0b83b9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 60, y: 0}
+  - name: Eyes Side_Frame_1
+    originalName: 
+    pivot: {x: 0, y: -5.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 60
+      y: 2
+      width: 4
+      height: 2
+    spriteID: bee60c28ec633cf4f9d1923da6a76d2b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 60, y: 2}
+  - name: Eyes Side_Frame_2
+    originalName: 
+    pivot: {x: 0, y: -5.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 60
+      y: 4
+      width: 4
+      height: 2
+    spriteID: 34148d6a8f2582541b740ca6087740d6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 60, y: 4}
+  - name: Eyes Side_Frame_3
+    originalName: 
+    pivot: {x: 0, y: -5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 60
+      y: 6
+      width: 4
+      height: 2
+    spriteID: 0ddf4adcf37dadb458377039b7091934
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 60, y: 6}
+  - name: Eyes Side_Frame_4
+    originalName: 
+    pivot: {x: 0, y: -5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 60
+      y: 8
+      width: 4
+      height: 2
+    spriteID: 3e21ec0aacac3944dbf1a707ddf02ddb
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 60, y: 8}
+  - name: Eyes Side_Frame_5
+    originalName: 
+    pivot: {x: 0, y: -5.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 60
+      y: 10
+      width: 4
+      height: 2
+    spriteID: 401f0e8b0493be3478460ebb2a3f86a6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 60, y: 10}
+  - name: Eyes Side_Frame_6
+    originalName: 
+    pivot: {x: 0, y: -5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 60
+      y: 12
+      width: 4
+      height: 2
+    spriteID: 510deb0d3a423444ea6f9c7a50fb2a54
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 60, y: 12}
+  - name: Eyes Side_Frame_7
+    originalName: 
+    pivot: {x: 0, y: -5.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 60
+      y: 14
+      width: 4
+      height: 2
+    spriteID: ce5140508d534f84fa9175773c840f88
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 60, y: 14}
+  - name: Eyes Side_Frame_8
+    originalName: 
+    pivot: {x: 0, y: -5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 48
+      y: 16
+      width: 4
+      height: 2
+    spriteID: edc3acdc9733a4e498151263dd957a98
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 48, y: 16}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 50
@@ -313,7 +493,16 @@ ScriptedImporter:
     linkedCells: []
     parentIndex: -1
   - layerIndex: 51
-    guid: -1029820631
+    guid: -1361863416
+    name: Beards
+    layerFlags: 3
+    layerType: 1
+    blendMode: 0
+    cells: []
+    linkedCells: []
+    parentIndex: 50
+  - layerIndex: 52
+    guid: -1029820626
     name: Body
     layerFlags: 35
     layerType: 1
@@ -321,8 +510,8 @@ ScriptedImporter:
     cells: []
     linkedCells: []
     parentIndex: 50
-  - layerIndex: 52
-    guid: 1003427795
+  - layerIndex: 53
+    guid: 1003427794
     name: Body Side
     layerFlags: 3
     layerType: 0
@@ -336,7 +525,7 @@ ScriptedImporter:
         y: 4
         width: 12
         height: 16
-      spriteId: 2c7f16c1b077b0c4fbcda8f73eaf632a
+      spriteId: e5b07e882014f8a44bccac22ad277889
     - name: Body Side_Frame_1
       frameIndex: 1
       additiveSortOrder: 0
@@ -345,7 +534,7 @@ ScriptedImporter:
         y: 4
         width: 12
         height: 16
-      spriteId: c610c2cc453b8d84c81ac26d60819937
+      spriteId: 04e70d3432c128044aeb5bcd5e6dd452
     - name: Body Side_Frame_2
       frameIndex: 2
       additiveSortOrder: 0
@@ -354,7 +543,7 @@ ScriptedImporter:
         y: 4
         width: 12
         height: 16
-      spriteId: e2af4583f74b4794e8506feb7916b208
+      spriteId: 7a0ded3b18008144486b088daba6cff3
     - name: Body Side_Frame_3
       frameIndex: 3
       additiveSortOrder: 0
@@ -363,7 +552,7 @@ ScriptedImporter:
         y: 4
         width: 12
         height: 15
-      spriteId: 6921ec9433778204298f41eb0c54291a
+      spriteId: bd9b270edc55ca24189701036b6d22e3
     - name: Body Side_Frame_4
       frameIndex: 4
       additiveSortOrder: 0
@@ -372,7 +561,7 @@ ScriptedImporter:
         y: 4
         width: 12
         height: 15
-      spriteId: 00c33a57cf0e65d4b9c32d166c9b388e
+      spriteId: 6789a8e5aa441c54d8813a978253b178
     - name: Body Side_Frame_5
       frameIndex: 5
       additiveSortOrder: 0
@@ -381,7 +570,7 @@ ScriptedImporter:
         y: 4
         width: 12
         height: 16
-      spriteId: 1edf9430c0c54ad439959f9731d6f11f
+      spriteId: fc097b52b88985f4b8f399985dbbd724
     - name: Body Side_Frame_6
       frameIndex: 6
       additiveSortOrder: 0
@@ -390,7 +579,7 @@ ScriptedImporter:
         y: 4
         width: 12
         height: 15
-      spriteId: cc81106220894314c94c2ec0174ec1f7
+      spriteId: f81709c8e3ae90a4a8dc7c98e48159d1
     - name: Body Side_Frame_7
       frameIndex: 7
       additiveSortOrder: 0
@@ -399,7 +588,7 @@ ScriptedImporter:
         y: 4
         width: 12
         height: 16
-      spriteId: 2db893453656f9a419840bc6dd6f339e
+      spriteId: 6b21803f146e823419d41dbf5c04e4eb
     - name: Body Side_Frame_8
       frameIndex: 8
       additiveSortOrder: 0
@@ -408,11 +597,11 @@ ScriptedImporter:
         y: 4
         width: 12
         height: 15
-      spriteId: 3deb2745c9ab7eb47a13afda9c05a929
+      spriteId: 01dc843c54ed3dc49a771915019a332c
     linkedCells: []
-    parentIndex: 51
-  - layerIndex: 53
-    guid: -913498971
+    parentIndex: 52
+  - layerIndex: 54
+    guid: -913498970
     name: Hands
     layerFlags: 35
     layerType: 1
@@ -420,8 +609,8 @@ ScriptedImporter:
     cells: []
     linkedCells: []
     parentIndex: 50
-  - layerIndex: 55
-    guid: -978837785
+  - layerIndex: 56
+    guid: -978837784
     name: Eyes
     layerFlags: 35
     layerType: 1
@@ -429,8 +618,8 @@ ScriptedImporter:
     cells: []
     linkedCells: []
     parentIndex: 50
-  - layerIndex: 57
-    guid: 1669628821
+  - layerIndex: 58
+    guid: 1669628822
     name: Blush
     layerFlags: 35
     layerType: 1
@@ -438,6 +627,132 @@ ScriptedImporter:
     cells: []
     linkedCells: []
     parentIndex: 50
+  - layerIndex: 81
+    guid: -2069141362
+    name: Face Accessories
+    layerFlags: 3
+    layerType: 1
+    blendMode: 0
+    cells: []
+    linkedCells: []
+    parentIndex: 50
+  - layerIndex: 82
+    guid: 1446319419
+    name: Hat
+    layerFlags: 3
+    layerType: 1
+    blendMode: 0
+    cells: []
+    linkedCells: []
+    parentIndex: 50
+  - layerIndex: 83
+    guid: 1179259801
+    name: Weapon
+    layerFlags: 3
+    layerType: 1
+    blendMode: 0
+    cells: []
+    linkedCells: []
+    parentIndex: 50
+  - layerIndex: 84
+    guid: -976211154
+    name: Offhand
+    layerFlags: 3
+    layerType: 1
+    blendMode: 0
+    cells: []
+    linkedCells: []
+    parentIndex: 50
+  - layerIndex: 57
+    guid: -1233753740
+    name: Eyes Side
+    layerFlags: 3
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: Eyes Side_Frame_0
+      frameIndex: 0
+      additiveSortOrder: 0
+      cellRect:
+        x: 16
+        y: 11
+        width: 4
+        height: 2
+      spriteId: 2048524c6e7b98441b697844fa0b83b9
+    - name: Eyes Side_Frame_1
+      frameIndex: 1
+      additiveSortOrder: 0
+      cellRect:
+        x: 16
+        y: 11
+        width: 4
+        height: 2
+      spriteId: bee60c28ec633cf4f9d1923da6a76d2b
+    - name: Eyes Side_Frame_2
+      frameIndex: 2
+      additiveSortOrder: 0
+      cellRect:
+        x: 16
+        y: 11
+        width: 4
+        height: 2
+      spriteId: 34148d6a8f2582541b740ca6087740d6
+    - name: Eyes Side_Frame_3
+      frameIndex: 3
+      additiveSortOrder: 0
+      cellRect:
+        x: 16
+        y: 10
+        width: 4
+        height: 2
+      spriteId: 0ddf4adcf37dadb458377039b7091934
+    - name: Eyes Side_Frame_4
+      frameIndex: 4
+      additiveSortOrder: 0
+      cellRect:
+        x: 16
+        y: 10
+        width: 4
+        height: 2
+      spriteId: 3e21ec0aacac3944dbf1a707ddf02ddb
+    - name: Eyes Side_Frame_5
+      frameIndex: 5
+      additiveSortOrder: 0
+      cellRect:
+        x: 16
+        y: 11
+        width: 4
+        height: 2
+      spriteId: 401f0e8b0493be3478460ebb2a3f86a6
+    - name: Eyes Side_Frame_6
+      frameIndex: 6
+      additiveSortOrder: 0
+      cellRect:
+        x: 16
+        y: 10
+        width: 4
+        height: 2
+      spriteId: 510deb0d3a423444ea6f9c7a50fb2a54
+    - name: Eyes Side_Frame_7
+      frameIndex: 7
+      additiveSortOrder: 0
+      cellRect:
+        x: 16
+        y: 11
+        width: 4
+        height: 2
+      spriteId: ce5140508d534f84fa9175773c840f88
+    - name: Eyes Side_Frame_8
+      frameIndex: 8
+      additiveSortOrder: 0
+      cellRect:
+        x: 16
+        y: 10
+        width: 4
+        height: 2
+      spriteId: edc3acdc9733a4e498151263dd957a98
+    linkedCells: []
+    parentIndex: 56
   platformSettings:
   - name: DefaultTexturePlatform
     overridden: 0

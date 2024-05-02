@@ -20,10 +20,9 @@ MonoBehaviour:
   - Name: Body
     SpriteFolder: {fileID: 102900000, guid: 090dffcbc288d524e89bf9fc3e529175, type: 3}
     SideTextures:
-    - {fileID: 2800000, guid: 2a1efe7052a6f9c44899b738770220aa, type: 3}
+    - {fileID: 2800000, guid: 76327d2f7db625b4e81742a0b8e5a447, type: 3}
     UpTextures: []
-    DownTextures:
-    - {fileID: 2800000, guid: 7b873758f627b914e90495ce4793506d, type: 3}
+    DownTextures: []
   - Name: Hands
     SpriteFolder: {fileID: 102900000, guid: 0896b1efc7d3c3443a3d136b0c80d516, type: 3}
     SideTextures: []
