@@ -62,7 +62,7 @@ namespace Systems.Appearance.Scripts
                 var last = layers.Last(i => i.Key != "Weapon");
                 var copy = last.Value.ToArray();
 
-                for (var i = 2 * 64 * width; i < 3 * 64 * width; i++)
+                for (var i = 2 * 32 * width; i < 3 * 32 * width; i++)
                 {
                     if (offHand[i].a > 0) copy[i] = offHand[i];
                 }
@@ -80,19 +80,20 @@ namespace Systems.Appearance.Scripts
                 clipNames.Reverse();
 
                 _sprites = new Dictionary<string, Sprite>();
+                int maxFramesPerClip = width / 32;
 
                 for (var i = 0; i < clipNames.Count; i++)
                 {
-                    for (var j = 0; j < 9; j++)
+                    for (var j = 0; j < maxFramesPerClip; j++)
                     {
                         var key = clipNames[i] + "_" + j;
 
-                        _sprites.Add(key, Sprite.Create(Texture, new Rect(j * 64, i * 64, 64, 64), new Vector2(0.5f, 0.125f), 16, 0, SpriteMeshType.FullRect));
+                        _sprites.Add(key, Sprite.Create(Texture, new Rect(j * 32, i * 32, 32, 32), new Vector2(0.5f, 0.125f), 16, 0, SpriteMeshType.FullRect));
                     }
                 }
             }
 
-            var spriteLibraryAsset = ScriptableObject.CreateInstance<UnityEngine.U2D.Animation.SpriteLibraryAsset>();
+            var spriteLibraryAsset = ScriptableObject.CreateInstance<SpriteLibraryAsset>();
 
             foreach (var sprite in _sprites)
             {

@@ -20,29 +20,44 @@ MonoBehaviour:
   - Name: Body
     SpriteFolder: {fileID: 102900000, guid: 090dffcbc288d524e89bf9fc3e529175, type: 3}
     SideTextures:
-    - {fileID: 2800000, guid: 76327d2f7db625b4e81742a0b8e5a447, type: 3}
-    UpTextures: []
-    DownTextures: []
+    - {fileID: 2800000, guid: 4980d71cd690fb94ab710a7afcb7ab1a, type: 3}
+    UpTextures:
+    - {fileID: 2800000, guid: 890b6674e3bb7574a9b8a257b8eec524, type: 3}
+    DownTextures:
+    - {fileID: 2800000, guid: d8d7563d074471345895ae595f91ea9a, type: 3}
   - Name: Hands
     SpriteFolder: {fileID: 102900000, guid: 0896b1efc7d3c3443a3d136b0c80d516, type: 3}
-    SideTextures: []
-    UpTextures: []
-    DownTextures: []
+    SideTextures:
+    - {fileID: 2800000, guid: 9bddcd2d3fa49a34bb3653b5fdd35db4, type: 3}
+    UpTextures:
+    - {fileID: 2800000, guid: 4691c46f10231a044b2f80f7e4a69a5d, type: 3}
+    DownTextures:
+    - {fileID: 2800000, guid: 1252f7e656cfa364595a7f9138c5df3c, type: 3}
   - Name: Eyes
     SpriteFolder: {fileID: 102900000, guid: 290cc1583389495478c2505abacd40df, type: 3}
-    SideTextures: []
+    SideTextures:
+    - {fileID: 2800000, guid: 21131e19ccc54e14bb341a09ff95ce46, type: 3}
     UpTextures: []
-    DownTextures: []
+    DownTextures:
+    - {fileID: 2800000, guid: 935a400b5ace2f647b033ee94b8a32ef, type: 3}
   - Name: Blush
     SpriteFolder: {fileID: 102900000, guid: 8ee22fa08f458ef41ae6665045a3dbd9, type: 3}
-    SideTextures: []
+    SideTextures:
+    - {fileID: 2800000, guid: ea28857f8fdd25e4ab9df757704d5e03, type: 3}
     UpTextures: []
-    DownTextures: []
+    DownTextures:
+    - {fileID: 2800000, guid: e7f3e670496c68a49a7dd45f6d669c14, type: 3}
   - Name: Hair
     SpriteFolder: {fileID: 102900000, guid: 054cc8ea00c57aa41a157e605175f5a1, type: 3}
-    SideTextures: []
-    UpTextures: []
-    DownTextures: []
+    SideTextures:
+    - {fileID: 2800000, guid: 89075d4bae6e93749a51668ac3fa4bf8, type: 3}
+    - {fileID: 2800000, guid: 4932a1f2dcda50e44a1fcc9461d142b6, type: 3}
+    UpTextures:
+    - {fileID: 2800000, guid: cc5a25f73e3301e41a844a1cf4e291b0, type: 3}
+    - {fileID: 2800000, guid: bd7d984a0d4207b4fb9478d534c76e2f, type: 3}
+    DownTextures:
+    - {fileID: 2800000, guid: 6682190c94580614e8ad8fb0605d2be7, type: 3}
+    - {fileID: 2800000, guid: 65aa35648a14f44439782077e7b0a109, type: 3}
   - Name: Beard
     SpriteFolder: {fileID: 102900000, guid: 4805ea2f4ae227f409a7533dcb7af50a, type: 3}
     SideTextures: []
@@ -50,9 +65,12 @@ MonoBehaviour:
     DownTextures: []
   - Name: Clothing
     SpriteFolder: {fileID: 102900000, guid: 78769fa88644d8f47ad538f008d5298a, type: 3}
-    SideTextures: []
-    UpTextures: []
-    DownTextures: []
+    SideTextures:
+    - {fileID: 2800000, guid: 1decf79fe2ff2c54991295c376207e6d, type: 3}
+    UpTextures:
+    - {fileID: 2800000, guid: bb244382af2c04943a5e4dd268e3b59e, type: 3}
+    DownTextures:
+    - {fileID: 2800000, guid: 8cffc49d435737c46b019471a4458267, type: 3}
   - Name: Hat
     SpriteFolder: {fileID: 102900000, guid: b6545991f923f6d41b49b5f80337a70d, type: 3}
     SideTextures: []

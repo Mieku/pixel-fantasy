@@ -131,9 +131,7 @@ namespace Systems.Appearance.Scripts
         public void Refresh(List<Color32> palette)
         {
             var root = UnityEditor.AssetDatabase.GetAssetPath(SpriteFolder);
-            
-            // var files = Directory.GetFiles(root, "*.png", SearchOption.AllDirectories).ToList();
-            
+
             var sideFiles = Directory.GetFiles(root + "/Side", "*.png", SearchOption.AllDirectories).ToList();
             var upFiles = Directory.GetFiles(root + "/Up", "*.png", SearchOption.AllDirectories).ToList();
             var downFiles = Directory.GetFiles(root + "/Down", "*.png", SearchOption.AllDirectories).ToList();
@@ -141,37 +139,6 @@ namespace Systems.Appearance.Scripts
             UpdateTextures(sideFiles, SideTextures, palette);
             UpdateTextures(upFiles, UpTextures, palette);
             UpdateTextures(downFiles, DownTextures, palette);
-
-            // SideTextures.Clear();
-            // UpTextures.Clear();
-            // DownTextures.Clear();
-            //
-            // foreach (var path in files)
-            // {
-            //     var texture = UnityEditor.AssetDatabase.LoadAssetAtPath<Texture2D>(path);
-            //
-            //     // if (texture.width != 576 || texture.height != 928) // TODO: [MA] Why specific size?
-            //     // {
-            //     //     Debug.LogWarning($"Unexpected texture size: {path}, ignoring");
-            //     //     continue;
-            //     // }
-            //
-            //     Textures.Add(texture);
-            //
-            //     var colors = new ColorDistinctor(texture.GetPixels32()).UniqueColors;
-            //
-            //     if (colors.Any(i => i.a > 0 && i.a < 255))
-            //     {
-            //         Debug.LogError($"Transparent pixels found in {path}");
-            //     }
-            //
-            //     var wrong = colors.Where(i => i.a == 255 && !palette.Any(j => i.FastEquals(j))).ToList();
-            //
-            //     if (wrong.Any())
-            //     {
-            //         Debug.LogError($"Colors outside of the palette found in {path}: {string.Join(",", wrong)}.");
-            //     }
-            // }
         }
 
         private void UpdateTextures(List<string> files, List<Texture2D> textures2D, List<Color32> palette)
@@ -181,13 +148,7 @@ namespace Systems.Appearance.Scripts
             foreach (var path in files)
             {
                 var texture = UnityEditor.AssetDatabase.LoadAssetAtPath<Texture2D>(path);
-
-                // if (texture.width != 576 || texture.height != 928) // TODO: [MA] Why specific size?
-                // {
-                //     Debug.LogWarning($"Unexpected texture size: {path}, ignoring");
-                //     continue;
-                // }
-
+                
                 textures2D.Add(texture);
 
                 var colors = new ColorDistinctor(texture.GetPixels32()).UniqueColors;
