@@ -16,7 +16,26 @@ namespace Systems.Appearance.Scripts
     {
         public Texture2D PaletteTexture;
         public Color32 OutlineColour = Color.black;
-        public List<AvatarLayer> Layers;
+
+        public List<AvatarLayer> SideLayers;
+        public List<AvatarLayer> UpLayers;
+        public List<AvatarLayer> DownLayers;
+
+        public List<AvatarLayer> GetLayersByDirection(AvatarLayer.EAppearanceDirection direction)
+        {
+            switch (direction)
+            {
+                case AvatarLayer.EAppearanceDirection.Left:
+                case AvatarLayer.EAppearanceDirection.Right:
+                    return SideLayers;
+                case AvatarLayer.EAppearanceDirection.Up:
+                    return UpLayers;
+                case AvatarLayer.EAppearanceDirection.Down:
+                    return DownLayers;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+            }
+        }
 
         public static readonly List<Color32> Palette = new List<Color32>
         {
@@ -93,9 +112,19 @@ namespace Systems.Appearance.Scripts
 
             palette.Add(OutlineColour);
 
-            foreach (var layer in Layers)
+            foreach (var sideLayer in SideLayers)
             {
-                layer.Refresh(palette);
+                sideLayer.Refresh(palette, AvatarLayer.EAppearanceDirection.Right);
+            }
+            
+            foreach (var upLayer in UpLayers)
+            {
+                upLayer.Refresh(palette, AvatarLayer.EAppearanceDirection.Up);
+            }
+            
+            foreach (var downLayer in DownLayers)
+            {
+                downLayer.Refresh(palette, AvatarLayer.EAppearanceDirection.Down);
             }
             
             Debug.Log("Refresh done!");
@@ -107,49 +136,43 @@ namespace Systems.Appearance.Scripts
     {
         public string Name;
         public Object SpriteFolder;
-        public List<Texture2D> SideTextures;
-        public List<Texture2D> UpTextures;
-        public List<Texture2D> DownTextures;
+        public List<Texture2D> Textures;
 
         private Color32[] _pixels;
 
-        public List<Texture2D> GetTexturesByDirection(EAppearanceDirection direction)
+        public void Refresh(List<Color32> palette, EAppearanceDirection direction)
         {
+            var root = UnityEditor.AssetDatabase.GetAssetPath(SpriteFolder);
+
             switch (direction)
             {
-                case EAppearanceDirection.Side:
-                    return SideTextures;
+                case EAppearanceDirection.Left:
+                case EAppearanceDirection.Right:
+                    var sideFiles = Directory.GetFiles(root + "/Side", "*.png", SearchOption.AllDirectories).ToList();
+                    UpdateTextures(sideFiles, palette);
+                    break;
                 case EAppearanceDirection.Up:
-                    return UpTextures;
+                    var upFiles = Directory.GetFiles(root + "/Up", "*.png", SearchOption.AllDirectories).ToList();
+                    UpdateTextures(upFiles, palette);
+                    break;
                 case EAppearanceDirection.Down:
-                    return DownTextures;
+                    var downFiles = Directory.GetFiles(root + "/Down", "*.png", SearchOption.AllDirectories).ToList();
+                    UpdateTextures(downFiles, palette);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
         }
 
-        public void Refresh(List<Color32> palette)
+        private void UpdateTextures(List<string> files, List<Color32> palette)
         {
-            var root = UnityEditor.AssetDatabase.GetAssetPath(SpriteFolder);
-
-            var sideFiles = Directory.GetFiles(root + "/Side", "*.png", SearchOption.AllDirectories).ToList();
-            var upFiles = Directory.GetFiles(root + "/Up", "*.png", SearchOption.AllDirectories).ToList();
-            var downFiles = Directory.GetFiles(root + "/Down", "*.png", SearchOption.AllDirectories).ToList();
-            
-            UpdateTextures(sideFiles, SideTextures, palette);
-            UpdateTextures(upFiles, UpTextures, palette);
-            UpdateTextures(downFiles, DownTextures, palette);
-        }
-
-        private void UpdateTextures(List<string> files, List<Texture2D> textures2D, List<Color32> palette)
-        {
-            textures2D.Clear();
+            Textures.Clear();
 
             foreach (var path in files)
             {
                 var texture = UnityEditor.AssetDatabase.LoadAssetAtPath<Texture2D>(path);
                 
-                textures2D.Add(texture);
+                Textures.Add(texture);
 
                 var colors = new ColorDistinctor(texture.GetPixels32()).UniqueColors;
 
@@ -167,12 +190,11 @@ namespace Systems.Appearance.Scripts
             }
         }
         
-        public Color32[] GetPixels(string data, Color32[] mask, string changed, EAppearanceDirection direction)
+        public Color32[] GetPixels(string data, Color32[] mask, string changed)
         {
             var match = Regex.Match(data, @"(?<Name>[\w\- \[\]]+?)/(?<Paint>#\w+)/(?<H>[-\d]+):(?<S>[-\d]+):(?<V>[-\d]+)");
             var name = match.Groups["Name"].Value;
-            var textures = GetTexturesByDirection(direction);
-            var index = textures.FindIndex(i => i.name == name);
+            var index = Textures.FindIndex(i => i.name == name);
             var paint = Color.white;
 
             if (index == -1) return null;
@@ -200,15 +222,14 @@ namespace Systems.Appearance.Scripts
                     break;
             }
 
-            return GetPixels(index, paint, h, s, v, mask, update, direction);
+            return GetPixels(index, paint, h, s, v, mask, update);
         }
         
-        public Color32[] GetPixels(int index, Color paint, float h, float s, float v, Color32[] mask, bool update, EAppearanceDirection direction)
+        public Color32[] GetPixels(int index, Color paint, float h, float s, float v, Color32[] mask, bool update)
         {
             if (!update && _pixels?.Length > 0 && mask == null) return _pixels;
-
-            var textures = GetTexturesByDirection(direction);
-            _pixels = textures[index].GetPixels32();
+            
+            _pixels = Textures[index].GetPixels32();
 
             if (mask != null)
             {
@@ -229,7 +250,7 @@ namespace Systems.Appearance.Scripts
             {
                 if ( Name == "Body" || Name == "Hair")
                 {
-                    _pixels = TextureHelper.Repaint3C(_pixels, paint, AppearanceCollection.Palette);
+                    _pixels = Repaint3C(_pixels, paint, AppearanceCollection.Palette);
                 }
                 else
                 {
@@ -254,10 +275,76 @@ namespace Systems.Appearance.Scripts
 
             return _pixels;
         }
+        
+        public static Color32[] Repaint3C(Color32[] pixels, Color32 paint, List<Color32> palette)
+        {
+            var dict = new Dictionary<Color32, int>();
+
+            for (var x = 0; x < 16; x++) // TODO: Hardcoded values.
+            {
+                for (var y = 0; y < 16; y++)
+                {
+                    var c = pixels[x + y * 256];
+                    var black = (Color)palette[1];
+                    if (c.a > 0 && c != Color.white && c != Color.black && c != black)
+                    {
+                        if (dict.ContainsKey(c))
+                        {
+                            dict[c]++;
+                        }
+                        else
+                        {
+                            dict.Add(c, 1);
+                        }
+                    }
+                }
+            }
+
+            var colors = dict.Count > 3 ? dict.OrderByDescending(i => i.Value).Take(3).Select(i => i.Key).ToList() : dict.Keys.ToList();
+
+            float GetBrightness(Color32 color)
+            {
+                Color.RGBToHSV(color, out _, out _, out var result);
+
+                return result;
+            }
+
+            colors = colors.OrderBy(GetBrightness).ToList();
+
+            if (colors.Count != 2 && colors.Count != 3)
+            {
+                throw new NotSupportedException("Sprite should have 2 or 3 colors only (+black outline).");
+            }
+
+            var index = palette.IndexOf(paint) - 1;
+            
+            var replacement = palette.GetRange(index, 3).OrderBy(i => ((Color) i).grayscale).ToList();
+            var match = new Dictionary<Color32, Color32>
+            {
+                { colors[0], replacement[0] },
+                { colors[1], replacement[1] }
+            };
+
+            if (colors.Count == 3)
+            {
+                match.Add(colors[2], replacement[2]);
+            }
+
+            for (var i = 0; i < pixels.Length; i++)
+            {
+                if (pixels[i].a > 0 && pixels[i] != Color.black && match.ContainsKey(pixels[i]))
+                {
+                    pixels[i] = match[pixels[i]];
+                }
+            }
+
+            return pixels;
+        }
 
         public enum EAppearanceDirection
         {
-            Side,
+            Right,
+            Left,
             Up,
             Down
         }
