@@ -1,6 +1,7 @@
 using Characters;
 using Items;
 using Managers;
+using Systems.Appearance.Scripts;
 using UnityEngine;
 
 namespace TaskSystem
@@ -27,8 +28,8 @@ namespace TaskSystem
                     // Hop into bed
                     _ai.Kinling.KinlingAgent.TeleportToPosition(sleepLocation.position, true);
                     _bed.EnterBed(_ai.Kinling);
-                    _ai.Kinling.kinlingAnimController.SetEyesClosed(true);
-                    _ai.Kinling.kinlingAnimController.SetUnitAction(UnitAction.Sleeping);
+                    _ai.Kinling.Avatar.SetEyesClosed(true);
+                    _ai.Kinling.Avatar.SetUnitAction(UnitAction.Sleeping);
                     _isAsleep = true;
                     _ai.Kinling.Needs.RegisterNeedChangePerHour(_bed.InUseNeedChange);
                 }, OnTaskCancel);
@@ -38,8 +39,8 @@ namespace TaskSystem
                 // Bedless...
                 
                 // Sleep on floor
-                _ai.Kinling.kinlingAnimController.SetEyesClosed(true);
-                _ai.Kinling.kinlingAnimController.SetUnitAction(UnitAction.Sleeping);
+                _ai.Kinling.Avatar.SetEyesClosed(true);
+                _ai.Kinling.Avatar.SetUnitAction(UnitAction.Sleeping);
                 _isAsleep = true;
                 _ai.Kinling.Needs.RegisterNeedChangePerHour("sleep on ground", NeedType.Energy, NO_BED_ENERGY_PER_HOUR);
             }
@@ -78,14 +79,14 @@ namespace TaskSystem
                     _ai.Kinling.Needs.DeregisterNeedChangePerHour(_bed.InUseNeedChange);
                     _ai.Kinling.KinlingAgent.TeleportToPosition((Vector2) _bedsidePos, false);
                     _bed.ExitBed(_ai.Kinling);
-                    _ai.Kinling.kinlingAnimController.SetEyesClosed(false);
-                    _ai.Kinling.kinlingAnimController.SetUnitAction(UnitAction.Nothing);
+                    _ai.Kinling.Avatar.SetEyesClosed(false);
+                    _ai.Kinling.Avatar.SetUnitAction(UnitAction.Nothing);
                 }
                 else
                 {
                     _ai.Kinling.Needs.DeregisterNeedChangePerHour("sleep on ground");
-                    _ai.Kinling.kinlingAnimController.SetEyesClosed(false);
-                    _ai.Kinling.kinlingAnimController.SetUnitAction(UnitAction.Nothing);
+                    _ai.Kinling.Avatar.SetEyesClosed(false);
+                    _ai.Kinling.Avatar.SetUnitAction(UnitAction.Nothing);
                 }
             }
         }

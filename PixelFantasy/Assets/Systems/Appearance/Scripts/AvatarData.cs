@@ -1,4 +1,5 @@
 using System;
+using Characters;
 using UnityEngine;
 
 namespace Systems.Appearance.Scripts
@@ -18,8 +19,81 @@ namespace Systems.Appearance.Scripts
         public string Clothing;
         public string Hat;
         public string FaceAccessory; // Glasses, Mask...
-
         public string Weapon;
         public string Offhand;
+
+        private KinlingData _kinlingData;
+        private EGender _gender;
+        private RaceSettings _race;
+        private EMaturityStage _ageStage;
+        
+        public Color32 SkinTone;
+        public Color32 HairColour;
+        public HairSettings HairStyle;
+        public HairSettings BeardStyle;
+        public Color32 EyeColour;
+        public Sprite PortraitEyelashes;
+        public Sprite PortraitEyebrows;
+
+        public AvatarData (KinlingData kinlingData, EGender gender, EMaturityStage ageStage, RaceSettings race)
+        {
+            _kinlingData = kinlingData;
+            _gender = gender;
+            _race = race;
+            _ageStage = ageStage;
+
+            SkinTone = _race.GetRandomSkinTone();
+            HairColour = _race.GetRandomHairColour();
+            HairStyle = _race.GetRandomHairStyleByGender(_gender);
+            if (_gender == EGender.Male) BeardStyle = _race.GetRandomBeardStyle();
+            EyeColour = _race.GetRandomEyeColour();
+
+            PortraitEyelashes = _race.GetRandomEyelashesByGender(_gender);
+            PortraitEyebrows = _race.GetRandomEyebrowsByGender(_gender);
+
+            RefreshSkinTone();
+            RefreshHair();
+            RefreshEyes();
+        }
+        
+        private void RefreshEyes()
+        {
+            Eyes = $"{_race.RaceName} Eyes/{Helper.ColorToHex(EyeColour)}/0:0:0";
+        }
+
+        private void RefreshHair()
+        {
+            Hair = $"{HairStyle.ID}/{Helper.ColorToHex(HairColour)}/0:0:0";
+
+            if (BeardStyle == null)
+            {
+                Beard = "";
+            }
+            else
+            {
+                Beard = $"{BeardStyle.ID}/{Helper.ColorToHex(HairColour)}/0:0:0";
+            }
+        }
+
+        private void RefreshSkinTone()
+        {
+            Body = $"{_race.RaceName} Body/{Helper.ColorToHex(SkinTone)}/0:0:0";
+            Hands = $"{_race.RaceName} Hands/{Helper.ColorToHex(SkinTone)}/0:0:0";
+
+            if (_gender == EGender.Female)
+            {
+                Blush = $"{_race.RaceName} Blush/{Helper.ColorToHex(SkinTone)}/0:0:0";
+            }
+            else
+            {
+                Blush = "";
+            }
+        }
+    }
+
+    public enum EGender
+    {
+        Male,
+        Female,
     }
 }

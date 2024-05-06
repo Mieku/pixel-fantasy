@@ -23,13 +23,11 @@ namespace Managers
         [SerializeField] private List<Sprite> _sprites;
         [SerializeField] private List<SpriteRef> _orderIcons;
         [SerializeField] private List<CropSettings> _cropLibrary;
-        [SerializeField] private List<HairSettings> _hairLibrary;
         [SerializeField] private List<Command> _commandLibrary;
         [SerializeField] private List<RaceSettings> _races;
         [SerializeField] private List<NeedSettings> _stats;
         [SerializeField] private List<EmotionSettings> _emotions;
         [SerializeField] private List<EmotionalBreakdownSettings> _emotionalBreakdowns;
-       // [SerializeField] private List<TalentSettings> _talents;
 
         public DataLibrary DataLibrary => _dataLibrary;
 
@@ -149,16 +147,6 @@ namespace Managers
         public Sprite GetOrderIcon(string spriteName)
         {
             return _orderIcons.Find(i => i.Name == spriteName).Sprite;
-        }
-
-        public HairSettings GetHairData(string hairName)
-        {
-            var result = _hairLibrary.Find(s => s.Name == hairName);
-            if (result == null)
-            {
-                Debug.LogError("Unknown Hair Data: " + hairName);
-            }
-            return result;
         }
     }
 

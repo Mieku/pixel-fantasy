@@ -1,6 +1,9 @@
 using System;
+using Characters;
+using Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Systems.Appearance.Scripts
 {
@@ -10,9 +13,49 @@ namespace Systems.Appearance.Scripts
         public Animator Animator;
         public AudioSource AudioSource;
         public AppearanceBuilder AppearanceBuilder;
+        public NavMeshAgent Agent;
 
         private AvatarLayer.EAppearanceDirection _direction;
         private bool _isFlipped;
+
+        private static readonly int Velocity = Animator.StringToHash("Velocity");
+        private const string DOING = "IsDoing";
+        private const string DIG = "IsDigging";
+        private const string WATER = "IsWatering";
+        private const string SWING = "IsSwinging";
+        private const string SLEEP = "IsSleeping";
+        private const string SIT = "IsSitting";
+        
+        private void Awake()
+        {
+            GameEvents.OnGameSpeedChanged += OnSpeedUpdated;
+        }
+
+        private void OnDestroy()
+        {
+            GameEvents.OnGameSpeedChanged -= OnSpeedUpdated;
+        }
+
+        private void Start()
+        {
+            SetDirection(AvatarLayer.EAppearanceDirection.Right);
+        }
+
+        private void OnSpeedUpdated(float speedMod)
+        {
+            Animator.speed = speedMod;
+        }
+        
+        private void Update()
+        {
+            RefreshAnimVector();
+        }
+
+        private void RefreshAnimVector()
+        {
+            var moveVelo = Agent.velocity;
+            SetMovementVelocity(moveVelo);
+        }
 
         public AvatarLayer.EAppearanceDirection GetDirection()
         {
@@ -39,5 +82,125 @@ namespace Systems.Appearance.Scripts
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
         }
+        
+        private AvatarLayer.EAppearanceDirection ConvertPlacementDirection(PlacementDirection placementDirection)
+        {
+            switch (placementDirection)
+            {
+                case PlacementDirection.South:
+                    return AvatarLayer.EAppearanceDirection.Down;
+                case PlacementDirection.North:
+                    return AvatarLayer.EAppearanceDirection.Up;
+                case PlacementDirection.West:
+                    return AvatarLayer.EAppearanceDirection.Left;
+                case PlacementDirection.East:
+                    return AvatarLayer.EAppearanceDirection.Right;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(placementDirection), placementDirection, null);
+            }
+        }
+        
+        public void SetUnitAction(UnitAction unitAction, PlacementDirection direction)
+        {
+            SetUnitAction(unitAction, ConvertPlacementDirection(direction));
+        }
+
+        public void SetUnitAction(UnitAction unitAction, AvatarLayer.EAppearanceDirection? direction = null)
+        {
+            ClearAllActions();
+            
+            if (direction != null)
+            {
+                SetDirection((AvatarLayer.EAppearanceDirection)direction);
+            }
+            
+            switch (unitAction)
+            {
+                case UnitAction.Nothing:
+                    ClearAllActions();
+                    break;
+                case UnitAction.Doing:
+                    SetAnimation(DOING);
+                    break;
+                case UnitAction.Digging:
+                    SetAnimation(DIG);
+                    break;
+                case UnitAction.Watering:
+                    SetAnimation(WATER);
+                    break;
+                case UnitAction.Swinging:
+                    SetAnimation(SWING);
+                    break;
+                case UnitAction.Sleeping:
+                    SetAnimation(SLEEP);
+                    break;
+                default:
+                    ClearAllActions();
+                    throw new ArgumentOutOfRangeException(nameof(unitAction), unitAction, null);
+            }
+        }
+
+        private void SetAnimation(string parameter, bool isActive = true)
+        {
+            Animator.SetBool(parameter, isActive);
+        }
+        
+        private void ClearAllActions()
+        {
+            SetAnimation(DOING, false);
+            SetAnimation(DIG, false);
+            SetAnimation(WATER, false);
+            SetAnimation(SWING, false);
+            SetAnimation(SLEEP, false);
+        }
+
+        public void SetMovementVelocity(Vector2 velocityVector)
+        {
+            if (TimeManager.Instance.GameSpeed == GameSpeed.Paused) return;
+
+            Animator.SetFloat(Velocity, velocityVector.magnitude);
+            
+            if (velocityVector != Vector2.zero)
+            {
+                if (velocityVector.x is <= 0.5f and > 0 || velocityVector.x is >= -0.5f and < 0)
+                {
+                    if (velocityVector.y > 0) // Up
+                    {
+                        SetDirection(AvatarLayer.EAppearanceDirection.Up);
+                    }
+                    else if (velocityVector.y < 0) // Down
+                    {
+                        SetDirection(AvatarLayer.EAppearanceDirection.Down);
+                    }
+                }
+                else
+                {
+                    if (velocityVector.x > 0) // Right
+                    {
+                        SetDirection(AvatarLayer.EAppearanceDirection.Right);
+                    } 
+                    else if (velocityVector.x < 0) // Left
+                    {
+                        SetDirection(AvatarLayer.EAppearanceDirection.Left);
+                    } 
+                }
+            }
+        }
+
+        public void SetEyesClosed(bool isClosed)
+        {
+            // TODO: build me
+        }
+    }
+    
+    public enum UnitAction
+    {
+        Nothing,
+        Doing,
+        Digging,
+        Watering,
+        Swinging,
+        Sleeping,
+        Sitting,
     }
 }

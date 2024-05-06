@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Characters;
+using NUnit.Framework;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Systems.Stats.Scripts;
@@ -15,19 +16,25 @@ namespace Systems.Appearance.Scripts
     public class RaceSettings : ScriptableObject
     {
         public string RaceName;
-        public List<SkinToneSettings> AvailableSkinTones = new List<SkinToneSettings>();
-        public List<EyeSettings> EyeOptions;
+        public List<Color> SkinTones = new List<Color>();
+        public List<Color> HairColours = new List<Color>();
+        public List<HairSettings> MaleHairStyles = new List<HairSettings>();
+        public List<HairSettings> FemaleHairStyles = new List<HairSettings>();
+        public List<HairSettings> BeardStyles = new List<HairSettings>();
+        public List<Color> EyesColours = new List<Color>();
+       // public List<SkinToneSettings> AvailableSkinTones = new List<SkinToneSettings>();
+        //public List<EyeSettings> EyeOptions;
         public List<Sprite> MaleEyelashOptions;
         public List<Sprite> FemaleEyelashOptions;
         public List<Sprite> MaleEyebrowOptions;
         public List<Sprite> FemaleEyebrowOptions;
         
-        [FormerlySerializedAs("_childBodyData")] [SerializeField] private BodySettings _childBodySettings;
-        [FormerlySerializedAs("_adultBodyData")] [SerializeField] private BodySettings _adultBodySettings;
-        [FormerlySerializedAs("_seniorBodyData")] [SerializeField] private BodySettings _seniorBodySettings;
+        // [FormerlySerializedAs("_childBodyData")] [SerializeField] private BodySettings _childBodySettings;
+        // [FormerlySerializedAs("_adultBodyData")] [SerializeField] private BodySettings _adultBodySettings;
+        // [FormerlySerializedAs("_seniorBodyData")] [SerializeField] private BodySettings _seniorBodySettings;
 
-        [SerializeField] private List<HairSettings> _maleHairOptions = new List<HairSettings>();
-        [SerializeField] private List<HairSettings> _femaleHairOptions = new List<HairSettings>();
+        //[SerializeField] private List<HairSettings> _maleHairOptions = new List<HairSettings>();
+        //[SerializeField] private List<HairSettings> _femaleHairOptions = new List<HairSettings>();
         
         [SerializeField] private List<string> _maleFirstNames = new List<string>();
         [SerializeField] private List<string> _femaleFirstNames = new List<string>();
@@ -73,76 +80,85 @@ namespace Systems.Appearance.Scripts
             }
         }
         
-        public SkinToneSettings GetRandomSkinTone()
+        public Color32 GetRandomSkinTone()
         {
-            int index = Random.Range(0, AvailableSkinTones.Count);
-            return AvailableSkinTones[index];
+            int index = Random.Range(0, SkinTones.Count);
+            return SkinTones[index];
         }
         
-        public EyeSettings GetRandomEyeColour()
+        public Color32 GetRandomEyeColour()
         {
-            int index = Random.Range(0, EyeOptions.Count);
-            return EyeOptions[index];
+            int index = Random.Range(0, EyesColours.Count);
+            return EyesColours[index];
         }
-
-        public HairSettings GetRandomHairByGender(Gender gender)
+        
+        public Color32 GetRandomHairColour()
         {
-            if (gender == Gender.Female)
+            int index = Random.Range(0, HairColours.Count);
+            return HairColours[index];
+        }
+        
+        public HairSettings GetRandomHairStyleByGender(EGender gender)
+        {
+            if (gender == EGender.Female)
             {
-                int index = Random.Range(0, _femaleHairOptions.Count);
-                return _femaleHairOptions[index];
+                int index = Random.Range(0, FemaleHairStyles.Count);
+                return FemaleHairStyles[index];
             }
             else
             {
-                int index = Random.Range(0, _maleHairOptions.Count);
-                return _maleHairOptions[index];
+                int index = Random.Range(0, MaleHairStyles.Count);
+                return MaleHairStyles[index];
             }
         }
+        
+        public HairSettings GetRandomBeardStyle()
+        {
+            if (BeardStyles.Count == 0)
+            {
+                return null;
+            }
 
-        public Sprite GetRandomEyelashesByGender(Gender gender)
+            if (Helper.RollDice(50)) // 50% chance of having a beard
+            {
+                int index = Random.Range(0, BeardStyles.Count);
+                return BeardStyles[index];
+            }
+            else
+            {
+                return null;
+            }
+        }
+        
+        public Sprite GetRandomEyelashesByGender(EGender gender)
         {
             switch (gender)
             {
-                case Gender.Male:
+                case EGender.Male:
                     return MaleEyelashOptions[Random.Range(0, MaleEyelashOptions.Count)];
-                case Gender.Female:
+                case EGender.Female:
                     return FemaleEyelashOptions[Random.Range(0, FemaleEyelashOptions.Count)];
                 default:
                     throw new ArgumentOutOfRangeException(nameof(gender), gender, null);
             }
         }
         
-        public Sprite GetRandomEyebrowsByGender(Gender gender)
+        public Sprite GetRandomEyebrowsByGender(EGender gender)
         {
             switch (gender)
             {
-                case Gender.Male:
+                case EGender.Male:
                     return MaleEyebrowOptions[Random.Range(0, MaleEyebrowOptions.Count)];
-                case Gender.Female:
+                case EGender.Female:
                     return FemaleEyebrowOptions[Random.Range(0, FemaleEyebrowOptions.Count)];
                 default:
                     throw new ArgumentOutOfRangeException(nameof(gender), gender, null);
             }
         }
-
-        public BodySettings GetBodyDataByMaturity(EMaturityStage maturityStage)
+        
+        public string GetRandomFirstName(EGender gender)
         {
-            switch (maturityStage)
-            {
-                case EMaturityStage.Child:
-                    return _childBodySettings;
-                case EMaturityStage.Adult:
-                    return _adultBodySettings;
-                case EMaturityStage.Senior:
-                    return _seniorBodySettings;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(maturityStage), maturityStage, null);
-            }
-        }
-
-        public string GetRandomFirstName(Gender gender)
-        {
-            return gender == Gender.Female 
+            return gender == EGender.Female 
                 ? _femaleFirstNames[Random.Range(0, _femaleFirstNames.Count)] 
                 : _maleFirstNames[Random.Range(0, _maleFirstNames.Count)];
         }

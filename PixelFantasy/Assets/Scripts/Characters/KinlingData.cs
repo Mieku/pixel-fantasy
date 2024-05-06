@@ -40,7 +40,7 @@ namespace Characters
         public int Age;
         
         [ExposeToInspector, DatabrainSerialize] 
-        public Gender Gender;
+        public EGender Gender;
 
         [ExposeToInspector, DatabrainSerialize]
         public RaceSettings Race;
@@ -48,8 +48,8 @@ namespace Characters
         [ExposeToInspector, DatabrainSerialize] 
         public ESexualPreference SexualPreference;
         
-        [ExposeToInspector, DatabrainSerialize] 
-        public AppearanceData Appearance;
+        // [ExposeToInspector, DatabrainSerialize] 
+        // public AppearanceData Appearance;
 
         [ExposeToInspector, DatabrainSerialize] 
         public List<TraitSettings> Traits = new List<TraitSettings>();
@@ -114,22 +114,39 @@ namespace Characters
             
             if (Helper.RollDice(50))
             {
-                Gender = Gender.Male;
+                Gender = EGender.Male;
             }
             else
             {
-                Gender = Gender.Female;
+                Gender = EGender.Female;
             }
-            
+
+            Age = CreateRandomAge(EMaturityStage.Adult);
             SexualPreference = DetermineSexuality(); 
-            Appearance = new AppearanceData(race, Gender);
             
-            Firstname = Appearance.Race.GetRandomFirstName(Gender);
-            Lastname = Appearance.Race.GetRandomLastName();
+            Avatar = new AvatarData(this, Gender, MaturityStage, Race);
+            
+            Firstname = Race.GetRandomFirstName(Gender);
+            Lastname = Race.GetRandomLastName();
             
             Stats.RandomizeSkillLevels();
             AssignHistory(Race.GetRandomHistory());
             AssignTraits(Race.GetRandomTraits(Random.Range(0, 4)));
+        }
+
+        public int CreateRandomAge(EMaturityStage stage)
+        {
+            switch (stage)
+            {
+                case EMaturityStage.Child:
+                    return Random.Range(0, Race.RacialAgeData.ChildMaxAge);
+                case EMaturityStage.Adult:
+                    return Random.Range(Race.RacialAgeData.ChildMaxAge, Race.RacialAgeData.AdultMaxAge);
+                case EMaturityStage.Senior:
+                    return Random.Range(Race.RacialAgeData.AdultMaxAge, Race.RacialAgeData.LifeExpectancy - 3);
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(stage), stage, null);
+            }
         }
         
         public void AssignHistory(History history)
@@ -174,19 +191,19 @@ namespace Characters
         {
             if (Helper.RollDice(50))
             {
-                Gender = Gender.Male;
+                Gender = EGender.Male;
             }
             else
             {
-                Gender = Gender.Female;
+                Gender = EGender.Female;
             }
 
             SexualPreference = DetermineSexuality();
-            Appearance = new AppearanceData(Gender, mother.Appearance, father.Appearance);
+            //Appearance = new AppearanceData(Gender, mother.Appearance, father.Appearance);
             //Talents = InheritTalentsFromParents(mother.Talents, father.Talents);
             Traits = GetTraitsFromParents(mother.Traits, father.Traits);
 
-            Firstname = Appearance.Race.GetRandomFirstName(Gender);
+            Firstname = Race.GetRandomFirstName(Gender);
             Lastname = mother.Lastname;
             
             Stats.RandomizeSkillLevels();
@@ -205,7 +222,7 @@ namespace Characters
                 else
                 {
                     // Homosexual
-                    if (Gender == Gender.Male)
+                    if (Gender == EGender.Male)
                     {
                         return ESexualPreference.Male;
                     }
@@ -218,7 +235,7 @@ namespace Characters
             else
             {
                 // Heterosexual
-                if (Gender == Gender.Male)
+                if (Gender == EGender.Male)
                 {
                     return ESexualPreference.Female;
                 }
@@ -325,9 +342,9 @@ namespace Characters
                 case ESexualPreference.None:
                     return false;
                 case ESexualPreference.Male:
-                    return otherKinlingGender == Gender.Male;
+                    return otherKinlingGender == EGender.Male;
                 case ESexualPreference.Female:
-                    return otherKinlingGender == Gender.Female;
+                    return otherKinlingGender == EGender.Female;
                 case ESexualPreference.Both:
                     return true;
                 default:

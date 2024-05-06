@@ -391,7 +391,7 @@ namespace Systems.Social.Scripts
 
         private void CheckPregnancy()
         {
-            if (_kinling.RuntimeData.Gender == Gender.Female && _kinling.RuntimeData.Partner.Gender == Gender.Male)
+            if (_kinling.RuntimeData.Gender == EGender.Female && _kinling.RuntimeData.Partner.Gender == EGender.Male)
             {
                 if (_kinling.RuntimeData.MaturityStage == EMaturityStage.Adult && _kinling.RuntimeData.Partner.MaturityStage == EMaturityStage.Adult)
                 {

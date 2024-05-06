@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Characters;
 using Managers;
 using Sirenix.OdinInspector;
+using Systems.Appearance.Scripts;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -75,7 +76,7 @@ namespace Items
 
             seat.IsInUse = true;
             kinling.KinlingAgent.TeleportToPosition(seat.Position, true);
-            kinling.kinlingAnimController.SetUnitAction(UnitAction.Nothing, seat.Direction); // TODO: Add in sitting animation
+            kinling.Avatar.SetUnitAction(UnitAction.Nothing, seat.Direction); // TODO: Add in sitting animation
             
             // Correct Layering
             kinling.transform.SetParent(_usingParent);
@@ -101,7 +102,7 @@ namespace Items
             kinling.transform.SetParent(KinlingsManager.Instance.transform);
             kinling.UnlockLayerOrder();
             
-            kinling.kinlingAnimController.SetUnitAction(UnitAction.Nothing);
+            kinling.Avatar.SetUnitAction(UnitAction.Nothing);
             
             UnclaimSeat(seat);
         }

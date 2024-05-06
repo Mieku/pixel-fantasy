@@ -15,11 +15,79 @@ namespace Systems.Appearance.Scripts
     public class AppearanceCollection : ScriptableObject
     {
         public Texture2D PaletteTexture;
-        public Color32 OutlineColour = Color.black;
+        public Color32 OutlineColour = new Color32(19, 19, 19, 255);
 
         public List<AvatarLayer> SideLayers;
         public List<AvatarLayer> UpLayers;
         public List<AvatarLayer> DownLayers;
+        
+        public List<Color32> ColourPalette = new List<Color32> // TODO: Placeholder for testing
+        {
+            new Color32(255, 0, 64, 255), 
+            new Color32(19, 19, 19, 255), 
+            new Color32(27, 27, 27, 255), 
+            new Color32(39, 39, 39, 255), 
+            new Color32(61, 61, 61, 255), 
+            new Color32(93, 93, 93, 255), 
+            new Color32(133, 133, 133, 255), 
+            new Color32(180, 180, 180, 255), 
+            new Color32(255, 255, 255, 255), 
+            new Color32(199, 207, 221, 255), 
+            new Color32(146, 161, 185, 255), 
+            new Color32(101, 115, 146, 255), 
+            new Color32(66, 76, 110, 255), 
+            new Color32(42, 47, 78, 255), 
+            new Color32(26, 25, 50, 255), 
+            new Color32(14, 7, 27, 255), 
+            new Color32(28, 18, 28, 255), 
+            new Color32(57, 31, 33, 255), 
+            new Color32(93, 44, 40, 255), 
+            new Color32(138, 72, 54, 255), 
+            new Color32(191, 111, 74, 255), 
+            new Color32(230, 156, 105, 255), 
+            new Color32(246, 202, 159, 255), 
+            new Color32(249, 230, 207, 255), 
+            new Color32(237, 171, 80, 255), 
+            new Color32(224, 116, 56, 255), 
+            new Color32(198, 69, 36, 255), 
+            new Color32(142, 37, 29, 255), 
+            new Color32(255, 80, 0, 255), 
+            new Color32(237, 118, 20, 255), 
+            new Color32(255, 162, 20, 255), 
+            new Color32(255, 200, 37, 255), 
+            new Color32(255, 235, 87, 255), 
+            new Color32(211, 252, 126, 255), 
+            new Color32(153, 230, 95, 255), 
+            new Color32(90, 197, 79, 255), 
+            new Color32(51, 152, 75, 255), 
+            new Color32(30, 111, 80, 255), 
+            new Color32(19, 76, 76, 255), 
+            new Color32(12, 46, 68, 255), 
+            new Color32(0, 57, 109, 255), 
+            new Color32(0, 105, 170, 255), 
+            new Color32(0, 152, 220, 255), 
+            new Color32(0, 205, 249, 255), 
+            new Color32(12, 241, 255, 255), 
+            new Color32(148, 253, 255, 255), 
+            new Color32(253, 210, 237, 255), 
+            new Color32(243, 137, 245, 255), 
+            new Color32(219, 63, 253, 255), 
+            new Color32(122, 9, 250, 255), 
+            new Color32(48, 3, 217, 255), 
+            new Color32(12, 2, 147, 255), 
+            new Color32(3, 25, 63, 255), 
+            new Color32(59, 20, 67, 255), 
+            new Color32(98, 36, 97, 255), 
+            new Color32(147, 56, 143, 255), 
+            new Color32(202, 82, 201, 255), 
+            new Color32(200, 80, 134, 255), 
+            new Color32(246, 129, 135, 255), 
+            new Color32(245, 85, 93, 255), 
+            new Color32(234, 50, 60, 255), 
+            new Color32(196, 36, 48, 255), 
+            new Color32(137, 30, 43, 255), 
+            new Color32(87, 28, 39, 255)
+        };
 
         public List<AvatarLayer> GetLayersByDirection(AvatarLayer.EAppearanceDirection direction)
         {
@@ -139,6 +207,7 @@ namespace Systems.Appearance.Scripts
         public List<Texture2D> Textures;
 
         private Color32[] _pixels;
+        private Color32 _outlineColour = new Color32(19, 19, 19, 255);
 
         public void Refresh(List<Color32> palette, EAppearanceDirection direction)
         {
@@ -171,21 +240,14 @@ namespace Systems.Appearance.Scripts
             foreach (var path in files)
             {
                 var texture = UnityEditor.AssetDatabase.LoadAssetAtPath<Texture2D>(path);
-                
                 Textures.Add(texture);
 
-                var colors = new ColorDistinctor(texture.GetPixels32()).UniqueColors;
+                var colors = texture.GetPixels32().Distinct().Where(c => c.a > 0).ToList();
+                var wrongColors = colors.Where(c => !palette.Contains(c) && c != (Color)_outlineColour).ToList();
 
-                if (colors.Any(i => i.a > 0 && i.a < 255))
+                if (wrongColors.Any())
                 {
-                    Debug.LogError($"Transparent pixels found in {path}");
-                }
-
-                var wrong = colors.Where(i => i.a == 255 && !palette.Any(j => i.FastEquals(j))).ToList();
-
-                if (wrong.Any())
-                {
-                    Debug.LogError($"Colors outside of the palette found in {path}: {string.Join(",", wrong)}.");
+                    Debug.LogError($"Colors outside of the palette found in {path}: {string.Join(",", wrongColors)}.");
                 }
             }
         }
@@ -248,9 +310,17 @@ namespace Systems.Appearance.Scripts
 
             if (paint != Color.white)
             {
-                if ( Name == "Body" || Name == "Hair")
+                if( Name is "Body" or "Hands")
                 {
-                    _pixels = Repaint3C(_pixels, paint, AppearanceCollection.Palette);
+                  _pixels = Repaint4C(_pixels, paint, AppearanceCollection.Palette, _outlineColour, 2);
+                }
+                else if (Name is "Hair" or "Beard" or "Clothing" )
+                {
+                    _pixels = Repaint4C(_pixels, paint, AppearanceCollection.Palette, _outlineColour, 4);
+                }
+                else if (Name is "Eyes")
+                {
+                    _pixels = Repaint4C(_pixels, paint, AppearanceCollection.Palette, _outlineColour, 1);
                 }
                 else
                 {
@@ -265,7 +335,7 @@ namespace Systems.Appearance.Scripts
 
             for (var i = 0; i < _pixels.Length; i++)
             {
-                if (_pixels[i].a > 0 && _pixels[i] != Color.black)
+                if (_pixels[i].a > 0 && _pixels[i] != (Color)_outlineColour)
                 {
                     _pixels[i] = TextureHelper.AdjustColor(_pixels[i], h, s, v);
                 }
@@ -275,72 +345,102 @@ namespace Systems.Appearance.Scripts
 
             return _pixels;
         }
-        
-        public static Color32[] Repaint3C(Color32[] pixels, Color32 paint, List<Color32> palette)
+ 
+        public Color32[] Repaint4C(Color32[] pixels, Color32 baseColor, List<Color32> palette, Color32 outlineColor, int colorCount = 4)
         {
-            var dict = new Dictionary<Color32, int>();
+            int baseIndex = FindClosestColorIndex(baseColor, palette);
+            var colorGradient = GenerateIndexedColorGradient(baseIndex, palette, colorCount);
 
-            for (var x = 0; x < 16; x++) // TODO: Hardcoded values.
+            float maxBrightness = pixels.Max(p => GetBrightness(p));
+            float minBrightness = pixels.Min(p => GetBrightness(p));
+            float brightnessRange = maxBrightness - minBrightness;
+
+            Color32[] resultPixels = new Color32[pixels.Length];
+
+            for (int i = 0; i < pixels.Length; i++)
             {
-                for (var y = 0; y < 16; y++)
+                if (pixels[i].a > 0 && !pixels[i].Equals(outlineColor))
                 {
-                    var c = pixels[x + y * 256];
-                    var black = (Color)palette[1];
-                    if (c.a > 0 && c != Color.white && c != Color.black && c != black)
-                    {
-                        if (dict.ContainsKey(c))
-                        {
-                            dict[c]++;
-                        }
-                        else
-                        {
-                            dict.Add(c, 1);
-                        }
-                    }
+                    float normalizedBrightness = (GetBrightness(pixels[i]) - minBrightness) / brightnessRange;
+                    int gradientIndex = (int)(normalizedBrightness * (colorGradient.Count - 1));
+                    resultPixels[i] = colorGradient[gradientIndex];
+                }
+                else
+                {
+                    resultPixels[i] = pixels[i]; // Preserve transparency and outline color
                 }
             }
 
-            var colors = dict.Count > 3 ? dict.OrderByDescending(i => i.Value).Take(3).Select(i => i.Key).ToList() : dict.Keys.ToList();
-
-            float GetBrightness(Color32 color)
-            {
-                Color.RGBToHSV(color, out _, out _, out var result);
-
-                return result;
-            }
-
-            colors = colors.OrderBy(GetBrightness).ToList();
-
-            if (colors.Count != 2 && colors.Count != 3)
-            {
-                throw new NotSupportedException("Sprite should have 2 or 3 colors only (+black outline).");
-            }
-
-            var index = palette.IndexOf(paint) - 1;
-            
-            var replacement = palette.GetRange(index, 3).OrderBy(i => ((Color) i).grayscale).ToList();
-            var match = new Dictionary<Color32, Color32>
-            {
-                { colors[0], replacement[0] },
-                { colors[1], replacement[1] }
-            };
-
-            if (colors.Count == 3)
-            {
-                match.Add(colors[2], replacement[2]);
-            }
-
-            for (var i = 0; i < pixels.Length; i++)
-            {
-                if (pixels[i].a > 0 && pixels[i] != Color.black && match.ContainsKey(pixels[i]))
-                {
-                    pixels[i] = match[pixels[i]];
-                }
-            }
-
-            return pixels;
+            return resultPixels;
         }
 
+
+        private List<Color32> GenerateIndexedColorGradient(int baseIndex, List<Color32> palette, int colorCount = 4)
+        {
+            List<Color32> gradient = new List<Color32>();
+            switch (colorCount)
+            {
+                case 1:
+                    gradient.Add(palette[baseIndex]); 
+                    break;
+                case 2:
+                    // Only use base and one darker shade if total colors needed is 2
+                    gradient.Add(palette[Mathf.Clamp(baseIndex - 1, 0, palette.Count - 1)]); // Darker
+                    gradient.Add(palette[baseIndex]); // Base
+                    break;
+                case 4:
+                default:
+                    // Use one lighter, base, and two darker shades if total colors needed is 4 or unspecified
+                    gradient.Add(palette[Mathf.Clamp(baseIndex - 2, 0, palette.Count - 1)]); // Darkest
+                    gradient.Add(palette[Mathf.Clamp(baseIndex - 1, 0, palette.Count - 1)]); // Darker
+                    gradient.Add(palette[baseIndex]); // Base
+                    gradient.Add(palette[Mathf.Clamp(baseIndex + 1, 0, palette.Count - 1)]); // Lighter
+                    return SortColorsByBrightness(gradient);
+            }
+            return gradient;
+        }
+        
+        public static List<Color32> SortColorsByBrightness(List<Color32> colors)
+        {
+            var sortedColors = colors.OrderBy(color => GetLuminance(color)).ToList();
+            return sortedColors;
+        }
+
+        // Helper method to calculate the luminance of a Color32
+        private static float GetLuminance(Color32 color)
+        {
+            // Convert Color32 to Color to work with floating point precision
+            Color c = color;
+            // Standard formula for luminance
+            return 0.299f * c.r + 0.587f * c.g + 0.114f * c.b;
+        }
+        
+        private float GetBrightness(Color32 color)
+        {
+            return 0.299f * color.r + 0.587f * color.g + 0.114f * color.b;  // Standard luminosity formula
+        }
+
+        private int FindClosestColorIndex(Color32 color, List<Color32> palette)
+        {
+            float minDistance = float.MaxValue;
+            int closestIndex = 0;
+            for (int i = 0; i < palette.Count; i++)
+            {
+                float distance = ColorDistance(color, palette[i]);
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    closestIndex = i;
+                }
+            }
+            return closestIndex;
+        }
+
+        private float ColorDistance(Color32 c1, Color32 c2)
+        {
+            return Mathf.Sqrt(Mathf.Pow(c1.r - c2.r, 2) + Mathf.Pow(c1.g - c2.g, 2) + Mathf.Pow(c1.b - c2.b, 2));
+        }
+        
         public enum EAppearanceDirection
         {
             Right,

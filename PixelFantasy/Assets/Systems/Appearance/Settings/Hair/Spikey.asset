@@ -12,10 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a218f635c5e56ae439331d28aa195c07, type: 3}
   m_Name: Spikey
   m_EditorClassIdentifier: 
-  Name: Spikey
-  ColourOptions:
-  - Color: {r: 0.8941177, g: 0.23137257, b: 0.26666668, a: 1}
-    Side: {fileID: -294237546, guid: cd481c99f07d392449920fd33c9e3fae, type: 3}
-    Front: {fileID: -1701748433, guid: cd481c99f07d392449920fd33c9e3fae, type: 3}
-    Back: {fileID: 1994668963, guid: cd481c99f07d392449920fd33c9e3fae, type: 3}
-    Portrait: {fileID: 21300000, guid: f0931212cd32da94bba9d61c12e74347, type: 3}
+  ID: Spikey
+  Portrait: {fileID: 21300000, guid: ffcdc6ff8e7728945bdfd9803c5d6c7c, type: 3}

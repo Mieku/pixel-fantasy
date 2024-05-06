@@ -12,6 +12,7 @@ using Systems.Traits.Scripts;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.Rendering;
+using Avatar = Systems.Appearance.Scripts.Avatar;
 
 namespace Characters
 {
@@ -23,14 +24,15 @@ namespace Characters
         public KinlingData RuntimeData;
         
         [SerializeField] private TaskAI _taskAI;
-        [SerializeField] private KinlingAppearance _appearance;
+        //[SerializeField] private KinlingAppearance _appearance;
         [SerializeField] private SocialAI _socialAI;
         [SerializeField] private SortingGroup _sortingGroup;
         
         public string FullName => RuntimeData.Firstname + " " + RuntimeData.Lastname;
 
-        public KinlingAnimController kinlingAnimController;
+        //public KinlingAnimController kinlingAnimController;
         public KinlingAgent KinlingAgent;
+        public Avatar Avatar;
 
         public StatsData Stats => RuntimeData.Stats;
 
@@ -66,7 +68,7 @@ namespace Characters
             RuntimeData = data;
             RuntimeData.Kinling = this;
                 
-            _appearance.Init(this, RuntimeData.Appearance);
+            //_appearance.Init(this, RuntimeData.Appearance);
                 
             KinlingsManager.Instance.RegisterKinling(RuntimeData); 
             
@@ -79,6 +81,7 @@ namespace Characters
             Needs.Initialize(this);
             MoodData.Init(RuntimeData);
             MoodData.JumpMoodToTarget();
+            Avatar.AppearanceBuilder.Rebuild();
         }
 
         public void SetSeated(ChairFurniture chair)

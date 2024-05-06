@@ -10,6 +10,8 @@ namespace Systems.Appearance.Scripts
     public class Portrait : MonoBehaviour
     {
         [SerializeField] private Image _head;
+        [SerializeField] private Image _ears;
+        [SerializeField] private Image _beard;
         [SerializeField] private Image _mouth;
         [SerializeField] private Image _nose;
         [SerializeField] private Image _eyes;
@@ -34,20 +36,55 @@ namespace Systems.Appearance.Scripts
         private bool _isBlinking;
 
         private KinlingData _kinlingData;
+        private AvatarData _avatarData => _kinlingData.Avatar;
 
         public void Init(KinlingData kinlingData)
         {
             _kinlingData = kinlingData;
 
-            _head.sprite = kinlingData.Appearance.SkinTone.PortraitHead;
-            _blush.sprite = kinlingData.Appearance.SkinTone.PortraitBlush;
-            _nose.sprite = kinlingData.Appearance.SkinTone.PortraitNose;
-            _eyes.sprite = kinlingData.Appearance.Eyes.PortraitEyes;
-            _eyelashes.sprite = kinlingData.Appearance.Eyelashes;
-            _eyebrows.sprite = kinlingData.Appearance.Eyebrows;
-            _hair.sprite = kinlingData.Appearance.Hair.Portrait;
+            _eyelashes.sprite = _avatarData.PortraitEyelashes;
+            _eyebrows.sprite = _avatarData.PortraitEyebrows;
+            _hair.sprite = _avatarData.HairStyle.Portrait;
+
+            if (_avatarData.BeardStyle != null)
+            {
+                _beard.sprite = _avatarData.BeardStyle.Portrait;
+                _beard.gameObject.SetActive(true);
+            }
+            else
+            {
+                _beard.gameObject.SetActive(false);
+            }
             
-            _blush.gameObject.SetActive(kinlingData.Gender == Gender.Female);
+            _blush.gameObject.SetActive(kinlingData.Gender == EGender.Female);
+            
+            // Colour the portrait
+            ColourImage(_hair, _avatarData.HairColour);
+            ColourImage(_beard, _avatarData.HairColour);
+            ColourImage(_eyes, _avatarData.EyeColour);
+            
+            ColourImage(_head, _avatarData.SkinTone);
+            ColourImage(_ears, _avatarData.SkinTone);
+            ColourImage(_nose, _avatarData.SkinTone);
+            ColourImage(_blush, _avatarData.SkinTone);
+        }
+
+        private void ColourImage(Image image, Color32 colour)
+        {
+            Texture2D texture2D;
+            var original = image.sprite;
+            texture2D = image.sprite.texture;
+            
+            var copyTexture = Instantiate(texture2D);
+            image.sprite = Sprite.Create(copyTexture, new Rect(0.0f, 0.0f, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f), original.pixelsPerUnit);
+
+            var pixels = copyTexture.GetPixels32();
+            var colourPixels =
+                Helper.Repaint4C(pixels, colour, AppearanceCollection.Palette, new Color32(19, 19, 19, 255));
+            
+            
+            copyTexture.SetPixels32(colourPixels);
+            copyTexture.Apply();
         }
 
         private void Update()

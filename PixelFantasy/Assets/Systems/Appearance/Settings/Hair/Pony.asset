@@ -12,10 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a218f635c5e56ae439331d28aa195c07, type: 3}
   m_Name: Pony
   m_EditorClassIdentifier: 
-  Name: Pony
-  ColourOptions:
-  - Color: {r: 0.882353, g: 0.454902, b: 0.09411766, a: 1}
-    Side: {fileID: 1247251335, guid: 44f0107b57bf8104aa7a1d6639a36067, type: 3}
-    Front: {fileID: 1325399274, guid: 44f0107b57bf8104aa7a1d6639a36067, type: 3}
-    Back: {fileID: -1011813145, guid: 44f0107b57bf8104aa7a1d6639a36067, type: 3}
-    Portrait: {fileID: 21300000, guid: 60544fd367f9cbf4fac2b4d47e53f705, type: 3}
+  ID: Pony
+  Portrait: {fileID: 21300000, guid: 0152401d581674d439b23760042254e3, type: 3}

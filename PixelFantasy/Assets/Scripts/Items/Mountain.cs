@@ -2,6 +2,7 @@ using Characters;
 using Controllers;
 using Data.Resource;
 using Interfaces;
+using Systems.Appearance.Scripts;
 using Systems.Stats.Scripts;
 using UnityEngine;
 using UnityEngine.Tilemaps;

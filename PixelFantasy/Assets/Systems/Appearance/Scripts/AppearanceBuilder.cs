@@ -19,15 +19,25 @@ namespace Systems.Appearance.Scripts
         public AppearanceCollection Collection;
 
         public AvatarData DebugAvatarData;
+
+        private AvatarData _avatarData
+        {
+            get
+            {
+                if (_kinling.RuntimeData != null && _kinling.RuntimeData.Avatar != null)
+                {
+                    return _kinling.RuntimeData.Avatar;
+                }
+
+                return DebugAvatarData;
+            }
+        }
         
-        //private AvatarData _avatarData => _kinling.RuntimeData.Avatar; // TODO: Bring this back, using a tester for... testing!
-        private AvatarData _avatarData => DebugAvatarData;
         private Dictionary<string, Sprite> _sprites;
 
         [Button("Rebuild")]
         public void Rebuild(string changed = null, bool forceMerge = false)
         {
-            // TODO: Not a fan of this
             var collection = Collection.GetLayersByDirection(Avatar.GetDirection());
             
             var width = collection[0].Textures[0].width;
@@ -44,7 +54,7 @@ namespace Systems.Appearance.Scripts
             if(!string.IsNullOrEmpty(_avatarData.Blush)) layers.Add("Blush", dict["Blush"].GetPixels(_avatarData.Blush, null, changed));
 
             if(!string.IsNullOrEmpty(_avatarData.Beard)) layers.Add("Beard", dict["Beard"].GetPixels(_avatarData.Beard, null, changed));
-            if(!string.IsNullOrEmpty(_avatarData.Hair)) layers.Add("Hair", dict["Hair"].GetPixels(_avatarData.Hair, _avatarData.Hat == "" ? null : layers["Body"], changed));
+            if (!string.IsNullOrEmpty(_avatarData.Hair)) layers.Add("Hair", dict["Hair"].GetPixels(_avatarData.Hair, null, changed));
 
             if(!string.IsNullOrEmpty(_avatarData.FaceAccessory)) layers.Add("FaceAccessory", dict["FaceAccessory"].GetPixels(_avatarData.FaceAccessory, null, changed));
             if(!string.IsNullOrEmpty(_avatarData.Hat)) layers.Add("Hat", dict["Hat"].GetPixels(_avatarData.Hat, null, changed));

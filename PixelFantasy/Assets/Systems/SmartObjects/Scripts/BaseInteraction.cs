@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
+using Systems.Appearance.Scripts;
 using Systems.Mood.Scripts;
 using Systems.Needs.Scripts;
 using Systems.Traits.Scripts;

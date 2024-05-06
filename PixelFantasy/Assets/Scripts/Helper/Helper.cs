@@ -662,6 +662,100 @@ public static class Helper
             Mathf.Clamp(original.g * luminanceRatio, 0, 1),
             Mathf.Clamp(original.b * luminanceRatio, 0, 1));
     }
+    
+    public static Color32[] Repaint4C(Color32[] pixels, Color32 baseColor, List<Color32> palette, Color32 outlineColor, int colorCount = 4)
+    {
+        int baseIndex = FindClosestColorIndex(baseColor, palette);
+        var colorGradient = GenerateIndexedColorGradient(baseIndex, palette, colorCount);
+
+        float maxBrightness = pixels.Max(p => GetBrightness(p));
+        float minBrightness = pixels.Min(p => GetBrightness(p));
+        float brightnessRange = maxBrightness - minBrightness;
+
+        Color32[] resultPixels = new Color32[pixels.Length];
+
+        for (int i = 0; i < pixels.Length; i++)
+        {
+            if (pixels[i].a > 0 && !pixels[i].Equals(outlineColor))
+            {
+                float normalizedBrightness = (GetBrightness(pixels[i]) - minBrightness) / brightnessRange;
+                int gradientIndex = (int)(normalizedBrightness * (colorGradient.Count - 1));
+                resultPixels[i] = colorGradient[gradientIndex];
+            }
+            else
+            {
+                resultPixels[i] = pixels[i]; // Preserve transparency and outline color
+            }
+        }
+
+        return resultPixels;
+    }
+    
+    private static List<Color32> GenerateIndexedColorGradient(int baseIndex, List<Color32> palette, int colorCount = 4)
+    {
+        List<Color32> gradient = new List<Color32>();
+        switch (colorCount)
+        {
+            case 1:
+                gradient.Add(palette[baseIndex]); 
+                break;
+            case 2:
+                // Only use base and one darker shade if total colors needed is 2
+                gradient.Add(palette[Mathf.Clamp(baseIndex - 1, 0, palette.Count - 1)]); // Darker
+                gradient.Add(palette[baseIndex]); // Base
+                break;
+            case 4:
+            default:
+                // Use one lighter, base, and two darker shades if total colors needed is 4 or unspecified
+                gradient.Add(palette[Mathf.Clamp(baseIndex - 2, 0, palette.Count - 1)]); // Darkest
+                gradient.Add(palette[Mathf.Clamp(baseIndex - 1, 0, palette.Count - 1)]); // Darker
+                gradient.Add(palette[baseIndex]); // Base
+                gradient.Add(palette[Mathf.Clamp(baseIndex + 1, 0, palette.Count - 1)]); // Lighter
+                return SortColorsByBrightness(gradient);
+        }
+        return gradient;
+    }
+    
+    public static List<Color32> SortColorsByBrightness(List<Color32> colors)
+    {
+        var sortedColors = colors.OrderBy(color => GetLuminance(color)).ToList();
+        return sortedColors;
+    }
+
+    // Helper method to calculate the luminance of a Color32
+    private static float GetLuminance(Color32 color)
+    {
+        // Convert Color32 to Color to work with floating point precision
+        Color c = color;
+        // Standard formula for luminance
+        return 0.299f * c.r + 0.587f * c.g + 0.114f * c.b;
+    }
+        
+    private static float GetBrightness(Color32 color)
+    {
+        return 0.299f * color.r + 0.587f * color.g + 0.114f * color.b;  // Standard luminosity formula
+    }
+
+    private static int FindClosestColorIndex(Color32 color, List<Color32> palette)
+    {
+        float minDistance = float.MaxValue;
+        int closestIndex = 0;
+        for (int i = 0; i < palette.Count; i++)
+        {
+            float distance = ColorDistance(color, palette[i]);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                closestIndex = i;
+            }
+        }
+        return closestIndex;
+    }
+
+    private static float ColorDistance(Color32 c1, Color32 c2)
+    {
+        return Mathf.Sqrt(Mathf.Pow(c1.r - c2.r, 2) + Mathf.Pow(c1.g - c2.g, 2) + Mathf.Pow(c1.b - c2.b, 2));
+    }
 }
 
 public static class EnumExtensions

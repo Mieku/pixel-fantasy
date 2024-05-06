@@ -5,6 +5,7 @@ using Items;
 using Managers;
 using ScriptableObjects;
 using UnityEngine;
+using Avatar = Systems.Appearance.Scripts.Avatar;
 
 namespace TaskSystem
 {
@@ -19,7 +20,7 @@ namespace TaskSystem
         public float ActionSpeed => 1f;
         public Task Task => _task;
 
-        protected KinlingAnimController KinlingAnimController => _ai.Kinling.kinlingAnimController;
+        protected Avatar KinlingAnimController => _ai.Kinling.Avatar;
 
         private void Awake()
         {

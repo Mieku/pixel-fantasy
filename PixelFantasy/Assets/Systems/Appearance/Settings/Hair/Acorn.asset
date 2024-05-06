@@ -12,10 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a218f635c5e56ae439331d28aa195c07, type: 3}
   m_Name: Acorn
   m_EditorClassIdentifier: 
-  Name: Acorn
-  ColourOptions:
-  - Color: {r: 0.45882356, g: 0.2392157, b: 0.227451, a: 1}
-    Side: {fileID: 922694507, guid: e049917500180614ab1258391b3f8f56, type: 3}
-    Front: {fileID: 242492787, guid: e049917500180614ab1258391b3f8f56, type: 3}
-    Back: {fileID: -1128944645, guid: e049917500180614ab1258391b3f8f56, type: 3}
-    Portrait: {fileID: 21300000, guid: 1d6f59eb274f61446807d068f121239f, type: 3}
+  ID: Acorn
+  Portrait: {fileID: 21300000, guid: 2178f3ad1da37834fb0b0967f1e8d7f1, type: 3}

@@ -14,7 +14,7 @@ namespace Characters
         [SerializeField] private GameObject _upView;
         [SerializeField] private GameObject _downView;
 
-        private UnitActionDirection _curDirection;
+        //private UnitActionDirection _curDirection;
         private DyeSettings _assignedDyePalette;
         
         private readonly int colorSwapRed = Shader.PropertyToID("_ColorSwapRed");
@@ -108,31 +108,31 @@ namespace Characters
             mat.SetFloat(cwBlueLumin, 1.0f);
         }
 
-        public void AssignDirection(UnitActionDirection direction)
-        {
-            _curDirection = direction;
-
-            switch (direction)
-            {
-                case UnitActionDirection.Side:
-                    _sideView.SetActive(true);
-                    _upView.SetActive(false);
-                    _downView.SetActive(false);
-                    break;
-                case UnitActionDirection.Up:
-                    _sideView.SetActive(false);
-                    _upView.SetActive(true);
-                    _downView.SetActive(false);
-                    break;
-                case UnitActionDirection.Down:
-                    _sideView.SetActive(false);
-                    _upView.SetActive(false);
-                    _downView.SetActive(true);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
-            }
-        }
+        // public void AssignDirection(UnitActionDirection direction)
+        // {
+        //     _curDirection = direction;
+        //
+        //     switch (direction)
+        //     {
+        //         case UnitActionDirection.Side:
+        //             _sideView.SetActive(true);
+        //             _upView.SetActive(false);
+        //             _downView.SetActive(false);
+        //             break;
+        //         case UnitActionDirection.Up:
+        //             _sideView.SetActive(false);
+        //             _upView.SetActive(true);
+        //             _downView.SetActive(false);
+        //             break;
+        //         case UnitActionDirection.Down:
+        //             _sideView.SetActive(false);
+        //             _upView.SetActive(false);
+        //             _downView.SetActive(true);
+        //             break;
+        //         default:
+        //             throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+        //     }
+        // }
 
         // public bool IsToolType(EToolType toolType)
         // {

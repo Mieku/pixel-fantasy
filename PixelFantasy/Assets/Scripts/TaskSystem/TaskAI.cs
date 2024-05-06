@@ -7,6 +7,7 @@ using Handlers;
 using Items;
 using Managers;
 using ScriptableObjects;
+using Systems.Appearance.Scripts;
 using Systems.Stats.Scripts;
 using UnityEngine;
 
@@ -352,26 +353,30 @@ namespace TaskSystem
             // }
         }
         
-        public UnitActionDirection GetActionDirection(Vector3 targetPos)
+        public AvatarLayer.EAppearanceDirection GetActionDirection(Vector3 targetPos)
         {
             return DetermineUnitActionDirection(targetPos, transform.position);
         }
         
-        private UnitActionDirection DetermineUnitActionDirection(Vector3 workPos, Vector3 standPos)
+        private AvatarLayer.EAppearanceDirection DetermineUnitActionDirection(Vector3 workPos, Vector3 standPos)
         {
             const float threshold = 0.25f;
 
             if (standPos.y >= workPos.y + threshold)
             {
-                return UnitActionDirection.Down;
+                return AvatarLayer.EAppearanceDirection.Down;
             } 
             else if (standPos.y <= workPos.y - threshold)
             {
-                return UnitActionDirection.Up;
+                return AvatarLayer.EAppearanceDirection.Up;
+            }
+            else if (standPos.x >= workPos.x)
+            {
+                return AvatarLayer.EAppearanceDirection.Right;
             }
             else
             {
-                return UnitActionDirection.Side;
+                return AvatarLayer.EAppearanceDirection.Left;
             }
         }
 

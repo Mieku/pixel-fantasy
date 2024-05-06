@@ -6,6 +6,7 @@ using Systems.Stats.Scripts;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
+using Avatar = Systems.Appearance.Scripts.Avatar;
 using Random = UnityEngine.Random;
 
 namespace Characters
@@ -19,7 +20,7 @@ namespace Characters
         private NavMeshAgent _agent;
         private Action _onReachedMovePosition;
         private bool _inTransit;
-        private KinlingAnimController _charAnimController;
+        //private KinlingAnimController _charAnimController;
         private float _defaultSpeed;
         private float _defaultAcceleration;
         private float _defaultAngularSpeed;
@@ -27,6 +28,7 @@ namespace Characters
         private NavMeshPath _currentPath;
         private bool _isPathVisible;
         private bool _isInitialized;
+        private Avatar _avatar;
 
         private const float NEAREST_POINT_SEARCH_RANGE = 5f;
 
@@ -37,7 +39,7 @@ namespace Characters
             _agent.updateUpAxis = false;
 
             _kinling = GetComponent<Kinling>();
-            _charAnimController = GetComponent<Kinling>().kinlingAnimController;
+            _avatar = _kinling.Avatar;
         }
 
         private void Start()
@@ -146,7 +148,7 @@ namespace Characters
         private void RefreshAnimVector()
         {
             var moveVelo = _agent.velocity;
-            _charAnimController.SetMovementVelocity(moveVelo);
+            _avatar.SetMovementVelocity(moveVelo);
         }
         
         private void OnSpeedUpdated()

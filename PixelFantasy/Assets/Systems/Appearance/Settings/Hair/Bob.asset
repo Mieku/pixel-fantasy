@@ -12,10 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a218f635c5e56ae439331d28aa195c07, type: 3}
   m_Name: Bob
   m_EditorClassIdentifier: 
-  Name: Bob
-  ColourOptions:
-  - Color: {r: 0.627451, g: 0.35686275, b: 0.3254902, a: 1}
-    Side: {fileID: 287172712, guid: b7c4f7ae9e97c53439ca23db7047c2c0, type: 3}
-    Front: {fileID: -397466799, guid: b7c4f7ae9e97c53439ca23db7047c2c0, type: 3}
-    Back: {fileID: 1081400823, guid: b7c4f7ae9e97c53439ca23db7047c2c0, type: 3}
-    Portrait: {fileID: 21300000, guid: 104db249e7154ae40a127e72e5cfe04c, type: 3}
+  ID: Bob
+  Portrait: {fileID: 21300000, guid: 38116a270c6da6e4a8283cd89955b3b9, type: 3}

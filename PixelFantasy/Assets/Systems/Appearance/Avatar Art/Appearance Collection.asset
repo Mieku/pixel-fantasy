@@ -137,3 +137,132 @@ MonoBehaviour:
   - Name: Weapon
     SpriteFolder: {fileID: 102900000, guid: cca10c16b4cbf6849a886d33b49fb7ff, type: 3}
     Textures: []
+  ColourPalette:
+  - serializedVersion: 2
+    rgba: 4279440147
+  - serializedVersion: 2
+    rgba: 4279966491
+  - serializedVersion: 2
+    rgba: 4280756007
+  - serializedVersion: 2
+    rgba: 4282203453
+  - serializedVersion: 2
+    rgba: 4284308829
+  - serializedVersion: 2
+    rgba: 4286940549
+  - serializedVersion: 2
+    rgba: 4290032820
+  - serializedVersion: 2
+    rgba: 4294967295
+  - serializedVersion: 2
+    rgba: 4292726727
+  - serializedVersion: 2
+    rgba: 4290355602
+  - serializedVersion: 2
+    rgba: 4287787877
+  - serializedVersion: 2
+    rgba: 4285418562
+  - serializedVersion: 2
+    rgba: 4283313962
+  - serializedVersion: 2
+    rgba: 4281473306
+  - serializedVersion: 2
+    rgba: 4279961358
+  - serializedVersion: 2
+    rgba: 4280029724
+  - serializedVersion: 2
+    rgba: 4280360761
+  - serializedVersion: 2
+    rgba: 4280822877
+  - serializedVersion: 2
+    rgba: 4281747594
+  - serializedVersion: 2
+    rgba: 4283068351
+  - serializedVersion: 2
+    rgba: 4285111526
+  - serializedVersion: 2
+    rgba: 4288662262
+  - serializedVersion: 2
+    rgba: 4291815161
+  - serializedVersion: 2
+    rgba: 4283476973
+  - serializedVersion: 2
+    rgba: 4281890016
+  - serializedVersion: 2
+    rgba: 4280567238
+  - serializedVersion: 2
+    rgba: 4280100238
+  - serializedVersion: 2
+    rgba: 4278210815
+  - serializedVersion: 2
+    rgba: 4279531245
+  - serializedVersion: 2
+    rgba: 4279542527
+  - serializedVersion: 2
+    rgba: 4280666367
+  - serializedVersion: 2
+    rgba: 4283952127
+  - serializedVersion: 2
+    rgba: 4286512339
+  - serializedVersion: 2
+    rgba: 4284475033
+  - serializedVersion: 2
+    rgba: 4283417946
+  - serializedVersion: 2
+    rgba: 4283144243
+  - serializedVersion: 2
+    rgba: 4283461406
+  - serializedVersion: 2
+    rgba: 4283190291
+  - serializedVersion: 2
+    rgba: 4282658316
+  - serializedVersion: 2
+    rgba: 4285348096
+  - serializedVersion: 2
+    rgba: 4289358080
+  - serializedVersion: 2
+    rgba: 4292646912
+  - serializedVersion: 2
+    rgba: 4294561024
+  - serializedVersion: 2
+    rgba: 4294963468
+  - serializedVersion: 2
+    rgba: 4294966676
+  - serializedVersion: 2
+    rgba: 4293776125
+  - serializedVersion: 2
+    rgba: 4294281715
+  - serializedVersion: 2
+    rgba: 4294787035
+  - serializedVersion: 2
+    rgba: 4294576506
+  - serializedVersion: 2
+    rgba: 4292412208
+  - serializedVersion: 2
+    rgba: 4287824396
+  - serializedVersion: 2
+    rgba: 4282325251
+  - serializedVersion: 2
+    rgba: 4282586171
+  - serializedVersion: 2
+    rgba: 4284556386
+  - serializedVersion: 2
+    rgba: 4287576211
+  - serializedVersion: 2
+    rgba: 4291384010
+  - serializedVersion: 2
+    rgba: 4286992584
+  - serializedVersion: 2
+    rgba: 4287070710
+  - serializedVersion: 2
+    rgba: 4284306933
+  - serializedVersion: 2
+    rgba: 4282384639
+  - serializedVersion: 2
+    rgba: 4282135274
+  - serializedVersion: 2
+    rgba: 4281345220
+  - serializedVersion: 2
+    rgba: 4281015945
+  - serializedVersion: 2
+    rgba: 4280753239

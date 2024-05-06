@@ -7,6 +7,7 @@ using Databrain;
 using Databrain.Attributes;
 using Interfaces;
 using Managers;
+using Systems.Appearance.Scripts;
 using Systems.Stats.Scripts;
 using UnityEngine;
 using UnityEngine.Serialization;
