@@ -40,7 +40,13 @@ MonoBehaviour:
     SpriteFolder: {fileID: 102900000, guid: 054cc8ea00c57aa41a157e605175f5a1, type: 3}
     Textures:
     - {fileID: 2800000, guid: 89075d4bae6e93749a51668ac3fa4bf8, type: 3}
+    - {fileID: 2800000, guid: 01b70a92a695a984f937c2f890790aec, type: 3}
+    - {fileID: 2800000, guid: 831c284514714d34298d0dd72aff2911, type: 3}
+    - {fileID: 2800000, guid: d20bf9f0a3beae047ab8766a51d9fffb, type: 3}
+    - {fileID: 2800000, guid: 0b2296fc32bf09a489bc749ff02a11e1, type: 3}
     - {fileID: 2800000, guid: 4932a1f2dcda50e44a1fcc9461d142b6, type: 3}
+    - {fileID: 2800000, guid: 0f7c8933cddbd094a9c0d7aec42094c4, type: 3}
+    - {fileID: 2800000, guid: a332e97e70f96964f9b54f6156667029, type: 3}
   - Name: Face Accessory
     SpriteFolder: {fileID: 102900000, guid: 7523cfac6384df140bb14a32f9b18b37, type: 3}
     Textures: []
@@ -66,6 +72,16 @@ MonoBehaviour:
     SpriteFolder: {fileID: 102900000, guid: 78769fa88644d8f47ad538f008d5298a, type: 3}
     Textures:
     - {fileID: 2800000, guid: bb244382af2c04943a5e4dd268e3b59e, type: 3}
+  - Name: Hands
+    SpriteFolder: {fileID: 102900000, guid: 0896b1efc7d3c3443a3d136b0c80d516, type: 3}
+    Textures:
+    - {fileID: 2800000, guid: 4691c46f10231a044b2f80f7e4a69a5d, type: 3}
+  - Name: Offhand
+    SpriteFolder: {fileID: 102900000, guid: 18c18324b873eee4d97d53030d4b2278, type: 3}
+    Textures: []
+  - Name: Weapon
+    SpriteFolder: {fileID: 102900000, guid: cca10c16b4cbf6849a886d33b49fb7ff, type: 3}
+    Textures: []
   - Name: Eyes
     SpriteFolder: {fileID: 102900000, guid: 290cc1583389495478c2505abacd40df, type: 3}
     Textures: []
@@ -79,22 +95,18 @@ MonoBehaviour:
     SpriteFolder: {fileID: 102900000, guid: 054cc8ea00c57aa41a157e605175f5a1, type: 3}
     Textures:
     - {fileID: 2800000, guid: cc5a25f73e3301e41a844a1cf4e291b0, type: 3}
+    - {fileID: 2800000, guid: 902128bab7f8f5b4bae9913333fbc4fd, type: 3}
+    - {fileID: 2800000, guid: 67d4c11bb3b7e054bbdf0bc39bbf590e, type: 3}
+    - {fileID: 2800000, guid: 7f52bc897800d144a8e324f6497ba957, type: 3}
+    - {fileID: 2800000, guid: d8a5b194fc696a047943dd8a29bca02a, type: 3}
     - {fileID: 2800000, guid: bd7d984a0d4207b4fb9478d534c76e2f, type: 3}
+    - {fileID: 2800000, guid: dc2cc7fcf02442040b47898a9e5f5e7a, type: 3}
+    - {fileID: 2800000, guid: e93062be671f3cc499c6a8933a762c20, type: 3}
   - Name: Face Accessory
     SpriteFolder: {fileID: 102900000, guid: 7523cfac6384df140bb14a32f9b18b37, type: 3}
     Textures: []
   - Name: Hat
     SpriteFolder: {fileID: 102900000, guid: b6545991f923f6d41b49b5f80337a70d, type: 3}
-    Textures: []
-  - Name: Hands
-    SpriteFolder: {fileID: 102900000, guid: 0896b1efc7d3c3443a3d136b0c80d516, type: 3}
-    Textures:
-    - {fileID: 2800000, guid: 4691c46f10231a044b2f80f7e4a69a5d, type: 3}
-  - Name: Offhand
-    SpriteFolder: {fileID: 102900000, guid: 18c18324b873eee4d97d53030d4b2278, type: 3}
-    Textures: []
-  - Name: Weapon
-    SpriteFolder: {fileID: 102900000, guid: cca10c16b4cbf6849a886d33b49fb7ff, type: 3}
     Textures: []
   DownLayers:
   - Name: Body
@@ -120,7 +132,13 @@ MonoBehaviour:
     SpriteFolder: {fileID: 102900000, guid: 054cc8ea00c57aa41a157e605175f5a1, type: 3}
     Textures:
     - {fileID: 2800000, guid: 6682190c94580614e8ad8fb0605d2be7, type: 3}
+    - {fileID: 2800000, guid: b656b74592d89334b94c18bac58ac784, type: 3}
+    - {fileID: 2800000, guid: 81906dca7721bd6438bfdad2d541f93e, type: 3}
+    - {fileID: 2800000, guid: c4eefd25f2abd9b46a10a99b960d297d, type: 3}
+    - {fileID: 2800000, guid: 8e8f74a50ac82c0469f651d3bc74bfa8, type: 3}
     - {fileID: 2800000, guid: 65aa35648a14f44439782077e7b0a109, type: 3}
+    - {fileID: 2800000, guid: 48444bff7ec7f08419e0384cea3e8420, type: 3}
+    - {fileID: 2800000, guid: 752a9ccb84a7c474bb28108d2deff9b9, type: 3}
   - Name: Face Accessory
     SpriteFolder: {fileID: 102900000, guid: 7523cfac6384df140bb14a32f9b18b37, type: 3}
     Textures: []

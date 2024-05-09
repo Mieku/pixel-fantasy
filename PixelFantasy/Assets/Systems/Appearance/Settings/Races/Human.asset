@@ -18,12 +18,9 @@ MonoBehaviour:
   - {r: 0.9019608, g: 0.6117647, b: 0.4117647, a: 1}
   - {r: 0.7490196, g: 0.43529412, b: 0.2901961, a: 1}
   - {r: 0.3647059, g: 0.17254902, b: 0.15686275, a: 1}
-  - {r: 0.22352941, g: 0.12156863, b: 0.12941177, a: 1}
   HairColours:
   - {r: 0.15294118, g: 0.15294118, b: 0.15294118, a: 1}
   - {r: 0.3647059, g: 0.3647059, b: 0.3647059, a: 1}
-  - {r: 0.3647059, g: 0.17254902, b: 0.15686275, a: 1}
-  - {r: 0.7490196, g: 0.43529412, b: 0.2901961, a: 1}
   - {r: 0.92941177, g: 0.4627451, b: 0.078431375, a: 1}
   - {r: 1, g: 0.78431374, b: 0.14509805, a: 1}
   - {r: 0.11764706, g: 0.43529412, b: 0.3137255, a: 1}
@@ -61,25 +58,6 @@ MonoBehaviour:
   - {r: 0.6, g: 0.9019608, b: 0.37254903, a: 1}
   - {r: 0.5411765, g: 0.28235295, b: 0.21176471, a: 1}
   - {r: 0.15294118, g: 0.15294118, b: 0.15294118, a: 1}
-  MaleEyelashOptions:
-  - {fileID: 21300000, guid: e92ab5cabc9d1b34fb6c900372eb6171, type: 3}
-  - {fileID: 21300000, guid: 1eb86f3f3b02d8b44be07947814be607, type: 3}
-  FemaleEyelashOptions:
-  - {fileID: 21300000, guid: 2f4be0a16b6aaec47b51830c55078d98, type: 3}
-  - {fileID: 21300000, guid: 1eb86f3f3b02d8b44be07947814be607, type: 3}
-  - {fileID: 21300000, guid: e92ab5cabc9d1b34fb6c900372eb6171, type: 3}
-  MaleEyebrowOptions:
-  - {fileID: 21300000, guid: 818b871493903874890803215f1c3195, type: 3}
-  - {fileID: 21300000, guid: 663341247841d9b4bbc97f8f6ae10449, type: 3}
-  - {fileID: 21300000, guid: 758e0ca53c263414aaf001fabfb60da7, type: 3}
-  - {fileID: 21300000, guid: fcfa82e6073154047878d91a4808e56f, type: 3}
-  - {fileID: 21300000, guid: 5db28a3e2e85e32438d53e7b92c25626, type: 3}
-  FemaleEyebrowOptions:
-  - {fileID: 21300000, guid: 818b871493903874890803215f1c3195, type: 3}
-  - {fileID: 21300000, guid: 663341247841d9b4bbc97f8f6ae10449, type: 3}
-  - {fileID: 21300000, guid: 758e0ca53c263414aaf001fabfb60da7, type: 3}
-  - {fileID: 21300000, guid: fcfa82e6073154047878d91a4808e56f, type: 3}
-  - {fileID: 21300000, guid: 5db28a3e2e85e32438d53e7b92c25626, type: 3}
   _maleFirstNames:
   - Aaron
   - Alexander

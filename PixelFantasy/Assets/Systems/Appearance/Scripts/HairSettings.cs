@@ -9,6 +9,5 @@ namespace Systems.Appearance.Scripts
     public class HairSettings : ScriptableObject
     {
         public string ID;
-        public Sprite Portrait;
     }
 }
