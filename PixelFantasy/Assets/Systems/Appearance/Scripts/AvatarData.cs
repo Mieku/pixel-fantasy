@@ -1,10 +1,13 @@
 using System;
 using Characters;
+using Databrain.Attributes;
 using UnityEngine;
+using UnityEngine.U2D.Animation;
 
 namespace Systems.Appearance.Scripts
 {
     [Serializable]
+    [UseOdinInspector]
     public class AvatarData
     {
         // Data looks like this: PirateCostume/#FFFFFF/0:0:0
@@ -32,8 +35,6 @@ namespace Systems.Appearance.Scripts
         public HairSettings HairStyle;
         public HairSettings BeardStyle;
         public Color32 EyeColour;
-        public Sprite PortraitEyelashes;
-        public Sprite PortraitEyebrows;
 
         public AvatarData (KinlingData kinlingData, EGender gender, EMaturityStage ageStage, RaceSettings race)
         {
@@ -47,9 +48,6 @@ namespace Systems.Appearance.Scripts
             HairStyle = _race.GetRandomHairStyleByGender(_gender);
             if (_gender == EGender.Male) BeardStyle = _race.GetRandomBeardStyle();
             EyeColour = _race.GetRandomEyeColour();
-
-            PortraitEyelashes = _race.GetRandomEyelashesByGender(_gender);
-            PortraitEyebrows = _race.GetRandomEyebrowsByGender(_gender);
 
             RefreshSkinTone();
             RefreshHair();

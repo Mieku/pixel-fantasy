@@ -663,7 +663,7 @@ public static class Helper
             Mathf.Clamp(original.b * luminanceRatio, 0, 1));
     }
     
-    public static Color32[] Repaint4C(Color32[] pixels, Color32 baseColor, List<Color32> palette, Color32 outlineColor, int colorCount = 4)
+    public static Color32[] Repaint4C(Color32[] pixels, Color32 baseColor, List<Color32> palette, List<Color32> exemptColours, int colorCount = 4)
     {
         int baseIndex = FindClosestColorIndex(baseColor, palette);
         var colorGradient = GenerateIndexedColorGradient(baseIndex, palette, colorCount);
@@ -676,7 +676,7 @@ public static class Helper
 
         for (int i = 0; i < pixels.Length; i++)
         {
-            if (pixels[i].a > 0 && !pixels[i].Equals(outlineColor))
+            if (pixels[i].a > 0 && !exemptColours.Contains(pixels[i]))
             {
                 float normalizedBrightness = (GetBrightness(pixels[i]) - minBrightness) / brightnessRange;
                 int gradientIndex = (int)(normalizedBrightness * (colorGradient.Count - 1));

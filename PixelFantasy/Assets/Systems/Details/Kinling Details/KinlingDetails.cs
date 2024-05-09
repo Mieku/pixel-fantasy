@@ -16,7 +16,7 @@ namespace Systems.Details.Kinling_Details
         [SerializeField] private PanelLayoutRebuilder _layoutRebuilder;
         [SerializeField] private GameObject _panelHandle;
         [SerializeField] private TextMeshProUGUI _kinlingName;
-        [SerializeField] private Portrait _portrait;
+        [SerializeField] private Image _avatarDisplay;
         [SerializeField] private TextMeshProUGUI _currentAction;
         [SerializeField] private TextMeshProUGUI _currentSchedule;
 
@@ -44,7 +44,7 @@ namespace Systems.Details.Kinling_Details
             _kinling = kinling;
             _panelHandle.SetActive(true);
             _kinlingName.text = _kinling.FullName;
-            _portrait.Init(kinling.RuntimeData);
+            _avatarDisplay.sprite = _kinling.Avatar.GetBaseAvatarSprite();
             
             ChangeContentState(_detailsState);
             

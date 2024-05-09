@@ -1,7 +1,6 @@
 using System;
 using Characters;
 using Controllers;
-using Systems.Appearance.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +9,7 @@ namespace Systems.Kinling_Selector.Scripts
 {
     public class KinlingDisplay : MonoBehaviour
     {
-        [SerializeField] private Portrait _portrait;
+        [SerializeField] private Image _avatar;
         [SerializeField] private TextMeshProUGUI _nicknameText;
         [SerializeField] private TextMeshProUGUI _actionText;
         [SerializeField] private Image _moodTint;
@@ -25,8 +24,8 @@ namespace Systems.Kinling_Selector.Scripts
         public void Init(KinlingData kinlingData)
         {
             KinlingData = kinlingData;
-            
-            _portrait.Init(KinlingData);
+
+            _avatar.sprite = KinlingData.Kinling.Avatar.GetBaseAvatarSprite();
         }
 
 

@@ -1744,6 +1744,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _kinling: {fileID: 5584874993929393806}
   _clipNames:
+  - base
   - idle
   - walk
   _spriteLibrary: {fileID: 2562910502548921775}
@@ -1752,8 +1753,8 @@ MonoBehaviour:
   DebugAvatarData:
     Body: Human Body/#FFFFFF/0:0:0
     Hands: Human Hands/#FFFFFF/0:0:0
-    Eyes: 
-    Blush: 
+    Eyes: Human Eyes/#FFFFFF/0:0:0
+    Blush: Human Blush/#FFFFFF/0:0:0
     Hair: Pony/#FFFFFF/0:0:0
     Beard: 
     Clothing: 
@@ -1761,6 +1762,20 @@ MonoBehaviour:
     FaceAccessory: 
     Weapon: 
     Offhand: 
+    SkinTone:
+      serializedVersion: 2
+      rgba: 0
+    HairColour:
+      serializedVersion: 2
+      rgba: 0
+    HairStyle: {fileID: 0}
+    BeardStyle: {fileID: 0}
+    EyeColour:
+      serializedVersion: 2
+      rgba: 0
+    PortraitEyelashes: {fileID: 0}
+    PortraitEyebrows: {fileID: 0}
+    BaseSprite: {fileID: 0}
 --- !u!114 &4381294019299256598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1778,6 +1793,10 @@ MonoBehaviour:
   AudioSource: {fileID: 0}
   AppearanceBuilder: {fileID: 3472418338860218167}
   Agent: {fileID: 3299422044965414669}
+  SpriteLibrary: {fileID: 2562910502548921775}
+  SideSpriteLibraryAsset: {fileID: 0}
+  UpSpriteLibraryAsset: {fileID: 0}
+  DownSpriteLibraryAsset: {fileID: 0}
 --- !u!95 &3819101460464208804
 Animator:
   serializedVersion: 7

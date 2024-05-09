@@ -1,13 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Characters;
-using NUnit.Framework;
-using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Systems.Stats.Scripts;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Systems.Appearance.Scripts
@@ -22,19 +18,6 @@ namespace Systems.Appearance.Scripts
         public List<HairSettings> FemaleHairStyles = new List<HairSettings>();
         public List<HairSettings> BeardStyles = new List<HairSettings>();
         public List<Color> EyesColours = new List<Color>();
-       // public List<SkinToneSettings> AvailableSkinTones = new List<SkinToneSettings>();
-        //public List<EyeSettings> EyeOptions;
-        public List<Sprite> MaleEyelashOptions;
-        public List<Sprite> FemaleEyelashOptions;
-        public List<Sprite> MaleEyebrowOptions;
-        public List<Sprite> FemaleEyebrowOptions;
-        
-        // [FormerlySerializedAs("_childBodyData")] [SerializeField] private BodySettings _childBodySettings;
-        // [FormerlySerializedAs("_adultBodyData")] [SerializeField] private BodySettings _adultBodySettings;
-        // [FormerlySerializedAs("_seniorBodyData")] [SerializeField] private BodySettings _seniorBodySettings;
-
-        //[SerializeField] private List<HairSettings> _maleHairOptions = new List<HairSettings>();
-        //[SerializeField] private List<HairSettings> _femaleHairOptions = new List<HairSettings>();
         
         [SerializeField] private List<string> _maleFirstNames = new List<string>();
         [SerializeField] private List<string> _femaleFirstNames = new List<string>();
@@ -127,32 +110,6 @@ namespace Systems.Appearance.Scripts
             else
             {
                 return null;
-            }
-        }
-        
-        public Sprite GetRandomEyelashesByGender(EGender gender)
-        {
-            switch (gender)
-            {
-                case EGender.Male:
-                    return MaleEyelashOptions[Random.Range(0, MaleEyelashOptions.Count)];
-                case EGender.Female:
-                    return FemaleEyelashOptions[Random.Range(0, FemaleEyelashOptions.Count)];
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(gender), gender, null);
-            }
-        }
-        
-        public Sprite GetRandomEyebrowsByGender(EGender gender)
-        {
-            switch (gender)
-            {
-                case EGender.Male:
-                    return MaleEyebrowOptions[Random.Range(0, MaleEyebrowOptions.Count)];
-                case EGender.Female:
-                    return FemaleEyebrowOptions[Random.Range(0, FemaleEyebrowOptions.Count)];
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(gender), gender, null);
             }
         }
         

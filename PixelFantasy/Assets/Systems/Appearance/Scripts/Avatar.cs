@@ -4,6 +4,7 @@ using Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.U2D.Animation;
 
 namespace Systems.Appearance.Scripts
 {
@@ -14,6 +15,7 @@ namespace Systems.Appearance.Scripts
         public AudioSource AudioSource;
         public AppearanceBuilder AppearanceBuilder;
         public NavMeshAgent Agent;
+        public SpriteLibrary SpriteLibrary;
 
         private AvatarLayer.EAppearanceDirection _direction;
         private bool _isFlipped;
@@ -25,6 +27,10 @@ namespace Systems.Appearance.Scripts
         private const string SWING = "IsSwinging";
         private const string SLEEP = "IsSleeping";
         private const string SIT = "IsSitting";
+
+        public SpriteLibraryAsset SideSpriteLibraryAsset;
+        public SpriteLibraryAsset UpSpriteLibraryAsset;
+        public SpriteLibraryAsset DownSpriteLibraryAsset;
         
         private void Awake()
         {
@@ -66,13 +72,18 @@ namespace Systems.Appearance.Scripts
         public void SetDirection(AvatarLayer.EAppearanceDirection direction)
         {
             _direction = direction;
-            AppearanceBuilder.Rebuild();
+            //AppearanceBuilder.Rebuild();
 
             switch (direction)
             {
                 case AvatarLayer.EAppearanceDirection.Down:
+                    SpriteLibrary.spriteLibraryAsset = DownSpriteLibraryAsset;
+                    break;
                 case AvatarLayer.EAppearanceDirection.Up:
+                    SpriteLibrary.spriteLibraryAsset = UpSpriteLibraryAsset;
+                    break;
                 case AvatarLayer.EAppearanceDirection.Right:
+                    SpriteLibrary.spriteLibraryAsset = SideSpriteLibraryAsset;
                     Appearance.flipX = false;
                     break;
                 case AvatarLayer.EAppearanceDirection.Left:
@@ -81,6 +92,11 @@ namespace Systems.Appearance.Scripts
                 default:
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
+        }
+
+        public void RefreshAppearanceLibrary()
+        {
+            SetDirection(_direction);
         }
         
         private AvatarLayer.EAppearanceDirection ConvertPlacementDirection(PlacementDirection placementDirection)
@@ -185,6 +201,11 @@ namespace Systems.Appearance.Scripts
                     } 
                 }
             }
+        }
+
+        public Sprite GetBaseAvatarSprite()
+        {
+            return SideSpriteLibraryAsset.GetSprite("idle", "0");
         }
 
         public void SetEyesClosed(bool isClosed)

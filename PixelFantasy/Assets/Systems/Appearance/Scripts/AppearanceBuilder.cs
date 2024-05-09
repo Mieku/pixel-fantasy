@@ -15,7 +15,6 @@ namespace Systems.Appearance.Scripts
         [SerializeField] private SpriteLibrary _spriteLibrary;
 
         public Avatar Avatar;
-        public Texture2D Texture { get; private set; }
         public AppearanceCollection Collection;
 
         public AvatarData DebugAvatarData;
@@ -32,20 +31,26 @@ namespace Systems.Appearance.Scripts
                 return DebugAvatarData;
             }
         }
-        
-        private Dictionary<string, Sprite> _sprites;
 
-        [Button("Rebuild")]
-        public void Rebuild(string changed = null, bool forceMerge = false)
+        [Button("Update Appearance")]
+        public void UpdateAppearance()
         {
-            var collection = Collection.GetLayersByDirection(Avatar.GetDirection());
+            Avatar.SideSpriteLibraryAsset = BuildSpriteLibraryAssetForDirection(AvatarLayer.EAppearanceDirection.Right);
+            Avatar.UpSpriteLibraryAsset = BuildSpriteLibraryAssetForDirection(AvatarLayer.EAppearanceDirection.Up);
+            Avatar.DownSpriteLibraryAsset = BuildSpriteLibraryAssetForDirection(AvatarLayer.EAppearanceDirection.Down);
+            
+            Avatar.RefreshAppearanceLibrary();
+        }
+        
+        public SpriteLibraryAsset BuildSpriteLibraryAssetForDirection(AvatarLayer.EAppearanceDirection direction, string changed = null, bool forceMerge = false)
+        {
+            var collection = Collection.GetLayersByDirection(direction);
             
             var width = collection[0].Textures[0].width;
             var height = collection[0].Textures[0].height;
             
             var dict = collection.ToDictionary(i => i.Name, i => i);
             var layers = new Dictionary<string, Color32[]>();
-
 
             if(!string.IsNullOrEmpty(_avatarData.Body)) layers.Add("Body", dict["Body"].GetPixels(_avatarData.Body, null, changed));
             if(!string.IsNullOrEmpty(_avatarData.Clothing)) layers.Add("Clothing", dict["Clothing"].GetPixels(_avatarData.Clothing, null, changed));
@@ -68,8 +73,6 @@ namespace Systems.Appearance.Scripts
 
             layers = layers.Where(i => i.Value != null).OrderBy(i => order.IndexOf(i.Key)).ToDictionary(i => i.Key, i => i.Value);
             
-            if (Texture == null) Texture = new Texture2D(width, height) { filterMode = FilterMode.Point };
-            
             if(!string.IsNullOrEmpty(_avatarData.Offhand)) 
             {
                 var offHand = layers["Offhand"];
@@ -83,41 +86,56 @@ namespace Systems.Appearance.Scripts
 
                 layers[last.Key] = copy;
             }
-            
+            var Texture = new Texture2D(width, height) { filterMode = FilterMode.Point };
             Texture = MergeLayers(Texture, layers.Values.ToArray());
             
             Texture.SetPixels(0, Texture.height - 32, 32, 32, new Color[32 * 32]);
             
-            if (_sprites == null)
-            {
-                var clipNames = new List<string>(_clipNames);
+            var clipNames = new List<string>(_clipNames);
                 
-                clipNames.Reverse();
+            clipNames.Reverse();
 
-                _sprites = new Dictionary<string, Sprite>();
-                int maxFramesPerClip = width / 32;
+            var sprites = new Dictionary<string, Sprite>();
+            int maxFramesPerClip = width / 32;
 
-                for (var i = 0; i < clipNames.Count; i++)
+            for (var i = 0; i < clipNames.Count; i++)
+            {
+                for (var j = 0; j < maxFramesPerClip; j++)
                 {
-                    for (var j = 0; j < maxFramesPerClip; j++)
-                    {
-                        var key = clipNames[i] + "_" + j;
+                    var key = clipNames[i] + "_" + j;
 
-                        _sprites.Add(key, Sprite.Create(Texture, new Rect(j * 32, i * 32, 32, 32), new Vector2(0.5f, 0.125f), 16, 0, SpriteMeshType.FullRect));
-                    }
+                    sprites.Add(key, Sprite.Create(Texture, new Rect(j * 32, i * 32, 32, 32), new Vector2(0.5f, 0.125f), 16, 0, SpriteMeshType.FullRect));
                 }
             }
-
+            
             var spriteLibraryAsset = ScriptableObject.CreateInstance<SpriteLibraryAsset>();
 
-            foreach (var sprite in _sprites)
+            switch (direction)
+            {
+                case AvatarLayer.EAppearanceDirection.Right:
+                    spriteLibraryAsset.name = "Right";
+                    break;
+                case AvatarLayer.EAppearanceDirection.Left:
+                    spriteLibraryAsset.name = "Left";
+                    break;
+                case AvatarLayer.EAppearanceDirection.Up:
+                    spriteLibraryAsset.name = "Up";
+                    break;
+                case AvatarLayer.EAppearanceDirection.Down:
+                    spriteLibraryAsset.name = "Down";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+            }
+
+            foreach (var sprite in sprites)
             {
                 var split = sprite.Key.Split('_');
 
                 spriteLibraryAsset.AddCategoryLabel(sprite.Value, split[0], split[1]);
             }
-
-            _spriteLibrary.spriteLibraryAsset = spriteLibraryAsset;
+            
+            return spriteLibraryAsset;
         }
         
         public Texture2D MergeLayers(Texture2D texture, params Color32[][] layers)

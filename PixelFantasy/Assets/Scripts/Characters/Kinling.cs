@@ -67,21 +67,18 @@ namespace Characters
         {
             RuntimeData = data;
             RuntimeData.Kinling = this;
-                
-            //_appearance.Init(this, RuntimeData.Appearance);
-                
-            KinlingsManager.Instance.RegisterKinling(RuntimeData); 
             
             Initialize();
         }
         
         private void Initialize()
         {
-            HasInitialized = true;
             Needs.Initialize(this);
             MoodData.Init(RuntimeData);
             MoodData.JumpMoodToTarget();
-            Avatar.AppearanceBuilder.Rebuild();
+            Avatar.AppearanceBuilder.UpdateAppearance();
+            KinlingsManager.Instance.RegisterKinling(RuntimeData);
+            HasInitialized = true;
         }
 
         public void SetSeated(ChairFurniture chair)
