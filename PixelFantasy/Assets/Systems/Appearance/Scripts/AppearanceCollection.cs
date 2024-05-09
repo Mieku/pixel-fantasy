@@ -15,80 +15,11 @@ namespace Systems.Appearance.Scripts
     public class AppearanceCollection : ScriptableObject
     {
         public Texture2D PaletteTexture;
-        public Color32 OutlineColour = new Color32(19, 19, 19, 255);
 
         public List<AvatarLayer> SideLayers;
         public List<AvatarLayer> UpLayers;
         public List<AvatarLayer> DownLayers;
         
-        public List<Color32> ColourPalette = new List<Color32> // TODO: Placeholder for testing
-        {
-            new Color32(255, 0, 64, 255), 
-            new Color32(19, 19, 19, 255), 
-            new Color32(27, 27, 27, 255), 
-            new Color32(39, 39, 39, 255), 
-            new Color32(61, 61, 61, 255), 
-            new Color32(93, 93, 93, 255), 
-            new Color32(133, 133, 133, 255), 
-            new Color32(180, 180, 180, 255), 
-            new Color32(255, 255, 255, 255), 
-            new Color32(199, 207, 221, 255), 
-            new Color32(146, 161, 185, 255), 
-            new Color32(101, 115, 146, 255), 
-            new Color32(66, 76, 110, 255), 
-            new Color32(42, 47, 78, 255), 
-            new Color32(26, 25, 50, 255), 
-            new Color32(14, 7, 27, 255), 
-            new Color32(28, 18, 28, 255), 
-            new Color32(57, 31, 33, 255), 
-            new Color32(93, 44, 40, 255), 
-            new Color32(138, 72, 54, 255), 
-            new Color32(191, 111, 74, 255), 
-            new Color32(230, 156, 105, 255), 
-            new Color32(246, 202, 159, 255), 
-            new Color32(249, 230, 207, 255), 
-            new Color32(237, 171, 80, 255), 
-            new Color32(224, 116, 56, 255), 
-            new Color32(198, 69, 36, 255), 
-            new Color32(142, 37, 29, 255), 
-            new Color32(255, 80, 0, 255), 
-            new Color32(237, 118, 20, 255), 
-            new Color32(255, 162, 20, 255), 
-            new Color32(255, 200, 37, 255), 
-            new Color32(255, 235, 87, 255), 
-            new Color32(211, 252, 126, 255), 
-            new Color32(153, 230, 95, 255), 
-            new Color32(90, 197, 79, 255), 
-            new Color32(51, 152, 75, 255), 
-            new Color32(30, 111, 80, 255), 
-            new Color32(19, 76, 76, 255), 
-            new Color32(12, 46, 68, 255), 
-            new Color32(0, 57, 109, 255), 
-            new Color32(0, 105, 170, 255), 
-            new Color32(0, 152, 220, 255), 
-            new Color32(0, 205, 249, 255), 
-            new Color32(12, 241, 255, 255), 
-            new Color32(148, 253, 255, 255), 
-            new Color32(253, 210, 237, 255), 
-            new Color32(243, 137, 245, 255), 
-            new Color32(219, 63, 253, 255), 
-            new Color32(122, 9, 250, 255), 
-            new Color32(48, 3, 217, 255), 
-            new Color32(12, 2, 147, 255), 
-            new Color32(3, 25, 63, 255), 
-            new Color32(59, 20, 67, 255), 
-            new Color32(98, 36, 97, 255), 
-            new Color32(147, 56, 143, 255), 
-            new Color32(202, 82, 201, 255), 
-            new Color32(200, 80, 134, 255), 
-            new Color32(246, 129, 135, 255), 
-            new Color32(245, 85, 93, 255), 
-            new Color32(234, 50, 60, 255), 
-            new Color32(196, 36, 48, 255), 
-            new Color32(137, 30, 43, 255), 
-            new Color32(87, 28, 39, 255)
-        };
-
         public List<AvatarLayer> GetLayersByDirection(AvatarLayer.EAppearanceDirection direction)
         {
             switch (direction)
@@ -177,9 +108,7 @@ namespace Systems.Appearance.Scripts
         public void Refresh()
         {
             var palette = PaletteTexture.GetPixels32().ToList();
-
-            palette.Add(OutlineColour);
-
+            
             foreach (var sideLayer in SideLayers)
             {
                 sideLayer.Refresh(palette, AvatarLayer.EAppearanceDirection.Right);
@@ -202,12 +131,12 @@ namespace Systems.Appearance.Scripts
     [Serializable]
     public class AvatarLayer
     {
-        public string Name;
+        public string ID;
         public Object SpriteFolder;
         public List<Texture2D> Textures;
 
         private Color32[] _pixels;
-        private Color32 _outlineColour = new Color32(19, 19, 19, 255);
+        //private Color32 _outlineColour = new Color32(19, 19, 19, 255);
 
         public void Refresh(List<Color32> palette, EAppearanceDirection direction)
         {
@@ -243,7 +172,7 @@ namespace Systems.Appearance.Scripts
                 Textures.Add(texture);
 
                 var colors = texture.GetPixels32().Distinct().Where(c => c.a > 0).ToList();
-                var wrongColors = colors.Where(c => !palette.Contains(c) && c != (Color)_outlineColour).ToList();
+                var wrongColors = colors.Where(c => !palette.Contains(c)).ToList();
 
                 if (wrongColors.Any())
                 {
@@ -254,40 +183,54 @@ namespace Systems.Appearance.Scripts
         
         public Color32[] GetPixels(string data, Color32[] mask, string changed)
         {
-            var match = Regex.Match(data, @"(?<Name>[\w\- \[\]]+?)/(?<Paint>#\w+)/(?<H>[-\d]+):(?<S>[-\d]+):(?<V>[-\d]+)");
-            var name = match.Groups["Name"].Value;
-            var index = Textures.FindIndex(i => i.name == name);
-            var paint = Color.white;
+            var pattern = @"{ID:(?<ID>[^}]+)}" +                    // Matches ID
+                          @"(?:{Colour:(?<Colour>#[\da-fA-F]{6})})?" + // Matches Colour, optional
+                          @"(?:{Exempt:(?<Exempt>(?:#[\da-fA-F]{6})(?:,#[\da-fA-F]{6})*)})?" + // Matches Exempt, optional
+                          @"(?:{HSV:(?<H>[-\d]+):(?<S>[-\d]+):(?<V>[-\d]+)})?"; // Matches HSV, optional
 
+            var match = Regex.Match(data, pattern);
+
+            var id = match.Groups["ID"].Value;
+            var colourString = match.Groups["Colour"].Success ? match.Groups["Colour"].Value : "#FFFFFF"; // Default to white if no colour is specified
+            var exemptStringArray = match.Groups["Exempt"].Success ? match.Groups["Exempt"].Value.Split(',') : new string[0]; // Splits the exempt colors into an array
+            var h = match.Groups["H"].Success ? float.Parse(match.Groups["H"].Value, CultureInfo.InvariantCulture) : 0f;
+            var s = match.Groups["S"].Success ? float.Parse(match.Groups["S"].Value, CultureInfo.InvariantCulture) : 0f;
+            var v = match.Groups["V"].Success ? float.Parse(match.Groups["V"].Value, CultureInfo.InvariantCulture) : 0f;
+            var index = Textures.FindIndex(i => i.name == id);
             if (index == -1) return null;
+
+            if (string.IsNullOrEmpty(id))
+            {
+                Debug.LogError("ID was empty");
+                return null;
+            }
             
-            if (match.Groups["Paint"].Success)
+            // Get the colour
+            ColorUtility.TryParseHtmlString(colourString, out var colour);
+            
+            // Get the exempt colours
+            List<Color32> exemptColours = new List<Color32>(){ new Color32(19, 19, 19, 255) };
+            foreach (var exemptString in exemptStringArray)
             {
-                ColorUtility.TryParseHtmlString(match.Groups["Paint"].Value, out paint);
+                if (ColorUtility.TryParseHtmlString(exemptString, out var exemptColour))
+                {
+                    exemptColours.Add(exemptColour);
+                }
             }
-
-            float h = 0f, s = 0f, v = 0f;
-
-            if (match.Groups["H"].Success && match.Groups["S"].Success && match.Groups["V"].Success)
-            {
-                h = float.Parse(match.Groups["H"].Value, CultureInfo.InvariantCulture);
-                s = float.Parse(match.Groups["S"].Value, CultureInfo.InvariantCulture);
-                v = float.Parse(match.Groups["V"].Value, CultureInfo.InvariantCulture);
-            }
-
-            var update = changed == null || changed == Name;
+            
+            var update = changed == null || changed == ID;
 
             switch (changed)
             {
-                case "Hat" when Name == "Hair":
+                case "Hat" when ID == "Hair":
                     update = true;
                     break;
             }
 
-            return GetPixels(index, paint, h, s, v, mask, update);
+            return GetPixels(index, colour, exemptColours, h, s, v, mask, update);
         }
         
-        public Color32[] GetPixels(int index, Color paint, float h, float s, float v, Color32[] mask, bool update)
+        public Color32[] GetPixels(int index, Color colour, List<Color32> exemptColours, float h, float s, float v, Color32[] mask, bool update)
         {
             if (!update && _pixels?.Length > 0 && mask == null) return _pixels;
             
@@ -308,25 +251,25 @@ namespace Systems.Appearance.Scripts
                 }
             }
 
-            if (paint != Color.white)
+            if (colour != Color.white)
             {
-                if( Name is "Body" or "Hands")
+                if( ID is "Body" or "Hands")
                 {
-                  _pixels = Repaint4C(_pixels, paint, AppearanceCollection.Palette, _outlineColour, 2);
+                  _pixels = Repaint4C(_pixels, colour, AppearanceCollection.Palette, exemptColours, 2);
                 }
-                else if (Name is "Hair" or "Beard" or "Clothing" )
+                else if (ID is "Hair" or "Beard" or "Clothing" )
                 {
-                    _pixels = Repaint4C(_pixels, paint, AppearanceCollection.Palette, _outlineColour, 4);
+                    _pixels = Repaint4C(_pixels, colour, AppearanceCollection.Palette, exemptColours, 4);
                 }
-                else if (Name is "Eyes")
+                else if (ID is "Eyes")
                 {
-                    _pixels = Repaint4C(_pixels, paint, AppearanceCollection.Palette, _outlineColour, 1);
+                    _pixels = Repaint4C(_pixels, colour, AppearanceCollection.Palette, exemptColours, 1);
                 }
                 else
                 {
                     for (var i = 0; i < _pixels.Length; i++)
                     {
-                        if (_pixels[i].a > 0) _pixels[i] *= paint;
+                        if (_pixels[i].a > 0) _pixels[i] *= colour;
                     }
                 }
             }
@@ -335,7 +278,7 @@ namespace Systems.Appearance.Scripts
 
             for (var i = 0; i < _pixels.Length; i++)
             {
-                if (_pixels[i].a > 0 && _pixels[i] != (Color)_outlineColour)
+                if (_pixels[i].a > 0 && !exemptColours.Contains(_pixels[i]))
                 {
                     _pixels[i] = TextureHelper.AdjustColor(_pixels[i], h, s, v);
                 }
@@ -346,7 +289,7 @@ namespace Systems.Appearance.Scripts
             return _pixels;
         }
  
-        public Color32[] Repaint4C(Color32[] pixels, Color32 baseColor, List<Color32> palette, Color32 outlineColor, int colorCount = 4)
+        public Color32[] Repaint4C(Color32[] pixels, Color32 baseColor, List<Color32> palette, List<Color32> exemptColours, int colorCount = 4)
         {
             int baseIndex = FindClosestColorIndex(baseColor, palette);
             var colorGradient = GenerateIndexedColorGradient(baseIndex, palette, colorCount);
@@ -359,7 +302,7 @@ namespace Systems.Appearance.Scripts
 
             for (int i = 0; i < pixels.Length; i++)
             {
-                if (pixels[i].a > 0 && !pixels[i].Equals(outlineColor))
+                if (pixels[i].a > 0 && !exemptColours.Contains(pixels[i]))
                 {
                     float normalizedBrightness = (GetBrightness(pixels[i]) - minBrightness) / brightnessRange;
                     int gradientIndex = (int)(normalizedBrightness * (colorGradient.Count - 1));

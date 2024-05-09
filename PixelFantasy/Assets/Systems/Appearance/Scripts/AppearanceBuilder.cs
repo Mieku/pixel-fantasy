@@ -48,8 +48,13 @@ namespace Systems.Appearance.Scripts
             
             var width = collection[0].Textures[0].width;
             var height = collection[0].Textures[0].height;
+
+            foreach (var layer in collection)
+            {
+                Debug.Log($"ID: {layer.ID}");
+            }
             
-            var dict = collection.ToDictionary(i => i.Name, i => i);
+            var dict = collection.ToDictionary(i => i.ID, i => i);
             var layers = new Dictionary<string, Color32[]>();
 
             if(!string.IsNullOrEmpty(_avatarData.Body)) layers.Add("Body", dict["Body"].GetPixels(_avatarData.Body, null, changed));
@@ -69,7 +74,7 @@ namespace Systems.Appearance.Scripts
             if(!string.IsNullOrEmpty(_avatarData.Weapon)) layers.Add("Weapon", dict["Weapon"].GetPixels(_avatarData.Weapon, null, changed));
 
 
-            var order = collection.Select(i => i.Name).ToList();
+            var order = collection.Select(i => i.ID).ToList();
 
             layers = layers.Where(i => i.Value != null).OrderBy(i => order.IndexOf(i.Key)).ToDictionary(i => i.Key, i => i.Value);
             

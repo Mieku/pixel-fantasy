@@ -13,30 +13,27 @@ MonoBehaviour:
   m_Name: Appearance Collection
   m_EditorClassIdentifier: 
   PaletteTexture: {fileID: 2800000, guid: 2a6e5d2d9f284512963a17b0ae004c3f, type: 3}
-  OutlineColour:
-    serializedVersion: 2
-    rgba: 4278190080
   SideLayers:
-  - Name: Body
+  - ID: Body
     SpriteFolder: {fileID: 102900000, guid: 090dffcbc288d524e89bf9fc3e529175, type: 3}
     Textures:
     - {fileID: 2800000, guid: 4980d71cd690fb94ab710a7afcb7ab1a, type: 3}
-  - Name: Clothing
+  - ID: Clothing
     SpriteFolder: {fileID: 102900000, guid: 78769fa88644d8f47ad538f008d5298a, type: 3}
     Textures:
     - {fileID: 2800000, guid: 1decf79fe2ff2c54991295c376207e6d, type: 3}
-  - Name: Eyes
+  - ID: Eyes
     SpriteFolder: {fileID: 102900000, guid: 290cc1583389495478c2505abacd40df, type: 3}
     Textures:
     - {fileID: 2800000, guid: 21131e19ccc54e14bb341a09ff95ce46, type: 3}
-  - Name: Blush
+  - ID: Blush
     SpriteFolder: {fileID: 102900000, guid: 8ee22fa08f458ef41ae6665045a3dbd9, type: 3}
     Textures:
     - {fileID: 2800000, guid: ea28857f8fdd25e4ab9df757704d5e03, type: 3}
-  - Name: Beard
+  - ID: Beard
     SpriteFolder: {fileID: 102900000, guid: 4805ea2f4ae227f409a7533dcb7af50a, type: 3}
     Textures: []
-  - Name: Hair
+  - ID: Hair
     SpriteFolder: {fileID: 102900000, guid: 054cc8ea00c57aa41a157e605175f5a1, type: 3}
     Textures:
     - {fileID: 2800000, guid: 89075d4bae6e93749a51668ac3fa4bf8, type: 3}
@@ -47,51 +44,51 @@ MonoBehaviour:
     - {fileID: 2800000, guid: 4932a1f2dcda50e44a1fcc9461d142b6, type: 3}
     - {fileID: 2800000, guid: 0f7c8933cddbd094a9c0d7aec42094c4, type: 3}
     - {fileID: 2800000, guid: a332e97e70f96964f9b54f6156667029, type: 3}
-  - Name: Face Accessory
+  - ID: Face Accessory
     SpriteFolder: {fileID: 102900000, guid: 7523cfac6384df140bb14a32f9b18b37, type: 3}
     Textures: []
-  - Name: Hat
+  - ID: Hat
     SpriteFolder: {fileID: 102900000, guid: b6545991f923f6d41b49b5f80337a70d, type: 3}
     Textures: []
-  - Name: Hands
+  - ID: Hands
     SpriteFolder: {fileID: 102900000, guid: 0896b1efc7d3c3443a3d136b0c80d516, type: 3}
     Textures:
     - {fileID: 2800000, guid: 9bddcd2d3fa49a34bb3653b5fdd35db4, type: 3}
-  - Name: Offhand
+  - ID: Offhand
     SpriteFolder: {fileID: 102900000, guid: 18c18324b873eee4d97d53030d4b2278, type: 3}
     Textures: []
-  - Name: Weapon
+  - ID: Weapon
     SpriteFolder: {fileID: 102900000, guid: cca10c16b4cbf6849a886d33b49fb7ff, type: 3}
     Textures: []
   UpLayers:
-  - Name: Body
+  - ID: Body
     SpriteFolder: {fileID: 102900000, guid: 090dffcbc288d524e89bf9fc3e529175, type: 3}
     Textures:
     - {fileID: 2800000, guid: 890b6674e3bb7574a9b8a257b8eec524, type: 3}
-  - Name: Clothing
+  - ID: Clothing
     SpriteFolder: {fileID: 102900000, guid: 78769fa88644d8f47ad538f008d5298a, type: 3}
     Textures:
     - {fileID: 2800000, guid: bb244382af2c04943a5e4dd268e3b59e, type: 3}
-  - Name: Hands
+  - ID: Hands
     SpriteFolder: {fileID: 102900000, guid: 0896b1efc7d3c3443a3d136b0c80d516, type: 3}
     Textures:
     - {fileID: 2800000, guid: 4691c46f10231a044b2f80f7e4a69a5d, type: 3}
-  - Name: Offhand
+  - ID: Offhand
     SpriteFolder: {fileID: 102900000, guid: 18c18324b873eee4d97d53030d4b2278, type: 3}
     Textures: []
-  - Name: Weapon
+  - ID: Weapon
     SpriteFolder: {fileID: 102900000, guid: cca10c16b4cbf6849a886d33b49fb7ff, type: 3}
     Textures: []
-  - Name: Eyes
+  - ID: Eyes
     SpriteFolder: {fileID: 102900000, guid: 290cc1583389495478c2505abacd40df, type: 3}
     Textures: []
-  - Name: Blush
+  - ID: Blush
     SpriteFolder: {fileID: 102900000, guid: 8ee22fa08f458ef41ae6665045a3dbd9, type: 3}
     Textures: []
-  - Name: Beard
+  - ID: Beard
     SpriteFolder: {fileID: 102900000, guid: 4805ea2f4ae227f409a7533dcb7af50a, type: 3}
     Textures: []
-  - Name: Hair
+  - ID: Hair
     SpriteFolder: {fileID: 102900000, guid: 054cc8ea00c57aa41a157e605175f5a1, type: 3}
     Textures:
     - {fileID: 2800000, guid: cc5a25f73e3301e41a844a1cf4e291b0, type: 3}
@@ -102,33 +99,33 @@ MonoBehaviour:
     - {fileID: 2800000, guid: bd7d984a0d4207b4fb9478d534c76e2f, type: 3}
     - {fileID: 2800000, guid: dc2cc7fcf02442040b47898a9e5f5e7a, type: 3}
     - {fileID: 2800000, guid: e93062be671f3cc499c6a8933a762c20, type: 3}
-  - Name: Face Accessory
+  - ID: Face Accessory
     SpriteFolder: {fileID: 102900000, guid: 7523cfac6384df140bb14a32f9b18b37, type: 3}
     Textures: []
-  - Name: Hat
+  - ID: Hat
     SpriteFolder: {fileID: 102900000, guid: b6545991f923f6d41b49b5f80337a70d, type: 3}
     Textures: []
   DownLayers:
-  - Name: Body
+  - ID: Body
     SpriteFolder: {fileID: 102900000, guid: 090dffcbc288d524e89bf9fc3e529175, type: 3}
     Textures:
     - {fileID: 2800000, guid: d8d7563d074471345895ae595f91ea9a, type: 3}
-  - Name: Clothing
+  - ID: Clothing
     SpriteFolder: {fileID: 102900000, guid: 78769fa88644d8f47ad538f008d5298a, type: 3}
     Textures:
     - {fileID: 2800000, guid: 8cffc49d435737c46b019471a4458267, type: 3}
-  - Name: Eyes
+  - ID: Eyes
     SpriteFolder: {fileID: 102900000, guid: 290cc1583389495478c2505abacd40df, type: 3}
     Textures:
     - {fileID: 2800000, guid: 935a400b5ace2f647b033ee94b8a32ef, type: 3}
-  - Name: Blush
+  - ID: Blush
     SpriteFolder: {fileID: 102900000, guid: 8ee22fa08f458ef41ae6665045a3dbd9, type: 3}
     Textures:
     - {fileID: 2800000, guid: e7f3e670496c68a49a7dd45f6d669c14, type: 3}
-  - Name: Beard
+  - ID: Beard
     SpriteFolder: {fileID: 102900000, guid: 4805ea2f4ae227f409a7533dcb7af50a, type: 3}
     Textures: []
-  - Name: Hair
+  - ID: Hair
     SpriteFolder: {fileID: 102900000, guid: 054cc8ea00c57aa41a157e605175f5a1, type: 3}
     Textures:
     - {fileID: 2800000, guid: 6682190c94580614e8ad8fb0605d2be7, type: 3}
@@ -139,148 +136,19 @@ MonoBehaviour:
     - {fileID: 2800000, guid: 65aa35648a14f44439782077e7b0a109, type: 3}
     - {fileID: 2800000, guid: 48444bff7ec7f08419e0384cea3e8420, type: 3}
     - {fileID: 2800000, guid: 752a9ccb84a7c474bb28108d2deff9b9, type: 3}
-  - Name: Face Accessory
+  - ID: Face Accessory
     SpriteFolder: {fileID: 102900000, guid: 7523cfac6384df140bb14a32f9b18b37, type: 3}
     Textures: []
-  - Name: Hat
+  - ID: Hat
     SpriteFolder: {fileID: 102900000, guid: b6545991f923f6d41b49b5f80337a70d, type: 3}
     Textures: []
-  - Name: Hands
+  - ID: Hands
     SpriteFolder: {fileID: 102900000, guid: 0896b1efc7d3c3443a3d136b0c80d516, type: 3}
     Textures:
     - {fileID: 2800000, guid: 1252f7e656cfa364595a7f9138c5df3c, type: 3}
-  - Name: Offhand
+  - ID: Offhand
     SpriteFolder: {fileID: 102900000, guid: 18c18324b873eee4d97d53030d4b2278, type: 3}
     Textures: []
-  - Name: Weapon
+  - ID: Weapon
     SpriteFolder: {fileID: 102900000, guid: cca10c16b4cbf6849a886d33b49fb7ff, type: 3}
     Textures: []
-  ColourPalette:
-  - serializedVersion: 2
-    rgba: 4279440147
-  - serializedVersion: 2
-    rgba: 4279966491
-  - serializedVersion: 2
-    rgba: 4280756007
-  - serializedVersion: 2
-    rgba: 4282203453
-  - serializedVersion: 2
-    rgba: 4284308829
-  - serializedVersion: 2
-    rgba: 4286940549
-  - serializedVersion: 2
-    rgba: 4290032820
-  - serializedVersion: 2
-    rgba: 4294967295
-  - serializedVersion: 2
-    rgba: 4292726727
-  - serializedVersion: 2
-    rgba: 4290355602
-  - serializedVersion: 2
-    rgba: 4287787877
-  - serializedVersion: 2
-    rgba: 4285418562
-  - serializedVersion: 2
-    rgba: 4283313962
-  - serializedVersion: 2
-    rgba: 4281473306
-  - serializedVersion: 2
-    rgba: 4279961358
-  - serializedVersion: 2
-    rgba: 4280029724
-  - serializedVersion: 2
-    rgba: 4280360761
-  - serializedVersion: 2
-    rgba: 4280822877
-  - serializedVersion: 2
-    rgba: 4281747594
-  - serializedVersion: 2
-    rgba: 4283068351
-  - serializedVersion: 2
-    rgba: 4285111526
-  - serializedVersion: 2
-    rgba: 4288662262
-  - serializedVersion: 2
-    rgba: 4291815161
-  - serializedVersion: 2
-    rgba: 4283476973
-  - serializedVersion: 2
-    rgba: 4281890016
-  - serializedVersion: 2
-    rgba: 4280567238
-  - serializedVersion: 2
-    rgba: 4280100238
-  - serializedVersion: 2
-    rgba: 4278210815
-  - serializedVersion: 2
-    rgba: 4279531245
-  - serializedVersion: 2
-    rgba: 4279542527
-  - serializedVersion: 2
-    rgba: 4280666367
-  - serializedVersion: 2
-    rgba: 4283952127
-  - serializedVersion: 2
-    rgba: 4286512339
-  - serializedVersion: 2
-    rgba: 4284475033
-  - serializedVersion: 2
-    rgba: 4283417946
-  - serializedVersion: 2
-    rgba: 4283144243
-  - serializedVersion: 2
-    rgba: 4283461406
-  - serializedVersion: 2
-    rgba: 4283190291
-  - serializedVersion: 2
-    rgba: 4282658316
-  - serializedVersion: 2
-    rgba: 4285348096
-  - serializedVersion: 2
-    rgba: 4289358080
-  - serializedVersion: 2
-    rgba: 4292646912
-  - serializedVersion: 2
-    rgba: 4294561024
-  - serializedVersion: 2
-    rgba: 4294963468
-  - serializedVersion: 2
-    rgba: 4294966676
-  - serializedVersion: 2
-    rgba: 4293776125
-  - serializedVersion: 2
-    rgba: 4294281715
-  - serializedVersion: 2
-    rgba: 4294787035
-  - serializedVersion: 2
-    rgba: 4294576506
-  - serializedVersion: 2
-    rgba: 4292412208
-  - serializedVersion: 2
-    rgba: 4287824396
-  - serializedVersion: 2
-    rgba: 4282325251
-  - serializedVersion: 2
-    rgba: 4282586171
-  - serializedVersion: 2
-    rgba: 4284556386
-  - serializedVersion: 2
-    rgba: 4287576211
-  - serializedVersion: 2
-    rgba: 4291384010
-  - serializedVersion: 2
-    rgba: 4286992584
-  - serializedVersion: 2
-    rgba: 4287070710
-  - serializedVersion: 2
-    rgba: 4284306933
-  - serializedVersion: 2
-    rgba: 4282384639
-  - serializedVersion: 2
-    rgba: 4282135274
-  - serializedVersion: 2
-    rgba: 4281345220
-  - serializedVersion: 2
-    rgba: 4281015945
-  - serializedVersion: 2
-    rgba: 4280753239

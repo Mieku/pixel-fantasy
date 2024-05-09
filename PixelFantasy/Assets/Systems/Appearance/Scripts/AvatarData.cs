@@ -10,7 +10,7 @@ namespace Systems.Appearance.Scripts
     [UseOdinInspector]
     public class AvatarData
     {
-        // Data looks like this: PirateCostume/#FFFFFF/0:0:0
+        // Data looks like this: {ID:Overalls}{Colour:#FFFFFF}{Exempt:#FFFFFF,#FFFFFF}{HSV:0:0:0}
         
         public string Body;
         public string Hands;
@@ -53,15 +53,15 @@ namespace Systems.Appearance.Scripts
             RefreshHair();
             RefreshEyes();
         }
-        
+
         private void RefreshEyes()
         {
-            Eyes = $"{_race.RaceName} Eyes/{Helper.ColorToHex(EyeColour)}/0:0:0";
+            Eyes = $"{{ID:{_race.RaceName} Eyes}}{{Colour:{Helper.ColorToHex(EyeColour)}}}";
         }
 
         private void RefreshHair()
         {
-            Hair = $"{HairStyle.ID}/{Helper.ColorToHex(HairColour)}/0:0:0";
+            Hair = $"{{ID:{HairStyle.ID}}}{{Colour:{Helper.ColorToHex(HairColour)}}}";
 
             if (BeardStyle == null)
             {
@@ -69,18 +69,18 @@ namespace Systems.Appearance.Scripts
             }
             else
             {
-                Beard = $"{BeardStyle.ID}/{Helper.ColorToHex(HairColour)}/0:0:0";
+                Beard = $"{{ID:{BeardStyle.ID}}}{{Colour:{Helper.ColorToHex(HairColour)}}}";
             }
         }
 
         private void RefreshSkinTone()
         {
-            Body = $"{_race.RaceName} Body/{Helper.ColorToHex(SkinTone)}/0:0:0";
-            Hands = $"{_race.RaceName} Hands/{Helper.ColorToHex(SkinTone)}/0:0:0";
+            Body = $"{{ID:{_race.RaceName} Body}}{{Colour:{Helper.ColorToHex(SkinTone)}}}";
+            Hands = $"{{ID:{_race.RaceName} Hands}}{{Colour:{Helper.ColorToHex(SkinTone)}}}";
 
             if (_gender == EGender.Female)
             {
-                Blush = $"{_race.RaceName} Blush/{Helper.ColorToHex(SkinTone)}/0:0:0";
+                Blush = $"{{ID:{_race.RaceName} Blush}}{{Colour:{Helper.ColorToHex(SkinTone)}}}";
             }
             else
             {
