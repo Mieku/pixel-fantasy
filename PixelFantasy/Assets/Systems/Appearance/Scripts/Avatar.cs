@@ -87,6 +87,7 @@ namespace Systems.Appearance.Scripts
                     Appearance.flipX = false;
                     break;
                 case AvatarLayer.EAppearanceDirection.Left:
+                    SpriteLibrary.spriteLibraryAsset = SideSpriteLibraryAsset;
                     Appearance.flipX = true;
                     break;
                 default:

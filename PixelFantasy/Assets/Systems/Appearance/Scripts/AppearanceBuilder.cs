@@ -48,11 +48,6 @@ namespace Systems.Appearance.Scripts
             
             var width = collection[0].Textures[0].width;
             var height = collection[0].Textures[0].height;
-
-            foreach (var layer in collection)
-            {
-                Debug.Log($"ID: {layer.ID}");
-            }
             
             var dict = collection.ToDictionary(i => i.ID, i => i);
             var layers = new Dictionary<string, Color32[]>();

@@ -37,23 +37,6 @@ namespace Managers
             List<ItemSettings> clone = new List<ItemSettings>(itemSettingsList);
             return clone;
         }
-        
-        // public TalentSettings GetTalent(string talentName)
-        // {
-        //     var result = _talents.Find(talent => talent.TalentName == talentName);
-        //     if (result == null)
-        //     {
-        //         Debug.LogError($"Unknown Talent: {talentName}");
-        //     }
-        //
-        //     return result;
-        // }
-        //
-        // public TalentSettings GetRandomTalent()
-        // {
-        //     int index = Random.Range(0, _talents.Count);
-        //     return _talents[index];
-        // }
 
         public EmotionalBreakdownSettings GetEmotionalBreakdown(string breakdownTaskId)
         {

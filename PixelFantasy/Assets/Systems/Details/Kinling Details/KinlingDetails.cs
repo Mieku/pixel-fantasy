@@ -46,7 +46,7 @@ namespace Systems.Details.Kinling_Details
             _kinlingName.text = _kinling.FullName;
             _avatarDisplay.sprite = _kinling.Avatar.GetBaseAvatarSprite();
             
-            ChangeContentState(_detailsState);
+            ChangeContentState(EDetailsState.Needs);
             
             GameEvents.OnKinlingChanged += GameEvent_OnKinlingChanged;
             
