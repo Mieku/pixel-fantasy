@@ -11,7 +11,6 @@ namespace Data.Resource
         // Runtime
         [ExposeToInspector, DatabrainSerialize] public int SpriteIndex;
         [ExposeToInspector, DatabrainSerialize] public float Health;
-        [ExposeToInspector, DatabrainSerialize] public float RemainingExtractWork;
         [ExposeToInspector, DatabrainSerialize] public Task CurrentTask;
         [ExposeToInspector, DatabrainSerialize] public Vector2 Position;
         [ExposeToInspector, DatabrainSerialize]  public ResourceSettings Settings;
@@ -21,8 +20,21 @@ namespace Data.Resource
         {
             Settings = settings;
             Health = Settings.MaxHealth;
-            RemainingExtractWork = Settings.WorkToExtract;
             SpriteIndex = Settings.GetRandomSpriteIndex();
         }
+        
+        /// <summary>
+        /// The percentage of durability remaining ex: 0.5 = 50%
+        /// </summary>
+        public float DurabilityPercent
+        {
+            get
+            {
+                var percent = (float)Health / (float)Settings.MaxHealth;
+                return percent;
+            }
+        }
+
+        public virtual float MaxHealth => Settings.MaxHealth;
     }
 }

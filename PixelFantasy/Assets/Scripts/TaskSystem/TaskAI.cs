@@ -372,11 +372,11 @@ namespace TaskSystem
             }
             else if (standPos.x >= workPos.x)
             {
-                return AvatarLayer.EAppearanceDirection.Right;
+                return AvatarLayer.EAppearanceDirection.Left;
             }
             else
             {
-                return AvatarLayer.EAppearanceDirection.Left;
+                return AvatarLayer.EAppearanceDirection.Right;
             }
         }
 

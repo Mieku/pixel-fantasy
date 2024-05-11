@@ -23,6 +23,7 @@ namespace HUD
     {
         [Header("Generic Details")] 
         [SerializeField] private ZoneDetails _zoneDetails;
+        [SerializeField] private GenericDetails _genericDetails;
         //[SerializeField] private GenericDetailsUI _genericDetails;
 
         [Header("Kinling Details")] 
@@ -51,7 +52,7 @@ namespace HUD
         
         public void HideAllDetails()
         {
-            //_genericDetails.Hide();
+            _genericDetails.Hide();
             _zoneDetails.Hide();
             _kinlingDetails.Hide();
             _buildFurnitureDetails.Hide();
@@ -64,6 +65,8 @@ namespace HUD
         {
             HideAllDetails();
             _notificationLogger.Hide();
+            
+            _genericDetails.Show(clickableObject);
         }
 
         public void ShowZoneDetails(ZoneData zoneData)

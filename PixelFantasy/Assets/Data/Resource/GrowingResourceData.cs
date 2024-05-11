@@ -4,14 +4,27 @@ using Databrain.Attributes;
 using Items;
 using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Data.Resource
 {
     public class GrowingResourceData : ResourceData
     {
-        public float AgeForNextGrowth => GetGrowthStage().SecsInStage;
-        public bool FullyGrown => AgeForNextGrowth == 0f;
+        public float AgeForNextGrowth
+        {
+            get
+            {
+                float result = 0;
+                for (int i = GrowthIndex; i >= 0; i--)
+                {
+                    result += GrowingResourceSettings.GrowthStages[i].SecsInStage;
+                }
+                return result;
+            }
+        }
+        
+        public bool FullyGrown => AgeSec >= GrowingResourceSettings.TotalGrowTime();
         
         // Runtime
         [ExposeToInspector, DatabrainSerialize] public int GrowthIndex;
@@ -51,10 +64,13 @@ namespace Data.Resource
                 HasFruitAvailable = FruitTimer >= GrowingResourceSettings.GrowFruitTime;
             }
             
-            RemainingExtractWork = GetWorkToCut();
+            //RemainingExtractWork = GetWorkToCut();
+            Health = GetGrowthStage().Health;
             RemainingHarvestWork = GrowingResourceSettings.WorkToHarvest;
         }
-        
+
+        public override float MaxHealth => GetGrowthStage().Health;
+
         public GrowthStage GetGrowthStage()
         {
             var stages = GrowingResourceSettings.GrowthStages;
@@ -67,7 +83,7 @@ namespace Data.Resource
         
         public int GetWorkToCut()
         {
-            return GetGrowthStage().WorkToCut;
+            return GetGrowthStage().Health;
         }
 
         public List<ItemAmount> GetFruitLoot()
@@ -111,6 +127,6 @@ namespace Data.Resource
         public float Scale;
         public float SecsInStage;
         public HarvestableItems HarvestableItems;
-        public int WorkToCut;
+        [FormerlySerializedAs("WorkToCut")] public int Health;
     }
 }

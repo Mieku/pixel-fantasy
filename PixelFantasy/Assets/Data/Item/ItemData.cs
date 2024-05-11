@@ -85,14 +85,33 @@ namespace Data.Item
                 return percent;
             }
         }
+
+        public Color32 GetQualityColour()
+        {
+            switch (Quality)
+            {
+                case EItemQuality.Poor:
+                    return Librarian.Instance.GetColour("Poor Quality");
+                case EItemQuality.Common:
+                    return Librarian.Instance.GetColour("Common Quality");
+                case EItemQuality.Remarkable:
+                    return Librarian.Instance.GetColour("Remarkable Quality");
+                case EItemQuality.Excellent:
+                    return Librarian.Instance.GetColour("Excellent Quality");
+                case EItemQuality.Mythical:
+                    return Librarian.Instance.GetColour("Mythical Quality");
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
     }
 
     public enum EItemQuality
     {
-        [Description("Poor")] Poor = 0,
-        [Description("Common")] Common = 1,
-        [Description("Remarkable")] Remarkable = 2,
-        [Description("Enchanted")] Excellent = 3,
-        [Description("Mythical")] Mythical = 4,
+        [Description("Poor")] Poor = 0, // grey
+        [Description("Common")] Common = 1, // white
+        [Description("Remarkable")] Remarkable = 2, // green
+        [Description("Enchanted")] Excellent = 3, // blue
+        [Description("Mythical")] Mythical = 4, // gold
     }
 }

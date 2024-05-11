@@ -113,7 +113,7 @@ namespace Items
 
         public virtual HarvestableItems GetHarvestableItems()
         {
-            return null;
+            return RuntimeData.Settings.HarvestableItems;
         }
 
         public virtual string DisplayName => RuntimeData.Settings.title;
@@ -146,8 +146,8 @@ namespace Items
         public virtual bool DoExtractionWork(StatsData stats)
         {
             var workAmount = stats.GetActionSpeedForSkill(RuntimeData.Settings.ExtractionSkillType, transform);
-            RuntimeData.RemainingExtractWork -= workAmount;
-            if (RuntimeData.RemainingExtractWork <= 0)
+            RuntimeData.Health -= workAmount;
+            if (RuntimeData.Health <= 0)
             {
                 ExtractResource(stats);
                 return true;
@@ -196,9 +196,9 @@ namespace Items
                 }
             }
             
-            RefreshSelection();
-            
             Destroy(gameObject);
+            
+            RefreshSelection();
             
             if(_onResourceClearedCallback != null) _onResourceClearedCallback.Invoke();
         }

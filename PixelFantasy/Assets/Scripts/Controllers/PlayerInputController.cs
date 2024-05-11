@@ -13,7 +13,7 @@ namespace Controllers
     {
         private PlayerInputState _playerInputState = PlayerInputState.None;
         private Vector3 _currentMousePos;
-        //private ClickObject _curSelectedObject;
+        private ClickObject _curSelectedObject;
         private bool _isOverUI;
         private bool _buildingInternalViewEnabled;
         private Kinling _curSelectedKinling;
@@ -52,10 +52,17 @@ namespace Controllers
         public void SelectUnit(Kinling kinling)
         {
             CloseDetailsPanels();
+
+            if (_curSelectedObject != null)
+            {
+                _curSelectedObject.UnselectObject();
+            }
             
             _curSelectedKinling = kinling;
             HUDController.Instance.ShowUnitDetails(kinling);
-            
+
+            _curSelectedObject = kinling.GetClickObject();
+            _curSelectedObject.SelectObject();
             
             CommandController.Instance.HideCommands();
         }
@@ -64,15 +71,37 @@ namespace Controllers
         {
             CloseDetailsPanels();
 
+            _curSelectedKinling = null;
+            if (_curSelectedObject != null)
+            {
+                _curSelectedObject.UnselectObject();
+            }
+
             HUDController.Instance.ShowItemDetails(clickObject.Owner);
+
+            _curSelectedObject = clickObject;
+            _curSelectedObject.SelectObject();
             
             CommandController.Instance.HideCommands();
+        }
+
+        public void OnClickObjectDestroy(ClickObject clickObject)
+        {
+            if (_curSelectedObject == clickObject)
+            {
+                ClearSelection();
+            }
         }
 
         public void ClearSelection()
         {
             HUDController.Instance.HideDetails();
             CommandController.Instance.HideCommands();
+            
+            if (_curSelectedObject != null)
+            {
+                _curSelectedObject.UnselectObject();
+            }
         }
 
         #region Mouse Handlers

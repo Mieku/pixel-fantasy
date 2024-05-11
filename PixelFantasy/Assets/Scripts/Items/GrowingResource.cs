@@ -83,12 +83,11 @@ namespace Items
                 RuntimeGrowingResourceData.AgeSec += TimeManager.Instance.DeltaTime;
                 if (RuntimeGrowingResourceData.AgeSec >= RuntimeGrowingResourceData.AgeForNextGrowth)
                 {
-                    var extractDiff = RuntimeGrowingResourceData.RemainingExtractWork - RuntimeGrowingResourceData.GetWorkToCut();
+                    var extractDiff = RuntimeGrowingResourceData.MaxHealth - RuntimeGrowingResourceData.Health;
                     
                     RuntimeGrowingResourceData.GrowthIndex++;
 
-                    RuntimeGrowingResourceData.RemainingExtractWork =
-                        RuntimeGrowingResourceData.GetWorkToCut() - extractDiff;
+                    RuntimeGrowingResourceData.Health = RuntimeGrowingResourceData.MaxHealth - extractDiff;
 
                     RefreshSelection();
                     UpdateSprite();
@@ -220,9 +219,9 @@ namespace Items
                 }
             }
             
-            RefreshSelection();
-            
             Destroy(gameObject);
+            
+            RefreshSelection();
             
             if(_onResourceClearedCallback != null) _onResourceClearedCallback.Invoke();
         }

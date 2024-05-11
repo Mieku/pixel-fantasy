@@ -78,6 +78,9 @@ public class ClickObject : MonoBehaviour
 
     private void OnDestroy()
     {
+        UnselectObject();
+        PlayerInputController.Instance.OnClickObjectDestroy(this);
+        
         GameEvents.RefreshSelection -= RefreshSelection;
 
         if (IsSelected)
@@ -179,7 +182,6 @@ public class ClickObject : MonoBehaviour
             var isOverUI = EventSystem.current.IsPointerOverGameObject();
             if(isOverUI) return;
         }
-        
         
         var clickableObj = GetComponent<IClickableObject>();
         if (clickableObj != null)
