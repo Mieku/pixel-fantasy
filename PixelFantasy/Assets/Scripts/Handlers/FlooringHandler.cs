@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using DataPersistence;
 using Items;
+using Systems.Details.Build_Details.Scripts;
 using UnityEngine;
 using Zones;
 
@@ -9,6 +10,8 @@ namespace Handlers
 {
     public class FlooringHandler : Saveable
     {
+        public FloorBuilder FloorBuilder;
+        
         protected override string StateName => "Flooring";
         public override int LoadOrder => 1;
         

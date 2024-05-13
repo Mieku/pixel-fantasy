@@ -4,6 +4,7 @@ using Buildings;
 using Characters;
 using Controllers;
 using Data.Item;
+using Data.Structure;
 using Data.Zones;
 using Interfaces;
 using Items;
@@ -91,6 +92,22 @@ namespace HUD
             _notificationLogger.Hide();
             
             _buildStructureDetails.Show();
+        }
+        
+        public void ShowBuildStructureDetails(WallSettings wallSettings)
+        {
+            HideAllDetails();
+            _notificationLogger.Hide();
+            
+            _buildStructureDetails.ShowForSpecificBuild(wallSettings);
+        }
+        
+        public void ShowBuildStructureDetails(DoorSettings doorSettings)
+        {
+            HideAllDetails();
+            _notificationLogger.Hide();
+            
+            _buildStructureDetails.ShowForSpecificBuild(doorSettings);
         }
     }
 }

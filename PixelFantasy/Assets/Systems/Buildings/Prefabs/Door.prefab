@@ -1076,7 +1076,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _icon: {fileID: 8802911670475920599}
-  Commands: []
+  Commands:
+  - {fileID: 11400000, guid: e481410d09ea34543b39a264a9dc6554, type: 2}
+  - {fileID: 11400000, guid: 40e89507ed9cb474fa943f151477de0c, type: 2}
   PendingCommand: {fileID: 0}
   _workPoints:
   - {fileID: 1411270477812499639}

@@ -165,5 +165,20 @@ namespace Data.Structure
                 return percent;
             }
         }
+
+        public float ConstructionPercent
+        {
+            get
+            {
+                if (State != EConstructionState.Built)
+                {
+                    return 1 - (RemainingWork / CraftRequirements.WorkCost);
+                }
+                else
+                {
+                    return 1f;
+                }
+            }
+        }
     }
 }

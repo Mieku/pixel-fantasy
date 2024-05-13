@@ -94,6 +94,7 @@ namespace Systems.Details.Generic_Details.Scripts
                 _growthDisplayHandle.gameObject.SetActive(false);
                 _harvestYieldHandle.gameObject.SetActive(false);
                 _fruitProgressDisplayHandle.gameObject.SetActive(false);
+                _seperatorHandle.gameObject.SetActive(false);
             }
         }
 
@@ -101,6 +102,7 @@ namespace Systems.Details.Generic_Details.Scripts
         {
             if (growingResource.RuntimeGrowingResourceData.GrowingResourceSettings.HasFruit)
             {
+                _seperatorHandle.gameObject.SetActive(true);
                 _fruitProgressDisplayHandle.gameObject.SetActive(true);
                 _harvestYieldHandle.gameObject.SetActive(true);
 
@@ -112,47 +114,41 @@ namespace Systems.Details.Generic_Details.Scripts
             {
                 _fruitProgressDisplayHandle.gameObject.SetActive(false);
                 _harvestYieldHandle.gameObject.SetActive(false);
+                _seperatorHandle.gameObject.SetActive(false);
             }
         }
 
         private void DisplayExtractionYield()
         {
-            _extractYieldHandle.gameObject.SetActive(true);
-            var yield = _basicResource.GetHarvestableItems().GetDropAverages();
-
             foreach (var displayedYield in _displayedYieldDisplay)
             {
                 Destroy(displayedYield.gameObject);
             }
             _displayedYieldDisplay.Clear();
-
-            foreach (var drop in yield)
+            
+            var yield = _basicResource.GetHarvestableItems().GetDropAverages();
+            if (yield.Count > 0)
             {
-                var display = Instantiate(_yieldDisplayPrefab, _extractYieldLayout);
-                display.gameObject.SetActive(true);
-                display.Init(drop);
-                _displayedYieldDisplay.Add(display);
+                _extractYieldHandle.gameObject.SetActive(true);
+
+                foreach (var drop in yield)
+                {
+                    var display = Instantiate(_yieldDisplayPrefab, _extractYieldLayout);
+                    display.gameObject.SetActive(true);
+                    display.Init(drop);
+                    _displayedYieldDisplay.Add(display);
+                }
+            }
+            else
+            {
+                _extractYieldHandle.gameObject.SetActive(false);
             }
         }
 
         private void DisplayGrowingResourceDetails(GrowingResource growingResource)
         {
-            // var growthPercent = growingResource.RuntimeGrowingResourceData.GetGrowthPercentage();
-            // _growthDisplayHandle.gameObject.SetActive(true);
-            //
-            // _growthFill.fillAmount = growthPercent;
-            // _growthPercentDisplay.text = $"{growthPercent * 100}%";
-
-
             if (growingResource.RuntimeGrowingResourceData.GrowingResourceSettings.HasFruit)
             {
-                // _fruitProgressDisplayHandle.gameObject.SetActive(true);
-                // _harvestYieldHandle.gameObject.SetActive(true);
-                //
-                // var fruitGrowthPercent = growingResource.RuntimeGrowingResourceData.GetFruitingPercentage();
-                // _fruitFill.fillAmount = fruitGrowthPercent;
-                // _fruitPercentDisplay.text = $"{fruitGrowthPercent * 100}%";
-
                 var fruitYield = growingResource.RuntimeGrowingResourceData.GetFruitLoot();
                 
                 foreach (var displayedYield in _displayedHarvestYieldDisplay)
@@ -173,6 +169,7 @@ namespace Systems.Details.Generic_Details.Scripts
             {
                 _fruitProgressDisplayHandle.gameObject.SetActive(false);
                 _harvestYieldHandle.gameObject.SetActive(false);
+                _seperatorHandle.gameObject.SetActive(false);
             }
         }
     }

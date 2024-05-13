@@ -1,11 +1,5 @@
 fileFormatVersion: 2
 guid: 17fec177cc845c24f8d969235cbf5cb7
-NativeFormatImporter:
-  externalObjects: {}
-  mainObjectFileID: 11400000
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
 AssetOrigin:
   serializedVersion: 1
   productId: 244557
@@ -13,3 +7,9 @@ AssetOrigin:
   packageVersion: 1.2.0
   assetPath: Assets/Databrain/_Demos/03_SaveLoad/Data/SaveLoadDemoData.asset
   uploadId: 657627
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -98,8 +98,8 @@ namespace Systems.Buildings.Scripts
             if (RuntimeData.State == EConstructionState.Built)
             {
                 _onDeconstructed = onDeconstructed;
-                Task constuctTask = new Task("Deconstruct", ETaskType.Construction, this, EToolType.BuildersHammer);
-                constuctTask.Enqueue();
+                Task constructTask = new Task("Deconstruct", ETaskType.Construction, this, EToolType.BuildersHammer);
+                constructTask.Enqueue();
             }
             else
             {
@@ -167,7 +167,13 @@ namespace Systems.Buildings.Scripts
 
             ClearTile();
         }
-        
+
+        public override void CancelConstruction()
+        {
+            base.CancelConstruction();
+            ClearTile();
+        }
+
         private void CreateConstructionHaulingTasks()
         {
             var resourceCosts = RuntimeData.RemainingMaterialCosts;
@@ -177,13 +183,18 @@ namespace Systems.Buildings.Scripts
         public override void CompleteConstruction()
         {
             base.CompleteConstruction();
-            IsClickDisabled = true;
             ChangeWallState(EConstructionState.Built);
         }
 
         public void EnableObstacle(bool isEnabled)
         {
             _obstacle.SetActive(isEnabled);
+        }
+
+        public override void DoCopy()
+        {
+            base.DoCopy();
+            HUDController.Instance.ShowBuildStructureDetails(RuntimeWallData.SelectedWallOption);
         }
     }
 }

@@ -15,6 +15,8 @@ namespace HUD
 
         private void Start()
         {
+            _inventoryResouceDisplayPrefab.gameObject.SetActive(false);
+            
             GameEvents.RefreshInventoryDisplay += GameEvents_RefreshInventoryDisplay;
             
             GameEvents_RefreshInventoryDisplay();
@@ -68,6 +70,7 @@ namespace HUD
                 if (!_displayedItems.ContainsKey(available.Key))
                 {
                     var display = Instantiate(_inventoryResouceDisplayPrefab, transform).GetComponent<InventoryResourceDisplay>();
+                    display.gameObject.SetActive(true);
                     display.Init(available.Key, available.Value.ToString());
                     _displayedItems.Add(available.Key, display);
                 }

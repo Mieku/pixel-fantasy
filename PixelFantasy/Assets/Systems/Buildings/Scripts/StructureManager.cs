@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Managers;
+using Systems.Details.Build_Details.Scripts;
 using UnityEngine;
 
 namespace Systems.Buildings.Scripts
 {
     public class StructureManager : Singleton<StructureManager>
     {
+        public WallBuilder WallBuilder;
+        
         private EStructureCell[,] _grid;
         private List<StructurePiece> _registeredPieces = new List<StructurePiece>();
         private List<Room> _rooms = new List<Room>();

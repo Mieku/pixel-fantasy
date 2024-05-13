@@ -1,11 +1,5 @@
 fileFormatVersion: 2
 guid: d6d9d55e7b7281449bfc15707e4f1a59
-NativeFormatImporter:
-  externalObjects: {}
-  mainObjectFileID: 11400000
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
 AssetOrigin:
   serializedVersion: 1
   productId: 244557
@@ -13,3 +7,9 @@ AssetOrigin:
   packageVersion: 1.2.0
   assetPath: Assets/Databrain/_Demos/05_OdinInspector/DataLibrary.asset
   uploadId: 657627
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -75,6 +75,20 @@ namespace Systems.Details.Build_Details.Scripts
             RefreshLayout();
         }
 
+        public void ShowForSpecificBuild(DoorSettings doorSettings)
+        {
+            Show();
+            OnDoorPressed();
+            DisplayCurrentDoorSelection(doorSettings);
+        }
+        
+        public void ShowForSpecificBuild(WallSettings wallSettings)
+        {
+            Show();
+            OnWallPressed();
+            DisplayCurrentWallSelection(wallSettings);
+        }
+
         public void Hide()
         {
             _wallBuilder.CancelWallBuild();

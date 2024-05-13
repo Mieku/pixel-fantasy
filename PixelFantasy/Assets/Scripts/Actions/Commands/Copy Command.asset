@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bdf6adffca56064cad1de5df493d6c2, type: 3}
-  m_Name: Gather Command
+  m_Name: Copy Command
   m_EditorClassIdentifier: 
-  Name: Gather
-  Icon: {fileID: 1472864604, guid: d9053f3442dafed4a9ea52ece16394c2, type: 3}
+  Name: Copy
+  Icon: {fileID: -1482574715470509984, guid: e26abd876963dfe43b414675b92df28a, type: 3}
   Task:
-    TaskId: Extract Resource
-    TaskType: 8
+    TaskId: Copy Command
+    TaskType: 0
     KinlingAssignedToTask: {fileID: 0}
     Materials: []
     RequiredToolType: 0

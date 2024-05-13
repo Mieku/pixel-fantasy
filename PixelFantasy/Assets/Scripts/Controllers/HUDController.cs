@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Buildings;
 using Characters;
 using Data.Item;
+using Data.Structure;
 using Data.Zones;
 using HUD;
 using Interfaces;
@@ -70,6 +71,20 @@ namespace Controllers
             HideDetails();
             
             _selectedItemInfoPanel.ShowBuildStructureDetails();
+        }
+
+        public void ShowBuildStructureDetails(DoorSettings doorSettings)
+        {
+            HideDetails();
+            
+            _selectedItemInfoPanel.ShowBuildStructureDetails(doorSettings);
+        }
+        
+        public void ShowBuildStructureDetails(WallSettings wallSettings)
+        {
+            HideDetails();
+            
+            _selectedItemInfoPanel.ShowBuildStructureDetails(wallSettings);
         }
         
         public void HideDetails()

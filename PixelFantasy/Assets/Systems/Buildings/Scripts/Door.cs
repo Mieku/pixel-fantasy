@@ -275,5 +275,11 @@ namespace Systems.Buildings.Scripts
         {
             
         }
+
+        public override void DoCopy()
+        {
+            base.DoCopy();
+            HUDController.Instance.ShowBuildStructureDetails(RuntimeDoorData.DoorSettings);
+        }
     }
 }

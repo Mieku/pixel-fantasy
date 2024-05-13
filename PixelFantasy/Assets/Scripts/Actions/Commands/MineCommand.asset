@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MineCommand
   m_EditorClassIdentifier: 
   Name: Mine
-  Icon: {fileID: 21300000, guid: 8fccbe6959fe32b4394524a1bddf7632, type: 3}
+  Icon: {fileID: -512013816, guid: d9053f3442dafed4a9ea52ece16394c2, type: 3}
   Task:
     TaskId: Extract Resource
     TaskType: 7

@@ -86,8 +86,11 @@ namespace Items
 
         public void UnTintTile()
         {
-            var cell = _mountainTM.WorldToCell(transform.position);
-            _mountainTM.SetColor(cell, Color.white);
+            if (_mountainTM != null)
+            {
+                var cell = _mountainTM.WorldToCell(transform.position);
+                _mountainTM.SetColor(cell, Color.white);
+            }
         }
         
         public void MineMountain()

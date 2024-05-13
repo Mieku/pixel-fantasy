@@ -21,13 +21,15 @@ namespace Items
         
         [SerializeField] private List<Transform> _workPoints;
         
-        public string DisplayName => RuntimeData.name;
+        public virtual string DisplayName => RuntimeData.title;
         
         public DataLibrary DataLibrary;
         
         [DataObjectDropdown("DataLibrary", true)]
         public ConstructionData Data;
         public ConstructionData RuntimeData;
+
+        public Action OnStructureChanged;
         
         public PlayerInteractable GetPlayerInteractable()
         {
@@ -41,7 +43,30 @@ namespace Items
         
         public void AssignCommand(Command command, object payload = null)
         {
-            CreateTask(command, payload);
+            if (command.name == "Deconstruct Command")
+            {
+                if (RuntimeData.State != EConstructionState.Built)
+                {
+                    CancelConstruction();
+                }
+                else
+                {
+                    CreateTask(command, payload);
+                }
+            } 
+            else if (command.name == "Copy Command")
+            {
+                DoCopy();
+            }
+            else
+            {
+                CreateTask(command, payload);
+            }
+        }
+
+        public virtual void DoCopy()
+        {
+            
         }
         
         public virtual bool DoConstruction(StatsData stats)
@@ -75,7 +100,7 @@ namespace Items
         // When values change this should be called, is a hook for callbacks
         protected virtual void Changed()
         {
-            
+            OnStructureChanged?.Invoke();
         }
 
         public virtual void CancelConstruction()
