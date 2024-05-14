@@ -84,7 +84,11 @@ namespace Systems.Details.Generic_Details.Scripts
         
         public void Hide()
         {
-            if(_structure != null) _structure.OnStructureChanged -= StructureChanged;
+            if (_structure != null)
+            {
+                _structure.OnStructureChanged -= StructureChanged;
+            }
+
             _structure = null;
             gameObject.SetActive(false);
             _isActive = false;

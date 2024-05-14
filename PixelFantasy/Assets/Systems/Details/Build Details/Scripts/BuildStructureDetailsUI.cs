@@ -88,6 +88,13 @@ namespace Systems.Details.Build_Details.Scripts
             OnWallPressed();
             DisplayCurrentWallSelection(wallSettings);
         }
+        
+        public void ShowForSpecificBuild(FloorSettings floorSettings)
+        {
+            Show();
+            OnFloorPressed();
+            DisplayCurrentFloorSelection(floorSettings);
+        }
 
         public void Hide()
         {

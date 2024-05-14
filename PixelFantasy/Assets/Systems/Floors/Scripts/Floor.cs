@@ -142,5 +142,17 @@ namespace Systems.Floors.Scripts
 
             ClearTile();
         }
+
+        public override void CancelConstruction()
+        {
+            base.CancelConstruction();
+            ClearTile();
+        }
+
+        public override void DoCopy()
+        {
+            base.DoCopy();
+            HUDController.Instance.ShowBuildStructureDetails(RuntimeFloorData.FloorSettings);
+        }
     }
 }

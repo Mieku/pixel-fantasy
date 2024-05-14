@@ -87,6 +87,13 @@ namespace Controllers
             _selectedItemInfoPanel.ShowBuildStructureDetails(wallSettings);
         }
         
+        public void ShowBuildStructureDetails(FloorSettings floorSettings)
+        {
+            HideDetails();
+            
+            _selectedItemInfoPanel.ShowBuildStructureDetails(floorSettings);
+        }
+        
         public void HideDetails()
         {
             if (_selectedItemInfoPanel != null)

@@ -109,5 +109,13 @@ namespace HUD
             
             _buildStructureDetails.ShowForSpecificBuild(doorSettings);
         }
+        
+        public void ShowBuildStructureDetails(FloorSettings floorSettings)
+        {
+            HideAllDetails();
+            _notificationLogger.Hide();
+            
+            _buildStructureDetails.ShowForSpecificBuild(floorSettings);
+        }
     }
 }
