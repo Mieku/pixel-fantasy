@@ -3077,7 +3077,7 @@ MonoBehaviour:
   runtimeLibraryGuid: 
   runtimeLibraryFolderPath: 
   initialLibrary: {fileID: 0}
-  selectedDataObject: {fileID: 1274975811134321187}
+  selectedDataObject: {fileID: -191659240112778000}
   modules:
   - {fileID: 1013997515501222643}
   - {fileID: 3086282657986071168}
@@ -6032,6 +6032,8 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Item.StorageData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
@@ -6039,34 +6041,6 @@ MonoBehaviour:
     - type: Data.Item.ItemData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -6090,6 +6064,112 @@ MonoBehaviour:
     - type: Data.Resource.ResourceData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -6661,61 +6741,9 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Resource.MountainResourceData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -6726,29 +6754,19 @@ MonoBehaviour:
         PublicKeyToken=null
       dataObjects:
       - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Structure.WallData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
       - {fileID: 0}
     - type: Data.Structure.DoorData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Structure.FloorData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
       - {fileID: 0}
     - type: Data.Item.RawFoodData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null

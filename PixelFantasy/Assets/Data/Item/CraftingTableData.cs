@@ -63,7 +63,20 @@ namespace Data.Item
             var validToCraft = CraftingTableSettings.CraftableItems.Contains(settings);
             if (!validToCraft) return false;
             
-            // Are the mats available?
+            // // Are the mats available?
+            // foreach (var cost in settings.CraftRequirements.GetMaterialCosts())
+            // {
+            //     if (!cost.CanAfford())
+            //     {
+            //         return false;
+            //     }
+            // }
+
+            return true;
+        }
+
+        public bool CanAffordToCraft(CraftedItemSettings settings)
+        {
             foreach (var cost in settings.CraftRequirements.GetMaterialCosts())
             {
                 if (!cost.CanAfford())

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Data.Item;
 using Handlers;
 using Items;
@@ -17,7 +18,7 @@ namespace TaskSystem
         private Furniture _requestingFurniture;
         
         private ItemData _targetItem;
-        private int _materialIndex;
+        //private int _materialIndex;
         private float _timer;
 
         private enum ETaskState
@@ -30,12 +31,21 @@ namespace TaskSystem
             WaitingOnDelivery,
             PlaceItem,
         }
-        
+
+        public override bool CanDoTask(Task task)
+        {
+            if (!base.CanDoTask(task)) return false;
+            
+            // Check if a table can currently do the task
+            var table = FurnitureManager.Instance.GetCraftingTableForItem((FurnitureSettings)task.Payload);
+            return table != null;
+        }
+
         public override void PrepareAction(Task task)
         {
             _furnitureToCraft = (FurnitureSettings)task.Payload;
             _craftingTable = FurnitureManager.Instance.GetCraftingTableForItem(_furnitureToCraft);
-            _materials = task.Materials;
+            _materials = new List<ItemData>(task.Materials); //task.Materials;
             _requestingFurniture = task.Requestor as Furniture;
             _state = ETaskState.ClaimTable;
         }
@@ -50,7 +60,7 @@ namespace TaskSystem
 
             if (_state == ETaskState.GatherMats)
             {
-                _targetItem = _materials[_materialIndex];
+                _targetItem = _materials.First();
                 var movePos = _targetItem.AssignedStorage.AccessPosition(_ai.transform.position, _targetItem);
                 _ai.Kinling.KinlingAgent.SetMovePosition(movePos, OnArrivedAtStorageForPickup, OnTaskCancel);
                 _state = ETaskState.WaitingOnMats;
@@ -100,10 +110,9 @@ namespace TaskSystem
         {
             _craftingTable.ReceiveMaterial(_targetItem);
             _targetItem = null;
-            _materialIndex++;
 
             // Are there more items to gather?
-            if (_materialIndex > _materials.Count - 1)
+            if (_materials.Count == 0)
             {
                 _ai.Kinling.KinlingAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Kinling.transform.position), () =>
                 {
@@ -112,7 +121,7 @@ namespace TaskSystem
             }
             else
             {
-                _targetItem = _materials[_materialIndex];
+                _targetItem = _materials.First();
                 _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.AssignedStorage.AccessPosition(_ai.transform.position, _targetItem),
                     OnArrivedAtStorageForPickup, OnTaskCancel);
             }
@@ -140,7 +149,6 @@ namespace TaskSystem
             _task = null;
             _furnitureToCraft = null;
             _requestingFurniture = null;
-            _materialIndex = 0;
         }
     }
 }

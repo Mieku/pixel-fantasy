@@ -179,9 +179,9 @@ namespace Systems.Crafting.Scripts
             {
                 case EOrderType.Furniture:
                 case EOrderType.Item:
-                    return table.RuntimeTableData.CanCraftItem(CraftedItem);
+                    return table.RuntimeTableData.CanCraftItem(CraftedItem) && table.RuntimeTableData.CanAffordToCraft(CraftedItem);
                 case EOrderType.Meal:
-                    return table.RuntimeTableData.CanCookMeal(CraftedMeal);
+                    return table.RuntimeTableData.CanCookMeal(CraftedMeal) && table.RuntimeTableData.CanAffordToCraft(CraftedItem);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

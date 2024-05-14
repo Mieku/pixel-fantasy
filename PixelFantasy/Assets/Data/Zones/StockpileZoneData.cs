@@ -317,8 +317,7 @@ namespace Data.Zones
                     return cell;
                 }
             }
-
-            Debug.LogError($"No cell was found for {itemData.guid}");
+            
             return null;
         }
     }
