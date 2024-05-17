@@ -320,5 +320,24 @@ namespace Data.Zones
             
             return null;
         }
+
+        public int MaxCapacity => StockpileCells.Count;
+
+        public int TotalAmountStored
+        {
+            get
+            {
+                int result = 0;
+                foreach (var cell in StockpileCells)
+                {
+                    if (!cell.IsEmpty)
+                    {
+                        result++;
+                    }
+                }
+
+                return result;
+            }
+        }
     }
 }

@@ -123,5 +123,9 @@ namespace Items
                 return RuntimeStorageData.IsAllowed;
             }
         }
+
+        public int MaxCapacity => RuntimeStorageData.StorageSettings.MaxStorage;
+
+        public int TotalAmountStored => RuntimeStorageData.Stored.Count + RuntimeStorageData.Incoming.Count;
     }
 }

@@ -66,7 +66,7 @@ namespace Systems.Details.Generic_Details.Scripts
 
         private void DisplayGenericZoneDetails()
         {
-            _genericDetailsText.text = $"Size: {_zoneData.NumCells} Cells";
+            //_genericDetailsText.text = $"Size: {_zoneData.NumCells} Cells";
         }
 
         private void DisplayStockpileZoneDetails(StockpileZoneData data)

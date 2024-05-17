@@ -45,7 +45,7 @@ namespace TaskSystem
         {
             _furnitureToCraft = (FurnitureSettings)task.Payload;
             _craftingTable = FurnitureManager.Instance.GetCraftingTableForItem(_furnitureToCraft);
-            _materials = new List<ItemData>(task.Materials); //task.Materials;
+            _materials = new List<ItemData>(task.Materials);
             _requestingFurniture = task.Requestor as Furniture;
             _state = ETaskState.ClaimTable;
         }

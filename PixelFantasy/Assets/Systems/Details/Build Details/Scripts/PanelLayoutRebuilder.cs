@@ -12,15 +12,15 @@ namespace Systems.Details.Build_Details.Scripts
             StartCoroutine(RefreshSequence());
         }
         
-        private IEnumerator RefreshSequence() 
+        private IEnumerator RefreshSequence()
         {
             yield return new WaitForEndOfFrame();
             
-            var allLayouts = GetComponentsInChildren<RectTransform>().ToList();
-            var localRect = GetComponent<RectTransform>();
+            var allLayouts = transform.GetComponentsInChildren<RectTransform>().ToList();
+            var localRect = transform.GetComponent<RectTransform>();
             if (localRect != null)
             {
-                allLayouts.Add(GetComponent<RectTransform>());
+                allLayouts.Add(localRect);
             }
 
             foreach (var layoutRect in allLayouts)

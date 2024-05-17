@@ -1,0 +1,893 @@
+fileFormatVersion: 2
+guid: 4b967feb1411476418bf058e3e8949b0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5328432225521658497
+    second: Recoloured Icons_0
+  - first:
+      213: -7675789433035838597
+    second: Recoloured Icons_1
+  - first:
+      213: -3016519644561610336
+    second: Recoloured Icons_2
+  - first:
+      213: 4112108078046038464
+    second: Recoloured Icons_3
+  - first:
+      213: 7220304875675102650
+    second: Recoloured Icons_4
+  - first:
+      213: -1933722611016065790
+    second: Recoloured Icons_5
+  - first:
+      213: 315541821184374338
+    second: Recoloured Icons_6
+  - first:
+      213: -6684372754631864538
+    second: Recoloured Icons_7
+  - first:
+      213: 4589046165873387177
+    second: Recoloured Icons_8
+  - first:
+      213: 2854588744829939114
+    second: Recoloured Icons_9
+  - first:
+      213: -846202125205350665
+    second: Recoloured Icons_10
+  - first:
+      213: 7734551501585694968
+    second: Recoloured Icons_11
+  - first:
+      213: -2814305441807370211
+    second: Recoloured Icons_12
+  - first:
+      213: 926117358024576119
+    second: Recoloured Icons_13
+  - first:
+      213: -2811174780501694887
+    second: Recoloured Icons_14
+  - first:
+      213: -5610054002705095870
+    second: Recoloured Icons_15
+  - first:
+      213: -2138635044283307114
+    second: Recoloured Icons_16
+  - first:
+      213: 8246689035036683441
+    second: Recoloured Icons_17
+  - first:
+      213: -3527280703928474210
+    second: Recoloured Icons_18
+  - first:
+      213: 3892606988559643996
+    second: Recoloured Icons_19
+  - first:
+      213: 2936438560178070572
+    second: Recoloured Icons_20
+  - first:
+      213: 721904051569380638
+    second: Recoloured Icons_21
+  - first:
+      213: -6073311325039399190
+    second: Recoloured Icons_22
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Recoloured Icons_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 97
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18a66fbb0e462f940800000000000000
+      internalID: 5328432225521658497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_1
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 97
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7ba331cd2e1a7590800000000000000
+      internalID: -7675789433035838597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_2
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 97
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a9eaef8d5b2326d0800000000000000
+      internalID: -3016519644561610336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_3
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 97
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c9c2f59284211930800000000000000
+      internalID: 4112108078046038464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_4
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 97
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abda2a4970da33460800000000000000
+      internalID: 7220304875675102650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_5
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 97
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20d1f34d7890a25e0800000000000000
+      internalID: -1933722611016065790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_6
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 81
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24679735d97016400800000000000000
+      internalID: 315541821184374338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_7
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 81
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62f4edd15665c33a0800000000000000
+      internalID: -6684372754631864538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_8
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 81
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a660ce8c219faf30800000000000000
+      internalID: 4589046165873387177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_9
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 81
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aadaa63d6598d9720800000000000000
+      internalID: 2854588744829939114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_10
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 81
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f654f686afa144f0800000000000000
+      internalID: -846202125205350665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_11
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 81
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f0cafc7c95a65b60800000000000000
+      internalID: 7734551501585694968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_12
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 65
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d187f9b8c1491f8d0800000000000000
+      internalID: -2814305441807370211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_13
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 65
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77cc06194da3adc00800000000000000
+      internalID: 926117358024576119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_14
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 65
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 956e8ae6e63bcf8d0800000000000000
+      internalID: -2811174780501694887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_15
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 65
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 243210e9b951522b0800000000000000
+      internalID: -5610054002705095870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_16
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 65
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69baa4912ca0252e0800000000000000
+      internalID: -2138635044283307114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_17
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 65
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bc687a0cff127270800000000000000
+      internalID: 8246689035036683441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_18
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 49
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e95e04b53e49c0fc0800000000000000
+      internalID: -3527280703928474210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_19
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 49
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c55fc43ae61550630800000000000000
+      internalID: 3892606988559643996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_20
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 49
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c246c24005350c820800000000000000
+      internalID: 2936438560178070572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_21
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 49
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1d45bbf8e7b40a00800000000000000
+      internalID: 721904051569380638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_22
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 49
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aee6ba4178347bba0800000000000000
+      internalID: -6073311325039399190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_23
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 49
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 710e0fcaf5313c14ea1d64389edccc10
+      internalID: 124638635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_28
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 34
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8150e7cd0691c6d4a9d0f9c841caae35
+      internalID: 473133166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_29
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 33
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 955eae75ad0cb504cbe39eaa17fe5cd5
+      internalID: -1116846766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_30
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 34
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7232adeae84961e4ba609f4aa772297c
+      internalID: 1015942376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_31
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 33
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec249e6e21d95e543a3ad5108e8faca9
+      internalID: -1379111133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_32
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 10
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff5d0dcee59d00a4583bb977c3301a5a
+      internalID: 1350837728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_34
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 10
+        width: 19
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23cc3782d7302a7408f4c26a0f1776af
+      internalID: -1901454209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_36
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 10
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99b082cd8b23ba142b0e5a9ced34476c
+      internalID: 1571205553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Recoloured Icons_37
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 10
+        width: 19
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e8b3561bf6589b4a8cd849ba916e318
+      internalID: -1504273265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: e516b7e3ab065bd4a9556d78c978a735
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Recoloured Icons_0: 5328432225521658497
+      Recoloured Icons_1: -7675789433035838597
+      Recoloured Icons_10: -846202125205350665
+      Recoloured Icons_11: 7734551501585694968
+      Recoloured Icons_12: -2814305441807370211
+      Recoloured Icons_13: 926117358024576119
+      Recoloured Icons_14: -2811174780501694887
+      Recoloured Icons_15: -5610054002705095870
+      Recoloured Icons_16: -2138635044283307114
+      Recoloured Icons_17: 8246689035036683441
+      Recoloured Icons_18: -3527280703928474210
+      Recoloured Icons_19: 3892606988559643996
+      Recoloured Icons_2: -3016519644561610336
+      Recoloured Icons_20: 2936438560178070572
+      Recoloured Icons_21: 721904051569380638
+      Recoloured Icons_22: -6073311325039399190
+      Recoloured Icons_23: 124638635
+      Recoloured Icons_24: -597654715
+      Recoloured Icons_25: -851977378
+      Recoloured Icons_26: -2070172369
+      Recoloured Icons_27: 804329446
+      Recoloured Icons_28: 473133166
+      Recoloured Icons_29: -1116846766
+      Recoloured Icons_3: 4112108078046038464
+      Recoloured Icons_30: 1015942376
+      Recoloured Icons_31: -1379111133
+      Recoloured Icons_32: 1350837728
+      Recoloured Icons_33: -992206180
+      Recoloured Icons_34: -1901454209
+      Recoloured Icons_35: 1784635305
+      Recoloured Icons_36: 1571205553
+      Recoloured Icons_37: -1504273265
+      Recoloured Icons_4: 7220304875675102650
+      Recoloured Icons_5: -1933722611016065790
+      Recoloured Icons_6: 315541821184374338
+      Recoloured Icons_7: -6684372754631864538
+      Recoloured Icons_8: 4589046165873387177
+      Recoloured Icons_9: 2854588744829939114
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

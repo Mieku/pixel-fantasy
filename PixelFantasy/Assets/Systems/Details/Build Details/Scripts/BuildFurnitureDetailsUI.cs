@@ -13,12 +13,9 @@ namespace Systems.Details.Build_Details.Scripts
 {
     public class BuildFurnitureDetailsUI : MonoBehaviour
     {
-        [SerializeField] private FurnitureCategoryBtn _furnitureCategoryBtn;
-        
+        [SerializeField] private GameObject _optionsSeperator;
         [SerializeField] private PanelLayoutRebuilder _layoutRebuilder;
-        [SerializeField] private GameObject _panelHandle;
         [SerializeField] private GameObject _currentSelectionHandle;
-        [SerializeField] private TextMeshProUGUI _panelTitle;
         [SerializeField] private TextMeshProUGUI _itemTitle;
         [SerializeField] private TextMeshProUGUI _itemDescription;
         [SerializeField] private Image _itemImage;
@@ -51,12 +48,11 @@ namespace Systems.Details.Build_Details.Scripts
         private FurnitureSettings _selectedFurniture;
         private DyeData _selectedDye;
          
-        public void Show(string header, List<FurnitureSettings> options)
+        public void Show(List<FurnitureSettings> options)
         {
-            _panelHandle.SetActive(true);
-            _panelTitle.text = header;
+            gameObject.SetActive(true);
             _currentSelectionHandle.SetActive(false);
-            _furnitureCategoryBtn.HighlightSelectedButton(true);
+            _optionsSeperator.SetActive(false);
 
             _selectedFurniture = null;
             
@@ -101,6 +97,7 @@ namespace Systems.Details.Build_Details.Scripts
 
         private void ShowOptionSelection(FurnitureSettings furnitureSettings)
         {
+            _optionsSeperator.SetActive(true);
             _currentSelectionHandle.SetActive(true);
             _itemDescription.text = furnitureSettings.description;
 
@@ -308,9 +305,8 @@ namespace Systems.Details.Build_Details.Scripts
         
         public void Hide()
         {
-            _panelHandle.SetActive(false);
+            gameObject.SetActive(false);
             ClearOptions();
-            _furnitureCategoryBtn.HighlightSelectedButton(false);
         }
         
         private void RefreshLayout()

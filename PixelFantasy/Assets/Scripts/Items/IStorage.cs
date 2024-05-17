@@ -29,6 +29,8 @@ namespace Items
         public ItemData GetItemDataOfType(ItemSettings itemSettings);
         public int AmountCanBeDeposited(ItemSettings itemSettings);
         public int AmountCanBeWithdrawn(ItemSettings itemSettings);
+        public int MaxCapacity { get; }
+        public int TotalAmountStored { get; }
 
         public List<ToolData> GetAllToolItems(bool includeIncoming = false); // Old, get rid of this
     }

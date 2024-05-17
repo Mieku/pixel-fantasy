@@ -1,20 +1,14 @@
-using System;
 using System.Collections.Generic;
-using Buildings;
 using Characters;
-using Controllers;
 using Data.Item;
 using Data.Structure;
 using Data.Zones;
 using Interfaces;
-using Items;
-using ScriptableObjects;
 using Systems.Details.Build_Details.Scripts;
-using Systems.Details.Building_Details.Scripts;
+using Systems.Details.Controls_Details.Scripts;
 using Systems.Details.Generic_Details.Scripts;
 using Systems.Details.Kinling_Details;
 using Systems.Notifications.Scripts;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -22,18 +16,15 @@ namespace HUD
 {
     public class SelectedItemInfoPanel : MonoBehaviour
     {
+        [Header("Controls")] 
+        [SerializeField] private ControlsDetails _controlsDetails;
+        
         [Header("Generic Details")] 
         [SerializeField] private ZoneDetails _zoneDetails;
         [SerializeField] private GenericDetails _genericDetails;
-        //[SerializeField] private GenericDetailsUI _genericDetails;
 
         [Header("Kinling Details")] 
         [SerializeField] private KinlingDetails _kinlingDetails;
-
-        [FormerlySerializedAs("_buildDetails")]
-        [Header("Build Details")] 
-        [SerializeField] private BuildFurnitureDetailsUI _buildFurnitureDetails;
-        [SerializeField] private BuildStructureDetailsUI _buildStructureDetails;
         
         [Header("Notification Log")]
         [SerializeField] private NotificationLogger _notificationLogger;
@@ -41,6 +32,9 @@ namespace HUD
         private void Start()
         {
             HideAllDetails();
+            _notificationLogger.Hide();
+            
+            _controlsDetails.Show();
         }
 
         public void ShowUnitDetails(Kinling kinling)
@@ -56,10 +50,10 @@ namespace HUD
             _genericDetails.Hide();
             _zoneDetails.Hide();
             _kinlingDetails.Hide();
-            _buildFurnitureDetails.Hide();
-            _buildStructureDetails.Hide();
+            _notificationLogger.Hide();
+            _controlsDetails.Hide();
             
-            _notificationLogger.Show();
+            //_notificationLogger.Show();
         }
 
         public void ShowItemDetails(IClickableObject clickableObject)
@@ -77,29 +71,14 @@ namespace HUD
             
             _zoneDetails.Show(zoneData);
         }
-
-        public void ShowBuildFurnitureDetails(string header, List<FurnitureSettings> options )
-        {
-            HideAllDetails();
-            _notificationLogger.Hide();
-            
-            _buildFurnitureDetails.Show(header, options);
-        }
-
-        public void ShowBuildStructureDetails()
-        {
-            HideAllDetails();
-            _notificationLogger.Hide();
-            
-            _buildStructureDetails.Show();
-        }
         
         public void ShowBuildStructureDetails(WallSettings wallSettings)
         {
             HideAllDetails();
             _notificationLogger.Hide();
-            
-            _buildStructureDetails.ShowForSpecificBuild(wallSettings);
+
+            _controlsDetails.Show();
+            _controlsDetails.OpenBuildStructure(wallSettings);
         }
         
         public void ShowBuildStructureDetails(DoorSettings doorSettings)
@@ -107,7 +86,8 @@ namespace HUD
             HideAllDetails();
             _notificationLogger.Hide();
             
-            _buildStructureDetails.ShowForSpecificBuild(doorSettings);
+            _controlsDetails.Show();
+            _controlsDetails.OpenBuildStructure(doorSettings);
         }
         
         public void ShowBuildStructureDetails(FloorSettings floorSettings)
@@ -115,7 +95,13 @@ namespace HUD
             HideAllDetails();
             _notificationLogger.Hide();
             
-            _buildStructureDetails.ShowForSpecificBuild(floorSettings);
+            _controlsDetails.Show();
+            _controlsDetails.OpenBuildStructure(floorSettings);
+        }
+
+        public void ShowControlsDetails()
+        {
+            _controlsDetails.Show();
         }
     }
 }

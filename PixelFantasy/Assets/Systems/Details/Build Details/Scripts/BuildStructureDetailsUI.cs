@@ -20,8 +20,7 @@ namespace Systems.Details.Build_Details.Scripts
             None,
             Wall,
             Door,
-            Floor,
-            Paint
+            Floor
         }
         
         public DataLibrary DataLibrary;
@@ -29,20 +28,12 @@ namespace Systems.Details.Build_Details.Scripts
         [DataObjectDropdown("DataLibrary")] [SerializeField] private List<WallSettings> _wallOptions;
         [DataObjectDropdown("DataLibrary")] [SerializeField] private List<DoorSettings> _doorOptions;
         [DataObjectDropdown("DataLibrary")] [SerializeField] private List<FloorSettings> _floorOptions;
-
-        [SerializeField] private StructureCategoryBtn _structureCategoryBtn;
+        
         [SerializeField] private WallBuilder _wallBuilder;
         [SerializeField] private FloorBuilder _floorBuilder;
         
         [SerializeField] private PanelLayoutRebuilder _layoutRebuilder;
-        [SerializeField] private GameObject _panelHandle;
-        [SerializeField] private TextMeshProUGUI _panelTitle;
         [SerializeField] private SelectionStructureDetails _currentSelection;
-        [SerializeField] private GameObject _wallBtnHighlight;
-        [SerializeField] private GameObject _doorBtnHighlight;
-        [SerializeField] private GameObject _floorBtnHighlight;
-        [SerializeField] private GameObject _paintBtnHighlight;
-        
         [SerializeField] private GameObject _optionGroupSeperator;
         
         [SerializeField] private GameObject _colourOptionGroup;
@@ -69,8 +60,7 @@ namespace Systems.Details.Build_Details.Scripts
 
         public void Show()
         {
-            _panelHandle.SetActive(true);
-            _structureCategoryBtn.HighlightBtn(true);
+            gameObject.SetActive(true);
             HideCurrentSelection();
             RefreshLayout();
         }
@@ -99,103 +89,28 @@ namespace Systems.Details.Build_Details.Scripts
         public void Hide()
         {
             _wallBuilder.CancelWallBuild();
-            _panelHandle.SetActive(false);
-            _structureCategoryBtn.HighlightBtn(false);
+            gameObject.SetActive(false);
             HideCurrentSelection();
         }
 
         #region Button Controls
 
-        public void OnWallHighlightStart()
-        {
-            _wallBtnHighlight.SetActive(true);
-        }
-        
-        public void OnWallHighlightEnd()
-        {
-            if (_state != EDetailsState.Wall)
-            {
-                _wallBtnHighlight.SetActive(false);
-            }
-        }
-        
         public void OnWallPressed()
         {
-            _doorBtnHighlight.SetActive(false);
-            _floorBtnHighlight.SetActive(false);
-            _paintBtnHighlight.SetActive(false);
-            
-            _wallBtnHighlight.SetActive(true);
+            Show();
             ShowCurrentSelection(EDetailsState.Wall);
-        }
-        
-        public void OnDoorHighlightStart()
-        {
-            _doorBtnHighlight.SetActive(true);
-        }
-        
-        public void OnDoorHighlightEnd()
-        {
-            if (_state != EDetailsState.Door)
-            {
-                _doorBtnHighlight.SetActive(false);
-            }
         }
         
         public void OnDoorPressed()
         {
-            _wallBtnHighlight.SetActive(false);
-            _floorBtnHighlight.SetActive(false);
-            _paintBtnHighlight.SetActive(false);
-            
-            _doorBtnHighlight.SetActive(true);
+            Show();
             ShowCurrentSelection(EDetailsState.Door);
-        }
-        
-        public void OnFloorHighlightStart()
-        {
-            _floorBtnHighlight.SetActive(true);
-        }
-        
-        public void OnFloorHighlightEnd()
-        {
-            if (_state != EDetailsState.Floor)
-            {
-                _floorBtnHighlight.SetActive(false);
-            }
         }
         
         public void OnFloorPressed()
         {
-            _wallBtnHighlight.SetActive(false);
-            _doorBtnHighlight.SetActive(false);
-            _paintBtnHighlight.SetActive(false);
-            
-            _floorBtnHighlight.SetActive(true);
+            Show();
             ShowCurrentSelection(EDetailsState.Floor);
-        }
-        
-        public void OnPaintHighlightStart()
-        {
-            _paintBtnHighlight.SetActive(true);
-        }
-        
-        public void OnPaintHighlightEnd()
-        {
-            if (_state != EDetailsState.Paint)
-            {
-                _paintBtnHighlight.SetActive(false);
-            }
-        }
-        
-        public void OnPaintPressed()
-        {
-            _wallBtnHighlight.SetActive(false);
-            _doorBtnHighlight.SetActive(false);
-            _floorBtnHighlight.SetActive(false);
-            
-            _paintBtnHighlight.SetActive(true);
-            ShowCurrentSelection(EDetailsState.Paint);
         }
 
         #endregion
@@ -243,12 +158,6 @@ namespace Systems.Details.Build_Details.Scripts
                     _optionGroupSeperator.SetActive(true);
                     _styleOptionGroup.SetActive(true);
                     ShowFloorMaterialOptions(FloorMaterialSelected);
-                    break;
-                case EDetailsState.Paint:
-                    _colourOptionGroup.SetActive(true);
-                    _optionGroupSeperator.SetActive(true);
-                    _styleOptionGroup.SetActive(false);
-                    ShowColourOptions("Paint", PaintColourSelected);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -300,11 +209,6 @@ namespace Systems.Details.Build_Details.Scripts
         }
         
         private void DoorColourSelected(DyeData colour)
-        {
-            
-        }
-        
-        private void PaintColourSelected(DyeData colour)
         {
             
         }

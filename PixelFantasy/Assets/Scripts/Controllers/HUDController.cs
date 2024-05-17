@@ -58,21 +58,7 @@ namespace Controllers
             
             _selectedItemInfoPanel.ShowZoneDetails(zoneData);
         }
-
-        public void ShowBuildFurnitureDetails(string header, List<FurnitureSettings> options )
-        {
-            HideDetails();
-            
-            _selectedItemInfoPanel.ShowBuildFurnitureDetails(header, options);
-        }
-
-        public void ShowBuildStructureDetails()
-        {
-            HideDetails();
-            
-            _selectedItemInfoPanel.ShowBuildStructureDetails();
-        }
-
+        
         public void ShowBuildStructureDetails(DoorSettings doorSettings)
         {
             HideDetails();
@@ -99,6 +85,7 @@ namespace Controllers
             if (_selectedItemInfoPanel != null)
             {
                 _selectedItemInfoPanel.HideAllDetails();
+                _selectedItemInfoPanel.ShowControlsDetails();
             }
         }
 

@@ -18,6 +18,7 @@ namespace Systems.Details.Generic_Details.Scripts
         [SerializeField] private GameObject _allowToggleAllHandle;
         [SerializeField] private GameObject _allowToggleSomeHandle;
 
+        [SerializeField] private GameObject _expandArea;
         [SerializeField] private Transform _categoryContentParent;
         [SerializeField] private StorageEntryDisplay _entryDisplayPrefab;
 
@@ -68,7 +69,7 @@ namespace Systems.Details.Generic_Details.Scripts
             _isExpanded = true;
             _collapseIcon.sprite = _expandedSprite;
             
-            _categoryContentParent.gameObject.SetActive(true);
+            _expandArea.SetActive(true);
             
             _refreshLayoutCallback.Invoke();
         }
@@ -78,7 +79,7 @@ namespace Systems.Details.Generic_Details.Scripts
             _isExpanded = false;
             _collapseIcon.sprite = _collapsedSprite;
             
-            _categoryContentParent.gameObject.SetActive(false);
+            _expandArea.SetActive(false);
             
             _refreshLayoutCallback.Invoke();
         }

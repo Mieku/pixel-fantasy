@@ -30,6 +30,10 @@ namespace Systems.Details.Generic_Details.Scripts
         [BoxGroup("Search"), SerializeField] private StorageSearchCategory _searchCategory;
         
         [BoxGroup("Category"), SerializeField] private StorageCategoryDisplay _categoryDisplayPrefab;
+        [BoxGroup("Category"), SerializeField] private Transform _categoryParent;
+
+        [BoxGroup("Capacity"), SerializeField] private Image _capacityFill;
+        [BoxGroup("Capacity"), SerializeField] private TextMeshProUGUI _capacityDetails;
         
         private IStorage _storage;
         private StorageConfigs _settings => _storage.StorageConfigs;
@@ -75,6 +79,7 @@ namespace Systems.Details.Generic_Details.Scripts
             RefreshQualityDisplay();
             RefreshPriorityDisplay();
             SpawnDisplayStorageOptions();
+            RefreshCapacityDisplay();
         }
 
         #region Controls
@@ -180,7 +185,7 @@ namespace Systems.Details.Generic_Details.Scripts
             {
                 if (optionKVP.Value.Count > 0)
                 {
-                    StorageCategoryDisplay catDisplay = Instantiate(_categoryDisplayPrefab, transform);
+                    StorageCategoryDisplay catDisplay = Instantiate(_categoryDisplayPrefab, _categoryParent);
                     int siblingIndex = _categoryDisplayPrefab.transform.GetSiblingIndex();
                     catDisplay.transform.SetSiblingIndex(siblingIndex);
                     catDisplay.gameObject.SetActive(true);
@@ -199,6 +204,16 @@ namespace Systems.Details.Generic_Details.Scripts
                 category.RefreshEntryDisplays();
                 category.RefreshAllowedToggle();
             }
+        }
+
+        private void RefreshCapacityDisplay()
+        {
+            int maxCapacity = _storage.MaxCapacity;
+            int totalStored = _storage.TotalAmountStored;
+            float percentFull = (float)totalStored / maxCapacity;
+
+            _capacityFill.fillAmount = percentFull;
+            _capacityDetails.text = $"{totalStored} / {maxCapacity}";
         }
 
         public void OnCopyConfigsPressed()
