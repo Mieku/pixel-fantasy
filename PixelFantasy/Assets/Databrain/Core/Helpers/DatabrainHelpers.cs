@@ -21,7 +21,8 @@ namespace Databrain.Helpers
 	{
 #if UNITY_EDITOR
 		public static Color colorNormal = new Color(113f / 255f, 230f / 255f, 255f / 255f);
-		public static Color colorRuntime = new Color(255f / 255f, 160f / 255f, 110f / 255f);
+		public static Color colorRuntime = new Color(42f / 255f, 137f / 255f, 223f / 255f);
+		public static Color colorError = new Color(209f / 255f, 89f / 255f, 89f / 255f);
 		public static Color colorRed = new Color(175f / 255f, 50f / 255f, 50f / 255f);
 		public static Color colorDarkGrey = new Color(50f / 255f, 50f / 255f, 50f / 255f);
 		public static Color colorLightGrey = new Color(80f / 255f, 80f / 255f, 80f / 255f);
@@ -359,12 +360,24 @@ namespace Databrain.Helpers
 
 		public static void SetScriptingDefineSymbols(string[] _symbols)
         {
-            string definesString = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
-            List<string> allDefines = definesString.Split(';').ToList();
+            #if UNITY_6000_0_OR_NEWER
+            string definesString = PlayerSettings.GetScriptingDefineSymbols(UnityEditor.Build.NamedBuildTarget.FromBuildTargetGroup(EditorUserBuildSettings.selectedBuildTargetGroup));
+			
+			 List<string> allDefines = definesString.Split(';').ToList();
             allDefines.AddRange(_symbols.Except(allDefines));
-            PlayerSettings.SetScriptingDefineSymbolsForGroup(
+
+			PlayerSettings.SetScriptingDefineSymbols(UnityEditor.Build.NamedBuildTarget.FromBuildTargetGroup(EditorUserBuildSettings.selectedBuildTargetGroup),  definesString);
+
+            #else
+            string definesString = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
+            
+			List<string> allDefines = definesString.Split(';').ToList();
+            allDefines.AddRange(_symbols.Except(allDefines));
+			
+			PlayerSettings.SetScriptingDefineSymbolsForGroup(
                 EditorUserBuildSettings.selectedBuildTargetGroup,
                 string.Join(";", allDefines.ToArray()));
+            #endif
         }
 
 

@@ -23,7 +23,6 @@ using Databrain.Helpers;
 using Databrain.UI.Elements;
 using Databrain.UI;
 using Databrain.Modules.SaveLoad;
-using Databrain.Blackboard;
 
 namespace Databrain
 {
@@ -943,6 +942,7 @@ namespace Databrain
 			logoIconVE = root.Q<VisualElement>("logoIcon");
             splitView1 = root.Q<SplitView>("splitview1");
             splitView2 = root.Q<SplitView>("splitview2");
+			
 
 			titleLabel.text = container.name;
 
@@ -1769,13 +1769,13 @@ namespace Databrain
             _root.Add(runtimeOverlayBlock);
 
 
-			DatabrainHelpers.SetBorder(_root, 4, new Color(209f/255f, 89f/255f, 89f/255f, 255f/255f));
+			DatabrainHelpers.SetBorder(_root, 4,DatabrainHelpers.colorRuntime);
 
             var _cover = new VisualElement();
 			_cover.style.flexDirection = FlexDirection.Row;
 			_cover.name = "cover";
 			_cover.style.height = 50;
-			_cover.style.backgroundColor = new Color(209f / 255f, 89f / 255f, 89f / 255f, 255f / 255f);
+			_cover.style.backgroundColor = DatabrainHelpers.colorRuntime;
 
             var _a = new StyleEnum<Align>();
 			_a.value = Align.Center;
@@ -3347,8 +3347,8 @@ namespace Databrain
 			{
 				inspectorIMGUI = new IMGUIContainer(() =>
 				{
-
-					DrawDefaultInspectorWithoutScriptField(editor);
+					DrawDefaultInspectorUIElements.DrawIMGUIInspectorWithoutScriptField(editor, this);
+					// DrawDefaultInspectorWithoutScriptField(editor);
 
 				});
 			}
@@ -3359,8 +3359,8 @@ namespace Databrain
 
 				inspectorIMGUI = new IMGUIContainer(() =>
 				{
-
-					DrawDefaultInspectorWithOdin(odinEditor);
+					DrawDefaultInspectorUIElements.DrawInspectorWithOdin(odinEditor, this);
+					// DrawDefaultInspectorWithOdin(odinEditor);
 
 				});
 				#else
@@ -3381,10 +3381,10 @@ namespace Databrain
 
             }
 
-            var _uiBaseDataInspector = DrawDefaultBaseInspectorUIElements(editor);
+            var _uiGeneralFoldoutInspector = DrawGeneralDataObjectFoldoutInspector(editor);
            
 
-            dataInspectorBaseVE.Add(_uiBaseDataInspector);
+            dataInspectorBaseVE.Add(_uiGeneralFoldoutInspector);
 
 			//IMGUIContainer runtimeInspectorIMGUI = null;
 
@@ -3696,99 +3696,100 @@ namespace Databrain
 		// }
 		#endregion
 
-#if ODIN_INSPECTOR || ODIN_INSPECTOR_3 || ODIN_INSPECTOR_3_1
-		void DrawDefaultInspectorWithOdin(Sirenix.OdinInspector.Editor.OdinEditor _odinEditor)
-		{
-			if (_odinEditor == null)
-				return;
-			if (_odinEditor.serializedObject == null)
-				return;
+// #if ODIN_INSPECTOR || ODIN_INSPECTOR_3 || ODIN_INSPECTOR_3_1
+// 		void DrawDefaultInspectorWithOdin(Sirenix.OdinInspector.Editor.OdinEditor _odinEditor)
+// 		{
+// 			if (_odinEditor == null)
+// 				return;
+// 			if (_odinEditor.serializedObject == null)
+// 				return;
 			
-			try
-			{
-				EditorGUI.BeginChangeCheck();
-				_odinEditor.serializedObject.Update();
+// 			try
+// 			{
+// 				EditorGUI.BeginChangeCheck();
+// 				_odinEditor.serializedObject.Update();
 
-				_odinEditor.DrawDefaultInspector();
+// 				_odinEditor.DrawDefaultInspector();
 
-				_odinEditor.serializedObject.ApplyModifiedProperties();
+// 				_odinEditor.serializedObject.ApplyModifiedProperties();
 
-				if (EditorGUI.EndChangeCheck())
-				{
-					UpdateData();
-				}
-			}
-			catch{}
-		}
-#endif
+// 				if (EditorGUI.EndChangeCheck())
+// 				{
+// 					UpdateData();
+// 				}
+// 			}
+// 			catch{}
+// 		}
+// #endif
 		
-		void DrawDefaultInspectorWithoutScriptField (Editor inspector)
-		{
+		// void DrawDefaultInspectorWithoutScriptField (Editor inspector)
+		// {
 			
-			if (inspector == null)
-				return;
-			if (inspector.serializedObject == null)
-				return;
+		// 	if (inspector == null)
+		// 		return;
+		// 	if (inspector.serializedObject == null)
+		// 		return;
 
-			EditorGUI.BeginChangeCheck();
+		// 	EditorGUI.BeginChangeCheck();
 
-			inspector.serializedObject.Update();
-
-
-			SerializedProperty iterator = inspector.serializedObject.GetIterator();
-
-			iterator.NextVisible(true);
-
-			Type t = iterator.serializedObject.targetObject.GetType();
+		// 	inspector.serializedObject.Update();
 
 
-			while (iterator.NextVisible(false))
-			{
-				if (iterator.propertyPath != "guid" &&
-                    iterator.propertyPath != "initialGuid" &&
-					iterator.propertyPath != "runtimeIndexID" &&
-                    iterator.propertyPath != "icon" &&
-					iterator.propertyPath != "color" &&
-					iterator.propertyPath != "title" &&
-					iterator.propertyPath != "description" &&
-					iterator.propertyPath != "skipRuntimeSerialization")
-				{
+		// 	SerializedProperty iterator = inspector.serializedObject.GetIterator();
 
-					/////// CUSTOM ATTRIBUTES		
-					FieldInfo f = null;
-					Attribute _hideAttribute = null;
+		// 	iterator.NextVisible(true);
+
+		// 	Type t = iterator.serializedObject.targetObject.GetType();
+
+
+		// 	while (iterator.NextVisible(false))
+		// 	{
+		// 		if (iterator.propertyPath != "guid" &&
+        //             iterator.propertyPath != "initialGuid" &&
+		// 			iterator.propertyPath != "runtimeIndexID" &&
+        //             iterator.propertyPath != "icon" &&
+		// 			iterator.propertyPath != "color" &&
+		// 			iterator.propertyPath != "title" &&
+		// 			iterator.propertyPath != "description" &&
+		// 			iterator.propertyPath != "skipRuntimeSerialization" &&
+		// 			iterator.propertyPath != "boxFoldout")
+		// 		{
+
+		// 			/////// CUSTOM ATTRIBUTES		
+		// 			FieldInfo f = null;
+		// 			Attribute _hideAttribute = null;
                  
-                    f = t.GetField(iterator.propertyPath);
-					if (f != null)
-					{		
-						_hideAttribute = f.GetCustomAttribute(typeof(HideAttribute), true);				
-					}
-					//////////////////////////////////////
+        //             f = t.GetField(iterator.propertyPath);
+		// 			if (f != null)
+		// 			{		
+		// 				_hideAttribute = f.GetCustomAttribute(typeof(HideAttribute), true);				
+		// 			}
+		// 			//////////////////////////////////////
 
 
-					if (selectedDataType != null)
-					{
-						var _hideFieldsAttribute = selectedDataType.GetCustomAttribute(typeof(DataObjectHideAllFieldsAttribute)) as DataObjectHideAllFieldsAttribute;
+		// 			if (selectedDataType != null)
+		// 			{
+		// 				var _hideFieldsAttribute = selectedDataType.GetCustomAttribute(typeof(DataObjectHideAllFieldsAttribute)) as DataObjectHideAllFieldsAttribute;
                         
 
-                        if (_hideFieldsAttribute == null)
-						{
-							if (_hideAttribute == null)
-							{
-								EditorGUILayout.PropertyField(iterator, true);
-							}	
-						}
-					}
-				}
-			}
+        //                 if (_hideFieldsAttribute == null)
+		// 				{
+		// 					if (_hideAttribute == null)
+		// 					{
+		// 						EditorGUILayout.PropertyField(iterator, true);
+		// 					}	
+		// 				}
+		// 			}
+		// 		}
+		// 	}
 
-			inspector.serializedObject.ApplyModifiedProperties();
+		// 	inspector.serializedObject.ApplyModifiedProperties();
 
-			if (EditorGUI.EndChangeCheck())
-			{
-				UpdateData();
-			}
-		}
+		// 	if (EditorGUI.EndChangeCheck())
+		// 	{
+		// 		UpdateData();
+		// 	}
+		// }
 
 
 
@@ -3865,7 +3866,7 @@ namespace Databrain
         }
 
 
-        VisualElement DrawDefaultBaseInspectorUIElements(Editor inspector)
+        VisualElement DrawGeneralDataObjectFoldoutInspector(Editor inspector)
 		{
 			if (selectedObjectIndex >= container.data.ObjectList[selectedTypeIndex].dataObjects.Count)
 				return null;

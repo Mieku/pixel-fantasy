@@ -16,6 +16,11 @@ namespace Databrain.Attributes
 		public bool includeSubtypes;
 		public string tooltip;
 
+		/// <summary>
+		/// Set a custom height for the dropdown data view inspector
+		/// </summary>
+		public int customHeight = -1;
+
 		public Type sceneComponentType;
 
 		public DataObjectDropdownAttribute(){}
@@ -28,11 +33,12 @@ namespace Databrain.Attributes
 			this.sceneComponentType = sceneComponentType;
 		}
 
-		public DataObjectDropdownAttribute(string dataLibraryFieldName, bool includeSubtypes = false, string tooltip = "")
+		public DataObjectDropdownAttribute(string dataLibraryFieldName, bool includeSubtypes = false, string tooltip = "", int customHeight = -1)
 		{
             this.dataLibraryFieldName = dataLibraryFieldName;
 			this.includeSubtypes = includeSubtypes;
 			this.tooltip = tooltip;
+			this.customHeight = customHeight;
 		}
     }
 }

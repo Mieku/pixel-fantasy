@@ -22,7 +22,7 @@ namespace Databrain
 {
 	public class DataObject : DataObjectBase
 	{
-		
+
 		[CopyGuid]
 		[OdinHide]
 		public string guid;

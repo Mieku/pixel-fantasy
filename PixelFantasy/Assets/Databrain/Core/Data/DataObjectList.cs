@@ -788,6 +788,8 @@ namespace Databrain.Data
 
 			foreach (var _key in runtimeDictionary.Keys)
 			{
+				List<string> _cleanupKeys = new List<string>();
+				
 				if (_includeSubTypes)
 				{
 					if (_key!= null)
@@ -820,7 +822,8 @@ namespace Databrain.Data
 								if (runtimeDictionary[_key][_guid] == null)
 								{
 									// Cleanup object list
-									runtimeDictionary[_key].Remove(_guid);
+									// runtimeDictionary[_key].Remove(_guid);
+									_cleanupKeys.Add(_guid);
 									continue;
 								}
 
@@ -837,7 +840,8 @@ namespace Databrain.Data
 						if (runtimeDictionary[_key][_guid] == null)
 						{
 							// Cleanup object list
-							runtimeDictionary[_key].Remove(_guid);
+							// runtimeDictionary[_key].Remove(_guid);
+							_cleanupKeys.Add(_guid);
 							continue;
 						}
 
@@ -847,6 +851,11 @@ namespace Databrain.Data
 						}
 					}
                 }
+
+				for (int c = 0; c < _cleanupKeys.Count; c ++)
+				{
+					runtimeDictionary[_key].Remove(_cleanupKeys[c]);
+				}
 			}
 
 

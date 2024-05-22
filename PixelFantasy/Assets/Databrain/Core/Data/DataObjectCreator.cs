@@ -15,6 +15,7 @@ using Databrain.Data;
 using Databrain.Attributes;
 using Databrain.Helpers;
 using System.Linq;
+using Datatrain.Attributes;
 
 namespace Databrain
 {
@@ -51,6 +52,34 @@ namespace Databrain
 			}
 
             AssetDatabase.AddObjectToAsset(_dbObject, _dataLibrary);
+
+
+			var _tagAttribute = _type.GetCustomAttribute(typeof(DataObjectDefaultTagAttribute)) as DataObjectDefaultTagAttribute;
+			if (_tagAttribute != null && _dataLibrary != null)
+			{
+				var validTagsFromLibrary = _dataLibrary.tags;
+
+				foreach (var tag in _tagAttribute.defaultTags)
+				{
+					if (validTagsFromLibrary.Contains(tag))
+					{
+						(_dbObject as DataObject).tags.Add(tag);
+					}
+					else
+					{
+						var _result = EditorUtility.DisplayDialog("Tag not fdoun", "The tag \"" + tag + "\" was not found in the tag library. Do you want to add it?", "Yes", "No");
+						if (_result)
+						{
+							_dataLibrary.tags.Add(tag);
+							(_dbObject as DataObject).tags.Add(tag);
+							EditorWindow.GetWindow<DatabrainEditorWindow>().SetupForceRebuild(_dataLibrary, true);
+							EditorUtility.SetDirty(_dataLibrary);
+						}
+					}
+				}
+			}
+
+
 
 			EditorUtility.SetDirty(_dbObject);
 			//AssetDatabase.SaveAssets();

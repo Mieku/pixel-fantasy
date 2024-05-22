@@ -50,6 +50,9 @@ namespace Databrain.Attributes
 		{	
 			await Task.Delay(200);
 
+			if (property.serializedObject.FindProperty("relatedLibraryObject") == null)
+				return;
+
 			var _editorWindow = DatabrainHelpers.GetOpenEditor((property.serializedObject.FindProperty("relatedLibraryObject").objectReferenceValue as DataLibrary).GetInstanceID());
 			if (_editorWindow != null)
 			{

@@ -5,10 +5,9 @@
  *	
  */
 #if UNITY_EDITOR
-using Databrain.Blackboard;
 using Databrain.Helpers;
 using Databrain.UI;
-
+using Databrain.UI.Elements;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,11 +28,18 @@ namespace Databrain.Attributes
 		
 		private SerializedProperty container;
         private DataLibrary dataLibrary;
+        private DataObject runtimeDataObject;
 
 		private Color colorRed = new Color(240f / 255f, 110f / 255f, 110f / 255f, 255f / 255f);
 		private Color colorGreen = new Color(50f / 255f, 255f / 255f, 140f / 255f, 255f / 255f);
 
-		private VisualElement root;
+        private VisualElement root;
+        private FoldoutButtonElement dataFoldout;
+        private ToggleSwitchElement runtimeToggle;
+        private Button searchRuntimeObjectButton;
+		private VisualElement firstRow;
+        private VisualElement secondRow;
+        private VisualElement dataObjectInspector;
 		private VisualElement rootDropdown;
 		private VisualElement rootButtons;
 
@@ -59,6 +65,7 @@ namespace Databrain.Attributes
 			_iconElement.style.height = 14;
 			_iconElement.style.marginTop = 3;
 			_iconElement.style.backgroundImage = _icon;
+            _iconElement.style.unityBackgroundImageTintColor = Color.white;
 
 
 			DatabrainHelpers.SetMargin(_newButton, 0, 0, -3, -3);
@@ -84,18 +91,54 @@ namespace Databrain.Attributes
             //     return _labelNotSupported;
             // }
 
-
 			searchIcon = DatabrainHelpers.LoadIcon("search");
 			searchRuntimeIcon = DatabrainHelpers.LoadIcon("searchRuntime");
 			addIcon = DatabrainHelpers.LoadIcon("add");
 			quickAccessIcon = DatabrainHelpers.LoadIcon("eye");
+            
+
+            root = new VisualElement();
+            root.style.marginBottom = 1;
+            root.style.marginTop = 1;
+            DatabrainHelpers.SetBorder(root, 1, Color.black);
+
+			firstRow = new VisualElement();
+			firstRow.style.flexDirection = FlexDirection.Row;
+			firstRow.style.height = 23;               
+
+            secondRow = new VisualElement();
+            
+            secondRow.style.flexDirection = FlexDirection.Column;
+            secondRow.style.backgroundColor = DatabrainHelpers.colorLightGrey;
+            DatabrainHelpers.SetPadding(secondRow, 5, 5, 5, 5);
+            secondRow.style.display = DisplayStyle.None;
 
 
-			root = new VisualElement();
-			root.style.flexDirection = FlexDirection.Row;
-			root.style.height = 23;               
-            //DatabrainHelpers.SetPadding(root, 2, 2, 2, 2);
-            DatabrainHelpers.SetMargin(root, 0, 0, 1, 1);
+            runtimeToggle = new ToggleSwitchElement("Runtime", DatabrainHelpers.colorRuntime, (evt) => 
+            {
+                if (evt)
+                {
+                    dataObjectInspector.Add(DrawDataObjectInspector(property, true));
+                }
+                else
+                {
+                    dataObjectInspector.Add(DrawDataObjectInspector(property, false));
+                }
+            });
+            runtimeToggle.tooltip = "View runtime DataObject";
+
+            secondRow.Add(runtimeToggle);
+
+            
+            dataObjectInspector = new VisualElement();
+            dataObjectInspector.RegisterCallback<GeometryChangedEvent>((evt) => 
+            {
+                DataObjectInspectorHeightCheck(attribute);
+            });
+            dataObjectInspector.name = "DataObjectInspector";
+            dataObjectInspector.style.flexGrow = 1;
+            secondRow.Add(dataObjectInspector);
+
 
             rootDropdown = new VisualElement();
             rootDropdown.style.flexDirection = FlexDirection.Row;
@@ -104,14 +147,16 @@ namespace Databrain.Attributes
 			rootButtons.style.flexDirection = FlexDirection.Row;
             rootButtons.name = "rootButtons";
  
-            root.Add(rootDropdown);
-			root.Add(rootButtons);
-			
-			//root.schedule.Execute(() => Build(property)).Every(500); // poll 10 times a second
+            firstRow.Add(rootDropdown);
+			firstRow.Add(rootButtons);
 			
 
             Build(property);
             BuildButtons(property);
+
+
+            root.Add(firstRow);
+            root.Add(secondRow);
 
 			return root;
 		}
@@ -140,7 +185,7 @@ namespace Databrain.Attributes
 
         public void BuildDelayed(SerializedProperty property)
         {
-            root.schedule.Execute(() => { Build(property); }).ExecuteLater(10);
+            firstRow.schedule.Execute(() => { Build(property); }).ExecuteLater(10);
         }
 
 
@@ -154,7 +199,6 @@ namespace Databrain.Attributes
             rootDropdown.style.flexGrow = 1;
             rootDropdown.style.backgroundColor = DatabrainHelpers.colorLightGrey;
             rootDropdown.tooltip = _attribute == null ? "" : _attribute.tooltip;
-			DatabrainHelpers.SetBorder(rootDropdown, 1, Color.black);
 			
 
 			var _indicator = new VisualElement();
@@ -163,9 +207,34 @@ namespace Databrain.Attributes
             _indicator.style.flexShrink = 0;
 			DatabrainHelpers.SetMargin(_indicator, 0, 4, 0, 0);
 
-            rootDropdown.Add(_indicator);
 
-			// Debug.Log("Build: " + property.serializedObject.targetObject.GetInstanceID());
+            dataFoldout = new FoldoutButtonElement((value) => 
+            {
+                if (value)
+                {
+                    dataObjectInspector.Add(DrawDataObjectInspector(property, runtimeToggle.Value));
+                    UpdateRuntimeUIState(property);
+                }
+                
+                if (!runtimeToggle.Value)
+                {
+                    DatabrainHelpers.SetBorder(secondRow, 0);
+                }
+                else
+                {
+                    DatabrainHelpers.SetBorder(secondRow, 2, DatabrainHelpers.colorRuntime);
+                }
+
+                secondRow.style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
+            });
+
+            if (dataObjectInspector.resolvedStyle.height > 0)
+            {
+                dataFoldout.SetOpenWithoutCallback();
+            }
+            
+            rootDropdown.Add(_indicator);
+            rootDropdown.Add(dataFoldout);
 
 
 			var _fieldType = fieldInfo.FieldType;
@@ -188,10 +257,12 @@ namespace Databrain.Attributes
 				searchIcon = DatabrainHelpers.LoadIcon("search");
 			}
 
-            //Debug.Log(_attribute.dataLibraryFieldName);
             if (property == null)
-            return;
-            
+            {
+                dataFoldout.SetEnabled (false);
+                return;
+            }
+
 			// Find dataLibrary
             container = property.serializedObject.FindProperty(_dataLibraryName);
 
@@ -241,8 +312,10 @@ namespace Databrain.Attributes
             // Still couldn't find library
             if (dataLibrary == null)
             {
+                dataFoldout.SetEnabled (false);
+
                 var _label = new UnityEngine.UIElements.Label();
-                _label.text = property.displayName;
+                _label.text = property.displayName + "<color=#FFA000><size=10>    Please assign DataLibrary</size></color>";
                 _label.style.unityTextAlign = TextAnchor.MiddleLeft;
 
                 rootDropdown.Add(_label);
@@ -268,19 +341,27 @@ namespace Databrain.Attributes
 					{
 						property.objectReferenceValue = null;
 					}
+
+                    // If user has assigned a runtime data object to this data object we need to set it back to the initial data object
+                    // and assign the runtime data object to the runtime clone of the initial data object.
+                    if ((property.objectReferenceValue as DataObject).isRuntimeInstance)
+                    {
+                        var _runtimeDataObject = property.objectReferenceValue as DataObject;
+                        var _initDataObject = dataLibrary.GetInitialDataObjectByGuid((property.objectReferenceValue as DataObject).initialGuid); 
+                        _initDataObject.runtimeClone = _runtimeDataObject;
+                        property.objectReferenceValue = _initDataObject;
+                        // Show warning message to tell user not to assign a runtime data object directly.
+                        Debug.LogWarning("Databrain: You are assigning a runtime DataObject directly to a public initial DataObject reference. This is not recommended as you would loose the initial DataObject. Please assign the runtime DataObject to the runtimeClone variable of the initial DataObject instead. - " + property.displayName, property.objectReferenceValue);
+                    }
 				}
 
 				availableTypesList = dataLibrary.GetAllInitialDataObjectsByType(_fieldType, _attribute == null ? false : _attribute.includeSubtypes);
-
 
                 var _iconAdded = false;
 #if DATABRAIN_LOGIC
                 // filter by scene component types
                 if (_attribute != null &&_attribute.sceneComponentType != null )
                 {
-                    
-                    // var _ttList = availableTypesList.Where(x => x.CheckForType(_attribute.sceneComponentType)).ToList();
-                    // availableTypesList = _ttList;
 
 					var _iconT = new VisualElement();
 					_iconT.name = "Icon";
@@ -358,10 +439,12 @@ namespace Databrain.Attributes
 
 						if (selectedIndex == 0)
 						{
+                            dataFoldout.SetEnabled(false);
 							_indicator.style.backgroundColor = colorRed;                            
                         }
 						else
 						{
+                            dataFoldout.SetEnabled(true);
 							_indicator.style.backgroundColor = colorGreen;
 						}
 
@@ -386,11 +469,23 @@ namespace Databrain.Attributes
                                 selectedIndex = x; 
                                 if ((selectedIndex + 1) < tlist.Count)
                                 {
-                                    UpdateDelayed(root, tlist[selectedIndex + 1], _button, property);
+                                    UpdateDelayed(firstRow, tlist[selectedIndex + 1], _button, property);
                                 }
                                 else
                                 {
-                                    UpdateDelayed(root, tlist[selectedIndex], _button, property);
+                                    UpdateDelayed(firstRow, tlist[selectedIndex], _button, property);
+                                }
+
+                                if (selectedIndex == -1)
+                                {
+                                    dataFoldout.Value = false;
+                                    dataFoldout.SetEnabled(false);
+                                    dataObjectInspector.Clear();
+                                    runtimeToggle.SetEnabled(false);
+                                }
+                                else
+                                {
+                                    dataObjectInspector.Add(DrawDataObjectInspector(property, false));
                                 }
 
                             },  _attribute.includeSubtypes);
@@ -487,7 +582,6 @@ namespace Databrain.Attributes
 			
         }
 
-        //void UpdateDelayed(VisualElement _root, string _title, Button _button, SerializedProperty property)
         async void UpdateDelayed(VisualElement _root, string _title, Button _button, SerializedProperty property)
         {
             await Task.Delay(50);
@@ -501,15 +595,15 @@ namespace Databrain.Attributes
             // Reassign correct root elements
             // Need to do this because of a weird behaviour when displaying multiple 
             // property drawers.
-            root = _button.parent.parent;
+            firstRow = _button.parent.parent;
             rootDropdown = _button.parent;
 
             Build(property);
+            BuildButtons(property);
         }
 
         public void BuildButtons(SerializedProperty property)
 		{
-			//var rootButtons = new VisualElement();
 			rootButtons.Clear();
 			rootButtons.style.marginTop = 3;
 			rootButtons.style.height = 17;
@@ -541,33 +635,33 @@ namespace Databrain.Attributes
 				});
 
 
-
-				var _expInspector = SmallButton(quickAccessIcon);
-                _expInspector.RegisterCallback<ClickEvent>(click =>
-				{
-					DataObject _db = property.objectReferenceValue as DataObject;
+                var _showInitialInspector = SmallButton(quickAccessIcon);
+                _showInitialInspector.RegisterCallback<ClickEvent>(click =>
+                {
+                    DataObject _db = property.objectReferenceValue as DataObject;
 					if (_db != null)
 					{
 						var _popup = new ShowExposeToInspectorPopup(_db, property);
 						ShowExposeToInspectorPopup.ShowPanel(Event.current.mousePosition, _popup);
 					}
-				});
+                });
+
                 
                 if (_editor != null)
                 {
+                    // EXPOSE TO INSPECTOR IS DEPRECATED
                     var _hasExposeToInspector = PropertyUtility.HasExposeToInspector(_editor);
 					var _objs = _data.CollectObjects();
 					if (_objs != null)
 					{
                         _hasExposeToInspector = true;
 					}
-                    _expInspector.SetEnabled(_hasExposeToInspector);
-                    _expInspector.tooltip = _hasExposeToInspector ? "View data with the [ExposeToInspector] attribute" : "No fields with [ExposeToInspector] attribute assigned";
+                    // _expInspector.SetEnabled(_hasExposeToInspector);
+                    // _expInspector.tooltip = _hasExposeToInspector ? "View data with the [ExposeToInspector] attribute" : "No fields with [ExposeToInspector] attribute assigned";
 				}
 
                 var _searchButton = SmallButton(searchIcon);
 				_searchButton.tooltip = "Select object in Databrain editor";
-				//_searchButton.style.marginRight = -2;
 
 				_searchButton.RegisterCallback<ClickEvent>(click =>
 				{
@@ -598,54 +692,139 @@ namespace Databrain.Attributes
 				});
 
 
-				//rootButtons.Add(_unassignButton);
 				rootButtons.Add(_addButton);
-                rootButtons.Add(_expInspector);
+                rootButtons.Add(_showInitialInspector);
+              
                 rootButtons.Add(_searchButton);
 				
+                UpdateRuntimeUIState(property);
+				// if (_data != null)
+				// {
+				// 	if (Application.isPlaying) // && _data.runtimeClone != null)
+				// 	{
+                //         // Search runtime data object   
+                //         // var _dataObject = dataLibrary.GetInitialDataObjectByGuid(availableTypesList[selectedIndex - 1].guid); //, _fieldType);
+                //         runtimeDataObject = null;
+                //         Component _sceneComponent = property.serializedObject.targetObject as Component;
+                //         if (_sceneComponent != null)
+                //         {
+                //             runtimeDataObject = _data.GetRuntimeDataObject(_sceneComponent.gameObject);
+                //         }
+                //         if (runtimeDataObject == null)
+                //         {
+                //             // else use default runtime clone
+                //             if (_data.runtimeClone != null)
+                //             {
+                //                 runtimeDataObject = _data.runtimeClone;
+                //             }
+                //         }
 
-				if (_data != null)
-				{
-					if (Application.isPlaying && _data.runtimeClone != null)
-					{
-						var _searchRuntimeObject = SmallButton(searchRuntimeIcon);
-						_searchRuntimeObject.tooltip = "Select runtime object";
-						_searchRuntimeObject.RegisterCallback<ClickEvent>(click =>
-						{
-                            // var _dataObject = (container.objectReferenceValue as DataLibrary).GetInitialDataObjectByGuid(availableTypesList[selectedIndex - 1].guid); //, _fieldType);
-                            var _dataObject = dataLibrary.GetInitialDataObjectByGuid(availableTypesList[selectedIndex - 1].guid); //, _fieldType);
+                //         if (runtimeDataObject != null)
+                //         {
+                //             var _searchRuntimeObject = SmallButton(searchRuntimeIcon);
+                //             _searchRuntimeObject.tooltip = "Select runtime object";
+                //             _searchRuntimeObject.RegisterCallback<ClickEvent>(click =>
+                //             {
+
+                //                 if ((container.objectReferenceValue as DataLibrary).runtimeLibrary != null)
+                //                 {
+                //                     var _window = DatabrainHelpers.OpenEditor(dataLibrary.runtimeLibrary.GetInstanceID(), false);
+                //                     _window.SelectDataObject(runtimeDataObject);
+                //                 }
+                //             });
                             
-                            DataObject _rtDataObject = null;
-                            Component _sceneComponent = property.serializedObject.targetObject as Component;
-                            if (_sceneComponent != null)
-                            {
-                                _rtDataObject = _dataObject.GetRuntimeDataObject(_sceneComponent.gameObject);
-                            }
-                            if (_rtDataObject == null)
-                            {
-                                // else use default runtime clone
-                                _rtDataObject = _dataObject.runtimeClone;
-                            }
-
-							if (_rtDataObject != null)
-							{
-								if ((container.objectReferenceValue as DataLibrary).runtimeLibrary != null)
-								{
-									// var _window = DatabrainHelpers.OpenEditor((container.objectReferenceValue as DataLibrary).runtimeLibrary.GetInstanceID(), false);
-                                    var _window = DatabrainHelpers.OpenEditor(dataLibrary.runtimeLibrary.GetInstanceID(), false);
-									_window.SelectDataObject(_rtDataObject);
-								}
-							}
-
-
-                        });
-
-
-						rootButtons.Add(_searchRuntimeObject);
-					}
-				}
+    			// 			rootButtons.Add(_searchRuntimeObject);
+                //             runtimeToggle.SetEnabled(true);
+                //         }
+                //         else
+                //         {
+                //             runtimeToggle.SetEnabled(false);
+                //             runtimeToggle.tooltip = "No runtime data object available";
+                //         }
+				// 	}
+                //     else
+                //     {
+                //         runtimeToggle.SetEnabled(false);
+                //         runtimeToggle.tooltip = "Not in playmode";
+                //     }
+				// }
+                // else
+                // {
+                //     runtimeToggle.SetEnabled(false);
+                //     dataFoldout.SetEnabled(false);
+                // }
 			}
 		}
+
+
+        void UpdateRuntimeUIState(SerializedProperty _property)
+        {
+            var _data = (_property.objectReferenceValue as DataObject);
+            if (_data != null)
+            {
+                if (Application.isPlaying) // && _data.runtimeClone != null)
+                {
+                    // Search runtime data object   
+                    // var _dataObject = dataLibrary.GetInitialDataObjectByGuid(availableTypesList[selectedIndex - 1].guid); //, _fieldType);
+                    runtimeDataObject = null;
+                    Component _sceneComponent = _property.serializedObject.targetObject as Component;
+                    if (_sceneComponent != null)
+                    {
+                        runtimeDataObject = _data.GetRuntimeDataObject(_sceneComponent.gameObject);
+                    }
+                    if (runtimeDataObject == null)
+                    {
+                        // else use default runtime clone
+                        if (_data.runtimeClone != null)
+                        {
+                            runtimeDataObject = _data.runtimeClone;
+                        }
+                    }
+
+                    if (runtimeDataObject != null)
+                    {
+                            var _rtButton = rootButtons.Q<Button>("searchRuntimeButton");
+                            if (_rtButton != null)
+                            {
+                                rootButtons.Remove(_rtButton);
+                            }
+
+                            searchRuntimeObjectButton = SmallButton(searchRuntimeIcon);
+                            searchRuntimeObjectButton.name = "searchRuntimeButton";
+                            searchRuntimeObjectButton.tooltip = "Select runtime object";
+                            
+                            searchRuntimeObjectButton.RegisterCallback<ClickEvent>(click =>
+                            {
+
+                                if ((container.objectReferenceValue as DataLibrary).runtimeLibrary != null)
+                                {
+                                    var _window = DatabrainHelpers.OpenEditor(dataLibrary.runtimeLibrary.GetInstanceID(), false);
+                                    _window.SelectDataObject(runtimeDataObject);
+                                }
+                            });
+                            
+                        rootButtons.Add(searchRuntimeObjectButton);
+                        runtimeToggle.SetEnabled(true);
+                    }
+                    else
+                    {
+                        runtimeToggle.SetEnabled(false);
+                        
+                        runtimeToggle.tooltip = "No runtime data object available";
+                    }
+                }
+                else
+                {
+                    runtimeToggle.SetEnabled(false);
+                    runtimeToggle.tooltip = "Not in playmode";
+                }
+            }
+            else
+            {
+                runtimeToggle.SetEnabled(false);
+                dataFoldout.SetEnabled(false);
+            }
+        }
 
 
 
@@ -987,6 +1166,134 @@ namespace Databrain.Attributes
         */
 
  #endregion
+
+
+    VisualElement DrawDataObjectInspector(SerializedProperty property, bool _showRuntime)
+    {
+        DataObject _dbToInspect = null;
+
+        if (Application.isPlaying && _showRuntime)
+        {
+            Component _sceneComponent = property.serializedObject.targetObject as Component;
+            if (_sceneComponent != null)
+            {
+                _dbToInspect = (property.objectReferenceValue as DataObject).GetRuntimeDataObject(_sceneComponent.gameObject);
+            }
+            if (_dbToInspect == null)
+            {
+                // else use default runtime clone
+                _dbToInspect = (property.objectReferenceValue as DataObject).runtimeClone;
+            }
+
+            DatabrainHelpers.SetBorder(secondRow, 2, DatabrainHelpers.colorRuntime);
+        }
+        else
+        {
+            _dbToInspect = property.objectReferenceValue as DataObject;
+
+            DatabrainHelpers.SetBorder(secondRow, 0);
+        }
+
+        
+
+        if (_dbToInspect != null)
+        {
+            dataObjectInspector.Clear();
+
+            var _editor = Editor.CreateEditor(_dbToInspect);
+            var _useIMGUIInspector = _dbToInspect.GetType().GetCustomAttribute(typeof(DataObjectIMGUIInspectorAttribute));
+            var _useOdinInspector = _dbToInspect.GetType().GetCustomAttribute(typeof(UseOdinInspectorAttribute)) as UseOdinInspectorAttribute;
+            IMGUIContainer inspectorIMGUI = null;
+            if (_useIMGUIInspector != null)
+            {
+                inspectorIMGUI = new IMGUIContainer(() =>
+                {
+                    DrawDefaultInspectorUIElements.DrawIMGUIInspectorWithoutScriptField(_editor, null);
+
+                });
+
+                var _customGUI = (property.objectReferenceValue as DataObject).EditorGUI(_editor.serializedObject, null);
+                if (_customGUI != null)
+                {
+                    inspectorIMGUI.Add(_customGUI);
+                }
+
+                return(inspectorIMGUI);
+            }
+            else if (_useOdinInspector != null)
+            {
+                #if ODIN_INSPECTOR || ODIN_INSPECTOR_3 || ODIN_INSPECTOR_3_1
+                Sirenix.OdinInspector.Editor.OdinEditor odinEditor = Sirenix.OdinInspector.Editor.OdinEditor.CreateEditor(_dbToInspect) as Sirenix.OdinInspector.Editor.OdinEditor;
+
+                inspectorIMGUI = new IMGUIContainer(() =>
+                {
+                    DrawDefaultInspectorUIElements.DrawInspectorWithOdin(odinEditor, null);
+
+                });
+                #else
+
+                inspectorIMGUI = new IMGUIContainer(() =>
+                {
+
+                    GUILayout.Label("Odin Inspector not installed");
+
+                });
+
+                #endif
+
+                var _customGUI = (property.objectReferenceValue as DataObject).EditorGUI(_editor.serializedObject, null);
+                if (_customGUI != null)
+                {
+                    inspectorIMGUI.Add(_customGUI);
+                }
+
+                return(inspectorIMGUI);
+            }
+            else
+            {
+                var _uiElementsInspector = DrawDefaultInspectorUIElements.DrawInspector(_editor, _dbToInspect.GetType(), false);
+                _uiElementsInspector.style.flexGrow = 1;
+
+                var _customGUI = (property.objectReferenceValue as DataObject).EditorGUI(_editor.serializedObject, null);
+
+                if (_customGUI != null)
+                {
+                    _uiElementsInspector.Add(_customGUI);
+                }
+
+                return(_uiElementsInspector);
+            }
+
+            
+        }
+
+        return null;
+
+    }
+
+    async void DataObjectInspectorHeightCheck(PropertyAttribute attribute)
+    {
+        await Task.Delay(200);
+
+        if (!dataFoldout.Value)
+        {
+            return;
+        }
+
+        var _attribute = (DataObjectDropdownAttribute)attribute;
+
+        if (_attribute.customHeight > -1)
+        {
+            dataObjectInspector.style.height = _attribute.customHeight;
+        }
+        else
+        {
+            if (dataObjectInspector.resolvedStyle.height == 0 || float.IsNaN(dataObjectInspector.style.height.value.value) || dataObjectInspector.style.height == null)
+            {
+                dataObjectInspector.style.height = 500;
+            }
+        }
+    }
 }
 
 
@@ -1063,7 +1370,7 @@ namespace Databrain.Attributes
                 _runtimeButton.style.borderBottomColor = Color.white;
                 _initialButton.style.borderBottomWidth = 0;
 
-                DatabrainHelpers.SetBorder(_root, 2, new Color(209f / 255f, 89f / 255f, 89f / 255f, 255f / 255f));
+                DatabrainHelpers.SetBorder(_root, 2, DatabrainHelpers.colorRuntime);
 
                 editor = Editor.CreateEditor(_rtDataObject);
 
@@ -1246,18 +1553,42 @@ namespace Databrain.Attributes
             dropdownAttribute = _dataObjectDropdownAttribute;
             addCallback = _addCallback;
 
-            if (dataType.GetCustomAttribute<HideDataObjectTypeAttribute>() == null)
+           // Is data type a generic list? Then we get the generic type of the list.
+            if ((dataType.IsGenericType && (dataType.GetGenericTypeDefinition() == typeof(List<>))))
             {
-                types.Add(dataType.AssemblyQualifiedName.ToString());
-                typeNames.Add(dataType.Name.ToString());
-            }
-            var _subtypes = TypeCache.GetTypesDerivedFrom(dataType);
-            for (int i = 0; i < _subtypes.Count; i ++)
-            {
-                if (_subtypes[i].GetCustomAttribute<HideDataObjectTypeAttribute>() == null)
+                var _listType = dataType.GetGenericArguments()[0];
+
+                types.Add(_listType.AssemblyQualifiedName.ToString());
+                typeNames.Add(_listType.Name.ToString());
+
+                var _subtypes = TypeCache.GetTypesDerivedFrom(_listType);
+        
+                for (int i = 0; i < _subtypes.Count; i ++)
                 {
-                    types.Add(_subtypes[i].AssemblyQualifiedName.ToString());
-                    typeNames.Add(_subtypes[i].Name.ToString());
+                    if (_subtypes[i].GetCustomAttribute<HideDataObjectTypeAttribute>() == null)
+                    {
+                        types.Add(_subtypes[i].AssemblyQualifiedName.ToString());
+                        typeNames.Add(_subtypes[i].Name.ToString());
+                    }
+                }
+            }
+            else
+            {
+                if (dataType.GetCustomAttribute<HideDataObjectTypeAttribute>() == null)
+                {
+                    types.Add(dataType.AssemblyQualifiedName.ToString());
+                    typeNames.Add(dataType.Name.ToString());
+                }
+
+                var _subtypes = TypeCache.GetTypesDerivedFrom(dataType);
+        
+                for (int i = 0; i < _subtypes.Count; i ++)
+                {
+                    if (_subtypes[i].GetCustomAttribute<HideDataObjectTypeAttribute>() == null)
+                    {
+                        types.Add(_subtypes[i].AssemblyQualifiedName.ToString());
+                        typeNames.Add(_subtypes[i].Name.ToString());
+                    }
                 }
             }
         }

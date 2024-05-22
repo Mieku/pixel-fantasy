@@ -94,6 +94,8 @@ MonoBehaviour:
   runtimeLibrary: {fileID: 0}
   runtimeLibraryGuid: 
   runtimeLibraryFolderPath: 
+  initialLibrary: {fileID: 11400000}
+  selectedDataObject: {fileID: 0}
   modules: []
   existingNamespaces:
   - namespaceName: Global
@@ -697,6 +699,8 @@ MonoBehaviour:
   runtimeLibrary: {fileID: -1707362251270258567}
   runtimeLibraryGuid: 
   runtimeLibraryFolderPath: 
+  initialLibrary: {fileID: 0}
+  selectedDataObject: {fileID: 0}
   modules:
   - {fileID: -1553582740402180375}
   - {fileID: 3074777094143025573}

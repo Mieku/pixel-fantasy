@@ -1,5 +1,7 @@
 using System.Collections.Generic;
-
+#if ENABLE_INPUT_SYSTEM
+using UnityEngine.InputSystem;
+#endif
 using UnityEngine;
 
 namespace Databrain.Examples
@@ -114,11 +116,26 @@ namespace Databrain.Examples
             {
                 // Move object on a grid
                 float _distance = 0f;
+
+                #if ENABLE_LEGACY_INPUT_MANAGER
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                
                 if (_plane.Raycast(ray, out _distance))
                 {
                     _worldPosition = ray.GetPoint(_distance);
                 }
+                #endif
+                
+                #if ENABLE_INPUT_SYSTEM
+                Ray rayInputSystem = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+                if (_plane.Raycast(rayInputSystem, out _distance))
+                {
+                    _worldPosition = rayInputSystem.GetPoint(_distance);
+                }
+                #endif
+
+                
 
                 Vector3 pos = _worldPosition;
                 pos.x = Mathf.RoundToInt(pos.x / _cellSize.x) * _cellSize.x;
@@ -128,6 +145,7 @@ namespace Databrain.Examples
 
                 // Input handles
                 // Place selected object
+                #if ENABLE_LEGACY_INPUT_MANAGER
                 if (Input.GetMouseButton(0))
                 {
                     // Build and set position information to the runtime data
@@ -143,6 +161,26 @@ namespace Databrain.Examples
                 {
                     Destroy(tmpObject);
                 }
+                #endif
+
+                #if ENABLE_INPUT_SYSTEM
+                // Place selected object
+                if (Mouse.current.leftButton.isPressed)
+                {
+                    // Build and set position information to the runtime data
+                    runtimeData.position = tmpObject.transform.position;
+
+                    objects.Add(tmpObject);
+
+                    tmpObject = null;
+                }
+
+                 // Abort
+                if (Mouse.current.rightButton.isPressed)
+                {
+                    Destroy(tmpObject);
+                }
+                #endif
 
             }
         }

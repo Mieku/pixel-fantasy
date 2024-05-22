@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: b1b9643c3b0045d48a7de1a34f3572a0
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 244557
+  packageName: Databrain - Ultimate game data framework
+  packageVersion: 1.3.1
+  assetPath: Assets/Databrain/Core/Attributes/ClassAttributes/DataObjectDefaultTagAttribute.cs
+  uploadId: 665317

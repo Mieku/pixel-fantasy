@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1d86c581f02a55f458e36bf7e81e3084
+guid: 9073cb562ee0fed4aa1b50cf559b693c
 timeCreated: 1520258793
 licenseType: Store
 MonoImporter:
@@ -15,6 +15,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 244557
   packageName: Databrain - Ultimate game data framework
-  packageVersion: 1.2.0
+  packageVersion: 1.3.1
   assetPath: Assets/Databrain/Core/Attributes/Helpers/ReflectionUtility.cs
-  uploadId: 657627
+  uploadId: 665317

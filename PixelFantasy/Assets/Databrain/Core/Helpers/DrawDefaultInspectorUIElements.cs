@@ -159,6 +159,102 @@ namespace Databrain.Helpers
             return _root;
         }
 
+
+        public static void DrawIMGUIInspectorWithoutScriptField (Editor inspector, DatabrainEditorWindow databrainEditor)
+		{
+			
+			if (inspector == null)
+				return;
+			if (inspector.serializedObject == null)
+				return;
+
+			EditorGUI.BeginChangeCheck();
+
+			inspector.serializedObject.Update();
+
+
+			SerializedProperty iterator = inspector.serializedObject.GetIterator();
+
+			iterator.NextVisible(true);
+
+			Type t = iterator.serializedObject.targetObject.GetType();
+
+
+			while (iterator.NextVisible(false))
+			{
+				if (iterator.propertyPath != "guid" &&
+                    iterator.propertyPath != "initialGuid" &&
+					iterator.propertyPath != "runtimeIndexID" &&
+                    iterator.propertyPath != "icon" &&
+					iterator.propertyPath != "color" &&
+					iterator.propertyPath != "title" &&
+					iterator.propertyPath != "description" &&
+					iterator.propertyPath != "skipRuntimeSerialization" &&
+					iterator.propertyPath != "boxFoldout")
+				{
+
+					/////// CUSTOM ATTRIBUTES		
+					FieldInfo f = null;
+					Attribute _hideAttribute = null;
+                 
+                    f = t.GetField(iterator.propertyPath);
+					if (f != null)
+					{		
+						_hideAttribute = f.GetCustomAttribute(typeof(HideAttribute), true);				
+					}
+					//////////////////////////////////////
+
+
+					if (selectedDataType != null)
+					{
+						var _hideFieldsAttribute = selectedDataType.GetCustomAttribute(typeof(DataObjectHideAllFieldsAttribute)) as DataObjectHideAllFieldsAttribute;
+                        
+
+                        if (_hideFieldsAttribute == null)
+						{
+							if (_hideAttribute == null)
+							{
+								EditorGUILayout.PropertyField(iterator, true);
+							}	
+						}
+					}
+				}
+			}
+
+			inspector.serializedObject.ApplyModifiedProperties();
+
+			if (EditorGUI.EndChangeCheck() && databrainEditor != null)
+			{
+				databrainEditor.UpdateData();
+			}
+		}
+#if ODIN_INSPECTOR || ODIN_INSPECTOR_3 || ODIN_INSPECTOR_3_1
+
+        public static void DrawInspectorWithOdin(Sirenix.OdinInspector.Editor.OdinEditor _odinEditor, DatabrainEditorWindow _databrainEditorWindow)
+		{
+			if (_odinEditor == null)
+				return;
+			if (_odinEditor.serializedObject == null)
+				return;
+			
+			try
+			{
+				EditorGUI.BeginChangeCheck();
+				_odinEditor.serializedObject.Update();
+
+				_odinEditor.DrawDefaultInspector();
+
+				_odinEditor.serializedObject.ApplyModifiedProperties();
+
+				if (EditorGUI.EndChangeCheck() && _databrainEditorWindow != null)
+				{
+					_databrainEditorWindow.UpdateData();
+				}
+			}
+			catch{}
+		}
+#endif
+
         static bool SkipProperty(SerializedProperty _property)
         {
             if (_property.propertyPath != "guid" &&
@@ -169,7 +265,8 @@ namespace Databrain.Helpers
                     _property.propertyPath != "title" &&
                     _property.propertyPath != "description" &&
                     _property.propertyPath != "skipRuntimeSerialization" &&
-                    _property.propertyPath != "m_Script")
+                    _property.propertyPath != "m_Script" &&
+                    _property.propertyPath != "boxFoldout")
             {
                 return false;
             }

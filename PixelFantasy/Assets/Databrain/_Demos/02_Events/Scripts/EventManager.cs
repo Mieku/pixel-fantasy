@@ -19,8 +19,6 @@ namespace Databrain.Examples
         [DataObjectDropdown("dataLibrary")]
         public ExampleEvents event2;
 
-        [DataObjectDropdown("dataLibrary")]
-        public DatabrainEvent globalEvent;
 
         public void OnGUI()
         {
@@ -33,11 +31,6 @@ namespace Databrain.Examples
             {
                 event2.Raise(new ExampleEventsData(10, 0.1f));
             }
-
-            if (GUILayout.Button("CALL GLOBAL EVENT"))
-            {
-                globalEvent.Raise();
-            }
         }
 
 
@@ -46,14 +39,12 @@ namespace Databrain.Examples
 
             event1.RegisterListener(OnEvent);
             event2.RegisterListener(OnEvent2);
-            globalEvent.RegisterListener(OnGlobalEvent);
         }
 
         private void OnDisable()
         {
             event1.UnregisterListener(OnEvent);
             event2.UnregisterListener(OnEvent2);
-            globalEvent.UnregisterListener(OnGlobalEvent);
         }
 
         void OnGlobalEvent()

@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using UnityEditor;
+using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UIElements;
 using Databrain.Helpers;
@@ -61,7 +62,7 @@ namespace Databrain.Attributes
                 _toggle.value = entry.currentValue == TriBool.True;
                 _toggle.label = entry.label;
 
-                _toggle.RegisterValueChangedCallback(evt =>
+                _toggle.RegisterCallback<ChangeEvent<bool>>(evt =>  //.RegisterValueChangedCallback(evt =>
                 {
                     if (evt.newValue)
                     {
@@ -77,10 +78,12 @@ namespace Databrain.Attributes
                     }
 
                     _entries[_index] = entry;
-
+   
 
                     foreach (var prop in _properties)
+                    {
                         prop.serializedObject.ApplyModifiedProperties();
+                    }
                 });
 
                 _toggleGroup.Add(_toggle);

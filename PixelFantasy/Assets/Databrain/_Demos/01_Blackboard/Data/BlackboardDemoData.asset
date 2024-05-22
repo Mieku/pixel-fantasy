@@ -185,6 +185,34 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
+    - typeName: BuildingData
+      typeAssemblyQualifiedName: BuildingData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 1
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: SettingsData
+      typeAssemblyQualifiedName: SettingsData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 1
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: FighterDataObject
+      typeAssemblyQualifiedName: FighterDataObject, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: GeneratorList
+      typeAssemblyQualifiedName: GeneratorList, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 1
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
   - namespaceName: Databrain.Testcenter
     foldout: 0
     hidden: 0
@@ -258,6 +286,20 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
+    - typeName: WorldItemObjectData
+      typeAssemblyQualifiedName: Databrain.Inventory.WorldItemObjectData, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: CustomBlueprintItem
+      typeAssemblyQualifiedName: Databrain.Inventory.CustomBlueprintItem, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
   - namespaceName: Databrain.Dialogue
     foldout: 0
     hidden: 0
@@ -270,17 +312,31 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-    - typeName: Dialogues
-      typeAssemblyQualifiedName: Databrain.Dialogue.Dialogues, Assembly-CSharp, Version=0.0.0.0,
+    - typeName: Actors
+      typeAssemblyQualifiedName: Databrain.Dialogue.Actors, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: DialogueGraph
+      typeAssemblyQualifiedName: Databrain.Dialogue.DialogueGraph, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 1
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: GraphData
+      typeAssemblyQualifiedName: Databrain.Dialogue.GraphData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 1
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-    - typeName: Actors
-      typeAssemblyQualifiedName: Databrain.Dialogue.Actors, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
+    - typeName: SceneComponent
+      typeAssemblyQualifiedName: Databrain.Dialogue.SceneComponent, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 1
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
@@ -314,6 +370,20 @@ MonoBehaviour:
       typeAssemblyQualifiedName: Databrain.Examples.EnemyDataDemo, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 1
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: AgentAIData
+      typeAssemblyQualifiedName: Databrain.Examples.AgentAIData, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: MyOdinDataObject
+      typeAssemblyQualifiedName: Databrain.Examples.MyOdinDataObject, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
@@ -477,13 +547,6 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-    - typeName: DialogEvents
-      typeAssemblyQualifiedName: Databrain.Events.DialogEvents, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
     - typeName: InventoryEvents
       typeAssemblyQualifiedName: Databrain.Events.InventoryEvents, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -601,13 +664,6 @@ MonoBehaviour:
     existingTypes:
     - typeName: Localization
       typeAssemblyQualifiedName: Databrain.Localization.Localization, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: DialogueLocalization
-      typeAssemblyQualifiedName: Databrain.Localization.DialogueLocalization, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
@@ -759,6 +815,51 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
+  - namespaceName: Databrain.DataProperties
+    foldout: 0
+    hidden: 0
+    icon: 
+    existingTypes:
+    - typeName: DataProperty`1
+      typeAssemblyQualifiedName: Databrain.DataProperties.DataProperty`1, DataProperties,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: DataPropertyBase
+      typeAssemblyQualifiedName: Databrain.DataProperties.DataPropertyBase, DataProperties,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+  - namespaceName: Databrain.Dialogue.Events
+    foldout: 0
+    hidden: 0
+    icon: 
+    existingTypes:
+    - typeName: OnChoiceSelected
+      typeAssemblyQualifiedName: Databrain.Dialogue.Events.OnChoiceSelected, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: OnDialogueChoice
+      typeAssemblyQualifiedName: Databrain.Dialogue.Events.OnDialogueChoice, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: OnDialogueMessage
+      typeAssemblyQualifiedName: Databrain.Dialogue.Events.OnDialogueMessage, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
   isRuntimeContainer: 1
   useXOREncryption: 0
   encryptionKey: 0
@@ -865,11 +966,11 @@ MonoBehaviour:
   isInitialized: 0
   data:
     _objectList:
-    - type: Databrain.Blackboard.FloatVariable, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+    - type: Databrain.Blackboard.FloatVariable, Databrain, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
       dataObjects:
       - {fileID: 5219407263810511574}
-    - type: Databrain.Events.DatabrainEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    - type: Databrain.Events.DatabrainEvent, Databrain, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
       - {fileID: -3231867686231091566}
@@ -880,17 +981,24 @@ MonoBehaviour:
     - type: Databrain.Blackboard.BooleanVariable, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       dataObjects: []
+    - type: Databrain.Blackboard.FloatVariable, Databrain, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects: []
+    - type: Databrain.Events.BlackboardEvent, Databrain, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects:
+      - {fileID: 6745524924580656521}
     _favoriteList: []
   copyData:
     _objectList: []
     _favoriteList: []
-  firstColumnWidth: 200
+  firstColumnWidth: 356
   secondColumnWidth: 392
   runtimeLibrary: {fileID: -4759926381942953116}
   runtimeLibraryGuid: 
   runtimeLibraryFolderPath: 
   initialLibrary: {fileID: 0}
-  selectedDataObject: {fileID: 0}
+  selectedDataObject: {fileID: 6745524924580656521}
   modules:
   - {fileID: 4284138331326722020}
   - {fileID: -3503477028783675425}
@@ -898,7 +1006,7 @@ MonoBehaviour:
   - {fileID: 5289449038053524964}
   existingNamespaces:
   - namespaceName: Global
-    foldout: 1
+    foldout: 0
     hidden: 0
     icon: 
     existingTypes:
@@ -1049,6 +1157,34 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
+    - typeName: BuildingData
+      typeAssemblyQualifiedName: BuildingData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 1
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: SettingsData
+      typeAssemblyQualifiedName: SettingsData, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 1
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: FighterDataObject
+      typeAssemblyQualifiedName: FighterDataObject, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: GeneratorList
+      typeAssemblyQualifiedName: GeneratorList, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 1
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
   - namespaceName: Databrain.Testcenter
     foldout: 0
     hidden: 0
@@ -1062,7 +1198,7 @@ MonoBehaviour:
       titlesFilter: []
       valuesFilter: []
   - namespaceName: Databrain.Inventory
-    foldout: 1
+    foldout: 0
     hidden: 0
     icon: 
     existingTypes:
@@ -1122,8 +1258,22 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
+    - typeName: WorldItemObjectData
+      typeAssemblyQualifiedName: Databrain.Inventory.WorldItemObjectData, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: CustomBlueprintItem
+      typeAssemblyQualifiedName: Databrain.Inventory.CustomBlueprintItem, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
   - namespaceName: Databrain.Dialogue
-    foldout: 1
+    foldout: 0
     hidden: 0
     icon: 
     existingTypes:
@@ -1134,17 +1284,31 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-    - typeName: Dialogues
-      typeAssemblyQualifiedName: Databrain.Dialogue.Dialogues, Assembly-CSharp, Version=0.0.0.0,
+    - typeName: Actors
+      typeAssemblyQualifiedName: Databrain.Dialogue.Actors, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: DialogueGraph
+      typeAssemblyQualifiedName: Databrain.Dialogue.DialogueGraph, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 1
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: GraphData
+      typeAssemblyQualifiedName: Databrain.Dialogue.GraphData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 1
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
-    - typeName: Actors
-      typeAssemblyQualifiedName: Databrain.Dialogue.Actors, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
+    - typeName: SceneComponent
+      typeAssemblyQualifiedName: Databrain.Dialogue.SceneComponent, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 1
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
@@ -1176,6 +1340,20 @@ MonoBehaviour:
       valuesFilter: []
     - typeName: SaveLoadDemoData
       typeAssemblyQualifiedName: Databrain.Examples.SaveLoadDemoData, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: AgentAIData
+      typeAssemblyQualifiedName: Databrain.Examples.AgentAIData, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: MyOdinDataObject
+      typeAssemblyQualifiedName: Databrain.Examples.MyOdinDataObject, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
@@ -1302,7 +1480,7 @@ MonoBehaviour:
       titlesFilter: []
       valuesFilter: []
   - namespaceName: Databrain.Events
-    foldout: 0
+    foldout: 1
     hidden: 0
     icon: 
     existingTypes:
@@ -1336,13 +1514,6 @@ MonoBehaviour:
       valuesFilter: []
     - typeName: ExampleEvents
       typeAssemblyQualifiedName: Databrain.Events.ExampleEvents, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: DialogEvents
-      typeAssemblyQualifiedName: Databrain.Events.DialogEvents, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
@@ -1465,13 +1636,6 @@ MonoBehaviour:
     existingTypes:
     - typeName: Localization
       typeAssemblyQualifiedName: Databrain.Localization.Localization, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      runtimeSerialization: 0
-      tagsFilter: []
-      titlesFilter: []
-      valuesFilter: []
-    - typeName: DialogueLocalization
-      typeAssemblyQualifiedName: Databrain.Localization.DialogueLocalization, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
@@ -1623,6 +1787,51 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
+  - namespaceName: Databrain.DataProperties
+    foldout: 0
+    hidden: 0
+    icon: 
+    existingTypes:
+    - typeName: DataProperty`1
+      typeAssemblyQualifiedName: Databrain.DataProperties.DataProperty`1, DataProperties,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: DataPropertyBase
+      typeAssemblyQualifiedName: Databrain.DataProperties.DataPropertyBase, DataProperties,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+  - namespaceName: Databrain.Dialogue.Events
+    foldout: 0
+    hidden: 0
+    icon: 
+    existingTypes:
+    - typeName: OnChoiceSelected
+      typeAssemblyQualifiedName: Databrain.Dialogue.Events.OnChoiceSelected, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: OnDialogueChoice
+      typeAssemblyQualifiedName: Databrain.Dialogue.Events.OnDialogueChoice, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: OnDialogueMessage
+      typeAssemblyQualifiedName: Databrain.Dialogue.Events.OnDialogueMessage, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
   isRuntimeContainer: 0
   useXOREncryption: 0
   encryptionKey: 0
@@ -1689,7 +1898,7 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 1
-  onValueChanged: {fileID: -1067388479266014053}
+  onValueChanged: {fileID: 6745524924580656521}
   _value: 0
 --- !u!114 &5289449038053524964
 MonoBehaviour:
@@ -1704,3 +1913,38 @@ MonoBehaviour:
   m_Name: HelpModule
   m_EditorClassIdentifier: 
   welcomeWindow: {fileID: 0}
+--- !u!114 &6745524924580656521
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: OnFloatValueChanged
+  m_EditorClassIdentifier: Databrain:Databrain.Events:BlackboardEvent
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  guid: d3293c23-d49a-4cc3-a594-137863c294c5
+  initialGuid: d3293c23-d49a-4cc3-a594-137863c294c5
+  runtimeIndexID: 
+  icon: {fileID: 0}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: OnFloatValueChanged
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0

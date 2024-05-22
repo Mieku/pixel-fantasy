@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e9c18b0e698717442b7631c5066d667f
+guid: 29282024c8c935342acfb2be90f55e2e
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -13,6 +13,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 244557
   packageName: Databrain - Ultimate game data framework
-  packageVersion: 1.2.0
+  packageVersion: 1.3.1
   assetPath: Assets/Databrain/Core/Attributes/Editor/PropertyDrawers/InfoBoxDecoratorDrawer.cs
-  uploadId: 657627
+  uploadId: 665317

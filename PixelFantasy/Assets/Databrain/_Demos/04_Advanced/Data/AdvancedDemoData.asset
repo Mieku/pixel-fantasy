@@ -43,7 +43,10 @@ MonoBehaviour:
   themeTemplate: {fileID: 0}
   isInitialized: 0
   data:
-    _objectList: []
+    _objectList:
+    - type: Databrain.Examples.EnemyDataDemo, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dataObjects: []
     _favoriteList: []
   copyData:
     _objectList: []
@@ -54,6 +57,7 @@ MonoBehaviour:
   runtimeLibraryGuid: 
   runtimeLibraryFolderPath: 
   initialLibrary: {fileID: 11400000}
+  selectedDataObject: {fileID: 0}
   modules: []
   existingNamespaces:
   - namespaceName: Global
@@ -226,6 +230,20 @@ MonoBehaviour:
       typeAssemblyQualifiedName: DailyTaskVariable, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 1
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: GeneratorList
+      typeAssemblyQualifiedName: GeneratorList, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 1
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: MyCustomResearchNode
+      typeAssemblyQualifiedName: MyCustomResearchNode, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
@@ -688,6 +706,27 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
+    - typeName: ResearchNode
+      typeAssemblyQualifiedName: Databrain.Techtree.ResearchNode, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: ResearchNodeBase
+      typeAssemblyQualifiedName: Databrain.Techtree.ResearchNodeBase, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: TechtreeData
+      typeAssemblyQualifiedName: Databrain.Techtree.TechtreeData, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
   - namespaceName: Databrain.Stats
     foldout: 0
     hidden: 0
@@ -857,6 +896,25 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
+  - namespaceName: Databrain.DataProperties
+    foldout: 0
+    hidden: 0
+    icon: 
+    existingTypes:
+    - typeName: DataProperty`1
+      typeAssemblyQualifiedName: Databrain.DataProperties.DataProperty`1, DataProperties,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: DataPropertyBase
+      typeAssemblyQualifiedName: Databrain.DataProperties.DataPropertyBase, DataProperties,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
   isRuntimeContainer: 1
   useXOREncryption: 0
   encryptionKey: 0
@@ -918,6 +976,7 @@ MonoBehaviour:
   runtimeLibraryGuid: 
   runtimeLibraryFolderPath: 
   initialLibrary: {fileID: 0}
+  selectedDataObject: {fileID: -1886346334399273317}
   modules:
   - {fileID: 8606350867415450266}
   - {fileID: 2390501727784444610}
@@ -1097,6 +1156,20 @@ MonoBehaviour:
       tagsFilter: []
       titlesFilter: []
       valuesFilter: []
+    - typeName: GeneratorList
+      typeAssemblyQualifiedName: GeneratorList, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 1
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: MyCustomResearchNode
+      typeAssemblyQualifiedName: MyCustomResearchNode, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
   - namespaceName: Databrain.Testcenter
     foldout: 0
     hidden: 1
@@ -1346,6 +1419,27 @@ MonoBehaviour:
       valuesFilter: []
     - typeName: TechtreeManager
       typeAssemblyQualifiedName: Databrain.Techtree.TechtreeManager, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: ResearchNode
+      typeAssemblyQualifiedName: Databrain.Techtree.ResearchNode, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: ResearchNodeBase
+      typeAssemblyQualifiedName: Databrain.Techtree.ResearchNodeBase, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: TechtreeData
+      typeAssemblyQualifiedName: Databrain.Techtree.TechtreeData, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
@@ -1720,6 +1814,25 @@ MonoBehaviour:
       valuesFilter: []
     - typeName: OnDialogueMessage
       typeAssemblyQualifiedName: Databrain.Dialogue.Events.OnDialogueMessage, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+  - namespaceName: Databrain.DataProperties
+    foldout: 0
+    hidden: 0
+    icon: 
+    existingTypes:
+    - typeName: DataProperty`1
+      typeAssemblyQualifiedName: Databrain.DataProperties.DataProperty`1, DataProperties,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      runtimeSerialization: 0
+      tagsFilter: []
+      titlesFilter: []
+      valuesFilter: []
+    - typeName: DataPropertyBase
+      typeAssemblyQualifiedName: Databrain.DataProperties.DataPropertyBase, DataProperties,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       runtimeSerialization: 0
       tagsFilter: []
