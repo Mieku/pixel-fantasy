@@ -40,13 +40,13 @@ namespace Systems.Details.Building_Details.Scripts
         
         public void OnIncreasePressed()
         {
-            CraftingOrdersManager.Instance.IncreaseOrderPriority(_order);
+            //CraftingOrdersManager.Instance.IncreaseOrderPriority(_order);
             // GameEvents.Trigger_OnBuildingChanged((Building)_building);
         }
 
         public void OnDecreasePressed()
         {
-            CraftingOrdersManager.Instance.DecreaseOrderPriority(_order);
+            //CraftingOrdersManager.Instance.DecreaseOrderPriority(_order);
             // GameEvents.Trigger_OnBuildingChanged((Building)_building);
         }
     }

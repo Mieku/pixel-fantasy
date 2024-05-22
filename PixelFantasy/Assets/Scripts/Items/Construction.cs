@@ -28,8 +28,8 @@ namespace Items
         [DataObjectDropdown("DataLibrary", true)]
         public ConstructionData Data;
         public ConstructionData RuntimeData;
-
-        public Action OnStructureChanged;
+        
+        public Action OnChanged { get; set; }
         
         public PlayerInteractable GetPlayerInteractable()
         {
@@ -100,7 +100,7 @@ namespace Items
         // When values change this should be called, is a hook for callbacks
         protected virtual void Changed()
         {
-            OnStructureChanged?.Invoke();
+            OnChanged?.Invoke();
         }
 
         public virtual void CancelConstruction()

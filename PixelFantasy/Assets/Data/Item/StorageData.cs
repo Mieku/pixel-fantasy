@@ -325,6 +325,7 @@ namespace Data.Item
             Claimed.Remove(itemData);
             
             GameEvents.Trigger_RefreshInventoryDisplay();
+            OnChanged();
 
             var item = itemData.CreateItemObject(Position, false);
             return item;
@@ -346,6 +347,7 @@ namespace Data.Item
             Incoming.Remove(runtimeData);
             
             GameEvents.Trigger_RefreshInventoryDisplay();
+            OnChanged();
             
             Destroy(item.gameObject);
         }

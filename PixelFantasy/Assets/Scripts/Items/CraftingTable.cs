@@ -4,10 +4,8 @@ using Characters;
 using Data.Dye;
 using Data.Item;
 using Managers;
-using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Systems.Crafting.Scripts;
-using Systems.Stats.Scripts;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -59,12 +57,46 @@ namespace Items
         {
             if (IsAvailable && RuntimeTableData.CurrentOrder.State == CraftingOrder.EOrderState.None)
             {
-                var order = CraftingOrdersManager.Instance.GetNextCraftableOrder(this);
+                CraftingOrder order;
+                
+                // Local Search
+                if (RuntimeTableData.PrioritizeOrdersWithMats)
+                {
+                    order = RuntimeTableData.LocalCraftingQueue.GetNextCraftableOrder(RuntimeTableData);
+                }
+                else
+                {
+                    order = RuntimeTableData.LocalCraftingQueue.GetNextOrder(RuntimeTableData);
+                }
+          
                 if (order != null)
                 {
                     RuntimeTableData.CurrentOrder = order;
                     var task = order.CreateTask(OnCraftingComplete, this);
                     TaskManager.Instance.AddTask(task);
+                    OnChanged?.Invoke();
+                }
+                
+                
+                // Global Search
+                if (order == null)
+                {
+                    if (RuntimeTableData.PrioritizeOrdersWithMats)
+                    {
+                        order = CraftingOrdersManager.Instance.GetNextCraftableOrder(RuntimeTableData);
+                    }
+                    else
+                    {
+                        order = CraftingOrdersManager.Instance.GetNextOrder(RuntimeTableData);
+                    }
+          
+                    if (order != null)
+                    {
+                        RuntimeTableData.CurrentOrder = order;
+                        var task = order.CreateTask(OnCraftingComplete, this);
+                        TaskManager.Instance.AddTask(task);
+                        OnChanged?.Invoke();
+                    }
                 }
             }
         }
@@ -72,6 +104,7 @@ namespace Items
         private void OnCraftingComplete(Task task)
         {
             RuntimeTableData.CurrentOrder.State = CraftingOrder.EOrderState.None;
+            OnChanged?.Invoke();
         }
 
         private SpriteRenderer CraftingPreview
@@ -107,16 +140,15 @@ namespace Items
             if (craftedItem != null)
             {
                 ShowCraftingPreview(craftedItem.icon);
-                RuntimeTableData.ItemBeingCrafted = craftedItem;
-                RuntimeTableData.RemainingCraftingWork = craftedItem.CraftRequirements.WorkCost;
-                RuntimeTableData.RemainingMaterials = claimedMats;
+                RuntimeTableData.CurrentOrder.ClaimedItems = claimedMats;
             }
             else
             {
                 ShowCraftingPreview(null);
-                RuntimeTableData.ItemBeingCrafted = null;
-                RuntimeTableData.RemainingCraftingWork = 0;
+                RuntimeTableData.CurrentOrder.ClaimedItems = null;
             }
+            
+            OnChanged?.Invoke();
         }
 
         public void AssignMealToTable(MealSettings mealSettings, List<ItemData> claimedIngredients)
@@ -124,16 +156,14 @@ namespace Items
             if (mealSettings != null)
             {
                 ShowCraftingPreview(mealSettings.icon);
-                RuntimeTableData.MealBeingCooked = mealSettings;
-                RuntimeTableData.RemainingCraftingWork = mealSettings.MealRequirements.WorkCost;
-                RuntimeTableData.RemainingMaterials = claimedIngredients;
+                RuntimeTableData.CurrentOrder.ClaimedItems = claimedIngredients;
             }
             else
             {
                 ShowCraftingPreview(null);
-                RuntimeTableData.ItemBeingCrafted = null;
-                RuntimeTableData.RemainingCraftingWork = 0;
+                RuntimeTableData.CurrentOrder.ClaimedItems = null;
             }
+            OnChanged?.Invoke();
         }
 
         public void ShowCraftingPreview(Sprite craftingImg)
@@ -155,9 +185,9 @@ namespace Items
         public bool DoCraft(StatsData stats)
         {
             var workAmount = stats.GetActionSpeedForSkill(RuntimeTableData.CraftingSkillType(), true);
-            RuntimeTableData.RemainingCraftingWork -= workAmount;
+            RuntimeTableData.CurrentOrder.RemainingCraftingWork -= workAmount;
             
-            if (RuntimeTableData.RemainingCraftingWork <= 0)
+            if (RuntimeTableData.CurrentOrder.RemainingCraftingWork <= 0)
             {
                 CompleteCraft();
                 return true;
@@ -168,7 +198,7 @@ namespace Items
 
         public void ReceiveMaterial(ItemData item)
         {
-            RuntimeTableData.RemainingMaterials.Remove(item);
+            RuntimeTableData.CurrentOrder.ReceiveItem(item);
             Destroy(item.LinkedItem.gameObject);
         }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Interfaces
@@ -10,6 +11,8 @@ namespace Interfaces
         public string DisplayName { get; }
         public PlayerInteractable GetPlayerInteractable();
         public void AssignCommand(Command command, object payload = null);
+
+        public Action OnChanged { get; set; }
     }
 
     public interface IClickableTile : IClickableObject

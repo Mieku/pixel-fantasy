@@ -1,3 +1,4 @@
+using Data.Item;
 using Items;
 using Managers;
 using ScriptableObjects;
@@ -8,7 +9,7 @@ namespace TaskSystem
 {
     public class PlaceFurnitureAction : TaskAction // ID: Place Furniture
     {
-        private Item _itemToPlace;
+        private ItemData _itemToPlace;
         private Furniture _furniture => _task.Requestor as Furniture;
         private bool _isHoldingItem;
         private bool _isMoving;
@@ -16,12 +17,12 @@ namespace TaskSystem
         private bool _isPlacingItem;
         
         public float DistanceToRequestor => Vector2.Distance(_furniture.transform.position, transform.position);
-        public float DistanceToStorage => Vector2.Distance((Vector2)_itemToPlace.AssignedStorage.AccessPosition(_ai.transform.position, _itemToPlace.RuntimeData), transform.position);
+        public float DistanceToStorage => Vector2.Distance((Vector2)_itemToPlace.AssignedStorage.AccessPosition(_ai.transform.position, _itemToPlace), transform.position);
         
         public override void PrepareAction(Task task)
         {
             _task = task;
-            _itemToPlace = task.Materials[0].LinkedItem;
+            _itemToPlace = task.Materials[0];
             _isHoldingItem = false;
             _isMoving = false;
             _isPlacingItem = false;
@@ -34,8 +35,8 @@ namespace TaskSystem
             {
                 _isMoving = false;
                 _isHoldingItem = true;
-                _itemToPlace.AssignedStorage.WithdrawItem(_itemToPlace.RuntimeData);
-                _ai.HoldItem(_itemToPlace);
+                var item = _itemToPlace.AssignedStorage.WithdrawItem(_itemToPlace);
+                _ai.HoldItem(item);
                 return;
             }
             
@@ -44,7 +45,7 @@ namespace TaskSystem
             {
                 if (!_isMoving)
                 {
-                    _ai.Kinling.KinlingAgent.SetMovePosition(_itemToPlace.AssignedStorage.AccessPosition(_ai.transform.position, _itemToPlace.RuntimeData));
+                    _ai.Kinling.KinlingAgent.SetMovePosition(_itemToPlace.AssignedStorage.AccessPosition(_ai.transform.position, _itemToPlace));
                     _isMoving = true;
                     return;
                 }
@@ -66,7 +67,7 @@ namespace TaskSystem
             {
                 if (_isHoldingItem)
                 {
-                    _furniture.ReceiveItem(_itemToPlace.RuntimeData);
+                    _furniture.ReceiveItem(_itemToPlace);
                     _itemToPlace = null;
                     _isHoldingItem = false;
                 }
@@ -82,17 +83,9 @@ namespace TaskSystem
         {
             KinlingAnimController.SetUnitAction(UnitAction.Doing, _ai.GetActionDirection(_furniture.transform.position));
             _isPlacingItem = true;
-            
-            _timer += TimeManager.Instance.DeltaTime;
-            if(_timer >= ActionSpeed) 
-            {
-                _timer = 0;
-                if (_furniture.DoPlacement(_ai.Kinling.Stats)) 
-                {
-                    // When work is complete
-                    ConcludeAction();
-                } 
-            }
+
+            _furniture.DoPlacement();
+            ConcludeAction();
         }
         
         public override void ConcludeAction()

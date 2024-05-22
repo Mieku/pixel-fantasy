@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Data.Item;
-using Items;
 using Managers;
 using UnityEngine;
 
@@ -9,7 +8,6 @@ namespace Systems.Crafting.Scripts
 {
     public class CraftingOrdersManager : Singleton<CraftingOrdersManager>
     {
-        // Sort the orders by job
         [SerializeField] private CraftingOrderQueue _queue = new CraftingOrderQueue();
 
         public MealSettings testerJam;
@@ -21,7 +19,7 @@ namespace Systems.Crafting.Scripts
             if (Input.GetKeyDown(KeyCode.O))
             {
                 Debug.Log("Creating a cooking order");
-                CraftingOrder cookingOrder = new CraftingOrder(testerJam, null, true, 
+                CraftingOrder cookingOrder = new CraftingOrder(testerJam, null, 
                     () =>
                     {
                         Debug.Log("Order was claimed");
@@ -33,13 +31,14 @@ namespace Systems.Crafting.Scripts
                     {
                         Debug.Log("Order was cancelled");
                     });
+                _queue.SubmitOrder(cookingOrder);
             }
             
             // TODO: For testing... Remove
             if (Input.GetKeyDown(KeyCode.P))
             {
                 Debug.Log("Creating a crafting order");
-                CraftingOrder cookingOrder = new CraftingOrder(testerGold, null, CraftingOrder.EOrderType.Item, true, 
+                CraftingOrder cookingOrder = new CraftingOrder(testerGold, null, CraftingOrder.EOrderType.Item, 
                     () =>
                     {
                         Debug.Log("Order was claimed");
@@ -51,33 +50,81 @@ namespace Systems.Crafting.Scripts
                     {
                         Debug.Log("Order was cancelled");
                     });
+                _queue.SubmitOrder(cookingOrder);
             }
-        }
-
-        public void SubmitOrder(CraftingOrder order)
-        {
-            _queue.Orders.Add(order);
         }
         
-        public CraftingOrder GetNextOrder(CraftingTable table)
+        public List<CraftingOrder> GetAllOrders(CraftingTableData tableData)
         {
-            if (_queue.Orders.Count > 0)
+            return _queue.GetOrdersForTable(tableData);
+        }
+        
+        public void SubmitOrder(CraftingOrder order)
+        {
+            _queue.SubmitOrder(order);
+        }
+        
+        public CraftingOrder GetNextOrder(CraftingTableData tableData)
+        {
+            return _queue.GetNextOrder(tableData);
+        }
+
+        public CraftingOrder GetNextCraftableOrder(CraftingTableData tableData)
+        {
+            return _queue.GetNextCraftableOrder(tableData);
+        }
+        
+        public void CancelOrder(CraftingOrder order)
+        {
+            _queue.CancelOrder(order);
+        }
+        
+        public bool IsFirstInQueue(CraftingOrder order, CraftingTableData craftingTableData)
+        {
+            return _queue.IsFirstInQueue(order, craftingTableData);
+        }
+        
+        public bool IsLastInQueue(CraftingOrder order, CraftingTableData craftingTableData)
+        {
+            return _queue.IsLastInQueue(order, craftingTableData);
+        }
+
+        public CraftingOrderQueue Queue => _queue;
+    }
+
+    [Serializable]
+    public class CraftingOrderQueue
+    {
+        public List<CraftingOrder> Orders = new List<CraftingOrder>();
+        
+        public void SubmitOrder(CraftingOrder order)
+        {
+            Orders.Add(order);
+        }
+        
+        public CraftingOrder GetNextOrder(CraftingTableData tableData)
+        {
+            foreach (CraftingOrder order in Orders)
             {
-                CraftingOrder order = _queue.Orders[0];
-                _queue.Orders.RemoveAt(0);
-                return order;
+                if (tableData.CanCraftItem(order.CraftedItem) || tableData.CanCookMeal(order.CraftedMeal))
+                {
+                    int orderIndex = Orders.IndexOf(order);
+                    Orders.RemoveAt(orderIndex);
+                    return order;
+                }
             }
+            
             return null;
         }
 
-        public CraftingOrder GetNextCraftableOrder(CraftingTable table)
+        public CraftingOrder GetNextCraftableOrder(CraftingTableData tableData)
         {
-            foreach (CraftingOrder order in _queue.Orders)
+            foreach (CraftingOrder order in Orders)
             {
-                if (order.CanBeCrafted(table))
+                if (order.CanBeCrafted(tableData))
                 {
-                    int orderIndex = _queue.Orders.IndexOf(order);
-                    _queue.Orders.RemoveAt(orderIndex);
+                    int orderIndex = Orders.IndexOf(order);
+                    Orders.RemoveAt(orderIndex);
                     return order;
                 }
             }
@@ -85,63 +132,89 @@ namespace Systems.Crafting.Scripts
             return null;
         }
         
-        public List<CraftingOrder> GetAllOrders(CraftingTable table)
-        {
-            return new List<CraftingOrder>(_queue.Orders);
-        }
-        
         public void CancelOrder(CraftingOrder order)
         {
-            if (_queue.Orders.Contains(order))
+            if (Orders.Contains(order))
             {
-                _queue.Orders.Remove(order);
+                Orders.Remove(order);
             }
         }
 
         public void IncreaseOrderPriority(CraftingOrder order)
         {
-            if (_queue.Orders.Contains(order))
+            if (Orders.Contains(order))
             {
-                int orderIndex = _queue.Orders.IndexOf(order);
-                orderIndex = Mathf.Clamp(orderIndex - 1, 0, _queue.Orders.Count - 1);
-                _queue.Orders.Remove(order);
-                _queue.Orders.Insert(orderIndex, order);
+                int orderIndex = Orders.IndexOf(order);
+                orderIndex = Mathf.Clamp(orderIndex - 1, 0, Orders.Count - 1);
+                Orders.Remove(order);
+                Orders.Insert(orderIndex, order);
             }
         }
 
         public void DecreaseOrderPriority(CraftingOrder order)
         {
-            if (_queue.Orders.Contains(order))
+            if (Orders.Contains(order))
             {
-                int orderIndex = _queue.Orders.IndexOf(order);
-                orderIndex = Mathf.Clamp(orderIndex + 1, 0, _queue.Orders.Count - 1);
-                _queue.Orders.Remove(order);
-                _queue.Orders.Insert(orderIndex, order);
+                int orderIndex = Orders.IndexOf(order);
+                orderIndex = Mathf.Clamp(orderIndex + 1, 0, Orders.Count - 1);
+                Orders.Remove(order);
+                Orders.Insert(orderIndex, order);
             }
         }
 
-        public bool IsFirstInQueue(CraftingOrder order)
+        public bool IsFirstInQueue(CraftingOrder order, CraftingTableData tableData = null)
         {
-            if (_queue.Orders.Count > 0)
+            if (tableData == null)
             {
-                return _queue.Orders[0] == order;
+                if (Orders.Count > 0)
+                {
+                    return Orders[0] == order;
+                }
+                return false;
             }
+
+            var ordersForTable = GetOrdersForTable(tableData);
+            if (ordersForTable.Count > 0)
+            {
+                return ordersForTable[0] == order;
+            }
+
             return false;
         }
         
-        public bool IsLastInQueue(CraftingOrder order)
+        public bool IsLastInQueue(CraftingOrder order, CraftingTableData tableData = null)
         {
-            if (_queue.Orders.Count > 0)
+            if (tableData == null)
             {
-                return _queue.Orders[^1] == order;
+                if (Orders.Count > 0)
+                {
+                    return Orders[^1] == order;
+                }
+                return false;
             }
+            
+            var ordersForTable = GetOrdersForTable(tableData);
+            if (ordersForTable.Count > 0)
+            {
+                return ordersForTable[^1] == order;
+            }
+
             return false;
         }
-    }
 
-    [Serializable]
-    public class CraftingOrderQueue
-    {
-        public List<CraftingOrder> Orders = new List<CraftingOrder>();
+        public List<CraftingOrder> GetOrdersForTable(CraftingTableData tableData)
+        {
+            List<CraftingOrder> results = new List<CraftingOrder>();
+
+            foreach (var order in Orders)
+            {
+                if (tableData.CanCraftItem(order.CraftedItem) || tableData.CanCookMeal(order.CraftedMeal))
+                {
+                    results.Add(order);
+                }
+            }
+
+            return results;
+        }
     }
 }

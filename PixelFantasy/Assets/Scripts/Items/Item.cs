@@ -31,6 +31,7 @@ namespace Items
         
         [DataObjectDropdown("DataLibrary")]
         public ItemData RuntimeData;
+        public Action OnChanged { get; set; }
         
         public PlayerInteractable GetPlayerInteractable()
         {

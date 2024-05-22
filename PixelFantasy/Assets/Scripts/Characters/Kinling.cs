@@ -43,7 +43,7 @@ namespace Characters
         
         public ClickObject ClickObject;
         public bool HasInitialized { get; private set; }
-        
+        public Action OnChanged { get; set; }
 
         private void Awake()
         {

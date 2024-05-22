@@ -61,6 +61,7 @@ namespace Items
         public void DepositItems(Item item)
         {
             RuntimeStorageData.DepositItems(item);
+            OnChanged?.Invoke();
         }
 
         public Item WithdrawItem(ItemData itemData)

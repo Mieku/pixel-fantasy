@@ -1,78 +1,24 @@
-using System.Collections.Generic;
+using System;
 using Databrain.Attributes;
-using Managers;
-using ScriptableObjects;
 using Systems.Crafting.Scripts;
 using Systems.Stats.Scripts;
-using UnityEngine;
 
 namespace Data.Item
 {
     public class CraftingTableData : FurnitureData
     {
         // Runtime
-        [ExposeToInspector, DatabrainSerialize] public List<ItemData> RemainingMaterials = new List<ItemData>();
-        [ExposeToInspector, DatabrainSerialize] public float RemainingCraftingWork;
-        [ExposeToInspector, DatabrainSerialize] public CraftedItemSettings ItemBeingCrafted;
-        [ExposeToInspector, DatabrainSerialize] public MealSettings MealBeingCooked;
         [ExposeToInspector, DatabrainSerialize] public CraftingOrder CurrentOrder;
+        [ExposeToInspector, DatabrainSerialize] public bool PrioritizeOrdersWithMats = true;
+        
+        [ExposeToInspector, DatabrainSerialize] public CraftingOrderQueue LocalCraftingQueue = new CraftingOrderQueue();
         
         public CraftingTableSettings CraftingTableSettings => Settings as CraftingTableSettings;
-        
-        public float GetPercentCraftingComplete()
-        {
-            if (ItemBeingCrafted == null) return 0f;
-            
-            return 1 - (RemainingCraftingWork / ItemBeingCrafted.CraftRequirements.WorkCost);
-        }
-        
-        public float GetPercentMaterialsReceived()
-        {
-            if (ItemBeingCrafted == null && MealBeingCooked == null) return 0f;
-
-            int numItemsNeeded = 0;
-            if (MealBeingCooked != null)
-            {
-                foreach (var cost in MealBeingCooked.MealRequirements.GetIngredients())
-                {
-                    numItemsNeeded += cost.Amount;
-                }
-            }
-            else
-            {
-                foreach (var cost in ItemBeingCrafted.CraftRequirements.GetMaterialCosts())
-                {
-                    numItemsNeeded += cost.Quantity;
-                }
-            }
-            
-            int numItemsRemaining = RemainingMaterials.Count;
-            
-            if (numItemsNeeded == 0)
-            {
-                return 1f;
-            }
-            else
-            {
-                return 1f - (numItemsRemaining / (float)numItemsNeeded);
-            }
-        }
         
         public bool CanCraftItem(CraftedItemSettings settings)
         {
             var validToCraft = CraftingTableSettings.CraftableItems.Contains(settings);
-            if (!validToCraft) return false;
-            
-            // // Are the mats available?
-            // foreach (var cost in settings.CraftRequirements.GetMaterialCosts())
-            // {
-            //     if (!cost.CanAfford())
-            //     {
-            //         return false;
-            //     }
-            // }
-
-            return true;
+            return validToCraft;
         }
 
         public bool CanAffordToCraft(CraftedItemSettings settings)
@@ -87,13 +33,9 @@ namespace Data.Item
 
             return true;
         }
-
-        public bool CanCookMeal(MealSettings mealSettings)
+        
+        public bool CanAffordToCook(MealSettings mealSettings)
         {
-            var validToCraft = CraftingTableSettings.CookableMeals.Contains(mealSettings);
-            if (!validToCraft) return false;
-            
-            // Are the mats available?
             foreach (var cost in mealSettings.MealRequirements.GetIngredients())
             {
                 if (!cost.CanAfford())
@@ -105,29 +47,37 @@ namespace Data.Item
             return true;
         }
 
+        public bool CanCookMeal(MealSettings mealSettings)
+        {
+            var validToCraft = CraftingTableSettings.CookableMeals.Contains(mealSettings);
+            return validToCraft;
+        }
+
         public bool IsAvailable()
         {
             if (State == EFurnitureState.InProduction) return false;
-            if (ItemBeingCrafted != null) return false;
-            if (MealBeingCooked != null) return false;
+            if (CurrentOrder.State != CraftingOrder.EOrderState.None) return false;
 
             return true;
         }
 
         public ESkillType CraftingSkillType()
         {
-            if (ItemBeingCrafted != null)
+            switch (CurrentOrder.OrderType)
             {
-                return ESkillType.Crafting;
-            }
-
-            if (MealBeingCooked != null)
-            {
-                return ESkillType.Cooking;
-            }
-            
-            Debug.LogError("Unknown item being crafted");
-            return ESkillType.Crafting;
+                case CraftingOrder.EOrderType.Furniture:
+                case CraftingOrder.EOrderType.Item:
+                    return ESkillType.Crafting;
+                case CraftingOrder.EOrderType.Meal:
+                    return ESkillType.Cooking;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            } 
+        }
+        
+        public void SubmitOrder(CraftingOrder order)
+        {
+            LocalCraftingQueue.Orders.Add(order);
         }
     }
 }

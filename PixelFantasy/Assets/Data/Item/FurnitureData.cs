@@ -6,8 +6,6 @@ using Data.Item;
 using Databrain.Attributes;
 using Items;
 using Managers;
-using ScriptableObjects;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -31,6 +29,11 @@ namespace Data.Item
             var furnitureSettings = itemSettings as FurnitureSettings;
             RemainingWork = furnitureSettings.CraftRequirements.WorkCost;
             Direction = furnitureSettings.DefaultDirection;
+        }
+        
+        protected void OnChanged()
+        {
+            LinkedFurniture?.OnChanged?.Invoke();
         }
     }
 }

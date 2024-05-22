@@ -63,7 +63,7 @@ namespace Systems.Details.Generic_Details.Scripts
                 _remainingResourcesHandle.SetActive(false);
             }
             
-            _structure.OnStructureChanged += StructureChanged;
+            _structure.OnChanged += StructureChanged;
             _isActive = true;
         }
 
@@ -86,7 +86,7 @@ namespace Systems.Details.Generic_Details.Scripts
         {
             if (_structure != null)
             {
-                _structure.OnStructureChanged -= StructureChanged;
+                _structure.OnChanged -= StructureChanged;
             }
 
             _structure = null;

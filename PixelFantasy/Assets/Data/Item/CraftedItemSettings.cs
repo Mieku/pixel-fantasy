@@ -1,3 +1,4 @@
+using Systems.Details.Generic_Details.Scripts;
 using UnityEngine;
 
 namespace Data.Item
@@ -9,5 +10,7 @@ namespace Data.Item
 
         // Accessors
         public CraftRequirements CraftRequirements => _craftRequirements.Clone();
+
+        public ItemSettings GetSettings => this;
     }
 }

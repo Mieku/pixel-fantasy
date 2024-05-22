@@ -5,6 +5,7 @@ using System.Linq;
 using Databrain;
 using Managers;
 using ScriptableObjects;
+using Systems.Details.Generic_Details.Scripts;
 using TaskSystem;
 using UnityEngine;
 
@@ -20,6 +21,7 @@ namespace Data.Item
         public EMealQuality Quality => _mealQuality;
         public float Nutrition => _nutrition;
         public MealRequirements MealRequirements => _mealRequirements.Clone();
+        public ItemSettings GetSettings => this;
     }
 
     public enum EMealQuality
@@ -113,6 +115,46 @@ namespace Data.Item
         public bool CanAfford()
         {
             return InventoryManager.Instance.AreFoodTypesAvailable(FoodType, Amount);
+        }
+
+        public Sprite GetIngredientIcon(bool outlined)
+        {
+            if (outlined)
+            {
+                switch (FoodType)
+                {
+                    case EFoodType.Produce:
+                        return Librarian.Instance.GetSprite("Produce Icon Outlined");
+                    case EFoodType.Grain:
+                        return Librarian.Instance.GetSprite("Grains Icon Outlined");
+                    case EFoodType.Meat:
+                        return Librarian.Instance.GetSprite("Meat Icon Outlined");
+                    case EFoodType.Dairy:
+                        return Librarian.Instance.GetSprite("Dairy Icon Outlined");
+                    case EFoodType.Meal:
+                        return Librarian.Instance.GetSprite("Meal Icon Outlined");
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+            else
+            {
+                switch (FoodType)
+                {
+                    case EFoodType.Produce:
+                        return Librarian.Instance.GetSprite("Produce Icon");
+                    case EFoodType.Grain:
+                        return Librarian.Instance.GetSprite("Grains Icon");
+                    case EFoodType.Meat:
+                        return Librarian.Instance.GetSprite("Meat Icon");
+                    case EFoodType.Dairy:
+                        return Librarian.Instance.GetSprite("Dairy Icon");
+                    case EFoodType.Meal:
+                        return Librarian.Instance.GetSprite("Meal Icon");
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
         }
     }
 }

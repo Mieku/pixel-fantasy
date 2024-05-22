@@ -36,6 +36,7 @@ namespace Systems.Details.Generic_Details.Scripts
             _commandBtnPrefab.gameObject.SetActive(false);
             
             GameEvents.RefreshSelection += GameEvent_RefreshSelection;
+            _clickableObject.OnChanged += GameEvent_RefreshSelection;
             
             Refresh();
         }

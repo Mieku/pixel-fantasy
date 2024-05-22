@@ -30,6 +30,7 @@ namespace Items
         
         [DataObjectDropdown("DataLibrary", true)]
         public ResourceData RuntimeData;
+        public Action OnChanged { get; set; }
         
         public virtual void InitializeResource(ResourceSettings settings)
         {

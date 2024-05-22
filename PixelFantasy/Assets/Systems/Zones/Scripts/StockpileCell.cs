@@ -83,27 +83,6 @@ namespace Systems.Zones.Scripts
                     stored.CurrentTask.Cancel();
                 }
             }
-            
-            // foreach (var incoming in Incoming)
-            // {
-            //     if (incoming.LinkedItem != null)
-            //     {
-            //         incoming.LinkedItem.CancelTask();
-            //     }
-            //
-            //     if (incoming.CurrentTask != null)
-            //     {
-            //         incoming.CurrentTask.Cancel();
-            //     }
-            // }
-            //
-            // foreach (var stored in Stored)
-            // {
-            //     if (stored.CurrentTask != null)
-            //     {
-            //         stored.CurrentTask.Cancel();
-            //     }
-            // }
         }
 
         public void RefreshDisplay()

@@ -58,6 +58,8 @@ namespace Items
         private DyeData _dyeOverride;
         private readonly List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle"};
 
+        public Action OnChanged { get; set; }
+
         protected virtual void Awake()
         {
             _fadePropertyID = Shader.PropertyToID("_OuterOutlineFade");
@@ -107,6 +109,7 @@ namespace Items
         public virtual void CompletePlanning()
         {
             _isPlanning = false;
+            OnChanged?.Invoke();
         }
 
         public virtual void InitializeFurniture(FurnitureSettings furnitureSettings, PlacementDirection direction, DyeData dye)
@@ -128,8 +131,6 @@ namespace Items
                 DataLibrary.OnSaved += Saved;
                 DataLibrary.OnLoaded += Loaded;
             });
-            
-            
         }
 
         public PlacementDirection RotatePlan(bool isClockwise)
@@ -156,7 +157,7 @@ namespace Items
         {
             CreateTask(command, payload);
         }
-        
+
         protected PlacementDirection SetNextDirection(bool isClockwise)
         {
             if (isClockwise)
@@ -321,6 +322,8 @@ namespace Items
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            
+            OnChanged?.Invoke();
         }
 
         private List<Transform> UseagePositions()
@@ -416,12 +419,15 @@ namespace Items
             }
             
             // If item exists, claim it
-            var isAvailable = InventoryManager.Instance.IsSpecificItemInStorage(RuntimeData);
+            var isAvailable = InventoryManager.Instance.IsItemInStorage(RuntimeData.FurnitureSettings);
             if (isAvailable)
             {
+                // Claim the item
+                var furnitureItem = InventoryManager.Instance.GetItemOfType(RuntimeData.FurnitureSettings);
+                
                 Task task = new Task("Place Furniture", ETaskType.Hauling, this, EToolType.None)
                 {
-                    Materials = new List<ItemData>(){ RuntimeData },
+                    Materials = new List<ItemData>(){ furnitureItem },
                 };
                 TaskManager.Instance.AddTask(task);
             }
@@ -431,11 +437,11 @@ namespace Items
                         RuntimeData.FurnitureSettings, 
                         this, 
                         CraftingOrder.EOrderType.Furniture, 
-                        true,
                         OnFurnitureOrderClaimed, 
                         OnFurnitureOrderDelivered, 
                         OnFurnitureOrderCancelled
                     );
+                CraftingOrdersManager.Instance.SubmitOrder(craftingOrder);
             }
         }
 
@@ -466,17 +472,10 @@ namespace Items
             SetState(EFurnitureState.Built);
         }
         
-        public bool DoPlacement(StatsData stats)
+        public void DoPlacement()
         {
-            var workAmount = stats.GetActionSpeedForSkill(ESkillType.Crafting, true);
-            RuntimeData.RemainingWork -= workAmount;
-            if (RuntimeData.RemainingWork <= 0)
-            {
-                SetState(EFurnitureState.Built);
-                return true;
-            }
-            
-            return false;
+            // Placement is now instant
+            SetState(EFurnitureState.Built);
         }
         
         protected virtual void Update()
