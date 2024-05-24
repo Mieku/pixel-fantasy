@@ -21,8 +21,6 @@ namespace Systems.Crafting.Scripts
             {
                 if (order.CanBeCrafted(tableData))
                 {
-                    int orderIndex = Orders.IndexOf(order);
-                    Orders.RemoveAt(orderIndex);
                     return order;
                 }
             }
@@ -36,6 +34,8 @@ namespace Systems.Crafting.Scripts
             {
                 Orders.Remove(order);
             }
+
+            order.CancelOrder();
         }
 
         public void IncreaseOrderPriority(CraftingOrder order)

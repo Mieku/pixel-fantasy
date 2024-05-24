@@ -55,15 +55,16 @@ namespace Items
         
         private void SearchForCraftingOrder()
         {
-            if (IsAvailable && RuntimeTableData.CurrentOrder.State == CraftingOrder.EOrderState.None)
+            if (IsAvailable && RuntimeTableData.CurrentOrder?.State == CraftingOrder.EOrderState.None)
             {
                 CraftingOrder order = RuntimeTableData.LocalCraftingQueue.GetNextCraftableOrder(RuntimeTableData);
           
                 if (order != null)
                 {
                     RuntimeTableData.CurrentOrder = order;
-                    var task = order.CreateTask(OnCraftingComplete, this);
+                    var task = order.CreateTask(OnCraftingComplete, OnCraftingCancelled, this);
                     TaskManager.Instance.AddTask(task);
+                    RuntimeTableData.CurrentOrder.State = CraftingOrder.EOrderState.Claimed;
                     OnChanged?.Invoke();
                 }
             }
@@ -71,8 +72,20 @@ namespace Items
 
         private void OnCraftingComplete(Task task)
         {
+            if (RuntimeTableData.CurrentOrder.FulfillmentType == CraftingOrder.EFulfillmentType.Amount)
+            {
+                RuntimeTableData.CurrentOrder.Amount = Mathf.Clamp(RuntimeTableData.CurrentOrder.Amount - 1, 0, 999);
+            }
+            
             RuntimeTableData.CurrentOrder.State = CraftingOrder.EOrderState.None;
+            RuntimeTableData.CurrentOrder.RefreshOrderRequirements();
             OnChanged?.Invoke();
+        }
+
+        private void OnCraftingCancelled()
+        {
+            RuntimeTableData.CurrentOrder.State = CraftingOrder.EOrderState.None;
+            AssignItemToTable(null, null);
         }
 
         private SpriteRenderer CraftingPreview

@@ -13,8 +13,6 @@ namespace Systems.Details.Generic_Details.Scripts
         [SerializeField] private Transform _craftingOptionsParent;
         [SerializeField] private CraftingQueueEntry _craftingQueueEntryPrefab;
         [SerializeField] private Transform _craftingQueueLayout;
-
-        [SerializeField] private CraftingQueueEntry _currentOrderEntry;
         
         private CraftingTableData _data;
         private List<CraftingOrderOption> _displayedOption = new List<CraftingOrderOption>();
@@ -26,7 +24,6 @@ namespace Systems.Details.Generic_Details.Scripts
             gameObject.SetActive(true);
             _craftingOrderOptionPrefab.gameObject.SetActive(false);
             _craftingQueueEntryPrefab.gameObject.SetActive(false);
-            _currentOrderEntry.gameObject.SetActive(false);
             
             DisplayCraftingOptions();
             DisplayCraftingQueue();
@@ -63,18 +60,6 @@ namespace Systems.Details.Generic_Details.Scripts
                 Destroy(entry.gameObject);
             }
             _displayedCraftingQueue.Clear();
-
-            // Current
-            var curOrder = _data.CurrentOrder;
-            if (curOrder.State != CraftingOrder.EOrderState.None)
-            {
-                _currentOrderEntry.gameObject.SetActive(true);
-                _currentOrderEntry.Init(curOrder, null, false, false, _data.LinkedFurniture.OnChanged);
-            }
-            else
-            {
-                _currentOrderEntry.gameObject.SetActive(false);
-            }
             
             // Local
             var queue = _data.LocalCraftingQueue.Orders;
@@ -82,7 +67,7 @@ namespace Systems.Details.Generic_Details.Scripts
             {
                 var entry = Instantiate(_craftingQueueEntryPrefab, _craftingQueueLayout);
                 entry.gameObject.SetActive(true);
-                entry.Init(order, _data.LocalCraftingQueue, !_data.LocalCraftingQueue.IsFirstInQueue(order), !_data.LocalCraftingQueue.IsLastInQueue(order), _data.LinkedFurniture.OnChanged);
+                entry.Init(order, _data.LocalCraftingQueue, _data.LinkedFurniture.OnChanged);
                 _displayedCraftingQueue.Add(entry);
             }
         }
@@ -92,7 +77,7 @@ namespace Systems.Details.Generic_Details.Scripts
             var craftedItem = item as CraftedItemSettings;
             if (craftedItem != null)
             {
-                CraftingOrder optionOrder = new CraftingOrder(craftedItem, _data.LinkedFurniture, CraftingOrder.EOrderType.Item);
+                CraftingOrder optionOrder = new CraftingOrder(craftedItem, _data.LinkedFurniture);
                 _data.SubmitOrder(optionOrder);
             }
 

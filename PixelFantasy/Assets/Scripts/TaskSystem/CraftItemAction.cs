@@ -3,6 +3,7 @@ using Data.Item;
 using Items;
 using Managers;
 using Systems.Appearance.Scripts;
+using UnityEngine;
 
 namespace TaskSystem
 {
@@ -130,6 +131,7 @@ namespace TaskSystem
 
         public override void OnTaskCancel()
         {
+            _ai.DropCarriedItem(true);
             base.OnTaskCancel();
         }
 

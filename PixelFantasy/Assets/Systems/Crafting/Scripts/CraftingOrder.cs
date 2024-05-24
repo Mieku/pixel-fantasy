@@ -20,6 +20,11 @@ namespace Systems.Crafting.Scripts
         public float RemainingCraftingWork;
         public float TotalCraftingWork;
         public List<ItemData> ClaimedItems = new List<ItemData>();
+
+        public EFulfillmentType FulfillmentType;
+        public int Amount;
+        public Task CraftingTask;
+        public bool IsPaused;
         
         public Action OnOrderComplete;
         public Action OnOrderClaimed;
@@ -42,20 +47,28 @@ namespace Systems.Crafting.Scripts
             Completed,
             Cancelled,
         }
+
+        public enum EFulfillmentType
+        {
+            Amount,
+            Until,
+            Forever,
+        }
         
-        public CraftingOrder(CraftedItemSettings itemToCraft, PlayerInteractable requestor, EOrderType orderType, Action onOrderClaimed = null, Action onOrderComplete = null,
+        public CraftingOrder(CraftedItemSettings itemToCraft, PlayerInteractable requestor, Action onOrderClaimed = null, Action onOrderComplete = null,
             Action onOrderCancelled = null)
         {
             CraftedItem = itemToCraft;
-            OrderType = orderType;
+            OrderType = EOrderType.Item;
             Requestor = requestor;
             OnOrderClaimed = onOrderClaimed;
             OnOrderComplete = onOrderComplete;
             OnOrderCancelled = onOrderCancelled;
+            FulfillmentType = EFulfillmentType.Amount;
+            Amount = 1;
+            IsPaused = false;
 
-            TotalCraftingWork = itemToCraft.CraftRequirements.WorkCost;
-            RemainingCraftingWork = itemToCraft.CraftRequirements.WorkCost;
-            _remainingMaterials = itemToCraft.CraftRequirements.GetMaterialCosts();
+            RefreshOrderRequirements();
         }
         
         // For Meals
@@ -68,13 +81,33 @@ namespace Systems.Crafting.Scripts
             OnOrderClaimed = onOrderClaimed;
             OnOrderComplete = onOrderComplete;
             OnOrderCancelled = onOrderCancelled;
+            FulfillmentType = EFulfillmentType.Amount;
+            Amount = 1;
+            IsPaused = false;
             
-            TotalCraftingWork = mealToCraft.MealRequirements.WorkCost;
-            RemainingCraftingWork = mealToCraft.MealRequirements.WorkCost;
-            _remainingIngredients = mealToCraft.MealRequirements.GetIngredients();
+            RefreshOrderRequirements();
+        }
+
+        public void RefreshOrderRequirements()
+        {
+            switch (OrderType)
+            {
+                case EOrderType.Item:
+                    TotalCraftingWork = CraftedItem.CraftRequirements.WorkCost;
+                    RemainingCraftingWork = CraftedItem.CraftRequirements.WorkCost;
+                    _remainingMaterials = CraftedItem.CraftRequirements.GetMaterialCosts();
+                    break;
+                case EOrderType.Meal:
+                    TotalCraftingWork = CraftedMeal.MealRequirements.WorkCost;
+                    RemainingCraftingWork = CraftedMeal.MealRequirements.WorkCost;
+                    _remainingIngredients = CraftedMeal.MealRequirements.GetIngredients();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
         
-        public Task CreateTask(Action<Task> onTaskComplete, CraftingTable table)
+        public Task CreateTask(Action<Task> onTaskComplete, Action onTaskCancelled, CraftingTable table)
         {
             List<ItemData> claimedMats = null;
 
@@ -91,24 +124,25 @@ namespace Systems.Crafting.Scripts
             {
                 return null;
             }
-
-            Task task;
+            
             switch (OrderType)
             {
                 case EOrderType.Item:
-                    task = new Task("Craft Item", CraftedItem.CraftRequirements.CraftingSkill, table, CraftedItem.CraftRequirements.RequiredCraftingToolType)
+                    CraftingTask = new Task("Craft Item", CraftedItem.CraftRequirements.CraftingSkill, table, CraftedItem.CraftRequirements.RequiredCraftingToolType)
                     {
                         Payload = CraftedItem,
                         OnTaskComplete = onTaskComplete,
+                        OnTaskCancel = onTaskCancelled,
                         Materials = claimedMats,
                     };
                     break;
                 case EOrderType.Meal:
-                    task = new Task("Cook Meal", CraftedMeal.MealRequirements.CraftingSkill, table,
+                    CraftingTask = new Task("Cook Meal", CraftedMeal.MealRequirements.CraftingSkill, table,
                         CraftedMeal.MealRequirements.RequiredCraftingToolType)
                     {
                         Payload = CraftedMeal,
                         OnTaskComplete = onTaskComplete,
+                        OnTaskCancel = onTaskCancelled,
                         Materials = claimedMats,
                     };
                     break;
@@ -116,9 +150,34 @@ namespace Systems.Crafting.Scripts
                     throw new ArgumentOutOfRangeException();
             }
 
-            State = EOrderState.Claimed;
+            //State = EOrderState.Claimed;
             OnOrderClaimed?.Invoke();
-            return task;
+            return CraftingTask;
+        }
+
+        public bool IsOrderFulfilled()
+        {
+            switch (FulfillmentType)
+            {
+                case EFulfillmentType.Amount:
+                    return Amount == 0;
+                case EFulfillmentType.Until:
+                    int amountAvailable;
+                    if (OrderType == EOrderType.Meal)
+                    {
+                        amountAvailable = InventoryManager.Instance.GetAmountAvailable(CraftedMeal);
+                    }
+                    else
+                    {
+                        amountAvailable = InventoryManager.Instance.GetAmountAvailable(CraftedItem);
+                    }
+                    
+                    return amountAvailable >= Amount;
+                case EFulfillmentType.Forever:
+                    return false;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         private List<ItemData> ClaimRequiredMaterials()
@@ -164,8 +223,26 @@ namespace Systems.Crafting.Scripts
             OnOrderClaimed?.Invoke();
         }
 
+        public void CancelOrder()
+        {
+            foreach (var claimedItem in ClaimedItems)
+            {
+                claimedItem.UnclaimItem();
+            }
+            ClaimedItems.Clear();
+            
+            if (CraftingTask != null)
+            {
+                CraftingTask.Cancel();
+            }
+            
+            OnOrderCancelled?.Invoke();
+        }
+
         public bool CanBeCrafted(CraftingTableData tableData)
         {
+            if (IsOrderFulfilled() || IsPaused) return false;
+            
             switch (OrderType)
             {
                 case EOrderType.Item:
@@ -175,7 +252,6 @@ namespace Systems.Crafting.Scripts
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            
         }
         
         public bool AreMaterialsAvailable()
@@ -221,6 +297,13 @@ namespace Systems.Crafting.Scripts
                 default:
                     throw new ArgumentOutOfRangeException(nameof(state), state, null);
             }
+        }
+
+        public bool IsOrderInProgress()
+        {
+            if (State == EOrderState.Claimed) return true;
+
+            return false;
         }
 
         private void Enter_Queued()

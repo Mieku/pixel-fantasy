@@ -179,14 +179,17 @@ namespace Data.Zones
         public void RestoreClaimed(ItemData itemData)
         {
             var cell = GetAssignedCellForSpecificItem(itemData);
-            if (!cell.Claimed.Contains(itemData))
+            if (cell != null)
             {
-                Debug.LogError($"Item Claim: {itemData.guid} was not restored, was not found in claimed");
-                return;
-            }
+                if (!cell.Claimed.Contains(itemData))
+                {
+                    Debug.LogError($"Item Claim: {itemData.guid} was not restored, was not found in claimed");
+                    return;
+                }
 
-            cell.Claimed.Remove(itemData);
-            GameEvents.Trigger_RefreshInventoryDisplay();
+                cell.Claimed.Remove(itemData);
+                GameEvents.Trigger_RefreshInventoryDisplay();
+            }
         }
 
         public Vector2? AccessPosition(Vector2 requestorPosition, ItemData specificItem)

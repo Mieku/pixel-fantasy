@@ -207,7 +207,7 @@ MonoBehaviour:
   title: Iron Bar
   description: This is a description of the newly created data entry.
   tags: []
-  index: 1
+  index: 2
   relatedLibraryObject: {fileID: 11400000}
   runtimeLibraryObject: {fileID: 0}
   assignedGuid: 
@@ -748,7 +748,7 @@ MonoBehaviour:
   title: Gold Bar
   description: This is a description of the newly created data entry.
   tags: []
-  index: 2
+  index: 3
   relatedLibraryObject: {fileID: 11400000}
   runtimeLibraryObject: {fileID: 0}
   assignedGuid: 
@@ -2752,9 +2752,8 @@ MonoBehaviour:
   _defaultDirection: 0
   _defaultDye: {fileID: 0}
   _craftableItems:
-  - {fileID: -2864379102396860336}
-  - {fileID: -2429024163771652823}
   - {fileID: -36226739791890325}
+  - {fileID: 5455808903527916622}
   _cookableMeals: []
 --- !u!114 &-56553772185048440
 MonoBehaviour:
@@ -2831,7 +2830,7 @@ MonoBehaviour:
   title: Gold Bar
   description: This is a description of the newly created data entry.
   tags: []
-  index: 0
+  index: 1
   relatedLibraryObject: {fileID: 11400000}
   runtimeLibraryObject: {fileID: 0}
   assignedGuid: 
@@ -2890,6 +2889,7 @@ MonoBehaviour:
     - type: Data.Item.CraftedItemData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 5826925235861512597}
       - {fileID: 197161459398656425}
       - {fileID: -7963632896702530702}
       - {fileID: -6683971750745164997}
@@ -2963,6 +2963,7 @@ MonoBehaviour:
     - type: Data.Item.CraftedItemSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 5455808903527916622}
       - {fileID: -36226739791890325}
       - {fileID: 4293936689025372978}
       - {fileID: 2760536265605788022}
@@ -3077,7 +3078,7 @@ MonoBehaviour:
   runtimeLibraryGuid: 
   runtimeLibraryFolderPath: 
   initialLibrary: {fileID: 0}
-  selectedDataObject: {fileID: -7223051035212598023}
+  selectedDataObject: {fileID: -9050092128877666307}
   modules:
   - {fileID: 1013997515501222643}
   - {fileID: 3086282657986071168}
@@ -3526,6 +3527,16 @@ MonoBehaviour:
     RemainingCraftingWork: 0
     TotalCraftingWork: 0
     ClaimedItems: []
+    FulfillmentType: 0
+    Amount: 0
+    CraftingTask:
+      TaskId: 
+      TaskType: 0
+      KinlingAssignedToTask: {fileID: 0}
+      Materials: []
+      RequiredToolType: 0
+      IsKinlingSpecific: 0
+    IsPaused: 0
   LocalCraftingQueue:
     Orders: []
 --- !u!114 &197161459398656425
@@ -3560,7 +3571,7 @@ MonoBehaviour:
   title: Steel Bar
   description: This is a description of the newly created data entry.
   tags: []
-  index: 0
+  index: 1
   relatedLibraryObject: {fileID: 11400000}
   runtimeLibraryObject: {fileID: 0}
   assignedGuid: 
@@ -3654,7 +3665,7 @@ MonoBehaviour:
   title: Copper Bar
   description: This is a description of the newly created data entry.
   tags: []
-  index: 3
+  index: 4
   relatedLibraryObject: {fileID: 11400000}
   runtimeLibraryObject: {fileID: 0}
   assignedGuid: 
@@ -4502,7 +4513,7 @@ MonoBehaviour:
   title: Iron Bar
   description: This is a description of the newly created data entry.
   tags: []
-  index: 2
+  index: 3
   relatedLibraryObject: {fileID: 11400000}
   runtimeLibraryObject: {fileID: 0}
   assignedGuid: 
@@ -4881,7 +4892,7 @@ MonoBehaviour:
   title: Copper Bar
   description: This is a description of the newly created data entry.
   tags: []
-  index: 1
+  index: 2
   relatedLibraryObject: {fileID: 11400000}
   runtimeLibraryObject: {fileID: 0}
   assignedGuid: 
@@ -5082,6 +5093,55 @@ MonoBehaviour:
   _horizontalDoormat: {fileID: -1380345715, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
   _verticalDoorframe: {fileID: -468987788, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
   _verticalDoormat: {fileID: 20403438, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
+--- !u!114 &5455808903527916622
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a76c62dc32f973a478967d098378706b, type: 3}
+  m_Name: Plank
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  guid: dd5349ac-3fba-4954-9f22-e1b564f63a1c
+  initialGuid: dd5349ac-3fba-4954-9f22-e1b564f63a1c
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: 15918864e961b10429f4f65321a0483b, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Plank
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _category: 0
+  _maxDurability: 100
+  _maxStackSize: 25
+  _hasQuality: 1
+  _defaultQuality: 1
+  _baseData: {fileID: 5826925235861512597}
+  _craftRequirements:
+    _minCraftingSkillLevel: 2
+    _craftingSkill: 10
+    _workCost: 15
+    _requiredCraftingToolType: 0
+    _materialCosts:
+    - Item: {fileID: 283630323700872253}
+      Quantity: 2
 --- !u!114 &5747519841221157967
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5129,6 +5189,59 @@ MonoBehaviour:
   MaxDurability: 50
   ExteriorRuleTile: {fileID: 11400000, guid: f91b311b42950d84fb7392825b419fe0, type: 2}
   InteriorRuleTile: {fileID: 11400000, guid: f296c6c9d32e2ca47888f29895bc1dbc, type: 2}
+--- !u!114 &5826925235861512597
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02f2892ec734b9d46bd22d0737cc94b1, type: 3}
+  m_Name: Plank
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: AssignedStorage
+      Entry: 6
+      Data: 
+  guid: eb2a30f6-da71-46c7-bfc5-fd76e3a07331
+  initialGuid: eb2a30f6-da71-46c7-bfc5-fd76e3a07331
+  runtimeIndexID: 
+  icon: {fileID: 21300000, guid: 15918864e961b10429f4f65321a0483b, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Plank
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  Durability: 0
+  Quality: 0
+  IsAllowed: 0
+  CurrentTask:
+    TaskId: 
+    TaskType: 0
+    KinlingAssignedToTask: {fileID: 0}
+    Materials: []
+    RequiredToolType: 0
+    IsKinlingSpecific: 0
+  CarryingKinlingUID: 
+  Position: {x: 0, y: 0}
+  LinkedItem: {fileID: 0}
+  Settings: {fileID: 0}
+  CraftersUID: 
 --- !u!114 &5933055010327361580
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5692,7 +5805,7 @@ MonoBehaviour:
   title: Steel Bar
   description: This is a description of the newly created data entry.
   tags: []
-  index: 3
+  index: 4
   relatedLibraryObject: {fileID: 11400000}
   runtimeLibraryObject: {fileID: 0}
   assignedGuid: 
@@ -6032,8 +6145,6 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Item.StorageData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
@@ -6061,53 +6172,10 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Resource.ResourceData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -6503,58 +6571,6 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Resource.MountainResourceData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       dataObjects:
@@ -6596,9 +6612,19 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Item.CraftingTableData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
     - type: Data.Structure.WallData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
