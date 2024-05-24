@@ -92,6 +92,29 @@ namespace Managers
             return null;
         }
 
+        public List<ItemData> ClaimItemsOfType(ItemAmount itemAmount)
+        {
+            List<ItemData> results = new List<ItemData>();
+            for (int i = 0; i < itemAmount.Quantity; i++)
+            {
+                var item = GetItemOfType(itemAmount.Item);
+                if (item == null) // Just in case
+                {
+                    Debug.LogError("Failed to get an item");
+                    foreach (var result in results)
+                    {
+                        result.UnclaimItem();
+                    }
+                    return null;
+                }
+                
+                item.ClaimItem();
+                results.Add(item);
+            }
+
+            return results;
+        }
+
         public ItemData GetFoodItemOfType(EFoodType foodType)
         {
             if (foodType == EFoodType.Meal)

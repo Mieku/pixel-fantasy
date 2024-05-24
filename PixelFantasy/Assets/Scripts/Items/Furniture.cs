@@ -12,7 +12,6 @@ using Handlers;
 using Interfaces;
 using Managers;
 using Sirenix.OdinInspector;
-using Systems.Crafting.Scripts;
 using Systems.Stats.Scripts;
 using TaskSystem;
 using UnityEngine;
@@ -388,7 +387,8 @@ namespace Items
             EnablePlacementObstacle(true);
             Show(true);
             ColourArt(ColourStates.Blueprint);
-            CreateFurnitureHaulingTask();
+            //CreateFurnitureHaulingTask();
+            CreateCraftFurnitureTask();
         }
         
         protected virtual void Built_Enter()
@@ -408,8 +408,8 @@ namespace Items
                 marker.gameObject.SetActive(showMarkers);
             }
         }
-        
-        private void CreateFurnitureHaulingTask()
+
+        private void CreateCraftFurnitureTask()
         {
             // If there are no material costs, build instantly
             if (RuntimeData.FurnitureSettings.CraftRequirements.MaterialCosts.Count == 0)
@@ -417,52 +417,28 @@ namespace Items
                 SetState(EFurnitureState.Built);
                 return;
             }
-            
-            // If item exists, claim it
-            var isAvailable = InventoryManager.Instance.IsItemInStorage(RuntimeData.FurnitureSettings);
-            if (isAvailable)
-            {
-                // Claim the item
-                var furnitureItem = InventoryManager.Instance.GetItemOfType(RuntimeData.FurnitureSettings);
-                
-                Task task = new Task("Place Furniture", ETaskType.Hauling, this, EToolType.None)
-                {
-                    Materials = new List<ItemData>(){ furnitureItem },
-                };
-                TaskManager.Instance.AddTask(task);
-            }
-            else
-            {
-                var craftingOrder = new CraftingOrder(
-                        RuntimeData.FurnitureSettings, 
-                        this, 
-                        CraftingOrder.EOrderType.Furniture, 
-                        OnFurnitureOrderClaimed, 
-                        OnFurnitureOrderDelivered, 
-                        OnFurnitureOrderCancelled
-                    );
-                CraftingOrdersManager.Instance.SubmitOrder(craftingOrder);
-            }
-        }
 
-        private void OnFurnitureOrderClaimed()
-        {
-            
-        }
-
-        private void OnFurnitureOrderDelivered()
-        {
-            
-        }
-
-        private void OnFurnitureOrderCancelled()
-        {
-            
+            Task task = new Task("Craft Furniture", ETaskType.Crafting, this, EToolType.None);
+            TaskManager.Instance.AddTask(task);
         }
 
         public override void ReceiveItem(ItemData item)
         {
             Destroy(item.LinkedItem.gameObject);
+        }
+
+        public bool DoCrafting(StatsData stats)
+        {
+            var workAmount = stats.GetActionSpeedForSkill(ESkillType.Crafting, true);
+            RuntimeData.RemainingWork -= workAmount;
+            if (RuntimeData.RemainingWork <= 0)
+            {
+                SetState(EFurnitureState.Built);
+                return true;
+            }
+            
+            OnChanged?.Invoke();
+            return false;
         }
 
         public void PlaceFurniture(Item furnitureItem)

@@ -57,17 +57,7 @@ namespace Items
         {
             if (IsAvailable && RuntimeTableData.CurrentOrder.State == CraftingOrder.EOrderState.None)
             {
-                CraftingOrder order;
-                
-                // Local Search
-                if (RuntimeTableData.PrioritizeOrdersWithMats)
-                {
-                    order = RuntimeTableData.LocalCraftingQueue.GetNextCraftableOrder(RuntimeTableData);
-                }
-                else
-                {
-                    order = RuntimeTableData.LocalCraftingQueue.GetNextOrder(RuntimeTableData);
-                }
+                CraftingOrder order = RuntimeTableData.LocalCraftingQueue.GetNextCraftableOrder(RuntimeTableData);
           
                 if (order != null)
                 {
@@ -75,28 +65,6 @@ namespace Items
                     var task = order.CreateTask(OnCraftingComplete, this);
                     TaskManager.Instance.AddTask(task);
                     OnChanged?.Invoke();
-                }
-                
-                
-                // Global Search
-                if (order == null)
-                {
-                    if (RuntimeTableData.PrioritizeOrdersWithMats)
-                    {
-                        order = CraftingOrdersManager.Instance.GetNextCraftableOrder(RuntimeTableData);
-                    }
-                    else
-                    {
-                        order = CraftingOrdersManager.Instance.GetNextOrder(RuntimeTableData);
-                    }
-          
-                    if (order != null)
-                    {
-                        RuntimeTableData.CurrentOrder = order;
-                        var task = order.CreateTask(OnCraftingComplete, this);
-                        TaskManager.Instance.AddTask(task);
-                        OnChanged?.Invoke();
-                    }
                 }
             }
         }

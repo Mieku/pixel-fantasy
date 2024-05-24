@@ -9,7 +9,6 @@ namespace Data.Item
     {
         // Runtime
         [ExposeToInspector, DatabrainSerialize] public CraftingOrder CurrentOrder;
-        [ExposeToInspector, DatabrainSerialize] public bool PrioritizeOrdersWithMats = true;
         
         [ExposeToInspector, DatabrainSerialize] public CraftingOrderQueue LocalCraftingQueue = new CraftingOrderQueue();
         
@@ -65,7 +64,6 @@ namespace Data.Item
         {
             switch (CurrentOrder.OrderType)
             {
-                case CraftingOrder.EOrderType.Furniture:
                 case CraftingOrder.EOrderType.Item:
                     return ESkillType.Crafting;
                 case CraftingOrder.EOrderType.Meal:

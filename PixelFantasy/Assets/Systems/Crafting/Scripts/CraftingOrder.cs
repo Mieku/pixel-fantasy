@@ -16,7 +16,6 @@ namespace Systems.Crafting.Scripts
         public PlayerInteractable Requestor;
         public EOrderState State;
         public EOrderType OrderType;
-        public bool IsGlobal;
         
         public float RemainingCraftingWork;
         public float TotalCraftingWork;
@@ -31,7 +30,6 @@ namespace Systems.Crafting.Scripts
         
         public enum EOrderType
         {
-            Furniture,
             Item,
             Meal,
         }
@@ -97,14 +95,6 @@ namespace Systems.Crafting.Scripts
             Task task;
             switch (OrderType)
             {
-                case EOrderType.Furniture:
-                    task = new Task("Craft Furniture Order", CraftedItem.CraftRequirements.CraftingSkill, Requestor, CraftedItem.CraftRequirements.RequiredCraftingToolType)
-                    {
-                        Payload = CraftedItem,
-                        OnTaskComplete = onTaskComplete,
-                        Materials = claimedMats,
-                    };
-                    break;
                 case EOrderType.Item:
                     task = new Task("Craft Item", CraftedItem.CraftRequirements.CraftingSkill, table, CraftedItem.CraftRequirements.RequiredCraftingToolType)
                     {
@@ -178,7 +168,6 @@ namespace Systems.Crafting.Scripts
         {
             switch (OrderType)
             {
-                case EOrderType.Furniture:
                 case EOrderType.Item:
                     return tableData.CanCraftItem(CraftedItem) && tableData.CanAffordToCraft(CraftedItem);
                 case EOrderType.Meal:
@@ -193,7 +182,6 @@ namespace Systems.Crafting.Scripts
         {
             switch (OrderType)
             {
-                case EOrderType.Furniture:
                 case EOrderType.Item:
                     if (_remainingMaterials.Any(itemAmount => !itemAmount.CanAfford()))
                     {
@@ -242,16 +230,7 @@ namespace Systems.Crafting.Scripts
 
         public void SubmitOrder(CraftingTableData tableData)
         {
-            if (tableData == null)
-            {
-                IsGlobal = true;
-                CraftingOrdersManager.Instance.SubmitOrder(this);
-            }
-            else
-            {
-                IsGlobal = false;
-                tableData.SubmitOrder(this);
-            }
+            tableData.SubmitOrder(this);
             
             SetOrderState(EOrderState.Queued);
         }
@@ -268,11 +247,6 @@ namespace Systems.Crafting.Scripts
         
         private void Enter_Cancelled()
         {
-            if (IsGlobal)
-            {
-                CraftingOrdersManager.Instance.CancelOrder(this);
-            }
-            
             OnOrderCancelled?.Invoke();
         }
 

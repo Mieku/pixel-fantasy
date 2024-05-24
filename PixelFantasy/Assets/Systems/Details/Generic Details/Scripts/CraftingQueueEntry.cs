@@ -1,7 +1,4 @@
 using System;
-using Data.Item;
-using HUD.Tooltip;
-using Items;
 using Systems.Crafting.Scripts;
 using TMPro;
 using UnityEngine;

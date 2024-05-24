@@ -183,7 +183,6 @@ Transform:
   - {fileID: 6604169484636279981}
   - {fileID: 6299173212709837303}
   - {fileID: 3643544760287507894}
-  - {fileID: 3500687174380350705}
   - {fileID: 2586568719187880621}
   - {fileID: 8076538520986657675}
   - {fileID: 4478921255544765822}
@@ -192,6 +191,7 @@ Transform:
   - {fileID: 3037783762484731446}
   - {fileID: 7545860082148926271}
   - {fileID: 4812555985130808453}
+  - {fileID: 2664349759248780046}
   m_Father: {fileID: 5532418264530240428}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6965329135388678903
@@ -581,6 +581,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8355272791609113398}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2675375579347740740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2664349759248780046}
+  - component: {fileID: 9103983555033402248}
+  m_Layer: 6
+  m_Name: Craft Furniture
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2664349759248780046
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2675375579347740740}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8355272791609113398}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9103983555033402248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2675375579347740740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73c384b044538d440aa3fa3b4e1d858a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TaskId: Craft Furniture
 --- !u!1 &3010343328883400537
 GameObject:
   m_ObjectHideFlags: 0
@@ -1559,51 +1604,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Produce Item
---- !u!1 &5719924548177687575
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3500687174380350705}
-  - component: {fileID: 5735428014187059916}
-  m_Layer: 6
-  m_Name: Craft Furniture Order
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3500687174380350705
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5719924548177687575}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8355272791609113398}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5735428014187059916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5719924548177687575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 862acd041e55a3841aec295d2d4d6696, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TaskId: Craft Furniture Order
 --- !u!1 &6077939752023387253
 GameObject:
   m_ObjectHideFlags: 0

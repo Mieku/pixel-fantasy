@@ -41,7 +41,7 @@ namespace Items
             
         }
         
-        public void AssignCommand(Command command, object payload = null)
+        public virtual void AssignCommand(Command command, object payload = null)
         {
             if (command.name == "Deconstruct Command")
             {
