@@ -40,7 +40,6 @@ namespace TaskSystem
             
             _itemSettings = task.Payload as ItemSettings;
             _targetItem = InventoryManager.Instance.GetItemOfType(_itemSettings);
-            //_targetItem = InventoryManager.Instance.GetItemOfType(_targetItem.Settings);
             
             if (_targetItem == null)
             {

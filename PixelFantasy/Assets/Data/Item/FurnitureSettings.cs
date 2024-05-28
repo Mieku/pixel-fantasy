@@ -17,6 +17,7 @@ namespace Data.Item
         [SerializeField] protected List<FurnitureVariant> _varients;
         [SerializeField] protected PlacementDirection _defaultDirection;
         [DataObjectDropdown][SerializeField] protected DyeData _defaultDye;
+        [SerializeField] protected int _numOwners;
         
         // Accessors
         public Furniture FurniturePrefab => _furniturePrefab;
@@ -25,5 +26,6 @@ namespace Data.Item
         public List<FurnitureVariant> Varients => _varients;
         public PlacementDirection DefaultDirection => _defaultDirection;
         public DyeData DefaultDye => _defaultDye;
+        public int NumberOfPossibleOwners => _numOwners;
     }
 }

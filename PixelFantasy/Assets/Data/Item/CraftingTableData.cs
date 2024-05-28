@@ -12,7 +12,7 @@ namespace Data.Item
         
         [ExposeToInspector, DatabrainSerialize] public CraftingOrderQueue LocalCraftingQueue = new CraftingOrderQueue();
         
-        public CraftingTableSettings CraftingTableSettings => Settings as CraftingTableSettings;
+        public CraftingTableSettings CraftingTableSettings => FurnitureSettings as CraftingTableSettings;
         
         public bool CanCraftItem(CraftedItemSettings settings)
         {

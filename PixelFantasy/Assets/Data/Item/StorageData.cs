@@ -16,15 +16,15 @@ namespace Data.Item
         [ExposeToInspector, DatabrainSerialize] public List<ItemData> Incoming = new List<ItemData>();
         [ExposeToInspector, DatabrainSerialize] public List<ItemData> Claimed = new List<ItemData>();
 
-        public StorageSettings StorageSettings => Settings as StorageSettings;
+        public StorageSettings StorageSettings => FurnitureSettings as StorageSettings;
         
         [field: ExposeToInspector]
         [field: DatabrainSerialize]
         public StorageConfigs StorageConfigs { get; private set; }
 
-        public override void InitData(ItemSettings itemSettings)
+        public override void InitData(FurnitureSettings furnitureSettings)
         {
-            base.InitData(itemSettings);
+            base.InitData(furnitureSettings);
         }
         
         public int AmountCanBeDeposited(ItemSettings itemSettings)

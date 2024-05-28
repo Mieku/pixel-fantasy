@@ -4,27 +4,24 @@ using Characters;
 using Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace Items
 {
-    public class BedFurniture : Furniture
+    public class BedFurniture : Furniture, IAssignedFurniture
     {
         public Transform UsingParent;
         
-        private KinlingData _assignedKinling;
-        private KinlingData _assignedKinling2;
         private List<KinlingData> _kinlingsInBed = new List<KinlingData>();
 
         public bool IsUnassigned(Kinling kinling)
         {
-            if (_assignedKinling == null)
+            if (RuntimeData.PrimaryOwner == null)
             {
                 return true;
             }
             else
             {
-                if (kinling.RuntimeData.Partner != null && kinling.RuntimeData.Partner == _assignedKinling)
+                if (kinling.RuntimeData.Partner != null && kinling.RuntimeData.Partner == RuntimeData.PrimaryOwner)
                 {
                     return true;
                 }
@@ -36,13 +33,12 @@ namespace Items
         public void AssignKinling(Kinling kinling)
         {
             kinling.AssignBed(this);
-            if (_assignedKinling == null)
+            if (RuntimeData.PrimaryOwner == null)
             {
-                _assignedKinling = kinling.RuntimeData;
-            }
-            else
+                RuntimeData.SetPrimaryOwner(kinling.RuntimeData);
+            } else if (RuntimeData.PrimaryOwner == kinling.RuntimeData.Partner)
             {
-                _assignedKinling2 = kinling.RuntimeData;
+                RuntimeData.SetSecondaryOwner(kinling.RuntimeData);
             }
         }
 
@@ -84,7 +80,7 @@ namespace Items
 
         public Transform GetSleepLocation(Kinling kinling)
         {
-            if (_assignedKinling == kinling.RuntimeData)
+            if (RuntimeData.PrimaryOwner == kinling.RuntimeData)
             {
                 return _direction switch
                 {
@@ -96,7 +92,7 @@ namespace Items
                 };
             }
 
-            if (_assignedKinling2 == kinling.RuntimeData)
+            if (RuntimeData.SecondaryOwner == kinling.RuntimeData)
             {
                 return _direction switch
                 {
@@ -185,6 +181,51 @@ namespace Items
         public int GetBetweenTheSheetsLayerOrder()
         {
             return 1;
+        }
+        
+        public KinlingData GetPrimaryOwner()
+        {
+            return RuntimeData.PrimaryOwner;
+        }
+
+        public KinlingData GetSecondaryOwner()
+        {
+            return RuntimeData.SecondaryOwner;
+        }
+
+        public void ReplacePrimaryOwner(KinlingData newOwner)
+        {
+            if (RuntimeData.PrimaryOwner != null)
+            {
+                RuntimeData.PrimaryOwner.AssignedBed = null;
+            }
+            
+            RuntimeData.SetPrimaryOwner(newOwner);
+
+            if (newOwner != null)
+            {
+                newOwner.AssignedBed = RuntimeData;
+            }
+        }
+
+        public void ReplaceSecondaryOwner(KinlingData newOwner)
+        {
+            if (RuntimeData.SecondaryOwner != null)
+            {
+                RuntimeData.SecondaryOwner.AssignedBed = null;
+            }
+            
+            RuntimeData.SetSecondaryOwner(newOwner);
+            
+            if (newOwner != null)
+            {
+                newOwner.AssignedBed = RuntimeData;
+            }
+        }
+
+        public bool CanHaveSecondaryOwner()
+        {
+            return RuntimeData.FurnitureSettings.NumberOfPossibleOwners >= 2;
         }
     }
 }

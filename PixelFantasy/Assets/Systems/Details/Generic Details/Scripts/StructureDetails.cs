@@ -42,17 +42,20 @@ namespace Systems.Details.Generic_Details.Scripts
                 _constructionProgressHandle.SetActive(true);
                 _remainingResourcesHandle.SetActive(true);
                 
-               // var remainingResources = _structure.RuntimeData.RemainingMaterialCosts;
                 var totalCosts = _structure.RuntimeData.CraftRequirements.GetMaterialCosts();
                 foreach (var remaining in totalCosts)
                 {
-                    var remainingAmount = _structure.RuntimeData.CraftRequirements.GetMaterialCosts()
+                    var remainingAmount = _structure.RuntimeData.RemainingMaterialCosts
                         .Find(r => r.Item == remaining.Item);
                     int totalAmount = totalCosts.Find(cost => cost.Item == remaining.Item).Quantity;
-                    var costDisplay = Instantiate(_remainingResourcePrefab, _remainingParent);
-                    costDisplay.gameObject.SetActive(true);
-                    costDisplay.Init(remainingAmount, totalAmount);
-                    _displayedRemainingResources.Add(costDisplay);
+                    
+                    if (remainingAmount != null)
+                    {
+                        var costDisplay = Instantiate(_remainingResourcePrefab, _remainingParent);
+                        costDisplay.gameObject.SetActive(true);
+                        costDisplay.Init(remainingAmount, totalAmount);
+                        _displayedRemainingResources.Add(costDisplay);
+                    }
                 }
 
                 RefreshConstructionInfo();
@@ -69,6 +72,8 @@ namespace Systems.Details.Generic_Details.Scripts
 
         private void StructureChanged()
         {
+            if(!_isActive) return;
+            
             RefreshTextEntries();
             
             if (_structure?.RuntimeData.State != EConstructionState.Built)
@@ -112,9 +117,13 @@ namespace Systems.Details.Generic_Details.Scripts
 
                 foreach (var displayedRemaining in _displayedRemainingResources)
                 {
-                    var remaining = _structure.RuntimeData.CraftRequirements.GetMaterialCosts()
+                    var remaining = _structure.RuntimeData.RemainingMaterialCosts
                         .Find(r => r.Item == displayedRemaining.ItemSettings);
-                    displayedRemaining.RefreshAmount(remaining);
+                    
+                    if (remaining != null)
+                    {
+                        displayedRemaining.RefreshAmount(remaining);
+                    }
                 }
             }
             else

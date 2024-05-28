@@ -150,10 +150,16 @@ namespace TaskSystem
             if (_kinling.RuntimeData.AssignedBed == null)
             {
                 var bed = FurnitureManager.Instance.FindClosestUnclaimedBed(_kinling);
-                bed.AssignKinling(_kinling);
+                if (bed != null)
+                {
+                    bed.AssignKinling(_kinling);
+                }
             }
-            
-            ForceTask("Go To Sleep");
+
+            if (_kinling.RuntimeData.AssignedBed != null)
+            {
+                ForceTask("Go To Sleep");
+            }
         }
         
         private void RequestNextJobTask()

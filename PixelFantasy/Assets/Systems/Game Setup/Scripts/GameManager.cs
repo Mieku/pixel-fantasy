@@ -87,28 +87,6 @@ namespace Systems.Game_Setup.Scripts
             CameraManager.Instance.LookAtPosition(lookPos);
             yield return null;
         }
-
-        private void LoadStarterStockpile(Vector3Int startCell, List<ItemAmount> preloadedItems)
-        {
-            Vector2 startPos = new Vector2(startCell.x, startCell.y);
-
-            _starterStockpile = (Storage)Spawner.Instance.SpawnFurniture(_starterStockpileSettings.FurniturePrefab, startPos);
-            
-            // Create the item datas
-            List<ItemData> datas = new List<ItemData>();
-            foreach (var preloadedItemAmount in preloadedItems)
-            {
-                for (int i = 0; i < preloadedItemAmount.Quantity; i++)
-                {
-                    var data = preloadedItemAmount.Item.CreateInitialDataObject();
-                    var item = (ItemData) DataLibrary.CloneDataObjectToRuntime(data);
-                    item.InitData(preloadedItemAmount.Item);
-                    datas.Add(item);
-                }
-            }
-            
-            _starterStockpile.ForceLoadItems(datas, _starterStockpileSettings);
-        }
         
         private void LoadStarterKinlings(Vector3Int startCell, int amount)
         {

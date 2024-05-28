@@ -43,6 +43,7 @@ namespace Items
         public DataLibrary DataLibrary;
         
         [DataObjectDropdown("DataLibrary", true)]
+        public FurnitureData Data;
         public FurnitureData RuntimeData;
         
         protected SpriteRenderer[] _allSprites;
@@ -114,12 +115,10 @@ namespace Items
         public virtual void InitializeFurniture(FurnitureSettings furnitureSettings, PlacementDirection direction, DyeData dye)
         {
             _dyeOverride = dye;
-            var data = furnitureSettings.CreateInitialDataObject();
-            //Data = furnitureData;
             
             DataLibrary.RegisterInitializationCallback(() =>
             {
-                RuntimeData = (FurnitureData) DataLibrary.CloneDataObjectToRuntime(data, gameObject);
+                RuntimeData = (FurnitureData) DataLibrary.CloneDataObjectToRuntime(Data, gameObject);
                 RuntimeData.LinkedFurniture = this;
                 RuntimeData.InitData(furnitureSettings);
                 RuntimeData.Direction = direction;
@@ -424,7 +423,14 @@ namespace Items
 
         public override void ReceiveItem(ItemData item)
         {
+            //RuntimeData.RemoveFromIncomingItems(item);
+            
             Destroy(item.LinkedItem.gameObject);
+            
+            RuntimeData.RemoveFromPendingResourceCosts(item.Settings);
+            RuntimeData.DeductFromMaterialCosts(item.Settings);
+            
+            OnChanged?.Invoke();
         }
 
         public bool DoCrafting(StatsData stats)

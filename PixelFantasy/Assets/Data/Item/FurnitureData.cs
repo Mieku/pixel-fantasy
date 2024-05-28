@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Characters;
 using Data.Dye;
 using Data.Item;
+using Databrain;
 using Databrain.Attributes;
 using Items;
 using Managers;
@@ -11,29 +12,249 @@ using UnityEngine.Serialization;
 
 namespace Data.Item
 {
-    public class FurnitureData : CraftedItemData
+    public class FurnitureData : DataObject
     {
         // Runtime
+        [ExposeToInspector, DatabrainSerialize] public bool IsAllowed;
         [ExposeToInspector, DatabrainSerialize] public EFurnitureState State;
         [ExposeToInspector, DatabrainSerialize] public float RemainingWork;
         [ExposeToInspector, DatabrainSerialize] public PlacementDirection Direction;
         [ExposeToInspector, DatabrainSerialize] public bool InUse;
         [ExposeToInspector, DatabrainSerialize] public Furniture LinkedFurniture;
         [ExposeToInspector, DatabrainSerialize] public DyeData DyeOverride;
+        [ExposeToInspector, DatabrainSerialize] public KinlingData[] Owners;
+        [ExposeToInspector, DatabrainSerialize] public Vector2 Position;
+        [ExposeToInspector, DatabrainSerialize] public string CraftersUID;
+        [ExposeToInspector, DatabrainSerialize] public EItemQuality Quality;
+        [ExposeToInspector, DatabrainSerialize] public int Durability;
+        
+        [ExposeToInspector, DatabrainSerialize] 
+        public List<ItemAmount> RemainingMaterialCosts;
+        
+        [ExposeToInspector, DatabrainSerialize] 
+        public List<ItemAmount> PendingResourceCosts = new List<ItemAmount>(); // Claimed by a task but not used yet
+        
+        [ExposeToInspector, DatabrainSerialize] 
+        public List<ItemAmount> IncomingResourceCosts = new List<ItemAmount>(); // The item is on its way
+        
+        [ExposeToInspector, DatabrainSerialize] 
+        public List<ItemData> IncomingItems = new List<ItemData>();
 
-        public FurnitureSettings FurnitureSettings => Settings as FurnitureSettings;
+        public FurnitureSettings FurnitureSettings;
 
-        public override void InitData(ItemSettings itemSettings)
+        public virtual void InitData(FurnitureSettings furnitureSettings)
         {
-            base.InitData(itemSettings);
-            var furnitureSettings = itemSettings as FurnitureSettings;
+            FurnitureSettings = furnitureSettings;
             RemainingWork = furnitureSettings.CraftRequirements.WorkCost;
+            RemainingMaterialCosts = furnitureSettings.CraftRequirements.GetMaterialCosts();
             Direction = furnitureSettings.DefaultDirection;
+            Durability = furnitureSettings.MaxDurability;
+            IsAllowed = true;
+
+            if (furnitureSettings.NumberOfPossibleOwners > 0)
+            {
+                Owners = new KinlingData[furnitureSettings.NumberOfPossibleOwners];
+            }
+            else Owners = null;
         }
         
         protected void OnChanged()
         {
             LinkedFurniture?.OnChanged?.Invoke();
+        }
+
+        public void SetPrimaryOwner(KinlingData kinlingData)
+        {
+            if (kinlingData == null)
+            {
+                var secondaryOwner = SecondaryOwner;
+                if (secondaryOwner != null)
+                {
+                    Owners[0] = secondaryOwner;
+                    SetSecondaryOwner(null);
+                }
+                else
+                {
+                    Owners[0] = null;
+                }
+            }
+            else
+            {
+                Owners[0] = kinlingData;
+                if (kinlingData.Partner != SecondaryOwner)
+                {
+                    SetSecondaryOwner(kinlingData.Partner);
+                }
+            }
+            
+            OnChanged();
+        }
+        
+        public void SetSecondaryOwner(KinlingData kinlingData)
+        {
+            if (FurnitureSettings.NumberOfPossibleOwners >= 2)
+            {
+                Owners[1] = kinlingData;
+            }
+            
+            OnChanged();
+        }
+
+        public KinlingData PrimaryOwner
+        {
+            get
+            {
+                if (Owners != null)
+                {
+                    return Owners[0];
+                }
+
+                return null;
+            }
+        }
+        
+        public KinlingData SecondaryOwner
+        {
+            get
+            {
+                if (Owners != null && FurnitureSettings.NumberOfPossibleOwners >= 2)
+                {
+                    return Owners[1];
+                }
+
+                return null;
+            }
+        }
+        
+        public float ConstructionPercent
+        {
+            get
+            {
+                if (State != EFurnitureState.Built)
+                {
+                    return 1 - (RemainingWork / FurnitureSettings.CraftRequirements.WorkCost);
+                }
+                else
+                {
+                    return 1f;
+                }
+            }
+        }
+        
+        public void DeductFromMaterialCosts(ItemSettings itemSettings)
+        {
+            foreach (var cost in RemainingMaterialCosts)
+            {
+                if (cost.Item.initialGuid == itemSettings.initialGuid && cost.Quantity > 0)
+                {
+                    cost.Quantity--;
+                    if (cost.Quantity <= 0)
+                    {
+                        RemainingMaterialCosts.Remove(cost);
+                    }
+
+                    break;
+                }
+            }
+        }
+        
+        public void AddToPendingResourceCosts(ItemSettings itemSettings, int quantity = 1)
+        {
+            PendingResourceCosts ??= new List<ItemAmount>();
+
+            foreach (var cost in PendingResourceCosts)
+            {
+                if (cost.Item.initialGuid == itemSettings.initialGuid)
+                {
+                    cost.Quantity += quantity;
+                    return;
+                }
+            }
+            
+            PendingResourceCosts.Add(new ItemAmount
+            {
+                Item = itemSettings,
+                Quantity = quantity
+            });
+        }
+        
+        public void RemoveFromPendingResourceCosts(ItemSettings itemSettings, int quantity = 1)
+        {
+            foreach (var cost in PendingResourceCosts)
+            {
+                if (cost.Item.initialGuid == itemSettings.initialGuid)
+                {
+                    cost.Quantity -= quantity;
+                    if (cost.Quantity <= 0)
+                    {
+                        PendingResourceCosts.Remove(cost);
+                    }
+
+                    return;
+                }
+            }
+        }
+        
+        public void AddToIncomingItems(ItemData itemData)
+        {
+            IncomingItems ??= new List<ItemData>();
+            IncomingItems.Add(itemData);
+            
+            IncomingResourceCosts ??= new List<ItemAmount>();
+
+            foreach (var cost in IncomingResourceCosts)
+            {
+                if (cost.Item.initialGuid == itemData.initialGuid)
+                {
+                    cost.Quantity += 1;
+                    return;
+                }
+            }
+            
+            IncomingResourceCosts.Add(new ItemAmount
+            {
+                Item = itemData.Settings,
+                Quantity = 1
+            });
+        }
+        
+        public void RemoveFromIncomingItems(ItemData item)
+        {
+            IncomingItems ??= new List<ItemData>();
+            IncomingItems.Remove(item);
+            
+            foreach (var cost in IncomingResourceCosts)
+            {
+                if (cost.Item.initialGuid == item.initialGuid)
+                {
+                    cost.Quantity -= 1;
+                    if (cost.Quantity <= 0)
+                    {
+                        IncomingResourceCosts.Remove(cost);
+                    }
+
+                    return;
+                }
+            }
+        }
+        
+        public Color32 GetQualityColour()
+        {
+            switch (Quality)
+            {
+                case EItemQuality.Poor:
+                    return Librarian.Instance.GetColour("Poor Quality");
+                case EItemQuality.Common:
+                    return Librarian.Instance.GetColour("Common Quality");
+                case EItemQuality.Remarkable:
+                    return Librarian.Instance.GetColour("Remarkable Quality");
+                case EItemQuality.Excellent:
+                    return Librarian.Instance.GetColour("Excellent Quality");
+                case EItemQuality.Mythical:
+                    return Librarian.Instance.GetColour("Mythical Quality");
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

@@ -2028,7 +2028,7 @@ MonoBehaviour:
   _maxStackSize: 0
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: 1468006658073743336}
+  _baseData: {fileID: 0}
   _craftRequirements:
     _minCraftingSkillLevel: 0
     _craftingSkill: 10
@@ -2046,6 +2046,7 @@ MonoBehaviour:
   _varients: []
   _defaultDirection: 0
   _defaultDye: {fileID: 0}
+  _numOwners: 0
   _maxStorage: 100
   _acceptedCategories: 0000000001000000020000000300000006000000
   _specificStorage: []
@@ -2089,7 +2090,7 @@ MonoBehaviour:
   _maxStackSize: 1
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: 7235637523369288592}
+  _baseData: {fileID: 0}
   _craftRequirements:
     _minCraftingSkillLevel: 3
     _craftingSkill: 10
@@ -2114,6 +2115,7 @@ MonoBehaviour:
     _furnitureSettings: {fileID: -2429024163771652823}
   _defaultDirection: 0
   _defaultDye: {fileID: 4496512223619636680}
+  _numOwners: 2
 --- !u!114 &-2429024163771652823
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2155,7 +2157,7 @@ MonoBehaviour:
   _maxStackSize: 1
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: 6553907554727160304}
+  _baseData: {fileID: 0}
   _craftRequirements:
     _minCraftingSkillLevel: 3
     _craftingSkill: 10
@@ -2178,6 +2180,7 @@ MonoBehaviour:
   _varients: []
   _defaultDirection: 0
   _defaultDye: {fileID: 4496512223619636680}
+  _numOwners: 2
 --- !u!114 &-2419358363865988586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2654,10 +2657,7 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: AssignedStorage
-      Entry: 6
-      Data: 
+    SerializationNodes: []
   guid: 8094b730-76ad-4c26-807c-bbb0e0031ea8
   initialGuid: 8094b730-76ad-4c26-807c-bbb0e0031ea8
   runtimeIndexID: 
@@ -2672,27 +2672,23 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  Durability: 0
-  Quality: 0
   IsAllowed: 0
-  CurrentTask:
-    TaskId: 
-    TaskType: 0
-    KinlingAssignedToTask: {fileID: 0}
-    Materials: []
-    RequiredToolType: 0
-    IsKinlingSpecific: 0
-  CarryingKinlingUID: 
-  Position: {x: 0, y: 0}
-  LinkedItem: {fileID: 0}
-  Settings: {fileID: 0}
-  CraftersUID: 
   State: 0
   RemainingWork: 0
   Direction: 0
   InUse: 0
   LinkedFurniture: {fileID: 0}
   DyeOverride: {fileID: 0}
+  Owners: []
+  Position: {x: 0, y: 0}
+  CraftersUID: 
+  Quality: 0
+  Durability: 0
+  RemainingMaterialCosts: []
+  PendingResourceCosts: []
+  IncomingResourceCosts: []
+  IncomingItems: []
+  FurnitureSettings: {fileID: 0}
 --- !u!114 &-191659240112778000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2733,7 +2729,7 @@ MonoBehaviour:
   _maxStackSize: 0
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: 129112436663426907}
+  _baseData: {fileID: 0}
   _craftRequirements:
     _minCraftingSkillLevel: 0
     _craftingSkill: 10
@@ -2751,6 +2747,7 @@ MonoBehaviour:
   _varients: []
   _defaultDirection: 0
   _defaultDye: {fileID: 0}
+  _numOwners: 0
   _craftableItems:
   - {fileID: -36226739791890325}
   - {fileID: 5455808903527916622}
@@ -3078,7 +3075,7 @@ MonoBehaviour:
   runtimeLibraryGuid: 
   runtimeLibraryFolderPath: 
   initialLibrary: {fileID: 0}
-  selectedDataObject: {fileID: -9050092128877666307}
+  selectedDataObject: {fileID: -2429024163771652823}
   modules:
   - {fileID: 1013997515501222643}
   - {fileID: 3086282657986071168}
@@ -3479,10 +3476,7 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: AssignedStorage
-      Entry: 6
-      Data: 
+    SerializationNodes: []
   guid: ece606e3-1a55-418f-a932-5043a451de4d
   initialGuid: ece606e3-1a55-418f-a932-5043a451de4d
   runtimeIndexID: 
@@ -3497,27 +3491,23 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  Durability: 0
-  Quality: 0
   IsAllowed: 0
-  CurrentTask:
-    TaskId: 
-    TaskType: 0
-    KinlingAssignedToTask: {fileID: 0}
-    Materials: []
-    RequiredToolType: 0
-    IsKinlingSpecific: 0
-  CarryingKinlingUID: 
-  Position: {x: 25.871244, y: 19.490984}
-  LinkedItem: {fileID: 0}
-  Settings: {fileID: 0}
-  CraftersUID: 
   State: 0
   RemainingWork: 0
   Direction: 0
   InUse: 0
   LinkedFurniture: {fileID: 0}
   DyeOverride: {fileID: 0}
+  Owners: []
+  Position: {x: 25.871244, y: 19.490984}
+  CraftersUID: 
+  Quality: 0
+  Durability: 0
+  RemainingMaterialCosts: []
+  PendingResourceCosts: []
+  IncomingResourceCosts: []
+  IncomingItems: []
+  FurnitureSettings: {fileID: 0}
   CurrentOrder:
     CraftedItem: {fileID: 0}
     CraftedMeal: {fileID: 0}
@@ -3939,10 +3929,7 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: AssignedStorage
-      Entry: 6
-      Data: 
+    SerializationNodes: []
   guid: d9eb7d5f-ca20-4b75-9ec9-ff4a422cc645
   initialGuid: d9eb7d5f-ca20-4b75-9ec9-ff4a422cc645
   runtimeIndexID: 
@@ -3957,27 +3944,23 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  Durability: 100
-  Quality: 0
   IsAllowed: 0
-  CurrentTask:
-    TaskId: 
-    TaskType: 0
-    KinlingAssignedToTask: {fileID: 0}
-    Materials: []
-    RequiredToolType: 0
-    IsKinlingSpecific: 0
-  CarryingKinlingUID: 
-  Position: {x: 24, y: 24}
-  LinkedItem: {fileID: 0}
-  Settings: {fileID: 0}
-  CraftersUID: 
   State: 1
   RemainingWork: 0
   Direction: 0
   InUse: 0
   LinkedFurniture: {fileID: 0}
   DyeOverride: {fileID: 0}
+  Owners: []
+  Position: {x: 24, y: 24}
+  CraftersUID: 
+  Quality: 0
+  Durability: 100
+  RemainingMaterialCosts: []
+  PendingResourceCosts: []
+  IncomingResourceCosts: []
+  IncomingItems: []
+  FurnitureSettings: {fileID: 0}
   Stored: []
   Incoming: []
   Claimed: []
@@ -5690,10 +5673,7 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: AssignedStorage
-      Entry: 6
-      Data: 
+    SerializationNodes: []
   guid: 2eb6da54-5a8c-481b-bb48-f5566a6e4a7e
   initialGuid: 2eb6da54-5a8c-481b-bb48-f5566a6e4a7e
   runtimeIndexID: 
@@ -5709,27 +5689,23 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  Durability: 0
-  Quality: 0
   IsAllowed: 0
-  CurrentTask:
-    TaskId: 
-    TaskType: 0
-    KinlingAssignedToTask: {fileID: 0}
-    Materials: []
-    RequiredToolType: 0
-    IsKinlingSpecific: 0
-  CarryingKinlingUID: 
-  Position: {x: 0, y: 0}
-  LinkedItem: {fileID: 0}
-  Settings: {fileID: 0}
-  CraftersUID: 
   State: 0
   RemainingWork: 0
   Direction: 0
   InUse: 0
   LinkedFurniture: {fileID: 0}
   DyeOverride: {fileID: 0}
+  Owners: []
+  Position: {x: 0, y: 0}
+  CraftersUID: 
+  Quality: 0
+  Durability: 0
+  RemainingMaterialCosts: []
+  PendingResourceCosts: []
+  IncomingResourceCosts: []
+  IncomingItems: []
+  FurnitureSettings: {fileID: 0}
 --- !u!114 &6734689318582040478
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5847,10 +5823,7 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: AssignedStorage
-      Entry: 6
-      Data: 
+    SerializationNodes: []
   guid: de5ec736-518a-4e41-ba02-529b01b2606c
   initialGuid: de5ec736-518a-4e41-ba02-529b01b2606c
   runtimeIndexID: 
@@ -5865,27 +5838,23 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  Durability: 0
-  Quality: 0
   IsAllowed: 0
-  CurrentTask:
-    TaskId: 
-    TaskType: 0
-    KinlingAssignedToTask: {fileID: 0}
-    Materials: []
-    RequiredToolType: 0
-    IsKinlingSpecific: 0
-  CarryingKinlingUID: 
-  Position: {x: 0, y: 0}
-  LinkedItem: {fileID: 0}
-  Settings: {fileID: 0}
-  CraftersUID: 
   State: 0
   RemainingWork: 0
   Direction: 0
   InUse: 0
   LinkedFurniture: {fileID: 0}
   DyeOverride: {fileID: 0}
+  Owners: []
+  Position: {x: 0, y: 0}
+  CraftersUID: 
+  Quality: 0
+  Durability: 0
+  RemainingMaterialCosts: []
+  PendingResourceCosts: []
+  IncomingResourceCosts: []
+  IncomingItems: []
+  FurnitureSettings: {fileID: 0}
 --- !u!114 &7314705390567572713
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6145,6 +6114,7 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Item.StorageData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
@@ -6152,6 +6122,14 @@ MonoBehaviour:
     - type: Data.Item.ItemData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -6176,6 +6154,104 @@ MonoBehaviour:
     - type: Data.Resource.ResourceData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -6571,9 +6647,127 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Resource.MountainResourceData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -6624,11 +6818,10 @@ MonoBehaviour:
         PublicKeyToken=null
       dataObjects:
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Structure.WallData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
       - {fileID: 0}
     - type: Data.Structure.DoorData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
@@ -6652,6 +6845,10 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Zones.StockpileZoneData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
@@ -6666,7 +6863,7 @@ MonoBehaviour:
     _objectList: []
     _favoriteList: []
   firstColumnWidth: 200
-  secondColumnWidth: 240
+  secondColumnWidth: 187
   runtimeLibrary: {fileID: 0}
   runtimeLibraryGuid: 
   runtimeLibraryFolderPath: 
@@ -7231,7 +7428,7 @@ MonoBehaviour:
   _maxStackSize: 0
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: 129112436663426907}
+  _baseData: {fileID: 0}
   _craftRequirements:
     _minCraftingSkillLevel: 0
     _craftingSkill: 10
@@ -7249,6 +7446,7 @@ MonoBehaviour:
   _varients: []
   _defaultDirection: 0
   _defaultDye: {fileID: 0}
+  _numOwners: 0
   _craftableItems: []
   _cookableMeals:
   - {fileID: -4595143124937531268}

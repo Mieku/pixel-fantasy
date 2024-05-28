@@ -33,7 +33,11 @@ namespace TaskSystem
         public void SetRequestor(PlayerInteractable requestor)
         {
             _requestor = requestor;
-            requestor.AddTaskToRequested(this);
+
+            if (requestor != null)
+            {
+                requestor.AddTaskToRequested(this);
+            }
         }
 
         public bool IsEqual(Task otherTask)
