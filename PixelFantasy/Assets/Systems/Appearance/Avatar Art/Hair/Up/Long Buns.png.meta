@@ -322,7 +322,16 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Long Buns_0: 355064123136198211
+      Long Buns_1: 3591211928123010798
+      Long Buns_2: -398203250079982464
+      Long Buns_3: -8109057670347781477
+      Long Buns_4: 6601097244781707590
+      Long Buns_5: -2985896423384647852
+      Long Buns_6: -7045053464611300809
+      Long Buns_7: -514272119681690127
+      Long Buns_8: 2198192662498381622
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -322,7 +322,16 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Messy_0: -3465705075675048871
+      Messy_1: 4314797378358771474
+      Messy_2: -5244418780467391612
+      Messy_3: 5919958340896581939
+      Messy_4: 7563287491245870860
+      Messy_5: -3107939313136820697
+      Messy_6: -2877376739539743433
+      Messy_7: -6908307613612810780
+      Messy_8: 8889143185404994939
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

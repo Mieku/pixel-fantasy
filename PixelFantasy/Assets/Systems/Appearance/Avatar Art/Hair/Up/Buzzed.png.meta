@@ -322,7 +322,16 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Buzzed_0: -8529412541779875098
+      Buzzed_1: -6406808039240811318
+      Buzzed_2: -4046682873874008621
+      Buzzed_3: -1906568295188993338
+      Buzzed_4: 2103072423663356412
+      Buzzed_5: -2510990009453165064
+      Buzzed_6: 9197409635018190272
+      Buzzed_7: -2635595463423111294
+      Buzzed_8: 5342512744372991788
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -123,15 +123,15 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: KinlingAvatar_Frame_0
     originalName: 
-    pivot: {x: 0.5625, y: -0.21052632}
+    pivot: {x: 0.4615385, y: -0.23529412}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 16
-      height: 19
+      width: 13
+      height: 17
     spriteID: 33dcef8f4689d2e45b468e56a262d25e
     spriteBone: []
     spriteOutline: []
@@ -143,15 +143,15 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: KinlingAvatar_Frame_1
     originalName: 
-    pivot: {x: 0.5625, y: -0.21052632}
+    pivot: {x: 0.4615385, y: -0.23529412}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 28
-      y: 4
-      width: 16
-      height: 19
+      x: 4
+      y: 29
+      width: 13
+      height: 17
     spriteID: 6b32fdd413639e64c9bb8c123f110972
     spriteBone: []
     spriteOutline: []
@@ -160,18 +160,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 28, y: 4}
+    uvTransform: {x: 4, y: 29}
   - name: KinlingAvatar_Frame_2
     originalName: 
-    pivot: {x: 0.5625, y: -0.21052632}
+    pivot: {x: 0.4615385, y: -0.23529412}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 52
-      y: 4
-      width: 16
-      height: 19
+      x: 4
+      y: 54
+      width: 13
+      height: 17
     spriteID: d39be6b7b1d263642bd5e3fa8ffa8bce
     spriteBone: []
     spriteOutline: []
@@ -180,18 +180,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 52, y: 4}
+    uvTransform: {x: 4, y: 54}
   - name: KinlingAvatar_Frame_3
     originalName: 
-    pivot: {x: 0.5625, y: -0.22222222}
+    pivot: {x: 0.4615385, y: -0.25}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 31
-      width: 16
-      height: 18
+      x: 25
+      y: 4
+      width: 13
+      height: 16
     spriteID: 9e21dacd245e45d4db18bee9a6c7b794
     spriteBone: []
     spriteOutline: []
@@ -200,18 +200,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 31}
+    uvTransform: {x: 25, y: 4}
   - name: KinlingAvatar_Frame_4
     originalName: 
-    pivot: {x: 0.5625, y: -0.22222222}
+    pivot: {x: 0.4615385, y: -0.25}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 28
-      y: 31
-      width: 16
-      height: 18
+      x: 25
+      y: 28
+      width: 13
+      height: 16
     spriteID: 03986204a307ce344bfd0c3749d0b7bb
     spriteBone: []
     spriteOutline: []
@@ -220,18 +220,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 28, y: 31}
+    uvTransform: {x: 25, y: 28}
   - name: KinlingAvatar_Frame_5
     originalName: 
-    pivot: {x: 0.5625, y: -0.21052632}
+    pivot: {x: 0.4615385, y: -0.23529412}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 76
-      y: 4
-      width: 16
-      height: 19
+      x: 4
+      y: 79
+      width: 13
+      height: 17
     spriteID: f57c037b61905724a843661c94b516b5
     spriteBone: []
     spriteOutline: []
@@ -240,18 +240,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 76, y: 4}
+    uvTransform: {x: 4, y: 79}
   - name: KinlingAvatar_Frame_6
     originalName: 
-    pivot: {x: 0.5625, y: -0.22222222}
+    pivot: {x: 0.4615385, y: -0.25}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 52
-      y: 31
-      width: 16
-      height: 18
+      x: 25
+      y: 52
+      width: 13
+      height: 16
     spriteID: b95590ee4bb6d7249a27597d4f4ed497
     spriteBone: []
     spriteOutline: []
@@ -260,18 +260,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 52, y: 31}
+    uvTransform: {x: 25, y: 52}
   - name: KinlingAvatar_Frame_7
     originalName: 
-    pivot: {x: 0.5625, y: -0.21052632}
+    pivot: {x: 0.4615385, y: -0.23529412}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 100
-      y: 4
-      width: 16
-      height: 19
+      x: 4
+      y: 104
+      width: 13
+      height: 17
     spriteID: f5a61f9f0963e9f4cbce2eb6509e32dc
     spriteBone: []
     spriteOutline: []
@@ -280,18 +280,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 100, y: 4}
+    uvTransform: {x: 4, y: 104}
   - name: KinlingAvatar_Frame_8
     originalName: 
-    pivot: {x: 0.5625, y: -0.22222222}
+    pivot: {x: 0.4615385, y: -0.25}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 76
-      y: 31
-      width: 16
-      height: 18
+      x: 25
+      y: 76
+      width: 13
+      height: 16
     spriteID: 162a407f8e750d0429e2cb8a4a184b1d
     spriteBone: []
     spriteOutline: []
@@ -300,7 +300,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 76, y: 31}
+    uvTransform: {x: 25, y: 76}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -314,82 +314,82 @@ ScriptedImporter:
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 7
+        x: 10
         y: 4
-        width: 16
-        height: 19
+        width: 13
+        height: 17
       spriteId: 33dcef8f4689d2e45b468e56a262d25e
     - name: KinlingAvatar_Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
-        x: 7
+        x: 10
         y: 4
-        width: 16
-        height: 19
+        width: 13
+        height: 17
       spriteId: 6b32fdd413639e64c9bb8c123f110972
     - name: KinlingAvatar_Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
-        x: 7
+        x: 10
         y: 4
-        width: 16
-        height: 19
+        width: 13
+        height: 17
       spriteId: d39be6b7b1d263642bd5e3fa8ffa8bce
     - name: KinlingAvatar_Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
-        x: 7
+        x: 10
         y: 4
-        width: 16
-        height: 18
+        width: 13
+        height: 16
       spriteId: 9e21dacd245e45d4db18bee9a6c7b794
     - name: KinlingAvatar_Frame_4
       frameIndex: 4
       additiveSortOrder: 0
       cellRect:
-        x: 7
+        x: 10
         y: 4
-        width: 16
-        height: 18
+        width: 13
+        height: 16
       spriteId: 03986204a307ce344bfd0c3749d0b7bb
     - name: KinlingAvatar_Frame_5
       frameIndex: 5
       additiveSortOrder: 0
       cellRect:
-        x: 7
+        x: 10
         y: 4
-        width: 16
-        height: 19
+        width: 13
+        height: 17
       spriteId: f57c037b61905724a843661c94b516b5
     - name: KinlingAvatar_Frame_6
       frameIndex: 6
       additiveSortOrder: 0
       cellRect:
-        x: 7
+        x: 10
         y: 4
-        width: 16
-        height: 18
+        width: 13
+        height: 16
       spriteId: b95590ee4bb6d7249a27597d4f4ed497
     - name: KinlingAvatar_Frame_7
       frameIndex: 7
       additiveSortOrder: 0
       cellRect:
-        x: 7
+        x: 10
         y: 4
-        width: 16
-        height: 19
+        width: 13
+        height: 17
       spriteId: f5a61f9f0963e9f4cbce2eb6509e32dc
     - name: KinlingAvatar_Frame_8
       frameIndex: 8
       additiveSortOrder: 0
       cellRect:
-        x: 7
+        x: 10
         y: 4
-        width: 16
-        height: 18
+        width: 13
+        height: 16
       spriteId: 162a407f8e750d0429e2cb8a4a184b1d
     linkedCells: []
     parentIndex: -1

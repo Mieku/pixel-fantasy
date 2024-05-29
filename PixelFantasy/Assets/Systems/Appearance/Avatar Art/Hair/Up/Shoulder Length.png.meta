@@ -322,7 +322,16 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Shoulder Length_0: -6201948668375930918
+      Shoulder Length_1: -4268207380583196096
+      Shoulder Length_2: 8119937136803661255
+      Shoulder Length_3: 2919456663795356189
+      Shoulder Length_4: 5983183365818115436
+      Shoulder Length_5: -1164693578579232838
+      Shoulder Length_6: 3558745153805887206
+      Shoulder Length_7: 8680805405238901925
+      Shoulder Length_8: 7182810474570331234
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

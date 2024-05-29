@@ -322,7 +322,16 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Spikey_0: -9045909972490188331
+      Spikey_1: -2816478145023214425
+      Spikey_2: -7639975749883687358
+      Spikey_3: -8695057852777807471
+      Spikey_4: 6314244468924521356
+      Spikey_5: -6684035714135250489
+      Spikey_6: 6531861448846751948
+      Spikey_7: -6133060313005408443
+      Spikey_8: 6149706969219456449
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
