@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace TaskSystem
 {
-    public class DeconstructAction : TaskAction // ID: Deconstruct
+    public class DeconstructAction : TaskAction // ID: Deconstruct Construction
     {
         private Construction _construction;
         private float _timer;

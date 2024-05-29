@@ -227,5 +227,29 @@ namespace Items
         {
             return RuntimeData.FurnitureSettings.NumberOfPossibleOwners >= 2;
         }
+
+        public override void CompleteDeconstruction()
+        {
+            // Force anyone in bed out
+            foreach (var kinling in _kinlingsInBed)
+            {
+                ExitBed(kinling.Kinling);
+            }
+            
+            // Un assign anyone assigned to bed
+            if (RuntimeData.SecondaryOwner != null)
+            {
+                RuntimeData.SecondaryOwner.AssignedBed = null;
+                RuntimeData.SetSecondaryOwner(null);
+            }
+            
+            if (RuntimeData.PrimaryOwner != null)
+            {
+                RuntimeData.PrimaryOwner.AssignedBed = null;
+                RuntimeData.SetPrimaryOwner(null);
+            }
+            
+            base.CompleteDeconstruction();
+        }
     }
 }

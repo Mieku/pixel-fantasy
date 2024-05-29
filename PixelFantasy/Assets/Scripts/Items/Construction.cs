@@ -5,6 +5,7 @@ using Data.Item;
 using Data.Structure;
 using Databrain;
 using Databrain.Attributes;
+using Handlers;
 using HUD;
 using Interfaces;
 using Managers;
@@ -43,7 +44,7 @@ namespace Items
         
         public virtual void AssignCommand(Command command, object payload = null)
         {
-            if (command.name == "Deconstruct Command")
+            if (command.name == "Deconstruct Construction Command")
             {
                 if (RuntimeData.State != EConstructionState.Built)
                 {

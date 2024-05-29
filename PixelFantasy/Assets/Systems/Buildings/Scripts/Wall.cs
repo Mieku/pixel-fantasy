@@ -98,7 +98,7 @@ namespace Systems.Buildings.Scripts
             if (RuntimeData.State == EConstructionState.Built)
             {
                 _onDeconstructed = onDeconstructed;
-                Task constructTask = new Task("Deconstruct", ETaskType.Construction, this, EToolType.BuildersHammer);
+                Task constructTask = new Task("Deconstruct Construction", ETaskType.Construction, this, EToolType.BuildersHammer);
                 constructTask.Enqueue();
             }
             else

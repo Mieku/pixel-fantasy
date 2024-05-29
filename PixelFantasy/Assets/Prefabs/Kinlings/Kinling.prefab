@@ -192,6 +192,8 @@ Transform:
   - {fileID: 7545860082148926271}
   - {fileID: 4812555985130808453}
   - {fileID: 2664349759248780046}
+  - {fileID: 7770203858445924582}
+  - {fileID: 7295600753891750288}
   m_Father: {fileID: 5532418264530240428}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6965329135388678903
@@ -1695,6 +1697,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TaskId: Move
   _afterMoveDelay: 5
+--- !u!1 &6343704868655943896
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7295600753891750288}
+  - component: {fileID: 5493891661901398420}
+  m_Layer: 6
+  m_Name: Deconstruct Furniture
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7295600753891750288
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6343704868655943896}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8355272791609113398}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5493891661901398420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6343704868655943896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e12b4af616bcce458bf0e070800ec35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TaskId: Deconstruct Furniture
 --- !u!1 &6809934140095292425
 GameObject:
   m_ObjectHideFlags: 0
@@ -1861,6 +1908,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TaskId: Craft Item
+--- !u!1 &6940375050978711863
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7770203858445924582}
+  - component: {fileID: 5108054820168942913}
+  m_Layer: 6
+  m_Name: Move Furniture
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7770203858445924582
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6940375050978711863}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8355272791609113398}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5108054820168942913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6940375050978711863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f52b0780f4f6bf4e886e4eb0880d594, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TaskId: Move Furniture
 --- !u!1 &7450743699584522153
 GameObject:
   m_ObjectHideFlags: 0
@@ -2379,7 +2471,7 @@ GameObject:
   - component: {fileID: 2472755566563602102}
   - component: {fileID: 876089650643429732}
   m_Layer: 6
-  m_Name: Deconstruct
+  m_Name: Deconstruct Construction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2412,7 +2504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9050cc30102ba174cae1bef882d6dc49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TaskId: Deconstruct
+  TaskId: Deconstruct Construction
 --- !u!1 &9161926596539569848
 GameObject:
   m_ObjectHideFlags: 0

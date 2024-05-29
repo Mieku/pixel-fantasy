@@ -112,7 +112,8 @@ namespace TaskSystem
             {
                 mat.UnclaimItem();
             }
-            
+
+            _ai.DropCarriedItem(true);
             base.OnTaskCancel();
         }
 

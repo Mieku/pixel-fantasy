@@ -153,7 +153,73 @@ namespace Items
         
         public void AssignCommand(Command command, object payload = null)
         {
-            CreateTask(command, payload);
+            if (command.name == "Deconstruct Furniture Command")
+            {
+                if (RuntimeData.State != EFurnitureState.Built)
+                {
+                    CancelFurnitureConstruction();
+                }
+                else
+                {
+                    CreateTask(command, payload);
+                }
+            }
+            else
+            {
+                CreateTask(command, payload);
+            }
+        }
+
+        protected void CancelFurnitureConstruction()
+        {
+            FurnitureManager.Instance.DeregisterFurniture(this);
+            
+            CancelRequestorTasks();
+                
+            // Spawn All the resources used
+            SpawnUsedResources(100f);
+
+            // Delete this blueprint
+            Destroy(gameObject);
+        }
+        
+        public virtual void SpawnUsedResources(float percentReturned)
+        {
+            // Spawn All the resources used
+            var totalCosts = RuntimeData.FurnitureSettings.CraftRequirements.GetMaterialCosts();
+            var remainingCosts = RuntimeData.RemainingMaterialCosts;
+            List<ItemAmount> difference = new List<ItemAmount>();
+            foreach (var totalCost in totalCosts)
+            {
+                var remaining = remainingCosts.Find(c => c.Item == totalCost.Item);
+                int remainingAmount = 0;
+                if (remaining != null)
+                {
+                    remainingAmount = remaining.Quantity;
+                }
+                
+                int amount = totalCost.Quantity - remainingAmount;
+                if (amount > 0)
+                {
+                    ItemAmount refund = new ItemAmount
+                    {
+                        Item = totalCost.Item,
+                        Quantity = amount
+                    };
+                    difference.Add(refund);
+                }
+            }
+
+            foreach (var refundCost in difference)
+            {
+                for (int i = 0; i < refundCost.Quantity; i++)
+                {
+                    if (Helper.RollDice(percentReturned))
+                    {
+                        Spawner.Instance.SpawnItem(refundCost.Item, this.transform.position, true);
+                    }
+                }
+            }
         }
 
         protected PlacementDirection SetNextDirection(bool isClockwise)
@@ -386,16 +452,18 @@ namespace Items
             EnablePlacementObstacle(true);
             Show(true);
             ColourArt(ColourStates.Blueprint);
-            //CreateFurnitureHaulingTask();
             CreateCraftFurnitureTask();
+            Commands.Add(Librarian.Instance.GetCommand("Deconstruct Furniture"));
         }
         
         protected virtual void Built_Enter()
         {
             RuntimeData.Position = transform.position;
+            RuntimeData.RemainingWork = RuntimeData.FurnitureSettings.CraftRequirements.WorkCost;
             DisplayUseageMarkers(false);
             EnablePlacementObstacle(true);
             ColourArt(ColourStates.Built);
+            Commands.Add(Librarian.Instance.GetCommand("Move Furniture"));
         }
 
         public void DisplayUseageMarkers(bool showMarkers)
@@ -445,6 +513,33 @@ namespace Items
             
             OnChanged?.Invoke();
             return false;
+        }
+        
+        public virtual bool DoDeconstruction(StatsData stats)
+        {
+            var workAmount = stats.GetActionSpeedForSkill(ESkillType.Crafting, true);
+            RuntimeData.RemainingWork -= workAmount;
+            OnChanged?.Invoke();
+            if (RuntimeData.RemainingWork <= 0)
+            {
+                CompleteDeconstruction();
+                return true;
+            }
+            
+            return false;
+        }
+        
+        public virtual void CompleteDeconstruction()
+        {
+            FurnitureManager.Instance.DeregisterFurniture(this);
+                
+            // Spawn All the resources used
+            SpawnUsedResources(50f);
+            
+            // Delete this
+            Destroy(gameObject);
+            
+            OnChanged?.Invoke();
         }
 
         public void PlaceFurniture(Item furnitureItem)
