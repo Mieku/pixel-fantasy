@@ -1,11 +1,8 @@
 using System.Collections.Generic;
-using System.Linq;
 using Databrain.Attributes;
 using Items;
-using Managers;
-using ScriptableObjects;
+using Sirenix.Serialization;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Data.Item
 {
@@ -15,16 +12,19 @@ namespace Data.Item
         [ExposeToInspector, DatabrainSerialize] public List<ItemData> Stored = new List<ItemData>();
         [ExposeToInspector, DatabrainSerialize] public List<ItemData> Incoming = new List<ItemData>();
         [ExposeToInspector, DatabrainSerialize] public List<ItemData> Claimed = new List<ItemData>();
-
-        public StorageSettings StorageSettings => FurnitureSettings as StorageSettings;
         
-        [field: ExposeToInspector]
-        [field: DatabrainSerialize]
-        public StorageConfigs StorageConfigs { get; private set; }
-
+        [OdinSerialize, ExposeToInspector, DatabrainSerialize] private StorageConfigs _storageConfigs;
+        
+        public StorageSettings StorageSettings => FurnitureSettings as StorageSettings;
+        public StorageConfigs StorageConfigs => _storageConfigs;
+        
         public override void InitData(FurnitureSettings furnitureSettings)
         {
             base.InitData(furnitureSettings);
+            
+            _storageConfigs = new StorageConfigs();
+            _storageConfigs.PasteConfigs(StorageSettings.DefaultConfigs);
+            IsAllowed = true;
         }
         
         public int AmountCanBeDeposited(ItemSettings itemSettings)

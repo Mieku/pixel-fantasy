@@ -1,10 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Data.Item;
 using Databrain.Attributes;
 using Items;
-using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using Systems.Zones.Scripts;
 using UnityEngine;
@@ -341,6 +339,11 @@ namespace Data.Zones
 
                 return result;
             }
+        }
+
+        public bool IsCategoryAllowed(EItemCategory category)
+        {
+            return StockpileSettings.AcceptedCategories.Contains(category);
         }
     }
 }

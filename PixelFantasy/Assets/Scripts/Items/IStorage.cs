@@ -29,6 +29,7 @@ namespace Items
         public ItemData GetItemDataOfType(ItemSettings itemSettings);
         public int AmountCanBeDeposited(ItemSettings itemSettings);
         public int AmountCanBeWithdrawn(ItemSettings itemSettings);
+        public bool IsCategoryAllowed(EItemCategory category);
         public int MaxCapacity { get; }
         public int TotalAmountStored { get; }
 

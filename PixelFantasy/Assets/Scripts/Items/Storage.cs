@@ -176,5 +176,10 @@ namespace Items
                 }
             }
         }
+        
+        public bool IsCategoryAllowed(EItemCategory category)
+        {
+            return RuntimeStorageData.StorageSettings.AcceptedCategories.Contains(category);
+        }
     }
 }

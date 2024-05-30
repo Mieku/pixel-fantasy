@@ -3,8 +3,6 @@ using Buildings.Building_Panels;
 using Characters;
 using Items;
 using Managers;
-using Sirenix.OdinInspector.Editor;
-using Systems.Crafting.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +21,8 @@ namespace Systems.Details.Generic_Details.Scripts
         [SerializeField] private TextMeshProUGUI _constructionProgressDetails;
         [SerializeField] private ResourceCost _remainingResourcePrefab;
         [SerializeField] private Transform _remainingParent;
+
+        [SerializeField] private StorageSettingsDetails _storageSettingsDetails;
         
         private GenericDetails _parentDetails;
         private Furniture _furniture;
@@ -39,17 +39,9 @@ namespace Systems.Details.Generic_Details.Scripts
 
             _parentDetails.ItemName.color = _furniture.RuntimeData.GetQualityColour();
             _parentDetails.ItemName.text = $"{_furniture.DisplayName} ({_furniture.RuntimeData.Quality.GetDescription()})";
-
-            var craftingTable = _furniture as CraftingTable;
-            if (craftingTable != null)
-            {
-                _craftingControls.Show(craftingTable);
-            }
-            else
-            {
-                _craftingControls.Hide();
-            }
-
+            
+            InitConstructionInfo();
+            
             if (_furniture.RuntimeData.State == EFurnitureState.Built)
             {
                 RefreshOwners(_furniture as IAssignedFurniture);
@@ -59,9 +51,36 @@ namespace Systems.Details.Generic_Details.Scripts
                 _ownersHandle.SetActive(false);
             }
             
-            InitConstructionInfo();
+            CheckShowCraftingDetails();
+            CheckShowStorageDetails();
             
             _parentDetails.RefreshLayout();
+        }
+
+        private void CheckShowStorageDetails()
+        {
+            var storage = _furniture as Storage;
+            if (storage != null && _furniture.RuntimeData.State == EFurnitureState.Built)
+            {
+                _storageSettingsDetails.Show(storage);
+            }
+            else
+            {
+                _storageSettingsDetails.Hide();
+            }
+        }
+
+        private void CheckShowCraftingDetails()
+        {
+            var craftingTable = _furniture as CraftingTable;
+            if (craftingTable != null && _furniture.RuntimeData.State == EFurnitureState.Built)
+            {
+                _craftingControls.Show(craftingTable);
+            }
+            else
+            {
+                _craftingControls.Hide();
+            }
         }
 
         private void InitConstructionInfo()

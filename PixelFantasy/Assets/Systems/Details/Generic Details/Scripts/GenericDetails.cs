@@ -156,6 +156,11 @@ namespace Systems.Details.Generic_Details.Scripts
         
         public void Hide()
         {
+            if (_clickableObject != null)
+            {
+                _clickableObject.OnChanged -= GameEvent_RefreshSelection;
+            }
+            
             GameEvents.RefreshSelection -= GameEvent_RefreshSelection;
             _panelHandle.SetActive(false);
         }

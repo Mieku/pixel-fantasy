@@ -183,7 +183,7 @@ namespace Systems.Details.Generic_Details.Scripts
             var options = _settings.StorageOptions.Options;
             foreach (var optionKVP in options)
             {
-                if (optionKVP.Value.Count > 0)
+                if (optionKVP.Value.Count > 0 && _storage.IsCategoryAllowed(optionKVP.Key))
                 {
                     StorageCategoryDisplay catDisplay = Instantiate(_categoryDisplayPrefab, _categoryParent);
                     int siblingIndex = _categoryDisplayPrefab.transform.GetSiblingIndex();
