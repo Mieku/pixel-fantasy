@@ -96,7 +96,7 @@ public abstract class PlayerInteractable : UniqueObject
         _requestedTasks.Clear();
     }
 
-    public void CancelCommand(Command command)
+    public virtual void CancelCommand(Command command)
     {
         PendingCommand = null;
 

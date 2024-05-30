@@ -38,6 +38,7 @@ namespace Data.Item
         public int MaxStackSize => _maxStackSize;
 
         public bool CanBeStored => _maxStackSize > 0;
+        public ItemData BaseData => _baseData;
         
         public EItemQuality DefaultQuality
         {

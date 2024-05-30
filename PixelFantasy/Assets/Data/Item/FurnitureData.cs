@@ -12,10 +12,9 @@ using UnityEngine.Serialization;
 
 namespace Data.Item
 {
-    public class FurnitureData : DataObject
+    public class FurnitureData : CraftedItemData
     {
         // Runtime
-        [ExposeToInspector, DatabrainSerialize] public bool IsAllowed;
         [ExposeToInspector, DatabrainSerialize] public EFurnitureState State;
         [ExposeToInspector, DatabrainSerialize] public float RemainingWork;
         [ExposeToInspector, DatabrainSerialize] public PlacementDirection Direction;
@@ -23,10 +22,7 @@ namespace Data.Item
         [ExposeToInspector, DatabrainSerialize] public Furniture LinkedFurniture;
         [ExposeToInspector, DatabrainSerialize] public DyeData DyeOverride;
         [ExposeToInspector, DatabrainSerialize] public KinlingData[] Owners;
-        [ExposeToInspector, DatabrainSerialize] public Vector2 Position;
-        [ExposeToInspector, DatabrainSerialize] public string CraftersUID;
-        [ExposeToInspector, DatabrainSerialize] public EItemQuality Quality;
-        [ExposeToInspector, DatabrainSerialize] public int Durability;
+        [ExposeToInspector, DatabrainSerialize] public bool HasUseBlockingCommand;
         
         [ExposeToInspector, DatabrainSerialize] 
         public List<ItemAmount> RemainingMaterialCosts;
@@ -238,24 +234,24 @@ namespace Data.Item
             }
         }
         
-        public Color32 GetQualityColour()
-        {
-            switch (Quality)
-            {
-                case EItemQuality.Poor:
-                    return Librarian.Instance.GetColour("Poor Quality");
-                case EItemQuality.Common:
-                    return Librarian.Instance.GetColour("Common Quality");
-                case EItemQuality.Remarkable:
-                    return Librarian.Instance.GetColour("Remarkable Quality");
-                case EItemQuality.Excellent:
-                    return Librarian.Instance.GetColour("Excellent Quality");
-                case EItemQuality.Mythical:
-                    return Librarian.Instance.GetColour("Mythical Quality");
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
+        // public Color32 GetQualityColour()
+        // {
+        //     switch (Quality)
+        //     {
+        //         case EItemQuality.Poor:
+        //             return Librarian.Instance.GetColour("Poor Quality");
+        //         case EItemQuality.Common:
+        //             return Librarian.Instance.GetColour("Common Quality");
+        //         case EItemQuality.Remarkable:
+        //             return Librarian.Instance.GetColour("Remarkable Quality");
+        //         case EItemQuality.Excellent:
+        //             return Librarian.Instance.GetColour("Excellent Quality");
+        //         case EItemQuality.Mythical:
+        //             return Librarian.Instance.GetColour("Mythical Quality");
+        //         default:
+        //             throw new ArgumentOutOfRangeException();
+        //     }
+        // }
     }
 }
 

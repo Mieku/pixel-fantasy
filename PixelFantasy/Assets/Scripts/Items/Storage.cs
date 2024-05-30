@@ -40,8 +40,7 @@ namespace Items
 
             base.Built_Enter();
         }
-
-
+        
         public List<ItemData> Stored => RuntimeStorageData.Stored;
         public List<ItemData> Incoming => RuntimeStorageData.Incoming;
         public List<ItemData> Claimed => RuntimeStorageData.Claimed;
@@ -127,5 +126,55 @@ namespace Items
         public int MaxCapacity => RuntimeStorageData.StorageSettings.MaxStorage;
 
         public int TotalAmountStored => RuntimeStorageData.Stored.Count + RuntimeStorageData.Incoming.Count;
+        
+        public override void CompleteDeconstruction()
+        {
+            InventoryManager.Instance.RemoveStorage(this);
+            
+            // Drop the contents
+            CancelStoredItemTasks();
+
+            foreach (var stored in Stored)
+            {
+                stored.CreateItemObject(RuntimeStorageData.Position, true);
+            }
+            Stored.Clear();
+            
+            
+            GameEvents.Trigger_RefreshInventoryDisplay();
+            
+            base.CompleteDeconstruction();
+        }
+        
+        public void CancelStoredItemTasks()
+        {
+            for (int i = Incoming.Count - 1; i >= 0; i--)
+            {
+                var incoming = Incoming[i];
+                if (incoming.LinkedItem != null)
+                {
+                    incoming.LinkedItem.CancelTask();
+                }
+
+                if (incoming.CurrentTask != null)
+                {
+                    incoming.CurrentTask.Cancel();
+                }
+            }
+            
+            for (int i = Stored.Count - 1; i >= 0; i--)
+            {
+                var stored = Stored[i];
+                if (stored.LinkedItem != null)
+                {
+                    stored.LinkedItem.CancelTask();
+                }
+
+                if (stored.CurrentTask != null)
+                {
+                    stored.CurrentTask.Cancel();
+                }
+            }
+        }
     }
 }

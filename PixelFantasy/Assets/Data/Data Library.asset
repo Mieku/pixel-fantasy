@@ -1497,6 +1497,70 @@ MonoBehaviour:
     IsKinlingSpecific: 0
   Position: {x: 0, y: 0}
   Settings: {fileID: 0}
+--- !u!114 &-4295719743994742051
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21968d0dfbe07b848bd101c15cee8386, type: 3}
+  m_Name: Barrel
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  guid: d04ca25d-d24a-4b91-9280-24f3d3b53784
+  initialGuid: d04ca25d-d24a-4b91-9280-24f3d3b53784
+  runtimeIndexID: 
+  icon: {fileID: -1833610153, guid: 9f7d87b58161cbd4aa86794c2ca49b34, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Barrel
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  _category: 4
+  _maxDurability: 100
+  _maxStackSize: 1
+  _hasQuality: 1
+  _defaultQuality: 1
+  _baseData: {fileID: 3266125826896100908}
+  _craftRequirements:
+    _minCraftingSkillLevel: 2
+    _craftingSkill: 10
+    _workCost: 30
+    _requiredCraftingToolType: 0
+    _materialCosts:
+    - Item: {fileID: 283630323700872253}
+      Quantity: 2
+  _furniturePrefab: {fileID: 5465201506073250537, guid: 6257643671455b247adbea7bf26469f3, type: 3}
+  _inUseNeedChange:
+    SourceID: 
+    AmountPerHour: 0
+    NeedType: 0
+  _colourOptions:
+    ColourOptionsHeader: 
+    DyePalettes: []
+  _varients: []
+  _defaultDirection: 0
+  _defaultDye: {fileID: 0}
+  _numOwners: 0
+  _maxStorage: 25
+  _acceptedCategories: 03000000
+  _specificStorage: []
 --- !u!114 &-4271032331850456467
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2017,7 +2081,7 @@ MonoBehaviour:
   title: Starter Stockpile
   description: This is a description of the newly created data entry.
   tags: []
-  index: 0
+  index: 1
   relatedLibraryObject: {fileID: 11400000}
   runtimeLibraryObject: {fileID: 0}
   assignedGuid: 
@@ -2090,11 +2154,11 @@ MonoBehaviour:
   _maxStackSize: 1
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: 0}
+  _baseData: {fileID: 7235637523369288592}
   _craftRequirements:
     _minCraftingSkillLevel: 3
     _craftingSkill: 10
-    _workCost: 50
+    _workCost: 30
     _requiredCraftingToolType: 0
     _materialCosts:
     - Item: {fileID: 283630323700872253}
@@ -2157,7 +2221,7 @@ MonoBehaviour:
   _maxStackSize: 1
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: 0}
+  _baseData: {fileID: 6553907554727160304}
   _craftRequirements:
     _minCraftingSkillLevel: 3
     _craftingSkill: 10
@@ -2657,7 +2721,10 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: AssignedStorage
+      Entry: 6
+      Data: 
   guid: 8094b730-76ad-4c26-807c-bbb0e0031ea8
   initialGuid: 8094b730-76ad-4c26-807c-bbb0e0031ea8
   runtimeIndexID: 
@@ -2672,7 +2739,21 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  Durability: 0
+  Quality: 0
   IsAllowed: 0
+  CurrentTask:
+    TaskId: 
+    TaskType: 0
+    KinlingAssignedToTask: {fileID: 0}
+    Materials: []
+    RequiredToolType: 0
+    IsKinlingSpecific: 0
+  CarryingKinlingUID: 
+  Position: {x: 0, y: 0}
+  LinkedItem: {fileID: 0}
+  Settings: {fileID: 0}
+  CraftersUID: 
   State: 0
   RemainingWork: 0
   Direction: 0
@@ -2680,10 +2761,7 @@ MonoBehaviour:
   LinkedFurniture: {fileID: 0}
   DyeOverride: {fileID: 0}
   Owners: []
-  Position: {x: 0, y: 0}
-  CraftersUID: 
-  Quality: 0
-  Durability: 0
+  HasUseBlockingCommand: 0
   RemainingMaterialCosts: []
   PendingResourceCosts: []
   IncomingResourceCosts: []
@@ -2729,7 +2807,7 @@ MonoBehaviour:
   _maxStackSize: 0
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: 0}
+  _baseData: {fileID: 129112436663426907}
   _craftRequirements:
     _minCraftingSkillLevel: 0
     _craftingSkill: 10
@@ -2872,6 +2950,7 @@ MonoBehaviour:
     - type: Data.Item.StorageData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 3266125826896100908}
       - {fileID: 1468006658073743336}
     - type: Data.Item.ItemData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
@@ -2973,6 +3052,7 @@ MonoBehaviour:
     - type: Data.Item.StorageSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: -4295719743994742051}
       - {fileID: -2868459388340172924}
     - type: Data.Item.CraftingTableSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
@@ -3075,7 +3155,7 @@ MonoBehaviour:
   runtimeLibraryGuid: 
   runtimeLibraryFolderPath: 
   initialLibrary: {fileID: 0}
-  selectedDataObject: {fileID: 2219954506178974260}
+  selectedDataObject: {fileID: -191659240112778000}
   modules:
   - {fileID: 1013997515501222643}
   - {fileID: 3086282657986071168}
@@ -3476,7 +3556,10 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: AssignedStorage
+      Entry: 6
+      Data: 
   guid: ece606e3-1a55-418f-a932-5043a451de4d
   initialGuid: ece606e3-1a55-418f-a932-5043a451de4d
   runtimeIndexID: 
@@ -3491,7 +3574,21 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  Durability: 0
+  Quality: 0
   IsAllowed: 0
+  CurrentTask:
+    TaskId: 
+    TaskType: 0
+    KinlingAssignedToTask: {fileID: 0}
+    Materials: []
+    RequiredToolType: 0
+    IsKinlingSpecific: 0
+  CarryingKinlingUID: 
+  Position: {x: 25.871244, y: 19.490984}
+  LinkedItem: {fileID: 0}
+  Settings: {fileID: 0}
+  CraftersUID: 
   State: 0
   RemainingWork: 0
   Direction: 0
@@ -3499,10 +3596,7 @@ MonoBehaviour:
   LinkedFurniture: {fileID: 0}
   DyeOverride: {fileID: 0}
   Owners: []
-  Position: {x: 25.871244, y: 19.490984}
-  CraftersUID: 
-  Quality: 0
-  Durability: 0
+  HasUseBlockingCommand: 0
   RemainingMaterialCosts: []
   PendingResourceCosts: []
   IncomingResourceCosts: []
@@ -3929,7 +4023,10 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: AssignedStorage
+      Entry: 6
+      Data: 
   guid: d9eb7d5f-ca20-4b75-9ec9-ff4a422cc645
   initialGuid: d9eb7d5f-ca20-4b75-9ec9-ff4a422cc645
   runtimeIndexID: 
@@ -3938,13 +4035,27 @@ MonoBehaviour:
   title: Starter Stockpile
   description: This is a description of the newly created data entry.
   tags: []
-  index: 0
+  index: 1
   relatedLibraryObject: {fileID: 11400000}
   runtimeLibraryObject: {fileID: 0}
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  Durability: 100
+  Quality: 0
   IsAllowed: 0
+  CurrentTask:
+    TaskId: 
+    TaskType: 0
+    KinlingAssignedToTask: {fileID: 0}
+    Materials: []
+    RequiredToolType: 0
+    IsKinlingSpecific: 0
+  CarryingKinlingUID: 
+  Position: {x: 24, y: 24}
+  LinkedItem: {fileID: 0}
+  Settings: {fileID: 0}
+  CraftersUID: 
   State: 1
   RemainingWork: 0
   Direction: 0
@@ -3952,10 +4063,7 @@ MonoBehaviour:
   LinkedFurniture: {fileID: 0}
   DyeOverride: {fileID: 0}
   Owners: []
-  Position: {x: 24, y: 24}
-  CraftersUID: 
-  Quality: 0
-  Durability: 100
+  HasUseBlockingCommand: 0
   RemainingMaterialCosts: []
   PendingResourceCosts: []
   IncomingResourceCosts: []
@@ -4645,6 +4753,75 @@ MonoBehaviour:
   _hasQuality: 1
   _defaultQuality: 1
   _baseData: {fileID: -5298398873868244794}
+--- !u!114 &3266125826896100908
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b70b13f9a7f6bda40ab2a582d1a60bd0, type: 3}
+  m_Name: Barrel
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: AssignedStorage
+      Entry: 6
+      Data: 
+  guid: 028cd6a0-611f-4198-a8ae-872f5908caf3
+  initialGuid: 028cd6a0-611f-4198-a8ae-872f5908caf3
+  runtimeIndexID: 
+  icon: {fileID: -1833610153, guid: 9f7d87b58161cbd4aa86794c2ca49b34, type: 3}
+  color: {r: 0, g: 0, b: 0, a: 0}
+  title: Barrel
+  description: This is a description of the newly created data entry.
+  tags: []
+  index: 0
+  relatedLibraryObject: {fileID: 11400000}
+  runtimeLibraryObject: {fileID: 0}
+  assignedGuid: 
+  isRuntimeInstance: 0
+  boxFoldout: 0
+  Durability: 0
+  Quality: 0
+  IsAllowed: 0
+  CurrentTask:
+    TaskId: 
+    TaskType: 0
+    KinlingAssignedToTask: {fileID: 0}
+    Materials: []
+    RequiredToolType: 0
+    IsKinlingSpecific: 0
+  CarryingKinlingUID: 
+  Position: {x: 0, y: 0}
+  LinkedItem: {fileID: 0}
+  Settings: {fileID: 0}
+  CraftersUID: 
+  State: 0
+  RemainingWork: 0
+  Direction: 0
+  InUse: 0
+  LinkedFurniture: {fileID: 0}
+  DyeOverride: {fileID: 0}
+  Owners: []
+  HasUseBlockingCommand: 0
+  RemainingMaterialCosts: []
+  PendingResourceCosts: []
+  IncomingResourceCosts: []
+  IncomingItems: []
+  FurnitureSettings: {fileID: 0}
+  Stored: []
+  Incoming: []
+  Claimed: []
 --- !u!114 &3668364348396301276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5689,7 +5866,10 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: AssignedStorage
+      Entry: 6
+      Data: 
   guid: 2eb6da54-5a8c-481b-bb48-f5566a6e4a7e
   initialGuid: 2eb6da54-5a8c-481b-bb48-f5566a6e4a7e
   runtimeIndexID: 
@@ -5705,7 +5885,21 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  Durability: 0
+  Quality: 0
   IsAllowed: 0
+  CurrentTask:
+    TaskId: 
+    TaskType: 0
+    KinlingAssignedToTask: {fileID: 0}
+    Materials: []
+    RequiredToolType: 0
+    IsKinlingSpecific: 0
+  CarryingKinlingUID: 
+  Position: {x: 0, y: 0}
+  LinkedItem: {fileID: 0}
+  Settings: {fileID: 0}
+  CraftersUID: 
   State: 0
   RemainingWork: 0
   Direction: 0
@@ -5713,10 +5907,7 @@ MonoBehaviour:
   LinkedFurniture: {fileID: 0}
   DyeOverride: {fileID: 0}
   Owners: []
-  Position: {x: 0, y: 0}
-  CraftersUID: 
-  Quality: 0
-  Durability: 0
+  HasUseBlockingCommand: 0
   RemainingMaterialCosts: []
   PendingResourceCosts: []
   IncomingResourceCosts: []
@@ -5839,7 +6030,10 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: AssignedStorage
+      Entry: 6
+      Data: 
   guid: de5ec736-518a-4e41-ba02-529b01b2606c
   initialGuid: de5ec736-518a-4e41-ba02-529b01b2606c
   runtimeIndexID: 
@@ -5854,7 +6048,21 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  Durability: 0
+  Quality: 0
   IsAllowed: 0
+  CurrentTask:
+    TaskId: 
+    TaskType: 0
+    KinlingAssignedToTask: {fileID: 0}
+    Materials: []
+    RequiredToolType: 0
+    IsKinlingSpecific: 0
+  CarryingKinlingUID: 
+  Position: {x: 0, y: 0}
+  LinkedItem: {fileID: 0}
+  Settings: {fileID: 0}
+  CraftersUID: 
   State: 0
   RemainingWork: 0
   Direction: 0
@@ -5862,10 +6070,7 @@ MonoBehaviour:
   LinkedFurniture: {fileID: 0}
   DyeOverride: {fileID: 0}
   Owners: []
-  Position: {x: 0, y: 0}
-  CraftersUID: 
-  Quality: 0
-  Durability: 0
+  HasUseBlockingCommand: 0
   RemainingMaterialCosts: []
   PendingResourceCosts: []
   IncomingResourceCosts: []
@@ -6134,9 +6339,24 @@ MonoBehaviour:
         PublicKeyToken=null
       dataObjects:
       - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Item.ItemData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -6155,46 +6375,6 @@ MonoBehaviour:
     - type: Data.Resource.ResourceData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -6806,111 +6986,9 @@ MonoBehaviour:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Resource.MountainResourceData, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
@@ -6969,6 +7047,16 @@ MonoBehaviour:
         PublicKeyToken=null
       dataObjects:
       - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Item.MealData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
@@ -6986,6 +7074,7 @@ MonoBehaviour:
     - type: Data.Zones.StockpileZoneData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
       - {fileID: 0}
     - type: Data.Zones.FarmingZoneData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
@@ -7561,7 +7650,7 @@ MonoBehaviour:
   _maxStackSize: 0
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: 0}
+  _baseData: {fileID: 129112436663426907}
   _craftRequirements:
     _minCraftingSkillLevel: 0
     _craftingSkill: 10

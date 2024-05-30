@@ -43,7 +43,6 @@ namespace Items
         public DataLibrary DataLibrary;
         
         [DataObjectDropdown("DataLibrary", true)]
-        public FurnitureData Data;
         public FurnitureData RuntimeData;
         
         protected SpriteRenderer[] _allSprites;
@@ -118,7 +117,7 @@ namespace Items
             
             DataLibrary.RegisterInitializationCallback(() =>
             {
-                RuntimeData = (FurnitureData) DataLibrary.CloneDataObjectToRuntime(Data, gameObject);
+                RuntimeData = (FurnitureData) DataLibrary.CloneDataObjectToRuntime(furnitureSettings.BaseData, gameObject);
                 RuntimeData.LinkedFurniture = this;
                 RuntimeData.InitData(furnitureSettings);
                 RuntimeData.Direction = direction;
@@ -140,21 +139,28 @@ namespace Items
         {
             get
             {
-                if (RuntimeData != null && RuntimeData.State != EFurnitureState.Built && !RuntimeData.InUse)
+                if (RuntimeData != null && RuntimeData.State != EFurnitureState.Built) return false;
+
+                if (RuntimeData.InUse || RuntimeData.HasUseBlockingCommand)
                 {
                     return false;
                 }
-                else
-                {
-                    return true;
-                }
+                    
+                return true;
             }
         }
         
         public void AssignCommand(Command command, object payload = null)
         {
+            if (command.name == "Move Furniture Command")
+            {
+                RuntimeData.HasUseBlockingCommand = true;
+                Debug.LogError("Move Furniture Command is not built yet"); // TODO: Just as a reminder
+            }
+            
             if (command.name == "Deconstruct Furniture Command")
             {
+                RuntimeData.HasUseBlockingCommand = true;
                 if (RuntimeData.State != EFurnitureState.Built)
                 {
                     CancelFurnitureConstruction();
@@ -168,6 +174,13 @@ namespace Items
             {
                 CreateTask(command, payload);
             }
+        }
+
+        public override void CancelCommand(Command command)
+        {
+            RuntimeData.HasUseBlockingCommand = false;
+            
+            base.CancelCommand(command);
         }
 
         protected void CancelFurnitureConstruction()
@@ -491,8 +504,6 @@ namespace Items
 
         public override void ReceiveItem(ItemData item)
         {
-            //RuntimeData.RemoveFromIncomingItems(item);
-            
             Destroy(item.LinkedItem.gameObject);
             
             RuntimeData.RemoveFromPendingResourceCosts(item.Settings);
