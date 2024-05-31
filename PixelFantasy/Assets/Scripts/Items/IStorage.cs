@@ -32,7 +32,86 @@ namespace Items
         public bool IsCategoryAllowed(EItemCategory category);
         public int MaxCapacity { get; }
         public int TotalAmountStored { get; }
+        public List<InventoryAmount> GetInventoryAmounts();
 
         public List<ToolData> GetAllToolItems(bool includeIncoming = false); // Old, get rid of this
+    }
+
+    public class InventoryAmount
+    {
+        public ItemSettings ItemSettings;
+        
+        public int AmountStored => StoredItems.Count;
+        public int AmountClaimed => ClaimedItems.Count;
+        public int AmountIncoming => IncomingItems.Count;
+
+        public List<ItemData> StoredItems = new List<ItemData>();
+        public List<ItemData> ClaimedItems = new List<ItemData>();
+        public List<ItemData> IncomingItems = new List<ItemData>();
+
+        public InventoryAmount(ItemSettings itemSettings)
+        {
+            ItemSettings = itemSettings;
+        }
+
+        public void AddStored(ItemData item)
+        {
+            if (item.Settings != ItemSettings)
+            {
+                Debug.LogError("Added item with the wrong settings");
+                return;
+            }
+            
+            StoredItems.Add(item);
+        }
+
+        public void AddIncoming(ItemData item)
+        {
+            if (item.Settings != ItemSettings)
+            {
+                Debug.LogError("Added item with the wrong settings");
+                return;
+            }
+            
+            IncomingItems.Add(item);
+        }
+
+        public void AddClaimed(ItemData item)
+        {
+            if (item.Settings != ItemSettings)
+            {
+                Debug.LogError("Added item with the wrong settings");
+                return;
+            }
+            
+            ClaimedItems.Add(item);
+        }
+
+        public string GetIncomingClaimedString(bool showBrackets, bool hideWhenZero)
+        {
+            int difference = AmountIncoming - AmountClaimed;
+            string result;
+
+            if (difference == 0 && hideWhenZero)
+            {
+                return "";
+            }
+
+            if (difference > 0)
+            {
+                result = $"+{difference}";
+            } 
+            else
+            {
+                result = difference + "";
+            }
+
+            if (showBrackets)
+            {
+                result = $"({result})";
+            }
+
+            return result;
+        }
     }
 }

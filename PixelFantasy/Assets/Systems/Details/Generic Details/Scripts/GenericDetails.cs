@@ -20,10 +20,11 @@ namespace Systems.Details.Generic_Details.Scripts
         [SerializeField] private StructureDetails _structureDetails;
         [SerializeField] private FurnitureDetails _furnitureDetails;
         [SerializeField] private ItemDetails _itemDetails;
+        [SerializeField] private GameObject _controlsSeperator;
+        [SerializeField] private GameObject _storageSettingsBtn;
         
         public TextMeshProUGUI ItemName;
         
-
         private EDetailsState _detailsState;
         private IClickableObject _clickableObject;
         private List<CommandBtn> _displayedCmds = new List<CommandBtn>();
@@ -34,6 +35,8 @@ namespace Systems.Details.Generic_Details.Scripts
             _clickableObject = clickableObject;
             _panelHandle.SetActive(true);
             _commandBtnPrefab.gameObject.SetActive(false);
+            _controlsSeperator.SetActive(false);
+            _storageSettingsBtn.SetActive(false);
             
             GameEvents.RefreshSelection += GameEvent_RefreshSelection;
             _clickableObject.OnChanged += GameEvent_RefreshSelection;
@@ -55,10 +58,16 @@ namespace Systems.Details.Generic_Details.Scripts
                 bool isActive = _clickableObject.GetPlayerInteractable().PendingCommand == command;
                 
                 var cmdBtn = Instantiate(_commandBtnPrefab, _commandsParent);
+                cmdBtn.transform.SetSiblingIndex(_controlsSeperator.transform.GetSiblingIndex());
                 cmdBtn.Init(command, isActive, OnCommandPressed);
                 cmdBtn.gameObject.SetActive(true);
                 _displayedCmds.Add(cmdBtn);
             }
+        }
+
+        public void ShowControlsSeperator(bool shouldShow)
+        {
+            _controlsSeperator.SetActive(shouldShow);
         }
 
         public void SetDurabilityFill(float currentAmount, float maxAmount)

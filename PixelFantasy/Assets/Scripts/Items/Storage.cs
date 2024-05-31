@@ -102,6 +102,11 @@ namespace Items
             return RuntimeStorageData.AmountCanBeWithdrawn(itemSettings);
         }
 
+        public List<InventoryAmount> GetInventoryAmounts()
+        {
+            return RuntimeStorageData.GetInventoryAmounts();
+        }
+
         public List<ToolData> GetAllToolItems(bool includeIncoming = false)
         {
             return RuntimeStorageData.GetAllToolItems(includeIncoming);

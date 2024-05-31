@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Databrain.Attributes;
 using Items;
 using Sirenix.Serialization;
@@ -350,6 +351,49 @@ namespace Data.Item
             OnChanged();
             
             Destroy(item.gameObject);
+        }
+        
+        public List<InventoryAmount> GetInventoryAmounts()
+        {
+            List<InventoryAmount> results = new List<InventoryAmount>();
+
+            foreach (var storedItem in Stored)
+            {
+                var recorded = results.Find(i => i.ItemSettings == storedItem.Settings);
+                if (recorded == null)
+                {
+                    recorded = new InventoryAmount(storedItem.Settings);
+                    results.Add(recorded);
+                }
+
+                recorded.AddStored(storedItem);
+            }
+
+            foreach (var claimedItem in Claimed)
+            {
+                var recorded = results.Find(i => i.ItemSettings == claimedItem.Settings);
+                if (recorded == null)
+                {
+                    recorded = new InventoryAmount(claimedItem.Settings);
+                    results.Add(recorded);
+                }
+                
+                recorded.AddClaimed(claimedItem);
+            }
+            
+            foreach (var incomingItem in Incoming)
+            {
+                var recorded = results.Find(i => i.ItemSettings == incomingItem.Settings);
+                if (recorded == null)
+                {
+                    recorded = new InventoryAmount(incomingItem.Settings);
+                    results.Add(recorded);
+                }
+                
+                recorded.AddIncoming(incomingItem);
+            }
+
+            return results;
         }
         
         /// <summary>

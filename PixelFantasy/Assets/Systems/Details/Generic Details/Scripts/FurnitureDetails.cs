@@ -63,10 +63,12 @@ namespace Systems.Details.Generic_Details.Scripts
             if (storage != null && _furniture.RuntimeData.State == EFurnitureState.Built)
             {
                 _storageSettingsDetails.Show(storage);
+                _parentDetails.ShowControlsSeperator(true);
             }
             else
             {
                 _storageSettingsDetails.Hide();
+                _parentDetails.ShowControlsSeperator(false);
             }
         }
 

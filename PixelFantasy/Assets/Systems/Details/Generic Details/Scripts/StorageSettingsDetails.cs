@@ -15,7 +15,11 @@ namespace Systems.Details.Generic_Details.Scripts
     public class StorageSettingsDetails : MonoBehaviour
     {
         [BoxGroup("Parent"), SerializeField] private PanelLayoutRebuilder _layoutRebuilder;
-        
+
+        [BoxGroup("Buttons"), SerializeField] private Image _settingsButtonImg;
+        [BoxGroup("Buttons"), SerializeField] private Sprite _defaultButtonBG, _activeButtonBG;
+
+        [BoxGroup("Controls"), SerializeField] private GameObject _controlsHandle;
         [BoxGroup("Controls"), SerializeField] private TMP_InputField _searchInput;
         [BoxGroup("Controls"), SerializeField] private RangeSlider _durabilitySlider;
         [BoxGroup("Controls"), SerializeField] private TextMeshProUGUI _durabilityDetails;
@@ -32,12 +36,13 @@ namespace Systems.Details.Generic_Details.Scripts
         [BoxGroup("Category"), SerializeField] private StorageCategoryDisplay _categoryDisplayPrefab;
         [BoxGroup("Category"), SerializeField] private Transform _categoryParent;
 
-        [BoxGroup("Capacity"), SerializeField] private Image _capacityFill;
-        [BoxGroup("Capacity"), SerializeField] private TextMeshProUGUI _capacityDetails;
+        [BoxGroup("Inventory"), SerializeField] private StorageInventoryDisplay _inventoryDisplay;
+        [BoxGroup("Inventory"), SerializeField] private GameObject _inventoryHandle;
         
         private IStorage _storage;
         private StorageConfigs _settings => _storage.StorageConfigs;
         private List<StorageCategoryDisplay> _displayedCategories = new List<StorageCategoryDisplay>();
+        private bool _showingSettings;
 
         private void Awake()
         {
@@ -56,6 +61,7 @@ namespace Systems.Details.Generic_Details.Scripts
 
         public void Show(IStorage storage)
         {
+            _settingsButtonImg.gameObject.SetActive(true);
             gameObject.SetActive(true);
             _storage = storage;
             
@@ -63,13 +69,38 @@ namespace Systems.Details.Generic_Details.Scripts
             _searchInput.SetTextWithoutNotify("");
             _searchCategory.HideSearch();
             
+            RefreshView();
             Refresh();
+        }
+
+        public void ToggleShowSettings()
+        {
+            _showingSettings = !_showingSettings;
+            
+            RefreshView();
+        }
+
+        private void RefreshView()
+        {
+            if (_showingSettings)
+            {
+                _settingsButtonImg.sprite = _activeButtonBG;
+            }
+            else
+            {
+                _settingsButtonImg.sprite = _defaultButtonBG;
+            }
+            
+            _controlsHandle.SetActive(_showingSettings);
+            _inventoryHandle.SetActive(!_showingSettings);
         }
 
         public void Hide()
         {
+            _settingsButtonImg.gameObject.SetActive(false);
             gameObject.SetActive(false);
             _storage = null;
+            _inventoryDisplay.ClearDisplay();
         }
 
         private void Refresh()
@@ -79,7 +110,8 @@ namespace Systems.Details.Generic_Details.Scripts
             RefreshQualityDisplay();
             RefreshPriorityDisplay();
             SpawnDisplayStorageOptions();
-            RefreshCapacityDisplay();
+            
+            _inventoryDisplay.RefreshDisplay(_storage);
         }
 
         #region Controls
@@ -169,30 +201,49 @@ namespace Systems.Details.Generic_Details.Scripts
             int currentPriority = (int)_settings.UsePriority;
             _priorityDropdown.SetValueWithoutNotify(currentPriority);
         }
-
+        
+        private Dictionary<EItemCategory, StorageCategoryDisplay> _displayedCategoriesDict = new Dictionary<EItemCategory, StorageCategoryDisplay>();
         private void SpawnDisplayStorageOptions()
         {
-            // Clear all the displayed options
-            foreach (var categoryDisplay in _displayedCategories)
-            {
-                Destroy(categoryDisplay.gameObject);
-            }
-            _displayedCategories.Clear();
-            
-            // Create a display for each category
+            // Dictionary to hold the updated categories
+            Dictionary<EItemCategory, StorageCategoryDisplay> updatedCategories = new Dictionary<EItemCategory, StorageCategoryDisplay>();
+
+            // Iterate over new options
             var options = _settings.StorageOptions.Options;
             foreach (var optionKVP in options)
             {
                 if (optionKVP.Value.Count > 0 && _storage.IsCategoryAllowed(optionKVP.Key))
                 {
-                    StorageCategoryDisplay catDisplay = Instantiate(_categoryDisplayPrefab, _categoryParent);
-                    int siblingIndex = _categoryDisplayPrefab.transform.GetSiblingIndex();
-                    catDisplay.transform.SetSiblingIndex(siblingIndex);
-                    catDisplay.gameObject.SetActive(true);
-                    catDisplay.Init(optionKVP.Key, optionKVP.Value,RefreshDisplayedStorageOptions, RefreshLayout);
-                    _displayedCategories.Add(catDisplay);
+                    // Check if the category is already displayed
+                    if (_displayedCategoriesDict.TryGetValue(optionKVP.Key, out StorageCategoryDisplay existingDisplay))
+                    {
+                        // Update the existing display if it already exists
+                        existingDisplay.Init(optionKVP.Key, optionKVP.Value, RefreshDisplayedStorageOptions, RefreshLayout);
+                        updatedCategories[optionKVP.Key] = existingDisplay;
+                    }
+                    else
+                    {
+                        // Instantiate a new display if not found
+                        StorageCategoryDisplay newDisplay = Instantiate(_categoryDisplayPrefab, _categoryParent);
+                        newDisplay.transform.SetSiblingIndex(_categoryDisplayPrefab.transform.GetSiblingIndex());
+                        newDisplay.gameObject.SetActive(true);
+                        newDisplay.Init(optionKVP.Key, optionKVP.Value, RefreshDisplayedStorageOptions, RefreshLayout);
+                        updatedCategories[optionKVP.Key] = newDisplay;
+                    }
                 }
             }
+
+            // Destroy any old categories that are not in the new options
+            foreach (var kvp in _displayedCategoriesDict)
+            {
+                if (!updatedCategories.ContainsKey(kvp.Key))
+                {
+                    Destroy(kvp.Value.gameObject);
+                }
+            }
+
+            // Replace the old dictionary with the new one
+            _displayedCategoriesDict = updatedCategories;
         }
 
         private void RefreshDisplayedStorageOptions()
@@ -204,16 +255,6 @@ namespace Systems.Details.Generic_Details.Scripts
                 category.RefreshEntryDisplays();
                 category.RefreshAllowedToggle();
             }
-        }
-
-        private void RefreshCapacityDisplay()
-        {
-            int maxCapacity = _storage.MaxCapacity;
-            int totalStored = _storage.TotalAmountStored;
-            float percentFull = (float)totalStored / maxCapacity;
-
-            _capacityFill.fillAmount = percentFull;
-            _capacityDetails.text = $"{totalStored} / {maxCapacity}";
         }
 
         public void OnCopyConfigsPressed()
