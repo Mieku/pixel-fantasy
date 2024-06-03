@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Databrain;
 using Databrain.Attributes;
@@ -103,6 +104,28 @@ namespace Data.Item
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        /// <summary>
+        /// Gets the item's text details for the player, for example decay or crafter... etc
+        /// </summary>
+        public virtual List<DetailsText> GetDetailsTexts()
+        {
+            List<DetailsText> results = new List<DetailsText>();
+            return results;
+        }
+    }
+
+    public class DetailsText
+    {
+        public string Header;
+        public string Message;
+        public bool HasHeader => !string.IsNullOrEmpty(Header);
+
+        public DetailsText(string header, string message)
+        {
+            Header = header;
+            Message = message;
         }
     }
 

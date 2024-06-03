@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Databrain.Attributes;
+using Managers;
 using ScriptableObjects;
 using TaskSystem;
 using UnityEngine;
@@ -14,6 +15,20 @@ namespace Data.Item
         [ExposeToInspector, DatabrainSerialize] public string CraftersUID;
         
         public CraftedItemSettings CraftedItemSettings => Settings as CraftedItemSettings;
+
+        public override List<DetailsText> GetDetailsTexts()
+        {
+            var results = base.GetDetailsTexts();
+
+            if (!string.IsNullOrEmpty(CraftersUID))
+            {
+                // Add crafter
+                var crafter = KinlingsManager.Instance.GetUnit(CraftersUID);
+                results.Add(new DetailsText("Crafted By:", crafter.FullName));
+            }
+
+            return results;
+        }
     }
     
     [Serializable]

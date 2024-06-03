@@ -69,6 +69,14 @@ namespace TaskSystem
                         KinlingAnimController.SetUnitAction(UnitAction.Nothing);
                         
                         var item = Spawner.Instance.SpawnItem(_itemToCraft, _craftingTable.transform.position, false);
+                        var craftedData = item.RuntimeData as CraftedItemData;
+                        if (craftedData != null)
+                        {
+                            craftedData.CraftersUID = _ai.Kinling.RuntimeData.guid;
+                            
+                            // TODO: Determine and apply the item's quality
+                        }
+                        
                         _targetItem = item.RuntimeData;
                         _ai.HoldItem(item);
                         

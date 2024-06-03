@@ -22,6 +22,7 @@ namespace Systems.Details.Generic_Details.Scripts
         [SerializeField] private ItemDetails _itemDetails;
         [SerializeField] private GameObject _controlsSeperator;
         [SerializeField] private GameObject _storageSettingsBtn;
+        [SerializeField] private GameObject _headerSeperator;
         
         public TextMeshProUGUI ItemName;
         
@@ -70,6 +71,11 @@ namespace Systems.Details.Generic_Details.Scripts
             _controlsSeperator.SetActive(shouldShow);
         }
 
+        public void ShowHeaderSeperator(bool shouldShow)
+        {
+            _headerSeperator.SetActive(shouldShow);
+        }
+
         public void SetDurabilityFill(float currentAmount, float maxAmount)
         {
             float percent = currentAmount / maxAmount;
@@ -92,6 +98,7 @@ namespace Systems.Details.Generic_Details.Scripts
         private void Refresh()
         {
             RefreshCommands();
+            ShowHeaderSeperator(true);
 
             var resource = _clickableObject as BasicResource;
             if (resource != null)
