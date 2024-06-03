@@ -10,9 +10,9 @@ namespace Systems.Details.Kinling_Details
     {
         [SerializeField] private TextMeshProUGUI _skillName;
         [SerializeField] private TextMeshProUGUI _skillRankText;
-        [SerializeField] private TextMeshProUGUI _expDisplay;
         [SerializeField] private Image _passionIcon;
         [SerializeField] private Image _barFill;
+        [SerializeField] private Image _expBarFill;
         [SerializeField] private Image _barBG;
         [SerializeField] private Sprite _minorPassionIcon;
         [SerializeField] private Sprite _majorPassionIcon;
@@ -59,27 +59,30 @@ namespace Systems.Details.Kinling_Details
         {
             if(_skillData == null) return;
             
-            _skillRankText.text = $"{_skillData.RankString}";
-
+            
+            float lvlProgress = _skillData.Level / 10f;
+            Color lerpedColour = Color.Lerp(_negativeColour, _positiveColour, Mathf.Clamp(lvlProgress, 0.0f, 1.0f));
+            
             if (_skillData.Incapable)
             {
-                _expDisplay.text = $"";
                 _skillName.color = _negativeColour;
+                _skillRankText.text = $"X";
+                _skillRankText.color = _negativeColour;
             }
             else
             {
-                _expDisplay.text = $"Exp: {_skillData.PercentString}%";
                 _skillName.color = Color.white;
+                _skillRankText.text = $"{_skillData.Level}";
+                _skillRankText.color = lerpedColour;
             }
-
-            float lvlProgress = _skillData.Level / 10f;
+            
             _barFill.fillAmount = lvlProgress;
-
-            Color lerpedColour = Color.Lerp(_negativeColour, _positiveColour, Mathf.Clamp(lvlProgress, 0.0f, 1.0f));
             _barFill.color = lerpedColour;
             
             var darkLuminance = Helper.AdjustColorLuminance(_sampleLight, _sampleDark, lerpedColour);
             _barBG.color = darkLuminance;
+
+            _expBarFill.fillAmount = _skillData.GetPercentExp();
         }
     }
 }

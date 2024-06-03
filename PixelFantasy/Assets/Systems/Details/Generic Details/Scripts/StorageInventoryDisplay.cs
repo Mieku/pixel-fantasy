@@ -15,8 +15,8 @@ namespace Systems.Details.Generic_Details.Scripts
 
         [BoxGroup("Inventory"), SerializeField] private InventoryItemDisplay _itemDisplayPrefab;
         [BoxGroup("Inventory"), SerializeField] private Transform _itemDisplayParent;
+        
         private List<InventoryItemDisplay> _displayedInventory = new List<InventoryItemDisplay>();
-
         private IStorage _storage;
 
         public void RefreshDisplay(IStorage storage)

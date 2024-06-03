@@ -21,7 +21,7 @@ namespace Systems.Stats.Scripts
                 var rangedData = (RangedSkillLevelData)Table[level - 1];
                 return rangedData.GetAttribute(attributeType);
             }
-            Debug.LogError($"Level {level} is out of range for skill {SkillType}");
+            
             return 0;
         }
     }
