@@ -44,7 +44,7 @@ namespace Systems.Details.Kinling_Details
             _kinling = kinling;
             _panelHandle.SetActive(true);
             _kinlingName.text = _kinling.FullName;
-            _avatarDisplay.sprite = _kinling.Avatar.GetBaseAvatarSprite();
+            _avatarDisplay.sprite = _kinling.RuntimeData.Avatar.GetBaseAvatarSprite();
             
             ChangeContentState(EDetailsState.Needs);
             

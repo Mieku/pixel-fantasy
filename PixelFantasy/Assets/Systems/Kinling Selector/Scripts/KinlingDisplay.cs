@@ -25,7 +25,7 @@ namespace Systems.Kinling_Selector.Scripts
         {
             KinlingData = kinlingData;
 
-            _avatar.sprite = KinlingData.Kinling.Avatar.GetBaseAvatarSprite();
+            _avatar.sprite = KinlingData.Avatar.GetBaseAvatarSprite();
         }
 
 
@@ -33,7 +33,7 @@ namespace Systems.Kinling_Selector.Scripts
         {
             if (KinlingData != null)
             {
-                _nicknameText.text = KinlingData.GetNickname();
+                _nicknameText.text = KinlingData.Nickname;
                 _actionText.text = KinlingData.Kinling.TaskAI.CurrentStateName;
                 
                 _moodTint.color = Color.Lerp(_negativeColour, _positiveColour, Mathf.Clamp(KinlingData.Kinling.MoodData.OverallMood / 100f, 0.0f, 1.0f));

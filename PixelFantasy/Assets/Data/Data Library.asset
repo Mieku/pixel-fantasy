@@ -420,6 +420,7 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  Nickname: 
   Firstname: Michael
   Lastname: Altair
   Position: {x: 0, y: 0}
@@ -611,6 +612,9 @@ MonoBehaviour:
     EyeColour:
       serializedVersion: 2
       rgba: 0
+    SideSpriteLibraryAsset: {fileID: 0}
+    UpSpriteLibraryAsset: {fileID: 0}
+    DownSpriteLibraryAsset: {fileID: 0}
 --- !u!114 &-6853623058905891121
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5577,6 +5581,7 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  Nickname: 
   Firstname: 
   Lastname: 
   Position: {x: 18.509235, y: 5.200002}
@@ -5770,6 +5775,9 @@ MonoBehaviour:
     EyeColour:
       serializedVersion: 2
       rgba: 0
+    SideSpriteLibraryAsset: {fileID: 0}
+    UpSpriteLibraryAsset: {fileID: 0}
+    DownSpriteLibraryAsset: {fileID: 0}
 --- !u!114 &6402681467211676120
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6540,6 +6548,26 @@ MonoBehaviour:
     - type: Characters.KinlingData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
     - type: Data.Zones.StockpileZoneData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,

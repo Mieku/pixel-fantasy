@@ -22,7 +22,7 @@ namespace Characters
     public class KinlingData : DataObject
     {
         [ExposeToInspector, DatabrainSerialize] 
-        private string Nickname;
+        public string Nickname;
         
         [ExposeToInspector, DatabrainSerialize] 
         public string Firstname;
@@ -128,10 +128,31 @@ namespace Characters
             
             Firstname = Race.GetRandomFirstName(Gender);
             Lastname = Race.GetRandomLastName();
+            Nickname = GenerateNickname();
             
+            Stats.Traits.Clear();
             Stats.RandomizeSkillLevels();
             AssignHistory(Race.GetRandomHistory());
-            AssignTraits(Race.GetRandomTraits(Random.Range(0, 4)));
+            AssignTraits(Race.GetRandomTraits(Random.Range(0, 3)));
+        }
+
+        public string GenerateNickname()
+        {
+            if (Helper.RollDice(60))
+            {
+                if (Helper.RollDice(50))
+                {
+                    return Firstname;
+                }
+                else
+                {
+                    return Lastname;
+                }
+            }
+            else
+            {
+                return Race.GetRandomNickname(Gender);
+            }
         }
 
         public int CreateRandomAge(EMaturityStage stage)
@@ -308,20 +329,7 @@ namespace Characters
 
             return Age;
         }
-
-        /// <summary>
-        /// Returns their nickname if they have one, if not then their firstname
-        /// </summary>
-        public string GetNickname()
-        {
-            if (string.IsNullOrEmpty(Nickname))
-            {
-                return Firstname;
-            }
-
-            return Nickname;
-        }
-
+        
         public string Fullname => $"{Firstname} {Lastname}";
         
         public int GetLevelForSkill(ESkillType skillType)

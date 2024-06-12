@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6537644774642550263}
+  - component: {fileID: 79159834404595347}
   m_Layer: 5
   m_Name: Skill Display
   m_TagString: Untagged
@@ -39,6 +40,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 258.03, y: 21.92}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &79159834404595347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2347352952824645914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf935a367d292c848b19ae810f5929d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skillValueText: {fileID: 7367285086270722943}
+  _passionIcon: {fileID: 6824663524121971143}
+  _minorPassionIcon: {fileID: 21300000, guid: 089bfb84f40989148b789b931cb06d4e, type: 3}
+  _majorPassionIcon: {fileID: 21300000, guid: 462e42c4e5df2ba4c89094b1b6298c1a, type: 3}
+  _positiveColour: {r: 0.6, g: 0.9019608, b: 0.37254903, a: 1}
+  _negativeColour: {r: 0.91764706, g: 0.19607843, b: 0.23529412, a: 1}
 --- !u!1 &3808534607519642236
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,7 +123,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 20
+  m_text: 10
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7ced96f12513b29408bea341f3fcadbf, type: 2}
   m_sharedMaterial: {fileID: 952150050549633323, guid: 7ced96f12513b29408bea341f3fcadbf, type: 2}

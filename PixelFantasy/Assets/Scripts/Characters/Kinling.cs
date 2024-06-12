@@ -5,6 +5,7 @@ using Databrain.Attributes;
 using Interfaces;
 using Items;
 using Managers;
+using Systems.Appearance.Scripts;
 using Systems.Mood.Scripts;
 using Systems.Social.Scripts;
 using Systems.Stats.Scripts;
@@ -24,13 +25,11 @@ namespace Characters
         public KinlingData RuntimeData;
         
         [SerializeField] private TaskAI _taskAI;
-        //[SerializeField] private KinlingAppearance _appearance;
         [SerializeField] private SocialAI _socialAI;
         [SerializeField] private SortingGroup _sortingGroup;
         
         public string FullName => RuntimeData.Firstname + " " + RuntimeData.Lastname;
-
-        //public KinlingAnimController kinlingAnimController;
+        
         public KinlingAgent KinlingAgent;
         public Avatar Avatar;
 
@@ -76,7 +75,6 @@ namespace Characters
             Needs.Initialize(this);
             MoodData.Init(RuntimeData);
             MoodData.JumpMoodToTarget();
-            Avatar.AppearanceBuilder.UpdateAppearance();
             KinlingsManager.Instance.RegisterKinling(RuntimeData);
             HasInitialized = true;
         }

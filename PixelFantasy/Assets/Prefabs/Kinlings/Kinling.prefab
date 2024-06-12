@@ -304,8 +304,6 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
@@ -485,8 +483,6 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -678,8 +674,6 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
@@ -1034,8 +1028,6 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
@@ -1165,8 +1157,6 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
@@ -1400,7 +1390,6 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5532418264530240426}
   m_Enabled: 1
-  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -1424,8 +1413,7 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
+  m_UsedByComposite: 0
   m_Offset: {x: 0.010548234, y: -0.005843714}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -1436,6 +1424,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
+  serializedVersion: 2
   m_Size: {x: 0.8101332, y: 0.57954216}
   m_EdgeRadius: 0
 --- !u!114 &9189890898419539547
@@ -1751,7 +1740,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7471640859161288949}
-  - component: {fileID: 3472418338860218167}
   - component: {fileID: 4381294019299256598}
   - component: {fileID: 3819101460464208804}
   m_Layer: 6
@@ -1777,49 +1765,6 @@ Transform:
   - {fileID: 5263296330404636302}
   m_Father: {fileID: 5532418264530240428}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3472418338860218167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6809934140095292425}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 891da21817f00954887c24820c399ddc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _kinling: {fileID: 5584874993929393806}
-  _clipNames:
-  - base
-  - idle
-  - walk
-  _spriteLibrary: {fileID: 2562910502548921775}
-  Avatar: {fileID: 4381294019299256598}
-  Collection: {fileID: 11400000, guid: 6760816d9b9e42a429367d7cc0f95998, type: 2}
-  DebugAvatarData:
-    Body: Human Body/#FFFFFF/0:0:0
-    Hands: Human Hands/#FFFFFF/0:0:0
-    Eyes: Human Eyes/#FFFFFF/0:0:0
-    Blush: Human Blush/#FFFFFF/0:0:0
-    Hair: Pony/#FFFFFF/0:0:0
-    Beard: 
-    Clothing: 
-    Hat: 
-    FaceAccessory: 
-    Weapon: 
-    Offhand: 
-    SkinTone:
-      serializedVersion: 2
-      rgba: 0
-    HairColour:
-      serializedVersion: 2
-      rgba: 0
-    HairStyle: {fileID: 0}
-    BeardStyle: {fileID: 0}
-    EyeColour:
-      serializedVersion: 2
-      rgba: 0
 --- !u!114 &4381294019299256598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1835,15 +1780,12 @@ MonoBehaviour:
   Appearance: {fileID: 1661768492617320949}
   Animator: {fileID: 3819101460464208804}
   AudioSource: {fileID: 0}
-  AppearanceBuilder: {fileID: 3472418338860218167}
   Agent: {fileID: 3299422044965414669}
   SpriteLibrary: {fileID: 2562910502548921775}
-  SideSpriteLibraryAsset: {fileID: 0}
-  UpSpriteLibraryAsset: {fileID: 0}
-  DownSpriteLibraryAsset: {fileID: 0}
+  Kinling: {fileID: 5584874993929393806}
 --- !u!95 &3819101460464208804
 Animator:
-  serializedVersion: 7
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1857,7 +1799,6 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -2292,8 +2233,6 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
@@ -2423,8 +2362,6 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:

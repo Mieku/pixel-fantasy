@@ -22,10 +22,14 @@ namespace Systems.Appearance.Scripts
         [SerializeField] private List<string> _maleFirstNames = new List<string>();
         [SerializeField] private List<string> _femaleFirstNames = new List<string>();
         [SerializeField] private List<string> _lastNames = new List<string>();
+        [SerializeField] private List<string> _maleNicknames = new List<string>();
+        [SerializeField] private List<string> _femaleNicknames = new List<string>();
         
         [SerializeField] private string _maleNamesFilePath;
         [SerializeField] private string _femaleNamesFilePath;
         [SerializeField] private string _surnamesFilePath;
+        [SerializeField] private string _maleNicknamePath;
+        [SerializeField] private string _femaleNicknamePath;
 
         [SerializeField] private RacialAgeData _racialAgeData;
 
@@ -48,6 +52,18 @@ namespace Systems.Appearance.Scripts
         private void LoadSurnamesFromFile()
         {
             LoadNamesFromFile(ref _lastNames, _surnamesFilePath);
+        }
+        
+        [Button("Load Female Nicknames from file")]
+        private void LoadFemaleNicknamesFromFile()
+        {
+            LoadNamesFromFile(ref _femaleNicknames, _femaleNicknamePath);
+        }
+        
+        [Button("Load Male Nicknames from file")]
+        private void LoadMaleNicknamesFromFile()
+        {
+            LoadNamesFromFile(ref _maleNicknames, _maleNicknamePath);
         }
 
         private void LoadNamesFromFile(ref List<string> namesList, string filePath)
@@ -123,6 +139,13 @@ namespace Systems.Appearance.Scripts
         public string GetRandomLastName()
         {
             return _lastNames[Random.Range(0, _lastNames.Count)];
+        }
+
+        public string GetRandomNickname(EGender gender)
+        {
+            return gender == EGender.Female 
+                ? _femaleNicknames[Random.Range(0, _femaleNicknames.Count)] 
+                : _maleNicknames[Random.Range(0, _maleNicknames.Count)];
         }
 
         public RacialAgeData RacialAgeData => _racialAgeData;

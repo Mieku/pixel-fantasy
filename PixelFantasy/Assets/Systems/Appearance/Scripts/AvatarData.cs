@@ -35,6 +35,10 @@ namespace Systems.Appearance.Scripts
         public HairSettings HairStyle;
         public HairSettings BeardStyle;
         public Color32 EyeColour;
+        
+        public SpriteLibraryAsset SideSpriteLibraryAsset;
+        public SpriteLibraryAsset UpSpriteLibraryAsset;
+        public SpriteLibraryAsset DownSpriteLibraryAsset;
 
         public AvatarData (KinlingData kinlingData, EGender gender, EMaturityStage ageStage, RaceSettings race)
         {
@@ -86,6 +90,11 @@ namespace Systems.Appearance.Scripts
             {
                 Blush = "";
             }
+        }
+        
+        public Sprite GetBaseAvatarSprite()
+        {
+            return SideSpriteLibraryAsset.GetSprite("idle", "0");
         }
     }
 

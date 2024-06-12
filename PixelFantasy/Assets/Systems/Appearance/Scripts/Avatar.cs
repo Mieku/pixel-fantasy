@@ -13,9 +13,9 @@ namespace Systems.Appearance.Scripts
         public SpriteRenderer Appearance;
         public Animator Animator;
         public AudioSource AudioSource;
-        public AppearanceBuilder AppearanceBuilder;
         public NavMeshAgent Agent;
         public SpriteLibrary SpriteLibrary;
+        public Kinling Kinling;
 
         private AvatarLayer.EAppearanceDirection _direction;
         private bool _isFlipped;
@@ -27,10 +27,6 @@ namespace Systems.Appearance.Scripts
         private const string SWING = "IsSwinging";
         private const string SLEEP = "IsSleeping";
         private const string SIT = "IsSitting";
-
-        public SpriteLibraryAsset SideSpriteLibraryAsset;
-        public SpriteLibraryAsset UpSpriteLibraryAsset;
-        public SpriteLibraryAsset DownSpriteLibraryAsset;
         
         private void Awake()
         {
@@ -77,17 +73,17 @@ namespace Systems.Appearance.Scripts
             switch (direction)
             {
                 case AvatarLayer.EAppearanceDirection.Down:
-                    SpriteLibrary.spriteLibraryAsset = DownSpriteLibraryAsset;
+                    SpriteLibrary.spriteLibraryAsset = Kinling.RuntimeData.Avatar.DownSpriteLibraryAsset;
                     break;
                 case AvatarLayer.EAppearanceDirection.Up:
-                    SpriteLibrary.spriteLibraryAsset = UpSpriteLibraryAsset;
+                    SpriteLibrary.spriteLibraryAsset = Kinling.RuntimeData.Avatar.UpSpriteLibraryAsset;
                     break;
                 case AvatarLayer.EAppearanceDirection.Right:
-                    SpriteLibrary.spriteLibraryAsset = SideSpriteLibraryAsset;
+                    SpriteLibrary.spriteLibraryAsset = Kinling.RuntimeData.Avatar.SideSpriteLibraryAsset;
                     Appearance.flipX = false;
                     break;
                 case AvatarLayer.EAppearanceDirection.Left:
-                    SpriteLibrary.spriteLibraryAsset = SideSpriteLibraryAsset;
+                    SpriteLibrary.spriteLibraryAsset = Kinling.RuntimeData.Avatar.SideSpriteLibraryAsset;
                     Appearance.flipX = true;
                     break;
                 default:
@@ -202,11 +198,6 @@ namespace Systems.Appearance.Scripts
                     } 
                 }
             }
-        }
-
-        public Sprite GetBaseAvatarSprite()
-        {
-            return SideSpriteLibraryAsset.GetSprite("idle", "0");
         }
 
         public void SetEyesClosed(bool isClosed)

@@ -16,7 +16,7 @@ namespace Systems.Appearance.Scripts
         {
             _kinlingData = kinlingData;
 
-            _appearance.sprite = _kinlingData.Kinling.Avatar.GetBaseAvatarSprite();
+            _appearance.sprite = _kinlingData.Avatar.GetBaseAvatarSprite();
         }
 
         // Originally for portrait image, decided to keep for the future

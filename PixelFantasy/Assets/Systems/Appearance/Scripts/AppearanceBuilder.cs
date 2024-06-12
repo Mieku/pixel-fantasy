@@ -2,47 +2,32 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Characters;
+using Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 
 namespace Systems.Appearance.Scripts
 {
-    public class AppearanceBuilder : MonoBehaviour
+    public class AppearanceBuilder : Singleton<AppearanceBuilder>
     {
-        [SerializeField] private Kinling _kinling;
         [SerializeField] private List<string> _clipNames = new List<string>();
-        [SerializeField] private SpriteLibrary _spriteLibrary;
 
-        public Avatar Avatar;
         public AppearanceCollection Collection;
-
-        public AvatarData DebugAvatarData;
-
-        private AvatarData _avatarData
+        
+        public void UpdateAppearance(KinlingData kinlingData)
         {
-            get
-            {
-                if (_kinling.RuntimeData != null && _kinling.RuntimeData.Avatar != null)
-                {
-                    return _kinling.RuntimeData.Avatar;
-                }
+            kinlingData.Avatar.SideSpriteLibraryAsset = BuildSpriteLibraryAssetForDirection(kinlingData.Avatar, AvatarLayer.EAppearanceDirection.Right);
+            kinlingData.Avatar.UpSpriteLibraryAsset = BuildSpriteLibraryAssetForDirection(kinlingData.Avatar, AvatarLayer.EAppearanceDirection.Up);
+            kinlingData.Avatar.DownSpriteLibraryAsset = BuildSpriteLibraryAssetForDirection(kinlingData.Avatar, AvatarLayer.EAppearanceDirection.Down);
 
-                return DebugAvatarData;
+            if (kinlingData.Kinling != null)
+            {
+                kinlingData.Kinling.Avatar.RefreshAppearanceLibrary();
             }
         }
-
-        [Button("Update Appearance")]
-        public void UpdateAppearance()
-        {
-            Avatar.SideSpriteLibraryAsset = BuildSpriteLibraryAssetForDirection(AvatarLayer.EAppearanceDirection.Right);
-            Avatar.UpSpriteLibraryAsset = BuildSpriteLibraryAssetForDirection(AvatarLayer.EAppearanceDirection.Up);
-            Avatar.DownSpriteLibraryAsset = BuildSpriteLibraryAssetForDirection(AvatarLayer.EAppearanceDirection.Down);
-            
-            Avatar.RefreshAppearanceLibrary();
-        }
         
-        public SpriteLibraryAsset BuildSpriteLibraryAssetForDirection(AvatarLayer.EAppearanceDirection direction, string changed = null, bool forceMerge = false)
+        public SpriteLibraryAsset BuildSpriteLibraryAssetForDirection(AvatarData avatarData, AvatarLayer.EAppearanceDirection direction, string changed = null, bool forceMerge = false)
         {
             var collection = Collection.GetLayersByDirection(direction);
             
@@ -52,28 +37,28 @@ namespace Systems.Appearance.Scripts
             var dict = collection.ToDictionary(i => i.ID, i => i);
             var layers = new Dictionary<string, Color32[]>();
 
-            if(!string.IsNullOrEmpty(_avatarData.Body)) layers.Add("Body", dict["Body"].GetPixels(_avatarData.Body, null, changed));
-            if(!string.IsNullOrEmpty(_avatarData.Clothing)) layers.Add("Clothing", dict["Clothing"].GetPixels(_avatarData.Clothing, null, changed));
+            if(!string.IsNullOrEmpty(avatarData.Body)) layers.Add("Body", dict["Body"].GetPixels(avatarData.Body, null, changed));
+            if(!string.IsNullOrEmpty(avatarData.Clothing)) layers.Add("Clothing", dict["Clothing"].GetPixels(avatarData.Clothing, null, changed));
 
-            if(!string.IsNullOrEmpty(_avatarData.Eyes)) layers.Add("Eyes", dict["Eyes"].GetPixels(_avatarData.Eyes, null, changed));
-            if(!string.IsNullOrEmpty(_avatarData.Blush)) layers.Add("Blush", dict["Blush"].GetPixels(_avatarData.Blush, null, changed));
+            if(!string.IsNullOrEmpty(avatarData.Eyes)) layers.Add("Eyes", dict["Eyes"].GetPixels(avatarData.Eyes, null, changed));
+            if(!string.IsNullOrEmpty(avatarData.Blush)) layers.Add("Blush", dict["Blush"].GetPixels(avatarData.Blush, null, changed));
 
-            if(!string.IsNullOrEmpty(_avatarData.Beard)) layers.Add("Beard", dict["Beard"].GetPixels(_avatarData.Beard, null, changed));
-            if (!string.IsNullOrEmpty(_avatarData.Hair)) layers.Add("Hair", dict["Hair"].GetPixels(_avatarData.Hair, null, changed));
+            if(!string.IsNullOrEmpty(avatarData.Beard)) layers.Add("Beard", dict["Beard"].GetPixels(avatarData.Beard, null, changed));
+            if (!string.IsNullOrEmpty(avatarData.Hair)) layers.Add("Hair", dict["Hair"].GetPixels(avatarData.Hair, null, changed));
 
-            if(!string.IsNullOrEmpty(_avatarData.FaceAccessory)) layers.Add("FaceAccessory", dict["FaceAccessory"].GetPixels(_avatarData.FaceAccessory, null, changed));
-            if(!string.IsNullOrEmpty(_avatarData.Hat)) layers.Add("Hat", dict["Hat"].GetPixels(_avatarData.Hat, null, changed));
+            if(!string.IsNullOrEmpty(avatarData.FaceAccessory)) layers.Add("FaceAccessory", dict["FaceAccessory"].GetPixels(avatarData.FaceAccessory, null, changed));
+            if(!string.IsNullOrEmpty(avatarData.Hat)) layers.Add("Hat", dict["Hat"].GetPixels(avatarData.Hat, null, changed));
 
-            if(!string.IsNullOrEmpty(_avatarData.Hands)) layers.Add("Hands", dict["Hands"].GetPixels(_avatarData.Hands, null, changed));
-            if(!string.IsNullOrEmpty(_avatarData.Offhand)) layers.Add("Offhand", dict["Offhand"].GetPixels(_avatarData.Offhand, null, changed));
-            if(!string.IsNullOrEmpty(_avatarData.Weapon)) layers.Add("Weapon", dict["Weapon"].GetPixels(_avatarData.Weapon, null, changed));
+            if(!string.IsNullOrEmpty(avatarData.Hands)) layers.Add("Hands", dict["Hands"].GetPixels(avatarData.Hands, null, changed));
+            if(!string.IsNullOrEmpty(avatarData.Offhand)) layers.Add("Offhand", dict["Offhand"].GetPixels(avatarData.Offhand, null, changed));
+            if(!string.IsNullOrEmpty(avatarData.Weapon)) layers.Add("Weapon", dict["Weapon"].GetPixels(avatarData.Weapon, null, changed));
 
 
             var order = collection.Select(i => i.ID).ToList();
 
             layers = layers.Where(i => i.Value != null).OrderBy(i => order.IndexOf(i.Key)).ToDictionary(i => i.Key, i => i.Value);
             
-            if(!string.IsNullOrEmpty(_avatarData.Offhand)) 
+            if(!string.IsNullOrEmpty(avatarData.Offhand)) 
             {
                 var offHand = layers["Offhand"];
                 var last = layers.Last(i => i.Key != "Weapon");

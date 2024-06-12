@@ -59,12 +59,12 @@ namespace Systems.Details.Kinling_Details
             }
             _displayedTraits.Clear();
             
-            _historyTrait.Init(_kinlingData.Stats.History.HistoryName, _kinlingData.Stats.History.DescriptionString(_kinlingData.GetNickname()));
+            _historyTrait.Init(_kinlingData.Stats.History.HistoryName, _kinlingData.Stats.History.DescriptionString(_kinlingData.Nickname));
 
             foreach (var trait in _kinlingData.Stats.Traits)
             {
                 var traitDisplay = Instantiate(_historyTrait, _traitsLayout);
-                traitDisplay.Init(trait.TraitName, trait.DescriptionString(_kinlingData.GetNickname()));
+                traitDisplay.Init(trait.TraitName, trait.DescriptionString(_kinlingData.Nickname));
                 _displayedTraits.Add(traitDisplay);
             }
         }

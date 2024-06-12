@@ -37,7 +37,7 @@ namespace Systems.Game_Setup.Scripts
 
         private void Start()
         {
-            SetUpGame();
+            //SetUpGame();
         }
 
         [Button("Set Up Game")]
@@ -104,6 +104,26 @@ namespace Systems.Game_Setup.Scripts
                     KinlingsManager.Instance.SpawnKinling(kinlingData, pos);
                 });
             }
+        }
+
+        public List<KinlingData> GenerateNewKinlings(int amount)
+        {
+            List<KinlingData> results = new List<KinlingData>();
+            for (int i = 0; i < amount; i++)
+            {
+                DataLibrary.RegisterInitializationCallback(() =>
+                {
+                    var kinlingData = (KinlingData)DataLibrary.CloneDataObjectToRuntime(_genericKinlingData);
+                    kinlingData.Randomize(_race);
+                    kinlingData.title = kinlingData.Fullname;
+                    kinlingData.name = $"{kinlingData.Fullname}_{kinlingData.guid}";
+                    kinlingData.Mood.JumpMoodToTarget();
+                    AppearanceBuilder.Instance.UpdateAppearance(kinlingData);
+                    results.Add(kinlingData);
+                });
+            }
+
+            return results;
         }
     }
 }
