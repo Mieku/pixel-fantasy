@@ -337,7 +337,7 @@ namespace Systems.Social.Scripts
             if (result == null)
             {
                 NotificationManager.Instance.CreatePersonalLog(_kinling, $"{_kinling.FullName} has met {otherKinling.Fullname}", LogData.ELogType.Message);
-                result = new RelationshipData(otherKinling);
+                result = new RelationshipData(_kinling.RuntimeData, otherKinling);
                 _kinling.RuntimeData.Relationships.Add(result);
                 
                 GameEvents.Trigger_OnKinlingChanged(_kinling.RuntimeData);

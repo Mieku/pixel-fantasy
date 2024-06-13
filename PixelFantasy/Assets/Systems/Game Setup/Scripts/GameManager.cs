@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Characters;
 using Controllers;
 using Data.Item;
@@ -10,6 +11,7 @@ using Managers;
 using Sirenix.OdinInspector;
 using Systems.Appearance.Scripts;
 using Systems.Buildings.Scripts;
+using Systems.Social.Scripts;
 using Systems.World_Building.Scripts;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -122,8 +124,97 @@ namespace Systems.Game_Setup.Scripts
                     results.Add(kinlingData);
                 });
             }
-
+            
+            GenerateNewRelationships(results);
+            
             return results;
+        }
+
+        public void GenerateNewRelationships(List<KinlingData> kinlings)
+        {
+            // Clear any current relationships
+            foreach (var kinling in kinlings)
+            {
+                kinling.Partner = null;
+                kinling.Relationships.Clear();
+            }
+            
+            // Generate Relationships
+            int numPartners = Random.Range(0, kinlings.Count / 2 + 1);
+            
+            // Partners
+            List<KinlingData> potentialPartners = kinlings.ToList();
+            int infiniteWatch = 0;
+            for (int i = 0; i < numPartners; i++)
+            {
+                infiniteWatch++;
+                if (infiniteWatch > 100) break;
+                
+                var randomKinling = potentialPartners[Random.Range(0, potentialPartners.Count)];
+                potentialPartners.Remove(randomKinling);
+
+                List<KinlingData> potentialMatches = new List<KinlingData>();
+                foreach (var potentialPartner in potentialPartners)
+                {
+                    if (randomKinling.IsKinlingAttractedTo(potentialPartner) && potentialPartner.IsKinlingAttractedTo(randomKinling) && potentialPartner.Partner == null)
+                    {
+                        potentialMatches.Add(potentialPartner);
+                    }
+                }
+
+                if (potentialMatches.Count == 0)
+                {
+                    potentialPartners.Add(randomKinling);
+                    i--;
+                    continue;
+                }
+                
+                var match = potentialMatches[Random.Range(0, potentialMatches.Count)];
+                if (match != null)
+                {
+                    potentialPartners.Remove(match);
+                    RelationshipData relationship = randomKinling.Relationships.Find(r => r.KinlingData == match);
+                    if (relationship == null)
+                    {
+                        relationship = new RelationshipData(randomKinling, match);
+                    }
+                     
+                    RelationshipData theirRelationship = match.Relationships.Find(r => r.KinlingData == randomKinling);
+                    if (theirRelationship == null)
+                    {
+                        theirRelationship = new RelationshipData(match, randomKinling);
+                    }
+
+                    relationship.IsPartner = true;
+                    relationship.Opinion = Random.Range(10, 50);
+                    randomKinling.Partner = match;
+                    randomKinling.Relationships.Add(relationship);
+                    
+                    theirRelationship.IsPartner = true;
+                    theirRelationship.Opinion = Random.Range(10, 50);
+                    match.Partner = randomKinling;
+                    match.Relationships.Add(theirRelationship);
+                }
+            }
+
+            foreach (var kinling in kinlings)
+            {
+                foreach (var otherKinling in kinlings)
+                {
+                    if (kinling != otherKinling)
+                    {
+                        RelationshipData relationship = kinling.Relationships.Find(r => r.KinlingData == otherKinling);
+                        if (relationship == null)
+                        {
+                            relationship = new RelationshipData(kinling, otherKinling)
+                            {
+                                Opinion = Random.Range(-10, 30)
+                            };
+                            kinling.Relationships.Add(relationship);
+                        }
+                    }
+                }
+            }
         }
     }
 }

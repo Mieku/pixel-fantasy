@@ -14,11 +14,12 @@ namespace Systems.Social.Scripts
     {
         public enum ERelationshipType
         {
-            Acquaintance,
+            Peer,
             Friend,
             Rival,
         }
-        
+
+        public KinlingData OwnerKinlingData;
         public KinlingData KinlingData;
         public int Opinion;
         public bool IsPartner;
@@ -31,8 +32,9 @@ namespace Systems.Social.Scripts
         private const int FRIEND_COHESION = 15;
         private const int RIVAL_COHESION = -15;
 
-        public RelationshipData(KinlingData kinlingData, int opinion = 0)
+        public RelationshipData(KinlingData ownerKinlingData, KinlingData kinlingData, int opinion = 0)
         {
+            OwnerKinlingData = ownerKinlingData;
             KinlingData = kinlingData;
             Opinion = opinion;
             NaturalCohesion = Random.Range(MIN_NATURAL_COHESION, MAX_NATURAL_COHESION + 1);
@@ -47,7 +49,7 @@ namespace Systems.Social.Scripts
 
                 switch (RelationshipType)
                 {
-                    case ERelationshipType.Acquaintance:
+                    case ERelationshipType.Peer:
                         result += ACQUAINTANCE_COHESION;
                         break;
                     case ERelationshipType.Friend:
@@ -75,7 +77,7 @@ namespace Systems.Social.Scripts
 
                 if (Opinion <= 20)
                 {
-                    return ERelationshipType.Acquaintance;
+                    return ERelationshipType.Peer;
                 }
 
                 return ERelationshipType.Friend;
@@ -89,8 +91,8 @@ namespace Systems.Social.Scripts
                 if (IsPartner) return "Partner";
                 switch (RelationshipType)
                 {
-                    case ERelationshipType.Acquaintance:
-                        return "Acquaintance";
+                    case ERelationshipType.Peer:
+                        return "Peer";
                     case ERelationshipType.Friend:
                         return "Friend";
                     case ERelationshipType.Rival:
@@ -112,7 +114,7 @@ namespace Systems.Social.Scripts
                 
                 switch (RelationshipType)
                 {
-                    case ERelationshipType.Acquaintance:
+                    case ERelationshipType.Peer:
                         return 0.25f;
                     case ERelationshipType.Friend:
                         return 0.5f;
@@ -140,6 +142,28 @@ namespace Systems.Social.Scripts
                 else
                 {
                     return $"{Opinion}";
+                }
+            }
+        }
+        
+        public string TheirOpinionText
+        {
+            get
+            {
+                var theirRelationship = KinlingData.Relationships.Find(r => r.KinlingData == OwnerKinlingData);
+                int theirOpinion = 0;
+                if (theirRelationship != null)
+                {
+                    theirOpinion = theirRelationship.Opinion;
+                }
+                
+                if (theirOpinion > 0)
+                {
+                    return $"+{theirOpinion}";
+                }
+                else
+                {
+                    return $"{theirOpinion}";
                 }
             }
         }

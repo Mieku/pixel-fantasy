@@ -53,6 +53,10 @@ namespace Systems.Game_Setup.Scripts
             _intelligenceSkill;
         private List<TraitDisplay> _displayedTraits = new List<TraitDisplay>();
 
+        [BoxGroup("Relationships"), SerializeField] private RelationshipDisplay _relationshipDisplayPrefab;
+        [BoxGroup("Relationships"), SerializeField] private Transform _relationshipParent;
+        private List<RelationshipDisplay> _displayedRelationships = new List<RelationshipDisplay>();
+
         private List<KinlingData> _currentKinlings = new List<KinlingData>();
         private KinlingData _selectedKinling;
         private List<KinlingOptionDisplay> _displayedKinlings = new List<KinlingOptionDisplay>();
@@ -61,6 +65,7 @@ namespace Systems.Game_Setup.Scripts
         {
             gameObject.SetActive(true);
             _kinlingOptionDisplayPrefab.gameObject.SetActive(false);
+            _relationshipDisplayPrefab.gameObject.SetActive(false);
 
             if (_currentKinlings == null || _currentKinlings.Count == 0)
             {
@@ -186,6 +191,25 @@ namespace Systems.Game_Setup.Scripts
             
             var intelligence = _selectedKinling.Stats.GetSkillByType(ESkillType.Intelligence);
             _intelligenceSkill.Init(intelligence.Level, intelligence.Passion);
+            
+            // Relationships
+            foreach (var relationship in _displayedRelationships)
+            {
+                Destroy(relationship.gameObject);
+            }
+            _displayedRelationships.Clear();
+
+            var relations = _selectedKinling.Relationships;
+            int relationshipIndex = 0;
+            foreach (var relationship in relations)
+            {
+                bool showBG = relationshipIndex % 2 == 0;
+                var display = Instantiate(_relationshipDisplayPrefab, _relationshipParent);
+                display.gameObject.SetActive(true);
+                display.Init(relationship, showBG);
+                _displayedRelationships.Add(display);
+                relationshipIndex++;
+            }
         }
 
         private void RefreshColonySkills()
@@ -267,6 +291,8 @@ namespace Systems.Game_Setup.Scripts
             _selectedKinling.name = $"{_selectedKinling.Fullname}_{_selectedKinling.guid}";
             _selectedKinling.Mood.JumpMoodToTarget();
             AppearanceBuilder.Instance.UpdateAppearance(_selectedKinling);
+            
+            GameManager.Instance.GenerateNewRelationships(_currentKinlings);
             
             RefreshDisplayedKinlings();
             OnKinlingSelected(newKinling);
