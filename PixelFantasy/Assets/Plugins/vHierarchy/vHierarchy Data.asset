@@ -16,14 +16,12 @@ MonoBehaviour:
     keys:
     - 44b1509b4c9601d4f9dc525072d9be55
     - 
+    - a7900073160635246b92a30bc2b4f7e3
     values:
     - goDatasByGlobalId:
         keys:
-        - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-1742540214-0
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-1765111560-0
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-525914666-0
-        - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-261214954-0
-        - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-1187121118-0
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-1531034206-0
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-707911343-0
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-1735834837-0
@@ -46,17 +44,10 @@ MonoBehaviour:
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-1187120508-0
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-1114689666-0
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-1826864762-0
-        - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-696327368-0
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-542380640-0
-        - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-135880858-0
+        - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-261214954-0
         values:
-        - iColor: 1
-          icon: Folder Icon
         - iColor: 8
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
           icon: Settings Icon
         - iColor: 0
           icon: Settings Icon
@@ -105,19 +96,15 @@ MonoBehaviour:
         - iColor: 0
           icon: Terrain Icon
         - iColor: 0
-          icon: Terrain Icon
-        - iColor: 0
           icon: StandaloneInputModule Icon
-        - iColor: 0
-          icon: 
+        - iColor: 8
+          icon: Settings Icon
       goDatasByInstanceId:
-        keys: fa5b0100625c010022500100804d0100a0560100245a010022520100e45b0100ec4f01006e4b0100e4580100625901005c4d0100ec4d010076510100cc53010058560100e4560100f6580100ea580100fa520100c24b0100205401000e5401008c560100c4550100e85c0100105201007050010048fefcff
+        keys: 586b0200c06b0200e8580200f854020042680200305c02003a6b0200a2580200b85102009a6602006e670200cc540200de550200025b0200d25e0200c46202009a630200b6660200a86602007e5d020034520200a65f0200985f02004063020028620200906c02000a5c0200505902001cd2020084d20200acbf0200bcbb020006cf0200f4c20200fed1020066bf02007cb802005ecd020032ce020090bb0200a2bc0200c6c1020096c5020088c902005eca02007acd02006ccd020042c40200f8b802006ac602005cc6020004ca0200ecc8020054d30200cec2020014c00200ce2f0300363003005e1d03006e190300b82c0300a6200300b02f0300181d03002e160300102b0300e42b030042190300541a0300781f0300482303003a270300102803002c2b03001e2b0300f4210300aa1603001c2403000e240300b62703009e2603000631030080200300c61d03000052030068520300903f0300a03b0300ea4e0300d8420300e25103004a3f030060380300424d0300164e0300743b0300863c0300aa4103007a4503006c490300424a03005e4d0300504d030026440300dc3803004e46030040460300e8490300d048030038530300b2420300f83f0300f0a2030058a3030080900300da9f0300c8930300d2a203003a90030058890300329e0300069f03006c8c0300768d03009a9203006a9603005c9a0300329b03004e9e0300409e030016950300d48903003e97030030970300d89a0300c099030028a40300a2930300e890030050c50300b8c50300e0b203003ac2030028b6030032c503009ab20300b8ab030092c0030066c10300ccae0300d6af0300fab40300cab80300bcbc030092bd0300aec00300a0c0030076b7030034ac03009eb9030090b9030038bd030020bc030088c6030002b6030048b303007ef00300e6f003000ede030068ed030056e1030060f00300c8dd0300ded60300c0eb030094ec0300f2d9030004db030028e00300f8e30300eae70300c0e80300dceb0300ceeb0300a4e203005ad70300cce40300bee4030066e803004ee70300b6f1030030e1030076de0300dc410400042f04005e3e04004c32040056410400be2e0400d4270400b63c04008a3d0400e82a0400fa2b04001e310400ee340400e0380400b6390400d23c0400c43c04009a33040050280400c2350400b43504005c39040044380400ac4204006c2f0400566c04007e590400d8680400c65c0400d06b0400385904004e52040030670400046804006255040074560400985b0400685f04005a630400306404004c6704003e670400145e0400ca5204003c6004002e600400d6630400be620400266d0400e6590400888e0400b07b04000a8b0400f87e0400028e04006a7b04008074040062890400368a040094770400a6780400ca7d04009a8104008c850400628604007e8904007089040046800400fc7404006e8204006082040008860400f0840400588f0400187c040080df0400a8cc040002dc0400f0cf0400fade040062cc040078c504005ada04002edb04008cc804009ec90400c2ce040092d2040084d604005ad7040076da040068da04003ed10400f4c5040066d3040058d3040000d70400e8d5040050e0040010cd0400dc09050004f704005e0605004cfa040056090500bef60400d4ef0400b60405008a050500e8f20400faf304001ef90400eefc0400e0000500b6010500d2040500c40405009afb040050f00400c2fd0400b4fd04005c01050044000500ac0a05006cf70400f06b05001859050072680500605c05006a6b0500d2580500e8510500ca6605009e670500fc5405000e560500325b0500025f0500f4620500ca630500e6660500d8660500ae5d050064520500d65f0500c85f05007063050058620500c06c0500805905003096050058830500b2920500a0860500aa95050012830500287c05000a910500de9105003c7f05004e8005007285050042890500348d05000a8e05002691050018910500ee870500a47c0500168a0500088a0500b08d0500988c050000970500c083050004eb05002cd8050086e7050074db05007eea0500e6d70500fcd00500dee50500b2e6050010d4050022d5050046da050016de050008e20500dee20500fae50500ece50500c2dc050078d10500eade0500dcde050084e205006ce10500d4eb050094d805006015060088020600e2110600d0050600da1406004202060058fb05003a1006000e1106006cfe05007eff0500a204060072080600640c06003a0d060056100600481006001e070600d4fb05004609060038090600e00c0600c80b060030160600f00206000e3c060036290600903806007e2c0600883b0600f028060006220600e8360600bc3706001a2506002c260600502b0600202f060012330600e833060004370600f6360600cc2d060082220600f42f0600e62f06008e33060076320600de3c06009e290600c0e20600e8cf060042df060030d306003ae20600a2cf0600b8c806009add06006ede0600cccb0600decc060002d20600d2d50600c4d906009ada0600b6dd0600a8dd06007ed4060034c90600a6d6060098d6060040da060028d9060090e3060050d00600f8cb0600
         values:
         - iColor: 1
           icon: Folder Icon
         - iColor: 8
-          icon: Settings Icon
-        - iColor: 0
           icon: Settings Icon
         - iColor: 0
           icon: Settings Icon
@@ -171,11 +158,907 @@ MonoBehaviour:
           icon: Terrain Icon
         - iColor: 0
           icon: StandaloneInputModule Icon
+        - iColor: 1
+          icon: Folder Icon
+        - iColor: 8
+          icon: Settings Icon
         - iColor: 0
-          icon: 
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: PreMatCylinder
+        - iColor: 0
+          icon: AvatarMask On Icon
+        - iColor: 5
+          icon: Canvas Icon
+        - iColor: 2
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: DirectionalLight Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: StandaloneInputModule Icon
+        - iColor: 1
+          icon: Folder Icon
+        - iColor: 8
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: PreMatCylinder
+        - iColor: 0
+          icon: AvatarMask On Icon
+        - iColor: 5
+          icon: Canvas Icon
+        - iColor: 2
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: DirectionalLight Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: StandaloneInputModule Icon
+        - iColor: 1
+          icon: Folder Icon
+        - iColor: 8
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: PreMatCylinder
+        - iColor: 0
+          icon: AvatarMask On Icon
+        - iColor: 5
+          icon: Canvas Icon
+        - iColor: 2
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: DirectionalLight Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: StandaloneInputModule Icon
+        - iColor: 1
+          icon: Folder Icon
+        - iColor: 8
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: PreMatCylinder
+        - iColor: 0
+          icon: AvatarMask On Icon
+        - iColor: 5
+          icon: Canvas Icon
+        - iColor: 2
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: DirectionalLight Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: StandaloneInputModule Icon
+        - iColor: 1
+          icon: Folder Icon
+        - iColor: 8
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: PreMatCylinder
+        - iColor: 0
+          icon: AvatarMask On Icon
+        - iColor: 5
+          icon: Canvas Icon
+        - iColor: 2
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: DirectionalLight Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: StandaloneInputModule Icon
+        - iColor: 1
+          icon: Folder Icon
+        - iColor: 8
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: PreMatCylinder
+        - iColor: 0
+          icon: AvatarMask On Icon
+        - iColor: 5
+          icon: Canvas Icon
+        - iColor: 2
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: DirectionalLight Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: StandaloneInputModule Icon
+        - iColor: 8
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: PreMatCylinder
+        - iColor: 0
+          icon: AvatarMask On Icon
+        - iColor: 5
+          icon: Canvas Icon
+        - iColor: 2
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: DirectionalLight Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: StandaloneInputModule Icon
+        - iColor: 8
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: PreMatCylinder
+        - iColor: 0
+          icon: AvatarMask On Icon
+        - iColor: 5
+          icon: Canvas Icon
+        - iColor: 2
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: DirectionalLight Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: StandaloneInputModule Icon
+        - iColor: 8
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: PreMatCylinder
+        - iColor: 0
+          icon: AvatarMask On Icon
+        - iColor: 5
+          icon: Canvas Icon
+        - iColor: 2
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: DirectionalLight Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: StandaloneInputModule Icon
+        - iColor: 8
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: PreMatCylinder
+        - iColor: 0
+          icon: AvatarMask On Icon
+        - iColor: 5
+          icon: Canvas Icon
+        - iColor: 2
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: DirectionalLight Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: StandaloneInputModule Icon
+        - iColor: 8
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: PreMatCylinder
+        - iColor: 0
+          icon: AvatarMask On Icon
+        - iColor: 5
+          icon: Canvas Icon
+        - iColor: 2
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: DirectionalLight Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: StandaloneInputModule Icon
+        - iColor: 8
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: PreMatCylinder
+        - iColor: 0
+          icon: AvatarMask On Icon
+        - iColor: 5
+          icon: Canvas Icon
+        - iColor: 2
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: DirectionalLight Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: StandaloneInputModule Icon
+        - iColor: 8
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: PreMatCylinder
+        - iColor: 0
+          icon: AvatarMask On Icon
+        - iColor: 5
+          icon: Canvas Icon
+        - iColor: 2
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: DirectionalLight Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: StandaloneInputModule Icon
+        - iColor: 8
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: PreMatCylinder
+        - iColor: 0
+          icon: AvatarMask On Icon
+        - iColor: 5
+          icon: Canvas Icon
+        - iColor: 2
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: DirectionalLight Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: StandaloneInputModule Icon
+        - iColor: 8
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: PreMatCylinder
+        - iColor: 0
+          icon: AvatarMask On Icon
+        - iColor: 5
+          icon: Canvas Icon
+        - iColor: 2
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: DirectionalLight Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: StandaloneInputModule Icon
+        - iColor: 8
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: PreMatCylinder
+        - iColor: 0
+          icon: AvatarMask On Icon
+        - iColor: 5
+          icon: Canvas Icon
+        - iColor: 2
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: DirectionalLight Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: StandaloneInputModule Icon
+        - iColor: 8
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: PreMatCylinder
+        - iColor: 0
+          icon: AvatarMask On Icon
+        - iColor: 5
+          icon: Canvas Icon
+        - iColor: 2
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: DirectionalLight Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: StandaloneInputModule Icon
+        - iColor: 8
+          icon: Settings Icon
     - goDatasByGlobalId:
         keys: []
         values: []
       goDatasByInstanceId:
         keys: 
         values: []
+    - goDatasByGlobalId:
+        keys:
+        - GlobalObjectId_V1-2-a7900073160635246b92a30bc2b4f7e3-9175827-0
+        - GlobalObjectId_V1-2-a7900073160635246b92a30bc2b4f7e3-814237548-0
+        values:
+        - iColor: 8
+          icon: Settings Icon
+        - iColor: 8
+          icon: 
+      goDatasByInstanceId:
+        keys: 920c07006e0e0700
+        values:
+        - iColor: 8
+          icon: Settings Icon
+        - iColor: 8
+          icon: 

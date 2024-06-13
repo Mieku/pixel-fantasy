@@ -46,11 +46,16 @@ namespace Systems.Game_Setup.Scripts
             switch (_stage)
             {
                 case ENewGameSetupStage.ChooseKinlings:
-                    Debug.LogError("Not built yet");
+                    StartNewGame();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private void StartNewGame()
+        {
+            GameManager.Instance.StartNewGame(_chooseKinlingsPanel.PlayersKinlings);
         }
 
         private void ChangeSetupStage(ENewGameSetupStage stage)

@@ -9,12 +9,12 @@ using UnityEngine.U2D.Animation;
 
 namespace Systems.Appearance.Scripts
 {
-    public class AppearanceBuilder : Singleton<AppearanceBuilder>
+    public class AppearanceBuilder : PersistentSingleton<AppearanceBuilder>
     {
         [SerializeField] private List<string> _clipNames = new List<string>();
 
         public AppearanceCollection Collection;
-        
+
         public void UpdateAppearance(KinlingData kinlingData)
         {
             kinlingData.Avatar.SideSpriteLibraryAsset = BuildSpriteLibraryAssetForDirection(kinlingData.Avatar, AvatarLayer.EAppearanceDirection.Right);

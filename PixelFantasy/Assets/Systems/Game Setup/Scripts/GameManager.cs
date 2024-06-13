@@ -14,11 +14,12 @@ using Systems.Buildings.Scripts;
 using Systems.Social.Scripts;
 using Systems.World_Building.Scripts;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 namespace Systems.Game_Setup.Scripts
 {
-    public class GameManager : Singleton<GameManager>
+    public class GameManager : PersistentSingleton<GameManager>
     {
         [SerializeField] private WorldBuilder _worldBuilder;
         [SerializeField] private bool _generateWorldOnStart;
@@ -35,12 +36,53 @@ namespace Systems.Game_Setup.Scripts
         [SerializeField] private KinlingData _genericKinlingData;
         [SerializeField] private RaceSettings _race;
         
-        private Storage _starterStockpile;
-
         private void Start()
         {
             //SetUpGame();
         }
+
+        protected override void Awake()
+        {
+            base.Awake();
+            DontDestroyOnLoad(gameObject);
+        }
+
+        public void StartNewGame(List<KinlingData> starterKinlings)
+        {
+            StartCoroutine(LoadSceneAndSetUpNewGame(starterKinlings));
+        }
+
+        private IEnumerator LoadSceneAndSetUpNewGame(List<KinlingData> starterKinlings)
+        {
+            // Start loading the scene
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
+
+            Debug.Log("Async is started");
+
+            // Wait until the scene is fully loaded
+            while (!asyncLoad.isDone)
+            {
+                yield return null;
+            }
+
+            Debug.Log("Async is done");
+
+            // Now the scene is loaded, find the WorldBuilder
+            _worldBuilder = FindObjectOfType<WorldBuilder>();
+
+            if (_worldBuilder == null)
+            {
+                Debug.LogError("WorldBuilder not found in the loaded scene.");
+                yield break;
+            }
+
+            // Start the coroutine to set up the new game
+            StartCoroutine(SetUpNewGameCoroutine(starterKinlings));
+
+            // Initialize the StructureManager with the WorldBuilder's WorldSize
+            StructureManager.Instance.Init(_worldBuilder.WorldSize);
+        }
+
 
         [Button("Set Up Game")]
         public void SetUpGame()
@@ -56,14 +98,44 @@ namespace Systems.Game_Setup.Scripts
             StructureManager.Instance.Init(_worldBuilder.WorldSize);
         }
         
-        public IEnumerator SetUpGameCoroutine()
+        public IEnumerator SetUpNewGameCoroutine(List<KinlingData> starterKinling)
         {
             if (_generateWorldOnStart)
             {
                 yield return StartCoroutine(_worldBuilder.GeneratePlaneCoroutine());
             }
             
-            //LoadStarterStockpile(_worldBuilder.StartPos ,_startingItems);
+            // Allow frame to render and update UI/loading screen here
+            yield return null;
+            
+            // Wait for a frame after all world-building tasks are complete before updating the NavMesh
+            yield return new WaitForEndOfFrame();
+
+            NavMeshManager.Instance.UpdateNavMesh(forceRebuild: true);
+            
+            // Again, yield to keep the UI responsive
+            yield return null;
+            
+            ApplyStarterKinlings(_worldBuilder.StartPos, starterKinling);
+            yield return null;
+            
+            GameEvents.Trigger_RefreshInventoryDisplay();
+            
+            Vector2 lookPos = new Vector2
+            {
+                x = _worldBuilder.StartPos.x,
+                y = _worldBuilder.StartPos.y
+            };
+            CameraManager.Instance.LookAtPosition(lookPos);
+            yield return null;
+        }
+        
+        public IEnumerator SetUpGameCoroutine()
+        {
+            if (_generateWorldOnStart)
+            {
+                yield return StartCoroutine(_worldBuilder.GeneratePlaneCoroutine());
+            }
             
             // Allow frame to render and update UI/loading screen here
             yield return null;
@@ -88,6 +160,16 @@ namespace Systems.Game_Setup.Scripts
             };
             CameraManager.Instance.LookAtPosition(lookPos);
             yield return null;
+        }
+
+        private void ApplyStarterKinlings(Vector3Int startCell, List<KinlingData> starterKinlings)
+        {
+            Vector2 startPos = new Vector2(startCell.x, startCell.y);
+            foreach (var kinling in starterKinlings)
+            {
+                var pos = Helper.RandomLocationInRange(startPos);
+                KinlingsManager.Instance.SpawnKinling(kinling, pos);
+            }
         }
         
         private void LoadStarterKinlings(Vector3Int startCell, int amount)

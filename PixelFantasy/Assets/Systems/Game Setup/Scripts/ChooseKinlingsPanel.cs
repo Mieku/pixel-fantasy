@@ -8,13 +8,15 @@ using Systems.Appearance.Scripts;
 using Systems.Stats.Scripts;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Systems.Game_Setup.Scripts
 {
     public class ChooseKinlingsPanel : MonoBehaviour
     {
-
+        public List<KinlingData> PlayersKinlings = new List<KinlingData>();
+        
         [SerializeField] private NewGameSection _newGameSection;
         [SerializeField] private int _numberOfKinlings = 5;
         [SerializeField] private KinlingOptionDisplay _kinlingOptionDisplayPrefab;
@@ -56,8 +58,7 @@ namespace Systems.Game_Setup.Scripts
         [BoxGroup("Relationships"), SerializeField] private RelationshipDisplay _relationshipDisplayPrefab;
         [BoxGroup("Relationships"), SerializeField] private Transform _relationshipParent;
         private List<RelationshipDisplay> _displayedRelationships = new List<RelationshipDisplay>();
-
-        private List<KinlingData> _currentKinlings = new List<KinlingData>();
+        
         private KinlingData _selectedKinling;
         private List<KinlingOptionDisplay> _displayedKinlings = new List<KinlingOptionDisplay>();
 
@@ -67,10 +68,10 @@ namespace Systems.Game_Setup.Scripts
             _kinlingOptionDisplayPrefab.gameObject.SetActive(false);
             _relationshipDisplayPrefab.gameObject.SetActive(false);
 
-            if (_currentKinlings == null || _currentKinlings.Count == 0)
+            if (PlayersKinlings == null || PlayersKinlings.Count == 0)
             {
                 // Generate new kinlings
-                _currentKinlings = GameManager.Instance.GenerateNewKinlings(_numberOfKinlings);
+                PlayersKinlings = GameManager.Instance.GenerateNewKinlings(_numberOfKinlings);
                 _selectedKinling = null;
             }
             
@@ -90,7 +91,7 @@ namespace Systems.Game_Setup.Scripts
             }
             _displayedKinlings.Clear();
 
-            foreach (var kinling in _currentKinlings)
+            foreach (var kinling in PlayersKinlings)
             {
                 var display = Instantiate(_kinlingOptionDisplayPrefab, _kinlingOptionsParent);
                 display.gameObject.SetActive(true);
@@ -100,7 +101,7 @@ namespace Systems.Game_Setup.Scripts
 
             if (_selectedKinling == null) 
             {
-                SetCurrentKinling(_currentKinlings.First());
+                SetCurrentKinling(PlayersKinlings.First());
             }
             else
             {
@@ -253,7 +254,7 @@ namespace Systems.Game_Setup.Scripts
             int highestLevel = 0;
             ESkillPassion highestPassion = ESkillPassion.None;
 
-            foreach (var kinling in _currentKinlings)
+            foreach (var kinling in PlayersKinlings)
             {
                 var skill = kinling.Stats.GetSkillByType(skillType);
                 if (highestLevel < skill.Level) highestLevel = skill.Level;
@@ -277,7 +278,7 @@ namespace Systems.Game_Setup.Scripts
 
         public void OnRerollColonyPressed()
         {
-            _currentKinlings = GameManager.Instance.GenerateNewKinlings(_numberOfKinlings);
+            PlayersKinlings = GameManager.Instance.GenerateNewKinlings(_numberOfKinlings);
             _selectedKinling = null;
             
             RefreshDisplayedKinlings();
@@ -292,7 +293,7 @@ namespace Systems.Game_Setup.Scripts
             _selectedKinling.Mood.JumpMoodToTarget();
             AppearanceBuilder.Instance.UpdateAppearance(_selectedKinling);
             
-            GameManager.Instance.GenerateNewRelationships(_currentKinlings);
+            GameManager.Instance.GenerateNewRelationships(PlayersKinlings);
             
             RefreshDisplayedKinlings();
             OnKinlingSelected(newKinling);
