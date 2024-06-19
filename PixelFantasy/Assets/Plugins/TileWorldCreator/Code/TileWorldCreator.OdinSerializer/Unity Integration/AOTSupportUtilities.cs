@@ -280,43 +280,46 @@ namespace TWC.OdinSerializer.Editor
                 {
                     serializerConstructor = Serializer.Get(serializedType).GetType().GetConstructor(Type.EmptyTypes);
 
-                    il.Emit(OpCodes.Newobj, serializerConstructor);
-
-                    // The following section is a fix for an issue on IL2CPP for PS4, where sometimes bytecode isn't
-                    //   generated for methods in base types of needed types - FX, Serializer<T>.ReadValueWeak()
-                    //   may be missing. This only seems to happen in a relevant way for value types.
+                    if (serializerConstructor != null)
                     {
-                        var endLabel = il.DefineLabel();
+                        il.Emit(OpCodes.Newobj, serializerConstructor);
 
-                        // Load a false local value, then jump to the end of this segment of code due to that
-                        //   false value. This is an attempt to trick any potential code flow analysis made
-                        //   by IL2CPP that checks whether this segment of code is actually run.
-                        //
-                        // We don't run the code because if we did, that would actually throw a bunch of
-                        //   exceptions from invalid calls to ReadValueWeak and WriteValueWeak.
-                        il.Emit(OpCodes.Ldloc, falseLocal);
-                        il.Emit(OpCodes.Brfalse, endLabel);
+                        // The following section is a fix for an issue on IL2CPP for PS4, where sometimes bytecode isn't
+                        //   generated for methods in base types of needed types - FX, Serializer<T>.ReadValueWeak()
+                        //   may be missing. This only seems to happen in a relevant way for value types.
+                        {
+                            var endLabel = il.DefineLabel();
 
-                        var baseSerializerType = typeof(Serializer<>).MakeGenericType(serializedType);
+                            // Load a false local value, then jump to the end of this segment of code due to that
+                            //   false value. This is an attempt to trick any potential code flow analysis made
+                            //   by IL2CPP that checks whether this segment of code is actually run.
+                            //
+                            // We don't run the code because if we did, that would actually throw a bunch of
+                            //   exceptions from invalid calls to ReadValueWeak and WriteValueWeak.
+                            il.Emit(OpCodes.Ldloc, falseLocal);
+                            il.Emit(OpCodes.Brfalse, endLabel);
 
-                        var readValueWeakMethod = baseSerializerType.GetMethod("ReadValueWeak", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly, null, new Type[] { typeof(IDataReader) }, null);
-                        var writeValueWeakMethod = baseSerializerType.GetMethod("WriteValueWeak", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly, null, new Type[] { typeof(string), typeof(object), typeof(IDataWriter) }, null);
+                            var baseSerializerType = typeof(Serializer<>).MakeGenericType(serializedType);
 
-                        il.Emit(OpCodes.Dup);                               // Duplicate serializer instance
-                        il.Emit(OpCodes.Ldnull);                            // Load null argument for IDataReader reader
-                        il.Emit(OpCodes.Callvirt, readValueWeakMethod);     // Call ReadValueWeak on serializer instance
-                        il.Emit(OpCodes.Pop);                               // Pop result of ReadValueWeak
+                            var readValueWeakMethod = baseSerializerType.GetMethod("ReadValueWeak", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly, null, new Type[] { typeof(IDataReader) }, null);
+                            var writeValueWeakMethod = baseSerializerType.GetMethod("WriteValueWeak", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly, null, new Type[] { typeof(string), typeof(object), typeof(IDataWriter) }, null);
 
-                        il.Emit(OpCodes.Dup);                               // Duplicate serializer instance
-                        il.Emit(OpCodes.Ldnull);                            // Load null argument for string name
-                        il.Emit(OpCodes.Ldnull);                            // Load null argument for object value
-                        il.Emit(OpCodes.Ldnull);                            // Load null argument for IDataWriter writer
-                        il.Emit(OpCodes.Callvirt, writeValueWeakMethod);    // Call WriteValueWeak on serializer instance
+                            il.Emit(OpCodes.Dup);                               // Duplicate serializer instance
+                            il.Emit(OpCodes.Ldnull);                            // Load null argument for IDataReader reader
+                            il.Emit(OpCodes.Callvirt, readValueWeakMethod);     // Call ReadValueWeak on serializer instance
+                            il.Emit(OpCodes.Pop);                               // Pop result of ReadValueWeak
 
-                        il.MarkLabel(endLabel);                             // This is where the code always jumps to, skipping the above
+                            il.Emit(OpCodes.Dup);                               // Duplicate serializer instance
+                            il.Emit(OpCodes.Ldnull);                            // Load null argument for string name
+                            il.Emit(OpCodes.Ldnull);                            // Load null argument for object value
+                            il.Emit(OpCodes.Ldnull);                            // Load null argument for IDataWriter writer
+                            il.Emit(OpCodes.Callvirt, writeValueWeakMethod);    // Call WriteValueWeak on serializer instance
+
+                            il.MarkLabel(endLabel);                             // This is where the code always jumps to, skipping the above
+                        }
+
+                        il.Emit(OpCodes.Pop);       // Pop the serializer instance
                     }
-
-                    il.Emit(OpCodes.Pop);       // Pop the serializer instance
                 }
                 else
                 {

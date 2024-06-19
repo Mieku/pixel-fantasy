@@ -16,6 +16,7 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
+    - {fileID: 0}
     - {fileID: 11400000, guid: d9c8106df3796324580a8dc788108e9a, type: 2}
     - {fileID: 11400000, guid: f9f8e10446668b946b7a00d997a0bad7, type: 2}
     SerializedBytesString: 
@@ -1321,9 +1322,6 @@ MonoBehaviour:
     - Name: paintActive
       Entry: 5
       Data: false
-    - Name: paintBrushSize
-      Entry: 3
-      Data: 0
     - Name: paintMap
       Entry: 7
       Data: 6|System.Boolean[,], mscorlib
@@ -2543,8 +2541,8 @@ MonoBehaviour:
       Entry: 3
       Data: 0
     - Name: tileWorldCreator
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 0
     - Name: paintPreviewTexture
       Entry: 6
       Data: 
@@ -2615,13 +2613,13 @@ MonoBehaviour:
       Data: 0.4
     - Name: foldout
       Entry: 5
-      Data: true
+      Data: false
     - Name: editor
       Entry: 6
       Data: 
     - Name: preset
       Entry: 10
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -2639,7 +2637,7 @@ MonoBehaviour:
       Data: 
     - Name: preset
       Entry: 10
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -2793,16 +2791,6 @@ MonoBehaviour:
     - Name: mapOrientation
       Entry: 3
       Data: 0
-  mapBlueprintLayers:
-  - active: 1
-    layerName: Base
-    randomSeedOverride: 0
-    useCustomSeed: 0
-    customLayerRandomSeed: 0
-    previewColor: {r: 1, g: 1, b: 1, a: 0}
-    mapResultFailed: 0
-    stack:
-    - actionName: Paint
   worldName: TileWorldCreator_Map
   mapWidth: 20
   mapHeight: 20

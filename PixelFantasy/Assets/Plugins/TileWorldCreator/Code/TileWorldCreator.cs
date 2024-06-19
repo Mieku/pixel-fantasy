@@ -577,10 +577,10 @@ namespace TWC
 				ExecuteBlueprintLayer(m);
 			}
 			
-			if (OnBlueprintLayersComplete != null)
-			{
-				OnBlueprintLayersComplete(this);
-			}
+			//if (OnBlueprintLayersComplete != null)
+			//{
+			//	OnBlueprintLayersComplete(this);
+			//}
 		}
 		
 		/// <summary>

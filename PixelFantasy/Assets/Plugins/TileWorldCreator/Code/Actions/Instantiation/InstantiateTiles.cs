@@ -508,17 +508,18 @@ namespace TWC.Actions
 								_addCluster = true;
 								_intCluster = _clr;
 								
+								// Following code is currently commented out as it creates faulty maps. -> Needs to be improved
 								// Check if we should update all adjacent clusters as well.
 								// To do this we look if the tile position is located on the border of a cluster
-								_quadrantPosition = tileMap.GetQuadrantPosition(_position);
+								// _quadrantPosition = tileMap.GetQuadrantPosition(_position);
 								
-								var _minQuadrantPosition = new Vector2Int(_quadrantPosition.x * tileMap.ClusterCellSize, _quadrantPosition.y * tileMap.ClusterCellSize);
-								var _maxQuadrantPosition = new Vector2Int(_minQuadrantPosition.x + tileMap.ClusterCellSize, _minQuadrantPosition.y + tileMap.ClusterCellSize);
+								// var _minQuadrantPosition = new Vector2Int(_quadrantPosition.x * tileMap.ClusterCellSize, _quadrantPosition.y * tileMap.ClusterCellSize);
+								// var _maxQuadrantPosition = new Vector2Int(_minQuadrantPosition.x + tileMap.ClusterCellSize, _minQuadrantPosition.y + tileMap.ClusterCellSize);
 						
-								if (_position.x > _minQuadrantPosition.x + 2 && _position.x < _maxQuadrantPosition.x - 2 && _position.y > _minQuadrantPosition.y + 2 && _position.y < _maxQuadrantPosition.y - 2)
-								{
-									_buildNeigbouringClusters = false;
-								}
+								// if (_position.x > _minQuadrantPosition.x + 2 && _position.x < _maxQuadrantPosition.x - 2 && _position.y > _minQuadrantPosition.y + 2 && _position.y < _maxQuadrantPosition.y - 2)
+								// {
+								// 	_buildNeigbouringClusters = false;
+								// }
 
 
 							}
@@ -575,15 +576,15 @@ namespace TWC.Actions
 								
 								// Check if we should update all adjacent clusters as well.
 								// To do this we look if the tile position is located on the border of a cluster
-								_quadrantPosition = tileMapTMP.GetQuadrantPosition(_oldPosition);
+								// _quadrantPosition = tileMapTMP.GetQuadrantPosition(_oldPosition);
 								
-								var _minQuadrantPosition = new Vector2Int(_quadrantPosition.x * tileMapTMP.ClusterCellSize, _quadrantPosition.y * tileMapTMP.ClusterCellSize);
-								var _maxQuadrantPosition = new Vector2Int(_minQuadrantPosition.x + tileMapTMP.ClusterCellSize, _minQuadrantPosition.y + tileMapTMP.ClusterCellSize);
+								// var _minQuadrantPosition = new Vector2Int(_quadrantPosition.x * tileMapTMP.ClusterCellSize, _quadrantPosition.y * tileMapTMP.ClusterCellSize);
+								// var _maxQuadrantPosition = new Vector2Int(_minQuadrantPosition.x + tileMapTMP.ClusterCellSize, _minQuadrantPosition.y + tileMapTMP.ClusterCellSize);
 						
-								if (_oldPosition.x > _minQuadrantPosition.x + 2 && _oldPosition.x < _maxQuadrantPosition.x - 2 && _oldPosition.y > _minQuadrantPosition.y + 2 && _oldPosition.y < _maxQuadrantPosition.y - 2)
-								{
-									_buildNeigbouringClusters = false;
-								}
+								// if (_oldPosition.x > _minQuadrantPosition.x + 2 && _oldPosition.x < _maxQuadrantPosition.x - 2 && _oldPosition.y > _minQuadrantPosition.y + 2 && _oldPosition.y < _maxQuadrantPosition.y - 2)
+								// {
+								// 	_buildNeigbouringClusters = false;
+								// }
 
 							}
 						}
@@ -616,111 +617,111 @@ namespace TWC.Actions
 				}
 				
 				/// Check if ignored layers have changed compared to the tilemap
-				// foreach (var _changedIgnoreLayersCluster in tileMap.clusters.Keys)
-				// {
-				// 	var _intCluster = -1;
-				// 	var _addCluster = false;
-				// 	var _buildNeigbouringClusters = true;
-				// 	Vector2Int _quadrantPosition = Vector2Int.zero;
+				foreach (var _changedIgnoreLayersCluster in tileMap.clusters.Keys)
+				{
+					var _intCluster = -1;
+					var _addCluster = false;
+					var _buildNeigbouringClusters = true;
+					Vector2Int _quadrantPosition = Vector2Int.zero;
 					
-				// 	foreach (var _position in tileMap.clusters[_changedIgnoreLayersCluster].Keys)
-				// 	{
-				// 		if (IgnoreTileCheck(_position, _twc))
-				// 		{
-				// 			var _clr = tileMap.GetPositionHashMapKey(new Vector3(_position.x, 0, _position.y));
+					foreach (var _position in tileMap.clusters[_changedIgnoreLayersCluster].Keys)
+					{
+						if (IgnoreTileCheck(_position, _twc))
+						{
+							var _clr = tileMap.GetPositionHashMapKey(new Vector3(_position.x, 0, _position.y));
 							
-				// 			_addCluster = true;
-				// 			_intCluster = _clr;
+							_addCluster = true;
+							_intCluster = _clr;
 								
-				// 			// Check if we should update all adjacent clusters as well.
-				// 			// To do this we look if the tile position is located on the border of a cluster
-				// 			_quadrantPosition = tileMap.GetQuadrantPosition(_position);
+							// Check if we should update all adjacent clusters as well.
+							// To do this we look if the tile position is located on the border of a cluster
+							// _quadrantPosition = tileMap.GetQuadrantPosition(_position);
 								
-				// 			var _minQuadrantPosition = new Vector2Int(_quadrantPosition.x * tileMap.ClusterCellSize, _quadrantPosition.y * tileMap.ClusterCellSize);
-				// 			var _maxQuadrantPosition = new Vector2Int(_minQuadrantPosition.x + tileMap.ClusterCellSize, _minQuadrantPosition.y + tileMap.ClusterCellSize);
+							// var _minQuadrantPosition = new Vector2Int(_quadrantPosition.x * tileMap.ClusterCellSize, _quadrantPosition.y * tileMap.ClusterCellSize);
+							// var _maxQuadrantPosition = new Vector2Int(_minQuadrantPosition.x + tileMap.ClusterCellSize, _minQuadrantPosition.y + tileMap.ClusterCellSize);
 						
-				// 			if (_position.x > _minQuadrantPosition.x + 2 && _position.x < _maxQuadrantPosition.x - 2 && _position.y > _minQuadrantPosition.y + 2 && _position.y < _maxQuadrantPosition.y - 2)
-				// 			{
-				// 				_buildNeigbouringClusters = false;
-				// 			}
-				// 		}
+							// if (_position.x > _minQuadrantPosition.x + 2 && _position.x < _maxQuadrantPosition.x - 2 && _position.y > _minQuadrantPosition.y + 2 && _position.y < _maxQuadrantPosition.y - 2)
+							// {
+							// 	_buildNeigbouringClusters = false;
+							// }
+						}
 						
-				// 	}
+					}
 					
-				// 	if (_addCluster)
-				// 	{
-				// 		if (!_buildNeigbouringClusters)
-				// 		{
-				// 			modifiedClusters.Add(_intCluster);
-				// 		}
-				// 		else
-				// 		{
-				// 			modifiedClusters.Add(_intCluster);
-				// 			modifiedClusters.Add(_intCluster + 1);
-				// 			modifiedClusters.Add(_intCluster - 1);
-				// 			modifiedClusters.Add(_intCluster + tileMap.clusterYMultiplier);
-				// 			modifiedClusters.Add(_intCluster - tileMap.clusterYMultiplier);
-				// 			modifiedClusters.Add(_intCluster + 1 + tileMap.clusterYMultiplier);
-				// 			modifiedClusters.Add(_intCluster - 1 + tileMap.clusterYMultiplier);
-				// 			modifiedClusters.Add(_intCluster + 1 - tileMap.clusterYMultiplier);
-				// 			modifiedClusters.Add(_intCluster - 1 - tileMap.clusterYMultiplier);
-				// 		}
-				// 	}
-				// }
+					if (_addCluster)
+					{
+						if (!_buildNeigbouringClusters)
+						{
+							modifiedClusters.Add(_intCluster);
+						}
+						else
+						{
+							modifiedClusters.Add(_intCluster);
+							modifiedClusters.Add(_intCluster + 1);
+							modifiedClusters.Add(_intCluster - 1);
+							modifiedClusters.Add(_intCluster + tileMap.clusterYMultiplier);
+							modifiedClusters.Add(_intCluster - tileMap.clusterYMultiplier);
+							modifiedClusters.Add(_intCluster + 1 + tileMap.clusterYMultiplier);
+							modifiedClusters.Add(_intCluster - 1 + tileMap.clusterYMultiplier);
+							modifiedClusters.Add(_intCluster + 1 - tileMap.clusterYMultiplier);
+							modifiedClusters.Add(_intCluster - 1 - tileMap.clusterYMultiplier);
+						}
+					}
+				}
 				
-				// /// Check if ignored layers have changed compared to the tilemap tmp
-				// foreach (var _changedIgnoreLayersCluster in tileMapTMP.clusters.Keys)
-				// {
-				// 	var _intCluster = -1;
-				// 	var _addCluster = false;
-				// 	var _buildNeigbouringClusters = true;
-				// 	Vector2Int _quadrantPosition = Vector2Int.zero;
+				/// Check if ignored layers have changed compared to the tilemap tmp
+				foreach (var _changedIgnoreLayersCluster in tileMapTMP.clusters.Keys)
+				{
+					var _intCluster = -1;
+					var _addCluster = false;
+					var _buildNeigbouringClusters = true;
+					Vector2Int _quadrantPosition = Vector2Int.zero;
 					
-				// 	foreach (var _position in tileMapTMP.clusters[_changedIgnoreLayersCluster].Keys)
-				// 	{
+					foreach (var _position in tileMapTMP.clusters[_changedIgnoreLayersCluster].Keys)
+					{
 							
-				// 		if (IgnoreTileCheck(_position, _twc))
-				// 		{
-				// 			var _clr = tileMapTMP.GetPositionHashMapKey(new Vector3(_position.x, 0, _position.y));
+						if (IgnoreTileCheck(_position, _twc))
+						{
+							var _clr = tileMapTMP.GetPositionHashMapKey(new Vector3(_position.x, 0, _position.y));
 							
-				// 			_addCluster = true;
-				// 			_intCluster = _clr;
+							_addCluster = true;
+							_intCluster = _clr;
 								
-				// 			// Check if we should update all adjacent clusters as well.
-				// 			// To do this we look if the tile position is located on the border of a cluster
-				// 			_quadrantPosition = tileMapTMP.GetQuadrantPosition(_position);
+							// Check if we should update all adjacent clusters as well.
+							// To do this we look if the tile position is located on the border of a cluster
+							// _quadrantPosition = tileMapTMP.GetQuadrantPosition(_position);
 								
-				// 			var _minQuadrantPosition = new Vector2Int(_quadrantPosition.x * tileMapTMP.ClusterCellSize, _quadrantPosition.y * tileMapTMP.ClusterCellSize);
-				// 			var _maxQuadrantPosition = new Vector2Int(_minQuadrantPosition.x + tileMapTMP.ClusterCellSize, _minQuadrantPosition.y + tileMapTMP.ClusterCellSize);
+							// var _minQuadrantPosition = new Vector2Int(_quadrantPosition.x * tileMapTMP.ClusterCellSize, _quadrantPosition.y * tileMapTMP.ClusterCellSize);
+							// var _maxQuadrantPosition = new Vector2Int(_minQuadrantPosition.x + tileMapTMP.ClusterCellSize, _minQuadrantPosition.y + tileMapTMP.ClusterCellSize);
 						
-				// 			if (_position.x > _minQuadrantPosition.x + 2 && _position.x < _maxQuadrantPosition.x - 2 && _position.y > _minQuadrantPosition.y + 2 && _position.y < _maxQuadrantPosition.y - 2)
-				// 			{
-				// 				_buildNeigbouringClusters = false;
-				// 			}
-				// 		}
+							// if (_position.x > _minQuadrantPosition.x + 2 && _position.x < _maxQuadrantPosition.x - 2 && _position.y > _minQuadrantPosition.y + 2 && _position.y < _maxQuadrantPosition.y - 2)
+							// {
+							// 	_buildNeigbouringClusters = false;
+							// }
+						}
 						
-				// 	}
+					}
 					
-				// 	if (_addCluster)
-				// 	{
-				// 		if (!_buildNeigbouringClusters)
-				// 		{
-				// 			modifiedClusters.Add(_intCluster);
-				// 		}
-				// 		else
-				// 		{
-				// 			modifiedClusters.Add(_intCluster);
-				// 			modifiedClusters.Add(_intCluster + 1);
-				// 			modifiedClusters.Add(_intCluster - 1);
-				// 			modifiedClusters.Add(_intCluster + tileMapTMP.clusterYMultiplier);
-				// 			modifiedClusters.Add(_intCluster - tileMapTMP.clusterYMultiplier);
-				// 			modifiedClusters.Add(_intCluster + 1 + tileMapTMP.clusterYMultiplier);
-				// 			modifiedClusters.Add(_intCluster - 1 + tileMapTMP.clusterYMultiplier);
-				// 			modifiedClusters.Add(_intCluster + 1 - tileMapTMP.clusterYMultiplier);
-				// 			modifiedClusters.Add(_intCluster - 1 - tileMapTMP.clusterYMultiplier);
-				// 		}
-				// 	}
-				// }
+					if (_addCluster)
+					{
+						if (!_buildNeigbouringClusters)
+						{
+							modifiedClusters.Add(_intCluster);
+						}
+						else
+						{
+							modifiedClusters.Add(_intCluster);
+							modifiedClusters.Add(_intCluster + 1);
+							modifiedClusters.Add(_intCluster - 1);
+							modifiedClusters.Add(_intCluster + tileMapTMP.clusterYMultiplier);
+							modifiedClusters.Add(_intCluster - tileMapTMP.clusterYMultiplier);
+							modifiedClusters.Add(_intCluster + 1 + tileMapTMP.clusterYMultiplier);
+							modifiedClusters.Add(_intCluster - 1 + tileMapTMP.clusterYMultiplier);
+							modifiedClusters.Add(_intCluster + 1 - tileMapTMP.clusterYMultiplier);
+							modifiedClusters.Add(_intCluster - 1 - tileMapTMP.clusterYMultiplier);
+						}
+					}
+				}
 			}
 			
 			
@@ -847,8 +848,11 @@ namespace TWC.Actions
 						//	}
 						//}
 						
-						// yield return null;
-						
+						if (Application.isPlaying)
+						{
+							yield return null;
+						}
+
 						if (mergeTiles)
 						{
 							MonoBehaviour.DestroyImmediate(_comb);
@@ -863,7 +867,10 @@ namespace TWC.Actions
 							MonoBehaviour.DestroyImmediate(_cl);
 						}
 						
-						// yield return null;
+						if (Application.isPlaying)
+						{
+							yield return null;
+						}
 					}
 				}
 				
@@ -973,9 +980,11 @@ namespace TWC.Actions
 						_clusterObject.transform.SetParent(_layerObject.transform, false);
 					}
 					
-					
-					// yield return null;
-						
+					if (Application.isPlaying)
+					{
+						yield return null;
+					}
+
 					if (mergeTiles)
 					{
 						MonoBehaviour.DestroyImmediate(_comb);

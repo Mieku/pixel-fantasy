@@ -7,10 +7,11 @@ namespace Systems.Game_Setup.Scripts
     {
         public enum ENewGameSetupStage
         {
+            ChooseWorldSettings,
             ChooseKinlings,
         }
-        
-        
+
+        [SerializeField] private ChooseWorldPanel _chooseWorldPanel;
         [SerializeField] private ChooseKinlingsPanel _chooseKinlingsPanel;
 
         private ENewGameSetupStage _stage;
@@ -19,7 +20,7 @@ namespace Systems.Game_Setup.Scripts
         {
             base.Show();
             
-            ChangeSetupStage(ENewGameSetupStage.ChooseKinlings);
+            ChangeSetupStage(ENewGameSetupStage.ChooseWorldSettings);
         }
 
         public override void Hide()
@@ -33,8 +34,11 @@ namespace Systems.Game_Setup.Scripts
         {
             switch (_stage)
             {
-                case ENewGameSetupStage.ChooseKinlings:
+                case ENewGameSetupStage.ChooseWorldSettings:
                     GameSetupManager.Instance.ChangeSection(GameSetupManager.ESetupSection.Intro);
+                    break;
+                case ENewGameSetupStage.ChooseKinlings:
+                    ChangeSetupStage(ENewGameSetupStage.ChooseWorldSettings);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -45,6 +49,9 @@ namespace Systems.Game_Setup.Scripts
         {
             switch (_stage)
             {
+                case ENewGameSetupStage.ChooseWorldSettings:
+                    ChangeSetupStage(ENewGameSetupStage.ChooseKinlings);
+                    break;
                 case ENewGameSetupStage.ChooseKinlings:
                     StartNewGame();
                     break;
@@ -65,6 +72,9 @@ namespace Systems.Game_Setup.Scripts
             _stage = stage;
             switch (stage)
             {
+                case ENewGameSetupStage.ChooseWorldSettings:
+                    _chooseWorldPanel.Show();
+                    break;
                 case ENewGameSetupStage.ChooseKinlings:
                     _chooseKinlingsPanel.Show();
                     break;
@@ -75,6 +85,7 @@ namespace Systems.Game_Setup.Scripts
 
         private void HideAllStages()
         {
+            _chooseWorldPanel.Hide();
             _chooseKinlingsPanel.Hide();
         }
     }

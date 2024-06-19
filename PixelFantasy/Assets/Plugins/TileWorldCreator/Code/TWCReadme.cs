@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TWC
 {
-	[CreateAssetMenu(menuName = "TileWorldCreator/New Readme")]
+	//[CreateAssetMenu(menuName = "TileWorldCreator/New Readme")]
 	public class TWCReadme : ScriptableObject
 	{
 		public string version = "version 3.4.2";

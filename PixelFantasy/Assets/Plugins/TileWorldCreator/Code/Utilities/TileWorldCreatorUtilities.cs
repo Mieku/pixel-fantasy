@@ -604,6 +604,50 @@ namespace TWC.Utilities
             {
                 _return = -90;
             }
+			else if (!_neighbourlocation.northWest &&
+              !_neighbourlocation.north &&
+              !_neighbourlocation.northEast &&
+              !_neighbourlocation.west &&
+              !_neighbourlocation.east &&
+              !_neighbourlocation.southWest &&
+              _neighbourlocation.south &&
+              !_neighbourlocation.southEast)
+			{
+				_return = 180;
+			}
+			else if (!_neighbourlocation.northWest &&
+              _neighbourlocation.north &&
+              !_neighbourlocation.northEast &&
+              !_neighbourlocation.west &&
+              !_neighbourlocation.east &&
+              !_neighbourlocation.southWest &&
+              !_neighbourlocation.south &&
+              !_neighbourlocation.southEast)
+			{
+				_return = 0;
+			}
+			else if (!_neighbourlocation.northWest &&
+              !_neighbourlocation.north &&
+              !_neighbourlocation.northEast &&
+              _neighbourlocation.west &&
+              !_neighbourlocation.east &&
+              !_neighbourlocation.southWest &&
+              !_neighbourlocation.south &&
+              !_neighbourlocation.southEast)
+			{
+				_return = -90;
+			}
+			else if (!_neighbourlocation.northWest &&
+              !_neighbourlocation.north &&
+              !_neighbourlocation.northEast &&
+              !_neighbourlocation.west &&
+              _neighbourlocation.east &&
+              !_neighbourlocation.southWest &&
+              !_neighbourlocation.south &&
+              !_neighbourlocation.southEast)
+			{
+				_return = 90;
+			}
 
             return _return;
 	    }

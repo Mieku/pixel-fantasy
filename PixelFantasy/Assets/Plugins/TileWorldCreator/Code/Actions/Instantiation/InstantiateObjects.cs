@@ -602,21 +602,99 @@ namespace TWC.Actions
                             // use object rotation from a different blueprint layer
                             if (useTileRotationFrom != Guid.Empty)
                             {
+								bool[,] _rotationMapData;
+								_rotationMapData = _twc.GetMapOutputFromBlueprintLayer(useTileRotationFrom);
+							
 
-                                WorldMap _rotationMapData = null;
-                                if (useSubdividedMap)
-                                {
-                                    _rotationMapData = _twc.GetGeneratedBlueprintMap(useTileRotationFrom.ToString());
-                                }
-                                else
-                                {
-                                    _rotationMapData = _twc.GetGeneratedBlueprintMap(useTileRotationFrom.ToString() + "_UNSUBD");
-                                }
+								var _north = false;
+								var _south = false;
+								var _west = false;
+								var _east = false;
 
-                                var _rotationData = _rotationMapData.clusters[modifiedClusters[c]][_position];
+								for (int x = -1; x < 2; x ++)
+								{
+									for (int y = -1; y < 2; y ++)
+									{
+										try
+										{
+											var _pos = new Vector2Int((int)_tileData.position.x + x, (int)_tileData.position.z + y);
+											
+											if (_rotationMapData[_pos.x, _pos.y])
+											{
+												if (x == -1 && y == 0) // west
+												{
+													_west = true;
+												}
+												else if (x == 1 && y == 0) // east
+												{
+													_east = true;
+												}
+												else if (x == 0 && y == 1) // north
+												{
+													_north = true;
+												}
+												else if (x == 0 && y == -1) // south
+												{
+													_south = true;
+												}
+											}
+										}
+										catch{}
+									}
+								}
 
-                                // override rotation with rotation layer
-                                _tileData.rotation = _rotationData.rotation;
+								NeighboursLocation _location = new NeighboursLocation
+								{
+									north = _north,
+									south = _south,
+									west = _west,
+									east = _east
+								};
+								var _newRotation = TileWorldCreatorUtilities.ReturnTileRotation(_location);
+
+								// Special case, choose between one orientation
+								if (_north && _south && !_west && !_east)
+								{
+									_newRotation = UnityEngine.Random.Range(0, 2) == 0 ? 0 : 180;
+								}
+								if (_west && _east && !_north && !_south)
+								{
+									_newRotation = UnityEngine.Random.Range(0, 2) == 0 ? 90 : -90;
+								}
+								if (_north && _south && _west && !_east)
+								{
+									_newRotation = -90;
+								}
+								if (_north && _south && _east && !_west)
+								{
+									_newRotation = 90;
+								}
+								if (_west && _east && _south && !_north)
+								{
+									_newRotation = 180;
+								}
+								if (_west && _east && _north && !_south)
+								{
+									_newRotation = 0;
+								}
+								if (!_west && _east && _south && !_north)
+								{
+									_newRotation = UnityEngine.Random.Range(0, 2) == 0 ? 180 : 90;
+								}
+								if (!_west && _east && !_south && _north)
+								{
+									_newRotation = UnityEngine.Random.Range(0, 2) == 0 ? 0 : 90;
+								}
+								if (_west && !_east && _south && !_north)
+								{
+									_newRotation = UnityEngine.Random.Range(0, 2) == 0 ? 180 : -90;
+								}
+								if (_west && !_east && !_south && _north)
+								{
+									_newRotation = UnityEngine.Random.Range(0, 2) == 0 ? 0 : -90;
+								}
+
+								_tileData.rotation = Quaternion.Euler(new Vector3(_tileData.rotation.x, _newRotation, _tileData.rotation.z));
                             }
 
 
@@ -839,48 +917,103 @@ namespace TWC.Actions
 					{
 						TileDataStruct _tileData = tileMap.clusters[_cluster][_position];
 
-
                         // use object rotation from a different blueprint layer
                         if (useTileRotationFrom != Guid.Empty)
                         {
 							
-							WorldMap _rotationMapData = null;
-							if (useSubdividedMap)
-							{
-                                _rotationMapData = _twc.GetGeneratedBlueprintMap(useTileRotationFrom.ToString());
-                            }
-							else
-							{
-                                _rotationMapData = _twc.GetGeneratedBlueprintMap(useTileRotationFrom.ToString() + "_UNSUBD");
-                            }
+							bool[,] _rotationMapData;
+								_rotationMapData = _twc.GetMapOutputFromBlueprintLayer(useTileRotationFrom);
+							
 
-							var _rotationData = _rotationMapData.clusters[_cluster][_position];
+								var _north = false;
+								var _south = false;
+								var _west = false;
+								var _east = false;
 
-							//var _rotationMapData = _twc.GetMapOutputFromBlueprintLayer(useTileRotationFrom);
-							//var _neighbours = TileWorldCreatorUtilities.GetNeighboursLocation(_rotationMapData, _position.x, _position.y);
-							//var _rotationTileData = TileWorldCreatorUtilities.ReturnTileRotation(_neighbours);
-
-							for (int b = 0; b < _twc.twcAsset.mapBlueprintLayers.Count; b ++)
-							{
-								if (_twc.twcAsset.mapBlueprintLayers[b].guid == useTileRotationFrom)
+								for (int x = -1; x < 2; x ++)
 								{
-									//Debug.Log(_twc.twcAsset.mapBlueprintLayers[b].layerName);
-									//Debug.Log("north: " + _rotationData.neighboursLocation.north + "\n" +
-									//	"south: " +_rotationData.neighboursLocation.south + "\n" +
-									//	"east: " + _rotationData.neighboursLocation.east + "\n" +
-									//	"west: " + _rotationData.neighboursLocation.west + "\n" +
-									//	"northEast: " + _rotationData.neighboursLocation.northEast + "\n" + 
-									//	"northWest: " + _rotationData.neighboursLocation.northWest + "\n" +
-									//	"southEast: " + _rotationData.neighboursLocation.southEast + "\n" + 
-									//	"southWest: " + _rotationData.neighboursLocation.southWest);
-
-									var _rot = TileWorldCreatorUtilities.ReturnTileRotation(_rotationData.neighboursLocation);
+									for (int y = -1; y < 2; y ++)
+									{
+										try
+										{
+											var _pos = new Vector2Int((int)_tileData.position.x + x, (int)_tileData.position.z + y);
+											
+											if (_rotationMapData[_pos.x, _pos.y])
+											{
+												if (x == -1 && y == 0) // west
+												{
+													_west = true;
+												}
+												else if (x == 1 && y == 0) // east
+												{
+													_east = true;
+												}
+												else if (x == 0 && y == 1) // north
+												{
+													_north = true;
+												}
+												else if (x == 0 && y == -1) // south
+												{
+													_south = true;
+												}
+											}
+										}
+										catch{}
+									}
 								}
-							}
 
-							// Debug.Log(_rotationData.yRotation);
-                           // override rotation with rotation layer
-                            _tileData.rotation = _rotationData.rotation;
+								NeighboursLocation _location = new NeighboursLocation
+								{
+									north = _north,
+									south = _south,
+									west = _west,
+									east = _east
+								};
+								var _newRotation = TileWorldCreatorUtilities.ReturnTileRotation(_location);
+
+								// Special case, choose between one orientation
+								if (_north && _south && !_west && !_east)
+								{
+									_newRotation = UnityEngine.Random.Range(0, 2) == 0 ? 0 : 180;
+								}
+								if (_west && _east && !_north && !_south)
+								{
+									_newRotation = UnityEngine.Random.Range(0, 2) == 0 ? 90 : -90;
+								}
+								if (_north && _south && _west && !_east)
+								{
+									_newRotation = -90;
+								}
+								if (_north && _south && _east && !_west)
+								{
+									_newRotation = 90;
+								}
+								if (_west && _east && _south && !_north)
+								{
+									_newRotation = 180;
+								}
+								if (_west && _east && _north && !_south)
+								{
+									_newRotation = 0;
+								}
+								if (!_west && _east && _south && !_north)
+								{
+									_newRotation = UnityEngine.Random.Range(0, 2) == 0 ? 180 : 90;
+								}
+								if (!_west && _east && !_south && _north)
+								{
+									_newRotation = UnityEngine.Random.Range(0, 2) == 0 ? 0 : 90;
+								}
+								if (_west && !_east && _south && !_north)
+								{
+									_newRotation = UnityEngine.Random.Range(0, 2) == 0 ? 180 : -90;
+								}
+								if (_west && !_east && !_south && _north)
+								{
+									_newRotation = UnityEngine.Random.Range(0, 2) == 0 ? 0 : -90;
+								}
+
+								_tileData.rotation = Quaternion.Euler(new Vector3(_tileData.rotation.x, _newRotation, _tileData.rotation.z));
                         }
 
                         GameObject _tileObject = null;	

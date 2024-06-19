@@ -377,7 +377,7 @@ namespace TWC.editor
 								
 					    			
 								//tileWorldCreatorAsset.mapBlueprintLayers[m].foldout = GUILayout.Toggle(tileWorldCreatorAsset.mapBlueprintLayers[m].foldout, tileWorldCreatorAsset.mapBlueprintLayers[m].layerName, "Foldout", GUILayout.Height(layerHeight));
-								if (GUILayout.Button( tileWorldCreatorAsset.mapBlueprintLayers[m].layerName, "Foldout", GUILayout.Height(layerHeight)))
+								if (GUILayout.Button(new GUIContent(tileWorldCreatorAsset.mapBlueprintLayers[m].layerName, tileWorldCreatorAsset.mapBlueprintLayers[m].guid.ToString()), "Foldout", GUILayout.Height(layerHeight)))
 								{
 									if (tileWorldCreatorAsset.mapBlueprintLayers[m].reorderableList == null)
 									{

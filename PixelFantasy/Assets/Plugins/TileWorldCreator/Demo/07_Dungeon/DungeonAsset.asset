@@ -16,7 +16,6 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 0}
     - {fileID: 11400000, guid: 2ba55a6e871fb3c47a24ae191c53896c, type: 2}
     - {fileID: 11400000, guid: 2603a17d3b8970e49b23ef3623da61ae, type: 2}
     - {fileID: 160684, guid: 083050ca1fb78d34a9b15812864fb625, type: 3}
@@ -55957,8 +55956,8 @@ MonoBehaviour:
       Entry: 3
       Data: 5
     - Name: tileWorldCreator
-      Entry: 10
-      Data: 0
+      Entry: 6
+      Data: 
     - Name: paintPreviewTexture
       Entry: 6
       Data: 
@@ -61135,7 +61134,7 @@ MonoBehaviour:
       Data: 
     - Name: preset
       Entry: 10
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -61289,7 +61288,7 @@ MonoBehaviour:
       Data: 
     - Name: preset
       Entry: 10
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -61439,7 +61438,7 @@ MonoBehaviour:
       Data: false
     - Name: prefab
       Entry: 10
-      Data: 3
+      Data: 2
     - Name: instantiateChilds
       Entry: 5
       Data: false
@@ -61732,7 +61731,7 @@ MonoBehaviour:
       Data: 
     - Name: preset
       Entry: 10
-      Data: 4
+      Data: 3
     - Name: 
       Entry: 8
       Data: 
@@ -61904,7 +61903,7 @@ MonoBehaviour:
       Data: 
     - Name: preset
       Entry: 10
-      Data: 5
+      Data: 4
     - Name: 
       Entry: 8
       Data: 
@@ -62058,79 +62057,6 @@ MonoBehaviour:
     - Name: mapOrientation
       Entry: 3
       Data: 0
-  mapBlueprintLayers:
-  - active: 1
-    layerName: Dungeon
-    randomSeedOverride: 0
-    useCustomSeed: 0
-    customLayerRandomSeed: 0
-    previewColor: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 0}
-    mapResultFailed: 0
-    stack:
-    - actionName: BSPDungeon
-    - actionName: Invert
-  - active: 1
-    layerName: Carpet
-    randomSeedOverride: 0
-    useCustomSeed: 0
-    customLayerRandomSeed: 0
-    previewColor: {r: 0.5660378, g: 0.3337487, b: 0.3337487, a: 0}
-    mapResultFailed: 0
-    stack:
-    - actionName: Add
-    - actionName: Invert
-    - actionName: Shrink
-    - actionName: Shrink
-  - active: 1
-    layerName: Floor
-    randomSeedOverride: 0
-    useCustomSeed: 0
-    customLayerRandomSeed: 0
-    previewColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 0}
-    mapResultFailed: 0
-    stack:
-    - actionName: Add
-    - actionName: Invert
-  - active: 1
-    layerName: Columns
-    randomSeedOverride: 0
-    useCustomSeed: 0
-    customLayerRandomSeed: 0
-    previewColor: {r: 1, g: 1, b: 1, a: 0}
-    mapResultFailed: 0
-    stack:
-    - actionName: Add
-    - actionName: Select
-  - active: 1
-    layerName: Torchlights
-    randomSeedOverride: 0
-    useCustomSeed: 0
-    customLayerRandomSeed: 0
-    previewColor: {r: 1, g: 1, b: 1, a: 0}
-    mapResultFailed: 0
-    stack:
-    - actionName: Add
-    - actionName: Invert
-  - active: 1
-    layerName: 
-    randomSeedOverride: 0
-    useCustomSeed: 0
-    customLayerRandomSeed: 0
-    previewColor: {r: 0, g: 0, b: 0, a: 0}
-    mapResultFailed: 1
-    stack:
-    - actionName: Paint
-  - active: 1
-    layerName: 
-    randomSeedOverride: 0
-    useCustomSeed: 0
-    customLayerRandomSeed: 0
-    previewColor: {r: 0.03901875, g: 1, b: 0, a: 0}
-    mapResultFailed: 0
-    stack:
-    - actionName: Add
-    - actionName: Select By Rule
-    - actionName: Select
   worldName: TileWorldCreator_Map
   mapWidth: 40
   mapHeight: 40
