@@ -33,14 +33,15 @@ namespace Systems.World_Building.Scripts
         [SerializeField] private RuleTile _forestFloorRuleTile;
         
         public Vector3Int StartPos;
+        private List<TileWorldCreatorAsset.BlueprintLayerData> _blueprintLayers;
 
         public Vector2Int WorldSize
         {
             get
             {
                 Vector2Int result = new Vector2Int();
-                result.x = _tileWorldCreator.twcAsset.mapWidth;
-                result.y = _tileWorldCreator.twcAsset.mapHeight;
+                result.x = 36;
+                result.y = 36;
                 return result;
             }
         }
@@ -48,16 +49,17 @@ namespace Systems.World_Building.Scripts
         [Button("Generate Plane")]
         private void GeneratePlane()
         {
-            StartCoroutine(GeneratePlaneCoroutine());
+            //StartCoroutine(GeneratePlaneCoroutine());
         }
         
-        public IEnumerator GeneratePlaneCoroutine()
+        public IEnumerator GeneratePlaneCoroutine(List<TileWorldCreatorAsset.BlueprintLayerData> blueprintLayers)
         {
             Debug.Log("Beginning World Generation");
+            _blueprintLayers = blueprintLayers;
             
             // Immediate operations
-            _tileWorldCreator.twcAsset = _currentBiome.WorldCreatorAsset;
-            _tileWorldCreator.ExecuteAllBlueprintLayers();
+            // _tileWorldCreator.twcAsset = _currentBiome.WorldCreatorAsset;
+            // _tileWorldCreator.ExecuteAllBlueprintLayers();
 
             // Allow frame to render and update UI/loading screen here
             yield return StartCoroutine(RefreshPlaneCoroutine());
@@ -74,45 +76,59 @@ namespace Systems.World_Building.Scripts
             yield return null;
             // Continue with other steps
             
-            var blueprintLayers = _tileWorldCreator.twcAsset.mapBlueprintLayers;
+            //var blueprintLayers = _tileWorldCreator.twcAsset.mapBlueprintLayers;
             
-            var grassBlueprint = blueprintLayers.Find(layer => layer.layerName == "Grass");
+            var grassBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Grass");
             if (grassBlueprint != null)
             {
+                Debug.Log("Began building Grass...");
                 yield return StartCoroutine(BuildTilemap(grassBlueprint.map, _grassTilemap, _grassRuleTile));
+                Debug.Log("Building Grass Complete");
             }
             
-            var waterBlueprint = blueprintLayers.Find(layer => layer.layerName == "Water");
+            var waterBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Water");
             if (waterBlueprint != null)
             {
+                Debug.Log("Began building Water...");
                 yield return StartCoroutine(BuildTilemap(waterBlueprint.map, _waterTilemap, _waterRuleTile));
+                Debug.Log("Building Water Complete");
             }
             
-            var elevationBlueprint = blueprintLayers.Find(layer => layer.layerName == "Elevation");
+            var elevationBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Elevation");
             if (elevationBlueprint != null && elevationBlueprint.active)
             {
+                Debug.Log("Began building Elevation...");
                 yield return StartCoroutine(BuildTilemap(elevationBlueprint.map, _elevationTilemap, _elevationRuleTile));
+                Debug.Log("Building Elevation Complete");
                 
-                var rampsBlueprint = blueprintLayers.Find(layer => layer.layerName == "Ramps");
+                var rampsBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Ramps");
                 if (rampsBlueprint != null)
                 {
+                    Debug.Log("Began building Ramps...");
                     yield return StartCoroutine(SpawnRamps(rampsBlueprint.map, elevationBlueprint.map));
+                    Debug.Log("Building Ramps Complete");
                 }
             }
             
-            var dirtBlueprint = blueprintLayers.Find(layer => layer.layerName == "Dirt");
+            var dirtBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Dirt");
             if (dirtBlueprint != null)
             {
+                Debug.Log("Began building Dirt...");
                 yield return StartCoroutine(BuildTilemap(dirtBlueprint.map, _groundCoverTilemap, _dirtRuleTile));
+                Debug.Log("Building Dirt Complete");
             }
             
-            var elevatedDirtBlueprint = blueprintLayers.Find(layer => layer.layerName == "Elevated Dirt");
+            var elevatedDirtBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Elevated Dirt");
             if (elevatedDirtBlueprint != null)
             {
+                Debug.Log("Began building Elevated Dirt...");
                 yield return StartCoroutine(BuildTilemap(elevatedDirtBlueprint.map, _groundCoverTilemap, _dirtRuleTile));
+                Debug.Log("Building Elevated Dirt Complete");
             }
             
-            yield return StartCoroutine(DetermineStartPosition(blueprintLayers.Find(layer => layer.layerName == "Start Point")));
+            Debug.Log("Began building Start Pos...");
+            yield return StartCoroutine(DetermineStartPosition(_blueprintLayers.Find(layer => layer.layerName == "Start Point")));
+            Debug.Log("Building Start Pos Complete");
         }
 
         [Button("Clear All Tilemaps")]
@@ -177,31 +193,38 @@ namespace Systems.World_Building.Scripts
 
         private IEnumerator SpawnResourcesCoroutine()
         {
-            var blueprintLayers = _tileWorldCreator.twcAsset.mapBlueprintLayers;
-            var mountainsBlueprint = blueprintLayers.Find(layer => layer.layerName == "Mountains");
+            var mountainsBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Mountains");
             if (mountainsBlueprint != null)
             {
+                Debug.Log("Began building Mountains...");
                 yield return StartCoroutine(SpawnMountains(mountainsBlueprint.map));
+                Debug.Log("Building Mountains Complete");
             }
 
             _resourcesHandler.DeleteResources();
             
-            var forestBlueprint = blueprintLayers.Find(layer => layer.layerName == "Forest");
+            var forestBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Forest");
             if (forestBlueprint != null)
             {
+                Debug.Log("Began building Forest...");
                 yield return StartCoroutine(SpawnForest(forestBlueprint.map));
+                Debug.Log("Building Forest Complete");
             }
 
-            var vegitationBlueprint = blueprintLayers.Find(layer => layer.layerName == "Vegitation");
+            var vegitationBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Vegitation");
             if (vegitationBlueprint != null)
             {
+                Debug.Log("Began building Vegitation...");
                 yield return StartCoroutine(SpawnVegetation(vegitationBlueprint.map));
+                Debug.Log("Building Vegitation Complete");
             }
             
-            var additionalsBlueprint = blueprintLayers.Find(layer => layer.layerName == "Additionals");
+            var additionalsBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Additionals");
             if (additionalsBlueprint != null)
             {
+                Debug.Log("Began building Additionals...");
                 yield return StartCoroutine(SpawnAdditionals(additionalsBlueprint.map));
+                Debug.Log("Building Additionals Complete");
             }
         }
 

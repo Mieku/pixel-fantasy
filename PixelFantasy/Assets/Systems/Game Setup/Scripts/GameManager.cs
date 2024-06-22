@@ -13,6 +13,7 @@ using Systems.Appearance.Scripts;
 using Systems.Buildings.Scripts;
 using Systems.Social.Scripts;
 using Systems.World_Building.Scripts;
+using TWC;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -47,12 +48,12 @@ namespace Systems.Game_Setup.Scripts
             DontDestroyOnLoad(gameObject);
         }
 
-        public void StartNewGame(List<KinlingData> starterKinlings)
+        public void StartNewGame(List<KinlingData> starterKinlings, List<TileWorldCreatorAsset.BlueprintLayerData> blueprintLayers)
         {
-            StartCoroutine(LoadSceneAndSetUpNewGame(starterKinlings));
+            StartCoroutine(LoadSceneAndSetUpNewGame(starterKinlings, blueprintLayers));
         }
 
-        private IEnumerator LoadSceneAndSetUpNewGame(List<KinlingData> starterKinlings)
+        private IEnumerator LoadSceneAndSetUpNewGame(List<KinlingData> starterKinlings, List<TileWorldCreatorAsset.BlueprintLayerData> blueprintLayers)
         {
             // Start loading the scene
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
@@ -77,32 +78,18 @@ namespace Systems.Game_Setup.Scripts
             }
 
             // Start the coroutine to set up the new game
-            StartCoroutine(SetUpNewGameCoroutine(starterKinlings));
+            StartCoroutine(SetUpNewGameCoroutine(starterKinlings, blueprintLayers));
 
             // Initialize the StructureManager with the WorldBuilder's WorldSize
-            StructureManager.Instance.Init(_worldBuilder.WorldSize);
-        }
-
-
-        [Button("Set Up Game")]
-        public void SetUpGame()
-        {
-            if (!Application.isPlaying)
-            {
-                Debug.LogError("Game must be playing to set up game");
-                return;
-            }
-
-            StartCoroutine(SetUpGameCoroutine());
-                
-            StructureManager.Instance.Init(_worldBuilder.WorldSize);
+            Vector2Int worldSize = new Vector2Int(36, 36);
+            StructureManager.Instance.Init(worldSize);
         }
         
-        public IEnumerator SetUpNewGameCoroutine(List<KinlingData> starterKinling)
+        public IEnumerator SetUpNewGameCoroutine(List<KinlingData> starterKinling, List<TileWorldCreatorAsset.BlueprintLayerData> blueprintLayers)
         {
             if (_generateWorldOnStart)
             {
-                yield return StartCoroutine(_worldBuilder.GeneratePlaneCoroutine());
+                yield return StartCoroutine(_worldBuilder.GeneratePlaneCoroutine(blueprintLayers));
             }
             
             // Allow frame to render and update UI/loading screen here
@@ -130,37 +117,37 @@ namespace Systems.Game_Setup.Scripts
             yield return null;
         }
         
-        public IEnumerator SetUpGameCoroutine()
-        {
-            if (_generateWorldOnStart)
-            {
-                yield return StartCoroutine(_worldBuilder.GeneratePlaneCoroutine());
-            }
-            
-            // Allow frame to render and update UI/loading screen here
-            yield return null;
-            
-            // Wait for a frame after all world-building tasks are complete before updating the NavMesh
-            yield return new WaitForEndOfFrame();
-
-            NavMeshManager.Instance.UpdateNavMesh(forceRebuild: true);
-            
-            // Again, yield to keep the UI responsive
-            yield return null;
-            
-            LoadStarterKinlings(_worldBuilder.StartPos, _numStarterKinlings);
-            yield return null;
-            
-            GameEvents.Trigger_RefreshInventoryDisplay();
-            
-            Vector2 lookPos = new Vector2
-            {
-                x = _worldBuilder.StartPos.x,
-                y = _worldBuilder.StartPos.y
-            };
-            CameraManager.Instance.LookAtPosition(lookPos);
-            yield return null;
-        }
+        // public IEnumerator SetUpGameCoroutine()
+        // {
+        //     if (_generateWorldOnStart)
+        //     {
+        //         yield return StartCoroutine(_worldBuilder.GeneratePlaneCoroutine());
+        //     }
+        //     
+        //     // Allow frame to render and update UI/loading screen here
+        //     yield return null;
+        //     
+        //     // Wait for a frame after all world-building tasks are complete before updating the NavMesh
+        //     yield return new WaitForEndOfFrame();
+        //
+        //     NavMeshManager.Instance.UpdateNavMesh(forceRebuild: true);
+        //     
+        //     // Again, yield to keep the UI responsive
+        //     yield return null;
+        //     
+        //     LoadStarterKinlings(_worldBuilder.StartPos, _numStarterKinlings);
+        //     yield return null;
+        //     
+        //     GameEvents.Trigger_RefreshInventoryDisplay();
+        //     
+        //     Vector2 lookPos = new Vector2
+        //     {
+        //         x = _worldBuilder.StartPos.x,
+        //         y = _worldBuilder.StartPos.y
+        //     };
+        //     CameraManager.Instance.LookAtPosition(lookPos);
+        //     yield return null;
+        // }
 
         private void ApplyStarterKinlings(Vector3Int startCell, List<KinlingData> starterKinlings)
         {

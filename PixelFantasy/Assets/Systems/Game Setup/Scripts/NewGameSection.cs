@@ -62,7 +62,7 @@ namespace Systems.Game_Setup.Scripts
 
         private void StartNewGame()
         {
-            GameManager.Instance.StartNewGame(_chooseKinlingsPanel.PlayersKinlings);
+            GameManager.Instance.StartNewGame(_chooseKinlingsPanel.PlayersKinlings, _chooseWorldPanel.BlueprintLayers);
         }
 
         private void ChangeSetupStage(ENewGameSetupStage stage)
