@@ -9,7 +9,6 @@ namespace Systems.Game_Setup.Scripts
     public class OverworldPreview : MonoBehaviour
     {
         [SerializeField] private ChooseWorldPanel _chooseWorldPanel;
-        [SerializeField] private Vector2 _defaultStartPos;
         
         public Camera MainCam;
         public RawImage rawImage; // Reference to the Raw Image
@@ -36,7 +35,7 @@ namespace Systems.Game_Setup.Scripts
             
             // Check if the mouse is over the Raw Image
             var inView = RectTransformUtility.RectangleContainsScreenPoint(rawImageRectTransform, Input.mousePosition, MainCam);
-            if (!inView && !isDragging)
+            if (!inView)// && !isDragging)
             {
                 PlacementIcon.SetActive(false);
                 return;
@@ -49,36 +48,36 @@ namespace Systems.Game_Setup.Scripts
             if (Input.GetMouseButtonDown(0))
             {
                 lastMousePosition = Input.mousePosition;
-                isDragging = true;
+                //isDragging = true;
             }
 
             if (Input.GetMouseButtonUp(0))
             {
-                isDragging = false;
+                //isDragging = false;
                 SelectPosition(Input.mousePosition);
             }
 
-            if (isDragging)
-            {
-                Vector3 delta = Input.mousePosition - lastMousePosition;
-                lastMousePosition = Input.mousePosition;
-
-                Vector3 cameraMovement = new Vector3(-delta.x / Screen.width, -delta.y / Screen.height, 0);
-                tilemapCamera.transform.Translate(cameraMovement * tilemapCamera.orthographicSize * movementSensitivity, Space.World);
-
-                // Clamp the camera position within the defined boundaries
-                ClampCameraPosition();
-            }
-
-            // Handle zooming with the mouse wheel
-            if (inView && Input.mouseScrollDelta.y != 0)
-            {
-                float newSize = tilemapCamera.orthographicSize - Input.mouseScrollDelta.y * zoomSensitivity;
-                tilemapCamera.orthographicSize = Mathf.Clamp(newSize, 5f, 12f); // Clamping the zoom level
-
-                // Re-apply the boundary constraints after zooming
-                ClampCameraPosition();
-            }
+            // if (isDragging)
+            // {
+            //     Vector3 delta = Input.mousePosition - lastMousePosition;
+            //     lastMousePosition = Input.mousePosition;
+            //
+            //     Vector3 cameraMovement = new Vector3(-delta.x / Screen.width, -delta.y / Screen.height, 0);
+            //     tilemapCamera.transform.Translate(cameraMovement * tilemapCamera.orthographicSize * movementSensitivity, Space.World);
+            //
+            //     // Clamp the camera position within the defined boundaries
+            //     ClampCameraPosition();
+            // }
+            //
+            // // Handle zooming with the mouse wheel
+            // if (inView && Input.mouseScrollDelta.y != 0)
+            // {
+            //     float newSize = tilemapCamera.orthographicSize - Input.mouseScrollDelta.y * zoomSensitivity;
+            //     tilemapCamera.orthographicSize = Mathf.Clamp(newSize, 5f, 12f); // Clamping the zoom level
+            //
+            //     // Re-apply the boundary constraints after zooming
+            //     ClampCameraPosition();
+            // }
 
             PlacementIcon.transform.position = ConvertMousePosToOverworldPos(Input.mousePosition);
             

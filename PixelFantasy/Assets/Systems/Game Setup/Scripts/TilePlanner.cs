@@ -21,14 +21,15 @@ namespace Systems.Game_Setup.Scripts
             
         }
 
-        public void GenerateArea(OverworldPreview.OverworldSelectionData overworldSelectionData, System.Action<Texture2D, List<TileWorldCreatorAsset.BlueprintLayerData>> callback)
+        public void GenerateArea(OverworldPreview.OverworldSelectionData overworldSelectionData, System.Action<Texture2D, List<TileWorldCreatorAsset.BlueprintLayerData>, LocationStats> callback)
         {
             var seed = GeneratePositionSeed(overworldSelectionData.Position);
             _tileWorldCreator.SetCustomRandomSeed(seed);
 
             AdjustCoastline(overworldSelectionData);
             AdjustMountains(overworldSelectionData);
-
+            
+            
             // Start the coroutine to generate the world map
             StartCoroutine(GenerateWorldMapCoroutine(callback));
         }
@@ -129,7 +130,7 @@ namespace Systems.Game_Setup.Scripts
             }
         }
         
-        private IEnumerator GenerateWorldMapCoroutine(System.Action<Texture2D, List<TileWorldCreatorAsset.BlueprintLayerData>> callback)
+        private IEnumerator GenerateWorldMapCoroutine(System.Action<Texture2D, List<TileWorldCreatorAsset.BlueprintLayerData>, LocationStats> callback)
         {
             // Execute the blueprint layers
             _tileWorldCreator.ExecuteAllBlueprintLayers();
@@ -142,8 +143,68 @@ namespace Systems.Game_Setup.Scripts
             // Build the texture from the generated map data
             Texture2D resultTexture = BuildTextureFromMap(trimmedBlueprints, _tileWorldCreator.twcAsset.mapWidth - (_numCellsToTrim * 2), _tileWorldCreator.twcAsset.mapHeight - (_numCellsToTrim * 2));
 
+            var stats = GetLocationStats(_tileWorldCreator.twcAsset.mapBlueprintLayers);
+            
             // Invoke the callback with the result texture
-            callback?.Invoke(resultTexture, _tileWorldCreator.twcAsset.mapBlueprintLayers);
+            callback?.Invoke(resultTexture, _tileWorldCreator.twcAsset.mapBlueprintLayers, stats);
+        }
+
+        private LocationStats GetLocationStats(List<TileWorldCreatorAsset.BlueprintLayerData> blueprints)
+        {
+            var mountains = GetBlueprintLayer(blueprints, "Mountains");
+            float mountainsFilled = 0;
+            if (mountains != null)
+            {
+                mountainsFilled = GetPercentageFilled(mountains);
+            }
+            
+            var water = GetBlueprintLayer(blueprints, "Water");
+            float waterFilled = 0;
+            if (water != null)
+            {
+                waterFilled = GetPercentageFilled(water);
+            }
+            
+            var forest = GetBlueprintLayer(blueprints, "Forest");
+            float forestFilled = 0;
+            if (forest != null)
+            {
+                forestFilled = GetPercentageFilled(forest);
+            }
+            
+            var vegitation = GetBlueprintLayer(blueprints, "Vegitation");
+            float vegitationFilled = 0;
+            if (vegitation != null)
+            {
+                vegitationFilled = GetPercentageFilled(vegitation);
+            }
+
+            LocationStats stats = new LocationStats
+            {
+                Mountains = mountainsFilled,
+                Vegitation = vegitationFilled,
+                Water = waterFilled,
+                Forest = forestFilled
+            };
+
+            return stats; 
+        }
+
+        private float GetPercentageFilled(TileWorldCreatorAsset.BlueprintLayerData blueprint)
+        {
+            bool[,] map = blueprint.map;
+            int totalTiles = map.GetLength(0) * map.GetLength(1);
+            int filledTiles = 0;
+
+            foreach (bool tile in map)
+            {
+                if (tile)
+                {
+                    filledTiles++;
+                }
+            }
+
+            return (float)filledTiles / totalTiles * 100f;
         }
 
         private List<TileWorldCreatorAsset.BlueprintLayerData> TrimBlueprints(List<TileWorldCreatorAsset.BlueprintLayerData> originalBlueprints)
@@ -256,6 +317,18 @@ namespace Systems.Game_Setup.Scripts
             }
             return null;
         }
+        
+        private TileWorldCreatorAsset.BlueprintLayerData GetBlueprintLayer(List<TileWorldCreatorAsset.BlueprintLayerData> blueprints, string layerName)
+        {
+            foreach (var layer in blueprints)
+            {
+                if (layer.layerName == layerName)
+                {
+                    return layer;
+                }
+            }
+            return null;
+        }
 
         private T GetGeneratorFromBlueprintLayer<T>(TileWorldCreatorAsset.BlueprintLayerData layer) where T : TWCBlueprintAction
         {
@@ -268,5 +341,16 @@ namespace Systems.Game_Setup.Scripts
             }
             return null;
         }
+    }
+
+    public class LocationStats
+    {
+        public float Mountains;
+        public float Water;
+        public float Forest;
+        public float Vegitation;
+
+        public float TreesVeg => Vegitation + Forest;
+        public float AvailableSpace => 100f - (Water + Mountains);
     }
 }
