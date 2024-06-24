@@ -60,19 +60,20 @@ MonoBehaviour:
     SpawnPercentage: 0.11
   ForestTreeDensity: 1
   ForestAdditionalDensity: 2
-  VegitationResources:
+  VegetationResources:
   - ResourceSettings: {fileID: 1541201725904742396, guid: f88f4256e274c364981fac582520b73b, type: 2}
-    SpawnPercentage: 0.5262857
+    SpawnPercentage: 0
   - ResourceSettings: {fileID: -7537548514081941852, guid: f88f4256e274c364981fac582520b73b, type: 2}
-    SpawnPercentage: 0.14285715
+    SpawnPercentage: 0.32398838
   - ResourceSettings: {fileID: -6019863603477039158, guid: f88f4256e274c364981fac582520b73b, type: 2}
-    SpawnPercentage: 0.14285715
+    SpawnPercentage: 0.2320796
   - ResourceSettings: {fileID: 2734676623599513326, guid: f88f4256e274c364981fac582520b73b, type: 2}
-    SpawnPercentage: 0.082
+    SpawnPercentage: 0.14421152
   - ResourceSettings: {fileID: 1016202083419682433, guid: f88f4256e274c364981fac582520b73b, type: 2}
-    SpawnPercentage: 0.106
-  VegitationClusterRadius: 5
+    SpawnPercentage: 0.29972053
+  VegetationClusterRadius: 5
   MaxVegetationPerCluster: 10
+  VegetationDensity: 50
   AdditionalResources:
   - ResourceSettings: {fileID: 1541201725904742396, guid: f88f4256e274c364981fac582520b73b, type: 2}
     SpawnPercentage: 0.263

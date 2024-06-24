@@ -1,14 +1,17 @@
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using Data.Resource;
 using Handlers;
-using ScriptableObjects;
 using Sirenix.OdinInspector;
 using TWC;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
 
 namespace Systems.World_Building.Scripts
@@ -27,11 +30,11 @@ namespace Systems.World_Building.Scripts
         [SerializeField] private RuleTile _waterRuleTile;
         [SerializeField] private Tilemap _elevationTilemap;
         [SerializeField] private RuleTile _elevationRuleTile;
-        
+
         [SerializeField] private Tilemap _groundCoverTilemap;
         [SerializeField] private RuleTile _dirtRuleTile;
         [SerializeField] private RuleTile _forestFloorRuleTile;
-        
+
         public Vector3Int StartPos;
         private List<TileWorldCreatorAsset.BlueprintLayerData> _blueprintLayers;
 
@@ -45,90 +48,67 @@ namespace Systems.World_Building.Scripts
                 return result;
             }
         }
-        
-        [Button("Generate Plane")]
-        private void GeneratePlane()
+
+        public IEnumerator GenerateAreaCoroutine(List<TileWorldCreatorAsset.BlueprintLayerData> blueprintLayers)
         {
-            //StartCoroutine(GeneratePlaneCoroutine());
-        }
-        
-        public IEnumerator GeneratePlaneCoroutine(List<TileWorldCreatorAsset.BlueprintLayerData> blueprintLayers)
-        {
-            Debug.Log("Beginning World Generation");
+            Debug.Log("Beginning World Generation...");
             _blueprintLayers = blueprintLayers;
-            
-            // Immediate operations
-            // _tileWorldCreator.twcAsset = _currentBiome.WorldCreatorAsset;
-            // _tileWorldCreator.ExecuteAllBlueprintLayers();
 
             // Allow frame to render and update UI/loading screen here
-            yield return StartCoroutine(RefreshPlaneCoroutine());
-            
-            yield return StartCoroutine(SpawnResourcesCoroutine());
-            
-            Debug.Log("World was generated");
-        }
+            Stopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+            yield return StartCoroutine(GenerateTilesCoroutine());
         
-        public IEnumerator RefreshPlaneCoroutine()
+            yield return StartCoroutine(SpawnResourcesCoroutine());
+            stopwatch.Stop();
+            Debug.Log($"World was generated, took {stopwatch.ElapsedMilliseconds} ms");
+        }
+
+        public IEnumerator GenerateTilesCoroutine()
         {
             ClearAllTilemaps();
+
             // Perform operations, yielding as necessary
             yield return null;
-            // Continue with other steps
-            
-            //var blueprintLayers = _tileWorldCreator.twcAsset.mapBlueprintLayers;
-            
+
             var grassBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Grass");
             if (grassBlueprint != null)
             {
-                Debug.Log("Began building Grass...");
                 yield return StartCoroutine(BuildTilemap(grassBlueprint.map, _grassTilemap, _grassRuleTile));
-                Debug.Log("Building Grass Complete");
             }
-            
+
             var waterBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Water");
             if (waterBlueprint != null)
             {
-                Debug.Log("Began building Water...");
                 yield return StartCoroutine(BuildTilemap(waterBlueprint.map, _waterTilemap, _waterRuleTile));
-                Debug.Log("Building Water Complete");
             }
-            
+
             var elevationBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Elevation");
             if (elevationBlueprint != null && elevationBlueprint.active)
             {
-                Debug.Log("Began building Elevation...");
                 yield return StartCoroutine(BuildTilemap(elevationBlueprint.map, _elevationTilemap, _elevationRuleTile));
-                Debug.Log("Building Elevation Complete");
-                
+
                 var rampsBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Ramps");
                 if (rampsBlueprint != null)
                 {
-                    Debug.Log("Began building Ramps...");
                     yield return StartCoroutine(SpawnRamps(rampsBlueprint.map, elevationBlueprint.map));
-                    Debug.Log("Building Ramps Complete");
                 }
             }
-            
+
             var dirtBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Dirt");
             if (dirtBlueprint != null)
             {
-                Debug.Log("Began building Dirt...");
                 yield return StartCoroutine(BuildTilemap(dirtBlueprint.map, _groundCoverTilemap, _dirtRuleTile));
-                Debug.Log("Building Dirt Complete");
             }
-            
+
             var elevatedDirtBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Elevated Dirt");
             if (elevatedDirtBlueprint != null)
             {
-                Debug.Log("Began building Elevated Dirt...");
                 yield return StartCoroutine(BuildTilemap(elevatedDirtBlueprint.map, _groundCoverTilemap, _dirtRuleTile));
-                Debug.Log("Building Elevated Dirt Complete");
             }
-            
-            Debug.Log("Began building Start Pos...");
+        
             yield return StartCoroutine(DetermineStartPosition(_blueprintLayers.Find(layer => layer.layerName == "Start Point")));
-            Debug.Log("Building Start Pos Complete");
         }
 
         [Button("Clear All Tilemaps")]
@@ -138,7 +118,7 @@ namespace Systems.World_Building.Scripts
             _waterTilemap.ClearAllTiles();
             _elevationTilemap.ClearAllTiles();
             _groundCoverTilemap.ClearAllTiles();
-            
+
             _mountainsHandler.DeleteMountains();
             _rampsHandler.DeleteRamps();
             _resourcesHandler.DeleteResources();
@@ -171,8 +151,11 @@ namespace Systems.World_Building.Scripts
             yield return null;
         }
 
-        private IEnumerator BuildTilemap(bool [,] blueprint, Tilemap tileMap, RuleTile ruleTile)
+        private IEnumerator BuildTilemap(bool[,] blueprint, Tilemap tileMap, RuleTile ruleTile)
         {
+            var tiles = new List<Vector3Int>();
+            var ruleTiles = new List<RuleTile>();
+
             for (int x = 0; x < blueprint.GetLength(0); x++)
             {
                 for (int y = 0; y < blueprint.GetLength(1); y++)
@@ -180,58 +163,74 @@ namespace Systems.World_Building.Scripts
                     var cellStart = new Vector3Int(x * 2, y * 2, 0);
                     if (blueprint[x, y])
                     {
-                        tileMap.SetTile(cellStart, ruleTile);
-                        tileMap.SetTile(cellStart + new Vector3Int(0 , 1, 0), ruleTile);
-                        tileMap.SetTile(cellStart + new Vector3Int(1 , 0, 0), ruleTile);
-                        tileMap.SetTile(cellStart + new Vector3Int(1 , 1, 0), ruleTile);
+                        tiles.Add(cellStart);
+                        tiles.Add(cellStart + new Vector3Int(0, 1, 0));
+                        tiles.Add(cellStart + new Vector3Int(1, 0, 0));
+                        tiles.Add(cellStart + new Vector3Int(1, 1, 0));
+                        ruleTiles.Add(ruleTile);
+                        ruleTiles.Add(ruleTile);
+                        ruleTiles.Add(ruleTile);
+                        ruleTiles.Add(ruleTile);
                     }
                 }
             }
+
+            tileMap.SetTiles(tiles.ToArray(), ruleTiles.ToArray());
 
             yield return null;
         }
 
         private IEnumerator SpawnResourcesCoroutine()
         {
+            Stopwatch stopwatch = new Stopwatch();
+
             var mountainsBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Mountains");
             if (mountainsBlueprint != null)
             {
+                stopwatch.Start();
                 Debug.Log("Began building Mountains...");
                 yield return StartCoroutine(SpawnMountains(mountainsBlueprint.map));
-                Debug.Log("Building Mountains Complete");
+                stopwatch.Stop();
+                Debug.Log($"Building Mountains Complete in {stopwatch.ElapsedMilliseconds} ms");
             }
 
             _resourcesHandler.DeleteResources();
-            
+
             var forestBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Forest");
             if (forestBlueprint != null)
             {
+                stopwatch.Restart();
                 Debug.Log("Began building Forest...");
                 yield return StartCoroutine(SpawnForest(forestBlueprint.map));
-                Debug.Log("Building Forest Complete");
+                stopwatch.Stop();
+                Debug.Log($"Building Forest Complete in {stopwatch.ElapsedMilliseconds} ms");
             }
 
-            var vegitationBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Vegitation");
-            if (vegitationBlueprint != null)
+            var vegetationBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Vegetation");
+            if (vegetationBlueprint != null)
             {
-                Debug.Log("Began building Vegitation...");
-                yield return StartCoroutine(SpawnVegetation(vegitationBlueprint.map));
-                Debug.Log("Building Vegitation Complete");
+                stopwatch.Restart();
+                Debug.Log("Began building Vegetation...");
+                yield return StartCoroutine(SpawnVegetation(vegetationBlueprint.map));
+                stopwatch.Stop();
+                Debug.Log($"Building Vegetation Complete in {stopwatch.ElapsedMilliseconds} ms");
             }
-            
+
             var additionalsBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Additionals");
             if (additionalsBlueprint != null)
             {
+                stopwatch.Restart();
                 Debug.Log("Began building Additionals...");
                 yield return StartCoroutine(SpawnAdditionals(additionalsBlueprint.map));
-                Debug.Log("Building Additionals Complete");
+                stopwatch.Stop();
+                Debug.Log($"Building Additionals Complete in {stopwatch.ElapsedMilliseconds} ms");
             }
         }
 
         private IEnumerator SpawnRamps(bool[,] rampsBlueprint, bool[,] elevationBlueprint)
         {
             _rampsHandler.DeleteRamps();
-            
+
             for (int x = 0; x < rampsBlueprint.GetLength(0); x++)
             {
                 for (int y = 0; y < rampsBlueprint.GetLength(1); y++)
@@ -239,49 +238,49 @@ namespace Systems.World_Building.Scripts
                     if (rampsBlueprint[x, y])
                     {
                         var cellStart = new Vector3Int(x * 2, y * 2, 0);
-                        
+
                         bool n = false;
                         if (elevationBlueprint.GetLength(1) >= y + 1)
                         {
                             n = elevationBlueprint[x, y + 1];
                         }
-                        
+
                         bool e = false;
                         if (elevationBlueprint.GetLength(0) >= x + 1)
                         {
                             e = elevationBlueprint[x + 1, y];
                         }
-                        
+
                         bool s = false;
                         if (y != 0)
                         {
                             s = elevationBlueprint[x, y - 1];
                         }
-                        
+
                         bool w = false;
                         if (x != 0)
                         {
                             w = elevationBlueprint[x - 1, y];
                         }
-                        
+
                         bool ne = false;
                         if (elevationBlueprint.GetLength(0) >= x + 1 && elevationBlueprint.GetLength(1) >= y + 1)
                         {
                             ne = elevationBlueprint[x + 1, y + 1];
                         }
-                        
+
                         bool nw = false;
                         if (x != 0 && elevationBlueprint.GetLength(1) >= y + 1)
                         {
                             nw = elevationBlueprint[x - 1, y + 1];
                         }
-                        
+
                         bool sw = false;
                         if (x != 0 && y != 0)
                         {
                             sw = elevationBlueprint[x - 1, y - 1];
                         }
-                        
+
                         bool se = false;
                         if (elevationBlueprint.GetLength(0) >= x + 1 && y != 0)
                         {
@@ -293,19 +292,19 @@ namespace Systems.World_Building.Scripts
                         {
                             _rampsHandler.SpawnRamp(ERampDirection.North, cellStart.x + 1f, cellStart.y + 1.5f);
                         }
-                        
+
                         // East
                         if (!e && !ne && !se && n && s)
                         {
                             _rampsHandler.SpawnRamp(ERampDirection.East, cellStart.x + 1.5f, cellStart.y + 1f);
                         }
-                        
+
                         // South
                         if (!s && !sw && !se && w && e)
                         {
                             _rampsHandler.SpawnRamp(ERampDirection.South, cellStart.x + 1f, cellStart.y + 0.5f);
                         }
-                        
+
                         // West
                         if (!w && !nw && !sw && s && n)
                         {
@@ -323,7 +322,7 @@ namespace Systems.World_Building.Scripts
             // Scale the blueprint up so one cell is 2x2 cells
             bool[,] scaledBlueprint =
                 new bool[additionalsBlueprint.GetLength(0) * 2, additionalsBlueprint.GetLength(1) * 2];
-            
+
             for (int x = 0; x < additionalsBlueprint.GetLength(0); x++)
             {
                 for (int y = 0; y < additionalsBlueprint.GetLength(1); y++)
@@ -345,81 +344,53 @@ namespace Systems.World_Building.Scripts
                     {
                         float offsetX = Random.Range(0f, 1.75f); // Adjust this value to ensure it fits within the cell
                         float offsetY = Random.Range(0f, 1.75f); // Adjust this value to ensure it fits within the cell
-                        
+
                         float posX = Random.Range(0.1f, 0.9f);
                         float posY = Random.Range(0.1f, 0.9f);
                         var spawnPos = new Vector2(x + posX, y + posY);
-                        
+
                         var vegetationType = _currentBiome.GetRandomAdditional();
                         _resourcesHandler.SpawnResource(vegetationType, spawnPos);
                     }
                 }
             }
-            
+
             yield return null;
         }
-
+    
         private IEnumerator SpawnVegetation(bool[,] vegetationBlueprint)
         {
-            int clusterRadius = _currentBiome.VegitationClusterRadius;
-            int maxVegetationPerCluster = _currentBiome.MaxVegetationPerCluster;
-            
-            // Directly use the original blueprint for iterating through potential vegetation centers
-            List<Vector2Int> potentialCenters = new List<Vector2Int>();
-            for (int x = 0; x < vegetationBlueprint.GetLength(0); x++)
+            int width = vegetationBlueprint.GetLength(0);
+            int height = vegetationBlueprint.GetLength(1);
+            int maxVegetationCount = _currentBiome.MaxVegetationPerCluster;
+
+            HashSet<Vector2Int> placedPositions = new HashSet<Vector2Int>();
+
+            for (int x = 0; x < width; x++)
             {
-                for (int y = 0; y < vegetationBlueprint.GetLength(1); y++)
+                for (int y = 0; y < height; y++)
                 {
-                    if (vegetationBlueprint[x, y]) // Position is marked for potential vegetation
+                    if (vegetationBlueprint[x, y] && Random.Range(0, 100) < _currentBiome.VegetationDensity)
                     {
-                        potentialCenters.Add(new Vector2Int(x, y));
-                    }
-                }
-            }
+                        Vector2Int pos = new Vector2Int(x, y);
 
-            // Shuffle the list of potential centers to randomize cluster starting points
-            potentialCenters = potentialCenters.OrderBy(a => Guid.NewGuid()).ToList();
-
-            // Create clusters
-            foreach (var center in potentialCenters)
-            {
-                int vegetationCount = Random.Range(1, maxVegetationPerCluster + 1);
-                List<Vector2Int> placedPositions = new List<Vector2Int>();
-
-                for (int i = 0; i < vegetationCount; i++)
-                {
-                    Vector2Int spawnPos;
-                    int attempts = 0;
-                    do
-                    {
-                        int offsetX = Random.Range(-clusterRadius, clusterRadius + 1);
-                        int offsetY = Random.Range(-clusterRadius, clusterRadius + 1);
-                        spawnPos = new Vector2Int(center.x + offsetX, center.y + offsetY);
-
-                        bool withinBounds = spawnPos.x >= 0 && spawnPos.y >= 0 && spawnPos.x < vegetationBlueprint.GetLength(0) && spawnPos.y < vegetationBlueprint.GetLength(1);
-                        if (withinBounds && vegetationBlueprint[spawnPos.x, spawnPos.y] && !placedPositions.Contains(spawnPos))
+                        if (!placedPositions.Contains(pos))
                         {
-                            break; // Found a valid position
-                        }
-                        attempts++;
-                    } while (attempts < 20); // Limit attempts to avoid infinite loops
+                            placedPositions.Add(pos);
 
-                    if (attempts < 20)
-                    {
-                        // Apply a precise random offset within each cell for more organic yet contained placement
-                        float offsetX = Random.Range(0f, 1.75f); // Adjust this value to ensure it fits within the cell
-                        float offsetY = Random.Range(0f, 1.75f); // Adjust this value to ensure it fits within the cell
-                        Vector3 worldPosition = new Vector3((spawnPos.x * 2) + offsetX, (spawnPos.y * 2) + offsetY, 0); // Adjust the multiplication factor according to your world's scale
-                        var vegetationType = _currentBiome.GetRandomVegitation();
-                        _resourcesHandler.SpawnResource(vegetationType, worldPosition);
-                        placedPositions.Add(spawnPos);
+                            float offsetX = Random.Range(0f, 1.75f); // Adjust this value to ensure it fits within the cell
+                            float offsetY = Random.Range(0f, 1.75f); // Adjust this value to ensure it fits within the cell
+                            Vector3 worldPosition = new Vector3((pos.x * 2) + offsetX, (pos.y * 2) + offsetY, 0); // Adjust the multiplication factor according to your world's scale
+
+                            var vegetationType = _currentBiome.GetRandomVegetation();
+                            _resourcesHandler.SpawnResource(vegetationType, worldPosition);
+                        }
                     }
                 }
             }
 
             yield return null;
         }
-
 
         private IEnumerator SpawnForest(bool[,] forestBlueprint)
         {
@@ -485,14 +456,13 @@ namespace Systems.World_Building.Scripts
             yield return null;
         }
 
-        private IEnumerator SpawnMountains(bool [,] mountainsBlueprint)
+        private IEnumerator SpawnMountains(bool[,] mountainsBlueprint)
         {
             _mountainsHandler.DeleteMountains();
-            
+
             // Scale the blueprint up so one cell is 2x2 cells
-            bool[,] scaledBlueprint =
-                new bool[mountainsBlueprint.GetLength(0) * 2, mountainsBlueprint.GetLength(1) * 2];
-            
+            bool[,] scaledBlueprint = new bool[mountainsBlueprint.GetLength(0) * 2, mountainsBlueprint.GetLength(1) * 2];
+
             for (int x = 0; x < mountainsBlueprint.GetLength(0); x++)
             {
                 for (int y = 0; y < mountainsBlueprint.GetLength(1); y++)
@@ -512,7 +482,9 @@ namespace Systems.World_Building.Scripts
             InitializeClusterCenters(scaledBlueprint, _currentBiome, out clusterCenters);
 
             // Expand clusters to create organic distributions of mountain types
-            ExpandClusters(scaledBlueprint, clusterCenters, ref tileMap, _currentBiome);
+            ExpandClustersParallel(scaledBlueprint, clusterCenters, tileMap, _currentBiome);
+
+            // Batch spawn mountains
             for (int x = 0; x < tileMap.GetLength(0); x++)
             {
                 for (int y = 0; y < tileMap.GetLength(1); y++)
@@ -528,18 +500,17 @@ namespace Systems.World_Building.Scripts
 
             yield return null;
         }
-        
+
         private void InitializeClusterCenters(bool[,] scaledBlueprint, BiomeSettings biomeSettings, out Dictionary<MountainTileType, List<Vector2Int>> clusterCenters)
         {
             clusterCenters = new Dictionary<MountainTileType, List<Vector2Int>>();
 
-            // Assuming TileType and a way to relate it with biomeData's MountainData
             foreach (var mountainType in Enum.GetValues(typeof(MountainTileType)).Cast<MountainTileType>())
             {
-                if (mountainType == MountainTileType.Empty) continue; // Skip the 'Empty' type
+                if (mountainType == MountainTileType.Empty) continue;
 
-                int centerCount = CalculateCenterCountForMountainType(mountainType, biomeSettings, scaledBlueprint); // Implement this based on biome data
-        
+                int centerCount = CalculateCenterCountForMountainType(mountainType, biomeSettings, scaledBlueprint);
+
                 clusterCenters[mountainType] = new List<Vector2Int>();
 
                 for (int i = 0; i < centerCount; i++)
@@ -548,8 +519,8 @@ namespace Systems.World_Building.Scripts
                     do
                     {
                         center = new Vector2Int(Random.Range(0, scaledBlueprint.GetLength(0)), Random.Range(0, scaledBlueprint.GetLength(1)));
-                    } while (!scaledBlueprint[center.x, center.y] || clusterCenters[mountainType].Contains(center)); // Ensure uniqueness and correct placement
-            
+                    } while (!scaledBlueprint[center.x, center.y] || clusterCenters[mountainType].Contains(center));
+
                     clusterCenters[mountainType].Add(center);
                 }
             }
@@ -566,28 +537,25 @@ namespace Systems.World_Building.Scripts
                 }
             }
 
-            // Assuming each cell represents a 2x2 area, adjust the calculation if necessary
             float percentage = biomeSettings.GetMountainTypePercentage(mountainType);
             int centerCount = Mathf.RoundToInt(totalMountainCells * percentage);
 
             return centerCount;
         }
-        
-        private void ExpandClusters(bool[,] scaledBlueprint, Dictionary<MountainTileType, List<Vector2Int>> clusterCenters, ref MountainTileType[,] tileMap, BiomeSettings biomeSettings)
+
+        private void ExpandClustersParallel(bool[,] scaledBlueprint, Dictionary<MountainTileType, List<Vector2Int>> clusterCenters, MountainTileType[,] tileMap, BiomeSettings biomeSettings)
         {
-            // Calculate the maximum number of tiles allowed for each mountain type based on biome data
             var maxTilesPerType = CalculateMaxTilesPerType(scaledBlueprint, biomeSettings);
-            var currentTilesPerType = new Dictionary<MountainTileType, int>();
+            var currentTilesPerType = new ConcurrentDictionary<MountainTileType, int>();
+
             foreach (var type in maxTilesPerType.Keys)
             {
-                currentTilesPerType[type] = 0; // Initialize counting for each type
+                currentTilesPerType[type] = 0;
             }
 
-            // Expand clusters for each non-default mountain type, respecting the maximum number of tiles
-            foreach (var mountainType in clusterCenters.Keys)
+            Parallel.ForEach(clusterCenters.Keys, mountainType =>
             {
-                // Skip the default type during the initial expansion phase
-                if (mountainType == biomeSettings.DefaultMountainType) continue;
+                if (mountainType == biomeSettings.DefaultMountainType) return;
 
                 foreach (var center in clusterCenters[mountainType])
                 {
@@ -599,8 +567,11 @@ namespace Systems.World_Building.Scripts
                         Vector2Int current = frontier.Dequeue();
                         if (IsWithinBounds(current, scaledBlueprint) && scaledBlueprint[current.x, current.y] && tileMap[current.x, current.y] == MountainTileType.Empty)
                         {
-                            tileMap[current.x, current.y] = mountainType;
-                            currentTilesPerType[mountainType]++;
+                            lock (tileMap)
+                            {
+                                tileMap[current.x, current.y] = mountainType;
+                                currentTilesPerType[mountainType]++;
+                            }
 
                             Vector2Int[] neighbors = {
                                 new Vector2Int(current.x, current.y + 1),
@@ -619,81 +590,25 @@ namespace Systems.World_Building.Scripts
                         }
                     }
                 }
-            }
+            });
 
-            // Redistribute tiles to correct minor discrepancies before filling with the default type
-            RedistributeTiles(ref tileMap, currentTilesPerType, maxTilesPerType, scaledBlueprint);
-
-            // Fill in the remaining unassigned spaces with the default mountain type
-            FillRemainingWithDefault(scaledBlueprint, ref tileMap, biomeSettings.DefaultMountainType);
+            FillRemainingWithDefault(scaledBlueprint, tileMap, biomeSettings.DefaultMountainType);
         }
 
-        private void FillRemainingWithDefault(bool[,] scaledBlueprint, ref MountainTileType[,] tileMap, MountainTileType defaultType)
+        private void FillRemainingWithDefault(bool[,] scaledBlueprint, MountainTileType[,] tileMap, MountainTileType defaultType)
         {
             for (int x = 0; x < tileMap.GetLength(0); x++)
             {
                 for (int y = 0; y < tileMap.GetLength(1); y++)
                 {
-                    // Check if the current tile is within the mountainous area and is unassigned
                     if (scaledBlueprint[x, y] && tileMap[x, y] == MountainTileType.Empty)
                     {
-                        tileMap[x, y] = defaultType; // Assign the default mountain type
+                        tileMap[x, y] = defaultType;
                     }
                 }
             }
         }
-        
-        private void RedistributeTiles(ref MountainTileType[,] tileMap, Dictionary<MountainTileType, int> currentTilesPerType, Dictionary<MountainTileType, int> maxTilesPerType, bool[,] scaledBlueprint)
-        {
-            // Identify over and underrepresented types
-            var overrepresented = new List<MountainTileType>();
-            var underrepresented = new List<MountainTileType>();
 
-            foreach (var type in currentTilesPerType.Keys)
-            {
-                if (type == MountainTileType.Empty) continue; // Skip empty type
-                if (currentTilesPerType[type] > maxTilesPerType[type])
-                {
-                    overrepresented.Add(type);
-                }
-                else if (currentTilesPerType[type] < maxTilesPerType[type])
-                {
-                    underrepresented.Add(type);
-                }
-            }
-
-            // Attempt to redistribute tiles from over to underrepresented types
-            foreach (var overType in overrepresented)
-            {
-                int excess = currentTilesPerType[overType] - maxTilesPerType[overType];
-                foreach (var underType in underrepresented)
-                {
-                    int needed = maxTilesPerType[underType] - currentTilesPerType[underType];
-                    if (needed <= 0) continue; // This type no longer needs additional tiles
-
-                    for (int x = 0; x < tileMap.GetLength(0) && excess > 0 && needed > 0; x++)
-                    {
-                        for (int y = 0; y < tileMap.GetLength(1) && excess > 0 && needed > 0; y++)
-                        {
-                            // Check if this tile can be converted: it must be overrepresented and not part of the scaled blueprint's non-mountainous area
-                            if (tileMap[x, y] == overType && scaledBlueprint[x, y])
-                            {
-                                tileMap[x, y] = underType; // Convert tile type
-                                excess--;
-                                needed--;
-                                currentTilesPerType[overType]--;
-                                currentTilesPerType[underType]++;
-                            }
-                        }
-                    }
-
-                    // Update the list if needed is satisfied for this underrepresented type
-                    if (needed <= 0) underrepresented.Remove(underType);
-                }
-            }
-        }
-
-        
         private Dictionary<MountainTileType, int> CalculateMaxTilesPerType(bool[,] scaledBlueprint, BiomeSettings biomeSettings)
         {
             int totalMountainCells = 0;
@@ -714,7 +629,7 @@ namespace Systems.World_Building.Scripts
 
             return maxTilesPerType;
         }
-        
+
         private bool IsWithinBounds(Vector2Int position, bool[,] array)
         {
             return position.x >= 0 && position.y >= 0 && position.x < array.GetLength(0) && position.y < array.GetLength(1);

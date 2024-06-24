@@ -22,9 +22,10 @@ namespace Systems.World_Building.Scripts
         public int ForestTreeDensity; // The min number of trees per tile
         public int ForestAdditionalDensity; // The max number of trees per tile
         
-        public List<ResourceDataPercentage> VegitationResources = new List<ResourceDataPercentage>();
-        public int VegitationClusterRadius;
+        [FormerlySerializedAs("VegitationResources")] public List<ResourceDataPercentage> VegetationResources = new List<ResourceDataPercentage>();
+        [FormerlySerializedAs("VegitationClusterRadius")] public int VegetationClusterRadius;
         public int MaxVegetationPerCluster;
+        public int VegetationDensity;
         
         public List<ResourceDataPercentage> AdditionalResources = new List<ResourceDataPercentage>();
         public float AdditionalsChanceToSpawn;
@@ -113,16 +114,16 @@ namespace Systems.World_Building.Scripts
             return null; // In case something goes wrong
         }
 
-        public ResourceSettings GetRandomVegitation()
+        public ResourceSettings GetRandomVegetation()
         {
             float totalWeight = 0f;
-            foreach (var resource in VegitationResources)
+            foreach (var resource in VegetationResources)
             {
                 totalWeight += resource.SpawnPercentage;
             }
 
             float randomPoint = Random.Range(0f, totalWeight);
-            foreach (var resource in VegitationResources)
+            foreach (var resource in VegetationResources)
             {
                 if (randomPoint < resource.SpawnPercentage)
                 {

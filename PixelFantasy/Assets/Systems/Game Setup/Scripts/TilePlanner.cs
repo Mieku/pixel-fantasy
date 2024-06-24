@@ -172,17 +172,17 @@ namespace Systems.Game_Setup.Scripts
                 forestFilled = GetPercentageFilled(forest);
             }
             
-            var vegitation = GetBlueprintLayer(blueprints, "Vegitation");
-            float vegitationFilled = 0;
-            if (vegitation != null)
+            var vegetation = GetBlueprintLayer(blueprints, "Vegetation");
+            float vegetationFilled = 0;
+            if (vegetation != null)
             {
-                vegitationFilled = GetPercentageFilled(vegitation);
+                vegetationFilled = GetPercentageFilled(vegetation);
             }
 
             LocationStats stats = new LocationStats
             {
                 Mountains = mountainsFilled,
-                Vegitation = vegitationFilled,
+                Vegetation = vegetationFilled,
                 Water = waterFilled,
                 Forest = forestFilled
             };
@@ -348,9 +348,9 @@ namespace Systems.Game_Setup.Scripts
         public float Mountains;
         public float Water;
         public float Forest;
-        public float Vegitation;
+        public float Vegetation;
 
-        public float TreesVeg => Vegitation + Forest;
+        public float TreesVeg => Vegetation + Forest;
         public float AvailableSpace => 100f - (Water + Mountains);
     }
 }

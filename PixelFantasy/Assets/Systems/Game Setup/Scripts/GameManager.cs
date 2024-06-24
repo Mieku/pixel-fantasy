@@ -89,7 +89,7 @@ namespace Systems.Game_Setup.Scripts
         {
             if (_generateWorldOnStart)
             {
-                yield return StartCoroutine(_worldBuilder.GeneratePlaneCoroutine(blueprintLayers));
+                yield return StartCoroutine(_worldBuilder.GenerateAreaCoroutine(blueprintLayers));
             }
             
             // Allow frame to render and update UI/loading screen here

@@ -51,7 +51,7 @@ public class BiomeEditor : Editor
         
         DisplayPercentagesOptions<ResourceData>("Forest Trees", biome.ForestTreeResources);
         DisplayPercentagesOptions<GrowingResourceData>("Forest Additionals", biome.ForestAdditionalResources);
-        DisplayPercentagesOptions<ResourceData>("Vegitation", biome.VegitationResources);
+        DisplayPercentagesOptions<ResourceData>("Vegetation", biome.VegetationResources);
         DisplayPercentagesOptions<ResourceData>("Additional Resources", biome.AdditionalResources);
     }
     
