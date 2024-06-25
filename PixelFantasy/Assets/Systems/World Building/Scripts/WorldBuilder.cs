@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Data.Resource;
 using Handlers;
 using Sirenix.OdinInspector;
+using Systems.Game_Setup.Scripts;
 using TWC;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -54,15 +55,41 @@ namespace Systems.World_Building.Scripts
             Debug.Log("Beginning World Generation...");
             _blueprintLayers = blueprintLayers;
 
+            // Calculate total steps
+            int totalSteps = CalculateTotalSteps();
+            LoadingScreen.Instance.Show("Generating World", "Initializing...", totalSteps);
+
             // Allow frame to render and update UI/loading screen here
             Stopwatch stopwatch = new Stopwatch();
 
             stopwatch.Start();
             yield return StartCoroutine(GenerateTilesCoroutine());
-        
             yield return StartCoroutine(SpawnResourcesCoroutine());
             stopwatch.Stop();
             Debug.Log($"World was generated, took {stopwatch.ElapsedMilliseconds} ms");
+
+            LoadingScreen.Instance.Hide();
+        }
+
+        private int CalculateTotalSteps()
+        {
+            int steps = 0;
+
+            // Count steps for GenerateTilesCoroutine
+            if (_blueprintLayers.Find(layer => layer.layerName == "Grass") != null) steps++;
+            if (_blueprintLayers.Find(layer => layer.layerName == "Water") != null) steps++;
+            if (_blueprintLayers.Find(layer => layer.layerName == "Elevation") != null) steps++;
+            if (_blueprintLayers.Find(layer => layer.layerName == "Dirt") != null) steps++;
+            if (_blueprintLayers.Find(layer => layer.layerName == "Elevated Dirt") != null) steps++;
+            steps++; // For determining start position
+
+            // Count steps for SpawnResourcesCoroutine
+            if (_blueprintLayers.Find(layer => layer.layerName == "Mountains") != null) steps++;
+            if (_blueprintLayers.Find(layer => layer.layerName == "Forest") != null) steps++;
+            if (_blueprintLayers.Find(layer => layer.layerName == "Vegetation") != null) steps++;
+            if (_blueprintLayers.Find(layer => layer.layerName == "Additionals") != null) steps++;
+
+            return steps;
         }
 
         public IEnumerator GenerateTilesCoroutine()
@@ -72,18 +99,27 @@ namespace Systems.World_Building.Scripts
             // Perform operations, yielding as necessary
             yield return null;
 
+            LoadingScreen.Instance.SetLoadingInfoText("Generating Grass Tiles...");
             var grassBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Grass");
             if (grassBlueprint != null)
             {
                 yield return StartCoroutine(BuildTilemap(grassBlueprint.map, _grassTilemap, _grassRuleTile));
+                LoadingScreen.Instance.StepCompleted();
             }
 
+            yield return null;
+
+            LoadingScreen.Instance.SetLoadingInfoText("Generating Water Tiles...");
             var waterBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Water");
             if (waterBlueprint != null)
             {
                 yield return StartCoroutine(BuildTilemap(waterBlueprint.map, _waterTilemap, _waterRuleTile));
+                LoadingScreen.Instance.StepCompleted();
             }
 
+            yield return null;
+
+            LoadingScreen.Instance.SetLoadingInfoText("Generating Elevation Tiles...");
             var elevationBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Elevation");
             if (elevationBlueprint != null && elevationBlueprint.active)
             {
@@ -94,21 +130,35 @@ namespace Systems.World_Building.Scripts
                 {
                     yield return StartCoroutine(SpawnRamps(rampsBlueprint.map, elevationBlueprint.map));
                 }
+                LoadingScreen.Instance.StepCompleted();
             }
 
+            yield return null;
+
+            LoadingScreen.Instance.SetLoadingInfoText("Generating Dirt Tiles...");
             var dirtBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Dirt");
             if (dirtBlueprint != null)
             {
                 yield return StartCoroutine(BuildTilemap(dirtBlueprint.map, _groundCoverTilemap, _dirtRuleTile));
+                LoadingScreen.Instance.StepCompleted();
             }
+
+            yield return null;
 
             var elevatedDirtBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Elevated Dirt");
             if (elevatedDirtBlueprint != null)
             {
                 yield return StartCoroutine(BuildTilemap(elevatedDirtBlueprint.map, _groundCoverTilemap, _dirtRuleTile));
+                LoadingScreen.Instance.StepCompleted();
             }
-        
-            yield return StartCoroutine(DetermineStartPosition(_blueprintLayers.Find(layer => layer.layerName == "Start Point")));
+
+            yield return null;
+
+            LoadingScreen.Instance.SetLoadingInfoText("Determining Start Position...");
+            yield return StartCoroutine(DetermineStartPosition(_blueprintLayers.Find(layer => layer.layerName == "Start Points")));
+            LoadingScreen.Instance.StepCompleted();
+
+            yield return null;
         }
 
         [Button("Clear All Tilemaps")]
@@ -180,51 +230,65 @@ namespace Systems.World_Building.Scripts
             yield return null;
         }
 
-        private IEnumerator SpawnResourcesCoroutine()
+        public IEnumerator SpawnResourcesCoroutine()
         {
             Stopwatch stopwatch = new Stopwatch();
+
+            yield return null;
 
             var mountainsBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Mountains");
             if (mountainsBlueprint != null)
             {
                 stopwatch.Start();
-                Debug.Log("Began building Mountains...");
+                LoadingScreen.Instance.SetLoadingInfoText("Building Mountains...");
                 yield return StartCoroutine(SpawnMountains(mountainsBlueprint.map));
                 stopwatch.Stop();
                 Debug.Log($"Building Mountains Complete in {stopwatch.ElapsedMilliseconds} ms");
+                LoadingScreen.Instance.StepCompleted();
             }
 
             _resourcesHandler.DeleteResources();
+
+            yield return null;
 
             var forestBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Forest");
             if (forestBlueprint != null)
             {
                 stopwatch.Restart();
-                Debug.Log("Began building Forest...");
+                LoadingScreen.Instance.SetLoadingInfoText("Building Forest...");
                 yield return StartCoroutine(SpawnForest(forestBlueprint.map));
                 stopwatch.Stop();
                 Debug.Log($"Building Forest Complete in {stopwatch.ElapsedMilliseconds} ms");
+                LoadingScreen.Instance.StepCompleted();
             }
+
+            yield return null;
 
             var vegetationBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Vegetation");
             if (vegetationBlueprint != null)
             {
                 stopwatch.Restart();
-                Debug.Log("Began building Vegetation...");
+                LoadingScreen.Instance.SetLoadingInfoText("Building Vegetation...");
                 yield return StartCoroutine(SpawnVegetation(vegetationBlueprint.map));
                 stopwatch.Stop();
                 Debug.Log($"Building Vegetation Complete in {stopwatch.ElapsedMilliseconds} ms");
+                LoadingScreen.Instance.StepCompleted();
             }
+
+            yield return null;
 
             var additionalsBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Additionals");
             if (additionalsBlueprint != null)
             {
                 stopwatch.Restart();
-                Debug.Log("Began building Additionals...");
+                LoadingScreen.Instance.SetLoadingInfoText("Building Additionals...");
                 yield return StartCoroutine(SpawnAdditionals(additionalsBlueprint.map));
                 stopwatch.Stop();
                 Debug.Log($"Building Additionals Complete in {stopwatch.ElapsedMilliseconds} ms");
+                LoadingScreen.Instance.StepCompleted();
             }
+
+            yield return null;
         }
 
         private IEnumerator SpawnRamps(bool[,] rampsBlueprint, bool[,] elevationBlueprint)
@@ -239,53 +303,14 @@ namespace Systems.World_Building.Scripts
                     {
                         var cellStart = new Vector3Int(x * 2, y * 2, 0);
 
-                        bool n = false;
-                        if (elevationBlueprint.GetLength(1) >= y + 1)
-                        {
-                            n = elevationBlueprint[x, y + 1];
-                        }
-
-                        bool e = false;
-                        if (elevationBlueprint.GetLength(0) >= x + 1)
-                        {
-                            e = elevationBlueprint[x + 1, y];
-                        }
-
-                        bool s = false;
-                        if (y != 0)
-                        {
-                            s = elevationBlueprint[x, y - 1];
-                        }
-
-                        bool w = false;
-                        if (x != 0)
-                        {
-                            w = elevationBlueprint[x - 1, y];
-                        }
-
-                        bool ne = false;
-                        if (elevationBlueprint.GetLength(0) >= x + 1 && elevationBlueprint.GetLength(1) >= y + 1)
-                        {
-                            ne = elevationBlueprint[x + 1, y + 1];
-                        }
-
-                        bool nw = false;
-                        if (x != 0 && elevationBlueprint.GetLength(1) >= y + 1)
-                        {
-                            nw = elevationBlueprint[x - 1, y + 1];
-                        }
-
-                        bool sw = false;
-                        if (x != 0 && y != 0)
-                        {
-                            sw = elevationBlueprint[x - 1, y - 1];
-                        }
-
-                        bool se = false;
-                        if (elevationBlueprint.GetLength(0) >= x + 1 && y != 0)
-                        {
-                            se = elevationBlueprint[x + 1, y - 1];
-                        }
+                        bool n = y + 1 < elevationBlueprint.GetLength(1) && elevationBlueprint[x, y + 1];
+                        bool e = x + 1 < elevationBlueprint.GetLength(0) && elevationBlueprint[x + 1, y];
+                        bool s = y > 0 && elevationBlueprint[x, y - 1];
+                        bool w = x > 0 && elevationBlueprint[x - 1, y];
+                        bool ne = x + 1 < elevationBlueprint.GetLength(0) && y + 1 < elevationBlueprint.GetLength(1) && elevationBlueprint[x + 1, y + 1];
+                        bool nw = x > 0 && y + 1 < elevationBlueprint.GetLength(1) && elevationBlueprint[x - 1, y + 1];
+                        bool sw = x > 0 && y > 0 && elevationBlueprint[x - 1, y - 1];
+                        bool se = x + 1 < elevationBlueprint.GetLength(0) && y > 0 && elevationBlueprint[x + 1, y - 1];
 
                         // North
                         if (!n && !ne && !nw && e && w)
@@ -357,7 +382,7 @@ namespace Systems.World_Building.Scripts
 
             yield return null;
         }
-    
+
         private IEnumerator SpawnVegetation(bool[,] vegetationBlueprint)
         {
             int width = vegetationBlueprint.GetLength(0);

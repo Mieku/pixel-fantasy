@@ -58,15 +58,11 @@ namespace Systems.Game_Setup.Scripts
             // Start loading the scene
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
 
-            Debug.Log("Async is started");
-
             // Wait until the scene is fully loaded
             while (!asyncLoad.isDone)
             {
                 yield return null;
             }
-
-            Debug.Log("Async is done");
 
             // Now the scene is loaded, find the WorldBuilder
             _worldBuilder = FindObjectOfType<WorldBuilder>();

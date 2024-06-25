@@ -92,10 +92,6 @@ namespace Systems.Game_Setup.Scripts
 
         private void RefreshAreaResources(LocationStats stats)
         {
-            Debug.Log($"Trees & Veg: {stats.TreesVeg}%");
-            Debug.Log($"Stone & Ores: {stats.Mountains}%");
-            Debug.Log($"Space: {stats.AvailableSpace}%");
-            
             var treesVeg = _treesThresholds.DetermineThreshold(stats.TreesVeg);
             var stoneOre = _stoneThresholds.DetermineThreshold(stats.Mountains);
             var space = _spaceThresholds.DetermineThreshold(stats.AvailableSpace);
