@@ -480,63 +480,21 @@ namespace Systems.World_Building.Scripts
 
             yield return null;
         }
+        
 
-        private IEnumerator SpawnMountains(bool[,] mountainsBlueprint)
+
+
+
+        private Dictionary<MountainTileType, List<Vector2Int>> InitializeClusterCentersParallel(bool[,] scaledBlueprint, BiomeSettings biomeSettings)
         {
-            _mountainsHandler.DeleteMountains();
-
-            // Scale the blueprint up so one cell is 2x2 cells
-            bool[,] scaledBlueprint = new bool[mountainsBlueprint.GetLength(0) * 2, mountainsBlueprint.GetLength(1) * 2];
-
-            for (int x = 0; x < mountainsBlueprint.GetLength(0); x++)
-            {
-                for (int y = 0; y < mountainsBlueprint.GetLength(1); y++)
-                {
-                    var cellStart = new Vector2Int(x * 2, y * 2);
-
-                    scaledBlueprint[cellStart.x, cellStart.y] = mountainsBlueprint[x, y];
-                    scaledBlueprint[cellStart.x, cellStart.y + 1] = mountainsBlueprint[x, y];
-                    scaledBlueprint[cellStart.x + 1, cellStart.y] = mountainsBlueprint[x, y];
-                    scaledBlueprint[cellStart.x + 1, cellStart.y + 1] = mountainsBlueprint[x, y];
-                }
-            }
-
-            // Initialize cluster centers based on the biome data
-            MountainTileType[,] tileMap = new MountainTileType[scaledBlueprint.GetLength(0), scaledBlueprint.GetLength(1)];
-            Dictionary<MountainTileType, List<Vector2Int>> clusterCenters;
-            InitializeClusterCenters(scaledBlueprint, _currentBiome, out clusterCenters);
-
-            // Expand clusters to create organic distributions of mountain types
-            ExpandClustersParallel(scaledBlueprint, clusterCenters, tileMap, _currentBiome);
-
-            // Batch spawn mountains
-            for (int x = 0; x < tileMap.GetLength(0); x++)
-            {
-                for (int y = 0; y < tileMap.GetLength(1); y++)
-                {
-                    var mountainType = tileMap[x, y];
-                    if (mountainType != MountainTileType.Empty)
-                    {
-                        var mountainData = _currentBiome.GetMountainSettings(mountainType);
-                        _mountainsHandler.SpawnMountain(mountainData, x + 0.5f, y + 0.5f);
-                    }
-                }
-            }
-
-            yield return null;
-        }
-
-        private void InitializeClusterCenters(bool[,] scaledBlueprint, BiomeSettings biomeSettings, out Dictionary<MountainTileType, List<Vector2Int>> clusterCenters)
-        {
-            clusterCenters = new Dictionary<MountainTileType, List<Vector2Int>>();
+            var clusterCenters = new ConcurrentDictionary<MountainTileType, List<Vector2Int>>();
 
             foreach (var mountainType in Enum.GetValues(typeof(MountainTileType)).Cast<MountainTileType>())
             {
                 if (mountainType == MountainTileType.Empty) continue;
 
                 int centerCount = CalculateCenterCountForMountainType(mountainType, biomeSettings, scaledBlueprint);
-
-                clusterCenters[mountainType] = new List<Vector2Int>();
+                var centers = new List<Vector2Int>();
 
                 for (int i = 0; i < centerCount; i++)
                 {
@@ -544,12 +502,204 @@ namespace Systems.World_Building.Scripts
                     do
                     {
                         center = new Vector2Int(Random.Range(0, scaledBlueprint.GetLength(0)), Random.Range(0, scaledBlueprint.GetLength(1)));
-                    } while (!scaledBlueprint[center.x, center.y] || clusterCenters[mountainType].Contains(center));
+                    } while (!scaledBlueprint[center.x, center.y] || centers.Contains(center));
 
-                    clusterCenters[mountainType].Add(center);
+                    centers.Add(center);
+                }
+
+                clusterCenters[mountainType] = centers;
+            }
+
+            return new Dictionary<MountainTileType, List<Vector2Int>>(clusterCenters);
+        }
+
+
+       private IEnumerator SpawnMountains(bool[,] mountainsBlueprint)
+{
+    _mountainsHandler.DeleteMountains();
+
+    bool[,] scaledBlueprint = new bool[mountainsBlueprint.GetLength(0) * 2, mountainsBlueprint.GetLength(1) * 2];
+
+    for (int x = 0; x < mountainsBlueprint.GetLength(0); x++)
+    {
+        for (int y = 0; y < mountainsBlueprint.GetLength(1); y++)
+        {
+            var cellStart = new Vector2Int(x * 2, y * 2);
+
+            scaledBlueprint[cellStart.x, cellStart.y] = mountainsBlueprint[x, y];
+            scaledBlueprint[cellStart.x, cellStart.y + 1] = mountainsBlueprint[x, y];
+            scaledBlueprint[cellStart.x + 1, cellStart.y] = mountainsBlueprint[x, y];
+            scaledBlueprint[cellStart.x + 1, cellStart.y + 1] = mountainsBlueprint[x, y];
+        }
+    }
+
+    var tileMap = new MountainTileType[scaledBlueprint.GetLength(0), scaledBlueprint.GetLength(1)];
+
+    var stopwatch = new Stopwatch();
+    stopwatch.Start();
+    var clusterCenters = InitializeClusterCentersParallel(scaledBlueprint, _currentBiome);
+    stopwatch.Stop();
+    Debug.Log($"Initializing cluster centers took {stopwatch.ElapsedMilliseconds} ms");
+
+    stopwatch.Restart();
+    ExpandClustersParallel(scaledBlueprint, clusterCenters, tileMap, _currentBiome);
+    stopwatch.Stop();
+    Debug.Log($"Expanding clusters took {stopwatch.ElapsedMilliseconds} ms");
+
+    stopwatch.Restart();
+    yield return StartCoroutine(BatchSpawnMountainsAsync(tileMap));
+    stopwatch.Stop();
+    Debug.Log($"Batch spawning mountains took {stopwatch.ElapsedMilliseconds} ms");
+}
+
+private IEnumerator BatchSpawnMountainsAsync(MountainTileType[,] tileMap)
+{
+    var mountainTiles = new List<Vector3Int>();
+    var mountainSettings = new List<MountainSettings>();
+
+    for (int x = 0; x < tileMap.GetLength(0); x++)
+    {
+        for (int y = 0; y < tileMap.GetLength(1); y++)
+        {
+            var mountainType = tileMap[x, y];
+            if (mountainType != MountainTileType.Empty)
+            {
+                var mountainData = _currentBiome.GetMountainSettings(mountainType);
+                mountainTiles.Add(new Vector3Int(x, y, 0));
+                mountainSettings.Add(mountainData);
+            }
+        }
+    }
+
+    yield return StartCoroutine(_mountainsHandler.BatchSpawnMountainsAsync(mountainTiles, mountainSettings));
+}
+
+
+
+
+        
+private void ExpandClustersParallel(bool[,] scaledBlueprint, Dictionary<MountainTileType, List<Vector2Int>> clusterCenters, MountainTileType[,] tileMap, BiomeSettings biomeSettings)
+{
+    var maxTilesPerType = CalculateMaxTilesPerType(scaledBlueprint, biomeSettings);
+    var currentTilesPerType = new ConcurrentDictionary<MountainTileType, int>();
+
+    foreach (var type in maxTilesPerType.Keys)
+    {
+        currentTilesPerType[type] = 0;
+    }
+
+    Parallel.ForEach(clusterCenters.Keys, mountainType =>
+    {
+        if (mountainType == biomeSettings.DefaultMountainType) return;
+
+        foreach (var center in clusterCenters[mountainType])
+        {
+            Queue<Vector2Int> frontier = new Queue<Vector2Int>();
+            frontier.Enqueue(center);
+
+            while (frontier.Count > 0 && currentTilesPerType[mountainType] < maxTilesPerType[mountainType])
+            {
+                Vector2Int current = frontier.Dequeue();
+                if (IsWithinBounds(current, scaledBlueprint) && scaledBlueprint[current.x, current.y] && tileMap[current.x, current.y] == MountainTileType.Empty)
+                {
+                    lock (tileMap)
+                    {
+                        tileMap[current.x, current.y] = mountainType;
+                        currentTilesPerType[mountainType]++;
+                    }
+
+                    Vector2Int[] neighbors = {
+                        new Vector2Int(current.x, current.y + 1),
+                        new Vector2Int(current.x, current.y - 1),
+                        new Vector2Int(current.x + 1, current.y),
+                        new Vector2Int(current.x - 1, current.y)
+                    };
+
+                    foreach (var neighbor in neighbors)
+                    {
+                        if (IsWithinBounds(neighbor, scaledBlueprint) && scaledBlueprint[neighbor.x, neighbor.y] && tileMap[neighbor.x, neighbor.y] == MountainTileType.Empty)
+                        {
+                            frontier.Enqueue(neighbor);
+                        }
+                    }
                 }
             }
         }
+    });
+
+    FillRemainingWithDefault(scaledBlueprint, tileMap, biomeSettings.DefaultMountainType);
+}
+
+        //
+        // private IEnumerator SpawnMountains(bool[,] mountainsBlueprint)
+        // {
+        //     _mountainsHandler.DeleteMountains();
+        //
+        //     // Scale the blueprint up so one cell is 2x2 cells
+        //     bool[,] scaledBlueprint = new bool[mountainsBlueprint.GetLength(0) * 2, mountainsBlueprint.GetLength(1) * 2];
+        //
+        //     for (int x = 0; x < mountainsBlueprint.GetLength(0); x++)
+        //     {
+        //         for (int y = 0; y < mountainsBlueprint.GetLength(1); y++)
+        //         {
+        //             var cellStart = new Vector2Int(x * 2, y * 2);
+        //
+        //             scaledBlueprint[cellStart.x, cellStart.y] = mountainsBlueprint[x, y];
+        //             scaledBlueprint[cellStart.x, cellStart.y + 1] = mountainsBlueprint[x, y];
+        //             scaledBlueprint[cellStart.x + 1, cellStart.y] = mountainsBlueprint[x, y];
+        //             scaledBlueprint[cellStart.x + 1, cellStart.y + 1] = mountainsBlueprint[x, y];
+        //         }
+        //     }
+        //
+        //     // Initialize cluster centers based on the biome data
+        //     MountainTileType[,] tileMap = new MountainTileType[scaledBlueprint.GetLength(0), scaledBlueprint.GetLength(1)];
+        //     Dictionary<MountainTileType, List<Vector2Int>> clusterCenters;
+        //     InitializeClusterCenters(scaledBlueprint, _currentBiome, out clusterCenters);
+        //
+        //     // Expand clusters to create organic distributions of mountain types
+        //     ExpandClustersParallel(scaledBlueprint, clusterCenters, tileMap, _currentBiome);
+        //
+        //     // Batch spawn mountains
+        //     for (int x = 0; x < tileMap.GetLength(0); x++)
+        //     {
+        //         for (int y = 0; y < tileMap.GetLength(1); y++)
+        //         {
+        //             var mountainType = tileMap[x, y];
+        //             if (mountainType != MountainTileType.Empty)
+        //             {
+        //                 var mountainData = _currentBiome.GetMountainSettings(mountainType);
+        //                 _mountainsHandler.SpawnMountain(mountainData, x + 0.5f, y + 0.5f);
+        //             }
+        //         }
+        //     }
+        //
+        //     yield return null;
+        // }
+
+        // private void InitializeClusterCenters(bool[,] scaledBlueprint, BiomeSettings biomeSettings, out Dictionary<MountainTileType, List<Vector2Int>> clusterCenters)
+        // {
+        //     clusterCenters = new Dictionary<MountainTileType, List<Vector2Int>>();
+        //
+        //     foreach (var mountainType in Enum.GetValues(typeof(MountainTileType)).Cast<MountainTileType>())
+        //     {
+        //         if (mountainType == MountainTileType.Empty) continue;
+        //
+        //         int centerCount = CalculateCenterCountForMountainType(mountainType, biomeSettings, scaledBlueprint);
+        //
+        //         clusterCenters[mountainType] = new List<Vector2Int>();
+        //
+        //         for (int i = 0; i < centerCount; i++)
+        //         {
+        //             Vector2Int center;
+        //             do
+        //             {
+        //                 center = new Vector2Int(Random.Range(0, scaledBlueprint.GetLength(0)), Random.Range(0, scaledBlueprint.GetLength(1)));
+        //             } while (!scaledBlueprint[center.x, center.y] || clusterCenters[mountainType].Contains(center));
+        //
+        //             clusterCenters[mountainType].Add(center);
+        //         }
+        //     }
+        // }
 
         private int CalculateCenterCountForMountainType(MountainTileType mountainType, BiomeSettings biomeSettings, bool[,] scaledBlueprint)
         {
@@ -568,57 +718,57 @@ namespace Systems.World_Building.Scripts
             return centerCount;
         }
 
-        private void ExpandClustersParallel(bool[,] scaledBlueprint, Dictionary<MountainTileType, List<Vector2Int>> clusterCenters, MountainTileType[,] tileMap, BiomeSettings biomeSettings)
-        {
-            var maxTilesPerType = CalculateMaxTilesPerType(scaledBlueprint, biomeSettings);
-            var currentTilesPerType = new ConcurrentDictionary<MountainTileType, int>();
-
-            foreach (var type in maxTilesPerType.Keys)
-            {
-                currentTilesPerType[type] = 0;
-            }
-
-            Parallel.ForEach(clusterCenters.Keys, mountainType =>
-            {
-                if (mountainType == biomeSettings.DefaultMountainType) return;
-
-                foreach (var center in clusterCenters[mountainType])
-                {
-                    Queue<Vector2Int> frontier = new Queue<Vector2Int>();
-                    frontier.Enqueue(center);
-
-                    while (frontier.Count > 0 && currentTilesPerType[mountainType] < maxTilesPerType[mountainType])
-                    {
-                        Vector2Int current = frontier.Dequeue();
-                        if (IsWithinBounds(current, scaledBlueprint) && scaledBlueprint[current.x, current.y] && tileMap[current.x, current.y] == MountainTileType.Empty)
-                        {
-                            lock (tileMap)
-                            {
-                                tileMap[current.x, current.y] = mountainType;
-                                currentTilesPerType[mountainType]++;
-                            }
-
-                            Vector2Int[] neighbors = {
-                                new Vector2Int(current.x, current.y + 1),
-                                new Vector2Int(current.x, current.y - 1),
-                                new Vector2Int(current.x + 1, current.y),
-                                new Vector2Int(current.x - 1, current.y)
-                            };
-
-                            foreach (var neighbor in neighbors)
-                            {
-                                if (IsWithinBounds(neighbor, scaledBlueprint) && scaledBlueprint[neighbor.x, neighbor.y] && tileMap[neighbor.x, neighbor.y] == MountainTileType.Empty)
-                                {
-                                    frontier.Enqueue(neighbor);
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-
-            FillRemainingWithDefault(scaledBlueprint, tileMap, biomeSettings.DefaultMountainType);
-        }
+        // private void ExpandClustersParallel(bool[,] scaledBlueprint, Dictionary<MountainTileType, List<Vector2Int>> clusterCenters, MountainTileType[,] tileMap, BiomeSettings biomeSettings)
+        // {
+        //     var maxTilesPerType = CalculateMaxTilesPerType(scaledBlueprint, biomeSettings);
+        //     var currentTilesPerType = new ConcurrentDictionary<MountainTileType, int>();
+        //
+        //     foreach (var type in maxTilesPerType.Keys)
+        //     {
+        //         currentTilesPerType[type] = 0;
+        //     }
+        //
+        //     Parallel.ForEach(clusterCenters.Keys, mountainType =>
+        //     {
+        //         if (mountainType == biomeSettings.DefaultMountainType) return;
+        //
+        //         foreach (var center in clusterCenters[mountainType])
+        //         {
+        //             Queue<Vector2Int> frontier = new Queue<Vector2Int>();
+        //             frontier.Enqueue(center);
+        //
+        //             while (frontier.Count > 0 && currentTilesPerType[mountainType] < maxTilesPerType[mountainType])
+        //             {
+        //                 Vector2Int current = frontier.Dequeue();
+        //                 if (IsWithinBounds(current, scaledBlueprint) && scaledBlueprint[current.x, current.y] && tileMap[current.x, current.y] == MountainTileType.Empty)
+        //                 {
+        //                     lock (tileMap)
+        //                     {
+        //                         tileMap[current.x, current.y] = mountainType;
+        //                         currentTilesPerType[mountainType]++;
+        //                     }
+        //
+        //                     Vector2Int[] neighbors = {
+        //                         new Vector2Int(current.x, current.y + 1),
+        //                         new Vector2Int(current.x, current.y - 1),
+        //                         new Vector2Int(current.x + 1, current.y),
+        //                         new Vector2Int(current.x - 1, current.y)
+        //                     };
+        //
+        //                     foreach (var neighbor in neighbors)
+        //                     {
+        //                         if (IsWithinBounds(neighbor, scaledBlueprint) && scaledBlueprint[neighbor.x, neighbor.y] && tileMap[neighbor.x, neighbor.y] == MountainTileType.Empty)
+        //                         {
+        //                             frontier.Enqueue(neighbor);
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     });
+        //
+        //     FillRemainingWithDefault(scaledBlueprint, tileMap, biomeSettings.DefaultMountainType);
+        // }
 
         private void FillRemainingWithDefault(bool[,] scaledBlueprint, MountainTileType[,] tileMap, MountainTileType defaultType)
         {

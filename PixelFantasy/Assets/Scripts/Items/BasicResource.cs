@@ -25,7 +25,8 @@ namespace Items
 
         protected Spawner spawner => Spawner.Instance;
         protected Action _onResourceClearedCallback;
-        
+
+        protected ResourceSettings _settings;
         public DataLibrary DataLibrary;
         
         [DataObjectDropdown("DataLibrary", true)]
@@ -34,6 +35,7 @@ namespace Items
         
         public virtual void InitializeResource(ResourceSettings settings)
         {
+            _settings = settings;
             var data = settings.CreateInitialDataObject();
 
             DataLibrary.RegisterInitializationCallback(() =>
@@ -114,10 +116,10 @@ namespace Items
 
         public virtual HarvestableItems GetHarvestableItems()
         {
-            return RuntimeData.Settings.HarvestableItems;
+            return _settings.HarvestableItems;
         }
 
-        public virtual string DisplayName => RuntimeData.Settings.title;
+        public virtual string DisplayName => _settings.title;
 
         protected virtual void Awake()
         {
@@ -217,6 +219,23 @@ namespace Items
         public virtual List<Command> GetCommands()
         {
             return new List<Command>(Commands);
+        }
+        
+        public virtual float GetCurrentHealth()
+        {
+            if (RuntimeData != null)
+            {
+                return RuntimeData.Health;
+            }
+            else
+            {
+                return _settings.MaxHealth;
+            }
+        }
+
+        public virtual float GetMaxHealth()
+        {
+            return _settings.MaxHealth;
         }
     }
 }

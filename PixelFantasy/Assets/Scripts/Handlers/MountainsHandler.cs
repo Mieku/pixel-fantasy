@@ -1,13 +1,13 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Controllers;
 using Data.Resource;
-using DataPersistence;
 using Items;
-using ScriptableObjects;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Debug = UnityEngine.Debug;
 
 namespace Handlers
 {
@@ -51,16 +51,9 @@ namespace Handlers
 
         public void DeleteMountains()
         {
-            List<GameObject> children = new List<GameObject>();
-            foreach (Transform child in transform)
+            foreach (var mountain in _mountains)
             {
-                // Destroy immediate to ensure the object is removed instantly
-                children.Add(child.gameObject);
-            }
-
-            foreach (var child in children)
-            {
-                DestroyImmediate(child);
+                Destroy(mountain.gameObject);
             }
             
             _mountains.Clear();
@@ -72,12 +65,34 @@ namespace Handlers
         {
             var spawnPosition = new Vector3(x, y, -1);
             var mountain = Instantiate(_mountainPrefab, spawnPosition, Quaternion.identity, transform);
-            mountain.InitializeResource(mountainSettings);
+            mountain.InitializeMountain(mountainSettings, spawnPosition);
             mountain.gameObject.name = mountainSettings.title;
             _mountains.Add(mountain);
         }
+
+        public IEnumerator BatchSpawnMountainsAsync(List<Vector3Int> positions, List<MountainSettings> settings, int batchSize = 100)
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            for (int i = 0; i < positions.Count; i += batchSize)
+            {
+                for (int j = 0; j < batchSize && (i + j) < positions.Count; j++)
+                {
+                    var mountain = Instantiate(_mountainPrefab, transform);
+                    mountain.InitializeMountain(settings[i + j], new Vector3(positions[i + j].x + 0.5f, positions[i + j].y + 0.5f, -1));
+                    mountain.gameObject.name = settings[i + j].title;
+                    _mountains.Add(mountain);
+                }
+
+                yield return null; // Wait for the next frame
+            }
+
+            stopwatch.Stop();
+            Debug.Log($"Batch spawning {positions.Count} mountains took {stopwatch.ElapsedMilliseconds} ms");
+        }
     }
-    
+
     public class MountainStats
     {
         public MountainSettings MountainSettings;

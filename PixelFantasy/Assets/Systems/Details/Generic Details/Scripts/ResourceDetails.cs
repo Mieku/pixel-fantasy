@@ -71,7 +71,7 @@ namespace Systems.Details.Generic_Details.Scripts
         {
             if(!_isActive) return;
 
-            _parentDetails.SetDurabilityFill(_basicResource.RuntimeData.Health, _basicResource.RuntimeData.MaxHealth);
+            _parentDetails.SetDurabilityFill(_basicResource.GetCurrentHealth(), _basicResource.GetMaxHealth());
             
             RefreshGrowthDisplay();
         }
@@ -172,5 +172,7 @@ namespace Systems.Details.Generic_Details.Scripts
                 _seperatorHandle.gameObject.SetActive(false);
             }
         }
+
+        
     }
 }

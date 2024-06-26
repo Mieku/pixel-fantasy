@@ -6,6 +6,8 @@ using Systems.Appearance.Scripts;
 using Systems.Stats.Scripts;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Diagnostics;
+using Debug = UnityEngine.Debug;
 
 namespace Items
 {
@@ -17,67 +19,48 @@ namespace Items
 
         private Tilemap _mountainTM => TilemapController.Instance.GetTilemap(TilemapLayer.Mountain);
         private Tilemap _dirtTM => TilemapController.Instance.GetTilemap(TilemapLayer.Dirt);
-        
+
         public MountainResourceData RuntimeMountainData => RuntimeData as MountainResourceData;
-        
+        public override string DisplayName => MountainSettings.title;
+
         protected override void Awake()
         {
             base.Awake();
-            
-            _tempPlacementDisp.SetActive(false);
-        }
-        
-        public override void InitializeResource(ResourceSettings settings)
-        {
-            var data = settings.CreateInitialDataObject();
-
-            DataLibrary.RegisterInitializationCallback(() =>
-            {
-                RuntimeData = (ResourceData)DataLibrary.CloneDataObjectToRuntime(data, gameObject);
-                RuntimeData.InitData(settings);
-                RuntimeData.Position = transform.position;
-                
-                UpdateSprite();
-                
-                DataLibrary.OnSaved += Saved;
-                DataLibrary.OnLoaded += Loaded;
-                
-                Refresh();
-            });
-            
             _tempPlacementDisp.SetActive(false);
         }
 
-        protected override void UpdateSprite()
-        {
-            // No sprite in need of updating
-        }
+        public MountainSettings MountainSettings { get; private set; }
 
-        private void Refresh()
+        public void InitializeMountain(MountainSettings settings, Vector3 position)
         {
+            transform.position = position;
+            MountainSettings = settings;
+            
             SetTile();
-        }
-        
-        public override UnitAction GetExtractActionAnim()
-        {
-            return UnitAction.Swinging;
-        }
 
-        protected override void ExtractResource(StatsData stats)
-        {
-            MineMountain();
-            base.ExtractResource(stats);
+            _tempPlacementDisp.SetActive(false);
         }
 
         private void SetTile()
         {
             var cell = _mountainTM.WorldToCell(transform.position);
-            _mountainTM.SetTile(cell, RuntimeMountainData.GetRuleTile());
+            _mountainTM.SetTile(cell, MountainSettings.RuleTile);
 
             var dirtCell = _dirtTM.WorldToCell(transform.position);
             _dirtTM.SetTile(dirtCell, _dirtRuleTile);
         }
-        
+
+        public void InitializeRuntimeDataIfNeeded()
+        {
+            if (RuntimeData == null)
+            {
+                var data = MountainSettings.CreateInitialDataObject();
+                RuntimeData = (ResourceData)DataLibrary.CloneDataObjectToRuntime(data, gameObject);
+                RuntimeData.InitData(MountainSettings);
+                RuntimeData.Position = transform.position;
+            }
+        }
+
         public void TintTile()
         {
             var cell = _mountainTM.WorldToCell(transform.position);
@@ -92,14 +75,14 @@ namespace Items
                 _mountainTM.SetColor(cell, Color.white);
             }
         }
-        
+
         public void MineMountain()
         {
-            // Clear Mountain Tile
+            InitializeRuntimeDataIfNeeded();
+
             var mountainCell = _mountainTM.WorldToCell(transform.position);
             _mountainTM.SetTile(mountainCell, null);
-                        
-            // Spawn Resources
+
             var minedDrops = RuntimeMountainData.GetMineDrop();
             foreach (var minedDrop in minedDrops)
             {
@@ -109,8 +92,54 @@ namespace Items
                 }
             }
 
-            // Delete Self
             RefreshSelection();
+        }
+
+        public override float GetCurrentHealth()
+        {
+            if (RuntimeData != null)
+            {
+                return RuntimeData.Health;
+            }
+            else
+            {
+                return MountainSettings.MaxHealth;
+            }
+        }
+
+        public override float GetMaxHealth()
+        {
+            return MountainSettings.MaxHealth;
+        }
+
+        public override HarvestableItems GetHarvestableItems()
+        {
+            return MountainSettings.HarvestableItems;
+        }
+
+        public override UnitAction GetExtractActionAnim()
+        {
+            return UnitAction.Swinging;
+        }
+
+        protected override void ExtractResource(StatsData stats)
+        {
+            MineMountain();
+            base.ExtractResource(stats);
+        }
+
+        public override bool DoExtractionWork(StatsData stats)
+        {
+            InitializeRuntimeDataIfNeeded();
+            var workAmount = stats.GetActionSpeedForSkill(MountainSettings.ExtractionSkillType, transform);
+            RuntimeData.Health -= workAmount;
+            if (RuntimeData.Health <= 0)
+            {
+                ExtractResource(stats);
+                return true;
+            }
+            
+            return false;
         }
     }
 }
