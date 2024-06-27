@@ -1,4 +1,6 @@
 
+using ScriptableObjects;
+
 public class DoorData : ConstructionData
 {
     public DoorSettings DoorSettings;

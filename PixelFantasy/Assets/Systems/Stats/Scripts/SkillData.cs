@@ -1,8 +1,5 @@
 using System;
-using Databrain.Attributes;
 using ScriptableObjects;
-using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Systems.Stats.Scripts

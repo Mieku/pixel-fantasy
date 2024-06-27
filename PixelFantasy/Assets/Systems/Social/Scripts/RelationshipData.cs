@@ -1,10 +1,6 @@
 using System;
 using Characters;
-using Databrain.Attributes;
-using Managers;
-using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Systems.Social.Scripts

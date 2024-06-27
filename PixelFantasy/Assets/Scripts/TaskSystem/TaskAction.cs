@@ -60,7 +60,6 @@ namespace TaskSystem
         public void InitAction(Task task, Kinling kinling)
         {
             _task = task;
-            _task.KinlingAssignedToTask = kinling;
         }
 
         /// <summary>
@@ -182,7 +181,6 @@ namespace TaskSystem
             }
             
             _ai.CurrentTaskDone();
-            _task.KinlingAssignedToTask = null;
         }
         
         private void Event_OnTaskCancelled(string taskID, PlayerInteractable requestor)

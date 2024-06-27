@@ -7,6 +7,7 @@ using Controllers;
 using Handlers;
 using Interfaces;
 using Managers;
+using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Systems.Stats.Scripts;
 using TaskSystem;

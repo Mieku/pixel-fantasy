@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Characters;
 using Items;
 using Managers;
+using ScriptableObjects;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Furniture Settings", menuName = "Settings/Furniture Settings")]

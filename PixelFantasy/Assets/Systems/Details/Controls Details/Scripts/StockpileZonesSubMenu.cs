@@ -1,5 +1,3 @@
-using Databrain;
-using Databrain.Attributes;
 using Systems.Zones.Scripts;
 using UnityEngine;
 
@@ -7,9 +5,8 @@ namespace Systems.Details.Controls_Details.Scripts
 {
     public class StockpileZonesSubMenu : ControlsMenu
     {
-        public DataLibrary DataLibrary;
         [SerializeField] private ControlsBtn _genericBtn;
-        [DataObjectDropdown("DataLibrary", true)] [SerializeField] private StockpileZoneSettings _genericStockpileSettings;
+        [SerializeField] private StockpileZoneSettings _genericStockpileSettings;
         
         public override void Show()
         {

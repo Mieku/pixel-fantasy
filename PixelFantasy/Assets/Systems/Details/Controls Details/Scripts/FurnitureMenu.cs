@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Databrain;
-using Databrain.Attributes;
 using Systems.Details.Build_Details.Scripts;
 using UnityEngine;
 
@@ -18,15 +16,13 @@ namespace Systems.Details.Controls_Details.Scripts
         [SerializeField] private ControlsBtn _lightingBtn;
 
         [SerializeField] private BuildFurnitureDetailsUI _buildFurnitureDetails;
-        
-        public DataLibrary DataLibrary;
-        
-        [DataObjectDropdown("DataLibrary")] [SerializeField] private List<StorageSettings> _storageOptions;
-        [DataObjectDropdown("DataLibrary")] [SerializeField] private List<FurnitureSettings> _decorationOptions;
-        [DataObjectDropdown("DataLibrary")] [SerializeField] private List<CraftingTableSettings> _productionOptions;
-        [DataObjectDropdown("DataLibrary")] [SerializeField] private List<CraftingTableSettings> _craftingOptions;
-        [DataObjectDropdown("DataLibrary")] [SerializeField] private List<FurnitureSettings> _lightingOptions;
-        [DataObjectDropdown("DataLibrary")] [SerializeField] private List<FurnitureSettings> _lifestyleOptions;
+
+        [SerializeField] private List<StorageSettings> _storageOptions;
+        [SerializeField] private List<FurnitureSettings> _decorationOptions;
+        [SerializeField] private List<CraftingTableSettings> _productionOptions;
+        [SerializeField] private List<CraftingTableSettings> _craftingOptions;
+        [SerializeField] private List<FurnitureSettings> _lightingOptions;
+        [SerializeField] private List<FurnitureSettings> _lifestyleOptions;
         
         public override void Show()
         {

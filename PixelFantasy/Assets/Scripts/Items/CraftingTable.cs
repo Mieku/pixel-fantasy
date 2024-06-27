@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Characters;
 using Managers;
+using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Systems.Crafting.Scripts;
 using TaskSystem;

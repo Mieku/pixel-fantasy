@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Characters;
-using Databrain.Attributes;
 using Items;
 using Managers;
+using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -263,5 +263,5 @@ public class FurnitureVariant
 public class ColourOptions
 {
     public string ColourOptionsHeader;
-    [DataObjectDropdown] public List<DyeSettings> DyePalettes;
+    public List<DyeSettings> DyePalettes;
 }

@@ -31,11 +31,9 @@ MonoBehaviour:
     assemblyNames:
     - NodeCanvas
     - Assembly-CSharp-firstpass
-    - Databrain.UnityAsync
     - ParadoxNotion
     - Assembly-CSharp
     - TileWorldCreator.OdinSerializer
-    - Databrain
     - QFSW.QC
     - PsdPlugin
     - QFSW.QC.Extras

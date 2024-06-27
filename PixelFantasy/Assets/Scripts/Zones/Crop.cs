@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Characters;
 using Controllers;
-using Databrain.Attributes;
 using DataPersistence;
 using Items;
 using Managers;
@@ -21,8 +20,6 @@ namespace Zones
         // Soil Types
         [SerializeField] private Sprite _soilHole, _soilCovered, _soilWatered;
         
-        [DataObjectDropdown("DataLibrary")]
-        public CropData Data;
         public CropData RuntimeData;
 
         private CropSettings _cropSettings;

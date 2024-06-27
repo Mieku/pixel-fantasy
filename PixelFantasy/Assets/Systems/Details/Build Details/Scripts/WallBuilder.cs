@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Controllers;
 using Managers;
+using ScriptableObjects;
 using Systems.Build_Controls.Scripts;
 using Systems.Buildings.Scripts;
 using Systems.CursorHandler.Scripts;

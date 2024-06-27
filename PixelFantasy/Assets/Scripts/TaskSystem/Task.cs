@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Characters;
+using Managers;
 
 namespace TaskSystem
 {
@@ -9,7 +10,7 @@ namespace TaskSystem
     {
         public string TaskId;
         public ETaskType TaskType;
-        public Kinling KinlingAssignedToTask;
+        //public Kinling KinlingAssignedToTask;
         public PlayerInteractable Requestor => _requestor;
         public object Payload;
         public List<ItemData> Materials;
@@ -55,9 +56,10 @@ namespace TaskSystem
                 TaskManager.Instance.CancelTask(TaskId, Requestor);
             }
 
-            if (KinlingAssignedToTask != null)
+            var kinlingAssignedToTask = KinlingsManager.Instance.AllKinlings.Find(k => k.CurrentTaskAction.TaskId == TaskId);
+            if (kinlingAssignedToTask != null)
             {
-                KinlingAssignedToTask.TaskAI.CancelTask(TaskId);
+                kinlingAssignedToTask.Kinling.TaskAI.CancelTask(TaskId);
             }
             
             OnTaskCancel?.Invoke();

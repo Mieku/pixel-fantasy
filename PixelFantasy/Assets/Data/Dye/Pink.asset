@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98d91be02ec389747b7c211ec74a8573, type: 3}
   m_Name: Pink
   m_EditorClassIdentifier: 
+  _colourName: Pink
   Primary: {r: 0.6795426, g: 0.2015563, b: 0.4910209, a: 1}
   PrimaryShade: {r: 0.4910209, g: 0.1441285, b: 0.35640025, a: 1}
   Accent: {r: 0.6795426, g: 0.6795426, b: 0.6795426, a: 1}

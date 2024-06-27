@@ -4,6 +4,7 @@ using Characters;
 using CodeMonkey.Utils;
 using Controllers;
 using Items;
+using ScriptableObjects;
 using Systems.Buildings.Scripts;
 using Systems.Notifications.Scripts;
 using UnityEngine;

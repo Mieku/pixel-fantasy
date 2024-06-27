@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Characters;
-using Databrain;
-using Databrain.Attributes;
 using Interfaces;
 using Managers;
 using TaskSystem;
@@ -28,9 +26,6 @@ namespace Items
 
         protected ItemSettings _settings;
 
-        public DataLibrary DataLibrary;
-        
-        [DataObjectDropdown("DataLibrary")]
         public ItemData RuntimeData;
         public Action OnChanged { get; set; }
         

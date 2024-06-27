@@ -1,5 +1,7 @@
 
 
+using ScriptableObjects;
+
 public class WallData : ConstructionData
 {
     public WallSettings SelectedWallOption;
