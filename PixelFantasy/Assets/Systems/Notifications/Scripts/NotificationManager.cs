@@ -45,7 +45,7 @@ namespace Systems.Notifications.Scripts
                 GameTime = gameTime,
                 Message = message,
                 LogType = logType,
-                Payload = kinling.RuntimeData.guid,
+                Payload = kinling.RuntimeData.UniqueID,
                 PayloadType = LogData.ELogPayloadType.Kinling
             };
             
@@ -66,7 +66,7 @@ namespace Systems.Notifications.Scripts
                 GameTime = gameTime,
                 Message = message,
                 LogType = logType,
-                Payload = kinling.RuntimeData.guid,
+                Payload = kinling.RuntimeData.UniqueID,
                 PayloadType = LogData.ELogPayloadType.Kinling
             };
             

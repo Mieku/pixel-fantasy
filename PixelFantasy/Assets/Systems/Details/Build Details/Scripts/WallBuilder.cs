@@ -1,12 +1,10 @@
 using System.Collections.Generic;
 using Controllers;
-using Data.Dye;
 using Managers;
 using Systems.Build_Controls.Scripts;
 using Systems.Buildings.Scripts;
 using Systems.CursorHandler.Scripts;
 using UnityEngine;
-using WallSettings = Data.Structure.WallSettings;
 
 namespace Systems.Details.Build_Details.Scripts
 {
@@ -16,7 +14,7 @@ namespace Systems.Details.Build_Details.Scripts
         [SerializeField] private Sprite _placementIcon;
         
         private WallSettings _wallSettings;
-        private DyeData _colour;
+        private DyeSettings _colour;
         private bool _isEnabled;
         private bool _isPlanning;
         private Vector2 _startPos;
@@ -81,7 +79,7 @@ namespace Systems.Details.Build_Details.Scripts
             }
         }
 
-        public void BeginWallBuild(WallSettings wallSettings, DyeData colour)
+        public void BeginWallBuild(WallSettings wallSettings, DyeSettings colour)
         {
             _wallSettings = wallSettings;
             _colour = colour;

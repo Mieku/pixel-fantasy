@@ -1,21 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Buildings;
 using Characters;
-using Data.Item;
-using Data.Structure;
-using Data.Zones;
 using HUD;
 using Interfaces;
-using Items;
 using Managers;
 using Popups;
-using ScriptableObjects;
-using Systems.Build_Controls.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
-using Zones;
 
 namespace Controllers
 {

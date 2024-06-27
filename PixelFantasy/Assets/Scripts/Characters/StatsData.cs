@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Databrain.Attributes;
 using ScriptableObjects;
+using Systems.Appearance.Scripts;
 using Systems.Stats.Scripts;
 using TaskSystem;
 using UnityEngine;
@@ -12,47 +12,62 @@ namespace Characters
     [Serializable]
     public class StatsData
     {
-        [ExposeToInspector, DatabrainSerialize]
         public SkillData MeleeSkill;
-        
-        [ExposeToInspector, DatabrainSerialize]
         public SkillData RangedSkill;
-        
-        [ExposeToInspector, DatabrainSerialize]
         public SkillData ConstructionSkill;
-        
-        [ExposeToInspector, DatabrainSerialize]
         public SkillData MiningSkill;
-        
-        [ExposeToInspector, DatabrainSerialize]
         public SkillData BotanySkill;
-        
-        [ExposeToInspector, DatabrainSerialize]
         public SkillData CookingSkill;
-        
-        [ExposeToInspector, DatabrainSerialize]
         public SkillData CraftingSkill;
-        
-        [ExposeToInspector, DatabrainSerialize]
         public SkillData BeastMasterySkill;
-        
-        [ExposeToInspector, DatabrainSerialize]
         public SkillData MedicalSkill;
-        
-        [ExposeToInspector, DatabrainSerialize]
         public SkillData SocialSkill;
-        
-        [ExposeToInspector, DatabrainSerialize]
         public SkillData IntelligenceSkill;
 
-        [ExposeToInspector, DatabrainSerialize]
-        public List<Trait> Traits = new List<Trait>();
-
-        [ExposeToInspector, DatabrainSerialize]
+        public List<Trait> Traits;
         public History History;
-
-        [ExposeToInspector, DatabrainSerialize]
         public List<AttributeModifier> AttributeModifiers = new List<AttributeModifier>();
+
+        public StatsData(RaceSettings race)
+        {
+            MeleeSkill = new SkillData(race.GetSkillSettingsByType(ESkillType.Melee));
+            RangedSkill = new SkillData(race.GetSkillSettingsByType(ESkillType.Ranged));
+            ConstructionSkill = new SkillData(race.GetSkillSettingsByType(ESkillType.Construction));
+            MiningSkill = new SkillData(race.GetSkillSettingsByType(ESkillType.Mining));
+            BotanySkill = new SkillData(race.GetSkillSettingsByType(ESkillType.Botany));
+            CookingSkill = new SkillData(race.GetSkillSettingsByType(ESkillType.Cooking));
+            CraftingSkill = new SkillData(race.GetSkillSettingsByType(ESkillType.Crafting));
+            BeastMasterySkill = new SkillData(race.GetSkillSettingsByType(ESkillType.BeastMastery));
+            MedicalSkill = new SkillData(race.GetSkillSettingsByType(ESkillType.Medical));
+            SocialSkill = new SkillData(race.GetSkillSettingsByType(ESkillType.Social));
+            IntelligenceSkill = new SkillData(race.GetSkillSettingsByType(ESkillType.Intelligence));
+
+            Traits = new List<Trait>();
+            RandomizeSkillLevels();
+        }
+
+        public List<SkillData> AllSkills
+        {
+            get
+            {
+                List<SkillData> results = new List<SkillData>
+                { 
+                    MeleeSkill, 
+                    RangedSkill, 
+                    ConstructionSkill, 
+                    MiningSkill, 
+                    BotanySkill, 
+                    CookingSkill, 
+                    CraftingSkill, 
+                    BeastMasterySkill, 
+                    MedicalSkill, 
+                    SocialSkill, 
+                    IntelligenceSkill 
+                };
+
+                return results;
+            }
+        }
 
         public SkillData GetSkillByType(ESkillType skillType)
         {

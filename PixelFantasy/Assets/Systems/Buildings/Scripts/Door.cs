@@ -1,9 +1,6 @@
 using System;
 using CodeMonkey.Utils;
 using Controllers;
-using Data.Dye;
-using Data.Item;
-using Data.Structure;
 using Managers;
 using TaskSystem;
 using UnityEngine;
@@ -14,8 +11,8 @@ namespace Systems.Buildings.Scripts
     public class Door : StructurePiece
     {
         private Tilemap _wallTilemap;
-        // private EDoorState _doorState;
-        // private DoorSettings _doorSettings;
+        private DoorSettings _settings;
+        
         public Action OnDoorPlaced;
 
         [SerializeField] private SpriteRenderer _doorSprite;
@@ -28,6 +25,7 @@ namespace Systems.Buildings.Scripts
         private bool _isBeingPlaced => RuntimeDoorData.State == EConstructionState.Planning;
         
         public DoorData RuntimeDoorData => RuntimeData as DoorData;
+        public override string DisplayName => _settings.DoorName;
         
         protected override void Awake()
         {
@@ -36,28 +34,15 @@ namespace Systems.Buildings.Scripts
             _wallTilemap = TilemapController.Instance.GetTilemap(TilemapLayer.Structure);
         }
 
-        // public void Init(DoorSettings doorSettings)
-        // {
-        //     _doorSettings = doorSettings;
-        //     SetState(EDoorState.BeingPlaced);
-        //     SetOrientationVertical(false);
-        // }
-
-        public void Init(Data.Structure.DoorSettings doorSettings, DyeData matColour)
+        public void Init(DoorSettings doorSettings, DyeSettings matColour)
         {
-            DataLibrary.RegisterInitializationCallback(() =>
-            {
-                RuntimeData = (DoorData) DataLibrary.CloneDataObjectToRuntime(Data, gameObject);
-                RuntimeDoorData.AssignDoorSettings(doorSettings, matColour);
-                RuntimeDoorData.Position = transform.position;
-                RuntimeDoorData.title = doorSettings.title;
-                
-                DataLibrary.OnSaved += Saved;
-                DataLibrary.OnLoaded += Loaded;
-                
-                SetState(EConstructionState.Planning);
-                SetOrientationVertical(false);
-            });
+            _settings = doorSettings;
+            RuntimeData = new DoorData();
+            RuntimeDoorData.AssignDoorSettings(doorSettings, matColour);
+            RuntimeDoorData.Position = transform.position;
+            
+            SetState(EConstructionState.Planning);
+            SetOrientationVertical(false);
         }
         
         protected void Saved()

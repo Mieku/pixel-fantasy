@@ -1,10 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using Data.Item;
 using Items;
 using UnityEngine;
-using EFoodType = Data.Item.EFoodType;
-using EToolType = Data.Item.EToolType;
 
 namespace Managers
 {

@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using Data.Item;
 using Items;
 using Managers;
 using Systems.Appearance.Scripts;
-using UnityEngine;
 
 namespace TaskSystem
 {
@@ -72,7 +70,7 @@ namespace TaskSystem
                         var craftedData = item.RuntimeData as CraftedItemData;
                         if (craftedData != null)
                         {
-                            craftedData.CraftersUID = _ai.Kinling.RuntimeData.guid;
+                            craftedData.CraftersUID = _ai.Kinling.RuntimeData.UniqueID;
                             
                             // TODO: Determine and apply the item's quality
                         }

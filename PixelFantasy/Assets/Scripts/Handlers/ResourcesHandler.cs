@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Data.Resource;
 using UnityEngine;
 
 namespace Handlers
@@ -25,7 +24,7 @@ namespace Handlers
         public void SpawnResource(ResourceSettings resourceSettings, Vector2 spawnPos)
         {
             var resource = Instantiate(resourceSettings.Prefab, new Vector3(spawnPos.x, spawnPos.y, -1), Quaternion.identity, transform);
-            resource.gameObject.name = resourceSettings.title;
+            resource.gameObject.name = resourceSettings.ResourceName;
             resource.InitializeResource(resourceSettings);
         }
     }

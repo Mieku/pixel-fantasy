@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Characters;
-using Data.Item;
 using Databrain;
 using Databrain.Attributes;
 using Interfaces;
@@ -27,6 +26,8 @@ namespace Items
 
         public IStorage AssignedStorage;
 
+        protected ItemSettings _settings;
+
         public DataLibrary DataLibrary;
         
         [DataObjectDropdown("DataLibrary")]
@@ -50,25 +51,17 @@ namespace Items
         
         public void InitializeItem(ItemSettings settings, bool allowed)
         {
-           // Data = data;
-           var data = settings.CreateInitialDataObject();
+            _settings = settings;
+            RuntimeData = new ItemData();
+            RuntimeData.InitData(settings);
+            RuntimeData.Position = transform.position;
+            
+            DisplayItemSprite();
 
-            DataLibrary.RegisterInitializationCallback(() =>
+            if (allowed)
             {
-                RuntimeData = (ItemData)DataLibrary.CloneDataObjectToRuntime(data, gameObject);
-                RuntimeData.LinkedItem = this;
-                RuntimeData.InitData(settings);
-
-                DisplayItemSprite();
-
-                if (allowed)
-                {
-                    SeekForSlot();
-                }
-
-                DataLibrary.OnSaved += Saved;
-                DataLibrary.OnLoaded += Loaded;
-            });
+                SeekForSlot();
+            }
         }
 
         public void LoadItemData(ItemData data, bool canHaul)
@@ -81,9 +74,6 @@ namespace Items
             {
                 SeekForSlot();
             }
-            
-            DataLibrary.OnSaved += Saved;
-            DataLibrary.OnLoaded += Loaded;
         }
         
         protected void Saved()

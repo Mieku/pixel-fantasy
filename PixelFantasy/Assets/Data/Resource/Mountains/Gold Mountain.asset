@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3ccc1efa57b6f24ebbd62349e67717c, type: 3}
+  m_Name: Gold Mountain
+  m_EditorClassIdentifier: 
+  _resourceName: Gold Mountain
+  _prefab: {fileID: 5442789227045615136, guid: a2f1f897b269aef4bb1bc9e05066305d, type: 3}
+  _workToExtract: 60
+  _harvestableItems:
+    _itemDrops:
+    - Item: {fileID: 11400000, guid: d9d098fd60920024c9790d6d0f60801b, type: 2}
+      MinDrop: 1
+      MaxDrop: 2
+  _potentialSprites: []
+  _maxHealth: 60
+  _minWorkDistance: 0.75
+  _extractionSkillType: 0
+  _ruleTile: {fileID: 11400000, guid: 3bab186eaf5aef14aacaecfacdae194a, type: 2}
+  _mountainTileType: 6

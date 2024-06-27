@@ -1,6 +1,5 @@
 using System;
 using Controllers;
-using Data.Zones;
 using Sirenix.OdinInspector;
 using Systems.Details.Build_Details.Scripts;
 using Systems.Zones.Scripts;
@@ -44,10 +43,10 @@ namespace Systems.Details.Generic_Details.Scripts
             
             switch (_zoneData.ZoneType)
             {
-                case EZoneType.Stockpile:
+                case ZoneSettings.EZoneType.Stockpile:
                     DisplayStockpileZoneDetails(_zoneData as StockpileZoneData);
                     break;
-                case EZoneType.Farm:
+                case ZoneSettings.EZoneType.Farm:
                     DisplayFarmingZoneDetails(_zoneData as FarmingZoneData);
                     break;
                 default:

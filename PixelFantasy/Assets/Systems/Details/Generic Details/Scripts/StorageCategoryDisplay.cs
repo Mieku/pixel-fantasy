@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Data.Item;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

@@ -1,10 +1,7 @@
 using System.Collections.Generic;
 using Buildings.Building_Panels;
 using Controllers;
-using Data.Dye;
-using Data.Item;
 using Managers;
-using Systems.Build_Controls.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -46,7 +43,7 @@ namespace Systems.Details.Build_Details.Scripts
         private List<VarientOptionBtn> _displayedColourOptions = new List<VarientOptionBtn>();
         private List<SelectionOptionBtn> _displayedOptions = new List<SelectionOptionBtn>();
         private FurnitureSettings _selectedFurniture;
-        private DyeData _selectedDye;
+        private DyeSettings _selectedDye;
          
         public void Show(List<FurnitureSettings> options)
         {
@@ -99,7 +96,7 @@ namespace Systems.Details.Build_Details.Scripts
         {
             _optionsSeperator.SetActive(true);
             _currentSelectionHandle.SetActive(true);
-            _itemDescription.text = furnitureSettings.description;
+            _itemDescription.text = furnitureSettings.Description;
 
             // Material Options
             if (furnitureSettings.Varients is { Count: > 0 })
@@ -239,7 +236,7 @@ namespace Systems.Details.Build_Details.Scripts
             RefreshLayout();
         }
 
-        private void ApplyColour(DyeData dye)
+        private void ApplyColour(DyeSettings dye)
         {
             _selectedDye = dye;
             TriggerFurniturePlacement(_selectedFurniture);

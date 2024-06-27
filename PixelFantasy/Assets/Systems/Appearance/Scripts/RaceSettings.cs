@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Characters;
 using Sirenix.OdinInspector;
+using Systems.Needs.Scripts;
 using Systems.Stats.Scripts;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -35,6 +37,50 @@ namespace Systems.Appearance.Scripts
 
         [SerializeField] private List<Trait> _allTraits = new List<Trait>();
         [SerializeField] private List<History> _allHistories = new List<History>();
+        [SerializeField] private RacialNeeds _adultNeeds;
+        
+        [BoxGroup("Skill Settings"), ShowInInspector] public MeleeSkillSettings MeleeSkillSettings { get; private set; }
+        [BoxGroup("Skill Settings"), ShowInInspector] public RangedSkillSettings RangedSkillSettings { get; private set; }
+        [BoxGroup("Skill Settings"), ShowInInspector] public ConstructionSkillSettings ConstructionSkillSettings { get; private set; }
+        [BoxGroup("Skill Settings"), ShowInInspector] public MiningSkillSettings MiningSkillSettings { get; private set; }
+        [BoxGroup("Skill Settings"), ShowInInspector] public BotanySkillSettings BotanySkillSettings { get; private set; }
+        [BoxGroup("Skill Settings"), ShowInInspector] public CookingSkillSettings CookingSkillSettings { get; private set; }
+        [BoxGroup("Skill Settings"), ShowInInspector] public CraftingSkillSettings CraftingSkillSettings { get; private set; }
+        [BoxGroup("Skill Settings"), ShowInInspector] public BeastMasterySkillSettings BeastMasterySkillSettings { get; private set; }
+        [BoxGroup("Skill Settings"), ShowInInspector] public MedicalSkillSettings MedicalSkillSettings { get; private set; }
+        [BoxGroup("Skill Settings"), ShowInInspector] public SocialSkillSettings SocialSkillSettings { get; private set; }
+        [BoxGroup("Skill Settings"), ShowInInspector] public IntelligenceSkillSettings IntelligenceSkillSettings { get; private set; }
+
+        public SkillSettings GetSkillSettingsByType(ESkillType skillType)
+        {
+            switch (skillType)
+            {
+                case ESkillType.Mining:
+                    return MiningSkillSettings;
+                case ESkillType.Cooking:
+                    return CookingSkillSettings;
+                case ESkillType.Melee:
+                    return MeleeSkillSettings;
+                case ESkillType.Ranged:
+                    return RangedSkillSettings;
+                case ESkillType.Construction:
+                    return ConstructionSkillSettings;
+                case ESkillType.Botany:
+                    return BotanySkillSettings;
+                case ESkillType.Crafting:
+                    return CraftingSkillSettings;
+                case ESkillType.BeastMastery:
+                    return BeastMasterySkillSettings;
+                case ESkillType.Medical:
+                    return MedicalSkillSettings;
+                case ESkillType.Social:
+                    return SocialSkillSettings;
+                case ESkillType.Intelligence:
+                    return IntelligenceSkillSettings;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(skillType), skillType, null);
+            }
+        }
         
         [Button("Load Male Names from file")]
         private void LoadMaleNamesFromFile()
@@ -198,6 +244,12 @@ namespace Systems.Appearance.Scripts
 
             return selectedTraits;
         }
+
+        public NeedsData GetAdultNeeds()
+        {
+            var needs = new NeedsData(_adultNeeds);
+            return needs;
+        }
     }
     
     [Serializable]
@@ -213,5 +265,15 @@ namespace Systems.Appearance.Scripts
         Child = 0,
         Adult = 1,
         Senior = 2,
+    }
+
+    [Serializable]
+    public class RacialNeeds
+    {
+        public NeedSettings Food;
+        public NeedSettings Energy;
+        public NeedSettings Fun;
+        public NeedSettings Beauty;
+        public NeedSettings Comfort;
     }
 }

@@ -1,5 +1,4 @@
 using System;
-using Data.Item;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,9 +13,9 @@ namespace Systems.Details.Build_Details.Scripts
         [SerializeField] private Color _defaultColour;
         [SerializeField] private Color _unavailableColour;
 
-        private string _optionGUID;
+        private ConstructionSettings _settings;
         private CraftRequirements _requirements;
-        private Action<MaterialOptionBtn, string> _onPressedCallback;
+        private Action<MaterialOptionBtn, ConstructionSettings> _onPressedCallback;
         private bool _isHighlighted;
         
         private void Start()
@@ -34,10 +33,10 @@ namespace Systems.Details.Build_Details.Scripts
             CheckMaterialAvailable();
         }
 
-        public void Init(string optionGUID, Sprite icon, CraftRequirements requirements,
-            Action<MaterialOptionBtn, string> onPressedCallback)
+        public void Init(ConstructionSettings settings, Sprite icon, CraftRequirements requirements,
+            Action<MaterialOptionBtn, ConstructionSettings> onPressedCallback)
         {
-            _optionGUID = optionGUID;
+            _settings = settings;
             _requirements = requirements;
             _onPressedCallback = onPressedCallback;
             _itemIcon.sprite = icon;
@@ -45,7 +44,7 @@ namespace Systems.Details.Build_Details.Scripts
 
         public void OnPressed()
         {
-            _onPressedCallback?.Invoke(this, _optionGUID);
+            _onPressedCallback?.Invoke(this, _settings);
             ShowHighlight();
         }
         

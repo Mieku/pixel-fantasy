@@ -1,9 +1,6 @@
 using System;
-using Data.Item;
-using ScriptableObjects;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Systems.Details.Build_Details.Scripts

@@ -1,16 +1,10 @@
-using System.Collections.Generic;
 using Characters;
-using Data.Item;
-using Data.Structure;
-using Data.Zones;
 using Interfaces;
-using Systems.Details.Build_Details.Scripts;
 using Systems.Details.Controls_Details.Scripts;
 using Systems.Details.Generic_Details.Scripts;
 using Systems.Details.Kinling_Details;
 using Systems.Notifications.Scripts;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace HUD
 {

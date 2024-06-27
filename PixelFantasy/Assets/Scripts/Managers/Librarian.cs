@@ -1,24 +1,16 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Buildings;
-using Data.Item;
-using Databrain;
-using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Systems.Appearance.Scripts;
 using Systems.Mood.Scripts;
 using Systems.Needs.Scripts;
-using Systems.Stats.Scripts;
 using UnityEngine;
-using CropSettings = Data.Resource.CropSettings;
-using Random = UnityEngine.Random;
+
 
 namespace Managers
 {
     public class Librarian : Singleton<Librarian>
     {
-        [SerializeField] private DataLibrary _dataLibrary;
         [SerializeField] private List<ColourData> _colourLibrary;
         [SerializeField] private List<Sprite> _sprites;
         [SerializeField] private List<SpriteRef> _orderIcons;
@@ -28,6 +20,7 @@ namespace Managers
         [SerializeField] private List<NeedSettings> _stats;
         [SerializeField] private List<EmotionSettings> _emotions;
         [SerializeField] private List<EmotionalBreakdownSettings> _emotionalBreakdowns;
+        [SerializeField] private List<ItemSettings> _itemSettings;
         
         [ShowInInspector] public readonly List<Color32> Palette = new List<Color32>
         {
@@ -96,13 +89,10 @@ namespace Managers
             new Color32(137, 30, 43, 255), 
             new Color32(87, 28, 39, 255)
         };
-
-        public DataLibrary DataLibrary => _dataLibrary;
-
+        
         public List<ItemSettings> GetAllItemSettings()
         {
-            List<ItemSettings> itemSettingsList = _dataLibrary.GetAllInitialDataObjectsByType<ItemSettings>(true);
-            List<ItemSettings> clone = new List<ItemSettings>(itemSettingsList);
+            List<ItemSettings> clone = new List<ItemSettings>(_itemSettings);
             return clone;
         }
 

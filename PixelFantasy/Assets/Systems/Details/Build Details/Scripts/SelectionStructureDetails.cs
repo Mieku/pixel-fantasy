@@ -1,8 +1,5 @@
 using System.Collections.Generic;
 using Buildings.Building_Panels;
-using Data.Dye;
-using Data.Item;
-using Data.Structure;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,18 +18,18 @@ namespace Systems.Details.Build_Details.Scripts
         private CraftRequirements _requirements;
         private List<ResourceCost> _displayedResourceCosts = new List<ResourceCost>();
         
-        public void ShowWallSelection(WallSettings wallSettings, DyeData colour)
+        public void ShowWallSelection(WallSettings wallSettings, DyeSettings colour)
         {
             _requirements = wallSettings.CraftRequirements;
-            _title.text = wallSettings.title;
+            _title.text = wallSettings.WallName;
             RefreshStatsDisplay(wallSettings.MaxDurability, wallSettings.GetStatsList());
             RefreshCraftingRequirements(_requirements);
         }
         
-        public void ShowDoorSelection(DoorSettings doorSettings, DyeData matColour)
+        public void ShowDoorSelection(DoorSettings doorSettings, DyeSettings matColour)
         {
             _requirements = doorSettings.CraftRequirements;
-            _title.text = doorSettings.title;
+            _title.text = doorSettings.DoorName;
             RefreshStatsDisplay(doorSettings.MaxDurability, doorSettings.GetStatsList());
             RefreshCraftingRequirements(_requirements);
         }
@@ -40,7 +37,7 @@ namespace Systems.Details.Build_Details.Scripts
         public void ShowFloorSelection(FloorSettings floorSettings, StyleOption styleOption)
         {
             _requirements = floorSettings.CraftRequirements;
-            _title.text = $"{floorSettings.title}";
+            _title.text = $"{floorSettings.FloorName}";
             RefreshStatsDisplay(floorSettings.MaxDurability, floorSettings.GetStatsList());
             RefreshCraftingRequirements(_requirements);
         }

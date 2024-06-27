@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c25456411e8cae14da6bee25075c4b21, type: 3}
+  m_Name: Stone Floor
+  m_EditorClassIdentifier: 
+  _floorName: Stone Floor
+  _styleOptions:
+  - StyleName: Herringbone
+    StyleIcon: {fileID: 430793170, guid: 10a1031e5a2fa3446b0eae90df80af2b, type: 3}
+    Tiles: {fileID: 11400000, guid: cf8e41359187b6644828ec949ba8e55e, type: 2}
+  - StyleName: Smooth
+    StyleIcon: {fileID: -1842436959, guid: 57447c536ada4864a9059183ebf2cbb6, type: 3}
+    Tiles: {fileID: 11400000, guid: 2363d8c9aa099b04590f3adf464403be, type: 2}
+  _maxDurability: 100
+  _craftRequirements:
+    _minCraftingSkillLevel: 4
+    _craftingSkill: 2
+    _workCost: 30
+    _requiredCraftingToolType: 0
+    _materialCosts:
+    - Item: {fileID: 11400000, guid: a38768ccf4c59324ab8ccb85562e2250, type: 2}
+      Quantity: 2
+  _materialIcon: {fileID: 21300000, guid: 286743b833fa73a4c824303d4da3e3dd, type: 3}

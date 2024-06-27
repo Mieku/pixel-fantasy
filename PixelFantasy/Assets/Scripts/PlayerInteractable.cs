@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Data.Item;
 using TaskSystem;
 using UnityEngine;
 
@@ -145,7 +144,7 @@ public abstract class PlayerInteractable : UniqueObject
 
     public virtual void ReceiveItem(ItemData item)
     {
-        Debug.LogError($"Item unexpectely received: {item.name}");
+        Debug.LogError($"Item unexpectely received: {item.Settings.ItemName}");
     }
 
     public abstract Vector2? UseagePosition(Vector2 requestorPosition);

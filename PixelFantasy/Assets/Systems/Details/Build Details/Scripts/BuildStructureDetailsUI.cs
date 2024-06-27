@@ -2,12 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Controllers;
-using Data.Dye;
-using Data.Structure;
-using Databrain;
-using Databrain.Attributes;
 using Managers;
-using Systems.Build_Controls.Scripts;
 using TMPro;
 using UnityEngine;
 
@@ -23,11 +18,10 @@ namespace Systems.Details.Build_Details.Scripts
             Floor
         }
         
-        public DataLibrary DataLibrary;
-        [DataObjectDropdown("DataLibrary")] [SerializeField] private List<DyeData> _colourOptions;
-        [DataObjectDropdown("DataLibrary")] [SerializeField] private List<WallSettings> _wallOptions;
-        [DataObjectDropdown("DataLibrary")] [SerializeField] private List<DoorSettings> _doorOptions;
-        [DataObjectDropdown("DataLibrary")] [SerializeField] private List<FloorSettings> _floorOptions;
+        [SerializeField] private List<DyeSettings> _colourOptions;
+        [SerializeField] private List<WallSettings> _wallOptions;
+        [SerializeField] private List<DoorSettings> _doorOptions;
+        [SerializeField] private List<FloorSettings> _floorOptions;
         
         [SerializeField] private WallBuilder _wallBuilder;
         [SerializeField] private FloorBuilder _floorBuilder;
@@ -55,7 +49,7 @@ namespace Systems.Details.Build_Details.Scripts
         private List<StyleOptionBtn> _displayedStyleOptions = new List<StyleOptionBtn>();
 
         private EDetailsState _state;
-        private DyeData _currentColour;
+        private DyeSettings _currentColour;
         private StyleOption _currentStyleOption;
 
         public void Show()
@@ -164,7 +158,7 @@ namespace Systems.Details.Build_Details.Scripts
             }
         }
 
-        private void ShowColourOptions(string header, Action<DyeData> onSelectedCallback)
+        private void ShowColourOptions(string header, Action<DyeSettings> onSelectedCallback)
         {
             _colourOptionBtnPrefab.gameObject.SetActive(false);
             
@@ -203,17 +197,17 @@ namespace Systems.Details.Build_Details.Scripts
             colourBtn.ShowHighlight();
         }
 
-        private void WallColourSelected(DyeData colour)
+        private void WallColourSelected(DyeSettings colour)
         {
             _currentColour = colour;
         }
         
-        private void DoorColourSelected(DyeData colour)
+        private void DoorColourSelected(DyeSettings colour)
         {
             
         }
 
-        private void ShowWallMaterialOptions(Action<string> onSelectedCallback)
+        private void ShowWallMaterialOptions(Action<WallSettings> onSelectedCallback)
         {
             HideMaterialOptions();
             _currentColour = null;
@@ -222,10 +216,10 @@ namespace Systems.Details.Build_Details.Scripts
             foreach (var wallOption in _wallOptions)
             {
                 var optionBtn = Instantiate(_materialOptionBtnPrefab, _materialLayoutParent);
-                optionBtn.Init(wallOption.initialGuid, wallOption.OptionIcon, wallOption.CraftRequirements, (btn, s) =>
+                optionBtn.Init(wallOption, wallOption.OptionIcon, wallOption.CraftRequirements, (btn, s) =>
                 {
                     HighlightMaterialBtn(btn);
-                    onSelectedCallback.Invoke(s);
+                    onSelectedCallback.Invoke((WallSettings) s);
                 });
                 optionBtn.gameObject.SetActive(true);
                 _displayedMaterialOptions.Add(optionBtn);
@@ -253,14 +247,13 @@ namespace Systems.Details.Build_Details.Scripts
             matBtn.ShowHighlight();
         }
 
-        private void WallMaterialSelected(string settingsGUID)
+        private void WallMaterialSelected(WallSettings settings)
         {
             if (_currentColour == null)
             {
                 _displayedColourOptions[0].OnPressed();
             }
-
-            var settings = (WallSettings)DataLibrary.GetInitialDataObjectByGuid(settingsGUID);
+            
             DisplayCurrentWallSelection(settings);
         }
 
@@ -272,7 +265,7 @@ namespace Systems.Details.Build_Details.Scripts
             _wallBuilder.BeginWallBuild(settings, _currentColour);
         }
         
-        private void ShowDoorMaterialOptions(Action<string> onSelectedCallback)
+        private void ShowDoorMaterialOptions(Action<DoorSettings> onSelectedCallback)
         {
             HideMaterialOptions();
             _currentColour = null;
@@ -281,10 +274,10 @@ namespace Systems.Details.Build_Details.Scripts
             foreach (var doorOption in _doorOptions)
             {
                 var optionBtn = Instantiate(_materialOptionBtnPrefab, _materialLayoutParent);
-                optionBtn.Init(doorOption.initialGuid, doorOption.OptionIcon, doorOption.CraftRequirements, (btn, s) =>
+                optionBtn.Init(doorOption, doorOption.OptionIcon, doorOption.CraftRequirements, (btn, s) =>
                 {
                     HighlightMaterialBtn(btn);
-                    onSelectedCallback.Invoke(s);
+                    onSelectedCallback.Invoke((DoorSettings) s);
                 });
                 optionBtn.gameObject.SetActive(true);
                 _displayedMaterialOptions.Add(optionBtn);
@@ -294,14 +287,13 @@ namespace Systems.Details.Build_Details.Scripts
             _displayedMaterialOptions[0].OnPressed();
         }
         
-        private void DoorMaterialSelected(string settingsGUID)
+        private void DoorMaterialSelected(DoorSettings settings)
         {
             if (_currentColour == null)
             {
                 _displayedColourOptions[0].OnPressed();
             }
-
-            var settings = (DoorSettings)DataLibrary.GetInitialDataObjectByGuid(settingsGUID);
+            
             DisplayCurrentDoorSelection(settings);
         }
         
@@ -311,14 +303,14 @@ namespace Systems.Details.Build_Details.Scripts
             RefreshLayout();
             
             Spawner.Instance.CancelInput();
-            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildDoor, settings.title);
+            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildDoor, settings.DoorName);
             Spawner.Instance.PlanDoor(settings, _currentColour, () =>
             {
                 DisplayCurrentDoorSelection(settings);
             });
         }
         
-        private void ShowFloorMaterialOptions(Action<string> onSelectedCallback)
+        private void ShowFloorMaterialOptions(Action<FloorSettings> onSelectedCallback)
         {
             HideMaterialOptions();
             _currentColour = null;
@@ -328,10 +320,10 @@ namespace Systems.Details.Build_Details.Scripts
             foreach (var floorOption in _floorOptions)
             {
                 var optionBtn = Instantiate(_materialOptionBtnPrefab, _materialLayoutParent);
-                optionBtn.Init(floorOption.initialGuid, floorOption.MaterialIcon, floorOption.CraftRequirements, (btn, s) =>
+                optionBtn.Init(floorOption, floorOption.MaterialIcon, floorOption.CraftRequirements, (btn, s) =>
                 {
                     HighlightMaterialBtn(btn);
-                    onSelectedCallback.Invoke(s);
+                    onSelectedCallback.Invoke((FloorSettings) s);
                 });
                 optionBtn.gameObject.SetActive(true);
                 _displayedMaterialOptions.Add(optionBtn);
@@ -341,10 +333,8 @@ namespace Systems.Details.Build_Details.Scripts
             _displayedMaterialOptions[0].OnPressed();
         }
         
-        private void FloorMaterialSelected(string settingsGUID)
+        private void FloorMaterialSelected(FloorSettings settings)
         {
-            var settings = (FloorSettings)DataLibrary.GetInitialDataObjectByGuid(settingsGUID);
-            
             ShowStyleOptions("Styles", settings.StyleOptions.OfType<StyleOption>().ToList(), FloorStyleSelected);
 
             if (_currentStyleOption == null)

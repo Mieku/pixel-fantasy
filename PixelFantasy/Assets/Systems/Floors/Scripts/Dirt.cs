@@ -1,6 +1,5 @@
 using System;
 using Controllers;
-using Data.Item;
 using Items;
 using Managers;
 using TaskSystem;
@@ -15,6 +14,7 @@ namespace Systems.Floors.Scripts
         private EDirtState _dirtState;
 
         [SerializeField] private TileBase _dirtRuleTile;
+        public override string DisplayName => "Dirt";
 
         public enum EDirtState
         {

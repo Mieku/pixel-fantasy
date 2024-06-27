@@ -2,15 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Characters;
-using Data.Item;
 using Managers;
 using ScriptableObjects;
 using Systems.Appearance.Scripts;
 using Systems.Notifications.Scripts;
-using Systems.Stats.Scripts;
 using TaskSystem;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Systems.Social.Scripts

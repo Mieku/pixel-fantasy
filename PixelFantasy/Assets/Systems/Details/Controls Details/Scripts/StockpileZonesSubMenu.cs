@@ -1,4 +1,3 @@
-using Data.Zones;
 using Databrain;
 using Databrain.Attributes;
 using Systems.Zones.Scripts;

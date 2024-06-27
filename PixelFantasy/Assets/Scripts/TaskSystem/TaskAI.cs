@@ -2,13 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Characters;
-using Data.Item;
 using Handlers;
 using Items;
 using Managers;
-using ScriptableObjects;
 using Systems.Appearance.Scripts;
-using Systems.Stats.Scripts;
 using UnityEngine;
 
 namespace TaskSystem

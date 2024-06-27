@@ -1,5 +1,4 @@
 using System;
-using Data.Dye;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,10 +9,10 @@ namespace Systems.Details.Build_Details.Scripts
         [SerializeField] private Image _borderImg;
         [SerializeField] private Image _bgImg;
         
-        private Action<ColourOptionBtn, DyeData> _onPressedCallback;
-        private DyeData _colour;
+        private Action<ColourOptionBtn, DyeSettings> _onPressedCallback;
+        private DyeSettings _colour;
 
-        public void Init(DyeData colour, Action<ColourOptionBtn, DyeData> onPressedCallback)
+        public void Init(DyeSettings colour, Action<ColourOptionBtn, DyeSettings> onPressedCallback)
         {
             _colour = colour;
             _onPressedCallback = onPressedCallback;

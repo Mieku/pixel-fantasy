@@ -1,7 +1,4 @@
 using System;
-using Data.Dye;
-using Data.Item;
-using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -25,7 +22,7 @@ namespace Systems.Details.Build_Details.Scripts
         public bool IsColourMode;
         public bool IsDefault;
         [FormerlySerializedAs("Varient")] public FurnitureVariant Variant;
-        public DyeData DyePalette;
+        public DyeSettings DyePalette;
 
         private void Start()
         {
@@ -74,7 +71,7 @@ namespace Systems.Details.Build_Details.Scripts
             }
         }
 
-        public void Init(DyeData dyeSettings, FurnitureSettings furnitureSettings, Action<VarientOptionBtn, FurnitureSettings> onPressedCallback)
+        public void Init(DyeSettings dyeSettings, FurnitureSettings furnitureSettings, Action<VarientOptionBtn, FurnitureSettings> onPressedCallback)
         {
             IsDefault = false;
             IsColourMode = true;

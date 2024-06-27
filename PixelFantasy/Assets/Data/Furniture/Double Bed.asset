@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d730b4fc8df79c84190e2b47f8a1382e, type: 3}
+  m_Name: Double Bed
+  m_EditorClassIdentifier: 
+  _itemName: Double Bed
+  _itemSprite: {fileID: -1986180085, guid: 128e7404977fef1479d14ee0c70721c3, type: 3}
+  _category: 4
+  _maxDurability: 100
+  _maxStackSize: 1
+  _hasQuality: 1
+  _defaultQuality: 1
+  _craftRequirements:
+    _minCraftingSkillLevel: 3
+    _craftingSkill: 10
+    _workCost: 30
+    _requiredCraftingToolType: 0
+    _materialCosts:
+    - Item: {fileID: 11400000, guid: 7167b8dd21508774ebc1ceab992a07b1, type: 2}
+      Quantity: 3
+  _description: 
+  _furniturePrefab: {fileID: 5935236254734965145, guid: dd1324a0af4a86b41b638230c8941527, type: 3}
+  _inUseNeedChange:
+    SourceID: 
+    AmountPerHour: 0
+    NeedType: 0
+  _colourOptions:
+    ColourOptionsHeader: Sheet Color
+    DyePalettes: []
+  _varients: []
+  _defaultDirection: 0
+  _defaultDye: {fileID: 0}
+  _numOwners: 2

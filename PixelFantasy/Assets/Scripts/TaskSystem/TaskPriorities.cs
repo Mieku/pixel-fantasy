@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Characters;
 using Systems.Stats.Scripts;
 
 namespace TaskSystem
@@ -42,6 +43,40 @@ namespace TaskSystem
             { ETaskType.Research, 13 }
         };
 
+        public TaskPriorities(StatsData stats)
+        {
+            AssignDefaultPrioritiesByStats(stats);
+        }
+
+        private void AssignDefaultPrioritiesByStats(StatsData stats)
+        {
+            var skills = stats.AllSkills;
+            foreach (var skill in skills)
+            {
+                var taskTypes = GetAssociatedTaskTypes(skill.Settings.SkillType);
+                foreach (var taskType in taskTypes)
+                {
+                    var priority = GetPriorityByTaskType(taskType);
+                    if (skill.Incapable)
+                    {
+                        priority.Priority = ETaskPriority.Ignore;
+                    } 
+                    else if (skill.Level <= 2)
+                    {
+                        priority.Priority = ETaskPriority.Low;
+                    }
+                    else if (skill.Passion == ESkillPassion.Major)
+                    {
+                        priority.Priority = ETaskPriority.High;
+                    }
+                    else
+                    {
+                        priority.Priority = ETaskPriority.Normal;
+                    }
+                }
+            }
+        }
+
         public List<ETaskType> SortedPriorities()
         {
             var sortedPriorities = Priorities
@@ -51,6 +86,12 @@ namespace TaskSystem
                 .ToList();
 
             return sortedPriorities;
+        }
+
+        public TaskPriority GetPriorityByTaskType(ETaskType taskType)
+        {
+            var result = Priorities.Find(p => p.TaskType == taskType);
+            return result;
         }
 
         public List<ETaskType> GetAssociatedTaskTypes(ESkillType skillType)

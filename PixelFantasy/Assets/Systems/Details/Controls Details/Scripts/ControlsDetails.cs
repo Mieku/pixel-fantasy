@@ -1,7 +1,5 @@
 using System;
-using Data.Structure;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Systems.Details.Controls_Details.Scripts
 {

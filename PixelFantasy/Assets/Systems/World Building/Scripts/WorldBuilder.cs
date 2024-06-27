@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Data.Resource;
 using Handlers;
 using Sirenix.OdinInspector;
 using Systems.Game_Setup.Scripts;

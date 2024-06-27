@@ -3,17 +3,11 @@ using System.Collections.Generic;
 using Characters;
 using CodeMonkey.Utils;
 using Controllers;
-using Data.Dye;
-using Data.Item;
-using Data.Resource;
-using Data.Structure;
 using Items;
 using Systems.Buildings.Scripts;
 using Systems.Notifications.Scripts;
 using UnityEngine;
 using Zones;
-using CropSettings = Data.Resource.CropSettings;
-using DoorSettings = Data.Structure.DoorSettings;
 
 namespace Managers
 {
@@ -320,7 +314,7 @@ namespace Managers
             if (itemObject.TryGetComponent<Item>(out var initializable))
             {
                 initializable.LoadItemData(data, canBeHauled);
-                itemObject.name = data.title;
+                itemObject.name = data.ItemName;
             }
             else
             {
@@ -336,7 +330,7 @@ namespace Managers
             if (itemObject.TryGetComponent<Item>(out var initializable))
             {
                 initializable.InitializeItem(settings, canBeHauled);
-                itemObject.name = settings.title;
+                itemObject.name = settings.ItemName;
             }
             else
             {
@@ -369,7 +363,7 @@ namespace Managers
         }
         
         private Door _plannedDoor;
-        public void PlanDoor(DoorSettings doorSettings, DyeData matColour, Action onDoorPlaced = null)
+        public void PlanDoor(DoorSettings doorSettings, DyeSettings matColour, Action onDoorPlaced = null)
         {
             _plannedDoor = Instantiate(doorSettings.DoorPrefab, _structureParent);
             _plannedDoor.Init(doorSettings, matColour);
@@ -378,14 +372,14 @@ namespace Managers
 
         private Furniture _plannedFurniture;
         private FurnitureSettings _selectedFurnitureSettings;
-        private DyeData _selectedDyeOverride;
+        private DyeSettings _selectedDyeOverride;
         public Furniture SpawnFurniture(Furniture prefab, Vector3 position, Transform parent = null)
         {
             var furnitureObject = Instantiate(prefab, position, Quaternion.identity, parent ?? _furnitureParent);
             return furnitureObject.GetComponent<Furniture>();
         }
 
-        public void PlanFurniture(FurnitureSettings furnitureSettings, PlacementDirection direction, DyeData dye)
+        public void PlanFurniture(FurnitureSettings furnitureSettings, PlacementDirection direction, DyeSettings dye)
         {
             _selectedFurnitureSettings = furnitureSettings;
             _selectedDyeOverride = dye;

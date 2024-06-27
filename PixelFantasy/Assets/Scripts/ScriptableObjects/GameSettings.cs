@@ -1,3 +1,4 @@
+using System;
 using Sirenix.OdinInspector;
 using Systems.Stats.Scripts;
 using UnityEngine;
@@ -29,7 +30,6 @@ namespace ScriptableObjects
 
         [BoxGroup("Work"), ShowInInspector] public float BaseWorkPerAction { get; private set; } = 1f;
 
-        [BoxGroup("Experience"), ShowInInspector]
-        public ExperienceSettings ExpSettings;
+        [BoxGroup("Experience"), ShowInInspector] public ExperienceSettings ExpSettings;
     }
 }

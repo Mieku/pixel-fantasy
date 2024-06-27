@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Characters;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -20,6 +21,14 @@ namespace Systems.Needs.Scripts
         public bool HasTargetValue => _hasTargetValue;
 
         private Kinling _kinling;
+
+        public Need(NeedSettings settings)
+        {
+            _needSettings = settings;
+            _value = 0;
+            _targetValue = 0;
+            _hasTargetValue = false;
+        }
 
         /// <summary>
         /// Increases the Need by percentage

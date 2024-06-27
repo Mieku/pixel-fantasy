@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Data.Item;
-using Databrain;
-using Databrain.Attributes;
 using Items;
 using Systems.Appearance.Scripts;
 using Systems.Mood.Scripts;
@@ -18,96 +15,41 @@ using Random = UnityEngine.Random;
 
 namespace Characters
 {
-    [DataObjectAddToRuntimeLibrary]
-    public class KinlingData : DataObject
+    [Serializable]
+    public class KinlingData
     {
-        [ExposeToInspector, DatabrainSerialize] 
+        public string UniqueID;
         public string Nickname;
-        
-        [ExposeToInspector, DatabrainSerialize] 
         public string Firstname;
-        
-        [ExposeToInspector, DatabrainSerialize] 
         public string Lastname;
-
-        [ExposeToInspector, DatabrainSerialize] 
         public Vector2 Position;
-
-        [ExposeToInspector, DatabrainSerialize]
         public Kinling Kinling;
-        
-        [ExposeToInspector, DatabrainSerialize] 
         public int Age;
-        
-        [ExposeToInspector, DatabrainSerialize] 
         public EGender Gender;
-
-        [ExposeToInspector, DatabrainSerialize]
         public RaceSettings Race;
-        
-        [ExposeToInspector, DatabrainSerialize] 
         public ESexualPreference SexualPreference;
-        
-        // [ExposeToInspector, DatabrainSerialize] 
-        // public AppearanceData Appearance;
-
-        [ExposeToInspector, DatabrainSerialize] 
         public List<TraitSettings> Traits = new List<TraitSettings>();
-        
-        [ExposeToInspector, DatabrainSerialize]
         public KinlingData Partner;
-        
-        [ExposeToInspector, DatabrainSerialize, DataObjectDropdown] 
         public List<KinlingData> Children = new List<KinlingData>();
-        
-        [FormerlySerializedAs("Schedule")] [ExposeToInspector, DatabrainSerialize] 
         public ScheduleData Schedule;
-
-        [ExposeToInspector, DatabrainSerialize]
         public bool IsAsleep;
-
-        [ExposeToInspector, DatabrainSerialize, DataObjectDropdown]
         public FurnitureData AssignedBed;
-
-        [ExposeToInspector, DatabrainSerialize, DataObjectDropdown]
         public FurnitureData FurnitureInUse;
-
-        [ExposeToInspector, DatabrainSerialize]
         public TaskPriorities TaskPriorities;
-        
-        [ExposeToInspector, DatabrainSerialize]
         public TaskAI.TaskAIState TaskAIState;
-        
-        [ExposeToInspector, DatabrainSerialize]
         public float WaitingTimer;
-        
-        [ExposeToInspector, DatabrainSerialize]
         public float IdleTimer;
-        
-        [ExposeToInspector, DatabrainSerialize]
         public TaskAction CurrentTaskAction;
-        
-        [ExposeToInspector, DatabrainSerialize]
         public Item HeldItem;
-
-        [ExposeToInspector, DatabrainSerialize]
         public StatsData Stats;
-
-        [ExposeToInspector, DatabrainSerialize]
         public NeedsData Needs;
-
-        [ExposeToInspector, DatabrainSerialize]
         public MoodData Mood;
-        
-        [ExposeToInspector, DatabrainSerialize] 
         public List<RelationshipData> Relationships = new List<RelationshipData>();
-
-        [ExposeToInspector, DatabrainSerialize, SerializeField] 
-        private List<LogData> _personalLog = new List<LogData>();
-
-        [ExposeToInspector, DatabrainSerialize]
         public AvatarData Avatar;
 
+        [SerializeField] 
+        private List<LogData> _personalLog = new List<LogData>();
+        
         public void Randomize(RaceSettings race)
         {
             Race = race;
@@ -125,15 +67,21 @@ namespace Characters
             SexualPreference = DetermineSexuality(); 
             
             Avatar = new AvatarData(this, Gender, MaturityStage, Race);
+            Stats = new StatsData(Race);
+            Needs = Race.GetAdultNeeds();
+            Mood = new MoodData();
             
             Firstname = Race.GetRandomFirstName(Gender);
             Lastname = Race.GetRandomLastName();
             Nickname = GenerateNickname();
             
-            Stats.Traits.Clear();
-            Stats.RandomizeSkillLevels();
             AssignHistory(Race.GetRandomHistory());
             AssignTraits(Race.GetRandomTraits(Random.Range(0, 3)));
+
+            TaskPriorities = new TaskPriorities(Stats);
+            Schedule = new ScheduleData(); // TODO: Make a nightowl schedule and trait
+
+            UniqueID = CreateUID();
         }
 
         public string GenerateNickname()
@@ -228,6 +176,8 @@ namespace Characters
             Lastname = mother.Lastname;
             
             Stats.RandomizeSkillLevels();
+
+            UniqueID = CreateUID();
         }
 
         private ESexualPreference DetermineSexuality()
@@ -370,6 +320,11 @@ namespace Characters
         {
             List<LogData> log = _personalLog.ToList();
             return log;
+        }
+        
+        protected string CreateUID()
+        {
+            return $"{Fullname}_{Guid.NewGuid()}";
         }
     }
 }

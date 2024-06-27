@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f09dd6d34c4f8f148a15814f5556d48b, type: 3}
+  m_Name: Basic Crafting Area
+  m_EditorClassIdentifier: 
+  _itemName: Basic Crafting Area
+  _itemSprite: {fileID: 1670653853, guid: 49688975d6e4e9d4e9023f92ee002b97, type: 3}
+  _category: 4
+  _maxDurability: 10
+  _maxStackSize: 1
+  _hasQuality: 0
+  _defaultQuality: 1
+  _craftRequirements:
+    _minCraftingSkillLevel: 0
+    _craftingSkill: 10
+    _workCost: 0
+    _requiredCraftingToolType: 0
+    _materialCosts: []
+  _description: 
+  _furniturePrefab: {fileID: 7511741119468575872, guid: cac46f6ed332d5740a5de49433b2e3db, type: 3}
+  _inUseNeedChange:
+    SourceID: 
+    AmountPerHour: 0
+    NeedType: 0
+  _colourOptions:
+    ColourOptionsHeader: 
+    DyePalettes: []
+  _varients: []
+  _defaultDirection: 0
+  _defaultDye: {fileID: 0}
+  _numOwners: 0
+  _craftableItems:
+  - {fileID: 11400000, guid: 6c1483202b7e10f4a8181d5bd61ddb79, type: 2}
+  - {fileID: 11400000, guid: 4065859f5438fec47ab7e0bd3ff7b76a, type: 2}
+  _cookableMeals:
+  - {fileID: 11400000, guid: 8e94e576141358b47ba3b83e67a1e198, type: 2}

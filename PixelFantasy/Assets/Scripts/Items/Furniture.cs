@@ -4,10 +4,6 @@ using System.Linq;
 using Characters;
 using CodeMonkey.Utils;
 using Controllers;
-using Data.Dye;
-using Data.Item;
-using Databrain;
-using Databrain.Attributes;
 using Handlers;
 using Interfaces;
 using Managers;
@@ -39,11 +35,9 @@ namespace Items
         [TitleGroup("East")] [SerializeField] protected Transform _eastSpritesRoot;
         [TitleGroup("East")] [SerializeField] protected Transform _eastUseageMarkersRoot;
         [TitleGroup("East")] [SerializeField] protected GameObject _eastPlacementObstacle;
-
-        public DataLibrary DataLibrary;
         
-        [DataObjectDropdown("DataLibrary", true)]
         public FurnitureData RuntimeData;
+        public FurnitureSettings FurnitureSettings;
         
         protected SpriteRenderer[] _allSprites;
         protected List<SpriteRenderer> _useageMarkers;
@@ -54,7 +48,7 @@ namespace Items
         protected PlacementDirection _direction;
         private bool _isOutlineLocked;
         private ClickObject _clickObject;
-        private DyeData _dyeOverride;
+        private DyeSettings _dyeOverride;
         private readonly List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle"};
 
         public Action OnChanged { get; set; }
@@ -91,7 +85,7 @@ namespace Items
             
         }
         
-        public virtual void StartPlanning(FurnitureSettings furnitureSettings, PlacementDirection initialDirection, DyeData dye)
+        public virtual void StartPlanning(FurnitureSettings furnitureSettings, PlacementDirection initialDirection, DyeSettings dye)
         {
             _isPlanning = true;
             _dyeOverride = dye;
@@ -111,23 +105,17 @@ namespace Items
             OnChanged?.Invoke();
         }
 
-        public virtual void InitializeFurniture(FurnitureSettings furnitureSettings, PlacementDirection direction, DyeData dye)
+        public virtual void InitializeFurniture(FurnitureSettings furnitureSettings, PlacementDirection direction, DyeSettings dye)
         {
+            FurnitureSettings = furnitureSettings;
             _dyeOverride = dye;
+            RuntimeData = new FurnitureData();
+            RuntimeData.InitData(furnitureSettings);
+            RuntimeData.LinkedFurniture = this;
+            RuntimeData.Direction = direction;
             
-            DataLibrary.RegisterInitializationCallback(() =>
-            {
-                RuntimeData = (FurnitureData) DataLibrary.CloneDataObjectToRuntime(furnitureSettings.BaseData, gameObject);
-                RuntimeData.LinkedFurniture = this;
-                RuntimeData.InitData(furnitureSettings);
-                RuntimeData.Direction = direction;
-            
-                SetState(RuntimeData.State);
-                AssignDirection(direction);
-                
-                DataLibrary.OnSaved += Saved;
-                DataLibrary.OnLoaded += Loaded;
-            });
+            SetState(RuntimeData.State);
+            AssignDirection(direction);
         }
 
         public PlacementDirection RotatePlan(bool isClockwise)
@@ -731,7 +719,7 @@ namespace Items
             return Commands;
         }
         
-        public string DisplayName => RuntimeData.title;
+        public string DisplayName => RuntimeData.ItemName;
 
         public PlayerInteractable GetPlayerInteractable()
         {

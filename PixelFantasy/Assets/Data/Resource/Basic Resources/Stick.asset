@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8285d8b335c3b34c8a9497abbb5af3f, type: 3}
+  m_Name: Stick
+  m_EditorClassIdentifier: 
+  _resourceName: Stick
+  _prefab: {fileID: 2919327189383101433, guid: 83b276780b22eee4d925461adebde20c, type: 3}
+  _workToExtract: 5
+  _harvestableItems:
+    _itemDrops:
+    - Item: {fileID: 11400000, guid: 7167b8dd21508774ebc1ceab992a07b1, type: 2}
+      MinDrop: 0
+      MaxDrop: 1
+  _potentialSprites:
+  - {fileID: -168499877, guid: cde0bb39e0dd2f742954541f1d452824, type: 3}
+  _maxHealth: 5
+  _minWorkDistance: 0.75
+  _extractionSkillType: 5

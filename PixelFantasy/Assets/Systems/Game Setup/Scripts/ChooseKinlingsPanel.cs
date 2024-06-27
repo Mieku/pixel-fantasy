@@ -288,8 +288,6 @@ namespace Systems.Game_Setup.Scripts
         {
             var newKinling = _selectedKinling;
             _selectedKinling.Randomize(_selectedKinling.Race);
-            _selectedKinling.title = _selectedKinling.Fullname;
-            _selectedKinling.name = $"{_selectedKinling.Fullname}_{_selectedKinling.guid}";
             _selectedKinling.Mood.JumpMoodToTarget();
             AppearanceBuilder.Instance.UpdateAppearance(_selectedKinling);
             

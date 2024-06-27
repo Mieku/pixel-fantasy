@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e60cc67b8f34c1f4baf60dd7bd5095dc, type: 3}
+  m_Name: Orange
+  m_EditorClassIdentifier: 
+  _itemName: Orange
+  _itemSprite: {fileID: -270428748, guid: 6f37856933bf9674fb472dd26b81b58e, type: 3}
+  _category: 3
+  _maxDurability: 100
+  _maxStackSize: 25
+  _hasQuality: 0
+  _defaultQuality: 1
+  _foodType: 0
+  _nutrition: 1

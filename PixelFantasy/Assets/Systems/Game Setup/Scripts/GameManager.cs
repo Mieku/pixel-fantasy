@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Characters;
 using Controllers;
-using Data.Item;
-using Databrain;
-using Databrain.Attributes;
-using Items;
 using Managers;
 using Sirenix.OdinInspector;
 using Systems.Appearance.Scripts;
@@ -26,15 +22,6 @@ namespace Systems.Game_Setup.Scripts
         [SerializeField] private bool _generateWorldOnStart;
         [SerializeField] private int _numStarterKinlings;
 
-        public DataLibrary DataLibrary;
-        
-        [FormerlySerializedAs("_starterStockpileData")]
-        [DataObjectDropdown("DataLibrary")]
-        [BoxGroup("Starting Items")] [SerializeField] private StorageSettings _starterStockpileSettings;
-        [BoxGroup("Starting Items")] [SerializeField] private List<ItemAmount> _startingItems = new List<ItemAmount>();
-        
-        [DataObjectDropdown("DataLibrary")]
-        [SerializeField] private KinlingData _genericKinlingData;
         [SerializeField] private RaceSettings _race;
         
         private void Start()
@@ -160,16 +147,11 @@ namespace Systems.Game_Setup.Scripts
             Vector2 startPos = new Vector2(startCell.x, startCell.y);
             for (int i = 0; i < amount; i++)
             {
-                DataLibrary.RegisterInitializationCallback(() =>
-                {
-                    var kinlingData = (KinlingData)DataLibrary.CloneDataObjectToRuntime(_genericKinlingData);
-                    kinlingData.Randomize(_race);
-                    kinlingData.title = kinlingData.Fullname;
-                    kinlingData.name = $"{kinlingData.Fullname}_{kinlingData.guid}";
-                    var pos = Helper.RandomLocationInRange(startPos);
-                    kinlingData.Mood.JumpMoodToTarget();
-                    KinlingsManager.Instance.SpawnKinling(kinlingData, pos);
-                });
+                var kinlingData = new KinlingData();
+                kinlingData.Randomize(_race);
+                var pos = Helper.RandomLocationInRange(startPos);
+                kinlingData.Mood.JumpMoodToTarget();
+                KinlingsManager.Instance.SpawnKinling(kinlingData, pos);
             }
         }
 
@@ -178,16 +160,11 @@ namespace Systems.Game_Setup.Scripts
             List<KinlingData> results = new List<KinlingData>();
             for (int i = 0; i < amount; i++)
             {
-                DataLibrary.RegisterInitializationCallback(() =>
-                {
-                    var kinlingData = (KinlingData)DataLibrary.CloneDataObjectToRuntime(_genericKinlingData);
-                    kinlingData.Randomize(_race);
-                    kinlingData.title = kinlingData.Fullname;
-                    kinlingData.name = $"{kinlingData.Fullname}_{kinlingData.guid}";
-                    kinlingData.Mood.JumpMoodToTarget();
-                    AppearanceBuilder.Instance.UpdateAppearance(kinlingData);
-                    results.Add(kinlingData);
-                });
+                var kinlingData = new KinlingData();
+                kinlingData.Randomize(_race);
+                kinlingData.Mood.JumpMoodToTarget();
+                AppearanceBuilder.Instance.UpdateAppearance(kinlingData);
+                results.Add(kinlingData);
             }
             
             GenerateNewRelationships(results);

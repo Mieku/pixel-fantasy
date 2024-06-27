@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Controllers;
-using Data.Zones;
 using Databrain;
+// using Data.Zones;
+// using Databrain;
 using Managers;
 using Systems.Build_Controls.Scripts;
 using Systems.CursorHandler.Scripts;
@@ -15,8 +16,6 @@ namespace Systems.Zones.Scripts
 {
     public class ZoneManager : Singleton<ZoneManager>
     {
-        public DataLibrary DataLibrary;
-        
         [SerializeField] private Sprite _placementIcon;
         [SerializeField] private LayeredTilemapManager _zoneLayeredTilemap;
         [SerializeField] private TileBase _defaultZoneTiles;
@@ -68,7 +67,7 @@ namespace Systems.Zones.Scripts
 
         public void DeleteZone(ZoneData zoneData)
         {
-            if (zoneData.ZoneType == EZoneType.Stockpile)
+            if (zoneData.ZoneType == ZoneSettings.EZoneType.Stockpile)
             {
                 InventoryManager.Instance.RemoveStorage((StockpileZoneData) zoneData);
             }
@@ -88,8 +87,6 @@ namespace Systems.Zones.Scripts
             {
                 cellObject.DeleteCell();
             }
-
-            DataLibrary.RemoveDataObjectFromRuntime(zoneData);
             
             GameEvents.Trigger_RefreshInventoryDisplay();
             
@@ -425,8 +422,9 @@ namespace Systems.Zones.Scripts
             List<ZoneCell> cellObjects = new List<ZoneCell>();
             switch (_curZoneSettings.ZoneType)
             {
-                case EZoneType.Stockpile:
-                    var stockpileRuntimeData = (StockpileZoneData)DataLibrary.CloneDataObjectToRuntime(_genericStockpileZoneData);
+                case ZoneSettings.EZoneType.Stockpile:
+                    var stockpileRuntimeData = new StockpileZoneData(); //(StockpileZoneData)DataLibrary.CloneDataObjectToRuntime(_genericStockpileZoneData);
+                    
                     stockpileRuntimeData.Cells = new List<Vector3Int>(tilePositions);
                     stockpileRuntimeData.AssignedLayer = layer;
                     stockpileRuntimeData.InitData((StockpileZoneSettings)_curZoneSettings);
@@ -447,8 +445,8 @@ namespace Systems.Zones.Scripts
                     InventoryManager.Instance.AddStorage(stockpileRuntimeData);
 
                     return stockpileRuntimeData;
-                case EZoneType.Farm:
-                    var farmRuntimeData = (FarmingZoneData)DataLibrary.CloneDataObjectToRuntime(_genericFarmZoneData);
+                case ZoneSettings.EZoneType.Farm:
+                    var farmRuntimeData = new FarmingZoneData(); //(FarmingZoneData)DataLibrary.CloneDataObjectToRuntime(_genericFarmZoneData);
                     farmRuntimeData.Cells = new List<Vector3Int>(tilePositions);
                     farmRuntimeData.AssignedLayer = layer;
                     farmRuntimeData.InitData((FarmingZoneSettings)_curZoneSettings);
@@ -477,8 +475,8 @@ namespace Systems.Zones.Scripts
             List<ZoneCell> cellObjects = new List<ZoneCell>();
             switch (originalData.Settings.ZoneType)
             {
-                case EZoneType.Stockpile:
-                    var stockpileRuntimeData = (StockpileZoneData) DataLibrary.CloneDataObjectToRuntime(_genericStockpileZoneData);
+                case ZoneSettings.EZoneType.Stockpile:
+                    var stockpileRuntimeData = new StockpileZoneData(); //(StockpileZoneData) DataLibrary.CloneDataObjectToRuntime(_genericStockpileZoneData);
                     stockpileRuntimeData.Cells = new List<Vector3Int>(tilePositions);
                     stockpileRuntimeData.AssignedLayer = layer;
                     stockpileRuntimeData.CopyData(originalData as StockpileZoneData);
@@ -508,8 +506,8 @@ namespace Systems.Zones.Scripts
                     InventoryManager.Instance.AddStorage(stockpileRuntimeData);
                     
                     return stockpileRuntimeData;
-                case EZoneType.Farm:
-                    var farmRuntimeData = (FarmingZoneData) DataLibrary.CloneDataObjectToRuntime(_genericFarmZoneData);
+                case ZoneSettings.EZoneType.Farm:
+                    var farmRuntimeData = new FarmingZoneData(); //(FarmingZoneData) DataLibrary.CloneDataObjectToRuntime(_genericFarmZoneData);
                     farmRuntimeData.Cells = new List<Vector3Int>(tilePositions);
                     farmRuntimeData.AssignedLayer = layer;
                     farmRuntimeData.CopyData(originalData as FarmingZoneData);

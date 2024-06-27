@@ -1,12 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Characters;
-using Data.Item;
 using Items;
 using Managers;
-using ScriptableObjects;
 using UnityEngine;
-using FurnitureData = Data.Item.FurnitureData;
 
 namespace Handlers
 {

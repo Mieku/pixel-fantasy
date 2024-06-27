@@ -1,7 +1,4 @@
-using Data.Item;
 using Items;
-using Managers;
-using ScriptableObjects;
 using Systems.Appearance.Scripts;
 using UnityEngine;
 

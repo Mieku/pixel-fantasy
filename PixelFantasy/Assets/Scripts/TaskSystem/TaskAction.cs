@@ -1,9 +1,6 @@
 using System;
 using Characters;
-using Data.Item;
-using Items;
 using Managers;
-using ScriptableObjects;
 using UnityEngine;
 using Avatar = Systems.Appearance.Scripts.Avatar;
 

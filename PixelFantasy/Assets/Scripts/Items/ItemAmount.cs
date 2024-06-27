@@ -1,15 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Data.Item;
-using Databrain.Attributes;
 using Managers;
-using UnityEngine;
 
 [Serializable]
 public class ItemAmount
 {
-    [DataObjectDropdown("DataLibrary", true)] public ItemSettings Item;
+    public ItemSettings Item;
     public int Quantity;
 
     public bool CanAfford()

@@ -1,13 +1,11 @@
 using System;
 using Characters;
-using Databrain.Attributes;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 
 namespace Systems.Appearance.Scripts
 {
     [Serializable]
-    [UseOdinInspector]
     public class AvatarData
     {
         // Data looks like this: {ID:Overalls}{Colour:#FFFFFF}{Exempt:#FFFFFF,#FFFFFF}{HSV:0:0:0}

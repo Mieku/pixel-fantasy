@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dd7618a5a989e647bafad781c2a0122, type: 3}
+  m_Name: Orange Tree
+  m_EditorClassIdentifier: 
+  _resourceName: Orange Tree
+  _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
+  _workToExtract: 60
+  _harvestableItems:
+    _itemDrops: []
+  _potentialSprites: []
+  _maxHealth: 60
+  _minWorkDistance: 0.75
+  _extractionSkillType: 5
+  _growthStages:
+  - StageName: Sapling
+    GrowthSprite: {fileID: 21300000, guid: 340e51f3e8e15714689db84a04c628ba, type: 3}
+    Scale: 1
+    SecsInStage: 30
+    HarvestableItems:
+      _itemDrops:
+      - Item: {fileID: 11400000, guid: 7167b8dd21508774ebc1ceab992a07b1, type: 2}
+        MinDrop: 1
+        MaxDrop: 1
+    Health: 10
+  - StageName: Young
+    GrowthSprite: {fileID: 21300000, guid: 6cbd7fdca17fd844c98ebff3ffe31450, type: 3}
+    Scale: 1
+    SecsInStage: 60
+    HarvestableItems:
+      _itemDrops:
+      - Item: {fileID: 11400000, guid: 7167b8dd21508774ebc1ceab992a07b1, type: 2}
+        MinDrop: 1
+        MaxDrop: 2
+    Health: 30
+  - StageName: Adult
+    GrowthSprite: {fileID: 21300000, guid: 9ef8790bd2426b44aa479b2178f73efe, type: 3}
+    Scale: 1
+    SecsInStage: 0
+    HarvestableItems:
+      _itemDrops:
+      - Item: {fileID: 11400000, guid: 7167b8dd21508774ebc1ceab992a07b1, type: 2}
+        MinDrop: 2
+        MaxDrop: 4
+    Health: 30
+  _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
+  _hasFruit: 1
+  _growFruitTime: 40
+  _fruitOverlay: {fileID: 21300000, guid: 7f3e56da82bb4904abc880881a2e95d8, type: 3}
+  _fruitFlowersOverlay: {fileID: 21300000, guid: cf299772b1725cc48adc078fcf6d0f1f, type: 3}
+  _harvestableFruit:
+    _itemDrops:
+    - Item: {fileID: 0}
+      MinDrop: 2
+      MaxDrop: 4
+  _workToHarvest: 15

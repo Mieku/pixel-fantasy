@@ -1,17 +1,125 @@
 using System;
 using System.Collections.Generic;
 using Characters;
-using Data.Resource;
-using ScriptableObjects;
 using Managers;
 using QFSW.QC;
-using Systems.Stats.Scripts;
-using TaskSystem;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Items
 {
+    [Serializable]
+    public class GrowingResourceData : BasicResourceData
+    {
+        public float AgeForNextGrowth
+        {
+            get
+            {
+                float result = 0;
+                for (int i = GrowthIndex; i >= 0; i--)
+                {
+                    result += GrowingResourceSettings.GrowthStages[i].SecsInStage;
+                }
+                return result;
+            }
+        }
+        
+        public bool FullyGrown => AgeSec >= GrowingResourceSettings.TotalGrowTime();
+        
+        // Runtime
+        public int GrowthIndex;
+        public float AgeSec;
+        public float FruitTimer;
+        public bool ShowingFlowers;
+        public float RemainingHarvestWork;
+        public bool HasFruitAvailable;
+        
+        public GrowingResourceSettings GrowingResourceSettings => Settings as GrowingResourceSettings;
+        
+        public override void InitData(ResourceSettings settings)
+        {
+            base.InitData(settings);
+            
+            GrowthIndex = Random.Range(0, GrowingResourceSettings.GrowthStages.Count);
+
+            float minAgeSec = 0f;
+            for (int i = 0; i < GrowthIndex - 1; i++)
+            {
+                minAgeSec += GrowingResourceSettings.GrowthStages[i].SecsInStage;
+            }
+
+            if (FullyGrown)
+            {
+                AgeSec = Random.Range(minAgeSec, GrowingResourceSettings.TotalGrowTime() * 1.5f);
+            }
+            else
+            {
+                AgeSec = Random.Range(minAgeSec, GetGrowthStage().SecsInStage);
+            }
+            
+            
+            if (GrowingResourceSettings.HasFruit && AgeSec > GrowingResourceSettings.TotalGrowTime())
+            {
+                FruitTimer = Random.Range(0, GrowingResourceSettings.GrowFruitTime * 1.5f);
+                HasFruitAvailable = FruitTimer >= GrowingResourceSettings.GrowFruitTime;
+            }
+            
+            //RemainingExtractWork = GetWorkToCut();
+            Health = GetGrowthStage().Health;
+            RemainingHarvestWork = GrowingResourceSettings.WorkToHarvest;
+        }
+
+        public override float MaxHealth => GetGrowthStage().Health;
+
+        public GrowthStage GetGrowthStage()
+        {
+            var stages = GrowingResourceSettings.GrowthStages;
+
+            if (GrowthIndex >= stages.Count) 
+                GrowthIndex = stages.Count - 1;
+            
+            return stages[GrowthIndex];
+        }
+        
+        public int GetWorkToCut()
+        {
+            return GetGrowthStage().Health;
+        }
+
+        public List<ItemAmount> GetFruitLoot()
+        {
+            if (GrowingResourceSettings.HarvestableFruit != null)
+            {
+                return GrowingResourceSettings.HarvestableFruit.GetItemDrop();
+            }
+
+            return new List<ItemAmount>();
+        }
+        
+        public float GetGrowthPercentage()
+        {
+            if (FullyGrown) return 1f;
+            
+            var growthPercent = AgeSec / GrowingResourceSettings.TotalGrowTime();
+            return Mathf.Clamp01(growthPercent);
+        }
+        
+        public float GetFruitingPercentage()
+        {
+            if (HasFruitAvailable) return 1f;
+            
+            var percent = FruitTimer / GrowingResourceSettings.GrowFruitTime;
+            return Mathf.Clamp01(percent);
+        }
+
+        public float HarvestWorkDone(float workAmount)
+        {
+            RemainingHarvestWork -= workAmount;
+            return RemainingHarvestWork;
+        }
+    }
+    
     public class GrowingResource : BasicResource
     {
         [SerializeField] protected SpriteRenderer _fruitOverlay;
@@ -23,22 +131,33 @@ namespace Items
         
         public override void InitializeResource(ResourceSettings settings)
         {
-            var data = settings.CreateInitialDataObject();
-
-            DataLibrary.RegisterInitializationCallback(() =>
-            {
-                RuntimeData = (ResourceData)DataLibrary.CloneDataObjectToRuntime(data, gameObject);
-                RuntimeData.InitData(settings);
-                RuntimeData.Position = transform.position;
-                
-                UpdateSprite();
-                
-                DataLibrary.OnSaved += Saved;
-                DataLibrary.OnLoaded += Loaded;
-                
-                GrowthCheck();
-                FruitCheck();
-            });
+            _settings = settings;
+            RuntimeData = new GrowingResourceData();
+            RuntimeData.InitData(settings);
+            RuntimeData.Position = transform.position;
+            
+            UpdateSprite();
+            
+            GrowthCheck();
+            FruitCheck();
+            //
+            //
+            // var data = settings.CreateInitialDataObject();
+            //
+            // DataLibrary.RegisterInitializationCallback(() =>
+            // {
+            //     RuntimeData = (ResourceData)DataLibrary.CloneDataObjectToRuntime(data, gameObject);
+            //     RuntimeData.InitData(settings);
+            //     RuntimeData.Position = transform.position;
+            //     
+            //     UpdateSprite();
+            //     
+            //     DataLibrary.OnSaved += Saved;
+            //     DataLibrary.OnLoaded += Loaded;
+            //     
+            //     GrowthCheck();
+            //     FruitCheck();
+            // });
         }
 
         public override string DisplayName
@@ -48,10 +167,10 @@ namespace Items
                 if (!RuntimeGrowingResourceData.FullyGrown)
                 {
                     var stageName = RuntimeGrowingResourceData.GetGrowthStage().StageName;
-                    return $"{RuntimeData.Settings.title} ({stageName})";
+                    return $"{RuntimeData.Settings.ResourceName} ({stageName})";
                 }
 
-                return RuntimeData.title;
+                return RuntimeData.Settings.name;
             }
         }
         
@@ -231,4 +350,15 @@ namespace Items
             return RuntimeGrowingResourceData.GetWorkToCut();
         }
     }
+    
+    [Serializable]
+     public class GrowthStage
+     {
+         public string StageName;
+         public Sprite GrowthSprite;
+         public float Scale;
+         public float SecsInStage;
+         public HarvestableItems HarvestableItems;
+         [FormerlySerializedAs("WorkToCut")] public int Health;
+     }
 }

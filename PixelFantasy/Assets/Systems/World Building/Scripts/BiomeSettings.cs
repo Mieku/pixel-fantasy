@@ -1,7 +1,4 @@
 using System.Collections.Generic;
-using Data.Resource;
-using Databrain.Attributes;
-using ScriptableObjects;
 using TWC;
 using UnityEngine;
 using UnityEngine.Serialization;

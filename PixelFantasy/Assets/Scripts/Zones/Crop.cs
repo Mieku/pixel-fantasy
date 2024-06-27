@@ -1,17 +1,14 @@
 using System.Collections.Generic;
 using Characters;
 using Controllers;
-using Data.Item;
 using Databrain.Attributes;
 using DataPersistence;
 using Items;
 using Managers;
-using ScriptableObjects;
 using Systems.Stats.Scripts;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using CropSettings = Data.Resource.CropSettings;
 
 namespace Zones
 {

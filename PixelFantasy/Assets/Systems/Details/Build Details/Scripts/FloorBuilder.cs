@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Controllers;
-using Data.Structure;
 using Managers;
 using Systems.Build_Controls.Scripts;
 using Systems.CursorHandler.Scripts;

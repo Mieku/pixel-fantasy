@@ -2005,3 +2005,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fa8a38ce99ed1f045860b9b8dc667b69, type: 2}
   - {fileID: 11400000, guid: 48b4154d7bb2fba47bd997dc81b7cb28, type: 2}
   - {fileID: 11400000, guid: 4ae0325278bd1044d94d01a8df07ae7d, type: 2}
+  _adultNeeds:
+    Food: {fileID: 11400000, guid: 4f3e8f8c1fbb9ba48b82a8cd1b27ee9a, type: 2}
+    Energy: {fileID: 11400000, guid: bbd6477af2cdf1c4683d1378eeb200c1, type: 2}
+    Fun: {fileID: 11400000, guid: 8cebde6bc4f4e484687fbb6cea6b4dae, type: 2}
+    Beauty: {fileID: 11400000, guid: f6be4198f644b944d8d90f07fc34691d, type: 2}
+    Comfort: {fileID: 11400000, guid: 802eee3bc0319ec4c80e8b37b07de847, type: 2}

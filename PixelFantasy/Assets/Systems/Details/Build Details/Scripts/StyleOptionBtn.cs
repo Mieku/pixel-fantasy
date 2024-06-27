@@ -1,5 +1,4 @@
 using System;
-using Data.Structure;
 using UnityEngine;
 using UnityEngine.UI;
 

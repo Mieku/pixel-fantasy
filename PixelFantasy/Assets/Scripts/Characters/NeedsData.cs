@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Managers;
 using QFSW.QC;
+using Sirenix.OdinInspector;
 using Systems.Appearance.Scripts;
 using Systems.Needs.Scripts;
 using UnityEngine;
@@ -18,9 +19,20 @@ namespace Characters
         [SerializeField] protected Need _beautyNeed;
         [SerializeField] protected Need _comfortNeed;
 
-        [SerializeField] private List<NeedChange> _registeredNeedChanges = new List<NeedChange>();
+        [SerializeField] private List<NeedChange> _registeredNeedChanges;
 
         private Kinling _kinling;
+
+        public NeedsData(RacialNeeds racialNeeds)
+        {
+            _foodNeed = new Need(racialNeeds.Food);
+            _energyNeed = new Need(racialNeeds.Energy);
+            _funNeed = new Need(racialNeeds.Fun);
+            _beautyNeed = new Need(racialNeeds.Beauty);
+            _comfortNeed = new Need(racialNeeds.Comfort);
+
+            _registeredNeedChanges = new List<NeedChange>();
+        }
         
         public void MinuteTick()
         {

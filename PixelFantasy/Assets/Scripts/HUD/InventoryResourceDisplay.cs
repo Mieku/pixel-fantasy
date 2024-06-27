@@ -1,6 +1,3 @@
-using System;
-using Data.Item;
-using ScriptableObjects;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +11,7 @@ namespace HUD
 
         public void Init(ItemSettings itemSettings, string amount)
         {
-            _iconRenderer.sprite = itemSettings.icon;
+            _iconRenderer.sprite = itemSettings.ItemSprite;
             _amountDisplay.text = amount;
         }
 

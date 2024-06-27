@@ -1,6 +1,5 @@
 using System;
 using Controllers;
-using Data.Structure;
 using Items;
 using Managers;
 using UnityEngine;
@@ -11,8 +10,10 @@ namespace Systems.Floors.Scripts
     public class Floor : Construction
     {
         private Tilemap _floorTilemap;
+        private FloorSettings _settings;
         
         public FloorData RuntimeFloorData => RuntimeData as FloorData;
+        public override string DisplayName => _settings.FloorName;
         
         protected override void Awake()
         {
@@ -23,16 +24,10 @@ namespace Systems.Floors.Scripts
         
         public void Init(FloorSettings settings, FloorStyle style)
         {
-            DataLibrary.RegisterInitializationCallback(() =>
-            {
-                RuntimeData = (FloorData) DataLibrary.CloneDataObjectToRuntime(Data, gameObject);
-                RuntimeFloorData.AssignFloorSettings(settings, style);
-                RuntimeFloorData.Position = transform.position;
-                RuntimeFloorData.title = settings.title;
-                
-                DataLibrary.OnSaved += Saved;
-                DataLibrary.OnLoaded += Loaded;
-            });
+            _settings = settings;
+            RuntimeData = new FloorData();
+            RuntimeFloorData.AssignFloorSettings(settings, style);
+            RuntimeFloorData.Position = transform.position;
             
             AssignFloorState(EConstructionState.Blueprint);
         }

@@ -10,22 +10,20 @@ namespace Systems.Stats.Scripts
     [Serializable]
     public class SkillData
     {
-        [ExposeToInspector, DatabrainSerialize]
         public int Level;
-        
-        [ExposeToInspector, DatabrainSerialize]
         public float TotalExp;
-
-        [ExposeToInspector, DatabrainSerialize]
         public ESkillPassion Passion;
-        
-        [ExposeToInspector, DatabrainSerialize, SerializeField] 
         private SkillSettings _skillSettings;
 
         public bool Incapable => Level == 0;
         public bool IsMaxLevel => Level == 10;
 
         public SkillSettings Settings => _skillSettings;
+
+        public SkillData(SkillSettings settings)
+        {
+            _skillSettings = settings;
+        }
 
         public void RandomlyAssignPassion()
         {

@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Data.Item;
-using Data.Zones;
+using Handlers;
 using TMPro;
 using UnityEngine;
 
@@ -31,7 +30,7 @@ namespace Systems.Zones.Scripts
 
             foreach (var stored in Stored)
             {
-                stored.CreateItemObject(Position, true);
+                ItemsHandler.Instance.CreateItemObject(stored, Position, true);
             }
             Stored.Clear();
             
@@ -185,7 +184,7 @@ namespace Systems.Zones.Scripts
         
             GameEvents.Trigger_RefreshInventoryDisplay();
 
-            var item = itemData.CreateItemObject(Position, false);
+            var item = ItemsHandler.Instance.CreateItemObject(itemData, Position, false);
             return item;
         }
 

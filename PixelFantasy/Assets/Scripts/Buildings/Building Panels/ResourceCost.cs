@@ -1,5 +1,3 @@
-using Data.Item;
-using ScriptableObjects;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,14 +15,14 @@ namespace Buildings.Building_Panels
         public void Init(ItemAmount itemAmount)
         {
             ItemSettings = itemAmount.Item;
-            _itemImage.sprite = itemAmount.Item.icon;
+            _itemImage.sprite = itemAmount.Item.ItemSprite;
             _quantityText.text = itemAmount.Quantity.ToString();
         }
 
         public void Init(ItemAmount itemAmount, int totalNeeded)
         {
             ItemSettings = itemAmount.Item;
-            _itemImage.sprite = itemAmount.Item.icon;
+            _itemImage.sprite = itemAmount.Item.ItemSprite;
             int missingAmount = totalNeeded - itemAmount.Quantity;
             _quantityText.text = $"{missingAmount}/{totalNeeded}";
             _total = totalNeeded;

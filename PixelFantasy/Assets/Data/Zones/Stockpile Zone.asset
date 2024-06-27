@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cf3e315ffb6c29489801fe771486353, type: 3}
+  m_Name: Stockpile Zone
+  m_EditorClassIdentifier: 
+  DefaultTiles: {fileID: 11400000, guid: 62f63a728b271b64f95f386fefa6f490, type: 2}
+  SelectedTiles: {fileID: 11400000, guid: 7cf75855099f67a4db967a56a43619ce, type: 2}
+  ZoneType: 0
+  ZoneColour: {r: 0.2863564, g: 0.42566785, b: 0.9339623, a: 1}
+  CellPrefab: {fileID: 6308864470507814828, guid: 8ae4e74d9483cdb4d8cd74d97d5e865c, type: 3}
+  _defaultConfigs: {fileID: 11400000, guid: d0c4c81b146530049baea07d079a0fed, type: 2}
+  _acceptedCategories: 000000000100000002000000030000000400000006000000
+  _specificStorage: []

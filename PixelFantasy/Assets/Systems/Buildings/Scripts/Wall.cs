@@ -1,8 +1,5 @@
 using System;
 using Controllers;
-using Data.Dye;
-using Data.Item;
-using Data.Structure;
 using Managers;
 using TaskSystem;
 using UnityEngine;
@@ -15,8 +12,10 @@ namespace Systems.Buildings.Scripts
         [SerializeField] private GameObject _obstacle;
         
         public WallData RuntimeWallData => RuntimeData as WallData;
-        
+
+        private WallSettings _settings;
         private Tilemap _structureTilemap;
+        public override string DisplayName => _settings.WallName;
 
         protected override void Awake()
         {
@@ -25,18 +24,12 @@ namespace Systems.Buildings.Scripts
             _structureTilemap = TilemapController.Instance.GetTilemap(TilemapLayer.Structure);
         }
 
-        public void Init(Data.Structure.WallSettings wallSettings, DyeData colour)
+        public void Init(WallSettings wallSettings, DyeSettings colour)
         {
-            DataLibrary.RegisterInitializationCallback(() =>
-            {
-                RuntimeData = (WallData) DataLibrary.CloneDataObjectToRuntime(Data, gameObject);
-                RuntimeWallData.AssignWallOption(wallSettings, colour);
-                RuntimeWallData.Position = transform.position;
-                RuntimeWallData.title = wallSettings.title;
-                
-                DataLibrary.OnSaved += Saved;
-                DataLibrary.OnLoaded += Loaded;
-            });
+            _settings = wallSettings;
+            RuntimeData = new WallData();
+            RuntimeWallData.AssignWallOption(wallSettings, colour);
+            RuntimeWallData.Position = transform.position;
             
             AssignWallState(EConstructionState.Blueprint);
         }

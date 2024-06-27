@@ -1,9 +1,6 @@
-using System;
-using Data.Item;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Characters
 {

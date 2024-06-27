@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Characters;
-using Databrain.Attributes;
 using Managers;
 using ScriptableObjects;
 using Systems.Notifications.Scripts;
@@ -17,7 +16,7 @@ namespace Systems.Mood.Scripts
     {
         [SerializeField] private List<EmotionalBreakdownSettings> _availableBreakdowns = new List<EmotionalBreakdownSettings>();
         
-        [ExposeToInspector, SerializeField] 
+        [SerializeField] 
         private List<EmotionState> _allEmotionalStates = new List<EmotionState>();
         
         /*
@@ -32,26 +31,26 @@ namespace Systems.Mood.Scripts
         private int _baseMood = 37;
         private const int BASE_BREAK_THRESHOLD = 35; // From RimWorld, should re-balance for Kinlings
 
-        [ExposeToInspector, SerializeField]
+        [SerializeField]
         private int _moodTarget;
         
-        [ExposeToInspector, SerializeField]
+        [SerializeField]
         private float _overallMood;
         
         private KinlingData _kinlingData;
         private TaskAI _taskAI => _kinlingData.Kinling.TaskAI;
         private MoodThresholdSettings _moodThresholdSettings;
         
-        [ExposeToInspector, SerializeField]
+        [SerializeField]
         private int _minorBreakThreshold;
         
-        [ExposeToInspector, SerializeField]
+        [SerializeField]
         private int _majorBreakThreshold;
         
-        [ExposeToInspector, SerializeField]
+        [SerializeField]
         private int _extremeBreakThreshold;
         
-        [ExposeToInspector, SerializeField]
+        [SerializeField]
         private EMoodBreakType _moodState;
         
         private PendingBreakdownState _pendingBreakdownState;

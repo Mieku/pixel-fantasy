@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Databrain;
-using Databrain.Attributes;
 using Interfaces;
 using Items;
 using Managers;
@@ -19,9 +17,6 @@ namespace Characters
 {
     public class Kinling : PlayerInteractable, IClickableObject
     {
-        public DataLibrary DataLibrary;
-        
-        [DataObjectDropdown("DataLibrary")] 
         public KinlingData RuntimeData;
         
         [SerializeField] private TaskAI _taskAI;

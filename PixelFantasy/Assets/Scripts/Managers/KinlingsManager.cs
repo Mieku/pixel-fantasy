@@ -1,10 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Characters;
-using Data.Item;
-using Databrain;
 using QFSW.QC;
-using Systems.Notifications.Scripts;
 using TaskSystem;
 using UnityEngine;
 using KinlingSelector = Systems.Kinling_Selector.Scripts.KinlingSelector;
@@ -13,9 +10,6 @@ namespace Managers
 {
     public class KinlingsManager : Singleton<KinlingsManager>
     {
-        public DataLibrary DataLibrary;
-        public KinlingData GenericKinlingData;
-        
         private List<KinlingData> _allKinlings = new List<KinlingData>();
 
         public List<KinlingData> AllKinlings => _allKinlings;
@@ -55,7 +49,7 @@ namespace Managers
         
         public Kinling GetUnit(string uniqueID)
         {
-            return AllKinlings.Find(unit => unit.guid == uniqueID).Kinling;
+            return AllKinlings.Find(unit => unit.UniqueID == uniqueID).Kinling;
         }
 
         public void SelectKinling(string uniqueID)
@@ -113,15 +107,12 @@ namespace Managers
 
         public void SpawnChild(KinlingData mother, KinlingData father)
         {
-            DataLibrary.RegisterInitializationCallback(() =>
-            {
-                var kinlingData = (KinlingData)DataLibrary.CloneDataObjectToRuntime(GenericKinlingData, gameObject);
-                kinlingData.InheritData(mother, father);
-                var child = Spawner.Instance.SpawnKinling($"child", mother.Position);
+            var kinlingData = new KinlingData();
+            kinlingData.InheritData(mother, father);
+            var child = Spawner.Instance.SpawnKinling($"child", mother.Position);
                 
-                mother.Children.Add(child.RuntimeData);
-                father.Children.Add(child.RuntimeData);
-            });
+            mother.Children.Add(child.RuntimeData);
+            father.Children.Add(child.RuntimeData);
         }
 
         public void SpawnKinling(KinlingData dataToLoad, Vector2 spawnPos)

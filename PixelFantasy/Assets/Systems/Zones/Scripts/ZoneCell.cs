@@ -1,5 +1,3 @@
-using System;
-using Data.Zones;
 using UnityEngine;
 
 namespace Systems.Zones.Scripts

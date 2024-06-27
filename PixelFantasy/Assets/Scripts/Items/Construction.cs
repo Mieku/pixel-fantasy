@@ -1,11 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Characters;
-using Data.Item;
-using Data.Structure;
-using Databrain;
-using Databrain.Attributes;
-using Handlers;
 using HUD;
 using Interfaces;
 using Managers;
@@ -16,18 +11,13 @@ using Action = System.Action;
 
 namespace Items
 {
-    public class Construction : PlayerInteractable, IClickableObject
+    public abstract class Construction : PlayerInteractable, IClickableObject
     {
         protected Action _onDeconstructed;
         
         [SerializeField] private List<Transform> _workPoints;
-        
-        public virtual string DisplayName => RuntimeData.title;
-        
-        public DataLibrary DataLibrary;
-        
-        [DataObjectDropdown("DataLibrary", true)]
-        public ConstructionData Data;
+
+        public abstract string DisplayName { get; }
         public ConstructionData RuntimeData;
         
         public Action OnChanged { get; set; }

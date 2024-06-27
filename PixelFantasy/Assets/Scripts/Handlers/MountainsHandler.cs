@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Controllers;
-using Data.Resource;
 using Items;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -44,7 +43,7 @@ namespace Handlers
             foreach (var stat in stats)
             {
                 var percent = (stat.Count / total) * 100f;
-                statLog += $"{stat.MountainSettings.title}: {stat.Count} {percent:0.00}%\n";
+                statLog += $"{stat.MountainSettings.ResourceName}: {stat.Count} {percent:0.00}%\n";
             }
             Debug.Log(statLog);
         }
@@ -66,7 +65,7 @@ namespace Handlers
             var spawnPosition = new Vector3(x, y, -1);
             var mountain = Instantiate(_mountainPrefab, spawnPosition, Quaternion.identity, transform);
             mountain.InitializeMountain(mountainSettings, spawnPosition);
-            mountain.gameObject.name = mountainSettings.title;
+            mountain.gameObject.name = mountainSettings.ResourceName;
             _mountains.Add(mountain);
         }
 
@@ -81,7 +80,7 @@ namespace Handlers
                 {
                     var mountain = Instantiate(_mountainPrefab, transform);
                     mountain.InitializeMountain(settings[i + j], new Vector3(positions[i + j].x + 0.5f, positions[i + j].y + 0.5f, -1));
-                    mountain.gameObject.name = settings[i + j].title;
+                    mountain.gameObject.name = settings[i + j].ResourceName;
                     _mountains.Add(mountain);
                 }
 

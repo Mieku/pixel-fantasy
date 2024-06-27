@@ -1,5 +1,3 @@
-using System;
-using Data.Item;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

@@ -1,16 +1,43 @@
+using System;
+using System.Collections.Generic;
 using Characters;
 using Controllers;
-using Data.Resource;
 using Interfaces;
 using Systems.Appearance.Scripts;
-using Systems.Stats.Scripts;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using System.Diagnostics;
-using Debug = UnityEngine.Debug;
 
 namespace Items
 {
+    [Serializable]
+    public class MountainResourceData : BasicResourceData
+    {
+        public float RemainingWork;
+        
+        public MountainSettings MountainSettings => Settings as MountainSettings;
+
+        public override void InitData(ResourceSettings settings)
+        {
+            base.InitData(settings);
+            RemainingWork = MountainSettings.WorkToExtract;
+        }
+        
+        public RuleTile GetRuleTile()
+        {
+            return MountainSettings.RuleTile;
+        }
+
+        public List<ItemAmount> GetMineDrop()
+        {
+            if (MountainSettings.HarvestableItems != null)
+            {
+                return MountainSettings.HarvestableItems.GetItemDrop();
+            }
+
+            return new List<ItemAmount>();
+        }
+    }
+    
     public class Mountain : BasicResource, IClickableTile
     {
         [SerializeField] private GameObject _tempPlacementDisp;
@@ -21,7 +48,7 @@ namespace Items
         private Tilemap _dirtTM => TilemapController.Instance.GetTilemap(TilemapLayer.Dirt);
 
         public MountainResourceData RuntimeMountainData => RuntimeData as MountainResourceData;
-        public override string DisplayName => MountainSettings.title;
+        public override string DisplayName => MountainSettings.ResourceName;
 
         protected override void Awake()
         {
@@ -35,6 +62,12 @@ namespace Items
         {
             transform.position = position;
             MountainSettings = settings;
+            
+            RuntimeData = new MountainResourceData();
+            RuntimeData.InitData(MountainSettings);
+            RuntimeData.Position = transform.position;
+            
+            
             
             SetTile();
 
@@ -50,16 +83,21 @@ namespace Items
             _dirtTM.SetTile(dirtCell, _dirtRuleTile);
         }
 
-        public void InitializeRuntimeDataIfNeeded()
-        {
-            if (RuntimeData == null)
-            {
-                var data = MountainSettings.CreateInitialDataObject();
-                RuntimeData = (ResourceData)DataLibrary.CloneDataObjectToRuntime(data, gameObject);
-                RuntimeData.InitData(MountainSettings);
-                RuntimeData.Position = transform.position;
-            }
-        }
+        // public void InitializeRuntimeDataIfNeeded()
+        // {
+        //     if (RuntimeData == null)
+        //     {
+        //         RuntimeData = new MountainResourceData();
+        //         RuntimeData.InitData(MountainSettings);
+        //         RuntimeData.Position = transform.position;
+        //         //
+        //         //
+        //         // var data = MountainSettings.CreateInitialDataObject();
+        //         // RuntimeData = (ResourceData)DataLibrary.CloneDataObjectToRuntime(data, gameObject);
+        //         // RuntimeData.InitData(MountainSettings);
+        //         // RuntimeData.Position = transform.position;
+        //     }
+        // }
 
         public void TintTile()
         {
@@ -78,8 +116,6 @@ namespace Items
 
         public void MineMountain()
         {
-            InitializeRuntimeDataIfNeeded();
-
             var mountainCell = _mountainTM.WorldToCell(transform.position);
             _mountainTM.SetTile(mountainCell, null);
 
@@ -130,7 +166,6 @@ namespace Items
 
         public override bool DoExtractionWork(StatsData stats)
         {
-            InitializeRuntimeDataIfNeeded();
             var workAmount = stats.GetActionSpeedForSkill(MountainSettings.ExtractionSkillType, transform);
             RuntimeData.Health -= workAmount;
             if (RuntimeData.Health <= 0)

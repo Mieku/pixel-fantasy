@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using Data.Resource;
-using ScriptableObjects;
 using UnityEditor;
 using UnityEngine;
 using Systems.World_Building.Scripts; // Ensure this namespace matches where your BiomeData is located
@@ -49,14 +46,14 @@ public class BiomeEditor : Editor
         //EditorGUILayout.EndVertical();
         // End of Mountains Box Group
         
-        DisplayPercentagesOptions<ResourceData>("Forest Trees", biome.ForestTreeResources);
-        DisplayPercentagesOptions<GrowingResourceData>("Forest Additionals", biome.ForestAdditionalResources);
-        DisplayPercentagesOptions<ResourceData>("Vegetation", biome.VegetationResources);
-        DisplayPercentagesOptions<ResourceData>("Additional Resources", biome.AdditionalResources);
+        DisplayPercentagesOptions("Forest Trees", biome.ForestTreeResources);
+        DisplayPercentagesOptions("Forest Additionals", biome.ForestAdditionalResources);
+        DisplayPercentagesOptions("Vegetation", biome.VegetationResources);
+        DisplayPercentagesOptions("Additional Resources", biome.AdditionalResources);
     }
     
     // Adjust the DisplayPercentagesOptions method to be generic
-    private void DisplayPercentagesOptions<T>(string header, List<ResourceDataPercentage> biomePercentages) where T : ResourceData
+    private void DisplayPercentagesOptions(string header, List<ResourceDataPercentage> biomePercentages)
     {
         EditorGUILayout.BeginVertical("box");
         GUILayout.Label(header, EditorStyles.boldLabel);

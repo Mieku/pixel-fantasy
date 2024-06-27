@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -25,7 +25,11 @@ MonoBehaviour:
   initialGuid: b609f472-addd-4de3-9802-f8ea18b025ff
   runtimeIndexID: 
   icon: {fileID: 1670653853, guid: 49688975d6e4e9d4e9023f92ee002b97, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Stockpile Zone
   description: This is a description of the newly created data entry.
   tags: []
@@ -35,10 +39,16 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   DefaultTiles: {fileID: 11400000, guid: 62f63a728b271b64f95f386fefa6f490, type: 2}
   SelectedTiles: {fileID: 11400000, guid: 7cf75855099f67a4db967a56a43619ce, type: 2}
   ZoneType: 0
-  ZoneColour: {r: 0.2863564, g: 0.42566785, b: 0.9339623, a: 1}
+  ZoneColour:
+    r: 0.2863564
+    g: 0.42566785
+    b: 0.9339623
+    a: 1
   CellPrefab: {fileID: 6308864470507814828, guid: 8ae4e74d9483cdb4d8cd74d97d5e865c, type: 3}
   _defaultConfigs: {fileID: 11400000, guid: d0c4c81b146530049baea07d079a0fed, type: 2}
   _acceptedCategories: 000000000100000002000000030000000400000006000000
@@ -57,7 +67,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -68,7 +78,11 @@ MonoBehaviour:
   initialGuid: 77d08a34-f03b-4942-bae0-2a21418a5ef3
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: 9ef8790bd2426b44aa479b2178f73efe, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Apple Tree
   description: This is a description of the newly created data entry.
   tags: []
@@ -78,6 +92,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
   _workToExtract: 60
   _harvestableItems:
@@ -86,7 +102,6 @@ MonoBehaviour:
   _maxHealth: 60
   _minWorkDistance: 0.75
   _extractionSkillType: 5
-  _baseData: {fileID: 6551958446649319986}
   _growthStages:
   - StageName: Sapling
     GrowthSprite: {fileID: 21300000, guid: 340e51f3e8e15714689db84a04c628ba, type: 3}
@@ -94,9 +109,7 @@ MonoBehaviour:
     SecsInStage: 30
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 1
+      - {Item: {fileID: 0}, MinDrop: 1, MaxDrop: 1}
     Health: 10
   - StageName: Young
     GrowthSprite: {fileID: 21300000, guid: 6cbd7fdca17fd844c98ebff3ffe31450, type: 3}
@@ -104,9 +117,7 @@ MonoBehaviour:
     SecsInStage: 30
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 2
+      - {Item: {fileID: 0}, MinDrop: 1, MaxDrop: 2}
     Health: 15
   - StageName: Adult
     GrowthSprite: {fileID: 21300000, guid: 9ef8790bd2426b44aa479b2178f73efe, type: 3}
@@ -114,9 +125,7 @@ MonoBehaviour:
     SecsInStage: 0
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 2
-        MaxDrop: 4
+      - {Item: {fileID: 0}, MinDrop: 2, MaxDrop: 4}
     Health: 30
   _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
   _hasFruit: 1
@@ -125,9 +134,7 @@ MonoBehaviour:
   _fruitFlowersOverlay: {fileID: 21300000, guid: cf299772b1725cc48adc078fcf6d0f1f, type: 3}
   _harvestableFruit:
     _itemDrops:
-    - Item: {fileID: 7314705390567572713}
-      MinDrop: 2
-      MaxDrop: 4
+    - {Item: {fileID: 0}, MinDrop: 2, MaxDrop: 4}
   _workToHarvest: 15
 --- !u!114 &-8551016356470875681
 MonoBehaviour:
@@ -143,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -154,7 +161,11 @@ MonoBehaviour:
   initialGuid: 1c3c83e7-f434-458e-92c5-11e0565209ac
   runtimeIndexID: 
   icon: {fileID: -168499877, guid: cde0bb39e0dd2f742954541f1d452824, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Stick
   description: This is a description of the newly created data entry.
   tags: []
@@ -164,19 +175,18 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _prefab: {fileID: 2919327189383101433, guid: 83b276780b22eee4d925461adebde20c, type: 3}
   _workToExtract: 5
   _harvestableItems:
     _itemDrops:
-    - Item: {fileID: 283630323700872253}
-      MinDrop: 0
-      MaxDrop: 1
+    - {Item: {fileID: 0}, MinDrop: 0, MaxDrop: 1}
   _potentialSprites:
   - {fileID: -168499877, guid: cde0bb39e0dd2f742954541f1d452824, type: 3}
   _maxHealth: 5
   _minWorkDistance: 0.75
   _extractionSkillType: 5
-  _baseData: {fileID: -4328041401239383635}
 --- !u!114 &-7963632896702530702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -191,7 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -205,7 +215,11 @@ MonoBehaviour:
   initialGuid: 35c873a7-4c07-40c4-aab1-eee6f273b11f
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: 872b85ebed4e6114f9ee060e189c0f2f, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Iron Bar
   description: This is a description of the newly created data entry.
   tags: []
@@ -215,6 +229,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   Durability: 0
   Quality: 0
   IsAllowed: 0
@@ -225,6 +241,7 @@ MonoBehaviour:
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
+    _requestor: {fileID: 0}
   CarryingKinlingUID: 
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
@@ -244,7 +261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -258,7 +275,11 @@ MonoBehaviour:
   initialGuid: cd3a9e7b-2a68-4759-8237-7344b86a4324
   runtimeIndexID: 
   icon: {fileID: 0}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Raw food Item
   description: This is a description of the newly created data entry.
   tags: []
@@ -268,6 +289,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   Durability: 0
   Quality: 0
   IsAllowed: 0
@@ -278,6 +301,7 @@ MonoBehaviour:
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
+    _requestor: {fileID: 0}
   CarryingKinlingUID: 
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
@@ -296,7 +320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -307,7 +331,11 @@ MonoBehaviour:
   initialGuid: 378a209a-ee9b-4123-8ea5-ad9a8f005b45
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: 286743b833fa73a4c824303d4da3e3dd, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Stone
   description: This is a description of the newly created data entry.
   tags: []
@@ -317,12 +345,30 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _category: 0
   _maxDurability: 100
   _maxStackSize: 25
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: 4384225487442251340}
+  _baseData:
+    UniqueID: 
+    Durability: 0
+    Quality: 0
+    IsAllowed: 0
+    CurrentTask:
+      TaskId: 
+      TaskType: 0
+      KinlingAssignedToTask: {fileID: 0}
+      Materials: []
+      RequiredToolType: 0
+      IsKinlingSpecific: 0
+      _requestor: {fileID: 0}
+    CarryingKinlingUID: 
+    Position: {x: 0, y: 0}
+    LinkedItem: {fileID: 0}
+    Settings: {fileID: 0}
 --- !u!114 &-7537548514081941852
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -337,7 +383,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -348,7 +394,11 @@ MonoBehaviour:
   initialGuid: a3d47a0e-2983-447f-ac48-42efb8a6d2cc
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: f22dd3b7bb4fb5342b324d2f2b6fc0e5, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Flower
   description: This is a description of the newly created data entry.
   tags: []
@@ -358,6 +408,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _prefab: {fileID: 906310196879369055, guid: 7d7f9b7dc6a672e45ae9ab91f1a9431c, type: 3}
   _workToExtract: 5
   _harvestableItems:
@@ -384,7 +436,6 @@ MonoBehaviour:
   _maxHealth: 5
   _minWorkDistance: 0.75
   _extractionSkillType: 5
-  _baseData: {fileID: 6734689318582040478}
 --- !u!114 &-7223051035212598023
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -399,18 +450,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: AssignedBed
+      Entry: 6
+      Data: 
+    - Name: FurnitureInUse
+      Entry: 6
+      Data: 
   guid: 3ec4509e-6c69-4301-bf3f-e34c6d061606
   initialGuid: 3ec4509e-6c69-4301-bf3f-e34c6d061606
   runtimeIndexID: 
   icon: {fileID: 0}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Michael Altair
   description: This is a description of the newly created data entry.
   tags: []
@@ -420,6 +481,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   Nickname: 
   Firstname: Michael
   Lastname: Altair
@@ -459,8 +522,6 @@ MonoBehaviour:
     Hour22: 2
     Hour23: 2
   IsAsleep: 0
-  AssignedBed: {fileID: 0}
-  FurnitureInUse: {fileID: 0}
   TaskPriorities:
     Priorities:
     - TaskType: 0
@@ -552,41 +613,27 @@ MonoBehaviour:
     History: {fileID: 0}
     AttributeModifiers: []
   Needs:
-    _foodNeed:
-      _needSettings: {fileID: 0}
-      _value: 0
-      _targetValue: 0
-      _hasTargetValue: 0
-    _energyNeed:
-      _needSettings: {fileID: 0}
-      _value: 0
-      _targetValue: 0
-      _hasTargetValue: 0
-    _funNeed:
-      _needSettings: {fileID: 0}
-      _value: 0
-      _targetValue: 0
-      _hasTargetValue: 0
-    _beautyNeed:
-      _needSettings: {fileID: 0}
-      _value: 0
-      _targetValue: 0
-      _hasTargetValue: 0
-    _comfortNeed:
-      _needSettings: {fileID: 0}
-      _value: 0
-      _targetValue: 0
-      _hasTargetValue: 0
+    _foodNeed: {_needSettings: {fileID: 0}, _value: 0, _targetValue: 0, _hasTargetValue: 0, _kinling: {fileID: 0}}
+    _energyNeed: {_needSettings: {fileID: 0}, _value: 0, _targetValue: 0, _hasTargetValue: 0, _kinling: {fileID: 0}}
+    _funNeed: {_needSettings: {fileID: 0}, _value: 0, _targetValue: 0, _hasTargetValue: 0, _kinling: {fileID: 0}}
+    _beautyNeed: {_needSettings: {fileID: 0}, _value: 0, _targetValue: 0, _hasTargetValue: 0, _kinling: {fileID: 0}}
+    _comfortNeed: {_needSettings: {fileID: 0}, _value: 0, _targetValue: 0, _hasTargetValue: 0, _kinling: {fileID: 0}}
     _registeredNeedChanges: []
+    _kinling: {fileID: 0}
+    lastDayChecked: -1
   Mood:
     _availableBreakdowns: []
     _allEmotionalStates: []
+    _baseMood: 37
     _moodTarget: 0
     _overallMood: 0
+    _kinlingData: {fileID: 0}
+    _moodThresholdSettings: {fileID: 0}
     _minorBreakThreshold: 0
     _majorBreakThreshold: 0
     _extremeBreakThreshold: 0
     _moodState: 0
+    _curBreakdownAction: {fileID: 0}
   Relationships: []
   _personalLog: []
   Avatar:
@@ -601,16 +648,17 @@ MonoBehaviour:
     FaceAccessory: 
     Weapon: 
     Offhand: 
+    _kinlingData: {fileID: 0}
+    _gender: 0
+    _race: {fileID: 0}
+    _ageStage: 0
     SkinTone:
-      serializedVersion: 2
       rgba: 0
     HairColour:
-      serializedVersion: 2
       rgba: 0
     HairStyle: {fileID: 0}
     BeardStyle: {fileID: 0}
     EyeColour:
-      serializedVersion: 2
       rgba: 0
     SideSpriteLibraryAsset: {fileID: 0}
     UpSpriteLibraryAsset: {fileID: 0}
@@ -629,7 +677,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -640,7 +688,11 @@ MonoBehaviour:
   initialGuid: 67787a93-9c52-4296-aaea-03c240d2e553
   runtimeIndexID: 
   icon: {fileID: 178275299, guid: 729c9702d02206143a7695f4e9e9cc80, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Floor
   description: This is a description of the newly created data entry.
   tags: []
@@ -650,6 +702,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   Durability: 0
   Position: {x: 0, y: 0}
   State: 0
@@ -736,7 +790,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -750,7 +804,11 @@ MonoBehaviour:
   initialGuid: 45c78f33-b1f4-418a-acbf-ce48e4560474
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: 148e7a7b303bd6f4dabe129d388517ba, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Gold Bar
   description: This is a description of the newly created data entry.
   tags: []
@@ -760,6 +818,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   Durability: 0
   Quality: 0
   IsAllowed: 0
@@ -770,6 +830,7 @@ MonoBehaviour:
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
+    _requestor: {fileID: 0}
   CarryingKinlingUID: 
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
@@ -789,7 +850,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -800,7 +861,11 @@ MonoBehaviour:
   initialGuid: 5d94d31b-b0a7-47d7-9db0-38af4c34df43
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: 0fd3f59d6e5bc924fbc75655b4a41224, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Bush
   description: This is a description of the newly created data entry.
   tags: []
@@ -810,6 +875,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _prefab: {fileID: 8379773904936381525, guid: e6965deb74f3c394a874724af113892a, type: 3}
   _workToExtract: 10
   _harvestableItems:
@@ -818,7 +885,6 @@ MonoBehaviour:
   _maxHealth: 10
   _minWorkDistance: 0.75
   _extractionSkillType: 5
-  _baseData: {fileID: 7784763088285507379}
   _growthStages:
   - StageName: Young
     GrowthSprite: {fileID: 21300000, guid: 0fd3f59d6e5bc924fbc75655b4a41224, type: 3}
@@ -826,9 +892,7 @@ MonoBehaviour:
     SecsInStage: 60
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 0
-        MaxDrop: 1
+      - {Item: {fileID: 0}, MinDrop: 0, MaxDrop: 1}
     Health: 5
   - StageName: Adult
     GrowthSprite: {fileID: 21300000, guid: 0fd3f59d6e5bc924fbc75655b4a41224, type: 3}
@@ -836,9 +900,7 @@ MonoBehaviour:
     SecsInStage: 0
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 2
+      - {Item: {fileID: 0}, MinDrop: 1, MaxDrop: 2}
     Health: 10
   _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
   _hasFruit: 0
@@ -862,7 +924,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -873,7 +935,11 @@ MonoBehaviour:
   initialGuid: 343b271c-2aec-47cf-b969-79afce4d0650
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: c0cec297fa7b5a94fa41d24c0f92ac25, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Mushroom
   description: This is a description of the newly created data entry.
   tags: []
@@ -883,6 +949,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _prefab: {fileID: 8171490800812371991, guid: 47d3a3f0d00e1b44fbd10ad53ebff7b5, type: 3}
   _workToExtract: 5
   _harvestableItems:
@@ -894,7 +962,6 @@ MonoBehaviour:
   _maxHealth: 5
   _minWorkDistance: 0.75
   _extractionSkillType: 5
-  _baseData: {fileID: 7531465296088124193}
 --- !u!114 &-5382145946460636157
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -909,7 +976,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -920,7 +987,11 @@ MonoBehaviour:
   initialGuid: 2fc2c1e1-3cdc-4f31-9f28-26eb92967acb
   runtimeIndexID: 
   icon: {fileID: -1772041207, guid: 61df65287fe891b409309a049a6c7eea, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Tin Mountain
   description: This is a description of the newly created data entry.
   tags: []
@@ -930,18 +1001,17 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _prefab: {fileID: 5442789227045615136, guid: a2f1f897b269aef4bb1bc9e05066305d, type: 3}
   _workToExtract: 60
   _harvestableItems:
     _itemDrops:
-    - Item: {fileID: 4497696957364699314}
-      MinDrop: 1
-      MaxDrop: 2
+    - {Item: {fileID: 0}, MinDrop: 1, MaxDrop: 2}
   _potentialSprites: []
   _maxHealth: 60
   _minWorkDistance: 0.75
   _extractionSkillType: 0
-  _baseData: {fileID: 1636724805157081006}
   _ruleTile: {fileID: 11400000, guid: c79f60c15b97a6a4b9c0809eee602674, type: 2}
   _mountainTileType: 4
 --- !u!114 &-5303908421779173038
@@ -958,7 +1028,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -972,7 +1042,11 @@ MonoBehaviour:
   initialGuid: 4e1edfe9-fa93-49f8-bfed-eff8384b9b10
   runtimeIndexID: 
   icon: {fileID: 0}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Generic Farming Zone
   description: This is a description of the newly created data entry.
   tags: []
@@ -982,6 +1056,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   ZoneName: 
   Cells: []
   ZoneCells: []
@@ -1002,7 +1078,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -1016,7 +1092,11 @@ MonoBehaviour:
   initialGuid: 92cc9d0d-b047-43cc-9743-9548ca0e6e56
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: c92a257e6a9b0f040bbf46122c71dffa, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Gold Ore
   description: This is a description of the newly created data entry.
   tags: []
@@ -1026,6 +1106,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   Durability: 0
   Quality: 0
   IsAllowed: 0
@@ -1036,6 +1118,7 @@ MonoBehaviour:
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
+    _requestor: {fileID: 0}
   CarryingKinlingUID: 
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
@@ -1054,7 +1137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -1065,7 +1148,11 @@ MonoBehaviour:
   initialGuid: 8cddfda8-a43b-427d-9ae5-a5c249b1bb43
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: 1b981ea2884cab84c902e3da9496b3c9, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Cedar
   description: This is a description of the newly created data entry.
   tags: []
@@ -1075,6 +1162,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
   _workToExtract: 60
   _harvestableItems:
@@ -1083,7 +1172,6 @@ MonoBehaviour:
   _maxHealth: 60
   _minWorkDistance: 0.75
   _extractionSkillType: 5
-  _baseData: {fileID: -2419358363865988586}
   _growthStages:
   - StageName: Sapling
     GrowthSprite: {fileID: 21300000, guid: 848c8a290210208458a065fe90d72377, type: 3}
@@ -1091,9 +1179,7 @@ MonoBehaviour:
     SecsInStage: 30
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 1
+      - {Item: {fileID: 0}, MinDrop: 1, MaxDrop: 1}
     Health: 10
   - StageName: Young
     GrowthSprite: {fileID: 21300000, guid: a284e95ba7797e44ea5649dbe0341297, type: 3}
@@ -1101,9 +1187,7 @@ MonoBehaviour:
     SecsInStage: 60
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 2
+      - {Item: {fileID: 0}, MinDrop: 1, MaxDrop: 2}
     Health: 15
   - StageName: Adult
     GrowthSprite: {fileID: 21300000, guid: 1b981ea2884cab84c902e3da9496b3c9, type: 3}
@@ -1111,9 +1195,7 @@ MonoBehaviour:
     SecsInStage: 0
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 2
-        MaxDrop: 4
+      - {Item: {fileID: 0}, MinDrop: 2, MaxDrop: 4}
     Health: 30
   _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
   _hasFruit: 0
@@ -1137,7 +1219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -1151,7 +1233,11 @@ MonoBehaviour:
   initialGuid: b782752e-da24-44fc-822f-ff03c94446a2
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: d12e3c3542b3a2446b1b909d5ff7ea05, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Wood
   description: This is a description of the newly created data entry.
   tags: []
@@ -1161,6 +1247,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   Durability: 0
   Quality: 0
   IsAllowed: 0
@@ -1171,6 +1259,7 @@ MonoBehaviour:
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
+    _requestor: {fileID: 0}
   CarryingKinlingUID: 
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
@@ -1200,35 +1289,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fedcf57d658f54a997dec2825cdde4, type: 3}
   m_Name: Jam
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  guid: 0f9e77cb-dd23-4a36-81ce-d3ac9ad43173
-  initialGuid: 0f9e77cb-dd23-4a36-81ce-d3ac9ad43173
-  runtimeIndexID: 
-  icon: {fileID: 21300000, guid: a4d13c72e1b26014c8ecef0fec0ffda9, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
-  title: Jam
-  description: This is a description of the newly created data entry.
-  tags: []
-  index: 0
-  relatedLibraryObject: {fileID: 11400000}
-  runtimeLibraryObject: {fileID: 0}
-  assignedGuid: 
-  isRuntimeInstance: 0
-  boxFoldout: 0
+  _itemName: 
+  _itemSprite: {fileID: 0}
   _category: 3
   _maxDurability: 100
   _maxStackSize: 25
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: 8440898394350696192}
   _mealQuality: 0
   _nutrition: 1
   _mealRequirements:
@@ -1253,7 +1320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -1264,7 +1331,11 @@ MonoBehaviour:
   initialGuid: 8e81ba3b-928e-40c0-b8c4-63b5a0b998b6
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: 75dedd5215afc2a4fbb06f47f576e865, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Oak
   description: This is a description of the newly created data entry.
   tags: []
@@ -1274,6 +1345,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
   _workToExtract: 60
   _harvestableItems:
@@ -1282,7 +1355,6 @@ MonoBehaviour:
   _maxHealth: 60
   _minWorkDistance: 0.75
   _extractionSkillType: 5
-  _baseData: {fileID: 3669178811856810939}
   _growthStages:
   - StageName: Sapling
     GrowthSprite: {fileID: 21300000, guid: e594107e0ac22204bb5b9f8b3ffe804a, type: 3}
@@ -1290,9 +1362,7 @@ MonoBehaviour:
     SecsInStage: 30
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 1
+      - {Item: {fileID: 0}, MinDrop: 1, MaxDrop: 1}
     Health: 10
   - StageName: Young
     GrowthSprite: {fileID: 21300000, guid: 91d83a0ef9e8579449e8efec2b58475d, type: 3}
@@ -1300,9 +1370,7 @@ MonoBehaviour:
     SecsInStage: 60
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 2
+      - {Item: {fileID: 0}, MinDrop: 1, MaxDrop: 2}
     Health: 15
   - StageName: Adult
     GrowthSprite: {fileID: 21300000, guid: 75dedd5215afc2a4fbb06f47f576e865, type: 3}
@@ -1310,9 +1378,7 @@ MonoBehaviour:
     SecsInStage: 0
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 2
-        MaxDrop: 4
+      - {Item: {fileID: 0}, MinDrop: 2, MaxDrop: 4}
     Health: 30
   _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
   _hasFruit: 0
@@ -1336,7 +1402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -1347,7 +1413,11 @@ MonoBehaviour:
   initialGuid: 9b845cbf-6fc0-43ec-921a-8b3dfa0b405c
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: 96b07be1f86d0a74b92c49b4393339f9, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Birch
   description: This is a description of the newly created data entry.
   tags: []
@@ -1357,6 +1427,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
   _workToExtract: 60
   _harvestableItems:
@@ -1365,7 +1437,6 @@ MonoBehaviour:
   _maxHealth: 60
   _minWorkDistance: 0.75
   _extractionSkillType: 5
-  _baseData: {fileID: -4434914887024288142}
   _growthStages:
   - StageName: Sapling
     GrowthSprite: {fileID: 21300000, guid: e594107e0ac22204bb5b9f8b3ffe804a, type: 3}
@@ -1373,9 +1444,7 @@ MonoBehaviour:
     SecsInStage: 30
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 1
+      - {Item: {fileID: 0}, MinDrop: 1, MaxDrop: 1}
     Health: 10
   - StageName: Young
     GrowthSprite: {fileID: 21300000, guid: 147bd713c6c3cfb41a4c5067c378d918, type: 3}
@@ -1383,9 +1452,7 @@ MonoBehaviour:
     SecsInStage: 60
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 2
+      - {Item: {fileID: 0}, MinDrop: 1, MaxDrop: 2}
     Health: 15
   - StageName: Adult
     GrowthSprite: {fileID: 21300000, guid: 96b07be1f86d0a74b92c49b4393339f9, type: 3}
@@ -1393,9 +1460,7 @@ MonoBehaviour:
     SecsInStage: 0
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 2
-        MaxDrop: 4
+      - {Item: {fileID: 0}, MinDrop: 2, MaxDrop: 4}
     Health: 30
   _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
   _hasFruit: 0
@@ -1515,43 +1580,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21968d0dfbe07b848bd101c15cee8386, type: 3}
   m_Name: Barrel
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  guid: d04ca25d-d24a-4b91-9280-24f3d3b53784
-  initialGuid: d04ca25d-d24a-4b91-9280-24f3d3b53784
-  runtimeIndexID: 
-  icon: {fileID: -1833610153, guid: 9f7d87b58161cbd4aa86794c2ca49b34, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
-  title: Barrel
-  description: This is a description of the newly created data entry.
-  tags: []
-  index: 0
-  relatedLibraryObject: {fileID: 11400000}
-  runtimeLibraryObject: {fileID: 0}
-  assignedGuid: 
-  isRuntimeInstance: 0
-  boxFoldout: 0
+  _itemName: 
+  _itemSprite: {fileID: 0}
   _category: 4
   _maxDurability: 100
   _maxStackSize: 1
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: 3266125826896100908}
   _craftRequirements:
     _minCraftingSkillLevel: 2
     _craftingSkill: 10
     _workCost: 30
     _requiredCraftingToolType: 0
     _materialCosts:
-    - Item: {fileID: 283630323700872253}
-      Quantity: 2
+    - {Item: {fileID: 0}, Quantity: 2}
   _furniturePrefab: {fileID: 5465201506073250537, guid: 6257643671455b247adbea7bf26469f3, type: 3}
   _inUseNeedChange:
     SourceID: 
@@ -1582,7 +1624,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -1594,7 +1636,7 @@ MonoBehaviour:
       Data: 
     - Name: _storageConfigs
       Entry: 7
-      Data: 0|Data.Item.StorageConfigs, Assembly-CSharp
+      Data: 0|StorageConfigs, Assembly-CSharp
     - Name: <ConfigType>k__BackingField
       Entry: 3
       Data: 0
@@ -1627,15 +1669,15 @@ MonoBehaviour:
       Data: 
     - Name: StorageOptions
       Entry: 7
-      Data: 1|Data.Item.AllowedStorageOptions, Assembly-CSharp
+      Data: 1|AllowedStorageOptions, Assembly-CSharp
     - Name: Options
       Entry: 7
-      Data: 2|System.Collections.Generic.Dictionary`2[[Data.Item.EItemCategory, Assembly-CSharp],[System.Collections.Generic.List`1[[Data.Item.AllowedStorageEntry,
+      Data: 2|System.Collections.Generic.Dictionary`2[[EItemCategory, Assembly-CSharp],[System.Collections.Generic.List`1[[AllowedStorageEntry,
         Assembly-CSharp]], mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 3|System.Collections.Generic.EnumEqualityComparer`1[[Data.Item.EItemCategory,
-        Assembly-CSharp]], mscorlib
+      Data: 3|System.Collections.Generic.EnumEqualityComparer`1[[EItemCategory, Assembly-CSharp]],
+        mscorlib
     - Name: 
       Entry: 12
       Data: 0
@@ -1664,7 +1706,11 @@ MonoBehaviour:
   initialGuid: b6052f20-9051-4669-b214-6a0effab4263
   runtimeIndexID: 
   icon: {fileID: 0}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Generic Stockpile Zone
   description: This is a description of the newly created data entry.
   tags: []
@@ -1674,12 +1720,20 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   ZoneName: 
   Cells: []
   ZoneCells: []
   AssignedLayer: 0
   IsEnabled: 0
   StockpileSettings: {fileID: 0}
+  _storageConfigs:
+    <ConfigType>k__BackingField: 0
+    UsePriority: 0
+    DurabilityRange: {x: 0, y: 0}
+    QualityRange: {x: 0, y: 0}
+    StorageOptions: {}
 --- !u!114 &-4167834067029810729
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1694,7 +1748,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -1705,7 +1759,11 @@ MonoBehaviour:
   initialGuid: 8d6a59f5-7ad0-4cb6-98d3-27a69bcb1bb3
   runtimeIndexID: 
   icon: {fileID: 430793170, guid: 10a1031e5a2fa3446b0eae90df80af2b, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Stone Floor
   description: This is a description of the newly created data entry.
   tags: []
@@ -1715,6 +1773,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _styleOptions:
   - StyleName: Herringbone
     StyleIcon: {fileID: 430793170, guid: 10a1031e5a2fa3446b0eae90df80af2b, type: 3}
@@ -1729,8 +1789,7 @@ MonoBehaviour:
     _workCost: 30
     _requiredCraftingToolType: 0
     _materialCosts:
-    - Item: {fileID: 283630323700872253}
-      Quantity: 2
+    - {Item: {fileID: 0}, Quantity: 2}
   _materialIcon: {fileID: 21300000, guid: 286743b833fa73a4c824303d4da3e3dd, type: 3}
 --- !u!114 &-4106105843404846981
 MonoBehaviour:
@@ -1746,7 +1805,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -1760,7 +1819,11 @@ MonoBehaviour:
   initialGuid: a48cc74b-9f59-4a6f-b554-b8f953276319
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: 1c851eae1881328409a3c8599d4113f8, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Copper Ore
   description: This is a description of the newly created data entry.
   tags: []
@@ -1770,6 +1833,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   Durability: 100
   Quality: 0
   IsAllowed: 0
@@ -1780,6 +1845,7 @@ MonoBehaviour:
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
+    _requestor: {fileID: 0}
   CarryingKinlingUID: 
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
@@ -1798,7 +1864,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -1809,7 +1875,11 @@ MonoBehaviour:
   initialGuid: 0ee8a132-4749-47c1-8c7b-407b2291f293
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: 4a79996dfd517a346aa042b5307508ca, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Rock
   description: This is a description of the newly created data entry.
   tags: []
@@ -1819,13 +1889,13 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _prefab: {fileID: 3630224067709912070, guid: 1e285695b28aebc48a8bab97dfdd4b87, type: 3}
   _workToExtract: 10
   _harvestableItems:
     _itemDrops:
-    - Item: {fileID: -7757045536695828918}
-      MinDrop: 1
-      MaxDrop: 1
+    - {Item: {fileID: 0}, MinDrop: 1, MaxDrop: 1}
   _potentialSprites:
   - {fileID: 21300000, guid: 6bf4cd3e76b83c1499886fb77bf115d1, type: 3}
   - {fileID: 21300000, guid: 8755168f4f19fac4bb82847262828d42, type: 3}
@@ -1837,7 +1907,6 @@ MonoBehaviour:
   _maxHealth: 10
   _minWorkDistance: 0.75
   _extractionSkillType: 0
-  _baseData: {fileID: 115313260348806446}
 --- !u!114 &-3963601841445953741
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1897,33 +1966,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  guid: cc229749-9ca9-4ac8-9246-0a9ecf5952aa
-  initialGuid: cc229749-9ca9-4ac8-9246-0a9ecf5952aa
+  guid: 
+  initialGuid: 
   runtimeIndexID: 
-  icon: {fileID: -270428748, guid: 6f37856933bf9674fb472dd26b81b58e, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
-  title: Orange
-  description: This is a description of the newly created data entry.
+  icon: {fileID: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  title: 
+  description: 
   tags: []
-  index: 1
-  relatedLibraryObject: {fileID: 11400000}
+  index: 0
+  relatedLibraryObject: {fileID: 0}
   runtimeLibraryObject: {fileID: 0}
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _category: 3
   _maxDurability: 100
   _maxStackSize: 25
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: -7963185361307739678}
+  _baseData:
+    UniqueID: 
+    Durability: 0
+    Quality: 0
+    IsAllowed: 0
+    CurrentTask:
+      TaskId: 
+      TaskType: 0
+      KinlingAssignedToTask: {fileID: 0}
+      Materials: []
+      RequiredToolType: 0
+      IsKinlingSpecific: 0
+      _requestor: {fileID: 0}
+    CarryingKinlingUID: 
+    Position: {x: 0, y: 0}
+    LinkedItem: {fileID: 0}
+    Settings: {fileID: 0}
   _foodType: 0
   _nutrition: 0.5
 --- !u!114 &-3244215572019641743
@@ -1940,7 +2031,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -1951,7 +2042,11 @@ MonoBehaviour:
   initialGuid: 690e9cad-b220-4a7e-a755-d54c5d4b17db
   runtimeIndexID: 
   icon: {fileID: -1737689449, guid: e2e91c8b60d6d9946bf99098e8c26f3d, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Gold Mountain
   description: This is a description of the newly created data entry.
   tags: []
@@ -1961,18 +2056,17 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _prefab: {fileID: 5442789227045615136, guid: a2f1f897b269aef4bb1bc9e05066305d, type: 3}
   _workToExtract: 60
   _harvestableItems:
     _itemDrops:
-    - Item: {fileID: 3255695680348296240}
-      MinDrop: 1
-      MaxDrop: 2
+    - {Item: {fileID: 0}, MinDrop: 1, MaxDrop: 2}
   _potentialSprites: []
   _maxHealth: 60
   _minWorkDistance: 0.75
   _extractionSkillType: 0
-  _baseData: {fileID: 2268203417634399997}
   _ruleTile: {fileID: 11400000, guid: 3bab186eaf5aef14aacaecfacdae194a, type: 2}
   _mountainTileType: 6
 --- !u!114 &-3020583608536372809
@@ -1989,7 +2083,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -2000,7 +2094,11 @@ MonoBehaviour:
   initialGuid: 6638e5ef-5ae1-42f1-b2c3-759ec5eacd40
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: 699e2348d22f48040be65ab0afbd2424, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Iron Ore
   description: This is a description of the newly created data entry.
   tags: []
@@ -2010,12 +2108,30 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _category: 0
   _maxDurability: 100
   _maxStackSize: 25
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: 6445956091041958653}
+  _baseData:
+    UniqueID: 
+    Durability: 0
+    Quality: 0
+    IsAllowed: 0
+    CurrentTask:
+      TaskId: 
+      TaskType: 0
+      KinlingAssignedToTask: {fileID: 0}
+      Materials: []
+      RequiredToolType: 0
+      IsKinlingSpecific: 0
+      _requestor: {fileID: 0}
+    CarryingKinlingUID: 
+    Position: {x: 0, y: 0}
+    LinkedItem: {fileID: 0}
+    Settings: {fileID: 0}
 --- !u!114 &-2905673160663084519
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2026,37 +2142,59 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1743272e3adb3943af0e7db05085a8a, type: 3}
-  m_Name: Strawberry
+  m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  guid: 182c5b2c-0dce-46ac-b957-4819787a75de
-  initialGuid: 182c5b2c-0dce-46ac-b957-4819787a75de
+  guid: 
+  initialGuid: 
   runtimeIndexID: 
-  icon: {fileID: 422682441, guid: 18a57a0db5b8b6d43ae249ec6016319a, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
-  title: Strawberry
-  description: This is a description of the newly created data entry.
+  icon: {fileID: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  title: 
+  description: 
   tags: []
   index: 0
-  relatedLibraryObject: {fileID: 11400000}
+  relatedLibraryObject: {fileID: 0}
   runtimeLibraryObject: {fileID: 0}
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _category: 3
   _maxDurability: 100
   _maxStackSize: 25
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: -7963185361307739678}
+  _baseData:
+    UniqueID: 
+    Durability: 0
+    Quality: 0
+    IsAllowed: 0
+    CurrentTask:
+      TaskId: 
+      TaskType: 0
+      KinlingAssignedToTask: {fileID: 0}
+      Materials: []
+      RequiredToolType: 0
+      IsKinlingSpecific: 0
+      _requestor: {fileID: 0}
+    CarryingKinlingUID: 
+    Position: {x: 0, y: 0}
+    LinkedItem: {fileID: 0}
+    Settings: {fileID: 0}
   _foodType: 0
   _nutrition: 0.5
 --- !u!114 &-2868459388340172924
@@ -2069,37 +2207,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21968d0dfbe07b848bd101c15cee8386, type: 3}
-  m_Name: Starter Stockpile
+  m_Name: 
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  guid: 3580d50e-4146-4ea3-af78-32e7ad1fdcc8
-  initialGuid: 3580d50e-4146-4ea3-af78-32e7ad1fdcc8
-  runtimeIndexID: 
-  icon: {fileID: 6042991441123128078, guid: afda4cedd10beb942a0a9fcb40a307b0, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
-  title: Starter Stockpile
-  description: This is a description of the newly created data entry.
-  tags: []
-  index: 1
-  relatedLibraryObject: {fileID: 11400000}
-  runtimeLibraryObject: {fileID: 0}
-  assignedGuid: 
-  isRuntimeInstance: 0
-  boxFoldout: 0
+  _itemName: 
+  _itemSprite: {fileID: 0}
   _category: 4
   _maxDurability: 100
   _maxStackSize: 0
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: 0}
   _craftRequirements:
     _minCraftingSkillLevel: 0
     _craftingSkill: 10
@@ -2134,43 +2250,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8c2c6528c8336f439126aa1d54e6af1, type: 3}
   m_Name: Double Bed
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  guid: 6acd6eb9-885b-412a-9c51-3c3098ea86cb
-  initialGuid: 6acd6eb9-885b-412a-9c51-3c3098ea86cb
-  runtimeIndexID: 
-  icon: {fileID: -1986180085, guid: 128e7404977fef1479d14ee0c70721c3, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
-  title: Double Bed
-  description: This is a description of the newly created data entry.
-  tags: []
-  index: 1
-  relatedLibraryObject: {fileID: 11400000}
-  runtimeLibraryObject: {fileID: 0}
-  assignedGuid: 
-  isRuntimeInstance: 0
-  boxFoldout: 0
+  _itemName: 
+  _itemSprite: {fileID: 0}
   _category: 4
   _maxDurability: 100
   _maxStackSize: 1
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: 7235637523369288592}
   _craftRequirements:
     _minCraftingSkillLevel: 3
     _craftingSkill: 10
     _workCost: 30
     _requiredCraftingToolType: 0
     _materialCosts:
-    - Item: {fileID: 283630323700872253}
-      Quantity: 3
+    - {Item: {fileID: 0}, Quantity: 3}
   _furniturePrefab: {fileID: 5935236254734965145, guid: dd1324a0af4a86b41b638230c8941527, type: 3}
   _inUseNeedChange:
     SourceID: 
@@ -2183,8 +2276,7 @@ MonoBehaviour:
     - {fileID: 8555071837867117066}
     - {fileID: 1104450306893862740}
   _varients:
-  - _materialSelectIcon: {fileID: 21300000, guid: 848cd147474beaa4f96afb2ae1f9b455, type: 3}
-    _furnitureSettings: {fileID: -2429024163771652823}
+  - {_materialSelectIcon: {fileID: 21300000, guid: 848cd147474beaa4f96afb2ae1f9b455, type: 3}, _furnitureSettings: {fileID: 0}}
   _defaultDirection: 0
   _defaultDye: {fileID: 4496512223619636680}
   _numOwners: 2
@@ -2200,44 +2292,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8c2c6528c8336f439126aa1d54e6af1, type: 3}
   m_Name: Copper Double Bed
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  guid: 44943dc9-ad99-4437-bbd5-280c12ced4dd
-  initialGuid: 44943dc9-ad99-4437-bbd5-280c12ced4dd
-  runtimeIndexID: 
-  icon: {fileID: -1986180085, guid: 128e7404977fef1479d14ee0c70721c3, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
-  title: Copper Double Bed
-  description: This is a description of the newly created data entry.
-  tags:
-  - Furniture Variant
-  index: 0
-  relatedLibraryObject: {fileID: 11400000}
-  runtimeLibraryObject: {fileID: 0}
-  assignedGuid: 
-  isRuntimeInstance: 0
-  boxFoldout: 0
+  _itemName: 
+  _itemSprite: {fileID: 0}
   _category: 4
   _maxDurability: 100
   _maxStackSize: 1
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: 6553907554727160304}
   _craftRequirements:
     _minCraftingSkillLevel: 3
     _craftingSkill: 10
     _workCost: 30
     _requiredCraftingToolType: 0
     _materialCosts:
-    - Item: {fileID: 4293936689025372978}
-      Quantity: 3
+    - {Item: {fileID: 0}, Quantity: 3}
   _furniturePrefab: {fileID: 5935236254734965145, guid: dd1324a0af4a86b41b638230c8941527, type: 3}
   _inUseNeedChange:
     SourceID: 
@@ -2319,7 +2387,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -2330,7 +2398,11 @@ MonoBehaviour:
   initialGuid: 068babba-c052-475b-bec1-fa12b89251a3
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: 9ef8790bd2426b44aa479b2178f73efe, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Orange Tree
   description: This is a description of the newly created data entry.
   tags: []
@@ -2340,6 +2412,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
   _workToExtract: 60
   _harvestableItems:
@@ -2348,7 +2422,6 @@ MonoBehaviour:
   _maxHealth: 60
   _minWorkDistance: 0.75
   _extractionSkillType: 5
-  _baseData: {fileID: 8216239440353706561}
   _growthStages:
   - StageName: Sapling
     GrowthSprite: {fileID: 21300000, guid: 340e51f3e8e15714689db84a04c628ba, type: 3}
@@ -2356,9 +2429,7 @@ MonoBehaviour:
     SecsInStage: 30
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 1
+      - {Item: {fileID: 0}, MinDrop: 1, MaxDrop: 1}
     Health: 10
   - StageName: Young
     GrowthSprite: {fileID: 21300000, guid: 6cbd7fdca17fd844c98ebff3ffe31450, type: 3}
@@ -2366,9 +2437,7 @@ MonoBehaviour:
     SecsInStage: 30
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 2
+      - {Item: {fileID: 0}, MinDrop: 1, MaxDrop: 2}
     Health: 15
   - StageName: Adult
     GrowthSprite: {fileID: 21300000, guid: 9ef8790bd2426b44aa479b2178f73efe, type: 3}
@@ -2376,9 +2445,7 @@ MonoBehaviour:
     SecsInStage: 0
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 2
-        MaxDrop: 4
+      - {Item: {fileID: 0}, MinDrop: 2, MaxDrop: 4}
     Health: 30
   _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
   _hasFruit: 1
@@ -2387,9 +2454,7 @@ MonoBehaviour:
   _fruitFlowersOverlay: {fileID: 21300000, guid: cf299772b1725cc48adc078fcf6d0f1f, type: 3}
   _harvestableFruit:
     _itemDrops:
-    - Item: {fileID: -3594478725275268963}
-      MinDrop: 2
-      MaxDrop: 4
+    - {Item: {fileID: 0}, MinDrop: 2, MaxDrop: 4}
   _workToHarvest: 15
 --- !u!114 &-1887156828929915283
 MonoBehaviour:
@@ -2504,7 +2569,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -2515,7 +2580,11 @@ MonoBehaviour:
   initialGuid: 844bea08-715b-43d8-916e-4b4ff292ded9
   runtimeIndexID: 
   icon: {fileID: 1795128930, guid: e23672569b447584088f87cab31c4251, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Copper Mountain
   description: This is a description of the newly created data entry.
   tags: []
@@ -2525,18 +2594,17 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _prefab: {fileID: 5442789227045615136, guid: a2f1f897b269aef4bb1bc9e05066305d, type: 3}
   _workToExtract: 60
   _harvestableItems:
     _itemDrops:
-    - Item: {fileID: 2545999382318138489}
-      MinDrop: 1
-      MaxDrop: 2
+    - {Item: {fileID: 0}, MinDrop: 1, MaxDrop: 2}
   _potentialSprites: []
   _maxHealth: 60
   _minWorkDistance: 0.75
   _extractionSkillType: 0
-  _baseData: {fileID: 6512197022579626652}
   _ruleTile: {fileID: 11400000, guid: 103d4f7d42da3ba45a5b231963c3fde0, type: 2}
   _mountainTileType: 2
 --- !u!114 &-1480566157623257057
@@ -2553,7 +2621,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -2564,7 +2632,11 @@ MonoBehaviour:
   initialGuid: 008cc5b6-7da8-4ae2-89eb-bfea98f4baaf
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: ccc921de49046a6468e4fa0270c5fbcf, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Poplar
   description: This is a description of the newly created data entry.
   tags: []
@@ -2574,6 +2646,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
   _workToExtract: 60
   _harvestableItems:
@@ -2582,7 +2656,6 @@ MonoBehaviour:
   _maxHealth: 60
   _minWorkDistance: 0.75
   _extractionSkillType: 5
-  _baseData: {fileID: 19725600825404008}
   _growthStages:
   - StageName: Sapling
     GrowthSprite: {fileID: 21300000, guid: e594107e0ac22204bb5b9f8b3ffe804a, type: 3}
@@ -2590,9 +2663,7 @@ MonoBehaviour:
     SecsInStage: 30
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 1
+      - {Item: {fileID: 0}, MinDrop: 1, MaxDrop: 1}
     Health: 10
   - StageName: Young
     GrowthSprite: {fileID: 21300000, guid: a0f6bcbb37221314296a09c1271f999f, type: 3}
@@ -2600,9 +2671,7 @@ MonoBehaviour:
     SecsInStage: 60
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 2
+      - {Item: {fileID: 0}, MinDrop: 1, MaxDrop: 2}
     Health: 15
   - StageName: Adult
     GrowthSprite: {fileID: 21300000, guid: ccc921de49046a6468e4fa0270c5fbcf, type: 3}
@@ -2610,9 +2679,7 @@ MonoBehaviour:
     SecsInStage: 0
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 2
-        MaxDrop: 4
+      - {Item: {fileID: 0}, MinDrop: 2, MaxDrop: 4}
     Health: 30
   _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
   _hasFruit: 0
@@ -2682,7 +2749,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -2693,7 +2760,11 @@ MonoBehaviour:
   initialGuid: a8ee63e6-ac4c-4c16-9b4a-df92bf327488
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: d5cf68acaa3035041956a72466172494, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Coal
   description: This is a description of the newly created data entry.
   tags: []
@@ -2703,12 +2774,30 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _category: 0
   _maxDurability: 100
   _maxStackSize: 25
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: 3998079584738369031}
+  _baseData:
+    UniqueID: 
+    Durability: 0
+    Quality: 0
+    IsAllowed: 0
+    CurrentTask:
+      TaskId: 
+      TaskType: 0
+      KinlingAssignedToTask: {fileID: 0}
+      Materials: []
+      RequiredToolType: 0
+      IsKinlingSpecific: 0
+      _requestor: {fileID: 0}
+    CarryingKinlingUID: 
+    Position: {x: 0, y: 0}
+    LinkedItem: {fileID: 0}
+    Settings: {fileID: 0}
 --- !u!114 &-1021968146556891717
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2723,7 +2812,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -2737,7 +2826,11 @@ MonoBehaviour:
   initialGuid: 8094b730-76ad-4c26-807c-bbb0e0031ea8
   runtimeIndexID: 
   icon: {fileID: -1997294335, guid: 90f5efa4e4d76d34cb9b37730541f11f, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Stool
   description: This is a description of the newly created data entry.
   tags: []
@@ -2747,6 +2840,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   Durability: 0
   Quality: 0
   IsAllowed: 0
@@ -2757,6 +2852,7 @@ MonoBehaviour:
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
+    _requestor: {fileID: 0}
   CarryingKinlingUID: 
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
@@ -2787,35 +2883,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a01c9c06b2901384fb716247a2f4001a, type: 3}
   m_Name: Basic Crafting Area
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  guid: d0b79115-cca1-40f3-aa14-60c142a23fa9
-  initialGuid: d0b79115-cca1-40f3-aa14-60c142a23fa9
-  runtimeIndexID: 
-  icon: {fileID: 21300000, guid: f1ede4ef213eb284191ebec56183c5ae, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
-  title: Basic Crafting Area
-  description: This is a description of the newly created data entry.
-  tags: []
-  index: 1
-  relatedLibraryObject: {fileID: 11400000}
-  runtimeLibraryObject: {fileID: 0}
-  assignedGuid: 
-  isRuntimeInstance: 0
-  boxFoldout: 0
+  _itemName: 
+  _itemSprite: {fileID: 0}
   _category: 4
   _maxDurability: 5
   _maxStackSize: 0
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: 129112436663426907}
   _craftRequirements:
     _minCraftingSkillLevel: 0
     _craftingSkill: 10
@@ -2835,8 +2909,8 @@ MonoBehaviour:
   _defaultDye: {fileID: 0}
   _numOwners: 0
   _craftableItems:
-  - {fileID: -36226739791890325}
-  - {fileID: 5455808903527916622}
+  - {fileID: 0}
+  - {fileID: 0}
   _cookableMeals: []
 --- !u!114 &-56553772185048440
 MonoBehaviour:
@@ -2896,43 +2970,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76c62dc32f973a478967d098378706b, type: 3}
   m_Name: Gold Bar
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  guid: baff5e3f-2bde-4441-af3c-930d7186278b
-  initialGuid: baff5e3f-2bde-4441-af3c-930d7186278b
-  runtimeIndexID: 
-  icon: {fileID: 21300000, guid: 148e7a7b303bd6f4dabe129d388517ba, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
-  title: Gold Bar
-  description: This is a description of the newly created data entry.
-  tags: []
-  index: 1
-  relatedLibraryObject: {fileID: 11400000}
-  runtimeLibraryObject: {fileID: 0}
-  assignedGuid: 
-  isRuntimeInstance: 0
-  boxFoldout: 0
+  _itemName: 
+  _itemSprite: {fileID: 0}
   _category: 0
   _maxDurability: 100
   _maxStackSize: 25
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: -6683971750745164997}
   _craftRequirements:
     _minCraftingSkillLevel: 2
     _craftingSkill: 10
     _workCost: 25
     _requiredCraftingToolType: 0
     _materialCosts:
-    - Item: {fileID: 3255695680348296240}
-      Quantity: 3
+    - {Item: {fileID: 0}, Quantity: 3}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2949,12 +3000,9 @@ MonoBehaviour:
   isInitialized: 0
   data:
     _objectList:
-    - type: Data.Item.FurnitureData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    - type: Data.Item.CraftingTableSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      dataObjects:
-      - {fileID: 6553907554727160304}
-      - {fileID: -1021968146556891717}
-      - {fileID: 7235637523369288592}
+      dataObjects: []
     - type: Data.Item.StorageData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
@@ -3047,26 +3095,23 @@ MonoBehaviour:
     - type: Data.Item.CraftedItemSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
-      - {fileID: 5455808903527916622}
-      - {fileID: -36226739791890325}
-      - {fileID: 4293936689025372978}
-      - {fileID: 2760536265605788022}
-      - {fileID: 7039194556294736213}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Item.FurnitureSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
+      dataObjects: []
+    - type: StorageSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       dataObjects:
-      - {fileID: -2429024163771652823}
-      - {fileID: -2864379102396860336}
-    - type: Data.Item.StorageSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      - {fileID: 0}
+      - {fileID: 0}
+    - type: CraftingTableSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
-      - {fileID: -4295719743994742051}
-      - {fileID: -2868459388340172924}
-    - type: Data.Item.CraftingTableSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      dataObjects:
-      - {fileID: 8585109893636993629}
-      - {fileID: -191659240112778000}
+      - {fileID: 0}
+      - {fileID: 0}
     - type: Data.Resource.MountainSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
@@ -3117,10 +3162,7 @@ MonoBehaviour:
       - {fileID: -4167834067029810729}
     - type: Data.Item.RawFoodSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      dataObjects:
-      - {fileID: -2905673160663084519}
-      - {fileID: -3594478725275268963}
-      - {fileID: 7314705390567572713}
+      dataObjects: []
     - type: Data.Item.RawFoodData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
@@ -3128,16 +3170,14 @@ MonoBehaviour:
     - type: Data.Item.MealSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
-      - {fileID: -4595143124937531268}
+      - {fileID: 0}
     - type: Data.Item.MealData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
       - {fileID: 8440898394350696192}
     - type: Characters.KinlingData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      dataObjects:
-      - {fileID: -7223051035212598023}
-      - {fileID: 5933055010327361580}
+      dataObjects: []
     - type: Data.Zones.StockpileZoneSettings, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
@@ -3171,7 +3211,7 @@ MonoBehaviour:
   - {fileID: -4624164709437787247}
   existingNamespaces:
   - namespaceName: Settings
-    foldout: 1
+    foldout: 0
     hidden: 0
     icon: 
     existingTypes:
@@ -3556,81 +3596,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ac8c373f3bc8e40b43409c4736230c, type: 3}
   m_Name: Basic Crafting Area
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes:
-    - Name: AssignedStorage
-      Entry: 6
-      Data: 
-  guid: ece606e3-1a55-418f-a932-5043a451de4d
-  initialGuid: ece606e3-1a55-418f-a932-5043a451de4d
-  runtimeIndexID: 
-  icon: {fileID: 1670653853, guid: 49688975d6e4e9d4e9023f92ee002b97, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
-  title: Basic Crafting Area
-  description: This is a description of the newly created data entry.
-  tags: []
-  index: 0
-  relatedLibraryObject: {fileID: 11400000}
-  runtimeLibraryObject: {fileID: 0}
-  assignedGuid: 
-  isRuntimeInstance: 0
-  boxFoldout: 0
-  Durability: 0
-  Quality: 0
-  IsAllowed: 0
-  CurrentTask:
-    TaskId: 
-    TaskType: 0
-    KinlingAssignedToTask: {fileID: 0}
-    Materials: []
-    RequiredToolType: 0
-    IsKinlingSpecific: 0
-  CarryingKinlingUID: 
-  Position: {x: 25.871244, y: 19.490984}
-  LinkedItem: {fileID: 0}
-  Settings: {fileID: 0}
-  CraftersUID: 
-  State: 0
-  RemainingWork: 0
-  Direction: 0
-  InUse: 0
-  LinkedFurniture: {fileID: 0}
-  DyeOverride: {fileID: 0}
-  Owners: []
-  HasUseBlockingCommand: 0
-  RemainingMaterialCosts: []
-  PendingResourceCosts: []
-  IncomingResourceCosts: []
-  IncomingItems: []
-  FurnitureSettings: {fileID: 0}
-  CurrentOrder:
-    CraftedItem: {fileID: 0}
-    CraftedMeal: {fileID: 0}
-    Requestor: {fileID: 0}
-    State: 0
-    OrderType: 0
-    RemainingCraftingWork: 0
-    TotalCraftingWork: 0
-    ClaimedItems: []
-    FulfillmentType: 0
-    Amount: 0
-    CraftingTask:
-      TaskId: 
-      TaskType: 0
-      KinlingAssignedToTask: {fileID: 0}
-      Materials: []
-      RequiredToolType: 0
-      IsKinlingSpecific: 0
-    IsPaused: 0
-  LocalCraftingQueue:
-    Orders: []
 --- !u!114 &197161459398656425
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3645,7 +3610,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -3659,7 +3624,11 @@ MonoBehaviour:
   initialGuid: 2270cd3f-4dbd-472f-a862-394c3e202dca
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: be0ce54fb06e9514cbf76c3db094c57b, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Steel Bar
   description: This is a description of the newly created data entry.
   tags: []
@@ -3669,6 +3638,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   Durability: 0
   Quality: 0
   IsAllowed: 0
@@ -3679,6 +3650,7 @@ MonoBehaviour:
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
+    _requestor: {fileID: 0}
   CarryingKinlingUID: 
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
@@ -3698,7 +3670,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -3709,7 +3681,11 @@ MonoBehaviour:
   initialGuid: aa10c71a-d79c-4b08-8371-b33ea7144d4e
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: ae9afa1dfd4daca4b8ffd98162c852c9, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Wood
   description: This is a description of the newly created data entry.
   tags: []
@@ -3719,12 +3695,30 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _category: 0
   _maxDurability: 100
   _maxStackSize: 25
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: -5005131501070810583}
+  _baseData:
+    UniqueID: 
+    Durability: 0
+    Quality: 0
+    IsAllowed: 0
+    CurrentTask:
+      TaskId: 
+      TaskType: 0
+      KinlingAssignedToTask: {fileID: 0}
+      Materials: []
+      RequiredToolType: 0
+      IsKinlingSpecific: 0
+      _requestor: {fileID: 0}
+    CarryingKinlingUID: 
+    Position: {x: 0, y: 0}
+    LinkedItem: {fileID: 0}
+    Settings: {fileID: 0}
 --- !u!114 &366437865215858577
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3739,7 +3733,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -3753,7 +3747,11 @@ MonoBehaviour:
   initialGuid: 25a63eb3-8fec-4114-a2a2-f3ce0c28f53a
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: 848cd147474beaa4f96afb2ae1f9b455, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Copper Bar
   description: This is a description of the newly created data entry.
   tags: []
@@ -3763,6 +3761,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   Durability: 0
   Quality: 0
   IsAllowed: 0
@@ -3773,6 +3773,7 @@ MonoBehaviour:
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
+    _requestor: {fileID: 0}
   CarryingKinlingUID: 
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
@@ -3805,7 +3806,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -3816,7 +3817,11 @@ MonoBehaviour:
   initialGuid: fe5af1df-6843-4301-be46-224c8d698c22
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: f0e6d6e19ba2be648bed15dcc3814ea3, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Weed
   description: This is a description of the newly created data entry.
   tags: []
@@ -3826,6 +3831,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _prefab: {fileID: 4128056971819822129, guid: 8025b15f75a03e249b86e4b29cb3a92f, type: 3}
   _workToExtract: 5
   _harvestableItems:
@@ -3839,7 +3846,6 @@ MonoBehaviour:
   _maxHealth: 5
   _minWorkDistance: 0.75
   _extractionSkillType: 5
-  _baseData: {fileID: 7833847521327401813}
 --- !u!114 &1104450306893862740
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3854,7 +3860,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -3865,7 +3871,11 @@ MonoBehaviour:
   initialGuid: e277f8bc-bdd6-4f8a-8483-489263c40059
   runtimeIndexID: 
   icon: {fileID: 0}
-  color: {r: 0.36078432, g: 0.43137258, b: 0.882353, a: 1}
+  color:
+    r: 0.36078432
+    g: 0.43137258
+    b: 0.882353
+    a: 1
   title: Blue
   description: This is a description of the newly created data entry.
   tags: []
@@ -3875,9 +3885,23 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  Primary: {r: 0.105882354, g: 0.15686275, b: 0.7529412, a: 1}
-  PrimaryShade: {r: 0.05882353, g: 0.08627451, b: 0.38039216, a: 1}
-  Accent: {r: 0.69411767, g: 0.3529412, b: 0.13333334, a: 1}
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
+  Primary:
+    r: 0.105882354
+    g: 0.15686275
+    b: 0.7529412
+    a: 1
+  PrimaryShade:
+    r: 0.05882353
+    g: 0.08627451
+    b: 0.38039216
+    a: 1
+  Accent:
+    r: 0.69411767
+    g: 0.3529412
+    b: 0.13333334
+    a: 1
 --- !u!114 &1240923166282598677
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3928,7 +3952,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -3939,7 +3963,11 @@ MonoBehaviour:
   initialGuid: defce077-cc8b-41e3-a365-b44f5e6e099c
   runtimeIndexID: 
   icon: {fileID: -2067034400, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Stone Wall
   description: This is a description of the newly created data entry.
   tags: []
@@ -3949,14 +3977,15 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _craftRequirements:
     _minCraftingSkillLevel: 5
     _craftingSkill: 2
     _workCost: 60
     _requiredCraftingToolType: 0
     _materialCosts:
-    - Item: {fileID: -7757045536695828918}
-      Quantity: 3
+    - {Item: {fileID: 0}, Quantity: 3}
   OptionIcon: {fileID: 21300000, guid: 286743b833fa73a4c824303d4da3e3dd, type: 3}
   MaxDurability: 50
   ExteriorRuleTile: {fileID: 11400000, guid: f91b311b42950d84fb7392825b419fe0, type: 2}
@@ -3975,7 +4004,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -3986,7 +4015,11 @@ MonoBehaviour:
   initialGuid: 7d8e9577-84c6-4617-8fdd-dcae537bf0ae
   runtimeIndexID: 
   icon: {fileID: -1095791776, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Stone Door
   description: This is a description of the newly created data entry.
   tags: []
@@ -3996,6 +4029,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _doorPrefab: {fileID: 7340745770291212362, guid: 51da4637610249947a40d8d8f72ae22e, type: 3}
   _craftRequirements:
     _minCraftingSkillLevel: 2
@@ -4003,8 +4038,7 @@ MonoBehaviour:
     _workCost: 45
     _requiredCraftingToolType: 0
     _materialCosts:
-    - Item: {fileID: -7757045536695828918}
-      Quantity: 3
+    - {Item: {fileID: 0}, Quantity: 3}
   _optionIcon: {fileID: 21300000, guid: 286743b833fa73a4c824303d4da3e3dd, type: 3}
   _maxDurability: 100
   _horizontalDoorframe: {fileID: -1095791776, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
@@ -4025,7 +4059,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -4107,7 +4141,11 @@ MonoBehaviour:
   initialGuid: d9eb7d5f-ca20-4b75-9ec9-ff4a422cc645
   runtimeIndexID: 
   icon: {fileID: 6042991441123128078, guid: afda4cedd10beb942a0a9fcb40a307b0, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Starter Stockpile
   description: This is a description of the newly created data entry.
   tags: []
@@ -4117,6 +4155,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   Durability: 100
   Quality: 0
   IsAllowed: 0
@@ -4127,6 +4167,7 @@ MonoBehaviour:
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
+    _requestor: {fileID: 0}
   CarryingKinlingUID: 
   Position: {x: 24, y: 24}
   LinkedItem: {fileID: 0}
@@ -4148,6 +4189,12 @@ MonoBehaviour:
   Stored: []
   Incoming: []
   Claimed: []
+  _storageConfigs:
+    <ConfigType>k__BackingField: 0
+    UsePriority: 0
+    DurabilityRange: {x: 0, y: 0}
+    QualityRange: {x: 0, y: 0}
+    StorageOptions: {}
 --- !u!114 &1541201725904742396
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4162,7 +4209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -4173,7 +4220,11 @@ MonoBehaviour:
   initialGuid: 826a5894-c2dc-447a-b39b-c3c68da04117
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: 1108efb6e8213bb44adc20f64f5d7c41, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Grass
   description: This is a description of the newly created data entry.
   tags: []
@@ -4183,6 +4234,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _prefab: {fileID: 1567881098773952703, guid: f6e3f4dcab112d84ca793e69ed2f6dbf, type: 3}
   _workToExtract: 5
   _harvestableItems:
@@ -4193,7 +4246,6 @@ MonoBehaviour:
   _maxHealth: 5
   _minWorkDistance: 0.75
   _extractionSkillType: 5
-  _baseData: {fileID: -56553772185048440}
 --- !u!114 &1636724805157081006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4255,7 +4307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -4269,7 +4321,11 @@ MonoBehaviour:
   initialGuid: b50399ca-e079-47d7-8232-2a8d2e1448ae
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: 915809f404d8bc040859c2053d40eb2d, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Tin Ore
   description: This is a description of the newly created data entry.
   tags: []
@@ -4279,6 +4335,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   Durability: 100
   Quality: 0
   IsAllowed: 1
@@ -4289,6 +4347,7 @@ MonoBehaviour:
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
+    _requestor: {fileID: 0}
   CarryingKinlingUID: 
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
@@ -4366,7 +4425,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -4377,7 +4436,11 @@ MonoBehaviour:
   initialGuid: 0eec06aa-d5af-428b-8dcc-524f10ba65d2
   runtimeIndexID: 
   icon: {fileID: -1127179300, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Wall
   description: This is a description of the newly created data entry.
   tags: []
@@ -4387,6 +4450,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   Durability: 0
   Position: {x: 0, y: 0}
   State: 0
@@ -4465,7 +4530,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -4476,7 +4541,11 @@ MonoBehaviour:
   initialGuid: a0da8bc5-ffcf-444b-b6dd-b112d95e7512
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: 1c851eae1881328409a3c8599d4113f8, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Copper Ore
   description: This is a description of the newly created data entry.
   tags: []
@@ -4486,12 +4555,30 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _category: 0
   _maxDurability: 100
   _maxStackSize: 25
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: -4106105843404846981}
+  _baseData:
+    UniqueID: 
+    Durability: 0
+    Quality: 0
+    IsAllowed: 0
+    CurrentTask:
+      TaskId: 
+      TaskType: 0
+      KinlingAssignedToTask: {fileID: 0}
+      Materials: []
+      RequiredToolType: 0
+      IsKinlingSpecific: 0
+      _requestor: {fileID: 0}
+    CarryingKinlingUID: 
+    Position: {x: 0, y: 0}
+    LinkedItem: {fileID: 0}
+    Settings: {fileID: 0}
 --- !u!114 &2672976842291651213
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4506,7 +4593,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -4517,7 +4604,11 @@ MonoBehaviour:
   initialGuid: 8d9cd2a8-848a-4627-9d4e-7bf431b0b332
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: 0669b6defaeb36f4fb13b0c77836a30d, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Spruce
   description: This is a description of the newly created data entry.
   tags: []
@@ -4527,6 +4618,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
   _workToExtract: 60
   _harvestableItems:
@@ -4535,7 +4628,6 @@ MonoBehaviour:
   _maxHealth: 60
   _minWorkDistance: 0.75
   _extractionSkillType: 5
-  _baseData: {fileID: -6728472306890164557}
   _growthStages:
   - StageName: Sapling
     GrowthSprite: {fileID: 21300000, guid: 848c8a290210208458a065fe90d72377, type: 3}
@@ -4543,9 +4635,7 @@ MonoBehaviour:
     SecsInStage: 30
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 1
+      - {Item: {fileID: 0}, MinDrop: 1, MaxDrop: 1}
     Health: 10
   - StageName: Young
     GrowthSprite: {fileID: 21300000, guid: e69f0d5d62afaac41a5d245a1b5e47f7, type: 3}
@@ -4553,9 +4643,7 @@ MonoBehaviour:
     SecsInStage: 60
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 2
+      - {Item: {fileID: 0}, MinDrop: 1, MaxDrop: 2}
     Health: 15
   - StageName: Adult
     GrowthSprite: {fileID: 21300000, guid: 0669b6defaeb36f4fb13b0c77836a30d, type: 3}
@@ -4563,9 +4651,7 @@ MonoBehaviour:
     SecsInStage: 0
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 2
-        MaxDrop: 4
+      - {Item: {fileID: 0}, MinDrop: 2, MaxDrop: 4}
     Health: 30
   _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
   _hasFruit: 0
@@ -4589,7 +4675,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -4600,7 +4686,11 @@ MonoBehaviour:
   initialGuid: 95b368af-c4da-4f2b-bed9-4e502c24dfd8
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: 0fd3f59d6e5bc924fbc75655b4a41224, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Berry Bush
   description: This is a description of the newly created data entry.
   tags: []
@@ -4610,6 +4700,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _prefab: {fileID: 8379773904936381525, guid: e6965deb74f3c394a874724af113892a, type: 3}
   _workToExtract: 10
   _harvestableItems:
@@ -4618,7 +4710,6 @@ MonoBehaviour:
   _maxHealth: 10
   _minWorkDistance: 0.75
   _extractionSkillType: 5
-  _baseData: {fileID: -1752239673643862743}
   _growthStages:
   - StageName: Young
     GrowthSprite: {fileID: 21300000, guid: 0fd3f59d6e5bc924fbc75655b4a41224, type: 3}
@@ -4626,9 +4717,7 @@ MonoBehaviour:
     SecsInStage: 60
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 0
-        MaxDrop: 1
+      - {Item: {fileID: 0}, MinDrop: 0, MaxDrop: 1}
     Health: 5
   - StageName: Adult
     GrowthSprite: {fileID: 21300000, guid: 0fd3f59d6e5bc924fbc75655b4a41224, type: 3}
@@ -4636,9 +4725,7 @@ MonoBehaviour:
     SecsInStage: 0
     HarvestableItems:
       _itemDrops:
-      - Item: {fileID: 283630323700872253}
-        MinDrop: 1
-        MaxDrop: 2
+      - {Item: {fileID: 0}, MinDrop: 1, MaxDrop: 2}
     Health: 10
   _harvestCmd: {fileID: 11400000, guid: beef87d05770b3448aa2533013a2e6cd, type: 2}
   _hasFruit: 1
@@ -4647,9 +4734,7 @@ MonoBehaviour:
   _fruitFlowersOverlay: {fileID: 0}
   _harvestableFruit:
     _itemDrops:
-    - Item: {fileID: -2905673160663084519}
-      MinDrop: 1
-      MaxDrop: 1
+    - {Item: {fileID: 0}, MinDrop: 1, MaxDrop: 1}
   _workToHarvest: 15
 --- !u!114 &2760536265605788022
 MonoBehaviour:
@@ -4663,43 +4748,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76c62dc32f973a478967d098378706b, type: 3}
   m_Name: Iron Bar
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  guid: 9848db97-55b3-4223-baed-3f76425c369e
-  initialGuid: 9848db97-55b3-4223-baed-3f76425c369e
-  runtimeIndexID: 
-  icon: {fileID: 21300000, guid: 872b85ebed4e6114f9ee060e189c0f2f, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
-  title: Iron Bar
-  description: This is a description of the newly created data entry.
-  tags: []
-  index: 3
-  relatedLibraryObject: {fileID: 11400000}
-  runtimeLibraryObject: {fileID: 0}
-  assignedGuid: 
-  isRuntimeInstance: 0
-  boxFoldout: 0
+  _itemName: 
+  _itemSprite: {fileID: 0}
   _category: 0
   _maxDurability: 100
   _maxStackSize: 25
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: -7963632896702530702}
   _craftRequirements:
     _minCraftingSkillLevel: 2
     _craftingSkill: 10
     _workCost: 25
     _requiredCraftingToolType: 0
     _materialCosts:
-    - Item: {fileID: -3020583608536372809}
-      Quantity: 3
+    - {Item: {fileID: 0}, Quantity: 3}
 --- !u!114 &3086282657986071168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4802,7 +4864,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -4813,7 +4875,11 @@ MonoBehaviour:
   initialGuid: 039b696d-8d74-4518-924a-765ae7b539d4
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: c92a257e6a9b0f040bbf46122c71dffa, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Gold Ore
   description: This is a description of the newly created data entry.
   tags: []
@@ -4823,12 +4889,30 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _category: 0
   _maxDurability: 100
   _maxStackSize: 25
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: -5298398873868244794}
+  _baseData:
+    UniqueID: 
+    Durability: 0
+    Quality: 0
+    IsAllowed: 0
+    CurrentTask:
+      TaskId: 
+      TaskType: 0
+      KinlingAssignedToTask: {fileID: 0}
+      Materials: []
+      RequiredToolType: 0
+      IsKinlingSpecific: 0
+      _requestor: {fileID: 0}
+    CarryingKinlingUID: 
+    Position: {x: 0, y: 0}
+    LinkedItem: {fileID: 0}
+    Settings: {fileID: 0}
 --- !u!114 &3266125826896100908
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4843,7 +4927,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -4925,7 +5009,11 @@ MonoBehaviour:
   initialGuid: 028cd6a0-611f-4198-a8ae-872f5908caf3
   runtimeIndexID: 
   icon: {fileID: -1833610153, guid: 9f7d87b58161cbd4aa86794c2ca49b34, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Barrel
   description: This is a description of the newly created data entry.
   tags: []
@@ -4935,6 +5023,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   Durability: 0
   Quality: 0
   IsAllowed: 0
@@ -4945,6 +5035,7 @@ MonoBehaviour:
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
+    _requestor: {fileID: 0}
   CarryingKinlingUID: 
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
@@ -4966,6 +5057,12 @@ MonoBehaviour:
   Stored: []
   Incoming: []
   Claimed: []
+  _storageConfigs:
+    <ConfigType>k__BackingField: 0
+    UsePriority: 0
+    DurabilityRange: {x: 0, y: 0}
+    QualityRange: {x: 0, y: 0}
+    StorageOptions: {}
 --- !u!114 &3668364348396301276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4980,7 +5077,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -4991,7 +5088,11 @@ MonoBehaviour:
   initialGuid: 86f1ff39-2974-4f01-b2fe-3f56a0053dce
   runtimeIndexID: 
   icon: {fileID: 1925443608, guid: 68263d632d49f9749b9b4981df13377b, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Mountain
   description: This is a description of the newly created data entry.
   tags: []
@@ -5001,18 +5102,17 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _prefab: {fileID: 5442789227045615136, guid: a2f1f897b269aef4bb1bc9e05066305d, type: 3}
   _workToExtract: 60
   _harvestableItems:
     _itemDrops:
-    - Item: {fileID: -7757045536695828918}
-      MinDrop: 1
-      MaxDrop: 2
+    - {Item: {fileID: 0}, MinDrop: 1, MaxDrop: 2}
   _potentialSprites: []
   _maxHealth: 60
   _minWorkDistance: 0.75
   _extractionSkillType: 0
-  _baseData: {fileID: 1868634605682467714}
   _ruleTile: {fileID: 11400000, guid: 600ac304e528db849a504d0f0d8c7057, type: 2}
   _mountainTileType: 1
 --- !u!114 &3669178811856810939
@@ -5081,7 +5181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -5092,7 +5192,11 @@ MonoBehaviour:
   initialGuid: a1985e57-887b-404c-8bfa-14987bfbc280
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: ec6cc8498ba24f94d852e86cf7441df2, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Log
   description: This is a description of the newly created data entry.
   tags: []
@@ -5102,19 +5206,18 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _prefab: {fileID: 2237005579245771593, guid: 2405aa579d18a204cbaae7185fe98266, type: 3}
   _workToExtract: 10
   _harvestableItems:
     _itemDrops:
-    - Item: {fileID: 283630323700872253}
-      MinDrop: 1
-      MaxDrop: 2
+    - {Item: {fileID: 0}, MinDrop: 1, MaxDrop: 2}
   _potentialSprites:
   - {fileID: 21300000, guid: ec6cc8498ba24f94d852e86cf7441df2, type: 3}
   _maxHealth: 10
   _minWorkDistance: 0.75
   _extractionSkillType: 5
-  _baseData: {fileID: -1362852035674046031}
 --- !u!114 &3998079584738369031
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5129,7 +5232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -5143,7 +5246,11 @@ MonoBehaviour:
   initialGuid: 4aa46bed-c580-4ec4-b2e4-d7b80adc5227
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: d5cf68acaa3035041956a72466172494, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Coal
   description: This is a description of the newly created data entry.
   tags: []
@@ -5153,6 +5260,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   Durability: 0
   Quality: 0
   IsAllowed: 0
@@ -5163,6 +5272,7 @@ MonoBehaviour:
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
+    _requestor: {fileID: 0}
   CarryingKinlingUID: 
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
@@ -5179,43 +5289,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76c62dc32f973a478967d098378706b, type: 3}
   m_Name: Copper Bar
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  guid: 2c927e88-6001-4f15-94a7-41c788c20aa9
-  initialGuid: 2c927e88-6001-4f15-94a7-41c788c20aa9
-  runtimeIndexID: 
-  icon: {fileID: 21300000, guid: 848cd147474beaa4f96afb2ae1f9b455, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
-  title: Copper Bar
-  description: This is a description of the newly created data entry.
-  tags: []
-  index: 2
-  relatedLibraryObject: {fileID: 11400000}
-  runtimeLibraryObject: {fileID: 0}
-  assignedGuid: 
-  isRuntimeInstance: 0
-  boxFoldout: 0
+  _itemName: 
+  _itemSprite: {fileID: 0}
   _category: 0
   _maxDurability: 100
   _maxStackSize: 25
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: 366437865215858577}
   _craftRequirements:
     _minCraftingSkillLevel: 2
     _craftingSkill: 10
     _workCost: 25
     _requiredCraftingToolType: 0
     _materialCosts:
-    - Item: {fileID: 2545999382318138489}
-      Quantity: 3
+    - {Item: {fileID: 0}, Quantity: 3}
 --- !u!114 &4384225487442251340
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5230,7 +5317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -5244,7 +5331,11 @@ MonoBehaviour:
   initialGuid: d92893bc-1dbe-42f7-bac6-c4292d8457b5
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: 286743b833fa73a4c824303d4da3e3dd, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Stone
   description: This is a description of the newly created data entry.
   tags: []
@@ -5254,6 +5345,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   Durability: 100
   Quality: 0
   IsAllowed: 0
@@ -5264,6 +5357,7 @@ MonoBehaviour:
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
+    _requestor: {fileID: 0}
   CarryingKinlingUID: 
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
@@ -5282,7 +5376,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -5293,7 +5387,11 @@ MonoBehaviour:
   initialGuid: 3abd7fa5-eadd-421c-a656-64f661b384f2
   runtimeIndexID: 
   icon: {fileID: 0}
-  color: {r: 0.8941177, g: 0.23137257, b: 0.26666668, a: 1}
+  color:
+    r: 0.8941177
+    g: 0.23137257
+    b: 0.26666668
+    a: 1
   title: Red
   description: This is a description of the newly created data entry.
   tags: []
@@ -5303,9 +5401,23 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  Primary: {r: 0.77582246, g: 0.043735042, b: 0.057805434, a: 1}
-  PrimaryShade: {r: 0.36130688, g: 0.019382361, b: 0.033104774, a: 1}
-  Accent: {r: 0.69411767, g: 0.3529412, b: 0.13333334, a: 1}
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
+  Primary:
+    r: 0.77582246
+    g: 0.043735042
+    b: 0.057805434
+    a: 1
+  PrimaryShade:
+    r: 0.36130688
+    g: 0.019382361
+    b: 0.033104774
+    a: 1
+  Accent:
+    r: 0.69411767
+    g: 0.3529412
+    b: 0.13333334
+    a: 1
 --- !u!114 &4497696957364699314
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5320,7 +5432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -5331,7 +5443,11 @@ MonoBehaviour:
   initialGuid: 2173ec6f-9f96-4838-94cb-f852add4245b
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: 915809f404d8bc040859c2053d40eb2d, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Tin Ore
   description: This is a description of the newly created data entry.
   tags: []
@@ -5341,12 +5457,30 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _category: 0
   _maxDurability: 100
   _maxStackSize: 25
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: 1851590692530616479}
+  _baseData:
+    UniqueID: 
+    Durability: 0
+    Quality: 0
+    IsAllowed: 0
+    CurrentTask:
+      TaskId: 
+      TaskType: 0
+      KinlingAssignedToTask: {fileID: 0}
+      Materials: []
+      RequiredToolType: 0
+      IsKinlingSpecific: 0
+      _requestor: {fileID: 0}
+    CarryingKinlingUID: 
+    Position: {x: 0, y: 0}
+    LinkedItem: {fileID: 0}
+    Settings: {fileID: 0}
 --- !u!114 &5069011162588748535
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5361,7 +5495,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -5372,7 +5506,11 @@ MonoBehaviour:
   initialGuid: aec3b56c-bb0c-4fd2-b684-2543358278aa
   runtimeIndexID: 
   icon: {fileID: -1095791776, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Wooden Door
   description: This is a description of the newly created data entry.
   tags: []
@@ -5382,6 +5520,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _doorPrefab: {fileID: 7340745770291212362, guid: 51da4637610249947a40d8d8f72ae22e, type: 3}
   _craftRequirements:
     _minCraftingSkillLevel: 2
@@ -5389,8 +5529,7 @@ MonoBehaviour:
     _workCost: 60
     _requiredCraftingToolType: 0
     _materialCosts:
-    - Item: {fileID: 283630323700872253}
-      Quantity: 3
+    - {Item: {fileID: 0}, Quantity: 3}
   _optionIcon: {fileID: 21300000, guid: ae9afa1dfd4daca4b8ffd98162c852c9, type: 3}
   _maxDurability: 100
   _horizontalDoorframe: {fileID: -1095791776, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
@@ -5409,43 +5548,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76c62dc32f973a478967d098378706b, type: 3}
   m_Name: Plank
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  guid: dd5349ac-3fba-4954-9f22-e1b564f63a1c
-  initialGuid: dd5349ac-3fba-4954-9f22-e1b564f63a1c
-  runtimeIndexID: 
-  icon: {fileID: 21300000, guid: 15918864e961b10429f4f65321a0483b, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
-  title: Plank
-  description: This is a description of the newly created data entry.
-  tags: []
-  index: 0
-  relatedLibraryObject: {fileID: 11400000}
-  runtimeLibraryObject: {fileID: 0}
-  assignedGuid: 
-  isRuntimeInstance: 0
-  boxFoldout: 0
+  _itemName: 
+  _itemSprite: {fileID: 0}
   _category: 0
   _maxDurability: 100
   _maxStackSize: 25
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: 5826925235861512597}
   _craftRequirements:
     _minCraftingSkillLevel: 2
     _craftingSkill: 10
     _workCost: 15
     _requiredCraftingToolType: 0
     _materialCosts:
-    - Item: {fileID: 283630323700872253}
-      Quantity: 2
+    - {Item: {fileID: 0}, Quantity: 2}
 --- !u!114 &5747519841221157967
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5460,7 +5576,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -5471,7 +5587,11 @@ MonoBehaviour:
   initialGuid: fdab8e05-a83d-4a78-8d2c-e3342903a94b
   runtimeIndexID: 
   icon: {fileID: -2067034400, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Wooden Wall
   description: This is a description of the newly created data entry.
   tags: []
@@ -5481,14 +5601,15 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _craftRequirements:
     _minCraftingSkillLevel: 3
     _craftingSkill: 2
     _workCost: 30
     _requiredCraftingToolType: 0
     _materialCosts:
-    - Item: {fileID: 283630323700872253}
-      Quantity: 3
+    - {Item: {fileID: 0}, Quantity: 3}
   OptionIcon: {fileID: 21300000, guid: ae9afa1dfd4daca4b8ffd98162c852c9, type: 3}
   MaxDurability: 50
   ExteriorRuleTile: {fileID: 11400000, guid: f91b311b42950d84fb7392825b419fe0, type: 2}
@@ -5507,7 +5628,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -5521,7 +5642,11 @@ MonoBehaviour:
   initialGuid: eb2a30f6-da71-46c7-bfc5-fd76e3a07331
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: 15918864e961b10429f4f65321a0483b, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Plank
   description: This is a description of the newly created data entry.
   tags: []
@@ -5531,6 +5656,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   Durability: 0
   Quality: 0
   IsAllowed: 0
@@ -5541,6 +5668,7 @@ MonoBehaviour:
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
+    _requestor: {fileID: 0}
   CarryingKinlingUID: 
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
@@ -5560,18 +5688,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: AssignedBed
+      Entry: 6
+      Data: 
+    - Name: FurnitureInUse
+      Entry: 6
+      Data: 
   guid: 67eac315-9b3c-49f6-83b2-bbb96a133f57
   initialGuid: 67eac315-9b3c-49f6-83b2-bbb96a133f57
   runtimeIndexID: 
   icon: {fileID: 0}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Generic Human
   description: This is a description of the newly created data entry.
   tags: []
@@ -5581,6 +5719,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   Nickname: 
   Firstname: 
   Lastname: 
@@ -5619,8 +5759,6 @@ MonoBehaviour:
     Hour22: 2
     Hour23: 2
   IsAsleep: 0
-  AssignedBed: {fileID: 0}
-  FurnitureInUse: {fileID: 0}
   TaskPriorities:
     Priorities:
     - TaskType: 0
@@ -5712,44 +5850,30 @@ MonoBehaviour:
     History: {fileID: 0}
     AttributeModifiers: []
   Needs:
-    _foodNeed:
-      _needSettings: {fileID: 11400000, guid: 4f3e8f8c1fbb9ba48b82a8cd1b27ee9a, type: 2}
-      _value: 0
-      _targetValue: 0
-      _hasTargetValue: 0
-    _energyNeed:
-      _needSettings: {fileID: 11400000, guid: bbd6477af2cdf1c4683d1378eeb200c1, type: 2}
-      _value: 0
-      _targetValue: 0
-      _hasTargetValue: 0
-    _funNeed:
-      _needSettings: {fileID: 11400000, guid: 8cebde6bc4f4e484687fbb6cea6b4dae, type: 2}
-      _value: 0.4
-      _targetValue: 0
-      _hasTargetValue: 0
-    _beautyNeed:
-      _needSettings: {fileID: 11400000, guid: f6be4198f644b944d8d90f07fc34691d, type: 2}
-      _value: 0
-      _targetValue: 0
-      _hasTargetValue: 0
-    _comfortNeed:
-      _needSettings: {fileID: 11400000, guid: 802eee3bc0319ec4c80e8b37b07de847, type: 2}
-      _value: 0
-      _targetValue: 0
-      _hasTargetValue: 0
+    _foodNeed: {_needSettings: {fileID: 11400000, guid: 4f3e8f8c1fbb9ba48b82a8cd1b27ee9a, type: 2}, _value: 0, _targetValue: 0, _hasTargetValue: 0, _kinling: {fileID: 0}}
+    _energyNeed: {_needSettings: {fileID: 11400000, guid: bbd6477af2cdf1c4683d1378eeb200c1, type: 2}, _value: 0, _targetValue: 0, _hasTargetValue: 0, _kinling: {fileID: 0}}
+    _funNeed: {_needSettings: {fileID: 11400000, guid: 8cebde6bc4f4e484687fbb6cea6b4dae, type: 2}, _value: 0.4, _targetValue: 0, _hasTargetValue: 0, _kinling: {fileID: 0}}
+    _beautyNeed: {_needSettings: {fileID: 11400000, guid: f6be4198f644b944d8d90f07fc34691d, type: 2}, _value: 0, _targetValue: 0, _hasTargetValue: 0, _kinling: {fileID: 0}}
+    _comfortNeed: {_needSettings: {fileID: 11400000, guid: 802eee3bc0319ec4c80e8b37b07de847, type: 2}, _value: 0, _targetValue: 0, _hasTargetValue: 0, _kinling: {fileID: 0}}
     _registeredNeedChanges: []
+    _kinling: {fileID: 0}
+    lastDayChecked: -1
   Mood:
     _availableBreakdowns:
     - {fileID: 11400000, guid: 0125287c4f7c51548ac6a5e80ba8738b, type: 2}
     - {fileID: 11400000, guid: c42f2bbf0fff4124a90c43497ab4ea49, type: 2}
     - {fileID: 11400000, guid: 0866ed8ecd5fa664da633e81c9c71338, type: 2}
     _allEmotionalStates: []
+    _baseMood: 37
     _moodTarget: 0
     _overallMood: 0
+    _kinlingData: {fileID: 0}
+    _moodThresholdSettings: {fileID: 0}
     _minorBreakThreshold: 0
     _majorBreakThreshold: 0
     _extremeBreakThreshold: 0
     _moodState: 0
+    _curBreakdownAction: {fileID: 0}
   Relationships: []
   _personalLog: []
   Avatar:
@@ -5764,16 +5888,17 @@ MonoBehaviour:
     FaceAccessory: 
     Weapon: 
     Offhand: 
+    _kinlingData: {fileID: 0}
+    _gender: 0
+    _race: {fileID: 0}
+    _ageStage: 0
     SkinTone:
-      serializedVersion: 2
       rgba: 0
     HairColour:
-      serializedVersion: 2
       rgba: 0
     HairStyle: {fileID: 0}
     BeardStyle: {fileID: 0}
     EyeColour:
-      serializedVersion: 2
       rgba: 0
     SideSpriteLibraryAsset: {fileID: 0}
     UpSpriteLibraryAsset: {fileID: 0}
@@ -5792,7 +5917,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -5803,7 +5928,11 @@ MonoBehaviour:
   initialGuid: 8d998135-a0af-4e85-a362-4c734b6e1358
   runtimeIndexID: 
   icon: {fileID: 1957506917, guid: 825e13f50b814f5469a2770e65260a6b, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Iron Mountain
   description: This is a description of the newly created data entry.
   tags: []
@@ -5813,18 +5942,17 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _prefab: {fileID: 5442789227045615136, guid: a2f1f897b269aef4bb1bc9e05066305d, type: 3}
   _workToExtract: 60
   _harvestableItems:
     _itemDrops:
-    - Item: {fileID: -3020583608536372809}
-      MinDrop: 1
-      MaxDrop: 2
+    - {Item: {fileID: 0}, MinDrop: 1, MaxDrop: 2}
   _potentialSprites: []
   _maxHealth: 60
   _minWorkDistance: 0.75
   _extractionSkillType: 0
-  _baseData: {fileID: 7716375742333856519}
   _ruleTile: {fileID: 11400000, guid: 5eb250e0cf9becb42b2c397f550acf5f, type: 2}
   _mountainTileType: 5
 --- !u!114 &6445956091041958653
@@ -5841,7 +5969,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -5855,7 +5983,11 @@ MonoBehaviour:
   initialGuid: 5c216237-e620-401e-861d-3836898e7639
   runtimeIndexID: 
   icon: {fileID: 21300000, guid: 699e2348d22f48040be65ab0afbd2424, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Iron Ore
   description: This is a description of the newly created data entry.
   tags: []
@@ -5865,6 +5997,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   Durability: 0
   Quality: 0
   IsAllowed: 0
@@ -5875,6 +6009,7 @@ MonoBehaviour:
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
+    _requestor: {fileID: 0}
   CarryingKinlingUID: 
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
@@ -5992,7 +6127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -6006,7 +6141,11 @@ MonoBehaviour:
   initialGuid: 2eb6da54-5a8c-481b-bb48-f5566a6e4a7e
   runtimeIndexID: 
   icon: {fileID: -1986180085, guid: 128e7404977fef1479d14ee0c70721c3, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Copper Double Bed
   description: This is a description of the newly created data entry.
   tags:
@@ -6017,6 +6156,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   Durability: 0
   Quality: 0
   IsAllowed: 0
@@ -6027,6 +6168,7 @@ MonoBehaviour:
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
+    _requestor: {fileID: 0}
   CarryingKinlingUID: 
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
@@ -6103,45 +6245,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76c62dc32f973a478967d098378706b, type: 3}
   m_Name: Steel Bar
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  guid: adeb12f2-e1c2-40d9-9abb-54dd4285c9e8
-  initialGuid: adeb12f2-e1c2-40d9-9abb-54dd4285c9e8
-  runtimeIndexID: 
-  icon: {fileID: 21300000, guid: be0ce54fb06e9514cbf76c3db094c57b, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
-  title: Steel Bar
-  description: This is a description of the newly created data entry.
-  tags: []
-  index: 4
-  relatedLibraryObject: {fileID: 11400000}
-  runtimeLibraryObject: {fileID: 0}
-  assignedGuid: 
-  isRuntimeInstance: 0
-  boxFoldout: 0
+  _itemName: 
+  _itemSprite: {fileID: 0}
   _category: 0
   _maxDurability: 100
   _maxStackSize: 25
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: 197161459398656425}
   _craftRequirements:
     _minCraftingSkillLevel: 2
     _craftingSkill: 10
     _workCost: 25
     _requiredCraftingToolType: 0
     _materialCosts:
-    - Item: {fileID: -3020583608536372809}
-      Quantity: 3
-    - Item: {fileID: -1220354795818533566}
-      Quantity: 1
+    - {Item: {fileID: 0}, Quantity: 3}
+    - {Item: {fileID: 0}, Quantity: 1}
 --- !u!114 &7235637523369288592
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6156,7 +6274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -6170,7 +6288,11 @@ MonoBehaviour:
   initialGuid: de5ec736-518a-4e41-ba02-529b01b2606c
   runtimeIndexID: 
   icon: {fileID: -1986180085, guid: 128e7404977fef1479d14ee0c70721c3, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Double Bed
   description: This is a description of the newly created data entry.
   tags: []
@@ -6180,6 +6302,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   Durability: 0
   Quality: 0
   IsAllowed: 0
@@ -6190,6 +6314,7 @@ MonoBehaviour:
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
+    _requestor: {fileID: 0}
   CarryingKinlingUID: 
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
@@ -6222,33 +6347,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  guid: f0dee880-84a2-4bed-a541-4b7240e4149f
-  initialGuid: f0dee880-84a2-4bed-a541-4b7240e4149f
+  guid: 
+  initialGuid: 
   runtimeIndexID: 
-  icon: {fileID: -1708518733, guid: fc709a2304f6b9e449069e173139d1aa, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
-  title: Apple
-  description: This is a description of the newly created data entry.
+  icon: {fileID: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
+  title: 
+  description: 
   tags: []
-  index: 2
-  relatedLibraryObject: {fileID: 11400000}
+  index: 0
+  relatedLibraryObject: {fileID: 0}
   runtimeLibraryObject: {fileID: 0}
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _category: 3
   _maxDurability: 100
   _maxStackSize: 25
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: -7963185361307739678}
+  _baseData:
+    UniqueID: 
+    Durability: 0
+    Quality: 0
+    IsAllowed: 0
+    CurrentTask:
+      TaskId: 
+      TaskType: 0
+      KinlingAssignedToTask: {fileID: 0}
+      Materials: []
+      RequiredToolType: 0
+      IsKinlingSpecific: 0
+      _requestor: {fileID: 0}
+    CarryingKinlingUID: 
+    Position: {x: 0, y: 0}
+    LinkedItem: {fileID: 0}
+    Settings: {fileID: 0}
   _foodType: 0
   _nutrition: 0.5
 --- !u!114 &7438404328449692925
@@ -6265,7 +6412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -6276,7 +6423,11 @@ MonoBehaviour:
   initialGuid: cc50de91-e3e1-441a-900a-7c7ac11ffae9
   runtimeIndexID: 
   icon: {fileID: 1910622010, guid: f600ed1c65e31ca4db95447f6c27d632, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Door
   description: This is a description of the newly created data entry.
   tags: []
@@ -6286,6 +6437,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   Durability: 0
   Position: {x: 0, y: 0}
   State: 0
@@ -6317,7 +6470,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -6328,7 +6481,11 @@ MonoBehaviour:
   initialGuid: 3d1d0153-af20-46da-bd0e-c6ce08d4fc04
   runtimeIndexID: 
   icon: {fileID: -1059951920, guid: 2399ea14850c2e04ea1b59a6f2cc4725, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Coal Mountain
   description: This is a description of the newly created data entry.
   tags: []
@@ -6338,18 +6495,17 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   _prefab: {fileID: 5442789227045615136, guid: a2f1f897b269aef4bb1bc9e05066305d, type: 3}
   _workToExtract: 60
   _harvestableItems:
     _itemDrops:
-    - Item: {fileID: -1220354795818533566}
-      MinDrop: 1
-      MaxDrop: 2
+    - {Item: {fileID: 0}, MinDrop: 1, MaxDrop: 2}
   _potentialSprites: []
   _maxHealth: 60
   _minWorkDistance: 0.75
   _extractionSkillType: 0
-  _baseData: {fileID: -1887156828929915283}
   _ruleTile: {fileID: 11400000, guid: 93e70c7ca59bc304194a8337ca2b45d0, type: 2}
   _mountainTileType: 3
 --- !u!114 &7531465296088124193
@@ -6461,1479 +6617,25 @@ MonoBehaviour:
   isInitialized: 0
   data:
     _objectList:
-    - type: Data.Item.FurnitureData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-    - type: Data.Item.StorageData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-    - type: Data.Item.ItemData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-    - type: Data.Item.CraftedItemData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-    - type: Data.Resource.ResourceData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-    - type: Data.Resource.GrowingResourceData, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-    - type: Data.Resource.MountainResourceData, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      dataObjects:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-    - type: Data.Item.CraftingTableData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      dataObjects:
-      - {fileID: 0}
     - type: Data.Structure.WallData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      dataObjects:
-      - {fileID: 0}
+      dataObjects: []
     - type: Data.Structure.DoorData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      dataObjects:
-      - {fileID: 0}
+      dataObjects: []
     - type: Data.Structure.FloorData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      dataObjects:
-      - {fileID: 0}
-    - type: Data.Item.RawFoodData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      dataObjects:
-      - {fileID: 0}
-    - type: Data.Item.MealData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      dataObjects:
-      - {fileID: 0}
+      dataObjects: []
     - type: Characters.KinlingData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
     - type: Data.Zones.StockpileZoneData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       dataObjects:
+      - {fileID: 0}
       - {fileID: 0}
     - type: Data.Zones.FarmingZoneData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
@@ -8391,7 +7093,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -8405,7 +7107,11 @@ MonoBehaviour:
   initialGuid: f63f9a96-9367-4c89-8e47-ff4ac7ab7c02
   runtimeIndexID: 
   icon: {fileID: 0}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
   title: Meal Item
   description: This is a description of the newly created data entry.
   tags: []
@@ -8415,6 +7121,8 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
   Durability: 0
   Quality: 0
   IsAllowed: 0
@@ -8425,6 +7133,7 @@ MonoBehaviour:
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
+    _requestor: {fileID: 0}
   CarryingKinlingUID: 
   Position: {x: 0, y: 0}
   LinkedItem: {fileID: 0}
@@ -8445,7 +7154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
-    SerializedBytes: 
+    SerializedBytes: []
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -8456,7 +7165,11 @@ MonoBehaviour:
   initialGuid: a7e9b260-11a9-48dd-9ebd-58b5c19e9bc7
   runtimeIndexID: 
   icon: {fileID: 0}
-  color: {r: 0.8431373, g: 0.48627454, b: 0.7294118, a: 1}
+  color:
+    r: 0.8431373
+    g: 0.48627454
+    b: 0.7294118
+    a: 1
   title: Pink
   description: This is a description of the newly created data entry.
   tags: []
@@ -8466,9 +7179,23 @@ MonoBehaviour:
   assignedGuid: 
   isRuntimeInstance: 0
   boxFoldout: 0
-  Primary: {r: 0.6784314, g: 0.2, b: 0.49019608, a: 1}
-  PrimaryShade: {r: 0.49019608, g: 0.14509805, b: 0.35686275, a: 1}
-  Accent: {r: 0.6784314, g: 0.6784314, b: 0.6784314, a: 1}
+  _isRuntimeSerialization: 0
+  _runtimeClone: {fileID: 0}
+  Primary:
+    r: 0.6784314
+    g: 0.2
+    b: 0.49019608
+    a: 1
+  PrimaryShade:
+    r: 0.49019608
+    g: 0.14509805
+    b: 0.35686275
+    a: 1
+  Accent:
+    r: 0.6784314
+    g: 0.6784314
+    b: 0.6784314
+    a: 1
 --- !u!114 &8585109893636993629
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8481,35 +7208,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a01c9c06b2901384fb716247a2f4001a, type: 3}
   m_Name: Basic Cooking Area
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  guid: 8ed716ae-3014-4d9c-9dd2-00ddefd8649d
-  initialGuid: 8ed716ae-3014-4d9c-9dd2-00ddefd8649d
-  runtimeIndexID: 
-  icon: {fileID: 21300000, guid: a4d13c72e1b26014c8ecef0fec0ffda9, type: 3}
-  color: {r: 0, g: 0, b: 0, a: 0}
-  title: Basic Cooking Area
-  description: This is a description of the newly created data entry.
-  tags: []
-  index: 0
-  relatedLibraryObject: {fileID: 11400000}
-  runtimeLibraryObject: {fileID: 0}
-  assignedGuid: 
-  isRuntimeInstance: 0
-  boxFoldout: 0
+  _itemName: 
+  _itemSprite: {fileID: 0}
   _category: 4
   _maxDurability: 5
   _maxStackSize: 0
   _hasQuality: 1
   _defaultQuality: 1
-  _baseData: {fileID: 129112436663426907}
   _craftRequirements:
     _minCraftingSkillLevel: 0
     _craftingSkill: 10

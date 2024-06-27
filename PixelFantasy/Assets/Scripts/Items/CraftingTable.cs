@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Characters;
-using Data.Dye;
-using Data.Item;
 using Managers;
 using Sirenix.OdinInspector;
 using Systems.Crafting.Scripts;
@@ -21,7 +19,7 @@ namespace Items
         
         public CraftingTableData RuntimeTableData => RuntimeData as CraftingTableData;
 
-        public override void StartPlanning(FurnitureSettings furnitureSettings, PlacementDirection initialDirection, DyeData dye)
+        public override void StartPlanning(FurnitureSettings furnitureSettings, PlacementDirection initialDirection, DyeSettings dye)
         {
             base.StartPlanning(furnitureSettings, initialDirection, dye);
             HideCraftingPreview();
@@ -120,7 +118,7 @@ namespace Items
         {
             if (craftedItem != null)
             {
-                ShowCraftingPreview(craftedItem.icon);
+                ShowCraftingPreview(craftedItem.ItemSprite);
                 RuntimeTableData.CurrentOrder.ClaimedItems = claimedMats;
             }
             else
@@ -136,7 +134,7 @@ namespace Items
         {
             if (mealSettings != null)
             {
-                ShowCraftingPreview(mealSettings.icon);
+                ShowCraftingPreview(mealSettings.ItemSprite);
                 RuntimeTableData.CurrentOrder.ClaimedItems = claimedIngredients;
             }
             else

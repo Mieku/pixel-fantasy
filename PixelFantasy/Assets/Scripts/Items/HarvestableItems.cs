@@ -1,12 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Data.Item;
-using Databrain.Attributes;
-using ScriptableObjects;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Items
@@ -72,7 +67,7 @@ namespace Items
     [Serializable]
     public class ItemDropRate
     {
-        [DataObjectDropdown("DataLibrary", true)] public ItemSettings Item;
+        public ItemSettings Item;
         public int MinDrop;
         public int MaxDrop;
         

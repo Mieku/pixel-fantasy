@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Data.Item;
 using UnityEngine;
 
 namespace Systems.Crafting.Scripts

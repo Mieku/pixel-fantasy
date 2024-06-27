@@ -1,4 +1,3 @@
-using Data.Item;
 using Items;
 using TMPro;
 using UnityEngine;
