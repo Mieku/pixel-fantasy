@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Managers;
+using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEditor;
@@ -12,11 +13,17 @@ public class DefaultStorageConfigs : SerializedScriptableObject
 
     public StorageConfigs StorageConfigs => _defaultConfigs;
     private Dictionary<EItemCategory, List<AllowedStorageEntry>> Options => _defaultConfigs.StorageOptions.Options;
+
+    [Button("Clear Options")]
+    private void ClearOptions()
+    {
+        _defaultConfigs.StorageOptions.Options.Clear();
+    }
         
     [Button("UpdateListOfOptions")]
-    private void UpdateListOfOptions() 
+    private void UpdateListOfOptions()
     {
-        var upToDateItems = Librarian.Instance.GetAllItemSettings();
+        var upToDateItems = GameSettings.LoadAllSettings<ItemSettings>();
         foreach (var potentialItem in upToDateItems)
         {
             if (potentialItem.CanBeStored) 

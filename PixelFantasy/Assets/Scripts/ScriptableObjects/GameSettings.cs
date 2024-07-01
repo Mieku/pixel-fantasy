@@ -31,5 +31,10 @@ namespace ScriptableObjects
         [BoxGroup("Work"), ShowInInspector] public float BaseWorkPerAction { get; private set; } = 1f;
 
         [BoxGroup("Experience"), ShowInInspector] public ExperienceSettings ExpSettings;
+        
+        public static T[] LoadAllSettings<T>() where T : ScriptableObject
+        {
+            return Resources.LoadAll<T>("Settings/Data");
+        }
     }
 }
