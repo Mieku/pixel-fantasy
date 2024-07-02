@@ -2011,3 +2011,14 @@ MonoBehaviour:
     Fun: {fileID: 11400000, guid: 8cebde6bc4f4e484687fbb6cea6b4dae, type: 2}
     Beauty: {fileID: 11400000, guid: f6be4198f644b944d8d90f07fc34691d, type: 2}
     Comfort: {fileID: 11400000, guid: 802eee3bc0319ec4c80e8b37b07de847, type: 2}
+  _meleeSkillSettings: {fileID: 11400000, guid: 2ae93406c18fd3644a426b38e589e5b7, type: 2}
+  _rangedSkillSettings: {fileID: 11400000, guid: 356c64e640a68be499d8e66272b3877a, type: 2}
+  _constructionSkillSettings: {fileID: 11400000, guid: 35816dc5fb2818840a8e039dd4926a07, type: 2}
+  _miningSkillSettings: {fileID: 11400000, guid: 5eaaf3e325591244ba54464a961e85cb, type: 2}
+  _botanySkillSettings: {fileID: 11400000, guid: 0e477be7614c7814aa3d4a578b8f766e, type: 2}
+  _cookingSkillSettings: {fileID: 11400000, guid: 78667b5605cf81c4aa9a39f3e10ca120, type: 2}
+  _craftingSkillSettings: {fileID: 11400000, guid: 027ede597f7637e4b930381753ce7a48, type: 2}
+  _beastMasterySkillSettings: {fileID: 11400000, guid: 6f8b040d8f981144c8a0ed89812aefaf, type: 2}
+  _medicalSkillSettings: {fileID: 11400000, guid: 75967d33dded1d840a5a180b4163dff2, type: 2}
+  _socialSkillSettings: {fileID: 11400000, guid: 182fdcbdd93c996439df9d835efec7cf, type: 2}
+  _intelligenceSkillSettings: {fileID: 11400000, guid: 4caf47c1afa25ba40b0f8cb90a17cb18, type: 2}

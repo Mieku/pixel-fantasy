@@ -29,38 +29,38 @@ MonoBehaviour:
     referenceMode: 2
     serializationDepthLimit: 64
     assemblyNames:
-    - NodeCanvas
-    - Assembly-CSharp-firstpass
-    - ParadoxNotion
+    - Project.External
+    - QFSW.QC
     - Assembly-CSharp
     - TileWorldCreator.OdinSerializer
-    - QFSW.QC
+    - NodeCanvas
+    - VHierarchy
     - PsdPlugin
+    - ParadoxNotion
     - QFSW.QC.Extras
-    - PPv2URPConverters
     - TileWorldCreator
+    - PPv2URPConverters
+    - VFolders
     - NavMeshPlusEditor
     - QFSW.QC.Suggestors
-    - QFSW.QC.Grammar
-    - NavMeshPlus
-    - VTabs
-    - QFSW.QC.Editor
     - AllIn1SpriteShaderAssembly
-    - VFavorites
+    - NavMeshPlus
+    - QFSW.QC.Grammar
     - QFSW.QC.Parsers
-    - TileWorldCreator.Editor
-    - QFSW.QC.QGUI
-    - QFSW.QC.Editor.Tools
-    - VFolders
-    - FangAutoTile
-    - QFSW.QC.UI
-    - QFSW.QC.ScanRules
-    - QFSW.QC.Serializers
     - QFSW.QC.Demo
+    - VTabs
+    - QFSW.QC.UI
     - VRuler
-    - VHierarchy
-    - FangAutoTile.Editor
+    - QFSW.QC.ScanRules
+    - TileWorldCreator.Editor
+    - QFSW.QC.Serializers
+    - FangAutoTile
+    - QFSW.QC.Editor
+    - QFSW.QC.QGUI
     - Sirenix.OdinInspector.Modules.UnityMathematics
+    - FangAutoTile.Editor
+    - VFavorites
+    - QFSW.QC.Editor.Tools
     showAdvancedSettings: 1
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

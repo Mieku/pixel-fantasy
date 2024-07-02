@@ -39,44 +39,44 @@ namespace Systems.Appearance.Scripts
         [SerializeField] private List<History> _allHistories = new List<History>();
         [SerializeField] private RacialNeeds _adultNeeds;
         
-        [BoxGroup("Skill Settings"), ShowInInspector] public MeleeSkillSettings MeleeSkillSettings { get; private set; }
-        [BoxGroup("Skill Settings"), ShowInInspector] public RangedSkillSettings RangedSkillSettings { get; private set; }
-        [BoxGroup("Skill Settings"), ShowInInspector] public ConstructionSkillSettings ConstructionSkillSettings { get; private set; }
-        [BoxGroup("Skill Settings"), ShowInInspector] public MiningSkillSettings MiningSkillSettings { get; private set; }
-        [BoxGroup("Skill Settings"), ShowInInspector] public BotanySkillSettings BotanySkillSettings { get; private set; }
-        [BoxGroup("Skill Settings"), ShowInInspector] public CookingSkillSettings CookingSkillSettings { get; private set; }
-        [BoxGroup("Skill Settings"), ShowInInspector] public CraftingSkillSettings CraftingSkillSettings { get; private set; }
-        [BoxGroup("Skill Settings"), ShowInInspector] public BeastMasterySkillSettings BeastMasterySkillSettings { get; private set; }
-        [BoxGroup("Skill Settings"), ShowInInspector] public MedicalSkillSettings MedicalSkillSettings { get; private set; }
-        [BoxGroup("Skill Settings"), ShowInInspector] public SocialSkillSettings SocialSkillSettings { get; private set; }
-        [BoxGroup("Skill Settings"), ShowInInspector] public IntelligenceSkillSettings IntelligenceSkillSettings { get; private set; }
+        [BoxGroup("Skill Settings"), SerializeField] private MeleeSkillSettings _meleeSkillSettings;
+        [BoxGroup("Skill Settings"), SerializeField] private RangedSkillSettings _rangedSkillSettings;
+        [BoxGroup("Skill Settings"), SerializeField] private ConstructionSkillSettings _constructionSkillSettings;
+        [BoxGroup("Skill Settings"), SerializeField] private MiningSkillSettings _miningSkillSettings;
+        [BoxGroup("Skill Settings"), SerializeField] private BotanySkillSettings _botanySkillSettings;
+        [BoxGroup("Skill Settings"), SerializeField] private CookingSkillSettings _cookingSkillSettings;
+        [BoxGroup("Skill Settings"), SerializeField] private CraftingSkillSettings _craftingSkillSettings;
+        [BoxGroup("Skill Settings"), SerializeField] private BeastMasterySkillSettings _beastMasterySkillSettings;
+        [BoxGroup("Skill Settings"), SerializeField] private MedicalSkillSettings _medicalSkillSettings;
+        [BoxGroup("Skill Settings"), SerializeField] private SocialSkillSettings _socialSkillSettings;
+        [BoxGroup("Skill Settings"), SerializeField] private IntelligenceSkillSettings _intelligenceSkillSettings;
 
-        public SkillSettings GetSkillSettingsByType(ESkillType skillType)
+        public SkillSettings GetSkillSettingsByType(ESkillType skillType) 
         {
             switch (skillType)
             {
                 case ESkillType.Mining:
-                    return MiningSkillSettings;
+                    return _miningSkillSettings;
                 case ESkillType.Cooking:
-                    return CookingSkillSettings;
+                    return _cookingSkillSettings;
                 case ESkillType.Melee:
-                    return MeleeSkillSettings;
+                    return _meleeSkillSettings;
                 case ESkillType.Ranged:
-                    return RangedSkillSettings;
+                    return _rangedSkillSettings;
                 case ESkillType.Construction:
-                    return ConstructionSkillSettings;
+                    return _constructionSkillSettings;
                 case ESkillType.Botany:
-                    return BotanySkillSettings;
+                    return _botanySkillSettings;
                 case ESkillType.Crafting:
-                    return CraftingSkillSettings;
+                    return _craftingSkillSettings;
                 case ESkillType.BeastMastery:
-                    return BeastMasterySkillSettings;
+                    return _beastMasterySkillSettings;
                 case ESkillType.Medical:
-                    return MedicalSkillSettings;
+                    return _medicalSkillSettings;
                 case ESkillType.Social:
-                    return SocialSkillSettings;
+                    return _socialSkillSettings;
                 case ESkillType.Intelligence:
-                    return IntelligenceSkillSettings;
+                    return _intelligenceSkillSettings;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(skillType), skillType, null);
             }
