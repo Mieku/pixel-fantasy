@@ -231,18 +231,13 @@ namespace Systems.World_Building.Scripts
 
         public IEnumerator SpawnResourcesCoroutine()
         {
-            Stopwatch stopwatch = new Stopwatch();
-
             yield return null;
 
             var mountainsBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Mountains");
             if (mountainsBlueprint != null)
             {
-                stopwatch.Start();
                 LoadingScreen.Instance.SetLoadingInfoText("Building Mountains...");
                 yield return StartCoroutine(SpawnMountains(mountainsBlueprint.map));
-                stopwatch.Stop();
-                Debug.Log($"Building Mountains Complete in {stopwatch.ElapsedMilliseconds} ms");
                 LoadingScreen.Instance.StepCompleted();
             }
 
@@ -253,11 +248,8 @@ namespace Systems.World_Building.Scripts
             var forestBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Forest");
             if (forestBlueprint != null)
             {
-                stopwatch.Restart();
                 LoadingScreen.Instance.SetLoadingInfoText("Building Forest...");
                 yield return StartCoroutine(SpawnForest(forestBlueprint.map));
-                stopwatch.Stop();
-                Debug.Log($"Building Forest Complete in {stopwatch.ElapsedMilliseconds} ms");
                 LoadingScreen.Instance.StepCompleted();
             }
 
@@ -266,11 +258,8 @@ namespace Systems.World_Building.Scripts
             var vegetationBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Vegetation");
             if (vegetationBlueprint != null)
             {
-                stopwatch.Restart();
                 LoadingScreen.Instance.SetLoadingInfoText("Building Vegetation...");
                 yield return StartCoroutine(SpawnVegetation(vegetationBlueprint.map));
-                stopwatch.Stop();
-                Debug.Log($"Building Vegetation Complete in {stopwatch.ElapsedMilliseconds} ms");
                 LoadingScreen.Instance.StepCompleted();
             }
 
@@ -279,11 +268,8 @@ namespace Systems.World_Building.Scripts
             var additionalsBlueprint = _blueprintLayers.Find(layer => layer.layerName == "Additionals");
             if (additionalsBlueprint != null)
             {
-                stopwatch.Restart();
                 LoadingScreen.Instance.SetLoadingInfoText("Building Additionals...");
                 yield return StartCoroutine(SpawnAdditionals(additionalsBlueprint.map));
-                stopwatch.Stop();
-                Debug.Log($"Building Additionals Complete in {stopwatch.ElapsedMilliseconds} ms");
                 LoadingScreen.Instance.StepCompleted();
             }
 
@@ -479,10 +465,6 @@ namespace Systems.World_Building.Scripts
 
             yield return null;
         }
-        
-
-
-
 
         private Dictionary<MountainTileType, List<Vector2Int>> InitializeClusterCentersParallel(bool[,] scaledBlueprint, BiomeSettings biomeSettings)
         {
@@ -533,22 +515,12 @@ namespace Systems.World_Building.Scripts
     }
 
     var tileMap = new MountainTileType[scaledBlueprint.GetLength(0), scaledBlueprint.GetLength(1)];
-
-    var stopwatch = new Stopwatch();
-    stopwatch.Start();
+    
     var clusterCenters = InitializeClusterCentersParallel(scaledBlueprint, _currentBiome);
-    stopwatch.Stop();
-    Debug.Log($"Initializing cluster centers took {stopwatch.ElapsedMilliseconds} ms");
 
-    stopwatch.Restart();
     ExpandClustersParallel(scaledBlueprint, clusterCenters, tileMap, _currentBiome);
-    stopwatch.Stop();
-    Debug.Log($"Expanding clusters took {stopwatch.ElapsedMilliseconds} ms");
 
-    stopwatch.Restart();
     yield return StartCoroutine(BatchSpawnMountainsAsync(tileMap));
-    stopwatch.Stop();
-    Debug.Log($"Batch spawning mountains took {stopwatch.ElapsedMilliseconds} ms");
 }
 
 private IEnumerator BatchSpawnMountainsAsync(MountainTileType[,] tileMap)

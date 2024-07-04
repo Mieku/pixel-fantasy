@@ -1945,11 +1945,186 @@ MonoBehaviour:
   - Sunbeamshine
   - Starshineglow
   - Moonbeamshine
+  _settlementNames:
+  - Alderdale
+  - Bramblewood
+  - Ciderhaven
+  - Dragonfall
+  - Eldergrove
+  - Frosthaven
+  - Goldenglen
+  - Hawthorn Hill
+  - Ironridge
+  - Juniper Junction
+  - Kingscross
+  - Larkspur Landing
+  - Meadowbrook
+  - Northwatch
+  - Oakheart
+  - Pinehaven
+  - Quail Hollow
+  - Ravenswood
+  - Silverkeep
+  - Thistlebrook
+  - Umberwood
+  - Valecrest
+  - Willowdale
+  - Xylen Village
+  - Yarrowfield
+  - Zephyr Hills
+  - Ashenfield
+  - Birchwood
+  - Cloverfield
+  - Dewhurst
+  - Ember Hollow
+  - Fernshade
+  - Greystone
+  - Hallowbrook
+  - Ivywood
+  - Jadedale
+  - Kestrel Point
+  - Lavender Lane
+  - Moonshadow
+  - Newhaven
+  - Oakengrove
+  - Pebblebrook
+  - Quivertree
+  - Rosewood
+  - Suncrest
+  - Timberfall
+  - Umbral Point
+  - Vesper Vale
+  - Windermere
+  - Yellowleaf
+  - Amberglen
+  - Copperfield
+  - Duskwood
+  - Evermead
+  - Frostwood
+  - Goldenfield
+  - Hearthvale
+  - Ironwood
+  - Jasper Hollow
+  - Kindred Hollow
+  - Larkspur Grove
+  - Mistyvale
+  - Nettlewood
+  - Oakenwald
+  - Pinevale
+  - Quillshire
+  - Riverstone
+  - Snowveil
+  - Thistlewood
+  - Umbervale
+  - Valewood
+  - Wildflower
+  - Xenonwood
+  - Yonderhill
+  - Zenithvale
+  - Ashwood
+  - Brightwater
+  - Cinderfield
+  - Dewfall
+  - Emberwood
+  - Fernwood
+  - Greenwood
+  - Hollowvale
+  - Ironmead
+  - Jadewood
+  - Kestrel Hollow
+  - Lavender Grove
+  - Moonvale
+  - Nightshade
+  - Oakfield
+  - Pebblevale
+  - Quiverwood
+  - Rosevale
+  - Sunwood
+  - Timberwood
+  - Umbralwood
+  - Vesperwood
+  - Windwood
+  - Yellowwood
+  - Ambergrove
+  - Bramblefield
+  - Copperwood
+  - Duskvale
+  - Everwood
+  - Frostfield
+  - Goldengrove
+  - Hearthwood
+  - Ironvale
+  - Jasperwood
+  - Kindred Vale
+  - Larkspur Vale
+  - Mistwood
+  - Nettlevale
+  - Oakenshade
+  - Pinefield
+  - Quillwood
+  - Riverfield
+  - Snowwood
+  - Thistlefield
+  - Umberfield
+  - Valefield
+  - Wildwood
+  - Xenonvale
+  - Yonderwood
+  - Zenithfield
+  - Ashenvale
+  - Birchfield
+  - Cloverwood
+  - Dewwood
+  - Emberfield
+  - Fernfield
+  - Greyfield
+  - Hallowvale
+  - Ivyfield
+  - Jadefield
+  - Kestrel Vale
+  - Lavender Vale
+  - Moonwood
+  - Newfield
+  - Pinegrove
+  - Quillfield
+  - Riverwood
+  - Snowfield
+  - Wildfield
+  - Xenonfield
+  - Yonderfield
+  - Zenithwood
+  - Ashengrove
+  - Dewfield
+  - Embervale
+  - Fernvale
+  - Greywood
+  - Hallowfield
+  - Kestrel Field
+  - Lavender Wood
+  - Moonfield
+  - Newwood
+  - Snowvale
+  - Thistlegrove
+  - Wildvale
+  - Xenongrove
+  - Yondervale
+  - Ashenwood
+  - Dewvale
+  - Greyvale
+  - Ivyvale
+  - Kestrel Grove
+  - Lavender Field
+  - Pinewood
+  - Quillvale
+  - Rivergrove
+  - Birchvale
+  - Clovervale
   _maleNamesFilePath: Assets/Resources/Name Generator Resources/Human/HumanMaleNames.txt
   _femaleNamesFilePath: Assets/Resources/Name Generator Resources/Human/HumanFemaleNames.txt
   _surnamesFilePath: Assets/Resources/Name Generator Resources/Human/HumanSurnames.txt
   _maleNicknamePath: Assets/Resources/Name Generator Resources/Human/MaleNicknames.txt
   _femaleNicknamePath: Assets/Resources/Name Generator Resources/Human/FemaleNicknames.txt
+  _settlementNamesPath: Assets/Resources/Name Generator Resources/Human/SettlementNames.txt
   _racialAgeData:
     ChildMaxAge: 16
     AdultMaxAge: 50

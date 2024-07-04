@@ -71,9 +71,6 @@ namespace Handlers
 
         public IEnumerator BatchSpawnMountainsAsync(List<Vector3Int> positions, List<MountainSettings> settings, int batchSize = 100)
         {
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
-
             for (int i = 0; i < positions.Count; i += batchSize)
             {
                 for (int j = 0; j < batchSize && (i + j) < positions.Count; j++)
@@ -86,9 +83,6 @@ namespace Handlers
 
                 yield return null; // Wait for the next frame
             }
-
-            stopwatch.Stop();
-            Debug.Log($"Batch spawning {positions.Count} mountains took {stopwatch.ElapsedMilliseconds} ms");
         }
     }
 

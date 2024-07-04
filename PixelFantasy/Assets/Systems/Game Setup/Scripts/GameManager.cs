@@ -4,6 +4,7 @@ using System.Linq;
 using Characters;
 using Controllers;
 using Managers;
+using Player;
 using Sirenix.OdinInspector;
 using Systems.Appearance.Scripts;
 using Systems.Buildings.Scripts;
@@ -18,6 +19,8 @@ namespace Systems.Game_Setup.Scripts
 {
     public class GameManager : PersistentSingleton<GameManager>
     {
+        public PlayerData PlayerData;
+        
         [SerializeField] private WorldBuilder _worldBuilder;
         [SerializeField] private bool _generateWorldOnStart;
         [SerializeField] private int _numStarterKinlings;
@@ -35,8 +38,9 @@ namespace Systems.Game_Setup.Scripts
             DontDestroyOnLoad(gameObject);
         }
 
-        public void StartNewGame(List<KinlingData> starterKinlings, List<TileWorldCreatorAsset.BlueprintLayerData> blueprintLayers)
+        public void StartNewGame(PlayerData playerData, List<KinlingData> starterKinlings, List<TileWorldCreatorAsset.BlueprintLayerData> blueprintLayers)
         {
+            PlayerData = playerData;
             StartCoroutine(LoadSceneAndSetUpNewGame(starterKinlings, blueprintLayers));
         }
 

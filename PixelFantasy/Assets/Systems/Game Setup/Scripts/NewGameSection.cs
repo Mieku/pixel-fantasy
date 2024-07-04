@@ -1,26 +1,34 @@
 using System;
+using Player;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Systems.Game_Setup.Scripts
 {
     public class NewGameSection : GameSetupSection
     {
+        public PlayerData PlayerData;
+        
         public enum ENewGameSetupStage
         {
+            ChooseBackgroundSettings,
             ChooseWorldSettings,
             ChooseKinlings,
         }
 
         [SerializeField] private ChooseWorldPanel _chooseWorldPanel;
         [SerializeField] private ChooseKinlingsPanel _chooseKinlingsPanel;
+        [SerializeField] private ChooseBackgroundPanel _chooseBackgroundPanel;
 
         private ENewGameSetupStage _stage;
         
         public override void Show()
         {
             base.Show();
+
+            PlayerData = new PlayerData();
             
-            ChangeSetupStage(ENewGameSetupStage.ChooseWorldSettings);
+            ChangeSetupStage(ENewGameSetupStage.ChooseBackgroundSettings);
         }
 
         public override void Hide()
@@ -34,8 +42,11 @@ namespace Systems.Game_Setup.Scripts
         {
             switch (_stage)
             {
-                case ENewGameSetupStage.ChooseWorldSettings:
+                case ENewGameSetupStage.ChooseBackgroundSettings:
                     GameSetupManager.Instance.ChangeSection(GameSetupManager.ESetupSection.Intro);
+                    break;
+                case ENewGameSetupStage.ChooseWorldSettings:
+                    ChangeSetupStage(ENewGameSetupStage.ChooseBackgroundSettings);
                     break;
                 case ENewGameSetupStage.ChooseKinlings:
                     ChangeSetupStage(ENewGameSetupStage.ChooseWorldSettings);
@@ -49,6 +60,9 @@ namespace Systems.Game_Setup.Scripts
         {
             switch (_stage)
             {
+                case ENewGameSetupStage.ChooseBackgroundSettings:
+                    ChangeSetupStage(ENewGameSetupStage.ChooseWorldSettings);
+                    break;
                 case ENewGameSetupStage.ChooseWorldSettings:
                     ChangeSetupStage(ENewGameSetupStage.ChooseKinlings);
                     break;
@@ -62,7 +76,7 @@ namespace Systems.Game_Setup.Scripts
 
         private void StartNewGame()
         {
-            GameManager.Instance.StartNewGame(_chooseKinlingsPanel.PlayersKinlings, _chooseWorldPanel.BlueprintLayers);
+            GameManager.Instance.StartNewGame(PlayerData, _chooseKinlingsPanel.PlayersKinlings, _chooseWorldPanel.BlueprintLayers);
         }
 
         private void ChangeSetupStage(ENewGameSetupStage stage)
@@ -72,6 +86,9 @@ namespace Systems.Game_Setup.Scripts
             _stage = stage;
             switch (stage)
             {
+                case ENewGameSetupStage.ChooseBackgroundSettings:
+                    _chooseBackgroundPanel.Show();
+                    break;
                 case ENewGameSetupStage.ChooseWorldSettings:
                     _chooseWorldPanel.Show();
                     break;
@@ -87,6 +104,7 @@ namespace Systems.Game_Setup.Scripts
         {
             _chooseWorldPanel.Hide();
             _chooseKinlingsPanel.Hide();
+            _chooseBackgroundPanel.Hide();
         }
     }
 }
