@@ -43,4 +43,11 @@ public class ItemSettings : ScriptableObject
         msg += $"<color={headerColourCode}>Durability:</color> <b>{MaxDurability}</b>\n";
         return msg;
     }
+
+    public virtual ItemData CreateItemData()
+    {
+        ItemData data = new ItemData();
+        data.InitData(this);
+        return data;
+    }
 }

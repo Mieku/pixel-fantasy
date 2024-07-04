@@ -12,4 +12,11 @@ public class CraftedItemSettings : ItemSettings
     public CraftRequirements CraftRequirements => _craftRequirements.Clone();
 
     public ItemSettings GetSettings => this;
+    
+    public override ItemData CreateItemData()
+    {
+        var data = new CraftedItemData();
+        data.InitData(this);
+        return data;
+    }
 }

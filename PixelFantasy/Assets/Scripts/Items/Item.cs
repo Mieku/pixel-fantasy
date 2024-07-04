@@ -47,8 +47,8 @@ namespace Items
         public void InitializeItem(ItemSettings settings, bool allowed)
         {
             _settings = settings;
-            RuntimeData = new ItemData();
-            RuntimeData.InitData(settings);
+            RuntimeData = _settings.CreateItemData();
+            //RuntimeData.InitData(settings);
             RuntimeData.Position = transform.position;
             
             DisplayItemSprite();

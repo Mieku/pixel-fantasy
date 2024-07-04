@@ -38,7 +38,7 @@ namespace Items
         [TitleGroup("East")] [SerializeField] protected GameObject _eastPlacementObstacle;
         
         public FurnitureData RuntimeData;
-        public FurnitureSettings FurnitureSettings;
+        //public FurnitureSettings FurnitureSettings;
         
         protected SpriteRenderer[] _allSprites;
         protected List<SpriteRenderer> _useageMarkers;
@@ -108,7 +108,7 @@ namespace Items
 
         public virtual void InitializeFurniture(FurnitureSettings furnitureSettings, PlacementDirection direction, DyeSettings dye)
         {
-            FurnitureSettings = furnitureSettings;
+            //FurnitureSettings = furnitureSettings;
             _dyeOverride = dye;
             RuntimeData = new FurnitureData();
             RuntimeData.InitData(furnitureSettings);

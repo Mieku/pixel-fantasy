@@ -18,6 +18,13 @@ public class MealSettings : ItemSettings
         public float Nutrition => _nutrition;
         public MealRequirements MealRequirements => _mealRequirements.Clone();
         public ItemSettings GetSettings => this;
+
+        public override ItemData CreateItemData()
+        {
+            var data = new MealData();
+            data.InitData(this);
+            return data;
+        }
     }
 
     public enum EMealQuality

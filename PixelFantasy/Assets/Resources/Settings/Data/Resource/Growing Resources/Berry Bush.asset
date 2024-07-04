@@ -49,7 +49,7 @@ MonoBehaviour:
   _fruitFlowersOverlay: {fileID: 0}
   _harvestableFruit:
     _itemDrops:
-    - Item: {fileID: 0}
+    - Item: {fileID: 11400000, guid: ad0ab20162c90cd48b093b077a674442, type: 2}
       MinDrop: 1
       MaxDrop: 1
   _workToHarvest: 15

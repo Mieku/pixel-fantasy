@@ -31,6 +31,21 @@ namespace Items
             base.CompletePlanning();
             HideCraftingPreview();
         }
+        
+        public override void InitializeFurniture(FurnitureSettings furnitureSettings, PlacementDirection direction, DyeSettings dye)
+        {
+            var tableSettings = (CraftingTableSettings) furnitureSettings;
+            
+            //FurnitureSettings = tableSettings;
+            // _dyeOverride = dye;
+            RuntimeData = new CraftingTableData();
+            RuntimeTableData.InitData(tableSettings);
+            RuntimeData.LinkedFurniture = this;
+            RuntimeData.Direction = direction;
+            
+            SetState(RuntimeData.State);
+            AssignDirection(direction);
+        }
 
         protected override void InProduction_Enter()
         {
@@ -54,7 +69,7 @@ namespace Items
         
         private void SearchForCraftingOrder()
         {
-            if (IsAvailable && RuntimeTableData.CurrentOrder?.State == CraftingOrder.EOrderState.None)
+            if (IsAvailable && (RuntimeTableData.CurrentOrder == null || RuntimeTableData.CurrentOrder.State == CraftingOrder.EOrderState.None))
             {
                 CraftingOrder order = RuntimeTableData.LocalCraftingQueue.GetNextCraftableOrder(RuntimeTableData);
           

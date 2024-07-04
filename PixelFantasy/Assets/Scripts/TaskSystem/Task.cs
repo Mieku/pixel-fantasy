@@ -56,7 +56,7 @@ namespace TaskSystem
                 TaskManager.Instance.CancelTask(TaskId, Requestor);
             }
 
-            var kinlingAssignedToTask = KinlingsManager.Instance.AllKinlings.Find(k => k.CurrentTaskAction.TaskId == TaskId);
+            var kinlingAssignedToTask = KinlingsManager.Instance.AllKinlings.Find(k => k.CurrentTaskAction?.TaskId == TaskId);
             if (kinlingAssignedToTask != null)
             {
                 kinlingAssignedToTask.Kinling.TaskAI.CancelTask(TaskId);

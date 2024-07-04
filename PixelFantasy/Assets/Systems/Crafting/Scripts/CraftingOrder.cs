@@ -4,6 +4,7 @@ using System.Linq;
 using Items;
 using Managers;
 using TaskSystem;
+using UnityEngine;
 
 namespace Systems.Crafting.Scripts
 {
@@ -86,6 +87,19 @@ namespace Systems.Crafting.Scripts
             
             RefreshOrderRequirements();
         }
+
+        public ItemSettings GetOrderedItemSettings
+        {
+            get
+            {
+                return OrderType switch
+                {
+                    EOrderType.Item => CraftedItem,
+                    EOrderType.Meal => CraftedMeal,
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+            }
+        } 
 
         public void RefreshOrderRequirements()
         {

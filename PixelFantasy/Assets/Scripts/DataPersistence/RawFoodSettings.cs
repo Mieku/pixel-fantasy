@@ -11,6 +11,13 @@ public class RawFoodSettings : ItemSettings
 
     public EFoodType FoodType => _foodType;
     public float Nutrition => _nutrition;
+    
+    public override ItemData CreateItemData()
+    {
+        var data = new RawFoodData();
+        data.InitData(this);
+        return data;
+    }
 }
 
 public enum EFoodType

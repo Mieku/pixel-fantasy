@@ -37,7 +37,9 @@ namespace TaskSystem
         {
             // _isMoving = false;
             // _isHoldingItem = false;
-            _item.AddItemToSlot();
+            //_item.AddItemToSlot();
+            _ai.DepositHeldItemInStorage(_storage);
+            
                 
             ConcludeAction();
         }

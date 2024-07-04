@@ -413,7 +413,10 @@ namespace TaskSystem
             if (_data.HeldItem == null) return;
             
             storage.DepositItems(_data.HeldItem);
+            var item = _data.HeldItem;
             _data.HeldItem = null;
+            item.RuntimeData.CurrentTask = null;
+            Destroy(item.gameObject);
         }
 
         public void CancelTask(string taskID)

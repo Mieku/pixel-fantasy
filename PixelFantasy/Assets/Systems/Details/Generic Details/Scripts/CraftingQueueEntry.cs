@@ -31,7 +31,7 @@ namespace Systems.Details.Generic_Details.Scripts
             _queue = queue;
             _refreshCallback = refreshCallback;
             
-            _itemIcon.sprite = order.CraftedItem.ItemSprite;
+            _itemIcon.sprite = order.GetOrderedItemSettings.ItemSprite;
             
             _increasePriorityArrow.SetActive(!queue.IsFirstInQueue(order));
             _decreasePriorityArrow.SetActive(!queue.IsLastInQueue(order));

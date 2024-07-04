@@ -18,10 +18,9 @@ public class ItemData
     public IStorage AssignedStorage;
     public Vector2 Position;
     public Items.Item LinkedItem;
-    
 
     public ItemSettings Settings;
-    public string ItemName => Settings.ItemName;
+    public virtual string ItemName => Settings.ItemName;
 
     public virtual void InitData(ItemSettings settings)
     {

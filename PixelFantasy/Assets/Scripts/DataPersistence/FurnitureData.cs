@@ -24,6 +24,7 @@ using UnityEngine.Serialization;
         public List<ItemData> IncomingItems = new List<ItemData>();
 
         public FurnitureSettings FurnitureSettings;
+        public override string ItemName => FurnitureSettings.ItemName;
 
         public virtual void InitData(FurnitureSettings furnitureSettings)
         {
