@@ -17,7 +17,6 @@ namespace Systems.Game_Setup.Scripts
         [SerializeField] private OverworldPreview _overworldPreview;
         [SerializeField] private TilePlanner _tilePlanner;
         [SerializeField] private RawImage _localMap;
-        [SerializeField] private Vector2 _defaultStartPos;
         
         [SerializeField] private ResourceThresholds _treesThresholds;
         [SerializeField] private ResourceThresholds _stoneThresholds;
@@ -54,7 +53,7 @@ namespace Systems.Game_Setup.Scripts
             _overworldPreview.IsEnabled = true;
             if (SelectionData.Position == Vector2.zero)
             {
-                _overworldPreview.SelectPosition(_defaultStartPos);
+                _overworldPreview.GoToDefaultPos();
             }
         }
         

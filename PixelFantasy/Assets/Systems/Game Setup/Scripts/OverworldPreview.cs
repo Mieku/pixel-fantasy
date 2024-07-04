@@ -9,6 +9,7 @@ namespace Systems.Game_Setup.Scripts
     public class OverworldPreview : MonoBehaviour
     {
         [SerializeField] private ChooseWorldPanel _chooseWorldPanel;
+        [SerializeField] private Vector3 _defaultPos;
         
         public Camera MainCam;
         public RawImage rawImage; // Reference to the Raw Image
@@ -84,7 +85,9 @@ namespace Systems.Game_Setup.Scripts
             // Check if valid
             if (!_isDoingInvalidSequence)
             {
-                var posData = DetectTiles(Input.mousePosition);
+                var pos = ConvertMousePosToOverworldPos(Input.mousePosition);
+                
+                var posData = DetectTiles(pos);
                 if(IsOverworldSelectionValid(posData))
                 {
                     PlacementIcon.GetComponent<Image>().color = Color.white;
@@ -136,14 +139,27 @@ namespace Systems.Game_Setup.Scripts
             tilemapCamera.transform.position = new Vector3(clampedX, clampedY, cameraPosition.z);
         }
 
-        public void SelectPosition(Vector2 pos)
+        public void GoToDefaultPos()
         {
-            var posData = DetectTiles(pos);
+            var posData = DetectTiles(_defaultPos);
 
             if (IsOverworldSelectionValid(posData))
             {
                 PlacementIconSelected.SetActive(true);
-                PlacementIconSelected.transform.position = ConvertMousePosToOverworldPos(pos);
+                PlacementIconSelected.transform.position = _defaultPos;
+                _chooseWorldPanel.GetSelectionData(posData);
+            }
+        }
+
+        public void SelectPosition(Vector2 pos)
+        {
+            var worldPos = ConvertMousePosToOverworldPos(pos);
+            var posData = DetectTiles(worldPos);
+
+            if (IsOverworldSelectionValid(posData))
+            {
+                PlacementIconSelected.SetActive(true);
+                PlacementIconSelected.transform.position = worldPos;
                 _chooseWorldPanel.GetSelectionData(posData);
             }
             else
@@ -197,10 +213,8 @@ namespace Systems.Game_Setup.Scripts
             return numSafe >= 2;
         }
 
-        private OverworldSelectionData DetectTiles(Vector2 pos)
+        private OverworldSelectionData DetectTiles(Vector3 worldPosition)
         {
-            Vector3 worldPosition = ConvertMousePosToOverworldPos(pos);
-
             // Determine the positions of the four surrounding tiles
             Vector3Int tilePos1 = tilemap.WorldToCell(worldPosition + new Vector3(-0.5f, 0.5f, 0)); // Top-left
             Vector3Int tilePos2 = tilemap.WorldToCell(worldPosition + new Vector3(0.5f, 0.5f, 0));  // Top-right
