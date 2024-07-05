@@ -11,7 +11,7 @@ using UnityEngine.Tilemaps;
 
 namespace Zones
 {
-    public class Crop : PlayerInteractable, IPersistent
+    public class Crop : PlayerInteractable
     {
         [SerializeField] private SpriteRenderer _soilHoleRenderer;
         [SerializeField] private SpriteRenderer _cropRenderer;

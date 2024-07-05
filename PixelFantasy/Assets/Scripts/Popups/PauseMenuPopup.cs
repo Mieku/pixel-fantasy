@@ -31,12 +31,12 @@ namespace Popups
 
         public void SavePressed()
         {
-            SaveManager.Instance.SaveGame();
+            
         }
 
         public void LoadPressed()
         {
-            SaveManager.Instance.LoadGame();
+            
         }
 
         public void SettingsPressed()
