@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(Tilemap))]
-public class PersistentTilemap : MonoBehaviour, IPersistent
+public class PersistentTilemap : MonoBehaviour
 {
     public TilemapLayer TilemapLayer;
     
