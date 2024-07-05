@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Handlers;
 using Managers;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace Items
@@ -15,6 +16,21 @@ namespace Items
             GameEvents.Trigger_RefreshInventoryDisplay();
 
             base.Built_Enter();
+        }
+        
+        public override void InitializeFurniture(FurnitureSettings furnitureSettings, PlacementDirection direction, DyeSettings dye)
+        {
+            var storageSettings = (StorageSettings) furnitureSettings;
+            
+            //FurnitureSettings = tableSettings;
+            // _dyeOverride = dye;
+            RuntimeData = new StorageData();
+            RuntimeStorageData.InitData(storageSettings);
+            RuntimeData.LinkedFurniture = this;
+            RuntimeData.Direction = direction;
+            
+            SetState(RuntimeData.State);
+            AssignDirection(direction);
         }
         
         public List<ItemData> Stored => RuntimeStorageData.Stored;
