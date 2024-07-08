@@ -9,7 +9,6 @@ namespace Managers
         [field: SerializeField] public Transform StructuresParent { get; private set; }
         [field: SerializeField] public Transform FurnitureParent { get; private set; }
         [field: SerializeField] public Transform ResourcesParent { get; private set; }
-        [field: SerializeField] public Transform MountainsParent { get; private set; }
         [field: SerializeField] public Transform FlooringParent { get; private set; }
     }
 }

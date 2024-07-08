@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using DataPersistence;
 using Handlers;
 using Sirenix.OdinInspector;
 using Systems.Game_Setup.Scripts;
@@ -20,8 +21,8 @@ namespace Systems.World_Building.Scripts
     {
         [SerializeField] private TileWorldCreator _tileWorldCreator;
         [SerializeField] private BiomeSettings _currentBiome;
-        [SerializeField] private MountainsHandler _mountainsHandler;
-        [SerializeField] private ResourcesHandler _resourcesHandler;
+        //[SerializeField] private MountainsHandler _mountainsHandler;
+        [SerializeField] private ResourcesDatabase _resourcesDatabase;
         [SerializeField] private RampsHandler _rampsHandler;
 
         [SerializeField] private Tilemap _grassTilemap;
@@ -60,6 +61,8 @@ namespace Systems.World_Building.Scripts
 
             // Allow frame to render and update UI/loading screen here
             Stopwatch stopwatch = new Stopwatch();
+            
+            ResourcesDatabase.Instance.DeleteResources();
 
             stopwatch.Start();
             yield return StartCoroutine(GenerateTilesCoroutine());
@@ -168,9 +171,9 @@ namespace Systems.World_Building.Scripts
             _elevationTilemap.ClearAllTiles();
             _groundCoverTilemap.ClearAllTiles();
 
-            _mountainsHandler.DeleteMountains();
+            //_mountainsHandler.DeleteMountains();
             _rampsHandler.DeleteRamps();
-            _resourcesHandler.DeleteResources();
+            _resourcesDatabase.DeleteResources();
         }
 
         private IEnumerator DetermineStartPosition(TileWorldCreatorAsset.BlueprintLayerData layerData)
@@ -240,8 +243,6 @@ namespace Systems.World_Building.Scripts
                 yield return StartCoroutine(SpawnMountains(mountainsBlueprint.map));
                 LoadingScreen.Instance.StepCompleted();
             }
-
-            _resourcesHandler.DeleteResources();
 
             yield return null;
 
@@ -360,7 +361,7 @@ namespace Systems.World_Building.Scripts
                         var spawnPos = new Vector2(x + posX, y + posY);
 
                         var vegetationType = _currentBiome.GetRandomAdditional();
-                        _resourcesHandler.SpawnResource(vegetationType, spawnPos);
+                        _resourcesDatabase.SpawnResource(vegetationType, spawnPos);
                     }
                 }
             }
@@ -393,7 +394,7 @@ namespace Systems.World_Building.Scripts
                             Vector3 worldPosition = new Vector3((pos.x * 2) + offsetX, (pos.y * 2) + offsetY, 0); // Adjust the multiplication factor according to your world's scale
 
                             var vegetationType = _currentBiome.GetRandomVegetation();
-                            _resourcesHandler.SpawnResource(vegetationType, worldPosition);
+                            _resourcesDatabase.SpawnResource(vegetationType, worldPosition);
                         }
                     }
                 }
@@ -433,7 +434,7 @@ namespace Systems.World_Building.Scripts
                             if (attemptCounter < 10) // Ensures a position was found that satisfies the minimum distance constraint
                             {
                                 var forestTree = _currentBiome.GetRandomForestTree();
-                                _resourcesHandler.SpawnResource(forestTree, spawnPos);
+                                _resourcesDatabase.SpawnResource(forestTree, spawnPos);
                                 usedPositions.Add(spawnPos);
                             }
                         }
@@ -455,7 +456,7 @@ namespace Systems.World_Building.Scripts
                             if (attemptCounter < 10) // Ensures a position was found that satisfies the minimum distance constraint
                             {
                                 var forestResource = _currentBiome.GetRandomForestAdditional();
-                                _resourcesHandler.SpawnResource(forestResource, spawnPos);
+                                _resourcesDatabase.SpawnResource(forestResource, spawnPos);
                                 usedPositions.Add(spawnPos);
                             }
                         }
@@ -497,7 +498,7 @@ namespace Systems.World_Building.Scripts
 
        private IEnumerator SpawnMountains(bool[,] mountainsBlueprint)
 {
-    _mountainsHandler.DeleteMountains();
+    //_mountainsHandler.DeleteMountains();
 
     bool[,] scaledBlueprint = new bool[mountainsBlueprint.GetLength(0) * 2, mountainsBlueprint.GetLength(1) * 2];
 
@@ -542,7 +543,7 @@ private IEnumerator BatchSpawnMountainsAsync(MountainTileType[,] tileMap)
         }
     }
 
-    yield return StartCoroutine(_mountainsHandler.BatchSpawnMountainsAsync(mountainTiles, mountainSettings));
+    yield return StartCoroutine(ResourcesDatabase.Instance.BatchSpawnMountainsAsync(mountainTiles, mountainSettings));
 }
 
 

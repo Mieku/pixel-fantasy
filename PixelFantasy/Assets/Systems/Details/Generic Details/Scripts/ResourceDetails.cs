@@ -81,7 +81,7 @@ namespace Systems.Details.Generic_Details.Scripts
             var growingResource = _basicResource as GrowingResource;
             if (growingResource != null)
             {
-                var growthPercent = growingResource.RuntimeGrowingResourceData.GetGrowthPercentage();
+                var growthPercent = growingResource.GrowingResourceData.GetGrowthPercentage();
                 _growthDisplayHandle.gameObject.SetActive(true);
 
                 _growthFill.fillAmount = growthPercent;
@@ -100,13 +100,13 @@ namespace Systems.Details.Generic_Details.Scripts
 
         private void RefreshFruitGrowthDisplay(GrowingResource growingResource)
         {
-            if (growingResource.RuntimeGrowingResourceData.GrowingResourceSettings.HasFruit)
+            if (growingResource.GrowingResourceData.GrowingResourceSettings.HasFruit)
             {
                 _seperatorHandle.gameObject.SetActive(true);
                 _fruitProgressDisplayHandle.gameObject.SetActive(true);
                 _harvestYieldHandle.gameObject.SetActive(true);
 
-                var fruitGrowthPercent = growingResource.RuntimeGrowingResourceData.GetFruitingPercentage();
+                var fruitGrowthPercent = growingResource.GrowingResourceData.GetFruitingPercentage();
                 _fruitFill.fillAmount = fruitGrowthPercent;
                 _fruitPercentDisplay.text = $"{(int)(fruitGrowthPercent * 100)}%";
             }
@@ -147,9 +147,9 @@ namespace Systems.Details.Generic_Details.Scripts
 
         private void DisplayGrowingResourceDetails(GrowingResource growingResource)
         {
-            if (growingResource.RuntimeGrowingResourceData.GrowingResourceSettings.HasFruit)
+            if (growingResource.GrowingResourceData.GrowingResourceSettings.HasFruit)
             {
-                var fruitYield = growingResource.RuntimeGrowingResourceData.GetFruitLoot();
+                var fruitYield = growingResource.GrowingResourceData.GetFruitLoot();
                 
                 foreach (var displayedYield in _displayedHarvestYieldDisplay)
                 {

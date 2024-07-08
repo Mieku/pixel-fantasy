@@ -2,42 +2,15 @@ using System;
 using System.Collections.Generic;
 using Characters;
 using Controllers;
+using DataPersistence;
 using Interfaces;
+using Newtonsoft.Json;
 using Systems.Appearance.Scripts;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace Items
 {
-    [Serializable]
-    public class MountainResourceData : BasicResourceData
-    {
-        public float RemainingWork;
-        
-        public MountainSettings MountainSettings => Settings as MountainSettings;
-
-        public override void InitData(ResourceSettings settings)
-        {
-            base.InitData(settings);
-            RemainingWork = MountainSettings.WorkToExtract;
-        }
-        
-        public RuleTile GetRuleTile()
-        {
-            return MountainSettings.RuleTile;
-        }
-
-        public List<ItemAmount> GetMineDrop()
-        {
-            if (MountainSettings.HarvestableItems != null)
-            {
-                return MountainSettings.HarvestableItems.GetItemDrop();
-            }
-
-            return new List<ItemAmount>();
-        }
-    }
-    
     public class Mountain : BasicResource, IClickableTile
     {
         [SerializeField] private GameObject _tempPlacementDisp;
@@ -55,24 +28,40 @@ namespace Items
             base.Awake();
             _tempPlacementDisp.SetActive(false);
         }
-
-        public MountainSettings MountainSettings { get; private set; }
-
-        public void InitializeMountain(MountainSettings settings, Vector3 position)
+        
+        private void OnEnable()
         {
-            transform.position = position;
-            MountainSettings = settings;
-            
+            ResourcesDatabase.Instance?.RegisterResource(this);
+        }
+
+        private void OnDisable()
+        {
+            ResourcesDatabase.Instance?.DeregisterResource(this);
+        }
+        
+        public override void InitializeResource(ResourceSettings settings)
+        {
+            _settings = settings;
             RuntimeData = new MountainResourceData();
             RuntimeData.InitData(MountainSettings);
             RuntimeData.Position = transform.position;
-            
-            
             
             SetTile();
 
             _tempPlacementDisp.SetActive(false);
         }
+
+        public override void LoadResource(BasicResourceData data)
+        {
+            RuntimeData = data;
+            _settings = data.Settings;
+            
+            SetTile();
+
+            _tempPlacementDisp.SetActive(false);
+        }
+
+        public MountainSettings MountainSettings => _settings as MountainSettings;
 
         private void SetTile()
         {
@@ -82,22 +71,6 @@ namespace Items
             var dirtCell = _dirtTM.WorldToCell(transform.position);
             _dirtTM.SetTile(dirtCell, _dirtRuleTile);
         }
-
-        // public void InitializeRuntimeDataIfNeeded()
-        // {
-        //     if (RuntimeData == null)
-        //     {
-        //         RuntimeData = new MountainResourceData();
-        //         RuntimeData.InitData(MountainSettings);
-        //         RuntimeData.Position = transform.position;
-        //         //
-        //         //
-        //         // var data = MountainSettings.CreateInitialDataObject();
-        //         // RuntimeData = (ResourceData)DataLibrary.CloneDataObjectToRuntime(data, gameObject);
-        //         // RuntimeData.InitData(MountainSettings);
-        //         // RuntimeData.Position = transform.position;
-        //     }
-        // }
 
         public void TintTile()
         {

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Characters;
+using DataPersistence;
 using Managers;
+using Newtonsoft.Json;
 using QFSW.QC;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -9,125 +11,14 @@ using Random = UnityEngine.Random;
 
 namespace Items
 {
-    [Serializable]
-    public class GrowingResourceData : BasicResourceData
-    {
-        public float AgeForNextGrowth
-        {
-            get
-            {
-                float result = 0;
-                for (int i = GrowthIndex; i >= 0; i--)
-                {
-                    result += GrowingResourceSettings.GrowthStages[i].SecsInStage;
-                }
-                return result;
-            }
-        }
-        
-        public bool FullyGrown => AgeSec >= GrowingResourceSettings.TotalGrowTime();
-        
-        // Runtime
-        public int GrowthIndex;
-        public float AgeSec;
-        public float FruitTimer;
-        public bool ShowingFlowers;
-        public float RemainingHarvestWork;
-        public bool HasFruitAvailable;
-        
-        public GrowingResourceSettings GrowingResourceSettings => Settings as GrowingResourceSettings;
-        
-        public override void InitData(ResourceSettings settings)
-        {
-            base.InitData(settings);
-            
-            GrowthIndex = Random.Range(0, GrowingResourceSettings.GrowthStages.Count);
-
-            float minAgeSec = 0f;
-            for (int i = 0; i < GrowthIndex - 1; i++)
-            {
-                minAgeSec += GrowingResourceSettings.GrowthStages[i].SecsInStage;
-            }
-
-            if (FullyGrown)
-            {
-                AgeSec = Random.Range(minAgeSec, GrowingResourceSettings.TotalGrowTime() * 1.5f);
-            }
-            else
-            {
-                AgeSec = Random.Range(minAgeSec, GetGrowthStage().SecsInStage);
-            }
-            
-            
-            if (GrowingResourceSettings.HasFruit && AgeSec > GrowingResourceSettings.TotalGrowTime())
-            {
-                FruitTimer = Random.Range(0, GrowingResourceSettings.GrowFruitTime * 1.5f);
-                HasFruitAvailable = FruitTimer >= GrowingResourceSettings.GrowFruitTime;
-            }
-            
-            //RemainingExtractWork = GetWorkToCut();
-            Health = GetGrowthStage().Health;
-            RemainingHarvestWork = GrowingResourceSettings.WorkToHarvest;
-        }
-
-        public override float MaxHealth => GetGrowthStage().Health;
-
-        public GrowthStage GetGrowthStage()
-        {
-            var stages = GrowingResourceSettings.GrowthStages;
-
-            if (GrowthIndex >= stages.Count) 
-                GrowthIndex = stages.Count - 1;
-            
-            return stages[GrowthIndex];
-        }
-        
-        public int GetWorkToCut()
-        {
-            return GetGrowthStage().Health;
-        }
-
-        public List<ItemAmount> GetFruitLoot()
-        {
-            if (GrowingResourceSettings.HarvestableFruit != null)
-            {
-                return GrowingResourceSettings.HarvestableFruit.GetItemDrop();
-            }
-
-            return new List<ItemAmount>();
-        }
-        
-        public float GetGrowthPercentage()
-        {
-            if (FullyGrown) return 1f;
-            
-            var growthPercent = AgeSec / GrowingResourceSettings.TotalGrowTime();
-            return Mathf.Clamp01(growthPercent);
-        }
-        
-        public float GetFruitingPercentage()
-        {
-            if (HasFruitAvailable) return 1f;
-            
-            var percent = FruitTimer / GrowingResourceSettings.GrowFruitTime;
-            return Mathf.Clamp01(percent);
-        }
-
-        public float HarvestWorkDone(float workAmount)
-        {
-            RemainingHarvestWork -= workAmount;
-            return RemainingHarvestWork;
-        }
-    }
-    
     public class GrowingResource : BasicResource
     {
         [SerializeField] protected SpriteRenderer _fruitOverlay;
 
-        public bool IsFruiting => RuntimeGrowingResourceData.GrowingResourceSettings.HasFruit;
+        public bool IsFruiting => GrowingResourceData.GrowingResourceSettings.HasFruit;
         public List<GameObject> TaskRequestors = new List<GameObject>();
-        
-        public GrowingResourceData RuntimeGrowingResourceData => RuntimeData as GrowingResourceData;
+
+        public GrowingResourceData GrowingResourceData => RuntimeData as GrowingResourceData;
         
         public override void InitializeResource(ResourceSettings settings)
         {
@@ -135,78 +26,76 @@ namespace Items
             RuntimeData = new GrowingResourceData();
             RuntimeData.InitData(settings);
             RuntimeData.Position = transform.position;
-            
             UpdateSprite();
-            
+
             GrowthCheck();
             FruitCheck();
-            //
-            //
-            // var data = settings.CreateInitialDataObject();
-            //
-            // DataLibrary.RegisterInitializationCallback(() =>
-            // {
-            //     RuntimeData = (ResourceData)DataLibrary.CloneDataObjectToRuntime(data, gameObject);
-            //     RuntimeData.InitData(settings);
-            //     RuntimeData.Position = transform.position;
-            //     
-            //     UpdateSprite();
-            //     
-            //     DataLibrary.OnSaved += Saved;
-            //     DataLibrary.OnLoaded += Loaded;
-            //     
-            //     GrowthCheck();
-            //     FruitCheck();
-            // });
+        }
+
+        public void LoadResource(GrowingResourceData data)
+        {
+            RuntimeData = data;
+            _settings = data.Settings;
+            UpdateSprite();
+
+            GrowthCheck();
+            FruitCheck();
         }
 
         public override string DisplayName
         {
             get
             {
-                if (!RuntimeGrowingResourceData.FullyGrown)
+                if (!GrowingResourceData.FullyGrown)
                 {
-                    var stageName = RuntimeGrowingResourceData.GetGrowthStage().StageName;
-                    return $"{RuntimeData.Settings.ResourceName} ({stageName})";
+                    var stageName = GrowingResourceData.GetGrowthStage().StageName;
+                    return $"{GrowingResourceData.Settings.ResourceName} ({stageName})";
                 }
 
-                return RuntimeData.Settings.name;
+                return GrowingResourceData.Settings.name;
             }
         }
-        
+
         protected override void UpdateSprite()
         {
-            var stage = RuntimeGrowingResourceData.GetGrowthStage();
-            var scaleOverride = stage.Scale;
-            _spriteRenderer.sprite = stage.GrowthSprite;
-            _spriteRenderer.gameObject.transform.localScale = new Vector3(scaleOverride, scaleOverride, 1);
+            var stage = GrowingResourceData.GetGrowthStage();
+            if (stage != null)
+            {
+                var scaleOverride = stage.Scale;
+                _spriteRenderer.sprite = stage.GrowthSprite;
+                _spriteRenderer.gameObject.transform.localScale = new Vector3(scaleOverride, scaleOverride, 1);
+            }
+            else
+            {
+                Debug.LogWarning("Growth stage is null. Cannot update sprite.");
+            }
         }
 
         public override HarvestableItems GetHarvestableItems()
         {
-            var stage = RuntimeGrowingResourceData.GetGrowthStage();
-            return stage.HarvestableItems;
+            var stage = GrowingResourceData.GetGrowthStage();
+            return stage?.HarvestableItems;
         }
 
         public Sprite GetGrowthIcon()
         {
             return Librarian.Instance.GetSprite("Growth");
         }
-        
+
         protected void GrowthCheck()
         {
-            if (RuntimeGrowingResourceData == null) return;
-            
-            if (!RuntimeGrowingResourceData.FullyGrown)
-            {
-                RuntimeGrowingResourceData.AgeSec += TimeManager.Instance.DeltaTime;
-                if (RuntimeGrowingResourceData.AgeSec >= RuntimeGrowingResourceData.AgeForNextGrowth)
-                {
-                    var extractDiff = RuntimeGrowingResourceData.MaxHealth - RuntimeGrowingResourceData.Health;
-                    
-                    RuntimeGrowingResourceData.GrowthIndex++;
+            if (GrowingResourceData == null) return;
 
-                    RuntimeGrowingResourceData.Health = RuntimeGrowingResourceData.MaxHealth - extractDiff;
+            if (!GrowingResourceData.FullyGrown)
+            {
+                GrowingResourceData.AgeSec += TimeManager.Instance.DeltaTime;
+                if (GrowingResourceData.AgeSec >= GrowingResourceData.AgeForNextGrowth)
+                {
+                    var extractDiff = GrowingResourceData.MaxHealth - GrowingResourceData.Health;
+
+                    GrowingResourceData.GrowthIndex++;
+
+                    GrowingResourceData.Health = GrowingResourceData.MaxHealth - extractDiff;
 
                     RefreshSelection();
                     UpdateSprite();
@@ -217,101 +106,101 @@ namespace Items
         [Command("instant_fruit", MonoTargetType.All)]
         private void CMD_InstantFruit()
         {
-            if (!RuntimeGrowingResourceData.HasFruitAvailable)
+            if (!GrowingResourceData.HasFruitAvailable)
             {
-                RuntimeGrowingResourceData.FruitTimer = RuntimeGrowingResourceData.GrowingResourceSettings.GrowFruitTime;
+                GrowingResourceData.FruitTimer = GrowingResourceData.GrowingResourceSettings.GrowFruitTime;
             }
         }
 
         public Sprite GetFruitIcon()
         {
             if (!IsFruiting) return null;
-            
-            return RuntimeGrowingResourceData.GetFruitLoot()[0].Item.ItemSprite;
+
+            return GrowingResourceData.GetFruitLoot()[0].Item.ItemSprite;
         }
 
         protected void FruitCheck()
         {
-            if (RuntimeGrowingResourceData == null) return;
-            
-            if (!RuntimeGrowingResourceData.FullyGrown) return;
-            
-            if (RuntimeGrowingResourceData.GrowingResourceSettings.HasFruit && !RuntimeGrowingResourceData.HasFruitAvailable)
+            if (GrowingResourceData == null) return;
+
+            if (!GrowingResourceData.FullyGrown) return;
+
+            if (GrowingResourceData.GrowingResourceSettings.HasFruit && !GrowingResourceData.HasFruitAvailable)
             {
-                RuntimeGrowingResourceData.FruitTimer += TimeManager.Instance.DeltaTime;
-                if (RuntimeGrowingResourceData.FruitTimer >= RuntimeGrowingResourceData.GrowingResourceSettings.GrowFruitTime)
+                GrowingResourceData.FruitTimer += TimeManager.Instance.DeltaTime;
+                if (GrowingResourceData.FruitTimer >= GrowingResourceData.GrowingResourceSettings.GrowFruitTime)
                 {
-                    RuntimeGrowingResourceData.FruitTimer = 0;
-                    _fruitOverlay.sprite = RuntimeGrowingResourceData.GrowingResourceSettings.FruitOverlay;
+                    GrowingResourceData.FruitTimer = 0;
+                    _fruitOverlay.sprite = GrowingResourceData.GrowingResourceSettings.FruitOverlay;
                     _fruitOverlay.gameObject.SetActive(true);
-                    RuntimeGrowingResourceData.HasFruitAvailable = true;
+                    GrowingResourceData.HasFruitAvailable = true;
                     RefreshSelection();
-                } 
-                else if (RuntimeGrowingResourceData.FruitTimer >= RuntimeGrowingResourceData.GrowingResourceSettings.GrowFruitTime / 2f)
+                }
+                else if (GrowingResourceData.FruitTimer >= GrowingResourceData.GrowingResourceSettings.GrowFruitTime / 2f)
                 {
-                    if (!RuntimeGrowingResourceData.ShowingFlowers && RuntimeGrowingResourceData.GrowingResourceSettings.HasFruitFlowers)
+                    if (!GrowingResourceData.ShowingFlowers && GrowingResourceData.GrowingResourceSettings.HasFruitFlowers)
                     {
-                        RuntimeGrowingResourceData.ShowingFlowers = true;
-                        _fruitOverlay.sprite = RuntimeGrowingResourceData.GrowingResourceSettings.FruitFlowersOverlay;
+                        GrowingResourceData.ShowingFlowers = true;
+                        _fruitOverlay.sprite = GrowingResourceData.GrowingResourceSettings.FruitFlowersOverlay;
                         _fruitOverlay.gameObject.SetActive(true);
                     }
                 }
             }
 
-            if (RuntimeGrowingResourceData.HasFruitAvailable)
+            if (GrowingResourceData.HasFruitAvailable)
             {
-                _fruitOverlay.sprite = RuntimeGrowingResourceData.GrowingResourceSettings.FruitOverlay;
+                _fruitOverlay.sprite = GrowingResourceData.GrowingResourceSettings.FruitOverlay;
                 _fruitOverlay.gameObject.SetActive(true);
             }
         }
 
         public void HarvestFruit(StatsData stats)
         {
-            if (RuntimeGrowingResourceData.HasFruitAvailable)
+            if (GrowingResourceData.HasFruitAvailable)
             {
                 _fruitOverlay.gameObject.SetActive(false);
-                List<ItemAmount> fruits = RuntimeGrowingResourceData.GetFruitLoot();
+                List<ItemAmount> fruits = GrowingResourceData.GetFruitLoot();
                 foreach (var fruit in fruits)
                 {
                     int amount = stats.DetermineAmountYielded(
-                        RuntimeGrowingResourceData.GrowingResourceSettings.ExtractionSkillType, fruit.Quantity);
+                        GrowingResourceData.GrowingResourceSettings.ExtractionSkillType, fruit.Quantity);
                     for (int i = 0; i < amount; i++)
                     {
                         spawner.SpawnItem(fruit.Item, transform.position, true);
                     }
                 }
-                RuntimeGrowingResourceData.HasFruitAvailable = false;
+                GrowingResourceData.HasFruitAvailable = false;
                 RefreshSelection();
                 DisplayTaskIcon(null);
 
-                if (PendingCommand == RuntimeGrowingResourceData.GrowingResourceSettings.HarvestCmd)
+                if (PendingCommand == GrowingResourceData.GrowingResourceSettings.HarvestCmd)
                 {
                     PendingCommand = null;
                 }
             }
 
-            RuntimeGrowingResourceData.RemainingHarvestWork = RuntimeGrowingResourceData.GrowingResourceSettings.WorkToHarvest;
+            GrowingResourceData.RemainingHarvestWork = GrowingResourceData.GrowingResourceSettings.WorkToHarvest;
         }
 
         public bool DoHarvest(StatsData stats)
         {
-            var workAmount = stats.GetActionSpeedForSkill(RuntimeGrowingResourceData.Settings.ExtractionSkillType, true);
-            RuntimeGrowingResourceData.RemainingHarvestWork -= workAmount;
-            if (RuntimeGrowingResourceData.RemainingHarvestWork <= 0)
+            var workAmount = stats.GetActionSpeedForSkill(GrowingResourceData.Settings.ExtractionSkillType, true);
+            GrowingResourceData.RemainingHarvestWork -= workAmount;
+            if (GrowingResourceData.RemainingHarvestWork <= 0)
             {
                 HarvestFruit(stats);
                 return true;
             }
-            
+
             return false;
         }
 
         public override List<Command> GetCommands()
         {
             var result = new List<Command>(Commands);
-            if (RuntimeGrowingResourceData.HasFruitAvailable)
+            if (GrowingResourceData.HasFruitAvailable)
             {
-                result.Add(RuntimeGrowingResourceData.GrowingResourceSettings.HarvestCmd);
+                result.Add(GrowingResourceData.GrowingResourceSettings.HarvestCmd);
             }
 
             return result;
@@ -326,28 +215,28 @@ namespace Items
         protected override void ExtractResource(StatsData stats)
         {
             HarvestFruit(stats);
-            
-            var resources = RuntimeGrowingResourceData.GetGrowthStage().HarvestableItems.GetItemDrop();
+
+            var resources = GrowingResourceData.GetGrowthStage().HarvestableItems.GetItemDrop();
             foreach (var resource in resources)
             {
                 int amount = stats.DetermineAmountYielded(
-                    RuntimeGrowingResourceData.GrowingResourceSettings.ExtractionSkillType, resource.Quantity);
+                    GrowingResourceData.GrowingResourceSettings.ExtractionSkillType, resource.Quantity);
                 for (int i = 0; i < amount; i++)
                 {
                     spawner.SpawnItem(resource.Item, transform.position, true);
                 }
             }
-            
+
             Destroy(gameObject);
-            
+
             RefreshSelection();
-            
-            if(_onResourceClearedCallback != null) _onResourceClearedCallback.Invoke();
+
+            if (_onResourceClearedCallback != null) _onResourceClearedCallback.Invoke();
         }
-        
+
         public override float GetWorkAmount()
         {
-            return RuntimeGrowingResourceData.GetWorkToCut();
+            return GrowingResourceData.GetWorkToCut();
         }
     }
     

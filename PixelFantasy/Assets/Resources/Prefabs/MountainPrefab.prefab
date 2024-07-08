@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 9067044595107455777}
   - component: {fileID: 7717464143130272536}
   m_Layer: 3
-  m_Name: Mountain
+  m_Name: MountainPrefab
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
