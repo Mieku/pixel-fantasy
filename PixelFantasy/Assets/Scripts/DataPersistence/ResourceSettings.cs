@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Items;
 using Systems.Stats.Scripts;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [CreateAssetMenu(fileName = "Resource Settings", menuName = "Settings/Resource Settings")]
 public class ResourceSettings : ScriptableObject

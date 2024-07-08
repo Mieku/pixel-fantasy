@@ -1,3 +1,4 @@
+using DataPersistence;
 using Managers;
 
 namespace Popups
@@ -31,12 +32,12 @@ namespace Popups
 
         public void SavePressed()
         {
-            
+            DataPersistenceManager.Instance.SaveGame();
         }
 
         public void LoadPressed()
         {
-            
+            DataPersistenceManager.Instance.LoadGame();
         }
 
         public void SettingsPressed()

@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Characters;
+using DataPersistence;
 using Interfaces;
 using Managers;
+using Newtonsoft.Json;
 using Systems.Appearance.Scripts;
 using TaskSystem;
 using UnityEngine;
@@ -11,39 +13,6 @@ using UnityEngine.Serialization;
 
 namespace Items
 {
-    [Serializable]
-    public class BasicResourceData
-    {
-        // Runtime
-        public int SpriteIndex;
-        public float Health;
-        public Task CurrentTask;
-        public Vector2 Position;
-        public ResourceSettings Settings;
-        
-        
-        public virtual void InitData(ResourceSettings settings)
-        {
-            Settings = settings;
-            Health = Settings.MaxHealth;
-            SpriteIndex = Settings.GetRandomSpriteIndex();
-        }
-        
-        /// <summary>
-        /// The percentage of durability remaining ex: 0.5 = 50%
-        /// </summary>
-        public float DurabilityPercent
-        {
-            get
-            {
-                var percent = (float)Health / (float)Settings.MaxHealth;
-                return percent;
-            }
-        }
-
-        public virtual float MaxHealth => Settings.MaxHealth;
-    }
-    
     public class BasicResource : PlayerInteractable, IClickableObject
     {
         [SerializeField] protected SpriteRenderer _spriteRenderer;
@@ -59,11 +28,17 @@ namespace Items
         protected ResourceSettings _settings;
         public BasicResourceData RuntimeData;
         
-        // public DataLibrary DataLibrary;
-        //
-        // [DataObjectDropdown("DataLibrary", true)]
-        // public ResourceData RuntimeData;
         public Action OnChanged { get; set; }
+        
+        private void OnEnable()
+        {
+            ResourcesDatabase.Instance?.RegisterResource(this);
+        }
+
+        private void OnDisable()
+        {
+            ResourcesDatabase.Instance?.DeregisterResource(this);
+        }
         
         public virtual void InitializeResource(ResourceSettings settings)
         {
@@ -73,36 +48,19 @@ namespace Items
             RuntimeData.Position = transform.position;
             
             UpdateSprite();
-            //
-            // var data = settings.CreateInitialDataObject();
-            //
-            // DataLibrary.RegisterInitializationCallback(() =>
-            // {
-            //     RuntimeData = (ResourceData)DataLibrary.CloneDataObjectToRuntime(data, gameObject);
-            //     RuntimeData.InitData(settings);
-            //     RuntimeData.Position = transform.position;
-            //     
-            //     UpdateSprite();
-            //     
-            //     DataLibrary.OnSaved += Saved;
-            //     DataLibrary.OnLoaded += Loaded;
-            // });
-        }
-        
-        protected void Saved()
-        {
-            
         }
 
-        protected void Loaded()
+        public virtual void LoadResource(BasicResourceData data)
         {
+            RuntimeData = data;
+            _settings = data.Settings;
             
+            UpdateSprite();
         }
         
         protected virtual void UpdateSprite()
         {
-            var spriteIndex = RuntimeData.Settings.GetRandomSpriteIndex();
-            RuntimeData.SpriteIndex = spriteIndex;
+            var spriteIndex = RuntimeData.SpriteIndex;
             _spriteRenderer.sprite = RuntimeData.Settings.GetSprite(spriteIndex);
         }
 
