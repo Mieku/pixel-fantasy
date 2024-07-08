@@ -6,7 +6,7 @@ namespace Managers
 {
     public class RoofManager : Singleton<RoofManager>
     {
-        [SerializeField] private Tilemap _roofTM;
+        //[SerializeField] private Tilemap _roofTM;
 
         private bool _roofsShown;
         public bool RoofsShown => _roofsShown;
@@ -32,7 +32,7 @@ namespace Managers
         public void ShowRoofs(bool isShown)
         {
             _roofsShown = isShown;
-            _roofTM.gameObject.SetActive(isShown);
+            //_roofTM.gameObject.SetActive(isShown);
             GameEvents.Trigger_OnRoofGuideToggled(isShown);
         }
 

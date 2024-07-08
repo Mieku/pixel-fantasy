@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -11,6 +12,48 @@ namespace Controllers
 
         [SerializeField] private Tilemap _tilemapPrefab;
         private readonly Dictionary<int, Tilemap> _tilemaps = new Dictionary<int, Tilemap>();
+
+        public List<LayeredTileMapLayerData> CollectTileMapData()
+        {
+            List<LayeredTileMapLayerData> results = new List<LayeredTileMapLayerData>();
+            
+            foreach (var kvp in _tilemaps)
+            {
+                var data = TilemapController.Instance.CollectTileMapData(kvp.Value);
+
+                var layerData = new LayeredTileMapLayerData
+                {
+                    Layer = kvp.Key,
+                    Tiles = data.Tiles
+                };
+                
+                results.Add(layerData);
+            }
+
+            return results;
+        }
+
+        public void LoadTileMapData(List<LayeredTileMapLayerData> layers)
+        {
+            ClearLayers();
+            
+            foreach (var layerData in layers)
+            {
+                var tm = FindOrCreateLayer(layerData.Layer);
+                TilemapController.Instance.SetTileMapData(tm, layerData);
+            }
+        }
+
+        private void ClearLayers()
+        {
+            foreach (var kvp in _tilemaps)
+            {
+                kvp.Value.ClearAllTiles();
+                Destroy(kvp.Value.gameObject);
+            }
+            
+            _tilemaps.Clear();
+        }
 
         public int GetLowestNotUsedLayer()
         {
@@ -68,13 +111,6 @@ namespace Controllers
         public Tilemap GetLayer(int layer)
         {
             return _tilemaps.GetValueOrDefault(layer);
-        }
-
-        // Example usage
-        void Start()
-        {
-            //AddLayer(); // Add a layer dynamically
-            // You can continue to add or remove layers as needed during gameplay
         }
     }
 }

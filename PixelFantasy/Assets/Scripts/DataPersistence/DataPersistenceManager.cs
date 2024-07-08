@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Controllers;
 using Items;
 using Managers;
 using Newtonsoft.Json;
@@ -8,9 +10,20 @@ namespace DataPersistence
 {
     public class DataPersistenceManager : Singleton<DataPersistenceManager>
     {
-        public void SaveGame() 
+        [Serializable]
+        public class SaveData
         {
-            var resourcesData = ResourcesDatabase.Instance.GetResourcesData();
+            public TileMapData TileMapData;
+            public List<BasicResourceData> ResourcesData;
+        }
+        
+        public void SaveGame()
+        {
+            SaveData saveData = new SaveData
+            {
+                TileMapData = TilemapController.Instance.GetTileMapData(),
+                ResourcesData = ResourcesDatabase.Instance.GetResourcesData()
+            };
 
             var settings = new JsonSerializerSettings
             {
@@ -19,7 +32,7 @@ namespace DataPersistence
                 Formatting = Formatting.Indented
             };
 
-            string json = JsonConvert.SerializeObject(resourcesData, settings);
+            string json = JsonConvert.SerializeObject(saveData, settings);
             System.IO.File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
         }
 
@@ -35,9 +48,11 @@ namespace DataPersistence
                     TypeNameHandling = TypeNameHandling.All,
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                 };
-
-                var resourcesData = JsonConvert.DeserializeObject<List<BasicResourceData>>(json, settings);
-                ResourcesDatabase.Instance.LoadResourcesData(resourcesData);
+                
+                var saveData = JsonConvert.DeserializeObject<SaveData>(json, settings);
+                
+                TilemapController.Instance.LoadTileMapData(saveData.TileMapData);
+                ResourcesDatabase.Instance.LoadResourcesData(saveData.ResourcesData);
             }
         }
     }
