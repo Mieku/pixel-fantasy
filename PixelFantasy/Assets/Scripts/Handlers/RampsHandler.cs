@@ -10,6 +10,23 @@ namespace Handlers
         [SerializeField] private GameObject _southRampPrefab;
         [SerializeField] private GameObject _eastRampPrefab;
         [SerializeField] private GameObject _westRampPrefab;
+
+        private List<RampData> _rampsData = new List<RampData>();
+
+        public List<RampData> GetRampsData()
+        {
+            return _rampsData;
+        }
+
+        public void LoadRampsData(List<RampData> data)
+        {
+            DeleteRamps();
+
+            foreach (var rampData in data)
+            {
+                SpawnRamp(rampData.RampDirection, rampData.Position.x, rampData.Position.y);
+            }
+        }
     
         public void DeleteRamps()
         {
@@ -24,6 +41,8 @@ namespace Handlers
             {
                 DestroyImmediate(child);
             }
+            
+            _rampsData.Clear();
         }
     
         public void SpawnRamp(ERampDirection direction, float x, float y)
@@ -47,7 +66,9 @@ namespace Handlers
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
 
-            var ramp = Instantiate(prefab, new Vector3(x, y, 0), Quaternion.identity, transform);
+            Instantiate(prefab, new Vector3(x, y, 0), Quaternion.identity, transform);
+            var data = new RampData(new Vector2(x, y), direction);
+            _rampsData.Add(data);
         }
     }
 
@@ -57,5 +78,18 @@ namespace Handlers
         South,
         East,
         West
+    }
+
+    [Serializable]
+    public class RampData
+    {
+        public Vector2 Position;
+        public ERampDirection RampDirection;
+
+        public RampData(Vector2 pos, ERampDirection direction)
+        {
+            Position = pos;
+            RampDirection = direction;
+        }
     }
 }
