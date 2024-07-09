@@ -11,7 +11,7 @@ namespace Handlers
         [SerializeField] private GameObject _eastRampPrefab;
         [SerializeField] private GameObject _westRampPrefab;
 
-        private List<RampData> _rampsData = new List<RampData>();
+        private List<RampData> _rampsData = new List<RampData>(); 
 
         public List<RampData> GetRampsData() 
         {
