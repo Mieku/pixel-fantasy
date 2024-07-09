@@ -3,7 +3,7 @@ guid: e2e91c8b60d6d9946bf99098e8c26f3d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -1197,60 +1204,59 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      TilemapGoldMountain_43: -370791215
-      TilemapGoldMountain_7: 721403310
       TilemapGoldMountain_0: -2090159402
-      TilemapGoldMountain_25: 371022764
-      TilemapGoldMountain_27: -807189958
-      TilemapGoldMountain_35: -1737689449
-      TilemapGoldMountain_45: 2089598054
-      TilemapGoldMountain_33: -962237974
-      TilemapGoldMountain_14: -591032518
-      TilemapGoldMountain_29: -477939254
-      TilemapGoldMountain_34: 266767750
-      TilemapGoldMountain_3: -627683582
       TilemapGoldMountain_1: -442897383
-      TilemapGoldMountain_40: -115872128
-      TilemapGoldMountain_2: -1622566937
-      TilemapGoldMountain_5: 1399484812
-      TilemapGoldMountain_18: -390612458
-      TilemapGoldMountain_48: -1716845008
-      TilemapGoldMountain_37: -124950650
-      TilemapGoldMountain_31: -1915540107
-      TilemapGoldMountain_22: -1737613583
-      TilemapGoldMountain_15: -1696223221
-      TilemapGoldMountain_30: 787610079
-      TilemapGoldMountain_38: 1728565986
-      TilemapGoldMountain_19: -1877362637
-      TilemapGoldMountain_44: 694474002
-      TilemapGoldMountain_6: -1603937994
-      TilemapGoldMountain_26: -378091602
+      TilemapGoldMountain_10: -941539590
+      TilemapGoldMountain_11: 1189282327
       TilemapGoldMountain_12: -1677468974
-      TilemapGoldMountain_9: -206130035
+      TilemapGoldMountain_13: -353182238
+      TilemapGoldMountain_14: -591032518
+      TilemapGoldMountain_15: -1696223221
+      TilemapGoldMountain_16: -1262119954
+      TilemapGoldMountain_17: -1566705374
+      TilemapGoldMountain_18: -390612458
+      TilemapGoldMountain_19: -1877362637
+      TilemapGoldMountain_2: -1622566937
       TilemapGoldMountain_20: -1491698921
+      TilemapGoldMountain_21: 787487016
+      TilemapGoldMountain_22: -1737613583
       TilemapGoldMountain_23: -682473735
       TilemapGoldMountain_24: 1509237400
+      TilemapGoldMountain_25: 371022764
+      TilemapGoldMountain_26: -378091602
+      TilemapGoldMountain_27: -807189958
       TilemapGoldMountain_28: 23536608
-      TilemapGoldMountain_41: -107251733
-      TilemapGoldMountain_50: -398769094
-      TilemapGoldMountain_36: 783465309
-      TilemapGoldMountain_21: 787487016
-      TilemapGoldMountain_4: -1201838370
-      TilemapGoldMountain_13: -353182238
-      TilemapGoldMountain_17: -1566705374
-      TilemapGoldMountain_39: -1149381841
-      TilemapGoldMountain_16: -1262119954
+      TilemapGoldMountain_29: -477939254
+      TilemapGoldMountain_3: -627683582
+      TilemapGoldMountain_30: 787610079
+      TilemapGoldMountain_31: -1915540107
       TilemapGoldMountain_32: -261481951
-      TilemapGoldMountain_8: -733270428
-      TilemapGoldMountain_11: 1189282327
-      TilemapGoldMountain_10: -941539590
-      TilemapGoldMountain_49: -131852826
-      TilemapGoldMountain_47: 607654772
+      TilemapGoldMountain_33: -962237974
+      TilemapGoldMountain_34: 266767750
+      TilemapGoldMountain_35: -1737689449
+      TilemapGoldMountain_36: 783465309
+      TilemapGoldMountain_37: -124950650
+      TilemapGoldMountain_38: 1728565986
+      TilemapGoldMountain_39: -1149381841
+      TilemapGoldMountain_4: -1201838370
+      TilemapGoldMountain_40: -115872128
+      TilemapGoldMountain_41: -107251733
       TilemapGoldMountain_42: 1917838029
+      TilemapGoldMountain_43: -370791215
+      TilemapGoldMountain_44: 694474002
+      TilemapGoldMountain_45: 2089598054
       TilemapGoldMountain_46: 994966407
-  spritePackingTag: 
+      TilemapGoldMountain_47: 607654772
+      TilemapGoldMountain_48: -1716845008
+      TilemapGoldMountain_49: -131852826
+      TilemapGoldMountain_5: 1399484812
+      TilemapGoldMountain_50: -398769094
+      TilemapGoldMountain_6: -1603937994
+      TilemapGoldMountain_7: 721403310
+      TilemapGoldMountain_8: -733270428
+      TilemapGoldMountain_9: -206130035
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

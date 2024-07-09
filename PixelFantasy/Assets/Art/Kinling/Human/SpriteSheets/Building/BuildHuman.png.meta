@@ -3,7 +3,7 @@ guid: b4940aab7dafd3c48be0346dcd07c7eb
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -3507,170 +3514,169 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      BuildHuman_128: 1901272771
-      BuildHuman_152: -1485402105
-      BuildHuman_105: -1052391108
-      BuildHuman_29: -1457808609
-      BuildHuman_147: -2047858435
-      BuildHuman_40: -1920234218
-      BuildHuman_13: 852549735
-      BuildHuman_72: -479486773
-      BuildHuman_64: -1530027807
-      BuildHuman_76: 1483910652
-      BuildHuman_97: -929608533
-      BuildHuman_75: -924813952
-      BuildHuman_43: -908966607
-      BuildHuman_82: -1964887332
-      BuildHuman_111: -803293764
-      BuildHuman_135: -1508281270
-      BuildHuman_151: -669659548
-      BuildHuman_92: -1169382554
-      BuildHuman_133: -1337542574
-      BuildHuman_130: -685970690
-      BuildHuman_3: -1194012401
-      BuildHuman_134: -1155562695
-      BuildHuman_145: 1981053676
-      BuildHuman_81: 1604581880
-      BuildHuman_153: -554995265
-      BuildHuman_155: -964764916
-      BuildHuman_83: 1720670497
-      BuildHuman_58: 1373108756
-      BuildHuman_113: 1160139374
-      BuildHuman_62: 2082692318
       BuildHuman_0: -1634959720
       BuildHuman_1: -1365240149
-      BuildHuman_51: -1590985001
-      BuildHuman_30: -846800905
-      BuildHuman_18: 177096788
-      BuildHuman_57: 1947156812
-      BuildHuman_114: -1272633732
-      BuildHuman_56: -196165786
-      BuildHuman_38: 1771575299
       BuildHuman_10: 1120353169
-      BuildHuman_110: 1594031181
-      BuildHuman_131: -901795323
-      BuildHuman_143: 1467509160
-      BuildHuman_59: -1168658697
-      BuildHuman_84: 615399107
-      BuildHuman_106: -430091194
-      BuildHuman_34: 377600296
-      BuildHuman_41: -1868431238
-      BuildHuman_67: 1003868624
-      BuildHuman_125: -1723524994
-      BuildHuman_36: -783078250
-      BuildHuman_53: -751280074
-      BuildHuman_80: 1128862012
-      BuildHuman_103: -807491972
-      BuildHuman_157: 2012955920
-      BuildHuman_148: -1944402691
-      BuildHuman_32: 789220660
-      BuildHuman_132: -1270526605
-      BuildHuman_39: -1960384090
-      BuildHuman_109: -622310779
-      BuildHuman_74: 1631362473
-      BuildHuman_7: -459093207
-      BuildHuman_21: -1052658442
-      BuildHuman_95: 1861354011
-      BuildHuman_154: -900328707
-      BuildHuman_86: 1245882023
-      BuildHuman_112: 1884994826
-      BuildHuman_63: -971562634
-      BuildHuman_25: 1891479402
-      BuildHuman_136: -241367939
-      BuildHuman_96: 959823964
-      BuildHuman_108: 1114601891
-      BuildHuman_52: 28237482
-      BuildHuman_79: 747461474
-      BuildHuman_149: -1108274047
-      BuildHuman_104: -14147677
-      BuildHuman_138: 1265942905
-      BuildHuman_12: 1524615848
-      BuildHuman_47: -1583732938
-      BuildHuman_68: 2070142579
-      BuildHuman_55: 483430538
-      BuildHuman_91: -100558102
-      BuildHuman_61: 1631725667
-      BuildHuman_139: -1476930163
-      BuildHuman_66: 1639341443
-      BuildHuman_70: 312856409
-      BuildHuman_119: -1806156634
-      BuildHuman_24: -471632338
-      BuildHuman_48: 1691620037
-      BuildHuman_73: -469183817
-      BuildHuman_50: -1676434061
-      BuildHuman_122: -4296409
-      BuildHuman_140: -1370254748
-      BuildHuman_115: -1217737365
-      BuildHuman_124: 95828920
-      BuildHuman_15: -2016870657
-      BuildHuman_85: 687991549
-      BuildHuman_107: -1658027057
-      BuildHuman_141: -1050032382
-      BuildHuman_118: 1205743628
-      BuildHuman_93: 901150814
-      BuildHuman_20: 1290553244
-      BuildHuman_46: -863523942
-      BuildHuman_16: 1428595980
-      BuildHuman_8: 1081209138
-      BuildHuman_54: 862622378
-      BuildHuman_150: 1328363430
-      BuildHuman_33: -2108668124
-      BuildHuman_129: -1676430466
-      BuildHuman_102: -614330308
-      BuildHuman_11: -213671431
-      BuildHuman_101: 1132782387
-      BuildHuman_31: -1026599265
-      BuildHuman_19: 1600900423
-      BuildHuman_5: 1806850787
-      BuildHuman_49: -1468520516
-      BuildHuman_23: 1909009375
       BuildHuman_100: -442428315
-      BuildHuman_22: -21393753
-      BuildHuman_14: -1756205793
-      BuildHuman_127: 761561747
-      BuildHuman_2: -2014561339
-      BuildHuman_45: 1400964723
-      BuildHuman_126: -962751976
-      BuildHuman_158: 1593265788
-      BuildHuman_26: -566641441
-      BuildHuman_65: -644424556
-      BuildHuman_123: 813727791
-      BuildHuman_9: 1774635914
-      BuildHuman_89: 132430650
-      BuildHuman_90: -534877899
-      BuildHuman_78: 202048344
-      BuildHuman_99: -953294404
-      BuildHuman_121: -760358653
-      BuildHuman_160: -1573158024
-      BuildHuman_144: -2112620552
-      BuildHuman_37: -840442891
-      BuildHuman_88: 1590588993
-      BuildHuman_137: -1921175541
-      BuildHuman_94: 1097916938
-      BuildHuman_87: -153526663
-      BuildHuman_71: -538457809
-      BuildHuman_60: -425277446
-      BuildHuman_77: -1442957106
-      BuildHuman_159: -928619995
-      BuildHuman_6: -1893992902
-      BuildHuman_42: -1445753722
-      BuildHuman_146: 559678645
-      BuildHuman_4: -383845883
-      BuildHuman_17: -546070276
-      BuildHuman_27: -157028080
-      BuildHuman_69: 344498424
-      BuildHuman_35: 1056457302
-      BuildHuman_142: 391093829
-      BuildHuman_98: 241634431
-      BuildHuman_44: -1678490218
+      BuildHuman_101: 1132782387
+      BuildHuman_102: -614330308
+      BuildHuman_103: -807491972
+      BuildHuman_104: -14147677
+      BuildHuman_105: -1052391108
+      BuildHuman_106: -430091194
+      BuildHuman_107: -1658027057
+      BuildHuman_108: 1114601891
+      BuildHuman_109: -622310779
+      BuildHuman_11: -213671431
+      BuildHuman_110: 1594031181
+      BuildHuman_111: -803293764
+      BuildHuman_112: 1884994826
+      BuildHuman_113: 1160139374
+      BuildHuman_114: -1272633732
+      BuildHuman_115: -1217737365
       BuildHuman_116: 2086898695
-      BuildHuman_120: -898644361
-      BuildHuman_156: -946059631
-      BuildHuman_28: -1964256909
       BuildHuman_117: 53841569
-  spritePackingTag: 
+      BuildHuman_118: 1205743628
+      BuildHuman_119: -1806156634
+      BuildHuman_12: 1524615848
+      BuildHuman_120: -898644361
+      BuildHuman_121: -760358653
+      BuildHuman_122: -4296409
+      BuildHuman_123: 813727791
+      BuildHuman_124: 95828920
+      BuildHuman_125: -1723524994
+      BuildHuman_126: -962751976
+      BuildHuman_127: 761561747
+      BuildHuman_128: 1901272771
+      BuildHuman_129: -1676430466
+      BuildHuman_13: 852549735
+      BuildHuman_130: -685970690
+      BuildHuman_131: -901795323
+      BuildHuman_132: -1270526605
+      BuildHuman_133: -1337542574
+      BuildHuman_134: -1155562695
+      BuildHuman_135: -1508281270
+      BuildHuman_136: -241367939
+      BuildHuman_137: -1921175541
+      BuildHuman_138: 1265942905
+      BuildHuman_139: -1476930163
+      BuildHuman_14: -1756205793
+      BuildHuman_140: -1370254748
+      BuildHuman_141: -1050032382
+      BuildHuman_142: 391093829
+      BuildHuman_143: 1467509160
+      BuildHuman_144: -2112620552
+      BuildHuman_145: 1981053676
+      BuildHuman_146: 559678645
+      BuildHuman_147: -2047858435
+      BuildHuman_148: -1944402691
+      BuildHuman_149: -1108274047
+      BuildHuman_15: -2016870657
+      BuildHuman_150: 1328363430
+      BuildHuman_151: -669659548
+      BuildHuman_152: -1485402105
+      BuildHuman_153: -554995265
+      BuildHuman_154: -900328707
+      BuildHuman_155: -964764916
+      BuildHuman_156: -946059631
+      BuildHuman_157: 2012955920
+      BuildHuman_158: 1593265788
+      BuildHuman_159: -928619995
+      BuildHuman_16: 1428595980
+      BuildHuman_160: -1573158024
+      BuildHuman_17: -546070276
+      BuildHuman_18: 177096788
+      BuildHuman_19: 1600900423
+      BuildHuman_2: -2014561339
+      BuildHuman_20: 1290553244
+      BuildHuman_21: -1052658442
+      BuildHuman_22: -21393753
+      BuildHuman_23: 1909009375
+      BuildHuman_24: -471632338
+      BuildHuman_25: 1891479402
+      BuildHuman_26: -566641441
+      BuildHuman_27: -157028080
+      BuildHuman_28: -1964256909
+      BuildHuman_29: -1457808609
+      BuildHuman_3: -1194012401
+      BuildHuman_30: -846800905
+      BuildHuman_31: -1026599265
+      BuildHuman_32: 789220660
+      BuildHuman_33: -2108668124
+      BuildHuman_34: 377600296
+      BuildHuman_35: 1056457302
+      BuildHuman_36: -783078250
+      BuildHuman_37: -840442891
+      BuildHuman_38: 1771575299
+      BuildHuman_39: -1960384090
+      BuildHuman_4: -383845883
+      BuildHuman_40: -1920234218
+      BuildHuman_41: -1868431238
+      BuildHuman_42: -1445753722
+      BuildHuman_43: -908966607
+      BuildHuman_44: -1678490218
+      BuildHuman_45: 1400964723
+      BuildHuman_46: -863523942
+      BuildHuman_47: -1583732938
+      BuildHuman_48: 1691620037
+      BuildHuman_49: -1468520516
+      BuildHuman_5: 1806850787
+      BuildHuman_50: -1676434061
+      BuildHuman_51: -1590985001
+      BuildHuman_52: 28237482
+      BuildHuman_53: -751280074
+      BuildHuman_54: 862622378
+      BuildHuman_55: 483430538
+      BuildHuman_56: -196165786
+      BuildHuman_57: 1947156812
+      BuildHuman_58: 1373108756
+      BuildHuman_59: -1168658697
+      BuildHuman_6: -1893992902
+      BuildHuman_60: -425277446
+      BuildHuman_61: 1631725667
+      BuildHuman_62: 2082692318
+      BuildHuman_63: -971562634
+      BuildHuman_64: -1530027807
+      BuildHuman_65: -644424556
+      BuildHuman_66: 1639341443
+      BuildHuman_67: 1003868624
+      BuildHuman_68: 2070142579
+      BuildHuman_69: 344498424
+      BuildHuman_7: -459093207
+      BuildHuman_70: 312856409
+      BuildHuman_71: -538457809
+      BuildHuman_72: -479486773
+      BuildHuman_73: -469183817
+      BuildHuman_74: 1631362473
+      BuildHuman_75: -924813952
+      BuildHuman_76: 1483910652
+      BuildHuman_77: -1442957106
+      BuildHuman_78: 202048344
+      BuildHuman_79: 747461474
+      BuildHuman_8: 1081209138
+      BuildHuman_80: 1128862012
+      BuildHuman_81: 1604581880
+      BuildHuman_82: -1964887332
+      BuildHuman_83: 1720670497
+      BuildHuman_84: 615399107
+      BuildHuman_85: 687991549
+      BuildHuman_86: 1245882023
+      BuildHuman_87: -153526663
+      BuildHuman_88: 1590588993
+      BuildHuman_89: 132430650
+      BuildHuman_9: 1774635914
+      BuildHuman_90: -534877899
+      BuildHuman_91: -100558102
+      BuildHuman_92: -1169382554
+      BuildHuman_93: 901150814
+      BuildHuman_94: 1097916938
+      BuildHuman_95: 1861354011
+      BuildHuman_96: 959823964
+      BuildHuman_97: -929608533
+      BuildHuman_98: 241634431
+      BuildHuman_99: -953294404
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

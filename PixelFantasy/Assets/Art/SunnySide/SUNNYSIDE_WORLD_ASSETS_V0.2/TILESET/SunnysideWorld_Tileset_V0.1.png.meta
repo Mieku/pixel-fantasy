@@ -69,7 +69,7 @@ TextureImporter:
       213: -5040436945043154838
     second: SunnysideWorld_Tileset_V0.1_21
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -86,11 +86,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -129,6 +130,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -140,6 +143,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -152,6 +156,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -164,6 +169,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -176,6 +182,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -423,20 +430,19 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      GrassLight: -6138366386777967578
       ApplesOverlay: 416047863630588849
-      Tree: 4906983863066801627
-      Fish: -6704803212579058196
-      SunnysideWorld_Tileset_V0.1_10: 8472752304042277242
-      Wood: 3480877028203309643
-      OrangesOverlay: 1652389370956797237
-      Carrot: -5387103000464491104
-      Bush: 4132407335573635649
       BerriesOverlay: -6347962645321781943
+      Bush: 4132407335573635649
+      Carrot: -5387103000464491104
+      Fish: -6704803212579058196
       GrassDark: -9024284549726575627
-  spritePackingTag: 
+      GrassLight: -6138366386777967578
+      OrangesOverlay: 1652389370956797237
+      SunnysideWorld_Tileset_V0.1_10: 8472752304042277242
+      Tree: 4906983863066801627
+      Wood: 3480877028203309643
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -48,7 +48,7 @@ TextureImporter:
       213: -917121981420668053
     second: Door
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -65,11 +65,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -108,17 +109,20 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -131,6 +135,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -143,6 +148,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -155,6 +161,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -486,24 +493,23 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Wall_LEnd: 2800874637547634605
-      Wall_BEnd: 7860634107025795129
-      Wall_BUConnect: 7455212365482967449
-      Wall_REnd: 7205235167489269892
       Door: -917121981420668053
-      Wall_T: -7741084600337786703
-      Wall_BR: 2234426875832258010
-      Wall_TR: 7772463428814621542
-      Wall_R: -918088817088537544
-      Wall_BL: -4484337259543378599
-      Wall_TL: -5990647044007460848
-      Wall_L: -783235557028310617
-      Wall_TEnd: -4348264108144755071
       Wall_B: 4943472491790338390
+      Wall_BEnd: 7860634107025795129
+      Wall_BL: -4484337259543378599
+      Wall_BR: 2234426875832258010
+      Wall_BUConnect: 7455212365482967449
+      Wall_L: -783235557028310617
+      Wall_LEnd: 2800874637547634605
+      Wall_R: -918088817088537544
+      Wall_REnd: 7205235167489269892
+      Wall_T: -7741084600337786703
       Wall_TDConnect: -5886630493742938012
-  spritePackingTag: 
+      Wall_TEnd: -4348264108144755071
+      Wall_TL: -5990647044007460848
+      Wall_TR: 7772463428814621542
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

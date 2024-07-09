@@ -3,7 +3,7 @@ guid: 0dde2c78244bcd54f8ed4213481887e4
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -861,44 +868,43 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      WateringHuman_3: 1836665078
-      WateringHuman_5: -1158614733
       WateringHuman_0: -1827644330
+      WateringHuman_1: 1167419650
+      WateringHuman_10: -1346545793
+      WateringHuman_11: -176267174
+      WateringHuman_12: -1268686377
+      WateringHuman_13: 519120400
       WateringHuman_14: 944491291
-      WateringHuman_22: -1132124631
-      WateringHuman_9: -742114545
+      WateringHuman_15: -508843367
       WateringHuman_16: 585294201
       WateringHuman_17: -1941241794
-      WateringHuman_10: -1346545793
-      WateringHuman_27: -92017045
-      WateringHuman_23: -1568491577
-      WateringHuman_2: -1066824770
-      WateringHuman_30: 1917544795
-      WateringHuman_32: 1011351441
-      WateringHuman_29: 507643203
-      WateringHuman_8: 1233846356
-      WateringHuman_28: 1555079835
-      WateringHuman_11: -176267174
-      WateringHuman_24: -843523813
-      WateringHuman_6: 873984568
-      WateringHuman_4: 37196815
-      WateringHuman_21: -644864218
-      WateringHuman_19: -1981785685
-      WateringHuman_20: 799055874
-      WateringHuman_33: 117025428
-      WateringHuman_1: 1167419650
-      WateringHuman_13: 519120400
-      WateringHuman_15: -508843367
-      WateringHuman_25: -551181703
-      WateringHuman_31: 1723813156
-      WateringHuman_12: -1268686377
       WateringHuman_18: 1383681488
+      WateringHuman_19: -1981785685
+      WateringHuman_2: -1066824770
+      WateringHuman_20: 799055874
+      WateringHuman_21: -644864218
+      WateringHuman_22: -1132124631
+      WateringHuman_23: -1568491577
+      WateringHuman_24: -843523813
+      WateringHuman_25: -551181703
       WateringHuman_26: 674327713
-      WateringHuman_7: 343354643
+      WateringHuman_27: -92017045
+      WateringHuman_28: 1555079835
+      WateringHuman_29: 507643203
+      WateringHuman_3: 1836665078
+      WateringHuman_30: 1917544795
+      WateringHuman_31: 1723813156
+      WateringHuman_32: 1011351441
+      WateringHuman_33: 117025428
       WateringHuman_34: -1238330570
-  spritePackingTag: 
+      WateringHuman_4: 37196815
+      WateringHuman_5: -1158614733
+      WateringHuman_6: 873984568
+      WateringHuman_7: 343354643
+      WateringHuman_8: 1233846356
+      WateringHuman_9: -742114545
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

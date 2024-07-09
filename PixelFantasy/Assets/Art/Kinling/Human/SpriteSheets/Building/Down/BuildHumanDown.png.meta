@@ -3,7 +3,7 @@ guid: 834e99ef85f48954ca1f5b522f6eea75
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -3507,170 +3514,169 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      BuildHumanDown_148: 525675424
-      BuildHumanDown_29: -986936812
-      BuildHumanDown_108: 689498932
-      BuildHumanDown_122: -54175199
-      BuildHumanDown_160: 402919993
-      BuildHumanDown_48: -32676836
-      BuildHumanDown_151: -1898841016
-      BuildHumanDown_12: 731954350
-      BuildHumanDown_109: 307538129
-      BuildHumanDown_16: 1072555376
-      BuildHumanDown_158: 2081664265
-      BuildHumanDown_49: -1929582484
-      BuildHumanDown_70: -941544095
-      BuildHumanDown_133: 907862583
-      BuildHumanDown_137: -1919245490
-      BuildHumanDown_30: 1654969321
-      BuildHumanDown_141: -1830668096
-      BuildHumanDown_83: -213814687
-      BuildHumanDown_87: -1370742363
-      BuildHumanDown_121: 202864417
-      BuildHumanDown_19: 2015679694
-      BuildHumanDown_46: 2041350361
-      BuildHumanDown_102: -2105497239
-      BuildHumanDown_10: -1409383106
-      BuildHumanDown_53: -1440027178
-      BuildHumanDown_55: -1555460882
-      BuildHumanDown_127: -294502926
-      BuildHumanDown_44: 736804107
-      BuildHumanDown_50: 274761453
-      BuildHumanDown_73: -1403514880
-      BuildHumanDown_59: 336165862
-      BuildHumanDown_140: 437423388
-      BuildHumanDown_125: -361318872
-      BuildHumanDown_130: 2121921193
-      BuildHumanDown_86: -64401676
-      BuildHumanDown_101: 1854310528
-      BuildHumanDown_37: 165864669
-      BuildHumanDown_1: -1150292375
-      BuildHumanDown_92: 912557576
-      BuildHumanDown_145: -1066987364
-      BuildHumanDown_7: 973592617
-      BuildHumanDown_34: 712876731
-      BuildHumanDown_36: -1928435620
-      BuildHumanDown_76: 1265721769
-      BuildHumanDown_52: -37642510
-      BuildHumanDown_129: -893343312
-      BuildHumanDown_112: -1760009384
-      BuildHumanDown_94: -998443167
-      BuildHumanDown_132: 1371816903
-      BuildHumanDown_156: 1195926691
-      BuildHumanDown_104: -1631446732
-      BuildHumanDown_71: 1934871084
-      BuildHumanDown_14: -755277782
-      BuildHumanDown_100: 860839880
-      BuildHumanDown_8: -1348689632
-      BuildHumanDown_5: 1887721925
-      BuildHumanDown_78: -1918163911
-      BuildHumanDown_33: 1351640627
-      BuildHumanDown_11: -2108332979
-      BuildHumanDown_135: 1009384115
-      BuildHumanDown_41: -1586839008
-      BuildHumanDown_91: -529742540
-      BuildHumanDown_150: -476440767
-      BuildHumanDown_13: 884115609
-      BuildHumanDown_142: -1329677453
-      BuildHumanDown_25: 1404655753
-      BuildHumanDown_126: 1112549020
-      BuildHumanDown_32: -1012313578
-      BuildHumanDown_39: 875146943
-      BuildHumanDown_110: 758203914
-      BuildHumanDown_67: 289773438
-      BuildHumanDown_40: -572921386
-      BuildHumanDown_93: 895734275
-      BuildHumanDown_27: -1836856929
-      BuildHumanDown_4: 1588201330
-      BuildHumanDown_149: 1017989833
-      BuildHumanDown_84: 403551349
-      BuildHumanDown_60: -334990115
-      BuildHumanDown_45: 1976382051
-      BuildHumanDown_24: 797567747
-      BuildHumanDown_89: -150104539
-      BuildHumanDown_131: -1482327525
-      BuildHumanDown_116: 1608222288
-      BuildHumanDown_118: 1049877055
-      BuildHumanDown_23: -995789025
-      BuildHumanDown_28: 1393371686
-      BuildHumanDown_63: -698540156
-      BuildHumanDown_119: 793272087
-      BuildHumanDown_68: -89877810
-      BuildHumanDown_138: -781709974
-      BuildHumanDown_75: 1502609895
-      BuildHumanDown_124: -1733736442
-      BuildHumanDown_154: 1700784083
-      BuildHumanDown_18: -810990152
-      BuildHumanDown_147: 1210177740
-      BuildHumanDown_2: 131990093
-      BuildHumanDown_9: 1886506157
-      BuildHumanDown_42: -787342185
-      BuildHumanDown_26: 267091201
-      BuildHumanDown_105: 680567674
-      BuildHumanDown_61: -1024767278
-      BuildHumanDown_111: 1669263933
-      BuildHumanDown_65: 654616203
-      BuildHumanDown_90: -1288947625
-      BuildHumanDown_153: 663738098
-      BuildHumanDown_88: -710494756
-      BuildHumanDown_74: -264180199
-      BuildHumanDown_20: 1173717015
-      BuildHumanDown_17: 1897362468
-      BuildHumanDown_136: 1303883667
-      BuildHumanDown_123: -1765566595
-      BuildHumanDown_21: -1427031754
-      BuildHumanDown_159: -1564007312
-      BuildHumanDown_35: 451169708
-      BuildHumanDown_95: 382459594
-      BuildHumanDown_56: -149977888
-      BuildHumanDown_113: -1516496108
-      BuildHumanDown_80: -1378557541
-      BuildHumanDown_107: 1110606542
-      BuildHumanDown_54: -802999098
-      BuildHumanDown_57: 1878006320
-      BuildHumanDown_139: -142320648
       BuildHumanDown_0: -926089992
-      BuildHumanDown_43: -488594148
-      BuildHumanDown_98: 461696200
-      BuildHumanDown_128: -816617640
-      BuildHumanDown_143: -1573894589
-      BuildHumanDown_155: -80446028
-      BuildHumanDown_62: 429925869
-      BuildHumanDown_120: 159341883
-      BuildHumanDown_134: -46078412
-      BuildHumanDown_106: -920275957
-      BuildHumanDown_6: 629239419
-      BuildHumanDown_15: 1986246254
-      BuildHumanDown_51: 298738277
-      BuildHumanDown_99: 20784342
-      BuildHumanDown_117: 37669921
-      BuildHumanDown_72: -972996555
-      BuildHumanDown_77: 1556680417
-      BuildHumanDown_114: -435763237
-      BuildHumanDown_96: -534609907
-      BuildHumanDown_146: -92368622
-      BuildHumanDown_82: -460085082
-      BuildHumanDown_66: 2124869115
-      BuildHumanDown_38: -615400376
-      BuildHumanDown_58: -1572036900
-      BuildHumanDown_79: -497069186
-      BuildHumanDown_97: -1456779011
-      BuildHumanDown_64: 2101177141
-      BuildHumanDown_69: -1808290729
-      BuildHumanDown_3: -2055233361
-      BuildHumanDown_31: -15091046
-      BuildHumanDown_81: 337726546
-      BuildHumanDown_85: 477570728
-      BuildHumanDown_22: -1394132478
-      BuildHumanDown_157: 1489544330
-      BuildHumanDown_115: -1913528151
+      BuildHumanDown_1: -1150292375
+      BuildHumanDown_10: -1409383106
+      BuildHumanDown_100: 860839880
+      BuildHumanDown_101: 1854310528
+      BuildHumanDown_102: -2105497239
       BuildHumanDown_103: 470687160
+      BuildHumanDown_104: -1631446732
+      BuildHumanDown_105: 680567674
+      BuildHumanDown_106: -920275957
+      BuildHumanDown_107: 1110606542
+      BuildHumanDown_108: 689498932
+      BuildHumanDown_109: 307538129
+      BuildHumanDown_11: -2108332979
+      BuildHumanDown_110: 758203914
+      BuildHumanDown_111: 1669263933
+      BuildHumanDown_112: -1760009384
+      BuildHumanDown_113: -1516496108
+      BuildHumanDown_114: -435763237
+      BuildHumanDown_115: -1913528151
+      BuildHumanDown_116: 1608222288
+      BuildHumanDown_117: 37669921
+      BuildHumanDown_118: 1049877055
+      BuildHumanDown_119: 793272087
+      BuildHumanDown_12: 731954350
+      BuildHumanDown_120: 159341883
+      BuildHumanDown_121: 202864417
+      BuildHumanDown_122: -54175199
+      BuildHumanDown_123: -1765566595
+      BuildHumanDown_124: -1733736442
+      BuildHumanDown_125: -361318872
+      BuildHumanDown_126: 1112549020
+      BuildHumanDown_127: -294502926
+      BuildHumanDown_128: -816617640
+      BuildHumanDown_129: -893343312
+      BuildHumanDown_13: 884115609
+      BuildHumanDown_130: 2121921193
+      BuildHumanDown_131: -1482327525
+      BuildHumanDown_132: 1371816903
+      BuildHumanDown_133: 907862583
+      BuildHumanDown_134: -46078412
+      BuildHumanDown_135: 1009384115
+      BuildHumanDown_136: 1303883667
+      BuildHumanDown_137: -1919245490
+      BuildHumanDown_138: -781709974
+      BuildHumanDown_139: -142320648
+      BuildHumanDown_14: -755277782
+      BuildHumanDown_140: 437423388
+      BuildHumanDown_141: -1830668096
+      BuildHumanDown_142: -1329677453
+      BuildHumanDown_143: -1573894589
       BuildHumanDown_144: 1710501991
+      BuildHumanDown_145: -1066987364
+      BuildHumanDown_146: -92368622
+      BuildHumanDown_147: 1210177740
+      BuildHumanDown_148: 525675424
+      BuildHumanDown_149: 1017989833
+      BuildHumanDown_15: 1986246254
+      BuildHumanDown_150: -476440767
+      BuildHumanDown_151: -1898841016
       BuildHumanDown_152: -1215262944
+      BuildHumanDown_153: 663738098
+      BuildHumanDown_154: 1700784083
+      BuildHumanDown_155: -80446028
+      BuildHumanDown_156: 1195926691
+      BuildHumanDown_157: 1489544330
+      BuildHumanDown_158: 2081664265
+      BuildHumanDown_159: -1564007312
+      BuildHumanDown_16: 1072555376
+      BuildHumanDown_160: 402919993
+      BuildHumanDown_17: 1897362468
+      BuildHumanDown_18: -810990152
+      BuildHumanDown_19: 2015679694
+      BuildHumanDown_2: 131990093
+      BuildHumanDown_20: 1173717015
+      BuildHumanDown_21: -1427031754
+      BuildHumanDown_22: -1394132478
+      BuildHumanDown_23: -995789025
+      BuildHumanDown_24: 797567747
+      BuildHumanDown_25: 1404655753
+      BuildHumanDown_26: 267091201
+      BuildHumanDown_27: -1836856929
+      BuildHumanDown_28: 1393371686
+      BuildHumanDown_29: -986936812
+      BuildHumanDown_3: -2055233361
+      BuildHumanDown_30: 1654969321
+      BuildHumanDown_31: -15091046
+      BuildHumanDown_32: -1012313578
+      BuildHumanDown_33: 1351640627
+      BuildHumanDown_34: 712876731
+      BuildHumanDown_35: 451169708
+      BuildHumanDown_36: -1928435620
+      BuildHumanDown_37: 165864669
+      BuildHumanDown_38: -615400376
+      BuildHumanDown_39: 875146943
+      BuildHumanDown_4: 1588201330
+      BuildHumanDown_40: -572921386
+      BuildHumanDown_41: -1586839008
+      BuildHumanDown_42: -787342185
+      BuildHumanDown_43: -488594148
+      BuildHumanDown_44: 736804107
+      BuildHumanDown_45: 1976382051
+      BuildHumanDown_46: 2041350361
       BuildHumanDown_47: 1875501282
-  spritePackingTag: 
+      BuildHumanDown_48: -32676836
+      BuildHumanDown_49: -1929582484
+      BuildHumanDown_5: 1887721925
+      BuildHumanDown_50: 274761453
+      BuildHumanDown_51: 298738277
+      BuildHumanDown_52: -37642510
+      BuildHumanDown_53: -1440027178
+      BuildHumanDown_54: -802999098
+      BuildHumanDown_55: -1555460882
+      BuildHumanDown_56: -149977888
+      BuildHumanDown_57: 1878006320
+      BuildHumanDown_58: -1572036900
+      BuildHumanDown_59: 336165862
+      BuildHumanDown_6: 629239419
+      BuildHumanDown_60: -334990115
+      BuildHumanDown_61: -1024767278
+      BuildHumanDown_62: 429925869
+      BuildHumanDown_63: -698540156
+      BuildHumanDown_64: 2101177141
+      BuildHumanDown_65: 654616203
+      BuildHumanDown_66: 2124869115
+      BuildHumanDown_67: 289773438
+      BuildHumanDown_68: -89877810
+      BuildHumanDown_69: -1808290729
+      BuildHumanDown_7: 973592617
+      BuildHumanDown_70: -941544095
+      BuildHumanDown_71: 1934871084
+      BuildHumanDown_72: -972996555
+      BuildHumanDown_73: -1403514880
+      BuildHumanDown_74: -264180199
+      BuildHumanDown_75: 1502609895
+      BuildHumanDown_76: 1265721769
+      BuildHumanDown_77: 1556680417
+      BuildHumanDown_78: -1918163911
+      BuildHumanDown_79: -497069186
+      BuildHumanDown_8: -1348689632
+      BuildHumanDown_80: -1378557541
+      BuildHumanDown_81: 337726546
+      BuildHumanDown_82: -460085082
+      BuildHumanDown_83: -213814687
+      BuildHumanDown_84: 403551349
+      BuildHumanDown_85: 477570728
+      BuildHumanDown_86: -64401676
+      BuildHumanDown_87: -1370742363
+      BuildHumanDown_88: -710494756
+      BuildHumanDown_89: -150104539
+      BuildHumanDown_9: 1886506157
+      BuildHumanDown_90: -1288947625
+      BuildHumanDown_91: -529742540
+      BuildHumanDown_92: 912557576
+      BuildHumanDown_93: 895734275
+      BuildHumanDown_94: -998443167
+      BuildHumanDown_95: 382459594
+      BuildHumanDown_96: -534609907
+      BuildHumanDown_97: -1456779011
+      BuildHumanDown_98: 461696200
+      BuildHumanDown_99: 20784342
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

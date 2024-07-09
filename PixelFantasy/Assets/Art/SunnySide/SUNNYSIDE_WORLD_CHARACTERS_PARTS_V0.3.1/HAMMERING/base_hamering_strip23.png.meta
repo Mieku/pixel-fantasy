@@ -93,7 +93,7 @@ TextureImporter:
       213: 3002609318976715827
     second: base_hamering_strip23_29
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -110,11 +110,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -153,6 +154,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -164,6 +167,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -176,6 +180,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -188,6 +193,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -200,6 +206,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -699,32 +706,31 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      base_hamering_strip23_25: -4997384196739616206
-      base_hamering_strip23_7: 664022920025240953
-      base_hamering_strip23_23: 4644459149978321441
-      base_hamering_strip23_6: -1627541740498813461
-      base_hamering_strip23_29: 3002609318976715827
-      base_hamering_strip23_9: 3411698817191166970
-      base_hamering_strip23_8: -7642328508216622372
+      base_hamering_strip23_0: -6025544401042793420
+      base_hamering_strip23_1: 6805352712037459860
+      base_hamering_strip23_10: 5345484338844716499
+      base_hamering_strip23_11: -1544789971123564002
+      base_hamering_strip23_12: -197497570123455278
+      base_hamering_strip23_13: 7272721931879116962
+      base_hamering_strip23_14: -736236232646313887
       base_hamering_strip23_16: -866220188709485827
       base_hamering_strip23_18: 4145281243155997606
-      base_hamering_strip23_12: -197497570123455278
-      base_hamering_strip23_27: -1167655017513665006
-      base_hamering_strip23_11: -1544789971123564002
-      base_hamering_strip23_14: -736236232646313887
-      base_hamering_strip23_21: -6077688615797673895
-      base_hamering_strip23_3: 3331579366832443642
-      base_hamering_strip23_0: -6025544401042793420
-      base_hamering_strip23_13: 7272721931879116962
-      base_hamering_strip23_10: 5345484338844716499
-      base_hamering_strip23_4: 3889380182362380847
       base_hamering_strip23_19: 2432523692161927134
-      base_hamering_strip23_1: 6805352712037459860
       base_hamering_strip23_2: 6538437848295057970
+      base_hamering_strip23_21: -6077688615797673895
+      base_hamering_strip23_23: 4644459149978321441
+      base_hamering_strip23_25: -4997384196739616206
+      base_hamering_strip23_27: -1167655017513665006
+      base_hamering_strip23_29: 3002609318976715827
+      base_hamering_strip23_3: 3331579366832443642
+      base_hamering_strip23_4: 3889380182362380847
       base_hamering_strip23_5: 513239446811118159
-  spritePackingTag: 
+      base_hamering_strip23_6: -1627541740498813461
+      base_hamering_strip23_7: 664022920025240953
+      base_hamering_strip23_8: -7642328508216622372
+      base_hamering_strip23_9: 3411698817191166970
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

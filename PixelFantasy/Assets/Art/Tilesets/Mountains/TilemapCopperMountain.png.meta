@@ -3,7 +3,7 @@ guid: e23672569b447584088f87cab31c4251
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -1197,60 +1204,59 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      TilemapCopperMountain_16: 1104694264
-      TilemapCopperMountain_14: -1918142991
       TilemapCopperMountain_0: -125174370
-      TilemapCopperMountain_32: 1323600320
-      TilemapCopperMountain_21: 1413545504
-      TilemapCopperMountain_46: 1524831433
-      TilemapCopperMountain_30: -1295265412
-      TilemapCopperMountain_6: 1018637702
-      TilemapCopperMountain_15: -1359979836
-      TilemapCopperMountain_7: -1661021511
-      TilemapCopperMountain_44: -1921826839
-      TilemapCopperMountain_29: -1025524908
-      TilemapCopperMountain_19: 285613147
-      TilemapCopperMountain_9: 1653524982
-      TilemapCopperMountain_20: -1527888867
-      TilemapCopperMountain_23: 342053999
-      TilemapCopperMountain_11: -1660157335
-      TilemapCopperMountain_37: 278392439
-      TilemapCopperMountain_35: 1795128930
-      TilemapCopperMountain_24: -102395646
-      TilemapCopperMountain_8: 1384936985
-      TilemapCopperMountain_26: -1323119020
-      TilemapCopperMountain_25: -977775782
-      TilemapCopperMountain_41: -22616252
-      TilemapCopperMountain_27: 294741350
-      TilemapCopperMountain_34: 781666927
-      TilemapCopperMountain_22: 299836623
-      TilemapCopperMountain_40: -903017092
-      TilemapCopperMountain_39: 1032594725
-      TilemapCopperMountain_3: 1846444160
+      TilemapCopperMountain_1: -1084283367
       TilemapCopperMountain_10: 717664519
+      TilemapCopperMountain_11: -1660157335
+      TilemapCopperMountain_12: 5951016
+      TilemapCopperMountain_13: 838084886
+      TilemapCopperMountain_14: -1918142991
+      TilemapCopperMountain_15: -1359979836
+      TilemapCopperMountain_16: 1104694264
+      TilemapCopperMountain_17: 1171228952
+      TilemapCopperMountain_18: 2018574034
+      TilemapCopperMountain_19: 285613147
+      TilemapCopperMountain_2: 1764801890
+      TilemapCopperMountain_20: -1527888867
+      TilemapCopperMountain_21: 1413545504
+      TilemapCopperMountain_22: 299836623
+      TilemapCopperMountain_23: 342053999
+      TilemapCopperMountain_24: -102395646
+      TilemapCopperMountain_25: -977775782
+      TilemapCopperMountain_26: -1323119020
+      TilemapCopperMountain_27: 294741350
+      TilemapCopperMountain_28: -2035891761
+      TilemapCopperMountain_29: -1025524908
+      TilemapCopperMountain_3: 1846444160
+      TilemapCopperMountain_30: -1295265412
       TilemapCopperMountain_31: -2019488002
+      TilemapCopperMountain_32: 1323600320
+      TilemapCopperMountain_33: -251694095
+      TilemapCopperMountain_34: 781666927
+      TilemapCopperMountain_35: 1795128930
+      TilemapCopperMountain_36: -2015408590
+      TilemapCopperMountain_37: 278392439
+      TilemapCopperMountain_38: -1238630000
+      TilemapCopperMountain_39: 1032594725
+      TilemapCopperMountain_4: -310876509
+      TilemapCopperMountain_40: -903017092
+      TilemapCopperMountain_41: -22616252
+      TilemapCopperMountain_42: 1169748957
+      TilemapCopperMountain_43: -63085279
+      TilemapCopperMountain_44: -1921826839
       TilemapCopperMountain_45: 392099870
+      TilemapCopperMountain_46: 1524831433
+      TilemapCopperMountain_47: -685745837
       TilemapCopperMountain_48: 330008766
       TilemapCopperMountain_49: 74867777
-      TilemapCopperMountain_42: 1169748957
-      TilemapCopperMountain_28: -2035891761
-      TilemapCopperMountain_2: 1764801890
-      TilemapCopperMountain_17: 1171228952
-      TilemapCopperMountain_43: -63085279
-      TilemapCopperMountain_33: -251694095
-      TilemapCopperMountain_38: -1238630000
-      TilemapCopperMountain_4: -310876509
-      TilemapCopperMountain_13: 838084886
-      TilemapCopperMountain_1: -1084283367
-      TilemapCopperMountain_36: -2015408590
-      TilemapCopperMountain_47: -685745837
-      TilemapCopperMountain_18: 2018574034
-      TilemapCopperMountain_12: 5951016
       TilemapCopperMountain_5: 7425305
       TilemapCopperMountain_50: 1909087252
-  spritePackingTag: 
+      TilemapCopperMountain_6: 1018637702
+      TilemapCopperMountain_7: -1661021511
+      TilemapCopperMountain_8: 1384936985
+      TilemapCopperMountain_9: 1653524982
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

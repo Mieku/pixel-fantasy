@@ -3,7 +3,7 @@ guid: 059adbad53501ad4db1233cfecd7d779
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -1113,56 +1120,55 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ForestFloor_45: -277505144
-      ForestFloor_39: -1614642522
-      ForestFloor_3: -1740885375
-      ForestFloor_7: 778171543
-      ForestFloor_42: -1280232105
-      ForestFloor_43: -110541332
-      ForestFloor_22: -1605925613
-      ForestFloor_26: -919382921
-      ForestFloor_37: -296608672
-      ForestFloor_36: 1657225802
-      ForestFloor_44: -1522431499
-      ForestFloor_21: -1489302290
-      ForestFloor_46: 1105140207
-      ForestFloor_11: 392659666
-      ForestFloor_15: 577704785
-      ForestFloor_14: 1150156747
-      ForestFloor_2: 107902597
-      ForestFloor_5: -1614967491
-      ForestFloor_4: 611528078
-      ForestFloor_8: 1851195216
-      ForestFloor_33: -1068501471
-      ForestFloor_10: 456097269
-      ForestFloor_31: -1742544570
-      ForestFloor_29: 175827090
-      ForestFloor_34: 1170275729
-      ForestFloor_30: 1685026620
-      ForestFloor_35: -1352839316
-      ForestFloor_12: -909518424
-      ForestFloor_23: 90227230
-      ForestFloor_32: -1682740381
-      ForestFloor_13: -646536158
       ForestFloor_0: -778311457
-      ForestFloor_6: 1177686348
-      ForestFloor_20: -2089746341
-      ForestFloor_24: -1209928766
       ForestFloor_1: 1143814486
-      ForestFloor_40: 1380701623
-      ForestFloor_9: 12292210
-      ForestFloor_38: 1063271769
-      ForestFloor_27: 753015645
+      ForestFloor_10: 456097269
+      ForestFloor_11: 392659666
+      ForestFloor_12: -909518424
+      ForestFloor_13: -646536158
+      ForestFloor_14: 1150156747
+      ForestFloor_15: 577704785
       ForestFloor_16: 799807589
-      ForestFloor_25: 1956971551
+      ForestFloor_17: -866267804
       ForestFloor_18: -649366864
       ForestFloor_19: 1224081095
-      ForestFloor_17: -866267804
+      ForestFloor_2: 107902597
+      ForestFloor_20: -2089746341
+      ForestFloor_21: -1489302290
+      ForestFloor_22: -1605925613
+      ForestFloor_23: 90227230
+      ForestFloor_24: -1209928766
+      ForestFloor_25: 1956971551
+      ForestFloor_26: -919382921
+      ForestFloor_27: 753015645
       ForestFloor_28: 2077387628
+      ForestFloor_29: 175827090
+      ForestFloor_3: -1740885375
+      ForestFloor_30: 1685026620
+      ForestFloor_31: -1742544570
+      ForestFloor_32: -1682740381
+      ForestFloor_33: -1068501471
+      ForestFloor_34: 1170275729
+      ForestFloor_35: -1352839316
+      ForestFloor_36: 1657225802
+      ForestFloor_37: -296608672
+      ForestFloor_38: 1063271769
+      ForestFloor_39: -1614642522
+      ForestFloor_4: 611528078
+      ForestFloor_40: 1380701623
       ForestFloor_41: -421136341
-  spritePackingTag: 
+      ForestFloor_42: -1280232105
+      ForestFloor_43: -110541332
+      ForestFloor_44: -1522431499
+      ForestFloor_45: -277505144
+      ForestFloor_46: 1105140207
+      ForestFloor_5: -1614967491
+      ForestFloor_6: 1177686348
+      ForestFloor_7: 778171543
+      ForestFloor_8: 1851195216
+      ForestFloor_9: 12292210
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -72,7 +72,7 @@ TextureImporter:
       213: -8320566787433608018
     second: tools_hamering_strip23_22
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -89,11 +89,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -132,6 +133,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -143,6 +146,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -155,6 +159,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -167,6 +172,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -179,6 +185,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -678,32 +685,31 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      tools_hamering_strip23_8: 782630567365399599
-      tools_hamering_strip23_20: -2600931836655185999
-      tools_hamering_strip23_1: 2902128249016572905
-      tools_hamering_strip23_2: 4640327959587133578
-      tools_hamering_strip23_16: 822797154703478922
-      tools_hamering_strip23_11: 2006958401616450562
-      tools_hamering_strip23_13: -6083963153902632875
-      tools_hamering_strip23_17: -2462261607458719904
-      tools_hamering_strip23_15: -104295567224200042
-      tools_hamering_strip23_18: -4720316005383290921
-      tools_hamering_strip23_6: -2782878174426003373
-      tools_hamering_strip23_3: -2220873736785378712
-      tools_hamering_strip23_9: 6733091918558652142
-      tools_hamering_strip23_19: -1104976168748259542
-      tools_hamering_strip23_22: -8320566787433608018
-      tools_hamering_strip23_4: -5897697971657607785
-      tools_hamering_strip23_21: -4301166774531857436
-      tools_hamering_strip23_7: 2461693940854305957
-      tools_hamering_strip23_10: -557387383235600915
-      tools_hamering_strip23_14: 2265751752530900579
       tools_hamering_strip23_0: 632620252322877766
+      tools_hamering_strip23_1: 2902128249016572905
+      tools_hamering_strip23_10: -557387383235600915
+      tools_hamering_strip23_11: 2006958401616450562
       tools_hamering_strip23_12: 1216691698799351974
+      tools_hamering_strip23_13: -6083963153902632875
+      tools_hamering_strip23_14: 2265751752530900579
+      tools_hamering_strip23_15: -104295567224200042
+      tools_hamering_strip23_16: 822797154703478922
+      tools_hamering_strip23_17: -2462261607458719904
+      tools_hamering_strip23_18: -4720316005383290921
+      tools_hamering_strip23_19: -1104976168748259542
+      tools_hamering_strip23_2: 4640327959587133578
+      tools_hamering_strip23_20: -2600931836655185999
+      tools_hamering_strip23_21: -4301166774531857436
+      tools_hamering_strip23_22: -8320566787433608018
+      tools_hamering_strip23_3: -2220873736785378712
+      tools_hamering_strip23_4: -5897697971657607785
       tools_hamering_strip23_5: 7611692523700434886
-  spritePackingTag: 
+      tools_hamering_strip23_6: -2782878174426003373
+      tools_hamering_strip23_7: 2461693940854305957
+      tools_hamering_strip23_8: 782630567365399599
+      tools_hamering_strip23_9: 6733091918558652142
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

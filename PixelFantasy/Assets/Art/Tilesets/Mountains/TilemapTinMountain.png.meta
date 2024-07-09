@@ -3,7 +3,7 @@ guid: 61df65287fe891b409309a049a6c7eea
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -1197,60 +1204,59 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      TilemapTinMountain_39: 1556133552
-      TilemapTinMountain_30: -45080243
-      TilemapTinMountain_43: -1409485453
-      TilemapTinMountain_14: -140595661
-      TilemapTinMountain_18: -946931525
-      TilemapTinMountain_42: -1314583686
-      TilemapTinMountain_44: 1306845698
-      TilemapTinMountain_4: 2006247318
-      TilemapTinMountain_3: 307961084
-      TilemapTinMountain_10: -2142236654
-      TilemapTinMountain_28: 70353843
-      TilemapTinMountain_7: 877358329
-      TilemapTinMountain_17: -1047701423
-      TilemapTinMountain_38: 1086554041
-      TilemapTinMountain_2: 1434760377
-      TilemapTinMountain_47: -6253044
-      TilemapTinMountain_24: 2132459828
-      TilemapTinMountain_1: 174255683
-      TilemapTinMountain_37: -589305110
-      TilemapTinMountain_5: 597310361
-      TilemapTinMountain_25: 932660383
-      TilemapTinMountain_34: 1528244049
-      TilemapTinMountain_41: 1187549280
-      TilemapTinMountain_11: -805640641
-      TilemapTinMountain_46: -722734961
-      TilemapTinMountain_32: 1432829207
-      TilemapTinMountain_22: -2036419202
-      TilemapTinMountain_21: 433857526
-      TilemapTinMountain_15: -1984770019
-      TilemapTinMountain_12: 1545029409
-      TilemapTinMountain_36: 97256073
-      TilemapTinMountain_31: 2147273718
-      TilemapTinMountain_9: -234901569
-      TilemapTinMountain_33: -274045850
-      TilemapTinMountain_35: -1772041207
-      TilemapTinMountain_45: -1116580031
-      TilemapTinMountain_50: 503534651
-      TilemapTinMountain_13: 1383794623
-      TilemapTinMountain_23: 1229710810
-      TilemapTinMountain_40: -1834983141
-      TilemapTinMountain_29: 1600852713
-      TilemapTinMountain_16: 1957924462
-      TilemapTinMountain_48: 983282598
-      TilemapTinMountain_6: -136373010
-      TilemapTinMountain_8: 297692361
-      TilemapTinMountain_19: -1118629756
-      TilemapTinMountain_26: 1762328838
-      TilemapTinMountain_20: 1403316664
-      TilemapTinMountain_49: 360495829
-      TilemapTinMountain_27: 633485326
       TilemapTinMountain_0: -119454116
-  spritePackingTag: 
+      TilemapTinMountain_1: 174255683
+      TilemapTinMountain_10: -2142236654
+      TilemapTinMountain_11: -805640641
+      TilemapTinMountain_12: 1545029409
+      TilemapTinMountain_13: 1383794623
+      TilemapTinMountain_14: -140595661
+      TilemapTinMountain_15: -1984770019
+      TilemapTinMountain_16: 1957924462
+      TilemapTinMountain_17: -1047701423
+      TilemapTinMountain_18: -946931525
+      TilemapTinMountain_19: -1118629756
+      TilemapTinMountain_2: 1434760377
+      TilemapTinMountain_20: 1403316664
+      TilemapTinMountain_21: 433857526
+      TilemapTinMountain_22: -2036419202
+      TilemapTinMountain_23: 1229710810
+      TilemapTinMountain_24: 2132459828
+      TilemapTinMountain_25: 932660383
+      TilemapTinMountain_26: 1762328838
+      TilemapTinMountain_27: 633485326
+      TilemapTinMountain_28: 70353843
+      TilemapTinMountain_29: 1600852713
+      TilemapTinMountain_3: 307961084
+      TilemapTinMountain_30: -45080243
+      TilemapTinMountain_31: 2147273718
+      TilemapTinMountain_32: 1432829207
+      TilemapTinMountain_33: -274045850
+      TilemapTinMountain_34: 1528244049
+      TilemapTinMountain_35: -1772041207
+      TilemapTinMountain_36: 97256073
+      TilemapTinMountain_37: -589305110
+      TilemapTinMountain_38: 1086554041
+      TilemapTinMountain_39: 1556133552
+      TilemapTinMountain_4: 2006247318
+      TilemapTinMountain_40: -1834983141
+      TilemapTinMountain_41: 1187549280
+      TilemapTinMountain_42: -1314583686
+      TilemapTinMountain_43: -1409485453
+      TilemapTinMountain_44: 1306845698
+      TilemapTinMountain_45: -1116580031
+      TilemapTinMountain_46: -722734961
+      TilemapTinMountain_47: -6253044
+      TilemapTinMountain_48: 983282598
+      TilemapTinMountain_49: 360495829
+      TilemapTinMountain_5: 597310361
+      TilemapTinMountain_50: 503534651
+      TilemapTinMountain_6: -136373010
+      TilemapTinMountain_7: 877358329
+      TilemapTinMountain_8: 297692361
+      TilemapTinMountain_9: -234901569
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

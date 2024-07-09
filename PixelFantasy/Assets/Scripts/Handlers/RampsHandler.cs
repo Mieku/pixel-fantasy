@@ -13,7 +13,7 @@ namespace Handlers
 
         private List<RampData> _rampsData = new List<RampData>();
 
-        public List<RampData> GetRampsData()
+        public List<RampData> GetRampsData() 
         {
             return _rampsData;
         }

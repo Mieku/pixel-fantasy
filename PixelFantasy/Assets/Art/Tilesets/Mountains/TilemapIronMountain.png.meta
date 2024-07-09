@@ -3,7 +3,7 @@ guid: 825e13f50b814f5469a2770e65260a6b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -1197,60 +1204,59 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      TilemapIronMountain_8: 1116085396
-      TilemapIronMountain_30: 371186483
-      TilemapIronMountain_47: 850453774
-      TilemapIronMountain_22: 1996881731
-      TilemapIronMountain_17: -644142957
-      TilemapIronMountain_41: 1686521607
-      TilemapIronMountain_12: 678950945
-      TilemapIronMountain_15: 939485057
-      TilemapIronMountain_46: 182145901
-      TilemapIronMountain_28: 1382314759
-      TilemapIronMountain_6: 1603652272
-      TilemapIronMountain_9: -1794081692
-      TilemapIronMountain_26: 296304378
-      TilemapIronMountain_37: 1448353634
-      TilemapIronMountain_21: -18274349
-      TilemapIronMountain_34: 2077885194
-      TilemapIronMountain_48: 1936334475
-      TilemapIronMountain_33: -1449545832
-      TilemapIronMountain_42: 940386227
       TilemapIronMountain_0: 1838081384
-      TilemapIronMountain_38: -203826224
-      TilemapIronMountain_35: 1957506917
-      TilemapIronMountain_2: -176520161
-      TilemapIronMountain_24: -261314475
-      TilemapIronMountain_31: 962080635
-      TilemapIronMountain_36: -597867287
-      TilemapIronMountain_39: 891124587
       TilemapIronMountain_1: -2102313701
-      TilemapIronMountain_29: -662220723
-      TilemapIronMountain_11: -1327863984
-      TilemapIronMountain_40: 2002279255
-      TilemapIronMountain_18: 1506820207
-      TilemapIronMountain_44: 236571966
-      TilemapIronMountain_4: -825483210
-      TilemapIronMountain_43: -1045841930
-      TilemapIronMountain_49: 833928507
-      TilemapIronMountain_7: 40461096
-      TilemapIronMountain_19: 1848394711
-      TilemapIronMountain_20: -685689757
-      TilemapIronMountain_14: -2067649689
-      TilemapIronMountain_3: -476104657
-      TilemapIronMountain_32: -981317736
-      TilemapIronMountain_13: 139075574
-      TilemapIronMountain_50: -1112424397
-      TilemapIronMountain_45: 1752123602
-      TilemapIronMountain_23: -1032260543
-      TilemapIronMountain_27: 1058534269
       TilemapIronMountain_10: -1331199659
+      TilemapIronMountain_11: -1327863984
+      TilemapIronMountain_12: 678950945
+      TilemapIronMountain_13: 139075574
+      TilemapIronMountain_14: -2067649689
+      TilemapIronMountain_15: 939485057
       TilemapIronMountain_16: -981165999
+      TilemapIronMountain_17: -644142957
+      TilemapIronMountain_18: 1506820207
+      TilemapIronMountain_19: 1848394711
+      TilemapIronMountain_2: -176520161
+      TilemapIronMountain_20: -685689757
+      TilemapIronMountain_21: -18274349
+      TilemapIronMountain_22: 1996881731
+      TilemapIronMountain_23: -1032260543
+      TilemapIronMountain_24: -261314475
       TilemapIronMountain_25: 1127162778
+      TilemapIronMountain_26: 296304378
+      TilemapIronMountain_27: 1058534269
+      TilemapIronMountain_28: 1382314759
+      TilemapIronMountain_29: -662220723
+      TilemapIronMountain_3: -476104657
+      TilemapIronMountain_30: 371186483
+      TilemapIronMountain_31: 962080635
+      TilemapIronMountain_32: -981317736
+      TilemapIronMountain_33: -1449545832
+      TilemapIronMountain_34: 2077885194
+      TilemapIronMountain_35: 1957506917
+      TilemapIronMountain_36: -597867287
+      TilemapIronMountain_37: 1448353634
+      TilemapIronMountain_38: -203826224
+      TilemapIronMountain_39: 891124587
+      TilemapIronMountain_4: -825483210
+      TilemapIronMountain_40: 2002279255
+      TilemapIronMountain_41: 1686521607
+      TilemapIronMountain_42: 940386227
+      TilemapIronMountain_43: -1045841930
+      TilemapIronMountain_44: 236571966
+      TilemapIronMountain_45: 1752123602
+      TilemapIronMountain_46: 182145901
+      TilemapIronMountain_47: 850453774
+      TilemapIronMountain_48: 1936334475
+      TilemapIronMountain_49: 833928507
       TilemapIronMountain_5: 623385653
-  spritePackingTag: 
+      TilemapIronMountain_50: -1112424397
+      TilemapIronMountain_6: 1603652272
+      TilemapIronMountain_7: 40461096
+      TilemapIronMountain_8: 1116085396
+      TilemapIronMountain_9: -1794081692
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

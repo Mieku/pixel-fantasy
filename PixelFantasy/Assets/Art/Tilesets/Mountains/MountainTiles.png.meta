@@ -3,7 +3,7 @@ guid: 68263d632d49f9749b9b4981df13377b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -1197,60 +1204,59 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      MountainTiles_27: 1577154283
-      MountainTiles_5: -393628593
-      MountainTiles_12: 971052854
-      MountainTiles_21: -1096641021
-      MountainTiles_14: -1092256473
       MountainTiles_0: 820732708
-      MountainTiles_15: 1525135870
-      MountainTiles_19: -742284006
-      MountainTiles_11: 488934258
       MountainTiles_1: -215326889
-      MountainTiles_50: 351303489
-      MountainTiles_4: 56055243
-      MountainTiles_17: 1488768231
-      MountainTiles_49: 950527983
-      MountainTiles_24: -1885993128
-      MountainTiles_43: 1668693212
-      MountainTiles_13: 1196536667
-      MountainTiles_32: 744219084
-      MountainTiles_42: -63226101
-      MountainTiles_29: 1564677758
-      MountainTiles_47: -739945012
-      MountainTiles_28: -1341850386
-      MountainTiles_34: -471479160
-      MountainTiles_48: 1025019408
-      MountainTiles_3: -1707482445
-      MountainTiles_31: -1799710793
-      MountainTiles_38: -988567033
-      MountainTiles_18: -608167291
-      MountainTiles_45: -2050192619
-      MountainTiles_37: 1180691775
-      MountainTiles_36: 700974173
-      MountainTiles_26: 838113963
-      MountainTiles_41: 815114338
-      MountainTiles_9: -1690749033
-      MountainTiles_16: 1989167007
-      MountainTiles_7: 1909006626
-      MountainTiles_25: -1477530961
-      MountainTiles_8: -157626340
-      MountainTiles_44: -104238044
-      MountainTiles_40: -1811797030
-      MountainTiles_23: 972834260
-      MountainTiles_6: 1060833719
-      MountainTiles_39: -1346020165
-      MountainTiles_35: 1925443608
-      MountainTiles_33: 888123040
       MountainTiles_10: 2050749480
-      MountainTiles_20: -961402311
-      MountainTiles_22: -173128624
-      MountainTiles_30: -1676434845
+      MountainTiles_11: 488934258
+      MountainTiles_12: 971052854
+      MountainTiles_13: 1196536667
+      MountainTiles_14: -1092256473
+      MountainTiles_15: 1525135870
+      MountainTiles_16: 1989167007
+      MountainTiles_17: 1488768231
+      MountainTiles_18: -608167291
+      MountainTiles_19: -742284006
       MountainTiles_2: 1722516724
+      MountainTiles_20: -961402311
+      MountainTiles_21: -1096641021
+      MountainTiles_22: -173128624
+      MountainTiles_23: 972834260
+      MountainTiles_24: -1885993128
+      MountainTiles_25: -1477530961
+      MountainTiles_26: 838113963
+      MountainTiles_27: 1577154283
+      MountainTiles_28: -1341850386
+      MountainTiles_29: 1564677758
+      MountainTiles_3: -1707482445
+      MountainTiles_30: -1676434845
+      MountainTiles_31: -1799710793
+      MountainTiles_32: 744219084
+      MountainTiles_33: 888123040
+      MountainTiles_34: -471479160
+      MountainTiles_35: 1925443608
+      MountainTiles_36: 700974173
+      MountainTiles_37: 1180691775
+      MountainTiles_38: -988567033
+      MountainTiles_39: -1346020165
+      MountainTiles_4: 56055243
+      MountainTiles_40: -1811797030
+      MountainTiles_41: 815114338
+      MountainTiles_42: -63226101
+      MountainTiles_43: 1668693212
+      MountainTiles_44: -104238044
+      MountainTiles_45: -2050192619
       MountainTiles_46: -1960470467
-  spritePackingTag: 
+      MountainTiles_47: -739945012
+      MountainTiles_48: 1025019408
+      MountainTiles_49: 950527983
+      MountainTiles_5: -393628593
+      MountainTiles_50: 351303489
+      MountainTiles_6: 1060833719
+      MountainTiles_7: 1909006626
+      MountainTiles_8: -157626340
+      MountainTiles_9: -1690749033
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

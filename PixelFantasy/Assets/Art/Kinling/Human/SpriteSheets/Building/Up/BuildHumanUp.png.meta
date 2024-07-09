@@ -3,7 +3,7 @@ guid: 0ecb9e3017d2661419dd0c61ee03d257
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -3024,147 +3031,146 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      BuildHumanUp_2: 1518008530
-      BuildHumanUp_39: -1838046770
-      BuildHumanUp_19: 1345449086
-      BuildHumanUp_131: -1623451139
-      BuildHumanUp_42: 125510373
-      BuildHumanUp_105: 167839854
-      BuildHumanUp_93: -185346288
-      BuildHumanUp_121: -150124969
-      BuildHumanUp_81: -1786229981
-      BuildHumanUp_101: -1687005465
-      BuildHumanUp_89: 1633509174
-      BuildHumanUp_90: 67041243
-      BuildHumanUp_71: -2094896754
-      BuildHumanUp_38: -461786570
-      BuildHumanUp_10: 1378942882
-      BuildHumanUp_55: 1214461292
-      BuildHumanUp_137: -1362641425
-      BuildHumanUp_46: -1750786992
-      BuildHumanUp_96: -250395306
-      BuildHumanUp_64: -1163195202
-      BuildHumanUp_111: -2006540345
-      BuildHumanUp_6: 1918569468
-      BuildHumanUp_80: 810190360
-      BuildHumanUp_17: -605238277
-      BuildHumanUp_48: 2128808458
-      BuildHumanUp_68: 1297509789
-      BuildHumanUp_107: -45921255
-      BuildHumanUp_114: -806998859
-      BuildHumanUp_57: 967653737
-      BuildHumanUp_95: 1438771595
-      BuildHumanUp_29: 604872115
-      BuildHumanUp_8: 1711649873
-      BuildHumanUp_21: -1420072919
-      BuildHumanUp_122: 733912807
-      BuildHumanUp_7: 1205464056
-      BuildHumanUp_23: -695297898
-      BuildHumanUp_11: -1514295730
-      BuildHumanUp_117: -1868446350
-      BuildHumanUp_135: -1601411600
-      BuildHumanUp_35: 1698070825
-      BuildHumanUp_52: 848239527
-      BuildHumanUp_9: -884259379
-      BuildHumanUp_30: 2131919145
-      BuildHumanUp_113: -1266083420
-      BuildHumanUp_83: 2039686100
-      BuildHumanUp_92: -1358623999
-      BuildHumanUp_119: 2002162348
-      BuildHumanUp_102: -1421402976
-      BuildHumanUp_50: 1892289856
-      BuildHumanUp_4: -345854328
-      BuildHumanUp_15: 571769816
-      BuildHumanUp_54: -1112907872
-      BuildHumanUp_49: 1085231205
-      BuildHumanUp_125: -750736835
-      BuildHumanUp_51: -1397910997
-      BuildHumanUp_106: -1821810878
-      BuildHumanUp_115: -1383287937
-      BuildHumanUp_120: 1657775233
-      BuildHumanUp_36: -1034063375
-      BuildHumanUp_127: -1583058261
-      BuildHumanUp_108: -5794169
-      BuildHumanUp_43: 1552494694
-      BuildHumanUp_69: -890498898
-      BuildHumanUp_45: 1816345915
-      BuildHumanUp_72: 20323867
-      BuildHumanUp_16: 2100384157
-      BuildHumanUp_22: 682340386
-      BuildHumanUp_66: 1668762866
-      BuildHumanUp_5: -1629254177
-      BuildHumanUp_18: -621864999
-      BuildHumanUp_12: 1210685178
-      BuildHumanUp_86: 357663116
-      BuildHumanUp_61: 1296295660
-      BuildHumanUp_14: 1980297464
-      BuildHumanUp_59: -1554167933
-      BuildHumanUp_62: 43980055
-      BuildHumanUp_33: -508167911
-      BuildHumanUp_20: -2112198585
-      BuildHumanUp_134: 1073702832
-      BuildHumanUp_87: 135926587
-      BuildHumanUp_123: -1146708268
-      BuildHumanUp_126: 766313350
-      BuildHumanUp_110: 1097064215
-      BuildHumanUp_129: -514745611
-      BuildHumanUp_37: -1460422494
-      BuildHumanUp_74: -1428217442
-      BuildHumanUp_41: 1316554630
-      BuildHumanUp_32: -1017963798
-      BuildHumanUp_73: 1929513785
-      BuildHumanUp_75: -673691814
-      BuildHumanUp_53: -725715663
-      BuildHumanUp_109: 1424485217
-      BuildHumanUp_82: -287439934
-      BuildHumanUp_97: -297943769
-      BuildHumanUp_58: -1957857312
-      BuildHumanUp_34: -1574082412
-      BuildHumanUp_1: 505809908
-      BuildHumanUp_28: 1360043721
-      BuildHumanUp_77: -234320639
-      BuildHumanUp_133: -1364061048
-      BuildHumanUp_56: -809193703
-      BuildHumanUp_25: 906401534
-      BuildHumanUp_84: 1345021747
-      BuildHumanUp_130: 1950436068
-      BuildHumanUp_27: 1750135701
       BuildHumanUp_0: 293465904
-      BuildHumanUp_44: -1946590268
-      BuildHumanUp_85: 257459900
-      BuildHumanUp_65: -16126965
-      BuildHumanUp_79: 33639979
-      BuildHumanUp_13: 1792855712
-      BuildHumanUp_67: -1512621857
-      BuildHumanUp_63: -463613918
-      BuildHumanUp_132: -693269635
-      BuildHumanUp_24: -1978772396
-      BuildHumanUp_116: -2059928599
-      BuildHumanUp_136: 1057856909
-      BuildHumanUp_26: 2023136497
-      BuildHumanUp_70: -2034355689
-      BuildHumanUp_94: 794000857
-      BuildHumanUp_112: -998270455
-      BuildHumanUp_124: 1187074933
-      BuildHumanUp_103: -1757242686
-      BuildHumanUp_91: -1703782883
-      BuildHumanUp_104: -1969145218
-      BuildHumanUp_118: -64859922
-      BuildHumanUp_128: 452769050
-      BuildHumanUp_99: -293842920
-      BuildHumanUp_40: -1911308056
-      BuildHumanUp_3: 1191166711
-      BuildHumanUp_31: 941679738
-      BuildHumanUp_47: -1470103450
-      BuildHumanUp_98: 776705212
-      BuildHumanUp_78: -1802536053
-      BuildHumanUp_88: 1943330740
-      BuildHumanUp_60: 995822024
-      BuildHumanUp_76: 128458585
+      BuildHumanUp_1: 505809908
+      BuildHumanUp_10: 1378942882
       BuildHumanUp_100: -2031250112
-  spritePackingTag: 
+      BuildHumanUp_101: -1687005465
+      BuildHumanUp_102: -1421402976
+      BuildHumanUp_103: -1757242686
+      BuildHumanUp_104: -1969145218
+      BuildHumanUp_105: 167839854
+      BuildHumanUp_106: -1821810878
+      BuildHumanUp_107: -45921255
+      BuildHumanUp_108: -5794169
+      BuildHumanUp_109: 1424485217
+      BuildHumanUp_11: -1514295730
+      BuildHumanUp_110: 1097064215
+      BuildHumanUp_111: -2006540345
+      BuildHumanUp_112: -998270455
+      BuildHumanUp_113: -1266083420
+      BuildHumanUp_114: -806998859
+      BuildHumanUp_115: -1383287937
+      BuildHumanUp_116: -2059928599
+      BuildHumanUp_117: -1868446350
+      BuildHumanUp_118: -64859922
+      BuildHumanUp_119: 2002162348
+      BuildHumanUp_12: 1210685178
+      BuildHumanUp_120: 1657775233
+      BuildHumanUp_121: -150124969
+      BuildHumanUp_122: 733912807
+      BuildHumanUp_123: -1146708268
+      BuildHumanUp_124: 1187074933
+      BuildHumanUp_125: -750736835
+      BuildHumanUp_126: 766313350
+      BuildHumanUp_127: -1583058261
+      BuildHumanUp_128: 452769050
+      BuildHumanUp_129: -514745611
+      BuildHumanUp_13: 1792855712
+      BuildHumanUp_130: 1950436068
+      BuildHumanUp_131: -1623451139
+      BuildHumanUp_132: -693269635
+      BuildHumanUp_133: -1364061048
+      BuildHumanUp_134: 1073702832
+      BuildHumanUp_135: -1601411600
+      BuildHumanUp_136: 1057856909
+      BuildHumanUp_137: -1362641425
+      BuildHumanUp_14: 1980297464
+      BuildHumanUp_15: 571769816
+      BuildHumanUp_16: 2100384157
+      BuildHumanUp_17: -605238277
+      BuildHumanUp_18: -621864999
+      BuildHumanUp_19: 1345449086
+      BuildHumanUp_2: 1518008530
+      BuildHumanUp_20: -2112198585
+      BuildHumanUp_21: -1420072919
+      BuildHumanUp_22: 682340386
+      BuildHumanUp_23: -695297898
+      BuildHumanUp_24: -1978772396
+      BuildHumanUp_25: 906401534
+      BuildHumanUp_26: 2023136497
+      BuildHumanUp_27: 1750135701
+      BuildHumanUp_28: 1360043721
+      BuildHumanUp_29: 604872115
+      BuildHumanUp_3: 1191166711
+      BuildHumanUp_30: 2131919145
+      BuildHumanUp_31: 941679738
+      BuildHumanUp_32: -1017963798
+      BuildHumanUp_33: -508167911
+      BuildHumanUp_34: -1574082412
+      BuildHumanUp_35: 1698070825
+      BuildHumanUp_36: -1034063375
+      BuildHumanUp_37: -1460422494
+      BuildHumanUp_38: -461786570
+      BuildHumanUp_39: -1838046770
+      BuildHumanUp_4: -345854328
+      BuildHumanUp_40: -1911308056
+      BuildHumanUp_41: 1316554630
+      BuildHumanUp_42: 125510373
+      BuildHumanUp_43: 1552494694
+      BuildHumanUp_44: -1946590268
+      BuildHumanUp_45: 1816345915
+      BuildHumanUp_46: -1750786992
+      BuildHumanUp_47: -1470103450
+      BuildHumanUp_48: 2128808458
+      BuildHumanUp_49: 1085231205
+      BuildHumanUp_5: -1629254177
+      BuildHumanUp_50: 1892289856
+      BuildHumanUp_51: -1397910997
+      BuildHumanUp_52: 848239527
+      BuildHumanUp_53: -725715663
+      BuildHumanUp_54: -1112907872
+      BuildHumanUp_55: 1214461292
+      BuildHumanUp_56: -809193703
+      BuildHumanUp_57: 967653737
+      BuildHumanUp_58: -1957857312
+      BuildHumanUp_59: -1554167933
+      BuildHumanUp_6: 1918569468
+      BuildHumanUp_60: 995822024
+      BuildHumanUp_61: 1296295660
+      BuildHumanUp_62: 43980055
+      BuildHumanUp_63: -463613918
+      BuildHumanUp_64: -1163195202
+      BuildHumanUp_65: -16126965
+      BuildHumanUp_66: 1668762866
+      BuildHumanUp_67: -1512621857
+      BuildHumanUp_68: 1297509789
+      BuildHumanUp_69: -890498898
+      BuildHumanUp_7: 1205464056
+      BuildHumanUp_70: -2034355689
+      BuildHumanUp_71: -2094896754
+      BuildHumanUp_72: 20323867
+      BuildHumanUp_73: 1929513785
+      BuildHumanUp_74: -1428217442
+      BuildHumanUp_75: -673691814
+      BuildHumanUp_76: 128458585
+      BuildHumanUp_77: -234320639
+      BuildHumanUp_78: -1802536053
+      BuildHumanUp_79: 33639979
+      BuildHumanUp_8: 1711649873
+      BuildHumanUp_80: 810190360
+      BuildHumanUp_81: -1786229981
+      BuildHumanUp_82: -287439934
+      BuildHumanUp_83: 2039686100
+      BuildHumanUp_84: 1345021747
+      BuildHumanUp_85: 257459900
+      BuildHumanUp_86: 357663116
+      BuildHumanUp_87: 135926587
+      BuildHumanUp_88: 1943330740
+      BuildHumanUp_89: 1633509174
+      BuildHumanUp_9: -884259379
+      BuildHumanUp_90: 67041243
+      BuildHumanUp_91: -1703782883
+      BuildHumanUp_92: -1358623999
+      BuildHumanUp_93: -185346288
+      BuildHumanUp_94: 794000857
+      BuildHumanUp_95: 1438771595
+      BuildHumanUp_96: -250395306
+      BuildHumanUp_97: -297943769
+      BuildHumanUp_98: 776705212
+      BuildHumanUp_99: -293842920
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

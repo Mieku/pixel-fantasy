@@ -3,7 +3,7 @@ guid: 41f470bb168ab254bbaf796ac8abeb52
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -2037,100 +2044,99 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      DigHuman_73: 2072514536
-      DigHuman_90: 1577490557
-      DigHuman_88: 926318800
-      DigHuman_77: 549726064
-      DigHuman_26: 1838881735
-      DigHuman_21: -946649074
-      DigHuman_80: 2050837439
-      DigHuman_42: 674821434
-      DigHuman_57: -1793990151
-      DigHuman_85: 636080416
-      DigHuman_28: -929617364
+      DigHuman_0: -745455287
+      DigHuman_1: -1698323393
+      DigHuman_10: 1871859359
+      DigHuman_11: -1716758772
+      DigHuman_12: 537245739
       DigHuman_13: 748975485
-      DigHuman_22: -1245033951
+      DigHuman_14: -1241251876
+      DigHuman_15: 1062481907
+      DigHuman_16: -1242598199
+      DigHuman_17: 1276200239
+      DigHuman_18: 2043972801
+      DigHuman_19: 647410161
       DigHuman_2: 1271995620
-      DigHuman_61: 1821239280
+      DigHuman_20: 93470446
+      DigHuman_21: -946649074
+      DigHuman_22: -1245033951
+      DigHuman_23: 786620592
       DigHuman_24: -1256329373
+      DigHuman_25: 746417650
+      DigHuman_26: 1838881735
+      DigHuman_27: -2133700329
+      DigHuman_28: -929617364
+      DigHuman_29: 1351932675
+      DigHuman_3: 560432663
+      DigHuman_30: -729123234
+      DigHuman_31: 838252236
+      DigHuman_32: 153602240
+      DigHuman_33: 1817786886
+      DigHuman_34: -1901249758
       DigHuman_35: -1798962648
       DigHuman_36: 1549309600
-      DigHuman_76: 72366780
-      DigHuman_46: -1373156206
-      DigHuman_89: 733685141
-      DigHuman_6: -1284697110
-      DigHuman_43: -852760700
-      DigHuman_66: 1385011719
-      DigHuman_39: 675977661
-      DigHuman_25: 746417650
-      DigHuman_62: -1614757775
-      DigHuman_51: 541211015
-      DigHuman_54: -48060126
-      DigHuman_63: -606818819
-      DigHuman_18: 2043972801
-      DigHuman_78: 2029981707
-      DigHuman_41: -484028727
-      DigHuman_19: 647410161
-      DigHuman_75: 1084415880
-      DigHuman_9: 372608946
-      DigHuman_20: 93470446
-      DigHuman_70: -767180854
-      DigHuman_11: -1716758772
-      DigHuman_47: -132411198
-      DigHuman_59: -772335826
-      DigHuman_3: 560432663
-      DigHuman_52: -1709003989
-      DigHuman_60: -1696921765
-      DigHuman_67: 168295477
-      DigHuman_81: -763836235
-      DigHuman_84: -617049725
-      DigHuman_87: 759087499
-      DigHuman_34: -1901249758
-      DigHuman_65: 1127009961
-      DigHuman_16: -1242598199
       DigHuman_37: 584281375
-      DigHuman_1: -1698323393
-      DigHuman_74: 89245345
-      DigHuman_8: -1651324876
-      DigHuman_14: -1241251876
-      DigHuman_53: 384552751
-      DigHuman_64: 1337981019
-      DigHuman_33: 1817786886
-      DigHuman_7: -95451933
-      DigHuman_58: 762358108
-      DigHuman_4: 1331034809
-      DigHuman_27: -2133700329
-      DigHuman_71: 804385707
-      DigHuman_83: -732594789
-      DigHuman_30: -729123234
-      DigHuman_72: 666851624
-      DigHuman_15: 1062481907
-      DigHuman_17: 1276200239
-      DigHuman_56: 1355734182
-      DigHuman_31: 838252236
-      DigHuman_12: 537245739
-      DigHuman_29: 1351932675
-      DigHuman_45: 1707190755
-      DigHuman_69: 50246449
-      DigHuman_5: 384388320
-      DigHuman_82: 1202451402
       DigHuman_38: 1992332005
-      DigHuman_48: 2001909060
-      DigHuman_44: 1398168887
-      DigHuman_55: -1794638408
-      DigHuman_32: 153602240
-      DigHuman_50: 485645662
-      DigHuman_0: -745455287
-      DigHuman_86: -356695994
-      DigHuman_10: 1871859359
-      DigHuman_49: -1288305297
+      DigHuman_39: 675977661
+      DigHuman_4: 1331034809
       DigHuman_40: 2024607263
-      DigHuman_79: 905151558
+      DigHuman_41: -484028727
+      DigHuman_42: 674821434
+      DigHuman_43: -852760700
+      DigHuman_44: 1398168887
+      DigHuman_45: 1707190755
+      DigHuman_46: -1373156206
+      DigHuman_47: -132411198
+      DigHuman_48: 2001909060
+      DigHuman_49: -1288305297
+      DigHuman_5: 384388320
+      DigHuman_50: 485645662
+      DigHuman_51: 541211015
+      DigHuman_52: -1709003989
+      DigHuman_53: 384552751
+      DigHuman_54: -48060126
+      DigHuman_55: -1794638408
+      DigHuman_56: 1355734182
+      DigHuman_57: -1793990151
+      DigHuman_58: 762358108
+      DigHuman_59: -772335826
+      DigHuman_6: -1284697110
+      DigHuman_60: -1696921765
+      DigHuman_61: 1821239280
+      DigHuman_62: -1614757775
+      DigHuman_63: -606818819
+      DigHuman_64: 1337981019
+      DigHuman_65: 1127009961
+      DigHuman_66: 1385011719
+      DigHuman_67: 168295477
       DigHuman_68: 625130144
-      DigHuman_23: 786620592
-  spritePackingTag: 
+      DigHuman_69: 50246449
+      DigHuman_7: -95451933
+      DigHuman_70: -767180854
+      DigHuman_71: 804385707
+      DigHuman_72: 666851624
+      DigHuman_73: 2072514536
+      DigHuman_74: 89245345
+      DigHuman_75: 1084415880
+      DigHuman_76: 72366780
+      DigHuman_77: 549726064
+      DigHuman_78: 2029981707
+      DigHuman_79: 905151558
+      DigHuman_8: -1651324876
+      DigHuman_80: 2050837439
+      DigHuman_81: -763836235
+      DigHuman_82: 1202451402
+      DigHuman_83: -732594789
+      DigHuman_84: -617049725
+      DigHuman_85: 636080416
+      DigHuman_86: -356695994
+      DigHuman_87: 759087499
+      DigHuman_88: 926318800
+      DigHuman_89: 733685141
+      DigHuman_9: 372608946
+      DigHuman_90: 1577490557
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

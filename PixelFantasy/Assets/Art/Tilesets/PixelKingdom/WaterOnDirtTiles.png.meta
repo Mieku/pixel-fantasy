@@ -3,7 +3,7 @@ guid: 5e7e508ccd0036a4db4d5fdaae8081dd
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -1197,60 +1204,59 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      WaterOnDirtTiles_26: 192415434
-      WaterOnDirtTiles_15: -1134897395
-      WaterOnDirtTiles_44: -354386957
-      WaterOnDirtTiles_18: 1704006637
-      WaterOnDirtTiles_12: -1985726647
-      WaterOnDirtTiles_8: -1578859835
-      WaterOnDirtTiles_19: -1638879688
-      WaterOnDirtTiles_9: -1773295778
-      WaterOnDirtTiles_49: 377995572
-      WaterOnDirtTiles_45: 1836251877
-      WaterOnDirtTiles_36: 2103313530
-      WaterOnDirtTiles_34: -542201631
-      WaterOnDirtTiles_43: 1973571259
-      WaterOnDirtTiles_27: 647068579
-      WaterOnDirtTiles_16: -839449277
-      WaterOnDirtTiles_47: -1718213341
-      WaterOnDirtTiles_4: 289223926
-      WaterOnDirtTiles_11: -262509412
-      WaterOnDirtTiles_5: -947517261
-      WaterOnDirtTiles_48: -1744305122
-      WaterOnDirtTiles_13: -711891729
-      WaterOnDirtTiles_39: 974824393
-      WaterOnDirtTiles_23: 1202163241
-      WaterOnDirtTiles_3: -1148001042
-      WaterOnDirtTiles_10: -916897827
-      WaterOnDirtTiles_21: -2094029643
-      WaterOnDirtTiles_35: -152058049
-      WaterOnDirtTiles_14: -1451981110
-      WaterOnDirtTiles_37: 1720822150
-      WaterOnDirtTiles_41: 1740917807
-      WaterOnDirtTiles_29: 82990591
-      WaterOnDirtTiles_7: -654302014
-      WaterOnDirtTiles_17: -1475346228
-      WaterOnDirtTiles_31: 1848101870
-      WaterOnDirtTiles_24: -1584104654
-      WaterOnDirtTiles_40: 162105584
-      WaterOnDirtTiles_6: 1405319770
-      WaterOnDirtTiles_30: 1830011467
-      WaterOnDirtTiles_50: -1675496566
-      WaterOnDirtTiles_1: -1009374205
       WaterOnDirtTiles_0: -137284513
-      WaterOnDirtTiles_20: -1431142221
-      WaterOnDirtTiles_22: -850517281
-      WaterOnDirtTiles_28: 254645975
+      WaterOnDirtTiles_1: -1009374205
+      WaterOnDirtTiles_10: -916897827
+      WaterOnDirtTiles_11: -262509412
+      WaterOnDirtTiles_12: -1985726647
+      WaterOnDirtTiles_13: -711891729
+      WaterOnDirtTiles_14: -1451981110
+      WaterOnDirtTiles_15: -1134897395
+      WaterOnDirtTiles_16: -839449277
+      WaterOnDirtTiles_17: -1475346228
+      WaterOnDirtTiles_18: 1704006637
+      WaterOnDirtTiles_19: -1638879688
       WaterOnDirtTiles_2: 1406403867
-      WaterOnDirtTiles_38: 2099099928
-      WaterOnDirtTiles_32: -1573401221
+      WaterOnDirtTiles_20: -1431142221
+      WaterOnDirtTiles_21: -2094029643
+      WaterOnDirtTiles_22: -850517281
+      WaterOnDirtTiles_23: 1202163241
+      WaterOnDirtTiles_24: -1584104654
       WaterOnDirtTiles_25: 1062911130
-      WaterOnDirtTiles_46: -1347130434
-      WaterOnDirtTiles_42: 180755502
+      WaterOnDirtTiles_26: 192415434
+      WaterOnDirtTiles_27: 647068579
+      WaterOnDirtTiles_28: 254645975
+      WaterOnDirtTiles_29: 82990591
+      WaterOnDirtTiles_3: -1148001042
+      WaterOnDirtTiles_30: 1830011467
+      WaterOnDirtTiles_31: 1848101870
+      WaterOnDirtTiles_32: -1573401221
       WaterOnDirtTiles_33: 227191314
-  spritePackingTag: 
+      WaterOnDirtTiles_34: -542201631
+      WaterOnDirtTiles_35: -152058049
+      WaterOnDirtTiles_36: 2103313530
+      WaterOnDirtTiles_37: 1720822150
+      WaterOnDirtTiles_38: 2099099928
+      WaterOnDirtTiles_39: 974824393
+      WaterOnDirtTiles_4: 289223926
+      WaterOnDirtTiles_40: 162105584
+      WaterOnDirtTiles_41: 1740917807
+      WaterOnDirtTiles_42: 180755502
+      WaterOnDirtTiles_43: 1973571259
+      WaterOnDirtTiles_44: -354386957
+      WaterOnDirtTiles_45: 1836251877
+      WaterOnDirtTiles_46: -1347130434
+      WaterOnDirtTiles_47: -1718213341
+      WaterOnDirtTiles_48: -1744305122
+      WaterOnDirtTiles_49: 377995572
+      WaterOnDirtTiles_5: -947517261
+      WaterOnDirtTiles_50: -1675496566
+      WaterOnDirtTiles_6: 1405319770
+      WaterOnDirtTiles_7: -654302014
+      WaterOnDirtTiles_8: -1578859835
+      WaterOnDirtTiles_9: -1773295778
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

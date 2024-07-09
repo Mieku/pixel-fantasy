@@ -3,7 +3,7 @@ guid: 261d8b5242efb0e498d9da230c905032
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -462,25 +469,24 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ForestGrass_15: -1725829420
-      ForestGrass_6: -278483855
-      ForestGrass_11: 2005521836
-      ForestGrass_12: -1872428458
-      ForestGrass_9: -46970599
-      ForestGrass_5: -1344645729
-      ForestGrass_4: 509791314
-      ForestGrass_7: 1374732538
       ForestGrass_0: 717716670
-      ForestGrass_3: 1892392868
       ForestGrass_1: -670818011
       ForestGrass_10: -2017606621
+      ForestGrass_11: 2005521836
+      ForestGrass_12: -1872428458
       ForestGrass_13: -2012036114
-      ForestGrass_8: -1738571467
-      ForestGrass_2: -910467894
       ForestGrass_14: 1269979326
-  spritePackingTag: 
+      ForestGrass_15: -1725829420
+      ForestGrass_2: -910467894
+      ForestGrass_3: 1892392868
+      ForestGrass_4: 509791314
+      ForestGrass_5: -1344645729
+      ForestGrass_6: -278483855
+      ForestGrass_7: 1374732538
+      ForestGrass_8: -1738571467
+      ForestGrass_9: -46970599
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

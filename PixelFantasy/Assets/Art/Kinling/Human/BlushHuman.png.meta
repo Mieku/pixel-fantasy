@@ -3,7 +3,7 @@ guid: b24daaf5019f5764ca60850dd0867899
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -2688,131 +2695,130 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      BlushHuman_61: -1071896694
-      BlushHuman_14: 2138275446
-      BlushHuman_41: -1679625225
-      BlushHuman_39: 783412268
-      BlushHuman_79: -1817287360
-      BlushHuman_50: -1469356600
-      BlushHuman_101: -1518116698
-      BlushHuman_45: -330660444
-      BlushHuman_40: -1059840229
-      BlushHuman_89: -1070479402
-      BlushHuman_111: -1419351551
-      BlushHuman_118: 264068705
-      BlushHuman_59: -911140091
-      BlushHuman_81: 647105450
-      BlushHuman_64: 1237729700
-      BlushHuman_87: 212214018
+      BlushHuman_0: 1618769518
+      BlushHuman_1: 750954161
       BlushHuman_10: 55878131
+      BlushHuman_100: 271040604
+      BlushHuman_101: -1518116698
+      BlushHuman_102: 2067548083
+      BlushHuman_103: 1945901882
+      BlushHuman_104: -1627310364
+      BlushHuman_105: -833580413
+      BlushHuman_106: 233727621
+      BlushHuman_107: -1942394826
+      BlushHuman_108: 1724426110
+      BlushHuman_109: -689964632
+      BlushHuman_11: -59627884
+      BlushHuman_110: -206206101
+      BlushHuman_111: -1419351551
+      BlushHuman_112: 426050357
+      BlushHuman_113: -1509419013
+      BlushHuman_114: 1907752476
       BlushHuman_115: -2078931569
+      BlushHuman_116: -985449692
+      BlushHuman_117: -1868777743
+      BlushHuman_118: 264068705
+      BlushHuman_119: -392332744
+      BlushHuman_12: -798196245
+      BlushHuman_120: 171674905
+      BlushHuman_121: -1883532422
+      BlushHuman_13: 186588623
+      BlushHuman_14: 2138275446
+      BlushHuman_15: 928975329
+      BlushHuman_16: 37150206
+      BlushHuman_17: -1119356481
+      BlushHuman_18: 1089927119
+      BlushHuman_19: 1229285571
+      BlushHuman_2: 819476106
+      BlushHuman_20: -1546410090
+      BlushHuman_21: 126135541
+      BlushHuman_22: -321431219
+      BlushHuman_23: 1116238440
+      BlushHuman_24: -1454375267
+      BlushHuman_25: -84455640
+      BlushHuman_26: 1621474709
+      BlushHuman_27: -404490094
+      BlushHuman_28: 443975562
+      BlushHuman_29: 1244069615
+      BlushHuman_3: 194801235
+      BlushHuman_30: 651492419
+      BlushHuman_31: 750328153
+      BlushHuman_32: 1125185269
+      BlushHuman_33: 187184710
+      BlushHuman_34: -1364937923
+      BlushHuman_35: -1697461670
+      BlushHuman_36: 2052842772
+      BlushHuman_37: 96403895
+      BlushHuman_38: 1116298362
+      BlushHuman_39: 783412268
+      BlushHuman_4: 923238377
+      BlushHuman_40: -1059840229
+      BlushHuman_41: -1679625225
+      BlushHuman_42: -951961291
+      BlushHuman_43: -95173685
+      BlushHuman_44: -620418961
+      BlushHuman_45: -330660444
+      BlushHuman_46: 346829682
+      BlushHuman_47: -1816512314
+      BlushHuman_48: 967633266
+      BlushHuman_49: -1543493598
+      BlushHuman_5: 1901484201
+      BlushHuman_50: -1469356600
+      BlushHuman_51: -1341904886
+      BlushHuman_52: -641446864
       BlushHuman_53: -1480459074
       BlushHuman_54: 695482580
-      BlushHuman_74: -949210016
-      BlushHuman_110: -206206101
-      BlushHuman_70: -1417483183
-      BlushHuman_27: -404490094
-      BlushHuman_37: 96403895
-      BlushHuman_25: -84455640
-      BlushHuman_23: 1116238440
-      BlushHuman_32: 1125185269
-      BlushHuman_92: 1771707000
-      BlushHuman_120: 171674905
-      BlushHuman_85: 1971586261
-      BlushHuman_69: -209016419
-      BlushHuman_26: 1621474709
-      BlushHuman_19: 1229285571
-      BlushHuman_100: 271040604
-      BlushHuman_24: -1454375267
-      BlushHuman_3: 194801235
-      BlushHuman_73: -1881101377
-      BlushHuman_60: 1034846727
-      BlushHuman_46: 346829682
-      BlushHuman_84: 255460876
-      BlushHuman_91: 432918256
-      BlushHuman_112: 426050357
-      BlushHuman_48: 967633266
-      BlushHuman_108: 1724426110
-      BlushHuman_1: 750954161
-      BlushHuman_80: 177273355
-      BlushHuman_96: 1870340812
-      BlushHuman_72: -796460002
-      BlushHuman_113: -1509419013
-      BlushHuman_33: 187184710
-      BlushHuman_29: 1244069615
-      BlushHuman_66: -1610641933
-      BlushHuman_65: -330196883
-      BlushHuman_49: -1543493598
-      BlushHuman_77: 1257834679
-      BlushHuman_47: -1816512314
-      BlushHuman_105: -833580413
-      BlushHuman_94: 688070513
-      BlushHuman_63: 658501905
-      BlushHuman_15: 928975329
-      BlushHuman_119: -392332744
-      BlushHuman_42: -951961291
-      BlushHuman_102: 2067548083
-      BlushHuman_44: -620418961
-      BlushHuman_121: -1883532422
-      BlushHuman_4: 923238377
-      BlushHuman_28: 443975562
-      BlushHuman_31: 750328153
-      BlushHuman_51: -1341904886
-      BlushHuman_93: 373286187
-      BlushHuman_97: 1879528205
-      BlushHuman_75: -1496879068
-      BlushHuman_58: 461178456
-      BlushHuman_107: -1942394826
-      BlushHuman_6: -942088303
-      BlushHuman_12: -798196245
-      BlushHuman_36: 2052842772
-      BlushHuman_11: -59627884
-      BlushHuman_38: 1116298362
-      BlushHuman_86: -1086976159
-      BlushHuman_5: 1901484201
-      BlushHuman_57: -670385477
-      BlushHuman_116: -985449692
-      BlushHuman_17: -1119356481
-      BlushHuman_35: -1697461670
-      BlushHuman_21: 126135541
-      BlushHuman_13: 186588623
-      BlushHuman_9: -369333033
-      BlushHuman_82: 872651446
-      BlushHuman_20: -1546410090
-      BlushHuman_90: 228376505
-      BlushHuman_95: 1476439527
-      BlushHuman_103: 1945901882
-      BlushHuman_22: -321431219
-      BlushHuman_83: 779912370
-      BlushHuman_78: -1564471630
-      BlushHuman_34: -1364937923
-      BlushHuman_109: -689964632
-      BlushHuman_0: 1618769518
-      BlushHuman_30: 651492419
-      BlushHuman_2: 819476106
       BlushHuman_55: 1554504997
-      BlushHuman_7: -250448949
-      BlushHuman_99: 1197421379
       BlushHuman_56: -1840897007
-      BlushHuman_71: -1129760818
-      BlushHuman_106: 233727621
-      BlushHuman_43: -95173685
-      BlushHuman_114: 1907752476
-      BlushHuman_16: 37150206
-      BlushHuman_104: -1627310364
-      BlushHuman_8: -715219583
+      BlushHuman_57: -670385477
+      BlushHuman_58: 461178456
+      BlushHuman_59: -911140091
+      BlushHuman_6: -942088303
+      BlushHuman_60: 1034846727
+      BlushHuman_61: -1071896694
       BlushHuman_62: -901611711
-      BlushHuman_117: -1868777743
-      BlushHuman_18: 1089927119
+      BlushHuman_63: 658501905
+      BlushHuman_64: 1237729700
+      BlushHuman_65: -330196883
+      BlushHuman_66: -1610641933
       BlushHuman_67: 1467314171
-      BlushHuman_76: 1772027004
-      BlushHuman_98: -1955599207
-      BlushHuman_88: 346212934
       BlushHuman_68: -2127821371
-      BlushHuman_52: -641446864
-  spritePackingTag: 
+      BlushHuman_69: -209016419
+      BlushHuman_7: -250448949
+      BlushHuman_70: -1417483183
+      BlushHuman_71: -1129760818
+      BlushHuman_72: -796460002
+      BlushHuman_73: -1881101377
+      BlushHuman_74: -949210016
+      BlushHuman_75: -1496879068
+      BlushHuman_76: 1772027004
+      BlushHuman_77: 1257834679
+      BlushHuman_78: -1564471630
+      BlushHuman_79: -1817287360
+      BlushHuman_8: -715219583
+      BlushHuman_80: 177273355
+      BlushHuman_81: 647105450
+      BlushHuman_82: 872651446
+      BlushHuman_83: 779912370
+      BlushHuman_84: 255460876
+      BlushHuman_85: 1971586261
+      BlushHuman_86: -1086976159
+      BlushHuman_87: 212214018
+      BlushHuman_88: 346212934
+      BlushHuman_89: -1070479402
+      BlushHuman_9: -369333033
+      BlushHuman_90: 228376505
+      BlushHuman_91: 432918256
+      BlushHuman_92: 1771707000
+      BlushHuman_93: 373286187
+      BlushHuman_94: 688070513
+      BlushHuman_95: 1476439527
+      BlushHuman_96: 1870340812
+      BlushHuman_97: 1879528205
+      BlushHuman_98: -1955599207
+      BlushHuman_99: 1197421379
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

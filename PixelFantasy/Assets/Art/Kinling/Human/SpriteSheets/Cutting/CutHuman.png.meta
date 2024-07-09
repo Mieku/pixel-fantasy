@@ -3,7 +3,7 @@ guid: da3c1ef7754a9b24a8c7f7c2c25b93a3
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -1596,79 +1603,78 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      CutHuman_54: 1711882263
-      CutHuman_27: -1122321713
-      CutHuman_35: -1230717241
-      CutHuman_43: -1435310046
-      CutHuman_33: 969674452
-      CutHuman_2: -1106833952
-      CutHuman_32: -1659342980
-      CutHuman_42: 337502913
-      CutHuman_34: 1508617836
+      CutHuman_0: 1254268225
       CutHuman_1: -918633573
-      CutHuman_52: 1758165386
-      CutHuman_57: -1822749503
-      CutHuman_55: 872693590
-      CutHuman_64: -1475948733
-      CutHuman_58: 779444397
-      CutHuman_25: -507916054
-      CutHuman_59: 1298899212
-      CutHuman_9: 436709994
-      CutHuman_63: -2146498320
-      CutHuman_18: -967843701
-      CutHuman_48: -983708992
-      CutHuman_23: -1495940687
-      CutHuman_45: -1419320489
-      CutHuman_7: 499142642
-      CutHuman_47: -1983128958
-      CutHuman_5: 270892983
+      CutHuman_10: 1996075707
       CutHuman_11: -687548714
       CutHuman_12: 262808469
-      CutHuman_8: -1015665002
-      CutHuman_41: -535315960
-      CutHuman_16: -465476131
       CutHuman_13: 101547873
-      CutHuman_36: -1432398455
-      CutHuman_68: 1742618440
-      CutHuman_24: 1822846785
-      CutHuman_0: 1254268225
-      CutHuman_65: 549225045
-      CutHuman_37: -625142941
-      CutHuman_15: 1793418139
-      CutHuman_17: 1301711578
-      CutHuman_60: -1932046301
-      CutHuman_53: -114857322
-      CutHuman_46: 709950019
-      CutHuman_6: 716265271
-      CutHuman_56: -1262717421
-      CutHuman_40: 1437096277
-      CutHuman_28: -1441378232
-      CutHuman_39: 1653035094
-      CutHuman_67: -382885055
-      CutHuman_3: -2052139173
-      CutHuman_20: 1514167070
-      CutHuman_4: 473357467
-      CutHuman_66: -887091803
-      CutHuman_62: 1707869823
-      CutHuman_29: -1640756092
-      CutHuman_69: -1313148630
-      CutHuman_44: -196726021
-      CutHuman_19: -1701427483
-      CutHuman_21: 353199183
-      CutHuman_61: -77520900
-      CutHuman_31: 1556797890
-      CutHuman_26: -129470080
-      CutHuman_10: 1996075707
-      CutHuman_49: 1746372690
-      CutHuman_50: -1243301489
-      CutHuman_30: -545440533
-      CutHuman_38: 640264872
-      CutHuman_51: 1943489163
       CutHuman_14: -1414650801
+      CutHuman_15: 1793418139
+      CutHuman_16: -465476131
+      CutHuman_17: 1301711578
+      CutHuman_18: -967843701
+      CutHuman_19: -1701427483
+      CutHuman_2: -1106833952
+      CutHuman_20: 1514167070
+      CutHuman_21: 353199183
       CutHuman_22: -42961218
-  spritePackingTag: 
+      CutHuman_23: -1495940687
+      CutHuman_24: 1822846785
+      CutHuman_25: -507916054
+      CutHuman_26: -129470080
+      CutHuman_27: -1122321713
+      CutHuman_28: -1441378232
+      CutHuman_29: -1640756092
+      CutHuman_3: -2052139173
+      CutHuman_30: -545440533
+      CutHuman_31: 1556797890
+      CutHuman_32: -1659342980
+      CutHuman_33: 969674452
+      CutHuman_34: 1508617836
+      CutHuman_35: -1230717241
+      CutHuman_36: -1432398455
+      CutHuman_37: -625142941
+      CutHuman_38: 640264872
+      CutHuman_39: 1653035094
+      CutHuman_4: 473357467
+      CutHuman_40: 1437096277
+      CutHuman_41: -535315960
+      CutHuman_42: 337502913
+      CutHuman_43: -1435310046
+      CutHuman_44: -196726021
+      CutHuman_45: -1419320489
+      CutHuman_46: 709950019
+      CutHuman_47: -1983128958
+      CutHuman_48: -983708992
+      CutHuman_49: 1746372690
+      CutHuman_5: 270892983
+      CutHuman_50: -1243301489
+      CutHuman_51: 1943489163
+      CutHuman_52: 1758165386
+      CutHuman_53: -114857322
+      CutHuman_54: 1711882263
+      CutHuman_55: 872693590
+      CutHuman_56: -1262717421
+      CutHuman_57: -1822749503
+      CutHuman_58: 779444397
+      CutHuman_59: 1298899212
+      CutHuman_6: 716265271
+      CutHuman_60: -1932046301
+      CutHuman_61: -77520900
+      CutHuman_62: 1707869823
+      CutHuman_63: -2146498320
+      CutHuman_64: -1475948733
+      CutHuman_65: 549225045
+      CutHuman_66: -887091803
+      CutHuman_67: -382885055
+      CutHuman_68: 1742618440
+      CutHuman_69: -1313148630
+      CutHuman_7: 499142642
+      CutHuman_8: -1015665002
+      CutHuman_9: 436709994
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

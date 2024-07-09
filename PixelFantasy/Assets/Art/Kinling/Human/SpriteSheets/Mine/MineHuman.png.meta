@@ -3,7 +3,7 @@ guid: 32118c6c99a15ea4cbf510c01ed64f4a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -1596,79 +1603,78 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      MineHuman_45: -109423938
-      MineHuman_11: 954613685
-      MineHuman_67: 734005360
-      MineHuman_40: 1569673670
-      MineHuman_16: -517386460
-      MineHuman_27: -1802673040
-      MineHuman_33: -1364980505
-      MineHuman_68: 634365512
-      MineHuman_46: 1877856493
-      MineHuman_54: -501146302
-      MineHuman_61: 549130255
-      MineHuman_14: 1901255995
-      MineHuman_17: -1545741058
-      MineHuman_51: 1443330206
-      MineHuman_18: 1889842158
-      MineHuman_63: -893363270
-      MineHuman_59: -2001212278
-      MineHuman_64: 1677862310
       MineHuman_0: -768627183
-      MineHuman_58: 308709134
-      MineHuman_22: 1060279760
-      MineHuman_20: -1244059195
-      MineHuman_4: 1427930059
       MineHuman_1: 803421022
-      MineHuman_60: -800899020
-      MineHuman_5: -1603078534
-      MineHuman_50: -1786554104
-      MineHuman_52: 266878515
-      MineHuman_66: 1125321009
+      MineHuman_10: 505443420
+      MineHuman_11: 954613685
+      MineHuman_12: -1183036583
+      MineHuman_13: -183073223
+      MineHuman_14: 1901255995
+      MineHuman_15: 998189913
+      MineHuman_16: -517386460
+      MineHuman_17: -1545741058
+      MineHuman_18: 1889842158
+      MineHuman_19: -40420994
+      MineHuman_2: 213942566
+      MineHuman_20: -1244059195
       MineHuman_21: -191252239
+      MineHuman_22: 1060279760
+      MineHuman_23: 1558846892
+      MineHuman_24: 333583571
+      MineHuman_25: 1895611431
+      MineHuman_26: 372762700
+      MineHuman_27: -1802673040
+      MineHuman_28: 503106371
+      MineHuman_29: -470569865
+      MineHuman_3: -1266875705
+      MineHuman_30: -681264301
+      MineHuman_31: 1772092648
+      MineHuman_32: 2134861162
+      MineHuman_33: -1364980505
+      MineHuman_34: -1306243762
+      MineHuman_35: 703400011
+      MineHuman_36: 331667705
+      MineHuman_37: 320897176
+      MineHuman_38: 587651762
+      MineHuman_39: 1216120978
+      MineHuman_4: 1427930059
+      MineHuman_40: 1569673670
+      MineHuman_41: 1358985366
+      MineHuman_42: -681931509
       MineHuman_43: -1283751637
       MineHuman_44: 662612917
-      MineHuman_29: -470569865
-      MineHuman_30: -681264301
-      MineHuman_3: -1266875705
-      MineHuman_32: 2134861162
-      MineHuman_39: 1216120978
-      MineHuman_34: -1306243762
+      MineHuman_45: -109423938
+      MineHuman_46: 1877856493
       MineHuman_47: -1475693194
-      MineHuman_26: 372762700
-      MineHuman_12: -1183036583
-      MineHuman_10: 505443420
+      MineHuman_48: 1472348882
+      MineHuman_49: -2058967820
+      MineHuman_5: -1603078534
+      MineHuman_50: -1786554104
+      MineHuman_51: 1443330206
+      MineHuman_52: 266878515
+      MineHuman_53: -1890014529
+      MineHuman_54: -501146302
       MineHuman_55: 840241079
       MineHuman_56: -499577261
-      MineHuman_53: -1890014529
-      MineHuman_8: 1948188547
-      MineHuman_62: 1220229337
-      MineHuman_48: 1472348882
-      MineHuman_35: 703400011
-      MineHuman_31: 1772092648
-      MineHuman_69: 1968924622
       MineHuman_57: 447494
-      MineHuman_65: 1558190866
-      MineHuman_13: -183073223
-      MineHuman_24: 333583571
-      MineHuman_28: 503106371
-      MineHuman_7: 119797262
-      MineHuman_9: -427087410
-      MineHuman_42: -681931509
-      MineHuman_25: 1895611431
-      MineHuman_37: 320897176
-      MineHuman_2: 213942566
-      MineHuman_36: 331667705
-      MineHuman_41: 1358985366
-      MineHuman_38: 587651762
-      MineHuman_49: -2058967820
-      MineHuman_23: 1558846892
-      MineHuman_19: -40420994
-      MineHuman_15: 998189913
+      MineHuman_58: 308709134
+      MineHuman_59: -2001212278
       MineHuman_6: -2056378191
-  spritePackingTag: 
+      MineHuman_60: -800899020
+      MineHuman_61: 549130255
+      MineHuman_62: 1220229337
+      MineHuman_63: -893363270
+      MineHuman_64: 1677862310
+      MineHuman_65: 1558190866
+      MineHuman_66: 1125321009
+      MineHuman_67: 734005360
+      MineHuman_68: 634365512
+      MineHuman_69: 1968924622
+      MineHuman_7: 119797262
+      MineHuman_8: 1948188547
+      MineHuman_9: -427087410
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

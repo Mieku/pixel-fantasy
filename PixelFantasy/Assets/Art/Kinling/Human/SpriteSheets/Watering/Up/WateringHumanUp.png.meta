@@ -3,7 +3,7 @@ guid: d8000e7be4b892c41af1351c993e7c18
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -756,39 +763,38 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      WateringHumanUp_8: -322606245
-      WateringHumanUp_27: 1552621799
-      WateringHumanUp_5: 214578863
-      WateringHumanUp_13: -248805028
-      WateringHumanUp_25: 663701824
-      WateringHumanUp_16: -873334482
-      WateringHumanUp_28: 1454721816
-      WateringHumanUp_17: -578525057
-      WateringHumanUp_20: 817613234
-      WateringHumanUp_23: 605249246
-      WateringHumanUp_18: 1595111604
-      WateringHumanUp_29: 1626994686
-      WateringHumanUp_10: -1298635294
-      WateringHumanUp_3: 697762619
-      WateringHumanUp_19: 238953180
-      WateringHumanUp_15: -1708409288
       WateringHumanUp_0: 340290626
-      WateringHumanUp_6: -1104212456
       WateringHumanUp_1: -1321066595
+      WateringHumanUp_10: -1298635294
       WateringHumanUp_11: 726416443
-      WateringHumanUp_2: 414097995
-      WateringHumanUp_4: -1575599314
-      WateringHumanUp_9: 1877089465
-      WateringHumanUp_21: 306053133
-      WateringHumanUp_24: -1168575994
-      WateringHumanUp_22: -1852929208
-      WateringHumanUp_14: -999671907
-      WateringHumanUp_26: 330165607
-      WateringHumanUp_7: 302245332
       WateringHumanUp_12: 322365103
-  spritePackingTag: 
+      WateringHumanUp_13: -248805028
+      WateringHumanUp_14: -999671907
+      WateringHumanUp_15: -1708409288
+      WateringHumanUp_16: -873334482
+      WateringHumanUp_17: -578525057
+      WateringHumanUp_18: 1595111604
+      WateringHumanUp_19: 238953180
+      WateringHumanUp_2: 414097995
+      WateringHumanUp_20: 817613234
+      WateringHumanUp_21: 306053133
+      WateringHumanUp_22: -1852929208
+      WateringHumanUp_23: 605249246
+      WateringHumanUp_24: -1168575994
+      WateringHumanUp_25: 663701824
+      WateringHumanUp_26: 330165607
+      WateringHumanUp_27: 1552621799
+      WateringHumanUp_28: 1454721816
+      WateringHumanUp_29: 1626994686
+      WateringHumanUp_3: 697762619
+      WateringHumanUp_4: -1575599314
+      WateringHumanUp_5: 214578863
+      WateringHumanUp_6: -1104212456
+      WateringHumanUp_7: 302245332
+      WateringHumanUp_8: -322606245
+      WateringHumanUp_9: 1877089465
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

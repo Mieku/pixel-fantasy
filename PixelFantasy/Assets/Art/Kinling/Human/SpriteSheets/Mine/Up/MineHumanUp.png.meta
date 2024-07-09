@@ -3,7 +3,7 @@ guid: c731b5fecbd2a6c4397781f4d3ae06d8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -1386,69 +1393,68 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      MineHumanUp_8: 959201890
-      MineHumanUp_15: 669484930
-      MineHumanUp_21: -1270105203
-      MineHumanUp_47: -2091704974
-      MineHumanUp_45: -1378420556
-      MineHumanUp_13: -1685264947
-      MineHumanUp_4: -1785968074
-      MineHumanUp_57: 17288674
-      MineHumanUp_1: 367914310
-      MineHumanUp_39: 942604191
-      MineHumanUp_49: -1890209336
-      MineHumanUp_25: 346666821
-      MineHumanUp_17: -317843625
-      MineHumanUp_2: 822705026
-      MineHumanUp_52: 1480099121
-      MineHumanUp_43: -782602967
-      MineHumanUp_48: 743045334
-      MineHumanUp_27: 1213830615
       MineHumanUp_0: 1389914955
-      MineHumanUp_26: 581645062
-      MineHumanUp_41: -1024360892
-      MineHumanUp_16: 134222600
-      MineHumanUp_18: 1788594522
-      MineHumanUp_7: 1434123905
-      MineHumanUp_38: 1702480044
-      MineHumanUp_30: 981673290
-      MineHumanUp_9: -629585329
-      MineHumanUp_35: -1551358059
-      MineHumanUp_24: -824162392
-      MineHumanUp_29: 856607458
-      MineHumanUp_55: -188941015
-      MineHumanUp_46: 414448908
-      MineHumanUp_53: 336831374
-      MineHumanUp_14: -33585949
-      MineHumanUp_19: 1330167117
-      MineHumanUp_31: -1284400196
-      MineHumanUp_42: -997595704
-      MineHumanUp_6: 2145686947
+      MineHumanUp_1: 367914310
       MineHumanUp_10: 1963361057
-      MineHumanUp_20: 703715463
-      MineHumanUp_32: -1140724389
-      MineHumanUp_50: -1983338329
-      MineHumanUp_59: 1419904562
-      MineHumanUp_44: -675272701
-      MineHumanUp_33: 1162368301
-      MineHumanUp_51: 1066175745
-      MineHumanUp_28: -741065297
-      MineHumanUp_22: -2051213697
-      MineHumanUp_54: -1302277343
-      MineHumanUp_12: 352282028
       MineHumanUp_11: 2066240551
-      MineHumanUp_56: 37388192
-      MineHumanUp_37: -1796088593
-      MineHumanUp_34: 1493186036
-      MineHumanUp_3: -1507611155
-      MineHumanUp_5: 1607137052
-      MineHumanUp_40: -558231654
-      MineHumanUp_36: -185027728
-      MineHumanUp_58: 431100355
+      MineHumanUp_12: 352282028
+      MineHumanUp_13: -1685264947
+      MineHumanUp_14: -33585949
+      MineHumanUp_15: 669484930
+      MineHumanUp_16: 134222600
+      MineHumanUp_17: -317843625
+      MineHumanUp_18: 1788594522
+      MineHumanUp_19: 1330167117
+      MineHumanUp_2: 822705026
+      MineHumanUp_20: 703715463
+      MineHumanUp_21: -1270105203
+      MineHumanUp_22: -2051213697
       MineHumanUp_23: 1335455899
-  spritePackingTag: 
+      MineHumanUp_24: -824162392
+      MineHumanUp_25: 346666821
+      MineHumanUp_26: 581645062
+      MineHumanUp_27: 1213830615
+      MineHumanUp_28: -741065297
+      MineHumanUp_29: 856607458
+      MineHumanUp_3: -1507611155
+      MineHumanUp_30: 981673290
+      MineHumanUp_31: -1284400196
+      MineHumanUp_32: -1140724389
+      MineHumanUp_33: 1162368301
+      MineHumanUp_34: 1493186036
+      MineHumanUp_35: -1551358059
+      MineHumanUp_36: -185027728
+      MineHumanUp_37: -1796088593
+      MineHumanUp_38: 1702480044
+      MineHumanUp_39: 942604191
+      MineHumanUp_4: -1785968074
+      MineHumanUp_40: -558231654
+      MineHumanUp_41: -1024360892
+      MineHumanUp_42: -997595704
+      MineHumanUp_43: -782602967
+      MineHumanUp_44: -675272701
+      MineHumanUp_45: -1378420556
+      MineHumanUp_46: 414448908
+      MineHumanUp_47: -2091704974
+      MineHumanUp_48: 743045334
+      MineHumanUp_49: -1890209336
+      MineHumanUp_5: 1607137052
+      MineHumanUp_50: -1983338329
+      MineHumanUp_51: 1066175745
+      MineHumanUp_52: 1480099121
+      MineHumanUp_53: 336831374
+      MineHumanUp_54: -1302277343
+      MineHumanUp_55: -188941015
+      MineHumanUp_56: 37388192
+      MineHumanUp_57: 17288674
+      MineHumanUp_58: 431100355
+      MineHumanUp_59: 1419904562
+      MineHumanUp_6: 2145686947
+      MineHumanUp_7: 1434123905
+      MineHumanUp_8: 959201890
+      MineHumanUp_9: -629585329
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

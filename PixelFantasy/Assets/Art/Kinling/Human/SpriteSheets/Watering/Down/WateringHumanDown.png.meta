@@ -3,7 +3,7 @@ guid: 693dac9461c978749bfb065dfabe9526
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -861,44 +868,43 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      WateringHumanDown_20: -97905922
-      WateringHumanDown_2: 1771636631
-      WateringHumanDown_22: 2131364963
-      WateringHumanDown_4: 1871994921
-      WateringHumanDown_8: -1681480671
-      WateringHumanDown_10: 1336962918
-      WateringHumanDown_26: 18372182
-      WateringHumanDown_3: -993827884
+      WateringHumanDown_0: 373175844
       WateringHumanDown_1: 1117555835
-      WateringHumanDown_9: 1582427538
+      WateringHumanDown_10: 1336962918
+      WateringHumanDown_11: -470996813
+      WateringHumanDown_12: -2060134230
       WateringHumanDown_13: -1173226735
+      WateringHumanDown_14: 1240811819
+      WateringHumanDown_15: -2059448559
+      WateringHumanDown_16: -943712468
+      WateringHumanDown_17: 1135726370
+      WateringHumanDown_18: -1103754037
+      WateringHumanDown_19: -1387904022
+      WateringHumanDown_2: 1771636631
+      WateringHumanDown_20: -97905922
+      WateringHumanDown_21: -1706496642
+      WateringHumanDown_22: 2131364963
+      WateringHumanDown_23: 1448380676
+      WateringHumanDown_24: -1095782202
+      WateringHumanDown_25: 185471530
+      WateringHumanDown_26: 18372182
+      WateringHumanDown_27: -1007123616
+      WateringHumanDown_28: 1426388449
+      WateringHumanDown_29: -1853427249
+      WateringHumanDown_3: -993827884
+      WateringHumanDown_30: 950860935
+      WateringHumanDown_31: -909710060
+      WateringHumanDown_32: 228337524
+      WateringHumanDown_33: 106581798
+      WateringHumanDown_34: -670621384
+      WateringHumanDown_4: 1871994921
+      WateringHumanDown_5: 63834188
       WateringHumanDown_6: 534047208
       WateringHumanDown_7: -1905533762
-      WateringHumanDown_33: 106581798
-      WateringHumanDown_31: -909710060
-      WateringHumanDown_21: -1706496642
-      WateringHumanDown_23: 1448380676
-      WateringHumanDown_12: -2060134230
-      WateringHumanDown_15: -2059448559
-      WateringHumanDown_17: 1135726370
-      WateringHumanDown_5: 63834188
-      WateringHumanDown_24: -1095782202
-      WateringHumanDown_29: -1853427249
-      WateringHumanDown_30: 950860935
-      WateringHumanDown_25: 185471530
-      WateringHumanDown_14: 1240811819
-      WateringHumanDown_18: -1103754037
-      WateringHumanDown_32: 228337524
-      WateringHumanDown_34: -670621384
-      WateringHumanDown_28: 1426388449
-      WateringHumanDown_19: -1387904022
-      WateringHumanDown_27: -1007123616
-      WateringHumanDown_11: -470996813
-      WateringHumanDown_16: -943712468
-      WateringHumanDown_0: 373175844
-  spritePackingTag: 
+      WateringHumanDown_8: -1681480671
+      WateringHumanDown_9: 1582427538
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

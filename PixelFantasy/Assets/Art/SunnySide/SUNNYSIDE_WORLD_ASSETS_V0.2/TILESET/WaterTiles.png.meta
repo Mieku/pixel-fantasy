@@ -126,7 +126,7 @@ TextureImporter:
       213: 6788667923871227084
     second: WaterTiles_40
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -143,11 +143,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -186,17 +187,20 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -209,6 +213,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -221,6 +226,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -233,6 +239,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -1110,50 +1117,49 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      WaterTiles_12: 3351381881627475392
-      WaterTiles_24: 6574587218487745722
-      WaterTiles_38: -4599128447286441635
-      WaterTiles_3: -1903323397713422206
       WaterTiles_0: -7327818076814472044
-      WaterTiles_21: -2034488132095526467
-      WaterTiles_30: 7432907708489566002
-      WaterTiles_14: -5511433741723758367
-      WaterTiles_34: 5896506696404240861
-      WaterTiles_4: 4126366148125103089
-      WaterTiles_15: -1172525033851294787
-      WaterTiles_20: 3173723738798088741
       WaterTiles_1: -7383188135789882117
-      WaterTiles_22: 820177492460704459
-      WaterTiles_33: 3518827892758146527
-      WaterTiles_31: 6220154592622617796
-      WaterTiles_37: -7297443798033891398
-      WaterTiles_9: 3098573101494651335
-      WaterTiles_13: 1118827551391874066
-      WaterTiles_25: -898385959623499044
-      WaterTiles_2: -3712116384139744530
-      WaterTiles_8: 6188414470026141691
-      WaterTiles_19: -8955784845704464945
-      WaterTiles_39: -992845012365770689
       WaterTiles_10: -4612701237376418764
-      WaterTiles_18: 249525991469368402
       WaterTiles_11: 4885554086275405592
+      WaterTiles_12: 3351381881627475392
+      WaterTiles_13: 1118827551391874066
+      WaterTiles_14: -5511433741723758367
+      WaterTiles_15: -1172525033851294787
       WaterTiles_16: 5081177067061184794
-      WaterTiles_26: 1758358559073599118
-      WaterTiles_35: 3028516917705573310
-      WaterTiles_5: 457932488356213502
-      WaterTiles_36: -3168459702534395383
-      WaterTiles_40: 6788667923871227084
-      WaterTiles_27: 8699508745302429176
-      WaterTiles_29: -4347975597602395695
-      WaterTiles_7: -5454159682573217059
       WaterTiles_17: 5662686903004883191
-      WaterTiles_28: 436938193099004177
-      WaterTiles_6: 8701220109812858560
+      WaterTiles_18: 249525991469368402
+      WaterTiles_19: -8955784845704464945
+      WaterTiles_2: -3712116384139744530
+      WaterTiles_20: 3173723738798088741
+      WaterTiles_21: -2034488132095526467
+      WaterTiles_22: 820177492460704459
       WaterTiles_23: -5503819589926784487
+      WaterTiles_24: 6574587218487745722
+      WaterTiles_25: -898385959623499044
+      WaterTiles_26: 1758358559073599118
+      WaterTiles_27: 8699508745302429176
+      WaterTiles_28: 436938193099004177
+      WaterTiles_29: -4347975597602395695
+      WaterTiles_3: -1903323397713422206
+      WaterTiles_30: 7432907708489566002
+      WaterTiles_31: 6220154592622617796
       WaterTiles_32: -1654019558096234729
-  spritePackingTag: 
+      WaterTiles_33: 3518827892758146527
+      WaterTiles_34: 5896506696404240861
+      WaterTiles_35: 3028516917705573310
+      WaterTiles_36: -3168459702534395383
+      WaterTiles_37: -7297443798033891398
+      WaterTiles_38: -4599128447286441635
+      WaterTiles_39: -992845012365770689
+      WaterTiles_4: 4126366148125103089
+      WaterTiles_40: 6788667923871227084
+      WaterTiles_5: 457932488356213502
+      WaterTiles_6: 8701220109812858560
+      WaterTiles_7: -5454159682573217059
+      WaterTiles_8: 6188414470026141691
+      WaterTiles_9: 3098573101494651335
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

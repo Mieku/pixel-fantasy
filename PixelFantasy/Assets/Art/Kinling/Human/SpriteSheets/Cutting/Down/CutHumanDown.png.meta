@@ -3,7 +3,7 @@ guid: 46d1510cf5220e24eb5e2680bf989a16
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -1596,79 +1603,78 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      CutHumanDown_9: -1365941030
-      CutHumanDown_7: 462973776
-      CutHumanDown_40: 2026757745
-      CutHumanDown_67: 122253008
-      CutHumanDown_42: 886549704
-      CutHumanDown_22: 318596073
-      CutHumanDown_27: 1235581913
-      CutHumanDown_18: 1102447499
-      CutHumanDown_63: -699543899
-      CutHumanDown_17: -348360361
-      CutHumanDown_25: -1624328789
-      CutHumanDown_21: -452614420
-      CutHumanDown_31: -1153593989
-      CutHumanDown_47: -1094476715
-      CutHumanDown_1: 1945572297
-      CutHumanDown_50: -1707140005
-      CutHumanDown_53: 1749108519
-      CutHumanDown_37: 999447100
-      CutHumanDown_56: -1729300815
-      CutHumanDown_69: 22241763
-      CutHumanDown_64: -1905398789
-      CutHumanDown_61: 929548131
-      CutHumanDown_58: 1610971531
-      CutHumanDown_39: 2010117675
-      CutHumanDown_15: -113176729
-      CutHumanDown_34: -288984372
-      CutHumanDown_6: 704211729
-      CutHumanDown_43: -1836895984
-      CutHumanDown_66: -2078909605
-      CutHumanDown_41: -1066036842
-      CutHumanDown_23: 1492840428
-      CutHumanDown_14: -403994443
-      CutHumanDown_26: -1593097608
       CutHumanDown_0: -1105791281
-      CutHumanDown_36: -65509036
-      CutHumanDown_44: -1510997910
-      CutHumanDown_65: 1011515438
+      CutHumanDown_1: 1945572297
+      CutHumanDown_10: -886029661
+      CutHumanDown_11: 1881063651
+      CutHumanDown_12: -593556180
+      CutHumanDown_13: -1394695822
+      CutHumanDown_14: -403994443
+      CutHumanDown_15: -113176729
       CutHumanDown_16: 1515338733
+      CutHumanDown_17: -348360361
+      CutHumanDown_18: 1102447499
+      CutHumanDown_19: 425266120
       CutHumanDown_2: -2021136062
+      CutHumanDown_20: -1366739121
+      CutHumanDown_21: -452614420
+      CutHumanDown_22: 318596073
+      CutHumanDown_23: 1492840428
+      CutHumanDown_24: 224944454
+      CutHumanDown_25: -1624328789
+      CutHumanDown_26: -1593097608
+      CutHumanDown_27: 1235581913
       CutHumanDown_28: 1914824931
       CutHumanDown_29: 673130020
-      CutHumanDown_52: -1386296833
+      CutHumanDown_3: -553519928
+      CutHumanDown_30: -704449010
+      CutHumanDown_31: -1153593989
       CutHumanDown_32: 1881836418
-      CutHumanDown_62: 642311688
+      CutHumanDown_33: -1806924796
+      CutHumanDown_34: -288984372
+      CutHumanDown_35: -462252748
+      CutHumanDown_36: -65509036
+      CutHumanDown_37: 999447100
+      CutHumanDown_38: 828187801
+      CutHumanDown_39: 2010117675
+      CutHumanDown_4: -1681183775
+      CutHumanDown_40: 2026757745
+      CutHumanDown_41: -1066036842
+      CutHumanDown_42: 886549704
+      CutHumanDown_43: -1836895984
+      CutHumanDown_44: -1510997910
+      CutHumanDown_45: 1989465728
+      CutHumanDown_46: -1624781312
+      CutHumanDown_47: -1094476715
+      CutHumanDown_48: 92540427
+      CutHumanDown_49: 49930581
+      CutHumanDown_5: 1718741867
+      CutHumanDown_50: -1707140005
+      CutHumanDown_51: 1584822017
+      CutHumanDown_52: -1386296833
+      CutHumanDown_53: 1749108519
       CutHumanDown_54: 1178303227
       CutHumanDown_55: -1296250744
-      CutHumanDown_33: -1806924796
-      CutHumanDown_4: -1681183775
-      CutHumanDown_5: 1718741867
-      CutHumanDown_35: -462252748
-      CutHumanDown_68: 714138615
-      CutHumanDown_3: -553519928
-      CutHumanDown_8: 1313238391
-      CutHumanDown_12: -593556180
-      CutHumanDown_59: -81530931
-      CutHumanDown_11: 1881063651
-      CutHumanDown_60: -178697434
-      CutHumanDown_13: -1394695822
-      CutHumanDown_38: 828187801
-      CutHumanDown_24: 224944454
-      CutHumanDown_48: 92540427
-      CutHumanDown_30: -704449010
-      CutHumanDown_46: -1624781312
-      CutHumanDown_51: 1584822017
-      CutHumanDown_10: -886029661
-      CutHumanDown_20: -1366739121
+      CutHumanDown_56: -1729300815
       CutHumanDown_57: -1811955948
-      CutHumanDown_19: 425266120
-      CutHumanDown_49: 49930581
-      CutHumanDown_45: 1989465728
-  spritePackingTag: 
+      CutHumanDown_58: 1610971531
+      CutHumanDown_59: -81530931
+      CutHumanDown_6: 704211729
+      CutHumanDown_60: -178697434
+      CutHumanDown_61: 929548131
+      CutHumanDown_62: 642311688
+      CutHumanDown_63: -699543899
+      CutHumanDown_64: -1905398789
+      CutHumanDown_65: 1011515438
+      CutHumanDown_66: -2078909605
+      CutHumanDown_67: 122253008
+      CutHumanDown_68: 714138615
+      CutHumanDown_69: 22241763
+      CutHumanDown_7: 462973776
+      CutHumanDown_8: 1313238391
+      CutHumanDown_9: -1365941030
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

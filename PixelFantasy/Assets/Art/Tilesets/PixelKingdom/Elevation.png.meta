@@ -3,7 +3,7 @@ guid: 38603285a82a7cc42a7e86bfc0f0e228
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -693,36 +700,35 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Elevation_8: 1470041592
-      Elevation_17: 151028081
-      Elevation_1: -941347454
-      Elevation_12: 1584749941
-      Elevation_26: 1939811706
-      Elevation_22: -81370840
-      Elevation_15: 436674440
-      Elevation_3: -1739115531
-      Elevation_13: 802622256
-      Elevation_2: -1745630287
-      Elevation_5: -1740970880
-      Elevation_11: 2098608000
-      Elevation_16: -1488436109
-      Elevation_7: -609678141
-      Elevation_9: 791292230
-      Elevation_10: -48116402
-      Elevation_21: 25543637
-      Elevation_20: -1711195493
-      Elevation_23: 929761914
-      Elevation_19: -850211994
       Elevation_0: 560121549
-      Elevation_18: 1388782044
-      Elevation_24: -1482969969
-      Elevation_6: 1304645184
-      Elevation_4: -586460703
-      Elevation_25: -1963163201
+      Elevation_1: -941347454
+      Elevation_10: -48116402
+      Elevation_11: 2098608000
+      Elevation_12: 1584749941
+      Elevation_13: 802622256
       Elevation_14: 867765668
-  spritePackingTag: 
+      Elevation_15: 436674440
+      Elevation_16: -1488436109
+      Elevation_17: 151028081
+      Elevation_18: 1388782044
+      Elevation_19: -850211994
+      Elevation_2: -1745630287
+      Elevation_20: -1711195493
+      Elevation_21: 25543637
+      Elevation_22: -81370840
+      Elevation_23: 929761914
+      Elevation_24: -1482969969
+      Elevation_25: -1963163201
+      Elevation_26: 1939811706
+      Elevation_3: -1739115531
+      Elevation_4: -586460703
+      Elevation_5: -1740970880
+      Elevation_6: 1304645184
+      Elevation_7: -609678141
+      Elevation_8: 1470041592
+      Elevation_9: 791292230
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -33,7 +33,7 @@ TextureImporter:
       213: 5932183379535221401
     second: bowlhair_axe_strip10_9
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -50,11 +50,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -93,6 +94,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -104,6 +107,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -116,6 +120,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -128,6 +133,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -140,6 +146,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -366,19 +373,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      bowlhair_axe_strip10_6: 1714527551222812707
-      bowlhair_axe_strip10_8: -8652752161878400003
-      bowlhair_axe_strip10_3: -2701274718004658483
+      bowlhair_axe_strip10_0: 4843693649541085856
       bowlhair_axe_strip10_1: -510617909434880518
       bowlhair_axe_strip10_2: 7717553790784520347
+      bowlhair_axe_strip10_3: -2701274718004658483
       bowlhair_axe_strip10_4: -9170948403294708130
       bowlhair_axe_strip10_5: 5098739806645811394
-      bowlhair_axe_strip10_0: 4843693649541085856
+      bowlhair_axe_strip10_6: 1714527551222812707
       bowlhair_axe_strip10_7: -2902960000924538879
+      bowlhair_axe_strip10_8: -8652752161878400003
       bowlhair_axe_strip10_9: 5932183379535221401
-  spritePackingTag: 
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

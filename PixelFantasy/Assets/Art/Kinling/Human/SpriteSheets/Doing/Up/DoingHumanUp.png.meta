@@ -3,7 +3,7 @@ guid: 5671fe1fa2bdcf148922c79c2a34835d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -1134,57 +1141,56 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      DoingHumanUp_16: -146800745
-      DoingHumanUp_35: 178160184
-      DoingHumanUp_39: -162129460
-      DoingHumanUp_29: 1604870929
-      DoingHumanUp_42: 183925651
-      DoingHumanUp_17: 1445715178
-      DoingHumanUp_19: 1584518544
-      DoingHumanUp_44: -1044385571
-      DoingHumanUp_9: -1332416890
-      DoingHumanUp_6: -54488670
-      DoingHumanUp_25: -1215684518
       DoingHumanUp_0: 134069284
-      DoingHumanUp_28: -1212309675
-      DoingHumanUp_2: -1362541341
-      DoingHumanUp_26: -522457770
-      DoingHumanUp_30: 667783684
-      DoingHumanUp_46: -1946701606
-      DoingHumanUp_43: 1482251639
-      DoingHumanUp_38: -1865251610
-      DoingHumanUp_7: 1630128149
-      DoingHumanUp_14: 432305947
-      DoingHumanUp_22: 972492258
-      DoingHumanUp_13: 614965775
-      DoingHumanUp_12: 1509022659
-      DoingHumanUp_31: -838677499
-      DoingHumanUp_36: -987588117
-      DoingHumanUp_34: 1537598138
-      DoingHumanUp_15: 1355680841
-      DoingHumanUp_47: 1761241550
-      DoingHumanUp_20: 295454445
-      DoingHumanUp_27: -277927261
-      DoingHumanUp_8: -980186591
-      DoingHumanUp_21: 2093554411
-      DoingHumanUp_32: -1234452976
-      DoingHumanUp_5: 914441988
-      DoingHumanUp_45: 487092635
-      DoingHumanUp_37: 1349044667
-      DoingHumanUp_41: -2069812421
-      DoingHumanUp_10: 1075898268
-      DoingHumanUp_18: -1539531227
-      DoingHumanUp_23: 1245988348
-      DoingHumanUp_3: -833004614
       DoingHumanUp_1: -1394241898
-      DoingHumanUp_24: -180947407
-      DoingHumanUp_40: 1686695528
-      DoingHumanUp_4: -615313330
-      DoingHumanUp_33: -791676254
+      DoingHumanUp_10: 1075898268
       DoingHumanUp_11: -1009901528
-  spritePackingTag: 
+      DoingHumanUp_12: 1509022659
+      DoingHumanUp_13: 614965775
+      DoingHumanUp_14: 432305947
+      DoingHumanUp_15: 1355680841
+      DoingHumanUp_16: -146800745
+      DoingHumanUp_17: 1445715178
+      DoingHumanUp_18: -1539531227
+      DoingHumanUp_19: 1584518544
+      DoingHumanUp_2: -1362541341
+      DoingHumanUp_20: 295454445
+      DoingHumanUp_21: 2093554411
+      DoingHumanUp_22: 972492258
+      DoingHumanUp_23: 1245988348
+      DoingHumanUp_24: -180947407
+      DoingHumanUp_25: -1215684518
+      DoingHumanUp_26: -522457770
+      DoingHumanUp_27: -277927261
+      DoingHumanUp_28: -1212309675
+      DoingHumanUp_29: 1604870929
+      DoingHumanUp_3: -833004614
+      DoingHumanUp_30: 667783684
+      DoingHumanUp_31: -838677499
+      DoingHumanUp_32: -1234452976
+      DoingHumanUp_33: -791676254
+      DoingHumanUp_34: 1537598138
+      DoingHumanUp_35: 178160184
+      DoingHumanUp_36: -987588117
+      DoingHumanUp_37: 1349044667
+      DoingHumanUp_38: -1865251610
+      DoingHumanUp_39: -162129460
+      DoingHumanUp_4: -615313330
+      DoingHumanUp_40: 1686695528
+      DoingHumanUp_41: -2069812421
+      DoingHumanUp_42: 183925651
+      DoingHumanUp_43: 1482251639
+      DoingHumanUp_44: -1044385571
+      DoingHumanUp_45: 487092635
+      DoingHumanUp_46: -1946701606
+      DoingHumanUp_47: 1761241550
+      DoingHumanUp_5: 914441988
+      DoingHumanUp_6: -54488670
+      DoingHumanUp_7: 1630128149
+      DoingHumanUp_8: -980186591
+      DoingHumanUp_9: -1332416890
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

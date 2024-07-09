@@ -3,7 +3,7 @@ guid: f9e3352cfffaaf74e90dbbd7a6ecac85
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -1302,65 +1309,64 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      WalkHuman_7: -1454754488
-      WalkHuman_41: -869552900
-      WalkHuman_10: -1959871106
-      WalkHuman_45: -1365679856
-      WalkHuman_16: -715392493
-      WalkHuman_21: -585267579
-      WalkHuman_27: -899414550
-      WalkHuman_13: 351561749
-      WalkHuman_46: -1648659022
-      WalkHuman_36: -341555109
+      WalkHuman_0: 355527259
       WalkHuman_1: 987938086
+      WalkHuman_10: -1959871106
+      WalkHuman_11: -119198716
+      WalkHuman_12: 399175294
+      WalkHuman_13: 351561749
+      WalkHuman_14: -1382150769
+      WalkHuman_15: 609784859
+      WalkHuman_16: -715392493
       WalkHuman_17: -242458246
+      WalkHuman_18: -247409392
+      WalkHuman_19: 1142675828
+      WalkHuman_2: 1101313755
+      WalkHuman_20: 124671737
+      WalkHuman_21: -585267579
       WalkHuman_22: -1000740901
+      WalkHuman_23: -169016169
+      WalkHuman_24: -1611156
+      WalkHuman_25: 1973079796
+      WalkHuman_26: -2111353493
+      WalkHuman_27: -899414550
+      WalkHuman_28: -57158970
+      WalkHuman_29: -1095204291
+      WalkHuman_3: -587137980
+      WalkHuman_30: 1950380974
       WalkHuman_31: 789497891
       WalkHuman_32: -114077505
-      WalkHuman_29: -1095204291
-      WalkHuman_24: -1611156
-      WalkHuman_8: -1404021461
-      WalkHuman_49: -1142751765
-      WalkHuman_39: 174849872
-      WalkHuman_25: 1973079796
-      WalkHuman_6: -2011914630
-      WalkHuman_40: -894942787
-      WalkHuman_23: -169016169
       WalkHuman_33: -1645331391
-      WalkHuman_18: -247409392
-      WalkHuman_38: -526491076
       WalkHuman_34: -45683908
-      WalkHuman_11: -119198716
-      WalkHuman_15: 609784859
-      WalkHuman_26: -2111353493
-      WalkHuman_9: 1266684128
       WalkHuman_35: 575742465
+      WalkHuman_36: -341555109
+      WalkHuman_37: -1753280071
+      WalkHuman_38: -526491076
+      WalkHuman_39: 174849872
+      WalkHuman_4: 666387675
+      WalkHuman_40: -894942787
+      WalkHuman_41: -869552900
       WalkHuman_42: -153534582
-      WalkHuman_2: 1101313755
-      WalkHuman_0: 355527259
-      WalkHuman_28: -57158970
-      WalkHuman_30: 1950380974
+      WalkHuman_43: -1322893925
+      WalkHuman_44: -617884285
+      WalkHuman_45: -1365679856
+      WalkHuman_46: -1648659022
+      WalkHuman_47: -1247475873
+      WalkHuman_48: 1063362447
+      WalkHuman_49: -1142751765
       WalkHuman_5: 1031263914
       WalkHuman_50: -578906913
-      WalkHuman_52: 565735835
-      WalkHuman_48: 1063362447
-      WalkHuman_47: -1247475873
-      WalkHuman_3: -587137980
-      WalkHuman_4: 666387675
-      WalkHuman_53: -945836607
-      WalkHuman_12: 399175294
-      WalkHuman_54: 2021210737
-      WalkHuman_43: -1322893925
       WalkHuman_51: -1321373401
-      WalkHuman_19: 1142675828
-      WalkHuman_44: -617884285
-      WalkHuman_20: 124671737
-      WalkHuman_37: -1753280071
-      WalkHuman_14: -1382150769
+      WalkHuman_52: 565735835
+      WalkHuman_53: -945836607
+      WalkHuman_54: 2021210737
       WalkHuman_55: -1383967142
-  spritePackingTag: 
+      WalkHuman_6: -2011914630
+      WalkHuman_7: -1454754488
+      WalkHuman_8: -1404021461
+      WalkHuman_9: 1266684128
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

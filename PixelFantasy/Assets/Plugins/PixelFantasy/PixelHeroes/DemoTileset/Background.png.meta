@@ -3,7 +3,7 @@ guid: 2bd82bf03c9b445d8139d2c97cf4dbc4
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -177,10 +177,3 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 271664
-  packageName: Pixel Heroes Megapack
-  packageVersion: 2.8
-  assetPath: Assets/PixelFantasy/PixelHeroes/DemoTileset/Background.png
-  uploadId: 656384

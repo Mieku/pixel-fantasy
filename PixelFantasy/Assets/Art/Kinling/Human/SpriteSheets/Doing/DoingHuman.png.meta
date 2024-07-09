@@ -3,7 +3,7 @@ guid: 7d2b80a69ab215e40a51bc8aab1cec4b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -1302,65 +1309,64 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      DoingHuman_35: 2135922772
-      DoingHuman_32: 460319809
-      DoingHuman_34: 575715072
-      DoingHuman_15: -1076503570
-      DoingHuman_45: -1060893837
-      DoingHuman_42: 1452166056
-      DoingHuman_29: 829643243
-      DoingHuman_44: -2146697124
-      DoingHuman_40: -1350786463
-      DoingHuman_17: 1660658547
-      DoingHuman_41: -550696512
-      DoingHuman_2: 1074427607
-      DoingHuman_47: 1786982793
-      DoingHuman_6: -1020762777
-      DoingHuman_36: 474787885
-      DoingHuman_28: -1143504687
-      DoingHuman_18: -2093781400
-      DoingHuman_43: 675203233
-      DoingHuman_49: -2015022801
-      DoingHuman_16: -2142476968
-      DoingHuman_12: 895862654
-      DoingHuman_20: -418836259
-      DoingHuman_54: -682960164
-      DoingHuman_4: 2123413995
-      DoingHuman_22: 1305694583
-      DoingHuman_5: -639294379
       DoingHuman_0: -330881967
-      DoingHuman_46: 785043222
-      DoingHuman_48: 565633738
-      DoingHuman_33: 134337076
-      DoingHuman_9: -564293767
-      DoingHuman_39: -1413362643
-      DoingHuman_30: 536202095
-      DoingHuman_51: 1953270811
-      DoingHuman_3: -5866434
-      DoingHuman_24: -2098833368
-      DoingHuman_13: -1195199171
-      DoingHuman_19: 1533186355
-      DoingHuman_27: -1588127406
-      DoingHuman_55: -957702477
-      DoingHuman_8: -1827415739
-      DoingHuman_31: -1356741429
-      DoingHuman_50: 547028051
       DoingHuman_1: -716553856
-      DoingHuman_37: 754208275
       DoingHuman_10: -897821587
-      DoingHuman_23: -684584406
-      DoingHuman_25: -56167759
-      DoingHuman_52: 972320607
-      DoingHuman_7: 1221878753
-      DoingHuman_38: -977482875
-      DoingHuman_14: -1215655226
-      DoingHuman_21: -1944208715
       DoingHuman_11: 1704893124
+      DoingHuman_12: 895862654
+      DoingHuman_13: -1195199171
+      DoingHuman_14: -1215655226
+      DoingHuman_15: -1076503570
+      DoingHuman_16: -2142476968
+      DoingHuman_17: 1660658547
+      DoingHuman_18: -2093781400
+      DoingHuman_19: 1533186355
+      DoingHuman_2: 1074427607
+      DoingHuman_20: -418836259
+      DoingHuman_21: -1944208715
+      DoingHuman_22: 1305694583
+      DoingHuman_23: -684584406
+      DoingHuman_24: -2098833368
+      DoingHuman_25: -56167759
       DoingHuman_26: -1546973796
+      DoingHuman_27: -1588127406
+      DoingHuman_28: -1143504687
+      DoingHuman_29: 829643243
+      DoingHuman_3: -5866434
+      DoingHuman_30: 536202095
+      DoingHuman_31: -1356741429
+      DoingHuman_32: 460319809
+      DoingHuman_33: 134337076
+      DoingHuman_34: 575715072
+      DoingHuman_35: 2135922772
+      DoingHuman_36: 474787885
+      DoingHuman_37: 754208275
+      DoingHuman_38: -977482875
+      DoingHuman_39: -1413362643
+      DoingHuman_4: 2123413995
+      DoingHuman_40: -1350786463
+      DoingHuman_41: -550696512
+      DoingHuman_42: 1452166056
+      DoingHuman_43: 675203233
+      DoingHuman_44: -2146697124
+      DoingHuman_45: -1060893837
+      DoingHuman_46: 785043222
+      DoingHuman_47: 1786982793
+      DoingHuman_48: 565633738
+      DoingHuman_49: -2015022801
+      DoingHuman_5: -639294379
+      DoingHuman_50: 547028051
+      DoingHuman_51: 1953270811
+      DoingHuman_52: 972320607
       DoingHuman_53: 2099049426
-  spritePackingTag: 
+      DoingHuman_54: -682960164
+      DoingHuman_55: -957702477
+      DoingHuman_6: -1020762777
+      DoingHuman_7: 1221878753
+      DoingHuman_8: -1827415739
+      DoingHuman_9: -564293767
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

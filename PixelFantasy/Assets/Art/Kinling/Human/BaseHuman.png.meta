@@ -3,7 +3,7 @@ guid: f12984e8e38ba7d45b0a935ac354d3b4
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -2940,143 +2947,142 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      BaseHuman_24: -1153568711
-      BaseHuman_104: 1639550553
-      BaseHuman_85: -1819995875
-      BaseHuman_36: -824994322
-      BaseHuman_106: 1673598193
-      BaseHuman_76: 280360354
-      BaseHuman_48: 1007232875
+      BaseHuman_0: -802763854
+      BaseHuman_1: -1613030149
+      BaseHuman_10: -994214232
       BaseHuman_100: 1079710721
-      BaseHuman_30: 1645714337
+      BaseHuman_101: -1538158206
+      BaseHuman_102: -1883055007
+      BaseHuman_103: -1845763393
+      BaseHuman_104: 1639550553
+      BaseHuman_105: -1687589729
+      BaseHuman_106: 1673598193
+      BaseHuman_107: 422886174
+      BaseHuman_108: -1901373741
+      BaseHuman_109: -1064223695
       BaseHuman_11: -702372006
-      BaseHuman_72: 588339469
-      BaseHuman_22: 1104063422
-      BaseHuman_43: -523389553
-      BaseHuman_117: 1013975392
-      BaseHuman_125: 568783060
-      BaseHuman_16: 1513841235
-      BaseHuman_53: -1095774706
+      BaseHuman_110: -873596794
+      BaseHuman_111: 599105953
       BaseHuman_112: -682387006
       BaseHuman_113: -1746402525
-      BaseHuman_7: 827019995
-      BaseHuman_78: 122499161
-      BaseHuman_102: -1883055007
-      BaseHuman_101: -1538158206
-      BaseHuman_67: -1780097919
-      BaseHuman_91: 1416006251
-      BaseHuman_79: -1468006519
-      BaseHuman_109: -1064223695
-      BaseHuman_88: -1901228355
-      BaseHuman_129: -615702442
-      BaseHuman_126: -1237326211
-      BaseHuman_108: -1901373741
-      BaseHuman_131: -1387883620
-      BaseHuman_62: 1300521947
-      BaseHuman_64: -651618867
-      BaseHuman_105: -1687589729
-      BaseHuman_40: -1870856617
-      BaseHuman_9: -1981995549
-      BaseHuman_39: 445408896
-      BaseHuman_119: 222343881
-      BaseHuman_115: -739728621
-      BaseHuman_77: -1366854052
-      BaseHuman_29: 899213319
-      BaseHuman_41: 1904816980
-      BaseHuman_52: -768605503
-      BaseHuman_47: -1119134082
-      BaseHuman_46: -2063562827
-      BaseHuman_116: -1825139926
-      BaseHuman_38: 1190587225
-      BaseHuman_17: 1687764268
-      BaseHuman_90: -929171629
-      BaseHuman_70: 890695648
-      BaseHuman_8: -1528255864
-      BaseHuman_1: -1613030149
-      BaseHuman_28: 1726839478
-      BaseHuman_49: -521386292
-      BaseHuman_95: -2048207648
-      BaseHuman_121: -984659306
-      BaseHuman_32: 21448277
-      BaseHuman_69: 1231515808
-      BaseHuman_83: -123795534
-      BaseHuman_110: -873596794
-      BaseHuman_68: 758775947
-      BaseHuman_80: 1056117070
-      BaseHuman_5: -610008326
-      BaseHuman_128: 2092481842
-      BaseHuman_12: -1628711563
-      BaseHuman_127: 453029154
-      BaseHuman_98: -885324059
-      BaseHuman_86: 1199844995
-      BaseHuman_25: 48689083
-      BaseHuman_56: 291377626
-      BaseHuman_20: -2092451378
-      BaseHuman_71: 1134322897
-      BaseHuman_92: -860940890
-      BaseHuman_27: 1648007035
-      BaseHuman_37: 350198986
-      BaseHuman_21: 1502837409
-      BaseHuman_61: -1056477305
-      BaseHuman_118: -880020745
-      BaseHuman_51: -539945475
-      BaseHuman_45: 730854932
-      BaseHuman_107: 422886174
-      BaseHuman_60: 355723223
-      BaseHuman_18: 1494490627
-      BaseHuman_82: 500283781
-      BaseHuman_2: 2123479228
-      BaseHuman_58: 312110966
-      BaseHuman_84: 1371157768
-      BaseHuman_122: 3400907
-      BaseHuman_87: 1531531685
-      BaseHuman_66: -2078617603
-      BaseHuman_54: 205176813
-      BaseHuman_65: 1653827073
-      BaseHuman_59: -1341852384
-      BaseHuman_93: -996334299
-      BaseHuman_124: -1367472412
-      BaseHuman_19: 697596252
-      BaseHuman_74: 1555589672
-      BaseHuman_123: -1220659720
-      BaseHuman_81: -126861161
-      BaseHuman_133: 499447972
-      BaseHuman_111: 599105953
-      BaseHuman_97: -1986434377
-      BaseHuman_130: -1267553217
-      BaseHuman_89: 384006907
-      BaseHuman_103: -1845763393
-      BaseHuman_0: -802763854
-      BaseHuman_132: -2102657196
-      BaseHuman_3: -1691913210
-      BaseHuman_34: 1921351049
-      BaseHuman_63: -1198454443
       BaseHuman_114: -1393091715
-      BaseHuman_13: 1535024026
-      BaseHuman_99: 1293014948
+      BaseHuman_115: -739728621
+      BaseHuman_116: -1825139926
+      BaseHuman_117: 1013975392
+      BaseHuman_118: -880020745
+      BaseHuman_119: 222343881
+      BaseHuman_12: -1628711563
       BaseHuman_120: -85038402
-      BaseHuman_4: -815829341
-      BaseHuman_23: 516991960
-      BaseHuman_15: -1827003964
-      BaseHuman_6: -394682946
-      BaseHuman_35: -1296459379
-      BaseHuman_42: 453684341
-      BaseHuman_44: 1043011525
-      BaseHuman_55: -1772324800
-      BaseHuman_33: 118450331
-      BaseHuman_75: -1975713043
-      BaseHuman_26: -646051486
-      BaseHuman_96: -438950401
-      BaseHuman_73: -802798739
-      BaseHuman_10: -994214232
-      BaseHuman_31: 1487522456
-      BaseHuman_57: -474959364
-      BaseHuman_94: -65613441
+      BaseHuman_121: -984659306
+      BaseHuman_122: 3400907
+      BaseHuman_123: -1220659720
+      BaseHuman_124: -1367472412
+      BaseHuman_125: 568783060
+      BaseHuman_126: -1237326211
+      BaseHuman_127: 453029154
+      BaseHuman_128: 2092481842
+      BaseHuman_129: -615702442
+      BaseHuman_13: 1535024026
+      BaseHuman_130: -1267553217
+      BaseHuman_131: -1387883620
+      BaseHuman_132: -2102657196
+      BaseHuman_133: 499447972
       BaseHuman_14: 1522869960
+      BaseHuman_15: -1827003964
+      BaseHuman_16: 1513841235
+      BaseHuman_17: 1687764268
+      BaseHuman_18: 1494490627
+      BaseHuman_19: 697596252
+      BaseHuman_2: 2123479228
+      BaseHuman_20: -2092451378
+      BaseHuman_21: 1502837409
+      BaseHuman_22: 1104063422
+      BaseHuman_23: 516991960
+      BaseHuman_24: -1153568711
+      BaseHuman_25: 48689083
+      BaseHuman_26: -646051486
+      BaseHuman_27: 1648007035
+      BaseHuman_28: 1726839478
+      BaseHuman_29: 899213319
+      BaseHuman_3: -1691913210
+      BaseHuman_30: 1645714337
+      BaseHuman_31: 1487522456
+      BaseHuman_32: 21448277
+      BaseHuman_33: 118450331
+      BaseHuman_34: 1921351049
+      BaseHuman_35: -1296459379
+      BaseHuman_36: -824994322
+      BaseHuman_37: 350198986
+      BaseHuman_38: 1190587225
+      BaseHuman_39: 445408896
+      BaseHuman_4: -815829341
+      BaseHuman_40: -1870856617
+      BaseHuman_41: 1904816980
+      BaseHuman_42: 453684341
+      BaseHuman_43: -523389553
+      BaseHuman_44: 1043011525
+      BaseHuman_45: 730854932
+      BaseHuman_46: -2063562827
+      BaseHuman_47: -1119134082
+      BaseHuman_48: 1007232875
+      BaseHuman_49: -521386292
+      BaseHuman_5: -610008326
       BaseHuman_50: -989632777
-  spritePackingTag: 
+      BaseHuman_51: -539945475
+      BaseHuman_52: -768605503
+      BaseHuman_53: -1095774706
+      BaseHuman_54: 205176813
+      BaseHuman_55: -1772324800
+      BaseHuman_56: 291377626
+      BaseHuman_57: -474959364
+      BaseHuman_58: 312110966
+      BaseHuman_59: -1341852384
+      BaseHuman_6: -394682946
+      BaseHuman_60: 355723223
+      BaseHuman_61: -1056477305
+      BaseHuman_62: 1300521947
+      BaseHuman_63: -1198454443
+      BaseHuman_64: -651618867
+      BaseHuman_65: 1653827073
+      BaseHuman_66: -2078617603
+      BaseHuman_67: -1780097919
+      BaseHuman_68: 758775947
+      BaseHuman_69: 1231515808
+      BaseHuman_7: 827019995
+      BaseHuman_70: 890695648
+      BaseHuman_71: 1134322897
+      BaseHuman_72: 588339469
+      BaseHuman_73: -802798739
+      BaseHuman_74: 1555589672
+      BaseHuman_75: -1975713043
+      BaseHuman_76: 280360354
+      BaseHuman_77: -1366854052
+      BaseHuman_78: 122499161
+      BaseHuman_79: -1468006519
+      BaseHuman_8: -1528255864
+      BaseHuman_80: 1056117070
+      BaseHuman_81: -126861161
+      BaseHuman_82: 500283781
+      BaseHuman_83: -123795534
+      BaseHuman_84: 1371157768
+      BaseHuman_85: -1819995875
+      BaseHuman_86: 1199844995
+      BaseHuman_87: 1531531685
+      BaseHuman_88: -1901228355
+      BaseHuman_89: 384006907
+      BaseHuman_9: -1981995549
+      BaseHuman_90: -929171629
+      BaseHuman_91: 1416006251
+      BaseHuman_92: -860940890
+      BaseHuman_93: -996334299
+      BaseHuman_94: -65613441
+      BaseHuman_95: -2048207648
+      BaseHuman_96: -438950401
+      BaseHuman_97: -1986434377
+      BaseHuman_98: -885324059
+      BaseHuman_99: 1293014948
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
