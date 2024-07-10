@@ -312,7 +312,7 @@ namespace Systems.Social.Scripts
 
         private List<KinlingData> NearbyKinlings()
         {
-            var allUnits = KinlingsManager.Instance.GetAllUnitsInRadius(transform.position, SOCIAL_RADIUS);
+            var allUnits = KinlingsDatabase.Instance.GetAllUnitsInRadius(transform.position, SOCIAL_RADIUS);
             List<KinlingData> results = new List<KinlingData>();
             foreach (var unit in allUnits)
             {
@@ -330,7 +330,7 @@ namespace Systems.Social.Scripts
 
         private RelationshipData GetRelationshipState(KinlingData otherKinling)
         {
-            RelationshipData result = Relationships.Find(state => state.KinlingData == otherKinling);
+            RelationshipData result = Relationships.Find(state => state.OthersUID == otherKinling.UniqueID);
             if (result == null)
             {
                 NotificationManager.Instance.CreatePersonalLog(_kinling, $"{_kinling.FullName} has met {otherKinling.Fullname}", LogData.ELogType.Message);
@@ -347,7 +347,7 @@ namespace Systems.Social.Scripts
         {
             var relationship = GetRelationshipState(otherKinling);
             relationship.IsPartner = true;
-            _kinling.RuntimeData.Partner = otherKinling;
+            _kinling.RuntimeData.PartnerUID = otherKinling.UniqueID;
             
             _kinling.MoodData.ApplyEmotion(Librarian.Instance.GetEmotion("Started Relationship")); // Mood Buff
             NotificationManager.Instance.CreateKinlingLog(_kinling, $"{_kinling.FullName} is now in a relationship with {otherKinling.Fullname}!", LogData.ELogType.Positive);
@@ -395,7 +395,7 @@ namespace Systems.Social.Scripts
                     bool isPregnant = Helper.RollDice(GameSettings.Instance.BasePregnancyChance);
                     if (isPregnant)
                     {
-                        KinlingsManager.Instance.SpawnChild(_kinling.RuntimeData, _kinling.RuntimeData.Partner);
+                        KinlingsDatabase.Instance.SpawnChild(_kinling.RuntimeData, _kinling.RuntimeData.Partner);
                         GameEvents.Trigger_OnKinlingChanged(_kinling.RuntimeData);
                     }
                 }

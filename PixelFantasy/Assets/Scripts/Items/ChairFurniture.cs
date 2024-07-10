@@ -99,7 +99,7 @@ namespace Items
             kinling.KinlingAgent.TeleportToPosition(seat.Position, false);
             kinling.SetSeated(null);
             
-            kinling.transform.SetParent(KinlingsManager.Instance.transform);
+            kinling.transform.SetParent(KinlingsDatabase.Instance.transform);
             kinling.UnlockLayerOrder();
             
             kinling.Avatar.SetUnitAction(UnitAction.Nothing);

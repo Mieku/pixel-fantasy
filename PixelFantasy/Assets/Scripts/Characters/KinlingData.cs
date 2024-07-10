@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Items;
+using Managers;
+using Newtonsoft.Json;
+using ScriptableObjects;
 using Systems.Appearance.Scripts;
 using Systems.Mood.Scripts;
 using Systems.Notifications.Scripts;
@@ -23,14 +26,14 @@ namespace Characters
         public string Firstname;
         public string Lastname;
         public Vector2 Position;
-        public Kinling Kinling;
+        [JsonIgnore] public Kinling Kinling;
         public int Age;
         public EGender Gender;
-        public RaceSettings Race;
+        public string RaceID;
         public ESexualPreference SexualPreference;
         public List<TraitSettings> Traits = new List<TraitSettings>();
-        public KinlingData Partner;
-        public List<KinlingData> Children = new List<KinlingData>();
+        public string PartnerUID;
+        public List<string> ChildrenUID = new List<string>();
         public ScheduleData Schedule;
         public bool IsAsleep;
         public FurnitureData AssignedBed;
@@ -39,7 +42,7 @@ namespace Characters
         public TaskAI.TaskAIState TaskAIState;
         public float WaitingTimer;
         public float IdleTimer;
-        public TaskAction CurrentTaskAction;
+        [JsonIgnore] public TaskAction CurrentTaskAction; // TODO: For now
         public Item HeldItem;
         public StatsData Stats;
         public NeedsData Needs;
@@ -47,13 +50,34 @@ namespace Characters
         public List<RelationshipData> Relationships = new List<RelationshipData>();
         public AvatarData Avatar;
 
-        [SerializeField] 
+        [SerializeField]
         private List<LogData> _personalLog = new List<LogData>();
-        
+
+        [JsonIgnore] public RaceSettings Race => GameSettings.Instance.LoadRaceSettings(RaceID);
+
+        [JsonIgnore]
+        public KinlingData Partner => KinlingsDatabase.Instance.GetKinlingData(PartnerUID);
+
+        [JsonIgnore]
+        public List<KinlingData> Children
+        {
+            get
+            {
+                List<KinlingData> results = new List<KinlingData>();
+                foreach (var childUID in ChildrenUID)
+                {
+                    var child = KinlingsDatabase.Instance.GetKinlingData(childUID);
+                    results.Add(child);
+                }
+
+                return results;
+            }
+        }
+
         public void Randomize(RaceSettings race)
         {
-            Race = race;
-            
+            RaceID = race.name;
+
             if (Helper.RollDice(50))
             {
                 Gender = EGender.Male;
@@ -64,17 +88,18 @@ namespace Characters
             }
 
             Age = CreateRandomAge(EMaturityStage.Adult);
-            SexualPreference = DetermineSexuality(); 
-            
+            SexualPreference = DetermineSexuality();
+
             Avatar = new AvatarData(this, Gender, MaturityStage, Race);
-            Stats = new StatsData(Race);
-            Needs = Race.GetAdultNeeds();
+            Stats = new StatsData();
+            Stats.Init(Race);
+            Needs = new NeedsData(Race);
             Mood = new MoodData();
-            
+
             Firstname = Race.GetRandomFirstName(Gender);
             Lastname = Race.GetRandomLastName();
             Nickname = GenerateNickname();
-            
+
             AssignHistory(Race.GetRandomHistory());
             AssignTraits(Race.GetRandomTraits(Random.Range(0, 3)));
 
@@ -117,10 +142,10 @@ namespace Characters
                     throw new ArgumentOutOfRangeException(nameof(stage), stage, null);
             }
         }
-        
+
         public void AssignHistory(History history)
         {
-            Stats.History = history;
+            Stats.HistoryID = history.name;
             foreach (var modifier in history.Modifiers)
             {
                 modifier.ApplyModifier(this);
@@ -133,7 +158,7 @@ namespace Characters
             {
                 if (!Stats.Traits.Contains(trait))
                 {
-                    Stats.Traits.Add(trait);
+                    Stats.AddTrait(trait);
                     foreach (var traitModifier in trait.Modifiers)
                     {
                         traitModifier.ApplyModifier(this);
@@ -141,7 +166,7 @@ namespace Characters
                 }
             }
         }
-        
+
         public MoodThresholdSettings GetMoodThresholdTrait()
         {
             foreach (var trait in Traits)
@@ -155,7 +180,7 @@ namespace Characters
 
             return null;
         }
-        
+
         public void InheritData(KinlingData mother, KinlingData father)
         {
             if (Helper.RollDice(50))
@@ -168,13 +193,11 @@ namespace Characters
             }
 
             SexualPreference = DetermineSexuality();
-            //Appearance = new AppearanceData(Gender, mother.Appearance, father.Appearance);
-            //Talents = InheritTalentsFromParents(mother.Talents, father.Talents);
             Traits = GetTraitsFromParents(mother.Traits, father.Traits);
 
             Firstname = Race.GetRandomFirstName(Gender);
             Lastname = mother.Lastname;
-            
+
             Stats.RandomizeSkillLevels();
 
             UniqueID = CreateUID();
@@ -227,7 +250,7 @@ namespace Characters
                     childTraits.Add(motherTrait);
                 }
             }
-            
+
             foreach (var fatherTrait in fatherTraits)
             {
                 if (Helper.RollDice(50))
@@ -239,7 +262,7 @@ namespace Characters
             childTraits = childTraits.Distinct().ToList();
             return childTraits;
         }
-        
+
         public EMaturityStage MaturityStage
         {
             get
@@ -260,28 +283,26 @@ namespace Characters
 
         public void MinuteTick()
         {
-            if (Kinling == null) return;
-            
+            if (Kinling == null || !Kinling.HasInitialized) return;
+
             Mood.MinuteTick();
             Needs.MinuteTick();
         }
 
         public void DayTick()
         {
-            
             IncrementAge();
             Stats.DoDailyExpDecay();
         }
-        
+
         public int IncrementAge()
         {
             Age++;
-
             return Age;
         }
-        
+
         public string Fullname => $"{Firstname} {Lastname}";
-        
+
         public int GetLevelForSkill(ESkillType skillType)
         {
             return Stats.GetLevelForSkill(skillType);
@@ -291,7 +312,7 @@ namespace Characters
         {
             Stats.SetLevelForSkill(skillType, assignedLevel);
         }
-        
+
         public bool IsKinlingAttractedTo(KinlingData otherKinling)
         {
             var otherKinlingGender = otherKinling.Gender;
@@ -321,7 +342,7 @@ namespace Characters
             List<LogData> log = _personalLog.ToList();
             return log;
         }
-        
+
         protected string CreateUID()
         {
             return $"{Fullname}_{Guid.NewGuid()}";

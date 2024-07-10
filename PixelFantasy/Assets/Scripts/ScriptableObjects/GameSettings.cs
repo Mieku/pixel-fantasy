@@ -1,5 +1,7 @@
 using System;
 using Sirenix.OdinInspector;
+using Systems.Appearance.Scripts;
+using Systems.Needs.Scripts;
 using Systems.Stats.Scripts;
 using UnityEngine;
 
@@ -35,6 +37,31 @@ namespace ScriptableObjects
         public static T[] LoadAllSettings<T>() where T : ScriptableObject
         {
             return Resources.LoadAll<T>("Settings/Data");
+        }
+
+        public RaceSettings LoadRaceSettings(string raceName)
+        {
+            return Resources.Load<RaceSettings>($"Settings/Races/{raceName}");
+        }
+
+        public NeedSettings LoadNeedSettings(string needSettingsID)
+        {
+            return Resources.Load<NeedSettings>($"Settings/Needs/{needSettingsID}");
+        }
+
+        public SkillSettings LoadSkillSettings(string skillSettingsID)
+        {
+            return Resources.Load<SkillSettings>($"Settings/Skills/{skillSettingsID}");
+        }
+
+        public History LoadHistorySettings(string historyID)
+        {
+            return Resources.Load<History>($"Settings/Histories/{historyID}");
+        }
+
+        public Trait LoadTraitSettings(string traitID)
+        {
+            return Resources.Load<Trait>($"Settings/Traits/{traitID}");
         }
     }
 }

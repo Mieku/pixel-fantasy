@@ -3,13 +3,17 @@ using UnityEngine;
 
 namespace Systems.Mood.Scripts
 {
-    [Serializable]
     public class EmotionState
     {
         public EmotionSettings LinkedEmotionSettings;
         public float RemainingTimeMins;
 
         public int MoodModifier => LinkedEmotionSettings.MoodModifier;
+
+        public EmotionState()
+        {
+            
+        }
 
         public EmotionState(EmotionSettings emotionSettings)
         {

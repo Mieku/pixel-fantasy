@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Managers;
+using Newtonsoft.Json;
 using QFSW.QC;
 using Sirenix.OdinInspector;
 using Systems.Appearance.Scripts;
@@ -10,28 +11,26 @@ using UnityEngine.Serialization;
 
 namespace Characters
 {
-    [Serializable]
     public class NeedsData
     {
-        [SerializeField] protected Need _foodNeed;
-        [SerializeField] protected Need _energyNeed;
-        [SerializeField] protected Need _funNeed;
-        [SerializeField] protected Need _beautyNeed;
-        [SerializeField] protected Need _comfortNeed;
+        [JsonRequired] private Need _foodNeed;
+        [JsonRequired] private Need _energyNeed;
+        [JsonRequired] private Need _funNeed;
+        [JsonRequired] private Need _beautyNeed;
+        [JsonRequired] private Need _comfortNeed;
 
-        [SerializeField] private List<NeedChange> _registeredNeedChanges;
+        [JsonRequired] private List<NeedChange> _registeredNeedChanges;
 
         private Kinling _kinling;
 
-        public NeedsData(RacialNeeds racialNeeds)
+        public NeedsData(RaceSettings raceSettings)
         {
+            var racialNeeds = raceSettings.GetAdultNeeds();
             _foodNeed = new Need(racialNeeds.Food);
             _energyNeed = new Need(racialNeeds.Energy);
             _funNeed = new Need(racialNeeds.Fun);
             _beautyNeed = new Need(racialNeeds.Beauty);
             _comfortNeed = new Need(racialNeeds.Comfort);
-
-            _registeredNeedChanges = new List<NeedChange>();
         }
         
         public void MinuteTick()
@@ -49,11 +48,13 @@ namespace Characters
         {
             _kinling = kinling;
             
-            _foodNeed.Initialize(_kinling);
-            _energyNeed.Initialize(_kinling);
-            _funNeed.Initialize(_kinling);
-            _beautyNeed.Initialize(_kinling);
-            _comfortNeed.Initialize(_kinling);
+            _foodNeed.Init(_kinling);
+            _energyNeed.Init(_kinling);
+            _funNeed.Init(_kinling);
+            _beautyNeed.Init(_kinling);
+            _comfortNeed.Init(_kinling);
+
+            _registeredNeedChanges = new List<NeedChange>();
         }
 
         private void NeedChangePerMin()

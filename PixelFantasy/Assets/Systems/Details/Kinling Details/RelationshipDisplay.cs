@@ -1,5 +1,6 @@
 using Characters;
 using Controllers;
+using Managers;
 using Systems.Social.Scripts;
 using TMPro;
 using UnityEngine;
@@ -28,7 +29,8 @@ namespace Systems.Details.Kinling_Details
 
         public void Refresh(int index)
         {
-            _name.text = Relationship.KinlingData.Fullname;
+            var kinling = KinlingsDatabase.Instance.GetKinlingData(Relationship.OthersUID);
+            _name.text = kinling.Fullname;
             _relationshipType.text = Relationship.RelationshipTypeName;
 
             string opinionText;
@@ -46,7 +48,7 @@ namespace Systems.Details.Kinling_Details
             }
 
             string othersOpinionText;
-            var theirRelationship = Relationship.KinlingData.Relationships.Find(state => state.KinlingData == _thisKinling);
+            var theirRelationship = kinling.Relationships.Find(state => state.OthersUID == _thisKinling.UniqueID);
             if (theirRelationship == null)
             {
                 othersOpinionText = $"0";
@@ -75,8 +77,9 @@ namespace Systems.Details.Kinling_Details
 
         public void OnPressed()
         {
-            PlayerInputController.Instance.SelectUnit(Relationship.KinlingData.Kinling);
-            CameraManager.Instance.LookAtPosition(Relationship.KinlingData.Position);
+            var kinlingData = KinlingsDatabase.Instance.GetKinlingData(Relationship.OwnerUID);
+            PlayerInputController.Instance.SelectUnit(kinlingData.Kinling);
+            CameraManager.Instance.LookAtPosition(kinlingData.Position);
         }
     }
 }

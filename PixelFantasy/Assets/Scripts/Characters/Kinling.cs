@@ -49,7 +49,7 @@ namespace Characters
         
         private void OnDestroy()
         {
-            KinlingsManager.Instance.DeregisterKinling(RuntimeData);
+            KinlingsDatabase.Instance.DeregisterKinling(RuntimeData);
             
             GameEvents.Trigger_OnCoinsIncomeChanged();
             
@@ -57,12 +57,18 @@ namespace Characters
             GameEvents.MinuteTick -= GameEvents_MinuteTick;
         }
 
-        public void SetKinlingData(KinlingData data)
+        public void SetKinlingData(KinlingData data, bool needsInitialized)
         {
             RuntimeData = data;
             RuntimeData.Kinling = this;
+
+            if (needsInitialized)
+            {
+                Initialize();
+            }
             
-            Initialize();
+            HasInitialized = true;
+            KinlingsDatabase.Instance.RegisterKinling(RuntimeData);
         }
         
         private void Initialize()
@@ -70,8 +76,6 @@ namespace Characters
             Needs.Initialize(this);
             MoodData.Init(RuntimeData);
             MoodData.JumpMoodToTarget();
-            KinlingsManager.Instance.RegisterKinling(RuntimeData);
-            HasInitialized = true;
         }
 
         public void SetSeated(ChairFurniture chair)

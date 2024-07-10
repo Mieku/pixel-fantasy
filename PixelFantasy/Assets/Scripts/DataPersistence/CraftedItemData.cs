@@ -18,7 +18,7 @@ public class CraftedItemData : ItemData
         if (!string.IsNullOrEmpty(CraftersUID))
         {
             // Add crafter
-            var crafter = KinlingsManager.Instance.GetUnit(CraftersUID);
+            var crafter = KinlingsDatabase.Instance.GetUnit(CraftersUID);
             results.Add(new DetailsText("Crafted By:", crafter.FullName));
         }
 

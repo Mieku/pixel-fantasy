@@ -2,17 +2,28 @@ using System.Collections.Generic;
 using System.Linq;
 using Characters;
 using QFSW.QC;
+using Systems.Appearance.Scripts;
 using TaskSystem;
 using UnityEngine;
 using KinlingSelector = Systems.Kinling_Selector.Scripts.KinlingSelector;
 
 namespace Managers
 {
-    public class KinlingsManager : Singleton<KinlingsManager>
+    public class KinlingsDatabase : Singleton<KinlingsDatabase>
     {
         private List<KinlingData> _allKinlings = new List<KinlingData>();
 
-        public List<KinlingData> AllKinlings => _allKinlings;
+        public List<KinlingData> GetKinlingsData() => _allKinlings;
+
+        public void LoadKinlingsData(List<KinlingData> data)
+        {
+            DeleteAllKinlings();
+
+            foreach (var kinlingData in data)
+            {
+                SpawnKinling(kinlingData, kinlingData.Position, false);
+            }
+        }
         
         public List<KinlingData> GetAllUnitsInRadius(Vector2 startPoint, float radius)
         {
@@ -49,7 +60,12 @@ namespace Managers
         
         public Kinling GetUnit(string uniqueID)
         {
-            return AllKinlings.Find(unit => unit.UniqueID == uniqueID).Kinling;
+            return _allKinlings.Find(unit => unit.UniqueID == uniqueID).Kinling;
+        }
+
+        public KinlingData GetKinlingData(string uniqueID)
+        {
+            return _allKinlings.Find(kinling => kinling.UniqueID == uniqueID);
         }
 
         public void SelectKinling(string uniqueID)
@@ -111,22 +127,25 @@ namespace Managers
             kinlingData.InheritData(mother, father);
             var child = Spawner.Instance.SpawnKinling($"child", mother.Position);
                 
-            mother.Children.Add(child.RuntimeData);
-            father.Children.Add(child.RuntimeData);
+            mother.ChildrenUID.Add(child.RuntimeData.UniqueID);
+            father.ChildrenUID.Add(child.RuntimeData.UniqueID);
         }
 
-        public void SpawnKinling(KinlingData dataToLoad, Vector2 spawnPos)
+        public void SpawnKinling(KinlingData dataToLoad, Vector2 spawnPos, bool isNew)
         {
             var kinling = Spawner.Instance.SpawnKinling($"{dataToLoad.Firstname}_{dataToLoad.Lastname}", spawnPos);
-            kinling.SetKinlingData(dataToLoad);
+            AppearanceBuilder.Instance.UpdateAppearance(dataToLoad);
+            kinling.SetKinlingData(dataToLoad, isNew);
+        }
+
+        public void DeleteAllKinlings()
+        {
+            var kinlingsToDestroy = _allKinlings.ToList();
             
-            // DataLibrary.RegisterInitializationCallback(() =>
-            // {
-            //     var kinling = Spawner.Instance.SpawnKinling($"{dataToLoad.Firstname}_{dataToLoad.Lastname}", spawnPos);
-            //     //var kinlingData = (KinlingData)DataLibrary.CloneDataObjectToRuntime(dataToLoad, kinling.gameObject);
-            //     kinling.SetKinlingData(dataToLoad);
-            //     //var kinling = Spawner.Instance.SpawnKinling(kinlingData, spawnPos);
-            // });
+            foreach (var data in kinlingsToDestroy)
+            {
+                DestroyImmediate(data.Kinling.gameObject);
+            }
         }
     }
 }

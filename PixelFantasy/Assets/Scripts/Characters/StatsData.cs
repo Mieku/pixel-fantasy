@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using ScriptableObjects;
 using Systems.Appearance.Scripts;
 using Systems.Stats.Scripts;
@@ -9,41 +10,65 @@ using Random = UnityEngine.Random;
 
 namespace Characters
 {
-    [Serializable]
     public class StatsData
     {
-        public SkillData MeleeSkill;
-        public SkillData RangedSkill;
-        public SkillData ConstructionSkill;
-        public SkillData MiningSkill;
-        public SkillData BotanySkill;
-        public SkillData CookingSkill;
-        public SkillData CraftingSkill;
-        public SkillData BeastMasterySkill;
-        public SkillData MedicalSkill;
-        public SkillData SocialSkill;
-        public SkillData IntelligenceSkill;
+        public SkillData MeleeSkill = new SkillData();
+        public SkillData RangedSkill = new SkillData();
+        public SkillData ConstructionSkill = new SkillData();
+        public SkillData MiningSkill = new SkillData();
+        public SkillData BotanySkill = new SkillData();
+        public SkillData CookingSkill = new SkillData();
+        public SkillData CraftingSkill = new SkillData();
+        public SkillData BeastMasterySkill = new SkillData();
+        public SkillData MedicalSkill = new SkillData();
+        public SkillData SocialSkill = new SkillData();
+        public SkillData IntelligenceSkill = new SkillData();
+        
+        public List<string> TraitsIDS = new List<string>();
+        public string HistoryID;
 
-        public List<Trait> Traits;
-        public History History;
-        public List<AttributeModifier> AttributeModifiers = new List<AttributeModifier>();
+        [JsonIgnore] public History History => GameSettings.Instance.LoadHistorySettings(HistoryID);
 
-        public StatsData(RaceSettings race)
+        [JsonIgnore]
+        public IReadOnlyList<Trait> Traits
         {
-            MeleeSkill = new SkillData(race.GetSkillSettingsByType(ESkillType.Melee));
-            RangedSkill = new SkillData(race.GetSkillSettingsByType(ESkillType.Ranged));
-            ConstructionSkill = new SkillData(race.GetSkillSettingsByType(ESkillType.Construction));
-            MiningSkill = new SkillData(race.GetSkillSettingsByType(ESkillType.Mining));
-            BotanySkill = new SkillData(race.GetSkillSettingsByType(ESkillType.Botany));
-            CookingSkill = new SkillData(race.GetSkillSettingsByType(ESkillType.Cooking));
-            CraftingSkill = new SkillData(race.GetSkillSettingsByType(ESkillType.Crafting));
-            BeastMasterySkill = new SkillData(race.GetSkillSettingsByType(ESkillType.BeastMastery));
-            MedicalSkill = new SkillData(race.GetSkillSettingsByType(ESkillType.Medical));
-            SocialSkill = new SkillData(race.GetSkillSettingsByType(ESkillType.Social));
-            IntelligenceSkill = new SkillData(race.GetSkillSettingsByType(ESkillType.Intelligence));
+            get
+            {
+                List<Trait> results = new List<Trait>();
+                foreach (var traitID in TraitsIDS)
+                {
+                    var trait = GameSettings.Instance.LoadTraitSettings(traitID);
+                    results.Add(trait);
+                }
 
-            Traits = new List<Trait>();
+                return results.AsReadOnly();
+            }
+        }
+        
+        [JsonIgnore] public List<AttributeModifier> AttributeModifiers = new List<AttributeModifier>();
+
+        public void Init(RaceSettings race)
+        {
+            MeleeSkill.Init(race.GetSkillSettingsByType(ESkillType.Melee));
+            RangedSkill.Init(race.GetSkillSettingsByType(ESkillType.Ranged));
+            ConstructionSkill.Init(race.GetSkillSettingsByType(ESkillType.Construction));
+            MiningSkill.Init(race.GetSkillSettingsByType(ESkillType.Mining));
+            BotanySkill.Init(race.GetSkillSettingsByType(ESkillType.Botany));
+            CookingSkill.Init(race.GetSkillSettingsByType(ESkillType.Cooking));
+            CraftingSkill.Init(race.GetSkillSettingsByType(ESkillType.Crafting));
+            BeastMasterySkill.Init(race.GetSkillSettingsByType(ESkillType.BeastMastery));
+            MedicalSkill.Init(race.GetSkillSettingsByType(ESkillType.Medical));
+            SocialSkill.Init(race.GetSkillSettingsByType(ESkillType.Social));
+            IntelligenceSkill.Init(race.GetSkillSettingsByType(ESkillType.Intelligence));
+            
             RandomizeSkillLevels();
+        }
+
+        public void AddTrait(Trait trait)
+        {
+            if (TraitsIDS.Contains(trait.name)) return;
+            
+            TraitsIDS.Add(trait.name);
         }
 
         public List<SkillData> AllSkills

@@ -5,7 +5,6 @@ using UnityEngine.U2D.Animation;
 
 namespace Systems.Appearance.Scripts
 {
-    [Serializable]
     public class AvatarData
     {
         // Data looks like this: {ID:Overalls}{Colour:#FFFFFF}{Exempt:#FFFFFF,#FFFFFF}{HSV:0:0:0}
@@ -38,6 +37,8 @@ namespace Systems.Appearance.Scripts
         public SpriteLibraryAsset UpSpriteLibraryAsset;
         public SpriteLibraryAsset DownSpriteLibraryAsset;
 
+        public AvatarData() {}
+        
         public AvatarData (KinlingData kinlingData, EGender gender, EMaturityStage ageStage, RaceSettings race)
         {
             _kinlingData = kinlingData;

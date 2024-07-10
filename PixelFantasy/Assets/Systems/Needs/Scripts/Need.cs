@@ -1,35 +1,43 @@
 using System;
 using System.Collections.Generic;
 using Characters;
+using Newtonsoft.Json;
+using ScriptableObjects;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Systems.Needs.Scripts
 {
-    [Serializable]
     public class Need
     {
-        [SerializeField] private NeedSettings _needSettings;
-        [SerializeField] private float _value;
-        [SerializeField] private float _targetValue;
-        [SerializeField] private bool _hasTargetValue;
+        [JsonRequired] private string _needSettingsID;
+        [JsonRequired] private float _value;
+        [JsonRequired] private float _targetValue;
+        [JsonRequired] private bool _hasTargetValue;
 
-        public float Intensity => _needSettings.CalculateIntensity(_value);
-        public float Value => _value;
-        public float TargetValue => _targetValue;
-        public bool HasTargetValue => _hasTargetValue;
+        [JsonIgnore] public float Intensity => _needSettings.CalculateIntensity(_value);
+        [JsonIgnore] public float Value => _value;
+        [JsonIgnore] public float TargetValue => _targetValue;
+        [JsonIgnore] public bool HasTargetValue => _hasTargetValue;
 
-        private Kinling _kinling;
+        [JsonIgnore] private Kinling _kinling;
+
+        [JsonIgnore] private NeedSettings _needSettings => GameSettings.Instance.LoadNeedSettings(_needSettingsID);
 
         public Need(NeedSettings settings)
         {
-            _needSettings = settings;
-            _value = 0;
+            _needSettingsID = settings.name;
+        }
+        
+        public void Init(Kinling kinling)
+        {
+            _value = _needSettings.InitialValue;
             _targetValue = 0;
             _hasTargetValue = false;
+            _kinling = kinling;
         }
-
+        
         /// <summary>
         /// Increases the Need by percentage
         /// </summary>
@@ -108,12 +116,6 @@ namespace Systems.Needs.Scripts
             }
             
             CheckThresholds();
-        }
-
-        public void Initialize(Kinling kinling)
-        {
-            _kinling = kinling;
-            _value = _needSettings.InitialValue;
         }
 
         public List<NeedThreshold> GetThresholds()

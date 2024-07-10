@@ -15,7 +15,7 @@ using UnityEngine.Serialization;
         public bool InUse;
         public Furniture LinkedFurniture;
         public DyeSettings DyeOverride;
-        public KinlingData[] Owners;
+        public string[] Owners;
         public bool HasUseBlockingCommand;
         
         public List<ItemAmount> RemainingMaterialCosts;
@@ -37,7 +37,7 @@ using UnityEngine.Serialization;
 
             if (furnitureSettings.NumberOfPossibleOwners > 0)
             {
-                Owners = new KinlingData[furnitureSettings.NumberOfPossibleOwners];
+                Owners = new string[furnitureSettings.NumberOfPossibleOwners];
             }
             else Owners = null;
         }
@@ -64,10 +64,11 @@ using UnityEngine.Serialization;
             }
             else
             {
-                Owners[0] = kinlingData;
-                if (kinlingData.Partner != SecondaryOwner)
+                Owners[0] = kinlingData.UniqueID;
+                if (kinlingData.PartnerUID != SecondaryOwner)
                 {
-                    SetSecondaryOwner(kinlingData.Partner);
+                    var partner = KinlingsDatabase.Instance.GetKinlingData(kinlingData.PartnerUID);
+                    SetSecondaryOwner(partner);
                 }
             }
             
@@ -78,13 +79,13 @@ using UnityEngine.Serialization;
         {
             if (FurnitureSettings.NumberOfPossibleOwners >= 2)
             {
-                Owners[1] = kinlingData;
+                Owners[1] = kinlingData.PartnerUID;
             }
             
             OnChanged();
         }
 
-        public KinlingData PrimaryOwner
+        public string PrimaryOwner
         {
             get
             {
@@ -97,7 +98,7 @@ using UnityEngine.Serialization;
             }
         }
         
-        public KinlingData SecondaryOwner
+        public string SecondaryOwner
         {
             get
             {

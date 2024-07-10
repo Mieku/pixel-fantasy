@@ -731,7 +731,7 @@ namespace Items
         {
             if (!WasCrafted) return null;
 
-            return KinlingsManager.Instance.GetUnit(RuntimeData.CraftersUID);
+            return KinlingsDatabase.Instance.GetUnit(RuntimeData.CraftersUID);
         }
 
         public bool WasCrafted => !string.IsNullOrEmpty(RuntimeData.CraftersUID);

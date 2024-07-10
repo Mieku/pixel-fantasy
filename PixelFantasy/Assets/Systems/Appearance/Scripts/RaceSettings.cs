@@ -259,10 +259,9 @@ namespace Systems.Appearance.Scripts
             return selectedTraits;
         }
 
-        public NeedsData GetAdultNeeds()
+        public RacialNeeds GetAdultNeeds()
         {
-            var needs = new NeedsData(_adultNeeds);
-            return needs;
+            return _adultNeeds;
         }
     }
     

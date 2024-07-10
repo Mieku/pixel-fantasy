@@ -11,7 +11,7 @@ namespace Items
     {
         public Transform UsingParent;
         
-        private List<KinlingData> _kinlingsInBed = new List<KinlingData>();
+        private List<string> _kinlingsInBed = new List<string>();
 
         public bool IsUnassigned(Kinling kinling)
         {
@@ -21,7 +21,7 @@ namespace Items
             }
             else
             {
-                if (kinling.RuntimeData.Partner != null && kinling.RuntimeData.Partner == RuntimeData.PrimaryOwner)
+                if (kinling.RuntimeData.PartnerUID != null && kinling.RuntimeData.PartnerUID == RuntimeData.PrimaryOwner)
                 {
                     return true;
                 }
@@ -36,7 +36,7 @@ namespace Items
             if (RuntimeData.PrimaryOwner == null)
             {
                 RuntimeData.SetPrimaryOwner(kinling.RuntimeData);
-            } else if (RuntimeData.PrimaryOwner == kinling.RuntimeData.Partner)
+            } else if (RuntimeData.PrimaryOwner == kinling.RuntimeData.PartnerUID)
             {
                 RuntimeData.SetSecondaryOwner(kinling.RuntimeData);
             }
@@ -80,7 +80,7 @@ namespace Items
 
         public Transform GetSleepLocation(Kinling kinling)
         {
-            if (RuntimeData.PrimaryOwner == kinling.RuntimeData)
+            if (RuntimeData.PrimaryOwner == kinling.RuntimeData.UniqueID)
             {
                 return _direction switch
                 {
@@ -92,7 +92,7 @@ namespace Items
                 };
             }
 
-            if (RuntimeData.SecondaryOwner == kinling.RuntimeData)
+            if (RuntimeData.SecondaryOwner == kinling.RuntimeData.UniqueID)
             {
                 return _direction switch
                 {
@@ -158,24 +158,24 @@ namespace Items
             int orderlayer = GetBetweenTheSheetsLayerOrder();
             kinling.AssignAndLockLayerOrder(orderlayer);
             
-            _kinlingsInBed.Add(kinling.RuntimeData);
+            _kinlingsInBed.Add(kinling.RuntimeData.UniqueID);
         }
 
         public void ExitBed(Kinling kinling)
         {
-            kinling.transform.SetParent(KinlingsManager.Instance.transform);
+            kinling.transform.SetParent(KinlingsDatabase.Instance.transform);
             kinling.RuntimeData.IsAsleep = false;
             ShowTopSheet(false);
             kinling.UnlockLayerOrder();
             
-            _kinlingsInBed.Remove(kinling.RuntimeData);
+            _kinlingsInBed.Remove(kinling.RuntimeData.UniqueID);
         }
 
         public bool IsPartnerInBed(Kinling kinling)
         {
-            if (kinling.RuntimeData.Partner == null) return false;
+            if (kinling.RuntimeData.PartnerUID == null) return false;
             
-            return _kinlingsInBed.Contains(kinling.RuntimeData.Partner);
+            return _kinlingsInBed.Contains(kinling.RuntimeData.PartnerUID);
         }
 
         public int GetBetweenTheSheetsLayerOrder()
@@ -185,19 +185,19 @@ namespace Items
         
         public KinlingData GetPrimaryOwner()
         {
-            return RuntimeData.PrimaryOwner;
+            return KinlingsDatabase.Instance.GetKinlingData(RuntimeData.PrimaryOwner);
         }
 
         public KinlingData GetSecondaryOwner()
         {
-            return RuntimeData.SecondaryOwner;
+            return KinlingsDatabase.Instance.GetKinlingData(RuntimeData.SecondaryOwner);
         }
 
         public void ReplacePrimaryOwner(KinlingData newOwner)
         {
             if (RuntimeData.PrimaryOwner != null)
             {
-                RuntimeData.PrimaryOwner.AssignedBed = null;
+                GetPrimaryOwner().AssignedBed = null;
             }
             
             RuntimeData.SetPrimaryOwner(newOwner);
@@ -212,7 +212,7 @@ namespace Items
         {
             if (RuntimeData.SecondaryOwner != null)
             {
-                RuntimeData.SecondaryOwner.AssignedBed = null;
+                GetSecondaryOwner().AssignedBed = null;
             }
             
             RuntimeData.SetSecondaryOwner(newOwner);
@@ -233,19 +233,20 @@ namespace Items
             // Force anyone in bed out
             foreach (var kinling in _kinlingsInBed)
             {
-                ExitBed(kinling.Kinling);
+                var data = KinlingsDatabase.Instance.GetKinlingData(kinling);
+                ExitBed(data.Kinling);
             }
             
             // Un assign anyone assigned to bed
             if (RuntimeData.SecondaryOwner != null)
             {
-                RuntimeData.SecondaryOwner.AssignedBed = null;
+                GetSecondaryOwner().AssignedBed = null;
                 RuntimeData.SetSecondaryOwner(null);
             }
             
             if (RuntimeData.PrimaryOwner != null)
             {
-                RuntimeData.PrimaryOwner.AssignedBed = null;
+                GetPrimaryOwner().AssignedBed = null;
                 RuntimeData.SetPrimaryOwner(null);
             }
             

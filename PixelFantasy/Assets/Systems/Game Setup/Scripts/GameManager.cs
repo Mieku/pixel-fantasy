@@ -26,11 +26,6 @@ namespace Systems.Game_Setup.Scripts
         [SerializeField] private int _numStarterKinlings;
 
         [SerializeField] private RaceSettings _race;
-        
-        private void Start()
-        {
-            //SetUpGame();
-        }
 
         protected override void Awake()
         {
@@ -103,38 +98,6 @@ namespace Systems.Game_Setup.Scripts
             CameraManager.Instance.LookAtPosition(lookPos);
             yield return null;
         }
-        
-        // public IEnumerator SetUpGameCoroutine()
-        // {
-        //     if (_generateWorldOnStart)
-        //     {
-        //         yield return StartCoroutine(_worldBuilder.GeneratePlaneCoroutine());
-        //     }
-        //     
-        //     // Allow frame to render and update UI/loading screen here
-        //     yield return null;
-        //     
-        //     // Wait for a frame after all world-building tasks are complete before updating the NavMesh
-        //     yield return new WaitForEndOfFrame();
-        //
-        //     NavMeshManager.Instance.UpdateNavMesh(forceRebuild: true);
-        //     
-        //     // Again, yield to keep the UI responsive
-        //     yield return null;
-        //     
-        //     LoadStarterKinlings(_worldBuilder.StartPos, _numStarterKinlings);
-        //     yield return null;
-        //     
-        //     GameEvents.Trigger_RefreshInventoryDisplay();
-        //     
-        //     Vector2 lookPos = new Vector2
-        //     {
-        //         x = _worldBuilder.StartPos.x,
-        //         y = _worldBuilder.StartPos.y
-        //     };
-        //     CameraManager.Instance.LookAtPosition(lookPos);
-        //     yield return null;
-        // }
 
         private void ApplyStarterKinlings(Vector3Int startCell, List<KinlingData> starterKinlings)
         {
@@ -142,20 +105,7 @@ namespace Systems.Game_Setup.Scripts
             foreach (var kinling in starterKinlings)
             {
                 var pos = Helper.RandomLocationInRange(startPos);
-                KinlingsManager.Instance.SpawnKinling(kinling, pos);
-            }
-        }
-        
-        private void LoadStarterKinlings(Vector3Int startCell, int amount)
-        {
-            Vector2 startPos = new Vector2(startCell.x, startCell.y);
-            for (int i = 0; i < amount; i++)
-            {
-                var kinlingData = new KinlingData();
-                kinlingData.Randomize(_race);
-                var pos = Helper.RandomLocationInRange(startPos);
-                kinlingData.Mood.JumpMoodToTarget();
-                KinlingsManager.Instance.SpawnKinling(kinlingData, pos);
+                KinlingsDatabase.Instance.SpawnKinling(kinling, pos, true);
             }
         }
 
@@ -181,7 +131,7 @@ namespace Systems.Game_Setup.Scripts
             // Clear any current relationships
             foreach (var kinling in kinlings)
             {
-                kinling.Partner = null;
+                kinling.PartnerUID = null;
                 kinling.Relationships.Clear();
             }
             
@@ -219,13 +169,13 @@ namespace Systems.Game_Setup.Scripts
                 if (match != null)
                 {
                     potentialPartners.Remove(match);
-                    RelationshipData relationship = randomKinling.Relationships.Find(r => r.KinlingData == match);
+                    RelationshipData relationship = randomKinling.Relationships.Find(r => r.OthersUID == match.UniqueID);
                     if (relationship == null)
                     {
                         relationship = new RelationshipData(randomKinling, match);
                     }
                      
-                    RelationshipData theirRelationship = match.Relationships.Find(r => r.KinlingData == randomKinling);
+                    RelationshipData theirRelationship = match.Relationships.Find(r => r.OthersUID == randomKinling.UniqueID);
                     if (theirRelationship == null)
                     {
                         theirRelationship = new RelationshipData(match, randomKinling);
@@ -233,12 +183,12 @@ namespace Systems.Game_Setup.Scripts
 
                     relationship.IsPartner = true;
                     relationship.Opinion = Random.Range(10, 50);
-                    randomKinling.Partner = match;
+                    randomKinling.PartnerUID = match.UniqueID;
                     randomKinling.Relationships.Add(relationship);
                     
                     theirRelationship.IsPartner = true;
                     theirRelationship.Opinion = Random.Range(10, 50);
-                    match.Partner = randomKinling;
+                    match.PartnerUID = randomKinling.UniqueID;
                     match.Relationships.Add(theirRelationship);
                 }
             }
@@ -249,7 +199,7 @@ namespace Systems.Game_Setup.Scripts
                 {
                     if (kinling != otherKinling)
                     {
-                        RelationshipData relationship = kinling.Relationships.Find(r => r.KinlingData == otherKinling);
+                        RelationshipData relationship = kinling.Relationships.Find(r => r.OthersUID == otherKinling.UniqueID);
                         if (relationship == null)
                         {
                             relationship = new RelationshipData(kinling, otherKinling)

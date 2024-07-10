@@ -260,9 +260,10 @@ namespace TaskSystem
             // Go on dates
             
             // Have sex
-            if (task == null && _kinling.RuntimeData.Partner != null)
+            if (task == null && _kinling.RuntimeData.PartnerUID != null)
             {
-                if (_kinling.Needs.CheckSexDrive() && _kinling.RuntimeData.Partner.Kinling.Needs.CheckSexDrive())
+                var partner = KinlingsDatabase.Instance.GetKinlingData(_kinling.RuntimeData.PartnerUID);
+                if (_kinling.Needs.CheckSexDrive() && partner.Kinling.Needs.CheckSexDrive())
                 {
                     task = new Task("Mate", ETaskType.Personal, _kinling.RuntimeData.AssignedBed.LinkedFurniture, EToolType.None);
                     if (AttemptStartTask(task, false)) return;

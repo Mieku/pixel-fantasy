@@ -1,25 +1,25 @@
 using System;
+using Newtonsoft.Json;
 using ScriptableObjects;
 using Random = UnityEngine.Random;
 
 namespace Systems.Stats.Scripts
 {
-    [Serializable]
     public class SkillData
     {
         public int Level;
         public float TotalExp;
         public ESkillPassion Passion;
-        private SkillSettings _skillSettings;
+        public string SkillSettingsID;
 
         public bool Incapable => Level == 0;
         public bool IsMaxLevel => Level == 10;
 
-        public SkillSettings Settings => _skillSettings;
-
-        public SkillData(SkillSettings settings)
+        [JsonIgnore] public SkillSettings Settings => GameSettings.Instance.LoadSkillSettings(SkillSettingsID);
+        
+        public void Init(SkillSettings settings)
         {
-            _skillSettings = settings;
+            SkillSettingsID = settings.name;
         }
 
         public void RandomlyAssignPassion()

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using Characters;
 using Controllers;
 using Handlers;
 using Items;
@@ -7,6 +9,7 @@ using Managers;
 using Newtonsoft.Json;
 using Systems.Game_Setup.Scripts;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace DataPersistence
 {
@@ -31,6 +34,7 @@ namespace DataPersistence
             public TileMapData TileMapData;
             public List<BasicResourceData> ResourcesData;
             public List<RampData> RampData;
+            public List<KinlingData> Kinlings;
         }
 
         private SaveData.SaveHeader GenerateHeader()
@@ -48,23 +52,30 @@ namespace DataPersistence
         
         public void SaveGame()
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            
             SaveData saveData = new SaveData
             {
                 Header = GenerateHeader(),
                 TileMapData = TilemapController.Instance.GetTileMapData(),
                 ResourcesData = ResourcesDatabase.Instance.GetResourcesData(),
                 RampData = _rampsHandler.GetRampsData(),
+                Kinlings = KinlingsDatabase.Instance.GetKinlingsData(),
             };
 
             var settings = new JsonSerializerSettings
             {
-                TypeNameHandling = TypeNameHandling.All,
+                //TypeNameHandling = TypeNameHandling.All,
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 Formatting = Formatting.Indented
             };
 
             string json = JsonConvert.SerializeObject(saveData, settings);
             System.IO.File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+            
+            stopwatch.Stop();
+            Debug.Log($"Save Complete in {stopwatch.ElapsedMilliseconds} ms");
         }
 
         private string TakeScreenshot()
@@ -91,6 +102,9 @@ namespace DataPersistence
 
         public void LoadGame()
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            
             string path = Application.persistentDataPath + "/savefile.json";
             if (System.IO.File.Exists(path))
             {
@@ -98,7 +112,7 @@ namespace DataPersistence
 
                 var settings = new JsonSerializerSettings
                 {
-                    TypeNameHandling = TypeNameHandling.All,
+                    //TypeNameHandling = TypeNameHandling.All,
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                 };
                 
@@ -107,7 +121,12 @@ namespace DataPersistence
                 TilemapController.Instance.LoadTileMapData(saveData.TileMapData);
                 ResourcesDatabase.Instance.LoadResourcesData(saveData.ResourcesData);
                 _rampsHandler.LoadRampsData(saveData.RampData);
+                KinlingsDatabase.Instance.LoadKinlingsData(saveData.Kinlings);
             }
+            
+            
+            stopwatch.Stop();
+            Debug.Log($"Load Complete in {stopwatch.ElapsedMilliseconds} ms");
         }
     }
 }

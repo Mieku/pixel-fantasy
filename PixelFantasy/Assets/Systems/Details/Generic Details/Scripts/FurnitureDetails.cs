@@ -166,7 +166,7 @@ namespace Systems.Details.Generic_Details.Scripts
             _ownersHandle.SetActive(true);
             
             var curAssigned = assignedFurniture.GetPrimaryOwner();
-            var kinlingsList = KinlingsManager.Instance.AllKinlings;
+            var kinlingsList = KinlingsDatabase.Instance.GetKinlingsData();
             _owner1Dropdown.ClearOptions();
             _ownerReferenceList.Clear();
             int curKinlingIndex = -1;

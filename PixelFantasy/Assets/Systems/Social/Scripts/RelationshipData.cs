@@ -1,11 +1,11 @@
 using System;
 using Characters;
+using Managers;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Systems.Social.Scripts
 {
-    [Serializable]
     public class RelationshipData
     {
         public enum ERelationshipType
@@ -15,23 +15,25 @@ namespace Systems.Social.Scripts
             Rival,
         }
 
-        public KinlingData OwnerKinlingData;
-        public KinlingData KinlingData;
+        public string OwnerUID;
+        public string OthersUID;
         public int Opinion;
         public bool IsPartner;
         
-        [field: SerializeField] public int NaturalCohesion { get; protected set; }
+        public int NaturalCohesion { get; protected set; }
 
         private const int MIN_NATURAL_COHESION = -10;
         private const int MAX_NATURAL_COHESION = 10;
         private const int ACQUAINTANCE_COHESION = 0;
         private const int FRIEND_COHESION = 15;
         private const int RIVAL_COHESION = -15;
+        
+        public RelationshipData() {}
 
         public RelationshipData(KinlingData ownerKinlingData, KinlingData kinlingData, int opinion = 0)
         {
-            OwnerKinlingData = ownerKinlingData;
-            KinlingData = kinlingData;
+            OwnerUID = ownerKinlingData.UniqueID;
+            OthersUID = kinlingData.UniqueID;
             Opinion = opinion;
             NaturalCohesion = Random.Range(MIN_NATURAL_COHESION, MAX_NATURAL_COHESION + 1);
             IsPartner = false;
@@ -138,28 +140,6 @@ namespace Systems.Social.Scripts
                 else
                 {
                     return $"{Opinion}";
-                }
-            }
-        }
-        
-        public string TheirOpinionText
-        {
-            get
-            {
-                var theirRelationship = KinlingData.Relationships.Find(r => r.KinlingData == OwnerKinlingData);
-                int theirOpinion = 0;
-                if (theirRelationship != null)
-                {
-                    theirOpinion = theirRelationship.Opinion;
-                }
-                
-                if (theirOpinion > 0)
-                {
-                    return $"+{theirOpinion}";
-                }
-                else
-                {
-                    return $"{theirOpinion}";
                 }
             }
         }

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Characters;
 using Systems.Stats.Scripts;
+using UnityEngine;
 
 namespace TaskSystem
 {
-    [Serializable]
     public class TaskPriorities
     {
         public List<TaskPriority> Priorities = new()
@@ -43,6 +43,11 @@ namespace TaskSystem
             { ETaskType.Research, 13 }
         };
 
+        public TaskPriorities()
+        {
+            
+        }
+        
         public TaskPriorities(StatsData stats)
         {
             AssignDefaultPrioritiesByStats(stats);

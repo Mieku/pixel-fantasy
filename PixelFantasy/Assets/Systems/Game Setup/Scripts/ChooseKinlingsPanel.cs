@@ -207,7 +207,7 @@ namespace Systems.Game_Setup.Scripts
                 bool showBG = relationshipIndex % 2 == 0;
                 var display = Instantiate(_relationshipDisplayPrefab, _relationshipParent);
                 display.gameObject.SetActive(true);
-                display.Init(relationship, showBG);
+                display.Init(relationship, showBG, _displayedKinlings);
                 _displayedRelationships.Add(display);
                 relationshipIndex++;
             }
