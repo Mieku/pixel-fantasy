@@ -28,8 +28,8 @@ namespace Systems.Appearance.Scripts
         
         public Color32 SkinTone;
         public Color32 HairColour;
-        public HairSettings HairStyle;
-        public HairSettings BeardStyle;
+        public string HairStyle;
+        public string BeardStyle;
         public Color32 EyeColour;
         
         [JsonIgnore] public SpriteLibraryAsset SideSpriteLibraryAsset;
@@ -62,7 +62,7 @@ namespace Systems.Appearance.Scripts
 
         private void RefreshHair()
         {
-            Hair = $"{{ID:{HairStyle.ID}}}{{Colour:{Helper.ColorToHex(HairColour)}}}";
+            Hair = $"{{ID:{HairStyle}}}{{Colour:{Helper.ColorToHex(HairColour)}}}";
 
             if (BeardStyle == null)
             {
@@ -70,7 +70,7 @@ namespace Systems.Appearance.Scripts
             }
             else
             {
-                Beard = $"{{ID:{BeardStyle.ID}}}{{Colour:{Helper.ColorToHex(HairColour)}}}";
+                Beard = $"{{ID:{BeardStyle}}}{{Colour:{Helper.ColorToHex(HairColour)}}}";
             }
         }
 

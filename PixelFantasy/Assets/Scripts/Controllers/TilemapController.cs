@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Managers;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -121,14 +122,51 @@ namespace Controllers
     public class SerializableTile
     {
         public string TileName;
-        public Vector3Int Position;
-        public Color Color;
+        public Color? ColourOverride;
+        
+        [JsonRequired] private int _posX;
+        [JsonRequired] private int _posY;
+    
+        [JsonIgnore]
+        public Vector3Int Position
+        {
+            get => new(_posX, _posY);
+            set
+            {
+                _posX = value.x;
+                _posY = value.y;
+            }
+        }
+
+        [JsonIgnore]
+        public Color Color
+        {
+            get
+            {
+                if (ColourOverride == null)
+                {
+                    return Color.white;
+                }
+                else
+                {
+                    return (Color) ColourOverride;
+                }
+            }
+        }
 
         public SerializableTile(string tileName, Vector3Int position, Color color)
         {
             TileName = tileName;
             Position = position;
-            Color = color;
+
+            if (color != Color.white)
+            {
+                ColourOverride = color;
+            }
+            else
+            {
+                ColourOverride = null;
+            }
         }
     }
 

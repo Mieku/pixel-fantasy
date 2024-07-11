@@ -134,7 +134,7 @@ namespace Items
             
             foreach (var stored in Stored)
             {
-                ItemsHandler.Instance.CreateItemObject(stored, RuntimeStorageData.Position, true);
+                ItemsDatabase.Instance.CreateItemObject(stored, RuntimeStorageData.Position, true);
             }
             Stored.Clear();
             

@@ -12,8 +12,21 @@ namespace DataPersistence
         public int SpriteIndex;
         public float Health;
         public Task CurrentTask;
-        public Vector2 Position;
         public string SettingsName;
+        
+        [JsonRequired] private float _posX;
+        [JsonRequired] private float _posY;
+    
+        [JsonIgnore]
+        public Vector2 Position
+        {
+            get => new(_posX, _posY);
+            set
+            {
+                _posX = value.x;
+                _posY = value.y;
+            }
+        }
         
         [JsonIgnore]
         public virtual ResourceSettings Settings => Resources.Load<ResourceSettings>($"Settings/Resource/Basic Resources/{SettingsName}");

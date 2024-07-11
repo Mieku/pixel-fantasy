@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Sirenix.OdinInspector;
 using Systems.Appearance.Scripts;
 using Systems.Mood.Scripts;
@@ -37,7 +39,7 @@ namespace ScriptableObjects
         
         public static T[] LoadAllSettings<T>() where T : ScriptableObject
         {
-            return Resources.LoadAll<T>("Settings/Data");
+            return Resources.LoadAll<T>("Settings");
         }
 
         public RaceSettings LoadRaceSettings(string raceName)
@@ -73,6 +75,23 @@ namespace ScriptableObjects
         public EmotionSettings LoadEmotionSettings(string settingsID)
         {
             return Resources.Load<EmotionSettings>($"Settings/Emotions/{settingsID}");
+        }
+
+        private List<ItemSettings> _itemSettingsCache = null;
+        private List<ItemSettings> LoadAllItemSettings()
+        {
+            return Resources.LoadAll<ItemSettings>("Settings/Items").Where(s => s != null).ToList();
+        }
+
+        public ItemSettings LoadItemSettings(string settingsID)
+        {
+            if (_itemSettingsCache == null || _itemSettingsCache.Count == 0)
+            {
+                _itemSettingsCache = LoadAllItemSettings();
+            }
+
+            var result = _itemSettingsCache.Find(settings => settings.name == settingsID);
+            return result;
         }
     }
 }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Characters;
 using Controllers;
 using DataPersistence;
+using Handlers;
 using Items;
 using Managers;
 using Systems.Stats.Scripts;
@@ -436,7 +437,12 @@ namespace Zones
             
             // Spawn the crop
             int yield = stats.DetermineAmountYielded(ESkillType.Botany, RuntimeData.Settings.AmountToHarvest);
-            Spawner.Instance.SpawnItem(RuntimeData.Settings.HarvestedItem, transform.position, true, yield);
+            for (int i = 0; i < yield; i++)
+            {
+                var data = ItemsDatabase.Instance.CreateItemData(RuntimeData.Settings.HarvestedItem);
+                ItemsDatabase.Instance.CreateItemObject(data, transform.position, true);
+            }
+            //Spawner.Instance.SpawnItem(RuntimeData.Settings.HarvestedItem, transform.position, true, yield);
         }
 
         public void ChangeCrop(CropSettings newCrop)

@@ -2,14 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Managers;
+using Newtonsoft.Json;
+using ScriptableObjects;
 using TaskSystem;
 using UnityEngine;
 
 public class CraftedItemData : ItemData
 {
     public string CraftersUID;
-        
-    public CraftedItemSettings CraftedItemSettings => Settings as CraftedItemSettings;
+    
+    [JsonIgnore] public CraftedItemSettings CraftedItemSettings => (CraftedItemSettings) Settings;
 
     public override List<DetailsText> GetDetailsTexts()
     {

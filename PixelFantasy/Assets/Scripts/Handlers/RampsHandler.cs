@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Handlers
@@ -83,8 +84,20 @@ namespace Handlers
     [Serializable]
     public class RampData
     {
-        public Vector2 Position;
         public ERampDirection RampDirection;
+        [JsonRequired] private float _posX;
+        [JsonRequired] private float _posY;
+    
+        [JsonIgnore]
+        public Vector2 Position
+        {
+            get => new(_posX, _posY);
+            set
+            {
+                _posX = value.x;
+                _posY = value.y;
+            }
+        }
 
         public RampData(Vector2 pos, ERampDirection direction)
         {

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Handlers;
 using Items;
 using Managers;
 using Systems.Appearance.Scripts;
@@ -66,7 +67,10 @@ namespace TaskSystem
                     {
                         KinlingAnimController.SetUnitAction(UnitAction.Nothing);
                         
-                        var item = Spawner.Instance.SpawnItem(_mealToCook, _craftingTable.transform.position, false);
+                        var data = ItemsDatabase.Instance.CreateItemData(_mealToCook);
+                        var item = ItemsDatabase.Instance.CreateItemObject(data, _craftingTable.transform.position, false);
+                        
+                        //var item = Spawner.Instance.SpawnItem(_mealToCook, _craftingTable.transform.position, false);
                         _targetItem = item.RuntimeData;
                         _ai.HoldItem(item);
                         

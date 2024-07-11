@@ -309,59 +309,59 @@ namespace Managers
             return kinling;
         }
 
-        public Item SpawnItemWithRuntimeData(ItemData data, Vector3 position, bool canBeHauled)
-        {
-            var itemObject = Instantiate(_itemPrefab, position, Quaternion.identity, _itemsParent);
-            if (itemObject.TryGetComponent<Item>(out var initializable))
-            {
-                initializable.LoadItemData(data, canBeHauled);
-                itemObject.name = data.ItemName;
-            }
-            else
-            {
-                Debug.LogError("The spawned item does not implement Item.");
-            }
+        // public Item SpawnItemWithRuntimeData(ItemData data, Vector3 position, bool canBeHauled)
+        // {
+        //     var itemObject = Instantiate(_itemPrefab, position, Quaternion.identity, _itemsParent);
+        //     if (itemObject.TryGetComponent<Item>(out var initializable))
+        //     {
+        //         initializable.LoadItemData(data, canBeHauled);
+        //         itemObject.name = data.ItemName;
+        //     }
+        //     else
+        //     {
+        //         Debug.LogError("The spawned item does not implement Item.");
+        //     }
+        //
+        //     return itemObject.GetComponent<Item>();
+        // }
         
-            return itemObject.GetComponent<Item>();
-        }
+        // public Item SpawnItem(ItemSettings settings, Vector3 position, bool canBeHauled, Transform parent = null)
+        // {
+        //     var itemObject = Instantiate(_itemPrefab, position, Quaternion.identity, parent ?? _itemsParent);
+        //     if (itemObject.TryGetComponent<Item>(out var initializable))
+        //     {
+        //         initializable.InitializeItem(settings, canBeHauled);
+        //         itemObject.name = settings.ItemName;
+        //     }
+        //     else
+        //     {
+        //         Debug.LogError("The spawned item does not implement Item.");
+        //     }
+        //
+        //     return itemObject.GetComponent<Item>();
+        // }
         
-        public Item SpawnItem(ItemSettings settings, Vector3 position, bool canBeHauled, Transform parent = null)
-        {
-            var itemObject = Instantiate(_itemPrefab, position, Quaternion.identity, parent ?? _itemsParent);
-            if (itemObject.TryGetComponent<Item>(out var initializable))
-            {
-                initializable.InitializeItem(settings, canBeHauled);
-                itemObject.name = settings.ItemName;
-            }
-            else
-            {
-                Debug.LogError("The spawned item does not implement Item.");
-            }
-        
-            return itemObject.GetComponent<Item>();
-        }
-        
-        public List<Item> SpawnItem(ItemSettings settings, Vector3 position, bool canBeHauled, int amount, Transform parent = null)
-        {
-            List<Item> results = new List<Item>();
-
-            for (int i = 0; i < amount; i++)
-            {
-                var itemObject = Instantiate(_itemPrefab, position, Quaternion.identity, parent ?? _itemsParent);
-                if (itemObject.TryGetComponent<Item>(out var initializable))
-                {
-                    initializable.InitializeItem(settings, canBeHauled);
-                    results.Add(itemObject.GetComponent<Item>());
-                }
-                else
-                {
-                    Debug.LogError("The spawned item does not implement Item.");
-                }
-            }
-
-
-            return results;
-        }
+        // public List<Item> SpawnItem(ItemSettings settings, Vector3 position, bool canBeHauled, int amount, Transform parent = null)
+        // {
+        //     List<Item> results = new List<Item>();
+        //
+        //     for (int i = 0; i < amount; i++)
+        //     {
+        //         var itemObject = Instantiate(_itemPrefab, position, Quaternion.identity, parent ?? _itemsParent);
+        //         if (itemObject.TryGetComponent<Item>(out var initializable))
+        //         {
+        //             initializable.InitializeItem(settings, canBeHauled);
+        //             results.Add(itemObject.GetComponent<Item>());
+        //         }
+        //         else
+        //         {
+        //             Debug.LogError("The spawned item does not implement Item.");
+        //         }
+        //     }
+        //
+        //
+        //     return results;
+        // }
         
         private Door _plannedDoor;
         public void PlanDoor(DoorSettings doorSettings, DyeSettings matColour, Action onDoorPlaced = null)

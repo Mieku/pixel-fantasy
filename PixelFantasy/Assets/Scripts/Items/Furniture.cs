@@ -218,7 +218,9 @@ namespace Items
                 {
                     if (Helper.RollDice(percentReturned))
                     {
-                        Spawner.Instance.SpawnItem(refundCost.Item, this.transform.position, true);
+                        //Spawner.Instance.SpawnItem(refundCost.Item, this.transform.position, true);
+                        var data = ItemsDatabase.Instance.CreateItemData(refundCost.Item);
+                        ItemsDatabase.Instance.CreateItemObject(data, transform.position, true);
                     }
                 }
             }

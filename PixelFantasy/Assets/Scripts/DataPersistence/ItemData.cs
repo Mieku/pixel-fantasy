@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Handlers;
 using Items;
 using Managers;
+using Newtonsoft.Json;
+using ScriptableObjects;
 using TaskSystem;
 using UnityEngine;
 
@@ -10,25 +13,47 @@ using UnityEngine;
 public class ItemData
 {
     public string UniqueID;
+    public EItemState State;
     public int Durability;
     public EItemQuality Quality;
     public bool IsAllowed;
     public Task CurrentTask;
     public string CarryingKinlingUID;
     public IStorage AssignedStorage;
-    public Vector2 Position;
-    public Items.Item LinkedItem;
+    [JsonIgnore] public Item LinkedItem;
+    public string SettingsID;
 
-    public ItemSettings Settings;
-    public virtual string ItemName => Settings.ItemName;
+    [JsonIgnore] public virtual ItemSettings Settings => GameSettings.Instance.LoadItemSettings(SettingsID);
+    [JsonIgnore] public virtual string ItemName => Settings.ItemName;
+
+    [JsonRequired] private float _posX;
+    [JsonRequired] private float _posY;
+    
+    [JsonIgnore]
+    public Vector2 Position
+    {
+        get => new(_posX, _posY);
+        set
+        {
+            _posX = value.x;
+            _posY = value.y;
+        }
+    }
 
     public virtual void InitData(ItemSettings settings)
     {
-        Settings = settings;
+        ItemsDatabase.Instance.RegisterItem(this);
+        
+        SettingsID = settings.name;
         UniqueID = CreateUID();
         Durability = Settings.MaxDurability;
         IsAllowed = true;
         Quality = settings.DefaultQuality;
+    }
+
+    public virtual void DeleteItemData()
+    {
+        ItemsDatabase.Instance.DeregisterItem(this);
     }
     
     public void UnclaimItem()
@@ -64,6 +89,7 @@ public class ItemData
     /// <summary>
     /// The percentage of durability remaining ex: 0.5 = 50%
     /// </summary>
+    [JsonIgnore]
     public float DurabilityPercent
     {
         get
@@ -119,6 +145,13 @@ public class DetailsText
         Header = header;
         Message = message;
     }
+}
+
+public enum EItemState
+{
+    Loose,
+    Stored,
+    Carried,
 }
 
 public enum EItemQuality

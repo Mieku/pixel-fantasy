@@ -156,21 +156,21 @@ namespace Systems.Appearance.Scripts
             return HairColours[index];
         }
         
-        public HairSettings GetRandomHairStyleByGender(EGender gender)
+        public string GetRandomHairStyleByGender(EGender gender)
         {
             if (gender == EGender.Female)
             {
                 int index = Random.Range(0, FemaleHairStyles.Count);
-                return FemaleHairStyles[index];
+                return FemaleHairStyles[index].ID;
             }
             else
             {
                 int index = Random.Range(0, MaleHairStyles.Count);
-                return MaleHairStyles[index];
+                return MaleHairStyles[index].ID;
             }
         }
         
-        public HairSettings GetRandomBeardStyle()
+        public string GetRandomBeardStyle()
         {
             if (BeardStyles.Count == 0)
             {
@@ -180,7 +180,7 @@ namespace Systems.Appearance.Scripts
             if (Helper.RollDice(50)) // 50% chance of having a beard
             {
                 int index = Random.Range(0, BeardStyles.Count);
-                return BeardStyles[index];
+                return BeardStyles[index].ID;
             }
             else
             {

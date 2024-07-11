@@ -30,7 +30,7 @@ namespace Systems.Zones.Scripts
 
             foreach (var stored in Stored)
             {
-                ItemsHandler.Instance.CreateItemObject(stored, Position, true);
+                ItemsDatabase.Instance.CreateItemObject(stored, Position, true);
             }
             Stored.Clear();
             
@@ -184,7 +184,7 @@ namespace Systems.Zones.Scripts
         
             GameEvents.Trigger_RefreshInventoryDisplay();
 
-            var item = ItemsHandler.Instance.CreateItemObject(itemData, Position, false);
+            var item = ItemsDatabase.Instance.CreateItemObject(itemData, Position, false);
             return item;
         }
 

@@ -324,7 +324,7 @@ using UnityEngine;
             GameEvents.Trigger_RefreshInventoryDisplay();
             OnChanged();
 
-            var item = ItemsHandler.Instance.CreateItemObject(itemData, Position, false);
+            var item = ItemsDatabase.Instance.CreateItemObject(itemData, Position, false);
             return item;
         }
         

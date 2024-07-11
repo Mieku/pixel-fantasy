@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Characters;
 using Controllers;
 using DataPersistence;
+using Handlers;
 using Interfaces;
 using Newtonsoft.Json;
 using Systems.Appearance.Scripts;
@@ -97,7 +98,9 @@ namespace Items
             {
                 for (int i = 0; i < minedDrop.Quantity; i++)
                 {
-                    spawner.SpawnItem(minedDrop.Item, transform.position, true);
+                    var data = ItemsDatabase.Instance.CreateItemData(minedDrop.Item);
+                    ItemsDatabase.Instance.CreateItemObject(data, transform.position, true);
+                    //spawner.SpawnItem(minedDrop.Item, transform.position, true);
                 }
             }
 

@@ -25,7 +25,6 @@ namespace Characters
         public string Nickname;
         public string Firstname;
         public string Lastname;
-        public Vector2 Position;
         [JsonIgnore] public Kinling Kinling;
         public int Age;
         public EGender Gender;
@@ -49,6 +48,20 @@ namespace Characters
         public MoodData Mood;
         public List<RelationshipData> Relationships = new List<RelationshipData>();
         public AvatarData Avatar;
+        
+        [JsonRequired] private float _posX;
+        [JsonRequired] private float _posY;
+    
+        [JsonIgnore]
+        public Vector2 Position
+        {
+            get => new(_posX, _posY);
+            set
+            {
+                _posX = value.x;
+                _posY = value.y;
+            }
+        }
 
         [SerializeField]
         private List<LogData> _personalLog = new List<LogData>();
@@ -264,6 +277,7 @@ namespace Characters
             return childTraits;
         }
 
+        [JsonIgnore]
         public EMaturityStage MaturityStage
         {
             get
@@ -302,7 +316,8 @@ namespace Characters
             return Age;
         }
 
-        public string Fullname => $"{Firstname} {Lastname}";
+        
+        [JsonIgnore] public string Fullname => $"{Firstname} {Lastname}";
 
         public int GetLevelForSkill(ESkillType skillType)
         {

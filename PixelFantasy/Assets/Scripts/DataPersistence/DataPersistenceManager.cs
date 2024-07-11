@@ -36,6 +36,7 @@ namespace DataPersistence
             public List<BasicResourceData> ResourcesData;
             public List<RampData> RampData;
             public List<KinlingData> Kinlings;
+            public List<ItemData> ItemsData;
         }
 
         private SaveData.SaveHeader GenerateHeader()
@@ -64,6 +65,7 @@ namespace DataPersistence
                 ResourcesData = ResourcesDatabase.Instance.GetResourcesData(),
                 RampData = _rampsHandler.GetRampsData(),
                 Kinlings = KinlingsDatabase.Instance.GetKinlingsData(),
+                ItemsData = ItemsDatabase.Instance.GetItemsData(),
             };
 
             var settings = new JsonSerializerSettings
@@ -125,6 +127,7 @@ namespace DataPersistence
                 ResourcesDatabase.Instance.LoadResourcesData(saveData.ResourcesData);
                 _rampsHandler.LoadRampsData(saveData.RampData);
                 KinlingsDatabase.Instance.LoadKinlingsData(saveData.Kinlings);
+                ItemsDatabase.Instance.LoadItemsData(saveData.ItemsData);
             }
             
             
@@ -138,6 +141,7 @@ namespace DataPersistence
             ResourcesDatabase.Instance.DeleteResources();
             _rampsHandler.DeleteRamps();
             KinlingsDatabase.Instance.DeleteAllKinlings();
+            ItemsDatabase.Instance.ClearAllItems();
         }
     }
 }

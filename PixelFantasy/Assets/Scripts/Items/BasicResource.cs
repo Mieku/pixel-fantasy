@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Characters;
 using DataPersistence;
+using Handlers;
 using Interfaces;
 using Managers;
 using Newtonsoft.Json;
@@ -191,7 +192,9 @@ namespace Items
                 int amount = stats.DetermineAmountYielded(RuntimeData.Settings.ExtractionSkillType, resource.Quantity);
                 for (int i = 0; i < amount; i++)
                 {
-                    spawner.SpawnItem(resource.Item, transform.position, true);
+                    var data = ItemsDatabase.Instance.CreateItemData(resource.Item);
+                    ItemsDatabase.Instance.CreateItemObject(data, transform.position, true);
+                    //spawner.SpawnItem(resource.Item, transform.position, true);
                 }
             }
             

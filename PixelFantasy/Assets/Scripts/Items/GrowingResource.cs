@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Characters;
 using DataPersistence;
+using Handlers;
 using Managers;
 using Newtonsoft.Json;
 using QFSW.QC;
@@ -166,7 +167,9 @@ namespace Items
                         GrowingResourceData.GrowingResourceSettings.ExtractionSkillType, fruit.Quantity);
                     for (int i = 0; i < amount; i++)
                     {
-                        spawner.SpawnItem(fruit.Item, transform.position, true);
+                        //spawner.SpawnItem(fruit.Item, transform.position, true);
+                        var data = ItemsDatabase.Instance.CreateItemData(fruit.Item);
+                        ItemsDatabase.Instance.CreateItemObject(data, transform.position, true);
                     }
                 }
                 GrowingResourceData.HasFruitAvailable = false;
@@ -223,7 +226,9 @@ namespace Items
                     GrowingResourceData.GrowingResourceSettings.ExtractionSkillType, resource.Quantity);
                 for (int i = 0; i < amount; i++)
                 {
-                    spawner.SpawnItem(resource.Item, transform.position, true);
+                    //spawner.SpawnItem(resource.Item, transform.position, true);
+                    var data = ItemsDatabase.Instance.CreateItemData(resource.Item);
+                    ItemsDatabase.Instance.CreateItemObject(data, transform.position, true);
                 }
             }
 

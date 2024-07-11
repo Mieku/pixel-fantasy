@@ -1,5 +1,8 @@
 
+using Newtonsoft.Json;
+using ScriptableObjects;
+
 public class RawFoodData : ItemData
 {
-    public RawFoodSettings RawFoodSettings => Settings as RawFoodSettings;
+    [JsonIgnore] public RawFoodSettings RawFoodSettings => (RawFoodSettings) Settings;
 }
