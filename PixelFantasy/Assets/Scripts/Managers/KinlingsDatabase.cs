@@ -21,7 +21,7 @@ namespace Managers
 
             foreach (var kinlingData in data)
             {
-                SpawnKinling(kinlingData, kinlingData.Position, false);
+                SpawnKinling(kinlingData, kinlingData.Position);
             }
         }
         
@@ -131,11 +131,11 @@ namespace Managers
             father.ChildrenUID.Add(child.RuntimeData.UniqueID);
         }
 
-        public void SpawnKinling(KinlingData dataToLoad, Vector2 spawnPos, bool isNew)
+        public void SpawnKinling(KinlingData dataToLoad, Vector2 spawnPos)
         {
             var kinling = Spawner.Instance.SpawnKinling($"{dataToLoad.Firstname}_{dataToLoad.Lastname}", spawnPos);
             AppearanceBuilder.Instance.UpdateAppearance(dataToLoad);
-            kinling.SetKinlingData(dataToLoad, isNew);
+            kinling.SetKinlingData(dataToLoad);
         }
 
         public void DeleteAllKinlings()

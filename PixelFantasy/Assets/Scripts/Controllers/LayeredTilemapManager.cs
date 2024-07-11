@@ -44,7 +44,7 @@ namespace Controllers
             }
         }
 
-        private void ClearLayers()
+        public void ClearLayers()
         {
             foreach (var kvp in _tilemaps)
             {

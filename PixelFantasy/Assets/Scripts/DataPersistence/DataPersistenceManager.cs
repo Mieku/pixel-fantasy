@@ -31,6 +31,7 @@ namespace DataPersistence
             }
 
             public SaveHeader Header;
+            public EnvironmentData EnvironmentData;
             public TileMapData TileMapData;
             public List<BasicResourceData> ResourcesData;
             public List<RampData> RampData;
@@ -58,6 +59,7 @@ namespace DataPersistence
             SaveData saveData = new SaveData
             {
                 Header = GenerateHeader(),
+                EnvironmentData = EnvironmentManager.Instance.GetEnvironmentData(),
                 TileMapData = TilemapController.Instance.GetTileMapData(),
                 ResourcesData = ResourcesDatabase.Instance.GetResourcesData(),
                 RampData = _rampsHandler.GetRampsData(),
@@ -66,7 +68,7 @@ namespace DataPersistence
 
             var settings = new JsonSerializerSettings
             {
-                //TypeNameHandling = TypeNameHandling.All,
+                TypeNameHandling = TypeNameHandling.All,
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 Formatting = Formatting.Indented
             };
@@ -112,12 +114,13 @@ namespace DataPersistence
 
                 var settings = new JsonSerializerSettings
                 {
-                    //TypeNameHandling = TypeNameHandling.All,
+                    TypeNameHandling = TypeNameHandling.All,
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                 };
                 
                 var saveData = JsonConvert.DeserializeObject<SaveData>(json, settings);
                 
+                EnvironmentManager.Instance.LoadEnvironmentData(saveData.EnvironmentData);
                 TilemapController.Instance.LoadTileMapData(saveData.TileMapData);
                 ResourcesDatabase.Instance.LoadResourcesData(saveData.ResourcesData);
                 _rampsHandler.LoadRampsData(saveData.RampData);
@@ -127,6 +130,14 @@ namespace DataPersistence
             
             stopwatch.Stop();
             Debug.Log($"Load Complete in {stopwatch.ElapsedMilliseconds} ms");
+        }
+
+        public void ClearWorld() // TODO: for testing
+        {
+            TilemapController.Instance.ClearAllTiles();
+            ResourcesDatabase.Instance.DeleteResources();
+            _rampsHandler.DeleteRamps();
+            KinlingsDatabase.Instance.DeleteAllKinlings();
         }
     }
 }

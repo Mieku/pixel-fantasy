@@ -2197,3 +2197,7 @@ MonoBehaviour:
   _medicalSkillSettings: {fileID: 11400000, guid: 75967d33dded1d840a5a180b4163dff2, type: 2}
   _socialSkillSettings: {fileID: 11400000, guid: 182fdcbdd93c996439df9d835efec7cf, type: 2}
   _intelligenceSkillSettings: {fileID: 11400000, guid: 4caf47c1afa25ba40b0f8cb90a17cb18, type: 2}
+  _availableBreakdowns:
+  - {fileID: 11400000, guid: 0125287c4f7c51548ac6a5e80ba8738b, type: 2}
+  - {fileID: 11400000, guid: c42f2bbf0fff4124a90c43497ab4ea49, type: 2}
+  - {fileID: 11400000, guid: 0866ed8ecd5fa664da633e81c9c71338, type: 2}

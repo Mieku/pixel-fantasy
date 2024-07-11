@@ -105,7 +105,7 @@ namespace Systems.Game_Setup.Scripts
             foreach (var kinling in starterKinlings)
             {
                 var pos = Helper.RandomLocationInRange(startPos);
-                KinlingsDatabase.Instance.SpawnKinling(kinling, pos, true);
+                KinlingsDatabase.Instance.SpawnKinling(kinling, pos);
             }
         }
 

@@ -1,6 +1,7 @@
 using System;
 using Sirenix.OdinInspector;
 using Systems.Appearance.Scripts;
+using Systems.Mood.Scripts;
 using Systems.Needs.Scripts;
 using Systems.Stats.Scripts;
 using UnityEngine;
@@ -62,6 +63,16 @@ namespace ScriptableObjects
         public Trait LoadTraitSettings(string traitID)
         {
             return Resources.Load<Trait>($"Settings/Traits/{traitID}");
+        }
+
+        public EmotionalBreakdownSettings LoadEmotionalBreakdownSettings(string settingsID)
+        {
+            return Resources.Load<EmotionalBreakdownSettings>($"Settings/Emotional Breakdowns/{settingsID}");
+        }
+
+        public EmotionSettings LoadEmotionSettings(string settingsID)
+        {
+            return Resources.Load<EmotionSettings>($"Settings/Emotions/{settingsID}");
         }
     }
 }

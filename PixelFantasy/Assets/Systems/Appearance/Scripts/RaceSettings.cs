@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Characters;
 using Sirenix.OdinInspector;
+using Systems.Mood.Scripts;
 using Systems.Needs.Scripts;
 using Systems.Stats.Scripts;
 using UnityEngine;
@@ -52,6 +53,9 @@ namespace Systems.Appearance.Scripts
         [BoxGroup("Skill Settings"), SerializeField] private MedicalSkillSettings _medicalSkillSettings;
         [BoxGroup("Skill Settings"), SerializeField] private SocialSkillSettings _socialSkillSettings;
         [BoxGroup("Skill Settings"), SerializeField] private IntelligenceSkillSettings _intelligenceSkillSettings;
+
+        [BoxGroup("Emotion Settings"), SerializeField]
+        private List<EmotionalBreakdownSettings> _availableBreakdowns;
 
         public SkillSettings GetSkillSettingsByType(ESkillType skillType) 
         {
@@ -263,6 +267,8 @@ namespace Systems.Appearance.Scripts
         {
             return _adultNeeds;
         }
+
+        public List<EmotionalBreakdownSettings> GetEmotionalBreakdowns => _availableBreakdowns;
     }
     
     [Serializable]

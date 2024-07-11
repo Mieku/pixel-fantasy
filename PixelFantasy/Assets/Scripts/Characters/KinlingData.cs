@@ -86,6 +86,11 @@ namespace Characters
             {
                 Gender = EGender.Female;
             }
+            
+            Firstname = Race.GetRandomFirstName(Gender);
+            Lastname = Race.GetRandomLastName();
+            Nickname = GenerateNickname();
+            UniqueID = CreateUID();
 
             Age = CreateRandomAge(EMaturityStage.Adult);
             SexualPreference = DetermineSexuality();
@@ -93,20 +98,16 @@ namespace Characters
             Avatar = new AvatarData(this, Gender, MaturityStage, Race);
             Stats = new StatsData();
             Stats.Init(Race);
-            Needs = new NeedsData(Race);
+            Needs = new NeedsData();
+            Needs.Initialize(this, Race);
             Mood = new MoodData();
-
-            Firstname = Race.GetRandomFirstName(Gender);
-            Lastname = Race.GetRandomLastName();
-            Nickname = GenerateNickname();
-
+            Mood.Init(this);
+            
             AssignHistory(Race.GetRandomHistory());
             AssignTraits(Race.GetRandomTraits(Random.Range(0, 3)));
 
             TaskPriorities = new TaskPriorities(Stats);
             Schedule = new ScheduleData(); // TODO: Make a nightowl schedule and trait
-
-            UniqueID = CreateUID();
         }
 
         public string GenerateNickname()

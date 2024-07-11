@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace DataPersistence
 {
-    [Serializable]
+    
     public class MountainResourceData : BasicResourceData
     {
         public float RemainingWork;

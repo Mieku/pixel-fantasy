@@ -13,25 +13,26 @@ namespace Characters
 {
     public class NeedsData
     {
-        [JsonRequired] private Need _foodNeed;
-        [JsonRequired] private Need _energyNeed;
-        [JsonRequired] private Need _funNeed;
-        [JsonRequired] private Need _beautyNeed;
-        [JsonRequired] private Need _comfortNeed;
+        [JsonRequired] private Need _foodNeed = new Need();
+        [JsonRequired] private Need _energyNeed = new Need();
+        [JsonRequired] private Need _funNeed = new Need();
+        [JsonRequired] private Need _beautyNeed = new Need();
+        [JsonRequired] private Need _comfortNeed = new Need();
+        [JsonRequired] private string _kinlingUID;
 
         [JsonRequired] private List<NeedChange> _registeredNeedChanges;
 
-        private Kinling _kinling;
+        [JsonIgnore] private KinlingData _kinlingData => KinlingsDatabase.Instance.GetKinlingData(_kinlingUID);
 
-        public NeedsData(RaceSettings raceSettings)
-        {
-            var racialNeeds = raceSettings.GetAdultNeeds();
-            _foodNeed = new Need(racialNeeds.Food);
-            _energyNeed = new Need(racialNeeds.Energy);
-            _funNeed = new Need(racialNeeds.Fun);
-            _beautyNeed = new Need(racialNeeds.Beauty);
-            _comfortNeed = new Need(racialNeeds.Comfort);
-        }
+        // public NeedsData(RaceSettings raceSettings)
+        // {
+        //     var racialNeeds = raceSettings.GetAdultNeeds();
+        //     _foodNeed = new Need(racialNeeds.Food);
+        //     _energyNeed = new Need(racialNeeds.Energy);
+        //     _funNeed = new Need(racialNeeds.Fun);
+        //     _beautyNeed = new Need(racialNeeds.Beauty);
+        //     _comfortNeed = new Need(racialNeeds.Comfort);
+        // }
         
         public void MinuteTick()
         {
@@ -44,15 +45,17 @@ namespace Characters
             _comfortNeed.MinuteTick();
         }
 
-        public void Initialize(Kinling kinling)
+        public void Initialize(KinlingData kinlingData, RaceSettings raceSettings)
         {
-            _kinling = kinling;
+            _kinlingUID = kinlingData.UniqueID;
+            var racialNeeds = raceSettings.GetAdultNeeds();
+            //_kinling = kinling;
             
-            _foodNeed.Init(_kinling);
-            _energyNeed.Init(_kinling);
-            _funNeed.Init(_kinling);
-            _beautyNeed.Init(_kinling);
-            _comfortNeed.Init(_kinling);
+            _foodNeed.Init(kinlingData, racialNeeds.Food);
+            _energyNeed.Init(kinlingData, racialNeeds.Energy);
+            _funNeed.Init(kinlingData, racialNeeds.Fun);
+            _beautyNeed.Init(kinlingData, racialNeeds.Beauty);
+            _comfortNeed.Init(kinlingData, racialNeeds.Comfort);
 
             _registeredNeedChanges = new List<NeedChange>();
         }
@@ -164,7 +167,7 @@ namespace Characters
         public bool CheckSexDrive()
         {
             // Is adult
-            if (_kinling.RuntimeData.MaturityStage == EMaturityStage.Child) return false;
+            if (_kinlingData.MaturityStage == EMaturityStage.Child) return false;
             
             // Check only once a day
             int currentDay = EnvironmentManager.Instance.GameTime.Day;
@@ -172,7 +175,7 @@ namespace Characters
             
             // Have the sex drive be influenced by mood
             lastDayChecked = currentDay;
-            var currentMood = _kinling.MoodData.OverallMood;
+            var currentMood = _kinlingData.Mood.OverallMood;
             float sexDriveModifier = (1f / 75f) * currentMood;
             float sexDrive = BASE_SEX_DRIVE * sexDriveModifier;
             Debug.Log($"Sex Drive: {sexDrive}");
@@ -214,7 +217,7 @@ namespace Characters
         [Command("set_need", "The supported needs are Food, Energy, Fun, Beauty, Comfort", MonoTargetType.All)]
         private void CMD_SetNeed(string firstname, string needName, int amount)
         {
-            if(_kinling.RuntimeData.Firstname == firstname)
+            if(_kinlingData.Firstname == firstname)
             {
                 NeedType targetNeed;
                 switch (needName)

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Characters;
+using Managers;
 using Newtonsoft.Json;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
@@ -15,27 +16,30 @@ namespace Systems.Needs.Scripts
         [JsonRequired] private float _value;
         [JsonRequired] private float _targetValue;
         [JsonRequired] private bool _hasTargetValue;
+        [JsonRequired] private string _kinlingUID;
 
         [JsonIgnore] public float Intensity => _needSettings.CalculateIntensity(_value);
         [JsonIgnore] public float Value => _value;
         [JsonIgnore] public float TargetValue => _targetValue;
         [JsonIgnore] public bool HasTargetValue => _hasTargetValue;
 
-        [JsonIgnore] private Kinling _kinling;
+        //[JsonIgnore] private Kinling _kinling;
 
         [JsonIgnore] private NeedSettings _needSettings => GameSettings.Instance.LoadNeedSettings(_needSettingsID);
 
-        public Need(NeedSettings settings)
+        // public Need(NeedSettings settings)
+        // {
+        //     _needSettingsID = settings.name;
+        // }
+        
+        public void Init(KinlingData kinlingData, NeedSettings settings)
         {
             _needSettingsID = settings.name;
-        }
-        
-        public void Init(Kinling kinling)
-        {
             _value = _needSettings.InitialValue;
             _targetValue = 0;
             _hasTargetValue = false;
-            _kinling = kinling;
+            _kinlingUID = kinlingData.UniqueID;
+            //_kinling = kinling;
         }
         
         /// <summary>
@@ -125,8 +129,9 @@ namespace Systems.Needs.Scripts
 
         private void CheckThresholds()
         {
+            var kinlingData = KinlingsDatabase.Instance.GetKinlingData(_kinlingUID);
             var emotion = _needSettings.CheckThresholds(_value);
-            if (!_kinling.MoodData.HasEmotion(emotion))
+            if (!kinlingData.Mood.HasEmotion(emotion))
             {
                 // Remove the others
                 foreach (var threshold in GetThresholds())
@@ -134,13 +139,13 @@ namespace Systems.Needs.Scripts
                     var otherEmotion = threshold.BelowThresholdEmotionSettings;
                     if (otherEmotion != null)
                     {
-                        _kinling.MoodData.RemoveEmotion(otherEmotion);
+                        kinlingData.Mood.RemoveEmotion(otherEmotion);
                     }
                 }
                     
                 if (emotion != null)
                 {
-                    _kinling.MoodData.ApplyEmotion(emotion);
+                    kinlingData.Mood.ApplyEmotion(emotion);
                 }
             }
         }

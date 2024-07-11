@@ -46,6 +46,17 @@ namespace Controllers
             _zonesLayeredTilemap.LoadTileMapData(data.ZoneLayers);
         }
 
+        public void ClearAllTiles()
+        {
+            _elevationTM.ClearAllTiles();
+            _dirtTM.ClearAllTiles();
+            _flooringTM.ClearAllTiles();
+            _mountainTM.ClearAllTiles();
+            _structureTM.ClearAllTiles();
+            _waterTM.ClearAllTiles();
+            _zonesLayeredTilemap.ClearLayers();
+        }
+
         public void SetTileMapData(Tilemap tileMap, TileMapLayerData data)
         {
             tileMap.ClearAllTiles();

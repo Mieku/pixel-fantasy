@@ -58,6 +58,7 @@ namespace Popups
         public void ReportBugPressed()
         {
             // TODO: Build Me!
+            DataPersistenceManager.Instance.ClearWorld();
         }
     }
 }

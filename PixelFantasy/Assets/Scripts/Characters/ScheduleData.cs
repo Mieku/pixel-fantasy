@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using Managers;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Characters
@@ -8,30 +9,30 @@ namespace Characters
     [Serializable]
     public class ScheduleData
     {
-        [SerializeField] private ScheduleOption Hour0;
-        [SerializeField] private ScheduleOption Hour1;
-        [SerializeField] private ScheduleOption Hour2;
-        [SerializeField] private ScheduleOption Hour3;
-        [SerializeField] private ScheduleOption Hour4;
-        [SerializeField] private ScheduleOption Hour5;
-        [SerializeField] private ScheduleOption Hour6;
-        [SerializeField] private ScheduleOption Hour7;
-        [SerializeField] private ScheduleOption Hour8;
-        [SerializeField] private ScheduleOption Hour9;
-        [SerializeField] private ScheduleOption Hour10;
-        [SerializeField] private ScheduleOption Hour11;
-        [SerializeField] private ScheduleOption Hour12;
-        [SerializeField] private ScheduleOption Hour13;
-        [SerializeField] private ScheduleOption Hour14;
-        [SerializeField] private ScheduleOption Hour15;
-        [SerializeField] private ScheduleOption Hour16;
-        [SerializeField] private ScheduleOption Hour17;
-        [SerializeField] private ScheduleOption Hour18;
-        [SerializeField] private ScheduleOption Hour19;
-        [SerializeField] private ScheduleOption Hour20;
-        [SerializeField] private ScheduleOption Hour21;
-        [SerializeField] private ScheduleOption Hour22;
-        [SerializeField] private ScheduleOption Hour23;
+        [JsonRequired] private ScheduleOption Hour0;
+        [JsonRequired] private ScheduleOption Hour1;
+        [JsonRequired] private ScheduleOption Hour2;
+        [JsonRequired] private ScheduleOption Hour3;
+        [JsonRequired] private ScheduleOption Hour4;
+        [JsonRequired] private ScheduleOption Hour5;
+        [JsonRequired] private ScheduleOption Hour6;
+        [JsonRequired] private ScheduleOption Hour7;
+        [JsonRequired] private ScheduleOption Hour8;
+        [JsonRequired] private ScheduleOption Hour9;
+        [JsonRequired] private ScheduleOption Hour10;
+        [JsonRequired] private ScheduleOption Hour11;
+        [JsonRequired] private ScheduleOption Hour12;
+        [JsonRequired] private ScheduleOption Hour13;
+        [JsonRequired] private ScheduleOption Hour14;
+        [JsonRequired] private ScheduleOption Hour15;
+        [JsonRequired] private ScheduleOption Hour16;
+        [JsonRequired] private ScheduleOption Hour17;
+        [JsonRequired] private ScheduleOption Hour18;
+        [JsonRequired] private ScheduleOption Hour19;
+        [JsonRequired] private ScheduleOption Hour20;
+        [JsonRequired] private ScheduleOption Hour21;
+        [JsonRequired] private ScheduleOption Hour22;
+        [JsonRequired] private ScheduleOption Hour23;
 
         public ScheduleData()
         {

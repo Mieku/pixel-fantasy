@@ -1,4 +1,5 @@
 using System;
+using DataPersistence;
 using FunkyCode;
 using UnityEngine;
 using QFSW.QC;
@@ -37,6 +38,19 @@ namespace Managers
             CalculateLighting();
         }
 
+        public EnvironmentData GetEnvironmentData()
+        {
+            return new EnvironmentData
+            {
+                TimeOfDay = _timeOfDay
+            };
+        }
+
+        public void LoadEnvironmentData(EnvironmentData data)
+        {
+            SetTimeOfDay(data.TimeOfDay);
+        }
+
         [Command("set_time")]
         private void CMD_SetGameTime(int hour24, int min)
         {
@@ -44,8 +58,12 @@ namespace Managers
             min = Mathf.Clamp(min, 0, 59);
             float fractionalMin = min / 60f;
             float value = hour24 + fractionalMin;
-            _timeOfDay = value;
-            
+            SetTimeOfDay(value);
+        }
+
+        private void SetTimeOfDay(float timeOfDay)
+        {
+            _timeOfDay = timeOfDay;
             _gameDayTimer = _timeOfDay;
             _cur24Hour = (int)_gameDayTimer;
             CalculateTimeOfDay();

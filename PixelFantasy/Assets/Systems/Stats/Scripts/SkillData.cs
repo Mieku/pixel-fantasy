@@ -12,9 +12,8 @@ namespace Systems.Stats.Scripts
         public ESkillPassion Passion;
         public string SkillSettingsID;
 
-        public bool Incapable => Level == 0;
-        public bool IsMaxLevel => Level == 10;
-
+        [JsonIgnore] public bool Incapable => Level == 0;
+        [JsonIgnore] public bool IsMaxLevel => Level == 10;
         [JsonIgnore] public SkillSettings Settings => GameSettings.Instance.LoadSkillSettings(SkillSettingsID);
         
         public void Init(SkillSettings settings)
@@ -29,7 +28,7 @@ namespace Systems.Stats.Scripts
 
             // Retrieve the probabilities from the game settings
             int minorChance = GameSettings.Instance.ExpSettings.ChanceForMinorPassion;
-            int majorChance = GameSettings.Instance.ExpSettings.ChanceForMajorPassion;  // Fixed variable name here
+            int majorChance = GameSettings.Instance.ExpSettings.ChanceForMajorPassion;
 
             // Determine the passion level based on the dice roll
             if (diceRoll <= 100 - (minorChance + majorChance))
@@ -46,6 +45,7 @@ namespace Systems.Stats.Scripts
             }
         }
 
+        [JsonIgnore]
         public float CurrentExp
         {
             get
@@ -74,6 +74,7 @@ namespace Systems.Stats.Scripts
             return CurrentExp / expNextLevel;
         }
 
+        [JsonIgnore]
         public string PercentString
         {
             get
@@ -83,6 +84,7 @@ namespace Systems.Stats.Scripts
             }
         }
 
+        [JsonIgnore]
         public string RankString
         {
             get
@@ -95,6 +97,7 @@ namespace Systems.Stats.Scripts
             }
         }
 
+        [JsonIgnore]
         public string ExpString
         {
             get

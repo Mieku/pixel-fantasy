@@ -1,5 +1,6 @@
 using System;
 using Characters;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 
@@ -8,7 +9,6 @@ namespace Systems.Appearance.Scripts
     public class AvatarData
     {
         // Data looks like this: {ID:Overalls}{Colour:#FFFFFF}{Exempt:#FFFFFF,#FFFFFF}{HSV:0:0:0}
-        
         public string Body;
         public string Hands;
         public string Eyes;
@@ -21,8 +21,7 @@ namespace Systems.Appearance.Scripts
         public string FaceAccessory; // Glasses, Mask...
         public string Weapon;
         public string Offhand;
-
-        private KinlingData _kinlingData;
+        
         private EGender _gender;
         private RaceSettings _race;
         private EMaturityStage _ageStage;
@@ -33,15 +32,14 @@ namespace Systems.Appearance.Scripts
         public HairSettings BeardStyle;
         public Color32 EyeColour;
         
-        public SpriteLibraryAsset SideSpriteLibraryAsset;
-        public SpriteLibraryAsset UpSpriteLibraryAsset;
-        public SpriteLibraryAsset DownSpriteLibraryAsset;
+        [JsonIgnore] public SpriteLibraryAsset SideSpriteLibraryAsset;
+        [JsonIgnore] public SpriteLibraryAsset UpSpriteLibraryAsset;
+        [JsonIgnore] public SpriteLibraryAsset DownSpriteLibraryAsset;
 
         public AvatarData() {}
         
         public AvatarData (KinlingData kinlingData, EGender gender, EMaturityStage ageStage, RaceSettings race)
         {
-            _kinlingData = kinlingData;
             _gender = gender;
             _race = race;
             _ageStage = ageStage;

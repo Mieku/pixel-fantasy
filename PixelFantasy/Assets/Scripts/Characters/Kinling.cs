@@ -57,15 +57,15 @@ namespace Characters
             GameEvents.MinuteTick -= GameEvents_MinuteTick;
         }
 
-        public void SetKinlingData(KinlingData data, bool needsInitialized)
+        public void SetKinlingData(KinlingData data)
         {
             RuntimeData = data;
             RuntimeData.Kinling = this;
 
-            if (needsInitialized)
-            {
-                Initialize();
-            }
+            // if (needsInitialized)
+            // {
+            //     Initialize();
+            // }
             
             HasInitialized = true;
             KinlingsDatabase.Instance.RegisterKinling(RuntimeData);
@@ -73,9 +73,9 @@ namespace Characters
         
         private void Initialize()
         {
-            Needs.Initialize(this);
-            MoodData.Init(RuntimeData);
-            MoodData.JumpMoodToTarget();
+            //Needs.Initialize(this);
+            // MoodData.Init(RuntimeData);
+            // MoodData.JumpMoodToTarget();
         }
 
         public void SetSeated(ChairFurniture chair)

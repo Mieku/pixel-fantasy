@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Characters;
 using Managers;
+using Newtonsoft.Json;
 using ScriptableObjects;
 using Systems.Notifications.Scripts;
 using Systems.Traits.Scripts;
@@ -14,8 +16,6 @@ namespace Systems.Mood.Scripts
     [Serializable]
     public class MoodData
     {
-        [SerializeField] private List<EmotionalBreakdownSettings> _availableBreakdowns = new List<EmotionalBreakdownSettings>();
-        
         [SerializeField] 
         private List<EmotionState> _allEmotionalStates = new List<EmotionState>();
         
@@ -31,24 +31,17 @@ namespace Systems.Mood.Scripts
         private int _baseMood = 37;
         private const int BASE_BREAK_THRESHOLD = 35; // From RimWorld, should re-balance for Kinlings
 
-        [SerializeField]
-        private int _moodTarget;
+        [JsonRequired] private string _kinlingID;
+        [JsonRequired] private int _moodTarget;
+        [JsonRequired] private float _overallMood;
+        [JsonRequired] private int _minorBreakThreshold;
+        [JsonRequired] private int _majorBreakThreshold;
+        [JsonRequired] private int _extremeBreakThreshold;
+        [JsonRequired] private List<string> _availableBreakdownIDs = new List<string>();
         
-        [SerializeField]
-        private float _overallMood;
-        
-        private KinlingData _kinlingData;
+        private KinlingData _kinlingData => KinlingsDatabase.Instance.GetKinlingData(_kinlingID);
         private TaskAI _taskAI => _kinlingData.Kinling.TaskAI;
         private MoodThresholdSettings _moodThresholdSettings;
-        
-        [SerializeField]
-        private int _minorBreakThreshold;
-        
-        [SerializeField]
-        private int _majorBreakThreshold;
-        
-        [SerializeField]
-        private int _extremeBreakThreshold;
         
         [SerializeField]
         private EMoodBreakType _moodState;
@@ -56,13 +49,14 @@ namespace Systems.Mood.Scripts
         private PendingBreakdownState _pendingBreakdownState;
         private TaskAction _curBreakdownAction;
 
-        public float MinorBreakThresholdPercent => _minorBreakThreshold / 100f;
-        public float MajorBreakThresholdPercent => _majorBreakThreshold / 100f;
-        public float ExtremeBreakThresholdPercent => _extremeBreakThreshold / 100f;
+        [JsonIgnore] public float MinorBreakThresholdPercent => _minorBreakThreshold / 100f;
+        [JsonIgnore] public float MajorBreakThresholdPercent => _majorBreakThreshold / 100f;
+        [JsonIgnore] public float ExtremeBreakThresholdPercent => _extremeBreakThreshold / 100f;
 
-        private float _positiveMinuteTick => GameSettings.Instance.MoodPositiveHourlyRate / 60f;
-        private float _negativeMinuteTick => GameSettings.Instance.MoodNegativeHourlyRate / 60f;
+        [JsonIgnore] private float _positiveMinuteTick => GameSettings.Instance.MoodPositiveHourlyRate / 60f;
+        [JsonIgnore] private float _negativeMinuteTick => GameSettings.Instance.MoodNegativeHourlyRate / 60f;
 
+        [JsonIgnore]
         public List<float> AllThresholds
         {
             get
@@ -75,16 +69,39 @@ namespace Systems.Mood.Scripts
             }
         }
 
-        public float OverallMood => _overallMood;
-        public int MoodTarget => _moodTarget;
+        [JsonIgnore]
+        public IReadOnlyList<EmotionalBreakdownSettings> _availableBreakdowns
+        {
+            get
+            {
+                List<EmotionalBreakdownSettings> results = new List<EmotionalBreakdownSettings>();
+                foreach (var settingID in _availableBreakdownIDs)
+                {
+                    var breakdown = GameSettings.Instance.LoadEmotionalBreakdownSettings(settingID);
+                    results.Add(breakdown);
+                }
+
+                return results;
+            }
+        }
+
+        [JsonIgnore] public float OverallMood => _overallMood;
+        [JsonIgnore] public int MoodTarget => _moodTarget;
+        [JsonIgnore] public List<EmotionState> AllEmotions => _allEmotionalStates;
         
         public void Init(KinlingData kinlingData)
         {
-            _kinlingData = kinlingData;
-            _moodThresholdSettings = _kinlingData.GetMoodThresholdTrait();
+            _kinlingID = kinlingData.UniqueID;
+            _moodThresholdSettings = kinlingData.GetMoodThresholdTrait();
   
             _moodTarget = _baseMood;
             _overallMood = _baseMood;
+
+            var breakdownOptions = kinlingData.Race.GetEmotionalBreakdowns;
+            foreach (var option in breakdownOptions)
+            {
+                _availableBreakdownIDs.Add(option.name);
+            }
             
             AssignThresholds();
             
@@ -177,9 +194,7 @@ namespace Systems.Mood.Scripts
             return null;
         }
 
-        public List<EmotionState> AllEmotions => _allEmotionalStates;
-
-        public List<EmotionState> PositiveEmotions
+        [JsonIgnore] public List<EmotionState> PositiveEmotions
         {
             get
             {
@@ -196,7 +211,7 @@ namespace Systems.Mood.Scripts
             }
         }
         
-        public List<EmotionState> NegativeEmotions
+        [JsonIgnore] public List<EmotionState> NegativeEmotions
         {
             get
             {
@@ -298,10 +313,11 @@ namespace Systems.Mood.Scripts
         }
 
         private PendingBreakdownState CreateRandomBreakdownState(EMoodBreakType breakType,
-            List<EmotionalBreakdownSettings> allBreakdownOptions)
+            IReadOnlyList<EmotionalBreakdownSettings> allBreakdownOptions)
         {
+            List<EmotionalBreakdownSettings> options = allBreakdownOptions.ToList();
             var filteredBreakdownOptions =
-                allBreakdownOptions.FindAll(breakdown => breakdown.BreakdownType == breakType && _taskAI.IsActionPossible(breakdown.BreakdownTaskId));
+                options.FindAll(breakdown => breakdown.BreakdownType == breakType && _taskAI.IsActionPossible(breakdown.BreakdownTaskId));
             
             int random = Random.Range(0, filteredBreakdownOptions.Count - 1);
             var breakdown = filteredBreakdownOptions[random];

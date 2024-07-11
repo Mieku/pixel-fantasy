@@ -1,6 +1,7 @@
 using System;
 using Characters;
 using Managers;
+using Newtonsoft.Json;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -19,7 +20,6 @@ namespace Systems.Social.Scripts
         public string OthersUID;
         public int Opinion;
         public bool IsPartner;
-        
         public int NaturalCohesion { get; protected set; }
 
         private const int MIN_NATURAL_COHESION = -10;
@@ -39,6 +39,7 @@ namespace Systems.Social.Scripts
             IsPartner = false;
         }
 
+        [JsonIgnore]
         public int OverallCohesion
         {
             get
@@ -64,6 +65,7 @@ namespace Systems.Social.Scripts
             }
         }
         
+        [JsonIgnore]
         public ERelationshipType RelationshipType
         {
             get
@@ -82,6 +84,7 @@ namespace Systems.Social.Scripts
             }
         }
 
+        [JsonIgnore]
         public string RelationshipTypeName
         {
             get
@@ -104,6 +107,7 @@ namespace Systems.Social.Scripts
         /// <summary>
         /// The chance that the kinling will prefer to speak with them
         /// </summary>
+        [JsonIgnore]
         public float InteractionWeight
         {
             get
@@ -129,6 +133,7 @@ namespace Systems.Social.Scripts
             Opinion = Mathf.Clamp(Opinion + amount, -100, 100);
         }
 
+        [JsonIgnore]
         public string OpinionText
         {
             get
