@@ -59,7 +59,7 @@ namespace TaskSystem
             var kinlingAssignedToTask = KinlingsDatabase.Instance.GetKinlingsData().Find(k => k.CurrentTaskAction?.TaskId == TaskId);
             if (kinlingAssignedToTask != null)
             {
-                kinlingAssignedToTask.Kinling.TaskAI.CancelTask(TaskId);
+                kinlingAssignedToTask.GetKinling().TaskAI.CancelTask(TaskId);
             }
             
             OnTaskCancel?.Invoke();

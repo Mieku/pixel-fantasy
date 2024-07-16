@@ -39,7 +39,6 @@ Feather
 Nova
 Rain
 Clover
-Haven
 Coral
 Starlight
 Serene
@@ -138,7 +137,6 @@ Solara
 Celestine
 Moonshadow
 Starblaze
-Nevaeh
 Starbloom
 Starburst
 Solana

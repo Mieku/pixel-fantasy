@@ -27,6 +27,8 @@ namespace ScriptableObjects
             }
         }
 
+        [BoxGroup("DEBUG"), ShowInInspector] public bool FastActions { get; private set; }
+        
         [BoxGroup("Social"), ShowInInspector] public float BasePregnancyChance { get; private set; } = 50f;
         [BoxGroup("Social"), ShowInInspector, Tooltip("In Hours")] public float BaseSocialFrequency { get; private set; } = 4f;
 
@@ -37,11 +39,6 @@ namespace ScriptableObjects
 
         [BoxGroup("Experience"), ShowInInspector] public ExperienceSettings ExpSettings;
         
-        public static T[] LoadAllSettings<T>() where T : ScriptableObject
-        {
-            return Resources.LoadAll<T>("Settings");
-        }
-
         public RaceSettings LoadRaceSettings(string raceName)
         {
             return Resources.Load<RaceSettings>($"Settings/Races/{raceName}");
@@ -78,7 +75,7 @@ namespace ScriptableObjects
         }
 
         private List<ItemSettings> _itemSettingsCache = null;
-        private List<ItemSettings> LoadAllItemSettings()
+        public List<ItemSettings> LoadAllItemSettings()
         {
             return Resources.LoadAll<ItemSettings>("Settings/Items").Where(s => s != null).ToList();
         }
@@ -91,6 +88,40 @@ namespace ScriptableObjects
             }
 
             var result = _itemSettingsCache.Find(settings => settings.name == settingsID);
+            return result;
+        }
+        
+        private List<FurnitureSettings> _furnitureSettingsCache = null;
+        private List<FurnitureSettings> LoadAllFurnitureSettings()
+        {
+            return Resources.LoadAll<FurnitureSettings>("Settings/Furniture").Where(s => s != null).ToList();
+        }
+
+        public FurnitureSettings LoadFurnitureSettings(string settingsID)
+        {
+            if (_furnitureSettingsCache == null || _furnitureSettingsCache.Count == 0)
+            {
+                _furnitureSettingsCache = LoadAllFurnitureSettings();
+            }
+
+            var result = _furnitureSettingsCache.Find(settings => settings.name == settingsID);
+            return result;
+        }
+
+        private List<ZoneSettings> _zoneSettingsCache = null;
+        private List<ZoneSettings> LoadAllZoneSettings()
+        {
+            return Resources.LoadAll<ZoneSettings>("Settings/Zones").Where(s => s != null).ToList();
+        }
+
+        public ZoneSettings LoadZoneSettings(string settingsID)
+        {
+            if (_zoneSettingsCache == null || _zoneSettingsCache.Count == 0)
+            {
+                _zoneSettingsCache = LoadAllZoneSettings();
+            }
+
+            var result = _zoneSettingsCache.Find(settings => settings.name == settingsID);
             return result;
         }
     }

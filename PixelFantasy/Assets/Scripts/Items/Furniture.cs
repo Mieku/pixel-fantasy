@@ -4,9 +4,11 @@ using System.Linq;
 using Characters;
 using CodeMonkey.Utils;
 using Controllers;
+using DataPersistence;
 using Handlers;
 using Interfaces;
 using Managers;
+using Newtonsoft.Json;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Systems.Stats.Scripts;
@@ -38,7 +40,6 @@ namespace Items
         [TitleGroup("East")] [SerializeField] protected GameObject _eastPlacementObstacle;
         
         public FurnitureData RuntimeData;
-        //public FurnitureSettings FurnitureSettings;
         
         protected SpriteRenderer[] _allSprites;
         protected List<SpriteRenderer> _useageMarkers;
@@ -65,25 +66,22 @@ namespace Items
 
         private void OnDestroy()
         {
-            FurnitureManager.Instance.DeregisterFurniture(this);
+            if (!_isPlanning)
+            {
+                FurnitureDatabase.Instance.DeregisterFurniture(RuntimeData);
+            }
             
             GameEvents.OnLeftClickUp -= GameEvents_OnLeftClickUp;
             GameEvents.OnRightClickUp -= GameEvents_OnRightClickUp;
         }
-
-        private void Start()
+        
+        public virtual void LoadData(FurnitureData data)
         {
+            _isPlanning = false;
+            RuntimeData = data;
+            AssignDirection(data.Direction);
             
-        }
-
-        protected void Saved()
-        {
-            
-        }
-
-        protected void Loaded()
-        {
-            
+            SetState(data.FurnitureState);
         }
         
         public virtual void StartPlanning(FurnitureSettings furnitureSettings, PlacementDirection initialDirection, DyeSettings dye)
@@ -108,14 +106,12 @@ namespace Items
 
         public virtual void InitializeFurniture(FurnitureSettings furnitureSettings, PlacementDirection direction, DyeSettings dye)
         {
-            //FurnitureSettings = furnitureSettings;
             _dyeOverride = dye;
             RuntimeData = new FurnitureData();
             RuntimeData.InitData(furnitureSettings);
-            RuntimeData.LinkedFurniture = this;
             RuntimeData.Direction = direction;
             
-            SetState(RuntimeData.State);
+            SetState(RuntimeData.FurnitureState);
             AssignDirection(direction);
         }
 
@@ -128,7 +124,8 @@ namespace Items
         {
             get
             {
-                if (RuntimeData != null && RuntimeData.State != EFurnitureState.Built) return false;
+                if (RuntimeData == null) return false;
+                if (RuntimeData.FurnitureState != EFurnitureState.Built) return false;
 
                 if (RuntimeData.InUse || RuntimeData.HasUseBlockingCommand)
                 {
@@ -150,7 +147,7 @@ namespace Items
             if (command.name == "Deconstruct Furniture Command")
             {
                 RuntimeData.HasUseBlockingCommand = true;
-                if (RuntimeData.State != EFurnitureState.Built)
+                if (RuntimeData.FurnitureState != EFurnitureState.Built)
                 {
                     CancelFurnitureConstruction();
                 }
@@ -174,7 +171,7 @@ namespace Items
 
         protected void CancelFurnitureConstruction()
         {
-            FurnitureManager.Instance.DeregisterFurniture(this);
+            FurnitureDatabase.Instance.DeregisterFurniture(RuntimeData);
             
             CancelRequestorTasks();
                 
@@ -218,7 +215,6 @@ namespace Items
                 {
                     if (Helper.RollDice(percentReturned))
                     {
-                        //Spawner.Instance.SpawnItem(refundCost.Item, this.transform.position, true);
                         var data = ItemsDatabase.Instance.CreateItemData(refundCost.Item);
                         ItemsDatabase.Instance.CreateItemObject(data, transform.position, true);
                     }
@@ -378,8 +374,8 @@ namespace Items
         [ShowInInspector] 
         public void SetState(EFurnitureState newState)
         {
-            RuntimeData.State = newState;
-            switch (RuntimeData.State)
+            RuntimeData.FurnitureState = newState;
+            switch (RuntimeData.FurnitureState)
             {
                 case EFurnitureState.InProduction:
                     InProduction_Enter();
@@ -451,7 +447,7 @@ namespace Items
         protected virtual void InProduction_Enter()
         {
             RuntimeData.Position = transform.position;
-            FurnitureManager.Instance.RegisterFurniture(this);
+            FurnitureDatabase.Instance.RegisterFurniture(RuntimeData);
             DisplayUseageMarkers(false);
             EnablePlacementObstacle(true);
             Show(true);
@@ -467,6 +463,13 @@ namespace Items
             DisplayUseageMarkers(false);
             EnablePlacementObstacle(true);
             ColourArt(ColourStates.Built);
+
+            // For when it is loaded into this state
+            if (!Commands.Contains(Librarian.Instance.GetCommand("Deconstruct Furniture")))
+            {
+                Commands.Add(Librarian.Instance.GetCommand("Deconstruct Furniture"));
+            }
+            
             Commands.Add(Librarian.Instance.GetCommand("Move Furniture"));
         }
 
@@ -495,10 +498,12 @@ namespace Items
 
         public override void ReceiveItem(ItemData item)
         {
-            Destroy(item.LinkedItem.gameObject);
+            Destroy(item.GetLinkedItem().gameObject);
             
             RuntimeData.RemoveFromPendingResourceCosts(item.Settings);
             RuntimeData.DeductFromMaterialCosts(item.Settings);
+            
+            item.DeleteItemData();
             
             OnChanged?.Invoke();
         }
@@ -533,7 +538,7 @@ namespace Items
         
         public virtual void CompleteDeconstruction()
         {
-            FurnitureManager.Instance.DeregisterFurniture(this);
+            FurnitureDatabase.Instance.DeregisterFurniture(RuntimeData);
                 
             // Spawn All the resources used
             SpawnUsedResources(50f);
@@ -570,7 +575,7 @@ namespace Items
         {
             if (RuntimeData == null) return;
             
-            if (RuntimeData.State != EFurnitureState.Built) return;
+            if (RuntimeData.FurnitureState != EFurnitureState.Built) return;
             if(_isOutlineLocked) return;
             
             TriggerOutline(true);
@@ -580,7 +585,7 @@ namespace Items
         {
             if (RuntimeData == null) return;
             
-            if (RuntimeData.State != EFurnitureState.Built) return;
+            if (RuntimeData.FurnitureState != EFurnitureState.Built) return;
             if(_isOutlineLocked) return;
             
             TriggerOutline(false);
@@ -722,7 +727,7 @@ namespace Items
             return Commands;
         }
         
-        public string DisplayName => RuntimeData.ItemName;
+        [JsonIgnore] public string DisplayName => RuntimeData.ItemName;
 
         public PlayerInteractable GetPlayerInteractable()
         {
@@ -733,7 +738,7 @@ namespace Items
         {
             if (!WasCrafted) return null;
 
-            return KinlingsDatabase.Instance.GetUnit(RuntimeData.CraftersUID);
+            return KinlingsDatabase.Instance.GetKinling(RuntimeData.CraftersUID);
         }
 
         public bool WasCrafted => !string.IsNullOrEmpty(RuntimeData.CraftersUID);

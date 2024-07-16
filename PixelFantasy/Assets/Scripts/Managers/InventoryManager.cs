@@ -55,6 +55,13 @@ namespace Managers
 
             return false;
         }
+
+        public IStorage GetStorageByID(string storageID)
+        {
+            if (string.IsNullOrEmpty(storageID)) return null;
+            
+            return _allStorage.Find(s => s.UniqueID == storageID);
+        }
         
         public IStorage GetAvailableStorage(ItemSettings itemSettings)
         {

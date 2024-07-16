@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DataPersistence;
 using Items;
 using Managers;
 using Newtonsoft.Json;
@@ -13,7 +14,6 @@ using Systems.Stats.Scripts;
 using Systems.Traits.Scripts;
 using TaskSystem;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Characters
@@ -25,7 +25,6 @@ namespace Characters
         public string Nickname;
         public string Firstname;
         public string Lastname;
-        [JsonIgnore] public Kinling Kinling;
         public int Age;
         public EGender Gender;
         public string RaceID;
@@ -296,9 +295,14 @@ namespace Characters
             }
         }
 
+        public Kinling GetKinling()
+        {
+            return KinlingsDatabase.Instance.GetKinling(UniqueID);
+        }
+
         public void MinuteTick()
         {
-            if (Kinling == null || !Kinling.HasInitialized) return;
+            if (GetKinling() == null || !GetKinling().HasInitialized) return;
 
             Mood.MinuteTick();
             Needs.MinuteTick();

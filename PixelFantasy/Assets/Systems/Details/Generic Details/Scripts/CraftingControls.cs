@@ -66,7 +66,7 @@ namespace Systems.Details.Generic_Details.Scripts
             {
                 var entry = Instantiate(_craftingQueueEntryPrefab, _craftingQueueLayout);
                 entry.gameObject.SetActive(true);
-                entry.Init(order, _data.LocalCraftingQueue, _data.LinkedFurniture.OnChanged);
+                entry.Init(order, _data.LocalCraftingQueue, _data.GetLinkedFurniture().OnChanged);
                 _displayedCraftingQueue.Add(entry);
             }
         }
@@ -76,14 +76,14 @@ namespace Systems.Details.Generic_Details.Scripts
             var craftedItem = item as CraftedItemSettings;
             if (craftedItem != null)
             {
-                CraftingOrder optionOrder = new CraftingOrder(craftedItem, _data.LinkedFurniture);
+                CraftingOrder optionOrder = new CraftingOrder(craftedItem, _data.GetLinkedFurniture());
                 _data.SubmitOrder(optionOrder);
             }
 
             var meal = item as MealSettings;
             if (meal != null)
             {
-                CraftingOrder optionOrder = new CraftingOrder(meal, _data.LinkedFurniture);
+                CraftingOrder optionOrder = new CraftingOrder(meal, _data.GetLinkedFurniture());
                 _data.SubmitOrder(optionOrder);
             }
             

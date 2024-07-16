@@ -27,6 +27,20 @@ namespace Handlers
             itemData.InitData(settings);
             return itemData;
         }
+
+        public Item FindItemObject(string uniqueID)
+        {
+            var allItems = transform.GetComponentsInChildren<Item>();
+            foreach (var item in allItems)
+            {
+                if (item.RuntimeData.UniqueID == uniqueID)
+                {
+                    return item;
+                }
+            }
+
+            return null;
+        }
         
         public Item CreateItemObject(ItemData data, Vector2 pos, bool createHaulTask)
         {
@@ -34,7 +48,6 @@ namespace Handlers
             Item itemObj = Instantiate(prefab, pos, Quaternion.identity, transform);
             itemObj.name = data.Settings.ItemName;
             itemObj.LoadItemData(data, createHaulTask);
-            data.LinkedItem = itemObj;
             return itemObj;
         }
 
@@ -45,8 +58,6 @@ namespace Handlers
 
         public void LoadItemsData(List<ItemData> loadedItemDatas)
         {
-            ClearAllItems();
-
             foreach (var itemData in loadedItemDatas)
             {
                 switch (itemData.State)
@@ -63,19 +74,18 @@ namespace Handlers
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
+                RegisterItem(itemData);
             }
         }
 
         public void ClearAllItems()
         {
-            var items = _registeredItems.ToList();
-            foreach (var itemData in items)
+            var allItems = transform.GetComponentsInChildren<Item>();
+            foreach (var item in allItems.Reverse())
             {
-                if (itemData.State == EItemState.Loose)
-                {
-                    Destroy(itemData.LinkedItem.gameObject);
-                }
+                DestroyImmediate(item.gameObject);
             }
+            
             _registeredItems.Clear();
         }
 
@@ -86,7 +96,8 @@ namespace Handlers
 
         private void LoadStoredItem(ItemData data)
         {
-            
+            var storage = InventoryManager.Instance.GetStorageByID(data.AssignedStorageID);
+            storage.LoadInItem(data);
         }
 
         private void LoadCarriedItem(ItemData data)

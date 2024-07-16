@@ -18,11 +18,11 @@ namespace Systems.Details.Kinling_Details
             gameObject.SetActive(true);
             _kinlingData = kinlingData;
             
-            _foodNeed.Init(_kinlingData.Kinling.Needs.GetNeedByType(NeedType.Food));
-            _energyNeed.Init(_kinlingData.Kinling.Needs.GetNeedByType(NeedType.Energy));
-            _funNeed.Init(_kinlingData.Kinling.Needs.GetNeedByType(NeedType.Fun));
-            _beautyNeed.Init(_kinlingData.Kinling.Needs.GetNeedByType(NeedType.Beauty));
-            _comfortNeed.Init(_kinlingData.Kinling.Needs.GetNeedByType(NeedType.Comfort));
+            _foodNeed.Init(_kinlingData.GetKinling().Needs.GetNeedByType(NeedType.Food));
+            _energyNeed.Init(_kinlingData.GetKinling().Needs.GetNeedByType(NeedType.Energy));
+            _funNeed.Init(_kinlingData.GetKinling().Needs.GetNeedByType(NeedType.Fun));
+            _beautyNeed.Init(_kinlingData.GetKinling().Needs.GetNeedByType(NeedType.Beauty));
+            _comfortNeed.Init(_kinlingData.GetKinling().Needs.GetNeedByType(NeedType.Comfort));
 
             RefreshNeeds();
 

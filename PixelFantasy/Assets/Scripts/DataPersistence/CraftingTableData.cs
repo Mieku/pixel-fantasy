@@ -1,4 +1,6 @@
 using System;
+using DataPersistence;
+using Newtonsoft.Json;
 using Systems.Crafting.Scripts;
 using Systems.Stats.Scripts;
 
@@ -8,7 +10,7 @@ public class CraftingTableData : FurnitureData
     public CraftingOrder CurrentOrder;
     public CraftingOrderQueue LocalCraftingQueue = new CraftingOrderQueue();
     
-    public CraftingTableSettings CraftingTableSettings => FurnitureSettings as CraftingTableSettings;
+    [JsonIgnore] public CraftingTableSettings CraftingTableSettings => FurnitureSettings as CraftingTableSettings;
     
     public bool CanCraftItem(CraftedItemSettings settings)
     {
@@ -50,7 +52,7 @@ public class CraftingTableData : FurnitureData
 
     public bool IsAvailable()
     {
-        if (State == EFurnitureState.InProduction) return false;
+        if (FurnitureState == EFurnitureState.InProduction) return false;
         if (CurrentOrder.State != CraftingOrder.EOrderState.None) return false;
 
         return true;

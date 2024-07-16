@@ -26,7 +26,7 @@ namespace Systems.Zones.Scripts
 
         private void OnMouseDown()
         {
-            ZoneManager.Instance.SelectZone(_data);
+            ZonesDatabase.Instance.SelectZone(_data);
         }
     }
 }

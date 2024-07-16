@@ -234,7 +234,7 @@ namespace Items
             foreach (var kinling in _kinlingsInBed)
             {
                 var data = KinlingsDatabase.Instance.GetKinlingData(kinling);
-                ExitBed(data.Kinling);
+                ExitBed(data.GetKinling());
             }
             
             // Un assign anyone assigned to bed

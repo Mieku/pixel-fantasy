@@ -46,7 +46,7 @@ namespace TaskSystem
 
             if (_state == ETaskState.GatherMats)
             {
-                _targetItem = _materials[_materialIndex].LinkedItem;
+                _targetItem = _materials[_materialIndex].GetLinkedItem();
                 _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.AssignedStorage.AccessPosition(_ai.Kinling.transform.position, _targetItem.RuntimeData),
                     OnArrivedAtStorageForPickup, OnTaskCancel);
                 _state = ETaskState.WaitingOnMats;
@@ -120,7 +120,7 @@ namespace TaskSystem
             }
             else
             {
-                _targetItem = _materials[_materialIndex].LinkedItem;
+                _targetItem = _materials[_materialIndex].GetLinkedItem();
                 _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.AssignedStorage.AccessPosition(_ai.Kinling.transform.position, _targetItem.RuntimeData),
                     OnArrivedAtStorageForPickup, OnTaskCancel);
             }

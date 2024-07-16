@@ -41,6 +41,7 @@ namespace DataPersistence
         /// <summary>
         /// The percentage of durability remaining ex: 0.5 = 50%
         /// </summary>
+        [JsonIgnore]
         public float DurabilityPercent
         {
             get
@@ -50,6 +51,7 @@ namespace DataPersistence
             }
         }
 
+        [JsonIgnore]
         public virtual float MaxHealth => Settings.MaxHealth;
     }
 }

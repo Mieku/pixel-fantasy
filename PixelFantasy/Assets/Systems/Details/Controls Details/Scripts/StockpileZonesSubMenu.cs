@@ -27,7 +27,7 @@ namespace Systems.Details.Controls_Details.Scripts
         private void GenericZonePressed(ControlsBtn btn)
         {
             SetBtnActive(btn);
-            ZoneManager.Instance.BeginPlanningZone(_genericStockpileSettings, OnZoneCreated);
+            ZonesDatabase.Instance.BeginPlanningZone(_genericStockpileSettings, OnZoneCreated);
         }
 
         private void OnZoneCreated()

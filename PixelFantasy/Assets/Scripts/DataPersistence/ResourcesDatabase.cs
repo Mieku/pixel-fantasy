@@ -48,8 +48,6 @@ namespace DataPersistence
 
         public void LoadResourcesData(List<BasicResourceData> resourcesData)
         {
-            DeleteResources();
-
             foreach (var data in resourcesData)
             {
                 ResourceSettings settings;

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using TaskSystem;
 using UnityEngine;
 
-public abstract class PlayerInteractable : UniqueObject
+public abstract class PlayerInteractable : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer _icon;
     public List<Command> Commands = new List<Command>();

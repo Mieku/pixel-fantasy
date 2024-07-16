@@ -8,6 +8,7 @@ using Items;
 using Managers;
 using Newtonsoft.Json;
 using Systems.Game_Setup.Scripts;
+using Systems.Zones.Scripts;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -37,6 +38,8 @@ namespace DataPersistence
             public List<RampData> RampData;
             public List<KinlingData> Kinlings;
             public List<ItemData> ItemsData;
+            public List<FurnitureData> FurnitureData;
+            public List<ZoneData> ZonesData;
         }
 
         private SaveData.SaveHeader GenerateHeader()
@@ -56,7 +59,7 @@ namespace DataPersistence
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            
+    
             SaveData saveData = new SaveData
             {
                 Header = GenerateHeader(),
@@ -66,18 +69,20 @@ namespace DataPersistence
                 RampData = _rampsHandler.GetRampsData(),
                 Kinlings = KinlingsDatabase.Instance.GetKinlingsData(),
                 ItemsData = ItemsDatabase.Instance.GetItemsData(),
+                FurnitureData = FurnitureDatabase.Instance.GetFurnitureData(),
+                ZonesData = ZonesDatabase.Instance.GetZonesData(),
             };
 
             var settings = new JsonSerializerSettings
             {
-                TypeNameHandling = TypeNameHandling.All,
+                TypeNameHandling = TypeNameHandling.Auto,
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                Formatting = Formatting.Indented
+                Formatting = Formatting.Indented,
             };
 
             string json = JsonConvert.SerializeObject(saveData, settings);
             System.IO.File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
-            
+    
             stopwatch.Stop();
             Debug.Log($"Save Complete in {stopwatch.ElapsedMilliseconds} ms");
         }
@@ -116,20 +121,23 @@ namespace DataPersistence
 
                 var settings = new JsonSerializerSettings
                 {
-                    TypeNameHandling = TypeNameHandling.All,
+                    TypeNameHandling = TypeNameHandling.Auto,
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                 };
                 
                 var saveData = JsonConvert.DeserializeObject<SaveData>(json, settings);
+                
+                ClearWorld();
                 
                 EnvironmentManager.Instance.LoadEnvironmentData(saveData.EnvironmentData);
                 TilemapController.Instance.LoadTileMapData(saveData.TileMapData);
                 ResourcesDatabase.Instance.LoadResourcesData(saveData.ResourcesData);
                 _rampsHandler.LoadRampsData(saveData.RampData);
                 KinlingsDatabase.Instance.LoadKinlingsData(saveData.Kinlings);
+                ZonesDatabase.Instance.LoadZonesData(saveData.ZonesData);
+                FurnitureDatabase.Instance.LoadFurnitureData(saveData.FurnitureData);
                 ItemsDatabase.Instance.LoadItemsData(saveData.ItemsData);
             }
-            
             
             stopwatch.Stop();
             Debug.Log($"Load Complete in {stopwatch.ElapsedMilliseconds} ms");
@@ -141,7 +149,9 @@ namespace DataPersistence
             ResourcesDatabase.Instance.DeleteResources();
             _rampsHandler.DeleteRamps();
             KinlingsDatabase.Instance.DeleteAllKinlings();
+            ZonesDatabase.Instance.ClearAllZones();
             ItemsDatabase.Instance.ClearAllItems();
+            FurnitureDatabase.Instance.ClearAllFurniture();
         }
     }
 }

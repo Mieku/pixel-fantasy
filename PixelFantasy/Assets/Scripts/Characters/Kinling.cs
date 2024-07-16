@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using Interfaces;
 using Items;
 using Managers;
-using Systems.Appearance.Scripts;
 using Systems.Mood.Scripts;
 using Systems.Social.Scripts;
-using Systems.Stats.Scripts;
 using Systems.Traits.Scripts;
 using TaskSystem;
 using UnityEngine;
@@ -60,22 +58,9 @@ namespace Characters
         public void SetKinlingData(KinlingData data)
         {
             RuntimeData = data;
-            RuntimeData.Kinling = this;
-
-            // if (needsInitialized)
-            // {
-            //     Initialize();
-            // }
             
             HasInitialized = true;
             KinlingsDatabase.Instance.RegisterKinling(RuntimeData);
-        }
-        
-        private void Initialize()
-        {
-            //Needs.Initialize(this);
-            // MoodData.Init(RuntimeData);
-            // MoodData.JumpMoodToTarget();
         }
 
         public void SetSeated(ChairFurniture chair)

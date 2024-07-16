@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Buildings.Building_Panels;
 using Characters;
+using DataPersistence;
 using Items;
 using Managers;
 using TMPro;
@@ -42,7 +43,7 @@ namespace Systems.Details.Generic_Details.Scripts
             
             InitConstructionInfo();
             
-            if (_furniture.RuntimeData.State == EFurnitureState.Built)
+            if (_furniture.RuntimeData.FurnitureState == EFurnitureState.Built)
             {
                 RefreshOwners(_furniture as IAssignedFurniture);
             }
@@ -60,7 +61,7 @@ namespace Systems.Details.Generic_Details.Scripts
         private void CheckShowStorageDetails()
         {
             var storage = _furniture as Storage;
-            if (storage != null && _furniture.RuntimeData.State == EFurnitureState.Built)
+            if (storage != null && _furniture.RuntimeData.FurnitureState == EFurnitureState.Built)
             {
                 _storageSettingsDetails.Show(storage);
                 _parentDetails.ShowControlsSeperator(true);
@@ -75,7 +76,7 @@ namespace Systems.Details.Generic_Details.Scripts
         private void CheckShowCraftingDetails()
         {
             var craftingTable = _furniture as CraftingTable;
-            if (craftingTable != null && _furniture.RuntimeData.State == EFurnitureState.Built)
+            if (craftingTable != null && _furniture.RuntimeData.FurnitureState == EFurnitureState.Built)
             {
                 _craftingControls.Show(craftingTable);
             }
@@ -90,7 +91,7 @@ namespace Systems.Details.Generic_Details.Scripts
             ClearDisplayedResources();
             _remainingResourcePrefab.gameObject.SetActive(false);
             
-            if(_furniture.RuntimeData.State != EFurnitureState.Built)
+            if(_furniture.RuntimeData.FurnitureState != EFurnitureState.Built)
             {
                 _constructionProgressHandle.SetActive(true);
                 _remainingResourcesHandle.SetActive(true);
@@ -122,7 +123,7 @@ namespace Systems.Details.Generic_Details.Scripts
 
         private void RefreshConstructionInfo()
         {
-            if(_furniture.RuntimeData.State != EFurnitureState.Built)
+            if(_furniture.RuntimeData.FurnitureState != EFurnitureState.Built)
             {
                 var progress = _furniture.RuntimeData.ConstructionPercent;
                 _constructionProgressFill.fillAmount = progress;

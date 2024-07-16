@@ -51,8 +51,8 @@ namespace TaskSystem
 
         public override void PrepareAction(Task task)
         {
-            _partner = _ai.Kinling.RuntimeData.Partner.Kinling;
-            _bed = (BedFurniture)_ai.Kinling.RuntimeData.AssignedBed.LinkedFurniture;
+            _partner = _ai.Kinling.RuntimeData.Partner.GetKinling();
+            _bed = (BedFurniture)_ai.Kinling.RuntimeData.AssignedBed.GetLinkedFurniture();
 
             _taskState = TaskState.GoToPartner;
             _partner.SocialAI.ReceiveMateRequest();

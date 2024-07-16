@@ -23,7 +23,7 @@ public class DefaultStorageConfigs : SerializedScriptableObject
     [Button("UpdateListOfOptions")]
     private void UpdateListOfOptions()
     {
-        var upToDateItems = GameSettings.LoadAllSettings<ItemSettings>();
+        var upToDateItems = GameSettings.Instance.LoadAllItemSettings();
         foreach (var potentialItem in upToDateItems)
         {
             if (potentialItem.CanBeStored) 
@@ -43,7 +43,8 @@ public class DefaultStorageConfigs : SerializedScriptableObject
                 if (!allCurrentItemSettings.Contains(potentialItem))
                 {
                     bool autoAllowed = !_defaultConfigs.StorageOptions.AreAllInCategoryNotAllowed(potentialItem.Category);
-                    var newEntry = new AllowedStorageEntry(potentialItem, autoAllowed);
+                    var newEntry = new AllowedStorageEntry();
+                    newEntry.Init(potentialItem, autoAllowed);
                     Options[newEntry.Category].Add(newEntry);
                 }
             }

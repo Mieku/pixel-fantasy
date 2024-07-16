@@ -88,7 +88,7 @@ namespace Controllers
                     }
                 }
             }
-
+            
             return data;
         }
         
@@ -122,7 +122,7 @@ namespace Controllers
     public class SerializableTile
     {
         public string TileName;
-        public Color? ColourOverride;
+        public float[] ColourOverride; // Store color as an array of floats
         
         [JsonRequired] private int _posX;
         [JsonRequired] private int _posY;
@@ -149,7 +149,7 @@ namespace Controllers
                 }
                 else
                 {
-                    return (Color) ColourOverride;
+                    return new Color(ColourOverride[0], ColourOverride[1], ColourOverride[2], ColourOverride[3]);
                 }
             }
         }
@@ -161,7 +161,7 @@ namespace Controllers
 
             if (color != Color.white)
             {
-                ColourOverride = color;
+                ColourOverride = new float[] { color.r, color.g, color.b, color.a };
             }
             else
             {
@@ -169,8 +169,7 @@ namespace Controllers
             }
         }
     }
-
-    [Serializable]
+    
     public class TileMapLayerData
     {
         public List<SerializableTile> Tiles = new List<SerializableTile>();
@@ -187,12 +186,6 @@ namespace Controllers
         public TileMapLayerData StructureLayer;
         public TileMapLayerData MountainLayer;
         public List<LayeredTileMapLayerData> ZoneLayers;
-    }
-
-    [Serializable]
-    public class LayeredTileMapLayerData : TileMapLayerData
-    {
-        public int Layer;
     }
     
     [Serializable]

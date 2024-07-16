@@ -10,7 +10,7 @@ using UnityEngine.Tilemaps;
 
 namespace Systems.Zones.Scripts
 {
-    public class ZoneManager : Singleton<ZoneManager>
+    public class ZonesDatabase : Singleton<ZonesDatabase>
     {
         [SerializeField] private Sprite _placementIcon;
         [SerializeField] private LayeredTilemapManager _zoneLayeredTilemap;
@@ -33,6 +33,37 @@ namespace Systems.Zones.Scripts
         private ZoneData _curSelectedZone;
         private ZoneData _expandingZone;
         private Action _planningCompleteCallback;
+
+        public List<ZoneData> GetZonesData()
+        {
+            foreach (var zoneData in _currentZones)
+            {
+                if (zoneData is StockpileZoneData sZoneData)
+                {
+                    sZoneData.PrepSave();
+                }
+            }
+            
+            return _currentZones;
+        }
+
+        public void LoadZonesData(List<ZoneData> data)
+        {
+            foreach (var zoneData in data)
+            {
+                LoadZone(zoneData);
+            }
+        }
+
+        public void ClearAllZones()
+        {
+            var zones = _currentZones.ToList();
+            foreach (var zone in zones)
+            {
+                DeleteZone(zone);
+            }
+            _currentZones.Clear();
+        }
 
         public void SelectZone(ZoneData zone)
         {
@@ -419,7 +450,7 @@ namespace Systems.Zones.Scripts
             switch (_curZoneSettings.ZoneType)
             {
                 case ZoneSettings.EZoneType.Stockpile:
-                    var stockpileRuntimeData = new StockpileZoneData(); //(StockpileZoneData)DataLibrary.CloneDataObjectToRuntime(_genericStockpileZoneData);
+                    var stockpileRuntimeData = new StockpileZoneData();
                     
                     stockpileRuntimeData.Cells = new List<Vector3Int>(tilePositions);
                     stockpileRuntimeData.AssignedLayer = layer;
@@ -435,14 +466,11 @@ namespace Systems.Zones.Scripts
                     }
                     stockpileRuntimeData.ZoneCells = cellObjects;
                     
-                    // DataLibrary.OnSaved += Saved;
-                    // DataLibrary.OnLoaded += Loaded;
-                    
                     InventoryManager.Instance.AddStorage(stockpileRuntimeData);
 
                     return stockpileRuntimeData;
                 case ZoneSettings.EZoneType.Farm:
-                    var farmRuntimeData = new FarmingZoneData(); //(FarmingZoneData)DataLibrary.CloneDataObjectToRuntime(_genericFarmZoneData);
+                    var farmRuntimeData = new FarmingZoneData();
                     farmRuntimeData.Cells = new List<Vector3Int>(tilePositions);
                     farmRuntimeData.AssignedLayer = layer;
                     farmRuntimeData.InitData((FarmingZoneSettings)_curZoneSettings);
@@ -456,13 +484,58 @@ namespace Systems.Zones.Scripts
                         cellObjects.Add(cellObj);
                     }
                     farmRuntimeData.ZoneCells = cellObjects;
-                    
-                    // DataLibrary.OnSaved += Saved;
-                    // DataLibrary.OnLoaded += Loaded;
 
                     return farmRuntimeData;
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+        }
+        
+        public void LoadZone(ZoneData zoneData)
+        {
+            List<Vector3Int> tilePositions = zoneData.Cells;
+            
+            List<ZoneCell> cellObjects = new List<ZoneCell>();
+            switch (zoneData.ZoneType)
+            {
+                case ZoneSettings.EZoneType.Stockpile:
+                    var stockpileRuntimeData = (StockpileZoneData) zoneData; 
+                    _currentZones.Add(stockpileRuntimeData);
+                    
+                    foreach (var tilePosition in tilePositions)
+                    {
+                        // Create zone cell game objects
+                        var cellObj = Instantiate(stockpileRuntimeData.Settings.CellPrefab, tilePosition, Quaternion.identity, transform);
+                        cellObj.Init(stockpileRuntimeData, tilePosition);
+                        cellObjects.Add(cellObj);
+                    }
+                    stockpileRuntimeData.ZoneCells = cellObjects;
+
+                    InventoryManager.Instance.AddStorage(stockpileRuntimeData);
+                    
+                    break;
+                case ZoneSettings.EZoneType.Farm:
+                    var farmRuntimeData = (FarmingZoneData) zoneData;
+                    _currentZones.Add(farmRuntimeData);
+                    
+                    foreach (var tilePosition in tilePositions)
+                    {
+                        // Create zone cell game objects
+                        var cellObj = Instantiate(farmRuntimeData.Settings.CellPrefab, tilePosition, Quaternion.identity, transform);
+                        cellObj.Init(farmRuntimeData, tilePosition);
+                        cellObjects.Add(cellObj);
+                    }
+                    farmRuntimeData.ZoneCells = cellObjects;
+
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+            // Redraw the zone
+            foreach (var cell in zoneData.Cells)
+            {
+                DrawTileCell(cell, zoneData.AssignedLayer, zoneData.DefaultTiles, zoneData.ZoneColour);
             }
         }
 
@@ -472,7 +545,7 @@ namespace Systems.Zones.Scripts
             switch (originalData.Settings.ZoneType)
             {
                 case ZoneSettings.EZoneType.Stockpile:
-                    var stockpileRuntimeData = new StockpileZoneData(); //(StockpileZoneData) DataLibrary.CloneDataObjectToRuntime(_genericStockpileZoneData);
+                    var stockpileRuntimeData = new StockpileZoneData(); 
                     stockpileRuntimeData.Cells = new List<Vector3Int>(tilePositions);
                     stockpileRuntimeData.AssignedLayer = layer;
                     stockpileRuntimeData.CopyData(originalData as StockpileZoneData);
@@ -495,15 +568,12 @@ namespace Systems.Zones.Scripts
                         }
                     }
                     stockpileRuntimeData.ZoneCells = cellObjects;
-                    
-                    // DataLibrary.OnSaved += Saved;
-                    // DataLibrary.OnLoaded += Loaded;
 
                     InventoryManager.Instance.AddStorage(stockpileRuntimeData);
                     
                     return stockpileRuntimeData;
                 case ZoneSettings.EZoneType.Farm:
-                    var farmRuntimeData = new FarmingZoneData(); //(FarmingZoneData) DataLibrary.CloneDataObjectToRuntime(_genericFarmZoneData);
+                    var farmRuntimeData = new FarmingZoneData();
                     farmRuntimeData.Cells = new List<Vector3Int>(tilePositions);
                     farmRuntimeData.AssignedLayer = layer;
                     farmRuntimeData.CopyData(originalData as FarmingZoneData);
@@ -526,9 +596,6 @@ namespace Systems.Zones.Scripts
                         }
                     }
                     farmRuntimeData.ZoneCells = cellObjects;
-                    
-                    // DataLibrary.OnSaved += Saved;
-                    // DataLibrary.OnLoaded += Loaded;
 
                     return farmRuntimeData;
                 default:

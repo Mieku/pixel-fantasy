@@ -113,7 +113,7 @@ namespace Systems.Details.Generic_Details.Scripts
         {
             _expandBtnBG.sprite = _enabledBtnSprite;
             
-            ZoneManager.Instance.BeginPlanningZoneExpansion(_zoneData, () =>
+            ZonesDatabase.Instance.BeginPlanningZoneExpansion(_zoneData, () =>
             {
                 _expandBtnBG.sprite = _defaultBtnSprite;
             });
@@ -123,7 +123,7 @@ namespace Systems.Details.Generic_Details.Scripts
         {
             _shrinkBtnBG.sprite = _enabledBtnSprite;
             
-            ZoneManager.Instance.BeginPlanningZoneShrinking(() =>
+            ZonesDatabase.Instance.BeginPlanningZoneShrinking(() =>
             {
                 _shrinkBtnBG.sprite = _defaultBtnSprite;
             });
@@ -131,12 +131,12 @@ namespace Systems.Details.Generic_Details.Scripts
 
         public void DeleteBtnPressed()
         {
-            ZoneManager.Instance.DeleteZone(_zoneData);
+            ZonesDatabase.Instance.DeleteZone(_zoneData);
         }
 
         public void LookAtBtnPressed()
         {
-            var centerPoint = ZoneManager.Instance.ZoneCenter(_zoneData.Cells);
+            var centerPoint = ZonesDatabase.Instance.ZoneCenter(_zoneData.Cells);
             CameraManager.Instance.LookAtPosition(centerPoint);
         }
 

@@ -8,6 +8,7 @@ namespace Items
 {
     public class Storage : Furniture, IStorage
     {
+        public string UniqueID => RuntimeData.UniqueID;
         public StorageData RuntimeStorageData => RuntimeData as StorageData;
 
         protected override void Built_Enter()
@@ -26,10 +27,9 @@ namespace Items
             // _dyeOverride = dye;
             RuntimeData = new StorageData();
             RuntimeStorageData.InitData(storageSettings);
-            RuntimeData.LinkedFurniture = this;
             RuntimeData.Direction = direction;
             
-            SetState(RuntimeData.State);
+            SetState(RuntimeData.FurnitureState);
             AssignDirection(direction);
         }
         
@@ -58,6 +58,11 @@ namespace Items
         public Item WithdrawItem(ItemData itemData)
         {
             return RuntimeStorageData.WithdrawItem(itemData);
+        }
+
+        public void LoadInItem(ItemData itemData)
+        {
+            RuntimeStorageData.LoadInItemData(itemData);
         }
 
         public bool ClaimItem(ItemData itemToClaim)
@@ -149,12 +154,12 @@ namespace Items
             for (int i = Incoming.Count - 1; i >= 0; i--)
             {
                 var incoming = Incoming[i];
-                if (incoming.LinkedItem != null)
+                if (incoming.GetLinkedItem() != null)
                 {
-                    incoming.LinkedItem.CancelTask();
+                    incoming.GetLinkedItem().CancelTask();
                 }
 
-                if (incoming.CurrentTask != null)
+                if (incoming.CurrentTask != null && !string.IsNullOrEmpty(incoming.CurrentTask.TaskId))
                 {
                     incoming.CurrentTask.Cancel();
                 }
@@ -163,12 +168,12 @@ namespace Items
             for (int i = Stored.Count - 1; i >= 0; i--)
             {
                 var stored = Stored[i];
-                if (stored.LinkedItem != null)
+                if (stored.GetLinkedItem() != null)
                 {
-                    stored.LinkedItem.CancelTask();
+                    stored.GetLinkedItem().CancelTask();
                 }
 
-                if (stored.CurrentTask != null)
+                if (stored.CurrentTask != null && !string.IsNullOrEmpty(stored.CurrentTask.TaskId))
                 {
                     stored.CurrentTask.Cancel();
                 }

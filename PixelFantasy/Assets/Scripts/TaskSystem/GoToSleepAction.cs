@@ -16,7 +16,7 @@ namespace TaskSystem
         
         public override void PrepareAction(Task task)
         {
-            _bed = (BedFurniture)_ai.Kinling.RuntimeData.AssignedBed.LinkedFurniture;
+            _bed = (BedFurniture)_ai.Kinling.RuntimeData.AssignedBed.GetLinkedFurniture();
             
             if (_bed != null)
             {

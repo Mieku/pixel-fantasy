@@ -146,7 +146,7 @@ namespace TaskSystem
             // If the kinling lacks a bed, claim one if available
             if (_kinling.RuntimeData.AssignedBed == null)
             {
-                var bed = FurnitureManager.Instance.FindClosestUnclaimedBed(_kinling);
+                var bed = FurnitureDatabase.Instance.FindClosestUnclaimedBed(_kinling);
                 if (bed != null)
                 {
                     bed.AssignKinling(_kinling);
@@ -263,9 +263,9 @@ namespace TaskSystem
             if (task == null && _kinling.RuntimeData.PartnerUID != null)
             {
                 var partner = KinlingsDatabase.Instance.GetKinlingData(_kinling.RuntimeData.PartnerUID);
-                if (_kinling.Needs.CheckSexDrive() && partner.Kinling.Needs.CheckSexDrive())
+                if (_kinling.Needs.CheckSexDrive() && partner.GetKinling().Needs.CheckSexDrive())
                 {
-                    task = new Task("Mate", ETaskType.Personal, _kinling.RuntimeData.AssignedBed.LinkedFurniture, EToolType.None);
+                    task = new Task("Mate", ETaskType.Personal, _kinling.RuntimeData.AssignedBed.GetLinkedFurniture(), EToolType.None);
                     if (AttemptStartTask(task, false)) return;
                     else task = null;
                 }
@@ -424,7 +424,7 @@ namespace TaskSystem
         {
             // Check queued tasks
             RemoveTaskFromQueue(taskID);
-            if (_data.CurrentTaskAction.TaskId == taskID)
+            if (_data.CurrentTaskAction != null && _data.CurrentTaskAction.TaskId == taskID)
             {
                 _data.CurrentTaskAction.OnTaskCancel();
             }

@@ -21,8 +21,6 @@ namespace Handlers
 
         public void LoadRampsData(List<RampData> data)
         {
-            DeleteRamps();
-
             foreach (var rampData in data)
             {
                 SpawnRamp(rampData.RampDirection, rampData.Position.x, rampData.Position.y);

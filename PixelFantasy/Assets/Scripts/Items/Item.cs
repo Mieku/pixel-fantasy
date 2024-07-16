@@ -12,13 +12,9 @@ namespace Items
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private ClickObject _clickObject;
-
-        private Task _currentTask;
         
-        public string _assignedSlotUID;
         private string _assignedUnitUID;
         private bool _isHeld;
-        private Kinling _carryingKinling;
 
         private Transform _originalParent;
 
@@ -48,7 +44,6 @@ namespace Items
         {
             _settings = settings;
             RuntimeData = _settings.CreateItemData();
-            //RuntimeData.InitData(settings);
             RuntimeData.Position = transform.position;
             
             DisplayItemSprite();
@@ -62,23 +57,12 @@ namespace Items
         public void LoadItemData(ItemData data, bool canHaul)
         {
             RuntimeData = data;
-            RuntimeData.LinkedItem = this;
             DisplayItemSprite();
 
             if (canHaul)
             {
                 SeekForSlot();
             }
-        }
-        
-        protected void Saved()
-        {
-            
-        }
-
-        protected void Loaded()
-        {
-            
         }
        
         public void SeekForSlot()
@@ -118,12 +102,12 @@ namespace Items
             Task task = new Task("Store Item", ETaskType.Hauling, this, EToolType.None);
 
             TaskManager.Instance.AddTask(task);
-            _currentTask = task;
+            RuntimeData.CurrentTask = task;
         }
 
         public void CancelTask(bool lookToHaul = true)
         {
-            if (_currentTask != null)
+            if (RuntimeData.CurrentTask != null)
             {
                 if (AssignedStorage != null)
                 {
@@ -131,13 +115,14 @@ namespace Items
                     AssignedStorage = null;
                 }
 
-                if (_carryingKinling != null)
+                if (!string.IsNullOrEmpty(RuntimeData.CarryingKinlingUID))
                 {
-                    _carryingKinling.TaskAI.CancelTask(_currentTask.TaskId);
+                    var carryingKinling = KinlingsDatabase.Instance.GetKinling(RuntimeData.CarryingKinlingUID);
+                    carryingKinling.TaskAI.CancelTask(RuntimeData.CurrentTask.TaskId);
                 }
                 
-                _currentTask.Cancel();
-                _currentTask = null;
+                RuntimeData.CurrentTask.Cancel();
+                RuntimeData.CurrentTask = null;
                 
                 CancelRequestorTasks();
 
@@ -160,14 +145,16 @@ namespace Items
 
         public void ItemPickedUp(Kinling kinling)
         {
-            _carryingKinling = kinling;
             SetHeld(true);
+            RuntimeData.CarryingKinlingUID = kinling.RuntimeData.UniqueID;
+            RuntimeData.State = EItemState.Carried;
         }
 
         public void ItemDropped()
         {
             SetHeld(false);
-            _carryingKinling = null;
+            RuntimeData.CarryingKinlingUID = null;
+            RuntimeData.State = EItemState.Loose;
             
             if (_onItemRelocatedCallback != null)
             {
@@ -178,12 +165,6 @@ namespace Items
             {
                 SeekForSlot();
             }
-        }
-
-        public void AddItemToSlot()
-        {
-            _isHeld = false;
-            AssignedStorage.DepositItems(this);
         }
 
         private void DisplayItemSprite()
@@ -220,13 +201,10 @@ namespace Items
         private void OnDestroy()
         {
             GameEvents.OnInventoryAvailabilityChanged -= GameEvent_OnInventoryAvailabilityChanged;
-            
-            if(_currentTask != null)
-                _currentTask.Cancel();
 
-            if (RuntimeData != null)
+            if (RuntimeData.CurrentTask != null)
             {
-                RuntimeData.LinkedItem = null;
+                RuntimeData.CurrentTask.Cancel();
             }
         }
 
@@ -250,7 +228,7 @@ namespace Items
         private Action _onItemRelocatedCallback;
         public void RelocateItem(Action onItemRelocated, Vector2 newLocation)
         {
-            if (_currentTask is not { TaskId: "Relocate Item" })
+            if (RuntimeData.CurrentTask is not { TaskId: "Relocate Item" })
             {
                 CancelTask(false);
                 

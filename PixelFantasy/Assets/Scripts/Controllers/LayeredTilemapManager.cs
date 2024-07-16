@@ -16,17 +16,17 @@ namespace Controllers
         public List<LayeredTileMapLayerData> CollectTileMapData()
         {
             List<LayeredTileMapLayerData> results = new List<LayeredTileMapLayerData>();
-            
+
             foreach (var kvp in _tilemaps)
             {
                 var data = TilemapController.Instance.CollectTileMapData(kvp.Value);
-
+        
                 var layerData = new LayeredTileMapLayerData
                 {
                     Layer = kvp.Key,
                     Tiles = data.Tiles
                 };
-                
+        
                 results.Add(layerData);
             }
 
@@ -112,5 +112,10 @@ namespace Controllers
         {
             return _tilemaps.GetValueOrDefault(layer);
         }
+    }
+    
+    public class LayeredTileMapLayerData : TileMapLayerData
+    {
+        public int Layer;
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Characters;
+using DataPersistence;
 using Managers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
@@ -31,7 +32,13 @@ namespace Items
             base.CompletePlanning();
             HideCraftingPreview();
         }
-        
+
+        public override void LoadData(FurnitureData data)
+        {
+            base.LoadData(data);
+            HideCraftingPreview();
+        }
+
         public override void InitializeFurniture(FurnitureSettings furnitureSettings, PlacementDirection direction, DyeSettings dye)
         {
             var tableSettings = (CraftingTableSettings) furnitureSettings;
@@ -40,10 +47,9 @@ namespace Items
             // _dyeOverride = dye;
             RuntimeData = new CraftingTableData();
             RuntimeTableData.InitData(tableSettings);
-            RuntimeData.LinkedFurniture = this;
             RuntimeData.Direction = direction;
             
-            SetState(RuntimeData.State);
+            SetState(RuntimeData.FurnitureState);
             AssignDirection(direction);
         }
 
@@ -194,7 +200,7 @@ namespace Items
         public void ReceiveMaterial(ItemData item)
         {
             RuntimeTableData.CurrentOrder.ReceiveItem(item);
-            Destroy(item.LinkedItem.gameObject);
+            Destroy(item.GetLinkedItem().gameObject);
         }
 
         private void CompleteCraft()

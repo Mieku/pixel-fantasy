@@ -45,7 +45,8 @@ namespace Systems.Zones.Scripts
 
             foreach (var storedItem in Stored)
             {
-                storedItem.AssignedStorage = zoneData as StockpileZoneData;
+                var stockpileZone = (StockpileZoneData)zoneData;
+                storedItem.AssignedStorageID = stockpileZone.UniqueID;
             }
             
             GameEvents.Trigger_RefreshInventoryDisplay();
@@ -58,12 +59,12 @@ namespace Systems.Zones.Scripts
             for (int i = Incoming.Count - 1; i >= 0; i--)
             {
                 var incoming = Incoming[i];
-                if (incoming.LinkedItem != null)
+                if (incoming.GetLinkedItem() != null)
                 {
-                    incoming.LinkedItem.CancelTask();
+                    incoming.GetLinkedItem().CancelTask();
                 }
 
-                if (incoming.CurrentTask != null)
+                if (incoming.CurrentTask != null && !string.IsNullOrEmpty(incoming.CurrentTask.TaskId))
                 {
                     incoming.CurrentTask.Cancel();
                 }
@@ -72,12 +73,12 @@ namespace Systems.Zones.Scripts
             for (int i = Stored.Count - 1; i >= 0; i--)
             {
                 var stored = Stored[i];
-                if (stored.LinkedItem != null)
+                if (stored.GetLinkedItem() != null)
                 {
-                    stored.LinkedItem.CancelTask();
+                    stored.GetLinkedItem().CancelTask();
                 }
 
-                if (stored.CurrentTask != null)
+                if (stored.CurrentTask != null && !string.IsNullOrEmpty(stored.CurrentTask.TaskId))
                 {
                     stored.CurrentTask.Cancel();
                 }
@@ -192,6 +193,15 @@ namespace Systems.Zones.Scripts
         {
             Stored.Add(itemData);
             Incoming.Remove(itemData);
+        
+            RefreshDisplay();
+        
+            GameEvents.Trigger_RefreshInventoryDisplay();
+        }
+
+        public void LoadInItemData(ItemData itemData)
+        {
+            Stored.Add(itemData);
         
             RefreshDisplay();
         

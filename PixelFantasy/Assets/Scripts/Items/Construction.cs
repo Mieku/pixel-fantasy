@@ -113,7 +113,7 @@ namespace Items
         {
             RuntimeData.RemoveFromIncomingItems(itemData);
             
-            Destroy(itemData.LinkedItem.gameObject);
+            Destroy(itemData.GetLinkedItem().gameObject);
             
             RuntimeData.RemoveFromPendingResourceCosts(itemData.Settings);
             RuntimeData.DeductFromMaterialCosts(itemData.Settings);
@@ -299,7 +299,7 @@ namespace Items
             // Drop all incoming resources
             foreach (var incomingItem in RuntimeData.IncomingItems)
             {
-                incomingItem.LinkedItem.SeekForSlot();
+                incomingItem.GetLinkedItem().SeekForSlot();
             }
             RuntimeData.PendingResourceCosts.Clear();
             RuntimeData.IncomingItems.Clear();

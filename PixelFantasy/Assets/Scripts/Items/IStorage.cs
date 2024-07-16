@@ -5,6 +5,7 @@ namespace Items
 {
     public interface IStorage
     {
+        public string UniqueID { get; }
         public List<ItemData> Stored { get; }
         public List<ItemData> Incoming { get; }
         public List<ItemData> Claimed { get; }
@@ -16,6 +17,7 @@ namespace Items
         
         public void DepositItems(Item item);
         public Item WithdrawItem(ItemData itemData);
+        public void LoadInItem(ItemData itemData);
 
         public bool ClaimItem(ItemData itemToClaim);
         public void RestoreClaimed(ItemData itemData);

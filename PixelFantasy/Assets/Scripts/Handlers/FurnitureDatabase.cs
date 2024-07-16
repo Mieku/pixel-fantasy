@@ -1,42 +1,89 @@
 using System.Collections.Generic;
 using System.Linq;
 using Characters;
+using DataPersistence;
 using Items;
 using Managers;
 using UnityEngine;
 
 namespace Handlers
 {
-    public class FurnitureManager : Singleton<FurnitureManager>
+    public class FurnitureDatabase : Singleton<FurnitureDatabase>
     {
-        private List<Furniture> _allFurniture = new List<Furniture>();
-        public List<Furniture> AllFurniture => _allFurniture;
+        private List<FurnitureData> _registeredFurniture = new List<FurnitureData>();
         
-        public void RegisterFurniture(Furniture furniture)
+        public void RegisterFurniture(FurnitureData furniture)
         {
-            if (_allFurniture.Contains(furniture))
+            if (_registeredFurniture.Contains(furniture))
             {
-                Debug.LogError($"Attempted to register already registered furniture: {furniture.name}");
+                Debug.LogError($"Attempted to register already registered furniture: {furniture.ItemName}");
                 return;
             }
             
-            _allFurniture.Add(furniture);
+            _registeredFurniture.Add(furniture);
         }
 
-        public void DeregisterFurniture(Furniture furniture)
+        public void DeregisterFurniture(FurnitureData furniture)
         {
-            if (!_allFurniture.Contains(furniture))
+            if (!_registeredFurniture.Contains(furniture))
             {
-                //Debug.LogError($"Attempted to deregister not registered furniture: {furniture.guid}");
                 return;
             }
 
-            _allFurniture.Remove(furniture);
+            _registeredFurniture.Remove(furniture);
+        }
+
+        public List<FurnitureData> GetFurnitureData()
+        {
+            return _registeredFurniture;
+        }
+        
+        public Furniture FindFurnitureObject(string uniqueID)
+        {
+            var allFurniture = transform.GetComponentsInChildren<Furniture>();
+            foreach (var furniture in allFurniture)
+            {
+                if (furniture.RuntimeData.UniqueID == uniqueID)
+                {
+                    return furniture;
+                }
+            }
+
+            return null;
+        }
+
+        public void LoadFurnitureData(List<FurnitureData> data)
+        {
+            foreach (var furnitureData in data)
+            {
+                SpawnLoadedFurniture(furnitureData);
+            }
+        }
+
+        public Furniture SpawnLoadedFurniture(FurnitureData data)
+        {
+            var prefab = data.FurnitureSettings.FurniturePrefab;
+            var furniture = Instantiate(prefab, data.Position, Quaternion.identity, transform);
+            furniture.name = data.ItemName;
+            furniture.LoadData(data);
+            RegisterFurniture(data);
+            return furniture;
+        }
+
+        public void ClearAllFurniture()
+        {
+            var furnitures = transform.GetComponentsInChildren<Furniture>();
+            foreach (var furniture in furnitures.Reverse())
+            {
+                DestroyImmediate(furniture.gameObject);
+            }
+   
+            _registeredFurniture.Clear();
         }
 
         public List<T> FindFurnituresOfType<T>()
         {
-            return _allFurniture.OfType<T>().ToList();
+            return _registeredFurniture.OfType<T>().ToList();
         }
         
         public T GetClosestFurnitureOfType<T>(Vector2 requestorPos)
@@ -46,7 +93,7 @@ namespace Handlers
             foreach (var furnitureT  in allFurnituressOfType)
             {
                 var furniture = furnitureT as Furniture;
-                if (furniture != null && furniture.RuntimeData.State == EFurnitureState.Built)
+                if (furniture != null && furniture.RuntimeData.FurnitureState == EFurnitureState.Built)
                 {
                     var furniturePos = furniture.UseagePosition(requestorPos);
                     if (furniturePos != null)
@@ -79,7 +126,7 @@ namespace Handlers
             List<(BedFurniture, float)> furnitureDistances = new List<(BedFurniture, float)>();
             foreach (var bed in allBeds)
             {
-                if (bed.RuntimeData.State == EFurnitureState.Built)
+                if (bed.RuntimeData.FurnitureState == EFurnitureState.Built)
                 {
                     var furniturePos = bed.UseagePosition(requestorPos);
                     if (furniturePos != null)

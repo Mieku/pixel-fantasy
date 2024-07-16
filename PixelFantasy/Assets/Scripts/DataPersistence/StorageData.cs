@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DataPersistence;
 using Handlers;
 using Items;
 using UnityEngine;
@@ -324,11 +325,13 @@ using UnityEngine;
             GameEvents.Trigger_RefreshInventoryDisplay();
             OnChanged();
 
+            itemData.State = EItemState.Carried;
+
             var item = ItemsDatabase.Instance.CreateItemObject(itemData, Position, false);
             return item;
         }
         
-        public void DepositItems(Items.Item item)
+        public void DepositItems(Item item)
         {
             var runtimeData = item.RuntimeData;
             
@@ -338,7 +341,8 @@ using UnityEngine;
                 return;
             }
 
-            runtimeData.AssignedStorage = (Storage)LinkedFurniture;
+            runtimeData.AssignedStorageID = UniqueID;
+            runtimeData.State = EItemState.Stored;
             
             Stored.Add(runtimeData);
             Incoming.Remove(runtimeData);
@@ -347,6 +351,12 @@ using UnityEngine;
             OnChanged();
             
             //Destroy(item.gameObject);
+        }
+
+        public void LoadInItemData(ItemData itemData)
+        {
+            Stored.Add(itemData);
+            GameEvents.Trigger_RefreshInventoryDisplay();
         }
         
         public List<InventoryAmount> GetInventoryAmounts()
@@ -390,18 +400,5 @@ using UnityEngine;
             }
 
             return results;
-        }
-        
-        /// <summary>
-        /// To be used when initializing the game or loading saves
-        /// </summary>
-        public void ForceDepositItem(ItemData itemData)
-        {
-            itemData.AssignedStorage = (Storage)LinkedFurniture;
-            itemData.Position = LinkedFurniture.transform.position;
-            
-            Stored.Add(itemData);
-            
-            GameEvents.Trigger_RefreshInventoryDisplay();
         }
     }

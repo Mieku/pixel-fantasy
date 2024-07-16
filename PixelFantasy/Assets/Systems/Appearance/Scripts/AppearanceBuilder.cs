@@ -21,9 +21,9 @@ namespace Systems.Appearance.Scripts
             kinlingData.Avatar.UpSpriteLibraryAsset = BuildSpriteLibraryAssetForDirection(kinlingData.Avatar, AvatarLayer.EAppearanceDirection.Up);
             kinlingData.Avatar.DownSpriteLibraryAsset = BuildSpriteLibraryAssetForDirection(kinlingData.Avatar, AvatarLayer.EAppearanceDirection.Down);
 
-            if (kinlingData.Kinling != null)
+            if (kinlingData.GetKinling() != null)
             {
-                kinlingData.Kinling.Avatar.RefreshAppearanceLibrary();
+                kinlingData.GetKinling().Avatar.RefreshAppearanceLibrary();
             }
         }
         

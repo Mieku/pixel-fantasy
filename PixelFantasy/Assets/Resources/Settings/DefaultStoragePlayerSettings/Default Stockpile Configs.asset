@@ -15,26 +15,7 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 2be4316612b2517488e4f1b36e192532, type: 2}
-    - {fileID: 11400000, guid: 4065859f5438fec47ab7e0bd3ff7b76a, type: 2}
-    - {fileID: 11400000, guid: 3f50db4b2bf22a74696924027aef8ac8, type: 2}
-    - {fileID: 11400000, guid: 347f080c23f1f4843a5868fda3ee868f, type: 2}
-    - {fileID: 11400000, guid: 3971387e704a3894f8d29f2bd6bac97b, type: 2}
-    - {fileID: 11400000, guid: cd44141358af51f42b0db871d7a07ecc, type: 2}
-    - {fileID: 11400000, guid: 6c1483202b7e10f4a8181d5bd61ddb79, type: 2}
-    - {fileID: 11400000, guid: bd8b5dc60d1732845b87893e8162bb76, type: 2}
-    - {fileID: 11400000, guid: 80d6dd2de6aee4346868a7422d4fde04, type: 2}
-    - {fileID: 11400000, guid: 1ecf89d4d4abb5449a7f17037e95933b, type: 2}
-    - {fileID: 11400000, guid: d9d098fd60920024c9790d6d0f60801b, type: 2}
-    - {fileID: 11400000, guid: c33dd5c4026b98f47aaf660edfede72b, type: 2}
-    - {fileID: 11400000, guid: a38768ccf4c59324ab8ccb85562e2250, type: 2}
-    - {fileID: 11400000, guid: a53b8902ad3bf344bac91e1e4b8ff124, type: 2}
-    - {fileID: 11400000, guid: 7167b8dd21508774ebc1ceab992a07b1, type: 2}
-    - {fileID: 11400000, guid: 8e94e576141358b47ba3b83e67a1e198, type: 2}
-    - {fileID: 11400000, guid: 9d1771c84207f1440b6c097bc6a1f711, type: 2}
-    - {fileID: 11400000, guid: f57bec3e8e8d0f6469bbce89ffd4aae1, type: 2}
-    - {fileID: 11400000, guid: ad0ab20162c90cd48b093b077a674442, type: 2}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -101,20 +82,20 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 4
+      Data: 0
     - Name: $v
       Entry: 7
       Data: 4|System.Collections.Generic.List`1[[AllowedStorageEntry, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 12
     - Name: 
       Entry: 7
       Data: 5|AllowedStorageEntry, Assembly-CSharp
-    - Name: Item
-      Entry: 10
-      Data: 0
+    - Name: ItemSettingsID
+      Entry: 1
+      Data: Copper Bar
     - Name: IsAllowed
       Entry: 5
       Data: true
@@ -124,9 +105,9 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 6|AllowedStorageEntry, Assembly-CSharp
-    - Name: Item
-      Entry: 10
-      Data: 1
+    - Name: ItemSettingsID
+      Entry: 1
+      Data: Gold Bar
     - Name: IsAllowed
       Entry: 5
       Data: true
@@ -136,9 +117,9 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 7|AllowedStorageEntry, Assembly-CSharp
-    - Name: Item
-      Entry: 10
-      Data: 2
+    - Name: ItemSettingsID
+      Entry: 1
+      Data: Iron Bar
     - Name: IsAllowed
       Entry: 5
       Data: true
@@ -146,33 +127,23 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 13
-      Data: 
+      Entry: 7
+      Data: 8|AllowedStorageEntry, Assembly-CSharp
+    - Name: ItemSettingsID
+      Entry: 1
+      Data: Plank
+    - Name: IsAllowed
+      Entry: 5
+      Data: true
     - Name: 
       Entry: 8
       Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 0
-    - Name: $v
-      Entry: 7
-      Data: 8|System.Collections.Generic.List`1[[AllowedStorageEntry, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 12
     - Name: 
       Entry: 7
       Data: 9|AllowedStorageEntry, Assembly-CSharp
-    - Name: Item
-      Entry: 10
-      Data: 3
+    - Name: ItemSettingsID
+      Entry: 1
+      Data: Steel Bar
     - Name: IsAllowed
       Entry: 5
       Data: true
@@ -182,9 +153,9 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 10|AllowedStorageEntry, Assembly-CSharp
-    - Name: Item
-      Entry: 10
-      Data: 4
+    - Name: ItemSettingsID
+      Entry: 1
+      Data: Coal
     - Name: IsAllowed
       Entry: 5
       Data: true
@@ -194,9 +165,9 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 11|AllowedStorageEntry, Assembly-CSharp
-    - Name: Item
-      Entry: 10
-      Data: 5
+    - Name: ItemSettingsID
+      Entry: 1
+      Data: Copper Ore
     - Name: IsAllowed
       Entry: 5
       Data: true
@@ -206,9 +177,9 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 12|AllowedStorageEntry, Assembly-CSharp
-    - Name: Item
-      Entry: 10
-      Data: 6
+    - Name: ItemSettingsID
+      Entry: 1
+      Data: Gold Ore
     - Name: IsAllowed
       Entry: 5
       Data: true
@@ -218,9 +189,9 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 13|AllowedStorageEntry, Assembly-CSharp
-    - Name: Item
-      Entry: 10
-      Data: 7
+    - Name: ItemSettingsID
+      Entry: 1
+      Data: Iron Ore
     - Name: IsAllowed
       Entry: 5
       Data: true
@@ -230,9 +201,9 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 14|AllowedStorageEntry, Assembly-CSharp
-    - Name: Item
-      Entry: 10
-      Data: 8
+    - Name: ItemSettingsID
+      Entry: 1
+      Data: Stone
     - Name: IsAllowed
       Entry: 5
       Data: true
@@ -242,9 +213,9 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 15|AllowedStorageEntry, Assembly-CSharp
-    - Name: Item
-      Entry: 10
-      Data: 9
+    - Name: ItemSettingsID
+      Entry: 1
+      Data: Tin Ore
     - Name: IsAllowed
       Entry: 5
       Data: true
@@ -254,57 +225,9 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 16|AllowedStorageEntry, Assembly-CSharp
-    - Name: Item
-      Entry: 10
-      Data: 10
-    - Name: IsAllowed
-      Entry: 5
-      Data: true
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 17|AllowedStorageEntry, Assembly-CSharp
-    - Name: Item
-      Entry: 10
-      Data: 11
-    - Name: IsAllowed
-      Entry: 5
-      Data: true
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 18|AllowedStorageEntry, Assembly-CSharp
-    - Name: Item
-      Entry: 10
-      Data: 12
-    - Name: IsAllowed
-      Entry: 5
-      Data: true
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 19|AllowedStorageEntry, Assembly-CSharp
-    - Name: Item
-      Entry: 10
-      Data: 13
-    - Name: IsAllowed
-      Entry: 5
-      Data: true
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 20|AllowedStorageEntry, Assembly-CSharp
-    - Name: Item
-      Entry: 10
-      Data: 14
+    - Name: ItemSettingsID
+      Entry: 1
+      Data: Wood
     - Name: IsAllowed
       Entry: 5
       Data: true
@@ -328,17 +251,17 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 7
-      Data: 21|System.Collections.Generic.List`1[[AllowedStorageEntry, Assembly-CSharp]],
+      Data: 17|System.Collections.Generic.List`1[[AllowedStorageEntry, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: 22|AllowedStorageEntry, Assembly-CSharp
-    - Name: Item
-      Entry: 10
-      Data: 15
+      Data: 18|AllowedStorageEntry, Assembly-CSharp
+    - Name: ItemSettingsID
+      Entry: 1
+      Data: Jam
     - Name: IsAllowed
       Entry: 5
       Data: true
@@ -347,10 +270,10 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 23|AllowedStorageEntry, Assembly-CSharp
-    - Name: Item
-      Entry: 10
-      Data: 16
+      Data: 19|AllowedStorageEntry, Assembly-CSharp
+    - Name: ItemSettingsID
+      Entry: 1
+      Data: Apple
     - Name: IsAllowed
       Entry: 5
       Data: true
@@ -359,10 +282,10 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 24|AllowedStorageEntry, Assembly-CSharp
-    - Name: Item
-      Entry: 10
-      Data: 17
+      Data: 20|AllowedStorageEntry, Assembly-CSharp
+    - Name: ItemSettingsID
+      Entry: 1
+      Data: Orange
     - Name: IsAllowed
       Entry: 5
       Data: true
@@ -371,10 +294,10 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 25|AllowedStorageEntry, Assembly-CSharp
-    - Name: Item
-      Entry: 10
-      Data: 18
+      Data: 21|AllowedStorageEntry, Assembly-CSharp
+    - Name: ItemSettingsID
+      Entry: 1
+      Data: Strawberry
     - Name: IsAllowed
       Entry: 5
       Data: true
@@ -398,7 +321,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: 26|System.Collections.Generic.List`1[[AllowedStorageEntry, Assembly-CSharp]],
+      Data: 22|System.Collections.Generic.List`1[[AllowedStorageEntry, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
@@ -420,7 +343,29 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 7
-      Data: 27|System.Collections.Generic.List`1[[AllowedStorageEntry, Assembly-CSharp]],
+      Data: 23|System.Collections.Generic.List`1[[AllowedStorageEntry, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: 24|System.Collections.Generic.List`1[[AllowedStorageEntry, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
@@ -442,7 +387,7 @@ MonoBehaviour:
       Data: 5
     - Name: $v
       Entry: 7
-      Data: 28|System.Collections.Generic.List`1[[AllowedStorageEntry, Assembly-CSharp]],
+      Data: 25|System.Collections.Generic.List`1[[AllowedStorageEntry, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
@@ -464,7 +409,7 @@ MonoBehaviour:
       Data: 6
     - Name: $v
       Entry: 7
-      Data: 29|System.Collections.Generic.List`1[[AllowedStorageEntry, Assembly-CSharp]],
+      Data: 26|System.Collections.Generic.List`1[[AllowedStorageEntry, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12

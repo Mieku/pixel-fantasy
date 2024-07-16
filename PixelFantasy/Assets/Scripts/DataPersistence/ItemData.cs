@@ -13,18 +13,18 @@ using UnityEngine;
 public class ItemData
 {
     public string UniqueID;
+    public string SettingsID;
     public EItemState State;
     public int Durability;
     public EItemQuality Quality;
     public bool IsAllowed;
     public Task CurrentTask;
     public string CarryingKinlingUID;
-    public IStorage AssignedStorage;
-    [JsonIgnore] public Item LinkedItem;
-    public string SettingsID;
-
+    public string AssignedStorageID;
+    
     [JsonIgnore] public virtual ItemSettings Settings => GameSettings.Instance.LoadItemSettings(SettingsID);
     [JsonIgnore] public virtual string ItemName => Settings.ItemName;
+    [JsonIgnore] public IStorage AssignedStorage => InventoryManager.Instance.GetStorageByID(AssignedStorageID);
 
     [JsonRequired] private float _posX;
     [JsonRequired] private float _posY;
@@ -54,6 +54,16 @@ public class ItemData
     public virtual void DeleteItemData()
     {
         ItemsDatabase.Instance.DeregisterItem(this);
+    }
+
+    public Item GetLinkedItem()
+    {
+        if (State == EItemState.Carried)
+        {
+            return KinlingsDatabase.Instance.GetKinlingData(CarryingKinlingUID).HeldItem;
+        }
+        
+        return ItemsDatabase.Instance.FindItemObject(UniqueID);
     }
     
     public void UnclaimItem()

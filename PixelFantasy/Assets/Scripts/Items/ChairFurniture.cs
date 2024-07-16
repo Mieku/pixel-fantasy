@@ -61,7 +61,7 @@ namespace Items
         {
             foreach (var seat in _seats)
             {
-                if (seat.claimedKinlingUID == kinling.UniqueId)
+                if (seat.claimedKinlingUID == kinling.RuntimeData.UniqueID)
                 {
                     return seat;
                 }
@@ -110,7 +110,7 @@ namespace Items
         public Seat ClaimSeat(Kinling kinling)
         {
             var seat = GetAvailableSeat();
-            seat.claimedKinlingUID = kinling.UniqueId;
+            seat.claimedKinlingUID = kinling.RuntimeData.UniqueID;
             return seat;
         }
 

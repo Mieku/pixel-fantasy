@@ -141,7 +141,7 @@ namespace Systems.Social.Scripts
         {
             var topic = _romanticTopics.GetRandomTopic();
             DisplayChatBubble(topic);
-            targetKinling.Kinling.SocialAI.ReceiveFlirt(_kinling.RuntimeData, GetFlirtResponse);
+            targetKinling.GetKinling().SocialAI.ReceiveFlirt(_kinling.RuntimeData, GetFlirtResponse);
         }
         
         public void ReceiveFlirt(KinlingData otherKinling, Action<bool, KinlingData> onResponse)
@@ -202,7 +202,7 @@ namespace Systems.Social.Scripts
         {
             var topic = _socialTopics.GetRandomTopic();
             DisplayChatBubble(topic);
-            targetKinling.Kinling.SocialAI.RecieveChat(_kinling.RuntimeData, GetChatResponse);
+            targetKinling.GetKinling().SocialAI.RecieveChat(_kinling.RuntimeData, GetChatResponse);
         }
         
         public void RecieveChat(KinlingData otherKinling, Action<bool, KinlingData> onResponse)
@@ -318,7 +318,7 @@ namespace Systems.Social.Scripts
             {
                 if (unit != _kinling.RuntimeData)
                 {
-                    if (unit.Kinling.SocialAI.AvailableToChat)
+                    if (unit.GetKinling().SocialAI.AvailableToChat)
                     {
                         results.Add(unit);
                     }

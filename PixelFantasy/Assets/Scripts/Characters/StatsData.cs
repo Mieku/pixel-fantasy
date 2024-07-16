@@ -385,6 +385,11 @@ namespace Characters
             float moddedWork = baseActionWork;
             moddedWork += GetAttributeModifierBonus(EAttributeType.GlobalWorkSpeed, baseActionWork);
 
+            if (GameSettings.Instance.FastActions)
+            {
+                moddedWork += 1000f;
+            }
+
             switch (skillType)
             {
                 case ESkillType.Mining:

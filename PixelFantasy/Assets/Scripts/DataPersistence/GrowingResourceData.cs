@@ -9,6 +9,7 @@ namespace DataPersistence
     [Serializable]
     public class GrowingResourceData : BasicResourceData
     {
+        [JsonIgnore]
         public float AgeForNextGrowth
         {
             get
@@ -22,6 +23,7 @@ namespace DataPersistence
             }
         }
 
+        [JsonIgnore]
         public bool FullyGrown => AgeSec >= GrowingResourceSettings.TotalGrowTime();
 
         // Runtime

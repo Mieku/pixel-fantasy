@@ -40,7 +40,7 @@ namespace Systems.Mood.Scripts
         [JsonRequired] private List<string> _availableBreakdownIDs = new List<string>();
         
         private KinlingData _kinlingData => KinlingsDatabase.Instance.GetKinlingData(_kinlingID);
-        private TaskAI _taskAI => _kinlingData.Kinling.TaskAI;
+        private TaskAI _taskAI => _kinlingData.GetKinling().TaskAI;
         private MoodThresholdSettings _moodThresholdSettings;
         
         [SerializeField]
@@ -334,7 +334,7 @@ namespace Systems.Mood.Scripts
 
         private void OnBreakdownBegin()
         {
-            NotificationManager.Instance.CreateKinlingLog(_kinlingData.Kinling, $"{_kinlingData.Fullname} is having a Breakdown!", LogData.ELogType.Danger);
+            NotificationManager.Instance.CreateKinlingLog(_kinlingData.GetKinling(), $"{_kinlingData.Fullname} is having a Breakdown!", LogData.ELogType.Danger);
 
             // Start a breakdown action
             _curBreakdownAction = _taskAI.ForceTask(_pendingBreakdownState.BreakdownSettings.BreakdownTaskId);
@@ -363,7 +363,7 @@ namespace Systems.Mood.Scripts
 
         private void OnBreakdownComplete()
         {
-            NotificationManager.Instance.CreateKinlingLog(_kinlingData.Kinling, $"{_kinlingData.Fullname}'s Breakdown is over!", LogData.ELogType.Notification);
+            NotificationManager.Instance.CreateKinlingLog(_kinlingData.GetKinling(), $"{_kinlingData.Fullname}'s Breakdown is over!", LogData.ELogType.Notification);
             
             // End the breakdown Action
             _curBreakdownAction.ConcludeAction();
