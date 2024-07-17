@@ -73,19 +73,8 @@ namespace Systems.Details.Generic_Details.Scripts
 
         private void OnOptionSelected(ItemSettings item)
         {
-            var craftedItem = item as CraftedItemSettings;
-            if (craftedItem != null)
-            {
-                CraftingOrder optionOrder = new CraftingOrder(craftedItem, _data.GetLinkedFurniture());
-                _data.SubmitOrder(optionOrder);
-            }
-
-            var meal = item as MealSettings;
-            if (meal != null)
-            {
-                CraftingOrder optionOrder = new CraftingOrder(meal, _data.GetLinkedFurniture());
-                _data.SubmitOrder(optionOrder);
-            }
+            CraftingOrder optionOrder = new CraftingOrder(item.name);
+            _data.SubmitOrder(optionOrder);
             
             DisplayCraftingQueue();
         }

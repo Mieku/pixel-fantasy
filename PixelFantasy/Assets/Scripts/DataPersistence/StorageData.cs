@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using DataPersistence;
 using Handlers;
 using Items;
+using Newtonsoft.Json;
 using UnityEngine;
 
     public class StorageData : FurnitureData
@@ -11,10 +12,10 @@ using UnityEngine;
         public List<ItemData> Incoming = new List<ItemData>();
         public List<ItemData> Claimed = new List<ItemData>();
         
-        private StorageConfigs _storageConfigs;
+        [JsonRequired] private StorageConfigs _storageConfigs;
         
-        public StorageSettings StorageSettings => FurnitureSettings as StorageSettings;
-        public StorageConfigs StorageConfigs => _storageConfigs;
+        [JsonIgnore] public StorageSettings StorageSettings => FurnitureSettings as StorageSettings;
+        [JsonIgnore] public StorageConfigs StorageConfigs => _storageConfigs;
         
         public override void InitData(FurnitureSettings furnitureSettings)
         {
@@ -343,14 +344,13 @@ using UnityEngine;
 
             runtimeData.AssignedStorageID = UniqueID;
             runtimeData.State = EItemState.Stored;
+            runtimeData.CarryingKinlingUID = null;
             
             Stored.Add(runtimeData);
             Incoming.Remove(runtimeData);
             
             GameEvents.Trigger_RefreshInventoryDisplay();
             OnChanged();
-            
-            //Destroy(item.gameObject);
         }
 
         public void LoadInItemData(ItemData itemData)

@@ -119,24 +119,28 @@ namespace Managers
 
         public ItemData GetFoodItemOfType(EFoodType foodType)
         {
+            var availableInventory = GetAvailableInventory();
             if (foodType == EFoodType.Meal)
             {
-                var meals = GetAvailableInventory<MealData>();
-                return meals.FirstOrDefault();
+                foreach (var item in availableInventory)
+                {
+                    if (item is MealData meal)
+                    {
+                        return meal;
+                    }
+                }
             }
             else
             {
-                var rawFoods = GetAvailableInventory<RawFoodData>();
-                foreach (var rawFood in rawFoods)
+                foreach (var item in availableInventory)
                 {
-                    if (rawFood.RawFoodSettings.FoodType == foodType)
+                    if (item is RawFoodData rawFood)
                     {
                         return rawFood;
                     }
                 }
-
-                return null;
             }
+            return null;
         }
         
         public bool HasToolType(EToolType toolType)
@@ -182,31 +186,22 @@ namespace Managers
             
             return null;
         }
-        
-        public List<T> GetAvailableInventory<T>()
+
+        public List<ItemData> GetAvailableInventory()
         {
-            List<T> results = new List<T>();
+            List<ItemData> results = new List<ItemData>();
             foreach (var storage in _allStorage)
             {
-                var storedTypeList = storage.Stored.OfType<T>().ToList();
-                var claimedTypeList = storage.Claimed.OfType<T>().ToList();
-            
-                foreach (var storedItem in storedTypeList)
-                {
-                    if (!claimedTypeList.Contains(storedItem))
-                    {
-                        results.Add(storedItem);
-                    }
-                }
+                results.AddRange(storage.Stored.Where(storedItem => !storage.Claimed.Contains(storedItem)));
             }
 
             return results;
         }
-
+    
         public Dictionary<ItemSettings, int> GetAvailableInventoryQuantities()
         {
             Dictionary<ItemSettings, int> results = new Dictionary<ItemSettings, int>();
-            var availableInventory = GetAvailableInventory<ItemData>();
+            var availableInventory = GetAvailableInventory();
             foreach (var item in availableInventory)
             {
                 if (!results.TryAdd(item.Settings, 1))
@@ -232,25 +227,32 @@ namespace Managers
 
         public bool AreFoodTypesAvailable(EFoodType foodType, int amount)
         {
+            var availableInventory = GetAvailableInventory();
             int amountAvailable = 0;
             if (foodType != EFoodType.Meal)
             {
-                var rawFoods = GetAvailableInventory<RawFoodData>();
-                foreach (var rawFood in rawFoods)
+                foreach (var item in availableInventory)
                 {
-                    if (rawFood.RawFoodSettings.FoodType == foodType)
+                    var rawFood = item as RawFoodData;
+                    if (rawFood != null && rawFood.RawFoodSettings.FoodType == foodType)
                     {
                         amountAvailable++;
                     }
                 }
-
-                return amountAvailable >= amount;
             }
             else
             {
-                var meals = GetAvailableInventory<MealData>();
-                return meals.Count >= amount;
+                foreach (var item in availableInventory)
+                {
+                    var meal = item as MealData;
+                    if (meal != null)
+                    {
+                        amountAvailable++;
+                    }
+                }
             }
+            
+            return amountAvailable >= amount;
         }
     }
 }

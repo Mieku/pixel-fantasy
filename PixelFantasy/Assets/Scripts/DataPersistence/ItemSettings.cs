@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Handlers;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Item Settings", menuName = "Settings/Item Settings")]
@@ -48,6 +49,7 @@ public class ItemSettings : ScriptableObject
     {
         ItemData data = new ItemData();
         data.InitData(this);
+        ItemsDatabase.Instance.RegisterItem(data);
         return data;
     }
 }

@@ -167,8 +167,7 @@ namespace Items
                         GrowingResourceData.GrowingResourceSettings.ExtractionSkillType, fruit.Quantity);
                     for (int i = 0; i < amount; i++)
                     {
-                        //spawner.SpawnItem(fruit.Item, transform.position, true);
-                        var data = ItemsDatabase.Instance.CreateItemData(fruit.Item);
+                        var data = fruit.Item.CreateItemData();
                         ItemsDatabase.Instance.CreateItemObject(data, transform.position, true);
                     }
                 }
@@ -226,8 +225,7 @@ namespace Items
                     GrowingResourceData.GrowingResourceSettings.ExtractionSkillType, resource.Quantity);
                 for (int i = 0; i < amount; i++)
                 {
-                    //spawner.SpawnItem(resource.Item, transform.position, true);
-                    var data = ItemsDatabase.Instance.CreateItemData(resource.Item);
+                    var data = resource.Item.CreateItemData();
                     ItemsDatabase.Instance.CreateItemObject(data, transform.position, true);
                 }
             }

@@ -33,13 +33,13 @@ namespace DataPersistence
 
             public SaveHeader Header;
             public EnvironmentData EnvironmentData;
-            public TileMapData TileMapData;
-            public List<BasicResourceData> ResourcesData;
-            public List<RampData> RampData;
             public List<KinlingData> Kinlings;
             public List<ItemData> ItemsData;
             public List<FurnitureData> FurnitureData;
             public List<ZoneData> ZonesData;
+            public List<BasicResourceData> ResourcesData;
+            public TileMapData TileMapData;
+            public List<RampData> RampData;
         }
 
         private SaveData.SaveHeader GenerateHeader()

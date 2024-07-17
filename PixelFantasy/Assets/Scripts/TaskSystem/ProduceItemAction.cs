@@ -47,7 +47,7 @@ namespace TaskSystem
             if (_state == ETaskState.GatherMats)
             {
                 _targetItem = _materials[_materialIndex].GetLinkedItem();
-                _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.AssignedStorage.AccessPosition(_ai.Kinling.transform.position, _targetItem.RuntimeData),
+                _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.RuntimeData.AssignedStorage.AccessPosition(_ai.Kinling.transform.position, _targetItem.RuntimeData),
                     OnArrivedAtStorageForPickup, OnTaskCancel);
                 _state = ETaskState.WaitingOnMats;
             }
@@ -67,11 +67,10 @@ namespace TaskSystem
                     if (_craftingTable.DoCraft(_ai.Kinling.Stats))
                     {
                         KinlingAnimController.SetUnitAction(UnitAction.Nothing);
-                        
-                        var data = ItemsDatabase.Instance.CreateItemData(_itemToCraft);
+
+                        var data = _itemToCraft.CreateItemData();
                         _targetItem = ItemsDatabase.Instance.CreateItemObject(data, _craftingTable.transform.position, false);
                         
-                        //_targetItem = Spawner.Instance.SpawnItem(_itemToCraft, _craftingTable.transform.position, false);
                         _ai.HoldItem(_targetItem);
                         
                         _state = ETaskState.DeliverItem;
@@ -99,7 +98,7 @@ namespace TaskSystem
 
         private void OnArrivedAtStorageForPickup()
         {
-            _targetItem.AssignedStorage.WithdrawItem(_targetItem.RuntimeData);
+            _targetItem.RuntimeData.AssignedStorage.WithdrawItem(_targetItem.RuntimeData);
             _ai.HoldItem(_targetItem);
             _ai.Kinling.KinlingAgent.SetMovePosition(_craftingTable.UseagePosition(_ai.Kinling.transform.position), OnArrivedAtCraftingTable, OnTaskCancel);
         }
@@ -121,15 +120,13 @@ namespace TaskSystem
             else
             {
                 _targetItem = _materials[_materialIndex].GetLinkedItem();
-                _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.AssignedStorage.AccessPosition(_ai.Kinling.transform.position, _targetItem.RuntimeData),
+                _ai.Kinling.KinlingAgent.SetMovePosition(_targetItem.RuntimeData.AssignedStorage.AccessPosition(_ai.Kinling.transform.position, _targetItem.RuntimeData),
                     OnArrivedAtStorageForPickup, OnTaskCancel);
             }
         }
 
         private void OnProductDelivered()
         {
-            //_receivingStorage.RuntimeStorageData.DepositItems(_targetItem);
-            
             _ai.DepositHeldItemInStorage(_receivingStorage);
             _targetItem = null;
             ConcludeAction();

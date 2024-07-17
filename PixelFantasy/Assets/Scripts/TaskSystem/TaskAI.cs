@@ -405,6 +405,7 @@ namespace TaskSystem
             _data.HeldItem.IsAllowed = allowHauling;
             _data.HeldItem.ItemDropped();
             var item = _data.HeldItem;
+            item.RuntimeData.CarryingKinlingUID = null;
             _data.HeldItem = null;
             return item;
         }
@@ -417,6 +418,7 @@ namespace TaskSystem
             var item = _data.HeldItem;
             _data.HeldItem = null;
             item.RuntimeData.CurrentTask = null;
+            item.RuntimeData.CarryingKinlingUID = null;
             Destroy(item.gameObject);
         }
 

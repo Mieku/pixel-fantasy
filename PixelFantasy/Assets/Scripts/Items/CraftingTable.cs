@@ -201,6 +201,7 @@ namespace Items
         {
             RuntimeTableData.CurrentOrder.ReceiveItem(item);
             Destroy(item.GetLinkedItem().gameObject);
+            item.DeleteItemData();
         }
 
         private void CompleteCraft()

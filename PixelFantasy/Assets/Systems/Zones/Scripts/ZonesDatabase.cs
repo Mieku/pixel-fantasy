@@ -115,8 +115,12 @@ namespace Systems.Zones.Scripts
                 cellObject.DeleteCell();
             }
             
-            GameEvents.Trigger_RefreshInventoryDisplay();
+            if (_curSelectedZone.AssignedLayer == zoneData.AssignedLayer)
+            {
+                _curSelectedZone = null;
+            }
             
+            GameEvents.Trigger_RefreshInventoryDisplay();
             HUDController.Instance.HideDetails();
         }
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Handlers;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Crafted Item Settings", menuName = "Settings/Crafted Item Settings")]
@@ -17,6 +18,7 @@ public class CraftedItemSettings : ItemSettings
     {
         var data = new CraftedItemData();
         data.InitData(this);
+        ItemsDatabase.Instance.RegisterItem(data);
         return data;
     }
 }

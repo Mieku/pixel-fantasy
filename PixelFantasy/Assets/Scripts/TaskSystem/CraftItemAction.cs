@@ -66,8 +66,8 @@ namespace TaskSystem
                     if (_craftingTable.DoCraft(_ai.Kinling.Stats))
                     {
                         KinlingAnimController.SetUnitAction(UnitAction.Nothing);
-                        
-                        var data = ItemsDatabase.Instance.CreateItemData(_itemToCraft);
+
+                        var data = _itemToCraft.CreateItemData(); //ItemsDatabase.Instance.CreateItemData(_itemToCraft);
                         var item = ItemsDatabase.Instance.CreateItemObject(data, _craftingTable.transform.position, false);
                         
                         //var item = Spawner.Instance.SpawnItem(_itemToCraft, _craftingTable.transform.position, false);

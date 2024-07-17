@@ -20,14 +20,7 @@ namespace Handlers
         {
             _registeredItems.Remove(data);
         }
-
-        public ItemData CreateItemData(ItemSettings settings)
-        {
-            ItemData itemData = new ItemData();
-            itemData.InitData(settings);
-            return itemData;
-        }
-
+        
         public Item FindItemObject(string uniqueID)
         {
             var allItems = transform.GetComponentsInChildren<Item>();

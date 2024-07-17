@@ -42,8 +42,6 @@ public class ItemData
 
     public virtual void InitData(ItemSettings settings)
     {
-        ItemsDatabase.Instance.RegisterItem(this);
-        
         SettingsID = settings.name;
         UniqueID = CreateUID();
         Durability = Settings.MaxDurability;

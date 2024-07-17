@@ -215,7 +215,7 @@ namespace Items
                 {
                     if (Helper.RollDice(percentReturned))
                     {
-                        var data = ItemsDatabase.Instance.CreateItemData(refundCost.Item);
+                        var data = refundCost.Item.CreateItemData();
                         ItemsDatabase.Instance.CreateItemObject(data, transform.position, true);
                     }
                 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Handlers;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Raw Food Settings", menuName = "Settings/Raw Food Settings")]
@@ -16,6 +17,7 @@ public class RawFoodSettings : ItemSettings
     {
         var data = new RawFoodData();
         data.InitData(this);
+        ItemsDatabase.Instance.RegisterItem(data);
         return data;
     }
 }

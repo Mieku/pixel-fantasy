@@ -25,7 +25,7 @@ MonoBehaviour:
     _workCost: 30
     _requiredCraftingToolType: 0
     _materialCosts:
-    - Item: {fileID: 11400000, guid: 7167b8dd21508774ebc1ceab992a07b1, type: 2}
+    - Item: {fileID: 11400000, guid: 6c1483202b7e10f4a8181d5bd61ddb79, type: 2}
       Quantity: 3
   _description: 
   _furniturePrefab: {fileID: 5935236254734965145, guid: dd1324a0af4a86b41b638230c8941527, type: 3}

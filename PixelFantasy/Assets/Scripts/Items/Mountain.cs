@@ -98,9 +98,8 @@ namespace Items
             {
                 for (int i = 0; i < minedDrop.Quantity; i++)
                 {
-                    var data = ItemsDatabase.Instance.CreateItemData(minedDrop.Item);
+                    var data = minedDrop.Item.CreateItemData();
                     ItemsDatabase.Instance.CreateItemObject(data, transform.position, true);
-                    //spawner.SpawnItem(minedDrop.Item, transform.position, true);
                 }
             }
 

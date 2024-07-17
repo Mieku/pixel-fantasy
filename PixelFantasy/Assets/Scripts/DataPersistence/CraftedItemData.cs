@@ -7,6 +7,7 @@ using ScriptableObjects;
 using TaskSystem;
 using UnityEngine;
 
+[Serializable]
 public class CraftedItemData : ItemData
 {
     public string CraftersUID;

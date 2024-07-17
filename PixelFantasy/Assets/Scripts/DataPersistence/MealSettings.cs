@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Handlers;
 using Managers;
 using TaskSystem;
 using UnityEngine;
@@ -23,6 +24,7 @@ public class MealSettings : ItemSettings
         {
             var data = new MealData();
             data.InitData(this);
+            ItemsDatabase.Instance.RegisterItem(data);
             return data;
         }
     }

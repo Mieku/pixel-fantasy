@@ -13,15 +13,8 @@ namespace Items
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private ClickObject _clickObject;
         
-        private string _assignedUnitUID;
-        private bool _isHeld;
-
         private Transform _originalParent;
-
-        public IStorage AssignedStorage;
-
-        protected ItemSettings _settings;
-
+        
         public ItemData RuntimeData;
         public Action OnChanged { get; set; }
         
@@ -42,8 +35,7 @@ namespace Items
         
         public void InitializeItem(ItemSettings settings, bool allowed)
         {
-            _settings = settings;
-            RuntimeData = _settings.CreateItemData();
+            RuntimeData = settings.CreateItemData();
             RuntimeData.Position = transform.position;
             
             DisplayItemSprite();
@@ -67,12 +59,13 @@ namespace Items
        
         public void SeekForSlot()
         {
-            if (AssignedStorage == null && !_isHeld)
+            if (RuntimeData.AssignedStorage == null && RuntimeData.State != EItemState.Carried)
             {
-                AssignedStorage = InventoryManager.Instance.GetAvailableStorage(RuntimeData.Settings);
-                if (AssignedStorage != null)
+                var storage = InventoryManager.Instance.GetAvailableStorage(RuntimeData.Settings);
+                if (storage != null)
                 {
-                    AssignedStorage.SetIncoming(RuntimeData);
+                    RuntimeData.AssignedStorageID = storage.UniqueID;
+                    storage.SetIncoming(RuntimeData);
                     CreateHaulTask();
                 }
             }
@@ -81,7 +74,7 @@ namespace Items
         private float _seekTimer;
         private void Update()
         {
-            if (AssignedStorage == null && !_isHeld)
+            if (RuntimeData != null && RuntimeData.AssignedStorage == null && RuntimeData.State != EItemState.Carried)
             {
                 _seekTimer += Time.deltaTime;
                 if (_seekTimer > 1f)
@@ -109,10 +102,10 @@ namespace Items
         {
             if (RuntimeData.CurrentTask != null)
             {
-                if (AssignedStorage != null)
+                if (RuntimeData.AssignedStorage != null)
                 {
-                    AssignedStorage.CancelIncoming(RuntimeData);
-                    AssignedStorage = null;
+                    RuntimeData.AssignedStorage.CancelIncoming(RuntimeData);
+                    RuntimeData.AssignedStorageID = null;
                 }
 
                 if (!string.IsNullOrEmpty(RuntimeData.CarryingKinlingUID))
@@ -137,22 +130,15 @@ namespace Items
         {
             SeekForSlot();
         }
-
-        private void SetHeld(bool isHeld)
-        {
-            _isHeld = isHeld;
-        }
-
+        
         public void ItemPickedUp(Kinling kinling)
         {
-            SetHeld(true);
             RuntimeData.CarryingKinlingUID = kinling.RuntimeData.UniqueID;
             RuntimeData.State = EItemState.Carried;
         }
 
         public void ItemDropped()
         {
-            SetHeld(false);
             RuntimeData.CarryingKinlingUID = null;
             RuntimeData.State = EItemState.Loose;
             

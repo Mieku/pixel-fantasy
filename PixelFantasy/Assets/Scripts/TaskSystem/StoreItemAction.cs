@@ -19,8 +19,8 @@ namespace TaskSystem
         {
             _task = task;
             // _isHoldingItem = false;
-            _item = _task.Requestor as Item;
-            _storage = _item.AssignedStorage;
+            _item = (Item) _task.Requestor;
+            _storage = _item.RuntimeData.AssignedStorage;
             
             _ai.Kinling.KinlingAgent.SetMovePosition(_item.transform.position, IsAtItem);
         }

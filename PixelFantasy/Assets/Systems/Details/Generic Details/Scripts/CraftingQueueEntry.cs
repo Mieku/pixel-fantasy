@@ -140,16 +140,7 @@ namespace Systems.Details.Generic_Details.Scripts
 
             if (_order.FulfillmentType == CraftingOrder.EFulfillmentType.Until)
             {
-                int availableAmount;
-                if (_order.OrderType == CraftingOrder.EOrderType.Meal)
-                {
-                    availableAmount = InventoryManager.Instance.GetAmountAvailable(_order.CraftedMeal);
-                }
-                else
-                {
-                    availableAmount = InventoryManager.Instance.GetAmountAvailable(_order.CraftedItem);
-                }
-                    
+                int availableAmount = InventoryManager.Instance.GetAmountAvailable(_order.ItemToCraftSettings);
                 _amountInput.SetTextWithoutNotify($"{availableAmount}/{ _order.Amount}");
             }
             else

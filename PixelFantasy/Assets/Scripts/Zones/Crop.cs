@@ -439,7 +439,7 @@ namespace Zones
             int yield = stats.DetermineAmountYielded(ESkillType.Botany, RuntimeData.Settings.AmountToHarvest);
             for (int i = 0; i < yield; i++)
             {
-                var data = ItemsDatabase.Instance.CreateItemData(RuntimeData.Settings.HarvestedItem);
+                var data = RuntimeData.Settings.HarvestedItem.CreateItemData(); //ItemsDatabase.Instance.CreateItemData(RuntimeData.Settings.HarvestedItem);
                 ItemsDatabase.Instance.CreateItemObject(data, transform.position, true);
             }
             //Spawner.Instance.SpawnItem(RuntimeData.Settings.HarvestedItem, transform.position, true, yield);

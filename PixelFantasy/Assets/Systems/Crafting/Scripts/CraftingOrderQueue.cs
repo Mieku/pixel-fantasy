@@ -105,9 +105,22 @@ namespace Systems.Crafting.Scripts
 
             foreach (var order in Orders)
             {
-                if (tableData.CanCraftItem(order.CraftedItem) || tableData.CanCookMeal(order.CraftedMeal))
+                switch (order.OrderType)
                 {
-                    results.Add(order);
+                    case CraftingOrder.EOrderType.Item:
+                        if (tableData.CanCraftItem((CraftedItemSettings)order.ItemToCraftSettings))
+                        {
+                            results.Add(order);
+                        }
+                        break;
+                    case CraftingOrder.EOrderType.Meal:
+                        if (tableData.CanCookMeal((MealSettings)order.ItemToCraftSettings))
+                        {
+                            results.Add(order);
+                        }
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
 
