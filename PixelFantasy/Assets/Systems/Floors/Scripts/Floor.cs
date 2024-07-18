@@ -2,6 +2,7 @@ using System;
 using Controllers;
 using Items;
 using Managers;
+using Systems.Buildings.Scripts;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -10,10 +11,9 @@ namespace Systems.Floors.Scripts
     public class Floor : Construction
     {
         private Tilemap _floorTilemap;
-        private FloorSettings _settings;
         
         public FloorData RuntimeFloorData => RuntimeData as FloorData;
-        public override string DisplayName => _settings.FloorName;
+        public override string DisplayName => RuntimeFloorData.FloorSettings.FloorName;
         
         protected override void Awake()
         {
@@ -24,22 +24,20 @@ namespace Systems.Floors.Scripts
         
         public void Init(FloorSettings settings, FloorStyle style)
         {
-            _settings = settings;
             RuntimeData = new FloorData();
             RuntimeFloorData.AssignFloorSettings(settings, style);
             RuntimeFloorData.Position = transform.position;
             
+            FlooringDatabase.Instance.RegisterFloor(this);
+            
             AssignFloorState(EConstructionState.Blueprint);
         }
         
-        protected void Saved()
+        public override void LoadData(ConstructionData data)
         {
-            
-        }
-
-        protected void Loaded()
-        {
-            
+            RuntimeData = data;
+            FlooringDatabase.Instance.RegisterFloor(this);
+            AssignFloorState(data.State);
         }
 
         private void AssignFloorState(EConstructionState state)
@@ -103,7 +101,7 @@ namespace Systems.Floors.Scripts
         private void SetTile()
         {
             var cell = _floorTilemap.WorldToCell(transform.position);
-            _floorTilemap.SetTile(cell, RuntimeFloorData.FloorStyle.Tiles);
+            _floorTilemap.SetTile(cell, RuntimeFloorData.FloorStyleTileBase);
         }
 
         private void ClearTile()
@@ -148,6 +146,12 @@ namespace Systems.Floors.Scripts
         {
             base.DoCopy();
             HUDController.Instance.ShowBuildStructureDetails(RuntimeFloorData.FloorSettings);
+        }
+
+        public void DeleteFloor()
+        {
+            ClearTile();
+            Destroy(gameObject);
         }
     }
 }

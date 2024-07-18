@@ -66,6 +66,11 @@ namespace Systems.Floors.Scripts
             _dirtTilemap = TilemapController.Instance.GetTilemap(TilemapLayer.Dirt);
         }
 
+        public override void LoadData(ConstructionData data)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Init()
         {
             AssignDirtState(EDirtState.Blueprint);

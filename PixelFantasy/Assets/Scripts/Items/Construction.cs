@@ -32,6 +32,8 @@ namespace Items
         {
             
         }
+
+        public abstract void LoadData(ConstructionData data);
         
         public virtual void AssignCommand(Command command, object payload = null)
         {
@@ -164,7 +166,7 @@ namespace Items
         
         public virtual void CompleteConstruction()
         {
-            RuntimeData.RemainingWork = RuntimeData.CraftRequirements.WorkCost;
+            RuntimeData.RemainingWork = RuntimeData.Settings.CraftRequirements.WorkCost;
         }
 
         public virtual void CompleteDeconstruction()
@@ -256,7 +258,7 @@ namespace Items
         public virtual void SpawnUsedResources(float percentReturned)
         {
             // Spawn All the resources used
-            var totalCosts = RuntimeData.CraftRequirements.GetMaterialCosts();
+            var totalCosts = RuntimeData.Settings.CraftRequirements.GetMaterialCosts();
             var remainingCosts = RuntimeData.RemainingMaterialCosts;
             List<ItemAmount> difference = new List<ItemAmount>();
             foreach (var totalCost in totalCosts)

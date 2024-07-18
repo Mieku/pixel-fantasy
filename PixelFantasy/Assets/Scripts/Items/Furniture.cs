@@ -51,7 +51,7 @@ namespace Items
         private bool _isOutlineLocked;
         private ClickObject _clickObject;
         private DyeSettings _dyeOverride;
-        private readonly List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle"};
+        private readonly List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle", "Clearance"};
 
         public Action OnChanged { get; set; }
 

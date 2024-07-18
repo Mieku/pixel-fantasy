@@ -34,6 +34,11 @@ namespace Systems.Buildings.Scripts
             ApplyColorToCells();
         }
 
+        public void ClearTiles()
+        {
+            ClearCellsColour();
+        }
+
         private void ApplyColorToCells()
         {
             // Assuming you have access to a method to set tile colors

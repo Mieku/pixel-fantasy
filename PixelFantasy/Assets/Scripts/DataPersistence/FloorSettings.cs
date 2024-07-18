@@ -10,12 +10,10 @@ public class FloorSettings : ConstructionSettings
     [SerializeField] private string _floorName;
     [SerializeField] private List<FloorStyle> _styleOptions;
     [SerializeField] private int _maxDurability;
-    [SerializeField] private CraftRequirements _craftRequirements;
     [SerializeField] private Sprite _materialIcon;
 
     public string FloorName => _floorName;
     public List<FloorStyle> StyleOptions => _styleOptions;
-    public CraftRequirements CraftRequirements => _craftRequirements.Clone();
     public Sprite MaterialIcon => _materialIcon;
     public int MaxDurability => _maxDurability;
         

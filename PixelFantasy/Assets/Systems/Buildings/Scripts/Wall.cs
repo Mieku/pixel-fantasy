@@ -13,10 +13,9 @@ namespace Systems.Buildings.Scripts
         [SerializeField] private GameObject _obstacle;
         
         public WallData RuntimeWallData => RuntimeData as WallData;
-
-        private WallSettings _settings;
+        
         private Tilemap _structureTilemap;
-        public override string DisplayName => _settings.WallName;
+        public override string DisplayName => RuntimeWallData.SelectedWallOption.WallName;
 
         protected override void Awake()
         {
@@ -27,24 +26,20 @@ namespace Systems.Buildings.Scripts
 
         public void Init(WallSettings wallSettings, DyeSettings colour)
         {
-            _settings = wallSettings;
             RuntimeData = new WallData();
             RuntimeWallData.AssignWallOption(wallSettings, colour);
-            RuntimeWallData.Position = transform.position;
             
             AssignWallState(EConstructionState.Blueprint);
         }
-        
-        protected void Saved()
+
+        public override void LoadData(ConstructionData data)
         {
+            RuntimeData = data;
+            AssignWallState(data.State);
             
+            StructureDatabase.Instance.RegisterStructure(this);
         }
 
-        protected void Loaded()
-        {
-            
-        }
-        
         private void AssignWallState(EConstructionState state)
         {
             RuntimeData.State = state;
@@ -131,7 +126,7 @@ namespace Systems.Buildings.Scripts
         {
             var cell = _structureTilemap.WorldToCell(transform.position);
             
-            bool isInterior = StructureManager.Instance.IsInteriorBelow(Cell.CellPos);
+            bool isInterior = StructureDatabase.Instance.IsInteriorBelow(Cell.CellPos);
             if (isInterior)
             {
                 _structureTilemap.SetTile(cell, RuntimeWallData.SelectedWallOption.InteriorRuleTile);
@@ -166,6 +161,12 @@ namespace Systems.Buildings.Scripts
         {
             base.CancelConstruction();
             ClearTile();
+        }
+
+        public override void DeletePiece()
+        {
+            ClearTile();
+            Destroy(gameObject);
         }
 
         private void CreateConstructionHaulingTasks()

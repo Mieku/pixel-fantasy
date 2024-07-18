@@ -1,17 +1,24 @@
 
+using Newtonsoft.Json;
 using ScriptableObjects;
 
 public class DoorData : ConstructionData
 {
-    public DoorSettings DoorSettings;
-    public DyeSettings MatColour;
+    public string MatColourID;
+    public bool IsVertical;
+    
+    [JsonIgnore] public DoorSettings DoorSettings => (DoorSettings) GameSettings.Instance.LoadConstructionSettings(SettingsID);
+    [JsonIgnore] public DyeSettings MatColour => GameSettings.Instance.LoadDyeSettings(MatColourID);
         
     public void AssignDoorSettings(DoorSettings settings, DyeSettings matColour)
     {
-        DoorSettings = settings;
-        CraftRequirements = settings.CraftRequirements;
+        SettingsID = settings.name;
         MaxDurability = settings.MaxDurability;
-        MatColour = matColour;
+
+        if (matColour != null)
+        {
+            MatColourID = matColour.name;
+        }
             
         InitData();
     }

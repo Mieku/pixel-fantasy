@@ -21,7 +21,7 @@ namespace Systems.Details.Build_Details.Scripts
         private Vector2 _startPos;
         private List<Vector2> _plannedGrid = new List<Vector2>();
         private List<TilePlan> _plannedTiles = new List<TilePlan>();
-        private List<string> _invalidPlacementTags => new List<string>() { "Water", "Wall", "Structure", "Obstacle" };
+        private List<string> _invalidPlacementTags => new List<string>() { "Water", "Wall", "Structure", "Obstacle", "Clearance" };
         
         private void Awake()
         {
@@ -166,6 +166,13 @@ namespace Systems.Details.Build_Details.Scripts
                 wall.transform.SetParent(ParentsManager.Instance.StructuresParent);
                 wall.Init(_wallSettings, _colour);
             }
+        }
+
+        public void SpawnLoadedWall(WallData wallData)
+        {
+            var wall = Instantiate(_wallPrefab, wallData.Position, Quaternion.identity);
+            wall.transform.SetParent(ParentsManager.Instance.StructuresParent);
+            wall.LoadData(wallData);
         }
     
         private void ClearTilePlan()

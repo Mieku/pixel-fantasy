@@ -7,6 +7,7 @@ using Handlers;
 using Items;
 using Managers;
 using Newtonsoft.Json;
+using Systems.Buildings.Scripts;
 using Systems.Game_Setup.Scripts;
 using Systems.Zones.Scripts;
 using UnityEngine;
@@ -38,6 +39,8 @@ namespace DataPersistence
             public List<ItemData> ItemsData;
             public List<FurnitureData> FurnitureData;
             public List<ZoneData> ZonesData;
+            public List<ConstructionData> StructuresData;
+            public List<FloorData> FloorsData;
             public List<BasicResourceData> ResourcesData;
             public TileMapData TileMapData;
             public List<RampData> RampData;
@@ -73,6 +76,8 @@ namespace DataPersistence
                 ItemsData = ItemsDatabase.Instance.GetItemsData(),
                 FurnitureData = FurnitureDatabase.Instance.GetFurnitureData(),
                 ZonesData = ZonesDatabase.Instance.GetZonesData(),
+                StructuresData = StructureDatabase.Instance.GetStructureData(),
+                FloorsData = FlooringDatabase.Instance.GetFloorData(),
             };
 
             var settings = new JsonSerializerSettings
@@ -157,6 +162,8 @@ namespace DataPersistence
                 _rampsHandler.LoadRampsData(saveData.RampData);
                 KinlingsDatabase.Instance.LoadKinlingsData(saveData.Kinlings);
                 ZonesDatabase.Instance.LoadZonesData(saveData.ZonesData);
+                StructureDatabase.Instance.LoadStructureData(saveData.StructuresData);
+                FlooringDatabase.Instance.LoadFloorData(saveData.FloorsData);
                 FurnitureDatabase.Instance.LoadFurnitureData(saveData.FurnitureData);
                 ItemsDatabase.Instance.LoadItemsData(saveData.ItemsData);
             }
@@ -174,6 +181,8 @@ namespace DataPersistence
             ZonesDatabase.Instance.ClearAllZones();
             ItemsDatabase.Instance.ClearAllItems();
             FurnitureDatabase.Instance.ClearAllFurniture();
+            StructureDatabase.Instance.ClearAllStructures();
+            FlooringDatabase.Instance.ClearAllFloors();
         }
     }
 }

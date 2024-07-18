@@ -64,7 +64,7 @@ namespace Systems.Game_Setup.Scripts
 
             // Initialize the StructureManager with the WorldBuilder's WorldSize
             Vector2Int worldSize = new Vector2Int(36, 36);
-            StructureManager.Instance.Init(worldSize);
+            StructureDatabase.Instance.Init(worldSize);
         }
         
         public IEnumerator SetUpNewGameCoroutine(List<KinlingData> starterKinling, List<TileWorldCreatorAsset.BlueprintLayerData> blueprintLayers)

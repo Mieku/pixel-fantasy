@@ -172,6 +172,14 @@ namespace Systems.Details.Build_Details.Scripts
                 floor.Init(_floorSettings, _floorStyle);
             }
         }
+
+        public Floor SpawnLoadedFloor(FloorData data)
+        {
+            var floor = Instantiate(_floorPrefab, data.Position, Quaternion.identity);
+            floor.transform.SetParent(ParentsManager.Instance.FlooringParent);
+            floor.LoadData(data);
+            return floor;
+        }
     
         private void ClearTilePlan()
         {

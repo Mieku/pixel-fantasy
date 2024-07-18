@@ -12,7 +12,6 @@ namespace Systems.Buildings.Scripts
     public class Door : StructurePiece
     {
         private Tilemap _wallTilemap;
-        private DoorSettings _settings;
         
         public Action OnDoorPlaced;
 
@@ -26,7 +25,7 @@ namespace Systems.Buildings.Scripts
         private bool _isBeingPlaced => RuntimeDoorData.State == EConstructionState.Planning;
         
         public DoorData RuntimeDoorData => RuntimeData as DoorData;
-        public override string DisplayName => _settings.DoorName;
+        public override string DisplayName => RuntimeDoorData.DoorSettings.DoorName;
         
         protected override void Awake()
         {
@@ -37,36 +36,21 @@ namespace Systems.Buildings.Scripts
 
         public void Init(DoorSettings doorSettings, DyeSettings matColour)
         {
-            _settings = doorSettings;
             RuntimeData = new DoorData();
             RuntimeDoorData.AssignDoorSettings(doorSettings, matColour);
-            RuntimeDoorData.Position = transform.position;
             
             SetState(EConstructionState.Planning);
             SetOrientationVertical(false);
         }
         
-        protected void Saved()
+        public override void LoadData(ConstructionData data)
         {
-            
+            RuntimeData = data;
+            SetState(data.State);
+            SetOrientationVertical(RuntimeDoorData.IsVertical);
+            StructureDatabase.Instance.RegisterStructure(this);
         }
-
-        protected void Loaded()
-        {
-            
-        }
-        
-        
-        
-        
-
-        // public enum EDoorState
-        // {
-        //     BeingPlaced,
-        //     Construction,
-        //     Built,
-        // }
-        
+  
         public void SetState(EConstructionState state)
         {
             RuntimeDoorData.State = state;
@@ -95,7 +79,7 @@ namespace Systems.Buildings.Scripts
         {
             ColourSprite(Librarian.Instance.GetColour("Blueprint"));
 
-            var wall = StructureManager.Instance.GetStructureAtCell(Cell.CellPos);
+            var wall = StructureDatabase.Instance.GetStructureAtCell(Cell.CellPos);
             if (wall != null)
             {
                 // Check if there's a wall under the door, if so cancel or deconstruct it first
@@ -211,10 +195,10 @@ namespace Systems.Buildings.Scripts
         
         public bool CheckPlacement()
         {
-            bool hasLeftWall = StructureManager.Instance.GetStructureCell(Cell.CellPos + Vector2Int.left) == EStructureCell.Wall;
-            bool hasRightWall = StructureManager.Instance.GetStructureCell(Cell.CellPos + Vector2Int.right) == EStructureCell.Wall;
-            bool hasDownWall = StructureManager.Instance.GetStructureCell(Cell.CellPos + Vector2Int.down) == EStructureCell.Wall;
-            bool hasUpWall = StructureManager.Instance.GetStructureCell(Cell.CellPos + Vector2Int.up) == EStructureCell.Wall;
+            bool hasLeftWall = StructureDatabase.Instance.GetStructureCell(Cell.CellPos + Vector2Int.left) == EStructureCell.Wall;
+            bool hasRightWall = StructureDatabase.Instance.GetStructureCell(Cell.CellPos + Vector2Int.right) == EStructureCell.Wall;
+            bool hasDownWall = StructureDatabase.Instance.GetStructureCell(Cell.CellPos + Vector2Int.down) == EStructureCell.Wall;
+            bool hasUpWall = StructureDatabase.Instance.GetStructureCell(Cell.CellPos + Vector2Int.up) == EStructureCell.Wall;
 
             if (hasLeftWall && hasRightWall && !hasUpWall && !hasDownWall)
             {
@@ -233,6 +217,8 @@ namespace Systems.Buildings.Scripts
 
         private void SetOrientationVertical(bool isVertical)
         {
+            RuntimeDoorData.IsVertical = isVertical;
+            
             if (isVertical)
             {
                 _doorSprite.sprite = RuntimeDoorData.DoorSettings.VerticalDoorframe;;
@@ -266,6 +252,11 @@ namespace Systems.Buildings.Scripts
         {
             base.DoCopy();
             HUDController.Instance.ShowBuildStructureDetails(RuntimeDoorData.DoorSettings);
+        }
+        
+        public override void DeletePiece()
+        {
+            Destroy(gameObject);
         }
     }
 }

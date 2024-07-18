@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Systems.Buildings.Scripts
 {
-    public class StructureManager : Singleton<StructureManager>
+    public class StructureDatabase : Singleton<StructureDatabase>
     {
         public WallBuilder WallBuilder;
         
@@ -22,16 +22,62 @@ namespace Systems.Buildings.Scripts
             _grid = new EStructureCell[size.x * 2, size.y * 2];
         }
 
-        public void RegisterStructurePiece(StructurePiece structurePiece)
+        public void RegisterStructure(StructurePiece structurePiece)
         {
             UpdateGrid(structurePiece.Cell.CellPos, structurePiece.Cell.CellType);
             _registeredPieces.Add(structurePiece);
         }
 
-        public void DeregisterStructurePiece(StructurePiece structurePiece)
+        public void DeregisterStructure(StructurePiece structurePiece)
         {
             UpdateGrid(structurePiece.Cell.CellPos, EStructureCell.None);
             _registeredPieces.Remove(structurePiece);
+        }
+
+        public List<ConstructionData> GetStructureData()
+        {
+            List<ConstructionData> results = new List<ConstructionData>();
+            foreach (var structurePiece in _registeredPieces)
+            {
+                results.Add(structurePiece.RuntimeData);
+            }
+
+            return results;
+        }
+
+        public void LoadStructureData(List<ConstructionData> loadedData)
+        {
+            foreach (var data in loadedData)
+            {
+                if (data is WallData wallData)
+                {
+                    WallBuilder.SpawnLoadedWall(wallData);
+                } 
+                else if (data is DoorData doorData)
+                {
+                    var doorSettings = doorData.DoorSettings;
+                    var door = Instantiate(doorSettings.DoorPrefab, doorData.Position, Quaternion.identity, transform);
+                    door.LoadData(doorData);
+                }
+            }
+        }
+
+        public void ClearAllStructures()
+        {
+            var pieces = _registeredPieces.ToList();
+            foreach (var structurePiece in pieces)
+            {
+                structurePiece.DeletePiece();
+            }
+            _registeredPieces.Clear();
+
+            var rooms = _rooms.ToList();
+            foreach (var room in rooms)
+            {
+                room.ClearTiles();
+            }
+            _rooms.Clear();
+            roomCache.Clear();
         }
 
         public bool IsInteriorBelow(Vector2Int startCell)

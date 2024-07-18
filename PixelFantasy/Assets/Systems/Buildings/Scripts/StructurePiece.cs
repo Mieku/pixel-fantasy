@@ -15,12 +15,13 @@ namespace Systems.Buildings.Scripts
 
         protected void OnPlaced()
         {
-            StructureManager.Instance.RegisterStructurePiece(this);
+            RuntimeData.Position = transform.position;
+            StructureDatabase.Instance.RegisterStructure(this);
         }
 
         protected void OnDeconstructed()
         {
-            StructureManager.Instance.DeregisterStructurePiece(this);
+            StructureDatabase.Instance.DeregisterStructure(this);
         }
 
         public abstract void RefreshTile();
@@ -35,5 +36,7 @@ namespace Systems.Buildings.Scripts
             OnDeconstructed();
             base.CancelConstruction();
         }
+
+        public abstract void DeletePiece();
     }
 }

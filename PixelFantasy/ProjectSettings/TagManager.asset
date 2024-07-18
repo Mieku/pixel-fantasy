@@ -25,6 +25,7 @@ TagManager:
   - Furniture
   - Roof
   - Building
+  - Clearance
   layers:
   - Default
   - TransparentFX

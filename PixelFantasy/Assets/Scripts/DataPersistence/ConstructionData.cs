@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using ScriptableObjects;
+using Systems.Buildings.Scripts;
 using UnityEngine;
 
 [Serializable]
@@ -13,21 +16,36 @@ using UnityEngine;
     [Serializable]
     public class ConstructionData
     {
+        public string SettingsID;
         public float Durability;
-        public Vector2 Position;
         public EConstructionState State;
         public float RemainingWork;
         public List<ItemAmount> RemainingMaterialCosts;
         public List<ItemAmount> PendingResourceCosts = new List<ItemAmount>(); // Claimed by a task but not used yet
         public List<ItemAmount> IncomingResourceCosts = new List<ItemAmount>(); // The item is on its way
         public List<ItemData> IncomingItems = new List<ItemData>();
-        public CraftRequirements CraftRequirements;
         public float MaxDurability;
+
+        [JsonIgnore] public ConstructionSettings Settings => GameSettings.Instance.LoadConstructionSettings(SettingsID);
+        
+        [JsonRequired] private float _posX;
+        [JsonRequired] private float _posY;
+    
+        [JsonIgnore]
+        public Vector2 Position
+        {
+            get => new(_posX, _posY);
+            set
+            {
+                _posX = value.x;
+                _posY = value.y;
+            }
+        }
         
         public void InitData()
         {
-            RemainingMaterialCosts = CraftRequirements.GetMaterialCosts();
-            RemainingWork = CraftRequirements.WorkCost;
+            RemainingMaterialCosts = Settings.CraftRequirements.GetMaterialCosts();
+            RemainingWork = Settings.CraftRequirements.WorkCost;
             Durability = MaxDurability;
         }
         
@@ -132,6 +150,7 @@ using UnityEngine;
         /// <summary>
         /// The percentage of durability remaining ex: 0.5 = 50%
         /// </summary>
+        [JsonIgnore]
         public float DurabilityPercent
         {
             get
@@ -141,13 +160,14 @@ using UnityEngine;
             }
         }
 
+        [JsonIgnore]
         public float ConstructionPercent
         {
             get
             {
                 if (State != EConstructionState.Built)
                 {
-                    return 1 - (RemainingWork / CraftRequirements.WorkCost);
+                    return 1 - (RemainingWork / Settings.CraftRequirements.WorkCost);
                 }
                 else
                 {

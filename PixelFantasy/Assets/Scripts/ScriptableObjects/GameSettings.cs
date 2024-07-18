@@ -7,6 +7,7 @@ using Systems.Mood.Scripts;
 using Systems.Needs.Scripts;
 using Systems.Stats.Scripts;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace ScriptableObjects
 {
@@ -123,6 +124,46 @@ namespace ScriptableObjects
 
             var result = _zoneSettingsCache.Find(settings => settings.name == settingsID);
             return result;
+        }
+        
+        private List<ConstructionSettings> _constructionSettingsCache = null;
+        private List<ConstructionSettings> LoadAllConstructionSettings()
+        {
+            return Resources.LoadAll<ConstructionSettings>("Settings/Structure").Where(s => s != null).ToList();
+        }
+
+        public ConstructionSettings LoadConstructionSettings(string settingsID)
+        {
+            if (_constructionSettingsCache == null || _constructionSettingsCache.Count == 0)
+            {
+                _constructionSettingsCache = LoadAllConstructionSettings();
+            }
+
+            var result = _constructionSettingsCache.Find(settings => settings.name == settingsID);
+            return result;
+        }
+        
+        private List<DyeSettings> _dyeSettingsCache = null;
+        private List<DyeSettings> LoadAllDyeSettings()
+        {
+            return Resources.LoadAll<DyeSettings>("Settings/Dye").Where(s => s != null).ToList();
+        }
+
+        public DyeSettings LoadDyeSettings(string settingsID)
+        {
+            if (_dyeSettingsCache == null || _dyeSettingsCache.Count == 0)
+            {
+                _dyeSettingsCache = LoadAllDyeSettings();
+            }
+
+            var result = _dyeSettingsCache.Find(settings => settings.name == settingsID);
+            return result;
+        }
+
+        public TileBase LoadTileBase(string tilebaseName)
+        {
+            TileBase tileBase = Resources.Load<TileBase>($"Tiles/{tilebaseName}");
+            return tileBase;
         }
     }
 }

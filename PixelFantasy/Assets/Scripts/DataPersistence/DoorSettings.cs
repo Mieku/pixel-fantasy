@@ -8,7 +8,6 @@ public class DoorSettings : ConstructionSettings
 {
     [SerializeField] private string _doorName;
     [SerializeField] private Door _doorPrefab;
-    [SerializeField] private CraftRequirements _craftRequirements;
     [SerializeField] private Sprite _optionIcon;
     [SerializeField] private int _maxDurability;
     [SerializeField] private Sprite _horizontalDoorframe;
@@ -18,7 +17,6 @@ public class DoorSettings : ConstructionSettings
 
     public string DoorName => _doorName;
     public Door DoorPrefab => _doorPrefab;
-    public CraftRequirements CraftRequirements => _craftRequirements.Clone();
     public Sprite OptionIcon => _optionIcon;
     public int MaxDurability => _maxDurability;
     public Sprite HorizontalDoorframe => _horizontalDoorframe;

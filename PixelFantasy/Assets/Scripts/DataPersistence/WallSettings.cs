@@ -6,14 +6,12 @@ using UnityEngine;
 public class WallSettings : ConstructionSettings
 {
     [SerializeField] private string _wallName;
-    [SerializeField] private CraftRequirements _craftRequirements;
 
     public string WallName => _wallName;
     public Sprite OptionIcon;
     public int MaxDurability;
     public RuleTile ExteriorRuleTile;
     public RuleTile InteriorRuleTile;
-    public CraftRequirements CraftRequirements => _craftRequirements.Clone();
         
     public List<string> GetStatsList()
     {

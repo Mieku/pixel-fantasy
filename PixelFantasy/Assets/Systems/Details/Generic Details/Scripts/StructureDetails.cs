@@ -41,7 +41,7 @@ namespace Systems.Details.Generic_Details.Scripts
                 _constructionProgressHandle.SetActive(true);
                 _remainingResourcesHandle.SetActive(true);
                 
-                var totalCosts = _structure.RuntimeData.CraftRequirements.GetMaterialCosts();
+                var totalCosts = _structure.RuntimeData.Settings.CraftRequirements.GetMaterialCosts();
                 foreach (var remaining in totalCosts)
                 {
                     var remainingAmount = _structure.RuntimeData.RemainingMaterialCosts
