@@ -64,8 +64,8 @@ namespace TaskSystem
                 _isMoving = false;
                 _isHoldingItem = true;
                 
-                _targetItem.AssignedStorage.WithdrawItem(_targetItem);
-                _ai.HoldItem(_targetItem.GetLinkedItem());
+                var item = _targetItem.AssignedStorage.WithdrawItem(_targetItem);
+                _ai.HoldItem(item);
                 return;
             }
             

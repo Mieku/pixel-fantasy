@@ -10,6 +10,10 @@ namespace Items
     {
         public string UniqueID => RuntimeData.UniqueID;
         public StorageData RuntimeStorageData => RuntimeData as StorageData;
+        public List<ItemData> Stored => RuntimeStorageData.Stored;
+        public List<ItemData> Incoming => RuntimeStorageData.Incoming;
+        public List<ItemData> Claimed => RuntimeStorageData.Claimed;
+        public StorageConfigs StorageConfigs => RuntimeStorageData.StorageConfigs;
 
         protected override void Built_Enter()
         {
@@ -32,11 +36,11 @@ namespace Items
             SetState(RuntimeData.FurnitureState);
             AssignDirection(direction);
         }
-        
-        public List<ItemData> Stored => RuntimeStorageData.Stored;
-        public List<ItemData> Incoming => RuntimeStorageData.Incoming;
-        public List<ItemData> Claimed => RuntimeStorageData.Claimed;
-        public StorageConfigs StorageConfigs => RuntimeStorageData.StorageConfigs;
+
+        public override void LoadData(FurnitureData data)
+        {
+            base.LoadData(data);
+        }
 
         public void SetIncoming(ItemData itemData)
         {

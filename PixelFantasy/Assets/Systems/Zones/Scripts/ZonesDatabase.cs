@@ -115,7 +115,7 @@ namespace Systems.Zones.Scripts
                 cellObject.DeleteCell();
             }
             
-            if (_curSelectedZone.AssignedLayer == zoneData.AssignedLayer)
+            if (_curSelectedZone != null && _curSelectedZone.AssignedLayer == zoneData.AssignedLayer)
             {
                 _curSelectedZone = null;
             }

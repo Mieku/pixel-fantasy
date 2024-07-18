@@ -13,7 +13,10 @@ namespace Managers
     {
         private List<KinlingData> _registeredKinlingsData = new List<KinlingData>();
 
-        public List<KinlingData> GetKinlingsData() => _registeredKinlingsData;
+        public List<KinlingData> GetKinlingsData()
+        {
+            return _registeredKinlingsData;
+        } 
 
         public void LoadKinlingsData(List<KinlingData> data)
         {

@@ -18,9 +18,10 @@ public class ItemData
     public int Durability;
     public EItemQuality Quality;
     public bool IsAllowed;
-    public Task CurrentTask;
     public string CarryingKinlingUID;
     public string AssignedStorageID;
+
+    [JsonIgnore] public Task CurrentTask;
     
     [JsonIgnore] public virtual ItemSettings Settings => GameSettings.Instance.LoadItemSettings(SettingsID);
     [JsonIgnore] public virtual string ItemName => Settings.ItemName;

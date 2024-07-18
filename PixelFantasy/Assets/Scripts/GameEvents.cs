@@ -66,30 +66,6 @@ public class GameEvents : MonoBehaviour
         if (RefreshSelection != null) RefreshSelection();
     }
 
-    public static event Action OnLoadingGameBeginning;
-    public static void Trigger_OnLoadingGameBeginning()
-    {
-        if (OnLoadingGameBeginning != null) OnLoadingGameBeginning();
-    }
-    
-    public static event Action OnLoadingGameEnd;
-    public static void Trigger_OnLoadingGameEnd()
-    {
-        if (OnLoadingGameEnd != null) OnLoadingGameEnd();
-    }
-    
-    public static event Action OnSavingGameBeginning;
-    public static void Trigger_OnSavingGameBeginning()
-    {
-        if (OnSavingGameBeginning != null) OnSavingGameBeginning();
-    }
-    
-    public static event Action OnSavingGameEnd;
-    public static void Trigger_OnSavingGameEnd()
-    {
-        if (OnSavingGameEnd != null) OnSavingGameEnd();
-    }
-
     public static event Action<float> OnGameSpeedChanged;
     public static void Trigger_OnGameSpeedChanged(float speedMod)
     {
@@ -184,5 +160,11 @@ public class GameEvents : MonoBehaviour
     public static void Trigger_OnConfigClipboardChanged()
     {
         if (OnConfigClipboardChanged != null) OnConfigClipboardChanged();
+    }
+
+    public static event Action OnGameLoadStart;
+    public static void Trigger_OnGameLoadStart()
+    {
+        if (OnGameLoadStart != null) OnGameLoadStart();
     }
 }

@@ -29,6 +29,7 @@ namespace DataPersistence
                 public string SaveName;
                 public string SettlementName;
                 public string ScreenshotPath;
+                public DateTime SaveDate;
             }
 
             public SaveHeader Header;
@@ -52,6 +53,7 @@ namespace DataPersistence
                 SaveName = "Tester Save",
                 SettlementName = GameManager.Instance.PlayerData.SettlementName,
                 ScreenshotPath = screenshotPath,
+                SaveDate = DateTime.Now,
             };
         }
         
@@ -78,13 +80,31 @@ namespace DataPersistence
                 TypeNameHandling = TypeNameHandling.Auto,
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 Formatting = Formatting.Indented,
+                Error = HandleSerializationError
             };
 
-            string json = JsonConvert.SerializeObject(saveData, settings);
-            System.IO.File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
-    
-            stopwatch.Stop();
-            Debug.Log($"Save Complete in {stopwatch.ElapsedMilliseconds} ms");
+            try
+            {
+                string json = JsonConvert.SerializeObject(saveData, settings);
+                System.IO.File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+                Debug.Log("Save Complete in " + stopwatch.ElapsedMilliseconds + " ms");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("Error saving game: " + ex.Message);
+                Debug.LogError("StackTrace: " + ex.StackTrace);
+            }
+            finally
+            {
+                stopwatch.Stop();
+            }
+        }
+        
+        private void HandleSerializationError(object sender, Newtonsoft.Json.Serialization.ErrorEventArgs e)
+        {
+            var currentError = e.ErrorContext.Error.Message;
+            Debug.LogError($"Serialization Error: {currentError} with {e.CurrentObject} path {e.ErrorContext.Path}");
+            e.ErrorContext.Handled = true;
         }
 
         private string TakeScreenshot()
@@ -113,6 +133,8 @@ namespace DataPersistence
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
+            
+            GameEvents.Trigger_OnGameLoadStart();
             
             string path = Application.persistentDataPath + "/savefile.json";
             if (System.IO.File.Exists(path))

@@ -40,13 +40,14 @@ namespace Characters
         public TaskAI.TaskAIState TaskAIState;
         public float WaitingTimer;
         public float IdleTimer;
-        [JsonIgnore] public TaskAction CurrentTaskAction; // TODO: For now
-        public Item HeldItem;
         public StatsData Stats;
         public NeedsData Needs;
         public MoodData Mood;
         public List<RelationshipData> Relationships = new List<RelationshipData>();
         public AvatarData Avatar;
+        
+        [JsonIgnore] public TaskAction CurrentTaskAction; // TODO: For now
+        [JsonIgnore] public Item HeldItem;
         
         [JsonRequired] private float _posX;
         [JsonRequired] private float _posY;

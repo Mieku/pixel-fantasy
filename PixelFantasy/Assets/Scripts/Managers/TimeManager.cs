@@ -17,12 +17,12 @@ namespace Managers
         {
             base.Awake();
 
-            GameEvents.OnLoadingGameEnd += OnDoneLoading;
+            GameEvents.OnGameLoadStart += OnDoneLoading;
         }
 
         private void OnDestroy()
         {
-            GameEvents.OnLoadingGameEnd -= OnDoneLoading;
+            GameEvents.OnGameLoadStart -= OnDoneLoading;
         }
 
         private void Start()

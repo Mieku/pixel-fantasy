@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Items;
@@ -8,7 +9,23 @@ namespace Managers
     public class InventoryManager : Singleton<InventoryManager>
     {
         private List<IStorage> _allStorage = new List<IStorage>();
-        
+
+        protected override void Awake()
+        {
+            base.Awake();
+            GameEvents.OnGameLoadStart += GameEvent_OnLoadStart;
+        }
+
+        private void OnDestroy()
+        {
+            GameEvents.OnGameLoadStart -= GameEvent_OnLoadStart;
+        }
+
+        private void GameEvent_OnLoadStart()
+        {
+            _allStorage.Clear();
+        }
+
         public void AddStorage(IStorage storage)
         {
             if (_allStorage.Contains(storage))
