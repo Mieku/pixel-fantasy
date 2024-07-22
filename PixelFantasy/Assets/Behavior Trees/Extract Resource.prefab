@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4115202575136898352
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6099665103818426970}
+  - component: {fileID: 5852978100177986032}
+  - component: {fileID: 399950337769935951}
+  - component: {fileID: 3750142034684312599}
+  m_Layer: 6
+  m_Name: Extract Resource
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6099665103818426970
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4115202575136898352}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5852978100177986032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4115202575136898352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc9efd40c7c7f0141b607551b82936a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TaskID: Extract Resource
+  BTOwner: {fileID: 399950337769935951}
+--- !u!114 &399950337769935951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4115202575136898352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aad115aca74ce3c4891b3f6de0b4aae8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _serializedExposedParameters: []
+  _boundGraphSerialization: '{"type":"NodeCanvas.BehaviourTrees.BehaviourTree","nodes":[{"_position":{"x":562.4797,"y":264.0118},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"0"},{"_position":{"x":140.7646,"y":440.48},"$type":"NodeCanvas.BehaviourTrees.Sequencer","$id":"1"},{"_condition":{"KinlingUID":{"_name":"KinlingUID","_targetVariableID":"4968c121-fa5f-4b7a-a6c7-c7e780f3089b"},"Requester":{"_name":"Requester","_targetVariableID":"a7c3d404-c996-4f35-9e48-71883e85a5ea"},"$type":"AI.Action_Tasks.IsPathToRequesterPossible"},"_position":{"x":-28.55064,"y":557.2894},"$type":"NodeCanvas.BehaviourTrees.ConditionNode","$id":"2"},{"_action":{"Requester":{"_name":"Requester","_targetVariableID":"a7c3d404-c996-4f35-9e48-71883e85a5ea"},"KinlingUID":{"_name":"KinlingUID","_targetVariableID":"4968c121-fa5f-4b7a-a6c7-c7e780f3089b"},"$type":"AI.Action_Tasks.GoToRequester"},"_position":{"x":340.5519,"y":490.056},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"3"},{"_action":{"Requester":{"_name":"Requester","_targetVariableID":"a7c3d404-c996-4f35-9e48-71883e85a5ea"},"KinlingUID":{"_name":"KinlingUID","_targetVariableID":"4968c121-fa5f-4b7a-a6c7-c7e780f3089b"},"$type":"AI.Action_Tasks.ExtractResourceAction"},"_position":{"x":489.0787,"y":488.7791},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"4"}],"connections":[{"_sourceNode":{"$ref":"0"},"_targetNode":{"$ref":"1"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"0"},"_targetNode":{"$ref":"3"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"0"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"},{"_sourceNode":{"$ref":"1"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"canvasGroups":[{"name":"Prechecks","rect":{"xMin":-59.77045,"yMin":375.48,"xMax":250.7646,"yMax":646.2894},"autoGroup":true}],"localBlackboard":{"_variables":{}},"derivedData":{"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _boundGraphObjectReferences: []
+  _boundGraphSource:
+    _version: 3.3
+    _category: 
+    _comments: 
+    _translation: {x: 60, y: 11}
+    _zoomFactor: 1
+  _firstActivation: 2
+  _enableAction: 1
+  _disableAction: 0
+  _lockBoundGraphPrefabOverrides: 1
+  _preInitializeSubGraphs: 0
+  _updateMode: 0
+  _graph: {fileID: 0}
+  _blackboard: {fileID: 3750142034684312599}
+--- !u!114 &3750142034684312599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4115202575136898352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b98a6db0b653f764eac834f85857a9dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _parentBlackboard: {fileID: 0}
+  _serializedBlackboard: '{"_variables":{"Requester":{"_name":"Requester","_id":"a7c3d404-c996-4f35-9e48-71883e85a5ea","$type":"NodeCanvas.Framework.Variable`1[[PlayerInteractable,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"KinlingUID":{"_name":"KinlingUID","_id":"4968c121-fa5f-4b7a-a6c7-c7e780f3089b","$type":"NodeCanvas.Framework.Variable`1[[System.String,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}}'
+  _objectReferences: []
+  _serializedVariables:
+  - _json: '{"_name":"Requester","_id":"a7c3d404-c996-4f35-9e48-71883e85a5ea","$type":"NodeCanvas.Framework.Variable`1[[PlayerInteractable,
+      Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}'
+    _references: []
+  - _json: '{"_name":"KinlingUID","_id":"4968c121-fa5f-4b7a-a6c7-c7e780f3089b","$type":"NodeCanvas.Framework.Variable`1[[System.String,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
+    _references: []

@@ -10,7 +10,6 @@ namespace TaskSystem
     {
         public string TaskId;
         public ETaskType TaskType;
-        //public Kinling KinlingAssignedToTask;
         public PlayerInteractable Requestor => _requestor;
         public object Payload;
         public List<ItemData> Materials;
@@ -35,7 +34,7 @@ namespace TaskSystem
 
             if (requestor != null)
             {
-                requestor.AddTaskToRequested(this);
+                //requestor.AddTaskToRequested(this);
             }
         }
 

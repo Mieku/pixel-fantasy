@@ -27,6 +27,7 @@ namespace Items
             RuntimeData = new GrowingResourceData();
             RuntimeData.InitData(settings);
             RuntimeData.Position = transform.position;
+            ResourcesDatabase.Instance.RegisterResource(this);
             UpdateSprite();
 
             GrowthCheck();
@@ -37,6 +38,7 @@ namespace Items
         {
             RuntimeData = data;
             _settings = data.Settings;
+            ResourcesDatabase.Instance.RegisterResource(this);
             UpdateSprite();
 
             GrowthCheck();

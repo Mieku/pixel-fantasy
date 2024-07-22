@@ -20,8 +20,8 @@ public class ResourceSettings : ScriptableObject
         
     // Type of skill to extract
     [SerializeField] protected ESkillType _extractionSkillType;
-        
-    //[DataObjectDropdown(true), SerializeField] private ResourceData _baseData;
+    [SerializeField] protected int _extractionMinSkillLevel;
+
         
     // Accessors
     public int WorkToExtract => _workToExtract;
@@ -31,14 +31,8 @@ public class ResourceSettings : ScriptableObject
     public float MaxHealth => _maxHealth;
     public List<Sprite> PotentialSprites => _potentialSprites;
     public ESkillType ExtractionSkillType => _extractionSkillType;
+    public int ExtractionMinSkillLevel => _extractionMinSkillLevel;
     public string ResourceName => _resourceName;
-        
-    // public ResourceData CreateInitialDataObject()
-    // {
-    //     var dataLibrary = Librarian.Instance.DataLibrary;
-    //     var runtimeData = (ResourceData)dataLibrary.CloneDataObjectToRuntime(_baseData);
-    //     return runtimeData;
-    // }
         
     public int GetRandomSpriteIndex()
     {

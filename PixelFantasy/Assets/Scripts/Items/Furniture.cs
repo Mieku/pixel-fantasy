@@ -40,7 +40,8 @@ namespace Items
         [TitleGroup("East")] [SerializeField] protected GameObject _eastPlacementObstacle;
         
         public FurnitureData RuntimeData;
-        
+        public override string UniqueID => RuntimeData.UniqueID;
+
         protected SpriteRenderer[] _allSprites;
         protected List<SpriteRenderer> _useageMarkers;
         protected readonly List<Material> _materials = new List<Material>();

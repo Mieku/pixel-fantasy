@@ -16,6 +16,7 @@ using UnityEngine;
     [Serializable]
     public class ConstructionData
     {
+        public string UniqueID;
         public string SettingsID;
         public float Durability;
         public EConstructionState State;
@@ -44,11 +45,16 @@ using UnityEngine;
         
         public void InitData()
         {
+            UniqueID = CreateUID();
             RemainingMaterialCosts = Settings.CraftRequirements.GetMaterialCosts();
             RemainingWork = Settings.CraftRequirements.WorkCost;
             Durability = MaxDurability;
         }
         
+        protected string CreateUID()
+        {
+            return $"{Settings.ConstructionName}_{Guid.NewGuid()}";
+        }
         
         public void DeductFromMaterialCosts(ItemSettings itemSettings)
         {

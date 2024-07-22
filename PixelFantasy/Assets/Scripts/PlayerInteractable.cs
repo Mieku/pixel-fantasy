@@ -1,14 +1,19 @@
 using System.Collections.Generic;
+using System.Linq;
+using AI;
 using TaskSystem;
 using UnityEngine;
+using Task = TaskSystem.Task;
 
 public abstract class PlayerInteractable : MonoBehaviour
 {
+    public abstract string UniqueID { get; }
+    
     [SerializeField] private SpriteRenderer _icon;
     public List<Command> Commands = new List<Command>();
     public Command PendingCommand;
     
-    private List<Task> _requestedTasks = new List<Task>();
+    private List<AI.Task> _requestedTasks = new List<AI.Task>();
 
     public void CancelPlayerCommand(Command command = null)
     {
@@ -44,40 +49,46 @@ public abstract class PlayerInteractable : MonoBehaviour
     
     public void CreateTask(Command command, object payload = null)
     {
-        if (command.Name == "Cancel Command")
-        {
-            CancelPending();
-            return;
-        }
+        // if (command.Name == "Cancel Command")
+        // {
+        //     CancelPending();
+        //     return;
+        // }
+        //
+        // if (IsPending(command)) return;
+        //
+        // // Only one command can be active
+        // if (PendingCommand != null)
+        // {
+        //     CancelCommand(PendingCommand);
+        // }
+        //
+        // Task task = new Task(command.Task.TaskId, command.Task.TaskType, this, command.RequiredToolType);
+        // if (payload != null)
+        // {
+        //     task.Payload = payload;
+        // }
+        //
+        // PendingCommand = command;
+        //
+        // TaskManager.Instance.AddTask(task);
         
-        if (IsPending(command)) return;
 
-        // Only one command can be active
-        if (PendingCommand != null)
-        {
-            CancelCommand(PendingCommand);
-        }
-
-        Task task = new Task(command.Task.TaskId, command.Task.TaskType, this, command.RequiredToolType);
-        if (payload != null)
-        {
-            task.Payload = payload;
-        }
+        AI.Task task = new AI.Task(command.TaskSettings.TaskID, this);
         
-        PendingCommand = command;
-        
-        TaskManager.Instance.AddTask(task);
+        TasksDatabase.Instance.AddTask(task);
+        AddTaskToRequested(task);
         
         DisplayTaskIcon(command.Icon);
     }
 
-    public void AddTaskToRequested(Task task)
+    public void AddTaskToRequested(AI.Task task)
     {
         _requestedTasks.Add(task);
         task.OnTaskComplete += OnTaskComplete;
     }
 
-    public void OnTaskComplete(Task task)
+    public void OnTaskComplete(AI.Task task)
     {
         _requestedTasks.Remove(task);
     }
@@ -85,8 +96,10 @@ public abstract class PlayerInteractable : MonoBehaviour
     public void CancelRequestorTasks()
     {
         TaskManager.Instance.CancelRequestorTasks(this);
+
+        var tasksCopy = _requestedTasks.ToList();
         
-        List<Task> tasksCopy = new List<Task>(_requestedTasks);
+        //List<Task> tasksCopy = new List<Task>(_requestedTasks);
         foreach (var requestedTask in tasksCopy)
         {
             requestedTask.Cancel();

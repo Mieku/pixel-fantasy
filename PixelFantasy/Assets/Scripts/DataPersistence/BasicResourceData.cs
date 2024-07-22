@@ -2,6 +2,7 @@ using System;
 using Newtonsoft.Json;
 using TaskSystem;
 using UnityEngine;
+using Task = AI.Task;
 
 namespace DataPersistence
 {
@@ -9,9 +10,10 @@ namespace DataPersistence
     public class BasicResourceData
     {
         // Runtime
+        public string UniqueID;
         public int SpriteIndex;
         public float Health;
-        public Task CurrentTask;
+        //public Task CurrentTask;
         public string SettingsName;
         
         [JsonRequired] private float _posX;
@@ -34,6 +36,7 @@ namespace DataPersistence
         public virtual void InitData(ResourceSettings settings)
         {
             SettingsName = settings.name;
+            UniqueID = CreateUID();
             Health = settings.MaxHealth;
             SpriteIndex = settings.GetRandomSpriteIndex();
         }
@@ -53,5 +56,10 @@ namespace DataPersistence
 
         [JsonIgnore]
         public virtual float MaxHealth => Settings.MaxHealth;
+        
+        protected string CreateUID()
+        {
+            return $"{Settings.ResourceName}_{Guid.NewGuid()}";
+        }
     }
 }

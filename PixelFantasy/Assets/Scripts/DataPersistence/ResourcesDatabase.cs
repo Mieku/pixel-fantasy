@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Controllers;
 using Items;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -11,7 +12,7 @@ namespace DataPersistence
     {
         public static ResourcesDatabase Instance { get; private set; }
 
-        private List<BasicResource> resources = new List<BasicResource>();
+        [ShowInInspector] private Dictionary<string, BasicResource> _registeredResources = new Dictionary<string, BasicResource>();
         private Tilemap _mountainTM => TilemapController.Instance.GetTilemap(TilemapLayer.Mountain);
 
         private void Awake()
@@ -28,29 +29,36 @@ namespace DataPersistence
 
         public void RegisterResource(BasicResource resource)
         {
-            resources.Add(resource);
+            _registeredResources.Add(resource.UniqueID, resource);
         }
 
         public void DeregisterResource(BasicResource resource)
         {
-            resources.Remove(resource);
+            _registeredResources.Remove(resource.UniqueID);
         }
 
-        public List<BasicResourceData> GetResourcesData()
+        public BasicResource QueryResource(string uniqueID)
         {
-            var resourcesData = new List<BasicResourceData>();
-            foreach (var resource in resources)
+            var result = _registeredResources[uniqueID];
+            return result;
+        }
+
+        public Dictionary<string, BasicResourceData> GetResourcesData()
+        {
+            Dictionary<string, BasicResourceData> results = new Dictionary<string, BasicResourceData>();
+            foreach (var kvp in _registeredResources)
             {
-                resourcesData.Add(resource.RuntimeData);
+                results.Add(kvp.Key, kvp.Value.RuntimeData);
             }
-            return resourcesData;
+            return results;
         }
 
-        public void LoadResourcesData(List<BasicResourceData> resourcesData)
+        public void LoadResourcesData(Dictionary<string, BasicResourceData> resourcesData)
         {
-            foreach (var data in resourcesData)
+            foreach (var kvp in resourcesData)
             {
                 ResourceSettings settings;
+                var data = kvp.Value;
                 if (data is GrowingResourceData)
                 {
                     settings = Resources.Load<GrowingResourceSettings>($"Settings/Resource/Growing Resources/{data.SettingsName}");
@@ -114,7 +122,7 @@ namespace DataPersistence
                 DestroyImmediate(child);
             }
 
-            resources.Clear();
+            _registeredResources.Clear();
             
             _mountainTM.ClearAllTiles();
         }

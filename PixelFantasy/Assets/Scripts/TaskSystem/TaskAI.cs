@@ -391,7 +391,7 @@ namespace TaskSystem
         
         public void HoldItem(Item item)
         {
-            _data.HeldItem = item;
+            _kinling.HeldItem = item;
             item.ItemPickedUp(_kinling);
             item.transform.SetParent(transform);
             item.transform.localPosition = Vector3.zero;
@@ -399,24 +399,24 @@ namespace TaskSystem
         
         public Item DropCarriedItem(bool allowHauling)
         {
-            if (_data.HeldItem == null) return null;
+            if (_kinling.HeldItem == null) return null;
 
-            _data.HeldItem.transform.SetParent(ParentsManager.Instance.ItemsParent);
-            _data.HeldItem.IsAllowed = allowHauling;
-            _data.HeldItem.ItemDropped();
-            var item = _data.HeldItem;
+            _kinling.HeldItem.transform.SetParent(ParentsManager.Instance.ItemsParent);
+            _kinling.HeldItem.IsAllowed = allowHauling;
+            _kinling.HeldItem.ItemDropped();
+            var item = _kinling.HeldItem;
             item.RuntimeData.CarryingKinlingUID = null;
-            _data.HeldItem = null;
+            _kinling.HeldItem = null;
             return item;
         }
 
         public void DepositHeldItemInStorage(IStorage storage)
         {
-            if (_data.HeldItem == null) return;
+            if (_kinling.HeldItem == null) return;
             
-            storage.DepositItems(_data.HeldItem);
-            var item = _data.HeldItem;
-            _data.HeldItem = null;
+            storage.DepositItems(_kinling.HeldItem);
+            var item = _kinling.HeldItem;
+            _kinling.HeldItem = null;
             item.RuntimeData.CurrentTask = null;
             item.RuntimeData.CarryingKinlingUID = null;
             Destroy(item.gameObject);

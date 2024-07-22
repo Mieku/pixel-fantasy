@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AI;
 using Interfaces;
 using Items;
 using Managers;
@@ -16,15 +17,18 @@ namespace Characters
     public class Kinling : PlayerInteractable, IClickableObject
     {
         public KinlingData RuntimeData;
+        public TaskHandler TaskHandler;
         
         [SerializeField] private TaskAI _taskAI;
         [SerializeField] private SocialAI _socialAI;
         [SerializeField] private SortingGroup _sortingGroup;
         
         public string FullName => RuntimeData.Firstname + " " + RuntimeData.Lastname;
+        public override string UniqueID => RuntimeData.UniqueID;
         
         public KinlingAgent KinlingAgent;
         public Avatar Avatar;
+        public Item HeldItem;
 
         public StatsData Stats => RuntimeData.Stats;
 

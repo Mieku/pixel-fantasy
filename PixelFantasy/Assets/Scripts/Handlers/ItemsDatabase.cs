@@ -23,15 +23,28 @@ namespace Handlers
         
         public Item FindItemObject(string uniqueID)
         {
-            var allItems = transform.GetComponentsInChildren<Item>();
-            foreach (var item in allItems)
+            var itemData = _registeredItems.Find(i => i.UniqueID == uniqueID);
+            switch (itemData.State)
             {
-                if (item.RuntimeData.UniqueID == uniqueID)
-                {
-                    return item;
-                }
+                case EItemState.Loose:
+                    var allItems = transform.GetComponentsInChildren<Item>();
+                    foreach (var item in allItems)
+                    {
+                        if (item.RuntimeData.UniqueID == uniqueID)
+                        {
+                            return item;
+                        }
+                    }
+                    return null;
+                case EItemState.Stored:
+                    return null;
+                case EItemState.Carried:
+                    var carryingKinling = KinlingsDatabase.Instance.GetKinling(itemData.CarryingKinlingUID);
+                    return carryingKinling.HeldItem;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
-
+            
             return null;
         }
         

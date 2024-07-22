@@ -59,7 +59,7 @@ public class ItemData
     {
         if (State == EItemState.Carried)
         {
-            return KinlingsDatabase.Instance.GetKinlingData(CarryingKinlingUID).HeldItem;
+            return KinlingsDatabase.Instance.GetKinling(CarryingKinlingUID).HeldItem;
         }
         
         return ItemsDatabase.Instance.FindItemObject(UniqueID);

@@ -17,7 +17,8 @@ namespace Items
         
         public ItemData RuntimeData;
         public Action OnChanged { get; set; }
-        
+        public override string UniqueID => RuntimeData.UniqueID;
+
         public PlayerInteractable GetPlayerInteractable()
         {
             return this;

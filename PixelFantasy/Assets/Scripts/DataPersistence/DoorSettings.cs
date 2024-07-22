@@ -6,7 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Door Settings", menuName = "Settings/Door Settings")]
 public class DoorSettings : ConstructionSettings
 {
-    [SerializeField] private string _doorName;
     [SerializeField] private Door _doorPrefab;
     [SerializeField] private Sprite _optionIcon;
     [SerializeField] private int _maxDurability;
@@ -15,7 +14,7 @@ public class DoorSettings : ConstructionSettings
     [SerializeField] private Sprite _verticalDoorframe;
     [SerializeField] private Sprite _verticalDoormat;
 
-    public string DoorName => _doorName;
+    public string DoorName => _constructionName;
     public Door DoorPrefab => _doorPrefab;
     public Sprite OptionIcon => _optionIcon;
     public int MaxDurability => _maxDurability;

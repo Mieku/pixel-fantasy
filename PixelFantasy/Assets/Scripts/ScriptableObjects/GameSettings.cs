@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AI;
 using Sirenix.OdinInspector;
 using Systems.Appearance.Scripts;
 using Systems.Mood.Scripts;
@@ -164,6 +165,42 @@ namespace ScriptableObjects
         {
             TileBase tileBase = Resources.Load<TileBase>($"Tiles/{tilebaseName}");
             return tileBase;
+        }
+        
+        // Task Settings
+        private List<TaskSettings> _taskSettingsCache = null;
+        private List<TaskSettings> LoadAllTaskSettings()
+        {
+            return Resources.LoadAll<TaskSettings>("Settings/Tasks").Where(s => s != null).ToList();
+        }
+
+        public TaskSettings LoadTaskSettings(string settingsID)
+        {
+            if (_taskSettingsCache == null || _taskSettingsCache.Count == 0)
+            {
+                _taskSettingsCache = LoadAllTaskSettings();
+            }
+
+            var result = _taskSettingsCache.Find(settings => settings.TaskID == settingsID);
+            return result;
+        }
+        
+        // Task Actions
+        private List<TaskAction> _taskActionsCache = null;
+        private List<TaskAction> LoadAllTaskActions()
+        {
+            return Resources.LoadAll<TaskAction>("Settings/Actions").Where(s => s != null).ToList();
+        }
+
+        public TaskAction LoadTaskAction(string taskActionName)
+        {
+            if (_taskActionsCache == null || _taskActionsCache.Count == 0)
+            {
+                _taskActionsCache = LoadAllTaskActions();
+            }
+
+            var result = _taskActionsCache.Find(settings => settings.name == taskActionName);
+            return result;
         }
     }
 }

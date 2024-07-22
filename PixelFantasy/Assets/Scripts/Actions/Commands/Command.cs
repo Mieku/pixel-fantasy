@@ -1,15 +1,19 @@
+using AI;
 using Characters;
 using Managers;
 using TaskSystem;
 using UnityEngine;
+using Task = TaskSystem.Task;
 
 [CreateAssetMenu(fileName = "Command", menuName ="Commands/Create Command")]
 public class Command : ScriptableObject
 {
     public string Name;
     public Sprite Icon;
-    public Task Task;
-    public EToolType RequiredToolType => Task.RequiredToolType;
+    public Task Task; // TODO: Old remove
+    public EToolType RequiredToolType => Task.RequiredToolType; // TODO: old remove
+
+    public TaskSettings TaskSettings;
 
     public bool CanDoCommand(Kinling kinling, PlayerInteractable interactable)
     {

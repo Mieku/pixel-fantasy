@@ -20,6 +20,7 @@ namespace Items
 
         public abstract string DisplayName { get; }
         public ConstructionData RuntimeData;
+        public override string UniqueID => RuntimeData.UniqueID;
         
         public Action OnChanged { get; set; }
         

@@ -49,6 +49,7 @@ namespace NodeCanvas.DialogueTrees
             [SerializeField] private UnityEngine.Object _actorObject;
             [System.NonSerialized] private IDialogueActor _actor;
 
+
             ///<summary>Key name of the parameter</summary>
             public string name {
                 get { return _keyName; }
@@ -91,6 +92,7 @@ namespace NodeCanvas.DialogueTrees
 
         ///<summary>The dialogue actor parameters. We let Unity serialize this as well</summary>
         [SerializeField] public List<ActorParameter> actorParameters = new List<ActorParameter>();
+        private bool enterStartNodeFlag;
 
         public static event Action<DialogueTree> OnDialogueStarted;
         public static event Action<DialogueTree> OnDialoguePaused;
@@ -241,10 +243,16 @@ namespace NodeCanvas.DialogueTrees
                 Logger.Log("Agent used in DialogueTree does not implement IDialogueActor. A dummy actor will be used.", "Dialogue Tree", this);
             }
 
-            EnterNode(currentNode != null ? currentNode : (DTNode)primeNode);
+            enterStartNodeFlag = true;
         }
 
         protected override void OnGraphUpdate() {
+            if ( enterStartNodeFlag ) {
+                //use a flag so that other nodes can do stuff on graph started
+                enterStartNodeFlag = false;
+                EnterNode(currentNode != null ? currentNode : (DTNode)primeNode);
+            }
+
             if ( currentNode is IUpdatable ) {
                 ( currentNode as IUpdatable ).Update();
             }

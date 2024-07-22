@@ -41,7 +41,7 @@ namespace DataPersistence
             public List<ZoneData> ZonesData;
             public List<ConstructionData> StructuresData;
             public List<FloorData> FloorsData;
-            public List<BasicResourceData> ResourcesData;
+            public Dictionary<string, BasicResourceData> ResourcesData;
             public TileMapData TileMapData;
             public List<RampData> RampData;
         }

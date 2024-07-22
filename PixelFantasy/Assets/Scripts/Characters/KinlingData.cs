@@ -45,9 +45,10 @@ namespace Characters
         public MoodData Mood;
         public List<RelationshipData> Relationships = new List<RelationshipData>();
         public AvatarData Avatar;
+        public string CurrentTaskID;
         
         [JsonIgnore] public TaskAction CurrentTaskAction; // TODO: For now
-        [JsonIgnore] public Item HeldItem;
+        //[JsonIgnore] public Item HeldItem;
         
         [JsonRequired] private float _posX;
         [JsonRequired] private float _posY;
