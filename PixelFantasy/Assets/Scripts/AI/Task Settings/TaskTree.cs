@@ -4,46 +4,48 @@ using NodeCanvas.BehaviourTrees;
 using NodeCanvas.Framework;
 using UnityEngine;
 
-public class TaskTree : MonoBehaviour
+namespace AI.Task_Settings
 {
-    public string TaskID;
-    public BehaviourTreeOwner BTOwner;
-
-    private Action<bool> _onFinishedCallback;
-
-    private void Awake()
+    public class TaskTree : MonoBehaviour
     {
-        if (BTOwner == null)
-        {
-            BTOwner = GetComponent<BehaviourTreeOwner>();
-        }
-    }
+        public string TaskID;
+        public BehaviourTreeOwner BTOwner;
 
-    public void ExecuteTask(Dictionary<string, object> TaskData, Action<bool> OnTaskComplete)
-    {
-        _onFinishedCallback = OnTaskComplete;
-        
-        foreach (var data in TaskData)
+        private Action<bool> _onFinishedCallback;
+
+        private void Awake()
         {
-            BTOwner.blackboard.SetVariableValue(data.Key, data.Value);
+            if (BTOwner == null)
+            {
+                BTOwner = GetComponent<BehaviourTreeOwner>();
+            }
         }
+
+        public void ExecuteTask(Dictionary<string, string> TaskData, Action<bool> onTaskComplete)
+        {
+            _onFinishedCallback = onTaskComplete;
         
-        BTOwner.StartBehaviour(OnFinished);
-    }
+            foreach (var data in TaskData)
+            {
+                BTOwner.blackboard.SetVariableValue(data.Key, data.Value);
+            }
+        
+            BTOwner.StartBehaviour(OnFinished);
+        }
     
-    private void OnFinished(bool success)
-    {
-        ResetBlackboard();
-        
-        Debug.Log($"Task is finished, was it successful? {success}");
-        _onFinishedCallback.Invoke(success);
-    }
-
-    private void ResetBlackboard()
-    {
-        foreach (var kvp in BTOwner.blackboard.variables)
+        private void OnFinished(bool success)
         {
-            BTOwner.blackboard.SetVariableValue(kvp.Key, default);
+            ResetBlackboard();
+        
+            _onFinishedCallback.Invoke(success);
+        }
+
+        private void ResetBlackboard()
+        {
+            foreach (var kvp in BTOwner.blackboard.variables)
+            {
+                BTOwner.blackboard.SetVariableValue(kvp.Key, default);
+            }
         }
     }
 }

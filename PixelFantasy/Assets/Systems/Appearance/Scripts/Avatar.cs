@@ -16,8 +16,7 @@ namespace Systems.Appearance.Scripts
         public NavMeshAgent Agent;
         public SpriteLibrary SpriteLibrary;
         public Kinling Kinling;
-
-        private AvatarLayer.EAppearanceDirection _direction;
+        
         private bool _isFlipped;
 
         private static readonly int Velocity = Animator.StringToHash("Velocity");
@@ -38,11 +37,6 @@ namespace Systems.Appearance.Scripts
             GameEvents.OnGameSpeedChanged -= OnSpeedUpdated;
         }
 
-        private void Start()
-        {
-            SetDirection(AvatarLayer.EAppearanceDirection.Right);
-        }
-
         private void OnSpeedUpdated(float speedMod)
         {
             Animator.speed = speedMod;
@@ -61,14 +55,13 @@ namespace Systems.Appearance.Scripts
 
         public AvatarLayer.EAppearanceDirection GetDirection()
         {
-            return _direction;
+            return Kinling.RuntimeData.Avatar.CurrentDirection;
         }
         
         [Button("Set Direction")]
         public void SetDirection(AvatarLayer.EAppearanceDirection direction)
         {
-            _direction = direction;
-            //AppearanceBuilder.Rebuild();
+            Kinling.RuntimeData.Avatar.CurrentDirection = direction;
 
             switch (direction)
             {
@@ -93,7 +86,7 @@ namespace Systems.Appearance.Scripts
 
         public void RefreshAppearanceLibrary()
         {
-            SetDirection(_direction);
+            SetDirection(Kinling.RuntimeData.Avatar.CurrentDirection);
         }
         
         private AvatarLayer.EAppearanceDirection ConvertPlacementDirection(PlacementDirection placementDirection)

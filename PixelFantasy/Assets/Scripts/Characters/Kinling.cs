@@ -52,6 +52,7 @@ namespace Characters
         private void OnDestroy()
         {
             KinlingsDatabase.Instance.DeregisterKinling(RuntimeData);
+            PlayerInteractableDatabase.Instance.DeregisterPlayerInteractable(this);
             
             GameEvents.Trigger_OnCoinsIncomeChanged();
             
@@ -62,9 +63,19 @@ namespace Characters
         public void SetKinlingData(KinlingData data)
         {
             RuntimeData = data;
+            Avatar.SetDirection(data.Avatar.CurrentDirection);
+            
+            KinlingsDatabase.Instance.RegisterKinling(RuntimeData);
+            PlayerInteractableDatabase.Instance.RegisterPlayerInteractable(this);
+            
+            // Handles their task
+            if (!string.IsNullOrEmpty(data.CurrentTaskID))
+            {
+                var task = TasksDatabase.Instance.QueryTask(data.CurrentTaskID);
+                TaskHandler.LoadCurrentTask(task);
+            }
             
             HasInitialized = true;
-            KinlingsDatabase.Instance.RegisterKinling(RuntimeData);
         }
 
         public void SetSeated(ChairFurniture chair)

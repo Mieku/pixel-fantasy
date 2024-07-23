@@ -85,7 +85,7 @@ public abstract class PlayerInteractable : MonoBehaviour
     public void AddTaskToRequested(AI.Task task)
     {
         _requestedTasks.Add(task);
-        task.OnTaskComplete += OnTaskComplete;
+        //task.OnTaskComplete += OnTaskComplete;
     }
 
     public void OnTaskComplete(AI.Task task)

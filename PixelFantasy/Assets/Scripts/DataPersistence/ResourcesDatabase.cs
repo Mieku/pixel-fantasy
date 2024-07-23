@@ -29,12 +29,14 @@ namespace DataPersistence
 
         public void RegisterResource(BasicResource resource)
         {
-            _registeredResources.Add(resource.UniqueID, resource);
+            _registeredResources[resource.UniqueID] = resource;
+            PlayerInteractableDatabase.Instance.RegisterPlayerInteractable(resource);
         }
 
         public void DeregisterResource(BasicResource resource)
         {
             _registeredResources.Remove(resource.UniqueID);
+            PlayerInteractableDatabase.Instance.DeregisterPlayerInteractable(resource);
         }
 
         public BasicResource QueryResource(string uniqueID)
@@ -57,31 +59,17 @@ namespace DataPersistence
         {
             foreach (var kvp in resourcesData)
             {
-                ResourceSettings settings;
-                var data = kvp.Value;
-                if (data is GrowingResourceData)
-                {
-                    settings = Resources.Load<GrowingResourceSettings>($"Settings/Resource/Growing Resources/{data.SettingsName}");
-                }
-                else if (data is MountainResourceData)
-                {
-                    settings = Resources.Load<MountainSettings>($"Settings/Resource/Mountains/{data.SettingsName}");
-                }
-                else
-                {
-                    settings = Resources.Load<ResourceSettings>($"Settings/Resource/Basic Resources/{data.SettingsName}");
-                }
-
-                var resource = SpawnResource(settings, data.Position);
-                if (resource is GrowingResource growingResource && data is GrowingResourceData growingData)
-                {
-                    growingResource.LoadResource(growingData);
-                }
-                else
-                {
-                    resource.LoadResource(data);
-                }
+                SpawnLoadedResource(kvp.Value);
             }
+        }
+
+        public BasicResource SpawnLoadedResource(BasicResourceData data)
+        {
+            var settings = data.Settings;
+            var resource = Instantiate(settings.Prefab, data.Position, Quaternion.identity, transform);
+            resource.gameObject.name = settings.ResourceName;
+            resource.LoadResource(data);
+            return resource;
         }
 
         public BasicResource SpawnResource(ResourceSettings settings, Vector2 spawnPos)

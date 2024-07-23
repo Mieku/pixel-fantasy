@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using AI;
 using Characters;
 using Controllers;
 using Handlers;
-using Items;
 using Managers;
 using Newtonsoft.Json;
 using Systems.Buildings.Scripts;
@@ -44,6 +44,7 @@ namespace DataPersistence
             public Dictionary<string, BasicResourceData> ResourcesData;
             public TileMapData TileMapData;
             public List<RampData> RampData;
+            public List<TaskQueue> TasksData;
         }
 
         private SaveData.SaveHeader GenerateHeader()
@@ -72,12 +73,13 @@ namespace DataPersistence
                 TileMapData = TilemapController.Instance.GetTileMapData(),
                 ResourcesData = ResourcesDatabase.Instance.GetResourcesData(),
                 RampData = _rampsHandler.GetRampsData(),
-                Kinlings = KinlingsDatabase.Instance.GetKinlingsData(),
+                Kinlings = KinlingsDatabase.Instance.SaveKinlingsData(),
                 ItemsData = ItemsDatabase.Instance.GetItemsData(),
                 FurnitureData = FurnitureDatabase.Instance.GetFurnitureData(),
                 ZonesData = ZonesDatabase.Instance.GetZonesData(),
                 StructuresData = StructureDatabase.Instance.GetStructureData(),
                 FloorsData = FlooringDatabase.Instance.GetFloorData(),
+                TasksData = TasksDatabase.Instance.GetTaskData(),
             };
 
             var settings = new JsonSerializerSettings
@@ -160,19 +162,20 @@ namespace DataPersistence
                 TilemapController.Instance.LoadTileMapData(saveData.TileMapData);
                 ResourcesDatabase.Instance.LoadResourcesData(saveData.ResourcesData);
                 _rampsHandler.LoadRampsData(saveData.RampData);
-                KinlingsDatabase.Instance.LoadKinlingsData(saveData.Kinlings);
                 ZonesDatabase.Instance.LoadZonesData(saveData.ZonesData);
                 StructureDatabase.Instance.LoadStructureData(saveData.StructuresData);
                 FlooringDatabase.Instance.LoadFloorData(saveData.FloorsData);
                 FurnitureDatabase.Instance.LoadFurnitureData(saveData.FurnitureData);
                 ItemsDatabase.Instance.LoadItemsData(saveData.ItemsData);
+                TasksDatabase.Instance.LoadTasksData(saveData.TasksData);
+                KinlingsDatabase.Instance.LoadKinlingsData(saveData.Kinlings);
             }
             
             stopwatch.Stop();
             Debug.Log($"Load Complete in {stopwatch.ElapsedMilliseconds} ms");
         }
 
-        public void ClearWorld() // TODO: for testing
+        public void ClearWorld()
         {
             TilemapController.Instance.ClearAllTiles();
             ResourcesDatabase.Instance.DeleteResources();
@@ -183,6 +186,8 @@ namespace DataPersistence
             FurnitureDatabase.Instance.ClearAllFurniture();
             StructureDatabase.Instance.ClearAllStructures();
             FlooringDatabase.Instance.ClearAllFloors();
+            TasksDatabase.Instance.ClearAllTasks();
+            PlayerInteractableDatabase.Instance.ClearDatabase();
         }
     }
 }

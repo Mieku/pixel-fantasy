@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AI.Task_Settings;
 using Characters;
 using Managers;
 using Systems.Appearance.Scripts;
@@ -17,7 +18,7 @@ namespace AI
         
         public Task CurrentTask => TasksDatabase.Instance.QueryTask(_kinlingData.CurrentTaskID);
         
-        private const float WAIT_TIMER_MAX = 0.2f; // 200ms
+        private const float WAIT_TIMER_MAX = 0.05f; // 50ms
         private const float IDLE_TIME = 10f;
 
         private void Awake()
@@ -123,10 +124,24 @@ namespace AI
             tree.ExecuteTask(task.TaskData, OnFinished);
         }
 
+        public void LoadCurrentTask(Task task)
+        {
+            var tree = FindTaskTreeFor(task);
+            task.LoadBlackboardState(tree.BTOwner.blackboard);
+            tree.ExecuteTask(task.TaskData, OnFinished);
+        }
+
+        public void SaveBBState()
+        {
+            if (CurrentTask != null)
+            {
+                var tree = FindTaskTreeFor(CurrentTask);
+                CurrentTask.SaveBlackboardState(tree.BTOwner.blackboard);
+            }
+        }
+
         private void OnFinished(bool success)
         {
-            Debug.Log($"{_kinlingData.Nickname}: Task is finished, was it successful? {success}");
-
             if (!success)
             {
                 CurrentTask.LogFailedAttempt(_kinlingData.UniqueID);

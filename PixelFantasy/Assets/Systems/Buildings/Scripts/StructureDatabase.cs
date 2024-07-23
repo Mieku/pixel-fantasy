@@ -26,12 +26,14 @@ namespace Systems.Buildings.Scripts
         {
             UpdateGrid(structurePiece.Cell.CellPos, structurePiece.Cell.CellType);
             _registeredPieces.Add(structurePiece);
+            PlayerInteractableDatabase.Instance.RegisterPlayerInteractable(structurePiece);
         }
 
         public void DeregisterStructure(StructurePiece structurePiece)
         {
             UpdateGrid(structurePiece.Cell.CellPos, EStructureCell.None);
             _registeredPieces.Remove(structurePiece);
+            PlayerInteractableDatabase.Instance.DeregisterPlayerInteractable(structurePiece);
         }
 
         public List<ConstructionData> GetStructureData()

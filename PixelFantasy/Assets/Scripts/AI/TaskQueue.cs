@@ -32,6 +32,11 @@ namespace AI
         {
             return QueuedTasks.Find(t => t.UniqueID == taskID);
         }
+
+        public void ClearTasks()
+        {
+            QueuedTasks.Clear();
+        }
     }
 }
 

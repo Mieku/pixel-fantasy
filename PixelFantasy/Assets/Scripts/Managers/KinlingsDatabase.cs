@@ -16,7 +16,17 @@ namespace Managers
         public List<KinlingData> GetKinlingsData()
         {
             return _registeredKinlingsData;
-        } 
+        }
+
+        public List<KinlingData> SaveKinlingsData()
+        {
+            foreach (var kinlingData in _registeredKinlingsData)
+            {
+                kinlingData.GetKinling()?.TaskHandler.SaveBBState();
+            }
+
+            return _registeredKinlingsData;
+        }
 
         public void LoadKinlingsData(List<KinlingData> data)
         {
@@ -40,7 +50,6 @@ namespace Managers
                 Debug.LogError("Tried to register the same Kinling Twice: " + kinling.Fullname);
                 return;
             }
-            
             _registeredKinlingsData.Add(kinling);
             
             KinlingSelector.Instance.AddKinling(kinling);

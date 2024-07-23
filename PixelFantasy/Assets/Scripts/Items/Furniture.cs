@@ -70,6 +70,7 @@ namespace Items
             if (!_isPlanning)
             {
                 FurnitureDatabase.Instance.DeregisterFurniture(RuntimeData);
+                PlayerInteractableDatabase.Instance.DeregisterPlayerInteractable(this);
             }
             
             GameEvents.OnLeftClickUp -= GameEvents_OnLeftClickUp;
@@ -449,6 +450,7 @@ namespace Items
         {
             RuntimeData.Position = transform.position;
             FurnitureDatabase.Instance.RegisterFurniture(RuntimeData);
+            PlayerInteractableDatabase.Instance.RegisterPlayerInteractable(this);
             DisplayUseageMarkers(false);
             EnablePlacementObstacle(true);
             Show(true);

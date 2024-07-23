@@ -6,13 +6,14 @@ namespace AI.Action_Tasks
 {
     public class GoToRequester : ActionTask
     {
-        public BBParameter<PlayerInteractable> Requester;
+        public BBParameter<string> RequesterUID;
         public BBParameter<string> KinlingUID;
     
         protected override void OnExecute()
         {
             var kinling = KinlingsDatabase.Instance.GetKinling(KinlingUID.value);
-            var movePos = Requester.value.UseagePosition(kinling.transform.position);
+            PlayerInteractable requester = PlayerInteractableDatabase.Instance.Query(RequesterUID.value);
+            var movePos = requester.UseagePosition(kinling.transform.position);
             if (movePos == null)
             {
                 EndAction(false);

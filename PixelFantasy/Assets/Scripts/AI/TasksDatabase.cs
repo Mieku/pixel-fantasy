@@ -89,25 +89,23 @@ namespace AI
 
             return null;
         }
-        
-        public string GetSerializeTasks()
+
+        public List<TaskQueue> GetTaskData()
         {
-            string json = JsonConvert.SerializeObject(this);
-            return json;
+            return TaskQueues;
         }
-        
-        public void DeserializeTasks(string json)
+
+        public void LoadTasksData(List<TaskQueue> taskQueues)
         {
-            // JsonConvert.PopulateObject(json, this);
-            //
-            // // Ensure any necessary initialization
-            // foreach (var queue in TaskQueues)
-            // {
-            //     foreach (var task in queue.QueuedTasks)
-            //     {
-            //         task.LoadActions(); // Reload the actions from ScriptableObjects
-            //     }
-            // }
+            TaskQueues = taskQueues;
+        }
+
+        public void ClearAllTasks()
+        {
+            foreach (var queue in TaskQueues)
+            {
+                queue.ClearTasks();
+            }
         }
     }
 }

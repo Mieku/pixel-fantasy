@@ -67,6 +67,7 @@ namespace Handlers
             furniture.name = data.ItemName;
             furniture.LoadData(data);
             RegisterFurniture(data);
+            PlayerInteractableDatabase.Instance.RegisterPlayerInteractable(furniture);
             return furniture;
         }
 

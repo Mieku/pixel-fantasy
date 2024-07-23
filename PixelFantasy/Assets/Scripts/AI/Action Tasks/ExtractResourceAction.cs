@@ -8,7 +8,7 @@ namespace AI.Action_Tasks
 {
     public class ExtractResourceAction : ActionTask
     {
-        public BBParameter<PlayerInteractable> Requester;
+        public BBParameter<string> RequesterUID;
         public BBParameter<string> KinlingUID;
         
         private float _timer;
@@ -18,7 +18,8 @@ namespace AI.Action_Tasks
         protected override void OnExecute()
         {
             kinling = KinlingsDatabase.Instance.GetKinling(KinlingUID.value);
-            resource = (BasicResource) Requester.value;
+            PlayerInteractable requester = PlayerInteractableDatabase.Instance.Query(RequesterUID.value);
+            resource = (BasicResource) requester;
             kinling.Avatar.SetUnitAction(resource.GetExtractActionAnim(), kinling.TaskHandler.GetActionDirection(resource.transform.position));
         }
 

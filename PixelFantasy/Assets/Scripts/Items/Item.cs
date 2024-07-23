@@ -39,6 +39,8 @@ namespace Items
             RuntimeData = settings.CreateItemData();
             RuntimeData.Position = transform.position;
             
+            PlayerInteractableDatabase.Instance.RegisterPlayerInteractable(this);
+            
             DisplayItemSprite();
 
             if (allowed)
@@ -52,6 +54,8 @@ namespace Items
             RuntimeData = data;
             DisplayItemSprite();
 
+            PlayerInteractableDatabase.Instance.RegisterPlayerInteractable(this);
+            
             if (canHaul)
             {
                 SeekForSlot();
@@ -188,6 +192,7 @@ namespace Items
         private void OnDestroy()
         {
             GameEvents.OnInventoryAvailabilityChanged -= GameEvent_OnInventoryAvailabilityChanged;
+            PlayerInteractableDatabase.Instance.DeregisterPlayerInteractable(this);
 
             if (RuntimeData.CurrentTask != null)
             {

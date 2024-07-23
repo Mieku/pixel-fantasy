@@ -11,13 +11,14 @@ namespace AI.Action_Tasks
     public class IsPathToRequesterPossible : ConditionTask
     {
         public BBParameter<string> KinlingUID;
-        public BBParameter<PlayerInteractable> Requester;
+        public BBParameter<string> RequesterUID;
         
         protected override bool OnCheck()
         {
             var kinling = KinlingsDatabase.Instance.GetKinling(KinlingUID.value);
+            PlayerInteractable requester = PlayerInteractableDatabase.Instance.Query(RequesterUID.value);
 
-            var usePos = Requester.value.UseagePosition(kinling.transform.position);
+            var usePos = requester.UseagePosition(kinling.transform.position);
             
             return usePos != null;
         }
