@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Buildings.Building_Panels;
+using HUD;
 using ScriptableObjects;
 using TMPro;
 using UnityEngine;

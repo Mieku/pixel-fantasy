@@ -1,4 +1,4 @@
-using Popups.Kinling_Info_Popup;
+using HUD;
 using Systems.Needs.Scripts;
 using TMPro;
 using UnityEngine;

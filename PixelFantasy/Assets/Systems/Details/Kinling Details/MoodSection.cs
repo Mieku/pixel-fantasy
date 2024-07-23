@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Characters;
-using Popups.Kinling_Info_Popup;
+using HUD;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
