@@ -293,7 +293,7 @@ namespace Systems.Details.Build_Details.Scripts
             _displayedResourceCosts.Clear();
             
             _resourceCostPrefab.gameObject.SetActive(false);
-            foreach (var costAmount in craftRequirements.GetMaterialCosts())
+            foreach (var costAmount in craftRequirements.CostSettings)
             {
                 var cost = Instantiate(_resourceCostPrefab, _resourceCostParent);
                 cost.gameObject.SetActive(true);

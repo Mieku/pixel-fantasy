@@ -17,7 +17,8 @@ MonoBehaviour:
   Task:
     TaskId: Deconstruct Furniture
     TaskType: 10
-    KinlingAssignedToTask: {fileID: 0}
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
+  TaskID: Deconstruct Structure
+  TaskType: 10

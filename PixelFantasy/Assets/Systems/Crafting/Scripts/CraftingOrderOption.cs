@@ -71,7 +71,7 @@ namespace Systems.Crafting.Scripts
                 
                 CreateTextEntry("Work", craftedItem.CraftRequirements.WorkCost + "");
                 
-                var costs = craftedItem.CraftRequirements.GetMaterialCosts();
+                var costs = craftedItem.CraftRequirements.CostSettings;
                 foreach (var cost in costs)
                 {
                     var display = Instantiate(_costDisplayPrefab, _costLayout);

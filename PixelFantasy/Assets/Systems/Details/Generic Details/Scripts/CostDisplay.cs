@@ -11,13 +11,13 @@ namespace Systems.Details.Generic_Details.Scripts
         [SerializeField] private Image _itemIcon;
 
         private Ingredient _ingredient;
-        private ItemAmount _item;
+        private CostSettings _item;
 
-        public void Init(ItemAmount itemAmount)
+        public void Init(CostSettings costSettings)
         {
-            _item = itemAmount;
+            _item = costSettings;
             _itemIcon.sprite = _item.Item.ItemSprite;
-            _amountText.text = itemAmount.Quantity + "";
+            _amountText.text = costSettings.Quantity + "";
 
             GameEvents.OnInventoryAvailabilityChanged += CheckAfford;
             

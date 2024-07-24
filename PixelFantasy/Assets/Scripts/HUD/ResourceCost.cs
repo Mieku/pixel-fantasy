@@ -12,32 +12,32 @@ namespace HUD
         public ItemSettings ItemSettings { get; private set; }
         private int? _total;
 
-        public void Init(ItemAmount itemAmount)
+        public void Init(CostSettings costSettings)
         {
-            ItemSettings = itemAmount.Item;
-            _itemImage.sprite = itemAmount.Item.ItemSprite;
-            _quantityText.text = itemAmount.Quantity.ToString();
+            ItemSettings = costSettings.Item;
+            _itemImage.sprite = costSettings.Item.ItemSprite;
+            _quantityText.text = costSettings.Quantity.ToString();
         }
 
-        public void Init(ItemAmount itemAmount, int totalNeeded)
+        public void Init(CostData costSettings, int totalNeeded)
         {
-            ItemSettings = itemAmount.Item;
-            _itemImage.sprite = itemAmount.Item.ItemSprite;
-            int missingAmount = totalNeeded - itemAmount.Quantity;
+            ItemSettings = costSettings.Item;
+            _itemImage.sprite = costSettings.Item.ItemSprite;
+            int missingAmount = totalNeeded - costSettings.Quantity;
             _quantityText.text = $"{missingAmount}/{totalNeeded}";
             _total = totalNeeded;
         }
 
-        public void RefreshAmount(ItemAmount itemAmount)
+        public void RefreshAmount(CostData costSettings)
         {
             if (_total != null)
             {
-                int missingAmount = (int)_total - itemAmount.Quantity;
+                int missingAmount = (int)_total - costSettings.Quantity;
                 _quantityText.text = $"{missingAmount}/{_total}";
             }
             else
             {
-                _quantityText.text = itemAmount.Quantity.ToString();
+                _quantityText.text = costSettings.Quantity.ToString();
             }
         }
     }

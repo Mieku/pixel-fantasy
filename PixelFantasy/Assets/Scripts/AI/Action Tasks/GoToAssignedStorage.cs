@@ -15,11 +15,11 @@ namespace AI.Action_Tasks
         protected override void OnExecute()
         {
             _kinling = KinlingsDatabase.Instance.GetKinling(KinlingUID.value);
-            var item = ItemsDatabase.Instance.FindItemObject(ItemUID.value);
+            var item = ItemsDatabase.Instance.Query(ItemUID.value);
 
-            var assignedStorage = item.RuntimeData.AssignedStorage;
+            var assignedStorage = item.AssignedStorage;
 
-            var movePos = assignedStorage.AccessPosition(_kinling.transform.position, item.RuntimeData);
+            var movePos = assignedStorage.AccessPosition(_kinling.transform.position, item);
             if (movePos == null)
             {
                 EndAction(false);

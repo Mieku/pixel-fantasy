@@ -10,16 +10,16 @@ namespace Systems.Details.Generic_Details.Scripts
         [SerializeField] private TextMeshProUGUI _amount;
         [SerializeField] private Image _icon;
 
-        public void Init(ItemAmount itemAmount, bool showTilda)
+        public void Init(CostSettings costSettings, bool showTilda)
         {
             string text = "";
             if (showTilda)
             {
                 text = "~";
             }
-            text += $"{itemAmount.Quantity}";
+            text += $"{costSettings.Quantity}";
             _amount.text = text;
-            _icon.sprite = itemAmount.Item.ItemSprite;
+            _icon.sprite = costSettings.Item.ItemSprite;
         }
     }
 }

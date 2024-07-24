@@ -112,12 +112,12 @@ namespace Managers
             return null;
         }
 
-        public List<ItemData> ClaimItemsOfType(ItemAmount itemAmount)
+        public List<ItemData> ClaimItemsOfType(CostSettings costSettings)
         {
             List<ItemData> results = new List<ItemData>();
-            for (int i = 0; i < itemAmount.Quantity; i++)
+            for (int i = 0; i < costSettings.Quantity; i++)
             {
-                var item = GetItemOfType(itemAmount.Item);
+                var item = GetItemOfType(costSettings.Item);
                 if (item == null) // Just in case
                 {
                     Debug.LogError("Failed to get an item");

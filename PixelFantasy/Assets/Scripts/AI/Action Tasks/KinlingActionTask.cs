@@ -1,8 +1,10 @@
 using DataPersistence;
 using NodeCanvas.Framework;
+using ParadoxNotion.Design;
 
 namespace AI.Action_Tasks
 {
+    [Category("Kinling Action Tasks")]
     public class KinlingActionTask : ActionTask
     {
         protected override void OnStop(bool interrupted)

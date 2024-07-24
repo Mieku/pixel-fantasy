@@ -162,7 +162,7 @@ namespace Items
             if (GrowingResourceData.HasFruitAvailable)
             {
                 _fruitOverlay.gameObject.SetActive(false);
-                List<ItemAmount> fruits = GrowingResourceData.GetFruitLoot();
+                List<CostSettings> fruits = GrowingResourceData.GetFruitLoot();
                 foreach (var fruit in fruits)
                 {
                     int amount = stats.DetermineAmountYielded(

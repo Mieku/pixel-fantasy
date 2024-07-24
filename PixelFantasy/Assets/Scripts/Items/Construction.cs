@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using AI;
 using Characters;
 using Handlers;
 using HUD;
@@ -9,10 +10,11 @@ using Systems.Stats.Scripts;
 using TaskSystem;
 using UnityEngine;
 using Action = System.Action;
+using Task = TaskSystem.Task;
 
 namespace Items
 {
-    public abstract class Construction : PlayerInteractable, IClickableObject
+    public abstract class Construction : PlayerInteractable, IClickableObject, IConstructable
     {
         protected Action _onDeconstructed;
         
@@ -118,6 +120,8 @@ namespace Items
             
             Destroy(itemData.GetLinkedItem().gameObject);
             
+            itemData.CarryingKinlingUID = null;
+            
             RuntimeData.RemoveFromPendingResourceCosts(itemData.Settings);
             RuntimeData.DeductFromMaterialCosts(itemData.Settings);
             
@@ -127,6 +131,11 @@ namespace Items
             }
             
             Changed();
+        }
+        
+        public void AddToIncomingItems(ItemData itemData)
+        {
+            RuntimeData.AddToIncomingItems(itemData);
         }
         
         public override Vector2? UseagePosition(Vector2 requestorPosition)
@@ -208,18 +217,19 @@ namespace Items
         
         public virtual void CreateConstructTask(bool autoAssign = true)
         {
-            Task constuctTask = new Task("Build Construction", ETaskType.Construction, this, EToolType.BuildersHammer);
-            constuctTask.Enqueue();
+            AI.Task task = new AI.Task("Build Structure", ETaskType.Construction, this);
+            TasksDatabase.Instance.AddTask(task);
         }
 
         public virtual void CreateDeconstructionTask(bool autoAssign = true, Action onDeconstructed = null)
         {
             _onDeconstructed = onDeconstructed;
-            Task constuctTask = new Task("Deconstruct", ETaskType.Construction, this, EToolType.BuildersHammer);
-            constuctTask.Enqueue();
+
+            AI.Task task = new AI.Task("Deconstruct Structure", ETaskType.Construction, this);
+            TasksDatabase.Instance.AddTask(task);
         }
         
-        public void CreateConstuctionHaulingTasksForItems(List<ItemAmount> remainingResources)
+        public void CreateConstuctionHaulingTasksForItems(List<CostData> remainingResources)
         {
             foreach (var resourceCost in remainingResources)
             {
@@ -232,11 +242,10 @@ namespace Items
 
         protected virtual void EnqueueCreateTakeResourceToBlueprintTask(ItemSettings resourceSettings)
         {
-            Task task = new Task("Withdraw Item Construction", ETaskType.Hauling, this, EToolType.None)
-            {
-                Payload = resourceSettings,
-            };
-            TaskManager.Instance.AddTask(task);
+            Dictionary<string, string> taskData = new Dictionary<string, string> { { "ItemSettingsID", resourceSettings.name } };
+
+            AI.Task task = new AI.Task("Withdraw Item For Constructable", ETaskType.Hauling, this, taskData);
+            TasksDatabase.Instance.AddTask(task);
         }
 
         public ClickObject GetClickObject()
@@ -261,7 +270,7 @@ namespace Items
             // Spawn All the resources used
             var totalCosts = RuntimeData.Settings.CraftRequirements.GetMaterialCosts();
             var remainingCosts = RuntimeData.RemainingMaterialCosts;
-            List<ItemAmount> difference = new List<ItemAmount>();
+            List<CostSettings> difference = new List<CostSettings>();
             foreach (var totalCost in totalCosts)
             {
                 var remaining = remainingCosts.Find(c => c.Item == totalCost.Item);
@@ -274,7 +283,7 @@ namespace Items
                 int amount = totalCost.Quantity - remainingAmount;
                 if (amount > 0)
                 {
-                    ItemAmount refund = new ItemAmount
+                    CostSettings refund = new CostSettings
                     {
                         Item = totalCost.Item,
                         Quantity = amount

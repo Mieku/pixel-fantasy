@@ -27,14 +27,14 @@ namespace DataPersistence
             return MountainSettings.RuleTile;
         }
 
-        public List<ItemAmount> GetMineDrop()
+        public List<CostSettings> GetMineDrop()
         {
             if (MountainSettings.HarvestableItems != null)
             {
                 return MountainSettings.HarvestableItems.GetItemDrop();
             }
 
-            return new List<ItemAmount>();
+            return new List<CostSettings>();
         }
     }
 }

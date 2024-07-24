@@ -20,7 +20,7 @@ public class CraftingTableData : FurnitureData
 
     public bool CanAffordToCraft(CraftedItemSettings settings)
     {
-        foreach (var cost in settings.CraftRequirements.GetMaterialCosts())
+        foreach (var cost in settings.CraftRequirements.CostSettings)
         {
             if (!cost.CanAfford())
             {

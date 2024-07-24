@@ -40,9 +40,9 @@ public class FurnitureData
         }
     }
     
-    public List<ItemAmount> RemainingMaterialCosts;
-    public List<ItemAmount> PendingResourceCosts = new List<ItemAmount>(); // Claimed by a task but not used yet
-    public List<ItemAmount> IncomingResourceCosts = new List<ItemAmount>(); // The item is on its way
+    public List<CostData> RemainingMaterialCosts;
+    public List<CostData> PendingResourceCosts = new List<CostData>(); // Claimed by a task but not used yet
+    public List<CostData> IncomingResourceCosts = new List<CostData>(); // The item is on its way
     public List<ItemData> IncomingItems = new List<ItemData>();
 
     [JsonIgnore] public FurnitureSettings FurnitureSettings => GameSettings.Instance.LoadFurnitureSettings(SettingsID);
@@ -176,7 +176,7 @@ public class FurnitureData
     
     public void AddToPendingResourceCosts(ItemSettings itemSettings, int quantity = 1)
     {
-        PendingResourceCosts ??= new List<ItemAmount>();
+        PendingResourceCosts ??= new List<CostData>();
 
         foreach (var cost in PendingResourceCosts)
         {
@@ -187,9 +187,8 @@ public class FurnitureData
             }
         }
         
-        PendingResourceCosts.Add(new ItemAmount
+        PendingResourceCosts.Add(new CostData(itemSettings)
         {
-            Item = itemSettings,
             Quantity = quantity
         });
     }
@@ -216,7 +215,7 @@ public class FurnitureData
         IncomingItems ??= new List<ItemData>();
         IncomingItems.Add(itemData);
         
-        IncomingResourceCosts ??= new List<ItemAmount>();
+        IncomingResourceCosts ??= new List<CostData>();
 
         foreach (var cost in IncomingResourceCosts)
         {
@@ -227,9 +226,8 @@ public class FurnitureData
             }
         }
         
-        IncomingResourceCosts.Add(new ItemAmount
+        IncomingResourceCosts.Add(new CostData(itemData.Settings)
         {
-            Item = itemData.Settings,
             Quantity = 1
         });
     }

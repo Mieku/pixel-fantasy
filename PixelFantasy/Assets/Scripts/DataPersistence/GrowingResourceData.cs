@@ -94,14 +94,14 @@ namespace DataPersistence
             return GetGrowthStage().Health;
         }
 
-        public List<ItemAmount> GetFruitLoot()
+        public List<CostSettings> GetFruitLoot()
         {
             if (GrowingResourceSettings.HarvestableFruit != null)
             {
                 return GrowingResourceSettings.HarvestableFruit.GetItemDrop();
             }
 
-            return new List<ItemAmount>();
+            return new List<CostSettings>();
         }
 
         public float GetGrowthPercentage()

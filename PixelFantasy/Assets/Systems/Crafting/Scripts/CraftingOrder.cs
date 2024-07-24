@@ -47,7 +47,7 @@ namespace Systems.Crafting.Scripts
         public Action OnOrderClaimed;
         public Action OnOrderCancelled;
         
-        private List<ItemAmount> _remainingMaterials = new List<ItemAmount>();
+        private List<CostData> _remainingMaterials = new List<CostData>();
         private List<Ingredient> _remainingIngredients = new List<Ingredient>();
         
         public enum EOrderType

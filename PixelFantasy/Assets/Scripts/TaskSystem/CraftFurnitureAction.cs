@@ -36,7 +36,7 @@ namespace TaskSystem
             _task = task;
             _furniture = (Furniture) task.Requestor;
 
-            var mats = _furniture.RuntimeData.FurnitureSettings.CraftRequirements.MaterialCosts;
+            var mats = _furniture.RuntimeData.FurnitureSettings.CraftRequirements.CostSettings;
             _claimedMats = new List<ItemData>();
             foreach (var mat in mats)
             {
@@ -97,7 +97,7 @@ namespace TaskSystem
             if(_timer >= ActionSpeed) 
             {
                 _timer = 0;
-                if (_furniture.DoCrafting(_ai.Kinling.Stats)) 
+                if (_furniture.DoConstruction(_ai.Kinling.Stats)) 
                 {
                     // When work is complete
                     ConcludeAction();

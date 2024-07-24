@@ -17,7 +17,7 @@ using UnityEngine;
 
 namespace Items
 {
-    public class Furniture : PlayerInteractable, IClickableObject
+    public class Furniture : PlayerInteractable, IClickableObject, IConstructable
     {
         [TitleGroup("South")] [SerializeField] protected GameObject _southHandle;
         [TitleGroup("South")] [SerializeField] protected Transform _southSpritesRoot;
@@ -151,7 +151,7 @@ namespace Items
                 RuntimeData.HasUseBlockingCommand = true;
                 if (RuntimeData.FurnitureState != EFurnitureState.Built)
                 {
-                    CancelFurnitureConstruction();
+                    CancelConstruction();
                 }
                 else
                 {
@@ -171,7 +171,7 @@ namespace Items
             base.CancelCommand(command);
         }
 
-        protected void CancelFurnitureConstruction()
+        public virtual void CancelConstruction()
         {
             FurnitureDatabase.Instance.DeregisterFurniture(RuntimeData);
             
@@ -189,7 +189,7 @@ namespace Items
             // Spawn All the resources used
             var totalCosts = RuntimeData.FurnitureSettings.CraftRequirements.GetMaterialCosts();
             var remainingCosts = RuntimeData.RemainingMaterialCosts;
-            List<ItemAmount> difference = new List<ItemAmount>();
+            List<CostSettings> difference = new List<CostSettings>();
             foreach (var totalCost in totalCosts)
             {
                 var remaining = remainingCosts.Find(c => c.Item == totalCost.Item);
@@ -202,7 +202,7 @@ namespace Items
                 int amount = totalCost.Quantity - remainingAmount;
                 if (amount > 0)
                 {
-                    ItemAmount refund = new ItemAmount
+                    CostSettings refund = new CostSettings
                     {
                         Item = totalCost.Item,
                         Quantity = amount
@@ -489,7 +489,7 @@ namespace Items
         private void CreateCraftFurnitureTask()
         {
             // If there are no material costs, build instantly
-            if (RuntimeData.FurnitureSettings.CraftRequirements.MaterialCosts.Count == 0)
+            if (RuntimeData.FurnitureSettings.CraftRequirements.CostSettings.Count == 0)
             {
                 SetState(EFurnitureState.Built);
                 return;
@@ -502,6 +502,7 @@ namespace Items
         public override void ReceiveItem(ItemData item)
         {
             Destroy(item.GetLinkedItem().gameObject);
+            item.CarryingKinlingUID = null;
             
             RuntimeData.RemoveFromPendingResourceCosts(item.Settings);
             RuntimeData.DeductFromMaterialCosts(item.Settings);
@@ -511,7 +512,7 @@ namespace Items
             OnChanged?.Invoke();
         }
 
-        public bool DoCrafting(StatsData stats)
+        public bool DoConstruction(StatsData stats)
         {
             var workAmount = stats.GetActionSpeedForSkill(ESkillType.Crafting, true);
             RuntimeData.RemainingWork -= workAmount;
@@ -696,7 +697,12 @@ namespace Items
                 spriteRenderer.color = colour;
             }
         }
-        
+
+        public void AddToIncomingItems(ItemData itemData)
+        {
+            RuntimeData.AddToIncomingItems(itemData);
+        }
+
         public enum ColourStates
         {
             Built,

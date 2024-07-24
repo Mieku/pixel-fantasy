@@ -111,7 +111,7 @@ namespace Systems.Details.Build_Details.Scripts
             _craftRequirements = furnitureSettings.CraftRequirements;
             
             _borderImg.enabled = true;
-            _itemIcon.sprite = furnitureSettings.CraftRequirements.MaterialCosts[0].Item.ItemSprite;
+            _itemIcon.sprite = furnitureSettings.CraftRequirements.CostSettings[0].Item.ItemSprite;
             
             RemoveHighlight();
         }
