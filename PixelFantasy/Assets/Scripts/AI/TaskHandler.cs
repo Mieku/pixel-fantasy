@@ -4,8 +4,10 @@ using System.Linq;
 using AI.Task_Settings;
 using Characters;
 using Managers;
+using NodeCanvas.Framework;
 using Systems.Appearance.Scripts;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace AI
 {
@@ -117,8 +119,8 @@ namespace AI
         private void ExecuteTask(Task task)
         {
             _kinlingData.CurrentTaskID = task.UniqueID;
-            var tree = FindTaskTreeFor(task);
             
+            var tree = FindTaskTreeFor(task);
             task.TaskData["KinlingUID"] =  _kinlingData.UniqueID;
             
             tree.ExecuteTask(task.TaskData, OnFinished);
@@ -127,7 +129,8 @@ namespace AI
         public void LoadCurrentTask(Task task)
         {
             var tree = FindTaskTreeFor(task);
-            task.LoadBlackboardState(tree.BTOwner.blackboard);
+
+            tree.Blackboard.Deserialize(task.BlackboardJSON, null);
             tree.ExecuteTask(task.TaskData, OnFinished);
         }
 
@@ -136,7 +139,8 @@ namespace AI
             if (CurrentTask != null)
             {
                 var tree = FindTaskTreeFor(CurrentTask);
-                CurrentTask.SaveBlackboardState(tree.BTOwner.blackboard);
+
+                CurrentTask.BlackboardJSON = tree.Blackboard.Serialize(null);
             }
         }
 

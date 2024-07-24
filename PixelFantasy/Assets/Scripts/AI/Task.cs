@@ -20,30 +20,27 @@ namespace AI
         public string TaskID;
         public ETaskType Type;
         public ETaskStatus Status;
+        public string BlackboardJSON;
         public Dictionary<string, string> TaskData = new Dictionary<string, string>();
         public List<SkillRequirement> SkillRequirements;
         [JsonIgnore] public Dictionary<string, DateTime> FailedLog = new Dictionary<string, DateTime>();
 
         public bool IsCanceled { get; private set; } // Track if the task is canceled
         private const int TASK_RETRY_DELAY_SECONDS = 5;
-        
-        [JsonIgnore] private TaskSettings Settings => GameSettings.Instance.LoadTaskSettings(TaskID);
 
         public Task()
         {
         }
 
-        public Task(string taskID, PlayerInteractable requester, List<SkillRequirement> skillRequirements = null)
+        public Task(string taskID, ETaskType taskType, PlayerInteractable requester, List<SkillRequirement> skillRequirements = null)
         {
             TaskID = taskID;
-            UniqueID = CreateUniqueID(Settings.name);
-            Type = Settings.Type;
+            UniqueID = CreateUniqueID(taskID);
+            Type = taskType;
             SkillRequirements = skillRequirements;
             TaskData = new Dictionary<string, string>() { { "RequesterUID", requester.UniqueID } };
             Status = ETaskStatus.Pending;
             FailedLog = new Dictionary<string, DateTime>();
-            //Context = new TaskContext();
-            //IsCanceled = false;
         }
         
         public bool CanBeRetriedByKinling(string kinlingID)
@@ -78,22 +75,6 @@ namespace AI
         private string CreateUniqueID(string prefix)
         {
             return $"{prefix}_{Guid.NewGuid()}";
-        }
-        
-        public void SaveBlackboardState(IBlackboard blackboard)
-        {
-            foreach (var variable in blackboard.GetVariables())
-            {
-                TaskData[variable.name] = variable.value.ToString();
-            }
-        }
-
-        public void LoadBlackboardState(IBlackboard blackboard)
-        {
-            foreach (var kvp in TaskData)
-            {
-                blackboard.SetVariableValue(kvp.Key, kvp.Value);
-            }
         }
     }
 

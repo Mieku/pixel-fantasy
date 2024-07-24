@@ -46,9 +46,9 @@ namespace Characters
         public List<RelationshipData> Relationships = new List<RelationshipData>();
         public AvatarData Avatar;
         public string CurrentTaskID;
+        public string HeldItemID;
         
         [JsonIgnore] public TaskAction CurrentTaskAction; // TODO: For now
-        //[JsonIgnore] public Item HeldItem;
         
         [JsonRequired] private float _posX;
         [JsonRequired] private float _posY;

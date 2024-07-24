@@ -417,7 +417,7 @@ namespace TaskSystem
             storage.DepositItems(_kinling.HeldItem);
             var item = _kinling.HeldItem;
             _kinling.HeldItem = null;
-            item.RuntimeData.CurrentTask = null;
+            item.RuntimeData.CurrentTaskID = null;
             item.RuntimeData.CarryingKinlingUID = null;
             Destroy(item.gameObject);
         }

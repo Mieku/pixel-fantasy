@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Managers;
 using NodeCanvas.BehaviourTrees;
 using NodeCanvas.Framework;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace AI.Task_Settings
     {
         public string TaskID;
         public BehaviourTreeOwner BTOwner;
+        public Blackboard Blackboard;
 
         private Action<bool> _onFinishedCallback;
 
@@ -21,16 +23,24 @@ namespace AI.Task_Settings
             }
         }
 
+        private void Update()
+        {
+            if (TimeManager.Instance.GameSpeed != GameSpeed.Paused)
+            {
+                BTOwner.Tick();
+            }
+        }
+
         public void ExecuteTask(Dictionary<string, string> TaskData, Action<bool> onTaskComplete)
         {
             _onFinishedCallback = onTaskComplete;
         
             foreach (var data in TaskData)
             {
-                BTOwner.blackboard.SetVariableValue(data.Key, data.Value);
+                Blackboard.SetVariableValue(data.Key, data.Value);
             }
-        
-            BTOwner.StartBehaviour(OnFinished);
+            
+            BTOwner.StartBehaviour(Graph.UpdateMode.Manual, OnFinished);
         }
     
         private void OnFinished(bool success)
@@ -44,7 +54,23 @@ namespace AI.Task_Settings
         {
             foreach (var kvp in BTOwner.blackboard.variables)
             {
-                BTOwner.blackboard.SetVariableValue(kvp.Key, default);
+                var variable = kvp.Value;
+                var type = variable.GetType().GetGenericArguments()[0];
+
+                object defaultValue = type.IsValueType ? Activator.CreateInstance(type) : null;
+
+                BTOwner.blackboard.SetVariableValue(kvp.Key, defaultValue);
+            }
+            
+            // Graphs BB
+            foreach (var kvp in BTOwner.graph.blackboard.variables)
+            {
+                var variable = kvp.Value;
+                var type = variable.GetType().GetGenericArguments()[0];
+
+                object defaultValue = type.IsValueType ? Activator.CreateInstance(type) : null;
+
+                BTOwner.graph.blackboard.SetVariableValue(kvp.Key, defaultValue);
             }
         }
     }

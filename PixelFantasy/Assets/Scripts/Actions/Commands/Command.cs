@@ -13,7 +13,8 @@ public class Command : ScriptableObject
     public Task Task; // TODO: Old remove
     public EToolType RequiredToolType => Task.RequiredToolType; // TODO: old remove
 
-    public TaskSettings TaskSettings;
+    public string TaskID;
+    public ETaskType TaskType;
 
     public bool CanDoCommand(Kinling kinling, PlayerInteractable interactable)
     {

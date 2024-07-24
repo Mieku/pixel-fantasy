@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using Systems.Zones.Scripts;
 using UnityEngine;
@@ -162,5 +163,17 @@ public abstract class ZoneData
     public void ChangeZoneName(string newName)
     {
         ZoneName = newName;
+    }
+
+    public void ClearCells()
+    {
+        var cells = ZoneCells.ToList();
+        foreach (var zoneCell in cells )
+        {
+            zoneCell.DeleteCell();
+        }
+        
+        ZoneCells.Clear();
+        Cells.Clear();
     }
 }

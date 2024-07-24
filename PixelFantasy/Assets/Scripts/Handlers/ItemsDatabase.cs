@@ -20,6 +20,11 @@ namespace Handlers
         {
             _registeredItems.Remove(data);
         }
+
+        public ItemData Query(string uniqueID)
+        {
+            return _registeredItems.Find(i => i.UniqueID == uniqueID);
+        }
         
         public Item FindItemObject(string uniqueID)
         {
@@ -102,13 +107,12 @@ namespace Handlers
 
         private void LoadStoredItem(ItemData data)
         {
-            var storage = InventoryManager.Instance.GetStorageByID(data.AssignedStorageID);
-            storage.LoadInItem(data);
+            // Loaded by the storage
         }
 
         private void LoadCarriedItem(ItemData data)
         {
-            
+            // Loaded by the Kinling
         }
     }
 }

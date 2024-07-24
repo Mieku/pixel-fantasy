@@ -162,11 +162,11 @@ namespace DataPersistence
                 TilemapController.Instance.LoadTileMapData(saveData.TileMapData);
                 ResourcesDatabase.Instance.LoadResourcesData(saveData.ResourcesData);
                 _rampsHandler.LoadRampsData(saveData.RampData);
+                ItemsDatabase.Instance.LoadItemsData(saveData.ItemsData);
                 ZonesDatabase.Instance.LoadZonesData(saveData.ZonesData);
                 StructureDatabase.Instance.LoadStructureData(saveData.StructuresData);
                 FlooringDatabase.Instance.LoadFloorData(saveData.FloorsData);
                 FurnitureDatabase.Instance.LoadFurnitureData(saveData.FurnitureData);
-                ItemsDatabase.Instance.LoadItemsData(saveData.ItemsData);
                 TasksDatabase.Instance.LoadTasksData(saveData.TasksData);
                 KinlingsDatabase.Instance.LoadKinlingsData(saveData.Kinlings);
             }

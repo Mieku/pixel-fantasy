@@ -20,4 +20,5 @@ MonoBehaviour:
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
-  TaskSettings: {fileID: 11400000, guid: 4f38c97be475c284d9bde212e473252c, type: 2}
+  TaskID: Extract Resource
+  TaskType: 8

@@ -74,7 +74,7 @@ public abstract class PlayerInteractable : MonoBehaviour
         // TaskManager.Instance.AddTask(task);
         
 
-        AI.Task task = new AI.Task(command.TaskSettings.TaskID, this);
+        AI.Task task = new AI.Task(command.TaskID, command.TaskType, this);
         
         TasksDatabase.Instance.AddTask(task);
         AddTaskToRequested(task);

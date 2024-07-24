@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using AI;
 using Characters;
 using Interfaces;
 using Managers;
 using TaskSystem;
 using UnityEngine;
+using Task = AI.Task;
 
 namespace Items
 {
@@ -97,38 +99,37 @@ namespace Items
 
         public void CreateHaulTask()
         {
-            Task task = new Task("Store Item", ETaskType.Hauling, this, EToolType.None);
-
-            TaskManager.Instance.AddTask(task);
-            RuntimeData.CurrentTask = task;
+            Task task = new Task("Store Item", ETaskType.Hauling, this);
+            TasksDatabase.Instance.AddTask(task);
+            RuntimeData.CurrentTaskID = task.UniqueID;
         }
 
         public void CancelTask(bool lookToHaul = true)
         {
-            if (RuntimeData.CurrentTask != null)
-            {
-                if (RuntimeData.AssignedStorage != null)
-                {
-                    RuntimeData.AssignedStorage.CancelIncoming(RuntimeData);
-                    RuntimeData.AssignedStorageID = null;
-                }
-
-                if (!string.IsNullOrEmpty(RuntimeData.CarryingKinlingUID))
-                {
-                    var carryingKinling = KinlingsDatabase.Instance.GetKinling(RuntimeData.CarryingKinlingUID);
-                    carryingKinling.TaskAI.CancelTask(RuntimeData.CurrentTask.TaskId);
-                }
-                
-                RuntimeData.CurrentTask.Cancel();
-                RuntimeData.CurrentTask = null;
-                
-                CancelRequestorTasks();
-
-                if (lookToHaul)
-                {
-                    SeekForSlot();
-                }
-            }
+            // if (RuntimeData.CurrentTask != null)
+            // {
+            //     if (RuntimeData.AssignedStorage != null)
+            //     {
+            //         RuntimeData.AssignedStorage.CancelIncoming(RuntimeData);
+            //         RuntimeData.AssignedStorageID = null;
+            //     }
+            //
+            //     if (!string.IsNullOrEmpty(RuntimeData.CarryingKinlingUID))
+            //     {
+            //         var carryingKinling = KinlingsDatabase.Instance.GetKinling(RuntimeData.CarryingKinlingUID);
+            //         carryingKinling.TaskAI.CancelTask(RuntimeData.CurrentTask.TaskId);
+            //     }
+            //     
+            //     RuntimeData.CurrentTask.Cancel();
+            //     RuntimeData.CurrentTask = null;
+            //     
+            //     CancelRequestorTasks();
+            //
+            //     if (lookToHaul)
+            //     {
+            //         SeekForSlot();
+            //     }
+            // }
         }
 
         private void GameEvent_OnInventoryAvailabilityChanged()
@@ -220,7 +221,7 @@ namespace Items
         private Action _onItemRelocatedCallback;
         public void RelocateItem(Action onItemRelocated, Vector2 newLocation)
         {
-            if (RuntimeData.CurrentTask is not { TaskId: "Relocate Item" })
+            if (RuntimeData.CurrentTaskID != "Relocate Item")
             {
                 CancelTask(false);
                 

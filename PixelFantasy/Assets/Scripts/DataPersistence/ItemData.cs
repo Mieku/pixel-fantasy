@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using AI;
 using Handlers;
 using Items;
 using Managers;
@@ -20,8 +21,9 @@ public class ItemData
     public bool IsAllowed;
     public string CarryingKinlingUID;
     public string AssignedStorageID;
+    public string CurrentTaskID;
 
-    [JsonIgnore] public Task CurrentTask;
+    [JsonIgnore] public AI.Task CurrentTask => TasksDatabase.Instance.QueryTask(CurrentTaskID);
     
     [JsonIgnore] public virtual ItemSettings Settings => GameSettings.Instance.LoadItemSettings(SettingsID);
     [JsonIgnore] public virtual string ItemName => Settings.ItemName;

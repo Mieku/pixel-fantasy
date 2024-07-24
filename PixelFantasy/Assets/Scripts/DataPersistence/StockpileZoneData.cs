@@ -110,18 +110,27 @@ public class StockpileZoneData : ZoneData, IStorage
         List<StorageCellData> results = new List<StorageCellData>();
         foreach (var stockpileCell in StockpileCells)
         {
-            if (stockpileCell.Stored.Count > 0)
+            if (stockpileCell.Stored.Count > 0 || stockpileCell.Incoming.Count > 0)
             {
                 var cellData = new StorageCellData();
                 cellData.Cell = stockpileCell.CellPos;
 
+                // Stored
                 List<string> itemsList = new List<string>();
                 foreach (var itemData in stockpileCell.Stored)
                 {
                     itemsList.Add(itemData.UniqueID);
                 }
+                
+                // Incoming
+                List<string> incomingItemsList = new List<string>();
+                foreach (var itemData in stockpileCell.Incoming)
+                {
+                    incomingItemsList.Add(itemData.UniqueID);
+                }
 
                 cellData.StoredItemsData = itemsList;
+                cellData.IncomingItemsData = incomingItemsList;
                 results.Add(cellData);
             }
         }
@@ -444,6 +453,7 @@ public class StorageCellData
     [JsonRequired] private int _cellX;
     [JsonRequired] private int _cellY;
     [JsonRequired] public List<string> StoredItemsData = new List<string>();
+    [JsonRequired] public List<string> IncomingItemsData = new List<string>();
 
     [JsonIgnore]
     public Vector3Int Cell

@@ -163,7 +163,7 @@ namespace Items
                     incoming.GetLinkedItem().CancelTask();
                 }
 
-                if (incoming.CurrentTask != null && !string.IsNullOrEmpty(incoming.CurrentTask.TaskId))
+                if (incoming.CurrentTask != null && !string.IsNullOrEmpty(incoming.CurrentTaskID))
                 {
                     incoming.CurrentTask.Cancel();
                 }
@@ -177,7 +177,7 @@ namespace Items
                     stored.GetLinkedItem().CancelTask();
                 }
 
-                if (stored.CurrentTask != null && !string.IsNullOrEmpty(stored.CurrentTask.TaskId))
+                if (stored.CurrentTask != null && !string.IsNullOrEmpty(stored.CurrentTaskID))
                 {
                     stored.CurrentTask.Cancel();
                 }

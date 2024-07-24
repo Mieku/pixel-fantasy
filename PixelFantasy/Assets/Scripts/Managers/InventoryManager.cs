@@ -80,6 +80,7 @@ namespace Managers
             return _allStorage.Find(s => s.UniqueID == storageID);
         }
         
+        // TODO: Ensure there is a possible path to the storage
         public IStorage GetAvailableStorage(ItemSettings itemSettings)
         {
             foreach (var storage in _allStorage)

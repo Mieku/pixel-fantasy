@@ -60,8 +60,9 @@ namespace Systems.Zones.Scripts
             var zones = _currentZones.ToList();
             foreach (var zone in zones)
             {
-                DeleteZone(zone);
+                zone.ClearCells();
             }
+            
             _currentZones.Clear();
         }
 

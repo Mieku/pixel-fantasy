@@ -1,19 +1,22 @@
+using Handlers;
 using Managers;
 using NodeCanvas.Framework;
-using UnityEngine;
 
 namespace AI.Action_Tasks
 {
-    public class GoToRequester : ActionTask
+    public class GoToAssignedStorage : ActionTask
     {
-        public BBParameter<string> RequesterUID;
+        public BBParameter<string> ItemUID;
         public BBParameter<string> KinlingUID;
     
         protected override void OnExecute()
         {
             var kinling = KinlingsDatabase.Instance.GetKinling(KinlingUID.value);
-            PlayerInteractable requester = PlayerInteractableDatabase.Instance.Query(RequesterUID.value);
-            var movePos = requester.UseagePosition(kinling.transform.position);
+            var item = ItemsDatabase.Instance.FindItemObject(ItemUID.value);
+
+            var assignedStorage = item.RuntimeData.AssignedStorage;
+
+            var movePos = assignedStorage.AccessPosition(kinling.transform.position, item.RuntimeData);
             if (movePos == null)
             {
                 EndAction(false);

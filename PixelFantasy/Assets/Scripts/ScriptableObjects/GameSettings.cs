@@ -29,7 +29,7 @@ namespace ScriptableObjects
             }
         }
 
-        [BoxGroup("DEBUG"), ShowInInspector] public bool FastActions { get; private set; }
+        [BoxGroup("DEBUG"), ShowInInspector] public bool FastActions { get; private set; } = true;
         
         [BoxGroup("Social"), ShowInInspector] public float BasePregnancyChance { get; private set; } = 50f;
         [BoxGroup("Social"), ShowInInspector, Tooltip("In Hours")] public float BaseSocialFrequency { get; private set; } = 4f;
@@ -165,24 +165,6 @@ namespace ScriptableObjects
         {
             TileBase tileBase = Resources.Load<TileBase>($"Tiles/{tilebaseName}");
             return tileBase;
-        }
-        
-        // Task Settings
-        private List<TaskSettings> _taskSettingsCache = null;
-        private List<TaskSettings> LoadAllTaskSettings()
-        {
-            return Resources.LoadAll<TaskSettings>("Settings/Tasks").Where(s => s != null).ToList();
-        }
-
-        public TaskSettings LoadTaskSettings(string settingsID)
-        {
-            if (_taskSettingsCache == null || _taskSettingsCache.Count == 0)
-            {
-                _taskSettingsCache = LoadAllTaskSettings();
-            }
-
-            var result = _taskSettingsCache.Find(settings => settings.TaskID == settingsID);
-            return result;
         }
         
         // Task Actions

@@ -20,6 +20,26 @@ namespace Systems.Zones.Scripts
         public override void Init(ZoneData data, Vector3Int cellPos)
         {
             base.Init(data, cellPos);
+
+            var stockpileZoneData = (StockpileZoneData)data;
+            var cell = stockpileZoneData.StorageCellDatas.Find(c => c.Cell == cellPos);
+            if (cell != null)
+            {
+                var incomingUIDs = cell.IncomingItemsData;
+                var storedUIDs = cell.StoredItemsData;
+
+                foreach (var itemUID in incomingUIDs)
+                {
+                    var item = ItemsDatabase.Instance.Query(itemUID);
+                    Incoming.Add(item);
+                }
+                
+                foreach (var itemUID in storedUIDs)
+                {
+                    var item = ItemsDatabase.Instance.Query(itemUID);
+                    Stored.Add(item);
+                }
+            }
             
             RefreshDisplay();
         }
@@ -64,7 +84,7 @@ namespace Systems.Zones.Scripts
                     incoming.GetLinkedItem().CancelTask();
                 }
 
-                if (incoming.CurrentTask != null && !string.IsNullOrEmpty(incoming.CurrentTask.TaskId))
+                if (incoming.CurrentTask != null && !string.IsNullOrEmpty(incoming.CurrentTaskID))
                 {
                     incoming.CurrentTask.Cancel();
                 }
@@ -78,7 +98,7 @@ namespace Systems.Zones.Scripts
                     stored.GetLinkedItem().CancelTask();
                 }
 
-                if (stored.CurrentTask != null && !string.IsNullOrEmpty(stored.CurrentTask.TaskId))
+                if (stored.CurrentTask != null && !string.IsNullOrEmpty(stored.CurrentTaskID))
                 {
                     stored.CurrentTask.Cancel();
                 }
