@@ -90,13 +90,23 @@ namespace AI
             return null;
         }
 
-        public List<TaskQueue> GetTaskData()
+        public List<TaskQueue> SaveTaskData()
         {
+            foreach (var queue in TaskQueues)
+            {
+                queue.TriggerOnSave();
+            }
+            
             return TaskQueues;
         }
 
         public void LoadTasksData(List<TaskQueue> taskQueues)
         {
+            foreach (var queue in TaskQueues)
+            {
+                queue.TriggerOnLoad();
+            }
+            
             TaskQueues = taskQueues;
         }
 

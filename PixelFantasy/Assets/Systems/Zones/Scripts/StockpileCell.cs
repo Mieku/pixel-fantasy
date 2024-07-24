@@ -86,7 +86,7 @@ namespace Systems.Zones.Scripts
 
                 if (incoming.CurrentTask != null && !string.IsNullOrEmpty(incoming.CurrentTaskID))
                 {
-                    incoming.CurrentTask.Cancel();
+                    incoming.CurrentTask.Cancel(true);
                 }
             }
             
@@ -100,7 +100,7 @@ namespace Systems.Zones.Scripts
 
                 if (stored.CurrentTask != null && !string.IsNullOrEmpty(stored.CurrentTaskID))
                 {
-                    stored.CurrentTask.Cancel();
+                    stored.CurrentTask.Cancel(true);
                 }
             }
         }

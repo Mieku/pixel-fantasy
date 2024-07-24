@@ -165,7 +165,7 @@ namespace Items
 
                 if (incoming.CurrentTask != null && !string.IsNullOrEmpty(incoming.CurrentTaskID))
                 {
-                    incoming.CurrentTask.Cancel();
+                    incoming.CurrentTask.Cancel(true);
                 }
             }
             
@@ -179,7 +179,7 @@ namespace Items
 
                 if (stored.CurrentTask != null && !string.IsNullOrEmpty(stored.CurrentTaskID))
                 {
-                    stored.CurrentTask.Cancel();
+                    stored.CurrentTask.Cancel(true);
                 }
             }
         }

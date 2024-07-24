@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace AI.Action_Tasks
 {
-    public class DepositHeldItemIntoStorageAction : ActionTask
+    public class DepositHeldItemIntoStorageAction : KinlingActionTask
     {
         public BBParameter<string> RequesterUID;
         public BBParameter<string> KinlingUID;
@@ -27,7 +27,7 @@ namespace AI.Action_Tasks
             EndAction(true);
         }
 
-        protected override void OnStop(bool interrupt)
+        protected override void OnStopInternal(bool interrupt)
         {
             if (interrupt)
             {

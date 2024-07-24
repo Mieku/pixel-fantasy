@@ -19,6 +19,8 @@ namespace DataPersistence
     {
         [SerializeField] private RampsHandler _rampsHandler;
         [SerializeField] private GameObject _UIHandle;
+
+        public static bool WorldIsClearing;
         
         [Serializable]
         public class SaveData
@@ -79,7 +81,7 @@ namespace DataPersistence
                 ZonesData = ZonesDatabase.Instance.GetZonesData(),
                 StructuresData = StructureDatabase.Instance.GetStructureData(),
                 FloorsData = FlooringDatabase.Instance.GetFloorData(),
-                TasksData = TasksDatabase.Instance.GetTaskData(),
+                TasksData = TasksDatabase.Instance.SaveTaskData(),
             };
 
             var settings = new JsonSerializerSettings
@@ -177,6 +179,7 @@ namespace DataPersistence
 
         public void ClearWorld()
         {
+            WorldIsClearing = true;
             TilemapController.Instance.ClearAllTiles();
             ResourcesDatabase.Instance.DeleteResources();
             _rampsHandler.DeleteRamps();
@@ -188,6 +191,7 @@ namespace DataPersistence
             FlooringDatabase.Instance.ClearAllFloors();
             TasksDatabase.Instance.ClearAllTasks();
             PlayerInteractableDatabase.Instance.ClearDatabase();
+            WorldIsClearing = false;
         }
     }
 }

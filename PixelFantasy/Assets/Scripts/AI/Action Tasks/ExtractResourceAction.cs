@@ -6,7 +6,7 @@ using Systems.Appearance.Scripts;
 
 namespace AI.Action_Tasks
 {
-    public class ExtractResourceAction : ActionTask
+    public class ExtractResourceAction : KinlingActionTask
     {
         public BBParameter<string> RequesterUID;
         public BBParameter<string> KinlingUID;
@@ -37,7 +37,7 @@ namespace AI.Action_Tasks
             }
         }
 
-        protected override void OnStop()
+        protected override void OnStopInternal(bool interrupt)
         {
             kinling.Avatar.SetUnitAction(UnitAction.Nothing);
             _timer = 0;

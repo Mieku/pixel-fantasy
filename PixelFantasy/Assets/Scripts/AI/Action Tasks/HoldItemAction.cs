@@ -6,7 +6,7 @@ using NodeCanvas.Framework;
 
 namespace AI.Action_Tasks
 {
-    public class HoldItemAction : ActionTask
+    public class HoldItemAction : KinlingActionTask
     {
         public BBParameter<string> RequesterUID;
         public BBParameter<string> KinlingUID;
@@ -27,8 +27,8 @@ namespace AI.Action_Tasks
             
             EndAction(true);
         }
-
-        protected override void OnStop(bool interrupt)
+        
+        protected override void OnStopInternal(bool interrupt)
         {
             if (interrupt)
             {

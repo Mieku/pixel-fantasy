@@ -4,10 +4,8 @@ using System.Linq;
 using AI.Task_Settings;
 using Characters;
 using Managers;
-using NodeCanvas.Framework;
 using Systems.Appearance.Scripts;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace AI
 {
@@ -118,12 +116,29 @@ namespace AI
         
         private void ExecuteTask(Task task)
         {
+            // If there is a task currently running, cancel it and return it
+            if (CurrentTask != null)
+            {
+                CurrentTask.Cancel(true);
+                CurrentTask.OnCancelledCallback -= OnTaskCancelled;
+            }
+            
             _kinlingData.CurrentTaskID = task.UniqueID;
+            task.OnCancelledCallback += OnTaskCancelled;
             
             var tree = FindTaskTreeFor(task);
             task.TaskData["KinlingUID"] =  _kinlingData.UniqueID;
             
             tree.ExecuteTask(task.TaskData, OnFinished);
+        }
+
+        private void OnTaskCancelled()
+        {
+            if (CurrentTask != null)
+            {
+                var tree = FindTaskTreeFor(CurrentTask);
+                tree.BTOwner.StopBehaviour(false);
+            }
         }
 
         public void LoadCurrentTask(Task task)
@@ -146,17 +161,24 @@ namespace AI
 
         private void OnFinished(bool success)
         {
+            var curTask = CurrentTask;
+            
             if (!success)
             {
-                CurrentTask.LogFailedAttempt(_kinlingData.UniqueID);
-                CurrentTask.Status = ETaskStatus.Pending;
+                if (curTask.Status != ETaskStatus.Canceled)
+                {
+                    curTask.LogFailedAttempt(_kinlingData.UniqueID);
+                    curTask.Status = ETaskStatus.Pending;
+                }
             }
             else
             {
-                CurrentTask.Status = ETaskStatus.Completed;
-                TasksDatabase.Instance.RemoveTask(CurrentTask);
+                curTask.Status = ETaskStatus.Completed;
+                TasksDatabase.Instance.RemoveTask(curTask);
             }
             
+            curTask.TaskComplete(success);
+            curTask.OnCancelledCallback -= OnTaskCancelled;
             _kinlingData.CurrentTaskID = null;
         }
         

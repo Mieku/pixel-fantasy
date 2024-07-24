@@ -18,14 +18,21 @@ namespace AI
     {
         public string UniqueID;
         public string TaskID;
+        public string RequesterUID;
         public ETaskType Type;
         public ETaskStatus Status;
         public string BlackboardJSON;
         public Dictionary<string, string> TaskData = new Dictionary<string, string>();
         public List<SkillRequirement> SkillRequirements;
         [JsonIgnore] public Dictionary<string, DateTime> FailedLog = new Dictionary<string, DateTime>();
-
-        public bool IsCanceled { get; private set; } // Track if the task is canceled
+        
+        [JsonIgnore] public Action OnCancelledCallback;
+        [JsonIgnore] public Action<Task, bool> OnCompletedCallback;
+        
+        // For serialization of callbacks
+        public string CancelledCallbackState { get; set; }
+        public string CompletedCallbackState { get; set; }
+        
         private const int TASK_RETRY_DELAY_SECONDS = 5;
 
         public Task()
@@ -36,11 +43,47 @@ namespace AI
         {
             TaskID = taskID;
             UniqueID = CreateUniqueID(taskID);
+            RequesterUID = requester.UniqueID;
             Type = taskType;
             SkillRequirements = skillRequirements;
             TaskData = new Dictionary<string, string>() { { "RequesterUID", requester.UniqueID } };
             Status = ETaskStatus.Pending;
             FailedLog = new Dictionary<string, DateTime>();
+        }
+
+        public void OnSave()
+        {
+            // Convert the state of the actions to a serializable form
+            CancelledCallbackState = OnCancelledCallback?.Method.Name;
+            CompletedCallbackState = OnCompletedCallback?.Method.Name;
+        }
+
+        public void OnLoad()
+        {
+            // Convert the serialized state back to actions
+            if (CancelledCallbackState != null)
+            {
+                OnCancelledCallback = GetActionByName(CancelledCallbackState);
+            }
+
+            if (CompletedCallbackState != null)
+            {
+                OnCompletedCallback = GetActionByName<Task, bool>(CompletedCallbackState);
+            }
+        }
+        
+        private Action GetActionByName(string methodName)
+        {
+            // Implement a way to get the method by name
+            // This is just an example and may need adjustment
+            return (Action)Delegate.CreateDelegate(typeof(Action), this, methodName);
+        }
+
+        private Action<Task, bool> GetActionByName<T1, T2>(string methodName)
+        {
+            // Implement a way to get the method by name
+            // This is just an example and may need adjustment
+            return (Action<Task, bool>)Delegate.CreateDelegate(typeof(Action<Task, bool>), this, methodName);
         }
         
         public bool CanBeRetriedByKinling(string kinlingID)
@@ -65,11 +108,24 @@ namespace AI
             return skillsPass;
         }
         
-        public void Cancel()
+        public void Cancel(bool shouldRequeue)
         {
-            IsCanceled = true;
+            Debug.Log($"Cancelling Task: {TaskID} : {UniqueID}");
+
             Status = ETaskStatus.Canceled;
-            TasksDatabase.Instance.RemoveTask(this);
+            
+            OnCancelledCallback?.Invoke();
+            
+            if (!shouldRequeue)
+            {
+                Status = ETaskStatus.Canceled;
+                TasksDatabase.Instance.RemoveTask(this);
+            }
+        }
+
+        public void TaskComplete(bool success)
+        {
+            OnCompletedCallback?.Invoke(this, success);
         }
         
         private string CreateUniqueID(string prefix)

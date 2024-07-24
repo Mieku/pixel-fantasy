@@ -1,26 +1,40 @@
+using Characters;
 using Managers;
 using NodeCanvas.Framework;
 using UnityEngine;
 
 namespace AI.Action_Tasks
 {
-    public class GoToPIMoveTarget : ActionTask
+    public class GoToPIMoveTarget : KinlingActionTask
     {
         public BBParameter<string> PIMoveTargetUID;
         public BBParameter<string> KinlingUID;
+
+        private Kinling _kinling;
     
         protected override void OnExecute()
         {
-            var kinling = KinlingsDatabase.Instance.GetKinling(KinlingUID.value);
+            _kinling = KinlingsDatabase.Instance.GetKinling(KinlingUID.value);
             PlayerInteractable requester = PlayerInteractableDatabase.Instance.Query(PIMoveTargetUID.value);
-            var movePos = requester.UseagePosition(kinling.transform.position);
+            var movePos = requester.UseagePosition(_kinling.transform.position);
             if (movePos == null)
             {
                 EndAction(false);
                 return;
             }
             
-            kinling.KinlingAgent.SetMovePosition(movePos, OnReachedPosition, OnImpossibleMove);
+            _kinling.KinlingAgent.SetMovePosition(movePos, OnReachedPosition, OnImpossibleMove);
+        }
+        
+        protected override void OnStopInternal(bool interrupt)
+        {
+            if (interrupt)
+            {
+                // Stop Moving
+                _kinling.KinlingAgent.SetMovePosition(_kinling.transform.position);
+            }
+
+            _kinling = null;
         }
 
         private void OnReachedPosition()

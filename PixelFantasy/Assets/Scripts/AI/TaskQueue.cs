@@ -37,6 +37,22 @@ namespace AI
         {
             QueuedTasks.Clear();
         }
+
+        public void TriggerOnSave()
+        {
+            foreach (var task in QueuedTasks)
+            {
+                task.OnSave();
+            }
+        }
+
+        public void TriggerOnLoad()
+        {
+            foreach (var task in QueuedTasks)
+            {
+                task.OnLoad();
+            }
+        }
     }
 }
 

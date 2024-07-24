@@ -170,7 +170,7 @@ public abstract class ZoneData
         var cells = ZoneCells.ToList();
         foreach (var zoneCell in cells )
         {
-            zoneCell.DeleteCell();
+            zoneCell.ClearCell();
         }
         
         ZoneCells.Clear();

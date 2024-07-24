@@ -12,8 +12,8 @@ public abstract class PlayerInteractable : MonoBehaviour
     [SerializeField] private SpriteRenderer _icon;
     public List<Command> Commands = new List<Command>();
     public Command PendingCommand;
-    
-    private List<AI.Task> _requestedTasks = new List<AI.Task>();
+
+    private string _requestedTaskID;
 
     public void CancelPlayerCommand(Command command = null)
     {
@@ -49,30 +49,21 @@ public abstract class PlayerInteractable : MonoBehaviour
     
     public void CreateTask(Command command, object payload = null)
     {
-        // if (command.Name == "Cancel Command")
-        // {
-        //     CancelPending();
-        //     return;
-        // }
-        //
-        // if (IsPending(command)) return;
-        //
-        // // Only one command can be active
-        // if (PendingCommand != null)
-        // {
-        //     CancelCommand(PendingCommand);
-        // }
-        //
-        // Task task = new Task(command.Task.TaskId, command.Task.TaskType, this, command.RequiredToolType);
-        // if (payload != null)
-        // {
-        //     task.Payload = payload;
-        // }
-        //
-        // PendingCommand = command;
-        //
-        // TaskManager.Instance.AddTask(task);
+        if (command.Name == "Cancel Command")
+        {
+            CancelPending();
+            return;
+        }
         
+        if (IsPending(command)) return;
+        
+        // Only one command can be active
+        if (PendingCommand != null)
+        {
+            CancelCommand(PendingCommand);
+        }
+        
+        PendingCommand = command;
 
         AI.Task task = new AI.Task(command.TaskID, command.TaskType, this);
         
@@ -84,35 +75,39 @@ public abstract class PlayerInteractable : MonoBehaviour
 
     public void AddTaskToRequested(AI.Task task)
     {
-        _requestedTasks.Add(task);
-        //task.OnTaskComplete += OnTaskComplete;
+        _requestedTaskID = task.UniqueID;
+        task.OnCompletedCallback += OnTaskComplete;
     }
 
-    public void OnTaskComplete(AI.Task task)
+    public void OnTaskComplete(AI.Task task, bool success)
     {
-        _requestedTasks.Remove(task);
+        if (success)
+        {
+            _requestedTaskID = null;
+        }
     }
 
     public void CancelRequestorTasks()
     {
-        TaskManager.Instance.CancelRequestorTasks(this);
-
-        var tasksCopy = _requestedTasks.ToList();
-        
-        //List<Task> tasksCopy = new List<Task>(_requestedTasks);
-        foreach (var requestedTask in tasksCopy)
+        var task = TasksDatabase.Instance.QueryTask(_requestedTaskID);
+        if (task != null)
         {
-            requestedTask.Cancel();
+            task.Cancel(false);
         }
-        
-        _requestedTasks.Clear();
+
+        _requestedTaskID = null;
     }
 
     public virtual void CancelCommand(Command command)
     {
         PendingCommand = null;
-
-        TaskManager.Instance.CancelTask(command.Task.TaskId, this);
+        
+        
+        var task = TasksDatabase.Instance.QueryTask(_requestedTaskID);
+        if (task != null)
+        {
+            task.Cancel(false);
+        }
 
         DisplayTaskIcon(null);
     }
