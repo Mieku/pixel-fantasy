@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Characters;
@@ -156,16 +157,25 @@ namespace Managers
             AppearanceBuilder.Instance.UpdateAppearance(dataToLoad);
             kinling.SetKinlingData(dataToLoad);
         }
-
-        public void DeleteAllKinlings()
+        
+        public IEnumerator DeleteAllKinlings()
         {
             var kinlings = transform.GetComponentsInChildren<Kinling>();
             foreach (var kinling in kinlings.Reverse())
             {
-                DestroyImmediate(kinling.gameObject);
+                Destroy(kinling.gameObject);
+                yield return null; // Yield to allow frame update and avoid stuttering
             }
-            
+    
             _registeredKinlingsData.Clear();
+        }
+
+        public void StopAllKinlingTasks()
+        {
+            foreach (var kinlingData in _registeredKinlingsData)
+            {
+                kinlingData.GetKinling().TaskHandler.StopTask();
+            }
         }
     }
 }

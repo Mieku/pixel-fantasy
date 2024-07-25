@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Systems.Game_Setup.Scripts
 {
-    public class LoadingScreen : Singleton<LoadingScreen>
+    public class LoadingScreen : PersistentSingleton<LoadingScreen>
     {
         [SerializeField] private GameObject _handle;
         [SerializeField] private TextMeshProUGUI _loadingText;

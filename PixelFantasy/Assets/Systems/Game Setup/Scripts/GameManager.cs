@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Characters;
 using Controllers;
+using DataPersistence;
 using Managers;
 using Player;
 using Sirenix.OdinInspector;
@@ -14,6 +16,7 @@ using TWC;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace Systems.Game_Setup.Scripts
 {
@@ -33,10 +36,77 @@ namespace Systems.Game_Setup.Scripts
             DontDestroyOnLoad(gameObject);
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                Debug.Log("Quick Save test");
+                StartCoroutine(DataPersistenceManager.Instance.SaveGameCoroutine());
+            }
+        }
+
         public void StartNewGame(PlayerData playerData, List<KinlingData> starterKinlings, List<TileWorldCreatorAsset.BlueprintLayerData> blueprintLayers)
         {
             PlayerData = playerData;
             StartCoroutine(LoadSceneAndSetUpNewGame(starterKinlings, blueprintLayers));
+        }
+
+        public void StartLoadedGame(string savePath, bool loadScene)
+        {
+            StartCoroutine(LoadSceneAndContinueLoad(savePath, loadScene));
+        }
+
+        private bool _gameLoaded;
+        public IEnumerator LoadSceneAndContinueLoad(string savePath, bool loadScene)
+        {
+            LoadingScreen.Instance.Show("Generating World", "Initializing...", 13);
+            yield return new WaitForEndOfFrame();
+            
+            // // Start loading the scene
+            if (loadScene)
+            {
+                AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
+            
+                // Wait until the scene is fully loaded
+                while (!asyncLoad.isDone)
+                {
+                    yield return null;
+                }
+                LoadingScreen.Instance.StepCompleted();
+            
+                yield return new WaitForEndOfFrame();
+            }
+            
+            yield return StartCoroutine(DataPersistenceManager.Instance.LoadGameCoroutine(() =>
+            {
+                // Load completed
+                _gameLoaded = true;
+                LoadingScreen.Instance.StepCompleted();
+            }, (step) =>
+            {
+                // Step started
+                LoadingScreen.Instance.SetLoadingInfoText(step);
+            }, (step) =>
+            {
+                // Step completed
+                LoadingScreen.Instance.StepCompleted();
+            }));
+
+            while (!_gameLoaded)
+            {
+                yield return null;
+            }
+            
+            // Wait for a frame after all world-building tasks are complete before updating the NavMesh
+            yield return new WaitForEndOfFrame();
+
+            NavMeshManager.Instance.UpdateNavMesh(forceRebuild: true);
+            LoadingScreen.Instance.StepCompleted();
+            
+            // Again, yield to keep the UI responsive
+            yield return null;
+            
+            LoadingScreen.Instance.Hide();
         }
 
         private IEnumerator LoadSceneAndSetUpNewGame(List<KinlingData> starterKinlings, List<TileWorldCreatorAsset.BlueprintLayerData> blueprintLayers)

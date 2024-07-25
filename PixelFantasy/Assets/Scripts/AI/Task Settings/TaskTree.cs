@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using DataPersistence;
 using Managers;
 using NodeCanvas.BehaviourTrees;
 using NodeCanvas.Framework;
+using Systems.Game_Setup.Scripts;
 using UnityEngine;
 
 namespace AI.Task_Settings
@@ -25,7 +27,7 @@ namespace AI.Task_Settings
 
         private void Update()
         {
-            if (TimeManager.Instance.GameSpeed != GameSpeed.Paused)
+            if (TimeManager.Instance.GameSpeed != GameSpeed.Paused && !DataPersistenceManager.WorldIsClearing)
             {
                 if (BTOwner.isRunning)
                 {

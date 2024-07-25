@@ -49,8 +49,6 @@ namespace Handlers
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            
-            return null;
         }
         
         public Item CreateItemObject(ItemData data, Vector2 pos, bool createHaulTask)

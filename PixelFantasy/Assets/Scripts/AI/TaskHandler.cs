@@ -113,6 +113,18 @@ namespace AI
         {
             
         }
+
+        /// <summary>
+        /// This is for scene reloading
+        /// </summary>
+        public void StopTask()
+        {
+            if (CurrentTask != null)
+            {
+                var tree = FindTaskTreeFor(CurrentTask);
+                tree.BTOwner.StopBehaviour();
+            }
+        }
         
         private void ExecuteTask(Task task)
         {
