@@ -117,11 +117,12 @@ namespace AI
             
             OnCancelledCallback?.Invoke();
             
-            if (!shouldRequeue)
-            {
-                Status = ETaskStatus.Canceled;
-                TasksDatabase.Instance.RemoveTask(this);
-            }
+            // if (!shouldRequeue)
+            // {
+            //     Status = ETaskStatus.Canceled;
+            //     TasksDatabase.Instance.RemoveTask(this);
+            // }
+            TasksDatabase.Instance.RemoveTask(this);
         }
 
         public void TaskComplete(bool success)

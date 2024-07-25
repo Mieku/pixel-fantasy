@@ -50,6 +50,8 @@ namespace Systems.Zones.Scripts
 
             foreach (var stored in Stored)
             {
+                stored.State = EItemState.Loose;
+                stored.AssignedStorageID = null;
                 ItemsDatabase.Instance.CreateItemObject(stored, Position, true);
             }
             Stored.Clear();

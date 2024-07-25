@@ -27,7 +27,10 @@ namespace AI.Task_Settings
         {
             if (TimeManager.Instance.GameSpeed != GameSpeed.Paused)
             {
-                BTOwner.Tick();
+                if (BTOwner.isRunning)
+                {
+                    BTOwner.Tick();
+                }
             }
         }
 
