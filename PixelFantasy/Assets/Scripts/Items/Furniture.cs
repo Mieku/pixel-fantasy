@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AI;
 using Characters;
 using CodeMonkey.Utils;
 using Controllers;
-using DataPersistence;
 using Handlers;
 using Interfaces;
 using Managers;
@@ -449,13 +449,12 @@ namespace Items
         protected virtual void InProduction_Enter()
         {
             RuntimeData.Position = transform.position;
-            FurnitureDatabase.Instance.RegisterFurniture(RuntimeData);
             PlayerInteractableDatabase.Instance.RegisterPlayerInteractable(this);
             DisplayUseageMarkers(false);
             EnablePlacementObstacle(true);
             Show(true);
             ColourArt(ColourStates.Blueprint);
-            CreateCraftFurnitureTask();
+            CreateConstructionHaulingTasks();
             Commands.Add(Librarian.Instance.GetCommand("Deconstruct Furniture"));
         }
         
@@ -485,29 +484,53 @@ namespace Items
                 marker.gameObject.SetActive(showMarkers);
             }
         }
-
-        private void CreateCraftFurnitureTask()
+        
+        private void CreateConstructionHaulingTasks()
         {
-            // If there are no material costs, build instantly
             if (RuntimeData.FurnitureSettings.CraftRequirements.CostSettings.Count == 0)
             {
                 SetState(EFurnitureState.Built);
                 return;
             }
+            
+            var resourceCosts = RuntimeData.RemainingMaterialCosts;
+            CreateConstuctionHaulingTasksForItems(resourceCosts);
+        }
+        
+        public void CreateConstuctionHaulingTasksForItems(List<CostData> remainingResources)
+        {
+            foreach (var resourceCost in remainingResources)
+            {
+                for (int i = 0; i < resourceCost.Quantity; i++)
+                {
+                    EnqueueCreateTakeResourceToBlueprintTask(resourceCost.Item);
+                }
+            }
+        }
+        
+        protected virtual void EnqueueCreateTakeResourceToBlueprintTask(ItemSettings resourceSettings)
+        {
+            Dictionary<string, object> taskData = new Dictionary<string, object> { { "ItemSettingsID", resourceSettings.name } };
 
-            Task task = new Task("Craft Furniture", ETaskType.Crafting, this, EToolType.None);
-            TaskManager.Instance.AddTask(task);
+            AI.Task task = new AI.Task("Withdraw Item For Constructable", ETaskType.Hauling, this, taskData);
+            TasksDatabase.Instance.AddTask(task);
         }
 
-        public override void ReceiveItem(ItemData item)
+        public override void ReceiveItem(ItemData itemData)
         {
-            Destroy(item.GetLinkedItem().gameObject);
-            item.CarryingKinlingUID = null;
+            RuntimeData.RemoveFromIncomingItems(itemData);
             
-            RuntimeData.RemoveFromPendingResourceCosts(item.Settings);
-            RuntimeData.DeductFromMaterialCosts(item.Settings);
+            Destroy(itemData.GetLinkedItem().gameObject);
             
-            item.DeleteItemData();
+            itemData.CarryingKinlingUID = null;
+            
+            RuntimeData.RemoveFromPendingResourceCosts(itemData.Settings);
+            RuntimeData.DeductFromMaterialCosts(itemData.Settings);
+            
+            if (RuntimeData.RemainingMaterialCosts.Count == 0)
+            {
+                CreateConstructTask();
+            }
             
             OnChanged?.Invoke();
         }
@@ -540,6 +563,12 @@ namespace Items
             return false;
         }
         
+        public virtual void CreateConstructTask(bool autoAssign = true)
+        {
+            AI.Task task = new AI.Task("Build Structure", ETaskType.Construction, this);
+            TasksDatabase.Instance.AddTask(task);
+        }
+        
         public virtual void CompleteDeconstruction()
         {
             FurnitureDatabase.Instance.DeregisterFurniture(RuntimeData);
@@ -551,13 +580,6 @@ namespace Items
             Destroy(gameObject);
             
             OnChanged?.Invoke();
-        }
-
-        public void PlaceFurniture(Item furnitureItem)
-        {
-            Destroy(furnitureItem.gameObject);
-            
-            SetState(EFurnitureState.Built);
         }
         
         public void DoPlacement()

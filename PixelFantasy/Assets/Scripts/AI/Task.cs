@@ -21,7 +21,7 @@ namespace AI
         public ETaskType Type;
         public ETaskStatus Status;
         public string BlackboardJSON;
-        public Dictionary<string, string> TaskData = new Dictionary<string, string>();
+        public Dictionary<string, object> TaskData = new Dictionary<string, object>();
         public List<SkillRequirement> SkillRequirements;
         [JsonIgnore] public Dictionary<string, DateTime> FailedLog = new Dictionary<string, DateTime>();
         
@@ -38,9 +38,9 @@ namespace AI
         {
         }
 
-        public Task(string taskID, ETaskType taskType, PlayerInteractable requester, Dictionary<string, string> taskData = null, List<SkillRequirement> skillRequirements = null)
+        public Task(string taskID, ETaskType taskType, PlayerInteractable requester, Dictionary<string, object> taskData = null, List<SkillRequirement> skillRequirements = null)
         {
-            taskData ??= new Dictionary<string, string>();
+            taskData ??= new Dictionary<string, object>();
             
             TaskID = taskID;
             UniqueID = CreateUniqueID(taskID);
@@ -136,6 +136,7 @@ namespace AI
         }
     }
 
+    [Serializable]
     public struct SkillRequirement
     {
         public ESkillType SkillType;

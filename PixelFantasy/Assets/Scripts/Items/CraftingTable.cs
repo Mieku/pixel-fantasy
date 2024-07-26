@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
+using AI;
 using Characters;
-using DataPersistence;
 using Managers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Systems.Crafting.Scripts;
-using TaskSystem;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -43,7 +42,6 @@ namespace Items
         {
             var tableSettings = (CraftingTableSettings) furnitureSettings;
             
-            //FurnitureSettings = tableSettings;
             // _dyeOverride = dye;
             RuntimeData = new CraftingTableData();
             RuntimeTableData.InitData(tableSettings);
@@ -83,23 +81,26 @@ namespace Items
                 {
                     RuntimeTableData.CurrentOrder = order;
                     var task = order.CreateTask(OnCraftingComplete, OnCraftingCancelled, this);
-                    TaskManager.Instance.AddTask(task);
+                    TasksDatabase.Instance.AddTask(task);
                     RuntimeTableData.CurrentOrder.State = CraftingOrder.EOrderState.Claimed;
                     OnChanged?.Invoke();
                 }
             }
         }
 
-        private void OnCraftingComplete(Task task)
+        private void OnCraftingComplete(Task task, bool successful)
         {
-            if (RuntimeTableData.CurrentOrder.FulfillmentType == CraftingOrder.EFulfillmentType.Amount)
+            if (successful)
             {
-                RuntimeTableData.CurrentOrder.Amount = Mathf.Clamp(RuntimeTableData.CurrentOrder.Amount - 1, 0, 999);
-            }
+                if (RuntimeTableData.CurrentOrder.FulfillmentType == CraftingOrder.EFulfillmentType.Amount)
+                {
+                    RuntimeTableData.CurrentOrder.Amount = Mathf.Clamp(RuntimeTableData.CurrentOrder.Amount - 1, 0, 999);
+                }
             
-            RuntimeTableData.CurrentOrder.State = CraftingOrder.EOrderState.None;
-            RuntimeTableData.CurrentOrder.RefreshOrderRequirements();
-            OnChanged?.Invoke();
+                RuntimeTableData.CurrentOrder.State = CraftingOrder.EOrderState.None;
+                RuntimeTableData.CurrentOrder.RefreshOrderRequirements();
+                OnChanged?.Invoke();
+            }
         }
 
         private void OnCraftingCancelled()
@@ -136,33 +137,33 @@ namespace Items
             if(_eastCraftingPreview != null) _eastCraftingPreview.gameObject.SetActive(false);
         }
         
-        public void AssignItemToTable(CraftedItemSettings craftedItem, List<ItemData> claimedMats)
+        public void AssignItemToTable(CraftedItemSettings craftedItem, List<string> claimedMatsUIDs)
         {
             if (craftedItem != null)
             {
                 ShowCraftingPreview(craftedItem.ItemSprite);
-                RuntimeTableData.CurrentOrder.ClaimedItems = claimedMats;
+                RuntimeTableData.CurrentOrder.ClaimedItemUIDs = claimedMatsUIDs;
             }
             else
             {
                 ShowCraftingPreview(null);
-                RuntimeTableData.CurrentOrder.ClaimedItems = null;
+                RuntimeTableData.CurrentOrder.ClaimedItemUIDs = null;
             }
             
             OnChanged?.Invoke();
         }
 
-        public void AssignMealToTable(MealSettings mealSettings, List<ItemData> claimedIngredients)
+        public void AssignMealToTable(MealSettings mealSettings, List<string> claimedIngredientsUIDs)
         {
             if (mealSettings != null)
             {
                 ShowCraftingPreview(mealSettings.ItemSprite);
-                RuntimeTableData.CurrentOrder.ClaimedItems = claimedIngredients;
+                RuntimeTableData.CurrentOrder.ClaimedItemUIDs = claimedIngredientsUIDs;
             }
             else
             {
                 ShowCraftingPreview(null);
-                RuntimeTableData.CurrentOrder.ClaimedItems = null;
+                RuntimeTableData.CurrentOrder.ClaimedItemUIDs = null;
             }
             OnChanged?.Invoke();
         }
@@ -206,6 +207,7 @@ namespace Items
 
         private void CompleteCraft()
         {
+            
             AssignItemToTable(null, null);
         }
 

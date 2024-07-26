@@ -242,7 +242,7 @@ namespace Items
 
         protected virtual void EnqueueCreateTakeResourceToBlueprintTask(ItemSettings resourceSettings)
         {
-            Dictionary<string, string> taskData = new Dictionary<string, string> { { "ItemSettingsID", resourceSettings.name } };
+            Dictionary<string, object> taskData = new Dictionary<string, object> { { "ItemSettingsID", resourceSettings.name } };
 
             AI.Task task = new AI.Task("Withdraw Item For Constructable", ETaskType.Hauling, this, taskData);
             TasksDatabase.Instance.AddTask(task);

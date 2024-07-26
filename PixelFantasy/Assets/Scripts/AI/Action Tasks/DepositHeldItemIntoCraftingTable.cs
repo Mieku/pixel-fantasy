@@ -1,32 +1,37 @@
 using Characters;
 using Handlers;
+using Interfaces;
 using Items;
 using Managers;
 using NodeCanvas.Framework;
-using UnityEngine;
 
 namespace AI.Action_Tasks
 {
-    public class DepositHeldItemIntoStorageAction : KinlingActionTask
+    public class DepositHeldItemIntoCraftingTable : KinlingActionTask
     {
-        public BBParameter<string> ItemsUID;
+        public BBParameter<string> TablesUID;
         public BBParameter<string> KinlingUID;
+        public BBParameter<string> ClaimedItemUID;
 
         private Kinling _kinling;
         private ItemData _item;
+        private CraftingTable _table;
         
         protected override void OnExecute()
         {
             _kinling = KinlingsDatabase.Instance.GetKinling(KinlingUID.value);
-            _item = ItemsDatabase.Instance.Query(ItemsUID.value);
+            _item = ItemsDatabase.Instance.Query(ClaimedItemUID.value);
+            _table = (CraftingTable) FurnitureDatabase.Instance.FindFurnitureObject(TablesUID.value);
 
-            if (_item == null || _kinling == null)
+            if (_item == null || _kinling == null || _table == null)
             {
                 EndAction(false);
                 return;
             }
             
-            _kinling.DepositHeldItemInStorage(_item.AssignedStorage);
+            _table.ReceiveMaterial(_item);
+            _kinling.RuntimeData.HeldItemID = null;
+            ClaimedItemUID.value = null;
             
             EndAction(true);
         }
@@ -37,10 +42,12 @@ namespace AI.Action_Tasks
             {
                 // drop item
                 _kinling.DropCarriedItem(true);
+                _item.UnclaimItem();
             }
 
             _kinling = null;
             _item = null;
+            _table = null;
         }
     }
 }

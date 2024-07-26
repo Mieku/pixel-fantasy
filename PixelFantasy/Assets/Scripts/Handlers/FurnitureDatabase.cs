@@ -33,6 +33,11 @@ namespace Handlers
             _registeredFurniture.Remove(furniture);
         }
 
+        public FurnitureData Query(string uid)
+        {
+            return _registeredFurniture.Find(f => f.UniqueID == uid);
+        }
+
         public List<FurnitureData> GetFurnitureData()
         {
             return _registeredFurniture;

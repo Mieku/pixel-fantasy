@@ -43,6 +43,12 @@ namespace Systems.Game_Setup.Scripts
                 Debug.Log("Quick Save test");
                 StartCoroutine(DataPersistenceManager.Instance.SaveGameCoroutine());
             }
+            
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                Debug.Log("Quick load test");
+                StartLoadedGame("", false);
+            }
         }
 
         public void StartNewGame(PlayerData playerData, List<KinlingData> starterKinlings, List<TileWorldCreatorAsset.BlueprintLayerData> blueprintLayers)

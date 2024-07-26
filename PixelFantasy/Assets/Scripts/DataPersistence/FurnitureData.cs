@@ -63,6 +63,8 @@ public class FurnitureData
             Owners = new string[furnitureSettings.NumberOfPossibleOwners];
         }
         else Owners = null;
+        
+        FurnitureDatabase.Instance.RegisterFurniture(this);
     }
 
     public Furniture GetLinkedFurniture()

@@ -36,7 +36,7 @@ namespace AI.Task_Settings
             }
         }
 
-        public void ExecuteTask(Dictionary<string, string> TaskData, Action<bool> onTaskComplete)
+        public void ExecuteTask(Dictionary<string, object> TaskData, Action<bool> onTaskComplete)
         {
             _onFinishedCallback = onTaskComplete;
         

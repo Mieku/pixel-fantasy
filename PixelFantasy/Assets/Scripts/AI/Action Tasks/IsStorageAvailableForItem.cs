@@ -11,18 +11,25 @@ namespace AI.Action_Tasks
     [Description("Returns true if there is storage")]
     public class IsStorageAvailableForItem : ConditionTask
     {
-        public BBParameter<string> RequesterUID;
+        public BBParameter<string> ItemUID;
+        public bool TryToClaim;
         
         protected override bool OnCheck()
         {
             // Make sure requester is an item
-            Item item = ItemsDatabase.Instance.FindItemObject(RequesterUID.value);
+            ItemData item = ItemsDatabase.Instance.Query(ItemUID.value);
             if (item == null) return false;
 
-            IStorage storage = item.RuntimeData.AssignedStorage;
+            IStorage storage = item.AssignedStorage;
             if (storage == null)
             {
-                storage = InventoryManager.Instance.GetAvailableStorage(item.RuntimeData.Settings);
+                storage = InventoryManager.Instance.GetAvailableStorage(item.Settings);
+            }
+
+            if (TryToClaim && storage != null)
+            {
+                item.AssignedStorageID = storage.UniqueID;
+                storage.SetIncoming(item);
             }
             
             return storage != null;

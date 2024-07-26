@@ -192,12 +192,12 @@ namespace TaskSystem
             
             if (task == null)
             {
-                task = TaskManager.Instance.RequestTask(_kinling, _data.TaskPriorities.SortedPriorities());
-                if (task != null)
-                {
-                    if (AttemptStartTask(task, true)) return;
-                    else task = null;
-                }
+                // task = TaskManager.Instance.RequestTask(_kinling, _data.TaskPriorities.SortedPriorities());
+                // if (task != null)
+                // {
+                //     if (AttemptStartTask(task, true)) return;
+                //     else task = null;
+                // }
             }
 
             if (task == null)

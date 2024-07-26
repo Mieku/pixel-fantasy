@@ -39,7 +39,7 @@ namespace TaskSystem
         {
             if (_state == ETaskState.ClaimTable)
             {
-                _craftingTable.AssignMealToTable(_mealToCook, _claimedIngredients);
+                //_craftingTable.AssignMealToTable(_mealToCook, _claimedIngredients);
                 _state = ETaskState.GatherMats;
             }
 

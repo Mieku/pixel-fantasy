@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AI;
 using Managers;
 using Newtonsoft.Json;
 using ScriptableObjects;
@@ -33,6 +34,7 @@ public class CraftedItemData : ItemData
  [Serializable]
     public class CraftRequirements
     {
+        [SerializeField] private List<SkillRequirement> _skillRequirements;
         [SerializeField] private int _minCraftingSkillLevel;
         [SerializeField] private ETaskType _craftingSkill = ETaskType.Crafting;
         [SerializeField] private float _workCost;
@@ -44,6 +46,7 @@ public class CraftedItemData : ItemData
         public int MinCraftingSkillLevel => _minCraftingSkillLevel;
         public ETaskType CraftingSkill => _craftingSkill;
         public List<CostSettings> CostSettings => _costSettings;
+        public List<SkillRequirement> SkillRequirements => _skillRequirements;
         
         public float GetWorkPerResource()
         {
