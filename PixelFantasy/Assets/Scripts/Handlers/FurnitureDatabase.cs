@@ -4,41 +4,31 @@ using Characters;
 using DataPersistence;
 using Items;
 using Managers;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Handlers
 {
     public class FurnitureDatabase : Singleton<FurnitureDatabase>
     {
-        private List<FurnitureData> _registeredFurniture = new List<FurnitureData>();
+        [ShowInInspector] private Dictionary<string, FurnitureData> _registeredFurniture = new Dictionary<string, FurnitureData>();
         
         public void RegisterFurniture(FurnitureData furniture)
         {
-            if (_registeredFurniture.Contains(furniture))
-            {
-                Debug.LogError($"Attempted to register already registered furniture: {furniture.ItemName}");
-                return;
-            }
-            
-            _registeredFurniture.Add(furniture);
+            _registeredFurniture[furniture.UniqueID] = furniture;
         }
 
         public void DeregisterFurniture(FurnitureData furniture)
         {
-            if (!_registeredFurniture.Contains(furniture))
-            {
-                return;
-            }
-
-            _registeredFurniture.Remove(furniture);
+            _registeredFurniture.Remove(furniture.UniqueID);
         }
 
         public FurnitureData Query(string uid)
         {
-            return _registeredFurniture.Find(f => f.UniqueID == uid);
+            return _registeredFurniture[uid];
         }
 
-        public List<FurnitureData> GetFurnitureData()
+        public Dictionary<string, FurnitureData> SaveFurnitureData()
         {
             return _registeredFurniture;
         }
@@ -57,11 +47,11 @@ namespace Handlers
             return null;
         }
 
-        public void LoadFurnitureData(List<FurnitureData> data)
+        public void LoadFurnitureData(Dictionary<string, FurnitureData> data)
         {
             foreach (var furnitureData in data)
             {
-                SpawnLoadedFurniture(furnitureData);
+                SpawnLoadedFurniture(furnitureData.Value);
             }
         }
 

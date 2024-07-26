@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Handlers;
 using Items;
 using UnityEngine;
 
@@ -207,10 +208,17 @@ namespace Managers
 
         public List<ItemData> GetAvailableInventory()
         {
-            List<ItemData> results = new List<ItemData>();
+            List<string> resultingUIDs = new List<string>();
             foreach (var storage in _allStorage)
             {
-                results.AddRange(storage.Stored.Where(storedItem => !storage.Claimed.Contains(storedItem)));
+                resultingUIDs.AddRange(storage.StoredUIDs.Where(storedItem => !storage.ClaimedUIDs.Contains(storedItem)));
+            }
+            
+            List<ItemData> results = new List<ItemData>();
+            foreach (var itemUID in resultingUIDs)
+            {
+                var item = ItemsDatabase.Instance.Query(itemUID);
+                results.Add(item);
             }
 
             return results;

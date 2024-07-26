@@ -129,7 +129,7 @@ namespace Systems.Needs.Scripts
 
         private void CheckThresholds()
         {
-            var kinlingData = KinlingsDatabase.Instance.GetKinlingData(_kinlingUID);
+            var kinlingData = KinlingsDatabase.Instance.Query(_kinlingUID);
             var emotion = _needSettings.CheckThresholds(_value);
             if (!kinlingData.Mood.HasEmotion(emotion))
             {

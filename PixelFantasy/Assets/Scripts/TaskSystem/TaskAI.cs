@@ -262,7 +262,7 @@ namespace TaskSystem
             // Have sex
             if (task == null && _kinling.RuntimeData.PartnerUID != null)
             {
-                var partner = KinlingsDatabase.Instance.GetKinlingData(_kinling.RuntimeData.PartnerUID);
+                var partner = KinlingsDatabase.Instance.Query(_kinling.RuntimeData.PartnerUID);
                 if (_kinling.Needs.CheckSexDrive() && partner.GetKinling().Needs.CheckSexDrive())
                 {
                     task = new Task("Mate", ETaskType.Personal, _kinling.RuntimeData.AssignedBed.GetLinkedFurniture(), EToolType.None);

@@ -38,12 +38,12 @@ namespace DataPersistence
 
             public SaveHeader Header;
             public EnvironmentData EnvironmentData;
-            public List<KinlingData> Kinlings;
-            public List<ItemData> ItemsData;
-            public List<FurnitureData> FurnitureData;
+            public Dictionary<string, KinlingData>  Kinlings;
+            public Dictionary<string, ItemData> ItemsData;
+            public Dictionary<string, FurnitureData> FurnitureData;
             public List<ZoneData> ZonesData;
-            public List<ConstructionData> StructuresData;
-            public List<FloorData> FloorsData;
+            public Dictionary<string, ConstructionData> StructuresData;
+            public Dictionary<string, FloorData> FloorsData;
             public Dictionary<string, BasicResourceData> ResourcesData;
             public TileMapData TileMapData;
             public List<RampData> RampData;
@@ -77,11 +77,11 @@ namespace DataPersistence
                 ResourcesData = ResourcesDatabase.Instance.GetResourcesData(),
                 RampData = _rampsHandler.GetRampsData(),
                 Kinlings = KinlingsDatabase.Instance.SaveKinlingsData(),
-                ItemsData = ItemsDatabase.Instance.GetItemsData(),
-                FurnitureData = FurnitureDatabase.Instance.GetFurnitureData(),
-                ZonesData = ZonesDatabase.Instance.GetZonesData(),
-                StructuresData = StructureDatabase.Instance.GetStructureData(),
-                FloorsData = FlooringDatabase.Instance.GetFloorData(),
+                ItemsData = ItemsDatabase.Instance.SaveItemsData(),
+                FurnitureData = FurnitureDatabase.Instance.SaveFurnitureData(),
+                ZonesData = ZonesDatabase.Instance.SaveZonesData(),
+                StructuresData = StructureDatabase.Instance.SaveStructureData(),
+                FloorsData = FlooringDatabase.Instance.SaveFloorData(),
                 TasksData = TasksDatabase.Instance.SaveTaskData(),
             };
 

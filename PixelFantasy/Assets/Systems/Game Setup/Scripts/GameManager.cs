@@ -23,6 +23,8 @@ namespace Systems.Game_Setup.Scripts
     public class GameManager : PersistentSingleton<GameManager>
     {
         public PlayerData PlayerData;
+
+        public int RandomSeedSalt => Time.frameCount;
         
         [SerializeField] private WorldBuilder _worldBuilder;
         [SerializeField] private bool _generateWorldOnStart;
@@ -187,6 +189,7 @@ namespace Systems.Game_Setup.Scripts
 
         public List<KinlingData> GenerateNewKinlings(int amount)
         {
+            Random.InitState(RandomSeedSalt);
             List<KinlingData> results = new List<KinlingData>();
             for (int i = 0; i < amount; i++)
             {
@@ -228,7 +231,7 @@ namespace Systems.Game_Setup.Scripts
                 List<KinlingData> potentialMatches = new List<KinlingData>();
                 foreach (var potentialPartner in potentialPartners)
                 {
-                    if (randomKinling.IsKinlingAttractedTo(potentialPartner) && potentialPartner.IsKinlingAttractedTo(randomKinling) && potentialPartner.Partner == null)
+                    if (randomKinling.IsKinlingAttractedTo(potentialPartner) && potentialPartner.IsKinlingAttractedTo(randomKinling) && string.IsNullOrEmpty(potentialPartner.PartnerUID))
                     {
                         potentialMatches.Add(potentialPartner);
                     }

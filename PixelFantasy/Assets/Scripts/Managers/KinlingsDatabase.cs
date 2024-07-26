@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Characters;
 using QFSW.QC;
+using Sirenix.OdinInspector;
 using Systems.Appearance.Scripts;
 using TaskSystem;
 using UnityEngine;
@@ -12,59 +13,50 @@ namespace Managers
 {
     public class KinlingsDatabase : Singleton<KinlingsDatabase>
     {
-        private List<KinlingData> _registeredKinlingsData = new List<KinlingData>();
+        [ShowInInspector] private Dictionary<string, KinlingData> _registeredKinlingsData = new Dictionary<string, KinlingData>();
 
-        public List<KinlingData> GetKinlingsData()
+        public List<KinlingData> GetKinlingsDataList()
         {
-            return _registeredKinlingsData;
+            return _registeredKinlingsData.Values.ToList();
         }
 
-        public List<KinlingData> SaveKinlingsData()
+        public Dictionary<string, KinlingData> SaveKinlingsData()
         {
-            foreach (var kinlingData in _registeredKinlingsData)
+            foreach (var kvp in _registeredKinlingsData)
             {
-                kinlingData.GetKinling()?.TaskHandler.SaveBBState();
+                kvp.Value.GetKinling()?.TaskHandler.SaveBBState();
             }
 
             return _registeredKinlingsData;
         }
 
-        public void LoadKinlingsData(List<KinlingData> data)
+        public void LoadKinlingsData(Dictionary<string, KinlingData> data)
         {
-            foreach (var kinlingData in data)
+            foreach (var kvp in data)
             {
+                var kinlingData = kvp.Value;
                 SpawnKinling(kinlingData, kinlingData.Position);
             }
         }
         
         public List<KinlingData> GetAllUnitsInRadius(Vector2 startPoint, float radius)
         {
-            return _registeredKinlingsData.Where(kinling => 
-                Vector2.Distance(startPoint, kinling.Position) <= radius
-            ).ToList();
+            return _registeredKinlingsData
+                .Where(kinling => Vector2.Distance(startPoint, kinling.Value.Position) <= radius)
+                .Select(kinling => kinling.Value)
+                .ToList();
         }
         
         public void RegisterKinling(KinlingData kinling)
         {
-            if (_registeredKinlingsData.Contains(kinling))
-            {
-                Debug.LogError("Tried to register the same Kinling Twice: " + kinling.Fullname);
-                return;
-            }
-            _registeredKinlingsData.Add(kinling);
+            _registeredKinlingsData[kinling.UniqueID] = kinling;
             
             KinlingSelector.Instance.AddKinling(kinling);
         }
 
         public void DeregisterKinling(KinlingData kinling)
         {
-            if (!_registeredKinlingsData.Contains(kinling))
-            {
-                Debug.LogError("Tried to deregister a non-registered Kinling: " + kinling.Fullname);
-                return;
-            }
-
-            _registeredKinlingsData.Remove(kinling);
+            _registeredKinlingsData.Remove(kinling.UniqueID);
             
             KinlingSelector.Instance.RemoveKinling(kinling);
         }
@@ -83,9 +75,9 @@ namespace Managers
             return null;
         }
 
-        public KinlingData GetKinlingData(string uniqueID)
+        public KinlingData Query(string uniqueID)
         {
-            return _registeredKinlingsData.Find(kinling => kinling.UniqueID == uniqueID);
+            return _registeredKinlingsData.GetValueOrDefault(uniqueID);
         }
 
         public void SelectKinling(string uniqueID)
@@ -100,8 +92,11 @@ namespace Managers
         [Command("set_love")]
         private void CMD_SetLove(string instigatorFirstName, string receiverFirstName)
         {
-            KinlingData instigator = _registeredKinlingsData.Find(unit => unit.Firstname == instigatorFirstName);
-            KinlingData receiver = _registeredKinlingsData.Find(unit => unit.Firstname == receiverFirstName);
+            KinlingData instigator = _registeredKinlingsData.Values
+                .FirstOrDefault(unit => unit.Firstname == instigatorFirstName);
+
+            KinlingData receiver = _registeredKinlingsData.Values
+                .FirstOrDefault(unit => unit.Firstname == receiverFirstName);
 
             if (instigator == null)
             {
@@ -122,8 +117,11 @@ namespace Managers
         [Command("mate")]
         private void CMD_Mate(string instigatorFirstName, string receiverFirstName)
         {
-            KinlingData instigator = _registeredKinlingsData.Find(unit => unit.Firstname == instigatorFirstName);
-            KinlingData receiver = _registeredKinlingsData.Find(unit => unit.Firstname == receiverFirstName);
+            KinlingData instigator = _registeredKinlingsData.Values
+                .FirstOrDefault(unit => unit.Firstname == instigatorFirstName);
+
+            KinlingData receiver = _registeredKinlingsData.Values
+                .FirstOrDefault(unit => unit.Firstname == receiverFirstName);
             
             if (instigator == null)
             {
@@ -172,9 +170,9 @@ namespace Managers
 
         public void StopAllKinlingTasks()
         {
-            foreach (var kinlingData in _registeredKinlingsData)
+            foreach (var kvp in _registeredKinlingsData)
             {
-                kinlingData.GetKinling().TaskHandler.StopTask();
+                kvp.Value.GetKinling().TaskHandler.StopTask();
             }
         }
     }

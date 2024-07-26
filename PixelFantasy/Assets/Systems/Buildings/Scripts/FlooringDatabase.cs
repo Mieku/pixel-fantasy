@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Managers;
+using Sirenix.OdinInspector;
 using Systems.Details.Build_Details.Scripts;
 using Systems.Floors.Scripts;
 
@@ -10,34 +11,39 @@ namespace Systems.Buildings.Scripts
     {
         public FloorBuilder FloorBuilder;
         
-        private List<Floor> _registeredFloors = new List<Floor>();
+        [ShowInInspector] private Dictionary<string, Floor> _registeredFloors = new Dictionary<string, Floor>();
 
         public void RegisterFloor(Floor floor)
         {
-            _registeredFloors.Add(floor);
+            _registeredFloors.Add(floor.UniqueID, floor);
         }
 
         public void DeregisterFloor(Floor floor)
         {
-            _registeredFloors.Remove(floor);
+            _registeredFloors.Remove(floor.UniqueID);
         }
 
-        public List<FloorData> GetFloorData()
+        public Floor Query(string uniqueID)
         {
-            List<FloorData> results = new List<FloorData>();
-            foreach (var floor in _registeredFloors)
+            return _registeredFloors[uniqueID];
+        }
+
+        public Dictionary<string, FloorData> SaveFloorData()
+        {
+            Dictionary<string, FloorData> results = new Dictionary<string, FloorData>();
+            foreach (var kvp in _registeredFloors)
             {
-                results.Add(floor.RuntimeFloorData);
+                results.Add(kvp.Key, kvp.Value.RuntimeFloorData);
             }
             
             return results;
         }
 
-        public void LoadFloorData(List<FloorData> loadedData)
+        public void LoadFloorData(Dictionary<string, FloorData> loadedData)
         {
             foreach (var data in loadedData)
             {
-                FloorBuilder.SpawnLoadedFloor(data);
+                FloorBuilder.SpawnLoadedFloor(data.Value);
             }
         }
 
@@ -46,7 +52,7 @@ namespace Systems.Buildings.Scripts
             var floors = _registeredFloors.ToList();
             foreach (var floor in floors)
             {
-                floor.DeleteFloor();
+                floor.Value.DeleteFloor();
             }
             _registeredFloors.Clear();
         }

@@ -6,9 +6,9 @@ namespace Items
     public interface IStorage
     {
         public string UniqueID { get; }
-        public List<ItemData> Stored { get; }
-        public List<ItemData> Incoming { get; }
-        public List<ItemData> Claimed { get; }
+        public List<string> StoredUIDs { get; }
+        public List<string> IncomingUIDs { get; }
+        public List<string> ClaimedUIDs { get; }
         
         public StorageConfigs StorageConfigs { get; }
 

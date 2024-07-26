@@ -163,6 +163,7 @@ public enum EItemState
     Loose,
     Stored,
     Carried,
+    BeingProcessed,
 }
 
 public enum EItemQuality

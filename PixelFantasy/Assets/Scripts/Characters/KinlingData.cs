@@ -70,7 +70,7 @@ namespace Characters
         [JsonIgnore] public RaceSettings Race => GameSettings.Instance.LoadRaceSettings(RaceID);
 
         [JsonIgnore]
-        public KinlingData Partner => KinlingsDatabase.Instance.GetKinlingData(PartnerUID);
+        public KinlingData Partner => KinlingsDatabase.Instance.Query(PartnerUID);
 
         [JsonIgnore]
         public List<KinlingData> Children
@@ -80,7 +80,7 @@ namespace Characters
                 List<KinlingData> results = new List<KinlingData>();
                 foreach (var childUID in ChildrenUID)
                 {
-                    var child = KinlingsDatabase.Instance.GetKinlingData(childUID);
+                    var child = KinlingsDatabase.Instance.Query(childUID);
                     results.Add(child);
                 }
 

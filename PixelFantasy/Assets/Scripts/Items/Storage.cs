@@ -10,9 +10,9 @@ namespace Items
     {
         public string UniqueID => RuntimeData.UniqueID;
         public StorageData RuntimeStorageData => RuntimeData as StorageData;
-        public List<ItemData> Stored => RuntimeStorageData.Stored;
-        public List<ItemData> Incoming => RuntimeStorageData.Incoming;
-        public List<ItemData> Claimed => RuntimeStorageData.Claimed;
+        public List<string> StoredUIDs => RuntimeStorageData.StoredUIDs;
+        public List<string> IncomingUIDs => RuntimeStorageData.IncomingUIDs;
+        public List<string> ClaimedUIDs => RuntimeStorageData.ClaimedUIDs;
         public StorageConfigs StorageConfigs => RuntimeStorageData.StorageConfigs;
 
         protected override void Built_Enter()
@@ -132,7 +132,7 @@ namespace Items
 
         public int MaxCapacity => RuntimeStorageData.StorageSettings.MaxStorage;
 
-        public int TotalAmountStored => RuntimeStorageData.Stored.Count + RuntimeStorageData.Incoming.Count;
+        public int TotalAmountStored => RuntimeStorageData.StoredUIDs.Count + RuntimeStorageData.IncomingUIDs.Count;
         
         public override void CompleteDeconstruction()
         {
@@ -141,11 +141,12 @@ namespace Items
             // Drop the contents
             CancelStoredItemTasks();
             
-            foreach (var stored in Stored)
+            foreach (var storedUID in StoredUIDs)
             {
-                ItemsDatabase.Instance.CreateItemObject(stored, RuntimeStorageData.Position, true);
+                var item = ItemsDatabase.Instance.Query(storedUID);
+                ItemsDatabase.Instance.CreateItemObject(item, RuntimeStorageData.Position, true);
             }
-            Stored.Clear();
+            StoredUIDs.Clear();
             
             
             GameEvents.Trigger_RefreshInventoryDisplay();
@@ -155,31 +156,33 @@ namespace Items
         
         public void CancelStoredItemTasks()
         {
-            for (int i = Incoming.Count - 1; i >= 0; i--)
+            for (int i = IncomingUIDs.Count - 1; i >= 0; i--)
             {
-                var incoming = Incoming[i];
-                if (incoming.GetLinkedItem() != null)
+                var incomingUID = IncomingUIDs[i];
+                var item = ItemsDatabase.Instance.Query(incomingUID);
+                if (item.GetLinkedItem() != null)
                 {
-                    incoming.GetLinkedItem().CancelTask();
+                    item.GetLinkedItem().CancelTask();
                 }
 
-                if (incoming.CurrentTask != null && !string.IsNullOrEmpty(incoming.CurrentTaskID))
+                if (item.CurrentTask != null && !string.IsNullOrEmpty(item.CurrentTaskID))
                 {
-                    incoming.CurrentTask.Cancel(true);
+                    item.CurrentTask.Cancel(true);
                 }
             }
             
-            for (int i = Stored.Count - 1; i >= 0; i--)
+            for (int i = StoredUIDs.Count - 1; i >= 0; i--)
             {
-                var stored = Stored[i];
-                if (stored.GetLinkedItem() != null)
+                var storedUID = StoredUIDs[i];
+                var item = ItemsDatabase.Instance.Query(storedUID);
+                if (item.GetLinkedItem() != null)
                 {
-                    stored.GetLinkedItem().CancelTask();
+                    item.GetLinkedItem().CancelTask();
                 }
 
-                if (stored.CurrentTask != null && !string.IsNullOrEmpty(stored.CurrentTaskID))
+                if (item.CurrentTask != null && !string.IsNullOrEmpty(item.CurrentTaskID))
                 {
-                    stored.CurrentTask.Cancel(true);
+                    item.CurrentTask.Cancel(true);
                 }
             }
         }

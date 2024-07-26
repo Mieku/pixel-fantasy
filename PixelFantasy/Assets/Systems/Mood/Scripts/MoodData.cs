@@ -5,6 +5,7 @@ using Characters;
 using Managers;
 using Newtonsoft.Json;
 using ScriptableObjects;
+using Systems.Game_Setup.Scripts;
 using Systems.Notifications.Scripts;
 using Systems.Traits.Scripts;
 using TaskSystem;
@@ -39,7 +40,7 @@ namespace Systems.Mood.Scripts
         [JsonRequired] private int _extremeBreakThreshold;
         [JsonRequired] private List<string> _availableBreakdownIDs = new List<string>();
         
-        private KinlingData _kinlingData => KinlingsDatabase.Instance.GetKinlingData(_kinlingID);
+        private KinlingData _kinlingData => KinlingsDatabase.Instance.Query(_kinlingID);
         private TaskAI _taskAI => _kinlingData.GetKinling().TaskAI;
         private MoodThresholdSettings _moodThresholdSettings;
         
@@ -177,7 +178,7 @@ namespace Systems.Mood.Scripts
             }
             
             CalculateTargetMood();
-            
+
             GameEvents.Trigger_OnKinlingChanged(_kinlingData);
         }
 

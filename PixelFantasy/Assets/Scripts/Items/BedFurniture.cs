@@ -185,12 +185,12 @@ namespace Items
         
         public KinlingData GetPrimaryOwner()
         {
-            return KinlingsDatabase.Instance.GetKinlingData(RuntimeData.PrimaryOwner);
+            return KinlingsDatabase.Instance.Query(RuntimeData.PrimaryOwner);
         }
 
         public KinlingData GetSecondaryOwner()
         {
-            return KinlingsDatabase.Instance.GetKinlingData(RuntimeData.SecondaryOwner);
+            return KinlingsDatabase.Instance.Query(RuntimeData.SecondaryOwner);
         }
 
         public void ReplacePrimaryOwner(KinlingData newOwner)
@@ -233,7 +233,7 @@ namespace Items
             // Force anyone in bed out
             foreach (var kinling in _kinlingsInBed)
             {
-                var data = KinlingsDatabase.Instance.GetKinlingData(kinling);
+                var data = KinlingsDatabase.Instance.Query(kinling);
                 ExitBed(data.GetKinling());
             }
             

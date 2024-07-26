@@ -9,7 +9,6 @@ using Newtonsoft.Json;
 using ScriptableObjects;
 using TaskSystem;
 using UnityEngine;
-using Task = TaskSystem.Task;
 
 namespace Systems.Crafting.Scripts
 {
@@ -40,10 +39,11 @@ namespace Systems.Crafting.Scripts
         public float RemainingCraftingWork;
         public float TotalCraftingWork;
         public List<string> ClaimedItemUIDs = new List<string>();
+        public List<string> ReceivedItemUIDs = new List<string>();
 
         public EFulfillmentType FulfillmentType;
         public int Amount;
-        public Task CraftingTask;
+        public AI.Task CraftingTask;
         public bool IsPaused;
         
         public Action OnOrderComplete;
@@ -158,6 +158,7 @@ namespace Systems.Crafting.Scripts
             AI.Task task = new AI.Task("Craft Item", taskType, table, taskData, skillRequirements);
             task.OnCompletedCallback += onTaskComplete;
             task.OnCancelledCallback += onTaskCancelled;
+            CraftingTask = task;
             
             OnOrderClaimed?.Invoke();
             
@@ -231,16 +232,31 @@ namespace Systems.Crafting.Scripts
             foreach (var claimedItemUID in ClaimedItemUIDs)
             {
                 var claimedItem = ItemsDatabase.Instance.Query(claimedItemUID);
-                claimedItem.UnclaimItem();
+                if (claimedItem.State == EItemState.Stored)
+                {
+                    claimedItem.UnclaimItem();
+                }
             }
             ClaimedItemUIDs.Clear();
             
             if (CraftingTask != null)
             {
-                CraftingTask.Cancel();
+                CraftingTask.Cancel(false);
+                RefundUsedCraftingMaterials();
             }
             
             OnOrderCancelled?.Invoke();
+        }
+
+        private void RefundUsedCraftingMaterials()
+        {
+            foreach (var itemUID in ReceivedItemUIDs)
+            {
+                var itemData = ItemsDatabase.Instance.Query(itemUID);
+                itemData.State = EItemState.Loose;
+                ItemsDatabase.Instance.CreateItemObject(itemData, itemData.Position, true);
+            }
+            ReceivedItemUIDs.Clear();
         }
 
         public bool CanBeCrafted(CraftingTableData tableData)
@@ -332,6 +348,14 @@ namespace Systems.Crafting.Scripts
         private void Enter_Completed()
         {
             OnOrderComplete?.Invoke();
+            
+            // Clear the items
+            foreach (var itemUID in ReceivedItemUIDs)
+            {
+                var itemData = ItemsDatabase.Instance.Query(itemUID);
+                itemData.DeleteItemData();
+            }
+            ReceivedItemUIDs.Clear();
         }
         
         private void Enter_Cancelled()
@@ -343,7 +367,9 @@ namespace Systems.Crafting.Scripts
 
         public void ReceiveItem(ItemData item)
         {
+            item.State = EItemState.BeingProcessed;
             ClaimedItemUIDs.Remove(item.UniqueID);
+            ReceivedItemUIDs.Add(item.UniqueID);
         }
         
         public float GetPercentMaterialsReceived()

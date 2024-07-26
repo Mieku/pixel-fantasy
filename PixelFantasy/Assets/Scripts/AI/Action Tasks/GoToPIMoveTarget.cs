@@ -10,6 +10,7 @@ namespace AI.Action_Tasks
         public BBParameter<string> PIMoveTargetUID;
         public BBParameter<string> KinlingUID;
 
+        public bool _dropHeldItemOnInterrupt;
         private Kinling _kinling;
     
         protected override void OnExecute()
@@ -32,6 +33,11 @@ namespace AI.Action_Tasks
             {
                 // Stop Moving
                 _kinling.KinlingAgent.SetMovePosition(_kinling.transform.position);
+
+                if (_dropHeldItemOnInterrupt)
+                {
+                    _kinling.DropCarriedItem(true);
+                }
             }
 
             _kinling = null;

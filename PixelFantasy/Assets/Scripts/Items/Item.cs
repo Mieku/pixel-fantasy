@@ -145,6 +145,7 @@ namespace Items
 
         public void ItemDropped()
         {
+            RuntimeData.AssignedStorageID = null;
             RuntimeData.CarryingKinlingUID = null;
             RuntimeData.State = EItemState.Loose;
             

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Characters;
 using Managers;
 
@@ -50,18 +51,19 @@ namespace TaskSystem
 
         public void Cancel()
         {
-            if (!IsKinlingSpecific)
-            {
-                TaskManager.Instance.CancelTask(TaskId, Requestor);
-            }
-
-            var kinlingAssignedToTask = KinlingsDatabase.Instance.GetKinlingsData().Find(k => k.CurrentTaskAction?.TaskId == TaskId);
-            if (kinlingAssignedToTask != null)
-            {
-                kinlingAssignedToTask.GetKinling().TaskAI.CancelTask(TaskId);
-            }
-            
-            OnTaskCancel?.Invoke();
+            // if (!IsKinlingSpecific)
+            // {
+            //     TaskManager.Instance.CancelTask(TaskId, Requestor);
+            // }
+            //
+            // var kinlingAssignedToTask = KinlingsDatabase.Instance.GetKinlingsDataList().Find(k => k.).Values
+            //     .FirstOrDefault(k => k.CurrentTaskAction?.TaskId == TaskId);
+            // if (kinlingAssignedToTask != null)
+            // {
+            //     kinlingAssignedToTask.GetKinling().TaskAI.CancelTask(TaskId);
+            // }
+            //
+            // OnTaskCancel?.Invoke();
         }
 
         public void Enqueue()

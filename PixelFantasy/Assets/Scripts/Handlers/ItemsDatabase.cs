@@ -3,32 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using Items;
 using Managers;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Handlers
 {
     public class ItemsDatabase : Singleton<ItemsDatabase>
     {
-        private List<ItemData> _registeredItems = new List<ItemData>();
+        [ShowInInspector] private Dictionary<string, ItemData> _registeredItems = new Dictionary<string, ItemData>();
 
         public void RegisterItem(ItemData data)
         {
-            _registeredItems.Add(data);
+            _registeredItems.Add(data.UniqueID, data);
         }
 
         public void DeregisterItem(ItemData data)
         {
-            _registeredItems.Remove(data);
+            _registeredItems.Remove(data.UniqueID);
         }
 
         public ItemData Query(string uniqueID)
         {
-            return _registeredItems.Find(i => i.UniqueID == uniqueID);
+            return _registeredItems[uniqueID];
         }
         
         public Item FindItemObject(string uniqueID)
         {
-            var itemData = _registeredItems.Find(i => i.UniqueID == uniqueID);
+            var itemData = Query(uniqueID);
             switch (itemData.State)
             {
                 case EItemState.Loose:
@@ -41,6 +42,7 @@ namespace Handlers
                         }
                     }
                     return null;
+                case EItemState.BeingProcessed:
                 case EItemState.Stored:
                     return null;
                 case EItemState.Carried:
@@ -60,25 +62,24 @@ namespace Handlers
             return itemObj;
         }
 
-        public List<ItemData> GetItemsData()
+        public Dictionary<string, ItemData> SaveItemsData()
         {
             return _registeredItems;
         }
 
-        public void LoadItemsData(List<ItemData> loadedItemDatas)
+        public void LoadItemsData(Dictionary<string, ItemData> loadedItemDatas)
         {
-            foreach (var itemData in loadedItemDatas)
+            foreach (var kvp in loadedItemDatas)
             {
+                var itemData = kvp.Value;
                 switch (itemData.State)
                 {
                     case EItemState.Loose:
                         LoadLooseItem(itemData);
                         break;
+                    case EItemState.BeingProcessed:
                     case EItemState.Stored:
-                        LoadStoredItem(itemData);
-                        break;
                     case EItemState.Carried:
-                        LoadCarriedItem(itemData);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -101,16 +102,6 @@ namespace Handlers
         private void LoadLooseItem(ItemData data)
         {
             CreateItemObject(data, data.Position, data.IsAllowed);
-        }
-
-        private void LoadStoredItem(ItemData data)
-        {
-            // Loaded by the storage
-        }
-
-        private void LoadCarriedItem(ItemData data)
-        {
-            // Loaded by the Kinling
         }
     }
 }

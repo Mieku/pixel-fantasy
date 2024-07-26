@@ -10,7 +10,6 @@ using Systems.Stats.Scripts;
 using TaskSystem;
 using UnityEngine;
 using Action = System.Action;
-using Task = TaskSystem.Task;
 
 namespace Items
 {
@@ -107,7 +106,7 @@ namespace Items
                 CancelRequestorTasks();
                 
                 // Spawn All the resources used
-                SpawnUsedResources(100f);
+                RefundUsedResources();
 
                 // Delete this blueprint
                 Destroy(gameObject);
@@ -116,9 +115,10 @@ namespace Items
         
         public override void ReceiveItem(ItemData itemData)
         {
-            RuntimeData.RemoveFromIncomingItems(itemData);
-            
             Destroy(itemData.GetLinkedItem().gameObject);
+            
+            RuntimeData.RemoveFromIncomingItems(itemData);
+            RuntimeData.AddToReceivedItems(itemData);
             
             itemData.CarryingKinlingUID = null;
             
@@ -177,6 +177,13 @@ namespace Items
         public virtual void CompleteConstruction()
         {
             RuntimeData.RemainingWork = RuntimeData.Settings.CraftRequirements.WorkCost;
+
+            foreach (var itemUID in RuntimeData.ReceivedItemUIDs)
+            {
+                var itemData = ItemsDatabase.Instance.Query(itemUID);
+                itemData.DeleteItemData();
+            }
+            RuntimeData.ReceivedItemUIDs.Clear();
         }
 
         public virtual void CompleteDeconstruction()
@@ -264,6 +271,20 @@ namespace Items
         {
             return Commands;
         }
+
+        /// <summary>
+        /// For when the construction is not fully built
+        /// </summary>
+        protected void RefundUsedResources()
+        {
+            foreach (var itemUID in RuntimeData.ReceivedItemUIDs)
+            {
+                var itemData = ItemsDatabase.Instance.Query(itemUID);
+                itemData.State = EItemState.Loose;
+                ItemsDatabase.Instance.CreateItemObject(itemData, itemData.Position, true);
+            }
+            RuntimeData.ReceivedItemUIDs.Clear();
+        }
         
         public virtual void SpawnUsedResources(float percentReturned)
         {
@@ -303,17 +324,6 @@ namespace Items
                     }
                 }
             }
-        }
-        
-        protected virtual void CancelTasks()
-        {
-            // Drop all incoming resources
-            foreach (var incomingItem in RuntimeData.IncomingItems)
-            {
-                incomingItem.GetLinkedItem().SeekForSlot();
-            }
-            RuntimeData.PendingResourceCosts.Clear();
-            RuntimeData.IncomingItems.Clear();
         }
     }
 }

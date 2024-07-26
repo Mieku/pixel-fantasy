@@ -43,7 +43,7 @@ public class FurnitureData
     public List<CostData> RemainingMaterialCosts;
     public List<CostData> PendingResourceCosts = new List<CostData>(); // Claimed by a task but not used yet
     public List<CostData> IncomingResourceCosts = new List<CostData>(); // The item is on its way
-    public List<ItemData> IncomingItems = new List<ItemData>();
+    public List<string> IncomingItemsUIDs = new List<string>();
 
     [JsonIgnore] public FurnitureSettings FurnitureSettings => GameSettings.Instance.LoadFurnitureSettings(SettingsID);
     [JsonIgnore] public string ItemName => FurnitureSettings.ItemName;
@@ -97,7 +97,7 @@ public class FurnitureData
             Owners[0] = kinlingData.UniqueID;
             if (kinlingData.PartnerUID != SecondaryOwner)
             {
-                var partner = KinlingsDatabase.Instance.GetKinlingData(kinlingData.PartnerUID);
+                var partner = KinlingsDatabase.Instance.Query(kinlingData.PartnerUID);
                 SetSecondaryOwner(partner);
             }
         }
@@ -214,8 +214,8 @@ public class FurnitureData
     
     public void AddToIncomingItems(ItemData itemData)
     {
-        IncomingItems ??= new List<ItemData>();
-        IncomingItems.Add(itemData);
+        IncomingItemsUIDs ??= new List<string>();
+        IncomingItemsUIDs.Add(itemData.UniqueID);
         
         IncomingResourceCosts ??= new List<CostData>();
 
@@ -236,8 +236,8 @@ public class FurnitureData
     
     public void RemoveFromIncomingItems(ItemData item)
     {
-        IncomingItems ??= new List<ItemData>();
-        IncomingItems.Remove(item);
+        IncomingItemsUIDs ??= new List<string>();
+        IncomingItemsUIDs.Remove(item.UniqueID);
         
         foreach (var cost in IncomingResourceCosts)
         {

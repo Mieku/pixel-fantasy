@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using ScriptableObjects;
 using Systems.Buildings.Scripts;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [Serializable]
     public enum EConstructionState
@@ -24,7 +25,8 @@ using UnityEngine;
         public List<CostData> RemainingMaterialCosts;
         public List<CostData> PendingResourceCosts = new List<CostData>(); // Claimed by a task but not used yet
         public List<CostData> IncomingResourceCosts = new List<CostData>(); // The item is on its way
-        public List<ItemData> IncomingItems = new List<ItemData>();
+        public List<string> IncomingItemsUIDs = new List<string>();
+        public List<string> ReceivedItemUIDs = new List<string>();
         public float MaxDurability;
 
         [JsonIgnore] public ConstructionSettings Settings => GameSettings.Instance.LoadConstructionSettings(SettingsID);
@@ -111,8 +113,8 @@ using UnityEngine;
         
         public void AddToIncomingItems(ItemData itemData)
         {
-            IncomingItems ??= new List<ItemData>();
-            IncomingItems.Add(itemData);
+            IncomingItemsUIDs ??= new List<string>();
+            IncomingItemsUIDs.Add(itemData.UniqueID);
             
             IncomingResourceCosts ??= new List<CostData>();
 
@@ -130,11 +132,17 @@ using UnityEngine;
                 Quantity = 1
             });
         }
+
+        public void AddToReceivedItems(ItemData itemData)
+        {
+            ReceivedItemUIDs.Add(itemData.UniqueID);
+            itemData.State = EItemState.BeingProcessed;
+        }
         
         public void RemoveFromIncomingItems(ItemData item)
         {
-            IncomingItems ??= new List<ItemData>();
-            IncomingItems.Remove(item);
+            IncomingItemsUIDs ??= new List<string>();
+            IncomingItemsUIDs.Remove(item.UniqueID);
             
             foreach (var cost in IncomingResourceCosts)
             {
