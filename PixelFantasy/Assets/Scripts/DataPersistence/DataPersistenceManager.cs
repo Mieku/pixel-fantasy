@@ -37,6 +37,7 @@ namespace DataPersistence
             }
 
             public SaveHeader Header;
+            public CameraData CameraData;
             public EnvironmentData EnvironmentData;
             public Dictionary<string, KinlingData>  Kinlings;
             public Dictionary<string, ItemData> ItemsData;
@@ -72,6 +73,7 @@ namespace DataPersistence
             SaveData saveData = new SaveData
             {
                 Header = GenerateHeader(),
+                CameraData = CameraManager.Instance.SaveCameraData(),
                 EnvironmentData = EnvironmentManager.Instance.GetEnvironmentData(),
                 TileMapData = TilemapController.Instance.GetTileMapData(),
                 ResourcesData = ResourcesDatabase.Instance.GetResourcesData(),
@@ -179,6 +181,7 @@ namespace DataPersistence
                 onStepCompleted?.Invoke("Prepping Data");
         
                 onStepStarted?.Invoke("Loading Environment");
+                CameraManager.Instance.LoadCameraData(saveData.CameraData);
                 EnvironmentManager.Instance.LoadEnvironmentData(saveData.EnvironmentData);
                 onStepCompleted?.Invoke("Loading Environment");
                 yield return null;
