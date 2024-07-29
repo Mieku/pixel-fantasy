@@ -28,6 +28,7 @@ namespace Systems.Zones.Scripts
             {
                 var incomingUIDs = cell.IncomingItemsData;
                 var storedUIDs = cell.StoredItemsData;
+                var claimedUIDs = cell.ClaimedItemsData;
 
                 foreach (var itemUID in incomingUIDs)
                 {
@@ -39,6 +40,12 @@ namespace Systems.Zones.Scripts
                 {
                     var item = ItemsDatabase.Instance.Query(itemUID);
                     StoredUIDs.Add(item.UniqueID);
+                }
+                
+                foreach (var itemUID in claimedUIDs)
+                {
+                    var item = ItemsDatabase.Instance.Query(itemUID);
+                    ClaimedUIDs.Add(item.UniqueID);
                 }
             }
             
@@ -92,7 +99,7 @@ namespace Systems.Zones.Scripts
 
                 if (incoming.CurrentTask != null && !string.IsNullOrEmpty(incoming.CurrentTaskID))
                 {
-                    incoming.CurrentTask.Cancel(true);
+                    incoming.CurrentTask.Cancel();
                 }
             }
             
@@ -107,7 +114,7 @@ namespace Systems.Zones.Scripts
 
                 if (stored.CurrentTask != null && !string.IsNullOrEmpty(stored.CurrentTaskID))
                 {
-                    stored.CurrentTask.Cancel(true);
+                    stored.CurrentTask.Cancel();
                 }
             }
         }

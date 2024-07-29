@@ -504,15 +504,16 @@ namespace TaskSystem
 
         public bool IsActionPossible(string taskID)
         {
-            Task forcedTask = new Task(taskID, ETaskType.Personal, null, EToolType.None)
-            {
-                OnTaskComplete = OnForcedTaskComplete
-            };
-            
-            var forcedTaskAction = FindTaskActionFor(forcedTask);
-            if (forcedTaskAction == null) return false;
-
-            return forcedTaskAction.CanDoTask(forcedTask);
+//             Task forcedTask = new Task(taskID, ETaskType.Personal, null, EToolType.None)
+//             {
+//                 OnTaskComplete = OnForcedTaskComplete
+//             };
+//             
+// //            var forcedTaskAction = FindTaskActionFor(forcedTask);
+//             if (forcedTaskAction == null) return false;
+//
+//             return forcedTaskAction.CanDoTask(forcedTask);
+            return false;
         }
 
         public bool HasToolTypeEquipped(EToolType toolType)

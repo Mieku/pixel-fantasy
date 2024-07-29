@@ -9,6 +9,11 @@ namespace Systems.Crafting.Scripts
     {
         public List<CraftingOrder> Orders = new List<CraftingOrder>();
         
+        public CraftingOrder Query(string uid)
+        {
+            return Orders.Find(o => o.UniqueID == uid);
+        }
+        
         public void SubmitOrder(CraftingOrder order)
         {
             Orders.Add(order);

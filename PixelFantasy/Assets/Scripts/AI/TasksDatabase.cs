@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using Characters;
 using Managers;
-using Newtonsoft.Json;
 using TaskSystem;
 
 namespace AI
 {
-    public class TasksDatabase : Singleton<TasksDatabase> // TODO: rename to Tasks Manager when the old one is removed
+    public class TasksDatabase : Singleton<TasksDatabase>
     {
         public List<TaskQueue> TaskQueues = new List<TaskQueue>();
         
@@ -92,21 +91,11 @@ namespace AI
 
         public List<TaskQueue> SaveTaskData()
         {
-            foreach (var queue in TaskQueues)
-            {
-                queue.TriggerOnSave();
-            }
-            
             return TaskQueues;
         }
 
         public void LoadTasksData(List<TaskQueue> taskQueues)
         {
-            foreach (var queue in TaskQueues)
-            {
-                queue.TriggerOnLoad();
-            }
-            
             TaskQueues = taskQueues;
         }
 

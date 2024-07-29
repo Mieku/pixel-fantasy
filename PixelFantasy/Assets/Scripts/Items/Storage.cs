@@ -27,7 +27,6 @@ namespace Items
         {
             var storageSettings = (StorageSettings) furnitureSettings;
             
-            //FurnitureSettings = tableSettings;
             // _dyeOverride = dye;
             RuntimeData = new StorageData();
             RuntimeStorageData.InitData(storageSettings);
@@ -167,7 +166,7 @@ namespace Items
 
                 if (item.CurrentTask != null && !string.IsNullOrEmpty(item.CurrentTaskID))
                 {
-                    item.CurrentTask.Cancel(true);
+                    item.CurrentTask.Cancel();
                 }
             }
             
@@ -182,7 +181,7 @@ namespace Items
 
                 if (item.CurrentTask != null && !string.IsNullOrEmpty(item.CurrentTaskID))
                 {
-                    item.CurrentTask.Cancel(true);
+                    item.CurrentTask.Cancel();
                 }
             }
         }

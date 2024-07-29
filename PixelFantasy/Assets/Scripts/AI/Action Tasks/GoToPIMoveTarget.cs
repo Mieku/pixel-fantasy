@@ -38,7 +38,7 @@ namespace AI.Action_Tasks
                 {
                     _kinling.DropCarriedItem(true);
                 }
-            }
+            } 
 
             _kinling = null;
         }

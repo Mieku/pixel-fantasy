@@ -308,7 +308,7 @@ namespace Systems.Mood.Scripts
             }
             else
             {
-                _pendingBreakdownState = CreateRandomBreakdownState(_moodState, _availableBreakdowns);
+                //_pendingBreakdownState = CreateRandomBreakdownState(_moodState, _availableBreakdowns);
                 // TODO: Display a msg for the player that a breakdown risk is happening
             }
         }

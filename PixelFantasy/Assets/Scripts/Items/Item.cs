@@ -198,7 +198,7 @@ namespace Items
 
             if (RuntimeData.CurrentTask != null)
             {
-                RuntimeData.CurrentTask.Cancel(false);
+                RuntimeData.CurrentTask.Cancel();
             }
         }
 

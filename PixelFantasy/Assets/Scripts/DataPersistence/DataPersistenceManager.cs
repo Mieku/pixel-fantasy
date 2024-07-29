@@ -158,6 +158,10 @@ namespace DataPersistence
         
         public IEnumerator LoadGameCoroutine(Action onLoadFinished, Action<string> onStepStarted, Action<string> onStepCompleted)
         {
+            // Ensures the game is paused during load, returns to prior state when done
+            var gameSpeed = TimeManager.Instance.GameSpeed;
+            TimeManager.Instance.SetGameSpeed(GameSpeed.Paused);
+            
             onStepStarted?.Invoke("Prepping Data");
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -222,6 +226,8 @@ namespace DataPersistence
                 TasksDatabase.Instance.LoadTasksData(saveData.TasksData);
                 onStepCompleted?.Invoke("Loading Tasks");
                 yield return null;
+                
+                NavMeshManager.Instance.UpdateNavMesh(true);
         
                 onStepStarted?.Invoke("Spawning Kinlings");
                 KinlingsDatabase.Instance.LoadKinlingsData(saveData.Kinlings);
@@ -232,6 +238,9 @@ namespace DataPersistence
             stopwatch.Stop();
             Debug.Log($"Load Complete in {stopwatch.ElapsedMilliseconds} ms");
             onLoadFinished?.Invoke();
+            
+            TimeManager.Instance.SetGameSpeed(gameSpeed);
+            
             yield return null;
         }
         

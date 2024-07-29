@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AI.Task_Settings;
 using Characters;
+using DataPersistence;
 using Managers;
 using Systems.Appearance.Scripts;
 using UnityEngine;
@@ -131,24 +132,22 @@ namespace AI
             // If there is a task currently running, cancel it and return it
             if (CurrentTask != null)
             {
-                CurrentTask.Cancel(true);
-                CurrentTask.OnCancelledCallback -= OnTaskCancelled;
+                CurrentTask.Cancel();
             }
             
+            task.ClaimTask(_kinlingData);
             _kinlingData.CurrentTaskID = task.UniqueID;
-            task.OnCancelledCallback += OnTaskCancelled;
             
             var tree = FindTaskTreeFor(task);
-            task.TaskData["KinlingUID"] =  _kinlingData.UniqueID;
             
             tree.ExecuteTask(task.TaskData, OnFinished);
         }
 
-        private void OnTaskCancelled()
+        public void CancelTask(Task task)
         {
-            if (CurrentTask != null)
+            if (task != null)
             {
-                var tree = FindTaskTreeFor(CurrentTask);
+                var tree = FindTaskTreeFor(task);
                 tree.BTOwner.StopBehaviour(false);
             }
         }
@@ -159,6 +158,7 @@ namespace AI
 
             tree.Blackboard.Deserialize(task.BlackboardJSON, null);
             tree.ExecuteTask(task.TaskData, OnFinished);
+            tree.BTOwner.Tick(); // Ticks after loading the task, so it is in a safe state
         }
 
         public void SaveBBState()
@@ -173,24 +173,29 @@ namespace AI
 
         private void OnFinished(bool success)
         {
-            var curTask = CurrentTask;
-            
-            if (!success)
+            if(DataPersistenceManager.WorldIsClearing) return;
+
+            if (CurrentTask != null)
             {
-                if (curTask.Status != ETaskStatus.Canceled)
+                var curTask = CurrentTask;
+            
+                if (!success)
                 {
-                    curTask.LogFailedAttempt(_kinlingData.UniqueID);
-                    curTask.Status = ETaskStatus.Pending;
+                    if (curTask.Status != ETaskStatus.Canceled)
+                    {
+                        curTask.LogFailedAttempt(_kinlingData.UniqueID);
+                        curTask.Status = ETaskStatus.Pending;
+                    }
                 }
-            }
-            else
-            {
-                curTask.Status = ETaskStatus.Completed;
-                TasksDatabase.Instance.RemoveTask(curTask);
+                else
+                {
+                    curTask.Status = ETaskStatus.Completed;
+                    TasksDatabase.Instance.RemoveTask(curTask);
+                }
+            
+                curTask.TaskComplete(success);
             }
             
-            curTask.TaskComplete(success);
-            curTask.OnCancelledCallback -= OnTaskCancelled;
             _kinlingData.CurrentTaskID = null;
         }
         

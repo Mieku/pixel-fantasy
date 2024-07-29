@@ -47,7 +47,7 @@ public class FurnitureData
 
     [JsonIgnore] public FurnitureSettings FurnitureSettings => GameSettings.Instance.LoadFurnitureSettings(SettingsID);
     [JsonIgnore] public string ItemName => FurnitureSettings.ItemName;
-
+    
     public virtual void InitData(FurnitureSettings furnitureSettings)
     {
         SettingsID = furnitureSettings.name;

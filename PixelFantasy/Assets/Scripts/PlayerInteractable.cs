@@ -1,9 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
 using AI;
-using TaskSystem;
 using UnityEngine;
-using Task = TaskSystem.Task;
 
 public abstract class PlayerInteractable : MonoBehaviour
 {
@@ -25,7 +22,7 @@ public abstract class PlayerInteractable : MonoBehaviour
         CancelPending();
         DisplayTaskIcon(null);
     }
-    
+
     public void AssignPlayerCommand(Command command, object payload = null)
     {
         if (command.Name == "Cancel Command")
@@ -46,7 +43,7 @@ public abstract class PlayerInteractable : MonoBehaviour
         
         DisplayTaskIcon(command.Icon);
     }
-    
+
     public void CreateTask(Command command, object payload = null)
     {
         if (command.Name == "Cancel Command")
@@ -65,7 +62,7 @@ public abstract class PlayerInteractable : MonoBehaviour
         
         PendingCommand = command;
 
-        AI.Task task = new AI.Task(command.TaskID, command.TaskType, this);
+        Task task = new Task(command.TaskID, command.TaskType, this);
         
         TasksDatabase.Instance.AddTask(task);
         AddTaskToRequested(task);
@@ -73,13 +70,12 @@ public abstract class PlayerInteractable : MonoBehaviour
         DisplayTaskIcon(command.Icon);
     }
 
-    public void AddTaskToRequested(AI.Task task)
+    public void AddTaskToRequested(Task task)
     {
         _requestedTaskID = task.UniqueID;
-        task.OnCompletedCallback += OnTaskComplete;
     }
 
-    public void OnTaskComplete(AI.Task task, bool success)
+    public virtual void OnTaskComplete(Task task, bool success)
     {
         if (success)
         {
@@ -87,12 +83,17 @@ public abstract class PlayerInteractable : MonoBehaviour
         }
     }
 
+    public virtual void OnTaskCancelled(Task task)
+    {
+        DisplayTaskIcon(null);
+    }
+
     public void CancelRequestorTasks()
     {
         var task = TasksDatabase.Instance.QueryTask(_requestedTaskID);
         if (task != null)
         {
-            task.Cancel(false);
+            task.Cancel();
         }
 
         _requestedTaskID = null;
@@ -102,11 +103,10 @@ public abstract class PlayerInteractable : MonoBehaviour
     {
         PendingCommand = null;
         
-        
         var task = TasksDatabase.Instance.QueryTask(_requestedTaskID);
         if (task != null)
         {
-            task.Cancel(false);
+            task.Cancel();
         }
 
         DisplayTaskIcon(null);
@@ -152,7 +152,7 @@ public abstract class PlayerInteractable : MonoBehaviour
 
     public virtual void ReceiveItem(ItemData item)
     {
-        Debug.LogError($"Item unexpectely received: {item.Settings.ItemName}");
+        Debug.LogError($"Item unexpectedly received: {item.Settings.ItemName}");
     }
 
     public abstract Vector2? UseagePosition(Vector2 requestorPosition);
