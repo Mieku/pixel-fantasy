@@ -51,6 +51,7 @@ namespace Items
             SetTile();
 
             _tempPlacementDisp.SetActive(false);
+            RefreshTaskIcon();
         }
 
         public MountainSettings MountainSettings => _settings as MountainSettings;

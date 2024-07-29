@@ -49,6 +49,7 @@ namespace Systems.Buildings.Scripts
             SetState(data.State);
             SetOrientationVertical(RuntimeDoorData.IsVertical);
             StructureDatabase.Instance.RegisterStructure(this);
+            RefreshTaskIcon();
         }
   
         public void SetState(EConstructionState state)

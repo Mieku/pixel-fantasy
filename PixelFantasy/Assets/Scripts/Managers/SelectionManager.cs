@@ -81,7 +81,7 @@ namespace Managers
         {
             foreach (var clickableObject in _selectedObjects)
             {
-                clickableObject.AssignCommand(_pendingCommand);
+                clickableObject.GetPlayerInteractable().AssignCommand(_pendingCommand);
             }
             
             DeactivateSelectionBox();

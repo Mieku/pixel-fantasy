@@ -38,6 +38,7 @@ namespace Systems.Buildings.Scripts
             AssignWallState(data.State);
             
             StructureDatabase.Instance.RegisterStructure(this);
+            RefreshTaskIcon();
         }
 
         private void AssignWallState(EConstructionState state)

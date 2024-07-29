@@ -38,7 +38,7 @@ namespace Managers
 
         public Command GetCommand(string taskId)
         {
-            var result = _commandLibrary.Find(cmd => cmd.Task.TaskId == taskId);
+            var result = _commandLibrary.Find(cmd => cmd.Task.TaskID == taskId);
             if (result == null)
             {
                 Debug.LogError("Unknown Command for Task Id: " + taskId);

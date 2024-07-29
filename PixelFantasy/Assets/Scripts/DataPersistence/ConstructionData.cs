@@ -28,6 +28,7 @@ using UnityEngine.Serialization;
         public List<string> IncomingItemsUIDs = new List<string>();
         public List<string> ReceivedItemUIDs = new List<string>();
         public float MaxDurability;
+        public string PendingTaskUID;
 
         [JsonIgnore] public ConstructionSettings Settings => GameSettings.Instance.LoadConstructionSettings(SettingsID);
         

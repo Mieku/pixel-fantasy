@@ -198,6 +198,12 @@ namespace AI
             
             _kinlingData.CurrentTaskID = null;
         }
+
+        public bool HasTreeForTask(Task task)
+        {
+            var tree = FindTaskTreeFor(task);
+            return tree != null;
+        }
         
         public AvatarLayer.EAppearanceDirection GetActionDirection(Vector3 targetPos)
         {

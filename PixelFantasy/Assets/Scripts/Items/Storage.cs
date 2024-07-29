@@ -159,11 +159,6 @@ namespace Items
             {
                 var incomingUID = IncomingUIDs[i];
                 var item = ItemsDatabase.Instance.Query(incomingUID);
-                if (item.GetLinkedItem() != null)
-                {
-                    item.GetLinkedItem().CancelTask();
-                }
-
                 if (item.CurrentTask != null && !string.IsNullOrEmpty(item.CurrentTaskID))
                 {
                     item.CurrentTask.Cancel();
@@ -174,11 +169,6 @@ namespace Items
             {
                 var storedUID = StoredUIDs[i];
                 var item = ItemsDatabase.Instance.Query(storedUID);
-                if (item.GetLinkedItem() != null)
-                {
-                    item.GetLinkedItem().CancelTask();
-                }
-
                 if (item.CurrentTask != null && !string.IsNullOrEmpty(item.CurrentTaskID))
                 {
                     item.CurrentTask.Cancel();

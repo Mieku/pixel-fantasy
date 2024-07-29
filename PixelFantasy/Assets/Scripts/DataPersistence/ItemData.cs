@@ -14,6 +14,7 @@ using UnityEngine;
 public class ItemData
 {
     public string UniqueID;
+    public string PendingTaskUID;
     public string SettingsID;
     public EItemState State;
     public int Durability;

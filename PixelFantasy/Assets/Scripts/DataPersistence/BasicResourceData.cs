@@ -13,7 +13,7 @@ namespace DataPersistence
         public string UniqueID;
         public int SpriteIndex;
         public float Health;
-        //public Task CurrentTask;
+        public string PendingTaskUID;
         public string SettingsName;
         
         [JsonRequired] private float _posX;

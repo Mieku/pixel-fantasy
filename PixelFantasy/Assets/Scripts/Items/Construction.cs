@@ -22,6 +22,11 @@ namespace Items
         public abstract string DisplayName { get; }
         public ConstructionData RuntimeData;
         public override string UniqueID => RuntimeData.UniqueID;
+        public override string PendingTaskUID
+        {
+            get => RuntimeData.PendingTaskUID;
+            set => RuntimeData.PendingTaskUID = value;
+        }
         
         public Action OnChanged { get; set; }
         
@@ -37,7 +42,7 @@ namespace Items
 
         public abstract void LoadData(ConstructionData data);
         
-        public virtual void AssignCommand(Command command, object payload = null)
+        public override void AssignCommand(Command command)
         {
             if (command.name == "Deconstruct Construction Command")
             {
@@ -47,7 +52,7 @@ namespace Items
                 }
                 else
                 {
-                    CreateTask(command, payload);
+                    CreateTask(command);
                 }
             } 
             else if (command.name == "Copy Command")
@@ -56,7 +61,7 @@ namespace Items
             }
             else
             {
-                CreateTask(command, payload);
+                CreateTask(command);
             }
         }
 
@@ -103,7 +108,7 @@ namespace Items
         {
             if (RuntimeData.State != EConstructionState.Built)
             {
-                CancelRequestorTasks();
+                CancelPendingTask();
                 
                 // Spawn All the resources used
                 RefundUsedResources();

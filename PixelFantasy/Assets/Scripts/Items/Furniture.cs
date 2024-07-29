@@ -53,6 +53,12 @@ namespace Items
         private ClickObject _clickObject;
         private DyeSettings _dyeOverride;
         private readonly List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle", "Clearance"};
+        
+        public override string PendingTaskUID
+        {
+            get => RuntimeData.PendingTaskUID;
+            set => RuntimeData.PendingTaskUID = value;
+        }
 
         public Action OnChanged { get; set; }
 
@@ -84,6 +90,7 @@ namespace Items
             AssignDirection(data.Direction);
             
             SetState(data.FurnitureState);
+            RefreshTaskIcon();
         }
         
         public virtual void StartPlanning(FurnitureSettings furnitureSettings, PlacementDirection initialDirection, DyeSettings dye)
@@ -138,7 +145,7 @@ namespace Items
             }
         }
         
-        public void AssignCommand(Command command, object payload = null)
+        public override void AssignCommand(Command command)
         {
             if (command.name == "Move Furniture Command")
             {
@@ -155,27 +162,27 @@ namespace Items
                 }
                 else
                 {
-                    CreateTask(command, payload);
+                    CreateTask(command);
                 }
             }
             else
             {
-                CreateTask(command, payload);
+                CreateTask(command);
             }
         }
 
-        public override void CancelCommand(Command command)
+        public override void CancelPendingTask()
         {
             RuntimeData.HasUseBlockingCommand = false;
             
-            base.CancelCommand(command);
+            base.CancelPendingTask();
         }
 
         public virtual void CancelConstruction()
         {
             FurnitureDatabase.Instance.DeregisterFurniture(RuntimeData);
             
-            CancelRequestorTasks();
+            CancelPendingTask();
                 
             // Spawn All the resources used
             SpawnUsedResources(100f);

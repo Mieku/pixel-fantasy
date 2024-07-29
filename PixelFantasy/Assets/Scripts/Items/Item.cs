@@ -20,17 +20,18 @@ namespace Items
         public ItemData RuntimeData;
         public Action OnChanged { get; set; }
         public override string UniqueID => RuntimeData.UniqueID;
+        
+        public override string PendingTaskUID
+        {
+            get => RuntimeData.PendingTaskUID;
+            set => RuntimeData.PendingTaskUID = value;
+        }
 
         public PlayerInteractable GetPlayerInteractable()
         {
             return this;
         }
-
-        public void AssignCommand(Command command, object payload = null)
-        {
-            CreateTask(command, payload);
-        }
-
+        
         public ClickObject GetClickObject()
         {
             return _clickObject;
@@ -103,35 +104,7 @@ namespace Items
             TasksDatabase.Instance.AddTask(task);
             RuntimeData.CurrentTaskID = task.UniqueID;
         }
-
-        public void CancelTask(bool lookToHaul = true)
-        {
-            // if (RuntimeData.CurrentTask != null)
-            // {
-            //     if (RuntimeData.AssignedStorage != null)
-            //     {
-            //         RuntimeData.AssignedStorage.CancelIncoming(RuntimeData);
-            //         RuntimeData.AssignedStorageID = null;
-            //     }
-            //
-            //     if (!string.IsNullOrEmpty(RuntimeData.CarryingKinlingUID))
-            //     {
-            //         var carryingKinling = KinlingsDatabase.Instance.GetKinling(RuntimeData.CarryingKinlingUID);
-            //         carryingKinling.TaskAI.CancelTask(RuntimeData.CurrentTask.TaskId);
-            //     }
-            //     
-            //     RuntimeData.CurrentTask.Cancel();
-            //     RuntimeData.CurrentTask = null;
-            //     
-            //     CancelRequestorTasks();
-            //
-            //     if (lookToHaul)
-            //     {
-            //         SeekForSlot();
-            //     }
-            // }
-        }
-
+        
         private void GameEvent_OnInventoryAvailabilityChanged()
         {
             SeekForSlot();
@@ -148,11 +121,6 @@ namespace Items
             RuntimeData.AssignedStorageID = null;
             RuntimeData.CarryingKinlingUID = null;
             RuntimeData.State = EItemState.Loose;
-            
-            if (_onItemRelocatedCallback != null)
-            {
-                _onItemRelocatedCallback.Invoke();
-            }
 
             if (IsAllowed)
             {
@@ -215,20 +183,6 @@ namespace Items
         public virtual List<Command> GetCommands()
         {
             return Commands;
-        }
-
-        
-
-        private Action _onItemRelocatedCallback;
-        public void RelocateItem(Action onItemRelocated, Vector2 newLocation)
-        {
-            if (RuntimeData.CurrentTaskID != "Relocate Item")
-            {
-                CancelTask(false);
-                
-                _onItemRelocatedCallback = onItemRelocated;
-                AssignCommand(Librarian.Instance.GetCommand("Relocate Item"), newLocation);
-            }
         }
 
         public string DisplayName => RuntimeData.Settings.ItemName;

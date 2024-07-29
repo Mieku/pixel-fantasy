@@ -92,11 +92,6 @@ namespace Systems.Zones.Scripts
             {
                 var incomingUID = IncomingUIDs[i];
                 var incoming = ItemsDatabase.Instance.Query(incomingUID);
-                if (incoming.GetLinkedItem() != null)
-                {
-                    incoming.GetLinkedItem().CancelTask();
-                }
-
                 if (incoming.CurrentTask != null && !string.IsNullOrEmpty(incoming.CurrentTaskID))
                 {
                     incoming.CurrentTask.Cancel();
@@ -107,11 +102,6 @@ namespace Systems.Zones.Scripts
             {
                 var storedUID = StoredUIDs[i];
                 var stored = ItemsDatabase.Instance.Query(storedUID);
-                if (stored.GetLinkedItem() != null)
-                {
-                    stored.GetLinkedItem().CancelTask();
-                }
-
                 if (stored.CurrentTask != null && !string.IsNullOrEmpty(stored.CurrentTaskID))
                 {
                     stored.CurrentTask.Cancel();

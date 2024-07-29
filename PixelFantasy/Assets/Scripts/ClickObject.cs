@@ -78,6 +78,8 @@ public class ClickObject : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (!Application.isPlaying) return;
+        
         UnselectObject();
         PlayerInputController.Instance.OnClickObjectDestroy(this);
         

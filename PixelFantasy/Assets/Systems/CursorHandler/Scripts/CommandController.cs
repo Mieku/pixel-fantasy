@@ -14,13 +14,13 @@ namespace Systems.CursorHandler.Scripts
 
         private bool IsActiveCommand(Kinling kinling, PlayerInteractable playerInteractable)
         {
-            var currentAction = kinling.TaskAI.CurrentAction;
+            var currentAction = kinling.TaskHandler.CurrentTask;
             var pendingCmd = playerInteractable.PendingCommand;
 
             if (currentAction == null || pendingCmd == null) return false;
 
-            if (currentAction.Task.Requestor == playerInteractable &&
-                currentAction.Task == pendingCmd.Task)
+            if (currentAction.RequesterID == playerInteractable.UniqueID &&
+                currentAction == pendingCmd.Task)
             {
                 return true;
             }
@@ -71,16 +71,16 @@ namespace Systems.CursorHandler.Scripts
                     }
                     else
                     {
-                        Task task = command.Task;
-                        task.SetRequestor(clickObject.Owner.GetPlayerInteractable());
-                        task.IsKinlingSpecific = true;
-                        task.OnTaskCancel = () =>
-                        {
-                            task.Requestor.CancelPlayerCommand();
-                        };
-                        kinlingToHandleCommand.TaskAI.AssignCommandTask(task);
-                        clickObject.Owner.GetPlayerInteractable().AssignPlayerCommand(command);
-                        HideCommands();
+                        // AI.Task task = command.Task;
+                        // task.SetRequestor(clickObject.Owner.GetPlayerInteractable());
+                        // task.IsKinlingSpecific = true;
+                        // task.OnTaskCancel = () =>
+                        // {
+                        //     task.Requestor.CancelPlayerCommand();
+                        // };
+                        // kinlingToHandleCommand.TaskAI.AssignCommandTask(task);
+                        // clickObject.Owner.GetPlayerInteractable().AssignCommand(command);  //.AssignPlayerCommand(command);
+                        // HideCommands();
                     }
                 } );
         }
@@ -100,11 +100,11 @@ namespace Systems.CursorHandler.Scripts
             _controls.ShowControls(worldPos, kinlingToHandleCommand.FullName, commands, null, invalidCommands,
                 (command) =>
                 {
-                    Task task = command.Task;
-                    task.Payload = worldPos;
-                    task.IsKinlingSpecific = true;
-                    kinlingToHandleCommand.TaskAI.AssignCommandTask(task);
-                    HideCommands();
+                    // Task task = command.Task;
+                    // task.Payload = worldPos;
+                    // task.IsKinlingSpecific = true;
+                    // kinlingToHandleCommand.TaskAI.AssignCommandTask(task);
+                    // HideCommands();
                 } );
         }
 

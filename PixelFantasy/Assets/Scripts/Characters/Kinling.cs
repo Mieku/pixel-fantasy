@@ -27,6 +27,12 @@ namespace Characters
         public string FullName => RuntimeData.Firstname + " " + RuntimeData.Lastname;
         public override string UniqueID => RuntimeData.UniqueID;
         
+        public override string PendingTaskUID
+        {
+            get => RuntimeData.CurrentTaskID;
+            set => RuntimeData.CurrentTaskID = value;
+        }
+        
         public KinlingAgent KinlingAgent;
         public Avatar Avatar;
         public Item HeldItem;
@@ -157,11 +163,6 @@ namespace Characters
         public List<Command> GetCommands()
         {
             return new List<Command>(Commands);
-        }
-
-        public void AssignCommand(Command command, object payload = null)
-        {
-            CreateTask(command, payload);
         }
         
         public override Vector2? UseagePosition(Vector2 requestorPosition)

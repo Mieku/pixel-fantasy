@@ -4,11 +4,9 @@ using Characters;
 using DataPersistence;
 using Handlers;
 using Managers;
-using Newtonsoft.Json;
 using QFSW.QC;
 using UnityEngine;
 using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
 
 namespace Items
 {
@@ -17,7 +15,6 @@ namespace Items
         [SerializeField] protected SpriteRenderer _fruitOverlay;
 
         public bool IsFruiting => GrowingResourceData.GrowingResourceSettings.HasFruit;
-        public List<GameObject> TaskRequestors = new List<GameObject>();
 
         public GrowingResourceData GrowingResourceData => RuntimeData as GrowingResourceData;
         
@@ -175,12 +172,7 @@ namespace Items
                 }
                 GrowingResourceData.HasFruitAvailable = false;
                 RefreshSelection();
-                DisplayTaskIcon(null);
-
-                if (PendingCommand == GrowingResourceData.GrowingResourceSettings.HarvestCmd)
-                {
-                    PendingCommand = null;
-                }
+                RefreshTaskIcon();
             }
 
             GrowingResourceData.RemainingHarvestWork = GrowingResourceData.GrowingResourceSettings.WorkToHarvest;

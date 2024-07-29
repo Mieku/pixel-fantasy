@@ -13,6 +13,7 @@ using UnityEngine.Serialization;
 public class FurnitureData
 {
     public string UniqueID;
+    public string PendingTaskUID;
     public EFurnitureState FurnitureState;
     public float RemainingWork;
     public PlacementDirection Direction;

@@ -183,6 +183,11 @@ namespace DataPersistence
                 
                 yield return StartCoroutine(ClearWorld());
                 onStepCompleted?.Invoke("Prepping Data");
+                
+                onStepStarted?.Invoke("Loading Tasks");
+                TasksDatabase.Instance.LoadTasksData(saveData.TasksData);
+                onStepCompleted?.Invoke("Loading Tasks");
+                yield return null;
         
                 onStepStarted?.Invoke("Loading Environment");
                 CameraManager.Instance.LoadCameraData(saveData.CameraData);
@@ -220,11 +225,6 @@ namespace DataPersistence
                 onStepStarted?.Invoke("Spawning Furniture");
                 FurnitureDatabase.Instance.LoadFurnitureData(saveData.FurnitureData);
                 onStepCompleted?.Invoke("Spawning Furniture");
-                yield return null;
-        
-                onStepStarted?.Invoke("Loading Tasks");
-                TasksDatabase.Instance.LoadTasksData(saveData.TasksData);
-                onStepCompleted?.Invoke("Loading Tasks");
                 yield return null;
                 
                 NavMeshManager.Instance.UpdateNavMesh(true);

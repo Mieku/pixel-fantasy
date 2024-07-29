@@ -29,7 +29,13 @@ namespace Items
         protected ResourceSettings _settings;
         public BasicResourceData RuntimeData;
         public override string UniqueID => RuntimeData.UniqueID;
-        
+
+        public override string PendingTaskUID
+        {
+            get => RuntimeData.PendingTaskUID;
+            set => RuntimeData.PendingTaskUID = value;
+        }
+
         public Action OnChanged { get; set; }
         
         // private void OnEnable()
@@ -65,6 +71,7 @@ namespace Items
             ResourcesDatabase.Instance.RegisterResource(this);
             
             UpdateSprite();
+            RefreshTaskIcon();
         }
         
         protected virtual void UpdateSprite()
@@ -109,9 +116,9 @@ namespace Items
             return result;
         }
         
-        public void AssignCommand(Command command, object payload = null)
+        public override void AssignCommand(Command command)
         {
-            CreateTask(command, payload);
+            CreateTask(command);
         }
 
         public PlayerInteractable GetPlayerInteractable()
