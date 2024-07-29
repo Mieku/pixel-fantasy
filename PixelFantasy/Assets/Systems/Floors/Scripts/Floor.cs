@@ -38,6 +38,7 @@ namespace Systems.Floors.Scripts
             RuntimeData = data;
             FlooringDatabase.Instance.RegisterFloor(this);
             AssignFloorState(data.State);
+            RefreshTaskIcon();
         }
 
         private void AssignFloorState(EConstructionState state)

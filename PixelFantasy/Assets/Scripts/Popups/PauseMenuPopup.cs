@@ -1,5 +1,6 @@
 using DataPersistence;
 using Managers;
+using Systems.Game_Setup.Scripts;
 
 namespace Popups
 {
@@ -32,12 +33,13 @@ namespace Popups
 
         public void SavePressed()
         {
-            DataPersistenceManager.Instance.SaveGame();
+            StartCoroutine(DataPersistenceManager.Instance.SaveGameCoroutine());
         }
 
         public void LoadPressed()
         {
-            DataPersistenceManager.Instance.LoadGame();
+            Hide();
+            GameManager.Instance.StartLoadedGame("", false);
         }
 
         public void SettingsPressed()
@@ -58,7 +60,7 @@ namespace Popups
         public void ReportBugPressed()
         {
             // TODO: Build Me!
-            DataPersistenceManager.Instance.ClearWorld();
+            StartCoroutine(DataPersistenceManager.Instance.ClearWorld());
         }
     }
 }

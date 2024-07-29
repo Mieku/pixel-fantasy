@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
+using AI;
 using Characters;
-using DataPersistence;
 using Managers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Systems.Crafting.Scripts;
-using TaskSystem;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -19,7 +18,7 @@ namespace Items
         [TitleGroup("North")] [SerializeField] private SpriteRenderer _northCraftingPreview;
         [TitleGroup("East")] [SerializeField] private SpriteRenderer _eastCraftingPreview;
         
-        public CraftingTableData RuntimeTableData => RuntimeData as CraftingTableData;
+        [ShowInInspector] public CraftingTableData RuntimeTableData => (CraftingTableData) RuntimeData;
 
         public override void StartPlanning(FurnitureSettings furnitureSettings, PlacementDirection initialDirection, DyeSettings dye)
         {
@@ -35,15 +34,19 @@ namespace Items
 
         public override void LoadData(FurnitureData data)
         {
-            base.LoadData(data);
             HideCraftingPreview();
+            base.LoadData(data);
+
+            if (RuntimeTableData.CurrentOrder?.State == CraftingOrder.EOrderState.Claimed)
+            {
+                ShowCraftingPreview(RuntimeTableData.CurrentOrder.GetOrderedItemSettings.ItemSprite);
+            }
         }
 
         public override void InitializeFurniture(FurnitureSettings furnitureSettings, PlacementDirection direction, DyeSettings dye)
         {
             var tableSettings = (CraftingTableSettings) furnitureSettings;
             
-            //FurnitureSettings = tableSettings;
             // _dyeOverride = dye;
             RuntimeData = new CraftingTableData();
             RuntimeTableData.InitData(tableSettings);
@@ -51,16 +54,6 @@ namespace Items
             
             SetState(RuntimeData.FurnitureState);
             AssignDirection(direction);
-        }
-
-        protected override void InProduction_Enter()
-        {
-            base.InProduction_Enter();
-        }
-
-        protected override void Built_Enter()
-        {
-            base.Built_Enter();
         }
 
         protected override void Update()
@@ -81,31 +74,39 @@ namespace Items
           
                 if (order != null)
                 {
-                    RuntimeTableData.CurrentOrder = order;
-                    var task = order.CreateTask(OnCraftingComplete, OnCraftingCancelled, this);
-                    TaskManager.Instance.AddTask(task);
-                    RuntimeTableData.CurrentOrder.State = CraftingOrder.EOrderState.Claimed;
+                    RuntimeTableData.CurrentOrderID = order.UniqueID;
+                    var task = order.CreateTask(this);
+                    TasksDatabase.Instance.AddTask(task);
+                    order.State = CraftingOrder.EOrderState.Claimed;
                     OnChanged?.Invoke();
                 }
             }
         }
 
-        private void OnCraftingComplete(Task task)
+        public override void OnTaskComplete(Task task, bool success)
         {
-            if (RuntimeTableData.CurrentOrder.FulfillmentType == CraftingOrder.EFulfillmentType.Amount)
+            base.OnTaskComplete(task, success);
+
+            if (task.TaskID == "Craft Item")
             {
-                RuntimeTableData.CurrentOrder.Amount = Mathf.Clamp(RuntimeTableData.CurrentOrder.Amount - 1, 0, 999);
-            }
+                if (success)
+                {
+                    RuntimeTableData.CurrentOrder.SetOrderState(CraftingOrder.EOrderState.Completed);
             
-            RuntimeTableData.CurrentOrder.State = CraftingOrder.EOrderState.None;
-            RuntimeTableData.CurrentOrder.RefreshOrderRequirements();
-            OnChanged?.Invoke();
+                    AssignItemToTable(null, null);
+                    OnChanged?.Invoke();
+                }
+            }
         }
 
-        private void OnCraftingCancelled()
+        public override void OnTaskCancelled(Task task) 
         {
-            RuntimeTableData.CurrentOrder.State = CraftingOrder.EOrderState.None;
-            AssignItemToTable(null, null);
+            base.OnTaskCancelled(task);
+
+            if (task.TaskID == "Craft Item")
+            {
+                ShowCraftingPreview(null);
+            }
         }
 
         private SpriteRenderer CraftingPreview
@@ -136,33 +137,34 @@ namespace Items
             if(_eastCraftingPreview != null) _eastCraftingPreview.gameObject.SetActive(false);
         }
         
-        public void AssignItemToTable(CraftedItemSettings craftedItem, List<ItemData> claimedMats)
+        public void AssignItemToTable(CraftedItemSettings craftedItem, List<string> claimedMatsUIDs)
         {
             if (craftedItem != null)
             {
                 ShowCraftingPreview(craftedItem.ItemSprite);
-                RuntimeTableData.CurrentOrder.ClaimedItems = claimedMats;
+                RuntimeTableData.CurrentOrder.ClaimedItemUIDs = claimedMatsUIDs;
             }
             else
             {
                 ShowCraftingPreview(null);
-                RuntimeTableData.CurrentOrder.ClaimedItems = null;
+                RuntimeTableData.CurrentOrder.ClaimedItemUIDs = null;
+                RuntimeTableData.CurrentOrderID = null;
             }
             
             OnChanged?.Invoke();
         }
 
-        public void AssignMealToTable(MealSettings mealSettings, List<ItemData> claimedIngredients)
+        public void AssignMealToTable(MealSettings mealSettings, List<string> claimedIngredientsUIDs)
         {
             if (mealSettings != null)
             {
                 ShowCraftingPreview(mealSettings.ItemSprite);
-                RuntimeTableData.CurrentOrder.ClaimedItems = claimedIngredients;
+                RuntimeTableData.CurrentOrder.ClaimedItemUIDs = claimedIngredientsUIDs;
             }
             else
             {
                 ShowCraftingPreview(null);
-                RuntimeTableData.CurrentOrder.ClaimedItems = null;
+                RuntimeTableData.CurrentOrder.ClaimedItemUIDs = null;
             }
             OnChanged?.Invoke();
         }
@@ -199,19 +201,15 @@ namespace Items
 
         public void ReceiveMaterial(ItemData item)
         {
-            RuntimeTableData.CurrentOrder.ReceiveItem(item);
             Destroy(item.GetLinkedItem().gameObject);
-            item.DeleteItemData();
+            RuntimeTableData.CurrentOrder.ReceiveItem(item);
         }
 
         private void CompleteCraft()
         {
-            AssignItemToTable(null, null);
-        }
-
-        public List<CraftedItemSettings> GetCraftableItems()
-        {
-            return RuntimeTableData.CraftingTableSettings.CraftableItems;
+            ShowCraftingPreview(null);
+            
+            RuntimeTableData.CurrentOrder?.ClearMaterialsReceived();
         }
     }
 }

@@ -17,7 +17,8 @@ MonoBehaviour:
   Task:
     TaskId: Extract Resource
     TaskType: 7
-    KinlingAssignedToTask: {fileID: 0}
     Materials: []
     RequiredToolType: 3
     IsKinlingSpecific: 0
+  TaskID: Extract Resource
+  TaskType: 7

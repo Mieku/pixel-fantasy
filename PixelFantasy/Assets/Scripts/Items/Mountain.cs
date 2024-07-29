@@ -30,22 +30,13 @@ namespace Items
             _tempPlacementDisp.SetActive(false);
         }
         
-        private void OnEnable()
-        {
-            ResourcesDatabase.Instance?.RegisterResource(this);
-        }
-
-        private void OnDisable()
-        {
-            ResourcesDatabase.Instance?.DeregisterResource(this);
-        }
-        
         public override void InitializeResource(ResourceSettings settings)
         {
             _settings = settings;
             RuntimeData = new MountainResourceData();
             RuntimeData.InitData(MountainSettings);
             RuntimeData.Position = transform.position;
+            ResourcesDatabase.Instance.RegisterResource(this);
             
             SetTile();
 
@@ -56,10 +47,11 @@ namespace Items
         {
             RuntimeData = data;
             _settings = data.Settings;
-            
+            ResourcesDatabase.Instance.RegisterResource(this);
             SetTile();
 
             _tempPlacementDisp.SetActive(false);
+            RefreshTaskIcon();
         }
 
         public MountainSettings MountainSettings => _settings as MountainSettings;

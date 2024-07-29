@@ -1,10 +1,11 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using AI;
 using Characters;
 using Controllers;
 using Handlers;
-using Items;
 using Managers;
 using Newtonsoft.Json;
 using Systems.Buildings.Scripts;
@@ -19,6 +20,8 @@ namespace DataPersistence
     {
         [SerializeField] private RampsHandler _rampsHandler;
         [SerializeField] private GameObject _UIHandle;
+
+        public static bool WorldIsClearing;
         
         [Serializable]
         public class SaveData
@@ -34,16 +37,18 @@ namespace DataPersistence
             }
 
             public SaveHeader Header;
+            public CameraData CameraData;
             public EnvironmentData EnvironmentData;
-            public List<KinlingData> Kinlings;
-            public List<ItemData> ItemsData;
-            public List<FurnitureData> FurnitureData;
+            public Dictionary<string, KinlingData>  Kinlings;
+            public Dictionary<string, ItemData> ItemsData;
+            public Dictionary<string, FurnitureData> FurnitureData;
             public List<ZoneData> ZonesData;
-            public List<ConstructionData> StructuresData;
-            public List<FloorData> FloorsData;
-            public List<BasicResourceData> ResourcesData;
+            public Dictionary<string, ConstructionData> StructuresData;
+            public Dictionary<string, FloorData> FloorsData;
+            public Dictionary<string, BasicResourceData> ResourcesData;
             public TileMapData TileMapData;
             public List<RampData> RampData;
+            public List<TaskQueue> TasksData;
         }
 
         private SaveData.SaveHeader GenerateHeader()
@@ -60,24 +65,26 @@ namespace DataPersistence
             };
         }
         
-        public void SaveGame()
+        public IEnumerator SaveGameCoroutine()
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-    
+
             SaveData saveData = new SaveData
             {
                 Header = GenerateHeader(),
+                CameraData = CameraManager.Instance.SaveCameraData(),
                 EnvironmentData = EnvironmentManager.Instance.GetEnvironmentData(),
                 TileMapData = TilemapController.Instance.GetTileMapData(),
                 ResourcesData = ResourcesDatabase.Instance.GetResourcesData(),
                 RampData = _rampsHandler.GetRampsData(),
-                Kinlings = KinlingsDatabase.Instance.GetKinlingsData(),
-                ItemsData = ItemsDatabase.Instance.GetItemsData(),
-                FurnitureData = FurnitureDatabase.Instance.GetFurnitureData(),
-                ZonesData = ZonesDatabase.Instance.GetZonesData(),
-                StructuresData = StructureDatabase.Instance.GetStructureData(),
-                FloorsData = FlooringDatabase.Instance.GetFloorData(),
+                Kinlings = KinlingsDatabase.Instance.SaveKinlingsData(),
+                ItemsData = ItemsDatabase.Instance.SaveItemsData(),
+                FurnitureData = FurnitureDatabase.Instance.SaveFurnitureData(),
+                ZonesData = ZonesDatabase.Instance.SaveZonesData(),
+                StructuresData = StructureDatabase.Instance.SaveStructureData(),
+                FloorsData = FlooringDatabase.Instance.SaveFloorData(),
+                TasksData = TasksDatabase.Instance.SaveTaskData(),
             };
 
             var settings = new JsonSerializerSettings
@@ -88,9 +95,22 @@ namespace DataPersistence
                 Error = HandleSerializationError
             };
 
+            string json = string.Empty;
             try
             {
-                string json = JsonConvert.SerializeObject(saveData, settings);
+                json = JsonConvert.SerializeObject(saveData, settings);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("Error serializing game data: " + ex.Message);
+                Debug.LogError("StackTrace: " + ex.StackTrace);
+                yield break;
+            }
+
+            yield return null; // Yield to allow frame update
+
+            try
+            {
                 System.IO.File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
                 Debug.Log("Save Complete in " + stopwatch.ElapsedMilliseconds + " ms");
             }
@@ -103,6 +123,8 @@ namespace DataPersistence
             {
                 stopwatch.Stop();
             }
+
+            yield return null; // Yield to allow frame update
         }
         
         private void HandleSerializationError(object sender, Newtonsoft.Json.Serialization.ErrorEventArgs e)
@@ -133,14 +155,19 @@ namespace DataPersistence
 
             return filePath;
         }
-
-        public void LoadGame()
+        
+        public IEnumerator LoadGameCoroutine(Action onLoadFinished, Action<string> onStepStarted, Action<string> onStepCompleted)
         {
+            // Ensures the game is paused during load, returns to prior state when done
+            var gameSpeed = TimeManager.Instance.GameSpeed;
+            TimeManager.Instance.SetGameSpeed(GameSpeed.Paused);
+            
+            onStepStarted?.Invoke("Prepping Data");
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            
+    
             GameEvents.Trigger_OnGameLoadStart();
-            
+    
             string path = Application.persistentDataPath + "/savefile.json";
             if (System.IO.File.Exists(path))
             {
@@ -151,38 +178,118 @@ namespace DataPersistence
                     TypeNameHandling = TypeNameHandling.Auto,
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                 };
-                
+        
                 var saveData = JsonConvert.DeserializeObject<SaveData>(json, settings);
                 
-                ClearWorld();
+                yield return StartCoroutine(ClearWorld());
+                onStepCompleted?.Invoke("Prepping Data");
                 
+                onStepStarted?.Invoke("Loading Tasks");
+                TasksDatabase.Instance.LoadTasksData(saveData.TasksData);
+                onStepCompleted?.Invoke("Loading Tasks");
+                yield return null;
+        
+                onStepStarted?.Invoke("Loading Environment");
+                CameraManager.Instance.LoadCameraData(saveData.CameraData);
                 EnvironmentManager.Instance.LoadEnvironmentData(saveData.EnvironmentData);
+                onStepCompleted?.Invoke("Loading Environment");
+                yield return null;
+        
+                onStepStarted?.Invoke("Loading Tilemaps");
                 TilemapController.Instance.LoadTileMapData(saveData.TileMapData);
-                ResourcesDatabase.Instance.LoadResourcesData(saveData.ResourcesData);
                 _rampsHandler.LoadRampsData(saveData.RampData);
-                KinlingsDatabase.Instance.LoadKinlingsData(saveData.Kinlings);
+                onStepCompleted?.Invoke("Loading Tilemaps");
+                yield return null;
+        
+                onStepStarted?.Invoke("Spawning Resources");
+                ResourcesDatabase.Instance.LoadResourcesData(saveData.ResourcesData);
+                onStepCompleted?.Invoke("Spawning Resources");
+                yield return null;
+        
+                onStepStarted?.Invoke("Spawning Items");
+                ItemsDatabase.Instance.LoadItemsData(saveData.ItemsData);
+                onStepCompleted?.Invoke("Spawning Items");
+                yield return null;
+        
+                onStepStarted?.Invoke("Spawning Zones");
                 ZonesDatabase.Instance.LoadZonesData(saveData.ZonesData);
+                onStepCompleted?.Invoke("Spawning Zones");
+                yield return null;
+        
+                onStepStarted?.Invoke("Spawning Structures");
                 StructureDatabase.Instance.LoadStructureData(saveData.StructuresData);
                 FlooringDatabase.Instance.LoadFloorData(saveData.FloorsData);
+                onStepCompleted?.Invoke("Spawning Structures");
+                yield return null;
+        
+                onStepStarted?.Invoke("Spawning Furniture");
                 FurnitureDatabase.Instance.LoadFurnitureData(saveData.FurnitureData);
-                ItemsDatabase.Instance.LoadItemsData(saveData.ItemsData);
+                onStepCompleted?.Invoke("Spawning Furniture");
+                yield return null;
+                
+                NavMeshManager.Instance.UpdateNavMesh(true);
+        
+                onStepStarted?.Invoke("Spawning Kinlings");
+                KinlingsDatabase.Instance.LoadKinlingsData(saveData.Kinlings);
+                onStepCompleted?.Invoke("Spawning Kinlings");
+                yield return null;
             }
-            
+    
             stopwatch.Stop();
             Debug.Log($"Load Complete in {stopwatch.ElapsedMilliseconds} ms");
+            onLoadFinished?.Invoke();
+            
+            TimeManager.Instance.SetGameSpeed(gameSpeed);
+            
+            yield return null;
         }
-
-        public void ClearWorld() // TODO: for testing
+        
+        public IEnumerator ClearWorld()
         {
+            WorldIsClearing = true;
+
+            // Stop all kinlings' tasks and AI behaviors
+            KinlingsDatabase.Instance.StopAllKinlingTasks();
+            yield return null; // Allow frame to update
+
+            // Optionally, you can add a short delay to ensure all tasks have fully stopped
+            yield return new WaitForSeconds(0.1f);
+
+            // Start clearing the world
             TilemapController.Instance.ClearAllTiles();
+            yield return null; // Yield to allow frame update
+
             ResourcesDatabase.Instance.DeleteResources();
+            yield return null; // Yield to allow frame update
+
             _rampsHandler.DeleteRamps();
-            KinlingsDatabase.Instance.DeleteAllKinlings();
+            yield return null; // Yield to allow frame update
+
+            yield return StartCoroutine(KinlingsDatabase.Instance.DeleteAllKinlings());
+            yield return null; // Yield to allow frame update
+
             ZonesDatabase.Instance.ClearAllZones();
+            yield return null; // Yield to allow frame update
+
             ItemsDatabase.Instance.ClearAllItems();
+            yield return null; // Yield to allow frame update
+
             FurnitureDatabase.Instance.ClearAllFurniture();
+            yield return null; // Yield to allow frame update
+
             StructureDatabase.Instance.ClearAllStructures();
+            yield return null; // Yield to allow frame update
+
             FlooringDatabase.Instance.ClearAllFloors();
+            yield return null; // Yield to allow frame update
+
+            TasksDatabase.Instance.ClearAllTasks();
+            yield return null; // Yield to allow frame update
+
+            PlayerInteractableDatabase.Instance.ClearDatabase();
+            yield return null; // Yield to allow frame update
+
+            WorldIsClearing = false;
         }
     }
 }

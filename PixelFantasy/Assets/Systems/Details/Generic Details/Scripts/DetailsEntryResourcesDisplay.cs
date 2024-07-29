@@ -12,7 +12,7 @@ namespace Systems.Details.Generic_Details.Scripts
         [SerializeField] private Transform _resourcesLayout;
         [SerializeField] private DetailsEntryResourceAmountDisplay _resourceAmountDisplayPrefab;
 
-        public void Init(List<ItemAmount> resources, string title = "Yields", bool showTilda = true)
+        public void Init(List<CostSettings> resources, string title = "Yields", bool showTilda = true)
         {
             _title.text = $"{title}:";
 

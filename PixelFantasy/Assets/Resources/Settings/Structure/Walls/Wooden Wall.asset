@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf57ecb8c50a4e54fa4d0b49ae484468, type: 3}
   m_Name: Wooden Wall
   m_EditorClassIdentifier: 
-  _wallName: Wooden Wall
+  _constructionName: Wooden Wall
   _craftRequirements:
     _minCraftingSkillLevel: 3
     _craftingSkill: 2

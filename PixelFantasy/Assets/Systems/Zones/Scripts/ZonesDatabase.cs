@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Controllers;
 using Managers;
+using Sirenix.OdinInspector;
 using Systems.Build_Controls.Scripts;
 using Systems.CursorHandler.Scripts;
 using UnityEngine;
@@ -24,7 +25,7 @@ namespace Systems.Zones.Scripts
         private Vector2 _startPos;
         private List<Vector2> _plannedGrid = new List<Vector2>();
         private readonly List<TilePlan> _plannedTiles = new List<TilePlan>();
-        private List<ZoneData> _currentZones = new List<ZoneData>();
+        [ShowInInspector] private List<ZoneData> _currentZones = new List<ZoneData>();
        
         private List<string> _invalidPlacementTags => new List<string>() { "Water", "Zone", "Obstacle"};
         private List<string> _requiredPlacementTagsForShrink => new List<string>() { "Zone" };
@@ -34,7 +35,7 @@ namespace Systems.Zones.Scripts
         private ZoneData _expandingZone;
         private Action _planningCompleteCallback;
 
-        public List<ZoneData> GetZonesData()
+        public List<ZoneData> SaveZonesData()
         {
             foreach (var zoneData in _currentZones)
             {
@@ -60,8 +61,9 @@ namespace Systems.Zones.Scripts
             var zones = _currentZones.ToList();
             foreach (var zone in zones)
             {
-                DeleteZone(zone);
+                zone.ClearCells();
             }
+            
             _currentZones.Clear();
         }
 

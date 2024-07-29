@@ -38,6 +38,7 @@ namespace Systems.Buildings.Scripts
             AssignWallState(data.State);
             
             StructureDatabase.Instance.RegisterStructure(this);
+            RefreshTaskIcon();
         }
 
         private void AssignWallState(EConstructionState state)
@@ -75,28 +76,7 @@ namespace Systems.Buildings.Scripts
                 AssignWallState(newState);
             }
         }
-
-        public override void CreateConstructTask(bool autoAssign = true)
-        {
-            Task constuctTask = new Task("Build Construction", ETaskType.Construction, this, EToolType.BuildersHammer);
-            constuctTask.Enqueue();
-        }
         
-        public override void CreateDeconstructionTask(bool autoAssign = true, Action onDeconstructed = null)
-        {
-            if (RuntimeData.State == EConstructionState.Built)
-            {
-                _onDeconstructed = onDeconstructed;
-                Task constructTask = new Task("Deconstruct Construction", ETaskType.Construction, this, EToolType.BuildersHammer);
-                constructTask.Enqueue();
-            }
-            else
-            {
-                CancelConstruction();
-                onDeconstructed?.Invoke();
-            }
-        }
-
         private void BlueprintState_Enter()
         {
             OnPlaced();

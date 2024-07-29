@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Systems.Game_Setup.Scripts
 {
@@ -33,8 +32,9 @@ namespace Systems.Game_Setup.Scripts
         public void OnLoadPressed()
         {
             Debug.Log("Load Pressed");
+            GameManager.Instance.StartLoadedGame("", true);
         }
-
+        
         public void OnSettingsPressed()
         {
             Debug.Log("Settings Pressed");

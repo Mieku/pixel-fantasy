@@ -1,14 +1,29 @@
 using System.Collections.Generic;
-using TaskSystem;
+using AI;
+using Newtonsoft.Json;
 using UnityEngine;
 
 public abstract class PlayerInteractable : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer _icon;
-    public List<Command> Commands = new List<Command>();
-    public Command PendingCommand;
+    public abstract string UniqueID { get; }
+    public abstract string PendingTaskUID { get; set; }
     
-    private List<Task> _requestedTasks = new List<Task>();
+    [SerializeField] private SpriteRenderer _icon;
+    
+    public List<Command> Commands = new List<Command>();
+    
+    [JsonIgnore] public Task PendingTask => TasksDatabase.Instance.QueryTask(PendingTaskUID);
+
+    [JsonIgnore]
+    public Command PendingCommand
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(PendingTaskUID)) return null;
+            
+            return Commands.Find(c => c.TaskID == PendingTask.TaskID);
+        }
+    }
 
     public void CancelPlayerCommand(Command command = null)
     {
@@ -17,134 +32,111 @@ public abstract class PlayerInteractable : MonoBehaviour
             if (!IsPending(command)) return;
         }
         
-        CancelPending();
-        DisplayTaskIcon(null);
+        CancelPendingTask();
     }
     
-    public void AssignPlayerCommand(Command command, object payload = null)
+    public virtual void AssignCommand(Command command)
     {
         if (command.Name == "Cancel Command")
         {
-            CancelPending();
+            CancelPendingTask();
             return;
         }
         
         if (IsPending(command)) return;
 
         // Only one command can be active
-        if (PendingCommand != null)
+        if (PendingTask != null)
         {
-            CancelCommand(PendingCommand);
+            CancelPendingTask();
         }
-        
-        PendingCommand = command;
-        
-        DisplayTaskIcon(command.Icon);
+
+        CreateTask(command);
     }
-    
-    public void CreateTask(Command command, object payload = null)
+
+    public void CreateTask(Command command)
     {
         if (command.Name == "Cancel Command")
         {
-            CancelPending();
+            CancelPendingTask();
             return;
         }
         
         if (IsPending(command)) return;
-
+        
         // Only one command can be active
-        if (PendingCommand != null)
+        if (PendingTask != null)
         {
-            CancelCommand(PendingCommand);
+            CancelPendingTask();
         }
 
-        Task task = new Task(command.Task.TaskId, command.Task.TaskType, this, command.RequiredToolType);
-        if (payload != null)
+        Task task = new Task(command.TaskID, command.TaskType, this);
+        
+        TasksDatabase.Instance.AddTask(task);
+        AddTaskToPending(task);
+        
+        RefreshTaskIcon();
+    }
+
+    public void AddTaskToPending(Task task)
+    {
+        PendingTaskUID = task.UniqueID;
+    }
+
+    public virtual void OnTaskComplete(Task task, bool success)
+    {
+        if (success)
         {
-            task.Payload = payload;
+            PendingTaskUID = null;
         }
-        
-        PendingCommand = command;
-        
-        TaskManager.Instance.AddTask(task);
-        
-        DisplayTaskIcon(command.Icon);
     }
 
-    public void AddTaskToRequested(Task task)
+    public virtual void OnTaskCancelled(Task task)
     {
-        _requestedTasks.Add(task);
-        task.OnTaskComplete += OnTaskComplete;
+        RefreshTaskIcon();
     }
 
-    public void OnTaskComplete(Task task)
+    public virtual void CancelPendingTask()
     {
-        _requestedTasks.Remove(task);
-    }
-
-    public void CancelRequestorTasks()
-    {
-        TaskManager.Instance.CancelRequestorTasks(this);
-        
-        List<Task> tasksCopy = new List<Task>(_requestedTasks);
-        foreach (var requestedTask in tasksCopy)
+        var task = TasksDatabase.Instance.QueryTask(PendingTaskUID);
+        if (task != null)
         {
-            requestedTask.Cancel();
+            task.Cancel();
         }
-        
-        _requestedTasks.Clear();
-    }
 
-    public virtual void CancelCommand(Command command)
-    {
-        PendingCommand = null;
-
-        TaskManager.Instance.CancelTask(command.Task.TaskId, this);
-
-        DisplayTaskIcon(null);
+        PendingTaskUID = null;
+        RefreshTaskIcon();
     }
 
     public bool IsPending(Command command)
     {
-        if (PendingCommand == null) return false;
+        if (PendingTask == null) return false;
         
-        return PendingCommand == command;
+        return PendingTask.TaskID == command.TaskID;
     }
-
-    public void CancelPending()
-    {
-        if (PendingCommand != null)
-        {
-            CancelCommand(PendingCommand);
-        }
-
-        PendingCommand = null;
-    }
-
+    
     public virtual float GetWorkAmount()
     {
         return 1;
     }
 
-    public void DisplayTaskIcon(Sprite icon)
+    public void RefreshTaskIcon()
     {
-        if (_icon == null) return;
-        
-        if (icon == null)
+        if (PendingCommand != null)
         {
-            _icon.sprite = null;
-            _icon.gameObject.SetActive(false);
+            _icon.sprite = PendingCommand.Icon;
+            _icon.gameObject.SetActive(true);
         }
         else
         {
-            _icon.sprite = icon;
-            _icon.gameObject.SetActive(true);
+            _icon.sprite = null;
+            _icon.gameObject.SetActive(false);
         }
     }
 
     public virtual void ReceiveItem(ItemData item)
     {
-        Debug.LogError($"Item unexpectely received: {item.Settings.ItemName}");
+        Debug.LogError($"Item unexpectedly received: {item.Settings.ItemName}");
     }
 
     public abstract Vector2? UseagePosition(Vector2 requestorPosition);

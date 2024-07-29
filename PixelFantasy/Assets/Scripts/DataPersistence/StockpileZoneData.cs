@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Handlers;
 using Items;
 using Newtonsoft.Json;
 using ScriptableObjects;
@@ -64,42 +65,42 @@ public class StockpileZoneData : ZoneData, IStorage
     [JsonIgnore] public override ZoneSettings Settings => StockpileSettings;
 
     [JsonIgnore] 
-    public List<ItemData> Stored
+    public List<string> StoredUIDs
     {
         get
         {
-            List<ItemData> results = new List<ItemData>();
+            List<string> results = new List<string>();
             foreach (var stockpileCell in StockpileCells)
             {
-                results.AddRange(stockpileCell.Stored);
+                results.AddRange(stockpileCell.StoredUIDs);
             }
             return results;
         }
     }
 
     [JsonIgnore] 
-    public List<ItemData> Incoming
+    public List<string> IncomingUIDs
     {
         get
         {
-            List<ItemData> results = new List<ItemData>();
+            List<string> results = new List<string>();
             foreach (var stockpileCell in StockpileCells)
             {
-                results.AddRange(stockpileCell.Incoming);
+                results.AddRange(stockpileCell.IncomingUIDs);
             }
             return results;
         }
     }
         
     [JsonIgnore] 
-    public List<ItemData> Claimed
+    public List<string> ClaimedUIDs
     {
         get
         {
-            List<ItemData> results = new List<ItemData>();
+            List<string> results = new List<string>();
             foreach (var stockpileCell in StockpileCells)
             {
-                results.AddRange(stockpileCell.Claimed);
+                results.AddRange(stockpileCell.ClaimedUIDs);
             }
             return results;
         }
@@ -110,18 +111,35 @@ public class StockpileZoneData : ZoneData, IStorage
         List<StorageCellData> results = new List<StorageCellData>();
         foreach (var stockpileCell in StockpileCells)
         {
-            if (stockpileCell.Stored.Count > 0)
+            if (stockpileCell.StoredUIDs.Count > 0 || stockpileCell.IncomingUIDs.Count > 0)
             {
                 var cellData = new StorageCellData();
                 cellData.Cell = stockpileCell.CellPos;
 
+                // Stored
                 List<string> itemsList = new List<string>();
-                foreach (var itemData in stockpileCell.Stored)
+                foreach (var itemDataUID in stockpileCell.StoredUIDs)
                 {
-                    itemsList.Add(itemData.UniqueID);
+                    itemsList.Add(itemDataUID);
+                }
+                
+                // Incoming
+                List<string> incomingItemsList = new List<string>();
+                foreach (var itemDataUID in stockpileCell.IncomingUIDs)
+                {
+                    incomingItemsList.Add(itemDataUID);
+                }
+                
+                // Claimed
+                List<string> claimedItemsList = new List<string>();
+                foreach (var itemDataUID in stockpileCell.ClaimedUIDs)
+                {
+                    claimedItemsList.Add(itemDataUID);
                 }
 
                 cellData.StoredItemsData = itemsList;
+                cellData.IncomingItemsData = incomingItemsList;
+                cellData.ClaimedItemsData = claimedItemsList;
                 results.Add(cellData);
             }
         }
@@ -133,8 +151,9 @@ public class StockpileZoneData : ZoneData, IStorage
     {
         List<InventoryAmount> results = new List<InventoryAmount>();
 
-        foreach (var storedItem in Stored)
+        foreach (var storedItemUID in StoredUIDs)
         {
+            var storedItem = ItemsDatabase.Instance.Query(storedItemUID);
             var recorded = results.Find(i => i.ItemSettings == storedItem.Settings);
             if (recorded == null)
             {
@@ -145,8 +164,9 @@ public class StockpileZoneData : ZoneData, IStorage
             recorded.AddStored(storedItem);
         }
 
-        foreach (var claimedItem in Claimed)
+        foreach (var claimedItemUID in ClaimedUIDs)
         {
+            var claimedItem = ItemsDatabase.Instance.Query(claimedItemUID);
             var recorded = results.Find(i => i.ItemSettings == claimedItem.Settings);
             if (recorded == null)
             {
@@ -157,8 +177,9 @@ public class StockpileZoneData : ZoneData, IStorage
             recorded.AddClaimed(claimedItem);
         }
             
-        foreach (var incomingItem in Incoming)
+        foreach (var incomingItemUID in IncomingUIDs)
         {
+            var incomingItem = ItemsDatabase.Instance.Query(incomingItemUID);
             var recorded = results.Find(i => i.ItemSettings == incomingItem.Settings);
             if (recorded == null)
             {
@@ -189,7 +210,7 @@ public class StockpileZoneData : ZoneData, IStorage
             
         // Find the cell that contains the item
         StockpileCell cell = GetAvailableCellForItem(itemData.Settings);
-        cell.Incoming.Add(itemData);
+        cell.IncomingUIDs.Add(itemData.UniqueID);
             
         GameEvents.Trigger_RefreshInventoryDisplay();
     }
@@ -198,7 +219,7 @@ public class StockpileZoneData : ZoneData, IStorage
     {
         if (IsSpecificItemDataIncoming(itemData))
         {
-            Incoming.Remove(itemData);
+            IncomingUIDs.Remove(itemData.UniqueID);
         }
             
         GameEvents.Trigger_RefreshInventoryDisplay();
@@ -233,6 +254,7 @@ public class StockpileZoneData : ZoneData, IStorage
 
     public Item WithdrawItem(ItemData itemData)
     {
+        itemData.AssignedStorageID = null;
         itemData.State = EItemState.Carried;
         var cell = GetAssignedCellForSpecificItem(itemData);
         var item = cell.WithdrawItem(itemData);
@@ -243,19 +265,19 @@ public class StockpileZoneData : ZoneData, IStorage
     public bool ClaimItem(ItemData itemToClaim)
     {
         var cell = GetAssignedCellForSpecificItem(itemToClaim);
-        if (!cell.Stored.Contains(itemToClaim))
+        if (!cell.StoredUIDs.Contains(itemToClaim.UniqueID))
         {
             Debug.LogError($"Could not find {itemToClaim.ItemName} in storage");
             return false;
         }
 
-        if (cell.Claimed.Contains(itemToClaim))
+        if (cell.ClaimedUIDs.Contains(itemToClaim.UniqueID))
         {
             Debug.LogError($"Attempted to Claim {itemToClaim.ItemName}, but it was already claimed");
             return false;
         }
             
-        cell.Claimed.Add(itemToClaim);
+        cell.ClaimedUIDs.Add(itemToClaim.UniqueID);
         GameEvents.Trigger_RefreshInventoryDisplay();
         return true;
     }
@@ -265,13 +287,13 @@ public class StockpileZoneData : ZoneData, IStorage
         var cell = GetAssignedCellForSpecificItem(itemData);
         if (cell != null)
         {
-            if (!cell.Claimed.Contains(itemData))
+            if (!cell.ClaimedUIDs.Contains(itemData.UniqueID))
             {
                 Debug.LogError($"Item Claim: {itemData.ItemName} was not restored, was not found in claimed");
                 return;
             }
 
-            cell.Claimed.Remove(itemData);
+            cell.ClaimedUIDs.Remove(itemData.UniqueID);
             GameEvents.Trigger_RefreshInventoryDisplay();
         }
     }
@@ -294,7 +316,7 @@ public class StockpileZoneData : ZoneData, IStorage
     {
         foreach (var cell in StockpileCells)
         {
-            if (cell.StoredItemSettings == itemSettings && cell.Claimed.Count < cell.Stored.Count)
+            if (cell.StoredItemSettings == itemSettings && cell.ClaimedUIDs.Count < cell.StoredUIDs.Count)
             {
                 return true;
             }
@@ -362,9 +384,9 @@ public class StockpileZoneData : ZoneData, IStorage
         
     private bool IsSpecificItemDataIncoming(ItemData itemData)
     {
-        foreach (var incoming in Incoming)
+        foreach (var incoming in IncomingUIDs)
         {
-            if (incoming == itemData)
+            if (incoming == itemData.UniqueID)
             {
                 return true;
             }
@@ -399,7 +421,7 @@ public class StockpileZoneData : ZoneData, IStorage
     {
         foreach (var cell in StockpileCells)
         {
-            if (cell.Stored.Contains(itemData) || cell.Incoming.Contains(itemData))
+            if (cell.StoredUIDs.Contains(itemData.UniqueID) || cell.IncomingUIDs.Contains(itemData.UniqueID))
             {
                 return cell;
             }
@@ -444,6 +466,8 @@ public class StorageCellData
     [JsonRequired] private int _cellX;
     [JsonRequired] private int _cellY;
     [JsonRequired] public List<string> StoredItemsData = new List<string>();
+    [JsonRequired] public List<string> IncomingItemsData = new List<string>();
+    [JsonRequired] public List<string> ClaimedItemsData = new List<string>();
 
     [JsonIgnore]
     public Vector3Int Cell

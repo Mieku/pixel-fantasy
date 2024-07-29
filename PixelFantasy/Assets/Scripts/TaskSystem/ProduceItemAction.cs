@@ -40,7 +40,7 @@ namespace TaskSystem
         {
             if (_state == ETaskState.ClaimTable)
             {
-                _craftingTable.AssignItemToTable(_itemToCraft, _materials);
+                //_craftingTable.AssignItemToTable(_itemToCraft, _materials);
                 _state = ETaskState.GatherMats;
             }
 

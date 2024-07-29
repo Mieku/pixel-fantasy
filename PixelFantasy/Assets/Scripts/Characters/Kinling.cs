@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using AI;
+using Handlers;
 using Interfaces;
 using Items;
 using Managers;
@@ -16,15 +18,24 @@ namespace Characters
     public class Kinling : PlayerInteractable, IClickableObject
     {
         public KinlingData RuntimeData;
+        public TaskHandler TaskHandler;
         
         [SerializeField] private TaskAI _taskAI;
         [SerializeField] private SocialAI _socialAI;
         [SerializeField] private SortingGroup _sortingGroup;
         
         public string FullName => RuntimeData.Firstname + " " + RuntimeData.Lastname;
+        public override string UniqueID => RuntimeData.UniqueID;
+        
+        public override string PendingTaskUID
+        {
+            get => RuntimeData.CurrentTaskID;
+            set => RuntimeData.CurrentTaskID = value;
+        }
         
         public KinlingAgent KinlingAgent;
         public Avatar Avatar;
+        public Item HeldItem;
 
         public StatsData Stats => RuntimeData.Stats;
 
@@ -48,6 +59,7 @@ namespace Characters
         private void OnDestroy()
         {
             KinlingsDatabase.Instance.DeregisterKinling(RuntimeData);
+            PlayerInteractableDatabase.Instance.DeregisterPlayerInteractable(this);
             
             GameEvents.Trigger_OnCoinsIncomeChanged();
             
@@ -58,9 +70,30 @@ namespace Characters
         public void SetKinlingData(KinlingData data)
         {
             RuntimeData = data;
+            Avatar.SetDirection(data.Avatar.CurrentDirection);
+            
+            KinlingsDatabase.Instance.RegisterKinling(RuntimeData);
+            PlayerInteractableDatabase.Instance.RegisterPlayerInteractable(this);
+            
+            // Handles their held item
+            if (!string.IsNullOrEmpty(data.HeldItemID))
+            {
+                var heldItemData = ItemsDatabase.Instance.Query(data.HeldItemID);
+                var item = ItemsDatabase.Instance.CreateItemObject(heldItemData, heldItemData.Position, false);
+
+                HeldItem = item;
+                item.transform.SetParent(transform);
+                item.transform.localPosition = Vector3.zero;
+            }
+            
+            // Handles their task
+            if (!string.IsNullOrEmpty(data.CurrentTaskID))
+            {
+                var task = TasksDatabase.Instance.QueryTask(data.CurrentTaskID);
+                TaskHandler.LoadCurrentTask(task);
+            }
             
             HasInitialized = true;
-            KinlingsDatabase.Instance.RegisterKinling(RuntimeData);
         }
 
         public void SetSeated(ChairFurniture chair)
@@ -131,15 +164,45 @@ namespace Characters
         {
             return new List<Command>(Commands);
         }
-
-        public void AssignCommand(Command command, object payload = null)
-        {
-            CreateTask(command, payload);
-        }
         
         public override Vector2? UseagePosition(Vector2 requestorPosition)
         {
             return transform.position;
+        }
+        
+        public void HoldItem(Item item)
+        {
+            RuntimeData.HeldItemID = item.UniqueID;
+            HeldItem = item;
+            item.ItemPickedUp(this);
+            item.transform.SetParent(transform);
+            item.transform.localPosition = Vector3.zero;
+        }
+        
+        public Item DropCarriedItem(bool allowHauling)
+        {
+            if (HeldItem == null) return null;
+
+            HeldItem.transform.SetParent(ParentsManager.Instance.ItemsParent);
+            HeldItem.IsAllowed = allowHauling;
+            HeldItem.ItemDropped();
+            var item = HeldItem;
+            HeldItem = null;
+            RuntimeData.HeldItemID = null;
+            return item;
+        }
+
+        public void DepositHeldItemInStorage(IStorage storage)
+        {
+            if (HeldItem == null) return;
+            
+            storage.DepositItems(HeldItem);
+            var item = HeldItem;
+            HeldItem = null;
+            RuntimeData.HeldItemID = null;
+            item.RuntimeData.CurrentTaskID = null;
+            item.RuntimeData.CarryingKinlingUID = null;
+            Destroy(item.gameObject);
         }
     }
 

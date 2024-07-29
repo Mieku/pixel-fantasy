@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Handlers;
 using Items;
 using UnityEngine;
 
@@ -80,6 +81,7 @@ namespace Managers
             return _allStorage.Find(s => s.UniqueID == storageID);
         }
         
+        // TODO: Ensure there is a possible path to the storage
         public IStorage GetAvailableStorage(ItemSettings itemSettings)
         {
             foreach (var storage in _allStorage)
@@ -111,12 +113,12 @@ namespace Managers
             return null;
         }
 
-        public List<ItemData> ClaimItemsOfType(ItemAmount itemAmount)
+        public List<ItemData> ClaimItemsOfType(CostSettings costSettings)
         {
             List<ItemData> results = new List<ItemData>();
-            for (int i = 0; i < itemAmount.Quantity; i++)
+            for (int i = 0; i < costSettings.Quantity; i++)
             {
-                var item = GetItemOfType(itemAmount.Item);
+                var item = GetItemOfType(costSettings.Item);
                 if (item == null) // Just in case
                 {
                     Debug.LogError("Failed to get an item");
@@ -206,10 +208,17 @@ namespace Managers
 
         public List<ItemData> GetAvailableInventory()
         {
-            List<ItemData> results = new List<ItemData>();
+            List<string> resultingUIDs = new List<string>();
             foreach (var storage in _allStorage)
             {
-                results.AddRange(storage.Stored.Where(storedItem => !storage.Claimed.Contains(storedItem)));
+                resultingUIDs.AddRange(storage.StoredUIDs.Where(storedItem => !storage.ClaimedUIDs.Contains(storedItem)));
+            }
+            
+            List<ItemData> results = new List<ItemData>();
+            foreach (var itemUID in resultingUIDs)
+            {
+                var item = ItemsDatabase.Instance.Query(itemUID);
+                results.Add(item);
             }
 
             return results;

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using AI;
 using Characters;
 using Handlers;
 using HUD;
@@ -12,7 +13,7 @@ using Action = System.Action;
 
 namespace Items
 {
-    public abstract class Construction : PlayerInteractable, IClickableObject
+    public abstract class Construction : PlayerInteractable, IClickableObject, IConstructable
     {
         protected Action _onDeconstructed;
         
@@ -20,6 +21,12 @@ namespace Items
 
         public abstract string DisplayName { get; }
         public ConstructionData RuntimeData;
+        public override string UniqueID => RuntimeData.UniqueID;
+        public override string PendingTaskUID
+        {
+            get => RuntimeData.PendingTaskUID;
+            set => RuntimeData.PendingTaskUID = value;
+        }
         
         public Action OnChanged { get; set; }
         
@@ -35,7 +42,7 @@ namespace Items
 
         public abstract void LoadData(ConstructionData data);
         
-        public virtual void AssignCommand(Command command, object payload = null)
+        public override void AssignCommand(Command command)
         {
             if (command.name == "Deconstruct Construction Command")
             {
@@ -45,7 +52,7 @@ namespace Items
                 }
                 else
                 {
-                    CreateTask(command, payload);
+                    CreateTask(command);
                 }
             } 
             else if (command.name == "Copy Command")
@@ -54,7 +61,7 @@ namespace Items
             }
             else
             {
-                CreateTask(command, payload);
+                CreateTask(command);
             }
         }
 
@@ -101,10 +108,10 @@ namespace Items
         {
             if (RuntimeData.State != EConstructionState.Built)
             {
-                CancelRequestorTasks();
+                CancelPendingTask();
                 
                 // Spawn All the resources used
-                SpawnUsedResources(100f);
+                RefundUsedResources();
 
                 // Delete this blueprint
                 Destroy(gameObject);
@@ -113,9 +120,12 @@ namespace Items
         
         public override void ReceiveItem(ItemData itemData)
         {
-            RuntimeData.RemoveFromIncomingItems(itemData);
-            
             Destroy(itemData.GetLinkedItem().gameObject);
+            
+            RuntimeData.RemoveFromIncomingItems(itemData);
+            RuntimeData.AddToReceivedItems(itemData);
+            
+            itemData.CarryingKinlingUID = null;
             
             RuntimeData.RemoveFromPendingResourceCosts(itemData.Settings);
             RuntimeData.DeductFromMaterialCosts(itemData.Settings);
@@ -126,6 +136,11 @@ namespace Items
             }
             
             Changed();
+        }
+        
+        public void AddToIncomingItems(ItemData itemData)
+        {
+            RuntimeData.AddToIncomingItems(itemData);
         }
         
         public override Vector2? UseagePosition(Vector2 requestorPosition)
@@ -167,6 +182,13 @@ namespace Items
         public virtual void CompleteConstruction()
         {
             RuntimeData.RemainingWork = RuntimeData.Settings.CraftRequirements.WorkCost;
+
+            foreach (var itemUID in RuntimeData.ReceivedItemUIDs)
+            {
+                var itemData = ItemsDatabase.Instance.Query(itemUID);
+                itemData.DeleteItemData();
+            }
+            RuntimeData.ReceivedItemUIDs.Clear();
         }
 
         public virtual void CompleteDeconstruction()
@@ -207,18 +229,19 @@ namespace Items
         
         public virtual void CreateConstructTask(bool autoAssign = true)
         {
-            Task constuctTask = new Task("Build Construction", ETaskType.Construction, this, EToolType.BuildersHammer);
-            constuctTask.Enqueue();
+            AI.Task task = new AI.Task("Build Structure", ETaskType.Construction, this);
+            TasksDatabase.Instance.AddTask(task);
         }
 
         public virtual void CreateDeconstructionTask(bool autoAssign = true, Action onDeconstructed = null)
         {
             _onDeconstructed = onDeconstructed;
-            Task constuctTask = new Task("Deconstruct", ETaskType.Construction, this, EToolType.BuildersHammer);
-            constuctTask.Enqueue();
+
+            AI.Task task = new AI.Task("Deconstruct Structure", ETaskType.Construction, this);
+            TasksDatabase.Instance.AddTask(task);
         }
         
-        public void CreateConstuctionHaulingTasksForItems(List<ItemAmount> remainingResources)
+        public void CreateConstuctionHaulingTasksForItems(List<CostData> remainingResources)
         {
             foreach (var resourceCost in remainingResources)
             {
@@ -231,11 +254,10 @@ namespace Items
 
         protected virtual void EnqueueCreateTakeResourceToBlueprintTask(ItemSettings resourceSettings)
         {
-            Task task = new Task("Withdraw Item Construction", ETaskType.Hauling, this, EToolType.None)
-            {
-                Payload = resourceSettings,
-            };
-            TaskManager.Instance.AddTask(task);
+            Dictionary<string, object> taskData = new Dictionary<string, object> { { "ItemSettingsID", resourceSettings.name } };
+
+            AI.Task task = new AI.Task("Withdraw Item For Constructable", ETaskType.Hauling, this, taskData);
+            TasksDatabase.Instance.AddTask(task);
         }
 
         public ClickObject GetClickObject()
@@ -254,13 +276,27 @@ namespace Items
         {
             return Commands;
         }
+
+        /// <summary>
+        /// For when the construction is not fully built
+        /// </summary>
+        protected void RefundUsedResources()
+        {
+            foreach (var itemUID in RuntimeData.ReceivedItemUIDs)
+            {
+                var itemData = ItemsDatabase.Instance.Query(itemUID);
+                itemData.State = EItemState.Loose;
+                ItemsDatabase.Instance.CreateItemObject(itemData, itemData.Position, true);
+            }
+            RuntimeData.ReceivedItemUIDs.Clear();
+        }
         
         public virtual void SpawnUsedResources(float percentReturned)
         {
             // Spawn All the resources used
             var totalCosts = RuntimeData.Settings.CraftRequirements.GetMaterialCosts();
             var remainingCosts = RuntimeData.RemainingMaterialCosts;
-            List<ItemAmount> difference = new List<ItemAmount>();
+            List<CostSettings> difference = new List<CostSettings>();
             foreach (var totalCost in totalCosts)
             {
                 var remaining = remainingCosts.Find(c => c.Item == totalCost.Item);
@@ -273,7 +309,7 @@ namespace Items
                 int amount = totalCost.Quantity - remainingAmount;
                 if (amount > 0)
                 {
-                    ItemAmount refund = new ItemAmount
+                    CostSettings refund = new CostSettings
                     {
                         Item = totalCost.Item,
                         Quantity = amount
@@ -293,17 +329,6 @@ namespace Items
                     }
                 }
             }
-        }
-        
-        protected virtual void CancelTasks()
-        {
-            // Drop all incoming resources
-            foreach (var incomingItem in RuntimeData.IncomingItems)
-            {
-                incomingItem.GetLinkedItem().SeekForSlot();
-            }
-            RuntimeData.PendingResourceCosts.Clear();
-            RuntimeData.IncomingItems.Clear();
         }
     }
 }

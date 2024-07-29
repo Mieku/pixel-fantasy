@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AI;
 using Newtonsoft.Json;
 using ScriptableObjects;
 using Systems.Appearance.Scripts;
@@ -129,6 +130,17 @@ namespace Characters
         {
             var skill = GetSkillByType(skillType);
             return skill.Level;
+        }
+
+        public bool CheckSkillRequirements(List<SkillRequirement> skillRequirements)
+        {
+            foreach (var skillRequirement in skillRequirements)
+            {
+                var skillLvl = GetLevelForSkill(skillRequirement.SkillType);
+                if (skillLvl < skillRequirement.MinSkillLevel) return false;
+            }
+
+            return true;
         }
         
         public void SetLevelForSkill(ESkillType skillType, int assignedLevel)

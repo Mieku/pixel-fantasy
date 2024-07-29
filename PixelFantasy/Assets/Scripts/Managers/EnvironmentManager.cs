@@ -1,6 +1,5 @@
 using System;
 using DataPersistence;
-using FunkyCode;
 using UnityEngine;
 using QFSW.QC;
 
@@ -73,8 +72,8 @@ namespace Managers
         {
             _environmentMaterial.SetFloat("_Lit", GlobalDarkness);
             
-            Lighting2D.DarknessColor = new Color(Lighting2D.DarknessColor.r, Lighting2D.DarknessColor.g,
-                Lighting2D.DarknessColor.b, GlobalDarkness);
+            // Lighting2D.DarknessColor = new Color(Lighting2D.DarknessColor.r, Lighting2D.DarknessColor.g,
+            //     Lighting2D.DarknessColor.b, GlobalDarkness);
         }
 
         private float GlobalDarkness

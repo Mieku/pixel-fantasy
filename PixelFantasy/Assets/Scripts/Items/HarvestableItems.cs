@@ -11,20 +11,20 @@ namespace Items
     {
         [SerializeField] private List<ItemDropRate> _itemDrops = new List<ItemDropRate>();
 
-        public List<ItemAmount> GetItemDrop()
+        public List<CostSettings> GetItemDrop()
         {
             if (_itemDrops == null || _itemDrops.Count == 0)
             {
-                return new List<ItemAmount>();
+                return new List<CostSettings>();
             }
 
-            var result = new List<ItemAmount>();
+            var result = new List<CostSettings>();
             foreach (var harvestableItem in _itemDrops)
             {
                 int quantity = Random.Range(harvestableItem.MinDrop, harvestableItem.MaxDrop + 1);
                 if (quantity > 0)
                 {
-                    ItemAmount drop = new ItemAmount
+                    CostSettings drop = new CostSettings
                     {
                         Item = harvestableItem.Item,
                         Quantity = quantity
@@ -36,21 +36,21 @@ namespace Items
             return result;
         }
 
-        public List<ItemAmount> GetDropAverages()
+        public List<CostSettings> GetDropAverages()
         {
-            var results = new List<ItemAmount>();
+            var results = new List<CostSettings>();
             foreach (var harvestableItem in _itemDrops)
             {
 
                 int average = (harvestableItem.MinDrop + harvestableItem.MaxDrop) / 2;
                 if (average < 1) average = 1;
 
-                ItemAmount itemAmount = new ItemAmount
+                CostSettings costSettings = new CostSettings
                 {
                     Item = harvestableItem.Item,
                     Quantity = average,
                 };
-                results.Add(itemAmount);
+                results.Add(costSettings);
             }
 
             return results;

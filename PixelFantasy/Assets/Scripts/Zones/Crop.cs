@@ -42,6 +42,14 @@ namespace Zones
         private float _remainingPlantingWork;
         private float _remainingWaterWork;
         private float _remainingHarvestWork;
+
+        public override string UniqueID => RuntimeData.UniqueID;
+        
+        public override string PendingTaskUID
+        {
+            get => RuntimeData.PendingTaskUID;
+            set => RuntimeData.PendingTaskUID = value;
+        }
         
         public List<string> InvalidPlacementTags
         {

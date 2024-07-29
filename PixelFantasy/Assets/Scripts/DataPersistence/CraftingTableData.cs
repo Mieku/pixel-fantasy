@@ -1,14 +1,15 @@
 using System;
 using DataPersistence;
 using Newtonsoft.Json;
+using Sirenix.OdinInspector;
 using Systems.Crafting.Scripts;
 using Systems.Stats.Scripts;
 
 public class CraftingTableData : FurnitureData
 {
-    // Runtime
-    public CraftingOrder CurrentOrder;
-    public CraftingOrderQueue LocalCraftingQueue = new CraftingOrderQueue();
+    public string CurrentOrderID;
+    [JsonIgnore] public CraftingOrder CurrentOrder => LocalCraftingQueue.Query(CurrentOrderID);
+    [ShowInInspector] public CraftingOrderQueue LocalCraftingQueue = new CraftingOrderQueue();
     
     [JsonIgnore] public CraftingTableSettings CraftingTableSettings => FurnitureSettings as CraftingTableSettings;
     
@@ -20,7 +21,7 @@ public class CraftingTableData : FurnitureData
 
     public bool CanAffordToCraft(CraftedItemSettings settings)
     {
-        foreach (var cost in settings.CraftRequirements.GetMaterialCosts())
+        foreach (var cost in settings.CraftRequirements.CostSettings)
         {
             if (!cost.CanAfford())
             {
@@ -48,14 +49,6 @@ public class CraftingTableData : FurnitureData
     {
         var validToCraft = CraftingTableSettings.CookableMeals.Contains(mealSettings);
         return validToCraft;
-    }
-
-    public bool IsAvailable()
-    {
-        if (FurnitureState == EFurnitureState.InProduction) return false;
-        if (CurrentOrder.State != CraftingOrder.EOrderState.None) return false;
-
-        return true;
     }
 
     public ESkillType CraftingSkillType()

@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using ScriptableObjects;
 using Systems.Buildings.Scripts;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [Serializable]
     public enum EConstructionState
@@ -16,15 +17,18 @@ using UnityEngine;
     [Serializable]
     public class ConstructionData
     {
+        public string UniqueID;
         public string SettingsID;
         public float Durability;
         public EConstructionState State;
         public float RemainingWork;
-        public List<ItemAmount> RemainingMaterialCosts;
-        public List<ItemAmount> PendingResourceCosts = new List<ItemAmount>(); // Claimed by a task but not used yet
-        public List<ItemAmount> IncomingResourceCosts = new List<ItemAmount>(); // The item is on its way
-        public List<ItemData> IncomingItems = new List<ItemData>();
+        public List<CostData> RemainingMaterialCosts;
+        public List<CostData> PendingResourceCosts = new List<CostData>(); // Claimed by a task but not used yet
+        public List<CostData> IncomingResourceCosts = new List<CostData>(); // The item is on its way
+        public List<string> IncomingItemsUIDs = new List<string>();
+        public List<string> ReceivedItemUIDs = new List<string>();
         public float MaxDurability;
+        public string PendingTaskUID;
 
         [JsonIgnore] public ConstructionSettings Settings => GameSettings.Instance.LoadConstructionSettings(SettingsID);
         
@@ -44,11 +48,16 @@ using UnityEngine;
         
         public void InitData()
         {
+            UniqueID = CreateUID();
             RemainingMaterialCosts = Settings.CraftRequirements.GetMaterialCosts();
             RemainingWork = Settings.CraftRequirements.WorkCost;
             Durability = MaxDurability;
         }
         
+        protected string CreateUID()
+        {
+            return $"{Settings.ConstructionName}_{Guid.NewGuid()}";
+        }
         
         public void DeductFromMaterialCosts(ItemSettings itemSettings)
         {
@@ -69,7 +78,7 @@ using UnityEngine;
         
         public void AddToPendingResourceCosts(ItemSettings itemSettings, int quantity = 1)
         {
-            PendingResourceCosts ??= new List<ItemAmount>();
+            PendingResourceCosts ??= new List<CostData>();
 
             foreach (var cost in PendingResourceCosts)
             {
@@ -80,9 +89,8 @@ using UnityEngine;
                 }
             }
             
-            PendingResourceCosts.Add(new ItemAmount
+            PendingResourceCosts.Add(new CostData(itemSettings)
             {
-                Item = itemSettings,
                 Quantity = quantity
             });
         }
@@ -106,10 +114,10 @@ using UnityEngine;
         
         public void AddToIncomingItems(ItemData itemData)
         {
-            IncomingItems ??= new List<ItemData>();
-            IncomingItems.Add(itemData);
+            IncomingItemsUIDs ??= new List<string>();
+            IncomingItemsUIDs.Add(itemData.UniqueID);
             
-            IncomingResourceCosts ??= new List<ItemAmount>();
+            IncomingResourceCosts ??= new List<CostData>();
 
             foreach (var cost in IncomingResourceCosts)
             {
@@ -120,17 +128,22 @@ using UnityEngine;
                 }
             }
             
-            IncomingResourceCosts.Add(new ItemAmount
+            IncomingResourceCosts.Add(new CostData(itemData.Settings)
             {
-                Item = itemData.Settings,
                 Quantity = 1
             });
+        }
+
+        public void AddToReceivedItems(ItemData itemData)
+        {
+            ReceivedItemUIDs.Add(itemData.UniqueID);
+            itemData.State = EItemState.BeingProcessed;
         }
         
         public void RemoveFromIncomingItems(ItemData item)
         {
-            IncomingItems ??= new List<ItemData>();
-            IncomingItems.Remove(item);
+            IncomingItemsUIDs ??= new List<string>();
+            IncomingItemsUIDs.Remove(item.UniqueID);
             
             foreach (var cost in IncomingResourceCosts)
             {

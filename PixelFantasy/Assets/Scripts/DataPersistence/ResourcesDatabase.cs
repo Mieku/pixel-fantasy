@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Controllers;
 using Items;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -11,7 +12,7 @@ namespace DataPersistence
     {
         public static ResourcesDatabase Instance { get; private set; }
 
-        private List<BasicResource> resources = new List<BasicResource>();
+        [ShowInInspector] private Dictionary<string, BasicResource> _registeredResources = new Dictionary<string, BasicResource>();
         private Tilemap _mountainTM => TilemapController.Instance.GetTilemap(TilemapLayer.Mountain);
 
         private void Awake()
@@ -28,52 +29,47 @@ namespace DataPersistence
 
         public void RegisterResource(BasicResource resource)
         {
-            resources.Add(resource);
+            _registeredResources[resource.UniqueID] = resource;
+            PlayerInteractableDatabase.Instance.RegisterPlayerInteractable(resource);
         }
 
         public void DeregisterResource(BasicResource resource)
         {
-            resources.Remove(resource);
+            _registeredResources.Remove(resource.UniqueID);
+            PlayerInteractableDatabase.Instance.DeregisterPlayerInteractable(resource);
         }
 
-        public List<BasicResourceData> GetResourcesData()
+        public BasicResource QueryResource(string uniqueID)
         {
-            var resourcesData = new List<BasicResourceData>();
-            foreach (var resource in resources)
-            {
-                resourcesData.Add(resource.RuntimeData);
-            }
-            return resourcesData;
+            var result = _registeredResources[uniqueID];
+            return result;
         }
 
-        public void LoadResourcesData(List<BasicResourceData> resourcesData)
+        public Dictionary<string, BasicResourceData> GetResourcesData()
         {
-            foreach (var data in resourcesData)
+            Dictionary<string, BasicResourceData> results = new Dictionary<string, BasicResourceData>();
+            foreach (var kvp in _registeredResources)
             {
-                ResourceSettings settings;
-                if (data is GrowingResourceData)
-                {
-                    settings = Resources.Load<GrowingResourceSettings>($"Settings/Resource/Growing Resources/{data.SettingsName}");
-                }
-                else if (data is MountainResourceData)
-                {
-                    settings = Resources.Load<MountainSettings>($"Settings/Resource/Mountains/{data.SettingsName}");
-                }
-                else
-                {
-                    settings = Resources.Load<ResourceSettings>($"Settings/Resource/Basic Resources/{data.SettingsName}");
-                }
-
-                var resource = SpawnResource(settings, data.Position);
-                if (resource is GrowingResource growingResource && data is GrowingResourceData growingData)
-                {
-                    growingResource.LoadResource(growingData);
-                }
-                else
-                {
-                    resource.LoadResource(data);
-                }
+                results.Add(kvp.Key, kvp.Value.RuntimeData);
             }
+            return results;
+        }
+
+        public void LoadResourcesData(Dictionary<string, BasicResourceData> resourcesData)
+        {
+            foreach (var kvp in resourcesData)
+            {
+                SpawnLoadedResource(kvp.Value);
+            }
+        }
+
+        public BasicResource SpawnLoadedResource(BasicResourceData data)
+        {
+            var settings = data.Settings;
+            var resource = Instantiate(settings.Prefab, data.Position, Quaternion.identity, transform);
+            resource.gameObject.name = settings.ResourceName;
+            resource.LoadResource(data);
+            return resource;
         }
 
         public BasicResource SpawnResource(ResourceSettings settings, Vector2 spawnPos)
@@ -114,7 +110,7 @@ namespace DataPersistence
                 DestroyImmediate(child);
             }
 
-            resources.Clear();
+            _registeredResources.Clear();
             
             _mountainTM.ClearAllTiles();
         }

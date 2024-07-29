@@ -154,12 +154,12 @@ namespace Systems.Details.Generic_Details.Scripts
             var pendingCmd = _clickableObject.GetPlayerInteractable().PendingCommand;
             if (pendingCmd != null)
             {
-                _clickableObject.GetPlayerInteractable().CancelCommand(pendingCmd);
+                _clickableObject.GetPlayerInteractable().CancelPendingTask();
             }
             
             if (pendingCmd != command)
             {
-                _clickableObject.AssignCommand(command);
+                _clickableObject.GetPlayerInteractable().AssignCommand(command);
             }
             
             RefreshCommands();

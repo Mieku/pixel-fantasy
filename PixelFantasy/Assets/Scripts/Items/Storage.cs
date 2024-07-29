@@ -10,9 +10,9 @@ namespace Items
     {
         public string UniqueID => RuntimeData.UniqueID;
         public StorageData RuntimeStorageData => RuntimeData as StorageData;
-        public List<ItemData> Stored => RuntimeStorageData.Stored;
-        public List<ItemData> Incoming => RuntimeStorageData.Incoming;
-        public List<ItemData> Claimed => RuntimeStorageData.Claimed;
+        public List<string> StoredUIDs => RuntimeStorageData.StoredUIDs;
+        public List<string> IncomingUIDs => RuntimeStorageData.IncomingUIDs;
+        public List<string> ClaimedUIDs => RuntimeStorageData.ClaimedUIDs;
         public StorageConfigs StorageConfigs => RuntimeStorageData.StorageConfigs;
 
         protected override void Built_Enter()
@@ -27,7 +27,6 @@ namespace Items
         {
             var storageSettings = (StorageSettings) furnitureSettings;
             
-            //FurnitureSettings = tableSettings;
             // _dyeOverride = dye;
             RuntimeData = new StorageData();
             RuntimeStorageData.InitData(storageSettings);
@@ -132,7 +131,7 @@ namespace Items
 
         public int MaxCapacity => RuntimeStorageData.StorageSettings.MaxStorage;
 
-        public int TotalAmountStored => RuntimeStorageData.Stored.Count + RuntimeStorageData.Incoming.Count;
+        public int TotalAmountStored => RuntimeStorageData.StoredUIDs.Count + RuntimeStorageData.IncomingUIDs.Count;
         
         public override void CompleteDeconstruction()
         {
@@ -141,11 +140,12 @@ namespace Items
             // Drop the contents
             CancelStoredItemTasks();
             
-            foreach (var stored in Stored)
+            foreach (var storedUID in StoredUIDs)
             {
-                ItemsDatabase.Instance.CreateItemObject(stored, RuntimeStorageData.Position, true);
+                var item = ItemsDatabase.Instance.Query(storedUID);
+                ItemsDatabase.Instance.CreateItemObject(item, RuntimeStorageData.Position, true);
             }
-            Stored.Clear();
+            StoredUIDs.Clear();
             
             
             GameEvents.Trigger_RefreshInventoryDisplay();
@@ -155,31 +155,23 @@ namespace Items
         
         public void CancelStoredItemTasks()
         {
-            for (int i = Incoming.Count - 1; i >= 0; i--)
+            for (int i = IncomingUIDs.Count - 1; i >= 0; i--)
             {
-                var incoming = Incoming[i];
-                if (incoming.GetLinkedItem() != null)
+                var incomingUID = IncomingUIDs[i];
+                var item = ItemsDatabase.Instance.Query(incomingUID);
+                if (item.CurrentTask != null && !string.IsNullOrEmpty(item.CurrentTaskID))
                 {
-                    incoming.GetLinkedItem().CancelTask();
-                }
-
-                if (incoming.CurrentTask != null && !string.IsNullOrEmpty(incoming.CurrentTask.TaskId))
-                {
-                    incoming.CurrentTask.Cancel();
+                    item.CurrentTask.Cancel();
                 }
             }
             
-            for (int i = Stored.Count - 1; i >= 0; i--)
+            for (int i = StoredUIDs.Count - 1; i >= 0; i--)
             {
-                var stored = Stored[i];
-                if (stored.GetLinkedItem() != null)
+                var storedUID = StoredUIDs[i];
+                var item = ItemsDatabase.Instance.Query(storedUID);
+                if (item.CurrentTask != null && !string.IsNullOrEmpty(item.CurrentTaskID))
                 {
-                    stored.GetLinkedItem().CancelTask();
-                }
-
-                if (stored.CurrentTask != null && !string.IsNullOrEmpty(stored.CurrentTask.TaskId))
-                {
-                    stored.CurrentTask.Cancel();
+                    item.CurrentTask.Cancel();
                 }
             }
         }

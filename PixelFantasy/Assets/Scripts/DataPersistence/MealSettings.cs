@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using AI;
 using Handlers;
 using Managers;
 using TaskSystem;
@@ -40,6 +41,7 @@ public class MealSettings : ItemSettings
     [Serializable]
     public class MealRequirements
     {
+        [SerializeField] private List<SkillRequirement> _skillRequirements;
         [SerializeField] private int _minCraftingSkillLevel;
         [SerializeField] private ETaskType _craftingSkill = ETaskType.Cooking;
         [SerializeField] private float _workCost;
@@ -50,6 +52,7 @@ public class MealSettings : ItemSettings
         public EToolType RequiredCraftingToolType => _requiredCraftingToolType;
         public int MinCraftingSkillLevel => _minCraftingSkillLevel;
         public ETaskType CraftingSkill => _craftingSkill;
+        public List<SkillRequirement> SkillRequirements => _skillRequirements;
         
         public List<Ingredient> GetIngredients()
         {

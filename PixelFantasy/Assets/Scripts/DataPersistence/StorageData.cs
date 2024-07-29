@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using DataPersistence;
 using Handlers;
 using Items;
 using Newtonsoft.Json;
@@ -8,9 +7,9 @@ using UnityEngine;
     public class StorageData : FurnitureData
     {
         // Runtime
-        public List<ItemData> Stored = new List<ItemData>();
-        public List<ItemData> Incoming = new List<ItemData>();
-        public List<ItemData> Claimed = new List<ItemData>();
+        public List<string> StoredUIDs = new List<string>();
+        public List<string> IncomingUIDs = new List<string>();
+        public List<string> ClaimedUIDs = new List<string>();
         
         [JsonRequired] private StorageConfigs _storageConfigs;
         
@@ -35,7 +34,7 @@ using UnityEngine;
 
             int maxStorage = StorageSettings.MaxStorage;
             
-            return maxStorage - (Stored.Count + Incoming.Count);
+            return maxStorage - (StoredUIDs.Count + IncomingUIDs.Count);
         }
         
         public int AmountCanBeWithdrawn(ItemSettings itemSettings)
@@ -48,8 +47,9 @@ using UnityEngine;
         private int NumStored(ItemSettings itemSettings)
         {
             int result = 0;
-            foreach (var storedItem in Stored)
+            foreach (var storedItemUID in StoredUIDs)
             {
+                var storedItem = ItemsDatabase.Instance.Query(storedItemUID);
                 if (storedItem.Settings == itemSettings)
                 {
                     result++;
@@ -62,23 +62,10 @@ using UnityEngine;
         private int NumClaimed(ItemSettings itemSettings)
         {
             int result = 0;
-            foreach (var claimedItem in Claimed)
+            foreach (var claimedItemUID in ClaimedUIDs)
             {
+                var claimedItem = ItemsDatabase.Instance.Query(claimedItemUID);
                 if (claimedItem.Settings == itemSettings)
-                {
-                    result++;
-                }
-            }
-
-            return result;
-        }
-
-        private int NumIncoming(ItemSettings itemSettings)
-        {
-            int result = 0;
-            foreach (var incomingItem in Incoming)
-            {
-                if (incomingItem.Settings == itemSettings)
                 {
                     result++;
                 }
@@ -91,7 +78,7 @@ using UnityEngine;
         {
             if (IsSpecificItemDataIncoming(itemData))
             {
-                Incoming.Remove(itemData);
+                IncomingUIDs.Remove(itemData.UniqueID);
             }
             
             GameEvents.Trigger_RefreshInventoryDisplay();
@@ -112,15 +99,15 @@ using UnityEngine;
                 return;
             }
             
-            Incoming.Add(itemData);
+            IncomingUIDs.Add(itemData.UniqueID);
             GameEvents.Trigger_RefreshInventoryDisplay();
         }
 
         public bool IsSpecificItemDataClaimed(ItemData itemData)
         {
-            foreach (var claimed in Claimed)
+            foreach (var claimed in ClaimedUIDs)
             {
-                if (claimed == itemData)
+                if (claimed == itemData.UniqueID)
                 {
                     return true;
                 }
@@ -131,9 +118,9 @@ using UnityEngine;
 
         public bool IsSpecificItemDataIncoming(ItemData itemData)
         {
-            foreach (var incoming in Incoming)
+            foreach (var incoming in IncomingUIDs)
             {
-                if (incoming == itemData)
+                if (incoming == itemData.UniqueID)
                 {
                     return true;
                 }
@@ -144,9 +131,9 @@ using UnityEngine;
 
         public bool IsSpecificItemDataStored(ItemData itemData)
         {
-            foreach (var stored in Stored)
+            foreach (var stored in StoredUIDs)
             {
-                if (stored == itemData)
+                if (stored == itemData.UniqueID)
                 {
                     return true;
                 }
@@ -163,7 +150,7 @@ using UnityEngine;
                 return;
             }
 
-            Claimed.Remove(itemData);
+            ClaimedUIDs.Remove(itemData.UniqueID);
             GameEvents.Trigger_RefreshInventoryDisplay();
         }
 
@@ -175,8 +162,9 @@ using UnityEngine;
                 return null;
             }
             
-            foreach (var storedItem in Stored)
+            foreach (var storedItemUID in StoredUIDs)
             {
+                var storedItem = ItemsDatabase.Instance.Query(storedItemUID);
                 if (storedItem.Settings == itemSettings && !IsSpecificItemDataClaimed(storedItem))
                 {
                     return storedItem;
@@ -188,9 +176,9 @@ using UnityEngine;
        
         public bool ClaimItem(ItemData itemToClaim)
         {
-            foreach (var storedItem in Stored)
+            foreach (var storedItem in StoredUIDs)
             {
-                if (storedItem == itemToClaim)
+                if (storedItem == itemToClaim.UniqueID)
                 {
                     if (IsSpecificItemDataClaimed(itemToClaim))
                     {
@@ -198,7 +186,7 @@ using UnityEngine;
                         return false;
                     }
                     
-                    Claimed.Add(itemToClaim);
+                    ClaimedUIDs.Add(itemToClaim.UniqueID);
                     GameEvents.Trigger_RefreshInventoryDisplay();
                     return true;
                 }
@@ -219,29 +207,15 @@ using UnityEngine;
 
             return false;
         }
-
-        public List<ItemData> GetAvailableInventory()
-        {
-            List<ItemData> results = new List<ItemData>();
-            
-            foreach (var storedItem in Stored)
-            {
-                if (!IsSpecificItemDataClaimed(storedItem))
-                {
-                    results.Add(storedItem);
-                }
-            }
-        
-            return results;
-        }
         
         public bool IsItemInStorage(ItemSettings itemSettings)
         {
             if (IsItemValidToStore(itemSettings))
             {
-                foreach (var storagedItem in Stored)
+                foreach (var storedItemUID in StoredUIDs)
                 {
-                    if (storagedItem.Settings == itemSettings && !IsSpecificItemDataClaimed(storagedItem))
+                    var storedItem = ItemsDatabase.Instance.Query(storedItemUID);
+                    if (storedItem.Settings == itemSettings && !IsSpecificItemDataClaimed(storedItem))
                     {
                         return true;
                     }
@@ -255,9 +229,10 @@ using UnityEngine;
         {
             if (IsItemValidToStore(itemData.Settings))
             {
-                foreach (var storagedItem in Stored)
+                foreach (var storedItemUID in StoredUIDs)
                 {
-                    if (storagedItem.Settings == itemData.Settings && !IsSpecificItemDataClaimed(itemData))
+                    var storedItem = ItemsDatabase.Instance.Query(storedItemUID);
+                    if (storedItem.Settings == itemData.Settings && !IsSpecificItemDataClaimed(itemData))
                     {
                         return true;
                     }
@@ -270,8 +245,9 @@ using UnityEngine;
         public List<ToolData> GetAllToolItems(bool includeIncoming = false)
         {
             List<ToolData> toolItems = new List<ToolData>();
-            foreach (var storedItem in Stored)
+            foreach (var storedItemUID in StoredUIDs)
             {
+                var storedItem = ItemsDatabase.Instance.Query(storedItemUID);
                 if (!IsSpecificItemDataClaimed(storedItem))
                 {
                     if (storedItem is ToolData)
@@ -283,8 +259,9 @@ using UnityEngine;
             
             if (includeIncoming)
             {
-                foreach (var incomingItem in Incoming)
+                foreach (var incomingItemUID in IncomingUIDs)
                 {
+                    var incomingItem = ItemsDatabase.Instance.Query(incomingItemUID);
                     if (incomingItem is ToolData)
                     {
                         toolItems.Add(incomingItem as ToolData);
@@ -320,13 +297,14 @@ using UnityEngine;
                 Debug.LogError("Tried to withdraw an item that is not claimed");
             }
             
-            Stored.Remove(itemData);
-            Claimed.Remove(itemData);
+            StoredUIDs.Remove(itemData.UniqueID);
+            ClaimedUIDs.Remove(itemData.UniqueID);
             
             GameEvents.Trigger_RefreshInventoryDisplay();
             OnChanged();
 
             itemData.State = EItemState.Carried;
+            itemData.AssignedStorageID = null;
 
             var item = ItemsDatabase.Instance.CreateItemObject(itemData, Position, false);
             return item;
@@ -346,8 +324,8 @@ using UnityEngine;
             runtimeData.State = EItemState.Stored;
             runtimeData.CarryingKinlingUID = null;
             
-            Stored.Add(runtimeData);
-            Incoming.Remove(runtimeData);
+            StoredUIDs.Add(runtimeData.UniqueID);
+            IncomingUIDs.Remove(runtimeData.UniqueID);
             
             GameEvents.Trigger_RefreshInventoryDisplay();
             OnChanged();
@@ -355,7 +333,7 @@ using UnityEngine;
 
         public void LoadInItemData(ItemData itemData)
         {
-            Stored.Add(itemData);
+            StoredUIDs.Add(itemData.UniqueID);
             GameEvents.Trigger_RefreshInventoryDisplay();
         }
         
@@ -363,8 +341,9 @@ using UnityEngine;
         {
             List<InventoryAmount> results = new List<InventoryAmount>();
 
-            foreach (var storedItem in Stored)
+            foreach (var storedItemUID in StoredUIDs)
             {
+                var storedItem = ItemsDatabase.Instance.Query(storedItemUID);
                 var recorded = results.Find(i => i.ItemSettings == storedItem.Settings);
                 if (recorded == null)
                 {
@@ -375,8 +354,9 @@ using UnityEngine;
                 recorded.AddStored(storedItem);
             }
 
-            foreach (var claimedItem in Claimed)
+            foreach (var claimedItemUID in ClaimedUIDs)
             {
+                var claimedItem = ItemsDatabase.Instance.Query(claimedItemUID);
                 var recorded = results.Find(i => i.ItemSettings == claimedItem.Settings);
                 if (recorded == null)
                 {
@@ -387,8 +367,9 @@ using UnityEngine;
                 recorded.AddClaimed(claimedItem);
             }
             
-            foreach (var incomingItem in Incoming)
+            foreach (var incomingItemUID in IncomingUIDs)
             {
+                var incomingItem = ItemsDatabase.Instance.Query(incomingItemUID);
                 var recorded = results.Find(i => i.ItemSettings == incomingItem.Settings);
                 if (recorded == null)
                 {

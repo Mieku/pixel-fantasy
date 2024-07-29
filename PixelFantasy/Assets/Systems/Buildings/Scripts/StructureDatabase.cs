@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Managers;
+using Sirenix.OdinInspector;
 using Systems.Details.Build_Details.Scripts;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ namespace Systems.Buildings.Scripts
         public WallBuilder WallBuilder;
         
         private EStructureCell[,] _grid;
-        private List<StructurePiece> _registeredPieces = new List<StructurePiece>();
+        [ShowInInspector] private Dictionary<string, StructurePiece> _registeredPieces = new Dictionary<string, StructurePiece>();
         private List<Room> _rooms = new List<Room>();
         private Dictionary<Vector2Int, Room> roomCache = new Dictionary<Vector2Int, Room>();
         private const int MAX_CELLS_PER_ROOM = 300;
@@ -25,35 +26,37 @@ namespace Systems.Buildings.Scripts
         public void RegisterStructure(StructurePiece structurePiece)
         {
             UpdateGrid(structurePiece.Cell.CellPos, structurePiece.Cell.CellType);
-            _registeredPieces.Add(structurePiece);
+            _registeredPieces.Add(structurePiece.UniqueID, structurePiece);
+            PlayerInteractableDatabase.Instance.RegisterPlayerInteractable(structurePiece);
         }
 
         public void DeregisterStructure(StructurePiece structurePiece)
         {
             UpdateGrid(structurePiece.Cell.CellPos, EStructureCell.None);
-            _registeredPieces.Remove(structurePiece);
+            _registeredPieces.Remove(structurePiece.UniqueID);
+            PlayerInteractableDatabase.Instance.DeregisterPlayerInteractable(structurePiece);
         }
 
-        public List<ConstructionData> GetStructureData()
+        public Dictionary<string, ConstructionData> SaveStructureData()
         {
-            List<ConstructionData> results = new List<ConstructionData>();
-            foreach (var structurePiece in _registeredPieces)
+            Dictionary<string, ConstructionData> results = new Dictionary<string, ConstructionData>();
+            foreach (var kvp in _registeredPieces)
             {
-                results.Add(structurePiece.RuntimeData);
+                results[kvp.Key] = kvp.Value.RuntimeData;
             }
 
             return results;
         }
 
-        public void LoadStructureData(List<ConstructionData> loadedData)
+        public void LoadStructureData(Dictionary<string, ConstructionData> loadedData)
         {
             foreach (var data in loadedData)
             {
-                if (data is WallData wallData)
+                if (data.Value is WallData wallData)
                 {
                     WallBuilder.SpawnLoadedWall(wallData);
                 } 
-                else if (data is DoorData doorData)
+                else if (data.Value is DoorData doorData)
                 {
                     var doorSettings = doorData.DoorSettings;
                     var door = Instantiate(doorSettings.DoorPrefab, doorData.Position, Quaternion.identity, transform);
@@ -65,9 +68,9 @@ namespace Systems.Buildings.Scripts
         public void ClearAllStructures()
         {
             var pieces = _registeredPieces.ToList();
-            foreach (var structurePiece in pieces)
+            foreach (var kvp in pieces)
             {
-                structurePiece.DeletePiece();
+                kvp.Value.DeletePiece();
             }
             _registeredPieces.Clear();
 
@@ -178,7 +181,7 @@ namespace Systems.Buildings.Scripts
 
             foreach (var possibleCell in possibleCells)
             {
-                StructurePiece sPiece = _registeredPieces.Find(s => s.Cell.CellPos == possibleCell);
+                StructurePiece sPiece = _registeredPieces.Values.FirstOrDefault(s => s.Cell.CellPos == possibleCell);
                 sPiece.RefreshTile();
             }
         }
@@ -187,7 +190,7 @@ namespace Systems.Buildings.Scripts
         {
             if (IsWithinGrid(cell))
             {
-                StructurePiece sPiece = _registeredPieces.Find(s => s.Cell.CellPos == cell);
+                StructurePiece sPiece = _registeredPieces.Values.FirstOrDefault(s => s.Cell.CellPos == cell);
                 return sPiece;
             }
 

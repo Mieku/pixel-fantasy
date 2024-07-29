@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Managers;
 using Newtonsoft.Json;
 using QFSW.QC;
-using Sirenix.OdinInspector;
 using Systems.Appearance.Scripts;
 using Systems.Needs.Scripts;
 using UnityEngine;
@@ -22,17 +21,7 @@ namespace Characters
 
         [JsonRequired] private List<NeedChange> _registeredNeedChanges;
 
-        [JsonIgnore] private KinlingData _kinlingData => KinlingsDatabase.Instance.GetKinlingData(_kinlingUID);
-
-        // public NeedsData(RaceSettings raceSettings)
-        // {
-        //     var racialNeeds = raceSettings.GetAdultNeeds();
-        //     _foodNeed = new Need(racialNeeds.Food);
-        //     _energyNeed = new Need(racialNeeds.Energy);
-        //     _funNeed = new Need(racialNeeds.Fun);
-        //     _beautyNeed = new Need(racialNeeds.Beauty);
-        //     _comfortNeed = new Need(racialNeeds.Comfort);
-        // }
+        [JsonIgnore] private KinlingData _kinlingData => KinlingsDatabase.Instance.Query(_kinlingUID);
         
         public void MinuteTick()
         {
@@ -49,7 +38,6 @@ namespace Characters
         {
             _kinlingUID = kinlingData.UniqueID;
             var racialNeeds = raceSettings.GetAdultNeeds();
-            //_kinling = kinling;
             
             _foodNeed.Init(kinlingData, racialNeeds.Food);
             _energyNeed.Init(kinlingData, racialNeeds.Energy);

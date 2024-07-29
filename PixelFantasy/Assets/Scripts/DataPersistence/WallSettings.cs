@@ -5,9 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Wall Settings", menuName = "Settings/Wall Settings")]
 public class WallSettings : ConstructionSettings
 {
-    [SerializeField] private string _wallName;
-
-    public string WallName => _wallName;
+    public string WallName => _constructionName;
     public Sprite OptionIcon;
     public int MaxDurability;
     public RuleTile ExteriorRuleTile;

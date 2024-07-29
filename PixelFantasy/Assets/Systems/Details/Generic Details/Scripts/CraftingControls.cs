@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Items;
 using Systems.Crafting.Scripts;
-using Systems.Details.Building_Details.Scripts;
 using UnityEngine;
 
 namespace Systems.Details.Generic_Details.Scripts

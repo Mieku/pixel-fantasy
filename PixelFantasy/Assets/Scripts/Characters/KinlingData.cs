@@ -45,9 +45,10 @@ namespace Characters
         public MoodData Mood;
         public List<RelationshipData> Relationships = new List<RelationshipData>();
         public AvatarData Avatar;
+        public string CurrentTaskID;
+        public string HeldItemID;
         
         [JsonIgnore] public TaskAction CurrentTaskAction; // TODO: For now
-        [JsonIgnore] public Item HeldItem;
         
         [JsonRequired] private float _posX;
         [JsonRequired] private float _posY;
@@ -69,7 +70,7 @@ namespace Characters
         [JsonIgnore] public RaceSettings Race => GameSettings.Instance.LoadRaceSettings(RaceID);
 
         [JsonIgnore]
-        public KinlingData Partner => KinlingsDatabase.Instance.GetKinlingData(PartnerUID);
+        public KinlingData Partner => KinlingsDatabase.Instance.Query(PartnerUID);
 
         [JsonIgnore]
         public List<KinlingData> Children
@@ -79,7 +80,7 @@ namespace Characters
                 List<KinlingData> results = new List<KinlingData>();
                 foreach (var childUID in ChildrenUID)
                 {
-                    var child = KinlingsDatabase.Instance.GetKinlingData(childUID);
+                    var child = KinlingsDatabase.Instance.Query(childUID);
                     results.Add(child);
                 }
 

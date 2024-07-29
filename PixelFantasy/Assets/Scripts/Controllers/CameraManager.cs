@@ -5,6 +5,14 @@ using UnityEngine;
 
 namespace Controllers
 {
+    [Serializable]
+    public class CameraData
+    {
+        public float PosX;
+        public float PosY;
+        public float OrthographicSize;
+    }
+    
     public class CameraManager : Singleton<CameraManager>
     {
         [SerializeField] private float _moveSpeed;
@@ -26,6 +34,24 @@ namespace Controllers
         {
             base.Awake();
             _cam = GetComponent<CinemachineCamera>();
+        }
+
+        public CameraData SaveCameraData()
+        {
+            CameraData data = new CameraData
+            {
+                OrthographicSize = _cam.Lens.OrthographicSize,
+                PosX = transform.position.x,
+                PosY = transform.position.y
+            };
+
+            return data;
+        }
+
+        public void LoadCameraData(CameraData data)
+        {
+            transform.position = new Vector3(data.PosX, data.PosY, transform.position.z);
+            _cam.Lens.OrthographicSize = data.OrthographicSize;
         }
         
         private void Update()

@@ -17,7 +17,8 @@ MonoBehaviour:
   Task:
     TaskId: Deconstruct Construction
     TaskType: 2
-    KinlingAssignedToTask: {fileID: 0}
     Materials: []
     RequiredToolType: 0
     IsKinlingSpecific: 0
+  TaskID: Deconstruct Structure
+  TaskType: 2

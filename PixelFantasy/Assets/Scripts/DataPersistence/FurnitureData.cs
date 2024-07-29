@@ -13,6 +13,7 @@ using UnityEngine.Serialization;
 public class FurnitureData
 {
     public string UniqueID;
+    public string PendingTaskUID;
     public EFurnitureState FurnitureState;
     public float RemainingWork;
     public PlacementDirection Direction;
@@ -40,14 +41,14 @@ public class FurnitureData
         }
     }
     
-    public List<ItemAmount> RemainingMaterialCosts;
-    public List<ItemAmount> PendingResourceCosts = new List<ItemAmount>(); // Claimed by a task but not used yet
-    public List<ItemAmount> IncomingResourceCosts = new List<ItemAmount>(); // The item is on its way
-    public List<ItemData> IncomingItems = new List<ItemData>();
+    public List<CostData> RemainingMaterialCosts;
+    public List<CostData> PendingResourceCosts = new List<CostData>(); // Claimed by a task but not used yet
+    public List<CostData> IncomingResourceCosts = new List<CostData>(); // The item is on its way
+    public List<string> IncomingItemsUIDs = new List<string>();
 
     [JsonIgnore] public FurnitureSettings FurnitureSettings => GameSettings.Instance.LoadFurnitureSettings(SettingsID);
     [JsonIgnore] public string ItemName => FurnitureSettings.ItemName;
-
+    
     public virtual void InitData(FurnitureSettings furnitureSettings)
     {
         SettingsID = furnitureSettings.name;
@@ -63,6 +64,8 @@ public class FurnitureData
             Owners = new string[furnitureSettings.NumberOfPossibleOwners];
         }
         else Owners = null;
+        
+        FurnitureDatabase.Instance.RegisterFurniture(this);
     }
 
     public Furniture GetLinkedFurniture()
@@ -95,7 +98,7 @@ public class FurnitureData
             Owners[0] = kinlingData.UniqueID;
             if (kinlingData.PartnerUID != SecondaryOwner)
             {
-                var partner = KinlingsDatabase.Instance.GetKinlingData(kinlingData.PartnerUID);
+                var partner = KinlingsDatabase.Instance.Query(kinlingData.PartnerUID);
                 SetSecondaryOwner(partner);
             }
         }
@@ -176,7 +179,7 @@ public class FurnitureData
     
     public void AddToPendingResourceCosts(ItemSettings itemSettings, int quantity = 1)
     {
-        PendingResourceCosts ??= new List<ItemAmount>();
+        PendingResourceCosts ??= new List<CostData>();
 
         foreach (var cost in PendingResourceCosts)
         {
@@ -187,9 +190,8 @@ public class FurnitureData
             }
         }
         
-        PendingResourceCosts.Add(new ItemAmount
+        PendingResourceCosts.Add(new CostData(itemSettings)
         {
-            Item = itemSettings,
             Quantity = quantity
         });
     }
@@ -213,10 +215,10 @@ public class FurnitureData
     
     public void AddToIncomingItems(ItemData itemData)
     {
-        IncomingItems ??= new List<ItemData>();
-        IncomingItems.Add(itemData);
+        IncomingItemsUIDs ??= new List<string>();
+        IncomingItemsUIDs.Add(itemData.UniqueID);
         
-        IncomingResourceCosts ??= new List<ItemAmount>();
+        IncomingResourceCosts ??= new List<CostData>();
 
         foreach (var cost in IncomingResourceCosts)
         {
@@ -227,17 +229,16 @@ public class FurnitureData
             }
         }
         
-        IncomingResourceCosts.Add(new ItemAmount
+        IncomingResourceCosts.Add(new CostData(itemData.Settings)
         {
-            Item = itemData.Settings,
             Quantity = 1
         });
     }
     
     public void RemoveFromIncomingItems(ItemData item)
     {
-        IncomingItems ??= new List<ItemData>();
-        IncomingItems.Remove(item);
+        IncomingItemsUIDs ??= new List<string>();
+        IncomingItemsUIDs.Remove(item.UniqueID);
         
         foreach (var cost in IncomingResourceCosts)
         {

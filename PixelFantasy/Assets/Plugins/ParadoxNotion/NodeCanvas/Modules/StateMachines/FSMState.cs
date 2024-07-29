@@ -7,7 +7,7 @@ namespace NodeCanvas.StateMachines
 {
 
     ///<summary> Base class for fsm nodes that are actually states</summary>
-    [Color("ff6d53")]
+    // [Color("ff6d53")]
     abstract public class FSMState : FSMNode, IState
     {
 
@@ -48,6 +48,7 @@ namespace NodeCanvas.StateMachines
         public void Finish(Status status) { this.status = status; }
 
         ///----------------------------------------------------------------------------------------------
+
         public override void OnGraphPaused() { if ( status == Status.Running ) { OnPause(); } }
 
         ///----------------------------------------------------------------------------------------------
@@ -156,6 +157,11 @@ namespace NodeCanvas.StateMachines
         ///----------------------------------------------------------------------------------------------
         ///---------------------------------------UNITY EDITOR-------------------------------------------
 #if UNITY_EDITOR
+
+        //just a default orange color
+        public override void OnCreate(Graph assignedGraph) {
+            base.customColor = new Color(1, 0.42f, 0.32f);
+        }
 
         //...
         protected override void OnNodeInspectorGUI() {

@@ -1,7 +1,5 @@
 using System;
-using Systems.SmartObjects.Scripts;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Systems.Mood.Scripts

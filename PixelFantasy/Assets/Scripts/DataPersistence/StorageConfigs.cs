@@ -131,9 +131,9 @@ public class AllowedStorageOptions
     }
         
     [Button("UpdateListOfOptions")]
-    private void UpdateListOfOptions() 
+    private void UpdateListOfOptions()
     {
-        var upToDateItems = Librarian.Instance.GetAllItemSettings();
+        var upToDateItems = GameSettings.Instance.LoadAllItemSettings();
         foreach (var potentialItem in upToDateItems)
         {
             if (potentialItem.CanBeStored) 

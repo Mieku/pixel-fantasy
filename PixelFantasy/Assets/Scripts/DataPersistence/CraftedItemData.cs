@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AI;
 using Managers;
 using Newtonsoft.Json;
 using ScriptableObjects;
 using TaskSystem;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [Serializable]
 public class CraftedItemData : ItemData
@@ -32,22 +34,24 @@ public class CraftedItemData : ItemData
  [Serializable]
     public class CraftRequirements
     {
+        [SerializeField] private List<SkillRequirement> _skillRequirements;
         [SerializeField] private int _minCraftingSkillLevel;
         [SerializeField] private ETaskType _craftingSkill = ETaskType.Crafting;
         [SerializeField] private float _workCost;
         [SerializeField] private EToolType _requiredCraftingToolType;
-        [SerializeField] private List<ItemAmount> _materialCosts;
+        [FormerlySerializedAs("_materialCosts")] [SerializeField] private List<CostSettings> _costSettings;
         
         public float WorkCost => _workCost;
         public EToolType RequiredCraftingToolType => _requiredCraftingToolType;
         public int MinCraftingSkillLevel => _minCraftingSkillLevel;
         public ETaskType CraftingSkill => _craftingSkill;
-        public List<ItemAmount> MaterialCosts => GetMaterialCosts();
+        public List<CostSettings> CostSettings => _costSettings;
+        public List<SkillRequirement> SkillRequirements => _skillRequirements;
         
         public float GetWorkPerResource()
         {
             int totalQuantity = 0;
-            foreach (var resourceCost in MaterialCosts)
+            foreach (var resourceCost in _costSettings)
             {
                 totalQuantity += resourceCost.Quantity;
             }
@@ -55,10 +59,15 @@ public class CraftedItemData : ItemData
             return WorkCost / totalQuantity;
         }
 
-        public List<ItemAmount> GetMaterialCosts()
+        public List<CostData> GetMaterialCosts()
         {
-            List<ItemAmount> clone = new List<ItemAmount>(_materialCosts);
-            return clone;
+            List<CostData> results = new List<CostData>();
+            foreach (var cost in _costSettings)
+            {
+                results.Add(new CostData(cost));
+            }
+
+            return results;
         }
         
         public string MaterialsList
@@ -66,7 +75,7 @@ public class CraftedItemData : ItemData
             get
             {
                 string materialsList = "";
-                foreach (var cost in MaterialCosts)
+                foreach (var cost in _costSettings)
                 {
                     materialsList += cost.Quantity + "x " + cost.Item.ItemName + "\n";
                 }
@@ -78,7 +87,7 @@ public class CraftedItemData : ItemData
         {
             get
             {
-                foreach (var cost in MaterialCosts)
+                foreach (var cost in _costSettings)
                 {
                     if (!cost.CanAfford()) return false;
                 }
@@ -101,7 +110,7 @@ public class CraftedItemData : ItemData
         public CraftRequirements Clone()
         {
             CraftRequirements copy = (CraftRequirements)this.MemberwiseClone();
-            copy._materialCosts = this._materialCosts.Select(itemAmount => itemAmount.Clone()).ToList();
+            copy._costSettings = this._costSettings.Select(itemAmount => itemAmount.Clone()).ToList();
             return copy;
         }
     }

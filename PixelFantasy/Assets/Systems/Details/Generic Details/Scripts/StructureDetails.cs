@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Buildings.Building_Panels;
+using HUD;
 using Items;
 using Managers;
 using TMPro;

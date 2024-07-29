@@ -29,7 +29,7 @@ namespace Systems.Details.Kinling_Details
 
         public void Refresh(int index)
         {
-            var kinling = KinlingsDatabase.Instance.GetKinlingData(Relationship.OthersUID);
+            var kinling = KinlingsDatabase.Instance.Query(Relationship.OthersUID);
             _name.text = kinling.Fullname;
             _relationshipType.text = Relationship.RelationshipTypeName;
 
@@ -77,7 +77,7 @@ namespace Systems.Details.Kinling_Details
 
         public void OnPressed()
         {
-            var kinlingData = KinlingsDatabase.Instance.GetKinlingData(Relationship.OwnerUID);
+            var kinlingData = KinlingsDatabase.Instance.Query(Relationship.OwnerUID);
             PlayerInputController.Instance.SelectUnit(kinlingData.GetKinling());
             CameraManager.Instance.LookAtPosition(kinlingData.Position);
         }

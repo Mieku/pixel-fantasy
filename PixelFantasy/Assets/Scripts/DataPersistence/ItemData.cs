@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using AI;
 using Handlers;
 using Items;
 using Managers;
@@ -13,6 +14,7 @@ using UnityEngine;
 public class ItemData
 {
     public string UniqueID;
+    public string PendingTaskUID;
     public string SettingsID;
     public EItemState State;
     public int Durability;
@@ -20,8 +22,9 @@ public class ItemData
     public bool IsAllowed;
     public string CarryingKinlingUID;
     public string AssignedStorageID;
+    public string CurrentTaskID;
 
-    [JsonIgnore] public Task CurrentTask;
+    [JsonIgnore] public AI.Task CurrentTask => TasksDatabase.Instance.QueryTask(CurrentTaskID);
     
     [JsonIgnore] public virtual ItemSettings Settings => GameSettings.Instance.LoadItemSettings(SettingsID);
     [JsonIgnore] public virtual string ItemName => Settings.ItemName;
@@ -59,7 +62,7 @@ public class ItemData
     {
         if (State == EItemState.Carried)
         {
-            return KinlingsDatabase.Instance.GetKinlingData(CarryingKinlingUID).HeldItem;
+            return KinlingsDatabase.Instance.GetKinling(CarryingKinlingUID).HeldItem;
         }
         
         return ItemsDatabase.Instance.FindItemObject(UniqueID);
@@ -161,6 +164,7 @@ public enum EItemState
     Loose,
     Stored,
     Carried,
+    BeingProcessed,
 }
 
 public enum EItemQuality

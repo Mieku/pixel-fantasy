@@ -4,6 +4,7 @@ using System.Linq;
 using Handlers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Systems.Zones.Scripts
 {
@@ -13,13 +14,40 @@ namespace Systems.Zones.Scripts
         [SerializeField] private SpriteRenderer _itemDisplay;
         [SerializeField] private TextMeshPro _amountDisplay;
         
-        public List<ItemData> Stored = new List<ItemData>();
-        public List<ItemData> Incoming = new List<ItemData>();
-        public List<ItemData> Claimed = new List<ItemData>();
+        public List<string> StoredUIDs = new List<string>();
+        public List<string> IncomingUIDs = new List<string>();
+        public List<string> ClaimedUIDs = new List<string>();
 
         public override void Init(ZoneData data, Vector3Int cellPos)
         {
             base.Init(data, cellPos);
+
+            var stockpileZoneData = (StockpileZoneData)data;
+            var cell = stockpileZoneData.StorageCellDatas.Find(c => c.Cell == cellPos);
+            if (cell != null)
+            {
+                var incomingUIDs = cell.IncomingItemsData;
+                var storedUIDs = cell.StoredItemsData;
+                var claimedUIDs = cell.ClaimedItemsData;
+
+                foreach (var itemUID in incomingUIDs)
+                {
+                    var item = ItemsDatabase.Instance.Query(itemUID);
+                    IncomingUIDs.Add(item.UniqueID);
+                }
+                
+                foreach (var itemUID in storedUIDs)
+                {
+                    var item = ItemsDatabase.Instance.Query(itemUID);
+                    StoredUIDs.Add(item.UniqueID);
+                }
+                
+                foreach (var itemUID in claimedUIDs)
+                {
+                    var item = ItemsDatabase.Instance.Query(itemUID);
+                    ClaimedUIDs.Add(item.UniqueID);
+                }
+            }
             
             RefreshDisplay();
         }
@@ -28,11 +56,14 @@ namespace Systems.Zones.Scripts
         {
             CancelTasks();
 
-            foreach (var stored in Stored)
+            foreach (var storedUID in StoredUIDs)
             {
+                var stored = ItemsDatabase.Instance.Query(storedUID);
+                stored.State = EItemState.Loose;
+                stored.AssignedStorageID = null;
                 ItemsDatabase.Instance.CreateItemObject(stored, Position, true);
             }
-            Stored.Clear();
+            StoredUIDs.Clear();
             
             GameEvents.Trigger_RefreshInventoryDisplay();
             
@@ -43,10 +74,11 @@ namespace Systems.Zones.Scripts
         {
             CancelTasks();
 
-            foreach (var storedItem in Stored)
+            foreach (var storedUID in StoredUIDs)
             {
+                var stored = ItemsDatabase.Instance.Query(storedUID);
                 var stockpileZone = (StockpileZoneData)zoneData;
-                storedItem.AssignedStorageID = stockpileZone.UniqueID;
+                stored.AssignedStorageID = stockpileZone.UniqueID;
             }
             
             GameEvents.Trigger_RefreshInventoryDisplay();
@@ -56,29 +88,21 @@ namespace Systems.Zones.Scripts
 
         public void CancelTasks()
         {
-            for (int i = Incoming.Count - 1; i >= 0; i--)
+            for (int i = IncomingUIDs.Count - 1; i >= 0; i--)
             {
-                var incoming = Incoming[i];
-                if (incoming.GetLinkedItem() != null)
-                {
-                    incoming.GetLinkedItem().CancelTask();
-                }
-
-                if (incoming.CurrentTask != null && !string.IsNullOrEmpty(incoming.CurrentTask.TaskId))
+                var incomingUID = IncomingUIDs[i];
+                var incoming = ItemsDatabase.Instance.Query(incomingUID);
+                if (incoming.CurrentTask != null && !string.IsNullOrEmpty(incoming.CurrentTaskID))
                 {
                     incoming.CurrentTask.Cancel();
                 }
             }
             
-            for (int i = Stored.Count - 1; i >= 0; i--)
+            for (int i = StoredUIDs.Count - 1; i >= 0; i--)
             {
-                var stored = Stored[i];
-                if (stored.GetLinkedItem() != null)
-                {
-                    stored.GetLinkedItem().CancelTask();
-                }
-
-                if (stored.CurrentTask != null && !string.IsNullOrEmpty(stored.CurrentTask.TaskId))
+                var storedUID = StoredUIDs[i];
+                var stored = ItemsDatabase.Instance.Query(storedUID);
+                if (stored.CurrentTask != null && !string.IsNullOrEmpty(stored.CurrentTaskID))
                 {
                     stored.CurrentTask.Cancel();
                 }
@@ -87,25 +111,27 @@ namespace Systems.Zones.Scripts
 
         public void RefreshDisplay()
         {
-            if (Stored.Count == 0)
+            if (StoredUIDs.Count == 0)
             {
                 _itemDisplay.gameObject.SetActive(false);
                 _amountDisplay.gameObject.SetActive(false);
             }
-            else if(Stored.Count == 1)
+            else if(StoredUIDs.Count == 1)
             {
                 _itemDisplay.gameObject.SetActive(true);
-                _itemDisplay.sprite = Stored.First().Settings.ItemSprite;
+                var stored = ItemsDatabase.Instance.Query(StoredUIDs.First());
+                _itemDisplay.sprite = stored.Settings.ItemSprite;
                 
                 _amountDisplay.gameObject.SetActive(false);
             }
             else
             {
                 _itemDisplay.gameObject.SetActive(true);
-                _itemDisplay.sprite = Stored.First().Settings.ItemSprite;
+                var stored = ItemsDatabase.Instance.Query(StoredUIDs.First());
+                _itemDisplay.sprite = stored.Settings.ItemSprite;
                 
                 _amountDisplay.gameObject.SetActive(true);
-                _amountDisplay.text = $"{Stored.Count}";
+                _amountDisplay.text = $"{StoredUIDs.Count}";
             }
         }
 
@@ -114,14 +140,16 @@ namespace Systems.Zones.Scripts
         {
             get
             {
-                if (Stored.Count > 0)
+                if (StoredUIDs.Count > 0)
                 {
-                    return Stored.First().Settings;
+                    var item = ItemsDatabase.Instance.Query(StoredUIDs.First());
+                    return item.Settings;
                 }
 
-                if (Incoming.Count > 0)
+                if (IncomingUIDs.Count > 0)
                 {
-                    return Incoming.First().Settings;
+                    var item = ItemsDatabase.Instance.Query(IncomingUIDs.First());
+                    return item.Settings;
                 }
 
                 return null;
@@ -140,16 +168,17 @@ namespace Systems.Zones.Scripts
                 else
                 {
                     int maxStorage = storedItemSettings.MaxStackSize;
-                    return (Stored.Count + Incoming.Count) < maxStorage;
+                    return (StoredUIDs.Count + IncomingUIDs.Count) < maxStorage;
                 }
             }
         }
 
         public ItemData GetUnclaimedItem(ItemSettings itemSettings)
         {
-            foreach (var storedItem in Stored)
+            foreach (var storedItemUID in StoredUIDs)
             {
-                if (storedItem.Settings == itemSettings && !Claimed.Contains(storedItem))
+                var storedItem = ItemsDatabase.Instance.Query(storedItemUID);
+                if (storedItem.Settings == itemSettings && !ClaimedUIDs.Contains(storedItemUID))
                 {
                     return storedItem;
                 }
@@ -163,7 +192,7 @@ namespace Systems.Zones.Scripts
             if (IsEmpty) return 0;
             if (StoredItemSettings != itemSettings) return 0;
 
-            return Stored.Count - Claimed.Count;
+            return StoredUIDs.Count - ClaimedUIDs.Count;
         }
     
         public int AmountCanBeDeposited(ItemSettings itemSettings)
@@ -173,13 +202,13 @@ namespace Systems.Zones.Scripts
             if (StoredItemSettings != itemSettings) return 0;
 
             int maxStorage = itemSettings.MaxStackSize;
-            return maxStorage - (Stored.Count + Incoming.Count);
+            return maxStorage - (StoredUIDs.Count + IncomingUIDs.Count);
         }
 
         public Items.Item WithdrawItem(ItemData itemData)
         {
-            Stored.Remove(itemData);
-            Claimed.Remove(itemData);
+            StoredUIDs.Remove(itemData.UniqueID);
+            ClaimedUIDs.Remove(itemData.UniqueID);
         
             RefreshDisplay();
         
@@ -191,8 +220,8 @@ namespace Systems.Zones.Scripts
 
         public void DepositItem(ItemData itemData)
         {
-            Stored.Add(itemData);
-            Incoming.Remove(itemData);
+            StoredUIDs.Add(itemData.UniqueID);
+            IncomingUIDs.Remove(itemData.UniqueID);
         
             RefreshDisplay();
         
@@ -201,7 +230,7 @@ namespace Systems.Zones.Scripts
 
         public void LoadInItemData(ItemData itemData)
         {
-            Stored.Add(itemData);
+            StoredUIDs.Add(itemData.UniqueID);
         
             RefreshDisplay();
         

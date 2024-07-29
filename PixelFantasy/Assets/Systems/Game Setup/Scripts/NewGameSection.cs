@@ -1,7 +1,6 @@
 using System;
 using Player;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Systems.Game_Setup.Scripts
 {

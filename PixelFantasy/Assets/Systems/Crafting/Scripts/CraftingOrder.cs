@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AI;
+using Handlers;
 using Items;
 using Managers;
 using Newtonsoft.Json;
@@ -13,10 +15,24 @@ namespace Systems.Crafting.Scripts
     [Serializable]
     public class CraftingOrder
     {
+        public string UniqueID;
+        public string TaskUID;
         public string CraftedItemSettingsID;
-        [JsonIgnore] public ItemSettings ItemToCraftSettings => GameSettings.Instance.LoadItemSettings(CraftedItemSettingsID);
-        
         public EOrderState State;
+        
+        public float RemainingCraftingWork;
+        public float TotalCraftingWork;
+        public List<string> ClaimedItemUIDs = new List<string>();
+        public List<string> ReceivedItemUIDs = new List<string>();
+
+        public EFulfillmentType FulfillmentType;
+        public int Amount;
+        public bool IsPaused;
+        
+        [JsonIgnore] public ItemSettings ItemToCraftSettings => GameSettings.Instance.LoadItemSettings(CraftedItemSettingsID);
+        [JsonIgnore] public AI.Task CraftingTask => TasksDatabase.Instance.QueryTask(TaskUID);
+        [JsonIgnore] public ItemSettings GetOrderedItemSettings => ItemToCraftSettings;
+        [JsonIgnore] public float OrderProgress => (TotalCraftingWork - RemainingCraftingWork) / TotalCraftingWork;
 
         [JsonIgnore]
         public EOrderType OrderType
@@ -33,22 +49,6 @@ namespace Systems.Crafting.Scripts
                 }
             }
         }
-
-        public float RemainingCraftingWork;
-        public float TotalCraftingWork;
-        public List<ItemData> ClaimedItems = new List<ItemData>();
-
-        public EFulfillmentType FulfillmentType;
-        public int Amount;
-        public Task CraftingTask;
-        public bool IsPaused;
-        
-        public Action OnOrderComplete;
-        public Action OnOrderClaimed;
-        public Action OnOrderCancelled;
-        
-        private List<ItemAmount> _remainingMaterials = new List<ItemAmount>();
-        private List<Ingredient> _remainingIngredients = new List<Ingredient>();
         
         public enum EOrderType
         {
@@ -75,19 +75,15 @@ namespace Systems.Crafting.Scripts
         public CraftingOrder(string craftedItemSettingsID, Action onOrderClaimed = null, Action onOrderComplete = null,
             Action onOrderCancelled = null)
         {
+            UniqueID = Guid.NewGuid().ToString();
             CraftedItemSettingsID = craftedItemSettingsID;
-            OnOrderClaimed = onOrderClaimed;
-            OnOrderComplete = onOrderComplete;
-            OnOrderCancelled = onOrderCancelled;
             FulfillmentType = EFulfillmentType.Amount;
             Amount = 1;
             IsPaused = false;
 
             RefreshOrderRequirements();
         }
-
-        [JsonIgnore] public ItemSettings GetOrderedItemSettings => ItemToCraftSettings;
-
+        
         public void RefreshOrderRequirements()
         {
             switch (OrderType)
@@ -96,22 +92,20 @@ namespace Systems.Crafting.Scripts
                     CraftedItemSettings craftedItem = (CraftedItemSettings)ItemToCraftSettings;
                     TotalCraftingWork = craftedItem.CraftRequirements.WorkCost;
                     RemainingCraftingWork = craftedItem.CraftRequirements.WorkCost;
-                    _remainingMaterials = craftedItem.CraftRequirements.GetMaterialCosts();
                     break;
                 case EOrderType.Meal:
                     MealSettings craftedMeal = (MealSettings)ItemToCraftSettings;
                     TotalCraftingWork = craftedMeal.MealRequirements.WorkCost;
                     RemainingCraftingWork = craftedMeal.MealRequirements.WorkCost;
-                    _remainingIngredients = craftedMeal.MealRequirements.GetIngredients();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
         
-        public Task CreateTask(Action<Task> onTaskComplete, Action onTaskCancelled, CraftingTable table)
+        public AI.Task CreateTask(CraftingTable table)
         {
-            List<ItemData> claimedMats = null;
+            List<string> claimedMats = null;
 
             if (OrderType == EOrderType.Meal)
             {
@@ -127,35 +121,35 @@ namespace Systems.Crafting.Scripts
                 return null;
             }
             
+            var taskData = new Dictionary<string, object>
+            {
+                { "ClaimedMaterials", claimedMats }
+            };
+            ETaskType taskType;
+            List<SkillRequirement> skillRequirements;
+            
             switch (OrderType)
             {
                 case EOrderType.Item:
                     CraftedItemSettings craftedItem = (CraftedItemSettings)ItemToCraftSettings;
-                    CraftingTask = new Task("Craft Item", craftedItem.CraftRequirements.CraftingSkill, table, craftedItem.CraftRequirements.RequiredCraftingToolType)
-                    {
-                        Payload = craftedItem,
-                        OnTaskComplete = onTaskComplete,
-                        OnTaskCancel = onTaskCancelled,
-                        Materials = claimedMats,
-                    };
+                    taskData.Add("CraftedItemSettingsID", craftedItem.name);
+                    taskType = craftedItem.CraftRequirements.CraftingSkill;
+                    skillRequirements = craftedItem.CraftRequirements.SkillRequirements;
                     break;
                 case EOrderType.Meal:
                     MealSettings craftedMeal = (MealSettings)ItemToCraftSettings;
-                    CraftingTask = new Task("Cook Meal", craftedMeal.MealRequirements.CraftingSkill, table,
-                        craftedMeal.MealRequirements.RequiredCraftingToolType)
-                    {
-                        Payload = craftedMeal,
-                        OnTaskComplete = onTaskComplete,
-                        OnTaskCancel = onTaskCancelled,
-                        Materials = claimedMats,
-                    };
+                    taskData.Add("CraftedItemSettingsID", craftedMeal.name);
+                    taskType = craftedMeal.MealRequirements.CraftingSkill;
+                    skillRequirements = craftedMeal.MealRequirements.SkillRequirements;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
             
-            OnOrderClaimed?.Invoke();
-            return CraftingTask;
+            AI.Task task = new AI.Task("Craft Item", taskType, table, taskData, skillRequirements);
+            TaskUID = task.UniqueID;
+            
+            return task;
         }
 
         public bool IsOrderFulfilled()
@@ -175,11 +169,22 @@ namespace Systems.Crafting.Scripts
             }
         }
 
-        private List<ItemData> ClaimRequiredMaterials()
+        public void ClearMaterialsReceived()
+        {
+            // Clear the items
+            foreach (var itemUID in ReceivedItemUIDs)
+            {
+                var itemData = ItemsDatabase.Instance.Query(itemUID);
+                itemData.DeleteItemData();
+            }
+            ReceivedItemUIDs.Clear();
+        }
+
+        private List<string> ClaimRequiredMaterials()
         {
             CraftedItemSettings craftedItem = (CraftedItemSettings)ItemToCraftSettings;
             var requiredItems = craftedItem.CraftRequirements.GetMaterialCosts();
-            List<ItemData> claimedItems = new List<ItemData>();
+            List<string> claimedItems = new List<string>();
             
             foreach (var requiredItem in requiredItems)
             {
@@ -188,18 +193,18 @@ namespace Systems.Crafting.Scripts
                     var claimedItem = InventoryManager.Instance.GetItemOfType(requiredItem.Item);
 
                     claimedItem.ClaimItem();
-                    claimedItems.Add(claimedItem);
+                    claimedItems.Add(claimedItem.UniqueID);
                 }
             }
 
             return claimedItems;
         }
 
-        private List<ItemData> ClaimRequiredIngredients()
+        private List<string> ClaimRequiredIngredients()
         {
             MealSettings craftedMeal = (MealSettings)ItemToCraftSettings;
             var ingredients = craftedMeal.MealRequirements.GetIngredients();
-            List<ItemData> claimedItems = new List<ItemData>();
+            List<string> claimedItems = new List<string>();
 
             foreach (var ingredient in ingredients)
             {
@@ -208,32 +213,44 @@ namespace Systems.Crafting.Scripts
                     ItemData claimedItem = InventoryManager.Instance.GetFoodItemOfType(ingredient.FoodType);
                     
                     claimedItem.ClaimItem();
-                    claimedItems.Add(claimedItem);
+                    claimedItems.Add(claimedItem.UniqueID);
                 }
             }
 
             return claimedItems;
         }
 
-        public void ClaimOrder()
-        {
-            OnOrderClaimed?.Invoke();
-        }
-
         public void CancelOrder()
         {
-            foreach (var claimedItem in ClaimedItems)
+            if (ClaimedItemUIDs != null)
             {
-                claimedItem.UnclaimItem();
+                foreach (var claimedItemUID in ClaimedItemUIDs)
+                {
+                    var claimedItem = ItemsDatabase.Instance.Query(claimedItemUID);
+                    if (claimedItem.State == EItemState.Stored)
+                    {
+                        claimedItem.UnclaimItem();
+                    }
+                }
+                ClaimedItemUIDs.Clear();
             }
-            ClaimedItems.Clear();
             
             if (CraftingTask != null)
             {
                 CraftingTask.Cancel();
+                RefundUsedCraftingMaterials();
             }
-            
-            OnOrderCancelled?.Invoke();
+        }
+
+        private void RefundUsedCraftingMaterials()
+        {
+            foreach (var itemUID in ReceivedItemUIDs)
+            {
+                var itemData = ItemsDatabase.Instance.Query(itemUID);
+                itemData.State = EItemState.Loose;
+                ItemsDatabase.Instance.CreateItemObject(itemData, itemData.Position, true);
+            }
+            ReceivedItemUIDs.Clear();
         }
 
         public bool CanBeCrafted(CraftingTableData tableData)
@@ -258,13 +275,15 @@ namespace Systems.Crafting.Scripts
             switch (OrderType)
             {
                 case EOrderType.Item:
-                    if (_remainingMaterials.Any(itemAmount => !itemAmount.CanAfford()))
+                    CraftedItemSettings craftedItem = (CraftedItemSettings)ItemToCraftSettings;
+                    if (craftedItem.CraftRequirements.GetMaterialCosts().Any(itemAmount => !itemAmount.CanAfford()))
                     {
                         return false;
                     }
                     return true;
                 case EOrderType.Meal:
-                    if (_remainingIngredients.Any(ingredient => !ingredient.CanAfford()))
+                    MealSettings craftedMeal = (MealSettings)ItemToCraftSettings;
+                    if (craftedMeal.MealRequirements.GetIngredients().Any(ingredient => !ingredient.CanAfford()))
                     {
                         return false;
                     }
@@ -310,13 +329,6 @@ namespace Systems.Crafting.Scripts
             
         }
 
-        public void SubmitOrder(CraftingTableData tableData)
-        {
-            tableData.SubmitOrder(this);
-            
-            SetOrderState(EOrderState.Queued);
-        }
-
         private void Enter_Claimed()
         {
             
@@ -324,35 +336,35 @@ namespace Systems.Crafting.Scripts
 
         private void Enter_Completed()
         {
-            OnOrderComplete?.Invoke();
+            if (FulfillmentType == EFulfillmentType.Amount)
+            {
+                Amount = Mathf.Clamp(Amount - 1, 0, 999);
+            }
+            
+            State = EOrderState.None;
+            RefreshOrderRequirements();
         }
         
         private void Enter_Cancelled()
         {
-            OnOrderCancelled?.Invoke();
+            
         }
-
-        private void OnTaskComplete(Task task)
-        {
-            SetOrderState(EOrderState.Completed);
-        }
-
-        [JsonIgnore] public float OrderProgress => (TotalCraftingWork - RemainingCraftingWork) / TotalCraftingWork;
 
         public void ReceiveItem(ItemData item)
         {
-            ClaimedItems.Remove(item);
+            item.State = EItemState.BeingProcessed;
+            ClaimedItemUIDs.Remove(item.UniqueID);
+            ReceivedItemUIDs.Add(item.UniqueID);
         }
         
         public float GetPercentMaterialsReceived()
         {
             if (ItemToCraftSettings == null) return 0f;
-            if (State != EOrderState.Claimed || ClaimedItems == null) return 0f;
+            if (State != EOrderState.Claimed || ReceivedItemUIDs == null) return 0f;
             
             int numItemsNeeded = 0;
-            int remainingAmount = ClaimedItems.Count;
             
-            if(ItemToCraftSettings is MealSettings craftedMeal)
+            if (ItemToCraftSettings is MealSettings craftedMeal)
             {
                 foreach (var cost in craftedMeal.MealRequirements.GetIngredients())
                 {
@@ -360,11 +372,11 @@ namespace Systems.Crafting.Scripts
                 }
 
                 if (numItemsNeeded == 0) return 1f;
-                
-                return 1f - (remainingAmount / (float)numItemsNeeded);
+
+                return (ReceivedItemUIDs.Count / (float) numItemsNeeded);
             }
             
-            if(ItemToCraftSettings is CraftedItemSettings craftedItem)
+            if (ItemToCraftSettings is CraftedItemSettings craftedItem)
             {
                 foreach (var cost in craftedItem.CraftRequirements.GetMaterialCosts())
                 {
@@ -373,7 +385,7 @@ namespace Systems.Crafting.Scripts
                 
                 if (numItemsNeeded == 0) return 1f;
                 
-                return 1f - (remainingAmount / (float)numItemsNeeded);
+                return (ReceivedItemUIDs.Count / (float) numItemsNeeded);
             }
             
             // Just in case

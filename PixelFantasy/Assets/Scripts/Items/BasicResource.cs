@@ -18,7 +18,7 @@ namespace Items
     {
         [SerializeField] protected SpriteRenderer _spriteRenderer;
         [SerializeField] private ClickObject _clickObject;
-        [FormerlySerializedAs("_defaultClearCmd")] [SerializeField] private Command _defaultExtractCmd;
+        [SerializeField] private Command _defaultExtractCmd;
         [SerializeField] private BoxCollider2D _obstacleBox;
         [SerializeField] private List<Transform> _workPoints;
         [SerializeField] private List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle", "Nature", "Structure"};
@@ -28,19 +28,31 @@ namespace Items
 
         protected ResourceSettings _settings;
         public BasicResourceData RuntimeData;
-        
-        public Action OnChanged { get; set; }
-        
-        private void OnEnable()
+        public override string UniqueID => RuntimeData.UniqueID;
+
+        public override string PendingTaskUID
         {
-            ResourcesDatabase.Instance?.RegisterResource(this);
+            get => RuntimeData.PendingTaskUID;
+            set => RuntimeData.PendingTaskUID = value;
         }
 
-        private void OnDisable()
-        {
-            ResourcesDatabase.Instance?.DeregisterResource(this);
-        }
+        public Action OnChanged { get; set; }
         
+        // private void OnEnable()
+        // {
+        //     ResourcesDatabase.Instance?.RegisterResource(RuntimeData);
+        // }
+
+        // private void OnDisable()
+        // {
+        //     ResourcesDatabase.Instance?.DeregisterResource(RuntimeData);
+        // }
+
+        protected virtual void OnDestroy()
+        {
+            ResourcesDatabase.Instance.DeregisterResource(this);
+        }
+
         public virtual void InitializeResource(ResourceSettings settings)
         {
             _settings = settings;
@@ -48,6 +60,7 @@ namespace Items
             RuntimeData.InitData(settings);
             RuntimeData.Position = transform.position;
             
+            ResourcesDatabase.Instance.RegisterResource(this);
             UpdateSprite();
         }
 
@@ -55,8 +68,10 @@ namespace Items
         {
             RuntimeData = data;
             _settings = data.Settings;
+            ResourcesDatabase.Instance.RegisterResource(this);
             
             UpdateSprite();
+            RefreshTaskIcon();
         }
         
         protected virtual void UpdateSprite()
@@ -101,9 +116,9 @@ namespace Items
             return result;
         }
         
-        public void AssignCommand(Command command, object payload = null)
+        public override void AssignCommand(Command command)
         {
-            CreateTask(command, payload);
+            CreateTask(command);
         }
 
         public PlayerInteractable GetPlayerInteractable()

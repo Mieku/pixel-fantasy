@@ -658,9 +658,7 @@ namespace TWC
 					currentSeed = System.Environment.TickCount;
 				}
 				
-				
 				UnityEngine.Random.InitState(currentSeed);
-				
 			}
 			
 			if (!twcAsset.mapBlueprintLayers[_layerIndex].randomSeedOverride)

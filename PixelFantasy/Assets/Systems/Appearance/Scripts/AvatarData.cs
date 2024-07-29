@@ -31,6 +31,8 @@ namespace Systems.Appearance.Scripts
         public string HairStyle;
         public string BeardStyle;
         public Color32 EyeColour;
+
+        public AvatarLayer.EAppearanceDirection CurrentDirection;
         
         [JsonIgnore] public SpriteLibraryAsset SideSpriteLibraryAsset;
         [JsonIgnore] public SpriteLibraryAsset UpSpriteLibraryAsset;

@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AI;
 using Characters;
 using CodeMonkey.Utils;
 using Controllers;
-using DataPersistence;
 using Handlers;
 using Interfaces;
 using Managers;
@@ -17,7 +17,7 @@ using UnityEngine;
 
 namespace Items
 {
-    public class Furniture : PlayerInteractable, IClickableObject
+    public class Furniture : PlayerInteractable, IClickableObject, IConstructable
     {
         [TitleGroup("South")] [SerializeField] protected GameObject _southHandle;
         [TitleGroup("South")] [SerializeField] protected Transform _southSpritesRoot;
@@ -40,7 +40,8 @@ namespace Items
         [TitleGroup("East")] [SerializeField] protected GameObject _eastPlacementObstacle;
         
         public FurnitureData RuntimeData;
-        
+        public override string UniqueID => RuntimeData.UniqueID;
+
         protected SpriteRenderer[] _allSprites;
         protected List<SpriteRenderer> _useageMarkers;
         protected readonly List<Material> _materials = new List<Material>();
@@ -52,6 +53,12 @@ namespace Items
         private ClickObject _clickObject;
         private DyeSettings _dyeOverride;
         private readonly List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle", "Clearance"};
+        
+        public override string PendingTaskUID
+        {
+            get => RuntimeData.PendingTaskUID;
+            set => RuntimeData.PendingTaskUID = value;
+        }
 
         public Action OnChanged { get; set; }
 
@@ -69,6 +76,7 @@ namespace Items
             if (!_isPlanning)
             {
                 FurnitureDatabase.Instance.DeregisterFurniture(RuntimeData);
+                PlayerInteractableDatabase.Instance.DeregisterPlayerInteractable(this);
             }
             
             GameEvents.OnLeftClickUp -= GameEvents_OnLeftClickUp;
@@ -82,6 +90,7 @@ namespace Items
             AssignDirection(data.Direction);
             
             SetState(data.FurnitureState);
+            RefreshTaskIcon();
         }
         
         public virtual void StartPlanning(FurnitureSettings furnitureSettings, PlacementDirection initialDirection, DyeSettings dye)
@@ -136,7 +145,7 @@ namespace Items
             }
         }
         
-        public void AssignCommand(Command command, object payload = null)
+        public override void AssignCommand(Command command)
         {
             if (command.name == "Move Furniture Command")
             {
@@ -149,31 +158,31 @@ namespace Items
                 RuntimeData.HasUseBlockingCommand = true;
                 if (RuntimeData.FurnitureState != EFurnitureState.Built)
                 {
-                    CancelFurnitureConstruction();
+                    CancelConstruction();
                 }
                 else
                 {
-                    CreateTask(command, payload);
+                    CreateTask(command);
                 }
             }
             else
             {
-                CreateTask(command, payload);
+                CreateTask(command);
             }
         }
 
-        public override void CancelCommand(Command command)
+        public override void CancelPendingTask()
         {
             RuntimeData.HasUseBlockingCommand = false;
             
-            base.CancelCommand(command);
+            base.CancelPendingTask();
         }
 
-        protected void CancelFurnitureConstruction()
+        public virtual void CancelConstruction()
         {
             FurnitureDatabase.Instance.DeregisterFurniture(RuntimeData);
             
-            CancelRequestorTasks();
+            CancelPendingTask();
                 
             // Spawn All the resources used
             SpawnUsedResources(100f);
@@ -187,7 +196,7 @@ namespace Items
             // Spawn All the resources used
             var totalCosts = RuntimeData.FurnitureSettings.CraftRequirements.GetMaterialCosts();
             var remainingCosts = RuntimeData.RemainingMaterialCosts;
-            List<ItemAmount> difference = new List<ItemAmount>();
+            List<CostSettings> difference = new List<CostSettings>();
             foreach (var totalCost in totalCosts)
             {
                 var remaining = remainingCosts.Find(c => c.Item == totalCost.Item);
@@ -200,7 +209,7 @@ namespace Items
                 int amount = totalCost.Quantity - remainingAmount;
                 if (amount > 0)
                 {
-                    ItemAmount refund = new ItemAmount
+                    CostSettings refund = new CostSettings
                     {
                         Item = totalCost.Item,
                         Quantity = amount
@@ -447,12 +456,12 @@ namespace Items
         protected virtual void InProduction_Enter()
         {
             RuntimeData.Position = transform.position;
-            FurnitureDatabase.Instance.RegisterFurniture(RuntimeData);
+            PlayerInteractableDatabase.Instance.RegisterPlayerInteractable(this);
             DisplayUseageMarkers(false);
             EnablePlacementObstacle(true);
             Show(true);
             ColourArt(ColourStates.Blueprint);
-            CreateCraftFurnitureTask();
+            CreateConstructionHaulingTasks();
             Commands.Add(Librarian.Instance.GetCommand("Deconstruct Furniture"));
         }
         
@@ -482,33 +491,58 @@ namespace Items
                 marker.gameObject.SetActive(showMarkers);
             }
         }
-
-        private void CreateCraftFurnitureTask()
+        
+        private void CreateConstructionHaulingTasks()
         {
-            // If there are no material costs, build instantly
-            if (RuntimeData.FurnitureSettings.CraftRequirements.MaterialCosts.Count == 0)
+            if (RuntimeData.FurnitureSettings.CraftRequirements.CostSettings.Count == 0)
             {
                 SetState(EFurnitureState.Built);
                 return;
             }
+            
+            var resourceCosts = RuntimeData.RemainingMaterialCosts;
+            CreateConstuctionHaulingTasksForItems(resourceCosts);
+        }
+        
+        public void CreateConstuctionHaulingTasksForItems(List<CostData> remainingResources)
+        {
+            foreach (var resourceCost in remainingResources)
+            {
+                for (int i = 0; i < resourceCost.Quantity; i++)
+                {
+                    EnqueueCreateTakeResourceToBlueprintTask(resourceCost.Item);
+                }
+            }
+        }
+        
+        protected virtual void EnqueueCreateTakeResourceToBlueprintTask(ItemSettings resourceSettings)
+        {
+            Dictionary<string, object> taskData = new Dictionary<string, object> { { "ItemSettingsID", resourceSettings.name } };
 
-            Task task = new Task("Craft Furniture", ETaskType.Crafting, this, EToolType.None);
-            TaskManager.Instance.AddTask(task);
+            AI.Task task = new AI.Task("Withdraw Item For Constructable", ETaskType.Hauling, this, taskData);
+            TasksDatabase.Instance.AddTask(task);
         }
 
-        public override void ReceiveItem(ItemData item)
+        public override void ReceiveItem(ItemData itemData)
         {
-            Destroy(item.GetLinkedItem().gameObject);
+            RuntimeData.RemoveFromIncomingItems(itemData);
             
-            RuntimeData.RemoveFromPendingResourceCosts(item.Settings);
-            RuntimeData.DeductFromMaterialCosts(item.Settings);
+            Destroy(itemData.GetLinkedItem().gameObject);
             
-            item.DeleteItemData();
+            itemData.CarryingKinlingUID = null;
+            
+            RuntimeData.RemoveFromPendingResourceCosts(itemData.Settings);
+            RuntimeData.DeductFromMaterialCosts(itemData.Settings);
+            
+            if (RuntimeData.RemainingMaterialCosts.Count == 0)
+            {
+                CreateConstructTask();
+            }
             
             OnChanged?.Invoke();
         }
 
-        public bool DoCrafting(StatsData stats)
+        public bool DoConstruction(StatsData stats)
         {
             var workAmount = stats.GetActionSpeedForSkill(ESkillType.Crafting, true);
             RuntimeData.RemainingWork -= workAmount;
@@ -536,6 +570,12 @@ namespace Items
             return false;
         }
         
+        public virtual void CreateConstructTask(bool autoAssign = true)
+        {
+            AI.Task task = new AI.Task("Build Structure", ETaskType.Construction, this);
+            TasksDatabase.Instance.AddTask(task);
+        }
+        
         public virtual void CompleteDeconstruction()
         {
             FurnitureDatabase.Instance.DeregisterFurniture(RuntimeData);
@@ -547,13 +587,6 @@ namespace Items
             Destroy(gameObject);
             
             OnChanged?.Invoke();
-        }
-
-        public void PlaceFurniture(Item furnitureItem)
-        {
-            Destroy(furnitureItem.gameObject);
-            
-            SetState(EFurnitureState.Built);
         }
         
         public void DoPlacement()
@@ -693,7 +726,12 @@ namespace Items
                 spriteRenderer.color = colour;
             }
         }
-        
+
+        public void AddToIncomingItems(ItemData itemData)
+        {
+            RuntimeData.AddToIncomingItems(itemData);
+        }
+
         public enum ColourStates
         {
             Built,

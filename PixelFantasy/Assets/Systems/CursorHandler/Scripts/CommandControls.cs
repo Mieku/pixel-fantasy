@@ -68,7 +68,7 @@ namespace Systems.CursorHandler.Scripts
             }
         }
 
-        public void HideControls()
+        public void HideControls() 
         {
             gameObject.SetActive(false);
             _isActive = false;

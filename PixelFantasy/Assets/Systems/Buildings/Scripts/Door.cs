@@ -49,6 +49,7 @@ namespace Systems.Buildings.Scripts
             SetState(data.State);
             SetOrientationVertical(RuntimeDoorData.IsVertical);
             StructureDatabase.Instance.RegisterStructure(this);
+            RefreshTaskIcon();
         }
   
         public void SetState(EConstructionState state)
@@ -117,19 +118,6 @@ namespace Systems.Buildings.Scripts
         {
             var cursorPos = Helper.ConvertMousePosToGridPos(UtilsClass.GetMouseWorldPosition());
             gameObject.transform.position = cursorPos;
-        }
-
-        public override void CreateConstructTask(bool autoAssign = true)
-        {
-            Task constuctTask = new Task("Build Construction", ETaskType.Construction, this, EToolType.BuildersHammer);
-            constuctTask.Enqueue();
-        }
-        
-        public override void CreateDeconstructionTask(bool autoAssign = true, Action onDeconstructed = null)
-        {
-            _onDeconstructed = onDeconstructed;
-            Task constuctTask = new Task("Deconstruct", ETaskType.Construction, this, EToolType.BuildersHammer);
-            constuctTask.Enqueue();
         }
         
         private void BuiltState_Enter()

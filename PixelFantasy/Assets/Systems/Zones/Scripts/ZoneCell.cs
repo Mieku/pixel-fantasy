@@ -19,6 +19,12 @@ namespace Systems.Zones.Scripts
             Destroy(gameObject);
         }
 
+        /// Deletes the cell without triggering any events, used for loading / clearing the game
+        public void ClearCell()
+        {
+            Destroy(gameObject);
+        }
+
         public virtual void TransferOwner(ZoneData zoneData)
         {
             _data = zoneData;
