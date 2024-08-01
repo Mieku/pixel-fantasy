@@ -43,7 +43,7 @@ namespace Systems.Game_Setup.Scripts
             if (Input.GetKeyDown(KeyCode.O))
             {
                 Debug.Log("Quick Save test");
-                StartCoroutine(DataPersistenceManager.Instance.SaveGameCoroutine());
+                StartCoroutine(DataPersistenceManager.Instance.SaveGameCoroutine((progress) => { }));
             }
             
             if (Input.GetKeyDown(KeyCode.L))

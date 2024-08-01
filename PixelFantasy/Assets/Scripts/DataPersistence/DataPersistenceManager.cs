@@ -65,28 +65,78 @@ namespace DataPersistence
             };
         }
         
-        public IEnumerator SaveGameCoroutine()
+        public IEnumerator SaveGameCoroutine(Action<float> progressCallback)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            SaveData saveData = new SaveData
-            {
-                Header = GenerateHeader(),
-                CameraData = CameraManager.Instance.SaveCameraData(),
-                EnvironmentData = EnvironmentManager.Instance.GetEnvironmentData(),
-                TileMapData = TilemapController.Instance.GetTileMapData(),
-                ResourcesData = ResourcesDatabase.Instance.GetResourcesData(),
-                RampData = _rampsHandler.GetRampsData(),
-                Kinlings = KinlingsDatabase.Instance.SaveKinlingsData(),
-                ItemsData = ItemsDatabase.Instance.SaveItemsData(),
-                FurnitureData = FurnitureDatabase.Instance.SaveFurnitureData(),
-                ZonesData = ZonesDatabase.Instance.SaveZonesData(),
-                StructuresData = StructureDatabase.Instance.SaveStructureData(),
-                FloorsData = FlooringDatabase.Instance.SaveFloorData(),
-                TasksData = TasksDatabase.Instance.SaveTaskData(),
-            };
+            // Define the total number of steps
+            int totalSteps = 15;
+            int currentStep = 0;
 
+            // Increment step and report progress
+            void ReportProgress()
+            {
+                currentStep++;
+                progressCallback?.Invoke((float)currentStep / totalSteps);
+            }
+
+            SaveData saveData = new SaveData();
+
+            // Collecting data and reporting progress
+            saveData.Header = GenerateHeader();
+            ReportProgress();
+            yield return null;
+
+            saveData.CameraData = CameraManager.Instance.SaveCameraData();
+            ReportProgress();
+            yield return null;
+
+            saveData.EnvironmentData = EnvironmentManager.Instance.GetEnvironmentData();
+            ReportProgress();
+            yield return null;
+
+            saveData.TileMapData = TilemapController.Instance.GetTileMapData();
+            ReportProgress();
+            yield return null;
+
+            saveData.ResourcesData = ResourcesDatabase.Instance.GetResourcesData();
+            ReportProgress();
+            yield return null;
+
+            saveData.RampData = _rampsHandler.GetRampsData();
+            ReportProgress();
+            yield return null;
+
+            saveData.Kinlings = KinlingsDatabase.Instance.SaveKinlingsData();
+            ReportProgress();
+            yield return null;
+
+            saveData.ItemsData = ItemsDatabase.Instance.SaveItemsData();
+            ReportProgress();
+            yield return null;
+
+            saveData.FurnitureData = FurnitureDatabase.Instance.SaveFurnitureData();
+            ReportProgress();
+            yield return null;
+
+            saveData.ZonesData = ZonesDatabase.Instance.SaveZonesData();
+            ReportProgress();
+            yield return null;
+
+            saveData.StructuresData = StructureDatabase.Instance.SaveStructureData();
+            ReportProgress();
+            yield return null;
+
+            saveData.FloorsData = FlooringDatabase.Instance.SaveFloorData();
+            ReportProgress();
+            yield return null;
+
+            saveData.TasksData = TasksDatabase.Instance.SaveTaskData();
+            ReportProgress();
+            yield return null;
+
+            // Serialization
             var settings = new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.Auto,
@@ -107,8 +157,11 @@ namespace DataPersistence
                 yield break;
             }
 
-            yield return null; // Yield to allow frame update
+            // Yield to allow frame update after serialization
+            ReportProgress();
+            yield return null;
 
+            // Saving to file
             try
             {
                 System.IO.File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
@@ -124,7 +177,9 @@ namespace DataPersistence
                 stopwatch.Stop();
             }
 
-            yield return null; // Yield to allow frame update
+            // Final progress report
+            ReportProgress();
+            yield return null;
         }
         
         private void HandleSerializationError(object sender, Newtonsoft.Json.Serialization.ErrorEventArgs e)
