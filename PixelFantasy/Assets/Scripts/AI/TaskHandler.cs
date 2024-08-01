@@ -16,8 +16,18 @@ namespace AI
         
         private KinlingData _kinlingData => _kinling.RuntimeData;
         private List<TaskTree> _taskTrees;
-        
-        public Task CurrentTask => TasksDatabase.Instance.QueryTask(_kinlingData.CurrentTaskID);
+        private Task _cachedTask;
+        public Task CurrentTask
+        {
+            get
+            {
+                if (_cachedTask == null || _kinlingData.CurrentTaskID != _cachedTask.TaskID)
+                {
+                    _cachedTask = TasksDatabase.Instance.QueryTask(_kinlingData.CurrentTaskID);
+                }
+                return _cachedTask;
+            }
+        }
         
         private const float WAIT_TIMER_MAX = 0.05f; // 50ms
         private const float IDLE_TIME = 10f;
@@ -26,6 +36,16 @@ namespace AI
         {
             FindAllTaskTrees();
         }
+
+        public string GetCurrentTaskDisplay()
+        {
+            if (CurrentTask == null)
+            {
+                return "Idle";
+            }
+
+            return CurrentTask.GetDisplayName();
+        } 
 
         private void FindAllTaskTrees()
         {

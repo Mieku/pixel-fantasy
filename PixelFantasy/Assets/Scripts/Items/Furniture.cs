@@ -519,7 +519,7 @@ namespace Items
         {
             Dictionary<string, object> taskData = new Dictionary<string, object> { { "ItemSettingsID", resourceSettings.name } };
 
-            AI.Task task = new AI.Task("Withdraw Item For Constructable", ETaskType.Hauling, this, taskData);
+            AI.Task task = new AI.Task("Withdraw Item For Constructable", "Gathering Materials" ,ETaskType.Hauling, this, taskData);
             TasksDatabase.Instance.AddTask(task);
         }
 
@@ -572,7 +572,7 @@ namespace Items
         
         public virtual void CreateConstructTask(bool autoAssign = true)
         {
-            AI.Task task = new AI.Task("Build Structure", ETaskType.Construction, this);
+            AI.Task task = new AI.Task("Build Structure", $"Crafting {RuntimeData.ItemName}" ,ETaskType.Construction, this);
             TasksDatabase.Instance.AddTask(task);
         }
         

@@ -16,6 +16,7 @@ namespace AI
         public string TaskID;
         public string RequesterID;
         public string ClaimedKinlingUID;
+        public string DisplayName;
         public ETaskType Type;
         public ETaskStatus Status;
         public string BlackboardJSON;
@@ -27,19 +28,26 @@ namespace AI
 
         public Task() { }
 
-        public Task(string taskID, ETaskType taskType, PlayerInteractable requester, Dictionary<string, object> taskData = null, List<SkillRequirement> skillRequirements = null)
+        public Task(string taskID, string displayName, ETaskType taskType, PlayerInteractable requester, Dictionary<string, object> taskData = null, List<SkillRequirement> skillRequirements = null)
         {
             taskData ??= new Dictionary<string, object>();
 
             TaskID = taskID;
             UniqueID = CreateUniqueID(taskID);
             RequesterID = requester.UniqueID;
+            DisplayName = displayName;
             Type = taskType;
             SkillRequirements = skillRequirements;
             TaskData = taskData;
             TaskData.Add("RequesterUID", requester.UniqueID);
             Status = ETaskStatus.Pending;
             FailedLog = new Dictionary<string, DateTime>();
+        }
+        
+        /// <returns>Returns a player friendly name for the current task</returns>
+        public string GetDisplayName()
+        {
+            return DisplayName;
         }
 
         public void ClaimTask(KinlingData kinlingData)

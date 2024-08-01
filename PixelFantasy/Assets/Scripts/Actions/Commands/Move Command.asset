@@ -13,11 +13,7 @@ MonoBehaviour:
   m_Name: Move Command
   m_EditorClassIdentifier: 
   Name: Move
+  DisplayName: Moving
   Icon: {fileID: 0}
-  Task:
-    TaskId: Move
-    TaskType: 20
-    KinlingAssignedToTask: {fileID: 0}
-    Materials: []
-    RequiredToolType: 0
-    IsKinlingSpecific: 1
+  TaskID: 
+  TaskType: 20

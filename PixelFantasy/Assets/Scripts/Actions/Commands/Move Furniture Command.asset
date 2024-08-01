@@ -13,11 +13,7 @@ MonoBehaviour:
   m_Name: Move Furniture Command
   m_EditorClassIdentifier: 
   Name: Move Furniture
+  DisplayName: Moving Furniture
   Icon: {fileID: -51568864, guid: d9053f3442dafed4a9ea52ece16394c2, type: 3}
-  Task:
-    TaskId: Move Furniture
-    TaskType: 11
-    KinlingAssignedToTask: {fileID: 0}
-    Materials: []
-    RequiredToolType: 0
-    IsKinlingSpecific: 0
+  TaskID: 
+  TaskType: 11

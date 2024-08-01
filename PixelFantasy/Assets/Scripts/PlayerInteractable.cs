@@ -70,7 +70,7 @@ public abstract class PlayerInteractable : MonoBehaviour
             CancelPendingTask();
         }
 
-        Task task = new Task(command.TaskID, command.TaskType, this);
+        Task task = new Task(command.TaskID, command.DisplayName, command.TaskType, this);
         
         TasksDatabase.Instance.AddTask(task);
         AddTaskToPending(task);

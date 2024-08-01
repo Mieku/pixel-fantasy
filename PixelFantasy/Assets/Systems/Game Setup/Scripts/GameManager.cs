@@ -114,6 +114,9 @@ namespace Systems.Game_Setup.Scripts
             // Again, yield to keep the UI responsive
             yield return null;
             
+            Vector2Int worldSize = new Vector2Int(36, 36);
+            StructureDatabase.Instance.Init(worldSize);
+            
             LoadingScreen.Instance.Hide();
         }
 

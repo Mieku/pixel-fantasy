@@ -56,8 +56,8 @@ namespace Systems.Details.Kinling_Details
         private void Update()
         {
             if(_kinling == null) return;
-            
-            _currentAction.text = _kinling.TaskAI.CurrentStateName;
+
+            _currentAction.text = _kinling.TaskHandler.GetCurrentTaskDisplay();
             _currentSchedule.text = _kinling.RuntimeData.Schedule.GetCurrentScheduleOption().GetDescription();
         }
 

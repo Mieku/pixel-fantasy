@@ -100,7 +100,7 @@ namespace Items
 
         public void CreateHaulTask()
         {
-            Task task = new Task("Store Item", ETaskType.Hauling, this);
+            Task task = new Task("Store Item", $"Storing {RuntimeData.ItemName}", ETaskType.Hauling, this);
             TasksDatabase.Instance.AddTask(task);
             RuntimeData.CurrentTaskID = task.UniqueID;
         }

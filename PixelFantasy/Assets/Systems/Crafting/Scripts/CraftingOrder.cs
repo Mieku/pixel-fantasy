@@ -146,7 +146,7 @@ namespace Systems.Crafting.Scripts
                     throw new ArgumentOutOfRangeException();
             }
             
-            AI.Task task = new AI.Task("Craft Item", taskType, table, taskData, skillRequirements);
+            AI.Task task = new AI.Task("Craft Item", $"Crafting {ItemToCraftSettings.ItemName}" ,taskType, table, taskData, skillRequirements);
             TaskUID = task.UniqueID;
             
             return task;

@@ -13,12 +13,7 @@ MonoBehaviour:
   m_Name: CutPlantCommand
   m_EditorClassIdentifier: 
   Name: Cut Plant
+  DisplayName: Clearing Plant
   Icon: {fileID: 1968848226, guid: d9053f3442dafed4a9ea52ece16394c2, type: 3}
-  Task:
-    TaskId: Extract Resource
-    TaskType: 6
-    Materials: []
-    RequiredToolType: 0
-    IsKinlingSpecific: 0
   TaskID: Extract Resource
   TaskType: 8

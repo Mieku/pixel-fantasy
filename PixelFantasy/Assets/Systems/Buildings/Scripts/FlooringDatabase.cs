@@ -16,11 +16,13 @@ namespace Systems.Buildings.Scripts
         public void RegisterFloor(Floor floor)
         {
             _registeredFloors.Add(floor.UniqueID, floor);
+            PlayerInteractableDatabase.Instance.RegisterPlayerInteractable(floor);
         }
 
         public void DeregisterFloor(Floor floor)
         {
             _registeredFloors.Remove(floor.UniqueID);
+            PlayerInteractableDatabase.Instance.DeregisterPlayerInteractable(floor);
         }
 
         public Floor Query(string uniqueID)

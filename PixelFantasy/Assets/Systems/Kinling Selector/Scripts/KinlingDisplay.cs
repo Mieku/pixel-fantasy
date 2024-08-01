@@ -34,7 +34,7 @@ namespace Systems.Kinling_Selector.Scripts
             if (KinlingData != null)
             {
                 _nicknameText.text = KinlingData.Nickname;
-                _actionText.text = KinlingData.GetKinling().TaskAI.CurrentStateName;
+                _actionText.text = KinlingData.GetKinling().TaskHandler.GetCurrentTaskDisplay();
                 
                 _moodTint.color = Color.Lerp(_negativeColour, _positiveColour, Mathf.Clamp(KinlingData.GetKinling().MoodData.OverallMood / 100f, 0.0f, 1.0f));
             }
