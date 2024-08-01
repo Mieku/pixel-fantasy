@@ -12,31 +12,22 @@ namespace Systems.Game_Setup.Scripts
         [SerializeField] private Vector3 _defaultPos;
         
         public Camera MainCam;
-        public RawImage rawImage; // Reference to the Raw Image
         public Camera tilemapCamera; // Reference to the Camera rendering the Tilemap
         public RectTransform rawImageRectTransform; // Reference to the Raw Image's RectTransform
         public GameObject PlacementIcon;
         public GameObject PlacementIconSelected;
-        public Canvas OverworldCanvas;
         public Tilemap tilemap; // Reference to the Tilemap
-        
-        public float movementSensitivity = 0.1f; // Movement sensitivity multiplier
-        public float zoomSensitivity = 1.0f; // Zoom sensitivity multiplier
-        public BoxCollider2D boundaryCollider; // 2D Box Collider defining the boundary
-
-        private Vector3 lastMousePosition;
-        private bool isDragging;
-        private bool placementLocked;
         public bool IsEnabled;
+        
+        private bool _isDoingInvalidSequence;
 
         void Update()
         {
             if (!IsEnabled) return;
-            if(placementLocked) return;
             
             // Check if the mouse is over the Raw Image
             var inView = RectTransformUtility.RectangleContainsScreenPoint(rawImageRectTransform, Input.mousePosition, MainCam);
-            if (!inView)// && !isDragging)
+            if (!inView)
             {
                 PlacementIcon.SetActive(false);
                 return;
@@ -46,40 +37,11 @@ namespace Systems.Game_Setup.Scripts
                 PlacementIcon.SetActive(true);
             }
 
-            if (Input.GetMouseButtonDown(0))
-            {
-                lastMousePosition = Input.mousePosition;
-                //isDragging = true;
-            }
-
             if (Input.GetMouseButtonUp(0))
             {
-                //isDragging = false;
                 SelectPosition(Input.mousePosition);
             }
-
-            // if (isDragging)
-            // {
-            //     Vector3 delta = Input.mousePosition - lastMousePosition;
-            //     lastMousePosition = Input.mousePosition;
-            //
-            //     Vector3 cameraMovement = new Vector3(-delta.x / Screen.width, -delta.y / Screen.height, 0);
-            //     tilemapCamera.transform.Translate(cameraMovement * tilemapCamera.orthographicSize * movementSensitivity, Space.World);
-            //
-            //     // Clamp the camera position within the defined boundaries
-            //     ClampCameraPosition();
-            // }
-            //
-            // // Handle zooming with the mouse wheel
-            // if (inView && Input.mouseScrollDelta.y != 0)
-            // {
-            //     float newSize = tilemapCamera.orthographicSize - Input.mouseScrollDelta.y * zoomSensitivity;
-            //     tilemapCamera.orthographicSize = Mathf.Clamp(newSize, 5f, 12f); // Clamping the zoom level
-            //
-            //     // Re-apply the boundary constraints after zooming
-            //     ClampCameraPosition();
-            // }
-
+            
             PlacementIcon.transform.position = ConvertMousePosToOverworldPos(Input.mousePosition);
             
             // Check if valid
@@ -125,19 +87,6 @@ namespace Systems.Game_Setup.Scripts
     
             return Vector2.negativeInfinity;
         }
-        
-        private void ClampCameraPosition()
-        {
-            Bounds bounds = boundaryCollider.bounds;
-            Vector3 cameraPosition = tilemapCamera.transform.position;
-            float halfWidth = tilemapCamera.orthographicSize * tilemapCamera.aspect;
-            float halfHeight = tilemapCamera.orthographicSize;
-
-            float clampedX = Mathf.Clamp(cameraPosition.x, bounds.min.x + halfWidth, bounds.max.x - halfWidth);
-            float clampedY = Mathf.Clamp(cameraPosition.y, bounds.min.y + halfHeight, bounds.max.y - halfHeight);
-
-            tilemapCamera.transform.position = new Vector3(clampedX, clampedY, cameraPosition.z);
-        }
 
         public void GoToDefaultPos()
         {
@@ -168,7 +117,7 @@ namespace Systems.Game_Setup.Scripts
             }
         }
 
-        private bool _isDoingInvalidSequence;
+        
         private IEnumerator InvalidSelectionSequence()
         {
             // Have PlacementIcon flash red 3 times and then return to normal colour
@@ -210,7 +159,7 @@ namespace Systems.Game_Setup.Scripts
                 numSafe++;
             }
             
-            return numSafe >= 2;
+            return numSafe >= 1;
         }
 
         private OverworldSelectionData DetectTiles(Vector3 worldPosition)
@@ -292,11 +241,6 @@ namespace Systems.Game_Setup.Scripts
             Forest,
             Mountain,
             Dungeon,
-        }
-
-        public void SetPlacementLocked(bool isLocked)
-        {
-            placementLocked = isLocked;
         }
     }
 }

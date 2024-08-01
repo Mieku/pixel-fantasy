@@ -176,13 +176,31 @@ namespace Systems.Game_Setup.Scripts
             CameraManager.Instance.LookAtPosition(lookPos);
             yield return null;
         }
-
+        
         private void ApplyStarterKinlings(Vector3Int startCell, List<KinlingData> starterKinlings)
         {
             Vector2 startPos = new Vector2(startCell.x, startCell.y);
             foreach (var kinling in starterKinlings)
             {
-                var pos = Helper.RandomLocationInRange(startPos);
+                Vector2 pos;
+                int attempts = 0;
+                RaycastHit2D hit;
+                do
+                {
+                    pos = Helper.RandomLocationInRange(startPos);
+                    hit = Physics2D.Raycast(pos, Vector2.zero, 0, LayerMask.GetMask("Obstacle"));
+                    if (hit.collider != null)
+                    {
+                        Debug.Log($"Attempted to spawn on an obstacle: {hit.collider.gameObject.name} at position {pos}");
+                    }
+                    attempts++;
+                    if (attempts > 20)
+                    {
+                        Debug.LogWarning("Unable to find a valid position without obstacles after 20 attempts.");
+                        break;
+                    }
+                } while (hit.collider != null);
+
                 KinlingsDatabase.Instance.SpawnKinling(kinling, pos);
             }
         }

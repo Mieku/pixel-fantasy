@@ -20,8 +20,6 @@ namespace Systems.World_Building.Scripts
         public int ForestAdditionalDensity; // The max number of trees per tile
         
         [FormerlySerializedAs("VegitationResources")] public List<ResourceDataPercentage> VegetationResources = new List<ResourceDataPercentage>();
-        [FormerlySerializedAs("VegitationClusterRadius")] public int VegetationClusterRadius;
-        public int MaxVegetationPerCluster;
         public int VegetationDensity;
         
         public List<ResourceDataPercentage> AdditionalResources = new List<ResourceDataPercentage>();
