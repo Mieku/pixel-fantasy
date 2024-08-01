@@ -46,10 +46,26 @@ namespace Systems.Buildings.Scripts
         public override void LoadData(ConstructionData data)
         {
             RuntimeData = data;
-            SetState(data.State);
+            LoadState(data.State);
             SetOrientationVertical(RuntimeDoorData.IsVertical);
             StructureDatabase.Instance.RegisterStructure(this);
             RefreshTaskIcon();
+        }
+
+        private void LoadState(EConstructionState state)
+        {
+            switch (state)
+            {
+                case EConstructionState.Blueprint:
+                    ColourSprite(Librarian.Instance.GetColour("Blueprint"));
+                    break;
+                case EConstructionState.Built:
+                    ColourSprite(Color.white);
+                    break;
+                case EConstructionState.Planning:
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(state), state, null);
+            }
         }
   
         public void SetState(EConstructionState state)
@@ -58,7 +74,6 @@ namespace Systems.Buildings.Scripts
             switch (state)
             {
                 case EConstructionState.Planning: 
-                    BeingPlaced_Enter();
                     break;
                 case EConstructionState.Blueprint:
                     Construction_Enter();
@@ -70,12 +85,7 @@ namespace Systems.Buildings.Scripts
                     throw new ArgumentOutOfRangeException();
             }
         }
-
-        private void BeingPlaced_Enter()
-        {
-
-        }
-
+        
         private void Construction_Enter()
         {
             ColourSprite(Librarian.Instance.GetColour("Blueprint"));
@@ -84,7 +94,7 @@ namespace Systems.Buildings.Scripts
             if (wall != null)
             {
                 // Check if there's a wall under the door, if so cancel or deconstruct it first
-                wall.CreateDeconstructionTask(true, () =>
+                wall.CreateDeconstructionTask(() =>
                 {
                     CreateConstructionHaulingTasks();
                     OnPlaced();
@@ -124,11 +134,6 @@ namespace Systems.Buildings.Scripts
         {
             ColourSprite(Color.white);
             AddWallFiller();
-        }
-        
-        private void BuiltState_Exit()
-        {
-            
         }
 
         private void AddWallFiller()

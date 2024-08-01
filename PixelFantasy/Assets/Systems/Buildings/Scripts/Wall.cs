@@ -35,7 +35,7 @@ namespace Systems.Buildings.Scripts
         public override void LoadData(ConstructionData data)
         {
             RuntimeData = data;
-            AssignWallState(data.State);
+            LoadWallState(data.State);
             
             StructureDatabase.Instance.RegisterStructure(this);
             RefreshTaskIcon();
@@ -56,24 +56,20 @@ namespace Systems.Buildings.Scripts
                     throw new ArgumentOutOfRangeException();
             }
         }
-        
-        public void ChangeWallState(EConstructionState newState)
-        {
-            if (RuntimeData.State != newState)
-            {
-                switch (RuntimeData.State)
-                {
-                    case EConstructionState.Blueprint:
-                        BlueprintState_Exit();
-                        break;
-                    case EConstructionState.Built:
-                        BuiltState_Exit();
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
 
-                AssignWallState(newState);
+        private void LoadWallState(EConstructionState state)
+        {
+            switch (state)
+            {
+                case EConstructionState.Blueprint:
+                    EnableObstacle(false);
+                    break;
+                case EConstructionState.Built:
+                    EnableObstacle(true);
+                    break;
+                case EConstructionState.Planning:
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(state), state, null);
             }
         }
         
@@ -85,23 +81,13 @@ namespace Systems.Buildings.Scripts
             ColourTile(Librarian.Instance.GetColour("Blueprint"));
             CreateConstructionHaulingTasks();
         }
-        
-        private void BlueprintState_Exit()
-        {
-            
-        }
 
         private void BuiltState_Enter()
         {
             ColourTile(Color.white);
             EnableObstacle(true);
         }
-        
-        private void BuiltState_Exit()
-        {
-            
-        }
-        
+ 
         public override void RefreshTile()
         {
             var cell = _structureTilemap.WorldToCell(transform.position);
@@ -158,7 +144,7 @@ namespace Systems.Buildings.Scripts
         public override void CompleteConstruction()
         {
             base.CompleteConstruction();
-            ChangeWallState(EConstructionState.Built);
+            AssignWallState(EConstructionState.Built);
         }
 
         public void EnableObstacle(bool isEnabled)

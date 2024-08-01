@@ -116,7 +116,7 @@ namespace Systems.Floors.Scripts
             _dirtTilemap.SetColor(cell, colour);
         }
 
-        public override void CreateConstructTask(bool autoAssign = true)
+        public override void CreateConstructTask()
         {
             Task task = new Task("Clear Grass", ETaskType.Farming, this, EToolType.None);
             task.Enqueue();

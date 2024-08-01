@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Characters;
 using Managers;
 using TaskSystem;
@@ -8,15 +9,14 @@ namespace AI
     public class TasksDatabase : Singleton<TasksDatabase>
     {
         public List<TaskQueue> TaskQueues = new List<TaskQueue>();
-        
+
         public TaskCreator TaskCreator;
-        
+
         private TaskQueue GetTaskQueue(ETaskType taskType)
         {
-            var queue = TaskQueues.Find(q => q.TaskType == taskType);
-            return queue;
+            return TaskQueues.Find(q => q.TaskType == taskType);
         }
-        
+
         public void AddTask(Task task)
         {
             var queue = GetTaskQueue(task.Type);
@@ -25,18 +25,15 @@ namespace AI
                 queue = new TaskQueue(task.Type);
                 TaskQueues.Add(queue);
             }
-
             queue.AddTask(task);
         }
-        
+
         public void RemoveTask(Task task)
         {
             var queue = GetTaskQueue(task.Type);
             if (queue != null)
             {
                 queue.QueuedTasks.Remove(task);
-                
-                // Optionally, remove empty queues
                 if (queue.QueuedTasks.Count == 0)
                 {
                     TaskQueues.Remove(queue);
@@ -46,47 +43,17 @@ namespace AI
 
         public Task QueryTask(string taskId)
         {
-            if (string.IsNullOrEmpty(taskId)) return null;
-            
-            foreach (var queue in TaskQueues)
-            {
-                var task = queue.QueryTask(taskId);
-                if (task != null)
-                {
-                    return task;
-                }
-            }
-
-            return null;
+            return TaskQueues.SelectMany(q => q.QueuedTasks).FirstOrDefault(task => task.UniqueID == taskId);
         }
-        
-        public Task RequestTask(KinlingData kinlingData)
+
+        public List<Task> GetAllTasks()
         {
-            List<ETaskType> prioritizedTasks = kinlingData.TaskPriorities.SortedPriorities();
-            
-            // Get the next job, check if the kinling can do it.
-            // if not, get the next one until either a task is found or hit the end of available tasks, if so return null
-            foreach (var taskType in prioritizedTasks)
-            {
-                var queue = GetTaskQueue(taskType);
-                if (queue != null)
-                {
-                    foreach (var task in queue.QueuedTasks)
-                    {
-                        if (task.Status == ETaskStatus.Pending)
-                        {
-                            if(!task.CanBeRetriedByKinling(kinlingData.UniqueID)) continue;
-                            if(!task.AreSkillsValid(kinlingData.Stats)) continue;
+            return TaskQueues.SelectMany(queue => queue.QueuedTasks).ToList();
+        }
 
-                            task.Status = ETaskStatus.InProgress;
-                            
-                            return task;
-                        }
-                    }
-                }
-            }
-
-            return null;
+        public bool AllTasksChecked(HashSet<string> checkedTaskIDs)
+        {
+            return TaskQueues.SelectMany(queue => queue.QueuedTasks).All(task => task.Status != ETaskStatus.Pending || checkedTaskIDs.Contains(task.UniqueID));
         }
 
         public List<TaskQueue> SaveTaskData()
@@ -104,6 +71,66 @@ namespace AI
             foreach (var queue in TaskQueues)
             {
                 queue.ClearTasks();
+            }
+        }
+
+        public Task RequestTask(KinlingData kinlingData, HashSet<string> checkedTaskIDs)
+        {
+            List<ETaskType> prioritizedTasks = kinlingData.TaskPriorities.SortedPriorities();
+            Task nextTask = null;
+
+            foreach (var taskType in prioritizedTasks)
+            {
+                var queue = GetTaskQueue(taskType);
+                if (queue != null)
+                {
+                    foreach (var task in queue.QueuedTasks)
+                    {
+                        if (task.Status == ETaskStatus.Pending && !checkedTaskIDs.Contains(task.UniqueID))
+                        {
+                            checkedTaskIDs.Add(task.UniqueID);
+
+                            if (task.AreSkillsValid(kinlingData.Stats))
+                            {
+                                lock (task)
+                                {
+                                    if (task.Status == ETaskStatus.Pending)
+                                    {
+                                        task.ClaimTask(kinlingData);
+                                        task.Status = ETaskStatus.InProgress;
+                                        nextTask = task;
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                task.LogFailedAttempt(kinlingData.UniqueID);
+                            }
+                        }
+                    }
+                }
+
+                if (nextTask != null)
+                    break;
+            }
+
+            if (nextTask == null && AllTasksChecked(checkedTaskIDs))
+            {
+                checkedTaskIDs.Clear();
+            }
+
+            return nextTask;
+        }
+
+        public void CancelRequesterTasks(PlayerInteractable requester)
+        {
+            var requesterTasks = TaskQueues.SelectMany(queue => queue.QueuedTasks)
+                .Where(t => t.RequesterID == requester.UniqueID).ToList();
+
+            foreach (var task in requesterTasks)
+            {
+                task.Cancel();
             }
         }
     }

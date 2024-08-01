@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AI;
 using Managers;
 using Sirenix.OdinInspector;
 using Systems.Details.Build_Details.Scripts;
@@ -32,6 +33,7 @@ namespace Systems.Buildings.Scripts
 
         public void DeregisterStructure(StructurePiece structurePiece)
         {
+            TasksDatabase.Instance.CancelRequesterTasks(structurePiece);
             UpdateGrid(structurePiece.Cell.CellPos, EStructureCell.None);
             _registeredPieces.Remove(structurePiece.UniqueID);
             PlayerInteractableDatabase.Instance.DeregisterPlayerInteractable(structurePiece);

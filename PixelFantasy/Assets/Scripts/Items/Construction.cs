@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using AI;
@@ -39,7 +40,7 @@ namespace Items
         {
             
         }
-
+        
         public abstract void LoadData(ConstructionData data);
         
         public override void AssignCommand(Command command)
@@ -227,18 +228,26 @@ namespace Items
             }
         }
         
-        public virtual void CreateConstructTask(bool autoAssign = true)
+        public virtual void CreateConstructTask()
         {
             AI.Task task = new AI.Task("Build Structure", $"Building {RuntimeData.Settings.ConstructionName}" ,ETaskType.Construction, this);
             TasksDatabase.Instance.AddTask(task);
         }
 
-        public virtual void CreateDeconstructionTask(bool autoAssign = true, Action onDeconstructed = null)
+        public virtual void CreateDeconstructionTask(Action onDeconstructed = null)
         {
-            _onDeconstructed = onDeconstructed;
+            if (RuntimeData.State == EConstructionState.Built)
+            {
+                _onDeconstructed = onDeconstructed;
 
-            AI.Task task = new AI.Task("Deconstruct Structure", $"Deconstructing {RuntimeData.Settings.ConstructionName}" ,ETaskType.Construction, this);
-            TasksDatabase.Instance.AddTask(task);
+                AI.Task task = new AI.Task("Deconstruct Structure", $"Deconstructing {RuntimeData.Settings.ConstructionName}" ,ETaskType.Construction, this);
+                TasksDatabase.Instance.AddTask(task);
+            }
+            else
+            {
+                CancelConstruction();
+                onDeconstructed?.Invoke();
+            }
         }
         
         public void CreateConstuctionHaulingTasksForItems(List<CostData> remainingResources)

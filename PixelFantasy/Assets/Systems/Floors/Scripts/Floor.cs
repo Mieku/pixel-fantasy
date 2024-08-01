@@ -1,4 +1,5 @@
 using System;
+using AI;
 using Controllers;
 using Items;
 using Managers;
@@ -37,7 +38,6 @@ namespace Systems.Floors.Scripts
         {
             RuntimeData = data;
             FlooringDatabase.Instance.RegisterFloor(this);
-            AssignFloorState(data.State);
             RefreshTaskIcon();
         }
 
@@ -57,46 +57,16 @@ namespace Systems.Floors.Scripts
             }
         }
 
-        public void ChangeFloorState(EConstructionState newState)
-        {
-            if (RuntimeFloorData.State != newState)
-            {
-                switch (RuntimeFloorData.State)
-                {
-                    case EConstructionState.Blueprint:
-                        BlueprintState_Exit();
-                        break;
-                    case EConstructionState.Built:
-                        BuiltState_Exit();
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-
-                AssignFloorState(newState);
-            }
-        }
-
         private void BlueprintState_Enter()
         {
             SetTile();
             ColourTile(Librarian.Instance.GetColour("Blueprint"));
             CreateConstructionHaulingTasks();
         }
-        
-        private void BlueprintState_Exit()
-        {
-            
-        }
 
         private void BuiltState_Enter()
         {
             ColourTile(Color.white);
-        }
-        
-        private void BuiltState_Exit()
-        {
-            
         }
 
         private void SetTile()
@@ -127,7 +97,7 @@ namespace Systems.Floors.Scripts
         {
             base.CompleteConstruction();
             IsClickDisabled = true;
-            ChangeFloorState(EConstructionState.Built);
+            AssignFloorState(EConstructionState.Built);
         }
         
         public override void CompleteDeconstruction()
@@ -135,12 +105,15 @@ namespace Systems.Floors.Scripts
             base.CompleteDeconstruction();
 
             ClearTile();
+            
+            FlooringDatabase.Instance.DeregisterFloor(this);
         }
 
         public override void CancelConstruction()
         {
             base.CancelConstruction();
             ClearTile();
+            FlooringDatabase.Instance.DeregisterFloor(this);
         }
 
         public override void DoCopy()

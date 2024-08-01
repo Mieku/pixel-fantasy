@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using AI;
 using Managers;
 using Sirenix.OdinInspector;
 using Systems.Details.Build_Details.Scripts;
@@ -21,6 +22,7 @@ namespace Systems.Buildings.Scripts
 
         public void DeregisterFloor(Floor floor)
         {
+            TasksDatabase.Instance.CancelRequesterTasks(floor);
             _registeredFloors.Remove(floor.UniqueID);
             PlayerInteractableDatabase.Instance.DeregisterPlayerInteractable(floor);
         }

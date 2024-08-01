@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Characters.Interfaces;
 using Managers;
+using Sirenix.OdinInspector;
 using Systems.Stats.Scripts;
 using UnityEngine;
 using UnityEngine.AI;
@@ -62,11 +63,14 @@ namespace Characters
             gameObject.transform.position = teleportPos;
         }
 
+        [ShowInInspector] private Vector2? _targetMovePosition;
         public bool SetMovePosition(Vector2? movePosition, Action onReachedMovePosition = null, Action onImpossiblePosition = null)
         {
+            _targetMovePosition = movePosition;
             if (movePosition == null)
             {
                 onImpossiblePosition?.Invoke();
+                _targetMovePosition = null;
                 return false; // Early return if no movePosition provided
             }
 
@@ -83,6 +87,7 @@ namespace Characters
                 if (!NavMesh.SamplePosition(transform.position, out NavMeshHit hit, NEAREST_POINT_SEARCH_RANGE, NavMesh.AllAreas))
                 {
                     onImpossiblePosition?.Invoke();
+                    _targetMovePosition = null;
                     return false; // Failed to find a valid position on the NavMesh
                 }
 
@@ -104,11 +109,13 @@ namespace Characters
                 {
                     DisplayPath();
                 }
+                _targetMovePosition = null;
                 return true; // Successful in setting a destination and calculating the path
             }
             else
             {
                 onImpossiblePosition?.Invoke();
+                _targetMovePosition = null;
                 return false; // Failed to calculate a path to the destination
             }
         }

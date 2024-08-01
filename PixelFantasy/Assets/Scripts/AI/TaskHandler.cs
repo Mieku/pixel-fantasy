@@ -13,10 +13,12 @@ namespace AI
     public class TaskHandler : MonoBehaviour
     {
         [SerializeField] private Kinling _kinling;
-        
+
         private KinlingData _kinlingData => _kinling.RuntimeData;
         private List<TaskTree> _taskTrees;
+        private HashSet<string> _checkedTaskIDs = new HashSet<string>();
         private Task _cachedTask;
+
         public Task CurrentTask
         {
             get
@@ -28,7 +30,7 @@ namespace AI
                 return _cachedTask;
             }
         }
-        
+
         private const float WAIT_TIMER_MAX = 0.05f; // 50ms
         private const float IDLE_TIME = 10f;
 
@@ -39,13 +41,8 @@ namespace AI
 
         public string GetCurrentTaskDisplay()
         {
-            if (CurrentTask == null)
-            {
-                return "Idle";
-            }
-
-            return CurrentTask.GetDisplayName();
-        } 
+            return CurrentTask?.GetDisplayName() ?? "Idle";
+        }
 
         private void FindAllTaskTrees()
         {
@@ -61,7 +58,7 @@ namespace AI
         {
             if (!_kinling.HasInitialized) return;
             if (CurrentTask != null) return;
-            
+
             _kinlingData.WaitingTimer -= TimeManager.Instance.DeltaTime;
             if (_kinlingData.WaitingTimer <= 0)
             {
@@ -96,7 +93,7 @@ namespace AI
 
         private void RequestNextWorkTask()
         {
-            var nextTask = TasksDatabase.Instance.RequestTask(_kinlingData);
+            var nextTask = TasksDatabase.Instance.RequestTask(_kinlingData, _checkedTaskIDs);
             if (nextTask != null)
             {
                 ExecuteTask(nextTask);
@@ -105,39 +102,19 @@ namespace AI
 
         private void RequestNextRecreationTask()
         {
-            
+            // Implementation for recreation tasks
         }
-        
+
         private void RequestSleepTask()
         {
-            // // If the kinling lacks a bed, claim one if available
-            // if (_kinling.RuntimeData.AssignedBed == null)
-            // {
-            //     var bed = FurnitureDatabase.Instance.FindClosestUnclaimedBed(_kinling);
-            //     if (bed != null)
-            //     {
-            //         bed.AssignKinling(_kinling);
-            //     }
-            // }
-            //
-            // if (_kinling.RuntimeData.AssignedBed != null)
-            // {
-            //     Task goToSleepTask = TasksDatabase.Instance.TaskCreator.CreateGoToBedTask();
-            // }
-            // else
-            // {
-            //     Task goToSleepTask = TasksDatabase.Instance.TaskCreator.CreateSleepOnFloorTask();
-            // }
+            // Implementation for sleep tasks
         }
 
         private void RequestIdleTask()
         {
-            
+            // Implementation for idle tasks
         }
 
-        /// <summary>
-        /// This is for scene reloading
-        /// </summary>
         public void StopTask()
         {
             if (CurrentTask != null)
@@ -146,20 +123,18 @@ namespace AI
                 tree.BTOwner.StopBehaviour();
             }
         }
-        
+
         private void ExecuteTask(Task task)
         {
-            // If there is a task currently running, cancel it and return it
             if (CurrentTask != null)
             {
                 CurrentTask.Cancel();
             }
-            
+
             task.ClaimTask(_kinlingData);
             _kinlingData.CurrentTaskID = task.UniqueID;
-            
+
             var tree = FindTaskTreeFor(task);
-            
             tree.ExecuteTask(task.TaskData, OnFinished);
         }
 
@@ -169,6 +144,7 @@ namespace AI
             {
                 var tree = FindTaskTreeFor(task);
                 tree.BTOwner.StopBehaviour(false);
+                task.UnClaimTask(_kinlingData);
             }
         }
 
@@ -193,18 +169,19 @@ namespace AI
 
         private void OnFinished(bool success)
         {
-            if(DataPersistenceManager.WorldIsClearing) return;
+            if (DataPersistenceManager.WorldIsClearing) return;
 
             if (CurrentTask != null)
             {
                 var curTask = CurrentTask;
-            
+
                 if (!success)
                 {
                     if (curTask.Status != ETaskStatus.Canceled)
                     {
                         curTask.LogFailedAttempt(_kinlingData.UniqueID);
                         curTask.Status = ETaskStatus.Pending;
+                        curTask.UnClaimTask(_kinlingData);
                     }
                 }
                 else
@@ -212,24 +189,23 @@ namespace AI
                     curTask.Status = ETaskStatus.Completed;
                     TasksDatabase.Instance.RemoveTask(curTask);
                 }
-            
+
                 curTask.TaskComplete(success);
             }
-            
+
             _kinlingData.CurrentTaskID = null;
         }
 
         public bool HasTreeForTask(Task task)
         {
-            var tree = FindTaskTreeFor(task);
-            return tree != null;
+            return _taskTrees.Any(t => t.TaskID == task.TaskID);
         }
-        
+
         public AvatarLayer.EAppearanceDirection GetActionDirection(Vector3 targetPos)
         {
             return DetermineUnitActionDirection(targetPos, transform.position);
         }
-        
+
         private AvatarLayer.EAppearanceDirection DetermineUnitActionDirection(Vector3 workPos, Vector3 standPos)
         {
             const float threshold = 0.25f;
@@ -237,7 +213,7 @@ namespace AI
             if (standPos.y >= workPos.y + threshold)
             {
                 return AvatarLayer.EAppearanceDirection.Down;
-            } 
+            }
             else if (standPos.y <= workPos.y - threshold)
             {
                 return AvatarLayer.EAppearanceDirection.Up;

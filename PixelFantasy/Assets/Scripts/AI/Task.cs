@@ -44,7 +44,6 @@ namespace AI
             FailedLog = new Dictionary<string, DateTime>();
         }
         
-        /// <returns>Returns a player friendly name for the current task</returns>
         public string GetDisplayName()
         {
             return DisplayName;
@@ -53,8 +52,17 @@ namespace AI
         public void ClaimTask(KinlingData kinlingData)
         {
             ClaimedKinlingUID = kinlingData.UniqueID;
+            TaskData["KinlingUID"] = kinlingData.UniqueID;
+        }
+
+        public void UnClaimTask(KinlingData kinlingData)
+        {
+            if (string.IsNullOrEmpty(ClaimedKinlingUID)) return;
             
-            TaskData["KinlingUID"] =  kinlingData.UniqueID;
+            if (ClaimedKinlingUID != kinlingData.UniqueID) Debug.LogError("Tried to unclaim task claimed by someone else");
+
+            ClaimedKinlingUID = null;
+            TaskData.Remove("KinlingUID");
         }
 
         public bool CanBeRetriedByKinling(string kinlingID)
@@ -75,8 +83,7 @@ namespace AI
         {
             if (SkillRequirements == null) return true;
 
-            bool skillsPass = statsData.CheckSkillRequirements(SkillRequirements);
-            return skillsPass;
+            return statsData.CheckSkillRequirements(SkillRequirements);
         }
 
         public void Cancel()
