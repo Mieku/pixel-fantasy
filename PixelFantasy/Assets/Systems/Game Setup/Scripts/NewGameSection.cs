@@ -1,13 +1,12 @@
 using System;
 using Player;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Systems.Game_Setup.Scripts
 {
     public class NewGameSection : GameSetupSection
     {
-        public PlayerData PlayerData;
-        
         public enum ENewGameSetupStage
         {
             ChooseBackgroundSettings,
@@ -24,8 +23,6 @@ namespace Systems.Game_Setup.Scripts
         public override void Show()
         {
             base.Show();
-
-            PlayerData = new PlayerData();
             
             ChangeSetupStage(ENewGameSetupStage.ChooseBackgroundSettings);
         }
@@ -75,7 +72,7 @@ namespace Systems.Game_Setup.Scripts
 
         private void StartNewGame()
         {
-            GameManager.Instance.StartNewGame(PlayerData, _chooseKinlingsPanel.PlayersKinlings, _chooseWorldPanel.BlueprintLayers);
+            GameManager.Instance.StartNewGame(_chooseBackgroundPanel.SettlementName, _chooseKinlingsPanel.PlayersKinlings, _chooseWorldPanel.BlueprintLayers);
         }
 
         private void ChangeSetupStage(ENewGameSetupStage stage)

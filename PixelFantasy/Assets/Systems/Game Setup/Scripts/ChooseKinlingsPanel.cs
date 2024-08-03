@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Characters;
 using HUD.Tooltip;
+using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Systems.Appearance.Scripts;
 using Systems.Stats.Scripts;
@@ -71,7 +72,8 @@ namespace Systems.Game_Setup.Scripts
             if (PlayersKinlings == null || PlayersKinlings.Count == 0)
             {
                 // Generate new kinlings
-                PlayersKinlings = GameManager.Instance.GenerateNewKinlings(_numberOfKinlings);
+                var race = GameSettings.Instance.LoadRaceSettings("Human");
+                PlayersKinlings = GameManager.Instance.GenerateNewKinlings(_numberOfKinlings, race);
                 _selectedKinling = null;
             }
             
@@ -278,7 +280,8 @@ namespace Systems.Game_Setup.Scripts
 
         public void OnRerollColonyPressed()
         {
-            PlayersKinlings = GameManager.Instance.GenerateNewKinlings(_numberOfKinlings);
+            var race = GameSettings.Instance.LoadRaceSettings("Human");
+            PlayersKinlings = GameManager.Instance.GenerateNewKinlings(_numberOfKinlings, race);
             _selectedKinling = null;
             
             RefreshDisplayedKinlings();

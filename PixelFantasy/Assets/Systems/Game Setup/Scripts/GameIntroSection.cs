@@ -1,3 +1,5 @@
+using DataPersistence;
+using Popups;
 using UnityEngine;
 
 namespace Systems.Game_Setup.Scripts
@@ -5,7 +7,8 @@ namespace Systems.Game_Setup.Scripts
     public class GameIntroSection : GameSetupSection
     {
         [SerializeField] private GameObject _resumeButton;
-        
+        [SerializeField] private GameObject _loadButton;
+
         public override void Show()
         {
             base.Show();
@@ -15,13 +18,16 @@ namespace Systems.Game_Setup.Scripts
 
         private void CheckIfResumeAvailable()
         {
-            // TODO: Check if there is a saved game, if so show the resume button
-            _resumeButton.SetActive(false);
+            var hasSaves = DataPersistenceManager.Instance.AreSavesAvailable();
+            
+            _resumeButton.SetActive(hasSaves);
+            _loadButton.SetActive(hasSaves);
         }
 
         public void OnResumePressed()
         {
-            Debug.Log("Resume Pressed");
+            var recentSave = DataPersistenceManager.Instance.GetMostRecentSave();
+            GameManager.Instance.StartLoadedGame(recentSave, true);
         }
 
         public void OnNewGamePressed()
@@ -31,8 +37,10 @@ namespace Systems.Game_Setup.Scripts
 
         public void OnLoadPressed()
         {
-            Debug.Log("Load Pressed");
-            GameManager.Instance.StartLoadedGame("", true);
+            LoadGamePopup.Show(data =>
+            {
+                GameManager.Instance.StartLoadedGame(data, true);
+            }, CheckIfResumeAvailable);
         }
         
         public void OnSettingsPressed()

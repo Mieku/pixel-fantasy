@@ -5,8 +5,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Characters;
+using Controllers;
 using DataPersistence;
 using Handlers;
+using Managers;
 using Sirenix.OdinInspector;
 using Systems.Game_Setup.Scripts;
 using TWC;
@@ -639,6 +642,63 @@ namespace Systems.World_Building.Scripts
         private bool IsWithinBounds(Vector2Int position, bool[,] array)
         {
             return position.x >= 0 && position.y >= 0 && position.x < array.GetLength(0) && position.y < array.GetLength(1);
+        }
+        
+        public IEnumerator SetUpNewGameCoroutine(List<KinlingData> starterKinling, List<TileWorldCreatorAsset.BlueprintLayerData> blueprintLayers)
+        {
+            yield return StartCoroutine(GenerateAreaCoroutine(blueprintLayers));
+            
+            // Allow frame to render and update UI/loading screen here
+            yield return null;
+            
+            // Wait for a frame after all world-building tasks are complete before updating the NavMesh
+            yield return new WaitForEndOfFrame();
+
+            NavMeshManager.Instance.UpdateNavMesh(forceRebuild: true);
+            
+            // Again, yield to keep the UI responsive
+            yield return null;
+            
+            ApplyStarterKinlings(StartPos, starterKinling);
+            yield return null;
+            
+            GameEvents.Trigger_RefreshInventoryDisplay();
+            
+            Vector2 lookPos = new Vector2
+            {
+                x = StartPos.x,
+                y = StartPos.y
+            };
+            CameraManager.Instance.LookAtPosition(lookPos);
+            yield return null;
+        }
+        
+        private void ApplyStarterKinlings(Vector3Int startCell, List<KinlingData> starterKinlings)
+        {
+            Vector2 startPos = new Vector2(startCell.x, startCell.y);
+            foreach (var kinling in starterKinlings)
+            {
+                Vector2 pos;
+                int attempts = 0;
+                RaycastHit2D hit;
+                do
+                {
+                    pos = Helper.RandomLocationInRange(startPos);
+                    hit = Physics2D.Raycast(pos, Vector2.zero, 0, LayerMask.GetMask("Obstacle"));
+                    if (hit.collider != null)
+                    {
+                        Debug.Log($"Attempted to spawn on an obstacle: {hit.collider.gameObject.name} at position {pos}");
+                    }
+                    attempts++;
+                    if (attempts > 20)
+                    {
+                        Debug.LogWarning("Unable to find a valid position without obstacles after 20 attempts.");
+                        break;
+                    }
+                } while (hit.collider != null);
+
+                KinlingsDatabase.Instance.SpawnKinling(kinling, pos);
+            }
         }
     }
 }

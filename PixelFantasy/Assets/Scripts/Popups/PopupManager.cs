@@ -7,7 +7,7 @@ using Managers;
 
 namespace Popups
 {
-    public class PopupManager : Singleton<PopupManager>
+    public class PopupManager : PersistentSingleton<PopupManager>
     {
         [SerializeField] Transform _popupCanvas;
         

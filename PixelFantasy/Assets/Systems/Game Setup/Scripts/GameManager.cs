@@ -1,13 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Characters;
-using Controllers;
 using DataPersistence;
 using Managers;
 using Player;
-using Sirenix.OdinInspector;
 using Systems.Appearance.Scripts;
 using Systems.Buildings.Scripts;
 using Systems.Social.Scripts;
@@ -15,22 +12,15 @@ using Systems.World_Building.Scripts;
 using TWC;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Systems.Game_Setup.Scripts
 {
     public class GameManager : PersistentSingleton<GameManager>
     {
-        public PlayerData PlayerData;
+        public GameData GameData;
 
         public int RandomSeedSalt => Time.frameCount;
-        
-        [SerializeField] private WorldBuilder _worldBuilder;
-        [SerializeField] private bool _generateWorldOnStart;
-        [SerializeField] private int _numStarterKinlings;
-
-        [SerializeField] private RaceSettings _race;
 
         protected override void Awake()
         {
@@ -49,28 +39,34 @@ namespace Systems.Game_Setup.Scripts
             if (Input.GetKeyDown(KeyCode.L))
             {
                 Debug.Log("Quick load test");
-                StartLoadedGame("", false);
+                var recentSave = DataPersistenceManager.Instance.GetMostRecentSave();
+                if (recentSave != null)
+                {
+                    StartLoadedGame(recentSave, false);
+                }
             }
         }
 
-        public void StartNewGame(PlayerData playerData, List<KinlingData> starterKinlings, List<TileWorldCreatorAsset.BlueprintLayerData> blueprintLayers)
+        public void StartNewGame(string settlementName, List<KinlingData> starterKinlings, List<TileWorldCreatorAsset.BlueprintLayerData> blueprintLayers)
         {
-            PlayerData = playerData;
+            GameData = new GameData();
+            GameData.SettlementName = settlementName;
+            
             StartCoroutine(LoadSceneAndSetUpNewGame(starterKinlings, blueprintLayers));
         }
 
-        public void StartLoadedGame(string savePath, bool loadScene)
+        public void StartLoadedGame(DataPersistenceManager.SaveData saveData, bool loadScene)
         {
-            StartCoroutine(LoadSceneAndContinueLoad(savePath, loadScene));
+            StartCoroutine(LoadSceneAndContinueLoad(saveData, loadScene));
         }
 
         private bool _gameLoaded;
-        public IEnumerator LoadSceneAndContinueLoad(string savePath, bool loadScene)
+        public IEnumerator LoadSceneAndContinueLoad(DataPersistenceManager.SaveData saveData, bool loadScene)
         {
             LoadingScreen.Instance.Show("Generating World", "Initializing...", 13);
             yield return new WaitForEndOfFrame();
             
-            // // Start loading the scene
+            // Start loading the scene
             if (loadScene)
             {
                 AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
@@ -88,7 +84,7 @@ namespace Systems.Game_Setup.Scripts
             Vector2Int worldSize = new Vector2Int(36, 36);
             StructureDatabase.Instance.Init(worldSize);
             
-            yield return StartCoroutine(DataPersistenceManager.Instance.LoadGameCoroutine(() =>
+            yield return StartCoroutine(DataPersistenceManager.Instance.LoadGameCoroutine(saveData, () =>
             {
                 // Load completed
                 _gameLoaded = true;
@@ -132,90 +128,46 @@ namespace Systems.Game_Setup.Scripts
             }
 
             // Now the scene is loaded, find the WorldBuilder
-            _worldBuilder = FindObjectOfType<WorldBuilder>();
-
-            if (_worldBuilder == null)
+            var worldBuilder = FindObjectOfType<WorldBuilder>();
+            
+            if (worldBuilder == null)
             {
                 Debug.LogError("WorldBuilder not found in the loaded scene.");
                 yield break;
             }
 
-            // Start the coroutine to set up the new game
-            StartCoroutine(SetUpNewGameCoroutine(starterKinlings, blueprintLayers));
+            StartCoroutine(worldBuilder.SetUpNewGameCoroutine(starterKinlings, blueprintLayers));
 
             // Initialize the StructureManager with the WorldBuilder's WorldSize
             Vector2Int worldSize = new Vector2Int(36, 36);
             StructureDatabase.Instance.Init(worldSize);
         }
-        
-        public IEnumerator SetUpNewGameCoroutine(List<KinlingData> starterKinling, List<TileWorldCreatorAsset.BlueprintLayerData> blueprintLayers)
-        {
-            if (_generateWorldOnStart)
-            {
-                yield return StartCoroutine(_worldBuilder.GenerateAreaCoroutine(blueprintLayers));
-            }
-            
-            // Allow frame to render and update UI/loading screen here
-            yield return null;
-            
-            // Wait for a frame after all world-building tasks are complete before updating the NavMesh
-            yield return new WaitForEndOfFrame();
 
-            NavMeshManager.Instance.UpdateNavMesh(forceRebuild: true);
-            
-            // Again, yield to keep the UI responsive
-            yield return null;
-            
-            ApplyStarterKinlings(_worldBuilder.StartPos, starterKinling);
-            yield return null;
-            
-            GameEvents.Trigger_RefreshInventoryDisplay();
-            
-            Vector2 lookPos = new Vector2
-            {
-                x = _worldBuilder.StartPos.x,
-                y = _worldBuilder.StartPos.y
-            };
-            CameraManager.Instance.LookAtPosition(lookPos);
-            yield return null;
-        }
-        
-        private void ApplyStarterKinlings(Vector3Int startCell, List<KinlingData> starterKinlings)
+        public void GoToMainMenu()
         {
-            Vector2 startPos = new Vector2(startCell.x, startCell.y);
-            foreach (var kinling in starterKinlings)
-            {
-                Vector2 pos;
-                int attempts = 0;
-                RaycastHit2D hit;
-                do
-                {
-                    pos = Helper.RandomLocationInRange(startPos);
-                    hit = Physics2D.Raycast(pos, Vector2.zero, 0, LayerMask.GetMask("Obstacle"));
-                    if (hit.collider != null)
-                    {
-                        Debug.Log($"Attempted to spawn on an obstacle: {hit.collider.gameObject.name} at position {pos}");
-                    }
-                    attempts++;
-                    if (attempts > 20)
-                    {
-                        Debug.LogWarning("Unable to find a valid position without obstacles after 20 attempts.");
-                        break;
-                    }
-                } while (hit.collider != null);
-
-                KinlingsDatabase.Instance.SpawnKinling(kinling, pos);
-            }
+            StartCoroutine(DataPersistenceManager.Instance.ClearWorld());
+            GameData = new GameData();
+            SceneManager.LoadScene(0, LoadSceneMode.Single);
         }
 
-        public List<KinlingData> GenerateNewKinlings(int amount)
+        public void QuitGame()
+        {
+            Application.Quit();
+
+            // If you are running the game in the editor, this line will stop playing the scene
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
+        }
+
+        public List<KinlingData> GenerateNewKinlings(int amount, RaceSettings race)
         {
             Random.InitState(RandomSeedSalt);
             List<KinlingData> results = new List<KinlingData>();
             for (int i = 0; i < amount; i++)
             {
                 var kinlingData = new KinlingData();
-                kinlingData.Randomize(_race);
+                kinlingData.Randomize(race);
                 kinlingData.Mood.JumpMoodToTarget();
                 AppearanceBuilder.Instance.UpdateAppearance(kinlingData);
                 results.Add(kinlingData);

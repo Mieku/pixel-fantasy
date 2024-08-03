@@ -6,15 +6,16 @@ using UnityEngine;
 
 namespace Systems.Kinling_Selector.Scripts
 {
-    public class KinlingSelector : Singleton<KinlingSelector>
+    public class KinlingSelector : MonoBehaviour
     {
         [SerializeField] private KinlingDisplay _kinlingDisplayPrefab;
 
+        public static KinlingSelector Instance;
         private readonly List<KinlingDisplay> _displayedKinlings = new List<KinlingDisplay>();
 
-        protected override void Awake()
+        protected void Awake()
         {
-            base.Awake();
+            Instance = this;
             _kinlingDisplayPrefab.gameObject.SetActive(false);
         }
 

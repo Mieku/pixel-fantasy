@@ -2,12 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
+using System.Linq;
 using AI;
 using Characters;
 using Controllers;
 using Handlers;
 using Managers;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Player;
 using Systems.Buildings.Scripts;
 using Systems.Game_Setup.Scripts;
 using Systems.Zones.Scripts;
@@ -26,16 +30,6 @@ namespace DataPersistence
         [Serializable]
         public class SaveData
         {
-            [Serializable]
-            public class SaveHeader
-            {
-                public string GameVersion;
-                public string SaveName;
-                public string SettlementName;
-                public string ScreenshotPath;
-                public DateTime SaveDate;
-            }
-
             public SaveHeader Header;
             public CameraData CameraData;
             public EnvironmentData EnvironmentData;
@@ -51,17 +45,21 @@ namespace DataPersistence
             public List<TaskQueue> TasksData;
         }
 
-        private SaveData.SaveHeader GenerateHeader()
+        private SaveHeader GenerateHeader()
         {
-            var screenshotPath = TakeScreenshot();
+            string uniqueID = $"{Guid.NewGuid()}";
+            string saveFileName = SanitizeFileName($"{uniqueID}");
             
-            return new SaveData.SaveHeader()
+            return new SaveHeader()
             {
                 GameVersion = Application.version,
-                SaveName = "Tester Save",
-                SettlementName = GameManager.Instance.PlayerData.SettlementName,
-                ScreenshotPath = screenshotPath,
+                SaveFileName = saveFileName,
+                SettlementName = GameManager.Instance.GameData.SettlementName,
+                SaveName = GameManager.Instance.GameData.SettlementName,
+                ScreenshotPath = TakeScreenshot(saveFileName),
                 SaveDate = DateTime.Now,
+                GameDate = EnvironmentManager.Instance.GameTime.Readable(),
+                UniqueID = uniqueID,
             };
         }
         
@@ -71,7 +69,7 @@ namespace DataPersistence
             stopwatch.Start();
 
             // Define the total number of steps
-            int totalSteps = 15;
+            int totalSteps = 14;
             int currentStep = 0;
 
             // Increment step and report progress
@@ -81,10 +79,33 @@ namespace DataPersistence
                 progressCallback?.Invoke((float)currentStep / totalSteps);
             }
 
-            SaveData saveData = new SaveData();
+            yield return StartCoroutine(CreateSaveData(ReportProgress, (saveData) =>
+            {
+                StartCoroutine(WriteSaveData(saveData, () =>
+                {
+                    Debug.Log("Save Complete in " + stopwatch.ElapsedMilliseconds + " ms");
+                }));
+            }));
 
-            // Collecting data and reporting progress
-            saveData.Header = GenerateHeader();
+            stopwatch.Stop();
+            ReportProgress();
+            yield return null;
+        }
+
+        private IEnumerator CreateSaveData(Action stepCompleteCallback, Action<SaveData> onSaveDataCreated)
+        {
+            // Increment step and report progress
+            void ReportProgress()
+            {
+                stepCompleteCallback?.Invoke();
+            }
+            
+            SaveData saveData = new SaveData
+            {
+                // Collecting data and reporting progress
+                Header = GenerateHeader()
+            };
+            
             ReportProgress();
             yield return null;
 
@@ -135,7 +156,12 @@ namespace DataPersistence
             saveData.TasksData = TasksDatabase.Instance.SaveTaskData();
             ReportProgress();
             yield return null;
+            
+            onSaveDataCreated?.Invoke(saveData);
+        }
 
+        private IEnumerator WriteSaveData(SaveData saveData, Action onComplete)
+        {
             // Serialization
             var settings = new JsonSerializerSettings
             {
@@ -156,16 +182,17 @@ namespace DataPersistence
                 Debug.LogError("StackTrace: " + ex.StackTrace);
                 yield break;
             }
-
-            // Yield to allow frame update after serialization
-            ReportProgress();
-            yield return null;
+            
+            // Ensure there is a save directory
+            if (!System.IO.Directory.Exists($"{Application.persistentDataPath}/Saves"))
+            {
+                System.IO.Directory.CreateDirectory($"{Application.persistentDataPath}/Saves");
+            }
 
             // Saving to file
             try
             {
-                System.IO.File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
-                Debug.Log("Save Complete in " + stopwatch.ElapsedMilliseconds + " ms");
+                System.IO.File.WriteAllText($"{Application.persistentDataPath}/Saves/{saveData.Header.SaveFileName}.json", json);
             }
             catch (Exception ex)
             {
@@ -174,12 +201,8 @@ namespace DataPersistence
             }
             finally
             {
-                stopwatch.Stop();
+                onComplete?.Invoke();
             }
-
-            // Final progress report
-            ReportProgress();
-            yield return null;
         }
         
         private void HandleSerializationError(object sender, Newtonsoft.Json.Serialization.ErrorEventArgs e)
@@ -189,29 +212,28 @@ namespace DataPersistence
             e.ErrorContext.Handled = true;
         }
 
-        private string TakeScreenshot()
+        private string TakeScreenshot(string fileName)
         {
-            string fileName = "savefile_screenshot.png";
-            string screenshotFolderPath = Application.persistentDataPath + "/SaveScreenshots";
-            
+            string screenshotFolderPath = $"{Application.persistentDataPath}/Saves/SaveScreenshots";
+    
             if (!System.IO.Directory.Exists(screenshotFolderPath))
             {
                 System.IO.Directory.CreateDirectory(screenshotFolderPath);
             }
-            
-            string filePath = System.IO.Path.Combine(screenshotFolderPath, fileName);
-            
-            //_UIHandle.gameObject.SetActive(false);
+    
+            string filePath = System.IO.Path.Combine(screenshotFolderPath, fileName + ".png");
+    
+            _UIHandle.gameObject.SetActive(false);
 
             // Capture the screenshot and save it
             ScreenCapture.CaptureScreenshot(filePath);
-            
-            //_UIHandle.gameObject.SetActive(true);
+    
+            _UIHandle.gameObject.SetActive(true);
 
             return filePath;
         }
         
-        public IEnumerator LoadGameCoroutine(Action onLoadFinished, Action<string> onStepStarted, Action<string> onStepCompleted)
+        public IEnumerator LoadGameCoroutine(SaveData saveData, Action onLoadFinished, Action<string> onStepStarted, Action<string> onStepCompleted)
         {
             // Ensures the game is paused during load, returns to prior state when done
             var gameSpeed = TimeManager.Instance.GameSpeed;
@@ -222,73 +244,61 @@ namespace DataPersistence
             stopwatch.Start();
     
             GameEvents.Trigger_OnGameLoadStart();
-    
-            string path = Application.persistentDataPath + "/savefile.json";
-            if (System.IO.File.Exists(path))
-            {
-                string json = System.IO.File.ReadAllText(path);
+            
+            yield return StartCoroutine(ClearWorld());
+            onStepCompleted?.Invoke("Prepping Data");
+                
+            onStepStarted?.Invoke("Loading Tasks");
+            TasksDatabase.Instance.LoadTasksData(saveData.TasksData);
+            onStepCompleted?.Invoke("Loading Tasks");
+            yield return null;
+        
+            onStepStarted?.Invoke("Loading Environment");
+            CameraManager.Instance.LoadCameraData(saveData.CameraData);
+            EnvironmentManager.Instance.LoadEnvironmentData(saveData.EnvironmentData);
+            onStepCompleted?.Invoke("Loading Environment");
+            yield return null;
+        
+            onStepStarted?.Invoke("Loading Tilemaps");
+            TilemapController.Instance.LoadTileMapData(saveData.TileMapData);
+            _rampsHandler.LoadRampsData(saveData.RampData);
+            onStepCompleted?.Invoke("Loading Tilemaps");
+            yield return null;
+        
+            onStepStarted?.Invoke("Spawning Resources");
+            ResourcesDatabase.Instance.LoadResourcesData(saveData.ResourcesData);
+            onStepCompleted?.Invoke("Spawning Resources");
+            yield return null;
+        
+            onStepStarted?.Invoke("Spawning Items");
+            ItemsDatabase.Instance.LoadItemsData(saveData.ItemsData);
+            onStepCompleted?.Invoke("Spawning Items");
+            yield return null;
+        
+            onStepStarted?.Invoke("Spawning Zones");
+            ZonesDatabase.Instance.LoadZonesData(saveData.ZonesData);
+            onStepCompleted?.Invoke("Spawning Zones");
+            yield return null;
+        
+            onStepStarted?.Invoke("Spawning Structures");
+            StructureDatabase.Instance.LoadStructureData(saveData.StructuresData);
+            FlooringDatabase.Instance.LoadFloorData(saveData.FloorsData);
+            onStepCompleted?.Invoke("Spawning Structures");
+            yield return null;
+        
+            onStepStarted?.Invoke("Spawning Furniture");
+            FurnitureDatabase.Instance.LoadFurnitureData(saveData.FurnitureData);
+            onStepCompleted?.Invoke("Spawning Furniture");
+            yield return null;
+                
+            NavMeshManager.Instance.UpdateNavMesh(true);
+        
+            onStepStarted?.Invoke("Spawning Kinlings");
+            KinlingsDatabase.Instance.LoadKinlingsData(saveData.Kinlings);
+            onStepCompleted?.Invoke("Spawning Kinlings");
+            yield return null;
 
-                var settings = new JsonSerializerSettings
-                {
-                    TypeNameHandling = TypeNameHandling.Auto,
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                };
-        
-                var saveData = JsonConvert.DeserializeObject<SaveData>(json, settings);
-                
-                yield return StartCoroutine(ClearWorld());
-                onStepCompleted?.Invoke("Prepping Data");
-                
-                onStepStarted?.Invoke("Loading Tasks");
-                TasksDatabase.Instance.LoadTasksData(saveData.TasksData);
-                onStepCompleted?.Invoke("Loading Tasks");
-                yield return null;
-        
-                onStepStarted?.Invoke("Loading Environment");
-                CameraManager.Instance.LoadCameraData(saveData.CameraData);
-                EnvironmentManager.Instance.LoadEnvironmentData(saveData.EnvironmentData);
-                onStepCompleted?.Invoke("Loading Environment");
-                yield return null;
-        
-                onStepStarted?.Invoke("Loading Tilemaps");
-                TilemapController.Instance.LoadTileMapData(saveData.TileMapData);
-                _rampsHandler.LoadRampsData(saveData.RampData);
-                onStepCompleted?.Invoke("Loading Tilemaps");
-                yield return null;
-        
-                onStepStarted?.Invoke("Spawning Resources");
-                ResourcesDatabase.Instance.LoadResourcesData(saveData.ResourcesData);
-                onStepCompleted?.Invoke("Spawning Resources");
-                yield return null;
-        
-                onStepStarted?.Invoke("Spawning Items");
-                ItemsDatabase.Instance.LoadItemsData(saveData.ItemsData);
-                onStepCompleted?.Invoke("Spawning Items");
-                yield return null;
-        
-                onStepStarted?.Invoke("Spawning Zones");
-                ZonesDatabase.Instance.LoadZonesData(saveData.ZonesData);
-                onStepCompleted?.Invoke("Spawning Zones");
-                yield return null;
-        
-                onStepStarted?.Invoke("Spawning Structures");
-                StructureDatabase.Instance.LoadStructureData(saveData.StructuresData);
-                FlooringDatabase.Instance.LoadFloorData(saveData.FloorsData);
-                onStepCompleted?.Invoke("Spawning Structures");
-                yield return null;
-        
-                onStepStarted?.Invoke("Spawning Furniture");
-                FurnitureDatabase.Instance.LoadFurnitureData(saveData.FurnitureData);
-                onStepCompleted?.Invoke("Spawning Furniture");
-                yield return null;
-                
-                NavMeshManager.Instance.UpdateNavMesh(true);
-        
-                onStepStarted?.Invoke("Spawning Kinlings");
-                KinlingsDatabase.Instance.LoadKinlingsData(saveData.Kinlings);
-                onStepCompleted?.Invoke("Spawning Kinlings");
-                yield return null;
-            }
+            GameManager.Instance.GameData.SettlementName = saveData.Header.SettlementName;
     
             stopwatch.Stop();
             Debug.Log($"Load Complete in {stopwatch.ElapsedMilliseconds} ms");
@@ -346,5 +356,172 @@ namespace DataPersistence
 
             WorldIsClearing = false;
         }
+
+        public bool AreSavesAvailable()
+        {
+            // Ensure there is a save directory
+            if (!System.IO.Directory.Exists($"{Application.persistentDataPath}/Saves"))
+            {
+                System.IO.Directory.CreateDirectory($"{Application.persistentDataPath}/Saves");
+            }
+    
+            var saveFiles = System.IO.Directory.GetFiles($"{Application.persistentDataPath}/Saves");
+            if (saveFiles.Length > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+        
+        public List<SaveHeader> GetAllSaveHeaders()
+        {
+            List<SaveHeader> results = new List<SaveHeader>();
+    
+            // Ensure there is a save directory
+            if (!System.IO.Directory.Exists($"{Application.persistentDataPath}/Saves"))
+            {
+                System.IO.Directory.CreateDirectory($"{Application.persistentDataPath}/Saves");
+            }
+    
+            var saveFiles = System.IO.Directory.GetFiles($"{Application.persistentDataPath}/Saves");
+            foreach (var saveFile in saveFiles)
+            {
+                if (System.IO.File.Exists(saveFile))
+                {
+                    string json = System.IO.File.ReadAllText(saveFile);
+
+                    var settings = new JsonSerializerSettings
+                    {
+                        TypeNameHandling = TypeNameHandling.Auto,
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    };
+
+                    // Deserialize only the SaveHeader part of the JSON
+                    var saveHeader = JsonConvert.DeserializeObject<SaveHeader>(
+                        JObject.Parse(json)["Header"].ToString(), 
+                        settings
+                    );
+                    results.Add(saveHeader);
+                }
+            }
+            
+            // Sort results by SaveDate in descending order
+            results.Sort((x, y) => y.SaveDate.CompareTo(x.SaveDate));
+
+            return results;
+        }
+
+        public SaveData LoadSaveFromHeader(SaveHeader header)
+        {
+            string filePath = $"{Application.persistentDataPath}/Saves/{header.SaveFileName}.json";
+            if (System.IO.File.Exists(filePath))
+            {
+                string json = System.IO.File.ReadAllText(filePath);
+
+                var settings = new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Auto,
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+
+                return JsonConvert.DeserializeObject<SaveData>(json, settings);
+            }
+            else
+            {
+                Debug.LogError("Save file not found: " + filePath);
+                return null;
+            }
+        }
+
+        public SaveData GetMostRecentSave()
+        {
+            var allSaves = GetAllSaveHeaders();
+            if (allSaves == null || allSaves.Count == 0)
+            {
+                return null;
+            }
+
+            return LoadSaveFromHeader(allSaves.First());
+        }
+        
+        private string SanitizeFileName(string fileName)
+        {
+            foreach (char c in System.IO.Path.GetInvalidFileNameChars())
+            {
+                fileName = fileName.Replace(c, '_'); // Replace invalid characters with an underscore
+            }
+            return fileName;
+        }
+
+        public void ChangeSaveName(SaveHeader header, string newSaveName, Action<SaveHeader> onComplete)
+        {
+            var oldSave = LoadSaveFromHeader(header);
+            oldSave.Header.SaveName = newSaveName;
+
+            StartCoroutine(WriteSaveData(oldSave, () =>
+            {
+                onComplete?.Invoke(oldSave.Header);
+            }));
+        }
+
+        public void OverwriteSave(SaveHeader headerToOverwrite, Action<float> progressCallback, Action<SaveHeader> onComplete)
+        {
+            var saveName = headerToOverwrite.SaveName;
+            DeleteSave(headerToOverwrite);
+            
+            // Define the total number of steps
+            int totalSteps = 14;
+            int currentStep = 0;
+
+            // Increment step and report progress
+            void ReportProgress()
+            {
+                currentStep++;
+                progressCallback?.Invoke((float)currentStep / totalSteps);
+            }
+            
+            StartCoroutine(CreateSaveData(ReportProgress, (saveData) =>
+            {
+                saveData.Header.SaveName = saveName;
+                
+                StartCoroutine(WriteSaveData(saveData, () =>
+                {
+                    ReportProgress();
+                    onComplete?.Invoke(saveData.Header);
+                }));
+            }));
+        }
+
+        public void DeleteSave(SaveHeader header)
+        {
+            string filePath = $"{Application.persistentDataPath}/Saves/{header.SaveFileName}.json";
+            string screenshotPath = header.ScreenshotPath;
+            
+            // Delete Save
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
+            
+            // Delete Screenshot
+            if (System.IO.File.Exists(screenshotPath))
+            {
+                System.IO.File.Delete(screenshotPath);
+            }
+        }
+    }
+    
+    [Serializable]
+    public class SaveHeader
+    {
+        public string GameVersion;
+        public string SaveName;
+        public string SaveFileName;
+        public string SettlementName;
+        public string ScreenshotPath;
+        public DateTime SaveDate;
+        public string GameDate;
+        public string UniqueID;
     }
 }
