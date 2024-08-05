@@ -11,6 +11,7 @@ using Handlers;
 using Managers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Player;
 using Systems.Buildings.Scripts;
 using Systems.Game_Setup.Scripts;
 using Systems.Zones.Scripts;
@@ -93,6 +94,58 @@ namespace DataPersistence
             };
         }
         
+        public IEnumerator AutoSaveGameCoroutine(Action<float> progressCallback)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            // Define the total number of steps
+            int totalSteps = 14;
+            int currentStep = 0;
+
+            // Increment step and report progress
+            void ReportProgress()
+            {
+                currentStep++;
+                progressCallback?.Invoke((float)currentStep / totalSteps);
+            }
+
+            // Create and write the autosave data
+            yield return StartCoroutine(CreateSaveData(ReportProgress, (saveData) =>
+            {
+                saveData.Header.IsAutoSave = true;
+                saveData.Header.SaveFileName = $"AutoSave_{saveData.Header.SaveFileName}";
+                StartCoroutine(WriteSaveData(saveData, () =>
+                {
+                    Debug.Log("Auto Save Complete in " + stopwatch.ElapsedMilliseconds + " ms");
+                }));
+            }));
+
+            stopwatch.Stop();
+            ReportProgress();
+
+            // Handle autosave deletion if exceeding the max limit
+            ManageAutoSaves();
+
+            yield return null;
+        }
+
+        private void ManageAutoSaves()
+        {
+            var headers = GetAllSaveHeaders();
+            var autoSaveHeaders = headers.Where(h => h.IsAutoSave).ToList();
+
+            // Sort by date or any other criteria to identify the oldest
+            autoSaveHeaders.Sort((a, b) => b.SaveDate.CompareTo(a.SaveDate));
+
+            int maxAutoSaves = PlayerSettings.MaxAutoSaves;
+
+            for (int i = maxAutoSaves; i < autoSaveHeaders.Count; i++)
+            {
+                DeleteSave(autoSaveHeaders[i]);
+            }
+        }
+        
         public IEnumerator SaveGameCoroutine(Action<float> progressCallback)
         {
             Stopwatch stopwatch = new Stopwatch();
@@ -111,6 +164,7 @@ namespace DataPersistence
 
             yield return StartCoroutine(CreateSaveData(ReportProgress, (saveData) =>
             {
+                saveData.Header.IsAutoSave = false;
                 StartCoroutine(WriteSaveData(saveData, () =>
                 {
                     Debug.Log("Save Complete in " + stopwatch.ElapsedMilliseconds + " ms");
@@ -495,6 +549,7 @@ namespace DataPersistence
             StartCoroutine(CreateSaveData(ReportProgress, (saveData) =>
             {
                 saveData.Header.SaveName = saveName;
+                saveData.Header.IsAutoSave = false;
                 
                 StartCoroutine(WriteSaveData(saveData, () =>
                 {
@@ -535,6 +590,7 @@ namespace DataPersistence
         public DateTime SaveDate;
         public string GameDate;
         public string UniqueID;
+        public bool IsAutoSave;
     }
     
     [Serializable]

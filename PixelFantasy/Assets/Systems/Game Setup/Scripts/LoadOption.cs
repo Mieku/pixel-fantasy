@@ -25,8 +25,16 @@ namespace Systems.Game_Setup.Scripts
         {
             SaveHeader = saveHeader;
             _onLoadOptionSelected = onLoadOptionSelected;
+
+            if (saveHeader.IsAutoSave)
+            {
+                _saveNameText.text = $"<size= 14><color=#FFFFFF>(Auto-Save) </color></size>{SaveHeader.SaveName}";
+            }
+            else
+            {
+                _saveNameText.text = SaveHeader.SaveName;
+            }
             
-            _saveNameText.text = SaveHeader.SaveName;
             _gameDateText.text = SaveHeader.GameDate;
             _saveDateText.text = $"Saved: {SaveHeader.SaveDate.ToString("MM/dd/yyyy h:mm tt", CultureInfo.CurrentCulture)}";
             _versionText.text = $"Version: {SaveHeader.GameVersion}";

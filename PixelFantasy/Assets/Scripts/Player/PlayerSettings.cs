@@ -10,14 +10,16 @@ namespace Player
     public class PlayerSettingsData
     {
         // Note: All values need to have a default value
-
         [DefaultValue(true)] public bool AutoSaveEnabled { get; set; }
-        [DefaultValue(30f)] public float AutoSaveFrequency { get; set; }
-
+        [DefaultValue(30f)] public float AutoSaveFrequency { get; set; } // In minutes
+        [DefaultValue(3)] public int MaxAutoSaves { get; set; } // Max number of autosaves to keep
     }
-    
+
     public static class PlayerSettings
     {
+        public static event Action<bool> OnAutoSaveEnabledChanged;
+        public static event Action<float> OnAutoSaveFrequencyChanged;
+
         private static readonly string PlayerSettingsFilePath = Path.Combine(Application.persistentDataPath + "/PlayerSettings/", "playerSettings.json");
         private static PlayerSettingsData _playerSettingsDataCache;
 
@@ -32,7 +34,7 @@ namespace Player
                 return _playerSettingsDataCache;
             }
         }
-        
+
         private static void LoadPlayerSettings()
         {
             if (File.Exists(PlayerSettingsFilePath))
@@ -44,7 +46,7 @@ namespace Player
                         DefaultValueHandling = DefaultValueHandling.Populate,
                         ObjectCreationHandling = ObjectCreationHandling.Replace
                     };
-                    
+
                     string json = File.ReadAllText(PlayerSettingsFilePath);
                     _playerSettingsDataCache = JsonConvert.DeserializeObject<PlayerSettingsData>(json, settings);
                 }
@@ -66,7 +68,7 @@ namespace Player
             {
                 Directory.CreateDirectory(Application.persistentDataPath + "/PlayerSettings/");
             }
-            
+
             try
             {
                 string json = JsonConvert.SerializeObject(PlayerSettingsData, Formatting.Indented);
@@ -77,31 +79,45 @@ namespace Player
                 Debug.LogError($"Failed to save player settings: {ex.Message}");
             }
         }
-        
+
         public static bool AutoSaveEnabled
         {
             get => PlayerSettingsData.AutoSaveEnabled;
             set
             {
-                PlayerSettingsData.AutoSaveEnabled = value;
-                SavePlayerSettings();
-                
-                // TODO: Inform the Auto-Saver
+                if (PlayerSettingsData.AutoSaveEnabled != value)
+                {
+                    PlayerSettingsData.AutoSaveEnabled = value;
+                    SavePlayerSettings();
+                    OnAutoSaveEnabledChanged?.Invoke(value);
+                }
             }
         }
 
-        /// <summary>
-        /// The amount of Minutes before an auto-save
-        /// </summary>
         public static float AutoSaveFrequency
         {
             get => PlayerSettingsData.AutoSaveFrequency;
             set
             {
-                PlayerSettingsData.AutoSaveFrequency = value;
-                SavePlayerSettings();
-                
-                // TODO: Inform the Auto-Saver
+                if (Math.Abs(PlayerSettingsData.AutoSaveFrequency - value) > 0.01f)
+                {
+                    PlayerSettingsData.AutoSaveFrequency = value;
+                    SavePlayerSettings();
+                    OnAutoSaveFrequencyChanged?.Invoke(value);
+                }
+            }
+        }
+
+        public static int MaxAutoSaves
+        {
+            get => PlayerSettingsData.MaxAutoSaves;
+            set
+            {
+                if (PlayerSettingsData.MaxAutoSaves != value)
+                {
+                    PlayerSettingsData.MaxAutoSaves = value;
+                    SavePlayerSettings();
+                }
             }
         }
     }
