@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using AI;
 using Characters;
@@ -24,23 +25,50 @@ namespace DataPersistence
         [SerializeField] private GameObject _UIHandle;
 
         public static bool WorldIsClearing;
-        
-        [Serializable]
-        public class SaveData
+
+        private static string SaveFilePath;
+        private static string SaveScreenshotPath;
+
+        private static List<SaveHeader> SaveHeadersCache = new List<SaveHeader>();
+
+        protected override void Awake()
         {
-            public SaveHeader Header;
-            public CameraData CameraData;
-            public EnvironmentData EnvironmentData;
-            public Dictionary<string, KinlingData>  Kinlings;
-            public Dictionary<string, ItemData> ItemsData;
-            public Dictionary<string, FurnitureData> FurnitureData;
-            public List<ZoneData> ZonesData;
-            public Dictionary<string, ConstructionData> StructuresData;
-            public Dictionary<string, FloorData> FloorsData;
-            public Dictionary<string, BasicResourceData> ResourcesData;
-            public TileMapData TileMapData;
-            public List<RampData> RampData;
-            public List<TaskQueue> TasksData;
+            base.Awake();
+            SaveFilePath = $"{Application.persistentDataPath}/Saves";
+            SaveScreenshotPath = $"{Application.persistentDataPath}/Saves/SaveScreenshots";
+            
+            Initialize();
+        }
+
+        private static void Initialize()
+        {
+            SaveHeadersCache = LoadAllSaveHeaders();
+        }
+
+        private void AddSaveHeaderToCache(SaveHeader header)
+        {
+            SaveHeadersCache.Add(header);
+            
+            // Resorts them
+            SaveHeadersCache.Sort((x, y) => y.SaveDate.CompareTo(x.SaveDate));
+        }
+
+        private void RemoveSaveHeaderFromCache(SaveHeader header)
+        {
+            SaveHeadersCache.Remove(header);
+            
+            // Resorts them
+            SaveHeadersCache.Sort((x, y) => y.SaveDate.CompareTo(x.SaveDate));
+        }
+
+        public List<SaveHeader> GetAllSaveHeaders()
+        {
+            if (SaveHeadersCache == null)
+            {
+                SaveHeadersCache = LoadAllSaveHeaders();
+            }
+
+            return SaveHeadersCache;
         }
 
         private SaveHeader GenerateHeader()
@@ -182,15 +210,16 @@ namespace DataPersistence
             }
             
             // Ensure there is a save directory
-            if (!System.IO.Directory.Exists($"{Application.persistentDataPath}/Saves"))
+            if (!Directory.Exists(SaveFilePath))
             {
-                System.IO.Directory.CreateDirectory($"{Application.persistentDataPath}/Saves");
+                Directory.CreateDirectory(SaveFilePath);
             }
 
             // Saving to file
             try
             {
-                System.IO.File.WriteAllText($"{Application.persistentDataPath}/Saves/{saveData.Header.SaveFileName}.json", json);
+                AddSaveHeaderToCache(saveData.Header);
+                File.WriteAllText(Path.Combine(SaveFilePath, $"{saveData.Header.SaveFileName}.json"), json);
             }
             catch (Exception ex)
             {
@@ -212,14 +241,12 @@ namespace DataPersistence
 
         private string TakeScreenshot(string fileName)
         {
-            string screenshotFolderPath = $"{Application.persistentDataPath}/Saves/SaveScreenshots";
-    
-            if (!System.IO.Directory.Exists(screenshotFolderPath))
+            if (!Directory.Exists(SaveScreenshotPath))
             {
-                System.IO.Directory.CreateDirectory(screenshotFolderPath);
+                Directory.CreateDirectory(SaveScreenshotPath);
             }
     
-            string filePath = System.IO.Path.Combine(screenshotFolderPath, fileName + ".png");
+            string filePath = Path.Combine(SaveScreenshotPath, fileName + ".png");
     
             _UIHandle.gameObject.SetActive(false);
 
@@ -358,12 +385,12 @@ namespace DataPersistence
         public bool AreSavesAvailable()
         {
             // Ensure there is a save directory
-            if (!System.IO.Directory.Exists($"{Application.persistentDataPath}/Saves"))
+            if (!Directory.Exists(SaveFilePath))
             {
-                System.IO.Directory.CreateDirectory($"{Application.persistentDataPath}/Saves");
+                Directory.CreateDirectory(SaveFilePath);
             }
     
-            var saveFiles = System.IO.Directory.GetFiles($"{Application.persistentDataPath}/Saves");
+            var saveFiles = Directory.GetFiles(SaveFilePath);
             if (saveFiles.Length > 0)
             {
                 return true;
@@ -372,22 +399,22 @@ namespace DataPersistence
             return false;
         }
         
-        public List<SaveHeader> GetAllSaveHeaders()
+        private static List<SaveHeader> LoadAllSaveHeaders()
         {
             List<SaveHeader> results = new List<SaveHeader>();
     
             // Ensure there is a save directory
-            if (!System.IO.Directory.Exists($"{Application.persistentDataPath}/Saves"))
+            if (!Directory.Exists(SaveFilePath))
             {
-                System.IO.Directory.CreateDirectory($"{Application.persistentDataPath}/Saves");
+                Directory.CreateDirectory(SaveFilePath);
             }
     
-            var saveFiles = System.IO.Directory.GetFiles($"{Application.persistentDataPath}/Saves");
+            var saveFiles = Directory.GetFiles(SaveFilePath);
             foreach (var saveFile in saveFiles)
             {
-                if (System.IO.File.Exists(saveFile))
+                if (File.Exists(saveFile))
                 {
-                    string json = System.IO.File.ReadAllText(saveFile);
+                    string json = File.ReadAllText(saveFile);
 
                     var settings = new JsonSerializerSettings
                     {
@@ -397,7 +424,7 @@ namespace DataPersistence
 
                     // Deserialize only the SaveHeader part of the JSON
                     var saveHeader = JsonConvert.DeserializeObject<SaveHeader>(
-                        JObject.Parse(json)["Header"].ToString(), 
+                        JObject.Parse(json)["Header"]!.ToString(), 
                         settings
                     );
                     results.Add(saveHeader);
@@ -412,10 +439,10 @@ namespace DataPersistence
 
         public SaveData LoadSaveFromHeader(SaveHeader header)
         {
-            string filePath = $"{Application.persistentDataPath}/Saves/{header.SaveFileName}.json";
-            if (System.IO.File.Exists(filePath))
+            string filePath = Path.Combine(SaveFilePath, $"{header.SaveFileName}.json");
+            if (File.Exists(filePath))
             {
-                string json = System.IO.File.ReadAllText(filePath);
+                string json = File.ReadAllText(filePath);
 
                 var settings = new JsonSerializerSettings
                 {
@@ -445,7 +472,7 @@ namespace DataPersistence
         
         private string SanitizeFileName(string fileName)
         {
-            foreach (char c in System.IO.Path.GetInvalidFileNameChars())
+            foreach (char c in Path.GetInvalidFileNameChars())
             {
                 fileName = fileName.Replace(c, '_'); // Replace invalid characters with an underscore
             }
@@ -455,6 +482,7 @@ namespace DataPersistence
         public void ChangeSaveName(SaveHeader header, string newSaveName, Action<SaveHeader> onComplete)
         {
             var oldSave = LoadSaveFromHeader(header);
+            RemoveSaveHeaderFromCache(header);
             oldSave.Header.SaveName = newSaveName;
 
             StartCoroutine(WriteSaveData(oldSave, () =>
@@ -493,19 +521,20 @@ namespace DataPersistence
 
         public void DeleteSave(SaveHeader header)
         {
-            string filePath = $"{Application.persistentDataPath}/Saves/{header.SaveFileName}.json";
+            string filePath = Path.Combine(SaveFilePath, $"{header.SaveFileName}.json");
             string screenshotPath = header.ScreenshotPath;
+            RemoveSaveHeaderFromCache(header);
             
             // Delete Save
-            if (System.IO.File.Exists(filePath))
+            if (File.Exists(filePath))
             {
-                System.IO.File.Delete(filePath);
+                File.Delete(filePath);
             }
             
             // Delete Screenshot
-            if (System.IO.File.Exists(screenshotPath))
+            if (File.Exists(screenshotPath))
             {
-                System.IO.File.Delete(screenshotPath);
+                File.Delete(screenshotPath);
             }
         }
     }
@@ -521,5 +550,23 @@ namespace DataPersistence
         public DateTime SaveDate;
         public string GameDate;
         public string UniqueID;
+    }
+    
+    [Serializable]
+    public class SaveData
+    {
+        public SaveHeader Header;
+        public CameraData CameraData;
+        public EnvironmentData EnvironmentData;
+        public Dictionary<string, KinlingData>  Kinlings;
+        public Dictionary<string, ItemData> ItemsData;
+        public Dictionary<string, FurnitureData> FurnitureData;
+        public List<ZoneData> ZonesData;
+        public Dictionary<string, ConstructionData> StructuresData;
+        public Dictionary<string, FloorData> FloorsData;
+        public Dictionary<string, BasicResourceData> ResourcesData;
+        public TileMapData TileMapData;
+        public List<RampData> RampData;
+        public List<TaskQueue> TasksData;
     }
 }

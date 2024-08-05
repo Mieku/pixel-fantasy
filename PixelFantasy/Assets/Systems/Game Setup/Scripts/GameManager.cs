@@ -55,13 +55,13 @@ namespace Systems.Game_Setup.Scripts
             StartCoroutine(LoadSceneAndSetUpNewGame(starterKinlings, blueprintLayers));
         }
 
-        public void StartLoadedGame(DataPersistenceManager.SaveData saveData, bool loadScene)
+        public void StartLoadedGame(SaveData saveData, bool loadScene)
         {
             StartCoroutine(LoadSceneAndContinueLoad(saveData, loadScene));
         }
 
         private bool _gameLoaded;
-        public IEnumerator LoadSceneAndContinueLoad(DataPersistenceManager.SaveData saveData, bool loadScene)
+        public IEnumerator LoadSceneAndContinueLoad(SaveData saveData, bool loadScene)
         {
             LoadingScreen.Instance.Show("Generating World", "Initializing...", 13);
             yield return new WaitForEndOfFrame();

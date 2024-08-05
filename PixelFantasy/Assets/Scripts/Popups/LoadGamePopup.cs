@@ -27,17 +27,17 @@ namespace Popups
         
         [SerializeField, BoxGroup("Misc")] private Toggle _autoSaveToggle;
         
-        private Action<DataPersistenceManager.SaveData> _onLoadSelectedCallback;
+        private Action<SaveData> _onLoadSelectedCallback;
         private Action _onLoadCancelledCallback;
         private SaveHeader _selectedSaveHeader;
         private List<LoadOption> _displayedLoadOptions = new List<LoadOption>();
         
-        public static void Show(Action<DataPersistenceManager.SaveData> onLoadSelected, Action onCancelled)
+        public static void Show(Action<SaveData> onLoadSelected, Action onCancelled)
         {
             Open(() => Instance.Refresh(onLoadSelected, onCancelled), true);
         }
 
-        private void Refresh(Action<DataPersistenceManager.SaveData> onLoadSelected, Action onCancelled)
+        private void Refresh(Action<SaveData> onLoadSelected, Action onCancelled)
         {
             gameObject.SetActive(true);
             
