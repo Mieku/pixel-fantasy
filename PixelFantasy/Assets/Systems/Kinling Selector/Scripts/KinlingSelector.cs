@@ -18,6 +18,14 @@ namespace Systems.Kinling_Selector.Scripts
             Instance = this;
             _kinlingDisplayPrefab.gameObject.SetActive(false);
         }
+        
+        private void OnDestroy()
+        {
+            if (Instance == this)
+            {
+                Instance = null;
+            }
+        }
 
         public void AddKinling(KinlingData kinlingData)
         {

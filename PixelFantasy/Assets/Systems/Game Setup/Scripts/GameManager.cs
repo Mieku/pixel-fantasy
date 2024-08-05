@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Characters;
+using Controllers;
 using DataPersistence;
 using Managers;
 using Player;
@@ -43,6 +44,21 @@ namespace Systems.Game_Setup.Scripts
                 if (recentSave != null)
                 {
                     StartLoadedGame(recentSave, false);
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                UIController.ToggleUIVisible();
+            }
+            
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                var screenshotter = FindObjectOfType<ScreenshotController>();
+                if (screenshotter != null)
+                {
+                    Debug.Log("Screenshot Taken!");
+                    screenshotter.TakeScreenshot();
                 }
             }
         }

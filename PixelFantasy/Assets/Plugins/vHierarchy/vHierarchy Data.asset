@@ -45,6 +45,8 @@ MonoBehaviour:
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-1355905524-0
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-1011316232-0
         - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-1440878785-0
+        - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-2052989787-0
+        - GlobalObjectId_V1-2-44b1509b4c9601d4f9dc525072d9be55-2044895370-0
         values:
         - iColor: 8
           icon: Settings Icon
@@ -88,329 +90,13 @@ MonoBehaviour:
           icon: PreMatCylinder
         - iColor: 0
           icon: 
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
       goDatasByInstanceId:
-        keys: a8e30100cce0010038d6010058df01000ee001002ed001001cd1010020d5010074df010066df010042d70100e4cd010040d9010032d9010036dc01004adb010056e40100acd3010098de0100fed901004227020066240200d2190200f2220200a8230200c8130200b6140200ba1802000e23020000230200dc1a02007e110200da1c0200cc1c0200d01f0200e41e0200f02702004617020032220200981d0200be520200e24f02004e4502006e4e0200244f0200443f020032400200364402008a4e02007c4e020058460200fa3c020056480200484802004c4b0200604a02006c530200c2420200ae4d02001449020014dd020038da0200a4cf0200c4d802007ad902009ac9020088ca02008cce0200e0d80200d2d80200aed0020050c70200acd202009ed20200a2d50200b6d40200c2dd020018cd020004d802006ad302000a3e03002e3b03009a300300ba390300703a0300902a03007e2b0300822f0300d6390300c8390300a431030046280300a23303009433030098360300ac350300b83e03000e2e0300fa380300603403005c68030080650300ec5a03000c640300c2640300e2540300d0550300d4590300286403001a640300f65b030098520300f45d0300e65d0300ea600300fe5f03000a690300605803004c630300b25e0300bc9d0300e09a03004c9003006c990300229a0300428a0300308b0300348f0300889903007a99030056910300f887030054930300469303004a9603005e9503006a9e0300c08d0300ac980300129403003ec9030062c60300cebb0300eec40300a4c50300c4b50300b2b60300b6ba03000ac50300fcc40300d8bc03007ab30300d6be0300c8be0300ccc10300e0c00300ecc9030042b903002ec4030094bf03008ef30300b2f003001ee603003eef0300f4ef030014e0030002e1030006e503005aef03004cef030028e70300cadd030026e9030018e903001cec030030eb03003cf4030092e303007eee0300e4e90300baef0300
+        keys: a84f0200cc4c02003e420200584b02000e4c02003e3c02002c3d020026410200744b0200664b020048430200f43902004645020038450200364802004a47020056500200b23f0200984a0200fe450200d44b02004e9e0200749b0200ee900200009a0200b69a0200f08a0200e28b0200d68f02001c9a02000e9a0200f8910200aa880200f0930200e2930200dc960200f0950200fc9e0200668e02003c990200a89402007c9a0200163703003c340300b6290300c83203007e330300b8230300aa2403009e280300e4320300d6320300c02a030074210300b82c0300aa2c0300a42f0300b82e0300c43703002e27030004320300702d03004433030052d8f8ffced5f8ff
         values:
-        - iColor: 8
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: PreMatCylinder
-        - iColor: 0
-          icon: AvatarMask On Icon
-        - iColor: 5
-          icon: Canvas Icon
-        - iColor: 2
-          icon: Camera Icon
-        - iColor: 0
-          icon: Camera Icon
-        - iColor: 0
-          icon: Camera Icon
-        - iColor: 0
-          icon: DirectionalLight Icon
-        - iColor: 0
-          icon: Terrain Icon
-        - iColor: 0
-          icon: StandaloneInputModule Icon
-        - iColor: 0
-          icon: PreMatCylinder
-        - iColor: 0
-          icon: PreMatCylinder
-        - iColor: 8
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: PreMatCylinder
-        - iColor: 0
-          icon: AvatarMask On Icon
-        - iColor: 5
-          icon: Canvas Icon
-        - iColor: 2
-          icon: Camera Icon
-        - iColor: 0
-          icon: Camera Icon
-        - iColor: 0
-          icon: Camera Icon
-        - iColor: 0
-          icon: DirectionalLight Icon
-        - iColor: 0
-          icon: Terrain Icon
-        - iColor: 0
-          icon: StandaloneInputModule Icon
-        - iColor: 0
-          icon: PreMatCylinder
-        - iColor: 0
-          icon: PreMatCylinder
-        - iColor: 8
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: PreMatCylinder
-        - iColor: 0
-          icon: AvatarMask On Icon
-        - iColor: 5
-          icon: Canvas Icon
-        - iColor: 2
-          icon: Camera Icon
-        - iColor: 0
-          icon: Camera Icon
-        - iColor: 0
-          icon: Camera Icon
-        - iColor: 0
-          icon: DirectionalLight Icon
-        - iColor: 0
-          icon: Terrain Icon
-        - iColor: 0
-          icon: StandaloneInputModule Icon
-        - iColor: 0
-          icon: PreMatCylinder
-        - iColor: 0
-          icon: PreMatCylinder
-        - iColor: 8
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: PreMatCylinder
-        - iColor: 0
-          icon: AvatarMask On Icon
-        - iColor: 5
-          icon: Canvas Icon
-        - iColor: 2
-          icon: Camera Icon
-        - iColor: 0
-          icon: Camera Icon
-        - iColor: 0
-          icon: Camera Icon
-        - iColor: 0
-          icon: DirectionalLight Icon
-        - iColor: 0
-          icon: Terrain Icon
-        - iColor: 0
-          icon: StandaloneInputModule Icon
-        - iColor: 0
-          icon: PreMatCylinder
-        - iColor: 0
-          icon: PreMatCylinder
-        - iColor: 8
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: PreMatCylinder
-        - iColor: 0
-          icon: AvatarMask On Icon
-        - iColor: 5
-          icon: Canvas Icon
-        - iColor: 2
-          icon: Camera Icon
-        - iColor: 0
-          icon: Camera Icon
-        - iColor: 0
-          icon: Camera Icon
-        - iColor: 0
-          icon: DirectionalLight Icon
-        - iColor: 0
-          icon: Terrain Icon
-        - iColor: 0
-          icon: StandaloneInputModule Icon
-        - iColor: 0
-          icon: PreMatCylinder
-        - iColor: 0
-          icon: PreMatCylinder
-        - iColor: 8
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: PreMatCylinder
-        - iColor: 0
-          icon: AvatarMask On Icon
-        - iColor: 5
-          icon: Canvas Icon
-        - iColor: 2
-          icon: Camera Icon
-        - iColor: 0
-          icon: Camera Icon
-        - iColor: 0
-          icon: Camera Icon
-        - iColor: 0
-          icon: DirectionalLight Icon
-        - iColor: 0
-          icon: Terrain Icon
-        - iColor: 0
-          icon: StandaloneInputModule Icon
-        - iColor: 0
-          icon: PreMatCylinder
-        - iColor: 0
-          icon: PreMatCylinder
-        - iColor: 8
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: PreMatCylinder
-        - iColor: 0
-          icon: AvatarMask On Icon
-        - iColor: 5
-          icon: Canvas Icon
-        - iColor: 2
-          icon: Camera Icon
-        - iColor: 0
-          icon: Camera Icon
-        - iColor: 0
-          icon: Camera Icon
-        - iColor: 0
-          icon: DirectionalLight Icon
-        - iColor: 0
-          icon: Terrain Icon
-        - iColor: 0
-          icon: StandaloneInputModule Icon
-        - iColor: 0
-          icon: PreMatCylinder
-        - iColor: 0
-          icon: PreMatCylinder
-        - iColor: 8
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: Settings Icon
-        - iColor: 0
-          icon: PreMatCylinder
-        - iColor: 0
-          icon: AvatarMask On Icon
-        - iColor: 5
-          icon: Canvas Icon
-        - iColor: 2
-          icon: Camera Icon
-        - iColor: 0
-          icon: Camera Icon
-        - iColor: 0
-          icon: Camera Icon
-        - iColor: 0
-          icon: DirectionalLight Icon
-        - iColor: 0
-          icon: Terrain Icon
-        - iColor: 0
-          icon: StandaloneInputModule Icon
-        - iColor: 0
-          icon: PreMatCylinder
-        - iColor: 0
-          icon: PreMatCylinder
         - iColor: 8
           icon: Settings Icon
         - iColor: 0
@@ -453,6 +139,94 @@ MonoBehaviour:
           icon: PreMatCylinder
         - iColor: 0
           icon: 
+        - iColor: 8
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: PreMatCylinder
+        - iColor: 0
+          icon: AvatarMask On Icon
+        - iColor: 5
+          icon: Canvas Icon
+        - iColor: 2
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: DirectionalLight Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: StandaloneInputModule Icon
+        - iColor: 0
+          icon: PreMatCylinder
+        - iColor: 0
+          icon: PreMatCylinder
+        - iColor: 0
+          icon: 
+        - iColor: 8
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 0
+          icon: PreMatCylinder
+        - iColor: 0
+          icon: AvatarMask On Icon
+        - iColor: 5
+          icon: Canvas Icon
+        - iColor: 2
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: DirectionalLight Icon
+        - iColor: 0
+          icon: Terrain Icon
+        - iColor: 0
+          icon: StandaloneInputModule Icon
+        - iColor: 0
+          icon: PreMatCylinder
+        - iColor: 0
+          icon: PreMatCylinder
+        - iColor: 0
+          icon: 
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: Camera Icon
     - goDatasByGlobalId:
         keys: []
         values: []

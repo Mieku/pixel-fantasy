@@ -22,12 +22,10 @@ namespace DataPersistence
     public class DataPersistenceManager : Singleton<DataPersistenceManager>
     {
         [SerializeField] private RampsHandler _rampsHandler;
-        [SerializeField] private GameObject _UIHandle;
 
         public static bool WorldIsClearing;
 
         private static string SaveFilePath;
-        private static string SaveScreenshotPath;
 
         private static List<SaveHeader> SaveHeadersCache = new List<SaveHeader>();
 
@@ -35,7 +33,6 @@ namespace DataPersistence
         {
             base.Awake();
             SaveFilePath = $"{Application.persistentDataPath}/Saves";
-            SaveScreenshotPath = $"{Application.persistentDataPath}/Saves/SaveScreenshots";
             
             Initialize();
         }
@@ -75,6 +72,13 @@ namespace DataPersistence
         {
             string uniqueID = $"{Guid.NewGuid()}";
             string saveFileName = SanitizeFileName($"{uniqueID}");
+            string screenshotPath = null;
+
+            var screenshotter = FindObjectOfType<ScreenshotController>();
+            if (screenshotter != null)
+            {
+                screenshotPath = screenshotter.TakeSaveScreenshot(saveFileName);
+            }
             
             return new SaveHeader()
             {
@@ -82,7 +86,7 @@ namespace DataPersistence
                 SaveFileName = saveFileName,
                 SettlementName = GameManager.Instance.GameData.SettlementName,
                 SaveName = GameManager.Instance.GameData.SettlementName,
-                ScreenshotPath = TakeScreenshot(saveFileName),
+                ScreenshotPath = screenshotPath,
                 SaveDate = DateTime.Now,
                 GameDate = EnvironmentManager.Instance.GameTime.Readable(),
                 UniqueID = uniqueID,
@@ -239,25 +243,6 @@ namespace DataPersistence
             e.ErrorContext.Handled = true;
         }
 
-        private string TakeScreenshot(string fileName)
-        {
-            if (!Directory.Exists(SaveScreenshotPath))
-            {
-                Directory.CreateDirectory(SaveScreenshotPath);
-            }
-    
-            string filePath = Path.Combine(SaveScreenshotPath, fileName + ".png");
-    
-            _UIHandle.gameObject.SetActive(false);
-
-            // Capture the screenshot and save it
-            ScreenCapture.CaptureScreenshot(filePath);
-    
-            _UIHandle.gameObject.SetActive(true);
-
-            return filePath;
-        }
-        
         public IEnumerator LoadGameCoroutine(SaveData saveData, Action onLoadFinished, Action<string> onStepStarted, Action<string> onStepCompleted)
         {
             // Ensures the game is paused during load, returns to prior state when done
