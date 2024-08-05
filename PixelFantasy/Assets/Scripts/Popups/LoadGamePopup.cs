@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using DataPersistence;
+using Player;
 using Sirenix.OdinInspector;
 using Systems.Game_Setup.Scripts;
 using TMPro;
@@ -24,6 +25,8 @@ namespace Popups
         [SerializeField, BoxGroup("Load Options")] private Transform _loadOptionsParent;
         [SerializeField, BoxGroup("Load Options")] private LoadOption _loadOptionPrefab;
         
+        [SerializeField, BoxGroup("Misc")] private Toggle _autoSaveToggle;
+        
         private Action<DataPersistenceManager.SaveData> _onLoadSelectedCallback;
         private Action _onLoadCancelledCallback;
         private SaveHeader _selectedSaveHeader;
@@ -42,6 +45,8 @@ namespace Popups
             _onLoadCancelledCallback = onCancelled;
             
             _loadOptionPrefab.gameObject.SetActive(false);
+            
+            _autoSaveToggle.SetIsOnWithoutNotify(PlayerSettings.AutoSaveEnabled);
             
             RefreshLoadOptions();
             OnLoadOptionSelected(_displayedLoadOptions.First().SaveHeader);
@@ -178,7 +183,7 @@ namespace Popups
 
         public void OnAutoSaveToggled(bool value)
         {
-            
+            PlayerSettings.AutoSaveEnabled = value;
         }
         
         public void OnSaveNameChanged(string value)

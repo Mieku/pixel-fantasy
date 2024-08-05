@@ -385,7 +385,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 2251272749103020821}
   toggleTransition: 1
   graphic: {fileID: 2972316141618273316}
   m_Group: {fileID: 0}
@@ -1418,6 +1418,7 @@ MonoBehaviour:
   _noSelectedSaveHandle: {fileID: 5280341792419243396}
   _loadOptionsParent: {fileID: 3852725475577012087}
   _loadOptionPrefab: {fileID: 5693138004934180469}
+  _autoSaveToggle: {fileID: 5505820841675914857}
 --- !u!1 &2914189994405868293
 GameObject:
   m_ObjectHideFlags: 0
