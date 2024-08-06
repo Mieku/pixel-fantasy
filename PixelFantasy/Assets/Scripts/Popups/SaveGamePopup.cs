@@ -28,8 +28,6 @@ namespace Popups
         [SerializeField, BoxGroup("Load Options")] private Button _overwriteSaveBtn;
         [SerializeField, BoxGroup("Load Options")] private Transform _loadOptionsParent;
         [SerializeField, BoxGroup("Load Options")] private LoadOption _loadOptionPrefab;
-
-        [SerializeField, BoxGroup("Misc")] private Toggle _autoSaveToggle;
         
         private Action _onClosedCallback;
         private SaveHeader _selectedSaveHeader;
@@ -58,8 +56,6 @@ namespace Popups
             {
                 OnLoadOptionSelected(null);
             }
-            
-            _autoSaveToggle.SetIsOnWithoutNotify(PlayerSettings.AutoSaveEnabled);
         }
 
         private void ToggleDisplayCurrentSaveDetails(bool show)
@@ -233,11 +229,6 @@ namespace Popups
                     }
                 }
             });
-        }
-
-        public void OnAutoSaveToggled(bool value)
-        {
-            PlayerSettings.AutoSaveEnabled = value;
         }
         
         public void OnSaveNameChanged(string value)

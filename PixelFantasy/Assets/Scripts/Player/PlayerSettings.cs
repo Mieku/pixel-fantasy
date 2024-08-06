@@ -10,16 +10,17 @@ namespace Player
     public class PlayerSettingsData
     {
         // Note: All values need to have a default value
-        [DefaultValue(true)] public bool AutoSaveEnabled { get; set; }
-        [DefaultValue(30f)] public float AutoSaveFrequency { get; set; } // In minutes
-        [DefaultValue(3)] public int MaxAutoSaves { get; set; } // Max number of autosaves to keep
+        [DefaultValue(1)] public int AutoSaveFrequency = 1; // In days
+        [DefaultValue(3)] public int MaxAutoSaves = 3; // Max number of autosaves to keep
+
+        [DefaultValue(1f)] public float MasterVolume = 1f;
+        [DefaultValue(1f)] public float MusicVolume = 1f;
+        [DefaultValue(1f)] public float EffectsVolume = 1f;
+        [DefaultValue(1f)] public float AmbientVolume = 1f;
     }
 
     public static class PlayerSettings
     {
-        public static event Action<bool> OnAutoSaveEnabledChanged;
-        public static event Action<float> OnAutoSaveFrequencyChanged;
-
         private static readonly string PlayerSettingsFilePath = Path.Combine(Application.persistentDataPath + "/PlayerSettings/", "playerSettings.json");
         private static PlayerSettingsData _playerSettingsDataCache;
 
@@ -79,32 +80,14 @@ namespace Player
                 Debug.LogError($"Failed to save player settings: {ex.Message}");
             }
         }
-
-        public static bool AutoSaveEnabled
-        {
-            get => PlayerSettingsData.AutoSaveEnabled;
-            set
-            {
-                if (PlayerSettingsData.AutoSaveEnabled != value)
-                {
-                    PlayerSettingsData.AutoSaveEnabled = value;
-                    SavePlayerSettings();
-                    OnAutoSaveEnabledChanged?.Invoke(value);
-                }
-            }
-        }
-
-        public static float AutoSaveFrequency
+        
+        public static int AutoSaveFrequency
         {
             get => PlayerSettingsData.AutoSaveFrequency;
             set
             {
-                if (Math.Abs(PlayerSettingsData.AutoSaveFrequency - value) > 0.01f)
-                {
-                    PlayerSettingsData.AutoSaveFrequency = value;
-                    SavePlayerSettings();
-                    OnAutoSaveFrequencyChanged?.Invoke(value);
-                }
+                PlayerSettingsData.AutoSaveFrequency = value;
+                SavePlayerSettings();
             }
         }
 
@@ -116,6 +99,58 @@ namespace Player
                 if (PlayerSettingsData.MaxAutoSaves != value)
                 {
                     PlayerSettingsData.MaxAutoSaves = value;
+                    SavePlayerSettings();
+                }
+            }
+        }
+        
+        public static float MasterVolume
+        {
+            get => PlayerSettingsData.MasterVolume;
+            set
+            {
+                if (!Mathf.Approximately(PlayerSettingsData.MasterVolume, value))
+                {
+                    PlayerSettingsData.MasterVolume = value;
+                    SavePlayerSettings();
+                }
+            }
+        }
+        
+        public static float MusicVolume
+        {
+            get => PlayerSettingsData.MusicVolume;
+            set
+            {
+                if (!Mathf.Approximately(PlayerSettingsData.MusicVolume, value))
+                {
+                    PlayerSettingsData.MusicVolume = value;
+                    SavePlayerSettings();
+                }
+            }
+        }
+        
+        public static float EffectsVolume
+        {
+            get => PlayerSettingsData.EffectsVolume;
+            set
+            {
+                if (!Mathf.Approximately(PlayerSettingsData.EffectsVolume, value))
+                {
+                    PlayerSettingsData.EffectsVolume = value;
+                    SavePlayerSettings();
+                }
+            }
+        }
+        
+        public static float AmbientVolume
+        {
+            get => PlayerSettingsData.AmbientVolume;
+            set
+            {
+                if (!Mathf.Approximately(PlayerSettingsData.AmbientVolume, value))
+                {
+                    PlayerSettingsData.AmbientVolume = value;
                     SavePlayerSettings();
                 }
             }

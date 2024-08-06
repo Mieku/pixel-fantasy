@@ -6,5 +6,6 @@ namespace Player
     public class GameData
     {
         public string SettlementName;
+        public int DaysSinceAutosave;
     }
 }

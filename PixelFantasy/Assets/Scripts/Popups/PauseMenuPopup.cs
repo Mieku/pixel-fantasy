@@ -61,7 +61,7 @@ namespace Popups
 
         public void SettingsPressed()
         {
-            // TODO: Build Me!
+            SettingsPopup.Show();
         }
 
         public void MainMenuPressed()

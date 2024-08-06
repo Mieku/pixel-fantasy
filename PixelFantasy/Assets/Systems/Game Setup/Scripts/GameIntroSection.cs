@@ -45,7 +45,7 @@ namespace Systems.Game_Setup.Scripts
         
         public void OnSettingsPressed()
         {
-            Debug.Log("Settings Pressed");
+            SettingsPopup.Show();
         }
 
         public void OnExitPressed()

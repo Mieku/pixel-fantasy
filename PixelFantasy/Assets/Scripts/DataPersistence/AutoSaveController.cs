@@ -1,14 +1,12 @@
-using System.Collections;
 using Player;
 using Sirenix.OdinInspector;
+using Systems.Game_Setup.Scripts;
 using UnityEngine;
 
 namespace DataPersistence
 {
     public class AutoSaveController : MonoBehaviour
     {
-        private Coroutine autoSaveCoroutine;
-
         [Button("Force Autosave")]
         public void DEBUG_ForceAutosave()
         {
@@ -17,65 +15,28 @@ namespace DataPersistence
 
         private void Start()
         {
-            if (PlayerSettings.AutoSaveEnabled)
-            {
-                StartAutoSave();
-            }
-
-            PlayerSettings.OnAutoSaveEnabledChanged += OnAutoSaveEnabledChanged;
-            PlayerSettings.OnAutoSaveFrequencyChanged += OnAutoSaveFrequencyChanged;
+            GameEvents.DayTick += GameEvent_DayTick;
         }
 
         private void OnDestroy()
         {
-            PlayerSettings.OnAutoSaveEnabledChanged -= OnAutoSaveEnabledChanged;
-            PlayerSettings.OnAutoSaveFrequencyChanged -= OnAutoSaveFrequencyChanged;
+            GameEvents.DayTick -= GameEvent_DayTick;
         }
 
-        private void StartAutoSave()
+        private void GameEvent_DayTick()
         {
-            if (autoSaveCoroutine != null)
-            {
-                StopCoroutine(autoSaveCoroutine);
-            }
-            autoSaveCoroutine = StartCoroutine(AutoSaveRoutine());
+            CheckIfAutosave();
         }
 
-        private void StopAutoSave()
+        private void CheckIfAutosave()
         {
-            if (autoSaveCoroutine != null)
-            {
-                StopCoroutine(autoSaveCoroutine);
-                autoSaveCoroutine = null;
-            }
-        }
+            if (PlayerSettings.AutoSaveFrequency == 0) return;
 
-        private IEnumerator AutoSaveRoutine()
-        {
-            while (true)
+            GameManager.Instance.GameData.DaysSinceAutosave++;
+            if (GameManager.Instance.GameData.DaysSinceAutosave >= PlayerSettings.AutoSaveFrequency)
             {
-                yield return new WaitForSeconds(PlayerSettings.AutoSaveFrequency * 60); // Convert minutes to seconds
-                yield return StartCoroutine(DataPersistenceManager.Instance.AutoSaveGameCoroutine(null));
-            }
-        }
-
-        private void OnAutoSaveEnabledChanged(bool isEnabled)
-        {
-            if (isEnabled)
-            {
-                StartAutoSave();
-            }
-            else
-            {
-                StopAutoSave();
-            }
-        }
-
-        private void OnAutoSaveFrequencyChanged(float frequency)
-        {
-            if (PlayerSettings.AutoSaveEnabled)
-            {
-                StartAutoSave();
+                GameManager.Instance.GameData.DaysSinceAutosave = 0;
+                StartCoroutine(DataPersistenceManager.Instance.AutoSaveGameCoroutine(null));
             }
         }
     }

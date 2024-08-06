@@ -189,7 +189,8 @@ namespace DataPersistence
                 // Collecting data and reporting progress
                 Header = GenerateHeader()
             };
-            
+
+            saveData.GameData = GameManager.Instance.GameData;
             ReportProgress();
             yield return null;
 
@@ -318,6 +319,7 @@ namespace DataPersistence
             yield return null;
         
             onStepStarted?.Invoke("Loading Environment");
+            GameManager.Instance.GameData = saveData.GameData;
             CameraManager.Instance.LoadCameraData(saveData.CameraData);
             EnvironmentManager.Instance.LoadEnvironmentData(saveData.EnvironmentData);
             onStepCompleted?.Invoke("Loading Environment");
@@ -361,8 +363,6 @@ namespace DataPersistence
             KinlingsDatabase.Instance.LoadKinlingsData(saveData.Kinlings);
             onStepCompleted?.Invoke("Spawning Kinlings");
             yield return null;
-
-            GameManager.Instance.GameData.SettlementName = saveData.Header.SettlementName;
     
             stopwatch.Stop();
             Debug.Log($"Load Complete in {stopwatch.ElapsedMilliseconds} ms");
@@ -597,6 +597,7 @@ namespace DataPersistence
     public class SaveData
     {
         public SaveHeader Header;
+        public GameData GameData;
         public CameraData CameraData;
         public EnvironmentData EnvironmentData;
         public Dictionary<string, KinlingData>  Kinlings;
