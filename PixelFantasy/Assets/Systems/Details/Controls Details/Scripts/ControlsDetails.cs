@@ -11,11 +11,15 @@ namespace Systems.Details.Controls_Details.Scripts
         [SerializeField] private ControlsBtn _furnitureBtn;
         [SerializeField] private ControlsBtn _structureBtn;
         [SerializeField] private ControlsBtn _zonesBtn;
+        [SerializeField] private ControlsBtn _jobPrioritiesBtn;
+        [SerializeField] private ControlsBtn _scheduleBtn;
 
         [SerializeField] private CommandMenu _commandMenu;
         [SerializeField] private FurnitureMenu _furnitureMenu;
         [SerializeField] private StructureMenu _structureMenu;
         [SerializeField] private ZoneMenu _zoneMenu;
+        [SerializeField] private JobPrioritiesMenu _jobPrioritiesMenu;
+        [SerializeField] private ScheduleMenu _scheduleMenu;
 
         private ControlsBtn _activeBtn;
         private EMenuType _currentMenu;
@@ -38,6 +42,8 @@ namespace Systems.Details.Controls_Details.Scripts
             _furnitureBtn.OnPressed += FurniturePressed;
             _structureBtn.OnPressed += StructurePressed;
             _zonesBtn.OnPressed += ZonesPressed;
+            _jobPrioritiesBtn.OnPressed += JobPrioritiesPressed;
+            _scheduleBtn.OnPressed += SchedulePressed;
             
             SetMenu(EMenuType.None);
         }
@@ -51,6 +57,8 @@ namespace Systems.Details.Controls_Details.Scripts
             _furnitureBtn.OnPressed -= FurniturePressed;
             _structureBtn.OnPressed -= StructurePressed;
             _zonesBtn.OnPressed -= ZonesPressed;
+            _jobPrioritiesBtn.OnPressed -= JobPrioritiesPressed;
+            _scheduleBtn.OnPressed -= SchedulePressed;
             
             _panel.SetActive(false);
         }
@@ -103,6 +111,20 @@ namespace Systems.Details.Controls_Details.Scripts
             SetMenu(EMenuType.Zones);
         }
 
+        private void JobPrioritiesPressed(ControlsBtn btn)
+        {
+            SetBtnActive(btn);
+            
+            SetMenu(EMenuType.JobPriorities);
+        }
+        
+        private void SchedulePressed(ControlsBtn btn)
+        {
+            SetBtnActive(btn);
+            
+            SetMenu(EMenuType.Schedule);
+        }
+
         private void SetBtnActive(ControlsBtn btn)
         {
             if (_activeBtn != null)
@@ -138,6 +160,12 @@ namespace Systems.Details.Controls_Details.Scripts
                 case EMenuType.Zones:
                     _zoneMenu.Hide();
                     break;
+                case EMenuType.JobPriorities:
+                    _jobPrioritiesMenu.Hide();
+                    break;
+                case EMenuType.Schedule:
+                    _scheduleMenu.Hide();
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -165,6 +193,14 @@ namespace Systems.Details.Controls_Details.Scripts
                     _seperator.SetActive(true);
                     _zoneMenu.Show();
                     break;
+                case EMenuType.JobPriorities:
+                    _seperator.SetActive(true);
+                    _jobPrioritiesMenu.Show();
+                    break;
+                case EMenuType.Schedule:
+                    _seperator.SetActive(true);
+                    _scheduleMenu.Show();
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -177,6 +213,8 @@ namespace Systems.Details.Controls_Details.Scripts
             Furniture,
             Structure,
             Zones,
+            JobPriorities,
+            Schedule,
         }
     }
 }

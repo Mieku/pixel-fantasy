@@ -9,22 +9,7 @@ namespace TaskSystem
 {
     public class TaskPriorities
     {
-        public List<TaskPriority> Priorities = new()
-        {
-            new TaskPriority(ETaskType.Emergency),
-            new TaskPriority(ETaskType.Healing),
-            new TaskPriority(ETaskType.Construction),
-            new TaskPriority(ETaskType.AnimalHandling),
-            new TaskPriority(ETaskType.Cooking),
-            new TaskPriority(ETaskType.Hunting),
-            new TaskPriority(ETaskType.Farming),
-            new TaskPriority(ETaskType.Mining),
-            new TaskPriority(ETaskType.Harvesting),
-            new TaskPriority(ETaskType.Forestry),
-            new TaskPriority(ETaskType.Crafting),
-            new TaskPriority(ETaskType.Hauling),
-            new TaskPriority(ETaskType.Research),
-        };
+        public List<TaskPriority> Priorities = new List<TaskPriority>();
         
         private Dictionary<ETaskType, int> _inherentPriorities = new()
         {
@@ -50,7 +35,28 @@ namespace TaskSystem
         
         public TaskPriorities(StatsData stats)
         {
+            InitializePriorities();
             AssignDefaultPrioritiesByStats(stats);
+        }
+
+        public void InitializePriorities()
+        {
+            Priorities = new List<TaskPriority>
+            {
+                new TaskPriority(ETaskType.Emergency),
+                new TaskPriority(ETaskType.Healing),
+                new TaskPriority(ETaskType.Construction),
+                new TaskPriority(ETaskType.AnimalHandling),
+                new TaskPriority(ETaskType.Cooking),
+                new TaskPriority(ETaskType.Hunting),
+                new TaskPriority(ETaskType.Farming),
+                new TaskPriority(ETaskType.Mining),
+                new TaskPriority(ETaskType.Harvesting),
+                new TaskPriority(ETaskType.Forestry),
+                new TaskPriority(ETaskType.Crafting),
+                new TaskPriority(ETaskType.Hauling),
+                new TaskPriority(ETaskType.Research),
+            };
         }
 
         private void AssignDefaultPrioritiesByStats(StatsData stats)
@@ -85,11 +91,12 @@ namespace TaskSystem
         public List<ETaskType> SortedPriorities()
         {
             var sortedPriorities = Priorities
-                .OrderByDescending(p => p.Priority) // First, sort by ETaskPriority
+                .Where(p => p.Priority != ETaskPriority.Ignore) // Exclude Ignore priority
+                .OrderBy(p => p.Priority) // First, sort by ETaskPriority
                 .ThenBy(p => _inherentPriorities[p.TaskType]) // Then, sort by the inherent priority within the same ETaskPriority
                 .Select(p => p.TaskType)
                 .ToList();
-
+            
             return sortedPriorities;
         }
 
@@ -141,6 +148,27 @@ namespace TaskSystem
         {
             TaskType = taskType;
             Priority = priority;
+        }
+
+        public string GetPriorityValueText()
+        {
+            switch (Priority)
+            {
+                case ETaskPriority.Ignore:
+                    return "-";
+                case ETaskPriority.Urgent:
+                    return "1";
+                case ETaskPriority.High:
+                    return "2";
+                case ETaskPriority.Normal:
+                    return "3";
+                case ETaskPriority.Low:
+                    return "4";
+                case ETaskPriority.Last:
+                    return "5";
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 

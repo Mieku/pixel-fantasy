@@ -90,7 +90,7 @@ namespace AI
                         {
                             checkedTaskIDs.Add(task.UniqueID);
 
-                            if (task.AreSkillsValid(kinlingData.Stats))
+                            if (kinlingData.Stats.CanDoTaskType(task.Type) && task.AreSkillsValid(kinlingData.Stats))
                             {
                                 lock (task)
                                 {
