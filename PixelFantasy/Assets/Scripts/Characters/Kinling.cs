@@ -58,6 +58,8 @@ namespace Characters
         
         private void OnDestroy()
         {
+            if(_isQuitting) return;
+            
             KinlingsDatabase.Instance.DeregisterKinling(RuntimeData);
             PlayerInteractableDatabase.Instance.DeregisterPlayerInteractable(this);
             

@@ -191,23 +191,23 @@ namespace Characters
             SetHour(4, ScheduleOption.Sleep);
             SetHour(5, ScheduleOption.Sleep);
             SetHour(6, ScheduleOption.Sleep);
-            SetHour(7, ScheduleOption.Recreation);
-            SetHour(8, ScheduleOption.Work);
-            SetHour(9, ScheduleOption.Work);
-            SetHour(10, ScheduleOption.Work);
-            SetHour(11, ScheduleOption.Work);
-            SetHour(12, ScheduleOption.Work);
-            SetHour(13, ScheduleOption.Work);
-            SetHour(14, ScheduleOption.Work);
-            SetHour(15, ScheduleOption.Work);
-            SetHour(16, ScheduleOption.Work);
-            SetHour(17, ScheduleOption.Work);
-            SetHour(18, ScheduleOption.Work);
-            SetHour(19, ScheduleOption.Work);
-            SetHour(20, ScheduleOption.Work);
-            SetHour(21, ScheduleOption.Recreation);
-            SetHour(22, ScheduleOption.Recreation);
-            SetHour(23, ScheduleOption.Recreation);
+            SetHour(7, ScheduleOption.Anything);
+            SetHour(8, ScheduleOption.Anything);
+            SetHour(9, ScheduleOption.Anything);
+            SetHour(10, ScheduleOption.Anything);
+            SetHour(11, ScheduleOption.Anything);
+            SetHour(12, ScheduleOption.Anything);
+            SetHour(13, ScheduleOption.Anything);
+            SetHour(14, ScheduleOption.Anything);
+            SetHour(15, ScheduleOption.Anything);
+            SetHour(16, ScheduleOption.Anything);
+            SetHour(17, ScheduleOption.Anything);
+            SetHour(18, ScheduleOption.Anything);
+            SetHour(19, ScheduleOption.Anything);
+            SetHour(20, ScheduleOption.Anything);
+            SetHour(21, ScheduleOption.Anything);
+            SetHour(22, ScheduleOption.Anything);
+            SetHour(23, ScheduleOption.Sleep);
         }
     }
     
@@ -216,5 +216,6 @@ namespace Characters
         [Description("Sleep")] Sleep,
         [Description("Work")] Work,
         [Description("Recreation")] Recreation,
+        [Description("Anything")] Anything,
     }
 }

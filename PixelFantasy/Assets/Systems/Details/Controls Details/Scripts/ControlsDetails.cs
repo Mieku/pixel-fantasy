@@ -31,6 +31,9 @@ namespace Systems.Details.Controls_Details.Scripts
             _furnitureMenu.Hide();
             _structureMenu.Hide();
             _zoneMenu.Hide();
+            _jobPrioritiesMenu.Hide();
+            _scheduleMenu.Hide();
+            
             _currentMenu = EMenuType.None;
         }
 

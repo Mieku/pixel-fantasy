@@ -25,7 +25,8 @@ namespace TaskSystem
             { ETaskType.Forestry, 10 },
             { ETaskType.Crafting, 11 },
             { ETaskType.Hauling, 12 },
-            { ETaskType.Research, 13 }
+            { ETaskType.Cleaning, 13 },
+            { ETaskType.Research, 14 }
         };
 
         public TaskPriorities()
@@ -55,6 +56,7 @@ namespace TaskSystem
                 new TaskPriority(ETaskType.Forestry),
                 new TaskPriority(ETaskType.Crafting),
                 new TaskPriority(ETaskType.Hauling),
+                new TaskPriority(ETaskType.Cleaning),
                 new TaskPriority(ETaskType.Research),
             };
         }

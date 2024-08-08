@@ -333,8 +333,6 @@ namespace Characters
 
             switch (taskType)
             {
-                case ETaskType.Emergency:
-                    break;
                 case ETaskType.Healing:
                     results.Add(GetSkillByType(ESkillType.Medical));
                     break;
@@ -362,13 +360,13 @@ namespace Characters
                 case ETaskType.Crafting:
                     results.Add(GetSkillByType(ESkillType.Crafting));
                     break;
-                case ETaskType.Hauling:
-                    break;
                 case ETaskType.Research:
                     results.Add(GetSkillByType(ESkillType.Intelligence));
                     break;
+                case ETaskType.Emergency:
+                case ETaskType.Hauling:
+                case ETaskType.Cleaning:
                 case ETaskType.Personal:
-                    break;
                 case ETaskType.Misc:
                     break;
                 default:

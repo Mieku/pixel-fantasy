@@ -81,6 +81,9 @@ namespace AI
                 case ScheduleOption.Recreation:
                     RequestNextRecreationTask();
                     break;
+                case ScheduleOption.Anything:
+                    RequestNextWorkTask();
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

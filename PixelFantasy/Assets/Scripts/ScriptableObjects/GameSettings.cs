@@ -40,6 +40,11 @@ namespace ScriptableObjects
         [BoxGroup("Work"), ShowInInspector] public float BaseWorkPerAction { get; private set; } = 1f;
 
         [BoxGroup("Experience"), ShowInInspector] public ExperienceSettings ExpSettings;
+
+        [BoxGroup("Schedule"), ShowInInspector] public Color AnythingScheduleColour;
+        [BoxGroup("Schedule"), ShowInInspector] public Color SleepScheduleColour;
+        [BoxGroup("Schedule"), ShowInInspector] public Color WorkScheduleColour;
+        [BoxGroup("Schedule"), ShowInInspector] public Color RecreationScheduleColour;
         
         public RaceSettings LoadRaceSettings(string raceName)
         {

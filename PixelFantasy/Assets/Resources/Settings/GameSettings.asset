@@ -13,3 +13,7 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   ExpSettings: {fileID: 11400000, guid: e92cb91e3e0544949be811da368cb8f7, type: 2}
+  AnythingScheduleColour: {r: 0.78039217, g: 0.8117647, b: 0.8666667, a: 1}
+  SleepScheduleColour: {r: 0, g: 0.59607846, b: 0.8627451, a: 1}
+  WorkScheduleColour: {r: 0.9607843, g: 0.33333334, b: 0.3647059, a: 1}
+  RecreationScheduleColour: {r: 1, g: 0.63529414, b: 0.078431375, a: 1}

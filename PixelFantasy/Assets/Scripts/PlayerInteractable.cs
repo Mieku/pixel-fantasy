@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using AI;
 using Newtonsoft.Json;
@@ -7,6 +8,8 @@ public abstract class PlayerInteractable : MonoBehaviour
 {
     public abstract string UniqueID { get; }
     public abstract string PendingTaskUID { get; set; }
+
+    protected static bool _isQuitting = false;
     
     [SerializeField] private SpriteRenderer _icon;
     
@@ -140,4 +143,9 @@ public abstract class PlayerInteractable : MonoBehaviour
     }
 
     public abstract Vector2? UseagePosition(Vector2 requestorPosition);
+
+    private void OnApplicationQuit()
+    {
+        _isQuitting = true;
+    }
 }
