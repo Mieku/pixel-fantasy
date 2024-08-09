@@ -1,63 +1,104 @@
 using System;
+using System.Collections.Generic;
+using Systems.Details.Build_Details.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace HUD.Tooltip
 {
-    [ExecuteInEditMode()]
     public class Tooltip : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _header;
         [SerializeField] private TextMeshProUGUI _content;
-        [SerializeField] private LayoutElement _layoutElement;
-        [SerializeField] private int _charWrapLimit;
+        [SerializeField] private GameObject _headerHandle;
+        [SerializeField] private GameObject _lineSeparatorHandle;
+        [SerializeField] private GameObject _contentHandle;
+        [SerializeField] private GameObject _resourceDisplayHandle;
+        [SerializeField] private ResourceCost _resourceCostPrefab;
+        [SerializeField] private Transform _resourceCostParent;
+        [SerializeField] private PanelLayoutRebuilder _layoutRebuilder;
 
-        private RectTransform _rectTransform;
+        private List<ResourceCost> _displayedCosts = new List<ResourceCost>();
 
         private void Awake()
         {
-            _rectTransform = GetComponent<RectTransform>();
+            _resourceCostPrefab.gameObject.SetActive(false);
         }
 
-        public void SetText(string content, string header = "")
+        public void SetText(string content, string header = null, List<CostSettings> costSettingsList = null)
         {
+            ClearDisplayedCosts();
+            int numElements = 0;
+            
+            // Handle the Header
             if (string.IsNullOrEmpty(header))
             {
-                _header.gameObject.SetActive(false);
+                _headerHandle.SetActive(false);
             }
             else
             {
-                _header.gameObject.SetActive(true);
+                numElements++;
+                _headerHandle.SetActive(true);
                 _header.text = header;
             }
 
-            _content.text = content;
-            
-            RefreshLayout();
-        }
-        
-        private void RefreshLayout()
-        {
-            int headerLength = _header.text.Length;
-            int contentLength = _content.text.Length;
+            if (string.IsNullOrEmpty(content))
+            {
+                _contentHandle.SetActive(false);
+            }
+            else
+            {
+                numElements++;
+                _contentHandle.SetActive(true);
+                _content.text = content;
+            }
 
-            _layoutElement.enabled = (headerLength > _charWrapLimit || contentLength > _charWrapLimit) ? true : false;
+            // Handle resource costs
+            if (costSettingsList is { Count: > 0 })
+            {
+                numElements++;
+                _resourceDisplayHandle.SetActive(true);
+                
+                foreach (var costSetting in costSettingsList)
+                {
+                    var costDisplay = Instantiate(_resourceCostPrefab, _resourceCostParent);
+                    costDisplay.gameObject.SetActive(true);
+                    costDisplay.Init(costSetting);
+                    _displayedCosts.Add(costDisplay);
+                }
+            }
+            else
+            {
+                _resourceDisplayHandle.SetActive(false);
+            }
+
+            // Should show the line?
+            _lineSeparatorHandle.SetActive(numElements > 1);
+        }
+
+        public void OnShow()
+        {
+            _layoutRebuilder.RefreshLayout();
+        }
+
+        public void OnHide()
+        {
+            _layoutRebuilder.StopRefresh();
+        }
+
+        private void ClearDisplayedCosts()
+        {
+            foreach (var displayedCost in _displayedCosts)
+            {
+                Destroy(displayedCost.gameObject);
+            }
+            _displayedCosts.Clear();
         }
         
         private void Update()
         {
-            if (Application.isEditor)
-            {
-                RefreshLayout();
-            }
-
             Vector2 pos = Input.mousePosition;
-
-            float pivotX = pos.x / Screen.width;
-            float pivotY = pos.y / Screen.height;
-
-            _rectTransform.pivot = new Vector2(pivotX, pivotY);
             transform.position = pos;
         }
     }

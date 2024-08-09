@@ -7,9 +7,23 @@ namespace Systems.Details.Build_Details.Scripts
 {
     public class PanelLayoutRebuilder : MonoBehaviour
     {
+        private Coroutine _curRoutine;
         public void RefreshLayout()
         {
-            StartCoroutine(RefreshSequence());
+            if (_curRoutine != null)
+            {
+                StopCoroutine(_curRoutine);
+            }
+            
+            _curRoutine = StartCoroutine(RefreshSequence());
+        }
+
+        public void StopRefresh()
+        {
+            if (_curRoutine != null)
+            {
+                StopCoroutine(_curRoutine);
+            }
         }
         
         private IEnumerator RefreshSequence()

@@ -12,6 +12,7 @@ namespace HUD.Tooltip
         public void Awake()
         {
             _current = this;
+            DontDestroyOnLoad(gameObject);
         }
 
         private void Start()
@@ -23,10 +24,12 @@ namespace HUD.Tooltip
         {
             _current.Tooltip.SetText(content, header);
             _current.Tooltip.gameObject.SetActive(true);
+            _current.Tooltip.OnShow();
         }
         
         public static void Hide()
         {
+            _current.Tooltip.OnHide();
             _current.Tooltip.gameObject.SetActive(false);
         }
     }
