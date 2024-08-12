@@ -8,6 +8,7 @@ using Systems.Mood.Scripts;
 using Systems.Needs.Scripts;
 using Systems.Stats.Scripts;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
 namespace ScriptableObjects
@@ -45,6 +46,8 @@ namespace ScriptableObjects
         [BoxGroup("Schedule"), ShowInInspector] public Color SleepScheduleColour;
         [BoxGroup("Schedule"), ShowInInspector] public Color WorkScheduleColour;
         [BoxGroup("Schedule"), ShowInInspector] public Color RecreationScheduleColour;
+
+        [BoxGroup("Input"), ShowInInspector] public InputActionAsset InputActions;
         
         public RaceSettings LoadRaceSettings(string raceName)
         {

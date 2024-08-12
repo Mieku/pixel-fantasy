@@ -2,6 +2,7 @@ using System;
 using Managers;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Controllers
 {
@@ -21,6 +22,8 @@ namespace Controllers
         [SerializeField] private float _maxFov;
         [SerializeField] private float _scrollSensitivity;
 
+        private Vector2 _moveInput;
+
         public bool IgnoreKeyboardInput { get; set; }
 
         private Vector3 _velocity = Vector3.zero;
@@ -35,7 +38,7 @@ namespace Controllers
             base.Awake();
             _cam = GetComponent<CinemachineCamera>();
         }
-
+        
         public CameraData SaveCameraData()
         {
             CameraData data = new CameraData
@@ -53,11 +56,10 @@ namespace Controllers
             transform.position = new Vector3(data.PosX, data.PosY, transform.position.z);
             _cam.Lens.OrthographicSize = data.OrthographicSize;
         }
-        
-        private void Update()
+
+        private void FixedUpdate()
         {
             CameraPanningInput();
-            CameraZoomInput();
             
             if (_isMovingToTarget)
             {
@@ -83,26 +85,70 @@ namespace Controllers
         {
             if (IgnoreKeyboardInput) return;
             
-            Vector3 desiredMove = Vector3.zero;
-
-            // Input detection for panning
-            if (Input.GetKey(KeyCode.A)) { desiredMove += Vector3.left; }
-            if (Input.GetKey(KeyCode.D)) { desiredMove += Vector3.right; }
-            if (Input.GetKey(KeyCode.W)) { desiredMove += Vector3.up; }
-            if (Input.GetKey(KeyCode.S)) { desiredMove += Vector3.down; }
-            
             // Calculate target position based on input
-            Vector3 targetPos = transform.position + desiredMove * _moveSpeed;
-            if (desiredMove != Vector3.zero)
+            Vector3 targetPos = (Vector2)transform.position + _moveInput * _moveSpeed;
+            targetPos.z = -15;
+            
+            if (_moveInput != Vector2.zero)
             {
                 _isMovingToTarget = false; // Cancel automatic movement if manually panning
                 transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref _velocity, _smoothTime);
             }
         }
 
-        private void CameraZoomInput()
+        public void MoveCameraUp(InputAction.CallbackContext context)
         {
-            float scroll = Input.GetAxis("Mouse ScrollWheel");
+            if (context.performed)
+            {
+                _moveInput += Vector2.up;
+            }
+            else if (context.canceled)
+            {
+                _moveInput -= Vector2.up;
+            }
+        }
+
+        public void MoveCameraDown(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                _moveInput += Vector2.down;
+            }
+            else if (context.canceled)
+            {
+                _moveInput -= Vector2.down;
+            }
+        }
+
+        public void MoveCameraLeft(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                _moveInput += Vector2.left;
+            }
+            else if (context.canceled)
+            {
+                _moveInput -= Vector2.left;
+            }
+        }
+
+        public void MoveCameraRight(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                _moveInput += Vector2.right;
+            }
+            else if (context.canceled)
+            {
+                _moveInput -= Vector2.right;
+            }
+        }
+
+        public void OnZoomCamera(InputValue value)
+        {
+            if (IgnoreKeyboardInput) return;
+            
+            var scroll = value.Get<Vector2>().y;
             float dynamicZoomSpeed = _scrollSensitivity * _cam.Lens.OrthographicSize;
             float newSize = _cam.Lens.OrthographicSize - scroll * dynamicZoomSpeed;
             _cam.Lens.OrthographicSize = Mathf.Clamp(newSize, _minFov, _maxFov);

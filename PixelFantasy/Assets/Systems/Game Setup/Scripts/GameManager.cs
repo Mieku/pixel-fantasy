@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,11 @@ namespace Systems.Game_Setup.Scripts
         {
             base.Awake();
             DontDestroyOnLoad(gameObject);
+        }
+
+        private void Start()
+        {
+            PlayerSettings.LoadSavedKeyBinds();
         }
 
         private void Update()

@@ -1,6 +1,7 @@
 using System;
 using QFSW.QC;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Managers
 {
@@ -66,13 +67,13 @@ namespace Managers
 
             return QuantumConsole.Instance.IsActive;
         }
-        
-        private void Update()
+
+        public void OnSetGameSpeed_Paused(InputValue value)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (IsConsoleOpen()) return;
+            
+            if (value.isPressed)
             {
-                if (IsConsoleOpen()) return;
-                
                 if (GameSpeed == GameSpeed.Paused)
                 {
                     if (_prevSpeed == GameSpeed.Paused)
@@ -86,24 +87,27 @@ namespace Managers
                     SetGameSpeed(GameSpeed.Paused);
                 }
             }
-
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                if (IsConsoleOpen()) return;
-                SetGameSpeed(GameSpeed.Play);
-            }
+        }
+        
+        public void OnSetGameSpeed_Play(InputValue value)
+        {
+            if (IsConsoleOpen()) return;
             
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                if (IsConsoleOpen()) return;
-                SetGameSpeed(GameSpeed.Fast);
-            }
+            SetGameSpeed(GameSpeed.Play);
+        }
+        
+        public void OnSetGameSpeed_Fast(InputValue value)
+        {
+            if (IsConsoleOpen()) return;
             
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                if (IsConsoleOpen()) return;
-                SetGameSpeed(GameSpeed.Fastest);
-            }
+            SetGameSpeed(GameSpeed.Fast);
+        }
+        
+        public void OnSetGameSpeed_Fastest(InputValue value)
+        {
+            if (IsConsoleOpen()) return;
+            
+            SetGameSpeed(GameSpeed.Fastest);
         }
     }
 

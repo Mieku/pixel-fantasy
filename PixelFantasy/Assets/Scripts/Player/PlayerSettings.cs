@@ -17,12 +17,16 @@ namespace Player
         [DefaultValue(1f)] public float MusicVolume = 1f;
         [DefaultValue(1f)] public float EffectsVolume = 1f;
         [DefaultValue(1f)] public float AmbientVolume = 1f;
+
+        public KeyBindData KeyBindings = new KeyBindData();
     }
 
     public static class PlayerSettings
     {
         private static readonly string PlayerSettingsFilePath = Path.Combine(Application.persistentDataPath + "/PlayerSettings/", "playerSettings.json");
         private static PlayerSettingsData _playerSettingsDataCache;
+        
+        public static KeyBindData KeyBindings => PlayerSettingsData.KeyBindings;
 
         private static PlayerSettingsData PlayerSettingsData
         {
@@ -63,7 +67,7 @@ namespace Player
             }
         }
 
-        private static void SavePlayerSettings()
+        public static void SavePlayerSettings()
         {
             if (!Directory.Exists(Application.persistentDataPath + "/PlayerSettings/"))
             {
@@ -79,6 +83,11 @@ namespace Player
             {
                 Debug.LogError($"Failed to save player settings: {ex.Message}");
             }
+        }
+
+        public static void LoadSavedKeyBinds()
+        {
+            KeyBindings.LoadSavedKeyBinds();
         }
         
         public static int AutoSaveFrequency
