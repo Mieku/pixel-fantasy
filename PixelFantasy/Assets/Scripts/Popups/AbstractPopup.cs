@@ -33,7 +33,7 @@ namespace Popups
                 Instance._animator.SetTrigger(MoveIn);
                 Instance.State = Popup.PopupState.MoveIn;
 
-                if (_shouldPause)
+                if (_shouldPause && TimeManager.Instance != null)
                 {
                     _prevSpeed = TimeManager.Instance.GameSpeed;
                     TimeManager.Instance.SetGameSpeed(GameSpeed.Paused);
@@ -70,7 +70,7 @@ namespace Popups
                 return;
             }
 
-            if (_shouldPause)
+            if (_shouldPause && TimeManager.Instance != null)
             {
                 TimeManager.Instance.SetGameSpeed(_prevSpeed);
             }

@@ -23,6 +23,7 @@ public class ClickObject : MonoBehaviour
     //private ItemSettings _itemSettings;
     //private ConstructionSettings _structureSettings;
     private Kinling _kinling;
+    private bool _isQuitting;
 
     private IClickableObject _clickableObject; // Cache
     public IClickableObject Owner
@@ -79,6 +80,7 @@ public class ClickObject : MonoBehaviour
     private void OnDestroy()
     {
         if (!Application.isPlaying) return;
+        if(_isQuitting) return;
         
         UnselectObject();
         PlayerInputController.Instance.OnClickObjectDestroy(this);
@@ -207,6 +209,11 @@ public class ClickObject : MonoBehaviour
     public void TriggerShowCommands(Kinling kinlingToHandleCommand)
     {
         CommandController.Instance.ShowCommands(this, kinlingToHandleCommand);
+    }
+    
+    private void OnApplicationQuit()
+    {
+        _isQuitting = true;
     }
 }
 

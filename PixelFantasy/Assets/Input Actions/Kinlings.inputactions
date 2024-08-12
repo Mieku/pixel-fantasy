@@ -6,7 +6,7 @@
             "id": "fc1e0e6f-baad-451b-968e-cbd83dce2e56",
             "actions": [
                 {
-                    "name": "Zoom Camera",
+                    "name": "ZoomCamera",
                     "type": "Value",
                     "id": "c3485410-f8f0-45d2-98f7-ae167db8f7a6",
                     "expectedControlType": "Vector2",
@@ -51,7 +51,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Move Camera Up",
+                    "name": "MoveCameraUp",
                     "type": "Button",
                     "id": "0d3e0007-a3ea-4176-bfdd-167b7224f996",
                     "expectedControlType": "Button",
@@ -60,27 +60,36 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Move Camera Down",
-                    "type": "Button",
+                    "name": "MoveCameraDown",
+                    "type": "Value",
                     "id": "679a24c0-f2f9-4db5-9c0d-c47c423e5684",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
-                    "name": "Move Camera Left",
-                    "type": "Button",
+                    "name": "MoveCameraLeft",
+                    "type": "Value",
                     "id": "3fe15c90-de34-43b9-8fea-33ad42ccb43e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
-                    "name": "Move Camera Right",
-                    "type": "Button",
+                    "name": "MoveCameraRight",
+                    "type": "Value",
                     "id": "b3e6113e-8278-43c2-bdbb-6560de79298f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Cancel",
+                    "type": "Button",
+                    "id": "5cc42c66-e6ea-4a7b-ad11-d0062bbdd9ff",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -95,7 +104,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Zoom Camera",
+                    "action": "ZoomCamera",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -194,7 +203,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Move Camera Up",
+                    "action": "MoveCameraUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -205,7 +214,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Move Camera Up",
+                    "action": "MoveCameraUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -216,7 +225,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Move Camera Down",
+                    "action": "MoveCameraDown",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -227,7 +236,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Move Camera Down",
+                    "action": "MoveCameraDown",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -238,7 +247,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Move Camera Left",
+                    "action": "MoveCameraLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -249,7 +258,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Move Camera Left",
+                    "action": "MoveCameraLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -260,7 +269,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Move Camera Right",
+                    "action": "MoveCameraRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -271,7 +280,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Move Camera Right",
+                    "action": "MoveCameraRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7e9f6fe9-019f-4a98-9c34-37c1e87ecdfa",
+                    "path": "keyboard/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8e0aa96e-e813-4ef8-a687-ddf32444eb13",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -294,15 +325,6 @@
                     "name": "Submit",
                     "type": "Button",
                     "id": "48b48f6a-7bea-4c48-a11c-16fb5d4cd72b",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Cancel",
-                    "type": "Button",
-                    "id": "9c9ada1d-cfdd-4ed8-a485-4699dbc88cbb",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -645,17 +667,6 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
                     "action": "Submit",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "82627dcc-3b13-4ba9-841d-e4b746d6553e",
-                    "path": "*/{Cancel}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
-                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

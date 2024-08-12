@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Player;
 using Popups.Settings;
 using UnityEngine;
 
@@ -27,6 +28,8 @@ namespace Popups
         
         public override void OnBackPressed()
         {
+            PlayerSettings.KeyBindings.CancelKeyBindListening();
+            
             Hide();
         }
 
@@ -37,6 +40,8 @@ namespace Popups
 
         public void SetContent(EContentState contentState)
         {
+            PlayerSettings.KeyBindings.CancelKeyBindListening();
+            
             _contentState = contentState;
             RefreshMenu();
 
@@ -56,6 +61,8 @@ namespace Popups
 
         public void OnOKPressed()
         {
+            PlayerSettings.KeyBindings.CancelKeyBindListening();
+            
             Hide();
         }
     }

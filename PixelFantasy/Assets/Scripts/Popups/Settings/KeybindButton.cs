@@ -17,28 +17,36 @@ namespace Popups.Settings
 
         [SerializeField] private EKeyBindAction _keyBindAction;
         [SerializeField] private bool _isAlternate;
-
-        private bool _isListening;
+        
         private Button _btn;
+        private ControlsSettingsContent _content;
 
         private void Awake()
         {
             _btn = GetComponent<Button>();
         }
 
+        public void Init(ControlsSettingsContent content)
+        {
+            _content = content;
+        }
+
         public void OnPressed()
         {
-            _isListening = true;
             _buttonText.text = "Listening...";
             _btn.interactable = false;
             _btnBG.sprite = _activeBG;
             
-            PlayerSettings.KeyBindings.BeginListeningForKeyBind(_keyBindAction, _isAlternate, OnKeyBindSet);
+            PlayerSettings.KeyBindings.BeginListeningForKeyBind(_keyBindAction, _isAlternate, OnKeyBindSet, OnKeyBindCancel, OnKeyBindExists);
+        }
+
+        private void OnKeyBindExists(InputAction conflictingAction)
+        {
+            _buttonText.text = "Exists, Try Again...";
         }
 
         private void OnKeyBindSet(InputActionRebindingExtensions.RebindingOperation operation)
         {
-            _isListening = false;
             _btn.interactable = true;
 
             // Update the UI with the new keybind
@@ -47,11 +55,13 @@ namespace Popups.Settings
             _btnBG.sprite = _defaultBG;
             operation.Dispose(); // Clean up the rebinding operation
             PlayerSettings.SavePlayerSettings();
+            
+            operation.action.Disable();
+            operation.action.Enable();
         }
 
-        public void OnCancel()
+        private void OnKeyBindCancel(InputActionRebindingExtensions.RebindingOperation operation)
         {
-            _isListening = false;
             _btn.interactable = true;
             UpdateKeyBindText();
             _btnBG.sprite = _defaultBG;
@@ -60,6 +70,8 @@ namespace Popups.Settings
         public void UpdateKeyBindText()
         {
             _buttonText.text = PlayerSettings.KeyBindings.GetKeyBindText(_keyBindAction, _isAlternate);
+            
+            _content.UpdateCancelNote();
         }
     }
 }

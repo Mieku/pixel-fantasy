@@ -1,6 +1,7 @@
 using System;
 using Newtonsoft.Json;
 using ScriptableObjects;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 [Serializable]
@@ -11,10 +12,14 @@ public class KeyBindData
     public SavedKeyBind SetGameSpeed_Fast = new SavedKeyBind("Player/SetGameSpeed_Fast");
     public SavedKeyBind SetGameSpeed_VeryFast = new SavedKeyBind("Player/SetGameSpeed_Fastest");
     
-    public SavedKeyBind MoveCamera_Up = new SavedKeyBind("Player/Move Camera Up");
-    public SavedKeyBind MoveCamera_Down = new SavedKeyBind("Player/Move Camera Down");
-    public SavedKeyBind MoveCamera_Left = new SavedKeyBind("Player/Move Camera Left");
-    public SavedKeyBind MoveCamera_Right = new SavedKeyBind("Player/Move Camera Right");
+    public SavedKeyBind MoveCamera_Up = new SavedKeyBind("Player/MoveCameraUp");
+    public SavedKeyBind MoveCamera_Down = new SavedKeyBind("Player/MoveCameraDown");
+    public SavedKeyBind MoveCamera_Left = new SavedKeyBind("Player/MoveCameraLeft");
+    public SavedKeyBind MoveCamera_Right = new SavedKeyBind("Player/MoveCameraRight");
+
+    public SavedKeyBind Cancel = new SavedKeyBind("Player/Cancel");
+    
+    private InputActionRebindingExtensions.RebindingOperation _currentRebindingOperation;
 
     public void LoadSavedKeyBinds()
     {
@@ -27,6 +32,10 @@ public class KeyBindData
         MoveCamera_Down.ApplyBinding();
         MoveCamera_Left.ApplyBinding();
         MoveCamera_Right.ApplyBinding();
+        
+        Cancel.ApplyBinding();
+        
+        RefreshInputActions();
     }
 
     public void ResetKeyBinds()
@@ -40,6 +49,17 @@ public class KeyBindData
         MoveCamera_Down.ResetBinding();
         MoveCamera_Left.ResetBinding();
         MoveCamera_Right.ResetBinding();
+        
+        Cancel.ResetBinding();
+        
+        RefreshInputActions();
+    }
+    
+    private void RefreshInputActions()
+    {
+        var actions = GameSettings.Instance.InputActions;
+        actions.Disable(); // Disable all actions to reset them
+        actions.Enable();  // Re-enable all actions to apply changes
     }
 
     private SavedKeyBind GetSavedKeyBind(EKeyBindAction bindAction)
@@ -62,6 +82,8 @@ public class KeyBindData
                 return MoveCamera_Left;
             case EKeyBindAction.MoveCamera_Right:
                 return MoveCamera_Right;
+            case EKeyBindAction.Cancel:
+                return Cancel;
             default:
                 throw new ArgumentOutOfRangeException(nameof(bindAction), bindAction, null);
         }
@@ -95,6 +117,9 @@ public class KeyBindData
             case EKeyBindAction.MoveCamera_Right:
                 MoveCamera_Right.SetBinding(path, isAlternate);
                 break;
+            case EKeyBindAction.Cancel:
+                Cancel.SetBinding(path, isAlternate);
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(bindAction), bindAction, null);
         }
@@ -121,25 +146,84 @@ public class KeyBindData
         return action.GetBindingDisplayString(0);
     }
 
-    public void BeginListeningForKeyBind(EKeyBindAction bindAction, bool isAlternate,
-        Action<InputActionRebindingExtensions.RebindingOperation> onComplete)
+    public void CancelKeyBindListening()
     {
+        if (_currentRebindingOperation != null)
+        {
+            _currentRebindingOperation.Cancel(); // Trigger the OnCancel callback
+            _currentRebindingOperation = null; // Clear the reference
+        }
+    }
+    
+    public void BeginListeningForKeyBind(EKeyBindAction bindAction, bool isAlternate,
+        Action<InputActionRebindingExtensions.RebindingOperation> onComplete, Action<InputActionRebindingExtensions.RebindingOperation> onCancel, Action<InputAction> onKeyBindExists)
+    {
+        CancelKeyBindListening();
+        
+        var cancelPath = Cancel.InputAction.bindings[0].effectivePath;
         var action = GetSavedKeyBind(bindAction).InputAction;
         int index = 0;
         if (isAlternate) index = 1;
         
         action.Disable();
-        action.PerformInteractiveRebinding(index)
+        _currentRebindingOperation = action.PerformInteractiveRebinding(index)
+            .WithControlsExcluding("<Pointer>/press")
+            .WithControlsExcluding("<Mouse>/leftButton")
             .WithControlsExcluding("<Mouse>/position") // Exclude mouse position if desired
+            .WithCancelingThrough(cancelPath)
             .OnMatchWaitForAnother(0.1f) // Wait a moment for a complete match
             .OnComplete((operation) =>
             {
+                _currentRebindingOperation = null;
                 action.Enable();
                 var newPath = action.bindings[index].effectivePath;
+                
+                var (isInUse, conflictingAction) = IsKeyBindInUse(newPath, action);
+                if (isInUse)
+                {
+                    onKeyBindExists?.Invoke(conflictingAction);
+                    
+                    // Cancel the Key Bind
+                    action.RemoveBindingOverride(index);
+                    operation.Dispose();
+                    BeginListeningForKeyBind(bindAction, isAlternate, onComplete, onCancel, onKeyBindExists);
+                    return;
+                }
+                
                 SetKeyBindPath(bindAction, isAlternate, newPath);
-                onComplete.Invoke(operation);
+                RefreshInputActions();
+                onComplete?.Invoke(operation);
+            })
+            .OnCancel(operation =>
+            {
+                _currentRebindingOperation = null;
+                operation.Dispose();
+                onCancel?.Invoke(operation);
             })
             .Start();
+    }
+    
+    private (bool, InputAction) IsKeyBindInUse(string newPath, InputAction currentAction)
+    {
+        var map = currentAction.actionMap;
+        
+        foreach (var action in map.actions)
+        {
+            // Skip checking the current action to avoid self-conflict
+            if (action == currentAction)
+                continue;
+
+            // Check each binding in the action
+            foreach (var binding in action.bindings)
+            {
+                if (binding.effectivePath == newPath)
+                {
+                    return (true, action); // Conflict found, return the conflicting action's name
+                }
+            }
+        }
+        
+        return (false, null); // No conflicts found
     }
 }
 
@@ -214,4 +298,5 @@ public enum EKeyBindAction
     MoveCamera_Down,
     MoveCamera_Left,
     MoveCamera_Right,
+    Cancel,
 }

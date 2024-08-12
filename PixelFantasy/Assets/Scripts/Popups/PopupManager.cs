@@ -4,6 +4,8 @@ using UnityEditor;
 using UnityEngine;
 using System.Linq;
 using Managers;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace Popups
 {
@@ -13,11 +15,34 @@ namespace Popups
         
         [Header("Popups:")]
         [SerializeField] private Popup[] _popups;
+        [SerializeField] private InputActionReference _cancelInput;
 
         private readonly List<Popup> _popupStack = new List<Popup>();
         private readonly Dictionary<Type, Popup> _cachedPopups = new Dictionary<Type, Popup>();
         private readonly Queue<PopupRequest> RequestQueue = new Queue<PopupRequest>();
-        
+
+        private void OnEnable()
+        {
+            _cancelInput.action.performed += OnCancelPressed;
+        }
+
+        private void OnDisable()
+        {
+            _cancelInput.action.performed -= OnCancelPressed;
+        }
+
+        private void OnCancelPressed(InputAction.CallbackContext context)
+        {
+            if (_popupStack.Count > 0)
+            {
+                _popupStack.Last().OnBackPressed();
+            }
+            else if(SceneManager.GetActiveScene().buildIndex == 1)
+            {
+                PauseMenuPopup.Show();
+            }
+        }
+
         public void CreateInstance<T>() where T : Popup
         {
             var prefab = GetPrefab<T>();
@@ -96,21 +121,6 @@ namespace Popups
         {
             var popupInstance = _popupStack.Last();
             ClosePopup(popupInstance);
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                if (_popupStack.Count > 0)
-                {
-                    _popupStack.Last().OnBackPressed();
-                }
-                else
-                {
-                    PauseMenuPopup.Show();
-                }
-            }
         }
     }
     
