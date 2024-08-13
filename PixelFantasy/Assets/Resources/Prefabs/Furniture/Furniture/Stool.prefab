@@ -1835,7 +1835,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _icon: {fileID: 4386351996110386924}
   Commands: []
-  PendingCommand: {fileID: 0}
   _southHandle: {fileID: 2101369082256798506}
   _southSpritesRoot: {fileID: 8679221838297705576}
   _southUseageMarkersRoot: {fileID: 795657465536751454}
@@ -1852,8 +1851,11 @@ MonoBehaviour:
   _eastSpritesRoot: {fileID: 8920980389795674301}
   _eastUseageMarkersRoot: {fileID: 6642446217662002030}
   _eastPlacementObstacle: {fileID: 880805087208065176}
+  _clockwiseRotateInput: {fileID: -8468970108551654514, guid: 7ef08c0a2e5067f4986dcae2765c064c, type: 3}
+  _counterClockwiseRotateInput: {fileID: -395001715871226230, guid: 7ef08c0a2e5067f4986dcae2765c064c, type: 3}
   RuntimeData:
     UniqueID: 
+    PendingTaskUID: 
     FurnitureState: 0
     RemainingWork: 0
     Direction: 0
@@ -1868,7 +1870,7 @@ MonoBehaviour:
     RemainingMaterialCosts: []
     PendingResourceCosts: []
     IncomingResourceCosts: []
-    IncomingItems: []
+    IncomingItemsUIDs: []
   _usingParent: {fileID: 3836281627419005536}
   _southTableCheckTransform: {fileID: 2514928358787516302}
   _westTableCheckTransform: {fileID: 6995081151164634383}

@@ -14,6 +14,7 @@ using Sirenix.OdinInspector;
 using Systems.Stats.Scripts;
 using TaskSystem;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Items
 {

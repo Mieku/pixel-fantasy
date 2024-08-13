@@ -2,7 +2,7 @@
     "name": "Kinlings",
     "maps": [
         {
-            "name": "Player",
+            "name": "Gameplay",
             "id": "fc1e0e6f-baad-451b-968e-cbd83dce2e56",
             "actions": [
                 {
@@ -288,17 +288,6 @@
                     "name": "",
                     "id": "7e9f6fe9-019f-4a98-9c34-37c1e87ecdfa",
                     "path": "keyboard/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Cancel",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8e0aa96e-e813-4ef8-a687-ddf32444eb13",
-                    "path": "",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -799,6 +788,76 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Placement",
+            "id": "837d605c-25ff-42a9-8d11-d671dc0ee4df",
+            "actions": [
+                {
+                    "name": "RotateClockwise",
+                    "type": "Button",
+                    "id": "a7e50922-925e-43fb-a880-72e08afa4b39",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RotateCounterClockwise",
+                    "type": "Button",
+                    "id": "597252c7-9238-4c66-b464-435d41623202",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c969bd31-7f47-4b98-9144-1497d0960e7a",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "RotateClockwise",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "254a3073-4c58-4b93-88f2-20d01bc89706",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "RotateClockwise",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9d07ce37-c8fa-47c4-9011-db6780e991fc",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "RotateCounterClockwise",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c66be416-f9e3-4586-9354-12c71f8d7c96",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "RotateCounterClockwise",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

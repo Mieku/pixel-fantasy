@@ -7,17 +7,20 @@ using UnityEngine.InputSystem;
 [Serializable]
 public class KeyBindData
 {
-    public SavedKeyBind SetGameSpeed_Pause = new SavedKeyBind("Player/SetGameSpeed_Paused");
-    public SavedKeyBind SetGameSpeed_Normal = new SavedKeyBind("Player/SetGameSpeed_Play");
-    public SavedKeyBind SetGameSpeed_Fast = new SavedKeyBind("Player/SetGameSpeed_Fast");
-    public SavedKeyBind SetGameSpeed_VeryFast = new SavedKeyBind("Player/SetGameSpeed_Fastest");
+    public SavedKeyBind SetGameSpeed_Pause = new SavedKeyBind("Gameplay/SetGameSpeed_Paused");
+    public SavedKeyBind SetGameSpeed_Normal = new SavedKeyBind("Gameplay/SetGameSpeed_Play");
+    public SavedKeyBind SetGameSpeed_Fast = new SavedKeyBind("Gameplay/SetGameSpeed_Fast");
+    public SavedKeyBind SetGameSpeed_VeryFast = new SavedKeyBind("Gameplay/SetGameSpeed_Fastest");
     
-    public SavedKeyBind MoveCamera_Up = new SavedKeyBind("Player/MoveCameraUp");
-    public SavedKeyBind MoveCamera_Down = new SavedKeyBind("Player/MoveCameraDown");
-    public SavedKeyBind MoveCamera_Left = new SavedKeyBind("Player/MoveCameraLeft");
-    public SavedKeyBind MoveCamera_Right = new SavedKeyBind("Player/MoveCameraRight");
+    public SavedKeyBind MoveCamera_Up = new SavedKeyBind("Gameplay/MoveCameraUp");
+    public SavedKeyBind MoveCamera_Down = new SavedKeyBind("Gameplay/MoveCameraDown");
+    public SavedKeyBind MoveCamera_Left = new SavedKeyBind("Gameplay/MoveCameraLeft");
+    public SavedKeyBind MoveCamera_Right = new SavedKeyBind("Gameplay/MoveCameraRight");
 
-    public SavedKeyBind Cancel = new SavedKeyBind("Player/Cancel");
+    public SavedKeyBind Cancel = new SavedKeyBind("Gameplay/Cancel");
+    
+    public SavedKeyBind RotateClockwise = new SavedKeyBind("Placement/RotateClockwise");
+    public SavedKeyBind RotateCounterClockwise = new SavedKeyBind("Placement/RotateCounterClockwise");
     
     private InputActionRebindingExtensions.RebindingOperation _currentRebindingOperation;
 
@@ -84,6 +87,10 @@ public class KeyBindData
                 return MoveCamera_Right;
             case EKeyBindAction.Cancel:
                 return Cancel;
+            case EKeyBindAction.RotateClockwise:
+                return RotateClockwise;
+            case EKeyBindAction.RotateCounterClockwise:
+                return RotateCounterClockwise;
             default:
                 throw new ArgumentOutOfRangeException(nameof(bindAction), bindAction, null);
         }
@@ -91,38 +98,8 @@ public class KeyBindData
     
     private void SetKeyBindPath(EKeyBindAction bindAction, bool isAlternate, string path)
     {
-        switch (bindAction)
-        {
-            case EKeyBindAction.SetGameSpeed_Paused:
-                SetGameSpeed_Pause.SetBinding(path, isAlternate);
-                break;
-            case EKeyBindAction.SetGameSpeed_Normal:
-                SetGameSpeed_Normal.SetBinding(path, isAlternate);
-                break;
-            case EKeyBindAction.SetGameSpeed_Fast:
-                SetGameSpeed_Fast.SetBinding(path, isAlternate);
-                break;
-            case EKeyBindAction.SetGameSpeed_VeryFast:
-                SetGameSpeed_VeryFast.SetBinding(path, isAlternate);
-                break;
-            case EKeyBindAction.MoveCamera_Up:
-                MoveCamera_Up.SetBinding(path, isAlternate);
-                break;
-            case EKeyBindAction.MoveCamera_Down:
-                MoveCamera_Down.SetBinding(path, isAlternate);
-                break;
-            case EKeyBindAction.MoveCamera_Left:
-                MoveCamera_Left.SetBinding(path, isAlternate);
-                break;
-            case EKeyBindAction.MoveCamera_Right:
-                MoveCamera_Right.SetBinding(path, isAlternate);
-                break;
-            case EKeyBindAction.Cancel:
-                Cancel.SetBinding(path, isAlternate);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(bindAction), bindAction, null);
-        }
+        var bind = GetSavedKeyBind(bindAction);
+        bind.SetBinding(path, isAlternate);
     }
 
     public string GetKeyBindText(EKeyBindAction bindAction, bool isAlternate)
@@ -299,4 +276,6 @@ public enum EKeyBindAction
     MoveCamera_Left,
     MoveCamera_Right,
     Cancel,
+    RotateClockwise,
+    RotateCounterClockwise,
 }
