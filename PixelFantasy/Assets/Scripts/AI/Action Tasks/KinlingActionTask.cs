@@ -1,6 +1,7 @@
 using DataPersistence;
 using NodeCanvas.Framework;
 using ParadoxNotion.Design;
+using Systems.Game_Setup.Scripts;
 
 namespace AI.Action_Tasks
 {
@@ -9,6 +10,7 @@ namespace AI.Action_Tasks
     {
         protected override void OnStop(bool interrupted)
         {
+            if (GameManager.Instance.GameIsQuitting) return;
             if(DataPersistenceManager.WorldIsClearing) return;
             OnStopInternal(interrupted);
         }
@@ -20,5 +22,7 @@ namespace AI.Action_Tasks
         {
             
         }
+        
+        
     }
 }

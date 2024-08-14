@@ -499,6 +499,7 @@ GameObject:
   - component: {fileID: 7155256550381879068}
   - component: {fileID: 7155256550381879070}
   - component: {fileID: 5409644490048135930}
+  - component: {fileID: 9115037846899759508}
   m_Layer: 0
   m_Name: Tree Sprite
   m_TagString: Untagged
@@ -586,6 +587,43 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &9115037846899759508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7155256550381879069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5783dbbad6a59184fa58aa75d79bcc02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shadowType: 1
+  shadowLayer: 0
+  shadowDistance: 1
+  shadowDistanceMin: 1.3886341
+  shadowDistanceMax: 1.7039555
+  shadowTranslucency: 0
+  maskType: 1
+  maskLit: 0
+  maskPivot: 0
+  maskLayer: 0
+  maskLitCustom: 0.5
+  bumpMapMode:
+    type: 0
+    textureType: 0
+    texture: {fileID: 0}
+    sprite: {fileID: 0}
+    invertX: 0
+    invertY: 0
+    depth: 1
+    spriteRenderer: {fileID: 0}
+  mainShape:
+    shadowType: 1
+    maskType: 1
+    maskPivot: 0
+    transform: {fileID: 0}
 --- !u!1 &7155256550430962558
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,7 +695,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -170406723
-  m_SortingLayer: 7
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c010dce291f56fa43aa503464e20d207, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -821,7 +859,6 @@ MonoBehaviour:
   _icon: {fileID: 7155256550430962553}
   Commands:
   - {fileID: 11400000, guid: 741035aabc10ee741a67711d029540d3, type: 2}
-  PendingCommand: {fileID: 0}
   _spriteRenderer: {fileID: 7155256550381879070}
   _clickObject: {fileID: 7155256551760761719}
   _defaultExtractCmd: {fileID: 11400000, guid: 741035aabc10ee741a67711d029540d3, type: 2}
@@ -841,9 +878,9 @@ MonoBehaviour:
     UniqueID: 
     SpriteIndex: 0
     Health: 0
+    PendingTaskUID: 
     SettingsName: 
   _fruitOverlay: {fileID: 6319101082123291704}
-  TaskRequestors: []
 --- !u!61 &7069223065334861981
 BoxCollider2D:
   m_ObjectHideFlags: 0

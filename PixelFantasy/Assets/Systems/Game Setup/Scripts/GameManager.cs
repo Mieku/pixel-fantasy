@@ -21,6 +21,8 @@ namespace Systems.Game_Setup.Scripts
     public class GameManager : PersistentSingleton<GameManager>
     {
         public GameData GameData;
+        
+        public bool GameIsQuitting;
 
         public int RandomSeedSalt => Time.frameCount;
 
@@ -285,6 +287,11 @@ namespace Systems.Game_Setup.Scripts
                     }
                 }
             }
+        }
+
+        private void OnApplicationQuit()
+        {
+            GameIsQuitting = true;
         }
     }
 }

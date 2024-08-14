@@ -18,7 +18,7 @@ namespace Items
         [TitleGroup("North")] [SerializeField] private SpriteRenderer _northCraftingPreview;
         [TitleGroup("East")] [SerializeField] private SpriteRenderer _eastCraftingPreview;
         
-        [ShowInInspector] public CraftingTableData RuntimeTableData => (CraftingTableData) RuntimeData;
+        [ShowInInspector] public CraftingTableData RuntimeTableData => RuntimeData as CraftingTableData;
 
         public override void StartPlanning(FurnitureSettings furnitureSettings, PlacementDirection initialDirection, DyeSettings dye)
         {

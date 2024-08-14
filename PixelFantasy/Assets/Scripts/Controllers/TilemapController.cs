@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FunkyCode;
 using Managers;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -68,6 +69,8 @@ namespace Controllers
                 tileMap.SetTile(tile.Position, tileBase);
                 tileMap.SetColor(tile.Position, tile.Color);
             }
+            
+            TryUpdateEntireLightTileMap(tileMap);
         }
 
         public TileMapLayerData CollectTileMapData(Tilemap tilemap)
@@ -90,6 +93,39 @@ namespace Controllers
             }
             
             return data;
+        }
+
+        public void SetTile(TilemapLayer layer, Vector2 worldPos, TileBase tileBase)
+        {
+            var tileMap = GetTilemap(layer);
+            var cell = tileMap.WorldToCell(worldPos);
+            tileMap.SetTile(cell, tileBase);
+            TryUpdateLightTileMapCell(tileMap, cell);
+        }
+
+        public void ColourTile(TilemapLayer layer, Vector2 worldPos, Color colour)
+        {
+            var tileMap = GetTilemap(layer);
+            var cell = tileMap.WorldToCell(worldPos);
+            tileMap.SetColor(cell, colour);
+        }
+
+        private void TryUpdateLightTileMapCell(Tilemap tilemap, Vector3Int cell)
+        {
+            LightTilemapCollider2D lightTilemapCollider2D = tilemap.gameObject.GetComponent<LightTilemapCollider2D>();
+            if (lightTilemapCollider2D != null)
+            {
+                lightTilemapCollider2D.RefreshTile(cell);
+            }
+        }
+
+        private void TryUpdateEntireLightTileMap(Tilemap tilemap)
+        {
+            LightTilemapCollider2D lightTilemapCollider2D = tilemap.gameObject.GetComponent<LightTilemapCollider2D>();
+            if (lightTilemapCollider2D != null)
+            {
+                lightTilemapCollider2D.Initialize();
+            }
         }
         
         public Tilemap GetTilemap(TilemapLayer layer)

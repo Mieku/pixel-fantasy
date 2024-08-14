@@ -11,7 +11,7 @@ namespace Systems.Buildings.Scripts
 {
     public class Door : StructurePiece
     {
-        private Tilemap _wallTilemap;
+        //private Tilemap _wallTilemap;
         
         public Action OnDoorPlaced;
 
@@ -31,7 +31,7 @@ namespace Systems.Buildings.Scripts
         {
             base.Awake();
 
-            _wallTilemap = TilemapController.Instance.GetTilemap(TilemapLayer.Structure);
+            //_wallTilemap = TilemapController.Instance.GetTilemap(TilemapLayer.Structure);
         }
 
         public void Init(DoorSettings doorSettings, DyeSettings matColour)
@@ -138,14 +138,18 @@ namespace Systems.Buildings.Scripts
 
         private void AddWallFiller()
         {
-            var cell = _wallTilemap.WorldToCell(transform.position);
-            _wallTilemap.SetTile(cell ,_wallFillerRT);
+            TilemapController.Instance.SetTile(TilemapLayer.Structure, transform.position, _wallFillerRT);
+            
+            // var cell = _wallTilemap.WorldToCell(transform.position);
+            // _wallTilemap.SetTile(cell ,_wallFillerRT);
         }
 
         private void RemoveWallFiller()
         {
-            var cell = _wallTilemap.WorldToCell(transform.position);
-            _wallTilemap.SetTile(cell ,null);
+            TilemapController.Instance.SetTile(TilemapLayer.Structure, transform.position, null);
+            //
+            // var cell = _wallTilemap.WorldToCell(transform.position);
+            // _wallTilemap.SetTile(cell ,null);
         }
 
         public override void CompleteDeconstruction()

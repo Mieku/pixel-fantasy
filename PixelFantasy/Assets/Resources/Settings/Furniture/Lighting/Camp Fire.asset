@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f09dd6d34c4f8f148a15814f5556d48b, type: 3}
+  m_Name: Camp Fire
+  m_EditorClassIdentifier: 
+  _itemName: Camp Fire
+  _itemSprite: {fileID: -1960405314, guid: 3dc89e3e64e726d4db2fe0cb3c13fe39, type: 3}
+  _category: 4
+  _maxDurability: 10
+  _maxStackSize: 1
+  _hasQuality: 0
+  _defaultQuality: 1
+  _craftRequirements:
+    _skillRequirements: []
+    _minCraftingSkillLevel: 1
+    _craftingSkill: 10
+    _workCost: 10
+    _requiredCraftingToolType: 0
+    _costSettings:
+    - Item: {fileID: 11400000, guid: a38768ccf4c59324ab8ccb85562e2250, type: 2}
+      Quantity: 2
+    - Item: {fileID: 11400000, guid: 7167b8dd21508774ebc1ceab992a07b1, type: 2}
+      Quantity: 2
+  _description: 
+  _furniturePrefab: {fileID: 7901035948059328099, guid: 5f1a3707032217746a8778574d03512b, type: 3}
+  _inUseNeedChange:
+    SourceID: 
+    AmountPerHour: 0
+    NeedType: 0
+  _colourOptions:
+    ColourOptionsHeader: 
+    DyePalettes: []
+  _varients: []
+  _defaultDirection: 0
+  _defaultDye: {fileID: 0}
+  _numOwners: 0
+  _craftableItems: []
+  _cookableMeals:
+  - {fileID: 11400000, guid: 8e94e576141358b47ba3b83e67a1e198, type: 2}
