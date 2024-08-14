@@ -40,7 +40,7 @@ public abstract class PlayerInteractable : MonoBehaviour
     
     public virtual void AssignCommand(Command command)
     {
-        if (command.Name == "Cancel Command")
+        if (command.CommandID == "Cancel Command")
         {
             CancelPendingTask();
             return;
@@ -59,7 +59,7 @@ public abstract class PlayerInteractable : MonoBehaviour
 
     public void CreateTask(Command command)
     {
-        if (command.Name == "Cancel Command")
+        if (command.CommandID == "Cancel Command")
         {
             CancelPendingTask();
             return;

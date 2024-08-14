@@ -145,7 +145,7 @@ public class ClickObject : MonoBehaviour
         var clickableObject = GetComponent<IClickableObject>();
         if (clickableObject != null)
         {
-            if (pendingCommand.Name == "Cancel Command")
+            if (pendingCommand.CommandID == "Cancel Command")
             {
                 return clickableObject.GetPlayerInteractable().PendingCommand != null;
             }

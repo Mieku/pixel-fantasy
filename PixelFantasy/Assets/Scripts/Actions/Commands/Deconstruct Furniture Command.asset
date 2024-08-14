@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bdf6adffca56064cad1de5df493d6c2, type: 3}
   m_Name: Deconstruct Furniture Command
   m_EditorClassIdentifier: 
-  Name: Deconstruct Furniture
+  CommandID: Deconstruct Furniture
   DisplayName: Deconstructing
   Icon: {fileID: 21300000, guid: 6f3680b2988108f48963a71e8553651f, type: 3}
   TaskID: Deconstruct Structure

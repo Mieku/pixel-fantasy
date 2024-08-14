@@ -32,7 +32,7 @@ namespace Systems.CursorHandler.Scripts
             _isInvalid = isInvalid;
             _onCommandBtnPressed = onCommandBtnPressed;
 
-            _commandText.text = command.Name;
+            _commandText.text = command.CommandID;
             
             Refresh();
         }

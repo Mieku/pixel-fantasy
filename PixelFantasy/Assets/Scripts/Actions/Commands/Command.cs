@@ -2,11 +2,12 @@ using AI;
 using Characters;
 using TaskSystem;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "Command", menuName ="Commands/Create Command")]
 public class Command : ScriptableObject
 {
-    public string Name;
+    [FormerlySerializedAs("Name")] public string CommandID;
     public string DisplayName;
     public Sprite Icon;
 

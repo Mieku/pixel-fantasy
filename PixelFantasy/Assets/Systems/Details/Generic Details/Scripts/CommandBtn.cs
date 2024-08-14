@@ -24,7 +24,7 @@ namespace Systems.Details.Generic_Details.Scripts
             _onCommandBtnPressed = onCommandBtnPressed;
 
             _icon.sprite = _command.Icon;
-            _tooltip.Header = _command.Name;
+            _tooltip.Header = _command.CommandID;
             
             Refresh();
         }

@@ -36,12 +36,12 @@ namespace Managers
             return result;
         }
 
-        public Command GetCommand(string taskId)
+        public Command GetCommand(string commandId)
         {
-            var result = _commandLibrary.Find(cmd => cmd.Task.TaskID == taskId);
+            var result = _commandLibrary.Find(cmd => cmd.CommandID == commandId);
             if (result == null)
             {
-                Debug.LogError("Unknown Command for Task Id: " + taskId);
+                Debug.LogError("Unknown Command for Command Id: " + commandId);
             }
             return result;
         }

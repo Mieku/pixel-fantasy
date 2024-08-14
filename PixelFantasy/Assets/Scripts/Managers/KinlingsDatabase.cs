@@ -77,6 +77,8 @@ namespace Managers
 
         public KinlingData Query(string uniqueID)
         {
+            if (string.IsNullOrEmpty(uniqueID)) return null;
+            
             return _registeredKinlingsData.GetValueOrDefault(uniqueID);
         }
 
