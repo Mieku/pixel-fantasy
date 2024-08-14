@@ -2836,8 +2836,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3050862696096848543}
   m_HandleRect: {fileID: 7105321016973711544}
   m_Direction: 2
-  m_Value: 1.0000037
-  m_Size: 0.8306939
+  m_Value: 1.000027
+  m_Size: 0.9723504
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -11972,12 +11972,12 @@ GameObject:
   m_Component:
   - component: {fileID: 5624598297741729397}
   m_Layer: 0
-  m_Name: Keybind Entry (9)
+  m_Name: Keybind Entry Rotate Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5624598297741729397
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11996,9 +11996,9 @@ RectTransform:
   - {fileID: 7009656300474932541}
   m_Father: {fileID: 401013413961200911}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 288.80276, y: -432.9899}
   m_SizeDelta: {x: 577.6055, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6924179747248704081
@@ -12220,12 +12220,12 @@ GameObject:
   m_Component:
   - component: {fileID: 3818093407981832228}
   m_Layer: 0
-  m_Name: Keybind Entry (10)
+  m_Name: Keybind Entry Rotate Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3818093407981832228
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12244,9 +12244,9 @@ RectTransform:
   - {fileID: 6322168110017458549}
   m_Father: {fileID: 401013413961200911}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 288.80276, y: -467.9899}
   m_SizeDelta: {x: 577.6055, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7047329825094453488
