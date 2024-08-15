@@ -39,7 +39,7 @@ MonoBehaviour:
           type: 0
           sorting: 0
           sortingIgnore: 0
-          shadowEffect: 2
+          shadowEffect: 0
           shadowEffectLayer: 0
           maskLit: 0
           maskLitDistance: 1
@@ -55,7 +55,7 @@ MonoBehaviour:
         - layerID: 0
   qualitySettings:
     lightTextureSize: 3
-    lightEffectTextureSize: 3
+    lightEffectTextureSize: 6
     lightFilterMode: 1
     lightmapFilterMode: 1
     updateMethod: 0
@@ -75,7 +75,6 @@ MonoBehaviour:
     lightLayers:
       names:
       - Default
-      - O
     dayLayers:
       names:
       - Default

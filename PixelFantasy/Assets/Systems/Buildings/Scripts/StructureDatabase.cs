@@ -34,9 +34,14 @@ namespace Systems.Buildings.Scripts
         public void DeregisterStructure(StructurePiece structurePiece)
         {
             TasksDatabase.Instance.CancelRequesterTasks(structurePiece);
-            UpdateGrid(structurePiece.Cell.CellPos, EStructureCell.None);
+            Vector2Int removedPosition = structurePiece.Cell.CellPos;
+    
+            UpdateGrid(removedPosition, EStructureCell.None);
             _registeredPieces.Remove(structurePiece.UniqueID);
             PlayerInteractableDatabase.Instance.DeregisterPlayerInteractable(structurePiece);
+    
+            // Revalidate rooms after removing the structure
+            RevalidateRooms(removedPosition);
         }
 
         public Dictionary<string, ConstructionData> SaveStructureData()
@@ -235,6 +240,54 @@ namespace Systems.Buildings.Scripts
         private bool IsWithinGrid(Vector2Int cell)
         {
             return cell.x >= 0 && cell.x < _grid.GetLength(0) && cell.y >= 0 && cell.y < _grid.GetLength(1);
+        }
+        
+        private void RevalidateRooms(Vector2Int removedPosition)
+        {
+            // Get all rooms that might be affected by the removal of this structure
+            var affectedRooms = GetRoomsAdjacentToCell(removedPosition);
+
+            foreach (var room in affectedRooms)
+            {
+                if (!IsRoomValid(room))
+                {
+                    RemoveRoom(room);
+                }
+            }
+        }
+        
+        private List<Room> GetRoomsAdjacentToCell(Vector2Int cell)
+        {
+            var adjacentRooms = new HashSet<Room>();
+            foreach (var direction in new Vector2Int[] { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right })
+            {
+                var adjacentCell = cell + direction;
+                if (roomCache.TryGetValue(adjacentCell, out var room))
+                {
+                    adjacentRooms.Add(room);
+                }
+            }
+            return adjacentRooms.ToList();
+        }
+        
+        private bool IsRoomValid(Room room)
+        {
+            var boundaryCells = GetBoundaryCells(room.Cells);
+            bool isEnclosed = boundaryCells.All(cell => _grid[cell.x, cell.y] == EStructureCell.Wall || _grid[cell.x, cell.y] == EStructureCell.Door);
+            bool hasDoor = boundaryCells.Any(cell => _grid[cell.x, cell.y] == EStructureCell.Door);
+
+            return isEnclosed && hasDoor;
+        }
+
+        private void RemoveRoom(Room room)
+        {
+            foreach (var cell in room.Cells)
+            {
+                roomCache.Remove(cell);
+                _grid[cell.x, cell.y] = EStructureCell.None;
+            }
+            _rooms.Remove(room);
+            room.ClearTiles();
         }
     }
 

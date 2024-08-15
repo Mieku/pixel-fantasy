@@ -18,7 +18,10 @@ namespace Controllers
         [SerializeField] private Tilemap _structureTM;
         [SerializeField] private Tilemap _mountainTM;
         [SerializeField] private Tilemap _pendingZonesTM;
+        [SerializeField] private Tilemap _roomsTM;
         [SerializeField] private LayeredTilemapManager _zonesLayeredTilemap;
+
+        [SerializeField] private LightTilemapRoom2D _roomLayerRoomLight;
 
         public TileMapData GetTileMapData()
         {
@@ -32,6 +35,8 @@ namespace Controllers
                 StructureLayer = CollectTileMapData(_structureTM),
                 WaterLayer = CollectTileMapData(_waterTM),
                 ZoneLayers = _zonesLayeredTilemap.CollectTileMapData(),
+                
+                // Note: Rooms should be generated and not saved/loaded
             };
         }
 
@@ -57,6 +62,7 @@ namespace Controllers
             _structureTM.ClearAllTiles();
             _waterTM.ClearAllTiles();
             _zonesLayeredTilemap.ClearLayers();
+            _roomsTM.ClearAllTiles();
         }
 
         public void SetTileMapData(Tilemap tileMap, TileMapLayerData data)
@@ -95,19 +101,61 @@ namespace Controllers
             return data;
         }
 
-        public void SetTile(TilemapLayer layer, Vector2 worldPos, TileBase tileBase)
+        public Color GetTileColour(TilemapLayer layer, Vector3Int cell)
         {
             var tileMap = GetTilemap(layer);
-            var cell = tileMap.WorldToCell(worldPos);
+            var tileColour = tileMap.GetColor(cell);
+            return tileColour;
+        }
+
+        /// <summary>
+        /// Sets the tile based on the cell
+        /// </summary>
+        public void SetTileByCell(TilemapLayer layer, Vector3Int cell, TileBase tileBase)
+        {
+            var tileMap = GetTilemap(layer);
             tileMap.SetTile(cell, tileBase);
             TryUpdateLightTileMapCell(tileMap, cell);
         }
 
+        /// <summary>
+        /// Sets the Tile based on the world pos
+        /// </summary>
+        public void SetTile(TilemapLayer layer, Vector2 worldPos, TileBase tileBase)
+        {
+            var tileMap = GetTilemap(layer);
+            var cell = tileMap.WorldToCell(worldPos);
+            SetTileByCell(layer, cell, tileBase);
+        }
+        
+        /// <summary>
+        /// Colours the tile based on the cell
+        /// </summary>
+        public void ColourTileByCell(TilemapLayer layer, Vector3Int cell, Color colour)
+        {
+            var tileMap = GetTilemap(layer);
+            tileMap.SetColor(cell, colour);
+        }
+
+        /// <summary>
+        /// Colours the Tile based on the world pos
+        /// </summary>
         public void ColourTile(TilemapLayer layer, Vector2 worldPos, Color colour)
         {
             var tileMap = GetTilemap(layer);
             var cell = tileMap.WorldToCell(worldPos);
-            tileMap.SetColor(cell, colour);
+            ColourTileByCell(layer, cell, colour);
+        }
+
+        public void UpdateRoomLight()
+        {
+            if (!_roomsTM.isActiveAndEnabled)
+            {
+                // This is to prevent the bug: "GL.End requires material.SetPass before!" caused by LightTilemapRoom2D
+                _roomsTM.gameObject.SetActive(true);
+            }
+            
+            _roomLayerRoomLight.Initialize();
         }
 
         private void TryUpdateLightTileMapCell(Tilemap tilemap, Vector3Int cell)
@@ -148,6 +196,13 @@ namespace Controllers
                     return _pendingZonesTM;
                 case TilemapLayer.Elevation:
                     return _elevationTM;
+                case TilemapLayer.Rooms:
+                    if (!_roomsTM.isActiveAndEnabled)
+                    {
+                        // This is to prevent the bug error: GL.End requires material.SetPass before! caused by LightTilemapRoom2D
+                        _roomsTM.gameObject.SetActive(true);
+                    }
+                    return _roomsTM;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(layer), layer, null);
             }
@@ -236,5 +291,6 @@ namespace Controllers
         //Zones,
         PendingZones,
         Elevation,
+        Rooms,
     }
 }

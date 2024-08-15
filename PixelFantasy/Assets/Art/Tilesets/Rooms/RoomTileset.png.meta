@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 281a7a07321bc97448181322eb340da7
+guid: a8ead4bf9a05f124097c51445ca92ac1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -93,272 +93,183 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Server
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BuildingPrototype_0
+      name: RoomTileset_8
       rect:
         serializedVersion: 2
-        x: 47
-        y: 16
-        width: 18
-        height: 27
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2962963}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 82c8fec2e8b1eca4cb4fe0fb274526cd
-      internalID: 1164750008
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BuildingPrototype_1
-      rect:
-        serializedVersion: 2
-        x: 111
-        y: 48
-        width: 9
-        height: 27
-      alignment: 9
-      pivot: {x: 0.11111111, y: 0.2962963}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1e65c92cd6d45eb469accb2935f5d415
-      internalID: -1224384947
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BuildingPrototype_2
-      rect:
-        serializedVersion: 2
-        x: 120
-        y: 48
+        x: 0
+        y: 24
         width: 16
-        height: 22
+        height: 8
       alignment: 9
-      pivot: {x: 0.5, y: 0.36363637}
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6079bab6548610f47bdfdc9ae1d22919
-      internalID: -1025413050
+      spriteID: 89923d7766e34364eb565cf313d47677
+      internalID: -1834511703
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BuildingPrototype_3
-      rect:
-        serializedVersion: 2
-        x: 111
-        y: 80
-        width: 9
-        height: 27
-      alignment: 9
-      pivot: {x: 0.11111111, y: 0.2962963}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ff09c920c574fd44ba2bc5137c55a8a1
-      internalID: 1149986927
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BuildingPrototype_4
-      rect:
-        serializedVersion: 2
-        x: 130
-        y: 144
-        width: 16
-        height: 22
-      alignment: 9
-      pivot: {x: 0.5, y: 0.36363637}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fe2bf49acb1c3db45a39efe936375b9b
-      internalID: 1625317213
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BuildingPrototype_5
-      rect:
-        serializedVersion: 2
-        x: 136
-        y: 102
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b07a04505182d3d48b25730a79af3a41
-      internalID: 588429941
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BuildingPrototype_6
-      rect:
-        serializedVersion: 2
-        x: 184
-        y: 102
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 55dd787fd75cf8e4dbebc97070036cec
-      internalID: 430370442
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BuildingPrototype_7
-      rect:
-        serializedVersion: 2
-        x: 47
-        y: 48
-        width: 17
-        height: 27
-      alignment: 9
-      pivot: {x: 0.5294118, y: 0.2962963}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2f30f7dbb01d5b240bdeb8eb5f8a5594
-      internalID: 1143040812
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BuildingPrototype_8
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 48
-        width: 17
-        height: 27
-      alignment: 9
-      pivot: {x: 0.47058824, y: 0.2962963}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7b2b0954470a5d74c9fc5a011f39d9f0
-      internalID: 1137307282
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BuildingPrototype_9
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 48
-        width: 16
-        height: 27
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2962963}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 52442905740459544af50d78f185d9e5
-      internalID: 656803549
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BuildingPrototype_10
-      rect:
-        serializedVersion: 2
-        x: 15
-        y: 16
-        width: 18
-        height: 27
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2962963}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 062fef2ea94e33b498d50ab214e042aa
-      internalID: -1498651202
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BuildingPrototype_11
+      name: RoomTileset_9
       rect:
         serializedVersion: 2
         x: 16
-        y: 43
+        y: 24
+        width: 16
+        height: 8
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f1573c1848d9e646b73db70af925c0d
+      internalID: -291066836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RoomTileset_10
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 24
+        width: 16
+        height: 8
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3c1d9a8a214ce349a28d0e24af7d121
+      internalID: 1275512981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RoomTileset_11
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 32
+        width: 16
+        height: 30
+      alignment: 9
+      pivot: {x: 0.5, y: 0.26666668}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3ed419eb8ba3a346a010e0600ec662b
+      internalID: -1950505508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RoomTileset_12
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 16
+        height: 30
+      alignment: 9
+      pivot: {x: 0.5, y: 0.26666668}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 406024e71e9fc6443acc2f65aa8a38e3
+      internalID: 1733124832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RoomTileset_13
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 32
+        width: 16
+        height: 30
+      alignment: 9
+      pivot: {x: 0.5, y: 0.26666668}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 414b944c4ed409b4195446f121c8213e
+      internalID: 720123311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RoomTileset_14
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 24
+        width: 16
+        height: 8
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c85b7d1797382b6478f8191dde321321
+      internalID: 190243587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RoomTileset_15
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 32
+        width: 16
+        height: 30
+      alignment: 9
+      pivot: {x: 0.5, y: 0.26666668}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12fab8e8621702b4ea9665a8fc5279a5
+      internalID: 140214114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RoomTileset_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
         width: 16
         height: 16
       alignment: 9
@@ -368,176 +279,155 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 56a9d09d3a1b9ac4a982dc95ac281169
-      internalID: 628633162
+      spriteID: 9c066f7065eb8f54e93baf7f6f8488ae
+      internalID: 1439740851
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BuildingPrototype_12
+      name: RoomTileset_17
       rect:
         serializedVersion: 2
-        x: 15
-        y: 43
-        width: 18
-        height: 27
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2962963}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 27fe1a3b4e4466744a87eaf4b4a6d587
-      internalID: 45552385
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BuildingPrototype_13
-      rect:
-        serializedVersion: 2
-        x: 255
-        y: 112
-        width: 17
-        height: 27
-      alignment: 9
-      pivot: {x: 0.5294118, y: 0.2962963}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f53dbae784e352b488cb0f4bbbbc1388
-      internalID: 1420314704
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BuildingPrototype_14
-      rect:
-        serializedVersion: 2
-        x: 255
-        y: 139
-        width: 17
-        height: 27
-      alignment: 9
-      pivot: {x: 0.5294118, y: 0.2962963}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8b090dd7b6ad83842b7f3b95e2a4719e
-      internalID: -989798927
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BuildingPrototype_15
-      rect:
-        serializedVersion: 2
-        x: 272
-        y: 112
-        width: 17
-        height: 27
-      alignment: 9
-      pivot: {x: 0.47058824, y: 0.2962963}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bfafffcd5ab94a64bbe8113f71294a38
-      internalID: 1275258050
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BuildingPrototype_16
-      rect:
-        serializedVersion: 2
-        x: 272
-        y: 139
-        width: 17
-        height: 27
-      alignment: 9
-      pivot: {x: 0.47058824, y: 0.2962963}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 556a8e887b696b545bdb103c735a368d
-      internalID: 749674856
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BuildingPrototype_17
-      rect:
-        serializedVersion: 2
-        x: 168
-        y: 128
+        x: 16
+        y: 32
         width: 16
-        height: 22
+        height: 16
       alignment: 9
-      pivot: {x: 0.5, y: 0.36363637}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a20139d993b17d141ad7bf5dc9ee4bc8
-      internalID: 1667059706
+      spriteID: b7d92641a549c98468f964760c4db161
+      internalID: -782997701
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BuildingPrototype_18
+      name: RoomTileset_18
       rect:
         serializedVersion: 2
-        x: 304
-        y: 144
+        x: 32
+        y: 32
         width: 16
-        height: 25
+        height: 16
       alignment: 9
-      pivot: {x: 0.5, y: 0.32}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3fef6f4d98caf6748994e5b1a37e6ec2
-      internalID: -2100880132
+      spriteID: b3a0ce707017a3344bfeedc09be7ded1
+      internalID: -1373556475
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BuildingPrototype_19
+      name: RoomTileset_19
       rect:
         serializedVersion: 2
-        x: 336
-        y: 64
+        x: 48
+        y: 24
         width: 16
-        height: 22
+        height: 8
       alignment: 9
-      pivot: {x: 0.5, y: 0.36363637}
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 86f648b21db605f4bbc9df94f07bb97f
-      internalID: -2054335767
+      spriteID: 860a4884d0897b348ba73cc13b861f81
+      internalID: 1933822038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RoomTileset_20
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 24
+        width: 16
+        height: 8
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01c40bea6900b7a43978a2876ca5c4c1
+      internalID: -756724417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RoomTileset_21
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 24
+        width: 16
+        height: 8
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f67ae9aa073ce84bb3432c1889c171e
+      internalID: 949551037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RoomTileset_22
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 32
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9331a79e50cf43c4bab215bf1ee1ad17
+      internalID: -1950094674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RoomTileset_23
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 24
+        width: 16
+        height: 8
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be105e766f2872748bac33902e74e3c6
+      internalID: 677507515
       vertices: []
       indices: 
       edges: []
@@ -553,26 +443,30 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      BuildingPrototype_0: 1164750008
-      BuildingPrototype_1: -1224384947
-      BuildingPrototype_10: -1498651202
-      BuildingPrototype_11: 628633162
-      BuildingPrototype_12: 45552385
-      BuildingPrototype_13: 1420314704
-      BuildingPrototype_14: -989798927
-      BuildingPrototype_15: 1275258050
-      BuildingPrototype_16: 749674856
-      BuildingPrototype_17: 1667059706
-      BuildingPrototype_18: -2100880132
-      BuildingPrototype_19: -2054335767
-      BuildingPrototype_2: -1025413050
-      BuildingPrototype_3: 1149986927
-      BuildingPrototype_4: 1625317213
-      BuildingPrototype_5: 588429941
-      BuildingPrototype_6: 430370442
-      BuildingPrototype_7: 1143040812
-      BuildingPrototype_8: 1137307282
-      BuildingPrototype_9: 656803549
+      RoomTileset_0: 939751255
+      RoomTileset_1: 611898651
+      RoomTileset_10: 1275512981
+      RoomTileset_11: -1950505508
+      RoomTileset_12: 1733124832
+      RoomTileset_13: 720123311
+      RoomTileset_14: 190243587
+      RoomTileset_15: 140214114
+      RoomTileset_16: 1439740851
+      RoomTileset_17: -782997701
+      RoomTileset_18: -1373556475
+      RoomTileset_19: 1933822038
+      RoomTileset_2: -522179034
+      RoomTileset_20: -756724417
+      RoomTileset_21: 949551037
+      RoomTileset_22: -1950094674
+      RoomTileset_23: 677507515
+      RoomTileset_3: -772323980
+      RoomTileset_4: 521774950
+      RoomTileset_5: -627790182
+      RoomTileset_6: 1564362862
+      RoomTileset_7: -1635590603
+      RoomTileset_8: -1834511703
+      RoomTileset_9: -291066836
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

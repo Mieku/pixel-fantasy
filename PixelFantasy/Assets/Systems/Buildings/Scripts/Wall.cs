@@ -14,15 +14,7 @@ namespace Systems.Buildings.Scripts
         
         public WallData RuntimeWallData => RuntimeData as WallData;
         
-        //private Tilemap _structureTilemap;
         public override string DisplayName => RuntimeWallData.SelectedWallOption.WallName;
-
-        protected override void Awake()
-        {
-            base.Awake();
-            
-            //_structureTilemap = TilemapController.Instance.GetTilemap(TilemapLayer.Structure);
-        }
 
         public void Init(WallSettings wallSettings, DyeSettings colour)
         {
@@ -90,35 +82,27 @@ namespace Systems.Buildings.Scripts
  
         public override void RefreshTile()
         {
-            //var cell = _structureTilemap.WorldToCell(transform.position);
-            
             bool isInterior = StructureDatabase.Instance.IsInteriorBelow(Cell.CellPos);
             if (isInterior)
             {
-                TilemapController.Instance.SetTile(TilemapLayer.Structure ,transform.position, RuntimeWallData.SelectedWallOption.InteriorRuleTile);
-                //_structureTilemap.SetTile(cell, RuntimeWallData.SelectedWallOption.InteriorRuleTile);
+                TilemapController.Instance.SetTile(TilemapLayer.Structure ,
+                    transform.position, RuntimeWallData.SelectedWallOption.InteriorRuleTile);
             }
             else
             {
-                TilemapController.Instance.SetTile(TilemapLayer.Structure ,transform.position, RuntimeWallData.SelectedWallOption.ExteriorRuleTile);
-                //_structureTilemap.SetTile(cell, RuntimeWallData.SelectedWallOption.ExteriorRuleTile);
+                TilemapController.Instance.SetTile(TilemapLayer.Structure ,
+                    transform.position, RuntimeWallData.SelectedWallOption.ExteriorRuleTile);
             }
         }
 
         private void ClearTile()
         {
             TilemapController.Instance.SetTile(TilemapLayer.Structure ,transform.position, null);
-            //
-            // var cell = _structureTilemap.WorldToCell(transform.position);
-            // _structureTilemap.SetTile(cell ,null);
         }
 
         private void ColourTile(Color colour)
         {
             TilemapController.Instance.ColourTile(TilemapLayer.Structure, transform.position, colour);
-            //
-            // var cell = _structureTilemap.WorldToCell(transform.position);
-            // _structureTilemap.SetColor(cell, colour);
         }
 
         public override void CompleteDeconstruction()

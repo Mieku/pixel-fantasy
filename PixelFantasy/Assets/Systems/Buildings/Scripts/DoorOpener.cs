@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Characters;
+using FunkyCode;
 using Managers;
 using UnityEngine;
 
@@ -12,9 +13,10 @@ namespace Systems.Buildings.Scripts
         private bool _lockedClosed;
         private bool _isOpen;
         private bool _isFlippedRight;
-
+        
         [SerializeField] private bool _isVertical;
-
+        [SerializeField] private LightCollider2D _lightCollider;
+        
         private void Awake()
         {
             _doorRenderer = GetComponent<SpriteRenderer>();
@@ -94,6 +96,8 @@ namespace Systems.Buildings.Scripts
             {
                 _doorRenderer.enabled = false;
             }
+            
+            _lightCollider.enabled = false;
         }
 
         private void CloseDoor()
@@ -107,6 +111,8 @@ namespace Systems.Buildings.Scripts
             {
                 _doorRenderer.enabled = true;
             }
+            
+            _lightCollider.enabled = true;
         }
 
         public void KinlingInDoorway(Kinling kinling)

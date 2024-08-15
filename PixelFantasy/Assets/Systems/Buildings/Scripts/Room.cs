@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Controllers;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace Systems.Buildings.Scripts
@@ -15,33 +16,68 @@ namespace Systems.Buildings.Scripts
         {
             Cells = cells;
             RoomColor = new Color(UnityEngine.Random.value, UnityEngine.Random.value, UnityEngine.Random.value);
-
-            // Optionally, apply the color to cells if you have a method to do so
-            ApplyColorToCells();
+            
+            ApplyRoomTiles();
+            HideTiles();
         }
 
-        public void UpdateRoom(List<Vector2Int> newCells)
+        public void UpdateRoom(List<Vector3Int> newCells)
         {
-            ClearCellsColour();
-            
+            ClearTiles();
             Cells.Clear();
 
             foreach (var cell in newCells)
             {
-                Cells.Add(cell);
+                Cells.Add((Vector2Int)cell);
             }
             
-            ApplyColorToCells();
+            ApplyRoomTiles();
+            HideTiles();
         }
 
         public void ClearTiles()
         {
-            ClearCellsColour();
+            foreach (var cell in Cells)
+            {
+                TilemapController.Instance.SetTileByCell(TilemapLayer.Rooms, (Vector3Int) cell, null);
+            }
+            
+            TilemapController.Instance.UpdateRoomLight();
+        }
+
+        private void ApplyRoomTiles()
+        {
+            var tile = GameSettings.Instance.LoadTileBase("RoomTiles");
+            foreach (var cell in Cells)
+            {
+                TilemapController.Instance.SetTileByCell(TilemapLayer.Rooms, (Vector3Int) cell, tile);
+            }
+            
+            TilemapController.Instance.UpdateRoomLight();
+        }
+
+        private void HideTiles()
+        {
+            foreach (var cell in Cells)
+            {
+                var curColour = TilemapController.Instance.GetTileColour(TilemapLayer.Rooms, (Vector3Int) cell);
+                Color noAlpha = new Color(curColour.r, curColour.g, curColour.b, 0);
+                TilemapController.Instance.ColourTileByCell(TilemapLayer.Rooms, (Vector3Int) cell, noAlpha);
+            }
+        }
+
+        private void ShowTiles()
+        {
+            foreach (var cell in Cells)
+            {
+                var curColour = TilemapController.Instance.GetTileColour(TilemapLayer.Rooms, (Vector3Int) cell);
+                Color withAlpha = new Color(curColour.r, curColour.g, curColour.b, 1);
+                TilemapController.Instance.ColourTileByCell(TilemapLayer.Rooms, (Vector3Int) cell, withAlpha);
+            }
         }
 
         private void ApplyColorToCells()
         {
-            // Assuming you have access to a method to set tile colors
             var tm = TilemapController.Instance.GetTilemap(TilemapLayer.Grass);
             foreach (var cell in Cells)
             {
@@ -51,7 +87,6 @@ namespace Systems.Buildings.Scripts
         
         private void ClearCellsColour()
         {
-            // Assuming you have access to a method to set tile colors
             var tm = TilemapController.Instance.GetTilemap(TilemapLayer.Grass);
             foreach (var cell in Cells)
             {
