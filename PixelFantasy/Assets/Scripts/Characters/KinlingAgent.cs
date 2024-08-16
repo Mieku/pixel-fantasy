@@ -6,6 +6,7 @@ using Sirenix.OdinInspector;
 using Systems.Stats.Scripts;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 using Avatar = Systems.Appearance.Scripts.Avatar;
 using Random = UnityEngine.Random;
@@ -21,7 +22,6 @@ namespace Characters
         private NavMeshAgent _agent;
         private Action _onReachedMovePosition;
         private bool _inTransit;
-        //private KinlingAnimController _charAnimController;
         private float _defaultSpeed;
         private float _defaultAcceleration;
         private float _defaultAngularSpeed;
@@ -32,6 +32,7 @@ namespace Characters
         private Avatar _avatar;
 
         private const float NEAREST_POINT_SEARCH_RANGE = 5f;
+        private const float PIXELS_PER_UNIT = 16;
 
         private void Awake()
         {
@@ -95,6 +96,7 @@ namespace Characters
             }
 
             Vector3 targetPosition = new Vector3(movePosition.Value.x, movePosition.Value.y, 0 );
+            targetPosition = RoundToPixel(targetPosition, PIXELS_PER_UNIT);
 
             // Now that we're sure the agent is on the NavMesh and enabled, set the destination
             _agent.SetDestination(targetPosition);
@@ -199,7 +201,15 @@ namespace Characters
             RefreshAnimVector();
             OnSpeedUpdated();
 
+            transform.position = RoundToPixel(transform.position, PIXELS_PER_UNIT);
             _kinling.RuntimeData.Position = transform.position;
+        }
+        
+        private Vector3 RoundToPixel(Vector3 position, float pixelsPerUnit)
+        {
+            position.x = Mathf.Round(position.x * pixelsPerUnit) / pixelsPerUnit;
+            position.y = Mathf.Round(position.y * pixelsPerUnit) / pixelsPerUnit;
+            return position;
         }
         
         private List<GameObject> pathVisuals = new List<GameObject>();  // To keep track of instantiated path objects
