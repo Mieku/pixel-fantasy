@@ -46,16 +46,25 @@ MonoBehaviour:
           shadowEffectLayer: 0
           maskLit: 0
           maskLitDistance: 1
+        - layerID: 1
+          type: 2
+          sorting: 0
+          sortingIgnore: 0
+          shadowEffect: 2
+          shadowEffectLayer: 0
+          maskLit: 0
+          maskLitDistance: 1
   eventPresets:
     list:
     - name: Disabled
       layerSetting:
         list:
         - layerID: 0
-    - name: 'Preset (Id: 1)'
+    - name: Light Event
       layerSetting:
         list:
         - layerID: 0
+        - layerID: 1
   qualitySettings:
     lightTextureSize: 3
     lightEffectTextureSize: 6
@@ -75,6 +84,7 @@ MonoBehaviour:
     colliderLayers:
       names:
       - Default
+      - No Shadow
     lightLayers:
       names:
       - Default

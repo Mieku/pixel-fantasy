@@ -57,7 +57,7 @@ MonoBehaviour:
         list:
         - layerID: 0
   qualitySettings:
-    lightTextureSize: 3
+    lightTextureSize: 4
     lightEffectTextureSize: 6
     lightFilterMode: 1
     lightmapFilterMode: 1
@@ -75,6 +75,7 @@ MonoBehaviour:
     colliderLayers:
       names:
       - Default
+      - Shadow Collider
     lightLayers:
       names:
       - Default

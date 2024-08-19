@@ -85,7 +85,18 @@ namespace Managers
                 return darkness;
             }
         }
-        
+
+        public float DaylightPercent
+        {
+            get
+            {
+                var dayPercent = _timeOfDay / 23.99f;
+                var curveHeight = _lightingCurve.Evaluate(dayPercent);
+                var result = 1f - curveHeight;
+                return result;
+            }
+        }
+
         private void CalculateTimeOfDay()
         {
             _gameDayTimer += TimeManager.Instance.DeltaTime * (24f / 60f) / _realMinsInADay;
