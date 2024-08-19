@@ -11,6 +11,7 @@ using Managers;
 using Newtonsoft.Json;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
+using Systems.Lighting.Scripts;
 using Systems.Stats.Scripts;
 using TaskSystem;
 using UnityEngine;
@@ -54,6 +55,7 @@ namespace Items
         private ClickObject _clickObject;
         private DyeSettings _dyeOverride;
         private readonly List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle", "Clearance"};
+        protected List<LightSource> _lightSources = new List<LightSource>();
         
         public override string PendingTaskUID
         {
@@ -67,6 +69,7 @@ namespace Items
         {
             _fadePropertyID = Shader.PropertyToID("_OuterOutlineFade");
             _clickObject = GetComponent<ClickObject>();
+            _lightSources = GetComponentsInChildren<LightSource>(true).ToList();
 
             GameEvents.OnLeftClickUp += GameEvents_OnLeftClickUp;
             GameEvents.OnRightClickUp += GameEvents_OnRightClickUp;
@@ -106,6 +109,7 @@ namespace Items
             
             DisplayUseageMarkers(true);
             EnablePlacementObstacle(false);
+            EnableLights(false);
         }
         
         public virtual void CompletePlanning()
@@ -464,6 +468,8 @@ namespace Items
             ColourArt(ColourStates.Blueprint);
             CreateConstructionHaulingTasks();
             Commands.Add(Librarian.Instance.GetCommand("Deconstruct Furniture"));
+
+            EnableLights(false);
         }
         
         protected virtual void Built_Enter()
@@ -473,6 +479,7 @@ namespace Items
             DisplayUseageMarkers(false);
             EnablePlacementObstacle(true);
             ColourArt(ColourStates.Built);
+            EnableLights(true);
 
             // For when it is loaded into this state
             if (!Commands.Contains(Librarian.Instance.GetCommand("Deconstruct Furniture")))
@@ -783,5 +790,13 @@ namespace Items
         public bool WasCrafted => !string.IsNullOrEmpty(RuntimeData.CraftersUID);
 
         public NeedChange InUseNeedChange => RuntimeData.FurnitureSettings.InUseNeedChange;
+
+        public void EnableLights(bool showLights)
+        {
+            foreach (var lightSource in _lightSources)
+            {
+                lightSource.SetLightOn(showLights);
+            }
+        }
     }
 }

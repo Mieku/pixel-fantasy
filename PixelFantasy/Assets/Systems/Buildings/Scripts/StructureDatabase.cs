@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AI;
+using Controllers;
 using Managers;
 using Sirenix.OdinInspector;
 using Systems.Details.Build_Details.Scripts;
@@ -288,6 +289,19 @@ namespace Systems.Buildings.Scripts
             }
             _rooms.Remove(room);
             room.ClearTiles();
+        }
+
+        public Room RoomAtWorldPos(Vector2 worldPos)
+        {
+            var cell = TilemapController.Instance.GetTilemap(TilemapLayer.Rooms).WorldToCell(worldPos);
+
+            if (roomCache.ContainsKey((Vector2Int)cell))
+            {
+                var room = roomCache[(Vector2Int)cell];
+                return room;
+            }
+
+            return null;
         }
     }
 

@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 7451298559005647685}
   - component: {fileID: 7401307643385065389}
   - component: {fileID: 6390678951328805821}
+  - component: {fileID: 2077430854374260917}
   - component: {fileID: 2696714208315293635}
-  - component: {fileID: 4800805768750203654}
+  - component: {fileID: 1932131555092094825}
   m_Layer: 0
   m_Name: Fire
   m_TagString: Untagged
@@ -108,6 +109,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2077430854374260917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656510917497650448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c01cc27dc13fd1c4cabaa67aea5735cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShouldFlicker: 1
 --- !u!114 &2696714208315293635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,7 +183,7 @@ MonoBehaviour:
     - {x: -0.4999999, y: -0.86602545}
   drawingEnabled: 1
   drawingTranslucencyEnabled: 0
---- !u!114 &4800805768750203654
+--- !u!114 &1932131555092094825
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,12 +192,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 656510917497650448}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 843af0ca5c03a2343885a7b28877582b, type: 3}
+  m_Script: {fileID: 11500000, guid: 614add71ca3a9bc4d96c6bd548f7b3f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flickersPerSecond: 15
-  flickerRangeMin: -0.1
-  flickerRangeMax: 0.1
+  _randomStartPoint: 1
 --- !u!1 &954777977136060456
 GameObject:
   m_ObjectHideFlags: 0
