@@ -444,7 +444,6 @@ GameObject:
   - component: {fileID: 1661768492617320949}
   - component: {fileID: 2562910502548921775}
   - component: {fileID: 441444214502627836}
-  - component: {fileID: 4820866837309895732}
   - component: {fileID: 2663883170521234071}
   m_Layer: 6
   m_Name: Appearance
@@ -550,43 +549,6 @@ MonoBehaviour:
   m_labelHash: 0.00000040954276
   m_SpriteKey: 0
   m_SpriteHash: 379395835
---- !u!114 &4820866837309895732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2386335811610800996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5783dbbad6a59184fa58aa75d79bcc02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shadowType: 3
-  shadowLayer: 0
-  shadowDistance: 1
-  shadowDistanceMin: 1.0853088
-  shadowDistanceMax: 1.0853088
-  shadowTranslucency: 0.3
-  maskType: 1
-  maskLit: 0
-  maskPivot: 0
-  maskLayer: 0
-  maskLitCustom: 1
-  bumpMapMode:
-    type: 0
-    textureType: 0
-    texture: {fileID: 0}
-    sprite: {fileID: 0}
-    invertX: 0
-    invertY: 0
-    depth: 1
-    spriteRenderer: {fileID: 1661768492617320949}
-  mainShape:
-    shadowType: 3
-    maskType: 1
-    maskPivot: 0
-    transform: {fileID: 5263296330404636302}
 --- !u!61 &2663883170521234071
 BoxCollider2D:
   m_ObjectHideFlags: 0

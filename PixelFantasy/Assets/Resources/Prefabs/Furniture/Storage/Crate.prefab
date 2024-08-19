@@ -416,7 +416,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5465201505374826065}
   - component: {fileID: 5465201505374826066}
-  - component: {fileID: 5956413452423365199}
   m_Layer: 0
   m_Name: Storage Container Sprite
   m_TagString: Untagged
@@ -491,43 +490,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5956413452423365199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5465201505374826064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5783dbbad6a59184fa58aa75d79bcc02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shadowType: 1
-  shadowLayer: 1
-  shadowDistance: 0
-  shadowDistanceMin: 1.0214024
-  shadowDistanceMax: 1.856621
-  shadowTranslucency: 0.7
-  maskType: 1
-  maskLit: 0
-  maskPivot: 0
-  maskLayer: 0
-  maskLitCustom: 1
-  bumpMapMode:
-    type: 0
-    textureType: 0
-    texture: {fileID: 0}
-    sprite: {fileID: 0}
-    invertX: 0
-    invertY: 0
-    depth: 1
-    spriteRenderer: {fileID: 5465201505374826066}
-  mainShape:
-    shadowType: 1
-    maskType: 1
-    maskPivot: 0
-    transform: {fileID: 5465201505374826065}
 --- !u!1 &5465201506073250550
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,7 +544,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _icon: {fileID: 2436287319505228808}
   Commands: []
-  PendingCommand: {fileID: 0}
   _southHandle: {fileID: 6032480147293666337}
   _southSpritesRoot: {fileID: 1419672062545796339}
   _southUseageMarkersRoot: {fileID: 7127226482418418437}
@@ -601,6 +562,7 @@ MonoBehaviour:
   _eastPlacementObstacle: {fileID: 8828264313019568400}
   RuntimeData:
     UniqueID: 
+    PendingTaskUID: 
     FurnitureState: 0
     RemainingWork: 0
     Direction: 0
@@ -615,7 +577,7 @@ MonoBehaviour:
     RemainingMaterialCosts: []
     PendingResourceCosts: []
     IncomingResourceCosts: []
-    IncomingItems: []
+    IncomingItemsUIDs: []
 --- !u!61 &5465201506073250536
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -862,8 +824,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1419672062545796339}
-  - component: {fileID: 7149336142590516266}
-  - component: {fileID: 1443669218983467683}
   m_Layer: 0
   m_Name: Furniture Sprites
   m_TagString: Untagged
@@ -887,33 +847,6 @@ Transform:
   - {fileID: 5465201505374826065}
   m_Father: {fileID: 4154590983296968670}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!210 &7149336142590516266
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6242974594467081052}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_SortAtRoot: 0
---- !u!114 &1443669218983467683
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6242974594467081052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _offset: 0
-  _runOnlyOnce: 0
-  _checkLocal: 0
 --- !u!1 &6531052094070903622
 GameObject:
   m_ObjectHideFlags: 0

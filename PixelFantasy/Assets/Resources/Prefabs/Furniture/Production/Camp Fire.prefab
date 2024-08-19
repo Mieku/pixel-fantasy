@@ -424,7 +424,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -80888902, guid: 4e8ee64723e4ad04e83bf9838d2f1fa5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1121,8 +1121,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6712665837250262601}
-  - component: {fileID: 9092536540999924883}
-  - component: {fileID: 2557482833735992342}
   m_Layer: 0
   m_Name: Furniture Sprites
   m_TagString: Untagged
@@ -1148,33 +1146,6 @@ Transform:
   - {fileID: 7451298559005647685}
   m_Father: {fileID: 4144196785407965337}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9092536540999924883
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6712665837250262600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fa5513e7f7dcbc45845c29a406df3a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _offset: 0
-  _runOnlyOnce: 0
-  _checkLocal: 0
---- !u!210 &2557482833735992342
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6712665837250262600}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_SortAtRoot: 0
 --- !u!1 &6712665838144468758
 GameObject:
   m_ObjectHideFlags: 0

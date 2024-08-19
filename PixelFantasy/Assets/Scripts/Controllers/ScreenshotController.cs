@@ -11,10 +11,12 @@ namespace Controllers
     {
         public int ScreenshotWidth = 1920;
         public int ScreenshotHeight = 1080;
-
+        
         private Camera _screenshotCam;
         private static string SaveScreenshotPath;
         private static string NormalScreenshotPath;
+        
+        [SerializeField] private Camera _mainCam;
 
         private void Awake()
         {
@@ -26,6 +28,8 @@ namespace Controllers
         
         public void TakeScreenshot()
         {
+            AlignCamera();
+            
             if (!Directory.Exists(NormalScreenshotPath))
             {
                 Directory.CreateDirectory(NormalScreenshotPath);
@@ -39,6 +43,8 @@ namespace Controllers
         
         public string TakeSaveScreenshot(string fileName)
         {
+            AlignCamera();
+            
             if (!Directory.Exists(SaveScreenshotPath))
             {
                 Directory.CreateDirectory(SaveScreenshotPath);
@@ -95,6 +101,12 @@ namespace Controllers
             _screenshotCam.enabled = false;
 
             yield return null;
+        }
+
+        private void AlignCamera()
+        {
+            _screenshotCam.orthographicSize = _mainCam.orthographicSize;
+            _screenshotCam.transform.position = _mainCam.transform.position;
         }
     }
 }

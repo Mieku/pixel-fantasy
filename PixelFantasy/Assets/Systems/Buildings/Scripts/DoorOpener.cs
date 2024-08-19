@@ -15,7 +15,6 @@ namespace Systems.Buildings.Scripts
         private bool _isFlippedRight;
         
         [SerializeField] private bool _isVertical;
-        [SerializeField] private LightCollider2D _lightCollider;
         
         private void Awake()
         {
@@ -96,8 +95,6 @@ namespace Systems.Buildings.Scripts
             {
                 _doorRenderer.enabled = false;
             }
-            
-            _lightCollider.enabled = false;
         }
 
         private void CloseDoor()
@@ -111,8 +108,6 @@ namespace Systems.Buildings.Scripts
             {
                 _doorRenderer.enabled = true;
             }
-            
-            _lightCollider.enabled = true;
         }
 
         public void KinlingInDoorway(Kinling kinling)
