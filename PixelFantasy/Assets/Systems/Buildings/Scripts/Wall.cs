@@ -30,7 +30,6 @@ namespace Systems.Buildings.Scripts
             LoadWallState(data.State);
             
             StructureDatabase.Instance.RegisterStructure(this);
-            RefreshTaskIcon();
         }
 
         private void AssignWallState(EConstructionState state)

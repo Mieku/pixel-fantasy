@@ -232,6 +232,8 @@ namespace Systems.World_Building.Scripts
             {
                 LoadingScreen.Instance.SetLoadingInfoText("Building Mountains...");
                 yield return StartCoroutine(SpawnMountains(mountainsBlueprint.map));
+                
+                TilemapController.Instance.TryUpdateEntireLightTileMap(TilemapLayer.Mountain);
                 LoadingScreen.Instance.StepCompleted();
             }
 

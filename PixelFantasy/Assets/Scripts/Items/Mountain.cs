@@ -18,9 +18,6 @@ namespace Items
         [SerializeField] private Color _selectionTintColour;
         [SerializeField] private RuleTile _dirtRuleTile;
 
-        private Tilemap _mountainTM => TilemapController.Instance.GetTilemap(TilemapLayer.Mountain);
-        private Tilemap _dirtTM => TilemapController.Instance.GetTilemap(TilemapLayer.Dirt);
-
         public MountainResourceData RuntimeMountainData => RuntimeData as MountainResourceData;
         public override string DisplayName => MountainSettings.ResourceName;
 
@@ -51,40 +48,31 @@ namespace Items
             SetTile();
 
             _tempPlacementDisp.SetActive(false);
-            RefreshTaskIcon();
+            RefreshTaskIcon(data.PendingTaskProgress);
         }
 
         public MountainSettings MountainSettings => _settings as MountainSettings;
 
         private void SetTile()
         {
-            var cell = _mountainTM.WorldToCell(transform.position);
-            _mountainTM.SetTile(cell, MountainSettings.RuleTile);
-
-            var dirtCell = _dirtTM.WorldToCell(transform.position);
-            _dirtTM.SetTile(dirtCell, _dirtRuleTile);
+            TilemapController.Instance.SetTile(TilemapLayer.Mountain, transform.position, MountainSettings.RuleTile, false);
+            TilemapController.Instance.SetTile(TilemapLayer.Dirt, transform.position, _dirtRuleTile, false);
         }
 
         public void TintTile()
         {
-            var cell = _mountainTM.WorldToCell(transform.position);
-            _mountainTM.SetColor(cell, _selectionTintColour);
+            TilemapController.Instance.ColourTile(TilemapLayer.Mountain, transform.position, _selectionTintColour);
         }
 
         public void UnTintTile()
         {
-            if (_mountainTM != null)
-            {
-                var cell = _mountainTM.WorldToCell(transform.position);
-                _mountainTM.SetColor(cell, Color.white);
-            }
+            TilemapController.Instance.ColourTile(TilemapLayer.Mountain, transform.position, Color.white);
         }
 
         public void MineMountain()
         {
-            var mountainCell = _mountainTM.WorldToCell(transform.position);
-            _mountainTM.SetTile(mountainCell, null);
-
+            TilemapController.Instance.SetTile(TilemapLayer.Mountain, transform.position, null);
+            
             var minedDrops = RuntimeMountainData.GetMineDrop();
             foreach (var minedDrop in minedDrops)
             {
@@ -135,6 +123,11 @@ namespace Items
         {
             var workAmount = stats.GetActionSpeedForSkill(MountainSettings.ExtractionSkillType, transform);
             RuntimeData.Health -= workAmount;
+            
+            // Update progress
+            RuntimeData.PendingTaskProgress = 1f - (RuntimeData.Health / RuntimeData.MaxHealth);
+            RefreshTaskIcon(RuntimeData.PendingTaskProgress);
+            
             if (RuntimeData.Health <= 0)
             {
                 ExtractResource(stats);

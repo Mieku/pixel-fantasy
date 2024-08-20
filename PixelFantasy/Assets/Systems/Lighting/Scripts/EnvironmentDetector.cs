@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using FunkyCode;
 using FunkyCode.Utilities;
 using Managers;
@@ -9,7 +10,7 @@ public class EnvironmentDetector : MonoBehaviour
 {
     public float Visibility = 0;
     public bool IsIndoors;
-    public LightCollision2D? CollisionInfo = null;
+    private List<LightCollision2D> collisionInfos = new List<LightCollision2D>();
     public Action<float> OnVisibilityUpdated;
     public Action<bool> OnIsIndoorsUpdated;
 
@@ -18,16 +19,13 @@ public class EnvironmentDetector : MonoBehaviour
     private void OnEnable()
     {
         _lightCollider = GetComponent<LightCollider2D>();
-
         _lightCollider?.AddEvent(CollisionEvent);
-
         GameEvents.MinuteTick += MinuteTick;
     }
 
     private void OnDisable()
     {
         GameEvents.MinuteTick -= MinuteTick;
-        
         _lightCollider?.RemoveEvent(CollisionEvent);
     }
 
@@ -40,29 +38,7 @@ public class EnvironmentDetector : MonoBehaviour
     {
         if (collision.points != null)
         {
-            if (CollisionInfo == null)
-            {
-                CollisionInfo = collision;
-            }
-            else
-            {
-                if (CollisionInfo.Value.points != null)
-                {
-                    if (collision.points.Count >= CollisionInfo.Value.points.Count)
-                    {
-                        CollisionInfo = collision;
-                    }
-                    else if (CollisionInfo.Value.light == collision.light)
-                    {
-                        CollisionInfo = collision;
-                    }
-                }
-            }
-
-        }
-        else
-        {
-            CollisionInfo = null;
+            collisionInfos.Add(collision);
         }
     }
 
@@ -70,43 +46,56 @@ public class EnvironmentDetector : MonoBehaviour
     {
         float result = 0;
 
-        if (CollisionInfo == null)
+        if (collisionInfos.Count == 0)
         {
             return 0;
         }
 
-        if (CollisionInfo.Value.points != null)
+        foreach (var collision in collisionInfos)
         {
-            Polygon2 polygon = _lightCollider.mainShape.GetPolygonsLocal()[0];
-
-            int pointsCount = polygon.points.Length;
-            int pointsInView = CollisionInfo.Value.points.Count;
-
-            result = (((float)pointsInView / pointsCount));
-
-            if (CollisionInfo.Value.points.Count > 0)
+            if (collision.points != null)
             {
-                float multiplier = 0;
+                Polygon2 polygon = _lightCollider.mainShape.GetPolygonsLocal()[0];
 
-                for(int i = 0; i < CollisionInfo.Value.points.Count; i++)
+                int pointsCount = polygon.points.Length;
+                int pointsInView = collision.points.Count;
+
+                // Initial visibility based on points in view vs total points
+                float collisionResult = ((float)pointsInView / pointsCount);
+
+                if (pointsInView > 0)
                 {
-                    Vector2 point = CollisionInfo.Value.points[i];
+                    float totalMultiplier = 0;
+                    float maxMultiplier = 0;
 
-                    float distance = Vector2.Distance(Vector2.zero, point);
-                    float pointMultipler = ( 1 - (distance / CollisionInfo.Value.light.size) ) * 2;
+                    for (int i = 0; i < pointsInView; i++)
+                    {
+                        Vector2 point = collision.points[i];
 
-                    pointMultipler = pointMultipler > 1 ? 1 : pointMultipler;
-                    pointMultipler = pointMultipler < 0 ? 0 : pointMultipler;
-    
-                    multiplier += pointMultipler;
+                        // Calculate distance from light source to the point
+                        float distance = Vector2.Distance(Vector2.zero, point);
+                        float pointMultiplier = (1 - (distance / collision.light.size)) * 2;
+
+                        // Clamp the multiplier between 0 and 1
+                        pointMultiplier = Mathf.Clamp(pointMultiplier, 0, 1);
+
+                        // Sum multipliers and track the maximum multiplier
+                        totalMultiplier += pointMultiplier;
+                        maxMultiplier = Mathf.Max(maxMultiplier, pointMultiplier);
+                    }
+
+                    // Calculate the average multiplier
+                    float averageMultiplier = totalMultiplier / pointsInView;
+
+                    // Use the higher value between the average and the maximum multiplier for this collision
+                    collisionResult *= Mathf.Max(averageMultiplier, maxMultiplier);
                 }
 
-                result *= ( multiplier / CollisionInfo.Value.points.Count );
+                result = Mathf.Max(result, collisionResult);
             }
         }
-        
-        CollisionInfo = null;
 
+        collisionInfos.Clear(); // Clear the list after processing
         return result;
     }
 
@@ -126,14 +115,14 @@ public class EnvironmentDetector : MonoBehaviour
 
     public void CheckEnvironment()
     {
-       IsIndoors = CheckIsIndoors();
-        
+        IsIndoors = CheckIsIndoors();
+
         var artificialLight = CheckArtificialVisibility();
         var dayLight = CheckDaylightVisibility(IsIndoors);
-        
+
         float visibility = Mathf.Max(artificialLight, dayLight);
         Visibility = visibility;
-        
+
         OnIsIndoorsUpdated?.Invoke(IsIndoors);
         OnVisibilityUpdated?.Invoke(Visibility);
     }

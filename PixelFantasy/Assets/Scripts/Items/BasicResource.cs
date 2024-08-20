@@ -37,16 +37,6 @@ namespace Items
         }
 
         public Action OnChanged { get; set; }
-        
-        // private void OnEnable()
-        // {
-        //     ResourcesDatabase.Instance?.RegisterResource(RuntimeData);
-        // }
-
-        // private void OnDisable()
-        // {
-        //     ResourcesDatabase.Instance?.DeregisterResource(RuntimeData);
-        // }
 
         protected virtual void OnDestroy()
         {
@@ -71,7 +61,7 @@ namespace Items
             ResourcesDatabase.Instance.RegisterResource(this);
             
             UpdateSprite();
-            RefreshTaskIcon();
+            RefreshTaskIcon(data.PendingTaskProgress);
         }
         
         protected virtual void UpdateSprite()
@@ -162,6 +152,11 @@ namespace Items
         {
             var workAmount = stats.GetActionSpeedForSkill(RuntimeData.Settings.ExtractionSkillType, transform);
             RuntimeData.Health -= workAmount;
+            
+            // Update progress
+            RuntimeData.PendingTaskProgress = 1f - (RuntimeData.Health / RuntimeData.MaxHealth);
+            RefreshTaskIcon(RuntimeData.PendingTaskProgress);
+            
             if (RuntimeData.Health <= 0)
             {
                 ExtractResource(stats);

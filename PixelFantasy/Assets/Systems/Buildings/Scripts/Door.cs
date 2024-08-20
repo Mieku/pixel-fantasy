@@ -40,7 +40,7 @@ namespace Systems.Buildings.Scripts
             LoadState(data.State);
             SetOrientationVertical(RuntimeDoorData.IsVertical);
             StructureDatabase.Instance.RegisterStructure(this);
-            RefreshTaskIcon();
+            RefreshTaskIcon(data.ConstructionPercent);
         }
 
         private void LoadState(EConstructionState state)

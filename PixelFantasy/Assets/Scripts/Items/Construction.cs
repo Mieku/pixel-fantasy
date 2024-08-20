@@ -76,6 +76,10 @@ namespace Items
             var workAmount = stats.GetActionSpeedForSkill(ESkillType.Construction, true);
             RuntimeData.RemainingWork -= workAmount;
             Changed();
+            
+            // Update progress
+            RefreshTaskIcon(RuntimeData.ConstructionPercent);
+            
             if (RuntimeData.RemainingWork <= 0)
             {
                 CompleteConstruction();

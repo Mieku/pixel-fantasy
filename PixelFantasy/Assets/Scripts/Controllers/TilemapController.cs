@@ -111,21 +111,25 @@ namespace Controllers
         /// <summary>
         /// Sets the tile based on the cell
         /// </summary>
-        public void SetTileByCell(TilemapLayer layer, Vector3Int cell, TileBase tileBase)
+        public void SetTileByCell(TilemapLayer layer, Vector3Int cell, TileBase tileBase, bool updateLightMap = true)
         {
             var tileMap = GetTilemap(layer);
             tileMap.SetTile(cell, tileBase);
-            TryUpdateLightTileMapCell(tileMap, cell);
+
+            if (updateLightMap)
+            {
+                TryUpdateLightTileMapCell(tileMap, cell);
+            }
         }
 
         /// <summary>
         /// Sets the Tile based on the world pos
         /// </summary>
-        public void SetTile(TilemapLayer layer, Vector2 worldPos, TileBase tileBase)
+        public void SetTile(TilemapLayer layer, Vector2 worldPos, TileBase tileBase, bool updateLightMap = true)
         {
             var tileMap = GetTilemap(layer);
             var cell = tileMap.WorldToCell(worldPos);
-            SetTileByCell(layer, cell, tileBase);
+            SetTileByCell(layer, cell, tileBase, updateLightMap);
         }
         
         /// <summary>
@@ -165,6 +169,12 @@ namespace Controllers
             {
                 lightTilemapCollider2D.RefreshTile(cell);
             }
+        }
+
+        public void TryUpdateEntireLightTileMap(TilemapLayer layer)
+        {
+            var tileMap = GetTilemap(layer);
+            TryUpdateEntireLightTileMap(tileMap);
         }
 
         private void TryUpdateEntireLightTileMap(Tilemap tilemap)

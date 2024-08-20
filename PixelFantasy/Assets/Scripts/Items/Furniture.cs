@@ -94,7 +94,7 @@ namespace Items
             AssignDirection(data.Direction);
             
             SetState(data.FurnitureState);
-            RefreshTaskIcon();
+            RefreshTaskIcon(data.PendingTaskProgress);
         }
         
         public virtual void StartPlanning(FurnitureSettings furnitureSettings, PlacementDirection initialDirection, DyeSettings dye)
@@ -554,6 +554,11 @@ namespace Items
         {
             var workAmount = stats.GetActionSpeedForSkill(ESkillType.Crafting, true);
             RuntimeData.RemainingWork -= workAmount;
+            
+            // Update progress
+            RuntimeData.PendingTaskProgress = 1f - (RuntimeData.RemainingWork / RuntimeData.FurnitureSettings.CraftRequirements.WorkCost);
+            RefreshTaskIcon(RuntimeData.PendingTaskProgress);
+            
             if (RuntimeData.RemainingWork <= 0)
             {
                 SetState(EFurnitureState.Built);
@@ -569,6 +574,11 @@ namespace Items
             var workAmount = stats.GetActionSpeedForSkill(ESkillType.Crafting, true);
             RuntimeData.RemainingWork -= workAmount;
             OnChanged?.Invoke();
+            
+            // Update progress
+            RuntimeData.PendingTaskProgress = 1f - (RuntimeData.RemainingWork / RuntimeData.FurnitureSettings.CraftRequirements.WorkCost);
+            RefreshTaskIcon(RuntimeData.PendingTaskProgress);
+            
             if (RuntimeData.RemainingWork <= 0)
             {
                 CompleteDeconstruction();

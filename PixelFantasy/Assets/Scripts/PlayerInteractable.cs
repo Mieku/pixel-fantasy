@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using AI;
+using HUD;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -10,8 +11,8 @@ public abstract class PlayerInteractable : MonoBehaviour
     public abstract string PendingTaskUID { get; set; }
 
     protected static bool _isQuitting = false;
-    
-    [SerializeField] private SpriteRenderer _icon;
+
+    [SerializeField] private WorkDisplay _workDisplay;
     
     public List<Command> Commands = new List<Command>();
     
@@ -78,7 +79,7 @@ public abstract class PlayerInteractable : MonoBehaviour
         TasksDatabase.Instance.AddTask(task);
         AddTaskToPending(task);
         
-        RefreshTaskIcon();
+        RefreshTaskIcon(0);
     }
 
     public void AddTaskToPending(Task task)
@@ -96,7 +97,7 @@ public abstract class PlayerInteractable : MonoBehaviour
 
     public virtual void OnTaskCancelled(Task task)
     {
-        RefreshTaskIcon();
+        RefreshTaskIcon(0);
     }
 
     public virtual void CancelPendingTask()
@@ -108,7 +109,7 @@ public abstract class PlayerInteractable : MonoBehaviour
         }
 
         PendingTaskUID = null;
-        RefreshTaskIcon();
+        RefreshTaskIcon(0);
     }
 
     public bool IsPending(Command command)
@@ -123,18 +124,10 @@ public abstract class PlayerInteractable : MonoBehaviour
         return 1;
     }
 
-    public void RefreshTaskIcon()
+    public void RefreshTaskIcon(float progress)
     {
-        if (PendingCommand != null)
-        {
-            _icon.sprite = PendingCommand.Icon;
-            _icon.gameObject.SetActive(true);
-        }
-        else
-        {
-            _icon.sprite = null;
-            _icon.gameObject.SetActive(false);
-        }
+        _workDisplay.DisplayCommand(PendingCommand);
+        _workDisplay.SetProgress(progress);
     }
 
     public virtual void ReceiveItem(ItemData item)

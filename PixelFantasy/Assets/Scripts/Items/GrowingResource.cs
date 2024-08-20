@@ -172,7 +172,7 @@ namespace Items
                 }
                 GrowingResourceData.HasFruitAvailable = false;
                 RefreshSelection();
-                RefreshTaskIcon();
+                RefreshTaskIcon(0);
             }
 
             GrowingResourceData.RemainingHarvestWork = GrowingResourceData.GrowingResourceSettings.WorkToHarvest;
@@ -182,6 +182,11 @@ namespace Items
         {
             var workAmount = stats.GetActionSpeedForSkill(GrowingResourceData.Settings.ExtractionSkillType, true);
             GrowingResourceData.RemainingHarvestWork -= workAmount;
+            
+            // Update progress
+            RuntimeData.PendingTaskProgress = 1f - (RuntimeData.Health / RuntimeData.MaxHealth);
+            RefreshTaskIcon(RuntimeData.PendingTaskProgress);
+            
             if (GrowingResourceData.RemainingHarvestWork <= 0)
             {
                 HarvestFruit(stats);

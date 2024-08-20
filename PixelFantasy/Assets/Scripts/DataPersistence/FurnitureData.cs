@@ -14,6 +14,7 @@ public class FurnitureData
 {
     public string UniqueID;
     public string PendingTaskUID;
+    public float PendingTaskProgress;
     public EFurnitureState FurnitureState;
     public float RemainingWork;
     public PlacementDirection Direction;
