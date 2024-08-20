@@ -47,7 +47,8 @@ namespace Characters
         public AvatarData Avatar;
         public string CurrentTaskID;
         public string HeldItemID;
-        
+
+        [JsonIgnore] public bool IsIndoors;
         [JsonIgnore] public TaskAction CurrentTaskAction; // TODO: For now
         
         [JsonRequired] private float _posX;

@@ -12,6 +12,7 @@ using Systems.Traits.Scripts;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 using Avatar = Systems.Appearance.Scripts.Avatar;
 
 namespace Characters
@@ -24,7 +25,7 @@ namespace Characters
         [SerializeField] private TaskAI _taskAI;
         [SerializeField] private SocialAI _socialAI;
         [SerializeField] private SortingGroup _sortingGroup;
-        [SerializeField] private LightDetector _lightDetector;
+        [SerializeField] private EnvironmentDetector _environmentDetector;
         
         public string FullName => RuntimeData.Firstname + " " + RuntimeData.Lastname;
         public override string UniqueID => RuntimeData.UniqueID;
@@ -56,7 +57,8 @@ namespace Characters
             
             GameEvents.DayTick += GameEvents_DayTick;
             GameEvents.MinuteTick += GameEvents_MinuteTick;
-            _lightDetector.OnVisibilityUpdated += OnLightVisibilityChanged;
+            _environmentDetector.OnVisibilityUpdated += OnLightVisibilityChanged;
+            _environmentDetector.OnIsIndoorsUpdated += OnIsIndoorsChanged;
         }
         
         private void OnDestroy()
@@ -70,7 +72,8 @@ namespace Characters
             
             GameEvents.DayTick -= GameEvents_DayTick;
             GameEvents.MinuteTick -= GameEvents_MinuteTick;
-            _lightDetector.OnVisibilityUpdated -= OnLightVisibilityChanged;
+            _environmentDetector.OnVisibilityUpdated -= OnLightVisibilityChanged;
+            _environmentDetector.OnIsIndoorsUpdated -= OnIsIndoorsChanged;
         }
 
         public void SetKinlingData(KinlingData data)
@@ -209,6 +212,11 @@ namespace Characters
             item.RuntimeData.CurrentTaskID = null;
             item.RuntimeData.CarryingKinlingUID = null;
             Destroy(item.gameObject);
+        }
+
+        private void OnIsIndoorsChanged(bool isIndoors)
+        {
+            RuntimeData.IsIndoors = isIndoors;
         }
 
         private void OnLightVisibilityChanged(float visibility)

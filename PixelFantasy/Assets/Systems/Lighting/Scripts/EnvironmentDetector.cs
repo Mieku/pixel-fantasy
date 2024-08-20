@@ -5,11 +5,13 @@ using Managers;
 using Systems.Buildings.Scripts;
 using UnityEngine;
 
-public class LightDetector : MonoBehaviour
+public class EnvironmentDetector : MonoBehaviour
 {
-    public float Visability = 0;
+    public float Visibility = 0;
+    public bool IsIndoors;
     public LightCollision2D? CollisionInfo = null;
     public Action<float> OnVisibilityUpdated;
+    public Action<bool> OnIsIndoorsUpdated;
 
     private LightCollider2D _lightCollider;
 
@@ -31,7 +33,7 @@ public class LightDetector : MonoBehaviour
 
     private void MinuteTick()
     {
-        CheckVisibility();
+        CheckEnvironment();
     }
 
     private void CollisionEvent(LightCollision2D collision)
@@ -108,24 +110,31 @@ public class LightDetector : MonoBehaviour
         return result;
     }
 
-    private float CheckDaylightVisibility()
+    private float CheckDaylightVisibility(bool isIndoors)
     {
-        var room = StructureDatabase.Instance.RoomAtWorldPos(transform.position);
-        bool isIndoors = room != null;
-
         if (isIndoors) return 0f;
 
         var daylightPercent = EnvironmentManager.Instance.DaylightPercent;
         return daylightPercent;
     }
 
-    public void CheckVisibility()
+    public bool CheckIsIndoors()
     {
-        var artificialLight = CheckArtificialVisibility();
-        var dayLight = CheckDaylightVisibility();
+        var room = StructureDatabase.Instance.RoomAtWorldPos(transform.position);
+        return room != null;
+    }
 
-        float result = Mathf.Max(artificialLight, dayLight);
-        Visability = result;
-        OnVisibilityUpdated?.Invoke(Visability);
+    public void CheckEnvironment()
+    {
+       IsIndoors = CheckIsIndoors();
+        
+        var artificialLight = CheckArtificialVisibility();
+        var dayLight = CheckDaylightVisibility(IsIndoors);
+        
+        float visibility = Mathf.Max(artificialLight, dayLight);
+        Visibility = visibility;
+        
+        OnIsIndoorsUpdated?.Invoke(IsIndoors);
+        OnVisibilityUpdated?.Invoke(Visibility);
     }
 }

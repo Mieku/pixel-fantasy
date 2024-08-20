@@ -961,7 +961,7 @@ GameObject:
   - component: {fileID: 8073868805028202898}
   - component: {fileID: 6419844077044257950}
   m_Layer: 6
-  m_Name: Light Detector
+  m_Name: Environment Detector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1076,7 +1076,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8611d8086ff17dd4cb2041a2117b36d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Visability: 0
+  Visibility: 0
+  IsIndoors: 0
 --- !u!1 &3452542361897801272
 GameObject:
   m_ObjectHideFlags: 0
@@ -1618,13 +1619,14 @@ MonoBehaviour:
       _moodState: 0
     CurrentTaskID: 
     HeldItemID: 
+    IsIndoors: 0
     CurrentTaskAction: {fileID: 0}
     _personalLog: []
   TaskHandler: {fileID: 2805273367278605261}
   _taskAI: {fileID: 6965329135388678903}
   _socialAI: {fileID: 5256464669028443073}
   _sortingGroup: {fileID: 4624679516539662858}
-  _lightDetector: {fileID: 6419844077044257950}
+  _environmentDetector: {fileID: 6419844077044257950}
   KinlingAgent: {fileID: 6234467081272595317}
   Avatar: {fileID: 4381294019299256598}
   HeldItem: {fileID: 0}
