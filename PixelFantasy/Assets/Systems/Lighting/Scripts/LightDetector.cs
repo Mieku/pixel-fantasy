@@ -1,3 +1,4 @@
+using System;
 using FunkyCode;
 using FunkyCode.Utilities;
 using Managers;
@@ -6,17 +7,17 @@ using UnityEngine;
 
 public class LightDetector : MonoBehaviour
 {
-    public float visability = 0;
-        
+    public float Visability = 0;
     public LightCollision2D? CollisionInfo = null;
+    public Action<float> OnVisibilityUpdated;
 
-    private LightCollider2D lightCollider;
+    private LightCollider2D _lightCollider;
 
     private void OnEnable()
     {
-        lightCollider = GetComponent<LightCollider2D>();
+        _lightCollider = GetComponent<LightCollider2D>();
 
-        lightCollider?.AddEvent(CollisionEvent);
+        _lightCollider?.AddEvent(CollisionEvent);
 
         GameEvents.MinuteTick += MinuteTick;
     }
@@ -25,7 +26,7 @@ public class LightDetector : MonoBehaviour
     {
         GameEvents.MinuteTick -= MinuteTick;
         
-        lightCollider?.RemoveEvent(CollisionEvent);
+        _lightCollider?.RemoveEvent(CollisionEvent);
     }
 
     private void MinuteTick()
@@ -74,7 +75,7 @@ public class LightDetector : MonoBehaviour
 
         if (CollisionInfo.Value.points != null)
         {
-            Polygon2 polygon = lightCollider.mainShape.GetPolygonsLocal()[0];
+            Polygon2 polygon = _lightCollider.mainShape.GetPolygonsLocal()[0];
 
             int pointsCount = polygon.points.Length;
             int pointsInView = CollisionInfo.Value.points.Count;
@@ -124,6 +125,7 @@ public class LightDetector : MonoBehaviour
         var dayLight = CheckDaylightVisibility();
 
         float result = Mathf.Max(artificialLight, dayLight);
-        visability = result;
+        Visability = result;
+        OnVisibilityUpdated?.Invoke(Visability);
     }
 }

@@ -47,6 +47,11 @@ namespace ScriptableObjects
         [BoxGroup("Schedule"), ShowInInspector] public Color WorkScheduleColour;
         [BoxGroup("Schedule"), ShowInInspector] public Color RecreationScheduleColour;
 
+        [BoxGroup("Visibility"), ShowInInspector] public float MinGoodVisibility = 0.7f;
+        [BoxGroup("Visibility"), ShowInInspector] public float MinLowVisibility = 0.3f;
+        [BoxGroup("Visibility"), ShowInInspector] public float LowVisibilityStatMod = 0.75f;
+        [BoxGroup("Visibility"), ShowInInspector] public float BlindVisibilityStatMod = 0.3f;
+
         [BoxGroup("Input"), ShowInInspector] public InputActionAsset InputActions;
         
         public RaceSettings LoadRaceSettings(string raceName)

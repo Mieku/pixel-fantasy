@@ -27,6 +27,8 @@ namespace Characters
         
         public List<string> TraitsIDS = new List<string>();
         public string HistoryID;
+        
+        [JsonIgnore] public EVisibilityLevel VisibilityLevel;
 
         [JsonIgnore] public History History => GameSettings.Instance.LoadHistorySettings(HistoryID);
 
@@ -439,6 +441,8 @@ namespace Characters
                 expGain *= GameSettings.Instance.ExpSettings.BaseExpPerWork;
                 AddExpToSkill(skillType, expGain);
             }
+
+            moddedWork = ModifyForVisibility(moddedWork);
             
             return moddedWork;
         }
@@ -615,6 +619,28 @@ namespace Characters
             }
             
             return totalModifier;
+        }
+
+        private float ModifyForVisibility(float originalValue)
+        {
+            if (originalValue == 0) return 0;
+            
+            float result = originalValue;
+            switch (VisibilityLevel)
+            {
+                case EVisibilityLevel.Blind:
+                    var blindMod = GameSettings.Instance.BlindVisibilityStatMod;
+                    result = originalValue * blindMod;
+                    return result;
+                case EVisibilityLevel.Low:
+                    var lowMod = GameSettings.Instance.LowVisibilityStatMod;
+                    result = originalValue * lowMod;
+                    return result;
+                case EVisibilityLevel.Good:
+                    return result;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

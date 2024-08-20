@@ -17,4 +17,8 @@ MonoBehaviour:
   SleepScheduleColour: {r: 0, g: 0.59607846, b: 0.8627451, a: 1}
   WorkScheduleColour: {r: 0.9607843, g: 0.33333334, b: 0.3647059, a: 1}
   RecreationScheduleColour: {r: 1, g: 0.63529414, b: 0.078431375, a: 1}
+  MinGoodVisibility: 0.7
+  MinLowVisibility: 0.3
+  LowVisibilityStatMod: 0.75
+  BlindVisibilityStatMod: 0.3
   InputActions: {fileID: -944628639613478452, guid: 7ef08c0a2e5067f4986dcae2765c064c, type: 3}

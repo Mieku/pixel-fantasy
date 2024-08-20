@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using FunkyCode.LightingSettings;
+using UnityEditor.SceneManagement;
 
 namespace FunkyCode
 {
@@ -267,6 +268,9 @@ namespace FunkyCode
 
 		private void OnEnable()
 		{
+			// Note: MA added this to prevent stack overflow when editing prefabs
+			if (PrefabStageUtility.GetCurrentPrefabStage() != null) return;
+			
 			sceneView.OnEnable();
 
 			foreach(var onRenderMode in UnityEngine.Object.FindObjectsOfType<OnRenderMode>())

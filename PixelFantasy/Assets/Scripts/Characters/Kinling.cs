@@ -5,6 +5,7 @@ using Handlers;
 using Interfaces;
 using Items;
 using Managers;
+using ScriptableObjects;
 using Systems.Mood.Scripts;
 using Systems.Social.Scripts;
 using Systems.Traits.Scripts;
@@ -23,6 +24,7 @@ namespace Characters
         [SerializeField] private TaskAI _taskAI;
         [SerializeField] private SocialAI _socialAI;
         [SerializeField] private SortingGroup _sortingGroup;
+        [SerializeField] private LightDetector _lightDetector;
         
         public string FullName => RuntimeData.Firstname + " " + RuntimeData.Lastname;
         public override string UniqueID => RuntimeData.UniqueID;
@@ -54,6 +56,7 @@ namespace Characters
             
             GameEvents.DayTick += GameEvents_DayTick;
             GameEvents.MinuteTick += GameEvents_MinuteTick;
+            _lightDetector.OnVisibilityUpdated += OnLightVisibilityChanged;
         }
         
         private void OnDestroy()
@@ -67,6 +70,7 @@ namespace Characters
             
             GameEvents.DayTick -= GameEvents_DayTick;
             GameEvents.MinuteTick -= GameEvents_MinuteTick;
+            _lightDetector.OnVisibilityUpdated -= OnLightVisibilityChanged;
         }
 
         public void SetKinlingData(KinlingData data)
@@ -206,6 +210,28 @@ namespace Characters
             item.RuntimeData.CarryingKinlingUID = null;
             Destroy(item.gameObject);
         }
+
+        private void OnLightVisibilityChanged(float visibility)
+        {
+            var lowMin = GameSettings.Instance.MinLowVisibility;
+            var goodMin = GameSettings.Instance.MinGoodVisibility;
+            EVisibilityLevel visibilityLevel;
+
+            if (visibility >= goodMin) // Good
+            {
+                visibilityLevel = EVisibilityLevel.Good;
+            }
+            else if(visibility >= lowMin) // Low
+            {
+                visibilityLevel = EVisibilityLevel.Low;
+            }
+            else // Blind
+            {
+                visibilityLevel = EVisibilityLevel.Blind;
+            }
+
+            RuntimeData.Stats.VisibilityLevel = visibilityLevel;
+        }
     }
 
     public enum ESexualPreference
@@ -214,5 +240,12 @@ namespace Characters
         Male,
         Female,
         Both,
+    }
+
+    public enum EVisibilityLevel
+    {
+        Blind,
+        Low,
+        Good,
     }
 }
