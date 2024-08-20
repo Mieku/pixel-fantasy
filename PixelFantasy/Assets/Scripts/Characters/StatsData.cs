@@ -441,8 +441,6 @@ namespace Characters
                 expGain *= GameSettings.Instance.ExpSettings.BaseExpPerWork;
                 AddExpToSkill(skillType, expGain);
             }
-
-            moddedWork = ModifyForVisibility(moddedWork);
             
             return moddedWork;
         }
@@ -522,6 +520,8 @@ namespace Characters
             switch (attributeType)
             {
                 case EAttributeType.GlobalWorkSpeed:
+                    // modify for darkness
+                    totalModifier += VisibilityModifier();
                     break;
                 case EAttributeType.WalkSpeed:
                     break;
@@ -621,23 +621,18 @@ namespace Characters
             return totalModifier;
         }
 
-        private float ModifyForVisibility(float originalValue)
+        private float VisibilityModifier()
         {
-            if (originalValue == 0) return 0;
-            
-            float result = originalValue;
             switch (VisibilityLevel)
             {
                 case EVisibilityLevel.Blind:
                     var blindMod = GameSettings.Instance.BlindVisibilityStatMod;
-                    result = originalValue * blindMod;
-                    return result;
+                    return blindMod;
                 case EVisibilityLevel.Low:
                     var lowMod = GameSettings.Instance.LowVisibilityStatMod;
-                    result = originalValue * lowMod;
-                    return result;
+                    return lowMod;
                 case EVisibilityLevel.Good:
-                    return result;
+                    return 0;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

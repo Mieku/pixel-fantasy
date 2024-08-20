@@ -19,6 +19,6 @@ MonoBehaviour:
   RecreationScheduleColour: {r: 1, g: 0.63529414, b: 0.078431375, a: 1}
   MinGoodVisibility: 0.7
   MinLowVisibility: 0.3
-  LowVisibilityStatMod: 0.75
-  BlindVisibilityStatMod: 0.3
+  LowVisibilityStatMod: -0.25
+  BlindVisibilityStatMod: -0.7
   InputActions: {fileID: -944628639613478452, guid: 7ef08c0a2e5067f4986dcae2765c064c, type: 3}
