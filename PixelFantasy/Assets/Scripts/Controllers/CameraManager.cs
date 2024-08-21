@@ -100,6 +100,12 @@ namespace Controllers
         {
             _cam.transform.position = new Vector3(data.PosX, data.PosY, _cam.transform.position.z);
             _cam.Lens.OrthographicSize = data.OrthographicSize;
+            GameEvents.Trigger_OnCameraZoomChanged(data.OrthographicSize);
+        }
+
+        public float GetCamaraZoom()
+        {
+            return _cam.Lens.OrthographicSize;
         }
 
         private void FixedUpdate()
@@ -196,7 +202,9 @@ namespace Controllers
             var scroll = context.ReadValue<Vector2>().y;
             float dynamicZoomSpeed = _scrollSensitivity * _cam.Lens.OrthographicSize;
             float newSize = _cam.Lens.OrthographicSize - scroll * dynamicZoomSpeed;
-            _cam.Lens.OrthographicSize = Mathf.Clamp(newSize, _minFov, _maxFov);
+            newSize = Mathf.Clamp(newSize, _minFov, _maxFov);
+            _cam.Lens.OrthographicSize = newSize;
+            GameEvents.Trigger_OnCameraZoomChanged(newSize);
         }
 
         public void LookAtPosition(Vector2 pos)

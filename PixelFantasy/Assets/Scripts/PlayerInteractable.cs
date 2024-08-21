@@ -5,6 +5,7 @@ using HUD;
 using Newtonsoft.Json;
 using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public abstract class PlayerInteractable : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public abstract class PlayerInteractable : MonoBehaviour
 
     protected static bool _isQuitting = false;
 
-    [SerializeField] private WorkDisplay _workDisplay;
+    [FormerlySerializedAs("_workDisplay")] [SerializeField] private CommandDisplay _commandDisplay;
     
     public List<Command> Commands = new List<Command>();
     
@@ -97,7 +98,7 @@ public abstract class PlayerInteractable : MonoBehaviour
         TasksDatabase.Instance.AddTask(task);
         AddTaskToPending(task);
         
-        RefreshTaskIcon(0);
+        RefreshTaskIcon();
     }
 
     public void AddTaskToPending(Task task)
@@ -115,7 +116,7 @@ public abstract class PlayerInteractable : MonoBehaviour
 
     public virtual void OnTaskCancelled(Task task)
     {
-        RefreshTaskIcon(0);
+        RefreshTaskIcon();
     }
 
     public virtual void CancelPendingTask()
@@ -127,7 +128,7 @@ public abstract class PlayerInteractable : MonoBehaviour
         }
 
         PendingTaskUID = null;
-        RefreshTaskIcon(0);
+        RefreshTaskIcon();
     }
 
     public bool IsPending(Command command)
@@ -142,10 +143,9 @@ public abstract class PlayerInteractable : MonoBehaviour
         return 1;
     }
 
-    public void RefreshTaskIcon(float progress)
+    public void RefreshTaskIcon()
     {
-        _workDisplay.DisplayCommand(PendingCommand);
-        _workDisplay.SetProgress(progress);
+        _commandDisplay.DisplayCommand(PendingCommand);
     }
 
     public virtual void ReceiveItem(ItemData item)

@@ -71,25 +71,26 @@ namespace Items
             
         }
         
-        public virtual bool DoConstruction(StatsData stats)
+        public virtual bool DoConstruction(StatsData stats, out float progress)
         {
             var workAmount = stats.GetActionSpeedForSkill(ESkillType.Construction, true);
             RuntimeData.RemainingWork -= workAmount;
             Changed();
             
-            // Update progress
-            RefreshTaskIcon(RuntimeData.ConstructionPercent);
-            
             if (RuntimeData.RemainingWork <= 0)
             {
                 CompleteConstruction();
+                progress = 1;
                 return true;
             }
-            
-            return false;
+            else
+            {
+                progress = RuntimeData.ConstructionPercent;
+                return false;
+            }
         }
 
-        public virtual bool DoDeconstruction(StatsData stats)
+        public virtual bool DoDeconstruction(StatsData stats, out float progress)
         {
             var workAmount = stats.GetActionSpeedForSkill(ESkillType.Construction, true);
             RuntimeData.RemainingWork -= workAmount;
@@ -97,10 +98,14 @@ namespace Items
             if (RuntimeData.RemainingWork <= 0)
             {
                 CompleteDeconstruction();
+                progress = 1;
                 return true;
             }
-            
-            return false;
+            else
+            {
+                progress = 1 - (RuntimeData.RemainingWork / RuntimeData.Settings.CraftRequirements.WorkCost);
+                return false;
+            }
         }
 
         // When values change this should be called, is a hook for callbacks

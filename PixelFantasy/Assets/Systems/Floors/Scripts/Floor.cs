@@ -38,7 +38,7 @@ namespace Systems.Floors.Scripts
         {
             RuntimeData = data;
             FlooringDatabase.Instance.RegisterFloor(this);
-            RefreshTaskIcon(data.ConstructionPercent);
+            RefreshTaskIcon();
         }
 
         private void AssignFloorState(EConstructionState state)

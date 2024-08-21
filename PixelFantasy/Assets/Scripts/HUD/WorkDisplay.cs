@@ -1,4 +1,7 @@
 using System;
+using Controllers;
+using DG.Tweening;
+using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,32 +9,51 @@ namespace HUD
 {
     public class WorkDisplay : MonoBehaviour
     {
-        [SerializeField] private Image _icon;
-        [SerializeField] private Image _progressFill;
-        [SerializeField] private GameObject _progressHandle;
         [SerializeField] private GameObject _canvasHandle;
-
+        [SerializeField] private Image _fillImg;
+        [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private float _fadeDuration = 0.5f; // duration of the fade in/out
+        
         private void Awake()
         {
             _canvasHandle.SetActive(false);
         }
 
-        public void DisplayCommand(Command command)
+        private void OnEnable()
         {
-            if (command != null)
+            OnCameraZoomChanged(CameraManager.Instance.GetCamaraZoom());
+            
+            GameEvents.OnCameraZoomChanged += OnCameraZoomChanged;
+        }
+
+        private void OnDisable()
+        {
+            GameEvents.OnCameraZoomChanged -= OnCameraZoomChanged;
+        }
+
+        private void OnCameraZoomChanged(float zoomAmount)
+        {
+            if (zoomAmount > GameSettings.Instance.MaxZoomDisplayWork)
             {
-                _canvasHandle.SetActive(true);
-                _icon.sprite = command.Icon;
+                _canvasGroup.DOFade(0, _fadeDuration);
             }
             else
             {
-                _canvasHandle.SetActive(false);
+                _canvasGroup.DOFade(1, _fadeDuration);
             }
         }
 
-        public void SetProgress(float percent)
+        public void Show(bool shouldShow)
         {
-            _progressFill.fillAmount = percent;
+            _canvasHandle.SetActive(shouldShow);
+        }
+
+        public void SetProgress(float progressPercent)
+        {
+            _canvasHandle.SetActive(true);
+            
+            progressPercent = Mathf.Clamp01(progressPercent);
+            _fillImg.fillAmount = progressPercent;
         }
     }
 }

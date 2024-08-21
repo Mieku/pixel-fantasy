@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
 using Characters;
 using Controllers;
 using DataPersistence;
 using Handlers;
 using Interfaces;
-using Newtonsoft.Json;
 using Systems.Appearance.Scripts;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 namespace Items
 {
@@ -48,7 +44,8 @@ namespace Items
             SetTile();
 
             _tempPlacementDisp.SetActive(false);
-            RefreshTaskIcon(data.PendingTaskProgress);
+            
+            RefreshTaskIcon();
         }
 
         public MountainSettings MountainSettings => _settings as MountainSettings;
@@ -119,22 +116,22 @@ namespace Items
             base.ExtractResource(stats);
         }
 
-        public override bool DoExtractionWork(StatsData stats)
+        public override bool DoExtractionWork(StatsData stats, out float progress)
         {
             var workAmount = stats.GetActionSpeedForSkill(MountainSettings.ExtractionSkillType, transform);
             RuntimeData.Health -= workAmount;
             
-            // Update progress
-            RuntimeData.PendingTaskProgress = 1f - (RuntimeData.Health / RuntimeData.MaxHealth);
-            RefreshTaskIcon(RuntimeData.PendingTaskProgress);
-            
             if (RuntimeData.Health <= 0)
             {
                 ExtractResource(stats);
+                progress = 1;
                 return true;
             }
-            
-            return false;
+            else
+            {
+                progress = 1f - (RuntimeData.Health / RuntimeData.MaxHealth);
+                return false;
+            }
         }
     }
 }

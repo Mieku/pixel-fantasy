@@ -186,28 +186,29 @@ namespace Items
                 RemoveCommand("Harvest");
                 GrowingResourceData.HasFruitAvailable = false;
                 RefreshSelection();
-                RefreshTaskIcon(0);
+                RefreshTaskIcon();
             }
 
             GrowingResourceData.RemainingHarvestWork = GrowingResourceData.GrowingResourceSettings.WorkToHarvest;
         }
 
-        public bool DoHarvest(StatsData stats)
+        public bool DoHarvest(StatsData stats, out float progress)
         {
             var workAmount = stats.GetActionSpeedForSkill(GrowingResourceData.Settings.ExtractionSkillType, true);
             GrowingResourceData.RemainingHarvestWork -= workAmount;
             
-            // Update progress
-            RuntimeData.PendingTaskProgress = 1f - (RuntimeData.Health / RuntimeData.MaxHealth);
-            RefreshTaskIcon(RuntimeData.PendingTaskProgress);
-            
             if (GrowingResourceData.RemainingHarvestWork <= 0)
             {
                 HarvestFruit(stats);
+                progress = 1;
                 return true;
             }
-
-            return false;
+            else
+            {
+                // Update Progress
+                progress = 1f - (GrowingResourceData.RemainingHarvestWork / GrowingResourceData.GrowingResourceSettings.WorkToHarvest);
+                return false;
+            }
         }
 
         private void Update()

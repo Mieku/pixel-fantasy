@@ -31,11 +31,15 @@ namespace AI.Action_Tasks
             if(_timer >= 1) 
             {   
                 _timer = 0;
-                if (_construction.DoConstruction(_kinling.RuntimeData.Stats)) 
+                if (_construction.DoConstruction(_kinling.RuntimeData.Stats, out float progress)) 
                 {
                     // When work is complete
                     EndAction(true);
-                } 
+                }
+                else
+                {
+                    _kinling.DisplayWorkProgress(progress);
+                }
             }
         }
 
@@ -43,6 +47,7 @@ namespace AI.Action_Tasks
         {
             _kinling.Avatar.SetUnitAction(UnitAction.Nothing);
             _timer = 0;
+            _kinling.HideWorkProgress();
             _kinling = null;
             _construction = null;
         }

@@ -65,55 +65,13 @@ public class GameEvents : MonoBehaviour
     {
         if (OnGameSpeedChanged != null) OnGameSpeedChanged(speedMod);
     }
-
-    public static event Action<string> OnUnitStatsChanged;
-    public static void Trigger_OnUnitStatsChanged(string unitUID)
-    {
-        if (OnUnitStatsChanged != null) OnUnitStatsChanged(unitUID);
-    }
-
-    public static event Action<bool> OnZoneDisplayChanged;
-    public static void Trigger_OnZoneDisplayChanged(bool zonesVisible)
-    {
-        if (OnZoneDisplayChanged != null) OnZoneDisplayChanged(zonesVisible);
-    }
     
     public static event Action<string, PlayerInteractable> OnTaskCancelled;
     public static void Trigger_OnTaskCancelled(string taskID, PlayerInteractable requestor)
     {
         if (OnTaskCancelled != null) OnTaskCancelled(taskID, requestor);
     }
-
-    public static event Action<Kinling> OnUnitOccupationChanged;
-    public static void Trigger_OnUnitOccupationChanged(Kinling kinling)
-    {
-        if (OnUnitOccupationChanged != null) OnUnitOccupationChanged(kinling);
-    }
-    
-    public static event Action<bool> OnStructureGuideToggled;
-    public static void Trigger_OnStructureGuideToggled(bool shouldEnable)
-    {
-        if (OnStructureGuideToggled != null) OnStructureGuideToggled(shouldEnable);
-    }
-    
-    public static event Action<bool> OnRoofGuideToggled;
-    public static void Trigger_OnRoofGuideToggled(bool shouldEnable)
-    {
-        if (OnRoofGuideToggled != null) OnRoofGuideToggled(shouldEnable);
-    }
-
-    public static event Action<Vector2> OnRoofRefresh;
-    public static void Trigger_OnRoofRefresh(Vector2 callerPos)
-    {
-        if (OnRoofRefresh != null) OnRoofRefresh(callerPos);
-    }
-
-    public static event Action<bool> OnHideRoofsToggled;
-    public static void Trigger_OnHideRoofsToggled(bool hideRoofs)
-    {
-        if (OnHideRoofsToggled != null) OnHideRoofsToggled(hideRoofs);
-    }
-
+ 
     public static event Action MinuteTick;
     public static void Trigger_MinuteTick()
     {
@@ -137,18 +95,6 @@ public class GameEvents : MonoBehaviour
     {
         if (OnKinlingChanged != null) OnKinlingChanged(kinling);
     }
-    
-    public static event Action OnCoinsTotalChanged;
-    public static void Trigger_OnCoinsTotalChanged()
-    {
-        if (OnCoinsTotalChanged != null) OnCoinsTotalChanged();
-    }
-    
-    public static event Action OnCoinsIncomeChanged;
-    public static void Trigger_OnCoinsIncomeChanged()
-    {
-        if (OnCoinsIncomeChanged != null) OnCoinsIncomeChanged();
-    }
 
     public static event Action OnConfigClipboardChanged;
     public static void Trigger_OnConfigClipboardChanged()
@@ -160,5 +106,11 @@ public class GameEvents : MonoBehaviour
     public static void Trigger_OnGameLoadStart()
     {
         if (OnGameLoadStart != null) OnGameLoadStart();
+    }
+
+    public static event Action<float> OnCameraZoomChanged;
+    public static void Trigger_OnCameraZoomChanged(float zoomAmount)
+    {
+        if (OnCameraZoomChanged != null) OnCameraZoomChanged(zoomAmount);
     }
 }

@@ -15,7 +15,6 @@ using Systems.Lighting.Scripts;
 using Systems.Stats.Scripts;
 using TaskSystem;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Items
 {
@@ -94,7 +93,7 @@ namespace Items
             AssignDirection(data.Direction);
             
             SetState(data.FurnitureState);
-            RefreshTaskIcon(data.PendingTaskProgress);
+            RefreshTaskIcon();
         }
         
         public virtual void StartPlanning(FurnitureSettings furnitureSettings, PlacementDirection initialDirection, DyeSettings dye)
@@ -550,42 +549,42 @@ namespace Items
             OnChanged?.Invoke();
         }
 
-        public bool DoConstruction(StatsData stats)
+        public bool DoConstruction(StatsData stats, out float progress)
         {
             var workAmount = stats.GetActionSpeedForSkill(ESkillType.Crafting, true);
             RuntimeData.RemainingWork -= workAmount;
-            
-            // Update progress
-            RuntimeData.PendingTaskProgress = 1f - (RuntimeData.RemainingWork / RuntimeData.FurnitureSettings.CraftRequirements.WorkCost);
-            RefreshTaskIcon(RuntimeData.PendingTaskProgress);
             
             if (RuntimeData.RemainingWork <= 0)
             {
                 SetState(EFurnitureState.Built);
+                progress = 1;
                 return true;
             }
-            
-            OnChanged?.Invoke();
-            return false;
+            else
+            {
+                progress = RuntimeData.ConstructionPercent;
+                OnChanged?.Invoke();
+                return false;
+            }
         }
         
-        public virtual bool DoDeconstruction(StatsData stats)
+        public virtual bool DoDeconstruction(StatsData stats, out float progress)
         {
             var workAmount = stats.GetActionSpeedForSkill(ESkillType.Crafting, true);
             RuntimeData.RemainingWork -= workAmount;
             OnChanged?.Invoke();
             
-            // Update progress
-            RuntimeData.PendingTaskProgress = 1f - (RuntimeData.RemainingWork / RuntimeData.FurnitureSettings.CraftRequirements.WorkCost);
-            RefreshTaskIcon(RuntimeData.PendingTaskProgress);
-            
             if (RuntimeData.RemainingWork <= 0)
             {
                 CompleteDeconstruction();
+                progress = 1;
                 return true;
             }
-            
-            return false;
+            else
+            {
+                progress = RuntimeData.ConstructionPercent;
+                return false;
+            }
         }
         
         public virtual void CreateConstructTask(bool autoAssign = true)

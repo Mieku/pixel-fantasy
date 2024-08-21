@@ -15,10 +15,7 @@ namespace Controllers
         private Vector3 _currentMousePos;
         private ClickObject _curSelectedObject;
         private bool _isOverUI;
-        private bool _buildingInternalViewEnabled;
         private Kinling _curSelectedKinling;
-
-        public string StoredKey;
 
         protected override void Awake()
         {
@@ -184,12 +181,6 @@ namespace Controllers
             {
                 EscapePressed();
             }
-
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                _buildingInternalViewEnabled = !_buildingInternalViewEnabled;
-                GameEvents.Trigger_OnHideRoofsToggled(_buildingInternalViewEnabled);
-            }
         }
 
         private void EscapePressed()
@@ -204,41 +195,12 @@ namespace Controllers
         /// </summary>
         public void ChangeState(PlayerInputState newState)
         {
-            ClearStoredData();
             _playerInputState = newState;
-            
-            EnableStructureGuides(newState);
         }
-        public void ChangeState(PlayerInputState newState, string key)
-        {
-            ClearStoredData();
-            _playerInputState = newState;
-            StoredKey = key;
-
-            EnableStructureGuides(newState);
-        }
-
-        private void EnableStructureGuides(PlayerInputState newState)
-        {
-            if (newState is PlayerInputState.Zone 
-                or PlayerInputState.BuildFlooring)
-            {
-                GameEvents.Trigger_OnStructureGuideToggled(true);
-            }
-        }
-
+        
         public PlayerInputState GetCurrentState()
         {
             return _playerInputState;
-        }
-
-        /// <summary>
-        /// Clears any stored input state data (ex: type of structure to build)
-        /// </summary>
-        public void ClearStoredData()
-        {
-            StoredKey = null;
-            GameEvents.Trigger_OnStructureGuideToggled(false);
         }
     }
 

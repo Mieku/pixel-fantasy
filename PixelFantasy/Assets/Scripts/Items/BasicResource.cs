@@ -6,11 +6,8 @@ using DataPersistence;
 using Handlers;
 using Interfaces;
 using Managers;
-using Newtonsoft.Json;
 using Systems.Appearance.Scripts;
-using TaskSystem;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Items
 {
@@ -21,9 +18,7 @@ namespace Items
         [SerializeField] private Command _defaultExtractCmd;
         [SerializeField] private BoxCollider2D _obstacleBox;
         [SerializeField] private List<Transform> _workPoints;
-        [SerializeField] private List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle", "Nature", "Structure"};
-
-        protected Spawner spawner => Spawner.Instance;
+        
         protected Action _onResourceClearedCallback;
 
         protected ResourceSettings _settings;
@@ -61,7 +56,7 @@ namespace Items
             ResourcesDatabase.Instance.RegisterResource(this);
             
             UpdateSprite();
-            RefreshTaskIcon(data.PendingTaskProgress);
+            RefreshTaskIcon();
         }
         
         protected virtual void UpdateSprite()
@@ -146,24 +141,24 @@ namespace Items
         /// <summary>
         /// Work being done by the kinling, (example a swing of axe)
         /// </summary>
-        /// <param name="workAmount"></param>
         /// <returns>If the work is complete</returns>
-        public virtual bool DoExtractionWork(StatsData stats)
+        public virtual bool DoExtractionWork(StatsData stats, out float progress)
         {
             var workAmount = stats.GetActionSpeedForSkill(RuntimeData.Settings.ExtractionSkillType, transform);
             RuntimeData.Health -= workAmount;
-            
-            // Update progress
-            RuntimeData.PendingTaskProgress = 1f - (RuntimeData.Health / RuntimeData.MaxHealth);
-            RefreshTaskIcon(RuntimeData.PendingTaskProgress);
-            
+
             if (RuntimeData.Health <= 0)
             {
                 ExtractResource(stats);
+                progress = 1;
                 return true;
             }
-            
-            return false;
+            else
+            {
+                //Update progress
+                progress = 1f - (RuntimeData.Health / RuntimeData.MaxHealth);
+                return false;
+            }
         }
 
         public virtual void ClearResource(Action onResourceCleared)

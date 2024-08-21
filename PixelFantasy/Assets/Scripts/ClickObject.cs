@@ -86,11 +86,6 @@ public class ClickObject : MonoBehaviour
         PlayerInputController.Instance.OnClickObjectDestroy(this);
         
         GameEvents.RefreshSelection -= RefreshSelection;
-
-        if (IsSelected)
-        {
-            PlayerInputController.Instance.ClearStoredData();
-        }
     }
 
     private void RefreshSelection()

@@ -185,7 +185,7 @@ namespace Items
             }
         }
 
-        public bool DoCraft(StatsData stats)
+        public bool DoCraft(StatsData stats, out float progress)
         {
             var workAmount = stats.GetActionSpeedForSkill(RuntimeTableData.CraftingSkillType(), true);
             RuntimeTableData.CurrentOrder.RemainingCraftingWork -= workAmount;
@@ -193,10 +193,14 @@ namespace Items
             if (RuntimeTableData.CurrentOrder.RemainingCraftingWork <= 0)
             {
                 CompleteCraft();
+                progress = 1;
                 return true;
             }
-            
-            return false;
+            else
+            {
+                progress = RuntimeTableData.CurrentOrder.OrderProgress;
+                return false;
+            }
         }
 
         public void ReceiveMaterial(ItemData item)

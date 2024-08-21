@@ -304,7 +304,7 @@ namespace Systems.Details.Build_Details.Scripts
             RefreshLayout();
             
             Spawner.Instance.CancelInput();
-            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildDoor, settings.DoorName);
+            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildDoor);
             Spawner.Instance.PlanDoor(settings, _currentColour, () =>
             {
                 DisplayCurrentDoorSelection(settings);

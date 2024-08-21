@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using AI;
 using Handlers;
+using HUD;
 using Interfaces;
 using Items;
 using Managers;
@@ -12,7 +13,6 @@ using Systems.Traits.Scripts;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Serialization;
 using Avatar = Systems.Appearance.Scripts.Avatar;
 
 namespace Characters
@@ -26,6 +26,7 @@ namespace Characters
         [SerializeField] private SocialAI _socialAI;
         [SerializeField] private SortingGroup _sortingGroup;
         [SerializeField] private EnvironmentDetector _environmentDetector;
+        [SerializeField] private WorkDisplay _workDisplay;
         
         public string FullName => RuntimeData.Firstname + " " + RuntimeData.Lastname;
         public override string UniqueID => RuntimeData.UniqueID;
@@ -67,8 +68,6 @@ namespace Characters
             
             KinlingsDatabase.Instance.DeregisterKinling(RuntimeData);
             PlayerInteractableDatabase.Instance.DeregisterPlayerInteractable(this);
-            
-            GameEvents.Trigger_OnCoinsIncomeChanged();
             
             GameEvents.DayTick -= GameEvents_DayTick;
             GameEvents.MinuteTick -= GameEvents_MinuteTick;
@@ -239,6 +238,16 @@ namespace Characters
             }
 
             RuntimeData.Stats.VisibilityLevel = visibilityLevel;
+        }
+
+        public void DisplayWorkProgress(float percentComplete)
+        {
+            _workDisplay.SetProgress(percentComplete);
+        }
+
+        public void HideWorkProgress()
+        {
+            _workDisplay.Show(false);
         }
     }
 

@@ -39,6 +39,7 @@ namespace ScriptableObjects
         [BoxGroup("Mood"), ShowInInspector] public float MoodNegativeHourlyRate { get; private set; } = -8;
 
         [BoxGroup("Work"), ShowInInspector] public float BaseWorkPerAction { get; private set; } = 1f;
+        [BoxGroup("Work"), ShowInInspector] public float MaxZoomDisplayWork { get; private set; } = 9f;
 
         [BoxGroup("Experience"), ShowInInspector] public ExperienceSettings ExpSettings;
 
@@ -47,10 +48,10 @@ namespace ScriptableObjects
         [BoxGroup("Schedule"), ShowInInspector] public Color WorkScheduleColour;
         [BoxGroup("Schedule"), ShowInInspector] public Color RecreationScheduleColour;
 
-        [BoxGroup("Visibility"), ShowInInspector] public float MinGoodVisibility = 0.7f;
-        [BoxGroup("Visibility"), ShowInInspector] public float MinLowVisibility = 0.3f;
-        [BoxGroup("Visibility"), ShowInInspector] public float LowVisibilityStatMod = 0.75f;
-        [BoxGroup("Visibility"), ShowInInspector] public float BlindVisibilityStatMod = 0.3f;
+        [BoxGroup("Visibility"), ShowInInspector] public float MinGoodVisibility { get; private set; }  = 0.7f;
+        [BoxGroup("Visibility"), ShowInInspector] public float MinLowVisibility { get; private set; }  = 0.3f;
+        [BoxGroup("Visibility"), ShowInInspector] public float LowVisibilityStatMod { get; private set; }  = -0.25f;
+        [BoxGroup("Visibility"), ShowInInspector] public float BlindVisibilityStatMod { get; private set; }  = -0.7f;
 
         [BoxGroup("Input"), ShowInInspector] public InputActionAsset InputActions;
         

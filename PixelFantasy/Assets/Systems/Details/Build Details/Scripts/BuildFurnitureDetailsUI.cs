@@ -316,7 +316,7 @@ namespace Systems.Details.Build_Details.Scripts
         private void TriggerFurniturePlacement(FurnitureSettings furnitureSettings)
         {
             Spawner.Instance.CancelInput();
-            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildFurniture, furnitureSettings.ItemName);
+            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildFurniture);
             Spawner.Instance.PlanFurniture(furnitureSettings, furnitureSettings.DefaultDirection, _selectedDye);
         }
     }
