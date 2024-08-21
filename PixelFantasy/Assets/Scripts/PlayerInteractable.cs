@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AI;
 using HUD;
 using Newtonsoft.Json;
+using ScriptableObjects;
 using UnityEngine;
 
 public abstract class PlayerInteractable : MonoBehaviour
@@ -26,6 +27,23 @@ public abstract class PlayerInteractable : MonoBehaviour
             if (string.IsNullOrEmpty(PendingTaskUID)) return null;
             
             return Commands.Find(c => c.TaskID == PendingTask.TaskID);
+        }
+    }
+
+    public void AddCommand(string cmdID)
+    {
+        if (Commands.Exists(c => c.CommandID == cmdID)) return; // dont add twice
+        
+        Command cmd = GameSettings.Instance.LoadCommand(cmdID);
+        Commands.Add(cmd);
+    }
+
+    public void RemoveCommand(string cmdID)
+    {
+        if (Commands.Exists(c => c.CommandID == cmdID))
+        {
+            Command cmd = GameSettings.Instance.LoadCommand(cmdID);
+            Commands.Remove(cmd);
         }
     }
 

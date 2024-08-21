@@ -224,7 +224,7 @@ namespace Items
             
         }
 
-        public virtual List<Command> GetCommands()
+        public List<Command> GetCommands()
         {
             return new List<Command>(Commands);
         }

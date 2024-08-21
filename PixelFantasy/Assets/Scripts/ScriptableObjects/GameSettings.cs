@@ -197,5 +197,23 @@ namespace ScriptableObjects
             var result = _taskActionsCache.Find(settings => settings.name == taskActionName);
             return result;
         }
+        
+        // Commands
+        private List<Command> _commandsCache = null;
+        private List<Command> LoadAllCommands()
+        {
+            return Resources.LoadAll<Command>("Settings/Commands").Where(c => c != null).ToList();
+        }
+
+        public Command LoadCommand(string commandID)
+        {
+            if (_commandsCache == null || _commandsCache.Count == 0)
+            {
+                _commandsCache = LoadAllCommands();
+            }
+
+            var result = _commandsCache.Find(command => command.CommandID == commandID);
+            return result;
+        }
     }
 }

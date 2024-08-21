@@ -5,6 +5,7 @@ using DataPersistence;
 using Handlers;
 using Managers;
 using QFSW.QC;
+using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -29,9 +30,14 @@ namespace Items
 
             GrowthCheck();
             FruitCheck();
+            
+            if (GrowingResourceData.HasFruitAvailable)
+            {
+                AddCommand("Harvest");
+            }
         }
 
-        public void LoadResource(GrowingResourceData data)
+        public override void LoadResource(BasicResourceData data)
         {
             RuntimeData = data;
             _settings = data.Settings;
@@ -40,6 +46,11 @@ namespace Items
 
             GrowthCheck();
             FruitCheck();
+
+            if (GrowingResourceData.HasFruitAvailable)
+            {
+                AddCommand("Harvest");
+            }
         }
 
         public override string DisplayName
@@ -134,6 +145,7 @@ namespace Items
                     _fruitOverlay.sprite = GrowingResourceData.GrowingResourceSettings.FruitOverlay;
                     _fruitOverlay.gameObject.SetActive(true);
                     GrowingResourceData.HasFruitAvailable = true;
+                    AddCommand("Harvest");
                     RefreshSelection();
                 }
                 else if (GrowingResourceData.FruitTimer >= GrowingResourceData.GrowingResourceSettings.GrowFruitTime / 2f)
@@ -170,6 +182,8 @@ namespace Items
                         ItemsDatabase.Instance.CreateItemObject(data, transform.position, true);
                     }
                 }
+
+                RemoveCommand("Harvest");
                 GrowingResourceData.HasFruitAvailable = false;
                 RefreshSelection();
                 RefreshTaskIcon(0);
@@ -194,17 +208,6 @@ namespace Items
             }
 
             return false;
-        }
-
-        public override List<Command> GetCommands()
-        {
-            var result = new List<Command>(Commands);
-            if (GrowingResourceData.HasFruitAvailable)
-            {
-                result.Add(GrowingResourceData.GrowingResourceSettings.HarvestCmd);
-            }
-
-            return result;
         }
 
         private void Update()
