@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bdf6adffca56064cad1de5df493d6c2, type: 3}
   m_Name: CutPlantCommand
   m_EditorClassIdentifier: 
-  Name: Cut Plant
+  CommandID: Cut Plant
+  placeholder: Cut Plant
   DisplayName: Clearing Plant
   Icon: {fileID: 1968848226, guid: d9053f3442dafed4a9ea52ece16394c2, type: 3}
   TaskID: Extract Resource

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bdf6adffca56064cad1de5df493d6c2, type: 3}
   m_Name: CutTreeCommand
   m_EditorClassIdentifier: 
-  Name: Cut Tree
+  CommandID: Cut Tree
+  placeholder: Cut Tree
   DisplayName: Chopping Tree
   Icon: {fileID: 21300000, guid: c010dce291f56fa43aa503464e20d207, type: 3}
   TaskID: Extract Resource

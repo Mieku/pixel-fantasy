@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bdf6adffca56064cad1de5df493d6c2, type: 3}
   m_Name: Move Furniture Command
   m_EditorClassIdentifier: 
-  Name: Move Furniture
+  CommandID: Move Furniture
+  placeholder: Move Furniture
   DisplayName: Moving Furniture
   Icon: {fileID: -51568864, guid: d9053f3442dafed4a9ea52ece16394c2, type: 3}
   TaskID: 

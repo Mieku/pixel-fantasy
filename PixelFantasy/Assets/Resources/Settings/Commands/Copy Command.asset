@@ -12,12 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bdf6adffca56064cad1de5df493d6c2, type: 3}
   m_Name: Copy Command
   m_EditorClassIdentifier: 
-  Name: Copy
+  CommandID: Copy
+  placeholder: Copy
+  DisplayName: 
   Icon: {fileID: -1482574715470509984, guid: e26abd876963dfe43b414675b92df28a, type: 3}
-  Task:
-    TaskId: Copy Command
-    TaskType: 0
-    KinlingAssignedToTask: {fileID: 0}
-    Materials: []
-    RequiredToolType: 0
-    IsKinlingSpecific: 0
+  TaskID: 
+  TaskType: 0

@@ -72,7 +72,6 @@ namespace Systems.CursorHandler.Scripts
                     {
                         var requester = clickObject.Owner.GetPlayerInteractable();
                         Task task = new Task(command.TaskID, command.DisplayName, command.TaskType, requester);
-                        task.IsKinlingSpecific = true;
                         task.Status = ETaskStatus.InProgress;
                         TasksDatabase.Instance.AddTask(task);
                         kinlingToHandleCommand.TaskHandler.AssignSpecificTask(task);

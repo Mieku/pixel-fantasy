@@ -58,13 +58,30 @@ namespace AI
         {
             if (!_kinling.HasInitialized) return;
             if (CurrentTask != null) return;
-
-            _kinlingData.WaitingTimer -= TimeManager.Instance.DeltaTime;
-            if (_kinlingData.WaitingTimer <= 0)
+            
+            // Check for any enqueued tasks first
+            if (_kinlingData.EnqueuedTaskUIDs.Count > 0)
             {
-                _kinlingData.WaitingTimer = WAIT_TIMER_MAX;
-                RequestNextTask();
+                ExecuteNextEnqueuedTask();
             }
+            else
+            {
+                _kinlingData.WaitingTimer -= TimeManager.Instance.DeltaTime;
+                if (_kinlingData.WaitingTimer <= 0)
+                {
+                    _kinlingData.WaitingTimer = WAIT_TIMER_MAX;
+                    RequestNextTask();
+                }
+            }
+        }
+
+        private void ExecuteNextEnqueuedTask()
+        {
+            var enqueuedTaskID = _kinlingData.EnqueuedTaskUIDs[0];
+            _kinlingData.EnqueuedTaskUIDs.RemoveAt(0);
+
+            var task = TasksDatabase.Instance.QueryTask(enqueuedTaskID);
+            ExecuteTask(task);
         }
 
         private void RequestNextTask()
@@ -99,7 +116,7 @@ namespace AI
             var nextTask = TasksDatabase.Instance.RequestTask(_kinlingData, _checkedTaskIDs);
             if (nextTask != null)
             {
-                ExecuteTask(nextTask, false);
+                ExecuteTask(nextTask);
             }
         }
 
@@ -127,27 +144,40 @@ namespace AI
             }
         }
 
-        private void ExecuteTask(Task task, bool returnToQueue)
+        private void ExecuteTask(Task task)
         {
+            task.ClaimTask(_kinlingData);
+            
             if (CurrentTask != null)
             {
-                CurrentTask.Cancel(returnToQueue);
+                // If they are in the middle of a task, enqueue it
+                task.Status = ETaskStatus.Queued;
+                _kinlingData.EnqueuedTaskUIDs.Add(task.UniqueID);
             }
-
-            task.ClaimTask(_kinlingData);
-            _kinlingData.CurrentTaskID = task.UniqueID;
-
-            var tree = FindTaskTreeFor(task);
-            tree.ExecuteTask(task.TaskData, OnFinished);
+            else
+            {
+                task.Status = ETaskStatus.InProgress;
+                _kinlingData.CurrentTaskID = task.UniqueID;
+                var tree = FindTaskTreeFor(task);
+                tree.ExecuteTask(task.TaskData, OnFinished);
+            }
         }
 
         public void CancelTask(Task task)
         {
             if (task != null)
             {
-                var tree = FindTaskTreeFor(task);
-                tree.BTOwner.StopBehaviour(false);
-                task.UnClaimTask(_kinlingData);
+                if (CurrentTask.UniqueID == task.UniqueID)
+                {
+                    var tree = FindTaskTreeFor(task);
+                    tree.BTOwner.StopBehaviour(false);
+                    task.UnClaimTask(_kinlingData);
+                }
+                else if (_kinlingData.EnqueuedTaskUIDs.Contains(task.UniqueID))
+                {
+                    Debug.Log($"Removed enqueued task: {task.UniqueID}");
+                    _kinlingData.EnqueuedTaskUIDs.Remove(task.UniqueID);
+                }
             }
         }
 
@@ -155,7 +185,7 @@ namespace AI
         {
             if (task == null) return;
             
-            ExecuteTask(task, true);
+            ExecuteTask(task);
         }
 
         public void LoadCurrentTask(Task task)

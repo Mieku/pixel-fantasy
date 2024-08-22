@@ -99,7 +99,6 @@ namespace AI
                                     if (task.Status == ETaskStatus.Pending)
                                     {
                                         task.ClaimTask(kinlingData);
-                                        task.Status = ETaskStatus.InProgress;
                                         nextTask = task;
                                         break;
                                     }

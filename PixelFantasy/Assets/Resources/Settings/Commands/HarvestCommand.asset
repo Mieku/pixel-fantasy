@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bdf6adffca56064cad1de5df493d6c2, type: 3}
   m_Name: HarvestCommand
   m_EditorClassIdentifier: 
-  Name: Harvest
+  CommandID: Harvest
+  placeholder: Harvest
   DisplayName: Harvesting
   Icon: {fileID: 21300000, guid: d7d76457bfb4bfb46a854054ece86e92, type: 3}
   TaskID: Harvest Resource

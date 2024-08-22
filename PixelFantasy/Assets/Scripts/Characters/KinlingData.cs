@@ -47,6 +47,7 @@ namespace Characters
         public AvatarData Avatar;
         public string CurrentTaskID;
         public string HeldItemID;
+        public List<string> EnqueuedTaskUIDs = new List<string>();
 
         [JsonIgnore] public bool IsIndoors;
         [JsonIgnore] public TaskAction CurrentTaskAction; // TODO: For now

@@ -17,7 +17,6 @@ namespace AI
         public string RequesterID;
         public string ClaimedKinlingUID;
         public string DisplayName;
-        public bool IsKinlingSpecific;
         public ETaskType Type;
         public ETaskStatus Status;
         public string BlackboardJSON;
@@ -87,7 +86,7 @@ namespace AI
             return statsData.CheckSkillRequirements(SkillRequirements);
         }
 
-        public void Cancel(bool returnToQueue = false)
+        public void Cancel()
         {
             if (!string.IsNullOrEmpty(ClaimedKinlingUID))
             {
@@ -95,18 +94,11 @@ namespace AI
                 kinling.TaskHandler.CancelTask(this);
             }
 
-            if (returnToQueue)
-            {
-                Status = ETaskStatus.Pending;
-            }
-            else
-            {
-                var requester = PlayerInteractableDatabase.Instance.Query(RequesterID);
-                requester.OnTaskCancelled(this);
+            var requester = PlayerInteractableDatabase.Instance.Query(RequesterID);
+            requester.OnTaskCancelled(this);
                 
-                Status = ETaskStatus.Canceled;
-                TasksDatabase.Instance.RemoveTask(this);
-            }
+            Status = ETaskStatus.Canceled;
+            TasksDatabase.Instance.RemoveTask(this);
         }
 
         public void TaskComplete(bool success)
@@ -128,5 +120,12 @@ namespace AI
         public int MinSkillLevel;
     }
 
-    public enum ETaskStatus { Pending, InProgress, Completed, Canceled }
+    public enum ETaskStatus
+    {
+        Pending, 
+        InProgress, 
+        Completed, 
+        Canceled,
+        Queued,
+    }
 }
