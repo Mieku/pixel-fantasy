@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Controllers;
+using DG.Tweening;
 using Managers;
 using UnityEngine;
 
@@ -8,16 +9,15 @@ namespace Popups
     public abstract class Popup<T> : Popup where T : Popup<T>
     {
         public static T Instance { get; private set; }
-        protected Animator _animator;
+        protected CanvasGroup _canvasGroup;
         protected static bool _shouldPause;
         protected static GameSpeed _prevSpeed;
-        
-        private static readonly int MoveOut = Animator.StringToHash("MoveOut");
-        private static readonly int MoveIn = Animator.StringToHash("MoveIn");
+
+        private const float FADE_DURATION = 0.25f;
 
         protected virtual void Awake() {
             Instance = (T) this;
-            _animator = GetComponent<Animator>();
+            _canvasGroup = GetComponent<CanvasGroup>();
         }
 
         protected virtual void OnDestroy() {
@@ -30,7 +30,8 @@ namespace Popups
             if (Instance == null) {
                 PopupManager.Instance.CreateInstance<T>();
                 PopupManager.Instance.OpenPopup(Instance);
-                Instance._animator.SetTrigger(MoveIn);
+                Instance._canvasGroup.alpha = 0;
+                Instance._canvasGroup.DOFade(1, FADE_DURATION);
                 Instance.State = Popup.PopupState.MoveIn;
 
                 if (_shouldPause && TimeManager.Instance != null)
@@ -47,7 +48,8 @@ namespace Popups
             else
             {
                 System.Action combinedAction = ()=> {
-                    Instance._animator.SetTrigger(MoveIn);
+                    Instance._canvasGroup.alpha = 0;
+                    Instance._canvasGroup.DOFade(1, FADE_DURATION);
                     Instance.State = Popup.PopupState.MoveIn;
 
                     if(action != null)
@@ -61,7 +63,7 @@ namespace Popups
 
         public static void Hide() {
             Instance.State = Popup.PopupState.MoveOut;
-            Instance._animator.SetTrigger(MoveOut);
+            Instance._canvasGroup.DOFade(0, FADE_DURATION).OnComplete(Close);
         }
 
         protected static void Close() {
@@ -76,11 +78,6 @@ namespace Popups
             }
             
             PopupManager.Instance.ClosePopup(Instance);
-        }
-        
-        void AnimMoveOutHandler()
-        {
-            Close();
         }
     }
     

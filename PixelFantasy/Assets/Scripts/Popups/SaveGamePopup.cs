@@ -26,6 +26,7 @@ namespace Popups
         [SerializeField, BoxGroup("Load Options")] private Button _newSaveBtn;
         [SerializeField, BoxGroup("Load Options")] private TextMeshProUGUI _overwriteSaveText;
         [SerializeField, BoxGroup("Load Options")] private Button _overwriteSaveBtn;
+        [SerializeField, BoxGroup("Load Options")] private ScrollRect _loadOptionsScroll;
         [SerializeField, BoxGroup("Load Options")] private Transform _loadOptionsParent;
         [SerializeField, BoxGroup("Load Options")] private LoadOption _loadOptionPrefab;
         
@@ -82,6 +83,11 @@ namespace Popups
                 loadOption.Init(header, OnLoadOptionSelected);
                 loadOption.gameObject.SetActive(true);
                 _displayedLoadOptions.Add(loadOption);
+            }
+
+            if (_displayedLoadOptions.Count > 0)
+            {
+                _loadOptionsScroll.verticalNormalizedPosition = 1f;
             }
         }
 

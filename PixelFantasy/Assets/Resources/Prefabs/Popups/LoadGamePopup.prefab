@@ -1247,8 +1247,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5760648201430614295}
-  - component: {fileID: 5764778578828007988}
   - component: {fileID: 5159537500780590744}
+  - component: {fileID: 2711726320390102921}
   m_Layer: 0
   m_Name: LoadGamePopup
   m_TagString: Untagged
@@ -1277,27 +1277,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &5764778578828007988
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2525710752732241720}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cb437452b343666409b00833b6271d0d, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &5159537500780590744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1317,9 +1296,21 @@ MonoBehaviour:
   _screenshotImg: {fileID: 2325595526696265695}
   _hasSelectedSaveHandle: {fileID: 6887105628845748679}
   _noSelectedSaveHandle: {fileID: 5280341792419243396}
+  _loadOptionsScroll: {fileID: 31359749747396392}
   _loadOptionsParent: {fileID: 3852725475577012087}
   _loadOptionPrefab: {fileID: 5693138004934180469}
-  _autoSaveToggle: {fileID: 0}
+--- !u!225 &2711726320390102921
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2525710752732241720}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2914189994405868293
 GameObject:
   m_ObjectHideFlags: 0
@@ -2491,9 +2482,9 @@ MonoBehaviour:
   m_Content: {fileID: 3852725475577012087}
   m_Horizontal: 0
   m_Vertical: 1
-  m_MovementType: 1
+  m_MovementType: 2
   m_Elasticity: 0.1
-  m_Inertia: 1
+  m_Inertia: 0
   m_DecelerationRate: 0.135
   m_ScrollSensitivity: 1
   m_Viewport: {fileID: 3726823861782890206}

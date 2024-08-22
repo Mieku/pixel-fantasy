@@ -1,10 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using DataPersistence;
-using Player;
 using Sirenix.OdinInspector;
 using Systems.Game_Setup.Scripts;
 using TMPro;
@@ -22,6 +22,7 @@ namespace Popups
         [SerializeField, BoxGroup("Current Selection")] private GameObject _hasSelectedSaveHandle;
         [SerializeField, BoxGroup("Current Selection")] private GameObject _noSelectedSaveHandle;
         
+        [SerializeField, BoxGroup("Load Options")] private ScrollRect _loadOptionsScroll;
         [SerializeField, BoxGroup("Load Options")] private Transform _loadOptionsParent;
         [SerializeField, BoxGroup("Load Options")] private LoadOption _loadOptionPrefab;
         
@@ -47,7 +48,7 @@ namespace Popups
             RefreshLoadOptions();
             OnLoadOptionSelected(_displayedLoadOptions.First().SaveHeader);
         }
-
+        
         private void RefreshLoadOptions()
         {
             ClearLoadOptions();
@@ -58,6 +59,11 @@ namespace Popups
                 loadOption.Init(header, OnLoadOptionSelected);
                 loadOption.gameObject.SetActive(true);
                 _displayedLoadOptions.Add(loadOption);
+            }
+            
+            if (_displayedLoadOptions.Count > 0)
+            {
+                _loadOptionsScroll.verticalNormalizedPosition = 1f;
             }
         }
 
