@@ -55,6 +55,10 @@ namespace ScriptableObjects
 
         [BoxGroup("Input"), ShowInInspector] public InputActionAsset InputActions;
         
+        [BoxGroup("Camera"), ShowInInspector] public float SlowCameraSpeed { get; private set; } = 5f;
+        [BoxGroup("Camera"), ShowInInspector] public float NormalCameraSpeed { get; private set; } = 8f;
+        [BoxGroup("Camera"), ShowInInspector] public float FastCameraSpeed { get; private set; } = 12f;
+        
         public RaceSettings LoadRaceSettings(string raceName)
         {
             return Resources.Load<RaceSettings>($"Settings/Races/{raceName}");

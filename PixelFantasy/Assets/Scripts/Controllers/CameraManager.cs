@@ -1,9 +1,11 @@
 using System;
 using Managers;
+using Player;
 using ScriptableObjects;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 namespace Controllers
 {
@@ -18,11 +20,12 @@ namespace Controllers
     public class CameraManager : Singleton<CameraManager>
     {
         [SerializeField] private CinemachineCamera _cam;
-        [SerializeField] private float _moveSpeed;
         [SerializeField] private float _smoothTime = 0.1F;
         [SerializeField] private float _minFov;
         [SerializeField] private float _maxFov;
         [SerializeField] private float _scrollSensitivity;
+        [SerializeField] private float _edgeScrollThreshold = 100f; // Distance from screen edge for scrolling
+        [SerializeField] private BoxCollider2D _cameraBounds;
 
         [SerializeField] private InputActionReference _moveCamUpInput;
         [SerializeField] private InputActionReference _moveCamDownInput;
@@ -31,13 +34,10 @@ namespace Controllers
         [SerializeField] private InputActionReference _zoomCameraInput;
 
         private Vector2 _moveInput;
-       // private PlayerInput _playerInput;
 
         public bool IgnoreKeyboardInput { get; set; }
 
         private Vector3 _velocity = Vector3.zero;
-        //private CinemachineCamera _cam;
-        
         private Vector3 _targetPosition;
         private bool _isMovingToTarget;
         private const int PPU = 16;
@@ -111,6 +111,8 @@ namespace Controllers
         private void FixedUpdate()
         {
             CameraPanningInput();
+            EdgeScroll();
+            ConstrainCamera();
             
             if (_isMovingToTarget)
             {
@@ -136,15 +138,81 @@ namespace Controllers
         {
             if (IgnoreKeyboardInput) return;
             
+            var moveSpeed = ScrollSpeed * Time.deltaTime;
             // Calculate target position based on input
-            Vector3 targetPos = (Vector2)_cam.transform.position + _moveInput * _moveSpeed;
+            Vector3 targetPos = (Vector2)_cam.transform.position + _moveInput * moveSpeed;
             targetPos.z = -15;
             
             if (_moveInput != Vector2.zero)
             {
                 _isMovingToTarget = false; // Cancel automatic movement if manually panning
-                _cam.transform.position = Vector3.SmoothDamp(_cam.transform.position, targetPos, ref _velocity, _smoothTime);
+                _cam.transform.position = targetPos;
             }
+        }
+
+        private float ScrollSpeed
+        {
+            get
+            {
+                return PlayerSettings.CameraSpeed switch
+                {
+                    ECameraScrollSpeed.Slow => GameSettings.Instance.SlowCameraSpeed,
+                    ECameraScrollSpeed.Normal => GameSettings.Instance.NormalCameraSpeed,
+                    ECameraScrollSpeed.Fast => GameSettings.Instance.FastCameraSpeed,
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+            }
+        }
+
+        private void EdgeScroll()
+        {
+            // Controlled by player settings
+            if(!PlayerSettings.EdgeScrollingEnabled) return;
+            
+            // If the mouse leaves the game window
+            if (!Application.isFocused) return;
+            
+            // Check if the cursor is over a UI element
+            if (EventSystem.current.IsPointerOverGameObject()) return;
+
+            Vector3 position = _cam.transform.position;
+
+            if (Input.mousePosition.x < _edgeScrollThreshold)
+            {
+                position.x -= ScrollSpeed * Time.deltaTime;
+            }
+            else if (Input.mousePosition.x > Screen.width - _edgeScrollThreshold)
+            {
+                position.x += ScrollSpeed * Time.deltaTime;
+            }
+
+            if (Input.mousePosition.y < _edgeScrollThreshold)
+            {
+                position.y -= ScrollSpeed * Time.deltaTime;
+            }
+            else if (Input.mousePosition.y > Screen.height - _edgeScrollThreshold)
+            {
+                position.y += ScrollSpeed * Time.deltaTime;
+            }
+
+            _cam.transform.position = position;
+        }
+
+        private void ConstrainCamera()
+        {
+            if (_cameraBounds == null) return;
+
+            Vector3 pos = _cam.transform.position;
+
+            float halfHeight = _cam.Lens.OrthographicSize;
+            float halfWidth = halfHeight * _cam.Lens.Aspect;
+
+            Bounds bounds = _cameraBounds.bounds;
+
+            pos.x = Mathf.Clamp(pos.x, bounds.min.x + halfWidth, bounds.max.x - halfWidth);
+            pos.y = Mathf.Clamp(pos.y, bounds.min.y + halfHeight, bounds.max.y - halfHeight);
+
+            _cam.transform.position = pos;
         }
 
         private void OnMoveUp(InputAction.CallbackContext context)
@@ -212,5 +280,12 @@ namespace Controllers
             _targetPosition = new Vector3(pos.x, pos.y, _cam.transform.position.z); // Set target, keep current Z
             _isMovingToTarget = true;
         }
+    }
+
+    public enum ECameraScrollSpeed
+    {
+        Slow,
+        Normal,
+        Fast,
     }
 }

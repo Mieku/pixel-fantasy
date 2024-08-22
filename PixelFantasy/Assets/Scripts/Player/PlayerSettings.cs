@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.IO;
+using Controllers;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -17,6 +18,9 @@ namespace Player
         [DefaultValue(1f)] public float MusicVolume = 1f;
         [DefaultValue(1f)] public float EffectsVolume = 1f;
         [DefaultValue(1f)] public float AmbientVolume = 1f;
+
+        [DefaultValue(true)] public bool EdgeScrollingEnabled = true;
+        [DefaultValue(1)] public ECameraScrollSpeed CameraSpeed = ECameraScrollSpeed.Normal;
 
         public KeyBindData KeyBindings = new KeyBindData();
     }
@@ -160,6 +164,32 @@ namespace Player
                 if (!Mathf.Approximately(PlayerSettingsData.AmbientVolume, value))
                 {
                     PlayerSettingsData.AmbientVolume = value;
+                    SavePlayerSettings();
+                }
+            }
+        }
+
+        public static bool EdgeScrollingEnabled
+        {
+            get => PlayerSettingsData.EdgeScrollingEnabled;
+            set
+            {
+                if (PlayerSettingsData.EdgeScrollingEnabled != value)
+                {
+                    PlayerSettingsData.EdgeScrollingEnabled = value;
+                    SavePlayerSettings();
+                }
+            }
+        }
+
+        public static ECameraScrollSpeed CameraSpeed
+        {
+            get => PlayerSettingsData.CameraSpeed;
+            set
+            {
+                if (PlayerSettingsData.CameraSpeed != value)
+                {
+                    PlayerSettingsData.CameraSpeed = value;
                     SavePlayerSettings();
                 }
             }
