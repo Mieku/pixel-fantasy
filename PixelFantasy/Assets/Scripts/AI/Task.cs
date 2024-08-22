@@ -17,6 +17,7 @@ namespace AI
         public string RequesterID;
         public string ClaimedKinlingUID;
         public string DisplayName;
+        public bool IsKinlingSpecific;
         public ETaskType Type;
         public ETaskStatus Status;
         public string BlackboardJSON;
@@ -86,19 +87,26 @@ namespace AI
             return statsData.CheckSkillRequirements(SkillRequirements);
         }
 
-        public void Cancel()
+        public void Cancel(bool returnToQueue = false)
         {
-            var requester = PlayerInteractableDatabase.Instance.Query(RequesterID);
-            requester.OnTaskCancelled(this);
-
             if (!string.IsNullOrEmpty(ClaimedKinlingUID))
             {
                 var kinling = KinlingsDatabase.Instance.GetKinling(ClaimedKinlingUID);
                 kinling.TaskHandler.CancelTask(this);
             }
-            
-            Status = ETaskStatus.Canceled;
-            TasksDatabase.Instance.RemoveTask(this);
+
+            if (returnToQueue)
+            {
+                Status = ETaskStatus.Pending;
+            }
+            else
+            {
+                var requester = PlayerInteractableDatabase.Instance.Query(RequesterID);
+                requester.OnTaskCancelled(this);
+                
+                Status = ETaskStatus.Canceled;
+                TasksDatabase.Instance.RemoveTask(this);
+            }
         }
 
         public void TaskComplete(bool success)

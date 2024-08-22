@@ -51,6 +51,8 @@ namespace Items
             {
                 AddCommand("Harvest");
             }
+            
+            RefreshTaskIcon();
         }
 
         public override string DisplayName

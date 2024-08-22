@@ -99,7 +99,7 @@ namespace AI
             var nextTask = TasksDatabase.Instance.RequestTask(_kinlingData, _checkedTaskIDs);
             if (nextTask != null)
             {
-                ExecuteTask(nextTask);
+                ExecuteTask(nextTask, false);
             }
         }
 
@@ -127,11 +127,11 @@ namespace AI
             }
         }
 
-        private void ExecuteTask(Task task)
+        private void ExecuteTask(Task task, bool returnToQueue)
         {
             if (CurrentTask != null)
             {
-                CurrentTask.Cancel();
+                CurrentTask.Cancel(returnToQueue);
             }
 
             task.ClaimTask(_kinlingData);
@@ -149,6 +149,13 @@ namespace AI
                 tree.BTOwner.StopBehaviour(false);
                 task.UnClaimTask(_kinlingData);
             }
+        }
+
+        public void AssignSpecificTask(Task task)
+        {
+            if (task == null) return;
+            
+            ExecuteTask(task, true);
         }
 
         public void LoadCurrentTask(Task task)
@@ -199,9 +206,11 @@ namespace AI
             _kinlingData.CurrentTaskID = null;
         }
 
-        public bool HasTreeForTask(Task task)
+        public bool HasTreeForTask(string taskID)
         {
-            return _taskTrees.Any(t => t.TaskID == task.TaskID);
+            if (string.IsNullOrEmpty(taskID)) return false;
+            
+            return _taskTrees.Any(t => t.TaskID == taskID);
         }
 
         public AvatarLayer.EAppearanceDirection GetActionDirection(Vector3 targetPos)

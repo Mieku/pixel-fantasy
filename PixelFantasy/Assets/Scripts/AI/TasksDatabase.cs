@@ -43,6 +43,8 @@ namespace AI
 
         public Task QueryTask(string taskId)
         {
+            if(string.IsNullOrEmpty(taskId)) return null;
+            
             return TaskQueues.SelectMany(q => q.QueuedTasks).FirstOrDefault(task => task.UniqueID == taskId);
         }
 

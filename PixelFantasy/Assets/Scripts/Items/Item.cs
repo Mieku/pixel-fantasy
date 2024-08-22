@@ -161,6 +161,8 @@ namespace Items
 
         private void OnDestroy()
         {
+            if (_isQuitting) return;
+            
             GameEvents.OnInventoryAvailabilityChanged -= GameEvent_OnInventoryAvailabilityChanged;
             PlayerInteractableDatabase.Instance.DeregisterPlayerInteractable(this);
 

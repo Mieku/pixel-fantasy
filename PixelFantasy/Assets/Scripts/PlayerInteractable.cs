@@ -77,6 +77,19 @@ public abstract class PlayerInteractable : MonoBehaviour
         CreateTask(command);
     }
 
+    public void AssignSpecificTask(Task task)
+    {
+        // Only one command can be active
+        if (PendingTask != null)
+        {
+            CancelPendingTask();
+        }
+        
+        AddTaskToPending(task);
+        
+        RefreshTaskIcon();
+    }
+
     public void CreateTask(Command command)
     {
         if (command.CommandID == "Cancel Command")
@@ -116,15 +129,16 @@ public abstract class PlayerInteractable : MonoBehaviour
 
     public virtual void OnTaskCancelled(Task task)
     {
+        PendingTaskUID = null;
+        
         RefreshTaskIcon();
     }
 
     public virtual void CancelPendingTask()
     {
-        var task = TasksDatabase.Instance.QueryTask(PendingTaskUID);
-        if (task != null)
+        if (PendingTask != null)
         {
-            task.Cancel();
+            PendingTask.Cancel();
         }
 
         PendingTaskUID = null;

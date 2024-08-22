@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
+using AI;
 using Characters;
 using Managers;
-using TaskSystem;
 using UnityEngine;
 
 namespace Systems.CursorHandler.Scripts
@@ -71,43 +70,20 @@ namespace Systems.CursorHandler.Scripts
                     }
                     else
                     {
-                        // AI.Task task = command.Task;
-                        // task.SetRequestor(clickObject.Owner.GetPlayerInteractable());
-                        // task.IsKinlingSpecific = true;
-                        // task.OnTaskCancel = () =>
-                        // {
-                        //     task.Requestor.CancelPlayerCommand();
-                        // };
-                        // kinlingToHandleCommand.TaskAI.AssignCommandTask(task);
-                        // clickObject.Owner.GetPlayerInteractable().AssignCommand(command);  //.AssignPlayerCommand(command);
-                        // HideCommands();
+                        var requester = clickObject.Owner.GetPlayerInteractable();
+                        Task task = new Task(command.TaskID, command.DisplayName, command.TaskType, requester);
+                        task.IsKinlingSpecific = true;
+                        task.Status = ETaskStatus.InProgress;
+                        TasksDatabase.Instance.AddTask(task);
+                        kinlingToHandleCommand.TaskHandler.AssignSpecificTask(task);
+                        
+                        requester.AssignSpecificTask(task);
+                        
+                        HideCommands();
                     }
                 } );
         }
-
-        public void ShowMoveCommand(Vector2 worldPos, Kinling kinlingToHandleCommand)
-        {
-            List<Command> commands = new List<Command> { _moveCommand };
-            List<Command> invalidCommands = new List<Command>();
-            
-            // If the kinling can't move there, make it invalid
-            var canPath = kinlingToHandleCommand.KinlingAgent.IsDestinationPossible(worldPos);
-            if (!canPath)
-            {
-                invalidCommands.Add(_moveCommand);
-            }
-            
-            _controls.ShowControls(worldPos, kinlingToHandleCommand.FullName, commands, null, invalidCommands,
-                (command) =>
-                {
-                    // Task task = command.Task;
-                    // task.Payload = worldPos;
-                    // task.IsKinlingSpecific = true;
-                    // kinlingToHandleCommand.TaskAI.AssignCommandTask(task);
-                    // HideCommands();
-                } );
-        }
-
+        
         public void HideCommands()
         {
             _controls.HideControls();

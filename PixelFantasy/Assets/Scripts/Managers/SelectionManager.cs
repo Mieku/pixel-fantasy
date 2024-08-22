@@ -184,12 +184,6 @@ namespace Managers
                 if (PlayerInputController.Instance.SelectedKinling != null)
                 {
                     var clickObjs = Helper.GetClickObjectsAtPos(UtilsClass.GetMouseWorldPosition());
-                    if (clickObjs.IsNullOrEmpty())
-                    {
-                        // Give Move Command
-                        CommandController.Instance.ShowMoveCommand(UtilsClass.GetMouseWorldPosition(), PlayerInputController.Instance.SelectedKinling);
-                    }
-                    
                     if (clickObjs.Count > 0)
                     {
                         if (AreClickObjectsSame(_prevClickObjects, clickObjs))

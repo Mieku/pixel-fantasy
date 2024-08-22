@@ -1,5 +1,6 @@
 using AI;
 using Characters;
+using ScriptableObjects;
 using TaskSystem;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -21,7 +22,7 @@ public class Command : ScriptableObject
         TaskHandler taskHandler = kinling.TaskHandler;
         
         // Has the Behaviour Tree?
-        var hasBT = taskHandler.HasTreeForTask(TasksDatabase.Instance.QueryTask(TaskID));
+        var hasBT = taskHandler.HasTreeForTask(TaskID);
         if (!hasBT) return false;
 
         var usagePos = interactable.UseagePosition(kinling.transform.position);
