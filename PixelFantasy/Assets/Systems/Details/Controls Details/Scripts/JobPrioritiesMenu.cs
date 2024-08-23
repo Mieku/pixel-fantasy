@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using AI;
 using Managers;
-using TaskSystem;
 using UnityEngine;
 
 namespace Systems.Details.Controls_Details.Scripts

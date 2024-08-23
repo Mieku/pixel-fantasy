@@ -793,7 +793,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1053635618747585728}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Handler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1013,7 +1013,7 @@ GameObject:
   m_Component:
   - component: {fileID: 866747627364797195}
   - component: {fileID: 6614896678133426273}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Icon Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1599,7 +1599,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6172601861737994372}
   - component: {fileID: 9050942498301939983}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Icon Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1745,7 +1745,6 @@ GameObject:
   - component: {fileID: 8679221839148330294}
   - component: {fileID: 8679221839148330441}
   - component: {fileID: 4176969880153003644}
-  - component: {fileID: 93544036167343148}
   m_Layer: 0
   m_Name: Stool
   m_TagString: Furniture
@@ -1833,7 +1832,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e3f9b839fe84a14e9afa5a1d96fd791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _workDisplay: {fileID: 8616526886576558044}
+  _selectedIcon: {fileID: 5502551136829087307}
+  _usesTintedSelection: 0
+  _commandDisplay: {fileID: 8616526886576558044}
   Commands: []
   _southHandle: {fileID: 2101369082256798506}
   _southSpritesRoot: {fileID: 8679221838297705576}
@@ -1854,6 +1855,7 @@ MonoBehaviour:
   RuntimeData:
     UniqueID: 
     PendingTaskUID: 
+    PendingTaskProgress: 0
     FurnitureState: 0
     RemainingWork: 0
     Direction: 0
@@ -1874,23 +1876,6 @@ MonoBehaviour:
   _westTableCheckTransform: {fileID: 6995081151164634383}
   _northTableCheckTransform: {fileID: 188957067791303385}
   _eastTableCheckTransform: {fileID: 3326117901751196924}
---- !u!114 &93544036167343148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8679221839148330295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7c59e4a35c4615478a833e7df4956d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectType: 5
-  _selectedIcon: {fileID: 5502551136829087307}
-  _objectRenderer: {fileID: 0}
-  _usesTintedSelection: 0
-  IsSelected: 0
 --- !u!1 &8679221839988455411
 GameObject:
   m_ObjectHideFlags: 0

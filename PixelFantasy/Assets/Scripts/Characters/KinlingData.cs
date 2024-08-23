@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AI;
 using DataPersistence;
 using Items;
 using Managers;
@@ -12,7 +13,6 @@ using Systems.Notifications.Scripts;
 using Systems.Social.Scripts;
 using Systems.Stats.Scripts;
 using Systems.Traits.Scripts;
-using TaskSystem;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -37,7 +37,6 @@ namespace Characters
         public FurnitureData AssignedBed;
         public FurnitureData FurnitureInUse;
         public TaskPriorities TaskPriorities;
-        public TaskAI.TaskAIState TaskAIState;
         public float WaitingTimer;
         public float IdleTimer;
         public StatsData Stats;
@@ -50,7 +49,6 @@ namespace Characters
         public List<string> EnqueuedTaskUIDs = new List<string>();
 
         [JsonIgnore] public bool IsIndoors;
-        [JsonIgnore] public TaskAction CurrentTaskAction; // TODO: For now
         
         [JsonRequired] private float _posX;
         [JsonRequired] private float _posY;

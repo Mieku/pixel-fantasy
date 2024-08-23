@@ -5,7 +5,6 @@ using Characters;
 using QFSW.QC;
 using Sirenix.OdinInspector;
 using Systems.Appearance.Scripts;
-using TaskSystem;
 using UnityEngine;
 using KinlingSelector = Systems.Kinling_Selector.Scripts.KinlingSelector;
 
@@ -87,7 +86,7 @@ namespace Managers
             var kinling = GetKinling(uniqueID);
             if (kinling != null)
             {
-                kinling.ClickObject.TriggerSelected(true);
+                SelectionManager.Instance.Select(kinling);
             }
         }
 
@@ -137,8 +136,8 @@ namespace Managers
                 return;
             }
 
-            Task task = new Task("Mate", ETaskType.Personal, instigator.AssignedBed.GetLinkedFurniture(), EToolType.None);
-            instigator.GetKinling().TaskAI.QueueTask(task);
+            // AI.Task task = new AI.Task("Mate", ETaskType.Personal, instigator.AssignedBed.GetLinkedFurniture(), EToolType.None);
+            // instigator.GetKinling().TaskAI.QueueTask(task);
         }
 
         public void SpawnChild(KinlingData mother, KinlingData father)

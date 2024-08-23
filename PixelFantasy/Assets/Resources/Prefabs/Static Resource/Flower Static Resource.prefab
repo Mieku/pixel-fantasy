@@ -107,7 +107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3940770931615031039}
   - component: {fileID: 3940770931615031038}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Handler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3940770932140447596}
   - component: {fileID: 3940770932140447599}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Icon Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,7 +270,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3940770932414872658}
   - component: {fileID: 3940770932414872686}
-  - component: {fileID: 3940770932414872687}
   - component: {fileID: 906310196879369055}
   m_Layer: 0
   m_Name: Flower Static Resource
@@ -342,23 +341,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3940770932414872687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3940770932414872659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7c59e4a35c4615478a833e7df4956d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectType: 3
-  _selectedIcon: {fileID: 3940770931615031036}
-  _objectRenderer: {fileID: 3940770933741473097}
-  _usesTintedSelection: 0
-  IsSelected: 0
 --- !u!114 &906310196879369055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,11 +353,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e541bb08386f11f4297f6f8ae2371c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _workDisplay: {fileID: 6530714412386028573}
+  _selectedIcon: {fileID: 3940770931615031036}
+  _usesTintedSelection: 0
+  _commandDisplay: {fileID: 6530714412386028573}
   Commands:
   - {fileID: 11400000, guid: 1cc80951a1dad2e4aba7c19a791cd226, type: 2}
   _spriteRenderer: {fileID: 3940770933741473097}
-  _clickObject: {fileID: 3940770932414872687}
+  _clickObject: {fileID: 0}
   _defaultExtractCmd: {fileID: 11400000, guid: 1cc80951a1dad2e4aba7c19a791cd226, type: 2}
   _obstacleBox: {fileID: 3940770932414872686}
   _workPoints:
@@ -383,12 +367,6 @@ MonoBehaviour:
   - {fileID: 4415494004377909076}
   - {fileID: 4202443177024431748}
   - {fileID: 2645526992747672796}
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
   RuntimeData:
     UniqueID: 
     SpriteIndex: 0
@@ -489,7 +467,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3940770933321107891}
   - component: {fileID: 3940770933321107890}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Icon Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}

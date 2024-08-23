@@ -13,12 +13,11 @@ using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Systems.Lighting.Scripts;
 using Systems.Stats.Scripts;
-using TaskSystem;
 using UnityEngine;
 
 namespace Items
 {
-    public class Furniture : PlayerInteractable, IClickableObject, IConstructable
+    public class Furniture : PlayerInteractable, IConstructable
     {
         [TitleGroup("South")] [SerializeField] protected GameObject _southHandle;
         [TitleGroup("South")] [SerializeField] protected Transform _southSpritesRoot;
@@ -51,7 +50,6 @@ namespace Items
         protected bool _isPlanning;
         protected PlacementDirection _direction;
         private bool _isOutlineLocked;
-        private ClickObject _clickObject;
         private DyeSettings _dyeOverride;
         private readonly List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle", "Clearance"};
         protected List<LightSource> _lightSources = new List<LightSource>();
@@ -62,12 +60,9 @@ namespace Items
             set => RuntimeData.PendingTaskUID = value;
         }
 
-        public Action OnChanged { get; set; }
-
         protected virtual void Awake()
         {
             _fadePropertyID = Shader.PropertyToID("_OuterOutlineFade");
-            _clickObject = GetComponent<ClickObject>();
             _lightSources = GetComponentsInChildren<LightSource>(true).ToList();
 
             GameEvents.OnLeftClickUp += GameEvents_OnLeftClickUp;
@@ -457,7 +452,7 @@ namespace Items
             return selectedDistance.position;
         }
 
-        protected virtual void InProduction_Enter()
+        protected void InProduction_Enter()
         {
             RuntimeData.Position = transform.position;
             PlayerInteractableDatabase.Instance.RegisterPlayerInteractable(this);
@@ -466,7 +461,7 @@ namespace Items
             Show(true);
             ColourArt(ColourStates.Blueprint);
             CreateConstructionHaulingTasks();
-            Commands.Add(Librarian.Instance.GetCommand("Deconstruct Furniture"));
+            AddCommand("Deconstruct Furniture");
 
             EnableLights(false);
         }
@@ -480,13 +475,8 @@ namespace Items
             ColourArt(ColourStates.Built);
             EnableLights(true);
 
-            // For when it is loaded into this state
-            if (!Commands.Contains(Librarian.Instance.GetCommand("Deconstruct Furniture")))
-            {
-                Commands.Add(Librarian.Instance.GetCommand("Deconstruct Furniture"));
-            }
-            
-            Commands.Add(Librarian.Instance.GetCommand("Move Furniture"));
+            AddCommand("Deconstruct Furniture");
+            AddCommand("Move Furniture");
         }
 
         public void DisplayUseageMarkers(bool showMarkers)
@@ -522,11 +512,11 @@ namespace Items
             }
         }
         
-        protected virtual void EnqueueCreateTakeResourceToBlueprintTask(ItemSettings resourceSettings)
+        protected void EnqueueCreateTakeResourceToBlueprintTask(ItemSettings resourceSettings)
         {
             Dictionary<string, object> taskData = new Dictionary<string, object> { { "ItemSettingsID", resourceSettings.name } };
 
-            AI.Task task = new AI.Task("Withdraw Item For Constructable", "Gathering Materials" ,ETaskType.Hauling, this, taskData);
+            Task task = new Task("Withdraw Item For Constructable", "Gathering Materials" ,ETaskType.Hauling, this, taskData);
             TasksDatabase.Instance.AddTask(task);
         }
 
@@ -589,7 +579,7 @@ namespace Items
         
         public virtual void CreateConstructTask(bool autoAssign = true)
         {
-            AI.Task task = new AI.Task("Build Structure", $"Crafting {RuntimeData.ItemName}" ,ETaskType.Construction, this);
+            Task task = new Task("Build Structure", $"Crafting {RuntimeData.ItemName}" ,ETaskType.Construction, this);
             TasksDatabase.Instance.AddTask(task);
         }
         
@@ -769,25 +759,9 @@ namespace Items
 
         }
 
-        public ClickObject GetClickObject()
-        {
-            return _clickObject;
-        }
-
         public bool IsClickDisabled { get; set; }
-
-
-        public List<Command> GetCommands()
-        {
-            return Commands;
-        }
         
-        [JsonIgnore] public string DisplayName => RuntimeData.ItemName;
-
-        public PlayerInteractable GetPlayerInteractable()
-        {
-            return this;
-        }
+        [JsonIgnore] public override string DisplayName => RuntimeData.ItemName;
         
         public Kinling GetCrafter()
         {

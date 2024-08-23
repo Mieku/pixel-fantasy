@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1921119721223573512}
   - component: {fileID: 8747340376806369441}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Icon Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2243951313533979031}
   - component: {fileID: 1769089855357026113}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Icon Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -456,7 +456,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8745323006715928785}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Handler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -584,7 +584,6 @@ GameObject:
   - component: {fileID: 6390925531947488756}
   - component: {fileID: 6390925531947488523}
   - component: {fileID: 7511741119468575872}
-  - component: {fileID: 4379739358034130482}
   m_Layer: 0
   m_Name: Crafting Table
   m_TagString: Furniture
@@ -668,7 +667,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb2c5e7acc7b8ef4aa4099c4632ac077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _workDisplay: {fileID: 6541039480707905743}
+  _selectedIcon: {fileID: 4296619810325124531}
+  _usesTintedSelection: 0
+  _commandDisplay: {fileID: 6541039480707905743}
   Commands: []
   _southHandle: {fileID: 4016827472941957227}
   _southSpritesRoot: {fileID: 6390925531751634090}
@@ -689,6 +690,7 @@ MonoBehaviour:
   RuntimeData:
     UniqueID: 
     PendingTaskUID: 
+    PendingTaskProgress: 0
     FurnitureState: 0
     RemainingWork: 0
     Direction: 0
@@ -708,23 +710,6 @@ MonoBehaviour:
   _westCraftingPreview: {fileID: 0}
   _northCraftingPreview: {fileID: 0}
   _eastCraftingPreview: {fileID: 0}
---- !u!114 &4379739358034130482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6390925531947488757}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7c59e4a35c4615478a833e7df4956d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectType: 5
-  _selectedIcon: {fileID: 4296619810325124531}
-  _objectRenderer: {fileID: 0}
-  _usesTintedSelection: 0
-  IsSelected: 0
 --- !u!1 &6390925533325627185
 GameObject:
   m_ObjectHideFlags: 0

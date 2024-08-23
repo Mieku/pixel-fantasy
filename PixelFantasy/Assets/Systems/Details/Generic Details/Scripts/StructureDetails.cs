@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using HUD;
 using Items;
@@ -26,11 +25,11 @@ namespace Systems.Details.Generic_Details.Scripts
         
         public void Show(Construction structure, GenericDetails parentDetails)
         {
+            _structure = structure;
             gameObject.SetActive(true);
             _textEntryPrefab.gameObject.SetActive(false);
             _remainingResourcePrefab.gameObject.SetActive(false);
             _parentDetails = parentDetails;
-            _structure = structure;
             
             _parentDetails.ItemName.color = Librarian.Instance.GetColour("Common Quality");
             _parentDetails.ItemName.text = _structure.DisplayName;

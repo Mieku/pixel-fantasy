@@ -4,17 +4,14 @@ using System.Linq;
 using Characters;
 using DataPersistence;
 using Handlers;
-using Interfaces;
-using Managers;
 using Systems.Appearance.Scripts;
 using UnityEngine;
 
 namespace Items
 {
-    public class BasicResource : PlayerInteractable, IClickableObject
+    public class BasicResource : PlayerInteractable
     {
         [SerializeField] protected SpriteRenderer _spriteRenderer;
-        [SerializeField] private ClickObject _clickObject;
         [SerializeField] private Command _defaultExtractCmd;
         [SerializeField] private BoxCollider2D _obstacleBox;
         [SerializeField] private List<Transform> _workPoints;
@@ -30,9 +27,7 @@ namespace Items
             get => RuntimeData.PendingTaskUID;
             set => RuntimeData.PendingTaskUID = value;
         }
-
-        public Action OnChanged { get; set; }
-
+        
         protected virtual void OnDestroy()
         {
             ResourcesDatabase.Instance.DeregisterResource(this);
@@ -106,33 +101,18 @@ namespace Items
             CreateTask(command);
         }
 
-        public PlayerInteractable GetPlayerInteractable()
-        {
-            return this;
-        }
-
         public virtual HarvestableItems GetHarvestableItems()
         {
             return _settings.HarvestableItems;
         }
 
-        public virtual string DisplayName => _settings.ResourceName;
-
-        protected virtual void Awake()
-        {
-            _clickObject = GetComponent<ClickObject>();
-        }
-        
-        public ClickObject GetClickObject()
-        {
-            return _clickObject;
-        }
+        public override string DisplayName => _settings.ResourceName;
 
         public bool IsClickDisabled { get; set; }
 
         public void RefreshSelection()
         {
-            if (_clickObject.IsSelected)
+            if (IsSelected)
             {
                 GameEvents.Trigger_RefreshSelection();
             }
@@ -217,11 +197,6 @@ namespace Items
         public virtual void ToggleAllowed(bool isAllowed)
         {
             
-        }
-
-        public List<Command> GetCommands()
-        {
-            return new List<Command>(Commands);
         }
         
         public virtual float GetCurrentHealth()

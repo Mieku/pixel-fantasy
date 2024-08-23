@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +9,6 @@ using Random = UnityEngine.Random;
 
 public static class Helper
 {
-
     /// <summary>
     /// Converts the current mouse position to a grid position
     /// </summary>
@@ -23,17 +21,6 @@ public static class Helper
         
         return new Vector2(xGrid, yGrid);
     }
-    
-    public static Vector3Int ConvertMousePosToGridCell(Vector2 mousePos)
-    {
-        int xGrid, yGrid;
-
-        xGrid = (int)(mousePos.x);
-        yGrid = (int)(mousePos.y);
-        
-        return new Vector3Int(xGrid, yGrid);
-    }
-
     
     /// <summary>
     /// Converts the starting grid position and current grid position into a list of all the grid positions between them as a rectangle
@@ -343,39 +330,6 @@ public static class Helper
         }
         
         return result;
-    }
-    
-    public static List<ClickObject> GetClickObjectsAtPos(Vector2 pos)
-    {
-        var leftStart = new Vector2(pos.x - 0.20f, pos.y);
-        var bottomStart = new Vector2(pos.x, pos.y - 0.20f);
-        
-        var allHitHor = Physics2D.RaycastAll(leftStart, Vector2.right, 0.4f);
-        var allHitVert = Physics2D.RaycastAll(bottomStart, Vector2.up, 0.4f);
-        
-        List<GameObject> detected = new List<GameObject>();
-        foreach (var hitHor in allHitHor)
-        {
-            detected.Add(hitHor.transform.gameObject);
-        }
-        foreach (var hitVert in allHitVert)
-        {
-            detected.Add(hitVert.transform.gameObject);
-        }
-        
-        // Remove duplicates
-        var foundObjs = detected.Distinct().ToList();
-        List<ClickObject> results = new List<ClickObject>();
-        foreach (var foundObj in foundObjs)
-        {
-            var clickObj = foundObj.GetComponent<ClickObject>();
-            if (clickObj != null)
-            {
-                results.Add(clickObj);
-            }
-        }
-
-        return results;
     }
 
     /// <summary>

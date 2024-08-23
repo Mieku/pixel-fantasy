@@ -1,40 +1,24 @@
-using System;
-using System.Collections.Generic;
 using AI;
 using Characters;
-using Interfaces;
 using Managers;
-using TaskSystem;
 using UnityEngine;
 using Task = AI.Task;
 
 namespace Items
 {
-    public class Item : PlayerInteractable, IClickableObject
+    public class Item : PlayerInteractable
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
-        [SerializeField] private ClickObject _clickObject;
         
         private Transform _originalParent;
         
         public ItemData RuntimeData;
-        public Action OnChanged { get; set; }
         public override string UniqueID => RuntimeData.UniqueID;
         
         public override string PendingTaskUID
         {
             get => RuntimeData.PendingTaskUID;
             set => RuntimeData.PendingTaskUID = value;
-        }
-
-        public PlayerInteractable GetPlayerInteractable()
-        {
-            return this;
-        }
-        
-        public ClickObject GetClickObject()
-        {
-            return _clickObject;
         }
         
         public void InitializeItem(ItemSettings settings, bool allowed)
@@ -176,18 +160,13 @@ namespace Items
 
         private void RefreshSelection()
         {
-            if (_clickObject.IsSelected)
+            if (IsSelected)
             {
                 GameEvents.Trigger_RefreshSelection();
             }
         }
-        
-        public virtual List<Command> GetCommands()
-        {
-            return Commands;
-        }
 
-        public string DisplayName => RuntimeData.Settings.ItemName;
+        public override string DisplayName => RuntimeData.Settings.ItemName;
 
         public override Vector2? UseagePosition(Vector2 requestorPosition)
         {

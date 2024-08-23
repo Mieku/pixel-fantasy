@@ -72,7 +72,6 @@ GameObject:
   - component: {fileID: 41528217675597871}
   - component: {fileID: 41528217675598032}
   - component: {fileID: 4690164825459569509}
-  - component: {fileID: 8767688482439461173}
   m_Layer: 0
   m_Name: Bench
   m_TagString: Furniture
@@ -160,7 +159,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e3f9b839fe84a14e9afa5a1d96fd791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _workDisplay: {fileID: 7170691407192587592}
+  _selectedIcon: {fileID: 3800403583314475858}
+  _usesTintedSelection: 0
+  _commandDisplay: {fileID: 7170691407192587592}
   Commands: []
   _southHandle: {fileID: 7334345078471497267}
   _southSpritesRoot: {fileID: 41528217445992817}
@@ -181,6 +182,7 @@ MonoBehaviour:
   RuntimeData:
     UniqueID: 
     PendingTaskUID: 
+    PendingTaskProgress: 0
     FurnitureState: 0
     RemainingWork: 0
     Direction: 0
@@ -201,23 +203,6 @@ MonoBehaviour:
   _westTableCheckTransform: {fileID: 1869775358844792854}
   _northTableCheckTransform: {fileID: 8826506085734688704}
   _eastTableCheckTransform: {fileID: 6253808204077644261}
---- !u!114 &8767688482439461173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 41528217675597870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7c59e4a35c4615478a833e7df4956d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectType: 5
-  _selectedIcon: {fileID: 3800403583314475858}
-  _objectRenderer: {fileID: 0}
-  _usesTintedSelection: 0
-  IsSelected: 0
 --- !u!1 &41528218986533610
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,7 +358,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3262927503723134365}
   - component: {fileID: 394676059943744534}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Icon Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -757,7 +742,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8423435174313192978}
   - component: {fileID: 2534847701263568248}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Icon Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1261,7 +1246,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8538270695974253017}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Handler
   m_TagString: Untagged
   m_Icon: {fileID: 0}

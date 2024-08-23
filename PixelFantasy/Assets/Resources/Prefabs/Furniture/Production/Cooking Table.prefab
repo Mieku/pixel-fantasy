@@ -72,7 +72,6 @@ GameObject:
   - component: {fileID: 3435059699156591753}
   - component: {fileID: 3435059699156591734}
   - component: {fileID: 2244473554392837629}
-  - component: {fileID: 5466558286312671055}
   m_Layer: 0
   m_Name: Cooking Table
   m_TagString: Furniture
@@ -156,7 +155,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb2c5e7acc7b8ef4aa4099c4632ac077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _workDisplay: {fileID: 8072553199485871693}
+  _selectedIcon: {fileID: 5528802421295064270}
+  _usesTintedSelection: 0
+  _commandDisplay: {fileID: 8072553199485871693}
   Commands: []
   _southHandle: {fileID: 4657930637346681110}
   _southSpritesRoot: {fileID: 3435059698138523095}
@@ -177,6 +178,7 @@ MonoBehaviour:
   RuntimeData:
     UniqueID: 
     PendingTaskUID: 
+    PendingTaskProgress: 0
     FurnitureState: 0
     RemainingWork: 0
     Direction: 0
@@ -196,23 +198,6 @@ MonoBehaviour:
   _westCraftingPreview: {fileID: 0}
   _northCraftingPreview: {fileID: 0}
   _eastCraftingPreview: {fileID: 0}
---- !u!114 &5466558286312671055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3435059699156591752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7c59e4a35c4615478a833e7df4956d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectType: 5
-  _selectedIcon: {fileID: 5528802421295064270}
-  _objectRenderer: {fileID: 0}
-  _usesTintedSelection: 0
-  IsSelected: 0
 --- !u!1 &3435059699921223244
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,7 +441,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1028870758875779500}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Handler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -522,7 +507,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7511711318387177706}
   - component: {fileID: 8041170160440315452}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Icon Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -767,7 +752,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7904899560240980341}
   - component: {fileID: 1044311521253972444}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Icon Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}

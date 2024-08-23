@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 371740161675699821}
   - component: {fileID: 371740161675699822}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Handler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,6 @@ GameObject:
   m_Component:
   - component: {fileID: 371740161797959516}
   - component: {fileID: 371740161797959512}
-  - component: {fileID: 371740161797959519}
   - component: {fileID: 1567881098773952703}
   m_Layer: 0
   m_Name: Grass Static Resource
@@ -161,23 +160,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &371740161797959519
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 371740161797959507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7c59e4a35c4615478a833e7df4956d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectType: 3
-  _selectedIcon: {fileID: 371740161675699820}
-  _objectRenderer: {fileID: 371740162134488751}
-  _usesTintedSelection: 0
-  IsSelected: 0
 --- !u!114 &1567881098773952703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,11 +172,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e541bb08386f11f4297f6f8ae2371c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _workDisplay: {fileID: 4837133404010190314}
+  _selectedIcon: {fileID: 371740161675699820}
+  _usesTintedSelection: 0
+  _commandDisplay: {fileID: 4837133404010190314}
   Commands:
   - {fileID: 11400000, guid: 1cc80951a1dad2e4aba7c19a791cd226, type: 2}
   _spriteRenderer: {fileID: 371740162134488751}
-  _clickObject: {fileID: 371740161797959519}
+  _clickObject: {fileID: 0}
   _defaultExtractCmd: {fileID: 11400000, guid: 1cc80951a1dad2e4aba7c19a791cd226, type: 2}
   _obstacleBox: {fileID: 371740161797959512}
   _workPoints:
@@ -202,12 +186,6 @@ MonoBehaviour:
   - {fileID: 2593456716648954472}
   - {fileID: 7995414524402461161}
   - {fileID: 8413203471745897003}
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
   RuntimeData:
     UniqueID: 
     SpriteIndex: 0
@@ -407,7 +385,7 @@ GameObject:
   m_Component:
   - component: {fileID: 371740162320950839}
   - component: {fileID: 371740162320950832}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Icon Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -491,7 +469,7 @@ GameObject:
   m_Component:
   - component: {fileID: 371740163294283302}
   - component: {fileID: 371740163294283303}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Icon Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}

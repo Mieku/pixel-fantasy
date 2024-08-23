@@ -1,5 +1,4 @@
 using Characters;
-using Interfaces;
 using Systems.Details.Controls_Details.Scripts;
 using Systems.Details.Generic_Details.Scripts;
 using Systems.Details.Kinling_Details;
@@ -46,16 +45,14 @@ namespace HUD
             _kinlingDetails.Hide();
             _notificationLogger.Hide();
             _controlsDetails.Hide();
-            
-            //_notificationLogger.Show();
         }
 
-        public void ShowItemDetails(IClickableObject clickableObject)
+        public void ShowItemDetails(PlayerInteractable playerInteractable)
         {
             HideAllDetails();
             _notificationLogger.Hide();
             
-            _genericDetails.Show(clickableObject);
+            _genericDetails.Show(playerInteractable);
         }
 
         public void ShowZoneDetails(ZoneData zoneData)

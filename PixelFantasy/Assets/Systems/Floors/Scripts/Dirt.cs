@@ -2,7 +2,6 @@ using System;
 using Controllers;
 using Items;
 using Managers;
-using TaskSystem;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -118,8 +117,8 @@ namespace Systems.Floors.Scripts
 
         public override void CreateConstructTask()
         {
-            Task task = new Task("Clear Grass", ETaskType.Farming, this, EToolType.None);
-            task.Enqueue();
+            // Task task = new Task("Clear Grass", ETaskType.Farming, this, EToolType.None);
+            // task.Enqueue();
         }
 
         // public override void CancelConstruction()

@@ -780,7 +780,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8652257912235513892}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Handler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1171,7 +1171,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7634422269266274281}
   - component: {fileID: 552653738267634661}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Icon Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2210,7 +2210,6 @@ GameObject:
   - component: {fileID: 8679221839148330294}
   - component: {fileID: 8679221839148330441}
   - component: {fileID: 5935236254734965145}
-  - component: {fileID: 7897060570687589584}
   m_Layer: 0
   m_Name: Double Bed
   m_TagString: Furniture
@@ -2298,7 +2297,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e389a1bc9142efd4db0980198f375834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _workDisplay: {fileID: 2953183800530890913}
+  _selectedIcon: {fileID: 3049739430863736647}
+  _usesTintedSelection: 0
+  _commandDisplay: {fileID: 2953183800530890913}
   Commands: []
   _southHandle: {fileID: 2749773584522801058}
   _southSpritesRoot: {fileID: 8679221838297705576}
@@ -2319,6 +2320,7 @@ MonoBehaviour:
   RuntimeData:
     UniqueID: 
     PendingTaskUID: 
+    PendingTaskProgress: 0
     FurnitureState: 0
     RemainingWork: 0
     Direction: 0
@@ -2347,23 +2349,6 @@ MonoBehaviour:
   _eastTopSheet: {fileID: 6007356569542521901}
   _eastSleepMarker: {fileID: 8119236429574755399}
   _eastSleepMarker2: {fileID: 0}
---- !u!114 &7897060570687589584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8679221839148330295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7c59e4a35c4615478a833e7df4956d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectType: 5
-  _selectedIcon: {fileID: 3049739430863736647}
-  _objectRenderer: {fileID: 0}
-  _usesTintedSelection: 0
-  IsSelected: 0
 --- !u!1 &8679221839988455411
 GameObject:
   m_ObjectHideFlags: 0
@@ -2566,7 +2551,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3355995586744456378}
   - component: {fileID: 1614365051471395092}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Icon Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}

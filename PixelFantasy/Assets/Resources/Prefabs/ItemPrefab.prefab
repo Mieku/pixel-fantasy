@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3721664216222708669}
   - component: {fileID: 254616920408469939}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Icon Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5296051230446069979}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Handler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,6 @@ GameObject:
   - component: {fileID: 5193408849299628811}
   - component: {fileID: 5193408849299628813}
   - component: {fileID: 5193408849299628810}
-  - component: {fileID: 2184922515245817262}
   - component: {fileID: 4391485635462396388}
   m_Layer: 0
   m_Name: ItemPrefab
@@ -179,10 +178,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21dce46c58c4cb244b8edaf1bc25be31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _workDisplay: {fileID: 7502816220151970251}
+  _selectedIcon: {fileID: 3592417746468533184}
+  _usesTintedSelection: 0
+  _spriteRendererToTint: {fileID: 0}
+  _commandDisplay: {fileID: 7502816220151970251}
   Commands: []
   _spriteRenderer: {fileID: 5193408850715605309}
-  _clickObject: {fileID: 2184922515245817262}
+  _clickObject: {fileID: 0}
   RuntimeData:
     UniqueID: 
     PendingTaskUID: 
@@ -194,23 +196,6 @@ MonoBehaviour:
     CarryingKinlingUID: 
     AssignedStorageID: 
     CurrentTaskID: 
---- !u!114 &2184922515245817262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5193408849299628808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7c59e4a35c4615478a833e7df4956d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectType: 0
-  _selectedIcon: {fileID: 3592417746468533184}
-  _objectRenderer: {fileID: 0}
-  _usesTintedSelection: 0
-  IsSelected: 0
 --- !u!61 &4391485635462396388
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -367,7 +352,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4190931139853278965}
   - component: {fileID: 7810603535692692796}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Icon Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}

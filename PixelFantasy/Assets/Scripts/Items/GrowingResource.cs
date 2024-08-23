@@ -241,11 +241,6 @@ namespace Items
 
             if (_onResourceClearedCallback != null) _onResourceClearedCallback.Invoke();
         }
-
-        public override float GetWorkAmount()
-        {
-            return GrowingResourceData.GetWorkToCut();
-        }
     }
     
     [Serializable]

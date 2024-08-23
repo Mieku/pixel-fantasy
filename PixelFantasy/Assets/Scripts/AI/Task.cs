@@ -4,7 +4,6 @@ using Characters;
 using Managers;
 using Newtonsoft.Json;
 using Systems.Stats.Scripts;
-using TaskSystem;
 using UnityEngine;
 
 namespace AI
@@ -127,5 +126,26 @@ namespace AI
         Completed, 
         Canceled,
         Queued,
+    }
+    
+    public enum ETaskType
+    {
+        Emergency = 0,
+        Healing = 1,
+        Construction = 2,
+        AnimalHandling = 3,
+        Cooking = 4,
+        Hunting = 5,
+        Farming = 6,
+        Mining = 7,
+        Harvesting = 8,
+        Forestry = 9,
+        Crafting = 10,
+        Hauling = 11,
+        Cleaning = 13,
+        Research = 12,
+         
+        Personal = 20,
+        Misc = 100
     }
 }

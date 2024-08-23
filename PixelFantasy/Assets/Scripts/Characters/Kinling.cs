@@ -3,26 +3,23 @@ using System.Collections.Generic;
 using AI;
 using Handlers;
 using HUD;
-using Interfaces;
 using Items;
 using Managers;
 using ScriptableObjects;
 using Systems.Mood.Scripts;
 using Systems.Social.Scripts;
 using Systems.Traits.Scripts;
-using TaskSystem;
 using UnityEngine;
 using UnityEngine.Rendering;
 using Avatar = Systems.Appearance.Scripts.Avatar;
 
 namespace Characters
 {
-    public class Kinling : PlayerInteractable, IClickableObject
+    public class Kinling : PlayerInteractable
     {
         public KinlingData RuntimeData;
         public TaskHandler TaskHandler;
         
-        [SerializeField] private TaskAI _taskAI;
         [SerializeField] private SocialAI _socialAI;
         [SerializeField] private SortingGroup _sortingGroup;
         [SerializeField] private EnvironmentDetector _environmentDetector;
@@ -30,7 +27,8 @@ namespace Characters
         
         public string FullName => RuntimeData.Firstname + " " + RuntimeData.Lastname;
         public override string UniqueID => RuntimeData.UniqueID;
-        
+        public override string DisplayName => RuntimeData.Nickname;
+
         public override string PendingTaskUID
         {
             get => RuntimeData.CurrentTaskID;
@@ -48,14 +46,10 @@ namespace Characters
         
         public SocialAI SocialAI => _socialAI;
         
-        public ClickObject ClickObject;
         public bool HasInitialized { get; private set; }
-        public Action OnChanged { get; set; }
-
+        
         private void Awake()
         {
-            ClickObject = GetComponent<ClickObject>();
-            
             GameEvents.DayTick += GameEvents_DayTick;
             GameEvents.MinuteTick += GameEvents_MinuteTick;
             _environmentDetector.OnVisibilityUpdated += OnLightVisibilityChanged;
@@ -121,8 +115,6 @@ namespace Characters
             //_positionRendererSorter.SetLocked(false);
         }
 
-        public TaskAI TaskAI => _taskAI;
-
         public List<NeedTraitSettings> GetStatTraits()
         {
             List<NeedTraitSettings> results = new List<NeedTraitSettings>();
@@ -153,24 +145,11 @@ namespace Characters
             RuntimeData?.MinuteTick();
         }
 
-        public ClickObject GetClickObject() => ClickObject;
-
         public bool IsClickDisabled { get; set; }
         public bool IsAllowed { get; set; }
 
         public void ToggleAllowed(bool isAllowed)
         {
-        }
-
-        public string DisplayName => FullName;
-        public PlayerInteractable GetPlayerInteractable()
-        {
-            return this;
-        }
-        
-        public List<Command> GetCommands()
-        {
-            return new List<Command>(Commands);
         }
         
         public override Vector2? UseagePosition(Vector2 requestorPosition)
@@ -248,6 +227,18 @@ namespace Characters
         public void HideWorkProgress()
         {
             _workDisplay.Show(false);
+        }
+
+        protected override void OnSelection()
+        {
+            base.OnSelection();
+            KinlingAgent.SetPathVisibility(true);
+        }
+
+        protected override void OnDeselection()
+        {
+            base.OnDeselection();
+            KinlingAgent.SetPathVisibility(false);
         }
     }
 

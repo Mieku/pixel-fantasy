@@ -130,7 +130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2247365344336491243}
   - component: {fileID: 9006571780148415042}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Icon Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -459,7 +459,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1926717373520456564}
   - component: {fileID: 2095334031267274146}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Icon Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -821,7 +821,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8990502182871548466}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Handler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1130,7 +1130,6 @@ GameObject:
   - component: {fileID: 6712665838144468759}
   - component: {fileID: 6712665838144468968}
   - component: {fileID: 7901035948059328099}
-  - component: {fileID: 4134017860586411217}
   m_Layer: 0
   m_Name: Camp Fire
   m_TagString: Furniture
@@ -1214,7 +1213,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb2c5e7acc7b8ef4aa4099c4632ac077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _workDisplay: {fileID: 1371958563153713815}
+  _selectedIcon: {fileID: 4483797532046112592}
+  _usesTintedSelection: 0
+  _commandDisplay: {fileID: 1371958563153713815}
   Commands: []
   _southHandle: {fileID: 3614048160496231048}
   _southSpritesRoot: {fileID: 6712665837250262601}
@@ -1235,6 +1236,7 @@ MonoBehaviour:
   RuntimeData:
     UniqueID: 
     PendingTaskUID: 
+    PendingTaskProgress: 0
     FurnitureState: 0
     RemainingWork: 0
     Direction: 0
@@ -1254,23 +1256,6 @@ MonoBehaviour:
   _westCraftingPreview: {fileID: 0}
   _northCraftingPreview: {fileID: 0}
   _eastCraftingPreview: {fileID: 0}
---- !u!114 &4134017860586411217
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6712665838144468758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7c59e4a35c4615478a833e7df4956d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectType: 5
-  _selectedIcon: {fileID: 4483797532046112592}
-  _objectRenderer: {fileID: 0}
-  _usesTintedSelection: 0
-  IsSelected: 0
 --- !u!1 &6712665838923378130
 GameObject:
   m_ObjectHideFlags: 0

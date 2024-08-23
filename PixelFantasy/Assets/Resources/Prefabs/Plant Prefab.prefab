@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7836829500066856881}
   - component: {fileID: 8592478981954225959}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Handler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ Transform:
   m_Children:
   - {fileID: 1345130329184614559}
   - {fileID: 7318400199566828899}
-  m_Father: {fileID: 2315027090632040888}
+  m_Father: {fileID: 2315027091890448861}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &8592478981954225959
 BoxCollider2D:
@@ -226,7 +226,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 569324570}
-  - {fileID: 7836829500066856881}
   m_Father: {fileID: 2315027091890448861}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2315027090632040887
@@ -303,7 +302,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2315027091890448861}
   - component: {fileID: 2315027091890448862}
-  - component: {fileID: 2315027091890448863}
   - component: {fileID: 8379773904936381525}
   m_Layer: 0
   m_Name: Plant Prefab
@@ -325,6 +323,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7836829500066856881}
   - {fileID: 2315027090632040888}
   - {fileID: 3866533460995065803}
   - {fileID: 5151216141622799977}
@@ -375,23 +374,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &2315027091890448863
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2315027091890448672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7c59e4a35c4615478a833e7df4956d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectType: 3
-  _selectedIcon: {fileID: 1813617973019056594}
-  _objectRenderer: {fileID: 2315027090632040887}
-  _usesTintedSelection: 0
-  IsSelected: 0
 --- !u!114 &8379773904936381525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,11 +386,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26689648f99fe014dbbf387640bc5cd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _workDisplay: {fileID: 5590397757889513232}
+  _selectedIcon: {fileID: 1813617973019056594}
+  _usesTintedSelection: 0
+  _spriteRendererToTint: {fileID: 0}
+  _commandDisplay: {fileID: 5590397757889513232}
   Commands:
   - {fileID: 11400000, guid: f0e8dad8b311df84aaa187ea24d20432, type: 2}
   _spriteRenderer: {fileID: 2315027090632040887}
-  _clickObject: {fileID: 2315027091890448863}
+  _clickObject: {fileID: 0}
   _defaultExtractCmd: {fileID: 11400000, guid: f0e8dad8b311df84aaa187ea24d20432, type: 2}
   _obstacleBox: {fileID: 2315027091890448862}
   _workPoints:
@@ -416,12 +401,6 @@ MonoBehaviour:
   - {fileID: 975979938783382945}
   - {fileID: 7428149355254719869}
   - {fileID: 538873249448268034}
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
   RuntimeData:
     UniqueID: 
     SpriteIndex: 0
@@ -470,7 +449,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1345130329184614559}
   - component: {fileID: 1862966350577896744}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Icon Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -585,7 +564,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7318400199566828899}
   - component: {fileID: 8041876561370418441}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Icon Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}

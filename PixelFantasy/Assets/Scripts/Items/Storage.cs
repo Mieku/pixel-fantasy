@@ -8,7 +8,6 @@ namespace Items
 {
     public class Storage : Furniture, IStorage
     {
-        public string UniqueID => RuntimeData.UniqueID;
         public StorageData RuntimeStorageData => RuntimeData as StorageData;
         public List<string> StoredUIDs => RuntimeStorageData.StoredUIDs;
         public List<string> IncomingUIDs => RuntimeStorageData.IncomingUIDs;
@@ -34,11 +33,6 @@ namespace Items
             
             SetState(RuntimeData.FurnitureState);
             AssignDirection(direction);
-        }
-
-        public override void LoadData(FurnitureData data)
-        {
-            base.LoadData(data);
         }
 
         public void SetIncoming(ItemData itemData)

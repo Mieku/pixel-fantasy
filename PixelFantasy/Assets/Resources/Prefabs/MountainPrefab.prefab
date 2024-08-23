@@ -46,7 +46,6 @@ GameObject:
   - component: {fileID: 2717767807424920951}
   - component: {fileID: 9173330314039135114}
   - component: {fileID: 5442789227045615136}
-  - component: {fileID: 2435371418016554083}
   - component: {fileID: 7717464143130272536}
   m_Layer: 3
   m_Name: MountainPrefab
@@ -130,7 +129,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e96c71f1586d7b468714ad74ac253a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _workDisplay: {fileID: 2095024321625544702}
+  _selectedIcon: {fileID: 0}
+  _usesTintedSelection: 1
+  _spriteRendererToTint: {fileID: 0}
+  _commandDisplay: {fileID: 2095024321625544702}
   Commands:
   - {fileID: 11400000, guid: 90beea586271c8b42a6c9334b222964d, type: 2}
   _spriteRenderer: {fileID: 0}
@@ -142,12 +144,6 @@ MonoBehaviour:
   - {fileID: 6841534660435251749}
   - {fileID: 7499908909959832951}
   - {fileID: 2117584734873401374}
-  _invalidPlacementTags:
-  - Water
-  - Wall
-  - Obstacle
-  - Nature
-  - Structure
   RuntimeData:
     UniqueID: 
     SpriteIndex: 0
@@ -157,23 +153,6 @@ MonoBehaviour:
   _tempPlacementDisp: {fileID: 6838393442220519969}
   _selectionTintColour: {r: 0.7529412, g: 0.8980392, b: 0.65882355, a: 1}
   _dirtRuleTile: {fileID: 11400000, guid: 012a56c0946d69e499d3faf6d7e9caca, type: 2}
---- !u!114 &2435371418016554083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3448804361492490818}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7c59e4a35c4615478a833e7df4956d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectType: 6
-  _selectedIcon: {fileID: 0}
-  _objectRenderer: {fileID: 0}
-  _usesTintedSelection: 1
-  IsSelected: 0
 --- !u!208 &7717464143130272536
 NavMeshObstacle:
   m_ObjectHideFlags: 0

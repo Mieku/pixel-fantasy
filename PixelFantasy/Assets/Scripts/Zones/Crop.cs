@@ -6,7 +6,6 @@ using Handlers;
 using Items;
 using Managers;
 using Systems.Stats.Scripts;
-using TaskSystem;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -44,6 +43,7 @@ namespace Zones
         private float _remainingHarvestWork;
 
         public override string UniqueID => RuntimeData.UniqueID;
+        public override string DisplayName => RuntimeData.Settings.CropName;
         
         public override string PendingTaskUID
         {
@@ -369,8 +369,8 @@ namespace Zones
 
         private void CreateTillSoilTask()
         {
-            Task task = new Task("Till Soil", ETaskType.Farming, this, EToolType.None);
-            task.Enqueue();
+            // Task task = new Task("Till Soil", ETaskType.Farming, this, EToolType.None);
+            // task.Enqueue();
         }
 
         public void OnDirtDug()
@@ -384,8 +384,8 @@ namespace Zones
         
         private void CreateDigHoleTask()
         {
-            Task task = new Task("Dig Hole", ETaskType.Farming, this, EToolType.None);
-            task.Enqueue();
+            // Task task = new Task("Dig Hole", ETaskType.Farming, this, EToolType.None);
+            // task.Enqueue();
         }
         
         public void HoleDug()
@@ -399,8 +399,8 @@ namespace Zones
         
         private void CreatePlantCropTask()
         {
-            Task task = new Task("Plant Crop", ETaskType.Farming, this, EToolType.None);
-            task.Enqueue();
+            // Task task = new Task("Plant Crop", ETaskType.Farming, this, EToolType.None);
+            // task.Enqueue();
         }
 
         public void CropPlanted()
@@ -414,8 +414,8 @@ namespace Zones
         {
             _wateringTaskSet = true;
 
-            Task task = new Task("Water Crop", ETaskType.Farming, this, EToolType.None);
-            task.Enqueue();
+            // Task task = new Task("Water Crop", ETaskType.Farming, this, EToolType.None);
+            // task.Enqueue();
         }
 
         public void CropWatered()
@@ -428,8 +428,8 @@ namespace Zones
         
         private void CreateHarvestCropTask()
         {
-            Task task = new Task("Harvest Crop", ETaskType.Farming, this, EToolType.None);
-            task.Enqueue();
+            // Task task = new Task("Harvest Crop", ETaskType.Farming, this, EToolType.None);
+            // task.Enqueue();
         }
 
         public void CropHarvested(StatsData stats)
@@ -492,14 +492,14 @@ namespace Zones
         
         private void CreateSwapCropTask()
         {
-            Task task = new Task("Crop Swap", ETaskType.Farming, this, EToolType.None);
-            task.Enqueue();
+            // Task task = new Task("Crop Swap", ETaskType.Farming, this, EToolType.None);
+            // task.Enqueue();
         }
         
         private void CreateClearCropTask()
         {
-            Task task = new Task("Clear Crop", ETaskType.Farming, this, EToolType.None);
-            task.Enqueue();
+            // Task task = new Task("Clear Crop", ETaskType.Farming, this, EToolType.None);
+            // task.Enqueue();
         }
         
         public void CropSwapped()

@@ -50,70 +50,46 @@ namespace Systems.Details.Controls_Details.Scripts
 
         private void CancelCmdPressed(ControlsBtn btn)
         {
-            SelectionManager.Instance.DeactivateSelectionBox();
-            SetBtnActive(btn);
-            
-            SelectionManager.Instance.BeginCommandSelectionBox(_cancelCommand, () =>
-            {
-                CancelCmdPressed(btn);
-            });
+            HandleCommandSelection(btn, _cancelCommand, CancelCmdPressed);
         }
         
         private void GatherCmdPressed(ControlsBtn btn)
         {
-            SelectionManager.Instance.DeactivateSelectionBox();
-            SetBtnActive(btn);
-            
-            SelectionManager.Instance.BeginCommandSelectionBox(_gatherCommand, () =>
-            {
-                GatherCmdPressed(btn);
-            });
+            HandleCommandSelection(btn, _gatherCommand, GatherCmdPressed);
         }
         
         private void CutTreeCmdPressed(ControlsBtn btn)
         {
-            SelectionManager.Instance.DeactivateSelectionBox();
-            SetBtnActive(btn);
-            
-            SelectionManager.Instance.BeginCommandSelectionBox(_cutTreeCommand, () =>
-            {
-                CutTreeCmdPressed(btn);
-            });
+            HandleCommandSelection(btn, _cutTreeCommand, CutTreeCmdPressed);
         }
         
         private void HarvestCmdPressed(ControlsBtn btn)
         {
-            SelectionManager.Instance.DeactivateSelectionBox();
-            SetBtnActive(btn);
-            
-            SelectionManager.Instance.BeginCommandSelectionBox(_harvestCommand, () =>
-            {
-                HarvestCmdPressed(btn);
-            });
+            HandleCommandSelection(btn, _harvestCommand, HarvestCmdPressed);
         }
         
         private void MineCmdPressed(ControlsBtn btn)
         {
-            SelectionManager.Instance.DeactivateSelectionBox();
-            SetBtnActive(btn);
-            
-            SelectionManager.Instance.BeginCommandSelectionBox(_mineCommand, () =>
-            {
-                MineCmdPressed(btn);
-            });
+            HandleCommandSelection(btn, _mineCommand, MineCmdPressed);
         }
         
         private void DeconstructCmdPressed(ControlsBtn btn)
         {
-            SelectionManager.Instance.DeactivateSelectionBox();
-            SetBtnActive(btn);
-            
-            SelectionManager.Instance.BeginCommandSelectionBox(_deconstructCommand, () =>
-            {
-                DeconstructCmdPressed(btn);
-            });
+            HandleCommandSelection(btn, _deconstructCommand, DeconstructCmdPressed);
         }
 
         #endregion
+
+        private void HandleCommandSelection(ControlsBtn btn, Command command, System.Action<ControlsBtn> onCompleted)
+        {
+            SelectionManager.Instance.DeactivateSelectionBox();
+            SetBtnActive(btn);
+            
+            SelectionManager.Instance.BeginCommandSelectionBox(command, () =>
+            {
+                // Re-trigger the same command after completion if needed
+                onCompleted(btn);
+            });
+        }
     }
 }

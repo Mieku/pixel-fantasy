@@ -29,26 +29,25 @@ namespace Systems.CursorHandler.Scripts
             }
         }
         
-        public void ShowCommands(ClickObject clickObject, Kinling kinlingToHandleCommand)
+        public void ShowCommands(PlayerInteractable playerInteractable, Kinling kinlingToHandleCommand)
         {
             List<Command> invalidCommands = new List<Command>();
-            var allCommands = clickObject.Owner.GetCommands();
+            var allCommands = playerInteractable.GetCommands();
             foreach (var possibleCmd in allCommands)
             {
-                if (!possibleCmd.CanDoCommand(kinlingToHandleCommand, clickObject.Owner.GetPlayerInteractable()))
+                if (!possibleCmd.CanDoCommand(kinlingToHandleCommand, playerInteractable))
                 {
                     invalidCommands.Add(possibleCmd);
                 }
             }
-
-            var currentAction = kinlingToHandleCommand.TaskAI.CurrentAction;
-            var pendingCmd = clickObject.Owner.GetPlayerInteractable().PendingCommand;
+            
+            var pendingCmd = playerInteractable.PendingCommand;
             Command inProgressCmd = null;
             
             
-            if (currentAction != null && pendingCmd != null)
+            if (pendingCmd != null)
             {
-                if (IsActiveCommand(kinlingToHandleCommand, clickObject.Owner.GetPlayerInteractable()))
+                if (IsActiveCommand(kinlingToHandleCommand, playerInteractable))
                 {
                     inProgressCmd = pendingCmd;
                 }
@@ -58,19 +57,18 @@ namespace Systems.CursorHandler.Scripts
                 }
             }
             
-            _controls.ShowControls(clickObject.transform, clickObject.Owner.DisplayName, allCommands, inProgressCmd, invalidCommands,
+            _controls.ShowControls(playerInteractable.transform, playerInteractable.DisplayName, allCommands, inProgressCmd, invalidCommands,
                 (command) =>
                 {
-                    if (IsActiveCommand(kinlingToHandleCommand, clickObject.Owner.GetPlayerInteractable()))
+                    if (IsActiveCommand(kinlingToHandleCommand, playerInteractable))
                     {
                         // Cancel command
-                        kinlingToHandleCommand.TaskAI.CancelCurrentTask();
-                        clickObject.Owner.GetPlayerInteractable().CancelPlayerCommand(command);
+                        playerInteractable.CancelPlayerCommand(command);
                         HideCommands();
                     }
                     else
                     {
-                        var requester = clickObject.Owner.GetPlayerInteractable();
+                        var requester = playerInteractable;
                         Task task = new Task(command.TaskID, command.DisplayName, command.TaskType, requester);
                         task.Status = ETaskStatus.InProgress;
                         TasksDatabase.Instance.AddTask(task);

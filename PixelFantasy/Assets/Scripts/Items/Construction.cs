@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using AI;
@@ -6,34 +5,24 @@ using Characters;
 using Handlers;
 using HUD;
 using Interfaces;
-using Managers;
 using Systems.Stats.Scripts;
-using TaskSystem;
 using UnityEngine;
 using Action = System.Action;
 
 namespace Items
 {
-    public abstract class Construction : PlayerInteractable, IClickableObject, IConstructable
+    public abstract class Construction : PlayerInteractable, IConstructable
     {
         protected Action _onDeconstructed;
         
         [SerializeField] private List<Transform> _workPoints;
-
-        public abstract string DisplayName { get; }
+        
         public ConstructionData RuntimeData;
         public override string UniqueID => RuntimeData.UniqueID;
         public override string PendingTaskUID
         {
             get => RuntimeData.PendingTaskUID;
             set => RuntimeData.PendingTaskUID = value;
-        }
-        
-        public Action OnChanged { get; set; }
-        
-        public PlayerInteractable GetPlayerInteractable()
-        {
-            return this;
         }
 
         protected virtual void Awake()
@@ -207,8 +196,8 @@ namespace Items
             SpawnUsedResources(50f);
             
             // Update the neighbours
-            var collider = GetComponent<BoxCollider2D>();
-            collider.enabled = false;
+            var col = GetComponent<BoxCollider2D>();
+            col.enabled = false;
 
             var infoPanel = FindObjectOfType<SelectedItemInfoPanel>();
             if (infoPanel != null)
@@ -239,7 +228,7 @@ namespace Items
         
         public virtual void CreateConstructTask()
         {
-            AI.Task task = new AI.Task("Build Structure", $"Building {RuntimeData.Settings.ConstructionName}" ,ETaskType.Construction, this);
+            Task task = new Task("Build Structure", $"Building {RuntimeData.Settings.ConstructionName}" ,ETaskType.Construction, this);
             TasksDatabase.Instance.AddTask(task);
         }
 
@@ -249,7 +238,7 @@ namespace Items
             {
                 _onDeconstructed = onDeconstructed;
 
-                AI.Task task = new AI.Task("Deconstruct Structure", $"Deconstructing {RuntimeData.Settings.ConstructionName}" ,ETaskType.Construction, this);
+                Task task = new Task("Deconstruct Structure", $"Deconstructing {RuntimeData.Settings.ConstructionName}" ,ETaskType.Construction, this);
                 TasksDatabase.Instance.AddTask(task);
             }
             else
@@ -274,13 +263,8 @@ namespace Items
         {
             Dictionary<string, object> taskData = new Dictionary<string, object> { { "ItemSettingsID", resourceSettings.name } };
 
-            AI.Task task = new AI.Task("Withdraw Item For Constructable", "Gathering Materials" ,ETaskType.Hauling, this, taskData);
+            Task task = new Task("Withdraw Item For Constructable", "Gathering Materials" ,ETaskType.Hauling, this, taskData);
             TasksDatabase.Instance.AddTask(task);
-        }
-
-        public ClickObject GetClickObject()
-        {
-            return GetComponent<ClickObject>();
         }
 
         public bool IsClickDisabled { get; set; }
@@ -288,11 +272,6 @@ namespace Items
         public void ToggleAllowed(bool isAllowed)
         {
             throw new System.NotImplementedException();
-        }
-        
-        public virtual List<Command> GetCommands()
-        {
-            return Commands;
         }
 
         /// <summary>

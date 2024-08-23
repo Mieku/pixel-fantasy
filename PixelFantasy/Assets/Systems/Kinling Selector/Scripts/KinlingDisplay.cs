@@ -61,7 +61,7 @@ namespace Systems.Kinling_Selector.Scripts
                 }
 
                 // Single click logic, only if not detected as double click
-                PlayerInputController.Instance.SelectUnit(KinlingData.GetKinling());
+                SelectionManager.Instance.Select(KinlingData.GetKinling());
             }
         }
 

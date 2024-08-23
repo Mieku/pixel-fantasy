@@ -78,7 +78,7 @@ namespace Systems.Details.Kinling_Details
         public void OnPressed()
         {
             var kinlingData = KinlingsDatabase.Instance.Query(Relationship.OwnerUID);
-            PlayerInputController.Instance.SelectUnit(kinlingData.GetKinling());
+            SelectionManager.Instance.Select(kinlingData.GetKinling());
             CameraManager.Instance.LookAtPosition(kinlingData.Position);
         }
     }

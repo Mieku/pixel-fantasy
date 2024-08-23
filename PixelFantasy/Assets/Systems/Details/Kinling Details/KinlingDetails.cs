@@ -2,11 +2,9 @@ using System;
 using Characters;
 using Controllers;
 using Sirenix.OdinInspector;
-using Systems.Appearance.Scripts;
 using Systems.Details.Build_Details.Scripts;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Systems.Details.Kinling_Details

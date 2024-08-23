@@ -3,8 +3,6 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class AnimationToTime : MonoBehaviour
 {
-    [SerializeField] private bool _randomStartPoint = true;
-    
     private Animator _anim;
     
     private void Awake()

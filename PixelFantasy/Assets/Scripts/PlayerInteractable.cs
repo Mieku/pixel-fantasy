@@ -9,14 +9,19 @@ using UnityEngine.Serialization;
 
 public abstract class PlayerInteractable : MonoBehaviour
 {
+    [SerializeField] private GameObject _selectedIcon;
+    
+    protected bool _isSelected;
+    
     public abstract string UniqueID { get; }
+    public abstract string DisplayName { get; }
     public abstract string PendingTaskUID { get; set; }
 
     protected static bool _isQuitting = false;
 
     [FormerlySerializedAs("_workDisplay")] [SerializeField] private CommandDisplay _commandDisplay;
     
-    public List<Command> Commands = new List<Command>();
+    [FormerlySerializedAs("Commands")] [SerializeField] private List<Command> _commands = new List<Command>();
     
     [JsonIgnore] public Task PendingTask => TasksDatabase.Instance.QueryTask(PendingTaskUID);
 
@@ -27,24 +32,24 @@ public abstract class PlayerInteractable : MonoBehaviour
         {
             if (string.IsNullOrEmpty(PendingTaskUID)) return null;
             
-            return Commands.Find(c => c.TaskID == PendingTask.TaskID);
+            return _commands.Find(c => c.TaskID == PendingTask.TaskID);
         }
     }
 
     public void AddCommand(string cmdID)
     {
-        if (Commands.Exists(c => c.CommandID == cmdID)) return; // dont add twice
+        if (_commands.Exists(c => c.CommandID == cmdID)) return; // dont add twice
         
         Command cmd = GameSettings.Instance.LoadCommand(cmdID);
-        Commands.Add(cmd);
+        _commands.Add(cmd);
     }
 
     public void RemoveCommand(string cmdID)
     {
-        if (Commands.Exists(c => c.CommandID == cmdID))
+        if (_commands.Exists(c => c.CommandID == cmdID))
         {
             Command cmd = GameSettings.Instance.LoadCommand(cmdID);
-            Commands.Remove(cmd);
+            _commands.Remove(cmd);
         }
     }
 
@@ -151,11 +156,6 @@ public abstract class PlayerInteractable : MonoBehaviour
         
         return PendingTask.TaskID == command.TaskID;
     }
-    
-    public virtual float GetWorkAmount()
-    {
-        return 1;
-    }
 
     public void RefreshTaskIcon()
     {
@@ -172,5 +172,50 @@ public abstract class PlayerInteractable : MonoBehaviour
     private void OnApplicationQuit()
     {
         _isQuitting = true;
+    }
+
+    public List<Command> GetCommands()
+    {
+        return new List<Command>(_commands);
+    }
+
+    public Action OnChanged { get; set; }
+    public bool IsSelected
+    {
+        get => _isSelected;
+        set
+        {
+            _isSelected = value;
+
+            if (value)
+            {
+                OnSelection();
+            }
+            else
+            {
+                OnDeselection();
+            }
+        }
+    }
+
+    protected virtual void OnSelection()
+    {
+        if (_selectedIcon != null)
+        {
+            _selectedIcon.SetActive(true);
+        }
+    }
+
+    protected virtual void OnDeselection()
+    {
+        if (_selectedIcon != null)
+        {
+            _selectedIcon.SetActive(false);
+        }
+    }
+
+    public virtual bool ObjectValidForCommandSelection(Command command)
+    {
+        return _commands.Contains(command);
     }
 }

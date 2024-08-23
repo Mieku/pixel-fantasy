@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Characters;
 using Systems.Stats.Scripts;
-using UnityEngine;
 
-namespace TaskSystem
+namespace AI
 {
     public class TaskPriorities
     {

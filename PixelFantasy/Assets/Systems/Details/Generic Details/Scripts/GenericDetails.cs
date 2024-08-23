@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Interfaces;
 using Items;
 using Systems.Details.Build_Details.Scripts;
 using TMPro;
@@ -26,21 +25,19 @@ namespace Systems.Details.Generic_Details.Scripts
         
         public TextMeshProUGUI ItemName;
         
-        private EDetailsState _detailsState;
-        private IClickableObject _clickableObject;
+        private PlayerInteractable _playerInteractable;
         private List<CommandBtn> _displayedCmds = new List<CommandBtn>();
         
-        
-        public void Show(IClickableObject clickableObject)
+        public void Show(PlayerInteractable playerInteractable)
         {
-            _clickableObject = clickableObject;
+            _playerInteractable = playerInteractable;
             _panelHandle.SetActive(true);
             _commandBtnPrefab.gameObject.SetActive(false);
             _controlsSeperator.SetActive(false);
             _storageSettingsBtn.SetActive(false);
             
             GameEvents.RefreshSelection += GameEvent_RefreshSelection;
-            _clickableObject.OnChanged += GameEvent_RefreshSelection;
+            _playerInteractable.OnChanged += GameEvent_RefreshSelection;
             
             Refresh();
         }
@@ -53,10 +50,10 @@ namespace Systems.Details.Generic_Details.Scripts
             }
             _displayedCmds.Clear();
             
-            var commands = _clickableObject.GetCommands();
+            var commands = _playerInteractable.GetCommands();
             foreach (var command in commands)
             {
-                bool isActive = _clickableObject.GetPlayerInteractable().PendingCommand == command;
+                bool isActive = _playerInteractable.PendingCommand == command;
                 
                 var cmdBtn = Instantiate(_commandBtnPrefab, _commandsParent);
                 cmdBtn.transform.SetSiblingIndex(_controlsSeperator.transform.GetSiblingIndex());
@@ -85,7 +82,7 @@ namespace Systems.Details.Generic_Details.Scripts
 
         private void GameEvent_RefreshSelection()
         {
-            if (_clickableObject == null)
+            if (_playerInteractable == null)
             {
                 Hide();
             }
@@ -99,67 +96,55 @@ namespace Systems.Details.Generic_Details.Scripts
         {
             RefreshCommands();
             ShowHeaderSeperator(true);
-
-            var resource = _clickableObject as BasicResource;
-            if (resource != null)
+            
+            if (_playerInteractable is BasicResource resource)
             {
                 _resourceDetails.Show(resource, this);
-                
                 _structureDetails.Hide();
                 _furnitureDetails.Hide();
                 _itemDetails.Hide();
-                
-                return;
             }
-
-            var structure = _clickableObject as Construction;
-            if (structure != null)
+            else if (_playerInteractable is Construction structure)
             {
                 _structureDetails.Show(structure, this);
-                
                 _resourceDetails.Hide();
                 _furnitureDetails.Hide();
                 _itemDetails.Hide();
-                
-                return;
             }
-
-            var furniture = _clickableObject as Furniture;
-            if (furniture != null)
+            else if (_playerInteractable is Furniture furniture)
             {
                 _furnitureDetails.Show(furniture, this);
-                
                 _resourceDetails.Hide();
                 _structureDetails.Hide();
                 _itemDetails.Hide();
-                
-                return;
             }
-
-            var item = _clickableObject as Item;
-            if (item != null)
+            else if (_playerInteractable is Item item)
             {
                 _itemDetails.Show(item, this);
-                
                 _resourceDetails.Hide();
                 _structureDetails.Hide();
                 _furnitureDetails.Hide();
-                
-                return;
+            }
+            else
+            {
+                _itemDetails.Hide();
+                _resourceDetails.Hide();
+                _structureDetails.Hide();
+                _furnitureDetails.Hide();
             }
         }
 
         private void OnCommandPressed(Command command)
         {
-            var pendingCmd = _clickableObject.GetPlayerInteractable().PendingCommand;
+            var pendingCmd = _playerInteractable.PendingCommand;
             if (pendingCmd != null)
             {
-                _clickableObject.GetPlayerInteractable().CancelPendingTask();
+                _playerInteractable.CancelPendingTask();
             }
             
             if (pendingCmd != command)
             {
-                _clickableObject.GetPlayerInteractable().AssignCommand(command);
+                _playerInteractable.AssignCommand(command);
             }
             
             RefreshCommands();
@@ -172,18 +157,13 @@ namespace Systems.Details.Generic_Details.Scripts
         
         public void Hide()
         {
-            if (_clickableObject != null)
+            if (_playerInteractable != null)
             {
-                _clickableObject.OnChanged -= GameEvent_RefreshSelection;
+                _playerInteractable.OnChanged -= GameEvent_RefreshSelection;
             }
             
             GameEvents.RefreshSelection -= GameEvent_RefreshSelection;
             _panelHandle.SetActive(false);
-        }
-
-        private enum EDetailsState
-        {
-            
         }
     }
 }

@@ -2,15 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Characters;
 using Managers;
-using TaskSystem;
 
 namespace AI
 {
     public class TasksDatabase : Singleton<TasksDatabase>
     {
         public List<TaskQueue> TaskQueues = new List<TaskQueue>();
-
-        public TaskCreator TaskCreator;
 
         private TaskQueue GetTaskQueue(ETaskType taskType)
         {

@@ -87,7 +87,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8686452185843260550}
   - component: {fileID: 5028018359604910899}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Icon Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -502,7 +502,6 @@ GameObject:
   - component: {fileID: 5465201506073250537}
   - component: {fileID: 5465201506073250536}
   - component: {fileID: 2996897229605571945}
-  - component: {fileID: 2373780174562721659}
   m_Layer: 0
   m_Name: Crate
   m_TagString: Furniture
@@ -542,7 +541,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62451689d3469544b93c4bd965ce226a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _workDisplay: {fileID: 6533642989651581306}
+  _selectedIcon: {fileID: 8631527517140970320}
+  _usesTintedSelection: 0
+  _commandDisplay: {fileID: 6533642989651581306}
   Commands: []
   _southHandle: {fileID: 6032480147293666337}
   _southSpritesRoot: {fileID: 1419672062545796339}
@@ -563,6 +564,7 @@ MonoBehaviour:
   RuntimeData:
     UniqueID: 
     PendingTaskUID: 
+    PendingTaskProgress: 0
     FurnitureState: 0
     RemainingWork: 0
     Direction: 0
@@ -650,23 +652,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2373780174562721659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5465201506073250550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7c59e4a35c4615478a833e7df4956d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectType: 5
-  _selectedIcon: {fileID: 8631527517140970320}
-  _objectRenderer: {fileID: 0}
-  _usesTintedSelection: 0
-  IsSelected: 0
 --- !u!1 &5518163249501983099
 GameObject:
   m_ObjectHideFlags: 0
@@ -934,7 +919,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3723077913340985319}
   - component: {fileID: 2181175183314286630}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Icon Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1087,7 +1072,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2489044322391271570}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Handler
   m_TagString: Untagged
   m_Icon: {fileID: 0}

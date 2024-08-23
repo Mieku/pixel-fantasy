@@ -2,13 +2,12 @@ using Characters;
 using Controllers;
 using DataPersistence;
 using Handlers;
-using Interfaces;
 using Systems.Appearance.Scripts;
 using UnityEngine;
 
 namespace Items
 {
-    public class Mountain : BasicResource, IClickableTile
+    public class Mountain : BasicResource
     {
         [SerializeField] private GameObject _tempPlacementDisp;
         [SerializeField] private Color _selectionTintColour;
@@ -17,9 +16,8 @@ namespace Items
         public MountainResourceData RuntimeMountainData => RuntimeData as MountainResourceData;
         public override string DisplayName => MountainSettings.ResourceName;
 
-        protected override void Awake()
+        protected void Awake()
         {
-            base.Awake();
             _tempPlacementDisp.SetActive(false);
         }
         
@@ -54,6 +52,18 @@ namespace Items
         {
             TilemapController.Instance.SetTile(TilemapLayer.Mountain, transform.position, MountainSettings.RuleTile, false);
             TilemapController.Instance.SetTile(TilemapLayer.Dirt, transform.position, _dirtRuleTile, false);
+        }
+
+        protected override void OnSelection()
+        {
+            base.OnSelection();
+            TintTile();
+        }
+
+        protected override void OnDeselection()
+        {
+            base.OnDeselection();
+            UnTintTile();
         }
 
         public void TintTile()

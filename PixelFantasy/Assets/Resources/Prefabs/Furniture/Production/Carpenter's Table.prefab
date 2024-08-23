@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4604921250404184405}
   - component: {fileID: 4057456805658658691}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Icon Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -295,7 +295,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6457680685461231635}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Handler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +329,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4209417161624299722}
   - component: {fileID: 6460168561015017571}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Selection Icon Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -616,7 +616,6 @@ GameObject:
   - component: {fileID: 8679221839148330294}
   - component: {fileID: 8679221839148330441}
   - component: {fileID: 5259353419307902018}
-  - component: {fileID: 2018772703072227056}
   m_Layer: 0
   m_Name: Carpenter's Table
   m_TagString: Furniture
@@ -700,7 +699,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb2c5e7acc7b8ef4aa4099c4632ac077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _workDisplay: {fileID: 849620301994744128}
+  _selectedIcon: {fileID: 1973494032774344049}
+  _usesTintedSelection: 0
+  _commandDisplay: {fileID: 849620301994744128}
   Commands: []
   _southHandle: {fileID: 1692590278096435369}
   _southSpritesRoot: {fileID: 8679221838297705576}
@@ -721,6 +722,7 @@ MonoBehaviour:
   RuntimeData:
     UniqueID: 
     PendingTaskUID: 
+    PendingTaskProgress: 0
     FurnitureState: 0
     RemainingWork: 0
     Direction: 0
@@ -740,23 +742,6 @@ MonoBehaviour:
   _westCraftingPreview: {fileID: 0}
   _northCraftingPreview: {fileID: 0}
   _eastCraftingPreview: {fileID: 0}
---- !u!114 &2018772703072227056
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8679221839148330295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7c59e4a35c4615478a833e7df4956d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectType: 5
-  _selectedIcon: {fileID: 1973494032774344049}
-  _objectRenderer: {fileID: 0}
-  _usesTintedSelection: 0
-  IsSelected: 0
 --- !u!1 &8679221839988455411
 GameObject:
   m_ObjectHideFlags: 0

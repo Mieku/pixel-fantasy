@@ -8,7 +8,6 @@ using ScriptableObjects;
 using Systems.Game_Setup.Scripts;
 using Systems.Notifications.Scripts;
 using Systems.Traits.Scripts;
-using TaskSystem;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -41,14 +40,13 @@ namespace Systems.Mood.Scripts
         [JsonRequired] private List<string> _availableBreakdownIDs = new List<string>();
         
         private KinlingData _kinlingData => KinlingsDatabase.Instance.Query(_kinlingID);
-        private TaskAI _taskAI => _kinlingData.GetKinling().TaskAI;
         private MoodThresholdSettings _moodThresholdSettings;
         
         [SerializeField]
         private EMoodBreakType _moodState;
         
         private PendingBreakdownState _pendingBreakdownState;
-        private TaskAction _curBreakdownAction;
+        //private TaskAction _curBreakdownAction;
 
         [JsonIgnore] public float MinorBreakThresholdPercent => _minorBreakThreshold / 100f;
         [JsonIgnore] public float MajorBreakThresholdPercent => _majorBreakThreshold / 100f;
@@ -316,14 +314,16 @@ namespace Systems.Mood.Scripts
         private PendingBreakdownState CreateRandomBreakdownState(EMoodBreakType breakType,
             IReadOnlyList<EmotionalBreakdownSettings> allBreakdownOptions)
         {
-            List<EmotionalBreakdownSettings> options = allBreakdownOptions.ToList();
-            var filteredBreakdownOptions =
-                options.FindAll(breakdown => breakdown.BreakdownType == breakType && _taskAI.IsActionPossible(breakdown.BreakdownTaskId));
-            
-            int random = Random.Range(0, filteredBreakdownOptions.Count - 1);
-            var breakdown = filteredBreakdownOptions[random];
-            PendingBreakdownState breakdownState = new PendingBreakdownState(breakdown, OnBreakdownBegin, OnBreakdownComplete);
-            return breakdownState;
+            // List<EmotionalBreakdownSettings> options = allBreakdownOptions.ToList();
+            // var filteredBreakdownOptions =
+            //     options.FindAll(breakdown => breakdown.BreakdownType == breakType && _taskAI.IsActionPossible(breakdown.BreakdownTaskId));
+            //
+            // int random = Random.Range(0, filteredBreakdownOptions.Count - 1);
+            // var breakdown = filteredBreakdownOptions[random];
+            // PendingBreakdownState breakdownState = new PendingBreakdownState(breakdown, OnBreakdownBegin, OnBreakdownComplete);
+            // return breakdownState;
+
+            return null;
         }
 
         private void TickPendingBreakdown()
@@ -335,19 +335,19 @@ namespace Systems.Mood.Scripts
 
         private void OnBreakdownBegin()
         {
-            NotificationManager.Instance.CreateKinlingLog(_kinlingData.GetKinling(), $"{_kinlingData.Fullname} is having a Breakdown!", LogData.ELogType.Danger);
-
-            // Start a breakdown action
-            _curBreakdownAction = _taskAI.ForceTask(_pendingBreakdownState.BreakdownSettings.BreakdownTaskId);
-            if (_curBreakdownAction == null)
-            {
-                // Check if the breakdown is still possible, if not swap with something else possible
-                Debug.LogWarning($"Breakdown Action: {_curBreakdownAction.TaskId} could not start, creating a new breakdown state as a replacement");
-                _pendingBreakdownState = CreateRandomBreakdownState(_moodState, _availableBreakdowns);
-                _pendingBreakdownState.RemainingMinsToStart = 0;
-            }
-            
-            GameEvents.Trigger_OnKinlingChanged(_kinlingData);
+            // NotificationManager.Instance.CreateKinlingLog(_kinlingData.GetKinling(), $"{_kinlingData.Fullname} is having a Breakdown!", LogData.ELogType.Danger);
+            //
+            // // Start a breakdown action
+            // _curBreakdownAction = _taskAI.ForceTask(_pendingBreakdownState.BreakdownSettings.BreakdownTaskId);
+            // if (_curBreakdownAction == null)
+            // {
+            //     // Check if the breakdown is still possible, if not swap with something else possible
+            //     Debug.LogWarning($"Breakdown Action: {_curBreakdownAction.TaskId} could not start, creating a new breakdown state as a replacement");
+            //     _pendingBreakdownState = CreateRandomBreakdownState(_moodState, _availableBreakdowns);
+            //     _pendingBreakdownState.RemainingMinsToStart = 0;
+            // }
+            //
+            // GameEvents.Trigger_OnKinlingChanged(_kinlingData);
         }
 
         public void DEBUG_TriggerBreakdown(EmotionalBreakdownSettings breakdownSettings)
@@ -367,7 +367,7 @@ namespace Systems.Mood.Scripts
             NotificationManager.Instance.CreateKinlingLog(_kinlingData.GetKinling(), $"{_kinlingData.Fullname}'s Breakdown is over!", LogData.ELogType.Notification);
             
             // End the breakdown Action
-            _curBreakdownAction.ConcludeAction();
+            //_curBreakdownAction.ConcludeAction();
             _pendingBreakdownState = null;
             
             // Give the Kinling an emotion to boost it out of danger

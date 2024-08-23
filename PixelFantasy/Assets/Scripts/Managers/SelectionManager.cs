@@ -1,250 +1,173 @@
 using System;
 using System.Collections.Generic;
-using CodeMonkey.Utils;
-using Controllers;
-using Interfaces;
-using Sirenix.Utilities;
-using Systems.CursorHandler.Scripts;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using CodeMonkey.Utils;
+using Managers;
+using Systems.CursorHandler.Scripts;
 
-namespace Managers
+public class SelectionManager : Singleton<SelectionManager>
 {
-    public class SelectionManager : Singleton<SelectionManager>
+    [SerializeField] private Transform _selectionBox;
+
+    private bool _selectBoxActive;
+    private bool _startedSelecting;
+    private Vector2 _selectBoxStartPos;
+    private List<PlayerInteractable> _selectedObjects = new List<PlayerInteractable>();
+    private Vector2 _lowerLeft;
+    private Vector2 _upperRight;
+    private Command _pendingCommand;
+    private Action _onCompleted;
+
+    protected override void Awake()
     {
-        [SerializeField] private Transform _selectionBox;
-        
-        private bool _selectBoxActive;
-        private bool _startedSelecting;
-        private Vector2 _selectBoxStartPos;
-        private List<IClickableObject> _selectedObjects = new List<IClickableObject>();
-        private List<ClickObject> _prevClickObjects = new List<ClickObject>();
-        private int _prevClickObjectIndex;
-        private Action _onCompleted;
-        private Command _pendingCommand;
+        base.Awake();
+        _selectionBox.gameObject.SetActive(false);
+    }
 
-        protected override void Awake()
+    private void Update()
+    {
+        HandleSelectBoxUpdate();
+    }
+
+    public void HandleClick(PlayerInteractable playerInteractable)
+    {
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
-            GameEvents.OnRightClickDown += TurnOffSelectionBox;
+            ToggleSelection(playerInteractable);
+        }
+        else
+        {
+            SelectSingle(playerInteractable);
+        }
+    }
+
+    public void SelectSingle(PlayerInteractable playerInteractable)
+    {
+        ClearSelection();
+        Select(playerInteractable);
+    }
+
+    public void ToggleSelection(PlayerInteractable playerInteractable)
+    {
+        if (_selectedObjects.Contains(playerInteractable))
+        {
+            Deselect(playerInteractable);
+        }
+        else
+        {
+            Select(playerInteractable);
+        }
+    }
+
+    public void Select(PlayerInteractable playerInteractable)
+    {
+        _selectedObjects.Add(playerInteractable);
+        playerInteractable.IsSelected = true;
+        HUDController.Instance.ShowItemDetails(playerInteractable);
+    }
+
+    public void Deselect(PlayerInteractable playerInteractable)
+    {
+        _selectedObjects.Remove(playerInteractable);
+        playerInteractable.IsSelected = false;
+        HUDController.Instance.HideDetails();
+    }
+
+    public void ClearSelection()
+    {
+        foreach (var selectedObject in _selectedObjects)
+        {
+            selectedObject.IsSelected = false;
+        }
+        _selectedObjects.Clear();
+        HUDController.Instance.HideDetails();
+    }
+
+    public void DeactivateSelectionBox()
+    {
+        _startedSelecting = false;
+        _selectionBox.gameObject.SetActive(false);
+        _selectionBox.localScale = Vector3.zero;
+    }
+
+    public void BeginCommandSelectionBox(Command command, Action onCompleted)
+    {
+        _pendingCommand = command;
+        _onCompleted = onCompleted;
+        _selectBoxActive = true;
+        CursorManager.Instance.ChangeCursorState(ECursorState.AreaSelect);
+    }
+
+    private void HandleSelectBoxUpdate()
+    {
+        if (!_selectBoxActive) return;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            _startedSelecting = true;
+            _selectBoxStartPos = UtilsClass.GetMouseWorldPosition();
+            _selectionBox.gameObject.SetActive(true);
         }
 
-        private void OnDestroy()
+        if (Input.GetMouseButton(0) && _startedSelecting)
         {
-            GameEvents.OnRightClickDown -= TurnOffSelectionBox;
+            ResizeSelectionBox();
         }
 
-        public void TurnOffSelectionBox( Vector3 mousePos, PlayerInputState inputState, bool isOverUI )
+        if (Input.GetMouseButtonUp(0) && _startedSelecting)
         {
-            ClearAllValidInSelection();
-            _selectBoxActive = false;
-            _selectionBox.gameObject.SetActive(false);
-            _selectionBox.localScale = Vector3.zero;
+            ReleaseSelectionBox();
         }
+    }
 
-        public void BeginCommandSelectionBox(Command command, Action onCompleted)
-        {
-            _pendingCommand = command;
-            _selectBoxActive = true;
-            _onCompleted = onCompleted;
-            CursorManager.Instance.ChangeCursorState(ECursorState.AreaSelect);
-        }
+    private void ResizeSelectionBox()
+    {
+        Vector3 currentMousePos = UtilsClass.GetMouseWorldPosition();
+        _lowerLeft = new Vector2(
+            Mathf.Min(_selectBoxStartPos.x, currentMousePos.x),
+            Mathf.Min(_selectBoxStartPos.y, currentMousePos.y)
+        );
+        _upperRight = new Vector2(
+            Mathf.Max(_selectBoxStartPos.x, currentMousePos.x),
+            Mathf.Max(_selectBoxStartPos.y, currentMousePos.y)
+        );
 
-        /// <summary>
-        /// Displays the selection box
-        /// </summary>
-        private Vector2 lowerLeft;
-        private Vector2 upperRight;
-        private void ResizeSelectionBox()
-        {
-            ClearAllValidInSelection();
-            
-            Vector3 currentMousePos = UtilsClass.GetMouseWorldPosition();
-            lowerLeft = new Vector2(
-                Mathf.Min(_selectBoxStartPos.x, currentMousePos.x),
-                Mathf.Min(_selectBoxStartPos.y, currentMousePos.y)
-            );
-            upperRight = new Vector2(
-                Mathf.Max(_selectBoxStartPos.x, currentMousePos.x),
-                Mathf.Max(_selectBoxStartPos.y, currentMousePos.y)
-            );
-            
-            _selectionBox.position = lowerLeft;
-            _selectionBox.localScale = upperRight - lowerLeft;
-            
-            RecordAllValidInSelection(_pendingCommand);
-        }
+        _selectionBox.position = _lowerLeft;
+        _selectionBox.localScale = _upperRight - _lowerLeft;
 
-        /// <summary>
-        /// Gets the Object in the box, and assigns the order to them (if applicable)
-        /// </summary>
-        public void ReleaseOrdersSelectionBox()
+        HighlightObjectsInSelectionBox();
+    }
+
+    private void HighlightObjectsInSelectionBox()
+    {
+        ClearSelection();
+
+        var allItems = Physics2D.OverlapAreaAll(_lowerLeft, _upperRight);
+
+        foreach (var itemOverlapped in allItems)
         {
-            foreach (var clickableObject in _selectedObjects)
+            var playerInteractable = itemOverlapped.gameObject.GetComponent<PlayerInteractable>();
+            if (playerInteractable != null && playerInteractable.ObjectValidForCommandSelection(_pendingCommand))
             {
-                clickableObject.GetPlayerInteractable().AssignCommand(_pendingCommand);
-            }
-            
-            DeactivateSelectionBox();
-            
-            _onCompleted.Invoke();
-        }
-
-        public void DeactivateSelectionBox()
-        {
-            CursorManager.Instance.ChangeCursorState(ECursorState.Default);
-            
-            _startedSelecting = false;
-            _selectionBox.gameObject.SetActive(false);
-            _selectionBox.localScale = Vector3.zero;
-            _selectBoxActive = false;
-            
-            ClearAllValidInSelection();
-        }
-
-        private void RecordAllValidInSelection(Command pendingCommand)
-        {
-            var allItems = Physics2D.OverlapAreaAll(_selectBoxStartPos, UtilsClass.GetMouseWorldPosition());
-            foreach (var itemOverlapped in allItems)
-            {
-                var clickObject = itemOverlapped.gameObject.GetComponent<IClickableObject>();
-                if (clickObject != null && clickObject.GetClickObject().ObjectValidForSelection(pendingCommand))
-                {
-                    _selectedObjects.Add(clickObject);
-                    clickObject.GetClickObject().AreaSelectObject(pendingCommand);
-                }
-            }
-        }
-
-        private void ClearAllValidInSelection()
-        {
-            foreach (var clickObject in _selectedObjects)
-            {
-                clickObject.GetClickObject().UnselectAreaSelection();
-            }
-            
-            _selectedObjects.Clear();
-        }
-        
-        private void Update()
-        {
-            HandleSelectBoxUpdate();
-            HandleUserClick();
-        }
-
-        private void HandleUserClick()
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                var isOverUI = EventSystem.current.IsPointerOverGameObject();
-                if(isOverUI) return;
-                
-                var clickObjs = Helper.GetClickObjectsAtPos(UtilsClass.GetMouseWorldPosition());
-                if (clickObjs.IsNullOrEmpty())
-                {
-                    var clickDetector = Helper.GetObjectAtPosition<ClickDetector>(UtilsClass.GetMouseWorldPosition());
-                    // if (clickDetector == null)
-                    // {
-                    //     PlayerInputController.Instance.ClearSelection();
-                    // }
-                    if (clickDetector != null)
-                    {
-                        PlayerInputController.Instance.ClearSelection();
-                    }
-                }
-                
-                if (clickObjs.Count > 0)
-                {
-                    if (AreClickObjectsSame(_prevClickObjects, clickObjs))
-                    {
-                        _prevClickObjectIndex++;
-                        if (_prevClickObjectIndex > _prevClickObjects.Count - 1)
-                        {
-                            _prevClickObjectIndex = 0;
-                        }
-                        clickObjs[_prevClickObjectIndex].TriggerSelected();
-                    }
-                    else
-                    {
-                        _prevClickObjectIndex = 0;
-                        clickObjs[_prevClickObjectIndex].TriggerSelected();
-                    }
-                }
-                else
-                {
-                    _prevClickObjectIndex = 0;
-                }
-                _prevClickObjects = clickObjs;
-            }
-
-            if (Input.GetMouseButtonDown(1))
-            {
-                var isOverUI = EventSystem.current.IsPointerOverGameObject();
-                if(isOverUI) return;
-                
-                if (PlayerInputController.Instance.SelectedKinling != null)
-                {
-                    var clickObjs = Helper.GetClickObjectsAtPos(UtilsClass.GetMouseWorldPosition());
-                    if (clickObjs.Count > 0)
-                    {
-                        if (AreClickObjectsSame(_prevClickObjects, clickObjs))
-                        {
-                            _prevClickObjectIndex++;
-                            if (_prevClickObjectIndex > _prevClickObjects.Count - 1)
-                            {
-                                _prevClickObjectIndex = 0;
-                            }
-                            clickObjs[_prevClickObjectIndex].TriggerShowCommands(PlayerInputController.Instance.SelectedKinling);
-                        }
-                        else
-                        {
-                            _prevClickObjectIndex = 0;
-                            clickObjs[_prevClickObjectIndex].TriggerShowCommands(PlayerInputController.Instance.SelectedKinling);
-                        }
-                    }
-                    else
-                    {
-                        _prevClickObjectIndex = 0;
-                    }
-
-                    _prevClickObjects = clickObjs;
-                }
-                else
-                {
-                    PlayerInputController.Instance.ClearSelection();
-                }
+                Select(playerInteractable);
             }
         }
+    }
 
-        private bool AreClickObjectsSame(List<ClickObject> prev, List<ClickObject> current)
+    private void ReleaseSelectionBox()
+    {
+        _startedSelecting = false;
+        _selectBoxActive = false;
+        _selectionBox.gameObject.SetActive(false);
+        _selectionBox.localScale = Vector3.zero;
+
+        // Assign commands to all selected objects
+        foreach (var selectedObject in _selectedObjects)
         {
-            if (prev.Count != current.Count) return false;
-
-            foreach (var curObj in current)
-            {
-                if (!prev.Contains(curObj)) return false;
-            }
-
-            return true;
+            selectedObject.AssignCommand(_pendingCommand);
         }
-        
-        private void HandleSelectBoxUpdate()
-        {
-            if (!_selectBoxActive) return;
 
-            if (Input.GetMouseButtonDown(0))
-            {
-                _startedSelecting = true;
-                _selectionBox.gameObject.SetActive(true);
-                _selectBoxStartPos = UtilsClass.GetMouseWorldPosition();
-            } 
-            else if (Input.GetMouseButton(0))
-            {
-                ResizeSelectionBox();
-            }
-            else if (Input.GetMouseButtonUp(0) && _startedSelecting)
-            {
-                ReleaseOrdersSelectionBox();
-            }
-        }
+        _onCompleted?.Invoke();
+        CursorManager.Instance.ChangeCursorState(ECursorState.Default);
     }
 }

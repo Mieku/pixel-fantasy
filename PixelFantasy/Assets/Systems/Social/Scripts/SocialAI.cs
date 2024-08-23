@@ -6,7 +6,6 @@ using Managers;
 using ScriptableObjects;
 using Systems.Appearance.Scripts;
 using Systems.Notifications.Scripts;
-using TaskSystem;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -356,9 +355,9 @@ namespace Systems.Social.Scripts
 
         public void ReceiveMateRequest()
         {
-            Task mateTask = new Task("Receive Mate", ETaskType.Personal, null, EToolType.None);
-            
-            _kinling.TaskAI.QueueTask(mateTask);
+            // Task mateTask = new Task("Receive Mate", ETaskType.Personal, null, EToolType.None);
+            //
+            // _kinling.TaskAI.QueueTask(mateTask);
         }
 
         public bool ReadyToGoMate
@@ -369,8 +368,8 @@ namespace Systems.Social.Scripts
 
         public void CancelMateRequest()
         {
-            _kinling.TaskAI.CancelTask("Receive Mate");
-            _kinling.TaskAI.CancelTask("Mate");
+            // _kinling.TaskAI.CancelTask("Receive Mate");
+            // _kinling.TaskAI.CancelTask("Mate");
         }
 
         public void MatingComplete(bool wasSuccessful)
