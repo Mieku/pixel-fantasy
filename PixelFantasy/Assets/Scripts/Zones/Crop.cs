@@ -50,7 +50,17 @@ namespace Zones
             get => RuntimeData.PendingTaskUID;
             set => RuntimeData.PendingTaskUID = value;
         }
-        
+
+        public override bool IsSimilar(PlayerInteractable otherPI)
+        {
+            if (otherPI is Crop crop)
+            {
+                return RuntimeData.Settings == crop.RuntimeData.Settings;
+            }
+
+            return false;
+        }
+
         public List<string> InvalidPlacementTags
         {
             get

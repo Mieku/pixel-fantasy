@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Characters;
 using Systems.Details.Controls_Details.Scripts;
 using Systems.Details.Generic_Details.Scripts;
@@ -15,6 +16,7 @@ namespace HUD
         [Header("Generic Details")] 
         [SerializeField] private ZoneDetails _zoneDetails;
         [SerializeField] private GenericDetails _genericDetails;
+        [SerializeField] private MultipleDetails _multipleDetails;
 
         [Header("Kinling Details")] 
         [SerializeField] private KinlingDetails _kinlingDetails;
@@ -29,14 +31,6 @@ namespace HUD
             
             _controlsDetails.Show();
         }
-
-        public void ShowUnitDetails(Kinling kinling)
-        {
-            HideAllDetails();
-            _notificationLogger.Hide();
-
-            _kinlingDetails.Show(kinling);
-        }
         
         public void HideAllDetails()
         {
@@ -45,14 +39,30 @@ namespace HUD
             _kinlingDetails.Hide();
             _notificationLogger.Hide();
             _controlsDetails.Hide();
+            _multipleDetails.Hide();
         }
 
         public void ShowItemDetails(PlayerInteractable playerInteractable)
         {
             HideAllDetails();
             _notificationLogger.Hide();
+
+            if (playerInteractable is Kinling kinling)
+            {
+                _kinlingDetails.Show(kinling);
+            }
+            else
+            {
+                _genericDetails.Show(playerInteractable);
+            }
+        }
+
+        public void ShowMultipleDetailed(List<PlayerInteractable> playerInteractables)
+        {
+            HideAllDetails();
+            _notificationLogger.Hide();
             
-            _genericDetails.Show(playerInteractable);
+            _multipleDetails.Show(playerInteractables);
         }
 
         public void ShowZoneDetails(ZoneData zoneData)

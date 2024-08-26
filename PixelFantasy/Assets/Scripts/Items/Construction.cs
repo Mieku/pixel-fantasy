@@ -29,7 +29,12 @@ namespace Items
         {
             
         }
-        
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+        }
+
         public abstract void LoadData(ConstructionData data);
         
         public override void AssignCommand(Command command)
@@ -64,7 +69,7 @@ namespace Items
         {
             var workAmount = stats.GetActionSpeedForSkill(ESkillType.Construction, true);
             RuntimeData.RemainingWork -= workAmount;
-            Changed();
+            InformChanged();
             
             if (RuntimeData.RemainingWork <= 0)
             {
@@ -83,7 +88,7 @@ namespace Items
         {
             var workAmount = stats.GetActionSpeedForSkill(ESkillType.Construction, true);
             RuntimeData.RemainingWork -= workAmount;
-            Changed();
+            InformChanged();
             if (RuntimeData.RemainingWork <= 0)
             {
                 CompleteDeconstruction();
@@ -95,12 +100,6 @@ namespace Items
                 progress = 1 - (RuntimeData.RemainingWork / RuntimeData.Settings.CraftRequirements.WorkCost);
                 return false;
             }
-        }
-
-        // When values change this should be called, is a hook for callbacks
-        protected virtual void Changed()
-        {
-            OnChanged?.Invoke();
         }
 
         public virtual void CancelConstruction()
@@ -134,7 +133,7 @@ namespace Items
                 CreateConstructTask();
             }
             
-            Changed();
+            InformChanged();
         }
         
         public void AddToIncomingItems(ItemData itemData)
@@ -210,7 +209,7 @@ namespace Items
                 _onDeconstructed.Invoke();
             }
             
-            Changed();
+            InformChanged();
             
             // Delete the structure
             Destroy(gameObject);

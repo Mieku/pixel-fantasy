@@ -16,6 +16,11 @@ public abstract class PlayerInteractable : MonoBehaviour
     public abstract string UniqueID { get; }
     public abstract string DisplayName { get; }
     public abstract string PendingTaskUID { get; set; }
+    
+    /// <summary>
+    /// This is for situations where you want to check if a pi is similar, for example when double-clicking to select all similar
+    /// </summary>
+    public abstract bool IsSimilar(PlayerInteractable otherPI);
 
     protected static bool _isQuitting = false;
 
@@ -180,6 +185,21 @@ public abstract class PlayerInteractable : MonoBehaviour
     }
 
     public Action OnChanged { get; set; }
+    public Action<PlayerInteractable> OnDestroyed;
+
+    public void InformChanged()
+    {
+        OnChanged?.Invoke();
+    }
+
+    protected virtual void OnDestroy()
+    {
+        if (!_isQuitting)
+        {
+            OnDestroyed?.Invoke(this);
+        }
+    }
+
     public bool IsSelected
     {
         get => _isSelected;

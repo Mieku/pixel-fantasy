@@ -189,6 +189,7 @@ namespace Items
                 GrowingResourceData.HasFruitAvailable = false;
                 RefreshSelection();
                 RefreshTaskIcon();
+                InformChanged();
             }
 
             GrowingResourceData.RemainingHarvestWork = GrowingResourceData.GrowingResourceSettings.WorkToHarvest;

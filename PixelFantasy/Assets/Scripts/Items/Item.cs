@@ -14,13 +14,23 @@ namespace Items
         
         public ItemData RuntimeData;
         public override string UniqueID => RuntimeData.UniqueID;
-        
+
         public override string PendingTaskUID
         {
             get => RuntimeData.PendingTaskUID;
             set => RuntimeData.PendingTaskUID = value;
         }
-        
+
+        public override bool IsSimilar(PlayerInteractable otherPI)
+        {
+            if (otherPI is Item otherItem)
+            {
+                return RuntimeData.Settings == otherItem.RuntimeData.Settings;
+            }
+
+            return false;
+        }
+
         public void InitializeItem(ItemSettings settings, bool allowed)
         {
             RuntimeData = settings.CreateItemData();
@@ -143,8 +153,9 @@ namespace Items
             GameEvents.OnInventoryAvailabilityChanged += GameEvent_OnInventoryAvailabilityChanged;
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
             if (_isQuitting) return;
             
             GameEvents.OnInventoryAvailabilityChanged -= GameEvent_OnInventoryAvailabilityChanged;

@@ -34,7 +34,12 @@ namespace Characters
             get => RuntimeData.CurrentTaskID;
             set => RuntimeData.CurrentTaskID = value;
         }
-        
+
+        public override bool IsSimilar(PlayerInteractable otherPI)
+        {
+            return otherPI is Kinling;
+        }
+
         public KinlingAgent KinlingAgent;
         public Avatar Avatar;
         public Item HeldItem;
@@ -56,8 +61,10 @@ namespace Characters
             _environmentDetector.OnIsIndoorsUpdated += OnIsIndoorsChanged;
         }
         
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
+            
             if(_isQuitting) return;
             
             KinlingsDatabase.Instance.DeregisterKinling(RuntimeData);

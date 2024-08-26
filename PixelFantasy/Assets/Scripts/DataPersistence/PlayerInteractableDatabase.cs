@@ -23,6 +23,33 @@ public class PlayerInteractableDatabase : Singleton<PlayerInteractableDatabase>
         return _registeredPIs[uniqueID];
     }
 
+    public List<PlayerInteractable> GetAllSimilarVisiblePIs(PlayerInteractable piToMatch)
+    {
+        List<PlayerInteractable> visibleInteractables = new List<PlayerInteractable>();
+        Camera mainCamera = Camera.main;
+
+        foreach (var kvp in _registeredPIs)
+        {
+            var pi = kvp.Value;
+
+            // Check if the pis are similar
+            if (piToMatch.IsSimilar(pi))
+            {
+                Vector3 viewportPoint = mainCamera.WorldToViewportPoint(pi.transform.position);
+
+                // Check if the object is within the camera's view
+                if (viewportPoint.x >= 0 && viewportPoint.x <= 1 &&
+                    viewportPoint.y >= 0 && viewportPoint.y <= 1 &&
+                    viewportPoint.z > 0) // Check that the object is in front of the camera
+                {
+                    visibleInteractables.Add(pi);
+                }
+            }
+        }
+
+        return visibleInteractables;
+    }
+    
     public void ClearDatabase()
     {
         _registeredPIs.Clear();

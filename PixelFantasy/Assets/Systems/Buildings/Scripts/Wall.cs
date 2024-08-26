@@ -15,6 +15,16 @@ namespace Systems.Buildings.Scripts
         
         public override string DisplayName => RuntimeWallData.SelectedWallOption.WallName;
 
+        public override bool IsSimilar(PlayerInteractable otherPI)
+        {
+            if (otherPI is Wall wall)
+            {
+                return wall.RuntimeWallData.SelectedWallOption == RuntimeWallData.SelectedWallOption;
+            }
+
+            return false;
+        }
+
         public void Init(WallSettings wallSettings, DyeSettings colour)
         {
             RuntimeData = new WallData();

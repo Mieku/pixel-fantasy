@@ -15,7 +15,17 @@ namespace Systems.Floors.Scripts
         
         public FloorData RuntimeFloorData => RuntimeData as FloorData;
         public override string DisplayName => RuntimeFloorData.FloorSettings.FloorName;
-        
+
+        public override bool IsSimilar(PlayerInteractable otherPI)
+        {
+            if (otherPI is Floor floor)
+            {
+                return RuntimeFloorData.FloorSettings == floor.RuntimeFloorData.FloorSettings;
+            }
+
+            return false;
+        }
+
         protected override void Awake()
         {
             base.Awake();

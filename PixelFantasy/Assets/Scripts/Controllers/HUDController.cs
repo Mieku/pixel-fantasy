@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Characters;
 using HUD;
 using Managers;
@@ -21,6 +22,11 @@ public class HUDController : Singleton<HUDController>
         GameEvents.OnGameSpeedChanged -= OnGameSpeedChanged;
     }
 
+    public void ShowMultipleDetails(List<PlayerInteractable> playerInteractables)
+    {
+        _selectedItemInfoPanel.ShowMultipleDetailed(playerInteractables);
+    }
+
     public void ShowItemDetails(PlayerInteractable playerInteractable)
     {
         _selectedItemInfoPanel.ShowItemDetails(playerInteractable);
@@ -34,11 +40,6 @@ public class HUDController : Singleton<HUDController>
     public void ShowZoneDetails(ZoneData zoneData)
     {
         _selectedItemInfoPanel.ShowZoneDetails(zoneData);
-    }
-    
-    public void ShowUnitDetails(Kinling kinling)
-    {
-        _selectedItemInfoPanel.ShowUnitDetails(kinling);
     }
         
     public void ShowBuildStructureDetails(DoorSettings doorSettings)

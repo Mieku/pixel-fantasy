@@ -10,6 +10,9 @@ namespace Controllers
         private PlayerInputState _playerInputState = PlayerInputState.None;
         private Vector3 _currentMousePos;
         private bool _isOverUI;
+        
+        private float _lastClickTime = 0f;
+        private const float DOUBLE_CLICK_TIME = 0.3f; // Time in seconds
 
         protected override void Awake()
         {
@@ -52,7 +55,32 @@ namespace Controllers
         private void LeftClickDown()
         {
             if (_isOverUI) return;
+            
+            float timeSinceLastClick = Time.time - _lastClickTime;
+    
+            if (timeSinceLastClick <= DOUBLE_CLICK_TIME)
+            {
+                // Double click detected
+                DoubleLeftClickDown();
 
+                // Reset the last click time to avoid unnecessary checks
+                _lastClickTime = 0;
+            }
+            else
+            {
+                if (timeSinceLastClick > DOUBLE_CLICK_TIME * 2) // Adjust as needed
+                {
+                    // Reset the timer if the time since the last click is significantly more than the double click threshold
+                    _lastClickTime = Time.time;
+                }
+
+                // Single click logic, only if not detected as double click
+                SingleLeftClickDown();
+            }
+        }
+
+        private void SingleLeftClickDown()
+        {
             // Trigger selection handling via SelectionManager
             var playerInteractable = Helper.GetObjectAtPosition<PlayerInteractable>(_currentMousePos);
             if (playerInteractable != null)
@@ -65,6 +93,16 @@ namespace Controllers
             }
 
             GameEvents.Trigger_OnLeftClickDown(_currentMousePos, _playerInputState, _isOverUI);
+        }
+
+        private void DoubleLeftClickDown()
+        {
+            var playerInteractable = Helper.GetObjectAtPosition<PlayerInteractable>(_currentMousePos);
+            
+            if(playerInteractable == null) return;
+
+            var visiblePIs = PlayerInteractableDatabase.Instance.GetAllSimilarVisiblePIs(playerInteractable);
+            SelectionManager.Instance.SelectMultiple(visiblePIs);
         }
 
         private void LeftClickUp()

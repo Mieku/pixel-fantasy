@@ -24,6 +24,16 @@ namespace Systems.Buildings.Scripts
         public DoorData RuntimeDoorData => RuntimeData as DoorData;
         public override string DisplayName => RuntimeDoorData.DoorSettings.DoorName;
 
+        public override bool IsSimilar(PlayerInteractable otherPI)
+        {
+            if (otherPI is Door)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public void Init(DoorSettings doorSettings, DyeSettings matColour)
         {
             RuntimeData = new DoorData();

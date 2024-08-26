@@ -60,6 +60,16 @@ namespace Items
             set => RuntimeData.PendingTaskUID = value;
         }
 
+        public override bool IsSimilar(PlayerInteractable otherPI)
+        {
+            if (otherPI is Furniture furniture)
+            {
+                return RuntimeData.FurnitureSettings == furniture.RuntimeData.FurnitureSettings;
+            }
+
+            return false;
+        }
+
         protected virtual void Awake()
         {
             _fadePropertyID = Shader.PropertyToID("_OuterOutlineFade");
@@ -69,8 +79,10 @@ namespace Items
             GameEvents.OnRightClickUp += GameEvents_OnRightClickUp;
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
+            
             if (!_isPlanning)
             {
                 FurnitureDatabase.Instance.DeregisterFurniture(RuntimeData);
@@ -109,7 +121,7 @@ namespace Items
         public virtual void CompletePlanning()
         {
             _isPlanning = false;
-            OnChanged?.Invoke();
+            InformChanged();
         }
 
         public virtual void InitializeFurniture(FurnitureSettings furnitureSettings, PlacementDirection direction, DyeSettings dye)
@@ -395,7 +407,7 @@ namespace Items
                     throw new ArgumentOutOfRangeException();
             }
             
-            OnChanged?.Invoke();
+            InformChanged();
         }
 
         private List<Transform> UseagePositions()
@@ -536,7 +548,7 @@ namespace Items
                 CreateConstructTask();
             }
             
-            OnChanged?.Invoke();
+            InformChanged();
         }
 
         public bool DoConstruction(StatsData stats, out float progress)
@@ -553,7 +565,7 @@ namespace Items
             else
             {
                 progress = RuntimeData.ConstructionPercent;
-                OnChanged?.Invoke();
+                InformChanged();
                 return false;
             }
         }
@@ -562,7 +574,7 @@ namespace Items
         {
             var workAmount = stats.GetActionSpeedForSkill(ESkillType.Crafting, true);
             RuntimeData.RemainingWork -= workAmount;
-            OnChanged?.Invoke();
+            InformChanged();
             
             if (RuntimeData.RemainingWork <= 0)
             {
@@ -593,7 +605,7 @@ namespace Items
             // Delete this
             Destroy(gameObject);
             
-            OnChanged?.Invoke();
+            InformChanged();
         }
         
         public void DoPlacement()

@@ -78,7 +78,7 @@ namespace Items
                     var task = order.CreateTask(this);
                     TasksDatabase.Instance.AddTask(task);
                     order.State = CraftingOrder.EOrderState.Claimed;
-                    OnChanged?.Invoke();
+                    InformChanged();
                 }
             }
         }
@@ -94,7 +94,7 @@ namespace Items
                     RuntimeTableData.CurrentOrder.SetOrderState(CraftingOrder.EOrderState.Completed);
             
                     AssignItemToTable(null, null);
-                    OnChanged?.Invoke();
+                    InformChanged();
                 }
             }
         }
@@ -151,7 +151,7 @@ namespace Items
                 RuntimeTableData.CurrentOrderID = null;
             }
             
-            OnChanged?.Invoke();
+            InformChanged();
         }
 
         public void AssignMealToTable(MealSettings mealSettings, List<string> claimedIngredientsUIDs)
@@ -166,7 +166,7 @@ namespace Items
                 ShowCraftingPreview(null);
                 RuntimeTableData.CurrentOrder.ClaimedItemUIDs = null;
             }
-            OnChanged?.Invoke();
+            InformChanged();
         }
 
         public void ShowCraftingPreview(Sprite craftingImg)

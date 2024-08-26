@@ -49,7 +49,7 @@ namespace Items
         {
             RuntimeStorageData.DepositItems(item);
             Destroy(item.gameObject);
-            OnChanged?.Invoke();
+            InformChanged();
         }
 
         public Item WithdrawItem(ItemData itemData)

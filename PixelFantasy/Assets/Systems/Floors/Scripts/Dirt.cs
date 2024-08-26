@@ -15,6 +15,16 @@ namespace Systems.Floors.Scripts
         [SerializeField] private TileBase _dirtRuleTile;
         public override string DisplayName => "Dirt";
 
+        public override bool IsSimilar(PlayerInteractable otherPI)
+        {
+            if (otherPI is Dirt)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public enum EDirtState
         {
             

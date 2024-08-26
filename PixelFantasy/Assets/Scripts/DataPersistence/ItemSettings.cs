@@ -15,8 +15,6 @@ public class ItemSettings : ScriptableObject
     [SerializeField] protected bool _hasQuality = true;
     [SerializeField] protected EItemQuality _defaultQuality = EItemQuality.Common;
         
-    //[SerializeField] private ItemData _baseData;
-        
     public EItemCategory Category => _category;
     public string ItemName => _itemName;
     public Sprite ItemSprite => _itemSprite;

@@ -76,7 +76,7 @@ public class FurnitureData
     
     protected void OnChanged()
     {
-        GetLinkedFurniture()?.OnChanged?.Invoke();
+        GetLinkedFurniture().InformChanged();
     }
 
     public void SetPrimaryOwner(KinlingData kinlingData)

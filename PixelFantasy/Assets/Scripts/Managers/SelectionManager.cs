@@ -33,29 +33,50 @@ public class SelectionManager : Singleton<SelectionManager>
     {
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
-            ToggleSelection(playerInteractable);
+            SelectAdditional(playerInteractable);
         }
         else
         {
-            SelectSingle(playerInteractable);
-        }
-    }
-
-    public void SelectSingle(PlayerInteractable playerInteractable)
-    {
-        ClearSelection();
-        Select(playerInteractable);
-    }
-
-    public void ToggleSelection(PlayerInteractable playerInteractable)
-    {
-        if (_selectedObjects.Contains(playerInteractable))
-        {
-            Deselect(playerInteractable);
-        }
-        else
-        {
+            ClearSelection();
             Select(playerInteractable);
+        }
+    }
+
+    public void SelectMultiple(List<PlayerInteractable> selectedPIs)
+    {
+        if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.RightShift))
+        {
+            ClearSelection();
+        }
+        
+        foreach (var pi in selectedPIs)
+        {
+            _selectedObjects.Add(pi);
+            pi.IsSelected = true;
+        }
+        
+        HUDController.Instance.ShowMultipleDetails(_selectedObjects);
+    }
+
+    public void UnSelect(List<PlayerInteractable> unselectedPIs)
+    {
+        foreach (var pi in unselectedPIs)
+        {
+            _selectedObjects.Remove(pi);
+            pi.IsSelected = false;
+        }
+        
+        if (_selectedObjects.Count > 1)
+        {
+            HUDController.Instance.ShowMultipleDetails(_selectedObjects);
+        }
+        else if (_selectedObjects.Count == 0)
+        {
+            HUDController.Instance.HideDetails();
+        }
+        else
+        {
+            HUDController.Instance.ShowItemDetails(_selectedObjects[0]);
         }
     }
 
@@ -64,6 +85,33 @@ public class SelectionManager : Singleton<SelectionManager>
         _selectedObjects.Add(playerInteractable);
         playerInteractable.IsSelected = true;
         HUDController.Instance.ShowItemDetails(playerInteractable);
+    }
+    
+    public void SelectAdditional(PlayerInteractable playerInteractable)
+    {
+        if (_selectedObjects.Contains(playerInteractable))
+        {
+            _selectedObjects.Remove(playerInteractable);
+            playerInteractable.IsSelected = false;
+        }
+        else
+        {
+            _selectedObjects.Add(playerInteractable);
+            playerInteractable.IsSelected = true;
+        }
+
+        if (_selectedObjects.Count > 1)
+        {
+            HUDController.Instance.ShowMultipleDetails(_selectedObjects);
+        }
+        else if (_selectedObjects.Count == 0)
+        {
+            HUDController.Instance.HideDetails();
+        }
+        else
+        {
+            HUDController.Instance.ShowItemDetails(playerInteractable);
+        }
     }
 
     public void Deselect(PlayerInteractable playerInteractable)

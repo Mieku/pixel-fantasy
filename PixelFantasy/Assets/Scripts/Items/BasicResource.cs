@@ -27,9 +27,20 @@ namespace Items
             get => RuntimeData.PendingTaskUID;
             set => RuntimeData.PendingTaskUID = value;
         }
-        
-        protected virtual void OnDestroy()
+
+        public override bool IsSimilar(PlayerInteractable otherPI)
         {
+            if (otherPI is BasicResource basicResource)
+            {
+                return _settings == basicResource._settings;
+            }
+
+            return false;
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
             ResourcesDatabase.Instance.DeregisterResource(this);
         }
 
