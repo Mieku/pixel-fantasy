@@ -15,9 +15,11 @@ public class Command : ScriptableObject
 
     public Task Task => TasksDatabase.Instance.QueryTask(TaskID);
 
+    private const float FADE_ALPHA = 0.5f;
+
     public Color GetFadedColour()
     {
-        return new Color(IconColour.r, IconColour.g, IconColour.b, 0.4f);
+        return new Color(IconColour.r, IconColour.g, IconColour.b, FADE_ALPHA);
     }
 
     public bool CanDoCommand(Kinling kinling, PlayerInteractable interactable)
