@@ -4,13 +4,13 @@ namespace Systems.Zones.Scripts
 {
     public class ZoneCell : MonoBehaviour
     {
-        protected ZoneData _data;
+        public ZoneData RuntimeData;
 
         public Vector3Int CellPos;
 
         public virtual void Init(ZoneData data, Vector3Int cellPos)
         {
-            _data = data;
+            RuntimeData = data;
             CellPos = cellPos;
         }
 
@@ -27,12 +27,12 @@ namespace Systems.Zones.Scripts
 
         public virtual void TransferOwner(ZoneData zoneData)
         {
-            _data = zoneData;
+            RuntimeData = zoneData;
         }
 
         private void OnMouseDown()
         {
-            ZonesDatabase.Instance.SelectZone(_data);
+            ZonesDatabase.Instance.SelectZone(RuntimeData);
         }
     }
 }

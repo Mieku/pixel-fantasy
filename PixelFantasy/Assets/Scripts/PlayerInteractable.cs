@@ -184,7 +184,7 @@ public abstract class PlayerInteractable : MonoBehaviour
         return new List<Command>(_commands);
     }
 
-    public Action OnChanged { get; set; }
+    public Action OnChanged;
     public Action<PlayerInteractable> OnDestroyed;
 
     public void InformChanged()

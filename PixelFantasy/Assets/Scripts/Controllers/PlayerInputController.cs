@@ -1,6 +1,7 @@
 using UnityEngine;
 using CodeMonkey.Utils;
 using Managers;
+using Systems.Zones.Scripts;
 using UnityEngine.EventSystems;
 
 namespace Controllers
@@ -39,6 +40,11 @@ namespace Controllers
             if (Input.GetMouseButtonDown(0))
             {
                 LeftClickDown();
+            }
+
+            if (Input.GetMouseButton(0))
+            {
+                LeftClickHeld();
             }
 
             if (Input.GetMouseButtonUp(0))
@@ -83,9 +89,15 @@ namespace Controllers
         {
             // Trigger selection handling via SelectionManager
             var playerInteractable = Helper.GetObjectAtPosition<PlayerInteractable>(_currentMousePos);
+            var zone = Helper.GetObjectAtPosition<ZoneCell>(_currentMousePos);
             if (playerInteractable != null)
             {
                 SelectionManager.Instance.HandleClick(playerInteractable);
+            }
+            else if (zone != null)
+            {
+                SelectionManager.Instance.ClearSelection();
+                zone.RuntimeData.SelectZone();
             }
             else
             {
@@ -98,13 +110,19 @@ namespace Controllers
         private void DoubleLeftClickDown()
         {
             var playerInteractable = Helper.GetObjectAtPosition<PlayerInteractable>(_currentMousePos);
-            
-            if(playerInteractable == null) return;
 
-            var visiblePIs = PlayerInteractableDatabase.Instance.GetAllSimilarVisiblePIs(playerInteractable);
-            SelectionManager.Instance.SelectMultiple(visiblePIs);
+            if (playerInteractable != null)
+            {
+                var visiblePIs = PlayerInteractableDatabase.Instance.GetAllSimilarVisiblePIs(playerInteractable);
+                SelectionManager.Instance.SelectMultiple(visiblePIs);
+            }
         }
-
+        
+        private void LeftClickHeld()
+        {
+            GameEvents.Trigger_OnLeftClickHeld(_currentMousePos, _playerInputState, _isOverUI);
+        }
+        
         private void LeftClickUp()
         {
             GameEvents.Trigger_OnLeftClickUp(_currentMousePos, _playerInputState, _isOverUI);

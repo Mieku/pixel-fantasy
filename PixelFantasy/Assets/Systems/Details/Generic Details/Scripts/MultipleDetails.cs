@@ -18,8 +18,8 @@ namespace Systems.Details.Generic_Details.Scripts
         [SerializeField] private CommandBtn _commandBtnPrefab;
 
         private List<PlayerInteractable> _selectedPIs = new List<PlayerInteractable>();
-        private List<SelectedGroupDisplay> _displayedGroups = new List<SelectedGroupDisplay>();
-        private List<CommandBtn> _displayedCmds = new List<CommandBtn>();
+        private readonly List<SelectedGroupDisplay> _displayedGroups = new List<SelectedGroupDisplay>();
+        private readonly List<CommandBtn> _displayedCmds = new List<CommandBtn>();
 
         public void Show(List<PlayerInteractable> playerInteractables)
         {
