@@ -21,11 +21,6 @@ namespace DataPersistence
             base.InitData(settings);
             RemainingWork = MountainSettings.WorkToExtract;
         }
-        
-        public RuleTile GetRuleTile()
-        {
-            return MountainSettings.RuleTile;
-        }
 
         public List<CostSettings> GetMineDrop()
         {

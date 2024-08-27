@@ -24,5 +24,6 @@ MonoBehaviour:
   _maxHealth: 60
   _minWorkDistance: 0.75
   _extractionSkillType: 0
-  _ruleTile: {fileID: 11400000, guid: 93e70c7ca59bc304194a8337ca2b45d0, type: 2}
+  _extractionMinSkillLevel: 0
+  _ruleTile: {fileID: 11400000, guid: d7eb2ad09c9f4de4184e23fcdc18e501, type: 2}
   _mountainTileType: 3

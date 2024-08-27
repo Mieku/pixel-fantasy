@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TilemapGoldMountain_0
+      name: MountainTiles_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,20 +131,46 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -1, y: 7}
+        - {x: -1, y: 6}
+        - {x: -3, y: 6}
+        - {x: -3, y: 5}
+        - {x: -4, y: 5}
+        - {x: -4, y: 4}
+        - {x: -5, y: 4}
+        - {x: -5, y: 2}
+        - {x: -6, y: 2}
+        - {x: -6, y: -2}
+        - {x: -7, y: -2}
+        - {x: -7, y: -8}
+        - {x: -8, y: -8}
+        - {x: 8, y: -8}
+        - {x: 7, y: -8}
+        - {x: 7, y: -2}
+        - {x: 6, y: -2}
+        - {x: 6, y: 2}
+        - {x: 5, y: 2}
+        - {x: 5, y: 4}
+        - {x: 4, y: 4}
+        - {x: 4, y: 5}
+        - {x: 3, y: 5}
+        - {x: 3, y: 6}
+        - {x: 1, y: 6}
+        - {x: 1, y: 7}
       tessellationDetail: 0
       bones: []
-      spriteID: 59740f215ecfa4145867f1f5b38c0e83
-      internalID: -2090159402
+      spriteID: 4d98a6ca2415e974182587907acd7c26
+      internalID: 820732708
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_1
+      name: MountainTiles_1
       rect:
         serializedVersion: 2
         x: 16
@@ -152,20 +178,37 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: 3, y: 8}
+        - {x: 3, y: 7}
+        - {x: -1, y: 7}
+        - {x: -1, y: 6}
+        - {x: -3, y: 6}
+        - {x: -3, y: 5}
+        - {x: -4, y: 5}
+        - {x: -4, y: 4}
+        - {x: -5, y: 4}
+        - {x: -5, y: 2}
+        - {x: -6, y: 2}
+        - {x: -6, y: -2}
+        - {x: -7, y: -2}
+        - {x: -7, y: -8}
+        - {x: -8, y: -8}
+        - {x: 8, y: -8}
+        - {x: 8, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: 100a5542434386e43afac6a779083a1e
-      internalID: -442897383
+      spriteID: b173bfb2cca9dc54ab4ae40eeb739eca
+      internalID: -215326889
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_2
+      name: MountainTiles_2
       rect:
         serializedVersion: 2
         x: 32
@@ -173,20 +216,28 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: 1, y: 8}
+        - {x: 1, y: 7}
+        - {x: -2, y: 7}
+        - {x: -2, y: 8}
+        - {x: -8, y: 8}
+        - {x: -8, y: -8}
+        - {x: 8, y: -8}
+        - {x: 8, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: f90e30db971bb1041899c5470623d88c
-      internalID: -1622566937
+      spriteID: 1ebc834b39ad2a740b1b1a48a2cc570c
+      internalID: 1722516724
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_3
+      name: MountainTiles_3
       rect:
         serializedVersion: 2
         x: 48
@@ -194,20 +245,37 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: 8}
+        - {x: -8, y: -8}
+        - {x: 8, y: -8}
+        - {x: 7, y: -8}
+        - {x: 7, y: -2}
+        - {x: 6, y: -2}
+        - {x: 6, y: 2}
+        - {x: 5, y: 2}
+        - {x: 5, y: 4}
+        - {x: 4, y: 4}
+        - {x: 4, y: 5}
+        - {x: 3, y: 5}
+        - {x: 3, y: 6}
+        - {x: 1, y: 6}
+        - {x: 1, y: 7}
+        - {x: -3, y: 7}
+        - {x: -3, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: b36d6b600ea55a2469d1c09f3c8a746e
-      internalID: -627683582
+      spriteID: 3f89c6e34ab28544692c3492ef00cacc
+      internalID: -1707482445
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_4
+      name: MountainTiles_4
       rect:
         serializedVersion: 2
         x: 64
@@ -215,20 +283,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb46ea3bdde48c1479015d5471a2cdc2
-      internalID: -1201838370
+      spriteID: 95267057fcafc7c4f8cac74222108587
+      internalID: 56055243
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_5
+      name: MountainTiles_5
       rect:
         serializedVersion: 2
         x: 80
@@ -236,20 +304,28 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: 2, y: 8}
+        - {x: 2, y: 7}
+        - {x: -1, y: 7}
+        - {x: -1, y: 8}
+        - {x: -8, y: 8}
+        - {x: -8, y: -8}
+        - {x: 8, y: -8}
+        - {x: 8, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: d40d6ef5bb6cae4479b12513512a3bbc
-      internalID: 1399484812
+      spriteID: 50a368d7f27478a49a991074c7aeb956
+      internalID: -393628593
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_6
+      name: MountainTiles_6
       rect:
         serializedVersion: 2
         x: 96
@@ -257,20 +333,28 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: 1, y: 8}
+        - {x: 1, y: 7}
+        - {x: -2, y: 7}
+        - {x: -2, y: 8}
+        - {x: -8, y: 8}
+        - {x: -8, y: -8}
+        - {x: 8, y: -8}
+        - {x: 8, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: dee35bac5948c0d47a405f6e9ff8ec68
-      internalID: -1603937994
+      spriteID: 9f7738aed497d09489947aa472793d3f
+      internalID: 1060833719
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_7
+      name: MountainTiles_7
       rect:
         serializedVersion: 2
         x: 112
@@ -278,20 +362,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9728a9d70ab59f64f8e9c04e8520754f
-      internalID: 721403310
+      spriteID: acab94f992d8c214f8077f9e2cabbf99
+      internalID: 1909006626
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_8
+      name: MountainTiles_8
       rect:
         serializedVersion: 2
         x: 128
@@ -299,20 +383,37 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
-      tessellationDetail: 0
+      physicsShape:
+      - - {x: 3, y: 8}
+        - {x: 3, y: 7}
+        - {x: -1, y: 7}
+        - {x: -1, y: 6}
+        - {x: -3, y: 6}
+        - {x: -3, y: 5}
+        - {x: -4, y: 5}
+        - {x: -4, y: 4}
+        - {x: -5, y: 4}
+        - {x: -5, y: 2}
+        - {x: -6, y: 2}
+        - {x: -6, y: -2}
+        - {x: -7, y: -2}
+        - {x: -7, y: -8}
+        - {x: -8, y: -8}
+        - {x: 8, y: -8}
+        - {x: 8, y: 8}
+      tessellationDetail: 1
       bones: []
-      spriteID: d06131eca70ba2243bf1fc07059e6902
-      internalID: -733270428
+      spriteID: 4033511ef4610484d8dc79e969d94fa4
+      internalID: -157626340
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_9
+      name: MountainTiles_9
       rect:
         serializedVersion: 2
         x: 144
@@ -320,20 +421,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 01bf748bedc1c744d8a483612f5094eb
-      internalID: -206130035
+      spriteID: 6df4fc3064453bd4b8624ac10899503f
+      internalID: -1690749033
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_10
+      name: MountainTiles_10
       rect:
         serializedVersion: 2
         x: 160
@@ -341,20 +442,28 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: 1, y: 8}
+        - {x: 1, y: 7}
+        - {x: -2, y: 7}
+        - {x: -2, y: 8}
+        - {x: -8, y: 8}
+        - {x: -8, y: -8}
+        - {x: 8, y: -8}
+        - {x: 8, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: 2e31d7fd26d7a5543a3513f95a8e735b
-      internalID: -941539590
+      spriteID: 93b51b40a5515da4c98e6639bcb250f9
+      internalID: 2050749480
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_11
+      name: MountainTiles_11
       rect:
         serializedVersion: 2
         x: 176
@@ -362,20 +471,37 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: 8}
+        - {x: -8, y: -8}
+        - {x: 8, y: -8}
+        - {x: 7, y: -8}
+        - {x: 7, y: -2}
+        - {x: 6, y: -2}
+        - {x: 6, y: 2}
+        - {x: 5, y: 2}
+        - {x: 5, y: 4}
+        - {x: 4, y: 4}
+        - {x: 4, y: 5}
+        - {x: 3, y: 5}
+        - {x: 3, y: 6}
+        - {x: 1, y: 6}
+        - {x: 1, y: 7}
+        - {x: -3, y: 7}
+        - {x: -3, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: cc98162e33c28274fb4fee23bfc0e7d5
-      internalID: 1189282327
+      spriteID: c0169dac2a095b44dbc0f87ed28b201b
+      internalID: 488934258
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_12
+      name: MountainTiles_12
       rect:
         serializedVersion: 2
         x: 0
@@ -383,20 +509,38 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: 8}
+        - {x: -8, y: 3}
+        - {x: -7, y: 3}
+        - {x: -7, y: 2}
+        - {x: -6, y: 2}
+        - {x: -6, y: -2}
+        - {x: -7, y: -2}
+        - {x: -7, y: -8}
+        - {x: -8, y: -8}
+        - {x: 8, y: -8}
+        - {x: 7, y: -8}
+        - {x: 7, y: -2}
+        - {x: 6, y: -2}
+        - {x: 6, y: 2}
+        - {x: 7, y: 2}
+        - {x: 7, y: 3}
+        - {x: 8, y: 3}
+        - {x: 8, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: 8426d4109ad888d4fb83d2e785c4841b
-      internalID: -1677468974
+      spriteID: c2aff5a8d58e5694eb03d93610495852
+      internalID: 971052854
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_13
+      name: MountainTiles_13
       rect:
         serializedVersion: 2
         x: 16
@@ -404,20 +548,31 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: 8}
+        - {x: -8, y: 3}
+        - {x: -7, y: 3}
+        - {x: -7, y: 2}
+        - {x: -6, y: 2}
+        - {x: -6, y: -2}
+        - {x: -7, y: -2}
+        - {x: -7, y: -8}
+        - {x: -8, y: -8}
+        - {x: 8, y: -8}
+        - {x: 8, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: b45f84dafb671d44699cde65c866d58e
-      internalID: -353182238
+      spriteID: c2799a718ae189749abf6fb229978926
+      internalID: 1196536667
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_14
+      name: MountainTiles_14
       rect:
         serializedVersion: 2
         x: 32
@@ -425,20 +580,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0260a7fc027411c4cba84e0d63eed504
-      internalID: -591032518
+      spriteID: ad5b7dd3a102d194fb3e361ec404e55c
+      internalID: -1092256473
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_15
+      name: MountainTiles_15
       rect:
         serializedVersion: 2
         x: 48
@@ -446,20 +601,31 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: 8}
+        - {x: -8, y: -8}
+        - {x: 8, y: -8}
+        - {x: 7, y: -8}
+        - {x: 7, y: -2}
+        - {x: 6, y: -2}
+        - {x: 6, y: 2}
+        - {x: 7, y: 2}
+        - {x: 7, y: 3}
+        - {x: 8, y: 3}
+        - {x: 8, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: 55b179f5ad421e346b1a52ffee4f7f92
-      internalID: -1696223221
+      spriteID: 1a04184e2e1ca2148951006612dbccfb
+      internalID: 1525135870
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_16
+      name: MountainTiles_16
       rect:
         serializedVersion: 2
         x: 64
@@ -467,20 +633,31 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: 8}
+        - {x: -8, y: 3}
+        - {x: -7, y: 3}
+        - {x: -7, y: 2}
+        - {x: -6, y: 2}
+        - {x: -6, y: -2}
+        - {x: -7, y: -2}
+        - {x: -7, y: -8}
+        - {x: -8, y: -8}
+        - {x: 8, y: -8}
+        - {x: 8, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: e9ea3e8d62d59ae449c5a2e4a44df6b2
-      internalID: -1262119954
+      spriteID: 429f273b0fa5fa24bbfbce95cb9d6b33
+      internalID: 1989167007
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_17
+      name: MountainTiles_17
       rect:
         serializedVersion: 2
         x: 80
@@ -488,20 +665,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d854e41687b32f441a067a7feaee801e
-      internalID: -1566705374
+      spriteID: 663e43114e60ea34a8c1a9e5fce62a4b
+      internalID: 1488768231
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_18
+      name: MountainTiles_18
       rect:
         serializedVersion: 2
         x: 96
@@ -509,20 +686,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a15de12d039922249b3eba0c1f1d2682
-      internalID: -390612458
+      spriteID: 152cd36e9a0cdb941bde0544414adc5d
+      internalID: -608167291
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_19
+      name: MountainTiles_19
       rect:
         serializedVersion: 2
         x: 112
@@ -530,20 +707,31 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: 8}
+        - {x: -8, y: -8}
+        - {x: 8, y: -8}
+        - {x: 7, y: -8}
+        - {x: 7, y: -2}
+        - {x: 6, y: -2}
+        - {x: 6, y: 2}
+        - {x: 7, y: 2}
+        - {x: 7, y: 3}
+        - {x: 8, y: 3}
+        - {x: 8, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: 445e084b2817abc4a9fe39137a0a3a06
-      internalID: -1877362637
+      spriteID: 72888fba80319ca4e988c4eefad0cd5c
+      internalID: -742284006
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_20
+      name: MountainTiles_20
       rect:
         serializedVersion: 2
         x: 128
@@ -551,20 +739,31 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: 8}
+        - {x: -8, y: 3}
+        - {x: -7, y: 3}
+        - {x: -7, y: 2}
+        - {x: -6, y: 2}
+        - {x: -6, y: -2}
+        - {x: -7, y: -2}
+        - {x: -7, y: -8}
+        - {x: -8, y: -8}
+        - {x: 8, y: -8}
+        - {x: 8, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: 7660a12dd0358f146a8d88edfa852476
-      internalID: -1491698921
+      spriteID: 1f5dde90b215e424a930aaddd0cf1782
+      internalID: -961402311
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_21
+      name: MountainTiles_21
       rect:
         serializedVersion: 2
         x: 144
@@ -572,20 +771,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5a9026e87929c52479eb455ddfd2a374
-      internalID: 787487016
+      spriteID: 5fedab8ef027cdb4bacc28e6a65ec0a6
+      internalID: -1096641021
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_22
+      name: MountainTiles_22
       rect:
         serializedVersion: 2
         x: 176
@@ -593,20 +792,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 37b19f5607e264e4585846127157f7ab
-      internalID: -1737613583
+      spriteID: 017a6d21a52fcf4489a3d0542875c025
+      internalID: -173128624
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_23
+      name: MountainTiles_23
       rect:
         serializedVersion: 2
         x: 0
@@ -614,20 +813,40 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: 8}
+        - {x: -8, y: 3}
+        - {x: -7, y: 3}
+        - {x: -7, y: 0}
+        - {x: -6, y: 0}
+        - {x: -6, y: -4}
+        - {x: -5, y: -4}
+        - {x: -5, y: -5}
+        - {x: -4, y: -5}
+        - {x: -4, y: -6}
+        - {x: 4, y: -6}
+        - {x: 4, y: -5}
+        - {x: 5, y: -5}
+        - {x: 5, y: -4}
+        - {x: 6, y: -4}
+        - {x: 6, y: 0}
+        - {x: 7, y: 0}
+        - {x: 7, y: 3}
+        - {x: 8, y: 3}
+        - {x: 8, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: d51af2d0cf8ce1a4a871b4fb6f407e0b
-      internalID: -682473735
+      spriteID: fe5a7eb90ad0e7e43936f0d407026603
+      internalID: 972834260
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_24
+      name: MountainTiles_24
       rect:
         serializedVersion: 2
         x: 16
@@ -635,20 +854,38 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: 8}
+        - {x: -8, y: 3}
+        - {x: -7, y: 3}
+        - {x: -7, y: 0}
+        - {x: -6, y: 0}
+        - {x: -6, y: -4}
+        - {x: -5, y: -4}
+        - {x: -5, y: -5}
+        - {x: -4, y: -5}
+        - {x: -4, y: -6}
+        - {x: 0, y: -6}
+        - {x: 0, y: -7}
+        - {x: 3, y: -7}
+        - {x: 3, y: -8}
+        - {x: 8, y: -8}
+        - {x: 8, y: 7}
+        - {x: 6, y: 7}
+        - {x: 6, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: c38030a61024ccd4db5cefb3c15af048
-      internalID: 1509237400
+      spriteID: df5c4e697461d584eaff0b51053e6a02
+      internalID: -1885993128
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_25
+      name: MountainTiles_25
       rect:
         serializedVersion: 2
         x: 32
@@ -656,20 +893,35 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: 7, y: 8}
+        - {x: -7, y: 8}
+        - {x: -7, y: 7}
+        - {x: -8, y: 7}
+        - {x: -8, y: -8}
+        - {x: -8, y: -7}
+        - {x: -2, y: -7}
+        - {x: -2, y: -6}
+        - {x: 2, y: -6}
+        - {x: 2, y: -7}
+        - {x: 3, y: -7}
+        - {x: 3, y: -8}
+        - {x: 8, y: -8}
+        - {x: 8, y: 7}
+        - {x: 7, y: 7}
       tessellationDetail: 0
       bones: []
-      spriteID: db5cd693283502b4d8e6b641603525cc
-      internalID: 371022764
+      spriteID: 0d6810751e8ae1c43ab260359ab93554
+      internalID: -1477530961
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_26
+      name: MountainTiles_26
       rect:
         serializedVersion: 2
         x: 48
@@ -677,20 +929,38 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -6, y: 8}
+        - {x: -6, y: 7}
+        - {x: -8, y: 7}
+        - {x: -8, y: -8}
+        - {x: -3, y: -8}
+        - {x: -3, y: -7}
+        - {x: 0, y: -7}
+        - {x: 0, y: -6}
+        - {x: 4, y: -6}
+        - {x: 4, y: -5}
+        - {x: 5, y: -5}
+        - {x: 5, y: -4}
+        - {x: 6, y: -4}
+        - {x: 6, y: 0}
+        - {x: 7, y: 0}
+        - {x: 7, y: 3}
+        - {x: 8, y: 3}
+        - {x: 8, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: ff240c4cbfe3d974487eb8a12d2842d6
-      internalID: -378091602
+      spriteID: 5e77caa3fc0bcae41bb1fcd9054a44f8
+      internalID: 838113963
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_27
+      name: MountainTiles_27
       rect:
         serializedVersion: 2
         x: 64
@@ -698,20 +968,31 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: 8}
+        - {x: -8, y: 3}
+        - {x: -7, y: 3}
+        - {x: -7, y: 2}
+        - {x: -6, y: 2}
+        - {x: -6, y: -2}
+        - {x: -7, y: -2}
+        - {x: -7, y: -8}
+        - {x: -8, y: -8}
+        - {x: 8, y: -8}
+        - {x: 8, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: cdf6d35ab76a88c47ad7c7946e0bff9e
-      internalID: -807189958
+      spriteID: e0f07204f10681b43b6fd5f758f72729
+      internalID: 1577154283
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_28
+      name: MountainTiles_28
       rect:
         serializedVersion: 2
         x: 80
@@ -719,20 +1000,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 62436ea639bf6794ead78510b6821a9e
-      internalID: 23536608
+      spriteID: aa35969bc3b9f46428b344f9a592ca97
+      internalID: -1341850386
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_29
+      name: MountainTiles_29
       rect:
         serializedVersion: 2
         x: 96
@@ -740,20 +1021,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: da35bb00378302f479f97063b6e46cc7
-      internalID: -477939254
+      spriteID: 695848ceaa918064a8d32fc7826b47fa
+      internalID: 1564677758
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_30
+      name: MountainTiles_30
       rect:
         serializedVersion: 2
         x: 112
@@ -761,20 +1042,31 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: 8}
+        - {x: -8, y: -8}
+        - {x: 8, y: -8}
+        - {x: 7, y: -8}
+        - {x: 7, y: -2}
+        - {x: 6, y: -2}
+        - {x: 6, y: 2}
+        - {x: 7, y: 2}
+        - {x: 7, y: 3}
+        - {x: 8, y: 3}
+        - {x: 8, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: 1e772540378dbcf45b6b3b7184265476
-      internalID: 787610079
+      spriteID: 0c4dc0a85d09feb4585b253076951c7f
+      internalID: -1676434845
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_31
+      name: MountainTiles_31
       rect:
         serializedVersion: 2
         x: 128
@@ -782,20 +1074,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4cea5afb8bd3626469f3cd227b115d07
-      internalID: -1915540107
+      spriteID: b50300a216d392441ac3be26c20f10ab
+      internalID: -1799710793
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_32
+      name: MountainTiles_32
       rect:
         serializedVersion: 2
         x: 144
@@ -803,20 +1095,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 20360234764342043b6c888634b48e4d
-      internalID: -261481951
+      spriteID: 4d29b8e98e9b1e44eb8ed6526592898b
+      internalID: 744219084
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_33
+      name: MountainTiles_33
       rect:
         serializedVersion: 2
         x: 160
@@ -824,20 +1116,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0fb0ee4596491ee42a763c481154774b
-      internalID: -962237974
+      spriteID: 39e162160504e444aa71f257d3351507
+      internalID: 888123040
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_34
+      name: MountainTiles_34
       rect:
         serializedVersion: 2
         x: 176
@@ -845,20 +1137,31 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: 8}
+        - {x: -8, y: -8}
+        - {x: 8, y: -8}
+        - {x: 7, y: -8}
+        - {x: 7, y: -2}
+        - {x: 6, y: -2}
+        - {x: 6, y: 2}
+        - {x: 7, y: 2}
+        - {x: 7, y: 3}
+        - {x: 8, y: 3}
+        - {x: 8, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: 3d5452bb7e3315b449bad1b42b522622
-      internalID: 266767750
+      spriteID: c0d06eaef324df6478e00cf58ca079a4
+      internalID: -471479160
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_35
+      name: MountainTiles_35
       rect:
         serializedVersion: 2
         x: 0
@@ -866,20 +1169,48 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -1, y: 7}
+        - {x: -1, y: 6}
+        - {x: -3, y: 6}
+        - {x: -3, y: 5}
+        - {x: -4, y: 5}
+        - {x: -4, y: 4}
+        - {x: -5, y: 4}
+        - {x: -5, y: 2}
+        - {x: -6, y: 2}
+        - {x: -6, y: -4}
+        - {x: -5, y: -4}
+        - {x: -5, y: -5}
+        - {x: -4, y: -5}
+        - {x: -4, y: -6}
+        - {x: 0, y: -6}
+        - {x: 0, y: -7}
+        - {x: 5, y: -7}
+        - {x: 5, y: -6}
+        - {x: 6, y: -6}
+        - {x: 6, y: -5}
+        - {x: 7, y: -5}
+        - {x: 7, y: 4}
+        - {x: 6, y: 4}
+        - {x: 6, y: 5}
+        - {x: 5, y: 5}
+        - {x: 5, y: 6}
+        - {x: 4, y: 6}
+        - {x: 4, y: 7}
       tessellationDetail: 0
       bones: []
-      spriteID: f4edbc726f03fce4dae134d2bb265151
-      internalID: -1737689449
+      spriteID: 9e27bb46e329905488697bba3a36298d
+      internalID: 1925443608
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_36
+      name: MountainTiles_36
       rect:
         serializedVersion: 2
         x: 16
@@ -887,20 +1218,42 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: 3, y: 8}
+        - {x: 3, y: 7}
+        - {x: -1, y: 7}
+        - {x: -1, y: 6}
+        - {x: -3, y: 6}
+        - {x: -3, y: 5}
+        - {x: -4, y: 5}
+        - {x: -4, y: 4}
+        - {x: -5, y: 4}
+        - {x: -5, y: 2}
+        - {x: -6, y: 2}
+        - {x: -6, y: -4}
+        - {x: -5, y: -4}
+        - {x: -5, y: -5}
+        - {x: -4, y: -5}
+        - {x: -4, y: -6}
+        - {x: 0, y: -6}
+        - {x: 0, y: -7}
+        - {x: 3, y: -7}
+        - {x: 3, y: -8}
+        - {x: 8, y: -8}
+        - {x: 8, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: cda278912a8509442817697597636699
-      internalID: 783465309
+      spriteID: 3db8f579e530b2f41abc4afe9bf85ae9
+      internalID: 700974173
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_37
+      name: MountainTiles_37
       rect:
         serializedVersion: 2
         x: 32
@@ -908,20 +1261,35 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: 1, y: 8}
+        - {x: 1, y: 7}
+        - {x: -2, y: 7}
+        - {x: -2, y: 8}
+        - {x: -8, y: 8}
+        - {x: -8, y: -7}
+        - {x: -5, y: -7}
+        - {x: -2, y: -7}
+        - {x: -2, y: -6}
+        - {x: 2, y: -6}
+        - {x: 2, y: -7}
+        - {x: 3, y: -7}
+        - {x: 3, y: -8}
+        - {x: 8, y: -8}
+        - {x: 8, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: 0874322fa3ea4924e9ee1da3a71b09ff
-      internalID: -124950650
+      spriteID: 561c86b730d0ee243bf64942a49d088c
+      internalID: 1180691775
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_38
+      name: MountainTiles_38
       rect:
         serializedVersion: 2
         x: 48
@@ -929,20 +1297,42 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: 8}
+        - {x: -8, y: -8}
+        - {x: -3, y: -8}
+        - {x: -3, y: -7}
+        - {x: 0, y: -7}
+        - {x: 0, y: -6}
+        - {x: 4, y: -6}
+        - {x: 4, y: -5}
+        - {x: 5, y: -5}
+        - {x: 5, y: -4}
+        - {x: 6, y: -4}
+        - {x: 6, y: 2}
+        - {x: 5, y: 2}
+        - {x: 5, y: 4}
+        - {x: 4, y: 4}
+        - {x: 4, y: 5}
+        - {x: 3, y: 5}
+        - {x: 3, y: 6}
+        - {x: 1, y: 6}
+        - {x: 1, y: 7}
+        - {x: -3, y: 7}
+        - {x: -3, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: a5070605743859244a62e33331df23ae
-      internalID: 1728565986
+      spriteID: 3f7b87c94349023439473dd5382b6de1
+      internalID: -988567033
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_39
+      name: MountainTiles_39
       rect:
         serializedVersion: 2
         x: 64
@@ -950,20 +1340,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c108b35618397944a9a6709ce9e5fd8
-      internalID: -1149381841
+      spriteID: 931a08475008db94a8eefc019df7f0b9
+      internalID: -1346020165
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_40
+      name: MountainTiles_40
       rect:
         serializedVersion: 2
         x: 80
@@ -971,20 +1361,32 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -7, y: 8}
+        - {x: -7, y: 7}
+        - {x: -8, y: 7}
+        - {x: -8, y: -8}
+        - {x: -3, y: -8}
+        - {x: -3, y: -7}
+        - {x: -2, y: -7}
+        - {x: -2, y: -6}
+        - {x: 2, y: -6}
+        - {x: 2, y: -7}
+        - {x: 8, y: -7}
+        - {x: 8, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: 837e8390c92408c46bab417ba509950d
-      internalID: -115872128
+      spriteID: c6305567fc7e3534bb9bd1d46e017bc8
+      internalID: -1811797030
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_41
+      name: MountainTiles_41
       rect:
         serializedVersion: 2
         x: 96
@@ -992,20 +1394,32 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: 7, y: 8}
+        - {x: -8, y: 8}
+        - {x: -8, y: -7}
+        - {x: -2, y: -7}
+        - {x: -2, y: -6}
+        - {x: 2, y: -6}
+        - {x: 2, y: -7}
+        - {x: 3, y: -7}
+        - {x: 3, y: -8}
+        - {x: 8, y: -8}
+        - {x: 8, y: 7}
+        - {x: 7, y: 7}
       tessellationDetail: 0
       bones: []
-      spriteID: 2a16625be96f7114b8154ab683d52e2b
-      internalID: -107251733
+      spriteID: b2f343042d6e909478a6d4564a31f129
+      internalID: 815114338
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_42
+      name: MountainTiles_42
       rect:
         serializedVersion: 2
         x: 112
@@ -1013,20 +1427,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7624d3f7861f8d248a71a301e5ca76ea
-      internalID: 1917838029
+      spriteID: 60d37e445b7948549b08c9945c2bfdb4
+      internalID: -63226101
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_43
+      name: MountainTiles_43
       rect:
         serializedVersion: 2
         x: 128
@@ -1034,20 +1448,36 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: 8}
+        - {x: -8, y: 3}
+        - {x: -7, y: 3}
+        - {x: -7, y: 0}
+        - {x: -6, y: 0}
+        - {x: -6, y: -4}
+        - {x: -5, y: -4}
+        - {x: -5, y: -5}
+        - {x: -4, y: -5}
+        - {x: -4, y: -6}
+        - {x: 0, y: -6}
+        - {x: 0, y: -7}
+        - {x: 3, y: -7}
+        - {x: 3, y: -8}
+        - {x: 8, y: -8}
+        - {x: 8, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: 5a1d6f8e9ff4b134a8d3f62cbdd2fe62
-      internalID: -370791215
+      spriteID: d19ce79df42ba0e45b5070f1357ae0f7
+      internalID: 1668693212
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_44
+      name: MountainTiles_44
       rect:
         serializedVersion: 2
         x: 144
@@ -1055,20 +1485,31 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: 8}
+        - {x: -8, y: -8}
+        - {x: -8, y: -7}
+        - {x: -2, y: -7}
+        - {x: -2, y: -6}
+        - {x: 2, y: -6}
+        - {x: 2, y: -7}
+        - {x: 3, y: -7}
+        - {x: 3, y: -8}
+        - {x: 8, y: -8}
+        - {x: 8, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: 97d26685442cfc840bf0ae31b2465593
-      internalID: 694474002
+      spriteID: 9d7fed867399b4e40a9d322a6862e815
+      internalID: -104238044
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_45
+      name: MountainTiles_45
       rect:
         serializedVersion: 2
         x: 160
@@ -1076,20 +1517,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a1935977f8a871e4f9ba980c880b2a5b
-      internalID: 2089598054
+      spriteID: 43d8e87db167eaf449c590aaee64906e
+      internalID: -2050192619
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_46
+      name: MountainTiles_46
       rect:
         serializedVersion: 2
         x: 176
@@ -1097,20 +1538,36 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: 8}
+        - {x: -8, y: -8}
+        - {x: -3, y: -8}
+        - {x: -3, y: -7}
+        - {x: 0, y: -7}
+        - {x: 0, y: -6}
+        - {x: 4, y: -6}
+        - {x: 4, y: -5}
+        - {x: 5, y: -5}
+        - {x: 5, y: -4}
+        - {x: 6, y: -4}
+        - {x: 6, y: 0}
+        - {x: 7, y: 0}
+        - {x: 7, y: 3}
+        - {x: 8, y: 3}
+        - {x: 8, y: 8}
       tessellationDetail: 0
       bones: []
-      spriteID: 8139f00bb09559b42ade847763ac2f04
-      internalID: 994966407
+      spriteID: 75dfa5b08c6e7ab44a0d940ba37386c7
+      internalID: -1960470467
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_47
+      name: MountainTiles_47
       rect:
         serializedVersion: 2
         x: 0
@@ -1118,20 +1575,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e70224929f2bdb644a959b46f340a8bb
-      internalID: 607654772
+      spriteID: 9b63629be505a554d8397e1a603da197
+      internalID: -739945012
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_48
+      name: MountainTiles_48
       rect:
         serializedVersion: 2
         x: 16
@@ -1139,20 +1596,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9c63b82702a999e4aa415d4dfc1aa1aa
-      internalID: -1716845008
+      spriteID: 80fb2fdc1361f6747b7f1df1a125820a
+      internalID: 1025019408
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_49
+      name: MountainTiles_49
       rect:
         serializedVersion: 2
         x: 32
@@ -1160,20 +1617,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f8f6b188418a7854fb9d8e37221fbf44
-      internalID: -131852826
+      spriteID: a4f15e01b1e430d4696c50cf8954074d
+      internalID: 950527983
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TilemapGoldMountain_50
+      name: MountainTiles_50
       rect:
         serializedVersion: 2
         x: 48
@@ -1181,14 +1638,14 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 68d245f2b09dcfd43bc6abfd0b3fc59d
-      internalID: -398769094
+      spriteID: 3a4001803220cd1498b9b6468bbab925
+      internalID: 351303489
       vertices: []
       indices: 
       edges: []
@@ -1204,57 +1661,57 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      TilemapGoldMountain_0: -2090159402
-      TilemapGoldMountain_1: -442897383
-      TilemapGoldMountain_10: -941539590
-      TilemapGoldMountain_11: 1189282327
-      TilemapGoldMountain_12: -1677468974
-      TilemapGoldMountain_13: -353182238
-      TilemapGoldMountain_14: -591032518
-      TilemapGoldMountain_15: -1696223221
-      TilemapGoldMountain_16: -1262119954
-      TilemapGoldMountain_17: -1566705374
-      TilemapGoldMountain_18: -390612458
-      TilemapGoldMountain_19: -1877362637
-      TilemapGoldMountain_2: -1622566937
-      TilemapGoldMountain_20: -1491698921
-      TilemapGoldMountain_21: 787487016
-      TilemapGoldMountain_22: -1737613583
-      TilemapGoldMountain_23: -682473735
-      TilemapGoldMountain_24: 1509237400
-      TilemapGoldMountain_25: 371022764
-      TilemapGoldMountain_26: -378091602
-      TilemapGoldMountain_27: -807189958
-      TilemapGoldMountain_28: 23536608
-      TilemapGoldMountain_29: -477939254
-      TilemapGoldMountain_3: -627683582
-      TilemapGoldMountain_30: 787610079
-      TilemapGoldMountain_31: -1915540107
-      TilemapGoldMountain_32: -261481951
-      TilemapGoldMountain_33: -962237974
-      TilemapGoldMountain_34: 266767750
-      TilemapGoldMountain_35: -1737689449
-      TilemapGoldMountain_36: 783465309
-      TilemapGoldMountain_37: -124950650
-      TilemapGoldMountain_38: 1728565986
-      TilemapGoldMountain_39: -1149381841
-      TilemapGoldMountain_4: -1201838370
-      TilemapGoldMountain_40: -115872128
-      TilemapGoldMountain_41: -107251733
-      TilemapGoldMountain_42: 1917838029
-      TilemapGoldMountain_43: -370791215
-      TilemapGoldMountain_44: 694474002
-      TilemapGoldMountain_45: 2089598054
-      TilemapGoldMountain_46: 994966407
-      TilemapGoldMountain_47: 607654772
-      TilemapGoldMountain_48: -1716845008
-      TilemapGoldMountain_49: -131852826
-      TilemapGoldMountain_5: 1399484812
-      TilemapGoldMountain_50: -398769094
-      TilemapGoldMountain_6: -1603937994
-      TilemapGoldMountain_7: 721403310
-      TilemapGoldMountain_8: -733270428
-      TilemapGoldMountain_9: -206130035
+      MountainTiles_0: 820732708
+      MountainTiles_1: -215326889
+      MountainTiles_10: 2050749480
+      MountainTiles_11: 488934258
+      MountainTiles_12: 971052854
+      MountainTiles_13: 1196536667
+      MountainTiles_14: -1092256473
+      MountainTiles_15: 1525135870
+      MountainTiles_16: 1989167007
+      MountainTiles_17: 1488768231
+      MountainTiles_18: -608167291
+      MountainTiles_19: -742284006
+      MountainTiles_2: 1722516724
+      MountainTiles_20: -961402311
+      MountainTiles_21: -1096641021
+      MountainTiles_22: -173128624
+      MountainTiles_23: 972834260
+      MountainTiles_24: -1885993128
+      MountainTiles_25: -1477530961
+      MountainTiles_26: 838113963
+      MountainTiles_27: 1577154283
+      MountainTiles_28: -1341850386
+      MountainTiles_29: 1564677758
+      MountainTiles_3: -1707482445
+      MountainTiles_30: -1676434845
+      MountainTiles_31: -1799710793
+      MountainTiles_32: 744219084
+      MountainTiles_33: 888123040
+      MountainTiles_34: -471479160
+      MountainTiles_35: 1925443608
+      MountainTiles_36: 700974173
+      MountainTiles_37: 1180691775
+      MountainTiles_38: -988567033
+      MountainTiles_39: -1346020165
+      MountainTiles_4: 56055243
+      MountainTiles_40: -1811797030
+      MountainTiles_41: 815114338
+      MountainTiles_42: -63226101
+      MountainTiles_43: 1668693212
+      MountainTiles_44: -104238044
+      MountainTiles_45: -2050192619
+      MountainTiles_46: -1960470467
+      MountainTiles_47: -739945012
+      MountainTiles_48: 1025019408
+      MountainTiles_49: 950527983
+      MountainTiles_5: -393628593
+      MountainTiles_50: 351303489
+      MountainTiles_6: 1060833719
+      MountainTiles_7: 1909006626
+      MountainTiles_8: -157626340
+      MountainTiles_9: -1690749033
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
