@@ -14,11 +14,53 @@ namespace Items
         [SerializeField] private RuleTile _dirtRuleTile;
 
         public MountainResourceData RuntimeMountainData => RuntimeData as MountainResourceData;
-        public override string DisplayName => MountainSettings.ResourceName;
+
+        public override string DisplayName
+        {
+            get
+            {
+                if (IsUnknown())
+                {
+                    return "Unknown Mountain";
+                }
+                else
+                {
+                    return MountainSettings.ResourceName;
+                }
+            }
+        }
 
         protected void Awake()
         {
             _tempPlacementDisp.SetActive(false);
+        }
+
+        /// <summary>
+        /// The player does not know the mountain type if it is fully surrounded
+        /// </summary>
+        public bool IsUnknown()
+        {
+            Vector2 topPos = RuntimeData.Position + Vector2.up;
+            Vector2 rightPos = RuntimeData.Position + Vector2.right;
+            Vector2 bottomPos = RuntimeData.Position + Vector2.down;
+            Vector2 leftPos = RuntimeData.Position + Vector2.left;
+            
+            Vector2 topRightPos = RuntimeData.Position + Vector2.up + Vector2.right;
+            Vector2 topLeftPos = RuntimeData.Position + Vector2.up + Vector2.left;
+            Vector2 bottomRightPos = RuntimeData.Position + Vector2.down + Vector2.right;
+            Vector2 bottomLeftPos = RuntimeData.Position + Vector2.down + Vector2.left;
+
+            if (Helper.GetObjectAtPosition<Mountain>(topPos) == null) return false;
+            if (Helper.GetObjectAtPosition<Mountain>(rightPos) == null) return false;
+            if (Helper.GetObjectAtPosition<Mountain>(bottomPos) == null) return false;
+            if (Helper.GetObjectAtPosition<Mountain>(leftPos) == null) return false;
+            
+            if (Helper.GetObjectAtPosition<Mountain>(topRightPos) == null) return false;
+            if (Helper.GetObjectAtPosition<Mountain>(topLeftPos) == null) return false;
+            if (Helper.GetObjectAtPosition<Mountain>(bottomRightPos) == null) return false;
+            if (Helper.GetObjectAtPosition<Mountain>(bottomLeftPos) == null) return false;
+            
+            return true;
         }
         
         public override void InitializeResource(ResourceSettings settings)
@@ -142,6 +184,31 @@ namespace Items
                 progress = 1f - (RuntimeData.Health / RuntimeData.MaxHealth);
                 return false;
             }
+        }
+
+        public override bool IsSimilar(PlayerInteractable otherPI)
+        {
+            if (otherPI is Mountain mountain)
+            {
+                if (IsUnknown())
+                {
+                    if (mountain.IsUnknown())
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    if (mountain.IsUnknown()) return false;
+
+                    if (mountain.MountainSettings == MountainSettings)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
     }
 }

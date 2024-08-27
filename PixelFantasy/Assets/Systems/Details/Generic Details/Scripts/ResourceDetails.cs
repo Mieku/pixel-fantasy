@@ -44,11 +44,28 @@ namespace Systems.Details.Generic_Details.Scripts
             _yieldDisplayPrefab.gameObject.SetActive(false);
             _harvestYieldDisplayPrefab.gameObject.SetActive(false);
 
-            _parentDetails.ItemName.color = Librarian.Instance.GetColour("Common Quality");
-            _parentDetails.ItemName.text = _basicResource.DisplayName;
+            if (basicResource is Mountain mountain)
+            {
+                _parentDetails.ItemName.color = Librarian.Instance.GetColour("Common Quality");
+                _parentDetails.ItemName.text = _basicResource.DisplayName;
+                
+                if (mountain.IsUnknown())
+                {
+                    _extractYieldHandle.gameObject.SetActive(false);
+                }
+                else
+                {
+                    DisplayExtractionYield();
+                }
+            }
+            else
+            {
+                _parentDetails.ItemName.color = Librarian.Instance.GetColour("Common Quality");
+                _parentDetails.ItemName.text = _basicResource.DisplayName;
             
-            DisplayExtractionYield();
-
+                DisplayExtractionYield();
+            }
+            
             var growingResource = _basicResource as GrowingResource;
             if (growingResource != null)
             {
