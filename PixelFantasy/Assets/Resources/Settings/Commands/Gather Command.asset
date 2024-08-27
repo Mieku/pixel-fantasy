@@ -15,5 +15,6 @@ MonoBehaviour:
   CommandID: Gather
   DisplayName: Gathering
   Icon: {fileID: 350764885, guid: a8d4051f8ee7c784a8c120a864932199, type: 3}
+  IconColour: {r: 0.996, g: 0.784, b: 0.141, a: 1}
   TaskID: Extract Resource
   TaskType: 8

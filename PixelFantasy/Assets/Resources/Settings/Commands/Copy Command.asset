@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Copy Command
   m_EditorClassIdentifier: 
   CommandID: Copy
-  placeholder: Copy
   DisplayName: 
   Icon: {fileID: -1482574715470509984, guid: e26abd876963dfe43b414675b92df28a, type: 3}
+  IconColour: {r: 0.996, g: 0.784, b: 0.141, a: 1}
   TaskID: 
   TaskType: 0

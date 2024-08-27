@@ -19,6 +19,7 @@ namespace HUD
             {
                 _canvasHandle.SetActive(true);
                 _icon.sprite = command.Icon;
+                _icon.color = command.GetFadedColour();
             }
             else
             {

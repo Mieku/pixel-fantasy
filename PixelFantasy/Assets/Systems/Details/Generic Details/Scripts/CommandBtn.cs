@@ -25,7 +25,7 @@ namespace Systems.Details.Generic_Details.Scripts
             _onCommandBtnPressed = onCommandBtnPressed;
 
             _icon.sprite = _command.Icon;
-            _icon.color = GameSettings.Instance.HighlightColour;
+            _icon.color = _command.IconColour;
             _tooltip.Header = _command.CommandID;
             
             Refresh();

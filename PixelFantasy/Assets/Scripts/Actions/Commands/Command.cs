@@ -8,11 +8,17 @@ public class Command : ScriptableObject
     public string CommandID;
     public string DisplayName;
     public Sprite Icon;
+    public Color IconColour = new Color(0.996f, 0.784f, 0.141f, 1f);
 
     public string TaskID;
     public ETaskType TaskType;
 
-    public AI.Task Task => TasksDatabase.Instance.QueryTask(TaskID);
+    public Task Task => TasksDatabase.Instance.QueryTask(TaskID);
+
+    public Color GetFadedColour()
+    {
+        return new Color(IconColour.r, IconColour.g, IconColour.b, 0.4f);
+    }
 
     public bool CanDoCommand(Kinling kinling, PlayerInteractable interactable)
     {
@@ -33,4 +39,6 @@ public class Command : ScriptableObject
 
         return true;
     }
+    
+    
 }

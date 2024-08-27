@@ -15,5 +15,6 @@ MonoBehaviour:
   CommandID: Cancel Command
   DisplayName: Cancel
   Icon: {fileID: -1243132105, guid: a8d4051f8ee7c784a8c120a864932199, type: 3}
+  IconColour: {r: 0.9607843, g: 0.33333334, b: 0.3647059, a: 1}
   TaskID: 
   TaskType: 0
