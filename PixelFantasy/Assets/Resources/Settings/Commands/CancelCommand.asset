@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: CancelCommand
   m_EditorClassIdentifier: 
   CommandID: Cancel Command
-  placeholder: Cancel Command
   DisplayName: Cancel
-  Icon: {fileID: 21300000, guid: 9369a0df8d92b2a41af1e6d7be118f65, type: 3}
+  Icon: {fileID: -1243132105, guid: a8d4051f8ee7c784a8c120a864932199, type: 3}
   TaskID: 
   TaskType: 0

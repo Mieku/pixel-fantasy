@@ -1,5 +1,6 @@
 using System;
 using HUD.Tooltip;
+using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,6 +25,7 @@ namespace Systems.Details.Generic_Details.Scripts
             _onCommandBtnPressed = onCommandBtnPressed;
 
             _icon.sprite = _command.Icon;
+            _icon.color = GameSettings.Instance.HighlightColour;
             _tooltip.Header = _command.CommandID;
             
             Refresh();

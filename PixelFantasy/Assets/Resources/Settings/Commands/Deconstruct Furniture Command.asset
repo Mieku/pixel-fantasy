@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Deconstruct Furniture Command
   m_EditorClassIdentifier: 
   CommandID: Deconstruct Furniture
-  placeholder: Deconstruct Furniture
   DisplayName: Deconstructing
-  Icon: {fileID: 21300000, guid: 6f3680b2988108f48963a71e8553651f, type: 3}
+  Icon: {fileID: -1643202348, guid: a8d4051f8ee7c784a8c120a864932199, type: 3}
   TaskID: Deconstruct Structure
   TaskType: 10

@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Move Furniture Command
   m_EditorClassIdentifier: 
   CommandID: Move Furniture
-  placeholder: Move Furniture
   DisplayName: Moving Furniture
-  Icon: {fileID: -51568864, guid: d9053f3442dafed4a9ea52ece16394c2, type: 3}
+  Icon: {fileID: -1595143641, guid: a8d4051f8ee7c784a8c120a864932199, type: 3}
   TaskID: 
   TaskType: 11

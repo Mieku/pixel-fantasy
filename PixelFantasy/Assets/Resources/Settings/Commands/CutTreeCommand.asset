@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: CutTreeCommand
   m_EditorClassIdentifier: 
   CommandID: Cut Tree
-  placeholder: Cut Tree
   DisplayName: Chopping Tree
-  Icon: {fileID: 21300000, guid: c010dce291f56fa43aa503464e20d207, type: 3}
+  Icon: {fileID: -538258057, guid: a8d4051f8ee7c784a8c120a864932199, type: 3}
   TaskID: Extract Resource
   TaskType: 9

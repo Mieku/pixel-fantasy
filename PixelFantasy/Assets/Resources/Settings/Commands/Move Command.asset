@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Move Command
   m_EditorClassIdentifier: 
   CommandID: Move
-  placeholder: Move
   DisplayName: Moving
-  Icon: {fileID: 0}
+  Icon: {fileID: -1595143641, guid: a8d4051f8ee7c784a8c120a864932199, type: 3}
   TaskID: 
   TaskType: 20

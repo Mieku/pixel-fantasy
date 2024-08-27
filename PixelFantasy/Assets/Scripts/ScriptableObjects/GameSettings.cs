@@ -58,6 +58,9 @@ namespace ScriptableObjects
         [BoxGroup("Camera"), ShowInInspector] public float SlowCameraSpeed { get; private set; } = 5f;
         [BoxGroup("Camera"), ShowInInspector] public float NormalCameraSpeed { get; private set; } = 8f;
         [BoxGroup("Camera"), ShowInInspector] public float FastCameraSpeed { get; private set; } = 12f;
+
+        [BoxGroup("Colours"), ShowInInspector] public Color HighlightColour { get; private set; } = new Color(0.996f, 0.784f, 0.141f, 1.000f);
+        [BoxGroup("Colours"), ShowInInspector] public Color IssueColour { get; private set; } = new Color(0.961f, 0.333f, 0.365f, 1.000f);
         
         public RaceSettings LoadRaceSettings(string raceName)
         {

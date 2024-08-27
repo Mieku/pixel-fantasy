@@ -387,14 +387,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selectedIcon: {fileID: 1813617973019056594}
-  _usesTintedSelection: 0
-  _spriteRendererToTint: {fileID: 0}
   _commandDisplay: {fileID: 5590397757889513232}
-  Commands:
-  - {fileID: 11400000, guid: f0e8dad8b311df84aaa187ea24d20432, type: 2}
+  _commands:
+  - {fileID: 11400000, guid: 1cc80951a1dad2e4aba7c19a791cd226, type: 2}
   _spriteRenderer: {fileID: 2315027090632040887}
-  _clickObject: {fileID: 0}
-  _defaultExtractCmd: {fileID: 11400000, guid: f0e8dad8b311df84aaa187ea24d20432, type: 2}
+  _defaultExtractCmd: {fileID: 11400000, guid: 1cc80951a1dad2e4aba7c19a791cd226, type: 2}
   _obstacleBox: {fileID: 2315027091890448862}
   _workPoints:
   - {fileID: 6280378282749039215}

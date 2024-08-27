@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: HarvestCommand
   m_EditorClassIdentifier: 
   CommandID: Harvest
-  placeholder: Harvest
   DisplayName: Harvesting
-  Icon: {fileID: 21300000, guid: d7d76457bfb4bfb46a854054ece86e92, type: 3}
+  Icon: {fileID: 1237447618, guid: a8d4051f8ee7c784a8c120a864932199, type: 3}
   TaskID: Harvest Resource
   TaskType: 8
