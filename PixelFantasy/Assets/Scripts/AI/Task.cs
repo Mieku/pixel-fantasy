@@ -94,7 +94,7 @@ namespace AI
             }
 
             var requester = PlayerInteractableDatabase.Instance.Query(RequesterID);
-            requester.OnTaskCancelled(this);
+            requester?.OnTaskCancelled(this);
                 
             Status = ETaskStatus.Canceled;
             TasksDatabase.Instance.RemoveTask(this);
@@ -103,7 +103,7 @@ namespace AI
         public void TaskComplete(bool success)
         {
             var requester = PlayerInteractableDatabase.Instance.Query(RequesterID);
-            requester.OnTaskComplete(this, success);
+            requester?.OnTaskComplete(this, success);
         }
 
         private string CreateUniqueID(string prefix)

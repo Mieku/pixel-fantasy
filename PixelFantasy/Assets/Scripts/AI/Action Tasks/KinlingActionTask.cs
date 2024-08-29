@@ -11,7 +11,7 @@ namespace AI.Action_Tasks
         protected override void OnStop(bool interrupted)
         {
             if (GameManager.Instance.GameIsQuitting) return;
-            if(DataPersistenceManager.WorldIsClearing) return;
+            if (DataPersistenceManager.WorldIsClearing) return;
             OnStopInternal(interrupted);
         }
 

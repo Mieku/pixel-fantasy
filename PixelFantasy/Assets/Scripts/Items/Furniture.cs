@@ -433,7 +433,7 @@ namespace Items
             
             foreach (var useageMarker in UseagePositions())
             {
-                bool result = Helper.IsGridPosValidToBuild(useageMarker.position, _invalidPlacementTags, new List<string>() ,gameObject);
+                bool result = !Helper.IsTagAtPosition(useageMarker.position, "Obstacle");
 
                 if (result)
                 {
@@ -452,11 +452,11 @@ namespace Items
                 }
             }
 
-            // if for some reason there is no remaining position, log an error but also just prove the furniture's transform position
+            // if for some reason there is no remaining position, log an error but also just provide the furniture's transform position
             if (distances.Count == 0)
             {
                 Debug.LogError($"Could not find a possible position for {gameObject.name}");
-                return null;
+                return transform.position;
             }
             
             // Compile the positions that pass the above tests and sort them by distance
@@ -536,8 +536,9 @@ namespace Items
         public override void ReceiveItem(ItemData itemData)
         {
             RuntimeData.RemoveFromIncomingItems(itemData);
-            
-            Destroy(itemData.GetLinkedItem().gameObject);
+
+            var item = (Item) itemData.GetLinkedItem();
+            Destroy(item.gameObject);
             
             itemData.CarryingKinlingUID = null;
             
@@ -600,13 +601,15 @@ namespace Items
         {
             FurnitureDatabase.Instance.DeregisterFurniture(RuntimeData);
                 
-            // Spawn All the resources used
+            // Spawn the resources used
             SpawnUsedResources(50f);
+            
+            InformChanged();
             
             // Delete this
             Destroy(gameObject);
             
-            InformChanged();
+            
         }
         
         public void DoPlacement()

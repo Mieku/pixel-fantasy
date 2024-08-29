@@ -175,7 +175,6 @@ public enum EItemState
     Stored,
     Carried,
     BeingProcessed,
-    Stacked,
 }
 
 public enum EItemQuality

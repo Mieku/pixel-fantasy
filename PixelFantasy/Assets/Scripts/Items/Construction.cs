@@ -118,7 +118,8 @@ namespace Items
         
         public override void ReceiveItem(ItemData itemData)
         {
-            Destroy(itemData.GetLinkedItem().gameObject);
+            var item = (Item) itemData.GetLinkedItem();
+            Destroy(item.gameObject);
             
             RuntimeData.RemoveFromIncomingItems(itemData);
             RuntimeData.AddToReceivedItems(itemData);

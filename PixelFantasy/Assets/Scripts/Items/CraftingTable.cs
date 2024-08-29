@@ -203,10 +203,11 @@ namespace Items
             }
         }
 
-        public void ReceiveMaterial(ItemData item)
+        public void ReceiveMaterial(ItemData itemData)
         {
-            Destroy(item.GetLinkedItem().gameObject);
-            RuntimeTableData.CurrentOrder.ReceiveItem(item);
+            var item = (Item)itemData.GetLinkedItem();
+            Destroy(item.gameObject);
+            RuntimeTableData.CurrentOrder.ReceiveItem(itemData);
         }
 
         private void CompleteCraft()

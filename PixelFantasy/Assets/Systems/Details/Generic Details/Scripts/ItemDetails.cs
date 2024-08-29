@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using Items;
+using Managers;
 using UnityEngine;
 
 namespace Systems.Details.Generic_Details.Scripts
@@ -20,9 +22,18 @@ namespace Systems.Details.Generic_Details.Scripts
             _parentDetails = parentDetails;
             _item = item;
             _isActive = true;
-            
-            _parentDetails.ItemName.color = _item.RuntimeData.GetQualityColour();
-            _parentDetails.ItemName.text = $"{_item.DisplayName} ({_item.RuntimeData.Quality.GetDescription()})";
+
+            if (item.StackAmount > 1)
+            {
+                _parentDetails.ItemName.color = Librarian.Instance.GetColour("Common Quality");
+                _parentDetails.ItemName.text = $"{_item.DisplayName} (x{item.StackAmount})";
+            }
+            else
+            {
+                var itemData = item.ItemDatas.First();
+                _parentDetails.ItemName.color = itemData.GetQualityColour();
+                _parentDetails.ItemName.text = $"{_item.DisplayName} ({itemData.Quality.GetDescription()})";
+            }
             
             RefreshTextEntries();
             
@@ -46,29 +57,43 @@ namespace Systems.Details.Generic_Details.Scripts
                 Destroy(displayedTextEntry.gameObject);
             }
             _displayedTextEntries.Clear();
-            
-            var detailsTexts = _item.RuntimeData.GetDetailsTexts();
-            foreach (var detailsText in detailsTexts)
+
+            if (_item.StackAmount == 1)
             {
-                var display = Instantiate(_textEntryPrefab, transform);
-                display.gameObject.SetActive(true);
-                if (detailsText.HasHeader)
+                var itemData = _item.ItemDatas.First();
+                var detailsTexts = itemData.GetDetailsTexts();
+                foreach (var detailsText in detailsTexts)
                 {
-                    display.Init(detailsText.Message, detailsText.Header);
+                    var display = Instantiate(_textEntryPrefab, transform);
+                    display.gameObject.SetActive(true);
+                    if (detailsText.HasHeader)
+                    {
+                        display.Init(detailsText.Message, detailsText.Header);
+                    }
+                    else
+                    {
+                        display.Init(detailsText.Message);
+                    }
+                    _displayedTextEntries.Add(display);
                 }
-                else
-                {
-                    display.Init(detailsText.Message);
-                }
-                _displayedTextEntries.Add(display);
             }
         }
         
         private void Update()
         {
             if(!_isActive) return;
+
+            if (_item.StackAmount == 1)
+            {
+                var itemData = _item.ItemDatas.First();
+                _parentDetails.SetDurabilityFill(itemData.Durability, _item.Settings.MaxDurability);
+            }
+            else
+            {
+                _parentDetails.HideDurabilityFill();
+            }
             
-            _parentDetails.SetDurabilityFill(_item.RuntimeData.Durability, _item.RuntimeData.Settings.MaxDurability);
+            
         }
     }
 }

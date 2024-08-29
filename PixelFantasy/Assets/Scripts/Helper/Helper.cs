@@ -217,48 +217,63 @@ public static class Helper
         return detectedTags.Contains(tagToCheck);
     }
 
+    public static bool IsTagAtPosition(Vector2 pos, string tag)
+    {
+        List<string> detectedTags = new List<string>();
+        Vector3 offsetPos = new Vector3(pos.x, pos.y, -3);
+        
+        Debug.DrawRay(offsetPos, new Vector3(0, 0, 6), Color.red, 30.0f);
+
+        var allHits = Physics2D.RaycastAll(offsetPos, new Vector3(0, 0, 6));
+        foreach (var hit in allHits)
+        {
+            detectedTags.Add(hit.collider.transform.tag);
+        }
+
+        return detectedTags.Contains(tag);
+    }
+
     /// <summary>
     /// Returns a list of all the tags located at the specified grid position
     /// </summary>
     public static List<string> GetTagsAtGridPos(Vector2 gridPos, GameObject parent = null)
     {
-        var leftStart = new Vector2(gridPos.x - 0.25f, gridPos.y);
-        var bottomStart = new Vector2(gridPos.x, gridPos.y - 0.25f);
-        
-        var allHitHor = Physics2D.RaycastAll(leftStart, Vector2.right, 0.5f);
-        var allHitVert = Physics2D.RaycastAll(bottomStart, Vector2.up, 0.5f);
+        float margin = 0.4f;
+        Vector3 offsetPos = new Vector3(gridPos.x, gridPos.y, -3);
+
+        // Define the ray origins (center and corners with margin)
+        var origins = new List<Vector3>
+        {
+            offsetPos, // Center
+            
+            offsetPos + new Vector3(-margin, 0, 0), // Left
+            offsetPos + new Vector3(margin, 0, 0), // Right
+            offsetPos + new Vector3(0, -margin, 0), // Bottom
+            offsetPos + new Vector3(0, margin, 0), // Top
+            
+            offsetPos + new Vector3(-margin, margin, 0), // Top-left
+            offsetPos + new Vector3(margin, margin, 0),  // Top-right
+            offsetPos + new Vector3(-margin, -margin, 0), // Bottom-left
+            offsetPos + new Vector3(margin, -margin, 0)   // Bottom-right
+        };
 
         List<string> detectedTags = new List<string>();
-        foreach (var hitHor in allHitHor)
-        {
-            if (parent != null)
-            {
-                if (!hitHor.transform.IsChildOf(parent.transform))
-                {
-                    detectedTags.Add(hitHor.collider.transform.tag);
-                }
-            }
-            else
-            {
-                detectedTags.Add(hitHor.collider.transform.tag);
-            }
-        }
-        foreach (var hitVert in allHitVert)
-        {
-            if (parent != null)
-            {
-                if (!hitVert.transform.IsChildOf(parent.transform))
-                {
-                    detectedTags.Add(hitVert.collider.transform.tag);
-                }
-            }
-            else
-            {
-                detectedTags.Add(hitVert.collider.transform.tag);
-            }
-        }
 
-        return detectedTags;
+        // Cast rays from each origin
+        foreach (var origin in origins)
+        {
+            // Draw debug rays to visualize them in the Scene view
+            Debug.DrawRay(origin, new Vector3(0, 0, 6), Color.blue, 1.0f);
+
+            var allHits = Physics2D.RaycastAll(origin, new Vector3(0, 0, 6));
+            foreach (var hit in allHits)
+            {
+                detectedTags.Add(hit.collider.transform.tag);
+            }
+        }
+        
+        var result = detectedTags.Distinct().ToList();
+        return result;
     }
 
     public static List<PlayerInteractable> GetAllPlayerInteractablesAtGridPos(Vector2 gridPos)
@@ -347,7 +362,7 @@ public static class Helper
         foreach (var origin in origins)
         {
             // Draw debug rays to visualize them in the Scene view
-            Debug.DrawRay(origin, new Vector3(0, 0, 6), Color.red, 30.0f);
+            Debug.DrawRay(origin, new Vector3(0, 0, 6), Color.red, 1.0f);
 
             var allHits = Physics2D.RaycastAll(origin, new Vector3(0, 0, 6));
             foreach (var hit in allHits)

@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AI;
 using Items;
 using Managers;
 using Sirenix.OdinInspector;
+using Systems.Game_Setup.Scripts;
 using UnityEngine;
 
 namespace Handlers
@@ -12,8 +14,8 @@ namespace Handlers
     {
         [ShowInInspector] private Dictionary<string, ItemData> _registeredItems = new Dictionary<string, ItemData>();
 
-        private List<ItemStack> _itemStacks = new List<ItemStack>();
-
+        private float _seekTimer;
+        
         public void RegisterItem(ItemData data)
         {
             _registeredItems.Add(data.UniqueID, data);
@@ -22,16 +24,6 @@ namespace Handlers
         public void DeregisterItem(ItemData data)
         {
             _registeredItems.Remove(data.UniqueID);
-        }
-        
-        public void RegisterStack(ItemStack stack)
-        {
-            _itemStacks.Add(stack);
-        }
-
-        public void DeregisterStack(ItemStack stack)
-        {
-            _itemStacks.Remove(stack);
         }
 
         public ItemData Query(string uniqueID)
@@ -56,21 +48,15 @@ namespace Handlers
             return results;
         }
         
-        public Item FindItemObject(string uniqueID)
+        public Item FindItemObject(string itemDataUID)
         {
-            var itemData = Query(uniqueID);
+            var itemData = Query(itemDataUID);
             switch (itemData.State)
             {
                 case EItemState.Loose:
-                    var allItems = transform.GetComponentsInChildren<Item>();
-                    foreach (var item in allItems)
-                    {
-                        if (item.RuntimeData.UniqueID == uniqueID)
-                        {
-                            return item;
-                        }
-                    }
-                    return null;
+                    var items = PlayerInteractableDatabase.Instance.RegisteredPlayerInteractables.OfType<Item>().ToList();
+                    var result = items.Find(i => i.ContainsItemData(itemDataUID));
+                    return result;
                 case EItemState.BeingProcessed:
                 case EItemState.Stored:
                     return null;
@@ -91,32 +77,43 @@ namespace Handlers
             return itemObj;
         }
 
-        public ItemStack FindItemStackAtPosition(Vector2 pos)
+        private void Update()
         {
-            var snappedPos = Helper.SnapToGridPos(pos);
-            var stack = _itemStacks.Find(s => s.Position == snappedPos);
-            return stack;
+            if (GameManager.Instance.GameIsQuitting) return;
+            if (!GameManager.Instance.GameIsLoaded) return;
+            
+            _seekTimer += Time.deltaTime;
+            if (_seekTimer > 1f)
+            {
+                _seekTimer = 0;
+                SearchForStorage();
+            }
         }
 
-        public ItemStack CreateStack(Item item1, Item item2)
+        private void SearchForStorage()
         {
-            var pos = Helper.SnapToGridPos(item1.transform.position);
-            
-            var itemData1 = item1.RuntimeData;
-            var itemData2 = item2.RuntimeData;
-            Destroy(item1.gameObject);
-            Destroy(item2.gameObject);
-
-            itemData1.State = EItemState.Stacked;
-            itemData2.State = EItemState.Stacked;
-            
-            var prefab = Resources.Load<ItemStack>($"Prefabs/ItemStackPrefab");
-            ItemStack itemStack = Instantiate(prefab, pos, Quaternion.identity, transform);
-            itemStack.name = $"{itemData1.ItemName} Stack";
-
-            List<string> itemUIDs = new List<string>(){ itemData1.UniqueID, itemData2.UniqueID };
-            itemStack.InitStack(itemUIDs);
-            return itemStack;
+            var allItemDatas = _registeredItems.Values.ToList();
+            foreach (var itemData in allItemDatas)
+            {
+                if (itemData.AssignedStorage == null && itemData.State is EItemState.Loose && itemData.IsAllowed)
+                {
+                    var storage = InventoryManager.Instance.GetAvailableStorage(itemData.Settings);
+                    if (storage != null)
+                    {
+                        PlayerInteractable requester = FindItemObject(itemData.UniqueID);
+                        if (requester != null)
+                        {
+                            itemData.AssignedStorageID = storage.UniqueID;
+                            storage.SetIncoming(itemData);
+                        
+                            Task task = new Task("Store Item", $"Storing {itemData.ItemName}", ETaskType.Hauling, requester);
+                            task.TaskData.Add("ItemDataUID", itemData.UniqueID);
+                            TasksDatabase.Instance.AddTask(task);
+                            itemData.CurrentTaskID = task.UniqueID;
+                        }
+                    }
+                }
+            }
         }
 
         public Dictionary<string, ItemData> SaveItemsData()
@@ -129,6 +126,8 @@ namespace Handlers
             foreach (var kvp in loadedItemDatas)
             {
                 var itemData = kvp.Value;
+                RegisterItem(itemData);
+                
                 switch (itemData.State)
                 {
                     case EItemState.Loose:
@@ -141,7 +140,6 @@ namespace Handlers
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-                RegisterItem(itemData);
             }
         }
 

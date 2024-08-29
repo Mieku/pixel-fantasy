@@ -10,6 +10,7 @@ namespace AI.Action_Tasks
     {
         public BBParameter<string> RequesterUID;
         public BBParameter<string> KinlingUID;
+        public BBParameter<string> ItemDataUID;
         public BBParameter<string> HeldItemUID;
 
         private Kinling _kinling;
@@ -18,12 +19,12 @@ namespace AI.Action_Tasks
         protected override void OnExecute()
         {
             _kinling = KinlingsDatabase.Instance.GetKinling(KinlingUID.value);
-            _item = ItemsDatabase.Instance.FindItemObject(RequesterUID.value);
+            _item = ItemsDatabase.Instance.FindItemObject(ItemDataUID.value);
             
             if(_item == null || _kinling == null) EndAction(false);
-
-            HeldItemUID.value = _item.UniqueID;
-            _kinling.HoldItem(_item);
+            
+            var heldItem = _kinling.HoldItem(_item, ItemDataUID.value);
+            HeldItemUID.value = ItemDataUID.value;
             
             EndAction(true);
         }

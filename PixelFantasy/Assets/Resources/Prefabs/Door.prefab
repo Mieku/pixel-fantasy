@@ -1006,10 +1006,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selectedIcon: {fileID: 0}
-  _usesTintedSelection: 1
-  _spriteRendererToTint: {fileID: 2796273483583580941}
   _commandDisplay: {fileID: 3352744811655518819}
-  Commands:
+  _commands:
   - {fileID: 11400000, guid: e481410d09ea34543b39a264a9dc6554, type: 2}
   - {fileID: 11400000, guid: 40e89507ed9cb474fa943f151477de0c, type: 2}
   _workPoints:
@@ -1717,7 +1715,7 @@ GameObject:
   - component: {fileID: 327027309830071820}
   m_Layer: 0
   m_Name: Cell
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

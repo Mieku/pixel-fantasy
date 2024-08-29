@@ -312,21 +312,24 @@ using UnityEngine;
         
         public void DepositItems(Item item)
         {
-            var runtimeData = item.RuntimeData;
-            
-            if (!IsSpecificItemDataIncoming(runtimeData))
+            var runtimeDatas = item.ItemDatas;
+            foreach (var runtimeData in runtimeDatas)
             {
-                Debug.LogError("Tried to deposit an item that was not set as incoming");
-                return;
-            }
+                if (!IsSpecificItemDataIncoming(runtimeData))
+                {
+                    Debug.LogError("Tried to deposit an item that was not set as incoming");
+                    return;
+                }
+            
+                runtimeData.AssignedStorageID = UniqueID;
+                runtimeData.State = EItemState.Stored;
+                runtimeData.CarryingKinlingUID = null;
+                runtimeData.Position = Helper.SnapToGridPos(Position);
 
-            runtimeData.AssignedStorageID = UniqueID;
-            runtimeData.State = EItemState.Stored;
-            runtimeData.CarryingKinlingUID = null;
-            
-            StoredUIDs.Add(runtimeData.UniqueID);
-            IncomingUIDs.Remove(runtimeData.UniqueID);
-            
+                StoredUIDs.Add(runtimeData.UniqueID);
+                IncomingUIDs.Remove(runtimeData.UniqueID);
+            }
+        
             GameEvents.Trigger_RefreshInventoryDisplay();
             OnChanged();
         }

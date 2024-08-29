@@ -225,23 +225,24 @@ public class StockpileZoneData : ZoneData, IStorage
         GameEvents.Trigger_RefreshInventoryDisplay();
     }
 
-    public void DepositItems(Items.Item item)
+    public void DepositItems(Item item)
     {
-        var runtimeData = item.RuntimeData;
-            
-        if (!IsSpecificItemDataIncoming(runtimeData))
+        var runtimeDatas = item.ItemDatas;
+        foreach (var runtimeData in runtimeDatas)
         {
-            Debug.LogError("Tried to deposit an item that was not set as incoming");
-            return;
-        }
-
-        runtimeData.AssignedStorageID = UniqueID;
-        runtimeData.State = EItemState.Stored;
-
-        var cell = GetAssignedCellForSpecificItem(runtimeData);
-        cell.DepositItem(runtimeData);
+            if (!IsSpecificItemDataIncoming(runtimeData))
+            {
+                Debug.LogError("Tried to deposit an item that was not set as incoming");
+                return;
+            }
             
-        //Destroy(item.gameObject);
+            runtimeData.AssignedStorageID = UniqueID;
+            runtimeData.State = EItemState.Stored;
+
+            var cell = GetAssignedCellForSpecificItem(runtimeData);
+            cell.DepositItem(runtimeData);
+        }
+        
         OnZoneChanged?.Invoke();
     }
 

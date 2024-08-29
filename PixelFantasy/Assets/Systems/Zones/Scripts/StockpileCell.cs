@@ -4,7 +4,6 @@ using System.Linq;
 using Handlers;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Systems.Zones.Scripts
 {
@@ -12,7 +11,7 @@ namespace Systems.Zones.Scripts
     public class StockpileCell : ZoneCell
     {
         [SerializeField] private SpriteRenderer _itemDisplay;
-        [SerializeField] private TextMeshPro _amountDisplay;
+        [SerializeField] private TextMeshProUGUI _amountDisplay;
         
         public List<string> StoredUIDs = new List<string>();
         public List<string> IncomingUIDs = new List<string>();
@@ -222,6 +221,8 @@ namespace Systems.Zones.Scripts
         {
             StoredUIDs.Add(itemData.UniqueID);
             IncomingUIDs.Remove(itemData.UniqueID);
+            
+            itemData.Position = Helper.SnapToGridPos(Position);
         
             RefreshDisplay();
         

@@ -717,13 +717,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selectedIcon: {fileID: 7155256550479724486}
-  _usesTintedSelection: 0
-  _spriteRendererToTint: {fileID: 0}
   _commandDisplay: {fileID: 1050946461832530779}
-  Commands:
+  _commands:
   - {fileID: 11400000, guid: 741035aabc10ee741a67711d029540d3, type: 2}
   _spriteRenderer: {fileID: 7155256550381879070}
-  _clickObject: {fileID: 0}
   _defaultExtractCmd: {fileID: 11400000, guid: 741035aabc10ee741a67711d029540d3, type: 2}
   _obstacleBox: {fileID: 8460987969156190623}
   _workPoints:
@@ -796,7 +793,7 @@ GameObject:
   - component: {fileID: 583796491778053981}
   m_Layer: 3
   m_Name: Obstacle
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

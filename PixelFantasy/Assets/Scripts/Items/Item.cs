@@ -1,110 +1,181 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using AI;
 using Characters;
 using Handlers;
-using Managers;
+using TMPro;
 using UnityEngine;
-using Task = AI.Task;
 
 namespace Items
 {
     public class Item : PlayerInteractable
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
+        [SerializeField] private TextMeshProUGUI _stackAmountText;
         
         private Transform _originalParent;
-        
-        public ItemData RuntimeData;
-        public override string UniqueID => RuntimeData.UniqueID;
+        private List<string> _itemDatas = new List<string>();
+        private string _settingsID;
+        private string _uniqueID;
+        private string _pendingTaskUID;
 
+        public int StackAmount => _itemDatas.Count;
+        public override string UniqueID => _uniqueID;
+        public override string DisplayName => Settings.ItemName;
+
+        public List<ItemData> ItemDatas
+        {
+            get
+            {
+                List<ItemData> results = new List<ItemData>();
+                foreach (var itemDataUID in _itemDatas)
+                {
+                    var itemData = ItemsDatabase.Instance.Query(itemDataUID);
+                    results.Add(itemData);
+                }
+
+                return results;
+            }
+        }
+        
         public override string PendingTaskUID
         {
-            get => RuntimeData.PendingTaskUID;
-            set => RuntimeData.PendingTaskUID = value;
+            get => _pendingTaskUID;
+            set => _pendingTaskUID = value;
+        }
+
+        public ItemSettings Settings
+        {
+            get
+            {
+                var itemData = ItemsDatabase.Instance.Query(_itemDatas.First());
+                return itemData.Settings;
+            }
+        }
+        
+        public bool IsAllowed { get; set; }
+        public bool IsClickDisabled { get; set; }
+
+        public bool ContainsItemData(string itemDataUID)
+        {
+            return _itemDatas.Contains(itemDataUID);
         }
 
         public override bool IsSimilar(PlayerInteractable otherPI)
         {
             if (otherPI is Item otherItem)
             {
-                return RuntimeData.Settings == otherItem.RuntimeData.Settings;
+                return Settings == otherItem.Settings;
             }
 
             return false;
         }
 
-        public void LoadItemData(ItemData data)
+        public void LoadItemData(ItemData itemData)
         {
-            RuntimeData = data;
-            DisplayItemSprite();
-
+            _itemDatas.Add(itemData.UniqueID);
+            _uniqueID = CreateUID();
+           
             PlayerInteractableDatabase.Instance.RegisterPlayerInteractable(this);
 
-            if (RuntimeData.State == EItemState.Loose)
+            IsAllowed = itemData.IsAllowed;
+
+            if (itemData.State == EItemState.Loose)
             {
                 PlaceOnGround();
             }
-        }
-       
-        public void SeekForSlot()
-        {
-            if (RuntimeData.AssignedStorage == null && RuntimeData.State != EItemState.Carried)
-            {
-                var storage = InventoryManager.Instance.GetAvailableStorage(RuntimeData.Settings);
-                if (storage != null)
-                {
-                    RuntimeData.AssignedStorageID = storage.UniqueID;
-                    storage.SetIncoming(RuntimeData);
-                    CreateHaulTask();
-                }
-            }
-        }
-
-        private float _seekTimer;
-        private void Update()
-        {
-            if (RuntimeData != null && RuntimeData.AssignedStorage == null && RuntimeData.State != EItemState.Carried)
-            {
-                _seekTimer += Time.deltaTime;
-                if (_seekTimer > 1f)
-                {
-                    _seekTimer = 0;
-                    SeekForSlot();
-                }
-            }
-
-            if (RuntimeData != null)
-            {
-                RuntimeData.Position = transform.position;
-            }
-        }
-
-        public void CreateHaulTask()
-        {
-            Task task = new Task("Store Item", $"Storing {RuntimeData.ItemName}", ETaskType.Hauling, this);
-            TasksDatabase.Instance.AddTask(task);
-            RuntimeData.CurrentTaskID = task.UniqueID;
+            
+            Refresh();
         }
         
-        private void GameEvent_OnInventoryAvailabilityChanged()
+        private string CreateUID()
+         {
+             return $"{Settings.ItemName}_ItemObj_{Guid.NewGuid()}";
+         }
+
+        private void Refresh()
         {
-            SeekForSlot();
+            DisplayItemSprite();
+            int amount = _itemDatas.Count;
+
+            if (amount > 1)
+            {
+                _stackAmountText.text = $"{amount}";
+            }
+            else
+            {
+                _stackAmountText.text = "";
+            }
         }
-        
-        public void ItemPickedUp(Kinling kinling)
+
+        public Item PickUpItem(Kinling kinling, string itemDataUID)
         {
-            RuntimeData.CarryingKinlingUID = kinling.RuntimeData.UniqueID;
-            RuntimeData.State = EItemState.Carried;
+            if (_itemDatas.Count == 1)
+            {
+                // This item can be picked up
+                var itemData = ItemsDatabase.Instance.Query(itemDataUID);
+                itemData.CarryingKinlingUID = kinling.RuntimeData.UniqueID;
+                itemData.State = EItemState.Carried;
+                Refresh();
+                return this;
+            }
+            else
+            {
+                // Split off a new item
+                var itemData = ItemsDatabase.Instance.Query(itemDataUID);
+                _itemDatas.Remove(itemDataUID);
+                Refresh();
+                itemData.CarryingKinlingUID = kinling.RuntimeData.UniqueID;
+                itemData.State = EItemState.Carried;
+                var splitItem = ItemsDatabase.Instance.CreateItemObject(itemData, Helper.SnapToGridPos(transform.position));
+                return splitItem;
+            }
+        }
+
+        public void MergeItems(Item itemToBeMerged)
+        {
+            var itemDataUIDs = itemToBeMerged._itemDatas;
+            Destroy(itemToBeMerged.gameObject);
+
+            foreach (var itemDataUID in itemDataUIDs)
+            {
+                _itemDatas.Add(itemDataUID);
+            }
+
+            Refresh();
+        }
+
+        public bool CanMergeIntoItem(Item itemToBeMerged)
+        {
+            if (Settings != itemToBeMerged.Settings) return false;
+            if (!IsAllowed) return false;
+
+            int maxStack = Settings.MaxStackSize;
+            int combinedStack = _itemDatas.Count + itemToBeMerged._itemDatas.Count;
+            return combinedStack <= maxStack;
         }
 
         public void ItemDropped()
         {
-            RuntimeData.AssignedStorageID = null;
-            RuntimeData.CarryingKinlingUID = null;
-            RuntimeData.State = EItemState.Loose;
+            foreach (var itemDataUID in _itemDatas)
+            {
+                var itemData = ItemsDatabase.Instance.Query(itemDataUID);
+                itemData.AssignedStorageID = null;
+                itemData.CarryingKinlingUID = null;
+                itemData.State = EItemState.Loose;
+            }
             
             PlaceOnGround();
+                        
+            Refresh();
+        }
+
+        public void UpdatePosition()
+        {
+            foreach (var itemData in ItemDatas)
+            {
+                itemData.Position = transform.position;
+            }
         }
 
         private void PlaceOnGround()
@@ -135,26 +206,17 @@ namespace Items
                     {
                         continue; // No position available, try next adjacent pos
                     }
-
-                    ItemStack stack = ItemsDatabase.Instance.FindItemStackAtPosition(pos);
-                    if (stack != null)
-                    {
-                        if (stack.CanItemJoinStack(RuntimeData))
-                        {
-                            stack.AddItemToStack(this);
-                            return;
-                        }
-                        continue; // No position available, try next adjacent pos
-                    } 
-
+                    
                     var itemDatasAtPos = ItemsDatabase.Instance.FindAllItemDatasAtPosition(pos);
-                    var looseItem = itemDatasAtPos.Find(i => i.UniqueID != RuntimeData.UniqueID && i.State == EItemState.Loose);
+                    var looseItem = itemDatasAtPos.Find(i => !_itemDatas.Contains(i.UniqueID) && i.State == EItemState.Loose);
                     if (looseItem != null)
                     {
-                        if (RuntimeData.CanFormStack(looseItem))
+                        var item = ItemsDatabase.Instance.FindItemObject(looseItem.UniqueID);
+                        
+                        if (item.CanMergeIntoItem(this))
                         {
                             // Create Stack
-                            ItemsDatabase.Instance.CreateStack(looseItem.GetLinkedItem(), this);
+                            item.MergeItems(this);
                             return;
                         }
                         continue; // No position available, try next adjacent pos
@@ -162,11 +224,11 @@ namespace Items
                     
                     // Spot is free
                     transform.position = pos;
-                    RuntimeData.Position = pos;
-                    RuntimeData.State = EItemState.Loose;
-                    if (IsAllowed)
+                    foreach (var itemDataUID in _itemDatas)
                     {
-                        SeekForSlot();
+                        var itemData = ItemsDatabase.Instance.Query(itemDataUID);
+                        itemData.Position = pos;
+                        itemData.State = EItemState.Loose;
                     }
                     return;
                 }
@@ -178,11 +240,11 @@ namespace Items
             // If no valid position found after expanding the search radius
             Debug.LogWarning("No valid position found to place the item, placing it loosely on the ground");
             transform.position = groundPos;
-            RuntimeData.Position = groundPos;
-            RuntimeData.State = EItemState.Loose;
-            if (IsAllowed)
+            foreach (var itemDataUID in _itemDatas)
             {
-                SeekForSlot();
+                var itemData = ItemsDatabase.Instance.Query(itemDataUID);
+                itemData.Position = groundPos;
+                itemData.State = EItemState.Loose;
             }
         }
 
@@ -212,7 +274,7 @@ namespace Items
 
         private void DisplayItemSprite()
         {
-            _spriteRenderer.sprite = RuntimeData.Settings.ItemSprite;
+            _spriteRenderer.sprite = Settings.ItemSprite;
         }
         
         public void ToggleAllowed(bool isAllowed)
@@ -233,29 +295,14 @@ namespace Items
             
             RefreshSelection();
         }
-
-        public bool IsAllowed { get; set; }
-
-        private void Start()
-        {
-            GameEvents.OnInventoryAvailabilityChanged += GameEvent_OnInventoryAvailabilityChanged;
-        }
-
+        
         protected override void OnDestroy()
         {
             base.OnDestroy();
             if (_isQuitting) return;
             
-            GameEvents.OnInventoryAvailabilityChanged -= GameEvent_OnInventoryAvailabilityChanged;
             PlayerInteractableDatabase.Instance.DeregisterPlayerInteractable(this);
-
-            if (RuntimeData.CurrentTask != null)
-            {
-                RuntimeData.CurrentTask.Cancel();
-            }
         }
-
-        public bool IsClickDisabled { get; set; }
 
         private void RefreshSelection()
         {
@@ -264,8 +311,6 @@ namespace Items
                 GameEvents.Trigger_RefreshSelection();
             }
         }
-
-        public override string DisplayName => RuntimeData.Settings.ItemName;
 
         public override Vector2? UseagePosition(Vector2 requestorPosition)
         {

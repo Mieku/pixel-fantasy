@@ -122,6 +122,14 @@ namespace Characters
             //_positionRendererSorter.SetLocked(false);
         }
 
+        private void Update()
+        {
+            if (HeldItem != null)
+            {
+                HeldItem.UpdatePosition();
+            }
+        }
+
         public List<NeedTraitSettings> GetStatTraits()
         {
             List<NeedTraitSettings> results = new List<NeedTraitSettings>();
@@ -164,13 +172,16 @@ namespace Characters
             return transform.position;
         }
         
-        public void HoldItem(Item item)
+        public Item HoldItem(Item item, string itemDataUID)
         {
-            RuntimeData.HeldItemID = item.UniqueID;
-            HeldItem = item;
-            item.ItemPickedUp(this);
-            item.transform.SetParent(transform);
-            item.transform.localPosition = Vector3.zero;
+            Item pickedUpItem = item.PickUpItem(this, itemDataUID);
+            RuntimeData.HeldItemID = itemDataUID;
+            HeldItem = pickedUpItem;
+            
+            pickedUpItem.transform.SetParent(transform);
+            pickedUpItem.transform.localPosition = Vector3.zero;
+
+            return pickedUpItem;
         }
         
         public Item DropCarriedItem(bool allowHauling)
@@ -193,9 +204,10 @@ namespace Characters
             storage.DepositItems(HeldItem);
             var item = HeldItem;
             HeldItem = null;
+            var heldItemData = ItemsDatabase.Instance.Query(RuntimeData.HeldItemID);
+            heldItemData.CurrentTaskID = null;
+            heldItemData.CarryingKinlingUID = null;
             RuntimeData.HeldItemID = null;
-            item.RuntimeData.CurrentTaskID = null;
-            item.RuntimeData.CarryingKinlingUID = null;
             Destroy(item.gameObject);
         }
 

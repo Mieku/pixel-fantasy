@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -22,6 +23,8 @@ public class PlayerInteractableDatabase : Singleton<PlayerInteractableDatabase>
     {
         return _registeredPIs[uniqueID];
     }
+
+    public List<PlayerInteractable> RegisteredPlayerInteractables => _registeredPIs.Values.ToList();
 
     public List<PlayerInteractable> GetAllSimilarVisiblePIs(PlayerInteractable piToMatch)
     {

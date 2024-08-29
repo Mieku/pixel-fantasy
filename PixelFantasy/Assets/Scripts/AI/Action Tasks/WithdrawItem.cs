@@ -19,7 +19,7 @@ public class WithdrawItem : KinlingActionTask
 
         var assignedStorage = itemData.AssignedStorage;
         var item = assignedStorage.WithdrawItem(itemData);
-        kinling.HoldItem(item);
+        kinling.HoldItem(item, itemData.UniqueID);
         
         EndAction(true);
     }

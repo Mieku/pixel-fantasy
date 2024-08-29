@@ -23,6 +23,7 @@ namespace Systems.Game_Setup.Scripts
         public GameData GameData;
         
         public bool GameIsQuitting;
+        public bool GameIsLoaded;
 
         public int RandomSeedSalt => Time.frameCount;
 
@@ -39,21 +40,21 @@ namespace Systems.Game_Setup.Scripts
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                Debug.Log("Quick Save test");
-                StartCoroutine(DataPersistenceManager.Instance.SaveGameCoroutine((progress) => { }));
-            }
-            
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                Debug.Log("Quick load test");
-                var recentSave = DataPersistenceManager.Instance.GetMostRecentSave();
-                if (recentSave != null)
-                {
-                    StartLoadedGame(recentSave, false);
-                }
-            }
+            // if (Input.GetKeyDown(KeyCode.O))
+            // {
+            //     Debug.Log("Quick Save test");
+            //     StartCoroutine(DataPersistenceManager.Instance.SaveGameCoroutine((progress) => { }));
+            // }
+            //
+            // if (Input.GetKeyDown(KeyCode.L))
+            // {
+            //     Debug.Log("Quick load test");
+            //     var recentSave = DataPersistenceManager.Instance.GetMostRecentSave();
+            //     if (recentSave != null)
+            //     {
+            //         StartLoadedGame(recentSave, false);
+            //     }
+            // }
 
             if (Input.GetKeyDown(KeyCode.U))
             {
@@ -73,6 +74,7 @@ namespace Systems.Game_Setup.Scripts
 
         public void StartNewGame(string settlementName, List<KinlingData> starterKinlings, List<TileWorldCreatorAsset.BlueprintLayerData> blueprintLayers)
         {
+            GameIsLoaded = false;
             GameData = new GameData();
             GameData.SettlementName = settlementName;
             
@@ -81,10 +83,10 @@ namespace Systems.Game_Setup.Scripts
 
         public void StartLoadedGame(SaveData saveData, bool loadScene)
         {
+            GameIsLoaded = false;
             StartCoroutine(LoadSceneAndContinueLoad(saveData, loadScene));
         }
-
-        private bool _gameLoaded;
+        
         public IEnumerator LoadSceneAndContinueLoad(SaveData saveData, bool loadScene)
         {
             LoadingScreen.Instance.Show("Generating World", "Initializing...", 13);
@@ -111,7 +113,7 @@ namespace Systems.Game_Setup.Scripts
             yield return StartCoroutine(DataPersistenceManager.Instance.LoadGameCoroutine(saveData, () =>
             {
                 // Load completed
-                _gameLoaded = true;
+                GameIsLoaded = true;
                 LoadingScreen.Instance.StepCompleted();
             }, (step) =>
             {
@@ -123,7 +125,7 @@ namespace Systems.Game_Setup.Scripts
                 LoadingScreen.Instance.StepCompleted();
             }));
 
-            while (!_gameLoaded)
+            while (!GameIsLoaded)
             {
                 yield return null;
             }

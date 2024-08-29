@@ -13,6 +13,7 @@ namespace Systems.Details.Generic_Details.Scripts
         [SerializeField] private GameObject _panelHandle;
         [SerializeField] private Transform _commandsParent;
         [SerializeField] private CommandBtn _commandBtnPrefab;
+        [SerializeField] private GameObject _durabilityFillHandle;
         [SerializeField] private Image _durabilityFill;
         [SerializeField] private TextMeshProUGUI _durabilityText;
         [SerializeField] private ResourceDetails _resourceDetails;
@@ -73,8 +74,14 @@ namespace Systems.Details.Generic_Details.Scripts
             _headerSeperator.SetActive(shouldShow);
         }
 
+        public void HideDurabilityFill()
+        {
+            _durabilityFillHandle.gameObject.SetActive(false);
+        }
+
         public void SetDurabilityFill(float currentAmount, float maxAmount)
         {
+            _durabilityFillHandle.SetActive(true);
             float percent = currentAmount / maxAmount;
             _durabilityFill.fillAmount = percent;
             _durabilityText.text = $"HP: {currentAmount} / {maxAmount}";

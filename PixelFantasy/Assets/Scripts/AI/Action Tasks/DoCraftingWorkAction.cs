@@ -52,7 +52,7 @@ namespace AI.Action_Tasks
             var data = itemSettings.CreateItemData(spawnPos);
             var item = ItemsDatabase.Instance.CreateItemObject(data, _table.transform.position);
                         
-            _kinling.HoldItem(item);
+            _kinling.HoldItem(item, data.UniqueID);
             _resultingHeldItemUID.value = item.UniqueID;
             
             EndAction(true);
