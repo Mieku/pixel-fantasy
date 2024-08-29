@@ -44,7 +44,7 @@ namespace DataPersistence
         /// The percentage of durability remaining ex: 0.5 = 50%
         /// </summary>
         [JsonIgnore]
-        public float DurabilityPercent
+        public float HealthPercent
         {
             get
             {

@@ -75,7 +75,7 @@ namespace Systems.Details.Build_Details.Scripts
             if (isOverUI) return;
 
             _isPlanning = true;
-            _startPos = Helper.ConvertMousePosToGridPos(mousePos);
+            _startPos = Helper.SnapToGridPos(mousePos);
         }
 
         protected void GameEvents_OnLeftClickHeld(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
@@ -98,7 +98,7 @@ namespace Systems.Details.Build_Details.Scripts
             {
                 if (!isOverUI)
                 {
-                    SpawnFloor(Helper.ConvertMousePosToGridPos(mousePos));
+                    SpawnFloor(Helper.SnapToGridPos(mousePos));
                 }
             }
         }
@@ -107,7 +107,7 @@ namespace Systems.Details.Build_Details.Scripts
         {
             Spawner.Instance.ShowPlacementIcon(false);
             
-            Vector3 curGridPos = Helper.ConvertMousePosToGridPos(mousePos);
+            Vector3 curGridPos = Helper.SnapToGridPos(mousePos);
             List<Vector2> gridPositions = new List<Vector2>();
             
             gridPositions = Helper.GetRectangleGridPositionsBetweenPoints(_startPos, curGridPos);

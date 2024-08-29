@@ -118,23 +118,6 @@ namespace Items
             TilemapController.Instance.ColourTile(TilemapLayer.Mountain, transform.position, Color.white);
         }
 
-        public void MineMountain()
-        {
-            TilemapController.Instance.SetTile(TilemapLayer.Mountain, transform.position, null);
-            
-            var minedDrops = RuntimeMountainData.GetMineDrop();
-            foreach (var minedDrop in minedDrops)
-            {
-                for (int i = 0; i < minedDrop.Quantity; i++)
-                {
-                    var data = minedDrop.Item.CreateItemData();
-                    ItemsDatabase.Instance.CreateItemObject(data, transform.position, true);
-                }
-            }
-
-            RefreshSelection();
-        }
-
         public override float GetCurrentHealth()
         {
             if (RuntimeData != null)
@@ -164,8 +147,8 @@ namespace Items
 
         protected override void ExtractResource(StatsData stats)
         {
-            MineMountain();
             base.ExtractResource(stats);
+            TilemapController.Instance.SetTile(TilemapLayer.Mountain, transform.position, null);
         }
 
         public override bool DoExtractionWork(StatsData stats, out float progress)
@@ -181,7 +164,7 @@ namespace Items
             }
             else
             {
-                progress = 1f - (RuntimeData.Health / RuntimeData.MaxHealth);
+                progress = RuntimeMountainData.HealthPercent;
                 return false;
             }
         }

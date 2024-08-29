@@ -48,8 +48,9 @@ namespace AI.Action_Tasks
         private void CraftingComplete()
         {
             var itemSettings = GameSettings.Instance.LoadItemSettings(ItemToCraftSettingsID.value);
-            var data = itemSettings.CreateItemData();
-            var item = ItemsDatabase.Instance.CreateItemObject(data, _table.transform.position, false);
+            var spawnPos = Helper.SnapToGridPos(_table.transform.position);
+            var data = itemSettings.CreateItemData(spawnPos);
+            var item = ItemsDatabase.Instance.CreateItemObject(data, _table.transform.position);
                         
             _kinling.HoldItem(item);
             _resultingHeldItemUID.value = item.UniqueID;

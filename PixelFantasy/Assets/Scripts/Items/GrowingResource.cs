@@ -174,14 +174,15 @@ namespace Items
             {
                 _fruitOverlay.gameObject.SetActive(false);
                 List<CostSettings> fruits = GrowingResourceData.GetFruitLoot();
+                var spawnPos = Helper.SnapToGridPos(transform.position);
                 foreach (var fruit in fruits)
                 {
                     int amount = stats.DetermineAmountYielded(
                         GrowingResourceData.GrowingResourceSettings.ExtractionSkillType, fruit.Quantity);
                     for (int i = 0; i < amount; i++)
                     {
-                        var data = fruit.Item.CreateItemData();
-                        ItemsDatabase.Instance.CreateItemObject(data, transform.position, true);
+                        var data = fruit.Item.CreateItemData(spawnPos);
+                        ItemsDatabase.Instance.CreateItemObject(data, spawnPos);
                     }
                 }
 
@@ -225,14 +226,15 @@ namespace Items
             HarvestFruit(stats);
 
             var resources = GrowingResourceData.GetGrowthStage().HarvestableItems.GetItemDrop();
+            var spawnPos = Helper.SnapToGridPos(transform.position);
             foreach (var resource in resources)
             {
                 int amount = stats.DetermineAmountYielded(
                     GrowingResourceData.GrowingResourceSettings.ExtractionSkillType, resource.Quantity);
                 for (int i = 0; i < amount; i++)
                 {
-                    var data = resource.Item.CreateItemData();
-                    ItemsDatabase.Instance.CreateItemObject(data, transform.position, true);
+                    var data = resource.Item.CreateItemData(spawnPos);
+                    ItemsDatabase.Instance.CreateItemObject(data, spawnPos);
                 }
             }
 

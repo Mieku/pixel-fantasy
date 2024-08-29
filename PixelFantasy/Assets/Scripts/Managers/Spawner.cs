@@ -14,11 +14,6 @@ namespace Managers
 {
     public class Spawner : Singleton<Spawner>
     {
-        [SerializeField] private Transform _itemsParent;
-        [SerializeField] private GameObject _itemPrefab;
-        
-        [SerializeField] private Transform _resourceParent;
-    
         [SerializeField] private Transform _structureParent;
         [SerializeField] private Transform _flooringParent;
         [SerializeField] private Transform _furnitureParent;
@@ -30,8 +25,6 @@ namespace Managers
 
         [SerializeField] private Transform _kinlingsParent;
         [SerializeField] private Kinling _kinlingPrefab;
-
-        [SerializeField] private Transform _miscParent;
 
         private bool _showPlacement;
         private List<string> _invalidPlacementTags = new List<string>();
@@ -46,11 +39,7 @@ namespace Managers
         
         private PlacementDirection _prevPlacementDirection;
         public CropSettings CropSettings { get; set; }
-
-        public Transform ItemsParent => _itemsParent;
-        public Transform StructureParent => _structureParent;
-        public Transform FlooringParent => _flooringParent;
-        public Transform MiscParent => _miscParent;
+        
         
         private void OnEnable()
         {
@@ -79,7 +68,7 @@ namespace Managers
                 || inputState == PlayerInputState.BuildFarm)
             {
                 _planningStructure = true;
-                _startPos = Helper.ConvertMousePosToGridPos(mousePos);
+                _startPos = Helper.SnapToGridPos(mousePos);
             }
         }
         
@@ -115,7 +104,7 @@ namespace Managers
                 }
                 else
                 {
-                    SpawnSoilTile(Helper.ConvertMousePosToGridPos(mousePos), CropSettings);
+                    SpawnSoilTile(Helper.SnapToGridPos(mousePos), CropSettings);
                 }
             }
             else if (inputState == PlayerInputState.BuildDoor && _plannedDoor != null)
@@ -243,7 +232,7 @@ namespace Managers
         {
             if (_showPlacement)
             {
-                var gridPos = Helper.ConvertMousePosToGridPos(UtilsClass.GetMouseWorldPosition());
+                var gridPos = Helper.SnapToGridPos(UtilsClass.GetMouseWorldPosition());
                 _placementIcon.transform.position = gridPos;
                 if (Helper.IsGridPosValidToBuild(gridPos, _invalidPlacementTags, _requiredPlacementTags))
                 {
@@ -332,7 +321,7 @@ namespace Managers
             _selectedDyeOverride = dye;
            
             var prefab = furnitureSettings.FurniturePrefab;
-            var position = Helper.ConvertMousePosToGridPos(UtilsClass.GetMouseWorldPosition());
+            var position = Helper.SnapToGridPos(UtilsClass.GetMouseWorldPosition());
         
             _plannedFurniture = SpawnFurniture(prefab, position);
             _plannedFurniture.StartPlanning(furnitureSettings, direction, dye);
@@ -375,7 +364,7 @@ namespace Managers
         {
             if (!_planningStructure) return;
 
-            Vector3 curGridPos = Helper.ConvertMousePosToGridPos(mousePos);
+            Vector3 curGridPos = Helper.SnapToGridPos(mousePos);
             List<Vector2> gridPositions = new List<Vector2>();
             gridPositions = Helper.GetRectangleGridPositionsBetweenPoints(_startPos, curGridPos);
 

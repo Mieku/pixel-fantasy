@@ -43,13 +43,14 @@ public class ItemData
         }
     }
 
-    public virtual void InitData(ItemSettings settings)
+    public virtual void InitData(ItemSettings settings, Vector2 position)
     {
         SettingsID = settings.name;
         UniqueID = CreateUID();
         Durability = Settings.MaxDurability;
         IsAllowed = true;
         Quality = settings.DefaultQuality;
+        Position = position;
     }
 
     public virtual void DeleteItemData()
@@ -142,6 +143,16 @@ public class ItemData
     {
         return $"{ItemName}_{Guid.NewGuid()}";
     }
+    
+    public bool CanFormStack(ItemData otherItem)
+    {
+        if (otherItem.Settings == Settings && Settings.MaxStackSize > 1)
+        {
+            return true;
+        }
+
+        return false;
+    }
 }
 
     
@@ -164,6 +175,7 @@ public enum EItemState
     Stored,
     Carried,
     BeingProcessed,
+    Stacked,
 }
 
 public enum EItemQuality

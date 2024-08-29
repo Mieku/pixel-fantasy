@@ -43,10 +43,10 @@ public class ItemSettings : ScriptableObject
         return msg;
     }
 
-    public virtual ItemData CreateItemData()
+    public virtual ItemData CreateItemData(Vector2 spawnPos)
     {
         ItemData data = new ItemData();
-        data.InitData(this);
+        data.InitData(this, spawnPos);
         ItemsDatabase.Instance.RegisterItem(data);
         return data;
     }

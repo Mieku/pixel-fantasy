@@ -454,13 +454,13 @@ namespace Zones
             CreatePlantCropTask();
             
             // Spawn the crop
+            var spawnPos = Helper.SnapToGridPos(transform.position);
             int yield = stats.DetermineAmountYielded(ESkillType.Botany, RuntimeData.Settings.AmountToHarvest);
             for (int i = 0; i < yield; i++)
             {
-                var data = RuntimeData.Settings.HarvestedItem.CreateItemData(); //ItemsDatabase.Instance.CreateItemData(RuntimeData.Settings.HarvestedItem);
-                ItemsDatabase.Instance.CreateItemObject(data, transform.position, true);
+                var data = RuntimeData.Settings.HarvestedItem.CreateItemData(spawnPos);
+                ItemsDatabase.Instance.CreateItemObject(data, transform.position);
             }
-            //Spawner.Instance.SpawnItem(RuntimeData.Settings.HarvestedItem, transform.position, true, yield);
         }
 
         public void ChangeCrop(CropSettings newCrop)

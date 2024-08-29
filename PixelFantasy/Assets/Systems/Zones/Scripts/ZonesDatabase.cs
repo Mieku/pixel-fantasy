@@ -208,7 +208,7 @@ namespace Systems.Zones.Scripts
             if (isOverUI) return;
 
             _isPlanning = true;
-            _startPos = Helper.ConvertMousePosToGridPos(mousePos);
+            _startPos = Helper.SnapToGridPos(mousePos);
         }
 
         protected void GameEvents_OnLeftClickHeld(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
@@ -250,7 +250,7 @@ namespace Systems.Zones.Scripts
         {
             Spawner.Instance.ShowPlacementIcon(false);
             
-            Vector3 curGridPos = Helper.ConvertMousePosToGridPos(mousePos);
+            Vector3 curGridPos = Helper.SnapToGridPos(mousePos);
             List<Vector2> gridPositions = Helper.GetRectangleGridPositionsBetweenPoints(_startPos, curGridPos);
             
             if (gridPositions.Count != _plannedGrid.Count)
@@ -288,7 +288,7 @@ namespace Systems.Zones.Scripts
         {
             Spawner.Instance.ShowPlacementIcon(false);
             
-            Vector3 curGridPos = Helper.ConvertMousePosToGridPos(mousePos);
+            Vector3 curGridPos = Helper.SnapToGridPos(mousePos);
             List<Vector2> gridPositions = Helper.GetRectangleGridPositionsBetweenPoints(_startPos, curGridPos);
             
             if (gridPositions.Count != _plannedGrid.Count)

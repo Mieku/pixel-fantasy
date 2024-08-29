@@ -8,8 +8,6 @@ namespace DataPersistence
     
     public class MountainResourceData : BasicResourceData
     {
-        public float RemainingWork;
-        
         [JsonIgnore]
         public MountainSettings MountainSettings => Settings as MountainSettings;
         
@@ -19,17 +17,6 @@ namespace DataPersistence
         public override void InitData(ResourceSettings settings)
         {
             base.InitData(settings);
-            RemainingWork = MountainSettings.WorkToExtract;
-        }
-
-        public List<CostSettings> GetMineDrop()
-        {
-            if (MountainSettings.HarvestableItems != null)
-            {
-                return MountainSettings.HarvestableItems.GetItemDrop();
-            }
-
-            return new List<CostSettings>();
         }
     }
 }

@@ -14,10 +14,10 @@ public class CraftedItemSettings : ItemSettings
 
     public ItemSettings GetSettings => this;
     
-    public override ItemData CreateItemData()
+    public override ItemData CreateItemData(Vector2 spawnPos)
     {
         var data = new CraftedItemData();
-        data.InitData(this);
+        data.InitData(this, spawnPos);
         ItemsDatabase.Instance.RegisterItem(data);
         return data;
     }

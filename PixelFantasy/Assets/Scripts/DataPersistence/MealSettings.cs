@@ -20,10 +20,10 @@ public class MealSettings : ItemSettings
         public MealRequirements MealRequirements => _mealRequirements.Clone();
         public ItemSettings GetSettings => this;
 
-        public override ItemData CreateItemData()
+        public override ItemData CreateItemData(Vector2 spawnPos)
         {
             var data = new MealData();
-            data.InitData(this);
+            data.InitData(this, spawnPos);
             ItemsDatabase.Instance.RegisterItem(data);
             return data;
         }

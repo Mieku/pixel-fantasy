@@ -306,7 +306,7 @@ using UnityEngine;
             itemData.State = EItemState.Carried;
             itemData.AssignedStorageID = null;
 
-            var item = ItemsDatabase.Instance.CreateItemObject(itemData, Position, false);
+            var item = ItemsDatabase.Instance.CreateItemObject(itemData, Position);
             return item;
         }
         

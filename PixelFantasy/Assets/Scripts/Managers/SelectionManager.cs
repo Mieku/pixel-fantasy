@@ -125,7 +125,10 @@ public class SelectionManager : Singleton<SelectionManager>
     {
         foreach (var selectedObject in _selectedObjects)
         {
-            selectedObject.IsSelected = false;
+            if (selectedObject != null)
+            {
+                selectedObject.IsSelected = false;
+            }
         }
         _selectedObjects.Clear();
         HUDController.Instance.HideDetails();

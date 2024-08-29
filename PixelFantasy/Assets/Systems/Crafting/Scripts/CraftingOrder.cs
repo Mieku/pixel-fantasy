@@ -247,7 +247,7 @@ namespace Systems.Crafting.Scripts
             {
                 var itemData = ItemsDatabase.Instance.Query(itemUID);
                 itemData.State = EItemState.Loose;
-                ItemsDatabase.Instance.CreateItemObject(itemData, itemData.Position, true);
+                ItemsDatabase.Instance.CreateItemObject(itemData, itemData.Position);
             }
             ReceivedItemUIDs.Clear();
         }

@@ -147,7 +147,7 @@ namespace Items
             else
             {
                 //Update progress
-                progress = 1f - (RuntimeData.Health / RuntimeData.MaxHealth);
+                progress = RuntimeData.HealthPercent;
                 return false;
             }
         }
@@ -182,18 +182,19 @@ namespace Items
 
         protected virtual void ExtractResource(StatsData stats)
         {
+            Destroy(gameObject);
+            
             var resources = RuntimeData.Settings.HarvestableItems.GetItemDrop();
+            var spawnPos = Helper.SnapToGridPos(transform.position);
             foreach (var resource in resources)
             {
                 int amount = stats.DetermineAmountYielded(RuntimeData.Settings.ExtractionSkillType, resource.Quantity);
                 for (int i = 0; i < amount; i++)
                 {
-                    var data = resource.Item.CreateItemData();
-                    ItemsDatabase.Instance.CreateItemObject(data, transform.position, true);
+                    var data = resource.Item.CreateItemData(spawnPos);
+                    ItemsDatabase.Instance.CreateItemObject(data, spawnPos);
                 }
             }
-            
-            Destroy(gameObject);
             
             RefreshSelection();
             

@@ -12,7 +12,6 @@ public class ResourceSettings : ScriptableObject
     // Settings
     [SerializeField] protected string _resourceName;
     [SerializeField] protected BasicResource _prefab;
-    [SerializeField] protected int _workToExtract;
     [SerializeField] protected HarvestableItems _harvestableItems;
     [SerializeField] protected List<Sprite> _potentialSprites = new List<Sprite>();
     [SerializeField] protected float _maxHealth;
@@ -24,7 +23,6 @@ public class ResourceSettings : ScriptableObject
 
         
     // Accessors
-    public int WorkToExtract => _workToExtract;
     public HarvestableItems HarvestableItems => _harvestableItems;
     public float MinWorkDistance => _minWorkDistance;
     public BasicResource Prefab => _prefab;

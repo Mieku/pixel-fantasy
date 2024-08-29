@@ -1,5 +1,8 @@
+using System.Collections.Generic;
+using System.Linq;
 using AI;
 using Characters;
+using Handlers;
 using Managers;
 using UnityEngine;
 using Task = AI.Task;
@@ -31,31 +34,16 @@ namespace Items
             return false;
         }
 
-        public void InitializeItem(ItemSettings settings, bool allowed)
-        {
-            RuntimeData = settings.CreateItemData();
-            RuntimeData.Position = transform.position;
-            
-            PlayerInteractableDatabase.Instance.RegisterPlayerInteractable(this);
-            
-            DisplayItemSprite();
-
-            if (allowed)
-            {
-                SeekForSlot();
-            }
-        }
-
-        public void LoadItemData(ItemData data, bool canHaul)
+        public void LoadItemData(ItemData data)
         {
             RuntimeData = data;
             DisplayItemSprite();
 
             PlayerInteractableDatabase.Instance.RegisterPlayerInteractable(this);
-            
-            if (canHaul)
+
+            if (RuntimeData.State == EItemState.Loose)
             {
-                SeekForSlot();
+                PlaceOnGround();
             }
         }
        
@@ -115,11 +103,111 @@ namespace Items
             RuntimeData.AssignedStorageID = null;
             RuntimeData.CarryingKinlingUID = null;
             RuntimeData.State = EItemState.Loose;
+            
+            PlaceOnGround();
+        }
 
+        private void PlaceOnGround()
+        {
+            var groundPos = Helper.SnapToGridPos(transform.position);
+            var checkedPositions = new HashSet<Vector2>(); // To track checked positions
+            int radius = 0;
+            int maxRadius = 5; // Adjust the max radius as needed
+
+            while (radius <= maxRadius)
+            {
+                var positionsToCheck = GetPositionsInRadius(groundPos, radius, checkedPositions);
+
+                foreach (var pos in positionsToCheck)
+                {
+                    // Check if this position has already been checked
+                    if (checkedPositions.Contains(pos))
+                    {
+                        continue;
+                    }
+
+                    // Mark this position as checked
+                    checkedPositions.Add(pos);
+
+                    // Check pos for item or stack
+                    bool isPosInvalid = Helper.DoesGridContainTag(pos, "Obstacle");
+                    if (isPosInvalid)
+                    {
+                        continue; // No position available, try next adjacent pos
+                    }
+
+                    ItemStack stack = ItemsDatabase.Instance.FindItemStackAtPosition(pos);
+                    if (stack != null)
+                    {
+                        if (stack.CanItemJoinStack(RuntimeData))
+                        {
+                            stack.AddItemToStack(this);
+                            return;
+                        }
+                        continue; // No position available, try next adjacent pos
+                    } 
+
+                    var itemDatasAtPos = ItemsDatabase.Instance.FindAllItemDatasAtPosition(pos);
+                    var looseItem = itemDatasAtPos.Find(i => i.UniqueID != RuntimeData.UniqueID && i.State == EItemState.Loose);
+                    if (looseItem != null)
+                    {
+                        if (RuntimeData.CanFormStack(looseItem))
+                        {
+                            // Create Stack
+                            ItemsDatabase.Instance.CreateStack(looseItem.GetLinkedItem(), this);
+                            return;
+                        }
+                        continue; // No position available, try next adjacent pos
+                    }
+                    
+                    // Spot is free
+                    transform.position = pos;
+                    RuntimeData.Position = pos;
+                    RuntimeData.State = EItemState.Loose;
+                    if (IsAllowed)
+                    {
+                        SeekForSlot();
+                    }
+                    return;
+                }
+
+                // Increase the search radius if no valid position was found
+                radius++;
+            }
+
+            // If no valid position found after expanding the search radius
+            Debug.LogWarning("No valid position found to place the item, placing it loosely on the ground");
+            transform.position = groundPos;
+            RuntimeData.Position = groundPos;
+            RuntimeData.State = EItemState.Loose;
             if (IsAllowed)
             {
                 SeekForSlot();
             }
+        }
+
+        private List<Vector2> GetPositionsInRadius(Vector2 center, int radius, HashSet<Vector2> checkedPositions)
+        {
+            var positions = new List<Vector2>();
+
+            for (int x = -radius; x <= radius; x++)
+            {
+                for (int y = -radius; y <= radius; y++)
+                {
+                    // Only include positions at the edges of the current radius
+                    if (Mathf.Abs(x) == radius || Mathf.Abs(y) == radius)
+                    {
+                        var pos = new Vector2(center.x + x, center.y + y);
+
+                        if (!checkedPositions.Contains(pos))
+                        {
+                            positions.Add(pos);
+                        }
+                    }
+                }
+            }
+
+            return positions;
         }
 
         private void DisplayItemSprite()

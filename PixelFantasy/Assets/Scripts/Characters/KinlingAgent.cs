@@ -240,7 +240,7 @@ namespace Characters
             // Place the movement goal sprite at the end of the path
             Vector3 goalPosition = _currentPath.corners[_currentPath.corners.Length - 1];
             GameObject goalVisual = Instantiate(_goalPrefab, goalPosition, Quaternion.identity);
-            goalVisual.transform.SetParent(Spawner.Instance.MiscParent);
+            goalVisual.transform.SetParent(ParentsManager.Instance.MiscParent);
             pathVisuals.Add(goalVisual);
         }
         
@@ -256,7 +256,7 @@ namespace Characters
             {
                 Vector3 dotPosition = start + direction * _dotSpacing * i;
                 GameObject dotVisual = Instantiate(_smallDotPrefab, dotPosition, Quaternion.identity);
-                dotVisual.transform.SetParent(Spawner.Instance.MiscParent);
+                dotVisual.transform.SetParent(ParentsManager.Instance.MiscParent);
                 pathVisuals.Add(dotVisual);
                 lastDotPosition = dotPosition;
             }
@@ -269,7 +269,7 @@ namespace Characters
             if (distanceToLastDot > _dotSpacing * 0.4f && distanceToNextDot > _dotSpacing * 0.4f)
             {
                 GameObject dotVisual = Instantiate(_smallDotPrefab, end - direction * _dotSpacing, Quaternion.identity);
-                dotVisual.transform.SetParent(Spawner.Instance.MiscParent);
+                dotVisual.transform.SetParent(ParentsManager.Instance.MiscParent);
                 pathVisuals.Add(dotVisual);
             }
         }

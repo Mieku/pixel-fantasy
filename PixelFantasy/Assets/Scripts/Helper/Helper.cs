@@ -10,14 +10,14 @@ using Random = UnityEngine.Random;
 public static class Helper
 {
     /// <summary>
-    /// Converts the current mouse position to a grid position
+    /// Converts the current world position to a snapped grid position
     /// </summary>
-    public static Vector2 ConvertMousePosToGridPos(Vector2 mousePos)
+    public static Vector2 SnapToGridPos(Vector2 worldPos)
     {
         float xGrid, yGrid;
 
-        xGrid = (int)mousePos.x + 0.5f;
-        yGrid = (int)mousePos.y + 0.5f;
+        xGrid = (int)worldPos.x + 0.5f;
+        yGrid = (int)worldPos.y + 0.5f;
         
         return new Vector2(xGrid, yGrid);
     }
@@ -27,7 +27,7 @@ public static class Helper
     /// </summary>
     public static List<Vector2> GetRectangleGridPositionsBetweenPoints(Vector2 startGridPos, Vector2 currentPos)
     {
-        var currentGridPos = ConvertMousePosToGridPos(currentPos);
+        var currentGridPos = SnapToGridPos(currentPos);
         
         List<Vector2> result = new List<Vector2>();
         var lowerLeft = new Vector2(
@@ -60,7 +60,7 @@ public static class Helper
     public static List<Vector2> GetLineGridPositionsBetweenPoints(Vector2 startGridPos, Vector2 currentPos)
     {
         List<Vector2> result = new List<Vector2>();
-        var currentGridPos = ConvertMousePosToGridPos(currentPos);
+        var currentGridPos = SnapToGridPos(currentPos);
 
         var diff = startGridPos - currentPos;
         diff = new Vector2(Mathf.Abs(diff.x), Mathf.Abs(diff.y));
@@ -113,7 +113,7 @@ public static class Helper
 
     public static List<Vector2> GetBoxPositionsBetweenPoints(Vector2 startGridPos, Vector2 currentPos)
     {
-        var currentGridPos = ConvertMousePosToGridPos(currentPos);
+        var currentGridPos = SnapToGridPos(currentPos);
         
         List<Vector2> result = new List<Vector2>();
         var lowerLeft = new Vector2(
@@ -149,7 +149,7 @@ public static class Helper
     
     public static List<Vector2> GetSurroundingGridPositions(Vector2 referencePos, bool includeDiagonals, int radius, bool includeCenter = false)
     {
-        var refGridPos = ConvertMousePosToGridPos(referencePos);
+        var refGridPos = SnapToGridPos(referencePos);
         HashSet<Vector2> results = new HashSet<Vector2>();
 
         if (includeCenter)
@@ -177,8 +177,8 @@ public static class Helper
     
     public static bool IsPositionWithinRadius(Vector2 posToCheck, Vector2 radiusCenter, int radius)
     {
-        var gridPosToCheck = ConvertMousePosToGridPos(posToCheck);
-        var gridRadiusCenter = ConvertMousePosToGridPos(radiusCenter);
+        var gridPosToCheck = SnapToGridPos(posToCheck);
+        var gridRadiusCenter = SnapToGridPos(radiusCenter);
 
         if (gridPosToCheck == gridRadiusCenter)
             return true;
@@ -261,6 +261,22 @@ public static class Helper
         return detectedTags;
     }
 
+    public static List<PlayerInteractable> GetAllPlayerInteractablesAtGridPos(Vector2 gridPos)
+    {
+        List<PlayerInteractable> results = new List<PlayerInteractable>();
+        var tileGOs = GetGameObjectsOnTile(gridPos);
+        foreach (var go in tileGOs)
+        {
+            var pi = go.GetComponent<PlayerInteractable>();
+            if (pi != null)
+            {
+                results.Add(pi);
+            }
+        }
+
+        return results;
+    }
+
     public static List<T> GetAllGenericOnGridPositions<T>(List<Vector2> tiles)
     {
         List<GameObject> allGameobjects = new List<GameObject>();
@@ -305,22 +321,41 @@ public static class Helper
     /// </summary>
     public static List<GameObject> GetGameObjectsOnTile(Vector2 gridPos, string tagToGet = "")
     {
-        var leftStart = new Vector2(gridPos.x - 0.45f, gridPos.y);
-        var bottomStart = new Vector2(gridPos.x, gridPos.y - 0.45f);
-        
-        var allHitHor = Physics2D.RaycastAll(leftStart, Vector2.right, 0.9f);
-        var allHitVert = Physics2D.RaycastAll(bottomStart, Vector2.up, 0.9f);
+        // Margin for corner positions
+        float margin = 0.4f;
+        Vector3 offsetPos = new Vector3(gridPos.x, gridPos.y, -3);
+
+        // Define the ray origins (center and corners with margin)
+        var origins = new List<Vector3>
+        {
+            offsetPos, // Center
+            
+            offsetPos + new Vector3(-margin, 0, 0), // Left
+            offsetPos + new Vector3(margin, 0, 0), // Right
+            offsetPos + new Vector3(0, -margin, 0), // Bottom
+            offsetPos + new Vector3(0, margin, 0), // Top
+            
+            offsetPos + new Vector3(-margin, margin, 0), // Top-left
+            offsetPos + new Vector3(margin, margin, 0),  // Top-right
+            offsetPos + new Vector3(-margin, -margin, 0), // Bottom-left
+            offsetPos + new Vector3(margin, -margin, 0)   // Bottom-right
+        };
 
         List<GameObject> detected = new List<GameObject>();
-        foreach (var hitHor in allHitHor)
+
+        // Cast rays from each origin
+        foreach (var origin in origins)
         {
-            detected.Add(hitHor.transform.gameObject);
+            // Draw debug rays to visualize them in the Scene view
+            Debug.DrawRay(origin, new Vector3(0, 0, 6), Color.red, 30.0f);
+
+            var allHits = Physics2D.RaycastAll(origin, new Vector3(0, 0, 6));
+            foreach (var hit in allHits)
+            {
+                detected.Add(hit.transform.gameObject);
+            }
         }
-        foreach (var hitVert in allHitVert)
-        {
-            detected.Add(hitVert.transform.gameObject);
-        }
-        
+
         // Remove duplicates
         var result = detected.Distinct().ToList();
 
@@ -328,9 +363,10 @@ public static class Helper
         {
             result = result.FindAll(x => x.CompareTag(tagToGet));
         }
-        
+
         return result;
     }
+
 
     /// <summary>
     /// The percent is in 100 format,
@@ -396,21 +432,6 @@ public static class Helper
     public static float CalculateAngle(Vector3 from, Vector3 to) {
         return Quaternion.FromToRotation(Vector3.up, to - from).eulerAngles.z;
     }
-
-    // public static Building IsPositionInBuilding(Vector2 worldPos)
-    // {
-    //     var gos = GetGameObjectsOnTile(worldPos, "Building Interior");
-    //     foreach (var go in gos)
-    //     {
-    //         var building = go.GetComponentInParent<Building>(true);
-    //         if (building != null)
-    //         {
-    //             return building;
-    //         }
-    //     }
-    //
-    //     return null;
-    // }
     
     public static List<WeightedObject<T>> GenerateCumulativeDistribution<T>(List<WeightedObject<T>> items)
     {

@@ -61,7 +61,7 @@ namespace Systems.Zones.Scripts
                 var stored = ItemsDatabase.Instance.Query(storedUID);
                 stored.State = EItemState.Loose;
                 stored.AssignedStorageID = null;
-                ItemsDatabase.Instance.CreateItemObject(stored, Position, true);
+                ItemsDatabase.Instance.CreateItemObject(stored, Position);
             }
             StoredUIDs.Clear();
             
@@ -214,7 +214,7 @@ namespace Systems.Zones.Scripts
         
             GameEvents.Trigger_RefreshInventoryDisplay();
 
-            var item = ItemsDatabase.Instance.CreateItemObject(itemData, Position, false);
+            var item = ItemsDatabase.Instance.CreateItemObject(itemData, Position);
             return item;
         }
 

@@ -137,7 +137,7 @@ namespace Items
             foreach (var storedUID in StoredUIDs)
             {
                 var item = ItemsDatabase.Instance.Query(storedUID);
-                ItemsDatabase.Instance.CreateItemObject(item, RuntimeStorageData.Position, true);
+                ItemsDatabase.Instance.CreateItemObject(item, RuntimeStorageData.Position);
             }
             StoredUIDs.Clear();
             

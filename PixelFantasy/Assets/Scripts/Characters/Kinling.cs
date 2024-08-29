@@ -88,7 +88,7 @@ namespace Characters
             if (!string.IsNullOrEmpty(data.HeldItemID))
             {
                 var heldItemData = ItemsDatabase.Instance.Query(data.HeldItemID);
-                var item = ItemsDatabase.Instance.CreateItemObject(heldItemData, heldItemData.Position, false);
+                var item = ItemsDatabase.Instance.CreateItemObject(heldItemData, heldItemData.Position);
 
                 HeldItem = item;
                 item.transform.SetParent(transform);

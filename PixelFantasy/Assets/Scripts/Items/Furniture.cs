@@ -229,14 +229,15 @@ namespace Items
                 }
             }
 
+            var spawnPos = Helper.SnapToGridPos(transform.position);
             foreach (var refundCost in difference)
             {
                 for (int i = 0; i < refundCost.Quantity; i++)
                 {
                     if (Helper.RollDice(percentReturned))
                     {
-                        var data = refundCost.Item.CreateItemData();
-                        ItemsDatabase.Instance.CreateItemObject(data, transform.position, true);
+                        var data = refundCost.Item.CreateItemData(spawnPos);
+                        ItemsDatabase.Instance.CreateItemObject(data, spawnPos);
                     }
                 }
             }

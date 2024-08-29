@@ -126,7 +126,7 @@ namespace Systems.Buildings.Scripts
         
         private void FollowCursor()
         {
-            var cursorPos = Helper.ConvertMousePosToGridPos(UtilsClass.GetMouseWorldPosition());
+            var cursorPos = Helper.SnapToGridPos(UtilsClass.GetMouseWorldPosition());
             gameObject.transform.position = cursorPos;
         }
         

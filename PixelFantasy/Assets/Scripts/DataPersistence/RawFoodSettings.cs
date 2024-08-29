@@ -13,10 +13,10 @@ public class RawFoodSettings : ItemSettings
     public EFoodType FoodType => _foodType;
     public float Nutrition => _nutrition;
     
-    public override ItemData CreateItemData()
+    public override ItemData CreateItemData(Vector2 spawnPos)
     {
         var data = new RawFoodData();
-        data.InitData(this);
+        data.InitData(this, spawnPos);
         ItemsDatabase.Instance.RegisterItem(data);
         return data;
     }
