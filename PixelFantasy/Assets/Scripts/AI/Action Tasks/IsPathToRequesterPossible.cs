@@ -17,6 +17,7 @@ namespace AI.Action_Tasks
         {
             var kinling = KinlingsDatabase.Instance.GetKinling(KinlingUID.value);
             PlayerInteractable requester = PlayerInteractableDatabase.Instance.Query(RequesterUID.value);
+            if (requester == null) return false;
 
             var usePos = requester.UseagePosition(kinling.transform.position);
             

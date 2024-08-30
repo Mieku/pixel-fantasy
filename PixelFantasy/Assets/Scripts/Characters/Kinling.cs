@@ -29,6 +29,7 @@ namespace Characters
         public string FullName => RuntimeData.Firstname + " " + RuntimeData.Lastname;
         public override string UniqueID => RuntimeData.UniqueID;
         public override string DisplayName => RuntimeData.Nickname;
+        public override bool IsClickDisabled { get; protected set; } = false;
 
         public override string PendingTaskUID
         {
@@ -159,13 +160,6 @@ namespace Characters
         private void GameEvents_MinuteTick()
         {
             RuntimeData?.MinuteTick();
-        }
-
-        public bool IsClickDisabled { get; set; }
-        public bool IsAllowed { get; set; }
-
-        public void ToggleAllowed(bool isAllowed)
-        {
         }
         
         public override Vector2? UseagePosition(Vector2 requestorPosition)

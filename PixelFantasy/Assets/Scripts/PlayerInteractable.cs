@@ -16,6 +16,7 @@ public abstract class PlayerInteractable : MonoBehaviour
     public abstract string UniqueID { get; }
     public abstract string DisplayName { get; }
     public abstract string PendingTaskUID { get; set; }
+    public abstract bool IsClickDisabled { get; protected set; }
     
     /// <summary>
     /// This is for situations where you want to check if a pi is similar, for example when double-clicking to select all similar
@@ -41,12 +42,22 @@ public abstract class PlayerInteractable : MonoBehaviour
         }
     }
 
-    public void AddCommand(string cmdID)
+    public void AddCommand(string cmdID, bool firstOnList = false)
     {
          if (_commands.Exists(c => c.CommandID == cmdID)) return; // dont add twice
         
         Command cmd = GameSettings.Instance.LoadCommand(cmdID);
-        if(cmd != null) _commands.Add(cmd);
+        if (cmd != null)
+        {
+            if (firstOnList)
+            {
+                _commands.Insert(0, cmd);
+            }
+            else
+            {
+                _commands.Add(cmd);
+            }
+        }
     }
 
     public void RemoveCommand(string cmdID)
@@ -254,5 +265,15 @@ public abstract class PlayerInteractable : MonoBehaviour
     public virtual int GetStackSize()
     {
         return 1;
+    }
+
+    public virtual bool IsForbidden()
+    {
+        return false;
+    }
+    
+    public void CancelRequesterTasks(bool requeueTask)
+    {
+        TasksDatabase.Instance.CancelRequesterTasks(this, requeueTask);
     }
 }

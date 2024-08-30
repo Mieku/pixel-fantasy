@@ -44,6 +44,7 @@ namespace Zones
 
         public override string UniqueID => RuntimeData.UniqueID;
         public override string DisplayName => RuntimeData.Settings.CropName;
+        public override bool IsClickDisabled { get; protected set; } = false;
         
         public override string PendingTaskUID
         {

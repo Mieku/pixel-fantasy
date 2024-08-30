@@ -18,12 +18,6 @@ namespace Controllers
         protected override void Awake()
         {
             base.Awake();
-            GameEvents.OnRightClickUp += GameEvents_OnRightClickUp;
-        }
-
-        private void OnDestroy()
-        {
-            GameEvents.OnRightClickUp -= GameEvents_OnRightClickUp;
         }
 
         private void Update()
@@ -55,6 +49,11 @@ namespace Controllers
             if (Input.GetMouseButtonDown(1))
             {
                 RightClickDown();
+            }
+
+            if (Input.GetMouseButtonUp(1))
+            {
+                RightClickUp();
             }
         }
 
@@ -90,7 +89,7 @@ namespace Controllers
             // Trigger selection handling via SelectionManager
             var playerInteractable = Helper.GetObjectAtPosition<PlayerInteractable>(_currentMousePos);
             var zone = Helper.GetObjectAtPosition<ZoneCell>(_currentMousePos);
-            if (playerInteractable != null)
+            if (playerInteractable != null && !playerInteractable.IsClickDisabled)
             {
                 SelectionManager.Instance.HandleClick(playerInteractable);
             }
@@ -111,7 +110,7 @@ namespace Controllers
         {
             var playerInteractable = Helper.GetObjectAtPosition<PlayerInteractable>(_currentMousePos);
 
-            if (playerInteractable != null)
+            if (playerInteractable != null && !playerInteractable.IsClickDisabled)
             {
                 var visiblePIs = PlayerInteractableDatabase.Instance.GetAllSimilarVisiblePIs(playerInteractable);
                 SelectionManager.Instance.SelectMultiple(visiblePIs);
@@ -132,6 +131,11 @@ namespace Controllers
         {
             GameEvents.Trigger_OnRightClickDown(_currentMousePos, _playerInputState, _isOverUI);
         }
+        
+        private void RightClickUp()
+        {
+            GameEvents.Trigger_OnRightClickUp(_currentMousePos, _playerInputState, _isOverUI);
+        }
 
         private void DetectKeyboardInput()
         {
@@ -145,11 +149,6 @@ namespace Controllers
         {
             ChangeState(PlayerInputState.None);
             SelectionManager.Instance.ClearSelection();
-        }
-
-        private void GameEvents_OnRightClickUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
-        {
-            // Handle right-click logic if necessary
         }
 
         public void ChangeState(PlayerInputState newState)

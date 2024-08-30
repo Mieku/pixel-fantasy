@@ -25,6 +25,8 @@ namespace Items
             set => RuntimeData.PendingTaskUID = value;
         }
 
+        public override bool IsClickDisabled { get; protected set; } = false;
+
         protected virtual void Awake()
         {
             
@@ -266,8 +268,7 @@ namespace Items
             Task task = new Task("Withdraw Item For Constructable", "Gathering Materials" ,ETaskType.Hauling, this, taskData);
             TasksDatabase.Instance.AddTask(task);
         }
-
-        public bool IsClickDisabled { get; set; }
+        
         public bool IsAllowed { get; set; }
         public void ToggleAllowed(bool isAllowed)
         {

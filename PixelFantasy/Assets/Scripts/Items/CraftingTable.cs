@@ -52,6 +52,10 @@ namespace Items
             RuntimeTableData.InitData(tableSettings);
             RuntimeData.Direction = direction;
             
+            IsAllowed = true;
+            RefreshAllowedDisplay();
+            RefreshAllowCommands();
+            
             SetState(RuntimeData.FurnitureState);
             AssignDirection(direction);
         }

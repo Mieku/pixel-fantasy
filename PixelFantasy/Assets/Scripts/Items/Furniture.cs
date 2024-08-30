@@ -101,10 +101,14 @@ namespace Items
             
             SetState(data.FurnitureState);
             RefreshTaskIcon();
+            
+            RefreshAllowedDisplay();
+            RefreshAllowCommands();
         }
         
         public virtual void StartPlanning(FurnitureSettings furnitureSettings, PlacementDirection initialDirection, DyeSettings dye)
         {
+            IsClickDisabled = true;
             _isPlanning = true;
             _dyeOverride = dye;
             AssignDirection(initialDirection);
@@ -121,6 +125,10 @@ namespace Items
         public virtual void CompletePlanning()
         {
             _isPlanning = false;
+            
+            RefreshAllowedDisplay();
+            RefreshAllowCommands();
+            
             InformChanged();
         }
 
@@ -130,6 +138,10 @@ namespace Items
             RuntimeData = new FurnitureData();
             RuntimeData.InitData(furnitureSettings);
             RuntimeData.Direction = direction;
+            
+            IsAllowed = true;
+            RefreshAllowedDisplay();
+            RefreshAllowCommands();
             
             SetState(RuntimeData.FurnitureState);
             AssignDirection(direction);
@@ -147,7 +159,7 @@ namespace Items
                 if (RuntimeData == null) return false;
                 if (RuntimeData.FurnitureState != EFurnitureState.Built) return false;
 
-                if (RuntimeData.InUse || RuntimeData.HasUseBlockingCommand)
+                if (RuntimeData.InUse || RuntimeData.HasUseBlockingCommand || !RuntimeData.IsAllowed)
                 {
                     return false;
                 }
@@ -178,7 +190,19 @@ namespace Items
             }
             else
             {
-                CreateTask(command);
+                if (command.CommandID == "Forbid")
+                {
+                    CancelPendingTask();
+                    IsAllowed = false;
+                }
+                else if (command.CommandID == "Allow")
+                {
+                    IsAllowed = true;
+                }
+                else
+                {
+                    CreateTask(command);
+                }
             }
         }
 
@@ -467,6 +491,7 @@ namespace Items
 
         protected void InProduction_Enter()
         {
+            IsClickDisabled = false;
             RuntimeData.Position = transform.position;
             PlayerInteractableDatabase.Instance.RegisterPlayerInteractable(this);
             DisplayUseageMarkers(false);
@@ -481,6 +506,7 @@ namespace Items
         
         protected virtual void Built_Enter()
         {
+            IsClickDisabled = false;
             RuntimeData.Position = transform.position;
             RuntimeData.RemainingWork = RuntimeData.FurnitureSettings.CraftRequirements.WorkCost;
             DisplayUseageMarkers(false);
@@ -608,8 +634,6 @@ namespace Items
             
             // Delete this
             Destroy(gameObject);
-            
-            
         }
         
         public void DoPlacement()
@@ -775,7 +799,7 @@ namespace Items
 
         }
 
-        public bool IsClickDisabled { get; set; }
+        public override bool IsClickDisabled { get; protected set; }
         
         [JsonIgnore] public override string DisplayName => RuntimeData.ItemName;
         
@@ -796,6 +820,61 @@ namespace Items
             {
                 lightSource.SetLightOn(showLights);
             }
+        }
+        
+        public bool IsAllowed
+        {
+            get => RuntimeData.IsAllowed;
+            set
+            {
+                RuntimeData.IsAllowed = value;
+
+                if (value == false)
+                {
+                    // Cancel all tasks
+                    CancelPendingTask();
+                    CancelRequesterTasks(true);
+                }
+                
+                RefreshAllowCommands();
+                RefreshAllowedDisplay();
+                InformChanged();
+            }
+        }
+
+        protected void RefreshAllowedDisplay()
+        {
+            if (!IsAllowed)
+            {
+                var forbidCmd = GameSettings.Instance.LoadCommand("Forbid");
+                AssignTaskIcon(forbidCmd);
+            }
+            else
+            {
+                AssignTaskIcon(null);
+            }
+        }
+        
+        protected void RefreshAllowCommands()
+        {
+            if (RuntimeData.FurnitureState == EFurnitureState.InProduction)
+            {
+                if (IsAllowed)
+                {
+                    AddCommand("Forbid", true);
+                    RemoveCommand("Allow");
+                }
+                else
+                {
+                    AddCommand("Allow", true);
+                    RemoveCommand("Forbid");
+                }
+            }
+        }
+
+        public override bool IsForbidden()
+        {
+            return !IsAllowed;
         }
     }
 }

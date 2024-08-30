@@ -73,6 +73,15 @@ namespace AI
             return true;
         }
 
+        public bool IsForbidden()
+        {
+            var requestor = PlayerInteractableDatabase.Instance.Query(RequesterID);
+            if(requestor == null) return true;
+            if(requestor.IsForbidden()) return true;
+
+            return false;
+        }
+
         public void LogFailedAttempt(string kinlingID)
         {
             FailedLog[kinlingID] = DateTime.UtcNow;

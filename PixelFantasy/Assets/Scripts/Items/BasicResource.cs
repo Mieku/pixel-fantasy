@@ -21,6 +21,7 @@ namespace Items
         protected ResourceSettings _settings;
         public BasicResourceData RuntimeData;
         public override string UniqueID => RuntimeData.UniqueID;
+        public override bool IsClickDisabled { get; protected set; } = false;
 
         public override string PendingTaskUID
         {
@@ -118,8 +119,6 @@ namespace Items
         }
 
         public override string DisplayName => _settings.ResourceName;
-
-        public bool IsClickDisabled { get; set; }
 
         public void RefreshSelection()
         {

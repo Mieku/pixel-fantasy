@@ -34,7 +34,7 @@ namespace Systems.Buildings.Scripts
 
         public void DeregisterStructure(StructurePiece structurePiece)
         {
-            TasksDatabase.Instance.CancelRequesterTasks(structurePiece);
+            structurePiece.CancelRequesterTasks(false);
             Vector2Int removedPosition = structurePiece.Cell.CellPos;
     
             UpdateGrid(removedPosition, EStructureCell.None);

@@ -89,7 +89,7 @@ namespace AI
                         {
                             checkedTaskIDs.Add(task.UniqueID);
 
-                            if (kinlingData.Stats.CanDoTaskType(task.Type) && task.AreSkillsValid(kinlingData.Stats))
+                            if (!task.IsForbidden() && kinlingData.Stats.CanDoTaskType(task.Type) && task.AreSkillsValid(kinlingData.Stats))
                             {
                                 lock (task)
                                 {
@@ -121,7 +121,7 @@ namespace AI
             return nextTask;
         }
 
-        public void CancelRequesterTasks(PlayerInteractable requester)
+        public void CancelRequesterTasks(PlayerInteractable requester, bool requeueTask)
         {
             var requesterTasks = TaskQueues.SelectMany(queue => queue.QueuedTasks)
                 .Where(t => t.RequesterID == requester.UniqueID).ToList();
@@ -129,6 +129,12 @@ namespace AI
             foreach (var task in requesterTasks)
             {
                 task.Cancel();
+
+                if (requeueTask)
+                {
+                    task.Status = ETaskStatus.Pending;
+                    AddTask(task);
+                }
             }
         }
     }

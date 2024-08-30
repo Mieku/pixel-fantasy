@@ -22,7 +22,7 @@ namespace Systems.Buildings.Scripts
 
         public void DeregisterFloor(Floor floor)
         {
-            TasksDatabase.Instance.CancelRequesterTasks(floor);
+            floor.CancelRequesterTasks(false);
             _registeredFloors.Remove(floor.UniqueID);
             PlayerInteractableDatabase.Instance.DeregisterPlayerInteractable(floor);
         }
