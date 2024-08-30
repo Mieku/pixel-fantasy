@@ -11,28 +11,28 @@ namespace Systems.Details.Generic_Details.Scripts
         [SerializeField] private DetailsTextEntry _textEntryPrefab;
         
         private GenericDetails _parentDetails;
-        private Item _item;
+        private ItemStack _stack;
         private bool _isActive;
         private List<DetailsTextEntry> _displayedTextEntries = new List<DetailsTextEntry>();
         
-        public void Show(Item item, GenericDetails parentDetails)
+        public void Show(ItemStack itemStack, GenericDetails parentDetails)
         {
             gameObject.SetActive(true);
             _textEntryPrefab.gameObject.SetActive(false);
             _parentDetails = parentDetails;
-            _item = item;
+            _stack = itemStack;
             _isActive = true;
 
-            if (item.StackAmount > 1)
+            if (itemStack.StackAmount > 1)
             {
                 _parentDetails.ItemName.color = Librarian.Instance.GetColour("Common Quality");
-                _parentDetails.ItemName.text = $"{_item.DisplayName} (x{item.StackAmount})";
+                _parentDetails.ItemName.text = $"{_stack.DisplayName} (x{itemStack.StackAmount})";
             }
             else
             {
-                var itemData = item.ItemDatas.First();
+                var itemData = itemStack.ItemDatas.First();
                 _parentDetails.ItemName.color = itemData.GetQualityColour();
-                _parentDetails.ItemName.text = $"{_item.DisplayName} ({itemData.Quality.GetDescription()})";
+                _parentDetails.ItemName.text = $"{_stack.DisplayName} ({itemData.Quality.GetDescription()})";
             }
             
             RefreshTextEntries();
@@ -58,9 +58,9 @@ namespace Systems.Details.Generic_Details.Scripts
             }
             _displayedTextEntries.Clear();
 
-            if (_item.StackAmount == 1)
+            if (_stack.StackAmount == 1)
             {
-                var itemData = _item.ItemDatas.First();
+                var itemData = _stack.ItemDatas.First();
                 var detailsTexts = itemData.GetDetailsTexts();
                 foreach (var detailsText in detailsTexts)
                 {
@@ -83,10 +83,10 @@ namespace Systems.Details.Generic_Details.Scripts
         {
             if(!_isActive) return;
 
-            if (_item.StackAmount == 1)
+            if (_stack.StackAmount == 1)
             {
-                var itemData = _item.ItemDatas.First();
-                _parentDetails.SetDurabilityFill(itemData.Durability, _item.Settings.MaxDurability);
+                var itemData = _stack.ItemDatas.First();
+                _parentDetails.SetDurabilityFill(itemData.Durability, _stack.Settings.MaxDurability);
             }
             else
             {

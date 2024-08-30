@@ -64,13 +64,13 @@ namespace Handlers
             return results;
         }
         
-        public Item FindItemObject(string itemDataUID)
+        public ItemStack FindItemObject(string itemDataUID)
         {
             var itemData = Query(itemDataUID);
             switch (itemData.State)
             {
                 case EItemState.Loose:
-                    var items = PlayerInteractableDatabase.Instance.RegisteredPlayerInteractables.OfType<Item>().ToList();
+                    var items = PlayerInteractableDatabase.Instance.RegisteredPlayerInteractables.OfType<ItemStack>().ToList();
                     var result = items.Find(i => i.ContainsItemData(itemDataUID));
                     return result;
                 case EItemState.BeingProcessed:
@@ -78,30 +78,30 @@ namespace Handlers
                     return null;
                 case EItemState.Carried:
                     var carryingKinling = KinlingsDatabase.Instance.GetKinling(itemData.CarryingKinlingUID);
-                    return carryingKinling.HeldItem;
+                    return carryingKinling.HeldStack;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
         
-        public Item CreateItemObject(ItemData data, Vector2 pos)
+        public ItemStack CreateItemObject(ItemData data, Vector2 pos)
         {
-            var prefab = Resources.Load<Item>($"Prefabs/ItemPrefab");
-            Item itemObj = Instantiate(prefab, pos, Quaternion.identity, transform);
-            itemObj.InitItemStack(data, pos);
-            itemObj.name = itemObj.UniqueID;
+            var prefab = Resources.Load<ItemStack>($"Prefabs/ItemStackPrefab");
+            ItemStack itemStack = Instantiate(prefab, pos, Quaternion.identity, transform);
+            itemStack.InitItemStack(data, pos);
+            itemStack.name = itemStack.UniqueID;
             
-            return itemObj;
+            return itemStack;
         }
 
-        public Item CreateLoadedStack(ItemStackData stackData)
+        public ItemStack CreateLoadedStack(ItemStackData stackData)
         {
-            var prefab = Resources.Load<Item>($"Prefabs/ItemPrefab");
-            Item itemObj = Instantiate(prefab, stackData.Position, Quaternion.identity, transform);
-            itemObj.name = stackData.UniqueID;
-            itemObj.LoadStackData(stackData);
+            var prefab = Resources.Load<ItemStack>($"Prefabs/ItemStackPrefab");
+            ItemStack itemStack = Instantiate(prefab, stackData.Position, Quaternion.identity, transform);
+            itemStack.name = stackData.UniqueID;
+            itemStack.LoadStackData(stackData);
 
-            return itemObj;
+            return itemStack;
         }
 
         private void Update()
@@ -178,7 +178,7 @@ namespace Handlers
 
         public void ClearAllItems()
         {
-            var allItems = transform.GetComponentsInChildren<Item>();
+            var allItems = transform.GetComponentsInChildren<ItemStack>();
             foreach (var item in allItems.Reverse())
             {
                 DestroyImmediate(item.gameObject);

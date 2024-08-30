@@ -45,14 +45,14 @@ namespace Items
             RuntimeStorageData.CancelIncoming(itemData);
         }
 
-        public void DepositItems(Item item)
+        public void DepositItems(ItemStack itemStack)
         {
-            RuntimeStorageData.DepositItems(item);
-            Destroy(item.gameObject);
+            RuntimeStorageData.DepositItems(itemStack);
+            Destroy(itemStack.gameObject);
             InformChanged();
         }
 
-        public Item WithdrawItem(ItemData itemData)
+        public ItemStack WithdrawItem(ItemData itemData)
         {
             return RuntimeStorageData.WithdrawItem(itemData);
         }

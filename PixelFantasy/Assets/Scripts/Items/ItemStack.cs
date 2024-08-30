@@ -34,7 +34,7 @@ namespace Items
         }
     }
     
-    public class Item : PlayerInteractable
+    public class ItemStack : PlayerInteractable
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private TextMeshProUGUI _stackAmountText;
@@ -85,7 +85,7 @@ namespace Items
 
         public override bool IsSimilar(PlayerInteractable otherPI)
         {
-            if (otherPI is Item otherItem)
+            if (otherPI is ItemStack otherItem)
             {
                 return Settings == otherItem.Settings;
             }
@@ -143,7 +143,7 @@ namespace Items
             }
         }
 
-        public Item PickUpItem(Kinling kinling, string itemDataUID)
+        public ItemStack PickUpItem(Kinling kinling, string itemDataUID)
         {
             if (StackAmount == 1)
             {
@@ -169,10 +169,10 @@ namespace Items
             }
         }
 
-        public void MergeItems(Item itemToBeMerged)
+        public void MergeItems(ItemStack stackToBeMerged)
         {
-            var itemDataUIDs = itemToBeMerged.StackData.StackedItemDataUIDs;
-            Destroy(itemToBeMerged.gameObject);
+            var itemDataUIDs = stackToBeMerged.StackData.StackedItemDataUIDs;
+            Destroy(stackToBeMerged.gameObject);
 
             foreach (var itemDataUID in itemDataUIDs)
             {
@@ -182,13 +182,13 @@ namespace Items
             Refresh();
         }
 
-        public bool CanMergeIntoItem(Item itemToBeMerged)
+        public bool CanMergeIntoItem(ItemStack stackToBeMerged)
         {
-            if (Settings != itemToBeMerged.Settings) return false;
+            if (Settings != stackToBeMerged.Settings) return false;
             if (!IsAllowed) return false;
 
             int maxStack = Settings.MaxStackSize;
-            int combinedStack = StackAmount + itemToBeMerged.StackAmount;
+            int combinedStack = StackAmount + stackToBeMerged.StackAmount;
             return combinedStack <= maxStack;
         }
 

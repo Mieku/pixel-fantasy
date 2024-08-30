@@ -204,7 +204,7 @@ namespace Systems.Zones.Scripts
             return maxStorage - (StoredUIDs.Count + IncomingUIDs.Count);
         }
 
-        public Items.Item WithdrawItem(ItemData itemData)
+        public Items.ItemStack WithdrawItem(ItemData itemData)
         {
             StoredUIDs.Remove(itemData.UniqueID);
             ClaimedUIDs.Remove(itemData.UniqueID);

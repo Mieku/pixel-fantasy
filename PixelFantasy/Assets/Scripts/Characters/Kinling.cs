@@ -11,6 +11,7 @@ using Systems.Social.Scripts;
 using Systems.Traits.Scripts;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 using Avatar = Systems.Appearance.Scripts.Avatar;
 
 namespace Characters
@@ -42,7 +43,7 @@ namespace Characters
 
         public KinlingAgent KinlingAgent;
         public Avatar Avatar;
-        public Item HeldItem;
+        [FormerlySerializedAs("HeldItem")] public ItemStack HeldStack;
 
         public StatsData Stats => RuntimeData.Stats;
 
@@ -90,7 +91,7 @@ namespace Characters
                 var stack = ItemsDatabase.Instance.QueryStack(data.HeldStackID);
                 var item = ItemsDatabase.Instance.CreateLoadedStack(stack);
 
-                HeldItem = item;
+                HeldStack = item;
                 item.transform.SetParent(transform);
                 item.transform.localPosition = Vector3.zero;
             }
@@ -124,9 +125,9 @@ namespace Characters
 
         private void Update()
         {
-            if (HeldItem != null)
+            if (HeldStack != null)
             {
-                HeldItem.UpdatePosition();
+                HeldStack.UpdatePosition();
             }
         }
 
@@ -172,38 +173,38 @@ namespace Characters
             return transform.position;
         }
         
-        public Item HoldItem(Item item, string itemDataUID)
+        public ItemStack HoldItem(ItemStack itemStack, string itemDataUID)
         {
-            Item pickedUpItem = item.PickUpItem(this, itemDataUID);
-            RuntimeData.HeldStackID = pickedUpItem.UniqueID;
-            HeldItem = pickedUpItem;
+            ItemStack pickedUpStack = itemStack.PickUpItem(this, itemDataUID);
+            RuntimeData.HeldStackID = pickedUpStack.UniqueID;
+            HeldStack = pickedUpStack;
             
-            pickedUpItem.transform.SetParent(transform);
-            pickedUpItem.transform.localPosition = Vector3.zero;
+            pickedUpStack.transform.SetParent(transform);
+            pickedUpStack.transform.localPosition = Vector3.zero;
 
-            return pickedUpItem;
+            return pickedUpStack;
         }
         
-        public Item DropCarriedItem(bool allowHauling)
+        public ItemStack DropCarriedItem(bool allowHauling)
         {
-            if (HeldItem == null) return null;
+            if (HeldStack == null) return null;
 
-            HeldItem.transform.SetParent(ParentsManager.Instance.ItemsParent);
-            HeldItem.IsAllowed = allowHauling;
-            HeldItem.ItemDropped();
-            var item = HeldItem;
-            HeldItem = null;
+            HeldStack.transform.SetParent(ParentsManager.Instance.ItemsParent);
+            HeldStack.IsAllowed = allowHauling;
+            HeldStack.ItemDropped();
+            var item = HeldStack;
+            HeldStack = null;
             RuntimeData.HeldStackID = null;
             return item;
         }
 
         public void DepositHeldItemInStorage(IStorage storage)
         {
-            if (HeldItem == null) return;
+            if (HeldStack == null) return;
             
-            storage.DepositItems(HeldItem);
-            var item = HeldItem;
-            HeldItem = null;
+            storage.DepositItems(HeldStack);
+            var item = HeldStack;
+            HeldStack = null;
             
             var heldStackData = ItemsDatabase.Instance.QueryStack(RuntimeData.HeldStackID);
             foreach (var stackedItemDataUID in heldStackData.StackedItemDataUIDs)

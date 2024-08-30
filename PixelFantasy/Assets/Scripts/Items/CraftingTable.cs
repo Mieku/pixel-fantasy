@@ -205,7 +205,7 @@ namespace Items
 
         public void ReceiveMaterial(ItemData itemData)
         {
-            var item = (Item)itemData.GetLinkedItem();
+            var item = (ItemStack)itemData.GetLinkedItem();
             Destroy(item.gameObject);
             RuntimeTableData.CurrentOrder.ReceiveItem(itemData);
         }

@@ -37,7 +37,7 @@ namespace AI.Action_Tasks
                 _kinling.KinlingAgent.SetMovePosition(_kinling.transform.position);
                 
                 // If they are carrying item, drop it
-                if (_kinling.HeldItem != null)
+                if (_kinling.HeldStack != null)
                 {
                     _kinling.DropCarriedItem(true);
                 }

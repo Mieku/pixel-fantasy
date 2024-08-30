@@ -58,11 +58,11 @@ public class ItemData
         ItemsDatabase.Instance.DeregisterItem(this);
     }
 
-    public Item GetLinkedItem()
+    public ItemStack GetLinkedItem()
     {
         if (State == EItemState.Carried)
         {
-            return KinlingsDatabase.Instance.GetKinling(CarryingKinlingUID).HeldItem;
+            return KinlingsDatabase.Instance.GetKinling(CarryingKinlingUID).HeldStack;
         }
         
         return ItemsDatabase.Instance.FindItemObject(UniqueID);

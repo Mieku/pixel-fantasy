@@ -537,7 +537,7 @@ namespace Items
         {
             RuntimeData.RemoveFromIncomingItems(itemData);
 
-            var item = (Item) itemData.GetLinkedItem();
+            var item = (ItemStack) itemData.GetLinkedItem();
             Destroy(item.gameObject);
             
             itemData.CarryingKinlingUID = null;

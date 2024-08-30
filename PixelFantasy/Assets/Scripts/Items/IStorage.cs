@@ -15,8 +15,8 @@ namespace Items
         public void SetIncoming(ItemData itemData);
         public void CancelIncoming(ItemData itemData);
         
-        public void DepositItems(Item item);
-        public Item WithdrawItem(ItemData itemData);
+        public void DepositItems(ItemStack itemStack);
+        public ItemStack WithdrawItem(ItemData itemData);
         public void LoadInItem(ItemData itemData);
 
         public bool ClaimItem(ItemData itemToClaim);

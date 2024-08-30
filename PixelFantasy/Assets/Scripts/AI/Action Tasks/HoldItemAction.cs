@@ -14,16 +14,16 @@ namespace AI.Action_Tasks
         public BBParameter<string> HeldItemUID;
 
         private Kinling _kinling;
-        private Item _item;
+        private ItemStack _stack;
 
         protected override void OnExecute()
         {
             _kinling = KinlingsDatabase.Instance.GetKinling(KinlingUID.value);
-            _item = ItemsDatabase.Instance.FindItemObject(ItemDataUID.value);
+            _stack = ItemsDatabase.Instance.FindItemObject(ItemDataUID.value);
             
-            if(_item == null || _kinling == null) EndAction(false);
+            if(_stack == null || _kinling == null) EndAction(false);
             
-            var heldItem = _kinling.HoldItem(_item, ItemDataUID.value);
+            var heldItem = _kinling.HoldItem(_stack, ItemDataUID.value);
             HeldItemUID.value = ItemDataUID.value;
             
             EndAction(true);
@@ -38,7 +38,7 @@ namespace AI.Action_Tasks
             }
 
             _kinling = null;
-            _item = null;
+            _stack = null;
         }
     }
 }

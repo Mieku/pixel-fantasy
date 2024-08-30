@@ -125,7 +125,7 @@ namespace Systems.Details.Generic_Details.Scripts
                 _structureDetails.Hide();
                 _itemDetails.Hide();
             }
-            else if (_playerInteractable is Item item)
+            else if (_playerInteractable is ItemStack item)
             {
                 _itemDetails.Show(item, this);
                 _resourceDetails.Hide();

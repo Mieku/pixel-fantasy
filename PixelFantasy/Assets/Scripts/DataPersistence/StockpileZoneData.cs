@@ -225,9 +225,9 @@ public class StockpileZoneData : ZoneData, IStorage
         GameEvents.Trigger_RefreshInventoryDisplay();
     }
 
-    public void DepositItems(Item item)
+    public void DepositItems(ItemStack itemStack)
     {
-        var runtimeDatas = item.ItemDatas;
+        var runtimeDatas = itemStack.ItemDatas;
         foreach (var runtimeData in runtimeDatas)
         {
             if (!IsSpecificItemDataIncoming(runtimeData))
@@ -253,7 +253,7 @@ public class StockpileZoneData : ZoneData, IStorage
         cell.LoadInItemData(itemData);
     }
 
-    public Item WithdrawItem(ItemData itemData)
+    public ItemStack WithdrawItem(ItemData itemData)
     {
         itemData.AssignedStorageID = null;
         itemData.State = EItemState.Carried;

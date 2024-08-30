@@ -285,7 +285,7 @@ using UnityEngine;
             return StorageSettings.AcceptedCategories.Contains(itemSettings.Category);
         }
         
-        public Items.Item WithdrawItem(ItemData itemData)
+        public Items.ItemStack WithdrawItem(ItemData itemData)
         {
             if (!IsSpecificItemDataStored(itemData))
             {
@@ -310,9 +310,9 @@ using UnityEngine;
             return item;
         }
         
-        public void DepositItems(Item item)
+        public void DepositItems(ItemStack itemStack)
         {
-            var runtimeDatas = item.ItemDatas;
+            var runtimeDatas = itemStack.ItemDatas;
             foreach (var runtimeData in runtimeDatas)
             {
                 if (!IsSpecificItemDataIncoming(runtimeData))
