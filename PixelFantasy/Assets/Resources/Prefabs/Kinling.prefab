@@ -872,10 +872,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selectedIcon: {fileID: 7966535961772041823}
-  _usesTintedSelection: 0
-  _spriteRendererToTint: {fileID: 0}
   _commandDisplay: {fileID: 1111265240254538295}
-  Commands: []
+  _commands: []
   RuntimeData:
     UniqueID: 
     Nickname: 
@@ -932,7 +930,7 @@ MonoBehaviour:
     Mood:
       _moodState: 0
     CurrentTaskID: 
-    HeldItemID: 
+    HeldStackID: 
     EnqueuedTaskUIDs: []
     IsIndoors: 0
     _personalLog: []
@@ -943,8 +941,7 @@ MonoBehaviour:
   _workDisplay: {fileID: 3133382863363557237}
   KinlingAgent: {fileID: 6234467081272595317}
   Avatar: {fileID: 4381294019299256598}
-  HeldItem: {fileID: 0}
-  ClickObject: {fileID: 0}
+  HeldStack: {fileID: 0}
 --- !u!61 &1211023406118596035
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1033,7 +1030,7 @@ NavMeshAgent:
   m_Acceleration: 35
   avoidancePriority: 0
   m_AngularSpeed: 240
-  m_StoppingDistance: 0.05
+  m_StoppingDistance: 0.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

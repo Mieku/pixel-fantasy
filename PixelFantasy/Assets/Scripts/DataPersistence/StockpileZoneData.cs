@@ -308,8 +308,9 @@ public class StockpileZoneData : ZoneData, IStorage
             Debug.LogError($"{specificItem} is not stored or incoming in any cells");
             return null;
         }
-            
-        return cell.Position;
+
+        Vector2 pos = cell.Position + new Vector2(0.5f, 0.5f); // So it is the center of the cell
+        return pos;
     }
 
     [JsonIgnore] public bool IsAvailable => IsEnabled;
