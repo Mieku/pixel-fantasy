@@ -31,7 +31,13 @@ namespace Systems.Details.Generic_Details.Scripts
             _groupDisplayPrefab.gameObject.SetActive(false);
 
             _selectedPIs = playerInteractables;
-            _headerText.text = $"Multiple Selected (x{_selectedPIs.Count})";
+            int amount = 0;
+            foreach (var pi in _selectedPIs)
+            {
+                amount += pi.GetStackSize();
+            }
+            
+            _headerText.text = $"Multiple Selected (x{amount})";
             SortAndDisplayGroups();
             RefreshCommands();
         }

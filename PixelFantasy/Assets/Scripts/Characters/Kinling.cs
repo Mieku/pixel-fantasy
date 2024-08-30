@@ -185,12 +185,11 @@ namespace Characters
             return pickedUpStack;
         }
         
-        public ItemStack DropCarriedItem(bool allowHauling)
+        public ItemStack DropCarriedItem()
         {
             if (HeldStack == null) return null;
 
             HeldStack.transform.SetParent(ParentsManager.Instance.ItemsParent);
-            HeldStack.IsAllowed = allowHauling;
             HeldStack.ItemDropped();
             var item = HeldStack;
             HeldStack = null;

@@ -15,7 +15,7 @@ public class Command : ScriptableObject
 
     public Task Task => TasksDatabase.Instance.QueryTask(TaskID);
 
-    private const float FADE_ALPHA = 0.5f;
+    private const float FADE_ALPHA = 0.75f;
 
     public Color GetFadedColour()
     {

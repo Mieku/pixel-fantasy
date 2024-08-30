@@ -28,7 +28,12 @@ namespace Systems.Details.Generic_Details.Scripts
 
             if (string.IsNullOrEmpty(displayTextOverride))
             {
-                int amount = _piGroup.Count;
+                int amount = 0;
+                foreach (var pi in _piGroup)
+                {
+                    amount += pi.GetStackSize();
+                }
+                
                 string displayName = _piGroup[0].DisplayName;
                 _textDisplay.text = $"{amount} {displayName}";
             }

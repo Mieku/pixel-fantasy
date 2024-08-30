@@ -30,6 +30,25 @@ namespace ScriptableObjects
             }
         }
 
+        private List<Command> _commandsCache;
+        private List<ItemSettings> _itemSettingsCache;
+        private List<ConstructionSettings> _constructionSettingsCache;
+        private List<FurnitureSettings> _furnitureSettingsCache;
+        private List<DyeSettings> _dyeSettingsCache;
+        private List<TaskAction> _taskActionsCache;
+        private List<ZoneSettings> _zoneSettingsCache;
+        
+        public void RefreshCaches()
+        {
+            _commandsCache = LoadAllCommands();
+            _itemSettingsCache = LoadAllItemSettings();
+            _constructionSettingsCache = LoadAllConstructionSettings();
+            _furnitureSettingsCache = LoadAllFurnitureSettings();
+            _dyeSettingsCache = LoadAllDyeSettings();
+            _taskActionsCache = LoadAllTaskActions();
+            _zoneSettingsCache = LoadAllZoneSettings();
+        }
+
         [BoxGroup("DEBUG"), ShowInInspector] public bool FastActions { get; private set; } = true;
         
         [BoxGroup("Social"), ShowInInspector] public float BasePregnancyChance { get; private set; } = 50f;
@@ -96,8 +115,7 @@ namespace ScriptableObjects
         {
             return Resources.Load<EmotionSettings>($"Settings/Emotions/{settingsID}");
         }
-
-        private List<ItemSettings> _itemSettingsCache = null;
+        
         public List<ItemSettings> LoadAllItemSettings()
         {
             return Resources.LoadAll<ItemSettings>("Settings/Items").Where(s => s != null).ToList();
@@ -114,7 +132,6 @@ namespace ScriptableObjects
             return result;
         }
         
-        private List<FurnitureSettings> _furnitureSettingsCache = null;
         private List<FurnitureSettings> LoadAllFurnitureSettings()
         {
             return Resources.LoadAll<FurnitureSettings>("Settings/Furniture").Where(s => s != null).ToList();
@@ -130,8 +147,7 @@ namespace ScriptableObjects
             var result = _furnitureSettingsCache.Find(settings => settings.name == settingsID);
             return result;
         }
-
-        private List<ZoneSettings> _zoneSettingsCache = null;
+        
         private List<ZoneSettings> LoadAllZoneSettings()
         {
             return Resources.LoadAll<ZoneSettings>("Settings/Zones").Where(s => s != null).ToList();
@@ -148,7 +164,6 @@ namespace ScriptableObjects
             return result;
         }
         
-        private List<ConstructionSettings> _constructionSettingsCache = null;
         private List<ConstructionSettings> LoadAllConstructionSettings()
         {
             return Resources.LoadAll<ConstructionSettings>("Settings/Structure").Where(s => s != null).ToList();
@@ -165,7 +180,6 @@ namespace ScriptableObjects
             return result;
         }
         
-        private List<DyeSettings> _dyeSettingsCache = null;
         private List<DyeSettings> LoadAllDyeSettings()
         {
             return Resources.LoadAll<DyeSettings>("Settings/Dye").Where(s => s != null).ToList();
@@ -189,7 +203,6 @@ namespace ScriptableObjects
         }
         
         // Task Actions
-        private List<TaskAction> _taskActionsCache = null;
         private List<TaskAction> LoadAllTaskActions()
         {
             return Resources.LoadAll<TaskAction>("Settings/Actions").Where(s => s != null).ToList();
@@ -207,7 +220,6 @@ namespace ScriptableObjects
         }
         
         // Commands
-        private List<Command> _commandsCache = null;
         private List<Command> LoadAllCommands()
         {
             return Resources.LoadAll<Command>("Settings/Commands").Where(c => c != null).ToList();

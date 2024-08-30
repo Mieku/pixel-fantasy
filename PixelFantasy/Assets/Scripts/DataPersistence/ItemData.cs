@@ -58,6 +58,20 @@ public class ItemData
         ItemsDatabase.Instance.DeregisterItem(this);
     }
 
+    public void CancelCurrentTask()
+    {
+        if (CurrentTask == null) return;
+
+        if (CurrentTask.TaskID == "Store Item" && AssignedStorage != null)
+        {
+            AssignedStorage.CancelIncoming(this);
+            AssignedStorageID = null;
+        }
+        
+        CurrentTask.Cancel();
+        CurrentTaskID = null;
+    }
+
     public ItemStack GetLinkedItem()
     {
         if (State == EItemState.Carried)

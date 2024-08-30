@@ -43,10 +43,10 @@ public abstract class PlayerInteractable : MonoBehaviour
 
     public void AddCommand(string cmdID)
     {
-        if (_commands.Exists(c => c.CommandID == cmdID)) return; // dont add twice
+         if (_commands.Exists(c => c.CommandID == cmdID)) return; // dont add twice
         
         Command cmd = GameSettings.Instance.LoadCommand(cmdID);
-        _commands.Add(cmd);
+        if(cmd != null) _commands.Add(cmd);
     }
 
     public void RemoveCommand(string cmdID)
@@ -54,7 +54,7 @@ public abstract class PlayerInteractable : MonoBehaviour
         if (_commands.Exists(c => c.CommandID == cmdID))
         {
             Command cmd = GameSettings.Instance.LoadCommand(cmdID);
-            _commands.Remove(cmd);
+            if(cmd != null) _commands.Remove(cmd);
         }
     }
 
@@ -167,6 +167,18 @@ public abstract class PlayerInteractable : MonoBehaviour
         _commandDisplay.DisplayCommand(PendingCommand);
     }
 
+    protected void AssignTaskIcon(Command command)
+    {
+        if (command != null)
+        {
+            _commandDisplay.DisplayCommand(command);
+        }
+        else
+        {
+            _commandDisplay.DisplayCommand(null);
+        }
+    }
+
     public virtual void ReceiveItem(ItemData item)
     {
         Debug.LogError($"Item unexpectedly received: {item.Settings.ItemName}");
@@ -237,5 +249,10 @@ public abstract class PlayerInteractable : MonoBehaviour
     public virtual bool ObjectValidForCommandSelection(Command command)
     {
         return _commands.Contains(command);
+    }
+
+    public virtual int GetStackSize()
+    {
+        return 1;
     }
 }

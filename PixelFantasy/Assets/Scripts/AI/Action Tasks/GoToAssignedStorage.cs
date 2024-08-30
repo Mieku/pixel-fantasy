@@ -39,7 +39,7 @@ namespace AI.Action_Tasks
                 // If they are carrying item, drop it
                 if (_kinling.HeldStack != null)
                 {
-                    _kinling.DropCarriedItem(true);
+                    _kinling.DropCarriedItem();
                 }
             }
 

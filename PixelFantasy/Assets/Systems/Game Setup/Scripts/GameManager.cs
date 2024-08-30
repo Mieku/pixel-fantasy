@@ -7,6 +7,7 @@ using Controllers;
 using DataPersistence;
 using Managers;
 using Player;
+using ScriptableObjects;
 using Systems.Appearance.Scripts;
 using Systems.Buildings.Scripts;
 using Systems.Social.Scripts;
@@ -35,6 +36,7 @@ namespace Systems.Game_Setup.Scripts
 
         private void Start()
         {
+            GameSettings.Instance.RefreshCaches();
             PlayerSettings.LoadSavedKeyBinds();
         }
 

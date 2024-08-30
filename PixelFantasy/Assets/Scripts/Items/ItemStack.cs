@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Characters;
 using Handlers;
 using Newtonsoft.Json;
@@ -73,10 +72,25 @@ namespace Items
         public bool IsAllowed
         {
             get => StackData.IsAllowed;
-            set => StackData.IsAllowed = value;
-        }
+            set
+            {
+                StackData.IsAllowed = value;
 
-        public bool IsClickDisabled { get; set; }
+                foreach (var itemData in ItemDatas)
+                {
+                    itemData.IsAllowed = value;
+
+                    if (value == false)
+                    {
+                        itemData.CancelCurrentTask();
+                    }
+                }
+                
+                RefreshAllowCommands();
+                Refresh();
+                InformChanged();
+            }
+        }
 
         public bool ContainsItemData(string itemDataUID)
         {
@@ -100,6 +114,7 @@ namespace Items
             PlayerInteractableDatabase.Instance.RegisterPlayerInteractable(this);
             
             Refresh();
+            RefreshAllowCommands();
         }
 
         public void InitItemStack(ItemData itemData, Vector2 pos)
@@ -121,6 +136,7 @@ namespace Items
             }
             
             Refresh();
+            RefreshAllowCommands();
         }
         
         private string CreateUID()
@@ -141,6 +157,47 @@ namespace Items
             {
                 _stackAmountText.text = "";
             }
+
+            if (!IsAllowed)
+            {
+                var forbidCmd = GameSettings.Instance.LoadCommand("Forbid");
+                AssignTaskIcon(forbidCmd);
+            }
+            else
+            {
+                AssignTaskIcon(null);
+            }
+        }
+
+        private void RefreshAllowCommands()
+        {
+            if (IsAllowed)
+            {
+                AddCommand("Forbid");
+                RemoveCommand("Allow");
+            }
+            else
+            {
+                AddCommand("Allow");
+                RemoveCommand("Forbid");
+            }
+        }
+
+        public override void AssignCommand(Command command)
+        {
+            if (command.CommandID == "Forbid")
+            {
+                CancelPendingTask();
+                IsAllowed = false;
+            }
+            else if (command.CommandID == "Allow")
+            {
+                IsAllowed = true;
+            }
+            else
+            {
+                base.AssignCommand(command);
+            }
         }
 
         public ItemStack PickUpItem(Kinling kinling, string itemDataUID)
@@ -153,6 +210,7 @@ namespace Items
                 itemData.State = EItemState.Carried;
                 StackData.CarryingKinlingUID = kinling.UniqueID;
                 Refresh();
+                InformChanged();
                 return this;
             }
             else
@@ -165,6 +223,7 @@ namespace Items
                 itemData.State = EItemState.Carried;
                 var splitItem = ItemsDatabase.Instance.CreateItemObject(itemData, Helper.SnapToGridPos(transform.position));
                 splitItem.StackData.CarryingKinlingUID = kinling.UniqueID;
+                InformChanged();
                 return splitItem;
             }
         }
@@ -318,25 +377,6 @@ namespace Items
             _spriteRenderer.sprite = Settings.ItemSprite;
         }
         
-        public void ToggleAllowed(bool isAllowed)
-        {
-            StackData.IsAllowed = isAllowed;
-            if (IsAllowed)
-            {
-                //_icon.gameObject.SetActive(false);
-                //_icon.sprite = null;
-                //CreateHaulTask();
-            }
-            else
-            {
-                //_icon.gameObject.SetActive(true);
-                //_icon.sprite = Librarian.Instance.GetSprite("Lock");
-                //CancelAssignedTask();
-            }
-            
-            RefreshSelection();
-        }
-        
         protected override void OnDestroy()
         {
             base.OnDestroy();
@@ -357,6 +397,11 @@ namespace Items
         public override Vector2? UseagePosition(Vector2 requestorPosition)
         {
             return transform.position;
+        }
+
+        public override int GetStackSize()
+        {
+            return StackAmount;
         }
     }
 }

@@ -36,7 +36,7 @@ namespace AI.Action_Tasks
             if (interrupt)
             {
                 // drop item
-                _kinling.DropCarriedItem(true);
+                _kinling.DropCarriedItem();
             }
 
             _kinling = null;

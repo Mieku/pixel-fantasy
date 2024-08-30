@@ -7,12 +7,11 @@ namespace AI.Action_Tasks
     {
         public BBParameter<string> KinlingUID;
         public BBParameter<string> DroppedItemUID;
-        public bool AllowHauling;
         
         protected override void OnExecute()
         {
             var kinling = KinlingsDatabase.Instance.GetKinling(KinlingUID.value);
-            var droppedItem = kinling.DropCarriedItem(AllowHauling);
+            var droppedItem = kinling.DropCarriedItem();
             if (droppedItem != null)
             {
                 DroppedItemUID.value = droppedItem.UniqueID;

@@ -36,7 +36,7 @@ namespace AI.Action_Tasks
 
                 if (_dropHeldItemOnInterrupt)
                 {
-                    _kinling.DropCarriedItem(true);
+                    _kinling.DropCarriedItem();
                 }
             } 
 
