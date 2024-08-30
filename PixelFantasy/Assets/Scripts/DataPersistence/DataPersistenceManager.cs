@@ -8,6 +8,7 @@ using AI;
 using Characters;
 using Controllers;
 using Handlers;
+using Items;
 using Managers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -219,6 +220,7 @@ namespace DataPersistence
             yield return null;
 
             saveData.ItemsData = ItemsDatabase.Instance.SaveItemsData();
+            saveData.StacksData = ItemsDatabase.Instance.SaveStacksData();
             ReportProgress();
             yield return null;
 
@@ -338,6 +340,7 @@ namespace DataPersistence
         
             onStepStarted?.Invoke("Spawning Items");
             ItemsDatabase.Instance.LoadItemsData(saveData.ItemsData);
+            ItemsDatabase.Instance.LoadStacksData(saveData.StacksData);
             onStepCompleted?.Invoke("Spawning Items");
             yield return null;
         
@@ -602,6 +605,7 @@ namespace DataPersistence
         public EnvironmentData EnvironmentData;
         public Dictionary<string, KinlingData>  Kinlings;
         public Dictionary<string, ItemData> ItemsData;
+        public Dictionary<string, ItemStackData> StacksData;
         public Dictionary<string, FurnitureData> FurnitureData;
         public List<ZoneData> ZonesData;
         public Dictionary<string, ConstructionData> StructuresData;

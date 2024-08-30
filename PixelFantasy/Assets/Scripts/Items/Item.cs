@@ -3,24 +3,48 @@ using System.Collections.Generic;
 using System.Linq;
 using Characters;
 using Handlers;
+using Newtonsoft.Json;
+using ScriptableObjects;
 using TMPro;
 using UnityEngine;
 
 namespace Items
 {
+    [Serializable]
+    public class ItemStackData
+    {
+        public string UniqueID;
+        public bool IsAllowed;
+        public List<string> StackedItemDataUIDs = new List<string>();
+        public string SettingsID;
+        public string CarryingKinlingUID;
+        
+        [JsonRequired] private float _posX;
+        [JsonRequired] private float _posY;
+    
+        [JsonIgnore]
+        public Vector2 Position
+        {
+            get => new(_posX, _posY);
+            set
+            {
+                _posX = value.x;
+                _posY = value.y;
+            }
+        }
+    }
+    
     public class Item : PlayerInteractable
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private TextMeshProUGUI _stackAmountText;
         
         private Transform _originalParent;
-        private List<string> _itemDatas = new List<string>();
-        private string _settingsID;
-        private string _uniqueID;
         private string _pendingTaskUID;
 
-        public int StackAmount => _itemDatas.Count;
-        public override string UniqueID => _uniqueID;
+        public ItemStackData StackData;
+        public int StackAmount => StackData.StackedItemDataUIDs.Count;
+        public override string UniqueID => StackData.UniqueID;
         public override string DisplayName => Settings.ItemName;
 
         public List<ItemData> ItemDatas
@@ -28,7 +52,7 @@ namespace Items
             get
             {
                 List<ItemData> results = new List<ItemData>();
-                foreach (var itemDataUID in _itemDatas)
+                foreach (var itemDataUID in StackData.StackedItemDataUIDs)
                 {
                     var itemData = ItemsDatabase.Instance.Query(itemDataUID);
                     results.Add(itemData);
@@ -44,21 +68,19 @@ namespace Items
             set => _pendingTaskUID = value;
         }
 
-        public ItemSettings Settings
+        public ItemSettings Settings => GameSettings.Instance.LoadItemSettings(StackData.SettingsID);
+
+        public bool IsAllowed
         {
-            get
-            {
-                var itemData = ItemsDatabase.Instance.Query(_itemDatas.First());
-                return itemData.Settings;
-            }
+            get => StackData.IsAllowed;
+            set => StackData.IsAllowed = value;
         }
-        
-        public bool IsAllowed { get; set; }
+
         public bool IsClickDisabled { get; set; }
 
         public bool ContainsItemData(string itemDataUID)
         {
-            return _itemDatas.Contains(itemDataUID);
+            return StackData.StackedItemDataUIDs.Contains(itemDataUID);
         }
 
         public override bool IsSimilar(PlayerInteractable otherPI)
@@ -71,15 +93,28 @@ namespace Items
             return false;
         }
 
-        public void LoadItemData(ItemData itemData)
+        public void LoadStackData(ItemStackData stackData)
         {
-            _itemDatas.Add(itemData.UniqueID);
-            _uniqueID = CreateUID();
-           
+            StackData = stackData;
+            
             PlayerInteractableDatabase.Instance.RegisterPlayerInteractable(this);
+            
+            Refresh();
+        }
 
-            IsAllowed = itemData.IsAllowed;
-
+        public void InitItemStack(ItemData itemData, Vector2 pos)
+        {
+            StackData = new ItemStackData();
+            StackData.StackedItemDataUIDs = new List<string>() { itemData.UniqueID };
+            StackData.SettingsID = itemData.SettingsID;
+            StackData.Position = pos;
+            StackData.IsAllowed = true;
+            
+            StackData.UniqueID = CreateUID();
+            
+            ItemsDatabase.Instance.RegisterStack(StackData);
+            PlayerInteractableDatabase.Instance.RegisterPlayerInteractable(this);
+            
             if (itemData.State == EItemState.Loose)
             {
                 PlaceOnGround();
@@ -96,7 +131,7 @@ namespace Items
         private void Refresh()
         {
             DisplayItemSprite();
-            int amount = _itemDatas.Count;
+            int amount = StackData.StackedItemDataUIDs.Count;
 
             if (amount > 1)
             {
@@ -110,12 +145,13 @@ namespace Items
 
         public Item PickUpItem(Kinling kinling, string itemDataUID)
         {
-            if (_itemDatas.Count == 1)
+            if (StackAmount == 1)
             {
                 // This item can be picked up
                 var itemData = ItemsDatabase.Instance.Query(itemDataUID);
                 itemData.CarryingKinlingUID = kinling.RuntimeData.UniqueID;
                 itemData.State = EItemState.Carried;
+                StackData.CarryingKinlingUID = kinling.UniqueID;
                 Refresh();
                 return this;
             }
@@ -123,23 +159,24 @@ namespace Items
             {
                 // Split off a new item
                 var itemData = ItemsDatabase.Instance.Query(itemDataUID);
-                _itemDatas.Remove(itemDataUID);
+                StackData.StackedItemDataUIDs.Remove(itemDataUID);
                 Refresh();
                 itemData.CarryingKinlingUID = kinling.RuntimeData.UniqueID;
                 itemData.State = EItemState.Carried;
                 var splitItem = ItemsDatabase.Instance.CreateItemObject(itemData, Helper.SnapToGridPos(transform.position));
+                splitItem.StackData.CarryingKinlingUID = kinling.UniqueID;
                 return splitItem;
             }
         }
 
         public void MergeItems(Item itemToBeMerged)
         {
-            var itemDataUIDs = itemToBeMerged._itemDatas;
+            var itemDataUIDs = itemToBeMerged.StackData.StackedItemDataUIDs;
             Destroy(itemToBeMerged.gameObject);
 
             foreach (var itemDataUID in itemDataUIDs)
             {
-                _itemDatas.Add(itemDataUID);
+                StackData.StackedItemDataUIDs.Add(itemDataUID);
             }
 
             Refresh();
@@ -151,15 +188,16 @@ namespace Items
             if (!IsAllowed) return false;
 
             int maxStack = Settings.MaxStackSize;
-            int combinedStack = _itemDatas.Count + itemToBeMerged._itemDatas.Count;
+            int combinedStack = StackAmount + itemToBeMerged.StackAmount;
             return combinedStack <= maxStack;
         }
 
         public void ItemDropped()
         {
-            foreach (var itemDataUID in _itemDatas)
+            StackData.CarryingKinlingUID = null;
+            
+            foreach (var itemData in ItemDatas)
             {
-                var itemData = ItemsDatabase.Instance.Query(itemDataUID);
                 itemData.AssignedStorageID = null;
                 itemData.CarryingKinlingUID = null;
                 itemData.State = EItemState.Loose;
@@ -176,6 +214,11 @@ namespace Items
             {
                 itemData.Position = transform.position;
             }
+        }
+
+        private void Update()
+        {
+            StackData.Position = transform.position;
         }
 
         private void PlaceOnGround()
@@ -208,7 +251,7 @@ namespace Items
                     }
                     
                     var itemDatasAtPos = ItemsDatabase.Instance.FindAllItemDatasAtPosition(pos);
-                    var looseItem = itemDatasAtPos.Find(i => !_itemDatas.Contains(i.UniqueID) && i.State == EItemState.Loose);
+                    var looseItem = itemDatasAtPos.Find(i => !StackData.StackedItemDataUIDs.Contains(i.UniqueID) && i.State == EItemState.Loose);
                     if (looseItem != null)
                     {
                         var item = ItemsDatabase.Instance.FindItemObject(looseItem.UniqueID);
@@ -224,9 +267,8 @@ namespace Items
                     
                     // Spot is free
                     transform.position = pos;
-                    foreach (var itemDataUID in _itemDatas)
+                    foreach (var itemData in ItemDatas)
                     {
-                        var itemData = ItemsDatabase.Instance.Query(itemDataUID);
                         itemData.Position = pos;
                         itemData.State = EItemState.Loose;
                     }
@@ -240,9 +282,8 @@ namespace Items
             // If no valid position found after expanding the search radius
             Debug.LogWarning("No valid position found to place the item, placing it loosely on the ground");
             transform.position = groundPos;
-            foreach (var itemDataUID in _itemDatas)
+            foreach (var itemData in ItemDatas)
             {
-                var itemData = ItemsDatabase.Instance.Query(itemDataUID);
                 itemData.Position = groundPos;
                 itemData.State = EItemState.Loose;
             }
@@ -279,7 +320,7 @@ namespace Items
         
         public void ToggleAllowed(bool isAllowed)
         {
-            IsAllowed = isAllowed;
+            StackData.IsAllowed = isAllowed;
             if (IsAllowed)
             {
                 //_icon.gameObject.SetActive(false);
@@ -301,6 +342,7 @@ namespace Items
             base.OnDestroy();
             if (_isQuitting) return;
             
+            ItemsDatabase.Instance.DeregisterStack(StackData);
             PlayerInteractableDatabase.Instance.DeregisterPlayerInteractable(this);
         }
 

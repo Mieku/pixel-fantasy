@@ -13,6 +13,7 @@ namespace Handlers
     public class ItemsDatabase : Singleton<ItemsDatabase>
     {
         [ShowInInspector] private Dictionary<string, ItemData> _registeredItems = new Dictionary<string, ItemData>();
+        [ShowInInspector] private Dictionary<string, ItemStackData> _registeredStacks = new Dictionary<string, ItemStackData>();
 
         private float _seekTimer;
         
@@ -25,10 +26,25 @@ namespace Handlers
         {
             _registeredItems.Remove(data.UniqueID);
         }
+        
+        public void RegisterStack(ItemStackData data)
+        {
+            _registeredStacks.Add(data.UniqueID, data);
+        }
+
+        public void DeregisterStack(ItemStackData data)
+        {
+            _registeredStacks.Remove(data.UniqueID);
+        }
 
         public ItemData Query(string uniqueID)
         {
             return _registeredItems[uniqueID];
+        }
+
+        public ItemStackData QueryStack(string uniqueID)
+        {
+            return _registeredStacks[uniqueID];
         }
 
         public List<ItemData> FindAllItemDatasAtPosition(Vector2 pos)
@@ -72,8 +88,19 @@ namespace Handlers
         {
             var prefab = Resources.Load<Item>($"Prefabs/ItemPrefab");
             Item itemObj = Instantiate(prefab, pos, Quaternion.identity, transform);
-            itemObj.name = data.Settings.ItemName;
-            itemObj.LoadItemData(data);
+            itemObj.InitItemStack(data, pos);
+            itemObj.name = itemObj.UniqueID;
+            
+            return itemObj;
+        }
+
+        public Item CreateLoadedStack(ItemStackData stackData)
+        {
+            var prefab = Resources.Load<Item>($"Prefabs/ItemPrefab");
+            Item itemObj = Instantiate(prefab, stackData.Position, Quaternion.identity, transform);
+            itemObj.name = stackData.UniqueID;
+            itemObj.LoadStackData(stackData);
+
             return itemObj;
         }
 
@@ -120,6 +147,11 @@ namespace Handlers
         {
             return _registeredItems;
         }
+        
+        public Dictionary<string, ItemStackData> SaveStacksData()
+        {
+            return _registeredStacks;
+        }
 
         public void LoadItemsData(Dictionary<string, ItemData> loadedItemDatas)
         {
@@ -127,18 +159,19 @@ namespace Handlers
             {
                 var itemData = kvp.Value;
                 RegisterItem(itemData);
-                
-                switch (itemData.State)
+            }
+        }
+
+        public void LoadStacksData(Dictionary<string, ItemStackData> loadedStackDatas)
+        {
+            foreach (var kvp in loadedStackDatas)
+            {
+                var stackData = kvp.Value;
+                RegisterStack(stackData);
+
+                if (stackData.CarryingKinlingUID == null)
                 {
-                    case EItemState.Loose:
-                        LoadLooseItem(itemData);
-                        break;
-                    case EItemState.BeingProcessed:
-                    case EItemState.Stored:
-                    case EItemState.Carried:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                    CreateLoadedStack(stackData);
                 }
             }
         }
@@ -152,11 +185,6 @@ namespace Handlers
             }
             
             _registeredItems.Clear();
-        }
-
-        private void LoadLooseItem(ItemData data)
-        {
-            CreateItemObject(data, data.Position);
         }
     }
 }

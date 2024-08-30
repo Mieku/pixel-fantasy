@@ -21,7 +21,7 @@ public class PlayerInteractableDatabase : Singleton<PlayerInteractableDatabase>
 
     public PlayerInteractable Query(string uniqueID)
     {
-        return _registeredPIs[uniqueID];
+        return _registeredPIs.GetValueOrDefault(uniqueID);
     }
 
     public List<PlayerInteractable> RegisteredPlayerInteractables => _registeredPIs.Values.ToList();

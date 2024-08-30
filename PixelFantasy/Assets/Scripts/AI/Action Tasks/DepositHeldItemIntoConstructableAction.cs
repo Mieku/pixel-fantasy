@@ -26,7 +26,7 @@ namespace AI.Action_Tasks
             if(_item == null || _kinling == null) EndAction(false);
             
             _requester.ReceiveItem(_item);
-            _kinling.RuntimeData.HeldItemID = null;
+            _kinling.RuntimeData.HeldStackID = null;
             
             EndAction(true);
         }

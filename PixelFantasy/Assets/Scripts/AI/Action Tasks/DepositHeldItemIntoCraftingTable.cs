@@ -30,7 +30,7 @@ namespace AI.Action_Tasks
             }
             
             _table.ReceiveMaterial(_item);
-            _kinling.RuntimeData.HeldItemID = null;
+            _kinling.RuntimeData.HeldStackID = null;
             ClaimedItemUID.value = null;
             
             EndAction(true);

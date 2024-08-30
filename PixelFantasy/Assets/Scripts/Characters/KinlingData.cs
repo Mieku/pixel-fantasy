@@ -45,7 +45,7 @@ namespace Characters
         public List<RelationshipData> Relationships = new List<RelationshipData>();
         public AvatarData Avatar;
         public string CurrentTaskID;
-        public string HeldItemID;
+        public string HeldStackID;
         public List<string> EnqueuedTaskUIDs = new List<string>();
 
         [JsonIgnore] public bool IsIndoors;

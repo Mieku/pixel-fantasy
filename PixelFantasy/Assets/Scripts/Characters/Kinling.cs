@@ -85,10 +85,10 @@ namespace Characters
             PlayerInteractableDatabase.Instance.RegisterPlayerInteractable(this);
             
             // Handles their held item
-            if (!string.IsNullOrEmpty(data.HeldItemID))
+            if (!string.IsNullOrEmpty(data.HeldStackID))
             {
-                var heldItemData = ItemsDatabase.Instance.Query(data.HeldItemID);
-                var item = ItemsDatabase.Instance.CreateItemObject(heldItemData, heldItemData.Position);
+                var stack = ItemsDatabase.Instance.QueryStack(data.HeldStackID);
+                var item = ItemsDatabase.Instance.CreateLoadedStack(stack);
 
                 HeldItem = item;
                 item.transform.SetParent(transform);
@@ -175,7 +175,7 @@ namespace Characters
         public Item HoldItem(Item item, string itemDataUID)
         {
             Item pickedUpItem = item.PickUpItem(this, itemDataUID);
-            RuntimeData.HeldItemID = itemDataUID;
+            RuntimeData.HeldStackID = pickedUpItem.UniqueID;
             HeldItem = pickedUpItem;
             
             pickedUpItem.transform.SetParent(transform);
@@ -193,7 +193,7 @@ namespace Characters
             HeldItem.ItemDropped();
             var item = HeldItem;
             HeldItem = null;
-            RuntimeData.HeldItemID = null;
+            RuntimeData.HeldStackID = null;
             return item;
         }
 
@@ -204,10 +204,16 @@ namespace Characters
             storage.DepositItems(HeldItem);
             var item = HeldItem;
             HeldItem = null;
-            var heldItemData = ItemsDatabase.Instance.Query(RuntimeData.HeldItemID);
-            heldItemData.CurrentTaskID = null;
-            heldItemData.CarryingKinlingUID = null;
-            RuntimeData.HeldItemID = null;
+            
+            var heldStackData = ItemsDatabase.Instance.QueryStack(RuntimeData.HeldStackID);
+            foreach (var stackedItemDataUID in heldStackData.StackedItemDataUIDs)
+            {
+                var itemData = ItemsDatabase.Instance.Query(stackedItemDataUID);
+                itemData.CurrentTaskID = null;
+                itemData.CarryingKinlingUID = null;
+            }
+            
+            RuntimeData.HeldStackID = null;
             Destroy(item.gameObject);
         }
 

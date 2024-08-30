@@ -672,6 +672,7 @@ namespace Systems.World_Building.Scripts
                 y = StartPos.y
             };
             CameraManager.Instance.LookAtPosition(lookPos);
+            GameManager.Instance.GameIsLoaded = true;
             yield return null;
         }
         

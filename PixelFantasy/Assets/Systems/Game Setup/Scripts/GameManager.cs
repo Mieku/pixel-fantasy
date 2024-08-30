@@ -109,11 +109,12 @@ namespace Systems.Game_Setup.Scripts
             
             Vector2Int worldSize = new Vector2Int(36, 36);
             StructureDatabase.Instance.Init(worldSize);
+            bool gameIsLoaded = false;
             
             yield return StartCoroutine(DataPersistenceManager.Instance.LoadGameCoroutine(saveData, () =>
             {
                 // Load completed
-                GameIsLoaded = true;
+                gameIsLoaded = true;
                 LoadingScreen.Instance.StepCompleted();
             }, (step) =>
             {
@@ -125,7 +126,7 @@ namespace Systems.Game_Setup.Scripts
                 LoadingScreen.Instance.StepCompleted();
             }));
 
-            while (!GameIsLoaded)
+            while (!gameIsLoaded)
             {
                 yield return null;
             }
@@ -135,6 +136,7 @@ namespace Systems.Game_Setup.Scripts
 
             NavMeshManager.Instance.UpdateNavMesh(forceRebuild: true);
             LoadingScreen.Instance.StepCompleted();
+            GameIsLoaded = true;
             
             // Again, yield to keep the UI responsive
             yield return null;
