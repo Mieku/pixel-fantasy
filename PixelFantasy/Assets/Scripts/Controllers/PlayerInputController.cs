@@ -22,8 +22,8 @@ namespace Controllers
 
         private void Update()
         {
-            DetectMouseInput();
-            DetectKeyboardInput();
+            // DetectMouseInput();
+            // DetectKeyboardInput();
         }
 
         private void DetectMouseInput()
@@ -86,55 +86,55 @@ namespace Controllers
 
         private void SingleLeftClickDown()
         {
-            // Trigger selection handling via SelectionManager
-            var playerInteractable = Helper.GetObjectAtPosition<PlayerInteractable>(_currentMousePos);
-            var zone = Helper.GetObjectAtPosition<ZoneCell>(_currentMousePos);
-            if (playerInteractable != null && !playerInteractable.IsClickDisabled)
-            {
-                SelectionManager.Instance.HandleClick(playerInteractable);
-            }
-            else if (zone != null)
-            {
-                SelectionManager.Instance.ClearSelection();
-                zone.RuntimeData.SelectZone();
-            }
-            else
-            {
-                SelectionManager.Instance.ClearSelection();
-            }
-
-            GameEvents.Trigger_OnLeftClickDown(_currentMousePos, _playerInputState, _isOverUI);
+            // // Trigger selection handling via SelectionManager
+            // var playerInteractable = Helper.GetObjectAtPosition<PlayerInteractable>(_currentMousePos);
+            // var zone = Helper.GetObjectAtPosition<ZoneCell>(_currentMousePos);
+            // if (playerInteractable != null && !playerInteractable.IsClickDisabled)
+            // {
+            //     SelectionManager.Instance.HandleClick(playerInteractable);
+            // }
+            // else if (zone != null)
+            // {
+            //     SelectionManager.Instance.ClearSelection();
+            //     zone.RuntimeData.SelectZone();
+            // }
+            // else
+            // {
+            //     SelectionManager.Instance.ClearSelection();
+            // }
+            //
+            // GameEvents.Trigger_OnLeftClickDown(_currentMousePos, _playerInputState, _isOverUI);
         }
 
         private void DoubleLeftClickDown()
         {
-            var playerInteractable = Helper.GetObjectAtPosition<PlayerInteractable>(_currentMousePos);
-
-            if (playerInteractable != null && !playerInteractable.IsClickDisabled)
-            {
-                var visiblePIs = PlayerInteractableDatabase.Instance.GetAllSimilarVisiblePIs(playerInteractable);
-                SelectionManager.Instance.SelectMultiple(visiblePIs);
-            }
+            // var playerInteractable = Helper.GetObjectAtPosition<PlayerInteractable>(_currentMousePos);
+            //
+            // if (playerInteractable != null && !playerInteractable.IsClickDisabled)
+            // {
+            //     var visiblePIs = PlayerInteractableDatabase.Instance.GetAllSimilarVisiblePIs(playerInteractable);
+            //     SelectionManager.Instance.SelectMultiple(visiblePIs);
+            // }
         }
         
         private void LeftClickHeld()
         {
-            GameEvents.Trigger_OnLeftClickHeld(_currentMousePos, _playerInputState, _isOverUI);
+            //GameEvents.Trigger_OnLeftClickHeld(_currentMousePos, _playerInputState, _isOverUI);
         }
         
         private void LeftClickUp()
         {
-            GameEvents.Trigger_OnLeftClickUp(_currentMousePos, _playerInputState, _isOverUI);
+            //GameEvents.Trigger_OnLeftClickUp(_currentMousePos, _playerInputState, _isOverUI);
         }
 
         private void RightClickDown()
         {
-            GameEvents.Trigger_OnRightClickDown(_currentMousePos, _playerInputState, _isOverUI);
+            //GameEvents.Trigger_OnRightClickDown(_currentMousePos, _playerInputState, _isOverUI);
         }
         
         private void RightClickUp()
         {
-            GameEvents.Trigger_OnRightClickUp(_currentMousePos, _playerInputState, _isOverUI);
+           // GameEvents.Trigger_OnRightClickUp(_currentMousePos, _playerInputState, _isOverUI);
         }
 
         private void DetectKeyboardInput()
@@ -147,13 +147,13 @@ namespace Controllers
 
         private void EscapePressed()
         {
-            ChangeState(PlayerInputState.None);
-            SelectionManager.Instance.ClearSelection();
+            // ChangeState(PlayerInputState.None);
+            // SelectionManager.Instance.ClearSelection();
         }
 
         public void ChangeState(PlayerInputState newState)
         {
-            _playerInputState = newState;
+            // _playerInputState = newState;
         }
 
         public PlayerInputState GetCurrentState()

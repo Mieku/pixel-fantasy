@@ -4,6 +4,7 @@ using UnityEngine;
 using CodeMonkey.Utils;
 using Managers;
 using Systems.CursorHandler.Scripts;
+using Systems.Zones.Scripts;
 
 public class SelectionManager : Singleton<SelectionManager>
 {
@@ -24,21 +25,31 @@ public class SelectionManager : Singleton<SelectionManager>
         _selectionBox.gameObject.SetActive(false);
     }
 
-    private void Update()
+    // Method to handle single clicks (called from SelectionInputHandler)
+    public void HandleClick(Vector3 mousePosition)
     {
-        HandleSelectBoxUpdate();
-    }
-
-    public void HandleClick(PlayerInteractable playerInteractable)
-    {
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        var playerInteractable = Helper.GetObjectAtPosition<PlayerInteractable>(mousePosition);
+        var zone = Helper.GetObjectAtPosition<ZoneCell>(mousePosition);
+        if (playerInteractable != null && !playerInteractable.IsClickDisabled)
         {
-            SelectAdditional(playerInteractable);
+            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+            {
+                SelectAdditional(playerInteractable);
+            }
+            else
+            {
+                ClearSelection();
+                Select(playerInteractable);
+            }
+        }
+        else if (zone != null)
+        {
+            ClearSelection();
+            zone.RuntimeData.SelectZone();
         }
         else
         {
             ClearSelection();
-            Select(playerInteractable);
         }
     }
 
@@ -48,13 +59,13 @@ public class SelectionManager : Singleton<SelectionManager>
         {
             ClearSelection();
         }
-        
+
         foreach (var pi in selectedPIs)
         {
             _selectedObjects.Add(pi);
             pi.IsSelected = true;
         }
-        
+
         HUDController.Instance.ShowMultipleDetails(_selectedObjects);
     }
 
@@ -65,7 +76,7 @@ public class SelectionManager : Singleton<SelectionManager>
             _selectedObjects.Remove(pi);
             pi.IsSelected = false;
         }
-        
+
         if (_selectedObjects.Count > 1)
         {
             HUDController.Instance.ShowMultipleDetails(_selectedObjects);
@@ -86,7 +97,7 @@ public class SelectionManager : Singleton<SelectionManager>
         playerInteractable.IsSelected = true;
         HUDController.Instance.ShowItemDetails(playerInteractable);
     }
-    
+
     public void SelectAdditional(PlayerInteractable playerInteractable)
     {
         if (_selectedObjects.Contains(playerInteractable))
@@ -149,7 +160,7 @@ public class SelectionManager : Singleton<SelectionManager>
         CursorManager.Instance.ChangeCursorState(ECursorState.AreaSelect);
     }
 
-    private void HandleSelectBoxUpdate()
+    public void UpdateSelectionBox()
     {
         if (!_selectBoxActive) return;
 
