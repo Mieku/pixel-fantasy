@@ -53,14 +53,11 @@ namespace Systems.Input_Management
 
         public void OnEnter()
         {
-            Debug.Log("Entered Wall Planning Mode");
             _isPlanning = false;  // Reset planning state when entering the mode
         }
 
         public void OnExit()
         {
-            Debug.Log("Exited Wall Planning Mode");
-
             if (_isPlanning)
             {
                 CancelPlanning();  // Ensure planning is canceled when exiting the mode

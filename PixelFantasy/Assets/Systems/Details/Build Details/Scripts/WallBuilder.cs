@@ -40,7 +40,7 @@ namespace Systems.Details.Build_Details.Scripts
             // Reset cursor and placement icon when build is canceled
             CursorManager.Instance.ChangeCursorState(ECursorState.Default);
             Spawner.Instance.ShowPlacementIcon(false);
-            InputManager.Instance.SetInputMode(InputMode.Selection);
+            InputManager.Instance.ReturnToDefault();
         }
         
         public void SpawnWall(Vector3 spawnPosition)

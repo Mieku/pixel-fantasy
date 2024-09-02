@@ -1,11 +1,13 @@
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Systems.Input_Management
 {
     public enum InputMode
     {
-        Selection,
+        Default,
+        CommandSelection,
         WallPlanning,
         // Add other modes as needed
     }
@@ -16,7 +18,7 @@ namespace Systems.Input_Management
         
         private Dictionary<InputMode, IInputHandler> _inputHandlers = new Dictionary<InputMode, IInputHandler>();
         private IInputHandler _currentInputHandler;
-        private InputMode _currentMode = InputMode.Selection;
+        [ShowInInspector] private InputMode _currentMode = InputMode.Default;
 
         private void Awake()
         {
@@ -47,7 +49,7 @@ namespace Systems.Input_Management
 
         public IInputHandler SetInputMode(InputMode mode)
         {
-            if (_currentMode == mode) return null;
+            //if (_currentMode == mode) return _currentInputHandler;
 
             // Exit current handler
             _currentInputHandler?.OnExit();
@@ -66,10 +68,9 @@ namespace Systems.Input_Management
             return null;
         }
 
-        // Optional: Expose method to switch modes from other scripts
-        public IInputHandler SwitchToMode(InputMode mode)
+        public IInputHandler ReturnToDefault()
         {
-            return SetInputMode(mode);
+            return SetInputMode(InputMode.Default);
         }
     }
 }

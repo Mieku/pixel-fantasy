@@ -36,7 +36,7 @@ namespace Systems.Details.Controls_Details.Scripts
             base.Hide();
             
             SetBtnActive(null);
-            SelectionManager.Instance.DeactivateSelectionBox();
+            SelectionManager.Instance.CancelCommandSelectionBox();
             
             _cancelCommandBtn.OnPressed -= CancelCmdPressed;
             _gatherCommandBtn.OnPressed -= GatherCmdPressed;
@@ -50,39 +50,44 @@ namespace Systems.Details.Controls_Details.Scripts
 
         private void CancelCmdPressed(ControlsBtn btn)
         {
-            HandleCommandSelection(btn, _cancelCommand, CancelCmdPressed);
+            HandleCommandSelection(btn, _cancelCommand, DeselectBtn);
         }
         
         private void GatherCmdPressed(ControlsBtn btn)
         {
-            HandleCommandSelection(btn, _gatherCommand, GatherCmdPressed);
+            HandleCommandSelection(btn, _gatherCommand, DeselectBtn);
         }
         
         private void CutTreeCmdPressed(ControlsBtn btn)
         {
-            HandleCommandSelection(btn, _cutTreeCommand, CutTreeCmdPressed);
+            HandleCommandSelection(btn, _cutTreeCommand, DeselectBtn);
         }
         
         private void HarvestCmdPressed(ControlsBtn btn)
         {
-            HandleCommandSelection(btn, _harvestCommand, HarvestCmdPressed);
+            HandleCommandSelection(btn, _harvestCommand, DeselectBtn);
         }
         
         private void MineCmdPressed(ControlsBtn btn)
         {
-            HandleCommandSelection(btn, _mineCommand, MineCmdPressed);
+            HandleCommandSelection(btn, _mineCommand, DeselectBtn);
         }
         
         private void DeconstructCmdPressed(ControlsBtn btn)
         {
-            HandleCommandSelection(btn, _deconstructCommand, DeconstructCmdPressed);
+            HandleCommandSelection(btn, _deconstructCommand, DeselectBtn);
+        }
+
+        private void DeselectBtn(ControlsBtn btn)
+        {
+            _activeBtn = null;
+            btn.SetActive(false);
         }
 
         #endregion
 
         private void HandleCommandSelection(ControlsBtn btn, Command command, System.Action<ControlsBtn> onCompleted)
         {
-            SelectionManager.Instance.DeactivateSelectionBox();
             SetBtnActive(btn);
             
             SelectionManager.Instance.BeginCommandSelectionBox(command, () =>
