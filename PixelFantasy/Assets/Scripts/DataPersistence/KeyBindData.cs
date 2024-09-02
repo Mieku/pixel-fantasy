@@ -7,36 +7,38 @@ using UnityEngine.InputSystem;
 [Serializable]
 public class KeyBindData
 {
-    public SavedKeyBind SetGameSpeed_Pause = new SavedKeyBind("Gameplay/SetGameSpeed_Paused");
-    public SavedKeyBind SetGameSpeed_Normal = new SavedKeyBind("Gameplay/SetGameSpeed_Play");
-    public SavedKeyBind SetGameSpeed_Fast = new SavedKeyBind("Gameplay/SetGameSpeed_Fast");
-    public SavedKeyBind SetGameSpeed_VeryFast = new SavedKeyBind("Gameplay/SetGameSpeed_Fastest");
+    public SavedKeyBind SetGameSpeed_Pause = new SavedKeyBind();
+    public SavedKeyBind SetGameSpeed_Normal = new SavedKeyBind();
+    public SavedKeyBind SetGameSpeed_Fast = new SavedKeyBind();
+    public SavedKeyBind SetGameSpeed_VeryFast = new SavedKeyBind();
     
-    public SavedKeyBind MoveCamera_Up = new SavedKeyBind("Gameplay/MoveCameraUp");
-    public SavedKeyBind MoveCamera_Down = new SavedKeyBind("Gameplay/MoveCameraDown");
-    public SavedKeyBind MoveCamera_Left = new SavedKeyBind("Gameplay/MoveCameraLeft");
-    public SavedKeyBind MoveCamera_Right = new SavedKeyBind("Gameplay/MoveCameraRight");
+    public SavedKeyBind MoveCamera_Up = new SavedKeyBind();
+    public SavedKeyBind MoveCamera_Down = new SavedKeyBind();
+    public SavedKeyBind MoveCamera_Left = new SavedKeyBind();
+    public SavedKeyBind MoveCamera_Right = new SavedKeyBind();
 
-    public SavedKeyBind Cancel = new SavedKeyBind("Gameplay/Cancel");
+    public SavedKeyBind Cancel = new SavedKeyBind();
     
-    public SavedKeyBind RotateClockwise = new SavedKeyBind("Placement/RotateClockwise");
-    public SavedKeyBind RotateCounterClockwise = new SavedKeyBind("Placement/RotateCounterClockwise");
+    public SavedKeyBind RotateClockwise = new SavedKeyBind();
+    public SavedKeyBind RotateCounterClockwise = new SavedKeyBind();
     
     private InputActionRebindingExtensions.RebindingOperation _currentRebindingOperation;
 
     public void LoadSavedKeyBinds()
     {
-        SetGameSpeed_Pause.ApplyBinding();
-        SetGameSpeed_Normal.ApplyBinding();
-        SetGameSpeed_Fast.ApplyBinding();
-        SetGameSpeed_VeryFast.ApplyBinding();
+        SetGameSpeed_Pause.ApplyBinding("Gameplay/SetGameSpeed_Paused");
+        SetGameSpeed_Normal.ApplyBinding("Gameplay/SetGameSpeed_Play");
+        SetGameSpeed_Fast.ApplyBinding("Gameplay/SetGameSpeed_Fast");
+        SetGameSpeed_VeryFast.ApplyBinding("Gameplay/SetGameSpeed_Fastest");
         
-        MoveCamera_Up.ApplyBinding();
-        MoveCamera_Down.ApplyBinding();
-        MoveCamera_Left.ApplyBinding();
-        MoveCamera_Right.ApplyBinding();
+        MoveCamera_Up.ApplyBinding("Gameplay/MoveCameraUp");
+        MoveCamera_Down.ApplyBinding("Gameplay/MoveCameraDown");
+        MoveCamera_Left.ApplyBinding("Gameplay/MoveCameraLeft");
+        MoveCamera_Right.ApplyBinding("Gameplay/MoveCameraRight");
         
-        Cancel.ApplyBinding();
+        RotateClockwise.ApplyBinding("Gameplay/RotateClockwise");
+        RotateCounterClockwise.ApplyBinding("Gameplay/RotateCounterClockwise");
+        Cancel.ApplyBinding("Gameplay/Cancel");
         
         RefreshInputActions();
     }
@@ -54,6 +56,8 @@ public class KeyBindData
         MoveCamera_Right.ResetBinding();
         
         Cancel.ResetBinding();
+        RotateClockwise.ResetBinding();
+        RotateCounterClockwise.ResetBinding();
         
         RefreshInputActions();
     }
@@ -210,12 +214,7 @@ public class SavedKeyBind
     public string ActionName;
     public string BindingPath;
     public string AltBindingPath;
-
-    public SavedKeyBind(string actionName)
-    {
-        ActionName = actionName;
-    }
-
+    
     [JsonIgnore]
     public InputAction InputAction => GameSettings.Instance.InputActions.FindAction(ActionName);
 
@@ -229,8 +228,13 @@ public class SavedKeyBind
         return true;
     }
 
-    public void ApplyBinding()
+    public void ApplyBinding(string defaultActionName)
     {
+        if (string.IsNullOrEmpty(ActionName))
+        {
+            ActionName = defaultActionName;
+        }
+        
         if(!HasSavedKeyBinds()) return;
 
         if (!string.IsNullOrEmpty(BindingPath))

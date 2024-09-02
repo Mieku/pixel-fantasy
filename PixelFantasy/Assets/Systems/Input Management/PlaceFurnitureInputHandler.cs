@@ -4,6 +4,7 @@ using Managers;
 using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 namespace Systems.Input_Management
 {
@@ -18,6 +19,9 @@ namespace Systems.Input_Management
     
     public class PlaceFurnitureInputHandler : MonoBehaviour, IInputHandler
     {
+        [SerializeField] private InputActionReference _rotateClockwiseInput;
+        [SerializeField] private InputActionReference _rotateCounterClockwiseInput;
+        
         private Furniture _plannedFurniture;
         private PlacementDirection _placementDirection;
         private FurnitureSettings _furnitureSettings;
@@ -78,22 +82,6 @@ namespace Systems.Input_Management
                     PlanFurniture(_furnitureSettings, _placementDirection, _dyeSettings, _onCompletedCallback);
                 }
             }
-            
-            if (Input.GetKeyDown(KeyCode.E) && _isPlanning) // Clockwise
-            {
-                if (_plannedFurniture != null)
-                {
-                    _placementDirection = _plannedFurniture.RotatePlan(true);
-                }
-            }
-                
-            if (Input.GetKeyDown(KeyCode.Q) && _isPlanning) // Counter Clockwise
-            {
-                if (_plannedFurniture != null)
-                {
-                    _placementDirection = _plannedFurniture.RotatePlan(false);
-                }
-            }
 
             if (Input.GetMouseButtonDown(1) && _isPlanning)
             {
@@ -101,9 +89,26 @@ namespace Systems.Input_Management
             }
         }
 
+        private void OnRotateClockwise(InputAction.CallbackContext context)
+        {
+            if (_plannedFurniture != null && _isPlanning)
+            {
+                _placementDirection = _plannedFurniture.RotatePlan(true);
+            }
+        }
+        
+        private void OnRotateCounterClockwise(InputAction.CallbackContext context)
+        {
+            if (_plannedFurniture != null && _isPlanning)
+            {
+                _placementDirection = _plannedFurniture.RotatePlan(false);
+            }
+        }
+
         public void OnEnter()
         {
-            
+            _rotateClockwiseInput.action.performed += OnRotateClockwise;
+            _rotateCounterClockwiseInput.action.performed += OnRotateCounterClockwise;
         }
 
         public void OnExit()
@@ -112,6 +117,9 @@ namespace Systems.Input_Management
             {
                 CancelPlacement();
             }
+            
+            _rotateClockwiseInput.action.performed -= OnRotateClockwise;
+            _rotateCounterClockwiseInput.action.performed -= OnRotateCounterClockwise;
         }
     }
 }

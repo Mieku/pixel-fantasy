@@ -94,6 +94,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "RotateClockwise",
+                    "type": "Button",
+                    "id": "ef981758-901e-4b9e-bc78-64573a4d2c9e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RotateCounterClockwise",
+                    "type": "Button",
+                    "id": "eb6199f8-686a-40e2-afdd-3979122dd71d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -292,6 +310,50 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5a3b9488-a4ba-43c1-8c24-c0ae9523d227",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "RotateClockwise",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "014959d2-5c1f-4314-b7ff-8d74df3bc86c",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "RotateClockwise",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a9870506-46a6-40d9-a8a6-cb27d92cb19c",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "RotateCounterClockwise",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a7339980-28a5-4b70-8fd9-1bbdf5293880",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "RotateCounterClockwise",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -788,76 +850,6 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Placement",
-            "id": "837d605c-25ff-42a9-8d11-d671dc0ee4df",
-            "actions": [
-                {
-                    "name": "RotateClockwise",
-                    "type": "Button",
-                    "id": "a7e50922-925e-43fb-a880-72e08afa4b39",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "RotateCounterClockwise",
-                    "type": "Button",
-                    "id": "597252c7-9238-4c66-b464-435d41623202",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "c969bd31-7f47-4b98-9144-1497d0960e7a",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "RotateClockwise",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "254a3073-4c58-4b93-88f2-20d01bc89706",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "RotateClockwise",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9d07ce37-c8fa-47c4-9011-db6780e991fc",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "RotateCounterClockwise",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c66be416-f9e3-4586-9354-12c71f8d7c96",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "RotateCounterClockwise",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
