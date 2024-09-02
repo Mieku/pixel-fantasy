@@ -6,6 +6,7 @@ using Managers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Systems.Crafting.Scripts;
+using Systems.Input_Management;
 using UnityEngine;
 using UnityEngine.Rendering;
 

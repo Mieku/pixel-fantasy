@@ -1,9 +1,8 @@
+using System;
 using System.Collections.Generic;
-using Controllers;
-using DataPersistence;
 using HUD;
-using Managers;
 using ScriptableObjects;
+using Systems.Input_Management;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -83,6 +82,20 @@ namespace Systems.Details.Build_Details.Scripts
             
             ShowOptionSelection(selectedOption.FurnitureSettings);
             RefreshLayout();
+        }
+
+        public void DeselectOption()
+        {
+            foreach (var displayedOption in _displayedOptions)
+            {
+                displayedOption.Highlight(false);
+            }
+            
+            _optionsSeperator.SetActive(false);
+            _currentSelectionHandle.SetActive(false);
+            RefreshLayout();
+
+            InputManager.Instance.ReturnToDefault();
         }
 
         private void ClearOptions()
@@ -241,7 +254,7 @@ namespace Systems.Details.Build_Details.Scripts
         private void ApplyColour(DyeSettings dye)
         {
             _selectedDye = dye;
-            TriggerFurniturePlacement(_selectedFurniture);
+            TriggerFurniturePlacement(_selectedFurniture, DeselectOption);
         }
 
         private void ApplyVarient(FurnitureVariant variant)
@@ -252,7 +265,7 @@ namespace Systems.Details.Build_Details.Scripts
             RefreshStatsDisplay(variant.FurnitureSettings.MaxDurability);
             
             _selectedFurniture = variant.FurnitureSettings;
-            TriggerFurniturePlacement(variant.FurnitureSettings);
+            TriggerFurniturePlacement(variant.FurnitureSettings, DeselectOption);
         }
 
         private void ApplyDefault(FurnitureSettings furnitureSettings)
@@ -264,7 +277,7 @@ namespace Systems.Details.Build_Details.Scripts
 
             _selectedFurniture = furnitureSettings;
             
-            TriggerFurniturePlacement(furnitureSettings);
+            TriggerFurniturePlacement(furnitureSettings, DeselectOption);
         }
 
         private void RefreshStatsDisplay(int durability)
@@ -313,11 +326,11 @@ namespace Systems.Details.Build_Details.Scripts
              _layoutRebuilder.RefreshLayout();
          }
         
-        private void TriggerFurniturePlacement(FurnitureSettings furnitureSettings)
+        private void TriggerFurniturePlacement(FurnitureSettings furnitureSettings, Action onComplete)
         {
-            Spawner.Instance.CancelInput();
-            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildFurniture);
-            Spawner.Instance.PlanFurniture(furnitureSettings, furnitureSettings.DefaultDirection, _selectedDye);
+            var placeFurnitureIH =
+                (PlaceFurnitureInputHandler)InputManager.Instance.SetInputMode(InputMode.PlaceFurniture);
+            placeFurnitureIH.PlanFurniture(furnitureSettings, furnitureSettings.DefaultDirection, _selectedDye, onComplete);
         }
     }
 }

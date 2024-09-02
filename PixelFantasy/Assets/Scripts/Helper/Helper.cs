@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Managers;
+using Systems.Input_Management;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -227,7 +228,10 @@ public static class Helper
         var allHits = Physics2D.RaycastAll(offsetPos, new Vector3(0, 0, 6));
         foreach (var hit in allHits)
         {
-            detectedTags.Add(hit.collider.transform.tag);
+            if (hit.collider.gameObject.activeSelf)
+            {
+                detectedTags.Add(hit.collider.transform.tag);
+            }
         }
 
         return detectedTags.Contains(tag);

@@ -6,6 +6,7 @@ using Controllers;
 using Items;
 using ScriptableObjects;
 using Systems.Buildings.Scripts;
+using Systems.Input_Management;
 using Systems.Notifications.Scripts;
 using UnityEngine;
 using Zones;
@@ -84,19 +85,7 @@ namespace Managers
         {
             if (isOverUI) return;
             
-            if (inputState == PlayerInputState.BuildFurniture && _plannedFurniture != null)
-            {
-                if (_plannedFurniture.CheckPlacement())
-                {
-                    _plannedFurniture.CompletePlanning();
-                    _plannedFurniture.InitializeFurniture(_selectedFurnitureSettings, _prevPlacementDirection, _selectedDyeOverride);
-                    _plannedFurniture = null;
-                    
-                    // Allows the player to place multiple
-                    PlanFurniture(_selectedFurnitureSettings, _prevPlacementDirection, _selectedDyeOverride);
-                }
-            }
-            else if (inputState == PlayerInputState.BuildFarm)
+            if (inputState == PlayerInputState.BuildFarm)
             {
                 if (_planningStructure)
                 {
@@ -146,8 +135,6 @@ namespace Managers
             _invalidPlacementTags.Clear();
             _requiredPlacementTags = null;
             CancelPlanning();
-            _selectedFurnitureSettings = null;
-            _selectedDyeOverride = null;
             _plannedDoor = null;
             _prevPlacementDirection = default;
         }
@@ -260,25 +247,6 @@ namespace Managers
                     }
                 }
             }
-
-            if (_selectedFurnitureSettings != null)
-            {
-                if (Input.GetKeyDown(KeyCode.E)) // Clockwise
-                {
-                    if (_plannedFurniture != null)
-                    {
-                        _prevPlacementDirection = _plannedFurniture.RotatePlan(true);
-                    }
-                }
-                
-                if (Input.GetKeyDown(KeyCode.Q)) // Counter Clockwise
-                {
-                    if (_plannedFurniture != null)
-                    {
-                        _prevPlacementDirection = _plannedFurniture.RotatePlan(false);
-                    }
-                }
-            }
         }
 
         private int _agentPriority = 0;
@@ -305,28 +273,6 @@ namespace Managers
             _plannedDoor.Init(doorSettings, matColour);
             _plannedDoor.OnDoorPlaced = onDoorPlaced;
         }
-
-        private Furniture _plannedFurniture;
-        private FurnitureSettings _selectedFurnitureSettings;
-        private DyeSettings _selectedDyeOverride;
-        public Furniture SpawnFurniture(Furniture prefab, Vector3 position, Transform parent = null)
-        {
-            var furnitureObject = Instantiate(prefab, position, Quaternion.identity, parent ?? _furnitureParent);
-            return furnitureObject.GetComponent<Furniture>();
-        }
-
-        public void PlanFurniture(FurnitureSettings furnitureSettings, PlacementDirection direction, DyeSettings dye)
-        {
-            _selectedFurnitureSettings = furnitureSettings;
-            _selectedDyeOverride = dye;
-           
-            var prefab = furnitureSettings.FurniturePrefab;
-            var position = Helper.SnapToGridPos(UtilsClass.GetMouseWorldPosition());
-        
-            _plannedFurniture = SpawnFurniture(prefab, position);
-            _plannedFurniture.StartPlanning(furnitureSettings, direction, dye);
-            _prevPlacementDirection = direction;
-        }
         
         #region Structure
 
@@ -335,12 +281,6 @@ namespace Managers
             PlayerInputController.Instance.ChangeState(PlayerInputState.None);
             ClearPlannedBlueprint();
             _plannedGrid.Clear();
-
-            if (_plannedFurniture != null)
-            {
-                Destroy(_plannedFurniture.gameObject);
-                _plannedFurniture = null;
-            }
 
             if (_plannedDoor != null)
             {
@@ -422,21 +362,5 @@ namespace Managers
             soil.transform.SetParent(_flooringParent);
             soil.GetComponent<Crop>().Init(cropSettings);
         }
-    }
-
-    public enum PlanningMode
-    {
-        Rectangle,
-        Line,
-        Single,
-    }
-    
-    [Serializable]
-    public enum PlacementDirection
-    {
-        South,
-        North,
-        West, 
-        East
     }
 }

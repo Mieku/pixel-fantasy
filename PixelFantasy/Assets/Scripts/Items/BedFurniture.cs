@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Characters;
 using Managers;
 using Sirenix.OdinInspector;
+using Systems.Input_Management;
 using UnityEngine;
 
 namespace Items

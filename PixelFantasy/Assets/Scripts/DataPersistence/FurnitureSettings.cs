@@ -5,6 +5,7 @@ using DataPersistence;
 using Items;
 using Managers;
 using ScriptableObjects;
+using Systems.Input_Management;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Furniture Settings", menuName = "Settings/Furniture Settings")]

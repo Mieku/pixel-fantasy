@@ -900,7 +900,7 @@ GameObject:
   - component: {fileID: 3877307932760445397}
   m_Layer: 0
   m_Name: South PO
-  m_TagString: Obstacle
+  m_TagString: Clearance
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -977,7 +977,7 @@ GameObject:
   - component: {fileID: 1017530246444569606}
   m_Layer: 0
   m_Name: East PO
-  m_TagString: Obstacle
+  m_TagString: Clearance
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1522,7 +1522,7 @@ GameObject:
   - component: {fileID: 1898593614098641365}
   m_Layer: 0
   m_Name: West PO
-  m_TagString: Obstacle
+  m_TagString: Clearance
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2298,9 +2298,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selectedIcon: {fileID: 3049739430863736647}
-  _usesTintedSelection: 0
   _commandDisplay: {fileID: 2953183800530890913}
-  Commands: []
+  _commands: []
   _southHandle: {fileID: 2749773584522801058}
   _southSpritesRoot: {fileID: 8679221838297705576}
   _southUseageMarkersRoot: {fileID: 795657465536751454}
@@ -2445,7 +2444,7 @@ GameObject:
   - component: {fileID: 277618078289581951}
   m_Layer: 0
   m_Name: North PO
-  m_TagString: Obstacle
+  m_TagString: Clearance
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

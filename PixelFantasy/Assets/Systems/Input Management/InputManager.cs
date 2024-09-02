@@ -9,6 +9,9 @@ namespace Systems.Input_Management
         Default,
         CommandSelection,
         WallPlanning,
+        FloorPlanning,
+        DoorPlanning,
+        PlaceFurniture,
         // Add other modes as needed
     }
     
