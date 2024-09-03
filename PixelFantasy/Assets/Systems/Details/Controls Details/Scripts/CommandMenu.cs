@@ -11,6 +11,8 @@ namespace Systems.Details.Controls_Details.Scripts
         [SerializeField] private ControlsBtn _harvestCommandBtn;
         [SerializeField] private ControlsBtn _mineCommandBtn;
         [SerializeField] private ControlsBtn _deconstructCommandBtn;
+        [SerializeField] private ControlsBtn _allowCommandBtn;
+        [SerializeField] private ControlsBtn _forbidCommandBtn;
         
         [SerializeField] private Command _cancelCommand;
         [SerializeField] private Command _gatherCommand;
@@ -18,6 +20,8 @@ namespace Systems.Details.Controls_Details.Scripts
         [SerializeField] private Command _harvestCommand;
         [SerializeField] private Command _mineCommand;
         [SerializeField] private Command _deconstructCommand;
+        [SerializeField] private Command _allowCommand;
+        [SerializeField] private Command _forbidCommand;
 
         public override void Show()
         {
@@ -29,6 +33,8 @@ namespace Systems.Details.Controls_Details.Scripts
             _harvestCommandBtn.OnPressed += HarvestCmdPressed;
             _mineCommandBtn.OnPressed += MineCmdPressed;
             _deconstructCommandBtn.OnPressed += DeconstructCmdPressed;
+            _allowCommandBtn.OnPressed += AllowCmdPressed;
+            _forbidCommandBtn.OnPressed += ForbidCmdPressed;
         }
 
         public override void Hide()
@@ -44,6 +50,8 @@ namespace Systems.Details.Controls_Details.Scripts
             _harvestCommandBtn.OnPressed -= HarvestCmdPressed;
             _mineCommandBtn.OnPressed -= MineCmdPressed;
             _deconstructCommandBtn.OnPressed -= DeconstructCmdPressed;
+            _allowCommandBtn.OnPressed -= AllowCmdPressed;
+            _forbidCommandBtn.OnPressed -= ForbidCmdPressed;
         }
 
         #region Button Hooks
@@ -76,6 +84,16 @@ namespace Systems.Details.Controls_Details.Scripts
         private void DeconstructCmdPressed(ControlsBtn btn)
         {
             HandleCommandSelection(btn, _deconstructCommand, DeselectBtn);
+        }
+        
+        private void AllowCmdPressed(ControlsBtn btn)
+        {
+            HandleCommandSelection(btn, _allowCommand, DeselectBtn);
+        }
+        
+        private void ForbidCmdPressed(ControlsBtn btn)
+        {
+            HandleCommandSelection(btn, _forbidCommand, DeselectBtn);
         }
 
         private void DeselectBtn(ControlsBtn btn)
