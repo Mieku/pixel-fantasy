@@ -190,7 +190,7 @@ namespace Systems.Buildings.Scripts
             foreach (var possibleCell in possibleCells)
             {
                 StructurePiece sPiece = _registeredPieces.Values.FirstOrDefault(s => s.Cell.CellPos == possibleCell);
-                sPiece.RefreshTile();
+                sPiece?.RefreshTile();
             }
         }
 

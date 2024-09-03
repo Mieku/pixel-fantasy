@@ -15,10 +15,7 @@ namespace Managers
 {
     public class Spawner : Singleton<Spawner>
     {
-        [SerializeField] private Transform _structureParent;
         [SerializeField] private Transform _flooringParent;
-        [SerializeField] private Transform _furnitureParent;
-
         [SerializeField] private GameObject _soilPrefab;
         
         [SerializeField] private SpriteRenderer _placementIcon;
@@ -96,21 +93,6 @@ namespace Managers
                     SpawnSoilTile(Helper.SnapToGridPos(mousePos), CropSettings);
                 }
             }
-            else if (inputState == PlayerInputState.BuildDoor && _plannedDoor != null)
-            {
-                if (_plannedDoor.CheckPlacement())
-                {
-                    var plannedDoor = _plannedDoor;
-                    _plannedDoor = null;
-                    PlayerInputController.Instance.ChangeState(PlayerInputState.None);
-                    plannedDoor.SetState(EConstructionState.Blueprint);
-                    plannedDoor.TriggerPlaced();
-                }
-                else
-                {
-                    NotificationManager.Instance.Toast("Invalid Location");
-                }
-            }
         }
         
         protected virtual void GameEvents_OnRightClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
@@ -134,8 +116,6 @@ namespace Managers
             ShowPlacementIcon(false);
             _invalidPlacementTags.Clear();
             _requiredPlacementTags = null;
-            CancelPlanning();
-            _plannedDoor = null;
             _prevPlacementDirection = default;
         }
 
@@ -266,28 +246,7 @@ namespace Managers
             return kinling;
         }
         
-        private Door _plannedDoor;
-        public void PlanDoor(DoorSettings doorSettings, DyeSettings matColour, Action onDoorPlaced = null)
-        {
-            _plannedDoor = Instantiate(doorSettings.DoorPrefab, _structureParent);
-            _plannedDoor.Init(doorSettings, matColour);
-            _plannedDoor.OnDoorPlaced = onDoorPlaced;
-        }
-        
         #region Structure
-
-        private void CancelPlanning()
-        {
-            PlayerInputController.Instance.ChangeState(PlayerInputState.None);
-            ClearPlannedBlueprint();
-            _plannedGrid.Clear();
-
-            if (_plannedDoor != null)
-            {
-                Destroy(_plannedDoor.gameObject);
-                _plannedDoor = null;
-            }
-        }
         
         private void ClearPlannedBlueprint()
         {

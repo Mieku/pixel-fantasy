@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Controllers;
-using Managers;
 using ScriptableObjects;
 using Systems.Details.Controls_Details.Scripts;
+using Systems.Input_Management;
 using TMPro;
 using UnityEngine;
 
@@ -306,12 +305,9 @@ namespace Systems.Details.Build_Details.Scripts
             _currentSelection.ShowDoorSelection(settings, _currentColour);
             RefreshLayout();
             
-            Spawner.Instance.CancelInput();
-            PlayerInputController.Instance.ChangeState(PlayerInputState.BuildDoor);
-            Spawner.Instance.PlanDoor(settings, _currentColour, () =>
-            {
-                DisplayCurrentDoorSelection(settings);
-            });
+            var planDoorIH =
+                (DoorPlanningInputHandler)InputManager.Instance.SetInputMode(InputMode.DoorPlanning);
+            planDoorIH.PlanDoor(settings, _currentColour, OnBuildComplete);
         }
         
         private void ShowFloorMaterialOptions(Action<FloorSettings> onSelectedCallback)
