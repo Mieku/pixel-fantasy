@@ -113,7 +113,7 @@ namespace Systems.Zones.Scripts
                 _curSelectedZone = null;
             }
             
-            GameEvents.Trigger_RefreshInventoryDisplay();
+            GameEvents.Trigger_OnInventoryChanged();
             HUDController.Instance.HideDetails();
         }
 

@@ -664,7 +664,7 @@ namespace Systems.World_Building.Scripts
             ApplyStarterKinlings(StartPos, starterKinling);
             yield return null;
             
-            GameEvents.Trigger_RefreshInventoryDisplay();
+            GameEvents.Trigger_OnInventoryChanged();
             
             Vector2 lookPos = new Vector2
             {

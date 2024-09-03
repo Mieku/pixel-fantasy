@@ -21,9 +21,6 @@ namespace Managers
         [SerializeField] private SpriteRenderer _placementIcon;
         [SerializeField] private Sprite _genericPlacementSprite;
 
-        [SerializeField] private Transform _kinlingsParent;
-        [SerializeField] private Kinling _kinlingPrefab;
-
         private bool _showPlacement;
         private List<string> _invalidPlacementTags = new List<string>();
         private List<string> _requiredPlacementTags = new List<string>();
@@ -37,82 +34,9 @@ namespace Managers
         
         private PlacementDirection _prevPlacementDirection;
         public CropSettings CropSettings { get; set; }
-        
-        
-        private void OnEnable()
-        {
-            GameEvents.OnLeftClickDown += GameEvents_OnLeftClickDown;
-            GameEvents.OnLeftClickHeld += GameEvents_OnLeftClickHeld;
-            GameEvents.OnLeftClickUp += GameEvents_OnLeftClickUp;
-            GameEvents.OnRightClickDown += GameEvents_OnRightClickDown;
-            GameEvents.OnRightClickHeld += GameEvents_OnRightClickHeld;
-            GameEvents.OnRightClickUp += GameEvents_OnRightClickUp;
-        }
-
-        private void OnDisable()
-        {
-            GameEvents.OnLeftClickDown -= GameEvents_OnLeftClickDown;
-            GameEvents.OnLeftClickHeld -= GameEvents_OnLeftClickHeld;
-            GameEvents.OnLeftClickUp -= GameEvents_OnLeftClickUp;
-            GameEvents.OnRightClickDown -= GameEvents_OnRightClickDown;
-            GameEvents.OnRightClickHeld -= GameEvents_OnRightClickHeld;
-            GameEvents.OnRightClickUp -= GameEvents_OnRightClickUp;
-        }
-
-        protected virtual void GameEvents_OnLeftClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
-        {
-            if (isOverUI) return;
-            if (inputState == PlayerInputState.BuildFlooring
-                || inputState == PlayerInputState.BuildFarm)
-            {
-                _planningStructure = true;
-                _startPos = Helper.SnapToGridPos(mousePos);
-            }
-        }
-        
-        protected virtual void GameEvents_OnLeftClickHeld(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
-        {
-            if (inputState == PlayerInputState.BuildFarm)
-            {
-                PlanFarm(mousePos);
-            }
-        }
-        
-        protected virtual void GameEvents_OnLeftClickUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
-        {
-            if (isOverUI) return;
-            
-            if (inputState == PlayerInputState.BuildFarm)
-            {
-                if (_planningStructure)
-                {
-                    SpawnPlannedFarm();
-                }
-                else
-                {
-                    SpawnSoilTile(Helper.SnapToGridPos(mousePos), CropSettings);
-                }
-            }
-        }
-        
-        protected virtual void GameEvents_OnRightClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
-        {
-            
-        }
-        
-        protected virtual void GameEvents_OnRightClickHeld(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
-        {
-            
-        }
-        
-        protected virtual void GameEvents_OnRightClickUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI) 
-        {
-            CancelInput();
-        }
 
         public void CancelInput()
         {
-            PlayerInputController.Instance.ChangeState(PlayerInputState.None);
             ShowPlacementIcon(false);
             _invalidPlacementTags.Clear();
             _requiredPlacementTags = null;
@@ -227,23 +151,6 @@ namespace Managers
                     }
                 }
             }
-        }
-
-        private int _agentPriority = 0;
-        public Kinling SpawnKinling(string fullname, Vector2 spawnPosition)
-        {
-            Kinling kinling = Instantiate(_kinlingPrefab, _kinlingsParent);
-            kinling.transform.position = spawnPosition;
-            kinling.gameObject.name = $"Kinling_{fullname}";
-            
-            kinling.KinlingAgent.SetPriority(_agentPriority);
-            _agentPriority++;
-            if (_agentPriority > 99)
-            {
-                _agentPriority = 0;
-            }
-            
-            return kinling;
         }
         
         #region Structure

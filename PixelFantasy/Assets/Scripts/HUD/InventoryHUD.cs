@@ -14,17 +14,17 @@ namespace HUD
         {
             _inventoryResouceDisplayPrefab.gameObject.SetActive(false);
             
-            GameEvents.RefreshInventoryDisplay += GameEvents_RefreshInventoryDisplay;
+            GameEvents.OnInventoryChanged += GameEvents_OnInventoryChanged;
             
-            GameEvents_RefreshInventoryDisplay();
+            GameEvents_OnInventoryChanged();
         }
 
         private void OnDestroy()
         {
-            GameEvents.RefreshInventoryDisplay -= GameEvents_RefreshInventoryDisplay;
+            GameEvents.OnInventoryChanged -= GameEvents_OnInventoryChanged;
         }
 
-        private void GameEvents_RefreshInventoryDisplay()
+        private void GameEvents_OnInventoryChanged()
         {
             var availableInv = InventoryManager.Instance.GetAvailableInventoryQuantities();
             List<ItemSettings> removeList = new List<ItemSettings>();

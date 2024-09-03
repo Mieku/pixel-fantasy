@@ -19,7 +19,7 @@ namespace Systems.Details.Generic_Details.Scripts
             _itemIcon.sprite = _item.Item.ItemSprite;
             _amountText.text = costSettings.Quantity + "";
 
-            GameEvents.OnInventoryAvailabilityChanged += CheckAfford;
+            GameEvents.OnInventoryChanged += CheckAfford;
             
             CheckAfford();
         }
@@ -30,7 +30,7 @@ namespace Systems.Details.Generic_Details.Scripts
             _itemIcon.sprite = _ingredient.GetIngredientIcon(false);
             _amountText.text = _ingredient.Amount + "";
             
-            GameEvents.OnInventoryAvailabilityChanged += CheckAfford;
+            GameEvents.OnInventoryChanged += CheckAfford;
             
             CheckAfford();
         }
@@ -63,7 +63,7 @@ namespace Systems.Details.Generic_Details.Scripts
 
         private void OnDestroy()
         {
-            GameEvents.OnInventoryAvailabilityChanged -= CheckAfford;
+            GameEvents.OnInventoryChanged -= CheckAfford;
         }
     }
 }

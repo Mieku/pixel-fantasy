@@ -212,7 +212,7 @@ public class StockpileZoneData : ZoneData, IStorage
         StockpileCell cell = GetAvailableCellForItem(itemData.Settings);
         cell.IncomingUIDs.Add(itemData.UniqueID);
             
-        GameEvents.Trigger_RefreshInventoryDisplay();
+        GameEvents.Trigger_OnInventoryChanged();
     }
 
     public void CancelIncoming(ItemData itemData)
@@ -222,7 +222,7 @@ public class StockpileZoneData : ZoneData, IStorage
             IncomingUIDs.Remove(itemData.UniqueID);
         }
             
-        GameEvents.Trigger_RefreshInventoryDisplay();
+        GameEvents.Trigger_OnInventoryChanged();
     }
 
     public void DepositItems(ItemStack itemStack)
@@ -279,7 +279,7 @@ public class StockpileZoneData : ZoneData, IStorage
         }
             
         cell.ClaimedUIDs.Add(itemToClaim.UniqueID);
-        GameEvents.Trigger_RefreshInventoryDisplay();
+        GameEvents.Trigger_OnInventoryChanged();
         return true;
     }
 
@@ -295,7 +295,7 @@ public class StockpileZoneData : ZoneData, IStorage
             }
 
             cell.ClaimedUIDs.Remove(itemData.UniqueID);
-            GameEvents.Trigger_RefreshInventoryDisplay();
+            GameEvents.Trigger_OnInventoryChanged();
         }
     }
 

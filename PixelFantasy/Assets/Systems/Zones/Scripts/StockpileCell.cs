@@ -64,7 +64,7 @@ namespace Systems.Zones.Scripts
             }
             StoredUIDs.Clear();
             
-            GameEvents.Trigger_RefreshInventoryDisplay();
+            GameEvents.Trigger_OnInventoryChanged();
             
             base.DeleteCell();
         }
@@ -80,7 +80,7 @@ namespace Systems.Zones.Scripts
                 stored.AssignedStorageID = stockpileZone.UniqueID;
             }
             
-            GameEvents.Trigger_RefreshInventoryDisplay();
+            GameEvents.Trigger_OnInventoryChanged();
             
             base.TransferOwner(zoneData);
         }
@@ -211,7 +211,7 @@ namespace Systems.Zones.Scripts
         
             RefreshDisplay();
         
-            GameEvents.Trigger_RefreshInventoryDisplay();
+            GameEvents.Trigger_OnInventoryChanged();
 
             var item = ItemsDatabase.Instance.CreateItemObject(itemData, Position);
             return item;
@@ -226,7 +226,7 @@ namespace Systems.Zones.Scripts
         
             RefreshDisplay();
         
-            GameEvents.Trigger_RefreshInventoryDisplay();
+            GameEvents.Trigger_OnInventoryChanged();
         }
 
         public void LoadInItemData(ItemData itemData)
@@ -235,7 +235,7 @@ namespace Systems.Zones.Scripts
         
             RefreshDisplay();
         
-            GameEvents.Trigger_RefreshInventoryDisplay();
+            GameEvents.Trigger_OnInventoryChanged();
         }
 
         public Vector2 Position =>

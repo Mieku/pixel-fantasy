@@ -15,15 +15,15 @@ namespace Systems.Details.Generic_Details.Scripts
         
         private void Awake()
         {
-            GameEvents.RefreshInventoryDisplay += GameEvent_RefreshInventoryDisplay;
+            GameEvents.OnInventoryChanged += GameEvents_OnInventoryChanged;
         }
 
         private void OnDestroy()
         {
-            GameEvents.RefreshInventoryDisplay -= GameEvent_RefreshInventoryDisplay;
+            GameEvents.OnInventoryChanged -= GameEvents_OnInventoryChanged;
         }
 
-        private void GameEvent_RefreshInventoryDisplay()
+        private void GameEvents_OnInventoryChanged()
         {
             Refresh();
         }

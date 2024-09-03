@@ -6,52 +6,10 @@ using Action = System.Action;
 
 public class GameEvents : MonoBehaviour
 {
-    public static event Action<Vector3,PlayerInputState, bool> OnLeftClickDown;
-    public static void Trigger_OnLeftClickDown( Vector3 mousePos, PlayerInputState inputState, bool isOverUI )
+    public static event Action OnInventoryChanged;
+    public static void Trigger_OnInventoryChanged()
     {
-        if( OnLeftClickDown != null ) OnLeftClickDown( mousePos, inputState, isOverUI );
-    }
-    
-    public static event Action<Vector3,PlayerInputState, bool> OnRightClickDown;
-    public static void Trigger_OnRightClickDown( Vector3 mousePos, PlayerInputState inputState, bool isOverUI )
-    {
-        if( OnRightClickDown != null ) OnRightClickDown( mousePos, inputState, isOverUI );
-    }
-    
-    public static event Action<Vector3,PlayerInputState, bool> OnLeftClickHeld;
-    public static void Trigger_OnLeftClickHeld( Vector3 mousePos, PlayerInputState inputState, bool isOverUI )
-    {
-        if( OnLeftClickHeld != null ) OnLeftClickHeld( mousePos, inputState, isOverUI );
-    }
-    
-    public static event Action<Vector3,PlayerInputState, bool> OnRightClickHeld;
-    public static void Trigger_OnRightClickHeld( Vector3 mousePos, PlayerInputState inputState, bool isOverUI )
-    {
-        if( OnRightClickHeld != null ) OnRightClickHeld( mousePos, inputState, isOverUI );
-    }
-    
-    public static event Action<Vector3,PlayerInputState, bool> OnLeftClickUp;
-    public static void Trigger_OnLeftClickUp( Vector3 mousePos, PlayerInputState inputState, bool isOverUI )
-    {
-        if( OnLeftClickUp != null ) OnLeftClickUp( mousePos, inputState, isOverUI );
-    }
-    
-    public static event Action<Vector3,PlayerInputState, bool> OnRightClickUp;
-    public static void Trigger_OnRightClickUp( Vector3 mousePos, PlayerInputState inputState, bool isOverUI )
-    {
-        if( OnRightClickUp != null ) OnRightClickUp( mousePos, inputState, isOverUI );
-    }
-    
-    public static event Action RefreshInventoryDisplay;
-    public static void Trigger_RefreshInventoryDisplay()
-    {
-        if (RefreshInventoryDisplay != null) RefreshInventoryDisplay();
-    }
-
-    public static event Action OnInventoryAvailabilityChanged;
-    public static void Trigger_OnInventoryAvailabilityChanged()
-    {
-        if (OnInventoryAvailabilityChanged != null) OnInventoryAvailabilityChanged();
+        if (OnInventoryChanged != null) OnInventoryChanged();
     }
 
     public static event Action RefreshSelection;
@@ -64,12 +22,6 @@ public class GameEvents : MonoBehaviour
     public static void Trigger_OnGameSpeedChanged(float speedMod)
     {
         if (OnGameSpeedChanged != null) OnGameSpeedChanged(speedMod);
-    }
-    
-    public static event Action<string, PlayerInteractable> OnTaskCancelled;
-    public static void Trigger_OnTaskCancelled(string taskID, PlayerInteractable requestor)
-    {
-        if (OnTaskCancelled != null) OnTaskCancelled(taskID, requestor);
     }
  
     public static event Action MinuteTick;

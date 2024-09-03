@@ -20,12 +20,12 @@ namespace Systems.Details.Build_Details.Scripts
         
         private void Start()
         {
-            GameEvents.OnInventoryAvailabilityChanged += GameEvent_OnInventoryChanged;
+            GameEvents.OnInventoryChanged += GameEvent_OnInventoryChanged;
         }
 
         private void OnDestroy()
         {
-            GameEvents.OnInventoryAvailabilityChanged -= GameEvent_OnInventoryChanged;
+            GameEvents.OnInventoryChanged -= GameEvent_OnInventoryChanged;
         }
 
         private void GameEvent_OnInventoryChanged()

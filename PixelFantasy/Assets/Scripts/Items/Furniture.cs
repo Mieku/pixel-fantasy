@@ -75,9 +75,6 @@ namespace Items
         {
             _fadePropertyID = Shader.PropertyToID("_OuterOutlineFade");
             _lightSources = GetComponentsInChildren<LightSource>(true).ToList();
-
-            GameEvents.OnLeftClickUp += GameEvents_OnLeftClickUp;
-            GameEvents.OnRightClickUp += GameEvents_OnRightClickUp;
         }
 
         protected override void OnDestroy()
@@ -89,9 +86,6 @@ namespace Items
                 FurnitureDatabase.Instance.DeregisterFurniture(RuntimeData);
                 PlayerInteractableDatabase.Instance.DeregisterPlayerInteractable(this);
             }
-            
-            GameEvents.OnLeftClickUp -= GameEvents_OnLeftClickUp;
-            GameEvents.OnRightClickUp -= GameEvents_OnRightClickUp;
         }
         
         public virtual void LoadData(FurnitureData data)
@@ -405,16 +399,6 @@ namespace Items
                 DisplaySprites(false);
                 IsClickDisabled = true;
             }
-        }
-
-        private void GameEvents_OnLeftClickUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
-        {
-            //if (isOverUI) return;
-        }
-        
-        private void GameEvents_OnRightClickUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
-        {
-
         }
         
         [ShowInInspector] 

@@ -144,7 +144,16 @@ namespace Managers
         {
             var kinlingData = new KinlingData();
             kinlingData.InheritData(mother, father);
-            var child = Spawner.Instance.SpawnKinling($"child", mother.Position);
+            
+            Kinling prefab = Resources.Load<Kinling>("Prefabs/Kinling");
+            Transform parent = ParentsManager.Instance.KinlingsParent;
+            
+            Kinling child = Instantiate(prefab, parent);
+            child.transform.position = mother.Position;
+            child.gameObject.name = $"Kinling_{kinlingData.Fullname}";
+            
+            AppearanceBuilder.Instance.UpdateAppearance(kinlingData);
+            child.SetKinlingData(kinlingData);
                 
             mother.ChildrenUID.Add(child.RuntimeData.UniqueID);
             father.ChildrenUID.Add(child.RuntimeData.UniqueID);
@@ -152,7 +161,12 @@ namespace Managers
 
         public void SpawnKinling(KinlingData dataToLoad, Vector2 spawnPos)
         {
-            var kinling = Spawner.Instance.SpawnKinling($"{dataToLoad.Firstname}_{dataToLoad.Lastname}", spawnPos);
+            Kinling prefab = Resources.Load<Kinling>("Prefabs/Kinling");
+            Transform parent = ParentsManager.Instance.KinlingsParent;
+            Kinling kinling = Instantiate(prefab, parent);
+            kinling.transform.position = spawnPos;
+            kinling.gameObject.name = $"Kinling_{dataToLoad.Fullname}";
+            
             AppearanceBuilder.Instance.UpdateAppearance(dataToLoad);
             kinling.SetKinlingData(dataToLoad);
         }

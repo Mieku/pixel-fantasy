@@ -18,7 +18,7 @@ namespace Items
         protected override void Built_Enter()
         {
             InventoryManager.Instance.AddStorage(this);
-            GameEvents.Trigger_RefreshInventoryDisplay();
+            GameEvents.Trigger_OnInventoryChanged();
 
             base.Built_Enter();
         }
@@ -145,7 +145,7 @@ namespace Items
             StoredUIDs.Clear();
             
             
-            GameEvents.Trigger_RefreshInventoryDisplay();
+            GameEvents.Trigger_OnInventoryChanged();
             
             base.CompleteDeconstruction();
         }

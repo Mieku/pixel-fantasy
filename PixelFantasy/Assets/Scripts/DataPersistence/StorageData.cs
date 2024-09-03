@@ -81,7 +81,7 @@ using UnityEngine;
                 IncomingUIDs.Remove(itemData.UniqueID);
             }
             
-            GameEvents.Trigger_RefreshInventoryDisplay();
+            GameEvents.Trigger_OnInventoryChanged();
         }
         
         public void SetIncoming(ItemData itemData)
@@ -100,7 +100,7 @@ using UnityEngine;
             }
             
             IncomingUIDs.Add(itemData.UniqueID);
-            GameEvents.Trigger_RefreshInventoryDisplay();
+            GameEvents.Trigger_OnInventoryChanged();
         }
 
         public bool IsSpecificItemDataClaimed(ItemData itemData)
@@ -151,7 +151,7 @@ using UnityEngine;
             }
 
             ClaimedUIDs.Remove(itemData.UniqueID);
-            GameEvents.Trigger_RefreshInventoryDisplay();
+            GameEvents.Trigger_OnInventoryChanged();
         }
 
         public ItemData GetItemDataOfType(ItemSettings itemSettings)
@@ -187,7 +187,7 @@ using UnityEngine;
                     }
                     
                     ClaimedUIDs.Add(itemToClaim.UniqueID);
-                    GameEvents.Trigger_RefreshInventoryDisplay();
+                    GameEvents.Trigger_OnInventoryChanged();
                     return true;
                 }
             }
@@ -300,7 +300,7 @@ using UnityEngine;
             StoredUIDs.Remove(itemData.UniqueID);
             ClaimedUIDs.Remove(itemData.UniqueID);
             
-            GameEvents.Trigger_RefreshInventoryDisplay();
+            GameEvents.Trigger_OnInventoryChanged();
             OnChanged();
 
             itemData.State = EItemState.Carried;
@@ -330,14 +330,14 @@ using UnityEngine;
                 IncomingUIDs.Remove(runtimeData.UniqueID);
             }
         
-            GameEvents.Trigger_RefreshInventoryDisplay();
+            GameEvents.Trigger_OnInventoryChanged();
             OnChanged();
         }
 
         public void LoadInItemData(ItemData itemData)
         {
             StoredUIDs.Add(itemData.UniqueID);
-            GameEvents.Trigger_RefreshInventoryDisplay();
+            GameEvents.Trigger_OnInventoryChanged();
         }
         
         public List<InventoryAmount> GetInventoryAmounts()
