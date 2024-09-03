@@ -19,6 +19,7 @@ namespace Systems.Details.Build_Details.Scripts
         private WallSettings _wallSettings;
         private DyeSettings _colour;
         private Action _onCompleteCallback;
+        private bool _isPlanning;
 
         private List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Structure", "Obstacle", "Clearance" };
 
@@ -31,6 +32,7 @@ namespace Systems.Details.Build_Details.Scripts
             _wallSettings = wallSettings;
             _colour = colour;
             _onCompleteCallback = onComplete;
+            _isPlanning = true;
 
             // Set up the cursor and placement icon
             InputManager.Instance.SetInputMode(InputMode.WallPlanning);
@@ -39,10 +41,14 @@ namespace Systems.Details.Build_Details.Scripts
 
         public void CancelWallBuild()
         {
-            // Reset cursor and placement icon when build is canceled
-            Spawner.Instance.ShowPlacementIcon(false);
-            InputManager.Instance.ReturnToDefault();
-            _onCompleteCallback?.Invoke();
+            if (_isPlanning)
+            {
+                // Reset cursor and placement icon when build is canceled
+                _isPlanning = false;
+                Spawner.Instance.ShowPlacementIcon(false);
+                InputManager.Instance.ReturnToDefault();
+                _onCompleteCallback?.Invoke();
+            }
         }
         
         public void SpawnWall(Vector3 spawnPosition)

@@ -15,6 +15,7 @@ namespace Systems.Details.Build_Details.Scripts
         private FloorStyle _floorStyle;
         private FloorSettings _floorSettings;
         private Action _onCompleteCallback;
+        private bool _isPlanning;
         private List<string> _invalidPlacementTags => new List<string>() { "Water", "Wall", "Floor", "Obstacle" };
         
         public FloorSettings FloorSettings => _floorSettings;
@@ -26,6 +27,7 @@ namespace Systems.Details.Build_Details.Scripts
             _floorSettings = settings;
             _floorStyle = style as FloorStyle;
             _onCompleteCallback = onComplete;
+            _isPlanning = true;
             
             InputManager.Instance.SetInputMode(InputMode.FloorPlanning);
             
@@ -39,9 +41,13 @@ namespace Systems.Details.Build_Details.Scripts
         
         public void CancelFloorBuild()
         {
-            Spawner.Instance.ShowPlacementIcon(false);
-            InputManager.Instance.ReturnToDefault();
-            _onCompleteCallback?.Invoke();
+            if (_isPlanning)
+            {
+                _isPlanning = false;
+                Spawner.Instance.ShowPlacementIcon(false);
+                InputManager.Instance.ReturnToDefault();
+                _onCompleteCallback?.Invoke();
+            }
         }
         
         public void SpawnFloor(Vector3 spawnPosition)

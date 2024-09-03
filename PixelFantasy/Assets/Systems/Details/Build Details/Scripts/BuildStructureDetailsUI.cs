@@ -45,6 +45,7 @@ namespace Systems.Details.Build_Details.Scripts
         [SerializeField] private Transform _styleLayoutParent;
         [SerializeField] private TextMeshProUGUI _styleGroupHeader;
         [SerializeField] private StyleOptionBtn _styleOptionBtnPrefab;
+        [SerializeField] private StructureMenu _parentStructureMenu;
         
         private List<ColourOptionBtn> _displayedColourOptions = new List<ColourOptionBtn>();
         private List<MaterialOptionBtn> _displayedMaterialOptions = new List<MaterialOptionBtn>();
@@ -358,7 +359,8 @@ namespace Systems.Details.Build_Details.Scripts
 
         private void OnBuildComplete()
         {
-            
+            // Clears the Structure UI
+            _parentStructureMenu.ShowDefaultMenu();
         }
         
         private void ShowStyleOptions(string header, List<StyleOption> options, Action<StyleOption> onSelectedCallback)

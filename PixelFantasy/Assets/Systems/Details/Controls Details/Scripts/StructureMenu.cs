@@ -37,6 +37,16 @@ namespace Systems.Details.Controls_Details.Scripts
             _floorsBtn.OnPressed -= FloorsPressed;
         }
 
+        public void ShowDefaultMenu()
+        {
+            _buildStructureDetails.Hide();
+            _subMenuSeperator.SetActive(true);
+            
+            _wallsBtn.SetActive(false);
+            _doorsBtn.SetActive(false);
+            _floorsBtn.SetActive(false);
+        }
+
         private void WallsPressed(ControlsBtn btn)
         {
             SetBtnActive(btn);
