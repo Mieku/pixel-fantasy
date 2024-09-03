@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Controllers;
 using Managers;
@@ -17,6 +18,7 @@ namespace Systems.Details.Build_Details.Scripts
 
         private WallSettings _wallSettings;
         private DyeSettings _colour;
+        private Action _onCompleteCallback;
 
         private List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Structure", "Obstacle", "Clearance" };
 
@@ -24,23 +26,23 @@ namespace Systems.Details.Build_Details.Scripts
         public WallSettings WallSettings => _wallSettings;
         
 
-        public void BeginWallBuild(WallSettings wallSettings, DyeSettings colour)
+        public void BeginWallBuild(WallSettings wallSettings, DyeSettings colour, Action onComplete)
         {
             _wallSettings = wallSettings;
             _colour = colour;
+            _onCompleteCallback = onComplete;
 
             // Set up the cursor and placement icon
             InputManager.Instance.SetInputMode(InputMode.WallPlanning);
-            CursorManager.Instance.ChangeCursorState(ECursorState.AreaSelect);
             Spawner.Instance.ShowPlacementIcon(true, _placementIcon, _invalidPlacementTags);
         }
 
         public void CancelWallBuild()
         {
             // Reset cursor and placement icon when build is canceled
-            CursorManager.Instance.ChangeCursorState(ECursorState.Default);
             Spawner.Instance.ShowPlacementIcon(false);
             InputManager.Instance.ReturnToDefault();
+            _onCompleteCallback?.Invoke();
         }
         
         public void SpawnWall(Vector3 spawnPosition)

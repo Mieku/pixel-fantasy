@@ -4,6 +4,7 @@ using System.Linq;
 using Controllers;
 using Managers;
 using ScriptableObjects;
+using Systems.Details.Controls_Details.Scripts;
 using TMPro;
 using UnityEngine;
 
@@ -57,7 +58,6 @@ namespace Systems.Details.Build_Details.Scripts
         {
             gameObject.SetActive(true);
             HideCurrentSelection();
-            RefreshLayout();
         }
 
         public void ShowForSpecificBuild(DoorSettings doorSettings)
@@ -84,6 +84,7 @@ namespace Systems.Details.Build_Details.Scripts
         public void Hide()
         {
             _wallBuilder.CancelWallBuild();
+            _floorBuilder.CancelFloorBuild();
             gameObject.SetActive(false);
             HideCurrentSelection();
         }
@@ -114,6 +115,7 @@ namespace Systems.Details.Build_Details.Scripts
         {
             _currentSelection.gameObject.SetActive(false);
             _state = EDetailsState.None;
+            RefreshLayout();
         }
 
         private void ShowCurrentSelection(EDetailsState detailsState)
@@ -263,7 +265,7 @@ namespace Systems.Details.Build_Details.Scripts
             _currentSelection.ShowWallSelection(settings, _currentColour);
             RefreshLayout();
             
-            _wallBuilder.BeginWallBuild(settings, _currentColour);
+            _wallBuilder.BeginWallBuild(settings, _currentColour, OnBuildComplete);
         }
         
         private void ShowDoorMaterialOptions(Action<DoorSettings> onSelectedCallback)
@@ -351,7 +353,12 @@ namespace Systems.Details.Build_Details.Scripts
             _currentSelection.ShowFloorSelection(settings, _currentStyleOption);
             RefreshLayout();
             
-            _floorBuilder.BeginFloorBuild(settings, _currentStyleOption);
+            _floorBuilder.BeginFloorBuild(settings, _currentStyleOption, OnBuildComplete);
+        }
+
+        private void OnBuildComplete()
+        {
+            
         }
         
         private void ShowStyleOptions(string header, List<StyleOption> options, Action<StyleOption> onSelectedCallback)

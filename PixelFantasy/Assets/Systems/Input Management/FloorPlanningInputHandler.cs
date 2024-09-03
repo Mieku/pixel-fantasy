@@ -10,22 +10,22 @@ using UnityEngine.EventSystems;
 
 namespace Systems.Input_Management
 {
-    public class WallPlanningInputHandler : MonoBehaviour, IInputHandler
+    public class FloorPlanningInputHandler : MonoBehaviour, IInputHandler
     {
-        private WallBuilder _wallBuilder;
+        private FloorBuilder _floorBuilder;
         private bool _isPlanning;
         private Vector2 _startPos;
         private List<Vector2> _plannedGrid = new List<Vector2>();
         private List<TilePlan> _plannedTiles = new List<TilePlan>();
-
+        
         private void Awake()
         {
             // Register this handler with the InputManager
-            InputManager.Instance.RegisterInputHandler(InputMode.WallPlanning, this);
+            InputManager.Instance.RegisterInputHandler(InputMode.FloorPlanning, this);
 
-            _wallBuilder = FindObjectOfType<WallBuilder>();
+            _floorBuilder = FindObjectOfType<FloorBuilder>();
         }
-
+        
         public void HandleInput()
         {
             if (Input.GetMouseButtonDown(0))
@@ -48,25 +48,10 @@ namespace Systems.Input_Management
             else if (Input.GetMouseButtonDown(1))
             {
                 CancelPlanning();
-                _wallBuilder.CancelWallBuild();
+                _floorBuilder.CancelFloorBuild();
             }
         }
-
-        public void OnEnter()
-        {
-            _isPlanning = false;  // Reset planning state when entering the mode
-            CursorManager.Instance.ChangeCursorState(ECursorState.AreaSelect);
-        }
-
-        public void OnExit()
-        {
-            if (_isPlanning)
-            {
-                CancelPlanning();  // Ensure planning is canceled when exiting the mode
-            }
-            CursorManager.Instance.ChangeCursorState(ECursorState.Default);
-        }
-
+        
         private void StartPlanning()
         {
             if (EventSystem.current.IsPointerOverGameObject()) return;
@@ -97,20 +82,20 @@ namespace Systems.Input_Management
                 ClearTilePlan();  // Optionally clear the visual indicators
                 foreach (var gridPos in _plannedGrid)
                 {
-                    _wallBuilder.SpawnWall(gridPos);
+                    _floorBuilder.SpawnFloor(gridPos);
                 }
                 _plannedGrid.Clear();
                 _isPlanning = false;  // End planning process
             }
         }
-
+        
         private void CancelPlanning()
         {
             _isPlanning = false;  // Reset the planning state
             ClearTilePlan();  // Optionally clear the visual indicators
             _plannedGrid.Clear();
         }
-
+        
         private void UpdatePlannedTiles()
         {
             ClearTilePlan();  // Clear previous display
@@ -120,16 +105,16 @@ namespace Systems.Input_Management
                 tilePlanGO.transform.position = gridPos;
 
                 var tilePlan = tilePlanGO.GetComponent<TilePlan>();
-                var tileMap = TilemapController.Instance.GetTilemap(TilemapLayer.Structure);
-                Color placementColour = Helper.IsGridPosValidToBuild(gridPos, _wallBuilder.InvalidPlacementTags)
+                var tileMap = TilemapController.Instance.GetTilemap(TilemapLayer.Flooring);
+                Color placementColour = Helper.IsGridPosValidToBuild(gridPos, _floorBuilder.InvalidPlacementTags)
                     ? Librarian.Instance.GetColour("Placement Green")
                     : Librarian.Instance.GetColour("Placement Red");
 
-                tilePlan.Init(_wallBuilder.WallSettings.ExteriorRuleTile, tileMap, placementColour);
+                tilePlan.Init(_floorBuilder.FloorStyle.Tiles, tileMap, placementColour);
                 _plannedTiles.Add(tilePlan);
             }
         }
-
+        
         private void ClearTilePlan()
         {
             foreach (var tilePlan in _plannedTiles)
@@ -138,6 +123,16 @@ namespace Systems.Input_Management
                 Destroy(tilePlan.gameObject);
             }
             _plannedTiles.Clear();
+        }
+
+        public void OnEnter()
+        {
+            CursorManager.Instance.ChangeCursorState(ECursorState.AreaSelect);
+        }
+
+        public void OnExit()
+        {
+            CursorManager.Instance.ChangeCursorState(ECursorState.Default);
         }
     }
 }
