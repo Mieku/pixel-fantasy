@@ -95,6 +95,8 @@ public class SelectionManager : Singleton<SelectionManager>
             }
         }
         _selectedObjects.Clear();
+        
+        ZonesDatabase.Instance.UnselectZone();
 
         if (hadObjects)
         {

@@ -4,8 +4,7 @@ using System.Linq;
 using Controllers;
 using Managers;
 using Sirenix.OdinInspector;
-using Systems.Build_Controls.Scripts;
-using Systems.CursorHandler.Scripts;
+using Systems.Input_Management;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -13,18 +12,10 @@ namespace Systems.Zones.Scripts
 {
     public class ZonesDatabase : Singleton<ZonesDatabase>
     {
-        [SerializeField] private Sprite _placementIcon;
         [SerializeField] private LayeredTilemapManager _zoneLayeredTilemap;
-        [SerializeField] private TileBase _defaultZoneTiles;
         [SerializeField] private StockpileZoneData _genericStockpileZoneData;
         [SerializeField] private FarmingZoneData _genericFarmZoneData;
-        
-        private bool _isEnabled;
-        private bool _isPlanning;
-        private bool _isPlanningShrink;
-        private Vector2 _startPos;
-        private List<Vector2> _plannedGrid = new List<Vector2>();
-        private readonly List<TilePlan> _plannedTiles = new List<TilePlan>();
+
         [ShowInInspector] private List<ZoneData> _currentZones = new List<ZoneData>();
        
         private List<string> _invalidPlacementTags => new List<string>() { "Water", "Zone", "Obstacle"};
@@ -131,9 +122,8 @@ namespace Systems.Zones.Scripts
             _curZoneSettings = zoneSettings;
             _planningCompleteCallback = planningCompleteCallback;
             
-            CursorManager.Instance.ChangeCursorState(ECursorState.AreaSelect);
-            Spawner.Instance.ShowPlacementIcon(true, _placementIcon, _invalidPlacementTags);
-            _isEnabled = true;
+            var handler = (ZonePlanningInputHandler) InputManager.Instance.SetInputMode(InputMode.ZonePlanning);
+            handler.PlanZone();
         }
 
         /// <summary>
@@ -145,9 +135,8 @@ namespace Systems.Zones.Scripts
             _curZoneSettings = original.Settings;
             _planningCompleteCallback = planningCompleteCallback;
             
-            CursorManager.Instance.ChangeCursorState(ECursorState.AreaSelect);
-            Spawner.Instance.ShowPlacementIcon(true, _placementIcon, _invalidPlacementTags);
-            _isEnabled = true;
+            var handler = (ZonePlanningInputHandler) InputManager.Instance.SetInputMode(InputMode.ZonePlanning);
+            handler.PlanZoneExpansion();
         }
 
         // Shrinks any zone
@@ -155,182 +144,22 @@ namespace Systems.Zones.Scripts
         {
             _planningCompleteCallback = onCompleteCallback;
             
-            CursorManager.Instance.ChangeCursorState(ECursorState.AreaSelect);
-            Spawner.Instance.ShowPlacementIconForReqTags(true, _placementIcon, _requiredPlacementTagsForShrink);
-            _isEnabled = true;
-            _isPlanningShrink = true;
+            var handler = (ZonePlanningInputHandler) InputManager.Instance.SetInputMode(InputMode.ZonePlanning);
+            handler.PlanZoneShrink();
         }
         
         public void CancelZonePlanning()
         {
-            _isEnabled = false;
-            CursorManager.Instance.ChangeCursorState(ECursorState.Default);
-            Spawner.Instance.ShowPlacementIcon(false);
-            
-            ClearTilePlan();
             _curZoneSettings = null;
             _expandingZone = null;
-            _isPlanningShrink = false;
             _planningCompleteCallback?.Invoke();
-        }
-        
-        protected override void Awake()
-        {
-            base.Awake();
-            GameEvents.OnLeftClickDown += GameEvents_OnLeftClickDown;
-            GameEvents.OnLeftClickHeld += GameEvents_OnLeftClickHeld;
-            GameEvents.OnLeftClickUp += GameEvents_OnLeftClickUp;
-            GameEvents.OnRightClickDown += GameEvents_OnRightClickDown;
+
+            InputManager.Instance.ReturnToDefault();
         }
 
-        private void OnDestroy()
+        public void ShrinkPlannedZone(List<Vector2> plannedGrid)
         {
-            GameEvents.OnLeftClickDown -= GameEvents_OnLeftClickDown;
-            GameEvents.OnLeftClickHeld -= GameEvents_OnLeftClickHeld;
-            GameEvents.OnLeftClickUp -= GameEvents_OnLeftClickUp;
-            GameEvents.OnRightClickDown -= GameEvents_OnRightClickDown;
-        }
-        
-        protected void GameEvents_OnRightClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
-        {
-            if (!_isEnabled)
-            {
-                UnselectZone();
-                return;
-            }
-            
-            CancelZonePlanning();
-        }
-    
-        protected void GameEvents_OnLeftClickDown(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
-        {
-            if (!_isEnabled) return;
-            if (isOverUI) return;
-
-            _isPlanning = true;
-            _startPos = Helper.SnapToGridPos(mousePos);
-        }
-
-        protected void GameEvents_OnLeftClickHeld(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
-        {
-            if (!_isEnabled) return;
-            if (!_isPlanning) return;
-
-            if (_isPlanningShrink)
-            {
-                PlanZoneShrink(mousePos);
-            }
-            else
-            {
-                PlanZone(mousePos);
-            }
-        }
-
-        protected void GameEvents_OnLeftClickUp(Vector3 mousePos, PlayerInputState inputState, bool isOverUI)
-        {
-            if (!_isEnabled) return;
-            if (isOverUI) return;
-
-            if (_isPlanning)
-            {
-                if (_isPlanningShrink)
-                {
-                    ShrinkPlannedZone();
-                }
-                else
-                {
-                    SpawnPlannedZone();
-                }
-                
-                CancelZonePlanning();
-            }
-        }
-        
-        private void PlanZone(Vector2 mousePos)
-        {
-            Spawner.Instance.ShowPlacementIcon(false);
-            
-            Vector3 curGridPos = Helper.SnapToGridPos(mousePos);
-            List<Vector2> gridPositions = Helper.GetRectangleGridPositionsBetweenPoints(_startPos, curGridPos);
-            
-            if (gridPositions.Count != _plannedGrid.Count)
-            {
-                _plannedGrid = gridPositions;
-            
-                // Clear previous display, then display new blueprints
-                ClearTilePlan();
-            
-                foreach (var gridPos in gridPositions)
-                {
-                    var tilePlanGO = new GameObject("Tile Plan", typeof(TilePlan));
-                    tilePlanGO.transform.position = gridPos;
-            
-                    var tilePlan = tilePlanGO.GetComponent<TilePlan>();
-                    var tileMap = TilemapController.Instance.GetTilemap(TilemapLayer.PendingZones);
-                    Color placementColour;
-                    if (Helper.IsGridPosValidToBuild(gridPos, _invalidPlacementTags))
-                    {
-                        placementColour = Librarian.Instance.GetColour("Placement Green");
-                    }
-                    else
-                    {
-                        placementColour = Librarian.Instance.GetColour("Placement Red");
-                    }
-                
-                    tilePlan.Init(_defaultZoneTiles, tileMap, placementColour);
-            
-                    _plannedTiles.Add(tilePlan);
-                }
-            }
-        }
-
-        private void PlanZoneShrink(Vector2 mousePos)
-        {
-            Spawner.Instance.ShowPlacementIcon(false);
-            
-            Vector3 curGridPos = Helper.SnapToGridPos(mousePos);
-            List<Vector2> gridPositions = Helper.GetRectangleGridPositionsBetweenPoints(_startPos, curGridPos);
-            
-            if (gridPositions.Count != _plannedGrid.Count)
-            {
-                _plannedGrid = gridPositions;
-            
-                // Clear previous display, then display new blueprints
-                ClearTilePlan();
-            
-                foreach (var gridPos in gridPositions)
-                {
-                    var tilePlanGO = new GameObject("Tile Plan", typeof(TilePlan));
-                    tilePlanGO.transform.position = gridPos;
-            
-                    var tilePlan = tilePlanGO.GetComponent<TilePlan>();
-                    var tileMap = TilemapController.Instance.GetTilemap(TilemapLayer.PendingZones);
-                    Color placementColour;
-                    if (Helper.IsGridPosValidToBuild(gridPos, new List<string>(), _requiredPlacementTagsForShrink))
-                    {
-                        placementColour = Librarian.Instance.GetColour("Placement Green");
-                    }
-                    else
-                    {
-                        placementColour = Librarian.Instance.GetColour("Placement Red");
-                    }
-                
-                    tilePlan.Init(_defaultZoneTiles, tileMap, placementColour);
-            
-                    _plannedTiles.Add(tilePlan);
-                }
-            }
-        }
-
-        private void ShrinkPlannedZone()
-        {
-            // Make sure to update all zones affected!
-            if (!_isPlanning) return;
-            
-            Spawner.Instance.ShowPlacementIconForReqTags(true, _placementIcon, _requiredPlacementTagsForShrink);
-            ClearTilePlan();
-            
-            foreach (var gridPos in _plannedGrid)
+            foreach (var gridPos in plannedGrid)
             {
                 if (Helper.IsGridPosValidToBuild(gridPos, new List<string>(), _requiredPlacementTagsForShrink))
                 {
@@ -341,7 +170,6 @@ namespace Systems.Zones.Scripts
                         z = 0
                     };
                     
-                    
                     ZoneData affectedZone = GetZoneAtPosition(cell);
                     if (affectedZone != null)
                     {
@@ -350,10 +178,8 @@ namespace Systems.Zones.Scripts
                 }
             }
             
-            _plannedGrid.Clear();
-            _isPlanning = false;
+            plannedGrid.Clear();
             _expandingZone = null;
-            _isPlanningShrink = false;
 
             if (_curSelectedZone != null)
             {
@@ -365,25 +191,20 @@ namespace Systems.Zones.Scripts
             }
         }
         
-        private void SpawnPlannedZone()
+        public void SpawnPlannedZone(List<Vector2> plannedGrid)
         {
-            if (!_isPlanning) return;
-            
-            Spawner.Instance.ShowPlacementIcon(true, _placementIcon, _invalidPlacementTags);
-            ClearTilePlan();
-
             ZoneData zone;
 
             // Zone Expansion Logic
             if (_expandingZone != null)
             {
-                bool isAdjacent = CheckIfAdjacent(_expandingZone.Cells, _plannedGrid);
+                bool isAdjacent = CheckIfAdjacent(_expandingZone.Cells, plannedGrid);
                 if (isAdjacent)
                 {
                     // Expand the zone
                     int zoneLayer = _expandingZone.AssignedLayer;
                     List<Vector3Int> validGrid = new List<Vector3Int>();
-                    foreach (var gridPos in _plannedGrid)
+                    foreach (var gridPos in plannedGrid)
                     {
                         if (Helper.IsGridPosValidToBuild(gridPos, _invalidPlacementTags))
                         {
@@ -404,7 +225,7 @@ namespace Systems.Zones.Scripts
                     // Create a new zone with a copy of all the data (except name, and layer id)
                     int zoneLayer = _zoneLayeredTilemap.GetLowestNotUsedLayer();
                     List<Vector3Int> validGrid = new List<Vector3Int>();
-                    foreach (var gridPos in _plannedGrid)
+                    foreach (var gridPos in plannedGrid)
                     {
                         if (Helper.IsGridPosValidToBuild(gridPos, _invalidPlacementTags))
                         {
@@ -426,7 +247,7 @@ namespace Systems.Zones.Scripts
                 int zoneLayer = _zoneLayeredTilemap.GetLowestNotUsedLayer();
 
                 List<Vector3Int> validGrid = new List<Vector3Int>();
-                foreach (var gridPos in _plannedGrid)
+                foreach (var gridPos in plannedGrid)
                 {
                     if (Helper.IsGridPosValidToBuild(gridPos, _invalidPlacementTags))
                     {
@@ -443,8 +264,7 @@ namespace Systems.Zones.Scripts
                 zone = CreateZone(validGrid, zoneLayer);
             }
             
-            _plannedGrid.Clear();
-            _isPlanning = false;
+            plannedGrid.Clear();
             _expandingZone = null;
             
             SelectZone(zone);
@@ -655,16 +475,6 @@ namespace Systems.Zones.Scripts
             }
         }
     
-        private void ClearTilePlan()
-        {
-            foreach (var tilePlan in _plannedTiles)
-            {
-                tilePlan.Clear();
-                Destroy(tilePlan.gameObject);
-            }
-            _plannedTiles.Clear();
-        }
-
         public Vector2 ZoneCenter(List<Vector3Int> cells)
         {
             List<float> horCells = new List<float>();

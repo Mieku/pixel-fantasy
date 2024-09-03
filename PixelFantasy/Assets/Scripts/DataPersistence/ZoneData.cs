@@ -54,7 +54,7 @@ public abstract class ZoneData
             CheckAndSplitZone();
         }
             
-        OnZoneChanged.Invoke();
+        OnZoneChanged?.Invoke();
     }
         
     private void CheckAndSplitZone()
@@ -74,7 +74,7 @@ public abstract class ZoneData
             }
         }
             
-        OnZoneChanged.Invoke();
+        OnZoneChanged?.Invoke();
     }
         
     private void CreateNewZoneWithCells(List<Vector3Int> cells)

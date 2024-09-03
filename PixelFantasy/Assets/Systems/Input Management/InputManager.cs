@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -12,27 +13,20 @@ namespace Systems.Input_Management
         FloorPlanning,
         DoorPlanning,
         PlaceFurniture,
+        ZonePlanning,
         // Add other modes as needed
     }
     
-    public class InputManager : MonoBehaviour
+    public class InputManager : Singleton<InputManager>
     {
-        public static InputManager Instance { get; private set; }
-        
         private Dictionary<InputMode, IInputHandler> _inputHandlers = new Dictionary<InputMode, IInputHandler>();
         private IInputHandler _currentInputHandler;
         [ShowInInspector] private InputMode _currentMode = InputMode.Default;
 
-        private void Awake()
+        protected override void Awake()
         {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(this.gameObject);
-                return;
-            }
-            Instance = this;
-            DontDestroyOnLoad(this.gameObject);
-
+            base.Awake();
+            
             // Initialize with default mode
             SetInputMode(_currentMode);
         }
