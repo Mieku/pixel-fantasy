@@ -31,6 +31,10 @@ namespace Systems.Buildings.Scripts
             RuntimeWallData.AssignWallOption(wallSettings, colour);
             
             AssignWallState(EConstructionState.Blueprint);
+            
+            IsAllowed = true;
+            RefreshAllowedDisplay();
+            RefreshAllowCommands();
         }
 
         public override void LoadData(ConstructionData data)
@@ -39,6 +43,9 @@ namespace Systems.Buildings.Scripts
             LoadWallState(data.State);
             
             StructureDatabase.Instance.RegisterStructure(this);
+            
+            RefreshAllowedDisplay();
+            RefreshAllowCommands();
         }
 
         private void AssignWallState(EConstructionState state)
@@ -80,12 +87,18 @@ namespace Systems.Buildings.Scripts
             RefreshTile();
             ColourTile(Librarian.Instance.GetColour("Blueprint"));
             CreateConstructionHaulingTasks();
+            
+            RefreshAllowedDisplay();
+            RefreshAllowCommands();
         }
 
         private void BuiltState_Enter()
         {
             ColourTile(Color.white);
             EnableObstacle(true);
+            
+            RefreshAllowedDisplay();
+            RefreshAllowCommands();
         }
  
         public override void RefreshTile()
@@ -143,6 +156,9 @@ namespace Systems.Buildings.Scripts
         {
             base.CompleteConstruction();
             AssignWallState(EConstructionState.Built);
+            
+            RefreshAllowedDisplay();
+            RefreshAllowCommands();
         }
 
         public void EnableObstacle(bool isEnabled)

@@ -4,14 +4,11 @@ using Controllers;
 using Managers;
 using ScriptableObjects;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 namespace Systems.Buildings.Scripts
 {
     public class Door : StructurePiece
     {
-        public Action OnDoorPlaced;
-
         [SerializeField] private SpriteRenderer _doorSprite;
         [SerializeField] private SpriteRenderer _doormatSprite;
         [SerializeField] private GameObject _topCBlocker, _bottomCBlocker, _leftCBlocker, _rightCBlocker;
@@ -41,6 +38,10 @@ namespace Systems.Buildings.Scripts
             
             SetState(EConstructionState.Planning);
             SetOrientationVertical(false);
+
+            IsAllowed = true;
+            RefreshAllowedDisplay();
+            RefreshAllowCommands();
         }
         
         public override void LoadData(ConstructionData data)
@@ -50,6 +51,8 @@ namespace Systems.Buildings.Scripts
             SetOrientationVertical(RuntimeDoorData.IsVertical);
             StructureDatabase.Instance.RegisterStructure(this);
             RefreshTaskIcon();
+            RefreshAllowedDisplay();
+            RefreshAllowCommands();
         }
 
         private void LoadState(EConstructionState state)
@@ -105,6 +108,9 @@ namespace Systems.Buildings.Scripts
                 CreateConstructionHaulingTasks();
                 OnPlaced();
             }
+            
+            RefreshAllowedDisplay();
+            RefreshAllowCommands();
         }
 
         private void Update()
@@ -134,6 +140,9 @@ namespace Systems.Buildings.Scripts
         {
             ColourSprite(Color.white);
             AddWallFiller();
+            
+            RefreshAllowedDisplay();
+            RefreshAllowCommands();
         }
 
         private void AddWallFiller()
@@ -175,14 +184,9 @@ namespace Systems.Buildings.Scripts
         {
             base.CompleteConstruction();
             SetState(EConstructionState.Built);
-        }
-        
-        public void TriggerPlaced()
-        {
-            if (OnDoorPlaced != null)
-            {
-                OnDoorPlaced.Invoke();
-            }
+            
+            RefreshAllowedDisplay();
+            RefreshAllowCommands();
         }
         
         public bool CheckPlacement()

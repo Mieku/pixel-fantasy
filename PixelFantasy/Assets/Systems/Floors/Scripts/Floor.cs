@@ -42,6 +42,10 @@ namespace Systems.Floors.Scripts
             FlooringDatabase.Instance.RegisterFloor(this);
             
             AssignFloorState(EConstructionState.Blueprint);
+
+            IsAllowed = true;
+            RefreshAllowedDisplay();
+            RefreshAllowCommands();
         }
         
         public override void LoadData(ConstructionData data)
@@ -49,6 +53,8 @@ namespace Systems.Floors.Scripts
             RuntimeData = data;
             FlooringDatabase.Instance.RegisterFloor(this);
             RefreshTaskIcon();
+            RefreshAllowedDisplay();
+            RefreshAllowCommands();
         }
 
         private void AssignFloorState(EConstructionState state)
@@ -72,11 +78,17 @@ namespace Systems.Floors.Scripts
             SetTile();
             ColourTile(Librarian.Instance.GetColour("Blueprint"));
             CreateConstructionHaulingTasks();
+            
+            RefreshAllowedDisplay();
+            RefreshAllowCommands();
         }
 
         private void BuiltState_Enter()
         {
             ColourTile(Color.white);
+            
+            RefreshAllowedDisplay();
+            RefreshAllowCommands();
         }
 
         private void SetTile()
@@ -107,6 +119,9 @@ namespace Systems.Floors.Scripts
         {
             base.CompleteConstruction();
             AssignFloorState(EConstructionState.Built);
+            
+            RefreshAllowedDisplay();
+            RefreshAllowCommands();
         }
         
         public override void CompleteDeconstruction()

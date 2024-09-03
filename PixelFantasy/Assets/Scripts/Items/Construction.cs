@@ -5,6 +5,7 @@ using Characters;
 using Handlers;
 using HUD;
 using Interfaces;
+using ScriptableObjects;
 using Systems.Stats.Scripts;
 using UnityEngine;
 using Action = System.Action;
@@ -56,7 +57,19 @@ namespace Items
             }
             else
             {
-                CreateTask(command);
+                if (command.CommandID == "Forbid")
+                {
+                    CancelPendingTask();
+                    IsAllowed = false;
+                }
+                else if (command.CommandID == "Allow")
+                {
+                    IsAllowed = true;
+                }
+                else
+                {
+                    CreateTask(command);
+                }
             }
         }
 
@@ -267,10 +280,64 @@ namespace Items
             TasksDatabase.Instance.AddTask(task);
         }
         
-        public bool IsAllowed { get; set; }
-        public void ToggleAllowed(bool isAllowed)
+        public bool IsAllowed
         {
-            throw new System.NotImplementedException();
+            get => RuntimeData.IsAllowed;
+            set
+            {
+                RuntimeData.IsAllowed = value;
+
+                if (value == false)
+                {
+                    // Cancel all tasks
+                    CancelPendingTask();
+                    CancelRequesterTasks(true);
+                }
+                
+                RefreshAllowCommands();
+                RefreshAllowedDisplay();
+                InformChanged();
+            }
+        }
+        
+        protected void RefreshAllowedDisplay()
+        {
+            if (!IsAllowed)
+            {
+                var forbidCmd = GameSettings.Instance.LoadCommand("Forbid");
+                AssignTaskIcon(forbidCmd);
+            }
+            else
+            {
+                AssignTaskIcon(null);
+            }
+        }
+        
+        protected void RefreshAllowCommands()
+        {
+            if (RuntimeData.State == EConstructionState.Blueprint)
+            {
+                if (IsAllowed)
+                {
+                    AddCommand("Forbid", true);
+                    RemoveCommand("Allow");
+                }
+                else
+                {
+                    AddCommand("Allow", true);
+                    RemoveCommand("Forbid");
+                }
+            }
+            else
+            {
+                RemoveCommand("Allow");
+                RemoveCommand("Forbid");
+            }
+        }
+        
+        public override bool IsForbidden()
+        {
+            return !IsAllowed;
         }
 
         /// <summary>

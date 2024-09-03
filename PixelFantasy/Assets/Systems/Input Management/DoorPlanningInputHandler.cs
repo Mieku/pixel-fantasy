@@ -28,18 +28,17 @@ namespace Systems.Input_Management
             _dyeSettings = dyeSettings;
             _onCompletedCallback = onCompletedCallback;
             
-            _plannedDoor = SpawnDoor(_doorSettings, _dyeSettings, _onCompletedCallback);
+            _plannedDoor = SpawnDoor(_doorSettings, _dyeSettings);
             
             _isPlanning = true;
         }
         
-        private Door SpawnDoor(DoorSettings doorSettings, DyeSettings dyeSettings, Action onPlaced)
+        private Door SpawnDoor(DoorSettings doorSettings, DyeSettings dyeSettings)
         {
             Door prefab = doorSettings.DoorPrefab;
             
             var door = Instantiate(prefab, ParentsManager.Instance.transform);
             door.Init(doorSettings, dyeSettings);
-            door.OnDoorPlaced = onPlaced;
             return door;
         }
         
@@ -63,7 +62,6 @@ namespace Systems.Input_Management
                 if (_plannedDoor.CheckPlacement())
                 {
                     _plannedDoor.SetState(EConstructionState.Blueprint);
-                    _plannedDoor.TriggerPlaced();
                     _plannedDoor = null;
                     
                     PlanDoor(_doorSettings, _dyeSettings, _onCompletedCallback);

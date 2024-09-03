@@ -371,6 +371,7 @@ namespace DataPersistence
             Debug.Log($"Load Complete in {stopwatch.ElapsedMilliseconds} ms");
             onLoadFinished?.Invoke();
             
+            GameEvents.Trigger_OnInventoryChanged();
             TimeManager.Instance.SetGameSpeed(gameSpeed);
             
             yield return null;

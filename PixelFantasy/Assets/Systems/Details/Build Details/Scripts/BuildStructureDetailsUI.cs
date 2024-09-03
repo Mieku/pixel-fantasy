@@ -265,7 +265,7 @@ namespace Systems.Details.Build_Details.Scripts
             _currentSelection.ShowWallSelection(settings, _currentColour);
             RefreshLayout();
             
-            _wallBuilder.BeginWallBuild(settings, _currentColour, OnBuildComplete);
+            _wallBuilder.BeginWallBuild(settings, _currentColour, OnPlanComplete);
         }
         
         private void ShowDoorMaterialOptions(Action<DoorSettings> onSelectedCallback)
@@ -307,7 +307,7 @@ namespace Systems.Details.Build_Details.Scripts
             
             var planDoorIH =
                 (DoorPlanningInputHandler)InputManager.Instance.SetInputMode(InputMode.DoorPlanning);
-            planDoorIH.PlanDoor(settings, _currentColour, OnBuildComplete);
+            planDoorIH.PlanDoor(settings, _currentColour, OnPlanComplete);
         }
         
         private void ShowFloorMaterialOptions(Action<FloorSettings> onSelectedCallback)
@@ -350,13 +350,14 @@ namespace Systems.Details.Build_Details.Scripts
             _currentSelection.ShowFloorSelection(settings, _currentStyleOption);
             RefreshLayout();
             
-            _floorBuilder.BeginFloorBuild(settings, _currentStyleOption, OnBuildComplete);
+            _floorBuilder.BeginFloorBuild(settings, _currentStyleOption, OnPlanComplete);
         }
 
-        private void OnBuildComplete()
+        private void OnPlanComplete()
         {
             // Clears the Structure UI
             _parentStructureMenu.ShowDefaultMenu();
+            InputManager.Instance.ReturnToDefault();
         }
         
         private void ShowStyleOptions(string header, List<StyleOption> options, Action<StyleOption> onSelectedCallback)

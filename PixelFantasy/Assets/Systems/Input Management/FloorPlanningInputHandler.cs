@@ -66,7 +66,7 @@ namespace Systems.Input_Management
         private void ContinuePlanning()
         {
             Vector3 currentMousePos = Helper.SnapToGridPos(UtilsClass.GetMouseWorldPosition());
-            var newGrid = Helper.GetBoxPositionsBetweenPoints(_startPos, currentMousePos);
+            var newGrid = Helper.GetRectangleGridPositionsBetweenPoints(_startPos, currentMousePos);
             
             if (newGrid.Count != _plannedGrid.Count)
             {

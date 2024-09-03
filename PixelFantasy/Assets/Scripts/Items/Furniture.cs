@@ -496,6 +496,8 @@ namespace Items
 
             AddCommand("Deconstruct Furniture");
             AddCommand("Move Furniture");
+            
+            RefreshAllowCommands();
         }
 
         public void DisplayUseageMarkers(bool showMarkers)
@@ -847,6 +849,11 @@ namespace Items
                     AddCommand("Allow", true);
                     RemoveCommand("Forbid");
                 }
+            }
+            else
+            {
+                RemoveCommand("Allow");
+                RemoveCommand("Forbid");
             }
         }
 

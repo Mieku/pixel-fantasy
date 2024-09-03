@@ -184,6 +184,12 @@ MonoBehaviour:
   _commands: []
   _spriteRenderer: {fileID: 5193408850715605309}
   _stackAmountText: {fileID: 7735663717998189630}
+  StackData:
+    UniqueID: 
+    IsAllowed: 0
+    StackedItemDataUIDs: []
+    SettingsID: 
+    CarryingKinlingUID: 
 --- !u!61 &4391485635462396388
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -773,7 +779,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6303094747209203366, guid: abac3ecae33e9a742bdd60c2c5d773a9, type: 3}
       propertyPath: m_Name
-      value: Work Display
+      value: Command Display
       objectReference: {fileID: 0}
     - target: {fileID: 6944993373056149806, guid: abac3ecae33e9a742bdd60c2c5d773a9, type: 3}
       propertyPath: m_IsActive
