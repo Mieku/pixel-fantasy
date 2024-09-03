@@ -106,7 +106,6 @@ namespace Systems.Floors.Scripts
         public override void CompleteConstruction()
         {
             base.CompleteConstruction();
-            IsClickDisabled = true;
             AssignFloorState(EConstructionState.Built);
         }
         

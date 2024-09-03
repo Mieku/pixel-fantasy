@@ -16,7 +16,6 @@ public abstract class PlayerInteractable : MonoBehaviour
     public abstract string UniqueID { get; }
     public abstract string DisplayName { get; }
     public abstract string PendingTaskUID { get; set; }
-    public abstract bool IsClickDisabled { get; protected set; }
     
     /// <summary>
     /// This is for situations where you want to check if a pi is similar, for example when double-clicking to select all similar

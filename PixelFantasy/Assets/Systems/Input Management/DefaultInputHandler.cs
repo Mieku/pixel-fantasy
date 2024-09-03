@@ -76,7 +76,7 @@ namespace Systems.Input_Management
         {
             var playerInteractable = Helper.GetObjectAtPosition<PlayerInteractable>(mousePosition);
             
-            if (playerInteractable != null && !playerInteractable.IsClickDisabled)
+            if (playerInteractable != null)
             {
                 var visiblePIs = PlayerInteractableDatabase.Instance.GetAllSimilarVisiblePIs(playerInteractable);
                 
@@ -90,7 +90,7 @@ namespace Systems.Input_Management
         {
             var playerInteractable = Helper.GetObjectAtPosition<PlayerInteractable>(mousePosition);
             var zone = Helper.GetObjectAtPosition<ZoneCell>(mousePosition);
-            if (playerInteractable != null && !playerInteractable.IsClickDisabled)
+            if (playerInteractable != null)
             {
                 if (Input.GetKey(KeyCode.LeftShift))
                 {

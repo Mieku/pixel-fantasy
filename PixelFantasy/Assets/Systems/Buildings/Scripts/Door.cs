@@ -174,7 +174,6 @@ namespace Systems.Buildings.Scripts
         public override void CompleteConstruction()
         {
             base.CompleteConstruction();
-            IsClickDisabled = true;
             SetState(EConstructionState.Built);
         }
         

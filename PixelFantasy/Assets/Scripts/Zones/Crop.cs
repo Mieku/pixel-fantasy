@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Characters;
 using Controllers;
-using DataPersistence;
 using Handlers;
 using Items;
 using Managers;
@@ -44,7 +43,6 @@ namespace Zones
 
         public override string UniqueID => RuntimeData.UniqueID;
         public override string DisplayName => RuntimeData.Settings.CropName;
-        public override bool IsClickDisabled { get; protected set; } = false;
         
         public override string PendingTaskUID
         {

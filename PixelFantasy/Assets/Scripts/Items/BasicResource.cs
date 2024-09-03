@@ -21,7 +21,6 @@ namespace Items
         protected ResourceSettings _settings;
         public BasicResourceData RuntimeData;
         public override string UniqueID => RuntimeData.UniqueID;
-        public override bool IsClickDisabled { get; protected set; } = false;
 
         public override string PendingTaskUID
         {

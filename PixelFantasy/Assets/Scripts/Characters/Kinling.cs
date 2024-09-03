@@ -29,7 +29,6 @@ namespace Characters
         public string FullName => RuntimeData.Firstname + " " + RuntimeData.Lastname;
         public override string UniqueID => RuntimeData.UniqueID;
         public override string DisplayName => RuntimeData.Nickname;
-        public override bool IsClickDisabled { get; protected set; } = false;
 
         public override string PendingTaskUID
         {

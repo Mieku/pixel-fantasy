@@ -67,8 +67,6 @@ namespace Items
             set => _pendingTaskUID = value;
         }
 
-        public override bool IsClickDisabled { get; protected set; } = false;
-
         public ItemSettings Settings => GameSettings.Instance.LoadItemSettings(StackData.SettingsID);
 
         public bool IsAllowed

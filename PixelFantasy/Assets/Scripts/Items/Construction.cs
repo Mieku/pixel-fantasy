@@ -25,8 +25,6 @@ namespace Items
             set => RuntimeData.PendingTaskUID = value;
         }
 
-        public override bool IsClickDisabled { get; protected set; } = false;
-
         protected virtual void Awake()
         {
             

@@ -103,7 +103,6 @@ namespace Items
         
         public virtual void StartPlanning(FurnitureSettings furnitureSettings, PlacementDirection initialDirection, DyeSettings dye)
         {
-            IsClickDisabled = true;
             _isPlanning = true;
             _dyeOverride = dye;
             AssignDirection(initialDirection);
@@ -392,12 +391,10 @@ namespace Items
             if (isShown)
             {
                 DisplaySprites(true);
-                IsClickDisabled = false;
             }
             else
             {
                 DisplaySprites(false);
-                IsClickDisabled = true;
             }
         }
         
@@ -476,7 +473,6 @@ namespace Items
 
         protected void InProduction_Enter()
         {
-            IsClickDisabled = false;
             RuntimeData.Position = transform.position;
             PlayerInteractableDatabase.Instance.RegisterPlayerInteractable(this);
             DisplayUseageMarkers(false);
@@ -491,7 +487,6 @@ namespace Items
         
         protected virtual void Built_Enter()
         {
-            IsClickDisabled = false;
             RuntimeData.Position = transform.position;
             RuntimeData.RemainingWork = RuntimeData.FurnitureSettings.CraftRequirements.WorkCost;
             DisplayUseageMarkers(false);
@@ -783,8 +778,6 @@ namespace Items
         {
 
         }
-
-        public override bool IsClickDisabled { get; protected set; }
         
         [JsonIgnore] public override string DisplayName => RuntimeData.ItemName;
         
