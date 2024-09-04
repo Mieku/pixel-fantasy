@@ -364,7 +364,7 @@ namespace Systems.Mood.Scripts
 
         private void OnBreakdownComplete()
         {
-            NotificationManager.Instance.CreateKinlingLog(_kinlingData.GetKinling(), $"{_kinlingData.Fullname}'s Breakdown is over!", LogData.ELogType.Notification);
+            //NotificationManager.Instance.CreateKinlingLog(_kinlingData.GetKinling(), $"{_kinlingData.Fullname}'s Breakdown is over!", LogData.ELogType.Notification);
             
             // End the breakdown Action
             //_curBreakdownAction.ConcludeAction();

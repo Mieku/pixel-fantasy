@@ -19,7 +19,6 @@ namespace Systems.Notifications.Scripts
         [SerializeField] private Color _dangerLogBGColour;
 
         private const string DATE_COLOUR = "#C2C2D1";
-        private NotificationLogger _logger;
         private LogData _logData;
 
         public LogData LogData => _logData;
@@ -34,10 +33,9 @@ namespace Systems.Notifications.Scripts
             }
         }
 
-        public void Init(LogData logData, NotificationLogger logger)
+        public void Init(LogData logData)
         {
             _logData = logData;
-            _logger = logger;
             
             DisplayLog();
         }
@@ -103,20 +101,7 @@ namespace Systems.Notifications.Scripts
 
         public void OnRightClick()
         {
-            switch (_logData.LogType)
-            {
-                case LogData.ELogType.Message:
-                case LogData.ELogType.Positive:
-                case LogData.ELogType.Warning:
-                case LogData.ELogType.Negative:
-                    break;
-                case LogData.ELogType.Danger:
-                case LogData.ELogType.Notification:
-                    _logger?.ClearLog(this);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            
         }
     }
 

@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using Characters;
-using Managers;
 using UnityEngine;
 
 namespace Systems.Kinling_Selector.Scripts

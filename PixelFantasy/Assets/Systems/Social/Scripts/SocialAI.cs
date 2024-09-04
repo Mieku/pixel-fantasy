@@ -349,7 +349,7 @@ namespace Systems.Social.Scripts
             _kinling.RuntimeData.PartnerUID = otherKinling.UniqueID;
             
             _kinling.MoodData.ApplyEmotion(Librarian.Instance.GetEmotion("Started Relationship")); // Mood Buff
-            NotificationManager.Instance.CreateKinlingLog(_kinling, $"{_kinling.FullName} is now in a relationship with {otherKinling.Fullname}!", LogData.ELogType.Positive);
+            //NotificationManager.Instance.CreateKinlingLog(_kinling, $"{_kinling.FullName} is now in a relationship with {otherKinling.Fullname}!", LogData.ELogType.Positive);
             GameEvents.Trigger_OnKinlingChanged(_kinling.RuntimeData);
         }
 

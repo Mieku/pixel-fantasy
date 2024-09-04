@@ -57,7 +57,7 @@ namespace Systems.Details.Kinling_Details
             {
                 var logDisplay = Instantiate(_logPrefab, _logParent);
                 logDisplay.gameObject.SetActive(true);
-                logDisplay.Init(log, null);
+                logDisplay.Init(log);
                 _displayedLogs.Add(logDisplay);
             }
         }

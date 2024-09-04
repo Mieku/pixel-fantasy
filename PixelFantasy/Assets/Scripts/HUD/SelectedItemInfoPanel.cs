@@ -21,13 +21,9 @@ namespace HUD
         [Header("Kinling Details")] 
         [SerializeField] private KinlingDetails _kinlingDetails;
         
-        [Header("Notification Log")]
-        [SerializeField] private NotificationLogger _notificationLogger;
-        
         private void Start()
         {
             HideAllDetails();
-            _notificationLogger.Hide();
             
             _controlsDetails.Show();
         }
@@ -37,7 +33,6 @@ namespace HUD
             _genericDetails.Hide();
             _zoneDetails.Hide();
             _kinlingDetails.Hide();
-            _notificationLogger.Hide();
             _controlsDetails.Hide();
             _multipleDetails.Hide();
         }
@@ -45,7 +40,6 @@ namespace HUD
         public void ShowItemDetails(PlayerInteractable playerInteractable)
         {
             HideAllDetails();
-            _notificationLogger.Hide();
 
             if (playerInteractable is Kinling kinling)
             {
@@ -60,7 +54,6 @@ namespace HUD
         public void ShowMultipleDetailed(List<PlayerInteractable> playerInteractables)
         {
             HideAllDetails();
-            _notificationLogger.Hide();
             
             _multipleDetails.Show(playerInteractables);
         }
@@ -68,7 +61,6 @@ namespace HUD
         public void ShowZoneDetails(ZoneData zoneData)
         {
             HideAllDetails();
-            _notificationLogger.Hide();
             
             _zoneDetails.Show(zoneData);
         }
@@ -76,7 +68,6 @@ namespace HUD
         public void ShowBuildStructureDetails(WallSettings wallSettings)
         {
             HideAllDetails();
-            _notificationLogger.Hide();
 
             _controlsDetails.Show();
             _controlsDetails.OpenBuildStructure(wallSettings);
@@ -85,7 +76,6 @@ namespace HUD
         public void ShowBuildStructureDetails(DoorSettings doorSettings)
         {
             HideAllDetails();
-            _notificationLogger.Hide();
             
             _controlsDetails.Show();
             _controlsDetails.OpenBuildStructure(doorSettings);
@@ -94,7 +84,6 @@ namespace HUD
         public void ShowBuildStructureDetails(FloorSettings floorSettings)
         {
             HideAllDetails();
-            _notificationLogger.Hide();
             
             _controlsDetails.Show();
             _controlsDetails.OpenBuildStructure(floorSettings);

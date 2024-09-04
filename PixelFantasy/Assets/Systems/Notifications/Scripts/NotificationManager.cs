@@ -1,12 +1,14 @@
+using System;
 using Characters;
 using Managers;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Systems.Notifications.Scripts
 {
     public class NotificationManager : Singleton<NotificationManager>
     {
-        [SerializeField] private NotificationLogger _logger;
+        [SerializeField] private NotificationDisplayer _notificationDisplayer;
         [SerializeField] private Toaster _toaster;
 
         public void Toast(string message)
@@ -14,43 +16,6 @@ namespace Systems.Notifications.Scripts
             _toaster.Toast(message);
         }
         
-        public void CreateGeneralLog(string message, LogData.ELogType logType, GameTime gameTime = null)
-        {
-            if (gameTime == null)
-            {
-                gameTime = EnvironmentManager.Instance.GameTime;
-            }
-            
-            LogData logData = new LogData
-            {
-                GameTime = gameTime,
-                Message = message,
-                LogType = logType
-            };
-            
-            SubmitLogData(logData);
-        }
-
-        public void CreateKinlingLog(Kinling kinling, string message, LogData.ELogType logType, GameTime gameTime = null)
-        {
-            if (gameTime == null)
-            {
-                gameTime = EnvironmentManager.Instance.GameTime;
-            }
-            
-            LogData logData = new LogData
-            {
-                GameTime = gameTime,
-                Message = message,
-                LogType = logType,
-                Payload = kinling.RuntimeData.UniqueID,
-                PayloadType = LogData.ELogPayloadType.Kinling
-            };
-            
-            SubmitLogData(logData);
-            kinling.RuntimeData.SubmitPersonalLog(logData);
-        }
-
         public void CreatePersonalLog(Kinling kinling, string message, LogData.ELogType logType,
             GameTime gameTime = null)
         {
@@ -71,9 +36,50 @@ namespace Systems.Notifications.Scripts
             kinling.RuntimeData.SubmitPersonalLog(logData);
         }
 
-        private void SubmitLogData(LogData logData)
+        public NotificationData CreateNotification(ENotificationType notificationType, string title, string message,
+            PlayerInteractable requester = null)
         {
-            _logger.Log(logData);
+            NotificationData notificationData = new NotificationData
+            {
+                UniqueID = $"Notification_{Guid.NewGuid()}",
+                NotificationType = notificationType,
+                NotificationTitle = title,
+                NotificationBody = message
+            };
+
+            if (requester != null)
+            {
+                notificationData.RequesterUID = requester.UniqueID;
+            }
+            
+            _notificationDisplayer.DisplayNotification(notificationData);
+            
+            return notificationData;
+        }
+
+        public NotificationData UpdateNotification(string uniqueID, ENotificationType notificationType, string title, string message,
+            PlayerInteractable requester = null)
+        {
+            NotificationData notificationData = new NotificationData
+            {
+                UniqueID = uniqueID,
+                NotificationType = notificationType,
+                NotificationTitle = title,
+                NotificationBody = message
+            };
+            
+            if (requester != null)
+            {
+                notificationData.RequesterUID = requester.UniqueID;
+            }
+            
+            _notificationDisplayer.DisplayNotification(notificationData);
+            return notificationData;
+        }
+
+        public void ClearNotification(string uniqueID)
+        {
+            _notificationDisplayer.ClearNotification(uniqueID);
         }
     }
 }
