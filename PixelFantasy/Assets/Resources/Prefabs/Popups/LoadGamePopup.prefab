@@ -1004,8 +1004,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -56.803, y: -20.5}
-  m_SizeDelta: {x: 227.35, y: 28.53}
+  m_AnchoredPosition: {x: -42.591576, y: -20.5}
+  m_SizeDelta: {x: 255.7729, y: 28.53}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8959879078076517534
 CanvasRenderer:
@@ -1936,7 +1936,7 @@ GameObject:
   - component: {fileID: 8751107891215547944}
   - component: {fileID: 9144765753972065270}
   m_Layer: 5
-  m_Name: Game Date
+  m_Name: Autosave Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1989,7 +1989,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game Date
+  m_text: Auto-Save
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7ced96f12513b29408bea341f3fcadbf, type: 2}
   m_sharedMaterial: {fileID: 952150050549633323, guid: 7ced96f12513b29408bea341f3fcadbf, type: 2}
@@ -2016,8 +2016,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
-  m_fontSizeBase: 16
+  m_fontSize: 14
+  m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3640,7 +3640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _saveNameText: {fileID: 5629307899353501338}
-  _gameDateText: {fileID: 9144765753972065270}
+  _autosaveText: {fileID: 9144765753972065270}
   _saveDateText: {fileID: 390814677422984319}
   _versionText: {fileID: 4056486801190405528}
   _bgImg: {fileID: 1693744352937677942}

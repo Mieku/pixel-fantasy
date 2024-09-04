@@ -10,7 +10,7 @@ namespace Systems.Game_Setup.Scripts
     public class LoadOption : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _saveNameText;
-        [SerializeField] private TextMeshProUGUI _gameDateText;
+        [SerializeField] private TextMeshProUGUI _autosaveText;
         [SerializeField] private TextMeshProUGUI _saveDateText;
         [SerializeField] private TextMeshProUGUI _versionText;
         [SerializeField] private Image _bgImg;
@@ -26,16 +26,9 @@ namespace Systems.Game_Setup.Scripts
             SaveHeader = saveHeader;
             _onLoadOptionSelected = onLoadOptionSelected;
 
-            if (saveHeader.IsAutoSave)
-            {
-                _saveNameText.text = $"<size= 14><color=#FFFFFF>(Auto-Save) </color></size>{SaveHeader.SaveName}";
-            }
-            else
-            {
-                _saveNameText.text = SaveHeader.SaveName;
-            }
-            
-            _gameDateText.text = SaveHeader.GameDate;
+            _autosaveText.enabled = saveHeader.IsAutoSave;
+            _saveNameText.text = SaveHeader.SaveName;
+
             _saveDateText.text = $"Saved: {SaveHeader.SaveDate.ToString("MM/dd/yyyy h:mm tt", CultureInfo.CurrentCulture)}";
             _versionText.text = $"Version: {SaveHeader.GameVersion}";
             

@@ -1919,7 +1919,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _saveNameText: {fileID: 6258204786391725304}
-  _gameDateText: {fileID: 326120454613701539}
+  _autosaveText: {fileID: 326120454613701539}
   _saveDateText: {fileID: 570888418658322006}
   _versionText: {fileID: 8503710017867166161}
   _bgImg: {fileID: 1700176070546964397}
@@ -2628,7 +2628,7 @@ GameObject:
   - component: {fileID: 412967296237852696}
   - component: {fileID: 326120454613701539}
   m_Layer: 5
-  m_Name: Game Date
+  m_Name: Autosave Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2681,7 +2681,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game Date
+  m_text: Auto-Save
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7ced96f12513b29408bea341f3fcadbf, type: 2}
   m_sharedMaterial: {fileID: 952150050549633323, guid: 7ced96f12513b29408bea341f3fcadbf, type: 2}
@@ -2708,8 +2708,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
-  m_fontSizeBase: 16
+  m_fontSize: 14
+  m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
