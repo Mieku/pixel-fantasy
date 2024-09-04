@@ -59,6 +59,12 @@ public class GameEvents : MonoBehaviour
     {
         if (OnGameLoadStart != null) OnGameLoadStart();
     }
+    
+    public static event Action OnGameLoadComplete;
+    public static void Trigger_OnGameLoadComplete()
+    {
+        if (OnGameLoadComplete != null) OnGameLoadComplete();
+    }
 
     public static event Action<float> OnCameraZoomChanged;
     public static void Trigger_OnCameraZoomChanged(float zoomAmount)

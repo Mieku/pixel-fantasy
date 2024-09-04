@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using DataPersistence;
 using FunkyCode;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace Managers
         [Range(0, 23.99f)] [SerializeField] private float _timeOfDay;
         [SerializeField] private AnimationCurve _lightingCurve;
 
+        [SerializeField] private EMonth _currentMonth;
         [SerializeField] private int _currentDay;
         [SerializeField] private int _currentHour;
         [SerializeField] private int _currentMin;
@@ -21,6 +23,7 @@ namespace Managers
 
         private float _gameDayTimer;
         private int _cur24Hour;
+        private int _totalDays;
         
         public GameTime GameTime => new GameTime( _currentDay, _currentHour, _currentMin, _isPM);
 
@@ -42,13 +45,28 @@ namespace Managers
         {
             return new EnvironmentData
             {
-                TimeOfDay = _timeOfDay
+                TimeOfDay = _timeOfDay,
+                Day = _currentDay,
+                Month = _currentMonth,
+                TotalDays = _totalDays,
             };
         }
 
         public void LoadEnvironmentData(EnvironmentData data)
         {
+            _currentDay = data.Day;
+            _currentMonth = data.Month;
+            _totalDays = data.TotalDays;
+            
             SetTimeOfDay(data.TimeOfDay);
+            
+            GameEvents.Trigger_HourTick(_cur24Hour);
+        }
+
+        public string GetReadableDate()
+        {
+            string month = _currentMonth.GetDescription();
+            return $"{_currentDay} {month}";
         }
 
         [Command("set_time")]
@@ -103,7 +121,7 @@ namespace Managers
             if (_gameDayTimer >= 23.99f)
             {
                 _gameDayTimer = 0f;
-                _currentDay++;
+                IncreaseDay();
             }
 
             var hour24 = (int)_gameDayTimer;
@@ -151,8 +169,35 @@ namespace Managers
                 _isPM = true;
             }
         }
-        
-        public float DoorLightInteriorAlpha => 1 - (GlobalDarkness / _maxDarkness);
+
+        private void IncreaseDay()
+        {
+            _currentDay++;
+            _totalDays++;
+
+            if (_currentDay > 30)
+            {
+                _currentDay = 1;
+
+                switch (_currentMonth)
+                {
+                    case EMonth.Solara:
+                        _currentMonth = EMonth.Emberfall;
+                        break;
+                    case EMonth.Emberfall:
+                        _currentMonth = EMonth.Frostmere;
+                        break;
+                    case EMonth.Frostmere:
+                        _currentMonth = EMonth.Verdalia;
+                        break;
+                    case EMonth.Verdalia:
+                        _currentMonth = EMonth.Solara;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
     }
 
     public class GameTime
@@ -208,5 +253,14 @@ namespace Managers
                 return $"{Hour}{amPm}";
             }
         }
+    }
+
+    [Serializable]
+    public enum EMonth
+    {
+        [Description("Solara")] Solara = 1, // Summer
+        [Description("Emberfall")] Emberfall = 2, // Autumn
+        [Description("Frostmere")] Frostmere = 3, // Winter
+        [Description("Verdalia")] Verdalia = 4, // Spring
     }
 }

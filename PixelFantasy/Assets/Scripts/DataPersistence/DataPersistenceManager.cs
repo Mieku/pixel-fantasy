@@ -372,6 +372,7 @@ namespace DataPersistence
             onLoadFinished?.Invoke();
             
             GameEvents.Trigger_OnInventoryChanged();
+            GameEvents.Trigger_OnGameLoadComplete();
             TimeManager.Instance.SetGameSpeed(gameSpeed);
             
             yield return null;
