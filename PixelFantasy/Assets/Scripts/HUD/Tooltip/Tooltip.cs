@@ -1,9 +1,8 @@
-using System;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using Systems.Details.Build_Details.Scripts;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace HUD.Tooltip
 {
@@ -18,12 +17,19 @@ namespace HUD.Tooltip
         [SerializeField] private ResourceCost _resourceCostPrefab;
         [SerializeField] private Transform _resourceCostParent;
         [SerializeField] private PanelLayoutRebuilder _layoutRebuilder;
+        
+        [BoxGroup("Pivots"), SerializeField] private Vector2 _bottomLeftPivot;
+        [BoxGroup("Pivots"), SerializeField] private Vector2 _bottomRightPivot;
+        [BoxGroup("Pivots"), SerializeField] private Vector2 _topLeftPivot;
+        [BoxGroup("Pivots"), SerializeField] private Vector2 _topRightPivot;
 
         private List<ResourceCost> _displayedCosts = new List<ResourceCost>();
+        private RectTransform _tooltipRectTransform;
 
         private void Awake()
         {
             _resourceCostPrefab.gameObject.SetActive(false);
+            _tooltipRectTransform = GetComponent<RectTransform>();
         }
 
         public void SetText(string content, string header = null, List<CostSettings> costSettingsList = null)
@@ -98,8 +104,44 @@ namespace HUD.Tooltip
         
         private void Update()
         {
-            Vector2 pos = Input.mousePosition;
-            transform.position = pos;
+            Vector2 mousePosition = Input.mousePosition;
+            Vector2 tooltipPosition = mousePosition;
+
+            // Default pivot is bottom-left with the offset of (-0.1, 0)
+            Vector2 newPivot = _bottomLeftPivot;
+
+            // Get screen width and height
+            Vector2 screenSize = new Vector2(Screen.width, Screen.height);
+
+            // Get tooltip's size
+            Vector2 tooltipSize = _tooltipRectTransform.sizeDelta;
+
+            // Adjust pivot based on proximity to screen edges
+
+            // Check if too close to the right edge
+            if (mousePosition.x + tooltipSize.x > screenSize.x)
+            {
+                newPivot = _bottomRightPivot;
+            }
+
+            // Check if too close to the top edge
+            if (mousePosition.y + tooltipSize.y > screenSize.y)
+            {
+                if (Mathf.Approximately(newPivot.x, _bottomRightPivot.x)) // Top-right
+                {
+                    newPivot = _topRightPivot;
+                }
+                else // Top-left
+                {
+                    newPivot = _topLeftPivot;
+                }
+            }
+
+            // Apply the new pivot
+            _tooltipRectTransform.pivot = newPivot;
+
+            // Keep the tooltip's position at the mouse's position
+            transform.position = tooltipPosition;
         }
     }
 }
