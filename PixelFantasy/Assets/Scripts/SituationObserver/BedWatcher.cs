@@ -1,32 +1,15 @@
 using System.Collections.Generic;
 using Characters;
-using NUnit.Framework.Internal;
+using Managers;
 using Systems.Notifications.Scripts;
-using UnityEngine;
 
-namespace Managers
+namespace SituationObserver
 {
-    public class NeedsWatcher : Singleton<NeedsWatcher>
+    public class BedWatcher : ISituationWatcher
     {
-        
         private Dictionary<string, string> _currentNotifications = new Dictionary<string, string>();
-        
-        private void Start()
-        {
-            GameEvents.MinuteTick += OnTick;
-        }
 
-        private void OnDestroy()
-        {
-            GameEvents.MinuteTick -= OnTick;
-        }
-
-        private void OnTick()
-        {
-            CheckBeds();
-        }
-
-        private void CheckBeds()
+        public void CheckSituation()
         {
             List<KinlingData> bedless = new List<KinlingData>();
             var kinlings = KinlingsDatabase.Instance.GetKinlingsDataList();
@@ -38,6 +21,11 @@ namespace Managers
                 }
             }
 
+            HandleNotification(bedless);
+        }
+
+        private void HandleNotification(List<KinlingData> bedless)
+        {
             if (_currentNotifications.ContainsKey("MissingBed"))
             {
                 if (bedless.Count == 0)
@@ -54,7 +42,7 @@ namespace Managers
                     {
                         msg += "\n-" + kinling.Nickname;
                     }
-                    
+
                     NotificationManager.Instance.UpdateNotification(notificationID, ENotificationType.Warning, "Bedless Kinlings", msg);
                 }
             }
@@ -71,7 +59,7 @@ namespace Managers
                     var data =
                         NotificationManager.Instance.CreateNotification(ENotificationType.Warning, "Bedless Kinlings",
                             msg);
-                    
+
                     _currentNotifications.Add("MissingBed", data.UniqueID);
                 }
             }
