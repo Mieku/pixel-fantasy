@@ -1028,6 +1028,7 @@ MonoBehaviour:
     ReceivedItemUIDs: []
     MaxDurability: 0
     PendingTaskUID: 
+    IsAllowed: 0
   _cell: {fileID: 327027309830071820}
   _doorSprite: {fileID: 2796273483583580941}
   _doormatSprite: {fileID: 6068670229126120947}
@@ -1090,7 +1091,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b377f5896bf317849b0e0a23c6be4ecc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1175,7 +1176,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b377f5896bf317849b0e0a23c6be4ecc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

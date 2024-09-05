@@ -700,9 +700,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selectedIcon: {fileID: 1973494032774344049}
-  _usesTintedSelection: 0
   _commandDisplay: {fileID: 849620301994744128}
-  Commands: []
+  _commands: []
   _southHandle: {fileID: 1692590278096435369}
   _southSpritesRoot: {fileID: 8679221838297705576}
   _southUseageMarkersRoot: {fileID: 795657465536751454}
@@ -794,7 +793,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 61d828c603a2d994ea1c13fe0dbc2cf5, type: 2}
+  - {fileID: 2100000, guid: b377f5896bf317849b0e0a23c6be4ecc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

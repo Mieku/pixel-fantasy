@@ -173,12 +173,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selectedIcon: {fileID: 371740161675699820}
-  _usesTintedSelection: 0
   _commandDisplay: {fileID: 4837133404010190314}
-  Commands:
+  _commands:
   - {fileID: 11400000, guid: 1cc80951a1dad2e4aba7c19a791cd226, type: 2}
   _spriteRenderer: {fileID: 371740162134488751}
-  _clickObject: {fileID: 0}
   _defaultExtractCmd: {fileID: 11400000, guid: 1cc80951a1dad2e4aba7c19a791cd226, type: 2}
   _obstacleBox: {fileID: 371740161797959512}
   _workPoints:
@@ -247,7 +245,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: b377f5896bf317849b0e0a23c6be4ecc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -86,7 +86,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b377f5896bf317849b0e0a23c6be4ecc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -296,9 +296,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selectedIcon: {fileID: 28208645263362918}
-  _usesTintedSelection: 0
   _commandDisplay: {fileID: 6913446514001588711}
-  Commands: []
+  _commands: []
   _soilHoleRenderer: {fileID: 1896316527233543850}
   _cropRenderer: {fileID: 728996826851249570}
   _dirtRuleTile: {fileID: 11400000, guid: 012a56c0946d69e499d3faf6d7e9caca, type: 2}
@@ -448,7 +447,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b377f5896bf317849b0e0a23c6be4ecc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -42,6 +42,7 @@ namespace Items
         
         public FurnitureData RuntimeData;
         public override string UniqueID => RuntimeData.UniqueID;
+        public override List<SpriteRenderer> SpritesToOutline => _allSprites.ToList();
 
         protected SpriteRenderer[] _allSprites;
         protected List<SpriteRenderer> _useageMarkers;

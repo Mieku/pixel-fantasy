@@ -119,7 +119,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 614add71ca3a9bc4d96c6bd548f7b3f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _randomStartPoint: 1
 --- !u!1 &954777977136060456
 GameObject:
   m_ObjectHideFlags: 0
@@ -1214,9 +1213,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selectedIcon: {fileID: 4483797532046112592}
-  _usesTintedSelection: 0
   _commandDisplay: {fileID: 1371958563153713815}
-  Commands: []
+  _commands: []
   _southHandle: {fileID: 3614048160496231048}
   _southSpritesRoot: {fileID: 6712665837250262601}
   _southUseageMarkersRoot: {fileID: 3337266809677757823}
@@ -1308,7 +1306,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b377f5896bf317849b0e0a23c6be4ecc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

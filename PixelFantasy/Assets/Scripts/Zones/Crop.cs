@@ -43,6 +43,7 @@ namespace Zones
 
         public override string UniqueID => RuntimeData.UniqueID;
         public override string DisplayName => RuntimeData.Settings.CropName;
+        public override List<SpriteRenderer> SpritesToOutline => new List<SpriteRenderer> { _cropRenderer };
         
         public override string PendingTaskUID
         {

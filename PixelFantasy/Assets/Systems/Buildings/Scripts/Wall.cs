@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Controllers;
 using Managers;
 using ScriptableObjects;
@@ -14,6 +15,7 @@ namespace Systems.Buildings.Scripts
         public WallData RuntimeWallData => RuntimeData as WallData;
         
         public override string DisplayName => RuntimeWallData.SelectedWallOption.WallName;
+        public override List<SpriteRenderer> SpritesToOutline => new List<SpriteRenderer> {  };
 
         public override bool IsSimilar(PlayerInteractable otherPI)
         {

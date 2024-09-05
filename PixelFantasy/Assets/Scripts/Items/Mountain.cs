@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Characters;
 using Controllers;
 using DataPersistence;
@@ -14,6 +15,7 @@ namespace Items
         [SerializeField] private RuleTile _dirtRuleTile;
 
         public MountainResourceData RuntimeMountainData => RuntimeData as MountainResourceData;
+        public override List<SpriteRenderer> SpritesToOutline => new List<SpriteRenderer>();
 
         public override string DisplayName
         {

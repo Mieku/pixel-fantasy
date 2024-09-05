@@ -13,6 +13,7 @@ public abstract class PlayerInteractable : MonoBehaviour
     
     protected bool _isSelected;
     
+    public abstract List<SpriteRenderer> SpritesToOutline { get; }
     public abstract string UniqueID { get; }
     public abstract string DisplayName { get; }
     public abstract string PendingTaskUID { get; set; }
@@ -244,16 +245,21 @@ public abstract class PlayerInteractable : MonoBehaviour
     {
         if (_selectedIcon != null)
         {
-            _selectedIcon.SetActive(true);
+            //_selectedIcon.SetActive(true);
         }
+
+        var colour = GameSettings.Instance.OutlineColour;
+        ShowOutline(colour);
     }
 
     protected virtual void OnDeselection()
     {
         if (_selectedIcon != null)
         {
-            _selectedIcon.SetActive(false);
+            //_selectedIcon.SetActive(false);
         }
+        
+        HideOutline();
     }
 
     public virtual bool ObjectValidForCommandSelection(Command command)
@@ -274,5 +280,36 @@ public abstract class PlayerInteractable : MonoBehaviour
     public void CancelRequesterTasks(bool requeueTask)
     {
         TasksDatabase.Instance.CancelRequesterTasks(this, requeueTask);
+    }
+
+    public void ShowOutline(Color outlineColour)
+    {
+        if(SpritesToOutline == null) return;
+        
+        MaterialPropertyBlock mpb = new MaterialPropertyBlock();
+        mpb.SetColor("_OutlineColour", outlineColour);
+        mpb.SetInt("_ShowOutline", 1);
+
+        foreach (var sprite in SpritesToOutline)
+        {
+            mpb.SetTexture("_MainTex", sprite.sprite.texture);
+            sprite.SetPropertyBlock(mpb);
+        }
+    }
+
+    public void HideOutline()
+    {
+        if(SpritesToOutline == null) return;
+        
+        MaterialPropertyBlock mpb = new MaterialPropertyBlock();
+        mpb.SetInt("_ShowOutline", 0);
+        
+        foreach (var sprite in SpritesToOutline)
+        {
+            if(sprite == null) continue;
+            
+            mpb.SetTexture("_MainTex", sprite.sprite.texture);
+            sprite.SetPropertyBlock(mpb);
+        }
     }
 }

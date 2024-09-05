@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using CodeMonkey.Utils;
 using Controllers;
 using Managers;
@@ -20,6 +21,7 @@ namespace Systems.Buildings.Scripts
         
         public DoorData RuntimeDoorData => RuntimeData as DoorData;
         public override string DisplayName => RuntimeDoorData.DoorSettings.DoorName;
+        public override List<SpriteRenderer> SpritesToOutline => new List<SpriteRenderer> { _doorSprite, _doormatSprite };
 
         public override bool IsSimilar(PlayerInteractable otherPI)
         {
