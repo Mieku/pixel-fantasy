@@ -140,6 +140,9 @@ namespace Systems.Game_Setup.Scripts
 
         private IEnumerator LoadSceneAndSetUpNewGame(List<KinlingData> starterKinlings, List<TileWorldCreatorAsset.BlueprintLayerData> blueprintLayers)
         {
+            LoadingScreen.Instance.Show("Generating World", "Creating New Game...", 13);
+            yield return new WaitForEndOfFrame();
+            
             // Start loading the scene
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
 
