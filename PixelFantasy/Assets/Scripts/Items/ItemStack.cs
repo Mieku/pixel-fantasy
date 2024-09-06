@@ -45,7 +45,7 @@ namespace Items
         public int StackAmount => StackData.StackedItemDataUIDs.Count;
         public override string UniqueID => StackData.UniqueID;
         public override string DisplayName => Settings.ItemName;
-        public override List<SpriteRenderer> SpritesToOutline => new List<SpriteRenderer> { _spriteRenderer };
+        protected override List<SpriteRenderer> SpritesToOutline => new List<SpriteRenderer> { _spriteRenderer };
 
         public List<ItemData> ItemDatas
         {

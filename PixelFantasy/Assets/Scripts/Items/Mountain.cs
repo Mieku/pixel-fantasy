@@ -15,7 +15,7 @@ namespace Items
         [SerializeField] private RuleTile _dirtRuleTile;
 
         public MountainResourceData RuntimeMountainData => RuntimeData as MountainResourceData;
-        public override List<SpriteRenderer> SpritesToOutline => new List<SpriteRenderer>();
+        protected override List<SpriteRenderer> SpritesToOutline => new List<SpriteRenderer>();
 
         public override string DisplayName
         {

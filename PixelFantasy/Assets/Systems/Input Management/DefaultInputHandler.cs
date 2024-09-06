@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CodeMonkey.Utils;
+using Player;
 using Systems.CursorHandler.Scripts;
 using Systems.Zones.Scripts;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace Systems.Input_Management
     {
         private float _lastClickTime = 0f;
         private const float DOUBLE_CLICK_TIME = 0.3f; // Time in seconds
+        private PlayerInteractable _currentlyHoveredPI;
         
         private void Awake()
         {
@@ -32,6 +34,41 @@ namespace Systems.Input_Management
                 SelectionManager.Instance.ClearSelection();
                 HUDController.Instance.HideDetails();
             }
+            
+            HandleHover();
+        }
+
+        private void HandleHover()
+        {
+            if(PlayerSettings.OutlineOnHover == false) return;
+            
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                if (_currentlyHoveredPI != null)
+                {
+                    _currentlyHoveredPI.OnHoverEnd();
+                    _currentlyHoveredPI = null;
+                }
+                return;
+            }
+            
+            // Get mouse position in world coordinates
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var playerInteractable = Helper.GetObjectAtPosition<PlayerInteractable>(mousePosition);
+
+            // Handle hover end if we are no longer hovering over the previous object
+            if (_currentlyHoveredPI != null && _currentlyHoveredPI != playerInteractable)
+            {
+                _currentlyHoveredPI.OnHoverEnd();
+                _currentlyHoveredPI = null;
+            }
+
+            // Handle hover start if we're hovering a new object
+            if (playerInteractable != null && playerInteractable != _currentlyHoveredPI)
+            {
+                playerInteractable.OnHoverStart();
+                _currentlyHoveredPI = playerInteractable;
+            }
         }
         
         public void OnEnter()
@@ -41,7 +78,11 @@ namespace Systems.Input_Management
 
         public void OnExit()
         {
-            
+            if (_currentlyHoveredPI != null)
+            {
+                _currentlyHoveredPI.OnHoverEnd();
+                _currentlyHoveredPI = null;
+            }
         }
         
         private void HandleLeftClick()

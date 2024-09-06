@@ -21,6 +21,8 @@ namespace Player
 
         [DefaultValue(true)] public bool EdgeScrollingEnabled = true;
         [DefaultValue(1)] public ECameraScrollSpeed CameraSpeed = ECameraScrollSpeed.Normal;
+        
+        [DefaultValue(true)] public bool OutlineOnHover = true;
 
         public KeyBindData KeyBindings = new KeyBindData();
     }
@@ -190,6 +192,19 @@ namespace Player
                 if (PlayerSettingsData.CameraSpeed != value)
                 {
                     PlayerSettingsData.CameraSpeed = value;
+                    SavePlayerSettings();
+                }
+            }
+        }
+        
+        public static bool OutlineOnHover
+        {
+            get => PlayerSettingsData.OutlineOnHover;
+            set
+            {
+                if (PlayerSettingsData.OutlineOnHover != value)
+                {
+                    PlayerSettingsData.OutlineOnHover = value;
                     SavePlayerSettings();
                 }
             }

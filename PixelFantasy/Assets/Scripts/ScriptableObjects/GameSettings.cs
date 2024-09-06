@@ -80,7 +80,8 @@ namespace ScriptableObjects
 
         [BoxGroup("Colours"), ShowInInspector] public Color HighlightColour { get; private set; } = new Color(0.996f, 0.784f, 0.141f, 1.000f);
         [BoxGroup("Colours"), ShowInInspector] public Color IssueColour { get; private set; } = new Color(0.961f, 0.333f, 0.365f, 1.000f);
-        [BoxGroup("Colours"), ShowInInspector] public Color OutlineColour { get; private set; } = Color.white;
+        [BoxGroup("Colours"), ShowInInspector] public Color SelectOutlineColour { get; private set; } = Color.white;
+        [BoxGroup("Colours"), ShowInInspector] public Color HoverOutlineColour { get; private set; } = new Color(0.580f, 0.992f, 1.0f, 1.000f);
         
         public RaceSettings LoadRaceSettings(string raceName)
         {

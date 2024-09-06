@@ -16,7 +16,7 @@ namespace Systems.Floors.Scripts
         
         public FloorData RuntimeFloorData => RuntimeData as FloorData;
         public override string DisplayName => RuntimeFloorData.FloorSettings.FloorName;
-        public override List<SpriteRenderer> SpritesToOutline => new List<SpriteRenderer> {  };
+        protected override List<SpriteRenderer> SpritesToOutline => new List<SpriteRenderer> {  };
 
         public override bool IsSimilar(PlayerInteractable otherPI)
         {

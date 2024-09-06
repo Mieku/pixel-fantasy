@@ -21,7 +21,7 @@ namespace Items
         protected ResourceSettings _settings;
         public BasicResourceData RuntimeData;
         public override string UniqueID => RuntimeData.UniqueID;
-        public override List<SpriteRenderer> SpritesToOutline => new List<SpriteRenderer> { _spriteRenderer };
+        protected override List<SpriteRenderer> SpritesToOutline => new List<SpriteRenderer> { _spriteRenderer };
 
         public override string PendingTaskUID
         {

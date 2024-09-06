@@ -29,7 +29,7 @@ namespace Characters
         public string FullName => RuntimeData.Firstname + " " + RuntimeData.Lastname;
         public override string UniqueID => RuntimeData.UniqueID;
         public override string DisplayName => RuntimeData.Nickname;
-        public override List<SpriteRenderer> SpritesToOutline => new List<SpriteRenderer> { Avatar.Appearance };
+        protected override List<SpriteRenderer> SpritesToOutline => new List<SpriteRenderer> { Avatar.Appearance };
 
         public override string PendingTaskUID
         {

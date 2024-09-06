@@ -5,15 +5,14 @@ using HUD;
 using Newtonsoft.Json;
 using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 
 public abstract class PlayerInteractable : MonoBehaviour
 {
-    [SerializeField] private GameObject _selectedIcon;
-    
     protected bool _isSelected;
     
-    public abstract List<SpriteRenderer> SpritesToOutline { get; }
+    protected abstract List<SpriteRenderer> SpritesToOutline { get; }
     public abstract string UniqueID { get; }
     public abstract string DisplayName { get; }
     public abstract string PendingTaskUID { get; set; }
@@ -25,9 +24,8 @@ public abstract class PlayerInteractable : MonoBehaviour
 
     protected static bool _isQuitting = false;
 
-    [FormerlySerializedAs("_workDisplay")] [SerializeField] private CommandDisplay _commandDisplay;
-    
-    [FormerlySerializedAs("Commands")] [SerializeField] private List<Command> _commands = new List<Command>();
+    [SerializeField] private CommandDisplay _commandDisplay;
+    [SerializeField] private List<Command> _commands = new List<Command>();
     
     [JsonIgnore] public Task PendingTask => TasksDatabase.Instance.QueryTask(PendingTaskUID);
 
@@ -243,22 +241,12 @@ public abstract class PlayerInteractable : MonoBehaviour
 
     protected virtual void OnSelection()
     {
-        if (_selectedIcon != null)
-        {
-            //_selectedIcon.SetActive(true);
-        }
-
-        var colour = GameSettings.Instance.OutlineColour;
+        var colour = GameSettings.Instance.SelectOutlineColour;
         ShowOutline(colour);
     }
 
     protected virtual void OnDeselection()
     {
-        if (_selectedIcon != null)
-        {
-            //_selectedIcon.SetActive(false);
-        }
-        
         HideOutline();
     }
 
@@ -310,6 +298,22 @@ public abstract class PlayerInteractable : MonoBehaviour
             
             mpb.SetTexture("_MainTex", sprite.sprite.texture);
             sprite.SetPropertyBlock(mpb);
+        }
+    }
+
+    public void OnHoverStart()
+    {
+        if (!_isSelected)
+        {
+            ShowOutline(GameSettings.Instance.HoverOutlineColour);
+        }
+    }
+
+    public void OnHoverEnd()
+    {
+        if (!_isSelected)
+        {
+            HideOutline();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Systems.Floors.Scripts
 
         [SerializeField] private TileBase _dirtRuleTile;
         public override string DisplayName => "Dirt";
-        public override List<SpriteRenderer> SpritesToOutline => new List<SpriteRenderer> { };
+        protected override List<SpriteRenderer> SpritesToOutline => new List<SpriteRenderer> { };
 
         public override bool IsSimilar(PlayerInteractable otherPI)
         {
