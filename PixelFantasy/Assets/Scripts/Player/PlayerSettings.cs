@@ -93,6 +93,7 @@ namespace Player
 
         public static void LoadSavedKeyBinds()
         {
+            KeyBindings.Init();
             KeyBindings.LoadSavedKeyBinds();
         }
         

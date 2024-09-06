@@ -21,8 +21,27 @@ public class KeyBindData
     
     public SavedKeyBind RotateClockwise = new SavedKeyBind();
     public SavedKeyBind RotateCounterClockwise = new SavedKeyBind();
+    public SavedKeyBind HideUI = new SavedKeyBind();
+    public SavedKeyBind TakeScreenshot = new SavedKeyBind();
     
     private InputActionRebindingExtensions.RebindingOperation _currentRebindingOperation;
+
+    public void Init()
+    {
+        SetGameSpeed_Pause ??= new SavedKeyBind();
+        SetGameSpeed_Normal ??= new SavedKeyBind();
+        SetGameSpeed_Fast ??= new SavedKeyBind();
+        SetGameSpeed_VeryFast ??= new SavedKeyBind();
+        MoveCamera_Up ??= new SavedKeyBind();
+        MoveCamera_Down ??= new SavedKeyBind();
+        MoveCamera_Left ??= new SavedKeyBind();
+        MoveCamera_Right ??= new SavedKeyBind();
+        RotateClockwise ??= new SavedKeyBind();
+        RotateCounterClockwise ??= new SavedKeyBind();
+        Cancel ??= new SavedKeyBind();
+        HideUI ??= new SavedKeyBind();
+        TakeScreenshot ??= new SavedKeyBind();
+    }
 
     public void LoadSavedKeyBinds()
     {
@@ -39,6 +58,9 @@ public class KeyBindData
         RotateClockwise.ApplyBinding("Gameplay/RotateClockwise");
         RotateCounterClockwise.ApplyBinding("Gameplay/RotateCounterClockwise");
         Cancel.ApplyBinding("Gameplay/Cancel");
+        
+        HideUI.ApplyBinding("Gameplay/HideUI");
+        TakeScreenshot.ApplyBinding("Gameplay/TakeScreenshot");
         
         RefreshInputActions();
     }
@@ -58,6 +80,9 @@ public class KeyBindData
         Cancel.ResetBinding();
         RotateClockwise.ResetBinding();
         RotateCounterClockwise.ResetBinding();
+        
+        HideUI.ResetBinding();
+        TakeScreenshot.ResetBinding();
         
         RefreshInputActions();
     }
@@ -95,6 +120,10 @@ public class KeyBindData
                 return RotateClockwise;
             case EKeyBindAction.RotateCounterClockwise:
                 return RotateCounterClockwise;
+            case EKeyBindAction.HideUI:
+                return HideUI;
+            case EKeyBindAction.TakeScreenshot:
+                return TakeScreenshot;
             default:
                 throw new ArgumentOutOfRangeException(nameof(bindAction), bindAction, null);
         }
@@ -282,4 +311,6 @@ public enum EKeyBindAction
     Cancel,
     RotateClockwise,
     RotateCounterClockwise,
+    HideUI,
+    TakeScreenshot,
 }

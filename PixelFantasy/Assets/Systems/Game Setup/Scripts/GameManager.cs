@@ -10,10 +10,12 @@ using Player;
 using ScriptableObjects;
 using Systems.Appearance.Scripts;
 using Systems.Buildings.Scripts;
+using Systems.Notifications.Scripts;
 using Systems.Social.Scripts;
 using Systems.World_Building.Scripts;
 using TWC;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
@@ -22,9 +24,10 @@ namespace Systems.Game_Setup.Scripts
     public class GameManager : PersistentSingleton<GameManager>
     {
         public GameData GameData;
-        
         public bool GameIsQuitting;
         public bool GameIsLoaded;
+        
+        [SerializeField] private InputActionReference _takeScreenShotInputAction;
 
         public int RandomSeedSalt => Time.frameCount;
 
@@ -32,6 +35,13 @@ namespace Systems.Game_Setup.Scripts
         {
             base.Awake();
             DontDestroyOnLoad(gameObject);
+
+            _takeScreenShotInputAction.action.performed += TakeScreenShot;
+        }
+
+        private void OnDestroy()
+        {
+            _takeScreenShotInputAction.action.performed -= TakeScreenShot;
         }
 
         private void Start()
@@ -42,35 +52,17 @@ namespace Systems.Game_Setup.Scripts
 
         private void Update()
         {
-            // if (Input.GetKeyDown(KeyCode.O))
-            // {
-            //     Debug.Log("Quick Save test");
-            //     StartCoroutine(DataPersistenceManager.Instance.SaveGameCoroutine((progress) => { }));
-            // }
-            //
-            // if (Input.GetKeyDown(KeyCode.L))
-            // {
-            //     Debug.Log("Quick load test");
-            //     var recentSave = DataPersistenceManager.Instance.GetMostRecentSave();
-            //     if (recentSave != null)
-            //     {
-            //         StartLoadedGame(recentSave, false);
-            //     }
-            // }
 
-            if (Input.GetKeyDown(KeyCode.U))
+        }
+        
+        private void TakeScreenShot(InputAction.CallbackContext ctx)
+        {
+            var screenshotter = FindObjectOfType<ScreenshotController>();
+            if (screenshotter != null)
             {
-                UIController.ToggleUIVisible();
-            }
-            
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                var screenshotter = FindObjectOfType<ScreenshotController>();
-                if (screenshotter != null)
-                {
-                    Debug.Log("Screenshot Taken!");
-                    screenshotter.TakeScreenshot();
-                }
+                screenshotter.TakeScreenshot();
+                
+                NotificationManager.Instance?.Toast("Screenshot taken");
             }
         }
 

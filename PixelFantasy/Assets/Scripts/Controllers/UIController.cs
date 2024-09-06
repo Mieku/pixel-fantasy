@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Controllers
 {
@@ -9,6 +10,8 @@ namespace Controllers
         public static Action<bool> OnVisibilityChanged;
 
         private static bool _isVisible = true;
+        
+        [SerializeField] private InputActionReference _hideUIInputAction;
 
         protected void Awake()
         {
@@ -20,6 +23,8 @@ namespace Controllers
 
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            
+            _hideUIInputAction.action.performed += OnHideUIToggled;
         }
 
         private void OnDestroy()
@@ -28,6 +33,13 @@ namespace Controllers
             {
                 Instance = null;
             }
+            
+            _hideUIInputAction.action.performed -= OnHideUIToggled;
+        }
+
+        private void OnHideUIToggled(InputAction.CallbackContext ctx)
+        {
+            ToggleUIVisible();
         }
 
         public static bool IsUIVisible()
