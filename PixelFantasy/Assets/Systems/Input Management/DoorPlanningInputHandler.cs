@@ -62,6 +62,7 @@ namespace Systems.Input_Management
                 if (_plannedDoor.CheckPlacement())
                 {
                     _plannedDoor.SetState(EConstructionState.Blueprint);
+                    _plannedDoor.OnPlanningComplete();
                     _plannedDoor = null;
                     
                     PlanDoor(_doorSettings, _dyeSettings, _onCompletedCallback);

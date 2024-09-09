@@ -21,6 +21,7 @@ namespace Systems.Details.Generic_Details.Scripts
         [SerializeField] private Image _constructionProgressFill;
         [SerializeField] private TextMeshProUGUI _constructionProgressDetails;
         [SerializeField] private ResourceCost _remainingResourcePrefab;
+        [SerializeField] private FuelDetails _fuelDetails;
         [SerializeField] private Transform _remainingParent;
 
         [SerializeField] private StorageSettingsDetails _storageSettingsDetails;
@@ -54,8 +55,23 @@ namespace Systems.Details.Generic_Details.Scripts
             
             CheckShowCraftingDetails();
             CheckShowStorageDetails();
+            CheckShowFuelDetails();
             
             _parentDetails.RefreshLayout();
+        }
+
+        private void CheckShowFuelDetails()
+        {
+            if (_furniture.RuntimeData.FurnitureState == EFurnitureState.Built 
+                && _furniture is IFueledFurniture fueledFurniture)
+            {
+                _fuelDetails.gameObject.SetActive(true);
+                _fuelDetails.Show(fueledFurniture);
+            }
+            else
+            {
+                _fuelDetails.gameObject.SetActive(false);
+            }
         }
 
         private void CheckShowStorageDetails()

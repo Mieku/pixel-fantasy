@@ -20,7 +20,6 @@ namespace Managers
         [SerializeField, Range(0f, 1f)] private float _maxDarkness;
         [Tooltip("The amount to real minutes in a day at normal speed")][SerializeField] private float _realMinsInADay;
         
-
         private float _gameDayTimer;
         private int _cur24Hour;
         private int _totalDays;
@@ -33,6 +32,13 @@ namespace Managers
             _gameDayTimer = _timeOfDay;
             _cur24Hour = (int)_gameDayTimer;
             CalculateTimeOfDay();
+        }
+
+        public void Init(EMonth month, int day, float timeOfDay)
+        {
+            _gameDayTimer = _timeOfDay;
+            _currentDay = day;
+            _currentMonth = month;
         }
 
         private void LateUpdate()

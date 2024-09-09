@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using AI;
 using Characters;
-using Managers;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using Systems.Crafting.Scripts;
@@ -210,7 +209,7 @@ namespace Items
 
         public void ReceiveMaterial(ItemData itemData)
         {
-            var item = (ItemStack)itemData.GetLinkedItem();
+            var item = itemData.GetLinkedItem();
             Destroy(item.gameObject);
             RuntimeTableData.CurrentOrder.ReceiveItem(itemData);
         }

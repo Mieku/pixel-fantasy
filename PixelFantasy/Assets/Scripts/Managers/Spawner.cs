@@ -32,7 +32,6 @@ namespace Managers
         private List<GameObject> _blueprints = new List<GameObject>();
         private List<Vector2> _plannedGrid = new List<Vector2>();
         
-        private PlacementDirection _prevPlacementDirection;
         public CropSettings CropSettings { get; set; }
 
         public void CancelInput()
@@ -40,7 +39,6 @@ namespace Managers
             ShowPlacementIcon(false);
             _invalidPlacementTags.Clear();
             _requiredPlacementTags = null;
-            _prevPlacementDirection = default;
         }
 
         public void ShowPlacementIconForReqTags(bool show, Sprite icon = null,

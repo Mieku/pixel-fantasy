@@ -15,7 +15,6 @@ public class FurnitureData
 {
     public string UniqueID;
     public string PendingTaskUID;
-    public float PendingTaskProgress;
     public EFurnitureState FurnitureState;
     public float RemainingWork;
     public PlacementDirection Direction;
@@ -177,6 +176,11 @@ public class FurnitureData
                 break;
             }
         }
+    }
+
+    public bool HasAllMaterials()
+    {
+        return RemainingMaterialCosts.Count == 0;
     }
     
     public void AddToPendingResourceCosts(ItemSettings itemSettings, int quantity = 1)

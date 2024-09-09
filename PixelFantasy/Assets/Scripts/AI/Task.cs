@@ -99,7 +99,7 @@ namespace AI
             if (!string.IsNullOrEmpty(ClaimedKinlingUID))
             {
                 var kinling = KinlingsDatabase.Instance.GetKinling(ClaimedKinlingUID);
-                kinling.TaskHandler.CancelTask(this);
+                kinling?.TaskHandler.CancelTask(this);
             }
 
             var requester = PlayerInteractableDatabase.Instance.Query(RequesterID);

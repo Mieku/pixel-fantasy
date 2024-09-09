@@ -53,7 +53,7 @@ namespace AI.Action_Tasks
             var item = ItemsDatabase.Instance.CreateItemObject(data, _table.transform.position);
                         
             _kinling.HoldItem(item, data.UniqueID);
-            _resultingHeldItemUID.value = item.UniqueID;
+            _resultingHeldItemUID.value = data.UniqueID;
             
             EndAction(true);
         }

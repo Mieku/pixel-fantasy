@@ -1,5 +1,6 @@
 using System;
 using Newtonsoft.Json;
+using Player;
 using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -85,6 +86,8 @@ public class KeyBindData
         TakeScreenshot.ResetBinding();
         
         RefreshInputActions();
+        
+        PlayerSettings.SavePlayerSettings();
     }
     
     private void RefreshInputActions()

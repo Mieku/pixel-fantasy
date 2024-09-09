@@ -34,7 +34,6 @@ public class HUDController : Singleton<HUDController>
 
     public void HideDetails()
     {
-        _selectedItemInfoPanel.HideAllDetails();
         _selectedItemInfoPanel.ShowControlsDetails();
     }
     

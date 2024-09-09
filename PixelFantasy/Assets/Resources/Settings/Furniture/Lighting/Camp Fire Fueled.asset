@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f09dd6d34c4f8f148a15814f5556d48b, type: 3}
-  m_Name: Camp Fire
+  m_Script: {fileID: 11500000, guid: cf3e39c38d0b33c4bb0d38c3e829a6c6, type: 3}
+  m_Name: Camp Fire Fueled
   m_EditorClassIdentifier: 
   _itemName: Camp Fire
   _itemSprite: {fileID: -1960405314, guid: 3dc89e3e64e726d4db2fe0cb3c13fe39, type: 3}
@@ -31,7 +31,7 @@ MonoBehaviour:
     - Item: {fileID: 11400000, guid: 7167b8dd21508774ebc1ceab992a07b1, type: 2}
       Quantity: 2
   _description: 
-  _furniturePrefab: {fileID: 7901035948059328099, guid: 5f1a3707032217746a8778574d03512b, type: 3}
+  _furniturePrefab: {fileID: 7491756852433367054, guid: 5f1a3707032217746a8778574d03512b, type: 3}
   _inUseNeedChange:
     SourceID: 
     AmountPerHour: 0
@@ -46,3 +46,7 @@ MonoBehaviour:
   _craftableItems: []
   _cookableMeals:
   - {fileID: 11400000, guid: 8e94e576141358b47ba3b83e67a1e198, type: 2}
+  _fuelSettings:
+    ItemForFuel: {fileID: 11400000, guid: 7167b8dd21508774ebc1ceab992a07b1, type: 2}
+    BurnTimeMinutes: 10
+    MaxAdditionalStoredFuelAmount: 1

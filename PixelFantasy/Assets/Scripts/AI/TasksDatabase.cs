@@ -89,7 +89,10 @@ namespace AI
                         {
                             checkedTaskIDs.Add(task.UniqueID);
 
-                            if (!task.IsForbidden() && kinlingData.Stats.CanDoTaskType(task.Type) && task.AreSkillsValid(kinlingData.Stats))
+                            if (!task.IsForbidden() 
+                                && kinlingData.Stats.CanDoTaskType(task.Type) 
+                                && task.AreSkillsValid(kinlingData.Stats) 
+                                && kinlingData.GetKinling().TaskHandler.HasTreeForTask(task.TaskID))
                             {
                                 lock (task)
                                 {

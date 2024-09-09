@@ -532,10 +532,6 @@ namespace Systems.World_Building.Scripts
 
             yield return StartCoroutine(ResourcesDatabase.Instance.BatchSpawnMountainsAsync(mountainTiles, mountainSettings));
         }
-
-
-
-
         
         private void ExpandClustersParallel(bool[,] scaledBlueprint, Dictionary<MountainTileType, List<Vector2Int>> clusterCenters, MountainTileType[,] tileMap, BiomeSettings biomeSettings)
         {
@@ -662,6 +658,7 @@ namespace Systems.World_Building.Scripts
             yield return null;
             
             ApplyStarterKinlings(StartPos, starterKinling);
+            EnvironmentManager.Instance.Init(EMonth.Solara, 1, 12);
             yield return null;
             
             GameEvents.Trigger_OnInventoryChanged();
@@ -673,6 +670,7 @@ namespace Systems.World_Building.Scripts
             };
             CameraManager.Instance.LookAtPosition(lookPos);
             GameManager.Instance.GameIsLoaded = true;
+            
             yield return null;
         }
         

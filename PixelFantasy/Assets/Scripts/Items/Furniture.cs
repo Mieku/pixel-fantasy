@@ -4,7 +4,6 @@ using System.Linq;
 using AI;
 using Characters;
 using CodeMonkey.Utils;
-using Controllers;
 using Handlers;
 using Interfaces;
 using Managers;
@@ -87,6 +86,8 @@ namespace Items
                 FurnitureDatabase.Instance.DeregisterFurniture(RuntimeData);
                 PlayerInteractableDatabase.Instance.DeregisterPlayerInteractable(this);
             }
+
+            CancelRequesterTasks(false);
         }
         
         public virtual void LoadData(FurnitureData data)
@@ -123,6 +124,8 @@ namespace Items
             
             RefreshAllowedDisplay();
             RefreshAllowCommands();
+            
+            CreateConstructionHaulingTasks();
             
             InformChanged();
         }
@@ -480,7 +483,6 @@ namespace Items
             EnablePlacementObstacle(true);
             Show(true);
             ColourArt(ColourStates.Blueprint);
-            CreateConstructionHaulingTasks();
             AddCommand("Deconstruct Furniture");
 
             EnableLights(false);
@@ -519,7 +521,7 @@ namespace Items
                 return;
             }
             
-            var resourceCosts = RuntimeData.RemainingMaterialCosts;
+            var resourceCosts = RuntimeData.FurnitureSettings.CraftRequirements.GetMaterialCosts();
             CreateConstuctionHaulingTasksForItems(resourceCosts);
         }
         
@@ -554,7 +556,7 @@ namespace Items
             RuntimeData.RemoveFromPendingResourceCosts(itemData.Settings);
             RuntimeData.DeductFromMaterialCosts(itemData.Settings);
             
-            if (RuntimeData.RemainingMaterialCosts.Count == 0)
+            if (RuntimeData.HasAllMaterials())
             {
                 CreateConstructTask();
             }
@@ -687,7 +689,7 @@ namespace Items
         
         public virtual bool CheckPlacement()
         {
-            bool result = Helper.IsGridPosValidToBuild(transform.position, _invalidPlacementTags);
+            bool result = Helper.IsGridPosValidToBuild(transform.position, _invalidPlacementTags, null, gameObject);
 
             // Check the useage markers
             if (_useageMarkers != null && _useageMarkers.Count > 0)
@@ -695,10 +697,11 @@ namespace Items
                 bool markersPass = false;
                 foreach (var marker in _useageMarkers)
                 {
-                    if (Helper.IsGridPosValidToBuild(marker.transform.position, _invalidPlacementTags))
+                    if (Helper.IsGridPosValidToBuild(marker.transform.position, _invalidPlacementTags, null, gameObject))
                     {
                         marker.color = Color.white;
                         markersPass = true;
+                        break;
                     }
                     else
                     {
@@ -709,6 +712,10 @@ namespace Items
                 if (!markersPass)
                 {
                     result = false;
+                }
+                else
+                {
+                    result = true;
                 }
             }
 

@@ -140,7 +140,7 @@ namespace AI
             if (CurrentTask != null)
             {
                 var tree = FindTaskTreeFor(CurrentTask);
-                tree.BTOwner.StopBehaviour();
+                tree?.BTOwner.StopBehaviour();
             }
         }
 
@@ -159,7 +159,7 @@ namespace AI
                 task.Status = ETaskStatus.InProgress;
                 _kinlingData.CurrentTaskID = task.UniqueID;
                 var tree = FindTaskTreeFor(task);
-                tree.ExecuteTask(task.TaskData, OnFinished);
+                tree?.ExecuteTask(task.TaskData, OnFinished);
             }
         }
 
@@ -170,8 +170,8 @@ namespace AI
                 if (CurrentTask.UniqueID == task.UniqueID)
                 {
                     var tree = FindTaskTreeFor(task);
-                    tree.BTOwner.StopBehaviour(false);
-                    task.UnClaimTask(_kinlingData);
+                    tree?.BTOwner.StopBehaviour(false);
+                    task?.UnClaimTask(_kinlingData);
                 }
                 else if (_kinlingData.EnqueuedTaskUIDs.Contains(task.UniqueID))
                 {
@@ -191,10 +191,12 @@ namespace AI
         public void LoadCurrentTask(Task task)
         {
             var tree = FindTaskTreeFor(task);
-
-            tree.Blackboard.Deserialize(task.BlackboardJSON, null);
-            tree.ExecuteTask(task.TaskData, OnFinished);
-            tree.BTOwner.Tick(); // Ticks after loading the task, so it is in a safe state
+            if (tree != null)
+            {
+                tree.Blackboard.Deserialize(task.BlackboardJSON, null);
+                tree.ExecuteTask(task.TaskData, OnFinished);
+                tree.BTOwner.Tick(); // Ticks after loading the task, so it is in a safe state
+            }
         }
 
         public void SaveBBState()

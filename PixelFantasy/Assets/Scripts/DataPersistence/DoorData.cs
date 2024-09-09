@@ -6,6 +6,7 @@ public class DoorData : ConstructionData
 {
     public string MatColourID;
     public bool IsVertical;
+    public bool IsConstructionBlocked;
     
     [JsonIgnore] public DoorSettings DoorSettings => (DoorSettings) GameSettings.Instance.LoadConstructionSettings(SettingsID);
     [JsonIgnore] public DyeSettings MatColour => GameSettings.Instance.LoadDyeSettings(MatColourID);

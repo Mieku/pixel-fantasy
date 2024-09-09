@@ -4,7 +4,6 @@ using Controllers;
 using Managers;
 using ScriptableObjects;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 namespace Systems.Buildings.Scripts
 {
@@ -13,8 +12,8 @@ namespace Systems.Buildings.Scripts
         [SerializeField] private GameObject _obstacle;
         
         public WallData RuntimeWallData => RuntimeData as WallData;
-        
         public override string DisplayName => RuntimeWallData.SelectedWallOption.WallName;
+        
         protected override List<SpriteRenderer> SpritesToOutline => new List<SpriteRenderer> {  };
 
         public override bool IsSimilar(PlayerInteractable otherPI)
@@ -33,6 +32,7 @@ namespace Systems.Buildings.Scripts
             RuntimeWallData.AssignWallOption(wallSettings, colour);
             
             AssignWallState(EConstructionState.Blueprint);
+            CreateConstructionHaulingTasks();
             
             IsAllowed = true;
             RefreshAllowedDisplay();
@@ -88,7 +88,6 @@ namespace Systems.Buildings.Scripts
             EnableObstacle(false);
             RefreshTile();
             ColourTile(Librarian.Instance.GetColour("Blueprint"));
-            CreateConstructionHaulingTasks();
             
             RefreshAllowedDisplay();
             RefreshAllowCommands();

@@ -11,7 +11,7 @@ namespace Items
         {
             // TODO: alter this to only go on walls
             
-            bool result = Helper.IsGridPosValidToBuild(transform.position, _invalidPlacementTags);
+            bool result = Helper.IsGridPosValidToBuild(transform.position, _invalidPlacementTags, null, gameObject);
 
             // Check the useage markers
             if (_useageMarkers != null)
@@ -19,7 +19,7 @@ namespace Items
                 bool markersPass = false;
                 foreach (var marker in _useageMarkers)
                 {
-                    if (Helper.IsGridPosValidToBuild(marker.transform.position, _invalidPlacementTags))
+                    if (Helper.IsGridPosValidToBuild(marker.transform.position, _invalidPlacementTags, null, gameObject))
                     {
                         //ColourArt(ColourStates.CanPlace);
                         marker.color = Color.white;

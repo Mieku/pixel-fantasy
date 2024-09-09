@@ -51,10 +51,21 @@ namespace Systems.Buildings.Scripts
             RuntimeData = data;
             LoadState(data.State);
             SetOrientationVertical(RuntimeDoorData.IsVertical);
+            
             StructureDatabase.Instance.RegisterStructure(this);
             RefreshTaskIcon();
             RefreshAllowedDisplay();
             RefreshAllowCommands();
+            
+            if (RuntimeDoorData.IsConstructionBlocked)
+            {
+                var wall = StructureDatabase.Instance.GetWallAtCell(Cell.CellPos);
+                wall.OnDestroyed = (interactable =>
+                {
+                    CreateConstructionHaulingTasks();
+                    RuntimeDoorData.IsConstructionBlocked = false;
+                });
+            }
         }
 
         private void LoadState(EConstructionState state)
@@ -71,6 +82,11 @@ namespace Systems.Buildings.Scripts
                 default:
                     throw new ArgumentOutOfRangeException(nameof(state), state, null);
             }
+        }
+
+        public void OnPlanningComplete()
+        {
+            OnPlaced();
         }
   
         public void SetState(EConstructionState state)
@@ -95,20 +111,21 @@ namespace Systems.Buildings.Scripts
         {
             ColourSprite(Librarian.Instance.GetColour("Blueprint"));
 
-            var wall = StructureDatabase.Instance.GetStructureAtCell(Cell.CellPos);
+            var wall = StructureDatabase.Instance.GetWallAtCell(Cell.CellPos);
             if (wall != null)
             {
                 // Check if there's a wall under the door, if so cancel or deconstruct it first
+                RuntimeDoorData.IsConstructionBlocked = true;
                 wall.CreateDeconstructionTask(() =>
                 {
                     CreateConstructionHaulingTasks();
-                    OnPlaced();
+                    RuntimeDoorData.IsConstructionBlocked = false;
                 });
             }
             else
             {
                 CreateConstructionHaulingTasks();
-                OnPlaced();
+                RuntimeDoorData.IsConstructionBlocked = false;
             }
             
             RefreshAllowedDisplay();

@@ -194,12 +194,18 @@ namespace Systems.Buildings.Scripts
             }
         }
 
-        public StructurePiece GetStructureAtCell(Vector2Int cell)
+        public Wall GetWallAtCell(Vector2Int cell)
         {
             if (IsWithinGrid(cell))
             {
-                StructurePiece sPiece = _registeredPieces.Values.FirstOrDefault(s => s.Cell.CellPos == cell);
-                return sPiece;
+                List<StructurePiece> sPieces = _registeredPieces.Values.Where(s => s.Cell.CellPos == cell).ToList();
+                foreach (var sPiece in sPieces)
+                {
+                    if (sPiece is Wall wall)
+                    {
+                        return wall;
+                    }
+                }
             }
 
             return null;

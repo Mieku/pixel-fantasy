@@ -12,11 +12,11 @@ namespace Systems.Floors.Scripts
 {
     public class Floor : Construction
     {
-        private Tilemap _floorTilemap;
-        
         public FloorData RuntimeFloorData => RuntimeData as FloorData;
         public override string DisplayName => RuntimeFloorData.FloorSettings.FloorName;
+        
         protected override List<SpriteRenderer> SpritesToOutline => new List<SpriteRenderer> {  };
+        private Tilemap _floorTilemap;
 
         public override bool IsSimilar(PlayerInteractable otherPI)
         {
@@ -44,6 +44,7 @@ namespace Systems.Floors.Scripts
             FlooringDatabase.Instance.RegisterFloor(this);
             
             AssignFloorState(EConstructionState.Blueprint);
+            CreateConstructionHaulingTasks();
 
             IsAllowed = true;
             RefreshAllowedDisplay();
@@ -79,7 +80,6 @@ namespace Systems.Floors.Scripts
         {
             SetTile();
             ColourTile(Librarian.Instance.GetColour("Blueprint"));
-            CreateConstructionHaulingTasks();
             
             RefreshAllowedDisplay();
             RefreshAllowCommands();

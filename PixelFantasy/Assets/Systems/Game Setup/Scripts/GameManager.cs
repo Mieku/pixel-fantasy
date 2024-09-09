@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,12 +35,20 @@ namespace Systems.Game_Setup.Scripts
             base.Awake();
             DontDestroyOnLoad(gameObject);
 
-            _takeScreenShotInputAction.action.performed += TakeScreenShot;
+            if (_takeScreenShotInputAction != null)
+            {
+                _takeScreenShotInputAction.action.performed += TakeScreenShot;
+            }
         }
 
         private void OnDestroy()
         {
-            _takeScreenShotInputAction.action.performed -= TakeScreenShot;
+            if(GameIsQuitting) return;
+
+            if (_takeScreenShotInputAction != null)
+            {
+                _takeScreenShotInputAction.action.performed -= TakeScreenShot;
+            }
         }
 
         private void Start()
@@ -166,6 +173,8 @@ namespace Systems.Game_Setup.Scripts
             // Initialize the StructureManager with the WorldBuilder's WorldSize
             Vector2Int worldSize = new Vector2Int(36, 36);
             StructureDatabase.Instance.Init(worldSize);
+            
+            GameEvents.Trigger_OnGameLoadComplete();
         }
 
         public void GoToMainMenu()

@@ -75,8 +75,8 @@ namespace Systems.Input_Management
             {
                 if (_plannedFurniture.CheckPlacement())
                 {
-                    _plannedFurniture.CompletePlanning();
                     _plannedFurniture.InitializeFurniture(_furnitureSettings, _placementDirection, _dyeSettings);
+                    _plannedFurniture.CompletePlanning();
                     _plannedFurniture = null;
                     
                     PlanFurniture(_furnitureSettings, _placementDirection, _dyeSettings, _onCompletedCallback);

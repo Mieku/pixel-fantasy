@@ -129,14 +129,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e96c71f1586d7b468714ad74ac253a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectedIcon: {fileID: 0}
-  _usesTintedSelection: 1
-  _spriteRendererToTint: {fileID: 0}
   _commandDisplay: {fileID: 2095024321625544702}
-  Commands:
+  _commands:
   - {fileID: 11400000, guid: 90beea586271c8b42a6c9334b222964d, type: 2}
   _spriteRenderer: {fileID: 0}
-  _clickObject: {fileID: 0}
   _defaultExtractCmd: {fileID: 11400000, guid: 90beea586271c8b42a6c9334b222964d, type: 2}
   _obstacleBox: {fileID: 9173330314039135114}
   _workPoints:

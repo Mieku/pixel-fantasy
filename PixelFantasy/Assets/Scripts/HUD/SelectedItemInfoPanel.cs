@@ -91,6 +91,8 @@ namespace HUD
 
         public void ShowControlsDetails()
         {
+            HideAllDetails();
+            
             _controlsDetails.Show();
         }
     }
