@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DataPersistence;
 using Items;
 using Systems.Stats.Scripts;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 [CreateAssetMenu(fileName = "Resource Settings", menuName = "Settings/Resource Settings")]
-public class ResourceSettings : ScriptableObject
+public class ResourceSettings : Settings
 {
     // Settings
     [SerializeField] protected string _resourceName;

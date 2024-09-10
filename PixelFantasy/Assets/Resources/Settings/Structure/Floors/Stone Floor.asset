@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c25456411e8cae14da6bee25075c4b21, type: 3}
   m_Name: Stone Floor
   m_EditorClassIdentifier: 
+  SettingsID: Stone Floor
   _constructionName: Stone Floor
   _craftRequirements:
+    _skillRequirements: []
     _minCraftingSkillLevel: 4
     _craftingSkill: 2
     _workCost: 30
     _requiredCraftingToolType: 0
-    _materialCosts:
+    _costSettings:
     - Item: {fileID: 11400000, guid: a38768ccf4c59324ab8ccb85562e2250, type: 2}
       Quantity: 2
   _styleOptions:

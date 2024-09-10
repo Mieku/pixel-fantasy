@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8285d8b335c3b34c8a9497abbb5af3f, type: 3}
   m_Name: Rock
   m_EditorClassIdentifier: 
+  SettingsID: Rock
   _resourceName: Rock
   _prefab: {fileID: 3630224067709912070, guid: 1e285695b28aebc48a8bab97dfdd4b87, type: 3}
-  _workToExtract: 10
   _harvestableItems:
     _itemDrops:
     - Item: {fileID: 11400000, guid: a38768ccf4c59324ab8ccb85562e2250, type: 2}
@@ -31,3 +31,4 @@ MonoBehaviour:
   _maxHealth: 10
   _minWorkDistance: 0.75
   _extractionSkillType: 0
+  _extractionMinSkillLevel: 0

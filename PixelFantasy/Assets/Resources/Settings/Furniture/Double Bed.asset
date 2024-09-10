@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d730b4fc8df79c84190e2b47f8a1382e, type: 3}
   m_Name: Double Bed
   m_EditorClassIdentifier: 
+  SettingsID: Double Bed
   _itemName: Double Bed
   _itemSprite: {fileID: -1986180085, guid: 128e7404977fef1479d14ee0c70721c3, type: 3}
   _category: 4

@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using DataPersistence;
 using UnityEngine;
 
-public class ConstructionSettings : ScriptableObject
+public class ConstructionSettings : Settings
 {
     [SerializeField] protected string _constructionName;
     [SerializeField] protected CraftRequirements _craftRequirements;

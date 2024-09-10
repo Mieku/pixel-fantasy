@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8285d8b335c3b34c8a9497abbb5af3f, type: 3}
   m_Name: Stick
   m_EditorClassIdentifier: 
+  SettingsID: Stick
   _resourceName: Stick
   _prefab: {fileID: 2919327189383101433, guid: 83b276780b22eee4d925461adebde20c, type: 3}
-  _workToExtract: 5
   _harvestableItems:
     _itemDrops:
     - Item: {fileID: 11400000, guid: 7167b8dd21508774ebc1ceab992a07b1, type: 2}
@@ -25,3 +25,4 @@ MonoBehaviour:
   _maxHealth: 5
   _minWorkDistance: 0.75
   _extractionSkillType: 5
+  _extractionMinSkillLevel: 0

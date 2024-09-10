@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f09dd6d34c4f8f148a15814f5556d48b, type: 3}
   m_Name: Basic Crafting Area
   m_EditorClassIdentifier: 
+  SettingsID: Basic Crafting Area
   _itemName: Basic Crafting Area
   _itemSprite: {fileID: 1670653853, guid: 49688975d6e4e9d4e9023f92ee002b97, type: 3}
   _category: 4
@@ -20,11 +21,12 @@ MonoBehaviour:
   _hasQuality: 0
   _defaultQuality: 1
   _craftRequirements:
+    _skillRequirements: []
     _minCraftingSkillLevel: 0
     _craftingSkill: 10
     _workCost: 0
     _requiredCraftingToolType: 0
-    _materialCosts: []
+    _costSettings: []
   _description: 
   _furniturePrefab: {fileID: 7511741119468575872, guid: cac46f6ed332d5740a5de49433b2e3db, type: 3}
   _inUseNeedChange:

@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95cb7a957577fae47af034b9a9969a3f, type: 3}
   m_Name: Wooden Door
   m_EditorClassIdentifier: 
+  SettingsID: Wooden Door
   _constructionName: Wooden Door
   _craftRequirements:
+    _skillRequirements: []
     _minCraftingSkillLevel: 2
     _craftingSkill: 2
     _workCost: 60
     _requiredCraftingToolType: 0
-    _materialCosts:
+    _costSettings:
     - Item: {fileID: 11400000, guid: 7167b8dd21508774ebc1ceab992a07b1, type: 2}
       Quantity: 3
   _doorPrefab: {fileID: 7340745770291212362, guid: 51da4637610249947a40d8d8f72ae22e, type: 3}

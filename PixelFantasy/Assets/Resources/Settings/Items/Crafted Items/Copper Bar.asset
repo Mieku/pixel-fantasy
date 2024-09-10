@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 536f798b14cf3f149a09f19ee767878c, type: 3}
   m_Name: Copper Bar
   m_EditorClassIdentifier: 
+  SettingsID: Copper Bar
   _itemName: Copper Bar
   _itemSprite: {fileID: 21300000, guid: 848cd147474beaa4f96afb2ae1f9b455, type: 3}
   _category: 0
@@ -20,10 +21,11 @@ MonoBehaviour:
   _hasQuality: 1
   _defaultQuality: 1
   _craftRequirements:
+    _skillRequirements: []
     _minCraftingSkillLevel: 2
     _craftingSkill: 10
     _workCost: 25
     _requiredCraftingToolType: 0
-    _materialCosts:
+    _costSettings:
     - Item: {fileID: 11400000, guid: 1ecf89d4d4abb5449a7f17037e95933b, type: 2}
       Quantity: 3

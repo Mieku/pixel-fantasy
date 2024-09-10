@@ -19,11 +19,6 @@ namespace Systems.Details.Build_Details.Scripts
             Floor
         }
         
-        [SerializeField] private List<DyeSettings> _colourOptions;
-        [SerializeField] private List<WallSettings> _wallOptions;
-        [SerializeField] private List<DoorSettings> _doorOptions;
-        [SerializeField] private List<FloorSettings> _floorOptions;
-        
         [SerializeField] private WallBuilder _wallBuilder;
         [SerializeField] private FloorBuilder _floorBuilder;
         
@@ -169,7 +164,9 @@ namespace Systems.Details.Build_Details.Scripts
 
             _colourGroupHeader.text = header;
 
-            foreach (var colourOption in _colourOptions)
+            var options =
+                GameSettings.Instance.PlayerBuildCategories.GetAllSettingsByCategory<DyeSettings>(ESettingsCategory.Dyes);
+            foreach (var colourOption in options)
             {
                 var colourBtn = Instantiate(_colourOptionBtnPrefab, _colourLayoutParent);
                 colourBtn.Init(colourOption, (btn, colour) =>
@@ -216,7 +213,9 @@ namespace Systems.Details.Build_Details.Scripts
             _currentColour = null;
             _materialOptionBtnPrefab.gameObject.SetActive(false);
             
-            foreach (var wallOption in _wallOptions)
+            var options =
+                GameSettings.Instance.PlayerBuildCategories.GetAllSettingsByCategory<WallSettings>(ESettingsCategory.Structure_Walls);
+            foreach (var wallOption in options)
             {
                 var optionBtn = Instantiate(_materialOptionBtnPrefab, _materialLayoutParent);
                 optionBtn.Init(wallOption, wallOption.OptionIcon, wallOption.CraftRequirements, (btn, s) =>
@@ -274,7 +273,9 @@ namespace Systems.Details.Build_Details.Scripts
             _currentColour = null;
             _materialOptionBtnPrefab.gameObject.SetActive(false);
             
-            foreach (var doorOption in _doorOptions)
+            var options =
+                GameSettings.Instance.PlayerBuildCategories.GetAllSettingsByCategory<DoorSettings>(ESettingsCategory.Structure_Doors);
+            foreach (var doorOption in options)
             {
                 var optionBtn = Instantiate(_materialOptionBtnPrefab, _materialLayoutParent);
                 optionBtn.Init(doorOption, doorOption.OptionIcon, doorOption.CraftRequirements, (btn, s) =>
@@ -317,7 +318,9 @@ namespace Systems.Details.Build_Details.Scripts
             _currentStyleOption = null;
             _materialOptionBtnPrefab.gameObject.SetActive(false);
             
-            foreach (var floorOption in _floorOptions)
+            var options =
+                GameSettings.Instance.PlayerBuildCategories.GetAllSettingsByCategory<FloorSettings>(ESettingsCategory.Structure_Floors);
+            foreach (var floorOption in options)
             {
                 var optionBtn = Instantiate(_materialOptionBtnPrefab, _materialLayoutParent);
                 optionBtn.Init(floorOption, floorOption.MaterialIcon, floorOption.CraftRequirements, (btn, s) =>

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 536f798b14cf3f149a09f19ee767878c, type: 3}
   m_Name: Steel Bar
   m_EditorClassIdentifier: 
+  SettingsID: Steel Bar
   _itemName: Steel Bar
   _itemSprite: {fileID: 21300000, guid: be0ce54fb06e9514cbf76c3db094c57b, type: 3}
   _category: 0
@@ -20,11 +21,12 @@ MonoBehaviour:
   _hasQuality: 1
   _defaultQuality: 1
   _craftRequirements:
+    _skillRequirements: []
     _minCraftingSkillLevel: 2
     _craftingSkill: 10
     _workCost: 25
     _requiredCraftingToolType: 0
-    _materialCosts:
+    _costSettings:
     - Item: {fileID: 11400000, guid: cd44141358af51f42b0db871d7a07ecc, type: 2}
       Quantity: 2
     - Item: {fileID: 11400000, guid: 80d6dd2de6aee4346868a7422d4fde04, type: 2}

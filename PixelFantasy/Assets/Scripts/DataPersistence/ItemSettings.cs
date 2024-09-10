@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using DataPersistence;
 using Handlers;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Item Settings", menuName = "Settings/Item Settings")]
-public class ItemSettings : ScriptableObject
+public class ItemSettings : Settings
 {
     // Settings
     [SerializeField] protected string _itemName;

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c43bf45d9a510c4da7ea053b6755bff, type: 3}
   m_Name: Coal
   m_EditorClassIdentifier: 
+  SettingsID: Coal
   _itemName: Coal
   _itemSprite: {fileID: 21300000, guid: d5cf68acaa3035041956a72466172494, type: 3}
   _category: 0

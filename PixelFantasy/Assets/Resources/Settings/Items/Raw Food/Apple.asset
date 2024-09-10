@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e60cc67b8f34c1f4baf60dd7bd5095dc, type: 3}
   m_Name: Apple
   m_EditorClassIdentifier: 
+  SettingsID: Apple
   _itemName: Apple
   _itemSprite: {fileID: -1708518733, guid: fc709a2304f6b9e449069e173139d1aa, type: 3}
   _category: 3

@@ -18,3 +18,35 @@ MonoBehaviour:
   WorkScheduleColour: {r: 0.9607843, g: 0.33333334, b: 0.3647059, a: 1}
   RecreationScheduleColour: {r: 1, g: 0.63529414, b: 0.078431375, a: 1}
   InputActions: {fileID: -944628639613478452, guid: 7ef08c0a2e5067f4986dcae2765c064c, type: 3}
+  PlayerBuildCategories:
+    Categories:
+    - Category: 0
+      Settings: []
+    - Category: 1
+      Settings:
+      - {fileID: 11400000, guid: 52aeb197b353543428e5cde2e597605a, type: 2}
+      - {fileID: 11400000, guid: d05193357b3350b4897410d6ca199698, type: 2}
+      - {fileID: 11400000, guid: a4a69e96c4dd48848a3835167b642cf3, type: 2}
+    - Category: 10
+      Settings:
+      - {fileID: 11400000, guid: 0b92b18eb92f1704d825bae8ef0766b1, type: 2}
+    - Category: 11
+      Settings:
+      - {fileID: 11400000, guid: f04125f023d71ed48a43c2c63faf670e, type: 2}
+    - Category: 12
+      Settings:
+      - {fileID: 11400000, guid: ac4ffaf49c33c104facec0cd80923652, type: 2}
+    - Category: 20
+      Settings:
+      - {fileID: 11400000, guid: 3f50db4b2bf22a74696924027aef8ac8, type: 2}
+    - Category: 21
+      Settings: []
+    - Category: 22
+      Settings:
+      - {fileID: 11400000, guid: 2be4316612b2517488e4f1b36e192532, type: 2}
+      - {fileID: 11400000, guid: bbc439f9cdc846a4281e2e132aad1520, type: 2}
+    - Category: 23
+      Settings: []
+    - Category: 24
+      Settings:
+      - {fileID: 11400000, guid: 4065859f5438fec47ab7e0bd3ff7b76a, type: 2}

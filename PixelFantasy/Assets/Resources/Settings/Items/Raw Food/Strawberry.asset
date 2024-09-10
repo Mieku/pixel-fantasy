@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e60cc67b8f34c1f4baf60dd7bd5095dc, type: 3}
   m_Name: Strawberry
   m_EditorClassIdentifier: 
+  SettingsID: Strawberry
   _itemName: Strawberry
   _itemSprite: {fileID: 422682441, guid: 18a57a0db5b8b6d43ae249ec6016319a, type: 3}
   _category: 3

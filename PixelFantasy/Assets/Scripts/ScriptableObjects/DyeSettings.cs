@@ -1,9 +1,10 @@
+using DataPersistence;
 using UnityEngine;
 
 namespace ScriptableObjects
 {
     [CreateAssetMenu(fileName = "DyeSettings", menuName = "Settings/Dye Settings")]
-    public class DyeSettings : ScriptableObject
+    public class DyeSettings : Settings
     {
         [SerializeField] private string _colourName;
         

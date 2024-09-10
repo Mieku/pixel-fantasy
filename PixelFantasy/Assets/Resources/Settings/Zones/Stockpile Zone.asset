@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cf3e315ffb6c29489801fe771486353, type: 3}
   m_Name: Stockpile Zone
   m_EditorClassIdentifier: 
+  SettingsID: Stockpile Zone
   DefaultTiles: {fileID: 11400000, guid: 62f63a728b271b64f95f386fefa6f490, type: 2}
   SelectedTiles: {fileID: 11400000, guid: 7cf75855099f67a4db967a56a43619ce, type: 2}
   ZoneType: 0

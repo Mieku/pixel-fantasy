@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9525889f2ce3e3d48b91ead0ce0af8d8, type: 3}
   m_Name: Crate
   m_EditorClassIdentifier: 
+  SettingsID: Crate
   _itemName: Crate
   _itemSprite: {fileID: 21300000, guid: c5dc3fbeb7cad2949bf0873f5c636af9, type: 3}
   _category: 4
@@ -20,11 +21,12 @@ MonoBehaviour:
   _hasQuality: 0
   _defaultQuality: 1
   _craftRequirements:
+    _skillRequirements: []
     _minCraftingSkillLevel: 2
     _craftingSkill: 10
     _workCost: 15
     _requiredCraftingToolType: 0
-    _materialCosts:
+    _costSettings:
     - Item: {fileID: 11400000, guid: 7167b8dd21508774ebc1ceab992a07b1, type: 2}
       Quantity: 2
   _description: 

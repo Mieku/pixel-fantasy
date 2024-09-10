@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 536f798b14cf3f149a09f19ee767878c, type: 3}
   m_Name: Iron Bar
   m_EditorClassIdentifier: 
+  SettingsID: Iron Bar
   _itemName: Iron Bar
   _itemSprite: {fileID: 21300000, guid: 872b85ebed4e6114f9ee060e189c0f2f, type: 3}
   _category: 0
@@ -20,10 +21,11 @@ MonoBehaviour:
   _hasQuality: 1
   _defaultQuality: 1
   _craftRequirements:
+    _skillRequirements: []
     _minCraftingSkillLevel: 2
     _craftingSkill: 10
     _workCost: 25
     _requiredCraftingToolType: 0
-    _materialCosts:
+    _costSettings:
     - Item: {fileID: 11400000, guid: c33dd5c4026b98f47aaf660edfede72b, type: 2}
       Quantity: 3

@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dd7618a5a989e647bafad781c2a0122, type: 3}
   m_Name: Apple Tree
   m_EditorClassIdentifier: 
+  SettingsID: Apple Tree
   _resourceName: Apple Tree
   _prefab: {fileID: 7155256551760761716, guid: 844cd7d088296984680b27fec8340648, type: 3}
-  _workToExtract: 60
   _harvestableItems:
     _itemDrops: []
   _potentialSprites: []
   _maxHealth: 60
   _minWorkDistance: 0.75
   _extractionSkillType: 5
+  _extractionMinSkillLevel: 0
   _growthStages:
   - StageName: Sapling
     GrowthSprite: {fileID: 21300000, guid: 340e51f3e8e15714689db84a04c628ba, type: 3}

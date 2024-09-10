@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c43bf45d9a510c4da7ea053b6755bff, type: 3}
   m_Name: Stone
   m_EditorClassIdentifier: 
+  SettingsID: Stone
   _itemName: Stone
   _itemSprite: {fileID: 21300000, guid: 286743b833fa73a4c824303d4da3e3dd, type: 3}
   _category: 0

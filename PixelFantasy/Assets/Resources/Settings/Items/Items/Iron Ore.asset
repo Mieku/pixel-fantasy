@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c43bf45d9a510c4da7ea053b6755bff, type: 3}
   m_Name: Iron Ore
   m_EditorClassIdentifier: 
+  SettingsID: Iron Ore
   _itemName: Iron Ore
   _itemSprite: {fileID: 21300000, guid: 699e2348d22f48040be65ab0afbd2424, type: 3}
   _category: 0

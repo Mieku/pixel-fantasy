@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dd7618a5a989e647bafad781c2a0122, type: 3}
   m_Name: Bush
   m_EditorClassIdentifier: 
+  SettingsID: Bush
   _resourceName: Bush
   _prefab: {fileID: 8379773904936381525, guid: e6965deb74f3c394a874724af113892a, type: 3}
-  _workToExtract: 10
   _harvestableItems:
     _itemDrops: []
   _potentialSprites: []
   _maxHealth: 10
   _minWorkDistance: 0.75
   _extractionSkillType: 5
+  _extractionMinSkillLevel: 0
   _growthStages:
   - StageName: Young
     GrowthSprite: {fileID: 21300000, guid: 0fd3f59d6e5bc924fbc75655b4a41224, type: 3}

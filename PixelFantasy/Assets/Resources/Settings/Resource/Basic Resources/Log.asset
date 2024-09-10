@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8285d8b335c3b34c8a9497abbb5af3f, type: 3}
   m_Name: Log
   m_EditorClassIdentifier: 
+  SettingsID: Log
   _resourceName: Log
   _prefab: {fileID: 2237005579245771593, guid: 2405aa579d18a204cbaae7185fe98266, type: 3}
-  _workToExtract: 10
   _harvestableItems:
     _itemDrops:
     - Item: {fileID: 11400000, guid: 7167b8dd21508774ebc1ceab992a07b1, type: 2}
@@ -25,3 +25,4 @@ MonoBehaviour:
   _maxHealth: 10
   _minWorkDistance: 0.75
   _extractionSkillType: 5
+  _extractionMinSkillLevel: 0

@@ -4,8 +4,7 @@ using Systems.Zones.Scripts;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-//[CreateAssetMenu(fileName = "Zone Settings", menuName = "Settings/Zone Settings")]
-public class ZoneSettings : ScriptableObject
+public class ZoneSettings : Settings
 {
     public TileBase DefaultTiles;
     public TileBase SelectedTiles;

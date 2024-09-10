@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c43bf45d9a510c4da7ea053b6755bff, type: 3}
   m_Name: Tin Ore
   m_EditorClassIdentifier: 
+  SettingsID: Tin Ore
   _itemName: Tin Ore
   _itemSprite: {fileID: 21300000, guid: 915809f404d8bc040859c2053d40eb2d, type: 3}
   _category: 0

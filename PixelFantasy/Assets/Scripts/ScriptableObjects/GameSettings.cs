@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AI;
+using DataPersistence;
 using Sirenix.OdinInspector;
 using Systems.Appearance.Scripts;
 using Systems.Mood.Scripts;
@@ -45,7 +46,6 @@ namespace ScriptableObjects
             _constructionSettingsCache = LoadAllConstructionSettings();
             _furnitureSettingsCache = LoadAllFurnitureSettings();
             _dyeSettingsCache = LoadAllDyeSettings();
-            _taskActionsCache = LoadAllTaskActions();
             _zoneSettingsCache = LoadAllZoneSettings();
         }
 
@@ -82,6 +82,13 @@ namespace ScriptableObjects
         [BoxGroup("Colours"), ShowInInspector] public Color IssueColour { get; private set; } = new Color(0.961f, 0.333f, 0.365f, 1.000f);
         [BoxGroup("Colours"), ShowInInspector] public Color SelectOutlineColour { get; private set; } = Color.white;
         [BoxGroup("Colours"), ShowInInspector] public Color HoverOutlineColour { get; private set; } = new Color(0.580f, 0.992f, 1.0f, 1.000f);
+
+        [BoxGroup("Settings", true, true, 1)] public SettingsCategories PlayerBuildCategories;
+        
+        public List<Settings> LoadAllSettings()
+        {
+            return Resources.LoadAll<Settings>("Settings").Where(s => s != null).ToList();
+        }
         
         public RaceSettings LoadRaceSettings(string raceName)
         {
@@ -130,7 +137,7 @@ namespace ScriptableObjects
                 _itemSettingsCache = LoadAllItemSettings();
             }
 
-            var result = _itemSettingsCache.Find(settings => settings.name == settingsID);
+            var result = _itemSettingsCache.Find(settings => settings.SettingsID == settingsID);
             return result;
         }
         
@@ -146,7 +153,7 @@ namespace ScriptableObjects
                 _furnitureSettingsCache = LoadAllFurnitureSettings();
             }
 
-            var result = _furnitureSettingsCache.Find(settings => settings.name == settingsID);
+            var result = _furnitureSettingsCache.Find(settings => settings.SettingsID == settingsID);
             return result;
         }
         
@@ -162,7 +169,7 @@ namespace ScriptableObjects
                 _zoneSettingsCache = LoadAllZoneSettings();
             }
 
-            var result = _zoneSettingsCache.Find(settings => settings.name == settingsID);
+            var result = _zoneSettingsCache.Find(settings => settings.SettingsID == settingsID);
             return result;
         }
         
@@ -178,7 +185,7 @@ namespace ScriptableObjects
                 _constructionSettingsCache = LoadAllConstructionSettings();
             }
 
-            var result = _constructionSettingsCache.Find(settings => settings.name == settingsID);
+            var result = _constructionSettingsCache.Find(settings => settings.SettingsID == settingsID);
             return result;
         }
         
@@ -194,7 +201,7 @@ namespace ScriptableObjects
                 _dyeSettingsCache = LoadAllDyeSettings();
             }
 
-            var result = _dyeSettingsCache.Find(settings => settings.name == settingsID);
+            var result = _dyeSettingsCache.Find(settings => settings.SettingsID == settingsID);
             return result;
         }
 
@@ -202,23 +209,6 @@ namespace ScriptableObjects
         {
             TileBase tileBase = Resources.Load<TileBase>($"Tiles/{tilebaseName}");
             return tileBase;
-        }
-        
-        // Task Actions
-        private List<TaskAction> LoadAllTaskActions()
-        {
-            return Resources.LoadAll<TaskAction>("Settings/Actions").Where(s => s != null).ToList();
-        }
-
-        public TaskAction LoadTaskAction(string taskActionName)
-        {
-            if (_taskActionsCache == null || _taskActionsCache.Count == 0)
-            {
-                _taskActionsCache = LoadAllTaskActions();
-            }
-
-            var result = _taskActionsCache.Find(settings => settings.name == taskActionName);
-            return result;
         }
         
         // Commands

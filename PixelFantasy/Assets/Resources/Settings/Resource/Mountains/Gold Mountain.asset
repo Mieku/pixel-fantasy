@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3ccc1efa57b6f24ebbd62349e67717c, type: 3}
   m_Name: Gold Mountain
   m_EditorClassIdentifier: 
+  SettingsID: Gold Mountain
   _resourceName: Gold Mountain
   _prefab: {fileID: 5442789227045615136, guid: a2f1f897b269aef4bb1bc9e05066305d, type: 3}
-  _workToExtract: 60
   _harvestableItems:
     _itemDrops:
     - Item: {fileID: 11400000, guid: d9d098fd60920024c9790d6d0f60801b, type: 2}

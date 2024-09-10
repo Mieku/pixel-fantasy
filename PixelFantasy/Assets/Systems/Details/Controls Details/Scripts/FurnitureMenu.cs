@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
+using ScriptableObjects;
 using Systems.Details.Build_Details.Scripts;
 using UnityEngine;
 
@@ -12,17 +11,9 @@ namespace Systems.Details.Controls_Details.Scripts
         [SerializeField] private ControlsBtn _decorationsBtn;
         [SerializeField] private ControlsBtn _lifestyleBtn;
         [SerializeField] private ControlsBtn _craftingBtn;
-        [SerializeField] private ControlsBtn _productionBtn;
         [SerializeField] private ControlsBtn _lightingBtn;
 
         [SerializeField] private BuildFurnitureDetailsUI _buildFurnitureDetails;
-
-        [SerializeField] private List<StorageSettings> _storageOptions;
-        [SerializeField] private List<FurnitureSettings> _decorationOptions;
-        [SerializeField] private List<CraftingTableSettings> _productionOptions;
-        [SerializeField] private List<CraftingTableSettings> _craftingOptions;
-        [SerializeField] private List<FurnitureSettings> _lightingOptions;
-        [SerializeField] private List<FurnitureSettings> _lifestyleOptions;
         
         public override void Show()
         {
@@ -35,7 +26,6 @@ namespace Systems.Details.Controls_Details.Scripts
             _decorationsBtn.OnPressed += DecorationsPressed;
             _lifestyleBtn.OnPressed += LifestylePressed;
             _craftingBtn.OnPressed += CraftingPressed;
-            _productionBtn.OnPressed += ProductionPressed;
             _lightingBtn.OnPressed += LightingPressed;
         }
 
@@ -52,7 +42,6 @@ namespace Systems.Details.Controls_Details.Scripts
             _decorationsBtn.OnPressed -= DecorationsPressed;
             _lifestyleBtn.OnPressed -= LifestylePressed;
             _craftingBtn.OnPressed -= CraftingPressed;
-            _productionBtn.OnPressed -= ProductionPressed;
             _lightingBtn.OnPressed -= LightingPressed;
         }
 
@@ -60,42 +49,50 @@ namespace Systems.Details.Controls_Details.Scripts
         {
             SetBtnActive(btn);
             _subMenuSeperator.SetActive(true);
-            _buildFurnitureDetails.Show(_storageOptions.Cast<FurnitureSettings>().ToList());
+            
+            var options =
+                GameSettings.Instance.PlayerBuildCategories.GetAllSettingsByCategory<FurnitureSettings>(ESettingsCategory.Furniture_Storage);
+            _buildFurnitureDetails.Show(options);
         }
         
         private void DecorationsPressed(ControlsBtn btn)
         {
             SetBtnActive(btn);
             _subMenuSeperator.SetActive(true);
-            _buildFurnitureDetails.Show(_decorationOptions);
+            
+            var options =
+                GameSettings.Instance.PlayerBuildCategories.GetAllSettingsByCategory<FurnitureSettings>(ESettingsCategory.Furniture_Decorations);
+            _buildFurnitureDetails.Show(options);
         }
         
         private void LifestylePressed(ControlsBtn btn)
         {
             SetBtnActive(btn);
             _subMenuSeperator.SetActive(true);
-            _buildFurnitureDetails.Show(_lifestyleOptions);
+            
+            var options =
+                GameSettings.Instance.PlayerBuildCategories.GetAllSettingsByCategory<FurnitureSettings>(ESettingsCategory.Furniture_Lifestyle);
+            _buildFurnitureDetails.Show(options);
         }
         
         private void CraftingPressed(ControlsBtn btn)
         {
             SetBtnActive(btn);
             _subMenuSeperator.SetActive(true);
-            _buildFurnitureDetails.Show(_craftingOptions.Cast<FurnitureSettings>().ToList());
-        }
-        
-        private void ProductionPressed(ControlsBtn btn)
-        {
-            SetBtnActive(btn);
-            _subMenuSeperator.SetActive(true);
-            _buildFurnitureDetails.Show(_productionOptions.Cast<FurnitureSettings>().ToList());
+            
+            var options =
+                GameSettings.Instance.PlayerBuildCategories.GetAllSettingsByCategory<FurnitureSettings>(ESettingsCategory.Furniture_Crafting);
+            _buildFurnitureDetails.Show(options);
         }
         
         private void LightingPressed(ControlsBtn btn)
         {
             SetBtnActive(btn);
             _subMenuSeperator.SetActive(true);
-            _buildFurnitureDetails.Show(_lightingOptions);
+            
+            var options =
+                GameSettings.Instance.PlayerBuildCategories.GetAllSettingsByCategory<FurnitureSettings>(ESettingsCategory.Furniture_Lighting);
+            _buildFurnitureDetails.Show(options);
         }
     }
 }
