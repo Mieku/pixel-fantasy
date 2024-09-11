@@ -24,15 +24,13 @@ namespace Systems.Details.Kinling_Details
         [SerializeField] private SocialSection _socialSection;
         [SerializeField] private StatsSection _statsSection;
         
-        [SerializeField, BoxGroup("Buttons")] private Image _skillsBtnBG;
-        [SerializeField, BoxGroup("Buttons")] private Image _socialBtnBG;
-        [SerializeField, BoxGroup("Buttons")] private Image _gearBtnBG;
-        [SerializeField, BoxGroup("Buttons")] private Image _healthBtnBG;
-        [SerializeField, BoxGroup("Buttons")] private Image _needsBtnBG;
-        [SerializeField, BoxGroup("Buttons")] private Image _statsBtnBG;
-        [SerializeField, BoxGroup("Buttons")] private Image _moodBtnBG;
-        [SerializeField, BoxGroup("Buttons")] private Sprite _defaultBtnBG;
-        [SerializeField, BoxGroup("Buttons")] private Sprite _activeBtnBG;
+        [SerializeField, BoxGroup("Tabs")] private TabDisplay _skillsTab;
+        [SerializeField, BoxGroup("Tabs")] private TabDisplay _socialTab;
+        [SerializeField, BoxGroup("Tabs")] private TabDisplay _gearTab;
+        [SerializeField, BoxGroup("Tabs")] private TabDisplay _healthTab;
+        [SerializeField, BoxGroup("Tabs")] private TabDisplay _needsTab;
+        [SerializeField, BoxGroup("Tabs")] private TabDisplay _statsTab;
+        [SerializeField, BoxGroup("Tabs")] private TabDisplay _moodTab;
 
         private Kinling _kinling;
         private EDetailsState _detailsState;
@@ -82,36 +80,36 @@ namespace Systems.Details.Kinling_Details
 
         private void ChangeContentState(EDetailsState state)
         {
-            ClearBtns();
+            ResetTabs();
             HideAllSections();
             _detailsState = state;
 
             switch (state)
             {
                 case EDetailsState.Skills:
-                    _skillsBtnBG.sprite = _activeBtnBG;
+                    _skillsTab.SetActive(true);
                     _skillsSection.ShowSection(_kinling.RuntimeData);
                     break;
                 case EDetailsState.Social:
-                    _socialBtnBG.sprite = _activeBtnBG;
+                    _socialTab.SetActive(true);
                     _socialSection.ShowSection(_kinling.RuntimeData, RefreshLayout);
                     break;
                 case EDetailsState.Gear:
-                    _gearBtnBG.sprite = _activeBtnBG;
+                    _gearTab.SetActive(true);
                     break;
                 case EDetailsState.Health:
-                    _healthBtnBG.sprite = _activeBtnBG;
+                    _healthTab.SetActive(true);
                     break;
                 case EDetailsState.Needs:
-                    _needsBtnBG.sprite = _activeBtnBG;
+                    _needsTab.SetActive(true);
                     _needsSection.ShowSection(_kinling.RuntimeData);
                     break;
                 case EDetailsState.Stats:
-                    _statsBtnBG.sprite = _activeBtnBG;
+                    _statsTab.SetActive(true);
                     _statsSection.ShowSection(_kinling.RuntimeData, RefreshLayout);
                     break;
                 case EDetailsState.Mood:
-                    _moodBtnBG.sprite = _activeBtnBG;
+                    _moodTab.SetActive(true);
                     _moodSection.ShowSection(_kinling.RuntimeData, RefreshLayout);
                     break;
                 default:
@@ -161,54 +159,49 @@ namespace Systems.Details.Kinling_Details
         }
 
         #region Buttons
-
-        private void ClearBtns()
+        
+        private void ResetTabs()
         {
-            _skillsBtnBG.sprite = _defaultBtnBG;
-            _socialBtnBG.sprite = _defaultBtnBG;
-            _gearBtnBG.sprite = _defaultBtnBG;
-            _healthBtnBG.sprite = _defaultBtnBG;
-            _needsBtnBG.sprite = _defaultBtnBG;
-            _statsBtnBG.sprite = _defaultBtnBG;
-            _moodBtnBG.sprite = _defaultBtnBG;
+            _skillsTab.SetActive(false);
+            _socialTab.SetActive(false);
+            _gearTab.SetActive(false);
+            _healthTab.SetActive(false);
+            _needsTab.SetActive(false);
+            _statsTab.SetActive(false);
+            _moodTab.SetActive(false);
         }
 
-        public void SkillsBtnPressed()
+        public void SkillsTabPressed()
         {
             ChangeContentState(EDetailsState.Skills);
         }
 
-        public void SocialBtnPressed()
+        public void SocialTabPressed()
         {
             ChangeContentState(EDetailsState.Social);
         }
 
-        public void GearBtnPressed()
+        public void GearTabPressed()
         {
             ChangeContentState(EDetailsState.Gear);
         }
 
-        public void HealthBtnPressed()
+        public void HealthTabPressed()
         {
             ChangeContentState(EDetailsState.Health);
         }
 
-        public void NeedsBtnPressed()
+        public void NeedsTabPressed()
         {
             ChangeContentState(EDetailsState.Needs);
         }
 
-        public void StatsBtnPressed()
+        public void StatsTabPressed()
         {
             ChangeContentState(EDetailsState.Stats);
         }
-
-        public void LookAtBtnPressed()
-        {
-            CameraManager.Instance.LookAtPosition(_kinling.RuntimeData.Position);
-        }
-
-        public void MoodBtnPressed()
+        
+        public void MoodTabPressed()
         {
             ChangeContentState(EDetailsState.Mood);
         }
