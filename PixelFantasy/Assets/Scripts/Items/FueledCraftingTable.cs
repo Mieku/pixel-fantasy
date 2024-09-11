@@ -10,7 +10,7 @@ namespace Items
 {
     public class FueledCraftingTable : CraftingTable, IFueledFurniture
     {
-        [ShowInInspector] public FueledCraftingTableData FueledRuntimeData => (FueledCraftingTableData) RuntimeData;
+        [ShowInInspector] public FueledCraftingTableData FueledRuntimeData => RuntimeData as FueledCraftingTableData;
 
         [SerializeField] private SpriteRenderer _outOfFuelIcon;
         [SerializeField] private List<GameObject> _fueledGOs;

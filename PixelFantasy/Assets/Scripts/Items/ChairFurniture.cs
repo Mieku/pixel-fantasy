@@ -51,9 +51,9 @@ namespace Items
         {
             _seats.Clear();
             
-            foreach (var marker in _useageMarkers)
+            foreach (var usePosition in _indicators.UsePositions(transform))
             {
-                Seat seat = new Seat(marker.transform.position, _direction);
+                Seat seat = new Seat(usePosition, _direction);
                 _seats.Add(seat);
             }
         }

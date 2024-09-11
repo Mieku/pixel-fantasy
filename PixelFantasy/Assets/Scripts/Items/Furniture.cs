@@ -10,6 +10,7 @@ using Managers;
 using Newtonsoft.Json;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
+using Systems.Build_Controls.Scripts;
 using Systems.Input_Management;
 using Systems.Lighting.Scripts;
 using Systems.Stats.Scripts;
@@ -21,39 +22,48 @@ namespace Items
     {
         [TitleGroup("South")] [SerializeField] protected GameObject _southHandle;
         [TitleGroup("South")] [SerializeField] protected Transform _southSpritesRoot;
-        [TitleGroup("South")] [SerializeField] protected Transform _southUseageMarkersRoot;
-        [TitleGroup("South")] [SerializeField] protected GameObject _southPlacementObstacle;
+        [TitleGroup("South"), SerializeField] protected PlacementIndicators _southPlacementIndicators;
         
         [TitleGroup("West")] [SerializeField] protected GameObject _westHandle;
         [TitleGroup("West")] [SerializeField] protected Transform _westSpritesRoot;
-        [TitleGroup("West")] [SerializeField] protected Transform _westUseageMarkersRoot;
-        [TitleGroup("West")] [SerializeField] protected GameObject _westPlacementObstacle;
+        [TitleGroup("West"), SerializeField] protected PlacementIndicators _westPlacementIndicators;
         
         [TitleGroup("North")] [SerializeField] protected GameObject _northHandle;
         [TitleGroup("North")] [SerializeField] protected Transform _northSpritesRoot;
-        [TitleGroup("North")] [SerializeField] protected Transform _northUseageMarkersRoot;
-        [TitleGroup("North")] [SerializeField] protected GameObject _northPlacementObstacle;
+        [TitleGroup("North"), SerializeField] protected PlacementIndicators _northPlacementIndicators;
         
         [TitleGroup("East")] [SerializeField] protected GameObject _eastHandle;
         [TitleGroup("East")] [SerializeField] protected Transform _eastSpritesRoot;
-        [TitleGroup("East")] [SerializeField] protected Transform _eastUseageMarkersRoot;
-        [TitleGroup("East")] [SerializeField] protected GameObject _eastPlacementObstacle;
+        [TitleGroup("East"), SerializeField] protected PlacementIndicators _eastPlacementIndicators;
         
         public FurnitureData RuntimeData;
         public override string UniqueID => RuntimeData.UniqueID;
         protected override List<SpriteRenderer> SpritesToOutline => _allSprites.ToList();
-
         protected SpriteRenderer[] _allSprites;
-        protected List<SpriteRenderer> _useageMarkers;
-        protected readonly List<Material> _materials = new List<Material>();
-        private int _fadePropertyID;
-
         protected bool _isPlanning;
         protected PlacementDirection _direction;
-        private bool _isOutlineLocked;
         private DyeSettings _dyeOverride;
-        private readonly List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle", "Clearance"};
         protected List<LightSource> _lightSources = new List<LightSource>();
+
+        protected PlacementIndicators _indicators
+        {
+            get
+            {
+                switch (_direction)
+                {
+                    case PlacementDirection.South:
+                        return _southPlacementIndicators;
+                    case PlacementDirection.North:
+                        return _northPlacementIndicators;
+                    case PlacementDirection.West:
+                        return _westPlacementIndicators;
+                    case PlacementDirection.East:
+                        return _eastPlacementIndicators;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
         
         public override string PendingTaskUID
         {
@@ -73,7 +83,6 @@ namespace Items
 
         protected virtual void Awake()
         {
-            _fadePropertyID = Shader.PropertyToID("_OuterOutlineFade");
             _lightSources = GetComponentsInChildren<LightSource>(true).ToList();
         }
 
@@ -108,11 +117,7 @@ namespace Items
             _isPlanning = true;
             _dyeOverride = dye;
             AssignDirection(initialDirection);
-            foreach (var spriteRenderer in _allSprites)
-            {
-                _materials.Add(spriteRenderer.material);
-            }
-            
+
             DisplayUseageMarkers(true);
             EnablePlacementObstacle(false);
             EnableLights(false);
@@ -302,25 +307,21 @@ namespace Items
                     if (_southHandle == null) return false;
                     _southHandle.SetActive(true);
                     _allSprites = _southSpritesRoot.GetComponentsInChildren<SpriteRenderer>(true);
-                    _useageMarkers = _southUseageMarkersRoot.GetComponentsInChildren<SpriteRenderer>(true).ToList();
                     break;
                 case PlacementDirection.North:
                     if (_northHandle == null) return false;
                     _northHandle.SetActive(true);
                     _allSprites = _northSpritesRoot.GetComponentsInChildren<SpriteRenderer>(true);
-                    _useageMarkers = _northUseageMarkersRoot.GetComponentsInChildren<SpriteRenderer>(true).ToList();
                     break;
                 case PlacementDirection.West:
                     if (_westHandle == null) return false;
                     _westHandle.SetActive(true);
                     _allSprites = _westSpritesRoot.GetComponentsInChildren<SpriteRenderer>(true);
-                    _useageMarkers = _westUseageMarkersRoot.GetComponentsInChildren<SpriteRenderer>(true).ToList();
                     break;
                 case PlacementDirection.East:
                     if (_eastHandle == null) return false;
                     _eastHandle.SetActive(true);
                     _allSprites = _eastSpritesRoot.GetComponentsInChildren<SpriteRenderer>(true);
-                    _useageMarkers = _eastUseageMarkersRoot.GetComponentsInChildren<SpriteRenderer>(true).ToList();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
@@ -336,31 +337,7 @@ namespace Items
 
         protected void EnablePlacementObstacle(bool enable)
         {
-            if(_eastPlacementObstacle != null) _eastPlacementObstacle.SetActive(false);
-            if(_westPlacementObstacle != null) _westPlacementObstacle.SetActive(false);
-            if(_northPlacementObstacle != null) _northPlacementObstacle.SetActive(false);
-            if(_southPlacementObstacle != null) _southPlacementObstacle.SetActive(false);
-            
-            if (enable)
-            {
-                switch (_direction)
-                {
-                    case PlacementDirection.South:
-                        _southPlacementObstacle.SetActive(true);
-                        break;
-                    case PlacementDirection.North:
-                        _northPlacementObstacle.SetActive(true);
-                        break;
-                    case PlacementDirection.West:
-                        _westPlacementObstacle.SetActive(true);
-                        break;
-                    case PlacementDirection.East:
-                        _eastPlacementObstacle.SetActive(true);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
+            _indicators.EnableObstacles(enable);
         }
 
         private void DisplaySprites(bool showSprites)
@@ -421,40 +398,14 @@ namespace Items
             InformChanged();
         }
 
-        private List<Transform> UseagePositions()
-        {
-            List<Transform> results = new List<Transform>();
-            foreach (var marker in _useageMarkers)
-            {
-                results.Add(marker.transform);
-            }
-
-            if (results.Count == 0)
-            {
-                results.Add(transform);
-            }
-
-            return results;
-        }
-
         public override Vector2? UseagePosition(Vector2 requestorPosition)
         {
-            List<Transform> potentialPositions = new List<Transform>();
+            List<Vector2> potentialPositions = _indicators.UsePositions(transform);
             
-            foreach (var useageMarker in UseagePositions())
-            {
-                bool result = !Helper.IsTagAtPosition(useageMarker.position, "Obstacle");
-
-                if (result)
-                {
-                    potentialPositions.Add(useageMarker);
-                }
-            }
-            
-            List<(Transform, float)> distances = new List<(Transform, float)>();
+            List<(Vector2, float)> distances = new List<(Vector2, float)>();
             foreach (var potentialPosition in potentialPositions)
             {
-                var pathResult = Helper.DoesPathExist(requestorPosition, potentialPosition.position);
+                var pathResult = Helper.DoesPathExist(requestorPosition, potentialPosition);
                 if (pathResult.pathExists)
                 {
                     float distance = Helper.GetPathLength(pathResult.navMeshPath);
@@ -472,7 +423,7 @@ namespace Items
             // Compile the positions that pass the above tests and sort them by distance
             var sortedDistances = distances.OrderBy(x => x.Item2).Select(x => x.Item1).ToList();
             var selectedDistance = sortedDistances[0];
-            return selectedDistance.position;
+            return selectedDistance;
         }
 
         protected void InProduction_Enter()
@@ -505,12 +456,7 @@ namespace Items
 
         public void DisplayUseageMarkers(bool showMarkers)
         {
-            if (_useageMarkers == null) return;
-            
-            foreach (var marker in _useageMarkers)
-            {
-                marker.gameObject.SetActive(showMarkers);
-            }
+            _indicators.ShowUsePositions(showMarkers);
         }
         
         private void CreateConstructionHaulingTasks()
@@ -548,7 +494,7 @@ namespace Items
         {
             RuntimeData.RemoveFromIncomingItems(itemData);
 
-            var item = (ItemStack) itemData.GetLinkedItem();
+            var item = itemData.GetLinkedItem();
             Destroy(item.gameObject);
             
             itemData.CarryingKinlingUID = null;
@@ -636,90 +582,21 @@ namespace Items
             }
         }
         
-        private void OnMouseEnter()
-        {
-            if (RuntimeData == null) return;
-            
-            if (RuntimeData.FurnitureState != EFurnitureState.Built) return;
-            if(_isOutlineLocked) return;
-            
-            TriggerOutline(true);
-        }
-
-        private void OnMouseExit()
-        {
-            if (RuntimeData == null) return;
-            
-            if (RuntimeData.FurnitureState != EFurnitureState.Built) return;
-            if(_isOutlineLocked) return;
-            
-            TriggerOutline(false);
-        }
-        
         private void FollowCursor()
         {
-            gameObject.transform.position = UtilsClass.GetMouseWorldPosition();
-        }
-        
-        public void LockOutline(bool isLocked, bool showOutline)
-        {
-            _isOutlineLocked = isLocked;
-            TriggerOutline(showOutline);
-        }
-        
-        private void TriggerOutline(bool showOuline)
-        {
-            foreach (var material in _materials)
-            {
-                if (showOuline)
-                {
-                    material.SetFloat(_fadePropertyID, 1);
-                    ColourArt(ColourStates.Built);
-                }
-                else
-                {
-                    material.SetFloat(_fadePropertyID, 0);
-                    if(_isPlanning)
-                    {
-                        ColourArt(ColourStates.Blueprint);
-                    }
-                }
-            }
+            var diff = (Vector2)transform.position - _indicators.PlacementPivot;
+            var snapPos = Helper.SnapToGridPos(UtilsClass.GetMouseWorldPosition());
+            snapPos += diff;
+
+            gameObject.transform.position =
+                snapPos;
         }
         
         public virtual bool CheckPlacement()
         {
-            bool result = Helper.IsGridPosValidToBuild(transform.position, _invalidPlacementTags, null, gameObject);
+            bool canPlace = _indicators.CheckPlacement(1, transform);
 
-            // Check the useage markers
-            if (_useageMarkers != null && _useageMarkers.Count > 0)
-            {
-                bool markersPass = false;
-                foreach (var marker in _useageMarkers)
-                {
-                    if (Helper.IsGridPosValidToBuild(marker.transform.position, _invalidPlacementTags, null, gameObject))
-                    {
-                        marker.color = Color.white;
-                        markersPass = true;
-                        break;
-                    }
-                    else
-                    {
-                        marker.color = Color.red;
-                    }
-                }
-
-                if (!markersPass)
-                {
-                    result = false;
-                }
-                else
-                {
-                    result = true;
-                }
-            }
-
-            if (result)
+            if (canPlace)
             {
                 ColourArt(ColourStates.CanPlace);
             }
@@ -728,7 +605,7 @@ namespace Items
                 ColourArt(ColourStates.CantPlace);
             }
             
-            return result;
+            return canPlace;
         }
         
         public void ColourArt(ColourStates colourState)
@@ -868,6 +745,18 @@ namespace Items
         public override bool IsForbidden()
         {
             return !IsAllowed;
+        }
+
+        protected override void OnSelection()
+        {
+            base.OnSelection();
+            _indicators.ShowUsePositions(true);
+        }
+
+        protected override void OnDeselection()
+        {
+            base.OnDeselection();
+            _indicators.ShowUsePositions(false);
         }
     }
 }

@@ -194,7 +194,7 @@ public static class Helper
     /// <summary>
     /// Determines if the grid position is a valid position to build on
     /// </summary>
-    public static bool IsGridPosValidToBuild(Vector2 gridPos, List<string> listOfInvalidTags, List<string> listOfRequiredTags = null, GameObject parent = null)
+    public static bool IsGridPosValidToBuild(Vector2 gridPos, List<string> listOfInvalidTags, List<string> listOfRequiredTags = null, Transform parent = null)
     {
         var detectedTags = GetTagsAtGridPos(gridPos, parent);
 
@@ -238,9 +238,10 @@ public static class Helper
     }
 
     /// <summary>
-    /// Returns a list of all the tags located at the specified grid position
+    /// Returns a list of all the tags located at the specified grid position,
+    /// excluding the parent and its children if a parent is provided.
     /// </summary>
-    public static List<string> GetTagsAtGridPos(Vector2 gridPos, GameObject parent = null)
+    public static List<string> GetTagsAtGridPos(Vector2 gridPos, Transform parent = null)
     {
         float margin = 0.4f;
         Vector3 offsetPos = new Vector3(gridPos.x, gridPos.y, -3);
@@ -249,12 +250,12 @@ public static class Helper
         var origins = new List<Vector3>
         {
             offsetPos, // Center
-            
+        
             offsetPos + new Vector3(-margin, 0, 0), // Left
             offsetPos + new Vector3(margin, 0, 0), // Right
             offsetPos + new Vector3(0, -margin, 0), // Bottom
             offsetPos + new Vector3(0, margin, 0), // Top
-            
+        
             offsetPos + new Vector3(-margin, margin, 0), // Top-left
             offsetPos + new Vector3(margin, margin, 0),  // Top-right
             offsetPos + new Vector3(-margin, -margin, 0), // Bottom-left
@@ -272,13 +273,22 @@ public static class Helper
             var allHits = Physics2D.RaycastAll(origin, new Vector3(0, 0, 6));
             foreach (var hit in allHits)
             {
+                // Check if the hit object is the parent or one of its children
+                if (parent != null && (hit.collider.transform == parent || hit.collider.transform.IsChildOf(parent)))
+                {
+                    // Skip this hit as it's from the parent or its children
+                    continue;
+                }
+
+                // Add the tag to the list if it's a valid hit
                 detectedTags.Add(hit.collider.transform.tag);
             }
         }
-        
+    
         var result = detectedTags.Distinct().ToList();
         return result;
     }
+
 
     public static List<PlayerInteractable> GetAllPlayerInteractablesAtGridPos(Vector2 gridPos)
     {
