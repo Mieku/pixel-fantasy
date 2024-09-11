@@ -774,7 +774,6 @@ MonoBehaviour:
     AssignedBed:
       UniqueID: 
       PendingTaskUID: 
-      PendingTaskProgress: 0
       FurnitureState: 0
       RemainingWork: 0
       Direction: 0
@@ -793,7 +792,6 @@ MonoBehaviour:
     FurnitureInUse:
       UniqueID: 
       PendingTaskUID: 
-      PendingTaskProgress: 0
       FurnitureState: 0
       RemainingWork: 0
       Direction: 0

@@ -1,8 +1,9 @@
 using System;
+using System.Collections.Generic;
 using Characters;
-using Controllers;
 using Sirenix.OdinInspector;
 using Systems.Details.Build_Details.Scripts;
+using Systems.Details.Generic_Details.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -31,14 +32,19 @@ namespace Systems.Details.Kinling_Details
         [SerializeField, BoxGroup("Tabs")] private TabDisplay _needsTab;
         [SerializeField, BoxGroup("Tabs")] private TabDisplay _statsTab;
         [SerializeField, BoxGroup("Tabs")] private TabDisplay _moodTab;
+        
+        [SerializeField, BoxGroup("Commands")] private Transform _commandsParent;
+        [SerializeField, BoxGroup("Commands")] private CommandBtn _commandBtnPrefab;
 
         private Kinling _kinling;
         private EDetailsState _detailsState;
+        private List<CommandBtn> _displayedCmds = new List<CommandBtn>();
         
         public void Show(Kinling kinling)
         {
             _kinling = kinling;
             _panelHandle.SetActive(true);
+            _commandBtnPrefab.gameObject.SetActive(false);
             _kinlingName.text = _kinling.FullName;
             _avatarDisplay.sprite = _kinling.RuntimeData.Avatar.GetBaseAvatarSprite();
             
@@ -47,6 +53,43 @@ namespace Systems.Details.Kinling_Details
             GameEvents.OnKinlingChanged += GameEvent_OnKinlingChanged;
             
             RefreshLayout();
+            RefreshCommands();
+        }
+        
+        private void RefreshCommands()
+        {
+            foreach (var displayedCmd in _displayedCmds)
+            {
+                Destroy(displayedCmd.gameObject);
+            }
+            _displayedCmds.Clear();
+            
+            var commands = _kinling.GetCommands();
+            foreach (var command in commands)
+            {
+                bool isActive = _kinling.PendingCommand == command;
+                
+                var cmdBtn = Instantiate(_commandBtnPrefab, _commandsParent);
+                cmdBtn.Init(command, isActive, OnCommandPressed);
+                cmdBtn.gameObject.SetActive(true);
+                _displayedCmds.Add(cmdBtn);
+            }
+        }
+        
+        private void OnCommandPressed(Command command)
+        {
+            var pendingCmd = _kinling.PendingCommand;
+            if (pendingCmd != null)
+            {
+                _kinling.CancelPendingTask();
+            }
+            
+            if (pendingCmd != command)
+            {
+                _kinling.AssignCommand(command);
+            }
+            
+            RefreshCommands();
         }
 
         private void Update()
