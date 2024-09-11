@@ -20,6 +20,8 @@ public class FurnitureSettings : CraftedItemSettings
     [SerializeField] protected PlacementDirection _defaultDirection;
     [SerializeField] protected DyeSettings _defaultDye;
     [SerializeField] protected int _numOwners;
+    [SerializeField] protected bool _showUsePositions;
+    [SerializeField] protected int _minAvailableUsePositions;
         
     // Accessors
     public string Description => _description;
@@ -30,4 +32,6 @@ public class FurnitureSettings : CraftedItemSettings
     public PlacementDirection DefaultDirection => _defaultDirection;
     public DyeSettings DefaultDye => _defaultDye;
     public int NumberOfPossibleOwners => _numOwners;
+    public bool ShowUsePositions => _showUsePositions;
+    public int MinAvailableUsePositions => _minAvailableUsePositions;
 }

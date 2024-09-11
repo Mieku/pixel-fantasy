@@ -42,3 +42,5 @@ MonoBehaviour:
   _defaultDirection: 0
   _defaultDye: {fileID: 0}
   _numOwners: 2
+  _showUsePositions: 1
+  _minAvailableUsePositions: 1

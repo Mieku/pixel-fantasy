@@ -8,7 +8,7 @@ namespace Systems.Build_Controls.Scripts
     {
         private SpriteRenderer _spriteRenderer;
         private BoxCollider2D _boxCollider;
-        private readonly List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle", "Clearance"};
+        private readonly List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle"};
         
         private void Awake()
         {

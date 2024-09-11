@@ -12,12 +12,20 @@ namespace Systems.Build_Controls.Scripts
         
         private List<PlacementObstacle> _obstacles;
         private List<UsePosition> _usePositions;
+        private bool _showUsePositions;
+        private int _minAvailableUsePositions;
 
         private void Awake()
         {
             _placementPivot.gameObject.GetComponent<SpriteRenderer>().enabled = false;
             _obstacles = _obstaclesParent.GetComponentsInChildren<PlacementObstacle>().ToList();
             _usePositions = _usePosParent.GetComponentsInChildren<UsePosition>().ToList();
+        }
+
+        public void Init(bool showUsePositions, int minAvailableUsePositions)
+        {
+            _showUsePositions = showUsePositions;
+            _minAvailableUsePositions = minAvailableUsePositions;
         }
         
         public Vector2 PlacementPivot => _placementPivot.position;
@@ -37,6 +45,8 @@ namespace Systems.Build_Controls.Scripts
 
         public void ShowUsePositions(bool show)
         {
+            if (!_showUsePositions) show = false;
+            
             foreach (var usePosition in _usePositions)
             {
                 usePosition.ShowMarker(show);
@@ -56,7 +66,7 @@ namespace Systems.Build_Controls.Scripts
             }
         }
 
-        public bool CheckPlacement(int minUsePositions, Transform parent)
+        public bool CheckPlacement(Transform parent)
         {
             bool canPlace = true;
             foreach (var obstacle in _obstacles)
@@ -76,7 +86,7 @@ namespace Systems.Build_Controls.Scripts
                 }
             }
             
-            return canPlace && passedUsePositions >= minUsePositions;
+            return canPlace && passedUsePositions >= _minAvailableUsePositions;
         }
     }
 }

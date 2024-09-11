@@ -42,6 +42,8 @@ MonoBehaviour:
   _defaultDirection: 0
   _defaultDye: {fileID: 0}
   _numOwners: 0
+  _showUsePositions: 1
+  _minAvailableUsePositions: 1
   _maxStorage: 25
   _acceptedCategories: 00000000
   _specificStorage: []

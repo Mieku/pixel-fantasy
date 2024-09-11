@@ -34,6 +34,7 @@ namespace Items
             
             SetState(RuntimeData.FurnitureState);
             AssignDirection(direction);
+            InitializeIndicators(furnitureSettings.ShowUsePositions, furnitureSettings.MinAvailableUsePositions);
         }
 
         public void SetIncoming(ItemData itemData)

@@ -5,7 +5,7 @@ namespace Systems.Build_Controls.Scripts
 {
     public class PlacementObstacle : MonoBehaviour
     {
-        private readonly List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle", "Clearance"};
+        private readonly List<string> _invalidPlacementTags = new List<string>() { "Water", "Wall", "Obstacle"};
     
         private void Awake()
         {

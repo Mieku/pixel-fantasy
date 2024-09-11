@@ -27,6 +27,7 @@ namespace Items
             
             SetState(RuntimeData.FurnitureState);
             AssignDirection(direction);
+            InitializeIndicators(furnitureSettings.ShowUsePositions, furnitureSettings.MinAvailableUsePositions);
             
             ShowFueledSprites(false);
         }

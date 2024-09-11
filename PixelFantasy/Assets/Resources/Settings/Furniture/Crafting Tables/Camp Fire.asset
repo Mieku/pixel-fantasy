@@ -44,6 +44,8 @@ MonoBehaviour:
   _defaultDirection: 0
   _defaultDye: {fileID: 0}
   _numOwners: 0
+  _showUsePositions: 1
+  _minAvailableUsePositions: 1
   _craftableItems: []
   _cookableMeals:
   - {fileID: 11400000, guid: 8e94e576141358b47ba3b83e67a1e198, type: 2}

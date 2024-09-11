@@ -103,7 +103,9 @@ namespace Items
         {
             _isPlanning = false;
             RuntimeData = data;
+            
             AssignDirection(data.Direction);
+            InitializeIndicators(RuntimeData.FurnitureSettings.ShowUsePositions, RuntimeData.FurnitureSettings.MinAvailableUsePositions);
             
             SetState(data.FurnitureState);
             RefreshTaskIcon();
@@ -116,7 +118,9 @@ namespace Items
         {
             _isPlanning = true;
             _dyeOverride = dye;
+            
             AssignDirection(initialDirection);
+            InitializeIndicators(furnitureSettings.ShowUsePositions, furnitureSettings.MinAvailableUsePositions);
 
             DisplayUseageMarkers(true);
             EnablePlacementObstacle(false);
@@ -148,6 +152,15 @@ namespace Items
             
             SetState(RuntimeData.FurnitureState);
             AssignDirection(direction);
+            InitializeIndicators(furnitureSettings.ShowUsePositions, furnitureSettings.MinAvailableUsePositions);
+        }
+
+        protected void InitializeIndicators(bool showUsePositions, int minAvailableUsePositions)
+        {
+            _southPlacementIndicators?.Init(showUsePositions, minAvailableUsePositions);
+            _westPlacementIndicators?.Init(showUsePositions, minAvailableUsePositions);
+            _northPlacementIndicators?.Init(showUsePositions, minAvailableUsePositions);
+            _eastPlacementIndicators?.Init(showUsePositions, minAvailableUsePositions);
         }
 
         public PlacementDirection RotatePlan(bool isClockwise)
@@ -456,6 +469,11 @@ namespace Items
 
         public void DisplayUseageMarkers(bool showMarkers)
         {
+            if (showMarkers)
+            {
+                _indicators.CheckPlacement(transform);
+            }
+            
             _indicators.ShowUsePositions(showMarkers);
         }
         
@@ -468,10 +486,10 @@ namespace Items
             }
             
             var resourceCosts = RuntimeData.FurnitureSettings.CraftRequirements.GetMaterialCosts();
-            CreateConstuctionHaulingTasksForItems(resourceCosts);
+            CreateConstructionHaulingTasksForItems(resourceCosts);
         }
         
-        public void CreateConstuctionHaulingTasksForItems(List<CostData> remainingResources)
+        public void CreateConstructionHaulingTasksForItems(List<CostData> remainingResources)
         {
             foreach (var resourceCost in remainingResources)
             {
@@ -594,7 +612,7 @@ namespace Items
         
         public virtual bool CheckPlacement()
         {
-            bool canPlace = _indicators.CheckPlacement(1, transform);
+            bool canPlace = _indicators.CheckPlacement(transform);
 
             if (canPlace)
             {
@@ -750,13 +768,13 @@ namespace Items
         protected override void OnSelection()
         {
             base.OnSelection();
-            _indicators.ShowUsePositions(true);
+            DisplayUseageMarkers(true);
         }
 
         protected override void OnDeselection()
         {
             base.OnDeselection();
-            _indicators.ShowUsePositions(false);
+            DisplayUseageMarkers(false);
         }
     }
 }

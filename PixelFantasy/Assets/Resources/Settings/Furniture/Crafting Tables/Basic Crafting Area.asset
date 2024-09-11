@@ -40,6 +40,8 @@ MonoBehaviour:
   _defaultDirection: 0
   _defaultDye: {fileID: 0}
   _numOwners: 0
+  _showUsePositions: 1
+  _minAvailableUsePositions: 1
   _craftableItems:
   - {fileID: 11400000, guid: 6c1483202b7e10f4a8181d5bd61ddb79, type: 2}
   - {fileID: 11400000, guid: 4065859f5438fec47ab7e0bd3ff7b76a, type: 2}
