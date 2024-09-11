@@ -104,6 +104,8 @@ namespace Characters
                 TaskHandler.LoadCurrentTask(task);
             }
             
+            RefreshDraftCommands();
+            
             HasInitialized = true;
         }
 
@@ -258,6 +260,51 @@ namespace Characters
         {
             base.OnDeselection();
             KinlingAgent.SetPathVisibility(false);
+        }
+        
+        public bool IsDrafted
+        {
+            get => RuntimeData.IsDrafted;
+            set
+            {
+                RuntimeData.IsDrafted = value;
+                
+                RefreshDraftCommands();
+                InformChanged();
+            }
+        }
+        
+        private void RefreshDraftCommands()
+        {
+            if (IsDrafted)
+            {
+                AddCommand("UnDraft", true);
+                RemoveCommand("Draft");
+            }
+            else
+            {
+                AddCommand("Draft", true);
+                RemoveCommand("UnDraft");
+            }
+        }
+
+        public override void AssignCommand(Command command)
+        {
+            if (command.CommandID == "Draft")
+            {
+                // Return all active and queued tasks
+                TaskHandler.StopAndUnclaimTasks();
+                
+                IsDrafted = true;
+            }
+            else if (command.CommandID == "UnDraft")
+            {
+                IsDrafted = false;
+            }
+            else
+            {
+                base.AssignCommand(command);
+            }
         }
     }
 

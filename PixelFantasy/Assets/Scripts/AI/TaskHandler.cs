@@ -238,6 +238,25 @@ namespace AI
             _kinlingData.CurrentTaskID = null;
         }
 
+        public void StopAndUnclaimTasks()
+        {
+            if (CurrentTask != null)
+            {
+                var tree = FindTaskTreeFor(CurrentTask);
+                tree.BTOwner.StopBehaviour(false);
+                
+                _kinlingData.CurrentTaskID = null;
+            }
+
+            foreach (var enqueuedTaskUID in _kinlingData.EnqueuedTaskUIDs)
+            {
+                var task = TasksDatabase.Instance.QueryTask(enqueuedTaskUID);
+                task.Status = ETaskStatus.Pending;
+                task.UnClaimTask(_kinlingData);
+            }
+            _kinlingData.EnqueuedTaskUIDs.Clear();
+        }
+
         public bool HasTreeForTask(string taskID)
         {
             if (string.IsNullOrEmpty(taskID)) return false;
