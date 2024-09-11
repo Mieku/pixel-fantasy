@@ -1,0 +1,28 @@
+--------------------
+Package Information
+
+Skins (Assembled and disassembled):
+- Assembled and disassembled windowskins
+- 2 types of Window Frames, in 5 colors each.
+- 2 types of Window Textures in 2 colors each, and a solid Background.
+- 3 types of Gauges.
+- Please check the "Slice_Guide.png" for further instructions regarding windowskins and gauges.
+
+Controls (sheet and individual sprites):
+- Xbox
+- Playstation
+- Nintendo Switch
+- Keyboard
+
+Icons:
+- 31 system icons, assorted colors.
+
+Cursors:
+- 2 types of cursor, assorted colors.
+
+RPG Maker Assets:
+- Windowskins at 2x for RPG Maker VX and VX Ace.
+- Windowskins at 3x RPG Maker MV and MZ.
+- ButtonSets for RPG Maker MV and MZ
+
+Source Files: Contains several aseprite files for those who wish to further customize the skins!
