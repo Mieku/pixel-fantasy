@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Characters;
 using CodeMonkey.Utils;
 using Player;
@@ -96,7 +97,6 @@ namespace Systems.Input_Management
 
             HandleHover();
         }
-
 
         private void HandleHover()
         {
@@ -270,11 +270,21 @@ namespace Systems.Input_Management
             {
                 SelectionManager.Instance.Select(_selectedObjects);
             }
+            else
+            {
+                SelectionManager.Instance.ClearSelection();
+            }
         }
         
         public void ClearSelection()
         {
+            foreach (var pi in _selectedObjects)
+            {
+                pi.IsSelected = false;
+            }
+            
             _selectedObjects.Clear();
+            SelectionManager.Instance.ClearSelection();
         }
         
         private void HighlightObjectsInSelectionBox()
@@ -313,10 +323,26 @@ namespace Systems.Input_Management
             {
                 if (!currentlySelectedObjects.Contains(previouslySelected))
                 {
-                    previouslySelected.IsSelected = false; // Unselect the object
+                    if (SelectionManager.Instance.IncludeIsActive)
+                    {
+                        if (!SelectionManager.Instance.SelectedObjects.Contains(previouslySelected))
+                        {
+                            previouslySelected.IsSelected = false; // Unselect the object
+                        }
+                    }
+                    else
+                    {
+                        previouslySelected.IsSelected = false; // Unselect the object
+                    }
                 }
             }
 
+            if (SelectionManager.Instance.IncludeIsActive)
+            {
+                currentlySelectedObjects.AddRange(SelectionManager.Instance.SelectedObjects);
+                currentlySelectedObjects = currentlySelectedObjects.Distinct().ToList();
+            }
+            
             // Update the selected objects to the new selection
             _selectedObjects = currentlySelectedObjects;
         }

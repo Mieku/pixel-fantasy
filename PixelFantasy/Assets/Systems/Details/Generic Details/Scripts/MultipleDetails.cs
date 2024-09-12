@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Characters;
+using Items;
 using Systems.Details.Build_Details.Scripts;
 using TMPro;
 using UnityEngine;
@@ -179,6 +180,14 @@ namespace Systems.Details.Generic_Details.Scripts
                         kinlingDisplay.gameObject.SetActive(true);
                         kinlingDisplay.Init(group, OnGroupSelected, OnGroupRemoved, kinling.FullName);
                         _displayedGroups.Add(kinlingDisplay);
+                    }
+                    // Trees are grouped together
+                    else if (group.First() is TreeResource tree)
+                    {
+                        var display = Instantiate(_groupDisplayPrefab, _groupingsLayout);
+                        display.gameObject.SetActive(true);
+                        display.Init(group, OnGroupSelected, OnGroupRemoved, $"{group.Count} Trees");
+                        _displayedGroups.Add(display);
                     }
                     else
                     {

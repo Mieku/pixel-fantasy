@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Managers;
 using Systems.Input_Management;
 using Systems.Zones.Scripts;
@@ -13,7 +14,7 @@ public class SelectionManager : Singleton<SelectionManager>
     private List<PlayerInteractable> _selectedObjects = new List<PlayerInteractable>();
     private Command _pendingCommand;
     private Action _onCompleted;
-    private bool _includeIsActive;
+    public bool IncludeIsActive;
     
     public List<PlayerInteractable> SelectedObjects => _selectedObjects;
 
@@ -33,12 +34,12 @@ public class SelectionManager : Singleton<SelectionManager>
 
     private void OnIncludePressed(InputAction.CallbackContext context)
     {
-        _includeIsActive = true;
+        IncludeIsActive = true;
     }
     
     private void OnIncludeReleased(InputAction.CallbackContext context)
     {
-        _includeIsActive = false;
+        IncludeIsActive = false;
     }
 
     public void UnSelect(List<PlayerInteractable> unselectedPIs)
@@ -72,7 +73,7 @@ public class SelectionManager : Singleton<SelectionManager>
 
     public void Select(List<PlayerInteractable> playerInteractables)
     {
-        if (!_includeIsActive)
+        if (!IncludeIsActive)
         {
             ClearSelection();
         }
@@ -82,6 +83,8 @@ public class SelectionManager : Singleton<SelectionManager>
             _selectedObjects.Add(pi);
             pi.IsSelected = true;
         }
+        
+        _selectedObjects = _selectedObjects.Distinct().ToList();
         
         if (_selectedObjects.Count > 1)
         {
@@ -124,6 +127,8 @@ public class SelectionManager : Singleton<SelectionManager>
             _selectedObjects.Add(playerInteractable);
             playerInteractable.IsSelected = true;
         }
+        
+        _selectedObjects = _selectedObjects.Distinct().ToList();
 
         if (_selectedObjects.Count > 1)
         {
