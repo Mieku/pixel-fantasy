@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Characters;
 using CodeMonkey.Utils;
+using Managers;
 using Player;
 using Systems.CursorHandler.Scripts;
 using Systems.Zones.Scripts;
@@ -28,6 +29,9 @@ namespace Systems.Input_Management
         
         private Vector2 mouseStartPos;
         private bool isDragging;
+
+        private bool _startedRightDrag;
+        private List<KinlingPositionPreview> _displayedKinlingPreviews = new List<KinlingPositionPreview>();
         
         private void Awake()
         {
@@ -91,8 +95,27 @@ namespace Systems.Input_Management
             {
                 if (EventSystem.current.IsPointerOverGameObject()) return;
 
-                SelectionManager.Instance.ClearSelection();
-                HUDController.Instance.HideDetails();
+                if (CheckIfAnyDrafted())
+                {
+                    _startedRightDrag = true;
+                    OnRightDragStarted();
+                }
+                else
+                {
+                    SelectionManager.Instance.ClearSelection();
+                    HUDController.Instance.HideDetails();
+                }
+            }
+
+            if (Input.GetMouseButton(1) && _startedRightDrag)
+            {
+                OnRightDrag();
+            }
+
+            if (Input.GetMouseButtonUp(1) && _startedRightDrag)
+            {
+                _startedRightDrag = false;
+                ReleaseRightDrag();
             }
 
             HandleHover();
@@ -274,6 +297,8 @@ namespace Systems.Input_Management
             {
                 SelectionManager.Instance.ClearSelection();
             }
+            
+            _selectedObjects.Clear();
         }
         
         public void ClearSelection()
@@ -367,6 +392,38 @@ namespace Systems.Input_Management
             }
 
             return false;
+        }
+
+        private bool CheckIfAnyDrafted()
+        {
+            return SelectionManager.Instance.SelectedObjects.Any(pi => pi is Kinling { IsDrafted: true });
+        }
+
+        private void OnRightDragStarted()
+        {
+            Vector3 currentMousePos = UtilsClass.GetMouseWorldPosition();
+            
+            List<Kinling> drafted = new List<Kinling>();
+            foreach (var pi in SelectionManager.Instance.SelectedObjects)
+            {
+                if (pi is Kinling { IsDrafted: true } kinling)
+                {
+                    drafted.Add(kinling);
+                }
+            }
+            
+            DraftManager.Instance.BeginOrdersPreview(drafted, currentMousePos);
+        }
+
+        private void OnRightDrag()
+        {
+            Vector3 currentMousePos = UtilsClass.GetMouseWorldPosition();
+            DraftManager.Instance.ContinueOrdersPreview(currentMousePos);
+        }
+
+        private void ReleaseRightDrag()
+        {
+            DraftManager.Instance.CompleteOrdersPreview();
         }
     }
 }
