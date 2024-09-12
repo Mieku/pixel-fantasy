@@ -96,7 +96,7 @@ namespace Systems.Details.Kinling_Details
         {
             if(_kinling == null) return;
 
-            _currentAction.text = _kinling.TaskHandler.GetCurrentTaskDisplay();
+            _currentAction.text = _kinling.GetCurrentTaskDisplay();
             _currentSchedule.text = _kinling.RuntimeData.Schedule.GetCurrentScheduleOption().GetDescription();
         }
 

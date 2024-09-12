@@ -1,17 +1,45 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using CodeMonkey.Utils;
 using Managers;
-using Systems.CursorHandler.Scripts;
 using Systems.Input_Management;
 using Systems.Zones.Scripts;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SelectionManager : Singleton<SelectionManager>
 {
+    [SerializeField] private InputActionReference _includeInput;
+    
     private List<PlayerInteractable> _selectedObjects = new List<PlayerInteractable>();
     private Command _pendingCommand;
     private Action _onCompleted;
+    private bool _includeIsActive;
+    
+    public List<PlayerInteractable> SelectedObjects => _selectedObjects;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        _includeInput.action.performed += OnIncludePressed;
+        _includeInput.action.canceled += OnIncludeReleased;
+    }
+
+    private void OnDestroy()
+    {
+        _includeInput.action.performed -= OnIncludePressed;
+        _includeInput.action.canceled -= OnIncludeReleased;
+    }
+
+    private void OnIncludePressed(InputAction.CallbackContext context)
+    {
+        _includeIsActive = true;
+    }
+    
+    private void OnIncludeReleased(InputAction.CallbackContext context)
+    {
+        _includeIsActive = false;
+    }
 
     public void UnSelect(List<PlayerInteractable> unselectedPIs)
     {
@@ -40,6 +68,33 @@ public class SelectionManager : Singleton<SelectionManager>
         _selectedObjects.Add(playerInteractable);
         playerInteractable.IsSelected = true;
         HUDController.Instance.ShowItemDetails(playerInteractable);
+    }
+
+    public void Select(List<PlayerInteractable> playerInteractables)
+    {
+        if (!_includeIsActive)
+        {
+            ClearSelection();
+        }
+        
+        foreach (var pi in playerInteractables)
+        {
+            _selectedObjects.Add(pi);
+            pi.IsSelected = true;
+        }
+        
+        if (_selectedObjects.Count > 1)
+        {
+            HUDController.Instance.ShowMultipleDetails(_selectedObjects);
+        }
+        else if (_selectedObjects.Count == 0)
+        {
+            HUDController.Instance.HideDetails();
+        }
+        else
+        {
+            HUDController.Instance.ShowItemDetails(playerInteractables[0]);
+        }
     }
 
     public void Highlight(PlayerInteractable playerInteractable)

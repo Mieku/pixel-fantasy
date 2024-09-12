@@ -24,6 +24,7 @@ public class KeyBindData
     public SavedKeyBind RotateCounterClockwise = new SavedKeyBind();
     public SavedKeyBind HideUI = new SavedKeyBind();
     public SavedKeyBind TakeScreenshot = new SavedKeyBind();
+    public SavedKeyBind Include = new SavedKeyBind();
     
     private InputActionRebindingExtensions.RebindingOperation _currentRebindingOperation;
 
@@ -42,6 +43,7 @@ public class KeyBindData
         Cancel ??= new SavedKeyBind();
         HideUI ??= new SavedKeyBind();
         TakeScreenshot ??= new SavedKeyBind();
+        Include ??= new SavedKeyBind();
     }
 
     public void LoadSavedKeyBinds()
@@ -62,6 +64,7 @@ public class KeyBindData
         
         HideUI.ApplyBinding("Gameplay/HideUI");
         TakeScreenshot.ApplyBinding("Gameplay/TakeScreenshot");
+        Include.ApplyBinding("Gameplay/Include");
         
         RefreshInputActions();
     }
@@ -84,6 +87,8 @@ public class KeyBindData
         
         HideUI.ResetBinding();
         TakeScreenshot.ResetBinding();
+        
+        Include.ResetBinding();
         
         RefreshInputActions();
         
@@ -127,6 +132,8 @@ public class KeyBindData
                 return HideUI;
             case EKeyBindAction.TakeScreenshot:
                 return TakeScreenshot;
+            case EKeyBindAction.Include:
+                return Include;
             default:
                 throw new ArgumentOutOfRangeException(nameof(bindAction), bindAction, null);
         }
@@ -316,4 +323,5 @@ public enum EKeyBindAction
     RotateCounterClockwise,
     HideUI,
     TakeScreenshot,
+    Include,
 }

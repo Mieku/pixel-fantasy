@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Characters;
 using CodeMonkey.Utils;
 using Player;
 using Systems.CursorHandler.Scripts;
@@ -10,37 +11,97 @@ namespace Systems.Input_Management
 {
     public class DefaultInputHandler : MonoBehaviour, IInputHandler
     {
+        [SerializeField] private SpriteRenderer _selectionBox;
+        [SerializeField] private float dragThreshold = 0.1f; // Threshold to differentiate drag and click
+
+        private bool _selectBoxActive;
+        private bool _startedSelecting;
+        private Vector2 _selectBoxStartPos;
+        private List<PlayerInteractable> _selectedObjects = new List<PlayerInteractable>();
+        private Vector2 _lowerLeft;
+        private Vector2 _upperRight;
+        
         private float _lastClickTime = 0f;
         private const float DOUBLE_CLICK_TIME = 0.3f; // Time in seconds
         private PlayerInteractable _currentlyHoveredPI;
+        
+        private Vector2 mouseStartPos;
+        private bool isDragging;
         
         private void Awake()
         {
             // Register this handler with the InputManager
             InputManager.Instance.RegisterInputHandler(InputMode.Default, this);
         }
-        
+
         public void HandleInput()
         {
+            // Mouse down - start the potential drag
             if (Input.GetMouseButtonDown(0))
             {
-                HandleLeftClick();
+                if (EventSystem.current.IsPointerOverGameObject()) return;
+
+                _startedSelecting = true;
+                mouseStartPos = UtilsClass.GetMouseWorldPosition();
+                _selectBoxStartPos = mouseStartPos;
+                _selectionBox.gameObject.SetActive(true);
+            }
+
+            // Mouse held down - check for drag
+            if (Input.GetMouseButton(0))
+            {
+                if (_startedSelecting && !isDragging)
+                {
+                    Vector2 currentMousePos = UtilsClass.GetMouseWorldPosition();
+                    float distance = Vector2.Distance(mouseStartPos, currentMousePos);
+
+                    if (distance > dragThreshold)
+                    {
+                        isDragging = true; // Drag started
+                        ResizeSelectionBox();
+                    }
+                }
+                else if (isDragging)
+                {
+                    ResizeSelectionBox();
+                }
+            }
+
+            // Mouse up - handle click or drag release
+            if (Input.GetMouseButtonUp(0))
+            {
+                if (isDragging)
+                {
+                    // Drag release logic
+                    ReleaseSelectionBox();
+                }
+                else
+                {
+                    // Click logic
+                    HandleLeftClick();
+                }
+
+                // Reset the selection state
+                isDragging = false;
+                _startedSelecting = false;
             }
 
             if (Input.GetMouseButtonDown(1))
             {
                 if (EventSystem.current.IsPointerOverGameObject()) return;
-                
+
                 SelectionManager.Instance.ClearSelection();
                 HUDController.Instance.HideDetails();
             }
-            
+
             HandleHover();
         }
 
+
         private void HandleHover()
         {
-            if(PlayerSettings.OutlineOnHover == false) return;
+            if (_startedSelecting) return;
+            if (PlayerSettings.OutlineOnHover == false) return;
             
             if (EventSystem.current.IsPointerOverGameObject())
             {
@@ -175,6 +236,111 @@ namespace Systems.Input_Management
         
                 HUDController.Instance.ShowMultipleDetails(selectedPIs);
             }
+        }
+        
+        private void ResizeSelectionBox()
+        {
+            Vector3 currentMousePos = UtilsClass.GetMouseWorldPosition();
+
+            // Calculate the width and height based on the difference between the current and start positions
+            float width = currentMousePos.x - _selectBoxStartPos.x;
+            float height = currentMousePos.y - _selectBoxStartPos.y;
+
+            // Keep the position of the selection box fixed at the start position (no recalculating)
+            _selectionBox.transform.position = _selectBoxStartPos;
+
+            // Update the size of the SpriteRenderer (allowing negative width/height for flipped directions)
+            _selectionBox.size = new Vector2(width, height);
+
+            HighlightObjectsInSelectionBox();
+        }
+        
+        private void ReleaseSelectionBox()
+        {
+            _startedSelecting = false;
+            _selectBoxActive = false;
+            _selectionBox.gameObject.SetActive(false);
+            _selectionBox.size = Vector2.zero;
+
+            if (_selectedObjects.Count == 1)
+            {
+                SelectionManager.Instance.Select(_selectedObjects[0]);
+            } 
+            else if (_selectedObjects.Count > 1)
+            {
+                SelectionManager.Instance.Select(_selectedObjects);
+            }
+        }
+        
+        public void ClearSelection()
+        {
+            _selectedObjects.Clear();
+        }
+        
+        private void HighlightObjectsInSelectionBox()
+        {
+            // Calculate the lower left and upper right corners from the selection box, handling negative values
+            _lowerLeft = new Vector2(
+                Mathf.Min(_selectBoxStartPos.x, _selectBoxStartPos.x + _selectionBox.size.x),
+                Mathf.Min(_selectBoxStartPos.y, _selectBoxStartPos.y + _selectionBox.size.y)
+            );
+            _upperRight = new Vector2(
+                Mathf.Max(_selectBoxStartPos.x, _selectBoxStartPos.x + _selectionBox.size.x),
+                Mathf.Max(_selectBoxStartPos.y, _selectBoxStartPos.y + _selectionBox.size.y)
+            );
+
+            // Create a set of currently selected objects for quick lookup
+            HashSet<PlayerInteractable> previousSelectedObjects = new HashSet<PlayerInteractable>(_selectedObjects);
+
+            // Create a new list to store the currently selected objects
+            List<PlayerInteractable> currentlySelectedObjects = new List<PlayerInteractable>();
+
+            // Perform an overlap check within the calculated area
+            var allItems = Physics2D.OverlapAreaAll(_lowerLeft, _upperRight);
+
+            foreach (var itemOverlapped in allItems)
+            {
+                var playerInteractable = itemOverlapped.gameObject.GetComponent<PlayerInteractable>();
+                if (playerInteractable != null && ObjectValidForSelection(playerInteractable))
+                {
+                    currentlySelectedObjects.Add(playerInteractable);
+                    playerInteractable.IsSelected = true;
+                }
+            }
+
+            // Unselect objects that are no longer in the selection box
+            foreach (var previouslySelected in previousSelectedObjects)
+            {
+                if (!currentlySelectedObjects.Contains(previouslySelected))
+                {
+                    previouslySelected.IsSelected = false; // Unselect the object
+                }
+            }
+
+            // Update the selected objects to the new selection
+            _selectedObjects = currentlySelectedObjects;
+        }
+
+        private bool ObjectValidForSelection(PlayerInteractable playerInteractable)
+        {
+            var currentlySelected = SelectionManager.Instance.SelectedObjects;
+            
+            // If nothing is currently selected, only select Kinlings
+            if (currentlySelected.Count == 0)
+            {
+                return playerInteractable is Kinling;
+            }
+            
+            // If something is already selected, check IsSimilar to all the currently selected, if any replies true it is valid
+            foreach (var selectedPI in currentlySelected)
+            {
+                if (selectedPI.IsSimilar(playerInteractable))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

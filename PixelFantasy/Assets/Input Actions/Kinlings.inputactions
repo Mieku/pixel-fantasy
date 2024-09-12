@@ -52,12 +52,12 @@
                 },
                 {
                     "name": "MoveCameraUp",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "0d3e0007-a3ea-4176-bfdd-167b7224f996",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "MoveCameraDown",
@@ -126,6 +126,15 @@
                     "name": "TakeScreenshot",
                     "type": "Button",
                     "id": "5474f60d-6d3f-4491-b7b2-f9172fd92311",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Include",
+                    "type": "Button",
+                    "id": "af444fa4-06a8-4e5f-aaa3-389ae0473915",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -427,6 +436,28 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "TakeScreenshot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "aa921a3b-8ee3-47d1-bf49-7cd2d953e540",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Include",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "68998b83-6c90-454f-968b-d78e5b2cafca",
+                    "path": "<Keyboard>/rightShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Include",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -698,6 +698,51 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &4128878512398539675
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1804628923988988690}
+  - component: {fileID: 3538556322780361025}
+  m_Layer: 6
+  m_Name: Drafted Handler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1804628923988988690
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4128878512398539675}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5532418264530240428}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3538556322780361025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4128878512398539675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192b369b652fb284ba4b4f2c0f558cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _kinling: {fileID: 5584874993929393806}
 --- !u!1 &5532418264530240426
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,6 +780,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3508664221426936481}
+  - {fileID: 1804628923988988690}
   - {fileID: 6964091110077339922}
   - {fileID: 7471640859161288949}
   - {fileID: 2528600236002107451}
@@ -814,9 +860,11 @@ MonoBehaviour:
     CurrentTaskID: 
     HeldStackID: 
     EnqueuedTaskUIDs: []
+    IsDrafted: 0
     IsIndoors: 0
     _personalLog: []
   TaskHandler: {fileID: 2805273367278605261}
+  DraftedHandler: {fileID: 3538556322780361025}
   _socialAI: {fileID: 5256464669028443073}
   _sortingGroup: {fileID: 4624679516539662858}
   _environmentDetector: {fileID: 6419844077044257950}

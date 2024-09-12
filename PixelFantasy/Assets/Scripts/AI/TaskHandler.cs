@@ -57,6 +57,7 @@ namespace AI
         private void Update()
         {
             if (!_kinling.HasInitialized) return;
+            if (_kinlingData.IsDrafted) return;
             if (CurrentTask != null) return;
             
             // Check for any enqueued tasks first

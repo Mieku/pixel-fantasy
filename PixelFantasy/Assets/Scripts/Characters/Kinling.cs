@@ -20,6 +20,7 @@ namespace Characters
     {
         public KinlingData RuntimeData;
         public TaskHandler TaskHandler;
+        public DraftedHandler DraftedHandler;
         
         [SerializeField] private SocialAI _socialAI;
         [SerializeField] private SortingGroup _sortingGroup;
@@ -261,6 +262,18 @@ namespace Characters
             base.OnDeselection();
             KinlingAgent.SetPathVisibility(false);
         }
+
+        public string GetCurrentTaskDisplay()
+        {
+            if (IsDrafted)
+            {
+                return "Drafted";
+            }
+            else
+            {
+                return TaskHandler.GetCurrentTaskDisplay();
+            }
+        }
         
         public bool IsDrafted
         {
@@ -296,10 +309,12 @@ namespace Characters
                 TaskHandler.StopAndUnclaimTasks();
                 
                 IsDrafted = true;
+                DraftedHandler.SetDrafted(true);
             }
             else if (command.CommandID == "UnDraft")
             {
                 IsDrafted = false;
+                DraftedHandler.SetDrafted(false);
             }
             else
             {
