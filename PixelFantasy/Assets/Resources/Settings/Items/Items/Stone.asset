@@ -17,6 +17,6 @@ MonoBehaviour:
   _itemSprite: {fileID: 21300000, guid: 286743b833fa73a4c824303d4da3e3dd, type: 3}
   _category: 0
   _maxDurability: 100
-  _maxStackSize: 25
+  _maxStackSize: 1
   _hasQuality: 0
   _defaultQuality: 1

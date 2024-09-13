@@ -203,7 +203,7 @@ MonoBehaviour:
       Data: 14|AllowedStorageEntry, Assembly-CSharp
     - Name: ItemSettingsID
       Entry: 1
-      Data: Stone
+      Data: Tin Ore
     - Name: IsAllowed
       Entry: 5
       Data: true
@@ -215,7 +215,7 @@ MonoBehaviour:
       Data: 15|AllowedStorageEntry, Assembly-CSharp
     - Name: ItemSettingsID
       Entry: 1
-      Data: Tin Ore
+      Data: Wood
     - Name: IsAllowed
       Entry: 5
       Data: true
@@ -227,7 +227,7 @@ MonoBehaviour:
       Data: 16|AllowedStorageEntry, Assembly-CSharp
     - Name: ItemSettingsID
       Entry: 1
-      Data: Wood
+      Data: Stone
     - Name: IsAllowed
       Entry: 5
       Data: true
