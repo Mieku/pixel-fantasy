@@ -298,5 +298,11 @@ namespace Characters
                 ClearPathVisualization();
             }
         }
+        
+        public Vector2 FindClosestPosInPath(Vector2 endPos)
+        {
+            var result = Helper.FindClosestPointInPathToDestination(transform.position, endPos, _agent);
+            return result;
+        }
     }
 }

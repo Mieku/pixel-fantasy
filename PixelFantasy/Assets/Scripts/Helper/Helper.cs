@@ -217,6 +217,20 @@ public static class Helper
         var detectedTags = GetTagsAtGridPos(gridPos);
         return detectedTags.Contains(tagToCheck);
     }
+    
+    public static bool DoesGridContainTags(Vector2 gridPos, List<string> tagsToCheck)
+    {
+        var detectedTags = GetTagsAtGridPos(gridPos);
+        foreach (var tag in tagsToCheck)
+        {
+            if (detectedTags.Contains(tag))
+            {
+                return true;
+            }
+        }
+        
+        return false;
+    }
 
     public static bool IsTagAtPosition(Vector2 pos, string tag)
     {
@@ -562,6 +576,68 @@ public static class Helper
         }
         
         return result;
+    }
+
+    public static Vector2 FindClosestPointInPathToDestination(Vector2 startPoint, Vector2 endPoint, NavMeshAgent agent)
+    {
+        NavMeshPath path = new NavMeshPath();
+
+        // Calculate the path from the start point to the end point
+        if (!agent.CalculatePath(endPoint, path))
+        {
+            // If the path calculation fails, return the start point
+            return startPoint;
+        }
+
+        if (path.corners.Length == 0)
+        {
+            // If there are no corners in the path, return the start point
+            return startPoint;
+        }
+
+        float minDistanceSqr = float.MaxValue;
+        Vector3 closestPoint = startPoint;
+
+        // Start from the agent's position or the startPoint
+        Vector3 previousCorner = new Vector3(startPoint.x, startPoint.y, agent.transform.position.z);
+
+        // Iterate through each segment of the path
+        for (int i = 0; i < path.corners.Length; i++)
+        {
+            Vector3 currentCorner = path.corners[i];
+
+            // Find the closest point on the current segment to the endPoint
+            Vector3 closestPointOnSegment = ClosestPointOnLineSegment(previousCorner, currentCorner, endPoint);
+
+            // Calculate the squared distance to avoid square roots for optimization
+            float distanceSqr = (closestPointOnSegment - (Vector3)endPoint).sqrMagnitude;
+
+            // Update the closest point if a closer one is found
+            if (distanceSqr < minDistanceSqr)
+            {
+                minDistanceSqr = distanceSqr;
+                closestPoint = closestPointOnSegment;
+            }
+
+            previousCorner = currentCorner;
+        }
+
+        return new Vector2(closestPoint.x, closestPoint.y);
+    }
+
+    // Helper method to find the closest point on a line segment to a given point
+    private static Vector3 ClosestPointOnLineSegment(Vector3 A, Vector3 B, Vector3 point)
+    {
+        Vector3 AB = B - A;
+        float magnitudeAB = AB.sqrMagnitude;
+        if (magnitudeAB == 0)
+        {
+            return A;
+        }
+
+        float t = Vector3.Dot(point - A, AB) / magnitudeAB;
+        t = Mathf.Clamp01(t);
+        return A + t * AB;
     }
 
     public static void DebugPath(NavMeshPath path, Color colour, float duration)

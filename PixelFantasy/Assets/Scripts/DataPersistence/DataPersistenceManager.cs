@@ -422,6 +422,10 @@ namespace DataPersistence
 
             PlayerInteractableDatabase.Instance.ClearDatabase();
             yield return null; // Yield to allow frame update
+            
+            // Clear Parents
+            ParentsManager.Instance.ClearParents();
+            yield return null;
 
             WorldIsClearing = false;
         }

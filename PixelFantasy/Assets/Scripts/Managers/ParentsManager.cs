@@ -11,5 +11,24 @@ namespace Managers
         [field: SerializeField] public Transform ResourcesParent { get; private set; }
         [field: SerializeField] public Transform FlooringParent { get; private set; }
         [field: SerializeField] public Transform MiscParent { get; private set; }
+
+        public void ClearParents()
+        {
+            ClearChildren(MiscParent);
+            ClearChildren(FlooringParent);
+            ClearChildren(ResourcesParent);
+            ClearChildren(FurnitureParent);
+            ClearChildren(StructuresParent);
+            ClearChildren(ItemsParent);
+            ClearChildren(KinlingsParent);
+        }
+
+        private void ClearChildren(Transform parent)
+        {
+            for (int i = parent.childCount - 1; i >= 0; i--)
+            {
+                Destroy(parent.GetChild(i).gameObject);
+            }
+        }
     }
 }

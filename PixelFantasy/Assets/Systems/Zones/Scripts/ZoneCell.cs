@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Systems.Zones.Scripts
 {
@@ -32,6 +33,8 @@ namespace Systems.Zones.Scripts
 
         private void OnMouseDown()
         {
+            if (EventSystem.current.IsPointerOverGameObject()) return;
+            
             ZonesDatabase.Instance.SelectZone(RuntimeData);
         }
     }

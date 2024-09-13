@@ -106,6 +106,7 @@ namespace Characters
             }
             
             RefreshDraftCommands();
+            DraftedHandler.ShowDraftedIndicator(RuntimeData.IsDrafted);
             
             HasInitialized = true;
         }

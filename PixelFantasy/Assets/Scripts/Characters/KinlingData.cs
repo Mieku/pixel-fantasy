@@ -48,6 +48,7 @@ namespace Characters
         public string HeldStackID;
         public List<string> EnqueuedTaskUIDs = new List<string>();
         public bool IsDrafted;
+        public Queue<Order> DraftedOrders = new Queue<Order>();
 
         [JsonIgnore] public bool IsIndoors;
         
