@@ -16,8 +16,11 @@ namespace Characters
     public class KinlingAgent : MonoBehaviour, IMovePosition
     {
         [SerializeField] private GameObject _smallDotPrefab;
+        [SerializeField] private GameObject _largeDotPrefab;
         [SerializeField] private GameObject _goalPrefab;
         [SerializeField] private float _dotSpacing;
+        
+        private List<GameObject> pathVisuals = new List<GameObject>();  // To keep track of instantiated path objects
         
         private NavMeshAgent _agent;
         private Action _onReachedMovePosition;
@@ -212,7 +215,6 @@ namespace Characters
             return position;
         }
         
-        private List<GameObject> pathVisuals = new List<GameObject>();  // To keep track of instantiated path objects
         private void DisplayPath()
         {
             // Clear previous path visualization
@@ -224,56 +226,60 @@ namespace Characters
 
             if (_currentPath.corners.Length < 2) return; // No path to display
 
-            Vector3 previousCorner = _currentPath.corners[0];
+            Vector3 previousCorner = RoundToPixel(_currentPath.corners[0], PIXELS_PER_UNIT);
 
-            // Iterate through the path's corners
-            for (int i = 1; i < _currentPath.corners.Length; i++)
+            // Optionally, instantiate a large dot at the start corner
+            GameObject startCornerVisual = Instantiate(_largeDotPrefab, previousCorner, Quaternion.identity);
+            startCornerVisual.transform.SetParent(ParentsManager.Instance.MiscParent);
+            pathVisuals.Add(startCornerVisual);
+
+            int lastCornerIndex = _currentPath.corners.Length - 1;
+
+            // Iterate through the path's corners, excluding the last corner
+            for (int i = 1; i < lastCornerIndex; i++)
             {
-                Vector3 currentCorner = _currentPath.corners[i];
-        
+                Vector3 currentCorner = RoundToPixel(_currentPath.corners[i], PIXELS_PER_UNIT);
+
                 // Draw small dots between the previous corner and the current corner
                 DrawDottedLine(previousCorner, currentCorner);
+
+                // Instantiate a large dot at the current corner (pivot point)
+                GameObject cornerVisual = Instantiate(_largeDotPrefab, currentCorner, Quaternion.identity);
+                cornerVisual.transform.SetParent(ParentsManager.Instance.MiscParent);
+                pathVisuals.Add(cornerVisual);
 
                 previousCorner = currentCorner; // Update the previous corner
             }
 
+            // Draw small dots from the second-to-last corner to the last corner
+            Vector3 lastCorner = RoundToPixel(_currentPath.corners[lastCornerIndex], PIXELS_PER_UNIT);
+            DrawDottedLine(previousCorner, lastCorner);
+
             // Place the movement goal sprite at the end of the path
-            Vector3 goalPosition = _currentPath.corners[_currentPath.corners.Length - 1];
-            GameObject goalVisual = Instantiate(_goalPrefab, goalPosition, Quaternion.identity);
+            GameObject goalVisual = Instantiate(_goalPrefab, lastCorner, Quaternion.identity);
             goalVisual.transform.SetParent(ParentsManager.Instance.MiscParent);
             pathVisuals.Add(goalVisual);
         }
-        
+
         private void DrawDottedLine(Vector3 start, Vector3 end)
         {
             float distance = Vector3.Distance(start, end);
-            int dotCount = Mathf.FloorToInt(distance / _dotSpacing);  // _dotSpacing is a serialized field or constant
+            int dotCount = Mathf.Max(1, Mathf.CeilToInt(distance / _dotSpacing));
+
+            // Adjust spacing to fit exactly into the distance
+            float adjustedSpacing = distance / dotCount;
+
             Vector3 direction = (end - start).normalized;
 
-            Vector3 lastDotPosition = start;
-
-            for (int i = 1; i <= dotCount; i++)
+            for (int i = 1; i < dotCount; i++)
             {
-                Vector3 dotPosition = start + direction * _dotSpacing * i;
+                Vector3 dotPosition = RoundToPixel(start + direction * adjustedSpacing * i, PIXELS_PER_UNIT);
                 GameObject dotVisual = Instantiate(_smallDotPrefab, dotPosition, Quaternion.identity);
-                dotVisual.transform.SetParent(ParentsManager.Instance.MiscParent);
-                pathVisuals.Add(dotVisual);
-                lastDotPosition = dotPosition;
-            }
-
-            // Ensure a dot is placed close to the end, but avoid overlap
-            float distanceToLastDot = Vector3.Distance(end, lastDotPosition);
-            float distanceToNextDot = Vector3.Distance(end, lastDotPosition + direction * _dotSpacing);
-
-            // Place the last dot only if it doesn't overlap with the previous dot or the corner
-            if (distanceToLastDot > _dotSpacing * 0.4f && distanceToNextDot > _dotSpacing * 0.4f)
-            {
-                GameObject dotVisual = Instantiate(_smallDotPrefab, end - direction * _dotSpacing, Quaternion.identity);
                 dotVisual.transform.SetParent(ParentsManager.Instance.MiscParent);
                 pathVisuals.Add(dotVisual);
             }
         }
-        
+
         private void ClearPathVisualization()
         {
             foreach (var visual in pathVisuals)
